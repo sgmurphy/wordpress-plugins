@@ -1,6 +1,6 @@
-= 3.6.51 =
+= 3.7.0 =
 
-* Fix implicit conversion deprecation
+* Unlock font uploads in the free version
 
 = 3.6.42 =
 
@@ -9,10 +9,6 @@
 = 3.6.4 =
 
 * Improve font file upload handling
-
-= 3.6.31 =
-
-* Add blueprint
 
 = 3.6.3 =
 

@@ -16,10 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 //FixIn: 8.0
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Add New Booking 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// ---------------------------------------------------------------------------------------------------------------------
 /**
  * Add New Booking
  * 
@@ -27,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
  * @param array $booking_data			// array(
  *													'secondname' => array( 'value' =>  'Rika'			, 'type' => 'text' )
  *												  , 'name'       => 'Jo'															// 'text' field type, if in such format
- *												  , 'rangetime'  => array( 'value' =>  '14:00 - 16:00', 'type' => 'select-one' )
+ *												  , 'rangetime'  => array( 'value' =>  '14:00 - 16:00', 'type' => 'selectbox-one' )
  *												  , 'email'	     => array( 'value' =>  'rika@cost.com', 'type' => 'email' )
  *												)
  * @param int $resource_id				// Optional. Default: 1
@@ -69,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 						    , 'data'	 => array(
 												  'secondname' => array( 'value' => 'Rika', 'type' => 'text' )
 												, 'name'		 => 'JoNNNNNNNNNN'
-												, 'rangetime'	 => array( 'value' => '14:00 - 16:00', 'type' => 'select-one' )
+												, 'rangetime'	 => array( 'value' => '14:00 - 16:00', 'type' => 'selectbox-one' )
 												, 'email'		 => array( 'value' => 'rika@cost.com', 'type' => 'email' )
 											)
 							, 'resource_id' => 3
@@ -84,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 						    , 'data'	 => array(
 												  'secondname' => array( 'value' => 'Rika', 'type' => 'text' )
 												, 'name'		 => 'BoBy'
-												, 'rangetime'	 => array( 'value' => '14:00 - 16:00', 'type' => 'select-one' )
+												, 'rangetime'	 => array( 'value' => '14:00 - 16:00', 'type' => 'selectbox-one' )
 												, 'email'		 => array( 'value' => 'rika@cost.com', 'type' => 'email' )
 											)
 							, 'resource_id' => 3
@@ -103,7 +102,7 @@ function wpbc_api_booking_add_new( $booking_dates, $booking_data, $resource_id =
 	// Booking Form params
 	$booking_data  = array(
 							  'secondname' => array( 'value' =>  'Rika'			, 'type' => 'text' )
-							, 'rangetime'  => array( 'value' =>  '14:00 - 16:00', 'type' => 'select-one' )
+							, 'rangetime'  => array( 'value' =>  '14:00 - 16:00', 'type' => 'selectbox-one' )
 							, 'email'	   => array( 'value' =>  'rika@cost.com', 'type' => 'email' )
 					);
 	// Booking resource ID
@@ -177,7 +176,7 @@ function wpbc_api_booking_add_new( $booking_dates, $booking_data, $resource_id =
 	$request_save_params = array(
 								 'resource_id'         => $resource_id,					                                // 2
 								 'dates_ddmmyy_csv'    => $params[ 'dates' ],					                    // '04.10.2023, 05.10.2023, 06.10.2023'
-								 'form_data'           => $params[ 'form' ],					                    // 'text^cost_hint2^150.00฿~select-multiple^rangetime2[]^14:00...'
+								 'form_data'           => $params[ 'form' ],					                    // 'text^cost_hint2^150.00฿~selectbox-multiple^rangetime2[]^14:00...'
 								 'booking_hash'        => $booking_hash,										                // 'sdfsf34534rf'
 								 'custom_form'         => $params['booking_form_type'],								// 'custom_form_name'
 								 'is_emails_send'      => $params['is_send_emeils'],			                    // 0 | 1
@@ -202,13 +201,9 @@ function wpbc_api_booking_add_new( $booking_dates, $booking_data, $resource_id =
 	return $booking_id;
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //  Is Date Booked ?
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+// ---------------------------------------------------------------------------------------------------------------------
 /**
  * Check if dates available   in specific resource
  * 
@@ -290,12 +285,9 @@ function wpbc_api_is_dates_booked( $booking_dates, $resource_id = 1, $params = a
 	return $is_dates_times_unavailable;
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // Get Bookings Array	-	[Listing]
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// ---------------------------------------------------------------------------------------------------------------------
 /**
 	 * Get bookings array from  Booking Calendar
  * 
@@ -637,7 +629,7 @@ function wpbc_get_form_fields_free() {
  */
 
 /**
- *    Hook for adding new payment status(es) in Booking Listing  page:
+ * Hook for adding new payment status(es) in Booking Listing  page:
  *
  *      apply_filters ('wpbc_filter_payment_status_list' , $payment_status_titles );
  *
@@ -648,4 +640,15 @@ function wpbc_get_form_fields_free() {
  *          return  $payment_status_titles;
  *      }
  *      add_filter( 'wpbc_filter_payment_status_list', 'my_wpbc_filter_payment_status_list', 10, 1 );
+ */
+
+/**
+ * Hook that executes upon the deletion of booking resources: do_action( 'wpbc_deleted_booking_resources', $bulk_action_arr_id );   // (10.0.0.35)
+ *
+ * Example:
+ *      function my_func__on_resource_delete( $resources_id_str ){
+ *			$resources_id_arr = explode( ',', $resources_id_str );
+ *			// Do something ...
+ *		}
+ *		add_action( 'wpbc_deleted_booking_resources', 'my_func__on_resource_delete' );
  */

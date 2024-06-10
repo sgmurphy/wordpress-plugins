@@ -25,22 +25,22 @@ $total_products = (new WP_Query(['post_type' => 'product', 'post_status' => 'pub
 $ee_options = $TVC_Admin_Helper->get_ee_options_settings();
 $google_merchant_center_id = '';
 if (isset($ee_options['google_merchant_id']) === TRUE && $ee_options['google_merchant_id'] !== '') {
-    $google_merchant_center_id = $ee_options['google_merchant_id'];
+    $google_merchant_center_id = esc_html($ee_options['google_merchant_id']);
 }
 
 $tiktok_business_account = '';
 if (isset($ee_options['tiktok_setting']['tiktok_business_id']) === TRUE && $ee_options['tiktok_setting']['tiktok_business_id'] !== '') {
-    $tiktok_business_account = $ee_options['tiktok_setting']['tiktok_business_id'];
+    $tiktok_business_account = esc_html($ee_options['tiktok_setting']['tiktok_business_id']);
 }
 
 $facebook_business_account = '';
 if (isset($ee_options['facebook_setting']['fb_business_id']) === TRUE && $ee_options['facebook_setting']['fb_business_id'] !== '') {
-    $facebook_business_account = $ee_options['facebook_setting']['fb_business_id'];
+    $facebook_business_account = esc_html($ee_options['facebook_setting']['fb_business_id']);
 }
 
 $facebook_catalog_id = '';
 if (isset($ee_options['facebook_setting']['fb_catalog_id']) === TRUE && $ee_options['facebook_setting']['fb_catalog_id'] !== '') {
-    $facebook_catalog_id = $ee_options['facebook_setting']['fb_catalog_id'];
+    $facebook_catalog_id = esc_html($ee_options['facebook_setting']['fb_catalog_id']);
 }
 
 
@@ -53,7 +53,7 @@ if ($google_merchant_center_id === '' && $tiktok_business_account === '' && $fac
 $google_ads_id = '';
 $currency_symbol = '';
 if (isset($ee_options['google_ads_id']) === TRUE && $ee_options['google_ads_id'] !== '') {
-    $google_ads_id = $ee_options['google_ads_id'];
+    $google_ads_id = esc_html($ee_options['google_ads_id']);
     $PMax_Helper = new Conversios_PMax_Helper();
     $currency_code_rs = $PMax_Helper->get_campaign_currency_code($google_ads_id);
     if(isset($currency_code_rs->data->currencyCode)){
@@ -1008,7 +1008,6 @@ $data = unserialize(get_option('ee_options'));
                     }, 50);
                 }
                 return false;
-
             }
 
             let target_country = jQuery('#target_country').find(":selected").val();
@@ -1212,9 +1211,9 @@ $data = unserialize(get_option('ee_options'));
                 jQuery('#fb_id').prop("checked", false);
                 jQuery('#fb_id').attr('disabled', false);
                 //jQuery('#fb_id').prop("checked", false);
-                var tiktok_business_account = "<?php echo $tiktok_business_account ?>";
-                var google_merchant_center_id = "<?php echo $google_merchant_center_id ?>";
-                var facebook_business_account = "<?php echo $facebook_business_account ?>";
+                var tiktok_business_account = "<?php echo esc_js($tiktok_business_account) ?>";
+                var google_merchant_center_id = "<?php echo esc_js($google_merchant_center_id) ?>";
+                var facebook_business_account = "<?php echo esc_js($facebook_business_account) ?>";
                 if(tiktok_business_account == "") {
                     jQuery('#tiktok_id').attr('disabled', true);
                     jQuery('#tiktok_id').attr('checked', false);

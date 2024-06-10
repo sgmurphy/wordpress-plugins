@@ -90,8 +90,49 @@ class CCBCalculators {
 			$result['formula']    = get_post_meta( $calc_id, 'stm-formula', true );
 			$result['conditions'] = get_post_meta( $calc_id, 'stm-conditions', true );
 
-			$result['saved']            = get_post_meta( $calc_id, 'calc_saved', true );
-			$result['general_settings'] = CCBSettingsData::get_calc_global_settings();
+			$result['saved']  = get_post_meta( $calc_id, 'calc_saved', true );
+			$general_settings = CCBSettingsData::get_calc_global_settings();
+			$positions_keys   = array( 'top_left', 'center_left', 'bottom_left', 'top_center', 'bottom_center', 'top_right', 'center_right', 'bottom_right' );
+			$positions        = array();
+
+			foreach ( $positions_keys as $key ) {
+				$positions[ $key ] = array(
+					'count'  => 0,
+					'titles' => array(),
+					'ids'    => array(),
+				);
+			}
+
+			$calculators = CCBUpdatesCallbacks::get_calculators();
+
+			foreach ( array_reverse( $calculators ) as $calculator ) {
+				$calc_settings = CCBSettingsData::get_calc_single_settings( $calculator->ID );
+				if ( isset( $calc_settings['sticky_calc'] ) && $calc_settings['sticky_calc']['enable'] && 'btn' === $calc_settings['sticky_calc']['display_type'] ) {
+					$position_type = $calc_settings['sticky_calc']['btn_position'];
+
+					if ( isset( $positions[ $position_type ]['count'] ) && $positions[ $position_type ]['count'] < 2 ) {
+						$title = get_post_meta( $calculator->ID, 'stm-name', true );
+
+						$positions[ $position_type ]['count']++;
+						$positions[ $position_type ]['titles'][] = $title;
+						$positions[ $position_type ]['ids'][]    = $calculator->ID;
+					}
+				}
+
+				if ( isset( $calc_settings['sticky_calc'] ) && ! $calc_settings['sticky_calc']['enable'] && 'banner' === $calc_settings['sticky_calc']['display_type'] ) {
+					$general_settings['sticky']['used_banner'] = null;
+				}
+			}
+
+			if ( ! isset( $general_settings['sticky'] ) ) {
+				$general_settings['sticky'] = array(
+					'positions' => $positions,
+				);
+			} else {
+				$general_settings['sticky']['positions'] = $positions;
+			}
+
+			$result['general_settings'] = $general_settings;
 
 			$stm_fields        = get_post_meta( $calc_id, 'stm-fields', true );
 			$result['builder'] = ! empty( $stm_fields ) ? $stm_fields : array();
@@ -1149,6 +1190,67 @@ class CCBCalculators {
 				$result['data']    = $general_settings['payment_gateway']['cards']['card_payments'][ $data['type'] ];
 				$result['message'] = 'Payment deleted';
 			}
+		}
+
+		wp_send_json( $result );
+	}
+
+	public static function ccb_update_banner() {
+		check_ajax_referer( 'ccb_update_banner', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
+		}
+
+		$result = array(
+			'success' => false,
+			'message' => 'Could not update banner',
+		);
+
+		if ( isset( $_GET['calc_id'] ) && ! empty( $_GET['type'] ) ) {
+			$type             = sanitize_text_field( $_GET['type'] );
+			$calc_id          = intval( $_GET['calc_id'] );
+			$general_settings = CCBSettingsData::get_calc_global_settings();
+			$banner_id        = '';
+
+			if ( isset( $general_settings['sticky']['used_banner'] ) ) {
+				$banner_id = intval( $general_settings['sticky']['used_banner'] );
+			}
+
+			$value = 'banner' === $type ? $calc_id : null;
+			if ( ! isset( $general_settings['sticky'] ) ) {
+				$general_settings['sticky'] = array(
+					'used_banner' => $value,
+				);
+			} else {
+				$banner_id = $general_settings['sticky']['used_banner'];
+				if ( ( 'btn' === $type && intval( $banner_id ) === $calc_id ) || intval( $banner_id !== $calc_id ) || empty( $banner_id ) ) {
+					$general_settings['sticky']['used_banner'] = $value;
+				}
+			}
+
+			update_option( 'ccb_general_settings', apply_filters( 'calc_update_options', $general_settings ) );
+
+			$calculators = CCBUpdatesCallbacks::get_calculators();
+			if ( $calc_id !== $banner_id && 'banner' === $type ) {
+				foreach ( $calculators as $calculator ) {
+					$calc_settings = CCBSettingsData::get_calc_single_settings( $calculator->ID );
+					if ( $calc_id !== $calculator->ID && isset( $calc_settings['sticky_calc']['display_type'] ) && 'banner' === $calc_settings['sticky_calc']['display_type'] ) {
+						$calc_settings['sticky_calc']['display_type'] = 'btn';
+					} elseif ( $calc_id === $calculator->ID ) {
+						$calc_settings['sticky_calc']['display_type'] = $type;
+					}
+
+					update_option( 'stm_ccb_form_settings_' . sanitize_text_field( $calculator->ID ), apply_filters( 'stm_ccb_sanitize_array', $calc_settings ) );
+				}
+			} elseif ( 'btn' === $type ) {
+				$calc_settings                                = CCBSettingsData::get_calc_single_settings( $calc_id );
+				$calc_settings['sticky_calc']['display_type'] = 'btn';
+				update_option( 'stm_ccb_form_settings_' . sanitize_text_field( $calc_id ), apply_filters( 'stm_ccb_sanitize_array', $calc_settings ) );
+			}
+
+			$result['success'] = true;
+			$result['message'] = 'Sticky banner updated';
 		}
 
 		wp_send_json( $result );

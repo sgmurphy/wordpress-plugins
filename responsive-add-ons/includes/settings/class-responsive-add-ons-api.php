@@ -47,7 +47,7 @@ class Responsive_Add_Ons_Api extends WP_REST_Controller {
 			array(
 				array(
 					'methods'             => WP_REST_Server::CREATABLE,
-					'callback'            => array( $this, 'get_items' ),
+					'callback'            => array( $this, 'create_items' ),
 					'permission_callback' => array( $this, 'create_items_permissions_check' ),
 				),
 			)
@@ -60,11 +60,13 @@ class Responsive_Add_Ons_Api extends WP_REST_Controller {
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
-	public function get_items( $request ) {
+	public function create_items( $request ) {
 		require_once RESPONSIVE_ADDONS_DIR . 'includes/settings/class-responsive-add-ons-settings.php';
 		$settings = new Responsive_Add_Ons_Settings();
-		$data   = $settings->get();
-		return rest_ensure_response( $data );
+		$data     = $request->get_param( 'data' );
+
+		$settings->update( $data );
+		return rest_ensure_response( array( 'success' => true ) );
 	}
 
 	/**
@@ -75,11 +77,12 @@ class Responsive_Add_Ons_Api extends WP_REST_Controller {
 	 */
 	public function create_items_permissions_check( $request ) {
 
+		$request_origin   = $request->get_header( 'Source' );
 		$permission_check = false;
 		$token            = $request->get_param( 'token' );
 		$request_platform = $request->get_param( 'platform' );
 
-		if ( isset( $token ) && $request_platform === 'wordpress' ) {
+		if ( CC_APP_URL === $request_origin && isset( $token ) && $request_platform === 'wordpress' ) {
 			return true;
 		} else {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Invalid Authorization.', 'responsive-addons' ), array( 'status' => rest_authorization_required_code() ) );

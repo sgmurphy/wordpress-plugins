@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 														            [approved] => 0
 														            [date_res_type] =>
 														            [booking_id] => 45
-														            [form] => select-one^rangetime2^10:00 - 12:00~text^selected_short_dates_hint2^...
+														            [form] => selectbox-one^rangetime2^10:00 - 12:00~text^selected_short_dates_hint2^...
 														            [parent] => 0
 														            [prioritet] => 20
 														            [type] => 2
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 														            [approved] => 0
 														            [date_res_type] =>
 														            [booking_id] => 46
-														            [form] => select-one^rangetime10^10:00 - 12:00~text^selected_short_dates_hint10^...
+														            [form] => selectbox-one^rangetime10^10:00 - 12:00~text^selected_short_dates_hint10^...
 														            [parent] => 2
 														            [prioritet] => 1
 														            [type] => 10
@@ -354,7 +354,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 										            [approved] => 0
 										            [date_res_type] =>
 										            [booking_id] => 45
-										            [form] => select-one^rangetime2^10:00 - 12:00~text^selected_short_dates_hint2^...
+										            [form] => selectbox-one^rangetime2^10:00 - 12:00~text^selected_short_dates_hint2^...
 										            [parent] => 0
 										            [prioritet] => 20
 										            [type] => 2
@@ -364,7 +364,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 										            [approved] => 0
 										            [date_res_type] =>
 										            [booking_id] => 46
-										            [form] => select-one^rangetime10^10:00 - 12:00~text^selected_short_dates_hint10^...
+										            [form] => selectbox-one^rangetime10^10:00 - 12:00~text^selected_short_dates_hint10^...
 										            [parent] => 2
 										            [prioritet] => 1
 										            [type] => 10
@@ -512,7 +512,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 	                , 'max_days_count'      => wpbc_get_max_visible_days_in_calendar()      // 365
 	                , 'timeslots_to_check_intersect' => array()                             // array( '12:20 - 12:55', '13:00 - 14:00' )   //TODO: ? do we really need it, because below we get it from function
                     , 'request_uri'         => ( ( ( defined( 'DOING_AJAX' ) ) && ( DOING_AJAX ) ) ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] )     //  front-end: $_SERVER['REQUEST_URI'] | ajax: $_SERVER['HTTP_REFERER']                      // It different in Ajax requests. It's used for change-over days to detect for exception at specific pages
-						, 'custom_form'         => 'standard'                                   // Required for checking all available time-slots and compare with  booked time slots
+						, 'custom_form'         => ''                                   // Required for checking all available time-slots and compare with  booked time slots
     			);
 	$params   = wp_parse_args( $params, $defaults );
 
@@ -535,7 +535,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 
 	// Get Maximum capacity of resource
 	$resource_obj = $resources_obj->get__booking_resource_obj( $first_resource_id );
-	$max_resource_capacity_int = $resource_obj->capacity;                                           // 1 | 4
+	$max_resource_capacity_int = empty( $resource_obj ) ? 1 : $resource_obj->capacity;                                           // 1 | 4
 
 	// Get base cost of resource
 	$resource_base_cost = $resources_obj->get_resources_base_cost_arr();                            // [ 0, 25, 100, 99]
@@ -962,14 +962,6 @@ function wpbc_get_availability_per_days_arr( $params ) {
 			// B O O K I N G S   -   E n d
 			// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-			// TODO: remove JS var         and all  relative functions.
-			//       remove JS vars:    user_unavilable_days for weekdays,  block_some_dates_from_today, wpbc_available_days_num_from_today
-			//       remove JS vars:
-			//                          date2approve
-			//                          date_approved
-			//                          reserved_days_count - both_check_in_out_num  - checkout_days_count
-
 			//==========================================================================================================
 			//      $availability_per_day[..]->_day_status  =  'season_filter' | ...
 			//==========================================================================================================
@@ -1203,7 +1195,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 			if ( 'On' != get_bk_option( 'booking_disable_timeslots_in_tooltip' ) ) {                                    //FixIn: 9.5.0.2.2
 
 				$tooltip_title_word = get_bk_option( 'booking_highlight_timeslot_word' );
-				$tooltip_title_word = apply_bk_filter( 'wpdev_check_for_active_language', $tooltip_title_word );
+				$tooltip_title_word = wpbc_lang( $tooltip_title_word );
 				$tooltip_title_word = ( empty( $tooltip_title_word ) )
 										? ''
 										: '<div class="wpbc_tooltip_title">' . $tooltip_title_word . '</div>' . ' ';
@@ -1234,7 +1226,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
             if ( ( 'On' == get_bk_option( 'booking_is_show_availability_in_tooltips' ) ) && ( $availability_per_this_day['max_capacity'] > 1 ) ) {
 
 				$tooltip_title_word = get_bk_option( 'booking_highlight_availability_word' );
-				$tooltip_title_word = apply_bk_filter( 'wpdev_check_for_active_language', $tooltip_title_word );
+				$tooltip_title_word = wpbc_lang( $tooltip_title_word );
 				$tooltip_title_word = ( empty( $tooltip_title_word ) )
 										? ''
 										: '<div class="wpbc_tooltip_title">' . $tooltip_title_word . '</div>' . ' ';
@@ -1266,7 +1258,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 			){
 
 				$tooltip_title_word = get_bk_option( 'booking_highlight_cost_word' );
-				$tooltip_title_word = apply_bk_filter( 'wpdev_check_for_active_language', $tooltip_title_word );
+				$tooltip_title_word = wpbc_lang( $tooltip_title_word );
 				$tooltip_title_word = ( empty( $tooltip_title_word ) )
 										? ''
 										: '<div class="wpbc_tooltip_title">' . $tooltip_title_word . '</div>' . ' ';
@@ -1509,7 +1501,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 				$booking_data_arr = wpbc_get_parsed_booking_data_arr( $this_date_bookings->form, $resource_id, array( 'get' => 'value' ) );
 				$booking_data_arr['booking_id']     = $this_date_bookings->booking_id;
 				$booking_data_arr['resource_id']    = $resource_id;
-				$booking_data_arr['resource_title'] = ( ! empty( $resource_obj ) ) ? apply_bk_filter( 'wpdev_check_for_active_language', $resource_obj->title ) : '';
+				$booking_data_arr['resource_title'] = ( ! empty( $resource_obj ) ) ? wpbc_lang( $resource_obj->title ) : '';
 
 				// Replace existing shortcodes
 				foreach ( $booking_data_arr as $replace_shortcode => $replace_value ) {
@@ -1602,15 +1594,15 @@ function wpbc_get_availability_per_days_arr( $params ) {
 
 			// -----------------------------------------------------------------------------------------------------        // from_today_unavailable
 			// 2. Unavailable days from today
-			$block_some_dates_from_today = get_bk_option( 'booking_unavailable_days_num_from_today' );
+			$unavailable_days_num_from_today = get_bk_option( 'booking_unavailable_days_num_from_today' );
 
 			//FixIn: 9.9.0.17
-			$start_date_unix       = strtotime( '+' . intval( $block_some_dates_from_today ) . ' days' );                   // + 0 days
+			$start_date_unix       = strtotime( '+' . intval( $unavailable_days_num_from_today ) . ' days' );                   // + 0 days
 			$date_with_wp_timezone = wpbc_datetime_localized__use_wp_timezone( date( 'Y-m-d H:i:s', $start_date_unix ), 'Y-m-d 00:00:00' );
 			$today_timestamp_wp_timezone  = strtotime( $date_with_wp_timezone );
 			$days_number = intval( (  $today_timestamp_wp_timezone - strtotime( $my_day_tag ) ) / 86400 );
 
-			//$days_number = intval( ( strtotime( '+' . intval( $block_some_dates_from_today ) . ' days' ) - strtotime( $my_day_tag ) ) / 86400 );
+			//$days_number = intval( ( strtotime( '+' . intval( $unavailable_days_num_from_today ) . ' days' ) - strtotime( $my_day_tag ) ) / 86400 );
 
 
 			if ( $days_number > 0 ) {
@@ -1770,14 +1762,6 @@ function wpbc_get_availability_per_days_arr( $params ) {
 //  <script type="text/javascript">  wpbc_settings.set_option( 'pending_days_selectable', true ); </script>
 //  [booking type=1]
 //   .
-//     here relations:
-//							'bk_days_selection_mode'			days_select_mode
-//							'bk_1click_mode_days_num'			fixed__days_num
-//							'bk_1click_mode_days_start' 		fixed__week_days__start
-//							'bk_2clicks_mode_days_max' 			dynamic__days_max
-//							'bk_2clicks_mode_days_min'			dynamic__days_min
-//							'bk_2clicks_mode_days_specific' 	dynamic__days_specific
-//							'bk_2clicks_mode_days_start'		dynamic__week_days__start
 // .
 // 1. Define parameters for calendar(s):
 // 											_wpbc.calendar__set_parameters( " . intval( $resource_id ) . ", {'days_select_mode': 'single'}  );
@@ -1815,7 +1799,7 @@ function wpbc_get_availability_per_days_arr( $params ) {
 //	 *  make_bk_action('wpbc_ add_new_booking' , array(
 //	 *		 'bktype' => 1
 //	 *		 , 'dates' => '27.08.2014, 28.08.2014, 29.08.2014'
-//	 *		 , 'form' => 'select-one^rangetime1^10:00 - 12:00~text^name1^Jo~text^secondname1^Smith~email^email1^smith@gmail.com~text^phone1^678676678~text^address1^Linkoln Street~text^city1^London~text^postcode1^78788~select-one^country1^GB~select-one^visitors1^1~select-one^children1^1~textarea^details1^Rooms with sea view~checkbox^term_and_condition1[]^I Accept term and conditions'
+//	 *		 , 'form' => 'selectbox-one^rangetime1^10:00 - 12:00~text^name1^Jo~text^secondname1^Smith~email^email1^smith@gmail.com~text^phone1^678676678~text^address1^Linkoln Street~text^city1^London~text^postcode1^78788~selectbox-one^country1^GB~selectbox-one^visitors1^1~selectbox-one^children1^1~textarea^details1^Rooms with sea view~checkbox^term_and_condition1[]^I Accept term and conditions'
 //	 *		 , 'is_send_emeils' => 0
 //	 *		// , 'booking_form_type' => ''
 //	 *		// , 'wpdev_active_locale' => 'en_US'

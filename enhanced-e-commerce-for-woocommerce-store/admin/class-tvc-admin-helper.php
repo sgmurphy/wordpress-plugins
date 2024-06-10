@@ -944,7 +944,7 @@ class TVC_Admin_Helper
     $google_detail = $this->get_ee_options_data();
     if (isset($google_detail['setting']) && $google_detail['setting']) {
       $googleDetail = $google_detail['setting'];
-      if (property_exists($googleDetail, "is_site_verified") && $googleDetail->is_site_verified == '0') {
+      if (property_exists($googleDetail, "is_site_verified")) {        //'website_url' => $googleDetail->site_url, 
         $postData = [
           'merchant_id' => sanitize_text_field($googleDetail->merchant_id),
           'website_url' => get_site_url(),
@@ -953,7 +953,6 @@ class TVC_Admin_Helper
         ];
         $postData['method'] = "file";
         $siteVerificationToken = $this->customApiObj->siteVerificationToken($postData);
-
         if (isset($siteVerificationToken->error) && !empty($siteVerificationToken->errors)) {
           return array('error' => true, 'msg' => esc_attr($siteVerificationToken->errors));
         } else {

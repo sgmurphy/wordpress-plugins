@@ -93,11 +93,11 @@ class CCBUpdates {
 		'3.1.87' => array(
 			'ccb_add_discount',
 		),
-		'3.1.93' => array(
-			'ccb_sync_calc_settings',
-		),
 		'3.2.6'  => array(
 			'ccb_add_summary_display',
+		),
+		'3.2.7'  => array(
+			'ccb_sync_calc_settings',
 		),
 	);
 

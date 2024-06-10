@@ -159,7 +159,7 @@ $pageDetails = $pluginManagerInstance->getPageDetails();
 <input type="hidden" id="ti-noreg-page-id" value="<?php echo esc_attr($pageDetails['id']); ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.5" />
+<input type="hidden" id="ti-noreg-version" value="11.8.6" />
 
 <?php
 $reviewDownloadToken = get_option($pluginManagerInstance->get_option_name('review-download-token'));
@@ -173,7 +173,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <div class="ti-upgrade-notice">
 <strong><?php echo __('UPGRADE to PRO Features', 'trustindex-plugin'); ?></strong>
 <p><?php echo sprintf(__('Automatic review update, creating unlimited review widgets, downloading and displaying all reviews, %d review platforms available!', 'trustindex-plugin'), 133); ?></p>
-<a href="https://www.trustindex.io/ti-redirect.php?a=sys&c=wp-google-pro" class="ti-btn"><?php echo sprintf(__('Try Pro Features for Free for %d Days', 'trustindex-plugin'), 7); ?></a>
+<?php echo $pluginManagerInstance->getProFeatureButton('wp-google-pro'); ?>
 </div>
 
 <?php if (!count($reviews)): ?>

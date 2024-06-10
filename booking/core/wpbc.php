@@ -41,7 +41,6 @@ public static function init() {
 		$wpbc_settings = array();
         
         self::$instance = new Booking_Calendar;
-        self::$instance->constants();
         self::$instance->includes();
         self::$instance->define_version();
 
@@ -340,12 +339,6 @@ public function define_admin_menu(){
             return false;
     }
 
-
-    // Define constants
-    private function constants() {
-        require_once WPBC_PLUGIN_DIR . '/core/wpbc-constants.php' ; 
-    }
-    
     
     // Include Files
     private function includes() {

@@ -453,7 +453,7 @@ function ppw_free_has_support_shortcode_page_builder() {
  * @link https://developer.wordpress.org/reference/functions/wp_check_password/
  */
 function ppw_free_check_password( $password, $hash ) {
-	global $wp_hasher;
+	/* global $wp_hasher;
 	// If the stored hash is longer than an MD5,
 	// presume the new style phpass portable hash.
 	if ( empty( $wp_hasher ) ) {
@@ -462,7 +462,9 @@ function ppw_free_check_password( $password, $hash ) {
 		$wp_hasher = new PasswordHash( 8, true );
 	}
 
-	return $wp_hasher->CheckPassword( $password, $hash );
+	return $wp_hasher->CheckPassword( $password, $hash );*/
+	return wp_check_password( $password, $hash );
+
 }
 
 /**

@@ -250,15 +250,15 @@ class Futurio_Extra_Widget_Writing_Effect_Headline extends Widget_Base {
         ?>
         <<?php echo $tag; ?> <?php echo $this->get_render_attribute_string('headline'); ?>>
         <?php if (!empty($settings['before_text'])) : ?>
-            <span class="before-written"><?php echo $settings['before_text']; ?></span>
+            <span class="before-written"><?php echo wp_kses_post($settings['before_text']); ?></span>
         <?php endif; ?>
 
         <?php if (!empty($settings['written_text'])) : ?>
-            <span class="written-lines"><?php echo $settings['written_text']; ?></span>
+            <span class="written-lines"><?php echo wp_kses_post($settings['written_text']); ?></span>
         <?php endif; ?>
 
         <?php if (!empty($settings['after_text'])) : ?>
-            <span class="after-written"><?php echo $settings['after_text']; ?></span>
+            <span class="after-written"><?php echo wp_kses_post($settings['after_text']); ?></span>
         <?php endif; ?>
         </<?php echo $tag; ?>>
         <?php

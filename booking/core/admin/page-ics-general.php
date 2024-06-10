@@ -221,7 +221,7 @@ class WPBC_API_SettingsGeneralSync extends WPBC_Settings_API  {
 									, 'description' => ''
 									, 'group'       => 'import_advanced'
 							);
-*/
+/**/
 		//FixIn: 8.4.7.12	//FixIn: //FixIn: 9.1.2.6
 		$this->fields['booking_ics_force_trash_before_import'] = array(
 									  'type' => 'select'

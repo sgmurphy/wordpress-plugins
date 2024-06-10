@@ -24,16 +24,11 @@ class Omnisend_All_Sync_Stats {
 	 * @var Omnisend_Sync_Stats
 	 */
 	public $categories;
-	/**
-	 * @var int
-	 */
-	public $carts;
 
-	public function __construct( Omnisend_Sync_Stats $contacts, Omnisend_Sync_Stats $orders, Omnisend_Sync_Stats $products, Omnisend_Sync_Stats $categories, $carts ) {
+	public function __construct( Omnisend_Sync_Stats $contacts, Omnisend_Sync_Stats $orders, Omnisend_Sync_Stats $products, Omnisend_Sync_Stats $categories ) {
 		$this->contacts   = $contacts;
 		$this->orders     = $orders;
 		$this->products   = $products;
 		$this->categories = $categories;
-		$this->carts      = $carts;
 	}
 }

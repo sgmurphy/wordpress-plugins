@@ -7,7 +7,7 @@ Author: wpdevelop, oplugins
 Author URI: https://wpbookingcalendar.com/
 Text Domain: booking
 Domain Path: /languages/
-Version: 10.0
+Version: 10.1
 */
 
 /*  Copyright 2009 - 2024  www.wpbookingcalendar.com  (email: info@wpbookingcalendar.com),
@@ -29,13 +29,13 @@ Version: 10.0
 if ( ! defined( 'ABSPATH' ) ) die( '<h3>Direct access to this file do not allow!</h3>' );       // Exit if accessed directly
 
 
-if ( ! defined( 'WP_BK_VERSION_NUM' ) ) {       define( 'WP_BK_VERSION_NUM',    '10.0' ); }
-if ( ! defined( 'WP_BK_MINOR_UPDATE' ) ) {      define( 'WP_BK_MINOR_UPDATE',   !true    ); }
+if ( ! defined( 'WP_BK_VERSION_NUM' ) ) {       define( 'WP_BK_VERSION_NUM',    '10.1' ); }
+if ( ! defined( 'WP_BK_MINOR_UPDATE' ) ) {      define( 'WP_BK_MINOR_UPDATE',   ! true    ); }
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 // PRIMARY URL CONSTANTS                        
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 
 // ..\home\siteurl\www\wp-content\plugins\plugin-name\wpdev-booking.php
 if ( ! defined( 'WPBC_FILE' ) )             define( 'WPBC_FILE', __FILE__ ); 
@@ -54,4 +54,16 @@ if ( ! defined('WPBC_PLUGIN_URL' ) )        define('WPBC_PLUGIN_URL', untrailing
 
 if ( ! defined('WP_BK_MIN_WP_VERSION' ) )   define('WP_BK_MIN_WP_VERSION',  '4.0');    //Minimum required WP version        //FixIn: 7.0.1.6
 
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ==  SYSTEM  CONSTANTS  ==
+// ---------------------------------------------------------------------------------------------------------------------
+if ( ! defined( 'WP_BK_RESPONSE' ) ) {          define( 'WP_BK_RESPONSE',       false ); }
+if ( ! defined( 'WP_BK_BETA_DATA_FILL' ) ) {    define( 'WP_BK_BETA_DATA_FILL', 0 ); }                                  // Set 0 for no filling or 2 for 241 bookings or more for more
+
+if ( ! defined( 'WPBC_customize_plugin' ) ) {   define( 'WPBC_customize_plugin',  false ); }
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ==  Go  ==
+// ---------------------------------------------------------------------------------------------------------------------
 require_once WPBC_PLUGIN_DIR . '/core/wpbc.php';

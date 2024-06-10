@@ -79,6 +79,11 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.0.7 (June 9th, 2024) =
+
+# Bugs fixed
+* On rare occasions, random data storage keys for responsive styles could be converted to "Infinity", which made it impossible to add responsive styling.
+
 = 7.3.0.6 (June 8th, 2024) =
 
 # Bugs fixed

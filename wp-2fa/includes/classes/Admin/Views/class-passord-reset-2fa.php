@@ -1,6 +1,6 @@
 <?php
 /**
- * Roles and main settings grace period notifications class.
+ * Roles and main settings password reset class.
  *
  * @package    wp2fa
  * @subpackage views
@@ -67,11 +67,11 @@ if ( ! class_exists( '\WP2FA\Admin\Views\Password_Reset_2FA' ) ) {
 			?>
 			<div class="sub-setting-indent">
 				<fieldset>
-					<label for="password-reset-2fa<?php echo \esc_attr( $role_id ); ?>" style="margin-bottom: 10px; display: inline-block;">
+					<label for="<?php echo \esc_attr( self::ENABLED_SETTING_VALUE ); ?><?php echo \esc_attr( $role_id ); ?>" style="margin-bottom: 10px; display: inline-block;">
 						<input type="checkbox" name="<?php echo \esc_attr( $name_prefix ); ?>[<?php echo \esc_attr( self::PASSWORD_RESET_SETTINGS_NAME ); ?>]" 
-						id="password-reset-2fa<?php echo \esc_attr( $role_id ); ?>" 
+						id="<?php echo \esc_attr( self::ENABLED_SETTING_VALUE ); ?><?php echo \esc_attr( $role_id ); ?>" 
 						<?php echo $data_role; // phpcs:ignore?> 
-						value="<?php echo esc_attr( self::ENABLED_SETTING_VALUE ); ?>" <?php checked( $password_reset_action, self::ENABLED_SETTING_VALUE ); ?> class="js-nested">
+						value="<?php echo \esc_attr( self::ENABLED_SETTING_VALUE ); ?>" <?php checked( $password_reset_action, self::ENABLED_SETTING_VALUE ); ?> class="js-nested">
 						<span><?php echo \esc_html__( 'Require 2FA on password reset', 'wp-2fa' ); ?></span>
 					</label>
 				</fieldset>
@@ -129,15 +129,15 @@ if ( ! class_exists( '\WP2FA\Admin\Views\Password_Reset_2FA' ) ) {
 		public static function password_reset_setting( string $content, string $role = '', string $name_prefix = '', string $data_role = '', string $role_id = '' ) {
 			ob_start();
 			?>
-		<h3><?php esc_html_e( 'Do you want to require 2FA when users reset their password', 'wp-2fa' ); ?></h3>
+		<h3><?php \esc_html_e( 'Do you want to require 2FA when users reset their password', 'wp-2fa' ); ?></h3>
 		<p class="description">
-			<?php esc_html_e( 'When you enable this setting users will be required to enter a one-time code sent to them via email when resetting the password.', 'wp-2fa' ); ?>
+			<?php \esc_html_e( 'When you enable this setting users will be required to enter a one-time code sent to them via email when resetting the password.', 'wp-2fa' ); ?>
 		</p>
 
 		<table class="form-table">
 			<tbody>
 				<tr>
-					<th><label for="password-reset-2fa<?php echo \esc_attr( $role_id ); ?>"><?php esc_html_e( 'Password reset', 'wp-2fa' ); ?></label></th>
+					<th><label for="<?php echo \esc_attr( self::ENABLED_SETTING_VALUE ); ?><?php echo \esc_attr( $role_id ); ?>"><?php \esc_html_e( 'Password reset', 'wp-2fa' ); ?></label></th>
 					<td>
 					<fieldset class="contains-hidden-inputs">
 					<?php echo self::reset_settings( $role, $name_prefix, $data_role, $role_id ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -148,10 +148,10 @@ if ( ! class_exists( '\WP2FA\Admin\Views\Password_Reset_2FA' ) ) {
 		</table>
 			<?php
 
-			$html_content = ob_get_contents();
+			$content .= ob_get_contents();
 			ob_end_clean();
 
-			return $html_content;
+			return $content;
 		}
 	}
 }

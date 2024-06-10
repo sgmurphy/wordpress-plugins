@@ -337,7 +337,7 @@ form.booking_form {
 }
 .wpbc_container_booking_form .booking_form_div .captachinput {
     width: 120px;
-    flex: 0 1 12em;
+    flex: 0 1 10em;
     margin: 0;
 }
 
@@ -508,6 +508,10 @@ form.booking_form {
     align-items: center;
     margin: 10px 1em;
 }
+.wpbc__field .wpbc_front_end__message_container_right,
+.wpbc__field .wpbc_front_end__message_container_left{
+    margin: 10px 1em 10px 0;
+}
 .wpbc_front_end__message_container_right .wpbc_front_end__message,
 .wpbc_front_end__message_container_left .wpbc_front_end__message{
     flex: 0 1 auto;
@@ -540,13 +544,14 @@ form.booking_form {
     border-left: 4px solid #fff;
                                 /*box-shadow: 0 1px 1px 0 rgba(192, 192, 192, 0.55);*/
     margin: 10px 0;
-    padding: 1px 12px;
+    padding: 1px 20px 1px 10px;
     line-height: 2.5em;
     text-align:left;
     border-top: 1px solid #d7d7d7;
     border-right: 1px solid #d7d7d7;
         border-bottom: 1px solid #d7d7d7;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
 }
 /* Icon */
 .wpbc_front_end__message i.menu_icon {
@@ -926,7 +931,7 @@ form.booking_form {
     /*margin-top: -2.5em;*/
 }
 .wpbc_debug {
-    float: left;
+    /*float: left;*/
     margin-right: 2em;
 }
 .wpbc_debug:last-of-type{
@@ -1106,6 +1111,42 @@ form.booking_form {
     max-width: Min(30em, 100%);
     width: 340px;
 }
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* ==  Booking Form Simple  ==   New Layout                                                                           */
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* Admin  panel  at  WP Booking Calendar > Settings > Booking Form page */
+.wpbc_center_preview ,
+.wpbc_center_preview .wpbc__form__div *{
+    font-size:16px;
+}
+/* WP Booking Calendar > Add Booking page */
+#wpbc-new-admin-page .booking_form_div div:not(.bk_calendar_frame )  {
+    font-size:15px;
+}
+.wpbc_booking_form_simple .wpbc__form__div{
+    width:100%;
+}
+.wpbc_container_booking_form  .wpbc_booking_form_simple .wpbc__field label{
+    flex: 1 1 100%;
+}
+/* Warning message for required field */
+.wpbc_booking_form_simple .wpbc_front_end__message_container_right {
+    margin: 10px 0;
+}
+/* //FixIn: 10.0.0.27  */
+@media (max-width: 670px) {
+    div .wpbc_ideal_payment_table tr td{
+        display:block
+    }
+    div .wpbc_container_booking_form select,
+    div .wpbc_container_booking_form input[type="text"],
+    div .wpbc_container_booking_form textarea{
+        max-width: 98%;
+        width: 98%;
+        border:1px solid;
+    }
+}
 /* In case we use columns,  then max width 100% */
 .wpbc_container_booking_form .wpbc__field select,
 .wpbc_container_booking_form .wpbc__field input[type="text"],
@@ -1118,12 +1159,12 @@ form.booking_form {
 .wpbc_container_booking_form :is(.wpbc_form_center, .wpbc_form_right) select,
 */
 .wpbc_container_booking_form :is(.wpbc_form_center, .wpbc_form_right) input[type="text"]{
-    width: Min(340px, 100%);
+    /*width: Min(340px, 100%);*/
 }
 .wpbc_container_booking_form :is(.wpbc_form_center, .wpbc_form_right) textarea,
 .wpbc_container_booking_form :is(.wpbc_form_center, .wpbc_form_right) select {
-    min-width: Min(340px, 100%);
-    width: 340px;
+    /*min-width: Min(340px, 100%);*/
+    /*width: 340px;*/
 }
 .wpbc_container.wpbc_container_booking_form textarea[cols*="0"],
 .wpbc_container.wpbc_container_booking_form textarea[cols*="1"],
@@ -1177,178 +1218,7 @@ form.booking_form {
 .wpbc_container.wpbc_container_booking_form textarea[rows*="9"]{
    height: auto;
 }
-
-/* == L O A D E R =================================================================================================== */
-
-/* == Blur calendar == */
-.wpbc_calendar_blur_small{
-    filter: blur(0.7px);
-    pointer-events: none;
-    user-select: none;
-}
-.wpbc_calendar_blur{
-    filter: blur(1.2px);
-    pointer-events: none;
-    user-select: none;
-}
-.wpbc_spins_loader_wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1px;
-    height: 1px;
-    z-index: 1000;
-}
-
-/* == Loader Standard == */
-.wpbc_spins_loader {
-    display: block;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 70px;
-    height: 70px;
-    margin: -35px 0 0 -35px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #2d6281;
-    -webkit-animation: wpbc_spin_r 2s linear infinite;      /* Chrome, Opera 15+, Safari 5+ */
-    animation: wpbc_spin_r 2s linear infinite;              /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-.wpbc_spins_loader:before {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #73983c;
-    -webkit-animation: wpbc_spin_r 3s linear infinite;      /* Chrome, Opera 15+, Safari 5+ */
-      animation: wpbc_spin_r 3s linear infinite;            /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-.wpbc_spins_loader:after {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #af2e2e;
-    -webkit-animation: wpbc_spin_r 1.5s linear infinite;    /* Chrome, Opera 15+, Safari 5+ */
-      animation: wpbc_spin_r 1.5s linear infinite;          /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-
-/* == Loader mini == */
-.wpbc_spins_loader_mini {
-    display: block;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    margin: -15px 0 0 -15px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #2d6281;
-    -webkit-animation: wpbc_spin_r 1.1s linear infinite;    /* Chrome, Opera 15+, Safari 5+ */
-    animation: wpbc_spin_r 1.1s linear infinite;            /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-.wpbc_spins_loader_mini:before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    bottom: 2px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #73983c;
-    -webkit-animation: wpbc_spin_r 1.75s linear infinite;   /* Chrome, Opera 15+, Safari 5+ */
-    animation: wpbc_spin_r 1.75s linear infinite;           /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-.wpbc_spins_loader_mini:after {
-     content: "";
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #af2e2e;
-    -webkit-animation: wpbc_spin_r 1.85s linear infinite;   /* Chrome, Opera 15+, Safari 5+ */
-    animation: wpbc_spin_r 1.85s linear infinite;           /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-
-.wpbc_one_spin_loader_mini {
-    display: block;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    margin: -15px 0 0 -15px;
-    border-radius: 50%;
-    border: 2px solid #2d6281;
-    border-top-color: transparent !important;
-    -webkit-animation: wpbc_spin_r 1.1s linear infinite;    /* Chrome, Opera 15+, Safari 5+ */
-    animation: wpbc_spin_r 1.1s linear infinite;            /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-/* == Spin animation (clockwise and apposite) == */
-@-webkit-keyframes wpbc_spin_r {
-    0%   {
-        -webkit-transform: rotate(0deg);         /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(0deg);            /* IE 9 */
-        transform: rotate(0deg);                /* Firefox 16+, IE 10+, Opera */
-    }
-    100% {
-        -webkit-transform: rotate(360deg);      /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(360deg);          /* IE 9 */
-        transform: rotate(360deg);              /* Firefox 16+, IE 10+, Opera */
-    }
-}
-@keyframes wpbc_spin_r {
-    0%   {
-        -webkit-transform: rotate(0deg);         /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(0deg);            /* IE 9 */
-        transform: rotate(0deg);                /* Firefox 16+, IE 10+, Opera */
-    }
-    100% {
-        -webkit-transform: rotate(360deg);      /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(360deg);          /* IE 9 */
-        transform: rotate(360deg);              /* Firefox 16+, IE 10+, Opera */
-    }
-}
-
-@-webkit-keyframes wpbc_spin_l {
-    100%   {
-        -webkit-transform: rotate(0deg);        /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(0deg);            /* IE 9 */
-        transform: rotate(0deg);                /* Firefox 16+, IE 10+, Opera */
-    }
-    0% {
-        -webkit-transform: rotate(-360deg);     /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(-360deg);         /* IE 9 */
-        transform: rotate(-360deg);             /* Firefox 16+, IE 10+, Opera */
-    }
-}
-@keyframes wpbc_spin_l {
-    0%   {
-        -webkit-transform: rotate(0deg);        /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(0deg);            /* IE 9 */
-        transform: rotate(0deg);                /* Firefox 16+, IE 10+, Opera */
-    }
-    100% {
-        -webkit-transform: rotate(-360deg);     /* Chrome, Opera 15+, Safari 3.1+ */
-        -ms-transform: rotate(-360deg);         /* IE 9 */
-        transform: rotate(-360deg);             /* Firefox 16+, IE 10+, Opera */
-    }
-}
-
+/* //FixIn: 10.0.0.25 */
 /* ================================================================================================================== */
 /* == THANK_YOU - SECTION ==                                                                                          */
 /* ================================================================================================================== */
@@ -1899,3 +1769,17 @@ form.booking_form {
     .wpbc_chint__full_day_bookings.wpbc_capacity_hint_container .wpbc_chint__datetime_container .wpbc_chint__time_container .wpbc_chint__timeslot_divider {
         display: none;
     }
+
+.wpbc_message_in_live_demo {
+    background: #ffffff;
+    box-shadow: 0 2px 8px #ddd;
+    text-align: left;
+    border-left: 4px solid #9580aa;
+    border-top: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+    margin: 10px 0;
+    line-height: 2;
+    padding: 5px 20px;
+    font-size: 17px;
+    color:#444;
+}

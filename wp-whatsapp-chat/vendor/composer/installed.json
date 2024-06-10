@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "048e87828ef10942db0d2eef59fa5e69122b8603"
+                "reference": "f8fc0211bfa7062b33b35cd6e6ffc0baf3194604"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/048e87828ef10942db0d2eef59fa5e69122b8603",
-                "reference": "048e87828ef10942db0d2eef59fa5e69122b8603",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/f8fc0211bfa7062b33b35cd6e6ffc0baf3194604",
+                "reference": "f8fc0211bfa7062b33b35cd6e6ffc0baf3194604",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-05-29T10:43:00+00:00",
+            "time": "2024-06-05T06:30:55+00:00",
             "default-branch": true,
             "type": "jetpack-library",
             "extra": {
@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-composer-plugin.git",
-                "reference": "aef6bd44ad1a6870f7afcc1891d5f228d3afde2c"
+                "reference": "7d47a5716e123ec94b667597583783d8c38cc489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/aef6bd44ad1a6870f7afcc1891d5f228d3afde2c",
-                "reference": "aef6bd44ad1a6870f7afcc1891d5f228d3afde2c",
+                "url": "https://api.github.com/repos/Automattic/jetpack-composer-plugin/zipball/7d47a5716e123ec94b667597583783d8c38cc489",
+                "reference": "7d47a5716e123ec94b667597583783d8c38cc489",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "composer/composer": "^2.2 || ^2.4",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
-            "time": "2024-05-29T19:12:52+00:00",
+            "time": "2024-06-03T15:27:48+00:00",
             "default-branch": true,
             "type": "composer-plugin",
             "extra": {

@@ -88,6 +88,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         //  Number of months  //////////////////////////////////////////////////
         $months_options = array();
         for ($mm = 1; $mm < 12; $mm++) { $months_options[ $mm . 'm' ] = $mm . ' ' .  __('month(s)' ,'booking'); }
+		$months_options[ 18 . 'm' ] =  '18 ' .  __('month(s)' ,'booking');                                              //FixIn: 10.0.0.11
         for ($yy = 1; $yy < 11; $yy++) { $months_options[ $yy . 'y' ] = $yy . ' ' .  __('year(s)' ,'booking');  }
         
         $this->fields['booking_max_monthes_in_calendar'] = array(   
@@ -579,7 +580,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         
         //  Unavailable days from today  ///////////////////////////////////////
         $field_options = array();
-        for ($ii = 0; $ii < 32; $ii++) { $field_options[ $ii ] = $ii; }
+        for ($ii = 0; $ii < 92; $ii++) { $field_options[ $ii ] = $ii; }
         
         $this->fields['booking_unavailable_days_num_from_today'] = array(   
                                     'type'          => 'select'
@@ -624,7 +625,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 'type'          => 'select'
                                 , 'default'     => $default_options_values['booking_form_theme']           //'Off'
                                 , 'title'       => __('Color Theme' ,'booking')
-                                , 'description' => __('Select a color theme for your booking form that matches the look of your website.' ,'booking') . ' <sup style="color:#7812bd;"><strong>&#946;eta '.__('feature','booking').'</strong></sup>'
+                                , 'description' => __('Select a color theme for your booking form that matches the look of your website.' ,'booking') //. ' <sup style="color:#7812bd;"><strong>&#946;eta '.__('feature','booking').'</strong></sup>'
 	        							           . '<div class="wpbc-general-settings-notice wpbc-settings-notice notice-info">'
                                                    .    __('When you select a color theme, it also change the calendar and time-slot picker skins to match your choice. Customize these options separately as needed.' ,'booking')
                                                    .'</div>'
@@ -679,11 +680,26 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'default'     => $default_options_values['booking_form_is_using_bs_css']         // 'On'            
                                 , 'title'       => __('Use CSS BootStrap' ,'booking')
                                 , 'label'       => __('Using BootStrap CSS for the form fields' ,'booking')
-                                , 'description' => '<strong>' . __('Note' ,'booking') . ':</strong> ' . __('You must not deactivate loading BootStrap files at advanced section of these settings!' ,'booking')
+                                , 'description' => ''
                                 , 'description_tag' => 'p'    
                                 , 'group'       => 'form'
-            );       
+            );
 
+		//FixIn: 10.0.0.31
+	    if ( class_exists( 'wpdev_bk_biz_m' ) ){
+		   $this->fields['booking_number_for_pre_checkin_date_hint'] = array(
+		                                    'type'          => 'select'
+		                                    , 'default'     => $default_options_values['booking_number_for_pre_checkin_date_hint']                                  //'0'
+		                                    , 'title'       => __( 'Pre-Check-in Display Duration', 'booking' )
+		                                    , 'description' => sprintf( __( 'Select the number of days for the %s shortcode.', 'booking' ), '<strong>[pre_checkin_date_hint]</strong>' )
+		                                                     . ' '
+		                                                     . sprintf( __( 'This shortcode is used in the booking form to display the date %sN days before%s the selected check-in date.', 'booking' )
+ 					                                                    , '<a href="'.wpbc_get_settings_url() . '&tab=form">', '</a>' )
+					                                                  //, '<a href="'.wpbc_get_settings_url( true, false ) . '&scroll_to_section=wpbc_general_settings_form_tab">', '</a>' )
+		                                    , 'options'     => array_combine( range( 1, 91 ), range( 1, 91 ) )
+		                                    , 'group'       => 'form'
+		                            );
+		}
 //        if (  class_exists( 'wpdev_bk_personal' ) ){        //FixIn: 8.8.1.14
 //
 //	        $this->fields['booking_send_button_title'] = array(
@@ -1160,7 +1176,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 															<div class="wpbc_upgrade_note wpbc_upgrade_theme_green">
 																<div>This <a target="_blank" href="https://wpbookingcalendar.com/overview/#capacity">feature</a> 
 																	 is available in the <strong>Business Large or MultiUser version</strong>. 
-																	<a target="_blank" href="https://wpbookingcalendar.com/features/#bk_news_section">Upgrade to Pro</a>.																
+																	<a target="_blank" href="https://wpbookingcalendar.com/prices/#bk_news_section">Upgrade to Pro</a>.																
 																</div>
 															</div>
 														</div>														

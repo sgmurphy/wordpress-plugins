@@ -72,8 +72,8 @@ body.new-users-approve_page_nua-invitation-code {
 #pw_pending_users table.widefat thead {
 
     width:606px;
-    
-} 
+
+}
 
 
 #pw_pending_users table.widefat thead th {
@@ -84,7 +84,7 @@ body.new-users-approve_page_nua-invitation-code {
 
 .users_edit_links {
     display:block;
-    margin-top:-33px;
+    margin-top:-18px;
     margin-left:38px;
 }
 
@@ -304,3 +304,94 @@ input:checked+.nua_slider:before {
     text-align: center;
     box-shadow: 1px 1px 4px grey;
 }
+
+/*
+styling related to pagination and update 5.1.2
+*/
+#pw_pending_users .tfoot,
+#pw_approved_users .tfoot,
+#pw_denied_users .tfoot {
+    outline: 1px solid #ccd0d4;
+}
+#pw_pending_users .actions-btn,
+#pw_approved_users .actions-btn,
+#pw_denied_users .actions-btn{
+    text-align: center !important;
+}
+
+#pw_pending_users .tfoot th,
+#pw_approved_users .tfoot th,
+#pw_denied_users .tfoot th {
+    padding: 0px 0px !important;
+}
+
+.page-numbers {
+    padding: 0 13px;
+    color: #2c3338;
+}
+
+.page-numbers:hover {
+    background-color: #fbfbfb;
+    padding: 0 13px;
+    color: #50575e;
+}
+
+
+
+.page-numbers.current {
+    background-color: #2c725e;
+    line-height: 32px;
+    padding: 0 13px;
+    border-radius: 3px;
+    color: white;
+}
+
+
+
+.nua-message {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 250px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nua-success {
+    background-color: #ccffcc;
+    color: #008000;
+  }
+  
+  .nua-error {
+    background-color: #ffcccc;
+    color: #ff0000;
+  }
+
+  /*searchbox styles*/
+  #nua-search-btn{
+    padding: 15px 25px;
+    font-size: 14px;
+    line-height: 1.7;
+    border: none;
+    border-radius: 9px;
+    background: #fbfbfb;
+    border: 1px solid #f3f3f3;
+    font-weight: 600;
+    color: #50575e;
+    
+  }
+  
+  #nua-search-btn:hover{
+    color: #FFF;
+    background: #2c725e;
+  }
+  
+  #nua_search_box{
+    line-height: 1.5;
+      padding: 15px 5px;
+  }
+  
+  #nua_search_form{
+    float: right;
+  }
+  

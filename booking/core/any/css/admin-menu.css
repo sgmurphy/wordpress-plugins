@@ -151,6 +151,9 @@
     color: #FFF !important;
     background: none repeat scroll 0 0 #7A7A88 !important;
 }
+.wpdvlp-sub-tabs .nav-tabs .nav-tab.wpdevelop-submenu-tab-selected .menu_icon{
+    color:#777;
+}
 .wpdvlp-top-tabs .nav-tabs .nav-tab.wpdevelop-tab-disabled, 
 .wpdvlp-sub-tabs .nav-tabs .nav-tab.wpdevelop-submenu-tab-disabled {
     color: #bbb;

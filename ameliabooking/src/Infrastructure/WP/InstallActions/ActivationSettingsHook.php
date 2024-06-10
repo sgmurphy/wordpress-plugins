@@ -854,6 +854,7 @@ This message does not have an option for responding. If you need additional info
             'v3RelativePath'                => false,
             'v3AsyncLoading'                => false,
             'premiumBannerVisibility'       => true,
+            'dismissibleBannerVisibility'   => true,
         ];
 
         self::initSettings('activation', $settings);

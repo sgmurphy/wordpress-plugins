@@ -77,19 +77,19 @@ if ( ! class_exists( 'OGF_Notifications' ) ) :
 		 */
 		public function seconds_to_words( $seconds ) {
 			// Get the years.
-			$years = absint(  $seconds / YEAR_IN_SECONDS ) % 100;
+			$years = absint( $seconds / YEAR_IN_SECONDS ) % 100;
 			if ( $years > 0 ) {
 				/* translators: Number of years */
 				return sprintf( _n( 'a year', '%s years', $years, 'olympus-google-fonts' ), $years );
 			}
 			// Get the weeks.
-			$weeks = absint( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
+			$weeks = ( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
 			if ( $weeks > 1 ) {
 				/* translators: Number of weeks */
 				return sprintf( _n( 'a week', '%s weeks', $weeks, 'olympus-google-fonts' ), $weeks );
 			}
 			// Get the days.
-			$days = absint( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
+			$days = ( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
 			if ( $days > 1 ) {
 				/* translators: Number of days */
 				return sprintf( _n( '%s day', '%s days', $days, 'olympus-google-fonts' ), $days );

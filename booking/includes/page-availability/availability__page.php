@@ -284,6 +284,88 @@ if ( 	( false !== $escaped_request_params_arr )
 				} );
 			</script>
 			<?php
+//FixIn: 10.0.0.5
+if ( 0 ) {
+			$resource_id = 220;
+			// $bk_cal = apply_bk_filter( 'pre_get_calendar_html', $resource_id, $my_boook_count, $bk_otions );
+			?>
+			<style type="text/css" rel="stylesheet"> .hasDatepick .datepick-inline .datepick-title-row th, .hasDatepick .datepick-inline .datepick-days-cell { height: 50px; } </style>
+			<div class="wpbc_calendar_wraper wpbc_change_over_triangle">
+				<div class="bk_calendar_frame months_num_in_row_4 cal_month_num_4" style="width:100%;max-width:100%;">
+					<div id="calendar_booking<?php echo $resource_id ?>"><?php _e('Calendar is loading...', 'booking'); ?></div>
+				</div>
+			</div><?php
+
+			$selected_dates_if_no_calendar = '';
+			echo '<textarea rows="3" cols="50" id="date_booking' . $resource_id . '" name="date_booking' . $resource_id . '"  autocomplete="off" style="display:none;">'
+					. $selected_dates_if_no_calendar . '</textarea>';
+	if(1){
+			$start_script_code = wpbc__calendar__load( array(
+
+														'resource_id'                     => $resource_id,
+														'aggregate_resource_id_arr'       => array(),               // It is array  of booking resources from aggregate parameter()
+														'selected_dates_without_calendar' => $selected_dates_if_no_calendar,                    // $selected_dates_if_no_calendar
+														'calendar_number_of_months'       => 12,                     // $my_boook_count
+														'start_month_calendar'            => false,                  // $start_month_calendar
+														'shortcode_options'               => '',                     // options from the Booking Calendar shortcode. Usually  it's conditional dates selection parameters
+														'custom_form'                     => 'standard'
+
+													));
+
+			echo $start_script_code;
+	} else {
+				?>
+				<script type='text/javascript'> jQuery( document ).ready( function (){
+						_wpbc.balancer__set_max_threads( 1 );
+						_wpbc.calendar__set_param_value( 220, 'calendar_scroll_to', false );
+						_wpbc.calendar__set_param_value( 220, 'booking_max_monthes_in_calendar', '2y' );
+						_wpbc.calendar__set_param_value( 220, 'booking_start_day_weeek', '1' );
+						_wpbc.calendar__set_param_value( 220, 'calendar_number_of_months', '12' );
+						_wpbc.calendar__set_param_value( 220, 'days_select_mode', 'dynamic' );
+						_wpbc.calendar__set_param_value( 220, 'fixed__days_num', 7 );
+						_wpbc.calendar__set_param_value( 220, 'fixed__week_days__start', [-1] );
+						_wpbc.calendar__set_param_value( 220, 'dynamic__days_min', 1 );
+						_wpbc.calendar__set_param_value( 220, 'dynamic__days_max', 30 );
+						_wpbc.calendar__set_param_value( 220, 'dynamic__days_specific', [] );
+						_wpbc.calendar__set_param_value( 220, 'dynamic__week_days__start', [-1] );
+						_wpbc.calendar__set_param_value( 220, 'booking_date_format', 'j M Y' );
+						_wpbc.calendar__set_param_value( 220, 'booking_time_format', 'g:i A' );
+						_wpbc.set_message( 'message_dates_times_unavailable', 'These dates and times in this calendar are already booked or unavailable.' );
+						_wpbc.set_message( 'message_choose_alternative_dates', 'Please choose alternative date(s), times, or adjust the number of slots booked.' );
+						_wpbc.set_message( 'message_cannot_save_in_one_resource', 'It is not possible to store this sequence of the dates into the one same resource.' );
+						_wpbc.calendar__set_param_value( 220, 'is_parent_resource', 0 );
+						_wpbc.calendar__set_param_value( 220, 'booking_capacity_field', 'visitors' );
+						_wpbc.calendar__set_param_value( 220, 'booking_is_dissbale_booking_for_different_sub_resources', 'Off' );
+						_wpbc.calendar__set_param_value( 220, 'booking_recurrent_time', 'Off' );
+						if ( 'function' === typeof (wpbc__conditions__SAVE_INITIAL__days_selection_params__bm) ){  wpbc__conditions__SAVE_INITIAL__days_selection_params__bm( 220 );  }
+						_wpbc.calendar__set_param_value( 220, 'conditions', {
+							"select-day": {
+											"weekday": [{
+															"for"  : "0",
+															"value": "7,14"
+														}]
+										}
+						} );
+						_wpbc.seasons__set( 220, [] );
+						wpbc_calendar_show( '220' );
+						_wpbc.set_secure_param( 'nonce',  '<?php echo wp_create_nonce( 'wpbc_calendar_load_ajx' . '_wpbcnonce' ); ?>' );
+						_wpbc.set_secure_param( 'user_id','<?php echo wpbc_get_current_user_id(); ?>' );
+						_wpbc.set_secure_param( 'locale', '<?php echo get_user_locale(); ?>' );
+						wpbc_calendar__load_data__ajx( {
+							"resource_id"              : 220,
+							"booking_hash"             : "",
+							"request_uri"              : "\/2024-03-221132\/",
+							"custom_form"              : "standard",
+							"aggregate_resource_id_str": "",
+							"aggregate_type"           : "all"
+						} );
+					} );
+				</script>
+				<?php
+	}
+}
+
+
 		}
 
 		/**

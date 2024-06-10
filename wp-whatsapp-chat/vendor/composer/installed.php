@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/wp-whatsapp-chat',
-        'pretty_version' => 'v7.3.9',
-        'version' => '7.3.9.0',
-        'reference' => '9d6f68c332ffe812e986bd1963a3e098303a382a',
+        'pretty_version' => 'v7.4.1',
+        'version' => '7.4.1.0',
+        'reference' => 'a84b15f06634713b611b1dd8d2d56899d6cf3631',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'automattic/jetpack-assets' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => '048e87828ef10942db0d2eef59fa5e69122b8603',
+            'reference' => 'f8fc0211bfa7062b33b35cd6e6ffc0baf3194604',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(
@@ -24,7 +24,7 @@
         'automattic/jetpack-composer-plugin' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'aef6bd44ad1a6870f7afcc1891d5f228d3afde2c',
+            'reference' => '7d47a5716e123ec94b667597583783d8c38cc489',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../automattic/jetpack-composer-plugin',
             'aliases' => array(
@@ -121,9 +121,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/wp-whatsapp-chat' => array(
-            'pretty_version' => 'v7.3.9',
-            'version' => '7.3.9.0',
-            'reference' => '9d6f68c332ffe812e986bd1963a3e098303a382a',
+            'pretty_version' => 'v7.4.1',
+            'version' => '7.4.1.0',
+            'reference' => 'a84b15f06634713b611b1dd8d2d56899d6cf3631',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

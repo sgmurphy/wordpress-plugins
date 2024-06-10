@@ -181,7 +181,11 @@ class WPBC_Page_AJX_Bookings extends WPBC_Page_Structure {
 
 			?>
 			<div class="wpbc_listing_container wpbc_selectable_table wpbc_ajx_booking_listing_container">
-				<div style="width:100%;text-align: center;"><span class="wpbc_icn_autorenew wpbc_spin"></span><span><?php _e('Loading','booking'); ?>...</span></div>
+				<?php // New Spinner Loader 		//FixIn: 10.0.0.25  ?>
+				<div class="wpbc_spins_loading_container" >
+					<div class="wpbc_booking_form_spin_loader" ><div class="wpbc_spins_loader_wrapper"><div class="wpbc_spins_loader_mini"></div></div></div>
+					<span><?php _e('Loading','booking'); ?> ...</span>
+				</div>
 			</div>
 			<script type="text/javascript">
 				jQuery( document ).ready( function (){

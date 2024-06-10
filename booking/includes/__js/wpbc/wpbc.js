@@ -506,8 +506,37 @@ var _wpbc = (function ( obj, $) {
 	obj.get_other_param = function ( param_key ) {
 		return p_other[ param_key ];
 	};
-	// -----------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * Get all other params
+	 *
+	 * @returns {object|{}}
+	 */
+	obj.get_other_param__all = function () {
+		return p_other;
+	};
+
+	// Messages 			        ------------------------------------------------------------------------------------
+	var p_messages = obj.messages_obj = obj.messages_obj || { };
+
+	obj.set_message = function ( param_key, param_val ) {
+		p_messages[ param_key ] = param_val;
+	};
+
+	obj.get_message = function ( param_key ) {
+		return p_messages[ param_key ];
+	};
+
+	/**
+	 * Get all other params
+	 *
+	 * @returns {object|{}}
+	 */
+	obj.get_messages__all = function () {
+		return p_messages;
+	};
+
+	// -----------------------------------------------------------------------------------------------------------------
 
 	return obj;
 

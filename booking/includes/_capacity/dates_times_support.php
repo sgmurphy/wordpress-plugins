@@ -799,7 +799,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 																            [approved] => 1
 																            [date_res_type] =>
 																            [booking_id] => 45
-																            [form] => select-one^rangetime2^10:00 - 12:00~text^...
+																            [form] => selectbox-one^rangetime2^10:00 - 12:00~text^...
 																            [parent] => 0
 																            [prioritet] => 20
 																            [type] => 2
@@ -809,7 +809,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 																            [approved] => 0
 																            [date_res_type] =>
 																            [booking_id] => 46
-																            [form] => select-one^rangetime10^10:00 - 12:00~text^...
+																            [form] => selectbox-one^rangetime10^10:00 - 12:00~text^...
 																            [parent] => 2
 																            [prioritet] => 1
 																            [type] => 10
@@ -947,7 +947,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 	 *																     approved = "0"
 	 *																     date_res_type = null
 	 *																     booking_id = "62"
-	 *																     form = "select-multiple^rangetime3[]^10:00 - 12:00~...
+	 *																     form = "selectbox-multiple^rangetime3[]^10:00 - 12:00~...
 	 *																     parent = "0"
 	 *																     prioritet = "30"
 	 *																     type = "3"
@@ -1009,7 +1009,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 																		    date_res_type   = null
 																		    booking_id      = "43"
 																		    approved        = "0"
-																		    form            = "select-one^rangetime12^10:00 - 12:00~text^..."
+																		    form            = "selectbox-one^rangetime12^10:00 - 12:00~text^..."
 																		    parent          = "2"
 																		    type            = "12"
 																		    ...
@@ -1035,7 +1035,7 @@ function wpbc_is__intervals__intersected( $interval_A, $interval_B ) {
 	 *                                                                                                         approved = "0"
 	 *                                                                                                         date_res_type = null
 	 *                                                                                                         booking_id = "62"
-	 *                                                                                                         form = "select-multiple^rangetime3[]^10:00 - 12:00~...
+	 *                                                                                                         form = "selectbox-multiple^rangetime3[]^10:00 - 12:00~...
 	 *                                                                                                         parent = "0"
 	 *                                                                                                         prioritet = "30"
 	 *                                                                                                         type = "3"

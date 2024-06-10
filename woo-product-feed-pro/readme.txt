@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: Google Shopping Feed, Meta feed, Facebook catalog feed, WooCommerce Product Feed, Product Feed
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 13.3.2
+Stable tag: 13.3.3
 
 Most popular WooCommerce product feed plugin supporting Google shopping feed, meta/facebook feed, bing product feed & more.
 
@@ -374,6 +374,22 @@ Questions left or unanswered? Please do not hesitate to contact us at support@ad
 8. Set the basic configurations for your product feed
 
 === Changelog ===
+
+= 13.3.3 (2024-06-10) =
+* Bug Fix: PHP Warning on creating product feed without active license
+* Bug Fix: Fatal error on when WooCommerce is not activated
+* Bug Fix: Description value is not added when the product has no description
+* Bug Fix: Fatal error when creating new feed and no products exist
+* Bug Fix: Fatal error when creating a new feed with no field mapping
+* Bug Fix: Selecting Google Shopping feed shows unneeded delimiter option
+* Bug Fix: Unable to dismiss the upgrade notification in the Manage Feeds page
+* Bug Fix: woosea_channel processes country data without nonce verification
+* Improvement: Remove old license code and create new license page
+* Improvement: Tidy up plugin styles and visual elements
+* Improvement: Add AdTribes logo and branding to all admin pages
+* Improvement: Change all utm_source on tracking links to "pfp"
+* Improvement: Add plugin bootstrap class
+* Improvement: Remove unused filters and actions and related functions
 
 = 13.3.2 (2024-04-23) =
 * Enhancement: Move debug data to Plugin Systems Check tab in Settings area with a copy button

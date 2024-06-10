@@ -217,6 +217,9 @@ It's perfect for product [Price List](http://woo.supsystic.com/price-list "Price
 Create custom order forms which increase your conversion rate!
 
 == Changelog ==
+1.10.34 / 20.03.2024 =
+ * Add expertise level for AC form fix
+
 1.10.33 / 31.01.2024 =
  * Add expertise level for AC form
  

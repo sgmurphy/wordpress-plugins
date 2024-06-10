@@ -141,20 +141,6 @@ class Omnisend_Manager_Assistant {
 		}
 	}
 
-	public static function unset_user_cart( $all = false ) {
-		if ( $all && null !== WC()->session ) {
-			WC()->session->set( 'omnisend_cart_synced', null );
-			WC()->session->set( 'omnisend_cartID', null );
-			WC()->session->set( 'omnisend_cart', null );
-		}
-
-		$user_id = get_current_user_id();
-		if ( $user_id > 0 ) {
-			delete_user_meta( $user_id, 'omnisend_cartID' );
-			delete_user_meta( $user_id, 'omnisend_cart_synced' );
-		}
-	}
-
 	// Sync contacts via batches.
 	public static function sync_all_contacts() {
 		Omnisend_Logger::hook();

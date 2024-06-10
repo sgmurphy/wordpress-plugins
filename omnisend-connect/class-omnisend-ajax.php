@@ -85,8 +85,6 @@ class Omnisend_Ajax {
 		}
 
 		if ( Omnisend_Contact_Resolver::update_by_email( $email ) ) {
-			self::trigger_cart_push();
-
 			return Omnisend_Operation_Status::success();
 		}
 
@@ -107,7 +105,6 @@ class Omnisend_Ajax {
 		}
 
 		Omnisend_Contact_Resolver::update_by_email_and_contact_id( $email, $response['contactID'] );
-		self::trigger_cart_push();
 
 		return Omnisend_Operation_Status::success();
 	}
@@ -130,11 +127,5 @@ class Omnisend_Ajax {
 			$payload['contactID'] = $contact_id;
 		}
 		return $payload;
-	}
-
-	private static function trigger_cart_push() {
-		if ( ! WC()->cart->is_empty() ) {
-			Omnisend_Manager::push_cart_to_omnisend();
-		}
 	}
 }

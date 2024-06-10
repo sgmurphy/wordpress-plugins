@@ -1016,7 +1016,7 @@ function wpbc_ajx__ui__booking_resources( $escaped_search_request_params, $defau
 
 		foreach ( $linear_resources_arr as $bkr ) {
 
-			$option_title = apply_bk_filter( 'wpdev_check_for_active_language', $bkr['title'] );
+			$option_title = wpbc_lang( $bkr['title'] );
 
 			if ( isset( $bkr['parent'] ) ) {
 				if ( $bkr ['parent'] == 0 ) {

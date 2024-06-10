@@ -78,7 +78,7 @@ class Omnisend_Cart_Event {
 				'applied_coupons' => $cart->get_applied_coupons(),
 				'totals'          => $cart->get_totals(),
 			),
-			'omnisend_cart_id' => Omnisend_Server_Session::get( 'omnisend_cartID' ),
+			'omnisend_cart_id' => Omnisend_Cart::get_or_set_cart_id(),
 			'item_count'       => $cart->get_cart_contents_count(),
 			'checkout_url'     => self::build_checkout_url( $cart ),
 		);

@@ -450,9 +450,6 @@ if (function_exists('wp_roles') ) {
                     <h3 class="card-title hmwp_header p-2 m-0">
                         <?php echo esc_html__('Disable Options', 'hide-my-wp'); ?>
                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/activate-security-tweaks/#disable_options') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
-                        <div class="col-sm-12 border-0 p-0 mx-0 text-black-50 text-left small">
-                            <?php echo esc_html__('This feature requires jQuery library on frontend.', 'hide-my-wp') ?>
-                        </div>
                     </h3>
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_mode') == 'default' ) { ?>
                         <div class="card-body">

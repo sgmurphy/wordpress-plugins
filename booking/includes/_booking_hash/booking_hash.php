@@ -123,21 +123,26 @@ function wpbc_hash__update_booking_hash( $booking_id, $resource_id = '1' ) {
  */
 function wpbc_get_dates_selection_js_code( $to_select__dates_sql_arr, $resource_id ){
 
-	$dates_selection_arr = array();
-
-	foreach ( $to_select__dates_sql_arr as $date_time ) {
-
-		$date_time  = trim( $date_time );
-		$date_time = explode( ' ', $date_time );
-		$date_only = explode( '-', $date_time[0] );
-
-		$dates_selection_arr[] = 'new Array( ' . $date_only[0] . ', ' . $date_only[1] . ', ' . $date_only[2] . ' ) ';
-	}
-	$dates_selection = 'new Array( ' . implode( ', ', $dates_selection_arr ) . ' ) ';
-
 	$dates_selection_js_code  = '<script type="text/javascript">';
 	$dates_selection_js_code .= 'jQuery(document).ready(function(){';
-	$dates_selection_js_code .= ' timeout_DSwindow = setTimeout( "wpbc_select_days_in_calendar(' . $resource_id . ', ' . $dates_selection . ' )", 1500);';
+
+	//FixIn: 10.0.0.50
+	$dates_selection_js_code .= ' var select_dates_in_calendar_id = ' . intval( $resource_id ) . ';';
+	$dates_selection_js_code .= " jQuery( 'body' ).on( 'wpbc_calendar_ajx__loaded_data', function ( event, loaded_resource_id ){ ";		// Fire on all booking dates loaded
+	$dates_selection_js_code .= " 	if ( loaded_resource_id == select_dates_in_calendar_id ){ ";
+
+		$string__dates_sql_arr = array_map( function ( $value ) {
+												$value = explode( ' ', $value );
+												$new_value = "'" . $value[0] . "'";
+												return $new_value;
+											}, $to_select__dates_sql_arr );
+		$string__dates_sql_arr = array_unique($string__dates_sql_arr);
+		$string__dates_sql_str = implode( ',', $string__dates_sql_arr );
+
+	$dates_selection_js_code .= " 		wpbc_auto_select_dates_in_calendar( select_dates_in_calendar_id, [" . $string__dates_sql_str . "] ); ";
+	$dates_selection_js_code .= " 	} ";
+	$dates_selection_js_code .= " } ); ";
+
 	$dates_selection_js_code .= '});';
 	$dates_selection_js_code .= '</script>';
 

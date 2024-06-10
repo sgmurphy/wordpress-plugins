@@ -94,7 +94,7 @@ function wpbc_booking_confirmation( $params_arr ){
 	// == Confirmation data ==          / TY - Thank you /
 	// =================================================================================================================
 
-	$confirmation['ty_message'] = stripslashes( esc_js( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_title_after_reservation' ) ) ) );   // 'Thank you for booking!'
+	$confirmation['ty_message'] = stripslashes( esc_js( wpbc_lang( get_bk_option( 'booking_title_after_reservation' ) ) ) );   // 'Thank you for booking!'
 	$confirmation['ty_message_booking_id'] = sprintf( __( 'Your booking id: %s', 'booking' ), "<strong>{$params_arr['booking_id']}</strong>" );
 
 	// -- Customer details --
@@ -335,7 +335,7 @@ function wpbc_booking_confirmation( $params_arr ){
 
 		} else {
 
-			$confirmation['ty_url'] = wpbc_make_link_absolute( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_thank_you_page_URL' ) ) );  // '/thank-you'
+			$confirmation['ty_url'] = wpbc_make_link_absolute( wpbc_lang( get_bk_option( 'booking_thank_you_page_URL' ) ) );  // '/thank-you'
 
 			$confirmation['ty_url'] .= ( ( false === strpos( $confirmation['ty_url'], '?' ) ) ? '?' : '&' ) . 'booking_hash=' . $booking_hash;
 		}

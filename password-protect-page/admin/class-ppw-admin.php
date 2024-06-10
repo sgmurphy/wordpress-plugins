@@ -893,17 +893,27 @@ _end_;
 	}
 
 	public function ppwp_sitewide_authentication_errors($result) {
+
+		$request_uri = !empty( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
 		
+		$validate = false;
+		if (strpos($request_uri, '/wp/v2/pages') !== false || strpos($request_uri, '/wp/v2/posts') !== false) {
+	        $validate = true;
+	    }
+		
+		// Apply a filter to allow bypassing the sitewide authentication check
+    	$validate = apply_filters('ppwp_bypass_sitewide_authentication_check', $validate, $request_uri);
+
 		$entire_site_service = new PPW_Entire_Site_Services();
 		$is_protect = ppw_core_get_setting_entire_site_type_bool( PPW_Constants::IS_PROTECT_ENTIRE_SITE );
 		if( class_exists( 'PPWP_Pro_SideWide' ) ){
 			$PPWP_Pro_SideWide = new PPWP_Pro_SideWide();
 			$is_should_render = $PPWP_Pro_SideWide->should_render_sc_content();	
-			if( !$is_should_render && !is_user_logged_in() && $is_protect  ){
+			if( $validate && !$is_should_render && !is_user_logged_in() && $is_protect  ){
 				return new WP_Error('Protected', 'Error: Access denied. This API is protected with sitewide protection.', array('status' => 401));
 			}
 		}else{
-			if( !is_user_logged_in() && $is_protect && !$entire_site_service->validate_auth_cookie_entire_site() ){
+			if( $validate && !is_user_logged_in() && $is_protect && !$entire_site_service->validate_auth_cookie_entire_site() ){
 				return new WP_Error('Protected', 'Error: Access denied. This API is protected with sitewide protection.', array('status' => 401));
 			}		
 		}

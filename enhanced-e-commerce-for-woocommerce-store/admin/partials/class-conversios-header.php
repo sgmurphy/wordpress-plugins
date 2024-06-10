@@ -159,8 +159,18 @@ if (class_exists('Conversios_Header') === FALSE) {
 								"title" => "Pixels & Analytics"
 							),
 							"conversios-google-shopping-feed" => array(
-								"page" => "conversios-google-shopping-feed&tab=feed_list",
-								"title" => "Product Feed"
+								"page" => "#",
+								"title" => "Product Feed",
+								"sub_menus" => array(
+									"conversios-google-shopping-feed" => array(
+										"page" => "conversios-google-shopping-feed&tab=gaa_config_page",
+										"title" => "Channel Configuration"
+									),								
+									"feed-list" => array(
+										"page" => "conversios-google-shopping-feed&tab=feed_list",
+										"title" => "Feed Management"
+									),
+								)
 							),
 							"conversios-pmax" => array(
 								"page" => "conversios-pmax",

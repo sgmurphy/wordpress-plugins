@@ -4,7 +4,7 @@ Tags: dark, dark mode, night mode, dark theme, accessibility
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 5.0.5
+Stable tag: 5.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ WP Dark Mode instantly creates a dark mode version of your website without any c
 
 Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mode.
 
-[youtube https://www.youtube.com/watch?v=hz-2C5fzD0Q?rel=0]
+[youtube https://www.youtube.com/watch?v=CT8yy2v05tE?rel=0]
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -40,6 +40,7 @@ Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mo
 14. **Accessibility Features** - Toggle dark mode by using a keyboard shortcut (Ctrl + Alt + D) or using a URL/domain parameter.
 15. **Dark Mode Toggle Animation** - Choose the animation effect between dark/white mode among numerous options including Fade In, Pulse, Flip, and many more.
 16. **Social Share** - Social share icons allow your website visitors to share your content with ease. With plenty of cool social media icon templates and share count displays, this is the only dark mode plugin that supports dedicated social share buttons.
+17. **Exclude WP Dark Mode from Caching** - Enable this feature to exclude WP Dark Mode from server-side caching and ensure a seamless dark mode transition.
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -53,23 +54,22 @@ Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mo
 6. **🔥 Create Custom Color Preset** - Unleash your inner Picasso by creating and customizing your color presets. Dive into a palette of possibilities, shaping colors for every element – from the body to text and scrollbar.
 7. **Automatic Dark Mode Based on Sunset** - Automatically enable dark mode based on your visitor's time.
 8. **Custom CSS Support** – With custom CSS you unleash the perfect dark mode version of your website. Customize specific sections/elements exactly how you want in dark mode.
-9. **Dark Mode-based Image Support** – Replace light mode images with the different images you want in the dark mode.
-10. **🔥 Multiple Switch Options** - Toggle between different dark mode switch options. Whether you need a menu switch, a floating switch, or a content switch for your posts/page, the power is on your end. Get a distinct switch style for every section.
-11. **Custom Switch Support with Call-to-Action Customization** – Upload a custom switch of your own choice and customize call-to-action text on your dark mode switch.
-12. **Dark Mode-Based Image Replacement** – Replace light-mode images with the different images you want in the dark mode. 
-13. **Dark Mode-Based Video Replacement** - If your website has videos, you can replace them with something more fitting for dark mode. 
-14. **🔥 Adjust Brightness Level & Apply Grayscale Effect** - Adjust your images and video's brightness level while dark mode is enabled to get an immersive content viewing experience. You can also add a grayscale effect to your images/videos which comes with many health benefits including better sleep and reduced eye strain.
-15. **Exclude Dark Mode on Certain Pages/Elements** – Exclude specific pages/elements from changing into dark mode.
-16. **Include Dark Mode on Selected Posts & Pages** - Exclude all the pages and posts on your website from dark mode except the specific ones (where you want dark mode).
-17. **Exclude Post Tags & Categories** - Exclude all the post tags from dark mode. Keep only the specific tags whitelisted for dark mode.
-18. **Include Dark Mode on Custom Post Types** - You can also enable dark mode only for specific post types, excluding all.
-19. **Exclude WooCommerce Products & Categories** - Exclude all the products and categories on your WooCommerce site from dark mode except the specific ones.
-20. **Dark Mode Usage Analytics** -  Learn how many users are using dark mode from your admin dashboard.
-21. **Dark Mode Switch in Website Menu** – You can display the dark mode switch as a menu item on any menu on your website.
-22. **Font Size Toggle for Better Accessibility** Make your WordPress website more accessible by resizing your font size (increase/decrease).
-23. **🔥 Plenty of Performance Options** - WP Dark Mode now comes with multiple performance settings, putting complete control at your fingertips. By using these features, you can improve page loading performance and track dynamic content.
-24. **🔥 Choose Dark Mode Behavior** - You can choose between loading dark mode or website content first by selecting these options.
-25. **Usage Analytics Email Reporting** - Get daily/ weekly reports via email on the dark mode usage analytics of your website.
+9. **🔥 Multiple Switch Options** - Toggle between different dark mode switch options. Whether you need a menu switch, a floating switch, or a content switch for your posts/page, the power is on your end. Get a distinct switch style for every section.
+10. **Custom Switch Support with Call-to-Action Customization** – Upload a custom switch of your own choice and customize call-to-action text on your dark mode switch.
+11. **Dark Mode-Based Image Replacement** – Replace light-mode images with the different images you want in the dark mode. 
+12. **Dark Mode-Based Video Replacement** - If your website has videos, you can replace them with something more fitting for dark mode. 
+13. **🔥 Adjust Brightness Level & Apply Grayscale Effect** - Adjust your images and video's brightness level while dark mode is enabled to get an immersive content viewing experience. You can also add a grayscale effect to your images/videos which comes with many health benefits including better sleep and reduced eye strain.
+14. **Exclude Dark Mode on Certain Pages/Elements** – Exclude specific pages/elements from changing into dark mode.
+15. **Include Dark Mode on Selected Posts & Pages** - Exclude all the pages and posts on your website from dark mode except the specific ones (where you want dark mode).
+16. **Exclude Post Tags & Categories** - Exclude all the post tags from dark mode. Keep only the specific tags whitelisted for dark mode.
+17. **Include Dark Mode on Custom Post Types** - You can also enable dark mode only for specific post types, excluding all.
+18. **Exclude WooCommerce Products & Categories** - Exclude all the products and categories on your WooCommerce site from dark mode except the specific ones.
+19. **Dark Mode Usage Analytics** -  Learn how many users are using dark mode from your admin dashboard.
+20. **Dark Mode Switch in Website Menu** – You can display the dark mode switch as a menu item on any menu on your website.
+21. **Font Size Toggle for Better Accessibility** Make your WordPress website more accessible by resizing your font size (increase/decrease).
+22. **Plenty of Performance Options** - WP Dark Mode now comes with multiple performance settings, putting complete control at your fingertips. By using these features, you can improve page loading performance and track dynamic content.
+23. **Choose Dark Mode Behavior** - You can choose between loading dark mode or website content first by selecting these options.
+24. **Usage Analytics Email Reporting** - Get daily/ weekly reports via email on the dark mode usage analytics of your website.
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -155,6 +155,16 @@ Yes, You can toggle the dark mode/ light mode by keyboard shortcut `(Ctrl + Alt 
 7. Dark Mode color presets
 
 == Changelog ==
+
+= 5.0.6 – 10 JUN 2024 =
+
+* **New:** Introduced "Exclude WP Dark Mode from Caching" feature to maintain compatibility with Server-side cache technologies.
+* **Fix:** Excluding all taxonomies except some specifics are not working.
+* **Fix:** Images are not appearing properly in Dark Mode.
+* **Fix:** Dark Mode colors are not applying properly in GeneratePress theme.
+* **Fix:** Incompatibility with Multi-site.
+* **Fix:** Updated Twitter Icon to X.
+* **Fix:** Frontend Toggle Switch misfires sometimes.
 
 = 5.0.5 – 02 JUN 2024 =
 * **Fix:** Security issue regarding Social Share Settings.

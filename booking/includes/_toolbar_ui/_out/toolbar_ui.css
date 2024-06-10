@@ -460,6 +460,7 @@
   margin: 3px 0 0.5em !important;
 }
 
+.form-table td fieldset .wpbc_ui__toggle label *,
 .form-table td fieldset .wpbc_ui__toggle label {
   line-height: 1.6;
   /*display:flex;*/
@@ -877,6 +878,11 @@
   padding: 0;
 }
 
+.wpbc_ajx_toolbar.wpbc_background_transparent .ui_container {
+  background: none;
+  border: none;
+}
+
 /* Container  ------------------------------------------------------------------------------------------------------- */
 .wpbc_ajx_toolbar .ui_container {
   display: -ms-flexbox;
@@ -1170,8 +1176,8 @@ div#wh_booking_type_chosen   .chzn-container.chzn-container-multi	.chzn-with-dro
       justify-content: flex-start;
   -ms-flex-align: baseline;
       align-items: baseline;
-  margin: 3px 0.5em 3px 0;
-  padding: 3px 5px 3px 8px;
+  margin: 3px 7px 3px 0;
+  padding: 4px 7px 4px 8px;
 }
 
 .ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice span {

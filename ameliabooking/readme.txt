@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,6 +64,8 @@ You can also try out Amelia before committing [Amelia Demo](https://wpamelia.com
 **[Official Page](https://wpamelia.com/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Amelia Demos](https://wpamelia.com/demos/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Documentation](https://wpamelia.com/documentation/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org) || [Youtube](https://www.youtube.com/c/AmeliaWordPressBookingPlugin) || [Instagram](https://www.instagram.com/wpamelia_plugin/) || [Twitter](https://twitter.com/wpameliabooking) || [Facebook](https://www.facebook.com/AmeliaBooking) || [Discord Community](https://discord.com/invite/9xYWJqbXeM) || [Premium Versions](https://wpamelia.com/pricing/?utm_source=wp_org&utm_medium=wp_org&utm_content=link&utm_campaign=wp_org)**
 
 ## AMELIA LITE BOOKING PLUGIN FEATURES 💫
+
+Amazing Deal Alert! We’ve partnered with SuperbThemes to bring you and your customers an unparalleled booking experience and **more appointments than ever**. As a result of this partnership, you get a **FREE WordPress theme** to use on your website **integrated with Amelia’s booking system**. You will literally get more online bookings than ever before, without any hassle as you get both the theme and the booking system in all-in-one.
 
 Booking forms for online scheduling appointments and events management with a great user interface and user experience your customers will love.
 
@@ -287,6 +289,9 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.1.7
+*Small bug fixes and stability improvements
+
 V1.1.6
 *Small bug fixes and stability improvements
 

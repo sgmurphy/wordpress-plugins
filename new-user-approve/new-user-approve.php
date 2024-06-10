@@ -1,18 +1,21 @@
 <?php
-
 /*
  Plugin Name: New User Approve
  Plugin URI: http://newuserapprove.com/
  Description: Allow administrators to approve users once they register. Only approved users will be allowed to access the site. For support, please go to the <a href="http://wordpress.org/support/plugin/new-user-approve">support forums</a> on wordpress.org.
  Author: WPExpertsio
- Version: 2.5.3
+ Version: 2.6
  Author URI: https://newuserapprove.com/
  Text Domain: new-user-approve
 */
 
-
 if ( !defined( 'NUA_VERSION' ) ) {
-    define( 'NUA_VERSION', '2.5.3' );
+    define( 'NUA_VERSION', '2.6' );
+}
+
+if(!defined( 'NUA_FIL' )) {
+
+    define('NUA_FILE', __FILE__);
 }
 
 if ( !function_exists( 'nua_fs' ) ) {
@@ -55,6 +58,7 @@ if ( !function_exists( 'nua_fs' ) ) {
     do_action( 'nua_fs_loaded' );
 }
 
+#[AllowDynamicProperties]
 class pw_new_user_approve
 {
     /**
@@ -63,6 +67,9 @@ class pw_new_user_approve
      * @var pw_new_user_approve
      */
     private static  $instance ;
+    
+    public $email_tags;
+    
     /**
      * Returns the main instance.
      *
@@ -102,6 +109,8 @@ class pw_new_user_approve
             10,
             3
         );
+        add_action( 'woocommerce_created_customer', array($this, 'nua_welcome_email_woo_new_user' ));
+
         add_action( 'lostpassword_post', array( $this, 'lost_password'),99,2);
         add_action( 'user_register', array( $this, 'add_user_status' ) );
         add_action( 'user_register', array( $this, 'request_admin_approval_email_2' ) );
@@ -128,6 +137,7 @@ class pw_new_user_approve
         add_filter( 'shake_error_codes', array( $this, 'failure_shake' ) );
         add_filter( 'woocommerce_registration_auth_new_customer', array( $this, 'disable_woo_auto_login' ) );
         add_action('woocommerce_checkout_order_processed', array( $this, 'disable_woo_auto_login_on_checkout' ), 10, 0);
+        add_action('init',array($this,'update_admin_notice'));
     }
 
     public function get_plugin_url()
@@ -195,12 +205,11 @@ class pw_new_user_approve
         }
     }
 
-    /**
-     * Show admin notice if the membership setting is turned off.
+     /**
+     * Update admin notice settings if clicks on hide.
      */
-    public function admin_notices()
+    public function update_admin_notice()
     {
-        $user_id = get_current_user_id();
         if (isset($_GET['notice-nounce']) && wp_verify_nonce($_GET['notice-nounce'], 'nua_notice_nounce')) {
         // if the user isn't an admin, definitely don't show the notice
         if ( !current_user_can( 'manage_options' ) ) {
@@ -208,17 +217,27 @@ class pw_new_user_approve
         }
         // update the setting for the current user
         if ( isset( $_GET['new-user-approve-settings-notice'] ) && '1' == $_GET['new-user-approve-settings-notice'] ) {
+            $user_id = get_current_user_id();
             add_user_meta(
                 $user_id,
                 'pw_new_user_approve_settings_notice',
                 '1',
                 true
             );
+            
+        }
         }
     }
+
+    /**
+     * Show admin notice if the membership setting is turned off.
+     */
+    public function admin_notices()
+    {
+        $user_id = get_current_user_id();
         $show_notice = get_user_meta( $user_id, 'pw_new_user_approve_settings_notice' );
         // one last chance to show the update
-        $show_notice = apply_filters( 'new_user_approve_show_membership_notice', $show_notice, $user_id );
+        $show_notice = apply_filters( 'new_user_approve_show_membership_notice', $show_notice ,$user_id);
         // Check that the user hasn't already clicked to ignore the message
         if ( !$show_notice ) {
             $notice_nounce=wp_create_nonce('nua_notice_nounce');
@@ -293,6 +312,10 @@ class pw_new_user_approve
         // where it all happens
         do_action( 'new_user_approve_' . $status . '_user', $user_id );
         do_action( 'new_user_approve_user_status_update', $user_id, $status );
+        //update user count
+        $user_statuses = $this->_get_user_statuses();
+        update_option('nua_users_count',$user_statuses);
+
         return true;
     }
 
@@ -385,22 +408,58 @@ class pw_new_user_approve
         }
         return $message;
     }
-
-    public function _get_user_statuses( $count = true )
+    //updated function for user count fix
+    public function _get_user_statuses($count = true) {
+        global $wpdb;
+    
+        $statuses = array();
+    
+        foreach ( $this->get_valid_statuses() as $status ) {
+            $query = $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$wpdb->users} u
+                LEFT JOIN {$wpdb->usermeta} um ON u.ID = um.user_id
+                WHERE um.meta_key = %s AND um.meta_value = %s",
+                'pw_user_status', $status
+            );
+    
+            $total = $wpdb->get_var( $query );
+    
+            if ( $count === true ) {
+                $statuses[$status] = $total;
+            } else {
+                // If count is false, return the list of users
+                $user_query = new WP_User_Query( array(
+                    'meta_key' => 'pw_user_status',
+                    'meta_value' => $status,
+                ) );
+    
+                $statuses[$status] = $user_query->get_results();
+            }
+        }
+        return $statuses;
+    }
+    /**
+     * Get a list of statuses with a count of users using WPQuery not transient
+     */
+    public function _get_users_by_status( $count = true, $status="" )
     {
+        $paged = isset($_REQUEST['paged'] ) && !empty($_REQUEST['paged'] ) ? absint($_REQUEST['paged'])  : 1;
+
         $statuses = array();
         foreach ( $this->get_valid_statuses() as $status ) {
             // Query the users table
-
             if ( $status != 'approved' ) {
+
                 // Query the users table
                 $query = array(
                     'meta_key'    => 'pw_user_status',
                     'meta_value'  => $status,
                     'count_total' => true,
-                    'number'      => 1,
+                    'number'      => 15,
+                    'paged'       =>$paged,
                 );
             } else {
+
                 // get all approved users and any user without a status
                 $query = array(
                     'meta_query'  => array(
@@ -417,15 +476,16 @@ class pw_new_user_approve
                 ),
                 ),
                     'count_total' => true,
-                    'number'      => 1,
+                    'number'      => 15,
+                    'paged'       =>$paged,
                 );
             }
 
 
-            if ( $count === false ) {
-                unset( $query['count_total'] );
-                unset( $query['number'] );
-            }
+            // if ( $count === false ) {
+            //     unset( $query['count_total'] );
+            //     unset( $query['number'] );
+            // }
 
             $wp_user_search = new WP_User_Query( $query );
 
@@ -440,27 +500,34 @@ class pw_new_user_approve
     }
 
     /**
-     * Get a list of statuses with a count of users with that status and save them using a transient
+     * Get a list of statuses with a count of users with that status
      */
     public function get_count_of_user_statuses()
     {
-        $user_statuses = get_transient( 'new_user_approve_user_statuses_count' );
-
-        if ( false === $user_statuses ) {
+        $user_statuses = get_option( 'new_user_approve_user_statuses_count',array());
+        if ( empty($user_statuses)) {
             $user_statuses = $this->_get_user_statuses();
-            set_transient( 'new_user_approve_user_statuses_count', $user_statuses );
+            update_option('new_user_approve_user_statuses_count',$user_statuses );
         }
-
+        
         return $user_statuses;
     }
 
-    public function get_user_statuses()
+    public function get_user_statuses($status)
     {
-        $user_statuses = get_transient( 'new_user_approve_user_statuses' );
+        $nua_users_transient=apply_filters( 'nua_users_transient',true);
+        $user_statuses=array();
 
-        if ( false === $user_statuses ) {
-            $user_statuses = $this->_get_user_statuses( false );
-            set_transient( 'new_user_approve_user_statuses', $user_statuses );
+        if(!$nua_users_transient)
+        {
+            $user_statuses=$this->_get_users_by_status(false,$status);
+        }
+        else{
+            $user_statuses = get_transient( 'new_user_approve_user_statuses' );
+            if ( false === $user_statuses ) {
+                $user_statuses = $this->_get_user_statuses( false );
+                set_transient( 'new_user_approve_user_statuses', $user_statuses );
+            }
         }
 
         foreach ( $this->get_valid_statuses() as $status ) {
@@ -643,6 +710,29 @@ class pw_new_user_approve
         }
     }
 
+    public function nua_welcome_email_woo_new_user($customer_id ) {
+
+        $customer = new WC_Customer( $customer_id );
+        $user_email = $customer->get_email();
+        $message = nua_default_registeration_welcome_email();
+        $message = apply_filters( 'new_user_approve_welcome_user_message', $message, $user_email );
+        $subject = sprintf( __( 'Your registration is pending for approval - [%s]', 'new-user-approve' ), get_option( 'blogname' ) );
+        $subject = apply_filters( 'new_user_approve_welcome_user_subject', $subject );
+        $disable_welcome_email = apply_filters('disable_welcome_email_woo_new_user', array($this, false) );
+        if($disable_welcome_email===true) {
+
+            return;
+        }
+
+        wp_mail(
+        $user_email,
+        $subject,
+        $message,
+        $this->email_message_headers()
+        );
+        
+    }
+
     /**
      * Determine whether a password needs to be reset.
      *
@@ -706,8 +796,12 @@ class pw_new_user_approve
             $message,
             $this->email_message_headers()
         );
+        //to update statuses count
+        $this->update_users_statuses_count('approved',$user_id );
+
         // change usermeta tag in database to approved
         update_user_meta( $user->ID, 'pw_user_status', 'approved' );
+
         do_action( 'new_user_approve_user_approved', $user );
     }
 
@@ -746,8 +840,11 @@ class pw_new_user_approve
     public function update_deny_status( $user_id )
     {
         $user = new WP_User( $user_id );
+        //to update statuses count
+        $this->update_users_statuses_count('denied',$user_id );
         // change usermeta tag in database to denied
         update_user_meta( $user->ID, 'pw_user_status', 'denied' );
+
         do_action( 'new_user_approve_user_denied', $user );
     }
 
@@ -817,10 +914,10 @@ class pw_new_user_approve
         $is_email = strpos( sanitize_text_field(wp_unslash($user_login)), '@' );
 
         if ( $is_email === false ) {
-            $username = sanitize_user( wp_unslash($_POST['user_login'] ));
+            $username = sanitize_user( wp_unslash($user_login ));
             $user_data = get_user_by( 'login', trim( $username ) );
         } else {
-            $email = is_email( wp_unslash($_POST['user_login']) );
+            $email = is_email( wp_unslash($user_login) );
             $user_data = get_user_by( 'email', $email );
         }
 
@@ -881,7 +978,10 @@ class pw_new_user_approve
             $status = 'approved';
         }
         $status = apply_filters( 'new_user_approve_default_status', $status, $user_id );
+        //update user count
+        $this->update_users_statuses_count( $status,$user_id );
         update_user_meta( $user_id, 'pw_user_status', $status );
+        
     }
 
     /**
@@ -946,6 +1046,39 @@ class pw_new_user_approve
         }
 
     }
+
+     /**
+     * Update users statuses count
+     *
+     */
+    public function update_users_statuses_count($new_status,$user_id)
+    {
+        $old_status=get_user_meta( $user_id, 'pw_user_status',true);
+
+        if( $old_status ==$new_status ){return;}
+
+        $user_statuses = get_option( 'new_user_approve_user_statuses_count',array());
+        if(empty($user_statuses))
+        {
+            $user_statuses = $this->_get_user_statuses();  
+        }
+ 
+        foreach ( $this->get_valid_statuses() as $status ) { 
+
+            if(isset($user_statuses[$status]) && $old_status == $status)
+            {
+                $count=$user_statuses[$status];
+                $user_statuses[$status]=$count-1;
+            }elseif(isset($user_statuses[$status]) && $new_status == $status)
+            { 
+                $count=$user_statuses[$status];
+                $user_statuses[$status]=$count+1;
+            }
+        }
+        update_option( 'new_user_approve_user_statuses_count', $user_statuses);
+      
+    }
+
 
 
 }

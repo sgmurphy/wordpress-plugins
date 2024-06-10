@@ -58,8 +58,8 @@ class CCBBuilderAdminMenu {
 
 		add_submenu_page(
 			'cost_calculator_builder',
-			esc_html__( 'Settings', 'cost-calculator-builder' ),
-			esc_html__( 'Settings', 'cost-calculator-builder' ),
+			esc_html__( 'Global Settings', 'cost-calculator-builder' ),
+			esc_html__( 'Global Settings', 'cost-calculator-builder' ),
 			'manage_options',
 			'cost_calculator_builder&tab=settings',
 			array( $this, 'render_page' )

@@ -147,7 +147,6 @@ if ( ! class_exists( 'WC_AM_Client_2_7_Responsive_Addons' ) ) {
 				/**
 				 * Check for software updates
 				 */
-				$this->check_for_update();
 			}
 
 			/**
@@ -343,54 +342,6 @@ if ( ! class_exists( 'WC_AM_Client_2_7_Responsive_Addons' ) ) {
 		}
 
 		/**
-		 * Check for software updates.
-		 */
-		public function check_for_update() {
-			$this->plugin_name = $this->wc_am_plugin_name;
-
-			// Slug should be the same as the plugin/theme directory name.
-			if ( strpos( $this->plugin_name, '.php' ) !== 0 ) {
-				$this->slug = dirname( $this->plugin_name );
-			} else {
-				$this->slug = $this->plugin_name;
-			}
-
-			/*********************************************************************
-			 * The plugin and theme filters should not be active at the same time
-			 *********************************************************************/ /**
-			 * More info:
-			 * function set_site_transient moved from wp-includes/functions.php
-			 * to wp-includes/option.php in WordPress 3.4
-			 *
-			 * set_site_transient() contains the pre_set_site_transient_{$transient} filter
-			 * {$transient} is either update_plugins or update_themes
-			 *
-			 * Transient data for plugins and themes exist in the Options table:
-			 * _site_transient_update_themes
-			 * _site_transient_update_plugins
-			 */
-
-			// uses the flag above to determine if this is a plugin or a theme update request.
-			if ( 'plugin' === $this->plugin_or_theme ) {
-				/**
-				 * Plugin Updates
-				 */
-				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'update_check' ) );
-				// Check For Plugin Information to display on the update details page.
-				add_filter( 'plugins_api', array( $this, 'information_request' ), 10, 3 );
-			} elseif ( 'theme' === $this->plugin_or_theme ) {
-				/**
-				 * Theme Updates
-				 */
-				add_filter( 'pre_set_site_transient_update_themes', array( $this, 'update_check' ) );
-
-				// Check For Theme Information to display on the update details page
-				//add_filter( 'themes_api', array( $this, 'information_request' ), 10, 3 );
-
-			}
-		}
-
-		/**
 		 * Sends and receives data to and from the server API
 		 *
 		 * @since  2.0
@@ -410,71 +361,6 @@ if ( ! class_exists( 'WC_AM_Client_2_7_Responsive_Addons' ) ) {
 			$response = wp_remote_retrieve_body( $request );
 
 			return ! empty( $response ) ? $response : false;
-		}
-
-		/**
-		 * Check for updates against the remote server.
-		 *
-		 * @since  2.0
-		 *
-		 * @param object $transient
-		 *
-		 * @return object $transient
-		 */
-		public function update_check( $transient ) {
-			if ( empty( $transient->checked ) ) {
-				return $transient;
-			}
-
-			$args = array(
-				'wc_am_action'     => 'update',
-				'slug'        => $this->slug,
-				'plugin_name' => $this->plugin_name,
-				'version'     => $this->wc_am_software_version,
-				'product_id'  => $this->product_id,
-				'api_key'     => $this->data[ $this->wc_am_api_key_key ],
-				'instance'    => $this->wc_am_instance_id,
-			);
-
-			// Check for a plugin update.
-			$response = json_decode( $this->send_query( $args ), true );
-
-			if ( isset( $response['data']['error_code'] ) ) {
-				add_settings_error( 'wc_am_client_error_text', 'wc_am_client_error', "{$response['data']['error']}", 'error' );
-			}
-
-			if ( false !== $response && true === $response['success'] ) {
-				// New plugin version from the API.
-				$new_ver = (string) $response['data']['package']['new_version'];
-				// Current installed plugin version.
-				$curr_ver = (string) $this->wc_am_software_version;
-
-				$package = array(
-					'id'             => $response['data']['package']['id'],
-					'slug'           => $response['data']['package']['slug'],
-					'plugin'         => $response['data']['package']['plugin'],
-					'new_version'    => $response['data']['package']['new_version'],
-					'url'            => $response['data']['package']['url'],
-					'tested'         => $response['data']['package']['tested'],
-					'package'        => $response['data']['package']['package'],
-					'upgrade_notice' => $response['data']['package']['upgrade_notice'],
-				);
-
-				if ( isset( $new_ver ) && isset( $curr_ver ) ) {
-					if ( $response !== false && version_compare( $new_ver, $curr_ver, '>' ) ) {
-						if ( 'plugin' === $this->plugin_or_theme ) {
-							$transient->response[ $this->plugin_name ] = (object) $package;
-							unset( $transient->no_update[ $this->plugin_name ] );
-						} elseif ( 'theme' === $this->plugin_or_theme ) {
-							$transient->response[ $this->plugin_name ]['new_version'] = $response['data']['package']['new_version'];
-							$transient->response[ $this->plugin_name ]['url']         = $response['data']['package']['url'];
-							$transient->response[ $this->plugin_name ]['package']     = $response['data']['package']['package'];
-						}
-					}
-				}
-			}
-
-			return $transient;
 		}
 
 		/**

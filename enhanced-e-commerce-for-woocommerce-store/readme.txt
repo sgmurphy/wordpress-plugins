@@ -8,8 +8,8 @@ Author: Conversios
 Requires at least: 4.6
 Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 7.0.11
-Version: 7.0.11
+Stable tag: 7.0.12
+Version: 7.0.12
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -400,6 +400,9 @@ Enable auto-updates in your WordPress store for automatic updates or manually do
 
 
 == Changelog ==
+= 7.0.12 - 24/05/2024 =
+* Added menu channel configuration in Product Feed for channel auth.
+
 = 7.0.11 - 24/05/2024 =
 * GA4 360 lead form.
 

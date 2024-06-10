@@ -844,6 +844,188 @@ class WPvivid_Uploads_Scanner
         }
         //
 
+        //
+        $meta_key="(meta_key = 'image')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+
+        $meta_key="(meta_key = 'imagem')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+
+        $meta_key="(meta_key = 'bild1')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+
+        $meta_key="(meta_key = 'bild2')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+
+        $meta_key="(meta_key = 'bild3')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+
+        $meta_key="(meta_key = 'bild4')";
+        $query=$wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND $meta_key",$post);
+        $metas = $wpdb->get_col($query);
+        foreach ($metas as $meta)
+        {
+            if ( is_numeric( $meta ) )
+            {
+                if ( $meta > 0 )
+                    array_push( $postmeta_images_ids, $meta );
+                continue;
+            }
+            else if ( is_serialized( $meta ) )
+            {
+                $decoded = @unserialize( $meta );
+                if ( is_array( $decoded ) )
+                {
+                    $this->array_to_ids_or_urls( $decoded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+            else {
+                $exploded = explode( ',', $meta );
+                if ( is_array( $exploded ) )
+                {
+                    $this->array_to_ids_or_urls( $exploded, $postmeta_images_ids, $postmeta_images_urls );
+                    continue;
+                }
+            }
+        }
+        //
+
         $files=array();
 
         foreach ($postmeta_images_ids as $id)

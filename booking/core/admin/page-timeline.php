@@ -91,7 +91,7 @@ class WPBC_Page_CalendarOverview extends WPBC_Page_Structure {
         //   T o o l b a r s   /////////////////////////////////////////////////
         wpbc_timeline_toolbar();                                                
      
-        ?><div class="clear" style="height:40px;"></div><?php
+        ?><div class="clear" style="height:25px;"></div><?php
 
             // Show    T i m e L i n e   ///////////////////////////////////////
 

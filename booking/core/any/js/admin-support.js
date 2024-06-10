@@ -15,9 +15,12 @@
  * When  click  on Navigation Column menu
  */
 function wpbc_navigation_click_show_section( _this, section_id_to_show ){
+    var container_to_hide_class = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '.postbox';
+
     jQuery( _this ).parents( '.wpbc_settings_flex_container' ).find( '.wpbc_settings_navigation_item_active' ).removeClass( 'wpbc_settings_navigation_item_active' );
     jQuery( _this ).parents( '.wpbc_settings_navigation_item' ).addClass( 'wpbc_settings_navigation_item_active' );
-    jQuery( _this ).parents( '.wpbc_settings_flex_container' ).find( '.postbox' ).hide();
+    jQuery( _this ).parents( '.wpbc_settings_flex_container' ).find( container_to_hide_class ).hide();
+    jQuery( '.wpbc_container_always_hide__on_left_nav_click' ).hide();
     jQuery( section_id_to_show ).show();
 
     //jQuery( _this ).trigger( 'blur' );
@@ -25,7 +28,7 @@ function wpbc_navigation_click_show_section( _this, section_id_to_show ){
 
     //FixIn: 9.8.6.1
     var section_id_tab = section_id_to_show.substring( 0, section_id_to_show.length - 8 ) + '_tab';
-    if ('.postbox'== section_id_to_show){
+    if ( container_to_hide_class == section_id_to_show ){
         section_id_tab = '#wpbc_general_settings_all_tab'
     }
     if ('#wpbc_general_settings_capacity_metabox,#wpbc_general_settings_capacity_upgrade_metabox'== section_id_to_show){
@@ -109,13 +112,13 @@ function wpbc_admin_show_message_processing( message_type ){
     var message = '' ;
     
     if ( message_type == 'saving' )
-        message += wpbc_message_saving;
+        message += _wpbc.get_message( 'message_saving' );
     else if ( message_type == 'updating' )
-        message += wpbc_message_updating;
+        message += _wpbc.get_message( 'message_updating' );
     else if ( message_type == 'deleting' )
-        message += wpbc_message_deleting;
+        message += _wpbc.get_message( 'message_deleting' );
     else 
-        message += wpbc_message_processing;
+        message += _wpbc.get_message( 'message_processing' );
       
     if ( message == 'undefined' )  
         message = 'Processing'
@@ -306,7 +309,7 @@ function wpbc_verify_window_opening( us_id, window_id ){
 
 
         jQuery.ajax({                                           // Start Ajax Sending
-                url: wpbc_ajaxurl,
+                url: wpbc_url_ajax,
                 type:'POST',
                 success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
                 error:function (XMLHttpRequest, textStatus, errorThrown){ window.status = 'Ajax sending Error status:'+ textStatus; alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText); if ( XMLHttpRequest.status == 500 ) { alert('Error: 500'); } } ,
@@ -339,7 +342,7 @@ function wpbc_save_custom_user_data( us_id, data_name, data_value , is_reload ){
         wpbc_admin_show_message_processing( 'saving' );   
 
         jQuery.ajax({                                           // Start Ajax Sending
-                url: wpbc_ajaxurl,
+                url: wpbc_url_ajax,
                 type:'POST',
                 success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
                 error:function (XMLHttpRequest, textStatus, errorThrown){ window.status = 'Ajax sending Error status:'+ textStatus; alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText); if ( XMLHttpRequest.status == 500 ) { alert('Error: 500'); } } ,
@@ -415,7 +418,7 @@ function wpbc_submit_client_form( submit_form, wpdev_active_locale ){
             }                      
 
             // Get value in selectbox of multiple selection
-            if (element.type =='select-multiple') {
+            if ( (element.type == 'selectbox-multiple') || (element.type == 'select-multiple') ){
                 inp_value = jQuery('[name="'+element.name+'"]').val() ;
                 if ( ( inp_value == null ) || ( inp_value.toString() == '' ) )
                     inp_value='';
@@ -435,18 +438,18 @@ function wpbc_submit_client_form( submit_form, wpdev_active_locale ){
                 
                 if  ( ( element.type =='checkbox' ) && ( element.checked === false ) ) {
                     if ( ! jQuery(':checkbox[name="'+element.name+'"]', submit_form).is(":checked") ) {
-                        wpbc_show_error_message( element , wpbc_global1.message_verif_requred_for_check_box);
+                        wpbc_show_error_message( element , _wpbc.get_message( 'message_check_required_for_check_box' ) );
                         return;                            
                     }
                 }
                 if  ( element.type =='radio' ) {
                     if ( ! jQuery(':radio[name="'+element.name+'"]', submit_form).is(":checked") ) {
-                        wpbc_show_error_message( element , wpbc_global1.message_verif_requred_for_radio_box);
+                        wpbc_show_error_message( element , _wpbc.get_message( 'message_check_required_for_radio_box' ) );
                         return;                            
                     }
                 }
                 if  ( ( element.type !='checkbox' ) && ( element.type !='radio' ) && ( inp_value === '' ) ) {
-                    wpbc_show_error_message( element , wpbc_global1.message_verif_requred);
+                    wpbc_show_error_message( element , _wpbc.get_message( 'message_check_required' ) );
                     return;
                 }
             }
@@ -455,7 +458,7 @@ function wpbc_submit_client_form( submit_form, wpdev_active_locale ){
             if ( element.className.indexOf( 'wpbc-validate-email' ) !== -1 ){                
                 var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,})$/;
                 if ( ( inp_value != '' ) && ( reg.test(inp_value) == false ) ) {
-                    wpbc_show_error_message( element ,  wpbc_global1.message_verif_email );
+                    wpbc_show_error_message( element ,  _wpbc.get_message( 'message_check_email' ) );
                     return;
                 }
             }
@@ -474,7 +477,7 @@ function wpbc_submit_client_form( submit_form, wpdev_active_locale ){
 
                         // Recheck the values of the both emails, if they do  not equla show warning                    
                         if ( jQuery('[name="' + primary_email_name  + '"]').val() !== inp_value ) {
-                            wpbc_show_error_message( element , message_verif_same_emeil );return;
+                            wpbc_show_error_message( element , _wpbc.get_message( 'message_check_same_email' ) );return;
                         }
                     }
                 }
@@ -739,7 +742,7 @@ function wpbc_reset_wp_editor_content( editor_textarea_id, editor_textarea_conte
 function wpbc_dismiss_window(us_id,  window_id ){
 
     jQuery.ajax({                                           // Start Ajax Sending                        
-            url: wpbc_ajaxurl,
+            url: wpbc_url_ajax,
             type:'POST',
             success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
             error:function (XMLHttpRequest, textStatus, errorThrown){window.status = 'Ajax sending Error status:'+ textStatus;alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText);if (XMLHttpRequest.status == 500) {alert('Please check at this page according this error:' + ' https://wpbookingcalendar.com/faq/#ajax-sending-error');}},

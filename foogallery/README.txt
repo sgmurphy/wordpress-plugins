@@ -1,20 +1,20 @@
-=== Best WordPress Gallery Plugin – FooGallery ===
+=== FooGallery – Responsive Photo Gallery, Image Viewer, Justified, Masonry & Carousel ===
 Contributors: bradvin, steveush, fooplugins
 Donate link: https://fooplugins.com
 Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 5.3
 Tested up to: 6.5
-Stable tag: 2.4.15
+Stable tag: 2.4.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The best WordPress gallery plugin. Create stunning galleries in minutes, with advanced settings for complete customization and control.
+Create stunning, SEO optimized galleries using beautiful pre-built templates or advanced settings for complete customization and control.
 
 == Description ==
 
 = WordPress Gallery Plugin =
 
-Make galleries in WordPress great again with FooGallery! Add a stunning gallery to your website in under 1 minute using our beautiful pre-built templates, or if you want more control, then take advantage of all our advanced settings to customsize your galleries to look exactly the way you want.
+FooGallery is a powerful and easy-to-use WordPress gallery plugin that lets you create stunning photo galleries, image viewers, Justified & Masonry grids, Carousels and image portfolios. With advanced customization options and beautiful pre-built templates, FooGallery is perfect for creating responsive image galleries with lightbox effects for any website.
 
 [Launch Your Own FooGallery Demo](https://app.instawp.io/launch?t=foogallery-free&d=v2)
 
@@ -28,17 +28,6 @@ FooGallery was built to be highly configurable and extendable for developers or 
 That is why we think FooGallery is the best WordPress gallery plugin. After using it, we hope you will agree.
 
 [Visit the FooGallery Homepage](https://fooplugins.com/foogallery-wordpress-gallery-plugin/)
-
-= Performance Updates for Google's Core Web Vitals =
-
-A faster gallery now means a more favourable ranking in Google!
-FooGallery has been specifically optimized to score better for Google's Core Web Vitals update in 2021.
-We have focused on the speed of our javascript code, and also improved the visual stability of all gallery layouts.
-This has led to dramatically better scores for the 3 key lighthouse factors including:
-
-*   Largest Contentful Paint - galleries load and appear quicker for your visitors
-*   First Input Delay - you can interact with the gallery sooner
-*   Cumulative Layout Shift - gallery images shift around a lot less than before!
 
 = WordPress Gallery Plugin Features =
 
@@ -253,6 +242,17 @@ First thing to do is restore your site to it's previous working state.
     * What error was shown when your site was broken?
     * What plugins and theme are you using?
 
+= Do you care for Google's Core Web Vitals? =
+
+A faster gallery now means a more favourable ranking in Google!
+FooGallery has been specifically optimized to score better for Google's Core Web Vitals update in 2021.
+We have focused on the speed of our javascript code, and also improved the visual stability of all gallery layouts.
+This has led to dramatically better scores for the 3 key lighthouse factors including:
+
+*   Largest Contentful Paint - galleries load and appear quicker for your visitors
+*   First Input Delay - you can interact with the gallery sooner
+*   Cumulative Layout Shift - gallery images shift around a lot less than before!
+
 = I purchased a PRO license, but the Free version is still running. =
 
 Make sure you are running the PRO version. You can check this by visiting the FooGallery -> Account page within the WordPress admin.
@@ -321,6 +321,12 @@ Please update in order for FooGallery to work in WP 5.5+!
 
 == Changelog ==
 
+= 2.4.16 =
+* Date Updated : 9 June 2024
+* Fix : enhanced sanitization for album settings in admin.
+* Update : FooGallery client side 2.1.3
+* Update : Freemius SDK update 2.7.2
+
 = 2.4.15 =
 * Date Updated : 23 March 2024
 * Fix : disabled the Custom Attributes setting under advanced gallery settings as it was unsafe.
@@ -357,7 +363,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * New : Overhauled features listing, and added a bunch of features to the list, which can be activated/deactivated like plugins.
 * Fix : added sanitization to advanced gallery settings.
 
-
 = 2.3.4 =
 * Date Updated : 6 Sep 2023
 * Fix : fixed bug with demo galleries not using the default lightbox
@@ -378,13 +383,11 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Date Updated : 1 July 2023
 * Update : Updated to Freemius SDK 2.5.10
 
-
 = 2.2.42 =
 * Date Updated : 31 May 2023
 * Update : Updated to Freemius SDK 2.5.8
 * Fix : Attachment custom target bug in attachment modal.
 * Update : Improved UX : when changing gallery template, settings tab state is remembered.
-
 
 = 2.2.41 =
 * Date Updated : 10 Apr 2023
@@ -392,7 +395,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : FooGallery client side 2.0.45
 * Fix : Minor bug and styling fixes in advanced attachment modal.
 * Fix : Minor security issue fixed on the FooGallery edit page (logged in administrators only).
-
 
 = 2.2.35 =
 * Date Updated : 4 Mar 2023
@@ -405,8 +407,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Fixed album shortcode bug when gallery shortcode is changed with the white-labelling feature.
 
 
-
-
 = 2.2.26 =
 * Date Updated : 2022-11-12
 * Fix : import/export include error on some installs.
@@ -417,14 +417,12 @@ Please update in order for FooGallery to work in WP 5.5+!
 * New : Added new BETA attachment modal on gallery edit page, which is an easier way to edit attachment info. (Turned on from settings)
 * Update : FooGallery client side 2.0.39
 
-
 = 2.2.20 =
 * Date Updated : 2022-09-05
 * Fix : Fixed Justified last row + filter bug.
 * Fix : Fixed iOS swipe bug.
 * Fix : Fixed PHP warning when using taxonomy datasource originating from woocommerce product linking.
 * Update : FooGallery client side 2.0.38
-
 
 = 2.2.16 =
 * Date Updated : 2022-08-16
@@ -439,12 +437,10 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : FooGallery client side 2.0.35
 * Update : Updated to Freemius SDK 2.4.5
 
-
 = 2.2.8 =
 * Date Updated : 2022-05-01
 * Fix : Fixed custom JS & CSS being saved as double encoded
 * Fix : Removed filter support for older AIOSEO versions.
-
 
 = 2.2.7 =
 * Date Updated : 2022-04-15
@@ -459,11 +455,9 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Fixed conflict with image lazy loading in Safari 15.4, by adding loading=eager
 * Update : FooGallery client side 2.0.30
 
-
 = 2.1.35 =
 * Date Updated : 2022-03-08
 * Fix : Fixed PHP warning on Widget Editor page in admin
-
 
 = 2.1.34 =
 * Date Updated : 2022-03-01
@@ -479,16 +473,13 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : il8n bug where il8n script was not being included in page in some scenarios.
 * Fix : Removed Gutenberg editor warnings when using the FooGallery block.
 
-
 = 2.1.28 =
 * Date Updated : 2021-10-27
 * Fix : Fixed issue when no attachments being saved when updating gallery, in some scenarios.
 * Update : Updated features on help page. Updated links to correct URL's.
 
-
 = 2.1.24 =
 * Date Updated : 2021-10-16
-
 
 = 2.1.18 =
 * Date Updated : 2021-09-01
@@ -500,7 +491,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Added logic to generate unique ID's for the gallery container if the gallery is included more than once on a page.
 * New : Added custom pagination theme
 
-
 = 2.0.39 =
 * Date Updated : 2021-06-12
 * Fix : Changed how attachment full size image details are determined, when there are issues in certain setups
@@ -509,7 +499,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Updated lazyload placeholder SVG to include width and height attributes
 * Fix : Updated help page demo's to use correct placeholders
 * Update : FooGallery client side 2.0.16
-
 
 = 2.0.35 =
 * Date Updated : 2021-05-20
@@ -530,12 +519,10 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : Added "Last Row" gallery setting back for Justified Galleries
 * Fix : Fixed bug with custom URL's not working for Single Thumbnail galleries
 
-
 = 2.0.24 =
 * Date Updated : 2021-18-04
 * Update : FooGallery client side 2.0.11
 * Fix : Fixed compatibility with WPRocket and rendering inline script of gallery items json
-
 
 = 2.0.20 =
 * Date Updated : 2021-11-04
@@ -562,7 +549,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Compatible with WP Rocket Lazy loading
 * Fix : Javascript error with Masonry related to script dependencies when using script minifiers
 
-
 = 1.10.4 =
 * Date Updated : 2021-02-03
 * Fix : fix for fatal error running pre WP5 : Fatal error: Uncaught ArgumentCountError: Too few arguments to function FooGallery_Thumb_Engine_Default::delete_cache_folder_for_attachment()
@@ -581,7 +567,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : Updated to Freemius SDK 2.4.2
 * Fix : updated FooGallery block category to 'media'
 
-
 = 1.9.53 =
 * Date Updated : 2021-23-01
 * Update : FooGallery client side 1.4.26
@@ -589,16 +574,13 @@ Please update in order for FooGallery to work in WP 5.5+!
 = 1.9.52 =
 * Date Updated : 2021-22-01
 
-
 = 1.9.50 =
 * Date Updated : 2021-21-01
-
 * Fix : fixed incorrect settings showing for certain gallery templates
 
 = 1.9.49 =
 * Date Updated : 2021-13-01
 * Fix : Advanced settings for a gallery to properly override settings rather than merge
-
 
 = 1.9.48 =
 * Date Updated : 2021-11-01
@@ -611,19 +593,15 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : fixed PHP warning on activation
 * Test : tested PHP8 support!
 
-
 = 1.9.47 =
 * Date Updated : 2020-16-10
-
 
 = 1.9.46 =
 * Date Updated : 2020-15-10
 
-
 = 1.9.45 =
 * Date Updated : 2020-15-10
 * Fix : Updated albums to use FooGallery stylesheet enqueue function
-
 
 = 1.9.44 =
 * Date Updated : 2020-12-06
@@ -633,7 +611,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : removed localStorage checks, so that browser does not say that cookies are in use
 * Update : FooGallery client side 1.4.24
 * Update : Frontend gallery initialization now uses custom ready event by default, to avoid jQuery errors
-
 
 = 1.9.40 =
 * Date Updated : 2020-11-29
@@ -663,7 +640,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Date Updated : 2020-10-12
 * Fix : Fix for thumbnail generation not working when upload folder is not HTTPS
 
-
 = 1.9.34 =
 * Date Updated : 2020-08-30
 * Fix : Fix for incorrect captions in some scenarios
@@ -674,7 +650,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Date Updated : 2020-08-07
 * Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery preview button was not showing)
 
-
 = 1.9.30 =
 * Date Updated : 2020-08-03
 * Fix : IMPORTANT fix for WP 5.5 compatibility when editing galleries (gallery template selector was not showing)
@@ -682,13 +657,11 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : improved lightbox messages when no lightboxes are installed
 * Update : Freemius SDK 2.4.0.1
 
-
 = 1.9.28 =
 * Date Updated : 2020-07-18
 * Fix : Fix for some installs showing thumbnail generation error
 * Update : better mobile support for admin settings tabs
 * Update : FooGallery client side 1.4.16
-
 
 = 1.9.26 =
 * Date Updated : 2020-06-29
@@ -696,13 +669,11 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Fix for fatal error on some versions of PHP
 * Update : FooGallery client side 1.4.15
 
-
 = 1.9.25 =
 * Date Updated : 2020-06-04
 * Fix : Fixed bug to prevent infinite loop with ResizeObserver in some themes
 * Fix : Fixed possible text-domain issue
 * Update : FooGallery client side 1.4.13
-
 
 = 1.9.24 =
 * Date Updated : 2020-05-04
@@ -725,7 +696,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Update : Freemius SDK 2.3.2
 * Update : FooGallery client side 1.4.11
 
-
 = 1.9.11 =
 * Date Updated : 2020-03-29
 * Fix : Fix for Simple Portfolio template not saving "None" for captions.
@@ -734,7 +704,6 @@ Please update in order for FooGallery to work in WP 5.5+!
 * Fix : Updated RankMath compatibility to work with pre PHP 5.4
 * New : Added filter "foogallery_build_dynamic_gallery" for dynamic gallery creation
 * New : Added WPML config file for better translations. (Also improves Polylang compatibility.)
-
 * Update : FooGallery client side 1.4.6 (including multiple bug fixes)
 
 = 1.9.8 =
@@ -743,29 +712,24 @@ Please update in order for FooGallery to work in WP 5.5+!
 * New : Added new setting under Hover Effects : Invert Color. Invert the caption icon colors from dark to light.
 * New : All hover and loading icons converted to SVG format.
 * New : Lazy load gallery images when editing a gallery (improved performance for large galleries in the admin).
-
 * Fix : Previews not updating in some cases.
 * Update : FooGallery client side 1.4.0 (MAJOR UPDATE).
 
 = 1.8.20 =
 * Date Updated : 2019-11-22
 * Fix : Fix for Masonry template layout issue in Firefox
-
 * Update : FooGallery client side 1.3.6
 
 = 1.8.18 =
 * Date Updated : 2019-10-23
 * New : Elementor compatibility - gallery previews in Elementor editor work, and added a FooGallery widget to the Elementor editor
-
 * Fix : Images in Yoast SEO sitemaps pull correctly for all types of gallery embedding
 * Fix : Lazy-load issues on certain browsers (reverted back to old logic)
 * Fix : Updated WPThumb so that images with querystrings in the URL will work
 * Fix : Minor security issue fixed on the FooGallery settings page (only exploitable by administrators)
 
 = 1.8.14 =
-
 * New : Added setting to move "Add Media" button to front of attachment listing (Advanced tab in FooGallery Settings)
-
 * Fix : Lazy-load issues with Gutenberg Editor
 * Fix : Simple portfolio layout issue with certain themes
 * Update : FooGallery client side 1.3.4

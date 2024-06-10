@@ -134,6 +134,7 @@ if (!class_exists('TVC_Ajax_File')) :
         $formdata = array();
         $formdata['to'] = sanitize_text_field($_POST["sendmail_to"]);
         $formdata['cc'] = sanitize_text_field($_POST["sendmail_cc"]);
+        $formdata['bcc'] = sanitize_text_field($_POST["sendmail_bcc"]);
         $formdata['subject'] = sanitize_text_field($_POST["sendmail_subject"]);
         $formdata['message'] = $emailmessage;
         $formdata['subscription_id'] = isset($_POST['subscription_id']) ? sanitize_text_field($_POST['subscription_id']) : "";

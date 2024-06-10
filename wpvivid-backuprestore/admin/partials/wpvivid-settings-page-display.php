@@ -615,12 +615,12 @@ function wpvivid_advanced_settings()
     </div>
     <div class="postbox schedule-tab-block wpvivid-setting-addon" style="margin-bottom: 10px; padding-bottom: 0;">
         <div class="wpvivid-element-space-bottom">
-            <strong><?php esc_html_e('Compress method.', 'wpvivid-backuprestore'); ?></strong>
+            <strong><?php esc_html_e('Backup compression method.', 'wpvivid-backuprestore'); ?></strong>
         </div>
         <div class="wpvivid-element-space-bottom">
             <label>
                 <input type="radio" option="setting" name="zip_method" value="ziparchive" <?php echo esc_attr($zip_method_archive); ?> />
-                <span class="wpvivid-element-space-right"><strong>ZipArchive</strong></span><span><?php esc_html_e('ZipArchive has a better flexibility which provides a higher backup success rate and speed. It is also the default zip method WPvivid pro uses. Using this method requires the ZIP extension to be installed within your PHP.', 'wpvivid-backuprestore'); ?></span>
+                <span class="wpvivid-element-space-right"><strong>ZipArchive</strong></span><span><?php esc_html_e('ZipArchive has a better flexibility which provides a higher backup success rate and speed. WPvivid Backup Plugin uses ZipArchive method by default. Using this method requires the ZIP extension to be installed within your PHP.', 'wpvivid-backuprestore'); ?></span>
             </label>
         </div>
         <div class="wpvivid-element-space-bottom">
@@ -635,7 +635,7 @@ function wpvivid_advanced_settings()
             <div><strong><?php esc_html_e('Compress Files Every', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">
                 <input type="text" placeholder="200" option="setting" name="max_file_size" id="wpvivid_max_zip" class="all-options" value="<?php echo esc_attr(str_replace('M', '', $max_file_size)); ?>" onkeyup="value=value.replace(/\D/g,'')" />MB
-                <div><p><?php esc_html_e( 'Some web hosting providers limit large zip files (e.g. 200MB), and therefore splitting your backup into many parts is an ideal way to avoid hitting the limitation if you are running a big website.  Please try to adjust the value if you are encountering backup errors. If you use a value of 0 MB, any backup files won\'t be split.', 'wpvivid-backuprestore' ); ?></div></p>
+                <div><p><?php esc_html_e( 'Some web hosting providers limit large zip files (e.g. 200MB), and therefore splitting your backup into many parts is an ideal way to avoid hitting the limitation if you are running a big website.  Please try to adjust the value if you are encountering backup errors. When you set a value of 0MB, backups will be split every 4GB.', 'wpvivid-backuprestore' ); ?></div></p>
             </div>
             <div><strong><?php esc_html_e('Exclude the files which are larger than', 'wpvivid-backuprestore'); ?></strong></div>
             <div class="setting-tab-block">

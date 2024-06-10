@@ -1,11 +1,11 @@
 ﻿=== Click To Chat App ===
 Contributors: quadlayers
 Donate link: https://quadlayers.com/products/whatsapp-chat/
-Tags: whatsapp, whatsapp business, click to chat, Social Chat, woocommerce whatsapp, whatsapp support, whatsapp group, whatsapp message, whatsapp woocommerce, whatsapp wordpress, whatsapp floating button, whatsapp icon,  whats app, wame, wp social chat, join chat, wp whatsapp
+Tags: whatsapp, whatsapp business, click to chat, whatsapp chat, woocommerce whatsapp
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 7.3.9
+Stable tag: 7.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,12 @@ Don't use: +001-(555)1234567
 * Brazilian Portuguese (thanks to [Dionizio Bach](@djio))
 
 == Changelog ==
+
+= 7.4.1 =
+* WhatsApp tags update
+
+= 7.4.0 =
+* WhatsApp tags update
 
 = 7.3.9 =
 * WordPress compatibility

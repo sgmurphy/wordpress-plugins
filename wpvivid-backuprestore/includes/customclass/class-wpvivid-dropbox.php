@@ -436,9 +436,10 @@ class WPvivid_Dropbox extends WPvivid_Remote
                                 else
                                 {
                                     $tmp_options['type'] = WPVIVID_REMOTE_DROPBOX;
-                                    $tmp_options['access_token']= sanitize_text_field($_POST['code']);
+                                    $tmp_options['access_token']= base64_encode(sanitize_text_field($_POST['code']));
                                     $tmp_options['expires_in'] = sanitize_text_field($_POST['expires_in']);
-                                    $tmp_options['refresh_token'] = sanitize_text_field($_POST['refresh_token']);
+                                    $tmp_options['refresh_token'] = base64_encode(sanitize_text_field($_POST['refresh_token']));
+                                    $tmp_options['is_encrypt'] = 1;
                                     update_option('wpvivid_tmp_remote_options',$tmp_options);
                                 }
                                 $this->add_remote=true;

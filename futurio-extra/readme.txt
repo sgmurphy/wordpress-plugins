@@ -4,7 +4,7 @@ Author URI: https://futuriowp.com/about/
 Plugin URL: https://futuriowp.com/
 Requires at Least: 4.4
 Tested Up To: 6.5
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: elementor, shortcodes, demo, page builder, woocommerce, widgets, templates
@@ -59,6 +59,10 @@ This plugin will only work with the [Futurio](https://futuriowp.com/) theme.
 
 == Changelog ==
 
+= 2.0.6 =
+* Security fixes and updates
+* Tested with Elementor 3.22
+* Tested with WooCommerce 9.0
 
 = 2.0.5 =
 * Fixed deprecated error for PHP 8.2

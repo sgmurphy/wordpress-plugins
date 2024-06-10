@@ -151,7 +151,7 @@ class WPBC_AJX_Bookings {
 													"status": "",
 													"sort_date": "2022-02-03 12:00:01",
 													"modification_date": "2022-03-14 17:48:23",
-													"form": "select-one^rangetime2^12:00 - 14:00~text^name2^Anthony~text^secondname2^Gomez~text^email2^Gomez.example@wpbookingcalendar.com~text^address2^144 Hitchcock Rd~text^city2^Jacksonville~text^postcode2^38374~text^country2^US~text^phone2^988-48-45~select-one^visitors2^3~checkbox^children2[]^2~textarea^details2^",
+													"form": "selectbox-one^rangetime2^12:00 - 14:00~text^name2^Anthony~text^secondname2^Gomez~text^email2^Gomez.example@wpbookingcalendar.com~text^address2^144 Hitchcock Rd~text^city2^Jacksonville~text^postcode2^38374~text^country2^US~text^phone2^988-48-45~selectbox-one^visitors2^3~checkbox^children2[]^2~textarea^details2^",
 													"hash": "993086af7a382f3956e6a0010932c856",
 													"booking_type": "2",
 													"remark": null,

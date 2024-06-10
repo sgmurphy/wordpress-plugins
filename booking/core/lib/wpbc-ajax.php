@@ -397,8 +397,10 @@ function wpbc_ajax_USER_SAVE_CUSTOM_DATA() {
 function wpbc_ajax_BOOKING_SEARCH() {
         
     if ( ! wpdev_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10
-	
-    make_bk_action('wpdev_ajax_booking_search');        
+
+	if ( function_exists( 'wpbc_ajax_start_searching' ) ) {
+		wpbc_ajax_start_searching();
+	}
 }
 
 

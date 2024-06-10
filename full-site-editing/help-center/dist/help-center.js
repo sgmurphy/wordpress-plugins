@@ -35472,7 +35472,7 @@ function resolveRelativePath(basePath, relativePath) {
 /* harmony import */ var _get_computed_attributes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32852);
 
 
-const allowedKeys = ['ID', 'display_name', 'username', 'avatar_URL', 'site_count', 'jetpack_site_count', 'atomic_site_count', 'visible_site_count', 'jetpack_visible_site_count', 'atomic_visible_site_count', 'date', 'has_unseen_notes', 'newest_note_type', 'phone_account', 'email', 'email_verified', 'is_valid_google_apps_country', 'user_ip_country_code', 'logout_URL', 'primary_blog', 'primary_blog_is_jetpack', 'has_jetpack_partner_access', 'jetpack_partner_types', 'primary_blog_url', 'meta', 'is_new_reader', 'social_login_connections', 'abtests', 'lasagna_jwt', 'i18n_empathy_mode', 'use_fallback_for_incomplete_languages', 'is_google_domain_owner', 'had_hosting_trial'];
+const allowedKeys = ['ID', 'display_name', 'username', 'avatar_URL', 'site_count', 'jetpack_site_count', 'atomic_site_count', 'visible_site_count', 'jetpack_visible_site_count', 'atomic_visible_site_count', 'date', 'has_unseen_notes', 'newest_note_type', 'phone_account', 'email', 'email_verified', 'is_valid_google_apps_country', 'user_ip_country_code', 'logout_URL', 'primary_blog', 'primary_blog_is_jetpack', 'has_jetpack_partner_access', 'jetpack_partner_types', 'primary_blog_url', 'meta', 'is_new_reader', 'social_login_connections', 'abtests', 'lasagna_jwt', 'i18n_empathy_mode', 'use_fallback_for_incomplete_languages', 'is_google_domain_owner', 'had_hosting_trial', 'is_subscription_only'];
 const requiredKeys = ['ID'];
 const decodedKeys = ['display_name', 'description', 'user_URL'];
 function filterUserObject(obj) {
@@ -35906,7 +35906,7 @@ function wpcomSupport(wpcom) {
 
 
 // For Calypso in Jetpack, these API namespaces are accessed from the site, not from wp.com.
-const DIRECT_API_NAMESPACES = ['jetpack/v4', 'my-jetpack/v1', 'jetpack/v4/blaze-app'];
+const LOCAL_API_NAMESPACES = ['jetpack/v4', 'my-jetpack/v1', 'jetpack/v4/blaze-app'];
 /* harmony default export */ async function __WEBPACK_DEFAULT_EXPORT__(params, callback) {
   const xhr = (await __webpack_require__.e(/* import() | wpcom-xhr-request */ 568).then(__webpack_require__.bind(__webpack_require__, 86703))).default;
   return xhr(params, async function (error, response, headers) {
@@ -35926,7 +35926,7 @@ async function jetpack_site_xhr_wrapper(params, callback) {
       'X-WP-Nonce': (0,_automattic_calypso_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Ay)('nonce')
     },
     isRestAPI: false,
-    apiNamespace: DIRECT_API_NAMESPACES.includes(params.apiNamespace) ? params.apiNamespace : 'jetpack/v4/stats-app'
+    apiNamespace: LOCAL_API_NAMESPACES.includes(params.apiNamespace) || params.isLocalApiCall ? params.apiNamespace : 'jetpack/v4/stats-app'
   };
   return xhr(params, async function (error, response, headers) {
     if (error && error.name === 'InvalidTokenError') {
@@ -46257,15 +46257,10 @@ function requestSites() {
       filters: siteFilter.length > 0 ? siteFilter.join(',') : undefined
     }).then(response => {
       const jetpackCloudSites = response.sites.filter(site => {
-        // Filter Jetpack Cloud sites to exclude P2 sites by default.
+        // Filter Jetpack Cloud sites to exclude P2 and Simple non-Classic sites by default.
         const isP2 = site?.options?.is_wpforteams_site;
-        let filterCondition = !isP2;
-        // Filter out simple sites if feature flag is not enabled.
-        if (!(0,_automattic_calypso_config__WEBPACK_IMPORTED_MODULE_0__/* .isEnabled */ .Ol)('jetpack/manage-simple-sites')) {
-          const isSimple = !site?.jetpack && !site?.is_wpcom_atomic;
-          filterCondition = !isP2 && !isSimple;
-        }
-        return filterCondition;
+        const isSimpleClassic = !site?.jetpack && !site?.is_wpcom_atomic && site?.options?.wpcom_admin_interface !== 'wp-admin';
+        return !isP2 && !isSimpleClassic;
       });
       dispatch(receiveSites((0,calypso_lib_jetpack_is_jetpack_cloud__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)() ? jetpackCloudSites : response.sites));
       dispatch({
@@ -61996,7 +61991,7 @@ const HelpCenterContactForm = props => {
       return __('Gathering quick response.', "full-site-editing");
     }
     if (mode === 'CHAT' && showingHelpOrGPTResults) {
-      return __('Still chat with us', "full-site-editing");
+      return __('Still contact us', "full-site-editing");
     }
     if (mode === 'EMAIL' && showingHelpOrGPTResults) {
       return __('Still email us', "full-site-editing");
@@ -62659,11 +62654,15 @@ const HelpCenterContent = ({
     (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__/* .recordTracksEvent */ .Oy)(eventName, properties);
   }, []);
   const setOdieStorage = (0,_automattic_odie_client__WEBPACK_IMPORTED_MODULE_11__/* .useSetOdieStorage */ .sS)('chat_id');
+
+  // Disabled component only applies the class if isDisabled is true, we want it always.
+  const OptionalDisabled = isMinimized ? _wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Disabled : props => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", props);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CardBody, {
     ref: containerRef,
     className: "help-center__container-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Disabled, {
-    isDisabled: isMinimized
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(OptionalDisabled, {
+    isDisabled: isMinimized,
+    className: "help-center__container-content-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Routes */ .BV, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {
     path: "/",
     element: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_search__WEBPACK_IMPORTED_MODULE_12__/* .HelpCenterSearch */ .j, {
@@ -65278,7 +65277,7 @@ const useContactFormTitle = mode => {
     CHAT: {
       formTitle: __('Contact WordPress.com Support', "full-site-editing"),
       trayText: __('Our WordPress experts will be with you right away', "full-site-editing"),
-      buttonLabel: __('Chat with us', "full-site-editing"),
+      buttonLabel: __('Contact us', "full-site-editing"),
       buttonSubmittingLabel: __('Connecting to chat', "full-site-editing")
     },
     EMAIL: {
@@ -68307,17 +68306,9 @@ const ChatMessage = ({
 
 
 
-
-/**
- * This might be synced with CSS in client/odie/message/style.scss, which is half of the height for the gradient.
- * Used to calculate the bottom offset for the jump to recent button, so it doesn't overlap with the last message.
- * Also, making it twice as big, will prevent the gradient to be not visible when the input grows/shrinks in height.
- */
-const heightOffset = 48;
 const JumpToRecent = ({
   scrollToBottom,
-  enableJumpToRecent,
-  bottomOffset
+  enableJumpToRecent
 }) => {
   const {
     trackEvent,
@@ -68336,10 +68327,7 @@ const JumpToRecent = ({
     'is-hidden': !enableJumpToRecent
   });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: className,
-    style: {
-      bottom: bottomOffset - heightOffset
-    }
+    className: className
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "odie-jump-to-recent-message-button",
     disabled: !enableJumpToRecent,
@@ -68658,13 +68646,11 @@ const OdieSendMessageButton = ({
     event.preventDefault();
     await sendMessageIfNotEmpty();
   };
-  const divContainerHeight = divContainerRef?.current?.clientHeight;
   const userHasAskedToContactHE = chat.messages.some(message => message.context?.flags?.forward_to_human_support === true);
   const userHasNegativeFeedback = chat.messages.some(message => message.liked === false);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_message_jump_to_recent__WEBPACK_IMPORTED_MODULE_7__/* .JumpToRecent */ .r, {
     scrollToBottom: scrollToRecent,
-    enableJumpToRecent: enableJumpToRecent,
-    bottomOffset: divContainerHeight ?? 0
+    enableJumpToRecent: enableJumpToRecent
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "odie-chat-message-input-container",
     ref: divContainerRef
@@ -69145,7 +69131,7 @@ const OdieAssistant = () => {
         if (lastMessageElement?.target) {
           lastMessageElement.target.scrollIntoView({
             behavior: 'auto',
-            block: 'start',
+            block: 'end',
             inline: 'nearest'
           });
         }

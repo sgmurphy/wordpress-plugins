@@ -57,6 +57,11 @@ $pixel_settings_arr = array(
         "title" => "TikTok Business Account",
         "topnoti" => "Product feed to TikTok catalog help you to run ads on tiktok for your product and reach out to more than 900 Million people."
     ),
+    "metasettings" => array(
+        "logo" => "/admin/images/logos/conv_fb_catalog_logo.png",
+        "title" => "Facebook Business Account",
+        "topnoti" => "Seamlessly sync and link your WooCommerce store to your FB catalog for targeted advertising, maximizing visibility and engagement through powerful FB ads. Elevate your business presence!"
+    ),
     "hotjarsettings" => array(
         "logo" => "/admin/images/logos/conv_hotjar_logo.png",
         "title" => "Hotjar Pixel",
@@ -153,7 +158,7 @@ if ($subscriptionId != "") {
                         <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . $pixel_settings_arr[$subpage]['logo']); ?>" />
                     </div>
                     <h4 class="m-0 fw-normal ms-2 fw-bold-500">
-                        <?php esc_html( $pixel_settings_arr[$subpage]['title'] ); ?>
+                        <?php echo esc_html( $pixel_settings_arr[$subpage]['title'] ); ?>
                     </h4>
                     <button class="btn text-white ms-auto d-flex justify-content-center conv-btn-connect conv-btn-connect-disabled" style="width:110px">Save</button>
                 </div>

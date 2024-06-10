@@ -44,14 +44,24 @@ class Dropbox_Base{
                 $remote_options=WPvivid_Setting::get_remote_option($this->option['id']);
                 if($remote_options!==false)
                 {
-                    $remote_options['access_token']= $result['data']['access_token'];
+                    $remote_options['access_token']= base64_encode($result['data']['access_token']);
+                    if(!isset($remote_options['is_encrypt']))
+                    {
+                        $remote_options['refresh_token']=base64_encode($remote_options['refresh_token']);
+                        $this -> refresh_token = base64_encode($this->option['refresh_token']);
+                    }
+                    else
+                    {
+                        $this -> refresh_token = $this->option['refresh_token'];
+                    }
                     $remote_options['expires_in'] = $result['data']['expires_in'];
                     $remote_options['created'] = time();
+                    $remote_options['is_encrypt']=1;
                     WPvivid_Setting::update_remote_option($this->option['id'],$remote_options);
                     $this -> access_token = $remote_options['access_token'];
                     $this -> created = $remote_options['created'];
                     $this -> expires_in = $remote_options['expires_in'];
-                    $this -> refresh_token = $this->option['refresh_token'];
+                    $this -> option['is_encrypt']=1;
 
                     $ret['result']='success';
                     return $ret;
@@ -220,8 +230,15 @@ class Dropbox_Base{
 	}
 
     public function postRequest($endpoint, $headers, $data = null,$returnjson = true) {
+        if(isset($this->option['is_encrypt']) && $this->option['is_encrypt'] == 1) {
+            $access_token=base64_decode($this -> access_token);
+        }
+        else{
+            $access_token=$this -> access_token;
+        }
+
         $ch = curl_init($endpoint);
-        array_push($headers, "Authorization: Bearer " . $this -> access_token);
+        array_push($headers, "Authorization: Bearer " . $access_token);
 
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -245,7 +262,7 @@ class Dropbox_Base{
                 if($ret['result']=='success')
                 {
                     $ch = curl_init($endpoint);
-                    array_push($headers, "Authorization: Bearer " . $this -> access_token);
+                    array_push($headers, "Authorization: Bearer " . $access_token);
 
                     curl_setopt($ch, CURLOPT_POST, TRUE);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -293,12 +310,19 @@ class Dropbox_Base{
 
     public function getRefreshToken()
     {
+        if(isset($this->option['is_encrypt']) && $this->option['is_encrypt'] == 1) {
+            $refresh_token=base64_decode($this -> refresh_token);
+        }
+        else{
+            $refresh_token=$this -> refresh_token;
+        }
+
         $options=array();
         $options['timeout']=30;
         $options['sslverify']=FALSE;
         $params = array(
             'client_id' => self::API_ID,
-            'refresh_token' => $this -> refresh_token,
+            'refresh_token' => $refresh_token,
             'version'=>1
         );
         $url = 'https://auth.wpvivid.com/dropbox_v3/?';

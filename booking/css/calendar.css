@@ -634,14 +634,15 @@ div#datepick-div textarea {
         width:100%;
     }
 }
-@media (max-width: 782px) {
-    .booking_form_div input[type="text"],
-    .booking_form_div select,
-    .booking_form_div textarea {
-        width: 100% !important;
-        min-width: 100% !important;
-    }
-}
+
+/*@media (max-width: 782px) {*/
+/*    .booking_form_div input[type="text"],*/
+/*    .booking_form_div select,*/
+/*    .booking_form_div textarea {*/
+/*        width: 100% !important;*/
+/*        min-width: 100% !important;*/
+/*    }*/
+/*}*/
 
 /*******************************************************************************/
 /*     T I M E   S L O T S        AS       D.O.T.S         //FixIn: 8.9.4.13   */

@@ -39,7 +39,7 @@ class WPBC_BookingInstall extends WPBC_Install {
                                                             . sprintf( 'If you want to save your booking data, please uncheck the %s"Delete booking data"%s at the' 
                                                                        , '<strong>', '</strong>') 
                                                             . '<a href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings' ), 'admin.php' ) ) ) 
-                                                                     . '#wpbc_general_settings_uninstall_metabox"> ' . 'settings page' . '.' 
+                                                                     . '&scroll_to_section=wpbc_general_settings_uninstall_tab"> ' . 'settings page' . '.'
                                                             . ' </a>'
                 , 'link_settings'                       => '<a href="' . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings' ), 'admin.php' ) ) ) 
                                                                        . '">'. "Settings" .'</a>'
@@ -107,7 +107,9 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
           foreach ($my_bk_types as $resource_id) {                                     // Loop all resources                                        
                 $bk_type  = $resource_id;                                              // Booking Resource
                 $min_days = 2;
-                $max_days = 7;                    
+                $max_days = 7;
+					$min_days = 1;        //FixIn: 10.0.0.51
+					$max_days = 1;        //FixIn: 10.0.0.51
                 $evry_one = $max_days+rand(1,5);                                                  // Multiplier of interval between 2 dates of different bookings
                 $days_start_shift =  rand($max_days,(3*$max_days));//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings    
 
@@ -126,8 +128,12 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $city =  wpbc_get_initial_values_4_demo('city');
                 $start_time = '14:00';
                 $end_time   = '12:00';
+					$range_time = wpbc_get_initial_values_4_demo('rangetime');        //FixIn: 10.0.0.51
+					$start_time = $range_time[0];        //FixIn: 10.0.0.51
+					$end_time   = $range_time[1];        //FixIn: 10.0.0.51
 
                 $form  = '';
+                	$form .= 'selectbox-one^rangetime'.$bk_type.'^'.$start_time.' - '.$end_time.'~';
                 $form .= 'text^name'.$bk_type.'^'.wpbc_get_initial_values_4_demo('name').'~';
                 $form .= 'text^secondname'.$bk_type.'^'.$second_name.'~';
                 $form .= 'text^email'.$bk_type.'^'.$second_name.'.example@wpbookingcalendar.com~';
@@ -136,7 +142,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $form .= 'text^postcode'.$bk_type.'^'.wpbc_get_initial_values_4_demo('postcode').'~';
                 $form .= 'text^country'.$bk_type.'^'.$city[1].'~';
                 $form .= 'text^phone'.$bk_type.'^'.wpbc_get_initial_values_4_demo('phone').'~';
-                $form .= 'select-one^visitors'.$bk_type.'^1~';
+                $form .= 'selectbox-one^visitors'.$bk_type.'^1~';
                 //$form .= 'checkbox^children'.$bk_type.'[]^0~';
                 $form .= 'textarea^details'.$bk_type.'^'.wpbc_get_initial_values_4_demo('info').'~';
                 $form .= 'coupon^coupon'.$bk_type.'^ ';
@@ -155,7 +161,10 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 for ($d_num = 0; $d_num < $num_days; $d_num++) {
                     $my_interval = ( $i*$evry_one + $d_num);
 
-                    $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL  -".$days_start_shift." day) + INTERVAL ".$my_interval." day  ,". $is_appr." ),";                                                
+                    // $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL  -".$days_start_shift." day) + INTERVAL ".$my_interval." day  ,". $is_appr." ),";        //FixIn: 10.0.0.51
+
+                    $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL -".$days_start_shift." DAY) + INTERVAL \"".$my_interval." ".$start_time.":01\" DAY_SECOND  ,". $is_appr." ),";        //FixIn: 10.0.0.51
+                    $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL -".$days_start_shift." DAY) + INTERVAL \"".$my_interval." ".$end_time.":02\" DAY_SECOND  ,". $is_appr." ),";        //FixIn: 10.0.0.51
                 }
                 $wp_queries_sub = substr($wp_queries_sub,0,-1) . ";";
 
@@ -171,9 +180,9 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $bk_type = 1;//rand(1,4);
                 $is_appr = rand(0,1);
                 $evry_one = 2;//rand(1,7);
-                if (  $_SERVER['HTTP_HOST'] === 'beta'  ) {
-                    $evry_one = rand(1,14);//2;//rand(1,7);
-                    $num_days = rand(1,7);//2;//rand(1,7);
+                if ( ( 'beta' === $_SERVER['HTTP_HOST'] ) || ( 'freetest.wpbookingcalendar.com' === $_SERVER['HTTP_HOST'] ) ) {
+                    $evry_one = rand(1,21);//2;//rand(1,7);
+                    $num_days = rand(1,10);//2;//rand(1,7);
                     $days_start_shift = rand(-28,0);
                 }
 
@@ -195,7 +204,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                                      approved
                                     ) VALUES ";
 
-                if (  $_SERVER['HTTP_HOST'] === 'beta'  ) {
+                if ( ( 'beta' === $_SERVER['HTTP_HOST'] ) || ( 'freetest.wpbookingcalendar.com' === $_SERVER['HTTP_HOST'] ) ) {
                     for ($d_num = 0; $d_num < $num_days; $d_num++) {
                             $wp_queries_sub .= "( ". $temp_id .", CURDATE()+ INTERVAL ".($days_start_shift + 2*($i+1)*$evry_one + $d_num)." day  ,". $is_appr." ),";
                     }
@@ -226,8 +235,8 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $form .= 'text^secondname'.$bk_type.'^'.$second_name.'~';
                 $form .= 'text^email'.$bk_type.'^'.$second_name.'.example@wpbookingcalendar.com~';
                 $form .= 'text^phone'.$bk_type.'^'.wpbc_get_initial_values_4_demo('phone').'~';
-                $form .= 'select-one^visitors'.$bk_type.'^'.rand(1,4).'~';
-                $form .= 'select-one^children'.$bk_type.'^'.rand(0,3).'~';
+                $form .= 'selectbox-one^visitors'.$bk_type.'^'.rand(1,4).'~';
+                $form .= 'selectbox-one^children'.$bk_type.'^'.rand(0,3).'~';
                 $form .= 'textarea^details'.$bk_type.'^'.wpbc_get_initial_values_4_demo('info');
 
                 $wp_bk_querie = "INSERT INTO {$wpdb->prefix}booking ( form, booking_type, hash,  modification_date ) VALUES
@@ -266,7 +275,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $end_time   = $range_time[1];
 
                 $form  = '';
-                $form .= 'select-one^rangetime'.$bk_type.'^'.$start_time.' - '.$end_time.'~';
+                $form .= 'selectbox-one^rangetime'.$bk_type.'^'.$start_time.' - '.$end_time.'~';
                 $form .= 'text^name'.$bk_type.'^'.wpbc_get_initial_values_4_demo('name').'~';
                 $form .= 'text^secondname'.$bk_type.'^'.$second_name.'~';
                 $form .= 'text^email'.$bk_type.'^'.$second_name.'.example@wpbookingcalendar.com~';
@@ -275,7 +284,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $form .= 'text^postcode'.$bk_type.'^'.wpbc_get_initial_values_4_demo('postcode').'~';
                 $form .= 'text^country'.$bk_type.'^'.$city[1].'~';
                 $form .= 'text^phone'.$bk_type.'^'.wpbc_get_initial_values_4_demo('phone').'~';
-                $form .= 'select-one^visitors'.$bk_type.'^'.rand(1,4).'~';
+                $form .= 'selectbox-one^visitors'.$bk_type.'^'.rand(1,4).'~';
                 $form .= 'checkbox^children'.$bk_type.'[]^'.rand(0,3).'~';
                 $form .= 'textarea^details'.$bk_type.'^'.wpbc_get_initial_values_4_demo('info');
 
@@ -326,7 +335,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $form .= 'text^postcode'.$bk_type.'^'.wpbc_get_initial_values_4_demo('postcode').'~';
                 $form .= 'text^country'.$bk_type.'^'.$city[1].'~';
                 $form .= 'text^phone'.$bk_type.'^'.wpbc_get_initial_values_4_demo('phone').'~';
-                $form .= 'select-one^visitors'.$bk_type.'^'.rand(1,4).'~';
+                $form .= 'selectbox-one^visitors'.$bk_type.'^'.rand(1,4).'~';
                 $form .= 'checkbox^children'.$bk_type.'[]^'.rand(0,3).'~';
                 $form .= 'textarea^details'.$bk_type.'^'.wpbc_get_initial_values_4_demo('info').'~';
                 $form .= 'text^starttime'.$bk_type.'^'.$start_time.'~';
@@ -386,7 +395,7 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 $form .= 'text^postcode'.$bk_type.'^'.wpbc_get_initial_values_4_demo('postcode').'~';
                 $form .= 'text^country'.$bk_type.'^'.$city[1].'~';
                 $form .= 'text^phone'.$bk_type.'^'.wpbc_get_initial_values_4_demo('phone').'~';
-                $form .= 'select-one^visitors'.$bk_type.'^1~';
+                $form .= 'selectbox-one^visitors'.$bk_type.'^1~';
                 //$form .= 'checkbox^children'.$bk_type.'[]^0~';
                 $form .= 'textarea^details'.$bk_type.'^'.wpbc_get_initial_values_4_demo('info').'~';
                 $form .= 'coupon^coupon'.$bk_type.'^ ';
@@ -506,7 +515,7 @@ function wpbc_set_default_initial_values( $evry_one = 1 ) {
         $form .='text^postcode'.$bk_type.'^'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).'~';
         $form .='text^country'.$bk_type.'^'.$country[$i].'~';
         $form .='text^phone'.$bk_type.'^'.rand(0,9).rand(0,9).rand(0,9).'-'.rand(0,9).rand(0,9).'-'.rand(0,9).rand(0,9).'~';
-        $form .='select-one^visitors'.$bk_type.'^'.rand(0,9).'~';
+        $form .='selectbox-one^visitors'.$bk_type.'^'.rand(0,9).'~';
         $form .='checkbox^children'.$bk_type.'[]^false~';
         $form .='textarea^details'.$bk_type.'^'.$info[$i];
 
@@ -564,12 +573,14 @@ function wpbc_reindex_booking_db(){ global $wpdb;
     // Refill the sort date index.
     if  (wpbc_is_field_in_table_exists('booking','sort_date') != 0) {
 
-        //1. Select  all bookings ID, where sort_date is NULL in wp_booking
-        $sql  = " SELECT booking_id as id" ;
-        $sql .= " FROM {$wpdb->prefix}booking as bk" ;
-        $sql .= " WHERE sort_date IS NULL" ;
-        $bookings_res = $wpdb->get_results(  $sql  );
-
+		$bookings_res = array();
+	    if ( ! wpbc_is_this_wp_playground_db() ) {        //FixIn: 10.0.0.1
+			//1. Select  all bookings ID, where sort_date is NULL in wp_booking
+			$sql          = " SELECT booking_id as id";
+			$sql          .= " FROM {$wpdb->prefix}booking as bk";
+			$sql          .= " WHERE sort_date IS NULL";
+			$bookings_res = $wpdb->get_results( $sql );
+		}
         if ($is_show_messages)  printf(__('%s Found %s not indexed bookings %s' ,'booking'),' ',count($bookings_res), '<br/>');
 
 
@@ -646,10 +657,22 @@ function wpbc_booking_activate() {
 
         $wp_queries = array();
         if ( ! wpbc_is_table_exists('booking') ) { // Check if tables not exist yet
-
+//FixIn: 10.0.0.1
             $simple_sql = "CREATE TABLE {$wpdb->prefix}booking (
-                     booking_id bigint(20) unsigned NOT NULL auto_increment,
-                     form text ,
+                     booking_id bigint(20) unsigned NOT NULL auto_increment, " .
+					 /*
+				   " booking_options TEXT,
+					 trash bigint(10) NOT NULL default 0,
+					 is_new bigint(10) NOT NULL default 1,
+					 sort_date datetime,
+					 modification_date datetime,
+					 creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					 status varchar(200) NOT NULL default '',
+					 sync_gid varchar(200) NOT NULL default '',
+					 is_trash datetime,
+					 hash TEXT, " .  /**/
+
+				   " form text ,
                      booking_type bigint(10) NOT NULL default 1,
                      PRIMARY KEY  (booking_id)
                     ) {$charset_collate};";
@@ -802,8 +825,8 @@ function wpbc_booking_activate() {
     // Fill Development server by initial bookings
     if (       ( defined( 'WP_BK_BETA_DATA_FILL' ) ) 
             && (  WP_BK_BETA_DATA_FILL > 0 )  
-        ) {        
-        if (  $_SERVER['HTTP_HOST'] === 'beta'  ) {
+        ) {
+	    if ( ( 'beta' === $_SERVER['HTTP_HOST'] ) || ( 'freetest.wpbookingcalendar.com' === $_SERVER['HTTP_HOST'] ) ) {
             $types_array = array();
             for ( $i = 0; $i < WP_BK_BETA_DATA_FILL; $i++) {
                 foreach ( range(1, 12) as $types_el) {
@@ -1174,6 +1197,8 @@ if ( WPBC_customize_plugin ){
 	$default_options['booking_form_structure_type'] = 'vertical';
 	$default_options['booking_menu_go_pro'] 		= 'show';	// show | hide
 
+	$default_options['booking_form_layout_width'] 		= '440';
+	$default_options['booking_form_layout_width_px_pr'] = 'px';
 
     ////////////////////////////////////////////////////////////////////////////
     // PS
@@ -1207,7 +1232,7 @@ if ( WPBC_customize_plugin ){
         $default_options['booking_is_email_modification_send_copy_to_admin'] = 'Off';
         $default_options['booking_resourses_num_per_page'] = '10';
      $mu_option4delete[]='booking_resourses_num_per_page';         
-        $default_options['booking_default_title_in_day_for_calendar_view_mode'] = '[id]:[name]';
+        $default_options['booking_default_title_in_day_for_calendar_view_mode'] = '[id]: [name] [secondname]';
      $mu_option4delete[]='booking_default_title_in_day_for_calendar_view_mode';
 
 	//FixIn: 8.1.3.31
@@ -1337,6 +1362,8 @@ if ( WPBC_customize_plugin ){
         $default_options['booking_booked_data_in_tooltips'] =  '[name] [secondname]';
      $mu_option4delete[]='booking_booked_data_in_tooltips';
 
+        $default_options['booking_number_for_pre_checkin_date_hint'] = '14';            //FixIn: 10.0.0.31
+     $mu_option4delete[]='booking_number_for_pre_checkin_date_hint';
         $default_options['booking_available_days_num_from_today'] = '';
      $mu_option4delete[]='booking_available_days_num_from_today';
         $default_options['booking_unavailable_extra_in_out'] = '';
@@ -1398,9 +1425,9 @@ if ( WPBC_customize_plugin ){
      $mu_option4delete[]='booking_is_dissbale_booking_for_different_sub_resources';                 
         $default_options['booking_is_resource_no_update__during_editing'] = 'On';										//FixIn: 9.4.2.3
      $mu_option4delete[]='booking_is_resource_no_update__during_editing';
-        $default_options['booking_search_form_show'] = str_replace( '\\n\\r', "\n", wpbc_get_default_search_form_template( 'flex' ) );     	//FixIn:6.1.0.1		//FixIn: 8.5.2.11
+        $default_options['booking_search_form_show'] = str_replace( '\\n\\r', "\n", wpbc_get_default_search_form_template( 'standard_search_form' ) );     	//FixIn:6.1.0.1		//FixIn: 8.5.2.11
      $mu_option4delete[]='booking_search_form_show';                 
-        $default_options['booking_found_search_item'] = str_replace( '\\n\\r', "\n", wpbc_get_default_search_results_template( 'flex' ) );  //FixIn:6.1.0.1		//FixIn: 8.5.2.11
+        $default_options['booking_found_search_item'] = str_replace( '\\n\\r', "\n", wpbc_get_default_search_results_template( 'advanced_search_results' ) );  //FixIn:6.1.0.1		//FixIn: 8.5.2.11
      $mu_option4delete[]='booking_found_search_item';                 
         $default_options['booking_cache_expiration'] = '2d';
      $mu_option4delete[]='booking_cache_expiration';
@@ -1413,12 +1440,27 @@ if ( WPBC_customize_plugin ){
         $default_options['booking_from_search_scroll_to_calendar'] = 'On';												//FixIn: 9.4.4.6
      $mu_option4delete[]='booking_from_search_scroll_to_calendar';
 
+        $default_options['booking_search_from_auto_open_checkout_cal'] = 'On';											//FixIn: 10.0.0.39
+     $mu_option4delete[]='booking_search_from_auto_open_checkout_cal';
+        $default_options['booking_search_from__search_header'] = '[result_count] ' . __('Result(s) Found','booking');	//FixIn: 10.0.0.41
+     $mu_option4delete[]='booking_search_from__search_header';
+        $default_options['booking_search_from__search_header_advanced'] = __( 'Extended Search Results', 'booking' );	//FixIn: 10.0.0.41
+     $mu_option4delete[]='booking_search_from__search_header_advanced';
+        $default_options['booking_search_from__search_nothing_found'] = __('Nothing Found','booking');
+     $mu_option4delete[]='booking_search_from__search_nothing_found';
+
+        $default_options['booking_search_form__dates_required_enabled'] = 'Off';
+     $mu_option4delete[]='booking_search_form__dates_required_enabled';
+        $default_options['booking_search_form__dates_required_warning'] = __('Please select check-in and check-out dates to perform the search.','booking');
+     $mu_option4delete[]='booking_search_form__dates_required_warning';
+
 
         //    Updated during regeneration  seacrh  cache
         //$default_options['booking_cache_content']='';
        $mu_option4delete[]='booking_cache_content';  
         //$default_options['booking_cache_created']=wpbc_datetime_localized( date ('Y-m-d H:i:s'), 'Y-m-d H:i:s' );
        $mu_option4delete[]='booking_cache_created';  
+       $mu_option4delete[]='booking_resources_search_options';                                                          //FixIn: 10.0.0.18
     }
 
 

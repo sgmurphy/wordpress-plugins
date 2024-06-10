@@ -6,7 +6,7 @@
  * Domain Path: /languages/
  * Description: Easy to add and display wp slick image slider and carousel. Also added Gutenberg block support.
  * Author: WP OnlineSupport, Essential Plugin
- * Version: 3.6
+ * Version: 3.7
  * Author URI: https://www.essentialplugin.com/wordpress-plugins/wp-slick-slider-and-image-carousel/
  *
  * @package WP Slick Slider and Image Carousel
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if( ! defined('WPSISAC_VERSION') ) {
-	define( 'WPSISAC_VERSION', '3.6' ); // Plugin version
+	define( 'WPSISAC_VERSION', '3.7' ); // Plugin version
 }
 if( ! defined( 'WPSISAC_DIR' ) ) {
 	define( 'WPSISAC_DIR', dirname( __FILE__ ) ); // Plugin dir
@@ -29,9 +29,9 @@ if( ! defined( 'WPSISAC_URL' ) ) {
 if( ! defined( 'WPSISAC_POST_TYPE' ) ) {
 	define( 'WPSISAC_POST_TYPE', 'slick_slider' ); // Plugin post type
 }
-if( ! defined( 'WPSISAC_META_PREFIX' ) ) {
-	define( 'WPSISAC_META_PREFIX', '_wpsisac_' ); // Plugin post type
-}
+// if( ! defined( 'WPSISAC_META_PREFIX' ) ) {
+// 	define( 'WPSISAC_META_PREFIX', '_wpsisac_' ); // Plugin post type
+// }
 if( ! defined( 'WPSISAC_PLUGIN_BUNDLE_LINK' ) ) {
 	define('WPSISAC_PLUGIN_BUNDLE_LINK','https://www.essentialplugin.com/pricing/?utm_source=WP&utm_medium=Slick-Slider&utm_campaign=Welcome-Screen'); // Plugin link
 }
@@ -201,7 +201,7 @@ require_once( WPSISAC_DIR . '/includes/shortcodes/wpsisac-carousel.php' );
 
 // Gutenberg Block Initializer
 if ( function_exists( 'register_block_type' ) ) {
-	require_once( WPSISAC_DIR . '/includes/admin/supports/gutenberg-block.php' );
+	require_once( WPSISAC_DIR . '/includes/admin/supports/blocks/gutenberg-block.php' );
 }
 
 /* Plugin Wpos Analytics Data Starts */

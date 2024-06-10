@@ -1,10 +1,10 @@
 === WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels ===
 Contributors: WebToffee
-Version: 4.5.1
+Version: 4.5.2
 Tags: WooCommerce PDF invoices, WooCommerce invoice, packing slips, shipping label, print invoice
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 4.5.1
+Stable tag: 4.5.2
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ When you sell internationally, it is a standard requirement in many countries to
 
 Furthermore, it establishes an extra line of communication between you and the customer and adds a human touch.
 
-&#9989; Tested OK with WooCommerce 8.8.3
+&#9989; Tested OK with WooCommerce 8.9.2
 &#9989; Tested OK up to PHP 8.2
 
 = New updates =
@@ -279,6 +279,11 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
 17. Invoice general settings
 
 == Changelog ==
+
+= 4.5.2 2024-06-10 =
+* [Fix] - Resolved the page override issue during bulk invoice printing
+* [Compatibility] - Tested OK with WordPress v6.5.4
+* [Compatibility] - Tested OK with WooCommerce v8.9.2
 
 = 4.5.1 2024-05-16 =
 * [Compatibility] - Tested OK with WordPress v6.5.3
@@ -964,6 +969,7 @@ Yes. The plugin addresses the needs of a multilingual website and is compatible 
  
 == Upgrade Notice ==
 
-= 4.5.1 =
-* [Compatibility] - Tested OK with WordPress v6.5.3
-* [Compatibility] - Tested OK with WooCommerce v8.8.3
+= 4.5.2 =
+* [Fix] - Resolved the page override issue during bulk invoice printing
+* [Compatibility] - Tested OK with WordPress v6.5.4
+* [Compatibility] - Tested OK with WooCommerce v8.9.2

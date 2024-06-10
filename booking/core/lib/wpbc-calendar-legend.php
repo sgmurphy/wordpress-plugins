@@ -122,17 +122,17 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 
 
 	$items_arr = array(   'available' => array(
-											  'title'             => ( ! empty( $params['titles']['available'] ) ) ? $params['titles']['available'] : apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_available' ) )
+											  'title'             => ( ! empty( $params['titles']['available'] ) ) ? $params['titles']['available'] : wpbc_lang( get_bk_option( 'booking_legend_text_for_item_available' ) )
 											, 'text_for_day_cell' => '<a>' . $params['text_for_day_cell'] . '</a>'
 											, 'css_class'         => 'block_free datepick-days-cell'
 										)
 						, 'approved' => array(
-											  'title'             => ( ! empty( $params['titles']['approved'] ) ) ? $params['titles']['approved'] : apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_approved' ) )
+											  'title'             => ( ! empty( $params['titles']['approved'] ) ) ? $params['titles']['approved'] : wpbc_lang( get_bk_option( 'booking_legend_text_for_item_approved' ) )
 											, 'text_for_day_cell' => $params['text_for_day_cell']
 											, 'css_class'         => 'block_booked date_approved'
 										)
 						, 'pending' => array(
-											  'title'             => ( ! empty( $params['titles']['pending'] ) ) ? $params['titles']['pending'] : apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_pending' ) )
+											  'title'             => ( ! empty( $params['titles']['pending'] ) ) ? $params['titles']['pending'] : wpbc_lang( get_bk_option( 'booking_legend_text_for_item_pending' ) )
 											, 'text_for_day_cell' => $params['text_for_day_cell']
 											, 'css_class'         => 'block_pending date2approve'
 										)
@@ -140,8 +140,8 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 											  'title'             => ( ! empty( $params['titles']['partially'] ) )
 												                     ? $params['titles']['partially']
 												                     : (
-												                            ( ! empty ( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_partially' ) ) ) )
-												                            ? apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_partially' ) )
+												                            ( ! empty ( wpbc_lang( get_bk_option( 'booking_legend_text_for_item_partially' ) ) ) )
+												                            ? wpbc_lang( get_bk_option( 'booking_legend_text_for_item_partially' ) )
 																			: __( 'Partially booked', 'booking' )
 												                       )
 											, 'text_for_day_cell' => $my_partially
@@ -151,8 +151,8 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 											  'title'             =>  ( ! empty( $params['titles']['unavailable'] ) )
 												                     ? $params['titles']['unavailable']
 												                     : (
-												                            ( ! empty ( apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_unavailable' ) ) ) )
-												                            ? apply_bk_filter( 'wpdev_check_for_active_language', get_bk_option( 'booking_legend_text_for_item_unavailable' ) )
+												                            ( ! empty ( wpbc_lang( get_bk_option( 'booking_legend_text_for_item_unavailable' ) ) ) )
+												                            ? wpbc_lang( get_bk_option( 'booking_legend_text_for_item_unavailable' ) )
 																			: __( 'Unavailable', 'booking' )
 												                       )
 											, 'text_for_day_cell' => $my_unavailable

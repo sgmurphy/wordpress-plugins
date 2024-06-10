@@ -104,7 +104,10 @@ class wpdev_booking {
 
 		    $admin_uri = ltrim( str_replace( get_site_url( null, '', 'admin' ), '', admin_url( 'admin.php?' ) ), '/' );
 		    if ( ( get_bk_option( 'booking_is_use_captcha' ) !== 'On' )
-		         || ( strpos( $_SERVER['REQUEST_URI'], $admin_uri ) !== false )
+		         || (
+					      ( strpos( $_SERVER['REQUEST_URI'], $admin_uri ) !== false )
+		               && ( ! wpbc_is_settings_form_page() )
+		            )
 		    ) {
 			    return '';
 		    } else {
@@ -315,7 +318,7 @@ class wpdev_booking {
 														'calendar_number_of_months'       => $cal_count,
 														'start_month_calendar'            => $start_month_calendar,
 														'shortcode_options'               => $bk_otions,
-														'custom_form'                     => $my_booking_form
+														'custom_form'                     => ( isset( $_GET['booking_form'] ) ) ? wpbc_clean_text_value( $_GET['booking_form'] ) : $my_booking_form  //FixIn: 10.0.0.10
 													));
 
 
@@ -497,10 +500,10 @@ class wpdev_booking {
             $return_form .= '<script type="text/javascript">
                                 jQuery(document).ready( function(){
                                     jQuery(".widget_wpdev_booking .booking_form.form-horizontal").removeClass("form-horizontal");
-                                    var visible_booking_id_on_page_num = visible_booking_id_on_page.length;
-                                    if (visible_booking_id_on_page_num !== null ) {
-                                        for (var i=0;i< visible_booking_id_on_page_num ;i++){
-                                          if ( visible_booking_id_on_page[i]=="booking_form_div' . $resource_id . '" ) {
+                                    var visible_calendars_count = _wpbc.get_other_param( "calendars__on_this_page" ).length;
+                                    if (visible_calendars_count !== null ) {
+                                        for (var i=0;i< visible_calendars_count ;i++){
+                                          if ( _wpbc.get_other_param( "calendars__on_this_page" )[i] === ' . $resource_id . ' ) {
                                               document.getElementById("'.$my_random_id.'").innerHTML = "<span style=\'color:#A00;font-size:10px;\'>'.                                                      
                                                        sprintf( esc_js( __('%sWarning! Booking calendar for this booking resource are already at the page, please check more about this issue at %sthis page%s' ,'booking') )
                                                                 , ''
@@ -512,7 +515,7 @@ class wpdev_booking {
                                               return;
                                           }
                                         }
-                                        visible_booking_id_on_page[ visible_booking_id_on_page_num ]="booking_form_div' . $resource_id . '";
+                                        _wpbc.get_other_param( "calendars__on_this_page" )[ visible_calendars_count ]=' . intval( $resource_id ) . ';
                                     }
                                 });
                             </script>';
@@ -972,29 +975,52 @@ $result = wpbc_api_is_dates_booked( $datesArray, $resource_id = 13 );
 
 		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
 
+	    $search_form = '';
 
-        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
-        
-        $search_form = apply_bk_filter('wpdev_get_booking_search_form','', $attr );
+	    if ( function_exists( 'wpbc_search_avy__show_search_form' ) ) {
+
+			ob_start();
+
+			$search_form_content = wpbc_search_avy__show_search_form( $attr );
+
+			echo $search_form_content;
+
+		    $search_form = ob_get_clean();
+	    }
 
         return $search_form ;
     }
 
-    // Search Results form
+	/**
+	 * Search Results Shortcode   --   Show 'Search Results'    at      New Page
+	 *
+	 * @param $attr
+	 *
+	 * @return string
+	 */
     function bookingsearchresults_shortcode($attr) {
 
 	    if ( wpbc_is_on_edit_page() ) {
-		    return wpbc_get_preview_for_shortcode( 'bookingsearchresults', $attr );      //FixIn: 9.9.0.39
+		    return wpbc_get_preview_for_shortcode( 'bookingsearchresults', $attr );                                     //FixIn: 9.9.0.39
 	    }
 
-		$attr = wpbc_escape_shortcode_params( $attr );          //FixIn: 9.7.3.6.1
+		$attr = wpbc_escape_shortcode_params( $attr );                                                                  //FixIn: 9.7.3.6.1
 
-        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();  // Init booking resources cache
-        
-        $search_results = apply_bk_filter('wpdev_get_booking_search_results','', $attr );
+        //if ( function_exists( 'wpbc_br_cache' ) ) $br_cache = wpbc_br_cache();                                        // Init booking resources cache
 
-        return $search_results ;
+	    $search_results_to_show = '';
+	    if ( function_exists( 'wpbc_search_avy__show_search_results' ) ) {
+
+		    ob_start();
+
+		    wpbc_search_avy__show_search_results( $attr );                                                              //FixIn: 10.0.0.37
+
+		    $search_results_to_show .= ob_get_clean();
+	    }
+
+        return $search_results_to_show;
     }
+
 
     // Select Booking form using the selectbox
     function bookingselect_shortcode($attr) {

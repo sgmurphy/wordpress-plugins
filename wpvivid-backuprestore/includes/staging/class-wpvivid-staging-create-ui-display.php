@@ -150,7 +150,7 @@ class WPvivid_Staging_Create_UI_Display_Free
                         <span>Choose Database to Install the Staging Site</span>
                     </h2>
                     <p>
-                        <input type="text" id="wpvivid_staging_table_prefix" placeholder="<?php echo esc_attr($prefix); ?>" value="<?php echo esc_attr($prefix); ?>" onkeyup="value=value.replace(/[^a-zA-Z0-9-_]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9-_]/g,'')" title="Table Prefix"> Custom Table Prefix, By default: <?php echo esc_html($prefix); ?>
+                        <input type="text" id="wpvivid_staging_table_prefix" placeholder="<?php echo esc_attr($prefix); ?>" value="<?php echo esc_attr($prefix); ?>" onkeyup="value=value.replace(/[^a-zA-Z0-9_]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9_]/g,'')" title="Table Prefix"> Custom Table Prefix, By default: <?php echo esc_html($prefix); ?>
                     </p>
 
                     <p>

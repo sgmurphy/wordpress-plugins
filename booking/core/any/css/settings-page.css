@@ -16,10 +16,10 @@
 }
 /* Collapse & expand elements in settings meta boxes */
 .wpbc_page .meta-box .postbox .handlediv {
-    background: url("../../../../../../wp-admin/images/arrows.png") no-repeat scroll 5px -27px transparent;
+    background: url("../../../../../../wp-admin/images/arrows.png") no-repeat scroll 5px -30px transparent;
 }
 .wpbc_page .meta-box .postbox.closed .handlediv {
-    background-position:5px 10px;
+    background-position:5px 5px;
 }
 .wpbc_page .meta-box .postbox .handlediv:hover {
     cursor: pointer !important;

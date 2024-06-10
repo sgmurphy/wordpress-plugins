@@ -348,8 +348,9 @@ if ( ! class_exists( 'Responsive_Addons_Woocommerce_Ext' ) ) {
 					wp_enqueue_script( 'responsive-shop-pagination-infinite', $js_gen_path . 'product-pagination-infinite' . $file_prefix . '.js', array( 'jquery', 'responsive-addons-pro' ), '3.17.2', true );
 				}
 				if ( 0 !== get_theme_mod( 'responsive_enable_native_cart_popup', 0 ) ) {
+					wp_enqueue_script( 'wc-cart-fragments' );
 					wp_enqueue_script( 'responsive-magnific-popup', $js_gen_path . 'min/magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
-					wp_enqueue_script( 'responsive-woo-popup', $js_gen_path . 'woo-popup' . $file_prefix . '.js', array( 'jquery', 'responsive-addons-pro' ), null, true );	
+					wp_enqueue_script( 'responsive-woo-popup', $js_gen_path . 'woo-popup.js', array( 'jquery' ), null, true );
 				}
 			}
 

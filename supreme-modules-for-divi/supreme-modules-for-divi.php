@@ -3,7 +3,7 @@
  * Plugin Name: Supreme Modules Lite - Divi Theme, Extra Theme and Divi Builder
  * Plugin URI:  https://divisupreme.com/supreme-modules-lite-for-divi/
  * Description: Divi Supreme enhances the experience and features found on Divi and extend with custom creative modules to help you build amazing websites.
- * Version:     2.5.54
+ * Version:     2.5.55
  * Author:      Supreme Modules
  * Author URI:  https://divisupreme.com/about-us/
  * License:     GPL2
@@ -34,8 +34,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'DSM_VERSION' ) ) {
-	define( 'DSM_VERSION', '2.5.54' );
+	define( 'DSM_VERSION', '2.5.55' );
 }
+
 if ( ! defined( 'DSM_SHORTCODE' ) ) {
 	define( 'DSM_SHORTCODE', 'divi_shortcode' );
 }

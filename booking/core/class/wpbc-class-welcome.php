@@ -480,6 +480,8 @@ if(0){
 
 			$this->section_9_8_css();
 
+			wpbc_welcome_section_10_1( $this );
+
 			wpbc_welcome_section_10_0( $this );
 
 			wpbc_welcome_section_9_9( $this );
@@ -644,6 +646,9 @@ if (0) {
 					box-shadow: none;
 					width: 99%;
 					margin: 0.5em 0 auto;
+					padding: 3px;
+					background: #fff;
+					border: 1px solid #ccc;
 				}
 				.wpbc_wn_container .wpbc_hr_dots {
 					height: 1px;

@@ -3,6 +3,8 @@
 if ( ! defined( 'WPBC_FEEDBACK_TIMEOUT' ) ) {       define( 'WPBC_FEEDBACK_TIMEOUT',    '+2 days' ); }
 //if ( ! defined( 'WPBC_FEEDBACK_TIMEOUT' ) ) {       define( 'WPBC_FEEDBACK_TIMEOUT',    '+30 seconds' ); }
 
+// == For testing ==
+//update_option( 'booking_feedback_03', date( 'Y-m-d H:i:s', strtotime( '+10 seconds', strtotime( 'now' ) ) ) );
 
 // Init Timer
 // update_option( 'booking_feedback_03',  date( 'Y-m-d H:i:s', strtotime( WPBC_FEEDBACK_TIMEOUT, strtotime( 'now' ) ) ) );

@@ -33,7 +33,7 @@ console.groupEnd();
 	params = wpbc_captcha__simple__maybe_remove_in_ajx_params( params );
 
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl,
+	jQuery.post( wpbc_url_ajax,
 				{
 					action          : 'WPBC_AJX_BOOKING__CREATE',
 					wpbc_ajx_user_id: _wpbc.get_secure_param( 'user_id' ),
@@ -519,6 +519,7 @@ function wpbc_show_thank_you_message_after_booking( response_data ){
 		&& ('page' == response_data[ 'ajx_confirmation' ][ 'ty_is_redirect' ])
 		&& ('' != response_data[ 'ajx_confirmation' ][ 'ty_url' ])
 	){
+		jQuery( 'body' ).trigger( 'wpbc_booking_created', [ response_data[ 'resource_id' ] , response_data ] );			//FixIn: 10.0.0.30
 		window.location.href = response_data[ 'ajx_confirmation' ][ 'ty_url' ];
 		return;
 	}
@@ -563,4 +564,9 @@ function wpbc_show_thank_you_message_after_booking( response_data ){
 	confirm_content += `</div>`;
 
  	jQuery( '#booking_form' + resource_id ).after( confirm_content );
+
+
+	//FixIn: 10.0.0.30		// event name			// Resource ID	-	'1'
+	jQuery( 'body' ).trigger( 'wpbc_booking_created', [ resource_id , response_data ] );
+	// To catch this event: jQuery( 'body' ).on('wpbc_booking_created', function( event, resource_id, params ) { console.log( event, resource_id, params ); } );
 }

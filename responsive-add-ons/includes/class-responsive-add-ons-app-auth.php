@@ -197,7 +197,7 @@ class Responsive_Add_Ons_App_Auth {
 			}
 
 			if ( isset( $deactivate_results['data']['error_code'] ) && ! empty( $wcam_lib_responsive_addons->data ) && ! empty( $wcam_lib_responsive_addons->wc_am_activated_key ) ) {
-				if( isset( $wcam_lib_responsive_addons->data[ $wcam_lib_responsive_addons->wc_am_activated_key ] ) ) {
+				if ( isset( $wcam_lib_responsive_addons->data[ $wcam_lib_responsive_addons->wc_am_activated_key ] ) ) {
 					update_option( $wcam_lib_responsive_addons->data[ $wcam_lib_responsive_addons->wc_am_activated_key ], 'Deactivated' );
 				}
 				wp_send_json_error(

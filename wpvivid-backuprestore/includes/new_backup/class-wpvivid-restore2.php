@@ -187,12 +187,14 @@ class WPvivid_Restore_2
                 $task['exec_sql']['init_sql_finished']=0;
                 $task['exec_sql']['create_snapshot_finished']=0;
                 $task['exec_sql']['exec_sql_finished']=0;
+                $task['exec_sql']['replace_rows_finished']=0;
 
                 $task['exec_sql']['current_table']='';
                 $task['exec_sql']['current_old_table']='';
-                $task['exec_sql']['current_replace_table_finish']=false;
-                $task['exec_sql']['current_need_replace_table']=false;
-                $task['exec_sql']['current_replace_row']=0;
+                $task['exec_sql']['replace_tables']=array();
+                //$task['exec_sql']['current_replace_table_finish']=false;
+                //$task['exec_sql']['current_need_replace_table']=false;
+                //$task['exec_sql']['current_replace_row']=0;
 
                 $task['exec_sql']['last_action']='waiting...';
                 $task['exec_sql']['last_query']='';
@@ -1061,17 +1063,54 @@ class WPvivid_Restore_2
                                     }
                                     else
                                     {
-                                        $file_size=0;
-                                        $read_size=0;
-                                        foreach ($sub_task['exec_sql']['sql_files'] as $sql_file)
+                                        if($restore_task['is_migrate'])
                                         {
-                                            $file_size+=$sql_file['sql_file_size'];
-                                            $read_size+=$sql_file['sql_offset'];
-                                        }
+                                            $file_size=0;
+                                            $read_size=0;
 
-                                        $progress=intval(($read_size/ $file_size)*100);
-                                        $sub_progress+=$progress;
-                                        $sub_task_progress= $sub_task['exec_sql']['last_action'].' - '.$progress.'%';
+                                            foreach ($sub_task['exec_sql']['sql_files'] as $sql_file)
+                                            {
+                                                $file_size+=$sql_file['sql_file_size'];
+                                                $read_size+=$sql_file['sql_offset'];
+                                            }
+
+                                            $progress1=intval(($read_size/ $file_size)*50);
+                                            $progress2=0;
+                                            if(!empty($sub_task['exec_sql']['replace_tables']))
+                                            {
+                                                $need_replace_table = sizeof($sub_task['exec_sql']['replace_tables']);
+                                                $replaced_tables=0;
+                                                foreach ($sub_task['exec_sql']['replace_tables'] as $replace_table)
+                                                {
+                                                    if ($replace_table['finished'] == 1)
+                                                    {
+                                                        $replaced_tables++;
+                                                    }
+                                                }
+                                                $progress2=intval(($replaced_tables/ $need_replace_table)*50);
+                                            }
+
+                                            $progress=$progress1+$progress2;
+
+                                            $sub_progress+=$progress;
+                                            $sub_task_progress= $sub_task['exec_sql']['last_action'].' - '.$progress.'%';
+                                        }
+                                        else
+                                        {
+                                            $file_size=0;
+                                            $read_size=0;
+
+                                            foreach ($sub_task['exec_sql']['sql_files'] as $sql_file)
+                                            {
+                                                $file_size+=$sql_file['sql_file_size'];
+                                                $read_size+=$sql_file['sql_offset'];
+                                            }
+
+                                            $progress=intval(($read_size/ $file_size)*100);
+
+                                            $sub_progress+=$progress;
+                                            $sub_task_progress= $sub_task['exec_sql']['last_action'].' - '.$progress.'%';
+                                        }
                                     }
                                 }
                                 else

@@ -499,15 +499,15 @@ if (class_exists('Conversios_Admin') === FALSE) {
         //new GoogleShoppingFeed();
         require_once ENHANCAD_PLUGIN_DIR . 'includes/setup/class-tvc-product-sync-helper.php';
         require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/help-html.php');
-        require_once 'partials/product-feed-list.php';
-        //require_once('partials/general-fields-product-feed.php'); // deprecated!
+        //require_once 'partials/product-feed-list.php';
+        require_once('partials/general-fields-product-feed.php'); 
       }
     }
     public function gaa_config_page()
     {
       require_once ENHANCAD_PLUGIN_DIR . 'includes/setup/class-tvc-product-sync-helper.php';
       require_once(ENHANCAD_PLUGIN_DIR . 'includes/setup/help-html.php');
-      //require_once('partials/general-fields-product-feed.php'); // deprecated!
+      require_once('partials/general-fields-product-feed.php');
     }
     public function feed_list()
     {

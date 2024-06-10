@@ -385,7 +385,7 @@ class DSM_FlipBox_Perk extends ET_Builder_Module {
 
 		if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) {
 			if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets_compatibility'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets_compatibility'] ) {
-				wp_enqueue_style( 'dsm-flipbox', plugin_dir_url( __DIR__ ) . 'FlipBoxPerk/style.css', array(), DSM_PRO_VERSION, 'all' );
+				wp_enqueue_style( 'dsm-flipbox', plugin_dir_url( __DIR__ ) . 'FlipBoxPerk/style.css', array(), DSM_VERSION, 'all' );
 			} else {
 				add_filter( 'et_global_assets_list', array( $this, 'dsm_load_required_divi_assets' ), 10, 3 );
 				add_filter( 'et_late_global_assets_list', array( $this, 'dsm_load_required_divi_assets' ), 10, 3 );

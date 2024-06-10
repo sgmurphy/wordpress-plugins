@@ -99,7 +99,7 @@ class WPBC_Notices {
         
 
         // Recheck  for any "lang" shortcodes for replacing to correct language
-        $message =  apply_bk_filter('wpdev_check_for_active_language', $message );
+        $message =  wpbc_lang( $message );
         
         // Escape any JavaScript from  message
         $notice =   html_entity_decode( esc_js( $message ) ,ENT_QUOTES) ;

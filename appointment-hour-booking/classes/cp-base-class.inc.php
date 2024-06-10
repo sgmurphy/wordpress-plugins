@@ -7,16 +7,16 @@ class CP_APPBOOK_BaseClass {
     protected $item = 1;
 
     /** installation functions */
-    public function install($networkwide)  {
+    public function install( $networkwide ) {
     	global $wpdb;
 
-    	if (function_exists('is_multisite') && is_multisite()) {
+    	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
     		// check if it is a network activation - if so, run the activation function for each blog id
-    		if ($networkwide) {
+    		if ( $networkwide ) {
     	                $old_blog = $wpdb->blogid;
     			// Get all blog ids
     			$blogids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
-    			foreach ($blogids as $blog_id) {
+    			foreach ( $blogids as $blog_id ) {
     				switch_to_blog($blog_id);
     				$this->_install();
     			}
@@ -27,8 +27,7 @@ class CP_APPBOOK_BaseClass {
     	$this->_install();
     }
 
-    function get_param($key)
-    {
+    public function get_param( $key ) {
         if (isset($_GET[$key]) && $_GET[$key] != '')
             return $this->sanitize($_GET[$key]); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         else if (isset($_POST[$key]) && $_POST[$key] != '')
@@ -37,13 +36,11 @@ class CP_APPBOOK_BaseClass {
             return '';
     }
 
-    function is_administrator()
-    {
+    public function is_administrator() {
         return current_user_can('manage_options');
     }
 
-    public function get_site_url($admin = false)
-    {
+    public function get_site_url( $admin = false ) {
         $blog = get_current_blog_id();
         if( $admin )
             $url = get_admin_url( $blog );
@@ -51,11 +48,10 @@ class CP_APPBOOK_BaseClass {
             $url = get_home_url( $blog );
 
         //$url = parse_url($url);
-        return rtrim($url,"/")."/";
+        return rtrim( $url, "/" )."/";
     }
 
-    function get_FULL_site_url($admin = false)
-    {
+    public function get_FULL_site_url( $admin = false ) {
         $blog = get_current_blog_id();
         if( $admin )
             $url = get_admin_url( $blog );
@@ -74,8 +70,7 @@ class CP_APPBOOK_BaseClass {
         return $url;
     }
 
-    function cleanJSON ($str)
-    {
+    public function cleanJSON ( $str ) {
         $str = str_replace('&qquot;','"',$str);
         $str = str_replace('	',' ',$str);
         $str = str_replace("\n",'\n',$str);
@@ -83,27 +78,25 @@ class CP_APPBOOK_BaseClass {
         return $str;
     }
 
-    function sanitize ( $v )
-	{
-        if (is_array($v))
+    public function sanitize ( $v ) {
+        if ( is_array( $v ) )
         {
-            for ($iv=0; $iv<count($v); $iv++)
+            for ( $iv = 0; $iv < count( $v ); $iv++ )
                 $v[$iv] = $this->sanitize($v[$iv]);
         }
         else
         {
 		    $allowed_tags = wp_kses_allowed_html( 'post' );
-            if (isset($allowed_tags["script"])) unset($allowed_tags["sript"]);
-            if (isset($allowed_tags["iframe"])) unset($allowed_tags["iframe"]);
+            if ( isset( $allowed_tags["script"] ) ) unset( $allowed_tags["sript"] );
+            if ( isset( $allowed_tags["iframe"] ) ) unset( $allowed_tags["iframe"] );
 		    $v = wp_kses($v, $allowed_tags);
         }
-		return $this->clean_sanitize($v);
+		return $this->clean_sanitize( $v );
 	}
 
 
-    function clean_sanitize ( $str )
-	{
-        if (is_array($str))
+    public function clean_sanitize ( $str ) {
+        if ( is_array( $str ) )
         {
             for ($iv=0; $iv<count($str); $iv++)
                 $str[$iv] = $this->clean_sanitize($str[$iv]);
@@ -116,24 +109,22 @@ class CP_APPBOOK_BaseClass {
             }
             $str = (string) $str;
             $filtered = wp_check_invalid_utf8( $str );
-            return trim($filtered);
+            return trim( $filtered );
         }
 	}
 
 
-    function sanitizeTableName ( $v )
-	{
-        $v = $this->sanitize($v);
-        $v = str_replace('"', '', $v);
-        $v = str_replace("'", "", $v);
-        $v = str_replace('`', '', $v);
-        $v = str_replace(' ', '', $v);
+    public function sanitizeTableName ( $v ) {
+        $v = $this->sanitize( $v );
+        $v = str_replace( '"', '', $v );
+        $v = str_replace( "'", "", $v );
+        $v = str_replace( '`', '', $v );
+        $v = str_replace( ' ', '', $v );
 		return $v;
 	}
 
 
-    public function recursive_implode($glue, array $array, $include_keys = false, $trim_all = true)
-    {
+    public function recursive_implode( $glue, array $array, $include_keys = false, $trim_all = true ) {
     	$glued_string = '';
 
     	// Recursively iterates array and adds key/value to glued string
@@ -153,8 +144,7 @@ class CP_APPBOOK_BaseClass {
     }
 
 
-    public function add_field_verify ($table, $field, $type = "text")
-    {
+    public function add_field_verify ( $table, $field, $type = "text" ) {
         global $wpdb;
         $results = $wpdb->get_results( $wpdb->prepare("SHOW columns FROM `".$this->sanitizeTableName($table)."` where field=%s", $field));  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         if (!count($results))
@@ -163,10 +153,9 @@ class CP_APPBOOK_BaseClass {
         }
     }
 
-    function verify_nonce ($nonce, $action)
-    {
+    function verify_nonce ( $nonce, $action ) {
         $verify_nonce = wp_verify_nonce( $nonce, $action);
-        if (!$verify_nonce)
+        if ( !$verify_nonce )
         {
             echo 'Error: Action cannot be authenticated (nonce failed). Please contact our support service if this problem persists.';
             exit;
@@ -178,8 +167,7 @@ class CP_APPBOOK_BaseClass {
     public $option_buffered_item = false;
     public $option_buffered_id = -1;
 
-    public function get_option ($field, $default_value = '')
-    {
+    public function get_option ( $field, $default_value = '' ) {
         global $wpdb;
         if ($this->option_buffered_id == $this->item)
             $value = (property_exists($this->option_buffered_item, $field) && isset($this->option_buffered_item->$field) ? @$this->option_buffered_item->$field : '');
@@ -195,7 +183,7 @@ class CP_APPBOOK_BaseClass {
            else
                $value =  $default_value;
         }
-        if ($value == '' && is_object($this->option_buffered_item) && $this->option_buffered_item->form_structure == '')
+        if ( $value == '' && is_object( $this->option_buffered_item ) && $this->option_buffered_item->form_structure == '' )
             $value = $default_value;
 
         $value = apply_filters( 'cpappb_get_option', $value, $field, $this->item );
@@ -203,10 +191,10 @@ class CP_APPBOOK_BaseClass {
         return $value;
     }
 
-    public function get_option_not_empty($field, $default_value = '')
+    public function get_option_not_empty( $field, $default_value = '' )
     {
-        $value = $this->get_option($field, $default_value);
-        return ($value ? $value : $default_value);
+        $value = $this->get_option( $field, $default_value );
+        return ( $value ? $value : $default_value );
     }
 
 

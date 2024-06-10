@@ -219,7 +219,7 @@ function approve_unapprove_booking(booking_id, is_approve_or_pending, user_id, w
         wpbc_admin_show_message_processing( '' ); 
 
         jQuery.ajax({                                           // Start Ajax Sending
-            url: wpbc_ajaxurl, 
+            url: wpbc_url_ajax,
             type:'POST',
             success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
             error:function (XMLHttpRequest, textStatus, errorThrown){window.status = 'Ajax sending Error status:'+ textStatus;alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText);if (XMLHttpRequest.status == 500) {alert('Please check at this page according this error:' + ' https://wpbookingcalendar.com/faq/#ajax-sending-error');}},
@@ -306,7 +306,7 @@ function trash__restore_booking( is_trash, booking_id, user_id, wpdev_active_loc
         wpbc_admin_show_message_processing( '' ); 
 
         jQuery.ajax({                                           // Start Ajax Sending
-            url: wpbc_ajaxurl, 
+            url: wpbc_url_ajax,
             type:'POST',
             success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
             error:function (XMLHttpRequest, textStatus, errorThrown){window.status = 'Ajax sending Error status:'+ textStatus;alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText);if (XMLHttpRequest.status == 500) {alert('Please check at this page according this error:' + ' https://wpbookingcalendar.com/faq/#ajax-sending-error');}},
@@ -355,7 +355,7 @@ function delete_booking(booking_id, user_id, wpdev_active_locale, is_send_emeils
         wpbc_admin_show_message_processing( '' ); 
 
         jQuery.ajax({                                           // Start Ajax Sending
-            url: wpbc_ajaxurl, 
+            url: wpbc_url_ajax,
             type:'POST',
             success: function (data, textStatus){if( textStatus == 'success')   jQuery('#ajax_respond').html( data );},
             error:function (XMLHttpRequest, textStatus, errorThrown){window.status = 'Ajax sending Error status:'+ textStatus;alert(XMLHttpRequest.status + ' ' + XMLHttpRequest.statusText);if (XMLHttpRequest.status == 500) {alert('Please check at this page according this error:' + ' https://wpbookingcalendar.com/faq/#ajax-sending-error');}},
@@ -514,3 +514,15 @@ function wpbc_are_you_sure_popup(){
         return  false;
     }
 }
+
+/**
+ * Open or Close Hidden sections
+ */
+jQuery( document ).ready( function (){
+	jQuery( '.wpbc_container_open_or_closed__link' ).on( 'click', function (){
+		var toggle_el = jQuery( this ).parents( '.wpbc_container_open_or_closed' );
+		if ( toggle_el.length > 0 ){
+			jQuery( toggle_el.get( 0 ) ).toggleClass( 'wpbc_container_closed' ).find( '.wpbc_container_open_or_closed__content' ).toggle();
+		}
+	} );
+} );

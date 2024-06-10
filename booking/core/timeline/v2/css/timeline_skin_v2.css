@@ -11,14 +11,6 @@
 *        text-transform
 *
 */
-/* Loading message */
-.flex_tl_table_loading{
-	text-align: center;
-	font-size: 1.1em;
-}
-.flex_tl_table_loading span {
-	padding: 0 0.4em;
-}
 /**********************************************************************************************************************/
 /* Timeline Main Container */
 .flex_tl_table {
@@ -318,4 +310,83 @@
 	white-space: nowrap;
 	overflow: hidden;
 	padding:0 2px;
+}
+
+/* Calendar Overview - New simple Header  2024-04-11	//FixIn: 10.0.0.25 */
+.wpbc_calendar_overview__header {
+	position: relative;
+	width: 100%;
+}
+
+.wpbc_calendar_overview__header .nav-tabs {
+	box-shadow: 0 3px 8px #eaeaea;
+	border-bottom: 1px solid #e3e3e3;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.wpbc_calendar_overview__header .wpbc_calendar_overview__navigation {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-end;
+	align-items: center;
+	margin-left: auto;
+	margin-right: 5px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.wpbc_calendar_overview__container {
+	padding: 0px 5px 5px;
+	margin-top: 0px;
+	border: 1px solid #d5d5d5;
+	background: #fff;
+	font-size: 13px;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 0px 8px #dadada;
+	margin-bottom: 25px;
+}
+
+.wpbc_page_tab__vm_calendar #toolbar_booking_listing.wpbc_timeline_toolbar_container {
+	margin: -21px 0 0 !important;
+	position: relative;
+	box-shadow: 0 4px 8px #e4e4e4;
+}
+	.wpbc_timeline_toolbar_container .wpdvlp-sub-tabs{
+		border-radius: 0 0 2px 2px;
+	}
+	.wpbc_page_tab__vm_calendar #toolbar_booking_listing.wpbc_timeline_toolbar_container .wpdvlp-sub-tabs {
+		padding-bottom: 1px;
+	}
+
+.wpbc_calendar_overview__container .flex_tl_table {
+	border-radius: 0;
+	border-top: none;
+	font-size: 13px;
+}
+.wpbc_timeline_toolbar_structure{
+	display:flex;
+	flex-flow:row wrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+	.wpbc_timeline_toolbar_structure > * {
+	  	margin-top: 0px;
+	  	margin-bottom: 10px;
+		margin-right:15px;
+	}
+	.wpbc_timeline_toolbar_structure > *:last-child{
+		margin-left:auto;
+		margin-right:0px;
+	}
+/* Top  search  form  for searching bookings by  ID */
+.wpbc_toolbar_search_by_id_bookings{
+	align-self: flex-end;
+}
+@media (max-width: 501px) {
+	.wpbc_toolbar_search_by_id_bookings {
+		display:none;
+	}
 }

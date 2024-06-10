@@ -415,6 +415,10 @@ if ( ! class_exists( __NAMESPACE__ . 'Config' ) ) {
 						),
 						'default' => 'sync',
 					),
+					'exclude_cache' => array(
+						'type' => 'boolean',
+						'default' => false,
+					),
 				),
 				'excludes' => array(
 					'elements' => array(

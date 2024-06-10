@@ -33,9 +33,10 @@
  * Days selection:
  * 					wpbc_calendar__unselect_all_dates( resource_id );
  *
+ *					var resource_id = 1;
+ * 	Example 1:		var num_selected_days = wpbc_auto_select_dates_in_calendar( resource_id, '2024-05-15', '2024-05-25' );
+ * 	Example 2:		var num_selected_days = wpbc_auto_select_dates_in_calendar( resource_id, ['2024-05-09','2024-05-19','2024-05-25'] );
  *
- *	var inst= wpbc_calendar__get_inst(3); inst.dates=[]; wpbc__calendar__on_select_days('22.09.2023 - 23.09.2023' , {'resource_id':3} , inst);  inst.stayOpen = false;jQuery.datepick._updateDatepick( inst );
- *  if it doesn't work  in 100% situations. check wpbc_select_days_in_calendar(3, [ [ 2023, "09", 26 ], [ 2023, "08", 25 ]]);
  */
 
 
@@ -75,16 +76,16 @@ function wpbc_calendar_show( resource_id ){
 	// Min - Max days to scroll/show
 	// -----------------------------------------------------------------------------------------------------------------
 	var local__min_date = 0;
- 	local__min_date = new Date( wpbc_today[ 0 ], (parseInt( wpbc_today[ 1 ] ) - 1), wpbc_today[ 2 ], 0, 0, 0 );			//FixIn: 9.9.0.17
+ 	local__min_date = new Date( _wpbc.get_other_param( 'today_arr' )[ 0 ], (parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] ) - 1), _wpbc.get_other_param( 'today_arr' )[ 2 ], 0, 0, 0 );			//FixIn: 9.9.0.17
 //console.log( local__min_date );
 	var local__max_date = _wpbc.calendar__get_param_value( resource_id, 'booking_max_monthes_in_calendar' );
 	//local__max_date = new Date(2024, 5, 28);  It is here issue of not selectable dates, but some dates showing in calendar as available, but we can not select it.
 
-	// Define last day in calendar (as a last day of month (and not date, which is related to actual 'Today' date).
-	// E.g. if today is 2023-09-25, and we set 'Number of months to scroll' as 5 months, then last day will be 2024-02-29 and not the 2024-02-25.
-	var cal_last_day_in_month = jQuery.datepick._determineDate( null, local__max_date, new Date() );
-	cal_last_day_in_month = new Date( cal_last_day_in_month.getFullYear(), cal_last_day_in_month.getMonth() + 1, 0 );
-	local__max_date = cal_last_day_in_month;
+	//// Define last day in calendar (as a last day of month (and not date, which is related to actual 'Today' date).
+	//// E.g. if today is 2023-09-25, and we set 'Number of months to scroll' as 5 months, then last day will be 2024-02-29 and not the 2024-02-25.
+	// var cal_last_day_in_month = jQuery.datepick._determineDate( null, local__max_date, new Date() );
+	// cal_last_day_in_month = new Date( cal_last_day_in_month.getFullYear(), cal_last_day_in_month.getMonth() + 1, 0 );
+	// local__max_date = cal_last_day_in_month;			//FixIn: 10.0.0.26
 
 	if (   ( location.href.indexOf('page=wpbc-new') != -1 )
 		&& ( location.href.indexOf('booking_hash') != -1 )                  // Comment this line for ability to add  booking in past days at  Booking > Add booking page.
@@ -168,7 +169,7 @@ function wpbc_calendar_show( resource_id ){
 	 */
 	function wpbc__calendar__apply_css_to_days( date, calendar_params_arr, datepick_this ){
 
-		var today_date = new Date( wpbc_today[ 0 ], (parseInt( wpbc_today[ 1 ] ) - 1), wpbc_today[ 2 ], 0, 0, 0 );								// Today JS_Date_Obj.
+		var today_date = new Date( _wpbc.get_other_param( 'today_arr' )[ 0 ], (parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] ) - 1), _wpbc.get_other_param( 'today_arr' )[ 2 ], 0, 0, 0 );								// Today JS_Date_Obj.
 		var class_day     = wpbc__get__td_class_date( date );																					// '1-9-2023'
 		var sql_class_day = wpbc__get__sql_class_date( date );																					// '2023-01-09'
 		var resource_id = ( 'undefined' !== typeof(calendar_params_arr[ 'resource_id' ]) ) ? calendar_params_arr[ 'resource_id' ] : '1'; 		// '1'
@@ -269,6 +270,13 @@ function wpbc_calendar_show( resource_id ){
 				 */
 
 				css_classes__for_date.push( 'timespartly', 'check_in_time', 'check_out_time' );
+				//FixIn: 10.0.0.2
+				if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'approved_pending' ) > -1 ){
+					css_classes__for_date.push( 'check_out_time_date_approved', 'check_in_time_date2approve' );
+				}
+				if ( date_bookings_obj[ 'summary' ][ 'status_for_bookings' ].indexOf( 'pending_approved' ) > -1 ){
+					css_classes__for_date.push( 'check_out_time_date2approve', 'check_in_time_date_approved' );
+				}
 				break;
 
 			case 'check_in':
@@ -416,6 +424,9 @@ function wpbc_calendar_show( resource_id ){
 			   ( location.href.indexOf( 'page=wpbc' ) == -1 )
 			|| ( location.href.indexOf( 'page=wpbc-new' ) > 0 )
 			|| ( location.href.indexOf( 'page=wpbc-availability' ) > 0 )
+			|| (  ( location.href.indexOf( 'page=wpbc-settings' ) > 0 )  &&
+				  ( location.href.indexOf( '&tab=form' ) > 0 )
+			   )
 		){
 			// The same as dates selection,  but for days hovering
 
@@ -691,9 +702,8 @@ function wpbc_calendar_show( resource_id ){
 					var times_as_seconds = [];
 
 					// Get time as seconds
-					if ( value_option_seconds_arr.length ){					//FixIn: 9.8.10.1
-						for ( var i in value_option_seconds_arr ){
-
+					if ( value_option_seconds_arr.length ){									//FixIn: 9.8.10.1
+						for ( let i = 0; i < value_option_seconds_arr.length; i++ ){		//FixIn: 10.0.0.56
 							// value_option_seconds_arr[i] = '14:00 '  | ' 16:00'   (if from 'rangetime') and '16:00'  if (start/end time)
 
 							var start_end_times_arr = value_option_seconds_arr[ i ].trim().split( ':' );
@@ -799,8 +809,8 @@ function wpbc_calendar_show( resource_id ){
 		var selected_dates_arr = [];
 		selected_dates_arr = jQuery( '#date_booking' + resource_id ).val().split(',');
 
-		if ( selected_dates_arr.length ){					//FixIn: 9.8.10.1
-			for ( var i in selected_dates_arr ){
+		if ( selected_dates_arr.length ){												//FixIn: 9.8.10.1
+			for ( let i = 0; i < selected_dates_arr.length; i++ ){						//FixIn: 10.0.0.56
 				selected_dates_arr[ i ] = selected_dates_arr[ i ].trim();
 				selected_dates_arr[ i ] = selected_dates_arr[ i ].split( '.' );
 				if ( selected_dates_arr[ i ].length > 1 ){
@@ -881,9 +891,8 @@ function wpbc_calendar_show( resource_id ){
 				var times_as_seconds = [];
 
 				// Get time as seconds
-				if ( value_option_seconds_arr.length ){				 	//FixIn: 9.8.10.1
-					for ( var i in value_option_seconds_arr ){
-
+				if ( value_option_seconds_arr.length ){				 								//FixIn: 9.8.10.1
+					for ( let i = 0; i < value_option_seconds_arr.length; i++ ){					//FixIn: 10.0.0.56
 						// value_option_seconds_arr[i] = '14:00 '  | ' 16:00'   (if from 'rangetime') and '16:00'  if (start/end time)
 
 						var start_end_times_arr = value_option_seconds_arr[ i ].trim().split( ':' );
@@ -1060,6 +1069,10 @@ function wpbc_calendar_show( resource_id ){
 
 		var is_day_selectable = ( parseInt( date_bookings_obj[ 'day_availability' ] ) > 0 );
 
+		if ( typeof (date_bookings_obj[ 'summary' ]) === 'undefined' ){
+			return is_day_selectable;
+		}
+
 		if ( 'available' != date_bookings_obj[ 'summary']['status_for_day' ] ){
 
 			var is_set_pending_days_selectable = _wpbc.calendar__get_param_value( resource_id, 'pending_days_selectable' );		// set pending days selectable          //FixIn: 8.6.1.18
@@ -1114,6 +1127,28 @@ function wpbc_calendar_show( resource_id ){
 			sql_class_day += date.getDate();
 
 			return sql_class_day;
+	}
+
+	/**
+	 * Get JS Date from  the SQL date format '2024-05-14'
+	 * @param sql_class_date
+	 * @returns {Date}
+	 */
+	function wpbc__get__js_date( sql_class_date ){
+
+		var sql_class_date_arr = sql_class_date.split( '-' );
+
+		var date_js = new Date();
+
+		date_js.setFullYear( parseInt( sql_class_date_arr[ 0 ] ), (parseInt( sql_class_date_arr[ 1 ] ) - 1), parseInt( sql_class_date_arr[ 2 ] ) );  // year, month, date
+
+		// Without this time adjust Dates selection  in Datepicker can not work!!!
+		date_js.setHours(0);
+		date_js.setMinutes(0);
+		date_js.setSeconds(0);
+		date_js.setMilliseconds(0);
+
+		return date_js;
 	}
 
 	/**
@@ -1372,4 +1407,459 @@ function wpbc_calendar_show( resource_id ){
 		}
 
 		return  false;
+	}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  ==  Dates Functions  ==
+// ---------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Get number of dates between 2 JS Dates
+ *
+ * @param date1		JS Date
+ * @param date2		JS Date
+ * @returns {number}
+ */
+function wpbc_dates__days_between(date1, date2) {
+
+    // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Convert both dates to milliseconds
+    var date1_ms = date1.getTime();
+    var date2_ms = date2.getTime();
+
+    // Calculate the difference in milliseconds
+    var difference_ms =  date1_ms - date2_ms;
+
+    // Convert back to days and return
+    return Math.round(difference_ms/ONE_DAY);
+}
+
+
+/**
+ * Check  if this array  of dates is consecutive array  of dates or not.
+ * 		e.g.  ['2024-05-09','2024-05-19','2024-05-30'] -> false
+ * 		e.g.  ['2024-05-09','2024-05-10','2024-05-11'] -> true
+ * @param sql_dates_arr	 array		e.g.: ['2024-05-09','2024-05-19','2024-05-30']
+ * @returns {boolean}
+ */
+function wpbc_dates__is_consecutive_dates_arr_range( sql_dates_arr ){													//FixIn: 10.0.0.50
+
+	if ( sql_dates_arr.length > 1 ){
+		var previos_date = wpbc__get__js_date( sql_dates_arr[ 0 ] );
+		var current_date;
+
+		for ( var i = 1; i < sql_dates_arr.length; i++ ){
+			current_date = wpbc__get__js_date( sql_dates_arr[i] );
+
+			if ( wpbc_dates__days_between( current_date, previos_date ) != 1 ){
+				return  false;
+			}
+
+			previos_date = current_date;
+		}
+	}
+
+	return true;
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  ==  Auto Dates Selection  ==
+// ---------------------------------------------------------------------------------------------------------------------
+
+// -------------------------------------------------------------------------------------------------------------
+// Auto Fill Fields / Auto Select Dates
+// -------------------------------------------------------------------------------------------------------------
+/**
+ *  == How to  use ? ==      For Dates selection, we need to use this logic!     We need select the dates only after booking data loaded!     Check example bellow.
+ *
+ *	// Fire on all booking dates loaded
+ *	jQuery( 'body' ).on( 'wpbc_calendar_ajx__loaded_data', function ( event, loaded_resource_id ){
+ *
+ *		if ( loaded_resource_id == select_dates_in_calendar_id ){
+ *			wpbc_auto_select_dates_in_calendar( select_dates_in_calendar_id, '2024-05-15', '2024-05-25' );
+ *		}
+ *	} );
+ *
+ */
+
+
+
+/**
+ * Try to Auto select dates in specific calendar by simulated clicks in datepicker
+ *
+ * @param resource_id		1
+ * @param check_in_ymd		'2024-05-09'		OR  	['2024-05-09','2024-05-19','2024-05-20']
+ * @param check_out_ymd		'2024-05-15'		Optional
+ *
+ * @returns {number}		number of selected dates
+ *
+ * 	Example 1:				var num_selected_days = wpbc_auto_select_dates_in_calendar( 1, '2024-05-15', '2024-05-25' );
+ * 	Example 2:				var num_selected_days = wpbc_auto_select_dates_in_calendar( 1, ['2024-05-09','2024-05-19','2024-05-20'] );
+ */
+function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_out_ymd = '' ){								//FixIn: 10.0.0.47
+
+	console.log( 'WPBC_AUTO_SELECT_DATES_IN_CALENDAR( RESOURCE_ID, CHECK_IN_YMD, CHECK_OUT_YMD )', resource_id, check_in_ymd, check_out_ymd );
+
+	if (
+		   ( '2100-01-01' == check_in_ymd )
+		|| ( '2100-01-01' == check_out_ymd )
+		|| ( ( '' == check_in_ymd ) && ( '' == check_out_ymd ) )
+	){
+		return 0;
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// If 	check_in_ymd  =  [ '2024-05-09','2024-05-19','2024-05-30' ]				ARRAY of DATES						//FixIn: 10.0.0.50
+	// -----------------------------------------------------------------------------------------------------------------
+	var dates_to_select_arr = [];
+	if ( Array.isArray( check_in_ymd ) ){
+		dates_to_select_arr = wpbc_clone_obj( check_in_ymd );
+
+		// -------------------------------------------------------------------------------------------------------------
+		// Exceptions to  set  	MULTIPLE DAYS 	mode
+		// -------------------------------------------------------------------------------------------------------------
+		// if dates as NOT CONSECUTIVE: ['2024-05-09','2024-05-19','2024-05-30'], -> set MULTIPLE DAYS mode
+		if (
+			   ( dates_to_select_arr.length > 0 )
+			&& ( '' == check_out_ymd )
+			&& ( ! wpbc_dates__is_consecutive_dates_arr_range( dates_to_select_arr ) )
+		){
+			wpbc_cal_days_select__multiple( resource_id );
+		}
+		// if multiple days to select, but enabled SINGLE day mode, -> set MULTIPLE DAYS mode
+		if (
+			   ( dates_to_select_arr.length > 1 )
+			&& ( '' == check_out_ymd )
+			&& ( 'single' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) )
+		){
+			wpbc_cal_days_select__multiple( resource_id );
+		}
+		// -------------------------------------------------------------------------------------------------------------
+		check_in_ymd = dates_to_select_arr[ 0 ];
+		if ( '' == check_out_ymd ){
+			check_out_ymd = dates_to_select_arr[ (dates_to_select_arr.length-1) ];
+		}
+	}
+	// -----------------------------------------------------------------------------------------------------------------
+
+
+	if ( '' == check_in_ymd ){
+		check_in_ymd = check_out_ymd;
+	}
+	if ( '' == check_out_ymd ){
+		check_out_ymd = check_in_ymd;
+	}
+
+	if ( 'undefined' === typeof (resource_id) ){
+		resource_id = '1';
+	}
+
+
+	var inst = wpbc_calendar__get_inst( resource_id );
+
+	if ( null !== inst ){
+
+		// Unselect all dates and set  properties of Datepick
+		jQuery( '#date_booking' + resource_id ).val( '' );      														//FixIn: 5.4.3
+		inst.stayOpen = false;
+		inst.dates = [];
+		var check_in_js = wpbc__get__js_date( check_in_ymd );
+		var td_cell     = wpbc_get_clicked_td( inst.id, check_in_js );
+
+		// ---------------------------------------------------------------------------------------------------------
+		//  == DYNAMIC ==
+		if ( 'dynamic' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) ){
+			// 1-st click
+			inst.stayOpen = false;
+			jQuery.datepick._selectDay( td_cell, '#' + inst.id, check_in_js.getTime() );
+			if ( 0 === inst.dates.length ){
+				return 0;  								// First click  was unsuccessful, so we must not make other click
+			}
+
+			// 2-nd click
+			var check_out_js = wpbc__get__js_date( check_out_ymd );
+			var td_cell_out = wpbc_get_clicked_td( inst.id, check_out_js );
+			inst.stayOpen = true;
+			jQuery.datepick._selectDay( td_cell_out, '#' + inst.id, check_out_js.getTime() );
+		}
+
+		// ---------------------------------------------------------------------------------------------------------
+		//  == FIXED ==
+		if (  'fixed' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' )) {
+			jQuery.datepick._selectDay( td_cell, '#' + inst.id, check_in_js.getTime() );
+		}
+
+		// ---------------------------------------------------------------------------------------------------------
+		//  == SINGLE ==
+		if ( 'single' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) ){
+			//jQuery.datepick._restrictMinMax( inst, jQuery.datepick._determineDate( inst, check_in_js, null ) );		// Do we need to run  this ? Please note, check_in_js must  have time,  min, sec defined to 0!
+			jQuery.datepick._selectDay( td_cell, '#' + inst.id, check_in_js.getTime() );
+		}
+
+		// ---------------------------------------------------------------------------------------------------------
+		//  == MULTIPLE ==
+		if ( 'multiple' === _wpbc.calendar__get_param_value( resource_id, 'days_select_mode' ) ){
+
+			var dates_arr;
+
+			if ( dates_to_select_arr.length > 0 ){
+				// Situation, when we have dates array: ['2024-05-09','2024-05-19','2024-05-30'].  and not the Check In / Check  out dates as parameter in this function
+				dates_arr = wpbc_get_selection_dates_js_str_arr__from_arr( dates_to_select_arr );
+			} else {
+				dates_arr = wpbc_get_selection_dates_js_str_arr__from_check_in_out( check_in_ymd, check_out_ymd, inst );
+			}
+
+			if ( 0 === dates_arr.dates_js.length ){
+				return 0;
+			}
+
+			// For Calendar Days selection
+			for ( var j = 0; j < dates_arr.dates_js.length; j++ ){       // Loop array of dates
+
+				var str_date = wpbc__get__sql_class_date( dates_arr.dates_js[ j ] );
+
+				// Date unavailable !
+				if ( 0 == _wpbc.bookings_in_calendar__get_for_date( resource_id, str_date ).day_availability ){
+					return 0;
+				}
+
+				if ( dates_arr.dates_js[ j ] != -1 ) {
+					inst.dates.push( dates_arr.dates_js[ j ] );
+				}
+			}
+
+			var check_out_date = dates_arr.dates_js[ (dates_arr.dates_js.length - 1) ];
+
+			inst.dates.push( check_out_date ); 			// Need add one additional SAME date for correct  works of dates selection !!!!!
+
+			var checkout_timestamp = check_out_date.getTime();
+			var td_cell = wpbc_get_clicked_td( inst.id, check_out_date );
+
+			jQuery.datepick._selectDay( td_cell, '#' + inst.id, checkout_timestamp );
+		}
+
+
+		if ( 0 !== inst.dates.length ){
+			// Scroll to specific month, if we set dates in some future months
+			wpbc_calendar__scroll_to( resource_id, inst.dates[ 0 ].getFullYear(), inst.dates[ 0 ].getMonth()+1 );
+		}
+
+		return inst.dates.length;
+	}
+
+	return 0;
+}
+
+	/**
+	 * Get HTML td element (where was click in calendar  day  cell)
+	 *
+	 * @param calendar_html_id			'calendar_booking1'
+	 * @param date_js					JS Date
+	 * @returns {*|jQuery}				Dom HTML td element
+	 */
+	function wpbc_get_clicked_td( calendar_html_id, date_js ){
+
+	    var td_cell = jQuery( '#' + calendar_html_id + ' .sql_date_' + wpbc__get__sql_class_date( date_js ) ).get( 0 );
+
+		return td_cell;
+	}
+
+	/**
+	 * Get arrays of JS and SQL dates as dates array
+	 *
+	 * @param check_in_ymd							'2024-05-15'
+	 * @param check_out_ymd							'2024-05-25'
+	 * @param inst									Datepick Inst. Use wpbc_calendar__get_inst( resource_id );
+	 * @returns {{dates_js: *[], dates_str: *[]}}
+	 */
+	function wpbc_get_selection_dates_js_str_arr__from_check_in_out( check_in_ymd, check_out_ymd , inst ){
+
+		var original_array = [];
+		var date;
+		var bk_distinct_dates = [];
+
+		var check_in_date = check_in_ymd.split( '-' );
+		var check_out_date = check_out_ymd.split( '-' );
+
+		date = new Date();
+		date.setFullYear( check_in_date[ 0 ], (check_in_date[ 1 ] - 1), check_in_date[ 2 ] );                                    // year, month, date
+		var original_check_in_date = date;
+		original_array.push( jQuery.datepick._restrictMinMax( inst, jQuery.datepick._determineDate( inst, date, null ) ) ); //add date
+		if ( ! wpdev_in_array( bk_distinct_dates, (check_in_date[ 2 ] + '.' + check_in_date[ 1 ] + '.' + check_in_date[ 0 ]) ) ){
+			bk_distinct_dates.push( parseInt(check_in_date[ 2 ]) + '.' + parseInt(check_in_date[ 1 ]) + '.' + check_in_date[ 0 ] );
+		}
+
+		var date_out = new Date();
+		date_out.setFullYear( check_out_date[ 0 ], (check_out_date[ 1 ] - 1), check_out_date[ 2 ] );                                    // year, month, date
+		var original_check_out_date = date_out;
+
+		var mewDate = new Date( original_check_in_date.getFullYear(), original_check_in_date.getMonth(), original_check_in_date.getDate() );
+		mewDate.setDate( original_check_in_date.getDate() + 1 );
+
+		while (
+			(original_check_out_date > date) &&
+			(original_check_in_date != original_check_out_date) ){
+			date = new Date( mewDate.getFullYear(), mewDate.getMonth(), mewDate.getDate() );
+
+			original_array.push( jQuery.datepick._restrictMinMax( inst, jQuery.datepick._determineDate( inst, date, null ) ) ); //add date
+			if ( !wpdev_in_array( bk_distinct_dates, (date.getDate() + '.' + parseInt( date.getMonth() + 1 ) + '.' + date.getFullYear()) ) ){
+				bk_distinct_dates.push( (parseInt(date.getDate()) + '.' + parseInt( date.getMonth() + 1 ) + '.' + date.getFullYear()) );
+			}
+
+			mewDate = new Date( date.getFullYear(), date.getMonth(), date.getDate() );
+			mewDate.setDate( mewDate.getDate() + 1 );
+		}
+		original_array.pop();
+		bk_distinct_dates.pop();
+
+		return {'dates_js': original_array, 'dates_str': bk_distinct_dates};
+	}
+
+	/**
+	 * Get arrays of JS and SQL dates as dates array
+	 *
+	 * @param dates_to_select_arr	= ['2024-05-09','2024-05-19','2024-05-30']
+	 *
+	 * @returns {{dates_js: *[], dates_str: *[]}}
+	 */
+	function wpbc_get_selection_dates_js_str_arr__from_arr( dates_to_select_arr ){										//FixIn: 10.0.0.50
+
+		var original_array    = [];
+		var bk_distinct_dates = [];
+		var one_date_str;
+
+		for ( var d = 0; d < dates_to_select_arr.length; d++ ){
+
+			original_array.push( wpbc__get__js_date( dates_to_select_arr[ d ] ) );
+
+			one_date_str = dates_to_select_arr[ d ].split('-')
+			if ( ! wpdev_in_array( bk_distinct_dates, (one_date_str[ 2 ] + '.' + one_date_str[ 1 ] + '.' + one_date_str[ 0 ]) ) ){
+				bk_distinct_dates.push( parseInt(one_date_str[ 2 ]) + '.' + parseInt(one_date_str[ 1 ]) + '.' + one_date_str[ 0 ] );
+			}
+		}
+
+		return {'dates_js': original_array, 'dates_str': original_array};
+	}
+
+
+jQuery( document ).ready( function (){
+
+	var url_params = new URLSearchParams( window.location.search );
+
+	// Disable days selection  in calendar,  after  redirection  from  the "Search results page,  after  search  availability" 			//FixIn: 8.8.2.3
+	if  ( 'On' != _wpbc.get_other_param( 'is_enabled_booking_search_results_days_select' ) ) {
+		if (
+			( url_params.has( 'wpbc_select_check_in' ) ) &&
+			( url_params.has( 'wpbc_select_check_out' ) ) &&
+			( url_params.has( 'wpbc_select_calendar_id' ) )
+		){
+
+			var select_dates_in_calendar_id = parseInt( url_params.get( 'wpbc_select_calendar_id' ) );
+
+			// Fire on all booking dates loaded
+			jQuery( 'body' ).on( 'wpbc_calendar_ajx__loaded_data', function ( event, loaded_resource_id ){
+
+				if ( loaded_resource_id == select_dates_in_calendar_id ){
+					wpbc_auto_select_dates_in_calendar( select_dates_in_calendar_id, url_params.get( 'wpbc_select_check_in' ), url_params.get( 'wpbc_select_check_out' ) );
+				}
+			} );
+		}
+	}
+
+	if ( url_params.has( 'wpbc_auto_fill' ) ){
+
+		var wpbc_auto_fill_value = url_params.get( 'wpbc_auto_fill' );
+
+		// Convert back.     Some systems do not like symbol '~' in URL, so  we need to replace to  some other symbols
+		wpbc_auto_fill_value = wpbc_auto_fill_value.replaceAll( '_^_', '~' );
+
+		wpbc_auto_fill_booking_fields( wpbc_auto_fill_value );
+	}
+
+} );
+
+
+/**
+ * Autofill / select booking form  fields by  values from  the GET request  parameter: ?wpbc_auto_fill=
+ *
+ * @param auto_fill_str
+ */
+function wpbc_auto_fill_booking_fields( auto_fill_str ){																//FixIn: 10.0.0.48
+
+	if ( '' == auto_fill_str ){
+		return;
+	}
+
+// console.log( 'WPBC_AUTO_FILL_BOOKING_FIELDS( AUTO_FILL_STR )', auto_fill_str);
+
+	var fields_arr = wpbc_auto_fill_booking_fields__parse( auto_fill_str );
+
+	for ( let i = 0; i < fields_arr.length; i++ ){
+		jQuery( '[name="' + fields_arr[ i ][ 'name' ] + '"]' ).val( fields_arr[ i ][ 'value' ] );
+	}
+}
+
+
+	/**
+	 * Parse data from  get parameter:	?wpbc_auto_fill=visitors231^2~max_capacity231^2
+	 *
+	 * @param data_str      =   'visitors231^2~max_capacity231^2';
+	 * @returns {*}
+	 */
+	function wpbc_auto_fill_booking_fields__parse( data_str ){
+
+		var filter_options_arr = [];
+
+		var data_arr = data_str.split( '~' );
+
+		for ( var j = 0; j < data_arr.length; j++ ){
+
+			var my_form_field = data_arr[ j ].split( '^' );
+
+			var filter_name  = ('undefined' !== typeof (my_form_field[ 0 ])) ? my_form_field[ 0 ] : '';
+			var filter_value = ('undefined' !== typeof (my_form_field[ 1 ])) ? my_form_field[ 1 ] : '';
+
+			filter_options_arr.push(
+										{
+											'name'  : filter_name,
+											'value' : filter_value
+										}
+								   );
+		}
+		return filter_options_arr;
+	}
+
+	/**
+	 * Parse data from  get parameter:	?search_get__custom_params=...
+	 *
+	 * @param data_str      =   'text^search_field__display_check_in^23.05.2024~text^search_field__display_check_out^26.05.2024~selectbox-one^search_quantity^2~selectbox-one^location^Spain~selectbox-one^max_capacity^2~selectbox-one^amenity^parking~checkbox^search_field__extend_search_days^5~submit^^Search~hidden^search_get__check_in_ymd^2024-05-23~hidden^search_get__check_out_ymd^2024-05-26~hidden^search_get__time^~hidden^search_get__quantity^2~hidden^search_get__extend^5~hidden^search_get__users_id^~hidden^search_get__custom_params^~';
+	 * @returns {*}
+	 */
+	function wpbc_auto_fill_search_fields__parse( data_str ){
+
+		var filter_options_arr = [];
+
+		var data_arr = data_str.split( '~' );
+
+		for ( var j = 0; j < data_arr.length; j++ ){
+
+			var my_form_field = data_arr[ j ].split( '^' );
+
+			var filter_type  = ('undefined' !== typeof (my_form_field[ 0 ])) ? my_form_field[ 0 ] : '';
+			var filter_name  = ('undefined' !== typeof (my_form_field[ 1 ])) ? my_form_field[ 1 ] : '';
+			var filter_value = ('undefined' !== typeof (my_form_field[ 2 ])) ? my_form_field[ 2 ] : '';
+
+			filter_options_arr.push(
+										{
+											'type'  : filter_type,
+											'name'  : filter_name,
+											'value' : filter_value
+										}
+								   );
+		}
+		return filter_options_arr;
 	}

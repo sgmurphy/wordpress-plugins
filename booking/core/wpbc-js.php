@@ -10,6 +10,8 @@
  * @modified 19.10.2015
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit if accessed directly
+
 class WPBC_JS extends WPBC_JS_CSS {
     
     public function define() {
@@ -39,15 +41,14 @@ class WPBC_JS extends WPBC_JS_CSS {
 		wpbc_remove_js_conflicts();                                                                                     //FixIn: 9.5.4.2
 
         wpbc_js_load_vars(  $where_to_load );
-        
-        // Define JavaScript varibales in all other files
-        do_action( 'wpbc_define_js_vars', $where_to_load );                         
+        do_action( 'wpbc_define_js_vars', $where_to_load );                                                             // Define JavaScript variables in all other files
 
         wpbc_js_load_libs(  $where_to_load );
         wpbc_js_load_files( $where_to_load );
 
-        if ( wpbc_is_new_booking_page() )   
-            $where_to_load = 'both';
+	    if ( wpbc_is_new_booking_page() || wpbc_is_settings_form_page()) {
+		    $where_to_load = 'both';
+	    }
 
         // Load JavaScript files in all other versions
         do_action( 'wpbc_enqueue_js_files', $where_to_load );
@@ -148,77 +149,12 @@ function wpbc_js_load_vars( $where_to_load ) {
 
     wp_enqueue_script( 'wpbc-global-vars', wpbc_plugin_url( '/js/wpbc_vars.js' ), array( 'jquery' ), WP_BK_VERSION_NUM );        // Blank JS File
 
+//    wp_localize_script( 'wpbc-global-vars' ,
+//	                    'wpbc_js_global', array(
+//					                            'wpdev_bk_plugin_url' => plugins_url( '', WPBC_FILE )
+//                                            )
+//                    );
 
-	//FixIn: 9.4.3.1
-	$booking_highlight_timeslot_word = get_bk_option( 'booking_highlight_timeslot_word' );
-	$booking_highlight_timeslot_word = apply_bk_filter( 'wpdev_check_for_active_language', $booking_highlight_timeslot_word );
-	if ( empty( $booking_highlight_timeslot_word ) ) {
-		$booking_highlight_timeslot_word = '';
-	}
-	if ( 'On' == get_bk_option( 'booking_disable_timeslots_in_tooltip' ) ) {                                            //FixIn: 9.5.0.2.2
-		$booking_highlight_timeslot_word = 'WPBC_DISABLE_TIMES_TOOLTIP';
-	}
-
-	//FixIn: 9.9.0.17
-	$today_local = wpbc_datetime_localized__use_wp_timezone( date( 'Y-m-d H:i:s', strtotime( 'now' ) ), 'Y-m-d-H-i' );
-	$today_local_arr = explode( '-', $today_local );
-
-    wp_localize_script( 'wpbc-global-vars'
-                      , 'wpbc_global1', array(
-          'wpbc_ajaxurl'                        => admin_url( 'admin-ajax.php' )
-        , 'wpdev_bk_plugin_url'                 => plugins_url( '' , WPBC_FILE )                                                     
-        , 'wpbc_today'       => '['     . intval( $today_local_arr[0] )            //FixIn: 9.9.0.17
-                                        .','. intval( $today_local_arr[1] )
-                                        .','. intval( $today_local_arr[2] )
-                                        .','. intval( $today_local_arr[3] )
-                                        .','. intval( $today_local_arr[4] )
-                                    .']'
-        , 'visible_booking_id_on_page'          => '[]'
-        , 'booking_max_monthes_in_calendar'     => get_bk_option( 'booking_max_monthes_in_calendar')
-        , 'user_unavilable_days'                => '['. ( ( get_bk_option( 'booking_unavailable_day0') == 'On' ) ? '0,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day1') == 'On' ) ? '1,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day2') == 'On' ) ? '2,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day3') == 'On' ) ? '3,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day4') == 'On' ) ? '4,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day5') == 'On' ) ? '5,' : '' )
-                                                    . ( ( get_bk_option( 'booking_unavailable_day6') == 'On' ) ? '6,' : '' )
-                                                    .'999]' // 999 - blank day, which will not impact  to the checking of the week days. Required for correct creation of this array.
-        , 'wpdev_bk_edit_id_hash'               => ( ( isset( $_GET['booking_hash'] ) ) ? $_GET['booking_hash'] : '' )
-        , 'wpdev_bk_plugin_filename'            => WPBC_PLUGIN_FILENAME 
-        , 'bk_days_selection_mode'              => ( ( get_bk_option('booking_type_of_day_selections') == 'range' ) ? get_bk_option('booking_range_selection_type') : get_bk_option( 'booking_type_of_day_selections') )     /* {'single', 'multiple', 'fixed', 'dynamic'} */
-        , 'wpdev_bk_personal'                   => ( ( class_exists('wpdev_bk_personal') ) ? '1' : '0' )
-        , 'block_some_dates_from_today'         => get_bk_option('booking_unavailable_days_num_from_today') 
-        , 'message_verif_requred'               => esc_js(__('This field is required' ,'booking'))
-        , 'message_verif_requred_for_check_box' => esc_js(__('This checkbox must be checked' ,'booking'))
-        , 'message_verif_requred_for_radio_box' => esc_js(__('At least one option must be selected' ,'booking'))
-        , 'message_verif_emeil'                 => esc_js(__('Incorrect email field' ,'booking'))
-        , 'message_verif_same_emeil'            => esc_js(__('Your emails do not match' ,'booking'))          // Email Addresses Do Not Match
-        , 'message_verif_selectdts'             =>  esc_js(__('Please, select booking date(s) at Calendar.' ,'booking'))
-        , 'new_booking_title'                   => stripslashes( esc_js( apply_bk_filter('wpdev_check_for_active_language', get_bk_option( 'booking_title_after_reservation' ) ) ) )    //FixIn: 9.1.2.2   //TODO: delete it  2023-10-04 12:19
-        , 'type_of_thank_you_message'           => esc_js( get_bk_option( 'booking_type_of_thank_you_message' ) )        
-        , 'thank_you_page_URL'                  => wpbc_make_link_absolute( apply_bk_filter('wpdev_check_for_active_language', get_bk_option( 'booking_thank_you_page_URL' ) ) )        
-        , 'is_am_pm_inside_time'                => (
-        	                                            ( (strpos(get_bk_option('booking_time_format'), 'a')!== false) || (strpos(get_bk_option('booking_time_format'), 'A')!== false)
-	                                                 || (     ( (strpos(get_option('time_format'), 'a')!== false) || (strpos(get_option('time_format'), 'A')!== false) )
-	                                                 	   && ( ! class_exists( 'wpdev_bk_biz_s' ) )                    //FixIn: 8.7.3.11
-	                                                      )
-                                                    ) ?  'true': 'false' )                                              //FixIn:  TimeFree 2    -  in Booking Calendar Free version  show by  default times hints in AM/PM format
-        , 'is_booking_used_check_in_out_time'   => 'false'
-        , 'wpbc_active_locale'                  => wpbc_get_maybe_reloaded_booking_locale()
-        , 'wpbc_message_processing'             => esc_js( __('Processing' ,'booking') )
-        , 'wpbc_message_deleting'               => esc_js( __('Deleting' ,'booking') )
-        , 'wpbc_message_updating'               => esc_js( __('Updating' ,'booking') )
-        , 'wpbc_message_saving'                 => esc_js( __('Saving' ,'booking') )
-	    //FixIn: 8.2.1.99
-		, 'message_checkinouttime_error'        => esc_js(__('Error! Please reset your check-in/check-out dates above.' ,'booking') )  //FixIn:6.1.1.1
-		, 'message_starttime_error'             => esc_js(__('Start Time is invalid. The date or time may be booked, or already in the past! Please choose another date or time.' ,'booking') )
-		, 'message_endtime_error'               => esc_js(__('End Time is invalid. The date or time may be booked, or already in the past. The End Time may also be earlier that the start time, if only 1 day was selected! Please choose another date or time.' ,'booking') )
-		, 'message_rangetime_error'             => esc_js(__('The time(s) may be booked, or already in the past!' ,'booking') )
-		, 'message_durationtime_error'          => esc_js(__('The time(s) may be booked, or already in the past!' ,'booking') )
-		// , 'bk_highlight_timeslot_word'          => esc_js( __( 'Times:', 'booking' ) )
-		, 'bk_highlight_timeslot_word' => esc_js( $booking_highlight_timeslot_word )								    //FixIn: 9.4.3.1    //FixIn: 8.2.1.99
-    ));
-        
 }
 
 
@@ -247,6 +183,8 @@ function wpbc_js_load_libs( $where_to_load ) {
 /** Load JavaScript Files */
 function wpbc_js_load_files( $where_to_load ) {
 
+	wp_enqueue_script( 'wpbc_all',          wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                    array( 'jquery' ), WP_BK_VERSION_NUM );              //FixIn: 9.8.6.1
+
     /**
      * Popover functionality.
      * Popover based on Tippy.js ( https://atomiks.github.io/tippyjs/v6/all-props/#allowhtml ), which  is based on  popper.js ( https://popper.js.org/docs/v2/tutorial/ )
@@ -261,26 +199,20 @@ function wpbc_js_load_files( $where_to_load ) {
 	wp_enqueue_script( 'wpbc-popper', wpbc_plugin_url( '/assets/libs/popper/popper.js' ),                   array( 'wpbc-global-vars' ),    WP_BK_VERSION_NUM );            //FixIn: 9.0.1.1
 	wp_enqueue_script( 'wpbc-tipcy',  wpbc_plugin_url( '/assets/libs/tippy.js/dist/tippy-bundle.umd.js' ),  array( 'wpbc-popper' )  ,       WP_BK_VERSION_NUM );            //FixIn: 9.8.1
 
-
 	if ( $where_to_load != 'client' ) {
-		wp_enqueue_script( 'wpbc-modal', wpbc_plugin_url( '/assets/libs/ui/_out/dropdown_modal.js' ),       array( 'jquery' ), WP_BK_VERSION_NUM );                         //FixIn: 9.8.1
+		wp_enqueue_script( 'wpbc-modal', wpbc_plugin_url( '/assets/libs/ui/_out/dropdown_modal.js' ),       array( 'jquery' ),          WP_BK_VERSION_NUM );               //FixIn: 9.8.1
 	}
 
-    // Datepicker    
     wp_enqueue_script( 'wpbc-datepick', wpbc_plugin_url( '/js/datepick/jquery.datepick.wpbc.9.0.js'),       array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );               //FixIn: 9.8.1
-    // Localization
-    $calendar_localization_url = wpbc_get_calendar_localization_url();
+    $calendar_localization_url = wpbc_get_calendar_localization_url();                                                  // Localization
 	if ( ! empty( $calendar_localization_url ) ) {
-		wp_enqueue_script( 'wpbc-datepick-localize', $calendar_localization_url, array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );                                             //FixIn: 9.8.1
+		wp_enqueue_script( 'wpbc-datepick-localize', $calendar_localization_url,                            array( 'wpbc-datepick' ),   WP_BK_VERSION_NUM );                 //FixIn: 9.8.1
 	}
 
+    if (  ( $where_to_load == 'client' ) || ( wpbc_is_new_booking_page()  ) || ( wpbc_is_settings_form_page()  )   ) {
 
-    if (  ( $where_to_load == 'client' ) || ( wpbc_is_new_booking_page()  )   ) {
-		wp_enqueue_script( 'wpbc_all',          wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                    array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );          //FixIn: 9.8.6.1
-	//	wp_enqueue_script( 'wpbc_balancer',     wpbc_plugin_url( '/includes/_load_balancer/_out/wpbc_balancer.js' ), array( 'wpbc_calendar' ), WP_BK_VERSION_NUM );             //FixIn: 9.8.3.1
-	//	wp_enqueue_script( 'wpbc_calendar',     wpbc_plugin_url( '/includes/_wpbc_calendar/_out/wpbc_calendar.js' ), array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );             // FixIn: 9.8.0.3
 	    wp_enqueue_script( 'wpbc-main-client',  wpbc_plugin_url( '/js/client.js' ),                                  array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );             // Client
-	    wp_enqueue_script( 'wpbc_capacity',     wpbc_plugin_url( '/includes/_capacity/_out/create_booking.js' ),           array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );    // Add new bookings   //FixIn: 9.8.0.3
+	    wp_enqueue_script( 'wpbc_capacity',     wpbc_plugin_url( '/includes/_capacity/_out/create_booking.js' ),     array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );          // Add new bookings   //FixIn: 9.8.0.3
 	    wp_enqueue_script( 'wpbc-times',        wpbc_plugin_url( '/js/wpbc_times.js' ),                              array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );          // FixIn: TimeFree 2 //UnComment it for Booking Calendar Free version
 	    if ( 'On' === get_bk_option( 'booking_timeslot_picker' ) ) {
 			wp_enqueue_script( 'wpbc-time-selector',    wpbc_plugin_url( '/js/wpbc_time-selector.js'),               array( 'wpbc-times' ),     WP_BK_VERSION_NUM);             //FixIn: 8.7.11.10
@@ -290,6 +222,9 @@ function wpbc_js_load_files( $where_to_load ) {
     if ( $where_to_load == 'admin' ) {
 		wp_enqueue_script( 'wpbc-js-print',      wpbc_plugin_url( '/assets/libs/wpbc_js_print/wpbc_js_print.js' ),  array( 'jquery' )  ,         WP_BK_VERSION_NUM );           //FixIn: 9.8.1            //FixIn: 9.2.1.6   //FixIn: 9.1.2.13
         wp_enqueue_script( 'wpbc-admin-main',    wpbc_plugin_url( '/js/admin.js'),                                  array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );           // Admin
+	    if ( wpbc_can_i_load_on_this_page__shortcode_config() ) {
+			wp_enqueue_script( 'wpbc_shortcode_popup', wpbc_plugin_url( '/includes/ui_modal__shortcodes/_out/wpbc_shortcode_popup.js' ), array( 'jquery' ), WP_BK_VERSION_NUM ); //FixIn: 9.8.6.1
+	    }
         wp_enqueue_script( 'wpbc-admin-support', wpbc_plugin_url( '/core/any/js/admin-support.js'),                 array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );
         wp_enqueue_script( 'wpbc-chosen',        wpbc_plugin_url( '/assets/libs/chosen/chosen.jquery.min.js'),      array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );           // Chosen Library
     }
@@ -377,10 +312,69 @@ function wpbc_is_load_css_js_on_client_page( $is_load_scripts ) {
                 }
             }
 
-            if (  ( ! empty($booking_pages_for_load_js_css ) ) && ( ! in_array( $request_uri, $booking_pages_for_load_js_css ) )  )
-                    return false;
+	        if ( ( ! empty( $booking_pages_for_load_js_css ) ) && ( ! in_array( $request_uri, $booking_pages_for_load_js_css ) ) ) {
+
+		        wp_add_inline_script( 'jquery', "console.log( '== WPBC :: Loading of JS/CSS files disabled for this page at WP Booking Calendar > Settings General page in Advanced section  ==' );" );
+		        return false;
+	        }
         }
     }
     return true;
 }
 add_filter( 'wpbc_is_load_script_on_this_page', 'wpbc_is_load_css_js_on_client_page' );
+
+/**
+ *  Load JS and CSS files for loading modals correctly
+ *
+ * @return void
+ */
+function wpbc_load_js__required_for_modals(){
+
+	// JS for opening Modals
+	wp_enqueue_script( 'wpbc-modal', wpbc_plugin_url( '/assets/libs/ui/_out/dropdown_modal.js' ), array( 'jquery' ), WP_BK_VERSION_NUM );						//FixIn: 9.8.1
+
+	// CSS
+	wp_enqueue_style( 'wpdevelop-bts',              wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap.css' ),          array(), WP_BK_VERSION_NUM );	//FixIn: 9.8.1
+	wp_enqueue_style( 'wpdevelop-bts-theme',        wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap-theme.css' ),    array(), WP_BK_VERSION_NUM );	//FixIn: 9.8.1
+
+	wp_enqueue_style( 'wpbc-admin-support',         wpbc_plugin_url( '/core/any/css/admin-support.css' ),       array(), WP_BK_VERSION_NUM );
+	wp_enqueue_style( 'wpbc-admin-menu',            wpbc_plugin_url( '/core/any/css/admin-menu.css' ),          array(), WP_BK_VERSION_NUM );
+	//wp_enqueue_style( 'wpbc-admin-toolbar',         wpbc_plugin_url( '/core/any/css/admin-toolbar.css' ),     array(), WP_BK_VERSION_NUM );
+	wp_enqueue_style( 'wpbc-flex-toolbar', 			wpbc_plugin_url( '/includes/_toolbar_ui/_src/toolbar_ui.css' ), array(), WP_BK_VERSION_NUM );
+	wp_enqueue_style( 'wpbc-admin-modal-popups',    wpbc_plugin_url( '/css/modal.css' ),                        array(), WP_BK_VERSION_NUM);
+	wp_enqueue_style( 'wpbc-admin-pages',           wpbc_plugin_url( '/css/admin.css' ),                        array(), WP_BK_VERSION_NUM);
+	wp_enqueue_style( 'wpbc-admin-skin',            wpbc_plugin_url( '/css/admin-skin.css' ),                   array( 'wpbc-admin-pages' ), WP_BK_VERSION_NUM);            //FixIn: 8.0.2.4
+	if ( 'legacy' != get_bk_option( 'booking_admin_panel_skin' ) ) {                                            //FixIn: 9.5.5.7
+		wp_enqueue_style( 'wpbc-admin-skin-modern_1', wpbc_plugin_url( '/css/admin-skin-modern_1.css' ), array( 'wpbc-admin-skin' ), WP_BK_VERSION_NUM );       //FixIn: 9.5.5.1
+	}
+}
+
+
+/**
+ *  Load JS and CSS files for opening Media Upload PopUp in Admin Panel
+ *
+ * @return void
+ */
+function wpbc_load_js__required_for_media_upload(){
+
+	/**
+	 * Internal WordPress depending on:
+	 *   'wp-util'                                -> array( 'underscore', 'jquery' )
+	 *   'wp-backbone'                            -> array( 'backbone', 'wp-util' )
+	 *    wp_enqueue_script( 'media-editor' )     -> 'wp-backbone'
+	 */
+	if ( ! wpbc_is_this_demo() ) {
+		wp_enqueue_media();
+		wp_enqueue_script( 'wpbc_ui__media_upload', wpbc_plugin_url( '/includes/_media_upload/_out/wpbc_ui__media_upload.js' ), array(
+			'jquery',
+			'media-editor'
+		), WP_BK_VERSION_NUM );
+	} else {
+		$script  = "jQuery(document).ready(function() { ";
+		$script .= " jQuery( '.wpbc_media_upload_button' ).on( 'click', function( event ) { ";
+		$script .= "   alert('Warning! This feature is restricted in the public live demo.' ); ";
+		$script .= " }); ";
+		$script .= "}); ";
+		wp_add_inline_script( 'jquery', $script );
+	}
+}

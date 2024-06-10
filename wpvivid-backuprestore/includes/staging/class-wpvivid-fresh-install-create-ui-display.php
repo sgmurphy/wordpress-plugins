@@ -321,7 +321,7 @@ class WPvivid_Fresh_Install_Create_UI_Display_Free
                             <span>Choose Database to Install the Fresh Install</span>
                         </h2>
                         <p>
-                            <input type="text" option="create_wp" name="prefix" id="wpvivid_fresh_install_staging_table_prefix" placeholder="<?php echo esc_attr($prefix); ?>" value="<?php echo esc_attr($prefix); ?>" onkeyup="value=value.replace(/[^a-zA-Z0-9-_]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9-_]/g,'')" title="Table Prefix"> Custom Table Prefix, By default: <?php echo esc_html($prefix); ?>
+                            <input type="text" option="create_wp" name="prefix" id="wpvivid_fresh_install_staging_table_prefix" placeholder="<?php echo esc_attr($prefix); ?>" value="<?php echo esc_attr($prefix); ?>" onkeyup="value=value.replace(/[^a-zA-Z0-9_]/g,'')" onpaste="value=value.replace(/[^\a-\z\A-\Z0-9_]/g,'')" title="Table Prefix"> Custom Table Prefix, By default: <?php echo esc_html($prefix); ?>
                         </p>
 
                         <p>

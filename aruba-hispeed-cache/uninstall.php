@@ -19,3 +19,5 @@ if ( ! \defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 \delete_site_option( 'aruba_hispeed_cache_options' );
+\delete_site_option( 'aruba_hispeed_cache_version');
+AHSC_remove_htaccess();

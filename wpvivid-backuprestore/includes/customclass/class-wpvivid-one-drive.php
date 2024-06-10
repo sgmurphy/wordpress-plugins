@@ -145,9 +145,10 @@ class WPvivid_one_drive extends WPvivid_Remote
                                 else
                                 {
                                     $tmp_options['type'] = WPVIVID_REMOTE_ONEDRIVE;
-                                    $tmp_options['token']['access_token']=sanitize_text_field($_POST['access_token']);
-                                    $tmp_options['token']['refresh_token']=sanitize_text_field($_POST['refresh_token']);
+                                    $tmp_options['token']['access_token']=base64_encode(sanitize_text_field($_POST['access_token']));
+                                    $tmp_options['token']['refresh_token']=base64_encode(sanitize_text_field($_POST['refresh_token']));
                                     $tmp_options['token']['expires']=time()+$_POST['expires_in'];
+                                    $tmp_options['is_encrypt'] = 1;
                                     update_option('wpvivid_tmp_remote_options',$tmp_options);
                                 }
                                 $this->add_remote=true;
@@ -619,6 +620,10 @@ class WPvivid_one_drive extends WPvivid_Remote
         if($remote_options!==false)
         {
             $this->options['token']=$remote_options['token'];
+            if(isset($remote_options['is_encrypt']))
+            {
+                $this->options['is_encrypt']=$remote_options['is_encrypt'];
+            }
         }
     }
 
@@ -722,11 +727,18 @@ class WPvivid_one_drive extends WPvivid_Remote
 
     private function refresh_token()
     {
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $refresh_token=base64_decode($this->options['token']['refresh_token']);
+        }
+        else{
+            $refresh_token=$this->options['token']['refresh_token'];
+        }
+
         $args['method']='POST';
         $args['wpvivid_refresh_token']=1;
         $args['timeout']=15;
         $args['sslverify']=FALSE;
-        $args['body']=array( 'wpvivid_refresh_token' => '1', 'refresh_token' => $this->options['token']['refresh_token']);
+        $args['body']=array( 'wpvivid_refresh_token' => '1', 'refresh_token' => $refresh_token);
         $response=wp_remote_post('https://auth.wpvivid.com/onedrive_v2/',$args);
         if(!is_wp_error($response) && ($response['response']['code'] == 200))
         {
@@ -735,10 +747,14 @@ class WPvivid_one_drive extends WPvivid_Remote
             if($json_ret['result']=='success')
             {
                 $remote_options=WPvivid_Setting::get_remote_option($this->options['id']);
+                $json_ret['token']['access_token']=base64_encode($json_ret['token']['access_token']);
+                $json_ret['token']['refresh_token']=base64_encode($json_ret['token']['refresh_token']);
                 $this->options['token']=$json_ret['token'];
+                $this->options['is_encrypt']=1;
                 $this->options['token']['expires']=time()+ $json_ret['token']['expires_in'];
                 if($remote_options!==false)
                 {
+                    $remote_options['is_encrypt']=1;
                     $remote_options['token']=$json_ret['token'];
                     $remote_options['token']['expires']=time()+ $json_ret['token']['expires_in'];
                     WPvivid_Setting::update_remote_option($this->options['id'],$remote_options);
@@ -874,9 +890,16 @@ class WPvivid_one_drive extends WPvivid_Remote
         global $wpvivid_plugin;
         $upload_job=WPvivid_taskmanager::get_backup_sub_task_progress($task_id,'upload',WPVIVID_REMOTE_ONEDRIVE);
 
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $access_token=base64_decode($this->options['token']['access_token']);
+        }
+        else{
+            $access_token=$this->options['token']['access_token'];
+        }
+
         $path=$this->options['path'].'/'.basename($file);
         $args['method']='PUT';
-        $args['headers']=array( 'Authorization' => 'bearer '.$this->options['token']['access_token'],'content-type' => 'application/zip');
+        $args['headers']=array( 'Authorization' => 'bearer '.$access_token,'content-type' => 'application/zip');
         $args['timeout']=15;
 
         $data=file_get_contents($file);
@@ -1050,11 +1073,18 @@ class WPvivid_one_drive extends WPvivid_Remote
         if ($uploaded)
             fseek($file_handle, $uploaded);
 
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $access_token=base64_decode($this->options['token']['access_token']);
+        }
+        else{
+            $access_token=$this->options['token']['access_token'];
+        }
+
         $headers = array(
             "Content-Length: $upload_size",
             "Content-Range: bytes $uploaded-$upload_end/".$file_size,
         );
-        $headers[] = 'Authorization: Bearer ' . $this->options['token']['access_token'];
+        $headers[] = 'Authorization: Bearer ' . $access_token;
 
         $options = array(
             CURLOPT_URL        => $url,
@@ -1211,8 +1241,15 @@ class WPvivid_one_drive extends WPvivid_Remote
 
     private function delete_file($id)
     {
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $access_token=base64_decode($this->options['token']['access_token']);
+        }
+        else{
+            $access_token=$this->options['token']['access_token'];
+        }
+
         $args['method']='DELETE';
-        $args['headers']=array( 'Authorization' => 'bearer '.$this->options['token']['access_token']);
+        $args['headers']=array( 'Authorization' => 'bearer '.$access_token);
         $args['timeout']=15;
 
         $response = wp_remote_request( 'https://graph.microsoft.com/v1.0/me/drive/items/'.$id,$args);
@@ -1239,12 +1276,19 @@ class WPvivid_one_drive extends WPvivid_Remote
 
     private function remote_get($url,$header=array(),$decode=true,$timeout=15,$except_code=array())
     {
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $access_token=base64_decode($this->options['token']['access_token']);
+        }
+        else{
+            $access_token=$this->options['token']['access_token'];
+        }
+
         if(empty($except_code))
         {
             $except_code=array(200,201,202,204,206);
         }
         $args['timeout']=$timeout;
-        $args['headers']['Authorization']= 'bearer '.$this->options['token']['access_token'];
+        $args['headers']['Authorization']= 'bearer '.$access_token;
         $args['headers']= $args['headers']+$header;
         $response=wp_remote_get($url,$args);
 
@@ -1277,13 +1321,20 @@ class WPvivid_one_drive extends WPvivid_Remote
 
     private function remote_post($url,$header=array(),$body=null,$except_code=array())
     {
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $access_token=base64_decode($this->options['token']['access_token']);
+        }
+        else{
+            $access_token=$this->options['token']['access_token'];
+        }
+
         if(empty($except_code))
         {
             $except_code=array(200,201,202,204,206);
         }
 
         $args['method']='POST';
-        $args['headers']=array( 'Authorization' => 'bearer '.$this->options['token']['access_token'],'content-type' => 'application/json');
+        $args['headers']=array( 'Authorization' => 'bearer '.$access_token,'content-type' => 'application/json');
         $args['headers']=$args['headers']+$header;
         if(!is_null($body))
         {

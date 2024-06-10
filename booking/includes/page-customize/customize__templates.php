@@ -42,7 +42,7 @@ class WPBC_AJX__Customize_Plugin__Templates {
 		if ( ( is_admin() ) && ( in_array( $where_to_load, array( 'admin', 'both' ) ) ) ) {
 
 			wp_enqueue_script(    'wpbc-ajx_inline_calendar'
-								, wpbc_plugin_url( '/includes/_inline_calendar_js_css/_out/wpbc_inline_calendar.js' )
+								, trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/customize__inline_calendar.js'
 								, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
 
 			wp_enqueue_script(    'wpbc-ajx_customize_plugin_page'
@@ -54,8 +54,6 @@ class WPBC_AJX__Customize_Plugin__Templates {
 				, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
 
 			wp_enqueue_script( 'wpbc_all',         wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                 	array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );      //FixIn: 9.8.6.1
-		//	wp_enqueue_script( 'wpbc_balancer',    wpbc_plugin_url( '/includes/_load_balancer/_out/wpbc_balancer.js' ), array( 'wpbc_calendar' ), WP_BK_VERSION_NUM );      //FixIn: 9.8.3.1
-		//	wp_enqueue_script( 'wpbc_calendar',    wpbc_plugin_url( '/includes/_wpbc_calendar/_out/wpbc_calendar.js' ), array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );      //FixIn: 9.8.0.3
 			wp_enqueue_script( 'wpbc-main-client', wpbc_plugin_url( '/js/client.js' ),     array( 'wpbc-datepick' ),    WP_BK_VERSION_NUM );
 			wp_enqueue_script( 'wpbc-times',       wpbc_plugin_url( '/js/wpbc_times.js' ), array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );
 			/**
@@ -1935,9 +1933,9 @@ function wpbc_ajx_cstm__ui__template__calendar_dates_selection_range(){
 						if (   ( '-1' === data.ajx_data.calendar_settings.calendar__bk_2clicks_mode_days_start )
 							|| ( -1 !== data.ajx_data.calendar_settings.calendar__bk_2clicks_mode_days_start.indexOf( '<?php echo $day_key; ?>' ) )
 						){
-							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', true );//.change();
+							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', true );//.trigger( 'change' );
 						} else {
-							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', false );//.change();
+							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', false );//.trigger( 'change' );
 						}
 					} );
 				<?php if (0) { ?></script><?php } ?> #><?php
@@ -2058,9 +2056,9 @@ function wpbc_ajx_cstm__ui__template__calendar_dates_selection_range(){
 						if (   ( '-1' === data.ajx_data.calendar_settings.calendar__bk_1click_mode_days_start )
 							|| ( -1 !== data.ajx_data.calendar_settings.calendar__bk_1click_mode_days_start.indexOf( '<?php echo $day_key; ?>' ) )
 						){
-							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', true );//.change();
+							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', true );//.trigger( 'change' );
 						} else {
-							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', false );//.change();
+							jQuery( '#<?php echo $el_id . '_'.$day_key; ?>' ).prop( 'checked', false );//.trigger( 'change' );
 						}
 					} );
 				<?php if (0) { ?></script><?php } ?> #><?php

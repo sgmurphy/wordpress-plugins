@@ -16,6 +16,7 @@ unset( $post_types['page'] );
 			<div class="ppw_wrap_protection_selected">
 				<span class="ppw_protection_selected">Pages</span>
 				<span class="ppw_protection_selected">Posts</span>
+				<p><?php echo _e('For support with Custom Post Types, consider using our Pro plugin.', PPW_Constants::DOMAIN); // phpcs:ignore -- there is no value to escape. ?></p>
 			</div>
 		</div>
 	</td>

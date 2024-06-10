@@ -43,7 +43,7 @@ function wpbc_ui_dropdown_apply_click( params ){
 												if ( 'text' == jQuery( this ).prop( 'type' ) ){
 													return jQuery( this ).val();
 												}
-												if ( 'select-one' == jQuery( this ).prop( 'type' ) ){
+												if ( ( 'selectbox-one' == jQuery( this ).prop( 'type' ) ) || ( 'select-one' == jQuery( this ).prop( 'type' ) ) ){
 													return jQuery( this ).find( ':selected' ).text();
 												}
 												if (

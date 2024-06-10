@@ -446,7 +446,6 @@ if ( class_exists( 'Responsive_Addons_Pro' ) ) {
 					<div class="responsive-sites-import-template-action site-action-buttons-right">
 						<#
 						var is_free = true;
-						console.log( 'ResponsiveElementorSitesAdmin.templateType value:- ' + ResponsiveElementorSitesAdmin.templateType );
 						if ( 'pages' == ResponsiveElementorSitesAdmin.type ) {
 							if ( 'free' !== ResponsiveElementorSitesAdmin.templateType ) {
 								if( responsiveElementorSites.proActivated ) {
@@ -536,7 +535,7 @@ if ( class_exists( 'Responsive_Addons_Pro' ) ) {
 							} else {
 								if ( responsiveElementorSites.ccAppAuth) {
 								#>
-									<div type="button" class="button button-hero button-primary rst-library-template-insert disabled"><?php esc_html_e( 'Import ', 'responsive-addons' ); ?>{{action_str}}</div>
+									<div type="button" class="button button-hero button-primary rst-library-template-insert rst-library-block-insert disabled"><?php esc_html_e( 'Import ', 'responsive-addons' ); ?>{{action_str}}</div>
 									<div type="button" class="button button-hero button-primary rst-import-elementor-template disabled"><?php esc_html_e( 'Save ', 'responsive-addons' ); ?>{{action_str}}</div>
 								<#
 								} else {

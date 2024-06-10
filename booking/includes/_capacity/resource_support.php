@@ -92,13 +92,14 @@ class WPBC_RESOURCE_SUPPORT {
 
 		// W H E R E
 		$sql['where'] = 'WHERE ( 1 = 1 ) ';
-		$sql['where'] .= " AND ( ";
-		$sql['where'] .= "      booking_type_id IN ( {$params['resource_id']} ) ";
-		if ( ( class_exists( 'wpdev_bk_biz_l' ) ) && ( ! $this->as_single_resource ) ) {
-			$sql['where'] .= "   OR parent IN ( {$params['resource_id']} ) ";
+		if ( ! empty( $params['resource_id'] ) ) {
+			$sql['where'] .= " AND ( ";
+			$sql['where'] .= "      booking_type_id IN ( {$params['resource_id']} ) ";
+			if ( ( class_exists( 'wpdev_bk_biz_l' ) ) && ( ! $this->as_single_resource ) ) {
+				$sql['where'] .= "   OR parent IN ( {$params['resource_id']} ) ";
+			}
+			$sql['where'] .= " ) ";
 		}
-		$sql['where'] .= " ) ";
-
 		/**
 		 *
 			if ( '' != $params['prop_value'] ) {
@@ -224,7 +225,7 @@ class WPBC_RESOURCE_SUPPORT {
 		if ( false !== $resource_obj ) {
 			$resource_title = $resource_obj->title;
 
-			$resource_title = apply_bk_filter( 'wpdev_check_for_active_language', $resource_title );
+			$resource_title = wpbc_lang( $resource_title );
 		}
 
 		return $resource_title;
@@ -257,6 +258,10 @@ class WPBC_RESOURCE_SUPPORT {
 		return $resource__arr;
 	}
 
+
+	public function get_resources_obj_arr(){
+	    return $this->bookings_sql_obj_arr;
+	}
 }
 
 

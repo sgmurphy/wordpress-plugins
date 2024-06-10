@@ -70,9 +70,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 										</th>
 										<td>
 											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-slider]</span> – <?php esc_html_e( 'Slick slider Shortcode (design-1 to design-5)', 'wp-slick-slider-and-image-carousel' ); ?> <br />
-											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider]</span> – <?php esc_html_e( 'Slick slider carousel Shortcode (design-6)', 'wp-slick-slider-and-image-carousel' ); ?> <br />
-											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider centermode="true"]</span> – <?php esc_html_e( 'Slick slider carousel with center mode Shortcode (design-6)', 'wp-slick-slider-and-image-carousel' ); ?> <br />
-											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider variablewidth="true" centermode="true"]</span> – <?php esc_html_e( 'Slick slider carousel with variable width Shortcode (design-6)', 'wp-slick-slider-and-image-carousel' ); ?>
+											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider]</span> – <?php esc_html_e( 'Slick slider carousel Shortcode (design-1)', 'wp-slick-slider-and-image-carousel' ); ?> <br />
+											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider centermode="true"]</span> – <?php esc_html_e( 'Slick slider carousel with center mode Shortcode (design-1)', 'wp-slick-slider-and-image-carousel' ); ?> <br />
+											<span class="wpsisacm-shortcode-preview wpos-copy-clipboard">[slick-carousel-slider variablewidth="true" centermode="true"]</span> – <?php esc_html_e( 'Slick slider carousel with variable width Shortcode (design-1)', 'wp-slick-slider-and-image-carousel' ); ?>
 										</td>
 									</tr>
 

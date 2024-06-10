@@ -1670,9 +1670,13 @@
 		/**
 		 * Check Import permissions for the current installation.
 		 */
-		_checkImportCapabilities: function(callback) {
+		_checkImportCapabilities: function(importCapsHandler) {
 			// let self     = $( '.responsive-ready-sites-advanced-options-wrap' );
+			let isImportingBlock = $('.rst-library-template-insert').hasClass('rst-library-block-insert');
 			let demoType = ResponsiveElementorSitesAdmin.templateType;
+			if( isImportingBlock ) {
+				demoType = ResponsiveElementorSitesAdmin.blockType;
+			}
 			$.ajax(
 				{
 					url  : responsiveElementorSites.ajaxurl,
@@ -1702,9 +1706,9 @@
 									importCapsHandler(true);
 								}
 							} else if ( response.data.error && undefined !== response.data.message ) {
-								ResponsiveSitesAdmin._log_error(response.data.message, true );
+								console.log(response.data.message, true );
 							} else if( !response.data.success ) {
-								ResponsiveSitesAdmin._log_error( "No Connections available. Upgrade the plan to import the template.", true );
+								console.log( "No Connections available. Upgrade the plan to import the template.", true );
 							}
 						}
 					}

@@ -420,7 +420,7 @@
               })
             }
 
-            if (view === 'events') {
+            if (view === 'events' && !parseInt(wpAmeliaLabels.isLite)) {
               viewBody.push({
                 type: 'listbox',
                 name: 'am_booking_event_view_type',

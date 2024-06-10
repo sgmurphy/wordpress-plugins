@@ -827,6 +827,7 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
         return $e->getMessage();
       }
     }
+    
     public function getGoogleAdsAccountList()
     {
       try {

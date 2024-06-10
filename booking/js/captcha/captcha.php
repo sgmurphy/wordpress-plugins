@@ -71,6 +71,12 @@ class wpdevReallySimpleCaptcha {
 		/* Foreground (character) color of CAPTCHA image. RGB color 0-255 */
 		$this->fg = array( 0, 0, 0 );
 
+		//FixIn: 10.0.0.54
+		if ( ( function_exists( 'get_bk_option' ) ) && ( 'wpbc_theme_dark_1' === get_bk_option( 'booking_form_theme' ) ) ) {
+			$this->bg = array( 39, 39, 39 );
+			$this->fg = array( 255, 255, 255 );
+		}
+
 		/* Coordinates for a text in an image. I don't know the meaning. Just adjust. */
 		$this->base = array( 6, 18 );
 
@@ -125,6 +131,7 @@ class wpdevReallySimpleCaptcha {
 		$filename = null;
 
 		if ( $im = imagecreatetruecolor( $this->img_size[0], $this->img_size[1] ) ) {
+
 			$bg = imagecolorallocate( $im, $this->bg[0], $this->bg[1], $this->bg[2] );
 			$fg = imagecolorallocate( $im, $this->fg[0], $this->fg[1], $this->fg[2] );
 

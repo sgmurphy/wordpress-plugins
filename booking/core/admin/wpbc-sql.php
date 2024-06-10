@@ -601,7 +601,7 @@ function wpbc_get_all_booking_resources_list(){                                 
 	foreach ( $resource_objects as $br ) {
 
 		$br_option          = array();
-		$br_option['title'] = apply_bk_filter( 'wpdev_check_for_active_language', $br['title'] );
+		$br_option['title'] = wpbc_lang( $br['title'] );
 
 		if ( ( isset( $br['parent'] ) ) && ( $br['parent'] == 0 ) && ( isset( $br['count'] ) ) && ( $br['count'] > 1 ) ) {
 			$br_option['title'] .= ' [' . __( 'parent resource', 'booking' ) . ']';
@@ -656,7 +656,8 @@ function wpbc_is_mu_user_can_be_here( $check_condition,  $booking_resource  = ''
     if ( $check_condition == 'resource_owner' )        
         $is_can = apply_bk_filter( 'multiuser_is_user_can_be_here', true, $booking_resource );
     
-    return $is_can;    
+    return $is_can;
+
 }
 
 

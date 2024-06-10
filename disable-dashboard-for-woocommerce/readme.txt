@@ -1,7 +1,7 @@
 === Disable Bloat for WordPress & WooCommerce ===
-Contributors: disablebloat, ospiotr
+Contributors: disablebloat, ospiotr, mikewire_rocksolid
 Tags: WooCommerce, WordPress Optimization, Admin Panel Customization, Website Cleanup, remove bloat, unbloat, Yoast SEO, white label, Speed up WordPress
-Stable tag: 3.4.8
+Stable tag: 3.4.9
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
@@ -15,231 +15,170 @@ All-in-One solution to speed up your WordPress & WooCommerce. Remove unnecessary
 
 == Description ==
 
-Bloat is the silent killer of your site's performance, often slowing down your entire website. Make sure your site is fast by using Disable Bloat, an **all-in-one plugin to disable unnecessary features that slow down your site**.
+🚀 **Boost Your Site's Speed and Cleanliness with Disable Bloat!** 🚀
 
-By default, the WordPress admin panel is cluttered with preinstalled elements that may distract you from your work. **Make the admin panel smooth and clean**, by removing unnecessary elements.
+== Over 400k downloads and 20k+ active installs! And many 5 star reviews ==
 
-Wasting your time on a slow and bloated site is a thing of the past. With Disable Bloat you can finally have the fast site you deserve. Plugin works as a top-notch precision scalpel for your site, removing the clutter from your site's front-end and admin panel. It makes WordPress and WooCommerce **clean and fast** again.
+---
 
-With Disable Bloat, you will:
+**"This plugin will from now on be on my ‘required plugins’ list 🙂"**  
+⭐️⭐️⭐️⭐️⭐️  
+*— Janca*
 
-* Make your admin panel fast and clean by disabling unwanted features
-* Accelerate your WordPress website
-* Enhance security by turning off features that you don’t use
-* Disable third-party plugins bloat
-* and many more!
+**"So much easier than manually maintaining a list of filters to remove!"**  
+⭐️⭐️⭐️⭐️⭐️  
+*— Hollowdev*
 
-You deserve the best of both worlds: **aesthetics and speed**. Disable bloat, get faster loading time and make your WordPress admin panel clean again. Feel free to customize WordPress to your liking where every tweak is seamless and live.
+**"Wow – just wow!!!"**  
+⭐️⭐️⭐️⭐️⭐️  
+*— Hebhensen*
 
-== Premium Version ==
+---
 
-Unlock all features by upgrading to [Disable Bloat for WordPress & WooCommerce PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme).
+Bloat is the silent killer of your site’s performance, often slowing down your entire website. Ensure your site stays lightning-fast with **Disable Bloat**, the ultimate plugin to disable unnecessary features that drag your site down. 
 
-== Disable WooCommerce Bloat ==
+By default, the WordPress admin panel is cluttered with preinstalled elements that can distract you from your work. **Disable Bloat** smooths and cleans the admin panel by removing these unnecessary elements.
 
-**Disable WooCommerce Admin** which makes your back-end heavy. Turn off all WooCommerce **promotions** appearing in different places in the admin panel. **Reduce** the size of CSS and javascript scripts loading in the background of your site’s front-end and back-end.
+✨ **Why Choose Disable Bloat?** ✨  
+- Make Your Admin Panel Fast and Clean by disabling unwanted features
+- Accelerate Your WordPress Website and enhance user experience
+- Boost Security by turning off features you don’t use
+- Eliminate Third-Party Plugin Bloat to keep your site lean and fast-loading
 
-#### WooCommerce Admin
+Enjoy the perfect blend of aesthetics and speed. With **Disable Bloat**, every tweak is seamless and live, giving you the fast, clean WordPress admin panel you deserve.
 
-WooCommerce Admin is a built-in feature in WooCommerce. It is a javascript-driven dashboard. WooCommerce Admin's features continue to become increasingly blended into the merchant experience in WooCommerce. It can cause performance issues and slow down your website. Disabling the feature can help speed up your website and improve the user experience for your customers. Using the options below, you can effectively disable WooCommerce Admin, Analytics, Home screen and other features that are making your admin panel slower:
+🔓 **Premium Version** 🔓  
+Unlock all features with [Disable Bloat for WordPress & WooCommerce PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)
 
-* Disable WooCommerce Admin
-* Choose which WooCommerce Admin features to disable
-* Disable Marketing Hub
+🚫 **Disable WooCommerce Bloat**  
+- **Turn Off WooCommerce Admin** to lighten your back-end
+- **Remove WooCommerce Promotions** cluttering your admin panel
+- **Reduce CSS and JavaScript Load** for a faster front-end and back-end
 
-#### WooCommerce promotions
+📊 **WooCommerce Admin**  
+WooCommerce Admin is a JavaScript-driven dashboard that can slow down your website. Disabling it can help speed up your site and improve user experience. Use these options to disable WooCommerce Admin, Analytics, Home screen, and other features slowing your admin panel:
 
-WooCommerce is constantly trying to promote and advertise add-ons by adding nags to your admin panel. Now you can turn off or hide them:
+- **Disable WooCommerce Admin**
+- **Choose Admin Features to Disable**
+- **Turn Off Marketing Hub and Promotions**
 
-* Disable WooCommerce.com notice
-* Disable WooCommerce Marketplace Suggestions
-* Disable Extensions & My Subscriptions submenus
-* Disable Recommended shipping solutions metabox
-* Disable Recommended payments plugins metabox
-* Hide marketplace link on the Payments Settings screen
+📧 **WooCommerce Emails**  
+Annoyed by WooCommerce's promotional emails? Stay balanced by disabling:
 
-####  WooCommerce emails
+- **WooCommerce Guide Emails**
+- **Remove “Get the App” from Emails [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-The company behind WooCommerce actively promotes its add-ons, plugins, and extensions. They also affect the emails you receive from your webshop. This behavior can be seen as annoying or nagging by some users. Use the option below to stay balanced:
+🛠️ **WooCommerce Back-end Scripts**  
+Speed up your site by disabling unwanted scripts:
 
-* Disable WooCommerce guide emails
-* Remove the “Get the app” from WooCommerce emails **[PRO]**
+- **Disable WooCommerce Status Meta Box**
+- **Disable WooCommerce Dashboard Setup Widget**
+- **Disable New WooCommerce Product Editor**
+- **Disable WooCommerce Blocks (back-end) [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-####  WooCommerce back-end scripts
+🌐 **Your Store’s Front-end**  
+Disable unnecessary scripts and styles loading on your shop’s front-end:
 
-Speed up your site by turning off unwanted scripts that are being loaded in the background in the admin panel:
+- **Disable WooCommerce Widgets**
+- **Disable WooCommerce Scripts and Styles**
+- **Disable WooCommerce Cart Fragments**
+- **Disable WooCommerce Blocks (front-end) [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Unnecessary Stripe Scripts [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-* Disable WooCommerce Status Meta Box
-* Disable WooCommerce Dashboard Setup Widget
-* Disable new WooCommerce product editor
-* Disable WooCommerce Blocks (back-end) **[PRO]**
+🧼 **Optimize WordPress Admin Panel**  
+Make the admin panel smooth and clean by removing unnecessary elements:
 
-#### Your Store's Front-end
+- **Clean Admin Interface**
+- **Hide Update Notice for Non-admin Users**
+- **Disable WordPress Editor Autosave**
+- **Disable Dashboard Widgets [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove WordPress Logo from Admin Bar [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Admin Footer Text [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-By default, quite a lot of scripts and styles are automatically loading while browsing the front-end of your shop. Use the options below to disable them:
+🔒 **WordPress Login Page**  
+Customize the login page to your preference:
 
-* Disable WooCommerce Widgets
-* Disable WooCommerce scripts and styles
-* Disable WooCommerce Cart Fragments
-* Disable WooCommerce Blocks (front-end) **[PRO]**
-* Disable unnecessary Stripe scripts **[PRO]**
+- **Hide WordPress Logo from Login Page [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Change Logo Link on Login Page [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Change Logo Title Parameter on Login Page [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Login Language Switcher [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-== Optimize WordPress admin panel ==
+🚀 **Boost Your Site’s Performance**  
+Disable features you never use to improve load times and user experience:
 
-By default, the WordPress admin panel is cluttered with preinstalled elements that may distract you from your work. **Make the admin panel smooth and clean**, by removing unnecessary elements.
+- **Disable Password Strength Meter**
+- **Load Comments Script Only When Needed**
+- **Disable WordPress Dashicons on Front-end**
+- **Remove DNS Prefetch to s.w.org [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable jQuery Migrate [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Sidebar Widgets [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Meta Generator Tag [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Emoji Scripts [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable wp-embed [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
 
-#### Clean admin interface
-
-If you love a **simple and flexible interface**, use the options below to maximize your performance while browsing through the WordPress admin panel. By removing unnecessary elements, you will be 100% focused on your tasks:
-
-* Hide update notice for non-admin users
-* Disable WordPress editor Autosave feature
-* Disable WordPress Dashboard widgets **[PRO]**
-* Remove the WordPress logo from the admin bar **[PRO]**
-* Remove admin footer text **[PRO]**
-
-#### WordPress login page
-
-There are situations when you may prefer to hide or change the standard WordPress branding on the Login Page:
-
-* Hide the standard WordPress Logo from Login Page **[PRO]**
-* Change the Logo Link on the WordPress Login Page **[PRO]**
-* Change the Logo title parameter on the WordPress Login Page **[PRO]**
-* Disable WordPress Login Language Switcher **[PRO]**
-
-== Boost your site's performance ==
-
-Get rid of slowing down the page features that you never use, like Password Strength Meter. **Clean up** your site’s HTML Header section, by removing unwanted scripts. Disable deprecated Emoji scripts, as every modern browser supports emojis. **Page load time** is very important for your visitors. To improve page load time, try to disable scripts, features, and unnecessary queries:
-
-#### Speed up your site
-
-Use the settings from this section to reduce page load time on the front-end of your WordPress site:
-
-* Disable Password Strength Meter
-* Load Comments script only when needed
-* Prevent auto-linking URLs in comments
-* Disable WordPress Dashicons on the front-end
-* Remove DNS prefetch to s.w.org **[PRO]**
-* Disable jQuery Migrate **[PRO]**
-* Disable Sidebar WordPress Widgets **[PRO]**
-* Remove WordPress & WooCommerce Meta Generator Tag **[PRO]**
-* Remove emoji styles and scripts **[PRO]**
-* Disable wp-embed **[PRO]**
-
-#### Remove scripts from Header
-
-**Remove unwanted scripts** from the Header section of your site. The header section is used on all of your subpages and in most cases you do not need to load all the default scripts:
-
-* Remove RSS Feed Links **[PRO]**
-* Disable all RSS feeds **[PRO]**
-* Remove the Generator Tag From RSS Feeds **[PRO]**
-* Remove link to the Windows Live Writer Manifest File **[PRO]**
-* Remove RSD link **[PRO]**
-* Remove Shortlink From HTTP Header **[PRO]**
-
-== Disable unused core WordPress features ==
-
-WordPress by default comes with a lot of powerful features. You will probably never use some of them. Disabling them will not only **improve performance** but will also give your site a higher **security** level. Disabling them can prevent attacks and make your WordPress site and admin panel faster.
-
-Enhance speed and security by disabling the insecure XML-RPC API feature.
-
-By default, WordPress saves each post revision in your database which may lead to the enormous size of your database. Disable post revisions and sleep well.
-
-Turn off the built-in WordPress File Editor to improve your site’s speed and performance.
-
-#### Updates
-
-Keeping your website updated is important. But some people prefer to do it manually. In these cases, using a built-in update system is not recommended, as it is highly resource-consuming:
-
-* Disable themes auto-updates
-* Disable plugins auto-updates
-* Disable all WordPress core updates **[PRO]**
-
-#### Speed and security
-
-If you leave some of the core WordPress features active, they may result in a bloated database, lower security level, and lack of website speed optimization:
-
-* Disable File Editor **[PRO]**
-* Disable post revisions **[PRO]**
-* Disable Application Passwords **[PRO]**
-* Remove script/style version parameter **[PRO]**
-
-#### WordPress API
-The WordPress API includes a variety of different APIs which you can disable using this plugin:
-
-* Disable XML-RPC API **[PRO]**
-* Disable WordPress Heartbeat API **[PRO]**
-* Disable WordPress REST API **[PRO]**
-
-== Block Editor ==
-
- Using Block Editor can significantly slow down your page while editing posts and while browsing through your site. If you are not using Block Editor, you can disable it completely:
- 
- * Disable Gutenberg
-
-If you use Block Editor, you can keep it enabled and only disable some of its features, like:
- 
- * Disable Gutenberg Widget Block Editor
- * Auto-close Welcome Guide **[PRO]**
- * Disable WordPress Block Directory **[PRO]**
- * Remove the default block patterns **[PRO]**
- * Auto-exit the Fullscreen Mode on editor load **[PRO]**
- * Deactivate the Template Editor **[PRO]**
-
-== Third-party plugins bloat ==
-
-Plugin integrates with third-party plugins and also removes bloat that comes with these plugins:
-
-#### Jetpack
-
-WordPress often encourages you to install Jetpack and connect your site to WordPress.com. If you do not want Jetpack, you can remove the installation notice. If you are using Jetpack, you can disable Jetpack promotions.
-
-* Remove Jetpack installation notice
-* Disable Jetpack promotions
-* Disable Jetpack Blaze
-
-#### Elementor
-
-Elementor is a great tool, but it may also lead to cluttering your WordPress Dashboard.
-
-* Disable Elementor Dashboard widget
-* Disable Elementor Google Fonts package
-
-#### SkyVerge
-
-SkyVerge plugins are adding their own top-level admin menu item with their Dashboard:
-
-* Disable SkyVerge Dashboard
-
-#### Yoast SEO
-
-Yoast is a very handy plugin, but it may add to your admin panel some elements that would not be your first choice.
-
-* Disable Ads, Premium nags, Premium menu **[PRO]**
-* Disable Yoast SEO Admin bar item **[PRO]**
-* Remove Yoast HTML Comments from the Front-end **[PRO]**
-* Remove Yoast SEO Dashboard widget **[PRO]**
-
-#### Contact Form 7
-* Disable Contact Form 7 JavaScript and CSS **[PRO]**
-
-#### UpDraftPlus
-* Hide “UpdraftPlus” on admin toolbar **[PRO]**
-
-#### Advanced Custom Fields
-* Hide Advanced Custom Fields admin menu **[PRO]**
-
-#### WPML
-* Remove WPML Meta Generator Tag **[PRO]**
-
-#### Flexible Shipping 
-* Remove the "Shipping Extensions" WooCommerce menu entry
-
-#### WP Desk
-* Disable WP Desk Dashboard widget
-
-== Usage ==
-Go to the configuration page: <strong>Settings -> Disable Bloat</strong>.
+🗑️ **Remove Scripts from Header**  
+Clean up your site’s header by removing unwanted scripts:
+
+- **Remove RSS Feed Links [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable All RSS Feeds [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Generator Tag from RSS Feeds [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Link to Windows Live Writer Manifest File [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Shortlink from HTTP Header [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+
+🔧 **Disable Unused Core WordPress Features**  
+Enhance performance and security by disabling unused features:
+
+- **Disable XML-RPC API [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Post Revisions**
+- **Turn Off Built-in File Editor**
+
+🔄 **Updates**  
+Control how your website updates to save resources:
+
+- **Disable Themes Auto-updates**
+- **Disable Plugins Auto-updates**
+- **Disable All WordPress Core Updates [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+
+🛡️ **Speed and Security**  
+Keep your site fast and secure by managing core features:
+
+- **Disable File Editor [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Post Revisions [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Application Passwords [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Script/Style Version Parameter [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+
+🌐 **WordPress API**  
+Manage various WordPress APIs to improve performance:
+
+- **Disable XML-RPC API [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable WordPress Heartbeat API [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable REST API [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+
+✍️ **Block Editor**  
+Manage Block Editor features to keep your site fast:
+
+- **Disable Gutenberg**
+- **Disable Specific Gutenberg Features [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+
+🔗 **Third-Party Plugins Bloat**  
+Optimize your site by managing third-party plugin bloat:
+
+- **Remove Jetpack Installation Notice**
+- **Disable Jetpack Promotions and Blaze**
+- **Disable Elementor Dashboard Widget**
+- **Disable Elementor Google Fonts Package**
+- **Disable SkyVerge Dashboard**
+- **Disable Yoast Ads, Premium Nags, and Admin Bar Item [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Yoast HTML Comments [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Disable Contact Form 7 JavaScript and CSS [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Hide UpDraftPlus on Admin Toolbar [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Hide Advanced Custom Fields Admin Menu [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove WPML Meta Generator Tag [PRO](https://disablebloat.com/?utm_source=wp_org&utm_medium=referral&utm_campaign=readme)**
+- **Remove Flexible Shipping Extensions Menu Entry**
+- **Disable WP Desk Dashboard Widget**
+
+⚙️ **Usage**  
+Go to the configuration page: **Settings -> Disable Bloat** to get started. 🚀
 
 == Frequently Asked Questions ==
 

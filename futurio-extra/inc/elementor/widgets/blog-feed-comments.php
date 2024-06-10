@@ -443,7 +443,7 @@ class Futurio_Extra_Blog_Feed_Comments extends Widget_Base {
                             <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                         </span>
                     <?php endif; ?>
-                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
+                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo wp_kses_post($settings['text']); ?></span>
                 </div>
                 <?php if (!comments_open()) { ?>
                     <span <?php echo $this->get_render_attribute_string('off-text'); ?>><?php echo esc_html__($off_text); ?></span>
@@ -463,7 +463,7 @@ class Futurio_Extra_Blog_Feed_Comments extends Widget_Base {
                             <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                         </span>
                     <?php endif; ?>
-                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
+                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo wp_kses_post($settings['text']); ?></span>
                 </div>
 
                 <a href="<?php the_permalink(); ?>#comments" rel="nofollow" title="<?php esc_attr_e('Comment on ', 'futurio-extra') . the_title_attribute(); ?>">

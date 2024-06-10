@@ -105,9 +105,9 @@ $get_date_format  = get_option( 'date_format' );
 								<i class="ccb-icon-Path-3485" :style="{transform: currentAccordionHeight === '0px' ? 'rotate(0)' : 'rotate(180deg)'}"></i>
 							</span>
 						</div>
-						<div class="calc-subtotal-list" :class="{ 'show-unit': this.showUnitInSummary }">
+						<div class="calc-subtotal-list" :class="{ 'show-unit': showUnitInSummary }">
 							<div class="calc-subtotal-list-accordion" ref="calcAccordion" :style="{maxHeight: currentAccordionHeight}">
-								<div class="calc-subtotal-list-header" v-if="this.showUnitInSummary">
+								<div class="calc-subtotal-list-header" v-if="showUnitInSummary">
 									<span class="calc-subtotal-list-header__name"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
 
 									<span class="calc-subtotal-list-header__value"><?php esc_html_e( 'Total', 'cost-calculator-builder' ); ?></span>
@@ -199,11 +199,10 @@ $get_date_format  = get_option( 'date_format' );
 							</div>
 						</div>
 
-
 						<div class="calc-subtotal-list">
 							<?php if ( ccb_pro_active() ) : ?>
 								<cost-pro-features inline-template :settings="content.settings">
-									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'frontend/pro-features', array( 'settings' => array(), 'general_settings' => array(), 'invoice' => $general_settings['invoice'] ?? array() ) ); // phpcs:ignore ?>
+									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'admin/pro-features', array( 'settings' => array(), 'general_settings' => array(), 'invoice' => $general_settings['invoice'] ?? array() ) ); // phpcs:ignore ?>
 								</cost-pro-features>
 							<?php endif; ?>
 						</div>

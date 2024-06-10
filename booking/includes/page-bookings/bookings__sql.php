@@ -352,7 +352,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 																		                    [status] =>
 																		                    [sort_date] => 2022-04-19 12:00:01
 																		                    [modification_date] => 2022-04-03 08:05:13
-																		                    [form] => select-one^rangetime5^12:00 - 14:00~text^name5^test data~ ... ~checkbox^term_and_condition5[]^I Accept terms
+																		                    [form] => selectbox-one^rangetime5^12:00 - 14:00~text^name5^test data~ ... ~checkbox^term_and_condition5[]^I Accept terms
 																		                    [hash] => ae964965356f7c735139764eebe12a63
 																		                    [booking_type] => 5
 																		                    [remark] =>
@@ -391,7 +391,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 																		                    [status] =>
 																		                    [sort_date] => 2023-01-23 10:00:01
 																		                    [modification_date] => 2022-04-18 12:23:30
-																		                    [form] => select-one^rangetime2^10:00 - 12:00~text^name2^rr~text^secondname2^hjk~email^email2^hyui@nbco.csdf~text^phone2^h~text^address2^khj~text^city2^e~text^postcode2^hj~select-one^country2^HT~select-one^visitors2^1~select-one^children2^0~textarea^details2^djkh~checkbox^term_and_condition2[]^I Accept term and conditions
+																		                    [form] => selectbox-one^rangetime2^10:00 - 12:00~text^name2^rr~text^secondname2^hjk~email^email2^hyui@nbco.csdf~text^phone2^h~text^address2^khj~text^city2^e~text^postcode2^hj~selectbox-one^country2^HT~selectbox-one^visitors2^1~selectbox-one^children2^0~textarea^details2^djkh~checkbox^term_and_condition2[]^I Accept term and conditions
 																		                    [hash] => a1ae510d8fee961b7f8ae53101632151
 																		                    [booking_type] => 2
 																		                    [remark] =>
@@ -443,7 +443,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 																							[status] =>
 																							[sort_date] => 2023-03-05 10:00:01
 																							[modification_date] => 2022-04-19 11:58:31
-																							[form] => text^selected_short_dates_hint4^March 5, 2023~text^days_number_hint4^1~text^cost_hint4^&amp;#36;95~select-one^rangetime4^10:00 - 12:00~text^name4^test~email^email4^test@wpbookingcalendar.com~select-one^my_select4^1~select-multiple^multi_select4[]^0,1,2,3~checkbox^my_checkbx4[]^false~checkbox^my_multi_checkbx4[]^1~checkbox^my_multi_checkbx4[]^~checkbox^my_multi_checkbx4[]^3~checkbox^exclusive_multi_checkbx4^~checkbox^exclusive_multi_checkbx4^2~checkbox^exclusive_multi_checkbx4^~radio^my_radio4^2~select-one^country4^GB~textarea^details4^s~checkbox^term_and_condition4[]^I Accept term and conditions
+																							[form] => text^selected_short_dates_hint4^March 5, 2023~text^days_number_hint4^1~text^cost_hint4^&amp;#36;95~selectbox-one^rangetime4^10:00 - 12:00~text^name4^test~email^email4^test@wpbookingcalendar.com~selectbox-one^my_select4^1~selectbox-multiple^multi_select4[]^0,1,2,3~checkbox^my_checkbx4[]^false~checkbox^my_multi_checkbx4[]^1~checkbox^my_multi_checkbx4[]^~checkbox^my_multi_checkbx4[]^3~checkbox^exclusive_multi_checkbx4^~checkbox^exclusive_multi_checkbx4^2~checkbox^exclusive_multi_checkbx4^~radio^my_radio4^2~selectbox-one^country4^GB~textarea^details4^s~checkbox^term_and_condition4[]^I Accept term and conditions
 																							[hash] => dd12c3a61f14aaca693f52d110d2723a
 																							[booking_type] => 4
 																							[remark] =>
@@ -519,7 +519,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 				$resources_arr_sorted = wpbc_ajx_arrange_booking_resources_arr( $resources_arr );
 				$resources_arr_sorted = $resources_arr_sorted['linear_resources'];
 				foreach ( $resources_arr_sorted as $key_id => $resource ) {
-					$resources_arr_sorted[ $key_id ]['title'] = apply_bk_filter( 'wpdev_check_for_active_language', $resources_arr_sorted[ $key_id ]['title'] );
+					$resources_arr_sorted[ $key_id ]['title'] = wpbc_lang( $resources_arr_sorted[ $key_id ]['title'] );
 				}
 				// Reset keys for having correct  sorting (important for parent/child resources) after ajax response
 				$resources_arr_sorted = array_values( $resources_arr_sorted );
@@ -1555,7 +1555,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 														            [status] =>
 														            [sort_date] => 2023-01-23 10:00:01
 														            [modification_date] => 2022-04-18 12:23:30
-														            [form] => select-one^rangetime2^10:00 - 12:00~text^name2^rr~text^secondname2^hjk~email^email2^hyui@nbco.csdf~text^phone2^h~text^address2^khj~text^city2^e~text^postcode2^hj~select-one^country2^HT~select-one^visitors2^1~select-one^children2^0~textarea^details2^djkh~checkbox^term_and_condition2[]^I Accept term and conditions
+														            [form] => selectbox-one^rangetime2^10:00 - 12:00~text^name2^rr~text^secondname2^hjk~email^email2^hyui@nbco.csdf~text^phone2^h~text^address2^khj~text^city2^e~text^postcode2^hj~selectbox-one^country2^HT~selectbox-one^visitors2^1~selectbox-one^children2^0~textarea^details2^djkh~checkbox^term_and_condition2[]^I Accept term and conditions
 														            [hash] => a1ae510d8fee961b7f8ae53101632151
 														            [booking_type] => 2
 														            [remark] =>
@@ -1730,7 +1730,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 
 				if ( class_exists( 'wpdev_bk_personal' ) ) {
 					$resource_title = ( isset( $resources_arr[ $resource_id ] ) ) ? $resources_arr[ $resource_id ]['title'] : __( 'Resource not exist', 'booking' );
-					$resource_title = apply_bk_filter( 'wpdev_check_for_active_language', $resource_title );
+					$resource_title = wpbc_lang( $resource_title );
 				}
 				if ( class_exists( 'wpdev_bk_multiuser' ) ) {
 					$resource_owner_user = ( isset( $resources_arr[ $resource_id ] ) ) ? $resources_arr[ $resource_id ]['users'] : $user_id;
@@ -1938,7 +1938,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 						        $resource_title = ( isset( $booking_resources_arr[ $dates_type_id_arr[ $date_number ] ] ) )
   												         ? $booking_resources_arr[ $dates_type_id_arr[ $date_number ] ]['title']
 												         : __( 'Resource not exist', 'booking' );
-						        $resource_title = apply_bk_filter( 'wpdev_check_for_active_language', $resource_title );
+						        $resource_title = wpbc_lang( $resource_title );
 
 						        if ( strlen( $resource_title ) > 19 ) {
 							        $resource_title = substr( $resource_title, 0, 13 ) . '...' . substr( $resource_title, - 3 );
@@ -1989,7 +1989,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 							$resource_title = ( isset( $booking_resources_arr[ $dates_type_id_arr[ $date_number ] ] ) )
                                                      ? $booking_resources_arr[ $dates_type_id_arr[ $date_number ] ]['title']
 											         : __( 'Resource not exist', 'booking' );
-							$resource_title = apply_bk_filter( 'wpdev_check_for_active_language', $resource_title );
+							$resource_title = wpbc_lang( $resource_title );
 
 							if ( strlen( $resource_title ) > 19 ) {
 								$resource_title = substr( $resource_title, 0, 13 ) . '...' . substr( $resource_title, - 3 );
@@ -2175,10 +2175,12 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 
 					if ( 'rangetime' == $key ) {
 						$data_arr[$key] = wpbc_time_slot_in_format(  $value );
+						$data_arr[ $key . '_in_24_hour' ] = $value;                                                     //FixIn: 10.0.0.52
 					}
 
 					if ( in_array( $key, array( 'starttime', 'endtime' ) ) ) {
 						$data_arr[$key] = wpbc_time_in_format(  $value );
+						$data_arr[ $key . '_in_24_hour' ] = $value;                                                     //FixIn: 10.0.0.52
 					}
 
 					if ( in_array( $key, array(  'modification_date', 'creation_date' ) ) ) {
@@ -2190,7 +2192,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 						$is_add_wp_timezone              = true;
 						$its_for_default_datetime_format = '';
 						$data_arr[ $key ] = wpbc_datetime_localized( $value, $its_for_default_datetime_format, $is_add_wp_timezone );
-
+						$data_arr[ $key . '_in_24_hour' ] = $value;                                                     //FixIn: 10.0.0.52
 					}
 
 				    if ( ( 'hash' === $key ) && ( empty( $value ) ) ) {                                                  //FixIn: 9.2.3.4   //FixIn: 9.4.3.10
@@ -2254,7 +2256,7 @@ function wpbc_ajx__user_request_params__get_option( $user_id, $option_name ){
 	            }
 
 	            // Language
-	            $booking_form_show =  apply_bk_filter('wpdev_check_for_active_language', $booking_form_show );
+	            $booking_form_show =  wpbc_lang( $booking_form_show );
 
 				$search  = array( "'(<br[ ]?[/]?>)+'si", "'(<[/]?p[ ]?>)+'si" );
 		        $replace = array( "&nbsp;&nbsp;", " &nbsp; ", " &nbsp; " );

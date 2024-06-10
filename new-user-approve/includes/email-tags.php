@@ -23,7 +23,7 @@
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
-
+#[AllowDynamicProperties]
 class NUA_Email_Template_Tags {
 
 	/**
@@ -35,6 +35,8 @@ class NUA_Email_Template_Tags {
 	 * Attributes
 	 */
 	private $attributes;
+	
+	private $user_id;
 
 	/**
 	 * Add an email tag

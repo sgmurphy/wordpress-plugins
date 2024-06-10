@@ -24,7 +24,7 @@ function wpbc_calendar__load_data__ajx( params ){
 console.groupCollapsed( 'WPBC_AJX_CALENDAR_LOAD' ); console.log( ' == Before Ajax Send - calendars_all__get() == ' , _wpbc.calendars_all__get() );
 
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl,
+	jQuery.post( wpbc_url_ajax,
 				{
 					action          : 'WPBC_AJX_CALENDAR_LOAD',
 					wpbc_ajx_user_id: _wpbc.get_secure_param( 'user_id' ),
@@ -104,6 +104,12 @@ console.log( ' == Response WPBC_AJX_CALENDAR_LOAD == ', response_data ); console
 															'style'    : 'text-align:left;',
 															'delay'    : 10000
 														} );
+					}
+
+					// Trigger event that calendar has been		 //FixIn: 10.0.0.44
+					if ( jQuery( '#calendar_booking' + response_data[ 'resource_id' ] ).length > 0 ){
+						var target_elm = jQuery( 'body' ).trigger( "wpbc_calendar_ajx__loaded_data", [response_data[ 'resource_id' ]] );
+						 //jQuery( 'body' ).on( 'wpbc_calendar_ajx__loaded_data', function( event, resource_id ) { ... } );
 					}
 
 					//jQuery( '#ajax_respond' ).html( response_data );		// For ability to show response, add such DIV element to page
@@ -225,6 +231,3 @@ console.log( ' == Response WPBC_AJX_CALENDAR_LOAD == ', response_data ); console
 		if ( !results[ 2 ] ) return '';
 		return decodeURIComponent( results[ 2 ].replace( /\+/g, ' ' ) );
 	}
-
-
-//TODO: remove vars:       bk_2clicks_mode_days_start, bk_1click_mode_days_start     date2approve   date_approved

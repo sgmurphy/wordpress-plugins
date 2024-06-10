@@ -45,12 +45,6 @@ class pw_new_user_approve_admin_approve
         add_action('admin_init', array($this, 'notice_ignore'));
         add_action('admin_init', array($this, '_add_meta_boxes'));
         add_action('admin_post_nua-save-api-key', array($this, 'save_api_key'));
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_script'));
-    }
-
-    public function admin_enqueue_script()
-    {
-        wp_enqueue_script('hide-seek-search', pw_new_user_approve()->get_plugin_url() . '/assets/js/jquery.hideseek.min.js', array('jquery'), '3.1');
     }
 
     /**
@@ -66,9 +60,8 @@ class pw_new_user_approve_admin_approve
             $cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
             $hook = add_menu_page(__('Approve New Users', 'new-user-approve'), __('Approve New Users', 'new-user-approve'), $cap, $this->_admin_page, array($this, 'approve_admin'));
             add_action('load-' . $hook, array($this, 'admin_enqueue_scripts'));
-            
         }
-       
+
     }
 
     public function admin_menu_upgrade_link()
@@ -79,8 +72,10 @@ class pw_new_user_approve_admin_approve
             $cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
             add_submenu_page($this->_admin_page,__('👉 Get Pro Bundle', 'new-user-approve'),sprintf('<span style="color:#adff2f!important;">👉 %1$s <b>%2$s</b>&nbsp;&nbsp;➤</span>', __('Get', 'new-user-approve'), __('Pro Bundle', 'new-user-approve')),$cap,$this->_admin_upgrade_page,'',99);
         }
-       
+
     }
+
+    
 
     
 
@@ -104,8 +99,41 @@ class pw_new_user_approve_admin_approve
         $approve = ('denied' == $status || 'pending' == $status);
         $deny = ('approved' == $status || 'pending' == $status);
 
-        $user_status = pw_new_user_approve()->get_user_statuses();
+        $user_status = pw_new_user_approve()->get_user_statuses($status);
         $users = $user_status[$status];
+        //filter user by search
+		if(isset($_GET['nua_search_box']))
+		{
+			$searchTerm = sanitize_text_field($_GET['nua_search_box']);
+
+			$filterFunction = function ($users ) use ($searchTerm) {
+		 
+				$usernameMatches = stripos($users->user_login, $searchTerm) !== false;
+				$emailMatches = stripos($users->user_email, $searchTerm) !== false;
+				$firstNameMatches = stripos($users->first_name, $searchTerm) !== false;
+				$lastNameMatches = stripos($users->last_name, $searchTerm) !== false;
+				return $usernameMatches || $emailMatches || $firstNameMatches || $lastNameMatches;
+			};
+			$users = array_filter($users , $filterFunction);
+
+		}
+
+        //get user count for pagination
+        $user_count =1;
+        $paged = isset($_REQUEST['paged'] ) && !empty($_REQUEST['paged'] ) ? absint($_REQUEST['paged'])  : 1;
+        $total_pages=0;
+        $nua_users_transient=apply_filters( 'nua_users_transient',true);
+        if(!$nua_users_transient)
+        {
+            $user_count = pw_new_user_approve()->_get_users_by_status(true,$status);
+        }
+        else{
+            //for transient when all status user retrieve
+            $user_count= count($users); 
+            $offset = ( $paged - 1 ) * 15;
+            $users = array_slice( $users, $offset, 15 );
+            $total_pages = ceil( $user_count / 15 );
+        }
 
         if (count($users) > 0) {
             if ('denied' == $status) {
@@ -183,18 +211,18 @@ class pw_new_user_approve_admin_approve
 					<td><a href="mailto:<?php esc_attr_e($user->user_email);?>"
 						   title="<?php esc_attr_e('email:', 'new-user-approve')?> <?php esc_attr_e($user->user_email);?>"><?php esc_html_e($user->user_email);?></a>
 					</td>
-					
-                    <td>
+
+                    <td class="actions-btn">
                         <?php if ($approve && $user->ID != get_current_user_id()) {?>
                             <span><a class="button approve-btn" href= "<?php echo esc_url($approve_link) ?>" title="<?php esc_attr_e('Approve', 'new-user-approve');?> <?php esc_attr_e($user->user_login);?>"><?php esc_html_e('Approve', 'new-user-approve');?></a> </span>
                         <?php }?>
 
                         <?php if ($deny && $user->ID != get_current_user_id()) {?>
 						    <span><a class="button deny-btn" href="<?php echo esc_url($deny_link); ?>" title="<?php esc_attr_e('Deny', 'new-user-approve');?> <?php esc_attr_e($user->user_login);?>"><?php echo esc_html('Deny', 'new-user-approve'); ?></a></span>
-						<?php }?> 
-                        
+						<?php }?>
+
                     </td>
-                    
+
 					<?php if ($user->ID == get_current_user_id()): ?>
 						<td>&nbsp;</td>
 					<?php endif;?>
@@ -203,6 +231,21 @@ $row++;
             }
             ?>
 				</tbody>
+                <tfoot>
+				<tr class="tfoot">
+					<th colspan="4" ><?php
+                            $pagination = paginate_links( array(
+                                'base' => add_query_arg( 'paged', '%#%' ),
+                                'format' => '',
+                                'current' => $paged,
+                                'total' => $total_pages,
+                            ) );
+                            echo '<nav class="pagination">';
+                            echo wp_kses_post( $pagination ?? '' );
+                            echo '</nav>';
+                    ?></th>
+				</tr>
+				</tfoot>
 			</table>
 		<?php
 } else {
@@ -215,9 +258,8 @@ $row++;
                 $status_i18n = __('pending', 'new-user-approve');
             }
 
+            echo '<p>' . sprintf( __( 'There is no user found in %s status tab.', 'new-user-approve' ), $status_i18n ) . '</p>';
             ?>
-
-			<p>  <?php sprintf(__('There are no users with a status of %s', 'new-user-approve'), $status_i18n);?> </p>
 	<?php
 }
     }
@@ -294,14 +336,19 @@ $row++;
         $active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'pending_users';
         ?>
 		<h3 class="nav-tab-wrapper" style="padding-bottom: 0; border-bottom: none;">
-			<script>
-				jQuery(document).ready(function() {
-					jQuery('input[name="nua_search"]').hideseek({
-						highlight: true
-					});
-				});
-			</script>
-			<input type="search" name="nua_search" placeholder="Search" style="float: right;" data-list=".nua-user-list">
+            <?php
+			$page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+			$tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : '';
+			$search_query = isset($_GET['nua_search_box']) ? sanitize_text_field($_GET['nua_search_box']) : '';
+			?>
+			<form id="nua_search_form" method="get">
+				<input type="search" name="nua_search_box" id="nua_search_box" placeholder="Search" data-list=".nua-user-list" value="<?php echo esc_attr($search_query); ?>">
+				<input type="hidden" name="page" value="<?php echo esc_attr($page); ?>" />
+				<?php if (!empty($tab)) : ?>
+					<input type="hidden" name="tab" value="<?php echo esc_attr($tab); ?>" />
+				<?php endif; ?>
+				<input type="submit" value="Search" id="nua-search-btn" name="nua-search-btn" />
+			</form> 
 			<a href="<?php echo esc_url(admin_url('admin.php?page=new-user-approve-admin&tab=pending_users')); ?>"
 				class="nav-tab<?php echo $active_tab == 'pending_users' ? ' nav-tab-active' : ''; ?>"><span><?php esc_html_e('Pending Users', 'new-user-approve');?></span></a>
 			<a href="<?php echo esc_url(admin_url('admin.php?page=new-user-approve-admin&tab=approved_users')); ?>"
@@ -378,6 +425,7 @@ elseif ($active_tab == 'pro_features'): ?>
         $triggers = array(
             __('Triggers when a user is Approved.', 'new-user-approve'),
             __('Triggers when a user is Denied.', 'new-user-approve'),
+            __('Triggers when a user is registered (pending)', 'new-user-approve'),
         );
 
         $api_key = (\NewUserApproveZapier\RestRoutes::api_key()) ? "value='" . \NewUserApproveZapier\RestRoutes::api_key() . "'" : '';
@@ -423,7 +471,7 @@ elseif ($active_tab == 'pro_features'): ?>
     public function save_api_key()
     {
 
-        
+
 
         if (isset($_REQUEST['wp-api-generate-nonce']) && isset($_POST['action']) && $_POST['action'] == 'nua-save-api-key') {
              $nonce = sanitize_text_field(wp_unslash($_REQUEST['wp-api-generate-nonce']));

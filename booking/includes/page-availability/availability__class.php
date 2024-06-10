@@ -50,8 +50,6 @@ class WPBC_AJX__Availability {
 					, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );										//FixIn: 9.8.1
 
 				wp_enqueue_script( 'wpbc_all',         wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                 	array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );          //FixIn: 9.8.6.1
-		     // wp_enqueue_script( 'wpbc_balancer',    wpbc_plugin_url( '/includes/_load_balancer/_out/wpbc_balancer.js' ), array( 'wpbc_calendar' ), WP_BK_VERSION_NUM );      //FixIn: 9.8.3.1
-			 //	wp_enqueue_script( 'wpbc_calendar',    wpbc_plugin_url( '/includes/_wpbc_calendar/_out/wpbc_calendar.js' ), array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );      //FixIn: 9.8.0.3
 				wp_enqueue_script( 'wpbc-main-client', wpbc_plugin_url( '/js/client.js' ),     array( 'wpbc-datepick' ),    WP_BK_VERSION_NUM );
 				wp_enqueue_script( 'wpbc-times',       wpbc_plugin_url( '/js/wpbc_times.js' ), array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );
 				/**
@@ -254,18 +252,18 @@ class WPBC_AJX__Availability {
 
 										//Helper,  if we click on button  side,  and not at  radio button or label,  then  make radio checked.
 										jQuery( '.ui_btn_avy__set_days_availability__available__outer_button' ).on( 'click', function (){
-											jQuery( '#ui_btn_avy__set_days_availability__available' ).prop( "checked", true ).change();
+											jQuery( '#ui_btn_avy__set_days_availability__available' ).prop( "checked", true ).trigger( 'change' );
 										} );
 										jQuery( '.ui_btn_avy__set_days_availability__unavailable__outer_button' ).on( 'click', function (){
-											jQuery( '#ui_btn_avy__set_days_availability__unavailable' ).prop( "checked", true ).change();
+											jQuery( '#ui_btn_avy__set_days_availability__unavailable' ).prop( "checked", true ).trigger( 'change' );
 										} );
 
 										// Set checked or not, specific radio buttons
 										if ( 'unavailable' == data.dates_availability ){
-											jQuery( '#ui_btn_avy__set_days_availability__unavailable' ).prop( 'checked', true );//.change();
+											jQuery( '#ui_btn_avy__set_days_availability__unavailable' ).prop( 'checked', true );//.trigger( 'change' );
 										}
 										if ( 'available' == data.dates_availability ){
-											jQuery( '#ui_btn_avy__set_days_availability__available' ).prop( 'checked', true );//.change();
+											jQuery( '#ui_btn_avy__set_days_availability__available' ).prop( 'checked', true );//.trigger( 'change' );
 										}
 									} );
 

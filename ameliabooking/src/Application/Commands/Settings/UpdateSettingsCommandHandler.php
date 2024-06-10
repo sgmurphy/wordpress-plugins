@@ -381,6 +381,9 @@ class UpdateSettingsCommandHandler extends CommandHandler
             ] : [],
             isset($settingsFields['activation']['premiumBannerVisibility']) ? [
                 'premiumBannerVisibility' => $settingsFields['activation']['premiumBannerVisibility']
+            ] : [],
+            isset($settingsFields['activation']['dismissibleBannerVisibility']) ? [
+                'dismissibleBannerVisibility' => $settingsFields['activation']['dismissibleBannerVisibility']
             ] : []
         );
 

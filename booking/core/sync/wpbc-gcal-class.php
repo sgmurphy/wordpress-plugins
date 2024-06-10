@@ -78,7 +78,7 @@ class WPBC_Google_Calendar {
      
         ?>  <script type="text/javascript"> if (jQuery('#ajax_message').length > 0 ) { 
                 <?php if ($is_spin ) { ?>        
-                    jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><div style="float:left;"><?php echo $message;  ?></div><div class="wpbc_spin_loader"><img style="vertical-align:middle;box-shadow:none;width:14px;" src="'+wpdev_bk_plugin_url+'/assets/img/ajax-loader.gif"></div></div>');
+                    jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><div style="float:left;"><?php echo $message;  ?></div><div class="wpbc_spin_loader"><img style="vertical-align:middle;box-shadow:none;width:14px;" src="'+_wpbc.get_other_param( 'url_plugin' )+'/assets/img/ajax-loader.gif"></div></div>');
                 <?php } else { ?>
                     jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><?php echo $message;  ?></div>'); 
                 <?php } ?>
@@ -393,10 +393,10 @@ class WPBC_Google_Calendar {
 										$wpbc_check_in  = get_bk_option( 'booking_range_selection_start_time' );// . ':01';                                    // ' 14:00:01'
 										$wpbc_check_out = get_bk_option( 'booking_range_selection_end_time' );	// . ':02';                                    // ' 10:00:02';
 										$range_time  = $wpbc_check_in . ' - ' . $wpbc_check_out;
-										$range_time = "select-one^rangetime{$bktype}^{$range_time}~";
+										$range_time = "selectbox-one^rangetime{$bktype}^{$range_time}~";
 									}
 	                            }
-//debuge($range_dates, $range_time); 		//  array(  [0] => 07.08.2017, 08.08.2017,  [1] => select-one^rangetime4^03:00 - 07:00~ )
+//debuge($range_dates, $range_time); 		//  array(  [0] => 07.08.2017, 08.08.2017,  [1] => selectbox-one^rangetime4^03:00 - 07:00~ )
 
                                     $previous_active_user = -1;
                                     // MU
@@ -590,7 +590,7 @@ class WPBC_Google_Calendar {
 //        $range_time  = date_i18n('H:i', $start_time ) . ' - ' . date_i18n('H:i', $end_time );
         if ( $range_time != '00:00 - 00:00' ) { 
             $bktype = $this->getResource();
-            $range_time = "select-one^rangetime{$bktype}^{$range_time}~";
+            $range_time = "selectbox-one^rangetime{$bktype}^{$range_time}~";
         } else
              $range_time = '';
 
@@ -613,7 +613,7 @@ class WPBC_Google_Calendar {
 				$request_save_params = array(
 											 'resource_id'         => $submit_array['bktype'],					// 2
 											 'dates_ddmmyy_csv'    => $submit_array['dates'],					// '04.10.2023, 05.10.2023, 06.10.2023'
-											 'form_data'           => $submit_array['form'],					// 'text^cost_hint2^150.00฿~select-multiple^rangetime2[]^14:00...'
+											 'form_data'           => $submit_array['form'],					// 'text^cost_hint2^150.00฿~selectbox-multiple^rangetime2[]^14:00...'
 											 'booking_hash'        => '',										// 'sdfsf34534rf'
 											 'custom_form'         => '',										// 'custom_form_name'
 											 'is_emails_send'       => $submit_array['is_send_emeils'],			// 0 | 1

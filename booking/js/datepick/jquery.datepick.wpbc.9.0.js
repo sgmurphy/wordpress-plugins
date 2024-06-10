@@ -280,7 +280,7 @@ $.extend(Datepick.prototype, {
 		}
 		var showOn = this._get(inst, 'showOn');
 		if (showOn == 'focus' || showOn == 'both') // Pop-up date picker when in the marked field
-			input.on('focus', this._showDatepick);
+			input.on('focus.wpbc_datepick', this._showDatepick);			//FixIn: 10.0.0.45
 		if (showOn == 'button' || showOn == 'both') { // Pop-up date picker when button clicked
 			var buttonText = this._get(inst, 'buttonText');
 			var buttonImage = this._get(inst, 'buttonImage');
@@ -301,7 +301,7 @@ $.extend(Datepick.prototype, {
 				return false;
 			});
 		}
-		input.addClass(this.markerClassName).on( 'keydown', this._doKeyDown).on( 'keypress', this._doKeyPress).on( 'keyup', this._doKeyUp);	//FixIn: 8.7.11.12
+		input.addClass( this.markerClassName ).on( 'keydown.wpbc_datepick', this._doKeyDown ).on( 'keypress.wpbc_datepick', this._doKeyPress ).on( 'keyup.wpbc_datepick', this._doKeyUp );	//FixIn: 10.0.0.45	//FixIn: 8.7.11.12
 		if (this._get(inst, 'showDefault') && !inst.input.val()) {
 			inst.dates = [this._getDefaultDate(inst)];
 			this._showDate(inst);
@@ -391,7 +391,7 @@ $.extend(Datepick.prototype, {
 			var id = 'dp' + (++this._uuid);
 			this._dialogInput = $('<input type="text" id="' + id +
 				'" style="position: absolute; width: 1px; z-index: -1"/>');
-			this._dialogInput.on( 'keydown', this._doKeyDown);
+			this._dialogInput.on( 'keydown.wpbc_datepick', this._doKeyDown);		//FixIn: 10.0.0.45
 			$('body').append(this._dialogInput);
 			inst = this._dialogInst = this._newInst(this._dialogInput, false);
 			inst.settings = {};
@@ -433,9 +433,9 @@ $.extend(Datepick.prototype, {
 			$target.removeClass(this.markerClassName).empty();
 		else {
 			$(inst.siblings).remove();
-			$target.removeClass(this.markerClassName).
-				unbind('focus', this._showDatepick).unbind('keydown', this._doKeyDown).
-				unbind('keypress', this._doKeyPress).unbind('keyup', this._doKeyUp);
+			//$target.removeClass(this.markerClassName).unbind('focus', this._showDatepick).unbind('keydown', this._doKeyDown).unbind('keypress', this._doKeyPress).unbind('keyup', this._doKeyUp);	//FixIn: 10.0.0.45
+			//$target.removeClass(this.markerClassName).off('focus', this._showDatepick).off('keydown', this._doKeyDown).off('keypress', this._doKeyPress).off('keyup', this._doKeyUp);				//FixIn: 10.0.0.45
+			$target.removeClass( this.markerClassName ).off( 'focus.wpbc_datepick' ).off( 'keydown.wpbc_datepick' ).off( 'keypress.wpbc_datepick' ).off( 'keyup.wpbc_datepick' );					//FixIn: 10.0.0.45
 		}
 	},
 
@@ -1046,7 +1046,8 @@ $.extend(Datepick.prototype, {
 	   @param  inst  (object) the instance settings for this datepicker */
 	_tidyDialog: function(inst) {
 		var useTR = this._get(inst, 'useThemeRoller') ? 1 : 0;
-		inst.dpDiv.removeClass(this._dialogClass[useTR]).unbind('.datepick');
+		//inst.dpDiv.removeClass(this._dialogClass[useTR]).unbind('.datepick');		//FixIn: 10.0.0.45
+		inst.dpDiv.removeClass(this._dialogClass[useTR]).off('.datepick');			//FixIn: 10.0.0.45
 		$('.' + this._promptClass[useTR], inst.dpDiv).remove();
 	},
 
@@ -1057,9 +1058,10 @@ $.extend(Datepick.prototype, {
 			return;
 		var $target = $(event.target);
 		var useTR = $.datepick._get($.datepick._curInst, 'useThemeRoller') ? 1 : 0;
-		if (!$target.parents().andSelf().is('#' + $.datepick._mainDivId[useTR]) &&
+		// replaced .andSelf to .addBack		//FixIn: 10.0.0.45
+		if (!$target.parents().addBack().is('#' + $.datepick._mainDivId[useTR]) &&
 				!$target.hasClass($.datepick.markerClassName) &&
-				!$target.parents().andSelf().hasClass($.datepick._triggerClass[useTR]) &&
+				!$target.parents().addBack().hasClass($.datepick._triggerClass[useTR]) &&
 				$.datepick._datepickerShowing && !($.datepick._inDialog && $.blockUI))
 			$.datepick._hideDatepick(null, '');
 	},
@@ -1944,7 +1946,7 @@ $.extend(Datepick.prototype, {
 												(unselectable ? '' : ((typeof (wpbc_show_date_info_top) == 'function') ? wpbc_show_date_info_top( inst.id, printDate.getTime() ) : '')) +
 											'</div>' +
 											(empty ? '&#xa0;' : // Not showing other months //FixIn:6.0.1.2
-											(unselectable ? '<span>' + printDate.getDate()+ '</span>' : '<a>' + printDate.getDate() + '</a>')) +
+											(unselectable ? '<span>' + printDate.getDate()+ '</span>' : '<a href="javascript:void(0)" >' + printDate.getDate() + '</a>')) +		//FixIn: 10.0.0.19
 											'<div class="date-content-bottom">'+
 												(unselectable ? '' : ((typeof (wpbc_show_date_info_bottom) == 'function') ? wpbc_show_date_info_bottom( inst.id, printDate.getTime() ) : '')) +
 											'</div>' +

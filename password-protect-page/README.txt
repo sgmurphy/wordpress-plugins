@@ -4,7 +4,7 @@ Tags: password protect, password, restrict content, sitewide, password protectio
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.5.2
-Stable tag: 1.9.1
+Stable tag: 1.9.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,6 +280,11 @@ Yes, the Pro version enables you to [automatically password protect child pages]
 N/A
 
 == Changelog ==
+
+= 1.9.1.1 =
+
+* [BugFix] Improvements have been implemented in API security measures to guarantee comprehensive sitewide protection.
+* [BugFix] Enhancements have also been implemented, transitioning from the $wp_hasher variable to the wp_check_password function.
 
 = 1.9.1 =
 

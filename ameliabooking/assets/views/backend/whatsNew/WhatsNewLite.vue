@@ -2,6 +2,8 @@
   <div id="am-whats-new" class="am-wrap">
     <div class="am-body">
 
+      <dismissible-banner></dismissible-banner>
+
       <!-- Page Header -->
       <page-header></page-header>
       <!-- /Page Header -->
@@ -166,6 +168,7 @@
 
 <script>
 import PageHeader from '../parts/PageHeader.vue'
+import DismissibleBanner from "../parts/DismissibleBanner.vue";
 
 export default {
 
@@ -267,6 +270,7 @@ export default {
   },
 
   components: {
+    DismissibleBanner,
     PageHeader
   }
 }

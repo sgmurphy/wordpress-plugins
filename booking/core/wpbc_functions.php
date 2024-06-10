@@ -15,776 +15,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit if accessed directly
 
 
-	// <editor-fold     defaultstate="collapsed"                        desc="   ==   B o o k i n g   F o r m s   ==   "  >
-
-
-		/**
-		 * Parse  "text^firstname1^John~..."  ->  [ 'firstname':[name:"firstname", value:"John" ...] ... ]   -   Parse (DB) form_data and get   fields array values
-		 *
-		 * @param string $form_data   	- formatted booking form  data from database,  like this: 'text^selected_short_dates_hint15^21/02/2023 - 24/02/2023~text^days_number_hint15^4~text^cost_hint15^&amp;#36;400.00~text^deposit_hint15^&amp;#36;40.00~text^standard_bk_cost15^100~...'
-		 * @param int    $resource_id 	- ID of booking resource
-		 * @param array  $params 	  	- (optional)  default: array()		define here what field we need to get	array( 'get' => 'value' )
-		 *
-		 * @return array
-		 * 					[
-		 * 					      rangetime = [
-		 * 					                      type          = "select-multiple"
-		 * 					                      original_name = "rangetime3[]"
-		 * 					                      name          = "rangetime"
-		 * 					                      value         = "12:00 - 14:00"
-		 * 					                  ]
-		 * 					      name = [
-		 * 					                      type = "text"
-		 * 					                      original_name = "name3"
-		 * 					                      name = "name"
-		 * 					                      value = "test 1"
-		 * 					              ]
-		 * 					      secondname = [...]
-		 * 					      email = [...]
-		 * 					 ]
-		 *
-		 *   Example 1:
-		 *						   $structured_booking_data_arr = wpbc_get_parsed_booking_data_arr( $this_booking->form, $resource_id, array( 'get' => 'value' ) );
-		 *         		output:    [  	"rangetime" : 	"12:00 - 14:00",
-		 *                              "name":			"John" ,
-		 * 								"secondname" : 	"Smith" , 		"email" : "test@wpbookingcalendar.com" , "visitors" : "1" ... ]
-		 *
-		 *   Example 2:
-		 *				 		   $structured_booking_data_arr = wpbc_get_parsed_booking_data_arr( $this_booking->form, $resource_id );
-		 *   		 	output:    [  rangetime = [
-		 * 					                      type          = "select-multiple"
-		 * 					                      original_name = "rangetime3[]"
-		 * 					                      name          = "rangetime"
-		 * 					                      value         = "12:00 - 14:00"
-		 * 					                  ]
-		 * 					      		name = [
-		 * 					                      type = "text"
-		 * 					                      original_name = "name3"
-		 * 					                      name = "name"
-		 * 					                      value = "test 1"
-		 * 					              ]
-		 * 					      		secondname = [...]
-		 * 					      		email = [...]
-		 * 					 		]
- */
-		function wpbc_get_parsed_booking_data_arr( $form_data, $resource_id = 1, $params = array( ) ) {
-
-			$booking_data_arr = array();
-
-			if ( ! empty( $form_data ) ) {
-
-				$fields_arr = explode( '~', $form_data );
-
-				foreach ( $fields_arr as $field ) {
-
-					if ( false === strpos( $field, '^' ) ) {
-						break;            //FixIn: 9.8.10.2
-					}
-
-					list( $field_type, $field_original_name, $field_value ) = explode( '^', $field );
-
-					$field_name = $field_original_name;
-
-					// Is this multi select in checkboxes: [checkbox* ConducenteExtra "Si" "No"]   =>   [... 6: "checkbox^ConducenteExtra4[]^Si", 7: "checkbox^ConducenteExtra4[]^" ... ]
-					$is_multi_options = ( '[]' == substr( $field_name, - 2 ) );
-
-					$minus_additional = ( '[]' == substr( $field_name, - 2 ) ) ? 2 : 0;
-					$field_name       = ( $minus_additional > 0 ) ? substr( $field_name, 0, - $minus_additional ) : $field_name;
-
-
-					$minus_additional = ( strval( $resource_id ) == substr( $field_name, - 1 * ( strlen( strval( $resource_id ) ) ) ) )
-						? strlen( strval( $resource_id ) ) : 0;
-					$field_name       = ( $minus_additional > 0 ) ? substr( $field_name, 0, - $minus_additional ) : $field_name;
-
-					if ( ( 'checkbox' === $field_type ) && ( 'true' === $field_value ) ) {
-						//$field_value = strtolower( __( 'Yes', 'booking' ) );
-						$field_value = 'true';
-					}
-					if ( ( 'checkbox' === $field_type ) && ( 'false' === $field_value ) ) {
-						//$field_value = strtolower( __( 'No', 'booking' ) );
-						$field_value = 'false';
-					}
-
-					if ( ! isset( $booking_data_arr[ $field_name ] ) ) {
-						$booking_data_arr[ $field_name ] = array(
-																	'type'          => $field_type,
-																	'original_name' => $field_original_name,
-																	'name'          => $field_name,
-																	'value'         => array( $field_value )
-																);
-					} else {
-						// All values we save as array values,  for situations  of MULTI options:
-						//   [checkbox* ConducenteExtra "Si" "No"]   =>   [... 6: "checkbox^ConducenteExtra4[]^Si", 7: "checkbox^ConducenteExtra4[]^" ... ]
-						$booking_data_arr[ $field_name ]['value'][] = $field_value;
-					}
-				}
-
-				// Convert arrays to string
-				foreach ( $booking_data_arr as $field_name => $field_structure_arr ) {									//FixIn: 9.8.9.1
-					$field_structure_arr['value'] = array_filter( $field_structure_arr['value'], function ( $v ) {
-																													return ( $v !== '' );	// Remove All '' entries
-																												} );
-					$booking_data_arr[ $field_name ]['value'] = implode( ', ', $field_structure_arr['value'] );
-				}
-
-
-				if ( isset( $params['get'] ) ) {
-					/**
-					 * Now get only values or other fields:  [
-					 *                                                "rangetime" : "12:00 - 14:00",
-					 *                                              "name":"test 1" ,
-					 *                                              "secondname" : "test 1" ,
-					 *                                              "email" : "test@wpbookingcalendar.com" ,
-					 *                                              "visitors" : "1"
-					 *                                        ...
-					 *                                        ]
-					 */
-
-					foreach ( $booking_data_arr as $field_name => $field_structure_arr ) {
-
-						if ( isset( $field_structure_arr[ $params['get'] ] ) ) {
-							$booking_data_arr[ $field_name ] = $field_structure_arr[ $params['get'] ];
-						} else {
-							$booking_data_arr[ $field_name ] = '-';
-						}
-					}
-				}
-			}
-
-			return $booking_data_arr;
-		}
-
-
-		/**
-		 *  Convert  [ ... ]  -> "text^firstname1^John~..."   - encoded booking data string (Usually  for inserting into DB),  from  parsed booking data array
-		 *
-		 * @param array $booking_data_arr	- parsed booking data.
-		 * @param int $resource_id			- ID of booking resource  - In case,  if we need to  RE-UPDATE booking resource,  Otherwise skip  it
-		 *
-		 * @return string
-		 */
-		function wpbc_encode_booking_data_to_string( $booking_data_arr, $resource_id = 0 ) {
-
-			$fields_arr = array();
-
-			foreach ( $booking_data_arr as $fields ) {
-
-				if ( ! empty( $resource_id ) ) {
-					$fields_arr[] =         $fields['type']
-									. '^' . $fields['name'] . $resource_id  . ( ( '[]' == substr( $fields['original_name'], - 2 ) ) ? '[]' : '' )
-									. '^' . $fields['value'];
-				} else {
-					$fields_arr[] = $fields['type'] . '^' . $fields['original_name'] . '^' . $fields['value'];
-				}
-
-			}
-
-			$form_data = implode( '~', $fields_arr );
-
-			return $form_data;
-		}
-
-
-		// -------------------------------------------------------------------------------------------------------------
-
-		/**
-		 * Get Time fields  in booking form_data
-		 *
-		 * @param string $form_data   	- formatted booking form  data from database,  like this: 'text^selected_short_dates_hint15^21/02/2023 - 24/02/2023~text^days_number_hint15^4~text^cost_hint15^&amp;#36;400.00~text^deposit_hint15^&amp;#36;40.00~text^standard_bk_cost15^100~...'
-		 * @param int    $resource_id 	- ID of booking resource
-		 * @param array  $params 	  	- (optional)  default: array()		define here what field we need to get	array( 'get' => 'value' )
-		 *
-		 * @return array	[ "18:00:00", "20:00:00" ]		<- default
-		 *
-		 *   Example #1:          $times_his_arr = wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id);														--> [ "18:00:01", "20:00:02" ]
-		 *        same:           $times_his_arr = wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id, array( 'get' => 'times_his_arr' ) );					--> [ "18:00:01", "20:00:02" ]
-		 *   Example #2:    $time_as_seconds_arr = wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id, array( 'get' => 'time_as_seconds_arr' ) );			--> [ 64800, 72000 ]
-		 *   Example #4:    $booking_data_arr    = wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id, array( 'get' => 'structured_booking_data_arr' ) );	--> [ name = "John", secondname = "Smith", email = "john.smith@server.com", visitors = "2",... ]
-		 *
-		 *   Example #5:    $booking_data_arr    = wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id, array( 'get' => 'all' ) );
-		 *                    --> [
-		 *							  'structured_booking_data_arr' => [ name = "John", secondname = "Smith", email = "john.smith@server.com", visitors = "2",... ]
-		 *							  'time_as_seconds_arr' 		=> [ 64800, 72000 ]
-		 *							  'time_as_his_arr' 			=> [ "18:00:01", "20:00:02" ]
-		 * 						  ]
-		 */
-		function wpbc_get_times_his_arr__in_form_data( $form_data, $resource_id = 1, $params = array() ) {
-
-			$defaults = array(
-								'get' => 'times_his_arr'
-							);
-			$params   = wp_parse_args( $params, $defaults );
-
-
-			// Get Time from  booking form
-			$local_params = array();
-			/**
-			 * Get parsed booking form:                 = [ name = "John", secondname = "Smith", email = "john.smith@server.com", visitors = "2",... ]
-			 */
-			$local_params['structured_booking_data_arr'] = wpbc_get_parsed_booking_data_arr( $form_data, $resource_id, array( 'get' => 'value' ) );
-			// $local_params['all_booking_data_arr']     = wpbc_get_parsed_booking_data_arr( $form_data, $resource_id );
-
-			//  Important! : [ 64800, 72000 ]
-			$local_params['time_as_seconds_arr'] = wpbc_get_in_booking_form__time_to_book_as_seconds_arr( $local_params['structured_booking_data_arr'] );
-
-			// [ "18:00:00", "20:00:00" ]
-			$time_as_seconds_arr    = $local_params['time_as_seconds_arr'];
-			$time_as_seconds_arr[0] = ( 0 != $time_as_seconds_arr[0] ) ? $time_as_seconds_arr[0] + 1 : $time_as_seconds_arr[0];                 // set check  in time with  ended 1 second
-			$time_as_seconds_arr[1] = ( ( 24 * 60 * 60 ) != $time_as_seconds_arr[1] ) ? $time_as_seconds_arr[1] + 2 : $time_as_seconds_arr[1];  // set check out time with  ended 2 seconds
-
-			// [ '16:00:01', '18:00:02' ]
-			$local_params['times_his_arr'] = array(
-													  wpbc_transform__seconds__in__24_hours_his( $time_as_seconds_arr[0] ),
-													  wpbc_transform__seconds__in__24_hours_his( $time_as_seconds_arr[1] )
-													);
-			if (
-  				   ( isset( $params['get'] ) )
-				&& ( isset( $local_params[ $params['get'] ] ) )
-			) {
-				return $local_params[ $params['get'] ];
-			}
-
-			return $local_params;
-		}
-
-
-		// -------------------------------------------------------------------------------------------------------------
-
-		/**
-		 * Get readable booking form data.	 Escape values here, as well!
-		 *
-		 *        - 1.    <= BS : 'Booking form show' configuration    from standard form in versions up to  Business Small version ,
-		 *        - 2     >= BM : If form data has field of custom form, then from custom form configuration,
-		 *        - 3     >= BM : Otherwise if resource has default custom  booking form,  then  from  this default custom  booking form
-		 *        - 4      = MU :  specific form of specific WP User
-		 *        - 5   finally : simple standard form
-		 *
-		 * @param string $form_data
-		 * @param int $resource_id
-		 *
-		 * @return string
-		 */
-		function wpbc_get__booking_form_data__show( $form_data, $resource_id = 1 , $params = array() ) {
-
-			$defaults = array(
-							  'is_replace_unknown_shortcodes' => true,
-							  'unknown_shortcodes_replace_by' => ''
-						);
-			$params   = wp_parse_args( $params, $defaults );
-
-			$booking_form_show = wpbc_get__booking_form_data_configuration( $resource_id, $form_data );
-
-			$booking_data_arr  = wpbc_get_parsed_booking_data_arr( $form_data, $resource_id, array( 'get' => 'value' ) );
-
-			foreach ( $booking_data_arr as $key_param => $value_param ) {                                  					//FixIn: 6.1.1.4
-
-				$value_param = esc_html( $value_param );																	//FixIn: 9.7.4.1	-	escape coded html/xss
-				$value_param = esc_html( html_entity_decode( $value_param ) );
-				$value_param = nl2br($value_param);                                             							// Add BR instead if /n elements		//FixIn: 9.7.4.2
-				$value_param = wpbc_string__escape__then_convert__n_amp__html( $value_param );
-
-				$value_param = wpbc_replace__true_false__to__yes_no( $value_param );												//FixIn: 9.8.9.1
-
-				if (
-						( gettype( $value_param ) != 'array' )
-					 && ( gettype( $value_param ) != 'object' )
-				) {
-					$booking_form_show = str_replace( '[' . $key_param . ']', $value_param, $booking_form_show );
-				}
-			}
-
-			if ($params['is_replace_unknown_shortcodes']) {
-				// Remove all shortcodes, which is not replaced early.
-				$booking_form_show = preg_replace( '/[\s]{0,}\[[a-zA-Z0-9.,-_]{0,}\][\s]{0,}/', $params['unknown_shortcodes_replace_by'], $booking_form_show );        //FixIn: 6.1.1.4
-			}
-
-			$booking_form_show = str_replace( "&amp;", '&', $booking_form_show );											//FixIn:7.1.2.12
-
-
-
-			return $booking_form_show;
-		}
-
-
-		/**
-		 * Get name of custom  booking form,  if it was used in form  data OR booking resource use this default custom form
-		 *
-		 * @param int $resource_id
-		 * @param string $form_data		Form  data here, required in >= BM, because such  form_data can contain fields about used custom booking form
-		 *
-		 * @return string
-		 */
-		function wpbc_get__custom_booking_form_name( $resource_id = 1, $form_data = '' ) {
-
-			$my_booking_form_name = '';
-
-			if ( class_exists( 'wpdev_bk_biz_m' ) ) {
-
-				if ( false !== strpos( $form_data, 'wpbc_custom_booking_form' . $resource_id . '^' ) ) {                        //FixIn: 9.4.3.12
-
-					$custom_booking_form_name = substr( $form_data, strpos( $form_data, 'wpbc_custom_booking_form' . $resource_id . '^' ) + strlen( 'wpbc_custom_booking_form' . $resource_id . '^' ) );
-
-					if ( false !== strpos( $custom_booking_form_name, '~' ) ) {
-						$custom_booking_form_name = substr( $custom_booking_form_name, 0, strpos( $custom_booking_form_name, '~' ) );
-						$my_booking_form_name     = $custom_booking_form_name;
-					}
-
-				} else {
-
-					// BM :: Get default Custom Form  of Resource
-					$my_booking_form_name = apply_bk_filter( 'wpbc_get_default_custom_form', 'standard', $resource_id );
-				}
-
-				if ( 'standard' == $my_booking_form_name ) {
-					$my_booking_form_name = '';
-				}
-			}
-
-			return $my_booking_form_name;
-		}
-
-
-		/**
-		 * Get configuration  of 'BOOKING FORM   F I E L D S   SHORTCODES'  from  -  Booking > Settings > Form page
-		 *
-		 *        - 1.    <= BS : 'Booking form show' configuration    from standard form in versions up to  Business Small version ,
-		 *        - 2     >= BM : If form data has field of custom form, then from custom form configuration,
-		 *        - 3     >= BM : Otherwise if resource has default custom  booking form,  then  from  this default custom  booking form
-		 *        - 4      = MU :  specific form of specific WP User
-		 *        - 5   finally : simple standard form
-		 *
-		 * @param int $resource_id
-		 * @param string $form_name						Name of custom booking form, required in >= BM
-		 *
-		 * @return string
-		 *
-		 *   Example 1:     	$booking_form = wpbc_get__booking_form_fields__configuration( 1 );						<-  Load STANDARD booking form
-		 *   Example 2:     	$booking_form = wpbc_get__booking_form_fields__configuration( 1 , 'standard' );			<-  Load STANDARD booking form
-		 *   Example 3:     	$booking_form = wpbc_get__booking_form_fields__configuration( 1 , 'my_custom_form' );	<-  Load CUSTOM  booking form  with name 'my_custom_form'
-		 *   Example 4:     	$booking_form = wpbc_get__booking_form_fields__configuration( 1 , '' );					<-  Load CUSTOM booking form,  which  is DEFAULT for RESOURCE
-		 *   Example 4:     	$booking_form = wpbc_get__booking_form_fields__configuration( 10 );						<-  If resource ID = 10  belong to REGULAR User,  then  load  booking form  for this REGULAR USER
-		 *
-		 */
-		function wpbc_get__booking_form_fields__configuration( $resource_id = 1, $form_name = 'standard' ) {
-
-			if ( ! class_exists( 'wpdev_bk_personal' ) ) {
-				$booking_form_configuration = wpbc_get_free_form_fields_configuration();
-			} else {
-				$booking_form_configuration = get_bk_option( 'booking_form' );
-
-				if ( class_exists( 'wpdev_bk_biz_m' ) ) {
-
-					if ( $form_name != 'standard' ) {
-
-						$booking_form_configuration = apply_bk_filter( 'wpdev_get_booking_form', $booking_form_configuration, $form_name );
-					}
-
-					// Get default Custom Form  for resource,  if $form_name == ''		wpbc_get__booking_form_fields__configuration(1,'')
-					if ( empty( $form_name ) ) {
-
-						$resource_default_custom_form_name = apply_bk_filter( 'wpbc_get_default_custom_form', 'standard', $resource_id );
-
-						$booking_form_configuration = apply_bk_filter( 'wpdev_get_booking_form', $booking_form_configuration, $resource_default_custom_form_name );
-					}
-
-					//MU :: if resource of "Regular User" - then  GET STANDARD user form ( if ( get_bk_option( 'booking_is_custom_forms_for_regular_users' ) !== 'On' ) )
-					$booking_form_configuration = apply_bk_filter( 'wpbc_multiuser_get_booking_form_fields_configuration_of_regular_user', $booking_form_configuration, $resource_id, $form_name );    //FixIn: 8.1.3.19
-				}
-			}
-
-			// Language
-			$booking_form_configuration = apply_bk_filter( 'wpdev_check_for_active_language', $booking_form_configuration );
-
-			return $booking_form_configuration;
-		}
-
-
-		/**
-		 * Get configuration  of 'BOOKING FORM DATA'  from  -  Booking > Settings > Form page
-		 *
-		 *        - 1.    <= BS : 'Booking form show' configuration    from standard form in versions up to  Business Small version ,
-		 *        - 2     >= BM : If form data has field of custom form, then from custom form configuration,
-		 *        - 3     >= BM : Otherwise if resource has default custom  booking form,  then  from  this default custom  booking form
-		 *        - 4      = MU :  specific form of specific WP User
-		 *        - 5   finally : simple standard form
-		 *
-		 * @param int $resource_id
-		 * @param string $form_data		Form  data here, required in >= BM, because such  form_data can contain fields about used custom booking form
-		 *
-		 * @return string
-		 */
-		function wpbc_get__booking_form_data_configuration( $resource_id = 1, $form_data = '' ) {
-
-			if ( ! class_exists( 'wpdev_bk_personal' ) ) {
-
-				$booking_form_show = wpbc_get_free_booking_show_form();
-
-			} else {
-
-				$booking_form_show = get_bk_option( 'booking_form_show' );
-				$booking_form_show = wpbc_bf__replace_custom_html_shortcodes( $booking_form_show );
-
-				if ( class_exists( 'wpdev_bk_biz_m' ) ) {
-
-					if ( false !== strpos( $form_data, 'wpbc_custom_booking_form' . $resource_id . '^' ) ) {                        //FixIn: 9.4.3.12
-
-						$custom_booking_form_name = substr( $form_data, strpos( $form_data, 'wpbc_custom_booking_form' . $resource_id . '^' ) + strlen( 'wpbc_custom_booking_form' . $resource_id . '^' ) );
-						if ( false !== strpos( $custom_booking_form_name, '~' ) ) {
-							$custom_booking_form_name = substr( $custom_booking_form_name, 0, strpos( $custom_booking_form_name, '~' ) );
-						}
-						$booking_form_show    = apply_bk_filter( 'wpdev_get_booking_form_content', $booking_form_show, $custom_booking_form_name );
-						$my_booking_form_name = $custom_booking_form_name;
-					} else {
-
-						// BM :: Get default Custom Form  of Resource
-						$my_booking_form_name = apply_bk_filter( 'wpbc_get_default_custom_form', 'standard', $resource_id );
-						if ( ( $my_booking_form_name != 'standard' ) && ( ! empty( $my_booking_form_name ) ) ) {
-							$booking_form_show = apply_bk_filter( 'wpdev_get_booking_form_content', $booking_form_show, $my_booking_form_name );
-						}
-					}
-
-					//MU :: if resource of "Regular User" - then  GET STANDARD user form ( if ( get_bk_option( 'booking_is_custom_forms_for_regular_users' ) !== 'On' ) )
-					$booking_form_show = apply_bk_filter( 'wpbc_multiuser_get_booking_form_show_of_regular_user', $booking_form_show, $resource_id, $my_booking_form_name );    //FixIn: 8.1.3.19
-				}
-			}
-
-			// Language
-			$booking_form_show = apply_bk_filter( 'wpdev_check_for_active_language', $booking_form_show );
-
-			return $booking_form_show;
-		}
-
-
-		/**
-		 * Get (in Free version) configuration  of 'BOOKING FORM DATA'  from  -  Booking > Settings > Form page
-		 *
-		 * @return false|mixed
-		 */
-		function wpbc_get_free_booking_show_form() {
-
-			$booking_form_show = apply_bk_filter( 'wpbc_get_free_booking_show_form' );
-			return  $booking_form_show;
-		}
-
-		// Get form
-		function wpbc_get_free_form_fields_configuration() {
-
-			$my_form = apply_bk_filter( 'wpbc_get_free_booking_form_shortcodes' );
-
-			return  $my_form;
-		}
-
-		// -------------------------------------------------------------------------------------------------------------
-
-
-		/**
-		 * Replace resource_ID of booking  in 'form_data'
-		 * Useful, when we need to save booking from one resource into another.
-		 *
-		 * @param $booking__form_data__str		'select-multiple^rangetime2[]^18:00 - 20:00~checkbox^fee2[]^true~text^name2^John~text^secondname2^Smith...'
-		 * @param $new_resource_id				10
-		 * @param $old_resource_id				2
-		 *
-		 * @return string						'select-multiple^rangetime10[]^18:00 - 20:00~checkbox^fee10[]^true~text^name10^John~text^secondname10^Smith...'
-		 */
-		function wpbc_get__form_data__with_replaced_id( $booking__form_data__str, $new_resource_id, $old_resource_id ) {
-
-			$all_booking_data_arr = wpbc_get_parsed_booking_data_arr( $booking__form_data__str, $old_resource_id );
-
-			$new__form_data__str  = wpbc_encode_booking_data_to_string( $all_booking_data_arr, $new_resource_id );
-
-			return $new__form_data__str;
-		}
-
-
-		/**
-		 * Get arr   of all Fields Names 	from  all booking forms  (including custom)
-		 *
-		 * @return array   = [
-								 0: [  name = "standard",  num =  8,  listing = [ ... ]    ],
-								 1: [
-									  name = "minimal"
-									  num = 7
-									  listing = [
-												   labels = [
-																0 = " adults"
-																1 = " children"
-																2 = " infants"
-																3 = " gender"
-																4 = " full_name"
-																5 = " email"
-																6 = " phone"
-												   fields = {array[7]}
-																0 = " adults"
-																1 = " children"
-																2 = " infants"
-																3 = " gender"
-																4 = " full_name"
-																5 = " email"
-																6 = " phone"
-												   fields_type = {array[7]}
-																0 = "select"
-																1 = "select"
-																2 = "select"
-																3 = "radio"
-																4 = "text"
-																5 = "email"
-																6 = "text"
-												]
-									]
-								 2: [], ...
-		 * 					 ]
-		 */
-		function wpbc_get__in_all_forms__field_names_arr() {
-
-			$booking_form_fields_arr   = array();
-			$booking_form_fields_arr[] = array( 'name' => 'standard', 'form' => wpbc_bf__replace_custom_html_shortcodes( get_bk_option( 'booking_form' ) ), 'content' => wpbc_bf__replace_custom_html_shortcodes( get_bk_option( 'booking_form_show' ) ) );
-
-			/**
-			 * Get custom booking form configurations: [
-			 *                                            [ name = "minimal",
-			 *                                              form = "[calendar]...",
-			 *                                              content = "<div class="payment-content-form"> [name] ..."
-			 * 											  ],
-			 * 											  ...
-			 * 										   ]
-			 */
-			$is_can = apply_bk_filter( 'multiuser_is_user_can_be_here', true, 'only_super_admin' );
-			if ( ( $is_can ) || ( get_bk_option( 'booking_is_custom_forms_for_regular_users' ) === 'On' ) ) {
-				$booking_forms_extended = get_bk_option( 'booking_forms_extended' );
-				$booking_forms_extended = maybe_unserialize( $booking_forms_extended );
-				if (  false !== $booking_forms_extended ) {
-					foreach ( $booking_forms_extended as $form_extended ) {
-						$booking_form_fields_arr[] = $form_extended;
-					}
-				}
-			}
-
-			foreach ( $booking_form_fields_arr as $form_key => $booking_form_element ) {
-
-				$booking_form = $booking_form_element['form'];
-
-				$types = 'text[*]?|email[*]?|time[*]?|textarea[*]?|select[*]?|checkbox[*]?|radio|acceptance|captchac|captchar|file[*]?|quiz';
-				$regex = '%\[\s*(' . $types . ')(\s+[a-zA-Z][0-9a-zA-Z:._-]*)([-0-9a-zA-Z:#_/|\s]*)?((?:\s*(?:"[^"]*"|\'[^\']*\'))*)?\s*\]%';
-				$regex2 = '%\[\s*(country[*]?|starttime[*]?|endtime[*]?)(\s*[a-zA-Z]*[0-9a-zA-Z:._-]*)([-0-9a-zA-Z:#_/|\s]*)*((?:\s*(?:"[^"]*"|\'[^\']*\'))*)?\s*\]%';
-				$fields_count = preg_match_all($regex, $booking_form, $fields_matches) ;
-				$fields_count2 = preg_match_all($regex2, $booking_form, $fields_matches2) ;
-
-				//Gathering Together 2 arrays $fields_matches  and $fields_matches2
-				foreach ($fields_matches2 as $key => $value) {
-					if ($key == 2) $value = $fields_matches2[1];
-					foreach ($value as $v) {
-						$fields_matches[$key][count($fields_matches[$key])]  = $v;
-					}
-				}
-				$fields_count += $fields_count2;
-
-				$booking_form_fields_arr[ $form_key ]['num']     = $fields_count;
-				$booking_form_fields_arr[ $form_key ]['listing'] = array();                //$fields_matches;
-
-				$fields_matches[1] = array_map( 'trim', $fields_matches[1] );
-				$fields_matches[2] = array_map( 'trim', $fields_matches[2] );
-
-				$booking_form_fields_arr[ $form_key ]['listing']['labels'] = array_map( 'ucfirst', $fields_matches[2] );
-				$booking_form_fields_arr[ $form_key ]['listing']['fields'] = $fields_matches[2] ;
-
-				foreach ( $fields_matches[1] as $key_fm => $value_fm ) {
-					$fields_matches[1][ $key_fm ] = trim( str_replace( '*', '', $value_fm ) );
-				}
-
-				$booking_form_fields_arr[ $form_key ]['listing']['fields_type'] = $fields_matches[1];
-
-				// Reset
-				unset( $booking_form_fields_arr[ $form_key ]['form'] );
-				unset( $booking_form_fields_arr[ $form_key ]['content'] );
-			}
-
-			return $booking_form_fields_arr;
-		}
-
-
-		// -------------------------------------------------------------------------------------------------------------
-
-
-		/**
-		 * Get arr with booking form fields values,  after parsing form_data. 		Avoid to  use this function  in a future.
-		 *
-		 * @param $formdata
-		 * @param $bktype
-		 * @param $booking_form_show
-		 * @param $extended_params
-		 *
-		 * @return array
-		 */
-		function wpbc__legacy__get_form_content_arr ( $formdata, $bktype =-1, $booking_form_show ='', $extended_params = array() ) {
-
-			if ( $bktype == -1 ) {
-				$bktype = ( function_exists( 'get__default_type' ) ) ? get__default_type() : 1;
-			}
-
-			if ( $booking_form_show === '' ) {
-
-				$booking_form_show = wpbc_get__booking_form_data_configuration( $bktype, $formdata );
-			}
-
-			$formdata_array = explode('~',$formdata);
-			$formdata_array_count = count($formdata_array);
-			$email_adress='';
-			$name_of_person = '';
-			$coupon_code = '';
-			$secondname_of_person = '';
-			$visitors_count = 1;
-			$select_box_selected_items = array();
-			$check_box_selected_items = array();
-			$all_fields_array = array();
-			$all_fields_array_without_types = array();
-			$checkbox_value=array();
-
-			for ( $i=0 ; $i < $formdata_array_count ; $i++) {
-
-				if ( empty( $formdata_array[$i] ) ) {
-					continue;
-				}
-
-				$elemnts = explode('^',$formdata_array[$i]);
-
-				$type = $elemnts[0];
-				$element_name = $elemnts[1];
-				$value = $elemnts[2];
-
-				//FixIn: 9.7.4.1	-	escape coded html/xss
-				$value = esc_html( $value );
-				$value = esc_html( html_entity_decode( $value ) );
-				$value = nl2br($value);                                             // Add BR instead if /n elements		//FixIn: 9.7.4.2
-						// Escaping for timeline popovers and for other places
-				$value = wpbc_string__escape__then_convert__n_amp__html( $value );
-
-				$count_pos = strlen( $bktype );
-
-				$type_name = $elemnts[1];
-				$type_name = str_replace('[]','',$type_name);
-				if ($bktype == substr( $type_name,  -1*$count_pos ) ) $type_name = substr( $type_name, 0, -1*$count_pos ); // $type_name = str_replace($bktype,'',$elemnts[1]);
-
-				if ( ( ($type_name == 'email') || ($type == 'email')  ) && ( empty($email_adress) )   )    $email_adress = $value;  //FixIn: 6.0.1.9
-				if ( ($type_name == 'coupon') || ($type == 'coupon')  )             $coupon_code = $value;
-				if ( ($type_name == 'name') || ($type == 'name')  )                 $name_of_person = $value;
-				if ( ($type_name == 'secondname') || ($type == 'secondname')  )     $secondname_of_person = $value;
-				if ( ($type_name == 'visitors') || ($type == 'visitors')  )         $visitors_count = $value;
-
-
-				if ($type == 'checkbox') {
-					if ($value == 'true') {
-						$value = strtolower( __( 'yes', 'booking' ) );
-					}
-
-					if ($value == 'false') {
-						$value = strtolower( __( 'no', 'booking' ) );
-					}
-
-					if  ( $value !='' )
-						if ( ( isset($checkbox_value[ str_replace('[]','',(string) $element_name) ]) ) && ( is_array($checkbox_value[ str_replace('[]','',(string) $element_name) ]) ) ) {
-							$checkbox_value[ str_replace('[]','',(string) $element_name) ][] = $value;
-						} else {
-							$checkbox_value[ str_replace('[]','',(string) $element_name) ] = array($value);
-						}
-
-					$value = '['. $type_name .']';                                  //FixIn: 6.1.1.14
-				}
-
-				if ( ( $type == 'select-one') || ( $type == 'select-multiple' )  || ( $type == 'radio' ) ) { // add all select box selected items to return array
-					$select_box_selected_items[$type_name] = $value;
-				}
-
-				if ( ($type == 'checkbox') && (isset($checkbox_value)) ) {
-					if (isset(  $checkbox_value[ str_replace('[]','',(string) $element_name) ] )) {
-						if (is_array(  $checkbox_value[ str_replace('[]','',(string) $element_name) ] ))
-							$current_checkbox_value = implode(', ', $checkbox_value[ str_replace('[]','',(string) $element_name) ] );
-						else
-							$current_checkbox_value = $checkbox_value[ str_replace('[]','',(string) $element_name) ] ;
-					} else {
-						$current_checkbox_value = '';
-					}
-					$all_fields_array[ str_replace('[]','',(string) $element_name) ] = $current_checkbox_value;
-					$all_fields_array_without_types[ substr(   str_replace('[]','',(string) $element_name), 0 , -1*strlen( $bktype ) )  ] = $current_checkbox_value;
-
-					$check_box_selected_items[$type_name] = $current_checkbox_value;
-				} else {
-
-					//FixIn: 8.4.2.11
-					$all_fields_array_without_types[ substr(   str_replace('[]','',(string) $element_name), 0 , -1*strlen( $bktype ) )   ] = $value;
-					/**
-					   ['_all_']        => $all_fields_array,        CONVERT to  " AM/PM "
-					   ['_all_fields_'] => $all_fields_array_without_types => in " 24 hour " format - for ability correct  calculate Booking > Resources > Advanced cost page.
-					 */
-					if ( ( $type_name == 'rangetime' ) || ( $type == 'rangetime' ) ) {
-						$value = wpbc_time_slot_in_format(  $value );
-					}
-					$all_fields_array[ str_replace('[]','',(string) $element_name) ] = $value;
-					//FixIn: 8.4.2.11
-
-				}
-				$is_skip_replace = false;                                           //FixIn: 7.0.1.45
-				if ( ( $type == 'radio' ) && empty( $value ) )
-						$is_skip_replace = true;
-				if ( ! $is_skip_replace ) {
-					$booking_form_show = str_replace( '[' . $type_name . ']', $value, $booking_form_show );
-				}
-			}
-
-			if (! isset($all_fields_array_without_types[ 'booking_resource_id'  ])) $all_fields_array_without_types[ 'booking_resource_id'  ] = $bktype;
-			if (! isset($all_fields_array_without_types[ 'resource_id'  ]))         $all_fields_array_without_types[ 'resource_id'  ] = $bktype;
-			if (! isset($all_fields_array_without_types[ 'type_id'  ]))             $all_fields_array_without_types[ 'type_id'  ] = $bktype;
-
-			if (! isset($all_fields_array_without_types[ 'type'  ]))                $all_fields_array_without_types[ 'type'  ] = $bktype;
-			if (! isset($all_fields_array_without_types[ 'resource'  ]))            $all_fields_array_without_types[ 'resource'  ] = $bktype;
-
-			foreach ($extended_params as $key_param=>$value_param) {
-				if (! isset($all_fields_array_without_types[  $key_param  ]))            $all_fields_array_without_types[ $key_param  ] = $value_param;
-			}
-
-			foreach ( $all_fields_array_without_types as $key_param=>$value_param) {                                  //FixIn: 6.1.1.4
-				if (   ( gettype ( $value_param ) != 'array' )
-					&& ( gettype ( $value_param ) != 'object' )
-					) {
-					$booking_form_show = str_replace( '['. $key_param .']', $value_param ,$booking_form_show);
-
-					$all_fields_array_without_types[ $key_param ] = str_replace( "&amp;", '&', $value_param );					//FixIn:7.1.2.12
-				}
-
-
-			}
-			// Remove all shortcodes, which is not replaced early.
-			$booking_form_show = preg_replace ('/[\s]{0,}\[[a-zA-Z0-9.,-_]{0,}\][\s]{0,}/', '', $booking_form_show);  //FixIn: 6.1.1.4
-
-			$booking_form_show = str_replace( "&amp;", '&', $booking_form_show );											//FixIn:7.1.2.12
-
-			$return_array = array(
-									'content'      => $booking_form_show,
-									'email'        => $email_adress,
-									'name'         => $name_of_person,
-									'secondname'   => $secondname_of_person,
-									'visitors'     => $visitors_count,
-									'coupon'       => $coupon_code,
-									'_all_'        => $all_fields_array,
-									'_all_fields_' => $all_fields_array_without_types
-								);
-
-			foreach ( $select_box_selected_items as $key => $value ) {
-				if ( ! isset( $return_array[ $key ] ) ) {
-					$return_array[ $key ] = $value;
-				}
-			}
-			foreach ( $check_box_selected_items as $key => $value ) {
-				if ( ! isset( $return_array[ $key ] ) ) {
-					$return_array[ $key ] = $value;
-				}
-			}
-
-			return $return_array;
-		}
-
-
-    // </editor-fold>
 
 
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Booking details | replace / fields functions  ==  "  >
@@ -805,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				$resource_title = wpbc_db__get_resource_title( $resource_id );
 
 				if (! empty($resource_title)) {
-					$resource_title = apply_bk_filter( 'wpdev_check_for_active_language', $resource_title );
+					$resource_title = wpbc_lang( $resource_title );
 				}
 			}
 
@@ -868,7 +98,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			* [status] =>
 			* [sort_date] => 2018-02-27 00:00:00
 			* [modification_date] => 2018-02-18 12:49:30
-			* [form] => text^selected_short_dates_hint3^02/27/2018 - 03/02/2018~text^days_number_hint3^4~text^cost_hint3^40.250&nbsp;&#36;~text^name3^Victoria~text^secondname3^vica~email^email3^vica@wpbookingcalendar.com~text^phone3^test booking ~select-one^visitors3^1
+			* [form] => text^selected_short_dates_hint3^02/27/2018 - 03/02/2018~text^days_number_hint3^4~text^cost_hint3^40.250&nbsp;&#36;~text^name3^Victoria~text^secondname3^vica~email^email3^vica@wpbookingcalendar.com~text^phone3^test booking ~selectbox-one^visitors3^1
 			* [hash] => 0d55671fd055fd64423294f89d6b58e6
 			* [booking_type] => 3
 			* [remark] =>
@@ -982,7 +212,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 * Get different Booking Fields as array for   replace
 		 *
 		 * @param int    $booking_id 		- ID of booking                                       // 999
-		 * @param string $formdata   		- booking form data content                  // select-one^rangetime4^10:00 - 12:00~text^name4^Jo~text^secondname4^Smith~email^email4^smith@wpbookingcalendar.com~...
+		 * @param string $formdata   		- booking form data content                  // selectbox-one^rangetime4^10:00 - 12:00~text^name4^Jo~text^secondname4^Smith~email^email4^smith@wpbookingcalendar.com~...
 		 * @param int $booking_resource_id 	- booking resource type                      // 4
 		 *
 		 * @return array
@@ -1110,6 +340,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			$cancel_date_hint = wpbc_datetime_localized(   date(  'Y-m-d H:i:s'
 														  , strtotime( '-14 days', strtotime( $sql_days_only_array[0] ) )
 													) );
+			//FixIn: 10.0.0.31
+			$pre_checkin_date_hint = wpbc_datetime_localized( date( 'Y-m-d H:i:s'
+														, strtotime( '-' . intval( get_bk_option( 'booking_number_for_pre_checkin_date_hint' ) ) . ' days', strtotime( $sql_days_only_array[0] ) )
+													) );
 
 			// Booking Times -------------------------------------------------------------------------------------------
 			$start_end_time = wpbc_get_times_in_form( $formdata, $booking_resource_id ); // false ||
@@ -1155,7 +389,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			$replace[ 'nights_count' ]      = ( $replace[ 'days_count' ] > 1 ) ? ( $replace[ 'days_count' ] - 1 ) : $replace[ 'days_count' ];       // 1
 
 			//FixIn: 9.7.3.16
-			$replace[ 'cancel_date_hint' ]    = $cancel_date_hint;                      // 11/11/2013
+			$replace[ 'cancel_date_hint' ]      = $cancel_date_hint;                      // 11/11/2013
+			//FixIn: 10.0.0.31
+			$replace[ 'pre_checkin_date_hint' ] = $pre_checkin_date_hint;                 // 11/11/2013
+
 			$replace[ 'check_in_date_hint' ]  = $check_in_date_hint;                    // 11/25/2013
 			$replace[ 'check_out_date_hint' ] = $check_out_date_hint;                   // 11/27/2013
 			$replace[ 'start_time_hint' ]   = $start_time_hint;                         // 10:00
@@ -1174,7 +411,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			$replace[ 'days_number_hint' ]   = $replace[ 'days_count' ];                // 3
 			$replace[ 'nights_number_hint' ] = $replace[ 'nights_count' ];              // 2
 			$replace[ 'siteurl' ]       = htmlspecialchars_decode( '<a href="' . home_url() . '">' . home_url() . '</a>' );
-			$replace[ 'resource_title'] = apply_bk_filter( 'wpdev_check_for_active_language', $bk_title );
+			$replace[ 'resource_title'] = wpbc_lang( $bk_title );
 			$replace[ 'bookingtype' ]   = $replace[ 'resource_title'];
 			$replace[ 'remote_ip'     ] = wpbc_get_user_ip();          													// The IP address from which the user is viewing the current page.
 			$replace[ 'user_agent'    ] = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';  	// Contents of the User-Agent: header from the current request, if there is one.
@@ -1217,12 +454,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
 			$is_add_wp_timezone = true;
 			$modification_date = wpbc_datetime_localized( trim( $modification_date ), 'Y-m-d H:i:s', $is_add_wp_timezone );
-
 			$replace['modification_date'] = ' ' . $modification_date;
-
 			$modification_date = explode( ' ', $modification_date );
 			list( $replace['modification_year'], $replace['modification_month'], $replace['modification_day'] ) = explode( '-', $modification_date[0] );
 			list( $replace['modification_hour'], $replace['modification_minutes'], $replace['modification_seconds'] ) = explode( ':', $modification_date[1] );
+
+			//FixIn: 10.0.0.34
+			if ( ! empty( $replace['creation_date'] ) ) {
+
+				// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
+				$creation_date = wpbc_datetime_localized( trim( $replace['creation_date'] ), 'Y-m-d H:i:s', $is_add_wp_timezone );
+
+				$replace['creation_date'] = ' ' . $creation_date;
+				$creation_date = explode( ' ', $creation_date );
+				list( $replace['creation_year'], $replace['creation_month'], $replace['creation_day'] ) 	  = explode( '-', $creation_date[0] );
+				list( $replace['creation_hour'], $replace['creation_minutes'], $replace['creation_seconds'] ) = explode( ':', $creation_date[1] );
+			}
 
 			return $replace;
 		}
@@ -1239,20 +486,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 * @return mixed
 		 */
 		function wpbc_replace_params_for_booking_func( $replace, $booking_id, $bktype, $formdata ){
+			/*
+				$modification_date = wpbc_db_get_booking_modification_date( $booking_id );
 
-			$modification_date = wpbc_db_get_booking_modification_date( $booking_id );
+				// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
+				$is_add_wp_timezone = true;
+				$modification_date = wpbc_datetime_localized( trim( $modification_date ), 'Y-m-d H:i:s', $is_add_wp_timezone );
 
-			// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
-			$is_add_wp_timezone = true;
-			$modification_date = wpbc_datetime_localized( trim( $modification_date ), 'Y-m-d H:i:s', $is_add_wp_timezone );
+				$replace['modification_date'] = ' ' . $modification_date;
 
-			$replace['modification_date'] = ' ' . $modification_date;
-
-			$modification_date = explode( ' ', $modification_date );
-			list( $replace['modification_year'], $replace['modification_month'], $replace['modification_day'] ) = explode( '-', $modification_date[0] );
-			list( $replace['modification_hour'], $replace['modification_minutes'], $replace['modification_seconds'] ) = explode( ':', $modification_date[1] );
-
-
+				$modification_date = explode( ' ', $modification_date );
+				list( $replace['modification_year'], $replace['modification_month'], $replace['modification_day'] ) = explode( '-', $modification_date[0] );
+				list( $replace['modification_hour'], $replace['modification_minutes'], $replace['modification_seconds'] ) = explode( ':', $modification_date[1] );
+			*/
 
 			//FixIn: 8.4.2.11
 			if ( isset( $replace['rangetime'] ) ) {
@@ -1274,6 +520,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 						$replace[ $booking_key ] = $booking_data;
 					}
 				}
+			}
+
+			// Set dates and times in correct format ---------------------------------------------------------------
+
+			$is_add_wp_timezone = true;
+
+			if ( ! empty( $replace['modification_date'] ) ) {
+
+				// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
+				$modification_date = wpbc_datetime_localized( trim( $replace['modification_date'] ), 'Y-m-d H:i:s', $is_add_wp_timezone );
+
+				$replace['modification_date'] = ' ' . $modification_date;
+				$modification_date = explode( ' ', $modification_date );
+				list( $replace['modification_year'], $replace['modification_month'], $replace['modification_day'] ) 	  = explode( '-', $modification_date[0] );
+				list( $replace['modification_hour'], $replace['modification_minutes'], $replace['modification_seconds'] ) = explode( ':', $modification_date[1] );
+			}
+			//FixIn: 10.0.0.34
+			if ( ! empty( $replace['creation_date'] ) ) {
+
+				// This date $values in GMT date/Time format. So  we need to switch  to  WordPress locale with TIME  sum of actual  GMT date/time value + shift  of timezone from WordPress.
+				$creation_date = wpbc_datetime_localized( trim( $replace['creation_date'] ), 'Y-m-d H:i:s', $is_add_wp_timezone );
+
+				$replace['creation_date'] = ' ' . $creation_date;
+				$creation_date = explode( ' ', $creation_date );
+				list( $replace['creation_year'], $replace['creation_month'], $replace['creation_day'] ) 	  = explode( '-', $creation_date[0] );
+				list( $replace['creation_hour'], $replace['creation_minutes'], $replace['creation_seconds'] ) = explode( ':', $creation_date[1] );
 			}
 
 			return $replace;
@@ -1316,186 +588,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 
-		// =============================================================================================================
-
-		/**
-		 *  >=BS - for 'Billing fields' - Get fields from booking form at the settings page or return false if no fields
-		 *
-		 * @param string $booking_form
-		 * @return mixed  false | array( $fields_count, $fields_matches )
-		 */
-		function wpbc_get_fields_from_booking_form( $booking_form = '' ){
-			
-			if ( empty( $booking_form ) ) {
-				$booking_form = get_bk_option( 'booking_form' );
-			}
-			
-			$types         = 'text[*]?|email[*]?|time[*]?|textarea[*]?|select[*]?|checkbox[*]?|radio|acceptance|captchac|captchar|file[*]?|quiz';
-			$regex         = '%\[\s*(' . $types . ')(\s+[a-zA-Z][0-9a-zA-Z:._-]*)([-0-9a-zA-Z:#_/|\s]*)?((?:\s*(?:"[^"]*"|\'[^\']*\'))*)?\s*\]%';
-			$regex2        = '%\[\s*(country[*]?|starttime[*]?|endtime[*]?)(\s*[a-zA-Z]*[0-9a-zA-Z:._-]*)([-0-9a-zA-Z:#_/|\s]*)*((?:\s*(?:"[^"]*"|\'[^\']*\'))*)?\s*\]%';
-			$fields_count  = preg_match_all( $regex, $booking_form, $fields_matches );
-			$fields_count2 = preg_match_all( $regex2, $booking_form, $fields_matches2 );
-	
-			//Gathering Together 2 arrays $fields_matches  and $fields_matches2
-			foreach ( $fields_matches2 as $key => $value ) {
-				if ( $key == 2 ) {
-					$value = $fields_matches2[1];
-				}
-				foreach ( $value as $v ) {
-					$fields_matches[ $key ][ count( $fields_matches[ $key ] ) ] = $v;
-				}
-			}
-			$fields_count += $fields_count2;
-	
-			if ( $fields_count > 0 ) {
-				return array( $fields_count, $fields_matches );
-			} else {
-				return false;
-			}
-		}
-	
-	
-		/**
-		 * >= BM - for 'Advanced costs' -- Get only SELECT, CHECKBOX & RADIO fields from booking form at the settings page or return false if no fields
-		 *
-		 * @param string $booking_form
-		 * @return mixed  false | array( $fields_count, $fields_matches )
-		 */
-		function wpbc_get_select_checkbox_fields_from_booking_form( $booking_form = '' ){
-	
-			if ( empty( $booking_form )  )
-				$booking_form  = get_bk_option( 'booking_form' );
-	
-			$types = 'select[*]?|checkbox[*]?|radio[*]?';                                                                //FixIn: 8.1.3.7
-			$regex = '%\[\s*(' . $types . ')(\s+[a-zA-Z][0-9a-zA-Z:._-]*)([-0-9a-zA-Z:#_/|\s]*)?((?:\s*(?:"[^"]*"|\'[^\']*\'))*)?\s*\]%';
-	
-			$fields_count = preg_match_all($regex, $booking_form, $fields_matches) ;
-	
-			if ( $fields_count > 0 )
-				 return array( $fields_count, $fields_matches );
-			else return false;
-		}
 
 	// </editor-fold>
 
 
-	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Replace shortcodes in text  ==  "  >
-
-		/**
-		 * Get parameters of shortcode in string   '..some text [visitorbookingpayurl url='https://url.com/a/'] ...'  ->   [ 'url'='https://url.com.com/a/',  'start'=10,  'end'=80  ]
-		 *
-		 * @param string $shortcode	- shortcode name						- 'visitorbookingcancelurl'
-		 * @param string $subject	- string where to  search  shortcode:	- '<p>1 PT. [visitorbookingpayurl url='https://wpbookingcalendar.com/faq/']</p>'
-		 * @param int $pos						default 0					- 0
-		 * @param string $pattern_to_search		default	'%\s*([^=]*)=\s*[\'"]([^\'"]*)[\'"]\s*%'
-		 *
-		 * @return array|false			[
-		 * 									'url'   = "https://wpbookingcalendar.com/faq/"
-		 * 									'start' = 10
-		 * 									'end'   = 80
-		 *                       		]
-		 *
-		 * Example:
-		 *                		wpbc_get_params_of_shortcode_in_string( 'visitorbookingpayurl', '<p>1 PT. [visitorbookingpayurl url = "https://wpbookingcalendar.com/faq/"]</p>...' );
-		 *
-		 * 			output ->	[
-		 * 							'url'   = "https://wpbookingcalendar.com/faq/"
-		 * 							'start' = 10
-		 * 							'end'   = 80
-		 *                      ]
-		 *
-		 */
-		function wpbc_get_params_of_shortcode_in_string( $shortcode, $subject, $pos = 0, $pattern_to_search = '%\s*([^=]*)=\s*[\'"]([^\'"]*)[\'"]\s*%' ) { //FixIn: 9.7.4.4  //FixIn: 7.0.1.8     7.0.1.52
-
-			if ( strlen( $subject ) < intval( $pos ) ) {                                        //FixIn: (9.7.4.5)
-				return false;
-			}
-
-			$pos = strpos( $subject, '[' . $shortcode, $pos );                                   //FixIn: 7.0.1.52
-
-			if ( $pos !== false ) {
-				$pos2 = strpos( $subject, ']', ( $pos + 2 ) );
-
-				$my_params = substr( $subject, $pos + strlen( '[' . $shortcode ), ( $pos2 - $pos - strlen( '[' . $shortcode ) ) );
-
-
-				preg_match_all( $pattern_to_search, $my_params, $keywords, PREG_SET_ORDER );
-
-				foreach ( $keywords as $value ) {
-					if ( count( $value ) > 1 ) {
-						$shortcode_params[ trim( $value[1] ) ] = trim( $value[2] );                                            //FixIn: 9.7.4.4
-					}
-				}
-				$shortcode_params['start'] = $pos + 1;
-				$shortcode_params['end']   = $pos2;
-
-				return $shortcode_params;
-			} else {
-				return false;
-			}
-		}
-
-
-		/**
-		 * Get shortcodes with params and text for replacing these shortcodes as new uniue shortcodes
-		 *
-		 * @param string $content_text  Example: "<span class="wpbc_top_news_dismiss">[wpbc_dismiss id="wpbc_top_news__offer_2023_04_21"]</span>"
-		 * @param array $shortcode_arr  Example: array( 'wpbc_dismiss' )
-		 *
-		 * @return array
-		 *              Example: array(
-										 content    => "<span class="wpbc_top_news_dismiss">[wpbc_dismiss6764]</span>"
-										 shortcodes => array(
-															  'wpbc_dismiss6764' => array(
-																							shortcode => "[wpbc_dismiss6764]",
-																							params => array( id => "wpbc_top_news__offer_2023_04_21" )
-																							shortcode_original => "[wpbc_dismiss id="wpbc_top_news__offer_2023_04_21"]"
-																						  )
-															)
-									)
-		 */
-		function wpbc_get_shortcodes_in_text__as_unique_replace( $content_text, $shortcode_arr = array( 'wpbc_dismiss' ) ) {                   //FixIn: 9.6.1.8
-
-			$replace = array();
-
-			foreach ( $shortcode_arr as $single_shortcode ) {
-
-				$pos = 0;           // Loop to find if we have several such shortcodes in $content_text
-				do {
-					$shortcode_params = wpbc_get_params_of_shortcode_in_string( $single_shortcode, $content_text, $pos );
-
-					if (  ( ! empty( $shortcode_params ) ) && ( isset( $shortcode_params['end'] ) ) && ( $shortcode_params['end'] < strlen( $content_text ) )  ){
-
-						$exist_replace = substr( $content_text, $shortcode_params['start'], ( $shortcode_params['end'] - $shortcode_params['start'] ) );
-
-						$new_replace = $single_shortcode . rand( 1000, 9000 );
-
-						$pos = $shortcode_params['start'] + strlen( $new_replace );
-
-						$content_text = substr_replace( $content_text, $new_replace, $shortcode_params['start'], ( $shortcode_params['end'] - $shortcode_params['start'] ) );
-
-						$params_in_shortcode = $shortcode_params;
-						unset( $params_in_shortcode['start'] );
-						unset( $params_in_shortcode['end'] );
-						$replace[ $new_replace ] = array(
-														  'shortcode'          => '[' . $new_replace . ']',
-														  'params'             => $params_in_shortcode,
-														  'shortcode_original' => '[' . $exist_replace . ']',
-													);
-					} else {
-						$shortcode_params = false;
-					}
-
-				} while ( ! empty( $shortcode_params ) );
-
-			}
-
-			return array(
-				'content'    => $content_text,
-				'shortcodes' => $replace
-			);
-		}
-
+	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Get html  preview of shortcode for Edit pages  ==  "  >
 
 		/**
 		 * Get html  preview of shortcode for Edit pages in Elementor and at Block editors
@@ -1923,7 +1020,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			$max_visible_days_in_calendar = get_bk_option( 'booking_max_monthes_in_calendar');
 		
 			if ( false !== strpos( $max_visible_days_in_calendar, 'm' ) ) {
-				$max_visible_days_in_calendar = intval( str_replace( 'm', '', $max_visible_days_in_calendar ) ) * 31 + 5;                    //FixIn: 9.6.1.1
+				//$max_visible_days_in_calendar = intval( str_replace( 'm', '', $max_visible_days_in_calendar ) ) * 31 ;                    //FixIn: 9.6.1.1
+				//FixIn: 10.0.0.26
+				$diff_days = strtotime( '+' . intval( str_replace( 'm', '', $max_visible_days_in_calendar ) ) . ' months', strtotime( 'now' ) ) - strtotime( 'now' );
+				$max_visible_days_in_calendar = round( $diff_days / ( 60 * 60 * 24 ) ) + 1;
 			} else {
 				$max_visible_days_in_calendar = intval( str_replace( 'y', '', $max_visible_days_in_calendar ) ) * 365 + 15;                  //FixIn: 9.6.1.1
 			}
@@ -2212,7 +1312,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 			if ( ( $maybe_relative_link != home_url() ) && ( strpos( $maybe_relative_link, 'http' ) !== 0 ) ) {
 
-				$maybe_relative_link = apply_bk_filter( 'wpdev_check_for_active_language', $maybe_relative_link );           //FixIn: 8.4.5.1
+				$maybe_relative_link = wpbc_lang( $maybe_relative_link );           //FixIn: 8.4.5.1
 
 				$maybe_relative_link = home_url() . '/' . trim( wp_make_link_relative( $maybe_relative_link ), '/' );        //FixIn: 7.0.1.20
 			}
@@ -2446,6 +1546,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 		/**
+		 * Check if this WP Booking Calendar > Settings > Booking Form page
+		 * @param string $server_param -  'REQUEST_URI' | 'HTTP_REFERER'  Default: 'REQUEST_URI'
+		 * @return boolean true | false
+		 */
+		function wpbc_is_settings_form_page( $server_param = 'REQUEST_URI' ) {
+
+			if (  ( is_admin() ) &&
+				  ( strpos($_SERVER[ $server_param ],'page=wpbc-settings') !== false ) &&
+			      (
+						( strpos($_SERVER[ $server_param ],'&tab=form') !== false )
+				  	||  ( ( class_exists( 'wpdev_bk_multiuser' ) ) && ( ! empty( $_REQUEST['tab'] ) ) && ( 'form' === $_REQUEST['tab'] ) )                // Regular  user overwrite settings
+				  )
+				) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
 		 * Check if this Booking > Availability page
 		 * @param string $server_param -  'REQUEST_URI' | 'HTTP_REFERER'  Default: 'REQUEST_URI'
 		 * @return boolean true | false
@@ -2601,6 +1720,87 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
     // </editor-fold>
 
 
+	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Can I Load  JavaScript Files  ==  "  >
+
+		function wpbc_can_i_load_on__edit_new_post_page() {
+
+			if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+				return false;
+			}
+
+
+			$pages_where_load = array( 'post-new.php', 'page-new.php', 'post.php', 'page.php', 'widgets.php', 'customize.php' );
+
+			if ( in_array( basename( $_SERVER['PHP_SELF'] ), $pages_where_load ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+
+		function wpbc_can_i_load_on__searchable_resources_page() {
+
+			if (
+				   ( isset( $_REQUEST['page'] ) ) && ( $_REQUEST['page'] == 'wpbc-resources' )
+				&& ( isset( $_REQUEST['tab'] ) )  && ( $_REQUEST['tab']  == 'searchable_resources' )
+			) {
+				return true;
+			}
+
+			return false;
+		}
+
+
+		function wpbc_can_i_load_on__resources_page() {
+
+			if (
+				   ( isset( $_REQUEST['page'] ) ) && ( $_REQUEST['page'] == 'wpbc-resources' )
+			) {
+				return true;
+			}
+
+			return false;
+		}
+
+
+		/**
+		 * Can I load scripts on this page for 'shortcode_config'
+		 *
+		 * @return bool
+		 */
+		function wpbc_can_i_load_on_this_page__shortcode_config() {
+
+			if (
+					 wpbc_can_i_load_on__edit_new_post_page()
+				 || (
+							   wpbc_can_i_load_on__resources_page()
+						&& ( ! wpbc_can_i_load_on__searchable_resources_page() )
+					)
+			){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		/**
+		 * Can I load scripts on this page?     Loaded only  at ../admin.php?page=wpbc-resources&tab=searchable_resources
+		 *
+		 * @return bool
+		 */
+		function wpbc_can_i_load_on_this_page__modal_search_options() {
+
+			if ( wpbc_can_i_load_on__searchable_resources_page() ){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	// </editor-fold>
+
+
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Admin  Top  Bar  ==  "  >
 
 		function wpbc_add__booking_menu__in__admin_top_bar(){
@@ -2731,14 +1931,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 							)
 						);
 					}
-					$wp_admin_bar->add_menu(
-						array(
-							'id' => 'bar_wpbc_general_availability',
-							'title' => __( 'General Availability', 'booking' ),
-							'href' => wpbc_get_settings_url() . '&scroll_to_section=wpbc_general_settings_availability_tab',
-							'parent' => 'bar_wpbc_availability'
-						)
-					);
+					if ( wpbc_is_mu_user_can_be_here( 'only_super_admin' ) )
+						$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_general_availability',
+								'title' => __( 'General Availability', 'booking' ),
+								'href' => wpbc_get_settings_url() . '&scroll_to_section=wpbc_general_settings_availability_tab',
+								'parent' => 'bar_wpbc_availability'
+							)
+						);
 
 			// Booking > Prices page
 			if ( class_exists( 'wpdev_bk_biz_m' ) ){
@@ -2788,7 +1989,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 					$wp_admin_bar->add_menu(
 						array(
 							'id' => 'bar_wpbc_costs_payment_gateways',
-							'title' => __( 'Payment Gateways', 'booking' ),
+							'title' => __( 'Payment Setup', 'booking' ),
 							'href' =>  wpbc_get_settings_url() . '&tab=payment',
 							'parent' => 'bar_wpbc_prices'
 						)
@@ -2805,7 +2006,35 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 						'parent' => 'bar_wpbc',
 					)
 				);
+					$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_resources_general',
+								'title' => ( ( class_exists( 'wpdev_bk_personal' ) ) ? __( 'Resources', 'booking' ) : __( 'Resource', 'booking' ) ),
+								'href' => $link_res,
+								'parent' => 'bar_wpbc_resources',
+							)
+						);
 
+					if ( class_exists( 'wpdev_bk_biz_l' ) )
+						$wp_admin_bar->add_menu(
+							array(
+								'id' => 'bar_wpbc_resources_searchable',
+								'title' => __( 'Search Resources Setup', 'booking' ),//__( 'Searchable Resources', 'booking' ),//__( 'Search Availability', 'booking' ),
+								'href' => $link_res . '&tab=searchable_resources',
+								'parent' => 'bar_wpbc_resources'
+							)
+						);
+
+//					if ($is_super_admin)
+//						if ( class_exists( 'wpdev_bk_biz_l' ) )
+//							$wp_admin_bar->add_menu(
+//								array(
+//									'id' => 'bar_wpbc_resources_search',
+//									'title' => __( 'Search Form / Results', 'booking' ),
+//									'href' => $link_settings . '&tab=search',
+//									'parent' => 'bar_wpbc_resources'
+//								)
+//							);
 
 
 			//Booking > Settings General page
@@ -2819,6 +2048,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 					)
 			);
 
+					if ($is_super_admin)
+							$wp_admin_bar->add_menu(
+								array(
+									'id' => 'bar_wpbc_settings_general',
+									'title' => __( 'General', 'booking' ),
+									'href' => $link_settings,
+									'parent' => 'bar_wpbc_settings'
+								)
+							);
 					$wp_admin_bar->add_menu(
 							array(
 								'id' => 'bar_wpbc_settings_form',
@@ -2847,23 +2085,23 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 						$wp_admin_bar->add_menu(
 							array(
 								'id' => 'bar_wpbc_settings_payment',
-								'title' => __( 'Payment Gateways', 'booking' ),
+								'title' => __( 'Payment Setup', 'booking' ),
 								'href' => $link_settings . '&tab=payment',
 								'parent' => 'bar_wpbc_settings'
 							)
 						);
-					if ($is_super_admin)
-						if ( class_exists( 'wpdev_bk_biz_l' ) )
+
+					if ( ( class_exists( 'wpdev_bk_biz_l' ) ) && ( wpbc_is_mu_user_can_be_here( 'only_super_admin' ) ) )
 							$wp_admin_bar->add_menu(
 								array(
 									'id' => 'bar_wpbc_settings_search',
-									'title' => __( 'Search Availability Form', 'booking' ),
+									'title' => __( 'Search Form / Results', 'booking' ),
 									'href' => $link_settings . '&tab=search',
 									'parent' => 'bar_wpbc_settings'
 								)
 							);
-					if ($is_super_admin)
-						if ( class_exists( 'wpdev_bk_multiuser' ) )
+					if ( class_exists( 'wpdev_bk_multiuser' ) )
+						if ($is_super_admin)
 							$wp_admin_bar->add_menu(
 								array(
 									'id' => 'bar_wpbc_settings_users',
@@ -3013,150 +2251,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 	// </editor-fold>
 
 
-	// <editor-fold     defaultstate="collapsed"                        desc="  ==  String Manipulation functions  ==  "  >
-
-		/**
-		 * Insert New Line symbols after <br> tags. Usefull for the settings pages to  show in redable view
-		 *
-		 * @param string $param
-		 * @return string
-		 */
-		function wpbc_nl_after_br($param) {
-
-			$value = preg_replace( "@(&lt;|<)br\s*/?(&gt;|>)(\r\n)?@", "<br/>", $param );
-
-			return $value;
-		}
-
-
-		/**
-		 * Replace ** to <strong> and * to  <em>
-		 *
-		 * @param String $text
-		 * @return string
-		 */
-		function wpbc_replace_to_strong_symbols( $text ){
-
-			$patterns =  '/(\*\*)(\s*[^\*\*]*)(\*\*)/';
-			$replacement = '<strong>${2}</strong>';
-			$value_return = preg_replace($patterns, $replacement, $text);
-
-			$patterns =  '/(\*)(\s*[^\*]*)(\*)/';
-			$replacement = '<em>${2}</em>';
-			$value_return = preg_replace($patterns, $replacement, $value_return);
-
-			return $value_return;
-		}
-
-
-		/**
-		 * Replace 'true' | 'false' to __('yes') | __('no'). E.g.:    '...Fee: true...' => '...Fee: yes...'
-		 *
-		 * Replace value 'true' to  localized __( 'yes', 'booking' ) in Content -- usually it's required before showing text to  user for saved data of selected checkboxes, that  was configured with  empty  value: [checkbox fee ""]
-		 *
-		 * @param $value
-		 *
-		 * @return array|string|string[]
-		 */
-		function wpbc_replace__true_false__to__yes_no( $value ) {                                                                    //FixIn: 9.8.9.1
-
-			$checkbox_true_value = apply_filters( 'wpbc_checkbox_true_value', __( 'Y_E_S', 'booking' ) );
-			$value_replaced = str_replace( 'true', $checkbox_true_value, $value );
-
-			$checkbox_true_value = apply_filters( 'wpbc_checkbox_false_value', __( 'N_O', 'booking' ) );
-			$value_replaced = str_replace( 'false', $checkbox_true_value, $value_replaced );
-
-			return $value_replaced;
-		}
-
-
-		/**
-		 * Convert Strings in array  to Lower case
-		 * @param $array
-		 *
-		 * @return mixed
-		 */
-		function wpbc_convert__strings_in_arr__to_lower( $array ){
-			return unserialize( strtolower( serialize( $array ) ) );
-		}
-
-		/**
-		 * Prepare text to show as HTML,  replace double encoded \\n to <br>  and escape \\" and  \\' . 		Mainly used in Ajax.
-		 *
-		 * @param $text
-		 *
-		 * @return array|string|string[]|null
-		 */
-		function wpbc_prepare_text_for_html( $text ){
-
-			/**
-			 * Replace <p> | <br> to ' '
-			 *
-			 * $plain_form_data_show = preg_replace( '/<(br|p)[\t\s]*[\/]?>/i', ' ', $plain_form_data_show );
-			 */
-			$text = preg_replace( '/(\\\\n)/i', '<br>', $text );                                // New line in text  areas replace with <br>
-			$text = preg_replace( '/(\\\\")/i', '&quot;', html_entity_decode( $text ) );        // escape quote symbols;
-			$text = preg_replace( "/(\\\\')/i", '&apos;', html_entity_decode( $text ) );        // escape quote symbols;
-
-			// Replace \r \n \t
-			$text = preg_replace( '/(\\r|\\n|\\t)/i', ' ', $text );
-
-			return $text;
-		}
-
-
-		// TODO: Need to  check if we really  need to make this.      2023-10-06 12:46
-		/**
-		 * Escaping text  for output.
-		 *
-		 * @param string $output
-		 *
-		 * @return string
-		 */
-		function wpbc_escaping_text_for_output( $output ){
-
-			// Save empty  spaces
-			$original_symbols  = array( '&nbsp;'  );
-			$temporary_symbols = array( '^space^' );
-			$output = str_replace( $original_symbols, $temporary_symbols, $output );					// &nbsp; 	-> 	^space^
-
-			// Escaping ?
-			$output = esc_js( $output );									// it adds 		'\n' symbols  	|		" into &quot		|  		<  ->  &lt;  		...
-			$output = html_entity_decode( $output );						// Convert back  to HTML,  but now we have 	'\n' symbols
-			$output = str_replace( "\\n", '', $output );					// Remove '\n' symbols
-
-			// Back to empty spaces.
-			$original_symbols  = array( '^space^'  );
-			$temporary_symbols = array( '&nbsp;'   );
-			$output = str_replace( $original_symbols, $temporary_symbols, $output);
-
-			return $output;
-		}
-
-
-		/**
-		 * Convert text  with  escaped symbols like '1. Soem text  here\n2. \&quot;Quoted text\&quot;\n3. \&#039;Single quoted text\&#039;\n'        to        HTML:
-		 *
-		 * @param $text
-		 *
-		 * @return array|string|string[]
-		 */
-		function wpbc_string__escape__then_convert__n_amp__html( $text ) {
-
-			$is_escape_sql = false;	// Do not replace %
-
-			$escaped_text = wpbc_escape_any_xss_in_string($text, $is_escape_sql );
-
-			$text_html = str_replace( array( "\\r\\n", "\\r", "\\n", "\r\n", "\r","\n" ), "<br/>", $escaped_text );            //FixIn: 8.1.3.4
-
-			$text_html = str_replace( array( "\\&" ), '&', $text_html );
-
-			return $text_html;
-		}
-
-	// </editor-fold>
-
-
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  DB - cheking if table, field or index exists  ==  "  >
 
 		/**
@@ -3196,6 +2290,27 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 
+		//FixIn: 10.0.0.1
+		/**
+		 * Check  if we are in playground.wordpress.net ,  where used 'sqlite' DB
+		 *
+		 * @return bool
+		 */
+		function wpbc_is_this_wp_playground_db(){
+
+			return false;
+
+			if (
+				   ( ( function_exists( 'sqlite_open' ) ) || ( class_exists( 'SQLite3' ) ) )
+				&& ( ! class_exists( 'wpdev_bk_personal' ) )
+			){
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+
 		/**
 		 * Check if table exist
 		 *
@@ -3205,6 +2320,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		 * @return 0|1
 		 */
 		function wpbc_is_field_in_table_exists( $tablename , $fieldname) {
+
+			if ( wpbc_is_this_wp_playground_db() ) {
+				return 1;		// Probably  we are in playground.wordpress.net --> So  then all  such fields already  was created			//FixIn: 10.0.0.1
+			}
 
 			global $wpdb;
 
@@ -3268,16 +2387,46 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 
 		/**
-		 * Sanitize term to Slug format (no spaces, lowercase).
-		 * urldecode - reverse munging of UTF8 characters.
+		 * Sanitize $_GET, $_POST, $_REQUEST text parameters									    				    //FixIn: 10.0.0.12
 		 *
-		 * @param mixed $value
+		 * @param $value
+		 * @param $keep_newlines bool
+		 *
 		 * @return string
 		 */
-		function wpbc_get_slug_format( $value ) {
-			return  urldecode( sanitize_title( $value ) );
+		function wpbc_clean_text_value( $value , $keep_newlines = false  ){
+
+			if ( $keep_newlines ) {
+				$value_cleaned = sanitize_textarea_field( $value );
+			} else {
+				$value_cleaned = sanitize_text_field( $value );
+			}
+
+			return $value_cleaned;
 		}
-		
+
+
+		// check $value for injection here
+		function wpbc_clean_parameter( $value, $is_escape_sql = true ) {
+
+			$value = preg_replace( '/<[^>]*>/', '', $value );                       // clean any tags
+			$value = str_replace( '<', ' ', $value );
+			$value = str_replace( '>', ' ', $value );
+			$value = strip_tags( $value );
+
+			//FixIn: 9.7.4.1	-	escape coded html/xss							// Escape any XSS injection
+			$value = sanitize_textarea_field( $value );
+			$value = sanitize_textarea_field( html_entity_decode( $value ) );		// If we have field converted to 'Unicode Hex Character Code', then  we make HTML decode firstly (html_entity_decode) and then make sanitizing
+
+			if ( $is_escape_sql ) {
+				$value = esc_sql( $value );			// Clean SQL injection					//FixIn: 9.7.4.2
+			}
+
+			$value = esc_textarea( $value );																				//FixIn: 7.1.1.2
+
+			return $value;
+		}
+
 
 		/**
 		 * Check  paramter  if it number or comma separated list  of numbers
@@ -3340,6 +2489,26 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 
 		/**
+		 * Check about Valid dat in format '2024-05-08' otherwise return ''
+		 *
+		 * @param string $value
+		 *
+		 * @return string date or '' if date was not valie
+		 */
+		function wpbc_clean_date( $value ) {
+
+			if (
+					( ! empty( $value ) )
+				 && ( preg_match( "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $value ) )
+			){
+				return $value;       	// Date is valid in format: 2024-05-08
+			}
+
+			return '';					// Date not Valid
+		}
+
+
+		/**
 		 * Escape any XSS injection from  values in booking form
 		 *
 		 * @param array $structured_booking_data_arr    [...]
@@ -3381,28 +2550,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 
-		// check $value for injection here
-		function wpbc_clean_parameter( $value, $is_escape_sql = true ) {
-
-			$value = preg_replace( '/<[^>]*>/', '', $value );                       // clean any tags
-			$value = str_replace( '<', ' ', $value );
-			$value = str_replace( '>', ' ', $value );
-			$value = strip_tags( $value );
-
-			//FixIn: 9.7.4.1	-	escape coded html/xss							// Escape any XSS injection
-			$value = sanitize_textarea_field( $value );
-			$value = sanitize_textarea_field( html_entity_decode( $value ) );		// If we have field converted to 'Unicode Hex Character Code', then  we make HTML decode firstly (html_entity_decode) and then make sanitizing
-
-			if ( $is_escape_sql ) {
-				$value = esc_sql( $value );			// Clean SQL injection					//FixIn: 9.7.4.2
-			}
-
-			$value = esc_textarea( $value );																				//FixIn: 7.1.1.2
-
-			return $value;
-		}
-
-
 		function wpbc_esc_like( $value_trimmed ) {
 
 			global $wpdb;
@@ -3410,6 +2557,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 				return $wpdb->esc_like( $value_trimmed );                           // Its require minimum WP 4.0.0
 			else
 				return addcslashes( $value_trimmed, '_%\\' );                       // Direct implementation  from $wpdb->esc_like(
+		}
+
+
+		/**
+		 * Sanitize term to Slug format (no spaces, lowercase).
+		 * urldecode - reverse munging of UTF8 characters.
+		 *
+		 * @param mixed $value
+		 * @return string
+		 */
+		function wpbc_get_slug_format( $value ) {
+			return  urldecode( sanitize_title( $value ) );
 		}
 
 
@@ -3921,7 +3080,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 	
 	
 			// Recheck  for any "lang" shortcodes for replacing to correct language
-			$message =  apply_bk_filter('wpdev_check_for_active_language', $message );
+			$message =  wpbc_lang( $message );
 	
 			// Escape any JavaScript from  message
 			$notice =   html_entity_decode( esc_js( $message ) ,ENT_QUOTES) ;
@@ -3991,8 +3150,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 			$defaults = array(
 								'is_section_visible_after_load' => true,
-								'is_show_minimize'   => true,
-								'dismiss_button'     => ''
+								'is_show_minimize'              => true,
+								'dismiss_button'                => '',
+								'css_class'                     => 'postbox'
 						);
 			$params   = wp_parse_args( $params, $defaults );
 
@@ -4001,7 +3161,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			?>
 			<div class='meta-box'>
 				<div	id="<?php echo $my_close_open_win_id; ?>"
-						class="postbox <?php
+						class="<?php echo esc_attr( $params['css_class'] ); ?> <?php
 											if ( $params['is_show_minimize'] ) {
 												if ( '1' == get_user_option( 'booking_win_' . $my_close_open_win_id ) ) {
 													echo 'closed';
@@ -4266,6 +3426,31 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			return $currency_symbol;
 		}
 
+		/**
+		 *  Get Cost  per period: DAY / NIGHT / FIXED / HOUR
+		 *  In MultiUser  version  This checking based on belonging specific booking resource to  specific user.
+		 *
+		 * @param int $booking_resource_id  - ID of specific booking resource
+		 * @return string                   - cost  per period
+		 */
+		function wpbc_get_cost_per_period_for_user( $booking_resource_id  = 0 ){										//FixIn: 10.0.0.14
+
+			if ( ! class_exists( 'wpdev_bk_biz_s' ) ) {
+				return '';
+			}
+
+			if ( ! empty( $booking_resource_id ) ) {
+				$previous_active_user = apply_bk_filter( 'wpbc_mu_set_environment_for_owner_of_resource', - 1, $booking_resource_id );
+			}       // MU
+
+			$cost_period = get_bk_option( 'booking_paypal_price_period' );
+
+			if ( ! empty( $booking_resource_id ) ) {
+				make_bk_action( 'wpbc_mu_set_environment_for_user', $previous_active_user );
+			}                                                // MU
+
+			return $cost_period;
+		}
 	// </editor-fold>
 
 

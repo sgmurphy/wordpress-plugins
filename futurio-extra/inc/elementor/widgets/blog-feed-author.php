@@ -308,7 +308,7 @@ class Futurio_Extra_Blog_Feed_Author extends Widget_Base {
                         <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                     </span>
                 <?php endif; ?>
-                <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
+                <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo esc_html($settings['text']); ?></span>
             </div>
             <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'), get_the_author_meta('user_nicename'))); ?>">
                 <?php the_author(); ?>

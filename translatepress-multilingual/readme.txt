@@ -3,9 +3,9 @@ Contributors: cozmoslabs, razvan.mo, madalin.ungureanu, sareiodata, cristophor
 Donate link: https://www.translatepress.com/
 Tags: translate, translation, multilingual, automatic translation, bilingual, front-end translation, google translate, language
 Requires at least: 3.1.0
-Tested up to: 6.5.3
+Tested up to: 6.5.4
 Requires PHP: 5.6.20
-Stable tag: 2.7.8
+Stable tag: 2.7.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,7 @@ TranslatePress - Multilingual has a range of [premium Add-ons](https://translate
 
 **Pro Add-ons** (available in the [premium versions](https://translatepress.com/pricing/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree) only)
 
+* [TranslatePress AI](https://translatepress.com/ai/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree) - automatically translate your entire website without extra platforms to sign up for, API keys and additional translation costs. Each premium version includes a set number of AI translated words you can use to instantly translate your site, saving you both time and money.
 * [Extra Languages](https://translatepress.com/docs/addons/multiple-languages/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree) - allows you to add an unlimited number of translation languages, with the possibility to publish languages later after you complete the translation
 * [SEO Pack](https://translatepress.com/docs/addons/seo-pack/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree) - lets you translate meta information (like page title, description, url slug, image alt tag, Twitter and Facebook Social Graph tags & more) for boosting your multilingual SEO and increase traffic. Works with all popular SEO plugins.
 * [Translator Accounts](https://translatepress.com/docs/addons/translator-accounts/?utm_source=wp.org&utm_medium=tp-description-page&utm_campaign=TPFree) - create or allow existing users to translate the site without admin rights
@@ -140,6 +141,13 @@ For more information please check out our [documentation](https://translatepress
 
 
 == Changelog ==
+= 2.7.9 =
+* Fixed issue on checkout page when using BABE Payment Pack
+* Fixed issue showing Unsupported languages when changing API key
+* Fixed CSS issue with language switcher shortcode in Elementor pop-up
+* Fixed deprecated PHP notice when using rtrim function
+* Fixed edge case issue with license being invalid on Automatic Translation tab
+
 = 2.7.8 =
 * Fixed compatibility with older versions of PHP 7
 

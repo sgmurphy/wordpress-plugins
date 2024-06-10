@@ -28,8 +28,7 @@ class Omnisend_Sync_Stats_Repository {
 			$this->get_contact_stats(),
 			$this->get_order_stats(),
 			$this->get_product_stats(),
-			$this->get_category_stats(),
-			intval( get_option( 'omnisend_carts_sync_count' ) )
+			$this->get_category_stats()
 		);
 	}
 

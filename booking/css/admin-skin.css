@@ -17,6 +17,13 @@
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
+/* Better floating control */
+.wpdevelop .control-group .btn-toolbar0 {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
 /* Border Color and Shadow */
 .wpdevelop .button:not([class*="button-primary"]),
 .wpdevelop .control-group .btn-toolbar .btn-group > .button:not([class*="button-primary"]),
@@ -67,7 +74,7 @@
 /*.wpdevelop .control-group .btn-toolbar .input-group .input-group-btn .button,*/
 .wpdevelop .control-group .btn-toolbar .input-group > select,
 .wpdevelop .control-group .btn-toolbar .input-group > input[type='text'] {
-	margin:0 0 0 -2px !important;
+	margin:0 0 0 -1px !important;
 }
 .wpdevelop .btn-group-vertical > .button + .button,
 .wpdevelop .btn-group-vertical > .button + .btn-group,
@@ -165,15 +172,31 @@
 	margin: 3px 5px 3px 0;
 	border: 1px solid #ccc;
 	background: #eeeeee !important;
+
+	border: 1px solid #ddd;
+	background: #f7f7f7 !important;
+	color: #555;
+	box-shadow: none !important;
+	line-height: 1;
+  	padding: 4px 18px 4px 8px;
+	font-size: 13px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: first baseline;
 }
 .chzn-container-multi .chzn-choices li.search-field input[type="text"] {
 	margin: 0;
+	font-size: 13px;
+	line-height: 2;
+	padding: 2px 2px 0;
 }
 .chzn-container-multi .chzn-choices {
 	min-height: 31px !important;
 }
 .chzn-container-multi .chzn-choices .search-choice a.search-choice-close {
     font-size: 10px;
+	color: #868686 !important;
 }
 
 /* Chevrons Up/Down*/

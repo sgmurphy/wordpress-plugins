@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.4 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -626,8 +626,8 @@ video {
   margin-bottom: 0px;
 }
 
-.bookly-form :is(.bookly-mb-0) {
-  margin-bottom: 0px;
+.bookly-form :is(.bookly-mb-1) {
+  margin-bottom: 0.25rem;
 }
 
 .bookly-form :is(.bookly-mb-2) {
@@ -746,6 +746,10 @@ video {
 
 .bookly-form :is(.bookly-animate-spin) {
   animation: bookly-spin 1s linear infinite;
+}
+
+.bookly-form :is(.bookly-cursor-default) {
+  cursor: default;
 }
 
 .bookly-form :is(.bookly-appearance-none) {

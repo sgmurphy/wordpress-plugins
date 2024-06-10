@@ -54,7 +54,7 @@ class pw_new_user_approve_user_list {
 				$sendback = admin_url( 'users.php' );
 
 			$wp_list_table = _get_list_table( 'WP_Users_List_Table' );
-			
+
 			$pagenum = $wp_list_table->get_pagenum();
 			$sendback = esc_url( add_query_arg( 'paged', $pagenum, $sendback ));
 
@@ -170,7 +170,7 @@ class pw_new_user_approve_user_list {
 	public function status_filter( $which ) {
 		$id = 'new_user_approve_filter-' . $which;
 
-		$filter_button = submit_button( __( 'Filter', 'new-user-approve' ), 'button', 'pw-status-query-submit', false, array( 'id' => 'pw-status-query-submit' ) );
+		$filter_button = submit_button( __( 'Filter', 'new-user-approve' ), 'button', 'pw-status-query-submit-'.$which, false, array( 'id' => 'pw-status-query-submit-'.$which ) );
 		$filtered_status = $this->selected_status();
 
 		?>
@@ -181,9 +181,14 @@ class pw_new_user_approve_user_list {
 			<option value="<?php echo esc_attr( $status ); ?>"<?php selected( $status, $filtered_status ); ?>><?php echo esc_html( $status ); ?></option>
 		<?php endforeach; ?>
 		</select>
-		<?php echo wp_kses_post( apply_filters( 'new_user_approve_filter_button', $filter_button )); ?>
+		<?php 
+		if(!empty($filter_button))
+		{
+			echo wp_kses_post( apply_filters( 'new_user_approve_filter_button', $filter_button ));
+		}
+		?>
 		<style>
-			#pw-status-query-submit {
+			#pw-status-query-submit-top,#pw-status-query-submit-bottom {
 				float: right;
 				margin: 2px 0 0 5px;
 			}
@@ -207,7 +212,7 @@ class pw_new_user_approve_user_list {
 		if( !function_exists( 'get_current_screen' ) ) {
 			return;
 		}
-		
+
 		$screen = get_current_screen();
 
 		if ( isset( $screen ) && 'users' != $screen->id ) {
@@ -217,7 +222,7 @@ class pw_new_user_approve_user_list {
 		if ( $this->selected_status() != null ) {
 			$filter = $this->selected_status();
 			//$sendback = admin_url( 'users.php' );
-	
+
 			if($filter == 'view_all'){
 				//wp_redirect( $sendback );
 				return;
@@ -235,8 +240,16 @@ class pw_new_user_approve_user_list {
 	}
 
 	private function selected_status() {
-		if ( ! empty( $_REQUEST['new_user_approve_filter-top'] ) || ! empty( $_REQUEST['new_user_approve_filter-bottom'] ) ) {
-			return esc_attr( ( ! empty( $_REQUEST['new_user_approve_filter-top'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['new_user_approve_filter-top'])) : sanitize_text_field( wp_unslash( $_REQUEST['new_user_approve_filter-bottom'])) );
+		if(isset($_REQUEST['pw-status-query-submit-bottom']) && !empty($_REQUEST['pw-status-query-submit-bottom']))
+		{
+			return esc_attr(
+				isset($_REQUEST['new_user_approve_filter-bottom']) && !empty($_REQUEST['new_user_approve_filter-bottom']) 
+				? sanitize_text_field( wp_unslash( $_REQUEST['new_user_approve_filter-bottom']))
+				: ''
+			);
+		}
+		elseif( isset( $_REQUEST['new_user_approve_filter-top'] ) &&  !empty( $_REQUEST['new_user_approve_filter-bottom'] ) ) {
+			return esc_attr(  sanitize_text_field( wp_unslash( $_REQUEST['new_user_approve_filter-top'])) );
 		}
 
 		return null;
@@ -253,7 +266,7 @@ class pw_new_user_approve_user_list {
 		if ( $screen->id == 'users' ) : ?>
 			<script type="text/javascript">
 				jQuery(document).ready(function ($) {
-					
+
 					$('<option>').val('approve').text('<?php esc_attr_e( 'Approve', 'new-user-approve' )?>').appendTo("select[name='action']");
 					$('<option>').val('approve').text('<?php esc_attr_e( 'Approve', 'new-user-approve' )?>').appendTo("select[name='action2']");
 
@@ -437,10 +450,14 @@ class pw_new_user_approve_user_list {
 	public function pending_users_bubble() {
 		global $menu;
 
-		$users = pw_new_user_approve()->get_count_of_user_statuses();
+		$users =get_option( 'new_user_approve_user_statuses_count',array());
+		if(empty($users))
+		{
+			$users = pw_new_user_approve()->_get_user_statuses(); 
+		}
 
 		// Get the number of pending users
-		$pending_users = $users['pending'];
+		$pending_users = $users['pending'] ;
 
 		// Make sure there are pending members
 		if ( $pending_users > 0 ) {
@@ -459,7 +476,7 @@ class pw_new_user_approve_user_list {
 
 	/**
 	 * Recursively search the menu array to determine the key to place the bubble.
-	 * 
+	 *
 	 * @param $needle
 	 * @param $haystack
 	 * @return bool|int|string

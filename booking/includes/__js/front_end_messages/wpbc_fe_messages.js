@@ -27,7 +27,7 @@
  * Examples:
  * 			var html_id = wpbc_front_end__show_message( 'You can test days selection in calendar', {} );
  *
- *			var notice_message_id = wpbc_front_end__show_message( message_verif_requred, { 'type': 'warning', 'delay': 10000, 'if_visible_not_show': true,
+ *			var notice_message_id = wpbc_front_end__show_message( _wpbc.get_message( 'message_check_required' ), { 'type': 'warning', 'delay': 10000, 'if_visible_not_show': true,
  *																  'show_here': {'where': 'right', 'jq_node': el,} } );
  *
  *			wpbc_front_end__show_message( response_data[ 'ajx_data' ][ 'ajx_after_action_message' ].replace( /\n/g, "<br />" ),

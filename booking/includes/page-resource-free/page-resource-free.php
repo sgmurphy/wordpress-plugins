@@ -280,7 +280,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 											<div>
 												This <a target="_blank" href="https://wpbookingcalendar.com/overview/#personal">feature</a>
 												is available in the <strong>Pro versions</strong>.
-												<a target="_blank" href="https://wpbookingcalendar.com/features/#bk_news_section">Upgrade to Pro</a>.
+												<a target="_blank" href="https://wpbookingcalendar.com/prices/#bk_news_section">Upgrade to Pro</a>.
 											</div>
 										</div>
 									</div>

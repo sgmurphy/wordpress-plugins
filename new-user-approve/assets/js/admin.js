@@ -5,3 +5,26 @@ jQuery( document ).ready( function(){
 		jQuery( '#nua-api' ).val( apiKey );
 	} );
 } );
+
+/**
+ * 
+ * Invitation code Messages
+ */
+jQuery(document).ready(function() {
+	const errorMessage = jQuery('#errorMessage');
+	const successMessage = jQuery('#successMessage');
+    const failMessage    = jQuery("#failMessage");
+	
+	showMessage(errorMessage);
+	showMessage(successMessage);
+	showMessage(failMessage );
+
+   
+	function showMessage(messageElement) {
+	  messageElement.fadeIn();
+  
+	  setTimeout(function() {
+		messageElement.fadeOut();
+	  }, 3000); 
+	}
+  });

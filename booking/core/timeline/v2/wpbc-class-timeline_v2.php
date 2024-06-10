@@ -1753,8 +1753,20 @@ if(1)
 			if ( function_exists( 'get_title_for_showing_in_day' ) ) {
 				$text_in_day_cell .= esc_textarea( get_title_for_showing_in_day( $bk_id, $bookings, $what_show_in_day_template ) );						//FixIn: 7.1.1.2
 			} else {
-				if ( ( ! $this->is_frontend ) && ( isset( $bookings[ $bk_id ]->form_data['_all_fields_']['name'] ) ) )
-					$text_in_day_cell .= $bk_id . ':' . esc_textarea( $bookings[$bk_id]->form_data['_all_fields_']['name'] );       // Default Free		//FixIn: 7.1.1.2
+				if ( ! $this->is_frontend ) {
+					 // Default Free		//FixIn: 7.1.1.2
+					$text_in_day_cell .= $bk_id . ':' ;
+					if ( isset( $bookings[ $bk_id ]->form_data['_all_fields_']['name'] ) ) {
+						$text_in_day_cell .= ' ' . esc_textarea( $bookings[ $bk_id ]->form_data['_all_fields_']['name'] );
+					}
+					//FixIn: 10.0.0.24
+					if ( isset( $bookings[ $bk_id ]->form_data['_all_fields_']['secondname'] ) ) {
+						$text_in_day_cell .= ' ' . esc_textarea( $bookings[ $bk_id ]->form_data['_all_fields_']['secondname'] );
+					}
+					if ( isset( $bookings[ $bk_id ]->form_data['_all_fields_']['lastname'] ) ) {
+						$text_in_day_cell .= ' ' . esc_textarea( $bookings[ $bk_id ]->form_data['_all_fields_']['lastname'] );
+					}
+				}
 			}
 
 			return $text_in_day_cell;
@@ -2055,11 +2067,11 @@ if(1)
 							}
 
 
-							$today_time_css_class='';
-							if ( wpbc_datetime__no_wp_timezone( 'Y.m.d' ) == wpbc_datetime__no_wp_timezone( "Y.m.d", $row_settings[ 'real_date' ] ) ) {
+							$today_time_css_class='';        //FixIn: 10.0.0.40
+							if ( wpbc_datetime__use_wp_timezone( 'Y.m.d' ) == wpbc_datetime__use_wp_timezone( "Y.m.d", $row_settings[ 'real_date' ] ) ) {
 								if ( $this->is_show_day_view( $row_settings ) ) {
-									if ( ( wpbc_datetime__no_wp_timezone( 'm.d.Y' ) == wpbc_datetime__no_wp_timezone( "m.d.Y", $row_settings[ 'real_date' ] ) )    // Today Date
-									     && ( intval( wpbc_datetime__no_wp_timezone( 'H' ) ) == intval( $tt ) ) ) {
+									if ( ( wpbc_datetime__use_wp_timezone( 'm.d.Y' ) == wpbc_datetime__use_wp_timezone( "m.d.Y", $row_settings[ 'real_date' ] ) )    // Today Date
+									     && ( intval( wpbc_datetime__use_wp_timezone( 'H' ) ) == intval( $tt ) ) ) {
 										$today_time_css_class = 'today_time';
 									}
 								}
@@ -2215,7 +2227,7 @@ if(1)
 
     /** Show Structure of the TimeLine */
     public function wpbc_show_timeline( $dates_array, $bookings, $booking_types, $time_array_new = array() ){
-//debuge( $time_array_new['2019-07-24']);die;
+
         // Skip showing rows of booking resource(s) in TimeLine or Calendar Overview, if no any exist booking(s) for current view
         $booked_booking_resources = array();                                    //FixIn: 7.0.1.51  
         if ( ! empty( $this->request_args['only_booked_resources'] ) ) {
@@ -2365,19 +2377,33 @@ if(1)
 
         ////////////////////////////////////////////////////////////////////////////////////////////////
 
-//TODO: Start  from  replacing Table to DIV flex elements here
+		//FixIn: 10.0.0.25
+		if ( ! $this->is_frontend ){
+			$this->show_timeline_header_start__admin_panel();
+		}
+		// New Spinner Loader 		//FixIn: 10.0.0.25
+		?><div class="flex_tl_table_loading wpbc_spins_loading_container">
+				<div class="wpbc_booking_form_spin_loader"><div class="wpbc_spins_loader_wrapper"><div class="wpbc_spins_loader_mini"></div></div></div>
+				<?php // echo '<span class="0glyphicon 0glyphicon-refresh wpbc_icn_autorenew wpbc_spin"></span>' ?>
+				<span><?php _e('Loading','booking'); ?>...</span>
+		</div><?php
+
 
         ?><div class="flex_timeline_frame<?php
 						if ( $this->is_frontend ) echo ' wpbc_timeline_front_end' ?> flex_frame_view_days_num_<?php echo $view_days_num;
 						 if ($is_matrix) { echo ' flex_tl_matrix_resources '; } else { echo ' flex_tl_single_resource '; }
 				   ?>">
             <div class="flex_tl_table">
-                <div class="flex_tl_table_header">
+                <div class="flex_tl_table_header" style="<?php
+if ( ! $this->is_frontend ) {
+	echo 'display:none;';	//FixIn: 10.0.0.25
+}
+				?>">
                     <?php 
                     if ( $this->is_frontend ) {
                         ?><div class="flex_tl_collumn_2"><?php
                         
-                            $title =  apply_bk_filter('wpdev_check_for_active_language', $this->timeline_titles['header_title'] );
+                            $title =  wpbc_lang( $this->timeline_titles['header_title'] );
                             
                             $params_nav = array();
                             $params_nav['title'] = $title;
@@ -2388,12 +2414,12 @@ if(1)
                     } else {
                         ?>
                         <div class="flex_tl_collumn_1"><?php
-                                $title =  apply_bk_filter('wpdev_check_for_active_language', $this->timeline_titles['header_column1'] );
+                                $title =  wpbc_lang( $this->timeline_titles['header_column1'] );
                                 echo $title;          // Resources
                         ?></div>
                         <div class="flex_tl_collumn_2"><?php
-                            $title =  apply_bk_filter('wpdev_check_for_active_language', $this->timeline_titles['header_column2'] );
-                            echo $title;              // Dates
+                            $title =  wpbc_lang( $this->timeline_titles['header_column2'] );
+							echo $title;              // Dates
                         ?></div>
                     <?php } ?>
                 </div>
@@ -2507,16 +2533,16 @@ if(1)
 													?><a href="<?php echo $this->options['resource_link'][ $resource_value->booking_type_id ]; ?>" ><?php //FixIn: 7.2.1.14
                                                 }
 
-                                                echo apply_bk_filter('wpdev_check_for_active_language', $resource_value->title );       //FixIn: 7.0.1.11
+                                                echo wpbc_lang( $resource_value->title );       //FixIn: 7.0.1.11
                                                 
                                                 if ( ( isset( $this->options['resource_link'] ) ) && ( isset( $this->options['resource_link'][ $resource_value->booking_type_id ] ) ) ){        //FixIn: 7.0.1.50  
                                                     ?></a><?php 
                                                 }
                                             } else {
                                             ?><a href="<?php echo $bk_admin_url . '&wh_booking_type=' . $bk_resources_id[$d_inc]; ?>"
-												 title="<?php echo apply_bk_filter('wpdev_check_for_active_language', $resource_value->title ); ?>"
+												 title="<?php echo wpbc_lang( $resource_value->title ); ?>"
 											  ><?php
-                                                echo apply_bk_filter('wpdev_check_for_active_language', $resource_value->title ); 												
+                                                echo wpbc_lang( $resource_value->title ); 												
                                             ?></a><?php 
                                             }
                                   ?></div><?php
@@ -2631,6 +2657,12 @@ if(1)
                 }
 
         ?></div></div><?php
+
+
+		if ( ! $this->is_frontend ){
+			$this->show_timeline_header_end__admin_panel();		//FixIn: 10.0.0.25
+		}
+
     }
 
 
@@ -2640,13 +2672,9 @@ if(1)
      */
     public function show_timeline() {
 
-    	?><div class="flex_tl_table_loading">
-				<span class="0glyphicon 0glyphicon-refresh wpbc_icn_autorenew wpbc_spin"></span>
-				<span><?php _e('Loading','booking'); ?>...</span>
-		</div><?php
-
-
         $this->wpbc_show_timeline( $this->dates_array, $this->bookings, $this->booking_types, $this->time_array_new );
+
+		//FixIn: 10.0.0.25		// removed loader text  from  here
 
 	    //FixIn: 9.1.2.4
         ?><script type="text/javascript">
@@ -2655,6 +2683,75 @@ if(1)
        	 </script><?php
     }
 
+	/**
+	 * Show Header for Timeline in Calendar Overview page in admin panel. Header contain switches of modes and novigation  buttons
+	 * @return void
+	 */
+	public function show_timeline_header_start__admin_panel(){			//FixIn: 10.0.0.25
+
+		$is_show_resources_matrix = ( ( isset( $_REQUEST['wh_booking_type'] ) ) && ( strpos( $_REQUEST['wh_booking_type'], ',' ) !== false ) )
+			? true : false;
+
+		$view_days_num = ( isset( $_REQUEST['view_days_num'] ) ) ? intval( $_REQUEST['view_days_num'] ) : get_bk_option( 'booking_view_days_num' );
+
+		$bk_admin_url = wpbc_get_params_in_url( wpbc_get_bookings_url( false ), array( 'view_days_num' ) );
+
+		?><div class="wpbc_calendar_overview__header" >
+				<div class="wpdvlp-top-tabs ">
+					<div class="wpdvlp-tabs-wrapper">
+						<div class="nav-tabs"><?php
+							if ( $is_show_resources_matrix ) {
+								?>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=1' ); ?>"
+								   class="nav-tab <?php echo ( 1 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar-event"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Day', 'booking') ; ?></span>
+								</a>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=7' ); ?>"
+								   class="nav-tab <?php echo ( 7 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar-week"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Week', 'booking'); ?></span>
+								</a>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=30' ); ?>"
+								   class="nav-tab <?php echo ( 30 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar3"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Month', 'booking'); ?></span>
+								</a>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=60' ); ?>"
+								   class="nav-tab <?php echo ( 60 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar2-week"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;2 <?php echo __('Months', 'booking'); ?></span>
+								</a>
+								<?php
+							} else {
+								?>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=30' ); ?>"
+								   class="nav-tab <?php echo ( 30 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar-event"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Day', 'booking') ; ?></span>
+								</a>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=90' ); ?>"
+								   class="nav-tab <?php echo ( 90 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar-week"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Week', 'booking'); ?></span>
+								</a>
+								<a href="<?php echo esc_url( $bk_admin_url . '&view_days_num=365' ); ?>"
+								   class="nav-tab <?php echo ( 365 == $view_days_num ) ? 'nav-tab-active' : ''; ?>"><i class="menu_icon icon-1x wpbc-bi-calendar3"></i>
+									<span class="nav-tab-text">&nbsp;&nbsp;<?php echo __('Month', 'booking'); ?></span>
+								</a>
+								<?php
+							}
+							?><div  class="wpbc_calendar_overview__navigation"><?php
+
+								wpbc_toolbar_btn__timeline_navigation();
+
+							?></div>
+						</div><!-- nav-tabs -->
+					</div><!-- wpdvlp-tabs-wrapper -->
+				</div><!-- wpdvlp-top-tabs -->
+			</div>
+			<div class="clear"></div>
+			<div class="wpbc_calendar_overview__container">
+	 		<?php
+	}
+
+	function show_timeline_header_end__admin_panel(){				//FixIn: 10.0.0.25
+		?></div><?php		// End: .wpbc_calendar_overview__container
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// P O P O V E R
@@ -2815,7 +2912,7 @@ if(1)
 				if ( function_exists( 'wpbc_db__get_resource_title' ) ) {
 
 					if ( isset( $booking_types[ $bookings[ $bk_id ]->booking_type ] ) ) {
-						$bk_title = apply_bk_filter( 'wpdev_check_for_active_language', $booking_types[ $bookings[ $bk_id ]->booking_type ]->title );
+						$bk_title = wpbc_lang( $booking_types[ $bookings[ $bk_id ]->booking_type ]->title );
 					} else {
 						$bk_title = wpbc_get_resource_title( $bookings[ $bk_id ]->booking_type );
 					}

@@ -37,7 +37,7 @@ console.groupCollapsed( 'WPBC_AJX_BOOKING_ACTIONS' ); console.log( ' == Ajax Act
 	}
 
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl ,
+	jQuery.post( wpbc_url_ajax ,
 
 				action_post_params ,
 

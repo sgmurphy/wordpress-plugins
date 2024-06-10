@@ -30,60 +30,6 @@ class Omnisend_Manager {
 		return true;
 	}
 
-	public static function push_cart_to_omnisend() {
-		Omnisend_Logger::debug( 'push_cart_to_omnisend: start' );
-		if ( ! self::is_setup() ) {
-			return;
-		}
-
-		$cart_object = Omnisend_Cart::create();
-		if ( ! $cart_object ) {
-			Omnisend_Logger::debug( 'push_cart_to_omnisend: cart was not created' );
-			return;
-		}
-
-		$cart_array = Omnisend_Helper::clean_model_from_empty_fields( $cart_object );
-		if ( Omnisend_Server_Session::get( 'omnisend_cart' ) == $cart_array ) {
-			Omnisend_Logger::debug( 'push_cart_to_omnisend cart did not change' );
-			return; // Nothing has changed, no need to update.
-		}
-
-		$cart_was_synced_before = Omnisend_Server_Session::get( 'omnisend_cart_synced' );
-		$verbs_to_try           = $cart_was_synced_before ? array( self::VERB_PUT ) : array( self::VERB_POST, self::VERB_PUT );
-
-		foreach ( $verbs_to_try as $verb ) {
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$api_url     = $verb == self::VERB_POST ? OMNISEND_API_URL . '/v3/carts' : OMNISEND_API_URL . '/v3/carts/' . $cart_object->cartID;
-			$curl_result = Omnisend_Helper::omnisend_api( $api_url, $verb, $cart_array );
-
-			if ( $curl_result['code'] >= 200 && $curl_result['code'] < 300 ) {
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				Omnisend_Logger::log( 'info', 'carts', $api_url, 'Cart #' . $cart_object->cartID . ' was successfully pushed to Omnisend.' );
-				Omnisend_Server_Session::set( 'omnisend_cart_synced', 1 );
-				Omnisend_Server_Session::set( 'omnisend_cart', $cart_array );
-				Omnisend_Sync_Stats_Repository::count_item( 'carts' );
-				return;
-			}
-
-			if ( in_array( $curl_result['code'], self::HTTP_STATUS_CODES_TO_RETRY_POST_IN_PUT ) ) {
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				Omnisend_Logger::log( 'warn', 'carts', $api_url, 'Unable to push cart #' . $cart_object->cartID . ' to Omnisend.' . $curl_result['response'] );
-				continue;
-			}
-
-			if ( $curl_result['code'] == 403 ) {
-				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				Omnisend_Logger::log( 'warn', 'carts', $api_url, 'Unable to push cart #' . $cart_object->cartID . ' to Omnisend. You do not have rights to push carts.' );
-				break;
-			}
-
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			Omnisend_Logger::log( 'warn', 'carts', $api_url, 'Unable to push cart #' . $cart_object->cartID . ' to Omnisend. May be server error. ' . $curl_result['response'] );
-			break;
-		}
-		Omnisend_Server_Session::set( 'omnisend_cart_synced', null );
-	}
-
 	public static function push_contact_to_omnisend( $user_id ) {
 		if ( ! self::is_setup() ) {
 			return;

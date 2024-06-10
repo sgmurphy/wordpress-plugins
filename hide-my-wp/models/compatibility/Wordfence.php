@@ -4,6 +4,7 @@
  *
  * @file The Wordfence Model file
  * @package HMWP/Compatibility/Wordfence
+ * @since 7.0.0
  */
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -38,15 +39,6 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
                 }
             }
         });
-
-        //Add fix for the virus scan
-        add_action('wordfence_start_scheduled_scan', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_wordfence_activityLogUpdate', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_wordfence_scan', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_wordfence_doScan', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_wordfence_testAjax', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_nopriv_wordfence_doScan', array($this, 'witelistWordfence'));
-        add_action('wp_ajax_nopriv_wordfence_testAjax', array($this, 'witelistWordfence'));
 
         //Add compatibility with Wordfence to not load the Bruteforce when 2FA is active
         if( HMWP_Classes_Tools::getOption('hmwp_bruteforce') && HMWP_Classes_Tools::getOption('brute_use_captcha_v3') ) {
@@ -91,19 +83,12 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
             $status = false;
         }
 
-        if(get_transient('hmwp_disable_hide_urls')){
+        if($this->wfConfig('scanStartAttempt')){
             $status = false;
         }
 
         return $status;
     }
 
-    /**
-     * Disable hmwp on wordfence security scan
-     * @return void
-     */
-    public function witelistWordfence() {
-        set_transient('hmwp_disable_hide_urls', 1, 60);
-    }
 
 }

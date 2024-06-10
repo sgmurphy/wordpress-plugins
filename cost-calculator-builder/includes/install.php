@@ -38,6 +38,7 @@ function ccb_add_admin_nonces() {
 		'ccb_reset_type'            => wp_create_nonce( 'ccb_reset_type' ),
 		'ccb_add_preset'            => wp_create_nonce( 'ccb_add_preset' ),
 		'ccb_delete_preset'         => wp_create_nonce( 'ccb_delete_preset' ),
+		'ccb_update_banner'         => wp_create_nonce( 'ccb_update_banner' ),
 		'ccb_preset_hide_notice'    => wp_create_nonce( 'ccb_preset_hide_notice' ),
 		'ccb_demo_import_apply'     => wp_create_nonce( 'ccb_demo_import_apply' ),
 		'ccb_demo_import_run'       => wp_create_nonce( 'ccb_demo_import_run' ),

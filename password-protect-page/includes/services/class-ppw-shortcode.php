@@ -420,7 +420,7 @@ if ( ! class_exists( 'PPW_Shortcode' ) ) {
 				return false;
 			}
 
-			global $wp_hasher;
+			//global $wp_hasher;
 			$cookie_val = json_decode( wp_unslash( $_COOKIE[ $cookie_name ] ) ); // phpcs:ignore -- Here do not need to sanitize $_COOKIE data, because we use it for comparision.
 			if ( ! is_array( $cookie_val ) ) {
 				return false;
@@ -432,7 +432,8 @@ if ( ! class_exists( 'PPW_Shortcode' ) ) {
 				}
 
 				foreach ( $val->passwords as $cookie_pass ) {
-					if ( $wp_hasher->CheckPassword( $cookie_pass, $password ) ) {
+					//if ( $wp_hasher->CheckPassword( $cookie_pass, $password ) ) {
+					if ( wp_check_password( $cookie_pass, $password ) ) {
 						return true;
 					}
 				}

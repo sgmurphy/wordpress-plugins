@@ -276,7 +276,7 @@ class Futurio_Extra_Blog_Feed_Date extends Widget_Base {
                             <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                         </span>
                     <?php endif; ?>
-                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
+                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo wp_kses_post($settings['text']); ?></span>
                 </div>
                 <?php echo get_the_date(); ?>
             </div>
@@ -290,7 +290,7 @@ class Futurio_Extra_Blog_Feed_Date extends Widget_Base {
                             <i class="<?php echo esc_attr($settings['icon']); ?>" aria-hidden="true"></i>
                         </span>
                     <?php endif; ?>
-                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo $settings['text']; ?></span>
+                    <span <?php echo $this->get_render_attribute_string('text'); ?>><?php echo wp_kses_post($settings['text']); ?></span>
                 </div>
                 <?php echo get_the_date(); ?>
             </div>

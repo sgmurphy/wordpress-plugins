@@ -155,12 +155,13 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                                 else
                                 {
                                     $tmp_options['type'] = WPVIVID_REMOTE_GOOGLEDRIVE;
-                                    $tmp_options['token']['access_token'] = sanitize_text_field($_POST['access_token']);
+                                    $tmp_options['token']['access_token'] = base64_encode(sanitize_text_field($_POST['access_token']));
                                     $tmp_options['token']['expires_in'] = sanitize_text_field($_POST['expires_in']);
-                                    $tmp_options['token']['refresh_token'] = sanitize_text_field($_POST['refresh_token']);
+                                    $tmp_options['token']['refresh_token'] = base64_encode(sanitize_text_field($_POST['refresh_token']));
                                     $tmp_options['token']['scope'] = sanitize_text_field($_POST['scope']);
                                     $tmp_options['token']['token_type'] = sanitize_text_field($_POST['token_type']);
                                     $tmp_options['token']['created'] = sanitize_text_field($_POST['created']);
+                                    $tmp_options['is_encrypt'] = 1;
                                     update_option('wpvivid_tmp_remote_options',$tmp_options);
                                 }
                                 $this->add_remote=true;
@@ -638,6 +639,10 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                 $token=$client->getAccessToken();
                 */
 
+                if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+                    $tmp_refresh_token = base64_decode($tmp_refresh_token);
+                }
+
                 $args = array(
                     'refresh_token' => $tmp_refresh_token
                 );
@@ -667,10 +672,15 @@ class Wpvivid_Google_drive extends WPvivid_Remote
 
                 $remote_options=WPvivid_Setting::get_remote_option($this->options['id']);
                 $this->options['token']=json_decode(wp_json_encode($token),1);
+                $this->options['token']['access_token']=base64_encode($this->options['token']['access_token']);
+                $this->options['is_encrypt']=1;
                 if($remote_options!==false)
                 {
                     if(!isset($this->options['token']['refresh_token'])){
-                        $this->options['token']['refresh_token'] = $tmp_refresh_token;
+                        $this->options['token']['refresh_token'] = base64_encode($tmp_refresh_token);
+                    }
+                    else{
+                        $this->options['token']['refresh_token']=base64_encode($this->options['token']['refresh_token']);
                     }
                     $remote_options['token']=$this->options['token'];
                     WPvivid_Setting::update_remote_option($this->options['id'],$remote_options);
@@ -827,12 +837,17 @@ class Wpvivid_Google_drive extends WPvivid_Remote
             return $res;
         }
 
+        $token=$this->options['token'];
+        if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+            $token['access_token'] = base64_decode($this->options['token']['access_token']);
+        }
+
         include_once WPVIVID_PLUGIN_DIR.'/vendor/autoload.php';
         $client = new WPvivid_Google_Client();
         $client->setConfig('access_type','offline');
         $client->setAuthConfig($this->google_drive_secrets);
         $client->addScope(WPvivid_Google_Service_Drive::DRIVE_FILE);//
-        $client->setAccessToken($this->options['token']);
+        $client->setAccessToken($token);
 
         if ($client->isAccessTokenExpired())
         {
@@ -844,6 +859,10 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                 $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
                 $token=$client->getAccessToken();
                 */
+
+                if(isset($this->options['is_encrypt']) && $this->options['is_encrypt'] == 1) {
+                    $tmp_refresh_token = base64_decode($tmp_refresh_token);
+                }
 
                 $args = array(
                     'refresh_token' => $tmp_refresh_token
@@ -873,8 +892,13 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                 }
 
                 $this->options['token']=json_decode(wp_json_encode($token),1);
+                $this->options['token']['access_token']=base64_encode($this->options['token']['access_token']);
+                $this->options['is_encrypt']=1;
                 if(!isset($this->options['token']['refresh_token'])){
-                    $this->options['token']['refresh_token'] = $tmp_refresh_token;
+                    $this->options['token']['refresh_token'] = base64_encode($tmp_refresh_token);
+                }
+                else{
+                    $this->options['token']['refresh_token']=base64_encode($this->options['token']['refresh_token']);
                 }
                 WPvivid_Setting::update_remote_option($this->options['id'],$this->options);
                 return array('result' => WPVIVID_SUCCESS,'data' => $client);
@@ -923,6 +947,10 @@ class Wpvivid_Google_drive extends WPvivid_Remote
         if($remote_options!==false)
         {
             $this->options['token']=$remote_options['token'];
+            if(isset($remote_options['is_encrypt']))
+            {
+                $this->options['is_encrypt']=$remote_options['is_encrypt'];
+            }
         }
     }
 

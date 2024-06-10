@@ -377,7 +377,7 @@ function wpbc_show_inline_booking_calendar( calendar_params_arr ){
 	 */
 	function wpbc__inline_booking_calendar__apply_css_to_days( date, calendar_params_arr, datepick_this ){
 
-		var today_date = new Date( wpbc_today[ 0 ], (parseInt( wpbc_today[ 1 ] ) - 1), wpbc_today[ 2 ], 0, 0, 0 );
+		var today_date = new Date( _wpbc.get_other_param( 'today_arr' )[ 0 ], (parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] ) - 1), _wpbc.get_other_param( 'today_arr' )[ 2 ], 0, 0, 0 );
 
 		var class_day  = ( date.getMonth() + 1 ) + '-' + date.getDate() + '-' + date.getFullYear();						// '1-9-2023'
 		var sql_class_day = wpbc__get__sql_class_date( date );																			// '2023-01-09'
@@ -388,18 +388,17 @@ function wpbc_show_inline_booking_calendar( calendar_params_arr ){
 		//--------------------------------------------------------------------------------------------------------------
 
 		// WEEKDAYS :: Set unavailable week days from - Settings General page in "Availability" section
-		for ( var i = 0; i < user_unavilable_days.length; i++ ){
-			if ( date.getDay() == user_unavilable_days[ i ] ) {
+		for ( var i = 0; i < _wpbc.get_other_param( 'availability__week_days_unavailable' ).length; i++ ){
+			if ( date.getDay() == _wpbc.get_other_param( 'availability__week_days_unavailable' )[ i ] ) {
 				return [ !!false, css_date__standard + ' date_user_unavailable' 	+ ' weekdays_unavailable' ];
 			}
 		}
 
 		// BEFORE_AFTER :: Set unavailable days Before / After the Today date
-		if ( 	( (days_between( date, today_date )) < block_some_dates_from_today )
+		if ( 	( (wpbc_dates__days_between( date, today_date )) < parseInt(_wpbc.get_other_param( 'availability__unavailable_from_today' )) )
 			 || (
-				   ( typeof( wpbc_available_days_num_from_today ) !== 'undefined' )
-				&& ( parseInt( '0' + wpbc_available_days_num_from_today ) > 0 )
-				&& ( days_between( date, today_date ) > parseInt( '0' + wpbc_available_days_num_from_today ) )
+				   ( parseInt( '0' + parseInt( _wpbc.get_other_param( 'availability__available_from_today' ) ) ) > 0 )
+				&& ( wpbc_dates__days_between( date, today_date ) > parseInt( '0' + parseInt( _wpbc.get_other_param( 'availability__available_from_today' ) ) ) )
 				)
 		){
 			return [ !!false, css_date__standard + ' date_user_unavailable' 		+ ' before_after_unavailable' ];
@@ -446,7 +445,7 @@ function wpbc_show_inline_booking_calendar( calendar_params_arr ){
 						is_approved = false;
 					}
 					var ts = p_val.booking_date.substring( p_val.booking_date.length - 1 );
-					if ( true === is_booking_used_check_in_out_time ){
+					if ( true === _wpbc.get_other_param( 'is_enabled_change_over' ) ){
 						if ( ts == '1' ) { css_date__additional += ' check_in_time' + ((parseInt(p_val.approved)) ? ' check_in_time_date_approved' : ' check_in_time_date2approve'); }
 						if ( ts == '2' ) { css_date__additional += ' check_out_time' + ((parseInt(p_val.approved)) ? ' check_out_time_date_approved' : ' check_out_time_date2approve'); }
 					}
@@ -459,7 +458,7 @@ function wpbc_show_inline_booking_calendar( calendar_params_arr ){
 					css_date__additional += ' date_approved timespartly'
 				}
 
-				if ( ! is_booking_used_check_in_out_time ){
+				if ( ! _wpbc.get_other_param( 'is_enabled_change_over' ) ){
 					css_date__additional += ' times_clock'
 				}
 
@@ -905,7 +904,7 @@ console.groupCollapsed( 'WPBC_AJX_AVAILABILITY' ); console.log( ' == Before Ajax
 	wpbc_availability_reload_button__spin_start();
 
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl,
+	jQuery.post( wpbc_url_ajax,
 				{
 					action          : 'WPBC_AJX_AVAILABILITY',
 					wpbc_ajx_user_id: wpbc_ajx_availability.get_secure_param( 'user_id' ),

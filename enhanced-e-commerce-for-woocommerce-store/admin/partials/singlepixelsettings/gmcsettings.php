@@ -421,6 +421,12 @@ $tiktok_business_account = '';
 if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $googleDetail->tiktok_setting->tiktok_business_id !== '') {
     $tiktok_business_account = $googleDetail->tiktok_setting->tiktok_business_id;
 }
+$facebook_business_account = '';
+$fb_catalog_id = '';
+if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDetail->facebook_setting->fb_business_id !== '') {
+    $facebook_business_account = $googleDetail->facebook_setting->fb_business_id;
+    $fb_catalog_id = $googleDetail->facebook_setting->fb_catalog_id;
+}
 ?>
 <!-- Create Feed Modal -->
 <div class="modal fade" id="convCreateFeedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -529,6 +535,16 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 tiktok_catalog_id">
 
+                            </label>
+                        </div>
+                        <div class="form-check form-check-custom">
+                            <input class="form-check-input check-height fs-14 errorChannel" type="checkbox" value=""
+                                id="fb_id" name="fb_id" checked>
+                            <label for="" class="col-form-label fs-14 pt-0 text-dark fw-500">
+                                <?php esc_html_e("Facebook Catalog Id :", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <label class="col-form-label fs-14 pt-0 fw-400 fb_id">
+                                <?php echo $fb_catalog_id ?>
                             </label>
                         </div>
                     </div>
@@ -899,6 +915,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
             let google_ads_id = jQuery('#ads-account').val();
             if (google_ads_id !== '') {
                 selected_vals["ga_GMC"] = 1;
+                selected_vals["google_ads_id"] = google_ads_id;
             }
             jQuery.ajax({
                 type: "POST",
@@ -922,17 +939,17 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                     if (response == "0" || response == "1") {
                         let google_merchant_center_id = jQuery('#google_merchant_center_id').val();
                         let merchant_id = jQuery('#google_merchant_center_id').find(':selected').data('merchant_id');
-                        save_merchant_data(google_merchant_center_id, merchant_id, tvc_data, subscription_id, plan_id, true).then((res) => {
-                            if (feedType !== '') {
-                                createSuperAIFeed();
-                            } else {
+                        // save_merchant_data(google_merchant_center_id, merchant_id, tvc_data, subscription_id, plan_id, true).then((res) => {
+                            // if (feedType !== '') {
+                            //    // createSuperAIFeed();
+                            // } else {
                                 conv_change_loadingbar("hide");
                                 jQuery(".conv-btn-connect-enabled-gmc").text("Save");
                                 jQuery(".conv-btn-connect-enabled-gmc").removeClass('disabled');
                                 jQuery('.gmcAccount').html(selected_vals["google_merchant_id"])
                                 jQuery("#conv_save_success_modal_cta").modal("show");
-                            }
-                        });
+                            // }
+                        // });
                     }
                 }
 
@@ -999,7 +1016,13 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                         //loaderSection(true);
                     },
                     success: function(response, status) {
-                        if (response.account.id) {
+                        jQuery('#model_close_gmc_creation, .closeButton').removeClass('disabled')
+                        if (response.error === true) {
+                            var error_msg = 'Check your inputs!!!';
+                            jQuery("#create_gmc_error").removeClass("d-none");
+                            jQuery('#create_gmc_error small').text(error_msg)
+                            jQuery('#create_merchant_account_new').removeClass('disabled')
+                        } else if (response.account.id) {
                             jQuery("#new_gmc_id").text(response.account.id);
                             jQuery(".before-gmc-acc-creation").addClass("d-none");
                             jQuery(".after-gmc-acc-creation").removeClass("d-none");
@@ -1078,7 +1101,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                 return false;
             }
 
-            if (!jQuery('#gmc_id').is(":checked") && !jQuery('#tiktok_id').is(":checked")) {
+            if (!jQuery('#gmc_id').is(":checked") && !jQuery('#tiktok_id').is(":checked") && !jQuery('#fb_id').is(":checked")) {
                 jQuery('.errorChannel').css('border', '1px solid red');
                 return false;
             }
@@ -1087,7 +1110,15 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
         });
 
         /****************Submit Feed call end***********************************/
-
+        jQuery(document).on('click', '#gmc_id', function (e) {
+            jQuery('.errorChannel').css('border', '');
+        });
+        jQuery(document).on('click', '#tiktok_id', function (e) {
+            jQuery('.errorChannel').css('border', '');
+        });
+        jQuery(document).on('click', '#fb_id', function (e) {
+            jQuery('.errorChannel').css('border', '');
+        });
     });
     /*************************************Save Feed Data Start*************************************************************************/
     function save_feed_data() {
@@ -1098,6 +1129,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
             action: "save_feed_data",
             feedName: jQuery('#feedName').val(),
             google_merchant_center: jQuery('input#gmc_id').is(':checked') ? '1' : '',
+            fb_catalog_id:jQuery('input#fb_id').is(':checked') ? '2' : '',
             tiktok_id: jQuery('input#tiktok_id').is(':checked') ? '3' : '',
             tiktok_catalog_id: jQuery('input#tiktok_id').is(':checked') ? jQuery('input#tiktok_id').val() : '',
             autoSync: jQuery('input#autoSync').is(':checked') ? '1' : '0',

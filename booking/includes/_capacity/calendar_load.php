@@ -67,18 +67,6 @@ function wpbc__calendar__set_js_params__before_show( $params ) {
 	$start_script_code .= "  _wpbc.calendar__set_param_value( " . $resource_id . ", 'booking_date_format', '" . esc_js( get_bk_option( 'booking_date_format' ) ) . "' ); ";
 	$start_script_code .= "  _wpbc.calendar__set_param_value( " . $resource_id . ", 'booking_time_format', '" . esc_js( get_bk_option( 'booking_time_format' ) ) . "' ); ";
 
-	// Warning Messages 
-
-	$start_script_code .= " _wpbc.set_other_param( 'message_dates_times_unavailable', '"
-			                      . esc_js( __( 'These dates and times in this calendar are already booked or unavailable.', 'booking' ), 'booking' )
-		                      . "' ); ";
-	$start_script_code .= " _wpbc.set_other_param( 'message_choose_alternative_dates', '"
-			                      . esc_js( __( 'Please choose alternative date(s), times, or adjust the number of slots booked.', 'booking' ) )
-		                      . "' ); ";
-	$start_script_code .= " _wpbc.set_other_param( 'message_cannot_save_in_one_resource', '"
-	                              . esc_js( __('It is not possible to store this sequence of the dates into the one same resource.' ,'booking') )
-		                      . "' ); ";
-
 	// Capacity | availability  ----------------------------------------------------------------------------------------
 	if ( class_exists( 'wpdev_bk_biz_l' ) ) {
 		$start_script_code .= " _wpbc.calendar__set_param_value( " . $resource_id . " , 'is_parent_resource' , " . ( wpbc_get_child_resources_number( $resource_id ) ? 1 : 0 ) . " ); ";

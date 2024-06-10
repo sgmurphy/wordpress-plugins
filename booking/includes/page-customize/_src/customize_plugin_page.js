@@ -563,7 +563,7 @@ console.groupCollapsed( 'WPBC_AJX_CUSTOMIZE_PLUGIN' ); console.log( ' == Before 
 	wpbc_customize_plugin_reload_button__spin_start();
 
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl,
+	jQuery.post( wpbc_url_ajax,
 				{
 					action          : 'WPBC_AJX_CUSTOMIZE_PLUGIN',
 					wpbc_ajx_user_id: wpbc_ajx_customize_plugin.get_secure_param( 'user_id' ),

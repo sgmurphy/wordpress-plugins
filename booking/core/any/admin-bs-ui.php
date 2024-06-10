@@ -1858,6 +1858,85 @@ function wpbc_flextable_header_tabs_html_container_end() {
     </span><!-- wpdevelop wpbc_flextable_header_tabs --><?php
 }
 
+
+/**
+ * Get HTML  for Open / Close  [+/-] Links for help  sections
+ *
+ * @param $link_title  string
+ * @param $is_open	bool
+ * @param $params	array
+ *
+ * @return false|string
+ *
+ *                 Example 1:
+ *								wpbc_get_open_close_link__container_start_html( array(
+ *																			'title'   => __('Standard Shortcodes' ,'booking'),
+ *                     														'is_open' => true,
+ *																			'params'  => array(
+ *																								'container_attr' => array( 'style' => 'font-weight:600;' ),
+ *																								'content_attr'   => array( 'style' => 'font-weight:400;display:block;padding: 0px 5px;margin: 0;background: #fff;' )
+ *																		)));
+ *
+ *                 Example 2:
+ *								wpbc_get_open_close_link__container_start_html( array(
+ *																			'title'   => __('Cost Hints' ,'booking'),
+ *																			'params'  => array( 'container_class' => 'wpbc_deprected_help_container' )
+ *																	  ));
+ */
+function wpbc_get_open_close_link__container_start_html( $params = array()  ) {
+
+	$defaults = array(
+	                  'title'   => ''
+					, 'is_open' => false
+					, 'params'  => array()
+				);
+	$params   = wp_parse_args( $params, $defaults );
+
+	$defaults = array(
+						'container_class' => '',
+						'container_attr'  => array(),
+						'link_class' 	  => '',
+						'link_attr'  	  => array(),
+						'content_class'   => '',
+						'content_attr'    => array()
+				);
+	$params['params'] = wp_parse_args( $params['params'], $defaults );
+
+	ob_start();
+
+	$params['params']['container_attr'] = WPBC_Settings_API::get_custom_attr_static( array( 'attr' => $params['params']['container_attr'] ) );
+	$params['params']['link_attr'] 	    = WPBC_Settings_API::get_custom_attr_static( array( 'attr' => $params['params']['link_attr'] ) );
+	$params['params']['content_attr']   = WPBC_Settings_API::get_custom_attr_static( array( 'attr' => $params['params']['content_attr'] ) );
+
+	?><div class="wpbc_container_open_or_closed <?php echo ( $params['is_open'] ?  '':' wpbc_container_closed ' );
+													  echo esc_attr( $params['params']['container_class'] ); ?>" <?php echo $params['params']['container_attr']; ?>><?php
+
+	 	?><a  href="javascript:void(0)" class="wpbc_container_open_or_closed__link <?php echo esc_attr( $params['params']['link_class'] ); ?>" <?php echo $params['params']['link_attr']; ?>><?php
+	 		echo $params['title'];
+		?></a><?php
+	  	?><div class="wpbc_container_open_or_closed__content <?php echo esc_attr( $params['params']['content_class'] ); ?>"
+	  		   <?php echo ( $params['is_open'] ?  '':' style="display:none;" ' ); ?>
+	  		   <?php echo $params['params']['content_attr']; ?>><?php
+
+	return ob_get_clean();
+}
+
+/**
+ * Get HTML  for Open / Close  [+/-] Links for help  sections
+ *
+ * @return false|string
+ */
+function wpbc_get_open_close_link__container_end_html() {
+
+	ob_start();
+
+          ?></div><!-- wpbc_container_open_or_closed__content -->
+    </div><!-- wpbc_container_open_or_closed --><?php
+
+    return ob_get_clean();
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //  HTML sections and groups
 ////////////////////////////////////////////////////////////////////////////////

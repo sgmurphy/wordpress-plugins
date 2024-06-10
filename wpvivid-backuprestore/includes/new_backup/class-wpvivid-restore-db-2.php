@@ -26,6 +26,8 @@ class WPvivid_Restore_DB_2
     public $old_home_url;
     public $old_content_url;
     public $old_upload_url;
+    public $old_mu_single_site_upload_url;
+    public $old_mu_single_home_upload_url;
 
     public $new_site_url;
     public $new_home_url;
@@ -327,6 +329,21 @@ class WPvivid_Restore_DB_2
         $sub_task['exec_sql']['exec_sql_finished']=$exec_sql_finished;
         if($sub_task['exec_sql']['exec_sql_finished']==1)
         {
+            $ret=$this->replace_tables_rows($sub_task);
+            if($ret['result']=='success')
+            {
+                $sub_task=$ret['sub_task'];
+            }
+            else
+            {
+                $this->log->WriteLog('Restoring failed:'.$ret['error'],'notice');
+                $this->remove_tmp_table($sub_task);
+                return $ret;
+            }
+        }
+
+        if($sub_task['exec_sql']['replace_rows_finished']==1)
+        {
             $ret=$this->finish_restore_db($sql_files,$local_path,$sub_task);
             if($ret['result']!='success')
             {
@@ -334,7 +351,6 @@ class WPvivid_Restore_DB_2
             }
             $this->log->WriteLog('Restore db success','notice');
         }
-
 
         return $ret;
     }
@@ -432,6 +448,23 @@ class WPvivid_Restore_DB_2
             $this->old_content_url =$sub_task['db_info']['old_content_url'];
             $this->old_upload_url = $sub_task['db_info']['old_upload_url'];
             $this->old_prefix =$sub_task['db_info']['old_prefix'];
+            if(isset($sub_task['db_info']['old_mu_single_site_upload_url']))
+            {
+                $this->old_mu_single_site_upload_url=$sub_task['db_info']['old_mu_single_site_upload_url'];
+            }
+            else
+            {
+                $this->old_mu_single_site_upload_url='';
+            }
+
+            if(isset($sub_task['db_info']['old_mu_single_home_upload_url']))
+            {
+                $this->old_mu_single_home_upload_url=$sub_task['db_info']['old_mu_single_home_upload_url'];
+            }
+            else
+            {
+                $this->old_mu_single_home_upload_url='';
+            }
 
 
             $result = $wpdb->get_results("SHOW ENGINES", OBJECT_K);
@@ -481,7 +514,7 @@ class WPvivid_Restore_DB_2
                 $this->skip_table=$sub_task['exec_sql']['current_table'];
             }
 
-            if($sub_task['exec_sql']['current_need_replace_table'])
+            /*if($sub_task['exec_sql']['current_need_replace_table'])
             {
                 $this->execute_sql('START TRANSACTION',$sub_task);
 
@@ -497,12 +530,10 @@ class WPvivid_Restore_DB_2
                     $this->update_sub_task($sub_task);
                     return $ret;
                 }
-            }
-            else
-            {
-                $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($this->offset,2).'/'.size_format($this->sum,2).'</span>';
-                $this->update_sub_task($sub_task);
-            }
+            }*/
+
+            $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($this->offset,2).'/'.size_format($this->sum,2).'</span>';
+            $this->update_sub_task($sub_task);
         }
         else
         {
@@ -523,14 +554,7 @@ class WPvivid_Restore_DB_2
 
                 if(!empty($sub_task['exec_sql']['current_table']))
                 {
-                    if($sub_task['exec_sql']['current_need_replace_table'])
-                    {
-
-                    }
-                    else
-                    {
-                        $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
-                    }
+                    $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
                 }
                 else
                 {
@@ -593,8 +617,8 @@ class WPvivid_Restore_DB_2
                     {
                         $this->log->WriteLog('Creating table '.$sub_task['exec_sql']['current_table'],'notice');
                     }
-                    $sub_task['exec_sql']['current_replace_table_finish']=false;
-                    $sub_task['exec_sql']['current_need_replace_table']=false;
+                    //$sub_task['exec_sql']['current_replace_table_finish']=false;
+                    //$sub_task['exec_sql']['current_need_replace_table']=false;
                     $sub_task['exec_sql']['current_replace_row']=0;
                     $this->update_sub_task($sub_task);
                 }
@@ -622,7 +646,13 @@ class WPvivid_Restore_DB_2
                     {
                         if($this->is_migrate&&!empty($sub_task['exec_sql']['current_table']))
                         {
-                            if($this->is_og_table($sub_task['exec_sql']['current_old_table']))
+                            $replace_tables['current_table']=$sub_task['exec_sql']['current_table'];
+                            $replace_tables['current_old_table']=$sub_task['exec_sql']['current_old_table'];
+                            $replace_tables['finished']=0;
+                            $replace_tables['offset']=0;
+                            $sub_task['exec_sql']['replace_tables'][$sub_task['exec_sql']['current_table']]=$replace_tables;
+                            $this->update_sub_task($sub_task);
+                            /*if($this->is_og_table($sub_task['exec_sql']['current_old_table']))
                             {
                                 $sub_task['exec_sql']['current_need_replace_table']=true;
 
@@ -637,7 +667,7 @@ class WPvivid_Restore_DB_2
                                     $this->update_sub_task($sub_task);
                                     return $ret;
                                 }
-                            }
+                            }*/
                         }
                     }
 
@@ -681,7 +711,16 @@ class WPvivid_Restore_DB_2
 
         $sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset']=ftell($sql_handle);
 
-        if($this->skip_table!==false&&$this->skip_table==$sub_task['exec_sql']['current_table'])
+        $sub_task['exec_sql']['sql_files'][$sql_file_name]['finished']=1;
+
+        $replace_tables['current_table']=$sub_task['exec_sql']['current_table'];
+        $replace_tables['current_old_table']=$sub_task['exec_sql']['current_old_table'];
+        $replace_tables['finished']=0;
+        $replace_tables['offset']=0;
+        $sub_task['exec_sql']['replace_tables'][$sub_task['exec_sql']['current_table']]=$replace_tables;
+        $this->update_sub_task($sub_task);
+
+        /*if($this->skip_table!==false&&$this->skip_table==$sub_task['exec_sql']['current_table'])
         {
             $sub_task['exec_sql']['sql_files'][$sql_file_name]['finished']=1;
             $sub_task['exec_sql']['current_replace_table_finish']=false;
@@ -699,7 +738,7 @@ class WPvivid_Restore_DB_2
             {
                 $sub_task['exec_sql']['sql_files'][$sql_file_name]['finished']=0;
             }
-        }
+        }*/
 
         fclose($sql_handle);
         $sub_task['exec_sql']['last_action']='Importing';
@@ -707,6 +746,65 @@ class WPvivid_Restore_DB_2
         $ret['result']='success';
         $ret['sub_task']=$sub_task;
 
+        return $ret;
+    }
+
+    private function init_db($sub_task)
+    {
+        include_once WPVIVID_PLUGIN_DIR . '/includes/new_backup/class-wpvivid-restore-db-method-2.php';
+
+        $this->db_method=new WPvivid_Restore_DB_Method_2();
+        $this->db_method->set_skip_query(0);
+        $this->skip_table=false;
+
+        $ret=$this->db_method->connect_db();
+        if($ret['result']=='failed')
+        {
+            return $ret;
+        }
+
+        $this->db_method->check_max_allow_packet($this->log);
+
+        $this->log->WriteLog($this->db_method->get_last_log(),'notice');
+
+        $this->db_method->init_sql_mode();
+
+        $this->default_engines= $sub_task['db_info']['default_engine'];
+        $this->default_charsets=$sub_task['db_info']['default_charsets'];
+        $this->default_collates=$sub_task['db_info']['default_collates'];
+        $this->old_base_prefix=$sub_task['db_info']['base_prefix'];
+        $this->new_prefix=$sub_task['db_info']['new_prefix'];
+        $this->temp_new_prefix=$sub_task['db_info']['temp_new_prefix'];
+
+        $this->new_site_url= $sub_task['db_info']['new_site_url'];
+        $this->new_home_url=$sub_task['db_info']['new_home_url'];
+        $this->new_content_url=$sub_task['db_info']['new_content_url'];
+        $this->new_upload_url=$sub_task['db_info']['new_upload_url'];
+        $this->is_migrate=$sub_task['db_info']['is_migrate'];
+        $this->old_site_url = $sub_task['db_info']['old_site_url'];
+        $this->old_home_url =$sub_task['db_info']['old_home_url'];
+        $this->old_content_url =$sub_task['db_info']['old_content_url'];
+        $this->old_upload_url = $sub_task['db_info']['old_upload_url'];
+        $this->old_prefix =$sub_task['db_info']['old_prefix'];
+        if(isset($sub_task['db_info']['old_mu_single_site_upload_url']))
+        {
+            $this->old_mu_single_site_upload_url=$sub_task['db_info']['old_mu_single_site_upload_url'];
+        }
+        else
+        {
+            $this->old_mu_single_site_upload_url='';
+        }
+
+        if(isset($sub_task['db_info']['old_mu_single_home_upload_url']))
+        {
+            $this->old_mu_single_home_upload_url=$sub_task['db_info']['old_mu_single_home_upload_url'];
+        }
+        else
+        {
+            $this->old_mu_single_home_upload_url='';
+        }
+
+        $ret['result']='success';
         return $ret;
     }
 
@@ -759,6 +857,148 @@ class WPvivid_Restore_DB_2
         return $ret;
     }
 
+    public function do_replace_row_ex($table_name,$replace_table_data,$sub_task)
+    {
+        $this->init_db($sub_task);
+
+        if($this->is_migrate&&!empty($replace_table_data['current_table']))
+        {
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                if($this->is_mu_single_og_table($replace_table_data['current_old_table']))
+                {
+                    $sub_task['exec_sql']['last_action']='Importing';
+                    $this->update_sub_task($sub_task);
+
+                    $restore_task=get_option('wpvivid_restore_task',array());
+
+                    $restore_detail_options=$restore_task['restore_detail_options'];
+                    $replace_rows_pre_request=$restore_detail_options['replace_rows_pre_request'];
+
+                    $this->execute_sql('START TRANSACTION',$sub_task);
+                    $ret=$this->replace_row_ex($table_name,$replace_table_data,$sub_task,$replace_rows_pre_request);
+                    $this->execute_sql('COMMIT',$sub_task);
+
+                    $sub_task['exec_sql']['replace_tables'][$table_name]['offset']=$ret['replace_row'];
+                    $sub_task['exec_sql']['replace_tables'][$table_name]['finished']=$ret['current_replace_table_finish'];
+                    if($ret['current_replace_table_finish']==false)
+                    {
+                        $ret['finished']=0;
+                    }
+                    else
+                    {
+                        $ret['finished']=1;
+                    }
+                }
+            }
+            else if($this->is_og_table($replace_table_data['current_old_table']))
+            {
+                $sub_task['exec_sql']['last_action']='Importing';
+                $this->update_sub_task($sub_task);
+
+                $restore_task=get_option('wpvivid_restore_task',array());
+
+                $restore_detail_options=$restore_task['restore_detail_options'];
+                $replace_rows_pre_request=$restore_detail_options['replace_rows_pre_request'];
+
+                $this->execute_sql('START TRANSACTION',$sub_task);
+                $ret=$this->replace_row_ex($table_name,$replace_table_data,$sub_task,$replace_rows_pre_request);
+                $this->execute_sql('COMMIT',$sub_task);
+
+                $sub_task['exec_sql']['replace_tables'][$table_name]['offset']=$ret['replace_row'];
+                $sub_task['exec_sql']['replace_tables'][$table_name]['finished']=$ret['current_replace_table_finish'];
+                $sub_task['last_msg']=$ret['last_msg'];
+                if($ret['current_replace_table_finish']==false)
+                {
+                    $ret['finished']=0;
+                }
+                else
+                {
+                    $ret['finished']=1;
+                }
+            }
+            else
+            {
+                $sub_task['exec_sql']['replace_tables'][$table_name]['finished']=1;
+                $ret['finished']=1;
+            }
+
+        }
+        else
+        {
+            $sub_task['exec_sql']['replace_tables'][$table_name]['finished']=1;
+            $ret['finished']=1;
+        }
+
+        $ret['result']='success';
+        $ret['sub_task']=$sub_task;
+        return $ret;
+    }
+
+    public function replace_tables_rows($sub_task)
+    {
+        $this->is_mu=false;
+        if(isset($sub_task['options']['is_mu']))
+        {
+            $this->is_mu=true;
+        }
+        else
+        {
+            $this->is_mu=false;
+        }
+
+        if(empty($sub_task['exec_sql']['replace_tables']))
+        {
+            $sub_task['exec_sql']['replace_rows_finished']=1;
+            $this->update_sub_task($sub_task);
+            $ret['result']='success';
+            $ret['sub_task']=$sub_task;
+            return $ret;
+        }
+        else
+        {
+            foreach ($sub_task['exec_sql']['replace_tables'] as $table_name=>$replace_table_data)
+            {
+                if($replace_table_data['finished']==1)
+                {
+                    continue;
+                }
+                $this->log->WriteLog('Start replacing table '.$table_name.' offset:'.$replace_table_data['offset'],'notice');
+                $sub_task['exec_sql']['last_action']='Importing';
+                $ret=$this->do_replace_row_ex($table_name,$replace_table_data,$sub_task);
+                if($ret['result']=='success')
+                {
+                    $sub_task=$ret['sub_task'];
+                    break;
+                }
+                else
+                {
+                    $this->log->WriteLog('Restoring failed:'.$ret['error'],'notice');
+                    $this->remove_tmp_table($sub_task);
+                    return $ret;
+                }
+            }
+
+            $replace_rows_finished=true;
+            foreach ($sub_task['exec_sql']['replace_tables'] as $table_name=>$replace_table_data)
+            {
+                if($replace_table_data['finished']==0)
+                {
+                    $replace_rows_finished=false;
+                    break;
+                }
+            }
+
+            $sub_task['exec_sql']['replace_rows_finished']=$replace_rows_finished;
+            $this->update_sub_task($sub_task);
+            $ret['result']='success';
+            $ret['sub_task']=$sub_task;
+
+            return $ret;
+        }
+    }
+
     public function init_restore_db($sql_file,$sub_task)
     {
         global $wpdb;
@@ -802,11 +1042,14 @@ class WPvivid_Restore_DB_2
 
         if($this->is_mu&&isset($option['site_id']))
         {
+            $sub_task['db_info']['base_prefix']=$this->old_base_prefix=$option['base_prefix'];
             $sub_task['db_info']['old_prefix']=$this->old_prefix=$option['blog_prefix'];
             $sub_task['db_info']['site_url']=$this->old_site_url=$option['site_url'];
             $sub_task['db_info']['home_url']=$this->old_home_url=$option['home_url'];
             $this->old_content_url='';
             $this->old_upload_url='';
+            $sub_task['db_info']['old_mu_single_site_upload_url']=$this->old_mu_single_site_upload_url=trailingslashit($option['site_url']).'wp-content/uploads/sites/'.$option['site_id'];
+            $sub_task['db_info']['old_mu_single_home_upload_url']=$this->old_mu_single_home_upload_url=trailingslashit($option['home_url']).'wp-content/uploads/sites/'.$option['site_id'];
 
             if($option['overwrite'])
             {
@@ -832,6 +1075,8 @@ class WPvivid_Restore_DB_2
         {
             $this->old_prefix='';
             $this->old_base_prefix='';
+            $this->old_mu_single_site_upload_url='';
+            $this->old_mu_single_home_upload_url='';
             if(isset($option['mu_migrate']))
             {
                 $sub_task['db_info']['base_prefix']=$this->old_base_prefix=$option['base_prefix'];
@@ -968,7 +1213,26 @@ class WPvivid_Restore_DB_2
             $current_old_table=$table_name;
         }
 
-        if($this->is_og_table($table_name))
+        $tmp_option=$sub_task['options'];
+        if($this->is_mu&&isset($tmp_option['site_id']))
+        {
+            if($this->is_mu_single_og_table($table_name))
+            {
+                if(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta')
+                {
+                    $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_base_prefix));
+                }
+                else
+                {
+                    $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_prefix));
+                }
+            }
+            else
+            {
+                $new_table_name=$current_old_table;
+            }
+        }
+        else if($this->is_og_table($table_name))
         {
             if(!empty($this->old_base_prefix)&&(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta'))
             {
@@ -1213,7 +1477,26 @@ class WPvivid_Restore_DB_2
         {
             $table_name = $matches[1];
 
-            if($this->is_og_table($table_name))
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                if($this->is_mu_single_og_table($table_name))
+                {
+                    if(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta')
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_base_prefix));
+                    }
+                    else
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_prefix));
+                    }
+                }
+                else
+                {
+                    $new_table_name=$table_name;
+                }
+            }
+            else if($this->is_og_table($table_name))
             {
                 if(!empty($this->old_base_prefix)&&(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta'))
                 {
@@ -1240,7 +1523,38 @@ class WPvivid_Restore_DB_2
 
     private function replace_table_execute_sql($query,$table_name,$sub_task)
     {
-        if($this->is_og_table($table_name))
+        $tmp_option=$sub_task['options'];
+        if($this->is_mu&&isset($tmp_option['site_id']))
+        {
+            if($this->is_mu_single_og_table($table_name))
+            {
+                if(!empty($table_name))
+                {
+                    if(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta')
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_base_prefix));
+                    }
+                    else
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_prefix));
+                    }
+                    if($this->old_prefix !== '')
+                    {
+                        $query=str_replace($table_name,$new_table_name,$query);
+                    }
+                    else
+                    {
+                        $query=preg_replace('/'.$table_name.'/',$new_table_name,$query, 1);
+                    }
+                }
+            }
+            else
+            {
+                $new_table_name=$table_name;
+                $query=str_replace($table_name,$new_table_name,$query);
+            }
+        }
+        else if($this->is_og_table($table_name))
         {
             if(!empty($table_name))
             {
@@ -1266,7 +1580,26 @@ class WPvivid_Restore_DB_2
         {
             $table_name = $matches[1];
 
-            if($this->is_og_table($table_name))
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                if($this->is_mu_single_og_table($table_name))
+                {
+                    if(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta')
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_base_prefix));
+                    }
+                    else
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_prefix));
+                    }
+                }
+                else
+                {
+                    $new_table_name=$table_name;
+                }
+            }
+            else if($this->is_og_table($table_name))
             {
                 if(!empty($this->old_base_prefix)&&(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta'))
                 {
@@ -1317,7 +1650,26 @@ class WPvivid_Restore_DB_2
         {
             $table_name = $matches[1];
 
-            if($this->is_og_table($table_name))
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                if($this->is_mu_single_og_table($table_name))
+                {
+                    if(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta')
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_base_prefix));
+                    }
+                    else
+                    {
+                        $new_table_name=$this->temp_new_prefix.substr($table_name,strlen($this->old_prefix));
+                    }
+                }
+                else
+                {
+                    $new_table_name=$table_name;
+                }
+            }
+            else if($this->is_og_table($table_name))
             {
                 if(!empty($this->old_base_prefix)&&(substr($table_name,strlen($this->old_base_prefix))=='users'||substr($table_name,strlen($this->old_base_prefix))=='usermeta'))
                 {
@@ -1340,6 +1692,524 @@ class WPvivid_Restore_DB_2
         {
             $this->log->WriteLog($this->db_method->get_last_error(),'notice');
         }
+    }
+
+    private function replace_row_ex($table_name,$replace_table_data,$sub_task,$max_replace_row=100000)
+    {
+        global $wpdb;
+
+        $max_replace_row=max(100,$max_replace_row);
+
+        $row=$replace_table_data['offset'];
+        $this->replacing_table=$table_name;
+        $replace_current_table_finish=false;
+        if(substr($table_name, strlen($this->temp_new_prefix))=='options')
+        {
+            if($this->old_prefix!=$this->new_prefix)
+            {
+                $update_query ='UPDATE '.$table_name.' SET option_name="'.$this->new_prefix.'user_roles" WHERE option_name="'.$this->old_prefix.'user_roles";';
+
+                if($this->execute_sql($update_query,$sub_task)===false)
+                {
+                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                }
+            }
+        }
+
+        if(substr($table_name, strlen($this->temp_new_prefix))=='usermeta')
+        {
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                $update_query ='UPDATE '.$table_name.' SET meta_key=REPLACE(meta_key,"'.$this->old_prefix.'","'.$this->new_prefix.'") WHERE meta_key LIKE "'.str_replace('_','\_',$this->old_prefix).'%";';
+                if($this->execute_sql($update_query,$sub_task)===false)
+                {
+                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                }
+
+                $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%capabilities%";';
+                $results = $wpdb->get_results($select_query,ARRAY_A);
+                foreach ($results as $item)
+                {
+                    $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.'capabilities\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                    if($this->execute_sql($update_query,$sub_task)===false)
+                    {
+                        $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                    }
+                }
+
+                $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%user_level%";';
+                $results = $wpdb->get_results($select_query,ARRAY_A);
+                foreach ($results as $item)
+                {
+                    $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.'user_level\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                    if($this->execute_sql($update_query,$sub_task)===false)
+                    {
+                        $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                    }
+                }
+                $ret['result']='success';
+                $ret['replace_row']=0;
+                $ret['current_replace_table_finish']=true;
+                $ret['last_msg']=$sub_task['last_msg'];
+                return $ret;
+            }
+            else
+            {
+                if($this->old_prefix!=$this->new_prefix)
+                {
+                    if($this->old_prefix!=='')
+                    {
+                        $update_query ='UPDATE '.$table_name.' SET meta_key=REPLACE(meta_key,"'.$this->old_prefix.'","'.$this->new_prefix.'") WHERE meta_key LIKE "'.str_replace('_','\_',$this->old_prefix).'%";';
+
+                        if($this->execute_sql($update_query,$sub_task)===false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                        }
+                    }
+                    else
+                    {
+                        if(is_multisite())
+                        {
+                            $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_capabilities%";';
+                            $results = $wpdb->get_results($select_query,ARRAY_A);
+                            foreach ($results as $item)
+                            {
+                                $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.$item['meta_key'].'\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                            }
+
+                            $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_user_level%";';
+                            $results = $wpdb->get_results($select_query,ARRAY_A);
+                            foreach ($results as $item)
+                            {
+                                $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.$item['meta_key'].'\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                            }
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'capabilities" WHERE meta_key="' . $this->old_prefix . 'capabilities";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user_level" WHERE meta_key="' . $this->old_prefix . 'user_level";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user-settings" WHERE meta_key="' . $this->old_prefix . 'user-settings";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user-settings-time" WHERE meta_key="' . $this->old_prefix . 'user-settings-time";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'dashboard_quick_press_last_post_id" WHERE meta_key="' . $this->old_prefix . 'dashboard_quick_press_last_post_id";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+                    }
+                    $ret['result']='success';
+                    $ret['replace_row']=0;
+                    $ret['current_replace_table_finish']=true;
+                    $ret['last_msg']=$sub_task['last_msg'];
+                    return $ret;
+                }
+            }
+        }
+
+        if(!empty($this->old_base_prefix)&&substr($table_name,strlen($this->temp_new_prefix))=='usermeta')
+        {
+            $tmp_option=$sub_task['options'];
+            if($this->is_mu&&isset($tmp_option['site_id']))
+            {
+                $update_query ='UPDATE '.$table_name.' SET meta_key=REPLACE(meta_key,"'.$this->old_base_prefix.'","'.$this->new_prefix.'") WHERE meta_key LIKE "'.str_replace('_','\_',$this->old_base_prefix).'%";';
+                if($this->execute_sql($update_query,$sub_task)===false)
+                {
+                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                }
+
+                $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_capabilities%";';
+                $results = $wpdb->get_results($select_query,ARRAY_A);
+                foreach ($results as $item)
+                {
+                    $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.'capabilities\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                    if($this->execute_sql($update_query,$sub_task)===false)
+                    {
+                        $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                    }
+                }
+
+                $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_user_level%";';
+                $results = $wpdb->get_results($select_query,ARRAY_A);
+                foreach ($results as $item)
+                {
+                    $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.'user_level\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                    if($this->execute_sql($update_query,$sub_task)===false)
+                    {
+                        $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                    }
+                }
+                $ret['result']='success';
+                $ret['replace_row']=0;
+                $ret['current_replace_table_finish']=true;
+                $ret['last_msg']=$sub_task['last_msg'];
+                return $ret;
+            }
+            else
+            {
+                if($this->old_base_prefix!=$this->new_prefix)
+                {
+                    if($this->old_base_prefix!=='')
+                    {
+                        $update_query ='UPDATE '.$table_name.' SET meta_key=REPLACE(meta_key,"'.$this->old_base_prefix.'","'.$this->new_prefix.'") WHERE meta_key LIKE "'.str_replace('_','\_',$this->old_base_prefix).'%";';
+
+                        if($this->execute_sql($update_query,$sub_task)===false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                        }
+                    }
+                    else
+                    {
+                        if(is_multisite())
+                        {
+                            $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_capabilities%";';
+                            $results = $wpdb->get_results($select_query,ARRAY_A);
+                            foreach ($results as $item)
+                            {
+                                $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.$item['meta_key'].'\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                            }
+
+                            $select_query='SELECT * FROM '.$table_name.' WHERE meta_key LIKE "%_user_level%";';
+                            $results = $wpdb->get_results($select_query,ARRAY_A);
+                            foreach ($results as $item)
+                            {
+                                $update_query='UPDATE '.$table_name.' SET meta_key=\''.$this->new_prefix.$item['meta_key'].'\' WHERE meta_key=\''.$item['meta_key'].'\';';
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                            }
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'capabilities" WHERE meta_key="' . $this->old_base_prefix . 'capabilities";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user_level" WHERE meta_key="' . $this->old_base_prefix . 'user_level";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user-settings" WHERE meta_key="' . $this->old_base_prefix . 'user-settings";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'user-settings-time" WHERE meta_key="' . $this->old_base_prefix . 'user-settings-time";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+
+                        $update_query = 'UPDATE ' . $table_name . ' SET meta_key="' . $this->new_prefix . 'dashboard_quick_press_last_post_id" WHERE meta_key="' . $this->old_base_prefix . 'dashboard_quick_press_last_post_id";';
+                        if ($this->execute_sql($update_query, $sub_task) === false)
+                        {
+                            $this->log->WriteLog($this->db_method->get_last_error(), 'notice');
+                        }
+                    }
+
+                    $ret['result']='success';
+                    $ret['replace_row']=0;
+                    $ret['current_replace_table_finish']=true;
+                    $ret['last_msg']=$sub_task['last_msg'];
+                    return $ret;
+                }
+            }
+        }
+
+        if($this->old_site_url==$this->new_site_url)
+        {
+            $ret['result']='success';
+            $ret['replace_row']=0;
+            $ret['current_replace_table_finish']=true;
+            $ret['last_msg']=$sub_task['last_msg'];
+            return $ret;
+        }
+
+        if($this->is_mu)
+        {
+            if(substr($table_name, strlen($this->temp_new_prefix))=='blogs')
+            {
+                $this->log->WriteLog('Update mu blogs table', 'notice');
+
+                if((preg_match('#^https?://([^/]+)#i', $this->new_home_url, $matches) || preg_match('#^https?://([^/]+)#i', $this->new_site_url, $matches)) && (preg_match('#^https?://([^/]+)#i', $this->old_home_url, $old_matches) || preg_match('#^https?://([^/]+)#i', $this->old_site_url, $old_matches)))
+                {
+                    $new_string = strtolower($matches[1]);
+                    $old_string = strtolower($old_matches[1]);
+                    $new_path='';
+                    $old_path='';
+
+                    if(defined( 'PATH_CURRENT_SITE' ))
+                    {
+                        $new_path=PATH_CURRENT_SITE;
+                    }
+
+                    $query = 'SELECT * FROM `'.$table_name.'`';
+                    $result=$this->db_method->query($query,ARRAY_A);
+                    if($result && sizeof($result)>0)
+                    {
+                        $rows = $result;
+                        foreach ($rows as $row)
+                        {
+                            $update=array();
+                            $where=array();
+
+                            if($row['blog_id']==1)
+                            {
+                                $old_path=$row['path'];
+                            }
+
+                            $old_domain_data = $row['domain'];
+                            $new_domain_data=str_replace($old_string,$new_string,$old_domain_data);
+
+                            $temp_where='`blog_id` = "' . $row['blog_id'] . '"';
+                            if (is_callable(array($wpdb, 'remove_placeholder_escape')))
+                                $temp_where = $wpdb->remove_placeholder_escape($temp_where);
+                            $where[] = $temp_where;
+                            $update[] = '`domain` = "' . $new_domain_data . '"';
+
+                            if(!empty($old_path)&&!empty($new_path))
+                            {
+                                $old_path_data= $row['path'];
+                                $new_path_data=$this->str_replace_first($old_path,$new_path,$old_path_data);
+                                $update[] = '`path` = "' . $new_path_data . '"';
+                            }
+
+                            if(!empty($update)&&!empty($where))
+                            {
+                                $update_query = 'UPDATE `'.$table_name.'` SET '.implode(', ', $update).' WHERE '.implode(' AND ', array_filter($where)).';';
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        $skip_table=false;
+        if(apply_filters('wpvivid_restore_db_skip_replace_tables',$skip_table,$table_name))
+        {
+            $this->log->WriteLog('Skipping table '.$table_name, 'Warning');
+            $ret['result']='success';
+            $ret['replace_row']=0;
+            $ret['current_replace_table_finish']=true;
+            $ret['last_msg']=$sub_task['last_msg'];
+            return $ret;
+        }
+
+        $query = 'SELECT COUNT(*) FROM `'.$table_name.'`';
+
+        $current_row=0;
+
+        $result=$this->db_method->query($query,ARRAY_N);
+        if($result && sizeof($result)>0)
+        {
+            $count=$result[0][0];
+            $this->log->WriteLog('Counting of rows in '.$table_name.': '.$count, 'notice');
+            if($count==0)
+            {
+                $ret['result']='success';
+                $ret['replace_row']=0;
+                $ret['current_replace_table_finish']=true;
+                $ret['last_msg']=$sub_task['last_msg'];
+                return $ret;
+            }
+
+            $query='DESCRIBE `'.$table_name.'`';
+            $result=$this->db_method->query($query,ARRAY_A);
+            $columns=array();
+            foreach ($result as $data)
+            {
+                $column['Field']=$data['Field'];
+                if($data['Key']=='PRI')
+                    $column['PRI']=1;
+                else
+                    $column['PRI']=0;
+
+                if($data['Type']=='mediumblob')
+                {
+                    $column['skip']=1;
+                }
+                $columns[]=$column;
+            }
+
+            $page=min(5000,$max_replace_row);
+
+            $update_query='';
+
+            $start_row=$row;
+            $replace_row=0;
+
+            for ($current_row = $start_row; $current_row < $count; $current_row += $page)
+            {
+                $this->log->WriteLog('Replacing the row in '.$current_row. ' line.', 'notice');
+                $sub_task['last_msg']='<span><strong>Importing sql file table:</strong></span><span>'.$table_name.' <strong>Replaced row:</strong>'.$current_row.'/'.$count.';</span>';
+
+                $this->update_sub_task($sub_task);
+                $query = 'SELECT * FROM `'.$table_name.'` LIMIT '.$current_row.', '.$page;
+                $replace_row+=$page;
+                $result=$this->db_method->query($query,ARRAY_A);
+                if($result && sizeof($result)>0)
+                {
+                    $rows = $result;
+                    foreach ($rows as $row)
+                    {
+                        $update=array();
+                        $where=array();
+                        foreach ($columns as $column)
+                        {
+                            if(isset($column['skip']))
+                            {
+                                //$this->log->WriteLog('Skipping mediumblob type data', 'notice');
+                                continue;
+                            }
+
+                            $old_data = $row[$column['Field']];
+                            if($column['PRI']==1)
+                            {
+                                $wpdb->escape_by_ref($old_data);
+                                $temp_where='`'.$column['Field'].'` = "' . $old_data . '"';
+                                if (is_callable(array($wpdb, 'remove_placeholder_escape')))
+                                    $temp_where = $wpdb->remove_placeholder_escape($temp_where);
+                                $where[] = $temp_where;
+                            }
+
+                            $skip_row=false;
+                            if(apply_filters('wpvivid_restore_db_skip_replace_rows',$skip_row,$table_name,$column['Field']))
+                            {
+                                continue;
+                            }
+                            $new_data=$this->replace_row_data($old_data);
+                            if($new_data==$old_data)
+                                continue;
+
+                            $wpdb->escape_by_ref($new_data);
+                            if (is_callable(array($wpdb, 'remove_placeholder_escape')))
+                                $new_data = $wpdb->remove_placeholder_escape($new_data);
+                            $update[] = '`'.$column['Field'].'` = "' . $new_data . '"';
+                        }
+
+                        if(!empty($update)&&!empty($where))
+                        {
+                            $temp_query = 'UPDATE `'.$table_name.'` SET '.implode(', ', $update).' WHERE '.implode(' AND ', array_filter($where)).';';
+                            $type=$this->db_method->get_type();
+
+                            if($type=='pdo_mysql')
+                            {
+                                if($update_query=='')
+                                {
+                                    $update_query=$temp_query;
+                                    if(strlen($update_query)>$this->db_method->get_max_allow_packet())
+                                    {
+                                        if($this->execute_sql($update_query,$sub_task)===false)
+                                        {
+                                            $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                        }
+
+                                        $update_query='';
+                                    }
+                                }
+                                else if(strlen($temp_query)+strlen($update_query)>$this->db_method->get_max_allow_packet())
+                                {
+                                    if($this->execute_sql($update_query,$sub_task)===false)
+                                    {
+                                        $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                    }
+                                    $update_query=$temp_query;
+                                }
+                                else
+                                {
+                                    $update_query.=$temp_query;
+                                }
+                            }
+                            else
+                            {
+                                $update_query=$temp_query;
+                                if($this->execute_sql($update_query,$sub_task)===false)
+                                {
+                                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                                }
+                                $update_query='';
+                            }
+
+                        }
+                        //return;
+                    }
+                }
+
+                if($replace_row>$max_replace_row)
+                {
+                    $current_row+= $page;
+                    break;
+                }
+            }
+
+            if(!empty($update_query))
+            {
+                if($this->execute_sql($update_query,$sub_task)===false)
+                {
+                    $this->log->WriteLog($this->db_method->get_last_error(),'notice');
+                }
+            }
+
+            if($current_row >= $count)
+            {
+                $replace_current_table_finish=true;
+            }
+        }
+        else
+        {
+            $replace_current_table_finish=true;
+            $current_row=0;
+        }
+
+        $this->log->WriteLog('Replacing row completed. Current row:'.$current_row, 'notice');
+
+        $ret['result']='success';
+        $ret['replace_row']=$current_row;
+        $ret['max_replace_row']=$max_replace_row;
+        $ret['current_replace_table_finish']=$replace_current_table_finish;
+        $ret['last_msg']=$sub_task['last_msg'];
+        $this->log->WriteLog(json_encode($ret), 'notice');
+        return $ret;
     }
 
     private function replace_row($sql_file_name,$sub_task,$max_replace_row=100000)
@@ -1647,7 +2517,7 @@ class WPvivid_Restore_DB_2
             $start_row=$row;
             $replace_row=0;
 
-            for ($current_row = $start_row; $current_row <= $count; $current_row += $page)
+            for ($current_row = $start_row; $current_row < $count; $current_row += $page)
             {
                 $this->log->WriteLog('Replacing the row in '.$current_row. ' line.', 'notice');
                 $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$table_name.' <strong>Replaced row:</strong>'.$current_row.'/'.$count.'; '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
@@ -1722,7 +2592,7 @@ class WPvivid_Restore_DB_2
                                     {
                                         $this->log->WriteLog($this->db_method->get_last_error(),'notice');
                                     }
-                                    $update_query='';
+                                    $update_query=$temp_query;
                                 }
                                 else
                                 {
@@ -1929,6 +2799,24 @@ class WPvivid_Restore_DB_2
         else if (0 === stripos($this->new_site_url, 'http://')|| stripos($this->new_site_url, 'http:\/\/'))
         {
             $new_url_use_https=false;
+        }
+
+        if(isset($this->old_mu_single_site_upload_url) && !empty($this->old_mu_single_site_upload_url))
+        {
+            $upload_dir = wp_upload_dir();
+            $tmp_upload_url=untrailingslashit($upload_dir['baseurl']);
+
+            $from[]=$this->old_mu_single_site_upload_url;
+            $to[]=$tmp_upload_url;
+
+            if(isset($this->old_mu_single_home_upload_url) && !empty($this->old_mu_single_home_upload_url))
+            {
+                if($this->old_mu_single_site_upload_url !== $this->old_mu_single_home_upload_url)
+                {
+                    $from[]=$this->old_mu_single_home_upload_url;
+                    $to[]=$tmp_upload_url;
+                }
+            }
         }
 
         if($this->old_site_url!=$this->new_site_url)
@@ -2222,6 +3110,8 @@ class WPvivid_Restore_DB_2
 
     public function finish_restore_db($sql_files,$local_path,$sub_task)
     {
+        $this->init_db($sub_task);
+
         $option_table = $this->temp_new_prefix.'options';
 
         global $wpdb;
@@ -2444,6 +3334,28 @@ class WPvivid_Restore_DB_2
         else
         {
             return false;
+        }
+    }
+
+    public function is_mu_single_og_table($table_name)
+    {
+        $table_prefix=substr($table_name,0,strlen($this->old_prefix));
+
+        if($table_prefix==$this->old_prefix)
+        {
+            return true;
+        }
+        else
+        {
+            $table_prefix=substr($table_name,0,strlen($this->old_base_prefix));
+            if($table_prefix==$this->old_base_prefix)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

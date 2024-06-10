@@ -24,14 +24,14 @@ function wpbc_timeline_toolbar() {
 
     wpbc_clear_div();
 
-    wpbc_toolbar_search_by_id_bookings();                                       // Search bookings by  ID - form  at the top  right side of the page
+    //wpbc_toolbar_search_by_id_bookings();                                       // Search bookings by  ID - form  at the top  right side of the page
 
     //wpbc_toolbar_btn__view_mode();                                              //  Vertical Buttons				//FixIn: 9.8.15.2
 
     //  Toolbar ////////////////////////////////////////////////////////////////
 
-    ?><div id="toolbar_booking_listing" style="margin-left: 50px;position:relative;"><?php
-
+    ?><div id="toolbar_booking_listing" class="wpbc_timeline_toolbar_container"><?php
+/*
         wpbc_bs_toolbar_tabs_html_container_start();
 
             // <editor-fold     defaultstate="collapsed"                        desc=" T O P    T A B s "  >
@@ -59,32 +59,58 @@ function wpbc_timeline_toolbar() {
             // </editor-fold>
 
         wpbc_bs_toolbar_tabs_html_container_end();
-
+*/
         ////////////////////////////////////////////////////////////////////////
 
         wpbc_bs_toolbar_sub_html_container_start();
 
         // A c t i o n s   T o o l b a r   f o r     T i m e l i n e
-
+/*
         ?><div id="actions_toolbar_container" class="visibility_container clearfix-height" style="display:<?php echo ( $selected_tab == 'actions_cvm' ) ? 'block' : 'none'  ?>;margin-top:-5px;"><?php
 
             wpbc_toolbar_btn__timeline_view_mode();                             //  View Mode    Buttons
 
             wpbc_toolbar_btn__timeline_navigation();                            //  Navigation   Buttons
 
-            make_bk_action( 'wpbc_br_selection_for_timeline' );
 
         ?></div><?php
+*/
 
-        wpbc_bs_toolbar_sub_html_container_end();
+		?><div class="wpbc_timeline_toolbar_structure"><?php
 
-        wpbc_toolbar_is_send_emails_btn();
+			make_bk_action( 'wpbc_br_selection_for_timeline' );
+
+			wpbc_toolbar_is_send_emails_btn( '');
+
+		?></div><?php
+
+		wpbc_bs_toolbar_sub_html_container_end();
 
     ?></div><?php
 
     wpbc_clear_div();
 
 }
+
+/**
+ * Show Search  by  Booking ID form  at  top right side of Calendar  Overview page
+ *
+ * @param $page_tag
+ * @param $active_page_tab
+ * @param $active_page_subtab
+ *
+ * @return false|void
+ */
+function wpbc_calendar_overview__search_by_id_bookings( $page_tag, $active_page_tab, $active_page_subtab ) {
+
+	if ( ( 'wpbc' !== $page_tag ) || ( 'vm_calendar' !== $active_page_tab ) ) {
+		return false;
+	}
+	?><span class="wpdevelop wpbc_page wpbc_toolbar_search_by_id_bookings"><?php
+		wpbc_toolbar_search_by_id_bookings();                                       // Search bookings by  ID - form  at the top  right side of the page
+	?></span><?php
+}
+add_bk_action('wpbc_h1_header_content_end', 'wpbc_calendar_overview__search_by_id_bookings');
 
 
 /** T o o l b a r   C o n t a i n e r   f o r   Add New Booking */
@@ -247,10 +273,16 @@ function wpbc_toolbar_expand_collapse_btn( $css_class_of_expand_element ) {
 }
 
 
-/** Checkbox - sending emails or not */
-function wpbc_toolbar_is_send_emails_btn() {
+/**
+ * Checkbox - sending emails or not
+ *
+ * @param $style  Styles of this element group
+ *
+ * @return void
+ */
+function wpbc_toolbar_is_send_emails_btn( $style = 'position:absolute;right:0px;margin-top:10px;' ) {
 
-	?><div class="btn-group" style="position:absolute;right:0px;margin-top:10px;"><?php
+	?><div class="btn-group" style="<?php echo $style; ?>"><?php
 
 	$el_id = 'is_send_email_for_pending';
 
@@ -284,7 +316,7 @@ function wpbc_toolbar_search_by_id_bookings() {
     $bk_admin_url = wpbc_get_params_in_url( wpbc_get_bookings_url( true, false ), array('view_mode', 'wh_booking_id', 'page_num' ) );
 
     ?>
-    <div style=" position: absolute; right: 20px; top: 10px;">
+    <div style=" position: absolute; right: 23px; top: 11px;z-index: 9;">
         <form name="booking_filters_formID" action="<?php echo $bk_admin_url . '&view_mode=vm_listing' ; ?>" method="post" id="booking_filters_formID" >
         <?php
 
@@ -295,7 +327,7 @@ function wpbc_toolbar_search_by_id_bookings() {
             $params = array(  'label_for' => 'wh_booking_id'
                                       , 'label' => ''//__('Keyword:', 'booking')
                                       , 'items' => array(
-                                 array( 'type' => 'text', 'id' => 'wh_booking_id', 'value' => $wh_booking_id, 'placeholder' => __('Booking ID', 'booking') )
+                                 array( 'type' => 'text', 'id' => 'wh_booking_id', 'value' => $wh_booking_id, 'placeholder' => __('Booking ID', 'booking'), 'style' => 'border-right: none;' )
                                 , array(
                                     'type' => 'button'
                                     , 'title' => __('Go', 'booking')
@@ -1451,7 +1483,7 @@ function wpbc_hidden_search_by_id_field_in_main_form( $params = array() ){
 	}
 
 	if ( '' !== $search_form_value ) {
-		?><input name="<?php echo $params['search_get_key']; ?>" value="<?php echo $search_form_value; ?>" type="hidden"><?php
+		?><input name="<?php echo esc_attr( $params['search_get_key'] ); ?>" value="<?php echo esc_attr( $search_form_value ); ?>" type="hidden"><?php
 	}
 }
 
@@ -1473,6 +1505,7 @@ function wpbc_toolbar_search_by_id__top_form( $params ) {
                           'search_form_id'  => 'wpbc_seasonfilters_search_form'
                         , 'search_get_key'  => 'wh_search_id'
                         , 'is_pseudo'       => false                                    //'location.href=\'' . $link_base . '\' + this.value;';    //$link_base = wpbc_get_new_booking_url__base( array( $params['name'] ) ) . '&' . $params['name'] . '=' ;
+						, 'container_style' => 'position: absolute; right: 20px; top: 0px;z-index: 0;' 					//FixIn: 10.0.0.29
                     );
     $params = wp_parse_args( $params, $defaults );
 
@@ -1500,13 +1533,15 @@ function wpbc_toolbar_search_by_id__top_form( $params ) {
     <span class="wpdevelop">
 
     <?php if ( ! $params['is_pseudo'] ) { ?>
-        <div style="position: absolute; right: 20px; top: 10px;">
+        <div style="<?php echo esc_attr( $params['container_style'] ); ?>">
             <form action="<?php echo $wpbc_admin_url; ?>" method="post" id="<?php echo $params[ 'search_form_id' ]; ?>"  name="<?php echo $params[ 'search_form_id' ]; ?>"  >
             <?php
     } else {
       ?><div style="float:right;" id="<?php echo $params['search_form_id'] . '_pseudo'; ?>"><?php
     }
 
+
+if(0){
                 $params_for_element = array(  'label_for' => $params[ 'search_get_key' ] . ( ( $params['is_pseudo'] ) ?  '_pseudo' : '' )
                                           , 'label' => ''//__('Keyword:', 'booking')
                                           , 'items' => array(
@@ -1530,6 +1565,113 @@ function wpbc_toolbar_search_by_id__top_form( $params ) {
                 ?><div class="control-group wpbc-no-padding" ><?php
                           wpbc_bs_input_group( $params_for_element );
                 ?></div><?php
+} else {
+		?><div id="booking_resources_toolbar_container" class="wpbc_ajx_toolbar wpbc_background_transparent"><?php
+
+				?><div class="ui_container    ui_container_toolbar		ui_container_small    ui_container_options    ui_container_options_row_1"
+					   style=" display: flex"><?php
+
+					?><div class="ui_group"><?php
+
+				// Search Keyword text  field
+				?><div class="ui_element"><?php
+
+					$el_id = 'booking_resource_search_keyword';
+
+					$default_value = $search_form_value;
+
+					$params_for_element = array(
+									'type'          => 'text'
+									, 'id'          =>  $params[ 'search_get_key' ] . ( ( $params['is_pseudo'] ) ?  '_pseudo' : '' )
+									, 'name'        => $params[ 'search_get_key' ] . ( ( $params['is_pseudo'] ) ?  '_pseudo' : '' )
+									, 'label'       => ''
+									, 'disabled'    => false
+									, 'class'       => ''
+									, 'style'       => 'min-width:100px;'
+									, 'placeholder' =>  __('ID or Title' ,'booking')
+									, 'attr'        => array( 'maxlength' => '200' )
+									, 'value' 		=> $default_value
+									, 'onfocus' 	=> ''
+					);
+
+					wpbc_flex_text( $params_for_element );
+
+				?></div><?php
+
+
+				// Reset  keyword
+				$params_for_element  =  array(
+					'type'             => 'button' ,
+					'title'            => '',//__( 'Reset', 'booking' ) . '&nbsp;&nbsp;',  											// Title of the button
+					'hint'             => array( 'title' => __( 'Reset keyword text field', 'booking' ), 'position' => 'top' ),  	// Hint
+					'link'             => 'javascript:void(0)',  																	// Direct link or skip  it
+//					'action'           => "jQuery( '#booking_resource_search_keyword').val('');
+//										   window.location.href='" . $option_params['url'] . "';",									// JavaScript
+					'action' => ( ( ! $params['is_pseudo'] ) ? "jQuery('#" . $params[ 'search_get_key' ] . "').val( '' ); jQuery('#". $params[ 'search_form_id' ] ."').trigger( 'submit' );"
+															 : "jQuery('#" . $params[ 'search_get_key' ] . "').val( '' ); jQuery('#". $params[ 'search_form_id' ] ."').trigger( 'submit' );" ) ,
+					'icon' 			   => array(
+												'icon_font' => 'wpbc_icn_close', //'wpbc_icn_rotate_left',
+												'position'  => 'left',
+												'icon_img'  => ''
+											),
+					'class'            => 'wpbc_button_as_icon',  																	// ''  | 'wpbc_ui_button_primary'
+					'style'            => '', 																						// Any CSS class here
+					'mobile_show_text' => true,																						// Show  or hide text,  when viewing on Mobile devices (small window size).
+					'attr'             => array()
+				);
+
+				?><div class="ui_element" style="flex: 0 1 auto;margin-left: -50px;z-index: 1;"><?php
+					wpbc_flex_button( $params_for_element );
+				?></div><?php
+
+
+				// Go  button
+				?><div class="ui_element"><?php
+
+					$booking_action = 'booking_resource_search_keyword_btn';
+
+					$el_id = 'ui_btn_' . $booking_action;
+
+					// Escaped construction of search keyword. //FixIn: 9.9.0.11
+					$params_for_element  =  array(
+						'type'             => 'button' ,
+						'title'            => '',//__( 'Search', 'booking' ) . '&nbsp;&nbsp;',  											// Title of the button
+						'hint'             => array( 'title' =>  __('Search' ,'booking'), 'position' => 'top' ),  	// Hint
+						'link'             => 'javascript:void(0)',  																	// Direct link or skip  it
+						//'link'             => $option_params['url'] . '&wh_resource_id=sdfs+f',
+//						'action'           => "if (jQuery('#booking_resource_search_keyword' ).val() == '' ) {
+//													wpbc_field_highlight( '#booking_resource_search_keyword' );
+//											  } else {
+//											  		window.location.href='" . $option_params['url'] . "&wh_resource_id='+window.encodeURIComponent(jQuery('#booking_resource_search_keyword' ).val());
+//											  }" ,
+						'action' => ( ( ! $params['is_pseudo'] ) ? "jQuery('#". $params[ 'search_form_id' ] ."').trigger( 'submit' );"
+																 : "jQuery('#" . $params[ 'search_get_key' ] . "').val( jQuery('#" . $params[ 'search_get_key' ] . "_pseudo').val() ); jQuery('#". $params[ 'search_form_id' ] ."').trigger( 'submit' );" ) ,
+
+						'icon' 			   => array(
+													'icon_font' => 'wpbc_icn_search',
+													'position'  => 'left',
+													'icon_img'  => ''
+												),
+						'class'            => 'wpbc_ui_button _primary',  																						// ''  | 'wpbc_ui_button_primary'
+						'style'            => '',																						// Any CSS class here
+						'mobile_show_text' => true,																						// Show  or hide text,  when viewing on Mobile devices (small window size).
+						'attr'             => array( 'id' => $el_id )
+					);
+
+					wpbc_flex_button( $params_for_element );
+
+				?></div><?php
+
+					?></div><?php
+
+				?></div><?php
+
+			?></div><?php
+
+}
+
+
+
 
             if ( ! $params['is_pseudo'] ) { ?>
             </form>

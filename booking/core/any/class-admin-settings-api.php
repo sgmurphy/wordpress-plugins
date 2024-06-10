@@ -695,7 +695,8 @@ abstract class WPBC_Settings_API  {
                 'type'              => 'text',
                 'description'       => '',
                 'attr'              => array(),
-                'rows'              => 3, 
+                'rows'              => 3,
+				'editor_height'     => '',
                 'cols'              => 20, 
                 'teeny'             => true, 
                     'show_visual_tabs'  => true,
@@ -744,6 +745,7 @@ abstract class WPBC_Settings_API  {
                             , 'drag_drop_upload' => esc_attr( $field['drag_drop_upload'] )                    // Enable Drag & Drop Upload Support (since WordPress 3.9) 
                             , 'tinymce'          => $field['show_visual_tabs']                                // Remove Visual Mode from the Editor        
                             , 'default_editor'   => $field['default_editor']                                  // 'tinymce' | 'html'     // 'html' is used for the "Text" editor tab.
+							, 'editor_height'    => $field['editor_height']                                   //  '' | '500'
                             )
                     ); 
                    echo self::description_static( $field, $field['description_tag'] ); ?>
@@ -907,7 +909,7 @@ abstract class WPBC_Settings_API  {
                             $option_parameters = array();
                             if ( is_array( $option_title ) ) {
                                 $option_parameters = $option_title;
-                                $option_title = $option_title['title'];
+	                            $option_title = ( ! empty( $option_title['title'] ) ) ? $option_title['title'] : '';
                             }
                                 
             
@@ -1097,7 +1099,8 @@ abstract class WPBC_Settings_API  {
                 'cols'              => 1, 
                 'group'             => 'general',
                 'tr_class'          => '',
-                'description_tag'   => 'span'
+                'description_tag'   => 'span',
+				'only_field' 		=> false
         );
 
         $field = wp_parse_args( $field, $defaults );
@@ -1105,31 +1108,35 @@ abstract class WPBC_Settings_API  {
         if ( ! $echo ) {
             ob_start();
         }
-        ?>
-          <tr valign="top" class="wpbc_tr_<?php echo esc_attr( $field_name ), ' ', esc_attr( $field['tr_class'] ); ?>">
-            <?php if ( $field['cols'] == 1 ) { ?>
-            <th scope="row"></th>
-            <td>
-            <?php } else { ?>  
-            <td colspan="2">    
-            <?php }?>
-                <div class="wpbc-help-message <?php echo esc_attr( $field['class'] ); ?>" style="margin-top:10px; <?php echo esc_attr( $field['css'] ); ?>">
-                    <?php
-                    $field['value'] = (array) $field['value'];
+		if ( ! $field['only_field'] ) {
 
-                    foreach ( $field['value'] as $help_text ) {
-                        ?><p class="description" style="font-weight: 400;"><?php 
+			?><tr valign="top" class="wpbc_tr_<?php echo esc_attr( $field_name ), ' ', esc_attr( $field['tr_class'] ); ?>">
+            	<?php if ( $field['cols'] == 1 ) { ?>
+					<th scope="row"></th>
+					<td>
+            	<?php } else { ?>
+					<td colspan="2">
+            	<?php }
+		}
+						?><div class="wpbc-help-message <?php echo esc_attr( $field['class'] ); ?>" style="margin-top:10px; <?php echo esc_attr( $field['css'] ); ?>">
+									<?php
+									$field['value'] = (array) $field['value'];
 
-                            echo $help_text;
+									foreach ( $field['value'] as $help_text ) {
+										?><p class="description" style="font-weight: 400;"><?php
 
-                        ?></p><?php    
-                    } 
-                    ?>
-                </div>
-                <?php echo self::description_static( $field, $field['description_tag'] ); ?>
-            </td>
-        </tr>
+											echo $help_text;
+
+										?></p><?php
+									}
+									?>
+						  </div>
+		  				  <?php echo self::description_static( $field, $field['description_tag'] ); ?>
+		<?php if ( ! $field['only_field'] ) {  ?>
+            		</td>
+        		</tr>
         <?php
+	    }
 
         if ( ! $echo ) {
             return ob_get_clean();        

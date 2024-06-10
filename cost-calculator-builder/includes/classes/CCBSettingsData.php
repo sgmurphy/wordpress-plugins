@@ -60,6 +60,23 @@ class CCBSettingsData {
 				'custom_button_link'   => get_home_url(),
 				'complete_msg'         => 'Your order has been placed',
 			),
+			'sticky_calc'     => array(
+				'enable'           => false,
+				'display_type'     => 'btn',
+				'btn_position'     => 'bottom_left',
+				'banner_position'  => 'bottom',
+				'icon'             => '',
+				'hide_icon'        => false,
+				'title'            => 'calc_title',
+				'description'      => 'Description text',
+				'formulas'         => array(),
+				'pages'            => array(),
+				'btn_text'         => 'Open calculator',
+				'one_click_action' => 'open_modal',
+				'custom_text'      => '',
+				'custom_desc'      => '',
+				'classes'          => '',
+			),
 			'formFields'      => array(
 				'fields'               => array(),
 				'emailSubject'         => '',
@@ -200,6 +217,9 @@ class CCBSettingsData {
 
 	public static function general_settings_data() {
 		return array(
+			'sticky'          => array(
+				'used_banner' => null,
+			),
 			'currency'        => array(
 				'use_in_all'          => false,
 				'currency'            => '$',
@@ -377,6 +397,12 @@ class CCBSettingsData {
 				'slug'      => 'thank-you-page',
 				'icon'      => 'ccb-icon-Check-Circle-new',
 				'component' => 'confirmation-page',
+			),
+			array(
+				'type'  => 'pro',
+				'title' => __( 'Sticky calculator', 'cost-calculator-builder' ),
+				'slug'  => 'sticky-calculator',
+				'icon'  => 'ccb-icon-sticky-calc',
 			),
 			array(
 				'type'  => 'pro',

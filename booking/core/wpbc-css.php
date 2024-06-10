@@ -52,11 +52,12 @@ class WPBC_CSS extends WPBC_JS_CSS{
 
     public function enqueue( $where_to_load ) {
 	    //FixIn: 9.8.1
-	    wp_enqueue_style( 'wpdevelop-bts',              wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap.css' ),                  array(), WP_BK_VERSION_NUM );       //FixIn: 9.0.1.1.1
-	    wp_enqueue_style( 'wpdevelop-bts-theme',        wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap-theme.css' ),            array(), WP_BK_VERSION_NUM );       //FixIn: 9.0.1.1.1
-	    wp_enqueue_style( 'wpbc-tippy-popover',         wpbc_plugin_url( '/assets/libs/tippy.js/themes/wpbc-tippy-popover.css' ),           array(), WP_BK_VERSION_NUM );         //FixIn: 9.0.1.1
-	    wp_enqueue_style( 'wpbc-tippy-times',           wpbc_plugin_url( '/assets/libs/tippy.js/themes/wpbc-tippy-times.css' ),             array(), WP_BK_VERSION_NUM );         //FixIn: 9.0.1.1
-	    wp_enqueue_style( 'wpbc-material-design-icons', wpbc_plugin_url( '/assets/libs/material-design-icons/material-design-icons.css' ),  array(), WP_BK_VERSION_NUM );         //FixIn: 9.2.1.4    //FixIn: 9.0.1.1
+	    wp_enqueue_style( 'wpdevelop-bts',              wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap.css' ),                  array(), WP_BK_VERSION_NUM );           //FixIn: 9.0.1.1.1
+	    wp_enqueue_style( 'wpdevelop-bts-theme',        wpbc_plugin_url( '/assets/libs/bootstrap-css/css/bootstrap-theme.css' ),            array(), WP_BK_VERSION_NUM );           //FixIn: 9.0.1.1.1
+	    wp_enqueue_style( 'wpbc-tippy-popover',         wpbc_plugin_url( '/assets/libs/tippy.js/themes/wpbc-tippy-popover.css' ),           array(), WP_BK_VERSION_NUM );           //FixIn: 9.0.1.1
+	    wp_enqueue_style( 'wpbc-tippy-times',           wpbc_plugin_url( '/assets/libs/tippy.js/themes/wpbc-tippy-times.css' ),             array(), WP_BK_VERSION_NUM );           //FixIn: 9.0.1.1
+	    wp_enqueue_style( 'wpbc-material-design-icons', wpbc_plugin_url( '/assets/libs/material-design-icons/material-design-icons.css' ),  array(), WP_BK_VERSION_NUM );           //FixIn: 9.2.1.4    //FixIn: 9.0.1.1
+	    wp_enqueue_style( 'wpbc-ui-both',               wpbc_plugin_url( '/css/wpbc_ui_both.css' ),                                         array(), WP_BK_VERSION_NUM );           //FixIn: 10.0.0.25
 
         if ( $where_to_load == 'admin' ) {                                                                              // Admin CSS files
 			 //Icons
@@ -113,6 +114,8 @@ class WPBC_CSS extends WPBC_JS_CSS{
         if (
 				   ( $where_to_load != 'admin' )
 				|| ( wpbc_is_new_booking_page() )
+				|| ( wpbc_is_settings_form_page() )
+				// || ( wpbc_is_availability_page() )                                                                      //FixIn: 10.0.0.5  Error at  -> WP Booking Calendar > Availability > Season Availability page
 	            || ( ( wpbc_is_settings_page() ) && ( strpos( $_SERVER['REQUEST_URI'], 'tab=payment' ) !== false ) )
         ){                                       // Client or Add New Booking page
 
@@ -143,6 +146,7 @@ class WPBC_CSS extends WPBC_JS_CSS{
         if (
         	     wpbc_is_bookings_page()
         	  || wpbc_is_new_booking_page()
+        	  || wpbc_is_settings_form_page()
         	  || wpbc_is_resources_page()
         	  || wpbc_is_settings_page()
            ) {

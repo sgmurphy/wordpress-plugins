@@ -3,7 +3,7 @@
 Plugin Name: Gravity Booster ( Style & Layouts )
 Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
 Description: Create beautiful styles for your gravity forms
-Version:     5.4
+Version:     5.5
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.4' );
+define( 'GF_STLA_VERSION', '5.5' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -101,6 +101,11 @@ class Gravity_customizer_admin {
 			$panel_id = $_GET['panelId'];
 		}
 
+		$section_id = '';
+		if ( ! empty( $_GET['sectionId'] ) ) {
+			$section_id = $_GET['sectionId'];
+		}
+
 		$customizer_url = $this->_set_customizer_url( $form_id );
 		// Pass the nonce to your React script using wp_localize_script()
 		wp_localize_script(
@@ -110,6 +115,7 @@ class Gravity_customizer_admin {
 				'nonce'         => $nonce,
 				'formId'        => $form_id,
 				'panelId'       => $panel_id,
+				'sectionId'     => $section_id,
 				'status'        => $addons_info['status'],
 				'version'       => $addons_info['version'],
 				'customizerUrl' => $customizer_url,
@@ -133,6 +139,7 @@ class Gravity_customizer_admin {
 			'tooltips'      => 'styles-layouts-gf-tooltips/styles-layouts-gf-tooltips.php',
 			'fieldIcons'    => 'styles-layouts-gf-field-icons/styles-layouts-gf-field-icons.php',
 			'customThemes'  => 'styles-layouts-gf-custom-themes/styles-layouts-gf-custom-themes.php',
+			'ai'            => 'styles-layouts-gf-ai/styles-layouts-gf-ai.php',
 		);
 
 		foreach ( $addon_slugs as $name => $slug ) {
@@ -183,10 +190,11 @@ class Gravity_customizer_admin {
 							$addon_dependecies[] = 'stla-admin-custom-themes';
 						}
 						break;
-				}
-
-				if ( is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
-					$addon_dependecies[] = 'gform_gravityforms';
+					case 'ai':
+						$addon_dependecies[] = 'stla-admin-ai';
+						$status['ai']        = 'active';
+						$version['ai']       = defined( 'GF_STLA_AI_VERSION' ) ? GF_STLA_AI_VERSION : '1.0';
+						break;
 				}
 			} else {
 				$installed_plugins = get_plugins();
@@ -201,6 +209,9 @@ class Gravity_customizer_admin {
 			}
 		}
 
+		if ( is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
+			$addon_dependecies[] = 'gform_gravityforms';
+		}
 		$dependencies = array_merge( $addon_dependecies, $js_dependencies );
 
 		return array(

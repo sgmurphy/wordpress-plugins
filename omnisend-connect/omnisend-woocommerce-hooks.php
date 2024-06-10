@@ -7,7 +7,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$cart_converted     = false;
 $picker_product_set = false;
 
 /* PRODUCTS */
@@ -104,10 +103,7 @@ add_action( 'woocommerce_checkout_update_order_meta', 'omnisend_order_created', 
 function omnisend_order_created( $order_id ) {
 	Omnisend_Logger::hook();
 
-	global $cart_converted;
-	$cart_converted = true;
-
-	$cart_id        = Omnisend_Server_Session::get( 'omnisend_cartID' );
+	$cart_id        = Omnisend_Cart::get_or_set_cart_id();
 	$attribution_id = Omnisend_User_Storage::get_attribution_id();
 
 	if ( $cart_id || $attribution_id ) {
@@ -125,7 +121,7 @@ function omnisend_order_created( $order_id ) {
 	}
 
 	Omnisend_Manager::push_order_to_omnisend( $order_id );
-	Omnisend_Manager_Assistant::unset_user_cart( true );
+	Omnisend_Cart::reset();
 }
 
 /* Hook triggered when admin updates order */
@@ -191,27 +187,6 @@ function omnisend_order_payment_failed( $order_id ) {
 }
 
 /* CARTS */
-
-add_action( 'woocommerce_after_calculate_totals', 'omnisend_cart_updated', 100, 2 );
-function omnisend_cart_updated() {
-	Omnisend_Logger::hook();
-	global $cart_converted;
-	if ( ! $cart_converted ) {
-		Omnisend_Manager::push_cart_to_omnisend();
-	}
-}
-
-add_action( 'woocommerce_cart_item_removed', 'omnisend_cart_delete', 10, 2 );
-function omnisend_cart_delete() {
-	Omnisend_Logger::hook();
-	global $cart_converted;
-	if ( ! $cart_converted ) {
-		if ( WC()->cart->is_empty() ) {
-			Omnisend_Manager::push_cart_to_omnisend();
-		}
-	}
-}
-
 add_action( 'woocommerce_add_to_cart', 'omnisend_track_add_to_cart_event', 25, 5 );
 function omnisend_track_add_to_cart_event( $cart_item_key, $product_id, $request_quantity, $variation_id, $variation ) {
 	Omnisend_Logger::hook();

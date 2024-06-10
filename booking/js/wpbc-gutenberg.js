@@ -527,9 +527,10 @@
 	 */
 	function wpbc_gt_get_visual_block_for_default( shortcode_obj, params ){
 
-		// Booking Form Parameters
+		// Booking Form Parameters		//FixIn: 10.0.0.16
 		var shortcode_defaults = {
-			type      : 1,
+			type      	: 1,
+			resource_id : 1,
 			nummonths : 1,
 			form_type : 'standard',
 			aggregate : null,
@@ -540,6 +541,7 @@
 		// // Calendar Parameters
 		// var shortcode_defaults = {
 		// 	type      : 1,
+		//  resource_id : 1,
 		// 	nummonths : 1,
 		// 	aggregate : null,
 		// 	startmonth: null,
@@ -587,9 +589,10 @@
 	 */
 	function wpbc_gt_get_visual_block_for_booking( shortcode_obj, params ){
 
-		// Booking Form Parameters
+		// Booking Form Parameters		//FixIn: 10.0.0.16
 		var shortcode_defaults = {
 			type      : 1,
+			resource_id : 1,
 			nummonths : 1,
 			form_type : 'standard',
 			aggregate : null,
@@ -643,11 +646,15 @@
 		 * @param props
 		 */
 		function wpbc_parse_params_into_rows_arr_for_booking( props ){
-
+			//console.log( 'WPBC::props', props, props[ 'type' ], props[ 'resource_id' ]);
 			// Parameters Description /////////////////////////////////
 			var rows_in_content = [];
-			if ( undefined != props[ 'type' ] ){
+			if ( (undefined != props[ 'type' ]) && ( 1 != props[ 'type' ]) ){
 				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'type' ]} );
+			}
+			//FixIn: 10.0.0.16
+			if ( (undefined != props[ 'resource_id' ]) && ( 1 != props[ 'resource_id' ]) ){
+				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'resource_id' ]} );
 			}
 			if ( undefined != props[ 'nummonths' ] ){
 				rows_in_content.push( {name: wp.i18n.__( 'Visible months number' ), value: props[ 'nummonths' ]} );
@@ -677,9 +684,10 @@
 	 */
 	function wpbc_gt_get_visual_block_for_bookingcalendar( shortcode_obj, params ){
 
-		// Booking Form Parameters
+		// Booking Form Parameters		//FixIn: 10.0.0.16
 		var shortcode_defaults = {
 			type      : 1,
+			resource_id : 1,
 			nummonths : 1,
 			aggregate : null,
 			startmonth: null,
@@ -736,8 +744,12 @@
 
 			// Parameters Description /////////////////////////////////
 			var rows_in_content = [];
-			if ( undefined != props[ 'type' ] ){
+			if ( (undefined != props[ 'type' ]) && ( 1 != props[ 'type' ]) ){
 				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'type' ]} );
+			}
+			//FixIn: 10.0.0.16
+			if ( (undefined != props[ 'resource_id' ]) && ( 1 != props[ 'resource_id' ]) ){
+				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'resource_id' ]} );
 			}
 			if ( undefined != props[ 'nummonths' ] ){
 				rows_in_content.push( {name: wp.i18n.__( 'Visible months number' ), value: props[ 'nummonths' ]} );
@@ -960,9 +972,10 @@
 	 */
 	function wpbc_gt_get_visual_block_for_bookingform( shortcode_obj, params ){
 
-		// Booking Form Parameters
+		// Booking Form Parameters		//FixIn: 10.0.0.16
 		var shortcode_defaults = {
 			type      : 1,
+			resource_id : 1,
 			selected_dates : null,
 			form_type : 'standard'
 		};
@@ -1003,9 +1016,14 @@
 
 			// Parameters Description /////////////////////////////////
 			var rows_in_content = [];
-			if ( undefined != props[ 'type' ] ){
+			if ( (undefined != props[ 'type' ]) && ( 1 != props[ 'type' ]) ){
 				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'type' ]} );
 			}
+			//FixIn: 10.0.0.16
+			if ( (undefined != props[ 'resource_id' ]) && ( 1 != props[ 'resource_id' ]) ){
+				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'resource_id' ]} );
+			}
+
 			if ( undefined != props[ 'selected_dates' ] ){
 				rows_in_content.push( {name: wp.i18n.__( 'Date for submit booking' ), value: props[ 'selected_dates' ]} );
 			}
@@ -1079,10 +1097,10 @@
 				rows_in_content.push( { block_text: wp.i18n.__( 'Show search results in the same page' ) } );
 			}
 			if ( undefined != props[ 'searchresultstitle' ] ){
-				rows_in_content.push( {name: wp.i18n.__( 'Search Results Title' ), value: props[ 'searchresultstitle' ]} );
+				//rows_in_content.push( {name: wp.i18n.__( 'Search Results Title' ), value: props[ 'searchresultstitle' ]} );
 			}
 			if ( undefined != props[ 'noresultstitle' ] ){
-				rows_in_content.push( {name: wp.i18n.__( 'Title, if no search results' ), value: props[ 'noresultstitle' ]} );
+				//rows_in_content.push( {name: wp.i18n.__( 'Title, if no search results' ), value: props[ 'noresultstitle' ]} );
 			}
 			if ( undefined != props[ 'users' ] ){
 				rows_in_content.push( {name: wp.i18n.__( 'Search in booking resources of WP users' ), value: 'ID = ' + props[ 'users' ]} );
@@ -1460,9 +1478,10 @@
 	 */
 	function wpbc_gt_get_visual_block_for_bookingresource( shortcode_obj, params ){
 
-		// Booking Form Parameters
+		// Booking Form Parameters			//FixIn: 10.0.0.16
 		var shortcode_defaults = {
 			type              : 1,
+			resource_id       : 1,
 			show         	  : 'title'
 		};
 
@@ -1502,9 +1521,14 @@
 
 			// Parameters Description /////////////////////////////////
 			var rows_in_content = [];
-			if ( undefined != props[ 'type' ] ){
-				rows_in_content.push( { name: wp.i18n.__( 'Booking resource' ), value: ' ID = ' + props[ 'type' ] } );
+			if ( (undefined != props[ 'type' ]) && ( 1 != props[ 'type' ]) ){
+				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'type' ]} );
 			}
+			//FixIn: 10.0.0.16
+			if ( (undefined != props[ 'resource_id' ]) && ( 1 != props[ 'resource_id' ]) ){
+				rows_in_content.push( {name: wp.i18n.__( 'Booking resource' ), value: 'ID = ' + props[ 'resource_id' ]} );
+			}
+
 			if ( undefined != props[ 'show' ] ) {
 				rows_in_content.push( { name: wp.i18n.__( 'Show' ), value: props[ 'show' ] } );
 				/*

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'ccb-fonts';
-  src:  url('fonts/ccb-fonts.eot?oc0656');
-  src:  url('fonts/ccb-fonts.eot?oc0656#iefix') format('embedded-opentype'),
-    url('fonts/ccb-fonts.ttf?oc0656') format('truetype'),
-    url('fonts/ccb-fonts.woff?oc0656') format('woff'),
-    url('fonts/ccb-fonts.svg?oc0656#ccb-fonts') format('svg');
+  src:  url('fonts/ccb-fonts.eot?6j9yka');
+  src:  url('fonts/ccb-fonts.eot?6j9yka#iefix') format('embedded-opentype'),
+    url('fonts/ccb-fonts.ttf?6j9yka') format('truetype'),
+    url('fonts/ccb-fonts.woff?6j9yka') format('woff'),
+    url('fonts/ccb-fonts.svg?6j9yka#ccb-fonts') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -19,22 +19,16 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  
-  /* Enable Ligatures ================ */
-  letter-spacing: 0;
-  -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga";
-  -ms-font-feature-settings: "liga" 1;
-  font-feature-settings: "liga";
-  -webkit-font-variant-ligatures: discretionary-ligatures;
-  font-variant-ligatures: discretionary-ligatures;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ccb-icon-sticky-calc:before {
+  content: "\ea0a";
+  color: #1ab163;
+}
 .ccb-icon-Icon-element:before {
   content: "\ea09";
   color: #9facb9;
@@ -837,8 +831,5 @@
   content: "\ea07";
 }
 .ccb-icon-plus-lite:before {
-  content: "\ea08";
-}
-.ccb-icon-notification:before{
   content: "\ea08";
 }

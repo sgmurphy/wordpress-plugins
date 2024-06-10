@@ -198,7 +198,7 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 				var my_element = element.name; //.toString();
 				if ( my_element.indexOf( 'rangetime' ) !== -1 ){                       	// Range Time
 					if ( element.value == '' ){                                 										//FixIn: 7.0.Beta.19
-					 	var notice_message_id = wpbc_front_end__show_message__warning( element, message_verif_requred );
+					 	var notice_message_id = wpbc_front_end__show_message__warning( element, _wpbc.get_message( 'message_check_required' ) );
 						return true;
 					}
 					var my_rangetime = element.value.split( '-' );
@@ -260,8 +260,8 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 			if ( valid_time === true )
 				if (
 					(typeof(checkRecurentTimeInside) == 'function') &&
-					(typeof(is_booking_recurrent_time) !== 'undefined') &&
-					(is_booking_recurrent_time == true)
+
+					( _wpbc.get_other_param( 'is_enabled_booking_recurrent_time' ) == true )
 				){                                                                // Recheck Time here !!!
 					valid_time = checkRecurentTimeInside( [ start_time, end_time ], resource_id );
 				} else {
@@ -279,13 +279,13 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 
 			if ( valid_time !== true ){
 				//return false;                                                  // do not show warning for setting pending days selectable,  if making booking for time-slot   //FixIn: 7.0.1.23
-				if ( (is_booking_used_check_in_out_time) && (element_start !== false) && (element_end !== false) ){      //FixIn:6.1.1.1
-					wpbc_front_end__show_message__warning_under_element( '#date_booking' + resource_id, message_checkinouttime_error  );
+				if ( (_wpbc.get_other_param( 'is_enabled_change_over' )) && (element_start !== false) && (element_end !== false) ){      //FixIn:6.1.1.1
+					wpbc_front_end__show_message__warning_under_element( '#date_booking' + resource_id, _wpbc.get_message( 'message_check_no_selected_dates' )  );
 				}
-				if ( element_rangetime !== false ){ wpbc_front_end__show_message__warning_under_element( element_rangetime, message_rangetime_error ); }
-				if ( element_duration !== false ){  wpbc_front_end__show_message__warning_under_element( element_duration, message_durationtime_error ); }
-				if ( element_start !== false ){ 	wpbc_front_end__show_message__warning_under_element( element_start, message_starttime_error ); }
-				if ( element_end !== false ){ 		wpbc_front_end__show_message__warning_under_element( element_end, message_endtime_error ); }
+				if ( element_rangetime !== false ){ wpbc_front_end__show_message__warning_under_element( element_rangetime, _wpbc.get_message( 'message_error_range_time' ) ); }
+				if ( element_duration !== false ){  wpbc_front_end__show_message__warning_under_element( element_duration, _wpbc.get_message( 'message_error_duration_time' ) ); }
+				if ( element_start !== false ){ 	wpbc_front_end__show_message__warning_under_element( element_start, _wpbc.get_message( 'message_error_start_time' ) ); }
+				if ( element_end !== false ){ 		wpbc_front_end__show_message__warning_under_element( element_end, _wpbc.get_message( 'message_error_end_time' ) ); }
 
 				return true;
 
@@ -305,18 +305,18 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 			date_to_check = sort_date_array[ (sort_date_array.length - 1) ];
 		}
 
-		if ( parseInt( date_to_check[ 0 ] ) < parseInt( wpbc_today[ 0 ] ) ) return true;
-		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( wpbc_today[ 0 ] )) && (parseInt( date_to_check[ 1 ] ) < parseInt( wpbc_today[ 1 ] )) )
+		if ( parseInt( date_to_check[ 0 ] ) < parseInt( _wpbc.get_other_param( 'today_arr' )[ 0 ] ) ) return true;
+		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 0 ] )) && (parseInt( date_to_check[ 1 ] ) < parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] )) )
 			return true;
-		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( wpbc_today[ 0 ] )) && (parseInt( date_to_check[ 1 ] ) == parseInt( wpbc_today[ 1 ] )) && (parseInt( date_to_check[ 2 ] ) < parseInt( wpbc_today[ 2 ] )) )
+		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 0 ] )) && (parseInt( date_to_check[ 1 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] )) && (parseInt( date_to_check[ 2 ] ) < parseInt( _wpbc.get_other_param( 'today_arr' )[ 2 ] )) )
 			return true;
-		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( wpbc_today[ 0 ] )) &&
-			(parseInt( date_to_check[ 1 ] ) == parseInt( wpbc_today[ 1 ] )) &&
-			(parseInt( date_to_check[ 2 ] ) == parseInt( wpbc_today[ 2 ] )) ){
+		if ( (parseInt( date_to_check[ 0 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 0 ] )) &&
+			(parseInt( date_to_check[ 1 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 1 ] )) &&
+			(parseInt( date_to_check[ 2 ] ) == parseInt( _wpbc.get_other_param( 'today_arr' )[ 2 ] )) ){
 			var mytime_value = myTime.split( ":" );
 			mytime_value = mytime_value[ 0 ] * 60 + parseInt( mytime_value[ 1 ] );
 
-			var current_time_value = wpbc_today[ 3 ] * 60 + parseInt( wpbc_today[ 4 ] );
+			var current_time_value = _wpbc.get_other_param( 'today_arr' )[ 3 ] * 60 + parseInt( _wpbc.get_other_param( 'today_arr' )[ 4 ] );
 
 			if ( current_time_value > mytime_value ) return true;
 
@@ -398,33 +398,7 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 			if ( (j == 0) || (j == (work_date_array.length - 1)) ) is_check_for_time = true;         // Check for time only start and end time
 			else is_check_for_time = false;
 
-			// Get dates and time from pending dates
-			if ( typeof(date2approve[ bk_type ]) !== 'undefined' ){
-				if ( (typeof(date2approve[ bk_type ][ td_class ]) !== 'undefined') ){
-					if ( ! is_check_for_time ){
-						return false;
-					} // its mean that this date is booked inside of range selected dates
-					if ( (date2approve[ bk_type ][ td_class ][ 0 ][ 3 ] != 0) || (date2approve[ bk_type ][ td_class ][ 0 ][ 4 ] != 0) ){
-						// Evrything good - some time is booked check later
-					} else {
-						return false;
-					} // its mean that this date tottally booked
-				}
-			}
 
-			// Get dates and time from pending dates
-			if ( typeof(date_approved[ bk_type ]) !== 'undefined' ){
-				if ( (typeof(date_approved[ bk_type ][ td_class ]) !== 'undefined') ){
-					if ( !is_check_for_time ){
-						return false;
-					} // its mean that this date is booked inside of range selected dates
-					if ( (date_approved[ bk_type ][ td_class ][ 0 ][ 3 ] != 0) || (date_approved[ bk_type ][ td_class ][ 0 ][ 4 ] != 0) ){
-						// Evrything good - some time is booked check later
-					} else {
-						return false;
-					} // its mean that this date tottally booked
-				}
-			}
 		}  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -435,55 +409,9 @@ function wpbc_is_time_field_in_booking_form( resource_id, form_elements ){						
 		td_class = work_date_array[ 1 ] + '-' + work_date_array[ 2 ] + '-' + work_date_array[ 0 ];
 
 		// Get dates and time from pending dates
-		if ( typeof(date2approve[ bk_type ]) !== 'undefined' )
-			if ( typeof(date2approve[ bk_type ][ td_class ]) !== 'undefined' )
-				for ( i = 0; i < date2approve[ bk_type ][ td_class ].length; i++ ){
-					h = date2approve[ bk_type ][ td_class ][ i ][ 3 ];
-					if ( h < 10 ) h = '0' + h;
-					if ( h == 0 ) h = '00';
-					m = date2approve[ bk_type ][ td_class ][ i ][ 4 ];
-					if ( m < 10 ) m = '0' + m;
-					if ( m == 0 ) m = '00';
-					s = date2approve[ bk_type ][ td_class ][ i ][ 5 ];
-
-//Customization of bufer time for DAN
-					if ( s == '02' ){
-						m = (m * 1) + time_buffer_value;
-						if ( m > 59 ){
-							m = m - 60;
-							h = (h * 1) + 1;
-						}
-						if ( m < 10 ) m = '0' + m;
-					}
-
-					times_array[ times_array.length ] = [ h, m, s ];
-				}
-
+		//deleted
 		// Get dates and time from pending dates
-		if ( typeof(date_approved[ bk_type ]) !== 'undefined' )
-			if ( typeof(date_approved[ bk_type ][ td_class ]) !== 'undefined' )
-				for ( i = 0; i < date_approved[ bk_type ][ td_class ].length; i++ ){
-					h = date_approved[ bk_type ][ td_class ][ i ][ 3 ];
-					if ( h < 10 ) h = '0' + h;
-					if ( h == 0 ) h = '00';
-					m = date_approved[ bk_type ][ td_class ][ i ][ 4 ];
-					if ( m < 10 ) m = '0' + m;
-					if ( m == 0 ) m = '00';
-					s = date_approved[ bk_type ][ td_class ][ i ][ 5 ];
-
-//Customization of bufer time for DAN
-					if ( s == '02' ){
-						m = (m * 1) + time_buffer_value;
-						if ( m > 59 ){
-							m = m - 60;
-							h = (h * 1) + 1;
-						}
-						if ( m < 10 ) m = '0' + m;
-					}
-
-
-					times_array[ times_array.length ] = [ h, m, s ];
-				}
+		//deleted
 
 
 		times_array.sort();                     // SORT TIMES

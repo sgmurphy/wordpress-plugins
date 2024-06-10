@@ -28,22 +28,22 @@ $tvc_data['g_mail'] = "";
 if ($g_mail) {
     $tvc_data['g_mail'] = sanitize_email($g_mail);
 }
-$subscriptionId = $ee_options['subscription_id'];
+$subscriptionId = esc_html($ee_options['subscription_id']);
 $app_id = 1;
 $pixelprogressbarclass = 0;
 $google_merchant_center_id  = '';
 $merchan_id = '';
 $is_channel_connected = false;
 if(isset($ee_options['google_merchant_center_id']) && $ee_options['google_merchant_center_id'] !== ''){
-    $google_merchant_center_id  = $ee_options['google_merchant_center_id'];
-    $merchan_id = isset($ee_options['merchant_id']) ? $ee_options['merchant_id'] : '';
+    $google_merchant_center_id  = esc_html($ee_options['google_merchant_center_id']);
+    $merchan_id = isset($ee_options['merchant_id']) ? esc_html($ee_options['merchant_id']) : '';
 }
 $is_tiktok_connected = false;
-$tiktok_mail = isset($ee_options['tiktok_setting']['tiktok_mail']) === TRUE ? $ee_options['tiktok_setting']['tiktok_mail'] : '';
-$tiktok_user_id = isset($ee_options['tiktok_setting']['tiktok_user_id']) === TRUE ? $ee_options['tiktok_setting']['tiktok_user_id'] : '';
-$tiktok_business_id = isset($ee_options['tiktok_setting']['tiktok_business_id']) === TRUE ? $ee_options['tiktok_setting']['tiktok_business_id'] : '';
-$tiktok_business_name = isset($ee_options['tiktok_setting']['tiktok_business_name']) === TRUE ? $ee_options['tiktok_setting']['tiktok_business_name'] : '';
-$fb_business_id = isset($ee_options['facebook_setting']['fb_business_id']) === TRUE ? $ee_options['facebook_setting']['fb_business_id'] : '';
+$tiktok_mail = isset($ee_options['tiktok_setting']['tiktok_mail']) === TRUE ? esc_html($ee_options['tiktok_setting']['tiktok_mail']) : '';
+$tiktok_user_id = isset($ee_options['tiktok_setting']['tiktok_user_id']) === TRUE ? esc_html($ee_options['tiktok_setting']['tiktok_user_id']) : '';
+$tiktok_business_id = isset($ee_options['tiktok_setting']['tiktok_business_id']) === TRUE ? esc_html($ee_options['tiktok_setting']['tiktok_business_id']) : '';
+$tiktok_business_name = isset($ee_options['tiktok_setting']['tiktok_business_name']) === TRUE ? esc_html($ee_options['tiktok_setting']['tiktok_business_name']) : '';
+$fb_business_id = isset($ee_options['facebook_setting']['fb_business_id']) === TRUE ? esc_html($ee_options['facebook_setting']['fb_business_id']) : '';
 if (isset($_GET['tiktok_mail']) == TRUE) {
     $tiktok_mail = sanitize_email($_GET['tiktok_mail']);
     $is_tiktok_connected = true;
@@ -446,7 +446,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                             $confirm_fb_url = "admin.php?page=conversios&wizard=productFeedOdd_fbsetting";
                             $signIn = (isset($ee_options['facebook_setting']['fb_business_id']) || $fb_mail !== '') ? 'Change' : '<button class="btn conv-blue-bg text-white"><img style="width:24px" src="'. esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') .'" /> &nbsp;Sign In with Facebook</button>' ;
                             $businessId = '';
-                            $subId = $subscriptionId;
+                            $subId = esc_html($subscriptionId);
                             $timezone = get_option('timezone_string');
                             $facebook_auth_url = TVC_API_CALL_URL_TEMP . '/auth/facebook?domain='.esc_url_raw(get_site_url()).'&app_id='.$app_id.'&country='.$country.'&user_currency='.$woo_currency.'&subscription_id='.$subId.'&confirm_url='.admin_url().$confirm_fb_url.'&timezone='.$timezone.'&scope=productFeed' ;
                             
@@ -466,13 +466,13 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                             <div class="step-box">
                                                 <div style="padding-top: 3px">
                                                     <span class="fs-14 fw-normal text-grey">
-                                                        <?php echo $fb_mail ?>
+                                                        <?php echo esc_html($fb_mail) ?>
                                                         <span class="conv-link-blue ps-2 facebookLogin" id="facebookLogin">                                                    
-                                                            <a onclick="window.open('<?php echo $facebook_auth_url ?>','MyWindow','width=800,height=700,left=300, top=150'); return false;" href="#" style="color:#1085F1">
+                                                            <a onclick="window.open('<?php echo esc_url($facebook_auth_url) ?>','MyWindow','width=800,height=700,left=300, top=150'); return false;" href="#" style="color:#1085F1">
                                                                 <?php echo $signIn; ?>
                                                             </a>
                                                         </span>
-                                                        <input type="hidden" id="fb_mail" value="<?php echo $fb_mail ?>" />
+                                                        <input type="hidden" id="fb_mail" value="<?php echo esc_attr($fb_mail) ?>" />
                                                     </span>
                                                 </div>    
                                             </div>                                      
@@ -499,7 +499,7 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                                         </div>
                                                     </div>
                                                     <div class="col-2" style="padding-top: 35px;padding-left:0px">
-                                                        <?php if($fb_business_id) {?>
+                                                        <?php if(esc_html($fb_business_id)) {?>
                                                             <span class="fs-14 text-primary pointer getfbList"><span class="material-symbols-outlined md-18">edit</span>Edit</span>
                                                         <?php } ?>                                                    
                                                     </div>
@@ -2098,7 +2098,7 @@ $str = json_decode($str);;
                 pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
                 conv_options_data: selected_vals,
                 conv_options_type: conv_options_type,
-                customer_subscription_id: "<?php echo $subId ?>",
+                customer_subscription_id: "<?php echo esc_html($subId) ?>",
             }
         }
         if(Channel == 'Tiktok') {
@@ -2345,7 +2345,7 @@ $str = json_decode($str);;
     function get_facebook_bussiness() {
         var data = {
                 action: "get_user_businesses",
-                customer_subscription_id: <?php echo $subId ?>,
+                customer_subscription_id: <?php echo esc_html($subId) ?>,
                 fb_business_nonce: "<?php echo wp_create_nonce('fb_business_nonce'); ?>"
             }
             jQuery.ajax({
@@ -2378,7 +2378,7 @@ $str = json_decode($str);;
         if(fb_business != ''){
             var data = {
                 action: "get_fb_catalog_data",
-                customer_subscription_id: <?php echo $subId ?>,
+                customer_subscription_id: <?php echo esc_html($subId) ?>,
                 fb_business_id: fb_business,
                 fb_business_nonce: "<?php echo wp_create_nonce('fb_business_nonce'); ?>"
             }

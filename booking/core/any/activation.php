@@ -99,7 +99,7 @@ abstract class WPBC_Install {
 
             if ($is_delete_if_deactive == 'On') { ?>
                 <div class="plugin-update-tr">
-                    <div class="update-message notice inline notice-warning notice-altNO" style="font-size: 1em;line-height: 2em;margin:0 5px 10px;"><?php
+                    <div class="update-message notice inline notice-warning notice-altNO" style="font-size: 1em;line-height: 2em;margin:0 5px 10px;border-left: 3px solid #dd7000;"><?php
 						echo $this->init_option['message-delete_data']; ?></div>
                 </div>
                 <?php

@@ -601,6 +601,8 @@ hr.wpbc_tl_popover_booking_separator {
 /* Notes ***************************************************/
 .popover-content .flex-popover-content-data .wpbc-popover-booking-notes{
 	margin: 0 0 1em 0;
+	max-width: 100%;
+  	word-break: break-word;
 }
 /* Dates ***************************************************/
 .popover-content .flex-popover-content-data .flex-label-dates {

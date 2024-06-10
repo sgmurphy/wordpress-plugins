@@ -251,6 +251,14 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
     $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_hour]</code>');
     $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_minutes]</code>');
     $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_seconds]</code>');
+	//FixIn: 10.0.0.34
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_date]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_year]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_month]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_day]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_hour]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_minutes]</code>');
+    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_seconds]</code>');
 
 
 
@@ -317,6 +325,16 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
 }
 
 
+function wpbc_email_troubleshooting_help_notice(){
+
+	?><div class="wpbc-settings-notice notice-warning notice-helpful-info">
+		<?php printf( __( 'To ensure your notifications arrive in your and your customers inboxes, we recommend connecting your email address to your domain and setting up a dedicated SMTP server. If something does not seem to be sending correctly, install the %s or check the %sEmail FAQ%s page.', 'booking' ),
+			'<a href="https://wordpress.org/plugins/wp-mail-logging/">WP Mail Logging Plugin</a>',
+			'<a href="https://wpbookingcalendar.com/faq/no-emails/">', '</a>' ); ?>
+	</div><?php
+}
+
+
 /** 
 	 * Check  Email  subject  about Language sections
  * 
@@ -326,7 +344,7 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
  */
 function wpbc_email_api_get_subject_before( $subject, $email_id ) {
             
-    $subject =  apply_bk_filter('wpdev_check_for_active_language', $subject );
+    $subject =  wpbc_lang( $subject );
 
     return  $subject;
 }
@@ -343,18 +361,18 @@ add_filter( 'wpbc_email_api_get_subject_before', 'wpbc_email_api_get_subject_bef
 function wpbc_email_api_get_content_before( $fields_values, $email_id , $email_type ) {
 
 	if ( isset( $fields_values['content'] ) ) {
-		$fields_values['content'] = apply_bk_filter( 'wpdev_check_for_active_language', $fields_values['content'] );
+		$fields_values['content'] = wpbc_lang( $fields_values['content'] );
 		if ( $email_type == 'html' ) {
 			$fields_values['content'] = make_clickable( $fields_values['content'] );
 		}
 	}
 
 	if ( isset( $fields_values['header_content'] ) ) {
-		$fields_values['header_content'] = apply_bk_filter( 'wpdev_check_for_active_language', $fields_values['header_content'] );
+		$fields_values['header_content'] = wpbc_lang( $fields_values['header_content'] );
 	}
 
 	if ( isset( $fields_values['footer_content'] ) ) {
-		$fields_values['footer_content'] = apply_bk_filter( 'wpdev_check_for_active_language', $fields_values['footer_content'] );
+		$fields_values['footer_content'] = wpbc_lang( $fields_values['footer_content'] );
 	}
 
 	return $fields_values;

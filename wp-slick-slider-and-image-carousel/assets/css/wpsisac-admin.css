@@ -18,7 +18,7 @@
 #wpsisac-post-metabox-pro tr.wpsisac-pro-feature td:first-child{width:40%; }
 .wpsisac-slide-img{border: 1px solid #ccc; padding: 2px;}
 
-/************** Start - Solutions & Features Page CSS ****************/
+/****** Start - Solutions & Features Page CSS *****/
 .wpsisac-sf-center{text-align:center;}
 .slick_slider_page_wpsisac-solutions-features #wpwrap { background: #f7faff;}
 .wpsisac-sf-wrap{max-width: 860px;margin: 0 auto;}
@@ -90,7 +90,7 @@ ul.wpsisac-features-box-grid li img{width:100%;}
 .wpsisac-testimonial-box-wrap .wpsisac-testimonial-box-grid{border: 1px solid #ddd;background:#fff;  box-shadow: 0 3px 2px rgba(0,0,0,.05); padding: 30px;text-align: center;display: flex;flex-direction: column;align-items: center;}
 .wpsisac-testimonial-box-wrap h3{margin-top:0px;}
 .wpsisac-testimonial-clnt{margin:15px 0 0 0; font-size:16px; font-weight:bold;}
-/************** End - Solutions & Features Page CSS ****************/
+/***** End - Solutions & Features Page CSS *****/
 
 /***** Vertical Tabs *****/
 .wpsisac-vtab-wrap, .wpsisac-vtab-wrap *{-webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box; outline:none;}

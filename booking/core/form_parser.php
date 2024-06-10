@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
  * @return array
  *
  *              Return example:  [      0 => [
- *                                                'full_shortcode' => '[select rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00"]',
+ *                                                'full_shortcode' => '[selectbox rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00"]',
  *                                                'type' => 'select',
  *                                                'name' => 'rangetime',
  *                                                'options' => '',
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
  *                                                                ]
  *                                           ],
  *                                      1 => [
- *                                                'full_shortcode' => '[select rangetime  "10:00 - 12:00" "12:00 - 14:00"]',        <= !!! Several shortcodes with same name - in conditional sections !!!
+ *                                                'full_shortcode' => '[selectbox rangetime  "10:00 - 12:00" "12:00 - 14:00"]',        <= !!! Several shortcodes with same name - in conditional sections !!!
  *                                                'type' => 'select',
  *                                                'name' => 'rangetime',
  *                                                'options' => '',
@@ -71,8 +71,8 @@ function wpbc_parse_form( $booking_form_configuration ){
 	 */
 
 	// Parse select  shortcodes
-	$rx_shortcode_types   = 'text[*]?|email[*]?|coupon[*]?|time[*]?|textarea[*]?|select[*]?|checkbox[*]?|radio[*]?|acceptance|captchac|captchar|file[*]?|quiz';
-	// $rx_shortcode_types= 'select[*]?|checkbox[*]?|radio[*]?';
+	$rx_shortcode_types   = 'text[*]?|email[*]?|coupon[*]?|time[*]?|textarea[*]?|select[*]?|selectbox[*]?|checkbox[*]?|radio[*]?|acceptance|captchac|captchar|file[*]?|quiz';
+	// $rx_shortcode_types= 'select[*]?|selectbox[*]?|checkbox[*]?|radio[*]?';
 	$rx_shortcode_name    = '\s+[a-zA-Z][0-9a-zA-Z:._-]*';
 	$rx_shortcode_options = '[-0-9a-zA-Z:#_/|\s]*';
 	$rx_shortcode_values  = '(?:\s*(?:"[^"]*"|\'[^\']*\'))*';
@@ -179,7 +179,7 @@ function wpbc_parse_form( $booking_form_configuration ){
  *
  * @return array      = [
  *                            [0] =>   [
- *                                        [full_shortcode] => [select rangetime  "Full Day@@00:00 - 24:00" "12:00 - 14:00"]
+ *                                        [full_shortcode] => [selectbox rangetime  "Full Day@@00:00 - 24:00" "12:00 - 14:00"]
  *                                        [type] => select
  *                                        [name] => rangetime
  *                                        [options] =>
@@ -195,7 +195,7 @@ function wpbc_parse_form( $booking_form_configuration ){
  *                                                        ]
  *                                    ],
  *                            [1] =>  [
- *                                        [full_shortcode] => [select rangetime  "14:00 - 16:00" "16:00 - 18:00" "18:00 - 20:00"]
+ *                                        [full_shortcode] => [selectbox rangetime  "14:00 - 16:00" "16:00 - 18:00" "18:00 - 20:00"]
  *                                        [type] => select
  *                                        [name] => rangetime
  *                                        [options] =>

@@ -50,7 +50,10 @@ class nua_invitation_code {
 		add_action('init', array($this, 'nua_invitation'));
 		add_action('add_meta_boxes_' . $this->code_post_type, array($this, 'add_invitation_meta'));
 		add_action('save_post_' . $this->code_post_type, array($this, 'save_nua_invitation'));
-
+		if(get_transient('inv_code_exists')==true) {
+			
+			add_action('admin_notices', array($this, 'inv_code_alreay_exists_notification'), 10);
+		}
 
 		//Filter
 		add_filter('manage_' . $this->code_post_type . '_posts_columns', array($this, 'invitation_code_columns'));
@@ -120,7 +123,7 @@ class nua_invitation_code {
 			return;
 		}
 
-		$hook = add_submenu_page('new-user-approve-admin', __('Invitation Code', 'new-user-approve'), __('Invitation Code', 'new-user-approve'), 'manage_options', $this->screen_name, array($this, 'invitation_code_settings'), 2);
+		$hook = add_submenu_page('new-user-approve-admin', __('Invitation Code', 'new-user-approve'), __('Invitation Code', 'new-user-approve'), 'manage_options', $this->screen_name, array($this, 'invitation_code_settings'), 1);
 
 		add_submenu_page('new-user-approve-admin', __('All Codes', 'new-user-approve'), __('All Codes', 'new-user-approve'), 'manage_options', 'edit.php?post_type=' . $this->code_post_type);
 
@@ -233,6 +236,7 @@ class nua_invitation_code {
 
 	public function manual_add_codes() {
 		$count = 0;
+		$code_already_exists =array();
 		if (isset($_POST['nua_manual_add'])) {
 			if (!empty($_POST['nua-manual-add-nonce-field'])) {$nonce = sanitize_text_field(wp_unslash($_POST['nua-manual-add-nonce-field']));}
 			if (!wp_verify_nonce($nonce, 'nua-manual-add-nonce')) return;
@@ -252,6 +256,12 @@ class nua_invitation_code {
 
 					continue;
 				}
+
+				if ($this->invitation_code_already_exists($in_code)) {
+					$code_already_exists[] = $in_code;
+					continue;
+				}
+
 				$my_post = array(
 					'post_title'    => sanitize_text_field($in_code),
 					'post_status'   => 'publish',
@@ -271,13 +281,30 @@ class nua_invitation_code {
 				}
 			}
 			if (!empty($count)) {
-				?> <p class="nua-success" > <?php
-				echo esc_html(sprintf("Post Successfully Added %s.", $count), 'new-user-approve');
+
+				$inv_code_success_msg = ($count > 1 ? "Codes Have Been Added Successfully" : "Code Has Been Added Successfully" );
+				?> <p class="nua-success  nua-message" id="successMessage" > <?php
+				echo esc_html($inv_code_success_msg, 'new-user-approve');
 				?> </p> <?php
+
+				if(!empty($code_already_exists)) {
+					
+					$inv_code_exist_msg =  count($code_already_exists) > 1 ? "Codes Already Exist" : "Code Already Exists";
+					?> <p class="nua-already-exists nua-error nua-message" id="errorMessage" > <?php
+					echo esc_html(sprintf("%s " .$inv_code_exist_msg, implode(", ",$code_already_exists)), 'new-user-approve');
+					?> </p> <?php
+				}
+			} else if(empty($count) && !empty($code_already_exists) ) {
+				
+				    $inv_code_exist_msg = count($code_already_exists) > 1 ? "Codes Already Exist." : "Code Already Exists.";
+					?> <p class="nua-already-exists nua-error nua-message" id="errorMessage" > <?php
+					echo esc_html(sprintf("%s " .$inv_code_exist_msg, implode( ', ',$code_already_exists)), 'new-user-approve');
+					?> </p> <?php
+		
 			} else {
 
-				?> <p class="nua-fail" > <?php
-				echo esc_html(sprintf("Post Not Added %s.", $count), 'new-user-approve');
+				?> <p class="nua-fail nua-error nua-message" id="failMessage" > <?php
+				echo esc_html(sprintf("Code Not Added.", 'new-user-approve'));
 				?> </p> <?php
 			}
 			
@@ -346,6 +373,123 @@ class nua_invitation_code {
 		<?php
 	}
 
+	/**
+	 *
+	 * @since 2.5.2
+	 */
+	public function invitation_code_already_exists($code) {
+		
+		$posts_with_meta = get_posts( array(
+			'posts_per_page' => 1, // we only want to check if any exists, so don't need to get all of them
+			'meta_key' => $this->code_key,
+			'meta_value' => $code,
+			'post_type' => $this->code_post_type,
+		) );
+		
+		if ( count( $posts_with_meta ) ) {
+			return true;
+		}
+		return false;
+	}
+	/**
+	 *
+	 * @since 2.5.2
+	 */
+	public function invitation_code_limit_check($code) {
+
+		$is_inv_code_limit =array (
+			'numberposts'			 => 1,
+			'post_type'              => $this->code_post_type,
+			'meta_query' => 		 // we are checking two things code and its limit , so we are using meta query 
+		array( 
+			'relation' => 'AND',
+			array(
+				array(
+				'key'		=>  $this->code_key,
+				'value'		=> $code,
+				'compare'	=> '=',
+				),
+				array(
+					'key'		=>  $this->usage_limit_key,
+					'value' 	=> '1',
+					'compare' 	=> '>=',
+				),
+				array( 'relation' => 'OR',
+					array(
+						'key'		=>  $this->status_key,
+						'value' 	=> 	'Active',
+						'compare' 	=> '=',
+						),
+					array(
+							'key'		=>  $this->status_key,
+							'value' 	=> 	'Expired',
+							'compare' 	=> '=',
+							),
+				),
+				),
+			)
+		);
+
+		$is_inv_code_limit = get_posts($is_inv_code_limit);
+		if( count( $is_inv_code_limit ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+	/**
+	 *
+	 * @since 2.5.2
+	 */
+	public function invitation_code_expiry_check($code) {
+
+		$is_inv_code_expired  =	array (
+			'numberposts'			 => 1,
+			'post_type'              => $this->code_post_type,
+			'meta_query' => 		// we are checking two things code and its expiry , so we are using meta query 
+		array( 
+			'relation' => 'AND',
+			array(
+				array(
+				'key'		=>  $this->code_key,
+				'value'		=> $code,
+				'compare'	=> '=',
+				),
+				array(
+					'key'		=>  $this->expiry_date_key,
+					'value' 	=> 	time(),
+					'compare' 	=> '>=',
+				),
+				array( 'relation' => 'OR',
+					array(
+						'key'		=>  $this->status_key,
+						'value' 	=> 	'Active',
+						'compare' 	=> '=',
+						),
+					array(
+							'key'		=>  $this->status_key,
+							'value' 	=> 	'Expired',
+							'compare' 	=> '=',
+							),
+				),
+				
+				
+
+			)   
+		));
+
+		$is_inv_code_expired = get_posts($is_inv_code_expired);
+		
+		if( count( $is_inv_code_expired ) ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+
+	}
 
 	public function get_available_invitation_codes() {
 
@@ -489,7 +633,16 @@ class nua_invitation_code {
 	}
 
 	public function save_nua_invitation() {
-
+		
+		$post_status = isset($_POST['original_publish']) ? sanitize_text_field($_POST['original_publish']) :'';
+		$code = isset($_POST['codes']) ? sanitize_text_field(wp_unslash($_POST['codes'])):'';
+		// to stop the post from adding the duplicate invitation code on publish post status
+		if($this->invitation_code_already_exists($code) && ('publish' == $post_status || 'Publish' == $post_status)) {
+			wp_delete_post(get_the_ID()); // There is no need of parent post wherease the sub post (invitation code) has not created
+			set_transient('inv_code_exists', 1 * HOUR_IN_SECONDS);
+			wp_safe_redirect(admin_url('/post-new.php?post_type=invitation_code'));
+			exit; // neccessary to exit
+		}
 		if (isset($_POST['post_type']) && $this->code_post_type == sanitize_text_field( wp_unslash( $_POST['post_type'] ) )  ) {
             $nonce = isset($_POST['user_reg_by_invite_code_nonce_field']) ? sanitize_text_field(wp_unslash($_POST['user_reg_by_invite_code_nonce_field'])):'';
 			if(!wp_verify_nonce($nonce, 'user-reg-by-invite-code-nonce') ) {return;}
@@ -524,12 +677,71 @@ class nua_invitation_code {
 			</p>
 			<?php
 		}
+
+	/**
+	 *
+	 * @since 2.5.2
+	 */
+		public function inv_code_alreay_exists_notification() {
+
+			$class = 'notice notice-error';
+			$message = esc_html__( 'Invitation Code Already Exists.', 'new-user-approve' );
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			delete_transient('inv_code_exists');// No need to keep this tip after displaying notification
 		
+		}
+
+		public function invite_code_hold( $inv_id ) {
+		$inv_file = fopen( $this->invite_code_lock_file( $inv_id ), 'w+' );
+		
+		if ( ! flock( $inv_file, LOCK_EX | LOCK_NB ) ) {
+			return false;
+		}
+	
+		ftruncate( $inv_file, 0 );
+		fwrite( $inv_file, microtime( true ) );
+		return $inv_file;
+		}
+	
+		public function invite_code_release( $inv_file, $inv_id ) {
+		if ( is_resource( $inv_file ) ) {
+			fflush( $inv_file );
+			flock( $inv_file, LOCK_UN );
+			fclose( $inv_file );
+			unlink( $this->invite_code_lock_file( $inv_id ) );
+	
+			return true;
+		}
+	
+		return false;
+		}
+	
+		public function invite_code_lock_file( $inv_id ) {
+		return apply_filters( 'invite_code_lock_file', get_temp_dir() . '/invite-code' . $inv_id . '.lock', $inv_id );
+		}
 
 		public 	function nua_invitation_status_code_field_validation( $user_login, $user_email, $errors ){ 
 			$options = get_option('new_user_approve_options' ); 
 			$code_optional = apply_filters('nua_invitation_code_optional', true);
 			if ( isset($_POST['nua_invitation_code']) && !empty($_POST['nua_invitation_code'])) {
+
+				// display the Error on registration form when invitation code has expired or limit exceeded
+				$code = sanitize_text_field(wp_unslash($_POST['nua_invitation_code']));
+				$is_inv_code_exist = $this->invitation_code_already_exists($code);
+				$is_inv_code_limit = $this->invitation_code_limit_check($code);
+				$is_inv_expired    = $this->invitation_code_expiry_check($code);
+				if( (true == $is_inv_code_exist)  && (true == $is_inv_expired) ) {
+
+					$error_message = apply_filters('nua_invitation_code_err', __('<strong>ERROR</strong>: Invitation code has been expired','new-user-approve'), '' , $errors);
+					$errors->add( 'invcode_error', $error_message);
+					return $errors;
+				}
+				else if ( (true == $is_inv_code_exist) && (false == $is_inv_code_limit) ) {
+					$error_message = apply_filters('nua_invitation_code_err', __('<strong>ERROR</strong>: Invitation code limit_exceeded','new-user-approve'), '' , $errors);
+					$errors->add( 'invcode_error', $error_message);
+					return $errors;
+				}
+
 				$args =	array (
 						'numberposts'			=> -1,
 						'post_type'              => $this->code_post_type,
@@ -540,7 +752,7 @@ class nua_invitation_code {
 						array(
 							array(
 							'key'		=>  $this->code_key,
-							'value'		=> sanitize_text_field($_POST['nua_invitation_code']),
+							'value'		=> sanitize_text_field(wp_unslash($_POST['nua_invitation_code'])),
 							'compare'	=> '=',
 							),
 							array(
@@ -570,7 +782,13 @@ class nua_invitation_code {
 					$code_inv =  get_post_meta($post_inv->ID , $this->code_key, true );
 	
 					if ($_POST['nua_invitation_code'] == $code_inv) {
-						// echo $_POST['nua_invitation_code']. ' = '. $code_inv;
+						global $inv_file_lock;
+						$inv_file_lock = $this->invite_code_hold( $post_inv->ID);
+						if ( $inv_file_lock === false ) {
+							$errors->add( 'invcode_error', '<strong>Notice</strong>: Server is busy, please try again!' );
+							return $errors;
+						}
+						
 						return $errors;
 						
 					}
@@ -647,12 +865,16 @@ class nua_invitation_code {
 						$current_useage =  get_post_meta($post_inv->ID, $this->usage_limit_key, true);
 						$current_useage = $current_useage - 1;
 						update_post_meta($post_inv->ID, $this->usage_limit_key, $current_useage);
+						// Release lock
+						global $inv_file_lock;
+						$this->invite_code_release( $inv_file_lock, $post_inv->ID );
+						
 						if ($current_useage == 0) {
 							update_post_meta($post_inv->ID, $this->status_key, 'Expired');
 						}
 						$status = 'approved';
 						pw_new_user_approve()->approve_user( $user_id );
-						do_action('nua_invited_user',$user_id);
+						do_action('nua_invited_user',$user_id, $code_inv);
 						return $status;
 					}
 				}

@@ -944,7 +944,9 @@ class HMWP_Models_Rewrite
                     //most servers have issue when redirecting the login path
                     //let HMWP handle the login path
                     if (strpos($rewrite['to'], 'wp-login.php') !== false ) {
-                        continue;
+                        if(!defined('HMW_LOGIN_REWRITE_RULES') || !HMW_LOGIN_REWRITE_RULES){
+                            continue;
+                        }
                     }
 
                     if (strpos($rewrite['to'], 'index.php') === false ) {

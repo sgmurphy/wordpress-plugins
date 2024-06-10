@@ -702,7 +702,7 @@ function wpbc_ics_import_ajax_js() {
 				
 // console.log(params_obj);
 
-				jQuery.post( wpbc_ajaxurl, {
+				jQuery.post( wpbc_url_ajax, {
 											action:     'WPBC_IMPORT_ICS_URL',
 											user_id:    params_obj.user_id ,
 											nonce:      params_obj.nonce,

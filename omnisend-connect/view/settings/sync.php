@@ -156,22 +156,6 @@ function omnisend_show_sync() {
 						}
 						?>
 					</tr>
-					<tr>
-						<td id="cart-sync-success-count">Carts</td>
-						<td><?php echo esc_html( $all_sync_stats->carts ); ?></td>
-						<td>-</td>
-						<td>-</td>
-						<?php
-						if ( $show_error ) {
-							echo '<td>-</td>';
-						}
-						?>
-						<?php
-						if ( $show_skipped ) {
-							echo '<td>-</td>';
-						}
-						?>
-					</tr>
 				</table>
 			</div>
 			<?php

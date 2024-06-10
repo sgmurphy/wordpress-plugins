@@ -20,7 +20,7 @@ abstract class WPBC_Page_Structure {
 
     private $current_page_params;                                               // Parameters for current page,  if this page selected,  otherwise its = empty array()
     private $is_only_icons = false;  
-    
+    protected $is_use_left_navigation = false;
     protected $tags;                                                            // Defining Name of parameter in GET request for Navigation TOP and BOTTOM tabs 
                                                                                 // - $_GET[ 'tab' ]    == 'payment' 
                                                                                 // - $_GET[ 'subtab' ] == 'paypal' 
@@ -165,8 +165,16 @@ abstract class WPBC_Page_Structure {
      */
     abstract public function content();
 
+	/**
+	 * This function  can  be overridden  by  child classes for auto  update / save options in main form
+	 *
+	 * @return void
+	 */
+	public function maybe_update(){
+
+	}
     
-    
+
     ////////////////////////////////////////////////////////////////////////////
     // C O N T E N T
     ////////////////////////////////////////////////////////////////////////////
@@ -181,6 +189,9 @@ abstract class WPBC_Page_Structure {
 	    if ( ! $this->is_page_activated() ) {
 		    return false;
 	    }
+
+		$this->maybe_update();
+
 
         $active_page_tab = $active_page_subtab = '';
         if (  ( isset( $this->current_page_params['tab'] ) ) && ( ! empty( $this->current_page_params['tab']['tag'] ) )  )
@@ -223,11 +234,24 @@ if ( 1 ) {
                 <div id="ajax_working"></div>
                 <div class="clear wpbc_header_margin"></div>
                 <div id="ajax_respond" class="ajax_respond" style="display:none;"></div>                
-                <?php 
-                                
+                <?php
+if ( $this->is_use_left_navigation ) {
+?>
+<div class="clear" style="margin-bottom:10px;"></div>
+<div class="wpbc_settings_flex_container">
+	<div class="wpbc_settings_flex_container_left">
+		<div class="wpbc_settings_navigation_column">
+<?php
+}
                 // T A B S 
-                $this->show_tabs_structure( $page_tag );                        
-                
+                $this->show_tabs_structure( $page_tag );
+if ( $this->is_use_left_navigation ) {
+ ?>
+ 		</div>
+	</div>
+	<div class="wpbc_settings_flex_container_right">
+<?php
+}
                 wp_nonce_field('wpbc_ajax_admin_nonce',  "wpbc_admin_panel_nonce" ,  true , true ); 
                
                 // C o n t e n t
@@ -236,12 +260,20 @@ if ( 1 ) {
                     call_user_func( array( $this, $this->current_page_params['subtab']['content'] ) ); 
                 
                 } else if (  ( isset( $this->current_page_params['tab'] ) ) && ( isset( $this->current_page_params['tab']['content'] ) )  ) {
-                    call_user_func( array( $this, $this->current_page_params['tab']['content'] ) );     
-                
-                } else 
-                    $this->content();     
+                    call_user_func( array( $this, $this->current_page_params['tab']['content'] ) );
+
+                } else {
+	                $this->content();
+                }
            
                 do_action('wpbc_show_settings_content' , $page_tag, $active_page_tab, $active_page_subtab );
+if ( $this->is_use_left_navigation ) {
+?>
+	</div>
+</div>
+<?php
+}
+
             ?></div>
         </div><?php    
         
@@ -345,6 +377,10 @@ if ( 1 ) {
                                                     'tab' => array_merge ( $this_tab,    array( 'tag' => $this_tab_tag ) )
                                                , 'subtab' => array_merge ( $this_subtab, array( 'tag' => $this_subtab_tag ) )
                                            );
+
+	    if ( ( ! empty( $this_subtab ) ) && ( ! empty( $this_subtab['is_use_left_navigation'] ) ) && ( true === $this_subtab['is_use_left_navigation'] ) ) {
+		    $this->is_use_left_navigation = true;
+	    }
     }
         
     
@@ -554,6 +590,11 @@ if ( 1 ) {
 
 		}
 
+//	    if ( $this->is_page_activated() ) {
+//
+//	    }
+//
+//		$tabs = $this->tabs();
     }
     
     /**
@@ -596,10 +637,10 @@ if ( 1 ) {
         $visible_tabs = $this->get_visible_tabs( $menu_in_page_tag );        
         if ( empty(  $visible_tabs ) ) 
             return false; 
-                
+if ( ! $this->is_use_left_navigation ) {
         ?><span class="wpdevelop wpdvlp-nav-tabs-container">
         <div class="clear"></div><?php
-
+}
 	    //FixIn: 9.8.15.2
 		if ( 1 ) {
 
@@ -620,17 +661,20 @@ if ( 1 ) {
         $bottom_tabs = $this->get_all_sub_tabs_of_selected_tab( $menu_in_page_tag );
 
         if ( ! empty( $bottom_tabs ) ) {                                        // S U B    T A B S
-                  
-            wpbc_bs_toolbar_sub_html_container_start();
-            
-            $this->show_subtabs_line( $bottom_tabs, $menu_in_page_tag );   
+            if ( ! $this->is_use_left_navigation ) {
+	            wpbc_bs_toolbar_sub_html_container_start();
 
-            wpbc_bs_toolbar_sub_html_container_end();
+	            $this->show_subtabs_line( $bottom_tabs, $menu_in_page_tag );
+
+	            wpbc_bs_toolbar_sub_html_container_end();
+            } else {
+				$this->show_subtabs_line( $bottom_tabs, $menu_in_page_tag );
+            }
 
         } // Bottom Tabs
-                
+if ( ! $this->is_use_left_navigation ) {
         ?></span><?php
-        
+}
         return true;
     }
       
@@ -712,21 +756,85 @@ if ( 1 ) {
                 break;
             
                 default:                                    // Link
-                    
-                    $css_classes = ( ( isset($tab['css_classes']) ) ? $tab['css_classes'] : '' );
-                    if ( ! empty($tab['position'] ) ) 
-                        $css_classes .= ' nav-tab-position-'.$tab['position']; 
-                    if ( $tab_tag ==  $this->current_page_params['subtab']['tag'] ) 
-                        $css_classes .= ' wpdevelop-submenu-tab-selected'; 
-                    if ( $tab['disabled'] ) 
-                        $css_classes .= ' wpdevelop-submenu-tab-disabled'; 
-                   
-                    $tab['css_classes'] = $css_classes;
-                    
-                    $tab['link'] = ( ! empty($tab['link']) ? $tab['link'] : $this->get_tab_url( $menu_in_page_tag, $this->current_page_params['tab']['tag'], $tab_tag ) );
-                    
-                    $tab['top'] = false;                    
-                    wpbc_bs_display_tab( $tab );
+
+					$css_classes = ( ( isset( $tab['css_classes'] ) ) ? $tab['css_classes'] : '' );
+					$tab['link'] = ( ! empty( $tab['link'] ) ? $tab['link'] : $this->get_tab_url( $menu_in_page_tag, $this->current_page_params['tab']['tag'], $tab_tag ) );
+
+	                if ( $this->is_use_left_navigation ) {
+
+						if ( $tab_tag == $this->current_page_params['subtab']['tag'] ) {
+		                    $css_classes .= ' wpbc_settings_navigation_item_active';
+	                    }
+
+						$hint_title = '';
+						$hint_css_classes = '';
+		                if ( ( ! empty( $tab['hint'] ) ) && ( is_array( $tab['hint'] ) ) ) {
+			                if ( ! empty( $tab['hint']['title'] ) ) {
+								$hint_title = $tab['hint']['title'];
+			                }
+							if ( ! empty( $tab['hint']['position'] ) ){
+								$hint_css_classes .= ' tooltip_' . $tab['hint']['position'];
+							}
+		                }
+						$html_tag = 'a';
+
+						if ( $tab['disabled'] ) {
+							$tab['link'] = 'javascript:void(0)';
+							$html_tag = 'span';
+						}
+
+		                ?><div id="wpbc_settings_left_nav_tab_<?php echo esc_attr( $tab_tag ); ?>"
+							   class="wpbc_settings_navigation_item <?php echo esc_attr( $css_classes ); ?>">
+						    <<?php echo $html_tag; ?> class="<?php echo esc_attr( $hint_css_classes ); ?>"
+							   title="<?php echo esc_attr( $hint_title ); ?>"
+								<?php
+								if ( $html_tag == 'a' ) {                                                   			// Parameters for A tag
+
+									echo ' href="', $tab['link'] , '" ';
+
+									if ( ! empty( $tab['onclick'] ) ) {
+										echo ' onclick="javascript:', $tab['onclick'], '" ';
+									}
+								}
+								echo wpbc_get_custom_attr( $tab );
+								?>
+							>
+								<?php echo $tab['title']; ?>
+								<?php if ( ( ! empty( $tab['show_checked_icon'] ) ) && ( ! empty( $tab['checked_data'] ) ) ) {
+									$is_checked_data = get_bk_option( $tab['checked_data'] );
+									if (
+										(  ( ! empty( $is_checked_data ) ) && ( isset( $is_checked_data['enabled'] ) ) && ( $is_checked_data['enabled'] == 'On' )  )
+									 || (  ( ! empty( $is_checked_data ) ) && ( $is_checked_data === 'On' )  )
+									){
+										echo '<i class="menu_icon icon-1x wpbc-bi-toggle2-on wpbc_icn_radio_button_checked0" style="margin-left: auto;margin-top: 3px;color: #036aab;"></i>';
+									} else{
+										echo '<i class="menu_icon icon-1x wpbc-bi-toggle2-off wpbc_icn_radio_button_unchecked0" style="margin-left: auto;margin-top: 3px;"></i>';
+									}
+
+								}?>
+							</<?php echo $html_tag; ?>>
+						</div><?php
+
+                    } else {
+
+
+	                    if ( ! empty( $tab['position'] ) ) {
+		                    $css_classes .= ' nav-tab-position-' . $tab['position'];
+	                    }
+	                    if ( $tab_tag == $this->current_page_params['subtab']['tag'] ) {
+		                    $css_classes .= ' wpdevelop-submenu-tab-selected';
+	                    }
+	                    if ( $tab['disabled'] ) {
+		                    $css_classes .= ' wpdevelop-submenu-tab-disabled';
+	                    }
+
+	                    $tab['css_classes'] = $css_classes;
+
+
+
+	                    $tab['top'] = false;
+	                    wpbc_bs_display_tab( $tab );
+                    }
                      
                 break;
                 

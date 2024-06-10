@@ -5,7 +5,7 @@ Tags: elementor templates, block templates, elementor, templates, gutenberg
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,6 +235,12 @@ If you like Responsive Addons Plugin, consider checking out our other WordPress 
 8. Responsive Addons advanced features.
 
 == Changelog ==
+
+= 3.0.7 - 10th June 2024 =
+* Improvement : Strengthened the codebase.
+* Fix : Resolved PHP warning.
+* Fix : Fixed templates and blocks inside elementor page not getting imported issue.
+* Fix : Fixed Responsive Theme's Native Cart Popup not working issue. 
 
 = 3.0.6 - 29th May 2024 =
 * Fix : Enhanced Security - Strengthened the codebase

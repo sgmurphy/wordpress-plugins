@@ -301,6 +301,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'isNewInstallation'             => $this->getSetting('activation', 'isNewInstallation'),
                 'hideUnavailableFeatures'       => $this->getSetting('activation', 'hideUnavailableFeatures'),
                 'premiumBannerVisibility'       => $this->getSetting('activation', 'premiumBannerVisibility'),
+                'dismissibleBannerVisibility'   => $this->getSetting('activation', 'dismissibleBannerVisibility'),
             ],
             'roles'                  => [
                 'allowAdminBookAtAnyTime'     => $this->getSetting('roles', 'allowAdminBookAtAnyTime'),

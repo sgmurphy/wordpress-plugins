@@ -262,7 +262,6 @@ class ACUI_Import{
     function read_first_row( $data, &$headers, &$positions, &$headers_filtered ){
         $data = apply_filters( 'pre_acui_import_header', $data );
 
-        // check min columns username - email
         if( count( $data ) < 2 ){
             echo "<div id='message' class='error'>" . __( 'File must contain at least 2 columns: username and email', 'import-users-from-csv-with-meta' ) . "</div>";
             return false;
@@ -806,8 +805,6 @@ class ACUI_Import{
                 break;
             }
 
-            $this->prepare_array_of_data( $data );
-            
             if( $row == 1 ){
                 $columns = count( $data );
                 $result = $this->read_first_row( $data, $headers, $positions, $headers_filtered );
@@ -815,6 +812,8 @@ class ACUI_Import{
                     break;
             }
             else{
+                $this->prepare_array_of_data( $data );
+
                 if( count( $data ) != $columns ):
                     $errors[] = ACUIHelper()->new_error( $row, __( 'Row does not have the same columns than the header, we are going to ignore this row', 'import-users-from-csv-with-meta') );
                     continue;

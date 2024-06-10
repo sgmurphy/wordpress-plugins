@@ -411,13 +411,18 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 			 */
 
 			$check_in_timestamp  = strtotime( $booking_data[ 'dates_short' ][ 0 ], current_time( 'timestamp' ) );
+			$check_out_timestamp = strtotime( $booking_data[ 'dates_short' ][ ( count( $booking_data[ 'dates_short' ] ) - 1 ) ], current_time( 'timestamp' ) );
+
 			if ( trim( substr( $booking_data[ 'dates_short' ][ 0 ], 11 ) ) == '00:00:00' ) {
-				$check_in_timestamp = date( "Ymd", $check_in_timestamp );				// All day
+				if ( trim( substr( $booking_data[ 'dates_short' ][ ( count( $booking_data[ 'dates_short' ] ) - 1 ) ], 11 ) ) == '00:00:00' ) {
+					$check_in_timestamp = date( "Ymd", $check_in_timestamp );                			// All day
+				} else {
+					$check_in_timestamp = date( "Ymd\T000000", $check_in_timestamp );                	// All day starting on 00:00:00	//FixIn: 10.0.0.28
+				}
 			} else {
 				$check_in_timestamp = date( "Ymd\THis", $check_in_timestamp );			//$check_in_timestamp = date( "Ymd\THis\Z", $check_in_timestamp );
 			}
 
-			$check_out_timestamp = strtotime( $booking_data[ 'dates_short' ][ ( count( $booking_data[ 'dates_short' ] ) - 1 ) ], current_time( 'timestamp' ) );
 			if ( trim( substr( $booking_data[ 'dates_short' ][ ( count( $booking_data[ 'dates_short' ] ) - 1 ) ], 11 ) ) == '00:00:00' ) {
 				$check_out_timestamp = strtotime( '+1 day', $check_out_timestamp );
 				$check_out_timestamp = date( "Ymd", $check_out_timestamp );				// All day
@@ -865,8 +870,8 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 										. ' <span style="font-size:0.9em;">( ID = <strong>' . (( '-1' == $booking_id_csd ) ? __( 'all', 'booking' ) : $booking_id_csd) . '</strong> )</span>';
 			} else {
 				$after_action_message = ( ( false === strpos( $booking_id_csd, ',' ) )
-											? sprintf( __( 'Booking has been set as set as %s read %s', 'booking' ), '<strong>', '</strong>' )
-											: sprintf( __( 'Bookings have been set as set as %s read %s', 'booking' ), '<strong>', '</strong>' )
+											? sprintf( __( 'The booking has been marked as %s read %s', 'booking' ), '<strong>', '</strong>' )
+											: sprintf( __( 'Bookings have been marked as %s read %s', 'booking' ), '<strong>', '</strong>' )
 										)
 										. ' <span style="font-size:0.9em;">( ID = <strong>' . (( '-1' == $booking_id_csd ) ? __( 'all', 'booking' ) : $booking_id_csd) . '</strong> )</span>';
 			}
@@ -1250,8 +1255,8 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 				$after_action_result  = true;
 				$after_action_message = sprintf( __( 'Booking %s has been changed booking resource from %s to %s' )
 												, '<strong>[ID=' . $booking_id . ']</strong>'
-												, '<strong>' . apply_bk_filter( 'wpdev_check_for_active_language', $booking_resources_arr[ $resource_id_old ]['title'] ) . '</strong>'
-												, '<strong>' . apply_bk_filter( 'wpdev_check_for_active_language', $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
+												, '<strong>' . wpbc_lang( $booking_resources_arr[ $resource_id_old ]['title'] ) . '</strong>'
+												, '<strong>' . wpbc_lang( $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
 											);
 
 				// Everything Cool :) - booking resource changed
@@ -1527,7 +1532,7 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 				$after_action_message = '<strong>' . __( 'Warning', 'booking' ) . '!</strong> '
 										. sprintf( __( 'Booking %s has not been duplicated in booking resource %s. Current dates are already booked there.' )
 														, '<strong style="font-size:0.9em;">[ID=' . $booking_id . ']</strong>'
-														, '<strong>' . apply_bk_filter( 'wpdev_check_for_active_language', $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
+														, '<strong>' . wpbc_lang( $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
 											   );
 
 			} else {		// Possible to change
@@ -1549,7 +1554,7 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 				$request_save_params = array(
 											 'resource_id'         => $resource_id,					// 2
 											 'dates_ddmmyy_csv'    => $my_dates_for_sql,			// '04.10.2023, 05.10.2023, 06.10.2023'
-											 'form_data'           => $db_form_data_new,			// 'text^cost_hint2^150.00฿~select-multiple^rangetime2[]^14:00...'
+											 'form_data'           => $db_form_data_new,			// 'text^cost_hint2^150.00฿~selectbox-multiple^rangetime2[]^14:00...'
 											 'booking_hash'        => '',							// 'sdfsf34534rf'
 											 'custom_form'         => '',							// 'custom_form_name'
 											 'is_emails_send'       => $is_send_emails,				// 0 | 1
@@ -1567,7 +1572,7 @@ function wpbc_ajax_WPBC_AJX_BOOKING_ACTIONS() {
 					$after_action_result  = true;
 					$after_action_message = sprintf( __( 'Booking %s has been duplicated in booking resource %s. New booking %s.' )
 														, '<strong style="font-size:0.9em;">[ID=' . $booking_id . ']</strong>'
-														, '<strong>' . apply_bk_filter( 'wpdev_check_for_active_language', $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
+														, '<strong>' . wpbc_lang( $booking_resources_arr[ $resource_id ]['title'] ) . '</strong>'
 														, '<strong style="font-size:0.9em;">[ID=' . $booking_id_new . ']</strong>'
 											   );
 				} else {																								// Error

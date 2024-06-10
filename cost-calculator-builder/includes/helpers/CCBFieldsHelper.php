@@ -16,7 +16,7 @@ class CCBFieldsHelper {
 	 *
 	 * @return array
 	 */
-	public static function get_fields_templates() {
+	public static function get_fields_templates( $settings = array(), $general_settings = array(), $calc_id = null ) {
 		$templates = array(
 			'line'         => CCBTemplate::load( 'frontend/fields/cost-line' ),
 			'html'         => CCBTemplate::load( 'frontend/fields/cost-html' ),
@@ -42,6 +42,21 @@ class CCBFieldsHelper {
 			$templates['radio-with-image']     = CCBProTemplate::load( 'frontend/fields/cost-radio-with-image' );
 			$templates['checkbox-with-image']  = CCBProTemplate::load( 'frontend/fields/cost-checkbox-with-image' );
 			$templates['drop-down-with-image'] = CCBProTemplate::load( 'frontend/fields/cost-drop-down-with-image' );
+
+			if ( ! empty( $general_settings ) && ! empty( $settings ) ) {
+				$template_params = array(
+					'settings'         => $settings,
+					'general_settings' => $general_settings,
+				);
+
+				$templates['ccb-thank-you-page'] = \cBuilder\Classes\CCBTemplate::load( 'frontend/partials/thank-you-page', $template_params );
+				$templates['ccb-pro-features']   = \cBuilder\Classes\CCBProTemplate::load( 'frontend/pro-features', $template_params );
+				$templates['calc-payments']      = \cBuilder\Classes\CCBProTemplate::load( 'frontend/partials/calc-payments', $template_params );
+				$templates['calc-woo-checkout']  = \cBuilder\Classes\CCBProTemplate::load( 'frontend/partials/woo-checkout', $template_params );
+				$templates['invoice-btn']        = \cBuilder\Classes\CCBProTemplate::load( 'frontend/partials/calc-invoice', $template_params );
+				$templates['calc-form']          = \cBuilder\Classes\CCBProTemplate::load( 'frontend/partials/calc-contact-form', $template_params );
+				$templates['form-payments']      = \cBuilder\Classes\CCBProTemplate::load( 'frontend/partials/calc-form-payments', $template_params );
+			}
 		}
 
 		return $templates;

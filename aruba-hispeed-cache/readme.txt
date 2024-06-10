@@ -1,11 +1,11 @@
 === Aruba HiSpeed Cache ===
 
-Contributors: arubait, arubadev, arubasupport, agelmini, leo871118, camaran
+Contributors: arubait, arubadev, arubasupport
 Tags: Aruba, cache, performance, pagespeed, optimize
 Requires at least: 5.4
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 2.0.8
+Stable tag: 2.0.10
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,10 +65,18 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 
 == Screenshots ==
 
-1. General Settings enabled
-2. General Settings disabled
+1. General Settings Disabled
+2. General Settings Enabled
 
 == Changelog ==
+
+= 2.0.10 =
+* Various minor bug fixes.
+
+= 2.0.9 =
+* Code Review 
+* Added Static Files Optimization
+* Various Minor Bug Fixing
 
 = 2.0.8 =
 * Tested up WordPress 6.5
@@ -158,5 +166,5 @@ wordpress_no_cache, comment_author, wordpress_logged_in_, yith_wcwl_products, wp
 
 == Upgrade Notice ==
 
-= 2.0.8 =
-* Tested up WordPress 6.5
+= 2.0.10 =
+* Various minor bug fixes.

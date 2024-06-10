@@ -16,9 +16,11 @@ class Stla_Admin_Fetch_Content_Area {
 		add_action( 'wp_ajax_stla_styler_settings', array( $this, 'stla_styler_settings' ) );
 		add_action( 'wp_ajax_stla_get_forms_with_styling', array( $this, 'stla_get_forms_with_styling' ) );
 		add_action( 'wp_ajax_stla_delete_forms_styles', array( $this, 'stla_delete_forms_styles' ) );
-		add_action( 'wp_ajax_stla_save_settings', array( $this, 'stla_save_settings' ) );
+		add_action( 'wp_ajax_stla_save_styler_settings', array( $this, 'stla_save_styler_settings' ) );
+		add_action( 'wp_ajax_stla_save_booster_settings', array( $this, 'stla_save_booster_settings' ) );
 
 		add_action( 'wp_ajax_stla_general_settings', array( $this, 'stla_general_settings' ) );
+		add_action( 'wp_ajax_stla_booster_settings', array( $this, 'stla_booster_settings' ) );
 		add_action( 'wp_ajax_stla_form_fields_labels', array( $this, 'stla_form_fields_labels' ) );
 		add_action( 'wp_ajax_stla_get_all_form_names', array( $this, 'stla_get_all_form_names' ) );
 		add_action( 'init', array( $this, 'init' ) );
@@ -244,11 +246,11 @@ class Stla_Admin_Fetch_Content_Area {
 	}
 
 	/**
-	 * Save all the settings on save button.
+	 * Save all the styler settings on save button.
 	 *
 	 * @return void
 	 */
-	function stla_save_settings() {
+	function stla_save_styler_settings() {
 		// Verify nonce
 		$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
@@ -275,7 +277,31 @@ class Stla_Admin_Fetch_Content_Area {
 		wp_send_json_success( '' );
 	}
 
+	/**
+	 * Save all the settings on save button.
+	 *
+	 * @return void
+	 */
+	function stla_save_booster_settings() {
+		// Verify nonce
+		$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
+		if ( ! check_ajax_referer( 'stla_gravity_booster_nonce', 'nonce', false ) ) {
+			wp_send_json_error( 'Invalid nonce' );
+		}
+
+		$booster_settings = isset( $_POST['boosterSettings'] ) ? $_POST['boosterSettings'] : '';
+		if ( empty( $booster_settings ) ) {
+			wp_send_json_error( 'Booster Settings are empty' );
+		}
+
+		$booster_settings = stripslashes( $booster_settings );
+		$booster_settings = json_decode( $booster_settings, true );
+
+		update_option( 'gf_stla_booster_settings', $booster_settings );
+
+			wp_send_json_success( '' );
+	}
 
 
 	/**
@@ -298,9 +324,45 @@ class Stla_Admin_Fetch_Content_Area {
 	}
 
 	/**
+	 * Sidebar booster settings.
+	 */
+	function stla_booster_settings() {
+		// Verify nonce
+		$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+
+		if ( ! check_ajax_referer( 'stla_gravity_booster_nonce', 'nonce', false ) ) {
+			wp_send_json_error( 'Invalid nonce' );
+		}
+
+		$form_id             = isset( $_POST['formId'] ) ? $_POST['formId'] : '';
+		$license_status_keys = array( 'custom_themes_addon_license_status', 'ai_addon_license_status', 'field_icons_addon_license_status', 'gravity_forms_tooltips_addon_license_status', 'bootstrap_design_addon_license_status', 'gravity_forms_checkbox_radio_license_status', 'material_design_addon_license_status' );
+
+		$license_status = array();
+
+		foreach ( $license_status_keys as $license_status_key ) {
+			$license_status[ $license_status_key ] = get_option( $license_status_key );
+		}
+
+		$booster_settings = get_option( 'gf_stla_booster_settings' );
+		$stla_licenses    = get_option( 'stla_licenses' );
+		$booster_settings = empty( $booster_settings ) ? array() : $booster_settings;
+		$licenses         = array(
+			'licenses' => array(
+				'keys'   => $stla_licenses,
+				'status' => $license_status,
+			),
+
+		);
+
+		$settings = array_merge( $licenses, $booster_settings );
+		wp_send_json_success( $settings );
+	}
+
+	/**
 	 * Fetch form fields Labels settings.
 	 */
 	function stla_form_fields_labels() {
+
 		// Verify nonce
 		$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
 
@@ -320,52 +382,52 @@ class Stla_Admin_Fetch_Content_Area {
 		$form_fields    = $form['fields'];
 		foreach ( $form_fields as $field ) {
 
-					$field_labels[] = array(
-						'id'    => $field->id,
-						'label' => $field->label,
-					);
+			$field_labels[] = array(
+				'id'    => $field->id,
+				'label' => $field->label,
+			);
 
-					if ( in_array( $field->type, $complex_fields ) ) {
-						$state_field_id   = false;
-						$country_field_id = false;
-						$name_prefix_id   = false;
+			if ( in_array( $field->type, $complex_fields ) ) {
+				$state_field_id   = false;
+				$country_field_id = false;
+				$name_prefix_id   = false;
 
-						if ( $field->type === 'address' ) {
-							$country_field_id = floatval( $field['id'] . '.6' );
-							$address_type     = $field['addressType'];
-							if ( $address_type !== 'international' ) {
-								$state_field_id = floatval( $field['id'] . '.4' );
-							}
+				if ( $field->type === 'address' ) {
+					$country_field_id = floatval( $field['id'] . '.6' );
+					$address_type     = $field['addressType'];
+					if ( $address_type !== 'international' ) {
+						$state_field_id = floatval( $field['id'] . '.4' );
+					}
+				}
+
+				if ( $field->type === 'name' ) {
+					$name_prefix_id = floatval( $field['id'] . '.2' );
+
+				}
+
+				if ( ! empty( $field['inputs'] ) ) {
+					foreach ( $field['inputs'] as  $sub_field ) {
+
+						$is_hidden    = ! empty( $sub_field['isHidden'] ) ? $sub_field['isHidden'] : false;
+						$sub_field_id = floatval( $sub_field['id'] );
+
+						// state field id is only set if its not international ( then it will be dropdown)
+						// country field id will always be dropdown.. skip loop in both cases
+						// name prefix is always dropdown, so ignored.
+						if ( $state_field_id === $sub_field_id || $country_field_id === $sub_field_id || $name_prefix_id === $sub_field_id ) {
+							continue;
 						}
 
-						if ( $field->type === 'name' ) {
-							$name_prefix_id = floatval( $field['id'] . '.2' );
+						if ( ! $is_hidden && ! isset( $child_input['choices'] ) ) {
+							$field_labels[] = array(
+								'id'    => $sub_field_id,
+								'label' => $sub_field['label'],
+							);
 
-						}
-
-						if ( ! empty( $field['inputs'] ) ) {
-							foreach ( $field['inputs'] as  $sub_field ) {
-
-								$is_hidden    = ! empty( $sub_field['isHidden'] ) ? $sub_field['isHidden'] : false;
-								$sub_field_id = floatval( $sub_field['id'] );
-
-								// state field id is only set if its not international ( then it will be dropdown)
-								// country field id will always be dropdown.. skip loop in both cases
-								// name prefix is always dropdown, so ignored.
-								if ( $state_field_id === $sub_field_id || $country_field_id === $sub_field_id || $name_prefix_id === $sub_field_id ) {
-									continue;
-								}
-
-								if ( ! $is_hidden && ! isset( $child_input['choices'] ) ) {
-									$field_labels[] = array(
-										'id'    => $sub_field_id,
-										'label' => $sub_field['label'],
-									);
-
-								}
-							}
 						}
 					}
+				}
+			}
 		}
 
 		wp_send_json_success( $field_labels );

@@ -236,8 +236,6 @@ if ( ! class_exists( __NAMESPACE__ . 'REST' ) ) {
 
 			$remind = $request->has_param( 'remind' ) ? $request->get_param( 'remind' ) : 'never';
 
-			error_log('remind');
-			error_log( $remind );
 			if ( 'never' === $remind ) {
 				// delete transient.
 				update_option( wp_sprintf( 'wp_dark_mode_%s_notice', $notice ), 'hide');

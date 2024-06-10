@@ -3,8 +3,8 @@ Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
-Tested up to: 6.4.2
-Stable tag: 2.5.3
+Tested up to: 6.5.4
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,15 @@ We are aware of a few issues with multisite
 7. Pro Features.
 
 == Changelog ==
+
+= 2.6 =
+* NEW - Pagination has been added to the Approved/Denied/Pending users list.
+* NEW - "Pending user" trigger has been added to the Zapier Integration.
+* Improvement - Code has been optimized and improved.
+* Improvement - Action buttons alignment has been adjusted in the Approved/Denied/Pending tabs.
+* Fixed - The Welcome/Pending Email does not fire when the user registers through the WooCommerce Registration Form.
+* Fixed - Translation issues with Admin and User Email Notification Strings have been resolved.
+* Fixed - Issues with the NUA filter at the bottom of the user's list page have been addressed.
 
 = 2.5.3 =
 * Tested and Compatible up to WordPress v6.4.2

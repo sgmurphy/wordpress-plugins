@@ -180,8 +180,6 @@ class WPBC_Emails_API_NewAdmin extends WPBC_Emails_API  {                       
 
                                 );
 
-        $this->fields['enabled_hr'] = array( 'type' => 'hr' );            
-
         $this->fields['to_html_prefix'] = array(   
                                     'type'          => 'pure_html'
                                     , 'group'       => 'general'
@@ -293,40 +291,60 @@ class WPBC_Emails_API_NewAdmin extends WPBC_Emails_API  {                       
                                     , 'group'       => 'general'
 
                                 );
-
-
-        $this->fields['from_hr'] = array( 'type' => 'hr' );            
-
-
+	    $this->fields['subject_before'] = array(
+												'type'          => 'pure_html'
+												, 'group'       => 'general_content'
+												, 'html' =>  '<tr><td colspan="2">'
+															.'<div style="margin: 0 0 15px;font-weight: 600;">'
+															 .'<label class="wpbc-form-email-subject" for="' . WPBC_EMAIL_NEW_ADMIN_ID . '_subject">' .
+															 		__( 'Subject', 'booking' )
+															 . '</label></div>'
+							);
         $this->fields['subject'] = array(   
                                       'type'        => 'text'
                                     , 'default'     => __( 'New booking', 'booking' )
                                     //, 'placeholder' => ''
                                     , 'title'       => __('Subject', 'booking')
-                                    , 'description' => sprintf(__('Type your email %ssubject%s for the booking confimation message.' ,'booking'),'<b>','</b>') . ' ' . __('Required', 'booking') . '.'
+                                    , 'description' => ''
                                     , 'description_tag' => ''
-                                    , 'css'         => 'width:100%'
-                                    , 'group'       => 'general'
+                                    , 'css'         => 'width:100%;font-size:16px;line-height:34px;font-weight:600;'
+                                    , 'group'       => 'general_content'
                                     , 'tr_class'    => ''
                                     , 'validate_as' => array( 'required' )
+									, 'only_field'  => true
                             );
+	    $this->fields['subject_after'] = array( 'type'  => 'pure_html', 'group' => 'general_content',
+												'html'  => '<p style="text-align: right;font-size:12px;">'
+												           . sprintf( __( 'Type your email %ssubject%s for the booking confirmation message.', 'booking' ), '<b>', '</b>' ) . ' ' . __( 'Required', 'booking' )
+												           . '.</p>' . '</td></tr>' );
 
+	    $this->fields['content_before'] = array(
+												'type'  => 'pure_html',
+												'group' => 'general_content',
+												'html'  => '<tr><td colspan="2" style="padding-bottom:0;">'
+															   . '<div style="margin: 0;font-weight: 600;">'
+															   . '<label class="wpbc-form-email-content" for="' . WPBC_EMAIL_NEW_ADMIN_ID . '_content">' .
+																   __( 'Content', 'booking' )
+															   . '</label></div>'
+											);
         $blg_title = get_option( 'blogname' );
         $blg_title = str_replace( array( '"', "'" ), '', $blg_title );
-        
         $this->fields['content'] = array(   
                                       'type'        => 'wp_textarea'
                                     , 'default'     => sprintf( __( 'You need to approve a new booking %s for: %s Person detail information:%s Currently a new booking is waiting for approval. Please visit the moderation panel%sThank you, %s', 'booking' ), '[bookingtype]', '[dates]<br/><br/>', '<br/> [content]<br/><br/>', ' [moderatelink]<br/><br/>', $blg_title . '<br/>[siteurl]' )
                                     //, 'placeholder' => ''
                                     , 'title'       => __('Content', 'booking')
-                                    , 'description' => __('Type your email message content. ', 'booking') 
+                                    , 'description' => ''//__('Type your email message content. ', 'booking')
                                     , 'description_tag' => ''
                                     , 'css'         => ''
-                                    , 'group'       => 'general'
+                                    , 'group'       => 'general_content'
                                     , 'tr_class'    => ''
-                                    , 'rows'        => 10
+                                    , 'rows'        => 17
                                     , 'show_in_2_cols' => true
+									, 'only_field'  => true
                             );
+		$this->fields['content_after'] = array( 'type'  => 'pure_html', 'group' => 'general_content', 'html'  => '</td></tr>' );
+
 //        $this->fields['content'] = htmlspecialchars( $this->fields['content'] );// Convert > to &gt;
 //        $this->fields['content'] = html_entity_decode( $this->fields['content'] );// Convert &gt; to >
         
@@ -456,6 +474,8 @@ class WPBC_Emails_API_NewAdmin extends WPBC_Emails_API  {                       
                                     , 'value' => array()
                                     , 'cols' => 2
                                     , 'group' => 'help'
+									, 'css' => 'padding-right: 10px !important;max-height: 598px;overflow: auto;'
+									, 'only_field'  => true
                             );
 
         $skip_shortcodes = array(
@@ -538,16 +558,11 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
         
 
         $is_data_exist = get_bk_option( WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID );           // ''booking_email_' - defined in api-emails.php  file.
-        if (  ( ! empty( $is_data_exist ) ) && ( isset( $is_data_exist['enabled'] ) ) && ( $is_data_exist['enabled'] == 'On' )  )     
-            $icon = '<i class="menu_icon icon-1x wpbc_icn_check_circle_outline"></i> &nbsp; ';
-        else 
-            $icon = '<i class="menu_icon icon-1x wpbc_icn_radio_button_unchecked"></i> &nbsp; ';
-        
+
         $subtabs['new-admin'] = array( 
                             'type' => 'subtab'                                  // Required| Possible values:  'subtab' | 'separator' | 'button' | 'goto-link' | 'html'
-                            , 'title' =>  $icon . __('New' ,'booking') . ' (' . __('admin' ,'booking') . ')'        // Title of TAB    
-                            , 'page_title' => __('Emails Settings', 'booking')  // Title of Page   
-                            , 'hint' => __('Customization of email template, which is sending to Admin after new booking' ,'booking')   // Hint    
+                            , 'title' =>  __('New Booking' ,'booking') . ' (' . __('admin' ,'booking') . ')'        // Title of TAB
+                            , 'page_title' => __('Emails Settings', 'booking')  // Title of Page
                             , 'link' => ''                                      // link
                             , 'position' => ''                                  // 'left'  ||  'right'  ||  ''
                             , 'css_classes' => ''                               // CSS class(es)
@@ -558,6 +573,10 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
                             , 'disabled' => false                               // Is this sub tab deactivated: true || false. 
                             , 'checkbox'  => false                              // or definition array  for specific checkbox: array( 'checked' => true, 'name' => 'feature1_active_status' )   //, 'checkbox'  => array( 'checked' => $is_checked, 'name' => 'enabled_active_status' )
                             , 'content' => 'content'                            // Function to load as conten of this TAB
+							, 'is_use_left_navigation' 	=> true
+							, 'show_checked_icon' 		=> true
+							, 'checked_data' 			=> WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID		// This is where we get content
+							//, 'hint' => array( 'title' => __('Customization of email template, which is sending to Admin after new booking' ,'booking') , 'position' => 'right' )
                         );
         
         $tabs[ 'email' ]['subtabs'] = $subtabs;
@@ -568,94 +587,24 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
 
     /** Show Content of Settings page */
     public function content() {
-//debuge( 'WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID, get_bk_option( WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID )' );
-//debuge( WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID, get_bk_option( WPBC_EMAIL_NEW_ADMIN_PREFIX . WPBC_EMAIL_NEW_ADMIN_ID ) );
-//debuge( 'wpbc_import6_get_old_email_new_admin_data()' );
-//debuge( wpbc_import6_get_old_email_new_admin_data() );
-
-//debuge ( wpbc_import6_email__new_admin__get_fields_array_for_activation() );
-
         $this->css();
         
-        ////////////////////////////////////////////////////////////////////////
+        // -------------------------------------------------------------------------------------------------------------
         // Checking 
-        ////////////////////////////////////////////////////////////////////////
+        // -------------------------------------------------------------------------------------------------------------
+        do_action( 'wpbc_hook_settings_page_header', 'emails_settings');       				// Define Notices Section and show some static messages, if needed
         
-        do_action( 'wpbc_hook_settings_page_header', 'emails_settings');       // Define Notices Section and show some static messages, if needed
-        
-        if ( ! wpbc_is_mu_user_can_be_here('activated_user') ) return false;    // Check if MU user activated, otherwise show Warning message.
-   
-        // if ( ! wpbc_is_mu_user_can_be_here('only_super_admin') ) return false;  // User is not Super admin, so exit.  Basically its was already checked at the bottom of the PHP file, just in case.
+        if ( ! wpbc_is_mu_user_can_be_here('activated_user') ) return false;    			// Check if MU user activated, otherwise show Warning message.
+        // if ( ! wpbc_is_mu_user_can_be_here('only_super_admin') ) return false;  			// User is not Super admin, so exit.  Basically its was already checked at the bottom of the PHP file, just in case.
 
-        
-        ////////////////////////////////////////////////////////////////////////
-        // Load Data 
-        ////////////////////////////////////////////////////////////////////////
-        
-        /* Check if New Email Template   Exist or NOT
-         * Exist     -  return  empty array in format: array( OPTION_NAME => array() ) 
-         *              Its will  load DATA from DB,  during creattion mail_api CLASS
-         *              during initial activation  of the API  its try  to get option  from DB
-         *              We need to define this API before checking POST, to know all available fields
-         *              Define Email Name & define field values from DB, if not exist, then default values. 
-         * Not Exist -  import Old Data from DB
-         *              or get "default" data from settings and return array with  this data
-         *              This data its initial  parameters for definition fields in mail_api CLASS 
-         * 
-         */
-        
-        $init_fields_values = wpbc_import6_email__new_admin__get_fields_array_for_activation();
-        
-        // Get Value of first element - array of default or imported OLD data,  because need only  array  of values without key - name of options for wp_options table
-        $init_fields_values_temp = array_values( $init_fields_values );             //FixIn: 7.0.1.32
-        $init_fields_values = array_shift( $init_fields_values_temp );
 
-//debuge($init_fields_values);        
-        $this->mail_api( WPBC_EMAIL_NEW_ADMIN_ID, $init_fields_values );
-        
-        
-        ////////////////////////////////////////////////////////////////////////
-        //  S u b m i t   Actions  -  S e n d   
-        ////////////////////////////////////////////////////////////////////////
-        
-        $submit_form_name_action = 'wpbc_form_action';                                      // Define form name
-        if ( isset( $_POST['is_form_sbmitted_'. $submit_form_name_action ] ) ) {
-
-            // Nonce checking    {Return false if invalid, 1 if generated between, 0-12 hours ago, 2 if generated between 12-24 hours ago. }
-            $nonce_gen_time = check_admin_referer( 'wpbc_settings_page_' . $submit_form_name_action );  // Its stop show anything on submiting, if its not refear to the original page
-
-            // Save Changes 
-            $this->update_actions();
-        }                        
-        ?>
-        <form  name="<?php echo $submit_form_name_action; ?>" id="<?php echo $submit_form_name_action; ?>" action="" method="post" autocomplete="off">
-           <?php 
-              // N o n c e   field, and key for checking   S u b m i t 
-              wp_nonce_field( 'wpbc_settings_page_' . $submit_form_name_action );
-           ?><input type="hidden" name="is_form_sbmitted_<?php echo $submit_form_name_action; ?>" id="is_form_sbmitted_<?php echo $submit_form_name_action; ?>" value="1" />
-             <input type="hidden" name="form_action" id="form_action" value="" />
-        </form>
-        <?php
-
-        
-        ////////////////////////////////////////////////////////////////////////
-        //  S u b m i t   Main Form  
-        ////////////////////////////////////////////////////////////////////////
-        
+		// -------------------------------------------------------------------------------------------------------------
+        //  S u b m i t   Main Form
+		// -------------------------------------------------------------------------------------------------------------
         $submit_form_name = 'wpbc_emails_template';                             // Define form name
-        
-        $this->mail_api()->validated_form_id = $submit_form_name;               // Define ID of Form for ability to  validate fields before submit.
-        
-        if ( isset( $_POST['is_form_sbmitted_'. $submit_form_name ] ) ) {
+		// $this->maybe_update();												// It is run  from  parent CLASS before showing this content   on  Actual Selected by user Page
 
-            // Nonce checking    {Return false if invalid, 1 if generated between, 0-12 hours ago, 2 if generated between 12-24 hours ago. }
-            $nonce_gen_time = check_admin_referer( 'wpbc_settings_page_' . $submit_form_name );  // Its stop show anything on submiting, if its not refear to the original page
 
-            // Save Changes 
-            $this->update();
-        }                
-        
-        
         ////////////////////////////////////////////////////////////////////////
         // JavaScript: Tooltips, Popover, Datepick (js & css) 
         ////////////////////////////////////////////////////////////////////////
@@ -671,7 +620,7 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
         // Content
         ////////////////////////////////////////////////////////////////////////
         ?>         
-        <div class="clear" style="margin-bottom:10px;"></div>                        
+        <div class="clear"></div>
                 
         <span class="metabox-holder">
             
@@ -681,82 +630,57 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
                    wp_nonce_field( 'wpbc_settings_page_' . $submit_form_name );
                 ?><input type="hidden" name="is_form_sbmitted_<?php echo $submit_form_name; ?>" id="is_form_sbmitted_<?php echo $submit_form_name; ?>" value="1" />
 
+                <div class="clear"></div>
+				<?php
 
-                <div class="clear"></div>    
-                <div class="metabox-holder">
+				wpbc_email_troubleshooting_help_notice();
 
+				?>
+				<div class="metabox-holder">
+					<?php
+                        wpbc_open_meta_box_section( $submit_form_name . 'general', __('Email is sending to Admin after creation of booking.', 'booking')   );	//FixIn: 8.1.2.17.1
+
+							$this->mail_api()->show( 'general' );
+
+                        wpbc_close_meta_box_section();
+					?>
                     <div class="wpbc_settings_row wpbc_settings_row_left" >
-                    <?php 
-                            
-                        wpbc_open_meta_box_section( $submit_form_name . 'general', __('Email is sending to Admin after creation of booking.', 'booking')   );
-                            
-                            $this->mail_api()->show( 'general' ); 
-                            
-                        wpbc_close_meta_box_section(); 
-                            
-                        
-                        wpbc_open_meta_box_section( $submit_form_name . 'parts' , __('Header / Footer', 'booking') ); 
-                            
-                            $this->mail_api()->show( 'parts' );
-                        
+                    <?php
+                        wpbc_open_meta_box_section( $submit_form_name . 'general_content', __('Email Content', 'booking')   );	//FixIn: 8.1.2.17.1
+
+                            $this->mail_api()->show( 'general_content' );
+
                         wpbc_close_meta_box_section();
-                            
-                        
-                        wpbc_open_meta_box_section( $submit_form_name . 'style' , __('Email Styles', 'booking') ); 
-                            
-                            $this->mail_api()->show( 'style' );
-                        
-                        wpbc_close_meta_box_section();
-                        
-                    ?>    
+                    ?>
                     </div>
 
                     <div class="wpbc_settings_row wpbc_settings_row_right">
-                    <?php 
-                    
-                        wpbc_open_meta_box_section( $submit_form_name . 'actions', __('Actions', 'booking') ); 
-
-                            ?><a class="button button-secondary" style="margin:0 0 5px;display:none;" href="javascript:void(0)"
-                                 onclick="javascript: jQuery('#form_action').val('test_send'); jQuery('form#<?php echo $submit_form_name_action; ?>').trigger( 'submit' );"
-                                ><?php _e('Send Test Email', 'booking'); ?></a><?php  
-                                
-                            ?><input type="submit" value="<?php _e('Save Changes', 'booking'); ?>" class="button button-primary right" style="margin:0 0 5px 5px;" /><?php 
-                            
-                            /* ?>
-                            <a class="button button-secondary" href="javascript:void(0)" ><?php _e('Preview Email', 'booking'); ?></a>
-                            <hr />
-                            <a  class="button button-secondary right"   
-                                href="javascript:void(0)" 
-                                onclick="javascript: if ( wpbc_are_you_sure('<?php echo esc_js(__('Do you really want to delete this item?', 'booking')); ?>') ){ 
-                                                         jQuery('#form_action').val('delete');
-                                                         jQuery('form#<?php echo $submit_form_name_action; ?>').trigger( 'submit' );
-                                                     }"
-                                ><?php _e('Delete Email', 'booking'); ?></a>
-                             <?php */ 
-                            
-                            ?><div class="clear"></div><?php   
-                        
-                        wpbc_close_meta_box_section(); 
-                        
-                        wpbc_open_meta_box_section( $submit_form_name . 'email_content_type', __('Type', 'booking') );
-                            
-                            $this->mail_api()->show( 'email_content_type' );
-                            
-                        wpbc_close_meta_box_section(); 
-                        
-                        
+                    <?php
                         wpbc_open_meta_box_section( $submit_form_name . 'help', __('Help', 'booking') );
-                            
+
                             $this->mail_api()->show( 'help' );
-                            
-                        wpbc_close_meta_box_section(); 
-                        
+
+                        wpbc_close_meta_box_section();
                     ?>
                     </div>
                     <div class="clear"></div>
+					<?php
+                        wpbc_open_meta_box_section( $submit_form_name . 'email_content_type', __('Email Type', 'booking') . ' / ' .  __('Email Styles', 'booking') );
+
+                            $this->mail_api()->show( 'email_content_type' );
+
+							$this->mail_api()->show( 'style' );
+
+                        wpbc_close_meta_box_section();
+
+                        wpbc_open_meta_box_section( $submit_form_name . 'parts' , __('Header / Footer', 'booking') );
+
+                            $this->mail_api()->show( 'parts' );
+
+                        wpbc_close_meta_box_section();
+					?>
                 </div>
-                
-                <input type="submit" value="<?php _e('Save Changes', 'booking'); ?>" class="button button-primary" />  
+                <input type="submit" value="<?php echo esc_attr( __( 'Save Changes', 'booking' ) ); ?>" class="button button-primary" />
             </form>
         </span>
         <?php
@@ -764,86 +688,57 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
         $this->enqueue_js();
     }
     
-    
-    /**
-     * Update form  from Toolbar - create / delete/ load email templates
-     * 
-     * @return boolean
-     */
-    public function update_actions(  ) {
-    
-             
-        if ( $_POST['form_action'] == 'test_send' ) {                           // Sending test  email
-            
-            /*
-            $this->email_settings_api = false;    
-            $selected_email_name = 'standard';    
-            $email_fields = get_bk_option( 'wpbc_email_' . $selected_email_name );
-            $this->mail_api( $selected_email_name, $email_fields );                
-            */
 
-            
-            //$to = sanitize_email( $this->mail_api()->fields_values['to'] );
-            $replace = array ();
-            $replace['booking_id'] = '99';
-            $replace['id'] = '99';
-            $replace['dates'] = 'July 5, 2016 10:00 - July 5, 2016 12:00';
-            $replace['check_in_date'] = 'July 5, 2016 10:00';
-            $replace['check_out_date'] = 'July 5, 2016 12:00';
-            $replace['check_out_plus1day'] = 'July 6, 2016 12:00';
-            $replace['dates_count'] = '2';
-            $replace['cost'] = '250.00';            
-            $replace[ 'siteurl' ]       = htmlspecialchars_decode( '<a href="' . home_url() . '">' . home_url() . '</a>' );
-            $replace[ 'remote_ip'     ] = wpbc_get_user_ip();   //FixIn:7.1.2.4                      // The IP address from which the user is viewing the current page. 
-            $replace[ 'user_agent'    ] = $_SERVER['HTTP_USER_AGENT'];                  // Contents of the User-Agent: header from the current request, if there is one. 
-            $replace[ 'request_url'   ] = ( isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '' );                     // The address of the page (if any) where action was occured. Because we are sending it in Ajax request, we need to use the REFERER HTTP
-            $replace[ 'current_date' ]  = date_i18n( get_bk_option( 'booking_date_format' ) );
-            $replace[ 'current_time' ]  = date_i18n( get_bk_option( 'booking_time_format' ) );                                                    
-            $replace['resource_title'] = 'Standard';
-            $replace['bookingtype'] = 'Standard';
-            $replace['rangetime'] = '10:00 - 12:00';
-            $replace['name'] = 'John';
-            $replace['secondname'] = 'Smith';
-            $replace['email'] = 'smith@your-server.com';
-            $replace['phone'] = '57835873656';
-            $replace['address'] = 'Baker stt, 10';
-            $replace['city'] = 'London';
-            $replace['postcode'] = '243';
-            $replace['country'] = 'GB';
-            $replace['visitors'] = '1';
-            $replace['children'] = '1';
-            $replace['details'] = 'Test data';
-            $replace['term_and_condition'] = 'I Accept term and conditions';
-            $replace['booking_resource_id'] = '1';
-            $replace['resource_id'] = '1';
-            $replace['type_id'] = '1';
-            $replace['type'] = '1';
-            $replace['resource'] = '1';
-            $replace['content'] = '<h2>Test Email</h2><div class="payment-content-form"> <strong>Times</strong>:<span class="fieldvalue">10:00 - 12:00</span><br/> <strong>First Name</strong>:<span class="fieldvalue">John</span><br/> <strong>Last Name</strong>:<span class="fieldvalue">Smith</span><br/> <strong>Email</strong>:<span class="fieldvalue">smith@your-server.com</span><br/> <strong>Phone</strong>:<span class="fieldvalue">57835873656</span><br/> <strong>Address</strong>:<span class="fieldvalue">Baker stt, 10</span><br/> <strong>City</strong>:<span class="fieldvalue">London</span><br/> <strong>Post code</strong>:<span class="fieldvalue">243</span><br/> <strong>Country</strong>:<span class="fieldvalue">GB</span><br/> <strong>Adults</strong>:<span class="fieldvalue"> 1</span><br/> <strong>Children</strong>:<span class="fieldvalue"> 1</span><br/> <strong>Details</strong>:<br /><span class="fieldvalue"> Test data.</span> </div>';
-            $replace['moderatelink'] = 'http://your-server.com/';
-            $replace['visitorbookingediturl'] = 'http://your-server.com/';
-            $replace['visitorbookingslisting'] = 'http://your-server.com/';	//FixIn: 8.1.3.5.1
-            $replace['visitorbookingcancelurl'] = 'your-server.com/';
-            $replace['visitorbookingpayurl'] = 'your-server.com/';
-            $replace['bookinghash'] = '17854sdgfdsgdff3044786da105fe5650b29';            
-        
-            
-            $to = $this->mail_api()->get_from__email_address();
-            $to_name = $this->mail_api()->get_from__name();
-            $to = trim(  $to_name ) . ' <' .  $to . '> ';
-        
-            $email_result = $this->mail_api()->send( $to , $replace );
+	/**
+	 * This function called from  PARENT CLASS  for actual selected tab.  Firstly it load data and then  Maybe Save changes.
+	 * @return void
+	 */
+	public function maybe_update() {
 
-            if ( $email_result ) 
-                wpbc_show_message ( __('Email sent to ', 'booking') . $this->mail_api()->get_from__email_address() , 5 );             
-            else 
-                wpbc_show_message ( __('Email was not sent. An error occurred.', 'booking'), 5 ,'error' );    
+        // -------------------------------------------------------------------------------------------------------------
+        // Load Data
+        // -------------------------------------------------------------------------------------------------------------
+
+        /* Check if New Email Template   Exist or NOT
+         * Exist     -  return  empty array in format: array( OPTION_NAME => array() )
+         *              It will  load DATA from DB,  during creation mail_api CLASS
+         *              during initial activation  of the API  its try  to get option  from DB
+         *              We need to define this API before checking POST, to know all available fields
+         *              Define Email Name & define field values from DB, if not exist, then default values.
+         * Not Exist -  import Old Data from DB
+         *              or get "default" data from settings and return array with  this data
+         *              This data its initial  parameters for definition fields in mail_api CLASS
+         *
+         */
+
+        $init_fields_values = wpbc_import6_email__new_admin__get_fields_array_for_activation();
+
+        // Get Value of first element - array of default or imported OLD data,  because need only  array  of values without key - name of options for wp_options table
+        $init_fields_values_temp = array_values( $init_fields_values );             //FixIn: 7.0.1.32
+        $init_fields_values = array_shift( $init_fields_values_temp );
+
+
+        $this->mail_api( WPBC_EMAIL_NEW_ADMIN_ID, $init_fields_values );
+
+        // -------------------------------------------------------------------------------------------------------------
+        // Maybe Update Data
+        // -------------------------------------------------------------------------------------------------------------
+
+        $submit_form_name = 'wpbc_emails_template';                             // Define form name
+
+        $this->mail_api()->validated_form_id = $submit_form_name;               // Define ID of Form for ability to  validate fields before submit.
+
+        if ( isset( $_POST['is_form_sbmitted_'. $submit_form_name ] ) ) {
+
+            // Nonce checking    {Return false if invalid, 1 if generated between, 0-12 hours ago, 2 if generated between 12-24 hours ago. }
+            $nonce_gen_time = check_admin_referer( 'wpbc_settings_page_' . $submit_form_name );  // Its stop show anything on submiting, if its not refear to the original page
+
+            // Save Changes
+            $this->update();
         }
+	}
 
 
-    }
-    
-    
     /** Update Email template to DB */
     public function update() {
 
@@ -872,8 +767,7 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
         </style>
         <?php
     }
-    
-    
+
         
     /**
 	 * Add Custon JavaScript - for some specific settings options
@@ -883,20 +777,6 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
      * 
      */
     private function enqueue_js(){                                               // $page_tag, $active_page_tab, $active_page_subtab ) {
-
-    
-            
-        // Check if this correct  page /////////////////////////////////////////////
-
-//        if ( !(
-//                   ( $page_tag == 'wpbc-settings')                              // Load only at 'wpbc-settings' menu
-//                && ( $_GET['tab'] == 'email' )                                  // At ''general' tab
-//                && (  ( ! isset( $_GET['subtab'] ) ) || ( $_GET['subtab'] == 'new-admin' )  )                                               
-//              )
-//          ) return;
-
-        // JavaScript //////////////////////////////////////////////////////////////
-        
         $js_script = '';
         //Show or hide colors section  in settings page depend form  selected email  template.
         $js_script .= " jQuery('select[name=\"new_admin_template_file\"]').on( 'change', function(){    
@@ -920,32 +800,11 @@ class WPBC_Settings_Page_Email_NewAdmin extends WPBC_Page_Structure {
         $js_script .= "         jQuery('#new_admin_from_name').parent().append('<div class=\'updated\' style=\'border-left-color:#ffb900;padding:5px 10px;\'>". esc_js(__('If empty then title defined as WordPress', 'booking' ))."</div>')";
         $js_script .= "     }";
         $js_script .= "  }); ";
-          // Show Warning messages if "From" Email DNS different from current website DNS
-        $js_script .= " jQuery(document).ready(function(){ ";
-        
-        $js_script .= "     var wpbc_email_from = jQuery('#new_admin_from').val();";    // from@wpbookingcalendar.com 
-        $js_script .= "     wpbc_email_from = wpbc_email_from.split('@');";             // ['from', 'wpbookingcalendar.com']
-        $js_script .= "     wpbc_email_from.shift();";                                  // ['wpbookingcalendar.com']
-        $js_script .= "     wpbc_email_from = wpbc_email_from.join('');";              // 'wpbookingcalendar.com'        
 
-        $js_script .= "     var wpbc_website_dns = jQuery(location).attr('hostname');"; 								// www.server.com
-		//FixIn: 8.0.2.9
-        $js_script .= "     var wpbc_website_dns_sub = jQuery(location).attr('hostname').split('.');"; 					// ['www', 'server', 'com']
-        $js_script .= "     wpbc_website_dns_sub.shift();";                                  							// ['server', 'com']
-        $js_script .= "     wpbc_website_dns_sub = wpbc_website_dns_sub.join('.');";              						// 'server.com'
-        $js_script .= "     if ( ( wpbc_email_from != wpbc_website_dns_sub ) && ( wpbc_email_from != wpbc_website_dns ) ){";
-        $js_script .= "         jQuery('#new_admin_from').parent().append('<div class=\'updated\' style=\'border-left-color:#ffb900;padding:5px 10px;\'>". esc_js(__('Email different from website DNS, its can be a reason of not delivery emails. Please use the email withing the same domain as your website!', 'booking' ))."</div>')";
-        $js_script .= "     }";
-
-        $js_script .= "  }); ";
-        
-        
-        
         // Eneque JS to  the footer of the page
         wpbc_enqueue_js( $js_script );                
     }
 
-    
     // </editor-fold>    
 }
 add_action('wpbc_menu_created',  array( new WPBC_Settings_Page_Email_NewAdmin() , '__construct') );    // Executed after creation of Menu
@@ -1011,7 +870,7 @@ function wpbc__get_replace_shortcodes__email_new_admin( $booking_id, $bktype, $f
 	$replace['cost'] = $booking_cost;
 	$replace['cost_digits_only'] = $booking_cost_digits_only;
     $replace[ 'siteurl' ]       = htmlspecialchars_decode( '<a href="' . home_url() . '">' . home_url() . '</a>' );
-    $replace[ 'resource_title'] = apply_bk_filter( 'wpdev_check_for_active_language', $bk_title );
+    $replace[ 'resource_title'] = wpbc_lang( $bk_title );
     $replace[ 'bookingtype' ]   = $replace[ 'resource_title'];
     $replace[ 'remote_ip'     ] = wpbc_get_user_ip();   //FixIn:7.1.2.4                      // The IP address from which the user is viewing the current page. 
     $replace[ 'user_agent'    ] = $_SERVER['HTTP_USER_AGENT'];                  // Contents of the User-Agent: header from the current request, if there is one. 

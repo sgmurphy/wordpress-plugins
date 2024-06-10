@@ -1,18 +1,15 @@
-var $j = jQuery.noConflict();
+jQuery(document).ready(function($) {
+	responsiveWooPopup($);
+});
 
-$j( document ).on( 'ready', function() {    
-	responsiveWooPopup();
-} );
-
-function responsiveWooPopup() {
+function responsiveWooPopup($) {
 	"use strict";
  
-    console.log('eeeeeeeeeee')
 	// // Open popup on shop page
-	$j( 'body' ).on( 'added_to_cart', function() {
-		$j( '#woo-popup-wrap' ).css( {'display':'block'});
+	$( 'body' ).on( 'added_to_cart', function() {
+		$( '#woo-popup-wrap' ).css( {'display':'block'});
       
-		$j.magnificPopup.open({
+		$.magnificPopup.open({
 			items: {
 			  src: '#woo-popup-wrap', // can be a HTML string, jQuery object, or CSS selector
 			  
@@ -22,12 +19,12 @@ function responsiveWooPopup() {
 		});
     } );
 
-	$j( '.continue-btn' ).on( 'click', function() {
-		$j.magnificPopup.close();
+	$( '.continue-btn' ).on( 'click', function() {
+		$.magnificPopup.close();
     } );
 
-	$j( '.mfp-bg' ).on( 'click', function() {
-		$j.magnificPopup.close();
+	$( '.mfp-bg' ).on( 'click', function() {
+		$.magnificPopup.close();
     } );
 
 }

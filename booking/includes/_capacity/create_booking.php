@@ -209,7 +209,7 @@ if (  is_admin() && ( defined( 'DOING_AJAX' ) ) && ( DOING_AJAX )  ) {
  *       wpbc_booking_save( array(
  *									'resource_id'       => 2,
  *									'dates_ddmmyy_csv'  => '04.10.2023, 05.10.2023, 06.10.2023',
- *									'form_data'         => 'text^cost_hint2^150.00฿~select-multiple^rangetime2[]^14:00 - 16:00~text^name2^John~text^secondname2^Smith~email^email2^john.smith@server.com~select-one^visitors2^2~select-one^children2^0~textarea^details2^test',
+ *									'form_data'         => 'text^cost_hint2^150.00฿~selectbox-multiple^rangetime2[]^14:00 - 16:00~text^name2^John~text^secondname2^Smith~email^email2^john.smith@server.com~selectbox-one^visitors2^2~selectbox-one^children2^0~textarea^details2^test',
  *									'booking_hash'      => '',
  *									'custom_form'       => '',
  *									'is_emails_send'    => 1,
@@ -241,6 +241,8 @@ function wpbc_booking_save( $request_params ){
 								'request_uri'           => array( 'validate' => 'strong', 'default'  => ( ( defined( 'DOING_AJAX' ) ) && ( DOING_AJAX ) ) ? $_SERVER['HTTP_REFERER'] : $_SERVER['REQUEST_URI'] ),     //  front-end: $_SERVER['REQUEST_URI'] | ajax: $_SERVER['HTTP_REFERER']
 								// Really Optional:
 								'aggregate_resource_id_arr'         => array( 'validate' => 'digit_or_csd', 'default' => '' ),
+								//TODO: this parameter does not transfer during saving, so here will be always default value 'bookings_only'        //FixIn: 10.0.0.7
+								'aggregate_type'                    => array( 'validate' => 'strong', 'default' => 'bookings_only' ),    // Optional. 'all' | 'bookings_only'  <- it is depends on shortcode parameter:   options="{aggregate type=bookings_only}"
 								'is_approve_booking'                => array( 'validate' => 'd',      'default' => 0 ),       // 0 | 1
 								'save_booking_even_if_unavailable'  => array( 'validate' => 'd',      'default' => 0 ),       // 0 | 1
 								'sync_gid'                          => array( 'validate' => 'strong', 'default' => '' ),
@@ -273,8 +275,12 @@ function wpbc_booking_save( $request_params ){
 	$local_params['time_as_seconds_arr'] = wpbc_get_in_booking_form__time_to_book_as_seconds_arr( $local_params['structured_booking_data_arr'] );
 				 // [ "18:00:00", "20:00:00" ]
 				 $time_as_seconds_arr    = $local_params['time_as_seconds_arr'];
- 				 $time_as_seconds_arr[0] = ( 0 != $time_as_seconds_arr[0] ) ? $time_as_seconds_arr[0] + 1 : $time_as_seconds_arr[0];                 // set check  in time with  ended 1 second
- 				 $time_as_seconds_arr[1] = ( ( 24 * 60 * 60 ) != $time_as_seconds_arr[1] ) ? $time_as_seconds_arr[1] + 2 : $time_as_seconds_arr[1];  // set check out time with  ended 2 seconds
+ 				 $time_as_seconds_arr[0] = ( 0 != $time_as_seconds_arr[0] ) ? $time_as_seconds_arr[0] + 1 : $time_as_seconds_arr[0];                        // set check  in time with  ended 1 second
+ 				 $time_as_seconds_arr[1] = ( ( 24 * 60 * 60 ) != $time_as_seconds_arr[1] ) ? $time_as_seconds_arr[1] + 2 : $time_as_seconds_arr[1];   // set check out time with  ended 2 seconds
+				if ( ( 0 != $time_as_seconds_arr[0] ) && ( ( 24 * 60 * 60 ) == $time_as_seconds_arr[1] ) ) {
+					//FixIn: 10.0.0.49  - in case if we have start time != 00:00  and end time as 24:00 then  set  end time as 23:59:52
+					$time_as_seconds_arr[1] += - 8;
+				}
 	$local_params['time_as_his_arr']     = array(
 													wpbc_transform__seconds__in__24_hours_his( $time_as_seconds_arr[0] ),
 													wpbc_transform__seconds__in__24_hours_his( $time_as_seconds_arr[1] )
@@ -365,7 +371,9 @@ function wpbc_booking_save( $request_params ){
 										'request_uri'                   => $re_cleaned_params['request_uri'],                   // 'http://beta/resource-id2/'
 										'is_use_booking_recurrent_time' => $local_params['is_use_booking_recurrent_time'],      // true | false
 										'as_single_resource'            => false,                                                // false
-										'aggregate_resource_id_arr'     => $local_params['aggregate_resource_id_arr']           // Optional  can  be ''
+										'aggregate_resource_id_arr'     => $local_params['aggregate_resource_id_arr'],           // Optional  can  be ''
+										'aggregate_type'                => $re_cleaned_params['aggregate_type'],                 //TODO: this parameter does not transfer during saving, so here will be always default value 'bookings_only'        //FixIn: 10.0.0.7
+										'custom_form'                   => $re_cleaned_params['custom_form']                     //FixIn: 10.0.0.10
 								    ));
 		// <editor-fold     defaultstate="collapsed"                        desc=" :: ERROR :: <-  NO SLOTS TO SAVE "  >
 		if ( 'error' == $where_to_save_booking['result'] ) {
@@ -537,7 +545,10 @@ function wpbc_booking_save( $request_params ){
 		ob_start();
 		ob_clean();
 
-		if ( 0 === $local_params['is_edit_booking'] ) {
+		if (
+			    ( 0 === $local_params['is_edit_booking'] )
+		     || ( 1 === $local_params['is_duplicate_booking'] )         //FixIn: 10.0.0.42
+		){
 
 			// New booking to Admin
 			wpbc_send_email_new_admin( $payment_params['booking_id'], $payment_params['resource_id'], $email_content );
@@ -753,7 +764,7 @@ function wpbc_booking_save( $request_params ){
  *								  'custom_form'             => '',
  *                          'is_use_booking_recurrent_time' => false,
  *								  'all_booking_data_arr'    => [   'rangetime'  => [
- *																				      'type' => 'select-multiple',
+ *																				      'type' => 'selectbox-multiple',
  *																				      'original_name' => 'rangetime2[]',        //NOTE: here RESOURCE ID (2) can  be from Parent resource, but resource_id can rely on child (10) resource
  *																				      'name' => 'rangetime',
  *																				      'value' => '14:00 - 16:00',
@@ -881,7 +892,7 @@ function wpbc_db__booking_save( $create_params, $where_to_save_booking ) {
 	}
 	// </editor-fold>
 
-	// Compose form data for DB. Can be different resource:  'select-multiple^rangetime10[]^14..' <-> 'select-multiple^rangetime2[]^14..' -> 'rangetime10' - child res. Previously 'rangetime2' - parent
+	// Compose form data for DB. Can be different resource:  'selectbox-multiple^rangetime10[]^14..' <-> 'selectbox-multiple^rangetime2[]^14..' -> 'rangetime10' - child res. Previously 'rangetime2' - parent
 	$form_data = wpbc_encode_booking_data_to_string( $create_params['all_booking_data_arr'], $create_params['resource_id'] );
 
 
@@ -1159,7 +1170,7 @@ function wpbc_db__booking_save( $create_params, $where_to_save_booking ) {
 
 
 	/**
-	 * Get how many items to book.      Usually  it's from [select visitors "1" ... ] field.
+	 * Get how many items to book.      Usually  it's from [selectbox visitors "1" ... ] field.
 	 *
 	 * @param booking_form_data__arr =     [
 	 *                                                     selected_short_dates_hint = "September 27, 2023 - September 28, 2023"

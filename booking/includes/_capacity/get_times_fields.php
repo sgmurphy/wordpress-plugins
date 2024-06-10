@@ -34,14 +34,14 @@ function wpbc_get_times_fields_configuration__by_dates( $resource_id, $custom_fo
 	 *                                           type = "weekday"
 	 *                                           value = "*"
 	 *                                           options = false
-	 *                                           content = "\r\n  Default:   [select rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00" "13:00 - 14:00" "14:00 - 15:00" "15:00 - 16:00" "16:00 - 17:00" "17:00 - 18:00"]\r\n"
-	 *                                           structure = "[condition name="weekday-condition" type="weekday" value="*"]\r\n  Default:   [select rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00" "13:00 - 14:00" "14:00 - 15:00" "15:00 - 16:00" "16:00 - 17:00" "17:00 - 18:00"]\r\n[/condition]"
+	 *                                           content = "\r\n  Default:   [selectbox rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00" "13:00 - 14:00" "14:00 - 15:00" "15:00 - 16:00" "16:00 - 17:00" "17:00 - 18:00"]\r\n"
+	 *                                           structure = "[condition name="weekday-condition" type="weekday" value="*"]\r\n  Default:   [selectbox rangetime  "10:00 - 11:00" "11:00 - 12:00" "12:00 - 13:00" "13:00 - 14:00" "14:00 - 15:00" "15:00 - 16:00" "16:00 - 17:00" "17:00 - 18:00"]\r\n[/condition]"
 	 *                                  1 = [
 	 *                                           type = "weekday"
 	 *                                           value = "1,2"
 	 *                                           options = false
-	 *                                           content = "  \r\n  Monday, Tuesday:    [select rangetime  "10:00 - 12:00" "12:00 - 14:00"]\r\n"
-	 *                                           structure = "[condition name="weekday-condition" type="weekday" value="1,2"]  \r\n  Monday, Tuesday:    [select rangetime  "10:00 - 12:00" "12:00 - 14:00"]\r\n[/condition]"
+	 *                                           content = "  \r\n  Monday, Tuesday:    [selectbox rangetime  "10:00 - 12:00" "12:00 - 14:00"]\r\n"
+	 *                                           structure = "[condition name="weekday-condition" type="weekday" value="1,2"]  \r\n  Monday, Tuesday:    [selectbox rangetime  "10:00 - 12:00" "12:00 - 14:00"]\r\n[/condition]"
 	 *                                  2 = [ ... ]
 	 */
 	$cached__sql_data__season_filters_arr = array();
@@ -177,8 +177,8 @@ function wpbc_get_timeslots__from_content( $content ){
 
 		// == START TIME |  END TIME == --------------------------------------------------------------------------------
 		if (
-			( false !== strpos( $content, ' starttime ' ) )                     // Important to have empty space at the beginning, because it will search for [select starttime and skip this [starttime]
-		 && ( false !== strpos( $content, ' endtime ' ) )                       // Important to have empty space at the beginning, because it will search for [select endtime   and skip this [endtime]
+			( false !== strpos( $content, ' starttime ' ) )                     // Important to have empty space at the beginning, because it will search for [selectbox starttime and skip this [starttime]
+		 && ( false !== strpos( $content, ' endtime ' ) )                       // Important to have empty space at the beginning, because it will search for [selectbox endtime   and skip this [endtime]
 		){
 			// Now we need to create the smallest time intervals ( 60 sec. ) for each start / end times.
 
@@ -197,7 +197,7 @@ function wpbc_get_timeslots__from_content( $content ){
 
 		// == START TIME |  DURATION TIME == ---------------------------------------------------------------------------
 		if (
-			( false !== strpos( $content, ' starttime ' ) )                    // Important to have empty space at the beginning, because it will search for [select starttime and skip this [starttime]
+			( false !== strpos( $content, ' starttime ' ) )                    // Important to have empty space at the beginning, because it will search for [selectbox starttime and skip this [starttime]
 		 && ( false !== strpos( $content, ' durationtime ' ) )
 		){
 			// 900 -> e.g.: '00:15'
@@ -349,7 +349,7 @@ function wpbc_get_timeslots__from_content( $content ){
 
 
 	/**
-	 * Get minimum duration of time ( from [select durationtime ... ] )  or FALSE, if no such  shortcode or no values.
+	 * Get minimum duration of time ( from [selectbox durationtime ... ] )  or FALSE, if no such  shortcode or no values.
 	 *
 	 * @param $bookingform_configuration_content
 	 *

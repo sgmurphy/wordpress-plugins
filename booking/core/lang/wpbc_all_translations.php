@@ -705,7 +705,7 @@
  $wpbc_all_translations[] = __('Daily Costs', 'booking'); 
  $wpbc_all_translations[] = __('Form Options Costs', 'booking'); 
  $wpbc_all_translations[] = __('Discount Coupons', 'booking'); 
- $wpbc_all_translations[] = __('Payment Gateways', 'booking'); 
+ $wpbc_all_translations[] = __('Payment Setup', 'booking');
  $wpbc_all_translations[] = __('Search Availability Form', 'booking'); 
  $wpbc_all_translations[] = __('Users', 'booking'); 
  $wpbc_all_translations[] = __('If you like %s please leave us a %s rating. A huge thank you in advance!', 'booking'); 
@@ -736,7 +736,7 @@
  $wpbc_all_translations[] = __('Contact %sSupport%s.', 'booking'); 
  $wpbc_all_translations[] = __('Need even more functionality? Check %s Pro Versions %s.', 'booking'); 
  $wpbc_all_translations[] = __('Standard', 'booking'); 
- $wpbc_all_translations[] = __('Superior', 'booking'); 
+ $wpbc_all_translations[] = __('Double Room', 'booking');
  $wpbc_all_translations[] = __('Resource #1', 'booking'); 
  $wpbc_all_translations[] = __('Presidential Suite', 'booking'); 
  $wpbc_all_translations[] = __('Resource #2', 'booking'); 

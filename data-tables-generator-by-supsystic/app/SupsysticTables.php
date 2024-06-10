@@ -18,7 +18,7 @@ class SupsysticTables
 
         $menuSlug = 'supsystic-tables';
         $pluginPath = dirname(dirname(__FILE__));
-		    $environment = new RscDtgs_Environment('st', '1.10.33', $pluginPath);
+		    $environment = new RscDtgs_Environment('st', '1.10.34', $pluginPath);
 
         /* Configure */
         $environment->configure(

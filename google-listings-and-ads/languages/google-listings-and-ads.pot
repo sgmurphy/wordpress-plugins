@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google Listings and Ads plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Listings and Ads 2.7.1\n"
+"Project-Id-Version: Google Listings and Ads 2.7.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-29T11:07:23+00:00\n"
+"POT-Creation-Date: 2024-06-10T14:20:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -252,16 +252,20 @@ msgid "Product attributes"
 msgstr ""
 
 #. translators: 1: is a numeric account ID
-#: src/Ads/AccountService.php:109
+#: src/Ads/AccountService.php:113
 msgid "Ads account %1$d already connected."
 msgstr ""
 
 #. translators: 1: is a string representing an unknown step name
-#: src/Ads/AccountService.php:174
+#: src/Ads/AccountService.php:190
 msgid "Unknown ads account creation step %1$s"
 msgstr ""
 
-#: src/Ads/AccountService.php:241
+#: src/Ads/AccountService.php:254
+msgid "Account must be accepted before completing setup."
+msgstr ""
+
+#: src/Ads/AccountService.php:332
 msgid "Billing setup must be completed."
 msgstr ""
 
@@ -292,7 +296,7 @@ msgstr ""
 msgid "Error retrieving accounts: %s"
 msgstr ""
 
-#: src/API/Google/Ads.php:322
+#: src/API/Google/Ads.php:357
 msgid "Merchant link is not available to accept"
 msgstr ""
 
@@ -466,17 +470,17 @@ msgstr ""
 
 #: src/API/Google/Middleware.php:105
 #: src/API/Google/SiteVerification.php:59
-#: src/MerchantCenter/AccountService.php:422
+#: src/MerchantCenter/AccountService.php:437
 msgid "Invalid site URL."
 msgstr ""
 
 #: src/API/Google/Middleware.php:161
-#: src/API/Google/Middleware.php:341
+#: src/API/Google/Middleware.php:342
 msgid "Invalid response when creating account"
 msgstr ""
 
 #: src/API/Google/Middleware.php:164
-#: src/API/Google/Middleware.php:347
+#: src/API/Google/Middleware.php:348
 msgid "Error creating account"
 msgstr ""
 
@@ -500,16 +504,16 @@ msgstr ""
 msgid "Store country is not supported"
 msgstr ""
 
-#: src/API/Google/Middleware.php:391
+#: src/API/Google/Middleware.php:392
 msgid "Invalid response when linking account"
 msgstr ""
 
-#: src/API/Google/Middleware.php:397
+#: src/API/Google/Middleware.php:398
 msgid "Error linking account"
 msgstr ""
 
 #. translators: 1: current date in the format Y-m-d
-#: src/API/Google/Middleware.php:503
+#: src/API/Google/Middleware.php:504
 msgid "Account %1$s"
 msgstr ""
 
@@ -527,17 +531,17 @@ msgstr ""
 msgid "Unable to insert site verification: %s"
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/AccountController.php:149
+#: src/API/Site/Controllers/Ads/AccountController.php:160
 #: src/API/Site/Controllers/Google/AccountController.php:151
 #: src/API/Site/Controllers/Jetpack/AccountController.php:169
 msgid "Successfully disconnected."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/AccountController.php:174
+#: src/API/Site/Controllers/Ads/AccountController.php:200
 msgid "Google Ads Account ID."
 msgstr ""
 
-#: src/API/Site/Controllers/Ads/AccountController.php:181
+#: src/API/Site/Controllers/Ads/AccountController.php:207
 msgid "Billing Flow URL."
 msgstr ""
 
@@ -1473,38 +1477,38 @@ msgstr ""
 msgid "MC Setup Wizard"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:182
+#: src/MerchantCenter/AccountService.php:186
 msgid "Attempting invalid URL switch."
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:205
+#: src/MerchantCenter/AccountService.php:209
 msgid "Attempting invalid claim overwrite."
 msgstr ""
 
 #. translators: 1: is a string representing an unknown step name
-#: src/MerchantCenter/AccountService.php:337
+#: src/MerchantCenter/AccountService.php:352
 msgid "Unknown merchant account creation step %1$s"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:369
+#: src/MerchantCenter/AccountService.php:384
 msgid "Unable to claim website URL with this Merchant Center Account."
 msgstr ""
 
 #. translators: 1: is a numeric account ID
-#: src/MerchantCenter/AccountService.php:401
+#: src/MerchantCenter/AccountService.php:416
 msgid "Merchant Center account already connected: %d"
 msgstr ""
 
 #. translators: 1: is a website URL (without the protocol)
-#: src/MerchantCenter/AccountService.php:450
+#: src/MerchantCenter/AccountService.php:465
 msgid "This Merchant Center account already has a verified and claimed URL, %1$s"
 msgstr ""
 
-#: src/MerchantCenter/MerchantCenterService.php:274
+#: src/MerchantCenter/MerchantCenterService.php:280
 msgid "No contact information."
 msgstr ""
 
-#: src/MerchantCenter/MerchantCenterService.php:275
+#: src/MerchantCenter/MerchantCenterService.php:281
 msgid "Add store contact information"
 msgstr ""
 
@@ -1613,7 +1617,6 @@ msgstr ""
 #: js/build/commons.js:38
 #: js/build/product-feed.js:1
 #: js/build/settings.js:1
-#: js/build/setup-mc.js:3
 msgid "Learn more"
 msgstr ""
 
@@ -1921,7 +1924,7 @@ msgstr ""
 #: views/meta-box/channel_visibility.php:95
 #: views/meta-box/coupon_channel_visibility.php:163
 #: js/build/commons.js:21
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Complete setup"
 msgstr ""
 
@@ -2199,16 +2202,15 @@ msgid "Google Merchant Center"
 msgstr ""
 
 #: js/build/commons.js:1
-msgid "Required to sync products and list on Google"
+msgid "Required to sync products and list on Google."
 msgstr ""
 
 #: js/build/commons.js:1
-#: js/build/setup-mc.js:3
 msgid "Google Ads"
 msgstr ""
 
 #: js/build/commons.js:1
-msgid "Connect with millions of shoppers who are searching for products like yours and drive sales with Google."
+msgid "Required to set up conversion measurement and create campaigns."
 msgstr ""
 
 #: js/build/commons.js:1
@@ -2750,11 +2752,30 @@ msgid "Or, connect to a different Google Ads account"
 msgstr ""
 
 #: js/build/commons.js:21
+msgid "Claim your new Google Ads account to complete this setup."
+msgstr ""
+
+#: js/build/commons.js:21
+msgid "Claim your Google Ads account"
+msgstr ""
+
+#: js/build/commons.js:21
+msgid "Claim account in Google Ads"
+msgstr ""
+
+#: js/build/commons.js:21
+msgid "Claiming your account lets you access Google Ads and sets up conversion measurement. You must claim your account in the next 20 days."
+msgstr ""
+
+#: js/build/commons.js:21
+msgid "When you claim your account, you’ll be asked to set up billing. This step is optional and you only need to complete it if you want to create Google Ads campaigns. If you don’t want to set up billing, close the window after you’ve clicked ‘Continue’ on the next page."
+msgstr ""
+
+#: js/build/commons.js:21
 msgid "Create Google Ads Account"
 msgstr ""
 
 #: js/build/commons.js:21
-#: js/build/commons.js:25
 #: js/build/commons.js:34
 msgid "Create account"
 msgstr ""
@@ -2773,12 +2794,20 @@ msgid "I have read and accept these terms"
 msgstr ""
 
 #: js/build/commons.js:21
+msgid "Unable to create Google Ads account. Please try again later."
+msgstr ""
+
+#: js/build/commons.js:21
 #: js/build/commons.js:34
 msgid "Creating…"
 msgstr ""
 
 #: js/build/commons.js:21
-msgid "Unable to create Google Ads account. Please try again later."
+msgid "Updating…"
+msgstr ""
+
+#: js/build/commons.js:21
+msgid "Claim Account"
 msgstr ""
 
 #: js/build/commons.js:21
@@ -2823,6 +2852,10 @@ msgstr ""
 
 #: js/build/commons.js:23
 msgid "Unable to get Google authorization page. Please try again later."
+msgstr ""
+
+#: js/build/commons.js:23
+msgid "Conversion measurement has been set up. You can create a campaign later."
 msgstr ""
 
 #: js/build/commons.js:25
@@ -2947,7 +2980,7 @@ msgid "Add paid campaign"
 msgstr ""
 
 #: js/build/commons.js:34
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "You can only choose from countries you’ve selected during product listings configuration."
 msgstr ""
 
@@ -2972,7 +3005,6 @@ msgstr ""
 #: js/build/commons.js:34
 #: js/build/setup-ads.js:1
 #: js/build/setup-mc.js:1
-#: js/build/setup-mc.js:3
 msgid "Continue"
 msgstr ""
 
@@ -3155,7 +3187,7 @@ msgid "You do not have billing information set up in your Google Ads account. On
 msgstr ""
 
 #: js/build/commons.js:38
-msgid "You will be directed to Google Ads for this step. In case your browser is unable to open the pop-up, <link>click here instead</link>."
+msgid "You will be directed to Google Ads for this step. In case your browser is unable to open the pop-up, <link>click here instead <icon /></link>."
 msgstr ""
 
 #: js/build/commons.js:38
@@ -3186,7 +3218,7 @@ msgid "Set your budget"
 msgstr ""
 
 #: js/build/commons.js:42
-msgid "With Performance Max campaigns, you can set your own budget and Google’s Smart Bidding technology will serve the most appropriate ad, with the optimal bid, to maximize campaign performance."
+msgid "With Performance Max campaigns, you can set your own budget and Google’s Smart Bidding technology will serve the most appropriate ad, with the optimal bid, to maximize campaign performance. You only pay when people click on your ads, and you can start or stop your campaign whenever you want."
 msgstr ""
 
 #: js/build/commons.js:42
@@ -3669,16 +3701,12 @@ msgid "Google Listings & Ads Benefits"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Increase clicks by <strong>50%</strong>"
+msgid "Reach your sales goals by creating a campaign"
 msgstr ""
 
 #: js/build/get-started-page.js:1
-msgid "Using free listings and ads together increased clicks by 50% and doubled impressions. Small-to-medium merchants saw the largest share of the increases."
-msgstr ""
-
-#: js/build/get-started-page.js:1
-#: js/build/setup-mc.js:3
-msgid "Source: Google Internal Data, July 2020"
+#: js/build/setup-mc.js:1
+msgid "Reach more customers by advertising your products across Google Ads channels like Search, YouTube and Discover. Set up your campaign now so your products are included as soon as they’re approved."
 msgstr ""
 
 #: js/build/get-started-page.js:1
@@ -4238,6 +4266,10 @@ msgstr ""
 
 #: js/build/index.js:17
 msgid "There was an error updating the tour."
+msgstr ""
+
+#: js/build/index.js:17
+msgid "There was an error getting the status of your Google Ads account."
 msgstr ""
 
 #: js/build/index.js:17
@@ -4899,28 +4931,23 @@ msgid "Your phone number is required by Google for verification purposes. It wil
 msgstr ""
 
 #: js/build/setup-ads.js:1
-#: js/build/setup-mc.js:1
 msgid "Check your maximum free credit"
 msgstr ""
 
 #: js/build/setup-ads.js:1
-#: js/build/setup-mc.js:1
 msgid "Whatever you spend in the next month will be added back to your Google Ads account as free credit, up to a maximum limit depending on your store’s country."
 msgstr ""
 
 #: js/build/setup-ads.js:1
-#: js/build/setup-mc.js:1
 msgid "Spend $500 to get $500 in Google Ads credits!"
 msgstr ""
 
 #: js/build/setup-ads.js:1
-#: js/build/setup-mc.js:1
 msgid "New to Google Ads? Get $500 in ad credit when you spend $500 within your first 60 days. Check how much credit you can receive in your country <checkLink>here</checkLink>. <termLink>Terms and conditions apply</termLink>."
 msgstr ""
 
 #: js/build/setup-ads.js:1
 #: js/build/setup-mc.js:1
-#: js/build/setup-mc.js:3
 msgid "Set up your accounts"
 msgstr ""
 
@@ -5102,7 +5129,6 @@ msgid "Please check all requirements."
 msgstr ""
 
 #: js/build/setup-mc.js:1
-#: js/build/setup-mc.js:3
 msgid "Confirm store requirements"
 msgstr ""
 
@@ -5118,119 +5144,84 @@ msgstr ""
 msgid "Unable to update your contact information. Please try again later."
 msgstr ""
 
-#. translators: %d: number of products will be synced to Google Merchant Center.
-#: js/build/setup-mc.js:3
-msgid "%d product"
-msgid_plural "%d products"
-msgstr[0] ""
-msgstr[1] ""
-
-#: js/build/setup-mc.js:3
-msgid "You can manage and edit your product feed after this setup"
+#: js/build/setup-mc.js:1
+msgid "Set a daily budget, and only pay when people click on your ads."
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Product feed status"
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "Your product listings are ready to be uploaded"
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "Preparing your product listings"
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "Google will review your product listings within 3-5 days. Once approved, your products will automatically be live and searchable on Google. You’ll be notified if there are any product feed issues."
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "A Google Ads account is required to create paid campaigns with your product listings"
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "Promote your products across Google Search, YouTube, Display, Discover, Maps, Gmail, and more."
-msgstr ""
-
-#: js/build/setup-mc.js:3
-msgid "Set a daily budget, and only pay when someone clicks."
-msgstr ""
-
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Claim $500 in ads credit when you spend your first $500 with Google Ads. Terms and conditions apply."
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Recommended"
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Boost product listings with paid ads"
+#: js/build/setup-mc.js:1
+msgid "Performance Max campaign"
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Get the most out of your paid ads with Performance Max campaigns. With Google’s machine learning technology, your Performance Max campaigns will be automated to show the most impactful ads at the right time and place."
+#: js/build/setup-mc.js:1
+msgid "Performance Max uses the best of Google’s AI to show the most impactful ads for your products at the right time and place. Google will use your product data to create ads for this campaign. "
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Drive more traffic and sales by using both free listings and paid ads"
+#: js/build/setup-mc.js:1
+msgid "Learn more about Performance Max"
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Using free listings and paid ads together can double impressions and increase clicks by 50%*"
+#: js/build/setup-mc.js:1
+msgid "Drive more sales with Performance Max"
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Unable to complete your setup."
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Complete your campaign with paid ads"
+#: js/build/setup-mc.js:1
+msgid "Create a campaign to advertise your products"
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "As soon as your products are approved, your listings and ads will be live. In the meantime, let’s set up your ads."
+#: js/build/setup-mc.js:1
+msgid "You’re ready to set up a Performance Max campaign to drive more sales with ads. Your products will be included in the campaign after they’re approved."
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Skip this step for now"
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Create a paid ad campaign"
+#: js/build/setup-mc.js:1
+msgid "Create campaign"
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Skip paid ads creation"
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Configure product listings"
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "Configure your product listings"
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "There was an error saving audience."
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "There was an error saving settings."
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "There was an error saving shipping rates."
 msgstr ""
 
-#: js/build/setup-mc.js:3
+#: js/build/setup-mc.js:1
 msgid "There was an error saving shipping times."
 msgstr ""
 
-#: js/build/setup-mc.js:3
-msgid "Complete your campaign"
+#: js/build/setup-mc.js:1
+msgid "Create a campaign"
 msgstr ""
 
 #: js/build/product-channel-visibility/block.json

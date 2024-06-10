@@ -17,7 +17,11 @@ jQuery(document).ready(function($) {
 
     window.addEventListener("message", function(event) {
         if (event.isTrusted && event.origin === responsiveAddonsGettingStarted.ccAppURL) {
-            _storeAuth(event.data);
+            if( event.data === 'success' ) {
+                location.reload();
+            } else {
+                _storeAuth(event.data);
+            }
         }
     });
 

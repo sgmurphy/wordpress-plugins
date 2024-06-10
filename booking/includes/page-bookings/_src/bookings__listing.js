@@ -122,7 +122,7 @@ if ( ! is_this_action ){
 is_this_action = false;
 */
 	// Start Ajax
-	jQuery.post( wpbc_global1.wpbc_ajaxurl,
+	jQuery.post( wpbc_url_ajax,
 				{
 					action          : 'WPBC_AJX_BOOKING_LISTING',
 					wpbc_ajx_user_id: wpbc_ajx_booking_listing.get_secure_param( 'user_id' ),

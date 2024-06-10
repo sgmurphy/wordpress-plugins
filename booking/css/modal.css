@@ -13,6 +13,7 @@
  /* M o d a l s  **************************************************************/
 .wpdevelop .modal.wpbc_popup_modal {
      z-index: 50000;
+    z-index: 1000000;
  }
 .wpdevelop .modal-header {
     background: none repeat scroll 0 0 #F5F5F5;
@@ -135,15 +136,15 @@
     }
     
     /* M o d a l     TinyMCE      t o o l b a r    ****************************/
-    #wpbc_tiny_modal .form-table td input[type='text'],
-    #wpbc_tiny_modal .form-table td select {
+    .wpbc_popup_modal .form-table td input[type='text'],
+    .wpbc_popup_modal .form-table td select {
         height: 40px;
         font-size: 16px;
         min-width: Min(10em,100%);
     }
 
     /*
-    #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tab {
+    .wpbc_popup_modal .wpdvlp-top-tabs .nav-tab {
         -moz-border-radius:0;
         -webkit-border-radius:0;
         border-radius:0;
@@ -167,11 +168,11 @@
 
 /* M o d a l     TinyMCE      t o o l b a r    ****************************************/
 
-#wpbc_tiny_modal .modal-dialog.modal-lg {
+.wpbc_popup_modal .modal-dialog.modal-lg {
     width:94%;
 }
 /* Scrollbar for modal */
-#wpbc_tiny_modal {
+.wpbc_popup_modal {
     overflow-y: auto !important;
 }
 /* this pasrt for having scrollbar inside of the modal window with  fixed height */
@@ -197,14 +198,14 @@
 .wp-admin .modal-backdrop.in {
     opacity: 0.5;
 }
-#wpbc_tiny_modal strong,
-#wpbc_tiny_modal label {
+.wpbc_popup_modal strong,
+.wpbc_popup_modal label {
     font-weight: 600;
 }
 .form-table td fieldset label.wpbc-form-radio{
     margin: 0 0 5px !important;
 }
-#wpbc_tiny_modal .form-table th {
+.wpbc_popup_modal .form-table th {
     font-weight: 600;
     line-height: 1.3;
     padding-bottom: 10px;
@@ -214,7 +215,7 @@
     vertical-align: top;
     width: 200px;
 }
-#wpbc_tiny_modal .form-table td {
+.wpbc_popup_modal .form-table td {
     line-height: 1.3;
     margin-bottom: 9px;
     padding-bottom: 5px;
@@ -226,33 +227,33 @@
 /* ------------------------------------------------------------------ */
 /* Align TOGGLE with  span and label elements in popup                */
 /* ------------------------------------------------------------------ */
-#wpbc_tiny_modal th label {
+.wpbc_popup_modal th label {
     font-weight: 600;
     margin: 3px 0 0.5em;
     line-height: 1.6;
     font-size: 14px;
 }
-#wpbc_tiny_modal td fieldset{
+.wpbc_popup_modal td fieldset{
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
 }
-#wpbc_tiny_modal td fieldset .wpbc_ui__toggle {
+.wpbc_popup_modal td fieldset .wpbc_ui__toggle {
     flex:0;
 }
-#wpbc_tiny_modal td fieldset span.description {
+.wpbc_popup_modal td fieldset span.description {
     flex: 1;
     margin: 3px 0 0.5em;
     padding: 0;
     line-height: 1.6;
     font-size: 14px;
 }
-#wpbc_tiny_modal td fieldset input[type='text'],
-#wpbc_tiny_modal td fieldset select {
+.wpbc_popup_modal td fieldset input[type='text'],
+.wpbc_popup_modal td fieldset select {
     margin: 3px 0.5em 0.5em 0;
 }
-#wpbc_tiny_modal .bookingother_wpbc_shortcode_type_other_shortcodes td fieldset{
+.wpbc_popup_modal .bookingother_wpbc_shortcode_type_other_shortcodes td fieldset{
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
@@ -260,16 +261,16 @@
     margin-top: 4px;
 }
 /* ------------------------------------------------------------------ */
-#wpbc_tiny_modal .modal-footer a.button, 
-#wpbc_tiny_modal .modal-footer a.button:hover,
-#wpbc_tiny_modal .modal-footer a.button:active,
-#wpbc_tiny_modal .modal-footer a.button:focus {
+.wpbc_popup_modal .modal-footer a.button,
+.wpbc_popup_modal .modal-footer a.button:hover,
+.wpbc_popup_modal .modal-footer a.button:active,
+.wpbc_popup_modal .modal-footer a.button:focus {
     text-decoration: none;
     outline: 0;
 }
-#wpbc_tiny_modal .wpbc_expand_section_link,
-#wpbc_tiny_modal a.wpbc_expand_section_link:hover,
-#wpbc_tiny_modal a.wpbc_expand_section_link:focus {
+.wpbc_popup_modal .wpbc_expand_section_link,
+.wpbc_popup_modal a.wpbc_expand_section_link:hover,
+.wpbc_popup_modal a.wpbc_expand_section_link:focus {
     color:#21759b;
     cursor: pointer;
     outline: 0;
@@ -277,54 +278,54 @@
     border-bottom:1px dashed #21759B;
     text-decoration: none;      
 }
-#wpbc_tiny_modal .booking_advanced_section, 
-#wpbc_tiny_modal .bookingcalendar_advanced_section, 
-#wpbc_tiny_modal .bookingselect_advanced_section, 
-#wpbc_tiny_modal .bookingtimeline_advanced_section0{
+.wpbc_popup_modal .booking_advanced_section,
+.wpbc_popup_modal .bookingcalendar_advanced_section,
+.wpbc_popup_modal .bookingselect_advanced_section,
+.wpbc_popup_modal .bookingtimeline_advanced_section0{
     display:none;
 }
-#wpbc_tiny_modal .put-in {
+.wpbc_popup_modal .put-in {
     cursor: pointer;
     font-weight: 600;
     background: none repeat scroll 0 0 #E9E9E9;
     border: 1px solid #BBBBBB;
     width:100%;
 }
-#wpbc_tiny_modal input[type="checkbox"],  
-#wpbc_tiny_modal input[type="radio"] {
+.wpbc_popup_modal input[type="checkbox"],
+.wpbc_popup_modal input[type="radio"] {
     margin: 0 10px 2px 0;
     vertical-align: middle;
     outline: 0;
 }
-#wpbc_tiny_modal .wpbc_sub_settings_grayed {
+.wpbc_popup_modal .wpbc_sub_settings_grayed {
     background-color: #f3f3f3;
 }
-#wpbc_tiny_modal .wpbc_sub_settings_grayed th {
+.wpbc_popup_modal .wpbc_sub_settings_grayed th {
     padding: 10px 0px 10px 12px;
 }
 /* Placeholders */
-#wpbc_tiny_modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.wpbc_popup_modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #999;
 }
-#wpbc_tiny_modal ::-moz-placeholder { /* Firefox 19+ */
+.wpbc_popup_modal ::-moz-placeholder { /* Firefox 19+ */
   color: #999;
 }
-#wpbc_tiny_modal :-ms-input-placeholder { /* IE 10+ */
+.wpbc_popup_modal :-ms-input-placeholder { /* IE 10+ */
   color: #999;
 }
-#wpbc_tiny_modal :-moz-placeholder {
+.wpbc_popup_modal :-moz-placeholder {
    color: #999;
 }
-#wpbc_tiny_modal .bookingsearch_search_results{
+.wpbc_popup_modal .bookingsearch_search_results{
     display:none;
 }
-#wpbc_tiny_modal .bookingsearch_search_form.wpbc_sub_settings_grayed{
+.wpbc_popup_modal .bookingsearch_search_form.wpbc_sub_settings_grayed{
     display:none;
 }
-/*#wpbc_tiny_modal .wpbc_shortcode_bookingresource {*/
+/*.wpbc_popup_modal .wpbc_shortcode_bookingresource {*/
 /*    display:none;*/
 /*}*/
-#wpbc_tiny_modal select option:disabled {
+.wpbc_popup_modal select option:disabled {
        color: #ccc;
        display: none;
 }
@@ -338,7 +339,7 @@
 /* == 2024-01-20 ==================================================================================================== */
 
 /* Navigation tabs fix */
-body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs ,
+body[class*='page_wpbc-resources'] .wpbc_popup_modal .wpdvlp-top-tabs .nav-tabs ,
 .modal-body .wpbc_settings_flex_container .wpdvlp-top-tabs .nav-tabs {
     border:none;
     border-bottom:1px solid #d6d6d6;
@@ -352,28 +353,29 @@ body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs ,
   position: relative;
   padding: 15px;
   background: #f5f5f5;
+  background: #f7f7f7;
 }
 /* SIZE */
-#wpbc_tiny_modal .modal-dialog.modal-lg {
+.wpbc_popup_modal .modal-dialog.modal-lg {
     width: 80%;
         width: 98%;
         margin: 5px auto;
 }
 @media (max-width: 782px) {
-    #wpbc_tiny_modal .modal-dialog.modal-lg {
+    .wpbc_popup_modal .modal-dialog.modal-lg {
         width: 97%;
     }
 }
 /* Show over top toolbar - dashboard*/
-#wpbc_tiny_modal {
+.wpbc_popup_modal {
     z-index: 1000000;
 }
 /* Header border radius*/
-#wpbc_tiny_modal .modal-dialog.modal-lg .modal-header {
+.wpbc_popup_modal .modal-dialog.modal-lg .modal-header {
     border-radius: 6px 6px 0 0;
 }
 /* Shortcode Text  field */
-#wpbc_tiny_modal .put-in {
+.wpbc_popup_modal .put-in {
     cursor: text;
     font-weight: 600;
   /*background: #1E7BC7;*/
@@ -436,7 +438,8 @@ body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs ,
         display: none;
     }
     /* Default 1st section  visible */
-    .wpbc_sc_container__all_shortcodes .wpbc_sc_container__shortcode_booking {
+    .wpbc_sc_container__all_shortcodes .wpbc_sc_container__shortcode_booking ,
+    .wpbc_sc_container__all_shortcodes .wpbc_sc_container__shortcode_search_filters {
         display: block;
     }
         /* Hide all  sections by  default*/
@@ -444,7 +447,8 @@ body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs ,
             display:none;
         }
         /* Default 1st section  visible */
-        .wpbc_sc_container__shortcode_section__general {
+        .wpbc_sc_container__shortcode_section__general ,
+        .wpbc_sc_container__shortcode_section__search_filters{
             display:block;
         }
             /* Hide all  sections by  default*/
@@ -461,7 +465,7 @@ body[class*='page_wpbc-resources'] #wpbc_tiny_modal .wpdvlp-top-tabs .nav-tabs ,
     margin: 0;
 }
 .wpbc_sc_container__shortcode_section .wpdvlp-sub-tabs {
-    padding: 1px 5px 1px 0px;
+    padding: 1px 5px 1px 0;
 }
 .wpbc_sc_container__shortcode_section .wpdvlp-sub-tabs .nav-tabs .nav-tab {
     border-right: 1px solid #d8d8d8;

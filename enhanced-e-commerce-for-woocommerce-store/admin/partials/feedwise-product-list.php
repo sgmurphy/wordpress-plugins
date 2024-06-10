@@ -294,11 +294,11 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                         
                     <?php foreach ($channel_id as $val) {
                             if ($val === '1') { ?>
-                                        <img class="<?php echo strtolower(str_replace(' ', '', $result[0]['status'])) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png'); ?>" title="<?php echo "GMC Id - ". $google_merchant_center_id?>"/>
+                                        <img class="<?php echo esc_attr(strtolower(str_replace(' ', '', $result[0]['status']))) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png'); ?>" title="<?php echo "GMC Id - ". esc_attr($google_merchant_center_id)?>"/>
                                 <?php } else if ($val === '2') { ?>
-                                            <img class="<?php echo strtolower(str_replace(' ', '', $result[0]['fb_status'])) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png'); ?>" title="<?php echo "Facebook Business Account - ". $facebook_business_account ?>"/>
+                                            <img class="<?php echo esc_attr(strtolower(str_replace(' ', '', $result[0]['fb_status']))) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png'); ?>" title="<?php echo "Facebook Business Account - ". esc_attr($facebook_business_account) ?>"/>
                                 <?php } else if ($val === '3') { ?>
-                                                <img class="<?php echo strtolower(str_replace(' ', '', $result[0]['tiktok_status'])) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png'); ?>" title="<?php echo "Tiktok Business Account - ". $tiktok_business_account ?>"/>
+                                                <img class="<?php echo esc_attr(strtolower(str_replace(' ', '', $result[0]['tiktok_status']))) ?>-status" src="<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png'); ?>" title="<?php echo "Tiktok Business Account - ". esc_attr($tiktok_business_account) ?>"/>
                             <?php }
                         } ?>
                     </label> 
@@ -327,7 +327,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                 $filteredProductSyn = '';
             }
             ?>            
-            <button type="button" class="btn btn-soft-primary float-end ms-2 fs-14 fw-500 <?php echo $filteredProductSyn ?> " name="filteredProductSyn" id="filteredProductSyn" value="syncAll" <?php echo ($filteredProductSyn == '') ? 'style="cursor: no-drop;"' : '' ?>>
+            <button type="button" class="btn btn-soft-primary float-end ms-2 fs-14 fw-500 <?php echo esc_attr($filteredProductSyn) ?> " name="filteredProductSyn" id="filteredProductSyn" value="syncAll" <?php echo ($filteredProductSyn == '') ? 'style="cursor: no-drop;"' : '' ?>>
                 <?php
                 esc_html_e("Sync 0 Products", "enhanced-e-commerce-for-woocommerce-store"); ?>
             </button> 
@@ -625,7 +625,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                                 <?php esc_html_e("Facebook Catalog Id :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 fb_id">
-                                <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? $ee_options['facebook_setting']['fb_catalog_id'] : ''; ?>
+                                <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_html(sanitize_text_field($ee_options['facebook_setting']['fb_catalog_id'])) : ''; ?>
                             </label>
                         </div>
                     </div>
@@ -1178,7 +1178,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
             }
             var status = "<?php echo esc_html($result[0]['status']); ?>";
             var tiktok_status = "<?php echo esc_html($result[0]['tiktok_status']) ?>";
-            var fb_status = "<?php echo $result[0]['fb_status'] ?>";
+            var fb_status = "<?php echo esc_html($result[0]['fb_status']) ?>";
             var is_mapping_update = "<?php echo esc_html($result[0]['is_mapping_update']); ?>"
             if (status === 'Draft' && tiktok_status == 'Draft' && fb_status == 'Draft' && is_mapping_update != '1') {
                 jQuery('.action_').remove();
@@ -1268,9 +1268,9 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                     feed_id: jQuery('#feed_id').val(),
                     maxResults: jQuery('select[name=product_list_table_length]').val(),
                     channel_id: jQuery('#selectStatus').find(":selected").val(),
-                    catalog_id: "<?php echo $facebook_catalog_id?>",
-                    tiktok_business_id: "<?php echo $tiktok_business_account ?>",
-                    tiktok_catalog_id: "<?php echo $result[0]['tiktok_catalog_id'] ?>",
+                    catalog_id: "<?php echo esc_html($facebook_catalog_id)?>",
+                    tiktok_business_id: "<?php echo esc_html($tiktok_business_account) ?>",
+                    tiktok_catalog_id: "<?php echo esc_html($result[0]['tiktok_catalog_id']) ?>",
                     conv_licence_nonce: "<?php echo esc_html(wp_create_nonce('conv_licence-nonce')); ?>"
                 };
                 jQuery.ajax({
@@ -2097,9 +2097,9 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                 jQuery('#tiktok_catalog_id').val('');
                 jQuery('#fb_id').prop("checked", false);
                 jQuery('#fb_id').attr('disabled', false);
-                var tiktok_business_account = "<?php echo $tiktok_business_account ?>";
-                var google_merchant_center_id = "<?php echo $google_merchant_center_id ?>";
-                var facebook_business_account = "<?php echo $facebook_business_account ?>";
+                var tiktok_business_account = "<?php echo esc_html($tiktok_business_account) ?>";
+                var google_merchant_center_id = "<?php echo esc_html($google_merchant_center_id) ?>";
+                var facebook_business_account = "<?php echo esc_html($facebook_business_account) ?>";
                 if(tiktok_business_account == "") {
                     jQuery('#tiktok_id').attr('disabled', true);
                     jQuery('#tiktok_id').attr('checked', false);
@@ -2750,11 +2750,11 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
             });
 
             /****************Check Channel Status before fetching product status start **********************************/
-            var status = "<?php echo $result[0]['status'] ?>";
-            var tiktok_status = "<?php echo $result[0]['tiktok_status'] ?>";
-            var fb_status = "<?php echo $result[0]['fb_status'] ?>";
-            var is_mapping_update = "<?php echo $result[0]['is_mapping_update']; ?>";
-            var prefix = "<?php echo $result[0]['product_id_prefix'] ?>";
+            var status = "<?php echo esc_html($result[0]['status']) ?>";
+            var tiktok_status = "<?php echo esc_html($result[0]['tiktok_status']) ?>";
+            var fb_status = "<?php echo esc_html($result[0]['fb_status']) ?>";
+            var is_mapping_update = "<?php echo esc_html($result[0]['is_mapping_update']); ?>";
+            var prefix = "<?php echo esc_html($result[0]['product_id_prefix']) ?>";
             if(status == 'Draft' && tiktok_status == 'Draft' && fb_status == 'Draft' && is_mapping_update != '1'){
                 jQuery('.action_').remove();
                 jQuery("input:checkbox[name=attrProduct]").each(function() {
@@ -2792,7 +2792,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                     }
                 });
 
-                jQuery('.allPendingCount').text(addCommas(<?php echo $result[0]['total_product'] !== "" ? $result[0]['total_product'] : 0 ?>));
+                jQuery('.allPendingCount').text(addCommas(<?php echo $result[0]['total_product'] !== "" ? esc_html($result[0]['total_product']) : 0 ?>));
 
             } else if (status == 'In Progress' && tiktok_status == 'In Progress' && fb_status == 'In Progress' && is_mapping_update == '1') {
                 jQuery('.action_').remove();
@@ -2820,7 +2820,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                     }
                 });
 
-                jQuery('.allPendingCount').text(addCommas(<?php echo $result[0]['total_product'] !== "" ? $result[0]['total_product'] : 0 ?>));
+                jQuery('.allPendingCount').text(addCommas(<?php echo $result[0]['total_product'] !== "" ? esc_html($result[0]['total_product']) : 0 ?>));
             } else {
                 /*********Fetch real time status from API***********/
                 var all_check_list = Array(); // all checked box value
@@ -2844,9 +2844,9 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                     feed_id: jQuery('#feed_id').val(),
                     maxResults: jQuery('select[name=product_list_table_length]').val(),
                     channel_id: jQuery('#selectStatus').find(":selected").val(),
-                    catalog_id: "<?php echo $facebook_catalog_id?>",
-                    tiktok_business_id: "<?php echo $tiktok_business_account ?>",
-                    tiktok_catalog_id: "<?php echo $result[0]['tiktok_catalog_id'] ?>",
+                    catalog_id: "<?php echo esc_html($facebook_catalog_id) ?>",
+                    tiktok_business_id: "<?php echo esc_html($tiktok_business_account) ?>",
+                    tiktok_catalog_id: "<?php echo esc_html($result[0]['tiktok_catalog_id']) ?>",
                     conv_licence_nonce: "<?php echo esc_html(wp_create_nonce('conv_licence-nonce')); ?>"
                 };
                 conv_change_loadingbar('show');

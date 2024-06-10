@@ -2,7 +2,7 @@
 Tags: popular posts, top 10, counter, top posts, daily popular, page views, statistics, tracker
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.3.3
+Stable tag: 3.3.4
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
@@ -11,8 +11,6 @@ License: GPLv2 or later
 Track daily and total visits on your blog posts. Display the count as well as popular and trending posts.
 
 == Description ==
-
-**This plugin can be downloaded for free without any paid subscription from [the official WordPress repository](https://wordpress.org/plugins/top-10/).**
 
 WordPress doesn't have an in-built system to track page views or displaying popular posts. [Top 10](https://webberzone.com/plugins/top-10/) is an easy to use, yet, powerful WordPress plugin that will count the number of page views of your posts, pages and any custom post types. You can then display the page view counts as well as display your most popular posts.
 
@@ -55,7 +53,7 @@ Top 10 is available for [translation directly on WordPress.org](https://translat
 
 = Contribute =
 
-Top 10 is also available on [Github](https://github.com/ajaydsouza/top-10)
+Top 10 is also available on [Github](https://github.com/webberzone/top-10)
 So, if you've got some cool feature that you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request. Please don't use that for support requests.
 
 == Other plugins from WebberZone ==
@@ -145,6 +143,15 @@ add_filter( 'manage_edit-projects_sortable_columns', 'tptn_column_register_sorta
 
 == Changelog ==
 
+= 3.3.4 =
+
+* Enhancements:
+	* Exporting and importing the post tables now supports post URLs. This will allow you to import the post tables into a different site and have the correct counts. Note: This will only work if the URLs are the same on both sites. If you have changed the URL structure, you will need to manually update the URLs in the exported CSV file
+	* Cache is enabled by default
+
+* Bug fixes:
+	* Fixed a bug where the cron job would not run
+
 = 3.3.3 =
 
 Release post: [https://webberzone.com/announcements/top-10-v3-3-0/](https://webberzone.com/announcements/top-10-v3-3-0/)
@@ -204,6 +211,6 @@ For previous changelog entries, please refer to the separate changelog.txt file 
 
 == Upgrade Notice ==
 
-= 3.3.3 =
-Bug fix release; Check out the release post.
+= 3.3.4 =
+Check out the release post for further information on this release
 

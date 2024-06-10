@@ -65,6 +65,57 @@ public function getWebhookUrl()
 {
 return admin_url('admin-ajax.php') . '?action='. $this->getWebhookAction();
 }
+public function getAbRand()
+{
+$rand = get_option($this->get_option_name('ab-rand'));
+if (!$rand) {
+$rand = rand(1, 15);
+update_option($this->get_option_name('ab-rand'), $rand, false);
+}
+return (int)$rand;
+}
+public function getProFeatureButton($campaignId)
+{
+$abRand = $this->getAbRand();
+$buttons = [
+[
+'campaign-suffix' => 'A',
+'text' => __('Create a Free Account for More Features', 'trustindex-plugin'),
+'range' => '1-3',
+],
+[
+'campaign-suffix' => 'B',
+'text' => __('Create Free Account to Get All Your Reviews', 'trustindex-plugin'),
+'range' => '4-6',
+],
+[
+'campaign-suffix' => 'C',
+'text' => __('Sign Up Free', 'trustindex-plugin'),
+'range' => '7-9',
+],
+[
+'campaign-suffix' => 'D',
+'text' => __('Create a Free Account', 'trustindex-plugin'),
+'range' => '10-12',
+],
+[
+'campaign-suffix' => 'E',
+'text' => __('Sign Up Free – Try PRO Features', 'trustindex-plugin'),
+'range' => '13-15',
+],
+];
+$currentButton = $buttons[0];
+foreach ($buttons as $button) {
+$tmp = explode('-', $button['range']);
+$rangeMin = (int)$tmp[0];
+$rangeMax = (int)$tmp[1];
+if ($abRand >= $rangeMin && $abRand <= $rangeMax) {
+$currentButton = $button;
+break;
+}
+}
+return '<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c='. $campaignId . $currentButton['campaign-suffix'] .'" target="_blank">'. $currentButton['text'] .'</a>';
+}
 public function is_review_download_in_progress()
 {
 return get_option($this->get_option_name('review-download-inprogress'), 0);
@@ -391,6 +442,7 @@ return [
 'activation-redirect',
 'notifications',
 'update-version-check',
+'ab-rand',
 ];
 }
 
@@ -667,7 +719,7 @@ if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
 $className = 'TrustindexPlugin_' . $forcePlatform;
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.5", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.6", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));

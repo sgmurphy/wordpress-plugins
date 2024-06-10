@@ -22,7 +22,7 @@ trait AdminInitTrait {
 		include dirname(__FILE__) .'/../get-dir-paths.inc.php';
 
 		// for media queries
-		$this->unq_base = uniqid();
+		$this->unq_base = uniqid('mtmq');
 
 		// Setup essential vars
 		$page = isset($_GET['page']) ? $_GET['page'] : false;

@@ -79,8 +79,9 @@
 } 
 /* button group in drop down list*/
 .wpdevelop .dropdown-menu li .btn-toolbar .btn-group {
-    float: right;
     margin: 0 5px;
+    float: right;
+    margin-left: auto;
 }
 .wpdevelop .dropdown-menu li .btn-toolbar .btn-group a.button {
     clear:none;
@@ -102,7 +103,7 @@
     width: 100%;    
 }
 .wpdevelop .dropdown-menu li .btn-toolbar .input-group.text-group .dropdown-menu-text-element input[type=text] {
-    font-size: 12px;
+    font-size: 13px;
     width: 100%;  
 }
 /* Containers in Toolbars */
@@ -404,6 +405,9 @@
     }*/
     .wpdevelop .in-button-text {
         display:none;
+    }
+    .wpdevelop .control-group .btn-toolbar .input-group > .input-group-btn .button {
+        line-height: 34px;
     }
     .wpdevelop .control-group .btn-group > .button,
     .wpdevelop .control-group .btn-toolbar .btn-group > .button, 

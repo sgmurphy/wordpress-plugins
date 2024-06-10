@@ -334,7 +334,7 @@ if (0){
 						</div>
 					<?php } ?>
 
-					<div id="wpbc_general_settings_all_tab" class="wpbc_settings_navigation_item">
+					<div id="wpbc_general_settings_all_tab" class="wpbc_settings_navigation_item wpbc_navigation_top_border">
 						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'.postbox' );" href="javascript:void(0);">
 							<span><?php _e( 'Show All Settings', 'booking' ) ?></span>
 						</a>

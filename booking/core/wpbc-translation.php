@@ -15,8 +15,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit if accessed directly
 
 
-// Check content according  [lang=xx_XX]  shortcode
-add_bk_filter( 'wpdev_check_for_active_language', 'wpdev_check_for_active_language' );
+
+
 
 
 /**
@@ -385,12 +385,24 @@ function wpbc_filter_load_custom_plugin_translation_file( $mofile, $domain ) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Translate content. Check for language sections -- [lang=xx_XX] shortcode.                                            //FixIn: 10.0.0.46
+ *
+ * @param $content_orig
+ *
+ * @return string
+ */
+function wpbc_lang( $content_orig ) {
+	return wpdev_check_for_active_language( $content_orig );
+}
+
+
+/**
  * Check plugin text for active language section -- [lang=xx_XX] shortcode
  *
  * @param string $content_orig
  * @return string
  * Usage:
- * $text = apply_bk_filter('wpdev_check_for_active_language',  $text );
+ * $text = wpbc_lang(  $text );
  */
 function wpdev_check_for_active_language( $content_orig ) {
 
