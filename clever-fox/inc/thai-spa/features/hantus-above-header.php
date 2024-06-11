@@ -93,8 +93,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		    'label'   		=> __('Time Icon','clever-fox'),
 		    'section' 		=> 'header_setting',
 			'iconset' => 'fa',
-			'settings' 		 => 'hantus_time_icon',
-			'description'   => __( '', 'clever-fox' ),
+			'settings' 		 => 'hantus_time_icon'
 			
 		))  
 	);
@@ -117,7 +116,6 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		    'label'   		=> __('Address','clever-fox'),
 		    'section' 		=> 'header_setting',
 			'settings' 		 => 'hantus_timing',
-			'description'   => __( '', 'clever-fox' ),
 			'type'		 =>	'textarea'
 		)  
 	);
@@ -173,11 +171,11 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			$theme = wp_get_theme(); // gets the current theme
 				if ( 'Cosmics' == $theme->name){
 			?>
-				<a class="customizer_hdr_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_hdr_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				<?php
 				   }else{
 				?>	
-				<a class="customizer_hdr_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_hdr_social_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}}
 		}
@@ -455,7 +453,7 @@ function header_section_header_phone_number_render_callback() {
  */
 function hantus_get_social_icon_default() {
 	return apply_filters(
-		'hantus_get_social_icon_default', json_encode(
+		'hantus_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'thai-spa' ),

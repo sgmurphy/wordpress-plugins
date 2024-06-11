@@ -351,7 +351,11 @@ class WPRM_Recipe_Parser {
 					$formatted_fraction = '';
 
 					if ( 0 < $fraction_parts[0] ) {
-						$formatted_fraction .= $fraction_parts[0] . ' ';
+						$formatted_fraction .= number_format( $fraction_parts[0], 0 ) . ' ';
+
+						if ( 'comma' === WPRM_Settings::get( 'decimal_separator' ) ) {
+							$formatted_fraction = str_replace( ',', '.', $formatted_fraction );
+						}
 					}
 
 					if ( 0 < $fraction_parts[1] ) {

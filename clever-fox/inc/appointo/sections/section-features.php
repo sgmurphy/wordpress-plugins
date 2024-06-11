@@ -57,8 +57,8 @@
 										
 										<?php if(!empty($title)  || !empty($text)): ?>
 											<div class="features-content">
-												<h6 class="features-title"><a href="<?php echo esc_url($link); ?>"><?php echo esc_html__($title); ?></a></h6>
-												<p><?php echo esc_html__($text); ?></p>
+												<h6 class="features-title"><a href="<?php echo esc_url($link); ?>"><?php /* Translators: %s : Title */printf(esc_html__('%s.','clever-fox'),esc_html($title)); ?></a></h6>
+												<p><?php /* Translators: %s : Text */printf(esc_html__('%s.','clever-fox'),esc_html($text)); ?></p>
 											</div>
 										<?php endif; ?>
 										
@@ -88,6 +88,6 @@
 			<?php endif; ?>
 		</div>
 	</div>
-	<div class="shape5"><img src="<?php echo plugin_dir_url( dirname(__FILE__) ) .'images/clipArt/shape5.png';?>" alt="image"></div>
-	<div class="shape6"><img src="<?php echo plugin_dir_url( dirname(__FILE__) ) .'images/clipArt/shape6.png';?>" alt="image"></div>
+	<div class="shape5"><img src="<?php echo esc_url(plugin_dir_url( dirname(__FILE__) )) .'images/clipArt/shape5.png';?>" alt="image"></div>
+	<div class="shape6"><img src="<?php echo esc_url(plugin_dir_url( dirname(__FILE__) )) .'images/clipArt/shape6.png';?>" alt="image"></div>
 </section>

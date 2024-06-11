@@ -24,7 +24,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	$wp_customize->add_setting(
 		'hdr_nav_contact_content'
 			,array(
-			'default'     	=> __('<p>Are you to grow up your business? <strong>Join our team</strong></p>','clever-fox'),
+			'default'     	=> /* Translators: 1:P Tag Start 2: Strong Tag Start 3: Close Strong Tag 4: End P Tag */sprintf(__('%1$sAre you to grow up your business? %2$sJoin our team%3$s%4$s','clever-fox'),'<p>','<strong>','</strong>','</p>'),
 			'capability'     	=> 'edit_theme_options',
 			'sanitize_callback' => 'gradiant_sanitize_html',
 			'transport'         => $selective_refresh,

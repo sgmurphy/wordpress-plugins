@@ -141,6 +141,18 @@ p.ays-subtitle {
     font-weight: 500;
 }
 
+div.row {
+   padding: 0; /* conflict with WP Phlox theme */
+}
+
+div.row.ays_pb_enable_dismiss_ad_box {
+    padding: 0 15px;
+}
+
+.pb_theme_image_div.col {
+    margin: 0; /* conflict with WP Phlox theme */
+}
+
 input.ays-text-input,
 textarea.ays-textarea {
     display: block;

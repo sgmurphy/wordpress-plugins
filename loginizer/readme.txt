@@ -4,7 +4,7 @@ Tags: security, access, admin, Loginizer, login, logs, ban ip, failed login, ip,
 Requires at least: 3.0
 Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -82,6 +82,10 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.8.6 =
+* [Bug-Fix] There was an issue with Login Notification body and subject, it was adding \(slashes) if "(double-quotes) where being used. This has been fixed.
+* [Task] Removal of unwanted code.
 
 = 1.8.5 =
 * [Feature] Added Option to disable Login notification for whitelisted IPs.

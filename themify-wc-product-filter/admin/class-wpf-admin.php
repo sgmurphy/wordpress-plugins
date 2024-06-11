@@ -235,9 +235,19 @@ class WPF_Admin {
             } else {
                 $option = WPF_Options::get_option($this->plugin_name, $this->version);
                 $forms = $option->get();
-                foreach ($result as $slug=>$v) {
-                    if (!empty($v['layout']) && !empty($v['data'])) {
-                        $forms[$slug] = $v;
+                foreach ( $result as $slug => $v ) {
+                    if ( ! empty( $v['layout'] ) && ! empty( $v['data'] ) ) {
+						if ( isset( $forms[ $slug ] ) ) {
+							$index = 0;
+							$found = false;
+							do {
+								if ( ! isset( $forms[ $slug . '-' . ++$index ] ) ) {
+									$found = true;
+								}
+							} while( $found === false );
+							$slug .= '-' . $index;
+						}
+                        $forms[ $slug ] = $v;
                     }
                 }
                 $option->set($forms);

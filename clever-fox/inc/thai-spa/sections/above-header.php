@@ -20,7 +20,7 @@
 				
 				<div class="col-lg-6 col-md-6 text-center text-md-left left-top-header">
 				<?php if($hide_show_social_icon == '1') { ?>
-					<p class="time-details"><i class="fa <?php echo $hantus_time_icon; ?>"></i><?php echo $hantus_timing; ?></p>
+					<p class="time-details"><i class="fa <?php echo esc_attr($hantus_time_icon); ?>"></i><?php /* translators: %s: Timing */printf( esc_html__('%s.', 'clever-fox'), esc_html($hantus_timing)); ?></p>
 					<ul class="header-social d-inline-block">
 						<?php
 							$social_icons = json_decode($social_icons);
@@ -44,8 +44,8 @@
 			<?php if($hide_show_contact_infot == '1' ) { ?>
 				<div class="col-lg-6 col-md-6 text-center text-md-right header-top-right">
 					<ul class="text-details">
-						<li class="h-t-e"><a href="mailto:<?php echo esc_html($header_email); ?>"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php echo $header_email; ?></a></li>
-						<li class="h-t-p"><a href="tel:<?php echo esc_html($header_phone_number); ?>"><i class="fa <?php  echo esc_attr( $header_phone_icon ); ?>"></i><?php echo $header_phone_number; ?></a></li>
+						<li class="h-t-e"><a href="mailto:<?php echo esc_html($header_email); ?>"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php echo esc_html($header_email); ?></a></li>
+						<li class="h-t-p"><a href="tel:<?php echo esc_html($header_phone_number); ?>"><i class="fa <?php  echo esc_attr( $header_phone_icon ); ?>"></i><?php /* translators: %s: Phone Number */printf( esc_html__('%s.', 'clever-fox'), esc_html($header_phone_number)); ?></a></li>
 					</ul>       
 				</div>
 			<?php } ?>	

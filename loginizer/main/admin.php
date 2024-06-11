@@ -655,19 +655,7 @@ function loginizer_dashboard(){
 }
 
 function loginizer_sso_settings(){
-	loginizer_enqueue_admin_script();
 	include_once LOGINIZER_DIR . '/main/settings/sso.php';
 	
 	loginizer_sso();
-}
-
-function loginizer_enqueue_admin_script(){
-	wp_enqueue_script('loginizer-admin', LOGINIZER_URL . '/assets/js/loginizer-admin.js', LOGINIZER_VERSION, true);
-	
-	$loginizer_script_data = array(
-		'nonce' => wp_create_nonce('loginizer_nonce'),
-		'ajax_url' => admin_url('admin-ajax.php'),
-	);
-	
-	wp_localize_script('loginizer-admin', 'lz_obj', $loginizer_script_data);
 }

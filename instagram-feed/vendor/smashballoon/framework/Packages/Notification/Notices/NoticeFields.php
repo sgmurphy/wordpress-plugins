@@ -13,7 +13,6 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Notice fields class.
- * @internal
  */
 class NoticeFields
 {

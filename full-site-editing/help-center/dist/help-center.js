@@ -61316,9 +61316,15 @@ const BackButton = ({
 
 const BackToTopButton = () => {
   const elementRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const scrollParentRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   const {
     __
   } = (0,_wordpress_react_i18n__WEBPACK_IMPORTED_MODULE_3__/* .useI18n */ .s9)();
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (elementRef.current) {
+      scrollParentRef.current = elementRef.current?.closest('.help-center__container-content');
+    }
+  }, [elementRef]);
   const isBelowThreshold = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useCallback)(containerNode => {
     const SCROLL_THRESHOLD = 400;
     return containerNode.scrollTop > SCROLL_THRESHOLD;
@@ -61327,14 +61333,12 @@ const BackToTopButton = () => {
     isButtonVisible,
     scrollToTop
   } = (0,_automattic_components__WEBPACK_IMPORTED_MODULE_4__/* .useScrollToTop */ .b)({
-    scrollTargetRef: elementRef,
+    scrollTargetRef: scrollParentRef,
     isBelowThreshold,
     smoothScrolling: false
   });
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    ref: element => {
-      elementRef.current = element?.parentElement ?? null;
-    },
+    ref: elementRef,
     className: (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .A)('back-to-top-button__help-center', {
       'is-visible': isButtonVisible
     }),
@@ -62605,6 +62609,22 @@ const HelpCenterContainer = ({
 
 
 
+// Disabled component only applies the class if isDisabled is true, we want it always.
+function Wrapper({
+  isDisabled,
+  className,
+  children
+}) {
+  if (isDisabled) {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Disabled, {
+      isDisabled: isDisabled,
+      className: className
+    }, children);
+  }
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: className
+  }, children);
+}
 const HelpCenterContent = ({
   currentRoute
 }) => {
@@ -62654,13 +62674,10 @@ const HelpCenterContent = ({
     (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_1__/* .recordTracksEvent */ .Oy)(eventName, properties);
   }, []);
   const setOdieStorage = (0,_automattic_odie_client__WEBPACK_IMPORTED_MODULE_11__/* .useSetOdieStorage */ .sS)('chat_id');
-
-  // Disabled component only applies the class if isDisabled is true, we want it always.
-  const OptionalDisabled = isMinimized ? _wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Disabled : props => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", props);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.CardBody, {
     ref: containerRef,
     className: "help-center__container-content"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(OptionalDisabled, {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Wrapper, {
     isDisabled: isMinimized,
     className: "help-center__container-content-wrapper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Routes */ .BV, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__/* .Route */ .qh, {

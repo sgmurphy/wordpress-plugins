@@ -2,7 +2,7 @@
 <?php
 	// WP-CRONスケジュール（存在チェック）
 	if (!$this->options['flg-alive'] ) {
-		wp_clear_scheduled_hook('pz_linkcard_alive' );
+		wp_clear_scheduled_hook(self::CRON_ALIVE );
 		return	null;
 	}
 
@@ -25,7 +25,7 @@
 
 			// 5件を超えたら、1時間後に続きを処理する
 			if ($proc_count > 5) {
-				wp_schedule_single_event(time() + 3600, 'pz_linkcard_alive');
+				wp_schedule_single_event(time() + 3600, self::CRON_ALIVE );
 				break;
 			}
 

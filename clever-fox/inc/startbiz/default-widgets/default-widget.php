@@ -16,7 +16,7 @@ $activate = array(
    update_option('widget_text', array(
         1 => array('title' => '',
         'text'=>'<div class="footer-logo"><img class="img-responsive" src="'.CLEVERFOX_PLUGIN_URL.'inc/startbiz/images/footerlogo.png" alt="Logo" /><div>
-		<p class="widget-text">'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'</p><a href="#">Go for details <i class="fa fa-long-arrow-right"></i></a>
+		<p class="widget-text">'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p><a href="#">Go for details <i class="fa fa-long-arrow-right"></i></a>
 		'), 
 		2 => array('title' => 'Recent Posts'),
 		3 => array('title' => 'Categories'), 

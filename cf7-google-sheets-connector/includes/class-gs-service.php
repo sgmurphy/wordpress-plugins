@@ -46,11 +46,13 @@ class Gs_Connector_Service {
 
     public function execute_post_data_cf7_free() {
         try {
+          
           // Check if the current user has the 'manage_options' capability
-          if (!current_user_can('manage_options')) {
-            // If the user doesn't have the required capability, show an error message or redirect
-            wp_die(__('You do not have sufficient permissions to access this page.'));
-           }
+          if ( isset($_GET['page']) && $_GET['page']  == 'wpcf7-google-sheet-config' && isset($_GET['tab']) && $_GET['tab'] == 'system-status' && !current_user_can('manage_options')) {
+               // If the user doesn't have the required capability, show an error message or redirect
+              wp_die(__('You do not have sufficient permissions to access this page.'));
+
+            }
 
             // save debug logs
             if(isset($_POST['gs_cf7free_debug_settings'])) {

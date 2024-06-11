@@ -997,7 +997,8 @@ class Secure_Copy_Content_Protection_Public {
 	        }
 
 	        $current_user_ip = $user_ip;
-
+	        $super_admin_email = get_option('admin_email');
+	        
 			$message_data = array(                    
                 'user_first_name' 		=> $user_first_name,
                 'user_last_name' 		=> $user_last_name,                   
@@ -1006,6 +1007,7 @@ class Secure_Copy_Content_Protection_Public {
                 'user_nickname'     	=> $user_nickname,
                 'user_wordpress_roles' 	=> $user_wordpress_roles,
                 'current_user_ip'       => $current_user_ip,
+                'admin_email'       	=> $super_admin_email,
                 'user_id'              	=> $user_id
             );
 

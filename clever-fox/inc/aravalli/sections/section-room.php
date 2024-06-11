@@ -49,20 +49,20 @@
 							<?php if ( ! empty( $image ) ) : ?>
 								<div class="post-thumbnail">
 									<div class="post-img"><img src="<?php echo esc_url( $image ); ?>" alt=""></div>
-									<div class="ribbon-container"><span class="ribbon ribbon-red"><?php  printf(__('%s','clever-fox'), $ribbon_text); ?></span></div>
+									<div class="ribbon-container"><span class="ribbon ribbon-red"><?php echo esc_html($ribbon_text); ?></span></div>
 									<?php if (!empty($title) ):  ?>
-										<div class="price-bedge"><?php printf(__('%s','clever-fox'), $title); ?></div>
+										<div class="price-bedge"><?php echo esc_html($title); ?></div>
 									<?php endif; ?>
 								</div>
 							<?php endif; ?>
 							<div class="post-content">
 								<div class="post-content-inner">
 									<?php if (!empty($subtitle) ):  ?>
-									<h3 class="post-title"><a href="<?php echo esc_url($link); ?>"><?php printf(__('%s','clever-fox'), $subtitle); ?></a></h3>
+									<h3 class="post-title"><a href="<?php echo esc_url($link); ?>"><?php echo esc_html($subtitle); ?></a></h3>
 									<?php endif; ?>
 									<p><?php echo esc_html($text); ?></p>
 									<?php if(!empty($button)): ?>
-										<a href="<?php echo esc_url($link); ?>" class="btn-shape btn-line-primary"><?php printf(__('%s','clever-fox'), $button); ?></a>
+										<a href="<?php echo esc_url($link); ?>" class="btn-shape btn-line-primary"><?php echo esc_html($button); ?></a>
 									<?php endif; ?>
 								</div>	
 							</div>

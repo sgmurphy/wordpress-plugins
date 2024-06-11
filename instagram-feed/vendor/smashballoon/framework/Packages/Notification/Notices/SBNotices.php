@@ -15,7 +15,6 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Get all notices and display error warning or success notices
- * @internal
  */
 class SBNotices
 {

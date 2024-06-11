@@ -48,8 +48,8 @@ $theme = wp_get_theme(); // gets the current theme
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/manage-slider-section-related-setting-2/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/manage-slider-section-related-setting-2/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }
@@ -153,7 +153,7 @@ $theme = wp_get_theme(); // gets the current theme
 			$theme = wp_get_theme(); // gets the current theme	
 		if ( 'Renoval' == $theme->name || 'Builderse' == $theme->name || 'Eractor' == $theme->name){
 			?>
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/renoval-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/renoval-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}
 			}
@@ -183,8 +183,8 @@ $theme = wp_get_theme(); // gets the current theme
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/how-to-setup-manage-info-section/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/how-to-setup-manage-info-section/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }
@@ -264,7 +264,7 @@ $theme = wp_get_theme(); // gets the current theme
 				$theme = wp_get_theme(); // gets the current theme	
 				if ( 'Renoval' == $theme->name || 'Builderse' == $theme->name || 'Eractor' == $theme->name){
 			?>
-				<a class="customizer_slider_info_upgrade_section up-to-pro" href="https://www.nayrathemes.com/renoval-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_info_upgrade_section up-to-pro" href="https://www.nayrathemes.com/renoval-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}}
 		}

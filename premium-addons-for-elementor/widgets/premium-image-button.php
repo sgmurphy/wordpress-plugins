@@ -2043,9 +2043,21 @@ class Premium_Image_Button extends Widget_Base {
 
 		var hoverEffectClass = 'style8' === hoverEffect ? 'premium-button-style8' : 'premium-image-button-' + hoverEffect;
 
+        view.addRenderAttribute( 'button', {
+            'class': [
+                'premium-image-button',
+                buttonSize,
+                styleDir,
+                changeToScope,
+                hoverEffectClass
+            ],
+            'href': buttonUrl,
+            'data-text': buttonText,
+        });
+
 		#>
 
-		<a class="premium-image-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} {{ hoverEffectClass }}" href="{{ buttonUrl }}" data-text="{{ buttonText }}">
+		<a {{{ view.getRenderAttributeString('button') }}}>
 
 			<div class="premium-image-button-text-icon-wrapper">
 

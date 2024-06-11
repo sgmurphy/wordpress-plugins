@@ -33,7 +33,7 @@ add_action( 'enqueue_block_assets', 'corpex_enqueue_block_assets' );
 function corpex_register() {
     // Resister script in editor
 	 wp_register_script( 'corpex_editor_script', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
-    wp_register_style( 'corpex_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.css', array( 'wp-edit-blocks'), null );
+    wp_register_style( 'corpex_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/corpex/block/dist/editor.css', array( 'wp-edit-blocks'), '0.0' );
 
     // Register Blocks
     corpex_wp_register_script( 'infos', array( 'render_callback' => 'render_corpex_infos' ) );

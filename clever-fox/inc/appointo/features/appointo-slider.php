@@ -145,7 +145,7 @@ $theme = wp_get_theme(); // gets the current theme
 		class Gradiant_slider__section_upgrade extends WP_Customize_Control {
 			public function render_content() { ?>		
 			
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/gradiant-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/gradiant-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}
 		}

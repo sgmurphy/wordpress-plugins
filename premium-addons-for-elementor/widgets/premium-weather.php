@@ -929,7 +929,6 @@ class Premium_Weather extends Widget_Base {
 				'label_on'    => __( 'Show', 'premium-addons-for-elementor' ),
 				'label_off'   => __( 'Hide', 'premium-addons-for-elementor' ),
 				'description' => __( 'This option allows you to add daily forecast up to 7 days', 'premium-addons-for-elementor' ),
-				'default'     => 'yes',
 			)
 		);
 

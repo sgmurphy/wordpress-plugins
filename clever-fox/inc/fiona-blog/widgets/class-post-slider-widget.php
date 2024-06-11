@@ -15,7 +15,8 @@ class fiona_blog_post_categories_widget extends WP_Widget{
 	
 	public function widget( $args , $instance ) {
 		
-			echo $args['before_widget'];
+			$escaped_before_widget = htmlspecialchars($args['before_widget']);
+			echo esc_html($escaped_before_widget);
 			$post_cat_title = isset($instance['post_cat_title']) ? $instance['post_cat_title'] : null;
 			$selected_cat_id = isset($instance['selected_cat_id']) ? $instance['selected_cat_id'] : 0;
 			$post_display_num = isset($instance['post_display_num']) ? $instance['post_display_num'] : 0;
@@ -82,7 +83,8 @@ class fiona_blog_post_categories_widget extends WP_Widget{
 					?>
 				</div>
 			<?php }			
-		echo $args['after_widget'];
+		$escaped_after_widget = htmlspecialchars($args['after_widget']);			
+		echo esc_html($escaped_after_widget);
 	}
 	
 		public function form( $instance ) {
@@ -91,13 +93,13 @@ class fiona_blog_post_categories_widget extends WP_Widget{
 		$instance['post_display_num'] = isset($instance['post_display_num']) ? $instance['post_display_num'] : '';
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'post_cat_title' ); ?>"><?php _e( 'Post Category Title','fiona' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'post_cat_title' ); ?>" name="<?php echo $this->get_field_name( 'post_cat_title' ); ?>" type="text" value="<?php if($instance[ 'post_cat_title' ]) echo esc_html( $instance[ 'post_cat_title' ] ); ?>" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'post_cat_title' )); ?>"><?php esc_html_e( 'Post Category Title','fiona' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'post_cat_title' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'post_cat_title' )); ?>" type="text" value="<?php if($instance[ 'post_cat_title' ]) echo esc_attr( $instance[ 'post_cat_title' ] ); ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'selected_cat_id' ); ?>"><?php _e('Select Post Categories','fiona'); ?></label> 
-			<select class="widefat" id="<?php echo $this->get_field_id( 'selected_cat_id' ); ?>" name="<?php echo $this->get_field_name( 'selected_cat_id' ); ?>">
-				<option value>--<?php echo __('Select','clever-fox'); ?>--</option>
+			<label for="<?php echo esc_attr($this->get_field_id( 'selected_cat_id' )); ?>"><?php esc_html_e('Select Post Categories','fiona'); ?></label> 
+			<select class="widefat" id="<?php echo esc_attr($this->get_field_id( 'selected_cat_id' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'selected_cat_id' )); ?>">
+				<option value>--<?php echo esc_html_e('Select','clever-fox'); ?>--</option>
 				<?php
 					$selected_cat_id = $instance['selected_cat_id'];
 					$categories = get_categories();
@@ -105,17 +107,17 @@ class fiona_blog_post_categories_widget extends WP_Widget{
 						$option = '<option value="' . $category->term_id . '" ';
 						$option .= ( $category->term_id == $selected_cat_id  ) ? 'selected="selected"' : '';
 						$option .= '>';
-						$option .= $category->name;
+						$option .= esc_html($category->name);
 						$option .= '</option>';
-						echo $option;
+						echo esc_html($option);
 					}
 				?>	
 			</select>
 			<br/>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'post_display_num' ); ?>"><?php _e( 'No. of Post Display','clever-fox' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'post_display_num' ); ?>" name="<?php echo $this->get_field_name( 'post_display_num' ); ?>" type="number" value="<?php if($instance[ 'post_display_num' ]) echo esc_html( $instance[ 'post_display_num' ] ); ?>" />
+			<label for="<?php echo esc_attr($this->get_field_id( 'post_display_num' )); ?>"><?php esc_html_e( 'No. of Post Display','clever-fox' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr($this->get_field_id( 'post_display_num' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'post_display_num' )); ?>" type="number" value="<?php if($instance[ 'post_display_num' ]) echo esc_attr( $instance[ 'post_display_num' ] ); ?>" />
 		</p>
 		<?php  ?>
         </select>

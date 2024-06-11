@@ -2073,9 +2073,21 @@ class Premium_Button extends Widget_Base {
 
 		}
 
+        view.addRenderAttribute( 'button', {
+            'class': [
+                'premium-button',
+                buttonSize,
+                styleDir,
+                changeToScope,
+                'premium-button-' + hoverEffect
+            ],
+            'href': buttonUrl,
+            'data-text': buttonText,
+        });
+
 		#>
 
-		<a class="premium-button {{ buttonSize }} {{ styleDir }} {{ changeToScope }} premium-button-{{hoverEffect}}" href="{{ buttonUrl }}" data-text="{{ buttonText }}">
+		<a {{{ view.getRenderAttributeString('button') }}}>
 			<div class="premium-button-text-icon-wrapper">
 				<# if ('yes' === settings.premium_button_icon_switcher ) {
 					if( 'before' === settings.premium_button_icon_position &&  'style4' !== hoverEffect ) {

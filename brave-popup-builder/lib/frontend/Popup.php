@@ -274,11 +274,28 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
          if(!empty($this->popupData->settings->placement->utm) && !empty($this->popupData->settings->placement->utmKeywords)){
             $utm_keywords_positive = explode(",",$this->popupData->settings->placement->utmKeywords); 
             $containsKeyword = false;
-            foreach ($utm_keywords_positive as $key => $value) { 
-              $ukeyword =  trim($value);
-              if(isset($_GET[$ukeyword])){
-                  $containsKeyword = true;
-              }
+
+            foreach ($utm_keywords_positive as $key => $keyword) { 
+               $ukeyword =  trim($keyword);
+               $kMatchesArr  = explode("=",$ukeyword);
+               $kMatcher = str_replace('*', '([^=]*)', $kMatchesArr[0]);
+               $matchValue = strpos($ukeyword, '=') !== false;
+
+               foreach ($_GET as $currentKey => $currentVal) { 
+                  $kMatches  = preg_match ('/'.$kMatcher.'/i', $currentKey);
+                  if($kMatches){
+                     if($matchValue && isset($kMatchesArr[1])){
+                        $valueToMatch = $kMatchesArr[1];
+                        $vMatcher = str_replace('*', '([^=]*)', $valueToMatch);
+                        $vMatches  = preg_match ('/'.$vMatcher.'/i', $currentVal);
+                        if($vMatches){
+                           $containsKeyword = true;
+                        }
+                     }else{
+                        $containsKeyword = true;
+                     }
+                  }
+               }
             };
 
             if(!$containsKeyword){
@@ -290,12 +307,32 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
          if(!empty($this->popupData->settings->placement->utm) && !empty($this->popupData->settings->placement->utmKeywordsNegative)){
             $utm_keywords_negative = explode(",",$this->popupData->settings->placement->utmKeywordsNegative); 
             $containsNegKeyword = false;
-            foreach ($utm_keywords_negative as $key => $value) { 
-              $ukeyword =  trim($value);
-              if(isset($_GET[$ukeyword])){
-                  $containsNegKeyword = true;
-              }
+
+            foreach ($utm_keywords_negative as $key => $keyword) { 
+               $ukeyword =  trim($keyword);
+               $kMatchesArr  = explode("=",$ukeyword);
+               $kMatcher = str_replace('*', '[a-zA-Z0-9]', $kMatchesArr[0]);
+               $matchValue = strpos($ukeyword, '=') !== false;
+
+               foreach ($_GET as $currentKey => $currentVal) { 
+                  $kMatches  = preg_match ('/'.$kMatcher.'/i', $currentKey);
+                  if($kMatches){
+                     if($matchValue && isset($kMatchesArr[1])){
+                        $valueToMatch = $kMatchesArr[1];
+                        $vMatcher = str_replace('*', '[a-zA-Z0-9]', $valueToMatch);
+                        $vMatches  = preg_match ('/'.$vMatcher.'/i', $currentVal);
+                        if($vMatches){
+                           $containsNegKeyword = true;
+                        }
+                     }else{
+                        $containsNegKeyword = true;
+                     }
+                     
+                  }
+               }
+              
             };
+
             if($containsNegKeyword){
                $this->utmNegativeMatch = false;
             }

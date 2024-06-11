@@ -38,7 +38,7 @@ add_action( 'eduvert_abv_hdr_social', 'eduvert_abv_hdr_social' );
  */
 function eduvert_get_social_icon_default() {
 	return apply_filters(
-		'eduvert_get_social_icon_default', json_encode(
+		'eduvert_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -67,7 +67,7 @@ function eduvert_get_social_icon_default() {
  */
  function eduvert_get_slider_default() {
 	return apply_filters(
-		'eduvert_get_slider_default', json_encode(
+		'eduvert_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/eduvert/images/slider/slide1.png',
@@ -111,7 +111,7 @@ function eduvert_get_social_icon_default() {
  */
  function eduvert_get_course_cat_default() {
 	return apply_filters(
-		'eduvert_get_course_cat_default', json_encode(
+		'eduvert_get_course_cat_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/eduvert/images/categorie/Image.png',
@@ -157,7 +157,7 @@ function eduvert_get_social_icon_default() {
  */
  function eduvert_get_funfact_default() {
 	return apply_filters(
-		'eduvert_get_funfact_default', json_encode(
+		'eduvert_get_funfact_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'       => 'fa-user',

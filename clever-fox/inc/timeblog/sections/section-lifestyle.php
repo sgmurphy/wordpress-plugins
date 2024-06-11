@@ -15,14 +15,14 @@
 			<?php if(!empty($section4_title)){ ?>
 				<div class="av-column-12">
 					<div class="heading-default wow fadeInUp">
-						<h3><?php echo esc_html__($section4_title); ?></h3>
+						<h3><?php printf(/* Translators: Heading */ esc_html__('%s.' ,'clever-fox'), esc_html($section4_title)); ?></h3>
 					</div>
 				</div>
 			<?php } ?>	
             <div class="av-column-12">
             	<div class="lifestyle-slider">
             		<?php 	
-						$args = array( 'post_type' => 'post', 'category_name' => $section4_category_id,'posts_per_page' => $section4_display_num,'post__not_in'=>get_option("sticky_posts")) ; 	
+						$args = array( 'post_type' => 'post', 'category_name' => $section4_category_id,'posts_per_page' => $section4_display_num,'ignore_sticky_posts' => true ) ; 	
 							query_posts( $args );
 							if(query_posts( $args ))
 							{	
@@ -70,11 +70,11 @@
 							</div>
 							<div class="post-meta">
 								<span class="posted-on post-date">
-									<a href="<?php echo esc_url(get_month_link(get_post_time('Y'),get_post_time('m'))); ?>"><i class="fa fa-calendar"></i> <?php echo esc_html__(the_date('d/m/Y')); ?></a>
+									<a href="<?php echo esc_url(get_month_link(get_post_time('Y'),get_post_time('m'))); ?>"><i class="fa fa-calendar"></i> <?php echo the_date('d/m/Y'); ?></a>
 								</span>
 								<span class="author-name">
 									<?php  $user = wp_get_current_user(); ?>
-									<a href="<?php echo esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) ));?>" title="Author: <?php esc_html__(the_author()); ?>" class="author meta-info hide-on-mobile"><i class="fa fa-user"></i><?php esc_html__(the_author()); ?></a>
+									<a href="<?php echo esc_url(get_author_posts_url( get_the_author_meta( 'ID' ) ));?>" title="Author: <?php esc_attr(the_author()); ?>" class="author meta-info hide-on-mobile"><i class="fa fa-user"></i><?php esc_html(the_author()); ?></a>
 								</span>
 							</div>
 						</div>

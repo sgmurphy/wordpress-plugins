@@ -49,7 +49,7 @@ _"ASE is an amazing plugin! **Time and money saver**. Thank you!"_ ~[Iulian Baci
 
 ### Content Management
 
-* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. Consider this a simpler alternative for ACF and Meta Box.
+* **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Custom Content Types**. Conveniently register and edit custom post types (CPT), custom taxonomies, custom field groups and options pages that integrates with Bricks, Breakdance, Oxygen and Elementor. This an alternative for ACF Pro, Meta Box, Toolset, Pods or JetEngine.
 * **Content Duplication**. One-click duplication of pages, posts and CPTs. [ASE Pro](https://www.wpase.com/rdme-to-web) enables duplication only for certain user roles and post types, and adds location option for duplication link.
 * **Content Order**. Enable custom ordering of various post types that are hierarchical or support page attributes, in wp-admin. [ASE Pro](https://www.wpase.com/rdme-to-web) enables ordering of post types that are non-hierarchical and does not support page attributes, including media / attachments. It also enable toggling taxonomy terms and / or excerpt on the ordering page and applying the custom order on the frontend.
 * **[[ASE Pro](https://www.wpase.com/rdme-to-web)] Terms Order**. Enable custom ordering of terms from various taxonomies in wp-admin and on the frontend.

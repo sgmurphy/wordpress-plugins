@@ -426,6 +426,8 @@ class PostType extends Base {
             wp_send_json_error( __( 'You don\'t have permission to manage docs term.', 'betterdocs' ) );
         }
 
+        wp_cache_flush();
+
         $taxonomy_ordering_data = filter_var_array( wp_unslash( $_POST['data'] ), FILTER_SANITIZE_NUMBER_INT );
         $base_index             = filter_var( wp_unslash( $_POST['base_index'] ), FILTER_SANITIZE_NUMBER_INT );
 
@@ -454,6 +456,8 @@ class PostType extends Base {
         if( ! current_user_can('edit_docs') ) {
             wp_send_json_error( __( 'You don\'t have permission to update docs term.', 'betterdocs' ) );
         }
+
+        wp_cache_flush();
 
         $docs_ordering_data = isset( $_POST['docs_ordering_data'] ) ? implode( ',', filter_var_array( $_POST['docs_ordering_data'], FILTER_SANITIZE_NUMBER_INT ) ) : '';
         $term_id            = intval( $_POST['list_term_id'] );

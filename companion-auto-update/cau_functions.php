@@ -269,7 +269,7 @@ function cau_run_custom_hooks_c() {
 	}
 
 	if( $fileDate >= $lastday ) {
-		$status = ( $fileTime > $range_start && $fileTime < $range_end ) ? __( 'Automatic', 'companion-auto-update' ) : __( 'Manual', 'companion-auto-update' );
+		$status = ( $update_time > $range_start && $update_time < $range_end ) ? __( 'Automatic', 'companion-auto-update' ) : __( 'Manual', 'companion-auto-update' );
 		$totalNum++;
 		cau_updatePluginInformation( 'core', $status );
 	}
@@ -575,7 +575,7 @@ function cau_fetch_log( $limiter, $format = 'simple' ) {
 		echo '<thead>
 			<tr>
 				<th><strong>'.__( 'Name', 'companion-auto-update' ).'</strong></th>';
-				if( !$translations ) echo '<th><strong>'.__( 'To version', 'companion-auto-update' ).'</strong></th>';
+				if( !$show_translations ) echo '<th><strong>'.__( 'To version', 'companion-auto-update' ).'</strong></th>';
 				echo '<th><strong>'.__( 'Type', 'companion-auto-update' ).'</strong></th>
 				<th><strong>'.__( 'Last updated on', 'companion-auto-update' ).'</strong></th>
 				<th><strong>'.__( 'Update method', 'companion-auto-update' ).'</strong></th>
@@ -604,7 +604,7 @@ function cau_fetch_log( $limiter, $format = 'simple' ) {
 			echo '<td class="column-updatetitle"><p><strong title="'.$log_item__name.'">'.cau_getChangelogUrl( $log_item__type, $log_item__name_f, $log_item__slug ).'</strong></p></td>';
 
 			if( $format == 'table' ) {
-				if( !$translations ) echo '<td class="cau_hide_on_mobile column-version" style="min-width: 100px;"><p>'.$log_item__version.'</p></td>';
+				if( !$show_translations ) echo '<td class="cau_hide_on_mobile column-version" style="min-width: 100px;"><p>'.$log_item__version.'</p></td>';
 				echo '<td class="cau_hide_on_mobile column-description"><p>'.$log_item__type.'</p></td>';
 			}
 			echo '<td class="column-date" style="min-width: 100px;"><p>'.$log_item__date.'</p></td>';

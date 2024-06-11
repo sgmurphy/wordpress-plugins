@@ -5,7 +5,7 @@ Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
 Tested up to: 6.5.4
 Requires PHP: 7.4
-Stable tag: 2.5.55
+Stable tag: 2.5.56
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,8 +111,11 @@ This is a common question that we get asked here every now and then which is why
 
 
 == Changelog ==
+= 2.5.56 – 11.06.2024 =
+* Updated: Magnific Popup JS to version 1.2.0 which fixes jQuery deprecated functions and potential security vulnerabilities. 
+
 = 2.5.55 – 10.06.2024 =
-* Fixed: Fatal error: Uncaught Error: Undefined constant "DSM_PRO_VERSION" in Flipbox Module/
+* Fixed: Fatal error: Uncaught Error: Undefined constant "DSM_PRO_VERSION" in Flipbox Module
 
 = 2.5.54 – 07.06.2024 =
 * Fixed: Undefined DSM_PRO_VERSION.

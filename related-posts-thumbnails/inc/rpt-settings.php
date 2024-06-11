@@ -208,11 +208,11 @@ $available_sizes = array(
 );
 
 /**
- * By using this filter, can modified the default options of 'Related posts thumbnail sizes'. 
+ * By using this filter, can modified the default options of 'Related posts thumbnail sizes'.
  * To add WordPress standard size which is original image resolution (unmodified).
- * 
+ *
  * @since 1.9.0
- * @version 2.2.0
+ * @version 3.0.3
  *
  * @param array '$available_sizes' Associative array of post thumbnail sizes.
  */
@@ -364,8 +364,8 @@ if ( $this->wp_version >= 3 ) {
 							?>
 						/>
 						<label for="relpoststh_auto">
-							<p class="description rpth-discription" >
-							<?php _e( 'Check this option to automatically include related post thumbnails at the end of your post. Alternatively, you can use a snippet of code in the loop.  <b>&lt;?php get_related_posts_thumbnails(); ?&gt;</b>', 'related-posts-thumbnails' ); ?>
+							<p class="description rpth-discription">
+							<?php echo sprintf( __( 'Check this option to automatically include related post thumbnails at the end of your post. Alternatively, you can use a snippet of code in the loop.%3$s %1$s OR %2$s', 'related-posts-thumbnails' ), '<code data-message="Copy code to clipboard">&lt;?php if ( function_exists( "get_related_posts_thumbnails" ) ) { get_related_posts_thumbnails(); } ?&gt;</code><br>', '<code data-message="Copy code to Clipboard"> [related-posts-thumbnails] </code>', '<br>' ); ?>
 							</p>
 						</label>
 					</div>

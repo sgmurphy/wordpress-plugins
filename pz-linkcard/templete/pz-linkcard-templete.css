@@ -5,6 +5,9 @@
 	/*MARGIN-LEFT*/
 	/*MARGIN-RIGHT*/
 }
+.linkcard a {
+	text-decoration: none;
+}
 .linkcard img {
 	/*RESET-IMG*/
 }
@@ -18,7 +21,7 @@
 	/*SCALE*/
 }
 .lkc-link {
-	/*ANKER*/
+	/*ANCHOR*/
 }
 .lkc-unlink {
 	cursor:	not-allowed;
@@ -85,12 +88,12 @@
 	font-weight: bold;
 	overflow: hidden;
 	word-break: break-all;
-	/*MARGIN-TITLE*/
-	/*COLOR-TITLE*/
-	/*OUTCOLOR-TITLE*/
-	/*SIZE-TITLE*/
-	/*HEIGHT-TITLE*/
-	/*ELLIPSIS-TITLE*/
+	/*TITLE-MARGIN*/
+	/*TITLE-COLOR*/
+	/*TITLE-OUTCOLOR*/
+	/*TITLE-SIZE*/
+	/*TITLE-HEIGHT*/
+	/*TITLE-ELLIPSIS*/
 }
 .lkc-title:hover {
 	text-decoration: underline;
@@ -100,12 +103,15 @@
 	font-weight: normal;
 	text-decoration: underline;
 	overflow: hidden;
-	/*MARGIN-URL*/
-	/*COLOR-URL*/
-	/*OUTCOLOR-URL*/
-	/*SIZE-URL*/
-	/*HEIGHT-URL*/
-	/*NOWRAP-URL*/
+	/*URL-MARGIN*/
+	/*URL-COLOR*/
+	/*URL-OUTCOLOR*/
+	/*URL-SIZE*/
+	/*URL-HEIGHT*/
+	/*URL-NOWRAP*/
+}
+.lkc-url:link {
+	text-decoration: none;
 }
 .lkc-url-info {
 	display: inline;
@@ -114,28 +120,28 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	/*COLOR-URL*/
-	/*OUTCOLOR-URL*/
-	/*SIZE-URL*/
-	/*HEIGHT-URL*/
+	/*URL-COLOR*/
+	/*URL-OUTCOLOR*/
+	/*URL-SIZE*/
+	/*URL-HEIGHT*/
 }
 .lkc-excerpt {
 	padding: 0;
 	overflow: hidden;
-	/*MARGIN-EXCERPT*/
-	/*COLOR-EXCERPT*/
-	/*OUTCOLOR-EXCERPT*/
-	/*SIZE-EXCERPT*/
-	/*HEIGHT-EXCERPT*/
-	/*NONE-EXCERPT*/
+	/*EXCERPT-MARGIN*/
+	/*EXCERPT-COLOR*/
+	/*EXCERPT-OUTCOLOR*/
+	/*EXCERPT-SIZE*/
+	/*EXCERPT-HEIGHT*/
+	/*EXCERPT-NONE*/
 }
 .lkc-more-text {
 	display: inline;
-	/*COLOR-MORE*/
-	/*OUTCOLOR-MORE*/
-	/*SIZE-MORE*/
-	/*HEIGHT-MORE*/
-	/*STYLE-MORE*/
+	/*MORE-COLOR*/
+	/*MORE-OUTCOLOR*/
+	/*MORE-SIZE*/
+	/*MORE-HEIGHT*/
+	/*MORE-STYLE*/
 }
 .lkc-thumbnail {
 	display: flex;
@@ -159,12 +165,12 @@
 	white-space: nowrap;
 	overflow: hidden;
 	padding: 0;
-	/*POSITION-INFO*/
-	/*COLOR-INFO*/
-	/*OUTCOLOR-INFO*/
-	/*SIZE-INFO*/
-	/*HEIGHT-INFO*/
-	/*NONE-INFO*/
+	/*INFO-POSITION*/
+	/*INFO-COLOR*/
+	/*INFO-OUTCOLOR*/
+	/*INFO-SIZE*/
+	/*INFO-HEIGHT*/
+	/*INFO-NONE*/
 }
 .lkc-favicon {
 	display: inline /*IMPORTANT*/;
@@ -178,10 +184,10 @@
 	display: inline /*IMPORTANT*/;
 	text-decoration: none;
 	margin: 0 0 0 6px;
-	/*COLOR-INFO*/
-	/*OUTCOLOR-INFO*/
-	/*SIZE-INFO*/
-	/*HEIGHT-INFO*/
+	/*INFO-COLOR*/
+	/*INFO-OUTCOLOR*/
+	/*INFO-SIZE*/
+	/*INFO-HEIGHT*/
 }
 .lkc-external-added {
 	/*EX-HEADING*/
@@ -194,19 +200,19 @@
 }
 .lkc-external-added , .lkc-internal-added , .lkc-this-added {
 	display: inline /*IMPORTANT*/;
-	/*COLOR-ADDED*/
-	/*OUTCOLOR-ADDED*/
-	/*SIZE-ADDED*/
-	/*HEIGHT-ADDED*/
+	/*ADDED-COLOR*/
+	/*ADDED-OUTCOLOR*/
+	/*ADDED-SIZE*/
+	/*ADDED-HEIGHT*/
 }
 .lkc-date {
 	display: inline /*IMPORTANT*/;
 	text-decoration: none;
 	float: right;
-	/*COLOR-INFO*/
-	/*OUTCOLOR-INFO*/
-	/*SIZE-INFO*/
-	/*HEIGHT-INFO*/
+	/*INFO-COLOR*/
+	/*INFO-OUTCOLOR*/
+	/*INFO-SIZE*/
+	/*INFO-HEIGHT*/
 }
 .lkc-share {
 	display: inline;

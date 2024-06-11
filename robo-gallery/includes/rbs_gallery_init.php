@@ -36,6 +36,8 @@ if( is_admin() ){
 	}
 }
 
+rbs_gallery_include( array( 'rbs_hooks.php'), ROBO_GALLERY_INCLUDES_PATH );
+
 rbs_gallery_include( array( 'rbs_gallery_config.php', 'rbs_gallery_button.php', 'rbs_gallery_widget.php'), ROBO_GALLERY_INCLUDES_PATH );
 
 if(!function_exists('rbs_gallery_is_edit_page')){
@@ -217,9 +219,6 @@ if(!function_exists('rbs_gallery_main_init')){
 		/* Frontend*/
 		rbs_gallery_include(array( 'rbs_gallery_class.php', 'rbs_gallery_frontend.php' ), ROBO_GALLERY_FRONTEND_PATH);		
 
-		/* AJAX */
-		rbs_gallery_include('rbs_gallery_ajax.php', ROBO_GALLERY_INCLUDES_PATH);
-		rbs_gallery_include('rbs_create_post_ajax.php', ROBO_GALLERY_EXTENSIONS_PATH);
 
 		/*  Init function */
 

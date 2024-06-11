@@ -5,7 +5,7 @@ Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 3.5.7
+Stable tag: 3.5.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.5.8 - 11/06/2024 =
+- Fixed: Edited Sample CSV file returning an error
+- Fixed: Drag and drop sorting not working for Docs
+- Fixed: Category Grid block's masonry layout showing an error in the editor
+- Few minor bug fixes and improvements
 
 = 3.5.7 - 27/05/2024 =
 - Added: Option to change the feedback icon for the Elementor widget.

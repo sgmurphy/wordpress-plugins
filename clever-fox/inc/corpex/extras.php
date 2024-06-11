@@ -7,7 +7,7 @@
 function corpex_get_slider_default() {
 
 	return apply_filters(
-		'corpex_get_slider_default', json_encode(
+		'corpex_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       	=> esc_url(CLEVERFOX_PLUGIN_URL. 'inc/corpex/images/slider/slider-img1.jpg'),
@@ -54,7 +54,7 @@ function corpex_get_slider_default() {
 */
 function corpex_get_service_default() {
 	return apply_filters(
-		'corpex_get_service_default', json_encode(
+		'corpex_get_service_default', wp_json_encode(
 			array(
 				array(
 					'image_url2'   => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/service/service-img1.jpg'),	
@@ -104,7 +104,7 @@ function corpex_get_service_default() {
  */
 function corpex_get_features_default() {
 	return apply_filters(
-		'corpex_get_features_default', json_encode(
+		'corpex_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'        => 'fa-laptop',	
@@ -358,7 +358,7 @@ add_action( 'corpex_bottom_hdr', 'corpex_bottom_hdr' );
 
 function corpex_get_info_default() {
 	return apply_filters(
-		'corpex_get_info_default', json_encode(
+		'corpex_get_info_default', wp_json_encode(
 			array(
 				array(
 					'icon_value'      => 'fa-users',
@@ -394,7 +394,7 @@ function corpex_get_info_default() {
  */
 function corpex_get_social_icon_default() {
 	return apply_filters(
-		'corpex_get_social_icon_default', json_encode(
+		'corpex_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -457,14 +457,14 @@ add_action( 'blog_header_content', 'blog_header_content' );
  */
  function corpex_get_team_default() {
 	return apply_filters(
-		'corpex_get_team_default', json_encode(
+		'corpex_get_team_default', wp_json_encode(
 			array(
 				array(
 					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/team/team-1.jpg'),
 					'title'           => esc_html__( 'Evelyn Rack', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Developer','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0001',	
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_001',
@@ -494,7 +494,7 @@ add_action( 'blog_header_content', 'blog_header_content' );
 					'title'           => esc_html__( 'Sophie Baker', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Designer','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0002',	
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_005',
@@ -524,7 +524,7 @@ add_action( 'blog_header_content', 'blog_header_content' );
 					'title'           => esc_html__( 'Ava Robinson', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Marketing','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0003',	
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_009',
@@ -554,7 +554,7 @@ add_action( 'blog_header_content', 'blog_header_content' );
 					'title'           => esc_html__( 'Benjamin White', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Sr. Developer','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0004',	
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_013',
@@ -592,7 +592,7 @@ add_action( 'blog_header_content', 'blog_header_content' );
  */
  function corpex_get_testimonial_default() {
 	return apply_filters(
-		'corpex_get_testimonial_default', json_encode(
+		'corpex_get_testimonial_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'      => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/corpex/images/testimonial/t-1.jpg'),

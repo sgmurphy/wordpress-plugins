@@ -50,24 +50,24 @@ if ( ! class_exists( 'Fiona_Widgets_Loader' ) ) {
 		}
 		
 		function enqueue_scripts() {
-				wp_enqueue_style( 'fiona-blog-front-widget-css', CLEVERFOX_PLUGIN_URL . 'inc/fiona-blog/widgets/assets/css/widget.css', false );		
-				wp_enqueue_style('font-awesome',FIONA_BLOG_PARENT_URI .'/assets/css/fonts/font-awesome/css/font-awesome.min.css');
+				wp_enqueue_style( 'fiona-blog-front-widget-css', CLEVERFOX_PLUGIN_URL . 'inc/fiona-blog/widgets/assets/css/widget.css', false,'0.0' );		
+				wp_enqueue_style('font-awesome',FIONA_BLOG_PARENT_URI .'/assets/css/fonts/font-awesome/css/font-awesome.min.css','','4.6.3');
 			}
 			
 		function enqueue_admin_scripts() {
 			 wp_enqueue_style( 'wp-color-picker');
 			 
-			 wp_enqueue_script( 'fiona-blog-social-icon-widget-js', CLEVERFOX_PLUGIN_URL .'/inc/fiona-blog/widgets/assets/js/main.js', array( 'jquery', 'jquery-ui-sortable' ) );
+			 wp_enqueue_script( 'fiona-blog-social-icon-widget-js', CLEVERFOX_PLUGIN_URL .'/inc/fiona-blog/widgets/assets/js/main.js', array( 'jquery', 'jquery-ui-sortable' ),'0.0',true );
 			 
-			 wp_enqueue_style( 'fiona-blog-social-icon-widget-css', CLEVERFOX_PLUGIN_URL . '/inc/fiona-blog/widgets/assets/css/admin.css', false );
+			 wp_enqueue_style( 'fiona-blog-social-icon-widget-css', CLEVERFOX_PLUGIN_URL . '/inc/fiona-blog/widgets/assets/css/admin.css', false,'0.0' );
 			 
-			 wp_enqueue_style('font-awesome',FIONA_BLOG_PARENT_URI .'/assets/css/fonts/font-awesome/css/font-awesome.min.css');
+			 wp_enqueue_style('font-awesome',FIONA_BLOG_PARENT_URI .'/assets/css/fonts/font-awesome/css/font-awesome.min.css','','4.6.3');
 			 
-			 wp_enqueue_style( 'fiona-blog-icon-picker-css', CLEVERFOX_PLUGIN_URL . '/inc/fiona-blog/widgets/assets/fonticonpicker/jquery.fonticonpicker.min.css', false );
+			 wp_enqueue_style( 'fiona-blog-icon-picker-css', CLEVERFOX_PLUGIN_URL . '/inc/fiona-blog/widgets/assets/fonticonpicker/jquery.fonticonpicker.min.css', false,'2.0.0' );
 			 
 			 wp_enqueue_script( 'wp-color-picker');
 			 
-			 wp_enqueue_script( 'fiona-blog-icon-picker-js', CLEVERFOX_PLUGIN_URL .'/inc/fiona-blog/widgets/assets/fonticonpicker/jquery.fonticonpicker.min.js', array( 'jquery', 'jquery-ui-sortable' ) );
+			 wp_enqueue_script( 'fiona-blog-icon-picker-js', CLEVERFOX_PLUGIN_URL .'/inc/fiona-blog/widgets/assets/fonticonpicker/jquery.fonticonpicker.min.js', array( 'jquery', 'jquery-ui-sortable' ),'2.0.0' ,true);
 		}
 		
 		/**

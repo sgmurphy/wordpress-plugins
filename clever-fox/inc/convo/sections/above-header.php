@@ -26,19 +26,19 @@
                     <ul class="header-info d-inline-block">
 						<?php if($hide_show_contact_infot =='1'){ ?>
 							<?php if($header_phone_number) {?>
-								<li class="tlh-phone"><a href="#"><i class="fa <?php echo esc_attr($header_phone_icon); ?>"></i><?php esc_html_e($header_phone_number, 'clever-fox'); ?></a></li>
+								<li class="tlh-phone"><a href="#"><i class="fa <?php echo esc_attr($header_phone_icon); ?>"></i><?php /* Translators: %s : Phone Number Label */printf(esc_html__('%s.','clever-fox'),esc_html($header_phone_number)); ?></a></li>
 							<?php 
 									} 
 								}
 							?>
 						<?php if($hide_show_email_infot =='1'){ ?>
 							<?php if($header_email) {?>
-								<li class="tlh-email"><a href="#"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php esc_html_e($header_email, 'clever-fox'); ?></a></li>
+								<li class="tlh-email"><a href="#"><i class="fa <?php  echo esc_attr( $header_email_icon ); ?>"></i><?php echo esc_html($header_email, 'clever-fox'); ?></a></li>
 							<?php } ?>	
 						<?php } ?>
 						<?php if($hide_show_faq =='1'){ ?>
 							<?php if($header_faq) {?>
-								<li class="tlh-faq"><a href="#"><i class="fa <?php echo esc_attr($header_faq_icon); ?>"></i><?php esc_html_e($header_faq, 'clever-fox'); ?></a></li>
+								<li class="tlh-faq"><a href="#"><i class="fa <?php echo esc_attr($header_faq_icon); ?>"></i><?php /* Translators: %s : Faq */printf(esc_html__('%s.','clever-fox'),esc_html($header_faq)); ?></a></li>
 							<?php } ?>
 						<?php } ?>						
                     </ul>

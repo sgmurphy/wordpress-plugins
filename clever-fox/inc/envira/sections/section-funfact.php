@@ -41,7 +41,7 @@ if ( ! empty( $funfact_background_setting ) ) { ?>
 							</div>
 							<?php endif; ?>	
 							<?php if ( ! empty( $title ) ) :?>
-							<div><strong><span class="counter"><?php echo wp_filter_post_kses( $title ); ?></span> <?php echo esc_html($subtitle); ?></strong></div>
+							<div><strong><span class="counter"><?php echo esc_html( $title ); ?></span> <?php echo esc_html($subtitle); ?></strong></div>
 							<?php endif; ?>
 							<?php if ( ! empty( $text ) ) :?>
 								<p><?php echo esc_html( $text ); ?></p>

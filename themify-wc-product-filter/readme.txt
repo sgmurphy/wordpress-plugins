@@ -1,12 +1,12 @@
 === Themify - WooCommerce Product Filter ===
 Contributors: themifyme
 Plugin Name: Themify - WooCommerce Product Filter
-Tags: product-search, ajax-search, woocommerce, woocommerce-product-search, woocommerce-product-filter, builder, drag-and-drop, form-builder, drag-and-drop-builder, layout-builder, product, content, editor, content-builder, responsive, visual, visual-builder, wysiwyg, ecommerce
+Tags: product-search, woocommerce-product-search, product-filter, woocommerce-product-filter, product-sort
 Requires at least: 4.5
-Tested up to: 6.5.3
-Stable tag: 1.4.8
+Tested up to: 6.5.4
+Stable tag: 1.4.9
 
-Increase sales and convert better with the Themify Product Filter plugin. This plugin help shoppers easily find products on their WooCommerce shop. It allows users to easily filter through products by price range, categories, attributes, tags, and much more. 
+This plugin help shoppers easily find products on your WooCommerce shop. It allows users to easily filter through products by price range, categories, attributes, tags, and much more. 
 
 == Description ==
 
@@ -44,71 +44,4 @@ Please visit plugin's installation guide page: https://themify.me/docs/wc-produc
 
 == Changelog ==
 
-= 1.4.8 (2024.05.14) =
-* Fix: Product Filters doesn't work with Elementor Products module
-
-= 1.4.7 (2024.04.23) =
-* Fix: Conflicting shortcode with searchandfilter - change shortcode from [searchandfilter] to [tf_product_filter] to avoid conflicts
-
-= 1.4.6 (2024.04.14) =
-* Fix: Divi pagination is missing with Product Filter activated
-
-= 1.4.5 (2024.03.08) =
-* Fix: User manage options
-
-= 1.4.4 (2024.03.08) =
-* Fix: XSS issue
-
-= 1.4.3 (2023.12.14) =
-* Fix: Horizontal filter layout dropdown not accessible on hover filter 
-
-= 1.4.2 (2023.12.07) =
-* New: Categories: add option to show only children of current category
-* Fix: Filter Dropdown not clickable on mobile phone
-
-= 1.4.1 (2023.10.24) =
-* Fix: WooCommerce latest version incompatability message
-
-= 1.4.0 (2023.08.23) =
-* Tested with latest version of WP
-
-= 1.3.9 (2022.05.31) =
-* New: Add variant display option
-* New: Add hierarchy options to custom taxonomies
-* Change: Default logic for category search
-* Change: Include children in category search by default
-
-= 1.3.8 (2022.05.16) =
-* Fix: XSS issue
-
-= 1.3.7 (2022.04.05) =
-* Fix: Error with PHP8
-
-= 1.3.6 (2021.11.27) =
-* New: add filter by taxonomy option
-* Fix: Filtered products doesn't have masonry layout and show a distorted layout with pro product archive template
-* Fix: The Import feature is not working
-* Fix: Product page template changes if you hit back button after filtering products
-
-= 1.3.5 (2021.06.09) =
-* Fix: On product filter form builder, load categories/tags/attributes on demand
-* Fix: Add Custom order option for Product Attributes
-* Fix: Swiss Francs Currency issue (currency position)
-* Fix: Price Slider not working when using non-Latin field title
-
-= 1.3.4 (2020.12.22) =
-* Fix: Critical compatibility fix with Polylang
-* Fix: Some fixes with read more button
-
-= 1.3.3 (2020.12.11) =
-* Fix: WP 5.6 update breaks price slider
-
-= 1.3.2 (2020.11.30) =
-* Fix: Product filter not working with woocommerce module
-* Fix: Product Filter result page doesn't remain Builder content on Shop page
-* Fix: Clear button not working on pre-filtered URLs
-* Fix: The Pagination is hidden after filtering
-* Fix: Show results on a different page not working
-* Fix: Product Filter doesn't display result correctly with multiple Builder WooCommerce modules on the page
-* Fix: Product Filter doesn't work on single product/post
-* Fix: Product Filter: Price slider doesn't work on touch screens
+The changelog is located at: https://themify.org/changelogs/themify-wc-product-filter.txt

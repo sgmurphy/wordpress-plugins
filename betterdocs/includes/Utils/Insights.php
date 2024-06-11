@@ -787,7 +787,7 @@ class Insights {
                 'label'       => __( 'Other', 'wpinsight' ),
                 'extra_field' => __( 'Please share the reason', 'wpinsight' ),
                 'type'        => 'textarea',
-            ],
+            ]
         );
         return apply_filters( 'wpins_form_text_' . $this->plugin_name, $form );
     }

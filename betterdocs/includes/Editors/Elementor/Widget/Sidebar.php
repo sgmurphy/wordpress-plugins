@@ -1046,7 +1046,7 @@ class Sidebar extends BaseWidget {
                 'condition' => [
                     'betterdocs_sidebar_layout' => 'layout-1'
                 ]
-            ],
+            ]
         );
 
         $this->end_controls_tab();
@@ -1158,7 +1158,7 @@ class Sidebar extends BaseWidget {
                 'condition' => [
                     'betterdocs_sidebar_layout' => 'layout-1'
                 ]
-            ],
+            ]
         );
 
         $this->end_controls_tab();

@@ -8,7 +8,7 @@
 	<section id="slider-section" class="slider-wrapper section-18">
         <div class="main11 main-slider">
             <?php 	
-				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 3,'post__not_in'=>get_option("sticky_posts")) ; 	
+				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 3,'ignore_sticky_posts' => true ) ; 	
 					query_posts( $args );
 					if(query_posts( $args ))
 					{	
@@ -61,7 +61,7 @@
 		<div class="customize-tools">
           <ul class="main-slider-thumbnails" id="customize-thumbnails">
 		  	<?php 	
-				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 3,'post__not_in'=>get_option("sticky_posts")) ; 	
+				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 3,'ignore_sticky_posts' => true ) ; 	
 					query_posts( $args );
 					if(query_posts( $args ))
 					{	

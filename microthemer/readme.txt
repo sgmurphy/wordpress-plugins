@@ -79,6 +79,11 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.0.8 (June 11th, 2024) =
+
+# Bugs fixed
+* Possible PHP notice: "Undefined" in Logic.php on line 366.
+
 = 7.3.0.7 (June 9th, 2024) =
 
 # Bugs fixed

@@ -524,7 +524,8 @@ class PrliAppController extends PrliBaseController {
         'broken_link_text' => sprintf(
           __('To access Link Health, upgrade to <a href="%s" class="prli-link-health-upgrade">Pretty Links Pro.</a>', 'pretty-link'),
           esc_url(admin_url('edit.php?post_type=pretty-link&page=pretty-link-updates#prli_upgrade'))
-        )
+        ),
+        'nonce' => wp_create_nonce('prli_admin_link_list_nonce')
       );
       wp_localize_script( 'prli-admin-link-list', 'PrliLinkList', $links_js_obj );
 

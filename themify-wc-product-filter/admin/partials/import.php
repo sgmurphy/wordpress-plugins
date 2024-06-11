@@ -13,7 +13,6 @@
 ?>
 <?php
 global $post_type;
-$message =  __('Import will overwrite all existing templates. Press OK to continue, Cancel to stop.', 'wpf') ;
 $extensions = array(
     array(
         'title' => __('Json file', 'wpf'),
@@ -52,5 +51,5 @@ $plupload_init = array(
     <input type="hidden" value="<?php echo wp_create_nonce($this->plugin_name . '_import_file') ?>" name="nonce" />
     <div class="<?php echo $this->plugin_name ?>_wait"></div>
     <div class="<?php echo $this->plugin_name ?>_error"></div>
-    <a data-formats='<?php echo wp_json_encode($extensions) ?>' data-name="import" data-confirm="<?php echo $message ?>" id="<?php echo $this->plugin_name ?>-import-btn" class="<?php echo $this->plugin_name ?>-file-btn"><?php _e('Import', 'wpf') ?></a>
+    <a data-formats='<?php echo wp_json_encode($extensions) ?>' data-name="import" id="<?php echo $this->plugin_name ?>-import-btn" class="<?php echo $this->plugin_name ?>-file-btn"><?php _e('Import', 'wpf') ?></a>
 </form>

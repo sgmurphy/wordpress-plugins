@@ -77,7 +77,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	$wp_customize->add_setting( 'slider', 
 			array(
 			 'sanitize_callback' => 'hantus_repeater_sanitize',
-			  'default' => json_encode( array(
+			  'default' => wp_json_encode( array(
 			 
             /*Repeater's first item*/
             array("image_url" => CLEVERFOX_PLUGIN_URL.'inc/hantus/images/slider/slider01.jpg' ,"link" => "#", "title" => __('Welcome To Hantus Spa','clever-fox'),"subtitle" => __('Beauty & Spa Wellness','clever-fox'), "text" => __('The Spa at Sun Valley is a serene oasis amid all the exciting  activities our iconic valley has delivered for decades.','clever-fox'), "text2" => __('Make an Appoinment','clever-fox'),"slide_align" => "left","id" => "customizer_repeater_000101" ), 
@@ -115,13 +115,13 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme
 				if ( 'Thai Spa' == $theme->name){
 			?>
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php }elseif ( 'Cosmics' == $theme->name){ ?>	
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			   }else{
 			?>	
-				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/hantus-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_slider_upgrade_section up-to-pro" href="https://www.nayrathemes.com/hantus-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 				}
 			}

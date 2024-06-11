@@ -705,6 +705,10 @@ class PrliLinksController extends PrliBaseController {
   }
 
   public function save_bulk_edit() {
+    if( ! check_ajax_referer( 'prli_admin_link_list_nonce', false, false ) ) {
+      wp_send_json_error( esc_html__('Security check failed.', 'pretty-link'), 403 );
+    }
+
     global $prli_link;
 
     $post_ids = (isset($_POST['post_ids']) && !empty($_POST['post_ids'])) ? $_POST['post_ids'] : array();

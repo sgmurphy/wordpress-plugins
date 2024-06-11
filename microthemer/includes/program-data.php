@@ -1670,7 +1670,7 @@ $this->menu = array(
 
 						// dock styles left
 						'sticky_styles_toolbar' => array(
-							'name' => esc_html__('Sticking styles toolbar', 'microthemer'),
+							'name' => esc_html__('Sticky styles toolbar', 'microthemer'),
 							'title' => esc_attr__("Always display styles navigation toolbar", 'microthemer'),
 							'class' => 'sticky-styles-toolbar',
 							'toggle' => !empty($this->preferences['sticky_styles_toolbar']),

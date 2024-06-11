@@ -11,7 +11,6 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_doing_
      * @param string $version Version the message was added in.
      *
      * @return void
-     * @internal
      */
     function sb_doing_it_wrong($function, $message, $version)
     {
@@ -41,7 +40,6 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_locate
      * @param string $default_path Default path. (default: '').
      *
      * @return string Template path.
-     * @internal
      */
     function sb_locate_template($template_name, $template_path = '', $default_path = '')
     {
@@ -72,7 +70,6 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_get_te
      * @param string $default_path    Default path. (default: '').
      *
      * @return void
-     * @internal
      */
     function sb_get_template($template_name, $args = [], $template_path = '', $default_path = '')
     {
@@ -112,11 +109,10 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_map_no
      * @param string $plugin_name Plugin name.
      *
      * @return string $plugin_hook Plugin hook.
-     * @internal
      */
     function sb_map_notice_hooks($plugin_name)
     {
-        $notice_hooks = ['instagram-feed' => 'sbi_admin_notices', 'instagram-feed-pro' => 'sbi_admin_notices'];
+        $notice_hooks = ['instagram-feed' => 'sbi_admin_notices', 'instagram-feed-pro' => 'sbi_admin_notices', 'custom-facebook-feed' => 'cff_admin_notices', 'custom-facebook-feed-pro' => 'cff_admin_notices'];
         $plugin_hook = isset($notice_hooks[$plugin_name]) ? $notice_hooks[$plugin_name] : 'admin_notices';
         return $plugin_hook;
     }
@@ -128,11 +124,10 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_get_pl
      * @param string $plugin_name Plugin name.
      *
      * @return string $plugin_type Plugin type.
-     * @internal
      */
     function sb_get_plugin_type($plugin_name)
     {
-        $plugins = ['instagram-feed' => 'free', 'instagram-feed-pro' => 'pro'];
+        $plugins = ['instagram-feed' => 'free', 'instagram-feed-pro' => 'pro', 'custom-facebook-feed' => 'free', 'custom-facebook-feed-pro' => 'pro'];
         $plugin_type = isset($plugins[$plugin_name]) ? $plugins[$plugin_name] : 'free';
         return $plugin_type;
     }
@@ -144,7 +139,6 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\flatten_a
      * @param array $array Array to flatten.
      * 
      * @return array $result Flattened array.
-     * @internal
      */
     function flatten_array($array)
     {

@@ -54,15 +54,15 @@ function loginizer_page_brute_force(){
 	}
 	
 	if(isset($_POST['save_lz_login_email'])){
-	
 		$login_email['enable'] = (int) lz_optpost('loginizer_login_mail_enable');
 		$login_email['disable_whitelist'] = (int) lz_optpost('loginizer_login_mail_disable_whitelist');
-		$login_email['subject'] = sanitize_textarea_field($_POST['loginizer_login_mail_subject']);
-		$login_email['body'] = sanitize_textarea_field($_POST['loginizer_login_mail_body']);
+		$login_email['subject'] = sanitize_textarea_field(wp_unslash($_POST['loginizer_login_mail_subject']));
+		$login_email['body'] = sanitize_textarea_field(wp_unslash($_POST['loginizer_login_mail_body']));
 		$login_email['roles'] = !empty($_POST['loginizer_login_mail_roles']) ? map_deep($_POST['loginizer_login_mail_roles'], 'sanitize_text_field') : [];
 
 		// Save the options
 		update_option('loginizer_login_mail', $login_email);
+		$loginizer['login_mail'] = $login_email;
 
 		// Mark as saved
 		$GLOBALS['lz_saved'] = true;
@@ -457,14 +457,14 @@ function loginizer_page_brute_force(){
 	
 	// Save the messages
 	if(isset($_POST['save_err_msgs_lz'])){
-		
+
 		$msgs['inv_userpass'] = lz_optpost('msg_inv_userpass');
 		$msgs['ip_blacklisted'] = lz_optpost('msg_ip_blacklisted');
 		$msgs['attempts_left'] = lz_optpost('msg_attempts_left');
 		$msgs['lockout_err'] = lz_optpost('msg_lockout_err');
 		$msgs['minutes_err'] = lz_optpost('msg_minutes_err');
 		$msgs['hours_err'] = lz_optpost('msg_hours_err');
-		
+
 		// Update them
 		update_option('loginizer_msg', $msgs);
 				
@@ -1145,7 +1145,7 @@ function lz_shift_check_all(check_class){
 						<br />Default : <pre style="font-size:10px"><?php echo esc_html($loginizer['login_mail_default_sub']); ?></pre>
 					</td>
 					<td valign="top">
-						<input type="text" size="40" value="<?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_subject']) ? $_POST['loginizer_login_mail_subject'] : (empty($loginizer['login_mail']['subject']) ? '' : $loginizer['login_mail']['subject'])); ?>" name="loginizer_login_mail_subject" id="loginizer_login_mail_subject" />
+						<input type="text" size="40" value="<?php echo !empty($_POST['loginizer_login_mail_subject']) ? esc_html(wp_unslash($_POST['loginizer_login_mail_subject'])) : (empty($loginizer['login_mail']['subject']) ? '' : esc_html($loginizer['login_mail']['subject'])); ?>" name="loginizer_login_mail_subject" id="loginizer_login_mail_subject" />
 						<br />Variables :
 						<br />$sitename - The Site Name
 						<br />$user_login - User Name
@@ -1159,7 +1159,7 @@ function lz_shift_check_all(check_class){
 						<br />Default : <pre style="font-size:10px"><?php echo esc_html($loginizer['login_mail_default_msg']); ?></pre>
 					</td>
 					<td valign="top">
-						<textarea rows="10" style="width:70%" name="loginizer_login_mail_body" id="loginizer_login_mail_body"><?php echo lz_htmlizer(!empty($_POST['loginizer_login_mail_body']) ? $_POST['loginizer_login_mail_body'] : (empty($loginizer['login_mail']['body']) ? '' : $loginizer['login_mail']['body'])); ?></textarea>
+						<textarea rows="10" style="width:70%" name="loginizer_login_mail_body" id="loginizer_login_mail_body"><?php echo !empty($_POST['loginizer_login_mail_body']) ? esc_html(wp_unslash($_POST['loginizer_login_mail_body'])) : (empty($loginizer['login_mail']['body']) ? '' : esc_html($loginizer['login_mail']['body'])); ?></textarea>
 						<br />Variables :
 						<br />$sitename - The Site Name
 						<br />$user_login - User Name

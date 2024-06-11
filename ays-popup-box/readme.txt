@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.5.3
-Stable tag: 4.5.2
+Tested up to: 6.5.4
+Stable tag: 4.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,11 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.5.3 =
+* Added: Use small header option for Facebook popup type
+* Fixed: Some issues on the admin dashboard
+* Tested: Compatible up to 6.5.4
 
 = 4.5.2 =
 * Fixed: Some responsive style issues on the admin dashboard

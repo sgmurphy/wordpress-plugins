@@ -628,6 +628,9 @@ class Query extends Base {
             ]
         ];
 
+        $args['orderby']  = 'post__in';
+        $args['post__in'] = $this->get_docs_order_by_terms($_term_id);
+
         if ( isset( $args['tax_query'] ) ) {
             $tax_query = $args['tax_query'];
         }

@@ -1716,34 +1716,38 @@ msgid "Encode Redirect URL"
 msgstr ""
 
 #: src/admin/popups/FormBuilder/settings/FormActionSettings.js:375
+msgid "Add Current URL paramters to the Redirect URL"
+msgstr ""
+
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:384
 msgid "Redirect to Different URL based on submitted Form data"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:396
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:405
 msgid "When The form is submitted:"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:398
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:407
 msgid "You will Recieve an Email."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:399
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:408
 msgid "User will Recieve an Email."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:400
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:409
 msgid "User will be subscribed to a Newsletter."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:401
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:410
 msgid "Form Data will be sent to "
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:402
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:411
 msgid "Form Submission event will be sent to Google Analytics."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:403
+#: src/admin/popups/FormBuilder/settings/FormActionSettings.js:412
 msgid "Form Submission event will be sent to Facbook Ads"
 msgstr ""
 

@@ -86,7 +86,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 		$wp_customize->add_setting( 'testimonial_contents', 
 			array(
 			 'sanitize_callback' => 'hantus_repeater_sanitize',
-			    'default' => json_encode( 
+			    'default' => wp_json_encode( 
 			 array(
 				array(
 					'title'           => esc_html__( 'Eric Matision', 'clever-fox' ),
@@ -137,13 +137,13 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme
 				if ( 'Thai Spa' == $theme->name){
 			?>
-				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/thaispa-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php }elseif ( 'Cosmics' == $theme->name){ ?>	
-				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/cosmics-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 			<?php
 			   }else{
 			?>	
-				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/hantus-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_testimonial_upgrade_section up-to-pro" href="https://www.nayrathemes.com/hantus-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			   }
 			}

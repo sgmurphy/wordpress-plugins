@@ -3,7 +3,7 @@
  * Plugin Name:    Login Logout Menu
  * Plugin URI:     https://loginpress.pro/?utm_source=login-logout-menu&utm_medium=plugin-inside&utm_campaign=pro-upgrade&utm_content=plugin_uri
  * Description:    Login Logout Menu is a handy plugin which allows you to add login, logout, register and profile menu items in your selected menu.
- * Version:        1.5.0
+ * Version:        1.5.1
  * Author:         WPBrigade
  * Author URI:     https://WPBrigade.com/?utm_source=login-logout-menu
  * Text Domain:    login-logout-menu
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 		 *
 		 * @since 1.0.0
 		 */
-		public $version = '1.5.0';
+		public $version = '1.5.1';
 
 		/**
 		 * Instance variable.
@@ -358,7 +358,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 						$show_avatar   = '%avatar%' === $item_redirect ? true : false;
 						$url           = apply_filters( 'login_logout_menu_profile', $this->login_logout_menu_profile_link() );
 						$item->url     = esc_url( $url );
-						$item->title   = $show_avatar ? $this->login_logout_menu_avatar( $item->title ) : esc_html( $item->title );
+						$item->title   = $show_avatar ? $this->login_logout_menu_avatar( $item->title, array( 'class' => 'login-logout-menu-nav-avatar' ) ) : esc_html( $item->title );
 						$profile_class = $show_avatar ? 'login-logout-menu-profile login-logout-menu-avatar-wrapper' : 'login-logout-menu-profile';
 						$item->classes = array( $profile_class );
 						break;
@@ -371,7 +371,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 						$current_user  = wp_get_current_user();
 						$username      = apply_filters( 'login_logout_menu_username', $current_user->display_name );
 						$url           = apply_filters( 'login_logout_menu_username_url', $this->login_logout_menu_profile_link() );
-						$item->title   = $show_avatar ? $this->login_logout_menu_avatar( $username ) : esc_html( $username );
+						$item->title   = $show_avatar ? $this->login_logout_menu_avatar( $username, array( 'class' => 'login-logout-menu-nav-avatar' ) ) : esc_html( $username );
 						$item->url     = esc_url( $url );
 						$user_class    = $show_avatar ? 'login-logout-menu-username login-logout-menu-avatar-wrapper' : 'login-logout-menu-username';
 						$item->classes = array( $user_class );
@@ -389,13 +389,17 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 		/**
 		 * Get the avatar of the current user which is logged in.
 		 *
-		 * @since 1.5.0
 		 * @param string $username The username of the logged-in user.
+		 * @param array  $attrs The attributes of avatar structure.
+		 *
+		 * @since 1.5.0
+		 * @version 1.5.1
 		 * @return string The avatar of the user that is logged-in.
 		 */
-		public static function login_logout_menu_avatar( $username ) {
+		public static function login_logout_menu_avatar( $username, $attrs ) {
 
-			$avatar = '';
+			$avatar       = '';
+			$parsed_attrs = self::login_logout_menu_attrs( $attrs );
 
 			if ( is_user_logged_in() ) {
 				/**
@@ -403,14 +407,65 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 				 *
 				 * @param array $user_id The user id.
 				 * @param array $args Arguments of get_avatar_url.
-				 * @since 1.5.0
+				 * @since 1.5.1
 				 */
 				$args    = apply_filters( 'login_logout_menu_avatar_args', array( 'size' => '48' ) );
 				$user_id = get_current_user_id();
-				$avatar  = "<img src='" . esc_url( get_avatar_url( $user_id, $args ) ) . "' class='login-logout-menu-avatar' />";
+				$avatar  = "<img src='" . esc_url( get_avatar_url( $user_id, $args ) ) . "' $parsed_attrs />";
 			}
-			$avatar_html = apply_filters( 'login_logout_menu_avatar_html', $avatar . $username, $avatar, $username );
+			$avatar_html = apply_filters( 'login_logout_menu_avatar_html', $avatar . $username, $avatar, $username, get_avatar_url( $user_id, $args ) );
 			return $avatar_html;
+		}
+
+		/**
+		 * Filter to enhance the avatar attributes such as classes and alt.
+		 *
+		 * @param array $attrs array of the attributes.
+		 *
+		 * @since 1.5.1
+		 */
+		public static function login_logout_menu_attrs( $attrs ) {
+
+			$attrs = (array) apply_filters( 'login_logout_menu_avatar_attrs', $attrs );
+
+			/**
+			 * Array Containing Allowed attributes.
+			 */
+			$allowed_attrs = array( 'title', 'class', 'alt' );
+
+			// Pattern for data-* attribute.
+			$data_attr_ptrn = '/data-/i';
+
+			$login_logout_menu_attributes = 'class="';
+
+			// Attr sets for class including default class.
+			if ( array_key_exists( 'class', $attrs ) ) {
+
+				// Class attributes in string.
+				$class_attrs_str = esc_attr( wp_unslash( $attrs['class'] ) );
+				// Class attributes in array.
+				$class_attrs     = explode( ' ', $class_attrs_str );
+				$class_separator = '';
+
+				foreach ( $class_attrs as $value ) {
+					if ( ( 'login-logout-menu-avatar' !== $value || 'login-logout-content-avatar' !== $value ) && ! empty( $value ) ) {
+						$login_logout_menu_attributes .= $class_separator . $value;
+						$class_separator               = ' ';
+					}
+				}
+			}
+			$login_logout_menu_attributes .= '" ';
+
+			foreach ( $attrs as $login_logout_menu_attr => $value ) {
+
+				$value           = esc_attr( wp_unslash( $value ) );
+				$login_logout_menu_attr = esc_attr( wp_unslash( $login_logout_menu_attr ) );
+
+				if ( false !== $value && ! empty( $value ) && $login_logout_menu_attr !== 'class' && ( in_array( $login_logout_menu_attr, $allowed_attrs ) || preg_match( $data_attr_ptrn, $login_logout_menu_attr ) ) ) {
+					$login_logout_menu_attributes .= $login_logout_menu_attr . '="' . $value . '"';
+				}
+			}
+			return $login_logout_menu_attributes;
 		}
 
 		/**
@@ -434,9 +489,9 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 					$llm_avatar = true;
 				}
 			}
-			// This will add the styling of avatar to frontend if found avatar. @since 1.5.0
+			// This will add the styling of avatar to frontend if found avatar. @since 1.5.
 			if ( $llm_avatar ) {
-				echo '<style id="login-logout-menu-front-css">.login-logout-menu-avatar-wrapper a{position:relative;padding-left:54px !important;}.login-logout-menu-avatar{border-radius:50%;object-fit:cover;margin-right:8px;vertical-align:middle;top:50%;left:0;margin-top:-24px;width:auto;height:auto;max-width:48px;position:absolute;min-width:32px;}
+				echo '<style id="login-logout-menu-front-css">.login-logout-menu-avatar-wrapper a{position:relative;padding-left:54px !important;}.login-logout-menu-nav-avatar{border-radius:50%;object-fit:cover;margin-right:8px;vertical-align:middle;top:50%;left:0;margin-top:-24px;width:auto;height:auto;max-width:48px;position:absolute;min-width:32px;}
 				</style>';
 			}
 			return $sorted_menu_items;

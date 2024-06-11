@@ -282,6 +282,23 @@ abstract class Premium_Templates_Source_Base {
 				return $element_data;
 			}
 
+			// resetting query filters on improt.
+			$query_filter_ctrls = array(
+				'premium_blog_users',
+				'tax_category_post_filter',
+				'tax_post_tag_post_filter',
+				'premium_blog_posts_exclude',
+				'tax_product_cat_product_filter',
+				'tax_product_tag_product_filter',
+				'custom_posts_filter',
+				'featured_post_default',
+				'featured_post'
+			);
+
+			if ( in_array( $control['name'], $query_filter_ctrls, true ) ) {
+				$element_data['settings'][ $control['name'] ] = '';
+			}
+
 			if ( method_exists( $control_class, $method ) ) {
 
 				if ( 'media' !== $control['type'] && 'hedia' !== $control['type'] && 'repeater' !== $control['type'] ) {

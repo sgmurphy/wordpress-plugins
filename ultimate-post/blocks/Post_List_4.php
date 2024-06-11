@@ -345,7 +345,7 @@ class Post_List_4{
                                                 if($post_video){
                                                     $post_loop .= '<div enableAutoPlay="'.$attr['popupAutoPlay'].'" class="ultp-video-icon">'.ultimate_post()->svg_icon('play_line').'</div>';
                                                 }
-                                                if( ($attr['catPosition'] != 'aboveTitle') && (($noAjax==false) || $attr['showSmallCat']) && $attr['catShow'] ) {
+                                                if( ($attr['catPosition'] != 'aboveTitle') && (($idx == 0 && $noAjax==false) || $attr['showSmallCat']) && $attr['catShow'] ) {
                                                     $post_loop .= '<div class="ultp-category-img-grid">'.$category.'</div>';
                                                 }
                                             $post_loop .= '</div>';

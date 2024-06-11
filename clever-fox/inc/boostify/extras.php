@@ -5,7 +5,7 @@
  */
 function boostify_get_social_icon_default() {
 	return apply_filters(
-		'boostify_get_social_icon_default', json_encode(
+		'boostify_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -44,7 +44,7 @@ function boostify_get_social_icon_default() {
  */
  function boostify_get_contact_info_default() {
 	return apply_filters(
-		'boostify_get_contact_info_default', json_encode(
+		'boostify_get_contact_info_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'       => 'fa-map-marker',
@@ -79,7 +79,7 @@ add_action('boostify_get_contact_info_default','boostify_get_contact_info_defaul
  */
  function boostify_get_slider_default() {
 	return apply_filters(
-		'boostify_get_slider_default', json_encode(
+		'boostify_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/boostify/images/slider/img01.jpg',
@@ -127,7 +127,7 @@ add_action('boostify_get_contact_info_default','boostify_get_contact_info_defaul
  */
  function boostify_get_info_default() {
 	return apply_filters(
-		'boostify_get_info_default', json_encode(
+		'boostify_get_info_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( '24x7 Support', 'clever-fox' ),
@@ -165,7 +165,7 @@ add_action('boostify_get_contact_info_default','boostify_get_contact_info_defaul
  */
  function boostify_get_service_default() {
 	return apply_filters(
-		'boostify_get_service_default', json_encode(
+		'boostify_get_service_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Startup Business', 'clever-fox' ),
@@ -222,7 +222,7 @@ add_action('boostify_get_contact_info_default','boostify_get_contact_info_defaul
  */
  function boostify_get_features_default() {
 	return apply_filters(
-		'boostify_get_features_default', json_encode(
+		'boostify_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Business planning', 'clever-fox' ),
@@ -272,7 +272,7 @@ add_action('boostify_get_contact_info_default','boostify_get_contact_info_defaul
  
  function boostify_get_testimonial_default() {
 	return apply_filters(
-		'boostify_get_testimonial_default', json_encode(
+		'boostify_get_testimonial_default', wp_json_encode(
 			array(
 				array(
 					'title'           => esc_html__( 'All Raihan', 'clever-fox' ),

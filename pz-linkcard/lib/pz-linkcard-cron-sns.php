@@ -2,7 +2,7 @@
 <?php
 	// WP-CRONスケジュール（SNSカウント取得）
 	if (!$this->options['sns-position'] ) {
-		wp_clear_scheduled_hook('pz_linkcard_check' );
+		wp_clear_scheduled_hook(self::CRON_CHECK );
 		return	null;
 	}
 
@@ -25,7 +25,7 @@
 
 			// 10件を超えたら、5分後に続きを処理する
 			if ($proc_count > 10) {
-				wp_schedule_single_event(time() + 300, 'pz_linkcard_check' );
+				wp_schedule_single_event(time() + 300, self::CRON_CHECK );
 				break;
 			}
 

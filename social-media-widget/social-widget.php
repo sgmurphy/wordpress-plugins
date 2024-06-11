@@ -3,7 +3,7 @@
  * Plugin Name: Social Media Widget
  * Plugin URI: http://wordpress.org/extend/plugins/social-media-widget/
  * Description: Adds links to all of your social media and sharing site profiles. Tons of icons come in 3 sizes, 4 icon styles, and 4 animations.
- * Version: 4.0.8
+ * Version: 4.0.9
  * Author: Noah Kagan
  * Author URI: https://appsumo.com/search/?tags=wordpress&utm_source=sumo&utm_medium=wp-widget&utm_campaign=social-media-widget
  **/
@@ -517,7 +517,7 @@ class Social_Widget extends WP_Widget {
 			}
 			*/
 			$target= empty( $this->slugtargets[$name] ) ? $this->newtab : 'target="'.$this->slugtargets[$name].'"';
-			$html .= '<a href="' . esc_attr($slug) . '" ' . ($name == 'googleplus' ? 'rel="publisher"' : $this->nofollow) . ' ' . $target.'>';
+			$html .= '<a href="' . esc_url($slug) . '" ' . ($name == 'googleplus' ? 'rel="publisher"' : $this->nofollow) . ' ' . $target.'>';
 			$html .= '<img width="' . esc_attr($this->icon_size) .'" height="' . esc_attr($this->icon_size) . '" src="' . esc_attr($img) . '" 
 				alt="' . esc_attr(empty($this->slugalts[$name]) ? "$this->imgcaption $title": $this->slugalts[$name]).'" 
 				title="' . esc_attr(empty($this->slugtitles[$name]) ? "$this->imgcaption $title" : $this->slugtitles[$name]) . '" ' . 
@@ -1092,7 +1092,7 @@ class Social_Widget extends WP_Widget {
 		<?php add_thickbox(); ?>
 		<p style="font-weight:bold;">
 			Looking for more sharing tools?<br />
-			<a href="<?php echo esc_attr(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox">Checkout our SumoMe plugin!</a>
+			<a href="<?php echo esc_url(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox">Checkout our SumoMe plugin!</a>
 		</p>
 		
 	<?php
@@ -1156,10 +1156,10 @@ function socialwidget_global_notice() {
 				#socialwidget_global_notification a.button:active {vertical-align:baseline;}
 			</style>
 			<div class="updated" id="socialwidget_global_notification" style="border:3px solid #317A96;position:relative;background:##3c9cc2;background-color:#3c9cc2;color:#ffffff;height:70px;">
-				<a class="notice-dismiss" href="<?php echo esc_attr(admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0')); ?>" style="right:165px;top:0;"></a>
+				<a class="notice-dismiss" href="<?php echo esc_url(admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0')); ?>" style="right:165px;top:0;"></a>
 				<a href="<?php echo esc_attr(admin_url('admin.php?page=social-media-widget&socialwidget_global_notification=0')); ?>" style="position:absolute;top:9px;right:15px;color:#ffffff;">Dismiss and go to settings</a>
 				<p style="font-size:16px;line-height:50px;">
-					<?php esc_html_e('Looking for more sharing tools?'); ?> &nbsp;<a style="background-color: #6267BE;border-color: #3C3F76;" href="<?php echo esc_attr(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox button button-primary">Get SumoMe WordPress Plugin</a>
+					<?php esc_html_e('Looking for more sharing tools?'); ?> &nbsp;<a style="background-color: #6267BE;border-color: #3C3F76;" href="<?php echo esc_url(admin_url('plugin-install.php?tab=plugin-information&plugin=sumome&TB_iframe=true&width=743&height=500')); ?>" class="thickbox button button-primary">Get SumoMe WordPress Plugin</a>
 				</p>
 	        </div>
 		<?php

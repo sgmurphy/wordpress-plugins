@@ -5,7 +5,7 @@
  */
 function renoval_get_funfact_default() {
 	return apply_filters(
-		'renoval_get_funfact_default', json_encode(
+		'renoval_get_funfact_default', wp_json_encode(
 			array(
 				array(
 					'icon_value'    => 'fa-smile-o',	
@@ -47,14 +47,14 @@ function renoval_get_funfact_default() {
  */
  function renoval_get_team_default() {
 	return apply_filters(
-		'renoval_get_team_default', json_encode(
+		'renoval_get_team_default', wp_json_encode(
 			array(
 				array(
 					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/eractor/images/team/team-1.jpg'),
 					'title'           => esc_html__( 'Philip Wilson', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Engineer','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0001',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_001',
@@ -84,7 +84,7 @@ function renoval_get_funfact_default() {
 					'title'           => esc_html__( 'Stock Home', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Builder', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0002',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0011',
@@ -114,7 +114,7 @@ function renoval_get_funfact_default() {
 					'title'           => esc_html__( 'Tokyo Stark', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Engineer', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0003',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0021',
@@ -144,7 +144,7 @@ function renoval_get_funfact_default() {
 					'title'           => esc_html__( 'Surgio', 'clever-fox' ),
 					'subtitle'        => esc_html__( 'Builder', 'clever-fox' ),
 					'id'              => 'customizer_repeater_team_0004',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0031',

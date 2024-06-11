@@ -16,7 +16,7 @@ class Wt_Advanced_Order_Number {
         if (defined('WT_SEQUENCIAL_ORDNUMBER_VERSION')) {
             $this->version = WT_SEQUENCIAL_ORDNUMBER_VERSION;
         } else {
-            $this->version = '1.6.2';
+            $this->version = '1.6.3';
         }
         $this->plugin_name = 'wt-advanced-order-number';
         $this->plugin_base_name = WT_SEQUENCIAL_ORDNUMBER_BASE_NAME;
@@ -128,6 +128,9 @@ class Wt_Advanced_Order_Number {
      */
 
     public function setup_sequential_number() {
+
+        //add order number as a search option in order listing page .
+        add_action('woocommerce_order_list_table_prepare_items_query_args', array($this, 'wt_order_list_table_prepare_items_query_args'));
 
         //add_action('wp_insert_post', array($this, 'set_sequential_number'), 10, 2);
         //add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'set_sequential_number' ), 10, 1 );
@@ -734,7 +737,6 @@ class Wt_Advanced_Order_Number {
 
                         $res = $wpdb->query($query);
                     }
-
                     $order->save();
                 } 
                 flock($file,LOCK_UN);
@@ -794,6 +796,27 @@ class Wt_Advanced_Order_Number {
 
     public function run() {
         $this->loader->run();
+    }
+
+    /**
+	* 	@since 1.6.3
+	*	Alter query parameters for adding order number as a serch option in order listing page.
+    *
+    *   @param array $query Arguments to be passed to `wc_get_orders()`.
+    *
+	*	@return array
+	*/
+    public function wt_order_list_table_prepare_items_query_args($query){
+        if((isset($query['search_filter']) && $query['search_filter'] === 'order_number') && (isset($query['s']) && ! empty( $query['s']))){
+            $query['meta_query'][] = array(
+                'key'   => '_order_number',
+                'value' => sanitize_text_field( $query['s']),
+                'compare' => 'LIKE',         
+            );
+            unset($query['search_filter']);
+            unset($query['s']);
+        }
+        return $query;
     }
 
 }

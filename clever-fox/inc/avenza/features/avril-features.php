@@ -210,48 +210,48 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				if ( 'Aera' == $theme->name){	
 			?>
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/aera-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif ( 'Avail' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/avail-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 					
 			<?php }elseif ( 'Axtia' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/axtia-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif ( 'Avtari' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/avtari-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 				
 			<?php }elseif ( 'Aviser' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/aviser-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 
 			<?php }elseif ( 'Avitech' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/avitech-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 
 			<?php }elseif ( 'Ampark' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/ampark-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 
 			<?php }elseif ( 'Varuda' == $theme->name){ ?>
 				
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/varuda-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>		
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>		
 				
 			<?php
 			   }else{
 			?>
 				<a class="customizer_feature_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/avril-pro/" target="_blank"
-				style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			   }
 			}

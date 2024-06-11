@@ -20,8 +20,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/call-to-action-section-setup/" target="_blank" style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/call-to-action-section-setup/" target="_blank" style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }

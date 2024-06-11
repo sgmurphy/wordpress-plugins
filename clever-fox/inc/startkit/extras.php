@@ -6,7 +6,7 @@
 if ( ! function_exists( 'startkit_get_slider_default' ) ) : 
  function startkit_get_slider_default() {
 	return apply_filters(
-		'startkit_get_slider_default', json_encode(
+		'startkit_get_slider_default', wp_json_encode(
 			 array(
 					array('image_url' => CLEVERFOX_PLUGIN_URL .'inc/startkit/images/slider/slider02.jpg',
 					'link' => '#', 
@@ -45,7 +45,7 @@ endif;
 if ( ! function_exists( 'startweb_get_slider_default' ) ) : 
  function startweb_get_slider_default() {
 	return apply_filters(
-		'startweb_get_slider_default', json_encode(
+		'startweb_get_slider_default', wp_json_encode(
 			 array(
 					array("image_url" => CLEVERFOX_PLUGIN_URL .'inc/startkit/images/slider/slider02.jpg',
 					'link' => '#', 
@@ -92,7 +92,7 @@ endif;
  if ( ! function_exists( 'startkit_get_service_default' ) ) :
  function startkit_get_service_default() {
 	return apply_filters(
-		'startkit_get_service_default', json_encode(
+		'startkit_get_service_default', wp_json_encode(
 						 array(
 				array(
 					"image_url" => CLEVERFOX_PLUGIN_URL .'inc/startkit/images/slider/slider02.jpg',
@@ -135,7 +135,7 @@ endif;
  if ( ! function_exists( 'startkit_get_testimonial_default' ) ) :
  function startkit_get_testimonial_default() {
 	return apply_filters(
-		'startkit_get_testimonial_default', json_encode(
+		'startkit_get_testimonial_default', wp_json_encode(
 					 array(
 				array(
 					'title'           => esc_html__( 'Naiomi Watson', 'clever-fox' ),
@@ -176,7 +176,7 @@ endif;
 if ( ! function_exists( 'startkit_get_funfact_default' ) ) :
 function startkit_get_funfact_default() {
 		return apply_filters(
-			'startkit_get_funfact_default', json_encode(
+			'startkit_get_funfact_default', wp_json_encode(
 				 array(
 					array(
 						'title'           => esc_html__( '9.1', 'clever-fox' ),

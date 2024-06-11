@@ -3,7 +3,7 @@
         'name' => 'flycart/woo_discount_rules_v2',
         'pretty_version' => 'dev-2.6.2_usage_limit_per_user',
         'version' => 'dev-2.6.2_usage_limit_per_user',
-        'reference' => '308028f4ff604ef316dbd4bcc44bddc844ac363d',
+        'reference' => '35345d60435ad31782a6cd29d78127097d885877',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'flycart/woo_discount_rules_v2' => array(
             'pretty_version' => 'dev-2.6.2_usage_limit_per_user',
             'version' => 'dev-2.6.2_usage_limit_per_user',
-            'reference' => '308028f4ff604ef316dbd4bcc44bddc844ac363d',
+            'reference' => '35345d60435ad31782a6cd29d78127097d885877',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

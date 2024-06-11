@@ -16,8 +16,8 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 					'social' => array()
 				);
 			
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+			add_action( 'wp esc_html_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin esc_html_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 			}
 			function enqueue_scripts() {
 				
@@ -37,7 +37,7 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 		$social_links = get_social();
 	?>
 			<p>
-				<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php _e( 'Title', 'clever-fox' ); ?>:</label>
+				<label for="<?php echo esc_attr($this->get_field_id( 'title' )); ?>"><?php  esc_html_e( 'Title', 'clever-fox' ); ?>:</label>
 				<input id="<?php echo esc_attr($this->get_field_id( 'title' )); ?>" type="text" name="<?php echo esc_attr($this->get_field_name( 'title' )); ?>" value="<?php echo esc_attr($instance['title']); ?>" class="widefat" />
 			</p>
 			<ul class="mks_social_container mks-social-sortable">
@@ -48,7 +48,7 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 				<?php endforeach; ?>
 			</ul>
 			<p>
-				<a href="#" class="mks_add_social button"><?php _e( 'Add Icon', 'clever-fox' ); ?></a>
+				<a href="#" class="mks_add_social button"><?php  esc_html_e( 'Add Icon', 'clever-fox' ); ?></a>
 			</p>
 
 		  <div class="mks_social_clone" style="display:none">
@@ -56,9 +56,9 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 		  </div>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'social_style' ); ?>"><?php _e('Select Style Style','clever-fox'); ?></label> 
-			<select class="widefat" id="<?php echo $this->get_field_id( 'social_style' ); ?>" name="<?php echo $this->get_field_name( 'social_style' ); ?>">
-				<option value>--<?php echo __('Select','clever-fox'); ?>--</option>
+			<label for="<?php echo esc_attr($this->get_field_id( 'social_style' )); ?>"><?php  esc_html_e('Select Style Style','clever-fox'); ?></label> 
+			<select class="widefat" id="<?php echo esc_attr($this->get_field_id( 'social_style' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'social_style' )); ?>">
+				<option value>--<?php echo esc_html__('Select','clever-fox'); ?>--</option>
 				<?php
 					$social_style = $instance['social_style'];
 					$users =array("style1","style3","style4");
@@ -68,7 +68,7 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 						$option .= '>';
 						$option .= $user;
 						$option .= '</option>';
-						echo $option;
+						echo esc_html($option);
 					}
 				?>	
 			</select>
@@ -80,14 +80,14 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 
 		function draw_social( $widget, $social_links, $selected = array( 'icon' => '', 'url' => '' ) ) { ?>
 
-					<label class="mks-sw-icon"><?php _e( 'Icon', 'clever-fox' ); ?> :</label>
+					<label class="mks-sw-icon"><?php  esc_html_e( 'Icon', 'clever-fox' ); ?> :</label>
 					<select type="text" class="iconPicker" name="<?php echo esc_attr($widget->get_field_name( 'social_icon' )); ?>[]" value="<?php echo esc_attr($selected['icon']); ?>" style="font-family: 'FontAwesome', Arial; width: 82%">
 						<?php foreach ( $social_links as $key => $link ) : ?>
-							<option value="<?php echo esc_attr($key); ?>" <?php selected( $key, $selected['icon'] ); ?>><?php echo $link; ?></option>
+							<option value="<?php echo esc_attr($key); ?>" <?php selected( $key, $selected['icon'] ); ?>><?php echo esc_html($link); ?></option>
 						<?php endforeach; ?>
 					</select>
 					</br>
-					<label class="mks-sw-icon"><?php _e( 'Url', 'meks-smart-social-widget' ); ?> :</label>
+					<label class="mks-sw-icon"><?php  esc_html_e( 'Url', 'meks-smart-social-widget' ); ?> :</label>
 					<input type="text" name="<?php echo esc_attr($widget->get_field_name( 'social_url' )); ?>[]" value="<?php echo esc_attr($selected['url']); ?>" placeholder="Example.com" style="width: 82%">
 
 
@@ -98,7 +98,7 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 		// Upadte data
 		function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
-			$instance['title'] = strip_tags( $new_instance['title'] );	
+			$instance['title'] = wp_strip_all_tags( $new_instance['title'] );	
 			$instance['social'] = array();
 			if ( !empty( $new_instance['social_icon'] ) ) {
 				$protocols = wp_allowed_protocols();
@@ -122,10 +122,11 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 			$title 			= apply_filters( 'widget_title', $instance['title'] );
 			$social_style 	= isset($instance['social_style']) ? $instance['social_style'] : null;
 			
-			echo $before_widget;
+			$escaped_before_widget = htmlspecialchars($args['before_widget']);
+			echo esc_html($escaped_before_widget);
 
 			if ( !empty( $title ) ) {
-				echo $before_title . $title . $after_title;
+				echo esc_html($before_title) . esc_html($title) . esc_html($after_title);
 			}
 	?>
 			
@@ -147,7 +148,7 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 					<?php }elseif($social_style =='style4'){ ?>
 					
 						<div class="socialText">
-							<h6><?php echo ucwords($result); ?></h6>
+							<h6><?php echo esc_html(ucwords($result)); ?></h6>
 						</div>
 							
 					<?php }else{ ?>
@@ -162,7 +163,8 @@ if ( ! class_exists( 'fiona_blog_social_icon_widget' ) ) :
 
 
 			<?php
-			echo $after_widget;
+			$escaped_after_widget = htmlspecialchars($args['after_widget']);			
+			echo esc_html($escaped_after_widget);
 		}
 		
 		

@@ -1,32 +1,15 @@
-(function( $ ) {
-	'use strict';
-
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
-
-})( jQuery );
+jQuery(document).ready(function(jQuery){
+	var serch_by_order_number = wt_seq_settings.serch_by_order_number;
+	if(serch_by_order_number === 'yes' && document.getElementById("order-search-filter")){
+		const selectElement = document.getElementById("order-search-filter");
+		const orderNumberOption = document.createElement("option");
+		orderNumberOption.text = "Order Number";
+		orderNumberOption.value = "order_number";
+		if (window.location.search.includes("search-filter=order_number")) {
+			orderNumberOption.selected = true; 
+		  }
+		const allOption = selectElement.querySelector("option[value='all']");
+		selectElement.insertBefore(orderNumberOption,allOption);
+	}
+	
+});

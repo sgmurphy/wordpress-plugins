@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.3.1
+Stable tag: 4.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,9 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.2 - 11-June-2024
+- Fix: Fixed an issue where the search functionality in the Elementor editor was not working.
 
 v4.3.1 - 06-June-2024
 - Improvement: Added logging for import failures with a user alert for log details, warning that retries will exhaust AI site attempts.

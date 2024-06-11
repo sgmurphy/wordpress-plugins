@@ -3,9 +3,9 @@ Contributors: Papin, qweb
 Donate link: https://www.paypal.me/dakel/10/
 Tags: auto, automatic, background, update, updates, updating, automatic updates, automatic background updates, easy update, wordpress update, theme update, plugin update, up-to-date, security, update latest version, update core, update wp, update wp core, major updates, minor updates, update to new version, update core, update plugin, update plugins, update plugins automatically, update theme, plugin, theme, advance, control, mail, notifations, enable
 Requires at least: 5.3.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.1
-Stable tag: 3.9.1
+Stable tag: 3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ So obviously, some of you wondered what the difference would be between the defa
 4. Keep track of updates with the update log
 
 == Changelog ==
+
+= 3.9.2 (June 11, 2024) =
+* Fixed some more undefined variables
+* Declared support for WP6.5
 
 = 3.9.1 (March 8, 2024) =
 * Fixed: Undefined variable $totalNum

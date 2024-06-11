@@ -35,19 +35,19 @@
 							<div class="av-container">                                
 								<div class="theme-content text-<?php echo esc_attr($align); ?> wow zoomIn">
 									<?php if ( ! empty( $title ) ) : ?>
-										<h3 data-animation="fadeInUp" data-delay="150ms"><?php echo esc_html__($title); ?></h3>
+										<h3 data-animation="fadeInUp" data-delay="150ms"><?php /* Translators: %s : Title */printf(esc_html__('%s.','clever-fox'),esc_html($title)); ?></h3>
 									<?php endif; ?>
 									
 									<?php if ( ! empty( $subtitle )  || ! empty( $subtitle2 )) : ?>
-										<h1 data-animation="<?php echo esc_attr($animation_align); ?>" data-delay="200ms"><?php echo esc_html__($subtitle); ?> <span class="primary-color"><?php echo esc_html__($subtitle2); ?></span></h1>   
+										<h1 data-animation="<?php echo esc_attr($animation_align); ?>" data-delay="200ms"><?php /* Translators: %s : Subtitle */printf(esc_html__('%s.','clever-fox'),esc_html($subtitle)); ?> <span class="primary-color"><?php /* Translators: %s : Subtitle2 */printf(esc_html__('%s.','clever-fox'),esc_html($subtitle2)); ?></span></h1>   
 									<?php endif; ?>
 									
 									<?php if ( ! empty( $text ) ) : ?>									
-										<p data-animation="<?php echo esc_attr($animation_align); ?>" data-delay="500ms"><?php echo esc_html__($text); ?></p>
+										<p data-animation="<?php echo esc_attr($animation_align); ?>" data-delay="500ms"><?php /* Translators: %s : Text */printf(esc_html__('%s.','clever-fox'),esc_html($text)); ?></p>
 									<?php endif; ?>
 									
 									<?php if ( ! empty( $button ) ) : ?>
-										<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" <?php if($open_new_tab== 'yes' || $open_new_tab== '1') { echo "target='_blank'"; } ?> class="av-btn av-btn-primary av-btn-bubble"><?php echo esc_html__( $button ); ?> <i class="fa fa-arrow-right"></i> <span class="bubble_effect"><span class="circle top-left"></span> <span class="circle top-left"></span> <span class="circle top-left"></span> <span class="button effect-button"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span></span></a>
+										<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" <?php if($open_new_tab== 'yes' || $open_new_tab== '1') { echo "target='_blank'"; } ?> class="av-btn av-btn-primary av-btn-bubble"><?php /* Translators: %s : Button */printf(esc_html__('%s.','clever-fox'),esc_html($button)); ?> <i class="fa fa-arrow-right"></i> <span class="bubble_effect"><span class="circle top-left"></span> <span class="circle top-left"></span> <span class="circle top-left"></span> <span class="button effect-button"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span></span></a>
 									<?php endif; ?>
 								</div>
 							</div>

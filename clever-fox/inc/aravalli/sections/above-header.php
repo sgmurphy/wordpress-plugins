@@ -22,14 +22,14 @@
 							<?php if($hide_show_phone_details == '1') { ?>
 								 <div class="widget widget-info phone">
 									<i class="fa <?php echo esc_attr($tlh_phone_icon); ?>"></i>
-									<span><?php printf(__('%s','clever-fox'),$tlh_phone_title); ?></span>
+									<span><?php /* translators: %s: Phone Title */printf( esc_html__('%s.','clever-fox'), esc_html($tlh_phone_title)); ?></span>
 								</div>
 							<?php } 
 							  if($hide_show_email_details == '1') {
 							 ?>	
 								<div class="widget widget-info email">
 									<i class="fa <?php echo esc_attr($tlh_email_icon); ?>"></i>
-									<span><?php printf(__('%s','clever-fox'),$tlh_email_title); ?></span>
+									<span><?php echo esc_html($tlh_email_title); ?></span>
 								</div>
 							 <?php } ?>
 						</div>

@@ -85,21 +85,21 @@
 							<?php if ( has_post_thumbnail() ) {  ?>	
 								<div class="packages-img"><?php the_post_thumbnail(); ?></div>
 								<?php if (!empty($popular_badge) ){  ?>
-									<div class="corner-ribbon"><span class="banget banget-red"><?php printf(__('%s','clever-fox'), $popular_badge); ?></span></div>
+									<div class="corner-ribbon"><span class="banget banget-red"><?php echo esc_html($popular_badge); ?></span></div>
 								<?php } ?>
 							<?php } ?>
 							
 							<?php if (!empty($packages_ribbon_text) ){  ?>
-								<div class="balloon-container"><span class="balloon balloon-theme"><?php printf(__('%s','clever-fox'), $packages_ribbon_text); ?></span></div>
+								<div class="balloon-container"><span class="balloon balloon-theme"><?php echo esc_html($packages_ribbon_text); ?></span></div>
 							<?php } ?>
 							
 							<?php if (!empty($packages_price_badge) ){  ?>
-								<div class="price-bedge"> <?php printf(__('%s','clever-fox'), $packages_price_badge); ?></div>
+								<div class="price-bedge"> <?php echo esc_html($packages_price_badge); ?></div>
 							<?php } ?>
                         </div>
                         <div class="packages-panel">
                             <div class="packages-details">
-                                <a href="<?php echo esc_url($packages_button_link); ?>" <?php  if($packages_button_link_target) { echo "target='_blank'"; } ?>><?php echo the_title(); ?></a>
+                                <a href="<?php echo esc_url($packages_button_link); ?>" <?php  if($packages_button_link_target) { echo "target='_blank'"; } ?>><?php echo esc_html(the_title()); ?></a>
                                 <i class="fa fa-heart"></i>
                             </div>
                             <div class="post-content-bottom">
@@ -108,14 +108,14 @@
 										<?php for ($i=1; $i<=$packages_star; $i++) { ?>
 											<li><i class="fa fa-star"></i></li>
 										<?php } ?>
-										<li><span class="review">/ <?php  printf(__('%s','clever-fox'), $packages_star); ?> <?php echo esc_html_e('Review','clever-fox'); ?></span></li>
+										<li><span class="review">/ <?php  echo esc_html($packages_star); ?> <?php echo esc_html_e('Review','clever-fox'); ?></span></li>
 									</ul>
 								<?php } ?>
 								
 								<?php if (!empty($packages_price) ){  ?>
                                 <div class="comment-box">
                                     <span><?php echo esc_html_e('From','clever-fox'); ?></span>
-                                    <strong><?php  printf(__('%s','clever-fox'), $packages_price); ?></strong>
+                                    <strong><?php  echo esc_html($packages_price); ?></strong>
                                 </div>
 								<?php } ?>
                             </div>

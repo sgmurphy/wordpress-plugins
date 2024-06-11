@@ -2764,6 +2764,14 @@ body[class*='secure-copy-content-protect'] #wpfooter{
 
 /* Select message vars sccp page | End */ 
 
+.ays-sccp-general-settings-form p.vmessage {
+    padding-left: 360px;
+    text-indent: -360px;
+    max-width: 100%;
+    width: 100%;
+    word-break: break-word;
+}
+
 @media screen and (max-width: 640px){
     div#ays_ask_question_content {
         display: none;
@@ -2794,5 +2802,10 @@ body[class*='secure-copy-content-protect'] #wpfooter{
 
     div.comparison {
         padding: 0;
+    }
+
+    .ays-sccp-general-settings-form p.vmessage {
+        padding-left: unset;
+        text-indent: unset;
     }
 }

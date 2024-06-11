@@ -297,7 +297,6 @@ function conceptly_lite_header_setting( $wp_customize ){
 		    'label'   		=> __('Title','clever-fox'),
 		    'section' 		=> 'header_contact',
 			'settings' 		 => 'header_faq',
-			'description'   => __( '', 'clever-fox' ),
 			'type'		 =>	'text'
 		)  
 	);

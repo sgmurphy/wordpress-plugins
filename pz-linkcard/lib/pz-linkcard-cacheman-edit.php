@@ -1,11 +1,7 @@
 <?php defined('ABSPATH' ) || wp_die; ?>
 <!-- 編集用フォーム -->
 &nbsp;
-
-
 <div class="pz-lkc-man-cache-editor-title"><div class="pz-lkc-man-cache-editor-icon"><?php echo __('&#x1f4dd;&#xfe0f;', $this->text_domain ); ?></div>&ensp;<div class="pz-lkc-man-cache-editor-text"><?php echo __('Cache Editor', $this->text_domain ); ?></div></div>
-
-
 <div class="pz-lkc-man-cache-editor">
 	<table class="wp-list-table"><!--  wp-list-table widefat fixed -->
 		<tr>

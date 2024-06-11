@@ -4,7 +4,7 @@ Contributors: theeventscalendar, brianjessee, camwynsp, redscar, tribalmike, raf
 Tags: tickets, event registration, RSVP, ticket sales, attendee management
 Requires at least: 6.3
 Tested up to: 6.5.3
-Stable tag: 5.10.0
+Stable tag: 5.11.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,6 +196,14 @@ We've got a [LoopedIn](https://evnt.is/ideas) page where we're actively watching
 Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on using, tweaking, and troubleshooting our plugins.
 
 == Changelog ==
+
+= [5.11.0] 2024-06-11 =
+
+* Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
+* Feature - Added support for automatic Stripe Webhook Management for TicketsCommerce [ET-2104]
+* Tweak - Added filters: `tec_tickets_commerce_need_to_enable_stripe_webhook`
+* Deprecated - The `is_success()` method has been deprecated in `TEC\Tickets\Commerce\Gateways\Stripe\Signup` without a replacement.
+* Language: 6 new strings added, 46 updated, 4 fuzzied, and 1 obsoleted
 
 = [5.10.0] 2024-05-14 =
 

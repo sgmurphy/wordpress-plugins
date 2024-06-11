@@ -8,7 +8,6 @@
 namespace InstagramFeed\Vendor\Smashballoon\Framework\Packages\License_Tier;
 
 use function InstagramFeed\Vendor\Smashballoon\Framework\flatten_array;
-/** @internal */
 abstract class License_Tier
 {
     /**

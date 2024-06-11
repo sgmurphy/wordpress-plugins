@@ -43,7 +43,7 @@ if($hs_pg_about_amenities=='1'){
 							$title = ! empty( $amenities_item->title ) ? apply_filters( 'aravalli_translate_single_string', $amenities_item->title, 'Amenities section' ) : '';
 							$icon = ! empty( $amenities_item->icon_value ) ? apply_filters( 'aravalli_translate_single_string', $amenities_item->icon_value, 'Amenities section' ) : '';
 					?>
-					<div class="amenities-item"><i class="fa <?php echo esc_attr($icon); ?>"></i> <a href="javascript:void(0)"><?php printf(__('%s','clever-fox'),$title); ?></a></div>
+					<div class="amenities-item"><i class="fa <?php echo esc_attr($icon); ?>"></i> <a href="javascript:void(0)"><?php echo esc_html($title); ?></a></div>
 					<?php } } ?>
 				</div>
 			</div>

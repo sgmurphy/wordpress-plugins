@@ -32,14 +32,14 @@
 									<div class="strip-overlay">
 										<?php if ( ! empty( $info_first_img_setting ) ) { ?>
 											<div class="icon-info-thai-spa">
-												<img src="<?php echo esc_url( $info_first_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php echo esc_attr( $title ); ?>" title="<?php echo esc_attr( $title ); ?>" <?php endif; ?> />
+												<img src="<?php echo esc_url( $info_first_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" title="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" <?php endif; ?> />
 											</div>
 										<?php } ?>
 										<div class="info-area-thai-spa">
 											<div class="info-caption-thai-spa">
-												<h4><?php echo esc_html( $info_title ); ?></h4>
-												<p><?php echo esc_html( $info_description ); ?></p>
-												<a href="<?php echo esc_url($info_link); ?>" class="btn-info"><?php echo esc_html($info_btn); ?></a>
+												<h4><?php /* translators: %s: Info Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title)); ?></h4>
+												<p><?php /* translators: %s: Info Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description)); ?></p>
+												<a href="<?php echo esc_url($info_link); ?>" class="btn-info"><?php /* translators: %s: Info Button */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_btn)); ?></a>
 											</div>
 										</div>
 									</div>
@@ -52,14 +52,14 @@
 									<div class="strip-overlay">
 										<?php if ( ! empty( $info_second_img_setting ) ) { ?>
 										<div class="icon-info-thai-spa">
-											<img src="<?php echo esc_url( $info_second_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php echo esc_attr( $title ); ?>" title="<?php echo esc_attr( $title ); ?>" <?php endif; ?> />
+											<img src="<?php echo esc_url( $info_second_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" title="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" <?php endif; ?> />
 										</div>
 										<?php } ?>
 										<div class="info-area-thai-spa">
 											<div class="info-caption-thai-spa">
-												<h4><?php echo esc_html( $info_title2 ); ?></h4>
-												<p><?php echo esc_html( $info_description2 ); ?></p>
-												<a href="<?php echo esc_url($info_link2); ?>" class="btn-info"><?php echo esc_html($info_btn2); ?></a>
+												<h4><?php /* translators: %s: Info Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title2)); ?></h4>
+												<p><?php /* translators: %s: Info Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description2)); ?></p>
+												<a href="<?php echo esc_url($info_link2); ?>" class="btn-info"><?php /* translators: %s: Info Button */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_btn2)); ?></a>
 											</div>
 										</div>
 									</div>
@@ -72,14 +72,14 @@
 									<div class="strip-overlay">
 										<?php if ( ! empty( $info_third_img_setting ) ) { ?>
 										<div class="icon-info-thai-spa">
-											<img src="<?php echo esc_url( $info_third_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php echo esc_attr( $title ); ?>" title="<?php echo esc_attr( $title ); ?>" <?php endif; ?> />
+											<img src="<?php echo esc_url( $info_third_img_setting ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" title="<?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($title)); ?>" <?php endif; ?> />
 										</div>
 										<?php } ?>
 										<div class="info-area-thai-spa">
 											<div class="info-caption-thai-spa">
-												<h4><?php echo esc_html( $info_title3 ); ?></h4>
-												<p><?php echo esc_html( $info_description3 ); ?></p>
-												<a href="<?php echo esc_url($info_link3); ?>" class="btn-info"><?php echo esc_html($info_btn3); ?></a>
+												<h4><?php /* translators: %s: Info Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_title3)); ?></h4>
+												<p><?php /* translators: %s: Info Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_description3)); ?></p>
+												<a href="<?php echo esc_url($info_link3); ?>" class="btn-info"><?php /* translators: %s: Info Button */printf( esc_html__('%s.', 'clever-fox'), esc_html($info_btn3)); ?></a>
 											</div>
 										</div>
 									</div>

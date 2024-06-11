@@ -33,7 +33,7 @@ class CategoryGrid extends Block {
     }
 
     public function register_scripts() {
-        $this->assets_manager->register(
+        $this->assets_manager->enqueue(
             'betterdocs-categorygrid',
             'blocks/categorygrid/frontend.js',
             ['moment', 'masonry']

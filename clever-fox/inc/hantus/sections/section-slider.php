@@ -7,7 +7,7 @@ if ( ! function_exists( 'hantus_lite_slider' ) ) :
 	function hantus_lite_slider() {
 		function hantus_get_slider_default() {
 			return apply_filters(
-				'hantus_get_slider_default', json_encode(
+				'hantus_get_slider_default', wp_json_encode(
 				array(
 					array("image_url" => CLEVERFOX_PLUGIN_URL.'inc/hantus/images/slider/slider01.jpg' ,"link" => "#", "title" => __('Welcome To Hantus Spa','clever-fox'),"subtitle" => __('Beauty & Spa Wellness','clever-fox'), "text" => __('The Spa at Sun Valley is a serene oasis amid all the exciting  activities our iconic valley has delivered for decades.','clever-fox'), "text2" => __('Make an Appoinment','clever-fox'),"slide_align" => "left","id" => "customizer_repeater_000101" ), 
 					

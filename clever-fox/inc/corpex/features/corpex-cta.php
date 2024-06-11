@@ -20,8 +20,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3>How to add cta section :</h3>
-			<p>Frontpage Section > cta Section <br><br> <a href="#" style="background-color:rgba(223, 69, 44, 1);; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">Click Here</a></p>
+			<h3><?php esc_html_e('How to add cta section :','clever-fox'); ?></h3>
+			<p><?php esc_html_e('Frontpage Section > cta Section','clever-fox'); ?> <br><br> <?php /* Translators: 1: anchor 2: end */printf(esc_html__('%1$s Click Here %2$s','clever-fox'),'<a href="#" style="background-color:rgba(223, 69, 44, 1); color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">','</a>'); ?></p>
 			
 		<?php
 	   }

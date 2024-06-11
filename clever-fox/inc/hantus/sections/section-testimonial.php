@@ -3,7 +3,7 @@
 	function hantus_lite_testimonial() {
 			function hantus_get_testimonial_default() {
 			return apply_filters(
-				'hantus_get_testimonial_default', json_encode(
+				'hantus_get_testimonial_default', wp_json_encode(
 					array(
 						array(
 							'title'           => esc_html__( 'Eric Matision', 'clever-fox' ),

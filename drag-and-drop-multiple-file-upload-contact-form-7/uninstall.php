@@ -12,3 +12,6 @@
 	foreach( $options as $option ) {
 		delete_option( $option );
 	}
+
+	// Delete Main settings
+	delete_option( 'dndmfu_settings' );

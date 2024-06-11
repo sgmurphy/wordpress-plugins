@@ -45,7 +45,7 @@
 						
 						<?php if(!empty($cta_btn_lbl)  || !empty($cta_btn_icon)): ?>
 							<div class="cta-btn">
-								<a href="<?php echo esc_url($cta_btn_link); ?>" class="av-btn av-btn-primary av-btn-bubble"><?php echo esc_html__($cta_btn_lbl); ?> <i class="fa <?php echo esc_attr($cta_btn_icon); ?>"></i> <span class="bubble_effect"><span class="circle top-left"></span> <span class="circle top-left"></span> <span class="circle top-left"></span> <span class="button effect-button"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span></span></a>
+								<a href="<?php echo esc_url($cta_btn_link); ?>" class="av-btn av-btn-primary av-btn-bubble"><?php /* Translators: %s : Button Label */printf(esc_html__('%s.','clever-fox'),esc_html($cta_btn_lbl)); ?> <i class="fa <?php echo esc_attr($cta_btn_icon); ?>"></i> <span class="bubble_effect"><span class="circle top-left"></span> <span class="circle top-left"></span> <span class="circle top-left"></span> <span class="button effect-button"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span> <span class="circle bottom-right"></span></span></a>
 							</div>
 						<?php endif; ?>	
 					</div>

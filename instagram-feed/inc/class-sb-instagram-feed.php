@@ -1333,6 +1333,10 @@ class SB_Instagram_Feed
 		// legacy settings.
         $path = Util::sbi_legacy_css_enabled() ? 'js/legacy/' : 'js/';
 
+		if ( ! wp_script_is( 'jquery', 'queue' ) ) {
+			wp_enqueue_script( 'jquery' );
+		}
+
 		$js_option_html = '<script type="text/javascript">var sb_instagram_js_options = ' . $encoded_options . ';</script>';
 		$js_option_html .= "<script type='text/javascript' src='" . trailingslashit( SBI_PLUGIN_URL ) . $path . 'sbi-scripts.min.js?ver=' . SBIVER . "'></script>";
 

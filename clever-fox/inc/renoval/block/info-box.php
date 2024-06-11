@@ -33,7 +33,7 @@ add_action( 'enqueue_block_assets', 'renoval_enqueue_block_assets' );
 function renoval_register() {
     // Resister script in editor
 	 wp_register_script( 'renoval_editor_script', CLEVERFOX_PLUGIN_URL . '/inc/renoval/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
-    wp_register_style( 'renoval_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/renoval/block/dist/editor.css', array( 'wp-edit-blocks'), null );
+    wp_register_style( 'renoval_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/renoval/block/dist/editor.css', array( 'wp-edit-blocks'), '0.0' );
 
     // Register Blocks
     renoval_wp_register_script( 'infos', array( 'render_callback' => 'render_renoval_infos' ) );

@@ -90,7 +90,7 @@ if ( class_exists( 'CSF' ) ) {
 					array(
 						'id'      => 'ctl_pro_screenshot',
 						'type'    => 'content',
-						'content' => '<div class="desc-field"><h4 >Premium Settings | <a target="_blank" href="' . CTL_BUY_PRO . '?utm_source=ctl_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=add_stories">Buy Pro</a></h4><img src="' . CTL_PLUGIN_URL . '/assets/images/pro-story-settings.png" style="max-width: 100%;border: 2px solid #ef2e2e;"></div>',
+						'content' => '<div class="desc-field"><h4 >Premium Settings | <a target="_blank" href="' . CTL_BUY_PRO . '?utm_source=ctl_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=add_stories">Buy Pro</a></h4><a target="_blank" href="' . CTL_BUY_PRO . '?utm_source=ctl_plugin&utm_medium=inside&utm_campaign=get_pro&utm_content=add_stories"><img src="' . CTL_PLUGIN_URL . '/assets/images/pro-story-settings.png" style="max-width: 100%;border: 2px solid #ef2e2e;"></a></div>',
 						'class'   => 'story_format_image',
 					),
 

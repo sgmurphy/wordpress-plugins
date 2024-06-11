@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde
+class ComposerStaticInitfd91775796a9c59a9084c5e21f75ae86
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -173,7 +173,6 @@ class ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde
         'WeDevs\\Wpuf\\Admin\\Shortcodes_Button' => __DIR__ . '/../..' . '/includes/Admin/Shortcodes_Button.php',
         'WeDevs\\Wpuf\\Admin\\Subscription' => __DIR__ . '/../..' . '/includes/Admin/Subscription.php',
         'WeDevs\\Wpuf\\Admin\\Upgrades' => __DIR__ . '/../..' . '/includes/Admin/Upgrades.php',
-        'WeDevs\\Wpuf\\Admin\\Whats_New' => __DIR__ . '/../..' . '/includes/Admin/Whats_New.php',
         'WeDevs\\Wpuf\\Ajax' => __DIR__ . '/../..' . '/includes/Ajax.php',
         'WeDevs\\Wpuf\\Ajax\\Address_Form_Ajax' => __DIR__ . '/../..' . '/includes/Ajax/Address_Form_Ajax.php',
         'WeDevs\\Wpuf\\Ajax\\Admin_Form_Builder_Ajax' => __DIR__ . '/../..' . '/includes/Ajax/Admin_Form_Builder_Ajax.php',
@@ -250,9 +249,9 @@ class ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7c662d24ab41139cecf3c41aac5c3fde::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfd91775796a9c59a9084c5e21f75ae86::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfd91775796a9c59a9084c5e21f75ae86::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfd91775796a9c59a9084c5e21f75ae86::$classMap;
 
         }, null, ClassLoader::class);
     }

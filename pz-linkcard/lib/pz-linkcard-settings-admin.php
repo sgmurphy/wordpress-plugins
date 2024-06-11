@@ -1,20 +1,20 @@
 <?php defined('ABSPATH' ) || wp_die; ?>
 <?php
 	switch	($action) {
-	case	'run-'.$this->defaults['cron-check']:
-		wp_clear_scheduled_hook($this->defaults['cron-check'] );
-		$cron_log		=	'* execute: '.$this->defaults['cron-check'].PHP_EOL.PHP_EOL;
+	case	'run-'.self::CRON_CHECK:
+		wp_clear_scheduled_hook(self::CRON_CHECK );
+		$cron_log		=	'* execute: '.self::CRON_CHECK.PHP_EOL.PHP_EOL;
 		$cron_log		.=	$this->schedule_hook_check();
-		if ($this->options['sns-position'] && !wp_next_scheduled($this->defaults['cron-check'] ) ) {
-			wp_schedule_event(time() + HOUR_IN_SECONDS, 'hourly', $this->defaults['cron-check'] );
+		if ($this->options['sns-position'] && !wp_next_scheduled(self::CRON_CHECK ) ) {
+			wp_schedule_event(time() + HOUR_IN_SECONDS, 'hourly', self::CRON_CHECK );
 		}
 		break;
-	case	'run-'.$this->defaults['cron-alive']:
-		wp_clear_scheduled_hook($this->defaults['cron-alive'] );
-		$cron_log		=	'* execute: '.$this->defaults['cron-alive'].PHP_EOL.PHP_EOL;
+	case	'run-'.self::CRON_ALIVE:
+		wp_clear_scheduled_hook(self::CRON_ALIVE );
+		$cron_log		=	'* execute: '.self::CRON_ALIVE.PHP_EOL.PHP_EOL;
 		$cron_log		.=	$this->schedule_hook_alive();
-		if ($this->options['flg-alive'] && !wp_next_scheduled($this->defaults['cron-alive'] ) ) {
-			wp_schedule_event(time() + DAY_IN_SECONDS, 'daily', $this->defaults['cron-alive'] );
+		if ($this->options['flg-alive'] && !wp_next_scheduled(self::CRON_ALIVE ) ) {
+			wp_schedule_event(time() + DAY_IN_SECONDS, 'daily', self::CRON_ALIVE );
 		}
 		break;
 	}
@@ -31,7 +31,7 @@
 	foreach			($cron_schedule	as $timestamp	=> $cronhooks ) {
 		foreach		($cronhooks		as $hook		=> $dings ) {
 			foreach	($dings			as $signature	=> $data ) {
-				if	(($hook == $this->defaults['cron-alive'] ) || ($hook == $this->defaults['cron-check'] ) ) {
+				if	(($hook == self::CRON_ALIVE ) || ($hook == self::CRON_CHECK ) ) {
 					$myjob		=	true;
 					$button		=	'class="pz-lkc-button-sure" value="run-'.$hook.'"';
 					$display	=	'class="pz-lkc-cron-list-lkc"';
@@ -59,44 +59,9 @@
 	asort($cron_list );
 
 ?>
-<div class="pz-lkc-page" id="pz-lkc-admin">
+<div class="pz-lkc-page pz-lkc-page-admin" id="pz-lkc-admin">
 	<div class="pz-lkc-admin-notice"><?php _e('Do not use normally as it can be set to incapacitate.', $this->text_domain ); ?></div>
-
-	<h2><?php _e('for Debug', $this->text_domain ); ?></h3>
-	<table class="form-table">
-		<tr>
-			<th scope="row"><?php _e('Reboot This Plugin', $this->text_domain ); ?></th>
-			<td>
-				<button type="submit" name="action" class="pz-lkc-button-sure" value="init-plugin" onclick="return confirm('<?php _e('Are you sure?', $this->text_domain ); ?>');"><?php _e('Run', $this->text_domain ); ?></button>
-				&ensp;<span><?php echo	__('Perform initial setup.', $this->text_domain ).'&nbsp;'.__('"Settings" will not be initialized.', $this->text_domain ); ?></span>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('DB Update Mode', $this->text_domain ); ?></span></th>
-			<td><label><input name="properties[debug-nocache]" type="checkbox" value="1" class="pz-lkc-tab-show" <?php checked($this->options['debug-nocache'] ); ?> /><?php _e('Forced access to links even if they are recorded in DB.', $this->text_domain ); ?></label></td>
-		</tr>
-	</table>
-	<?php submit_button(); ?>
-
-	<h2><?php _e('Error Settings', $this->text_domain ); ?></h3>
-	<table class="form-table">
-		<tr>
-			<th scope="row"><?php _e('Error Conditions', $this->text_domain ); ?></th>
-			<td><label><input name="properties[error-mode]" type="checkbox" value="1" class="pz-lkc-tab-show" <?php checked($this->options['error-mode'] ); ?> /><?php _e('Check to enable error conditions.', $this->text_domain ); ?></label></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Post URL', $this->text_domain ); ?></th>
-			<td><input name="properties[error-url]" type="url" size="80" value="<?php echo esc_attr($this->options['error-url'] ); ?>" /></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Occurrence Time', $this->text_domain ); ?></th>
-			<td>
-				<input type="text" size="40" value="<?php echo is_numeric($this->options['error-time'] ) ? date($this->datetime_format, $this->options['error-time'] ) : $this->options['error-time']; ?>" readonly="readonly" />
-				<input name="properties[error-time]" type="text" value="<?php echo $this->options['error-time']; ?>" class="pz-lkc-admin-only" />
-			</td>
-		</tr>
-	</table>
-	<?php submit_button(); ?>
+	<div class="pz-lkc-submit-float"><?php submit_button(); ?></div>
 
 	<h2><?php _e('Information', $this->text_domain ); ?></h3>
 	<table class="form-table">
@@ -116,36 +81,68 @@
 			<th scope="row"><?php _e('Table Name', $this->text_domain ); ?></th>
 			<td><input type="text" size="40" value="<?php echo esc_html($this->db_name ); ?>" readonly="readonly" /></td>
 		</tr>
-
-		<tr>
-			<th scope="row"><?php _e('Plugin Name', $this->text_domain ); ?></th>
-			<td><input name="properties[plugin-name]"		type="text" size="20" value="<?php echo	esc_attr($this->options['plugin-name'] ); ?>" readonly="readonly" <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Plugin Abbreviation', $this->text_domain ); ?></th>
-			<td><input name="properties[plugin-abbreviation]"	type="text" size="20" value="<?php echo	esc_attr($this->options['plugin-abbreviation'] ); ?>" readonly="readonly" <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
-		</tr>
 		<tr>
 			<th scope="row"><?php _e('Plugin Version', $this->text_domain ); ?></th>
-			<td><input name="properties[plugin-version]"	type="text" size="20" value="<?php echo	esc_attr($this->options['plugin-version'] ); ?>" readonly="readonly" <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
+			<td>
+				<input type="text" name="properties[plugin-version]" value="<?php echo esc_html(PLUGIN_VERSION ); ?>" size="10" readonly="readonly" <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/>
+			</td>
 		</tr>
 		<tr>
-			<th scope="row"><?php _e("Author's Site", $this->text_domain ); ?></th>
-			<td><input name="properties[author-url]"		type="url"  size="80" value="<?php echo	esc_attr($this->options['author-url'] ); ?>" readonly="readonly"  <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Plugin Path', $this->text_domain ); ?></th>
-			<td><input name="properties[plugin-path]"		type="text" size="80" value="<?php echo	esc_attr($this->options['plugin-path'] ); ?>" readonly="readonly"  <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Author Name', $this->text_domain ); ?></th>
-			<td><input name="properties[author-name]"		type="text" size="40" value="<?php echo	esc_attr($this->options['author-name'] ); ?>" readonly="readonly"  <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
-		</tr>
-		<tr>
-			<th scope="row"><?php _e('Author Twitter', $this->text_domain ); ?></th>
-			<td><input name="properties[author-twitter]"	type="text" size="40" value="<?php echo	esc_attr($this->options['author-twitter'] ); ?>" readonly="readonly"  <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/></td>
+			<th scope="row"><?php _e('Plugin DB Version', $this->text_domain ); ?></th>
+			<td>
+				<input type="text" name="properties[db-version]"     value="<?php echo esc_attr($this->options['db-version'] ); ?>"     size="40" readonly="readonly" <?php if ($this->options['admin-mode'] ) { echo	'ondblclick="this.readOnly=false;" '; }?>/>
+			</td>
 		</tr>
 	</table>
+	<?php submit_button(); ?>
+
+	<h2><?php _e('for Debug', $this->text_domain ); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th scope="row"><?php _e('Reboot This Plugin', $this->text_domain ); ?></th>
+			<td>
+				<button type="submit" name="action" value="init-plugin" class="pz-lkc-button-sure" onclick="return confirm('<?php _e('Are you sure?', $this->text_domain ); ?>');"><?php _e('Run', $this->text_domain ); ?></button>
+				&ensp;<span><?php echo	__('Perform initial setup.', $this->text_domain ).'&nbsp;'.__('"Settings" will not be initialized.', $this->text_domain ); ?></span>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?php _e('DB Update Mode', $this->text_domain ); ?></span></th>
+			<td>
+				<label>
+					<input type="hidden"   name="properties[debug-nocache]" value="0" />
+					<input type="checkbox" name="properties[debug-nocache]" value="1" <?php checked($this->options['debug-nocache'] ); ?> class="pz-lkc-tab-show" />
+					<?php _e('Forced access to links even if they are recorded in DB.', $this->text_domain ); ?>
+				</label>
+			</td>
+		</tr>
+	</table>
+	<?php submit_button(); ?>
+
+	<h2><?php _e('Error Settings', $this->text_domain ); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th scope="row"><?php _e('Error Conditions', $this->text_domain ); ?></th>
+			<td>
+				<label>
+					<input type="hidden"   name="properties[error-mode]" value="0" />
+					<input type="checkbox" name="properties[error-mode]" value="1" <?php checked($this->options['error-mode'] ); ?> />
+					<?php _e('Check to enable error conditions.', $this->text_domain ); ?>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><?php _e('Post URL', $this->text_domain ); ?></th>
+			<td><input name="properties[error-url]" type="url" size="80" value="<?php echo esc_attr($this->options['error-url'] ); ?>" /></td>
+		</tr>
+		<tr>
+			<th scope="row"><?php _e('Occurrence Time', $this->text_domain ); ?></th>
+			<td>
+				<input type="text" size="40" value="<?php echo is_numeric($this->options['error-time'] ) ? date($this->datetime_format, $this->options['error-time'] ) : $this->options['error-time']; ?>" readonly="readonly" />
+				<input name="properties[error-time]" type="text" value="<?php echo $this->options['error-time']; ?>" class="pz-lkc-ad______min-only" />
+			</td>
+		</tr>
+	</table>
+	<?php submit_button(); ?>
 
 	<?php if (isset($cron_log ) ) { ?>
 		<h2><?php _e('Execution Result', $this->text_domain ); ?></h3>
@@ -158,7 +155,12 @@
 	<?php } ?>
 
 	<h2><?php _e('WP-Cron Information', $this->text_domain ); ?></h3>
-	<div class="pz-lkc-cron-margin"><label><input type="checkbox" value="1" class="pz-lkc-cron-all" /><?php _e('View all schedules.', $this->text_domain ); ?></label></div>
+	<div class="pz-lkc-cron-margin">
+		<label>
+			<input type="checkbox" value="1" class="pz-lkc-cron-all" />
+			<?php _e('View all schedules.', $this->text_domain ); ?>
+		</label>
+	</div>
 	<table class="pz-lkc-cron-list widefat striped">
 		<thead>
 			<tr>
@@ -179,4 +181,5 @@
 			<?php } ?>
 		</tbody>
 	</table>
+	<?php submit_button(); ?>
 </div>

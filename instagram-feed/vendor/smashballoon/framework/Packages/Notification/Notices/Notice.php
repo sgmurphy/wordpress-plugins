@@ -14,7 +14,6 @@ if (!\defined('ABSPATH')) {
 }
 /**
  * Abstract Notice class.
- * @internal
  */
 abstract class Notice
 {

@@ -1,8 +1,12 @@
 <?php
-if(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache']){
-	add_action( 'admin_init', 'AHSC_edit_htaccess' );
-}else{
-	add_action( 'admin_init', 'AHSC_remove_htaccess' );
+if(array_key_exists('ahsc_static_cache',AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS'])){
+	if(isset(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache'])){
+		if(AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_static_cache']){
+			add_action( 'admin_init', 'AHSC_edit_htaccess' );
+		}else{
+			add_action( 'admin_init', 'AHSC_remove_htaccess' );
+		}
+	}
 }
 $AHSC_marker='AHSC_RULES';
 

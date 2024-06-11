@@ -211,6 +211,8 @@ if ( ! class_exists( 'CTL_Loop_Helpers' ) ) {
 		public function ctl_get_date( $post_id, $date_formats ) {
 			$ctl_story_type = get_post_meta( $post_id, 'story_type', true );
 			$ctl_story_date = $ctl_story_type['ctl_story_date'];
+			$layout         = $this->attributes['layout'];
+			$re_more        = ( ( isset( $this->settings['display_readmore'] ) && 'yes' === $this->settings['display_readmore'] ) && 'horizontal' === $layout );
 			$output         = '';
 			if ( $ctl_story_date ) {
 				if ( strtotime( $ctl_story_date ) !== false ) {
@@ -224,7 +226,11 @@ if ( ! class_exists( 'CTL_Loop_Helpers' ) ) {
 				}
 				if ( ! empty( $posted_date ) ) {
 					$output .= '<!-- ' . $this->tm_type . ' Date --><div class="ctl-labels">';
-					$output .= '<div class="ctl-label-big story-date">' . esc_html( $posted_date ) . '</div>';
+					$output .= '<div class="ctl-label-big story-date">';
+					$output .= $re_more ? $this->get_story_link( $post_id ) : '';
+					$output .= esc_html( $posted_date );
+					$output .= $re_more ? '</a>' : '';
+					$output .= '</div>';
 					$output .= '</div>';
 				}
 				return $output;

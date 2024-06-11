@@ -104,6 +104,7 @@ $sccp_message_vars = array(
     '%%user_nickname%%'                 => __("User's Nickname", $this->plugin_name),
     '%%user_wordpress_roles%%'          => __("User's Wordpress Roles", $this->plugin_name),
     '%%user_id%%'                       => __("User's ID", $this->plugin_name),
+    '%%admin_email%%'                   => __("Admin Email", $this->plugin_name),
     '%%current_user_ip%%'               => __("User's IP address", $this->plugin_name),    
 );
 

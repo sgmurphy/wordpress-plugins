@@ -8,9 +8,9 @@
 	$hs_slider						= get_theme_mod('hs_slider', '1');
 	$settings=array('animationSpeed'=>$slider_animation_speed,'autoplay'=>$slider_autoplay,'slider_loop'=>$slider_loop);	
 	
-	wp_register_script('renoval-slider',get_template_directory_uri().'/assets/js/homepage/slider.js',array('jquery'));
+	wp_register_script('renoval-slider',get_template_directory_uri().'/assets/js/homepage/slider.js',array('jquery'),'0.0',true);
 	wp_localize_script('renoval-slider','slider_settings',$settings);
-	wp_enqueue_script('renoval-slider',get_template_directory_uri().'/assets/js/homepage/slider.js',array('jquery')); 	
+	wp_enqueue_script('renoval-slider',get_template_directory_uri().'/assets/js/homepage/slider.js',array('jquery'),'0.0',true); 	
 	if($hs_slider=='1'):
 ?>	
 <!--===// Start: Slider

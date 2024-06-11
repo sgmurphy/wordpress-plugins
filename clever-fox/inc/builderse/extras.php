@@ -1,6 +1,6 @@
 <?php function renoval_get_testimonial_default() {
 	return apply_filters(
-		'renoval_get_testimonial_default', json_encode(
+		'renoval_get_testimonial_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'      => CLEVERFOX_PLUGIN_URL . 'inc/builderse/images/testimonial/testimonial-1.jpg',

@@ -3,7 +3,6 @@
 
 /* DashBoard */
 .pz-lkc-dashboard {
-	display: none;
 	line-height: normal;
 	min-width: 100px;
 }
@@ -61,13 +60,23 @@
 .pz-lkc-dashboard h1 {
 	margin-bottom: 8px;
 }
+.pz-help-icon {
+	position: absolute;
+	margin-top:	-4px;
+	margin-left: 4px;
+}
+
+.pz-lkc-plugin {
+	position: absolute;
+	top: 0;
+	color: #888;
+}
 .pz-header-title {
+	border-bottom: 4px solid #0ef;
 }
 .pz-header-title-icon {
 }
 .pz-header-title-text {
-}
-.pz-header-title-help {
 }
 .pz-header-switch {
 	display: block;
@@ -194,11 +203,29 @@
 .pz-lkc-man-count-list ul {
 	margin: 0;
 }
-.pz-lkc-man-search-box {
+.pz-lkc-man-file-button {
+	margin-bottom: 8px !important;
+	padding: 4px 8px !important;
 }
-.pz-lkc-man-search-box-icon {
+
+// 検索ボタン
+.pz-lkc-man-search {
+	display: flex;	
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	float: right;
+}
+.pz-lkc-man-search span {
+	margin-right: -4px;
+}
+.pz-lkc-man-search label {
 	font-size: 20px;
+	float: left;
 }
+.pz-lkc-man-search input {
+}
+
 .pz-lkc-man-navi {
 }
 .pz-lkc-man-batch-list {
@@ -226,6 +253,14 @@
 .pz-lkc-man-thumbnail img {
 	max-height: 48px;
 	max-width: 48px;
+}
+[class^="pz-lkc-man-head-"] > button {
+	display: inline-flex;
+	border: none;
+	background-color: transparent;
+	align-items: center;
+	white-space: nowrap;
+	cursor: pointer;
 }
 .pz-lkc-man-head-orderby {
 	vertical-align: middle;
@@ -375,15 +410,12 @@
 /* Manager - File Menu */
 .pz-lkc-man-filemenu {
 	display: inline-block;
-	margin: 0 0 32px 0;
-	padding: 16px;
-	border: solid 2px #000;
-	/* border-radius: 4px; */
-	/* box-shadow: #000 2px 2px 16px; */
+	margin: 8px 0;
+	padding: 16px 8px;
+	border: solid 1px #000;
 	background-color: #fcfdff;
 	line-height: 100%
 }
-
 .pz-lkc-man-filemenu-icon {
 	display: inline;
 	margin: 0;
@@ -402,9 +434,15 @@
 }
 .pz-lkc-man-filemenu-button {
 	display: inline;
-	margin: 0 0 0 8px !important;
+	margin: 0 8px 0 !important;
 	vertical-align: middle !important;
+
+	height: 16px;
+
+	font-size: 11px;
 	line-height: 100%
+
+
 }
 /* Manager - HTTP Result Code */
 .pz-http-ok {
@@ -417,23 +455,23 @@
 .pz-lkc-show {
 }
 .pz-lkc-hide {
-	display: none !important;
 }
-.pz-lkc-submit {
+.pz-lkc-submit-hide {
+	display: none;
+}
+.pz-lkc-submit-float {
 	position: sticky;
 	top: 50px;
 	z-index: 4;
 	float: right;
 }
-.pz-lkc-submit > .submit {
+.pz-lkc-submit-float > .submit {
 	margin: 0;
 	padding: 0;
 }
 
 /* Settings - Tabs*/
 .pz-lkc-tab-now {
-}
-.pz-lkc-tab-show {
 }
 .pz-lkc-display {
 }
@@ -449,6 +487,31 @@
 	left: 0;
 	border-bottom: solid 2px #000;
 	z-index: 1;
+}
+
+
+.pz-lkc-page input[type="text"]:focus {
+	border: 1px solid #000;
+	background-color: #f0fcff !important; // #f8fcff 
+}
+.pz-lkc-page input[type="checkbox"]:focus {
+	border: 1px solid #000;
+	background-color: #f0fcff !important; // #f8fcff 
+}
+.pz-lkc-page select:focus {
+	border: 1px solid #000;
+	background-color: #f0fcff !important; // #f8fcff #f0fcff
+}
+.pz-lkc-page textarea:focus {
+	border: 1px solid #000;
+	background-color: #f0fcff;
+}
+.pz-lkc-page input[readonly] {
+	border: 1px solid #ddd;
+	background-color: #fafafa;
+}
+.pz-lkc-page-admin, .pz-lkc-page-admin * {
+	color: #c38 !important;
 }
 .pz-lkc-tab {
 	display: inline-block;
@@ -467,7 +530,25 @@
 }
 .pz-lkc-red {
 	color: #f00 !important;
-	background-color: #ecc;
+	background-color: #daa;
+}
+.pz-lkc-red.pz-lkc-tab-active {
+	color: #f00 !important;
+	background-color: #fee;
+}
+.pz-lkc-orange {
+	background-color: #864;
+}
+.pz-lkc-orange.pz-lkc-tab-active {
+	background-color: #fda;
+}
+.pz-lkc-purple {
+	color: #c38 !important;
+	background-color: #cab;
+}
+.pz-lkc-purple.pz-lkc-tab-active {
+	color: #c38 !important;
+	background-color: #fde;
 }
 .pz-lkc-tab-active {
 	z-index: 2;
@@ -501,16 +582,6 @@
 .pz-lkc-settings .letter-table td {
 	text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
 .pz-lkc-page-active {
 	display: block;
 }
@@ -542,29 +613,25 @@
 .pz-lkc-test td {
 	background-color: #aaa;
 }
-
-
 .pz-lkc-position-margin {
+	padding: 8px;
 	width: 100%;
 	text-align: center;
-
-	/*	border: dashed 1px #000;	*/
-	border: none;
-
+	border: dashed 1px #000;
 	background-color: transrparent;
 }
 .pz-lkc-position-margin td {
-	margin: 0;
-	padding: 6px;
-	vertical-align: middle;
+	background-color: #eee;
 }
-
 .pz-lkc-position-margin-card {
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	text-align: center;
 	border: solid 1px #000;
+	background-color: #fff;
+}
+.pz-lkc-position-margin-card td {
 	background-color: #fff;
 }
 .pz-lkc-display-layout {
@@ -673,6 +740,13 @@
 }
 
 /* Settings - MultiSite */
+.pz-lkc-multi-notice {
+	padding: 4px;
+	background-color: #ffaaaa;
+	color: #ffffff;
+	font-weight: bold;
+	text-align: center;
+}
 .pz-lkc-multi-list {
 }
 .pz-lkc-multi-list th {
@@ -710,7 +784,7 @@
 	border: solid 1px #888;
 	font-family: Consolas, Menlo, 'Courier New', monospace;
 	font-sizze: 16px;
-	color: #0f0;
+	color: #0f0 !important;
 	line-height: 20px;
 	white-space: nowrap;
 	overflow: scroll;
@@ -782,13 +856,13 @@
 }
 
 /* Settings - Super Mode */
-.pz-lkc-debug-text , .pz-lkc-debug-only , .pz-lkc-debug-only * {
+.pz-lkc-debug-only, .pz-lkc-debug-only * {
 	color: #06f !important;
 }
-.pz-lkc-admin-text , .pz-lkc-admin-only , .pz-lkc-admin-only * {
+.pz-lkc-admin-only, .pz-lkc-admin-only * {
 	color: #c38 !important;
 }
-.pz-lkc-develop-text , .pz-lkc-develop-only , .pz-lkc-develop-only * {
+.pz-lkc-develop-only, .pz-lkc-develop-only * {
 	color: #0a8 !important;
 }
 .pz-lkc-develop-message {
@@ -811,8 +885,8 @@
 }
 .pz-lkc-admin-notice {
 	padding: 6px;
-	background-color: #c38;
-	color: #fff;
+	background-color: #c38 !important;
+	color: #fff !important;
 	font-size: 20px;
  	text-align: center;
 }

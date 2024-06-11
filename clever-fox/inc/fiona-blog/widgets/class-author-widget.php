@@ -14,8 +14,8 @@ class fiona_blog_author_widget extends WP_Widget{
 	}
 	
 	public function widget( $args , $instance ) {
-		
-			echo $args['before_widget'];
+			$escaped_before_widget = htmlspecialchars($args['before_widget']);
+			echo esc_html($escaped_before_widget);
 			
 			$selected_author_id 	= isset($instance['selected_author_id']) ? $instance['selected_author_id'] : 0;
 			$author_image_hs 		= isset($instance['author_image_hs']) ? $instance['author_image_hs'] : 1;
@@ -26,16 +26,17 @@ class fiona_blog_author_widget extends WP_Widget{
 			$author_description_hs 	= isset($instance['author_description_hs']) ? $instance['author_description_hs'] : 1;
 			
 			
-			if(($instance['selected_author_id']) !=null) {
+			if($selected_author_id) {
 			?>
 			<?php 
-				$user = (isset($_GET['author_name'])) ? get_user_by('id', $selected_author_id) : get_userdata(intval($selected_author_id));
+				$user = get_userdata($selected_author_id);
+				if ($user) {
 			?>
 					<h5 class="widget-title">
 						<a href="<?php echo esc_url(get_author_posts_url( $user->ID ));?>">
 							<?php 				
-								if($author_first_name_hs == '1'): echo $user->first_name; endif;
-								if($author_last_name_hs == '1'): echo ' '.$user->last_name; endif;
+								if($author_first_name_hs == '1'): echo esc_html($user->first_name); endif;
+								if($author_last_name_hs == '1'): echo esc_html($user->last_name); endif;
 							?>
 						</a>
 					</h5>
@@ -43,14 +44,16 @@ class fiona_blog_author_widget extends WP_Widget{
 						<?php 		
 							
 							if($author_image_hs == '1'): echo get_avatar( $user->ID, 200); endif;
-							if($author_nickname_hs == '1'): echo '<h4 class="author-title">'.$user->nickname.'</h4>'; endif;
-							if($author_designation_hs == '1'): echo '<p>'.$user->designation.'</p>'; endif;
-							if($author_description_hs == '1'): echo '<p>'.$user->description.'</p>'; endif;	
+							if($author_nickname_hs == '1'): echo '<h4 class="author-title">'.esc_html($user->nickname).'</h4>'; endif;
+							if($author_designation_hs == '1'): echo '<p>'.esc_html($user->designation).'</p>'; endif;
+							if($author_description_hs == '1'): echo '<p>'.esc_html($user->description).'</p>'; endif;	
 						?>
 					</div>
-			<?php 
-			}			
-		echo $args['after_widget'];
+			<?php
+				}			
+			}
+		$escaped_after_widget = htmlspecialchars($args['after_widget']);			
+		echo esc_html($escaped_after_widget);
 	}
 	
 		public function form( $instance ) {
@@ -63,53 +66,53 @@ class fiona_blog_author_widget extends WP_Widget{
 		$instance['author_description_hs'] = isset($instance['author_description_hs']) ? $instance['author_description_hs'] : '1';
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'selected_author_id' ); ?>"><?php _e('Select Author','clever-fox'); ?></label> 
-			<select class="widefat" id="<?php echo $this->get_field_id( 'selected_author_id' ); ?>" name="<?php echo $this->get_field_name( 'selected_author_id' ); ?>">
-				<option value>--<?php echo __('Select','clever-fox'); ?>--</option>
+			<label for="<?php echo esc_attr($this->get_field_id( 'selected_author_id' )); ?>"><?php esc_html_e('Select Author','clever-fox'); ?></label> 
+			<select class="widefat" id="<?php echo esc_attr($this->get_field_id( 'selected_author_id' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'selected_author_id' )); ?>">
+				<option value="--<?php echo esc_html__('Select','clever-fox'); ?>--"></option>
 				<?php
 					$selected_author_id = $instance['selected_author_id'];
 					$users = get_users();
 					foreach ($users as $user) { 
-						$option = '<option value="' . $user->ID . '" ';
+						$option = '<option value="' . esc_attr($user->ID) . '" ';
 						$option .= ( $user->ID == $selected_author_id  ) ? 'selected="selected"' : '';
 						$option .= '>';
-						$option .= $user->nickname;
+						$option .= esc_html($user->nickname);
 						$option .= '</option>';
-						echo $option;
+						echo esc_html($option);
 					}
-				?>	
+				?>  
 			</select>
 			<br/>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_image_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_image_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_image_hs' ); ?>" value="<?php if($instance[ 'author_image_hs' ]) echo esc_html( $instance[ 'author_image_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_image_hs' ); ?>"><?php _e( 'Hide/show Image ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_image_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_image_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_image_hs' )); ?>" value="<?php if($instance[ 'author_image_hs' ]) echo esc_attr( $instance[ 'author_image_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_image_hs' )); ?>"><?php esc_html_e( 'Hide/show Image ?','clever-fox' ); ?></label>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_nickname_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_nickname_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_nickname_hs' ); ?>" value="<?php if($instance[ 'author_nickname_hs' ]) echo esc_html( $instance[ 'author_nickname_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_nickname_hs' ); ?>"><?php _e( 'Hide/show Nickname ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_nickname_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_nickname_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_nickname_hs' )); ?>" value="<?php if($instance[ 'author_nickname_hs' ]) echo esc_attr( $instance[ 'author_nickname_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_nickname_hs' )); ?>"><?php esc_html_e( 'Hide/show Nickname ?','clever-fox' ); ?></label>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_first_name_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_first_name_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_first_name_hs' ); ?>" value="<?php if($instance[ 'author_first_name_hs' ]) echo esc_html( $instance[ 'author_first_name_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_first_name_hs' ); ?>"><?php _e( 'Hide/show First Name ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_first_name_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_first_name_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_first_name_hs' )); ?>" value="<?php if($instance[ 'author_first_name_hs' ]) echo esc_attr( $instance[ 'author_first_name_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_first_name_hs' )); ?>"><?php esc_html_e( 'Hide/show First Name ?','clever-fox' ); ?></label>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_last_name_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_last_name_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_last_name_hs' ); ?>" value="<?php if($instance[ 'author_last_name_hs' ]) echo esc_html( $instance[ 'author_last_name_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_last_name_hs' ); ?>"><?php _e( 'Hide/show Last Name ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_last_name_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_last_name_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_last_name_hs' )); ?>" value="<?php if($instance[ 'author_last_name_hs' ]) echo esc_attr( $instance[ 'author_last_name_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_last_name_hs' )); ?>"><?php esc_html_e( 'Hide/show Last Name ?','clever-fox' ); ?></label>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_designation_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_designation_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_designation_hs' ); ?>" value="<?php if($instance[ 'author_designation_hs' ]) echo esc_html( $instance[ 'author_designation_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_designation_hs' ); ?>"><?php _e( 'Hide/show Designation ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_designation_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_designation_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_designation_hs' )); ?>" value="<?php if($instance[ 'author_designation_hs' ]) echo esc_attr( $instance[ 'author_designation_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_designation_hs' )); ?>"><?php esc_html_e( 'Hide/show Designation ?','clever-fox' ); ?></label>
 		</p>
 		
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_description_hs' ], '1' ); ?> id="<?php echo $this->get_field_id( 'author_description_hs' ); ?>" name="<?php echo $this->get_field_name( 'author_description_hs' ); ?>" value="<?php if($instance[ 'author_description_hs' ]) echo esc_html( $instance[ 'author_description_hs' ] ); ?>"/> 
-			<label for="<?php echo $this->get_field_id( 'author_description_hs' ); ?>"><?php _e( 'Hide/show Description ?','clever-fox' ); ?></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'author_description_hs' ], '1' ); ?> id="<?php echo esc_attr($this->get_field_id( 'author_description_hs' )); ?>" name="<?php echo esc_attr($this->get_field_name( 'author_description_hs' )); ?>" value="<?php if($instance[ 'author_description_hs' ]) echo esc_attr( $instance[ 'author_description_hs' ] ); ?>"/> 
+			<label for="<?php echo esc_attr($this->get_field_id( 'author_description_hs' )); ?>"><?php esc_html_e( 'Hide/show Description ?','clever-fox' ); ?></label>
 		</p>
 
 		<?php  ?>

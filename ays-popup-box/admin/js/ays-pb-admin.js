@@ -1644,155 +1644,6 @@
         });
         // Go to next/prev popup confirmation end
 
-        function showConfirmationIfDelete(e) {
-            var $el = $(e.target);
-            var elParent = $el.parent();
-            var actionSelect = elParent.find('select[name="action"]');
-            var action = actionSelect.val();
-
-            if (action === 'bulk-delete') {
-                e.preventDefault();
-                var confirmDelete = confirm('Are you sure you want to delete?');
-
-                if (confirmDelete) {
-                    var form = $el.closest('form');
-                    form.submit();
-                }
-            }
-        }
-
-        function closeWarningNotePermanently(el) {
-            $.ajax({
-                url: pb.ajax,
-                type: 'POST',
-                data: {action: 'close_warning_note_permanently'},
-                success: function(response) {
-                    var warningNoteContainer = $(el).parents('.ays-pb-cache-warning-note-container');
-                    warningNoteContainer.fadeOut('slow');
-                }
-            });
-        }
-
-        function toggleMobileSettings() {
-            var optionDiv = $(this).parents('.ays_pb_pc_and_mobile_container');
-            var deviceNames = optionDiv.find('.ays_pb_current_device_name');
-            var mobileOptionDiv = optionDiv.find('.ays_pb_option_for_mobile_device');
-            var cbLabel = optionDiv.find('.ays_pb_mobile_settings_container label');
-
-            if ($(this).prop('checked')) {
-                deviceNames.addClass('show');
-                mobileOptionDiv.addClass('show');
-                cbLabel.addClass('active');
-            } else {
-                deviceNames.removeClass('show');
-                mobileOptionDiv.removeClass('show');
-                cbLabel.removeClass('active');
-            }
-        }
-
-        function toggleMobileSettingsCb() {
-            var mainContainer = $(this).parent();
-            var desktopContainer = mainContainer.find('.ays_pb_option_for_desktop');
-            var mobileContainer = mainContainer.find('.ays_pb_option_for_mobile_device');
-            var desktopCb = desktopContainer.find('.ays-pb-onoffswitch-checkbox');
-            var mobileDeviceCb = mobileContainer.find('.ays-pb-onoffswitch-checkbox');
-            var deviceNames = mainContainer.find('.ays_pb_current_device_name');
-
-            if (desktopCb.is(':checked')) {
-                if (!mobileContainer.hasClass('show')) {
-                    mobileContainer.addClass('show');
-                    mobileDeviceCb.prop('checked', true);
-                    deviceNames.show().fadeIn('300');
-                }
-            } else {
-                if (!mobileDeviceCb.is(':checked')) {
-                    mobileContainer.removeClass('show');
-                    deviceNames.hide().fadeOut('300');
-                }
-            }
-        }
-
-        function aysCheckPopupPosition() {
-            var hiddenVal = $(document).find('.pb_position_block #ays-pb-position-val').val();
-            var hiddenValMobile = $(document).find('.pb_position_block #ays-pb-position-val-mobile').val();
-
-            if (hiddenVal == '' || hiddenVal == 0) {
-                var $this = $(document).find('table#ays-pb-position-table tr td[data-value="center-center"]');
-            } else {
-                var $this = $(document).find('table#ays-pb-position-table tr td[data-value="' + hiddenVal + '"]');
-            }
-
-            if (hiddenValMobile == '' || hiddenValMobile == 0) {
-                var $thisMobile = $(document).find('table#ays-pb-position-table-mobile tr td[data-value="center-center"]');
-            } else {
-                var $thisMobile = $(document).find('table#ays-pb-position-table-mobile tr td[data-value="' + hiddenValMobile + '"]');
-            }
-
-            if (hiddenVal == 'center-center' || hiddenVal == '') {
-                $(document).find('#popupMargin').hide(500);
-                $(document).find('.ays_pb_hr_hide').hide(500);
-            } else {
-                $(document).find('#popupMargin').show(500);
-                $(document).find('.ays_pb_hr_hide').show(500);
-            }
-
-            $(document).find('table#ays-pb-position-table td').removeAttr('style');
-            $(document).find('table#ays-pb-position-table-mobile td').removeAttr('style');
-            $this.css('background-color', '#3d89e0');
-            $thisMobile.css('background-color', '#9964b3');
-        }
-
-        function aysCheckBgImagePosition() {
-            var hiddenVal = $(document).find('.pb_position_block #ays_pb_bg_image_position').val();
-            var hiddenValMobile = $(document).find('.pb_position_block #ays_pb_bg_image_position_mobile').val();
-
-            if (hiddenVal == '') {
-                var $this = $(document).find('table#ays_pb_bg_image_position_table tr td[data-value="center-center"]');
-            }else{
-                var $this = $(document).find('table#ays_pb_bg_image_position_table tr td[data-value="' + hiddenVal + '"]');
-            }
-
-            if (hiddenValMobile == '') {
-                var $thisMobile = $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-value="center-center"]');
-            }else{
-                var $thisMobile = $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-value="' + hiddenValMobile + '"]');
-            }
-
-            $(document).find('table#ays_pb_bg_image_position_table td').removeAttr('style');
-            $(document).find('table#ays_pb_bg_image_position_table_mobile td').removeAttr('style');
-            $this.css('background-color','#3d89e0');
-            $thisMobile.css('background-color','#9964b3');
-        }
-
-        function toggleBackgrounGradient() {
-            var pb_gradient_direction = $(document).find('#ays_pb_gradient_direction').val();
-            var checked = $(document).find('input#ays-enable-background-gradient').prop('checked');
-
-            switch(pb_gradient_direction) {
-                case 'horizontal':
-                    pb_gradient_direction = 'to right';
-                    break;
-                case 'diagonal_left_to_right':
-                    pb_gradient_direction = 'to bottom right';
-                    break;
-                case 'diagonal_right_to_left':
-                    pb_gradient_direction = 'to bottom left';
-                    break;
-                default:
-                    pb_gradient_direction = 'to bottom';
-            }
-
-            if ($(document).find('input#ays-pb-bg-image').val() == '') {
-                if (checked) {
-                    $(document).find('.ays-pb-live-container').css({'background-image': 'linear-gradient(' + pb_gradient_direction + ', ' + $(document).find('input#ays-background-gradient-color-1').val() + ', ' + $(document).find('input#ays-background-gradient-color-2').val() + ')'});
-                    $(document).find('#ays-image-window').css({'background-image': 'url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg"','background-size': 'cover','background-repeat': 'no-repeat','background-position': 'center'});
-                } else {
-                    $(document).find('.ays-pb-live-container').css({'background-image': 'none'});
-                    $(document).find('#ays-image-window').css({'background-image': 'url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg"','background-size': 'cover','background-repeat': 'no-repeat','background-position': 'center'});
-                }
-            }
-        }
-
         function submitOnce(subButton) {
             var subLoader = subButton.siblings('.display_none');
     
@@ -1850,6 +1701,23 @@
         }
     }
 
+    function showConfirmationIfDelete(e) {
+        var $el = $(e.target);
+        var elParent = $el.parent();
+        var actionSelect = elParent.find('select[name="action"]');
+        var action = actionSelect.val();
+
+        if (action === 'bulk-delete') {
+            e.preventDefault();
+            var confirmDelete = confirm('Are you sure you want to delete?');
+
+            if (confirmDelete) {
+                var form = $el.closest('form');
+                form.submit();
+            }
+        }
+    }
+
     function searchForPage(params, data) {
         // If there are no search terms, return all of the data
         if ($.trim(params.term) === '') {
@@ -1874,6 +1742,57 @@
 
         // Return `null` if the term should not be displayed
         return null;
+    }
+
+    function closeWarningNotePermanently(el) {
+        $.ajax({
+            url: pb.ajax,
+            type: 'POST',
+            data: {action: 'close_warning_note_permanently'},
+            success: function(response) {
+                var warningNoteContainer = $(el).parents('.ays-pb-cache-warning-note-container');
+                warningNoteContainer.fadeOut('slow');
+            }
+        });
+    }
+
+    function toggleMobileSettings() {
+        var optionDiv = $(this).parents('.ays_pb_pc_and_mobile_container');
+        var deviceNames = optionDiv.find('.ays_pb_current_device_name');
+        var mobileOptionDiv = optionDiv.find('.ays_pb_option_for_mobile_device');
+        var cbLabel = optionDiv.find('.ays_pb_mobile_settings_container label');
+
+        if ($(this).prop('checked')) {
+            deviceNames.addClass('show');
+            mobileOptionDiv.addClass('show');
+            cbLabel.addClass('active');
+        } else {
+            deviceNames.removeClass('show');
+            mobileOptionDiv.removeClass('show');
+            cbLabel.removeClass('active');
+        }
+    }
+
+    function toggleMobileSettingsCb() {
+        var mainContainer = $(this).parent();
+        var desktopContainer = mainContainer.find('.ays_pb_option_for_desktop');
+        var mobileContainer = mainContainer.find('.ays_pb_option_for_mobile_device');
+        var desktopCb = desktopContainer.find('.ays-pb-onoffswitch-checkbox');
+        var mobileDeviceCb = mobileContainer.find('.ays-pb-onoffswitch-checkbox');
+        var deviceNames = mainContainer.find('.ays_pb_current_device_name');
+
+        if (desktopCb.is(':checked')) {
+            if (!mobileContainer.hasClass('show')) {
+                mobileContainer.addClass('show');
+                mobileDeviceCb.prop('checked', true);
+                deviceNames.show().fadeIn('300');
+            }
+        } else {
+            if (!mobileDeviceCb.is(':checked')) {
+                mobileContainer.removeClass('show');
+                deviceNames.hide().fadeOut('300');
+            }
+        }
     }
 
     function openComponentOptions(e) {
@@ -1907,6 +1826,88 @@
         optionsWrapper.find('div.ays_pb_component_option').slideUp();
     }
 
+    function aysCheckPopupPosition() {
+        var hiddenVal = $(document).find('.pb_position_block #ays-pb-position-val').val();
+        var hiddenValMobile = $(document).find('.pb_position_block #ays-pb-position-val-mobile').val();
+
+        if (hiddenVal == '' || hiddenVal == 0) {
+            var $this = $(document).find('table#ays-pb-position-table tr td[data-value="center-center"]');
+        } else {
+            var $this = $(document).find('table#ays-pb-position-table tr td[data-value="' + hiddenVal + '"]');
+        }
+
+        if (hiddenValMobile == '' || hiddenValMobile == 0) {
+            var $thisMobile = $(document).find('table#ays-pb-position-table-mobile tr td[data-value="center-center"]');
+        } else {
+            var $thisMobile = $(document).find('table#ays-pb-position-table-mobile tr td[data-value="' + hiddenValMobile + '"]');
+        }
+
+        if (hiddenVal == 'center-center' || hiddenVal == '') {
+            $(document).find('#popupMargin').hide(500);
+            $(document).find('.ays_pb_hr_hide').hide(500);
+        } else {
+            $(document).find('#popupMargin').show(500);
+            $(document).find('.ays_pb_hr_hide').show(500);
+        }
+
+        $(document).find('table#ays-pb-position-table td').removeAttr('style');
+        $(document).find('table#ays-pb-position-table-mobile td').removeAttr('style');
+        $this.css('background-color', '#3d89e0');
+        $thisMobile.css('background-color', '#9964b3');
+    }
+
+    function aysCheckBgImagePosition() {
+        var hiddenVal = $(document).find('.pb_position_block #ays_pb_bg_image_position').val();
+        var hiddenValMobile = $(document).find('.pb_position_block #ays_pb_bg_image_position_mobile').val();
+
+        if (hiddenVal == '') {
+            var $this = $(document).find('table#ays_pb_bg_image_position_table tr td[data-value="center-center"]');
+        }else{
+            var $this = $(document).find('table#ays_pb_bg_image_position_table tr td[data-value="' + hiddenVal + '"]');
+        }
+
+        if (hiddenValMobile == '') {
+            var $thisMobile = $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-value="center-center"]');
+        }else{
+            var $thisMobile = $(document).find('table#ays_pb_bg_image_position_table_mobile tr td[data-value="' + hiddenValMobile + '"]');
+        }
+
+        $(document).find('table#ays_pb_bg_image_position_table td').removeAttr('style');
+        $(document).find('table#ays_pb_bg_image_position_table_mobile td').removeAttr('style');
+        $this.css('background-color','#3d89e0');
+        $thisMobile.css('background-color','#9964b3');
+    }
+
+    function toggleBackgrounGradient() {
+        var pb_gradient_direction = $(document).find('#ays_pb_gradient_direction').val();
+        var checked = $(document).find('input#ays-enable-background-gradient').prop('checked');
+
+        switch(pb_gradient_direction) {
+            case 'horizontal':
+                pb_gradient_direction = 'to right';
+                break;
+            case 'diagonal_left_to_right':
+                pb_gradient_direction = 'to bottom right';
+                break;
+            case 'diagonal_right_to_left':
+                pb_gradient_direction = 'to bottom left';
+                break;
+            default:
+                pb_gradient_direction = 'to bottom';
+        }
+
+        if ($(document).find('input#ays-pb-bg-image').val() == '') {
+            if (checked) {
+                $(document).find('.ays-pb-live-container').css({'background-image': 'linear-gradient(' + pb_gradient_direction + ', ' + $(document).find('input#ays-background-gradient-color-1').val() + ', ' + $(document).find('input#ays-background-gradient-color-2').val() + ')'});
+                $(document).find('#ays-image-window').css({'background-image': 'url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg"','background-size': 'cover','background-repeat': 'no-repeat','background-position': 'center'});
+            } else {
+                $(document).find('.ays-pb-live-container').css({'background-image': 'none'});
+                $(document).find('#ays-image-window').css({'background-image': 'url("https://quiz-plugin.com/wp-content/uploads/2020/02/elefante.jpg"','background-size': 'cover','background-repeat': 'no-repeat','background-position': 'center'});
+            }
+        }
+    }
+
+    // Media uploaders start
     function openMediaUploaderVideo(e, element) {
         e.preventDefault();
 
@@ -2052,5 +2053,6 @@
 
         return false;
     }
+    // Media uploaders start
 
 })( jQuery );

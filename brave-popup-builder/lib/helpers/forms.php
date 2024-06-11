@@ -413,6 +413,14 @@ function bravepop_form_submission(){
       if($actionSettings && isset($actionSettings->primaryAction) && $actionSettings->primaryAction === 'redirect' && isset($actionSettings->primaryActionData->redirect)){
          $response['primaryAction'] = 'redirect';
          $response['redirectURL'] = bravepop_replace_emailShortcodes($actionSettings->primaryActionData->redirect, $fieldSettings, $userQuizData, !empty($actionSettings->primaryActionData->encodeRedirectURL) ? true : false);
+         if(isset($actionSettings->primaryActionData->redirectURLParams) && !empty($actionSettings->primaryActionData->redirectURLParams)){
+            $currentURLParamsRaw = html_entity_decode($pageURL);
+            $currentURLParams  = explode("?",$currentURLParamsRaw);
+            if(isset($currentURLParams[1])){
+               $urlConnector = strpos($response['redirectURL'], '?') !== false ? '&' : '?';
+               $response['redirectURL'] = $response['redirectURL'] . $urlConnector . $currentURLParams[1];
+            }
+         }
          $response['redirectAfter'] = isset($actionSettings->primaryActionData->redirectAfter) ? $actionSettings->primaryActionData->redirectAfter : '';
          $response['redirectMessage'] = isset($actionSettings->primaryActionData->redirectMessage) ? nl2br(bravepop_replace_emailShortcodes(html_entity_decode($actionSettings->primaryActionData->redirectMessage), $fieldSettings, $userQuizData)) : '';
          if(!empty($actionSettings->primaryActionData->conditionalRedirect) && isset($actionSettings->primaryActionData->redirectConditions) && function_exists('bravepop_get_conditional_redirection_data')){

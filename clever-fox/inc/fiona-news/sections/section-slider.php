@@ -8,7 +8,7 @@
 	<section id="slider-section" class="slider-wrapper section-14">
 		<div class="main07 main-slider">
            <?php 	
-				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 4,'post__not_in'=>get_option("sticky_posts")) ; 	
+				$args = array( 'post_type' => 'post', 'category_name' => $slider_category_id,'posts_per_page' => 4,'ignore_sticky_posts' => true ) ; 	
 					query_posts( $args );
 					if(query_posts( $args ))
 					{	

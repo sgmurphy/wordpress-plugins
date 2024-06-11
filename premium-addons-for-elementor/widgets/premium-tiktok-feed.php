@@ -2568,7 +2568,7 @@ class Premium_Tiktok_Feed extends Widget_Base {
 
 			$tiktok_feed = get_tiktok_data( $widget_id, $settings );
 
-			$videos_urls = get_tiktok_videos_urls( $settings );
+			get_tiktok_videos_urls( $settings, $tiktok_feed, $widget_id );
 
 			$user_info = array(
 				'username'    => $profile_data['display_name'],
@@ -2631,7 +2631,7 @@ class Premium_Tiktok_Feed extends Widget_Base {
 			}
 
 			if ( $show_feed ) {
-				$this->render_tiktok_videos( $tiktok_feed, $settings, $user_info, $videos_urls );
+				$this->render_tiktok_videos( $tiktok_feed, $settings, $user_info );
 
 				if ( $load_more_btn ) {
 					?>
@@ -2663,7 +2663,9 @@ class Premium_Tiktok_Feed extends Widget_Base {
 	 * @param array $settings  widget settings.
 	 * @param array $user_info  user info.
 	 */
-	private function render_tiktok_videos( $tiktok_feed, $settings, $user_info, $videos_urls ) {
+	private function render_tiktok_videos( $tiktok_feed, $settings, $user_info ) {
+
+        $videos_path = set_url_scheme( wp_upload_dir()['baseurl'] . '/tiktok-videos' );
 
 		$vid_layout      = $settings['vid_layout'];
 		$exclude_arr     = array();
@@ -2702,7 +2704,7 @@ class Premium_Tiktok_Feed extends Widget_Base {
 				<?php
 				foreach ( $tiktok_feed as $index => $feed ) {
 
-					$video_url = $videos_urls[ $feed['id'] ];
+					$video_url = $videos_path . '/' . $feed['id'] . '.mp4';
 
 					$video_html = '<video src="' . $video_url . '#t=0.001" playsinline';
 

@@ -40,7 +40,7 @@ if ( ! function_exists( 'start_startkit_slider' ) ) :
 								<?php if ( ! empty( $image ) ) : ?>
 								<img src="<?php echo esc_url( $image ); ?>" <?php if ( ! empty( $title ) ) : ?> alt="<?php echo esc_attr( $title ); ?>" title="<?php echo esc_attr( $title ); ?>" <?php endif; ?> />
 								<?php endif; ?>
-								<div class="content" style="background: rgba(20, 20, 20,<?php echo $slider_opacity; ?>);">
+								<div class="content" style="background: rgba(20, 20, 20,<?php echo esc_html($slider_opacity); ?>);">
 									<div class="slide-table">
 										<div class="slide-table-cell">                                        
 											<div class="container">

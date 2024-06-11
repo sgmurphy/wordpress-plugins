@@ -3989,7 +3989,10 @@ class Ays_Pb_Public_Templates {
 
         // Hide FB page cover photo
         $hide_fb_page_cover_photo = (isset($options->hide_fb_page_cover_photo) && $options->hide_fb_page_cover_photo == 'on') ? true : false;
-        
+
+        // Use small FB header
+        $use_small_fb_header = (isset($options->use_small_fb_header) && $options->use_small_fb_header == 'on') ? true : false;
+
         $facebook_page_content = '';
         if ($facebook_page_url != '') {
             $facebook_page_content = "
@@ -3998,7 +4001,7 @@ class Ays_Pb_Public_Templates {
                 data-tabs='timeline'
                 data-height='" . ( intval($popup['ays_pb_height']) - 200 ) . "'
                 data-width='" . ($popup['ays_pb_width'] - 2 * $ays_pb_padding) . "'
-                data-small-header='true'
+                data-small-header='" . $use_small_fb_header . "'
                 data-show-facepile='true'
                 data-adapt-container-width='false'
                 data-hide-cover=" . $hide_fb_page_cover_photo . ">

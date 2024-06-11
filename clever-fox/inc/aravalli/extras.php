@@ -5,7 +5,7 @@
  */
 function aravalli_get_social_icon_default() {
 	return apply_filters(
-		'aravalli_get_social_icon_default', json_encode(
+		'aravalli_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -38,7 +38,7 @@ function aravalli_get_social_icon_default() {
  */
  function aravalli_get_slider_default() {
 	return apply_filters(
-		'aravalli_get_slider_default', json_encode(
+		'aravalli_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/aravalli/images/slider/slider01.jpg',
@@ -79,7 +79,7 @@ function aravalli_get_social_icon_default() {
  */
  function aravalli_get_features_default() {
 	return apply_filters(
-		'aravalli_get_features_default', json_encode(
+		'aravalli_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'           => 'fa-cutlery',
@@ -126,7 +126,7 @@ function aravalli_get_social_icon_default() {
  */
  function aravalli_get_amenities_default() {
 	return apply_filters(
-		'aravalli_get_amenities_default', json_encode(
+		'aravalli_get_amenities_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Free Parking', 'clever-fox' ),
@@ -181,7 +181,7 @@ function aravalli_get_social_icon_default() {
  */
  function aravalli_get_room_default() {
 	return apply_filters(
-		'aravalli_get_room_default', json_encode(
+		'aravalli_get_room_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( '$1200/Night', 'clever-fox' ),
@@ -281,7 +281,7 @@ endif;
  */
  function aravalli_get_footer_above_default() {
 	return apply_filters(
-		'aravalli_get_footer_above_default', json_encode(
+		'aravalli_get_footer_above_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'       => 'fa-map-marker',

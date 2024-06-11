@@ -46,8 +46,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }
@@ -122,7 +122,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			$theme = wp_get_theme(); // gets the current theme
 			if('Renoval' == $theme || 'Builderse' == $theme->name || 'Eractor' == $theme->name){
 			?>
-				<a class="customizer_social_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/renoval-pro/" target="_blank"  style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_social_upgrade_section up-to-pro"  href="https://www.nayrathemes.com/renoval-pro/" target="_blank"  style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}}
 		}
@@ -171,8 +171,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }
@@ -308,8 +308,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }
@@ -444,8 +444,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3><?php _e('Section Documentation','clever-fox'); ?></h3>
-			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php _e('Click Here','clever-fox'); ?></a></p>
+			<h3><?php esc_html_e('Section Documentation','clever-fox'); ?></h3>
+			<p><a href="https://help.nayrathemes.com/premium-themes/renoval-pro/header-section-setup-3/"  target="_blank"  style="background-color:#fcb900; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;"><?php esc_html_e('Click Here','clever-fox'); ?></a></p>
 			
 		<?php
 	   }

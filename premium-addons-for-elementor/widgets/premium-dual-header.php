@@ -1398,11 +1398,13 @@ class Premium_Dual_Header extends Widget_Base {
 				});
 			}
 
+            view.addRenderAttribute( 'button', 'href', link );
+
 
 		#>
 
 		<# if( 'yes' === settings.premium_dual_header_link_switcher && '' !== link ) { #>
-			<a href="{{ link }}">
+			<a {{{ view.getRenderAttributeString('button') }}}>
 		<# } #>
 		<{{{firstTag}}} {{{ view.getRenderAttributeString('first_title') }}}>
 			<span class="premium-dual-header-first-span" data-text="{{ firstText }}">{{{ firstText }}}</span>

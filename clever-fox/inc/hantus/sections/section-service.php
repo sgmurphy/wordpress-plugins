@@ -3,7 +3,7 @@ if ( ! function_exists( 'hantus_lite_service' ) ) :
 	function hantus_lite_service() {
 		 function hantus_get_service_default() {
 			return apply_filters(
-				'hantus_get_service_default', json_encode(
+				'hantus_get_service_default', wp_json_encode(
 						 array(
 						array(
 							'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/hantus/images/service/service01.png',

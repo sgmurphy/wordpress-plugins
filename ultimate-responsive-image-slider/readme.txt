@@ -2,7 +2,7 @@
 Contributors: FARAZFRANK 
 Tags: slider, best slider plugin, image slide show, responsive slider, wordpress image slider plugin
 Requires at least: 4.0
-Tested up to: 6.5.2
+Tested up to: 6.5.4
 Stable tag: 3.5.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

@@ -1,5 +1,7 @@
 <?php defined('ABSPATH' ) || wp_die; ?>
 <?php
+	$result		=	0;
+
 	if (!isset($this->options['style']) || !$this->options['style']) {
 		$css_path	=	$this->options['css-path'];
 		$css_temp	=	$this->options['css-templete'];
@@ -14,8 +16,8 @@
 				$file_text		=	str_replace('/*IN-IMAGE*/',			'background-image: linear-gradient(#ca4 0%, #ca4 10%, #fff 30%);', $file_text );
 				$file_text		=	str_replace('/*TH-IMAGE*/',			'background-image: linear-gradient(#ca4 0%, #ca4 10%, #eee 30%);', $file_text );
 				if	($this->options['info-position'] === '1') {
-					$file_text	=	str_replace('/*COLOR-INFO*/',		'color: #fff;', $file_text );
-					$file_text	=	str_replace('/*COLOR-ADDED*/',		'color: #fff;', $file_text );
+					$file_text	=	str_replace('/*INFO-COLOR*/',		'color: #fff;', $file_text );
+					$file_text	=	str_replace('/*ADDED-COLOR*/',		'color: #fff;', $file_text );
 				}
 				break;
 			case 'hbc': // ノーマル（はてなブログカード風）
@@ -49,7 +51,7 @@
 				$file_text	=	str_replace('/*MARGIN-EXCERPT*/',		'margin: 0 0 0 108px;', $file_text );
 				$file_text	=	str_replace('/*CONTENT-PADDING*/',		'padding: 0;', $file_text );
 				$file_text	=	str_replace('/*CONTENT-MARGIN*/',		'margin: 0;', $file_text );
-				$content_height		= intval(preg_replace('/[^0-9]/', '', isset($this->options['content-height'] ) ? $this->options['content-height']  : $this->defaults['content-height']  ) );
+				$content_height		= intval(preg_replace('/[^0-9]/', '', isset($this->options['content-height'] ) ? $this->options['content-height']  : self::DEFAULTS['content-height']  ) );
 				$file_text	=	str_replace('/*THUMBNAIL-WIDTH*/',		'display: block; overflow: hidden;', $file_text );
 				$file_text	=	str_replace('/*THUMBNAIL-HEIGHT*/',		'height: 108px;', $file_text );
 				$file_text	=	str_replace('/*THUMBNAIL-IMG-WIDTH*/',	'width: 100px;', $file_text );
@@ -76,20 +78,20 @@
 				$file_text	=	str_replace('/*THUMBNAIL- IMG-WIDTH*/',	'width: 150px;', $file_text );
 				$file_text	=	str_replace('/*HOVER*/',				'opacity: 0.8;', $file_text );
 				$file_text	=	str_replace('/*OPTION*/',				'.linkcard p { display: none; }', $file_text );
-				$file_text	=	str_replace('/*COLOR-ADDED*/',			'color: #fff;', $file_text );
-				$file_text	=	str_replace('/*SIZE-ADDED*/',			'font-size: 12px;', $file_text );
-				$file_text	=	str_replace('/*HEIGHT-ADDED*/',			'line-height: 30px;', $file_text );
-				$added_height	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-added'] ) ? $this->options['height-added']  : $this->defaults['height-added']  ) );
+				$file_text	=	str_replace('/*ADDED-COLOR*/',			'color: #fff;', $file_text );
+				$file_text	=	str_replace('/*ADDED-SIZE*/',			'font-size: 12px;', $file_text );
+				$file_text	=	str_replace('/*ADDED-HEIGHT*/',			'line-height: 30px;', $file_text );
+				$added_height	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['added-height'] ) ? $this->options['added-height']  : self::DEFAULTS['added-height']  ) );
 				$heading_height	=	intval( $added_height / 2 );
 				$heading_padding =	intval( $added_height / 4 );
 				$file_text		=	str_replace('/*EX-HEADING*/',		'position: absolute; top: -15px; left: 20px; padding: 0 10px; background-color: '.$this->options['ex-border-color'].'; border-radius: 2px;', $file_text );
 				$file_text		=	str_replace('/*IN-HEADING*/',		'position: absolute; top: -15px; left: 20px; padding: 0 10px; background-color: '.$this->options['in-border-color'].'; border-radius: 2px;', $file_text );
 				$file_text		=	str_replace('/*TH-HEADING*/',		'position: absolute; top: -15px; left: 20px; padding: 0 10px; background-color: '.$this->options['th-border-color'].'; border-radius: 2px;', $file_text );
 				if (isset($this->options['thumbnail-resize']) && $this->options['thumbnail-resize'] == '1') {
-					$size_title			=	intval(preg_replace('/[^0-9]/', '', isset($this->options['size-title']) ? $this->options['size-title'] : $this->defaults['size-title'] ) );
-					$size_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['size-excerpt']) ? $this->options['size-excerpt'] : $this->defaults['size-excerpt'] ) );
-					$height_title		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-title']) ? $this->options['height-title'] : $this->defaults['height-title'] ) );
-					$height_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-excerpt']) ? $this->options['height-excerpt'] : $this->defaults['height-excerpt'] ) );
+					$size_title			=	intval(preg_replace('/[^0-9]/', '', isset($this->options['title-size']) ? $this->options['title-size'] : self::DEFAULTS['title-size'] ) );
+					$size_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['excerpt-size']) ? $this->options['excerpt-size'] : self::DEFAULTS['excerpt-size'] ) );
+					$height_title		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['title-height']) ? $this->options['title-height'] : self::DEFAULTS['title-height'] ) );
+					$height_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['excerpt-height']) ? $this->options['excerpt-height'] : self::DEFAULTS['excerpt-height'] ) );
 					$thumbnail_width	=	150;
 					$file_text	=	str_replace('/*RESIZE*/',
 						'@media screen and (max-width: 767px)  { .lkc-internal-wrap { max-width: 100% } .lkc-external-wrap { max-width: 100% } .lkc-this-wrap { max-width: 100% } .lkc-title { font-size: '.intval($size_title * 0.9).'px; line-height: '.intval($height_title * 0.9).'px; } .lkc-excerpt { font-size: '.intval($size_excerpt * 0.95).'px; } .lkc-thumbnail { max-width: '.intval($thumbnail_width * 0.9).'px; } .lkc-thumbnail-img { max-width: '.intval($thumbnail_width * 0.9).'px; } }'.
@@ -103,15 +105,15 @@
 				$css	=	'.lkc-external-wrap         , .lkc-internal-wrap         , .lkc-this-wrap         { transition: all 0.7s ease-in-out; border-width: 2px; }';
 				$css	.=	'.lkc-external-wrap::before , .lkc-internal-wrap::before , .lkc-this-wrap::before { content: ""; display: block; position: absolute; border: 2px solid #888888; box-sizing: border-box; width: 24px; height: 24px; transition: all 0.7s ease-in-out; top: -6px; left: -6px; border-width: 2px 0 0 2px; }';
 				$css	.=	'.lkc-external-wrap::after  , .lkc-internal-wrap::after  , .lkc-this-wrap::after  { content: ""; display: block; position: absolute; border: 2px solid #888888; box-sizing: border-box; width: 24px; height: 24px; transition: all 0.7s ease-in-out; bottom: -6px; right: -6px; border-width: 0 2px 2px 0; }';
-				$css	.=	'.lkc-external-wrap:hover         { border-color: '.$this->options['ex-bgcolor'].'; }';
-				$css	.=	'.lkc-internal-wrap:hover         { border-color: '.$this->options['in-bgcolor'].'; }';
-				$css	.=	'.lkc-this-wrap:hover             { border-color: '.$this->options['th-bgcolor'].'; }';
-				$css	.=	'.lkc-external-wrap:hover::before { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['ex-bgcolor'].'; }';
-				$css	.=	'.lkc-internal-wrap:hover::before { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['in-bgcolor'].'; }';
-				$css	.=	'.lkc-this-wrap:hover::before     { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['th-bgcolor'].'; }';
-				$css	.=	'.lkc-external-wrap:hover::after  { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['ex-bgcolor'].'; }';
-				$css	.=	'.lkc-internal-wrap:hover::after  { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['in-bgcolor'].'; }';
-				$css	.=	'.lkc-this-wrap:hover::after      { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['th-bgcolor'].'; }';
+				$css	.=	'.lkc-external-wrap:hover         { border-color: '.$this->options['ex-bg-color'].'; }';
+				$css	.=	'.lkc-internal-wrap:hover         { border-color: '.$this->options['in-bg-color'].'; }';
+				$css	.=	'.lkc-this-wrap:hover             { border-color: '.$this->options['th-bg-color'].'; }';
+				$css	.=	'.lkc-external-wrap:hover::before { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['ex-bg-color'].'; }';
+				$css	.=	'.lkc-internal-wrap:hover::before { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['in-bg-color'].'; }';
+				$css	.=	'.lkc-this-wrap:hover::before     { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['th-bg-color'].'; }';
+				$css	.=	'.lkc-external-wrap:hover::after  { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['ex-bg-color'].'; }';
+				$css	.=	'.lkc-internal-wrap:hover::after  { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['in-bg-color'].'; }';
+				$css	.=	'.lkc-this-wrap:hover::after      { width: calc(100% + 12px); height: calc(100% + 12px); border-color: '.$this->options['th-bg-color'].'; }';
 				$file_text	=	str_replace('/*OPTION*/',			$css, $file_text );
 				break;
 			case 'ref': // 反射
@@ -211,10 +213,10 @@
 				$file_text	=	str_replace('/*EX-BORDER*/',		'border: 4px solid #59fbea;', $file_text );
 				$file_text	=	str_replace('/*IN-BORDER*/',		'border: 4px solid #59fbea;', $file_text );
 				$file_text	=	str_replace('/*TH-BORDER*/',		'border: 4px solid #59fbea;', $file_text );
-				$file_text	=	str_replace('/*COLOR-TITLE*/',		'color: #59fbea;', $file_text );
-				$file_text	=	str_replace('/*COLOR-URL*/',		'color: #59fbea;', $file_text );
-				$file_text	=	str_replace('/*COLOR-EXCERPT*/',	'color: #59fbea;', $file_text );
-				$file_text	=	str_replace('/*COLOR-INFO*/',		'color: #59fbea;', $file_text );
+				$file_text	=	str_replace('/*TITLE-COLOR*/',		'color: #59fbea;', $file_text );
+				$file_text	=	str_replace('/*URL-COLOR*/',		'color: #59fbea;', $file_text );
+				$file_text	=	str_replace('/*EXCERPT-COLOR*/',	'color: #59fbea;', $file_text );
+				$file_text	=	str_replace('/*INFO-COLOR*/',		'color: #59fbea;', $file_text );
 				$file_text	=	str_replace('/*EX-BGCOLOR*/',		'background-color: rgba( 35,100, 93,0.9);', $file_text );
 				$file_text	=	str_replace('/*IN-BGCOLOR*/',		'background-color: rgba(  8, 25, 23,0.9);', $file_text );
 				$file_text	=	str_replace('/*TH-BGCOLOR*/',		'background-color: rgba( 89,251,234,0.05);', $file_text );
@@ -224,12 +226,12 @@
 				$file_text	=	str_replace('/*EX-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*IN-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*TH-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-TITLE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-URL*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-EXCERPT*/',	'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-MORE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-INFO*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-ADDED*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*TITLE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*URL-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*EXCERPT-COLOR*/',	'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*MORE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*INFO-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*ADDED-COLOR*/',		'color: '.$color.';', $file_text );
 				$file_text	=	str_replace('/*EX-BGCOLOR*/',		'background-color: rgba( 94, 75, 29,0.9);', $file_text );
 				$file_text	=	str_replace('/*IN-BGCOLOR*/',		'background-color: rgba( 23, 18,  7,0.9);', $file_text );
 				$file_text	=	str_replace('/*TH-BGCOLOR*/',		'background-color: rgba(235,188, 74,0.05);', $file_text );
@@ -239,12 +241,12 @@
 				$file_text	=	str_replace('/*EX-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*IN-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*TH-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-TITLE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-URL*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-EXCERPT*/',	'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-MORE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-INFO*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-ADDED*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*TITLE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*URL-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*EXCERPT-COLOR*/',	'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*MORE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*INFO-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*ADDED-COLOR*/',		'color: '.$color.';', $file_text );
 				$file_text	=	str_replace('/*EX-BGCOLOR*/',		'background-color: rgba( 16, 97, 16,0.9);', $file_text );
 				$file_text	=	str_replace('/*IN-BGCOLOR*/',		'background-color: rgba(  4, 24,  4,0.9);', $file_text );
 				$file_text	=	str_replace('/*TH-BGCOLOR*/',		'background-color: rgba( 40,244, 40,0.05);', $file_text );
@@ -254,12 +256,12 @@
 				$file_text	=	str_replace('/*EX-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*IN-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
 				$file_text	=	str_replace('/*TH-BORDER*/', 		'border: 4px solid '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-TITLE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-URL*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-EXCERPT*/',	'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-MORE*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-INFO*/',		'color: '.$color.';', $file_text );
-				$file_text	=	str_replace('/*COLOR-ADDED*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*TITLE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*URL-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*EXCERPT-COLOR*/',	'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*MORE-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*INFO-COLOR*/',		'color: '.$color.';', $file_text );
+				$file_text	=	str_replace('/*ADDED-COLOR*/',		'color: '.$color.';', $file_text );
 				$file_text	=	str_replace('/*EX-BGCOLOR*/',		'background-color: rgba(  0, 77,102,0.9);', $file_text );
 				$file_text	=	str_replace('/*IN-BGCOLOR*/',		'background-color: rgba(  0, 19, 25,0.9);', $file_text );
 				$file_text	=	str_replace('/*TH-BGCOLOR*/',		'background-color: rgba(  0,194,255,0.05);', $file_text );
@@ -286,66 +288,66 @@
 			}
 
 			// 文字色
-			$file_text	=	str_replace('/*COLOR-TITLE*/',		'color: '.$this->options['color-title'].';', $file_text );
-			$file_text	=	str_replace('/*COLOR-URL*/',		'color: '.$this->options['color-url'].';', $file_text );
-			$file_text	=	str_replace('/*COLOR-EXCERPT*/',	'color: '.$this->options['color-excerpt'].';', $file_text );
-			$file_text	=	str_replace('/*COLOR-INFO*/',		'color: '.$this->options['color-info'].';', $file_text );
-			if (!$this->options['color-added']) {
-				$this->options['color-added']	=	$this->options['color-info'];
-				$this->options['size-added']	=	$this->options['size-info'];
-				$this->options['height-added']	=	$this->options['height-info'];
+			$file_text	=	str_replace('/*TITLE-COLOR*/',		'color: '.$this->options['title-color'].';', $file_text );
+			$file_text	=	str_replace('/*URL-COLOR*/',		'color: '.$this->options['url-color'].';', $file_text );
+			$file_text	=	str_replace('/*EXCERPT-COLOR*/',	'color: '.$this->options['excerpt-color'].';', $file_text );
+			$file_text	=	str_replace('/*INFO-COLOR*/',		'color: '.$this->options['info-color'].';', $file_text );
+			if (!$this->options['added-color']) {
+				$this->options['added-color']	=	$this->options['info-color'];
+				$this->options['added-size']	=	$this->options['info-size'];
+				$this->options['added-height']	=	$this->options['info-height'];
 				$this->options['outline-added']	=	$this->options['outline-info'];
 			}
-			$file_text	=	str_replace('/*COLOR-ADDED*/',		'color: '.$this->options['color-added'].';', $file_text );
-			$file_text	=	str_replace('/*COLOR-MORE*/',		'color: '.$this->options['color-more'].';', $file_text );
+			$file_text	=	str_replace('/*ADDED-COLOR*/',		'color: '.$this->options['added-color'].';', $file_text );
+			$file_text	=	str_replace('/*MORE-COLOR*/',		'color: '.$this->options['more-color'].';', $file_text );
 
 			// 文字の大きさ
-			$file_text	=	str_replace('/*SIZE-TITLE*/',		'font-size: '.$this->options['size-title'].';', $file_text );
-			$file_text	=	str_replace('/*SIZE-URL*/',		'font-size: '.$this->options['size-url'].';', $file_text );
-			$file_text	=	str_replace('/*SIZE-EXCERPT*/',	'font-size: '.$this->options['size-excerpt'].';', $file_text );
-			$file_text	=	str_replace('/*SIZE-INFO*/',		'font-size: '.$this->options['size-info'].';', $file_text );
-			$file_text	=	str_replace('/*SIZE-ADDED*/',		'font-size: '.$this->options['size-added'].';', $file_text );
-			$file_text	=	str_replace('/*SIZE-MORE*/',		'font-size: '.$this->options['size-more'].';', $file_text );
+			$file_text	=	str_replace('/*TITLE-SIZE*/',		'font-size: '.$this->options['title-size'].';', $file_text );
+			$file_text	=	str_replace('/*URL-SIZE*/',			'font-size: '.$this->options['url-size'].';', $file_text );
+			$file_text	=	str_replace('/*EXCERPT-SIZE*/',		'font-size: '.$this->options['excerpt-size'].';', $file_text );
+			$file_text	=	str_replace('/*INFO-SIZE*/',		'font-size: '.$this->options['info-size'].';', $file_text );
+			$file_text	=	str_replace('/*ADDED-SIZE*/',		'font-size: '.$this->options['added-size'].';', $file_text );
+			$file_text	=	str_replace('/*MORE-SIZE*/',		'font-size: '.$this->options['more-size'].';', $file_text );
 
 			// 行の高さ
-			$file_text	=	str_replace('/*HEIGHT-TITLE*/',	'line-height: '.$this->options['height-title'].';', $file_text );
-			$file_text	=	str_replace('/*HEIGHT-URL*/',		'line-height: '.$this->options['height-url'].';', $file_text );
-			$file_text	=	str_replace('/*HEIGHT-EXCERPT*/',	'line-height: '.$this->options['height-excerpt'].';', $file_text );
-			$file_text	=	str_replace('/*HEIGHT-INFO*/',		'line-height: '.$this->options['height-info'].';', $file_text );
-			$file_text	=	str_replace('/*HEIGHT-ADDED*/',	'line-height: '.$this->options['height-added'].';', $file_text );
-			$file_text	=	str_replace('/*HEIGHT-MORE*/',		'line-height: '.$this->options['height-more'].';', $file_text );
+			$file_text	=	str_replace('/*TITLE-HEIGHT*/',	'line-height: '.$this->options['title-height'].';', $file_text );
+			$file_text	=	str_replace('/*URL-HEIGHT*/',		'line-height: '.$this->options['url-height'].';', $file_text );
+			$file_text	=	str_replace('/*EXCERPT-HEIGHT*/',	'line-height: '.$this->options['excerpt-height'].';', $file_text );
+			$file_text	=	str_replace('/*INFO-HEIGHT*/',		'line-height: '.$this->options['info-height'].';', $file_text );
+			$file_text	=	str_replace('/*ADDED-HEIGHT*/',	'line-height: '.$this->options['added-height'].';', $file_text );
+			$file_text	=	str_replace('/*MORE-HEIGHT*/',		'line-height: '.$this->options['more-height'].';', $file_text );
 
 			// 文字の縁取り
 			if (isset($this->options['outline-title']) && $this->options['outline-title'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-TITLE*/',	'text-shadow: 0 -1px '.$this->options['outline-color-title'].', 1px -1px '.$this->options['outline-color-title'].', 1px 0 '.$this->options['outline-color-title'].', 1px 1px '.$this->options['outline-color-title'].', 0 1px '.$this->options['outline-color-title'].', -1px 1px '.$this->options['outline-color-title'].', -1px 0 '.$this->options['outline-color-title'].', -1px -1px '.$this->options['outline-color-title'].';', $file_text );
+				$file_text = str_replace('/*TITLE-OUTCOLOR*/',	'text-shadow: 0 -1px '.$this->options['title-outline-color'].', 1px -1px '.$this->options['title-outline-color'].', 1px 0 '.$this->options['title-outline-color'].', 1px 1px '.$this->options['title-outline-color'].', 0 1px '.$this->options['title-outline-color'].', -1px 1px '.$this->options['title-outline-color'].', -1px 0 '.$this->options['title-outline-color'].', -1px -1px '.$this->options['title-outline-color'].';', $file_text );
 			}
 			if (isset($this->options['outline-url']) && $this->options['outline-url'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-URL*/',	'text-shadow: 0 -1px '.$this->options['outline-color-url'].', 1px -1px '.$this->options['outline-color-url'].', 1px 0 '.$this->options['outline-color-url'].', 1px 1px '.$this->options['outline-color-url'].', 0 1px '.$this->options['outline-color-url'].', -1px 1px '.$this->options['outline-color-url'].', -1px 0 '.$this->options['outline-color-url'].', -1px -1px '.$this->options['outline-color-url'].';', $file_text );
+				$file_text = str_replace('/*URL-OUTCOLOR*/',	'text-shadow: 0 -1px '.$this->options['url-outline-color'].', 1px -1px '.$this->options['url-outline-color'].', 1px 0 '.$this->options['url-outline-color'].', 1px 1px '.$this->options['url-outline-color'].', 0 1px '.$this->options['url-outline-color'].', -1px 1px '.$this->options['url-outline-color'].', -1px 0 '.$this->options['url-outline-color'].', -1px -1px '.$this->options['url-outline-color'].';', $file_text );
 			}
 			if (isset($this->options['outline-excerpt']) && $this->options['outline-excerpt'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-EXCERPT*/','text-shadow: 0 -1px '.$this->options['outline-color-excerpt'].', 1px -1px '.$this->options['outline-color-excerpt'].', 1px 0 '.$this->options['outline-color-excerpt'].', 1px 1px '.$this->options['outline-color-excerpt'].', 0 1px '.$this->options['outline-color-excerpt'].', -1px 1px '.$this->options['outline-color-excerpt'].', -1px 0 '.$this->options['outline-color-excerpt'].', -1px -1px '.$this->options['outline-color-excerpt'].';', $file_text );
+				$file_text = str_replace('/*EXCERPT-OUTCOLOR*/','text-shadow: 0 -1px '.$this->options['excerpt-outline-color'].', 1px -1px '.$this->options['excerpt-outline-color'].', 1px 0 '.$this->options['excerpt-outline-color'].', 1px 1px '.$this->options['excerpt-outline-color'].', 0 1px '.$this->options['excerpt-outline-color'].', -1px 1px '.$this->options['excerpt-outline-color'].', -1px 0 '.$this->options['excerpt-outline-color'].', -1px -1px '.$this->options['excerpt-outline-color'].';', $file_text );
 			}
 			if (isset($this->options['outline-info']) && $this->options['outline-info'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-INFO*/',	'text-shadow: 0 -1px '.$this->options['outline-color-info'].', 1px -1px '.$this->options['outline-color-info'].', 1px 0 '.$this->options['outline-color-info'].', 1px 1px '.$this->options['outline-color-info'].', 0 1px '.$this->options['outline-color-info'].', -1px 1px '.$this->options['outline-color-info'].', -1px 0 '.$this->options['outline-color-info'].', -1px -1px '.$this->options['outline-color-info'].';', $file_text );
+				$file_text = str_replace('/*INFO-OUTCOLOR*/',	'text-shadow: 0 -1px '.$this->options['info-outline-color'].', 1px -1px '.$this->options['info-outline-color'].', 1px 0 '.$this->options['info-outline-color'].', 1px 1px '.$this->options['info-outline-color'].', 0 1px '.$this->options['info-outline-color'].', -1px 1px '.$this->options['info-outline-color'].', -1px 0 '.$this->options['info-outline-color'].', -1px -1px '.$this->options['info-outline-color'].';', $file_text );
 			}
 			if (isset($this->options['outline-added']) && $this->options['outline-added'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-ADDED*/',	'text-shadow: 0 -1px '.$this->options['outline-color-added'].', 1px -1px '.$this->options['outline-color-added'].', 1px 0 '.$this->options['outline-color-added'].', 1px 1px '.$this->options['outline-color-added'].', 0 1px '.$this->options['outline-color-added'].', -1px 1px '.$this->options['outline-color-added'].', -1px 0 '.$this->options['outline-color-added'].', -1px -1px '.$this->options['outline-color-added'].';', $file_text );
+				$file_text = str_replace('/*ADDED-OUTCOLOR*/',	'text-shadow: 0 -1px '.$this->options['added-outline-color'].', 1px -1px '.$this->options['added-outline-color'].', 1px 0 '.$this->options['added-outline-color'].', 1px 1px '.$this->options['added-outline-color'].', 0 1px '.$this->options['added-outline-color'].', -1px 1px '.$this->options['added-outline-color'].', -1px 0 '.$this->options['added-outline-color'].', -1px -1px '.$this->options['added-outline-color'].';', $file_text );
 			}
 			if (isset($this->options['outline-more']) && $this->options['outline-more'] == '1') {
-				$file_text = str_replace('/*OUTCOLOR-MORE*/',	'text-shadow: 0 -1px '.$this->options['outline-color-more'].', 1px -1px '.$this->options['outline-color-more'].', 1px 0 '.$this->options['outline-color-more'].', 1px 1px '.$this->options['outline-color-more'].', 0 1px '.$this->options['outline-color-more'].', -1px 1px '.$this->options['outline-color-more'].', -1px 0 '.$this->options['outline-color-more'].', -1px -1px '.$this->options['outline-color-more'].';', $file_text );
+				$file_text = str_replace('/*MORE-OUTCOLOR*/',	'text-shadow: 0 -1px '.$this->options['more-outline-color'].', 1px -1px '.$this->options['more-outline-color'].', 1px 0 '.$this->options['more-outline-color'].', 1px 1px '.$this->options['more-outline-color'].', 0 1px '.$this->options['more-outline-color'].', -1px 1px '.$this->options['more-outline-color'].', -1px 0 '.$this->options['more-outline-color'].', -1px -1px '.$this->options['more-outline-color'].';', $file_text );
 			}
 
 			// カードの周りへの余白
-			if	($this->options['margin-top']		!=	'') {
+			if	($this->options['margin-top']		!==		'') {
 				$file_text		=	str_replace('/*MARGIN-TOP*/',		'margin-top: '.		$this->options['margin-top'].	' !important;', $file_text );
 			}
-			if	($this->options['margin-bottom']	!=	'') {
+			if	($this->options['margin-bottom']	!==		'') {
 				$file_text		=	str_replace('/*MARGIN-BOTTOM*/',	'margin-bottom: '.	$this->options['margin-bottom'].' !important;', $file_text );
 			}
-			if	($this->options['margin-left']		!=	'') {
+			if	($this->options['margin-left']		!==		'') {
 				$file_text		=	str_replace('/*MARGIN-LEFT*/',		'margin-left: '.	$this->options['margin-left'].	' !important;', $file_text );
 			}
-			if	($this->options['margin-right']	!=	'') {
+			if	($this->options['margin-right']		!==		'') {
 				$file_text		=	str_replace('/*MARGIN-RIGHT*/',		'margin-right: '.	$this->options['margin-right'].	' !important;', $file_text );
 			}
 
@@ -372,8 +374,8 @@
 			}
 
 			// 外部リンク背景
-			if ($this->options['ex-bgcolor']) {
-				$file_text = str_replace('/*EX-BGCOLOR*/',		'background-color: '.$this->options['ex-bgcolor'].';', $file_text );
+			if ($this->options['ex-bg-color']) {
+				$file_text = str_replace('/*EX-BGCOLOR*/',		'background-color: '.$this->options['ex-bg-color'].';', $file_text );
 			}
 			$bg_image		=	esc_url($this->options['ex-image'] );
 			if ($bg_image ) {
@@ -385,8 +387,8 @@
 			}
 
 			// 内部リンク背景
-			if ($this->options['in-bgcolor']) {
-				$file_text = str_replace('/*IN-BGCOLOR*/',		'background-color: '.$this->options['in-bgcolor'].';', $file_text );
+			if ($this->options['in-bg-color']) {
+				$file_text = str_replace('/*IN-BGCOLOR*/',		'background-color: '.$this->options['in-bg-color'].';', $file_text );
 			}
 			$bg_image		=	esc_url($this->options['in-image'] );
 			if ($bg_image ) {
@@ -398,8 +400,8 @@
 			}
 
 			// 同ページリンク背景色
-			if ($this->options['th-bgcolor']) {
-				$file_text = str_replace('/*TH-BGCOLOR*/',		'background-color: '.$this->options['th-bgcolor'].';', $file_text );
+			if ($this->options['th-bg-color']) {
+				$file_text = str_replace('/*TH-BGCOLOR*/',		'background-color: '.$this->options['th-bg-color'].';', $file_text );
 			}
 			$bg_image		=	esc_url($this->options['th-image'] );
 			if ($bg_image ) {
@@ -487,40 +489,40 @@
 			}
 
 			// サムネイルの位置とサイズtest
-			$thumbnail_width	= intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-width']) ? $this->options['thumbnail-width'] : $this->defaults['thumbnail-width'] ) );
-			$thumbnail_height	= intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-height'] ) ? $this->options['thumbnail-height']  : $this->defaults['thumbnail-height']  ) );
-			$content_width		= intval(preg_replace('/[^0-9]/', '', isset($this->options['width']) ? $this->options['width'] : $this->defaults['thumbnail-width'] ) );
-			$content_height		= intval(preg_replace('/[^0-9]/', '', isset($this->options['content-height'] ) ? $this->options['content-height']  : $this->defaults['content-height']  ) );
+			$thumbnail_width	= intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-width']) ? $this->options['thumbnail-width'] : self::DEFAULTS['thumbnail-width'] ) );
+			$thumbnail_height	= intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-height'] ) ? $this->options['thumbnail-height']  : self::DEFAULTS['thumbnail-height']  ) );
+			$content_width		= intval(preg_replace('/[^0-9]/', '', isset($this->options['width']) ? $this->options['width'] : self::DEFAULTS['thumbnail-width'] ) );
+			$content_height		= intval(preg_replace('/[^0-9]/', '', isset($this->options['content-height'] ) ? $this->options['content-height']  : self::DEFAULTS['content-height']  ) );
 			switch ($this->options['thumbnail-position']) {
 			case '1':			// 右側にサムネイル
 				$file_text = str_replace('/*THUMBNAIL-POSITION*/',	'float: right;', $file_text );
 				$file_text = str_replace('/*THUMBNAIL-MARGIN*/',	'margin: 0 0 0 8px;', $file_text );
 				$file_text = str_replace('/*THUMBNAIL-WIDTH*/',		'width: '.($thumbnail_width + $shadow_width ).'px;', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',		'width: '.$thumbnail_width.'px;', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/',	'height: '.$thumbnail_height.'px;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',		'width: '.$thumbnail_width.'px !important;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/',	'height: '.$thumbnail_height.'px !important;', $file_text );
 				break;
 			case '2':			// 左側にサムネイル
 				$file_text = str_replace('/*THUMBNAIL-POSITION*/',	'float: left;', $file_text );
 				$file_text = str_replace('/*THUMBNAIL-MARGIN*/',	'margin: 0 8px 0 0;', $file_text );
 				$file_text = str_replace('/*THUMBNAIL-WIDTH*/',		'width: '.($thumbnail_width + $shadow_width ).'px;', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',		'width: '.$thumbnail_width .'px;', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/',	'height: '.$thumbnail_height.'px;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',		'width: '.$thumbnail_width .'px !important;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/',	'height: '.$thumbnail_height.'px !important;', $file_text );
 				break;
 			case '3':			// 上側にサムネイル
 				$file_text = str_replace('/*THUMBNAIL-POSITION*/',	'display: block;', $file_text );
 				$file_text = str_replace('/*THUMBNAIL-MARGIN*/',	'margin: 0 0 8px 0;', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',	'width: calc(100% - 2px);', $file_text );
-				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/','height: '.$thumbnail_height.'px; overflow: hidden;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-WIDTH*/',	'width: calc(100% - 2px) !important;', $file_text );
+				$file_text = str_replace('/*THUMBNAIL-IMG-HEIGHT*/','height: '.$thumbnail_height.'px !important; overflow: hidden;', $file_text );
 				break;
 			}
 
 			// サムネイルのリサイズ
 			if (isset($this->options['thumbnail-resize']) && $this->options['thumbnail-resize'] == '1') {
-				$size_title			=	intval(preg_replace('/[^0-9]/', '', isset($this->options['size-title'] )		? $this->options['size-title']		: $this->defaults['size-title'] ) );
-				$size_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['size-excerpt'] )		? $this->options['size-excerpt']	: $this->defaults['size-excerpt'] ) );
-				$height_title		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-title'] )		? $this->options['height-title']	: $this->defaults['height-title'] ) );
-				$height_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-excerpt'] )	? $this->options['height-excerpt']	: $this->defaults['height-excerpt'] ) );
-				$thumbnail_width	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-width'] )	? $this->options['thumbnail-width']	: $this->defaults['thumbnail-width'] ) );
+				$size_title			=	intval(preg_replace('/[^0-9]/', '', isset($this->options['title-size'] )		? $this->options['title-size']		: self::DEFAULTS['title-size'] ) );
+				$size_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['excerpt-size'] )		? $this->options['excerpt-size']	: self::DEFAULTS['excerpt-size'] ) );
+				$height_title		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['title-height'] )		? $this->options['title-height']	: self::DEFAULTS['title-height'] ) );
+				$height_excerpt		=	intval(preg_replace('/[^0-9]/', '', isset($this->options['excerpt-height'] )	? $this->options['excerpt-height']	: self::DEFAULTS['excerpt-height'] ) );
+				$thumbnail_width	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['thumbnail-width'] )	? $this->options['thumbnail-width']	: self::DEFAULTS['thumbnail-width'] ) );
 				$file_text = str_replace('/*RESIZE*/',
 					'@media screen and (max-width: 600px)  { .lkc-title { font-size: '.intval($size_title * 0.9).'px; line-height: '.intval($height_title * 0.9).'px; } .lkc-excerpt { font-size: '.intval($size_excerpt * 0.95).'px; } .lkc-thumbnail { width: '.intval($thumbnail_width * 0.9).'px; } }'.
 					'@media screen and (max-width: 480px)  { .lkc-title { font-size: '.intval($size_title * 0.8).'px; line-height: '.intval($height_title * 0.8).'px; } .lkc-excerpt { font-size: '.intval($size_excerpt * 0.8 ).'px; } .lkc-thumbnail { width: '.intval($thumbnail_width * 0.7).'px; } }'.
@@ -529,19 +531,19 @@
 
 			// 横幅
 			if ($this->options['width']) {
-				$file_text = str_replace('/*WIDTH*/',				'width: '.$this->options['width'].';', $file_text );
+				$file_text = str_replace('/*WIDTH*/',				'max-width: '.$this->options['width'].';', $file_text );
 			} else {
 				$file_text = str_replace('/*WIDTH*/',				'width: 100%;', $file_text );
 			}
 
 			// タイトルを折り返さない
-			if ($this->options['nowrap-title']) {
-				$file_text = str_replace('/*NOWRAP-TITLE*/',		'white-space: nowrap; text-overflow: ellipsis;', $file_text );
+			if ($this->options['title-nowrap']) {
+				$file_text = str_replace('/*TITLE-NOWRAP*/',		'white-space: nowrap; text-overflow: ellipsis;', $file_text );
 			}
 
 			// URLを折り返さない
-			if ($this->options['nowrap-url']) {
-				$file_text = str_replace('/*NOWRAP-URL*/',			'white-space: nowrap; text-overflow: ellipsis;', $file_text );
+			if ($this->options['url-nowrap']) {
+				$file_text = str_replace('/*URL-NOWRAP*/',			'white-space: nowrap; text-overflow: ellipsis;', $file_text );
 			}
 
 			// 記事情報の高さ
@@ -549,11 +551,11 @@
 
 			// 枠線の太さ
 			$border_width	=	strval(intval(preg_replace('/[^0-9]/', '', $this->options['border-width'] ) ) );
-			$border_style	=	isset($this->options['border-style'] ) ? $this->options['border-style'] : $this->defaults['border-style'];
+			$border_style	=	isset($this->options['border-style'] ) ? $this->options['border-style'] : self::DEFAULTS['border-style'];
 			$border			=	$border_width.'px '.$border_style.' ';
-			$ex_border		=	$border.(isset($this->options['ex-border-color']) ? $this->options['ex-border-color'] : $this->defaults['ex-border-color']).';';
-			$in_border		=	$border.(isset($this->options['in-border-color']) ? $this->options['in-border-color'] : $this->defaults['in-border-color']).';';
-			$th_border		=	$border.(isset($this->options['th-border-color']) ? $this->options['th-border-color'] : $this->defaults['th-border-color']).';';
+			$ex_border		=	$border.(isset($this->options['ex-border-color']) ? $this->options['ex-border-color'] : self::DEFAULTS['ex-border-color']).';';
+			$in_border		=	$border.(isset($this->options['in-border-color']) ? $this->options['in-border-color'] : self::DEFAULTS['in-border-color']).';';
+			$th_border		=	$border.(isset($this->options['th-border-color']) ? $this->options['th-border-color'] : self::DEFAULTS['th-border-color']).';';
 			$file_text		=	str_replace('/*EX-BORDER*/',	'border: '.$ex_border, $file_text );
 			$file_text		=	str_replace('/*IN-BORDER*/',	'border: '.$in_border, $file_text );
 			$file_text		=	str_replace('/*TH-BORDER*/',	'border: '.$th_border, $file_text );
@@ -585,17 +587,17 @@
 			if (isset($this->options['separator']) && $this->options['separator'] == '1') {
 				switch ($this->options['info-position']) {
 				case '1':
-					$file_text	=	str_replace('/*SEPARATOR*/',	'border-top: 1px solid '.$this->options['color-info'].';', $file_text );
+					$file_text	=	str_replace('/*SEPARATOR*/',	'border-top: 1px solid '.$this->options['info-color'].';', $file_text );
 					break;
 				case '2':
-					$file_text	=	str_replace('/*SEPARATOR*/',	'border-bottom: 1px solid '.$this->options['color-info'].';', $file_text );
+					$file_text	=	str_replace('/*SEPARATOR*/',	'border-bottom: 1px solid '.$this->options['info-color'].';', $file_text );
 					break;
 				}
 			}
 
 			// 付加情報
 			if (isset($this->options['heading']) && $this->options['heading'] == '1') {
-				$added_height	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['height-added'] ) ? $this->options['height-added']  : $this->defaults['height-added']  ) );
+				$added_height	=	intval(preg_replace('/[^0-9]/', '', isset($this->options['added-height'] ) ? $this->options['added-height']  : self::DEFAULTS['added-height']  ) );
 				$heading_height	=	intval( $added_height / 2 );
 				$heading_padding =	intval( $added_height / 4 );
 				$file_text		=	str_replace('/*EX-HEADING*/',	'position: absolute; top: -'.$heading_height.'px; left: 20px; padding: 0 '.$heading_padding.'px; background-color: '.$this->options['ex-border-color'].'; border-radius: 2px;', $file_text );
@@ -620,8 +622,8 @@
 			}
 
 			// アンカーの文字装飾
-			if (isset($this->options['flg-anker']) && $this->options['flg-anker'] == '1') {
-				$file_text = str_replace('/*ANKER*/',			'text-decoration: none !important;', $file_text );
+			if (isset($this->options['flg-anchor']) && $this->options['flg-anchor'] == '1') {
+				$file_text = str_replace('/*ANCHOR*/',			'text-decoration: none !important;', $file_text );
 			}
 
 			// 追加CSS
@@ -640,7 +642,7 @@
 
 			// ファイルの圧縮
 			if	($this->options['flg-compress'] ) {
-				$header		=	'/*'.$this->options['plugin-abbreviation'].$this->options['plugin-version'].'#'.$this->now.'*/';			// プラグイン名追加
+				$header		=	'/*'.self::PLUGIN_ACRONYM.PLUGIN_VERSION.'#'.$this->now.'*/';			// プラグイン名追加
 				$file_text	=	$this->pz_CompressCSS($file_text );																			// CSS圧縮
 				$file_text	=	$file_text.$header;
 			} else {
@@ -651,19 +653,13 @@
 			}
 			
 			// ファイル出力
-			$result			=	file_put_contents($css_path, $file_text);
-			if ($result ) {
-				$message	=	'<div class="notice notice-success is-dismissible"><p><strong>'.__('Succeeded in saving the Stylesheet.', $this->text_domain).'</strong></p></div>';
+			$result_put			=	file_put_contents($css_path, $file_text);
+			if ($result_put ) {
+				$result		=	1;
 			} else {
-				$message	=	'<div class="notice notice-error is-dismissible"><p><strong>'.__('Failed to save Stylesheet.', $this->text_domain).'</strong></p></div>';
+				$result		=	2;
 			}
 		} else {
-			$message		=	'<div class="notice notice-error is-dismissible"><p><strong>'.__('Failed to call the Stylesheet template.', $this->text_domain).'</strong></p></div>';
+			$result			=	3;
 		}
-		if (!$this->suppression ) {
-			echo	$message;
-		}
-		unset($css_temp);
-		unset($file_text);
-		unset($result);
 	}

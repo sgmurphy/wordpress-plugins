@@ -57,17 +57,7 @@
 		dbDelta($sql, true );
 		// フィールドを追加したらエクスポート項目も見直す
 
-		// 未使用となったフィールド
-		//			link_type		INT				UNSIGNED,
-		//			location		VARCHAR(2048)							DEFAULT NULL,
-		//			post_id			INT				UNSIGNED				DEFAULT 0,
-		//			post_date		DATETIME					NOT NULL	DEFAULT '0000-00-00 00:00:00',
-		//			address			VARCHAR(2048)							DEFAULT NULL,
-		//			means			VARCHAR(32)								DEFAULT NULL,
-		//			nexttime		BIGINT			UNSIGNED	NOT NULL	DEFAULT 0,
-		//			regist			DATETIME					NOT NULL	DEFAULT '0000-00-00 00:00:00',
-		//			result_code		INT										DEFAULT -1,
-		//			uptime			BIGINT			UNSIGNED	NOT NULL	DEFAULT 0,
+////////////////////////////////////////////////////////////////////////////////
 
 		// バグデータのメンテナンス（重複URLの削除）
 		$result_datas	=	(array) $wpdb->get_results("SELECT url,id FROM $this->db_name ORDER BY url,id" );
@@ -103,22 +93,13 @@
 			}
 		}
 
-		// 古い項目から新しい項目へ転記（uptime → update_time）
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET update_time = uptime WHERE update_time IS NULL OR update_time = 0" );
-
-		// 古い項目から新しい項目へ転記（result_code → update_result）
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET update_result = result_code , result_code = 0 WHERE result_code > 0 AND ( update_result IS NULL OR update_result = 0 )" );
-
-		// 古い項目から新しい項目へ転記（post_id → use_post_id1）
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET use_post_id1 = post_id , post_id = 0 WHERE (use_post_id1 IS NULL OR use_post_id1 = 0 ) AND post_id > 0" );
-
 		// 文字コードの表記ぶれを修正
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'UTF-8' WHERE charset like 'UTF-8%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'EUC-JP' WHERE charset like 'EUC-JP%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'UTF-8'      WHERE charset like 'UTF-8%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'EUC-JP'     WHERE charset like 'EUC-JP%'" );
 		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'ISO-8859-1' WHERE charset like 'ISO-8859-1%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'JIS' WHERE charset like 'JIS%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Shift_JIS' WHERE charset like 'SJIS%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Shift_JIS' WHERE charset like 'Shift_JIS%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'US-ASCII' WHERE charset like 'US-ASCII%'" );
-		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Unknown' WHERE charset IS NULL" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'JIS'        WHERE charset like 'JIS%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Shift_JIS'  WHERE charset like 'SJIS%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Shift_JIS'  WHERE charset like 'Shift_JIS%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'US-ASCII'   WHERE charset like 'US-ASCII%'" );
+		$result		=	$wpdb->get_results("UPDATE $this->db_name SET charset = 'Unknown'    WHERE charset IS NULL" );
 	}

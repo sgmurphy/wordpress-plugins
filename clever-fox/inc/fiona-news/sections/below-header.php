@@ -20,7 +20,7 @@
 											<?php } ?>	
 											<div class="breakingNewss marquee">
 												<?php
-													$fiona_blog_args = array( 'post_type' => 'post', 'category_name' => $bh_latest_news_cat_id,'posts_per_page' => 4,'post__not_in'=>get_option("sticky_posts"));
+													$fiona_blog_args = array( 'post_type' => 'post', 'category_name' => $bh_latest_news_cat_id,'posts_per_page' => 4,'ignore_sticky_posts' => true );
 													$fiona_blog_wp_query = new WP_Query($fiona_blog_args);
 													if($fiona_blog_wp_query)
 													{	
@@ -47,21 +47,14 @@
 										// $weather = json_decode($json);
 										// $kelvin = $weather->main->temp;
 										// $celcius = $kelvin - 273.15;
-										// $city =  $weather->name;
+										// $city =  $weather->name;										
 										
-										
-										$ch = curl_init();
-
-										curl_setopt($ch, CURLOPT_HEADER, 0);
-										curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-										curl_setopt($ch, CURLOPT_URL, $bh_temp_api);
-										curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-										curl_setopt($ch, CURLOPT_VERBOSE, 0);
-										curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-										$response = curl_exec($ch);
-
-										curl_close($ch);
-										$weather = json_decode($response);
+										$response = wp_remote_get( $bh_temp_api, array(
+											'sslverify' => false,
+										) );
+										if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) :
+										$body = wp_remote_retrieve_body( $response );
+										$weather = json_decode($body);
 										$currentTime = time();
 										if(!empty($weather->main->temp) && !empty($weather->name)){
 											$kelvin = $weather->main->temp;
@@ -74,14 +67,17 @@
 											<span class="weather-current-temp"> <?php echo esc_html(substr($celcius,0,3)); ?> <sup>℃</sup> </span>
 										</div>
 									<?php
-										}else{ echo __('Please Enter Valid API Key','clever-fox'); }
+										}else{ echo esc_html__('Please Enter Valid API Key','clever-fox');}
+										else :
+											echo esc_html__( 'Failed to fetch weather data', 'clever-fox' );
+										endif;
 										}
 										$bh_date_hs	= get_theme_mod('bh_date_hs','1');
 										if($bh_date_hs =='1'){
 									?>
 										<div class="trending-date">
-											<?php  echo '<span class="t-day">'. date_i18n('j', 	strtotime(current_time("d"))).'</span>';
-											echo '<span class="t-all">'. date_i18n('M Y', strtotime(current_time("Y-m"))).'</span>';
+											<?php  echo '<span class="t-day">'. esc_html(date_i18n('j', 	strtotime(current_time("d"))) ).'</span>';
+											echo '<span class="t-all">'. esc_html(date_i18n('M Y', strtotime(current_time("Y-m"))) ).'</span>';
 											?>
 										</div>
 									<?php } ?>

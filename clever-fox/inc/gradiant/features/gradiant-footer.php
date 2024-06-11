@@ -63,22 +63,22 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 				$theme = wp_get_theme(); // gets the current theme	
 				if ( 'Comoxa' == $theme->name){
 			?>
-				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/comoxa-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/comoxa-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif('ColorPress' == $theme->name){ ?>	
 			
-				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/colorpress-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/colorpress-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif('Flavita' == $theme->name){ ?>
 			
-				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/flavita-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/flavita-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }elseif('Colorsy' == $theme->name){ ?>
 			
-				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/colorsy-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>	
+				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/colorsy-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>	
 				
 			<?php }else{ ?>		
-				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/gradiant-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_footer_above_upgrade_section up-to-pro" href="https://www.nayrathemes.com/gradiant-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			<?php
 			}}
 		}

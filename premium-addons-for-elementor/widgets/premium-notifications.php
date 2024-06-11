@@ -3575,7 +3575,7 @@ class Premium_Notifications extends Widget_Base {
 				$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' );
 			}
 
-			if ( ! empty( $settings['image_with_no_posts']['url'] ) ) {
+			if ( 'yes' === $settings['add_icon_with_no_posts'] && ! empty( $settings['image_with_no_posts']['url'] ) ) {
 				$image_html_with_no_post = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image_with_no_posts' );
 			}
 		}
@@ -3749,7 +3749,7 @@ class Premium_Notifications extends Widget_Base {
 
 				<?php endif; ?>
 
-				<?php if ( 'image' === $icon_type ) : ?>
+				<?php if ( 'yes' === $settings['add_icon_with_no_posts'] && 'image' === $icon_type ) : ?>
 					<?php echo wp_kses_post( $image_html_with_no_post ); ?>
 
 				<?php else : ?>

@@ -1,12 +1,11 @@
 <?php defined('ABSPATH' ) || wp_die; ?>
 <?php
 	// 開発環境のチェック
-	//$develop_url	=	'https://application.secret.jp/develop/';
-	$develop_url	=	'https://popozure.xsrv.jp/develop/';
+	$develop_url	=	self::AUTHOR_DEBUG_URL;
 	if	(isset($this->home_url ) && (mb_substr($this->home_url.'/', 0, mb_strlen($develop_url ) ) == $develop_url ) ) {
-		$this->options['develop-mode']	=	true;
+		$this->options['develop-mode']	=	1;
 	} else {
-		$this->options['develop-mode']	=	false;
+		$this->options['develop-mode']	=	0;
 	}
 
 	// ログのディレクトリの用意
@@ -58,10 +57,10 @@
 	// ユーザーエージェントの設定
 	$crawler	=	'Pz-LinkCard-Crawler/';
 	if	(!$this->options['user-agent'] || mb_substr($this->options['user-agent'], 0, mb_strlen($crawler ) ) == $crawler ) {
-		$this->options['user-agent']	=	$crawler.$this->defaults['plugin-version'];
+		$this->options['user-agent']	=	$crawler.PLUGIN_VERSION;
 	}
 
 	// 管理者モード解除
 	if ($this->options['admin-mode'] && !$this->options['debug-mode'] ) {
-		$this->options['admin-mode']	=	false;
+		$this->options['admin-mode']	=	0;
 	}

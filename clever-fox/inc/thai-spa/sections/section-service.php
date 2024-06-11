@@ -3,7 +3,7 @@ if ( ! function_exists( 'hantus_lite_service' ) ) :
 	function hantus_lite_service() {
 		 function hantus_get_service_default() {
 			return apply_filters(
-				'hantus_get_service_default', json_encode(
+				'hantus_get_service_default', wp_json_encode(
 						 array(
 						array(
 							'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/hantus/images/service/service01.png',
@@ -64,9 +64,9 @@ if ( ! function_exists( 'hantus_lite_service' ) ) :
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-12 text-center">
                     <div class="section-title service-section">
-                        <h2><?php echo $service_title; ?></h2>
+                        <h2><?php /* translators: %s: Title */printf( esc_html__('%s.', 'clever-fox'), esc_html($service_title)); ?></h2>
                         <!-- <hr style="background: url('<?php //echo get_template_directory_uri(); ?>/assets/images/section-icon.png') no-repeat center / cover;"> -->
-                        <p><?php echo $service_description; ?></p>
+                        <p><?php /* translators: %s: Description */printf( esc_html__('%s.', 'clever-fox'), esc_html($service_description)); ?></p>
                     </div>
                 </div>
             </div>

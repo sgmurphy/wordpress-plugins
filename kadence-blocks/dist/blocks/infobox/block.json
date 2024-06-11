@@ -277,7 +277,9 @@
             "",
             ""
           ],
-          "marginControl": "individual"
+          "marginControl": "individual",
+          "paddingUnit": "px",
+          "marginUnit": "px"
         }
       ]
     },

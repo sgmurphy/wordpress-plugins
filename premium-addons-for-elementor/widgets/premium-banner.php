@@ -1645,9 +1645,18 @@ class Premium_Banner extends Widget_Base {
 
 						btnClass = 'premium-button-' + settings.premium_button_hover_effect + ' ' + btnClass;
 
+                        view.addRenderAttribute( 'button', {
+                            'class': [
+                                'premium-banner-link',
+                                btnClass,
+                            ],
+                            'href': bannerUrl,
+                            'data-text': readMore,
+                        });
+
 					#>
 						<div class="premium-banner-read-more">
-							<a class="premium-banner-link {{ btnClass }}" href="{{ bannerUrl }}" data-text="{{ readMore }}">
+                            <a {{{ view.getRenderAttributeString('button') }}}>
 								<div class="premium-button-text-icon-wrapper">
 									<span>{{{ readMore }}}</span>
 								</div>
@@ -1667,8 +1676,15 @@ class Premium_Banner extends Widget_Base {
 					</div>
 					<# } #>
 				</div>
-				<# if( 'yes' === settings.premium_banner_link_url_switch  && ( '' !== settings.premium_banner_image_custom_link.url || '' !== settings.premium_banner_image_existing_page_link ) ) { #>
-					<a class="premium-banner-ib-link" href="{{ bannerLink }}"></a>
+				<# if( 'yes' === settings.premium_banner_link_url_switch  && ( '' !== settings.premium_banner_image_custom_link.url || '' !== settings.premium_banner_image_existing_page_link ) ) {
+
+                        view.addRenderAttribute( 'banner_link', {
+                            'class':  'premium-banner-ib-link',
+                            'href': bannerLink,
+                        });
+
+                #>
+                    <a {{{ view.getRenderAttributeString('banner_link') }}}></a>
 				<# } #>
 			</div>
 			<# if( 'yes' === settings.premium_banner_responsive_switcher ) { #>

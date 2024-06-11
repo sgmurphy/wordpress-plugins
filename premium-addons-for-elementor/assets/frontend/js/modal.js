@@ -122,9 +122,10 @@ if ("undefined" == typeof jQuery) throw new Error("Bootstrap's JavaScript requir
             o.is("a") && e.preventDefault(), a.one("show.bs.modal", function (e) {
 
                 //Resize screen to refresh masonry layouts.
-                setTimeout(function () {
-                    window.dispatchEvent(new Event('resize'));
-                }, 500);
+                if (a.find('.premium-img-gallery').length > 0)
+                    setTimeout(function () {
+                        window.dispatchEvent(new Event('resize'));
+                    }, 500);
 
                 var iFrames = a.find(".soundcloud-iframe");
                 a.find(".soundcloud-iframe").remove();

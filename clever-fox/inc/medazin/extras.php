@@ -5,7 +5,7 @@
  */
  function medazin_get_info_default() {
 	return apply_filters(
-		'medazin_get_info_default', json_encode(
+		'medazin_get_info_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Stethoscope', 'clever-fox' ),
@@ -49,7 +49,7 @@
  */
 function medazin_get_service_default() {
 	return apply_filters(
-		'medazin_get_service_default', json_encode(
+		'medazin_get_service_default', wp_json_encode(
 			array(
 				array(
 					'icon_value'   => 'fa-brain',	
@@ -94,7 +94,7 @@ function medazin_get_service_default() {
  */
  function medazin_get_testimonial_default() {
 	return apply_filters(
-		'medazin_get_testimonial_default', json_encode(
+		'medazin_get_testimonial_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'      => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/medazin/images/testimonial/testimonial-img1.jpg'),
@@ -130,7 +130,7 @@ function medazin_get_service_default() {
 // meadzin features
 function medazin_get_features_default() {
 	return apply_filters(
-		'medazin_get_features_default', json_encode(
+		'medazin_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'        => 'fa-brain',	
@@ -202,7 +202,7 @@ function medazin_get_features_default() {
 
 function medazin_get_process_default() {
 	return apply_filters(
-		'medazin_get_process_default', json_encode(
+		'medazin_get_process_default', wp_json_encode(
 			array(
 				array(
 					'title'           => esc_html__( 'Emergency case', 'clever-fox' ),
@@ -232,7 +232,7 @@ function medazin_get_process_default() {
  */
  function medazin_get_team_default() {
 	return apply_filters(
-		'medazin_get_team_default', json_encode(
+		'medazin_get_team_default', wp_json_encode(
 			array(
 				array(
 					'image_url'       => esc_url(CLEVERFOX_PLUGIN_URL . 'inc/medazin/images/team/img1.jpg'),
@@ -241,7 +241,7 @@ function medazin_get_process_default() {
 					'subtitle2'        => esc_html__( '50','clever-fox' ),
 					'subtitle3'        => esc_html__( 'Consultation Done','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0001',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_001',
@@ -278,7 +278,7 @@ function medazin_get_process_default() {
 					'subtitle2'        => esc_html__( '50','clever-fox' ),
 					'subtitle3'        => esc_html__( 'Consultation Done','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0002',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0011',
@@ -315,7 +315,7 @@ function medazin_get_process_default() {
 					'subtitle2'        => esc_html__( '50','clever-fox' ),
 					'subtitle3'        => esc_html__( 'Consultation Done','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0003',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0021',
@@ -352,7 +352,7 @@ function medazin_get_process_default() {
 					'subtitle2'        => esc_html__( '50','clever-fox' ),
 					'subtitle3'        => esc_html__( 'Consultation Done','clever-fox' ),
 					'id'              => 'customizer_repeater_team_0004',
-					'social_repeater' => json_encode(
+					'social_repeater' => wp_json_encode(
 						array(
 							array(
 								'id'   => 'customizer-repeater-social-repeater-team_0031',

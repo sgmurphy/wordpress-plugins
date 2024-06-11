@@ -61,7 +61,7 @@ class Woo_Cat_Page extends Condition {
 
 		$category = get_queried_object();
 
-		$taxonomy = ! isset( $category->taxonomy ) || ! isset( $category->term_id ) || 'product_cat' !== $category->taxonomy;
+		$taxonomy = ! isset( $category->taxonomy ) || ! isset( $category->term_id ) || ( 'product_cat' !== $category->taxonomy && 'yith_product_brand' !== $category->taxonomy );
 
 		if ( $taxonomy ) {
 			return true;

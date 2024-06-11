@@ -915,6 +915,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Hide FB page cover photo
         $hide_fb_page_cover_photo = (isset($data['ays_pb_hide_fb_page_cover_photo']) && $data['ays_pb_hide_fb_page_cover_photo'] == 'on') ? 'on' : 'off';
 
+        // Use small FB header
+        $use_small_fb_header = (isset($data['ays_pb_use_small_fb_header']) && $data['ays_pb_use_small_fb_header'] == 'on') ? 'on' : 'off';
+
         // Notification type active columns
         $notification_type_components = (isset($data['ays_notification_type_components']) && !empty($data['ays_notification_type_components'])) ? array_map('sanitize_text_field', $data['ays_notification_type_components']) : array();
 
@@ -1248,6 +1251,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'image_type_img_redirect_url' => $image_type_img_redirect_url,
             'facebook_page_url' => $facebook_page_url,
             'hide_fb_page_cover_photo' => $hide_fb_page_cover_photo,
+            'use_small_fb_header' => $use_small_fb_header,
             'notification_type_components' => $notification_type_components,
             'notification_type_components_order' => $notification_type_components_order,
             'notification_main_content' => $notification_main_content,

@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Aruba HiSpeed Cache
- * Version:           2.0.10
+ * Version:           2.0.11
  * Plugin URI:        https://hosting.aruba.it/wordpress.aspx
  *
  * @phpcs:ignore Generic.Files.LineLength.TooLong

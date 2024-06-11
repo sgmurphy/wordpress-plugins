@@ -4,10 +4,11 @@ Tags: spintech
 Requires at least: 4.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 6.9
+Stable tag: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
+This plugin creates the additional sections on the home page in burger themes
 
 == Description ==
 
@@ -30,6 +31,9 @@ Burger Companion WordPress plugin is licensed under the GPL3 (https://www.gnu.or
 
 
 == Changelog ==
+
+= 7.0 =
+* Plugin short description added
 
 = 6.9 =
 * Maxtech Theme Files Add

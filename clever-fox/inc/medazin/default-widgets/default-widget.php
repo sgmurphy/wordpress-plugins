@@ -32,8 +32,7 @@ $activate = array(
 						</a>
 					</div>
 					<div class="footer-content ">
-						<p>'.sprintf(__('%s','clever-fox'),CLEVERFOX_FOOTER_ABOUT).'
-						</p>
+						<p>'.sprintf(/* translators: %s: Description */esc_html__( '%s.', 'clever-fox' ),CLEVERFOX_FOOTER_ABOUT).'</p>
 					</div>
 				</div>
 			</aside>

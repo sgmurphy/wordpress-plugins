@@ -189,11 +189,11 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			$theme = wp_get_theme(); // gets the current theme
 				if ( 'Arbuda' == $theme->name){
 			?>
-				<a class="customizer_amenities_upgrade_section up-to-pro" href="https://www.nayrathemes.com/arbuda-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_amenities_upgrade_section up-to-pro" href="https://www.nayrathemes.com/arbuda-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php }else{ ?>	
 				
-				<a class="customizer_amenities_upgrade_section up-to-pro" href="https://www.nayrathemes.com/aravalli-pro/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+				<a class="customizer_amenities_upgrade_section up-to-pro" href="https://www.nayrathemes.com/aravalli-pro/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 				
 			<?php
 			}}

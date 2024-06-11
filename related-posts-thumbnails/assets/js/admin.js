@@ -31,6 +31,36 @@
             }
         });
 
+		// Function to copy text inside an element to the clipboard @since 3.0.3
+		function rptCopyToClipboard(element) {
+			// Create a temporary input element
+			var $temp = $("<input>");
+			// Append the input element to the body
+			$("body").append($temp);
+			// Set the value of the input element to the text content of the provided element
+			$temp.val($(element).text()).select();
+			// Execute the copy command
+			document.execCommand("copy");
+			// Remove the temporary input element
+			$temp.remove();
+		}
+
+		// Event listener for click on code elements within .rpth-discription @since 3.0.3
+		$('.rpth-discription code').on('click', function (e) {
+			// Prevent propagation of the event to parent elements
+			e.stopImmediatePropagation();
+			e.stopPropagation();
+			// Call the rptCopyToClipboard function passing the clicked code element
+			rptCopyToClipboard($(this));
+			// Add a tooltip indicating that the text has been copied
+			$(this).attr('data-tooltip', 'Copied');
+			// Remove the tooltip after 2 seconds
+			setTimeout(() => {
+				$(this).removeAttr('data-tooltip');
+			}, 2000);
+			// Prevent the default action of the click event
+			return false;
+		});
 
 
         // Settings Tabs

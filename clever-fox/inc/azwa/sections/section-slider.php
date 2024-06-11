@@ -42,10 +42,10 @@ if($hide_show_slider == '1') { ?>
 			<?php endif; ?>
                 <div class="container">
                 	<?php if ( ! empty( $image2 ) ) : ?>
-                	<div class="row theme-content text-<?php echo $align; ?>">
+                	<div class="row theme-content text-<?php echo esc_html($align); ?>">
                     	<div class="col-md-7 col-8 my-auto">
                     <?php else : ?>
-                    <div class="theme-content text-<?php echo $align; ?>">
+                    <div class="theme-content text-<?php echo esc_attr($align); ?>">
                     	<?php endif; ?>
 							<?php if ( ! empty( $title ) ) : ?>
 	                            <h1><?php echo esc_html( $title ); ?><br><span class="typewrite" data-period="2000" data-type='[ "<?php echo esc_attr( $subtitle ); ?>"]'></span><span class="wrap"></span></h1>

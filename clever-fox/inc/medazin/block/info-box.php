@@ -33,7 +33,7 @@ add_action( 'enqueue_block_assets', 'medazin_enqueue_block_assets' );
 function medazin_register() {
     // Resister script in editor
 	 wp_register_script( 'medazin_editor_script', CLEVERFOX_PLUGIN_URL . '/inc/medazin/block/dist/editor.js', array( 'wp-blob', 'wp-block-editor', 'wp-blocks', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-html-entities', 'wp-i18n', 'wp-rich-text', 'font-awesome-kit' ), '1.0', false ); 
-    wp_register_style( 'medazin_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/medazin/block/dist/editor.css', array( 'wp-edit-blocks'), null );
+    wp_register_style( 'medazin_editor_style', CLEVERFOX_PLUGIN_URL . '/inc/medazin/block/dist/editor.css', array( 'wp-edit-blocks'), '0.0' );
 
     // Register Blocks
     medazin_wp_register_script( 'infos', array( 'render_callback' => 'render_medazin_infos' ) );

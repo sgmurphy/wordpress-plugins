@@ -46,7 +46,7 @@ class CCBFrontController {
 		$calculators = CCBUpdatesCallbacks::get_calculators();
 
 		wp_enqueue_style( 'ccb-sticky-css', CALC_URL . '/frontend/dist/css/sticky.css', array(), CALC_VERSION );
-		wp_enqueue_style( 'ccb-bootstrap-css', CALC_URL . '/frontend/dist/css/bootstrap.min.css', array(), CALC_VERSION );
+		wp_enqueue_style( 'ccb-bootstrap-css', CALC_URL . '/frontend/dist/css/modal.bootstrap.css', array(), CALC_VERSION );
 		wp_enqueue_script( 'ccb-bootstrap-js', CALC_URL . '/frontend/dist/libs/bootstrap.min.js', array(), CALC_VERSION, true );
 		wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );
 		wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );

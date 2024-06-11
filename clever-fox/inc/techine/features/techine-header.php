@@ -76,7 +76,6 @@ function techine_lite_header_setting( $wp_customize ){
 		array(
 		    'label'   		=> __('Title','clever-fox'),
 		    'section' 		=> 'header_contact',
-			'description'   => __( '', 'clever-fox' ),
 			'type'		 =>	'textarea'
 		)  
 	);

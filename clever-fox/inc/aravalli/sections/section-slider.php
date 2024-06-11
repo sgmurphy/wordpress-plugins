@@ -28,15 +28,15 @@
 							<div class="theme-content text-<?php echo esc_attr($align); ?>">
 								               
 								<?php if ( ! empty( $aravalli_slide_title )) : ?>
-									<h1 data-animation="fadeInLeft" data-delay="200ms"><?php printf(__('%s','clever-fox'),  $aravalli_slide_title ); ?></h1>
+									<h1 data-animation="fadeInLeft" data-delay="200ms"><?php echo esc_html($aravalli_slide_title ); ?></h1>
 								<?php endif; ?>	
 								
 								<?php if ( ! empty( $text ) ) : ?>
-									<p data-animation="fadeInLeft" data-delay="500ms"><?php printf(__('%s','clever-fox'), $text ); ?></p>
+									<p data-animation="fadeInLeft" data-delay="500ms"><?php echo esc_html($text ); ?></p>
 								<?php endif; ?>
 												
 								<?php if ( ! empty( $button ) ) : ?>				
-									<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" class="btn-shape btn-line-primary"><?php printf(__('%s','clever-fox'),  $button ); ?></a>
+									<a data-animation="fadeInUp" data-delay="800ms" href="<?php echo esc_url( $link ); ?>" class="btn-shape btn-line-primary"><?php echo esc_html($button ); ?></a>
 								<?php endif; ?>
 								
 							</div>

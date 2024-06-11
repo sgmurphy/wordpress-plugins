@@ -1326,5 +1326,89 @@
 	}
 }
 
+.description.rpth-discription code {
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #1D2129;
+	margin-top: 0;
+	display: inline-block;
+	font-family: 'Jost', sans-serif;
+	padding: 8px;
+	margin-bottom: 5px;
+	border-radius: 10px;
+	background-color: #deeffc;
+	border: 1px solid #2471b1;
+	position: relative;
+}
+[data-message] {
+	position: relative;
+}
+
+[data-message]:before {
+	content: attr(data-message);
+	position: absolute;
+	right: 0;
+	bottom: 100%;
+	background: #2471b1;
+	color: #fff;
+	padding: 2px 5px 3px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+
+[data-message]:after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	border-top: 4px solid #2471b1;
+	border-bottom: 0;
+	position: absolute;
+	bottom: 100%;
+	right: 20px;
+	margin-bottom: 6px;
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+[data-message]:hover:after,
+[data-message]:hover::before{
+	opacity: 1;
+}
+[data-tooltip] {
+	position: relative;
+}
+
+[data-tooltip]:before {
+	content: attr(data-tooltip);
+	position: absolute;
+	right: 0;
+	bottom: 100%;
+	background: #2471b1;
+	color: #fff;
+	padding: 2px 5px 3px;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
+[data-tooltip]:after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	border-top: 4px solid #2471b1;
+	border-bottom: 0;
+	position: absolute;
+	bottom: 100%;
+	right: 20px;
+	margin-bottom: 6px;
+}
+
 /* RPT 3.0 Styling Ends
    ========================================================================== */

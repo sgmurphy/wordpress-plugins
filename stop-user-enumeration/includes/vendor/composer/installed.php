@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'reference' => 'b5d2aa653328449111749890ffbec15cda65004c',
+        'reference' => 'fd56cf88e14a72aa81eee62941330c1f7d156d0b',
         'name' => 'fullworks/stop-user-enumeration',
         'dev' => true,
     ),
@@ -25,7 +25,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
-            'reference' => 'b5d2aa653328449111749890ffbec15cda65004c',
+            'reference' => 'fd56cf88e14a72aa81eee62941330c1f7d156d0b',
             'dev_requirement' => false,
         ),
         'shama/baton' => array(

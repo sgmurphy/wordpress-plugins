@@ -49,6 +49,7 @@ $options = array(
     'image_type_img_redirect_url' => '',
     'facebook_page_url' => 'https://www.facebook.com/wordpress',
     'hide_fb_page_cover_photo' => 'off',
+    'use_small_fb_header' => 'on',
     'notification_type_components' => array(),
     'notification_type_components_order' => array(),
     'notification_main_content' => 'Write the custom notification banner text here.',
@@ -359,6 +360,9 @@ $facebook_page_url = (isset($options['facebook_page_url']) && $options['facebook
 
 // Facebook type | Hide FB page cover photo
 $hide_fb_page_cover_photo = (isset($options['hide_fb_page_cover_photo']) && $options['hide_fb_page_cover_photo'] == 'on') ? true : false;
+
+// Facebook type | Use small FB header
+$use_small_fb_header = (isset($options['use_small_fb_header']) && $options['use_small_fb_header'] == 'on') ? true : false;
 
 // Notification type | Components, Components order
 $options['notification_type_components'] = (isset($options['notification_type_components']) && !empty($options['notification_type_components']))  ? $options['notification_type_components'] : $default_notification_type_components;
@@ -1637,7 +1641,7 @@ $ays_users_roles = $wp_roles->roles;
                     <div class="col-sm-3">
                         <label for="ays_pb_hide_fb_page_cover_photo">
                             <?php  echo __('Hide FB page cover photo', "ays-popup-box" ) ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Select this option if you want to hide the cover photo of your Facebook page when it is displayed in the PopupBox.", "ays-popup-box"); ?>" >
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Select this option if you want to hide the cover photo of your Facebook page when it is displayed in the popup.", "ays-popup-box"); ?>" >
                                 <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                             </a>
                         </label>
@@ -1647,6 +1651,22 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <!-- Hide Facebook page cover photo end -->
+                <hr class="ays_facebook_hr <?php echo $modal_content == 'facebook_type' ? '' : 'display_none'; ?>">
+                <!-- Use small FB header start -->
+                <div class="form-group row ays_facebook_type_option <?php echo $modal_content == 'facebook_type' ? '' : 'display_none'; ?>">
+                    <div class="col-sm-3">
+                        <label for="ays_pb_use_small_fb_header">
+                            <?php  echo __('Use small header', "ays-popup-box" ) ?>
+                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Select this option if you want to use a smaller header for your Facebook page when it is displayed in the popup.", "ays-popup-box"); ?>" >
+                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="checkbox" name="ays_pb_use_small_fb_header" id="ays_pb_use_small_fb_header" value="on" <?php echo $use_small_fb_header ? 'checked' : ''; ?> />
+                    </div>
+                </div>
+                <!-- Use small FB header end -->
                 <hr class="ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                 <div class="form-group row ays-field ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>" id="ays-popup-box-description">
                     <div class="col-sm-3">
@@ -3195,7 +3215,7 @@ $ays_users_roles = $wp_roles->roles;
                             </a>
                         </label>
                     </div>
-                    <div class="col-sm-9 row ays_toggle_parent">
+                    <div class="col-sm-9 row ays_toggle_parent ays_pb_enable_dismiss_ad_box">
                         <div class="col-sm-3">
                             <input type="checkbox" name="ays_pb_enable_dismiss" class="ays_toggle_checkbox ays-pb-onoffswitch-checkbox" id="ays_pb_enable_dismiss" <?php echo ($enable_dismiss) ? 'checked' : ''; ?> />
                         </div>
@@ -6611,8 +6631,8 @@ $ays_users_roles = $wp_roles->roles;
                                         </div>
                                     </div>
                                 </label>
-                                <label for="<?php echo $this->plugin_name; ?>-modal_content_facebook" class='ays-pb-dblclick-layer'>
-                                    <input id="<?php echo $this->plugin_name; ?>-modal_content_facebook" type="radio" name="<?php echo $this->plugin_name; ?>[modal_content]" class="ays-pb-content-type" value="facebook_type" <?php echo $modal_content == 'facebook_type' ? 'checked' : ''; ?>>
+                                <label for="<?php echo $this->plugin_name; ?>-modal_content_facebook_type" class='ays-pb-dblclick-layer'>
+                                    <input id="<?php echo $this->plugin_name; ?>-modal_content_facebook_type" type="radio" name="<?php echo $this->plugin_name; ?>[modal_content]" class="ays-pb-content-type" value="facebook_type" <?php echo $modal_content == 'facebook_type' ? 'checked' : ''; ?>>
                                     <div class="ays_pb_layer_item">
                                         <div class="ays_pb_layer_item_logo">
                                             <div class="ays_pb_layer_item_logo_overlay">
@@ -6952,7 +6972,7 @@ $ays_users_roles = $wp_roles->roles;
                     <label>
                         <div class="ays_pb_layer_item">
                             <?php echo  __('Facebook', "ays-popup-box") ?>
-                            <input id="<?php echo $this->plugin_name; ?>-modal_content_image_type" type="radio" name="<?php echo $this->plugin_name; ?>[modal_content]" value="facebook_type" <?php echo ($modal_content == 'facebook_type') ? 'checked' : ''; ?>>
+                            <input id="<?php echo $this->plugin_name; ?>-modal_content_facebook_type" type="radio" name="<?php echo $this->plugin_name; ?>[modal_content]" value="facebook_type" <?php echo ($modal_content == 'facebook_type') ? 'checked' : ''; ?>>
                         </div>
                     </label>
                     <label>

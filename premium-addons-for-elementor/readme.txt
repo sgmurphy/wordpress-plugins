@@ -3,9 +3,9 @@ Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.5.3
+Tested Up To: 6.5.4
 Requires PHP: 7.0
-Stable Tag: 4.10.33
+Stable Tag: 4.10.34
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -234,6 +234,14 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.34 =
+
+- Tweak: Code refactored for better performance and security.
+- Tweak: Improved compatibility between WooCommerce Category display condition and YITH plugin.
+- Fixed: TikTok Feed widget not showing videos.
+- Fixed: Conflict between Modal Box and Elementor masonry layout.
+- Fixed: PHP warning in Recent Posts Notification widget.
 
 = 4.10.33 =
 

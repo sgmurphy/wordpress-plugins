@@ -35,7 +35,6 @@ function rbs_gallery_group_metabox() {
     if( rbs_gallery_is_edit_page('edit') ){
     	rbs_gallery_include( array(
     			'rbs_gallery_options_shortcode.php',
-    			'rbs_gallery_options_tools.php',
     		), ROBO_GALLERY_OPTIONS_PATH);
     }
 
@@ -77,9 +76,6 @@ function rbs_gallery_group_metabox() {
 	rbs_gallery_include( array(			
 	    	'rbs_gallery_options_css.php',
 		 ), ROBO_GALLERY_OPTIONS_PATH);
-	
-     
-	if( rbs_gallery_is_edit_page('edit') ) rbs_gallery_include('rbs_create_post.php', ROBO_GALLERY_EXTENSIONS_PATH);
 
 }
 add_action( 'cmbre2_init', 'rbs_gallery_group_metabox' );

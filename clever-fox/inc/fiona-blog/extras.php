@@ -5,7 +5,7 @@
  */
 function fiona_blog_get_social_icon_default() {
 	return apply_filters(
-		'fiona_blog_get_social_icon_default', json_encode(
+		'fiona_blog_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),

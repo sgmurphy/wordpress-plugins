@@ -293,6 +293,7 @@ class Themify_Conditional_Menus {
 					} else {
 						foreach( $logic['tax'] as $tax => $terms ) {
 							$terms = array_keys( $terms );
+							self::update_non_ascii_slugs( $terms );
 							if( ( $tax === 'category' && is_category( $terms ) )
 								|| ( $tax === 'post_tag' && is_tag( $terms ) )
 								|| ( is_tax( $tax, $terms ) )
@@ -307,6 +308,7 @@ class Themify_Conditional_Menus {
 
 					foreach( $logic['post_type'] as $post_type => $posts ) {
 						$posts = array_keys( $posts );
+						self::update_non_ascii_slugs( $posts );
 
 						if (
 							// Post single
@@ -572,5 +574,16 @@ class Themify_Conditional_Menus {
 		wp_enqueue_style($handle,$src,$deps,$ver,$media);
 	    }
 	}
+
+    private static function update_non_ascii_slugs(array &$array ) {
+        if(function_exists('mb_check_encoding')){
+            foreach ( $array as &$value ) {
+                if ( isset($value) && ! mb_check_encoding( $value, 'ASCII' ) ) {
+                    /* revert "/" character, needed to check for nested posts */
+                    $value= str_replace( '%2f', '/', strtolower( urlencode( $value ) ));
+                }
+            }
+        }
+    }
 }
 $themify_cm = new Themify_Conditional_Menus;

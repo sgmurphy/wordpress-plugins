@@ -5,7 +5,7 @@
  */
 function metasoft_get_social_icon_default() {
 	return apply_filters(
-		'metasoft_get_social_icon_default', json_encode(
+		'metasoft_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -38,7 +38,7 @@ function metasoft_get_social_icon_default() {
  */
  function metasoft_get_slider_default() {
 	return apply_filters(
-		'metasoft_get_slider_default', json_encode(
+		'metasoft_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL .'inc/metasoft/images/slider/slider01.jpg',
@@ -82,7 +82,7 @@ function metasoft_get_social_icon_default() {
  */
  function metasoft_get_info_default() {
 	return apply_filters(
-		'metasoft_get_info_default', json_encode(
+		'metasoft_get_info_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Consulting', 'clever-fox' ),
@@ -124,7 +124,7 @@ function metasoft_get_social_icon_default() {
  */
  function metasoft_get_service_default() {
 	return apply_filters(
-		'metasoft_get_service_default', json_encode(
+		'metasoft_get_service_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Professional Consulting', 'clever-fox' ),
@@ -158,7 +158,7 @@ function metasoft_get_social_icon_default() {
  */
  function metasoft_get_expertise_default() {
 	return apply_filters(
-		'metasoft_get_expertise_default', json_encode(
+		'metasoft_get_expertise_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Strategy & Growth', 'clever-fox' ),

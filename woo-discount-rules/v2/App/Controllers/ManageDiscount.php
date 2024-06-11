@@ -335,7 +335,7 @@ class ManageDiscount extends Base
                         $discounted_price_with_tax_call = $calculator->mayHaveTax($product, $discounted_price);
                     }
                     $price_html = $this->getStrikeoutPrice($initial_price_with_tax_call, $discounted_price_with_tax_call, true, false, $initial_price_html);
-                    $price_html = $price_html.Woocommerce::getProductPriceSuffix($product, $discounted_price_with_tax_call, $prices);
+                    $price_html = $price_html.Woocommerce::getProductPriceSuffix($product, $discounted_price, $prices);
                 }
 
             }
@@ -2068,6 +2068,8 @@ class ManageDiscount extends Base
                         $rule_type = 'buy_x_get_y_cheapest_from_products_discount';
                     } elseif (isset($details['buy_x_get_y_cheapest_from_categories_discount'])) {
                         $rule_type = 'buy_x_get_y_cheapest_from_categories_discount';
+                    } elseif (isset($details['buy_x_get_y_cheapest_from_collections_discount'])) {
+                        $rule_type = 'buy_x_get_y_cheapest_from_collections_discount';
                     }
                 }
                 if (isset($details[$rule_type])) {

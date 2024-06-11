@@ -105,7 +105,7 @@ add_action( 'renoval_abv_hdr_contact_info', 'renoval_abv_hdr_contact_info' );
  */
 function renoval_get_social_icon_default() {
 	return apply_filters(
-		'renoval_get_social_icon_default', json_encode(
+		'renoval_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -143,7 +143,7 @@ function renoval_get_social_icon_default() {
  */
  function renoval_get_footer_above_default() {
 	return apply_filters(
-		'renoval_get_footer_above_default', json_encode(
+		'renoval_get_footer_above_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'       => 'fa-clock-o',
@@ -182,7 +182,7 @@ function renoval_get_social_icon_default() {
  */
  function renoval_get_slider_default() {
 	return apply_filters(
-		'renoval_get_slider_default', json_encode(
+		'renoval_get_slider_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       	=> CLEVERFOX_PLUGIN_URL . 'inc/renoval/images/slider/slider-1.jpg',
@@ -213,7 +213,7 @@ function renoval_get_social_icon_default() {
  */
  function renoval_get_slider_info_default() {
 	return apply_filters(
-		'renoval_get_slider_info_default', json_encode(
+		'renoval_get_slider_info_default', wp_json_encode(
 			array(
 				array(
 					'title'          => esc_html__( 'Consulting', 'clever-fox' ),
@@ -255,7 +255,7 @@ function renoval_get_social_icon_default() {
  */
 function renoval_get_service_default() {
 	return apply_filters(
-		'renoval_get_service_default', json_encode(
+		'renoval_get_service_default', wp_json_encode(
 			array(
 				array(
 					'icon_value'   => 'fa-university',	
@@ -300,7 +300,7 @@ function renoval_get_service_default() {
  */
  function renoval_get_icon_menu_default() {
 	return apply_filters(
-		'gradiant_get_icon_menu_default', json_encode(
+		'gradiant_get_icon_menu_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Commercial', 'clever-fox' ),
@@ -325,7 +325,7 @@ function renoval_get_service_default() {
  */
 function renoval_get_client_default() {
 	return apply_filters(
-		'renoval_get_client_default', json_encode(
+		'renoval_get_client_default', wp_json_encode(
 			array(
 				array(
 					'image_url'     => CLEVERFOX_PLUGIN_URL . 'inc/renoval/images/sponsor/sponsor-1.png',

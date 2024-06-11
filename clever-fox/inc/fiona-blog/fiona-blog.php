@@ -21,6 +21,6 @@ if ( ! function_exists( 'cleverfox_fiona_blog_frontpage_sections' ) ) :
 endif;
 
 function cleverfox_fiona_blog_enqueue_scripts() {
-	wp_enqueue_style('animate',CLEVERFOX_PLUGIN_URL .'inc/assets/css/animate.css');
+	wp_enqueue_style('animate',CLEVERFOX_PLUGIN_URL .'inc/assets/css/animate.css','','3.5.2');
 }
 add_action( 'wp_enqueue_scripts', 'cleverfox_fiona_blog_enqueue_scripts' );

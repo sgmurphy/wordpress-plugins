@@ -56,10 +56,10 @@ function startkit_own_theme_typography() {
 =========================================*/
 
 body {
-    font-style:  <?php echo $body_typography_font_weight; ?>!important;
+    font-style:  <?php echo esc_html($body_typography_font_weight); ?>!important;
     font-weight: 400;
 	line-height: 46px;
-    font-size: <?php echo $body_font_size; ?>px!important;
+    font-size: <?php echo esc_html($body_font_size); ?>px!important;
 }
 
 .main-menu ul li a {
@@ -68,20 +68,20 @@ body {
     -webkit-transition: .3s;
     transition: .3s;
     display: block;
-    font-size: <?php echo $menu_font_size; ?>px!important;
+    font-size: <?php echo esc_html($menu_font_size); ?>px!important;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
-	font-style: <?php echo $menu_font_weight; ?>!important;
-	text-transform: <?php echo $menu_text_transform; ?>!important;
+	font-style: <?php echo esc_html($menu_font_weight); ?>!important;
+	text-transform: <?php echo esc_html($menu_text_transform); ?>!important;
 }
 
 h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
-	line-height: <?php echo $h1_line_height; ?>px;
-	font-size: <?php echo $h1_font_size; ?>px;
-	text-transform: <?php echo $h1_text_transform; ?>;
-	font-style: <?php echo $h1_font_weight; ?>;
+	line-height: <?php echo esc_html($h1_line_height); ?>px;
+	font-size: <?php echo esc_html($h1_font_size); ?>px;
+	text-transform: <?php echo esc_html($h1_text_transform); ?>;
+	font-style: <?php echo esc_html($h1_font_weight); ?>;
 }
 
 h1,
@@ -96,11 +96,11 @@ p {
 
 h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: <?php echo $h2_font_size; ?>px;
-    line-height: <?php echo $h2_line_height; ?>px;
+    font-size: <?php echo esc_html($h2_font_size); ?>px;
+    line-height: <?php echo esc_html($h2_line_height); ?>px;
     font-weight: 500;
-	text-transform:   <?php echo $h2_text_transform; ?>;
-	font-style: <?php echo $h2_font_weight; ?>;
+	text-transform:   <?php echo esc_html($h2_text_transform); ?>;
+	font-style: <?php echo esc_html($h2_font_weight); ?>;
 }
 
 h3,
@@ -112,52 +112,52 @@ h6 {
 }
 
 h3 {
-    font-size: <?php echo $h3_font_size; ?>px!important;
-     line-height: <?php echo $h3_line_height; ?>px!important;
-	 text-transform: <?php echo $h3_text_transform; ?>!important;
-	 font-style: <?php echo $h3_font_weight; ?>!important;
+    font-size: <?php echo esc_html($h3_font_size); ?>px!important;
+     line-height: <?php echo esc_html($h3_line_height); ?>px!important;
+	 text-transform: <?php echo esc_html($h3_text_transform); ?>!important;
+	 font-style: <?php echo esc_html($h3_font_weight); ?>!important;
 }
 
 h4 {
-    font-size: <?php echo $h4_font_size; ?>px!important;
-     line-height: <?php echo $h4_line_height; ?>px!important;
-	 text-transform:<?php echo $h4_text_transform; ?>!important;
-	 font-style: <?php echo $h4_font_weight; ?>!important;
+    font-size: <?php echo esc_html($h4_font_size); ?>px!important;
+     line-height: <?php echo esc_html($h4_line_height); ?>px!important;
+	 text-transform:<?php echo esc_html($h4_text_transform); ?>!important;
+	 font-style: <?php echo esc_html($h4_font_weight); ?>!important;
 }
 
 h5 {
-    font-size: <?php echo $h5_font_size; ?>px!important;
-     line-height: <?php echo $h5_line_height; ?>px!important;
-	 text-transform: <?php echo $h5_text_transform; ?>!important;
-	 font-style: <?php echo $h5_font_weight; ?>!important;
+    font-size: <?php echo esc_html($h5_font_size); ?>px!important;
+     line-height: <?php echo esc_html($h5_line_height); ?>px!important;
+	 text-transform: <?php echo esc_html($h5_text_transform); ?>!important;
+	 font-style: <?php echo esc_html($h5_font_weight); ?>!important;
 }
 
 h6 {
-    font-size: <?php echo $h6_font_size; ?>px!important;
-     line-height: <?php echo $h6_line_height; ?>px!important;
-	 text-transform: <?php echo $h6_text_transform; ?>!important;
-	 font-style: <?php echo $h6_font_weight; ?>!important;
+    font-size: <?php echo esc_html($h6_font_size); ?>px!important;
+     line-height: <?php echo esc_html($h6_line_height); ?>px!important;
+	 text-transform: <?php echo esc_html($h6_text_transform); ?>!important;
+	 font-style: <?php echo esc_html($h6_font_weight); ?>!important;
 }
 p, p.small {
     font-family: 'Roboto', sans-serif;
-     font-size: <?php echo $paragraph_font_size; ?>px!important;
-    line-height: <?php echo $paragraph_line_height; ?>px!important;
-	font-style: <?php echo $para_font_weight; ?>!important;
+     font-size: <?php echo esc_html($paragraph_font_size); ?>px!important;
+    line-height: <?php echo esc_html($paragraph_line_height); ?>px!important;
+	font-style: <?php echo esc_html($para_font_weight); ?>!important;
     font-weight: 400;
 }
 
 
 .section-header h2 {
     font-family: 'Roboto', sans-serif;
-	font-style: <?php echo $section_tit_font_weight; ?>!important;
-	font-size:<?php echo $section_tit_font_size; ?>px!important;
+	font-style: <?php echo esc_html($section_tit_font_weight); ?>!important;
+	font-size:<?php echo esc_html($section_tit_font_size); ?>px!important;
 	line-height: normal !important;
 	word-break: break-word;
 }
 .section-header p {
     font-family: 'Roboto', sans-serif;
-	font-style: <?php echo $section_des_font_weight; ?>!important;
-	font-size:<?php echo $section_desc_font_size; ?>px!important;
+	font-style: <?php echo esc_html($section_des_font_weight); ?>!important;
+	font-size:<?php echo esc_html($section_desc_font_size); ?>px!important;
 	line-height: normal !important;
 }
 

@@ -4,7 +4,7 @@ Donate link : http://codedropz.com/donation
 Tags: drag and drop, contact form 7, ajax uploader, multiple file, upload
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 1.3.7.8
+Stable tag: 1.3.7.9
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,10 @@ Here's a little [DEMO](http://codedropz.com/contact).
 * Cool Progress Bar
 * Compatible with any browser
 
+**PLUGIN GUIDE - FREE VERSION**
+
+[youtube https://www.youtube.com/watch?v=DvuvmzIImYo]
+
 **Note:** On Free version, all uploaded files moves to a temporary folder *("/wp-content/uploads/wp_dndcf7_uploads")* then attaches the file to the mail and sends it. After that **"Drag & Drop File Upload"** removes the file from the temporary folder **1 hour** after the submission. *( same process with the default **"file"** upload of Contact Form 7 - [See here](https://contactform7.com/file-uploading-and-attachment/#How-your-uploaded-files-are-managed) )*
 
 To **adjust** or **disable** the auto-deletion feature, we suggest upgrading to the **PRO version** for more options *(see below)*.
@@ -59,20 +63,20 @@ Check out the available features in the **PRO version**.
 * Send as Individual Email Attachments, Zip Archive, or Links"
 * Chunks Upload *( Break large files into smaller Chunks )*
   - Capable of uploading large files.
-* set Max Total Size *( of all Uploaded Files )*
-* Sequential Upload *(No. of files that can be uploaded simultaneously)*
+* set a Max Total Size *( of all Uploaded Files )*
+* Parallel Upload *(No. of files that can be uploaded simultaneously)*
 * Change **Filename Pattern** ({filename}, {cf7-field-name}, {ip_address}, {random}, {post_id}, {post_slug}, etc.)
-* Automatically Optimizing Images (**Standard** Version Only)
 * **New** - Color Options (File Size, Progress Bar, Filename, etc.)
 * **New** - Disabled the Button to Prevent Duplicate Submissions"
 * **New** - Image preview on email
-* **New** - File Remote Storage *(Google Drive, Amazon S3, FTP, Dropbox)*
+* **New** - File Remote Storage *(OneDrive, Google Drive, Amazon S3, FTP, Dropbox)*
 * **New** - Save **Form Entries** in the Admin
 * **New** - Select "Dark" or "Light" Theme
+* **New** - Validate Image Sizes (Width & Height)
 * Able Resize Image (ie: 800x800) - **Standard** Version Only
+* Automatically Optimizing Images (**Standard** Version Only)
 * Enhanced Security (Updated Regularly)
 * Code Optimization and Improved Performance
-* 1 Month Premium Support
 
 **Pro version** is also compatible with:
 
@@ -82,6 +86,10 @@ Check out the available features in the **PRO version**.
 
 You can get [PRO Version here](https://www.codedropz.com/purchase-plugin/)!
 
+**PRO VERSION - PLUGIN OVERVIEW**
+
+[youtube https://youtu.be/PoQA4KmIETA?si=udM-70n6l4lsQAfp]
+
 ### Other Plugin You May Like
 
 * [Drag & Drop Multiple File Upload - WPForms](https://www.codedropz.com/drag-drop-file-uploader-wpforms/)
@@ -89,10 +97,6 @@ An extension for **WPForms** - Transform your simple file upload into beautiful 
 
 * [Drag & Drop Multiple File Upload - WooCommerce](https://wordpress.org/plugins/drag-and-drop-multiple-file-upload-for-woocommerce/)
 An extension for **WooCommerce** - Transform your simple file upload into beautiful **"Drag & Drop Multiple File Upload"**.
-
-**PLUGIN GUIDE - FREE VERSION**
-
-[youtube https://www.youtube.com/watch?v=DvuvmzIImYo]
 
 == Frequently Asked Questions ==
 
@@ -157,8 +161,14 @@ To install this plugin see below:
 4. Email Attachment- Gmail
 5. Email Attachment As links - Gmail
 6. Multiple Drag and Drop Fields - Front
+7. Remote Storage - Pro Features
 
 == Changelog ==
+
+= 1.3.7.9 =
+- Bug - Added back the "Don't delete files" option.
+- Optimized -  Optimized plugin settings by saving them as an array instead of retrieving individual settings from the wp_options table.
+- Compatibility check on latest version of Contact Form 7 5.9.5.
 
 = 1.3.7.8 =
 - Added "index.php" file to plugin upload directories for security enhancement, especially for servers like Nginx that do not support .htaccess files. This prevents unauthorized access to files. (Thanks to @Wordfence team for reporting the issue)

@@ -140,7 +140,6 @@ return array(
     'WeDevs\\Wpuf\\Admin\\Shortcodes_Button' => $baseDir . '/includes/Admin/Shortcodes_Button.php',
     'WeDevs\\Wpuf\\Admin\\Subscription' => $baseDir . '/includes/Admin/Subscription.php',
     'WeDevs\\Wpuf\\Admin\\Upgrades' => $baseDir . '/includes/Admin/Upgrades.php',
-    'WeDevs\\Wpuf\\Admin\\Whats_New' => $baseDir . '/includes/Admin/Whats_New.php',
     'WeDevs\\Wpuf\\Ajax' => $baseDir . '/includes/Ajax.php',
     'WeDevs\\Wpuf\\Ajax\\Address_Form_Ajax' => $baseDir . '/includes/Ajax/Address_Form_Ajax.php',
     'WeDevs\\Wpuf\\Ajax\\Admin_Form_Builder_Ajax' => $baseDir . '/includes/Ajax/Admin_Form_Builder_Ajax.php',

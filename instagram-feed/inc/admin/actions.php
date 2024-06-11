@@ -1,4 +1,5 @@
 <?php
+use InstagramFeed\Admin\SBI_Callout;
 /**
  * Includes functions related to actions while in the admin area.
  *
@@ -19,10 +20,30 @@ function sb_instagram_menu() {
 	$cap = current_user_can( 'manage_instagram_feed_options' ) ? 'manage_instagram_feed_options' : 'manage_options';
 	$cap = apply_filters( 'sbi_settings_pages_capability', $cap );
 
-	$notice_bubble = sb_menu_notice_bubble();
+	global $sb_instagram_posts_manager;
+	$notice = '';
+	if ( $sb_instagram_posts_manager->are_critical_errors() ) {
+		$notice = ' <span class="update-plugins sbi-error-alert sbi-notice-alert"><span>!</span></span>';
+	}
+
+	$notifications = false;
+	if ( class_exists( '\SBI_Notifications' ) ) {
+		$sbi_notifications = new \SBI_Notifications();
+		$notifications = $sbi_notifications->get();
+	}
+
+	$notice_bubble = '';
+	if ( empty( $notice ) && ! empty( $notifications ) && is_array( $notifications ) ) {
+		$notice_bubble = ' <span class="sbi-notice-alert"><span>' . count( $notifications ) . '</span></span>';
+	}
+	$callout = SBI_Callout::print_callout_ob_html('side-menu');
+	$print_callout = $callout !== false ? $callout : '';
+
+
+
 	add_menu_page(
 		__( 'Instagram Feed', 'instagram-feed' ),
-		__( 'Instagram Feed', 'instagram-feed' ). $notice_bubble,
+		__( 'Instagram Feed', 'instagram-feed' ). $notice_bubble . $notice . $print_callout,
 		$cap,
 		'sb-instagram-feed',
 		'sb_instagram_settings_page'
@@ -176,6 +197,7 @@ function sb_instagram_admin_scripts() {
 		'plugin_install_activate_btn'     => esc_html__( 'Install and Activate', 'instagram-feed' ),
 		'plugin_install_activate_confirm' => esc_html__( 'needs to be installed and activated to import its forms. Would you like us to install and activate it for you?', 'instagram-feed' ),
 		'plugin_activate_btn'             => esc_html__( 'Activate', 'instagram-feed' ),
+		'oembed_connectionURL'            => sbi_get_oembed_connection_url(),
 	);
 	$strings = apply_filters( 'sbi_admin_strings', $strings );
 	wp_localize_script(
@@ -189,6 +211,22 @@ function sb_instagram_admin_scripts() {
 	wp_enqueue_script( 'wp-color-picker' );
 }
 add_action( 'admin_enqueue_scripts', 'sb_instagram_admin_scripts' );
+
+function sbi_get_oembed_connection_url()
+{
+	$admin_url_state = admin_url('admin.php?page=sbi-oembeds-manager');
+	$nonce           = wp_create_nonce('sbi_con');
+	// If the admin_url isn't returned correctly then use a fallback
+	if ($admin_url_state == '/wp-admin/admin.php?page=sbi-oembeds-manager') {
+		$admin_url_state = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	}
+
+	return array(
+		'connect' => SBI_OEMBED_CONNECT_URL,
+		'sbi_con' => $nonce,
+		'stateURL' => $admin_url_state
+	);
+}
 
 function sbi_formatted_error( $response ) {
 	if ( isset( $response['error'] ) ) {

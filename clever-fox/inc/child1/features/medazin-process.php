@@ -20,8 +20,8 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	   
 	   {
 	   ?>
-			<h3>How to add process section :</h3>
-			<p>Frontpage Section > process Section <br><br> <a href="#" style="background-color:#21CDC0; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">Click Here</a></p>
+			<h3><?php esc_html__('How to add process section :','clever-fox'); ?></h3>
+			<p><?php esc_html_e('Frontpage Section > process Section','clever-fox'); ?> <br><br> <?php /* Translators: 1: anchor 2: end */printf(esc_html__('%1$s Click Here %2$s','clever-fox'),'<a href="#" style="background-color:#21CDC0; color:#fff;display: flex;align-items: center;justify-content: center;text-decoration: none;   font-weight: 600;padding: 15px 10px;">','</a>');?></p>
 			
 		<?php
 	   }
@@ -179,7 +179,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 			$theme = wp_get_theme(); // gets the current theme	
 			
 		?>
-			<a class="customizer_process_upgrade_section up-to-pro" href="https://www.nayrathemes.com/clever-fox/" target="_blank" style="display: none;"><?php _e('Upgrade to Pro','clever-fox'); ?></a>
+			<a class="customizer_process_upgrade_section up-to-pro" href="https://www.nayrathemes.com/clever-fox/" target="_blank" style="display: none;"><?php esc_html_e('Upgrade to Pro','clever-fox'); ?></a>
 			
 		<?php }
 	}

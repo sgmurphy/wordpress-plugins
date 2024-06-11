@@ -1440,10 +1440,10 @@ class Premium_Grid extends Widget_Base {
 			'premium_gallery_img_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
+                'type'      => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .pa-gallery-img-container' => 'border-radius: {{SIZE}}{{UNIT}};',
+				'selectors' => array(
+					'{{WRAPPER}} .pa-gallery-img-container, {{WRAPPER}} .pa-gallery-img:not(.style2) .pa-gallery-icons-wrapper, {{WRAPPER}} .pa-gallery-img.style2 .pa-gallery-icons-caption-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -1619,10 +1619,10 @@ class Premium_Grid extends Widget_Base {
 			'premium_gallery_content_border_radius',
 			array(
 				'label'      => __( 'Border Radius', 'premium-addons-for-elementor' ),
-				'type'       => Controls_Manager::SLIDER,
+                'type'      => Controls_Manager::DIMENSIONS,
 				'size_units' => array( 'px', '%', 'em' ),
-				'selectors'  => array(
-					'{{WRAPPER}} .premium-gallery-caption' => 'border-radius: {{SIZE}}{{UNIT}};',
+				'selectors' => array(
+					'{{WRAPPER}} .premium-gallery-caption' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
 				),
 			)
 		);
@@ -2483,7 +2483,6 @@ class Premium_Grid extends Widget_Base {
 
 		$this->end_controls_section();
 
-		$this->update_controls();
 	}
 
 	/**
@@ -3358,37 +3357,6 @@ class Premium_Grid extends Widget_Base {
 		}
 
 		return $video_params;
-	}
-
-	/**
-	 * Update Controls
-	 *
-	 * @since 3.8.8
-	 * @access private
-	 */
-	private function update_controls() {
-
-		$this->update_responsive_control(
-			'premium_gallery_img_border_radius',
-			array(
-				'type'      => Controls_Manager::DIMENSIONS,
-				'selectors' => array(
-					'{{WRAPPER}} .pa-gallery-img-container, {{WRAPPER}} .pa-gallery-img:not(.style2) .pa-gallery-icons-wrapper, {{WRAPPER}} .pa-gallery-img.style2 .pa-gallery-icons-caption-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				),
-
-			)
-		);
-
-		$this->update_responsive_control(
-			'premium_gallery_content_border_radius',
-			array(
-				'type'      => Controls_Manager::DIMENSIONS,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-gallery-caption' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				),
-
-			)
-		);
 	}
 
 	/**

@@ -91,12 +91,12 @@ if($hide_show_service == '1') {?>
 				?>				
             </div>
         </div>
-        <div class="shape2"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape2.png" alt="image"></div>
-		<div class="shape3"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape3.png" alt="image"></div>
-		<div class="shape5"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape5.png" alt="image"></div>
-		<div class="shape6"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape6.png" alt="image"></div>
-		<div class="shape7"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape7.png" alt="image"></div>
-		<div class="shape13"><img src="<?php echo plugin_dir_url( __DIR__ ); ?>images/shape/shape13.png" alt="image"></div>
+        <div class="shape2"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape2.png" alt="image"></div>
+		<div class="shape3"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape3.png" alt="image"></div>
+		<div class="shape5"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape5.png" alt="image"></div>
+		<div class="shape6"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape6.png" alt="image"></div>
+		<div class="shape7"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape7.png" alt="image"></div>
+		<div class="shape13"><img src="<?php echo esc_url(plugin_dir_url( __DIR__ )); ?>images/shape/shape13.png" alt="image"></div>
     </section>
 <?php
 }

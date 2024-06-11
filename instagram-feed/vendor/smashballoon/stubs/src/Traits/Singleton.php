@@ -2,7 +2,6 @@
 
 namespace Smashballoon\Stubs\Traits;
 
-/** @internal */
 trait Singleton
 {
     protected static $instance;

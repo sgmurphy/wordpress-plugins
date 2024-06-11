@@ -107,7 +107,7 @@
 		}
 
         // fix spam
-        if( get_option('drag_n_drop_fix_spam') == 'yes' ) {
+        if( dnd_cf7_settings('drag_n_drop_fix_spam') == 'yes' ) {
             add_filter('wpcf7_spam', '__return_false');
         }
 	}
@@ -199,8 +199,8 @@
 		$uploads_dir = wpcf7_dnd_dir . '/wpcf7-files';
 
 		// If save as attachment ( also : Check if upload use year and month folders )
-		if( get_option('drag_n_drop_mail_attachment') == 'yes' ) {
-			$uploads_dir = ( get_option('uploads_use_yearmonth_folders') ? wpcf7_dnd_dir . $upload['subdir'] : wpcf7_dnd_dir );
+		if( dnd_cf7_settings('drag_n_drop_mail_attachment') == 'yes' ) {
+			$uploads_dir = ( dnd_cf7_settings('uploads_use_yearmonth_folders') ? wpcf7_dnd_dir . $upload['subdir'] : wpcf7_dnd_dir );
 		}
 
 		// Create directory
@@ -227,7 +227,7 @@
 		}
 
         // Disable auto delete
-        if( get_option('drag_n_drop_disable_auto_delete') == 'yes' ) {
+        if( dnd_cf7_settings('drag_n_drop_disable_auto_delete') == 'yes' ) {
             return;
         }
 
@@ -284,7 +284,7 @@
 		$_mail = 0;
 
 		// Check If send attachment as link
-		if( ! get_option('drag_n_drop_mail_attachment') ) {
+		if( ! dnd_cf7_settings('drag_n_drop_mail_attachment') ) {
 			return $wpcf7;
 		}
 
@@ -393,7 +393,7 @@
 		$fields = $form->scan_form_tags();
 
 		// Send email link as an attachment.
-		if( get_option('drag_n_drop_mail_attachment') == 'yes' ) {
+		if( dnd_cf7_settings('drag_n_drop_mail_attachment') == 'yes' ) {
 			return $components;
 		}
 
@@ -468,7 +468,7 @@
 		}
 
 		// enque script (Use native Javascript or jQuery)
-        if( get_option('drag_n_drop_use_jquery') == 'yes' ){
+        if( dnd_cf7_settings('drag_n_drop_use_jquery') == 'yes' ){
             wp_enqueue_script( 'codedropz-uploader', plugins_url ('/assets/js/codedropz-uploader-jquery.js', dirname(__FILE__) ), array('jquery','contact-form-7'), $version, true );
         }else{
             wp_enqueue_script( 'codedropz-uploader', plugins_url ('/assets/js/codedropz-uploader-min.js', dirname(__FILE__) ), '', $version, true );
@@ -477,14 +477,14 @@
         // All data options
         $data_options = apply_filters('dnd_cf7_data_options',
             array(
-                'tag'				=>	( get_option('drag_n_drop_heading_tag') ? get_option('drag_n_drop_heading_tag') : 'h3' ),
-                'text'				=>	( get_option('drag_n_drop_text') ? get_option('drag_n_drop_text') : __('Drag & Drop Files Here','drag-and-drop-multiple-file-upload-contact-form-7') ),
-                'or_separator'		=>	( get_option('drag_n_drop_separator') ? get_option('drag_n_drop_separator') : __('or','drag-and-drop-multiple-file-upload-contact-form-7') ),
-                'browse'			=>	( get_option('drag_n_drop_browse_text') ? get_option('drag_n_drop_browse_text') : __('Browse Files','drag-and-drop-multiple-file-upload-contact-form-7') ),
-                'server_max_error'	=>	( get_option('drag_n_drop_error_server_limit') ? get_option('drag_n_drop_error_server_limit') : dnd_cf7_error_msg('server_limit') ),
-                'large_file'		=>	( get_option('drag_n_drop_error_files_too_large') ? get_option('drag_n_drop_error_files_too_large') : dnd_cf7_error_msg('large_file') ),
-                'inavalid_type'		=>	( get_option('drag_n_drop_error_invalid_file') ? get_option('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') ),
-                'max_file_limit'	=>	( get_option('drag_n_drop_error_max_file') ? get_option('drag_n_drop_error_max_file') : dnd_cf7_error_msg('max_file_limit') ),
+                'tag'				=>	( dnd_cf7_settings('drag_n_drop_heading_tag') ? dnd_cf7_settings('drag_n_drop_heading_tag') : 'h3' ),
+                'text'				=>	( dnd_cf7_settings('drag_n_drop_text') ? dnd_cf7_settings('drag_n_drop_text') : __('Drag & Drop Files Here','drag-and-drop-multiple-file-upload-contact-form-7') ),
+                'or_separator'		=>	( dnd_cf7_settings('drag_n_drop_separator') ? dnd_cf7_settings('drag_n_drop_separator') : __('or','drag-and-drop-multiple-file-upload-contact-form-7') ),
+                'browse'			=>	( dnd_cf7_settings('drag_n_drop_browse_text') ? dnd_cf7_settings('drag_n_drop_browse_text') : __('Browse Files','drag-and-drop-multiple-file-upload-contact-form-7') ),
+                'server_max_error'	=>	( dnd_cf7_settings('drag_n_drop_error_server_limit') ? dnd_cf7_settings('drag_n_drop_error_server_limit') : dnd_cf7_error_msg('server_limit') ),
+                'large_file'		=>	( dnd_cf7_settings('drag_n_drop_error_files_too_large') ? dnd_cf7_settings('drag_n_drop_error_files_too_large') : dnd_cf7_error_msg('large_file') ),
+                'inavalid_type'		=>	( dnd_cf7_settings('drag_n_drop_error_invalid_file') ? dnd_cf7_settings('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') ),
+                'max_file_limit'	=>	( dnd_cf7_settings('drag_n_drop_error_max_file') ? dnd_cf7_settings('drag_n_drop_error_max_file') : dnd_cf7_error_msg('max_file_limit') ),
                 'required'			=>	dnd_cf7_error_msg('required'),
                 'delete'			=>	array(
                     'text'		=>	__('deleting','drag-and-drop-multiple-file-upload-contact-form-7'),
@@ -500,7 +500,7 @@
 				'ajax_nonce'			=>	wp_create_nonce( "dnd-cf7-security-nonce" ),
 				'drag_n_drop_upload' 	=>  $data_options,
 				'dnd_text_counter'	=>	__('of','drag-and-drop-multiple-file-upload-contact-form-7'),
-				'disable_btn'		=>	( get_option('drag_n_drop_disable_btn') == 'yes' ? true : false )
+				'disable_btn'		=>	( dnd_cf7_settings('drag_n_drop_disable_btn') == 'yes' ? true : false )
 			)
 		);
 
@@ -643,7 +643,7 @@
 
         // Check minimum upload
 		if( $multiple_files && count( $multiple_files ) < (int) $min_file ) {
-			$min_file_error = ( get_option('drag_n_drop_error_min_file') ? get_option('drag_n_drop_error_min_file') : dnd_cf7_error_msg('min_file') );
+			$min_file_error = ( dnd_cf7_settings('drag_n_drop_error_min_file') ? dnd_cf7_settings('drag_n_drop_error_min_file') : dnd_cf7_error_msg('min_file') );
 			$result->invalidate( $tag, $min_file_error .' '. (int)$min_file );
 			return $result;
 		}
@@ -845,7 +845,7 @@
 
 		// Tells whether the file was uploaded via HTTP POST
 		if ( ! is_uploaded_file( $file['tmp_name'] ) ) {
-			$failed_error = get_option('drag_n_drop_error_failed_to_upload');
+			$failed_error = dnd_cf7_settings('drag_n_drop_error_failed_to_upload');
 			wp_send_json_error( '('. $file['error'] .') ' . ( $failed_error ? $failed_error : dnd_cf7_error_msg('failed_upload') ) );
 		}
 
@@ -867,12 +867,12 @@
 
         // Validate File Types
         if( $blacklist_types && in_array( $extension, $blacklist_types ) && $supported_type == '*' ){
-            wp_send_json_error( get_option('drag_n_drop_error_invalid_file') ? get_option('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
+            wp_send_json_error( dnd_cf7_settings('drag_n_drop_error_invalid_file') ? dnd_cf7_settings('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
         }
 
 		// validate file type
 		if ( ( ! preg_match( $file_type_pattern, $file['name'] ) || ! dnd_cf7_validate_type( $extension, $supported_type ) ) && $supported_type != '*' ) {
-		    wp_send_json_error( get_option('drag_n_drop_error_invalid_file') ? get_option('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
+		    wp_send_json_error( dnd_cf7_settings('drag_n_drop_error_invalid_file') ? dnd_cf7_settings('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
 		}
 
         // validate mime type
@@ -892,14 +892,14 @@
                 $valid_mimes = explode('|', $supported_type); // array[png, jpg]
 
                 if( empty( $wp_filetype['type'] ) || empty( $wp_filetype['ext'] ) || ! in_array( $wp_filetype['ext'], $valid_mimes ) ){
-                    wp_send_json_error( get_option('drag_n_drop_error_invalid_file') ? get_option('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
+                    wp_send_json_error( dnd_cf7_settings('drag_n_drop_error_invalid_file') ? dnd_cf7_settings('drag_n_drop_error_invalid_file') : dnd_cf7_error_msg('invalid_type') );
                 }
             }
         }
 
 		// validate file size limit
 		if( isset( $size_limit["$cf7_upload_name"] ) && $file['size'] > $size_limit["$cf7_upload_name"] ) {
-			wp_send_json_error( get_option('drag_n_drop_error_files_too_large') ? get_option('drag_n_drop_error_files_too_large') : dnd_cf7_error_msg('large_file') );
+			wp_send_json_error( dnd_cf7_settings('drag_n_drop_error_files_too_large') ? dnd_cf7_settings('drag_n_drop_error_files_too_large') : dnd_cf7_error_msg('large_file') );
 		}
 
 		// Check if string is ascii then proceed with antiscript function ( remove or clean filename )
@@ -908,7 +908,7 @@
 		}
 
 		// Randomize filename
-		if( 'yes' == get_option('drag_n_drop_enable_unique_name') ) {
+		if( 'yes' == dnd_cf7_settings('drag_n_drop_enable_unique_name') ) {
 			$random_name = md5( uniqid( rand(), true ) .'-'. mt_rand() .'-'. time() );
 			$filename = $random_name .'.'. $extension;
 		}
@@ -921,7 +921,7 @@
 
 		// Upload File
 		if ( false === move_uploaded_file( $file['tmp_name'], $new_file ) ) {
-			$failed_error = get_option('drag_n_drop_error_failed_to_upload');
+			$failed_error = dnd_cf7_settings('drag_n_drop_error_failed_to_upload');
 			wp_send_json_error( '('. $file['error'] .') ' . ( $failed_error ? $failed_error : dnd_cf7_error_msg('failed_upload') ) );
 		}else{
 
@@ -1093,7 +1093,7 @@
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('Send Attachment as links?','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input name="drag_n_drop_mail_attachment" type="checkbox" value="yes" <?php checked('yes', get_option('drag_n_drop_mail_attachment')); ?>></td>
+						<td><input name="dndmfu_settings[drag_n_drop_mail_attachment]" type="checkbox" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_mail_attachment')); ?>></td>
 					</tr>
 				</table>
 
@@ -1103,29 +1103,29 @@
 					<tr valign="top">
 						<th scope="row"><?php _e('Heading Tag','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
 						<td>
-							<select name="drag_n_drop_heading_tag">
-								<option value="h1" <?php selected( get_option('drag_n_drop_heading_tag'), 'h1'); ?>>H1</option>
-								<option value="h2" <?php selected( get_option('drag_n_drop_heading_tag'), 'h2'); ?>>H2</option>
-								<option value="h3" <?php selected( get_option('drag_n_drop_heading_tag','h3'), 'h3'); ?>>H3</option>
-								<option value="h4" <?php selected( get_option('drag_n_drop_heading_tag'), 'h4'); ?>>H4</option>
-								<option value="h5" <?php selected( get_option('drag_n_drop_heading_tag'), 'h5'); ?>>H5</option>
-								<option value="h6" <?php selected( get_option('drag_n_drop_heading_tag'), 'h6'); ?>>H6</option>
-                                <option value="span" <?php selected( get_option('drag_n_drop_heading_tag'), 'span'); ?>>Span</option>
-                                <option value="div" <?php selected( get_option('drag_n_drop_heading_tag'), 'div'); ?>>Div</option>
+							<select name="dndmfu_settings[drag_n_drop_heading_tag]">
+								<option value="h1" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'h1'); ?>>H1</option>
+								<option value="h2" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'h2'); ?>>H2</option>
+								<option value="h3" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag','h3'), 'h3'); ?>>H3</option>
+								<option value="h4" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'h4'); ?>>H4</option>
+								<option value="h5" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'h5'); ?>>H5</option>
+								<option value="h6" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'h6'); ?>>H6</option>
+                                <option value="span" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'span'); ?>>Span</option>
+                                <option value="div" <?php selected( dnd_cf7_settings('drag_n_drop_heading_tag'), 'div'); ?>>Div</option>
 							</select>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Drag & Drop Text','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_text" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_text') ); ?>" placeholder="Drag & Drop Files Here" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_text]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_text') ); ?>" placeholder="Drag & Drop Files Here" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"></th>
-						<td><input type="text" name="drag_n_drop_separator" value="<?php echo esc_attr( get_option('drag_n_drop_separator') ); ?>" placeholder="or" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_separator]" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_separator') ); ?>" placeholder="or" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Browse Text','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_browse_text" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_browse_text') ); ?>" placeholder="Browse Files" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_browse_text]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_browse_text') ); ?>" placeholder="Browse Files" /></td>
 					</tr>
 				</table>
 
@@ -1134,27 +1134,35 @@
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('File exceeds server limit','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_server_limit" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_server_limit') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('server_limit'); ?>" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_server_limit]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_server_limit') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('server_limit'); ?>" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Failed to Upload','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_failed_to_upload" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_failed_to_upload') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('failed_upload'); ?>" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_failed_to_upload]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_failed_to_upload') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('failed_upload'); ?>" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Files too large','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_files_too_large" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_files_too_large') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('large_file'); ?>" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_files_too_large]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_files_too_large') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('large_file'); ?>" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Invalid file Type','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_invalid_file" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_invalid_file') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('invalid_type'); ?>" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_invalid_file]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_invalid_file') ); ?>" placeholder="<?php echo dnd_cf7_error_msg('invalid_type'); ?>" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Max File Limit','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_max_file" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_max_file') ); ?>" placeholder="" /><p class="description">Example: `Note : Some of the files are not uploaded ( Only %count% files allowed )`</p></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_max_file]" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_max_file') ); ?>" placeholder="" /><p class="description">Example: `Note : Some of the files are not uploaded ( Only %count% files allowed )`</p></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><?php _e('Minimum File','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="text" name="drag_n_drop_error_min_file" placeholder="" class="regular-text" value="<?php echo esc_attr( get_option('drag_n_drop_error_min_file') ); ?>" placeholder="" /></td>
+						<td><input type="text" name="dndmfu_settings[drag_n_drop_error_min_file]" placeholder="" class="regular-text" value="<?php echo esc_attr( dnd_cf7_settings('drag_n_drop_error_min_file') ); ?>" placeholder="" /></td>
+					</tr>
+				</table>
+
+				<h2><?php _e('Auto Delete Files','drag-and-drop-multiple-file-upload-contact-form-7'); ?></h2>
+				<table class="form-table">
+					<tr valign="top">
+							<th scope="row"><?php _e('Don\'t delete files','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
+						<td><input type="checkbox" name="dndmfu_settings[drag_n_drop_disable_auto_delete]" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_disable_auto_delete')); ?>> Yes <br><p class="description"><em>The default will automatically delete files 1-2 hours after submissions, if you want to keep files check "Yes" above.</em></p></td>
 					</tr>
 				</table>
 
@@ -1163,7 +1171,7 @@
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('Randomize','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="checkbox" name="drag_n_drop_enable_unique_name" value="yes" <?php checked('yes', get_option('drag_n_drop_enable_unique_name')); ?>> Yes <br><p class="description"><em><?php _e('If checked, it will generate a unique/randomized filename.', 'drag-and-drop-multiple-file-upload-contact-form-7'); ?></em></p></td>
+						<td><input type="checkbox" name="dndmfu_settings[drag_n_drop_enable_unique_name]" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_enable_unique_name')); ?>> Yes <br><p class="description"><em><?php _e('If checked, it will generate a unique/randomized filename.', 'drag-and-drop-multiple-file-upload-contact-form-7'); ?></em></p></td>
 					</tr>
 				</table>
 
@@ -1172,7 +1180,7 @@
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('Fix Spam','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="checkbox" name="drag_n_drop_fix_spam" value="yes" <?php checked('yes', get_option('drag_n_drop_fix_spam')); ?>> Yes <p class="description"><em>If a “spam” answer is the response, Contact Form 7 will suspend the email and show a message saying, “There was an error trying to send your message", force to send message by checking this option..</em></p></td>
+						<td><input type="checkbox" name="dndmfu_settings[drag_n_drop_fix_spam]" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_fix_spam')); ?>> Yes <p class="description"><em>If a “spam” answer is the response, Contact Form 7 will suspend the email and show a message saying, “There was an error trying to send your message", force to send message by checking this option..</em></p></td>
 					</tr>
 				</table>
 
@@ -1181,7 +1189,7 @@
 				<table class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('Enable jQuery','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="checkbox" name="drag_n_drop_use_jquery" value="yes" <?php checked('yes', get_option('drag_n_drop_use_jquery')); ?>> Yes <p class="description"><em>Activate this option in case there are any problems with our plugin when utilizing native Javascript.</em></p></td>
+						<td><input type="checkbox" name="dndmfu_settings[drag_n_drop_use_jquery]" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_use_jquery')); ?>> Yes <p class="description"><em>Activate this option in case there are any problems with our plugin when utilizing native Javascript.</em></p></td>
 					</tr>
 				</table>
 
@@ -1190,7 +1198,7 @@
 				<table style="display:none;" class="form-table">
 					<tr valign="top">
 						<th scope="row"><?php _e('Disable Submit button','drag-and-drop-multiple-file-upload-contact-form-7'); ?></th>
-						<td><input type="checkbox" name="drag_n_drop_disable_btn" value="yes" <?php checked('yes', get_option('drag_n_drop_disable_btn')); ?>> Yes <p class="description">Disable submit button if there's an error.</p></td>
+						<td><input type="checkbox" name="dndmfu_settings[drag_n_drop_disable_btn]" value="yes" <?php checked('yes', dnd_cf7_settings('drag_n_drop_disable_btn')); ?>> Yes <p class="description">Disable submit button if there's an error.</p></td>
 					</tr>
 				</table>
 
@@ -1252,22 +1260,22 @@
 
 	// Save admin settings
 	function dnd_upload_register_settings() {
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_heading_tag','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_mail_attachment','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_text','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_separator','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_browse_text','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_server_limit','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_failed_to_upload','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_files_too_large','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_invalid_file','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_max_file','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_error_min_file','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_disable_btn','sanitize_text_field' );
-        register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_disable_auto_delete','sanitize_text_field' );
-        register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_fix_spam','sanitize_text_field' );
-        register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_use_jquery','sanitize_text_field' );
-		register_setting( 'drag-n-drop-upload-file-cf7', 'drag_n_drop_enable_unique_name','sanitize_text_field' );
+		register_setting( 'drag-n-drop-upload-file-cf7', 'dndmfu_settings',  array( 'type' => 'array' ));
+	}
+
+	// Get admin option settings
+	function dnd_cf7_settings( $option_name, $default_value = false ) {
+
+		// Get option settings of the plugin
+		$settings = get_option( 'dndmfu_settings' );
+
+		// Check if option_name is set
+		if ( $settings && isset( $settings[ $option_name ] ) ) {
+			return ( ! is_array( $settings[ $option_name ] ) ? trim( $settings[ $option_name ] ) : $settings[ $option_name ] );
+		}
+
+		// Return default value
+		return $default_value;
 	}
 
     function dnd_upload_cf7_lang() {
@@ -1287,17 +1295,3 @@
 
         return apply_filters('dndmfu_wc_lang', $lang );
     }
-
-    /*add_action('admin_footer', function(){
-        if( isset( $_GET['page'] ) && $_GET['page'] == 'drag-n-drop-upload' ) {
-        ?>
-            <script type="text/javascript">
-                jQuery('document').ready(function($){
-                    $('#drag_n_drop_lang').change(function(){
-                        window.location.href = "<?php echo admin_url('admin.php?page=drag-n-drop-upload&lang-code='); ?>" + $(this).val();
-                    });
-                });
-            </script>
-        <?php
-        }
-    });*/

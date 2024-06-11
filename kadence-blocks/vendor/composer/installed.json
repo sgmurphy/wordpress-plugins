@@ -271,17 +271,17 @@
         },
         {
             "name": "lucatume/di52",
-            "version": "3.3.6",
-            "version_normalized": "3.3.6.0",
+            "version": "3.3.7",
+            "version_normalized": "3.3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/di52.git",
-                "reference": "9f714b3166c331a12278635277038ead7701a710"
+                "reference": "76c0c2ad0422ce595e2e38138456f3475888e32c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/di52/zipball/9f714b3166c331a12278635277038ead7701a710",
-                "reference": "9f714b3166c331a12278635277038ead7701a710",
+                "url": "https://api.github.com/repos/lucatume/di52/zipball/76c0c2ad0422ce595e2e38138456f3475888e32c",
+                "reference": "76c0c2ad0422ce595e2e38138456f3475888e32c",
                 "shasum": ""
             },
             "require": {
@@ -292,7 +292,7 @@
             "require-dev": {
                 "phpunit/phpunit": "<10.0"
             },
-            "time": "2024-04-02T08:40:29+00:00",
+            "time": "2024-04-26T14:46:26+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -313,23 +313,23 @@
             "description": "A PHP 5.6 compatible dependency injection container.",
             "support": {
                 "issues": "https://github.com/lucatume/di52/issues",
-                "source": "https://github.com/lucatume/di52/tree/3.3.6"
+                "source": "https://github.com/lucatume/di52/tree/3.3.7"
             },
             "install-path": "../lucatume/di52"
         },
         {
             "name": "monolog/monolog",
-            "version": "2.9.2",
-            "version_normalized": "2.9.2.0",
+            "version": "2.9.3",
+            "version_normalized": "2.9.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f"
+                "reference": "a30bfe2e142720dfa990d0a7e573997f5d884215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
-                "reference": "437cb3628f4cf6042cc10ae97fc2b8472e48ca1f",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/a30bfe2e142720dfa990d0a7e573997f5d884215",
+                "reference": "a30bfe2e142720dfa990d0a7e573997f5d884215",
                 "shasum": ""
             },
             "require": {
@@ -350,8 +350,8 @@
                 "mongodb/mongodb": "^1.8",
                 "php-amqplib/php-amqplib": "~2.4 || ^3",
                 "phpspec/prophecy": "^1.15",
-                "phpstan/phpstan": "^0.12.91",
-                "phpunit/phpunit": "^8.5.14",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^8.5.38 || ^9.6.19",
                 "predis/predis": "^1.1 || ^2.0",
                 "rollbar/rollbar": "^1.3 || ^2 || ^3",
                 "ruflin/elastica": "^7",
@@ -375,7 +375,7 @@
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
-            "time": "2023-10-27T15:25:26+00:00",
+            "time": "2024-04-12T20:52:51+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -408,7 +408,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.9.2"
+                "source": "https://github.com/Seldaek/monolog/tree/2.9.3"
             },
             "funding": [
                 {
@@ -656,17 +656,17 @@
         },
         {
             "name": "stellarwp/prophecy-container",
-            "version": "1.6.0.72",
-            "version_normalized": "1.6.0.72",
+            "version": "1.9.0.72",
+            "version_normalized": "1.9.0.72",
             "source": {
                 "type": "git",
                 "url": "git@github.com:stellarwp/prophecy-container.git",
-                "reference": "37961f0a1612ddbd95fb3811fac76a167229f77b"
+                "reference": "65d3648fb126b78fe8edf51786521751772c55e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stellarwp/prophecy-container/zipball/37961f0a1612ddbd95fb3811fac76a167229f77b",
-                "reference": "37961f0a1612ddbd95fb3811fac76a167229f77b",
+                "url": "https://api.github.com/repos/stellarwp/prophecy-container/zipball/65d3648fb126b78fe8edf51786521751772c55e1",
+                "reference": "65d3648fb126b78fe8edf51786521751772c55e1",
                 "shasum": ""
             },
             "require": {
@@ -674,9 +674,9 @@
                 "lucatume/di52": "^3.3",
                 "php": "^7.2 || 8.0.*",
                 "stellarwp/container-contract": "^1.1",
-                "vlucas/phpdotenv": "^5.5"
+                "vlucas/phpdotenv": "^4.3|^5.5"
             },
-            "time": "2024-01-15T16:39:50+00:00",
+            "time": "2024-04-08T16:36:56+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -694,14 +694,14 @@
             ],
             "description": "The Prophecy DI container and its contracts.",
             "support": {
-                "source": "https://github.com/stellarwp/prophecy-container/tree/1.6.0.72"
+                "source": "https://github.com/stellarwp/prophecy-container/tree/1.9.0.72"
             },
             "install-path": "../stellarwp/prophecy-container"
         },
         {
             "name": "stellarwp/prophecy-image-downloader",
-            "version": "1.6.0.72",
-            "version_normalized": "1.6.0.72",
+            "version": "1.9.0.72",
+            "version_normalized": "1.9.0.72",
             "source": {
                 "type": "git",
                 "url": "git@github.com:stellarwp/prophecy-image-downloader.git",
@@ -741,14 +741,14 @@
             ],
             "description": "A concurrent image downloading library.",
             "support": {
-                "source": "https://github.com/stellarwp/prophecy-image-downloader/tree/1.6.0.72"
+                "source": "https://github.com/stellarwp/prophecy-image-downloader/tree/1.9.0.72"
             },
             "install-path": "../stellarwp/prophecy-image-downloader"
         },
         {
             "name": "stellarwp/prophecy-log",
-            "version": "1.6.0.72",
-            "version_normalized": "1.6.0.72",
+            "version": "1.9.0.72",
+            "version_normalized": "1.9.0.72",
             "source": {
                 "type": "git",
                 "url": "git@github.com:stellarwp/prophecy-log.git",
@@ -784,14 +784,14 @@
             ],
             "description": "The Prophecy Logger.",
             "support": {
-                "source": "https://github.com/stellarwp/prophecy-log/tree/1.6.0.72"
+                "source": "https://github.com/stellarwp/prophecy-log/tree/1.9.0.72"
             },
             "install-path": "../stellarwp/prophecy-log"
         },
         {
             "name": "stellarwp/prophecy-storage",
-            "version": "1.6.0.72",
-            "version_normalized": "1.6.0.72",
+            "version": "1.9.0.72",
+            "version_normalized": "1.9.0.72",
             "source": {
                 "type": "git",
                 "url": "git@github.com:stellarwp/prophecy-storage.git",
@@ -825,7 +825,7 @@
             ],
             "description": "A storage system with multiple drivers.",
             "support": {
-                "source": "https://github.com/stellarwp/prophecy-storage/tree/1.6.0.72"
+                "source": "https://github.com/stellarwp/prophecy-storage/tree/1.9.0.72"
             },
             "install-path": "../stellarwp/prophecy-storage"
         },
@@ -1022,17 +1022,17 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v5.4.38",
-            "version_normalized": "5.4.38.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "899330a01056077271e2f614c7b28b0379a671eb"
+                "reference": "26dd9912df6940810ea00f8f53ad48d6a3424995"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/899330a01056077271e2f614c7b28b0379a671eb",
-                "reference": "899330a01056077271e2f614c7b28b0379a671eb",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/26dd9912df6940810ea00f8f53ad48d6a3424995",
+                "reference": "26dd9912df6940810ea00f8f53ad48d6a3424995",
                 "shasum": ""
             },
             "require": {
@@ -1041,7 +1041,10 @@
                 "symfony/polyfill-mbstring": "~1.8",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2024-03-21T08:05:07+00:00",
+            "require-dev": {
+                "symfony/process": "^5.4|^6.4"
+            },
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1069,7 +1072,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v5.4.38"
+                "source": "https://github.com/symfony/filesystem/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -1089,17 +1092,17 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.38",
-            "version_normalized": "5.4.38.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "2a292194f6d4cf22d2348248d1c637750f72309d"
+                "reference": "970a4d5a3393be3ba987b91a018e98ee332db63b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/2a292194f6d4cf22d2348248d1c637750f72309d",
-                "reference": "2a292194f6d4cf22d2348248d1c637750f72309d",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/970a4d5a3393be3ba987b91a018e98ee332db63b",
+                "reference": "970a4d5a3393be3ba987b91a018e98ee332db63b",
                 "shasum": ""
             },
             "require": {
@@ -1132,7 +1135,7 @@
                 "symfony/process": "^4.4|^5.0|^6.0",
                 "symfony/stopwatch": "^4.4|^5.0|^6.0"
             },
-            "time": "2024-04-01T18:54:44+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1163,7 +1166,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.4.38"
+                "source": "https://github.com/symfony/http-client/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -1264,17 +1267,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.38",
-            "version_normalized": "5.4.38.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "d8c13d35f68c69e15595fe37fa2c225d11c10f7e"
+                "reference": "cf4893ca4eca3fac4ae06da1590afdbbb4217847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/d8c13d35f68c69e15595fe37fa2c225d11c10f7e",
-                "reference": "d8c13d35f68c69e15595fe37fa2c225d11c10f7e",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/cf4893ca4eca3fac4ae06da1590afdbbb4217847",
+                "reference": "cf4893ca4eca3fac4ae06da1590afdbbb4217847",
                 "shasum": ""
             },
             "require": {
@@ -1284,7 +1287,7 @@
                 "symfony/polyfill-php80": "^1.16"
             },
             "require-dev": {
-                "predis/predis": "~1.0",
+                "predis/predis": "^1.0|^2.0",
                 "symfony/cache": "^4.4|^5.0|^6.0",
                 "symfony/dependency-injection": "^5.4|^6.0",
                 "symfony/expression-language": "^4.4|^5.0|^6.0",
@@ -1295,7 +1298,7 @@
             "suggest": {
                 "symfony/mime": "To use the file extension guesser"
             },
-            "time": "2024-03-19T10:19:25+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1323,7 +1326,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.4.38"
+                "source": "https://github.com/symfony/http-foundation/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -1343,17 +1346,17 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v5.4.38",
-            "version_normalized": "5.4.38.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "82fa6be8a0295a3932df871e88fc8c8d77aa71d4"
+                "reference": "8c6dc1fb0b1f990aa15086abcde66dbde3a9bdad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/82fa6be8a0295a3932df871e88fc8c8d77aa71d4",
-                "reference": "82fa6be8a0295a3932df871e88fc8c8d77aa71d4",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/8c6dc1fb0b1f990aa15086abcde66dbde3a9bdad",
+                "reference": "8c6dc1fb0b1f990aa15086abcde66dbde3a9bdad",
                 "shasum": ""
             },
             "require": {
@@ -1379,7 +1382,7 @@
                 "symfony/property-info": "^4.4|^5.1|^6.0",
                 "symfony/serializer": "^5.4.35|~6.3.12|^6.4.3"
             },
-            "time": "2024-03-21T07:25:32+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1411,7 +1414,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v5.4.38"
+                "source": "https://github.com/symfony/mime/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -2172,17 +2175,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.36",
-            "version_normalized": "5.4.36.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "4e232c83622bd8cd32b794216aa29d0d266d353b"
+                "reference": "142877285aa974a6f7685e292ab5ba9aae86b143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/4e232c83622bd8cd32b794216aa29d0d266d353b",
-                "reference": "4e232c83622bd8cd32b794216aa29d0d266d353b",
+                "url": "https://api.github.com/repos/symfony/string/zipball/142877285aa974a6f7685e292ab5ba9aae86b143",
+                "reference": "142877285aa974a6f7685e292ab5ba9aae86b143",
                 "shasum": ""
             },
             "require": {
@@ -2202,7 +2205,7 @@
                 "symfony/translation-contracts": "^1.1|^2",
                 "symfony/var-exporter": "^4.4|^5.0|^6.0"
             },
-            "time": "2024-02-01T08:49:30+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2241,7 +2244,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v5.4.36"
+                "source": "https://github.com/symfony/string/tree/v5.4.40"
             },
             "funding": [
                 {

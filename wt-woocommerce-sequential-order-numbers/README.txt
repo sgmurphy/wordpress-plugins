@@ -1,10 +1,10 @@
 === Sequential Order Number for WooCommerce ===
 Contributors: webtoffee
-Version: 1.6.2
+Version: 1.6.3
 Tags: sequential order number, custom order number, order number, sequential order, woocommerce, sequential, woocommerce sequential order number, advanced order number, woocommerce custom order number, change order number, woocommerce change order number, woocommerce order numbers
 Requires at least: 3.0.1
-Tested up to: 6.5.3
-Stable tag: 1.6.2
+Tested up to: 6.5.4
+Stable tag: 1.6.3
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,7 @@ When you activate the sequential order number plugin, if you have no orders in y
 * Supports WooCommerce custom order numbers
 * Compatible with HPOS
 * Tested OK with PHP 8.2
-* Tested OK with WooCommerce 8.8.3
+* Tested OK with WooCommerce 8.9.3
 
 
 >**Note:** If you like to make any of your other plugins (invoice/payment/shipment) compatible with the Sequential Order Numbers for WooCommerce, please make the below tweak.
@@ -148,6 +148,11 @@ Yes. It's possible to add order date prefix.
 
 
 == Changelog ==
+
+= 1.6.3 11-06-2024 =
+* [Imp] - A new search filter option based on order numbers has been added to the WooCommerce orders page.
+* [Compatibility] - Tested OK with WooCommerce 8.9.3.
+* [Compatibility] - Tested OK with WordPress 6.5.4.
 
 = 1.6.2 13-05-2024 =
 * [Fix] - Emails sent for orders created manually through the WooCommerce admin panel use the order ID instead of the assigned sequential order number.
@@ -438,7 +443,7 @@ Yes. It's possible to add order date prefix.
 
 == Upgrade Notice ==
 
-= 1.6.2 =
-* [Fix] - Emails sent for orders created manually through the WooCommerce admin panel use the order ID instead of the assigned sequential order number.
-* [Compatibility] - Tested OK with WooCommerce 8.8.3.
-* [Compatibility] - Tested OK with WordPress 6.5.3.
+= 1.6.3 =
+* [Imp] - A new search filter option based on order numbers has been added to the WooCommerce orders page.
+* [Compatibility] - Tested OK with WooCommerce 8.9.3.
+* [Compatibility] - Tested OK with WordPress 6.5.4.

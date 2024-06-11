@@ -26,18 +26,21 @@ class Wt_Advanced_Order_Number_Admin {
     }
 
     public function enqueue_scripts() {
-        //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wt-advanced-order-number-admin.js', array('jquery'), $this->version, false);
+
         if(isset($_GET['page']) && $_GET['page']=='wc-settings' && isset($_GET['tab']) && $_GET['tab']=='wts_settings' && ((isset($_GET['section']) && $_GET['section'] =='') || !isset($_GET['section'])))
         {
             wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'views/wt-settings-screen.js', array('jquery'), $this->version);
-            $params=array(
-                'msgs'=>array(
-                    'prev'=>__('Preview : ','wt-woocommerce-sequential-order-numbers'),
-                    'pro_text'=>'<span class="wt_pro_text" style="color:#39b54a;font-size:11px;">'.__(' (Pro) ','wt-woocommerce-sequential-order-numbers').'</span>',
-                )
-            );
-            wp_localize_script($this->plugin_name, 'wt_seq_settings', $params);
+            
         }
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wt-advanced-order-number-admin.js', array('jquery'), $this->version);
+        $params=array(
+            'msgs'=>array(
+                'prev'=>__('Preview : ','wt-woocommerce-sequential-order-numbers'),
+                'pro_text'=>'<span class="wt_pro_text" style="color:#39b54a;font-size:11px;">'.__(' (Pro) ','wt-woocommerce-sequential-order-numbers').'</span>',
+            ),
+            'serch_by_order_number' => get_option( 'wt_custom_order_number_search', 'yes' ),
+        );
+        wp_localize_script($this->plugin_name, 'wt_seq_settings', $params); 
     }
 
     public function add_settings_page_popup() {
@@ -63,7 +66,6 @@ class Wt_Advanced_Order_Number_Admin {
     }
 
     public function custom_ordernumber_search_field($search_fields) {
-
         array_push($search_fields, '_order_number');
         return $search_fields;
     }

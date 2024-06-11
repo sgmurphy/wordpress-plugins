@@ -330,6 +330,7 @@ class Ays_Pb_Activator {
             'image_type_img_redirect_url' => '',
             'facebook_page_url' => '',
             'hide_fb_page_cover_photo' => 'off',
+            'use_small_fb_header' => 'on',
             'notification_type_components' => array(),
             'notification_type_components_order' => array(),
             'notification_main_content' => '',

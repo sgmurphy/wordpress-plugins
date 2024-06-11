@@ -363,7 +363,7 @@ class Logic {
 				// draw from function call cache if available
 				if (isset(Logic::$cache['functions'][$cacheKey])){
 
-					$result = Logic::$cache['statements'][$cacheKey];
+					$result = Logic::$cache['functions'][$cacheKey];
 
 					Helper::debug('Pulling function result from cache:', array(
 						'function' => $cacheKey,

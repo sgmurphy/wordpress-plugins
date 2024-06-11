@@ -3,7 +3,7 @@
         'name' => 'the-events-calendar/tribe-common',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e17de963580960f3278065916eca8a4af8b34151',
+        'reference' => '91ac85e6686f8787371ad25b9dfc6c8bf8919a8c',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'lucatume/di52' => array(
-            'pretty_version' => '3.3.5',
-            'version' => '3.3.5.0',
-            'reference' => 'd39d1cbbc57eb41c7aa21fab106e17b6938ec6b3',
+            'pretty_version' => '3.3.7',
+            'version' => '3.3.7.0',
+            'reference' => '76c0c2ad0422ce595e2e38138456f3475888e32c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../lucatume/di52',
             'aliases' => array(),
@@ -60,6 +60,15 @@
             'provided' => array(
                 0 => '1.0.0',
             ),
+        ),
+        'stellarwp/assets' => array(
+            'pretty_version' => '1.2.2',
+            'version' => '1.2.2.0',
+            'reference' => '3e097e16b8d6c12c697d4688ec07a079fe46a2ce',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../stellarwp/assets',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'stellarwp/container-contract' => array(
             'pretty_version' => '1.1.1',
@@ -120,7 +129,7 @@
         'the-events-calendar/tribe-common' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e17de963580960f3278065916eca8a4af8b34151',
+            'reference' => '91ac85e6686f8787371ad25b9dfc6c8bf8919a8c',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

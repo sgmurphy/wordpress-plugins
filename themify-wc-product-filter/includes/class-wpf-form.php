@@ -1146,7 +1146,10 @@ class WPF_Form {
                 }
                 unset($categories);
 				$selected = null;
-                if (($type === 'wpf_cat' && is_product_category()) || ($type === 'wpf_tag' && is_product_tag())) {
+                if (
+					empty( $_GET['wpf'] ) &&
+					( ($type === 'wpf_cat' && is_product_category()) || ($type === 'wpf_tag' && is_product_tag()) )
+				) {
                     global $wp_query;
                     $cat = $wp_query->get_queried_object();
                     if (is_object($cat) && !empty($cat->slug)) {
@@ -1279,14 +1282,6 @@ class WPF_Form {
         <?php foreach ( $items as $cat ) :
 
 			$cat->slug = urldecode( $cat->slug ); // make slug readable, required for multilingual websites
-
-			$read_only = '';
-			if ( is_product_category() || is_product_tag() ) {
-				$query_object = get_queried_object();
-				if ( $cat->taxonomy === $query_object->taxonomy && $query_object->slug === $cat->slug ) {
-					$read_only = 'readonly="readonly"';
-				}
-			}
 			?>
             <?php if ($hide_empty && $cat->count === 0): ?>
                 <?php continue; ?>
@@ -1313,7 +1308,7 @@ class WPF_Form {
                         <?php else: ?>
                             <?php if (strpos($type, 'pa_') === 0): ?>
                                 <a class="wpf_pa_link" href="<?php echo get_term_link($cat->term_id, $cat->taxonomy); ?>">
-                                    <input <?php echo $read_only; ?> <?php if (in_array($cat->slug, $value,true)): ?>checked="checked"<?php endif; ?> type="radio" value="<?php echo $cat->slug ?>" name="<?php echo $name ?>" />
+                                    <input <?php if (in_array($cat->slug, $value,true)): ?>checked="checked"<?php endif; ?> type="radio" value="<?php echo $cat->slug ?>" name="<?php echo $name ?>" />
                                     <span><?php echo $cat->name ?></span>
                                 </a>
                             <?php else: ?>
@@ -1348,7 +1343,7 @@ class WPF_Form {
 							}
 						}
                         ?>
-                        <input <?php echo $read_only; ?> <?php if ( in_array( $cat->slug, $value, true ) ): ?>checked="checked"<?php endif; ?> id="wpf_<?php echo $this->themplate_id ?>_<?php echo $cat->term_id ?>" type="<?php echo $args['show_as'] ?>" name="<?php echo $name; ?>[]" value="<?php echo $cat->slug ?>" />
+                        <input <?php if ( in_array( $cat->slug, $value, true ) ): ?>checked="checked"<?php endif; ?> id="wpf_<?php echo $this->themplate_id ?>_<?php echo $cat->term_id ?>" type="<?php echo $args['show_as'] ?>" name="<?php echo $name; ?>[]" value="<?php echo $cat->slug ?>" />
                         <label <?php if (($color && ! empty( $color_bg ) ) || ! empty( $image_bg ) ) : ?>
                                 style="
                                     <?php if ( ! empty( $image_bg ) ) : ?>background-image: url(<?php echo $image_bg ?>);background-size: cover;<?php endif;?>

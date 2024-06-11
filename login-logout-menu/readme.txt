@@ -1,11 +1,11 @@
 === Login Logout Menu ===
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.5
 Contributors: hiddenpearls, WPBrigade, AbdulWahab610
 Donate link: https://wpbrigade.com/go/donate-login-logout-menu
 Author URI: https://WPBrigade.com/?utm_source=login-logout-menu
 Tags: menu, login menu, logout menu, register menu, profile menu, login menu items
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,11 @@ Check out our documentation to implement the [shortcodes](https://loginpress.pro
 1. Logout and Profile Menu Item
 
 == Changelog ==
+
+= 1.5.1 - 2024-06-11 =
+* Enhancement: Added a filter `login_logout_menu_avatar_attrs` allows to modify the attributes used for rendering the HTML markup of the login/logout menu avatar.
+* Enhancement: Added a filter `login_logout_menu_avatar_html` allows customization of the HTML markup for the avatar displayed in the login/logout menu.
+* Compatibility: Compatible with WordPress 6.5
 
 = 1.5.0 - 2024-01-09 =
 * New Feature: Added the User Avatar functionality.
@@ -106,5 +111,5 @@ Check out our documentation to implement the [shortcodes](https://loginpress.pro
 
 == Upgrade Notice ==
 
-= 1.5.0 =
-Upgrade immediately - Compatible with WordPress 6.4
+= 1.5.1 =
+Upgrade immediately - Compatible with WordPress 6.5

@@ -11,7 +11,6 @@ Donate link: https://www.amazon.co.jp/gp/registry/wishlist/2KIBQLC1VLA9X
 
 This plugin is intended to display a link in a blog card format. The goodbye to the text-only link.
 
-
 == Description ==
 
 This plugin is intended to display a link in a blog card format.
@@ -151,6 +150,35 @@ Ver.2.1.2から200px四方に変更、Ver.2.4.1から自由に指定できるよ
 
 == Changelog ==
 
+= 2.5.5 =
+
+* WordPress 6.5.4 での動作確認。
+  Compatible with WordPress 6.5.4.
+* スタイルシートのテンプレートを一部修正しました。
+  Modified: Some modifications have been made to the style sheet template.
+* 設定画面でチェックボックスの一部でチェックが外れなくなる不具合を修正しました。
+  Fixed: Fixed a problem in which some checkboxes were checked when settings were saved on the settings screen.
+* 設定画面でフォーカスがあたっている項目の背景色を水色にするように修正しました。
+  Modified: Changed the background color of the focused item in the settings screen to light blue.
+* カード管理画面の編集画面に一覧を表示しないように変更しました。
+  Modified: Changed so that the list is not displayed on the edit screen of the administration page.
+* カード管理画面で「適用」ボタンでのみ一括処理が実行されるように変更しました。
+  Modified: Changed so that batch processing is executed only with the “Apply” button on the card management screen.
+* カード管理画面での画面遷移がGETのままだった部分を追加でPOSTへ修正しました。
+  Fixed: The screen transition on the card management screen that was still GET has been additionally corrected to POST.
+* カード管理画面の内部リンクの件数と外部リンクの件数が合わない不具合を修正しました。
+  Fixed: Fixed a problem in which the number of internal links on the card management screen did not match the number of external links.
+* 設定画面の一番上にプラグインの名前とバージョンを追加しました。
+  Added: Added plugin name and version at the top of the settings screen.
+* 設定画面のエディタータブの中の項目を機能の種類によって分けました。
+  Modified: Items in the Editor tab of the Settings screen are now divided by function type.
+* 管理画面の一番上にプラグインの名前とバージョンを追加しました。
+  Added: Added plugin name and version at the top of the admin page.
+* リンクカードが記事の幅を越えて表示されてしまう不具合を修正しました。
+  Fixed: Fixed a bug that caused link cards to appear beyond the width of the article.
+* 管理画面からキャッシュ内容のインポート／エクスポートが正常に出来ない不具合を修正しました。
+  Fixed: Fixed a problem that prevented import/export of cache contents from the administration screen.
+
 = 2.5.4 =
 * WordPress 6.5 での動作確認。
   Compatible with WordPress 6.5.
@@ -166,23 +194,25 @@ Ver.2.1.2から200px四方に変更、Ver.2.4.1から自由に指定できるよ
   Added:  A "Back to Top" button has been added to the settings screen.
 * 設定画面のレイアウトを一部見直し。
   Modified: Review the layout of the setting screen.
-* サムネイル画像のIMGタグにwidthとheightを追加しました。（サイトアイコンには既に付いていました）（Thanks Jack Ryan @ryan_j23 on x.com）
-  Added: Added width and height to IMG tags for thumbnail images.
 * 設定画面にスクロールに追従する「変更を保存」ボタンを追加しました。
   Added: A “Save Changes” button that follows scrolling has been added to the settings screen.
-* カード管理画面にて外部サイトのURLにリンクを追加しました。
-  Added: Added links to external site URLs on the card management screen.
 * 設定画面で「変更を保存」を押したときに画面を暗くするように修正しました。
   Modified: Fixed to darken the screen when the 'Save Changes' button is pressed.
+* 設定画面の「外部リンク」から「はてなブログカードを使用する」を削除しました。
+  Modified: Removed "Use HatenaBlogCard" from "External Links" on the Settings screen.
 * カード管理画面での画面遷移をGETからPOSTに変更しました。
   Modified: Screen transitions on the card management screen have been changed from GET to POST.
+* カード管理画面にて外部サイトのURLにリンクを追加しました。
+  Added: Added links to external site URLs on the card management screen.
 * カード管理画面で内部リンクのサムネイルのURLからスキーム部分（http、httpsなど）を削除しました。
   Modified: Removed scheme part (http, https, etc.) from URLs of thumbnails of internal links in the card management screen.
-* サムネイル画像が小さい場合、サムネイルの領域いっぱいに表示するように修正。（Thanks さくら工作室/工作系YouTuber @skrdtrt on x.com）
-  Modified: Improved display of thumbnails with small vertical size.
 * リンクカードの表示を一部調整しました。今までと表示がずれる可能性があります。
   Modified: Some adjustments have been made to the display of link cards. There is a possibility that the display may be shifted from the previous version.
-* 「かんたん書式設定」を選んだときの表示方法を蝶生しました。
+* サムネイル画像のIMGタグにwidthとheightを追加しました。（サイトアイコンには既に付いていました）（Thanks Jack Ryan @ryan_j23 on x.com）
+  Added: Added width and height to IMG tags for thumbnail images.
+* サムネイル画像が小さい場合、サムネイルの領域いっぱいに表示するように修正。（Thanks さくら工作室/工作系YouTuber @skrdtrt on x.com）
+  Modified: Improved display of thumbnails with small vertical size.
+* 「かんたん書式設定」を選んだときの表示方法を調整しました。
   Modified: The display method when “Easy formatting” is selected has been adjusted.
 
 = 2.5.3.1 =

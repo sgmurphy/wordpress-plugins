@@ -22,7 +22,7 @@
 	<?php endif; ?>	
     <div class="av-columns-area wow fadeInUp">
     	<?php
-			$fiona_blog_blog_args = array( 'post_type' => 'post', 'orderby' => 'date', 'order' => 'ASC','category_name' => $section7_category_id,'posts_per_page' => $section7_display_num,'post__not_in'=>get_option("sticky_posts")); 	
+			$fiona_blog_blog_args = array( 'post_type' => 'post', 'orderby' => 'date', 'order' => 'ASC','category_name' => $section7_category_id,'posts_per_page' => $section7_display_num,'ignore_sticky_posts' => true); 	
 			$fiona_blog_wp_query = new WP_Query($fiona_blog_blog_args);
 			if($fiona_blog_wp_query)
 			{	
@@ -41,7 +41,7 @@
 					<span class="post-format">
 						<div class="post-shape">
 							<div class="post-icon">
-						   		<?php echo $post_number; ?>
+						   		<?php echo esc_html($post_number); ?>
 						   </div>
 						</div>
 					</span>
@@ -62,7 +62,7 @@
 					<span class="post-format">
 						<div class="post-shape">
 							<div class="post-icon">
-						   		<?php echo $post_number; ?>
+						   		<?php echo esc_html($post_number); ?>
 						   </div>
 						</div>
 					</span>

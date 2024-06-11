@@ -409,13 +409,22 @@ $sccp_sub_bg_image_position = (isset($subscribe["sub_bg_image_position"]) && $su
                                 </p>
                                 <p class="vmessage">
                                     <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%admin_email%%" />
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_attr( __( "Shows the admin's email that was filled in their WordPress profile.", $this->plugin_name) ); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
                                         <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_user_ip%%" />
                                     </strong>
                                     <span> - </span>
                                     <span style="font-size:18px;">
                                         <?php echo esc_attr( __( "Shows the current user's IP no matter whether they are a logged-in user or a guest. Please note, that this message variable will return empty, if 'Do not store IP addresses' is ticked from General Settings>General>Users IP addresses.", $this->plugin_name) ); ?>
                                     </span>
-                                </p>                               
+                                </p>                                
                             </div>
                         </div>
                     </div>

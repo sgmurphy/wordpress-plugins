@@ -38,6 +38,7 @@
 	$handle			=	fopen($export_path, 'w');
 
 	// CSVファイル出力
+	$record_count	=	0;
 	if	($handle ) {
 
 		// ヘッダー行出力
@@ -49,11 +50,12 @@
 				$item	=	str_replace(array("\r", "\n", "\t" ), ' ', $item );
 			}
 			fputcsv($handle, $data, ',', '"' );
+			$record_count++;
 		}
 
 		// ファイルを閉じる
 		fclose($handle );
 
 		// ダウンロード用ボタンを表示
-		echo '<form id="export" method="get"><input type="button" id="export_button" class="button button-primary" value="'.__('Download Export File', $this->text_domain ).'" onclick="window.open('."'".$export_path_url."'".');" /></form>';
+		echo '<div><button type="submit" id="export_button" class="pz-lkc-man-file-button button button-primary" name="action" value="show-export" onclick="window.open('."'".$export_path_url."'".');">'.__('Download Export File', $this->text_domain ).'</button></div>';
 	}

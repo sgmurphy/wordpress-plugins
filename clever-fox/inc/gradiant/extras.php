@@ -107,7 +107,7 @@ add_action( 'gradiant_abv_hdr_contact_info', 'gradiant_abv_hdr_contact_info' );
  */
 function gradiant_get_social_icon_default() {
 	return apply_filters(
-		'gradiant_get_social_icon_default', json_encode(
+		'gradiant_get_social_icon_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'	  =>  esc_html__( 'fa-facebook', 'clever-fox' ),
@@ -145,7 +145,7 @@ function gradiant_get_social_icon_default() {
  */
  function gradiant_get_footer_above_default() {
 	return apply_filters(
-		'gradiant_get_footer_above_default', json_encode(
+		'gradiant_get_footer_above_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'       => 'fa-clock-o',
@@ -185,7 +185,7 @@ $theme = wp_get_theme(); // gets the current theme
 if ( 'Comoxa' == $theme->name):	
 	 function gradiant_get_slider_default() {
 		return apply_filters(
-			'gradiant_get_slider_default', json_encode(
+			'gradiant_get_slider_default', wp_json_encode(
 					 array(
 					array(
 						'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/comoxa/images/slider/slider-bg.png',
@@ -230,7 +230,7 @@ if ( 'Comoxa' == $theme->name):
 elseif ( 'Appointo' == $theme->name):
 	function gradiant_get_slider_default() {
 		return apply_filters(
-			'gradiant_get_slider_default', json_encode(
+			'gradiant_get_slider_default', wp_json_encode(
 					 array(
 					array(
 						'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/appointo/images/slider/img01.jpg',
@@ -275,7 +275,7 @@ elseif ( 'Appointo' == $theme->name):
 else:
 	function gradiant_get_slider_default() {
 		return apply_filters(
-			'gradiant_get_slider_default', json_encode(
+			'gradiant_get_slider_default', wp_json_encode(
 					 array(
 					array(
 						'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/gradiant/images/slider/img01.jpg',
@@ -326,7 +326,7 @@ endif;
  */
 function gradiant_get_service_default() {
 	return apply_filters(
-		'gradiant_get_service_default', json_encode(
+		'gradiant_get_service_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/gradiant/images/service/service01.jpg',
@@ -375,7 +375,7 @@ function gradiant_get_service_default() {
  */
  function gradiant_get_icon_menu_default() {
 	return apply_filters(
-		'gradiant_get_icon_menu_default', json_encode(
+		'gradiant_get_icon_menu_default', wp_json_encode(
 				 array(
 				array(
 					'title'           => esc_html__( 'Commercial', 'clever-fox' ),
@@ -400,7 +400,7 @@ function gradiant_get_service_default() {
  */
 function gradiant_get_client_default() {
 	return apply_filters(
-		'gradiant_get_client_default', json_encode(
+		'gradiant_get_client_default', wp_json_encode(
 				 array(
 				array(
 					'image_url'       => CLEVERFOX_PLUGIN_URL . 'inc/gradiant/images/client/client01.png',
@@ -442,7 +442,7 @@ function gradiant_get_client_default() {
 	);
 }function gradiant_get_features_default() {
 	return apply_filters(
-		'gradiant_get_features_default', json_encode(
+		'gradiant_get_features_default', wp_json_encode(
 				 array(
 				array(
 					'icon_value'           => 'fa-delicious',	

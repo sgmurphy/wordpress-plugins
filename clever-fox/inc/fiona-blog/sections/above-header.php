@@ -19,8 +19,8 @@
 									<div class="trending-box">
 										<?php if($hs_abv_hdr_time == '1'){ ?>
 											<div class="trending-date">
-												<?php  echo '<span class="t-day">'. date_i18n('j', strtotime(current_time("d"))).'</span>';
-													   echo '<span class="t-all">'. date_i18n('M Y', strtotime(current_time("Y-m"))).'</span>';
+												<?php  echo '<span class="t-day">'. esc_html( date_i18n('j', strtotime(current_time("d"))) ).'</span>';
+													   echo '<span class="t-all">'. esc_html(date_i18n('M Y', strtotime(current_time("Y-m"))) ).'</span>';
 													   ?>
 											</div>
 										<?php } 

@@ -1,7 +1,7 @@
 <?php
 $MediaId = get_option('fiona_blog_media_id');
 $title = __('Spending a day in Paris, The best place to go','clever-fox');
-$content=__('<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever.</p>','clever-fox');
+$content=__('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever.','clever-fox');
 $title2 = __('A New Age For Trade & Supply Chain Finance','clever-fox');
 $title3 = __('Ranking for keywords around the products','clever-fox');
 
@@ -9,7 +9,7 @@ $postData = array(
 				array(
 					'post_title' => $title,
 					'post_status' => 'publish',
-					'post_content' => $content,
+					'post_content' => '<p>'.$content.'</p>',
 					'post_author' => 1,
 					'post_type'         =>   'post',
 					'post_category' => array(),
@@ -20,7 +20,7 @@ $postData = array(
 				array(
 					'post_title' => $title2,
 					'post_status' => 'publish',
-					'post_content' => $content,
+					'post_content' => '<p>'.$content.'</p>',
 					'post_author' => 1,
 					'post_type'         =>   'post',
 					'post_category' => array(),
@@ -31,7 +31,7 @@ $postData = array(
 				array(
 					'post_title' => $title3,
 					'post_status' => 'publish',
-					'post_content' => $content,
+					'post_content' => '<p>'.$content.'</p>',
 					'post_author' => 1,
 					'post_type'         =>   'post',
 					'post_category' => array(),
