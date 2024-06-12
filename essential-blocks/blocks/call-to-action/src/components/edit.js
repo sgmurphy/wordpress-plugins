@@ -9,20 +9,16 @@ import {
     RichText,
     useBlockProps,
 } from "@wordpress/block-editor";
-import { select } from "@wordpress/data";
 
 /**
  * Internal dependencies
  */
-
-import classnames from "classnames";
 
 import Inspector from "./inspector";
 
 import Style from "./style";
 
 const {
-    duplicateBlockIdFix,
     EBDisplayIcon,
     DynamicInputValueHandler,
     BlockProps

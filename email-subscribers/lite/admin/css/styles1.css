@@ -260,7 +260,7 @@ table td
 
   .template-editor, 
   .sidebar, 
-  .form-fields, #es-admin-contact-form, #es-admin-lists-form, #es-admin-custom-fields-form {
+  .form-fields, #es-admin-contact-form, #es-admin-lists-form, #es-admin-custom-fields-form, #ig-es-trial-optin-form {
     label {
       @apply block text-sm font-medium leading-6 text-gray-900;
     }
@@ -907,6 +907,123 @@ table td
 }
 /* End */
 
+/* Dashboard page CSS */
+/* There are still some inline clasess used in dashboard.php. The clasess which are already available tailwind.css. */
+.recent-campaigns, .audience-activity, .forms-lists {
+  table {
+    @apply mt-2 w-full bg-white rounded-md overflow-hidden mb-4;
+
+    tbody {
+      tr {
+        @apply border-b border-gray-200  text-sm leading-5;
+
+        td.short-desc {
+          @apply max-w-[50px] truncate;
+        }
+
+        td.avatar-column {
+          @apply py-3 text-gray-500 flex;
+
+          .avatar {
+            @apply pr-4;
+            .dash-avatar {
+              @apply rounded-md bg-[#ececec] p-1;
+            }
+          }
+        }
+
+        td {
+          .dash-recent-p {
+            @apply text-black mt-2;
+          }
+
+          .dash-status {
+            @apply inline-flex items-center text-sm font-semibold;
+
+            span.dashboard_dot {
+              @apply mr-1 h-1.5 w-1.5 rounded-full;
+            }
+          }
+
+          .es-code {
+            @apply text-xs;
+          }
+        }
+      }
+      tr:last-of-type {
+        @apply border-b-0;
+      }
+    }
+  }
+}
+.toplevel_page_es_dashboard {
+  nav {
+    @apply pt-10;
+  }
+}
+
+#ig-es-create-dropdown {
+  @apply absolute right-0 hidden w-56 mt-2 origin-top-right rounded-md shadow-lg;
+
+  a {
+    @apply block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900;
+  }
+}
+
+.es_helper_text {
+  @apply px-2 italic text-xs font-normal text-[#9fa6b2] leading-7;
+}
+
+.ig-dashboardcommon-section {
+  @apply flex flex-row;
+
+  #ig-es-trial-expired-block, #ig-es-trial-active-block, #ig-es-trial-optin-block {
+    @apply pr-6 pl-6 pt-4 w-full;
+
+    .sec-title {
+      @apply py-2 text-lg font-medium leading-6 text-gray-400;
+    }
+
+    #ig-es-trial-optin-btn {
+      svg {
+        @apply animate-spin h-4 w-4;
+
+        circle {
+          @apply opacity-25;
+        }
+
+        path {
+          @apply opacity-75;
+        }
+      }
+    }
+  }
+
+  #ig-ess-account-overview-block {
+    @apply relative pr-6 pl-6 w-full;
+    #subscribers-stats {
+      .stats-info {
+        @apply grid grid-cols-3 gap-4 py-4 text-gray-600 text-center;
+      }
+    }
+  }
+
+  #sending-service-benefits, #sending-service-onboarding-tasks-list {
+    .item-dots {
+      @apply relative pt-1 flex items-center justify-center flex-shrink-0 w-5 h-5;
+
+      span {
+        @apply block w-2 h-2 transition duration-150 ease-in-out bg-gray-300 rounded-full group-hover:bg-gray-400 group-focus:bg-gray-400;
+      }
+    }
+
+    svg {
+      @apply mt-1 w-full h-full text-indigo-700 transition duration-150 ease-in-out group-hover:text-indigo-600 group-focus:text-indigo-600;
+    }
+  }
+}
+/* End */
+
 
 
 /* settings page radio button CSS */
@@ -992,7 +1109,7 @@ table td
   @apply float-right border-0 relative !important;
 }
 
-.icegram-express_page_es_gallery, .icegram-express_page_es_campaigns, .icegram-express_page_es_subscribers, .icegram-express_page_es_lists, .icegram-express_page_es_forms, .icegram-express_page_es_custom_fields, .icegram-express_page_es_settings {
+.icegram-express_page_es_gallery, .icegram-express_page_es_campaigns, .icegram-express_page_es_subscribers, .icegram-express_page_es_lists, .icegram-express_page_es_forms, .icegram-express_page_es_custom_fields, .icegram-express_page_es_settings, .toplevel_page_es_dashboard {
  #wpcontent{
   padding-left: 0;
   background-color: white;

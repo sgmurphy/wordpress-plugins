@@ -244,7 +244,7 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 		 *
 		 * @param array $categories
 		 * @since 1.0.19
-		 * @version 3.0.5
+		 * @version 3.0.9
 		 * @return boolean
 		 */
 		function is_addon_licensed( $categories ) {
@@ -253,7 +253,7 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 				return false;
 			}
 
-			if ( LoginPress_Pro::get_license_id() === '2' && in_array( 'loginpress-pro-small-business', $categories ) ) {
+			if ( LoginPress_Pro::get_license_id() === '2' && in_array( 'loginpress-pro-agency', $categories ) ) {
 				return true;
 			} elseif ( LoginPress_Pro::get_license_id() === '3' && in_array( 'loginpress-pro-agency', $categories ) ) {
 				return true;
@@ -270,6 +270,8 @@ if ( ! class_exists( 'LoginPress_Addons' ) ) :
 			} elseif ( LoginPress_Pro::get_license_id() === '9' && in_array( 'loginpress-pro-agency', $categories ) ) {
 				return true;
 			} elseif ( LoginPress_Pro::get_license_id() === '1' && in_array( 'loginpress-free-add-ons', $categories ) ) {
+				return true;
+			} elseif ( LoginPress_Pro::get_license_id() === '10' && in_array( 'loginpress-pro-agency', $categories ) ) {
 				return true;
 			} else {
 				return false;

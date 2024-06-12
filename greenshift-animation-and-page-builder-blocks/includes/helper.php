@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 //////////////////////////////////////////////////////////////////
 
 if (!function_exists('gspb_AnimationRenderProps')) {
-	function gspb_AnimationRenderProps($animation = '', $interactionLayers = [])
+	function gspb_AnimationRenderProps($animation = '', $interactionLayers = [], $staggerclass='')
 	{
 		$animeprops = array();
 		if ($animation || !empty($interactionLayers)) {
@@ -27,77 +27,259 @@ if (!function_exists('gspb_AnimationRenderProps')) {
 					$animeprops['data-duration'] = floatval($animation['duration']) / 1000;
 				}
 				if (!empty($animation['ease'])) {
-					$animeprops['data-ease'] = $animation['ease'];
+					$animeprops['data-ease'] = esc_attr($animation['ease']);
 				}
 				if (!empty($animation['x'])) {
-					$animeprops['data-x'] = $animation['x'];
+					$animeprops['data-x'] = esc_attr($animation['x']);
 				}
 				if (!empty($animation['y'])) {
-					$animeprops['data-y'] = $animation['y'];
+					$animeprops['data-y'] = esc_attr($animation['y']);
 				}
 				if (!empty($animation['z'])) {
-					$animeprops['data-z'] = $animation['z'];
+					$animeprops['data-z'] = esc_attr($animation['z']);
 				}
 				if (!empty($animation['rx'])) {
-					$animeprops['data-rx'] = $animation['rx'];
+					$animeprops['data-rx'] = esc_attr($animation['rx']);
 				}
 				if (!empty($animation['ry'])) {
-					$animeprops['data-ry'] = $animation['ry'];
+					$animeprops['data-ry'] = esc_attr($animation['ry']);
 				}
 				if (!empty($animation['r'])) {
-					$animeprops['data-r'] = $animation['r'];
+					$animeprops['data-r'] = esc_attr($animation['r']);
 				}
 				if (!empty($animation['s'])) {
-					$animeprops['data-s'] = $animation['s'];
+					$animeprops['data-s'] = esc_attr($animation['s']);
+				}
+				if (!empty($animation['sy'])) {
+					$animeprops['data-sy'] = esc_attr($animation['sy']);
+				}
+				if (!empty($animation['sx'])) {
+					$animeprops['data-sy'] = esc_attr($animation['sx']);
 				}
 				if (!empty($animation['o'])) {
-					$animeprops['data-o'] = $animation['o'];
+					$animeprops['data-o'] = esc_attr($animation['o']);
+				}
+				if (!empty($animation['xo'])) {
+					$animeprops['data-xo'] = esc_attr($animation['xo']);
+				}
+				if (!empty($animation['yo'])) {
+					$animeprops['data-yo'] = esc_attr($animation['yo']);
+				}
+				if (!empty($animation['clipFinal'])) {
+					$animeprops['data-clippath'] = esc_attr($animation['clipFinal']);
+				}
+				if (!empty($animation['bg'])) {
+					$animeprops['data-bg'] = esc_attr($animation['bg']);
+				}
+				if (!empty($animation['color'])) {
+					$animeprops['data-color'] = esc_attr($animation['color']);
+				}
+				if (!empty($animation['skewX'])) {
+					$animeprops['data-skewX'] = esc_attr($animation['skewX']);
+				}
+				if (!empty($animation['skewY'])) {
+					$animeprops['data-skewY'] = esc_attr($animation['skewY']);
 				}
 				if (!empty($animation['origin'])) {
-					$animeprops['data-origin'] = $animation['origin'];
+					$animeprops['data-origin'] = esc_attr($animation['origin']);
 				}
-				if (!empty($animation['text'])) {
+				if (!empty($animation['triggerstart'])) {
+					$animeprops['data-triggerstart'] = esc_attr($animation['triggerstart']);
+				}
+				if (!empty($animation['triggerend'])) {
+					$animeprops['data-triggerend'] = esc_attr($animation['triggerend']);
+				}
+				if (!empty($animation['triggeraction'])) {
+					$animeprops['data-triggeraction'] = esc_attr($animation['triggeraction']);
+				}
+				if (!empty($animation['triggerscrub'])) {
+					$animeprops['data-triggerscrub'] = esc_attr($animation['triggerscrub']);
+				}
+				if (!empty($animation['customProps'])) {
+					$animeprops['data-customprops'] = json_encode($animation['customProps']);
+				}
+				if (!empty($animation['customPropsM'])) {
+					$animeprops['data-custompropsM'] = json_encode($animation['customPropsM']);
+				}
+				if (!empty($animation['set_from']) && $animation['set_from'] == 'to') {
+					$animeprops['data-from'] = "";
+				}
+				if (!empty($animation['loop'])) {
+					$animeprops['data-loop'] = "yes";
+					if (!empty($animation['yoyo'])) {
+						$animeprops['data-yoyo'] = "yes";
+					}
+					if (!empty($animation['repeatdelay'])) {
+						$animeprops['data-repeatdelay'] = "yes";
+					}
+				}
+				if (!empty($animation['varwidth'])) {
+					$animeprops['data-varwidth'] = esc_attr($animation['varwidth']);
+				}
+				if (!empty($animation['varheight'])) {
+					$animeprops['data-varheight'] = esc_attr($animation['varheight']);
+				}
+				if (!empty($animation['winwidth'])) {
+					$animeprops['data-winwidth'] = esc_attr($animation['winwidth']);
+				}
+				if (!empty($animation['winheight'])) {
+					$animeprops['data-winheight'] = esc_attr($animation['winheight']);
+				}
+				if (!empty($animation['observetype'])) {
+					$animeprops['data-observetype'] = esc_attr($animation['observetype']);
+				}
+				if (!empty($animation['additive'])) {
+					$animeprops['data-additive'] = esc_attr($animation['additive']);
+				}
+				if (!empty($animation['durationfollow'])) {
+					$animeprops['data-durationfollow'] = esc_attr($animation['durationfollow']);
+				}
+				if (!empty($animation['tolerance'])) {
+					$animeprops['data-tolerance'] = esc_attr($animation['tolerance']);
+				}
+				if (!empty($animation['addspeedX'])) {
+					$animeprops['data-addspeedX'] = esc_attr($animation['addspeedX']);
+				}
+				if (!empty($animation['addspeedY'])) {
+					$animeprops['data-addspeedY'] = esc_attr($animation['addspeedY']);
+				}
+				if (!empty($animation['maxX'])) {
+					$animeprops['data-maxx'] = esc_attr($animation['maxX']);
+				}
+				if (!empty($animation['xM'])) {
+					$animeprops['data-xM'] = esc_attr($animation['xM']);
+				}
+				if (!empty($animation['yM'])) {
+					$animeprops['data-yM'] = esc_attr($animation['yM']);
+				}
+				if (!empty($animation['zM'])) {
+					$animeprops['data-zM'] = esc_attr($animation['zM']);
+				}
+				if (!empty($animation['xoM'])) {
+					$animeprops['data-xoM'] = esc_attr($animation['xoM']);
+				}
+				if (!empty($animation['yoM'])) {
+					$animeprops['data-yoM'] = esc_attr($animation['yoM']);
+				}
+				if (!empty($animation['rM'])) {
+					$animeprops['data-rM'] = esc_attr($animation['rM']);
+				}
+				if (!empty($animation['rxM'])) {
+					$animeprops['data-rxM'] = esc_attr($animation['rxM']);
+				}
+				if (!empty($animation['ryM'])) {
+					$animeprops['data-ryM'] = esc_attr($animation['ryM']);
+				}
+				if (!empty($animation['sM'])) {
+					$animeprops['data-sM'] = esc_attr($animation['sM']);
+				}
+				if (!empty($animation['sxM'])) {
+					$animeprops['data-sxM'] = esc_attr($animation['sxM']);
+				}
+				if (!empty($animation['syM'])) {
+					$animeprops['data-syM'] = esc_attr($animation['syM']);
+				}
+				if (!empty($animation['skewXM'])) {
+					$animeprops['data-skewXM'] = esc_attr($animation['skewXM']);
+				}
+				if (!empty($animation['skewYM'])) {
+					$animeprops['data-skewYM'] = esc_attr($animation['skewYM']);
+				}
+				if (!empty($animation['oM'])) {
+					$animeprops['data-oM'] = esc_attr($animation['oM']);
+				}
+				if (!empty($animation['usemobile'])) {
+					$animeprops['data-usemobile'] = "yes";
+				}
+				if (!empty($animation['triggerstartM'])) {
+					$animeprops['data-triggerstartM'] = esc_attr($animation['triggerstartM']);
+				}
+				if (!empty($animation['triggerendM'])) {
+					$animeprops['data-triggerendM'] = esc_attr($animation['triggerendM']);
+				}
+				if (!empty($animation['customtrigger'])) {
+					$animeprops['data-customtrigger'] = esc_attr($animation['customtrigger']);
+				}
+				if (!empty($animation['customobject'])) {
+					$animeprops['data-customobject'] = esc_attr($animation['customobject']);
+				}
+				if (!empty($animation['triggertype'])) {
+					$animeprops['data-triggertype'] = esc_attr($animation['triggertype']);
+				}
+				if ((!empty($animation['text']) && empty($animation['type'])) || (isset($animation['type']) && $animation['type'] == 'text_transformations')) {
 					if (!empty($animation['texttype'])) {
-						$animeprops['data-text'] = $animation['texttype'];
+						$animeprops['data-text'] = esc_attr($animation['texttype']);
 					} else {
 						$animeprops['data-text'] = 'words';
 					}
 					if (!empty($animation['textdelay'])) {
-						$animeprops['data-stdelay'] = $animation['textdelay'];
+						$animeprops['data-stdelay'] = esc_attr($animation['textdelay']);
 					}
 					if (!empty($animation['textrandom'])) {
 						$animeprops['data-strandom'] = "yes";
 					}
-				} else if (!empty($animation['stagger'])) {
+				} else if ((!empty($animation['stagger']) && empty($animation['type'])) || (isset($animation['type']) && $animation['type'] == 'stagger_transformations')) {
 					if (!empty($animation['staggerdelay'])) {
-						$animeprops['data-stdelay'] = $animation['staggerdelay'];
+						$animeprops['data-stdelay'] = esc_attr($animation['staggerdelay']);
 					}
 					if (!empty($animation['staggerrandom'])) {
 						$animeprops['data-strandom'] = "yes";
 					}
-					$animeprops['data-stchild'] = "yes";
+					if(!empty($animation['stselectorEnable']) && !empty($animation['stselector'])){
+						$animeprops['data-stagger'] = esc_attr($animation['stselector']);
+					}else if($staggerclass){
+						$animeprops['data-stagger'] = esc_attr($staggerclass);
+					}else{
+						$animeprops['data-stchild'] = "yes";
+					}
 				}
-				if (!empty($animation['o']) && ($animation['o'] == 1 || $animation['o'] == 0)) {
+				if ((!empty($animation['o']) && ($animation['o'] == 1 || $animation['o'] === 0) && $animation['set_from'] != 'to') || !empty($animation['prehide'])) {
 					$animeprops['data-prehidden'] = 1;
 				}
-				if (!empty($animation['onload'])) {
+				if (!empty($animation['onload']) && empty($animation['triggertype'])) {
 					$animeprops['data-triggertype'] = "load";
+				}
+				if(!empty($animation['multiple_animation'])){
+					$animeprops['multianimations'] = json_encode($animation['multiple_animation']);
+				}
+				if (!empty($animation['multikeyframes'])) {
+					$animeprops['data-multikeyframes'] = "yes";
+				}
+				if(isset($animation['type']) && $animation['type'] == 'svg'){
+					$animeprops['data-path'] = esc_attr($animation['path']) || null;
+					$animeprops['data-path-align'] = esc_attr($animation['path_align']) || null;
+					$animeprops['data-path-orient'] = esc_attr($animation['path_orient']) || null;
+					$animeprops['data-path-alignx'] = esc_attr($animation['path_align_x']) || null;
+					$animeprops['data-path-aligny'] = esc_attr($animation['path_align_y']) || null;
+					$animeprops['data-path-start'] = esc_attr($animation['path_start']) || null;
+					$animeprops['data-path-end'] = esc_attr($animation['path_end']) || null;
+					$animeprops['data-svgdraw'] = esc_attr($animation['svg_draw']) ? "yes" : null;
+				}
+				if(isset($animation['type']) && $animation['type'] == 'mouse'){
+					$animeprops['data-mouse-move'] = 'yes';
+					$animeprops['data-mouse-px'] = esc_attr($animation['mouse_px']) || null;
+					$animeprops['data-mouse-py'] = esc_attr($animation['mouse_py']) || null;
+					$animeprops['data-pos-z'] = esc_attr($animation['pos_z']) || null;
+					$animeprops['data-mouse-rx'] = esc_attr($animation['mouse_rx']) || null;
+					$animeprops['data-mouse-ry'] = esc_attr($animation['mouse_ry']) || null;
+					$animeprops['data-mouse-rz'] = esc_attr($animation['mouse_rz']) || null;
+					$animeprops['data-mouse-restore'] = esc_attr($animation['mouse_restore']) || null;
 				}
 			} else if (!empty($animation['type'])) {
 
-				$animeprops['data-aos'] = $animation['type'];
+				$animeprops['data-aos'] = esc_attr($animation['type']);
 
 				if (!empty($animation['delay'])) {
-					$animeprops['data-aos-delay'] = $animation['delay'];
+					$animeprops['data-aos-delay'] = esc_attr($animation['delay']);
 				}
 				if (!empty($animation['easing'])) {
-					$animeprops['data-aos-easing'] = $animation['easing'];
+					$animeprops['data-aos-easing'] = esc_attr($animation['easing']);
 				}
 				if (!empty($animation['duration'])) {
-					$animeprops['data-aos-duration'] = $animation['duration'];
+					$animeprops['data-aos-duration'] = esc_attr($animation['duration']);
 				}
 				if (!empty($animation['anchor'])) {
-					$anchor = str_replace(' ', '-', $animation['anchor']);
+					$anchor = str_replace(' ', '-', esc_attr($animation['anchor']));
 					$animeprops['data-aos-anchor-placement'] = $anchor;
 				}
 				if (!empty($animation['onlyonce'])) {

@@ -58,7 +58,25 @@ class Omnisend_Install {
 		Omnisend_Helper::omnisend_api( OMNISEND_UPDATE_URL, 'POST', $body );
 	}
 
-	public static function revoke_omnisend_woo_api_keys() {
+	public static function uninstall() {
+		self::delete_logs();
+		self::revoke_omnisend_woo_api_keys();
+		self::delete_options();
+		self::delete_metadata();
+	}
+
+	public static function disconnect() {
+		self::delete_omnisend_webhooks();
+		self::revoke_omnisend_woo_api_keys();
+		self::delete_store_connection_options();
+		self::delete_metadata();
+	}
+
+	public static function deactivate() {
+		self::delete_omnisend_webhooks();
+	}
+
+	private static function revoke_omnisend_woo_api_keys() {
 
 		$api_keys = self::get_woo_api_keys();
 
@@ -71,7 +89,7 @@ class Omnisend_Install {
 		}
 	}
 
-	public static function delete_omnisend_webhooks() {
+	private static function delete_omnisend_webhooks() {
 		if ( ! Omnisend_Helper::is_woocommerce_plugin_activated() ) {
 			return;
 		}
@@ -100,7 +118,7 @@ class Omnisend_Install {
 		}
 	}
 
-	public static function delete_logs() {
+	private static function delete_logs() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'omnisend_logs';
 		$sql        = "IF EXISTS(SELECT * FROM   $table_name) DROP TABLE $table_name";
@@ -108,7 +126,7 @@ class Omnisend_Install {
 		dbDelta( $sql );
 	}
 
-	public static function delete_options() {
+	private static function delete_options() {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'omnisend_%'" );
@@ -118,7 +136,12 @@ class Omnisend_Install {
 		}
 	}
 
-	public static function delete_metadata() {
+	private static function delete_store_connection_options() {
+		delete_option( 'omnisend_api_key' );
+		delete_option( 'omnisend_account_id' );
+	}
+
+	private static function delete_metadata() {
 		global $wpdb;
 		delete_metadata( 'user', '0', Omnisend_Sync::FIELD_NAME, '', true );
 		delete_metadata( 'post', '0', Omnisend_Sync::FIELD_NAME, '', true );

@@ -43,13 +43,15 @@ class SBI_Callout
 	 */
 	public function register_assets()
 	{
-		wp_enqueue_script(
-			'callout-js',
-			self::ASSETS_JS . 'callout.js',
-			null,
-			null,
-			true
-		);
+		if (is_admin()) {
+			wp_enqueue_script(
+				'callout-js',
+				self::ASSETS_JS . 'callout.js',
+				null,
+				null,
+				true
+			);
+		}
 
 		wp_enqueue_style(
 			'callout-style',
@@ -371,7 +373,7 @@ class SBI_Callout
 		}
 
 		// It's been more than 3 months of the first install
-		$more_3_months = intval($plugin_statuses['first_install'] + 7889229) < time();
+		$more_3_months = intval($plugin_statuses['first_install']) + 7889229 < time();
 		if ($more_3_months) {
 			return false;
 		}

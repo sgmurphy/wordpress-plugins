@@ -461,7 +461,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_rss_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_rss_sidebar" name="General[subscribe_feature_rss_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_rss_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_rss_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_rss_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_rss_shortcode" name="General[subscribe_feature_rss_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_rss_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_rss_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_rss]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_rss" name="General[subscribe_feature_rss]" value="1" <?php if( !empty($Settings['subscribe_feature_rss']) ) echo 'checked '; ?>/> <label for="subscribe_feature_rss"><?php echo __('Show link under player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -471,7 +473,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_apple_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_apple_sidebar" name="General[subscribe_feature_apple_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_apple_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_apple_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_apple_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_apple_shortcode" name="General[subscribe_feature_apple_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_apple_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_apple_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_apple]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_apple" name="General[subscribe_feature_apple]" value="1" <?php if( !empty($Settings['subscribe_feature_apple']) ) echo 'checked '; ?>/> <label for="subscribe_feature_apple"><?php echo __('Show link under player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -481,7 +485,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_spotify_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_spotify_sidebar" name="General[subscribe_feature_spotify_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_spotify_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_spotify_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_spotify_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_spotify_shortcode" name="General[subscribe_feature_spotify_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_spotify_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_spotify_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_spotify]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_spotify" name="General[subscribe_feature_spotify]" value="1" <?php if( !empty($Settings['subscribe_feature_spotify']) ) echo 'checked '; ?>/> <label for="subscribe_feature_spotify"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -491,7 +497,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_amazon_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_amazon_sidebar" name="General[subscribe_feature_amazon_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_amazon_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_amazon_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_amazon_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_amazon_shortcode" name="General[subscribe_feature_amazon_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_amazon_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_amazon_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_amazon]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_amazon" name="General[subscribe_feature_amazon]" value="1" <?php if( !empty($Settings['subscribe_feature_amazon']) ) echo 'checked '; ?>/> <label for="subscribe_feature_amazon"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -501,7 +509,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_android_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_android_sidebar" name="General[subscribe_feature_android_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_android_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_android_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_android_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_android_shortcode" name="General[subscribe_feature_android_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_android_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_android_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_android]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_android" name="General[subscribe_feature_android]" value="1" <?php if( !empty($Settings['subscribe_feature_android']) ) echo 'checked '; ?>/> <label for="subscribe_feature_android"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -511,7 +521,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pandora_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pandora_sidebar" name="General[subscribe_feature_pandora_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_pandora_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pandora_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pandora_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pandora_shortcode" name="General[subscribe_feature_pandora_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_pandora_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pandora_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pandora]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pandora" name="General[subscribe_feature_pandora]" value="1" <?php if( !empty($Settings['subscribe_feature_pandora']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pandora"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -521,7 +533,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_iheart_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_iheart_sidebar" name="General[subscribe_feature_iheart_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_iheart_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_iheart_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_iheart_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_iheart_shortcode" name="General[subscribe_feature_iheart_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_iheart_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_iheart_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_iheart]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_iheart" name="General[subscribe_feature_iheart]" value="1" <?php if( !empty($Settings['subscribe_feature_iheart']) ) echo 'checked '; ?>/> <label for="subscribe_feature_iheart"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -531,7 +545,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_blubrry_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_blubrry_sidebar" name="General[subscribe_feature_blubrry_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_blubrry_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_blubrry_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_blubrry_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_blubrry_shortcode" name="General[subscribe_feature_blubrry_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_blubrry_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_blubrry_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_blubrry]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_blubrry" name="General[subscribe_feature_blubrry]" value="1" <?php if( !empty($Settings['subscribe_feature_blubrry']) ) echo 'checked '; ?>/> <label for="subscribe_feature_blubrry"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
         <?php
         marketing_footer();
@@ -544,7 +560,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_jiosaavn_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_jiosaavn_sidebar" name="General[subscribe_feature_jiosaavn_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_jiosaavn_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_jiosaavn_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_jiosaavn_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_jiosaavn_shortcode" name="General[subscribe_feature_jiosaavn_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_jiosaavn_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_jiosaavn_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_jiosaavn]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_jiosaavn" name="General[subscribe_feature_jiosaavn]" value="1" <?php if( !empty($Settings['subscribe_feature_jiosaavn']) ) echo 'checked '; ?>/> <label for="subscribe_feature_jiosaavn"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -554,7 +572,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_podchaser_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_podchaser_sidebar" name="General[subscribe_feature_podchaser_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_podchaser_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_podchaser_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_podchaser_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_podchaser_shortcode" name="General[subscribe_feature_podchaser_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_podchaser_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_podchaser_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_podchaser]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_podchaser" name="General[subscribe_feature_podchaser]" value="1" <?php if( !empty($Settings['subscribe_feature_podchaser']) ) echo 'checked '; ?>/> <label for="subscribe_feature_podchaser"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -564,7 +584,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_gaana_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_gaana_sidebar" name="General[subscribe_feature_gaana_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_gaana_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_gaana_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_gaana_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_gaana_shortcode" name="General[subscribe_feature_gaana_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_gaana_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_gaana_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_gaana]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_gaana" name="General[subscribe_feature_gaana]" value="1" <?php if( !empty($Settings['subscribe_feature_gaana']) ) echo 'checked '; ?>/> <label for="subscribe_feature_gaana"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -574,7 +596,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pcindex_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pcindex_sidebar" name="General[subscribe_feature_pcindex_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_pcindex_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pcindex_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pcindex_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pcindex_shortcode" name="General[subscribe_feature_pcindex_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_pcindex_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pcindex_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_pcindex]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_pcindex" name="General[subscribe_feature_pcindex]" value="1" <?php if( !empty($Settings['subscribe_feature_pcindex']) ) echo 'checked '; ?>/> <label for="subscribe_feature_pcindex"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -585,7 +609,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_email_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_email_sidebar" name="General[subscribe_feature_email_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_email_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_email_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_email_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_email_shortcode" name="General[subscribe_feature_email_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_email_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_email_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_email]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_email" name="General[subscribe_feature_email]" value="1" <?php if( !empty($Settings['subscribe_feature_email']) ) echo 'checked '; ?>/> <label for="subscribe_feature_email"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -595,7 +621,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_tunein_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_tunein_sidebar" name="General[subscribe_feature_tunein_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_tunein_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_tunein_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_tunein_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_tunein_shortcode" name="General[subscribe_feature_tunein_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_tunein_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_tunein_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_tunein]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_tunein" name="General[subscribe_feature_tunein]" value="1" <?php if( !empty($Settings['subscribe_feature_tunein']) ) echo 'checked '; ?>/> <label for="subscribe_feature_tunein"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -605,7 +633,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_deezer_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_deezer_sidebar" name="General[subscribe_feature_deezer_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_deezer_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_deezer_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_deezer_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_deezer_shortcode" name="General[subscribe_feature_deezer_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_deezer_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_deezer_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_deezer]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_deezer" name="General[subscribe_feature_deezer]" value="1" <?php if( !empty($Settings['subscribe_feature_deezer']) ) echo 'checked '; ?>/> <label for="subscribe_feature_deezer"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -615,7 +645,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_anghami_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_anghami_sidebar" name="General[subscribe_feature_anghami_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_anghami_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_anghami_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_anghami_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_anghami_shortcode" name="General[subscribe_feature_anghami_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_anghami_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_anghami_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_anghami]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_anghami" name="General[subscribe_feature_anghami]" value="1" <?php if( !empty($Settings['subscribe_feature_anghami']) ) echo 'checked '; ?>/> <label for="subscribe_feature_anghami"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>
@@ -625,7 +657,9 @@ function subscribeSetting($directory, $feed_url, $listing_url) {
         <div class="pp-show-subscribe">
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_youtube_sidebar]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_youtube_sidebar" name="General[subscribe_feature_youtube_sidebar]" value="1" <?php if( !empty($Settings['subscribe_feature_youtube_sidebar']) ) echo 'checked '; ?>/> <label for="subscribe_feature_youtube_sidebar"><?php echo __('Show link in subscribe sidebar', 'powerpress'); ?></label></p>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_youtube_shortcode]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_youtube_shortcode" name="General[subscribe_feature_youtube_shortcode]" value="1" <?php if( !empty($Settings['subscribe_feature_youtube_shortcode']) ) echo 'checked '; ?>/> <label for="subscribe_feature_youtube_shortcode"><?php echo __('Show link on subscribe page', 'powerpress'); ?></label></p>
+            <?php if( !empty($GeneralSettings['subscribe_links']) ) { ?>
             <p class="pp-settings-text-smaller-margin"><input type="hidden" name="General[subscribe_feature_youtube]" value="0" /><input class="pp-settings-checkbox" type="checkbox" id="subscribe_feature_youtube" name="General[subscribe_feature_youtube]" value="1" <?php if( !empty($Settings['subscribe_feature_youtube']) ) echo 'checked '; ?>/> <label for="subscribe_feature_youtube"><?php echo __('Show link under media player', 'powerpress'); ?></label></p>
+            <?php } ?>
         </div>
 
     </div>

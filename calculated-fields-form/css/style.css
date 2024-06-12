@@ -320,6 +320,8 @@ input [readonly] {background-color: #f00;}
 }
 
 #fbuilder .fform{border:1px solid transparent;padding:10px;margin:5px 0px;display:block;position:relative}
+#fbuilder .fform.no_title{border:1px dashed #CDCDCD;}
+#fbuilder .fform.no_title *{color:#CDCDCD !important; font-size:18px !important;text-align:center !important; padding:0 !important; font-weight:normal !important;}
 #fbuilder .fields .arrow,
 #fbuilder .fform .arrow{position:absolute;left:-2px;top:10px;margin-left:0; display:none;}
 #fbuilder .fform.ui-selected .arrow{display:inline}

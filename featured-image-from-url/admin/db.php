@@ -1136,7 +1136,7 @@ class FifuDb {
         );
     }
 
-    function prepare_meta_in() {
+    function prepare_meta_in($post_ids_str) {
         // post (cpt)
         $this->wpdb->query("
             INSERT INTO {$this->fifu_meta_in} (post_ids, type)
@@ -1895,7 +1895,7 @@ function fifu_db_fix_guid() {
 function fifu_db_prepare_meta_in() {
     $db = new FifuDb();
     $db->create_table_meta_in();
-    $db->prepare_meta_in();
+    $db->prepare_meta_in(null);
 }
 
 function fifu_db_prepare_meta_out() {

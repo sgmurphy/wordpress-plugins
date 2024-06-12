@@ -2643,9 +2643,9 @@ function powerpress_edit_post($post_ID, $post)
 
                         $FileSize = '';
                         $ContentType = '';
-                        $Duration = false;
+                        $Duration_alt = false;
                         if( $Powerpress['set_duration'] == 0 )
-                            $Duration = ''; // allow the duration to be detected
+                            $Duration_alt = ''; // allow the duration to be detected
 
                         // Get the content type based on the file extension, first we have to remove query string if it exists
                         $ContentType = false;

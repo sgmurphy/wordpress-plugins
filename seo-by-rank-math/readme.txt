@@ -1,11 +1,11 @@
-=== Rank Math SEO - AI SEO Tools to Dominate SEO Rankings ===
+=== Rank Math SEO with AI SEO Tools ===
 Contributors: rankmath
 Plugin link: https://rankmath.com/?utm_source=LP&utm_campaign=WP
 Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.5
 Requires at least: 6.3
 Requires PHP: 7.4
-Stable tag: 1.0.220
+Stable tag: 1.0.221
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -583,13 +583,13 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.220 [May 30, 2024] =
-- Added: [Power words](https://rankmath.com/blog/power-words/#power-words-list) support for French, Japanese, Spanish, Italian, Finnish, and Hungarian languages
-- Added: Turkish language support in [Content AI](https://rankmath.com/kb/configure-content-ai-global-settings/#languages)
-- Fixed: Update button state in the [Elementor editor](https://rankmath.com/blog/elementor-seo/) remained active without changing any content
-- Fixed: Content generated using [Write with Content AI](https://rankmath.com/kb/how-to-use-content-ai/#write-with-content-ai) was inserted in the wrong position on WordPress 6.5
-- Fixed: PHP warning related to the [Table of Contents block](https://rankmath.com/kb/table-of-contents-block/) on some setups
-- Fixed: Author Sitemap was not displaying on some setups due to an incorrect format of the [Exclude User Roles setting](https://rankmath.com/kb/configure-sitemaps/#authors-exclude-user-roles)
+= 1.0.221 [June 12, 2024] =
+- Improved: Moved [Role Manager](https://rankmath.com/kb/role-manager/) code to React. Now it loads blazing fast. We will gruadually make other modules load fast as well. 
+- Fixed: Update button state in the [Elementor editor](https://rankmath.com/blog/elementor-seo/) remained active even without any content changes when the Schema module was enabled
+- Fixed: [Table of Contents Block](https://rankmath.com/kb/table-of-contents-block/) was not working with Full Site editing templates
+- Fixed: [Organization name variable](https://rankmath.com/kb/variables-in-seo-title-description/#organization-name) `%org_name%` was displaying the site name in the Preview editor instead of the Organization name
+- Fixed: Missing link to [add new Redirection](https://rankmath.com/kb/setting-up-redirections/#redirections) in the Redirections Table
+- Fixed: Missing checkbox to allow editing [.htaccess file](https://rankmath.com/kb/general-settings/#edit-htaccess)
 
 
 Full changelog can be found here - **[Rank Math changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

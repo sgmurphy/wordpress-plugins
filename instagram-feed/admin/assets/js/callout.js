@@ -16,22 +16,22 @@ const positionCalloutContainer = (leave = false) => {
 
 	}
 }
-
 window.onload = () => {
 	positionCalloutContainer()
 	window.addEventListener("resize", (event) => {
 		positionCalloutContainer()
 	});
 
-	document.getElementById("toplevel_page_sb-instagram-feed").addEventListener("mouseenter", (event) => {
-		if (!document.body.classList.contains('index-php')) {
-			positionCalloutContainer()
-		}
-	});
-	document.getElementById("toplevel_page_sb-instagram-feed").addEventListener("mouseleave", (event) => {
-		if (!document.body.classList.contains('index-php')) {
-			positionCalloutContainer(true)
-		}
-
-	});
+	if(document.getElementById("toplevel_page_sb-instagram-feed")) {
+		document.getElementById("toplevel_page_sb-instagram-feed").addEventListener("mouseenter", (event) => {
+			if (!document.body.classList.contains('index-php')) {
+				positionCalloutContainer()
+			}
+		});
+		document.getElementById("toplevel_page_sb-instagram-feed").addEventListener("mouseleave", (event) => {
+			if (!document.body.classList.contains('index-php')) {
+				positionCalloutContainer(true)
+			}
+		});
+	}
 }

@@ -55,10 +55,11 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 	<a href="#metabox_define_validation_texts">' . esc_html__( 'Error texts', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
 	<a href="#metabox_submit_thank">' . esc_html__( 'Submit button and thank you page', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
 	<a href="#metabox_notification_email">' . esc_html__( 'Notification email', 'calculated-fields-form' ) . '</a>&nbsp;
-	[<b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b> <a href="#metabox_payment_settings" style="color:#fc6756;">' . esc_html__( 'General payment settings', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="#metabox_paypal_integration" style="color:#fc6756;">' . esc_html__( 'PayPal integration', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="#metabox_email_copy_to_user" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
-	<a href="#metabox_captcha_settings" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>]
+	[<b>' . esc_html__( 'Commercial Features', 'calculated-fields-form' ) . ':</b>
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'General payment settings', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'PayPal integration', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Email copy to user', 'calculated-fields-form' ) . '</a>&nbsp;|&nbsp;
+	<a href="https://cff.dwbooster.com/download" target="_blank" style="color:#fc6756;">' . esc_html__( 'Captcha settings', 'calculated-fields-form' ) . '</a>]
  </div>';
 ?>
 <div class="wrap">
@@ -135,7 +136,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 					}
 					?>
 					</div>
-					<p style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;box-sizing:border-box;"><span style="font-weight:bold;"><?php esc_html_e( 'If the form is not loading in the public website, go to the settings page of the plugin through the menu option: "Settings/Calculated Fields Form", select the "Classic" option for the attribute: "Script load method", and press the "Update" button.', 'calculated-fields-form' ); ?></span><br /><?php _e( 'If you need also the form to be sent to the server side for processing (for example to deliver emails) then the <a href="https://cff.dwbooster.com/download" target="_blank">Commercial versions</a> of the plugin are required.', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+					<p style="border:1px solid #F0AD4E;background:#fffaf4;padding:10px;box-sizing:border-box;"><span style="font-weight:600;"><?php esc_html_e( 'If the form isn\'t loading on the public website, try inserting its shortcode with the iframe attribute set to 1:', 'calculated-fields-form' ); ?> [CP_CALCULATED_FIELDS id="<?php print esc_html(CP_CALCULATEDFIELDSF_ID); ?>" iframe="1"]</span><br /><?php _e( 'For server-side processing like sending email copy to users, you\'ll need the <a href="https://cff.dwbooster.com/download" target="_blank">Commercial versions</a> of the plugin.', 'calculated-fields-form' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 					<input type="hidden" name="form_structure" id="form_structure" value="<?php print esc_attr( preg_replace( '/&quot;/i', '&amp;quot;', json_encode( $form_obj->get_option( 'form_structure', CP_CALCULATEDFIELDSF_DEFAULT_form_structure ) ) ) ); ?>" />
 					<input type="hidden" name="templates" id="templates" value="<?php print esc_attr( json_encode( CPCFF_TEMPLATES::load_templates() ) ); ?>" />
 					<link href="<?php print esc_attr( plugins_url( '/vendors/jquery-ui/jquery-ui.min.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>" type="text/css" rel="stylesheet" property="stylesheet" />
@@ -148,7 +149,10 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 								function calculatedFieldsFormReady()
 								{
 									/* Nav sections menu */
-									$calculatedfieldsfQuery('.cff-navigation-sections-menu a').on( 'mouseup', function(){$calculatedfieldsfQuery('#metabox_form_structure').removeClass('fullscreen');});
+									$calculatedfieldsfQuery('.cff-navigation-sections-menu a').on( 'mouseup', function(){
+										if( $calculatedfieldsfQuery(this).prop('target') != '_blank' )
+											$calculatedfieldsfQuery('#metabox_form_structure').removeClass('fullscreen');
+									});
 									/* Revisions code */
 									$calculatedfieldsfQuery('[name="cff_apply_revision"]').on( 'click',
 										function(){

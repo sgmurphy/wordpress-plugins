@@ -1,10 +1,10 @@
-=== ElementsKit Elementor addons and Templates Library===
+=== ElementsKit Elementor addons ===
 Contributors: xpeedstudio, Ataurr, emranio
 Tags: Elementor addons, mega menu builder,  header footer builder, elementor addon, elementor widgets
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 3.1.5
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,11 +26,12 @@ Besides Exclusive features **ElementsKit Elementor addon** has unique and powerf
 
 == = KEY FEATURES == ==
 
-🔥 All time **downloads of ELementsKit : 15,687,888** (16 million all time downloads).
+🔥 All time **downloads of ELementsKit : 20,199,390** (20 million all time downloads).
 - 90+ Free and Premium Widgets
 - 18+ Exclusive Modules
 - 45+ Pre-designed Header & Footer Templates
-- 98+ Ready Pages - 791+ Ready Sections
+- 98+ Ready Pages
+- 791+ Ready Sections
 - WooCommerce Widgets
 - Cross-Browser Compatible
 - Fully Responsive
@@ -39,10 +40,10 @@ Besides Exclusive features **ElementsKit Elementor addon** has unique and powerf
 
 
 == Layoutkit Elementor Template library ==
-ElementsKit page builder addons offers over 112+ ready-made template pages and 500+ built-in sections.
+ElementsKit page builder addons offers over 28+ ready-made template pages.
 
-== 500+ Readymade Section ==
-ElementsKit comes with 500+ readymade section blocks. 
+== 791+ Readymade Section ==
+ElementsKit comes with 791+ readymade section blocks. 
 
 == Modular based and Lightweight ==
 ElementsKit is a Modular-based plugin, it is built with optimization in mind.
@@ -413,7 +414,7 @@ ElementsKit is brought to you by Wpmet, a name **trusted by 10,00,000 satisfied 
  - 📂 [Browse Changelogs](https://wpmet.com/plugin/elementskit/roadmaps/#updates)
 
 
-###  😍 LOVE ShopEngine?
+###  😍 LOVE ElementsKit?
   
 👉 Stay Updated with our [Youtube Channel](https://www.youtube.com/c/Wpmet/videos)
 
@@ -427,7 +428,9 @@ If you like using ElementsKit Elementor addon, then consider checking out our ot
 
 👉 [ShopEngine](https://wpmet.com/plugin/shopengine/)
 👉 [MetForm](https://wpmet.com/plugin/metform/)
-👉 [GetGenie Ai](https://wordpress.org/plugins/getgenie) 
+👉 [GetGenie Ai](https://wordpress.org/plugins/getgenie)
+👉 [GutenKit](https://wpmet.com/plugin/gutenkit/)
+👉  EmailKit
 👉 [Wp Social](https://wpmet.com/plugin/wp-social/) 
 👉 [Wp Fundraising](https://products.wpmet.com/crowdfunding/) 
 👉 [Wp Ultimate Review](https://products.wpmet.com/review/) 

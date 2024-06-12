@@ -4,7 +4,7 @@ Donate link:
 Tags: before after, before after elementor, before after slider, before after gallery, before after image
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 4.5.10
+Stable tag: 4.5.11
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -345,6 +345,14 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 24. Before After Video Slider
 
 == Changelog ==
+
+= 4.5.11 – 12/06/2024 =
+
+- Compatibility: Compatible with WordPress 6.5.4
+- Improvement: Removed unused scripts
+- Improvement: Optimized code and performance
+- Improvement: System stability improved
+- Minor bug fixes and improvements
 
 = 4.5.10 – 03/06/2024 =
 
@@ -786,91 +794,6 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 - Removed BEAF Custom Post Type URL Generation for SEO Purpose.
 - Added title, description and Read more link for BEAF slider or gallery (Pro Version).
 - Updated Gallery Generator
-
-= 3.2.1 - 13/05/2021 =
-
-- Check: WordPress 5.7.2 compatibility
-
-= 3.2.0 - 29/04/2021 =
-
-- Added: Width-Height-Alignment for the Pro Feature
-- Fixed: Minor Styles Issues
-
-= 3.1.1 - 12/04/2021 =
-
-- Fixed: Minor Style Issues
-
-= 3.1.0 - 1/04/2021 =
-
-- Fixed: Compatiblity issues with BEAF Pro
-
-= 3.0.6 - 27/03/2021 =
-
-- Fixed: Minor Glitch
-
-= 3.0.5 - 20/03/2021 =
-
-- Fixed: Minor Style Issues
-
-= 3.0.4 - 12/03/2021 =
-
-- Check: WordPress 5.7 compatibility
-
-= 3.0.3 - 10/03/2021 =
-
-- Fixed: Known issues
-
-= 3.0.2 - 28/02/2021 =
-
-- Added: Max Upload Items for BEAF Gallery
-
-= 3.0.1 - 18/02/2021 =
-
-- Major Release: Version 3
-- Added: Before After Gallery
-- Fixed: CSS issue on Small image Slider
-
-= 2.2.3 - 10/01/2021 =
-
-- Added: Elementor Addon.
-
-= 2.1.1 - 26/12/2020 =
-
-- Added: New Premium Features
-
-= 2.0.3 - 15/12/2020 =
-
-- Check: WordPress 5.6 compatibility
-
-= 2.0.2 - 10/11/2020 =
-
-- Update: Live Preview URL
-
-= 2.0.1 - 09/11/2020 =
-
-- Fixed: Known issues
-
-= 2.0.0 - 02/11/2020 =
-
-- Major Release: Version 2
-- Added: New Options Panel
-
-= 1.0.4 - 17/10/2020 =
-
-- Fixed: Known Issues
-
-= 1.0.3 - 06/04/2020 =
-
-- Check: WordPress 5.4 compatibility
-
-= 1.0.2 - 03/03/2020 =
-
-- Fixed: A Major Bug
-
-= 1.0.1 - 02/02/2020 =
-
-- Updated core functions
-- Small bug fixing
 
 = 1.0.0 - 29/01/2020 =
 

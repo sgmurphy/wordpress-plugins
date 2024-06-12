@@ -550,14 +550,24 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             break;
         case 'hmwp_abort':
         case 'hmwp_restore_settings':
-            //get current user tokens
-            $hmwp_token = HMWP_Classes_Tools::getOption('hmwp_token');
-            $api_token = HMWP_Classes_Tools::getOption('api_token');
+
+            //get keys that should not be replaced
+            $tmp_options = array('hmwp_token','api_token','hmwp_plugin_name','hmwp_plugin_menu','hmwp_plugin_logo','hmwp_plugin_website', 'hmwp_plugin_account_show', );
+
+            $tmp_options = array_fill_keys($tmp_options, true);
+            foreach ($tmp_options as $keys => &$value) {
+                $value = HMWP_Classes_Tools::getOption($keys);
+            }
+
             //get the safe options from database
             HMWP_Classes_Tools::$options = HMWP_Classes_Tools::getOptions(true);
-            //set the current user tokens
-            HMWP_Classes_Tools::saveOptions('hmwp_token', $hmwp_token);
-            HMWP_Classes_Tools::saveOptions('api_token', $api_token);
+
+            //set tmp data back to options
+            foreach ($tmp_options as $keys => $value) {
+                HMWP_Classes_Tools::$options[$keys] = $value;
+            }
+            HMWP_Classes_Tools::saveOptions();
+
 
             //set frontend, error & logout to false
             HMWP_Classes_Tools::saveOptions('test_frontend', false);

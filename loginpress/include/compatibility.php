@@ -4,7 +4,7 @@
  * This is a LoginPress Compatibility to make it compatible for older versions.
  *
  * @since 1.0.22
- * @version 3.0.0
+ * @version 3.0.9
  */
 
 
@@ -125,6 +125,14 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 			add_action( 'init', array( $this, 'aiowps_login_init_remove_action' ) );
 
 			/**
+			 * BuddyBoss theme Compatibility with login page Fix.
+			 *
+			 * @since 3.0.9
+			 * 
+			 */
+			add_action( 'login_head', array( $this, 'lp_remove_filter_buddyboss' ) );
+
+			/**
 			 * WPS Hide Login Fix.
 			 *
 			 * @version 3.0.8
@@ -208,11 +216,24 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		}
 
 		/**
+		 * BuddyBoss theme Compatibility Fix for login page logo.
+		 *
+		 * @since 3.0.9
+		 */
+		public function lp_remove_filter_buddyboss() {
+			$active_theme = get_template();
+			if ( isset( $active_theme ) && 'buddyboss-theme' === $active_theme ) {
+				remove_filter( 'login_headerurl', 'change_wp_login_url' );
+				remove_filter( 'login_headertext', 'change_wp_login_title' );
+			}
+		}
+
+		/**
 		 * WebArx Compatibility Fix.
 		 *
 		 * @since 1.2.3
-		 * @param string $location The currrent location.
-		 * @return string $location Modified currrent location.
+		 * @param string $location The current location.
+		 * @return string $location Modified current location.
 		 */
 		public function wp_redirect_remove_filter( $location ) {
 
@@ -237,7 +258,7 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		 *
 		 * @since 1.2.3
 		 * @param string $url The URL.
-		 * @return string $url Modfied URL.
+		 * @return string $url Modified URL.
 		 */
 		public function site_url_remove_filter( $url ) {
 			if ( class_exists( 'Webarx' ) ) {
@@ -261,7 +282,7 @@ if ( ! class_exists( 'LoginPress_Compatibility' ) ) :
 		 *
 		 * @since 1.2.3
 		 * @param string $url The URL.
-		 * @return string $url Modfied URL.
+		 * @return string $url Modified URL.
 		 */
 		public function network_site_url_remove_filter( $url ) {
 			if ( class_exists( 'Webarx' ) ) {

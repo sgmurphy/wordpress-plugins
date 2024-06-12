@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.5.2
 Requires PHP: 7.0
-Stable tag: 5.7.23
+Stable tag: 5.7.24
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,13 +438,17 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.23 =
+= 5.7.24 =
 
-* Fix: "Post image size" setting field was not displaying all registered image sizes
-* Fix: Paused campaign was getting sent to all subscribers while saving in some cases [PRO]
-* Fix: SQL Injection vulnerability during contact import - CVE-2024-4845 [Thanks to Wordfence team]
+* Fix: SQL Injection vulnerability during subscription - CVE-2024-5756 [Thanks to Wordfence team]
+* Update: Improved dashboard UI
 
 == Changelog ==
+
+**5.7.24 (12.06.2024)**
+
+* Fix: SQL Injection vulnerability during subscription - CVE-2024-5756 [Thanks to Wordfence team]
+* Update: Improved dashboard UI
 
 **5.7.23 (06.06.2024)**
 

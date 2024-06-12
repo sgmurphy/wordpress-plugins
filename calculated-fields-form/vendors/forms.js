@@ -1,5 +1,10 @@
 cff_forms_templates = {
     "free": [{
+            "title": "From scratch",
+            "category": "Basic Operations",
+            "description": "Blank form to start from scratch.",
+            "id": 35
+        }, {
             "title": "Simple Operations",
             "category": "Basic Operations",
             "description": "Sum of numbers fields and the sum of ticked choices in a multi-choices field.",
@@ -130,6 +135,11 @@ cff_forms_templates = {
             "description": "Compound Interest refers to earning or paying interest on interest.",
             "id": 11
         }, {
+            "title": "SIP Investment Calculator",
+            "category": "Financial",
+            "description": "Calculate the invested amount, estimated return, and the total value.",
+            "id": 34
+        }, {
             "title": "Exchange Rate Form",
             "category": "Financial",
             "description": "Uses the cffProxy operation to call an exchange rate API.",
@@ -153,6 +163,11 @@ cff_forms_templates = {
             "category": "Financial",
             "description": "Calculates the compound interest and draws a line chart with the evolution.",
             "id": 12
+        }, {
+            "title": "SIP Investment Calculator with Stacked Bar",
+            "category": "Financial",
+            "description": "Calculate the invested amount, estimated return, and the total value.",
+            "id": 36
         }, {
             "title": "Cab Service (DISTANCE operation)",
             "category": "Distance",

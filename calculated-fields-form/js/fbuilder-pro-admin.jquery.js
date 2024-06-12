@@ -743,10 +743,15 @@
 				customstyles:"",
 				display:function()
 				{
-					let css = '';
+					let css = '', empty_class = '', title = this.title, description = this.description;
 					if(this.textalign != 'default') css+='text-align:'+this.textalign+';'
 					if(this.headertextcolor != '') css+='color:'+this.headertextcolor+';';
-					return cff_sanitize('<div class="fform" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+this.title+'</'+this.titletag+'><span style="display:block;'+css+'">'+this.description+'</span></div>');
+					if( /^\s*$/.test(title+''+description) ) {
+						empty_class = 'no_title';
+						title = '{ Form Title and Description Here }';
+					}
+
+					return cff_sanitize('<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+title+'</'+this.titletag+'><span style="display:block;'+css+'">'+description+'</span></div>');
 				},
 
 				showAllSettings:function()

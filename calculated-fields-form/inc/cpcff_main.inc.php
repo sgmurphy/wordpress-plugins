@@ -482,7 +482,34 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				if ( ! empty( $wp_scripts ) ) {
 					$wp_scripts->reset();
 				}
-				$message = $this->public_form( $atts['shortcode_atts'] );
+
+				$message = (
+					! empty( $atts['banner'] )
+					? '
+					<style>
+					#codepeople-review-banner{box-sizing:border-box; border:10px solid #EEE;background:#FFF;display:table;visibility:visible !important;margin-bottom:15px;width:100% !important;}
+					#codepeople-review-banner ul{margin-bottom:0;margin-top:5px;}
+					#codepeople-review-banner ul li{margin-bottom:2px;}
+					#codepeople-review-banner *{visibility:visible !important;}
+					#codepeople-review-banner .codepeople-review-banner-content{padding:10px;}
+					</style>
+					<div id="codepeople-review-banner">
+						<div class="codepeople-review-banner-content">
+							<div class="codepeople-review-banner-text">
+								<div>Upgrade to the <a href="https://cff.dwbooster.com/download" target="_blank" style="font-weight:700;color:#1582AB;">Professional plugin version</a> for advanced features. It\'s a one-time purchase with lifetime updates, and you can install it on all your websites. Thank you!
+								<ul>
+									<li>Improve user experience by emailing them a copy of the form data, including calculated field results.</li>
+									<li>Save form data for analysis in tools like Excel or Google Sheets.</li>
+									<li>Export the forms to your other websites easily.</li>
+									<li>Integrate a payment gateway to charge users the calculated prices.</li>
+								</ul>
+								</div>
+							</div>
+						</div>
+					</div>'
+					: ''
+				) . $this->public_form( $atts['shortcode_atts'] );
+
 				ob_start();
 				if ( ! empty( $wp_styles ) ) {
 					$wp_styles->do_items();
@@ -501,7 +528,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				$page_title = ( ! empty( $atts['page_title'] ) ) ? $atts['page_title'] : '';
 				remove_all_actions( 'shutdown' );
 				if ( ! empty( $atts['wp_die'] ) ) {
-					wp_die( $message . '<style>body{margin:2em !important;max-width:100% !important;box-shadow:none !important;background:white !important}html{background:white !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
+					wp_die( $message . '<style>body{margin:1.5em !important;max-width:100% !important;box-shadow:none !important;background:white !important;padding:0 !important; border:0 !important;}html{background:white !important;}.wp-die-message{margin:0 !important;}.wp-die-message>*:not(form){visibility: hidden;}  .pac-container, .ui-tooltip, .ui-tooltip *,.ui-datepicker,.ui-datepicker *{visibility: visible;}</style>' . apply_filters( 'cpcff_form_preview_resources', '' ), esc_html( $page_title ), 200 ); // phpcs:ignore WordPress.Security.EscapeOutput
 				} elseif ( ! empty( $atts['page'] ) ) {
 					print '<!DOCTYPE html><html><head profile="http://gmpg.org/xfn/11">' .
 					( get_option( 'CP_CALCULATEDFIELDSF_EXCLUDE_CRAWLERS', false ) ? '<meta name="robots" content="none" />' : '' ) .

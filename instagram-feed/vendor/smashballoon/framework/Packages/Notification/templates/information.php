@@ -1,7 +1,4 @@
 <?php
-
-namespace InstagramFeed\Vendor;
-
 /**
  * Show messages
  *
@@ -17,17 +14,22 @@ namespace InstagramFeed\Vendor;
  * @package Notification\templates
  * @version 1.0.0
  */
-if (!\defined('ABSPATH')) {
-    exit;
+
+if (! defined('ABSPATH')) {
+	exit;
 }
-if (!$notice) {
-    return;
+
+if (! $notice) {
+	return;
 }
+
 /*
  * Fires before the notices are displayed.
  */
 do_action('sb_notices_before_information_notice');
+
 echo $notice;
+
 /*
  * Fires after the notices are displayed.
  */

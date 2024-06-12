@@ -2,9 +2,9 @@
 Contributors: sendlayer, jaredatch, smub, capuderg
 Tags: email, smtp, email logs, gmail, outlook
 Requires at least: 5.2
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,9 @@ And we will try to help out as soon as possible.
 6. Debug Events page
 
 == Changelog ==
+
+= 2.3.1 - 2024-06-11 =
+* Changed: Improved SMTP password security in the Other SMTP mailer.
 
 = 2.3.0 - 2024-03-13 =
 * IMPORTANT: Support for PHP 5.6, 7.0, and 7.1 has been discontinued. If you are running one of those versions, you MUST upgrade PHP before installing or upgrading to Easy WP SMTP v2.3. Failure to do that will disable Easy WP SMTP functionality.

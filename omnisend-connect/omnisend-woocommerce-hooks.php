@@ -437,6 +437,28 @@ function omnisend_map_value_to_status( $value ) {
 	return $value ? Omnisend_Settings::STATUS_ENABLED : Omnisend_Settings::STATUS_DISABLED;
 }
 
+add_action( 'plugins_loaded', 'omnisend_detect_environment_changes' );
+function omnisend_detect_environment_changes() {
+	$option_name = 'omnisend_environment';
+
+	$current_environment  = wp_get_environment_type();
+	$previous_environment = get_option( $option_name );
+
+	if ( ! $previous_environment ) {
+		Omnisend_Logger::info(
+			'detected environment: ' . $current_environment . '. site: ' . Omnisend_Helper::get_domain( home_url() )
+		);
+	}
+
+	if ( $previous_environment && $previous_environment !== $current_environment ) {
+		Omnisend_Logger::info(
+			"detected environment change $previous_environment -> $current_environment. site: " . Omnisend_Helper::get_domain( home_url() )
+		);
+	}
+
+	update_option( $option_name, $current_environment );
+}
+
 add_action( 'plugins_loaded', 'omnisend_detect_domain_change' );
 function omnisend_detect_domain_change() {
 	$connected_domain_host = Omnisend_Helper::get_domain( get_option( 'omnisend_connected_domain' ) );
@@ -445,19 +467,14 @@ function omnisend_detect_domain_change() {
 
 	if ( $connected_domain_host && $connected_domain_host !== $current_domain_host ) {
 		Omnisend_Logger::info( "detected site domain change $connected_domain_host -> $current_domain_host - disconnecting Omnisend" );
-
-		Omnisend_Install::delete_omnisend_webhooks();
-		Omnisend_Install::revoke_omnisend_woo_api_keys();
-
-		Omnisend_Install::delete_options();
-		Omnisend_Install::delete_metadata();
+		Omnisend_Install::disconnect();
 	}
 
 	update_option( 'omnisend_connected_domain', $current_domain );
 }
 
-add_action( 'plugins_loaded', 'detect_omnisend_plugin_updates' );
-function detect_omnisend_plugin_updates() {
+add_action( 'plugins_loaded', 'omnisend_detect_plugin_updates' );
+function omnisend_detect_plugin_updates() {
 
 	$omnisend_plugin_version = Omnisend_Helper::omnisend_plugin_version();
 	$version_db              = get_option( 'omnisend_plugin_version', '0.0.0' );

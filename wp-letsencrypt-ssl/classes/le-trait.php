@@ -840,8 +840,9 @@ class WPLE_Trait {
     }
 
     /**
-     * Returns cert directory
+     * Returns cert directory with trailing slash
      *
+     * #TODO: MU mapped domain test
      * @since 7.0.0
      */
     public static function wple_cert_directory() {

@@ -277,21 +277,39 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.7.1", "essential-blocks")}
+                                    {__("Version: 4.7.2", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("09/06/2024", "essential-blocks")}
+                                        {__("12/06/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Editor JavaScript error in WordPress 6.4 or lower",
+                                            "Fixed: Animation Delay Option not working for blocks",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Essential Blocks Admin Dashboard page not loading correctly",
+                                            "Fixed: Column Block | responsive not working properly",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Column Block | animation not working properly",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Responsive control not working properly for all blocks",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Minor bug fixes & improvements",
                                             "essential-blocks"
                                         )}
                                     </li>

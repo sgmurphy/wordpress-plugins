@@ -3,7 +3,7 @@ Contributors: smashballoon, craig-at-smash-balloon, am, smub
 Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 4.1
 Tested up to: 6.5
-Stable tag: 6.4
+Stable tag: 6.4.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -310,6 +310,10 @@ If you like our WordPress Instagram plugin, then consider checking out our other
 Visit [WPBeginner](https://wpbeginner.com/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links) to learn from our [WordPress Tutorials](https://www.wpbeginner.com/category/wp-tutorials/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links) and about the [best WordPress plugins](https://www.wpbeginner.com/category/plugins/?utm_campaign=instagram-free&utm_source=readme&utm_medium=whats-next-links).
 
 == Changelog ==
+= 6.4.1 =
+* Fix: PHP fatal error that could occur in some circumstances when using the plugin.
+* Fix: JS error that occurred on the frontend.
+
 = 6.4 =
 * New: Added a checklist and callout feature to help users get started with all Smash Balloon products installed
 * Tweak: Added some improvements to our onboarding wizard to make it clear what certain steps do.

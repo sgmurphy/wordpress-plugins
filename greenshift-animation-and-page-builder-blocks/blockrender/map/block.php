@@ -146,7 +146,7 @@ class GspbMap
 			$localizeArray['styles'] = json_decode($settings['mapstyleJSON']);
 		}
 
-		$maptype = $settings['maptype'];
+		$maptype = esc_attr($settings['maptype']);
 
 		wp_localize_script('gspb_map', str_replace('-', '_', $blockId), $localizeArray);
 

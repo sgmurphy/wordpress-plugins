@@ -438,6 +438,11 @@ function cp_update_default_settings(e)
 						) . '</td></tr>';
 					}
 
+					// Variables to include the links the public forms.
+					$_cff_include_link_to_form   = get_option( 'CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS', CP_CALCULATEDFIELDSF_DIRECT_FORM_ACCESS );
+					$_cff_link_to_form_base_url  = CPCFF_AUXILIARY::site_url();
+					$_cff_link_to_form_base_url .= ( strpos( $_cff_link_to_form_base_url, '?' ) === false ? '?' : '&' ) .'cff-form=';
+
 					$_rows_count = count( $myrows );
 					for ( $items_index = max( 0, ( $current_page - 1 ) * $records_per_page ); $items_index < min( $current_page * $records_per_page, $_rows_count ); $items_index++ ) {
 						$item = $myrows[ $items_index ];
@@ -454,7 +459,18 @@ function cp_update_default_settings(e)
 							</td>
 							<td><?php
 							if ( ! empty( $item->category ) ) {
-								print esc_html__( 'Category: ', 'calculated-fields-form' ) . '<b>' . esc_html( $item->category ) . '</b><br>';} ?><div style="white-space:nowrap;">[CP_CALCULATED_FIELDS id="<?php echo esc_attr( $item->id ); ?>"]</div></td>
+								print esc_html__( 'Category: ', 'calculated-fields-form' ) . '<b>' . esc_html( $item->category ) . '</b><br>';
+							} ?>
+								<div style="white-space:nowrap;">
+								<?php
+									if ( $_cff_include_link_to_form ) {
+										print '<a href="' . esc_attr( $_cff_link_to_form_base_url . $item->id ) . '" target="_blank">[CP_CALCULATED_FIELDS id="' . $item->id. '"]</a>';
+									} else {
+										print '[CP_CALCULATED_FIELDS id="' . $item->id. '"]';
+									}
+								?>
+								</div>
+							</td>
 						</tr>
 						<?php
 					}

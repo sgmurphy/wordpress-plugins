@@ -4,20 +4,20 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009
+class ComposerStaticInit068f39eed0c063991b4fc0ef781471be
 {
     public static $files = array (
-        'sb_ig_b1eb330aa001ae4915f07005b4e993c2' => __DIR__ . '/..' . '/smashballoon/framework/Utilities/functions.php',
+        'b1eb330aa001ae4915f07005b4e993c2' => __DIR__ . '/..' . '/smashballoon/framework/Utilities/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Smashballoon\\Stubs\\' => 19,
+            'Smashballoon\\Framework\\' => 23,
         ),
         'I' => 
         array (
-            'InstagramFeed\\Vendor\\Smashballoon\\Framework\\' => 44,
             'InstagramFeed\\' => 14,
         ),
     );
@@ -27,7 +27,7 @@ class ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009
         array (
             0 => __DIR__ . '/..' . '/smashballoon/stubs/src',
         ),
-        'InstagramFeed\\Vendor\\Smashballoon\\Framework\\' => 
+        'Smashballoon\\Framework\\' => 
         array (
             0 => __DIR__ . '/..' . '/smashballoon/framework',
         ),
@@ -44,9 +44,9 @@ class ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb481dbffdbc44db2a89ebc56e6784009::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit068f39eed0c063991b4fc0ef781471be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit068f39eed0c063991b4fc0ef781471be::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit068f39eed0c063991b4fc0ef781471be::$classMap;
 
         }, null, ClassLoader::class);
     }

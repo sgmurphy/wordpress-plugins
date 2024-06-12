@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 Plugin Name: Keon Toolset
 Plugin URI:  
 Description: A easy plugin to import dummy data for themes by Keon Themes.
-Version:     1.8.1
+Version:     1.8.2
 Author:      Keon Themes
 Author URI:  https://keonthemes.com
 License:     GPLv3 or later
@@ -43,7 +43,7 @@ function keon_toolset_get_theme_screenshot(){
  * @since    1.0.0
  */   
 require KEON_TOOLSET_PATH . 'demo/functions.php';
-if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' ){
+if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' || keon_toolset_get_theme_slug() == 'shoppable-jewelry' ){
     require KEON_TOOLSET_PATH . 'demo/base-install/base-install.php';  
 }
 
@@ -66,7 +66,7 @@ add_filter( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts' ), 
 add_action( 'advanced_import_replace_term_ids', array( $plugin_admin, 'replace_term_ids' ), 20 );
 add_action( 'advanced_import_replace_post_ids', array( $plugin_admin, 'replace_attachment_ids' ), 30 );
 
-if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' ){
+if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' || keon_toolset_get_theme_slug() == 'shoppable-jewelry' ){
     add_action('advanced_import_after_complete_screen', array( $plugin_admin, 'kt_advance_import' ));
     add_action('advanced_import_after_content_screen', array( $plugin_admin, 'kt_advance_import_transient' ));
 }

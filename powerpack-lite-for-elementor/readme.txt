@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.7.20
+Stable tag: 2.7.21
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -233,6 +233,11 @@ Not at all! All the widgets and settings are easy to use with drag & drop interf
 
 
 == Changelog ==
+
+= 2.7.21 - June 12, 2024 =
+* 	Enhancement: Team Member - Added X icons to recommended list
+* 	Enhancement: Team Member Carousel - Replaced Twitter icon with X icon
+* 	Security Fix: Link Effects - Improved code security
 
 = 2.7.20 - May 29, 2024 =
 * 	Fixed: Info Grid & Carousel - Pause on Hover option was not working

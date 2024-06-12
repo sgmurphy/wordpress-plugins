@@ -3,8 +3,8 @@ Contributors: humanityco
 Tags: gdpr, ccpa, cookies, consent, compliance, privacy
 Requires at least: 4.9.6
 Requires PHP: 7.4
-Tested up to: 6.5
-Stable tag: 2.4.16
+Tested up to: 6.5.4
+Stable tag: 2.4.17.1
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -122,6 +122,14 @@ Yes! The plugin + web appliaction version includes technical compliance features
 4. Cookie Compliance settings
 
 == Changelog ==
+
+= 2.4.17 =
+* New: SpeedyCache caching plugin compatibility
+* New: Breeze caching plugin compatibility
+* Fix: Improved WP Rocket plugin compatibility
+* Fix: Improved Speed Optimize plugin compatibility
+* Fix: Network settings override switching
+* Tweak: Chart.js updated to 4.4.3
 
 = 2.4.16 =
 * New: Option to enable/disable bot detection
@@ -507,5 +515,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 2.4.16 =
-New: Option to enable/disable bot detection, Fix: Typo in wp_die() function calls
+= 2.4.17 =
+Improved multiple caching plugins compatibility

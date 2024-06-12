@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.13 =
+
+* Allows accessing the public forms from the forms list.
+* Improves the forms builder interface and forms preview.
+* Fixes an issue with datepicker in cached forms.
+
 = 5.2.12 =
 
 * Improves the Gutenberg block displaying the templates' thumbnails and reducing the code required for rendering the forms.

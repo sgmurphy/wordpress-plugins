@@ -2,20 +2,20 @@
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Rank Math SEO with AI Best SEO Tools 1.0.220\n"
+"Project-Id-Version: Rank Math SEO with AI SEO Tools 1.0.221\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/seo-by-rank-math\n"
 "Last-Translator: Rank Math <support@rankmath.com>\n"
 "Language-Team: Rank Math <support@rankmath.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-30T12:02:50+00:00\n"
+"POT-Creation-Date: 2024-06-12T04:53:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: rank-math\n"
 
 #. Plugin Name of the plugin
-msgid "Rank Math SEO with AI Best SEO Tools"
+msgid "Rank Math SEO with AI SEO Tools"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -506,7 +506,6 @@ msgstr ""
 #. translators: Link to KB article
 #. translators: Redirection page url
 #. translators: 1. Link to KB article 2. Link to redirection setting scree
-#. translators: %s is a Learn More link to the documentation.
 #. translators: Learn more link.
 #. translators: %1$s: thing, %2$s: Learn more link.
 msgid "Learn more"
@@ -4288,19 +4287,6 @@ msgid "On-Page Social Settings"
 msgstr ""
 
 msgid "Top Admin Bar"
-msgstr ""
-
-#. translators: %s is a Learn More link to the documentation.
-msgid "Control which user has access to which options of Rank Math. %s"
-msgstr ""
-
-msgid "Reset"
-msgstr ""
-
-msgid "Update Capabilities"
-msgstr ""
-
-msgid "Toggle All"
 msgstr ""
 
 msgid "Blocks"
@@ -8932,7 +8918,28 @@ msgstr ""
 msgid "Start using Content AI by connecting your RankMath account."
 msgstr ""
 
-msgid "Are you sure? You want to reset settings."
+msgid "Resetting…"
+msgstr ""
+
+msgid "Resetted"
+msgstr ""
+
+msgid "Updated"
+msgstr ""
+
+msgid "Select / Deselect All"
+msgstr ""
+
+msgid "Toggle All"
+msgstr ""
+
+msgid "Control which user has access to which options of Rank Math."
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Update Capabilities"
 msgstr ""
 
 msgid "Author Name"

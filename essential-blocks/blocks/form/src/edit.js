@@ -499,7 +499,7 @@ export default function Edit(props) {
                         )}
                         {formType && formType.length > 0 && (
                             <>
-                                {formInnerItem.length == 0 && (
+                                {formInnerItem && formInnerItem.length == 0 && (
                                     <div className="eb-popup-before-content">
                                         <p>
                                             <strong>Add Form Field</strong>

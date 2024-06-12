@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.12
+Stable tag: 5.2.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -123,6 +123,10 @@ Payments allow SCA (strong customer authentication), compatible with the new pay
 * [Distance and travel time operations module](https://cff.dwbooster.com/documentation#distance-module) uses "Google Maps".
 * [Chart.js operations module](https://cff.dwbooster.com/documentation#chart-module) to generate charts with the form data. Uses the ChartJS.org library.
 * A script that allows the developer to save the data collected by the form in an [external database](https://cff.dwbooster.com/documentation#third-party-database).
+
+[youtube https://www.youtube.com/watch?v=HKMvUTthOoM]
+
+[youtube https://www.youtube.com/watch?v=FzltD0AFU6Y]
 
 **Includes add-ons to extend the form features and make use of third-party plugins and external services**
 
@@ -448,6 +452,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.13 =
+
+* Allows accessing the public forms from the forms list.
+* Improves the forms builder interface and forms preview.
+* Fixes an issue with datepicker in cached forms.
+
 = 5.2.12 =
 
 * Improves the Gutenberg block displaying the templates' thumbnails and reducing the code required for rendering the forms.
@@ -477,7 +487,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 = 5.2.8 =
 
 * Pauses the fields animation for a conflict with themes.
-
-= 5.2.7 =
-
-* Removes non-essential information from the forms builder.

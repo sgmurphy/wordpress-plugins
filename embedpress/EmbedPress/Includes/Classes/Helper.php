@@ -1009,7 +1009,7 @@ class Helper
 
 					<?php if (!empty($adSkipButton) && !empty($showSkipButton)) : ?>
 						<button title="Skip Ad" class="skip-ad-button" style="display: none;">
-							<?php echo esc_html__('Skip Ads', 'embedpress'); ?>
+							<?php echo esc_html__('Skip Ad', 'embedpress'); ?>
 						</button>
 					<?php endif; ?>
 
@@ -1055,6 +1055,10 @@ class Helper
 				position: relative;
 				display: inline-block !important;
 				max-width: 100%;
+				width: 100%;
+			}
+			.embedpress-document-embed div[data-sponsored-id], .embedpress-document-embed .main-ad-template.video {
+				width: 100%;
 			}
 
 			.ep-percentage-width div[data-sponsored-id] {
@@ -1129,6 +1133,7 @@ class Helper
 				align-items: center;
 				justify-content: center;
 				cursor: pointer;
+				padding: 0;
 
 			}
 
@@ -1265,6 +1270,20 @@ class Helper
 		}
 	}
 
+	public static function get_enable_settings_data_for_scripts($settings) {
+		$settings_data = [
+			'enabled_ads' => isset($settings['adManager']) && $settings['adManager'] === 'yes' ? 'yes' : '',
+
+			'enabled_custom_player' => isset($settings['emberpress_custom_player']) && $settings['emberpress_custom_player'] === 'yes' ? 'yes' : '',
+
+			'enabled_instafeed' => isset($settings['embedpress_pro_embeded_source']) && $settings['embedpress_pro_embeded_source'] === 'instafeed' ? 'yes' : '',
+
+			'enabled_docs_custom_viewer' => isset($settings['embedpress_document_viewer']) && $settings['embedpress_document_viewer'] === 'custom' ? 'yes' : '',
+		];
+	
+		update_option('enabled_elementor_scripts', $settings_data);
+	}
+	
 	public static function get_options_value($key){
 		$g_settings = get_option(EMBEDPRESS_PLG_NAME);
 
@@ -1274,6 +1293,3 @@ class Helper
 		return '';
 	}
 }
-
-
-?>

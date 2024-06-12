@@ -56,10 +56,11 @@ jQuery(function () {
 
     function openDialog(explicit) {
 
-        var version = 'free',
+        var version 	= 'free',
+			version_n 	= {'free': 1, 'pro': 2, 'dev': 3, 'plat': 4},
 			form_name_field = $('[id="cp_itemname"]'),
-			form_tag = form_name_field.closest('form')[0],
-			data = [];
+			form_tag 	= form_name_field.closest('form')[0],
+			data 		= [];
 
 		form_name_field.val(form_name_field.val().replace(/^\s*/, '').replace(/\s*$/, ''));
 
@@ -73,46 +74,44 @@ jQuery(function () {
             }
 
             if (typeof cff_forms_templates != 'undefined') {
-                switch (version) {
-                case 'free':
-                    data = data.concat(cff_forms_templates['free']);
-                    break;
-                case 'pro':
-                    data = data.concat(cff_forms_templates['free'], cff_forms_templates['pro']);
-                    break;
-                case 'dev':
-                    data = data.concat(cff_forms_templates['free'], cff_forms_templates['pro'], cff_forms_templates['dev']);
-                    break;
-                case 'plat':
-                    data = data.concat(cff_forms_templates['free'], cff_forms_templates['pro'], cff_forms_templates['dev'], cff_forms_templates['plat']);
-                    break;
-                }
+				for(var j in cff_forms_templates ) {
+					data = cff_forms_templates[j];
+					for (var i in data) {
 
-                if (data.length) {
-                    for (var i in data) {
+						categories[data[i]['category']] = '<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,\'' + data[i]['category'] + '\')">' + data[i]['category'] + '</a></li>';
 
-                        categories[data[i]['category']] = '<li><a href="javascript:void(0);" onclick="cff_templatesInCategory(this,\'' + data[i]['category'] + '\')">' + data[i]['category'] + '</a></li>';
+						tmp = $(form_tpl);
+						if (version_n[version] < version_n[j]) {
+							tmp.addClass( 'cff-form-library-form-disabled' ).append('<div class="cff-form-library-form-lock"></div>').on('click', function(){window.open('https://cff.dwbooster.com/download', '_blank');});
+							tmp.find('[type="button"]')
+								.prop( 'disabled', true )
+								.on(
+									'click',
+									function(){ window.open('https://cff.dwbooster.com/download', '_blank'); }
+								);
+						} else {
+							tmp.find('[type="button"]').on(
+								'click',
+								(function (id) {
+									return function () {
+										cff_getTemplate(id);
+									};
+								})(data[i]['id'])
+							);
+						}
+						tmp.attr('data-category', data[i]['category']);
+						tmp.find('.cff-form-library-form-title').text(data[i]['title']);
+						tmp.find('.cff-form-library-form-description').text(data[i]['description']);
+						tmp.find('.cff-form-library-form-category').text(data[i]['category']);
 
-                        tmp = $(form_tpl);
-                        tmp.attr('data-category', data[i]['category']);
-                        tmp.find('.cff-form-library-form-title').text(data[i]['title']);
-                        tmp.find('.cff-form-library-form-description').text(data[i]['description']);
-                        tmp.find('.cff-form-library-form-category').text(data[i]['category']);
-                        tmp.find('[type="button"]').on(
-                            'click',
-                            (function (id) {
-                                return function () {
-                                    cff_getTemplate(id);
-                                };
-                            })(data[i]['id']));
-                        tmp.appendTo('.cff-form-library-main');
-                    }
+						tmp.appendTo('.cff-form-library-main');
+					}
+				}
+			}
 
-                    for (var i in categories) {
-                        $(categories[i]).appendTo('.cff-form-library-categories ul');
-                    }
-                }
-            }
+			for (var i in categories) {
+				$(categories[i]).appendTo('.cff-form-library-categories ul');
+			}
         };
 
 		$(document).on('keyup', '[id="cp_itemname_library"]', function(evt){
