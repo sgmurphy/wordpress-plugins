@@ -1,5 +1,5 @@
-(function( $ ) {
-	'use strict';
+(function($) {
+	'use strict'
 
 	/**
 	 * All of the code for your admin-facing JavaScript source
@@ -28,29 +28,29 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-    $(document).ready(function (){
+    $(document).ready(function() {
         var checkCountdownIsExists = $(document).find('#ays-pb-new-mega-bundle-dicount-month-main');
 
-        if ( checkCountdownIsExists.length > 0 ) {
-            var second  = 1000,
-                minute  = second * 60,
-                hour    = minute * 60,
-                day     = hour * 24;
+        if (checkCountdownIsExists.length > 0) {
+            var second = 1000,
+                minute = second * 60,
+                hour = minute * 60,
+                day = hour * 24;
 
             var countdownEndTime = pb.pbBannerDate
-            // var countdownEndTime ="DEC 31, 2022 23:59:59",
+            // var countdownEndTime ='DEC 31, 2022 23:59:59',
             var countDown = new Date(countdownEndTime).getTime();
+
             if ( isNaN(countDown) || isFinite(countDown) == false ) {
                 var AYS_POPUP_MILLISECONDS = 3 * day;
                 var countdownStartDate = new Date(Date.now() + AYS_POPUP_MILLISECONDS);
-                var popupCountdownEndTime = countdownStartDate.aysPopupCustomFormat( "#YYYY#-#MM#-#DD# #hhhh#:#mm#:#ss#" );
+                var popupCountdownEndTime = countdownStartDate.aysPopupCustomFormat('#YYYY#-#MM#-#DD# #hhhh#:#mm#:#ss#');
                 var countDown = new Date(popupCountdownEndTime).getTime();
             }
 
 			aysPopupBannerCountdown();
 
             var y = setInterval(function() {
-
                 var now = new Date().getTime();
                 var distance_new = countDown - now;
 
@@ -58,45 +58,88 @@
 
                 //do something later when date is reached
                 if (distance_new < 0) {
-                    var headline  = document.getElementById("ays-pb-countdown-headline"),
-                        countdown = document.getElementById("ays-pb-countdown"),
-                        content   = document.getElementById("ays-pb-countdown-content");
+                    var headline = document.getElementById('ays-pb-countdown-headline');
+                    var countdown = document.getElementById('ays-pb-countdown');
+                    var content = document.getElementById('ays-pb-countdown-content');
 
-                  countdown.style.display = "none";
-                  content.style.display = "block";
+                    countdown.style.display = 'none';
+                    content.style.display = 'block';
 
-                  clearInterval(y);
+                    clearInterval(y);
                 }
             }, 1000);
         }
 
-        function aysPopupBannerCountdown(){
+        $(document).on('click', '#ays-pb-dismiss-buttons-content .ays-button, #ays-pb-dismiss-buttons-content-helloween .ays-button-helloween, #ays-pb-dismiss-buttons-content-black-friday .ays-button-black-friday', function(e) {
+            e.preventDefault();
+
+            var $this = $(this);
+            var thisParent = $this.parents('#ays-pb-dismiss-buttons-content');
+
+            var mainParent = $this.parents('div.ays_pb_dicount_info');
+            var closeButton = mainParent.find('button.notice-dismiss');
+
+            var attr_plugin = $this.attr('data-plugin');
+            var wp_nonce = thisParent.find('#ays-pb-sale-banner').val();
+
+            var data = {
+                action: 'ays_pb_dismiss_button',
+                _ajax_nonce: wp_nonce,
+            };
+
+            $.ajax({
+                url: pb.ajax,
+                method: 'post',
+                dataType: 'json',
+                data: data,
+                success: function(response) {
+                    if (response.status) {
+                        closeButton.trigger('click');
+                    } else {
+                        swal.fire({
+                            type: 'info',
+                            html: '<h2>' + pb.errorMsg + '</h2><br><h6>' + pb.somethingWentWrong +'</h6>'
+                        }).then(function(res) {
+                            closeButton.trigger('click');
+                        });
+                    }
+                },
+                error: function() {
+                    swal.fire({
+                        type: 'info',
+                        html: '<h2>' + pb.errorMsg + '</h2><br><h6>' + pb.somethingWentWrong + '</h6>'
+                    }).then(function(res) {
+                        closeButton.trigger('click');
+                    });
+                }
+            });
+        });
+
+        function aysPopupBannerCountdown() {
             var now = new Date().getTime();
             var distance_new = countDown - now;
 
-            var countDownDays    = document.getElementById("ays-pb-countdown-days");
-            var countDownHours   = document.getElementById("ays-pb-countdown-hours");
-            var countDownMinutes = document.getElementById("ays-pb-countdown-minutes");
-            var countDownSeconds = document.getElementById("ays-pb-countdown-seconds");
+            var countDownDays = document.getElementById('ays-pb-countdown-days');
+            var countDownHours = document.getElementById('ays-pb-countdown-hours');
+            var countDownMinutes = document.getElementById('ays-pb-countdown-minutes');
+            var countDownSeconds = document.getElementById('ays-pb-countdown-seconds');
 
-            if((countDownDays !== null || countDownHours !== null || countDownMinutes !== null || countDownSeconds !== null) && distance_new > 0){
-
-                var countDownDays_innerText    = Math.floor(distance_new / (day));
-                var countDownHours_innerText   = Math.floor((distance_new % (day)) / (hour));
+            if ((countDownDays !== null || countDownHours !== null || countDownMinutes !== null || countDownSeconds !== null) && distance_new > 0) {
+                var countDownDays_innerText = Math.floor(distance_new / (day));
+                var countDownHours_innerText = Math.floor((distance_new % (day)) / (hour));
                 var countDownMinutes_innerText = Math.floor((distance_new % (hour)) / (minute));
                 var countDownSeconds_innerText = Math.floor((distance_new % (minute)) / second);
 
-                if( isNaN(countDownDays_innerText) || isNaN(countDownHours_innerText) || isNaN(countDownMinutes_innerText) || isNaN(countDownSeconds_innerText) ){
-                    var headline  = document.getElementById("ays-pb-countdown-headline"),
-                        countdown = document.getElementById("ays-pb-countdown"),
-                        content   = document.getElementById("ays-pb-countdown-content");
+                if (isNaN(countDownDays_innerText) || isNaN(countDownHours_innerText) || isNaN(countDownMinutes_innerText) || isNaN(countDownSeconds_innerText)) {
+                    var headline = document.getElementById('ays-pb-countdown-headline');
+                    var countdown = document.getElementById('ays-pb-countdown');
+                    var content = document.getElementById('ays-pb-countdown-content');
 
-                    countdown.style.display = "none";
-                    content.style.display = "block";
-
+                    countdown.style.display = 'none';
+                    content.style.display = 'block';
                 } else {
-                    countDownDays.innerText    = countDownDays_innerText;
-                    countDownHours.innerText   = countDownHours_innerText;
+                    countDownDays.innerText = countDownDays_innerText;
+                    countDownHours.innerText = countDownHours_innerText;
                     countDownMinutes.innerText = countDownMinutes_innerText;
                     countDownSeconds.innerText = countDownSeconds_innerText;
                 }
@@ -104,52 +147,7 @@
         }
     });
 
-    $(document).on("click", "#ays-pb-dismiss-buttons-content .ays-button, #ays-pb-dismiss-buttons-content-helloween .ays-button-helloween, #ays-pb-dismiss-buttons-content-black-friday .ays-button-black-friday", function(e){
-        e.preventDefault();
-
-        var $this = $(this);
-        var thisParent  = $this.parents("#ays-pb-dismiss-buttons-content");
-
-        var mainParent  = $this.parents("div.ays_pb_dicount_info");
-        var closeButton = mainParent.find("button.notice-dismiss");
-
-        var attr_plugin = $this.attr('data-plugin');
-        var wp_nonce    = thisParent.find('#ays-pb-sale-banner').val();
-
-        var data = {
-            action: 'ays_pb_dismiss_button',
-            _ajax_nonce: wp_nonce,
-        };
-
-        $.ajax({
-            url: pb.ajax,
-            method: 'post',
-            dataType: 'json',
-            data: data,
-            success: function (response) {
-                if( response.status ){
-                    closeButton.trigger('click');
-                } else {
-                    swal.fire({
-                        type: 'info',
-                        html: "<h2>"+ pb.errorMsg +"</h2><br><h6>"+ pb.somethingWentWrong +"</h6>"
-                    }).then(function(res) {
-                        closeButton.trigger('click');
-                    });
-                }
-            },
-            error: function(){
-                swal.fire({
-                    type: 'info',
-                    html: "<h2>"+ pb.errorMsg +"</h2><br><h6>"+ pb.somethingWentWrong +"</h6>"
-                }).then(function(res) {
-                    closeButton.trigger('click');
-                });
-            }
-        });
-    });
-
-    Date.prototype.aysPopupCustomFormat = function( formatString){
+    Date.prototype.aysPopupCustomFormat = function(formatString) {
         var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
         YY = ((YYYY=this.getFullYear())+"").slice(-2);
         MM = (M=this.getMonth()+1)<10?('0'+M):M;
@@ -191,5 +189,4 @@
         // #ampm#     "am" or "pm"             pm
         // #AMPM#     "AM" or "PM"             PM
     };
-
-})( jQuery );
+})(jQuery);

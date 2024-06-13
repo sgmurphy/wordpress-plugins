@@ -43,7 +43,7 @@ function lead_connector_render_plugin_settings_page()
         $warning_msg = esc_attr($options[lead_connector_constants\lc_options_text_widget_warning_text]);
     }
 
-    $ui_setting = json_encode(array(
+    $ui_setting = wp_json_encode(array(
         'enable_text_widget' => $enabled_text_widget,
         'api_key' => base64_encode($api_key),
         'text_widget_error' => $text_widget_error,
@@ -55,9 +55,9 @@ function lead_connector_render_plugin_settings_page()
         <?php
 settings_fields(LEAD_CONNECTOR_OPTION_NAME);
     do_settings_sections('lead_connector_plugin');?>
-        <div id="lead-connecter-settings-holder" data-settings="<?php esc_attr_e($ui_setting);?>"></div>
+        <div id="lead-connecter-settings-holder" data-settings="<?php esc_attr($ui_setting);?>"></div>
     </form>
-    <div id="app" data-enable_text_widget="<?php esc_attr_e($enabled_text_widget);?>"></div>
+    <div id="app" data-enable_text_widget="<?php esc_attr($enabled_text_widget);?>"></div>
     <?php
 }
 

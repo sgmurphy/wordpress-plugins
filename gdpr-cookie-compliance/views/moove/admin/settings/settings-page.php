@@ -73,7 +73,7 @@ $wpml_lang     = $gdpr_default_content->moove_gdpr_get_wpml_lang('label');
 	<?php
 	if ( $wpml_lang ) :
 		$_current_user       = wp_get_current_user();
-		$show_language_alert = isset( $modal_options[ 'gdpr_hide_language_notice_' . $_current_user->ID ] ) && 1 === intval( $modal_options[ 'gdpr_hide_language_notice_' . $_current_user->ID ] ) ? 'display: none;' : 'display: inline-block;';
+		$show_language_alert = 'display: inline-block;';
 		?>
 		<div class="gdpr-cookie-alert gdpr-cookie-alert-dark" style="<?php echo esc_attr( $show_language_alert ); ?>">
 			<p>
@@ -81,7 +81,6 @@ $wpml_lang     = $gdpr_default_content->moove_gdpr_get_wpml_lang('label');
 				<?php /* translators: %s: version number */ ?>
 				<?php printf( esc_html__( 'You are currently editing: %s version', 'gdpr-cookie-compliance' ), '<strong>' . esc_attr( gdpr_get_display_language_by_locale( str_replace( '_', '', $wpml_lang ) ) ) . '</strong>' ); ?>
 				<?php do_action( 'gdpr_language_alert_bottom', $wpml_lang ); ?>
-			<span class="gdpr-dismiss" title="<?php esc_html_e( 'dismiss notice', 'gdpr-cookie-compliance' ); ?>" data-nonce="<?php echo wp_create_nonce('gdpr_hide_language_nonce') ?>" data-adminajax="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-uid="<?php echo intval( $_current_user->ID ); ?>">×</span>
 		</div>
 		<!--  .gdpr-cookie-alert -->
 	<?php endif; ?>

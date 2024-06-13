@@ -77,12 +77,13 @@ class Dependencies extends API {
 		$_inactive_plugins = [];
 		$_plugins = Helper::get_plugins();
 
-		if( ! Helper::is_plugin_active( 'elementor/elementor.php' ) && $platform === 'elementor' ) {
+		if( $platform === 'elementor' ) {
 			$elementor_plugin              = new stdClass();
 			$elementor_plugin->name        = __( 'Elementor', 'templately' );
 			$elementor_plugin->plugin_file = 'elementor/elementor.php';
 			$elementor_plugin->slug        = 'elementor';
 			$elementor_plugin->is_pro      = false;
+			$elementor_plugin->is_active   = Helper::is_plugin_active( 'elementor/elementor.php' );
 
 			$_inactive_plugins[] = $elementor_plugin;
 		}
@@ -94,9 +95,11 @@ class Dependencies extends API {
 				}
 
 				$dependency  = ( object ) $dependency;
-				if ( is_null( $dependency->plugin_file ) || Helper::is_plugin_active( $dependency->plugin_file ) ) {
+				if ( is_null( $dependency->plugin_file ) ) {
 					continue;
 				}
+
+				$dependency->is_active = Helper::is_plugin_active( $dependency->plugin_file );
 
 				if( isset( $dependency->plugin_original_slug ) ) {
 					$dependency->slug = $dependency->plugin_original_slug;

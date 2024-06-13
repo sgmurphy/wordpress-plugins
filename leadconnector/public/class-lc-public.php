@@ -131,7 +131,7 @@ class LeadConnector_Public
             if (isset($options[lead_connector_constants\lc_options_text_widget_use_email_filed])) {
                 $use_email_field = esc_attr($options[lead_connector_constants\lc_options_text_widget_use_email_filed]);
             }
-            wp_enqueue_script($this->plugin_name . ".lc_text_widget", LEAD_CONNECTOR_CDN_BASE_URL . 'loader.js');
+            wp_enqueue_script($this->plugin_name . ".lc_text_widget", LEAD_CONNECTOR_CDN_BASE_URL . 'loader.js', '', $this->version, false);
             wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/lc-public.js', array('jquery'), $this->version, false);
             wp_localize_script($this->plugin_name, 'lc_public_js',
                 array(

@@ -44,6 +44,5 @@ if (get_option('ays_pb_upgrade_plugin','false') === 'false') {
     delete_option("ays_pb_upgrade_plugin");
     delete_option("ays_pb_sale_date");
     delete_option("ays_pb_sale_btn");
-    delete_option("ays_pb_sale_dismiss_for_two_month_spring");
     delete_option("ays_pb_banner_time");
 }

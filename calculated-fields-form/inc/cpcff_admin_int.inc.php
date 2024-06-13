@@ -112,7 +112,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 							}
 							?>
 							</select>
-							<input type="button" name="cff_apply_revision" value="<?php print esc_attr( 'Load Revision', 'calculated-fields-form' ); ?>" class="button-secondary" style="float:none;" />&nbsp;|&nbsp;
+							<input type="button" name="cff_apply_revision" value="<?php esc_attr_e( 'Load Revision', 'calculated-fields-form' ); ?>" class="button-secondary" style="float:none;" />&nbsp;|&nbsp;
 							<?php
 						endif;
 						?>

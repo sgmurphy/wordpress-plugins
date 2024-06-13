@@ -64,10 +64,10 @@ trait Elementor {
 	public static function get_all_templates( bool $default = false ) {
 
 		if ( $default ) {
-			$templates[0] = __( 'Default', 'dynamic-visibility-for-elementor' );
-			$templates[1] = __( 'None', 'dynamic-visibility-for-elementor' );
+			$templates[0] = esc_html__( 'Default', 'dynamic-visibility-for-elementor' );
+			$templates[1] = esc_html__( 'None', 'dynamic-visibility-for-elementor' );
 		} else {
-			$templates[0] = __( 'None', 'dynamic-visibility-for-elementor' );
+			$templates[0] = esc_html__( 'None', 'dynamic-visibility-for-elementor' );
 		}
 
 		$get_templates = self::get_templates();
@@ -124,14 +124,10 @@ trait Elementor {
 		$element_id = false;
 		if ( isset( $data['id'] ) ) {
 			$element_id = $data['id'];
-		} else {
-			if ( isset( $data[0]['id'] ) ) {
+		} elseif ( isset( $data[0]['id'] ) ) {
 				$element_id = $data[0]['id'];
-			} else {
-				if ( isset( $data[0][0]['id'] ) ) {
-					$element_id = $data[0][0]['id'];
-				}
-			}
+		} elseif ( isset( $data[0][0]['id'] ) ) {
+				$element_id = $data[0][0]['id'];
 		}
 		if ( $element_id ) {
 			if ( is_singular() && ! $post_id ) {
@@ -158,7 +154,7 @@ trait Elementor {
 					SELECT id FROM {$wpdb->prefix}posts
 					WHERE post_status LIKE 'publish'
 				)";
-			}			
+			}
 			$results = $wpdb->get_results( $query );
 			if ( ! empty( $results ) ) {
 				$result = reset( $results );
@@ -249,7 +245,7 @@ trait Elementor {
 			if ( $tmp_key !== false ) {
 				$keys_array[ $tmp_key ] = 'settings';
 			}
-			$post_meta = Helper::set_array_value_by_keys( $post_meta, $keys_array, $settings );
+			$post_meta = Helper::set_array_value_by_keys( is_array( $post_meta ) ? $post_meta : [], $keys_array, $settings );
 			array_walk_recursive($post_meta, function ( $v, $k ) {
 				$v = self::escape_json_string( $v );
 			});
@@ -275,7 +271,7 @@ trait Elementor {
 				$keys_array[] = 'settings';
 			}
 			$keys_array[] = $key;
-			$post_meta = Helper::set_array_value_by_keys( $post_meta, $keys_array, $value );
+			$post_meta = Helper::set_array_value_by_keys( is_array( $post_meta ) ? $post_meta : [], $keys_array, $value );
 			array_walk_recursive($post_meta, function ( $v, $k ) {
 				$v = self::escape_json_string( $v );
 			});
@@ -553,32 +549,16 @@ trait Elementor {
 		return $html;
 	}
 
-	public static function validate_html_tag( $tag ) {
-		$allowed_tags = self::ALLOWED_HTML_WRAPPER_TAGS;
-		return in_array( strtolower( $tag ), $allowed_tags, true ) ? $tag : 'div';
+	public static function get_active_devices_list() {
+		return \Elementor\Plugin::$instance->breakpoints->get_active_devices_list( [ 'reverse' => true ] );
 	}
 
 	/**
-	 * Validate Post Types
+	 * DCE Logo
 	 *
-	 * @param string|array|void $post_type
-	 * @return mixed
+	 * @return string
 	 */
-	public static function validate_post_type( $post_type ) {
-		$allowed_post_types = Helper::get_public_post_types();
-	
-		if ( is_string( $post_type ) && array_key_exists( $post_type, $allowed_post_types ) ) {
-			return $post_type;
-		} else if ( is_array( $post_type ) ) {
-			$post_type = array_filter( $post_type, function ( $type ) use ( $allowed_post_types ) {
-				return array_key_exists( $type, $allowed_post_types );
-			});
-			return $post_type;
-		} 
-		return '';
-	}
-
-	public static function get_active_devices_list() {
-		return \Elementor\Plugin::$instance->breakpoints->get_active_devices_list( [ 'reverse' => true ] );
+	public static function dce_logo() {
+		return '<span class="color-dce icon-dce-logo-dce pull-right ml-1"></span> ';
 	}
 }

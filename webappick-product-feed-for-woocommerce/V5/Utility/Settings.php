@@ -34,7 +34,7 @@ class Settings {
 			'overridden_structured_data'      => 'off',
 			'disable_mpn'                     => 'enable',
 			'disable_brand'                   => 'enable',
-			'disable_pixel'                   => 'enable',
+			'disable_pixel'                   => 'disable',
 			'pixel_id'                        => '',
 			'disable_remarketing'             => 'disable',
 			'remarketing_id'                  => '',

@@ -16,6 +16,8 @@ class MetaSlider
     public $identifier = 0; // unique identifier
     public $slides = array(); // slides belonging to this slider
     public $settings = array(); // slider settings
+    public static $globalCounter = 0; //counter
+    private $instanceId; //instance
 
     /**
      * Constructor
@@ -27,8 +29,27 @@ class MetaSlider
     {
         $this->id = $id;
         $this->settings = array_merge($shortcode_settings, $this->get_settings());
-        $this->identifier = 'metaslider_' . $this->id;
-        $this->populate_slides();
+        self::$globalCounter++;
+        $this->instanceId = self::$globalCounter;
+        if ($this->instanceId == 1) {
+            $this->identifier = 'metaslider_' . $this->id;
+        } else {
+            $this->identifier = 'metaslider_' . $this->id . '_' .  $this->instanceId;
+        }
+        
+        $this->populate_slides();  
+    }
+
+    /**
+     * global counter for multiple instance per page
+     *
+     */
+    public function getInstanceId() {
+        return $this->instanceId;
+    }
+
+    public static function getGlobalCounter() {
+        return self::$globalCounter;
     }
 
     /**
@@ -109,6 +130,8 @@ class MetaSlider
             'titleSpeed' => 500,
             'effect' => 'random',
             'navigation' => true,
+            'filmstrip_delay' => 7000,
+            'filmstrip_animationSpeed' => 600,
             'links' => true,
             'hoverPause' => true,
             'theme' => 'default',
@@ -127,7 +150,7 @@ class MetaSlider
             'carouselMargin' => 5,
             'firstSlideFadeIn' => false,
             'easing' => 'linear',
-            'autoPlay' => true,
+            'autoPlay' => false,
             'thumb_width' => 150,
             'thumb_height' => 100,
             'responsive_thumbs' => true,
@@ -143,7 +166,9 @@ class MetaSlider
             'mobileNavigation_laptop' => false,
             'mobileNavigation_desktop' => false,
             'ariaLive' => false,
-            'tabIndex' => false
+            'tabIndex' => false,
+            'pausePlay' => false,
+            'ariaCurrent' => false
         );
         return apply_filters('metaslider_default_parameters', $params);
     }
@@ -486,7 +511,7 @@ class MetaSlider
 
         // theme/plugin conflict avoidance
         if ('true' === $this->get_setting('noConflict') && 'flex' === $type) {
-            $javascript = "$('#metaslider_{$this->id}').addClass('flexslider');";
+            $javascript = "$('#{$this->identifier}').addClass('flexslider');";
         }
 
         $custom_js = apply_filters("metaslider_{$type}_slider_javascript_before", $javascript, $this->id);
@@ -744,6 +769,12 @@ class MetaSlider
         }
 
         wp_enqueue_script('metaslider-script', METASLIDER_ASSETS_URL . 'metaslider/script.min.js', array('jquery'), METASLIDER_ASSETS_VERSION);
+        
+        wp_localize_script('metaslider-script', 'wpData',
+            array(
+                'baseUrl' => esc_url(home_url()),
+            )
+        );
 
         do_action('metaslider_register_public_styles');
     }

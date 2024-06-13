@@ -5,18 +5,6 @@ trait Meta {
 
 	public static $meta_fields = [];
 
-	public static function get_acf_types() {
-		return array( 'text', 'textarea', 'number', 'range', 'email', 'url', 'password', 'image', 'file', 'wysiwyg', 'oembed', 'gallery', 'select', 'checkbox', 'radio', 'button_group', 'true_false', 'link', 'post_object', 'page_link', 'relationship', 'taxonomy', 'user', 'google_map', 'date_picker', 'date_time_picker', 'time_picker', 'color_picker', 'message', 'accordion', 'tab', 'group', 'repeater', 'flexible_content', 'clone' );
-	}
-
-	public static function get_pods_types() {
-		return array( 'text', 'website', 'phone', 'email', 'password', 'paragraph', 'wysiwyg', 'code', 'datetime', 'date', 'time', 'number', 'currency', 'file', 'oembed', 'pick', 'boolean', 'color' );
-	}
-
-	public static function get_toolset_types() {
-		return array( 'audio', 'colorpicker', 'email', 'embed', 'file', 'image', 'numeric', 'phone', 'textarea', 'textfield', 'url', 'video', 'checkboxes', 'checkbox', 'date', 'radio', 'select', 'skype', 'wysiwyg', 'multiple' );
-	}
-
 	public static function get_acf_field_locations( $aacf ) {
 		if ( is_string( $aacf ) ) {
 			$aacf = self::get_acf_field_post( $aacf );
@@ -130,7 +118,7 @@ trait Meta {
 		}
 		$query = 'SELECT DISTINCT meta_key FROM ' . esc_sql( $table );
 		if ( $like ) {
-			$query .= $wpdb->prepare( " WHERE meta_key LIKE %s", '%' . $wpdb->esc_like( $like ) . '%' );
+			$query .= $wpdb->prepare( ' WHERE meta_key LIKE %s', '%' . $wpdb->esc_like( $like ) . '%' );
 		}
 		$results = $wpdb->get_results( $query );
 		if ( ! empty( $results ) ) {
@@ -245,7 +233,7 @@ trait Meta {
 			if ( Helper::is_plugin_active( 'pods' ) ) {
 				$pods_fields = array_keys( self::get_pods_fields() );
 				if ( ! empty( $pods_fields ) && in_array( $meta_key, $pods_fields, true ) ) {
-					$meta_value = pods_field_display( $meta_key, $post_id );
+					$meta_value = wp_kses_post( pods_field_display( $meta_key, $post_id ) );
 				}
 			}
 		}
@@ -491,7 +479,7 @@ trait Meta {
 		global $wpdb;
 		$query = 'SELECT DISTINCT meta_key FROM ' . $wpdb->prefix . 'postmeta';
 		if ( $like ) {
-			$query .= " WHERE meta_key LIKE %s";
+			$query .= ' WHERE meta_key LIKE %s';
 			$prepared_query = $wpdb->prepare( $query, '%' . $wpdb->esc_like( $like ) . '%' );
 		} else {
 			$prepared_query = $query;
@@ -606,15 +594,18 @@ trait Meta {
 			'show_admin_bar_front',
 		);
 		if ( $field_name ) {
-			if ( in_array( $field_name, $user_fields ) || ! self::is_user_meta( $field_name ) ) {
+			if ( in_array( $field_name, $user_fields ) || ! self::is_validated_user_meta( $field_name ) ) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static function is_user_meta( $meta_name = null ) {
-		$user_fields = array(
+	public static function is_validated_user_meta( $meta_name = null ) {
+		if ( ! $meta_name ) {
+			return true;
+		}
+		$not_allowed = array(
 			'ID',
 			'user_login',
 			'user_pass',
@@ -626,10 +617,18 @@ trait Meta {
 			'user_status',
 			'display_name',
 		);
-		if ( $meta_name && in_array( $meta_name, $user_fields ) ) {
+		if ( in_array( $meta_name, $not_allowed, true ) ) {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @param string|null $meta_name
+	 * @return boolean
+	 */
+	public static function is_user_meta( $meta_name = null ) {
+		return self::is_validated_user_meta( $meta_name );
 	}
 
 	public static function is_term_meta( $meta_name = null ) {
@@ -667,7 +666,7 @@ trait Meta {
 			$types = Helper::str_to_array( ',', $types );
 		}
 		if ( $select ) {
-			$acf_list[0] = __( 'Select the field...', 'dynamic-visibility-for-elementor' );
+			$acf_list[0] = esc_html__( 'Select the field...', 'dynamic-visibility-for-elementor' );
 		}
 
 		// ACF Fields saved in the database
@@ -685,7 +684,7 @@ trait Meta {
 		if ( acf_have_local_fields() ) {
 			$local_fields = acf_get_local_fields();
 			foreach ( $local_fields as $key => $value ) {
-				$acf_list[ $value['key'] ] = $key . ' > ' . $value['label'] . ' [' . $value['key'] . '] (' . $value['type'] . ')';
+				$acf_list[ $value['key'] ] = $key . ' > ' . ( $value['label'] ?? '' ) . ' [' . $value['key'] . '] (' . $value['type'] . ')';
 			}
 		}
 
@@ -713,13 +712,11 @@ trait Meta {
 						}
 						$acf_list[ $acf_field_parent->post_excerpt ]['label'] = $acf_field_parent->post_title;
 					}
-				} else {
-					if ( $acf_field_parent ) {
-						if ( isset( $acf_field_parent_settings['type'] ) && $acf_field_parent_settings['type'] == 'group' ) {
-							$acf_list[ $acf_field_parent->post_excerpt . '_' . $acf_field->post_excerpt ] = $acf_field_parent->post_title . ' > ' . $acf_field->post_title . ' [' . $acf_field->post_excerpt . '] (' . $acf_field_settings['type'] . ')'; //.$acf_field->post_content; //post_name,
-						} else {
-							$acf_list[ $acf_field->post_excerpt ] = $acf_field_parent->post_title . ' > ' . $acf_field->post_title . ' [' . $acf_field->post_excerpt . '] (' . $acf_field_settings['type'] . ')'; //.$acf_field->post_content; //post_name,
-						}
+				} elseif ( $acf_field_parent ) {
+					if ( isset( $acf_field_parent_settings['type'] ) && $acf_field_parent_settings['type'] == 'group' ) {
+						$acf_list[ $acf_field_parent->post_excerpt . '_' . $acf_field->post_excerpt ] = $acf_field_parent->post_title . ' > ' . $acf_field->post_title . ' [' . $acf_field->post_excerpt . '] (' . $acf_field_settings['type'] . ')'; //.$acf_field->post_content; //post_name,
+					} else {
+						$acf_list[ $acf_field->post_excerpt ] = $acf_field_parent->post_title . ' > ' . $acf_field->post_title . ' [' . $acf_field->post_excerpt . '] (' . $acf_field_settings['type'] . ')'; //.$acf_field->post_content; //post_name,
 					}
 				}
 			}
@@ -771,7 +768,7 @@ trait Meta {
 		$row_counter = 0;
 		if ( $fields ) {
 			foreach ( $fields as $field_key => $field_value ) {
-				$row_counter++;
+				++$row_counter;
 				if ( $row_counter === $row ) {
 					$sub_fields[] = $field_value;
 					break;
@@ -779,7 +776,7 @@ trait Meta {
 			}
 		}
 		unset( $sub_fields[0]['acf_fc_layout'] );
-		return $sub_fields[0];
+		return $sub_fields[0] ?? [];
 	}
 
 	public static function get_acf_repeater_fields( $key ) {
@@ -915,7 +912,7 @@ trait Meta {
 		if ( $dataACFieldPost ) {
 			$parentID = $dataACFieldPost->post_parent;
 			$parent_settings = self::get_acf_field_settings( $parentID );
-			$custom_in_loop = apply_filters( 'dynamicooo/acf/in-loop', false, $parent_settings);
+			$custom_in_loop = apply_filters( 'dynamicooo/acf/in-loop', false, $parent_settings );
 			if ( ( isset( $parent_settings['type'] ) && ( $parent_settings['type'] == 'repeater' || $parent_settings['type'] == 'flexible_content' ) ) || $custom_in_loop ) {
 				$parent_post = get_post( $parentID );
 				$row = acf_get_loop( 'active' );
@@ -966,7 +963,7 @@ trait Meta {
 
 	public static function get_pods_fields( $t = null ) {
 		$podsList = [];
-		$podsList[0] = __( 'Select the field...', 'dynamic-visibility-for-elementor' );
+		$podsList[0] = esc_html__( 'Select the field...', 'dynamic-visibility-for-elementor' );
 		$pods = get_posts(array(
 			'post_type' => '_pods_field',
 			'numberposts' => -1,
@@ -990,7 +987,7 @@ trait Meta {
 
 	public static function get_toolset_fields( $t = null ) {
 		$toolset_list = [];
-		$toolset_list[0] = __( 'Select the field...', 'dynamic-visibility-for-elementor' );
+		$toolset_list[0] = esc_html__( 'Select the field...', 'dynamic-visibility-for-elementor' );
 		$toolset = get_option( 'wpcf-fields', false );
 		if ( $toolset ) {
 			$toolfields = maybe_unserialize( $toolset );
@@ -1017,14 +1014,14 @@ trait Meta {
 	 */
 	public static function get_toolset_relationship_fields() {
 		$toolset_list = [];
-		$toolset_list[0] = __( 'Select the field...', 'dynamic-visibility-for-elementor' );
+		$toolset_list[0] = esc_html__( 'Select the field...', 'dynamic-visibility-for-elementor' );
 
 		$relationships = toolset_get_relationships( [] );
 
 		if ( ! empty( $relationships ) ) {
 			foreach ( $relationships as $relationship ) {
 				$relationship_slug = $relationship['slug'];
-				$toolset_list[$relationship_slug] = $relationship['labels']['plural'];
+				$toolset_list[ $relationship_slug ] = $relationship['labels']['plural'];
 			}
 		}
 

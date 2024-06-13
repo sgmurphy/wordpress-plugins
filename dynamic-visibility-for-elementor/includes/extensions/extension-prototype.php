@@ -26,7 +26,7 @@ class ExtensionPrototype {
 	);
 
 	public function __construct() {
-		
+
 		// Enqueue scripts
 		add_action( 'elementor/frontend/after_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
@@ -68,10 +68,8 @@ class ExtensionPrototype {
 					if ( ! Helper::is_plugin_active( $pkey ) ) {
 						$isActive = false;
 					}
-				} else {
-					if ( ! Helper::is_plugin_active( $plugin ) ) {
+				} elseif ( ! Helper::is_plugin_active( $plugin ) ) {
 						$isActive = false;
-					}
 				}
 				if ( ! $isActive ) {
 					if ( ! $ret ) {
@@ -175,7 +173,7 @@ class ExtensionPrototype {
 		$element->start_controls_section(
 			$section_name, [
 				'tab' => Controls_Manager::TAB_ADVANCED,
-				'label' => '<span class="color-dce icon-dyn-logo-dce pull-right ml-1"></span> ' . $this->name,
+				'label' => '<span class="color-dce icon-dce-logo-dce pull-right ml-1"></span> ' . $this->name,
 			]
 		);
 		$element->end_controls_section();
@@ -184,7 +182,7 @@ class ExtensionPrototype {
 	public function add_common_sections_actions() {
 		foreach ( $this->common_sections_actions as $action ) {
 			// Activate action for elements
-			add_action('elementor/element/' . $action['element'] . '/' . $action['action'] . '/after_section_end', function( $element, $args ) {
+			add_action('elementor/element/' . $action['element'] . '/' . $action['action'] . '/after_section_end', function ( $element, $args ) {
 				$this->add_common_sections( $element, $args );
 			}, 10, 2);
 		}
@@ -224,17 +222,17 @@ class ExtensionPrototype {
 	*
 	*/
 	public function add_dynamic_tag( $class_name ) {
-		add_action( 'elementor/dynamic_tags/register', function( $dynamic_tags ) use ( $class_name ) {
+		add_action( 'elementor/dynamic_tags/register', function ( $dynamic_tags ) use ( $class_name ) {
 			// To register that group as well before the tag
 			$tags_config = \Elementor\Plugin::$instance->dynamic_tags->get_config();
 			if ( ! isset( $tags_config['groups']['dce'] ) ) {
 				\Elementor\Plugin::$instance->dynamic_tags->register_group( 'dce', [
-					'title' => DVE_PRODUCT_NAME,
+					'title' => DVE_PRODUCT_NAME_LONG,
 				] );
 			}
 			if ( ! isset( $tags_config['groups']['dce-dynamic-google-maps-directions'] ) ) {
 				\Elementor\Plugin::$instance->dynamic_tags->register_group( 'dce-dynamic-google-maps-directions', [
-					'title' => DVE_PRODUCT_NAME . ' - Dynamic Google Maps Directions', 
+					'title' => DVE_PRODUCT_NAME_LONG . ' - Dynamic Google Maps Directions',
 				] );
 			}
 			$class_name = '\\DynamicVisibilityForElementor\\Modules\\DynamicTags\\Tags\\' . $class_name;

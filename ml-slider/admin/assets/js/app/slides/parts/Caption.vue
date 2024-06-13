@@ -129,7 +129,7 @@ export default {
 							type: 'image',
 							configuration: {
 								toolbar: [
-									'undo redo bold italic forecolor link aligncenter alignright styles code'
+									'undo redo bold italic forecolor link unlink alignleft aligncenter alignright styles code'
 								],
 								menubar: false,
 								plugins: 'code link',

@@ -150,7 +150,7 @@
                         'links'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => __(
-                        "Show the previous/next arrows",
+                        "Show the Previous / Next arrows.",
                         "ml-slider"
                     ),
                     'dependencies' => array(
@@ -167,7 +167,7 @@
                     'class' => 'option coin flex nivo responsive',
                     'value' => $this->slider->get_setting('navigation'),
                     'helptext' => __(
-                        "Show the slide navigation bullets",
+                        "Show navigation options so that users can browse the slides.",
                         "ml-slider"
                     ),
                     'options' => array(
@@ -194,7 +194,15 @@
                                 'thumbs', 
                                 'filmstrip'
                             )
-                        )
+                        ),
+                        array(
+                            'show' => 'ariaCurrent',
+                            'when' => array(
+                                'true',
+                                'thumbs', 
+                                'filmstrip'
+                            )
+                        ),
                     )
                 ),
                 'fullWidth' => array(
@@ -206,7 +214,7 @@
                         'fullWidth'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Stretch the slideshow output to fill it's parent container",
+                        "Stretch the slideshow output to fill it's parent container.",
                         "ml-slider"
                     )
                 ),
@@ -273,7 +281,7 @@
                         'checked' => $this->slider->get_setting('mobileArrows_smartphone') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the arrows on screen widths less than %spx', 
+                                'When enabled this setting will hide the arrows on screen widths less than %spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['tablet'] 
@@ -283,7 +291,7 @@
                         'checked' => $this->slider->get_setting('mobileArrows_tablet') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the arrows on screen widths of %1$spx to %2$spx', 
+                                'When enabled this setting will hide the arrows on screen widths of %1$spx to %2$spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['tablet'],
@@ -294,7 +302,7 @@
                         'checked' => $this->slider->get_setting('mobileArrows_laptop') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the arrows on screen widths of %1$spx to %2$spx', 
+                                'When enabled this setting will hide the arrows on screen widths of %1$spx to %2$spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['laptop'],
@@ -305,7 +313,7 @@
                         'checked' => $this->slider->get_setting('mobileArrows_desktop') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the arrows on screen widths equal to or greater than %spx', 
+                                'When enabled this setting will hide the arrows on screen widths equal to or greater than %spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['desktop'] 
@@ -322,7 +330,7 @@
                         'checked' => $this->slider->get_setting('mobileNavigation_smartphone') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the navigation on screen widths less than %spx', 
+                                'When enabled this setting will hide the navigation on screen widths less than %spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['tablet'] 
@@ -332,7 +340,7 @@
                         'checked' => $this->slider->get_setting('mobileNavigation_tablet') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the navigation on screen widths of %1$spx to %2$spx', 
+                                'When enabled this setting will hide the navigation on screen widths of %1$spx to %2$spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['tablet'],
@@ -343,7 +351,7 @@
                         'checked' => $this->slider->get_setting('mobileNavigation_laptop') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the navigation on screen widths of %1$spx to %2$spx', 
+                                'When enabled this setting will hide the navigation on screen widths of %1$spx to %2$spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['laptop'],
@@ -354,7 +362,7 @@
                         'checked' => $this->slider->get_setting('mobileNavigation_desktop') == 'true' ? 'checked' : '',
                         'helptext' => sprintf( 
                             __( 
-                                'When enabled this setting will hide the navigation on screen widths equal to or greater than %spx', 
+                                'When enabled this setting will hide the navigation on screen widths equal to or greater than %spx.', 
                                 'ml-slider'
                             ), 
                             $breakpoints['desktop'] 
@@ -393,7 +401,7 @@
                         "ml-slider"
                     )
                 ),
-                'autoPlay' => array(
+                'autoPlay' => array( // Don't target 'autoPlay' to show/hide with 'dependencies' array key
                     'priority' => 20,
                     'type' => 'checkbox',
                     'label' => esc_html__("Auto play", "ml-slider"),
@@ -402,14 +410,21 @@
                         'autoPlay'
                     ) ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Transition between slides automatically",
+                        "Transition between slides automatically.",
                         "ml-slider"
-                    ),
-                    'dependencies' => array(
-                        array(
-                            'show' => 'loop', // Show Loop
-                            'when' => true // When Auto play is true
-                        )
+                    )
+                ),
+                'pausePlay' => array( // Don't target 'pausePlay' to show/hide with 'dependencies' array key
+                    'priority' => 21,
+                    'type' => 'checkbox',
+                    'label' => esc_html__("Play / Pause Button", "ml-slider"),
+                    'class' => 'option flex',
+                    'checked' => $this->slider->get_setting(
+                        'pausePlay'
+                    ) == 'true' ? 'checked' : '',
+                    'helptext' => esc_html__(
+                        "This allows user to pause or resume Auto Play on the slideshow.",
+                        "ml-slider"
                     )
                 ),
                 'loop' => array(
@@ -417,12 +432,12 @@
                     'type' => 'select',
                     'label' => __("Loop", "ml-slider"),
                     'class' => 'option flex nivo',
-                    'helptext' => __('If you choose "Continuously", the slides will loop infinitely. If you choose "Stop on first slide", the slideshow will stop on the first slide after showing all the items. If you choose "Stop on last slide", the slides will stop on the last slide.', 'ml-slider'),
+                    'helptext' => __('If you choose "Loop continuously", the slides will loop infinitely. If you choose "Stop on first slide", the slideshow will stop on the first slide after showing all the items. If you choose "Stop on last slide", the slides will stop on the last slide.', 'ml-slider'),
                     'value' => $this->slider->get_setting('loop'),
                     'options' => array(
-                        'continuously' => array('label' => __("Continuously", "ml-slider"), 'class' => ''),
-                        'stopOnLast' => array('label' => __("Stop on Last Slide", "ml-slider"), 'class' => ''),
-                        'stopOnFirst' => array('label' => __("Stop on First Slide", "ml-slider"), 'class' => ''),
+                        'continuously' => array('label' => __("Loop continuously", "ml-slider"), 'class' => ''),
+                        'stopOnLast' => array('label' => __("Stop on last slide", "ml-slider"), 'class' => ''),
+                        'stopOnFirst' => array('label' => __("Stop on first slide", "ml-slider"), 'class' => ''),
                     )
                 ),
                 'smartCrop' => array(
@@ -462,7 +477,7 @@
                         ),
                     ),
                     'helptext' => esc_html__(
-                        "Smart Crop ensures your responsive slides are cropped to a ratio that results in a consistent slideshow size",
+                        "Smart Crop ensures your responsive slides are cropped to a ratio that results in a consistent slideshow size.",
                         "ml-slider"
                     )
                 ),
@@ -475,7 +490,7 @@
                         'smoothHeight'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => __(
-                        "Allow navigation to follow the slide's height smoothly",
+                        "Allow navigation to follow the slide's height smoothly.",
                         "ml-slider"
                     )
                 ),
@@ -488,20 +503,24 @@
                         'carouselMode'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Display multiple slides at once. Slideshow output will be 100% wide. Carousel Mode only uses the 'Slide' Effect.",
+                        'Display multiple slides at once. Slideshow output will be 100% wide. Carousel Mode only uses the "Slide" Effect.',
                         "ml-slider"
                     ),
                     'dependencies' => array(
                         array(
                             'show' => 'infiniteLoop', // Show Infinite loop
-                            'when' => true // When Arrows is true
+                            'when' => true // When carouselMode is true
+                        ),
+                        array(
+                            'show' => 'loop', // Show Loop
+                            'when' => false // When carouselMode is false
                         )
                     )
                 ),
                 'infiniteLoop' => array(
                     'priority' => 43,
                     'type' => 'checkbox',
-                    'label' => esc_html__("Loop Continuously (Beta)", "ml-slider"),
+                    'label' => esc_html__("Loop Carousel Continuously", "ml-slider"),
                     'class' => 'option flex',
                     'checked' => $this->slider->get_setting(
                         'infiniteLoop'
@@ -509,12 +528,6 @@
                     'helptext' => esc_html__(
                         "Infinite loop of slides when Carousel Mode is enabled. This option disables arrows and navigation.",
                         "ml-slider"
-                    ),
-                    'dependencies' => array(
-                        array(
-                            'show' => 'autoPlay', // Show autoplay
-                            'when' => false // When infinte loop is false
-                        )
                     )
                 ),
                 'carouselMargin' => array(
@@ -541,7 +554,7 @@
                         'firstSlideFadeIn'
                     ) ? 'checked' : '',
                     'helptext' => esc_html__(
-                        'This adds an animation when the slideshow loads. It only uses the "Fade" transition effect',
+                        'This adds an animation when the slideshow loads. It only uses the "Fade" transition effect.',
                         "ml-slider"
                     ),
                 ),
@@ -554,7 +567,7 @@
                         'random'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Randomise the order of the slides",
+                        "Randomise the order of the slides.",
                         "ml-slider"
                     )
                 ),
@@ -580,7 +593,7 @@
                         'reverse'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Reverse the animation direction",
+                        "Reverse the animation direction.",
                         "ml-slider"
                     )
                 ),
@@ -593,7 +606,7 @@
                         'touch'
                     ) ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Allow touch swipe navigation of the slider on touch-enabled devices",
+                        "Allow touch swipe navigation of the slider on touch-enabled devices.",
                         "ml-slider"
                     )
                 ),
@@ -608,7 +621,7 @@
                     'label' => esc_html__("Slide delay", "ml-slider"),
                     'class' => 'option coin flex responsive nivo',
                     'helptext' => esc_html__(
-                        "How long to display each slide, in milliseconds",
+                        "How long to display each slide, in milliseconds.",
                         "ml-slider"
                     ),
                     'after' => esc_html_x(
@@ -714,7 +727,7 @@
                     'label' => esc_html__("Easing", "ml-slider"),
                     'class' => 'option flex',
                     'helptext' => esc_html__(
-                        "Easing adds gradual acceleration and deceleration to slide transitions, rather than abrupt starts and stops. Easing only uses the 'Slide' Effect.",
+                        'Easing adds gradual acceleration and deceleration to slide transitions, rather than abrupt starts and stops. Easing only uses the "Slide" Effect.',
                         "ml-slider"
                     ),
                     'value' => $this->slider->get_setting('easing'),
@@ -726,7 +739,7 @@
                     'label' => esc_html__("Previous text", "ml-slider"),
                     'class' => 'option coin flex responsive nivo',
                     'helptext' => esc_html__(
-                        "Set the text for the 'previous' direction item",
+                        'Set the text for the "previous" direction item.',
                         "ml-slider"
                     ),
                     'value' => $this->slider->get_setting(
@@ -739,7 +752,7 @@
                     'label' => esc_html__("Next text", "ml-slider"),
                     'class' => 'option coin flex responsive nivo',
                     'helptext' => esc_html__(
-                        "Set the text for the 'next' direction item",
+                        'Set the text for the "next" direction item.',
                         "ml-slider"
                     ),
                     'value' => $this->slider->get_setting(
@@ -757,7 +770,7 @@
                     'label' => esc_html__("Square delay", "ml-slider"),
                     'class' => 'option coin',
                     'helptext' => esc_html__(
-                        "Delay between squares in ms",
+                        "Delay between squares in ms.",
                         "ml-slider"
                     ),
                     'after' => esc_html_x(
@@ -773,7 +786,7 @@
                     'label' => esc_html__("Opacity", "ml-slider"),
                     'class' => 'option coin',
                     'helptext' => esc_html__(
-                        "Opacity of title and navigation, between 0 and 1",
+                        "Opacity of title and navigation, between 0 and 1.",
                         "ml-slider"
                     ),
                     'after' => ''
@@ -789,7 +802,7 @@
                     'label' => esc_html__("Caption speed", "ml-slider"),
                     'class' => 'option coin',
                     'helptext' => esc_html__(
-                        "Set the fade in speed of the caption",
+                        "Set the fade in speed of the caption.",
                         "ml-slider"
                     ),
                     'after' => esc_html_x(
@@ -799,13 +812,13 @@
                     )
                 ),
                 'accessibilityOptions' => array(
-                    'priority' => 193,
+                    'priority' => 191,
                     'type' => 'highlight',
                     'value' => esc_html__( 'Accessibility Options', 'ml-slider' ),
                     'topspacing' => true
                 ),
                 'keyboard' => array(
-                    'priority' => 194,
+                    'priority' => 192,
                     'type' => 'checkbox',
                     'label' => esc_html__("Keyboard Controls", "ml-slider"),
                     'class' => 'option coin flex nivo responsive',
@@ -814,6 +827,19 @@
                     ) ? 'checked' : '',
                     'helptext' => esc_html__(
                         "Use arrow keys to get to the next slide.",
+                        "ml-slider"
+                    )
+                ),
+                'tabIndex' => array(
+                    'priority' => 193,
+                    'type' => 'checkbox',
+                    'label' => esc_html__("Tabindex for navigation", "ml-slider"),
+                    'class' => 'option flex',
+                    'checked' => $this->slider->get_setting(
+                        'tabIndex'
+                    ) == 'true' ? 'checked' : '',
+                    'helptext' => esc_html__(
+                        "This helps make the slideshow navigation more accessible.",
                         "ml-slider"
                     )
                 ),
@@ -830,21 +856,21 @@
                         "ml-slider"
                     )
                 ),
-                'tabIndex' => array(
+                'ariaCurrent' => array(
                     'priority' => 196,
                     'type' => 'checkbox',
-                    'label' => esc_html__("Tabindex for navigation", "ml-slider"),
+                    'label' => esc_html__("ARIA Current", "ml-slider"),
                     'class' => 'option flex',
                     'checked' => $this->slider->get_setting(
-                        'tabIndex'
+                        'ariaCurrent'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "This helps make the slideshow navigation more accessible.",
+                        "This is used on the navigation button for the active slide. It helps screen readers understand which slide is active.",
                         "ml-slider"
                     )
                 ),
                 'developerOptions' => array(
-                    'priority' => 197,
+                    'priority' => 198,
                     'type' => 'highlight',
                     'value' => esc_html__( 'Developer Options', 'ml-slider' ),
                     'topspacing' => true
@@ -871,7 +897,7 @@
                         'printCss'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Uncheck this if you would like to include your own CSS",
+                        "Uncheck this if you would like to include your own CSS.",
                         "ml-slider"
                     )
                 ),
@@ -884,7 +910,7 @@
                         'printJs'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Uncheck this if you would like to include your own Javascript",
+                        "Uncheck this if you would like to include your own Javascript.",
                         "ml-slider"
                     )
                 ),
@@ -897,7 +923,7 @@
                         'noConflict'
                     ) == 'true' ? 'checked' : '',
                     'helptext' => esc_html__(
-                        "Delay adding the flexslider class to the slideshow",
+                        "Delay adding the flexslider class to the slideshow.",
                         "ml-slider"
                     )
                 )

@@ -25,7 +25,7 @@ class DynamicVisibility extends ExtensionPrototype {
 	public function register_controls_sections_hooks() {
 		foreach ( $this->get_sections_injection_locations() as $location ) {
 			// Activate action for elements
-			add_action('elementor/element/' . $location['element'] . '/' . $location['section_id'] . '/after_section_end', function( $element, $args ) {
+			add_action('elementor/element/' . $location['element'] . '/' . $location['section_id'] . '/after_section_end', function ( $element, $args ) {
 				$this->register_controls_sections( $element );
 			}, 10, 2);
 		}
@@ -34,7 +34,7 @@ class DynamicVisibility extends ExtensionPrototype {
 	public function __construct() {
 		Controls_Manager::add_tab(
 			'dce_visibility',
-			__( 'Visibility', 'dynamic-visibility-for-elementor' )
+			esc_html__( 'Visibility', 'dynamic-visibility-for-elementor' )
 		);
 		$this->register_controls_sections_hooks();
 
@@ -111,16 +111,16 @@ class DynamicVisibility extends ExtensionPrototype {
 	 */
 	protected static function get_whitelist_post_functions() {
 		return [
-			'is_sticky' => __( 'Is Sticky', 'dynamic-visibility-for-elementor' ),
-			'is_post_type_hierarchical' => __( 'Is Hierarchical Post Type', 'dynamic-visibility-for-elementor' ),
-			'is_post_type_archive' => __( 'Is Post Type Archive', 'dynamic-visibility-for-elementor' ),
-			'comments_open' => __( 'Comments are open', 'dynamic-visibility-for-elementor' ),
-			'pings_open' => __( 'Pings are open', 'dynamic-visibility-for-elementor' ),
-			'has_tag' => __( 'Has Tags', 'dynamic-visibility-for-elementor' ),
-			'has_term' => __( 'Has Terms', 'dynamic-visibility-for-elementor' ),
-			'has_excerpt' => __( 'Has Excerpt', 'dynamic-visibility-for-elementor' ),
-			'has_post_thumbnail' => __( 'Has Post Thumbnail', 'dynamic-visibility-for-elementor' ),
-			'has_nav_menu' => __( 'Has Nav menu', 'dynamic-visibility-for-elementor' ),
+			'is_sticky' => esc_html__( 'Is Sticky', 'dynamic-visibility-for-elementor' ),
+			'is_post_type_hierarchical' => esc_html__( 'Is Hierarchical Post Type', 'dynamic-visibility-for-elementor' ),
+			'is_post_type_archive' => esc_html__( 'Is Post Type Archive', 'dynamic-visibility-for-elementor' ),
+			'comments_open' => esc_html__( 'Comments are open', 'dynamic-visibility-for-elementor' ),
+			'pings_open' => esc_html__( 'Pings are open', 'dynamic-visibility-for-elementor' ),
+			'has_tag' => esc_html__( 'Has Tags', 'dynamic-visibility-for-elementor' ),
+			'has_term' => esc_html__( 'Has Terms', 'dynamic-visibility-for-elementor' ),
+			'has_excerpt' => esc_html__( 'Has Excerpt', 'dynamic-visibility-for-elementor' ),
+			'has_post_thumbnail' => esc_html__( 'Has Post Thumbnail', 'dynamic-visibility-for-elementor' ),
+			'has_nav_menu' => esc_html__( 'Has Nav menu', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -131,31 +131,31 @@ class DynamicVisibility extends ExtensionPrototype {
 	 */
 	protected static function get_whitelist_page_functions() {
 		return [
-			'is_front_page' => __( 'Front Page', 'dynamic-visibility-for-elementor' ),
-			'is_home' => __( 'Home', 'dynamic-visibility-for-elementor' ),
-			'is_404' => __( '404 Not Found', 'dynamic-visibility-for-elementor' ),
-			'is_single' => __( 'Single', 'dynamic-visibility-for-elementor' ),
-			'is_page' => __( 'Page', 'dynamic-visibility-for-elementor' ),
-			'is_attachment' => __( 'Attachment', 'dynamic-visibility-for-elementor' ),
-			'is_preview' => __( 'Preview', 'dynamic-visibility-for-elementor' ),
-			'is_admin' => __( 'Admin', 'dynamic-visibility-for-elementor' ),
-			'is_page_template' => __( 'Page Template', 'dynamic-visibility-for-elementor' ),
-			'is_comments_popup' => __( 'Comments Popup', 'dynamic-visibility-for-elementor' ),
-			'is_woocommerce' => __( 'WooCommerce Page', 'dynamic-visibility-for-elementor' ),
-			'is_shop' => __( 'Shop', 'dynamic-visibility-for-elementor' ),
-			'is_product' => __( 'Product', 'dynamic-visibility-for-elementor' ),
-			'is_product_taxonomy' => __( 'Product Taxonomy', 'dynamic-visibility-for-elementor' ),
-			'is_product_category' => __( 'Product Category', 'dynamic-visibility-for-elementor' ),
-			'is_product_tag' => __( 'Product Tag', 'dynamic-visibility-for-elementor' ),
-			'is_cart' => __( 'Cart', 'dynamic-visibility-for-elementor' ),
-			'is_checkout' => __( 'Checkout', 'dynamic-visibility-for-elementor' ),
-			'is_add_payment_method_page' => __( 'Add Payment method', 'dynamic-visibility-for-elementor' ),
-			'is_checkout_pay_page' => __( 'Checkout Page', 'dynamic-visibility-for-elementor' ),
-			'is_account_page' => __( 'Account Page', 'dynamic-visibility-for-elementor' ),
-			'is_edit_account_page' => __( 'Edit Account', 'dynamic-visibility-for-elementor' ),
-			'is_lost_password_page' => __( 'Lost Password', 'dynamic-visibility-for-elementor' ),
-			'is_view_order_page' => __( 'Order Summary', 'dynamic-visibility-for-elementor' ),
-			'is_order_received_page' => __( 'Order Received', 'dynamic-visibility-for-elementor' ),
+			'is_front_page' => esc_html__( 'Front Page', 'dynamic-visibility-for-elementor' ),
+			'is_home' => esc_html__( 'Home', 'dynamic-visibility-for-elementor' ),
+			'is_404' => esc_html__( '404 Not Found', 'dynamic-visibility-for-elementor' ),
+			'is_single' => esc_html__( 'Single', 'dynamic-visibility-for-elementor' ),
+			'is_page' => esc_html__( 'Page', 'dynamic-visibility-for-elementor' ),
+			'is_attachment' => esc_html__( 'Attachment', 'dynamic-visibility-for-elementor' ),
+			'is_preview' => esc_html__( 'Preview', 'dynamic-visibility-for-elementor' ),
+			'is_admin' => esc_html__( 'Admin', 'dynamic-visibility-for-elementor' ),
+			'is_page_template' => esc_html__( 'Page Template', 'dynamic-visibility-for-elementor' ),
+			'is_comments_popup' => esc_html__( 'Comments Popup', 'dynamic-visibility-for-elementor' ),
+			'is_woocommerce' => esc_html__( 'WooCommerce Page', 'dynamic-visibility-for-elementor' ),
+			'is_shop' => esc_html__( 'Shop', 'dynamic-visibility-for-elementor' ),
+			'is_product' => esc_html__( 'Product', 'dynamic-visibility-for-elementor' ),
+			'is_product_taxonomy' => esc_html__( 'Product Taxonomy', 'dynamic-visibility-for-elementor' ),
+			'is_product_category' => esc_html__( 'Product Category', 'dynamic-visibility-for-elementor' ),
+			'is_product_tag' => esc_html__( 'Product Tag', 'dynamic-visibility-for-elementor' ),
+			'is_cart' => esc_html__( 'Cart', 'dynamic-visibility-for-elementor' ),
+			'is_checkout' => esc_html__( 'Checkout', 'dynamic-visibility-for-elementor' ),
+			'is_add_payment_method_page' => esc_html__( 'Add Payment method', 'dynamic-visibility-for-elementor' ),
+			'is_checkout_pay_page' => esc_html__( 'Checkout Page', 'dynamic-visibility-for-elementor' ),
+			'is_account_page' => esc_html__( 'Account Page', 'dynamic-visibility-for-elementor' ),
+			'is_edit_account_page' => esc_html__( 'Edit Account', 'dynamic-visibility-for-elementor' ),
+			'is_lost_password_page' => esc_html__( 'Lost Password', 'dynamic-visibility-for-elementor' ),
+			'is_view_order_page' => esc_html__( 'Order Summary', 'dynamic-visibility-for-elementor' ),
+			'is_order_received_page' => esc_html__( 'Order Received', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -166,22 +166,22 @@ class DynamicVisibility extends ExtensionPrototype {
 	 */
 	protected static function get_whitelist_archive_functions() {
 		return [
-			'is_blog' => __( 'Home blog (latest posts)', 'dynamic-visibility-for-elementor' ),
-			'posts_page' => __( 'Posts page', 'dynamic-visibility-for-elementor' ),
-			'is_tax' => __( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
-			'is_category' => __( 'Category', 'dynamic-visibility-for-elementor' ),
-			'is_tag' => __( 'Tag', 'dynamic-visibility-for-elementor' ),
-			'is_author' => __( 'Author', 'dynamic-visibility-for-elementor' ),
-			'is_date' => __( 'Date', 'dynamic-visibility-for-elementor' ),
-			'is_year' => __( 'Year', 'dynamic-visibility-for-elementor' ),
-			'is_month' => __( 'Month', 'dynamic-visibility-for-elementor' ),
-			'is_day' => __( 'Day', 'dynamic-visibility-for-elementor' ),
-			'is_time' => __( 'Time', 'dynamic-visibility-for-elementor' ),
-			'is_new_day' => __( 'New Day', 'dynamic-visibility-for-elementor' ),
-			'is_search' => __( 'Search', 'dynamic-visibility-for-elementor' ),
-			'is_paged' => __( 'Paged', 'dynamic-visibility-for-elementor' ),
-			'is_main_query' => __( 'Main Query', 'dynamic-visibility-for-elementor' ),
-			'in_the_loop' => __( 'In the Loop', 'dynamic-visibility-for-elementor' ),
+			'is_blog' => esc_html__( 'Home blog (latest posts)', 'dynamic-visibility-for-elementor' ),
+			'posts_page' => esc_html__( 'Posts page', 'dynamic-visibility-for-elementor' ),
+			'is_tax' => esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
+			'is_category' => esc_html__( 'Category', 'dynamic-visibility-for-elementor' ),
+			'is_tag' => esc_html__( 'Tag', 'dynamic-visibility-for-elementor' ),
+			'is_author' => esc_html__( 'Author', 'dynamic-visibility-for-elementor' ),
+			'is_date' => esc_html__( 'Date', 'dynamic-visibility-for-elementor' ),
+			'is_year' => esc_html__( 'Year', 'dynamic-visibility-for-elementor' ),
+			'is_month' => esc_html__( 'Month', 'dynamic-visibility-for-elementor' ),
+			'is_day' => esc_html__( 'Day', 'dynamic-visibility-for-elementor' ),
+			'is_time' => esc_html__( 'Time', 'dynamic-visibility-for-elementor' ),
+			'is_new_day' => esc_html__( 'New Day', 'dynamic-visibility-for-elementor' ),
+			'is_search' => esc_html__( 'Search', 'dynamic-visibility-for-elementor' ),
+			'is_paged' => esc_html__( 'Paged', 'dynamic-visibility-for-elementor' ),
+			'is_main_query' => esc_html__( 'Main Query', 'dynamic-visibility-for-elementor' ),
+			'in_the_loop' => esc_html__( 'In the Loop', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -193,16 +193,16 @@ class DynamicVisibility extends ExtensionPrototype {
 	 */
 	protected static function get_whitelist_site_functions() {
 		return [
-			'is_dynamic_sidebar' => __( 'Dynamic sidebar', 'dynamic-visibility-for-elementor' ),
-			'is_active_sidebar' => __( 'Active sidebar', 'dynamic-visibility-for-elementor' ),
-			'is_rtl' => __( 'RTL', 'dynamic-visibility-for-elementor' ),
-			'is_multisite' => __( 'Multisite', 'dynamic-visibility-for-elementor' ),
-			'is_main_site' => __( 'Main site', 'dynamic-visibility-for-elementor' ),
-			'is_child_theme' => __( 'Child theme', 'dynamic-visibility-for-elementor' ),
-			'is_customize_preview' => __( 'Customize preview', 'dynamic-visibility-for-elementor' ),
-			'is_multi_author' => __( 'Multi author', 'dynamic-visibility-for-elementor' ),
-			'is feed' => __( 'Feed', 'dynamic-visibility-for-elementor' ),
-			'is_trackback' => __( 'Trackback', 'dynamic-visibility-for-elementor' ),
+			'is_dynamic_sidebar' => esc_html__( 'Dynamic sidebar', 'dynamic-visibility-for-elementor' ),
+			'is_active_sidebar' => esc_html__( 'Active sidebar', 'dynamic-visibility-for-elementor' ),
+			'is_rtl' => esc_html__( 'RTL', 'dynamic-visibility-for-elementor' ),
+			'is_multisite' => esc_html__( 'Multisite', 'dynamic-visibility-for-elementor' ),
+			'is_main_site' => esc_html__( 'Main site', 'dynamic-visibility-for-elementor' ),
+			'is_child_theme' => esc_html__( 'Child theme', 'dynamic-visibility-for-elementor' ),
+			'is_customize_preview' => esc_html__( 'Customize preview', 'dynamic-visibility-for-elementor' ),
+			'is_multi_author' => esc_html__( 'Multi author', 'dynamic-visibility-for-elementor' ),
+			'is feed' => esc_html__( 'Feed', 'dynamic-visibility-for-elementor' ),
+			'is_trackback' => esc_html__( 'Trackback', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -242,6 +242,9 @@ class DynamicVisibility extends ExtensionPrototype {
 		return $locations;
 	}
 
+	/**
+	 * @var array<string,string>
+	 */
 	public static $tabs = [
 		'post' => 'Post & Page',
 		'user' => 'User & Role',
@@ -256,9 +259,12 @@ class DynamicVisibility extends ExtensionPrototype {
 		'random' => 'Random',
 		'custom' => 'Custom Condition',
 		'events' => 'Events',
-		'repeater' => 'Advanced',
 		'fallback' => 'Fallback',
 	];
+
+	/**
+	 * @var array<string,mixed>
+	 */
 	public static $triggers = [
 		'user' => [
 			'label' => 'User & Role',
@@ -301,6 +307,9 @@ class DynamicVisibility extends ExtensionPrototype {
 		wp_enqueue_script( 'dce-script-editor-dynamic-visibility' );
 	}
 
+	/**
+	 * @return void
+	 */
 	protected function add_actions() {
 		// this is for end users, so they can prevent visibility from running on certain pages:
 		$should_run = apply_filters( 'dynamicooo/visibility/should-run', true );
@@ -322,8 +331,9 @@ class DynamicVisibility extends ExtensionPrototype {
 				} );
 			}
 		}
+
 		// Document
-		add_filter( 'elementor/frontend/the_content', [ $this, 'document_filter'] );
+		add_filter( 'elementor/frontend/the_content', [ $this, 'document_filter' ] );
 
 		// Widget
 		add_action( 'elementor/frontend/widget/before_render', [ $this, 'start_element' ], 10, 1 );
@@ -440,6 +450,10 @@ class DynamicVisibility extends ExtensionPrototype {
 		}
 	}
 
+	/**
+	 * @param \Elementor\Element_Base $element
+	 * @return void
+	 */
 	public function end_element( $element ) {
 		$settings = $element->get_settings_for_display();
 		if ( ! empty( $settings['enabled_visibility'] ) ) {
@@ -491,7 +505,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			'dce_section_visibility_advanced',
 			[
 				'tab' => 'dce_' . $low_name,
-				'label' => '<span class="color-dce icon-dyn-logo-dce pull-right ml-1"></span> ' . $this->name,
+				'label' => '<span class="color-dce icon-dce-logo-dce pull-right ml-1"></span> ' . $this->name,
 			]
 		);
 		$element->end_controls_section();
@@ -502,7 +516,6 @@ class DynamicVisibility extends ExtensionPrototype {
 			$condition = [
 				'enabled_' . $low_name . '!' => '',
 				'dce_' . $low_name . '_hidden' => '',
-				'dce_' . $low_name . '_mode' => 'quick',
 				'dce_' . $low_name . '_triggers' => [ $tkey ],
 			];
 			$condition = [];
@@ -519,11 +532,6 @@ class DynamicVisibility extends ExtensionPrototype {
 						'value' => '',
 					],
 					[
-						'name' => 'dce_' . $low_name . '_mode',
-						'operator' => '==',
-						'value' => 'quick',
-					],
-					[
 						'name' => 'dce_' . $low_name . '_triggers',
 						'operator' => 'contains',
 						'value' => $tkey,
@@ -533,14 +541,6 @@ class DynamicVisibility extends ExtensionPrototype {
 
 			if ( $tkey == 'fallback' ) {
 				$condition = [ 'enabled_' . $low_name . '!' => '' ];
-				$conditions = [];
-			}
-			if ( $tkey == 'repeater' ) {
-				$condition = [
-					'enabled_' . $low_name . '!' => '',
-					'dce_' . $low_name . '_hidden' => '',
-					'dce_' . $low_name . '_mode' => 'advanced',
-				];
 				$conditions = [];
 			}
 
@@ -563,11 +563,9 @@ class DynamicVisibility extends ExtensionPrototype {
 	}
 
 	/**
-	 * Add Controls
-	 *
-	 * @since 0.5.5
-	 *
-	 * @access private
+	 * @param \Elementor\Controls_Stack $element
+	 * @param string $section
+	 * @return void
 	 */
 	private function add_controls( $element, $section ) {
 		$taxonomies = Helper::get_taxonomies();
@@ -578,7 +576,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'enabled_visibility',
 				[
-					'label' => __( 'Visibility', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Visibility', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'frontend_available' => true,
 				]
@@ -587,7 +585,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_hidden',
 				[
-					'label' => __( 'Always hide this element', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Always hide this element', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'condition' => [
 						'enabled_visibility' => 'yes',
@@ -599,9 +597,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_dom',
 				[
-					'label' => __( 'Keep HTML', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Keep HTML', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Keep the HTML element in the DOM and hide this element via CSS', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Keep the HTML element in the DOM and hide this element via CSS', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'enabled_visibility' => 'yes',
 					],
@@ -610,27 +608,18 @@ class DynamicVisibility extends ExtensionPrototype {
 			);
 
 			$element->add_control(
-				'dce_visibility_mode',
-				[
-					'label' => __( 'Composition mode', 'dynamic-visibility-for-elementor' ),
-					'type' => Controls_Manager::HIDDEN,
-					'default' => 'quick',
-				]
-			);
-
-			$element->add_control(
 				'dce_visibility_selected',
 				[
-					'label' => __( 'Display mode', 'dynamic-visibility-for-elementor' ),
-					'description' => __( 'Hide or show an element when a condition is triggered', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Display mode', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Hide or show an element when a condition is triggered', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => [
 						'yes' => [
-							'title' => __( 'Show', 'dynamic-visibility-for-elementor' ),
+							'title' => esc_html__( 'Show', 'dynamic-visibility-for-elementor' ),
 							'icon' => 'fa fa-eye',
 						],
 						'hide' => [
-							'title' => __( 'Hide', 'dynamic-visibility-for-elementor' ),
+							'title' => esc_html__( 'Hide', 'dynamic-visibility-for-elementor' ),
 							'icon' => 'fa fa-eye-slash',
 						],
 					],
@@ -647,13 +636,13 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_logical_connective',
 				[
-					'label' => __( 'Logical connective', 'dynamic-visibility-for-elementor' ),
-					'description' => __( 'This setting determines how the conditions are combined. If OR is selected the condition is satisfied when at least one condition is satisfied. If AND is selected all conditions must be satisfied', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Logical connective', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'This setting determines how the conditions are combined. If OR is selected the condition is satisfied when at least one condition is satisfied. If AND is selected all conditions must be satisfied', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'default' => 'or',
 					'return_value' => 'and',
-					'label_on' => __( 'AND', 'dynamic-visibility-for-elementor' ),
-					'label_off' => __( 'OR', 'dynamic-visibility-for-elementor' ),
+					'label_on' => esc_html__( 'AND', 'dynamic-visibility-for-elementor' ),
+					'label_off' => esc_html__( 'OR', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'enabled_visibility' => 'yes',
 						'dce_visibility_hidden' => '',
@@ -662,7 +651,6 @@ class DynamicVisibility extends ExtensionPrototype {
 			);
 
 			$_triggers = self::$tabs;
-			unset( $_triggers['repeater'] );
 			unset( $_triggers['fallback'] );
 			if ( in_array( $element_type, $this->page_target_elements, true ) ) {
 				unset( $_triggers['events'] );
@@ -670,7 +658,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_triggers',
 				[
-					'label' => __( 'Triggers', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Triggers', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => $_triggers,
 					'default' => array_keys( $_triggers ),
@@ -687,11 +675,15 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_review',
 					[
-						'label' => '<b>' . __( 'Did you enjoy Dynamic Visibility extension?', 'dynamic-visibility-for-elementor' ) . '</b>',
+						'label' => '<b>' . esc_html__( 'Did you enjoy Dynamic Visibility extension?', 'dynamic-visibility-for-elementor' ) . '</b>',
 						'type' => Controls_Manager::RAW_HTML,
-						'raw' => __( 'Please leave us a', 'dynamic-visibility-for-elementor' )
-						. ' <a target="_blank" href="https://wordpress.org/support/plugin/dynamic-visibility-for-elementor/reviews/?filter=5/#new-post">★★★★★</a> '
-						. __( 'rating.<br>We really appreciate your support!', 'dynamic-visibility-for-elementor' ),
+						'raw' => sprintf(
+							/* translators: %1$s: opening link, %2$s: closing link, %3$s: line break */
+							esc_html__( 'Please leave us a %1$s★★★★★%2$s rating.%3$sWe really appreciate your support!', 'dynamic-visibility-for-elementor' ),
+							'<a target="_blank" href="https://wordpress.org/support/plugin/dynamic-visibility-for-elementor/reviews/?filter=5/#new-post">',
+							'</a>',
+							'<br>'
+						),
 						'separator' => 'before',
 					]
 				);
@@ -702,7 +694,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_dynamic_tag',
 				[
-					'label' => __( 'Dynamic Tag', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Dynamic Tag', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
 					'label_block' => true,
 					'dynamic' => [
@@ -718,13 +710,13 @@ class DynamicVisibility extends ExtensionPrototype {
 							\Elementor\Modules\DynamicTags\Module::POST_META_CATEGORY,
 						],
 					],
-					'placeholder' => __( 'Choose a Dynamic Tag', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Choose a Dynamic Tag', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_dynamic_tag_status',
 				[
-					'label' => __( 'Status', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Status', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
 					'label_block' => true,
 					'options' => Helper::compare_options(),
@@ -740,7 +732,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_dynamic_tag_value',
 				[
 					'type' => Controls_Manager::TEXT,
-					'label' => __( 'Value', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Value', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_dynamic_tag_status!' => [ 'not', 'isset' ],
 					],
@@ -752,29 +744,29 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_role',
 				[
-					'label' => __( 'Roles', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Roles', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
-					'placeholder' => __( 'Roles', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Roles', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'multiple' => true,
 					'options' => wp_roles()->get_names() + [ 'visitor' => 'Visitor (User not logged in)' ],
-					'description' => __( 'Limit visualization to specific user roles', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Limit visualization to specific user roles', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_role_all',
 				[
-					'label' => __( 'Match All Roles', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Match All Roles', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'All roles should match not just one', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'All roles should match not just one', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_users',
 				[
-					'label' => __( 'Selected Users', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Selected Users', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Type here the list of users who will be able to view (or not) this element. You can use their ID, email or username. Simply separate them by a comma. (e.g. \"23, email@yoursite.com, username\")', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Type here the list of users who will be able to view (or not) this element. You can use their ID, email or username. Simply separate them by a comma. (e.g. \"23, email@yoursite.com, username\")', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
@@ -782,9 +774,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_can',
 				[
-					'label' => __( 'User can', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'User can', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Trigger by User capability, for example: "manage_options"', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Trigger by User capability, for example: "manage_options"', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
@@ -792,9 +784,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_usermeta',
 				[
-					'label' => __( 'User Field', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'User Field', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
 					'dynamic' => [
 						'active' => false,
 					],
@@ -808,7 +800,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_usermeta_status',
 				[
-					'label' => __( 'User Field Status', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'User Field Status', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => Helper::compare_options(),
 					'default' => 'isset',
@@ -822,9 +814,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 					'dce_visibility_usermeta_value',
 					[
-						'label' => __( 'User Field Value', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'User Field Value', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::TEXT,
-						'description' => __( 'The specific value of the User Field', 'dynamic-visibility-for-elementor' ),
+						'description' => esc_html__( 'The specific value of the User Field', 'dynamic-visibility-for-elementor' ),
 						'condition' => [
 							'dce_visibility_usermeta!' => '',
 							'dce_visibility_usermeta_status!' => [ 'not', 'isset' ],
@@ -835,29 +827,29 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_ip',
 				[
-					'label' => __( 'Remote IP', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Remote IP', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Type here the list of IP who will be able to view this element.<br>Separate IPs by comma. (ex. "123.123.123.123, 8.8.8.8, 4.4.4.4")', 'dynamic-visibility-for-elementor' )
-					. '<br><b>' . __( 'Your current IP is: ', 'dynamic-visibility-for-elementor' ) . sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) . '</b>',
+					'description' => esc_html__( 'Type here the list of IP who will be able to view this element. Separate IPs by comma. (ex. "123.123.123.123, 8.8.8.8, 4.4.4.4")', 'dynamic-visibility-for-elementor' )
+					. '<br><b>' . esc_html__( 'Your current IP is: ', 'dynamic-visibility-for-elementor' ) . sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) . '</b>',
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_referrer',
 				[
-					'label' => __( 'Referrer', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Referrer', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered when previous page is a specific page.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered when previous page is a specific page.', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_referrer_host_only',
 				[
-					'label' => __( 'Check host only', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Check host only', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'default' => 'yes',
-					'description' => __( 'check only the host part of the URL', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'check only the host part of the URL', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_referrer' => 'yes',
 					],
@@ -866,10 +858,10 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_referrer_list',
 				[
-					'label' => __( 'Specific referral site authorized', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Specific referral site authorized', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXTAREA,
 					'placeholder' => 'facebook.com' . PHP_EOL . 'google.com',
-					'description' => __( 'Only selected referral, once per line. If empty it is triggered for all external site.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Only selected referral, once per line. If empty it is triggered for all external site.', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_referrer' => 'yes',
 					],
@@ -879,7 +871,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 					'dce_visibility_max_user',
 					[
-						'label' => __( 'Max per User', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Max per User', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::NUMBER,
 						'min' => 1,
 						'separator' => 'before',
@@ -893,7 +885,7 @@ class DynamicVisibility extends ExtensionPrototype {
 					'dce_visibility_geotargeting_notice_cache',
 					[
 						'type' => Controls_Manager::RAW_HTML,
-						'raw' => __( 'This features doesn\'t work correctly if you use a plugin to cache your site', 'dynamic-visibility-for-elementor' ),
+						'raw' => esc_html__( 'This features doesn\'t work correctly if you use a plugin to cache your site', 'dynamic-visibility-for-elementor' ),
 						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					]
 				);
@@ -904,24 +896,24 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_country',
 					[
-						'label' => __( 'Country', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Country', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::SELECT2,
 						'options' => $countries,
-						'description' => __( 'Trigger visibility for a specific country.', 'dynamic-visibility-for-elementor' ),
+						'description' => esc_html__( 'Trigger visibility for a specific country.', 'dynamic-visibility-for-elementor' ),
 						'multiple' => true,
 						'separator' => 'before',
 					]
 				);
 				$your_city = '';
 				if ( ! empty( $geoinfo ) && ! empty( $geoinfo->city ) && ! empty( $geoinfo->city->names ) ) {
-					$your_city = '<br>' . __( 'Actually you are in:', 'dynamic-visibility-for-elementor' ) . ' ' . implode( ', ', $geoinfo->city->names );
+					$your_city = '<br>' . esc_html__( 'Actually you are in:', 'dynamic-visibility-for-elementor' ) . ' ' . implode( ', ', $geoinfo->city->names );
 				}
 				$element->add_control(
 					'dce_visibility_city',
 					[
-						'label' => __( 'City', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'City', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::TEXT,
-						'description' => __( 'Type here the name of the city which triggers the condition. Insert the city name translated in one of the supported languages (preferable in EN). You can insert multiple cities, comma-separated.', 'dynamic-visibility-for-elementor' ) . $your_city,
+						'description' => esc_html__( 'Type here the name of the city which triggers the condition. Insert the city name translated in one of the supported languages (preferable in EN). You can insert multiple cities, comma-separated.', 'dynamic-visibility-for-elementor' ) . $your_city,
 					]
 				);
 			} else {
@@ -929,7 +921,8 @@ class DynamicVisibility extends ExtensionPrototype {
 					'dce_visibility_geotargeting_notice',
 					[
 						'type' => Controls_Manager::RAW_HTML,
-						'raw' => sprintf( __( 'You need the free plugin %1$s to use this trigger.', 'dynamic-visibility-for-elementor' ), "<a target='_blank' href='https://wordpress.org/plugins/geoip-detect/'>Geolocation IP Detection</a>" ),
+						/* translators: %1$s: link to the Geolocation IP Detection plugin */
+						'raw' => sprintf( esc_html__( 'You need the free plugin %1$s to use this trigger.', 'dynamic-visibility-for-elementor' ), "<a target='_blank' href='https://wordpress.org/plugins/geoip-detect/'>Geolocation IP Detection</a>" ),
 						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					]
 				);
@@ -941,27 +934,27 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 					'dce_visibility_responsive',
 					[
-						'label' => __( 'Responsive', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Responsive', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::CHOOSE,
 						'options' => [
 
 							'desktop' => [
-								'title' => __( 'Desktop and Tv', 'dynamic-visibility-for-elementor' ),
+								'title' => esc_html__( 'Desktop and Tv', 'dynamic-visibility-for-elementor' ),
 								'icon' => 'fa fa-desktop',
 							],
 							'mobile' => [
-								'title' => __( 'Mobile and Tablet', 'dynamic-visibility-for-elementor' ),
+								'title' => esc_html__( 'Mobile and Tablet', 'dynamic-visibility-for-elementor' ),
 								'icon' => 'fa fa-mobile',
 							],
 						],
-						'description' => __( 'Not really responsive, remove the element from the code based on the user\'s device. This trigger uses native WP device detection.', 'dynamic-visibility-for-elementor' ) . ' <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">' . __( 'Read more.', 'dynamic-visibility-for-elementor' ) . '</a>',
+						'description' => esc_html__( 'Not really responsive, remove the element from the code based on the user\'s device. This trigger uses native WP device detection.', 'dynamic-visibility-for-elementor' ) . ' <a href="https://codex.wordpress.org/Function_Reference/wp_is_mobile" target="_blank">' . esc_html__( 'Read more.', 'dynamic-visibility-for-elementor' ) . '</a>',
 
 					]
 			);
 			$element->add_control(
 				'dce_visibility_browser',
 				[
-					'label' => __( 'Browser', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Browser', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => [
 						'is_chrome' => 'Google Chrome',
@@ -974,7 +967,7 @@ class DynamicVisibility extends ExtensionPrototype {
 						'is_lynx' => 'Lynx',
 						'is_iphone' => 'iPhone Safari',
 					],
-					'description' => __( 'Trigger visibility for a specific browser.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Trigger visibility for a specific browser.', 'dynamic-visibility-for-elementor' ),
 					'multiple' => true,
 					'separator' => 'before',
 				]
@@ -986,9 +979,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_datetime_important_note',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw' => __( 'We will use the WordPress time you set in', 'dynamic-visibility-for-elementor' )
-					. ' <a target="_blank" href="' . admin_url( 'options-general.php' ) . '">' . __( 'WordPress General preferences', 'dynamic-visibility-for-elementor' ) . '</a>.<br>'
-					. __( 'The time is', 'dynamic-visibility-for-elementor' ) . ' ' . current_time( 'j M Y H:i' ),
+					'raw' => esc_html__( 'The time will be interpreted in the Time Zone as configured in the WordPress settings.', 'dynamic-visibility-for-elementor' ),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				]
 			);
@@ -996,7 +987,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_date_dynamic',
 				[
-					'label' => __( 'Use Dynamic Dates', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Use Dynamic Dates', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 				]
 			);
@@ -1004,11 +995,11 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_date_dynamic_from',
 				[
-					'label' => __( 'Date FROM', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Date FROM', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'type' => Controls_Manager::TEXT,
 					'placeholder' => 'Y-m-d H:i:s',
-					'description' => __( 'If set the element will appear after this date', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will appear after this date', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_date_dynamic!' => '',
 					],
@@ -1021,11 +1012,11 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_date_dynamic_to',
 				[
-					'label' => __( 'Date TO', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Date TO', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'type' => Controls_Manager::TEXT,
 					'placeholder' => 'Y-m-d H:i:s',
-					'description' => __( 'If set the element will be visible until this date', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will be visible until this date', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_date_dynamic!' => '',
 					],
@@ -1038,9 +1029,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_date_from',
 				[
-					'label' => __( 'Date FROM', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Date FROM', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::DATE_TIME,
-					'description' => __( 'If set the element will appear after this date', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will appear after this date', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_date_dynamic' => '',
 					],
@@ -1049,9 +1040,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_date_to',
 				[
-					'label' => __( 'Date TO', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Date TO', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::DATE_TIME,
-					'description' => __( 'If set the element will be visible until this date', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will be visible until this date', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_date_dynamic' => '',
 					],
@@ -1061,9 +1052,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_period_from',
 				[
-					'label' => __( 'Period FROM', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Period FROM', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'If set the element will appear after this period', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will appear after this period', 'dynamic-visibility-for-elementor' ),
 					'placeholder' => 'mm/dd',
 					'separator' => 'before',
 					'dynamic' => [
@@ -1074,10 +1065,10 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_period_to',
 				[
-					'label' => __( 'Period TO', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Period TO', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
 					'placeholder' => 'mm/dd',
-					'description' => __( 'If set the element will be visible until this period', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set the element will be visible until this period', 'dynamic-visibility-for-elementor' ),
 					'dynamic' => [
 						'active' => true,
 					],
@@ -1092,7 +1083,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_time_week',
 				[
-					'label' => __( 'Days of the week', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Days of the week', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => $week,
 					'multiple' => true,
@@ -1103,21 +1094,20 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_time_from',
 				[
-					'label' => __( 'Time FROM', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Time FROM', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
 					'placeholder' => 'H:m',
-					'description' => __( 'If set (in H:m format) the element will appear after this time.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If set (in H:m format) the element will appear after this time.', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_time_to',
 				[
-					'label' => __( 'Time TO', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Time TO', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
 					'placeholder' => 'H:m',
-					'description' => __( 'If set (in H:m format) the element will be visible until this time', 'dynamic-visibility-for-elementor' ),
-
+					'description' => esc_html__( 'If set (in H:m format) the element will be visible until this time', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 		}
@@ -1126,16 +1116,16 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_parameter',
 				[
-					'label' => __( 'Parameter', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Parameter', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Type here the name of the parameter passed in GET, COOKIE or POST method', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Type here the name of the parameter passed in GET, COOKIE or POST method', 'dynamic-visibility-for-elementor' ),
 
 				]
 			);
 			$element->add_control(
 				'dce_visibility_parameter_method',
 				[
-					'label' => __( 'Parameter Method', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Parameter Method', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT,
 					'options' => [
 						'GET' => 'GET',
@@ -1153,7 +1143,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 			'dce_visibility_parameter_status',
 			[
-				'label' => __( 'Parameter Status', 'dynamic-visibility-for-elementor' ),
+				'label' => esc_html__( 'Parameter Status', 'dynamic-visibility-for-elementor' ),
 				'type' => Controls_Manager::CHOOSE,
 				'options' => Helper::compare_options(),
 				'default' => 'isset',
@@ -1167,9 +1157,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_parameter_value',
 				[
-					'label' => __( 'Parameter Value', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Parameter Value', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'The specific value of the parameter', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'The specific value of the parameter', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_parameter!' => '',
 						'dce_visibility_parameter_status!' => [ 'not', 'isset' ],
@@ -1180,7 +1170,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 			'dce_visibility_conditional_tags_site',
 			[
-				'label' => __( 'Site', 'dynamic-visibility-for-elementor' ),
+				'label' => esc_html__( 'Site', 'dynamic-visibility-for-elementor' ),
 				'type' => Controls_Manager::SELECT2,
 				'options' => self::get_whitelist_site_functions(),
 				'multiple' => true,
@@ -1191,7 +1181,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_max_day',
 				[
-					'label' => __( 'Max per Day', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Max per Day', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
 					'separator' => 'before',
@@ -1200,7 +1190,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_max_total',
 				[
-					'label' => __( 'Max Total', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Max Total', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
 					'separator' => 'before',
@@ -1254,7 +1244,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_lang',
 					[
-						'label' => __( 'Language', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Language', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::SELECT2,
 						'options' => $select_lang,
 						'multiple' => true,
@@ -1268,19 +1258,19 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_post_id',
 				[
-					'label' => __( 'Post ID', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Post ID', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => [
 						'current' => [
-							'title' => __( 'Current', 'dynamic-visibility-for-elementor' ),
+							'title' => esc_html__( 'Current', 'dynamic-visibility-for-elementor' ),
 							'icon' => 'fa fa-list',
 						],
 						'global' => [
-							'title' => __( 'Global', 'dynamic-visibility-for-elementor' ),
+							'title' => esc_html__( 'Global', 'dynamic-visibility-for-elementor' ),
 							'icon' => 'fa fa-globe',
 						],
 						'static' => [
-							'title' => __( 'Static', 'dynamic-visibility-for-elementor' ),
+							'title' => esc_html__( 'Static', 'dynamic-visibility-for-elementor' ),
 							'icon' => 'eicon-pencil',
 						],
 					],
@@ -1291,7 +1281,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_post_id_static',
 				[
-					'label' => __( 'Set Post ID', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Set Post ID', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
 					'condition' => [
@@ -1303,7 +1293,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_post_id_description',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw' => '<small>' . __( 'In some cases, Current ID and Global ID may be different. For example, if you use a widget with a loop on a page, then Global ID will be Page ID, and Current ID will be Post ID in preview inside the loop.', 'dynamic-visibility-for-elementor' ) . '</small>',
+					'raw' => '<small>' . esc_html__( 'In some cases, Current ID and Global ID may be different. For example, if you use a widget with a loop on a page, then Global ID will be Page ID, and Current ID will be Post ID in preview inside the loop.', 'dynamic-visibility-for-elementor' ) . '</small>',
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				]
 			);
@@ -1311,11 +1301,11 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_cpt',
 				[
-					'label' => __( 'Post Type', 'dynamic-visibility-for-elementor' ),
-					'type' => 'ooo_query',
-					'placeholder' => __( 'Post Type', 'dynamic-visibility-for-elementor' ),
-					'label_block' => true,
+					'label' => esc_html__( 'Post Type', 'dynamic-visibility-for-elementor' ),
+					'type' => Controls_Manager::SELECT2,
+					'options' => Helper::get_public_post_types(),
 					'multiple' => true,
+					'label_block' => true,
 					'query_type' => 'posts',
 					'object_type' => 'type',
 				]
@@ -1324,9 +1314,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_post',
 				[
-					'label' => __( 'Page/Post', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Page/Post', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Post Title', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Post Title', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'query_type' => 'posts',
 					'multiple' => true,
@@ -1337,7 +1327,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_tax',
 				[
-					'label' => __( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => $taxonomies,
 					'multiple' => false,
@@ -1350,9 +1340,9 @@ class DynamicVisibility extends ExtensionPrototype {
 					$element->add_control(
 						'dce_visibility_term_' . $tkey,
 						[
-							'label' => __( 'Terms', 'dynamic-visibility-for-elementor' ),
+							'label' => esc_html__( 'Terms', 'dynamic-visibility-for-elementor' ),
 							'type' => 'ooo_query',
-							'placeholder' => __( 'Term Name', 'dynamic-visibility-for-elementor' ),
+							'placeholder' => esc_html__( 'Term Name', 'dynamic-visibility-for-elementor' ),
 							'label_block' => true,
 							'query_type' => 'terms',
 							'object_type' => $tkey,
@@ -1367,9 +1357,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_field',
 				[
-					'label' => __( 'Post Field', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Post Field', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'query_type' => 'fields',
 					'object_type' => 'post',
@@ -1383,7 +1373,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_field_status',
 				[
-					'label' => __( 'Post Field Status', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Post Field Status', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::CHOOSE,
 					'options' => Helper::compare_options(),
 					'default' => 'isset',
@@ -1397,9 +1387,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_field_value',
 				[
-					'label' => __( 'Post Field Value', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Post Field Value', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'The specific value of the Post Field', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'The specific value of the Post Field', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_field!' => '',
 						'dce_visibility_field_status!' => [ 'not', 'isset' ],
@@ -1410,13 +1400,13 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_meta',
 				[
-					'label' => __( 'Multiple Metas', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Multiple Metas', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Meta key or Name', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'query_type' => 'metas',
 					'object_type' => 'post',
-					'description' => __( 'Triggered by specifics metas fields if they are valorized', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered by specifics metas fields if they are valorized', 'dynamic-visibility-for-elementor' ),
 					'multiple' => true,
 					'separator' => 'before',
 				]
@@ -1425,12 +1415,12 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_meta_operator',
 				[
-					'label' => __( 'Meta conditions', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Meta conditions', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'default' => 'yes',
-					'label_on' => __( 'And', 'dynamic-visibility-for-elementor' ),
-					'label_off' => __( 'Or', 'dynamic-visibility-for-elementor' ),
-					'description' => __( 'How post meta have to satisfy this condition', 'dynamic-visibility-for-elementor' ),
+					'label_on' => esc_html__( 'And', 'dynamic-visibility-for-elementor' ),
+					'label_off' => esc_html__( 'Or', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'How post meta have to satisfy this condition', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_meta!' => '',
 					],
@@ -1440,7 +1430,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_format',
 				[
-					'label' => __( 'Format', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Format', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => Helper::get_post_formats(),
 					'multiple' => true,
@@ -1451,43 +1441,43 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_parent',
 				[
-					'label' => __( 'Is Parent', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Parent', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for post with children', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for post with children', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_root',
 				[
-					'label' => __( 'Is Root', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Root', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for first level posts (without parent)', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for first level posts (without parent)', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_leaf',
 				[
-					'label' => __( 'Is Leaf', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Leaf', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for last level posts (without children)', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for last level posts (without children)', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_node',
 				[
-					'label' => __( 'Is Node', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Node', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for intermedial level posts (with parent and child)', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for intermedial level posts (with parent and child)', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_node_level',
 				[
-					'label' => __( 'Node level', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Node level', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
 					'condition' => [
@@ -1498,28 +1488,28 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_level',
 				[
-					'label' => __( 'Has Level', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Level', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
-					'description' => __( 'Triggered for specific level posts', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for specific level posts', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_child',
 				[
-					'label' => __( 'Has Parent', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Parent', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for children posts (with a parent)', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for children posts (with a parent)', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_child_parent',
 				[
-					'label' => __( 'Specific Parent Post IDs', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Specific Parent Post IDs', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Post Title', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Post Title', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'multiple' => true,
 					'separator' => 'before',
@@ -1533,29 +1523,29 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_sibling',
 				[
-					'label' => __( 'Has Siblings', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Siblings', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for post with siblings', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for post with siblings', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_friend',
 				[
-					'label' => __( 'Has Term Buddies', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Term Buddies', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for posts grouped in taxonomies with other posts', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for posts grouped in taxonomies with other posts', 'dynamic-visibility-for-elementor' ),
 					'separator' => 'before',
 				]
 			);
 			$element->add_control(
 				'dce_visibility_friend_term',
 				[
-					'label' => __( 'Terms where find Buddies', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Terms where find Buddies', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Term Name', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Term Name', 'dynamic-visibility-for-elementor' ),
 					'query_type' => 'terms',
-					'description' => __( 'Specific a Term for current post has friends.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Specific a Term for current post has friends.', 'dynamic-visibility-for-elementor' ),
 					'multiple' => true,
 					'label_block' => true,
 					'condition' => [
@@ -1567,7 +1557,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_conditional_tags_post',
 				[
-					'label' => __( 'Conditional Tags - Post', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Conditional Tags - Post', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => self::get_whitelist_post_functions(),
 					'multiple' => true,
@@ -1580,7 +1570,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_special',
 				[
-					'label' => __( 'Conditional Tags - Page', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Conditional Tags - Page', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => self::get_whitelist_page_functions(),
 					'multiple' => true,
@@ -1598,12 +1588,12 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_woo_cart',
 					[
-						'label' => __( 'Cart is', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Cart is', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::SELECT,
 						'options' => [
-							'select' => __( 'Select...', 'dynamic-visibility-for-elementor' ),
-							'empty' => __( 'Empty', 'dynamic-visibility-for-elementor' ),
-							'not_empty' => __( 'Not empty', 'dynamic-visibility-for-elementor' ),
+							'select' => esc_html__( 'Select...', 'dynamic-visibility-for-elementor' ),
+							'empty' => esc_html__( 'Empty', 'dynamic-visibility-for-elementor' ),
+							'not_empty' => esc_html__( 'Not empty', 'dynamic-visibility-for-elementor' ),
 						],
 						'default' => 'select',
 					]
@@ -1612,11 +1602,11 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_woo_product_type',
 					[
-						'label' => __( 'Product Type is', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Product Type is', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::SELECT,
-						'options' => array_merge( [ 'select' => __( 'Select...', 'dynamic-visibility-for-elementor' ) ], wc_get_product_types() ),
+						'options' => array_merge( [ 'select' => esc_html__( 'Select...', 'dynamic-visibility-for-elementor' ) ], wc_get_product_types() ),
 						'default' => 'select',
-						'placeholder' => __( 'Product Type', 'dynamic-visibility-for-elementor' ),
+						'placeholder' => esc_html__( 'Product Type', 'dynamic-visibility-for-elementor' ),
 						'label_block' => true,
 					]
 				);
@@ -1624,9 +1614,9 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_woo_product_id_static',
 					[
-						'label' => __( 'Product in the cart', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Product in the cart', 'dynamic-visibility-for-elementor' ),
 						'type' => 'ooo_query',
-						'placeholder' => __( 'Product Name', 'dynamic-visibility-for-elementor' ),
+						'placeholder' => esc_html__( 'Product Name', 'dynamic-visibility-for-elementor' ),
 						'label_block' => true,
 						'query_type' => 'posts',
 						'object_type' => 'product',
@@ -1636,9 +1626,9 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_woo_product_category',
 					[
-						'label' => __( 'Product Category in the cart', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Product Category in the cart', 'dynamic-visibility-for-elementor' ),
 						'type' => 'ooo_query',
-						'placeholder' => __( 'Product Category', 'dynamic-visibility-for-elementor' ),
+						'placeholder' => esc_html__( 'Product Category', 'dynamic-visibility-for-elementor' ),
 						'label_block' => true,
 						'query_type' => 'terms',
 					]
@@ -1654,19 +1644,19 @@ class DynamicVisibility extends ExtensionPrototype {
 						$element->add_control(
 							'dce_visibility_woo_membership_post',
 							[
-								'label' => __( 'Use Post Membership settings', 'dynamic-visibility-for-elementor' ),
+								'label' => esc_html__( 'Use Post Membership settings', 'dynamic-visibility-for-elementor' ),
 								'type' => Controls_Manager::SWITCHER,
 							]
 						);
 
-						$plan_options = [ 0 => __( 'NOT Member', 'dynamic-visibility-for-elementor' ) ];
+						$plan_options = [ 0 => esc_html__( 'NOT Member', 'dynamic-visibility-for-elementor' ) ];
 						foreach ( $plans as $aplan ) {
-							$plan_options[ $aplan->ID ] = $aplan->post_title;
+							$plan_options[ $aplan->ID ] = esc_html( $aplan->post_title );
 						}
 						$element->add_control(
 							'dce_visibility_woo_membership',
 							[
-								'label' => __( 'Membership', 'dynamic-visibility-for-elementor' ),
+								'label' => esc_html__( 'Membership', 'dynamic-visibility-for-elementor' ),
 								'type' => Controls_Manager::SELECT2,
 								'options' => $plan_options,
 								'multiple' => true,
@@ -1683,7 +1673,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_woo_notice',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw' => __( 'You need WooCommerce to use this trigger.', 'dynamic-visibility-for-elementor' ),
+					'raw' => esc_html__( 'You need WooCommerce to use this trigger.', 'dynamic-visibility-for-elementor' ),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				]
 				);
@@ -1695,36 +1685,34 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_myfastapp_hide',
 					[
-						'raw' => __( 'Feature available only in Dynamic.ooo - Dynamic Content for Elementor, paid version.', 'dynamic-visibility-for-elementor' ),
+						'raw' => esc_html__( 'Feature available only in Dynamic.ooo - Dynamic Content for Elementor, paid version.', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::RAW_HTML,
 						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					]
 				);
-			} else {
-				if ( Helper::is_myfastapp_active() ) {
+			} elseif ( Helper::is_myfastapp_active() ) {
 					$element->add_control(
 						'dce_visibility_myfastapp',
 						[
-							'label' => __( 'The visitor is', 'dynamic-visibility-for-elementor' ),
+							'label' => esc_html__( 'The visitor is', 'dynamic-visibility-for-elementor' ),
 							'type' => Controls_Manager::SELECT,
 							'options' => [
-								'all' => __( 'on the site or in the app', 'dynamic-visibility-for-elementor' ),
-								'site' => __( 'on the site', 'dynamic-visibility-for-elementor' ),
-								'app' => __( 'in the app', 'dynamic-visibility-for-elementor' ),
+								'all' => esc_html__( 'on the site or in the app', 'dynamic-visibility-for-elementor' ),
+								'site' => esc_html__( 'on the site', 'dynamic-visibility-for-elementor' ),
+								'app' => esc_html__( 'in the app', 'dynamic-visibility-for-elementor' ),
 							],
 							'default' => 'all',
 						]
 					);
-				} else {
-					$element->add_control(
-						'dce_visibility_myfastapp_notice',
-						[
-							'type' => Controls_Manager::RAW_HTML,
-							'raw' => __( 'You need My FastAPP to use this trigger.', 'dynamic-visibility-for-elementor' ),
-							'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-						]
-					);
-				}
+			} else {
+				$element->add_control(
+					'dce_visibility_myfastapp_notice',
+					[
+						'type' => Controls_Manager::RAW_HTML,
+						'raw' => esc_html__( 'You need My FastAPP to use this trigger.', 'dynamic-visibility-for-elementor' ),
+						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+					]
+				);
 			}
 		}
 
@@ -1733,7 +1721,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_events_note',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw' => __( 'Using an Event trigger is necessary to activate "Keep HTML" from settings', 'dynamic-visibility-for-elementor' ),
+					'raw' => esc_html__( 'Using an Event trigger is necessary to activate "Keep HTML" from settings', 'dynamic-visibility-for-elementor' ),
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					'condition' => [
 						'dce_visibility_dom' => '',
@@ -1745,7 +1733,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_event',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Event', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Event', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT,
 					'default' => 'click',
 					'options' => [
@@ -1765,9 +1753,9 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_click',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Trigger on this element', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Trigger on this element', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Type here the Selector in jQuery format. For example #name', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Type here the Selector in jQuery format. For example #name', 'dynamic-visibility-for-elementor' ),
 					'dynamic' => [
 						'active' => true,
 					],
@@ -1780,7 +1768,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_click_show',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Show Animation', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Show Animation', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT,
 					'options' => Helper::get_jquery_display_mode(),
 					'condition' => [
@@ -1790,12 +1778,26 @@ class DynamicVisibility extends ExtensionPrototype {
 				]
 			);
 			$element->add_control(
+				'dce_visibility_event_transition_delay',
+				[
+					'frontend_available' => true,
+					'label' => esc_html__( 'Transition Delay', 'dynamic-visibility-for-elementor' ),
+					'type' => Controls_Manager::NUMBER,
+					'default' => 400,
+					'condition' => [
+						'dce_visibility_dom!' => '',
+						'dce_visibility_click!' => '',
+						'dce_visibility_click_show!' => '',
+					],
+				]
+			);
+			$element->add_control(
 				'dce_visibility_click_other',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Hide other elements', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Hide other elements', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::TEXT,
-					'description' => __( 'Type here the Selector in jQuery format. For example .elements', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Type here the Selector in jQuery format. For example .elements', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_dom!' => '',
 						'dce_visibility_click!' => '',
@@ -1807,7 +1809,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_click_toggle',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Toggle', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Toggle', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'condition' => [
 						'dce_visibility_dom!' => '',
@@ -1820,7 +1822,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_load',
 				[
 					'frontend_available' => true,
-					'label' => __( 'On Page Load', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'On Page Load', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
 					'condition' => [
 						'dce_visibility_dom!' => '',
@@ -1832,7 +1834,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_load_delay',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Delay time', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Delay time', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 0,
 					'default' => 0,
@@ -1846,7 +1848,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				'dce_visibility_load_show',
 				[
 					'frontend_available' => true,
-					'label' => __( 'Show Animation', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Show Animation', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT,
 					'options' => Helper::get_jquery_display_mode(),
 					'condition' => [
@@ -1862,7 +1864,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_archive',
 				[
-					'label' => __( 'Archive Type', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Archive Type', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => self::get_whitelist_archive_functions(),
 					'separator' => 'before',
@@ -1873,7 +1875,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_archive_tax',
 				[
-					'label' => __( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SELECT2,
 					'options' => $taxonomies,
 					'multiple' => false,
@@ -1906,13 +1908,13 @@ class DynamicVisibility extends ExtensionPrototype {
 					$element->add_control(
 						'dce_visibility_archive_term_' . $tkey,
 						[
-							'label' => $atax . ' ' . __( 'Terms', 'dynamic-visibility-for-elementor' ),
+							'label' => $atax . ' ' . esc_html__( 'Terms', 'dynamic-visibility-for-elementor' ),
 							'type' => 'ooo_query',
-							'placeholder' => __( 'Term Name', 'dynamic-visibility-for-elementor' ),
+							'placeholder' => esc_html__( 'Term Name', 'dynamic-visibility-for-elementor' ),
 							'label_block' => true,
 							'query_type' => 'terms',
 							'object_type' => $tkey,
-							'description' => __( 'Visible if current post is related to these terms', 'dynamic-visibility-for-elementor' ),
+							'description' => esc_html__( 'Visible if current post is related to these terms', 'dynamic-visibility-for-elementor' ),
 							'multiple' => true,
 							'condition' => $condition,
 						]
@@ -1923,7 +1925,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_term',
 				[
-					'label' => __( 'Taxonomy Term', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Taxonomy Term', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::HEADING,
 					'separator' => 'before',
 				]
@@ -1931,57 +1933,57 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_term_parent',
 				[
-					'label' => __( 'Is Parent', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Parent', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for term with children.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for term with children.', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_root',
 				[
-					'label' => __( 'Is Root', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Root', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for term of first level (without parent).', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for term of first level (without parent).', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_leaf',
 				[
-					'label' => __( 'Is Leaf', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Leaf', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for terms in last level (without children).', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for terms in last level (without children).', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_node',
 				[
-					'label' => __( 'Is Node', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Is Node', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for terms in intermedial level (with parent and children).', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for terms in intermedial level (with parent and children).', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_child',
 				[
-					'label' => __( 'Has Parent', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Parent', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for terms which are children (with a parent).', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for terms which are children (with a parent).', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_sibling',
 				[
-					'label' => __( 'Has Siblings', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Siblings', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for terms with siblings.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for terms with siblings.', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			$element->add_control(
 				'dce_visibility_term_count',
 				[
-					'label' => __( 'Has Posts', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Has Posts', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'Triggered for terms has related Posts count.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Triggered for terms has related Posts count.', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 		}
@@ -1990,9 +1992,9 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_random',
 				[
-					'label' => __( 'Random', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Random', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SLIDER,
-					'description' => __( 'Choose the percentage probability that the condition is true', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Choose the percentage probability that the condition is true', 'dynamic-visibility-for-elementor' ),
 					'size_units' => [ '%' ],
 					'range' => [
 						'%' => [
@@ -2009,24 +2011,22 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_custom_hide',
 					[
-						'raw' => __( 'Feature available only in Dynamic.ooo - Dynamic Content for Elementor, paid version.', 'dynamic-visibility-for-elementor' ),
+						'raw' => esc_html__( 'Feature available only in Dynamic.ooo - Dynamic Content for Elementor, paid version.', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::RAW_HTML,
 						'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 					]
 				);
-			} else {
-				if ( Helper::can_register_unsafe_controls() ) {
+			} elseif ( Helper::can_register_unsafe_controls() ) {
 					$element->add_control(
 						self::CUSTOM_PHP_CONTROL_NAME,
 						[
-							'label' => __( 'Custom PHP condition', 'dynamic-visibility-for-elementor' ),
+							'label' => esc_html__( 'Custom PHP condition', 'dynamic-visibility-for-elementor' ),
 							'type' => Controls_Manager::CODE,
 							'language' => 'php',
 							'default' => '',
-							'description' => __( 'Type here a function that returns a boolean value. You can use all WP variables and functions.', 'dynamic-visibility-for-elementor' ),
+							'description' => esc_html__( 'Type here a function that returns a boolean value. You can use all WP variables and functions.', 'dynamic-visibility-for-elementor' ),
 						]
 					);
-				}
 			}
 		}
 
@@ -2034,16 +2034,16 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_fallback',
 				[
-					'label' => __( 'Fallback Content', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Fallback Content', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::SWITCHER,
-					'description' => __( 'If you want to show something when the element is hidden', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If you want to show something when the element is hidden', 'dynamic-visibility-for-elementor' ),
 				]
 			);
 			if ( ! defined( 'DCE_PATH' ) ) { // free version doesn't support template shortcode
 				$element->add_control(
 					'dce_visibility_fallback_type',
 					[
-						'label' => __( 'Content type', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Content type', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::HIDDEN,
 						'default' => 'text',
 					]
@@ -2052,15 +2052,15 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_fallback_type',
 					[
-						'label' => __( 'Content type', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Content type', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::CHOOSE,
 						'options' => [
 							'text' => [
-								'title' => __( 'Text', 'dynamic-visibility-for-elementor' ),
+								'title' => esc_html__( 'Text', 'dynamic-visibility-for-elementor' ),
 								'icon' => 'fa fa-align-left',
 							],
 							'template' => [
-								'title' => __( 'Template', 'dynamic-visibility-for-elementor' ),
+								'title' => esc_html__( 'Template', 'dynamic-visibility-for-elementor' ),
 								'icon' => 'fa fa-th-large',
 							],
 						],
@@ -2074,13 +2074,13 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_fallback_template',
 				[
-					'label' => __( 'Render Template', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Render Template', 'dynamic-visibility-for-elementor' ),
 					'type' => 'ooo_query',
-					'placeholder' => __( 'Template Name', 'dynamic-visibility-for-elementor' ),
+					'placeholder' => esc_html__( 'Template Name', 'dynamic-visibility-for-elementor' ),
 					'label_block' => true,
 					'query_type' => 'posts',
 					'object_type' => 'elementor_library',
-					'description' => __( 'Use an Elementor Template as content of popup, useful for complex structure', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'Use an Elementor Template as content of popup, useful for complex structure', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_fallback!' => '',
 						'dce_visibility_fallback_type' => 'template',
@@ -2090,10 +2090,10 @@ class DynamicVisibility extends ExtensionPrototype {
 			$element->add_control(
 				'dce_visibility_fallback_text',
 				[
-					'label' => __( 'Text Fallback', 'dynamic-visibility-for-elementor' ),
+					'label' => esc_html__( 'Text Fallback', 'dynamic-visibility-for-elementor' ),
 					'type' => Controls_Manager::WYSIWYG,
-					'default' => __( 'This element is currently hidden.', 'dynamic-visibility-for-elementor' ),
-					'description' => __( 'If the element is not visible, insert here your content', 'dynamic-visibility-for-elementor' ),
+					'default' => esc_html__( 'This element is currently hidden.', 'dynamic-visibility-for-elementor' ),
+					'description' => esc_html__( 'If the element is not visible, insert here your content', 'dynamic-visibility-for-elementor' ),
 					'condition' => [
 						'dce_visibility_fallback!' => '',
 						'dce_visibility_fallback_type' => 'text',
@@ -2104,10 +2104,10 @@ class DynamicVisibility extends ExtensionPrototype {
 				$element->add_control(
 					'dce_visibility_fallback_section',
 					[
-						'label' => __( 'Use section wrapper', 'dynamic-visibility-for-elementor' ),
+						'label' => esc_html__( 'Use section wrapper', 'dynamic-visibility-for-elementor' ),
 						'type' => Controls_Manager::SWITCHER,
 						'default' => 'yes',
-						'description' => __( 'Mantain original section wrapper.', 'dynamic-visibility-for-elementor' ),
+						'description' => esc_html__( 'Mantain original section wrapper.', 'dynamic-visibility-for-elementor' ),
 						'condition' => [
 							'dce_visibility_fallback!' => '',
 						],
@@ -2115,7 +2115,6 @@ class DynamicVisibility extends ExtensionPrototype {
 				);
 			}
 		}
-
 	}
 
 	public function set_element_view_counters( $element, $hidden = false ) {
@@ -2200,7 +2199,7 @@ class DynamicVisibility extends ExtensionPrototype {
 						}
 						$dce_visibility_max_user[ $element->get_id() ] = 2;
 					} else {
-						$dce_visibility_max_user[ $element->get_id() ]++;
+						++$dce_visibility_max_user[ $element->get_id() ];
 					}
 					update_user_meta( $user_id, 'dce_visibility_max_user', $dce_visibility_max_user );
 				}
@@ -2215,7 +2214,11 @@ class DynamicVisibility extends ExtensionPrototype {
 	public static function get_fallback_content( $settings ) {
 		if ( ! empty( $settings['dce_visibility_fallback'] ) ) {
 			if ( isset( $settings['dce_visibility_fallback_type'] ) && $settings['dce_visibility_fallback_type'] == 'template' ) {
-				return do_shortcode( '[dce-elementor-template id="' . $settings['dce_visibility_fallback_template'] . '"]' );
+				$atts = [
+					'id' => $settings['dce_visibility_fallback_template'],
+				];
+				$template_system = \DynamicVisibilityForElementor\Plugin::instance()->template_system;
+				return $template_system->build_elementor_template_special( $atts );
 			} else {
 				return $settings['dce_visibility_fallback_text'];
 			}
@@ -2277,8 +2280,7 @@ class DynamicVisibility extends ExtensionPrototype {
 				case 'global':
 					$post_ID = Helper::get_post_id_from_url();
 					if ( ! $post_ID ) {
-						$queried_object = get_queried_object();
-						if ( $queried_object && is_object( $queried_object ) && get_class( $queried_object ) == 'WP_Post' ) {
+						if ( get_queried_object() instanceof \WP_Post ) {
 							$post_ID = get_queried_object_id();
 						}
 					}
@@ -2294,7 +2296,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 		// FORCED HIDDEN
 		if ( ! empty( $settings['dce_visibility_hidden'] ) ) {
-			$conditions['dce_visibility_hidden'] = __( 'Always Hidden', 'dynamic-visibility-for-elementor' );
+			$conditions['dce_visibility_hidden'] = esc_html__( 'Always Hidden', 'dynamic-visibility-for-elementor' );
 			$triggers['dce_visibility_hidden'] = $conditions['dce_visibility_hidden'];
 		} else {
 
@@ -2303,154 +2305,152 @@ class DynamicVisibility extends ExtensionPrototype {
 
 				if ( $settings['dce_visibility_date_dynamic'] ) {
 					if ( $settings['dce_visibility_date_dynamic_from'] && $settings['dce_visibility_date_dynamic_to'] ) {
-						$triggers['date'] = __( 'Date Dynamic', 'dynamic-visibility-for-elementor' );
-						$triggers['dce_visibility_date_dynamic_from'] = __( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
-						$triggers['dce_visibility_date_dynamic_to'] = __( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
+						$triggers['date'] = esc_html__( 'Date Dynamic', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_date_dynamic_from'] = esc_html__( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_date_dynamic_to'] = esc_html__( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
 
 						// between
 						$dateTo = strtotime( $settings['dce_visibility_date_dynamic_to'] );
 						$dateFrom = strtotime( $settings['dce_visibility_date_dynamic_from'] );
-						$triggers_n++;
+						++$triggers_n;
 						if ( current_time( 'timestamp' ) >= $dateFrom && current_time( 'timestamp' ) <= $dateTo ) {
-							$conditions['date'] = __( 'Date Dynamic', 'dynamic-visibility-for-elementor' );
+							$conditions['date'] = esc_html__( 'Date Dynamic', 'dynamic-visibility-for-elementor' );
 						}
 					} else {
 						if ( $settings['dce_visibility_date_dynamic_from'] ) {
-							$triggers['dce_visibility_date_dynamic_from'] = __( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
+							$triggers['dce_visibility_date_dynamic_from'] = esc_html__( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
 
 							$dateFrom = strtotime( $settings['dce_visibility_date_dynamic_from'] );
-							$triggers_n++;
+							++$triggers_n;
 							if ( current_time( 'timestamp' ) >= $dateFrom ) {
-								$conditions['dce_visibility_date_dynamic_from'] = __( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_date_dynamic_from'] = esc_html__( 'Date Dynamic From', 'dynamic-visibility-for-elementor' );
 							}
 						}
 						if ( $settings['dce_visibility_date_dynamic_to'] ) {
-							$triggers['dce_visibility_date_dynamic_to'] = __( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
+							$triggers['dce_visibility_date_dynamic_to'] = esc_html__( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
 
 							$dateTo = strtotime( $settings['dce_visibility_date_dynamic_to'] );
-							$triggers_n++;
+							++$triggers_n;
 							if ( current_time( 'timestamp' ) <= $dateTo ) {
-								$conditions['dce_visibility_date_dynamic_to'] = __( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_date_dynamic_to'] = esc_html__( 'Date Dynamic To', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
-				} else {
-					if ( $settings['dce_visibility_date_from'] && $settings['dce_visibility_date_to'] ) {
-						$triggers['date'] = __( 'Date', 'dynamic-visibility-for-elementor' );
-						$triggers['dce_visibility_date_from'] = __( 'Date From', 'dynamic-visibility-for-elementor' );
-						$triggers['dce_visibility_date_to'] = __( 'Date To', 'dynamic-visibility-for-elementor' );
+				} elseif ( $settings['dce_visibility_date_from'] && $settings['dce_visibility_date_to'] ) {
+						$triggers['date'] = esc_html__( 'Date', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_date_from'] = esc_html__( 'Date From', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_date_to'] = esc_html__( 'Date To', 'dynamic-visibility-for-elementor' );
 
 						// between
 						$dateTo = strtotime( $settings['dce_visibility_date_to'] );
 						$dateFrom = strtotime( $settings['dce_visibility_date_from'] );
-						$triggers_n++;
-						if ( current_time( 'timestamp' ) >= $dateFrom && current_time( 'timestamp' ) <= $dateTo ) {
-							$conditions['date'] = __( 'Date', 'dynamic-visibility-for-elementor' );
-						}
-					} else {
-						if ( $settings['dce_visibility_date_from'] ) {
-							$triggers['dce_visibility_date_from'] = __( 'Date From', 'dynamic-visibility-for-elementor' );
+						++$triggers_n;
+					if ( current_time( 'timestamp' ) >= $dateFrom && current_time( 'timestamp' ) <= $dateTo ) {
+						$conditions['date'] = esc_html__( 'Date', 'dynamic-visibility-for-elementor' );
+					}
+				} else {
+					if ( $settings['dce_visibility_date_from'] ) {
+						$triggers['dce_visibility_date_from'] = esc_html__( 'Date From', 'dynamic-visibility-for-elementor' );
 
-							$dateFrom = strtotime( $settings['dce_visibility_date_from'] );
-							$triggers_n++;
-							if ( current_time( 'timestamp' ) >= $dateFrom ) {
-								$conditions['dce_visibility_date_from'] = __( 'Date From', 'dynamic-visibility-for-elementor' );
-							}
+						$dateFrom = strtotime( $settings['dce_visibility_date_from'] );
+						++$triggers_n;
+						if ( current_time( 'timestamp' ) >= $dateFrom ) {
+							$conditions['dce_visibility_date_from'] = esc_html__( 'Date From', 'dynamic-visibility-for-elementor' );
 						}
-						if ( $settings['dce_visibility_date_to'] ) {
-							$triggers['dce_visibility_date_to'] = __( 'Date To', 'dynamic-visibility-for-elementor' );
+					}
+					if ( $settings['dce_visibility_date_to'] ) {
+						$triggers['dce_visibility_date_to'] = esc_html__( 'Date To', 'dynamic-visibility-for-elementor' );
 
-							$dateTo = strtotime( $settings['dce_visibility_date_to'] );
-							$triggers_n++;
-							if ( current_time( 'timestamp' ) <= $dateTo ) {
-								$conditions['dce_visibility_date_to'] = __( 'Date To', 'dynamic-visibility-for-elementor' );
-							}
+						$dateTo = strtotime( $settings['dce_visibility_date_to'] );
+						++$triggers_n;
+						if ( current_time( 'timestamp' ) <= $dateTo ) {
+							$conditions['dce_visibility_date_to'] = esc_html__( 'Date To', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
 
 				if ( $settings['dce_visibility_period_from'] && $settings['dce_visibility_period_to'] ) {
-					$triggers['period'] = __( 'Period', 'dynamic-visibility-for-elementor' );
-					$triggers['dce_visibility_period_from'] = __( 'Period From', 'dynamic-visibility-for-elementor' );
-					$triggers['dce_visibility_period_to'] = __( 'Period To', 'dynamic-visibility-for-elementor' );
-					$triggers_n++;
+					$triggers['period'] = esc_html__( 'Period', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_period_from'] = esc_html__( 'Period From', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_period_to'] = esc_html__( 'Period To', 'dynamic-visibility-for-elementor' );
+					++$triggers_n;
 
 					$period_from = \DateTime::createFromFormat( 'd/m H:i:s', $settings['dce_visibility_period_from'] . ' 00:00:00' );
 					$period_to = \DateTime::createFromFormat( 'd/m H:i:s', $settings['dce_visibility_period_to'] . ' 23:59:59' );
 
 					if ( false !== $period_from && false !== $period_to && $period_from->getTimestamp() <= $period_to->getTimestamp() ) {
 						if ( current_time( 'U' ) >= $period_from->getTimestamp() && current_time( 'U' ) <= $period_to->getTimestamp() ) {
-							$conditions['period'] = __( 'Period', 'dynamic-visibility-for-elementor' );
+							$conditions['period'] = esc_html__( 'Period', 'dynamic-visibility-for-elementor' );
 						}
 					} elseif ( false !== $period_from && false !== $period_to ) {
 						// Period From > Period To. For example between 20 Dec - 11 Jan
 						if ( current_time( 'U' ) >= $period_from->getTimestamp() || current_time( 'U' ) <= $period_to->getTimestamp() ) {
-							$conditions['period'] = __( 'Period', 'dynamic-visibility-for-elementor' );
+							$conditions['period'] = esc_html__( 'Period', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				} else {
 					if ( $settings['dce_visibility_period_from'] ) {
-						$triggers['dce_visibility_period_from'] = __( 'Period From', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_period_from'] = esc_html__( 'Period From', 'dynamic-visibility-for-elementor' );
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( date_i18n( 'm/d' ) >= $settings['dce_visibility_period_from'] ) {
-							$conditions['dce_visibility_period_from'] = __( 'Period From', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_period_from'] = esc_html__( 'Period From', 'dynamic-visibility-for-elementor' );
 						}
 					}
 					if ( $settings['dce_visibility_period_to'] ) {
-						$triggers['dce_visibility_period_to'] = __( 'Period To', 'dynamic-visibility-for-elementor' );
-						$triggers_n++;
+						$triggers['dce_visibility_period_to'] = esc_html__( 'Period To', 'dynamic-visibility-for-elementor' );
+						++$triggers_n;
 						if ( date_i18n( 'm/d' ) <= $settings['dce_visibility_period_to'] ) {
-							$conditions['dce_visibility_period_to'] = __( 'Period To', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_period_to'] = esc_html__( 'Period To', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
 
 				if ( $settings['dce_visibility_time_week'] && ! empty( $settings['dce_visibility_time_week'] ) ) {
-					$triggers['dce_visibility_time_week'] = __( 'Day of Week', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_time_week'] = esc_html__( 'Day of Week', 'dynamic-visibility-for-elementor' );
 
-					$triggers_n++;
+					++$triggers_n;
 					if ( in_array( current_time( 'w' ), $settings['dce_visibility_time_week'] ) ) {
-						$conditions['dce_visibility_time_week'] = __( 'Day of Week', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_time_week'] = esc_html__( 'Day of Week', 'dynamic-visibility-for-elementor' );
 					}
 				}
 
 				if ( $settings['dce_visibility_time_from'] && $settings['dce_visibility_time_to'] ) {
-					$triggers['time'] = __( 'Time', 'dynamic-visibility-for-elementor' );
-					$triggers['dce_visibility_time_from'] = __( 'Time From', 'dynamic-visibility-for-elementor' );
-					$triggers['dce_visibility_time_to'] = __( 'Time To', 'dynamic-visibility-for-elementor' );
+					$triggers['time'] = esc_html__( 'Time', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_time_from'] = esc_html__( 'Time From', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_time_to'] = esc_html__( 'Time To', 'dynamic-visibility-for-elementor' );
 
 					$time_from = $settings['dce_visibility_time_from'];
 					$time_to = $settings['dce_visibility_time_to'];
-					$triggers_n++;
+					++$triggers_n;
 
 					if ( $time_from <= $time_to ) {
 						if ( current_time( 'H:i' ) >= $time_from && current_time( 'H:i' ) <= $time_to ) {
-							$conditions['time'] = __( 'Time', 'dynamic-visibility-for-elementor' );
+							$conditions['time'] = esc_html__( 'Time', 'dynamic-visibility-for-elementor' );
 						}
 					} else {
 						// Time From > Time To. For example between 18:00 - 07:00
 						if ( current_time( 'H:i' ) >= $time_from || current_time( 'H:i' ) <= $time_to ) {
-							$conditions['time'] = __( 'Time', 'dynamic-visibility-for-elementor' );
+							$conditions['time'] = esc_html__( 'Time', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				} else {
 					if ( $settings['dce_visibility_time_from'] ) {
-						$triggers['dce_visibility_time_from'] = __( 'Time From', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_time_from'] = esc_html__( 'Time From', 'dynamic-visibility-for-elementor' );
 
 						$time_from = $settings['dce_visibility_time_from'];
-						$triggers_n++;
+						++$triggers_n;
 						if ( current_time( 'H:i' ) >= $time_from ) {
-							$conditions['dce_visibility_time_from'] = __( 'Time From', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_time_from'] = esc_html__( 'Time From', 'dynamic-visibility-for-elementor' );
 						}
 					}
 					if ( $settings['dce_visibility_time_to'] ) {
-						$triggers['dce_visibility_time_to'] = __( 'Time To', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_time_to'] = esc_html__( 'Time To', 'dynamic-visibility-for-elementor' );
 
 						$time_to = ( $settings['dce_visibility_time_to'] == '00:00' ) ? '24:00' : $settings['dce_visibility_time_to'];
-						$triggers_n++;
+						++$triggers_n;
 						if ( current_time( 'H:i' ) <= $time_to ) {
-							$conditions['dce_visibility_time_to'] = __( 'Time To', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_time_to'] = esc_html__( 'Time To', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
@@ -2460,26 +2460,26 @@ class DynamicVisibility extends ExtensionPrototype {
 				// GEOIP
 				if ( Helper::is_geoipdetect_active() ) {
 					if ( ! empty( $settings['dce_visibility_country'] ) ) {
-						$triggers['dce_visibility_country'] = __( 'Country', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_country'] = esc_html__( 'Country', 'dynamic-visibility-for-elementor' );
 						if ( ! \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 							$geoinfo = geoip_detect2_get_info_from_current_ip();
-							$triggers_n++;
+							++$triggers_n;
 							if ( in_array( $geoinfo->country->isoCode, $settings['dce_visibility_country'] ) ) {
-								$conditions['dce_visibility_country'] = __( 'Country', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_country'] = esc_html__( 'Country', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_city'] ) ) {
-						$triggers['dce_visibility_country'] = __( 'City', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_country'] = esc_html__( 'City', 'dynamic-visibility-for-elementor' );
 						if ( ! \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 							$geoinfo = geoip_detect2_get_info_from_current_ip();
 							$ucity = array_map( 'strtolower', $geoinfo->city->names );
 							$scity = Helper::str_to_array( ',', $settings['dce_visibility_city'], 'strtolower' );
 							$icity = array_intersect( $ucity, $scity );
-							$triggers_n++;
+							++$triggers_n;
 							if ( ! empty( $icity ) ) {
-								$conditions['dce_visibility_country'] = __( 'City', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_country'] = esc_html__( 'City', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
@@ -2492,40 +2492,33 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					//roles
 					if ( isset( $settings['dce_visibility_role'] ) && ! empty( $settings['dce_visibility_role'] ) ) {
-						$triggers['dce_visibility_role'] = __( 'User Role', 'dynamic-visibility-for-elementor' );
-
+						$triggers['dce_visibility_role'] = esc_html__( 'User Role', 'dynamic-visibility-for-elementor' );
+						++$triggers_n;
 						$current_user = wp_get_current_user();
 						if ( $current_user->ID ) {
 							$user_roles = $current_user->roles; // An user could have multiple roles
-							if ( ! is_array( $user_roles ) ) {
-								$user_roles = [ $user_roles ];
-							}
 							if ( is_array( $settings['dce_visibility_role'] ) ) {
-								$triggers_n++;
-								if ( ( $settings['dce_visibility_role_all'] ?? 'no' ) === 'yes') {
+								if ( ( $settings['dce_visibility_role_all'] ?? 'no' ) === 'yes' ) {
 									sort( $user_roles );
 									sort( $settings['dce_visibility_role'] );
 									if ( $user_roles === $settings['dce_visibility_role'] ) {
-										$conditions['dce_visibility_role'] = __( 'User Role', 'dynamic-visibility-for-elementor' );
+										$conditions['dce_visibility_role'] = esc_html__( 'User Role', 'dynamic-visibility-for-elementor' );
 									}
 								} else {
 									$tmp_role = array_intersect( $user_roles, $settings['dce_visibility_role'] );
 									if ( ! empty( $tmp_role ) ) {
-										$conditions['dce_visibility_role'] = __( 'User Role', 'dynamic-visibility-for-elementor' );
+										$conditions['dce_visibility_role'] = esc_html__( 'User Role', 'dynamic-visibility-for-elementor' );
 									}
 								}
 							}
-						} else {
-							$triggers_n++;
-							if ( in_array( 'visitor', $settings['dce_visibility_role'] ) ) {
-								$conditions['dce_visibility_role'] = __( 'User not logged', 'dynamic-visibility-for-elementor' );
-							}
+						} elseif ( in_array( 'visitor', $settings['dce_visibility_role'] ) ) {
+								$conditions['dce_visibility_role'] = esc_html__( 'User not logged', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					// user
 					if ( isset( $settings['dce_visibility_users'] ) && $settings['dce_visibility_users'] ) {
-						$triggers['dce_visibility_users'] = __( 'Specific User', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_users'] = esc_html__( 'Specific User', 'dynamic-visibility-for-elementor' );
 
 						$users = Helper::str_to_array( ',', $settings['dce_visibility_users'] );
 						$is_user = false;
@@ -2547,45 +2540,45 @@ class DynamicVisibility extends ExtensionPrototype {
 								}
 							}
 						}
-						$triggers_n++;
+						++$triggers_n;
 						if ( $is_user ) {
-							$conditions['dce_visibility_users'] = __( 'Specific User', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_users'] = esc_html__( 'Specific User', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_can'] ) && $settings['dce_visibility_can'] ) {
-						$triggers['dce_visibility_can'] = __( 'User can', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_can'] = esc_html__( 'User can', 'dynamic-visibility-for-elementor' );
 
 						$user_can = false;
 						$user_id = get_current_user_id();
 						if ( user_can( $user_id, $settings['dce_visibility_can'] ) ) {
 							$user_can = true;
 						}
-						$triggers_n++;
+						++$triggers_n;
 						if ( $user_can ) {
-							$conditions['dce_visibility_can'] = __( 'User can', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_can'] = esc_html__( 'User can', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_usermeta'] ) && ! empty( $settings['dce_visibility_usermeta'] ) ) {
-						$triggers['dce_visibility_usermeta'] = __( 'User Field', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_usermeta'] = esc_html__( 'User Field', 'dynamic-visibility-for-elementor' );
 
 						$current_user = wp_get_current_user();
-						if ( Helper::is_user_meta( $settings['dce_visibility_usermeta'] ) ) {
+						if ( Helper::is_validated_user_meta( $settings['dce_visibility_usermeta'] ) ) {
 							$usermeta = get_user_meta( $current_user->ID, $settings['dce_visibility_usermeta'], true ); // false for visitor
 						} else {
 							$usermeta = $current_user->{$settings['dce_visibility_usermeta']};
 						}
 						$condition_result = Helper::is_condition_satisfied( $usermeta, $settings['dce_visibility_usermeta_status'], $settings['dce_visibility_usermeta_value'] );
-						$triggers_n++;
+						++$triggers_n;
 						if ( $condition_result ) {
-							$conditions['dce_visibility_usermeta'] = __( 'User Field', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_usermeta'] = esc_html__( 'User Field', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					// referrer
 					if ( isset( $settings['dce_visibility_referrer'] ) && $settings['dce_visibility_referrer'] && $settings['dce_visibility_referrer_list'] ) {
-						$triggers['dce_visibility_referrer_list'] = __( 'Referer', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_referrer_list'] = esc_html__( 'Referer', 'dynamic-visibility-for-elementor' );
 
 						if ( $_SERVER['HTTP_REFERER'] ) {
 							$pieces = explode( '/', sanitize_text_field( $_SERVER['HTTP_REFERER'] ) );
@@ -2610,27 +2603,27 @@ class DynamicVisibility extends ExtensionPrototype {
 									}
 								}
 							}
-							$triggers_n++;
+							++$triggers_n;
 							if ( $ref_found ) {
-								$conditions['dce_visibility_referrer_list'] = __( 'Referer', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_referrer_list'] = esc_html__( 'Referer', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_ip'] ) && $settings['dce_visibility_ip'] ) {
-						$triggers['dce_visibility_ip'] = __( 'Remote IP', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_ip'] = esc_html__( 'Remote IP', 'dynamic-visibility-for-elementor' );
 
 						$ips = explode( ',', $settings['dce_visibility_ip'] );
 						$ips = array_map( 'trim', $ips );
-						$triggers_n++;
+						++$triggers_n;
 						if ( in_array( $_SERVER['REMOTE_ADDR'], $ips ) ) {
-							$conditions['dce_visibility_ip'] = __( 'Remote IP', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_ip'] = esc_html__( 'Remote IP', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
 
 				if ( ! empty( $settings['dce_visibility_max_user'] ) ) {
-					$triggers['dce_visibility_max_user'] = __( 'Max per User', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_max_user'] = esc_html__( 'Max per User', 'dynamic-visibility-for-elementor' );
 					$user_id = get_current_user_id();
 					if ( $user_id ) {
 						$dce_visibility_max_user = get_user_meta( $user_id, 'dce_visibility_max_user', true );
@@ -2638,9 +2631,9 @@ class DynamicVisibility extends ExtensionPrototype {
 						if ( ! empty( $dce_visibility_max_user[ $element->get_id() ] ) ) {
 							$dce_visibility_max_user_count = $dce_visibility_max_user[ $element->get_id() ];
 						}
-						$triggers_n++;
+						++$triggers_n;
 						if ( $settings['dce_visibility_max_user'] >= $dce_visibility_max_user_count ) {
-							$conditions['dce_visibility_max_user'] = __( 'Max per User', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_max_user'] = esc_html__( 'Max per User', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
@@ -2653,18 +2646,18 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					// responsive
 					if ( isset( $settings['dce_visibility_responsive'] ) && $settings['dce_visibility_responsive'] ) {
-						$triggers['dce_visibility_responsive'] = __( 'Responsive', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_responsive'] = esc_html__( 'Responsive', 'dynamic-visibility-for-elementor' );
 
 						if ( wp_is_mobile() ) {
-							$triggers_n++;
+							++$triggers_n;
 							if ( $settings['dce_visibility_responsive'] == 'mobile' ) {
-								$conditions['dce_visibility_responsive'] = __( 'Responsive: is Mobile', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_responsive'] = esc_html__( 'Responsive: is Mobile', 'dynamic-visibility-for-elementor' );
 								$ahidden = true;
 							}
 						} else {
-							$triggers_n++;
+							++$triggers_n;
 							if ( $settings['dce_visibility_responsive'] == 'desktop' ) {
-								$conditions['dce_visibility_responsive'] = __( 'Responsive: is Desktop', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_responsive'] = esc_html__( 'Responsive: is Desktop', 'dynamic-visibility-for-elementor' );
 								$ahidden = true;
 							}
 						}
@@ -2672,7 +2665,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					// browser
 					if ( isset( $settings['dce_visibility_browser'] ) && is_array( $settings['dce_visibility_browser'] ) && ! empty( $settings['dce_visibility_browser'] ) ) {
-						$triggers['dce_visibility_browser'] = __( 'Browser', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_browser'] = esc_html__( 'Browser', 'dynamic-visibility-for-elementor' );
 
 						$is_browser = false;
 						foreach ( $settings['dce_visibility_browser'] as $browser ) {
@@ -2681,9 +2674,9 @@ class DynamicVisibility extends ExtensionPrototype {
 								$is_browser = true;
 							}
 						}
-						$triggers_n++;
+						++$triggers_n;
 						if ( $is_browser ) {
-							$conditions['dce_visibility_browser'] = __( 'Browser', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_browser'] = esc_html__( 'Browser', 'dynamic-visibility-for-elementor' );
 							$ahidden = true;
 						}
 					}
@@ -2695,45 +2688,43 @@ class DynamicVisibility extends ExtensionPrototype {
 				if ( ! isset( $settings['dce_visibility_context'] ) || ! $settings['dce_visibility_context'] ) {
 					// cpt
 					if ( isset( $settings['dce_visibility_cpt'] ) && ! empty( $settings['dce_visibility_cpt'] ) && is_array( $settings['dce_visibility_cpt'] ) ) {
-						$triggers['dce_visibility_cpt'] = __( 'Post Type', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_cpt'] = esc_html__( 'Post Type', 'dynamic-visibility-for-elementor' );
 
 						$cpt = get_post_type();
-						$triggers_n++;
+						++$triggers_n;
 						if ( in_array( $cpt, $settings['dce_visibility_cpt'] ) ) {
-							$conditions['dce_visibility_cpt'] = __( 'Post Type', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_cpt'] = esc_html__( 'Post Type', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					// post
 					if ( isset( $settings['dce_visibility_post'] ) && ! empty( $settings['dce_visibility_post'] ) && is_array( $settings['dce_visibility_post'] ) ) {
-						$triggers['dce_visibility_post'] = __( 'Post', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_post'] = esc_html__( 'Post', 'dynamic-visibility-for-elementor' );
 						if ( Helper::is_wpml_active() ) {
 							$visibility_post = Helper::wpml_translate_object_id( $settings['dce_visibility_post'] );
 						} else {
 							$visibility_post = $settings['dce_visibility_post'];
 						}
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( in_array( $post_ID, $visibility_post ) ) {
-							$conditions['dce_visibility_post'] = __( 'Post', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_post'] = esc_html__( 'Post', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_tax'] ) && $settings['dce_visibility_tax'] ) {
-						$triggers['dce_visibility_tax'] = __( 'Taxonomy', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_tax'] = esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' );
 
 						$tax = get_post_taxonomies();
-						$triggers_n++;
+						++$triggers_n;
 						if ( in_array( $settings['dce_visibility_tax'], $tax ) ) {
 							// term
 							$terms = get_the_terms( $post_ID, $settings['dce_visibility_tax'] );
 							$tmp = [];
 							if ( ! empty( $terms ) ) {
-								if ( ! is_object( $terms ) && is_array( $terms ) ) {
+								if ( ! is_object( $terms ) ) {
 									foreach ( $terms as $aterm ) {
-										if ( is_object( $aterm ) && get_class( $aterm ) == 'WP_Term' ) {
-											$tmp[ $aterm->term_id ] = $aterm->term_id;
-										}
+										$tmp[ $aterm->term_id ] = $aterm->term_id;
 									}
 								}
 								$terms = $tmp;
@@ -2745,24 +2736,24 @@ class DynamicVisibility extends ExtensionPrototype {
 									// Retrieve terms searched on the current language
 									$term_searched_current_language = Helper::wpml_translate_object_id_by_type( $settings[ $tkey ], $settings['dce_visibility_tax'] );
 									if ( array_intersect( $terms, $term_searched_current_language ) ) {
-										$conditions[ $tkey ] = __( 'Taxonomy', 'dynamic-visibility-for-elementor' );
+										$conditions[ $tkey ] = esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' );
 									}
 								}
 							} else {
-								$conditions['dce_visibility_tax'] = __( 'Taxonomy', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_tax'] = esc_html__( 'Taxonomy', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 					// meta
 					if ( isset( $settings['dce_visibility_meta'] ) && is_array( $settings['dce_visibility_meta'] ) && ! empty( $settings['dce_visibility_meta'] ) ) {
-						$triggers['dce_visibility_meta'] = __( 'Post Metas', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_meta'] = esc_html__( 'Post Metas', 'dynamic-visibility-for-elementor' );
 
 						$post_metas = $settings['dce_visibility_meta'];
 						$metafirst = true;
 						$metavalued = false;
 						foreach ( $post_metas as $mkey => $ameta ) {
 							if ( is_author() ) {
-								$author_id = intval( get_the_author_meta( 'ID' ) );
+								$author_id = intval( get_the_author_meta( 'ID' ) ); // phpstan
 								$mvalue = get_user_meta( $author_id, $ameta, true );
 							} else {
 								$mvalue = get_post_meta( $post_ID, $ameta, true );
@@ -2777,50 +2768,48 @@ class DynamicVisibility extends ExtensionPrototype {
 								if ( ! $metavalued || ! $mvalue ) {
 									$metavalued = false;
 								}
-							} else { // OR
-								if ( $metavalued || $mvalue ) {
+							} elseif ( $metavalued || $mvalue ) { // OR
 									$metavalued = true;
-								}
 							}
 							$metafirst = false;
 						}
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( $metavalued ) {
-							$conditions['dce_visibility_meta'] = __( 'Post Metas', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_meta'] = esc_html__( 'Post Metas', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_field'] ) && ! empty( $settings['dce_visibility_field'] ) ) {
-						$triggers['dce_visibility_field'] = __( 'Post Field', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_field'] = esc_html__( 'Post Field', 'dynamic-visibility-for-elementor' );
 						$postmeta = Helper::get_post_value( $post_ID, $settings['dce_visibility_field'] );
 						$condition_result = Helper::is_condition_satisfied( $postmeta, $settings['dce_visibility_field_status'], $settings['dce_visibility_field_value'] );
-						$triggers_n++;
+						++$triggers_n;
 						if ( $condition_result ) {
-							$conditions['dce_visibility_field'] = __( 'Post Field', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_field'] = esc_html__( 'Post Field', 'dynamic-visibility-for-elementor' );
 						}
 					}
 					if ( isset( $settings['dce_visibility_root'] ) && $settings['dce_visibility_root'] ) {
-						$triggers['dce_visibility_root'] = __( 'Post is Root', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_root'] = esc_html__( 'Post is Root', 'dynamic-visibility-for-elementor' );
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( ! wp_get_post_parent_id( $post_ID ) ) {
-							$conditions['dce_visibility_root'] = __( 'Post is Root', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_root'] = esc_html__( 'Post is Root', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_format'] ) && ! empty( $settings['dce_visibility_format'] ) ) {
-						$triggers['dce_visibility_format'] = __( 'Post Format', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_format'] = esc_html__( 'Post Format', 'dynamic-visibility-for-elementor' );
 
 						$format = get_post_format( $post_ID ) ?: 'standard';
-						$triggers_n++;
+						++$triggers_n;
 						if ( in_array( $format, $settings['dce_visibility_format'] ) ) {
-							$conditions['dce_visibility_format'] = __( 'Post Format', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_format'] = esc_html__( 'Post Format', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_parent'] ) && $settings['dce_visibility_parent'] ) {
-						$triggers['dce_visibility_parent'] = __( 'Post is Parent', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_parent'] = esc_html__( 'Post is Parent', 'dynamic-visibility-for-elementor' );
 
 						$args = [
 							'post_parent' => $post_ID,
@@ -2829,14 +2818,14 @@ class DynamicVisibility extends ExtensionPrototype {
 							'post_status' => 'publish',
 						];
 						$children = get_children( $args );
-						$triggers_n++;
+						++$triggers_n;
 						if ( ! empty( $children ) ) {
-							$conditions['dce_visibility_parent'] = __( 'Post is Parent', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_parent'] = esc_html__( 'Post is Parent', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_leaf'] ) && $settings['dce_visibility_leaf'] ) {
-						$triggers['dce_visibility_leaf'] = __( 'Post is Leaf', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_leaf'] = esc_html__( 'Post is Leaf', 'dynamic-visibility-for-elementor' );
 
 						$args = [
 							'post_parent' => $post_ID,
@@ -2845,14 +2834,14 @@ class DynamicVisibility extends ExtensionPrototype {
 							'post_status' => 'publish',
 						];
 						$children = get_children( $args );
-						$triggers_n++;
+						++$triggers_n;
 						if ( empty( $children ) ) {
-							$conditions['dce_visibility_leaf'] = __( 'Post is Leaf', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_leaf'] = esc_html__( 'Post is Leaf', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_node'] ) && $settings['dce_visibility_node'] ) {
-						$triggers['dce_visibility_node'] = __( 'Post is Node', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_node'] = esc_html__( 'Post is Node', 'dynamic-visibility-for-elementor' );
 
 						if ( wp_get_post_parent_id( $post_ID ) ) {
 							$args = [
@@ -2865,39 +2854,39 @@ class DynamicVisibility extends ExtensionPrototype {
 							if ( ! empty( $children ) ) {
 								$parents = get_post_ancestors( $post_ID );
 								$node_level = count( $parents ) + 1;
-								$triggers_n++;
+								++$triggers_n;
 								if ( empty( $settings['dce_visibility_node_level'] ) || $node_level == $settings['dce_visibility_node_level'] ) {
-									$conditions['dce_visibility_node'] = __( 'Post is Node', 'dynamic-visibility-for-elementor' );
+									$conditions['dce_visibility_node'] = esc_html__( 'Post is Node', 'dynamic-visibility-for-elementor' );
 								}
 							}
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_level'] ) && $settings['dce_visibility_level'] ) {
-						$triggers['dce_visibility_level'] = __( 'Post is Node', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_level'] = esc_html__( 'Post is Node', 'dynamic-visibility-for-elementor' );
 
 						$parents = get_post_ancestors( $post_ID );
 						$node_level = count( $parents ) + 1;
-						$triggers_n++;
+						++$triggers_n;
 						if ( $node_level == $settings['dce_visibility_level'] ) {
-							$conditions['dce_visibility_level'] = __( 'Post has Level', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_level'] = esc_html__( 'Post has Level', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_child'] ) && $settings['dce_visibility_child'] ) {
-						$triggers['dce_visibility_child'] = __( 'Post has Parent', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_child'] = esc_html__( 'Post has Parent', 'dynamic-visibility-for-elementor' );
 
 						if ( $post_parent_ID = wp_get_post_parent_id( $post_ID ) ) {
 							$parent_ids = Helper::str_to_array( ',', $settings['dce_visibility_child_parent'] );
-							$triggers_n++;
+							++$triggers_n;
 							if ( empty( $settings['dce_visibility_child_parent'] ) || in_array( $post_parent_ID, $parent_ids ) ) {
-								$conditions['dce_visibility_child'] = __( 'Post has Parent', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_child'] = esc_html__( 'Post has Parent', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_sibling'] ) && $settings['dce_visibility_sibling'] ) {
-						$triggers['dce_visibility_sibling'] = __( 'Post has Siblings', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_sibling'] = esc_html__( 'Post has Siblings', 'dynamic-visibility-for-elementor' );
 
 						if ( $post_parent_ID = wp_get_post_parent_id( $post_ID ) ) {
 							$args = [
@@ -2907,15 +2896,15 @@ class DynamicVisibility extends ExtensionPrototype {
 								'post_status' => 'publish',
 							];
 							$children = get_children( $args );
-							$triggers_n++;
+							++$triggers_n;
 							if ( ! empty( $children ) && count( $children ) > 1 ) {
-								$conditions['dce_visibility_sibling'] = __( 'Post has Siblings', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_sibling'] = esc_html__( 'Post has Siblings', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 
 					if ( isset( $settings['dce_visibility_friend'] ) && $settings['dce_visibility_friend'] ) {
-						$triggers['dce_visibility_friend'] = __( 'Post has Friends', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_friend'] = esc_html__( 'Post has Friends', 'dynamic-visibility-for-elementor' );
 
 						$posts_ids = [];
 						if ( $settings['dce_visibility_friend_term'] ) {
@@ -2940,9 +2929,9 @@ class DynamicVisibility extends ExtensionPrototype {
 								$term_posts = get_posts( $post_args );
 								if ( ! empty( $term_posts ) && count( $term_posts ) > 1 ) {
 									$posts_ids = wp_list_pluck( $term_posts, 'ID' );
-									$triggers_n++;
+									++$triggers_n;
 									if ( in_array( $post_ID, $posts_ids ) ) {
-										$conditions['dce_visibility_friend'] = __( 'Post has Friends', 'dynamic-visibility-for-elementor' );
+										$conditions['dce_visibility_friend'] = esc_html__( 'Post has Friends', 'dynamic-visibility-for-elementor' );
 										break;
 									}
 								}
@@ -2953,7 +2942,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 				// Conditional Tags - Post
 				if ( ! empty( $settings['dce_visibility_conditional_tags_post'] ) && is_array( $settings['dce_visibility_conditional_tags_post'] ) ) {
-					$triggers_n++;
+					++$triggers_n;
 
 					$callable_functions = array_filter( $settings['dce_visibility_conditional_tags_post'], function ( $function ) {
 						return in_array( $function, array_keys( self::get_whitelist_post_functions() ), true ) && is_callable( $function );
@@ -2965,7 +2954,7 @@ class DynamicVisibility extends ExtensionPrototype {
 						switch ( $function ) {
 							case 'is_post_type_hierarchical':
 							case 'is_post_type_archive':
-								if ( call_user_func( $function, get_post_type() ) ) {
+								if ( call_user_func( $function, get_post_type() ?: [] ) ) {
 									$condition_satisfied = true;
 								}
 								break;
@@ -2981,7 +2970,7 @@ class DynamicVisibility extends ExtensionPrototype {
 						}
 
 						if ( $condition_satisfied ) {
-							$conditions['dce_visibility_conditional_tags_post'] = __( 'Conditional tags Post', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_conditional_tags_post'] = esc_html__( 'Conditional tags Post', 'dynamic-visibility-for-elementor' );
 							break;
 						}
 					}
@@ -2989,8 +2978,8 @@ class DynamicVisibility extends ExtensionPrototype {
 
 				// Conditional Tags - Page
 				if ( ! empty( $settings['dce_visibility_special'] ) && is_array( $settings['dce_visibility_special'] ) ) {
-					$triggers['dce_visibility_special'] = __( 'Conditional tags Special', 'dynamic-visibility-for-elementor' );
-					$triggers_n++;
+					$triggers['dce_visibility_special'] = esc_html__( 'Conditional tags Special', 'dynamic-visibility-for-elementor' );
+					++$triggers_n;
 
 					$callable_functions = array_filter( $settings['dce_visibility_special'], function ( $function ) {
 						return in_array( $function, array_keys( self::get_whitelist_page_functions() ), true ) && is_callable( $function );
@@ -2998,7 +2987,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					foreach ( $callable_functions as $function ) {
 						if ( call_user_func( $function ) ) {
-							$conditions['dce_visibility_special'] = __( 'Conditional tags Special', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_special'] = esc_html__( 'Conditional tags Special', 'dynamic-visibility-for-elementor' );
 							break;
 						}
 					}
@@ -3008,7 +2997,7 @@ class DynamicVisibility extends ExtensionPrototype {
 			// CONTEXT
 			if ( in_array( 'context', $settings['dce_visibility_triggers'] ) ) {
 				if ( isset( $settings['dce_visibility_parameter'] ) && $settings['dce_visibility_parameter'] ) {
-					$triggers['dce_visibility_parameter'] = __( 'Parameter', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_parameter'] = esc_html__( 'Parameter', 'dynamic-visibility-for-elementor' );
 
 					$my_val = null;
 					switch ( $settings['dce_visibility_parameter_method'] ) {
@@ -3031,15 +3020,15 @@ class DynamicVisibility extends ExtensionPrototype {
 							}
 					}
 					$condition_result = Helper::is_condition_satisfied( $my_val, $settings['dce_visibility_parameter_status'], $settings['dce_visibility_parameter_value'] );
-					$triggers_n++;
+					++$triggers_n;
 					if ( $condition_result ) {
-						$conditions['dce_visibility_parameter'] = __( 'Parameter', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_parameter'] = esc_html__( 'Parameter', 'dynamic-visibility-for-elementor' );
 					}
 				}
 
 				// LANGUAGES
 				if ( ! empty( $settings['dce_visibility_lang'] ) ) {
-					$triggers['dce_visibility_lang'] = __( 'Language', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_lang'] = esc_html__( 'Language', 'dynamic-visibility-for-elementor' );
 
 					$current_language = get_locale();
 					// WPML
@@ -3060,40 +3049,40 @@ class DynamicVisibility extends ExtensionPrototype {
 					if ( Helper::is_plugin_active( 'weglot' ) ) {
 						$current_language = weglot_get_current_language();
 					}
-					$triggers_n++;
+					++$triggers_n;
 					if ( in_array( $current_language, $settings['dce_visibility_lang'] ) ) {
-						$conditions['dce_visibility_lang'] = __( 'Language', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_lang'] = esc_html__( 'Language', 'dynamic-visibility-for-elementor' );
 					}
 				}
 
 				if ( ! empty( $settings['dce_visibility_max_day'] ) ) {
-					$triggers['dce_visibility_max_day'] = __( 'Max Day', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_max_day'] = esc_html__( 'Max Day', 'dynamic-visibility-for-elementor' );
 					$dce_visibility_max = get_option( 'dce_visibility_max', [] );
 					$today = date( 'Ymd' );
-					$triggers_n++;
+					++$triggers_n;
 					if ( isset( $dce_visibility_max[ $element->get_id() ] ) && isset( $dce_visibility_max[ $element->get_id() ]['day'] ) && isset( $dce_visibility_max[ $element->get_id() ]['day'][ $today ] ) ) {
 						if ( $settings['dce_visibility_max_day'] >= $dce_visibility_max[ $element->get_id() ]['day'][ $today ] ) {
-							$conditions['dce_visibility_max_day'] = __( 'Max per Day', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_max_day'] = esc_html__( 'Max per Day', 'dynamic-visibility-for-elementor' );
 						}
 					} else {
-						$conditions['dce_visibility_max_day'] = __( 'Max per Day', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_max_day'] = esc_html__( 'Max per Day', 'dynamic-visibility-for-elementor' );
 					}
 				}
 				if ( ! empty( $settings['dce_visibility_max_total'] ) ) {
-					$triggers['dce_visibility_max_total'] = __( 'Max Total', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_max_total'] = esc_html__( 'Max Total', 'dynamic-visibility-for-elementor' );
 					$dce_visibility_max = get_option( 'dce_visibility_max', [] );
-					$triggers_n++;
+					++$triggers_n;
 					if ( isset( $dce_visibility_max[ $element->get_id() ] ) && isset( $dce_visibility_max[ $element->get_id() ]['total'] ) ) {
 						if ( $settings['dce_visibility_max_total'] >= $dce_visibility_max[ $element->get_id() ]['total'] ) {
-							$conditions['dce_visibility_max_total'] = __( 'Max Total', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_max_total'] = esc_html__( 'Max Total', 'dynamic-visibility-for-elementor' );
 						}
 					} else {
-						$conditions['dce_visibility_max_total'] = __( 'Max Total', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_max_total'] = esc_html__( 'Max Total', 'dynamic-visibility-for-elementor' );
 					}
 				}
 
 				if ( ! empty( $settings['dce_visibility_conditional_tags_site'] ) && is_array( $settings['dce_visibility_conditional_tags_site'] ) ) {
-					$triggers_n++;
+					++$triggers_n;
 
 					$callable_functions = array_filter( $settings['dce_visibility_conditional_tags_site'], function ( $function ) {
 						return in_array( $function, array_keys( self::get_whitelist_site_functions() ), true ) && is_callable( $function );
@@ -3101,7 +3090,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					foreach ( $callable_functions as $function ) {
 						if ( call_user_func( $function ) ) {
-							$conditions['dce_visibility_conditional_tags_site'] = __( 'Conditional tags Site', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_conditional_tags_site'] = esc_html__( 'Conditional tags Site', 'dynamic-visibility-for-elementor' );
 							break;
 						}
 					}
@@ -3134,114 +3123,109 @@ class DynamicVisibility extends ExtensionPrototype {
 							$context_archive = is_archive();
 					}
 
-
 					if ( $context_archive ) {
 						$context_archive_advanced = false;
 						$queried_object = get_queried_object();
-						switch ( $archive ) {
-							case 'is_tax':
-								if ( get_class( $queried_object ) == 'WP_Term' && $settings['dce_visibility_archive_tax'] && $queried_object->taxonomy == $settings['dce_visibility_archive_tax'] ) {
-									if ( empty( $settings[ 'dce_visibility_archive_term_' . $settings['dce_visibility_archive_tax'] ] ) ) {
-										$context_archive_advanced = true;
-									} else {
-										if ( in_array( $queried_object->term_id, $settings[ 'dce_visibility_archive_term_' . $settings['dce_visibility_archive_tax'] ] ) ) {
-											$context_archive_advanced = true;
-										}
+						$is_wpml_active = Helper::is_wpml_active();
+
+						$archive_type = '';
+						$term_ids = [];
+
+						if ( get_class( $queried_object ) == 'WP_Term' ) {
+							switch ( $archive ) {
+								case 'is_tax':
+									if ( $settings['dce_visibility_archive_tax'] && $queried_object->taxonomy == $settings['dce_visibility_archive_tax'] ) {
+										$archive_type = $settings['dce_visibility_archive_tax'];
+										$term_ids = $settings[ 'dce_visibility_archive_term_' . $archive_type ];
 									}
-								} else {
-									$context_archive_advanced = true;
-								}
-								break;
-							case 'is_category':
-								is_category();
-								if ( get_class( $queried_object ) == 'WP_Term' && $queried_object->taxonomy == 'category' ) {
-									if ( empty( $settings['dce_visibility_archive_term_category'] ) ) {
-										$context_archive_advanced = true;
-									} else {
-										if ( in_array( $queried_object->term_id, $settings['dce_visibility_archive_term_category'] ) ) {
-											$context_archive_advanced = true;
-										}
+									break;
+								case 'is_category':
+									if ( $queried_object->taxonomy == 'category' ) {
+										$archive_type = 'category';
+										$term_ids = $settings['dce_visibility_archive_term_category'];
 									}
-								}
-								break;
-							case 'is_tag':
-								if ( get_class( $queried_object ) == 'WP_Term' && $queried_object->taxonomy == 'post_tag' ) {
-									if ( empty( $settings['dce_visibility_archive_term_post_tag'] ) ) {
-										$context_archive_advanced = true;
-									} else {
-										if ( in_array( $queried_object->term_id, $settings['dce_visibility_archive_term_post_tag'] ) ) {
-											$context_archive_advanced = true;
-										}
+									break;
+								case 'is_tag':
+									if ( $queried_object->taxonomy == 'post_tag' ) {
+										$archive_type = 'post_tag';
+										$term_ids = $settings['dce_visibility_archive_term_post_tag'];
 									}
-								}
-								break;
-							default:
-								$context_archive_advanced = true;
+									break;
+							}
 						}
-						$triggers_n++;
+
+						if ( $is_wpml_active && ! empty( $archive_type ) ) {
+							$term_ids = Helper::wpml_translate_object_id_by_type( $term_ids, $archive_type );
+						}
+
+						if ( empty( $term_ids ) || in_array( $queried_object->term_id, $term_ids ) ) {
+							$context_archive_advanced = true;
+						}
+
+						++$triggers_n;
 						if ( $context_archive_advanced ) {
-							$conditions['dce_visibility_archive'] = __( 'Archive', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_archive'] = esc_html__( 'Archive', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
 
 				// TERMS
 				$term = get_queried_object();
-				if ( $term && is_object( $term ) && get_class( $term ) == 'WP_Term' ) {
+				if ( $term instanceof \WP_Term ) {
 
 					// is parent
 					if ( ! empty( $settings['dce_visibility_term_root'] ) ) {
-						$triggers['dce_visibility_term_root'] = __( 'Term is Root', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_root'] = esc_html__( 'Term is Root', 'dynamic-visibility-for-elementor' );
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( ! $term->parent ) {
-							$conditions['dce_visibility_term_root'] = __( 'Term is Root', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_root'] = esc_html__( 'Term is Root', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_parent'] ) ) {
-						$triggers['dce_visibility_term_parent'] = __( 'Term is Parent', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_parent'] = esc_html__( 'Term is Parent', 'dynamic-visibility-for-elementor' );
 
 						$children = get_term_children( $term->term_id, $term->taxonomy );
-						$triggers_n++;
+						++$triggers_n;
 						if ( ! empty( $children ) && count( $children ) ) {
-							$conditions['dce_visibility_term_parent'] = __( 'Term is Parent', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_parent'] = esc_html__( 'Term is Parent', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_leaf'] ) ) {
-						$triggers['dce_visibility_term_leaf'] = __( 'Term is Leaf', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_leaf'] = esc_html__( 'Term is Leaf', 'dynamic-visibility-for-elementor' );
 
 						$children = get_term_children( $term->term_id, $term->taxonomy );
-						$triggers_n++;
+						++$triggers_n;
 						if ( empty( $children ) ) {
-							$conditions['dce_visibility_term_leaf'] = __( 'Term is Leaf', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_leaf'] = esc_html__( 'Term is Leaf', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_node'] ) ) {
-						$triggers['dce_visibility_term_node'] = __( 'Term is Node', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_node'] = esc_html__( 'Term is Node', 'dynamic-visibility-for-elementor' );
 
 						if ( $term->parent ) {
 							$children = get_term_children( $term->term_id, $term->taxonomy );
-							$triggers_n++;
+							++$triggers_n;
 							if ( ! empty( $children ) ) {
-								$conditions['dce_visibility_term_node'] = __( 'Term is Node', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_term_node'] = esc_html__( 'Term is Node', 'dynamic-visibility-for-elementor' );
 							}
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_child'] ) ) {
-						$triggers['dce_visibility_term_child'] = __( 'Term has Parent', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_child'] = esc_html__( 'Term has Parent', 'dynamic-visibility-for-elementor' );
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( $term->parent ) {
-							$conditions['dce_visibility_term_child'] = __( 'Term has Parent', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_child'] = esc_html__( 'Term has Parent', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_sibling'] ) ) {
-						$triggers['dce_visibility_term_sibling'] = __( 'Term has Siblings', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_sibling'] = esc_html__( 'Term has Siblings', 'dynamic-visibility-for-elementor' );
 
 						$siblings = false;
 						if ( $term->parent ) {
@@ -3254,18 +3238,18 @@ class DynamicVisibility extends ExtensionPrototype {
 							];
 							$siblings = get_terms( $args );
 						}
-						$triggers_n++;
+						++$triggers_n;
 						if ( ! empty( $siblings ) && count( $siblings ) > 1 ) {
-							$conditions['dce_visibility_term_sibling'] = __( 'Term has Siblings', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_sibling'] = esc_html__( 'Term has Siblings', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_term_count'] ) ) {
-						$triggers['dce_visibility_term_count'] = __( 'Term Posts', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_term_count'] = esc_html__( 'Term Posts', 'dynamic-visibility-for-elementor' );
 
-						$triggers_n++;
+						++$triggers_n;
 						if ( $term->count ) {
-							$conditions['dce_visibility_term_count'] = __( 'Term Posts', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_term_count'] = esc_html__( 'Term Posts', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
@@ -3273,23 +3257,23 @@ class DynamicVisibility extends ExtensionPrototype {
 
 			if ( in_array( 'dynamic_tag', $settings['dce_visibility_triggers'] ) ) {
 				if ( ! empty( $settings['__dynamic__'] ) && ! empty( $settings['__dynamic__']['dce_visibility_dynamic_tag'] ) ) {
-					$triggers['dce_visibility_dynamic_tag'] = __( 'Dynamic Tag', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_dynamic_tag'] = esc_html__( 'Dynamic Tag', 'dynamic-visibility-for-elementor' );
 					$my_val = $settings['dce_visibility_dynamic_tag'];
 					$condition_result = Helper::is_condition_satisfied( $my_val, $settings['dce_visibility_dynamic_tag_status'], $settings['dce_visibility_dynamic_tag_value'] );
-					$triggers_n++;
+					++$triggers_n;
 					if ( $condition_result ) {
-						$conditions['dce_visibility_dynamic_tag'] = __( 'Dynamic Tag', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_dynamic_tag'] = esc_html__( 'Dynamic Tag', 'dynamic-visibility-for-elementor' );
 					}
 				}
 			}
 
 			if ( in_array( 'random', $settings['dce_visibility_triggers'] ) ) {
 				if ( ! empty( $settings['dce_visibility_random']['size'] ) ) {
-					$triggers['dce_visibility_random'] = __( 'Random', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_random'] = esc_html__( 'Random', 'dynamic-visibility-for-elementor' );
 					$rand = mt_rand( 1, 100 );
-					$triggers_n++;
+					++$triggers_n;
 					if ( $rand <= $settings['dce_visibility_random']['size'] ) {
-						$conditions['dce_visibility_random'] = __( 'Random', 'dynamic-visibility-for-elementor' );
+						$conditions['dce_visibility_random'] = esc_html__( 'Random', 'dynamic-visibility-for-elementor' );
 						$randomhidden = true;
 					}
 				}
@@ -3297,10 +3281,10 @@ class DynamicVisibility extends ExtensionPrototype {
 
 			if ( in_array( 'events', $settings['dce_visibility_triggers'] ) ) {
 				if ( ! empty( $settings['dce_visibility_click'] ) ) {
-					$triggers['dce_visibility_click'] = __( 'On Event', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_click'] = esc_html__( 'On Event', 'dynamic-visibility-for-elementor' );
 				}
 				if ( isset( $settings['dce_visibility_load'] ) && $settings['dce_visibility_load'] ) {
-					$triggers['dce_visibility_load'] = __( 'On Page Load', 'dynamic-visibility-for-elementor' );
+					$triggers['dce_visibility_load'] = esc_html__( 'On Page Load', 'dynamic-visibility-for-elementor' );
 				}
 			}
 
@@ -3308,39 +3292,39 @@ class DynamicVisibility extends ExtensionPrototype {
 				// WOOCOMMERCE
 				if ( Helper::is_woocommerce_active() ) {
 					if ( 'select' !== $settings['dce_visibility_woo_cart'] ) {
-						$triggers['dce_visibility_woo_cart'] = __( 'Cart is', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_woo_cart'] = esc_html__( 'Cart is', 'dynamic-visibility-for-elementor' );
 						$cart_is_empty = WC()->cart->get_cart_contents_count() === 0;
 						if ( 'empty' === $settings['dce_visibility_woo_cart'] && $cart_is_empty
 							|| 'not_empty' === $settings['dce_visibility_woo_cart'] && ! $cart_is_empty ) {
-							$conditions['dce_visibility_woo_cart'] = __( 'Cart is', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_woo_cart'] = esc_html__( 'Cart is', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_woo_product_type'] ) && 'select' !== $settings['dce_visibility_woo_product_type'] ) {
-						$triggers['dce_visibility_woo_product_type'] = __( 'Product Type is', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_woo_product_type'] = esc_html__( 'Product Type is', 'dynamic-visibility-for-elementor' );
 						$product = wc_get_product( get_the_ID() );
 						if ( $product && $product->is_type( $settings['dce_visibility_woo_product_type'] ) ) {
-							$conditions['dce_visibility_woo_product_type'] = __( 'Product Type is', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_woo_product_type'] = esc_html__( 'Product Type is', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_woo_product_id_static'] ) ) {
-						$triggers['dce_visibility_woo_product_id_static'] = __( 'Product in the cart', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_woo_product_id_static'] = esc_html__( 'Product in the cart', 'dynamic-visibility-for-elementor' );
 						$product_id = $settings['dce_visibility_woo_product_id_static'];
 						$product_cart_id = WC()->cart->generate_cart_id( $product_id );
 						$in_cart = WC()->cart->find_product_in_cart( $product_cart_id );
-						$triggers_n++;
+						++$triggers_n;
 						if ( $in_cart ) {
-							$conditions['dce_visibility_woo_product_id_static'] = __( 'Product in the cart', 'dynamic-visibility-for-elementor' );
+							$conditions['dce_visibility_woo_product_id_static'] = esc_html__( 'Product in the cart', 'dynamic-visibility-for-elementor' );
 						}
 					}
 
 					if ( ! empty( $settings['dce_visibility_woo_product_category'] ) ) {
-						$triggers['dce_visibility_woo_product_category'] = __( 'Product Category in the cart', 'dynamic-visibility-for-elementor' );
+						$triggers['dce_visibility_woo_product_category'] = esc_html__( 'Product Category in the cart', 'dynamic-visibility-for-elementor' );
 
 						foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 							if ( has_term( $settings['dce_visibility_woo_product_category'], 'product_cat', $cart_item['product_id'] ) ) {
-								$conditions['dce_visibility_woo_product_id_static'] = __( 'Product Category in the cart', 'dynamic-visibility-for-elementor' );
+								$conditions['dce_visibility_woo_product_id_static'] = esc_html__( 'Product Category in the cart', 'dynamic-visibility-for-elementor' );
 								break;
 							}
 						}
@@ -3348,7 +3332,7 @@ class DynamicVisibility extends ExtensionPrototype {
 
 					if ( Helper::is_plugin_active( 'woocommerce-memberships' ) ) {
 						if ( $settings['dce_visibility_woo_membership_post'] ) {
-							$triggers['dce_visibility_woo_membership_post'] = __( 'Woo Membership Post', 'dynamic-visibility-for-elementor' );
+							$triggers['dce_visibility_woo_membership_post'] = esc_html__( 'Woo Membership Post', 'dynamic-visibility-for-elementor' );
 
 							if ( function_exists( 'wc_memberships_is_user_active_or_delayed_member' ) ) {
 								$user_id = get_current_user_id();
@@ -3368,16 +3352,16 @@ class DynamicVisibility extends ExtensionPrototype {
 								if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
 									$has_access = true;
 								}
-								$triggers_n++;
+								++$triggers_n;
 								if ( $has_access ) {
-									$conditions['dce_visibility_woo_membership_post'] = __( 'Woo Membership Post', 'dynamic-visibility-for-elementor' );
+									$conditions['dce_visibility_woo_membership_post'] = esc_html__( 'Woo Membership Post', 'dynamic-visibility-for-elementor' );
 								}
 							}
 						} else {
 
 							//roles
 							if ( isset( $settings['dce_visibility_woo_membership'] ) && ! empty( $settings['dce_visibility_woo_membership'] ) ) {
-								$triggers['dce_visibility_woo_membership'] = __( 'Woo Membership', 'dynamic-visibility-for-elementor' );
+								$triggers['dce_visibility_woo_membership'] = esc_html__( 'Woo Membership', 'dynamic-visibility-for-elementor' );
 
 								$current_user_id = get_current_user_id();
 								if ( $current_user_id ) {
@@ -3394,9 +3378,9 @@ class DynamicVisibility extends ExtensionPrototype {
 									$user_members = [];
 									if ( empty( $member_plans ) ) {
 										// not member
-										$triggers_n++;
+										++$triggers_n;
 										if ( in_array( 0, $settings['dce_visibility_woo_membership'] ) ) {
-											$conditions['dce_visibility_woo_membership'] = __( 'Woo Membership', 'dynamic-visibility-for-elementor' );
+											$conditions['dce_visibility_woo_membership'] = esc_html__( 'Woo Membership', 'dynamic-visibility-for-elementor' );
 										}
 									} else {
 										// find all user membership plan
@@ -3404,9 +3388,9 @@ class DynamicVisibility extends ExtensionPrototype {
 											$user_members[] = $member->post_parent;
 										}
 										$tmp_members = array_intersect( $user_members, $settings['dce_visibility_woo_membership'] );
-										$triggers_n++;
+										++$triggers_n;
 										if ( ! empty( $tmp_members ) ) {
-											$conditions['dce_visibility_woo_membership'] = __( 'Woo Membership', 'dynamic-visibility-for-elementor' );
+											$conditions['dce_visibility_woo_membership'] = esc_html__( 'Woo Membership', 'dynamic-visibility-for-elementor' );
 										}
 									}
 								}
@@ -3434,11 +3418,11 @@ class DynamicVisibility extends ExtensionPrototype {
 				if ( ! isset( $settings['dce_visibility_custom_condition'] ) || ! $settings['dce_visibility_custom_condition'] ) {
 					if ( isset( $settings[ self::CUSTOM_PHP_CONTROL_NAME ] ) &&
 						preg_match( '/\S/', $settings[ self::CUSTOM_PHP_CONTROL_NAME ] ) ) {
-						$triggers['custom'] = __( 'Custom Condition', 'dynamic-visibility-for-elementor' );
+						$triggers['custom'] = esc_html__( 'Custom Condition', 'dynamic-visibility-for-elementor' );
 						$customhidden = self::check_custom_condition( $settings, $element->get_id() );
-						$triggers_n++;
+						++$triggers_n;
 						if ( $customhidden ) {
-							$conditions['custom'] = __( 'Custom Condition', 'dynamic-visibility-for-elementor' );
+							$conditions['custom'] = esc_html__( 'Custom Condition', 'dynamic-visibility-for-elementor' );
 						}
 					}
 				}
@@ -3478,5 +3462,4 @@ class DynamicVisibility extends ExtensionPrototype {
 
 		return $content;
 	}
-
 }

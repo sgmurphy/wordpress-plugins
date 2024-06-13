@@ -4,8 +4,8 @@ Author URI: https://supsystic.com/
 Plugin URI: https://supsystic.com/plugins/data-tables-generator-plugin/
 Donate link: https://supsystic.com/plugins/data-tables-generator-plugin/
 Tags: data table, spreadsheet, table builder, charts, graphs, wordpress table plugin, excel, line chart, pie chart, visualise data
-Tested up to: 6.4
-Stable tag: 1.10.33
+Tested up to: 6.5
+Stable tag: 1.10.36
 
 Create data tables with charts and graphs.  Custom design, navigation, searching and ordering functions. Export to PDF, CSV, Print. Excel spreadsheet. WooCommerce Integration.
 
@@ -217,6 +217,12 @@ It's perfect for product [Price List](http://woo.supsystic.com/price-list "Price
 Create custom order forms which increase your conversion rate!
 
 == Changelog ==
+1.10.36 / 13.06.2024 =
+ * Update overview-trial button
+
+1.10.35 / 10.06.2024 =
+ * Fix import for conditional formatting styles for cellIs logic
+
 1.10.34 / 20.03.2024 =
  * Add expertise level for AC form fix
 

@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.14 =
+
+* Include the internationalization WordPress function in some missed texts.
+* Fixes a warning message handling the form height.
+* Modifies the form importing module (Professional, Developer, and Platinum plugin versions).
+
 = 5.2.13 =
 
 * Allows accessing the public forms from the forms list.

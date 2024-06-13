@@ -11,21 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Base_Module {
 
-	/**
-	 * Module constructor.
-	 *
-	 * @since 1.6.0
-	 */
 	public function __construct() {
 		$this->add_actions();
 	}
 
 	/**
-	 * Get Name
-	 *
-	 * Get the name of the module
-	 *
-	 * @since  1.6.0
 	 * @return string
 	 */
 	public function get_name() {
@@ -33,11 +23,6 @@ class Module extends Base_Module {
 	}
 
 	/**
-	 * Add Actions
-	 *
-	 * Registeres actions to Elementor hooks
-	 *
-	 * @since  1.6.0
 	 * @return void
 	 */
 	protected function add_actions() {
@@ -73,14 +58,18 @@ class Module extends Base_Module {
 
 	protected function get_fields( $data ) {
 		$results = [];
-		if ( $data['object_type'] == 'any' ) {
-			$object_types = array( 'post', 'user', 'term' );
-		} else {
-			$object_types = array( $data['object_type'] );
+		$object_types = $data['object_type'];
+		if ( ! is_array( $object_types ) ) {
+			$object_types = array( $object_types );
 		}
+
 		foreach ( $object_types as $object_type ) {
 			$function = 'get_' . $object_type . '_fields';
-			$fields = Helper::{$function}( $data['q'] );
+			if ( ! method_exists( 'DynamicVisibilityForElementor\Helper', $function ) ) {
+				// The method may not exist when get_fields is called by get_dsh_fields
+				continue;
+			}
+			$fields = Helper::{$function}( $data['q'] ); //@phpstan-ignore-line
 			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field_key => $field_name ) {
 					$results[] = [
@@ -89,6 +78,145 @@ class Module extends Base_Module {
 					];
 				}
 			}
+		}
+		return $results;
+	}
+
+	/**
+	 * @param array<mixed> $data
+	 * @return array<int|string,mixed>
+	 */
+	protected function get_dsh_fields( $data ) {
+		$results = [];
+
+		$object_type = $data['object_type'];
+
+		$library_fields = \DynamicShortcodes\Plugin::instance()->library_manager->get_fields(
+			[
+				'type' => $object_type,
+				'format' => 'list',
+			]
+		);
+
+		$searched_value = $data['q'] ?? '';
+
+		$library_fields_filtered = array_filter( $library_fields, function ( $field ) use ( $searched_value ) {
+			return stripos( $field, $searched_value ) === 0;
+		});
+
+		$results = static::format_as_result( $library_fields_filtered );
+
+		// The functions from the library retrieve data only for the current post, whereas the functions on Dynamic Content for Elementor retrieve it for all posts.
+		// Here we define calls to retrieve all fields
+		$types = [
+			'acf' =>
+				[
+					'function' => 'get_acf',
+					'data' => [
+						'object_type' => [],
+						'q' => $searched_value,
+					],
+				],
+			'author' =>
+				[
+					'function' => 'get_fields',
+					'data' => [
+						'object_type' => 'user',
+						'q' => $searched_value,
+					],
+				],
+			'cookie' =>
+				[
+					'function' => false, // Not applicable as we already retrieve them with Dynamic Shortcodes Library
+				],
+			'jet' =>
+				[
+					'function' => 'get_jet',
+					'data' => [
+						'object_type' => [],
+						'q' => $searched_value,
+					],
+				],
+			'metabox' =>
+				[
+					'function' => 'get_metabox',
+					'data' => [
+						'object_type' => [],
+						'q' => $searched_value,
+					],
+				],
+			'option' =>
+				[
+					'function' => false, // Not applicable as we already retrieve them with Dynamic Shortcodes Library
+				],
+			'pods' =>
+				[
+					'function' => false,
+					// TODO: Set function to retrieve Pods fields for all posts
+				],
+			'post' => [
+				'function' => 'get_fields',
+				'data' => [
+					'object_type' => 'post',
+					'q' => $searched_value,
+				],
+			],
+			'term' =>
+				[
+					'function' => 'get_fields',
+					'data' => [
+						'object_type' => 'term',
+						'q' => $searched_value,
+					],
+				],
+			'toolset' =>
+				[
+					'function' => false,
+					// TODO: Set function to retrieve Toolset fields for all posts
+				],
+			'user' =>
+				[
+					'function' => 'get_fields',
+					'data' => [
+						'object_type' => 'user',
+						'q' => $searched_value,
+					],
+				],
+			'woo' => [
+				'function' => false,
+			],
+		];
+
+		if ( ! empty( $types[ $object_type ]['function'] ) ) {
+			$other_results = call_user_func( [ $this, $types[ $object_type ]['function'] ], $types[ $object_type ]['data'] );
+			$other_results_filtered = array_filter( $other_results, function ( $item ) use ( $object_type ) {
+				return \DynamicShortcodes\Plugin::instance()->library_manager->is_not_hidden_field(
+					[
+						'type' => $object_type,
+					],
+					$item['id']
+				);
+			});
+
+			if ( ! empty( $other_results_filtered ) ) {
+				$results += array_values( $other_results_filtered );
+			}
+		}
+
+		return $results;
+	}
+
+	/**
+	 * @param array<string> $fields
+	 * @return array<int|string,mixed>
+	 */
+	protected static function format_as_result( $fields ) {
+		$results = [];
+		foreach ( $fields as $field ) {
+			$results[] = [
+				'id' => $field,
+				'text' => $field,
+			];
 		}
 		return $results;
 	}
@@ -131,7 +259,7 @@ class Module extends Base_Module {
 	protected function get_metas( $data ) {
 		$results = [];
 		$function = 'get_' . $data['object_type'] . '_metas';
-		$fields = Helper::{$function}( false, $data['q'] );
+		$fields = Helper::{$function}( false, $data['q'] ); //@phpstan-ignore-line
 		foreach ( $fields as $field_key => $field_name ) {
 			if ( $field_key ) {
 				$results[] = [
@@ -146,7 +274,7 @@ class Module extends Base_Module {
 	protected function get_pods( $data ) {
 		$results = [];
 		$function = 'get_' . $data['object_type'] . '_pods';
-		$fields = Helper::{$function}( false, $data['q'] );
+		$fields = Helper::{$function}( false, $data['q'] ); //@phpstan-ignore-line
 		foreach ( $fields as $field_key => $field_name ) {
 			if ( $field_key ) {
 				$results[] = [
@@ -160,49 +288,33 @@ class Module extends Base_Module {
 
 	protected function get_posts( $data ) {
 		$results = [];
-		$object_type = ( ! empty( $data['object_type'] ) ) ? $data['object_type'] : 'any';
+		$object_type = $data['object_type'] ?? 'any';
 
-		if ( $object_type == 'type' ) {
-			$list = Helper::get_public_post_types();
-			if ( ! empty( $list ) ) {
-				foreach ( $list as $akey => $alist ) {
-					if ( strlen( $data['q'] ) > 2 ) {
-						if ( strpos( $akey, $data['q'] ) === false && strpos( $alist, $data['q'] ) === false ) {
-							continue;
-						}
-					}
-					$results[] = [
-						'id' => $akey,
-						'text' => esc_attr( $alist ),
-					];
-				}
-			}
-		} else {
-			$query_params = [
-				'post_type' => $object_type,
-				's' => $data['q'],
-				'posts_per_page' => -1,
-			];
-			if ( 'attachment' === $query_params['post_type'] ) {
-				$query_params['post_status'] = 'inherit';
-			}
-			$query = new \WP_Query( $query_params );
-			foreach ( $query->posts as $post ) {
-				$post_title = $post->post_title;
-				if ( empty( $data['object_type'] ) || $object_type == 'any' ) {
-					$post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ')';
-				}
-				if ( ! empty( $data['object_type'] ) && $object_type == 'elementor_library' ) {
-					$etype = get_post_meta( $post->ID, '_elementor_template_type', true );
-					$post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ' > ' . $etype . ')';
-				}
-
-				$results[] = [
-					'id' => $post->ID,
-					'text' => wp_kses_post( $post_title ),
-				];
-			}
+		$query_params = [
+			'post_type' => $object_type,
+			's' => $data['q'],
+			'posts_per_page' => -1,
+		];
+		if ( 'attachment' === $query_params['post_type'] ) {
+			$query_params['post_status'] = 'inherit';
 		}
+		$query = new \WP_Query( $query_params );
+		foreach ( $query->posts as $post ) {
+			$post_title = $post->post_title;
+			if ( empty( $data['object_type'] ) || $object_type == 'any' ) {
+				$post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ')';
+			}
+			if ( ! empty( $data['object_type'] ) && $object_type == 'elementor_library' ) {
+				$etype = get_post_meta( $post->ID, '_elementor_template_type', true );
+				$post_title = '[' . $post->ID . '] ' . $post_title . ' (' . $post->post_type . ' > ' . $etype . ')';
+			}
+
+			$results[] = [
+				'id' => $post->ID,
+				'text' => esc_html( $post_title ),
+			];
+		}
+
 		return $results;
 	}
 
@@ -213,7 +325,7 @@ class Module extends Base_Module {
 
 		$results = [];
 
-		if ( 'relations' === $data['object_type'] ) {
+		if ( 'relations' === ( $data['object_type'] ?? false ) ) {
 			// Retrieve all JetEngine Relations
 			$relations = jet_engine()->relations->get_relations_for_js();
 			foreach ( $relations as $relation ) {
@@ -235,7 +347,7 @@ class Module extends Base_Module {
 				foreach ( $cpt as $field ) {
 					if ( strlen( $data['q'] ) > 2 ) {
 						if ( strpos( $field['name'], $data['q'] ) === false
-							 && strpos( $field['title'], $data['q'] ) === false ) {
+							&& strpos( $field['title'], $data['q'] ) === false ) {
 							continue;
 						}
 					}
@@ -277,7 +389,7 @@ class Module extends Base_Module {
 					}
 				}
 			}
-		};
+		}
 
 		foreach ( $found_metabox as $key => $field ) {
 			$name = strtolower( $field['name'] ?? '' );
@@ -345,6 +457,24 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * Get ACF Field Groups
+	 *
+	 * @param array<string,mixed> $data
+	 * @return array<int,array<string,mixed>>
+	 */
+	protected function get_acf_groups( $data ) {
+		$groups = acf_get_field_groups();
+		$results = [];
+		foreach ( $groups as $group ) {
+			$results[] = [
+				'id' => $group['key'],
+				'text' => esc_attr( $group['title'] ),
+			];
+		}
+		return $results;
+	}
+
 	protected function get_acf_flexible_content_layouts( $data ) {
 		$groups = acf_get_field_groups();
 		$layouts = [];
@@ -373,26 +503,25 @@ class Module extends Base_Module {
 		$results = $this->get_acf( $data );
 		$results[] = array(
 			'id' => 'title',
-			'text' => __( 'Core > Title [post_title] (text)', 'dynamic-visibility-for-elementor' ),
+			'text' => esc_html__( 'Core > Title [post_title] (text)', 'dynamic-visibility-for-elementor' ),
 		);
 		$results[] = array(
 			'id' => 'content',
-			'text' => __( 'Core > Content [post_content] (text)', 'dynamic-visibility-for-elementor' ),
+			'text' => esc_html__( 'Core > Content [post_content] (text)', 'dynamic-visibility-for-elementor' ),
 		);
 		$results[] = array(
 			'id' => 'taxonomy',
-			'text' => __( 'Core > Taxonomy MetaData (taxonomies)', 'dynamic-visibility-for-elementor' ),
+			'text' => esc_html__( 'Core > Taxonomy MetaData (taxonomies)', 'dynamic-visibility-for-elementor' ),
 		);
 		$results[] = array(
 			'id' => 'date',
-			'text' => __( 'Core > Date [post_date] (datetime)', 'dynamic-visibility-for-elementor' ),
+			'text' => esc_html__( 'Core > Date [post_date] (datetime)', 'dynamic-visibility-for-elementor' ),
 		);
 		return $results;
 	}
 
 	protected function array_key_matches_regex( $regex, $array ) {
-		$postkeys = array_keys( $array );
-		foreach ( $postkeys as $key ) {
+		foreach ( $array as $key => $value ) {
 			if ( preg_match( $regex, $key ) ) {
 				return $key;
 			}
@@ -488,14 +617,18 @@ class Module extends Base_Module {
 	/**
 	 * Calls function to get value titles depending on ajax query type
 	 *
-	 * @since  1.6.0
-	 * @return array
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
 	 */
 	public function ajax_call_control_value_titles( $request ) {
 		$results = call_user_func( [ $this, 'get_value_titles_for_' . $request['query_type'] ], $request );
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_acf( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -508,6 +641,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_acf_flexible_content_layouts( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -517,14 +654,18 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_acfposts( $request ) {
 		$ids = (array) $request['id'];
 		$results = $this->get_value_titles_for_acf( $request );
 
-		$core['title'] = __( 'Title', 'dynamic-visibility-for-elementor' );
-		$core['content'] = __( 'Content', 'dynamic-visibility-for-elementor' );
-		$core['taxonomy'] = __( 'Taxonomy MetaData', 'dynamic-visibility-for-elementor' );
-		$core['date'] = __( 'Date', 'dynamic-visibility-for-elementor' );
+		$core['title'] = esc_html__( 'Title', 'dynamic-visibility-for-elementor' );
+		$core['content'] = esc_html__( 'Content', 'dynamic-visibility-for-elementor' );
+		$core['taxonomy'] = esc_html__( 'Taxonomy MetaData', 'dynamic-visibility-for-elementor' );
+		$core['date'] = esc_html__( 'Date', 'dynamic-visibility-for-elementor' );
 
 		foreach ( $ids as $aid ) {
 			if ( isset( $core[ $aid ] ) ) {
@@ -534,12 +675,16 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_metas( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
 		$function = 'get_' . $request['object_type'] . '_metas';
 		foreach ( $ids as $aid ) {
-			$fields = Helper::{$function}( false, $aid );
+			$fields = Helper::{$function}( false, $aid ); //@phpstan-ignore-line
 			foreach ( $fields as $field_key => $field_name ) {
 				if ( in_array( $field_key, $ids ) ) {
 					$results[ $field_key ] = $field_name;
@@ -549,6 +694,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_fields( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -558,21 +707,47 @@ class Module extends Base_Module {
 			$object_types = array( $request['object_type'] );
 		}
 		foreach ( $object_types as $object_type ) {
-			$function = 'get_' . $object_type . '_fields';
-			foreach ( $ids as $aid ) {
-				$fields = Helper::{$function}( $aid );
-				if ( ! empty( $fields ) ) {
-					foreach ( $fields as $field_key => $field_name ) {
-						if ( in_array( $field_key, $ids ) ) {
-							$results[ $field_key ] = $field_name;
-						}
-					}
+			foreach ( $ids as $id ) {
+				$func = 'get_label_' . $object_type . '_field';
+
+				if ( ! method_exists( $this, $func ) || ! is_callable( [ $this, $func ] ) ) {
+					// Returns a value equal to the key
+					$results[ $id ] = $id;
+					continue;
 				}
+				/**
+				 * @var callable
+				 */
+				$call = [ $this, $func ];
+				$label = call_user_func_array( $call, [ $id ] );
+
+				$results[ $id ] = $label;
 			}
 		}
 		return $results;
 	}
 
+	/**
+	 * @param string $key
+	 * @return string
+	 */
+	protected function get_label_acf_field( $key ) {
+		$field = get_field_object( $key );
+		return '[' . $key . '] ' . esc_html( $field['label'] ?? $key );
+	}
+
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
+	protected function get_value_titles_for_dsh_fields( $request ) {
+		return $this->get_value_titles_for_fields( $request );
+	}
+
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<int|string,mixed>
+	 */
 	protected function get_value_titles_for_posts( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -598,6 +773,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<int,mixed>
+	 */
 	protected function get_value_titles_for_terms( $request ) {
 		$id = $request['id'];
 		$results = [];
@@ -617,6 +796,10 @@ class Module extends Base_Module {
 		}
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_taxonomies( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -633,6 +816,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<int,mixed>
+	 */
 	protected function get_value_titles_for_users( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -667,6 +854,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<int,mixed>
+	 */
 	protected function get_value_titles_for_authors( $request ) {
 		$ids = (array) $request['id'];
 		$results = [];
@@ -686,6 +877,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_terms_fields( $request ) {
 		$ids = (array) $request['id'];
 		$ids_post = array();
@@ -719,6 +914,10 @@ class Module extends Base_Module {
 		return $results;
 	}
 
+	/**
+	 * @param array<string,mixed> $request
+	 * @return array<string,mixed>
+	 */
 	protected function get_value_titles_for_taxonomies_fields( $request ) {
 		$ids = (array) $request['id'];
 		$ids_post = array();
@@ -756,5 +955,4 @@ class Module extends Base_Module {
 		$ajax_manager->register_ajax_action( 'dce_query_control_value_titles', [ $this, 'ajax_call_control_value_titles' ] );
 		$ajax_manager->register_ajax_action( 'dce_query_control_filter_autocomplete', [ $this, 'ajax_call_filter_autocomplete' ] );
 	}
-
 }

@@ -14,6 +14,14 @@ return array(
         'tags' => array(),
         'description' => __('Bitono is a minimalist theme with a 2-color scheme. Recommended for Image, External Image and Post feed slides.', 'ml-slider'),
     ),
+    'clarity' => array(
+        'folder' => 'clarity',
+        'title' => 'Clarity',
+        'type' => 'free',
+        'supports' => array( 'flex' ),
+        'tags' => array(),
+        'description' => __('Clarity is focused on accessibility. It has easy-to-read fonts, and a straightforward, distraction-free interface.', 'ml-slider')
+    ),
     'databold' => array(
         'folder' => 'databold',
         'title' => 'Databold',

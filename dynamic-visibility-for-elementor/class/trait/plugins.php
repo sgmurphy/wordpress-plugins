@@ -17,7 +17,68 @@ trait Plugins {
 			'woocommerce' => 'WooCommerce',
 		];
 
+	/**
+	 * @var array<string,mixed>
+	 */
+	private static $plugin_depends = [];
+
 	public static $checked_plugins = [];
+
+	private static function set_plugin_dependency_status( $plugin ) {
+		switch ( $plugin ) {
+			case 'acf':
+				self::$plugin_depends['acf'] = class_exists( 'ACF' );
+				break;
+			case 'acf-pro':
+				self::$plugin_depends['acf-pro'] = class_exists( 'ACF' ) && defined( 'ACF_PRO' );
+				break;
+			case 'breakdance':
+				self::$plugin_depends['breakdance'] = true;
+				break;
+			case 'dynamic-shortcodes':
+				self::$plugin_depends['dynamic-shortcodes'] = class_exists( 'DynamicShortcodes\Plugin' );
+				break;
+			case 'elementor':
+				self::$plugin_depends['elementor'] = class_exists( 'Elementor\Plugin' );
+				break;
+			case 'elementor-pro':
+				self::$plugin_depends['elementor-pro'] = class_exists( 'ElementorPro\Plugin' );
+				break;
+			case 'jet-engine':
+				self::$plugin_depends['jet-engine'] = class_exists( 'Jet_Engine' );
+				break;
+			case 'metabox':
+				self::$plugin_depends['metabox'] = class_exists( 'RWMB_Core' );
+				break;
+			case 'oxygen':
+				self::$plugin_depends['oxygen'] = true;
+				break;
+			case 'pods':
+				self::$plugin_depends['pods'] = class_exists( 'Pods' );
+				break;
+			case 'timber':
+				self::$plugin_depends['timber'] = class_exists( '\Timber\Timber' );
+				break;
+			case 'toolset':
+				self::$plugin_depends['toolset'] = defined( 'TYPES_VERSION' );
+				break;
+			case 'woocommerce':
+				self::$plugin_depends['woocommerce'] = class_exists( 'woocommerce' );
+				break;
+			case 'wpml':
+				self::$plugin_depends['wpml'] = class_exists( 'SitePress' );
+				break;
+			default:
+				throw new \Error( 'bad plugin name' );
+		}
+	}
+
+	public static function check_plugin_dependency( $plugin ) {
+		if ( ! isset( self::$plugin_depends[ $plugin ] ) ) {
+			self::set_plugin_dependency_status( $plugin );
+		}
+		return self::$plugin_depends[ $plugin ];
+	}
 
 	public static function get_plugin_dependency_names( $plugin ) {
 		if ( isset( self::$plugin_dependency_names[ $plugin ] ) ) {
@@ -166,6 +227,13 @@ trait Plugins {
 		return false;
 	}
 
+	/**
+	 * @return boolean
+	 */
+	public static function is_dynamic_shortcodes_active() {
+		return class_exists( 'DynamicShortcodes\Plugin' );
+	}
+
 	public static function is_acfpro_active() {
 		if ( class_exists( 'ACF' ) && defined( 'ACF_PRO' ) ) {
 			return true;
@@ -234,10 +302,8 @@ trait Plugins {
 					if ( ! Helper::is_plugin_active( $key ) ) {
 						$is_active = false;
 					}
-				} else {
-					if ( ! Helper::is_plugin_active( $plugin ) ) {
+				} elseif ( ! Helper::is_plugin_active( $plugin ) ) {
 						$is_active = false;
-					}
 				}
 				if ( ! $is_active ) {
 					if ( ! $response ) {
@@ -256,5 +322,4 @@ trait Plugins {
 		}
 		return true;
 	}
-
 }

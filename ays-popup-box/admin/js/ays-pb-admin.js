@@ -2055,4 +2055,4 @@
     }
     // Media uploaders start
 
-})( jQuery );
+})(jQuery);

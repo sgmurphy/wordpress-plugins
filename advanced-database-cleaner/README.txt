@@ -1,7 +1,7 @@
 === Advanced Database Cleaner ===
 Contributors: symptote
 Donate Link: https://www.sigmaplugin.com/donation
-Tags: clean, clean up, cleanup, database, optimize, performance, speed, optimizing, clean-up, orphan, orphaned, tables, options
+Tags: clean, database, optimize, performance, postmeta
 Requires at least: 3.1.0
 Requires PHP: 5.0
 Tested up to: 6.5

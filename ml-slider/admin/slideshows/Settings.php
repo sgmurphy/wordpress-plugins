@@ -72,6 +72,8 @@ class MetaSlider_Slideshow_Settings
             'titleSpeed' => 500,
             'effect' => 'slide',
             'navigation' => true,
+            'filmstrip_delay' => 7000,
+            'filmstrip_animationSpeed' => 600,
             'links' => true,
             'hoverPause' => true,
             'theme' => 'none',
@@ -91,7 +93,7 @@ class MetaSlider_Slideshow_Settings
             'carouselMargin' => 5,
             'firstSlideFadeIn' => false,
             'easing' => 'linear',
-            'autoPlay' => true,
+            'autoPlay' => false,
             'thumb_width' => 150,
             'thumb_height' => 100,
             'responsive_thumbs' => true,
@@ -107,7 +109,9 @@ class MetaSlider_Slideshow_Settings
             'mobileNavigation_laptop' => false,
             'mobileNavigation_desktop' => false,
             'ariaLive' => false,
-            'tabIndex' => false
+            'ariaCurrent' => false,
+            'tabIndex' => false,
+            'pausePlay' => false
         );
         $defaults = apply_filters('metaslider_default_parameters', $defaults);
         $overrides = get_option('metaslider_default_settings');

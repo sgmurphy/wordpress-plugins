@@ -4,7 +4,7 @@ Tags: elementor, visibility, hide, dynamic, container, widget
 Requires at least: 5.2
 Tested up to: 6.3.2
 Requires PHP: 5.6
-Stable tag: 5.0.10
+Stable tag: 5.0.11
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -69,6 +69,14 @@ Please leave us a good review rating. We appreciate your support.
 5. Integrated with Elementor Navigator and Contextual Menu
 
 == Changelog ==
+
+= 5.0.11 =
+* Tweak: the Event Trigger now has a transition delay setting
+* Fix: Event Trigger, display issue with a trigger managing more than one element and the Hide Other option set
+* Fix: warning when used PHP 8.2
+* Fix: 'Greather than' and 'Less than' conditions didn't work with numeric fields
+* Fix: Keep HTML on was not working in some situations
+* Minor fixes
 
 = 5.0.10 =
 * Fix: PHP Error in version 5.0.8

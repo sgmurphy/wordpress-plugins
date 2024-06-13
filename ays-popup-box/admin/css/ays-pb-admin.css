@@ -146,7 +146,7 @@ div.row {
 }
 
 div.row.ays_pb_enable_dismiss_ad_box {
-    padding: 0 15px;
+    padding: 0 15px;  /* conflict with WP Phlox theme */
 }
 
 .pb_theme_image_div.col {

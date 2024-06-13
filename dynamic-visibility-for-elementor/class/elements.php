@@ -85,7 +85,7 @@ class Elements {
 
 		if ( $id ) {
 			if ( isset( self::$elements[ $type ][ $name ][ $id ] ) ) {
-				self::$elements[ $type ][ $name ][ $id ]++;
+				++self::$elements[ $type ][ $name ][ $id ];
 			} else {
 				self::$elements[ $type ][ $name ][ $id ] = 1;
 			}
@@ -167,13 +167,13 @@ class Elements {
 		if ( 'template' === $type ) {
 			return esc_html( get_the_title( $id ) );
 		} elseif ( 'column' === $type ) {
-			return __( 'Column', 'dynamic-visibility-for-elementor' );
+			return esc_html__( 'Column', 'dynamic-visibility-for-elementor' );
 		} elseif ( 'section' === $type ) {
 			$settings = Helper::get_elementor_element_settings_by_id( $id, $template_id );
 			if ( ! empty( $settings['_title'] ) ) {
 				return $settings['_title'];
 			}
-			return __( 'Section', 'dynamic-visibility-for-elementor' );
+			return esc_html__( 'Section', 'dynamic-visibility-for-elementor' );
 		} elseif ( 'widget' === $type ) {
 			if ( $name ) {
 				$widget = \Elementor\Plugin::instance()->widgets_manager->get_widget_types( $name );
@@ -214,5 +214,4 @@ class Elements {
 		}
 		return $edit_link;
 	}
-
 }

@@ -1,8 +1,8 @@
 <?php
 namespace DynamicVisibilityForElementor\Controls;
 
-use \Elementor\Control_Select2;
-use \Elementor\Modules\DynamicTags\Module as TagsModule;
+use Elementor\Control_Select2;
+use Elementor\Modules\DynamicTags\Module as TagsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -46,6 +46,7 @@ class Control_OOO_Query extends Control_Select2 {
 					TagsModule::TEXT_CATEGORY,
 					TagsModule::NUMBER_CATEGORY,
 				],
+				'returnType' => 'object',
 			],
 		];
 	}

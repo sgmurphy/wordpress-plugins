@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.36
+Stable tag: 6.4.37
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,6 +155,9 @@ Categories are the essential key to get products into search results. It is best
 4. Category Mapping
 
 == Changelog ==
+
+= 6.4.37 (2024-06-13) =
+* Updated : Facebook Pixel default value.
 
 = 6.4.36 (2024-06-10) =
 * Fixed : Facebook Pixel ID fields validation issue.

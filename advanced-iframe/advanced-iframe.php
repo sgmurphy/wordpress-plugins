@@ -2,7 +2,7 @@
 /*
 Plugin Name: Advanced iFrame
 Plugin URI: https://1.envato.market/VDRDJ
-Version: 2024.4
+Version: 2024.5
 Text Domain: advanced-iframe
 Domain Path: /languages
 Author: Michael Dempfle
@@ -47,7 +47,7 @@ define('AIP_URL_CUSTOM', plugins_url() . '/advanced-iframe-custom/');
 include dirname(__FILE__) . '/includes/advanced-iframe-main-helper.php';
 include dirname(__FILE__) . '/includes/advanced-iframe-main-cookie.php';
 
-$aiVersion = '2024.4';
+$aiVersion = '2024.5';
 // check $aiJsSize
 
 if (!class_exists('advancediFrame')) {

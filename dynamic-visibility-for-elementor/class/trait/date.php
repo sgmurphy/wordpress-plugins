@@ -136,5 +136,4 @@ trait Date {
 	public static function date_format_to_strftime_format( $date_format ) {
 		return self::date_format_to( $date_format, 'strf' );
 	}
-
 }

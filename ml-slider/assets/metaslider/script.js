@@ -8,8 +8,10 @@ jQuery(document).ready(function($){
         var slideshow_id = this.split('-');
         var id = slideshow_id[2];
         var title = $('#' + item).attr('aria-label');
-        var base_url = window.location.origin;
-        var html = '<li id="wp-admin-bar-all-slideshows-list" class="ms_admin_menu_item"><a class="ab-item" href="' +  base_url  + '/wp-admin/admin.php?page=metaslider&id=' + id + '" target="_blank">Edit ' + title + '</a></li>';
+        var html = '<li id="wp-admin-bar-all-slideshows-list" class="ms_admin_menu_item"><a class="ab-item" href="' +  wpData.baseUrl  + '/wp-admin/admin.php?page=metaslider&id=' + id + '" target="_blank">Edit ' + title + '</a></li>';
         $('#wp-admin-bar-ms-main-menu-default').append(html);
     });
+
+    //Accessibility
+    $('.metaslider .flex-next, .metaslider .flex-prev, .metaslider .flex-control-nav li a, .metaslider .flex-pauseplay a').attr('role', 'button');
 });

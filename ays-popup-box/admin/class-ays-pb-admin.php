@@ -184,8 +184,8 @@ class Ays_Pb_Admin {
 
         $ays_pb_banner_time = get_option('ays_pb_banner_time');
 
-        if ( !$ays_pb_banner_time || is_null( $ays_pb_banner_time ) ) {
-            update_option('ays_pb_banner_time', $next_3_days ); 
+        if ( !$ays_pb_banner_time || is_null($ays_pb_banner_time) ) {
+            update_option('ays_pb_banner_time', $next_3_days );
         }
 
         $get_ays_pb_banner_time = get_option('ays_pb_banner_time');
@@ -193,11 +193,11 @@ class Ays_Pb_Admin {
         $val = 60*60*24*0.5; // half day
         // $val = 60; // for testing | 1 min
 
-        $current_date = current_time( 'mysql' );
+        $current_date = current_time('mysql');
         $date_diff = strtotime($current_date) - intval(strtotime($get_ays_pb_banner_time));
 
         $days_diff = $date_diff / $val;
-        if(intval($days_diff) > 0 ){
+        if (intval($days_diff) > 0) {
             update_option('ays_pb_banner_time', $next_3_days);
             $get_ays_pb_banner_time = get_option('ays_pb_banner_time');
         }

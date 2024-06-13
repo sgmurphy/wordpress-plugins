@@ -88,10 +88,10 @@ class Wpml {
 	 * @return array<string,mixed>
 	 */
 	// public function translate_form_extensions( $widgets ) {
-	// 	if ( isset( $widgets['form'] ) ) {
-	// 		$widgets['form']['fields'] += $this->get_form_fields();
-	// 	}
+	//  if ( isset( $widgets['form'] ) ) {
+	//      $widgets['form']['fields'] += $this->get_form_fields();
+	//  }
 
-	// 	return $widgets;
+	//  return $widgets;
 	// }
 }

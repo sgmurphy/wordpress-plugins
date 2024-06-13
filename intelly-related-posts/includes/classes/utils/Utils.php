@@ -185,24 +185,18 @@ class IRP_Utils {
     <?php
     }
 
-    public function getData()
-    {
-        $result=$this->merge(TRUE, $_POST, $_GET);
-        return $result;
-    }
-
     function aqs($prefix, $defaults=array()) {
         global $irp;
 
         $removePrefix=TRUE;
         $args=array();
-        $array=$this->getData();
+        $array=$this->merge(TRUE, $_POST, $_GET);
         foreach($array as $k=>$v) {
             if($this->startsWith($k, $prefix)) {
                 if($removePrefix) {
                     $k=substr($k, strlen($prefix));
                 }
-                $args[$k]=$v;
+                $args[$k]=sanitize_text_field($v);
             }
         }
         $args=$irp->Utils->parseArgs($args, $defaults);
@@ -482,15 +476,10 @@ class IRP_Utils {
             }
         }
     
-        wp_enqueue_script( 'irp_settings', IRP_PLUGIN_ASSETS . 'js/settings.js', array('jquery'), '1.2' );
+        wp_enqueue_script( 'irp_settings', IRP_PLUGIN_ASSETS . 'js/settings.js', array('jquery'), '2.0' );
         wp_add_inline_script( 'irp_settings', 'const settings_data = ' . wp_json_encode( $defs ) . ';', 'before' );
     }
 
-    public function sort($isAssociative, $a1, $a2=NULL, $a3=NULL, $a4=NULL, $a5=NULL) {
-        $array=$this->merge($isAssociative, $a1, $a2, $a3, $a4, $a5);
-        ksort($array);
-        return $array;
-    }
     public function merge($isAssociative, $a1, $a2=NULL, $a3=NULL, $a4=NULL, $a5=NULL) {
         $result=array();
         if($isAssociative) {

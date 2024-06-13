@@ -587,7 +587,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Border Radius
         $default_border_radius = $view_type == 'notification' ? 0 : 4;
-		$border_radius = ( isset( $data['ays-pb']["ays_pb_border_radius"] ) && $data['ays-pb']["ays_pb_border_radius"] != '' ) ? wp_unslash(sanitize_text_field(intval(round( $data['ays-pb']["ays_pb_border_radius"] )))) : $border_radius;
+		$border_radius = ( isset( $data['ays-pb']["ays_pb_border_radius"] ) && $data['ays-pb']["ays_pb_border_radius"] != '' ) ? wp_unslash(sanitize_text_field(intval(round( $data['ays-pb']["ays_pb_border_radius"] )))) : $default_border_radius;
 
         //Enable Border Radius Mobile
         $enable_border_radius_mobile = ( isset($data['ays_pb_enable_border_radius_mobile']) && $data['ays_pb_enable_border_radius_mobile'] == 'on' ) ? 'on' : 'off';
@@ -933,6 +933,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 redirect URL
         $notification_button_1_redirect_url = (isset($data['ays_pb_notification_button_1_redirect_url']) && $data['ays_pb_notification_button_1_redirect_url'] != '') ? sanitize_url($data['ays_pb_notification_button_1_redirect_url']) : '';
 
+        // Notification type | Button 1 redirect to the new tab
+        $notification_button_1_redirect_to_new_tab = (isset($data['ays_pb_notification_button_1_redirect_to_new_tab']) && $data['ays_pb_notification_button_1_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
+
         // Notification type | Button 1 background color
         $notification_button_1_bg_color = (isset($data['ays_pb_notification_button_1_bg_color']) && $data['ays_pb_notification_button_1_bg_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_bg_color']) ) : '#F66123';
 
@@ -1257,6 +1260,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_main_content' => $notification_main_content,
             'notification_button_1_text' => $notification_button_1_text,
             'notification_button_1_redirect_url' => $notification_button_1_redirect_url,
+            'notification_button_1_redirect_to_new_tab' => $notification_button_1_redirect_to_new_tab,
             'notification_button_1_bg_color' => $notification_button_1_bg_color,
             'notification_button_1_text_color' => $notification_button_1_text_color,
             'notification_button_1_font_size' => $notification_button_1_font_size,

@@ -495,7 +495,7 @@ class AdvancedIframeHelper {
 	static $replaceBasicXSS = array('"',"'",' ', '(',')',';','}');
 	
 	static function filterBasicXSS($value) {
-		return empty($value) ? '' : str_replace(static::$filterBasicXSS, '', $value);
+		return empty($value) ? '' : str_replace(static::$replaceBasicXSS, '', $value);
 	}
 }
 ?>

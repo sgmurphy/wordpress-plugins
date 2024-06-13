@@ -3,51 +3,6 @@ namespace DynamicVisibilityForElementor;
 
 trait Wp {
 
-	/**
-	 * Get ALT for attachment
-	 *
-	 * @param int $attachment_id
-	 * @return string
-	 */
-	public static function get_attachment_alt( $attachment_id ) {
-		// Get ALT
-		$thumb_alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
-
-		// Return ALT
-		return esc_attr( trim( wp_strip_all_tags( $thumb_alt ) ) );
-	}
-
-	/**
-	 * Get current site domain
-	 * @license GPLv3
-	 * @copyright Elementor
-	 * @return string
-	 */
-	public static function get_site_domain() {
-		return str_ireplace( 'www.', '', wp_parse_url( home_url(), PHP_URL_HOST ) );
-	}
-
-	public static function get_client_ip() {
-		$server_ip_keys = [
-			'HTTP_CLIENT_IP',
-			'HTTP_X_FORWARDED_FOR',
-			'HTTP_X_FORWARDED',
-			'HTTP_X_CLUSTER_CLIENT_IP',
-			'HTTP_FORWARDED_FOR',
-			'HTTP_FORWARDED',
-			'REMOTE_ADDR',
-		];
-
-		foreach ( $server_ip_keys as $key ) {
-			if ( isset( $_SERVER[ $key ] ) && filter_var( $_SERVER[ $key ], FILTER_VALIDATE_IP ) ) {
-				return sanitize_text_field( $_SERVER[ $key ] );
-			}
-		}
-
-		// Fallback local ip.
-		return '127.0.0.1';
-	}
-
 	public static function get_post_fields( $meta = false, $group = false, $info = true ) {
 		$postFieldsKey = array();
 		$postTmp = get_post();
@@ -95,39 +50,11 @@ trait Wp {
 		return $postFieldsKey;
 	}
 
-	public static function get_post_data( $args ) {
-		$defaults = array(
-			'posts_per_page' => 5,
-			'offset' => 0,
-			'category' => '',
-			'category_name' => '',
-			'orderby' => 'date',
-			'order' => 'DESC',
-			'include' => '',
-			'exclude' => '',
-			'meta_key' => '',
-			'meta_value' => '',
-			'post_type' => 'post',
-			'post_mime_type' => '',
-			'post_parent' => '',
-			'author' => '',
-			'author_name' => '',
-			'post_status' => 'publish',
-			'suppress_filters' => true,
-		);
-
-		$atts = wp_parse_args( $args, $defaults );
-
-		$posts = get_posts( $atts );
-
-		return $posts;
-	}
-
 	/**
 	 * Get Public Post Types
 	 *
 	 * @param boolean $exclude
-	 * @return array<string>
+	 * @return array<string,string>
 	 */
 	public static function get_public_post_types( $exclude = true ) {
 		$args = array(
@@ -136,47 +63,50 @@ trait Wp {
 
 		$skip_post_types = [ 'attachment', 'elementor_library', 'oceanwp_library' ];
 
+		/**
+		 * @var array<string,string> $post_types
+		 */
 		$post_types = get_post_types( $args );
 		if ( $exclude ) {
 			$post_types = array_diff( $post_types, $skip_post_types );
 		}
+
+		if ( Helper::is_woocommerce_active() ) {
+			$post_types['product_variation'] = 'product_variation';
+		}
+
 		foreach ( $post_types as $akey => $acpt ) {
 			$cpt = get_post_type_object( $acpt );
-			if ($cpt !== null && is_object($cpt) && property_exists($cpt, 'label')) {
-				$post_types[$akey] = (string) $cpt->label;
+			if ( $cpt !== null ) {
+				$post_types[ $akey ] = (string) $cpt->label;
 			} else {
-				unset($post_types[$akey]);
+				unset( $post_types[ $akey ] );
 			}
 		}
+
 		return $post_types;
 	}
 
+	/**
+	 * @return array<int,string>
+	 */
 	public static function get_pages() {
-		$args = array(
+		$args = [
 			'sort_order' => 'desc',
 			'sort_column' => 'menu_order',
-			'hierarchical' => 1,
-			'exclude' => '',
-			'include' => '',
-			'meta_key' => '',
-			'meta_value' => '',
-			'authors' => '',
-			'child_of' => 0,
-			'parent' => -1,
-			'exclude_tree' => '',
-			'number' => '',
-			'offset' => 0,
+			'hierarchical' => true,
 			'post_type' => 'page',
 			'post_status' => 'publish',
-		);
+		];
 		$pages = get_pages( $args );
-		$listPage = [];
+		$page_list = [];
 		foreach ( $pages as $page ) {
-			$listPage[ $page->ID ] = $page->post_title;
+			$page_list[ $page->ID ] = esc_html( $page->post_title );
 		}
 
-		return $listPage;
+		return $page_list;
 	}
+
 
 	public static function get_post_terms( $post_id = 0, $taxonomy = null, $args = array(), $targs = array( 'public' => true ) ) {
 		if ( ! $post_id ) {
@@ -300,7 +230,7 @@ trait Wp {
 	public static function get_the_terms_ordered( $post_id, $taxonomy ) {
 		$terms = get_the_terms( $post_id, $taxonomy );
 		if ( is_array( $terms ) ) {
-			usort( $terms, function ($a, $b) {
+			usort( $terms, function ( $a, $b ) {
 				return $a->term_order - $b->term_order;
 			});
 		}
@@ -320,42 +250,6 @@ trait Wp {
 			}
 		}
 		return $listTerm;
-	}
-
-	public static function get_post_settings( $settings ) {
-		$post_type = \DynamicVisibilityForElementor\Helper::validate_post_type( $settings['post_type'] );
-		$post_args['post_type'] = $post_type;
-
-		if ( $settings['post_type'] == 'post' ) {
-			$post_args['category'] = $settings['category'];
-		}
-
-		$post_args['posts_per_page'] = $settings['num_posts'];
-		$post_args['offset'] = $settings['post_offset'];
-		$post_args['orderby'] = $settings['orderby'];
-		$post_args['order'] = $settings['order'];
-
-		return $post_args;
-	}
-
-	public static function get_excerpt_by_id( $post_id, $excerpt_length = 160 ) {
-		$the_post = get_post( $post_id ); // Get post
-
-		$the_excerpt = null;
-		if ( $the_post ) {
-			$the_excerpt = $the_post->post_excerpt ? $the_post->post_excerpt : $the_post->post_content;
-		}
-
-		$the_excerpt = strip_tags( strip_shortcodes( $the_excerpt ) ); // Strip tags and images
-		$words = explode( ' ', $the_excerpt, $excerpt_length + 1 );
-
-		if ( count( $words ) > $excerpt_length ) :
-			array_pop( $words );
-			$the_excerpt = implode( ' ', $words );
-			$the_excerpt .= '...';  // Don't put a space before
-		endif;
-
-		return $the_excerpt;
 	}
 
 	// ************************************** ALL POST SINGLE IN ALL REGISTER TYPE ***************************/
@@ -392,10 +286,10 @@ trait Wp {
 			foreach ( $get_templates as $template ) {
 
 				if ( $group ) {
-					$templates[ $template->post_type ]['options'][ $template->ID ] = $template->post_title;
+					$templates[ $template->post_type ]['options'][ $template->ID ] = esc_html( $template->post_title );
 					$templates[ $template->post_type ]['label'] = $template->post_type;
 				} else {
-					$templates[ $template->ID ] = $template->post_title;
+					$templates[ $template->ID ] = esc_html( $template->post_title );
 				}
 			}
 		}
@@ -442,7 +336,7 @@ trait Wp {
 		$all_roles = wp_roles()->roles;
 		$ret = array();
 		if ( $everyone ) {
-			$ret['everyone'] = __( 'Everyone', 'dynamic-visibility-for-elementor' );
+			$ret['everyone'] = esc_html__( 'Everyone', 'dynamic-visibility-for-elementor' );
 		}
 		foreach ( $all_roles as $key => $value ) {
 			$ret[ $key ] = $value['name'];
@@ -561,18 +455,15 @@ trait Wp {
 		return false;
 	}
 
+	public static function get_author_fields( $meta = false, $group = false, $info = true ) {
+		return static::get_user_fields( $meta, $group, $info );
+	}
+
 	public static function get_user_fields( $meta = false, $group = false, $info = true ) {
 		$userFieldsKey = array();
 		$userTmp = wp_get_current_user();
 
-		$blacklist_user_fields = array(
-			'user_login',
-			'user_pass',
-			'user_email',
-			'user_registered',
-			'user_activation_key',
-			'user_status',
-		);
+		$blacklist_user_fields = self::NOT_ALLOWED_USER_FIELDS;
 
 		if ( ! $userTmp ) {
 			return array();
@@ -1275,8 +1166,10 @@ trait Wp {
 	 */
 	public static function convert_acf_post_objects_to_ids( $input ) {
 		if ( is_array( $input ) ) {
-			if ( !empty( $input ) && is_object( $input[0] ) ) {
-				return array_map( function( $post ) { return $post->ID; }, $input );
+			if ( ! empty( $input ) && is_object( $input[0] ) ) {
+				return array_map( function ( $post ) {
+					return $post->ID;
+				}, $input );
 			}
 			return $input;
 		} elseif ( is_object( $input ) ) {
@@ -1285,5 +1178,4 @@ trait Wp {
 
 		return $input;
 	}
-
 }

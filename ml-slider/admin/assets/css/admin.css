@@ -826,7 +826,7 @@ eventually be removed/refactored */
 }
 .metaslider-ui .metaslider-slides-container .slide .thumb img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
 }
 .metaslider-ui .metaslider-slides-container .toolbar-button,

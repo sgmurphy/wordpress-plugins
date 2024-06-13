@@ -310,6 +310,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("Security keys are used to ensure better encryption of information stored in the user's cookies and hashed passwords. <br /><br />These make your site more difficult to hack, access and crack by adding random elements to the password. You don't have to remember these keys. In fact, once you set them you'll never see them again. Therefore, there's no excuse for not setting them properly.", 'hide-my-wp'),
                 'solution' => __("Security keys are defined in wp-config.php as constants on lines. They should be as unique and as long as possible. <code>AUTH_KEY,SECURE_AUTH_KEY,LOGGED_IN_KEY,NONCE_KEY,AUTH_SALT,SECURE_AUTH_SALT,LOGGED_IN_SALT,NONCE_SALT</code>", 'hide-my-wp'),
+                'javascript' => "pro",
             ),
             'checkSaltKeysAge' => array(
                 'name' => esc_html__("Security Keys Updated", 'hide-my-wp'),

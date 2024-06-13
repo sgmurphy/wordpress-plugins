@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-06-12 03:37+0200\n"
-"PO-Revision-Date: 2024-06-12 03:37+0200\n"
+"POT-Creation-Date: 2024-06-12 21:18+0200\n"
+"PO-Revision-Date: 2024-06-12 21:18+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -109,6 +109,10 @@ msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:107
 msgid "Select a revision"
+msgstr ""
+
+#: inc/cpcff_admin_int.inc.php:115
+msgid "Load Revision"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:119

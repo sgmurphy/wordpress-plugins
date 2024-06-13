@@ -55,6 +55,7 @@ $options = array(
     'notification_main_content' => 'Write the custom notification banner text here.',
     'notification_button_1_text' => 'Click!',
     'notification_button_1_redirect_url' => '',
+    'notification_button_1_redirect_to_new_tab' => 'off',
     'notification_button_1_bg_color' => '#F66123',
     'notification_button_1_text_color' => '#FFFFFF',
     'notification_button_1_font_size' => 15,
@@ -395,6 +396,9 @@ $notification_button_1_text = (isset($options['notification_button_1_text']) && 
 
 // Notification type | Button 1 redirect URL
 $notification_button_1_redirect_url = (isset($options['notification_button_1_redirect_url']) && $options['notification_button_1_redirect_url'] != '') ? esc_url($options['notification_button_1_redirect_url']) : '';
+
+// Notification type | Button 1 redirect to the new tab
+$notification_button_1_redirect_to_new_tab = (isset($options['notification_button_1_redirect_to_new_tab']) && $options['notification_button_1_redirect_to_new_tab'] == 'on') ? true : false;
 
 // Notification type | Button 1 background color
 $notification_button_1_bg_color = (isset($options['notification_button_1_bg_color']) && $options['notification_button_1_bg_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_color']) ) : '#F66123';
@@ -1766,6 +1770,20 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="ays_pb_notification_button_1_redirect_url" class="ays-text-input" name="ays_pb_notification_button_1_redirect_url" value="<?php echo $notification_button_1_redirect_url ?>" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_redirect_to_new_tab">
+                                        <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" id="ays_pb_notification_button_1_redirect_to_new_tab" name="ays_pb_notification_button_1_redirect_to_new_tab" <?php echo $notification_button_1_redirect_to_new_tab ? 'checked' : ''; ?>>
                                 </div>
                             </div>
                             <hr>

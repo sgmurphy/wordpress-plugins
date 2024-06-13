@@ -123,7 +123,7 @@ class LeadConnector_Admin
                 $input[lead_connector_constants\lc_options_location_id] = $obj->id;
                 $input[lead_connector_constants\lc_options_text_widget_error] = 0;
                 if (isset($obj->settings) && isset($obj->settings->textwidget) && count((array) $obj->settings->textwidget) > 0) {
-                    $input[lead_connector_constants\lc_options_text_widget_settings] = json_encode($obj->settings->textwidget, JSON_UNESCAPED_UNICODE);
+                    $input[lead_connector_constants\lc_options_text_widget_settings] = wp_json_encode($obj->settings->textwidget, JSON_UNESCAPED_UNICODE);
                 } else {
                     error_log('chat widget not configured');
                     $input[lead_connector_constants\lc_options_text_widget_warning_text] = 'Please configure chat widget first!';
@@ -180,6 +180,7 @@ class LeadConnector_Admin
         $lc_step_name = get_post_meta($post->ID, "lc_step_name", true);
         $lc_display_method = get_post_meta($post->ID, "lc_display_method", true);
         $lc_include_tracking_code = get_post_meta($post->ID, "lc_include_tracking_code", true);
+        $lc_use_site_favicon = get_post_meta($post->ID, "lc_use_site_favicon", true);
 
         $base_url = get_home_url() . "/";
 
@@ -202,6 +203,7 @@ class LeadConnector_Admin
             "location_id" => $location_id,
             "lc_display_method" => $lc_display_method,
             "lc_include_tracking_code" => $lc_include_tracking_code,
+            "lc_use_site_favicon" => $lc_use_site_favicon,
 
         ];
 
@@ -313,10 +315,14 @@ class LeadConnector_Admin
                 $lc_step_meta = null;
                 $lc_step_trackingCode = null;
                 $lc_funnel_tracking_code = null;
-
                 $lc_include_tracking_code = false;
+                $lc_use_site_favicon = false;
+
                 if ($body->lc_include_tracking_code == "1") {
                     $lc_include_tracking_code = true;
+                }
+                if ($body->lc_use_site_favicon == "1") {
+                    $lc_use_site_favicon = true;
                 }
 
                 if (isset($body->lc_step_meta)) {
@@ -331,7 +337,7 @@ class LeadConnector_Admin
                         error_log(print_r($body->lc_funnel_tracking_code->footerCode, true));
                     }
 
-                    $lc_funnel_tracking_code = json_encode($body->lc_funnel_tracking_code, JSON_UNESCAPED_UNICODE);
+                    $lc_funnel_tracking_code = wp_json_encode($body->lc_funnel_tracking_code, JSON_UNESCAPED_UNICODE);
 
                 }
 
@@ -353,7 +359,7 @@ class LeadConnector_Admin
                         $tracking_res = json_decode($body_tracking_code, false);
 
                         if (isset($tracking_res) && isset($tracking_res->trackingCode)) {
-                            $lc_step_trackingCode = base64_encode(json_encode($tracking_res->trackingCode, JSON_UNESCAPED_UNICODE));
+                            $lc_step_trackingCode = base64_encode(wp_json_encode($tracking_res->trackingCode, JSON_UNESCAPED_UNICODE));
                             if (defined('WP_DEBUG') && true === WP_DEBUG) {
                                 error_log(print_r($lc_step_trackingCode, true));
                             }
@@ -426,13 +432,16 @@ class LeadConnector_Admin
                     update_post_meta($post_id, "lc_display_method", $lc_display_method);
                 }
                 if (isset($lc_step_meta)) {
-                    update_post_meta($post_id, "lc_step_meta", json_encode($lc_step_meta, JSON_UNESCAPED_UNICODE));
+                    update_post_meta($post_id, "lc_step_meta", wp_json_encode($lc_step_meta, JSON_UNESCAPED_UNICODE));
                 }
                 if (isset($lc_step_trackingCode)) {
                     update_post_meta($post_id, "lc_step_trackingCode", $lc_step_trackingCode);
                 }
                 if (isset($lc_include_tracking_code)) {
                     update_post_meta($post_id, "lc_include_tracking_code", $lc_include_tracking_code);
+                }
+                if (isset($lc_use_site_favicon)) {
+                    update_post_meta($post_id, "lc_use_site_favicon", $lc_use_site_favicon);
                 }
                 if (isset($lc_funnel_tracking_code)) {
                     update_post_meta($post_id, "lc_funnel_tracking_code", $lc_funnel_tracking_code);
@@ -627,12 +636,13 @@ class LeadConnector_Admin
             // DEV Vue dynamic loading
             $js_to_load = plugin_dir_url(__FILE__) . 'js/app.min.js';
             $vendor_js_to_load = plugin_dir_url(__FILE__) . 'js/chunk-vendors.min.js';
-            wp_enqueue_script('vue_lead_connector_vendor_js', $vendor_js_to_load, '', mt_rand(11, 1000), true);
+
+            wp_enqueue_script('vue_lead_connector_vendor_js', $vendor_js_to_load, '', wp_rand(11, 1000), true);
 
         } else {
             $js_to_load = plugin_dir_url(__FILE__) . 'js/app.min.js';
             $vendor_js_to_load = plugin_dir_url(__FILE__) . 'js/chunk-vendors.min.js';
-            wp_enqueue_script('vue_lead_connector_vendor_js', $vendor_js_to_load, '', mt_rand(11, 1000), true);
+            wp_enqueue_script('vue_lead_connector_vendor_js', $vendor_js_to_load, '', wp_rand(11, 1000), true);
         }
 
         $options = get_option(LEAD_CONNECTOR_OPTION_NAME);
@@ -648,7 +658,7 @@ class LeadConnector_Admin
                 'nonce' => wp_create_nonce('wp_rest'),
             ));
 
-        wp_enqueue_script('vue_lead_connector_js', $js_to_load, '', mt_rand(10, 1000), true);
+        wp_enqueue_script('vue_lead_connector_js', $js_to_load, '', wp_rand(10, 1000), true);
 
     }
 
@@ -680,7 +690,7 @@ class LeadConnector_Admin
      */
     public function register_settings()
     {
-        add_settings_section('api_settings_inputs', __('', 'LeadConnector'), 'lead_connector_section_text1', 'lead_connector_plugin');
+        add_settings_section('api_settings_inputs', __('leadconnector', 'LeadConnector'), 'lead_connector_section_text1', 'lead_connector_plugin');
 
         register_setting(LEAD_CONNECTOR_OPTION_NAME, LEAD_CONNECTOR_OPTION_NAME, array(
             'sanitize_callback' => array($this, 'lead_connector_setting_validate'),
@@ -707,8 +717,8 @@ class LeadConnector_Admin
                 return current_user_can( 'manage_options' );
             },
         ));
-    }
 
+    }
 
     public function register_custom_post()
     {
@@ -848,7 +858,7 @@ class LeadConnector_Admin
 
     }
 
-    public function get_page_iframe($funnel_step_url, $lc_post_meta, $lc_step_trackingCode, $lc_funnel_tracking_code)
+    public function get_page_iframe($funnel_step_url, $lc_post_meta, $lc_step_trackingCode, $lc_funnel_tracking_code, $lc_use_site_favicon)
     {
         $post_meta_fields = $this->get_meta_fields($lc_post_meta);
         $head_tracking_code = $this->get_tracking_code($lc_funnel_tracking_code, true, true);
@@ -856,8 +866,14 @@ class LeadConnector_Admin
 
         $footer_tracking_code = $this->get_tracking_code($lc_funnel_tracking_code, false, true);
         $footer_tracking_code .= $this->get_tracking_code($lc_step_trackingCode, false);
+        $favicon_code = '';
 
         $widget_url = LEAD_CONNECTOR_CDN_BASE_URL . 'loader.js';
+
+        if ($lc_use_site_favicon) {
+            $favicon_url = get_site_icon_url();
+            $favicon_code = ' <link  rel="icon" type="image/x-icon" href="' . $favicon_url . '">';
+        }
         // wp_enqueue_script($this->plugin_name . ".lc_text_widget", LEAD_CONNECTOR_CDN_BASE_URL . 'loader.js');
         // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/lc-public.js', array('jquery'), $this->version, false);
         // wp_localize_script($this->plugin_name, 'lc_public_js',
@@ -872,6 +888,7 @@ class LeadConnector_Admin
 
         return '<!DOCTYPE html>
             <head>
+            ' . $favicon_code . '
             ' . $post_meta_fields . '
             ' . $head_tracking_code . '
                 <style>
@@ -924,6 +941,7 @@ class LeadConnector_Admin
                 $lc_step_trackingCode = get_post_meta($post_id, "lc_step_trackingCode", true);
                 $lc_funnel_tracking_code = get_post_meta($post_id, "lc_funnel_tracking_code", true);
                 $lc_include_tracking_code = get_post_meta($post_id, "lc_include_tracking_code", true);
+                $lc_use_site_favicon = get_post_meta($post_id, "lc_use_site_favicon", true);
 
                 if (!$lc_include_tracking_code) {
                     $lc_step_trackingCode = null;
@@ -933,12 +951,13 @@ class LeadConnector_Admin
                 if ($lc_display_method == "iframe") {
                     $content = $this->get_page_iframe($funnel_step_url, $lc_post_meta, $lc_step_trackingCode, $lc_funnel_tracking_code, $lc_use_site_favicon);
                     $allowed_html = array(
-                    'head' => array(),
+                    'head'      => array(),
                     'style'     => array(),
                     'body'      => array(),
                     'html'      => array(),
-                    'title'      => array(),
-                    'script'      => array(),
+                    'title'     => array(),
+                    'script'    => array(),
+                    'noscript'    => array(),
                     //links
                     'iframe'     => array(
                         'href' => array(),
@@ -961,7 +980,6 @@ class LeadConnector_Admin
                 );
                     // echo $content;
                     echo wp_kses($content, $allowed_html);
-
                 } else {
                     wp_redirect($funnel_step_url, 301);
                 }

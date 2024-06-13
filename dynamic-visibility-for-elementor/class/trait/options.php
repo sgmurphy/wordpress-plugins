@@ -32,39 +32,39 @@ trait Options {
 	public static function compare_options() {
 		return [
 			'not' => [
-				'title' => __( 'Not set or empty', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Not set or empty', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'eicon-circle-o',
 			],
 			'isset' => [
-				'title' => __( 'Valorized with any value', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Valorized with any value', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'eicon-dot-circle-o',
 			],
 			'lt' => [
-				'title' => __( 'Less than', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Less than', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'fa fa-angle-left',
 			],
 			'gt' => [
-				'title' => __( 'Greater than', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Greater than', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'fa fa-angle-right',
 			],
 			'contain' => [
-				'title' => __( 'Contains', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Contains', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'eicon-check',
 			],
 			'not_contain' => [
-				'title' => __( 'Doesn\'t contain', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Doesn\'t contain', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'eicon-close',
 			],
 			'in_array' => [
-				'title' => __( 'In Array', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'In Array', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'fa fa-bars',
 			],
 			'value' => [
-				'title' => __( 'Equal to', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Equal to', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'fa fa-circle',
 			],
 			'not_value' => [
-				'title' => __( 'Not Equal to', 'dynamic-visibility-for-elementor' ),
+				'title' => esc_html__( 'Not Equal to', 'dynamic-visibility-for-elementor' ),
 				'icon' => 'eicon-exchange',
 			],
 		];
@@ -77,23 +77,40 @@ trait Options {
 	 */
 	public static function get_post_orderby_options() {
 		return [
-			'ID' => __( 'Post ID', 'dynamic-visibility-for-elementor' ),
-			'author' => __( 'Post Author', 'dynamic-visibility-for-elementor' ),
-			'title' => __( 'Title', 'dynamic-visibility-for-elementor' ),
-			'date' => __( 'Date', 'dynamic-visibility-for-elementor' ),
-			'modified' => __( 'Last Modified Date', 'dynamic-visibility-for-elementor' ),
-			'parent' => __( 'Parent ID', 'dynamic-visibility-for-elementor' ),
-			'rand' => __( 'Random', 'dynamic-visibility-for-elementor' ),
-			'comment_count' => __( 'Comment Count', 'dynamic-visibility-for-elementor' ),
-			'menu_order' => __( 'Menu Order', 'dynamic-visibility-for-elementor' ),
-			'meta_value_num' => __( 'Meta Value NUM', 'dynamic-visibility-for-elementor' ),
-			'meta_value_date' => __( 'Meta Value DATE', 'dynamic-visibility-for-elementor' ),
-			'meta_value' => __( 'Meta Value', 'dynamic-visibility-for-elementor' ),
-			'none' => __( 'None', 'dynamic-visibility-for-elementor' ),
-			'name' => __( 'Name', 'dynamic-visibility-for-elementor' ),
-			'type' => __( 'Type', 'dynamic-visibility-for-elementor' ),
-			'relevance' => __( 'Relevance', 'dynamic-visibility-for-elementor' ),
-			'post__in' => __( 'Preserve Post ID order given', 'dynamic-visibility-for-elementor' ),
+			'ID' => esc_html__( 'Post ID', 'dynamic-visibility-for-elementor' ),
+			'author' => esc_html__( 'Post Author', 'dynamic-visibility-for-elementor' ),
+			'title' => esc_html__( 'Title', 'dynamic-visibility-for-elementor' ),
+			'date' => esc_html__( 'Date', 'dynamic-visibility-for-elementor' ),
+			'modified' => esc_html__( 'Last Modified Date', 'dynamic-visibility-for-elementor' ),
+			'parent' => esc_html__( 'Parent ID', 'dynamic-visibility-for-elementor' ),
+			'rand' => esc_html__( 'Random', 'dynamic-visibility-for-elementor' ),
+			'comment_count' => esc_html__( 'Comment Count', 'dynamic-visibility-for-elementor' ),
+			'menu_order' => esc_html__( 'Menu Order', 'dynamic-visibility-for-elementor' ),
+			'meta_value' => esc_html__( 'Meta Value', 'dynamic-visibility-for-elementor' ),
+			'none' => esc_html__( 'None', 'dynamic-visibility-for-elementor' ),
+			'name' => esc_html__( 'Name', 'dynamic-visibility-for-elementor' ),
+			'type' => esc_html__( 'Type', 'dynamic-visibility-for-elementor' ),
+			'relevance' => esc_html__( 'Relevance', 'dynamic-visibility-for-elementor' ),
+			'post__in' => esc_html__( 'Preserve Post ID order given', 'dynamic-visibility-for-elementor' ),
+		];
+	}
+
+	/**
+	 * Get Order By Meta Value - Types
+	 *
+	 * @return array<string,string>
+	 */
+	public static function get_post_orderby_meta_value_types() {
+		return [
+			'NUMERIC' => esc_html__( 'Numeric', 'dynamic-visibility-for-elementor' ),
+			'BINARY' => esc_html__( 'Binary', 'dynamic-visibility-for-elementor' ),
+			'CHAR' => esc_html__( 'Character', 'dynamic-visibility-for-elementor' ),
+			'DATE' => esc_html__( 'Date', 'dynamic-visibility-for-elementor' ),
+			'DATETIME' => esc_html__( 'DateTime', 'dynamic-visibility-for-elementor' ),
+			'DECIMAL' => esc_html__( 'Decimal', 'dynamic-visibility-for-elementor' ),
+			'SIGNED' => esc_html__( 'Signed', 'dynamic-visibility-for-elementor' ),
+			'TIME' => esc_html__( 'Time', 'dynamic-visibility-for-elementor' ),
+			'UNSIGNED' => esc_html__( 'Unsigned', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -104,12 +121,12 @@ trait Options {
 	 */
 	public static function get_term_orderby_options() {
 		return [
-			'parent' => __( 'Parent', 'dynamic-visibility-for-elementor' ),
-			'count' => __( 'Count (number of associated posts)', 'dynamic-visibility-for-elementor' ),
-			'term_order' => __( 'Order', 'dynamic-visibility-for-elementor' ),
-			'name' => __( 'Name', 'dynamic-visibility-for-elementor' ),
-			'slug' => __( 'Slug', 'dynamic-visibility-for-elementor' ),
-			'term_group' => __( 'Group', 'dynamic-visibility-for-elementor' ),
+			'parent' => esc_html__( 'Parent', 'dynamic-visibility-for-elementor' ),
+			'count' => esc_html__( 'Count (number of associated posts)', 'dynamic-visibility-for-elementor' ),
+			'term_order' => esc_html__( 'Order', 'dynamic-visibility-for-elementor' ),
+			'name' => esc_html__( 'Name', 'dynamic-visibility-for-elementor' ),
+			'slug' => esc_html__( 'Slug', 'dynamic-visibility-for-elementor' ),
+			'term_group' => esc_html__( 'Group', 'dynamic-visibility-for-elementor' ),
 			'term_id' => 'ID',
 		];
 	}
@@ -123,7 +140,7 @@ trait Options {
 		$taxonomies = get_taxonomies( [ 'public' => true ] );
 
 		$taxonomy_array = [];
-		
+
 		foreach ( $taxonomies as $taxonomy ) {
 			$taxonomy_object = get_taxonomy( $taxonomy );
 			$taxonomy_array[ $taxonomy ] = sanitize_text_field( $taxonomy_object->labels->name );
@@ -134,164 +151,164 @@ trait Options {
 
 	public static function get_anim_timing_functions() {
 		$tf_p = [
-			'linear' => __( 'Linear', 'dynamic-visibility-for-elementor' ),
-			'ease' => __( 'Ease', 'dynamic-visibility-for-elementor' ),
-			'ease-in' => __( 'Ease In', 'dynamic-visibility-for-elementor' ),
-			'ease-out' => __( 'Ease Out', 'dynamic-visibility-for-elementor' ),
-			'ease-in-out' => __( 'Ease In Out', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.755, 0.05, 0.855, 0.06)' => __( 'easeInQuint', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.23, 1, 0.32, 1)' => __( 'easeOutQuint', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.86, 0, 0.07, 1)' => __( 'easeInOutQuint', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.6, 0.04, 0.98, 0.335)' => __( 'easeInCirc', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.075, 0.82, 0.165, 1)' => __( 'easeOutCirc', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.785, 0.135, 0.15, 0.86)' => __( 'easeInOutCirc', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.95, 0.05, 0.795, 0.035)' => __( 'easeInExpo', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.19, 1, 0.22, 1)' => __( 'easeOutExpo', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(1, 0, 0, 1)' => __( 'easeInOutExpo', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.6, -0.28, 0.735, 0.045)' => __( 'easeInBack', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.175, 0.885, 0.32, 1.275)' => __( 'easeOutBack', 'dynamic-visibility-for-elementor' ),
-			'cubic-bezier(0.68, -0.55, 0.265, 1.55)' => __( 'easeInOutBack', 'dynamic-visibility-for-elementor' ),
+			'linear' => esc_html__( 'Linear', 'dynamic-visibility-for-elementor' ),
+			'ease' => esc_html__( 'Ease', 'dynamic-visibility-for-elementor' ),
+			'ease-in' => esc_html__( 'Ease In', 'dynamic-visibility-for-elementor' ),
+			'ease-out' => esc_html__( 'Ease Out', 'dynamic-visibility-for-elementor' ),
+			'ease-in-out' => esc_html__( 'Ease In Out', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.755, 0.05, 0.855, 0.06)' => esc_html__( 'easeInQuint', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.23, 1, 0.32, 1)' => esc_html__( 'easeOutQuint', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.86, 0, 0.07, 1)' => esc_html__( 'easeInOutQuint', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.6, 0.04, 0.98, 0.335)' => esc_html__( 'easeInCirc', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.075, 0.82, 0.165, 1)' => esc_html__( 'easeOutCirc', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.785, 0.135, 0.15, 0.86)' => esc_html__( 'easeInOutCirc', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.95, 0.05, 0.795, 0.035)' => esc_html__( 'easeInExpo', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.19, 1, 0.22, 1)' => esc_html__( 'easeOutExpo', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(1, 0, 0, 1)' => esc_html__( 'easeInOutExpo', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.6, -0.28, 0.735, 0.045)' => esc_html__( 'easeInBack', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.175, 0.885, 0.32, 1.275)' => esc_html__( 'easeOutBack', 'dynamic-visibility-for-elementor' ),
+			'cubic-bezier(0.68, -0.55, 0.265, 1.55)' => esc_html__( 'easeInOutBack', 'dynamic-visibility-for-elementor' ),
 		];
 		return $tf_p;
 	}
 
 	public static function number_format_currency() {
 		$nf_c = [
-			'en-US' => __( 'English (US)', 'dynamic-visibility-for-elementor' ),
-			'af-ZA' => __( 'Afrikaans', 'dynamic-visibility-for-elementor' ),
-			'sq-AL' => __( 'Albanian', 'dynamic-visibility-for-elementor' ),
-			'ar-AR' => __( 'Arabic', 'dynamic-visibility-for-elementor' ),
-			'hy-AM' => __( 'Armenian', 'dynamic-visibility-for-elementor' ),
-			'ay-BO' => __( 'Aymara', 'dynamic-visibility-for-elementor' ),
-			'az-AZ' => __( 'Azeri', 'dynamic-visibility-for-elementor' ),
-			'eu-ES' => __( 'Basque', 'dynamic-visibility-for-elementor' ),
-			'be-BY' => __( 'Belarusian', 'dynamic-visibility-for-elementor' ),
-			'bn-IN' => __( 'Bengali', 'dynamic-visibility-for-elementor' ),
-			'bs-BA' => __( 'Bosnian', 'dynamic-visibility-for-elementor' ),
-			'en-GB' => __( 'British English', 'dynamic-visibility-for-elementor' ),
-			'bg-BG' => __( 'Bulgarian', 'dynamic-visibility-for-elementor' ),
-			'ca-ES' => __( 'Catalan', 'dynamic-visibility-for-elementor' ),
-			'ck-US' => __( 'Cherokee', 'dynamic-visibility-for-elementor' ),
-			'hr-HR' => __( 'Croatian', 'dynamic-visibility-for-elementor' ),
-			'cs-CZ' => __( 'Czech', 'dynamic-visibility-for-elementor' ),
-			'da-DK' => __( 'Danish', 'dynamic-visibility-for-elementor' ),
-			'nl-NL' => __( 'Dutch', 'dynamic-visibility-for-elementor' ),
-			'nl-BE' => __( 'Dutch (Belgi?)', 'dynamic-visibility-for-elementor' ),
-			'en-UD' => __( 'English (Upside Down)', 'dynamic-visibility-for-elementor' ),
-			'eo-EO' => __( 'Esperanto', 'dynamic-visibility-for-elementor' ),
-			'et-EE' => __( 'Estonian', 'dynamic-visibility-for-elementor' ),
-			'fo-FO' => __( 'Faroese', 'dynamic-visibility-for-elementor' ),
-			'tl-PH' => __( 'Filipino', 'dynamic-visibility-for-elementor' ),
-			'fi-FI' => __( 'Finland', 'dynamic-visibility-for-elementor' ),
-			'fb-FI' => __( 'Finnish', 'dynamic-visibility-for-elementor' ),
-			'fr-CA' => __( 'French (Canada)', 'dynamic-visibility-for-elementor' ),
-			'fr-FR' => __( 'French (France)', 'dynamic-visibility-for-elementor' ),
-			'gl-ES' => __( 'Galician', 'dynamic-visibility-for-elementor' ),
-			'ka-GE' => __( 'Georgian', 'dynamic-visibility-for-elementor' ),
-			'de-DE' => __( 'German', 'dynamic-visibility-for-elementor' ),
-			'el-GR' => __( 'Greek', 'dynamic-visibility-for-elementor' ),
-			'gn-PY' => __( 'Guaran?', 'dynamic-visibility-for-elementor' ),
-			'gu-IN' => __( 'Gujarati', 'dynamic-visibility-for-elementor' ),
-			'he-IL' => __( 'Hebrew', 'dynamic-visibility-for-elementor' ),
-			'hi-IN' => __( 'Hindi', 'dynamic-visibility-for-elementor' ),
-			'hu-HU' => __( 'Hungarian', 'dynamic-visibility-for-elementor' ),
-			'is-IS' => __( 'Icelandic', 'dynamic-visibility-for-elementor' ),
-			'id-ID' => __( 'Indonesian', 'dynamic-visibility-for-elementor' ),
-			'ga-IE' => __( 'Irish', 'dynamic-visibility-for-elementor' ),
-			'it-IT' => __( 'Italian', 'dynamic-visibility-for-elementor' ),
-			'ja-JP' => __( 'Japanese', 'dynamic-visibility-for-elementor' ),
-			'jv-ID' => __( 'Javanese', 'dynamic-visibility-for-elementor' ),
-			'kn-IN' => __( 'Kannada', 'dynamic-visibility-for-elementor' ),
-			'kk-KZ' => __( 'Kazakh', 'dynamic-visibility-for-elementor' ),
-			'km-KH' => __( 'Khmer', 'dynamic-visibility-for-elementor' ),
-			'tl-ST' => __( 'Klingon', 'dynamic-visibility-for-elementor' ),
-			'ko-KR' => __( 'Korean', 'dynamic-visibility-for-elementor' ),
-			'ku-TR' => __( 'Kurdish', 'dynamic-visibility-for-elementor' ),
-			'la-VA' => __( 'Latin', 'dynamic-visibility-for-elementor' ),
-			'lv-LV' => __( 'Latvian', 'dynamic-visibility-for-elementor' ),
-			'fb-LT' => __( 'Leet Speak', 'dynamic-visibility-for-elementor' ),
-			'li-NL' => __( 'Limburgish', 'dynamic-visibility-for-elementor' ),
-			'lt-LT' => __( 'Lithuanian', 'dynamic-visibility-for-elementor' ),
-			'mk-MK' => __( 'Macedonian', 'dynamic-visibility-for-elementor' ),
-			'mg-MG' => __( 'Malagasy', 'dynamic-visibility-for-elementor' ),
-			'ms-MY' => __( 'Malay', 'dynamic-visibility-for-elementor' ),
-			'ml-IN' => __( 'Malayalam', 'dynamic-visibility-for-elementor' ),
-			'mt-MT' => __( 'Maltese', 'dynamic-visibility-for-elementor' ),
-			'mr-IN' => __( 'Marathi', 'dynamic-visibility-for-elementor' ),
-			'mn-MN' => __( 'Mongolian', 'dynamic-visibility-for-elementor' ),
-			'ne-NP' => __( 'Nepali', 'dynamic-visibility-for-elementor' ),
-			'se-NO' => __( 'Northern S?mi', 'dynamic-visibility-for-elementor' ),
-			'nb-NO' => __( 'Norwegian (bokmal)', 'dynamic-visibility-for-elementor' ),
-			'nn-NO' => __( 'Norwegian (nynorsk)', 'dynamic-visibility-for-elementor' ),
-			'ps-AF' => __( 'Pashto', 'dynamic-visibility-for-elementor' ),
-			'fa-IR' => __( 'Persian', 'dynamic-visibility-for-elementor' ),
-			'pl-PL' => __( 'Polish', 'dynamic-visibility-for-elementor' ),
-			'pt-BR' => __( 'Portuguese (Brazil)', 'dynamic-visibility-for-elementor' ),
-			'pt-PT' => __( 'Portuguese (Portugal)', 'dynamic-visibility-for-elementor' ),
-			'pa-IN' => __( 'Punjabi', 'dynamic-visibility-for-elementor' ),
-			'qu-PE' => __( 'Quechua', 'dynamic-visibility-for-elementor' ),
-			'ro-RO' => __( 'Romanian', 'dynamic-visibility-for-elementor' ),
-			'rm-CH' => __( 'Romansh', 'dynamic-visibility-for-elementor' ),
-			'ru-RU' => __( 'Russian', 'dynamic-visibility-for-elementor' ),
-			'sa-IN' => __( 'Sanskrit', 'dynamic-visibility-for-elementor' ),
-			'sr-RS' => __( 'Serbian', 'dynamic-visibility-for-elementor' ),
-			'zh-CN' => __( 'Simplified Chinese (China)', 'dynamic-visibility-for-elementor' ),
-			'sk-SK' => __( 'Slovak', 'dynamic-visibility-for-elementor' ),
-			'sl-SI' => __( 'Slovenian', 'dynamic-visibility-for-elementor' ),
-			'so-SO' => __( 'Somali', 'dynamic-visibility-for-elementor' ),
-			'es-LA' => __( 'Spanish', 'dynamic-visibility-for-elementor' ),
-			'es-CL' => __( 'Spanish (Chile)', 'dynamic-visibility-for-elementor' ),
-			'es-CO' => __( 'Spanish (Colombia)', 'dynamic-visibility-for-elementor' ),
-			'es-MX' => __( 'Spanish (Mexico)', 'dynamic-visibility-for-elementor' ),
-			'es-ES' => __( 'Spanish (Spain)', 'dynamic-visibility-for-elementor' ),
-			'es-VE' => __( 'Spanish (Venezuela)', 'dynamic-visibility-for-elementor' ),
-			'sw-KE' => __( 'Swahili', 'dynamic-visibility-for-elementor' ),
-			'sv-SE' => __( 'Swedish', 'dynamic-visibility-for-elementor' ),
-			'sy-SY' => __( 'Syriac', 'dynamic-visibility-for-elementor' ),
-			'tg-TJ' => __( 'Tajik', 'dynamic-visibility-for-elementor' ),
-			'ta-IN' => __( 'Tamil', 'dynamic-visibility-for-elementor' ),
-			'tt-RU' => __( 'Tatar', 'dynamic-visibility-for-elementor' ),
-			'te-IN' => __( 'Telugu', 'dynamic-visibility-for-elementor' ),
-			'th-TH' => __( 'Thai', 'dynamic-visibility-for-elementor' ),
-			'zh-HK' => __( 'Traditional Chinese (Hong Kong)', 'dynamic-visibility-for-elementor' ),
-			'zh-TW' => __( 'Traditional Chinese (Taiwan)', 'dynamic-visibility-for-elementor' ),
-			'tr-TR' => __( 'Turkish', 'dynamic-visibility-for-elementor' ),
-			'uk-UA' => __( 'Ukrainian', 'dynamic-visibility-for-elementor' ),
-			'ur-PK' => __( 'Urdu', 'dynamic-visibility-for-elementor' ),
-			'uz-UZ' => __( 'Uzbek', 'dynamic-visibility-for-elementor' ),
-			'vi-VN' => __( 'Vietnamese', 'dynamic-visibility-for-elementor' ),
-			'cy-GB' => __( 'Welsh', 'dynamic-visibility-for-elementor' ),
-			'xh-ZA' => __( 'Xhosa', 'dynamic-visibility-for-elementor' ),
-			'yi-DE' => __( 'Yiddish', 'dynamic-visibility-for-elementor' ),
-			'zu-ZA' => __( 'Zulu', 'dynamic-visibility-for-elementor' ),
+			'en-US' => esc_html__( 'English (US)', 'dynamic-visibility-for-elementor' ),
+			'af-ZA' => esc_html__( 'Afrikaans', 'dynamic-visibility-for-elementor' ),
+			'sq-AL' => esc_html__( 'Albanian', 'dynamic-visibility-for-elementor' ),
+			'ar-AR' => esc_html__( 'Arabic', 'dynamic-visibility-for-elementor' ),
+			'hy-AM' => esc_html__( 'Armenian', 'dynamic-visibility-for-elementor' ),
+			'ay-BO' => esc_html__( 'Aymara', 'dynamic-visibility-for-elementor' ),
+			'az-AZ' => esc_html__( 'Azeri', 'dynamic-visibility-for-elementor' ),
+			'eu-ES' => esc_html__( 'Basque', 'dynamic-visibility-for-elementor' ),
+			'be-BY' => esc_html__( 'Belarusian', 'dynamic-visibility-for-elementor' ),
+			'bn-IN' => esc_html__( 'Bengali', 'dynamic-visibility-for-elementor' ),
+			'bs-BA' => esc_html__( 'Bosnian', 'dynamic-visibility-for-elementor' ),
+			'en-GB' => esc_html__( 'British English', 'dynamic-visibility-for-elementor' ),
+			'bg-BG' => esc_html__( 'Bulgarian', 'dynamic-visibility-for-elementor' ),
+			'ca-ES' => esc_html__( 'Catalan', 'dynamic-visibility-for-elementor' ),
+			'ck-US' => esc_html__( 'Cherokee', 'dynamic-visibility-for-elementor' ),
+			'hr-HR' => esc_html__( 'Croatian', 'dynamic-visibility-for-elementor' ),
+			'cs-CZ' => esc_html__( 'Czech', 'dynamic-visibility-for-elementor' ),
+			'da-DK' => esc_html__( 'Danish', 'dynamic-visibility-for-elementor' ),
+			'nl-NL' => esc_html__( 'Dutch', 'dynamic-visibility-for-elementor' ),
+			'nl-BE' => esc_html__( 'Dutch (Belgi?)', 'dynamic-visibility-for-elementor' ),
+			'en-UD' => esc_html__( 'English (Upside Down)', 'dynamic-visibility-for-elementor' ),
+			'eo-EO' => esc_html__( 'Esperanto', 'dynamic-visibility-for-elementor' ),
+			'et-EE' => esc_html__( 'Estonian', 'dynamic-visibility-for-elementor' ),
+			'fo-FO' => esc_html__( 'Faroese', 'dynamic-visibility-for-elementor' ),
+			'tl-PH' => esc_html__( 'Filipino', 'dynamic-visibility-for-elementor' ),
+			'fi-FI' => esc_html__( 'Finland', 'dynamic-visibility-for-elementor' ),
+			'fb-FI' => esc_html__( 'Finnish', 'dynamic-visibility-for-elementor' ),
+			'fr-CA' => esc_html__( 'French (Canada)', 'dynamic-visibility-for-elementor' ),
+			'fr-FR' => esc_html__( 'French (France)', 'dynamic-visibility-for-elementor' ),
+			'gl-ES' => esc_html__( 'Galician', 'dynamic-visibility-for-elementor' ),
+			'ka-GE' => esc_html__( 'Georgian', 'dynamic-visibility-for-elementor' ),
+			'de-DE' => esc_html__( 'German', 'dynamic-visibility-for-elementor' ),
+			'el-GR' => esc_html__( 'Greek', 'dynamic-visibility-for-elementor' ),
+			'gn-PY' => esc_html__( 'Guaran?', 'dynamic-visibility-for-elementor' ),
+			'gu-IN' => esc_html__( 'Gujarati', 'dynamic-visibility-for-elementor' ),
+			'he-IL' => esc_html__( 'Hebrew', 'dynamic-visibility-for-elementor' ),
+			'hi-IN' => esc_html__( 'Hindi', 'dynamic-visibility-for-elementor' ),
+			'hu-HU' => esc_html__( 'Hungarian', 'dynamic-visibility-for-elementor' ),
+			'is-IS' => esc_html__( 'Icelandic', 'dynamic-visibility-for-elementor' ),
+			'id-ID' => esc_html__( 'Indonesian', 'dynamic-visibility-for-elementor' ),
+			'ga-IE' => esc_html__( 'Irish', 'dynamic-visibility-for-elementor' ),
+			'it-IT' => esc_html__( 'Italian', 'dynamic-visibility-for-elementor' ),
+			'ja-JP' => esc_html__( 'Japanese', 'dynamic-visibility-for-elementor' ),
+			'jv-ID' => esc_html__( 'Javanese', 'dynamic-visibility-for-elementor' ),
+			'kn-IN' => esc_html__( 'Kannada', 'dynamic-visibility-for-elementor' ),
+			'kk-KZ' => esc_html__( 'Kazakh', 'dynamic-visibility-for-elementor' ),
+			'km-KH' => esc_html__( 'Khmer', 'dynamic-visibility-for-elementor' ),
+			'tl-ST' => esc_html__( 'Klingon', 'dynamic-visibility-for-elementor' ),
+			'ko-KR' => esc_html__( 'Korean', 'dynamic-visibility-for-elementor' ),
+			'ku-TR' => esc_html__( 'Kurdish', 'dynamic-visibility-for-elementor' ),
+			'la-VA' => esc_html__( 'Latin', 'dynamic-visibility-for-elementor' ),
+			'lv-LV' => esc_html__( 'Latvian', 'dynamic-visibility-for-elementor' ),
+			'fb-LT' => esc_html__( 'Leet Speak', 'dynamic-visibility-for-elementor' ),
+			'li-NL' => esc_html__( 'Limburgish', 'dynamic-visibility-for-elementor' ),
+			'lt-LT' => esc_html__( 'Lithuanian', 'dynamic-visibility-for-elementor' ),
+			'mk-MK' => esc_html__( 'Macedonian', 'dynamic-visibility-for-elementor' ),
+			'mg-MG' => esc_html__( 'Malagasy', 'dynamic-visibility-for-elementor' ),
+			'ms-MY' => esc_html__( 'Malay', 'dynamic-visibility-for-elementor' ),
+			'ml-IN' => esc_html__( 'Malayalam', 'dynamic-visibility-for-elementor' ),
+			'mt-MT' => esc_html__( 'Maltese', 'dynamic-visibility-for-elementor' ),
+			'mr-IN' => esc_html__( 'Marathi', 'dynamic-visibility-for-elementor' ),
+			'mn-MN' => esc_html__( 'Mongolian', 'dynamic-visibility-for-elementor' ),
+			'ne-NP' => esc_html__( 'Nepali', 'dynamic-visibility-for-elementor' ),
+			'se-NO' => esc_html__( 'Northern S?mi', 'dynamic-visibility-for-elementor' ),
+			'nb-NO' => esc_html__( 'Norwegian (bokmal)', 'dynamic-visibility-for-elementor' ),
+			'nn-NO' => esc_html__( 'Norwegian (nynorsk)', 'dynamic-visibility-for-elementor' ),
+			'ps-AF' => esc_html__( 'Pashto', 'dynamic-visibility-for-elementor' ),
+			'fa-IR' => esc_html__( 'Persian', 'dynamic-visibility-for-elementor' ),
+			'pl-PL' => esc_html__( 'Polish', 'dynamic-visibility-for-elementor' ),
+			'pt-BR' => esc_html__( 'Portuguese (Brazil)', 'dynamic-visibility-for-elementor' ),
+			'pt-PT' => esc_html__( 'Portuguese (Portugal)', 'dynamic-visibility-for-elementor' ),
+			'pa-IN' => esc_html__( 'Punjabi', 'dynamic-visibility-for-elementor' ),
+			'qu-PE' => esc_html__( 'Quechua', 'dynamic-visibility-for-elementor' ),
+			'ro-RO' => esc_html__( 'Romanian', 'dynamic-visibility-for-elementor' ),
+			'rm-CH' => esc_html__( 'Romansh', 'dynamic-visibility-for-elementor' ),
+			'ru-RU' => esc_html__( 'Russian', 'dynamic-visibility-for-elementor' ),
+			'sa-IN' => esc_html__( 'Sanskrit', 'dynamic-visibility-for-elementor' ),
+			'sr-RS' => esc_html__( 'Serbian', 'dynamic-visibility-for-elementor' ),
+			'zh-CN' => esc_html__( 'Simplified Chinese (China)', 'dynamic-visibility-for-elementor' ),
+			'sk-SK' => esc_html__( 'Slovak', 'dynamic-visibility-for-elementor' ),
+			'sl-SI' => esc_html__( 'Slovenian', 'dynamic-visibility-for-elementor' ),
+			'so-SO' => esc_html__( 'Somali', 'dynamic-visibility-for-elementor' ),
+			'es-LA' => esc_html__( 'Spanish', 'dynamic-visibility-for-elementor' ),
+			'es-CL' => esc_html__( 'Spanish (Chile)', 'dynamic-visibility-for-elementor' ),
+			'es-CO' => esc_html__( 'Spanish (Colombia)', 'dynamic-visibility-for-elementor' ),
+			'es-MX' => esc_html__( 'Spanish (Mexico)', 'dynamic-visibility-for-elementor' ),
+			'es-ES' => esc_html__( 'Spanish (Spain)', 'dynamic-visibility-for-elementor' ),
+			'es-VE' => esc_html__( 'Spanish (Venezuela)', 'dynamic-visibility-for-elementor' ),
+			'sw-KE' => esc_html__( 'Swahili', 'dynamic-visibility-for-elementor' ),
+			'sv-SE' => esc_html__( 'Swedish', 'dynamic-visibility-for-elementor' ),
+			'sy-SY' => esc_html__( 'Syriac', 'dynamic-visibility-for-elementor' ),
+			'tg-TJ' => esc_html__( 'Tajik', 'dynamic-visibility-for-elementor' ),
+			'ta-IN' => esc_html__( 'Tamil', 'dynamic-visibility-for-elementor' ),
+			'tt-RU' => esc_html__( 'Tatar', 'dynamic-visibility-for-elementor' ),
+			'te-IN' => esc_html__( 'Telugu', 'dynamic-visibility-for-elementor' ),
+			'th-TH' => esc_html__( 'Thai', 'dynamic-visibility-for-elementor' ),
+			'zh-HK' => esc_html__( 'Traditional Chinese (Hong Kong)', 'dynamic-visibility-for-elementor' ),
+			'zh-TW' => esc_html__( 'Traditional Chinese (Taiwan)', 'dynamic-visibility-for-elementor' ),
+			'tr-TR' => esc_html__( 'Turkish', 'dynamic-visibility-for-elementor' ),
+			'uk-UA' => esc_html__( 'Ukrainian', 'dynamic-visibility-for-elementor' ),
+			'ur-PK' => esc_html__( 'Urdu', 'dynamic-visibility-for-elementor' ),
+			'uz-UZ' => esc_html__( 'Uzbek', 'dynamic-visibility-for-elementor' ),
+			'vi-VN' => esc_html__( 'Vietnamese', 'dynamic-visibility-for-elementor' ),
+			'cy-GB' => esc_html__( 'Welsh', 'dynamic-visibility-for-elementor' ),
+			'xh-ZA' => esc_html__( 'Xhosa', 'dynamic-visibility-for-elementor' ),
+			'yi-DE' => esc_html__( 'Yiddish', 'dynamic-visibility-for-elementor' ),
+			'zu-ZA' => esc_html__( 'Zulu', 'dynamic-visibility-for-elementor' ),
 		];
 		return $nf_c;
 	}
 
 	public static function get_gsap_ease() {
 		$tf_p = [
-			'easeNone' => __( 'None', 'dynamic-visibility-for-elementor' ),
-			'easeIn' => __( 'In', 'dynamic-visibility-for-elementor' ),
-			'easeOut' => __( 'Out', 'dynamic-visibility-for-elementor' ),
-			'easeInOut' => __( 'InOut', 'dynamic-visibility-for-elementor' ),
+			'easeNone' => esc_html__( 'None', 'dynamic-visibility-for-elementor' ),
+			'easeIn' => esc_html__( 'In', 'dynamic-visibility-for-elementor' ),
+			'easeOut' => esc_html__( 'Out', 'dynamic-visibility-for-elementor' ),
+			'easeInOut' => esc_html__( 'InOut', 'dynamic-visibility-for-elementor' ),
 		];
 		return $tf_p;
 	}
 
 	public static function get_gsap_timing_functions() {
 		$tf_p = [
-			'Power0' => __( 'Linear', 'dynamic-visibility-for-elementor' ),
-			'Power1' => __( 'Power1', 'dynamic-visibility-for-elementor' ),
-			'Power2' => __( 'Power2', 'dynamic-visibility-for-elementor' ),
-			'Power3' => __( 'Power3', 'dynamic-visibility-for-elementor' ),
-			'Power4' => __( 'Power4', 'dynamic-visibility-for-elementor' ),
-			'SlowMo' => __( 'SlowMo', 'dynamic-visibility-for-elementor' ),
-			'Back' => __( 'Back', 'dynamic-visibility-for-elementor' ),
-			'Elastic' => __( 'Elastic', 'dynamic-visibility-for-elementor' ),
-			'Bounce' => __( 'Bounce', 'dynamic-visibility-for-elementor' ),
-			'Circ' => __( 'Circ', 'dynamic-visibility-for-elementor' ),
-			'Expo' => __( 'Expo', 'dynamic-visibility-for-elementor' ),
-			'Sine' => __( 'Sine', 'dynamic-visibility-for-elementor' ),
+			'Power0' => esc_html__( 'Linear', 'dynamic-visibility-for-elementor' ),
+			'Power1' => esc_html__( 'Power1', 'dynamic-visibility-for-elementor' ),
+			'Power2' => esc_html__( 'Power2', 'dynamic-visibility-for-elementor' ),
+			'Power3' => esc_html__( 'Power3', 'dynamic-visibility-for-elementor' ),
+			'Power4' => esc_html__( 'Power4', 'dynamic-visibility-for-elementor' ),
+			'SlowMo' => esc_html__( 'SlowMo', 'dynamic-visibility-for-elementor' ),
+			'Back' => esc_html__( 'Back', 'dynamic-visibility-for-elementor' ),
+			'Elastic' => esc_html__( 'Elastic', 'dynamic-visibility-for-elementor' ),
+			'Bounce' => esc_html__( 'Bounce', 'dynamic-visibility-for-elementor' ),
+			'Circ' => esc_html__( 'Circ', 'dynamic-visibility-for-elementor' ),
+			'Expo' => esc_html__( 'Expo', 'dynamic-visibility-for-elementor' ),
+			'Sine' => esc_html__( 'Sine', 'dynamic-visibility-for-elementor' ),
 		];
 		return $tf_p;
 	}
@@ -499,11 +516,11 @@ trait Options {
 
 	public static function bootstrap_button_sizes() {
 		return [
-			'xs' => __( 'Extra Small', 'dynamic-visibility-for-elementor' ),
-			'sm' => __( 'Small', 'dynamic-visibility-for-elementor' ),
-			'md' => __( 'Medium', 'dynamic-visibility-for-elementor' ),
-			'lg' => __( 'Large', 'dynamic-visibility-for-elementor' ),
-			'xl' => __( 'Extra Large', 'dynamic-visibility-for-elementor' ),
+			'xs' => esc_html__( 'Extra Small', 'dynamic-visibility-for-elementor' ),
+			'sm' => esc_html__( 'Small', 'dynamic-visibility-for-elementor' ),
+			'md' => esc_html__( 'Medium', 'dynamic-visibility-for-elementor' ),
+			'lg' => esc_html__( 'Large', 'dynamic-visibility-for-elementor' ),
+			'xl' => esc_html__( 'Extra Large', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -538,67 +555,67 @@ trait Options {
 
 	public static function get_gravatar_styles() {
 		$gravatar_images = array(
-			'404' => __( '404 (empty with fallback)', 'dynamic-visibility-for-elementor' ),
-			'retro' => __( '8bit', 'dynamic-visibility-for-elementor' ),
-			'monsterid' => __( 'Monster (Default)', 'dynamic-visibility-for-elementor' ),
-			'wavatar' => __( 'Cartoon face', 'dynamic-visibility-for-elementor' ),
-			'indenticon' => __( 'The Quilt', 'dynamic-visibility-for-elementor' ),
-			'mp' => __( 'Mystery', 'dynamic-visibility-for-elementor' ),
-			'mm' => __( 'Mystery Man', 'dynamic-visibility-for-elementor' ),
-			'robohash' => __( 'RoboHash', 'dynamic-visibility-for-elementor' ),
-			'blank' => __( 'Transparent GIF', 'dynamic-visibility-for-elementor' ),
-			'gravatar_default' => __( 'The Gravatar logo', 'dynamic-visibility-for-elementor' ),
+			'404' => esc_html__( '404 (empty with fallback)', 'dynamic-visibility-for-elementor' ),
+			'retro' => esc_html__( '8bit', 'dynamic-visibility-for-elementor' ),
+			'monsterid' => esc_html__( 'Monster (Default)', 'dynamic-visibility-for-elementor' ),
+			'wavatar' => esc_html__( 'Cartoon face', 'dynamic-visibility-for-elementor' ),
+			'indenticon' => esc_html__( 'The Quilt', 'dynamic-visibility-for-elementor' ),
+			'mp' => esc_html__( 'Mystery', 'dynamic-visibility-for-elementor' ),
+			'mm' => esc_html__( 'Mystery Man', 'dynamic-visibility-for-elementor' ),
+			'robohash' => esc_html__( 'RoboHash', 'dynamic-visibility-for-elementor' ),
+			'blank' => esc_html__( 'Transparent GIF', 'dynamic-visibility-for-elementor' ),
+			'gravatar_default' => esc_html__( 'The Gravatar logo', 'dynamic-visibility-for-elementor' ),
 		);
 		return $gravatar_images;
 	}
 
 	public static function get_post_formats() {
 		return [
-			'standard' => __( 'Standard', 'dynamic-visibility-for-elementor' ),
-			'aside' => __( 'Aside', 'dynamic-visibility-for-elementor' ),
-			'chat' => __( 'Chat', 'dynamic-visibility-for-elementor' ),
-			'gallery' => __( 'Gallery', 'dynamic-visibility-for-elementor' ),
-			'link' => __( 'Link', 'dynamic-visibility-for-elementor' ),
-			'image' => __( 'Image', 'dynamic-visibility-for-elementor' ),
-			'quote' => __( 'Quote', 'dynamic-visibility-for-elementor' ),
-			'status' => __( 'Status', 'dynamic-visibility-for-elementor' ),
-			'video' => __( 'Video', 'dynamic-visibility-for-elementor' ),
-			'audio' => __( 'Audio', 'dynamic-visibility-for-elementor' ),
+			'standard' => esc_html__( 'Standard', 'dynamic-visibility-for-elementor' ),
+			'aside' => esc_html__( 'Aside', 'dynamic-visibility-for-elementor' ),
+			'chat' => esc_html__( 'Chat', 'dynamic-visibility-for-elementor' ),
+			'gallery' => esc_html__( 'Gallery', 'dynamic-visibility-for-elementor' ),
+			'link' => esc_html__( 'Link', 'dynamic-visibility-for-elementor' ),
+			'image' => esc_html__( 'Image', 'dynamic-visibility-for-elementor' ),
+			'quote' => esc_html__( 'Quote', 'dynamic-visibility-for-elementor' ),
+			'status' => esc_html__( 'Status', 'dynamic-visibility-for-elementor' ),
+			'video' => esc_html__( 'Video', 'dynamic-visibility-for-elementor' ),
+			'audio' => esc_html__( 'Audio', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
 	public static function get_button_sizes() {
 		return [
-			'xs' => __( 'Extra Small', 'dynamic-visibility-for-elementor' ),
-			'sm' => __( 'Small', 'dynamic-visibility-for-elementor' ),
-			'md' => __( 'Medium', 'dynamic-visibility-for-elementor' ),
-			'lg' => __( 'Large', 'dynamic-visibility-for-elementor' ),
-			'xl' => __( 'Extra Large', 'dynamic-visibility-for-elementor' ),
+			'xs' => esc_html__( 'Extra Small', 'dynamic-visibility-for-elementor' ),
+			'sm' => esc_html__( 'Small', 'dynamic-visibility-for-elementor' ),
+			'md' => esc_html__( 'Medium', 'dynamic-visibility-for-elementor' ),
+			'lg' => esc_html__( 'Large', 'dynamic-visibility-for-elementor' ),
+			'xl' => esc_html__( 'Extra Large', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
 	public static function get_jquery_display_mode() {
 		return [
-			'' => __( 'None', 'dynamic-visibility-for-elementor' ),
-			'slide' => __( 'Slide', 'dynamic-visibility-for-elementor' ),
-			'fade' => __( 'Fade', 'dynamic-visibility-for-elementor' ),
+			'' => esc_html__( 'None', 'dynamic-visibility-for-elementor' ),
+			'slide' => esc_html__( 'Slide', 'dynamic-visibility-for-elementor' ),
+			'fade' => esc_html__( 'Fade', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
 	public static function get_string_comparison() {
 		return [
-			'empty' => __( 'empty', 'dynamic-visibility-for-elementor' ),
-			'not_empty' => __( 'not empty', 'dynamic-visibility-for-elementor' ),
-			'equal_to' => __( 'equals to', 'dynamic-visibility-for-elementor' ),
-			'not_equal' => __( 'not equals', 'dynamic-visibility-for-elementor' ),
-			'gt' => __( 'greater than', 'dynamic-visibility-for-elementor' ),
-			'ge' => __( 'greater than or equal', 'dynamic-visibility-for-elementor' ),
-			'lt' => __( 'less than', 'dynamic-visibility-for-elementor' ),
-			'le' => __( 'less than or equal', 'dynamic-visibility-for-elementor' ),
-			'contain' => __( 'contains', 'dynamic-visibility-for-elementor' ),
-			'not_contain' => __( 'not contains', 'dynamic-visibility-for-elementor' ),
-			'is_checked' => __( 'is checked', 'dynamic-visibility-for-elementor' ),
-			'not_checked' => __( 'not checked', 'dynamic-visibility-for-elementor' ),
+			'empty' => esc_html__( 'empty', 'dynamic-visibility-for-elementor' ),
+			'not_empty' => esc_html__( 'not empty', 'dynamic-visibility-for-elementor' ),
+			'equal_to' => esc_html__( 'equals to', 'dynamic-visibility-for-elementor' ),
+			'not_equal' => esc_html__( 'not equals', 'dynamic-visibility-for-elementor' ),
+			'gt' => esc_html__( 'greater than', 'dynamic-visibility-for-elementor' ),
+			'ge' => esc_html__( 'greater than or equal', 'dynamic-visibility-for-elementor' ),
+			'lt' => esc_html__( 'less than', 'dynamic-visibility-for-elementor' ),
+			'le' => esc_html__( 'less than or equal', 'dynamic-visibility-for-elementor' ),
+			'contain' => esc_html__( 'contains', 'dynamic-visibility-for-elementor' ),
+			'not_contain' => esc_html__( 'not contains', 'dynamic-visibility-for-elementor' ),
+			'is_checked' => esc_html__( 'is checked', 'dynamic-visibility-for-elementor' ),
+			'not_checked' => esc_html__( 'not checked', 'dynamic-visibility-for-elementor' ),
 		];
 	}
 
@@ -624,7 +641,7 @@ trait Options {
 
 		if ( $add_none ) {
 			$none = [
-				'' => __( 'None', 'dynamic-visibility-for-elementor' ),
+				'' => esc_html__( 'None', 'dynamic-visibility-for-elementor' ),
 			];
 			$default = array_merge( $none, $default );
 		}
@@ -633,5 +650,4 @@ trait Options {
 
 		return array_merge( $default, $tags_to_add );
 	}
-
 }

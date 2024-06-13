@@ -3755,7 +3755,7 @@ class Ays_Pb_Public_Templates {
         $main_image = "<img src='" . $image_type_img_src . "'>";
 
         if ($image_type_img_redirect_url != '') {
-            $main_image = $this->ays_pb_wrap_into_link($image_type_img_redirect_url, $main_image);
+            $main_image = $this->ays_pb_wrap_into_link($image_type_img_redirect_url, $main_image, false);
         }
 
         $popupbox_view = "
@@ -4191,8 +4191,11 @@ class Ays_Pb_Public_Templates {
         // Notification button 1 redirect URL
         $notification_button_1_redirect_url = (isset($options->notification_button_1_redirect_url) && $options->notification_button_1_redirect_url != '') ? esc_url($options->notification_button_1_redirect_url) : '';
 
+        // Notification button 1 redirect to the new tab
+        $notification_button_1_redirect_to_new_tab = (isset($options->notification_button_1_redirect_to_new_tab) && $options->notification_button_1_redirect_to_new_tab == 'on') ? true : false;
+
         if ($notification_button_1_redirect_url != '') {
-            $notification_button_1 = $this->ays_pb_wrap_into_link($notification_button_1_redirect_url, $notification_button_1);
+            $notification_button_1 = $this->ays_pb_wrap_into_link($notification_button_1_redirect_url, $notification_button_1, $notification_button_1_redirect_to_new_tab);
         }
 
         $notification_components = array(
@@ -4430,13 +4433,13 @@ class Ays_Pb_Public_Templates {
         return $box_shadow;
     }
 
-    public function ays_pb_wrap_into_link($href, $element) {
+    public function ays_pb_wrap_into_link($href, $element, $target = false) {
         $link = array();
+        $target_attr = $target ? 'target="_blank"' : '';
 
-        $link[] = '<a href="'. $href .'">';
+        $link[] = '<a href="'. $href .'" ' . $target_attr . '>';
             $link[] = $element;
         $link[] = '</a>';
-
         
         return implode('', $link);
     }

@@ -79,6 +79,12 @@ class MetaSlider_Themes
         } else {
             $themes = (include METASLIDER_THEMES_PATH . 'manifest-legacy.php');
         }
+
+        // If is not Pro, let's include some Premium themes with upgrade link
+        if (! metaslider_pro_is_active()) {
+            $premium_themes = (include METASLIDER_THEMES_PATH . 'manifest-premium.php');
+            $themes = array_merge($themes, $premium_themes);
+        }
         
         // Let theme developers or others define a folder to check for themes
         $extra_themes = apply_filters('metaslider_extra_themes', array());
@@ -102,7 +108,7 @@ class MetaSlider_Themes
                         $data = array( $data['folder'] => $data );
 
                         // Merge and set new theme to the top
-                        $themes = array_merge($data, $themes);
+                        $themes = array_merge($themes, $data);
                     }
                 }
             }

@@ -160,7 +160,7 @@ aiPostboxOpen("id-external-different", "If you are on a different domain (not su
     </p>
 	<h4><?php _e('Minimized version of ai_external.js', 'advanced-iframe'); ?></h4>
 	<p>
-	<?php _e('Since version 2019.8 during the generation of ai_external.js also an ai_external.min.js is generated with the help of javascript-minifier.com. The size of minimized file is only ~50% of the original. Right now this is not the default as this feature is really new. But if there is no negative feedback this will be the default in the next update! So feel free to include ai_external.min.js already! If you are off-line the minimized version is still generated and will contain the same content as ai_external.js.', 'advanced-iframe'); ?>
+	<?php _e('There is also a minimized version ai_external.min.js generated with the help of javascript-minifier.com. The size of minimized file is only ~50% of the original. You can only use this if you do all settings in the administration! If you define the settings like shown in my examples before ai_external.js the settings will NOT be used as the optimized version has minimized variable names which do not fit anymore.', 'advanced-iframe'); ?>
 	</p>
 
       <table class="form-table">

@@ -31,6 +31,7 @@ class ComposerStaticInit825f80ff7a9f3434ffcccb9775ead1a4
         'DynamicVisibilityForElementor\\Plugin' => __DIR__ . '/../..' . '/core/plugin.php',
         'DynamicVisibilityForElementor\\Plugins' => __DIR__ . '/../..' . '/class/trait/plugins.php',
         'DynamicVisibilityForElementor\\Strings' => __DIR__ . '/../..' . '/class/trait/strings.php',
+        'DynamicVisibilityForElementor\\Validation' => __DIR__ . '/../..' . '/class/trait/validation.php',
         'DynamicVisibilityForElementor\\Woo' => __DIR__ . '/../..' . '/class/trait/woo.php',
         'DynamicVisibilityForElementor\\Wp' => __DIR__ . '/../..' . '/class/trait/wp.php',
         'DynamicVisibilityForElementor\\Wpml' => __DIR__ . '/../..' . '/class/wpml.php',
