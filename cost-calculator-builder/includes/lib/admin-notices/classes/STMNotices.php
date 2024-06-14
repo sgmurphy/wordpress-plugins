@@ -36,6 +36,7 @@ class STMNotices {
 		);
 
 		add_action( 'admin_notices', array( self::class, 'stm_admin_notices' ) );
+		add_action( 'admin_enqueue_scripts', array( self::class, 'admin_enqueue' ), 100 );
 
 		add_action( 'wp_ajax_stm_discard_admin_notice', array( self::class, 'discard_admin_notice' ) );
 		add_action( 'add_admin_notice', array( self::class, 'build_notice' ) );
@@ -72,6 +73,20 @@ class STMNotices {
 	}
 
 	/**
+	 * Enqueue admin notice scripts
+	 *
+	 * @return void
+	 */
+	public static function admin_enqueue() {
+		wp_enqueue_style( 'stm-admin-notice-css', STM_ADMIN_NOTICES_URL . 'assets/css/admin.css', false ); // phpcs:ignore
+		wp_enqueue_script( 'stm-admin-notice-js', STM_ADMIN_NOTICES_URL . 'assets/js/an-scripts.js', array( 'jquery' ), '1.0' );
+		wp_localize_script( 'stm-admin-notice-js', 'stmNotices', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( 'notices-nonce' ),
+		));
+	}
+
+	/**
 	 * Builds admin notice
 	 *
 	 * @param array $plugin_data - data related to plugin.
@@ -94,7 +109,7 @@ class STMNotices {
 		$html  = '<div class="notice is-dismissible stm-notice stm-notice-' . esc_attr( $post_logo_class ) . '" data-status-click="'. esc_attr( $status_click ) .'" data-id="'. esc_attr( $notice_id ) .'" data-status-views="'. esc_attr( $status_views ) .'">';
 		$html .= ! empty( $logo_exists ) ? '<div class="img"><img src="' . STM_ADMIN_NOTICES_URL . 'assets/img/' . esc_attr( $plugin_data['notice_logo'] ) . '" /></div>' : '';
 		$html .= '<div class="text-wrap">';
-		$html .= '<h4>' . wp_kses_post( $plugin_data['notice_title'] ) . '</h4>';
+		$html .= '<h4>' . esc_html( $plugin_data['notice_title'] ) . '</h4>';
 		$html .= ( ! empty( $plugin_data['notice_desc'] ) ) ? '<h5>' . wp_kses_post( $plugin_data['notice_desc'] ) . '</h5>' : '';
 		$html .= '</div>';
 		$html .= '<p class="notices-right"></p>';

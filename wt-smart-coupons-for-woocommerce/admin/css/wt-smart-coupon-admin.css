@@ -203,9 +203,9 @@ div#wt_store_credit_coupon_top span:before {
   padding-right:15px;
 }
 .wt_smart_coupon_premium .ticked-list li {
-  margin-bottom: 15px;
-  padding-left:25px; color:#000;
+  margin-bottom: 15px; color:#000;
 }
+.wt-sc-pro-features-all-features-bullet li{ padding-left: 30px; }
 .ticked-list{
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   font-size: 13px;
@@ -333,7 +333,7 @@ ul.wt_sub_tab li:last-child {
 .wt_sc_upgrade_pro_main{ float:left; width:100%; height:auto; padding:25px 17px; text-align:center; box-sizing:border-box; background: #fff; border-radius: 11px 11px 0px 0px; border-bottom: dashed 1px #000; display: flex; gap: 10px;}
 .wt_sc_upgrade_pro_main_hd{ font-weight:600; font-size:17px; line-height:30px; color:#000000; text-align: left;}
 .wt_sc_upgrade_pro_content{ float:left; width: 100%; padding:24px 15px 50px 15px; background: linear-gradient(#fff, #F1FFF4); box-sizing:border-box;}
-.wt_sc_upgrade_pro_content_head{ text-align:left; font-size:17px; font-weight:700; padding-left:13px; margin:0; color: #4750CB;}
+.wt_sc_upgrade_pro_content_head{ text-align:left; font-size:17px; font-weight:700; padding-left:13px; margin:0; color: #0263D5; }
 .wt_sc_upgrade_pro_lower_green{float:left; width:100%; background:#E0F9E6; padding:50px 26px 26px 26px; box-sizing:border-box; border-radius: 0px 0px 11px 11px; position: relative; height: 113px;}
 .wt_sc_upgrade_pro_half_box{ float:left; width:49%; box-sizing:border-box; font-style:normal; font-weight:normal; font-size:12px; font-weight:500; line-height:14px; color:#000000; }
 .wt_sc_upgrade_pro_icon_box{ float:left; width:21px; height:35px; border-radius:20px 20px 20px 20px; background:#fff; margin-right:5px; box-sizing:border-box; padding:4px; }
@@ -341,7 +341,7 @@ ul.wt_sub_tab li:last-child {
 .wt_smart_coupon_premium .wt-sc-pro-features-all-features{ display:none;}
 .wt_smart_coupon_premium .wt-sc-pro-features-view-all{ color:#007FFF; text-decoration-line: underline; text-align:center; cursor: pointer;}
 .wt_smart_coupon_premium .wt-sc-pro-features-view-less{ color:#007FFF; text-decoration-line: underline; text-align:center; display:none; cursor: pointer;}
-.wt_smart_coupon_premium .wt-sc-pro-features-all-features .wt-sc-pro-features-all-features-bullet li::before{ content: "\2022"; color: #2270B1; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; font-size: 18px;}
+.wt_smart_coupon_premium .wt-sc-pro-features-all-features .wt-sc-pro-features-all-features-bullet li::before{ content: "\2022"; color: #0263D5; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; font-size: 18px;}
 .wt_sc_upgrade_pro_button{ text-align: center; position: absolute; bottom: 87px; left: 0px; right: 0px;
 }
 .wt_smart_coupon_premium .ticked-list li {

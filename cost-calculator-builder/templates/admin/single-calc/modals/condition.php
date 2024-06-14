@@ -204,7 +204,7 @@
 				<div class="select-label">
 					<?php esc_html_e( 'Date', 'cost-calculator-builder' ); ?>
 				</div>
-				<custom-date-calendar @set-date="setDate" @clean="cleanSetVal" :index="index" :field="$store.getters.getFieldByFieldId($store.getters.getConditionData.optionTo)"></custom-date-calendar>
+				<custom-date-calendar :class="{'ccb-date-required': errors[index]}" @set-date="setDate" @clean="cleanSetVal" :index="index" :field="$store.getters.getFieldByFieldId($store.getters.getConditionData.optionTo)"></custom-date-calendar>
 			</div>
 			<!--        SET DATE END-->
 
@@ -213,7 +213,7 @@
 				<div class="select-label">
 					<?php esc_html_e( 'Period', 'cost-calculator-builder' ); ?>
 				</div>
-				<custom-date-calendar @set-date="setRangeDate" @clean="cleanSetVal" :index="index" :field="$store.getters.getFieldByFieldId($store.getters.getConditionData.optionTo)"></custom-date-calendar>
+				<custom-date-calendar :class="{'ccb-date-required': errors[index]}" @set-date="setRangeDate" @clean="cleanSetVal" :index="index" :field="$store.getters.getFieldByFieldId($store.getters.getConditionData.optionTo)"></custom-date-calendar>
 				<span class="error-tip" v-if="errors.range_date_error != null" v-html="errors.range_date_error"></span>
 			</div>
 			<!--        SET PERIOD FOR DATE WITH RANGE END-->

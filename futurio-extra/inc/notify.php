@@ -22,6 +22,8 @@ function futurio_extra_requirements() {
 }
 
 function futurio_extra_admin_notices() {
+	
+	if(defined('FUTURIO_PRO_CURRENT_VERSION') && version_compare(FUTURIO_PRO_CURRENT_VERSION, '2.5.2', '<')  )	{add_action('admin_notices',  'futurio_extra_notice_update_pro' );}
 
     $futurio_extra_errors = futurio_extra_requirements();
 
@@ -233,4 +235,17 @@ function futurio_pro_dismiss() {
     $daysinseconds = 1209600; // 14 Days in seconds.
     $newtime = time() + $daysinseconds;
     update_site_option('futurio_active_time', $newtime);
+}
+
+function futurio_extra_notice_update_pro(){
+
+	$changelogurl = 'https://futuriowp.com/futurio-pro-changelog/';
+	$updateurl = 'https://futuriowp.com/how-to-update-futurio-pro/';
+
+
+	$message = sprintf( __( '%1$s requires an %2$supdate%3$s. Please update the plugin to ensure full compatibility with the %4$s theme and WordPress.', 'futurio-extra' ), '<strong>Futurio PRO</strong>','<strong>', '</strong>', '<strong>Futurio</strong>' );
+	$button_text = __( 'Update', 'futurio-extra' );
+
+	$button = '<p><a href="' . esc_url(admin_url( 'update-core.php?force-check=1')) . '" class="button-secondary">' . esc_html($button_text) . '</a><a href="' . esc_url($changelogurl) . '" target="_blank" class="futurio-changelog" style="margin-left:10px;margin-top: 4px;display: inline-block;">' . esc_html('Changelog') . '</a><a href="' . esc_url($updateurl) . '" target="_blank" class="futurio-link" style="margin-left:10px;margin-top: 4px;display: inline-block;">' . esc_html('How to update?') . '</a></p>';
+	printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
 }

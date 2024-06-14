@@ -99,6 +99,9 @@ class CCBUpdates {
 		'3.2.7'  => array(
 			'ccb_sync_calc_settings',
 		),
+		'3.2.9' => array(
+			'ccb_date_picker_multi_period',
+		),
 	);
 
 	public static function init() {

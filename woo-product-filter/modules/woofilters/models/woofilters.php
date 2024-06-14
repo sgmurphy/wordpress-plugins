@@ -159,7 +159,7 @@ class WoofiltersModelWpf extends ModelWpf {
 			$field = 'f_options[]';
 			
 			foreach ( $params as $key=>$value ) {
-				if ('wpfSortBy' == $value->id && isset($value->settings) ) {
+				if ('wpfSortBy' == $value->id && isset($value->settings) && !empty($value->settings->{$field})) {
 					foreach ( explode(',', $value->settings->{$field}) as $_key=>$_value ) {
 						if ( isset($labels[$_value]) ) {
 							$newLabels[$_value] = $labels[$_value];

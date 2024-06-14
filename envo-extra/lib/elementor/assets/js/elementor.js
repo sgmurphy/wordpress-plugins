@@ -1,8 +1,1 @@
-(function ($) {
-    'use strict';
-
-    $(document).ready(function(){   
-      $('.e-notice-bar__action a').attr('href','').attr('href','https://be.elementor.com/visit/?bta=1876&brand=elementor');
-    });
-
-})(jQuery);
+!function(e){"use strict";e(document).ready((function(){setTimeout((function(){e(document).on("click",'a[href*="go.elementor.com"]',(function(t){t.preventDefault();var n="https://envothemes.com/go-elementor/";e(this).attr("href",n),window.open(n,"_blank")})),e(document).on("click",".elementor-button.go-pro",(function(t){t.preventDefault();var n="https://envothemes.com/go-elementor/";e(this).attr("href",n),window.open(n,"_blank")}))}))}),3e3)}(jQuery);

@@ -14,14 +14,14 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryMetaboxes413_FormMetabox') ) {
+	if( !class_exists('Wbcr_FactoryMetaboxes415_FormMetabox') ) {
 
 		/**
 		 * A class extending FactoryMetaboxes_Metabox and adding ability to create and save forms.
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_FactoryMetaboxes413_FormMetabox extends Wbcr_FactoryMetaboxes413_Metabox {
+		abstract class Wbcr_FactoryMetaboxes415_FormMetabox extends Wbcr_FactoryMetaboxes415_Metabox {
 
 			/**
 			 * CSS class that addes to the form.
@@ -32,7 +32,7 @@
 			public $css_class;
 
 			/**
-			 * @var Wbcr_FactoryForms463_MetaValueProvider
+			 * @var Wbcr_FactoryForms475_MetaValueProvider
 			 */
 			protected $provider;
 
@@ -42,9 +42,9 @@
 			private $scope;
 
 			/**
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
-			public function __construct(Wbcr_Factory466_Plugin $plugin)
+			public function __construct(Wbcr_Factory475_Plugin $plugin)
 			{
 				parent::__construct($plugin);
 
@@ -53,19 +53,19 @@
 
 			/**
 			 * @param null $post_id
-			 * @return Wbcr_FactoryForms463_Form
+			 * @return Wbcr_FactoryForms475_Form
 			 */
 			private function getForm($post_id = null)
 			{
 				// creating a value provider
-				$this->provider = new Wbcr_FactoryForms463_MetaValueProvider(array(
+				$this->provider = new Wbcr_FactoryForms475_MetaValueProvider(array(
 					'scope' => $this->scope
 				));
 
 				$this->provider->init($post_id);
 
 				// creating a form
-				$form = new Wbcr_FactoryForms463_Form(array(
+				$form = new Wbcr_FactoryForms475_Form(array(
 					'scope' => $this->scope,
 					'name' => $this->id
 				), $this->plugin);
@@ -85,7 +85,7 @@
 
 				$form = $this->getForm();
 
-				echo '<div class="factory-form-metabox factory-bootstrap-467">';
+				echo '<div class="factory-form-metabox factory-bootstrap-477">';
 				$this->beforeForm($form);
 				$form->html(array(
 					'css_class' => $this->css_class
@@ -129,7 +129,7 @@
 			/**
 			 * Method executed before rendering the form.
 			 */
-			public function beforeForm(Wbcr_FactoryForms463_Form $form)
+			public function beforeForm(Wbcr_FactoryForms475_Form $form)
 			{
 				return;
 			}
@@ -137,7 +137,7 @@
 			/**
 			 * Method executed after rendering the form.
 			 */
-			public function afterForm(Wbcr_FactoryForms463_Form $form)
+			public function afterForm(Wbcr_FactoryForms475_Form $form)
 			{
 				return;
 			}

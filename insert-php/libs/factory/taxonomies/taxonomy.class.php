@@ -14,14 +14,17 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryTaxonomies333_Taxonomy') ) {
+	if( !class_exists('Wbcr_FactoryTaxonomies335_Taxonomy') ) {
 
 		/**
 		 * The base class that provides abstraction for custom post type.
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_FactoryTaxonomies333_Taxonomy {
+		abstract class Wbcr_FactoryTaxonomies335_Taxonomy {
+
+			public $plugin;
+			public $metaboxes;
 
 			/**
 			 * Internal taxonomy name.
@@ -79,7 +82,7 @@
 			 * Scripts that must be included on edit page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory466_ScriptList[]
+			 * @var Wbcr_Factory475_ScriptList[]
 			 */
 			public $scripts;
 
@@ -87,7 +90,7 @@
 			 * Styles that must be included on edit page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory466_StyleList[]
+			 * @var Wbcr_Factory475_StyleList[]
 			 */
 			public $styles;
 
@@ -114,7 +117,7 @@
 				'show_in_rest' => null,
 				'show_admin_column' => null,
 				'update_count_callback' => null,
-				'query_var' => null,
+				'query_var' => true,
 				'rewrite' => null,
 				'meta_box_cb' => null,
 				'sort' => null
@@ -132,7 +135,7 @@
 			/**
 			 * Creates a new instance of a type.
 			 *
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
 			public function __construct($plugin)
 			{
@@ -221,7 +224,7 @@
 				add_action('created_' . $this->name, array($this, 'saveCustomFields'), 10);
 
 				/*add_action("{$this->name}_pre_edit_form", function () {
-					echo '<div class="factory-bootstrap-467 factory-fontawesome-000">';
+					echo '<div class="factory-bootstrap-477 factory-fontawesome-000">';
 				});
 				add_action("{$this->name}_edit_form", function () {
 					echo '</div>';
@@ -356,20 +359,20 @@
 				$labels = array(
 					'name' => $plural_name,
 					'singular_name' => $singular_name,
-					'search_items' => sprintf(__('Search %1$s', 'factory_types_413'), $plural_name),
-					'popular_items' => sprintf(__('Popular %1$s', 'factory_types_413'), $plural_name),
-					'all_items' => sprintf(__('All %1$s', 'factory_types_413'), $plural_name),
-					'parent_item' => sprintf(__('Parent %1$s', 'factory_types_413'), $singular_name),
-					'parent_item_colon' => sprintf(__('Parent %1$s:', 'factory_types_413'), $singular_name),
-					'edit_item' => sprintf(__('Edit %1$s', 'factory_types_413'), $singular_name),
-					'update_item' => sprintf(__('Update %1$s', 'factory_types_413'), $singular_name),
-					'add_new_item' => sprintf(__('Add New %1$s', 'factory_types_413'), $singular_name),
-					'new_item_name' => sprintf(__('New %1$s Name', 'factory_types_413'), $singular_name),
-					'separate_items_with_commas' => sprintf(__('Separate %1$s with commas', 'factory_types_413'), $plural_name),
-					'add_or_remove_items' => sprintf(__('Add or remove %1$s', 'factory_types_413'), $plural_name),
-					'choose_from_most_used' => sprintf(__('Choose from the most used %1$s', 'factory_types_413'), $plural_name),
-					'not_found' => sprintf(__('No %1$s found.', 'factory_types_413'), $plural_name),
-					'menu_name' => sprintf(__('%1$s', 'factory_types_413'), $plural_name),
+					'search_items' => sprintf(__('Search %1$s', 'factory_types_415'), $plural_name),
+					'popular_items' => sprintf(__('Popular %1$s', 'factory_types_415'), $plural_name),
+					'all_items' => sprintf(__('All %1$s', 'factory_types_415'), $plural_name),
+					'parent_item' => sprintf(__('Parent %1$s', 'factory_types_415'), $singular_name),
+					'parent_item_colon' => sprintf(__('Parent %1$s:', 'factory_types_415'), $singular_name),
+					'edit_item' => sprintf(__('Edit %1$s', 'factory_types_415'), $singular_name),
+					'update_item' => sprintf(__('Update %1$s', 'factory_types_415'), $singular_name),
+					'add_new_item' => sprintf(__('Add New %1$s', 'factory_types_415'), $singular_name),
+					'new_item_name' => sprintf(__('New %1$s Name', 'factory_types_415'), $singular_name),
+					'separate_items_with_commas' => sprintf(__('Separate %1$s with commas', 'factory_types_415'), $plural_name),
+					'add_or_remove_items' => sprintf(__('Add or remove %1$s', 'factory_types_415'), $plural_name),
+					'choose_from_most_used' => sprintf(__('Choose from the most used %1$s', 'factory_types_415'), $plural_name),
+					'not_found' => sprintf(__('No %1$s found.', 'factory_types_415'), $plural_name),
+					'menu_name' => sprintf(__('%1$s', 'factory_types_415'), $plural_name),
 				);
 
 				$this->options['labels'] = $labels;

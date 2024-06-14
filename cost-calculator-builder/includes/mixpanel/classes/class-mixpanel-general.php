@@ -62,6 +62,7 @@ class Mixpanel_General extends Mixpanel {
 	}
 
 	public static function paypal_used() {
+
 		$payment_gateway = self::get_general_payment_settings();
 		if ( isset( $payment_gateway['paypal'] ) ) {
 			$paypal_settings = $payment_gateway['paypal'] ?? array();

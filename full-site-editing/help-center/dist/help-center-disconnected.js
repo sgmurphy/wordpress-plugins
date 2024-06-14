@@ -7299,10 +7299,11 @@ function HelpCenterContent() {
   const isDesktop = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__.useMediaQuery)('(min-width: 480px)');
   const content = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     className: "help-center",
-    onClick: () => window.open((0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_4__/* .localizeUrl */ .rm)('https://wordpress.com/support/'), '_blank'),
+    href: (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_4__/* .localizeUrl */ .rm)('https://wordpress.com/help'),
     icon: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_automattic_help_center__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .A, null),
     label: "Help",
-    size: "compact"
+    size: "compact",
+    target: "_blank"
   }));
   return isDesktop && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Fill, {
     name: "PinnedItems/core"

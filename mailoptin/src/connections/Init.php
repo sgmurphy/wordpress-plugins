@@ -221,6 +221,7 @@ class Init
         \MailOptin\FlodeskConnect\Connect::get_instance();
         \MailOptin\HighLevelConnect\Connect::get_instance();
         \MailOptin\BeehiivConnect\Connect::get_instance();
+        \MailOptin\ElasticEmailConnect\Connect::get_instance();
         \MailOptin\ElementorConnect\Connect::get_instance();
         \MailOptin\WPFormsConnect\Connect::get_instance();
         \MailOptin\NinjaFormsConnect\Connect::get_instance();

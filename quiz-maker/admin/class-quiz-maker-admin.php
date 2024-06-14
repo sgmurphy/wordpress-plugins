@@ -2687,24 +2687,19 @@ class Quiz_Maker_Admin
     */
 
     public function ays_quiz_sale_baner(){
-        // if(isset($_POST['ays_quiz_sale_btn']) && (isset( $_POST[$this->plugin_name . '-sale-banner'] ) && wp_verify_nonce( $_POST[$this->plugin_name . '-sale-banner'], $this->plugin_name . '-sale-banner' )) &&
-        //       current_user_can( 'manage_options' )){
-        //     update_option('ays_quiz_sale_btn', 1); 
-        //     update_option('ays_quiz_sale_date', current_time( 'mysql' ));
+
+        // if(isset($_POST['ays_quiz_sale_btn_for_two_months'])){
+            // update_option('ays_quiz_sale_btn_for_two_months', 1);
+            // update_option('ays_quiz_sale_date', current_time( 'mysql' ));
         // }
 
-        if(isset($_POST['ays_quiz_sale_btn_for_two_months'])){
-            update_option('ays_quiz_sale_btn_for_two_months', 1);
-            update_option('ays_quiz_sale_date', current_time( 'mysql' ));
-        }
-
         $ays_quiz_sale_date = get_option('ays_quiz_sale_date');
-        $ays_quiz_sale_two_months = get_option('ays_quiz_sale_btn_for_two_months');
+        // $ays_quiz_sale_two_months = get_option('ays_quiz_sale_btn_for_two_months');
 
         $val = 60*60*24*5;
-        if($ays_quiz_sale_two_months == 1){
-            $val = 60*60*24*61;
-        }
+        // if($ays_quiz_sale_two_months == 1){
+        //     $val = 60*60*24*61;
+        // }
 
         $current_date = current_time( 'mysql' );
         $date_diff = strtotime($current_date) -  intval(strtotime($ays_quiz_sale_date));
@@ -2713,20 +2708,18 @@ class Quiz_Maker_Admin
 
         if(intval($days_diff) > 0 ){
             update_option('ays_quiz_sale_btn', 0); 
-            update_option('ays_quiz_sale_btn_for_two_months', 0);
+            // update_option('ays_quiz_sale_btn_for_two_months', 0);
         }
 
         $ays_quiz_ishmar = intval(get_option('ays_quiz_sale_btn'));
-        $ays_quiz_ishmar += intval(get_option('ays_quiz_sale_btn_for_two_months'));
+        // $ays_quiz_ishmar += intval(get_option('ays_quiz_sale_btn_for_two_months'));
         if($ays_quiz_ishmar == 0 ){
             if (isset($_GET['page']) && strpos($_GET['page'], AYS_QUIZ_NAME) !== false) {
                 if ( sanitize_text_field($_GET['page']) == 'quiz-maker-settings' ) {
                     $this->ays_quiz_chart_bulider_message($ays_quiz_ishmar);
                 } else {
-                    // $this->ays_quiz_sale_message($ays_quiz_ishmar);
-                    $this->ays_quiz_new_mega_bundle_message($ays_quiz_ishmar);
-                    // $this->ays_quiz_black_friday_message($ays_quiz_ishmar);
-                    // $this->ays_quiz_helloween_message($ays_quiz_ishmar);
+                    // $this->ays_quiz_new_mega_bundle_message($ays_quiz_ishmar);
+                    $this->ays_quiz_new_mega_bundle_message_2024($ays_quiz_ishmar);
                 }
                 // $this->ays_quiz_spring_bundle_small_message($ays_quiz_ishmar);
             }
@@ -3399,6 +3392,92 @@ class Quiz_Maker_Admin
 
             echo $content;
         }
+    }
+
+    // New Mega Bundle 2024
+    public function ays_quiz_new_mega_bundle_message_2024($ishmar){
+        if($ishmar == 0 ){
+            $content = array();
+            $content[] = '<div id="ays-quiz-new-mega-bundle-dicount-month-main-2024" class="notice notice-success is-dismissible ays_quiz_dicount_info">';
+                $content[] = '<div id="ays-quiz-dicount-month" class="ays_quiz_dicount_month">';
+
+                    $content[] = '<div class="ays-quiz-discount-box-sale-image"></div>';
+                    $content[] = '<div class="ays-quiz-dicount-wrap-box ays-quiz-dicount-wrap-text-box">';
+
+                        $content[] = '<div class="ays-quiz-dicount-wrap-text-box-texts">';
+                            $content[] = '<div>
+                                            <a href="https://ays-pro.com/mega-bundle?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=mega-bundle-sale-banner" target="_blank" style="color:#30499B;">
+                                            <span class="ays-quiz-new-mega-bundle-limited-text">Limited</span> Offer for Mega bundle </a> <br> 
+                                            
+                                            <span style="font-size: 19px ;">(Quiz + Survey + Poll)</span>
+                                          </div>';
+                        $content[] = '</div>';
+
+                        $content[] = '<div style="font-size: 17px;">';
+                            $content[] = '<img style="width: 24px;height: 24px;" src="' . esc_attr(AYS_QUIZ_ADMIN_URL) . '/images/icons/guarantee-new.png">';
+                            $content[] = '<span style="padding-left: 4px; font-size: 14px; font-weight: 600;"> 30 Day Money Back Guarantee</span>';
+                            
+                        $content[] = '</div>';
+
+                       
+
+                        $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-quiz-dismiss-buttons-container-for-form">';
+
+                            $content[] = '<form action="" method="POST">';
+                                $content[] = '<div id="ays-quiz-dismiss-buttons-content">';
+                                    if( current_user_can( 'manage_options' ) ){
+                                        $content[] = '<button class="btn btn-link ays-button" name="ays_quiz_sale_btn" style="height: 32px; margin-left: 0;padding-left: 0; color: #30499B;
+                                        ">Dismiss ad</button>';
+                                        $content[] = wp_nonce_field( $this->plugin_name . '-sale-banner' ,  $this->plugin_name . '-sale-banner' );
+                                    }
+                                $content[] = '</div>';
+                            $content[] = '</form>';
+                            
+                        $content[] = '</div>';
+
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-quiz-dicount-wrap-box ays-quiz-dicount-wrap-countdown-box">';
+
+                        $content[] = '<div id="ays-quiz-maker-countdown-main-container">';
+                            $content[] = '<div class="ays-quiz-maker-countdown-container">';
+
+                                $content[] = '<div id="ays-quiz-countdown">';
+
+                                    $content[] = '<div style="font-weight: 500;">';
+                                        $content[] = __( "Offer ends in:", "quiz-maker" );
+                                    $content[] = '</div>';
+
+                                    $content[] = '<ul>';
+                                        $content[] = '<li><span id="ays-quiz-countdown-days"></span>days</li>';
+                                        $content[] = '<li><span id="ays-quiz-countdown-hours"></span>Hours</li>';
+                                        $content[] = '<li><span id="ays-quiz-countdown-minutes"></span>Minutes</li>';
+                                        $content[] = '<li><span id="ays-quiz-countdown-seconds"></span>Seconds</li>';
+                                    $content[] = '</ul>';
+                                $content[] = '</div>';
+
+                                $content[] = '<div id="ays-quiz-countdown-content" class="emoji">';
+                                    $content[] = '<span>🚀</span>';
+                                    $content[] = '<span>⌛</span>';
+                                    $content[] = '<span>🔥</span>';
+                                    $content[] = '<span>💣</span>';
+                                $content[] = '</div>';
+
+                            $content[] = '</div>';
+                        $content[] = '</div>';
+                            
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-quiz-dicount-wrap-box ays-quiz-dicount-wrap-button-box">';
+                        $content[] = '<a href="https://ays-pro.com/mega-bundle?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=mega-bundle-sale-banner" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">' . __( 'Buy Now !', "quiz-maker" ) . '</a>';
+                        $content[] = '<span >' . __( 'One-time payment', "quiz-maker" ) . '</span>';
+                    $content[] = '</div>';
+                $content[] = '</div>';
+            $content[] = '</div>';
+
+            $content = implode( '', $content );
+            echo html_entity_decode(esc_html( $content ));
+        }        
     }
 
     /*

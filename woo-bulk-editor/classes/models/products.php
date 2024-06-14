@@ -327,7 +327,7 @@ final class WOOBE_PRODUCTS {
 					update_post_meta($product_id, '_sku', $value);
 					$product->set_sku( $value );
 				}else {					
-
+					
 					if ('stock_status' == $field_key && 0 == $value) {
 						$value = 'outofstock';
 					}
@@ -742,7 +742,7 @@ final class WOOBE_PRODUCTS {
 //***
 
         if ($product->get_type() === 'variation') {
-            do_action('woocommerce_update_product_variation', $product_id, $product_id);
+            do_action('woocommerce_update_product_variation', $product_id, $product);
         } else {
             do_action('woocommerce_update_product', $product_id, $product);
         }

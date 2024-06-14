@@ -196,7 +196,7 @@ class Wt_Smart_Coupon_Style
     public static function get_template_html_from_template_file($template_slug)
     {
         $html = '';
-        $file = plugin_dir_path( __FILE__ ).'data/data.template_'.$template_slug.'.php';
+        $file = plugin_dir_path( __FILE__ ).'data/data.template_stitched_padding.php';
 
         /**
          *  To override the template file 

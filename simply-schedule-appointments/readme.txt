@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.5
-Stable tag:        1.6.7.22
+Stable tag:        1.6.7.24
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -233,6 +233,22 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.24 - 2024-06-04 ==
+
+= Fixes =
+
+- Avoid calls to external APIs when country code is set
+- Fix Duplicate Blocks in Debug Logs
+- Support translating dates with Twig `date` filter
+- Stripe modal placement fix
+- Fixed deprecated twig date format function.
+- Holiday calendars not being checked for conflicts in Google Calendar
+
+= Features and Improvements =
+
+- Updated the button styles for availability time picker option component.
+- Fixed availability button styles on Old Admin App.
+
 == 1.6.7.22 - 2024-05-28 ==
 
 = Fixes =
@@ -284,22 +300,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 - Defensive fix - avoid marking an appointment as abandoned if it has payments
 
 == 1.6.7.14 - 2024-04-16 ==
-
-= Fixes =
-
-- Expose appointment rescheduling history
-- Upcoming Appointments message block fix.
-- Secure & re-introduce the secret URLs used for SSA support tasks
-- Better security around SQL procedures
-- Fixed displaying upcoming appointments titles via shortcode.
-- Trim leading and trailing whitespace in values text-area input of custom customer info
-- Toggle old booking app off when resources feature is enabled
-
-= Features and Improvements =
-
-- Added the new booking app banner alerts.
-- Adding Booking Flows new Sidecards.
-- Expose rescheduling history using twig variables
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

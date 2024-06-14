@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.4
-Stable tag: 3.2.8
+Stable tag: 3.2.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,8 +163,16 @@ Demo sample XML file included in plugin archive.
 
 == Changelog ==
 
+= 3.2.9 =
+- Enhancement: Paired IF and IF Else operators and brackets are now colored in Formula.
+- Enhancement: Added a setting in Date Picker to prevent a site visitor from selecting several different dates or periods (Pro).
+- Enhancement: Warnings show up when a user does not fill in the fields in Order form settings (Pro).
+- Enhancement: Made integration of WooCommerce Meta with elements inside Repeater (Pro).
+- Enhancement: Updated the view for customizing formula selection in Payment Gateways(Pro).
+- Enhancement: Email and Website URLs are now displayed as links for Orders, WooCommerce, PDF and Send Quote (Pro).
+
 = 3.2.8 =
-- Fix: Underscores appeared in some themes in navigation and indentation changed due to bottstrap.
+- Fix: Underscores appeared in some themes in navigation and indentation changed due to bootstrap.
 
 = 3.2.7 =
 - New: A new feature, Sticky Calculator, was added (Pro).

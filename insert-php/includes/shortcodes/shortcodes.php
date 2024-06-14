@@ -10,7 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WINP_SnippetShortcode extends Wbcr_FactoryShortcodes333_Shortcode {
+class WINP_SnippetShortcode extends Wbcr_FactoryShortcodes335_Shortcode {
+
+	public $manager;
 
 	public $shortcode_name = 'wbcr_php_snippet';
 
@@ -19,6 +21,10 @@ class WINP_SnippetShortcode extends Wbcr_FactoryShortcodes333_Shortcode {
 	 * @var bool
 	 */
 	public $assets_in_header = true;
+
+	public function __construct( $plugin ) {
+		parent::__construct( $plugin );
+	}
 
 	/**
 	 * Filter attributes
@@ -84,6 +90,7 @@ class WINP_SnippetShortcode extends Wbcr_FactoryShortcodes333_Shortcode {
 	 */
 	public function getSnippetId( $attr, $type ) {
 		$id = isset( $attr['id'] ) ? (int) $attr['id'] : null;
+
 		if ( $id && $type != WINP_Helper::get_snippet_type( $id ) ) {
 			$id = 0;
 		}
@@ -152,5 +159,4 @@ class WINP_SnippetShortcode extends Wbcr_FactoryShortcodes333_Shortcode {
 	public function html( $attr, $content, $tag ) {
 
 	}
-
 }

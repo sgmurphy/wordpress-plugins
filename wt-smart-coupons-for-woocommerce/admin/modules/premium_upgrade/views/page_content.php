@@ -38,9 +38,9 @@ if (!defined('WPINC'))
 .wt_sc_middle_section_box{ float:left; width:50%; }
 .wt_sc_middle_section_box h3{ line-height:24px; }
 .wt_sc_advantages{ float:right; width:calc(100% - 30px); background:#fff; min-height:58px; border-top-right-radius:4px; border-bottom-right-radius:4px; }
-.wt_sc_advantages_box{float:left; width:50%; min-width:220px;}
+.wt_sc_advantages_box{ float:left; width:50%; min-width:220px; display: flex; align-items: center; }
 .wt_sc_advantages_img{ float:left; margin-right:7px; }
-.wt_sc_advantages_txt{ float:left; color:#606060; width:calc(45% - 65px); min-width:150px; line-height:17px; padding-top:10px; }
+.wt_sc_advantages_txt{ float:left; color:#606060; width:calc(45% - 65px); min-width:150px; line-height:17px; }
 
 .wt_sc_other_addons{float:left; height:auto; width:97%; margin:20px 1.5%; margin-top:15px;}
 .wt_sc_other_addons_title{float:left; width:100%; text-align:center; font-size:20px;}
@@ -205,27 +205,27 @@ if (!defined('WPINC'))
         <div class="wt_sc_other_addons_box">
             
             <div class="wt_sc_other_addons_title_box">
-                <img src="<?php echo esc_attr($module_img_path);?>display_discounts_icon.svg">
-                <h3><?php _e('Display Discounts for WooCommerce', 'wt-smart-coupons-for-woocommerce'); ?></h3>
+                <img src="<?php echo esc_attr($module_img_path);?>bulk_generate.png">
+                <h3><?php _e( 'WooCommerce Coupon Generator', 'wt-smart-coupons-for-woocommerce' ); ?></h3>
             </div>
 
-            <div class="wt_sc_other_addons_desc"><?php _e('The best way to market your coupons in-house!', 'wt-smart-coupons-for-woocommerce'); ?></div>
+            <div class="wt_sc_other_addons_desc"><?php _e( 'Generate hundreds of coupons at once with minimal effort.', 'wt-smart-coupons-for-woocommerce' ); ?></div>
 
             <div class="wt_sc_other_addons_features">
                 <ul>
-                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'List discounts on WooCommerce product pages','wt-smart-coupons-for-woocommerce'); ?></li>
-                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Add countdown timers to time-limited coupons','wt-smart-coupons-for-woocommerce'); ?></li>
-                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Multiple coupon display template','wt-smart-coupons-for-woocommerce'); ?></li>
-                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Show restriction info within the coupon','wt-smart-coupons-for-woocommerce'); ?></li>
-                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Limit the number of coupons to display','wt-smart-coupons-for-woocommerce'); ?></li>
+                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Bulk generate coupons','wt-smart-coupons-for-woocommerce' ); ?></li>
+                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Email coupons to multiple recipients at once','wt-smart-coupons-for-woocommerce' ); ?></li>
+                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Filter coupon recipients based on purchase history','wt-smart-coupons-for-woocommerce' ); ?></li>
+                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Migrate bulk-generated coupons to other WooCommerce stores','wt-smart-coupons-for-woocommerce' ); ?></li>
+                    <li><span class="dashicons dashicons-yes-alt"></span><?php esc_html_e( 'Advanced coupon code customizations','wt-smart-coupons-for-woocommerce' ); ?></li>
                 </ul>
             </div>
 
-            <a class="wt_sc_other_addons_visit_btn" href="https://www.webtoffee.com/product/display-woocommerce-discounts/?utm_source=free_plugin_premium_upgrade_page&utm_medium=smart_coupons_basic&utm_campaign=Display_Discounts"><?php _e('Get the plugin', 'wt-smart-coupons-for-woocommerce'); ?> → </a>
+            <a class="wt_sc_other_addons_visit_btn" href="https://www.webtoffee.com/product/woocommerce-coupon-generator/?utm_source=free_plugin_premium_upgrade_page&utm_medium=smart_coupons_basic&utm_campaign=Coupon_Generator"><?php _e('Get the plugin', 'wt-smart-coupons-for-woocommerce'); ?> → </a>
 
             <h4 class="wt_sc_other_addons_video_title"><?php _e('Watch setup video', 'wt-smart-coupons-for-woocommerce'); ?></h4>
             <div class="wt_sc_other_addons_video_box">
-                <iframe src="//www.youtube.com/embed/yJKUjqzdKUk?rel=0" allowfullscreen="allowfullscreen" style="width:100%; min-height:200px;" frameborder="0" align="middle"></iframe>
+                <iframe src="https://www.youtube.com/embed/AdAPmyiNXzw?si=hzXZYGNeN6An4koT" allowfullscreen="allowfullscreen" style="width:100%; min-height:200px;" frameborder="0" align="middle"></iframe>
             </div>
             
         </div>

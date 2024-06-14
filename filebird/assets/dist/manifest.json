@@ -3,11 +3,11 @@
     "file": "ProBadge-4bd0ae48.css",
     "src": "ProBadge.css"
   },
-  "_ProBadge-c25f9f4c.js": {
+  "_ProBadge-fd5e1712.js": {
     "css": [
       "ProBadge-4bd0ae48.css"
     ],
-    "file": "ProBadge-c25f9f4c.js"
+    "file": "ProBadge-fd5e1712.js"
   },
   "admin.css": {
     "file": "admin-dfb43762.css",
@@ -17,9 +17,9 @@
     "css": [
       "admin-dfb43762.css"
     ],
-    "file": "admin.tsx-aacb08ec.js",
+    "file": "admin.tsx-a5a97de4.js",
     "imports": [
-      "_ProBadge-c25f9f4c.js"
+      "_ProBadge-fd5e1712.js"
     ],
     "isEntry": true,
     "src": "admin.tsx"
@@ -32,9 +32,9 @@
     "css": [
       "main-b943a5e6.css"
     ],
-    "file": "main.tsx-199a1d7b.js",
+    "file": "main.tsx-e3b6843d.js",
     "imports": [
-      "_ProBadge-c25f9f4c.js"
+      "_ProBadge-fd5e1712.js"
     ],
     "isEntry": true,
     "src": "main.tsx"

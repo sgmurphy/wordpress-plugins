@@ -54,6 +54,7 @@
       "MailOptin\\FlodeskConnect\\": "FlodeskConnect/",
       "MailOptin\\HighLevelConnect\\": "HighLevelConnect/",
       "MailOptin\\BeehiivConnect\\": "BeehiivConnect/",
+      "MailOptin\\ElasticEmailConnect\\": "ElasticEmailConnect/",
       "MailOptin\\ElementorConnect\\": "ElementorConnect/",
       "MailOptin\\WPFormsConnect\\": "WPFormsConnect/",
       "MailOptin\\GravityFormsConnect\\": "GravityFormsConnect/",

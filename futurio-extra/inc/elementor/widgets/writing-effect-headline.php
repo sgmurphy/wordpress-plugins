@@ -239,8 +239,8 @@ class Futurio_Extra_Widget_Writing_Effect_Headline extends Widget_Base {
         $this->add_render_attribute('headline',
                 [
                     'class' => 'futurio-extra-written-headline',
-                    'data-speed' => $settings['writing_speed']['size'],
-                    'data-delay' => $settings['delay_loop']['size'],
+                    'data-speed' => absint($settings['writing_speed']['size']),
+                    'data-delay' => absint($settings['delay_loop']['size']),
                     'data-loop' => $settings['loop'] === 'yes' ? 1 : 0,
                 ]
         );

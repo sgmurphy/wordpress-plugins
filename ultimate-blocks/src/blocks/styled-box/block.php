@@ -19,10 +19,10 @@ function ub_render_styled_box_numbered_box_column($attributes, $content){
     extract($attributes);
     return '<div class="ub-number-panel">
         <div class="ub-number-container">
-            <p class="ub-number-display">' . $number . '</p>
+            <p class="ub-number-display">' . wp_kses_post($number) . '</p>
         </div>
-        <p class="ub-number-box-title">' . $title . '</p>
-        <div class="ub-number-box-body">' . $content . '</div>
+        <p class="ub-number-box-title">' . wp_kses_post($title) . '</p>
+        <div class="ub-number-box-body">' . wp_kses_post($content) . '</div>
     </div>';
 }
 
@@ -66,15 +66,15 @@ function ub_render_styled_box_block($attributes, $content){
     extract($attributes);
     $renderedBlock = '';
     if($mode === 'notification' && $text[0] != ''){
-        $renderedBlock = '<div class="ub-notification-text">'.$text[0].'</div>';
+        $renderedBlock = '<div class="ub-notification-text">'. wp_kses_post($text[0]) .'</div>';
     }
     else if($mode === 'feature'){
         foreach(range(0, count($text)-1) as $i){
             $renderedBlock .= '<div class="ub-feature">'.
                 ($image[$i]['url'] === '' ? '' :
-                    '<img class="ub-feature-img" src="'.$image[$i]['url'].'"/>').
-                    '<p class="ub-feature-title">'.$title[$i].'</p>
-                    <p class="ub-feature-body">'.$text[$i].'</p>
+                    '<img class="ub-feature-img" src="'. esc_url($image[$i]['url']) .'"/>').
+                    '<p class="ub-feature-title">'. wp_kses_post($title[$i]) .'</p>
+                    <p class="ub-feature-body">'. wp_kses_post($text[$i]) .'</p>
             </div>';
         }
     }
@@ -84,10 +84,10 @@ function ub_render_styled_box_block($attributes, $content){
             foreach(range(0, count($text)-1) as $i){
                 $renderedBlock .= '<div class="ub-number-panel">
                     <div class="ub-number-container">
-                        <p class="ub-number-display">'.$number[$i].'</p>
+                        <p class="ub-number-display">'. wp_kses_post($number[$i]) .'</p>
                     </div>
-                    <p class="ub-number-box-title">'.$title[$i].'</p>
-                    <p class="ub-number-box-body">'.$text[$i].'</p>
+                    <p class="ub-number-box-title">'. wp_kses_post($title[$i]) .'</p>
+                    <p class="ub-number-box-body">'. wp_kses_post($text[$i]) .'</p>
                 </div>';
             }
         }
@@ -99,8 +99,8 @@ function ub_render_styled_box_block($attributes, $content){
         $renderedBlock = $content;
     }
 
-    return '<div class="wp-block-ub-styled-box ub-styled-box ub-'.$mode.'-box'.(isset($className) ? ' ' . esc_attr($className) : '')
-            .'" id="ub-styled-box-'.$blockID.'">'.
+    return '<div class="wp-block-ub-styled-box ub-styled-box ub-'. esc_attr($mode) .'-box'.(isset($className) ? ' ' . esc_attr($className) : '')
+            .'" id="ub-styled-box-'. esc_attr($blockID) .'">'.
                 $renderedBlock.'</div>';
 }
 

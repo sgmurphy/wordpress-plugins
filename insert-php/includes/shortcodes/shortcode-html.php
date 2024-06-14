@@ -50,6 +50,14 @@ class WINP_SnippetShortcodeHtml extends WINP_SnippetShortcode {
 			return;
 		}
 
+		if( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML ) {
+			if ( is_user_logged_in() && WINP_Plugin::app()->currentUserCan() ) {
+				echo __( '[Woody snippet cannot be executed because you have disabled the insertion of unfiltered html!]', 'insert-php' );
+			}
+
+			return;
+		}
+
 		echo( $snippet_content );
 	}
 

@@ -3,7 +3,7 @@
  * Plugin Name: Futurio Extra
  * Plugin URI: https://futuriowp.com/
  * Description: Extra addon for Futurio Theme
- * Version: 2.0.6
+ * Version: 2.0.7
  * Author: FuturioWP
  * Author URI: https://futuriowp.com/
  * License: GPL-2.0+

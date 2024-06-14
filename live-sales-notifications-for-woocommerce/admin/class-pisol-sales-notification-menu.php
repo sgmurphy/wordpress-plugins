@@ -96,40 +96,45 @@ class Pi_Sales_Menu{
 
     function promotion(){
         ?>
-        <div class="col-12 col-sm-12 col-md-4 pt-3" id="promotion-sidebar">
+        <div class="col-12 col-sm-12 col-md-4 pt-3">
             <div class="bg-primary text-light text-center mb-3">
                 <a class="" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">
                 <?php new pisol_promotion('live_sales_notification_installation_date'); ?>
                 </a>
             </div>
 
-           <div class="bg-dark p-3 text-light text-center mb-3 promotion-bg">
-                <h2 class="text-light font-weight-light h4"><span>Get Pro For<br><h1 class="h2 font-weight-bold text-light my-1"><?php echo PI_SALES_NOTIFICATION_PRICE; ?></h1><strong class="text-primary">LIMITED</strong> PERIOD OFFER</span></h2>
-                <a class="btn btn-danger btn-sm text-uppercase" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Click to Get Pro !!</a>
+           <div class="pi-shadow">
+            <div class="pi-top-content text-left">
+                <img id="pi-promotion-banner" src="<?php echo plugin_dir_url( __FILE__ ); ?>img/bg.svg">
+                <h2 id="pi-banner-tagline" class="text-light">LIMITED TIME OFFER <?php echo PI_SALES_NOTIFICATION_PRICE; ?></h2>
+            </div>
+                <!--<h2 class="text-light font-weight-light h4"><span>Get Pro For<br><h1 class="h2 font-weight-bold text-light my-1"><?php echo PI_SALES_NOTIFICATION_PRICE; ?></h1><strong class="text-primary">LIMITED</strong> PERIOD OFFER</span></h2>
+                <a class="btn btn-danger btn-sm text-uppercase" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Click to Get Pro !!</a>-->
                 <div class="inside mt-2">
-                    PRO version offers more features like<br><br>
                     <ul class="text-left pisol-pro-feature-list">
-                        <li class="border-top py-2 font-weight-light h6"><strong class="text-primary">Privacy protection</strong> Give Option to the customer to exclude their info from the live feed</li>
-                        <li class="border-top py-2 font-weight-light h6">
+                        <li class="border-top py-2"><strong class="text-primary">Privacy protection</strong> Give Option to the customer to exclude their info from the live feed</li>
+                        <li class="border-top py-2">
                         Show visitor's country in fake sales popups for trust and <strong class="text-primary">higher purchase probability.</strong>
                         </li>
-                        <li class="border-top py-2 font-weight-light h6">Don't show <strong class="text-primary">Out of stock product</strong></li>
-                        <li class="border-top py-2 font-weight-light h6">Have a different <strong class="text-primary">animation</strong> for opening and closing of the popup</li>
-                        <li class="border-top py-2 font-weight-light h6">Option to set the <strong class="text-primary">mobile breakpoint</strong> width</li>
-                        <li class="border-top py-2 font-weight-light h6">Change sales <strong class="text-primary">Date & Time Format</strong></li>
-                        <li class="border-top py-2 font-weight-light h6"><strong class="text-primary">Multi-language</strong> support, translate popup message for different languages</li>
-                        <li class="border-top py-2 font-weight-light h6">Works with <strong class="text-primary">WPML, Polylang</strong> and many more.</li>
-                        <li class="border-top py-2 font-weight-light h6">Add audio file to alert when the popup opens</li>
-                        <li class="border-top py-2 font-weight-light h6"><strong class="text-primary">Control</strong> on which page you want to show the popup</li>
-                        <li class="border-top py-2 font-weight-light h6">Free version shows 1-day old orders in the popup, <strong class="text-primary">PRO you can configure how old order to show</strong></li>
-                        <li class="border-top py-2 font-weight-light h6">Set <strong class="text-primary">background image</strong> for the popup from setting</li>
-                        <li class="border-top py-2 font-weight-light h6">Admin can also <strong class="text-primary">exclude</strong> any order from appearing in the live sales feed</li>
-                        <li class="border-top py-2 font-weight-light h6"><strong class="text-primary">Dismiss popup</strong> option to the user</li>
-                        <li class="border-top py-2 font-weight-light h6"><strong class="text-primary">Stock remaining</strong> detail to urge the buyer to buy now, E.g: Only 2 Left</li>
-                        <li class="border-top py-2 font-weight-light h6">Show how long back the <strong class="text-primary">order was placed, E.g: 1 day ago</strong></li>
-                        <li class="border-top py-2 font-weight-light h6">Add a <strong class="text-primary">place holder image</strong> for the product image</li>
+                        <li class="border-top py-2">Don't show <strong class="text-primary">Out of stock product</strong></li>
+                        <li class="border-top py-2">Have a different <strong class="text-primary">animation</strong> for opening and closing of the popup</li>
+                        <li class="border-top py-2">Option to set the <strong class="text-primary">mobile breakpoint</strong> width</li>
+                        <li class="border-top py-2">Change sales <strong class="text-primary">Date & Time Format</strong></li>
+                        <li class="border-top py-2"><strong class="text-primary">Multi-language</strong> support, translate popup message for different languages</li>
+                        <li class="border-top py-2">Works with <strong class="text-primary">WPML, Polylang</strong> and many more.</li>
+                        <li class="border-top py-2">Add audio file to alert when the popup opens</li>
+                        <li class="border-top py-2"><strong class="text-primary">Control</strong> on which page you want to show the popup</li>
+                        <li class="border-top py-2">Free version shows 1-day old orders in the popup, <strong class="text-primary">PRO you can configure how old order to show</strong></li>
+                        <li class="border-top py-2">Set <strong class="text-primary">background image</strong> for the popup from setting</li>
+                        <li class="border-top py-2">Admin can also <strong class="text-primary">exclude</strong> any order from appearing in the live sales feed</li>
+                        <li class="border-top py-2"><strong class="text-primary">Dismiss popup</strong> option to the user</li>
+                        <li class="border-top py-2"><strong class="text-primary">Stock remaining</strong> detail to urge the buyer to buy now, E.g: Only 2 Left</li>
+                        <li class="border-top py-2">Show how long back the <strong class="text-primary">order was placed, E.g: 1 day ago</strong></li>
+                        <li class="border-top py-2">Add a <strong class="text-primary">place holder image</strong> for the product image</li>
                     </ul>
-                    <a class="btn btn-light" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Click to Get Pro</a>
+                    <div class="py-4 text-center">
+                        <a class="btn btn-primary" href="<?php echo PI_SALES_NOTIFICATION_BUY_URL; ?>" target="_blank">Get Pro Version</a>
+                    </div>
                 </div>
             </div>
             

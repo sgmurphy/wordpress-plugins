@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd25962abd6c4887a991417e435ce744c
+class ComposerStaticInit7ce02a37786e5b861570a0ce5453770a
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -98,6 +98,7 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
             'MailOptin\\EmmaConnect\\' => 22,
             'MailOptin\\EmailOctopusConnect\\' => 30,
             'MailOptin\\ElementorConnect\\' => 27,
+            'MailOptin\\ElasticEmailConnect\\' => 30,
             'MailOptin\\EgoiConnect\\' => 22,
             'MailOptin\\EasyDigitalDownloadsConnect\\' => 38,
             'MailOptin\\DripConnect\\' => 22,
@@ -424,6 +425,10 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
         'MailOptin\\ElementorConnect\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/connections/ElementorConnect',
+        ),
+        'MailOptin\\ElasticEmailConnect\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect',
         ),
         'MailOptin\\EgoiConnect\\' => 
         array (
@@ -861,6 +866,7 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
         'MailOptin\\CommentOptinConnect\\CommentOptinSettings' => __DIR__ . '/../..' . '/src/connections/CommentOptinConnect/CommentOptinSettings.php',
         'MailOptin\\CommentOptinConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/CommentOptinConnect/Connect.php',
         'MailOptin\\CommentOptinConnect\\Init' => __DIR__ . '/../..' . '/src/connections/CommentOptinConnect/Init.php',
+        'MailOptin\\Connections\\ElasticEmailConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/SendCampaign.php',
         'MailOptin\\Connections\\ForminatorFormConnect\\ModuleSettingsPageTrait' => __DIR__ . '/../..' . '/src/connections/ForminatorFormConnect/ModuleSettingsPageTrait.php',
         'MailOptin\\Connections\\GoogleAnalytics' => __DIR__ . '/../..' . '/src/connections/GoogleAnalytics.php',
         'MailOptin\\Connections\\Init' => __DIR__ . '/../..' . '/src/connections/Init.php',
@@ -970,6 +976,7 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
         'MailOptin\\Core\\Admin\\SettingsPage\\SplitTestOptinCampaign' => __DIR__ . '/../..' . '/src/core/src/Admin/SettingsPage/SplitTestOptinCampaign.php',
         'MailOptin\\Core\\AjaxHandler' => __DIR__ . '/../..' . '/src/core/src/AjaxHandler.php',
         'MailOptin\\Core\\Base' => __DIR__ . '/../..' . '/src/core/src/Base.php',
+        'MailOptin\\Core\\BlockEditor\\Init' => __DIR__ . '/../..' . '/src/core/src/BlockEditor/Init.php',
         'MailOptin\\Core\\Connections\\AbstractConnect' => __DIR__ . '/../..' . '/src/core/src/Connections/AbstractConnect.php',
         'MailOptin\\Core\\Connections\\ConnectionFactory' => __DIR__ . '/../..' . '/src/core/src/Connections/ConnectionFactory.php',
         'MailOptin\\Core\\Connections\\ConnectionInterface' => __DIR__ . '/../..' . '/src/core/src/Connections/ConnectionInterface.php',
@@ -1062,6 +1069,11 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
         'MailOptin\\EgoiConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/EgoiConnect/ConnectSettingsPage.php',
         'MailOptin\\EgoiConnect\\SendCampaign' => __DIR__ . '/../..' . '/src/connections/EgoiConnect/SendCampaign.php',
         'MailOptin\\EgoiConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/EgoiConnect/Subscription.php',
+        'MailOptin\\ElasticEmailConnect\\APIClass' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/APIClass.php',
+        'MailOptin\\ElasticEmailConnect\\AbstractElasticEmailConnect' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/AbstractElasticEmailConnect.php',
+        'MailOptin\\ElasticEmailConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/Connect.php',
+        'MailOptin\\ElasticEmailConnect\\ConnectSettingsPage' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/ConnectSettingsPage.php',
+        'MailOptin\\ElasticEmailConnect\\Subscription' => __DIR__ . '/../..' . '/src/connections/ElasticEmailConnect/Subscription.php',
         'MailOptin\\ElementorConnect\\Connect' => __DIR__ . '/../..' . '/src/connections/ElementorConnect/Connect.php',
         'MailOptin\\ElementorConnect\\CustomSelect' => __DIR__ . '/../..' . '/src/connections/ElementorConnect/CustomSelect.php',
         'MailOptin\\ElementorConnect\\Elementor' => __DIR__ . '/../..' . '/src/connections/ElementorConnect/Elementor.php',
@@ -1227,6 +1239,7 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
         'MailOptin\\NinjaFormsConnect\\Integrations\\Ctctv3Connect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\DripConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/DripConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\EgoiConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/EgoiConnect.php',
+        'MailOptin\\NinjaFormsConnect\\Integrations\\ElasticEmailConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/ElasticEmailConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\EmailOctopusConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\EmmaConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php',
         'MailOptin\\NinjaFormsConnect\\Integrations\\FacebookCustomAudienceConnect' => __DIR__ . '/../..' . '/src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php',
@@ -1582,9 +1595,9 @@ class ComposerStaticInitd25962abd6c4887a991417e435ce744c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd25962abd6c4887a991417e435ce744c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7ce02a37786e5b861570a0ce5453770a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7ce02a37786e5b861570a0ce5453770a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit7ce02a37786e5b861570a0ce5453770a::$classMap;
 
         }, null, ClassLoader::class);
     }

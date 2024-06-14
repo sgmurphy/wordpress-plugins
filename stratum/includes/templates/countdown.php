@@ -43,13 +43,13 @@ extract( shortcode_atts( array(
 
 if ($custom_labels == 'yes'){
 	$custom_labels_arr = array(
-		$label_years,
-		$label_months,
-		$label_weeks,
-		$label_days,
-		$label_hours,
-		$label_minutes,
-		$label_seconds
+		esc_html( $label_years ),
+		esc_html( $label_months ),
+		esc_html( $label_weeks ),
+		esc_html( $label_days ),
+		esc_html( $label_hours ),
+		esc_html( $label_minutes ),
+		esc_html( $label_seconds )
 	);
 }
 
@@ -66,7 +66,7 @@ $countdown_options = array(
 	( $custom_labels == 'yes' ? "data-labels='".json_encode($custom_labels_arr)."'" : '' ),
 	((!$is_editor && !empty( $settings['stratum_expire_actions'] )) ? "data-expire-actions='".json_encode($stratum_expire_actions)."'" : '' ),
 	((!$is_editor && is_array($stratum_expire_actions) && in_array("redirect", $stratum_expire_actions) && $expire_redirect_url['url'] != '') ? "data-expire-url='".esc_url($expire_redirect_url['url'])."'" : '' ),
-	((!$is_editor && is_array($stratum_expire_actions) && in_array("message", $stratum_expire_actions) && $message_after_expire != '') ? "data-expire-text='".$message_after_expire."'" : '' )
+	((!$is_editor && is_array($stratum_expire_actions) && in_array("message", $stratum_expire_actions) && $message_after_expire != '') ? "data-expire-text='".wp_kses_post($message_after_expire)."'" : '' )
 );
 
 $countdown_options_str = implode( ' ', $countdown_options );

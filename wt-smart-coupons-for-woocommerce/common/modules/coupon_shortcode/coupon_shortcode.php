@@ -74,6 +74,14 @@ class WT_Smart_Coupon_Shortcode
         }
         $coupon_type = "available_coupon";
 
+        if( $user_id = get_current_user_id() ){
+            $data_store  = $coupon->get_data_store();
+            $usage_count = $data_store->get_usage_by_user_id( $coupon, $user_id );
+            if( 0 < $usage_count ){
+                $coupon_type = "used_coupon";
+            }
+        }
+
         $expiry_date     = $coupon->get_date_expires();
 
         if ( $expiry_date ) {

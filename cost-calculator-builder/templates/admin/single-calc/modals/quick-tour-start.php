@@ -18,6 +18,10 @@
 					<button class="ccb-button success" @click="quickTourNextStep">
 						<?php esc_html_e( 'Start Quick Tour', 'cost-calculator-builder' ); ?>
 					</button>
+					<a href="https://www.youtube.com/watch?v=XZKJE1CcYxo" target="_blank" style="text-decoration: none;"class="ccb-button embed">
+					<span><?php esc_html_e( 'Video Tutorial', 'cost-calculator-builder' ); ?></span>	
+						<i class="ccb-icon-click-out"></i>
+					</a>
 				</div>
 			</div>
 		</div>

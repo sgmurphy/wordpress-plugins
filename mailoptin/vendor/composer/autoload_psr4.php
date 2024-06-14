@@ -76,6 +76,7 @@ return array(
     'MailOptin\\EmmaConnect\\' => array($baseDir . '/src/connections/EmmaConnect'),
     'MailOptin\\EmailOctopusConnect\\' => array($baseDir . '/src/connections/EmailOctopusConnect'),
     'MailOptin\\ElementorConnect\\' => array($baseDir . '/src/connections/ElementorConnect'),
+    'MailOptin\\ElasticEmailConnect\\' => array($baseDir . '/src/connections/ElasticEmailConnect'),
     'MailOptin\\EgoiConnect\\' => array($baseDir . '/src/connections/EgoiConnect'),
     'MailOptin\\EasyDigitalDownloadsConnect\\' => array($baseDir . '/src/connections/EasyDigitalDownloadsConnect'),
     'MailOptin\\DripConnect\\' => array($baseDir . '/src/connections/DripConnect'),

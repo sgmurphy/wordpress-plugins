@@ -20,7 +20,7 @@ class SSA_Twig_Extension extends Twig\Extension\AbstractExtension {
 		];
 	}
 
-	public function date_format_filter( Twig\Environment $env, $date, $format = null, $timezone = null ) {
+	public function date_format_filter( Twig\Environment $env, $date, $format = null, $timezone = null, $locale = null ) {
 
 		if ( empty( $format ) ) {
 			// Let's use a smart default
@@ -29,10 +29,19 @@ class SSA_Twig_Extension extends Twig\Extension\AbstractExtension {
 			// and localize the default string we use in our SSA template
 			$format = SSA_Utils::localize_default_date_strings( 'F j, Y g:i a' ) . ' (T)';
 		}
+		
+		if(! empty( $locale ) ) {
+			// should it be handled here in the date filter? or in a different filter?
+			ssa()->translation->set_programmatic_locale( $locale );
+		}
 
-		$formatted_date = twig_date_format_filter( $env, $date, $format, $timezone );
+		$formatted_date = twig_date_converter( $env, $date, $timezone )->format($format);
 		$formatted_date = SSA_Utils::translate_formatted_date( $formatted_date );
 
+		if(! empty( $locale ) ) {
+			ssa()->translation->set_programmatic_locale(null);
+		}
+		
 		return $formatted_date;
 
 		// TODO: refactor below into a separate twig function that uses strftime formatting
@@ -65,7 +74,7 @@ class SSA_Twig_Extension extends Twig\Extension\AbstractExtension {
 	}
 
 	public function internationalize_filter( Twig\Environment $env, $string ) {
-		return __( $string, 'simply-schedule-appointments' );
+			return __( $string, 'simply-schedule-appointments' );
 	}
 
 	public function link( Twig\Environment $env, $string, $label ) {

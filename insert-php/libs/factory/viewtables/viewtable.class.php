@@ -15,31 +15,33 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryViewtables413_Viewtable') ) {
+	if( !class_exists('Wbcr_FactoryViewtables415_Viewtable') ) {
 
-		abstract class Wbcr_FactoryViewtables413_Viewtable {
+		abstract class Wbcr_FactoryViewtables415_Viewtable {
+
+			public $plugin;
 
 			/**
 			 * A type used to display the table.
-			 * @var Wbcr_FactoryTypes413_Type
+			 * @var Wbcr_FactoryTypes415_Type
 			 */
 			public $type;
 
 			/**
 			 * Table's columns
-			 * @var FactoryViewtables413_Columns
+			 * @var FactoryViewtables415_Columns
 			 */
 			public $columns;
 
 			/**
 			 * Scripts that must be included on edit page.
-			 * @var Wbcr_Factory466_ScriptList
+			 * @var Wbcr_Factory475_ScriptList
 			 */
 			public $scripts;
 
 			/**
 			 * Styles that must be included on edit page.
-			 * @var Wbcr_Factory466_StyleList
+			 * @var Wbcr_Factory475_StyleList
 			 */
 			public $styles;
 
@@ -47,9 +49,9 @@
 			 * Creates a new instance of a viewtabl.
 			 *
 			 * @since 1.0.0
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
-			public function __construct(Wbcr_Factory466_Plugin $plugin)
+			public function __construct(Wbcr_Factory475_Plugin $plugin)
 			{
 				$this->plugin = $plugin;
 			}
@@ -58,7 +60,7 @@
 			{
 
 				$this->type = $type;
-				$this->columns = new FactoryViewtables413_Columns();
+				$this->columns = new FactoryViewtables415_Columns();
 
 				$this->scripts = $this->plugin->newScriptList();
 				$this->styles = $this->plugin->newStyleList();

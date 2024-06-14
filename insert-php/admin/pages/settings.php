@@ -19,9 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WINP_SettingsPage extends WINP_Page {
 
 	/**
-	 * @param Wbcr_Factory466_Plugin $plugin
+	 * @param Wbcr_Factory475_Plugin $plugin
 	 */
-	public function __construct( Wbcr_Factory466_Plugin $plugin ) {
+	public function __construct( Wbcr_Factory475_Plugin $plugin ) {
 		$this->menu_post_type = WINP_SNIPPETS_POST_TYPE;
 
 		$this->id         = "settings";
@@ -101,14 +101,14 @@ class WINP_SettingsPage extends WINP_Page {
 			'hint'    => __( 'When the plugin is deleted from the Plugins menu, also delete all snippets and plugin settings.', 'insert-php' )
 		];
 
-		$options[] = [
+		/*$options[] = [
 			'type'    => 'checkbox',
 			'way'     => 'buttons',
 			'name'    => 'support_old_shortcodes',
 			'title'   => __( 'Support old shortcodes [insert_php]', 'insert-php' ),
 			'default' => false,
 			'hint'    => __( 'If you used our plugin from version 1.3.0, then you could use the old shortcodes [insert_php][/insert_php]; from version 2.2.0 we disabled this type of shortcodes by default, as their use is not safe. If you still want to execute your php code via [insert_php][/insert_php] shortcodes, you can enable this option.', 'insert-php' )
-		];
+		];*/
 
 		$options[] = [
 			'type' => 'html',

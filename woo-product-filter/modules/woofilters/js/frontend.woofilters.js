@@ -2267,6 +2267,12 @@
 			});
 		}
 		jQuery(window).trigger("fusion-element-render-fusion_woo_product_grid");
+		var fusionPrInfinite = jQuery(".fusion-products-container-infinite");
+		if (fusionPrInfinite.length && typeof(fusionPrInfinite.infinitescroll) == 'function') {
+			fusionPrInfinite.infinitescroll('unbind');
+			fusionPrInfinite.infinitescroll('bind');
+		}
+		
 		var $eaPagination = jQuery('.elementor-widget-eicon-woocommerce');
 		if ($eaPagination.length && window.elementorFrontend && window.elementorFrontend.hooks) {
 			window.elementorFrontend.hooks.doAction('frontend/element_ready/eicon-woocommerce.default', $eaPagination, jQuery);

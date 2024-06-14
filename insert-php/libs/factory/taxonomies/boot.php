@@ -18,14 +18,14 @@ if ( defined( 'FACTORY_T_000_LOADED' ) ) {
 	return;
 }
 
-define( 'FACTORY_TAXONOMIES_333_VERSION', '3.3.3' );
+define( 'FACTORY_TAXONOMIES_335_VERSION', '3.3.5' );
 
-define( 'FACTORY_TAXONOMIES_333_LOADED', true );
+define( 'FACTORY_TAXONOMIES_335_LOADED', true );
 
-define( 'FACTORY_TAXONOMIES_333_DIR', dirname( __FILE__ ) );
-define( 'FACTORY_TAXONOMIES_333_URL', plugins_url( null, __FILE__ ) );
+define( 'FACTORY_TAXONOMIES_335_DIR', dirname( __FILE__ ) );
+define( 'FACTORY_TAXONOMIES_335_URL', plugins_url( '', __FILE__ ) );
 
-load_plugin_textdomain( 'factory_taxonomies_333', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
+load_plugin_textdomain( 'factory_taxonomies_335', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
 
 // sets version of admin interface
 if ( is_admin() ) {
@@ -35,6 +35,6 @@ if ( is_admin() ) {
 }
 
 #comp merge
-require( FACTORY_TAXONOMIES_333_DIR . '/taxonomy.class.php' );
-require( FACTORY_TAXONOMIES_333_DIR . '/taxonomy.php' );
+require( FACTORY_TAXONOMIES_335_DIR . '/taxonomy.class.php' );
+require( FACTORY_TAXONOMIES_335_DIR . '/taxonomy.php' );
 #endcomp

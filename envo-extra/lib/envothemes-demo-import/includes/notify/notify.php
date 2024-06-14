@@ -39,6 +39,17 @@ function envothemes_review_notice() {
     if (time() - $activation_time > $daysinseconds) {
         add_action('admin_notices', 'envothemes_review_notice_message');
     }
+	if( 
+	(defined('ENTR_PRO_CURRENT_VERSION') && version_compare(ENTR_PRO_CURRENT_VERSION, '1.2.0', '<') ) ||
+	(defined('ENVO_STOREFRONT_PRO_CURRENT_VERSION') && version_compare(ENVO_STOREFRONT_PRO_CURRENT_VERSION, '1.8.0', '<') ) ||
+	(defined('ENVO_SHOP_PRO_CURRENT_VERSION') && version_compare(ENVO_SHOP_PRO_CURRENT_VERSION, '1.9.4', '<') ) ||
+	(defined('ENVO_ONLINE_STORE_PRO_CURRENT_VERSION') && version_compare(ENVO_ONLINE_STORE_PRO_CURRENT_VERSION, '1.8.0', '<') ) ||
+	(defined('ENVO_SHOPPER_PRO_CURRENT_VERSION') && version_compare(ENVO_SHOPPER_PRO_CURRENT_VERSION, '1.9.0', '<') ) ||
+	(defined('ENVO_MARKETPLACE_PRO_CURRENT_VERSION') && version_compare(ENVO_MARKETPLACE_PRO_CURRENT_VERSION, '1.9.0', '<') ) ||
+	(defined('ENWOO_PRO_CURRENT_VERSION') && version_compare(ENWOO_PRO_CURRENT_VERSION, '1.5.0') ) ||
+	(defined('ENVO_ECOMMERCE_PRO_CURRENT_VERSION') && version_compare(ENVO_ECOMMERCE_PRO_CURRENT_VERSION, '2.2.0', '<')  ) ||
+	(defined('ENVO_MAGAZINE_PRO_CURRENT_VERSION') && version_compare(ENVO_MAGAZINE_PRO_CURRENT_VERSION, '2.1.0', '<')  )
+	)	{add_action('admin_notices',  'envo_extra_admin_notice_update_pro' );}
 }
 
 add_action('admin_init', 'envothemes_review_notice');
@@ -255,7 +266,7 @@ function envo_extra_envo_royal_notice() {
     $daysinseconds = 600; // 1 Day in seconds.
 
     if (time() - $activation_time > $daysinseconds) {
-        if (defined('ENVO_ROYAL_PRO_CURRENT_VERSION') || defined('ENVO_PRO_CURRENT_VERSION') || defined('ENWOO_PRO_CURRENT_VERSION') || defined('ENVO_SHOPPER_PRO_CURRENT_VERSION') || defined('ENVO_ECOMMERCE_PRO_CURRENT_VERSION') || defined('ENVO_STOREFRONT_PRO_CURRENT_VERSION') || defined('ENVO_SHOP_PRO_CURRENT_VERSION') || defined('ENVO_ONLINE_STORE_PRO_CURRENT_VERSION') || defined('ENVO_MARKETPLACE_PRO_CURRENT_VERSION') || defined('ENVO_SHOPPER_PRO_CURRENT_VERSION')) {
+        if (defined('ENVO_ROYAL_PRO_CURRENT_VERSION') || defined('ENTR_PRO_CURRENT_VERSION') || defined('ENWOO_PRO_CURRENT_VERSION') || defined('ENVO_ECOMMERCE_PRO_CURRENT_VERSION') || defined('ENVO_STOREFRONT_PRO_CURRENT_VERSION') || defined('ENVO_SHOP_PRO_CURRENT_VERSION') || defined('ENVO_ONLINE_STORE_PRO_CURRENT_VERSION') || defined('ENVO_MARKETPLACE_PRO_CURRENT_VERSION') || defined('ENVO_SHOPPER_PRO_CURRENT_VERSION')) {
             return;
         }
         if ( 'Envo Royal' != $theme->name || 'envo-royal' != $theme->template ) {
@@ -328,4 +339,26 @@ function envo_extra_envo_royal_dismiss() {
     $daysinseconds = 1209600; // 14 Days in seconds (1209600).
     $newtime = time() + $daysinseconds;
     update_site_option('active_envo_time', $newtime);
+}
+
+function envo_extra_admin_notice_update_pro(){
+	
+	$theme = wp_get_theme();
+    $themetemplate = $theme->template;
+	if ($themetemplate == 'entr') {
+		$themetemplate = 'envo';
+	}
+	if ($themetemplate == 'enwoo') {
+		$changelogurl = 'https://enwoo-wp.com/' . $themetemplate . '-pro-changelog/';
+		$updateurl = 'https://enwoo-wp.com/how-to-update-plugin/';
+	}  else {
+		$changelogurl = 'https://envothemes.com/' . $themetemplate . '-pro-changelog/';
+		$updateurl = 'https://envothemes.com/how-to-update-plugin/';
+	}
+
+	$message = sprintf( __( '%1$s requires an %2$supdate%3$s. Please update the plugin to ensure full compatibility with the %4$s theme and WordPress.', 'envothemes-demo-import' ), '<strong>' . ucwords(str_replace('-', ' ',  $themetemplate)) . ' PRO</strong>','<strong>', '</strong>', '<strong>' . ucwords(str_replace('-', ' ',  $themetemplate)) . '</strong>' );
+	$button_text = __( 'Update', 'envo-extra' );
+
+	$button = '<p><a href="' . esc_url(admin_url( 'update-core.php?force-check=1')) . '" class="button-secondary">' . esc_html($button_text) . '</a><a href="' . esc_url($changelogurl) . '" target="_blank" class="envo-link-changelog" style="margin-left:10px;margin-top: 4px;display: inline-block;">' . esc_html('Changelog') . '</a><a href="' . esc_url($updateurl) . '" target="_blank" class="envo-link" style="margin-left:10px;margin-top: 4px;display: inline-block;">' . esc_html('How to update?') . '</a></p>';
+	printf( '<div class="error"><p>%1$s</p>%2$s</div>', $message, $button );
 }

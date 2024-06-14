@@ -2,8 +2,8 @@
 Contributors: WillBontrager, creativemotion
 Donate link: https://woodysnippet.com
 Tags: code snippets, woocommerce, shortcode, adsense, header
-Requires at least: 4.8
-Tested up to: 6.2
+Requires at least: 5.6
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: trunk
 License: GPLv2 or later
@@ -261,6 +261,15 @@ We will definitely add multisite support in the future. You can speed up this pr
 7. Custom shortcode name
 
 == Changelog ==
+= 2.5.1 =
+* Fixed: [insert_php] shortcodes are no longer supported due to the security risk to your site.
+* Fixed: Compatibility with Wordpress 6.5
+* Fixed: Compatibility with php 8.3
+
+= 2.5.0 =
+* Fixed: Compatibility with Wordpress 6.4
+* Fixed: Compatibility with php 8.2
+
 = 2.4.10 =
 * Minor fixes
 * New API for Snippets Library

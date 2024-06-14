@@ -64,6 +64,14 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
          *  @since 1.6.0
          */
         add_filter( 'wbte_sc_alter_blocks_data', array( $this, 'add_blocks_data' ) );
+
+        add_action( 'woocommerce_applied_coupon', array( $this, 'add_individual_coupons_to_session' ) );
+
+        add_filter( 'wt_sc_auto_coupons_list', array( $this, 'make_auto_coupons_empty_individual' ) );
+
+        add_action( 'woocommerce_removed_coupon', array( $this, 'remove_individual_coupons_from_session' ) );
+
+        add_action( 'woocommerce_thankyou', array( $this, 'remove_individual_coupons_from_session' ) );
     }
 
     /**
@@ -101,6 +109,15 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
         $cart = WC()->cart;
         if ( is_null( $cart ) ) {
             return array();
+        }
+
+        // If this function is called when a coupon applied and the coupon is enabled 'Individual use only' then return an empty array.
+        if( ( isset( $_POST['coupon'] ) && !empty( $_POST['coupon'] ) ) || ( isset( $_POST['coupon_code'] ) && !empty( $_POST['coupon_code'] ) ) ){
+            $coupon_code = isset( $_POST['coupon'] ) ? sanitize_text_field( $_POST['coupon'] ) : sanitize_text_field( $_POST['coupon_code'] );
+            $coupon = new WC_Coupon( $coupon_code );
+            if( $coupon->get_individual_use() ){
+                return array();
+            }
         }
 
         /**
@@ -482,6 +499,11 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
 
                     WC()->cart->add_discount($coupon_code);
 
+                    // Add the coupon code to auto_applied_coupons list.
+                    $auto_applied_coupons   = $this->get_applied_auto_coupon_ist();
+                    $auto_applied_coupons[] = $coupon_code;
+                    WC()->session->set( 'auto_applied_coupons', array_unique( $auto_applied_coupons ) );
+
                     $smart_coupon_obj->plugin_public->stop_overwrite_coupon_success_message();
 
                     $wt_sc_just_added_coupons[] = $coupon_code;
@@ -626,6 +648,50 @@ class Wt_Smart_Coupon_Auto_Coupon_Public extends Wt_Smart_Coupon_Auto_Coupon_Com
     public function add_blocks_data( $block_data ) {
         $block_data['applied_auto_coupon_list'] = $this->get_available_auto_coupons( "CODE" );
         return $block_data;
+    }
+
+    /**
+     *  Add applied coupon code to session when the coupon is an individual coupon.
+     *  Hooked into: woocommerce_applied_coupon
+     *  
+     *  @since  1.8.0
+     *  @param  string       $coupon_code         Coupon code
+     */
+    public function add_individual_coupons_to_session( $coupon_code ){
+        $coupon = new WC_Coupon( $coupon_code );
+        if( $coupon->get_individual_use() ){
+            WC()->session->set( 'wbte_sc_applied_individual_coupon', $coupon_code );
+            Wt_Smart_Coupon_Giveaway_Product_Public::get_instance()->check_any_free_products_without_coupon();
+        }
+    }
+
+    /**
+     *  Make the auto coupons list false when, an applied individual coupon exists in the session.
+     *  Hooked into: wt_sc_auto_coupons_list
+     *  
+     *  @since  1.8.0
+     *  @param  array       $auto_coupons_array   Auto coupon list
+     *  @return array|bool                        False if an individual coupon exists in the session else return parameter $auto_coupons_array
+     */
+    public function make_auto_coupons_empty_individual( $auto_coupons_array ){
+        if( false != WC()->session->get( 'wbte_sc_applied_individual_coupon', false ) ){
+            return false;
+        }
+        return $auto_coupons_array;
+    }
+
+    /**
+     *  Remove the applied individual coupon from the session when the coupon is removed from the cart also when the order placed.
+     *  Hooked into: woocommerce_removed_coupon, woocommerce_thankyou
+     *  
+     *  @since  1.8.0
+     *  @param  string|int       $arg         Coupon code or Order id
+     */
+    public function remove_individual_coupons_from_session( $arg ){
+        if ( WC()->session->get( 'wbte_sc_applied_individual_coupon', false ) === $arg) {
+            WC()->session->__unset( 'wbte_sc_applied_individual_coupon' );
+        }
+        
     }
 }
 Wt_Smart_Coupon_Auto_Coupon_Public::get_instance();

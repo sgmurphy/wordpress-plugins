@@ -1,12 +1,12 @@
 === Smart Coupons For WooCommerce - Create WooCommerce Coupons, BOGO Coupons, Discount Rules, URL Coupons ===
 Contributors: WebToffee
-Version: 1.7.1
+Version: 1.8.0
 Donate link:https://www.webtoffee.com/plugins/
 Tags: WooCommerce coupons, discounts, BOGO, smart coupons, advanced coupons
 Requires at least: 3.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -202,6 +202,14 @@ Yes. You can create coupons that get applied as per the purchase amount of a cus
 
 
 == Changelog ==
+
+= 1.8.0 - 2024-06-14 =
+* [FIX] Coupon style not applied for used coupons via shortcode
+* [FIX] Coupon template missing in general settings
+* [FIX] Auto coupons are not removed when individual coupons are applied.
+* [FIX] High-priority auto coupons are not replacing other low-priority auto coupons.
+* [Compatibility] - Tested OK with WordPress 6.5
+* [Compatibility] - Tested OK with WooCommerce 8.9 
 
 = 1.7.1 - 2024-05-14 =
 * [FIX] Block checkout form field settings are not impacting the front end.
@@ -531,7 +539,10 @@ Yes. You can create coupons that get applied as per the purchase amount of a cus
 
 == Upgrade Notice ==
 
-= 1.7.1 =
-* [FIX] Block checkout form field settings are not impacting the front end.
-* [FIX] URL coupon removing when cart is empty.
-* [FIX] Auto coupons with a zero amount are not auto applied.
+= 1.8.0 =
+* [FIX] Coupon style not applied for used coupons via shortcode
+* [FIX] Coupon template missing in general settings
+* [FIX] Auto coupons are not removed when individual coupons are applied.
+* [FIX] High-priority auto coupons are not replacing other low-priority auto coupons.
+* [Compatibility] - Tested OK with WordPress 6.5
+* [Compatibility] - Tested OK with WooCommerce 8.9 

@@ -14,18 +14,18 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryMetaboxes413_PublishMetabox') ) {
+	if( !class_exists('Wbcr_FactoryMetaboxes415_PublishMetabox') ) {
 		/**
 		 * A metabox containing the standart Publish/Update button.
 		 *
 		 * @since 1.0.0
 		 */
-		class Wbcr_FactoryMetaboxes413_PublishMetabox extends Wbcr_FactoryMetaboxes413_Metabox {
+		class Wbcr_FactoryMetaboxes415_PublishMetabox extends Wbcr_FactoryMetaboxes415_Metabox {
 
 			/**
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
-			public function __construct(Wbcr_Factory466_Plugin $plugin = null)
+			public function __construct(Wbcr_Factory475_Plugin $plugin = null)
 			{
 				$this->title = __('Control');
 				$this->context = 'side';

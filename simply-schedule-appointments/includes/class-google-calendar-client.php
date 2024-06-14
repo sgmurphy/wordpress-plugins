@@ -261,7 +261,7 @@
 	 * use in place of ->calendarList->get( $calendar_id, $options = array() ) {}
 	 */
 	public function get_calendar_from_calendar_list ( $calendar_id, $options = array() ) {
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/users/me/calendarList/" . $calendar_id . "?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/users/me/calendarList/" . urlencode( $calendar_id ) . "?" . $this->get_params_from_options( $options );
 		try {
 			$response = wp_remote_get(
 				$gcal_api_endpoint,
@@ -291,7 +291,7 @@
 	 
 	 */
 	public function get_events_from_calendar( $calendar_id, $options = array() ) {
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events?" . $this->get_params_from_options( $options );
 
 		try {
 			$response = wp_remote_get(
@@ -329,7 +329,7 @@
 	 * 
 	 */
 	public function insert_event_into_calendar( $calendar_id, $event, $options = array() ) {
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events?" . $this->get_params_from_options( $options );
 		
 		try {
 			$response = wp_remote_post(
@@ -368,7 +368,7 @@
 			ssa_debug_log( 'Warning: called get_event_from_calendar with calendar_id:' . $calendar_id . ' & event_id:' . $event_id , 10 );
 			return false;
 		}
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
 		
 		try {
 			$response = wp_remote_get(
@@ -400,7 +400,7 @@
 	 * use in place of ->events->update( $calendar_id, $event_id, $event_updated, $options = array() ) { }
 	 */
 	public function update_event_in_calendar( $calendar_id, $event_id, $event_updated, $options = array() ) {
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
 		
 		try {
 			$response = wp_remote_request(
@@ -433,7 +433,7 @@
 	 * use in place of ->events->delete( $calendar_id, $event_id, $options = array() ) {}
 	 */
 	public function delete_event_from_calendar( $calendar_id, $event_id, $options = array() ) {
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events/" . $event_id . "?" . $this->get_params_from_options( $options );
 		
 		try {
 			$response = wp_remote_request(

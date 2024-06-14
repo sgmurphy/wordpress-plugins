@@ -14,14 +14,16 @@
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryTypes413_Type') ) {
+	if( !class_exists('Wbcr_FactoryTypes415_Type') ) {
 
 		/**
 		 * The base class that provides abstraction for custom post type.
 		 *
 		 * @since 1.0.0
 		 */
-		abstract class Wbcr_FactoryTypes413_Type {
+		abstract class Wbcr_FactoryTypes415_Type {
+
+			public $plugin;
 
 			/**
 			 * Internal type name.
@@ -69,7 +71,7 @@
 			 * A view table is used to show type records in the admin area.
 			 *
 			 * @since 1.0.0
-			 * @var FactoryViewtables413_Viewtable
+			 * @var FactoryViewtables415_Viewtable
 			 */
 			public $view_table;
 
@@ -87,7 +89,7 @@
 			 * Scripts that must be included on edit page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory466_ScriptList
+			 * @var Wbcr_Factory475_ScriptList
 			 */
 			public $scripts;
 
@@ -95,14 +97,14 @@
 			 * Styles that must be included on edit page.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_Factory466_StyleList
+			 * @var Wbcr_Factory475_StyleList
 			 */
 			public $styles;
 
 			/**
 			 * A menu configurator for a type.
 			 *
-			 * @var Wbcr_FactoryTypes413_Menu
+			 * @var Wbcr_FactoryTypes415_Menu
 			 */
 			public $menu;
 
@@ -136,7 +138,7 @@
 				'taxonomies' => array(),
 				'has_archive' => null,
 				'rewrite' => null,
-				'query_var' => null,
+				'query_var' => true,
 				'show_in_nav_menus' => null
 			);
 
@@ -151,13 +153,13 @@
 			/**
 			 * Creates a new instance of a type.
 			 *
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
-			public function __construct(Wbcr_Factory466_Plugin $plugin)
+			public function __construct(Wbcr_Factory475_Plugin $plugin)
 			{
 				$this->plugin = $plugin;
 
-				$this->menu = new Wbcr_FactoryTypes413_Menu($this);
+				$this->menu = new Wbcr_FactoryTypes415_Menu($this);
 				$this->metaboxes = array();
 
 				$this->scripts = $this->plugin->newScriptList();
@@ -224,11 +226,11 @@
 
 				// adds metaboxes that needed to load
 				foreach($this->metaboxes as $metabox) {
-					Wbcr_FactoryMetaboxes413::registerFor($metabox, $this->name, $this->plugin);
+					Wbcr_FactoryMetaboxes415::registerFor($metabox, $this->name, $this->plugin);
 				}
 
 				if( !$this->scripts->isEmpty('bootstrap') || !$this->styles->isEmpty('bootstrap') ) {
-					add_action('wbcr_factory_466_bootstrap_enqueue_scripts_' . $this->plugin->getPluginName(), array(
+					add_action('wbcr_factory_475_bootstrap_enqueue_scripts_' . $this->plugin->getPluginName(), array(
 						$this,
 						'actionAdminBootstrapScripts'
 					));
@@ -244,7 +246,7 @@
 
 				// redefines the Publish metabox for non-public types
 				if( $this->template !== 'public' ) {
-					//Wbcr_FactoryMetaboxes413::registerFor('Wbcr_FactoryMetaboxes413_PublishMetabox', $this->name);
+					//Wbcr_FactoryMetaboxes415::registerFor('Wbcr_FactoryMetaboxes415_PublishMetabox', $this->name);
 					add_action('add_meta_boxes', array($this, 'actionAddMetaboxs'));
 				}
 
@@ -379,18 +381,18 @@
 				$labels = array(
 					'singular_name' => $singular_name,
 					'name' => $plural_name,
-					'all_items' => sprintf(__('All %1$s', 'wbcr_factory_types_413'), $plural_name),
-					'add_new' => sprintf(__('Add %1$s', 'wbcr_factory_types_413'), $singular_name),
-					'add_new_item' => sprintf(__('Add new', 'wbcr_factory_types_413'), $singular_name),
-					'edit' => sprintf(__('Edit', 'wbcr_factory_types_413')),
-					'edit_item' => sprintf(__('Edit %1$s', 'wbcr_factory_types_413'), $singular_name),
-					'new_item' => sprintf(__('New %1$s', 'wbcr_factory_types_413'), $singular_name),
-					'view' => sprintf(__('View', 'wbcr_factory_types_413')),
-					'view_item' => sprintf(__('View %1$s', 'wbcr_factory_types_413'), $singular_name),
-					'search_items' => sprintf(__('Search %1$s', 'wbcr_factory_types_413'), $plural_name),
-					'not_found' => sprintf(__('No %1$s found', 'wbcr_factory_types_413'), $plural_name),
-					'not_found_in_trash' => sprintf(__('No %1$s found in trash', 'wbcr_factory_types_413'), $plural_name),
-					'parent' => sprintf(__('Parent %1$s', 'wbcr_factory_types_413'), $plural_name)
+					'all_items' => sprintf(__('All %1$s', 'wbcr_factory_types_415'), $plural_name),
+					'add_new' => sprintf(__('Add %1$s', 'wbcr_factory_types_415'), $singular_name),
+					'add_new_item' => sprintf(__('Add new', 'wbcr_factory_types_415'), $singular_name),
+					'edit' => sprintf(__('Edit', 'wbcr_factory_types_415')),
+					'edit_item' => sprintf(__('Edit %1$s', 'wbcr_factory_types_415'), $singular_name),
+					'new_item' => sprintf(__('New %1$s', 'wbcr_factory_types_415'), $singular_name),
+					'view' => sprintf(__('View', 'wbcr_factory_types_415')),
+					'view_item' => sprintf(__('View %1$s', 'wbcr_factory_types_415'), $singular_name),
+					'search_items' => sprintf(__('Search %1$s', 'wbcr_factory_types_415'), $plural_name),
+					'not_found' => sprintf(__('No %1$s found', 'wbcr_factory_types_415'), $plural_name),
+					'not_found_in_trash' => sprintf(__('No %1$s found in trash', 'wbcr_factory_types_415'), $plural_name),
+					'parent' => sprintf(__('Parent %1$s', 'wbcr_factory_types_415'), $plural_name)
 				);
 
 				$this->options['labels'] = $labels;
@@ -448,7 +450,7 @@
 					),
 					array(
 						'{scheduled}',
-						date_i18n(__('M j, Y @ G:i', 'wbcr_factory_types_413'), strtotime($post->post_date))
+						date_i18n(__('M j, Y @ G:i', 'wbcr_factory_types_415'), strtotime($post->post_date))
 					)
 				);
 

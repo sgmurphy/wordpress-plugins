@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-	class WINP_SnippetsTaxonomy extends Wbcr_FactoryTaxonomies333_Taxonomy {
+	class WINP_SnippetsTaxonomy extends Wbcr_FactoryTaxonomies335_Taxonomy {
 
 		/**
 		 * Custom post name.

@@ -145,7 +145,7 @@ class Core {
 			array_unshift( $folders, $all, $uncategorized );
 			echo '<select name="fbv" id="filter-by-fbv" class="fbv-filter attachment-filters fbv">';
 			foreach ( $folders as $k => $folder ) {
-				echo sprintf( '<option value="%1$d" %3$s>%2$s</option>', esc_html( $folder->id ), esc_html( $folder->name ), selected( $folder->id, $fbv, false ) );
+				echo sprintf( '<option value="%1$d" %3$s>%2$s</option>', esc_html( $folder->id ), esc_html( $folder->name ), selected( intval( $folder->id ), $fbv, false ) );
 			}
 			echo '</select>';
 		}
@@ -257,7 +257,12 @@ class Core {
 	}
 
 	public function actionPluploadUi() {
-		Helpers::loadView( 'particle/folder_dropdown' );
+		?>
+			<div class="fbv-upload-inline">
+				<label for="fbv"><?php esc_html_e( 'Choose folder: ', 'filebird' ); ?></label>
+				<span id="fbv-folder-selector" class="fbv-folder-selector" name="fbv"></span>
+			</div>
+		<?php
 	}
 
 	public function getFlatTree( $data = array(), $parent = 0, $default = null, $level = 0 ) {

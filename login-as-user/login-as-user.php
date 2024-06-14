@@ -4,12 +4,12 @@
  # -------------------------------------------------------
  # For WordPress
  # Author: Web357
- # Copyright @ 2014-2024 Web357. All rights reserved.
+ # Copyright © 2014-2024 Web357. All rights reserved.
  # License: GNU/GPLv3, http://www.gnu.org/licenses/gpl-3.0.html
- # Website: https:/www.web357.com
- # Demo: https://demo.web357.com/wordpress/login-as-user/wp-admin/
- # Support: support@web357.com
- # Last modified: Friday 26 April 2024, 03:25:02 AM
+ # Website: https://www..web357.com/
+ # Demo: https://demo-wordpress.web357.com/try-the-login-as-a-user-wordpress-plugin/
+ # Support: support.com
+ # Last modified: Friday 14 June 2024, 06:29:33 PM
  ========================================================= */
  
 /**
@@ -68,8 +68,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-main.php';
  */
 function run_LoginAsUser() 
 {
-	$plugin = new LoginAsUser();
-	$plugin->run();
+	global $LoginAsUser;
+	if (!$LoginAsUser) {
+		$LoginAsUser = new LoginAsUser();
+	}
+	$LoginAsUser->run();
 }
 run_LoginAsUser();
 

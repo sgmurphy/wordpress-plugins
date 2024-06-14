@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Futurio Extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-10 12:04+0200\n"
+"POT-Creation-Date: 2024-06-14 13:24+0200\n"
 "PO-Revision-Date: 2016-03-09 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: FuturioWP <info@futurio.com>\n"
@@ -17,34 +17,34 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: inc/framework\n"
 "X-Poedit-SearchPathExcluded-1: inc/metabox\n"
 
-#: futurio-extra.php:112
+#: futurio-extra.php:133
 #, php-format
 msgid "Proudly powered by %s"
 msgstr ""
 
-#: futurio-extra.php:112
+#: futurio-extra.php:133
 msgid "https://wordpress.org/"
 msgstr ""
 
-#: futurio-extra.php:114
+#: futurio-extra.php:135
 #, php-format
 msgid "Theme: %1$s"
 msgstr ""
 
-#: futurio-extra.php:302 inc/elementor/widgets/writing-effect-headline.php:119
+#: futurio-extra.php:327 inc/elementor/widgets/writing-effect-headline.php:119
 msgid "Off"
 msgstr ""
 
-#: futurio-extra.php:305
+#: futurio-extra.php:330
 msgid "Comment on "
 msgstr ""
 
-#: futurio-extra.php:422 inc/demo/classes/class-install-demos.php:30
+#: futurio-extra.php:449 inc/demo/classes/class-install-demos.php:30
 #: inc/demo/classes/class-install-demos.php:34
 msgid "Install Demos"
 msgstr ""
 
-#: futurio-extra.php:424
+#: futurio-extra.php:451
 msgid "Go Pro"
 msgstr ""
 
@@ -131,11 +131,11 @@ msgstr ""
 msgid "See Library"
 msgstr ""
 
-#: inc/admin/dashboard.php:286 inc/demo/demos.php:1324
+#: inc/admin/dashboard.php:286 inc/demo/demos.php:1750
 msgid "Activate"
 msgstr ""
 
-#: inc/admin/dashboard.php:290 inc/demo/demos.php:1330
+#: inc/admin/dashboard.php:290 inc/demo/demos.php:1756
 msgid "Install Now"
 msgstr ""
 
@@ -307,29 +307,12 @@ msgstr ""
 msgid "Search demos..."
 msgstr ""
 
-#: inc/demo/classes/class-install-demos.php:111
+#: inc/demo/classes/class-install-demos.php:114
 msgid "PRO"
 msgstr ""
 
-#: inc/demo/classes/class-install-demos.php:121
+#: inc/demo/classes/class-install-demos.php:129
 msgid "Live Preview"
-msgstr ""
-
-#: inc/demo/classes/importers/class-parsers.php:42
-#: inc/demo/classes/importers/class-parsers.php:72
-#: inc/demo/classes/importers/class-parsers.php:80
-msgid "There was an error when reading this WXR file"
-msgstr ""
-
-#: inc/demo/classes/importers/class-parsers.php:43
-msgid "Details are shown above. The importer will now try again with a different parser..."
-msgstr ""
-
-#: inc/demo/classes/importers/class-parsers.php:84
-#: inc/demo/classes/importers/class-parsers.php:89
-#: inc/demo/classes/importers/class-parsers.php:306
-#: inc/demo/classes/importers/class-parsers.php:495
-msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
 #: inc/demo/classes/importers/class-widget-importer.php:84
@@ -356,325 +339,376 @@ msgstr ""
 msgid "No Title"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:132
-#: inc/demo/classes/importers/class-wordpress-importer.php:141
-#: inc/demo/classes/importers/class-wordpress-importer.php:192
-#: inc/demo/classes/importers/class-wordpress-importer.php:196
-#: inc/demo/classes/importers/class-wordpress-importer.php:205
+#: inc/demo/classes/importers/class-wp-import.php:107
+#: inc/demo/classes/importers/class-wp-import.php:116
+#: inc/demo/classes/importers/class-wp-import.php:167
+#: inc/demo/classes/importers/class-wp-import.php:171
+#: inc/demo/classes/importers/class-wp-import.php:180
 msgid "Sorry, there has been an error."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:133
+#: inc/demo/classes/importers/class-wp-import.php:108
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:176
+#: inc/demo/classes/importers/class-wp-import.php:151
 msgid "All done."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:176
+#: inc/demo/classes/importers/class-wp-import.php:151
 msgid "Have fun!"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:177
+#: inc/demo/classes/importers/class-wp-import.php:152
 msgid "Remember to update the passwords and roles of imported users."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:197
+#: inc/demo/classes/importers/class-wp-import.php:172
 #, php-format
 msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:213
+#: inc/demo/classes/importers/class-wp-import.php:188
 #, php-format
 msgid "This WXR file (version %s) may not be supported by this version of the importer. Please consider updating."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:238
+#: inc/demo/classes/importers/class-wp-import.php:213
 #, php-format
 msgid "Failed to import author %s. Their posts will be attributed to the current user."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:264
+#: inc/demo/classes/importers/class-wp-import.php:241
 msgid "Assign Authors"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:265
-msgid "To make it easier for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site. For example, you may want to import all the entries as <code>admin</code>s entries."
+#: inc/demo/classes/importers/class-wp-import.php:242
+msgid "To make it simpler for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site, such as your primary administrator account."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:267
+#: inc/demo/classes/importers/class-wp-import.php:244
 #, php-format
 msgid "If a new user is created by WordPress, a new password will be randomly generated and the new user&#8217;s role will be set as %s. Manually changing the new user&#8217;s details will be necessary."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:277
+#: inc/demo/classes/importers/class-wp-import.php:254
 msgid "Import Attachments"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:280
+#: inc/demo/classes/importers/class-wp-import.php:257
 msgid "Download and import file attachments"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:297
+#: inc/demo/classes/importers/class-wp-import.php:275
 msgid "Import author:"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:308
+#: inc/demo/classes/importers/class-wp-import.php:290
 msgid "or create new user with login name:"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:311
+#: inc/demo/classes/importers/class-wp-import.php:293
 msgid "as a new user:"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:319
+#: inc/demo/classes/importers/class-wp-import.php:303
 msgid "assign posts to an existing user:"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:321
+#: inc/demo/classes/importers/class-wp-import.php:305
 msgid "or assign posts to an existing user:"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:322
+#: inc/demo/classes/importers/class-wp-import.php:314
 msgid "- Select -"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:372
+#: inc/demo/classes/importers/class-wp-import.php:373
 #, php-format
 msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:424
+#: inc/demo/classes/importers/class-wp-import.php:432
 #, php-format
 msgid "Failed to import category %s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:467
+#: inc/demo/classes/importers/class-wp-import.php:483
 #, php-format
 msgid "Failed to import post tag %s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:516
-#: inc/demo/classes/importers/class-wordpress-importer.php:738
+#: inc/demo/classes/importers/class-wp-import.php:544
+#: inc/demo/classes/importers/class-wp-import.php:792
 #, php-format
-msgid "Failed to import %s %s"
+msgid "Failed to import %1$s %2$s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:605
+#: inc/demo/classes/importers/class-wp-import.php:635
 #, php-format
-msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgid "Failed to import &#8220;%1$s&#8221;: Invalid post type %2$s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:642
+#: inc/demo/classes/importers/class-wp-import.php:676
 #, php-format
-msgid "%s &#8220;%s&#8221; already exists."
+msgid "%1$s &#8220;%2$s&#8221; already exists."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:704
+#: inc/demo/classes/importers/class-wp-import.php:753
 #, php-format
-msgid "Failed to import %s &#8220;%s&#8221;"
+msgid "Failed to import %1$s &#8220;%2$s&#8221;"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:869
+#: inc/demo/classes/importers/class-wp-import.php:939
 msgid "Menu item skipped due to missing menu slug"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:876
+#: inc/demo/classes/importers/class-wp-import.php:946
 #, php-format
 msgid "Menu item skipped due to invalid menu slug: %s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:954
+#: inc/demo/classes/importers/class-wp-import.php:1013
 msgid "Fetching attachments is not enabled"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:967
+#: inc/demo/classes/importers/class-wp-import.php:1031
 msgid "Invalid file type"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1011
+#: inc/demo/classes/importers/class-wp-import.php:1075
+msgid "Could not create temporary file."
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1097
+#, php-format
+msgid "Request failed due to an error: %1$s (%2$s)"
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1113
+#, php-format
+msgid "Remote server returned the following unexpected result: %1$s (%2$s)"
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1125
 msgid "Remote server did not respond"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1017
-#, php-format
-msgid "Remote server returned error response %1$d %2$s"
-msgstr ""
-
-#: inc/demo/classes/importers/class-wordpress-importer.php:1024
-msgid "Remote file is incorrect size"
-msgstr ""
-
-#: inc/demo/classes/importers/class-wordpress-importer.php:1029
+#: inc/demo/classes/importers/class-wp-import.php:1132
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1035
+#: inc/demo/classes/importers/class-wp-import.php:1137
+msgid "Downloaded file has incorrect size"
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1143
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1134
+#: inc/demo/classes/importers/class-wp-import.php:1175
+msgid "Sorry, this file type is not permitted for security reasons."
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1190
+msgid "The uploaded file could not be moved"
+msgstr ""
+
+#: inc/demo/classes/importers/class-wp-import.php:1312
 msgid "Import WordPress"
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1141
+#: inc/demo/classes/importers/class-wp-import.php:1319
 #, php-format
 msgid "A new version of this importer is available. Please update to version %s to ensure compatibility with newer export files."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1156
+#: inc/demo/classes/importers/class-wp-import.php:1334
 msgid "Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import the posts, pages, comments, custom fields, categories, and tags into this site."
 msgstr ""
 
-#: inc/demo/classes/importers/class-wordpress-importer.php:1157
+#: inc/demo/classes/importers/class-wp-import.php:1335
 msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
 msgstr ""
 
-#: inc/demo/demos.php:102
+#: inc/demo/classes/importers/parsers/class-wxr-parser-regex.php:102
+#: inc/demo/classes/importers/parsers/class-wxr-parser-simplexml.php:46
+#: inc/demo/classes/importers/parsers/class-wxr-parser-simplexml.php:52
+#: inc/demo/classes/importers/parsers/class-wxr-parser-xml.php:107
+msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: inc/demo/classes/importers/parsers/class-wxr-parser-simplexml.php:33
+#: inc/demo/classes/importers/parsers/class-wxr-parser-simplexml.php:41
+#: inc/demo/classes/importers/parsers/class-wxr-parser.php:45
+msgid "There was an error when reading this WXR file"
+msgstr ""
+
+#: inc/demo/classes/importers/parsers/class-wxr-parser.php:46
+msgid "Details are shown above. The importer will now try again with a different parser..."
+msgstr ""
+
+#: inc/demo/demos.php:105
 msgid "There was a problem during the importing process resulting in the following error from your server:"
 msgstr ""
 
-#: inc/demo/demos.php:103
+#: inc/demo/demos.php:106
 msgid "Activating"
 msgstr ""
 
-#: inc/demo/demos.php:104
+#: inc/demo/demos.php:107
 msgid "Active"
 msgstr ""
 
-#: inc/demo/demos.php:1189
+#: inc/demo/demos.php:1600
 #, php-format
 msgid "Import the %1$s demo"
 msgstr ""
 
-#: inc/demo/demos.php:1196
+#: inc/demo/demos.php:1607
 #, php-format
 msgid "Importing demo data allow you to quickly edit everything instead of creating content from scratch. It is recommended uploading sample data on a fresh WordPress install to prevent conflicts with your current content. You can use this plugin to reset your site if needed: %1$sWordpress Database Reset%2$s."
 msgstr ""
 
-#: inc/demo/demos.php:1203
+#: inc/demo/demos.php:1614
 msgid "Required Plugins"
 msgstr ""
 
-#: inc/demo/demos.php:1204
+#: inc/demo/demos.php:1615
 msgid "For your site to look exactly like this demo, the plugins below need to be activated."
 msgstr ""
 
-#: inc/demo/demos.php:1212
+#: inc/demo/demos.php:1623
 msgid "Recommended Plugins"
 msgstr ""
 
-#: inc/demo/demos.php:1213
+#: inc/demo/demos.php:1624
 msgid "These plugins are not required for the demo import. However, if you do not install them, some demo features will not be included."
 msgstr ""
 
-#: inc/demo/demos.php:1225
+#: inc/demo/demos.php:1630
+msgid "Required Theme"
+msgstr ""
+
+#: inc/demo/demos.php:1631
+#, php-format
+msgid "This demo requires a different active theme. Theme %1$s will be activated after the import."
+msgstr ""
+
+#: inc/demo/demos.php:1643
 msgid "Install and activate Futurio PRO"
 msgstr ""
 
-#: inc/demo/demos.php:1231
+#: inc/demo/demos.php:1649
 msgid "Activate Futurio PRO license"
 msgstr ""
 
-#: inc/demo/demos.php:1237
+#: inc/demo/demos.php:1655
 msgid "Go to the next step"
 msgstr ""
 
-#: inc/demo/demos.php:1251
+#: inc/demo/demos.php:1669
 msgid "Select what you want to import:"
 msgstr ""
 
-#: inc/demo/demos.php:1257
+#: inc/demo/demos.php:1675
 msgid "Reset theme options"
 msgstr ""
 
-#: inc/demo/demos.php:1257
+#: inc/demo/demos.php:1675
 msgid "Customizer options"
 msgstr ""
 
-#: inc/demo/demos.php:1263
+#: inc/demo/demos.php:1681
 msgid "Import XML Data"
 msgstr ""
 
-#: inc/demo/demos.php:1263
+#: inc/demo/demos.php:1681
 msgid "pages, posts, images, menus, etc..."
 msgstr ""
 
-#: inc/demo/demos.php:1270
+#: inc/demo/demos.php:1688
 msgid "Import Customizer Settings"
 msgstr ""
 
-#: inc/demo/demos.php:1277
+#: inc/demo/demos.php:1695
 msgid "Import Widgets"
 msgstr ""
 
-#: inc/demo/demos.php:1285
+#: inc/demo/demos.php:1702
+msgid "Activate Required Theme"
+msgstr ""
+
+#: inc/demo/demos.php:1711
 msgid "Install this demo"
 msgstr ""
 
-#: inc/demo/demos.php:1290
+#: inc/demo/demos.php:1716
 msgid "The import process could take some time, please be patient"
 msgstr ""
 
-#: inc/demo/demos.php:1296
+#: inc/demo/demos.php:1722
 msgid "Demo Imported!"
 msgstr ""
 
-#: inc/demo/demos.php:1297
+#: inc/demo/demos.php:1723
 msgid "See the result"
 msgstr ""
 
-#: inc/demo/demos.php:1335
+#: inc/demo/demos.php:1761
 msgid "Activated"
 msgstr ""
 
-#: inc/demo/demos.php:1346
+#: inc/demo/demos.php:1772
 msgid "Get This Addon"
 msgstr ""
 
-#: inc/demo/demos.php:1370
+#: inc/demo/demos.php:1874
 msgid "No plugin specified"
 msgstr ""
 
-#: inc/demo/demos.php:1390
+#: inc/demo/demos.php:1894
 msgid "Plugin Successfully Activated"
 msgstr ""
 
-#: inc/demo/demos.php:1409
+#: inc/demo/demos.php:1913
+msgid "Activating Required Theme"
+msgstr ""
+
+#: inc/demo/demos.php:1919
 msgid "Reseting Theme Options"
 msgstr ""
 
-#: inc/demo/demos.php:1415
+#: inc/demo/demos.php:1925
 msgid "Importing XML Data"
 msgstr ""
 
-#: inc/demo/demos.php:1421
+#: inc/demo/demos.php:1931
 msgid "Importing Customizer Settings"
 msgstr ""
 
-#: inc/demo/demos.php:1427
+#: inc/demo/demos.php:1937
 msgid "Importing Widgets"
 msgstr ""
 
-#: inc/demo/demos.php:1750
+#: inc/demo/demos.php:2260
 msgid "Can not retrieve sample data xml file. Website may be down at the momment please try again later. If you still have issues contact the theme developer for assistance."
 msgstr ""
 
-#: inc/demo/demos.php:1765
+#: inc/demo/demos.php:2275
 msgid "The xml import file could not be accessed. Please try again or contact the theme developer."
 msgstr ""
 
-#: inc/demo/demos.php:1801
+#: inc/demo/demos.php:2311
 msgid "Can not retrieve class-wp-importer.php"
 msgstr ""
 
-#: inc/demo/demos.php:1811
+#: inc/demo/demos.php:2321
 msgid "Can not retrieve wordpress-importer.php"
 msgstr ""
 
-#: inc/demo/demos.php:1822
+#: inc/demo/demos.php:2332
 msgid "Sample data file appears corrupt or can not be accessed."
 msgstr ""
 
@@ -686,11 +720,11 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: inc/elementor/widgets.php:141 inc/options/woocommerce.php:116
+#: inc/elementor/widgets.php:125 inc/options/woocommerce.php:116
 msgid "WooCommerce"
 msgstr ""
 
-#: inc/elementor/widgets.php:149
+#: inc/elementor/widgets.php:132
 msgid "Blog Archive Layout"
 msgstr ""
 
@@ -722,7 +756,7 @@ msgstr ""
 #: inc/elementor/widgets/blog-feed-read-more.php:152
 #: inc/elementor/widgets/blog-feed-tags.php:175
 #: inc/elementor/widgets/blog-feed-title.php:101
-#: inc/elementor/widgets/woo-header-cart.php:76
+#: inc/elementor/widgets/woo-header-cart.php:71
 #: inc/elementor/widgets/writing-effect-headline.php:128
 msgid "Alignment"
 msgstr ""
@@ -737,7 +771,7 @@ msgstr ""
 #: inc/elementor/widgets/blog-feed-read-more.php:156
 #: inc/elementor/widgets/blog-feed-tags.php:179
 #: inc/elementor/widgets/blog-feed-title.php:105
-#: inc/elementor/widgets/woo-header-cart.php:81
+#: inc/elementor/widgets/woo-header-cart.php:76
 #: inc/elementor/widgets/writing-effect-headline.php:133
 #: inc/options/sidebar.php:20
 msgid "Left"
@@ -753,7 +787,7 @@ msgstr ""
 #: inc/elementor/widgets/blog-feed-read-more.php:160
 #: inc/elementor/widgets/blog-feed-tags.php:183
 #: inc/elementor/widgets/blog-feed-title.php:109
-#: inc/elementor/widgets/woo-header-cart.php:85
+#: inc/elementor/widgets/woo-header-cart.php:80
 #: inc/elementor/widgets/writing-effect-headline.php:137
 msgid "Center"
 msgstr ""
@@ -768,7 +802,7 @@ msgstr ""
 #: inc/elementor/widgets/blog-feed-read-more.php:164
 #: inc/elementor/widgets/blog-feed-tags.php:187
 #: inc/elementor/widgets/blog-feed-title.php:113
-#: inc/elementor/widgets/woo-header-cart.php:89
+#: inc/elementor/widgets/woo-header-cart.php:84
 #: inc/elementor/widgets/writing-effect-headline.php:141
 #: inc/options/sidebar.php:21
 msgid "Right"
@@ -1057,8 +1091,8 @@ msgstr ""
 #: inc/elementor/widgets/blog-feed-categories.php:204
 #: inc/elementor/widgets/blog-feed-comments.php:202
 #: inc/elementor/widgets/blog-feed-read-more.php:138
-#: inc/elementor/widgets/blog-feed-tags.php:202 inc/options/menu-icons.php:173
-#: inc/options/menu-icons.php:215
+#: inc/elementor/widgets/blog-feed-tags.php:202 inc/options/menu-icons.php:182
+#: inc/options/menu-icons.php:224
 msgid "Text"
 msgstr ""
 
@@ -1093,7 +1127,7 @@ msgid "Margin"
 msgstr ""
 
 #: inc/elementor/widgets/blog-feed-categories.php:289
-#: inc/elementor/widgets/posts-carousel.php:123 inc/options/woocommerce.php:416
+#: inc/elementor/widgets/posts-carousel.php:120 inc/options/woocommerce.php:416
 msgid "Categories"
 msgstr ""
 
@@ -1116,7 +1150,7 @@ msgid "Comments Off text"
 msgstr ""
 
 #: inc/elementor/widgets/blog-feed-comments.php:287
-#: inc/options/posts-pages.php:213
+#: inc/options/posts-pages.php:212
 msgid "Comments"
 msgstr ""
 
@@ -1127,11 +1161,11 @@ msgstr ""
 
 #: inc/elementor/widgets/blog-feed-content.php:102
 #: inc/elementor/widgets/blog-feed-content.php:110
-#: inc/elementor/widgets/posts-carousel.php:134
+#: inc/elementor/widgets/posts-carousel.php:130
 #: inc/options/colors-typography-archive.php:70
 #: inc/options/colors-typography-archive.php:126
 #: inc/options/colors-typography-archive.php:179
-#: inc/options/posts-pages.php:239
+#: inc/options/posts-pages.php:237
 msgid "Excerpt"
 msgstr ""
 
@@ -1236,7 +1270,7 @@ msgid "Type"
 msgstr ""
 
 #: inc/elementor/widgets/blog-feed-read-more.php:125
-#: inc/options/posts-pages.php:48 inc/options/posts-pages.php:258
+#: inc/options/posts-pages.php:48 inc/options/posts-pages.php:255
 msgid "Default"
 msgstr ""
 
@@ -1266,7 +1300,7 @@ msgid "Size"
 msgstr ""
 
 #: inc/elementor/widgets/blog-feed-read-more.php:237
-#: inc/elementor/widgets/posts-carousel.php:153
+#: inc/elementor/widgets/posts-carousel.php:148
 msgid "View"
 msgstr ""
 
@@ -1298,7 +1332,7 @@ msgid "Tag Color"
 msgstr ""
 
 #: inc/elementor/widgets/blog-feed-title.php:46
-#: inc/elementor/widgets/posts-carousel.php:166
+#: inc/elementor/widgets/posts-carousel.php:160
 msgid "Post title"
 msgstr ""
 
@@ -1312,7 +1346,7 @@ msgstr ""
 msgid "Title Color"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:45
+#: inc/elementor/widgets/posts-carousel.php:46
 msgid "Posts"
 msgstr ""
 
@@ -1320,57 +1354,57 @@ msgstr ""
 msgid "Blog"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:98
+#: inc/elementor/widgets/posts-carousel.php:97
 msgid "Number of posts"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:107
+#: inc/elementor/widgets/posts-carousel.php:105
 msgid "Posts per row"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:111
+#: inc/elementor/widgets/posts-carousel.php:109
 msgid "1"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:112
+#: inc/elementor/widgets/posts-carousel.php:110
 msgid "2"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:113 inc/options/sidebar.php:33
+#: inc/elementor/widgets/posts-carousel.php:111
 msgid "3"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:114 inc/options/sidebar.php:34
+#: inc/elementor/widgets/posts-carousel.php:112
 msgid "4"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:115
+#: inc/elementor/widgets/posts-carousel.php:113
 msgid "6"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:173
-#: inc/elementor/widgets/posts-carousel.php:205 inc/options/top-bar.php:127
+#: inc/elementor/widgets/posts-carousel.php:166
+#: inc/elementor/widgets/posts-carousel.php:192 inc/options/top-bar.php:129
 #: inc/widgets/about-me.php:300 inc/widgets/social.php:434
 msgid "Color"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:198
+#: inc/elementor/widgets/posts-carousel.php:186
 msgid "Post content"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:228
+#: inc/elementor/widgets/posts-carousel.php:212
 msgid "Post spacing"
 msgstr ""
 
-#: inc/elementor/widgets/posts-carousel.php:235
+#: inc/elementor/widgets/posts-carousel.php:218
 msgid "Spacing"
 msgstr ""
 
-#: inc/elementor/widgets/woo-header-cart.php:17
+#: inc/elementor/widgets/woo-header-cart.php:19
 msgid "WooCommerce Header Cart"
 msgstr ""
 
-#: inc/elementor/widgets/woo-header-cart.php:33
+#: inc/elementor/widgets/woo-header-cart.php:34
 msgid "Colors"
 msgstr ""
 
@@ -1378,11 +1412,11 @@ msgstr ""
 msgid "Icon Color"
 msgstr ""
 
-#: inc/elementor/widgets/woo-header-cart.php:52
+#: inc/elementor/widgets/woo-header-cart.php:51
 msgid "Counter background"
 msgstr ""
 
-#: inc/elementor/widgets/woo-header-cart.php:64
+#: inc/elementor/widgets/woo-header-cart.php:61
 msgid "Counter number color"
 msgstr ""
 
@@ -1439,54 +1473,63 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: inc/notify.php:18
+#: inc/notify.php:19
 #, php-format
-msgid "You need to have <a href=\"%s\" target=\"_blank\">Futurio</a> theme in order to use Futurio Extra plugin."
+msgid "You need to have <a href=\"%s\" target=\"_blank\">Futurio</a> or Futurio Storefront theme in order to use Futurio Extra plugin."
 msgstr ""
 
-#: inc/notify.php:87
+#: inc/notify.php:90
 msgid "Leave A Review?"
 msgstr ""
 
-#: inc/notify.php:88
+#: inc/notify.php:91
 msgid "We hope you've enjoyed using Futurio theme! Would you consider leaving us a review on WordPress.org?"
 msgstr ""
 
-#: inc/notify.php:93
+#: inc/notify.php:96
 msgid "Sure! I'd love to!"
 msgstr ""
 
-#: inc/notify.php:99
+#: inc/notify.php:102
 msgid "I've already left a review"
 msgstr ""
 
-#: inc/notify.php:105
+#: inc/notify.php:108
 msgid "Maybe Later"
 msgstr ""
 
-#: inc/notify.php:111
+#: inc/notify.php:114
 msgid "I need help!"
 msgstr ""
 
-#: inc/notify.php:117
+#: inc/notify.php:120
 msgid "Never show again"
 msgstr ""
 
-#: inc/notify.php:197
+#: inc/notify.php:200
 msgid "Go PRO for More Features"
 msgstr ""
 
-#: inc/notify.php:198
+#: inc/notify.php:201
 #, php-format
 msgid "Get the  <a href=\"https://futuriowp.com/futurio-pro/\" target=\"_blank\">Pro version</a> for more stunning elements, demos and customization options. Now with 25% discount for lifetime plan."
 msgstr ""
 
-#: inc/notify.php:203
+#: inc/notify.php:206
 msgid "Show me more"
 msgstr ""
 
-#: inc/notify.php:209
+#: inc/notify.php:212
 msgid "Hide this message"
+msgstr ""
+
+#: inc/notify.php:246
+#, php-format
+msgid "%1$s requires an %2$supdate%3$s. Please update the plugin to ensure full compatibility with the %4$s theme and WordPress."
+msgstr ""
+
+#: inc/notify.php:247
+msgid "Update"
 msgstr ""
 
 #: inc/options/colors-typography-archive.php:9
@@ -1512,8 +1555,8 @@ msgstr ""
 #: inc/options/colors-typography-posts-pages.php:152
 #: inc/options/colors-typography.php:69 inc/options/woocommerce.php:248
 #: inc/options/woocommerce.php:307 inc/options/woocommerce.php:359
-#: inc/options/woocommerce.php:571 inc/options/woocommerce.php:629
-#: inc/options/woocommerce.php:681
+#: inc/options/woocommerce.php:581 inc/options/woocommerce.php:639
+#: inc/options/woocommerce.php:691
 msgid "Titles"
 msgstr ""
 
@@ -1579,8 +1622,8 @@ msgstr ""
 msgid "Top bar font"
 msgstr ""
 
-#: inc/options/colors-typography-widget.php:14
-msgid "Widget"
+#: inc/options/colors-typography-widget.php:14 inc/options/sidebar.php:8
+msgid "Sidebar"
 msgstr ""
 
 #: inc/options/colors-typography.php:36 inc/options/colors-typography.php:94
@@ -1649,7 +1692,7 @@ msgid "Note: This will override the footer credits option defined above."
 msgstr ""
 
 #: inc/options/footer-credits.php:36 inc/options/global.php:18
-#: inc/options/global.php:51 inc/options/header.php:13
+#: inc/options/global.php:51 inc/options/header.php:34
 msgid "Select an option"
 msgstr ""
 
@@ -1701,126 +1744,134 @@ msgstr ""
 msgid "Inline"
 msgstr ""
 
-#: inc/options/header.php:10
+#: inc/options/header.php:17
+msgid "Site Background"
+msgstr ""
+
+#: inc/options/header.php:23 inc/options/header.php:49
+msgid "Header"
+msgstr ""
+
+#: inc/options/header.php:31
 msgid "Elementor custom header"
 msgstr ""
 
-#: inc/options/header.php:14
+#: inc/options/header.php:35
 msgid "Note: This will override all options defined below and disable the header and main menu."
 msgstr ""
 
-#: inc/options/header.php:28
-msgid "Heading"
+#: inc/options/header.php:54
+msgid "Separate"
 msgstr ""
 
-#: inc/options/header.php:33
-msgid "Separate center"
+#: inc/options/header.php:55
+msgid "Inside menu bar"
 msgstr ""
 
-#: inc/options/header.php:34
-msgid "Inside menu"
-msgstr ""
-
-#: inc/options/header.php:60 inc/options/header.php:98
-#: inc/options/header.php:138
+#: inc/options/header.php:81 inc/options/header.php:119
+#: inc/options/header.php:159
 msgid "Header spacing"
 msgstr ""
 
-#: inc/options/header.php:201 inc/options/menu-icons.php:22
+#: inc/options/header.php:222 inc/options/menu-icons.php:30
 msgid "Static header"
 msgstr ""
 
-#: inc/options/header.php:202 inc/options/menu-icons.php:23
+#: inc/options/header.php:223 inc/options/menu-icons.php:31
 msgid "Floating header"
 msgstr ""
 
-#: inc/options/header.php:214 inc/options/header.php:326
+#: inc/options/header.php:235 inc/options/header.php:347
 msgid "Title and logo height"
 msgstr ""
 
-#: inc/options/header.php:253 inc/options/header.php:365
+#: inc/options/header.php:274 inc/options/header.php:386
 msgid "Logo spacing"
 msgstr ""
 
-#: inc/options/header.php:290 inc/options/header.php:402
+#: inc/options/header.php:311 inc/options/header.php:423
 msgid "Site Title and Tagline spacing"
 msgstr ""
 
-#: inc/options/menu-icons.php:8
+#: inc/options/menu-icons.php:9
+msgid "Header & Menu"
+msgstr ""
+
+#: inc/options/menu-icons.php:13
 msgid "Main menu"
 msgstr ""
 
-#: inc/options/menu-icons.php:30 inc/options/menu-icons.php:58
+#: inc/options/menu-icons.php:38 inc/options/menu-icons.php:66
 msgid "Menu items spacing"
 msgstr ""
 
-#: inc/options/menu-icons.php:86
+#: inc/options/menu-icons.php:94
 msgid "Main menu layout"
 msgstr ""
 
-#: inc/options/menu-icons.php:91 inc/options/top-bar.php:44
+#: inc/options/menu-icons.php:99 inc/options/top-bar.php:46
 msgid "Boxed"
 msgstr ""
 
-#: inc/options/menu-icons.php:92 inc/options/posts-pages.php:37
-#: inc/options/posts-pages.php:92 inc/options/top-bar.php:45
+#: inc/options/menu-icons.php:100 inc/options/posts-pages.php:37
+#: inc/options/posts-pages.php:92 inc/options/top-bar.php:47
 msgid "Full Width"
 msgstr ""
 
-#: inc/options/menu-icons.php:99
+#: inc/options/menu-icons.php:107
 msgid "Menu align"
 msgstr ""
 
-#: inc/options/menu-icons.php:113
+#: inc/options/menu-icons.php:121
 msgid "Search"
 msgstr ""
 
-#: inc/options/menu-icons.php:114
+#: inc/options/menu-icons.php:122
 msgid "Off canvas widget area"
 msgstr ""
 
-#: inc/options/menu-icons.php:115
+#: inc/options/menu-icons.php:123
 msgid "Custom button"
 msgstr ""
 
-#: inc/options/menu-icons.php:118
+#: inc/options/menu-icons.php:127 inc/options/storefront.php:177
 msgid "WooCommerce Cart"
 msgstr ""
 
-#: inc/options/menu-icons.php:119
+#: inc/options/menu-icons.php:128 inc/options/storefront.php:178
 msgid "WooCommerce Account"
 msgstr ""
 
-#: inc/options/menu-icons.php:128 inc/options/top-bar.php:51
-msgid "Top bar fields"
+#: inc/options/menu-icons.php:138
+msgid "Menu Icons"
 msgstr ""
 
-#: inc/options/menu-icons.php:139
+#: inc/options/menu-icons.php:148
 msgid "Button text"
 msgstr ""
 
-#: inc/options/menu-icons.php:153
+#: inc/options/menu-icons.php:162
 msgid "Button link"
 msgstr ""
 
-#: inc/options/menu-icons.php:168
+#: inc/options/menu-icons.php:177
 msgid "Button color"
 msgstr ""
 
-#: inc/options/menu-icons.php:174 inc/options/menu-icons.php:216
+#: inc/options/menu-icons.php:183 inc/options/menu-icons.php:225
 msgid "Background"
 msgstr ""
 
-#: inc/options/menu-icons.php:175 inc/options/menu-icons.php:217
+#: inc/options/menu-icons.php:184 inc/options/menu-icons.php:226
 msgid "Border"
 msgstr ""
 
-#: inc/options/menu-icons.php:210
+#: inc/options/menu-icons.php:219
 msgid "Button color on hover"
 msgstr ""
 
-#: inc/options/menu-icons.php:251 inc/options/woocommerce.php:424
-#: inc/options/woocommerce.php:793
+#: inc/options/menu-icons.php:260 inc/options/woocommerce.php:424
+#: inc/options/woocommerce.php:803
 msgid "Button border radius"
 msgstr ""
 
@@ -1844,15 +1895,15 @@ msgstr ""
 msgid "Inside post"
 msgstr ""
 
-#: inc/options/posts-pages.php:43 inc/options/posts-pages.php:253
+#: inc/options/posts-pages.php:43 inc/options/posts-pages.php:250
 msgid "Image dimensions"
 msgstr ""
 
-#: inc/options/posts-pages.php:49 inc/options/posts-pages.php:259
+#: inc/options/posts-pages.php:49 inc/options/posts-pages.php:256
 msgid "Custom"
 msgstr ""
 
-#: inc/options/posts-pages.php:62 inc/options/posts-pages.php:265
+#: inc/options/posts-pages.php:62 inc/options/posts-pages.php:262
 #, php-format
 msgid "If you set new dimensions, you need to run %s plugin. It will regenerate all of your thumbnails to the new image sizes."
 msgstr ""
@@ -1873,37 +1924,33 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: inc/options/posts-pages.php:206 inc/options/posts-pages.php:218
-#: inc/options/posts-pages.php:232
+#: inc/options/posts-pages.php:205 inc/options/posts-pages.php:217
+#: inc/options/posts-pages.php:230
 msgid "Visible"
 msgstr ""
 
-#: inc/options/posts-pages.php:207 inc/options/posts-pages.php:233
+#: inc/options/posts-pages.php:206 inc/options/posts-pages.php:231
 msgid "Hidden"
 msgstr ""
 
-#: inc/options/posts-pages.php:219
+#: inc/options/posts-pages.php:218
 msgid "Hidden Off"
 msgstr ""
 
-#: inc/options/posts-pages.php:220
+#: inc/options/posts-pages.php:219
 msgid "Hidden all"
 msgstr ""
 
-#: inc/options/posts-pages.php:226
+#: inc/options/posts-pages.php:225
 msgid "Author"
 msgstr ""
 
-#: inc/options/posts-pages.php:284 inc/options/woocommerce.php:466
+#: inc/options/posts-pages.php:281 inc/options/woocommerce.php:466
 msgid "Image border radius"
 msgstr ""
 
-#: inc/options/posts-pages.php:305
+#: inc/options/posts-pages.php:302
 msgid "Image shadow"
-msgstr ""
-
-#: inc/options/sidebar.php:8
-msgid "Sidebar"
 msgstr ""
 
 #: inc/options/sidebar.php:15
@@ -1914,39 +1961,107 @@ msgstr ""
 msgid "Sidebar size"
 msgstr ""
 
+#: inc/options/sidebar.php:33
+msgid "Narrow"
+msgstr ""
+
+#: inc/options/sidebar.php:34
+msgid "Wide"
+msgstr ""
+
+#: inc/options/storefront.php:7
+msgid "Total field and cart text"
+msgstr ""
+
+#: inc/options/storefront.php:23
+msgid "Cart text"
+msgstr ""
+
+#: inc/options/storefront.php:25
+msgid "Cart"
+msgstr ""
+
+#: inc/options/storefront.php:51
+msgid "Account text"
+msgstr ""
+
+#: inc/options/storefront.php:66
+msgid "Account heading"
+msgstr ""
+
+#: inc/options/storefront.php:68
+msgid "Welcome"
+msgstr ""
+
+#: inc/options/storefront.php:93
+msgid "Account sub-heading"
+msgstr ""
+
+#: inc/options/storefront.php:95
+msgid "Login/Register"
+msgstr ""
+
+#: inc/options/storefront.php:121
+msgid "Search field"
+msgstr ""
+
+#: inc/options/storefront.php:172
+msgid "Heading & Logo"
+msgstr ""
+
+#: inc/options/storefront.php:173
+msgid "Search & Header Widget Area"
+msgstr ""
+
+#: inc/options/storefront.php:188
+msgid "Header Layout"
+msgstr ""
+
+#: inc/options/storefront.php:189
+msgid "Custom color customizations are available in <a href=\"https://futuriowp.com/futurio-pro/#pro-features\" target=\"_blank\" rel=\"noopener\">Futurio PRO</a>"
+msgstr ""
+
+#: inc/options/storefront.php:206
+msgid "Search & Widget area width"
+msgstr ""
+
 #: inc/options/top-bar.php:33
 msgid "Top Bar"
 msgstr ""
 
-#: inc/options/top-bar.php:39
+#: inc/options/top-bar.php:41
 msgid "Top bar layout"
 msgstr ""
 
-#: inc/options/top-bar.php:55 inc/options/top-bar.php:64
+#: inc/options/top-bar.php:53
+msgid "Top bar fields"
+msgstr ""
+
+#: inc/options/top-bar.php:57 inc/options/top-bar.php:66
 msgid "Textarea #1"
 msgstr ""
 
-#: inc/options/top-bar.php:56 inc/options/top-bar.php:86
+#: inc/options/top-bar.php:58 inc/options/top-bar.php:88
 msgid "Textarea #2"
 msgstr ""
 
-#: inc/options/top-bar.php:57 inc/options/top-bar.php:109
+#: inc/options/top-bar.php:59 inc/options/top-bar.php:111
 msgid "Icons"
 msgstr ""
 
-#: inc/options/top-bar.php:116
+#: inc/options/top-bar.php:118
 msgid "Select icon"
 msgstr ""
 
-#: inc/options/top-bar.php:122
+#: inc/options/top-bar.php:124
 msgid "URL"
 msgstr ""
 
-#: inc/options/top-bar.php:133
+#: inc/options/top-bar.php:135
 msgid "icon"
 msgstr ""
 
-#: inc/options/woocommerce.php:103
+#: inc/options/woocommerce.php:101
 msgid "Prev"
 msgstr ""
 
@@ -2011,8 +2126,8 @@ msgid "Header my account icon"
 msgstr ""
 
 #: inc/options/woocommerce.php:277 inc/options/woocommerce.php:333
-#: inc/options/woocommerce.php:386 inc/options/woocommerce.php:600
-#: inc/options/woocommerce.php:655 inc/options/woocommerce.php:707
+#: inc/options/woocommerce.php:386 inc/options/woocommerce.php:610
+#: inc/options/woocommerce.php:665 inc/options/woocommerce.php:717
 msgid "Price"
 msgstr ""
 
@@ -2024,27 +2139,27 @@ msgstr ""
 msgid "Product padding"
 msgstr ""
 
-#: inc/options/woocommerce.php:513
+#: inc/options/woocommerce.php:523
 msgid "Product shadow"
 msgstr ""
 
-#: inc/options/woocommerce.php:534
+#: inc/options/woocommerce.php:544
 msgid "Product shadow on hover"
 msgstr ""
 
-#: inc/options/woocommerce.php:734
+#: inc/options/woocommerce.php:744
 msgid "Image area width (in %)"
 msgstr ""
 
-#: inc/options/woocommerce.php:755
+#: inc/options/woocommerce.php:765
 msgid "Product Navigation"
 msgstr ""
 
-#: inc/options/woocommerce.php:763
+#: inc/options/woocommerce.php:773
 msgid "Tab titles align"
 msgstr ""
 
-#: inc/options/woocommerce.php:782
+#: inc/options/woocommerce.php:792
 msgid "Related products"
 msgstr ""
 
@@ -2117,15 +2232,15 @@ msgstr ""
 msgid "Futurio: Popular posts"
 msgstr ""
 
-#: inc/widgets/popular-posts.php:97
+#: inc/widgets/popular-posts.php:103
 msgid "Popular posts"
 msgstr ""
 
-#: inc/widgets/popular-posts.php:102 inc/widgets/recent-posts.php:100
+#: inc/widgets/popular-posts.php:108 inc/widgets/recent-posts.php:106
 msgid "Title:"
 msgstr ""
 
-#: inc/widgets/popular-posts.php:108 inc/widgets/recent-posts.php:106
+#: inc/widgets/popular-posts.php:114 inc/widgets/recent-posts.php:112
 msgid "Number of posts:"
 msgstr ""
 
@@ -2137,7 +2252,7 @@ msgstr ""
 msgid "Futurio: Recent posts"
 msgstr ""
 
-#: inc/widgets/recent-posts.php:95
+#: inc/widgets/recent-posts.php:101
 msgid "Recent posts"
 msgstr ""
 

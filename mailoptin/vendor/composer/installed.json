@@ -511,11 +511,11 @@
         },
         {
             "name": "mailoptin/authifly",
-            "version": "0.2.1717083297",
-            "version_normalized": "0.2.1717083297.0",
+            "version": "0.2.1718355768",
+            "version_normalized": "0.2.1718355768.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_itAc1/mailoptinauthifly-0-2-1717083297.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_wd3Cr/mailoptinauthifly-0-2-1718355768.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -567,11 +567,11 @@
         },
         {
             "name": "mailoptin/connections",
-            "version": "0.2.1717083342",
-            "version_normalized": "0.2.1717083342.0",
+            "version": "0.2.1718355807",
+            "version_normalized": "0.2.1718355807.0",
             "dist": {
                 "type": "zip",
-                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1Sp7BX/mailoptinconnections-0-2-1717083342.zip"
+                "url": "https://php.fury.io/uDXRvLf8b2ywvgcokC7z/mailoptin/~/up/ver_1DTXol/mailoptinconnections-0-2-1718355807.zip"
             },
             "require": {
                 "composer/installers": "~1.0",
@@ -636,6 +636,7 @@
                     "MailOptin\\FlodeskConnect\\": "FlodeskConnect/",
                     "MailOptin\\HighLevelConnect\\": "HighLevelConnect/",
                     "MailOptin\\BeehiivConnect\\": "BeehiivConnect/",
+                    "MailOptin\\ElasticEmailConnect\\": "ElasticEmailConnect/",
                     "MailOptin\\ElementorConnect\\": "ElementorConnect/",
                     "MailOptin\\WPFormsConnect\\": "WPFormsConnect/",
                     "MailOptin\\GravityFormsConnect\\": "GravityFormsConnect/",
@@ -672,17 +673,17 @@
         },
         {
             "name": "mailoptin/core",
-            "version": "0.1.0-alpha.1717083335",
-            "version_normalized": "0.1.0.0-alpha1717083335",
+            "version": "0.1.0-alpha.1718355802",
+            "version_normalized": "0.1.0.0-alpha1718355802",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mailoptin/core.git",
-                "reference": "8dd51c72c0c245e924ea027507671e4b2034a823"
+                "reference": "2cd5cea5168f0a97d77ed7822e67861a4ee23537"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailoptin/core/zipball/8dd51c72c0c245e924ea027507671e4b2034a823",
-                "reference": "8dd51c72c0c245e924ea027507671e4b2034a823",
+                "url": "https://api.github.com/repos/mailoptin/core/zipball/2cd5cea5168f0a97d77ed7822e67861a4ee23537",
+                "reference": "2cd5cea5168f0a97d77ed7822e67861a4ee23537",
                 "shasum": ""
             },
             "require": {
@@ -693,7 +694,7 @@
                 "pelago/emogrifier": "^6.0.0",
                 "soundasleep/html2text": "~0.5"
             },
-            "time": "2024-05-30T15:30:10+00:00",
+            "time": "2024-06-14T08:22:05+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "autoload": {
@@ -712,7 +713,7 @@
             "description": "Core lib for MailOptin",
             "support": {
                 "issues": "https://github.com/mailoptin/core/issues",
-                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1717083335"
+                "source": "https://github.com/mailoptin/core/tree/0.1.0-alpha.1718355802"
             },
             "install-path": "../../src/core"
         },
@@ -767,17 +768,17 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.3",
-            "version_normalized": "2.72.3.0",
+            "version": "2.72.5",
+            "version_normalized": "2.72.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83"
+                "reference": "afd46589c216118ecd48ff2b95d77596af1e57ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/0c6fd108360c562f6e4fd1dedb8233b423e91c83",
-                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/afd46589c216118ecd48ff2b95d77596af1e57ed",
+                "reference": "afd46589c216118ecd48ff2b95d77596af1e57ed",
                 "shasum": ""
             },
             "require": {
@@ -805,15 +806,15 @@
                 "phpunit/phpunit": "^7.5.20 || ^8.5.26 || ^9.5.20",
                 "squizlabs/php_codesniffer": "^3.4"
             },
-            "time": "2024-01-25T10:35:09+00:00",
+            "time": "2024-06-03T19:18:41+00:00",
             "bin": [
                 "bin/carbon"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-3.x": "3.x-dev",
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev",
+                    "dev-2.x": "2.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1135,24 +1136,24 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v5.4.39",
-            "version_normalized": "5.4.39.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "0934c9f1d433776f25c629bdc93f3e157d139e08"
+                "reference": "ea43887e9afd2029509662d4f95e8b5ef6fc9bbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/0934c9f1d433776f25c629bdc93f3e157d139e08",
-                "reference": "0934c9f1d433776f25c629bdc93f3e157d139e08",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ea43887e9afd2029509662d4f95e8b5ef6fc9bbb",
+                "reference": "ea43887e9afd2029509662d4f95e8b5ef6fc9bbb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2024-04-18T08:26:06+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1184,7 +1185,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v5.4.39"
+                "source": "https://github.com/symfony/css-selector/tree/v5.4.40"
             },
             "funding": [
                 {
@@ -1440,17 +1441,17 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v5.4.39",
-            "version_normalized": "5.4.39.0",
+            "version": "v5.4.40",
+            "version_normalized": "5.4.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "0fabede35e3985c4f96089edeeefe8313e15ca3a"
+                "reference": "bb51d7f183756d1ac03f50ea47dc5726518cc7e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/0fabede35e3985c4f96089edeeefe8313e15ca3a",
-                "reference": "0fabede35e3985c4f96089edeeefe8313e15ca3a",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/bb51d7f183756d1ac03f50ea47dc5726518cc7e8",
+                "reference": "bb51d7f183756d1ac03f50ea47dc5726518cc7e8",
                 "shasum": ""
             },
             "require": {
@@ -1489,7 +1490,7 @@
                 "symfony/config": "",
                 "symfony/yaml": ""
             },
-            "time": "2024-04-18T08:26:06+00:00",
+            "time": "2024-05-31T14:33:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1520,7 +1521,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v5.4.39"
+                "source": "https://github.com/symfony/translation/tree/v5.4.40"
             },
             "funding": [
                 {

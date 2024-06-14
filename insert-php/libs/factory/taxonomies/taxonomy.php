@@ -9,28 +9,28 @@
 	 * @since 1.0.0
 	 */
 
-	//add_action('factory_466_plugin_activation', 'FactoryTaxonomy000::activationHook');
-	//add_action('factory_466_plugin_deactivation', 'FactoryTaxonomy000::deactivationHook');
+	//add_action('factory_475_plugin_activation', 'FactoryTaxonomy000::activationHook');
+	//add_action('factory_475_plugin_deactivation', 'FactoryTaxonomy000::deactivationHook');
 
 	// Exit if accessed directly
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
 
-	if( !class_exists('Wbcr_FactoryTaxonomies333') ) {
+	if( !class_exists('Wbcr_FactoryTaxonomies335') ) {
 
 		/**
 		 * A base class to manage types.
 		 *
 		 * @since 1.0.0
 		 */
-		class Wbcr_FactoryTaxonomies333 {
+		class Wbcr_FactoryTaxonomies335 {
 
 			/**
 			 * Registered custom types.
 			 *
 			 * @since 1.0.0
-			 * @var Wbcr_FactoryTaxonomies333_Taxonomy[]
+			 * @var Wbcr_FactoryTaxonomies335_Taxonomy[]
 			 */
 			private static $terms = array();
 
@@ -41,7 +41,7 @@
 			 * will be setup on the plugin configuration.
 			 *
 			 * @param string $class_name
-			 * @param Wbcr_Factory466_Plugin $plugin
+			 * @param Wbcr_Factory475_Plugin $plugin
 			 */
 			public static function register($className, $plugin = null)
 			{
@@ -61,7 +61,7 @@
 			 * A plugin activation hook.
 			 *
 			 * @since 1.0.0
-			 * @param Factory466_Plugin
+			 * @param Factory475_Plugin
 			 * @return void
 			 */
 			/*public static function activationHook($plugin)
@@ -94,7 +94,7 @@
 			 * A plugin deactivation hook.
 			 *
 			 * @since 1.0.0
-			 * @param Factory466_Plugin
+			 * @param Factory475_Plugin
 			 * @return void
 			 */
 			/*public static function deactivationHook($plugin)

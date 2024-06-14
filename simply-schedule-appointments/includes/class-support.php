@@ -985,6 +985,10 @@ class SSA_Support {
 	}
 
 	public static function should_display_support_tab() {
+		// hide support tab via wp-config
+		if( defined( 'SSA_DISPLAY_SUPPORT_TAB' ) && false === SSA_DISPLAY_SUPPORT_TAB ) {
+				return false;
+		}
 		if( is_multisite() && ! current_user_can('manage_network') ) {
 			return false;
 		}

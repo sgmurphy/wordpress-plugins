@@ -404,8 +404,14 @@ class WoofiltersWpf extends ModuleWpf {
 		if (ReqWpf::getVar('wc-ajax') == 'tinvwl') {
 			return $args;
 		}
+		// For WooCommerce Mix and Match Products
+		if ( !empty($args['query_id']) && ( 'wc_mnm_query_child_items_by_category' == $args['query_id'] ) ) {
+			return $args;
+		}
+		
 		$paged = empty($args['paged']) ? 0 : $args['paged'];
 		$flag = empty($args['post_cards_query']) ? false : $args['post_cards_query'];
+		$ret = isset($args['return']) ? $args['return'] : false;
 		
 		if ($flag && !empty($args['taxonomy'])) {
 			return $args;
@@ -418,6 +424,9 @@ class WoofiltersWpf extends ModuleWpf {
 		$args['paged'] = $paged;
 		if ($flag) {
 			$args['post_cards_query'] = $flag;
+		}
+		if (false !== $ret) {
+			$args['return'] = $ret;
 		}
 		return $args;
 	}
@@ -2429,7 +2438,7 @@ class WoofiltersWpf extends ModuleWpf {
 
 		if ( wp_doing_ajax() ) {
 
-			if ( get_option( 'ywraq_hide_add_to_cart' ) == 'yes' ) {
+			if ( get_option( 'ywraq_hide_add_to_cart' ) == 'yes' && class_exists( 'YITH_YWRAQ_Frontend' ) ) {
 				return call_user_func_array( array( 'YITH_YWRAQ_Frontend', 'hide_add_to_cart_loop' ), array( $link, $product ) );
 			}
 		}
@@ -3909,13 +3918,23 @@ class WoofiltersWpf extends ModuleWpf {
 			'products'      => 'WC_Shortcodes::products',
 			'sale_products' => 'WC_Shortcodes::sale_products',
 		);
+		$original = $content;
+		if (empty($content)) {
+			$id = get_the_ID();
+			if ($id) {
+				$p = get_post($id);
+				if ($p) {
+					$content = $p->post_content;
+				}
+			}
+		}
 
 		if ( false === strpos( $content, '[' ) ) {
-			return $content;
+			return $original;
 		}
 
 		if ( empty( $shortcode_tags ) || ! is_array( $shortcode_tags ) ) {
-			return $content;
+			return $original;
 		}
 
 		preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)@', $content, $matches );
@@ -3956,8 +3975,8 @@ class WoofiltersWpf extends ModuleWpf {
 					}
 				}
 			}
-
-			return $content;
+			
+			return $original;
 		}
 
 		$pattern = get_shortcode_regex( $tagnames );
@@ -3971,7 +3990,7 @@ class WoofiltersWpf extends ModuleWpf {
 			}
 		}
 
-		return $content;
+		return $original;
 	}
 
 	public function queryResults( $result ) {

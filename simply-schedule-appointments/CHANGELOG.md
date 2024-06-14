@@ -1,5 +1,21 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.24 - 2024-06-04
+
+### Fixes
+
+- Avoid calls to external APIs when country code is set
+- Fix Duplicate Blocks in Debug Logs
+- Support translating dates with Twig `date` filter
+- Stripe modal placement fix
+- Fixed deprecated twig date format function.
+- Holiday calendars not being checked for conflicts in Google Calendar
+
+### Features and Improvements
+
+- Updated the button styles for availability time picker option component.
+- Fixed availability button styles on Old Admin App.
+
 ## SSA-VERSION-PREFIX.6.7.22 - 2024-05-28
 
 ### Fixes

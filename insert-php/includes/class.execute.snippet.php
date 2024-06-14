@@ -54,6 +54,7 @@ class WINP_Execute_Snippet {
 		}
 		global $wpdb;
 
+		//todo: Simplify your request. Seems written ugly
 		$sql = "SELECT {$wpdb->posts}.ID, {$wpdb->posts}.post_content, p2.meta_value as priority
  					FROM {$wpdb->posts}
  					INNER JOIN {$wpdb->postmeta} p1 ON ({$wpdb->posts}.ID = p1.post_id)
@@ -452,103 +453,124 @@ class WINP_Execute_Snippet {
  					AND ({$wpdb->posts}.post_status = 'publish')
  					ORDER BY CAST(priority AS UNSIGNED) {$sort}" );
 		*/
+
 		$snippets = $this->snippets[ $scope ] ?? [];
 
-		if ( empty( $snippets ) ) {
-			return $content;
-		}
+		if ( ! empty( $snippets ) ) {
+			foreach ( (array) $snippets as $snippet ) {
+				$id = (int) $snippet->ID;
+				//$is_active = (int) WINP_Helper::getMetaOption( $id, 'snippet_activate', 0 );
+				// Если это сниппет с автовставкой и выбранное место подходит под активный action
+				$avail_place = ( 'auto' == $scope ? $location == WINP_Helper::getMetaOption( $id, 'snippet_location', '' ) : true );
+				// Если условие отображения сниппета выполняется
+				$snippet_type = WINP_Helper::getMetaOption( $id, 'snippet_type', WINP_SNIPPET_TYPE_PHP );
+				$is_condition = $snippet_type != WINP_SNIPPET_TYPE_PHP ? $this->checkCondition( $id ) : true;
 
-		foreach ( (array) $snippets as $snippet ) {
-			$id = (int) $snippet->ID;
-			//$is_active = (int) WINP_Helper::getMetaOption( $id, 'snippet_activate', 0 );
-			// Если это сниппет с автовставкой и выбранное место подходит под активный action
-			$avail_place = ( 'auto' == $scope ? $location == WINP_Helper::getMetaOption( $id, 'snippet_location', '' ) : true );
-			// Если условие отображения сниппета выполняется
-			$snippet_type = WINP_Helper::getMetaOption( $id, 'snippet_type', WINP_SNIPPET_TYPE_PHP );
-			$is_condition = $snippet_type != WINP_SNIPPET_TYPE_PHP ? $this->checkCondition( $id ) : true;
+				if ( $avail_place && $is_condition ) {
+					$post_id = (int) WINP_Plugin::app()->request->post( 'post_ID', 0 );
 
-			if ( $avail_place && $is_condition ) {
-				$post_id = (int) WINP_Plugin::app()->request->post( 'post_ID', 0 );
+					if ( ( isset( $_POST['wbcr_inp_snippet_scope'] )
+					       && $post_id === $id
+					       && WINP_Plugin::app()->currentUserCan() ) || WINP_Helper::is_safe_mode() ) {
+						return $content;
+					}
 
-				if ( isset( $_POST['wbcr_inp_snippet_scope'] ) && $post_id === $id && WINP_Plugin::app()->currentUserCan() ) {
-					return $content;
-				}
-
-				if ( WINP_Helper::is_safe_mode() ) {
-					return $content;
-				}
-
-				// WPML Compatibility
-				if ( defined( 'WPML_PLUGIN_FILE' ) ) {
-					$wpml_langs = WINP_Helper::getMetaOption( $id, 'snippet_wpml_lang', '' );
-					if ( $wpml_langs !== '' && defined( 'ICL_LANGUAGE_CODE' ) ) {
-						if ( ! in_array( ICL_LANGUAGE_CODE, explode( ',', $wpml_langs ) ) ) {
-							continue;
+					// WPML Compatibility
+					if ( defined( 'WPML_PLUGIN_FILE' ) ) {
+						$wpml_langs = WINP_Helper::getMetaOption( $id, 'snippet_wpml_lang', '' );
+						if ( $wpml_langs !== '' && defined( 'ICL_LANGUAGE_CODE' ) ) {
+							if ( ! in_array( ICL_LANGUAGE_CODE, explode( ',', $wpml_langs ) ) ) {
+								continue;
+							}
 						}
 					}
-				}
 
-				$snippet_code = WINP_Helper::get_snippet_code( $snippet );
-
-				/**
-				 * Filter snippet code before execute
-				 */
-				$snippet_code = apply_filters( 'wbcr/inp/execute_snippet/snippet_code', $snippet_code, $id );
-
-				if ( WINP_Plugin::app()->getOption( 'execute_shortcode' ) ) {
-					$snippet_code = do_shortcode( $snippet_code );
-				}
-
-				if ( $snippet_type === WINP_SNIPPET_TYPE_TEXT || $snippet_type === WINP_SNIPPET_TYPE_AD ) {
-					$snippet_content = '<div class="winp-text-snippet-container">' . $snippet_code . '</div>';
-				} elseif ( $snippet_type === WINP_SNIPPET_TYPE_CSS || $snippet_type === WINP_SNIPPET_TYPE_JS ) {
-					$snippet_content = self::getJsCssSnippetData( $id );
-				} elseif ( $snippet_type === WINP_SNIPPET_TYPE_HTML ) {
-					$snippet_content = $snippet_code;
-				} else {
-					$code = $this->prepareCode( $snippet_code, $id );
-					ob_start();
-					$this->executeSnippet( $code, $id, false );
-					$snippet_content = ob_get_contents();
-					ob_end_clean();
-				}
-
-				if ( 'auto' == $scope ) {
-					switch ( $location ) {
-						case 'before_paragraph':   // Перед параграфом
-							$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
-							$content         = $this->handleParagraphContent( $content, $snippet_content, $location_number );
-							break;
-						case 'after_paragraph':   // После параграфа
-							$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
-							$content         = $this->handleParagraphContent( $content, $snippet_content, $location_number, 'after' );
-							break;
-						case 'before_posts':   // Перед записью
-							$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
-							$content         = $this->handlePostsContent( $content, $snippet_content, $location_number, 'before', $custom_params );
-							break;
-						case 'after_posts':   // После записи
-							$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
-							$content         = $this->handlePostsContent( $content, $snippet_content, $location_number, 'after', $custom_params );
-							break;
-						default:
-							$content = $snippet_content . $content;
-					}
+					$snippet_code = WINP_Helper::get_snippet_code( $snippet );
 
 					/**
-					 * Action for woo actions
-					 *
-					 * @param array $location Slug of the location.
-					 * @param string $snippet_content Rendered snippet content
-					 *
-					 * @since 2.4
+					 * Filter snippet code before execute
 					 */
-					do_action( 'wbcr/woody/do_woocommerce_actions', $location, $snippet_content );
+					$snippet_code = apply_filters( 'wbcr/inp/execute_snippet/snippet_code', $snippet_code, $id );
 
-					//$this->woocommerce_actions( $location, $snippet_content );
-					$this->custom_actions( $location, $snippet_content );
-				} else {
-					$content = $snippet_content . $content;
+					if ( WINP_Plugin::app()->getOption( 'execute_shortcode' ) ) {
+						$snippet_code = do_shortcode( $snippet_code );
+					}
+
+					if ( $snippet_type === WINP_SNIPPET_TYPE_TEXT || $snippet_type === WINP_SNIPPET_TYPE_AD ) {
+						$snippet_content = '<div class="winp-text-snippet-container">' . $snippet_code . '</div>';
+					} elseif ( $snippet_type === WINP_SNIPPET_TYPE_CSS || $snippet_type === WINP_SNIPPET_TYPE_JS ) {
+						$snippet_content = self::getJsCssSnippetData( $id );
+					} elseif ( $snippet_type === WINP_SNIPPET_TYPE_HTML ) {
+						$snippet_content = $snippet_code;
+					} else {
+						$code = $this->prepareCode( $snippet_code, $id );
+						ob_start();
+						$this->executeSnippet( $code, $id, false );
+						$snippet_content = ob_get_contents();
+						ob_end_clean();
+					}
+
+					// If the user has prohibited the insertion of unfiltered HTML,
+					// we prohibit the execution of snippets.
+					if ( ( defined( 'DISALLOW_UNFILTERED_HTML' ) && DISALLOW_UNFILTERED_HTML )
+					     && ! in_array( $snippet_type, [
+							WINP_SNIPPET_TYPE_TEXT,
+							WINP_SNIPPET_TYPE_AD,
+							WINP_SNIPPET_TYPE_CSS
+						] ) ) {
+						$snippet_content = '';
+
+						if ( is_user_logged_in() && WINP_Plugin::app()->currentUserCan() ) {
+							$error_text = __( '[Woody snippet cannot be executed because you have disabled the insertion of unfiltered html!]', 'insert-php' );
+
+							switch ( $location ) {
+								case 'header':
+								case 'footer':
+									$snippet_content = '<!-- ' . $error_text . '-->';
+									break;
+								default:
+									$snippet_content = $error_text;
+							}
+						}
+					}
+
+					if ( 'auto' == $scope ) {
+						switch ( $location ) {
+							case 'before_paragraph': // Перед параграфом
+								$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
+								$content         = $this->handleParagraphContent( $content, $snippet_content, $location_number );
+								break;
+							case 'after_paragraph': // После параграфа
+								$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
+								$content         = $this->handleParagraphContent( $content, $snippet_content, $location_number, 'after' );
+								break;
+							case 'before_posts':   // Перед записью
+								$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
+								$content         = $this->handlePostsContent( $content, $snippet_content, $location_number, 'before', $custom_params );
+								break;
+							case 'after_posts':   // После записи
+								$location_number = WINP_Helper::getMetaOption( $id, 'snippet_p_number', 0 );
+								$content         = $this->handlePostsContent( $content, $snippet_content, $location_number, 'after', $custom_params );
+								break;
+							default:
+								$content = $snippet_content . $content;
+						}
+
+						/**
+						 * Action for woo actions
+						 *
+						 * @param array $location Slug of the location.
+						 * @param string $snippet_content Rendered snippet content
+						 *
+						 * @since 2.4
+						 */
+						do_action( 'wbcr/woody/do_woocommerce_actions', $location, $snippet_content );
+
+						//$this->woocommerce_actions( $location, $snippet_content );
+						$this->custom_actions( $location, $snippet_content );
+					} else {
+						$content = $snippet_content . $content;
+					}
 				}
 			}
 		}
@@ -775,7 +797,12 @@ class WINP_Execute_Snippet {
 	 */
 	public function prepareCode( $code, $snippet_id ) {
 		$snippet_type = WINP_Helper::get_snippet_type( $snippet_id );
-		if ( $snippet_type != WINP_SNIPPET_TYPE_UNIVERSAL && $snippet_type != WINP_SNIPPET_TYPE_CSS && $snippet_type != WINP_SNIPPET_TYPE_JS && $snippet_type != WINP_SNIPPET_TYPE_HTML ) {
+
+		if ( $snippet_type != WINP_SNIPPET_TYPE_UNIVERSAL
+		     && $snippet_type != WINP_SNIPPET_TYPE_CSS
+		     && $snippet_type != WINP_SNIPPET_TYPE_JS
+		     && $snippet_type != WINP_SNIPPET_TYPE_HTML ) {
+
 			/* Remove <?php and <? from beginning of snippet */
 			$code = preg_replace( '|^[\s]*<\?(php)?|', '', $code );
 

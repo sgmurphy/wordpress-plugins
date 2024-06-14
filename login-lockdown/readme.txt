@@ -1,6 +1,6 @@
-=== Login Lockdown - Protect Login Form ===
+=== Login Lockdown & Protection ===
 Contributors: WebFactory
-Tags: login, block login, protect login, captcha, lockdown
+Tags: login, block login, protect login, captcha, firewall
 Requires at least: 4.0
 Tested up to: 6.5
 Stable Tag: 2.10

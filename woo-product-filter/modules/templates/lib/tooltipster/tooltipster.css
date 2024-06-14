@@ -138,7 +138,7 @@ html {
 	transition-property: opacity;
 }
 .tooltipster-fade-show {
-	opacity: 1;
+	opacity: 1 !important;
 }
 .tooltipster-grow {
 	-webkit-transform: scale(0,0);

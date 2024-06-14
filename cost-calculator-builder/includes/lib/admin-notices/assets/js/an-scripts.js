@@ -40,8 +40,8 @@
     function track_notices_clicks( notice_id, clickAndViewData ) {
         if ( typeof notice_id !== 'undefined' ) {
             let token = btoa(new Date().toISOString().slice(0, 10));
-            let api_url = `${stmNotices.api_fetch_url}/wp-json/custom/v1/notice-click`;
-            fetch( api_url, {
+
+            fetch('https://promo-dashboard.stylemixthemes.com/wp-json/custom/v1/notice-click', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,23 +61,22 @@
               });
         }
     }
-    $(window).load(function() {
-        $('.stm-notice-notice').each(function() {
-            let dataId = $(this).data('id');
-            let statusViews = $(this).data('status-views');
-            if(statusViews !== 'viewed') {
-                track_notices_clicks(dataId, 'views')
-            }
-        });
 
-        $('.popup-dash-promo').each(function() {
-            let dataId = $(this).data('id');
-            let statusViews = $(this).data('status-views');
-            if(statusViews !== 'viewed') {
-                track_notices_clicks(dataId, 'views')
-            }
-        });
-    })
+    $('.stm-notice-notice').each(function() {
+        let dataId = $(this).data('id');
+        let statusViews = $(this).data('status-views');
+        if(statusViews !== 'viewed') {
+            track_notices_clicks(dataId, 'views')
+        }
+    });
+
+    $('.popup-dash-promo').each(function() {
+        let dataId = $(this).data('id');
+        let statusViews = $(this).data('status-views');
+        if(statusViews !== 'viewed') {
+            track_notices_clicks(dataId, 'views')
+        }
+    });
 
     $(document).on('click', '.popup-dash-close', function () {
         let notice_id    = $('.not-show-again').attr('data-id');
@@ -131,6 +130,7 @@
         let notice_id    = $('.not-show-again').attr('data-id');
         let status_click = $('.popup-dash-promo').attr('data-status-click');
 
+        console.log('test')
         $.ajax({
             url: ajaxurl,
             type: 'POST',
@@ -176,36 +176,36 @@
         }
     });
 
-    $(window).load(function() {
+    setTimeout(() => {
         if ($('.popup-dash-promo.show').length > 0) {
             let userScrollPosition = $(window).scrollTop();
 
             $('.popup-dash-promo').css('top', userScrollPosition);
             $('body').addClass('body-scroll-off');
         }
+    }, 100)
 
-        if ($('.popup-dash-promo.show').length > 0) {
-            $(document).on('click', '.popup-dash-promo', function (e) {
-                if (!$(e.target).closest('.popup-dash-promo-content').length) {
-                    let notice_id = $('.not-show-again').attr('data-id');
-                    $.ajax({
-                        url: ajaxurl,
-                        type: 'POST',
-                        data: {
-                            action: 'stm_notice_status',
-                            notice_id: notice_id,
-                            notice_status: 'close',
-                            nonce: stmNotices.nonce,
-                        },
-                        success: function (response) {
-                            $('.popup-dash-promo').removeClass('show');
-                            $('body').removeClass('body-scroll-off');
-                        }
-                    });
-                }
-            });
-        }
-    })
+    if ($('.popup-dash-promo.show').length > 0) {
+        $(document).on('click', '.popup-dash-promo', function(e) {
+            if (!$(e.target).closest('.popup-dash-promo-content').length) {
+                let notice_id = $('.not-show-again').attr('data-id');
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'stm_notice_status',
+                        notice_id: notice_id,
+                        notice_status: 'close',
+                        nonce: stmNotices.nonce,
+                    },
+                    success: function (response) {
+                        $('.popup-dash-promo').removeClass('show');
+                        $('body').removeClass('body-scroll-off');
+                    }
+                });
+            }
+        });
+    }
 
     function checkTextLength() {
         let element = $('.popup-dash-desc');

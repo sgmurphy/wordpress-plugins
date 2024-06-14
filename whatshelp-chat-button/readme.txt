@@ -3,7 +3,7 @@ Contributors: GetButton
 Donate link: https://getbutton.io/
 Tags: facebook messenger, viber, whatsapp, chat, chat free, telegram, snapchat, button, getbutton, chat button, chat plugin, chat widget
 Requires at least: 2.7
-Tested up to: 6.3
+Tested up to: 6.5.4
 Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

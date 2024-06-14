@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WINP_Plugin' ) ) {
 
-	class WINP_Plugin extends Wbcr_Factory466_Plugin {
+	class WINP_Plugin extends Wbcr_Factory475_Plugin {
 
 		/**
-		 * @var Wbcr_Factory466_Plugin
+		 * @var Wbcr_Factory475_Plugin
 		 */
 		private static $app;
 
@@ -144,10 +144,10 @@ if ( ! class_exists( 'WINP_Plugin' ) ) {
 		 */
 		private function register_types() {
 			require_once WINP_PLUGIN_DIR . '/admin/types/snippets-post-types.php';
-			Wbcr_FactoryTypes413::register( 'WINP_SnippetsType', $this );
+			Wbcr_FactoryTypes415::register( 'WINP_SnippetsType', $this );
 
 			require_once WINP_PLUGIN_DIR . '/admin/types/snippets-taxonomy.php';
-			Wbcr_FactoryTaxonomies333::register( 'WINP_SnippetsTaxonomy', $this );
+			Wbcr_FactoryTaxonomies335::register( 'WINP_SnippetsTaxonomy', $this );
 		}
 
 		/**
@@ -157,11 +157,6 @@ if ( ! class_exists( 'WINP_Plugin' ) ) {
 		private function register_shortcodes() {
 			$action = self::app()->request->get( 'action', '' );
 			if ( ! ( 'edit' == $action && is_admin() ) ) {
-				if ( self::app()->getOption( 'support_old_shortcodes' ) ) {
-					// todo: Deprecated
-					require_once WINP_PLUGIN_DIR . '/includes/shortcodes/shortcode-insert-php.php';
-				}
-
 				require_once WINP_PLUGIN_DIR . '/includes/shortcodes/shortcodes.php';
 				require_once WINP_PLUGIN_DIR . '/includes/shortcodes/shortcode-php.php';
 				require_once WINP_PLUGIN_DIR . '/includes/shortcodes/shortcode-text.php';
@@ -246,7 +241,7 @@ if ( ! class_exists( 'WINP_Plugin' ) ) {
 			# We set the priority to 30 to wait for the premium plugin to load.
 			add_action( 'plugins_loaded', [ $this, 'register_depence_pages' ], 30 );
 
-			add_action( 'wbcr_factory_forms_463_register_controls', function () {
+			add_action( 'wbcr_factory_forms_475_register_controls', function () {
 				$colorControls = [
 					[
 						'type'    => 'winp-dropdown',

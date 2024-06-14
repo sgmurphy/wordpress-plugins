@@ -37,15 +37,6 @@ if ( ! defined( 'WPINC' ) ) {
                     'pro_plugin'    => 'wt-woocommerce-gift-cards/wt-woocommerce-gift-cards.php',
                     'basic_plugin'  => '', 
                 ),
-                'diplay_discount' => array(
-                    'title'         => __('Display Discounts for WooCommerce', 'wt-smart-coupons-for-woocommerce'),
-                    'description'   => __('Display the WooCommerce coupon deals available for each product on the respective product pages. Make use of multiple coupon layouts & display options to fully optimize the look & feel of the coupons.', 'wt-smart-coupons-for-woocommerce'),
-                    'image_url'     => 'display-discounts.png',
-                    'premium_url'   => 'https://www.webtoffee.com/product/display-woocommerce-discounts/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=Display_Discounts',
-                    'basic_url'     => '',
-                    'pro_plugin'    => 'wt-display-discounts-for-woocommerce/wt_display_discounts_for_woocommerce.php',
-                    'basic_plugin'  => '',
-                ),
                 'smart_coupons_plugin' => array(
                     'title'         => __('Smart Coupons for WooCommerce', 'wt-smart-coupons-for-woocommerce'),
                     'description'   => __('Create coupons to offer discounts and free products to your customers with Smart Coupons for WooCommerce. You can set up BOGO coupons, giveaways, gift cards, store credits, and more with this plugin.', 'wt-smart-coupons-for-woocommerce'),
@@ -135,15 +126,6 @@ if ( ! defined( 'WPINC' ) ) {
                     'basic_url'     => '',
                     'pro_plugin'    => 'wt-woo-request-quote/wt-woo-request-quote.php',
                     'basic_plugin'  => '',
-                ),
-                'best_sellers_plugin' => array(
-                    'title'         => __('WebToffee WooCommerce Best Sellers', 'wt-smart-coupons-for-woocommerce'),
-                    'description'   => __('Highlight top-selling products on your WooCommerce store using best seller labels, sliders, and custom seals. You can display ranking positions for best-seller products in different categories.', 'wt-smart-coupons-for-woocommerce'),
-                    'image_url'     => 'bestsellers_plugin.png',
-                    'premium_url'   => 'https://www.webtoffee.com/product/woocommerce-best-sellers/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=WooCommerce_Best_Sellers',
-                    'basic_url'     => '',
-                    'pro_plugin'    => 'wt-woocommerce-best-seller/wt-woocommerce-best-sellers.php',
-                    'basic_plugin'  => '', 
                 ),
                 'fbt_plugins' => array(
                     'title'         => __('Frequently Bought Together for WooCommerce', 'wt-smart-coupons-for-woocommerce'),
@@ -238,15 +220,6 @@ if ( ! defined( 'WPINC' ) ) {
                     'basic_url' => 'https://wordpress.org/plugins/wt-woocommerce-sequential-order-numbers/',
                     'pro_plugin' => 'wt-woocommerce-sequential-order-numbers-pro/wt-advanced-order-number-pro.php',
                     'basic_plugin' => 'wt-woocommerce-sequential-order-numbers/wt-advanced-order-number.php',
-                ),
-                'backup_and_migration_plugin' => array(
-                    'title' => __('WordPress Backup and Migration', 'wt-smart-coupons-for-woocommerce'),
-                    'description' => __('A complete WordPress backup and migration plugin to easily back up and migrate your WordPress website and database. This fast and flexible backup solution makes creating and restoring backups easy.', 'wt-smart-coupons-for-woocommerce'),
-                    'image_url' => 'WordPress-backup-and-migration-plugin.png',
-                    'premium_url' => 'https://www.webtoffee.com/product/wordpress-backup-and-migration/?utm_source=other_solution_page&utm_medium=free_plugin&utm_campaign=WordPress_Backup',
-                    'basic_url' => 'https://wordpress.org/plugins/wp-migration-duplicator/',
-                    'pro_plugin' => 'wp-migration-duplicator-pro/wp-migration-duplicator-pro.php',
-                    'basic_plugin' => 'wp-migration-duplicator/wp-migration-duplicator.php',
                 ),
             );
 

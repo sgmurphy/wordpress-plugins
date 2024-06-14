@@ -74,8 +74,10 @@ class CCBUpdatesCallbacks {
 						'all_past' => false,
 						'current'  => false,
 						'period'   => array(
-							'start' => null,
-							'end'   => null,
+							array(
+								'start' => null,
+								'end'   => null,
+							),
 						),
 					);
 
@@ -983,6 +985,27 @@ class CCBUpdatesCallbacks {
 		if ( empty( $general_settings['form_fields']['summary_display'] ) ) {
 			$general_settings['form_fields']['summary_display'] = $static_general_data['form_fields']['summary_display'];
 			update_option( 'ccb_general_settings', apply_filters( 'calc_update_options', $general_settings ) );
+		}
+	}
+
+	public static function ccb_date_picker_multi_period() {
+		$calculators = self::get_calculators();
+		foreach ( $calculators as $calculator ) {
+			$fields = get_post_meta( $calculator->ID, 'stm-fields', true );
+
+			foreach ( $fields as $key => $field ) {
+				if ( isset( $field['alias'] ) && preg_replace( '/_field_id.*/', '', $field['alias'] ) === 'datePicker' ) {
+					if ( ! isset( $field['not_allowed_dates']['period'][0] ) ) {
+						$field['not_allowed_dates']['period'] = array(
+							$field['not_allowed_dates']['period'],
+						);
+					}
+
+					$fields[ $key ] = $field;
+				}
+			}
+
+			update_post_meta( $calculator->ID, 'stm-fields', (array) $fields );
 		}
 	}
 }

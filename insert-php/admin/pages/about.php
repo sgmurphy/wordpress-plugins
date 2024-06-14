@@ -20,9 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WINP_AboutPage extends WINP_Page {
 
 	/**
-	 * @param Wbcr_Factory466_Plugin $plugin
+	 * @param Wbcr_Factory475_Plugin $plugin
 	 */
-	public function __construct( Wbcr_Factory466_Plugin $plugin ) {
+	public function __construct( Wbcr_Factory475_Plugin $plugin ) {
 		$this->menu_post_type = WINP_SNIPPETS_POST_TYPE;
 
 		$this->id         = "about";

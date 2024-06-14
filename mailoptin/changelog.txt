@@ -1,5 +1,9 @@
 ﻿== Changelog ==
 
+= 1.2.70.0 =
+* Added [Elastic Email integration](https://mailoptin.io/article/connect-wordpress-elastic-email/).
+* Improved Block Editor support.
+
 = 1.2.69.1 =
 * Fixed bug where Beehiiv integration without selected tier didn't work.
 * Fixed bug where Contact Form 7 integration with acceptance checkbox didn’t work.

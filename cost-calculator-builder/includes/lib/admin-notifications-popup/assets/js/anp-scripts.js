@@ -141,8 +141,8 @@
         function track_notices_clicks( notice_id, clickAndViewData ) {
             if ( typeof notice_id !== 'undefined' ) {
                 let token = btoa(new Date().toISOString().slice(0, 10));
-                let api_url = `${anp_script_object.api_fetch_url}/wp-json/custom/v1/notice-click`;
-                fetch( api_url, {
+
+                fetch('https://promo-dashboard.stylemixthemes.com/wp-json/custom/v1/notice-click', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -162,63 +162,62 @@
                   });
             }
         }
-        $(window).load(function() {
-            $('.anp-item-base').each(function() {
-                let dataId = $(this).data('notice-id');
-                let statusViews = $(this).data('status-views');
-                if(statusViews !== 'viewed') {
-                    track_notices_clicks(dataId, 'views')
+
+        $('.anp-item-base').each(function() {
+            let dataId = $(this).data('notice-id');
+            let statusViews = $(this).data('status-views');
+            if(statusViews !== 'viewed') {
+                track_notices_clicks(dataId, 'views')
+            }
+        });
+
+        $('.skip-notice').on('click', function () {
+           let notice_id = $(this).attr('data-id');
+
+            let $notice      = $(this).closest('.anp-item-base');
+            let status_click = $notice.attr('data-status-click');
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'stm_notification_status',
+                    notice_id: notice_id,
+                    notice_status: 'close',
+                    security: anp_script_object.anp_nonce
+                },
+                success: function () {
+                    $notice.fadeOut(10).remove();
                 }
             });
 
-            $('.skip-notice').on('click', function () {
-               let notice_id = $(this).attr('data-id');
+           if( status_click !== 'clicked' ) {
+               track_notices_clicks( notice_id, 'clicks' )
+           }
+        })
 
-                let $notice      = $(this).closest('.anp-item-base');
-                let status_click = $notice.attr('data-status-click');
-                $.ajax({
-                    url: ajaxurl,
-                    type: 'POST',
-                    data: {
-                        action: 'stm_notification_status',
-                        notice_id: notice_id,
-                        notice_status: 'close',
-                        security: anp_script_object.anp_nonce
-                    },
-                    success: function () {
-                        $notice.fadeOut(10).remove();
-                    }
-                });
+        $('.anp-action-btn').on('click', function () {
+            let notice_id = $(this).attr('data-id');
 
-               if( status_click !== 'clicked' ) {
-                   track_notices_clicks( notice_id, 'clicks' )
-               }
-            })
+            let $notice      = $(this).closest('.anp-item-base');
+            let status_click = $notice.attr('data-status-click');
 
-            $('.anp-action-btn').on('click', function () {
-                let notice_id = $(this).attr('data-id');
-
-                let $notice      = $(this).closest('.anp-item-base');
-                let status_click = $notice.attr('data-status-click');
-
-                $.ajax({
-                    url: ajaxurl,
-                    type: 'POST',
-                    data: {
-                        action: 'stm_notification_status',
-                        notice_id: notice_id,
-                        notice_status: 'not-show-again',
-                        security: anp_script_object.anp_nonce
-                    },
-                    success: function () {
-                        $notice.fadeOut(10).remove();
-                    }
-                });
-
-                if( status_click !== 'clicked' ) {
-                    track_notices_clicks( notice_id, 'clicks' )
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'stm_notification_status',
+                    notice_id: notice_id,
+                    notice_status: 'not-show-again',
+                    security: anp_script_object.anp_nonce
+                },
+                success: function () {
+                    $notice.fadeOut(10).remove();
                 }
-            })
+            });
+
+            if( status_click !== 'clicked' ) {
+                track_notices_clicks( notice_id, 'clicks' )
+            }
         })
     })
 })(jQuery);

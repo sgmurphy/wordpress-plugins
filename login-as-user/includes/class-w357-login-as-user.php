@@ -4,12 +4,12 @@
  # -------------------------------------------------------
  # For WordPress
  # Author: Web357
- # Copyright @ 2014-2024 Web357. All rights reserved.
+ # Copyright © 2014-2024 Web357. All rights reserved.
  # License: GNU/GPLv3, http://www.gnu.org/licenses/gpl-3.0.html
- # Website: https:/www.web357.com
- # Demo: https://demo.web357.com/wordpress/login-as-user/wp-admin/
- # Support: support@web357.com
- # Last modified: Friday 26 April 2024, 03:25:02 AM
+ # Website: https://www..web357.com/
+ # Demo: https://demo-wordpress.web357.com/try-the-login-as-a-user-wordpress-plugin/
+ # Support: support.com
+ # Last modified: Friday 14 June 2024, 06:29:33 PM
  ========================================================= */
  class w357LoginAsUser
 {
@@ -24,6 +24,7 @@
 		add_action('wp_logout', array($this, 'login_as_user_clear_olduser_cookie'));
 		add_action('wp_login', array($this, 'login_as_user_clear_olduser_cookie'));
 		add_filter('wp_head', array($this, 'filter_login_message'), 1);
+		// add_action('admin_bar_menu', array($this, 'login_as_user_link_back_link_on_toolbar'), 999);
 		add_filter('removable_query_args', array($this, 'filter_removable_query_args'));
 		add_filter('manage_users_columns', array($this, 'loginasuser_col'), 1000);
 		add_filter('manage_users_custom_column', array($this, 'loginasuser_col_content'), 15, 3);
@@ -399,7 +400,55 @@ CSS;
 			echo  '</div>';
 		}
 	}
+	
+	function login_as_user_link_back_link_on_toolbar($wp_admin_bar) {
 
+		if (is_admin_bar_showing()) {
+
+			$old_user = $this->get_old_user();
+
+			if ($old_user instanceof WP_User) {
+				$link = sprintf(
+					/* Translators: 1: user display name; 2: username; */
+					__('go back to admin as %1$s (%2$s)', 'login-as-user'),
+					$old_user->display_name,
+					$old_user->user_email
+				);
+				$url = self::back_url($old_user);
+
+				if (!empty($_REQUEST['interim-login'])) {
+					$url = add_query_arg(array(
+						'interim-login' => '1',
+					), $url);
+				} elseif (!empty($_REQUEST['redirect_to'])) {
+					$url = add_query_arg(array(
+						'redirect_to' => urlencode(wp_unslash($_REQUEST['redirect_to'])),
+					), $url);
+				}
+
+				$current_user = (is_user_logged_in()) ? wp_get_current_user() : null;
+				$current_user_name = sprintf(
+					/* Translators: 1: user display name; 2: username; */
+					__('%1$s (%2$s)', 'login-as-user'),
+					$current_user->display_name,
+					$current_user->user_login
+				);
+
+				// Add a new top-level item with a back arrow icon
+				$args = array(
+					'id'    => 'back_to_dashboard',
+					'title' => '<span class="back">←</span> Back to Admin',
+					'href'  => esc_url($url),
+					'meta'  => array(
+						'class' => 'logged-in-successfully',
+						'title' => sprintf(__('You have been logged in as the user "%1$s"', 'login-as-user'), esc_html__($current_user_name))
+					)
+				);
+				$wp_admin_bar->add_node($args);
+			}
+		}
+	}
+	
 	public function addBodyClass( $classes ) 
 	{
 		$classes[] = 'admin-has-been-logged-in-as-a-user';

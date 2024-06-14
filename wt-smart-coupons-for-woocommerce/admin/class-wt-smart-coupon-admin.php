@@ -134,7 +134,7 @@ if( ! class_exists('Wt_Smart_Coupon_Admin') ) {
          */
         public function upgrade_to_pro_meta_box()
         {
-            add_meta_box("wt-sc-upgrade-to-pro", __("Make Irresistible Coupon Campaigns with Powerful Features", 'wt-smart-coupons-for-woocommerce'), array($this, "upgrade_to_pro_meta_box_html"), "shop_coupon", "side", "core", null);
+            add_meta_box( "wt-sc-upgrade-to-pro", __( "Upgrade your coupon campaigns with enhanced features", 'wt-smart-coupons-for-woocommerce' ), array( $this, "upgrade_to_pro_meta_box_html" ), "shop_coupon", "side", "core", null );
         }
     
     
@@ -340,7 +340,7 @@ if( ! class_exists('Wt_Smart_Coupon_Admin') ) {
                             <div style="width:100%; font-size:14px; color:#555555;"><?php esc_html_e( 'You can create advanced Buy One Get One (BOGO) offers in WooCommerce.', 'wt-smart-coupons-for-woocommerce' ); ?></div>
                         </td>
                         <td style="width:100px; vertical-align:middle; padding:15px 15px 15px 5px; background:#EFFFE8;">
-                            <a style="background:#299A42; color:#fff; border:none;" class="button button-secondary" href="<?php echo esc_attr( 'https://www.webtoffee.com/product/smart-coupons-for-woocommerce/?utm_source=free_plugin_marketing_bottom&utm_medium=smart_coupons_basic&utm_campaign=smart_coupons' . WEBTOFFEE_SMARTCOUPON_VERSION ); ?>" target="_blank"><?php esc_html_e('Check out this plugin', 'wt-smart-coupons-for-woocommerce'); ?> <span class="dashicons dashicons-arrow-right-alt" style="margin-top:8px;font-size:14px;"></span> </a>
+                            <a style="background:#299A42; color:#fff; border:none;" class="button button-secondary" href="<?php echo esc_attr( 'https://www.webtoffee.com/product/smart-coupons-for-woocommerce/?utm_source=free_plugin_marketing_bottom&utm_medium=smart_coupons_basic&utm_campaign=smart_coupons&utm_content=' . WEBTOFFEE_SMARTCOUPON_VERSION ); ?>" target="_blank"><?php esc_html_e('Check out this plugin', 'wt-smart-coupons-for-woocommerce'); ?> <span class="dashicons dashicons-arrow-right-alt" style="margin-top:8px;font-size:14px;"></span> </a>
                         </td>
                     </tr>
                 </table>

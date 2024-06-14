@@ -51,9 +51,9 @@ final class Enwoo_Extra_Elementor_Extension {
 		
 	}
 	public function editor_scripts() {
-		wp_register_script( 'preview-script-1s', ENVO_EXTRA_PLUGIN_URL . 'lib/elementor/assets/js/elementor.js', __FILE__ );
+		wp_register_script( 'preview-script-elmn', ENVO_EXTRA_PLUGIN_URL . 'lib/elementor/assets/js/elementor.js', [ 'elementor-editor' ], ELEMENTOR_VERSION, true );
 
-		wp_enqueue_script( 'preview-script-1s' );
+		wp_enqueue_script( 'preview-script-elmn' );
 	}
 
 	/**

@@ -1,6 +1,6 @@
 === Slider, Gallery, and Carousel by MetaSlider - Responsive WordPress Image Slideshows ===
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
-Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
+Tags: slideshow, slider, image slider, carousel slider, gallery, wordpress slider
 Requires at least: 5.0
 Stable tag: 3.90.0
 Requires PHP: 7.0
@@ -8,7 +8,7 @@ Tested up to: 6.5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The best slider, gallery, and carousel plugin for WordPress. Responsive and easy-to-use sliders with images, videos, posts, products, and layers.
+The best slider, gallery, carousel plugin for WordPress. Build your image slider, video slider, post slider, or WooCommerce product slider.
 
 == Description ==
 
