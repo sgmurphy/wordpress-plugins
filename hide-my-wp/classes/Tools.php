@@ -2346,6 +2346,9 @@ class HMWP_Classes_Tools
             '192.0.112.0/20',
             '192.0.123.0/22',
             '195.234.108.0/22',
+            '54.148.171.133',//wordfence
+            '35.83.41.128', //wordfence
+            '52.25.185.95', //wordfence
         );
 
         $domain = (self::isMultisites() && defined('BLOG_ID_CURRENT_SITE')) ? get_home_url(BLOG_ID_CURRENT_SITE) : site_url();

@@ -15,7 +15,7 @@ function init_public(): void {
 
 	add_option( 'arve_install_date', time() );
 
-	if ( version_compare( get_option( 'arve_version', '' ), '10.0.8', '<' ) ) {
+	if ( version_compare( get_option( 'arve_version', '' ), '10.1.2', '<' ) ) {
 		add_action(
 			'wp_loaded',
 			function (): void {
@@ -77,11 +77,10 @@ function init_admin(): void {
 	add_action( 'admin_init', __NAMESPACE__ . '\Admin\action_admin_init_setup_messages' );
 	add_action( 'media_buttons', __NAMESPACE__ . '\Admin\add_media_button', 11 );
 
-	add_action( 'register_shortcode_ui', __NAMESPACE__ . '\Admin\register_shortcode_ui' );
 	add_action( 'wp_dashboard_setup', __NAMESPACE__ . '\Admin\add_dashboard_widget' );
 
 	add_filter( 'plugin_action_links_' . plugin_basename( PLUGIN_FILE ), __NAMESPACE__ . '\Admin\add_action_links' );
-	add_filter( 'nextgenthemes_arve_save_options', __NAMESPACE__ . '\Admin\filter_save_options' );
+	//add_filter( 'nextgenthemes_arve_save_options', __NAMESPACE__ . '\Admin\filter_save_options' ); // TODO remove?
 }
 
 register_uninstall_hook( PLUGIN_FILE, __NAMESPACE__ . '\uninstall' );

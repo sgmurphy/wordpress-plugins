@@ -310,7 +310,7 @@ class DSM_Lottie extends ET_Builder_Module {
 
 		wp_enqueue_script( 'dsm-lottie-module' );
 
-		$data_attrs[] = array(
+		$data_attrs = array(
 			'path'      => $lottie_url,
 			'loop'      => 'off' !== $lottie_loop ? true : false,
 			'loop_no'   => $loop_no_times,
@@ -328,7 +328,7 @@ class DSM_Lottie extends ET_Builder_Module {
 		$output = sprintf(
 			'<div class="dsm_lottie_wrapper" data-percent-viewport="" data-params=%1$s>
 			</div>',
-			wp_json_encode( $data_attrs )
+			htmlspecialchars( wp_json_encode( $data_attrs ), ENT_QUOTES, 'UTF-8' )
 		);
 
 		if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) {

@@ -526,7 +526,6 @@ body.login {
 }
 
 .login h1 a {
-	text-indent: 1000px !important;
 	<?php $loginpress_logo_img = apply_filters( 'loginpress_form_logo', $loginpress_logo_img ); ?>
 	<?php if ( ! empty( $loginpress_logo_img ) ) : ?>
 	background-image: url( <?php echo $loginpress_logo_img; ?> ) <?php echo loginpress_important(); ?>;
@@ -548,7 +547,18 @@ body.login {
 	<?php endif; ?>
 
 }
-
+<?php if ( ! empty( $loginpress_logo_img ) ) : ?>
+	.login h1 a.bb-login-title:has(.bs-cs-login-title), .login.bb-login #login>h1>a {
+		text-indent: -1000px;
+		<?php if (  empty( $loginpress_logo_height ) ) : ?>
+		height: 84px;
+		<?php endif; ?>
+	}
+<?php else: ?>
+	.login h1 a.bb-login-title:has(.bs-cs-login-title), .login.bb-login #login>h1>a {
+		height: 84px;
+	}
+<?php endif; ?>
 .wp-core-ui #login  .button-primary,
 body.wp-core-ui #login .two-factor-email-resend .button{
 	<?php if ( ! empty( $loginpress_btn_bg ) ) : ?>

@@ -47,6 +47,7 @@ class AccordionTypeReadMore extends ReadMoreTypes {
 		$options[] = array('name' => 'yrm-accordion-enable-max-height', 'type' => 'checkbox', 'defaultValue' => '');
 		$options[] = array('name' => 'yrm-accordion-scroll-to-active-item', 'type' => 'checkbox', 'defaultValue' => '');
 		$options[] = array('name' => 'yrm-accordion-enable-max-height', 'type' => 'checkbox', 'defaultValue' => '');
+		$options[] = array('name' => 'yrm-accordion-toggle-sound', 'type' => 'checkbox', 'defaultValue' => '');
 		$options[] = array('name' => 'yrm-accordion-max-height', 'type' => 'text', 'defaultValue' => '200px');
 		$options[] = array('name' => 'yrm-accordion-icons-position', 'type' => 'text', 'defaultValue' => 'left');
 		$options[] = array('name' => 'yrm-accordion-icons-size', 'type' => 'text', 'defaultValue' => '18px');

@@ -29,8 +29,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
         if (HMWP_Classes_Tools::getOption('hmwp_detectors_block')) {
             if (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] <> '') {
                 if (preg_match('/(wpthemedetector|builtwith|isitwp|wapalyzer|mShots|WhatCMS|gochyu|wpdetector|scanwp)/i', $_SERVER['HTTP_USER_AGENT'])) {
-                    header('HTTP/1.1 403 Forbidden');
-                    exit();
+                    //blocked by the firewall
+                    $this->firewallBlock('Firewall');
                 }
             }
         }
@@ -53,8 +53,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(concat|eval)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/union([^s]*s)+elect/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/union([^a]*a)+ll([^s]*s)+elect/i', $_SERVER['QUERY_STRING'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('5G Firewall');
                     }
                 }
 
@@ -68,8 +68,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(base64_decode|bin\/bash|disconnect|eval|lwp-download|unserialize)/i', $_SERVER['HTTP_USER_AGENT']) ||
                         preg_match('/(%0A|%0D|%3C|%3E|%00)/i', $_SERVER['HTTP_USER_AGENT']) ||
                         preg_match('/(;|<|>|\'|\"|\)|\(|%0A|%0D|%22|%28|%3C|%3E|%00).*(libwww-perl|wget|python|nikto|curl|scan|java|winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner)/i', $_SERVER['HTTP_USER_AGENT'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('6G Firewall');
                     }
                 }
 
@@ -96,8 +96,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(concat|eval)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/-[sdcr].*(allow_url_include|allow_url_fopen|safe_mode|disable_functions|auto_prepend_file)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/sp_executesql/i', $_SERVER['QUERY_STRING'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('6G Firewall');
                     }
 
                     if (!HMWP_Classes_Tools::isPluginActive('backup-guard-gold/backup-guard-pro.php') && !HMWP_Classes_Tools::isPluginActive('wp-reset/wp-reset.php') && !HMWP_Classes_Tools::isPluginActive('wp-statistics/wp-statistics.php')) {
@@ -113,8 +113,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/^.*(\(|\)|<|>|%3c|%3e).*/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(<|>|\'|%0A|%0D|%3C|%3E|%00)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(;|<|>|\'|"|\)|%0A|%0D|%22|%27|%3C|%3E|%00).*(\/\*|union|select|insert|drop|delete|cast|create|char|convert|alter|declare|script|set|md5|benchmark|encode)/i', $_SERVER['QUERY_STRING'])) {
-                            header('HTTP/1.1 403 Forbidden');
-                            exit();
+                            //blocked by the firewall
+                            $this->firewallBlock('6G Firewall');
                         }
 
                     }
@@ -129,8 +129,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                     if (preg_match('/([a-z0-9]{2000,})/i', $_SERVER['HTTP_USER_AGENT']) || 
                         preg_match('/(&lt;|%0a|%0d|%27|%3c|%3e|%00|0x00)/i', $_SERVER['HTTP_USER_AGENT']) ||
                         preg_match('/(base64_decode|bin\/bash|disconnect|eval|lwp-download|unserialize)/i', $_SERVER['HTTP_USER_AGENT'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('7G Firewall');
                     }
                 }
 
@@ -174,8 +174,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/((\+|%2b)(concat|delete|get|select|union)(\+|%2b))/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(union)(.*)(select)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(concat|eval)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('7G Firewall');
                     }
                 }
 
@@ -209,8 +209,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(\.)(ab4|ace|afm|ashx|aspx?|bash|ba?k?|bin|bz2|cfg|cfml?|conf\b|config|ctl|dat|db|dist|eml|engine|env|et2|fec|fla|hg|inc|inv|jsp|lqd|make|mbf|mdb|mmw|mny|module|old|one|orig|out|passwd|pdbprofile|psd|pst|ptdb|pwd|py|qbb|qdf|rdf|save|sdb|sh|soa|svn|swl|swo|swp|stx|tax|tgz|theme|tls|tmd|wow|xtmpl|ya?ml)$/i', $_SERVER['REQUEST_URI'])
 
                     ) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('7G Firewall');
                     }
                 }
 
@@ -222,8 +222,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                     if (preg_match('/([a-z0-9]{2000,})/i', $_SERVER['HTTP_USER_AGENT']) || 
                         preg_match('/(&lt;|%0a|%0d|%27|%3c|%3e|%00|0x00)/i', $_SERVER['HTTP_USER_AGENT']) ||
                         preg_match('/(base64_decode|bin\/bash|disconnect|eval|lwp-download|unserialize)/i', $_SERVER['HTTP_USER_AGENT'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('8G Firewall');
                     }
                 }
 
@@ -271,8 +271,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/((\+|%2b)(concat|delete|get|select|union)(\+|%2b))/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(union)(.*)(select)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING']) ||
                         preg_match('/(concat|eval)(.*)(\(|%28)/i', $_SERVER['QUERY_STRING'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('8G Firewall');
                     }
                 }
 
@@ -307,7 +307,7 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(\/)(::[0-9999]|%3a%3a[0-9999]|127\.0\.0\.1|ccx|localhost|makefile|pingserver|wwwroot)(\/)?/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/^(\/)(123|backup|bak|beta|bkp|default|demo|dev(new|old)?|home|new-?site|null|old|old_files|old1)(\/)?$/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)?j((\s)+)?a((\s)+)?v((\s)+)?a((\s)+)?s((\s)+)?c((\s)+)?r((\s)+)?i((\s)+)?p((\s)+)?t((\s)+)?(%3a|:)/i', $_SERVER['REQUEST_URI']) ||
-                        preg_match('/^(\/)(old-?site(back)?|old(web)?site(here)?|sites?|staging|undefined|wordpress([0-9]+)|wordpress-old)(\/)?$/i', $_SERVER['REQUEST_URI']) ||
+                        preg_match('/^(\/)(old-?site(back)?|old(web)?site(here)?|sites?|staging|undefined)(\/)?$/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)(filemanager|htdocs|httpdocs|https?|mailman|mailto|msoffice|undefined|usage|var|vhosts|webmaster|www)(\/)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\(null\)|\{\$itemURL\}|cast\(0x|echo(.*)kae|etc\/passwd|eval\(|null(.*)null|open_basedir|self\/environ|\+union\+all\+select)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)(db-?|j-?|my(sql)?-?|setup-?|web-?|wp-?)?(admin-?)?(setup-?)?(conf\b|conf(ig)?)(uration)?(\.?bak|\.inc)?(\.inc|\.old|\.php|\.txt)/i', $_SERVER['REQUEST_URI']) ||
@@ -325,7 +325,7 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(\/)(logo_img|lufix|mage|marg|mass|mide|moon|mssqli|mybak|myshe|mysql|mytag_js?|nasgor|newfile|news|nf_?tracking|nginx|ngoi|ohayo|old-?index)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)(olux|owl|pekok|petx|php-?info|phpping|popup-pomo|priv|r3x|radio|rahma|randominit|readindex|readmy|reads|repair-?bak|root)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)(router|savepng|semayan|shell|shootme|sky|socket(c|i|iasrgasf)ontrol|sql(bak|_?dump)?|support|sym403|sys|system_log|test|tmp-?(uploads)?)/i', $_SERVER['REQUEST_URI']) ||
-                        preg_match('/(\/)(traffic-advice|u2p|udd|ukauka|up__uzegp|up14|upa?|upxx?|vega|vip|vu(ln)?(\w)?|webroot|weki|wikindex|wordpress|wp_logns?|wp_wrong_datlib)/i', $_SERVER['REQUEST_URI']) ||
+                        preg_match('/(\/)(traffic-advice|u2p|udd|ukauka|up__uzegp|up14|upxx?|vega|vip|vu(ln)?(\w)?|webroot|weki|wikindex|wp_logns?|wp_wrong_datlib)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\/)((wp-?)?install(ation)?|wp(3|4|5|6)|wpfootes|wpzip|ws0|wsdl|wso(\w)?|www|(uploads|wp-admin)?xleet(-shell)?|xmlsrpc|xup|xxu|xxx|zibi|zipy)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(bkv74|cachedsimilar|core-stab|crgrvnkb|ctivrc|deadcode|deathshop|dkiz|e7xue|eqxafaj90zir|exploits|ffmkpcal|filellli7|(fox|sid)wso|gel4y|goog1es|gvqqpinc)/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(@md5|00.temp00|0byte|0d4y|0day|0xor|wso1337|1h6j5|3xp|40dd1d|4price|70bex?|a57bze893|abbrevsprl|abruzi|adminer|aqbmkwwx|archivarix|backdoor|beez5|bgvzc29)/i', $_SERVER['REQUEST_URI']) ||
@@ -335,8 +335,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         preg_match('/(\.)(ab4|ace|afm|alfa|as(h|m)x?|aspx?|aws|axd|bash|ba?k?|bat|bin|bz2|cfg|cfml?|cms|conf\b|config|ctl|dat|db|dist|dll|eml|eng(ine)?|env|et2|fec|fla|git(ignore)?)$/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\.)(hg|idea|inc|index|ini|inv|jar|jspa?|lib|local|log|lqd|make|mbf|mdb|mmw|mny|mod(ule)?|msi|old|one|orig|out|passwd|pdb|php\.(php|suspect(ed)?)|php([^\/])|phtml?|pl|profiles?)$/i', $_SERVER['REQUEST_URI']) ||
                         preg_match('/(\.)(pst|ptdb|production|pwd|py|qbb|qdf|rdf|remote|save|sdb|sh|soa|svn|swf|swl|swo|swp|stx|tax|tgz?|theme|tls|tmb|tmd|wok|wow|xsd|xtmpl|xz|ya?ml|za|zlib)$/i', $_SERVER['REQUEST_URI'])) {
-                        header('HTTP/1.1 403 Forbidden');
-                        exit();
+                        //blocked by the firewall
+                        $this->firewallBlock('8G Firewall');
                     }
                 }
 
@@ -366,8 +366,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                     //check if the current item is in the blocked list
                     foreach ($banlist as $item){
                         if(preg_match('/'.$item.'/', $user_agent)){
-                            header('HTTP/1.1 403 Forbidden');
-                            exit();
+                            //blocked by the firewall
+                            $this->firewallBlock('Geo Security');
                         }
                     }
 
@@ -394,8 +394,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                     //check if the current item is in the blocked list
                     foreach ($banlist as $item) {
                         if (preg_match('/' . $item . '/', $referrer)) {
-                            header('HTTP/1.1 403 Forbidden');
-                            exit();
+                            //blocked by the firewall
+                            $this->firewallBlock('Geo Security');
                         }
                     }
 
@@ -426,8 +426,8 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
                         //check if the current item is in the blocked list
                         foreach ($banlist as $item) {
                             if (preg_match('/' . $item . '/', $hostname)) {
-                                header('HTTP/1.1 403 Forbidden');
-                                exit();
+                                //blocked by the firewall
+                                $this->firewallBlock('Geo Security');
                             }
                         }
 
@@ -866,6 +866,29 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
         }
 
         return false;
+    }
+
+    /**
+     * Show the error message on firewall block
+     * @return void
+     */
+    public function firewallBlock($name = '')
+    {
+        if(!$name){
+            $name = HMWP_Classes_Tools::getOption('hmwp_plugin_name');
+        }
+
+        if(function_exists('wp_ob_end_flush_all') && function_exists('wp_die')){
+            wp_ob_end_flush_all();
+            wp_die(
+                esc_html__("The process was blocked by the website’s firewall.", 'hide-my-wp'),
+                esc_html__('Blocked by ' . $name, 'hide-my-wp'),
+                array('response' => 403)
+            );
+        }
+
+        header('HTTP/1.1 403 Forbidden');
+        exit();
     }
 
 }

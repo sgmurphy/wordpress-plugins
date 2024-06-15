@@ -59,6 +59,7 @@ jQuery(function () {
     jQuery("#tabsContentAll").tabs();
     jQuery("#tabsCli").tabs();
     jQuery("#tabsRSS").tabs();
+    jQuery("#tabsGallery").tabs();
 
     // show settings
     window.scrollTo(0, 0);

@@ -44,6 +44,10 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
         if( HMWP_Classes_Tools::getOption('hmwp_bruteforce') && HMWP_Classes_Tools::getOption('brute_use_captcha_v3') ) {
             add_filter('hmwp_option_brute_use_captcha_v3', '__return_false');
         }
+
+        //when cron is call
+        add_action('wf_scan_monitor', array($this, 'witelistWordfence'));
+        add_action('wordfence_start_scheduled_scan', array($this, 'witelistWordfence'));
     }
 
     /**
@@ -79,16 +83,26 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
      */
     public function checkWordfenceScan($status) {
 
-        if($this->wfConfig('wf_scanRunning')){
-            $status = false;
-        }
+        $action = HMWP_Classes_Tools::getValue('action');
 
-        if($this->wfConfig('scanStartAttempt')){
-            $status = false;
+        if($this->wfConfig('wf_scanRunning') || $this->wfConfig('scanStartAttempt')){
+            if(in_array($action, array('wordfence_testAjax', 'wordfence_doScan', 'record_scan_metrics'))){
+                $status = false;
+            }
+
+            if(get_transient('hmwp_disable_hide_urls')){
+                $status = false;
+            }
         }
 
         return $status;
     }
 
-
+    /**
+     * Disable hmwp on wordfence security scan
+     * @return void
+     */
+    public function witelistWordfence() {
+        set_transient('hmwp_disable_hide_urls', 1, 10);
+    }
 }

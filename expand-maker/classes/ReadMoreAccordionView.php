@@ -66,6 +66,7 @@ class ReadMoreAccordionView {
 		$names = array(
 			'yrm-accordion-activate-event',
 			'yrm-accordion-keep-extended',
+			'yrm-accordion-toggle-sound',
 			'yrm-accordion-animate-easings',
 			'yrm-accordion-animate-duration',
 			'yrm-accordion-icons',
@@ -76,7 +77,7 @@ class ReadMoreAccordionView {
 		foreach ($names as $name) {
 			$options[$name] = $typeObj->getOptionValue($name);
 		}
-
+        $options['sound-url'] = YRM_SOUNDS_URL."/click.mp3";
 		return $options;
 	}
 
@@ -86,6 +87,7 @@ class ReadMoreAccordionView {
 		wp_enqueue_style('yrmaccordion.css');
 
 		$accordionOptions = $this->getRenderOptions();
+
 		wp_register_script('YrmAccordion.js', YRM_JAVASCRIPT.'accordion/YrmAccordion.js');
 		wp_localize_script('YrmAccordion.js', 'YRM_ACCORDION_OPTIONS', $accordionOptions);
 		wp_enqueue_script('YrmAccordion.js');

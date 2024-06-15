@@ -26,6 +26,7 @@ YrmAccordion.prototype.init = function () {
 		keepOpen = this.options['yrm-accordion-keep-extended'];
 	}
 
+	var enableClickSound = this.options['yrm-accordion-toggle-sound'];
 	var scrollToActive = this.options['yrm-accordion-scroll-to-active-item'];
 	if (scrollToActive) {
 		jQuery([document.documentElement, document.body]).animate({
@@ -34,6 +35,10 @@ YrmAccordion.prototype.init = function () {
 	}
 
 	jQuery('.yrm-accordion-item-header').unbind(event).bind(event, function (e) {
+		if (enableClickSound) {
+			const audio = new Audio(that.options['sound-url']);
+			audio.play()
+		}
 		e.preventDefault();
 		var parentItem = jQuery(this).parents('.yrm-accordion-item').first();
 		var statusExpanded = Boolean(parentItem.data('expanded'));

@@ -3,12 +3,21 @@
 * [ARVE Pro changelog](https://nextgenthemes.com/plugins/arve-pro/#changelog)
 * [ARVE Random Videos changelog](https://nextgenthemes.com/plugins/arve-random-video/#changelog)
 
+### 2024-06-15 10.2.0 ###
+* New: Invidious URL Parameter setting for new extra privacy addon.
+* Fix: Encoding and JSON errors related how things were stored in oembed cache.
+* Fix: Issue activating licenses.
+* Improved: Yet another Setting page overhaul, dropping Alpine.js for WP Interactivity API.
+* Improved: Bring back reset buttons for settings sections.
+* Improved: A couple of typos.
+* Removed Shortcode UI support. (That plugin did now have a release in 5 years, the ARVE dialog is better anyway IMO)
+* Compatibility with latest Pro addon.
+
 ### 2024-05-27 10.1.1 ###
 * Improved: Changes how the referrer setting works. `no-referrer` by default `strict-origin-when-cross-origin` for selected providers.
-* Fix: Some YouTube videos (music?) do not without without allowing reverer to to be send so YouTube was added to the lost to allow it by default.
+* Fix: Some YouTube videos (music?) do not without without allowing reverer to to be send so YouTube was added to the list to allow it by default.
 
 ### 2024-05-24 10.1.0 ###
-* Improved: ARVE own video IDs are no longer random, this is better for SEO and other things.
 * Improved: ARVE own video IDs are no longer random, this is better for SEO and other things.
 * New: Support for [ok.ru](http://ok.ru).
 * New: Rutube video url detection. (only embed code worked before).

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=KY7MRYTANZN9A
 Tags: featured, image, url, video, woocommerce
 Requires at least: 5.6
 Tested up to: 6.5.4
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -269,14 +269,14 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Changelog ==
 
+= 4.8.1 =
+* New: FIFU Product Gallery → Custom content (you can add a pdf, map, 360º product view, web page, etc).
+
 = 4.8.0 =
 * Fix: Auto set featured media from post content (URL validation missing); fix: CDN + Optimized Thumbnails (conflict with images from Discord).
 
 = 4.7.9 =
 * Fix: incompatibility with WooCommerce HPOS; fix: CDN + Optimized Thumbnails (not serving images from CloudFront); deprecated: integration with WordPress Importer plugin.
-
-= 4.7.8 =
-* Fix: Clear Metadata (Apache/Nginx timeout, fatal error due to excessive memory usage, counter not working, slow queries).
 
 = others =
 * [more](https://fifu.app/changelog)
@@ -284,5 +284,5 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Upgrade Notice ==
 
-= 4.8.0 =
-* Fix: Auto set featured media from post content (URL validation missing); fix: CDN + Optimized Thumbnails (conflict with images from Discord).
+= 4.8.1 =
+* New: FIFU Product Gallery → Custom content (you can add a pdf, map, 360º product view, web page, etc).

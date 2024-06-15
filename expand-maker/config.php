@@ -148,6 +148,7 @@ if(!class_exists('YrmConfig')) {
 			$this->addDefine('YRM_ADMIN_JAVASCRIPT', YRM_JAVASCRIPT . 'admin/');
 			$this->addDefine('YRM_ADMIN_JAVASCRIPT_GENERAL', YRM_ADMIN_JAVASCRIPT . 'general/');
             $this->addDefine('YRM_CSS_URL', YRM_URL . 'css/');
+            $this->addDefine('YRM_SOUNDS_URL', YRM_URL . 'sounds/');
             $this->addDefine('YRM_ADMIN_CSS_URL', YRM_CSS_URL . 'admin/');
             $this->addDefine('YRM_ADMIN_CSS_GENERAL_URL', YRM_ADMIN_CSS_URL . 'general/');
             $this->addDefine('YRM_TYPES_PAGE_URL', admin_url()."admin.php?page=addNew");
@@ -161,9 +162,9 @@ if(!class_exists('YrmConfig')) {
 				define('YRM_LANG', 'yrm_lang');
 			}
 
-			$this->addDefine('EXPM_VERSION', 3.385);
-			$this->addDefine('YRM_VERSION_TEXT', '3.3.8.5');
-			$this->addDefine('EXPM_VERSION_PRO', 2.385);
+			$this->addDefine('EXPM_VERSION', 3.386);
+			$this->addDefine('YRM_VERSION_TEXT', '3.3.8.6');
+			$this->addDefine('EXPM_VERSION_PRO', 2.384);
 			$this->addDefine('YRM_ADMIN_POST_NONCE', 'YRM_ADMIN_POST_NONCE');
 
 			$this->addDefine('YRM_FREE_PKG', 1);

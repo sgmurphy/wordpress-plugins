@@ -4,7 +4,7 @@ Tags: homepage setup, companion, one click demo, sections, customizer
 Requires at least: 6.0
 Tested up to: 6.5.4
 Requires PHP: 5.6
-Stable tag: 25.2.4
+Stable tag: 25.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -12,7 +12,7 @@ Clever Fox plugin to enhance the functionality of free themes made by Nayra Them
 
 == Description ==
 
-Clever Fox plugin to enhance the functionality of free themes made by <a href="https://nayrathemes.com/" rel="nofollow">Nayra Themes</a>. More than 50000+ trusted websites with Nayra Themes. It provides intuitive features to your website. Make your demo replica within a minutes. 40+ Themes compatible with Clever Fox. See below free themes listed here. <a href="https://wordpress.org/themes/avril/" rel="nofollow">Avril</a>, <a href="https://wordpress.org/themes/gradiant/" rel="nofollow">Gradiant</a>, <a href="https://wordpress.org/themes/flavita/" rel="nofollow">Flavita</a>, <a href="https://wordpress.org/themes/conceptly/" rel="nofollow">Conceptly</a>, <a href="https://wordpress.org/themes/accron/" rel="nofollow">Accron</a>, <a href="https://wordpress.org/themes/corpex/" rel="nofollow">Corpex</a> & <a href="https://wordpress.org/themes/colorpress/" rel="nofollow">ColorPress</a> is one of highest installations themes in our collections. Install any theme via single click install and import demo instantly. 
+Clever Fox plugin to enhance the functionality of free themes made by <a href="https://nayrathemes.com/" rel="nofollow">Nayra Themes</a>. More than 50000+ trusted websites with Nayra Themes. It provides intuitive features to your website. Make your demo replica within a minutes. 45+ Themes compatible with Clever Fox. See below free themes listed here. <a href="https://wordpress.org/themes/avril/" rel="nofollow">Avril</a>, <a href="https://wordpress.org/themes/gradiant/" rel="nofollow">Gradiant</a>, <a href="https://wordpress.org/themes/flavita/" rel="nofollow">Flavita</a>, <a href="https://wordpress.org/themes/conceptly/" rel="nofollow">Conceptly</a>, <a href="https://wordpress.org/themes/accron/" rel="nofollow">Accron</a>, <a href="https://wordpress.org/themes/corpex/" rel="nofollow">Corpex</a> & <a href="https://wordpress.org/themes/colorpress/" rel="nofollow">ColorPress</a> is one of highest installations themes in our collections. Install any theme via single click install and import demo instantly. 
 
 **Features:**
 
@@ -180,6 +180,9 @@ Clever Fox WordPress Plugin is licensed under the GPL3 (https://www.gnu.org/lice
 
 
 == Changelog ==
+
+= 25.2.5 =
+* ReadMe Updated
 
 = 25.2.4 =
 * Tested WP 6.5.4 Compatibility

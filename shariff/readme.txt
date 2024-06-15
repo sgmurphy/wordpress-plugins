@@ -4,7 +4,7 @@ Tags: Shariff, GDPR, DSGVO, share buttons, sharing
 Requires at least: 4.9
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.6.13
+Stable tag: 4.6.14
 License: MIT
 License URI: http://opensource.org/licenses/mit
 
@@ -144,6 +144,11 @@ These are bugs or unexpected glitches that we know of, but that do not have an i
 - If the first post on the start page is password protected and Shariff is disabled on protected posts, a widget at the end of the loop will not be rendered.
 
 == Changelog ==
+= 4.6.14 =
+- removed Reddit from the share counts because requests without API keys are
+blocked now
+- fix to avoid unauthenticated local file inclusion. Many thanks to haidv35
+
 = 4.6.13 =
 - cleanup code (please check the basic options menu. We changed some
 internal names of variables that differ from original WP namings for

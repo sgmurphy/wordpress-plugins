@@ -104,6 +104,19 @@
 		</div>
 		<div class="row form-group">
 			<div class="col-md-6">
+				<label for="yrm-accordion-toggle-sound"><?php _e('Enable toggle sound', YRM_LANG);?></label>
+			</div>
+			<div class="col-md-6">
+				<div class="yrm-switch-wrapper">
+					<label class="yrm-switch">
+						<input type="checkbox" name="yrm-accordion-toggle-sound" id="yrm-accordion-toggle-sound" class="" <?php echo esc_attr($this->getOptionValue('yrm-accordion-toggle-sound', true)); ?>>
+						<span class="yrm-slider yrm-round"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+        <div class="row form-group">
+			<div class="col-md-6">
 				<label for="yrm-accordion-enable-max-height"><?php _e('Enable Fixed Content Height', YRM_LANG);?></label>
 			</div>
 			<div class="col-md-6">

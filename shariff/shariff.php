@@ -3,7 +3,7 @@
  * Plugin Name: Shariff Wrapper
  * Plugin URI: https://wordpress.org/plugins-wp/shariff/
  * Description: Shariff provides share buttons that respect the privacy of your visitors and follow the General Data Protection Regulation (GDPR).
- * Version: 4.6.13
+ * Version: 4.6.14
  * Author: Jan-Peter Lambeck & 3UU
  * Author URI: https://wordpress.org/plugins/shariff/
  * License: MIT
@@ -34,7 +34,7 @@ $shariff3uu = array_merge( $shariff3uu_basic, $shariff3uu_design, $shariff3uu_ad
  */
 function shariff3uu_update() {
 	// Adjust code version.
-	$code_version = '4.6.13';
+	$code_version = '4.6.14';
 
 	// Get basic options.
 	$shariff3uu_basic = (array) get_option( 'shariff3uu_basic' );
@@ -402,8 +402,14 @@ function shariff3uu_fetch_sharecounts( $service_array, $old_share_counts, $post_
 	$total_count  = 0;
 	$share_counts = array();
 
+	// what are valid service names for the include?
+	$valid_services= explode( '|', $shariff3uu['services'] );
+	
 	// Loop through all desired services.
 	foreach ( $service_array as $service ) {
+		// include/execute only valid services
+		if ( !in_array( $service , $valid_services, true )===true ) continue;
+
 		// Only include services that are not disabled.
 		if ( ! empty( $service ) && ( ! isset( $shariff3uu['disable'][ $service ] ) || ( isset( $shariff3uu['disable'][ $service ] ) && 0 === $shariff3uu['disable'][ $service ] ) ) ) {
 			// Determine path.
@@ -530,7 +536,7 @@ function shariff3uu_fill_cache_schedule() {
 add_action( 'shariff3uu_save_statistic_options', 'shariff3uu_fill_cache_schedule' );
 
 /** Registers activation hook to start cron job after an update. */
-register_activation_hook( __FILE__, 'shariff3uu_fill_cache_schedule' );
+register_activation_hook( __FILE__ , 'shariff3uu_fill_cache_schedule' );
 
 /**
  * Adds custom weekly cron recurrences.
@@ -1586,7 +1592,7 @@ function shariff3uu_deactivate() {
 		wp_clear_scheduled_hook( 'shariff3uu_fill_cache' );
 	}
 }
-register_deactivation_hook( __FILE__, 'shariff3uu_deactivate' );
+register_deactivation_hook( __FILE__ , 'shariff3uu_deactivate' );
 
 /**
  * Purges all the transients associated with our plugin.

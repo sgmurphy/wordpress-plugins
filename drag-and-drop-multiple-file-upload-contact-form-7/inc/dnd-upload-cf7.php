@@ -227,8 +227,8 @@
 		}
 
         // Disable auto delete
-        if( dnd_cf7_settings('drag_n_drop_disable_auto_delete') == 'yes' ) {
-            return;
+        if( dnd_cf7_settings('drag_n_drop_disable_auto_delete') == 'yes' || get_option( 'drag_n_drop_disable_auto_delete' ) == 'yes' ) {
+			return;
         }
 
 		// Setup dirctory path
@@ -1272,10 +1272,12 @@
 		// Check if option_name is set
 		if ( $settings && isset( $settings[ $option_name ] ) ) {
 			return ( ! is_array( $settings[ $option_name ] ) ? trim( $settings[ $option_name ] ) : $settings[ $option_name ] );
+		} elseif( get_option( $option_name ) ) {
+			return get_option( $option_name ); // fallback
+		} else{
+			return $default_value;
 		}
 
-		// Return default value
-		return $default_value;
 	}
 
     function dnd_upload_cf7_lang() {
