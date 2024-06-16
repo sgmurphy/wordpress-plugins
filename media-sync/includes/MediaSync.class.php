@@ -291,22 +291,23 @@ if ( !class_exists( 'MediaSync' ) ) :
          */
         static private function fetch_promo_content($page)
         {
-            $url = 'https://mediasyncplugin.com' . $page;
-
-            // This is not essential content so don't wait too long for this request
-            $response = wp_remote_get($url, array('timeout' => 5));
-
-            if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-                // In case of error or non-200 response, output nothing
-                return '';
-            }
-
-            $content = wp_remote_retrieve_body($response);
-            if (empty($content)) {
-                return '';
-            }
-
-            return $content;
+            return '';
+//            $url = 'https://mediasyncplugin.com' . $page;
+//
+//            // This is not essential content so don't wait too long for this request
+//            $response = wp_remote_get($url, array('timeout' => 5));
+//
+//            if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+//                // In case of error or non-200 response, output nothing
+//                return '';
+//            }
+//
+//            $content = wp_remote_retrieve_body($response);
+//            if (empty($content)) {
+//                return '';
+//            }
+//
+//            return $content;
         }
 
 

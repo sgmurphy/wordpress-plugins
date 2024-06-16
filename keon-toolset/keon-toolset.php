@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 Plugin Name: Keon Toolset
 Plugin URI:  
 Description: A easy plugin to import dummy data for themes by Keon Themes.
-Version:     1.8.2
+Version:     1.8.3
 Author:      Keon Themes
 Author URI:  https://keonthemes.com
 License:     GPLv3 or later
