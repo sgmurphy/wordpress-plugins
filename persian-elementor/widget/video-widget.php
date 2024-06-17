@@ -2,7 +2,7 @@
 
 use Elementor\Modules\DynamicTags\Module as TagsModule;
 
-class Custom_Video_Widget extends \Elementor\Widget_Video {
+class Persian_Elementor_Video_Widget extends \Elementor\Widget_Video {
 
 	public function get_name() {
 		return 'video';

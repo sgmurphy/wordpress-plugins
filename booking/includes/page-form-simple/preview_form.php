@@ -223,13 +223,25 @@ function wpbc_show_preview__form(){
  */
 function wpbc_show_preview_help_notice(){
 
-	?><div class="wpbc-settings-notice notice-warning notice-helpful-info"
-		   style="max-width: Min(400px, 100%);margin: auto;padding: 4px 20px 7px;font-size: 14px;line-height: 28px;margin-bottom: 25px;"
-	   >
-		   <a style="margin: 0 7px 0 0;" href="javascript:void(0)" onclick="javascript:jQuery('.wpbc_submit_button_trigger').trigger('click');"
-		   		data-original-title="<?php echo esc_attr(__('Update','booking')); ?>" class="tooltip_top "><i class="menu_icon icon-1x wpbc_icn_rotate_right wpbc_spin wpbc_animation_pause"></i><span></span></a>
-		<?php printf( __( 'To update preview, please click on %sSave Changes%s button.', 'booking' ),
-			'<a href="javascript:void(0)" onclick="javascript:jQuery(\'.wpbc_submit_button_trigger\').trigger(\'click\');" style="font-weight:600;text-underline-offset: 3px;text-decoration-thickness: 0px;text-decoration-style: dashed;">', '</a>' ); ?>
-	</div><?php
+	$is_panel_visible = wpbc_is_dismissed_panel_visible( 'wpbc_show_preview_help_notice_id' );        //FixIn: 9.9.0.8
+	if ( $is_panel_visible ) {
+		?><div id="wpbc_show_preview_help_notice_id" class="wpbc-settings-notice notice-warning notice-helpful-info"
+			   style="max-width: Min(400px, 100%);margin: auto;padding: 4px 20px 7px;font-size: 14px;line-height: 28px;margin-bottom: 25px;"
+		   >
+			   <a style="margin: 0 7px 0 0;" href="javascript:void(0)" onclick="javascript:jQuery('.wpbc_submit_button_trigger').trigger('click');"
+					data-original-title="<?php echo esc_attr(__('Update','booking')); ?>" class="tooltip_top "><i class="menu_icon icon-1x wpbc_icn_rotate_right wpbc_spin wpbc_animation_pause"></i><span></span></a>
+			<?php printf( __( 'To update preview, please click on %sSave Changes%s button.', 'booking' ),
+				'<a href="javascript:void(0)" onclick="javascript:jQuery(\'.wpbc_submit_button_trigger\').trigger(\'click\');" style="font-weight:600;text-underline-offset: 3px;text-decoration-thickness: 0px;text-decoration-style: dashed;">', '</a>' ); ?>
+			<?php
+
+ 			$is_panel_visible = wpbc_is_dismissed( 'wpbc_show_preview_help_notice_id', array(
+											'title' => '<i class="menu_icon icon-1x wpbc_icn_close"></i> ',
+											'hint'  => __( 'Dismiss', 'booking' ),
+											'class' => 'wpbc_panel_get_started_dismiss',
+											'css'   => 'background: #fff;border-radius: 7px;'
+										));
+
+	 	?></div><?php
+	}
 }
 

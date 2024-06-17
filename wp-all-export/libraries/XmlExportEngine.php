@@ -42,6 +42,8 @@ if ( ! class_exists('XmlExportEngine') ){
 		public static $taxonomy_export;
         public static $custom_record_export;
 
+		public static $is_woo_order_export = false;
+
         public static $is_preview = false;
 
         public static $implode = ',';
@@ -454,6 +456,7 @@ if ( ! class_exists('XmlExportEngine') ){
 			self::$comment_export    = new XmlExportComment();
 			self::$taxonomy_export   = new XmlExportTaxonomy();
             self::$custom_record_export = new XmlExportCustomRecord();
+			self::$is_woo_order_export = in_array('shop_order', self::$post_types);
 
             do_action('pmxe_init_addons');
         }
@@ -1320,6 +1323,10 @@ if ( ! class_exists('XmlExportEngine') ){
 			}
 
 			return $fieldName;
+		}
+
+		public static function get_addons() {
+			return apply_filters('pmxe_addons', []);
 		}
 
 		public static function get_addons_service()

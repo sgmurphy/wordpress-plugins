@@ -182,6 +182,7 @@ class UniteFunctionsUC{
 		return($altVal);
 	}
 
+	
 
 	/**
 	 * get first item value

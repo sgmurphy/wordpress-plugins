@@ -125,7 +125,7 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 					foreach ( $items as $item ) {
 						$_product = wc_get_product( $item['id'] );
 
-						if ( ! $_product || $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+						if ( ! $_product || $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! WPCleverWoosb_Helper()->is_in_stock( $_product ) ) ) ) {
 							continue;
 						}
 
@@ -173,19 +173,19 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 								$_qty = $_min;
 							}
 
-							if ( $_product->is_in_stock() && $_product->has_enough_stock( $_qty ) ) {
+							if ( WPCleverWoosb_Helper()->is_in_stock( $_product ) && WPCleverWoosb_Helper()->has_enough_stock( $_product, $_qty ) ) {
 								$all_out_of_stock = false;
 							}
 
-							if ( $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+							if ( $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! WPCleverWoosb_Helper()->is_in_stock( $_product ) ) ) ) {
 								continue;
 							}
 
-							if ( $_qty && ( ( $_product->get_stock_status( $context ) === 'outofstock' ) || ! $_product->has_enough_stock( $_qty ) ) ) {
+							if ( $_qty && ( ( $_product->get_stock_status( $context ) === 'outofstock' ) || ! WPCleverWoosb_Helper()->has_enough_stock( $_product, $_qty ) ) ) {
 								return 'outofstock';
 							}
 
-							if ( $_product->get_stock_status( $context ) === 'onbackorder' || ( $_product->get_stock_quantity() < $_qty && $_product->backorders_allowed() ) ) {
+							if ( $_product->get_stock_status( $context ) === 'onbackorder' || ( $_qty && ! WPCleverWoosb_Helper()->has_enough_stock( $_product, $_qty ) && $_product->backorders_allowed() ) ) {
 								$stock_status = 'onbackorder';
 							}
 						}
@@ -223,12 +223,12 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 					foreach ( $items as $item ) {
 						$_product = wc_get_product( $item['id'] );
 
-						if ( ! $_product || $_product->is_type( 'woosb' ) || ! $_product->get_manage_stock() || ( $_product->get_stock_quantity() === null ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+						if ( ! $_product || $_product->is_type( 'woosb' ) || ! $_product->get_manage_stock() || ( WPCleverWoosb_Helper()->get_stock_quantity( $_product ) === null ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! WPCleverWoosb_Helper()->is_in_stock( $_product ) ) ) ) {
 							continue;
 						}
 
 						if ( $item['qty'] > 0 ) {
-							$available_qty[] = floor( $_product->get_stock_quantity() / (float) $item['qty'] );
+							$available_qty[] = floor( WPCleverWoosb_Helper()->get_stock_quantity( $_product ) / (float) $item['qty'] );
 						}
 					}
 
@@ -268,7 +268,7 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 					foreach ( $items as $item ) {
 						$_product = wc_get_product( $item['id'] );
 
-						if ( ! $_product || $_product->is_type( 'woosb' ) || ! $_product->get_manage_stock() || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+						if ( ! $_product || $_product->is_type( 'woosb' ) || ! $_product->get_manage_stock() || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! WPCleverWoosb_Helper()->is_in_stock( $_product ) ) ) ) {
 							continue;
 						}
 
@@ -304,7 +304,7 @@ if ( ! class_exists( 'WC_Product_Woosb' ) && class_exists( 'WC_Product' ) ) {
 					foreach ( $items as $item ) {
 						$_product = wc_get_product( $item['id'] );
 
-						if ( ! $_product || $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! $_product->is_in_stock() ) ) ) {
+						if ( ! $_product || $_product->is_type( 'woosb' ) || ( $exclude_unpurchasable && ( ! $_product->is_purchasable() || ! WPCleverWoosb_Helper()->is_in_stock( $_product ) ) ) ) {
 							continue;
 						}
 

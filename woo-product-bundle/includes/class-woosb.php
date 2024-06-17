@@ -419,12 +419,12 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 											<?php esc_html_e( 'Selector interface', 'woo-product-bundle' ); ?>
                                             <label> <select name="woosb_settings[selector_interface]">
                                                     <option value="unset" <?php selected( $selector_interface, 'unset' ); ?>><?php esc_html_e( 'Unset', 'woo-product-bundle' ); ?></option>
-                                                    <option value="default" <?php selected( $selector_interface, 'default' ); ?>><?php esc_html_e( 'Radio buttons', 'woo-product-bundle' ); ?></option>
                                                     <option value="ddslick" <?php selected( $selector_interface, 'ddslick' ); ?>><?php esc_html_e( 'ddSlick', 'woo-product-bundle' ); ?></option>
                                                     <option value="select2" <?php selected( $selector_interface, 'select2' ); ?>><?php esc_html_e( 'Select2', 'woo-product-bundle' ); ?></option>
+                                                    <option value="default" <?php selected( $selector_interface, 'default' ); ?>><?php esc_html_e( 'Radio buttons', 'woo-product-bundle' ); ?></option>
                                                     <option value="select" <?php selected( $selector_interface, 'select' ); ?>><?php esc_html_e( 'HTML select tag', 'woo-product-bundle' ); ?></option>
                                                     <option value="grid-2" <?php selected( $selector_interface, 'grid-2' ); ?>><?php esc_html_e( 'Grid - 2 columns', 'woo-product-bundle' ); ?></option>
-                                                    <option value="grid-3" <?php selected( $selector_interface, 'grid-3' ); ?> <?php selected( $selector_interface, 'grid' ); ?>><?php esc_html_e( 'Grid - 3 columns', 'woo-product-bundle' ); ?></option>
+                                                    <option value="grid-3" <?php selected( $selector_interface, 'grid-3' ); ?>><?php esc_html_e( 'Grid - 3 columns', 'woo-product-bundle' ); ?></option>
                                                     <option value="grid-4" <?php selected( $selector_interface, 'grid-4' ); ?>><?php esc_html_e( 'Grid - 4 columns', 'woo-product-bundle' ); ?></option>
                                                 </select> </label>
                                             <p class="description"><?php esc_html_e( 'Choose a selector interface that apply for variations of bundled products only.', 'woo-product-bundle' ); ?></p>
@@ -1238,7 +1238,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				}
 
 				if ( ( str_contains( $name, '</a>' ) ) && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-					return '<a href="' . get_permalink( $parent_id ) . '">' . get_the_title( $parent_id ) . '</a> &rarr; ' . apply_filters( 'woosb_item_product_name', $name, $item_product );
+					return '<a href="' . esc_url( get_permalink( $parent_id ) ) . '">' . get_the_title( $parent_id ) . '</a> &rarr; ' . apply_filters( 'woosb_item_product_name', $name, $item_product );
 				}
 
 				return get_the_title( $parent_id ) . ' &rarr; ' . esc_html( wp_strip_all_tags( apply_filters( 'woosb_item_product_name', $name, $item_product ) ) );
@@ -3121,7 +3121,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 								$item_class .= ' woosb-product-hidden';
 							}
 
-							if ( ! $product->is_in_stock() || ! $product->has_enough_stock( $item_qty ) || ! $product->is_purchasable() ) {
+							if ( ! $product->is_type( 'variable' ) && ( ! $product->is_in_stock() || ! $product->has_enough_stock( $item_qty ) || ! $product->is_purchasable() ) ) {
 								if ( ! apply_filters( 'woosb_allow_unpurchasable_qty', false ) ) {
 									$item_qty = 0;
 								}
@@ -3131,7 +3131,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 
 							do_action( 'woosb_above_item', $product, $global_product, $order );
 							?>
-                            <div class="<?php echo esc_attr( apply_filters( 'woosb_item_class', $item_class, $product, $global_product, $order ) ); ?>" data-key="<?php echo esc_attr( $key ); ?>" data-name="<?php echo esc_attr( $product->get_name() ); ?>" data-id="<?php echo esc_attr( $product->is_type( 'variable' ) ? 0 : $item['id'] ); ?>" data-price="<?php echo esc_attr( WPCleverWoosb_Helper()->get_price_to_display( $product ) ); ?>" data-price-suffix="<?php echo esc_attr( htmlentities( $product->get_price_suffix() ) ); ?>" data-qty="<?php echo esc_attr( $item_qty ); ?>" data-order="<?php echo esc_attr( $order ); ?>">
+                            <div class="<?php echo esc_attr( apply_filters( 'woosb_item_class', $item_class, $product, $global_product, $order ) ); ?>" data-key="<?php echo esc_attr( $key ); ?>" data-name="<?php echo esc_attr( $product->get_name() ); ?>" data-id="<?php echo esc_attr( $product->is_type( 'variable' ) ? 0 : $item['id'] ); ?>" data-price="<?php echo esc_attr( WPCleverWoosb_Helper()->get_price_to_display( $product ) ); ?>" data-o_price="<?php echo esc_attr( WPCleverWoosb_Helper()->get_price_to_display( $product ) ); ?>" data-price-suffix="<?php echo esc_attr( htmlentities( $product->get_price_suffix() ) ); ?>" data-qty="<?php echo esc_attr( $item_qty ); ?>" data-order="<?php echo esc_attr( $order ); ?>">
 								<?php
 								do_action( 'woosb_before_item', $product, $global_product, $order );
 
@@ -3167,7 +3167,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 										$item_name .= '<a ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_popup' ? 'class="woosq-link no-ajaxy" data-id="' . $item['id'] . '" data-context="woosb"' : '' ) . ' href="' . esc_url( $product->get_permalink() ) . '" ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>';
 									}
 
-									if ( $product->is_in_stock() && $product->has_enough_stock( $item_qty ) ) {
+									if ( $product->is_type( 'variable' ) || ( $product->is_in_stock() && $product->has_enough_stock( $item_qty ) ) ) {
 										$item_name .= $product_name;
 									} else {
 										$item_name .= '<s>' . $product_name . '</s>';

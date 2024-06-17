@@ -18,7 +18,7 @@ function envo_extra_reset_mod() {
 }
 
 function envo_extra_fonts() {
-    if (envo_extra_check_for_pro('enwoo')) {
+    if (envo_extra_check_for_pro('enwoo') || envo_extra_check_for_pro('envo-royal')) {
         $fonts = array();
     } else {
         $fonts = array(

@@ -88,13 +88,42 @@ final Class XmlCsvExport
             }
         }
 		else  { // exporting custom post types
-			while ( XmlExportEngine::$exportQuery->have_posts() ) {
-                XmlExportEngine::$exportQuery->the_post();
-                $record = get_post(get_the_ID());
-                $articles[] = XmlExportCpt::prepare_data($record, XmlExportEngine::$exportOptions, false, $acfs, $woo, $woo_order, XmlExportEngine::$implode, $preview);
-                $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
-                if (!$preview) do_action('pmxe_exported_post', $record->ID, XmlExportEngine::$exportRecord);
-            }
+
+			$exportOptions = XmlExportEngine::$exportOptions;
+
+			if(in_array('shop_order', $exportOptions['cpt']) && PMXE_Plugin::hposEnabled()) {
+
+
+				$exported = 0;
+				if(is_object(XmlExportEngine::$exportRecord)) {
+					$exported = XmlExportEngine::$exportRecord->exported;
+				}
+
+				$orders = XmlExportEngine::$exportQuery->getOrders($exported, $exportOptions['records_per_iteration']);
+
+				foreach ($orders as $record) {
+
+					if(!isset($record->ID)) {
+						$recordId = $record->id;
+					} else {
+						$recordId = $record->ID;
+					}
+					$articles[] = XmlExportCpt::prepare_data($record, $exportOptions, false, $acfs, $woo, $woo_order, XmlExportEngine::$implode, $preview);
+					$articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
+					if (!$preview) do_action('pmxe_exported_post', $recordId, XmlExportEngine::$exportRecord);
+				}
+
+			} else {
+				while ( XmlExportEngine::$exportQuery->have_posts() ) {
+					XmlExportEngine::$exportQuery->the_post();
+					$record     = get_post( get_the_ID() );
+					$articles[] = XmlExportCpt::prepare_data( $record, XmlExportEngine::$exportOptions, false, $acfs, $woo, $woo_order, XmlExportEngine::$implode, $preview );
+					$articles   = apply_filters( 'wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID );
+					if ( ! $preview ) {
+						do_action( 'pmxe_exported_post', $record->ID, XmlExportEngine::$exportRecord );
+					}
+				}
+			}
 
 			wp_reset_postdata();
         }
@@ -277,8 +306,47 @@ final Class XmlCsvExport
 
             }
 
-        }
-        elseif (XmlExportEngine::$is_custom_addon_export) {
+        } else if ( XmlExportEngine::$is_woo_order_export && PMXE_Plugin::hposEnabled() ) {
+			add_filter( 'posts_where', 'wp_all_export_numbering_where', 15, 1 );
+
+
+			$exported = 0;
+			if ( is_object( XmlExportEngine::$exportRecord ) ) {
+				$exported = XmlExportEngine::$exportRecord->exported;
+			}
+			$orders = XmlExportEngine::$exportQuery->getOrders( $exported, XmlExportEngine::$exportOptions['records_per_iteration'] );
+
+			foreach ( $orders as $record ) {
+
+				if ( ! isset( $record->ID ) ) {
+					$recordId = $record->id;
+				} else {
+					$recordId = $record->ID;
+				}
+
+				if ( ! $is_custom_xml ) {
+					// add additional information before each node
+					self::before_xml_node( $xmlWriter, $record->id );
+					$xmlWriter->startElement( self::$node_xml_tag );
+
+					XmlExportCpt::prepare_data( $record, XmlExportEngine::$exportOptions, $xmlWriter, $acfs, $woo, $woo_order, XmlExportEngine::$implode, $preview );
+
+					$xmlWriter->closeElement(); // end post
+
+					// add additional information after each node
+					self::after_xml_node( $xmlWriter, $record->id );
+				} else {
+					$articles = [];
+					$articles[] = XmlExportCpt::prepare_data( $record, XmlExportEngine::$exportOptions, false, $acfs, $woo, $woo_order, XmlExportEngine::$implode, $preview );
+					$articles   = apply_filters( 'wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID );
+					$xmlWriter->writeArticle( $articles );
+				}
+
+				if ( ! $preview ) {
+					do_action( 'pmxe_exported_post', $recordId, XmlExportEngine::$exportRecord );
+				}
+			}
+		} elseif (XmlExportEngine::$is_custom_addon_export) {
 
             foreach (XmlExportEngine::$exportQuery->results as $record) {
 

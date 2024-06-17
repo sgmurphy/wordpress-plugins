@@ -4,8 +4,8 @@ Contributors: Zoho SalesIQ team
 Donate link: http://zoho.com
 Tags: Zoho SalesIQ, chatbot, wordpress live chat, live chat, livechat, livesupport, supportchat, webchat, Zoho, Zoho chat, Zoho livechat, Zoho LiveDesk
 Requires at least: 2.8
-Tested up to: 6.5.2
-Stable tag: 2.0.3
+Tested up to: 6.5.4
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,9 @@ We offer native mobile apps for both [iOS](https://itunes.apple.com/us/app/zoho-
 8. Bots to the rescue!
 
 == Changelog ==
+
+= 2.0.4 =
+* Issue fixed for new script
 
 = 2.0.3 =
 * Supported both old and new scripts

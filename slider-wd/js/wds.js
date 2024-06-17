@@ -96,6 +96,18 @@ function SlideManageChanges( wds_check_for_changes ) {
   return !wds_check_for_changes || !slide_changed;
 }
 
+function wds_sanitizeUrl(url) {
+  // Create a link element to utilize the browser's URL parser
+  const link = document.createElement('a');
+  link.href = url;
+
+  // Rebuild the URL using the parsed components to ensure it's valid
+  const sanitizedUrl = `${link.protocol}//${link.hostname}${link.port ? ':' + link.port : ''}${link.pathname}${link.search}${link.hash}`;
+
+  // Remove any potentially harmful characters from the URL
+  return sanitizedUrl.replace(/[^\w\-~:/?#[\]@!$&'()*+,;=.]/g, '');
+}
+
 function wds_spider_ajax_save(form_id, event) {
   if (!wds_check_required()) {
     return false;
@@ -274,7 +286,7 @@ function wds_spider_ajax_save(form_id, event) {
         slide_data["title" + slide_id] = jQuery("#title" + slide_id).val();
         slide_data["order" + slide_id] = jQuery("#order" + slide_id).val();
         slide_data["published" + slide_id] = jQuery("input[name=published" + slide_id + "]:checked").val();
-        slide_data["link" + slide_id] = jQuery("#link" + slide_id).val();
+        slide_data["link" + slide_id] = wds_sanitizeUrl(jQuery("#link" + slide_id).val());
         slide_data["target_attr_slide" + slide_id] = jQuery("input[name=target_attr_slide" + slide_id + " ]:checked").val();
         slide_data["type" + slide_id] = jQuery("#type" + slide_id).val();
         slide_data["image_url" + slide_id] = jQuery("#image_url" + slide_id).val();

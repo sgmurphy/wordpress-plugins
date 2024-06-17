@@ -3,7 +3,7 @@
 Plugin Name: Gravity Booster ( Style & Layouts )
 Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
 Description: Create beautiful styles for your gravity forms
-Version:     5.6
+Version:     5.7
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.6' );
+define( 'GF_STLA_VERSION', '5.7' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -72,7 +72,7 @@ class Gravity_customizer_admin {
 
 	function admin_enqueue_scripts() {
 
-		if ( is_admin() || defined( 'REST_REQUEST' ) ) {
+		if ( is_admin() || defined( 'REST_REQUEST' ) || class_exists( 'GFAPI' ) ) {
 
 			if ( ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'stla_gravity_booster' ) ) {
 				return;
@@ -107,6 +107,12 @@ class Gravity_customizer_admin {
 		}
 
 		$customizer_url = $this->_set_customizer_url( $form_id );
+		$merge_tags     = array();
+		$form           = GFAPI::get_form( $form_id );
+		if ( $form ) {
+
+			$merge_tags = GFCommon::get_merge_tags( $form['fields'], '', false );
+		}
 		// Pass the nonce to your React script using wp_localize_script()
 		wp_localize_script(
 			'stla-admin-gravity-booster-js',
@@ -120,6 +126,7 @@ class Gravity_customizer_admin {
 				'version'       => $addons_info['version'],
 				'customizerUrl' => $customizer_url,
 				'adminUrl'      => get_admin_url(),
+				'mergeTags'     => $merge_tags,
 				// 'settings' => $settings,
 			)
 		);
@@ -211,6 +218,7 @@ class Gravity_customizer_admin {
 
 		if ( is_plugin_active( 'gravityforms/gravityforms.php' ) ) {
 			$addon_dependecies[] = 'gform_gravityforms';
+
 		}
 		$dependencies = array_merge( $addon_dependecies, $js_dependencies );
 

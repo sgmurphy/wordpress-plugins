@@ -775,13 +775,12 @@ class UniteCreatorParamsProcessor extends UniteCreatorParamsProcessorWork{
 			$arrData["alias"] = UniteFunctionsUC::getVal($arrPost, "post_name");
 			$arrData["author_id"] = UniteFunctionsUC::getVal($arrPost, "post_author");
 			$arrData["post_type"] = UniteFunctionsUC::getVal($arrPost, "post_type");
-
+			
 			$password = $post->post_password;
 			if(!empty($password))
 				$content = "";
 			else
 				$content = UniteFunctionsWPUC::getPostContent($post);
-			
 			
 			$arrData["content"] = $content;
 			

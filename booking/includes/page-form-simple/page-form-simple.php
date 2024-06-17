@@ -198,7 +198,23 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 					$is_can = apply_bk_filter( 'multiuser_is_user_can_be_here', true, 'only_super_admin' );
 					if ( $is_can ) {
 						wpbc_open_meta_box_section( 'wpbc_settings__form_theme', __('Color Theme', 'booking'), array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false, 'css_class'=>'postbox wpbc_container_hide__on_left_nav_click' ) );
+
 							$this->content_section__form_color_theme();
+
+							?><table class="form-table"><tbody><tr valign="top" class="wpbc_tr_booking_form_skins"><th scope="row"></th><td><fieldset><?php
+
+								?><div class="wpbc_widget wpbc_widget_color_skins">
+									<div class="wpbc_widget_content wpbc_ajx_toolbar wpbc_no_background" style="margin:0 0 20px;">
+										<div class="ui_container" ><?php
+
+											$this->content_section__calendar_skin();
+
+											$this->content_section__time_picker_skin();
+
+								?></div></div></div><?php
+
+							?></fieldset></td></tr></tbody></table><?php
+
 						wpbc_close_meta_box_section();
 
 						wpbc_open_meta_box_section( 'wpbc_settings__form_captcha', __('CAPTCHA', 'booking'), array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false, 'css_class'=>'postbox wpbc_container_hide__on_left_nav_click' ) );
@@ -510,19 +526,82 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 										, 'default'     => $default_options_values[ $field_name ]   					//'Off'
 										, 'title'       => __('Color Theme' ,'booking')
 										, 'description' => __('Select a color theme for your booking form that matches the look of your website.' ,'booking')
-														   . '<div class="wpbc-general-settings-notice wpbc-settings-notice notice-info">'
-														   .    __('When you select a color theme, it also change the calendar and time-slot picker skins to match your choice. Customize these options separately as needed.' ,'booking')
-														   .'</div>'
+//														   . '<div class="wpbc-general-settings-notice wpbc-settings-notice notice-info">'
+//														   .    __('When you select a color theme, it also change the calendar and time-slot picker skins to match your choice. Customize these options separately as needed.' ,'booking')
+//														   .'</div>'
 										, 'options' => array(
 																''                  => __( 'Light', 'booking' ),
 																'wpbc_theme_dark_1' => __( 'Dark', 'booking' )
 															)
 										, 'group'       => 'form'
-										, 'value'       => ( empty( get_bk_option( $field_name ) ) ? $default_options_values[ $field_name ] : get_bk_option( $field_name ) )
+										, 'value'       => ( empty( get_bk_option( $field_name ) ) ? $default_options_values[ $field_name ] : get_bk_option( $field_name ) ),
+										'attr' => array( 'onchange' => "javascript: wpbc_on_change__form_color_theme( this );" )
+
 				);
+
 				WPBC_Settings_API::field_select_row_static( $field_name, $field_params );
 
  			?></table><?php
+			?><script type="text/javascript">
+				function wpbc_on_change__form_color_theme( _this ){
+					var wpbc_cal_dark_skin_path;
+					if ( 'wpbc_theme_dark_1' == jQuery( _this ).val() ){
+						jQuery( '.wpbc_center_preview,.wpbc_container.wpbc_container_booking_form' ).addClass( 'wpbc_theme_dark_1' );
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/black-2.css';
+						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option' ).prop( 'selected', false );
+						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/time_picker_skins/black.css';
+						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option' ).prop( 'selected', false );
+						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
+					} else {
+						jQuery( '.wpbc_center_preview,.wpbc_container.wpbc_container_booking_form' ).removeClass( 'wpbc_theme_dark_1' );
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/green-01.css';
+						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option' ).prop( 'selected', false );
+						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/time_picker_skins/grey.css';
+						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option' ).prop( 'selected', false );
+						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
+					}
+				}
+			</script><?php
+		}
+
+
+		public function content_section__calendar_skin(){
+
+			?><script type="text/javascript">
+				jQuery( document ).ready( function (){
+
+					// Calendar skin
+					var template__var = wp.template( 'wpbc_ajx_widget_change_calendar_skin' );
+
+					jQuery( '.wpbc_widget_color_skins .ui_container' ).append(
+
+								template__var({ 'ajx_cleaned_params': {
+																	   'customize_plugin__booking_skin':     '<?php echo esc_js( get_bk_option( 'booking_skin' ) ); ?>',
+																	 }
+								              })
+																	);
+				} );
+			</script><?php
+		}
+
+		public function content_section__time_picker_skin(){
+
+			?><script type="text/javascript">
+				jQuery( document ).ready( function (){
+					// Time Picker
+					var template__var = wp.template( 'wpbc_ajx_widget_change_time_picker' );
+
+					jQuery( '.wpbc_widget_color_skins .ui_container' ).append(
+
+								template__var({ 'ajx_cleaned_params': {
+																	   'customize_plugin__time_picker_skin': '<?php echo esc_js( get_bk_option( 'booking_timeslot_picker_skin' ) ); ?>'
+																	 }
+								              })
+																	);
+				} );
+			</script><?php
 		}
 
 
@@ -538,7 +617,10 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 										, 'default'     => $default_options_values[ $field_name ]   					//'Off'
 										, 'title'       => __('CAPTCHA' ,'booking')
 										, 'label'       => __('Check the box to activate CAPTCHA inside the booking form.' ,'booking')
-										, 'description' => ''
+										, 'description' => '<div class="wpbc-general-settings-notice wpbc-settings-notice notice-warning" style="margin-top:-10px;">'
+														   .  '<strong>' . __('Note' ,'booking') . '!</strong> ' .
+										                   	__( 'If your website uses a cache plugin or system, exclude pages with booking forms from caching to ensure CAPTCHA functions correctly.', 'booking' )
+														   .'</div>'
 										, 'group'       => 'form'
 										, 'value'       => ( empty( get_bk_option( $field_name ) ) ? $default_options_values[ $field_name ] : get_bk_option( $field_name ) )
 				);
@@ -635,6 +717,33 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 				}
 			//}
 		}
+
+		// -------------------------------------------------------------------------------------------------------------
+	    // Calendar skin
+	    if ( isset( $_POST['set_calendar_skin'] ) ) {
+
+		    $selected_calendar_skin = WPBC_Settings_API::validate_text_post_static( 'set_calendar_skin' );
+
+		    $selected_calendar_skin = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL ), '', $selected_calendar_skin );
+
+		    // Check if this skin exist in the plugin  folder
+		    if ( file_exists( WPBC_PLUGIN_DIR . $selected_calendar_skin ) ) {
+			    update_bk_option( 'booking_skin', $selected_calendar_skin );
+		    }
+	    }
+	    // Calendar skin
+	    if ( isset( $_POST['set_time_picker_skin'] ) ) {
+
+		    $selected_calendar_skin = WPBC_Settings_API::validate_text_post_static( 'set_time_picker_skin' );
+
+		    $selected_calendar_skin = str_replace( array( WPBC_PLUGIN_DIR, WPBC_PLUGIN_URL ), '', $selected_calendar_skin );
+
+		    // Check if this skin exist in the plugin  folder
+		    if ( file_exists( WPBC_PLUGIN_DIR . $selected_calendar_skin ) ) {
+			    update_bk_option( 'booking_timeslot_picker_skin', $selected_calendar_skin );
+		    }
+	    }
+
 		// -------------------------------------------------------------------------------------------------------------
 
 		$booking_form_layout_width = WPBC_Settings_API::validate_text_post_static( 'booking_form_layout_width' );
@@ -647,9 +756,11 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 	    }
 	    update_bk_option( 'booking_form_layout_width_px_pr',  $booking_form_layout_width_px_pr);
 
-	    update_bk_option( 'booking_is_use_captcha', WPBC_Settings_API::validate_checkbox_post_static( 'booking_is_use_captcha' ) );
-	    update_bk_option( 'booking_is_use_autofill_4_logged_user', WPBC_Settings_API::validate_checkbox_post_static( 'booking_is_use_autofill_4_logged_user' ) );
-	    update_bk_option( 'booking_timeslot_picker', WPBC_Settings_API::validate_checkbox_post_static( 'booking_timeslot_picker' ) );
+	    if ( wpbc_is_mu_user_can_be_here( 'only_super_admin' ) ) {
+		    update_bk_option( 'booking_is_use_captcha', WPBC_Settings_API::validate_checkbox_post_static( 'booking_is_use_captcha' ) );
+		    update_bk_option( 'booking_is_use_autofill_4_logged_user', WPBC_Settings_API::validate_checkbox_post_static( 'booking_is_use_autofill_4_logged_user' ) );
+		    update_bk_option( 'booking_timeslot_picker', WPBC_Settings_API::validate_checkbox_post_static( 'booking_timeslot_picker' ) );
+	    }
 
 		if ( class_exists( 'wpdev_bk_personal' ) ) {
 			update_bk_option( 'booking_is_use_simple_booking_form', WPBC_Settings_API::validate_checkbox_post_static( 'booking_is_use_simple_booking_form' ) );
@@ -2793,3 +2904,6 @@ if ( 'rangetime_field_generator' == field_name ) {
 }
 
 add_action('wpbc_menu_created', array( new WPBC_Page_SettingsFormFieldsFree() , '__construct') );    // Executed after creation of Menu
+
+
+

@@ -72,6 +72,48 @@ if ( ! class_exists( 'WPCleverWoosb_Helper' ) ) {
 			}
 		}
 
+		public static function is_in_stock( $product ) {
+			if ( $product->is_type( 'variable' ) ) {
+				return $product->child_is_in_stock();
+			} else {
+				return $product->is_in_stock();
+			}
+		}
+
+
+		public static function has_enough_stock( $product, $qty ) {
+			if ( $product->is_type( 'variable' ) ) {
+				$variations = $product->get_available_variations( 'objects' );
+
+				foreach ( $variations as $variation ) {
+					if ( $variation->has_enough_stock( $qty ) ) {
+						return true;
+					}
+				}
+
+				return false;
+			} else {
+				return $product->has_enough_stock( $qty );
+			}
+		}
+
+		public static function get_stock_quantity( $product ) {
+			if ( $product->is_type( 'variable' ) ) {
+				$stock_quantity = null;
+				$variations     = $product->get_available_variations( 'objects' );
+
+				foreach ( $variations as $variation ) {
+					if ( ( $variation->get_stock_quantity() !== null ) && ( $variation->get_stock_quantity() > (float) $stock_quantity ) ) {
+						$stock_quantity = $variation->get_stock_quantity();
+					}
+				}
+
+				return $stock_quantity;
+			} else {
+				return $product->get_stock_quantity();
+			}
+		}
+
 		public static function sanitize_array( $arr ) {
 			foreach ( (array) $arr as $k => $v ) {
 				if ( is_array( $v ) ) {

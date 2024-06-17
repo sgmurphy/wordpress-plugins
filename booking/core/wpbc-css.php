@@ -75,9 +75,9 @@ class WPBC_CSS extends WPBC_JS_CSS{
             wp_enqueue_style( 'wpbc-admin-pages',           wpbc_plugin_url( '/css/admin.css' ),                        array(), WP_BK_VERSION_NUM);            
             wp_enqueue_style( 'wpbc-admin-skin',            wpbc_plugin_url( '/css/admin-skin.css' ),                   array( 'wpbc-admin-pages' ), WP_BK_VERSION_NUM);            //FixIn: 8.0.2.4
 	        //FixIn: 9.6.3.5
-	        if ( 'legacy' != get_bk_option( 'booking_admin_panel_skin' ) ) {                                            //FixIn: 9.5.5.7
-		        wp_enqueue_style( 'wpbc-admin-skin-modern_1', wpbc_plugin_url( '/css/admin-skin-modern_1.css' ), array( 'wpbc-admin-skin' ), WP_BK_VERSION_NUM );       //FixIn: 9.5.5.1
-	        }
+	        //if ( 'legacy' != get_bk_option( 'booking_admin_panel_skin' ) ) {                                            //FixIn: 9.5.5.7
+	        wp_enqueue_style( 'wpbc-admin-skin-modern_1', wpbc_plugin_url( '/css/admin-skin-modern_1.css' ), array( 'wpbc-admin-skin' ), WP_BK_VERSION_NUM );       //FixIn: 9.5.5.1
+	        //}
 
 			global $wp_version;
 

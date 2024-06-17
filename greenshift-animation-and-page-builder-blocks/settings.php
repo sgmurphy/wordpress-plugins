@@ -313,7 +313,7 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 					});
 				});
 			</script>
-			<div class="stylebook_form_wrap">
+			<div class="stylebook_form_wrap" style="padding:25px">
 				<h1><?php _e('GreenShift Stylebook', 'greenshift-animation-and-page-builder-blocks'); ?></h1>
 				<div id="ajax-response"> </div>
 				<form id="stylebook_generation" method="post" class="stylbook_btn_wrapper">

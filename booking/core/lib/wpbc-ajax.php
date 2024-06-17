@@ -14,76 +14,40 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;                                             // Exit if accessed directly
 
-////////////////////////////////////////////////////////////////////////////////
-//    S u p p o r t    f u n c t i o n s    f o r     A j a x    ///////////////
-////////////////////////////////////////////////////////////////////////////////
 
-// Verify the nonce.    
-function wpdev_check_nonce_in_admin_panel( $action_check = 'wpbc_ajax_admin_nonce' ){    
-    
-    $nonce = ( isset($_REQUEST['wpbc_nonce']) ) ? $_REQUEST['wpbc_nonce'] : '';
 
-	if ( '' === $nonce ) return false;	// Its was request  from  some other plugin										//FixIn: 7.2.1.10
-
-    if ( ! wp_verify_nonce( $nonce, $action_check ) ) {                         // This nonce is not valid.     
-        ?>
-        <script type="text/javascript">
-			if (jQuery("#ajax_respond").length > 0 ){
-				jQuery( "#ajax_respond" ).after( "<div class='wpdevelop'><div class='alert alert-warning alert-danger'><?php
-					printf( __( '%sError!%s Request do not pass security check! Please refresh the page and try one more time.', 'booking' ), '<strong>', '</strong>' );
-					echo '<br/>' . sprintf( __( 'Please check more here %s', 'booking' ), 'https://wpbookingcalendar.com/faq/request-do-not-pass-security-check' );        //FixIn: 8.8.3.6
-					?></div></div>" );
-			} else if (jQuery(".ajax_respond_insert").length > 0 ){
-				jQuery( ".ajax_respond_insert" ).after( "<div class='wpdevelop'><div class='alert alert-warning alert-danger'><?php
-					printf( __( '%sError!%s Request do not pass security check! Please refresh the page and try one more time.', 'booking' ), '<strong>', '</strong>' );
-					echo '<br/>' . sprintf( __( 'Please check more here %s', 'booking' ), 'https://wpbookingcalendar.com/faq/request-do-not-pass-security-check/' );        //FixIn: 8.8.3.6
-					?></div></div>" );
-			}
-			if ( jQuery( "#ajax_message" ).length ){
-				jQuery( "#ajax_message" ).slideUp();
-			}
-        </script>
-        <?php
-        die;                
-    } 
-	return  true;																										//FixIn: 7.2.1.10
-}
-
-// Alias
-function wpbc_check_nonce_in_admin_panel( $action_check = 'wpbc_ajax_admin_nonce' ){        
-    return wpdev_check_nonce_in_admin_panel( $action_check );
-}
-
-//FixIn: 8.4.5.1	function wpbc_check_ajax_locale__reload_it($locale)  moved to ../wp-content/plugins/booking/core/wpbc-translation.php
-
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //    A j a x    H o o k s    f o r    s p e c i f i c    A c t i o n s    /////
-////////////////////////////////////////////////////////////////////////////////
-
+// ---------------------------------------------------------------------------------------------------------------------
 
 
 //FixIn: Flex TimeLine 1.0
 function wpbc_ajax_WPBC_FLEXTIMELINE_NAV() {
 
-        // if ( ! wpdev_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10          // This line for admin panel
+        // if ( ! wpbc_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10          // This line for admin panel
 
-
-        $nonce = ( isset($_REQUEST['wpbc_nonce']) ) ? $_REQUEST['wpbc_nonce'] : '';
-        if ( ! wp_verify_nonce( $nonce, $_POST['action'] ) ) {                  // This nonce is not valid.
-            wp_die(
-            			sprintf(__('%sError!%s Request do not pass security check! Please refresh the page and try one more time.' ,'booking'),'<strong>','</strong>')
-			. '<br/>' . sprintf( __( 'Please check more %shere%s', 'booking' ), '<a href="https://wpbookingcalendar.com/faq/request-do-not-pass-security-check/" target="_blank">', '</a>.' )      //FixIn: 8.8.3.6
-			);                                                         // Its prevent of showing '0' et  the end of request.
-        }
+		if ( wpbc_is_use_nonce_at_front_end() ) {           //FixIn: 10.1.1.2
+			$nonce = ( isset($_REQUEST['wpbc_nonce']) ) ? $_REQUEST['wpbc_nonce'] : '';
+			if ( ! wp_verify_nonce( $nonce, $_POST['action'] ) ) {                  // This nonce is not valid.
+				wp_die(
+							sprintf(__('%sError!%s Request do not pass security check! Please refresh the page and try one more time.' ,'booking'),'<strong>','</strong>')
+				. '<br/>' . sprintf( __( 'Please check more %shere%s', 'booking' ), '<a href="https://wpbookingcalendar.com/faq/request-do-not-pass-security-check/?after_update=10.1.1" target="_blank">', '</a>.' )      //FixIn: 8.8.3.6
+				);                                                         // Its prevent of showing '0' et  the end of request.
+			}
+		}
         make_bk_action('wpbc_ajax_flex_timeline');
         wp_die('');                                                             // Its prevent of showing '0' et  the end of request.
 }
 
 
 function wpbc_ajax_CALCULATE_THE_COST() {
-    
-        if ( ! wpdev_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10
-        make_bk_action('wpdev_ajax_show_cost');        
+
+	if ( wpbc_is_use_nonce_at_front_end() ) {           //FixIn: 10.1.1.2
+		if ( ! wpbc_check_nonce_in_admin_panel( $_POST['action'] ) ) {
+			return false;//FixIn: 7.2.1.10
+		}
+	}
+	make_bk_action( 'wpdev_ajax_show_cost' );
 }
 
 
@@ -94,7 +58,7 @@ function wpbc_ajax_UPDATE_APPROVE() {
                     
     global $wpdb;
 
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
 	
     make_bk_action('check_multiuser_params_for_client_side_by_user_id', $_POST['user_id'] );
 
@@ -174,7 +138,7 @@ function wpbc_ajax_UPDATE_APPROVE() {
 function wpbc_ajax_TRASH_RESTORE() {
     global $wpdb;
     
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
 	
     make_bk_action('check_multiuser_params_for_client_side_by_user_id', $_POST['user_id'] );
 
@@ -263,7 +227,7 @@ function wpbc_ajax_DELETE_APPROVE() {
         
     global $wpdb;
     
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
 	
     make_bk_action('check_multiuser_params_for_client_side_by_user_id', $_POST['user_id'] );
 
@@ -320,11 +284,14 @@ function wpbc_ajax_DELETE_APPROVE() {
 
 
 function wpbc_ajax_DELETE_BY_VISITOR() {
-        
-    if ( ! wpdev_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10
-	
+
+	if ( wpbc_is_use_nonce_at_front_end() ) {           //FixIn: 10.1.1.2
+		if ( ! wpbc_check_nonce_in_admin_panel( $_POST['action'] ) ) {
+			return false; //FixIn: 7.2.1.10
+		}
+	}
+
     make_bk_action('wpdev_delete_booking_by_visitor');
-        
 }
 
 
@@ -333,17 +300,14 @@ function wpbc_ajax_DELETE_BY_VISITOR() {
 
 function wpbc_ajax_DELETE_BK_FORM() {
         
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
     make_bk_action('check_multiuser_params_for_client_side_by_user_id', $_POST['user_id'] );
     make_bk_action('wpbc_make_delete_custom_booking_form');          
 }
 
 
 function wpbc_ajax_USER_SAVE_WINDOW_STATE() {
-        
-//    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
-//    update_user_option($_POST['user_id'],'booking_win_' . $_POST['window'] ,$_POST['is_closed']);
-    
+
 	if ( ! wpbc_check_nonce_in_admin_panel() ) return false;
 
     update_user_option( (int) $_POST['user_id'], 'booking_win_' . esc_attr( $_POST['window'] ) , (int) $_POST['is_closed'] );
@@ -392,11 +356,13 @@ function wpbc_ajax_USER_SAVE_CUSTOM_DATA() {
 }
 
 
-
-
 function wpbc_ajax_BOOKING_SEARCH() {
-        
-    if ( ! wpdev_check_nonce_in_admin_panel( $_POST['action'] ) ) return false;  //FixIn: 7.2.1.10
+
+	if ( wpbc_is_use_nonce_at_front_end() ) {           //FixIn: 10.1.1.2
+		if ( ! wpbc_check_nonce_in_admin_panel( $_POST['action'] ) ) {
+			return false;  //FixIn: 7.2.1.10
+		}
+	}
 
 	if ( function_exists( 'wpbc_ajax_start_searching' ) ) {
 		wpbc_ajax_start_searching();
@@ -406,21 +372,21 @@ function wpbc_ajax_BOOKING_SEARCH() {
 
 function wpbc_ajax_CHECK_BK_NEWS() {
         
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
     wpdev_ajax_check_bk_news();
 }
 
 
 function wpbc_ajax_CHECK_BK_FEATURES() {
         
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
     wpdev_ajax_check_bk_news('info/features/');
 }
 
 
 function wpbc_ajax_CHECK_BK_VERSION() {
     
-    if ( ! wpdev_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
+    if ( ! wpbc_check_nonce_in_admin_panel() ) return false;  //FixIn: 7.2.1.10
     wpdev_ajax_check_bk_version();
 }
 
@@ -428,9 +394,9 @@ function wpbc_ajax_CHECK_BK_VERSION() {
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 //    R u n     A j a x                       //////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+// ---------------------------------------------------------------------------------------------------------------------
 if (  is_admin() && ( defined( 'DOING_AJAX' ) ) && ( DOING_AJAX )  ) {
 
 	//FixIn: 8.9.4.5

@@ -1862,8 +1862,24 @@ class UniteCreatorAddonWork extends UniteElementsBaseUC{
 		return($hasRemote);
 	}
 
+	/**
+	 * check if addon has dynamic settings
+	 */
+	public function hasElementorDynamicSettings(){
+		
+		if(empty($this->arrOriginalValues))
+			return(false);
+			
+		if(is_array($this->arrOriginalValues) == false)
+			return(false);
+			
+		if(array_key_exists("__dynamic__", $this->arrOriginalValues))
+			return(true);
+			
+		return(false);
+	}
 
-
+	
 	private function a_______GET__INCLUDES_____(){
 	}
 

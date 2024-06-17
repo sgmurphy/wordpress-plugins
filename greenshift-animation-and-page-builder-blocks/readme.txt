@@ -8,7 +8,7 @@ Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.0
 License: GPLv2 or later
-Stable tag: 8.9.7
+Stable tag: 8.9.8
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 More than 20 special blocks for Gutenberg to build complex pages and animations with highest possible web vitals score.
@@ -107,6 +107,12 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 7. **Sliding panels, popups.** Build custom sliding panels, add any block, use for mega menus
 
 == Changelog ==
+
+= 8.9.8 =
+
+* Added: Support for social share when they are used in ajax
+* Added: Convertion from core image to advanced image block
+* Fix: for empty global class bug and some other improvements
 
 = 8.9.7 =
 
@@ -602,200 +608,3 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 = 6.0.2 =
 * Added: Support for Gutenberg plugin
 * Added: Slider options: clickable dots, restore autoplay after user interaction
-
-= 6.0 =
-* Added: Advanced Background Size and background Size hover options for all blocks
-* Added: Icon picker has separate width and height option
-* Added: Countdown has no limits in days
-* Added: Automatic separator for big values in Counter Block
-* Added: Custom code areas for head and footer
-* Added: FSE template export will export also Woocommerce custom templates (if you use Greenshift theme)
-* Fix: unremovable 0 value for some fields
-
-= 5.9.9 =
-* Added: Sliders synchronization option
-* Added: FSE template, reusable template, Greenshift settings and styles Import/Export options
-
-= 5.9.8 =
-* Added: TypeWriter effect for Advanced heading block
-
-= 5.9.7 =
-* Added: Modal fix
-* Added: [Woocommerce premium addon](https://greenshiftwp.com/block-gallery/#woocommerce)
-
-= 5.9.6 =
-* Added: Videobox supports Youtube shorts
-* Added: Sliding panel/popup has Modal type (uses dialog tags)
-* Added: Gallery block supports collapsing to slider for mobiles
-
-= 5.9.4 =
-* Added: Background and color options for TOC block
-
-= 5.9.2 =
-* Fixes: gradient for background, border radius for videos
-* Added: Visibility Panel for blocks (requires Query addon)
-
-= 5.9.1 =
-* Added: Aspect ratio option for VideoBox
-* Added: Tabs reorder option
-* Added: Min/max values for variable sizing
-* Added: Some fixes from reports
-
-= 5.9 =
-* Added: Custom Fluid typography for presets
-* Added: Option to set Custom default styles for blocks
-
-= 5.8 =
-* Added: Aspect ratio option for Sizing and custom Fluid typography
-
-= 5.7.3 =
-* Added: option to set custom selector for trigger sliding panel, popup
-
-= 5.7 =
-* Added: Spline3D Wordpress block
-* Added: Accessibility options for Sliding panel, toggler, social share buttons
-* Fix: some issues when using duplicate button in some scenarios when blocks have the same styles
-* Fix: child containers for Flexbox have Order option
-* Added: improvements in Slider script, added support for custom breakpoints and pause on autoplay for hover
-
-= 5.6 =
-* Added: Theme palette colors now uses variables instead flat colors
-* Added: Map field supports FSE template creation environment
-* Added: Accessibility labels for Button block
-* Added: Accordion script supports ajax render
-* Added: Repeater block (in Query Addon)
-
-= 5.5 =
-* Added: variable width detection for Row in Greenshift theme (plugin will use Wide width option which you can set in global Style editor)
-* Added: Custom icon option for accordion
-* Added: Right side option for Vertical tabs and increased width value
-* Added: Option to place popup on top of page (useful if you have long forms in popup)
-* Added: Color picker in Color component
-* Added: Refreshed Typography options
-* Added: Map block and Dynamic Map option
-* Added: Dynamic Label option for Button block
-* Added: Transform origin point for css transformations
-* Added: Reusable style feature will clean local styles when you add or update reusable style to block
-* Fix: some scenarios when Gutenberg plugin and Background options are not compatible
-
-= 5.4.1 =
-* Added: Performance improvements in style saving editor function
-
-= 5.4 =
-* Added: Progress bar has new Circle Style type
-* Added: Dynamic fields for progress bar
-* Added: Dynamic fields for counter
-* Added: Option to retrieve values from multidimensional arrays in dynamic fields
-
-= 5.3.3 =
-* Added: Gallery block for Query addon
-
-= 5.3 =
-* Added: Option to reorder Advanced lists
-* Added: New Price table patterns
-* Added: Videobox lightbox improvements
-
-= 5.2 =
-* Added: Updated Sizing Panel with variable width, height features
-* Added: Custom css grid template
-* Added: Variable font weight options for Advanced typography options
-* Added: Refreshed UI for better matching with core Wordpress and popular WP themes
-* Added: Security improvements for shortcode rendering
-
-= 5.1.3 =
-* Added: Custom Border options for Slider arrows
-
-= 5.1.1 =
-* Added: Library for Site editor
-
-= 5.1 =
-* Added: Title option to Advanced list links for better accessability
-* Added: Overflow auto option for Spacing panel
-
-= 5.0 =
-* Added: Animation panel has improved GSAP options with all basic transformations, scroll interpolation and triggers (this still requires Animation addon)
-* Added: [Switcher block](https://greenshiftwp.com/switcher-block/)
-* Added: Option to enable script delay for maximum web vitals score on pages with high amount of scripts [How to get 100 web vitals score on highly animated pages](https://greenshiftwp.com/quick-tip-how-to-make-extremely-heavily-animated-pages-with-100-score-on-web-vitals/)
-* Added: [Wireframe Library of patterns](https://greenshift.wpsoul.net/)
-* Added: Dynamic option for TOC block (for using in reusable templates)
-* Added: more predefined icons for Icon Picker and some improves in UI
-
-= 4.9.9 =
-* Added: TOC sticky panel has option to set breakpoint for collapsing
-* Added: Trigger start, end, infinite animation options for Quick Animation panel in GSAP
-* Fix: Fixed outside heading option for subtitle
-
-= 4.9.8 =
-* Added: Reusable ajax loading on hover uses click trigger if used on mobiles
-* Added: Position and Resize quick toolbar buttons are working in FSE now
-
-= 4.9.4 =
-* Added: Custom decimal values allows in spacing panel
-* Added: Reusable style Change/Remove selector has preselected class if you used it early
-
-= 4.9.3 =
-* Added: Vertical mode to Advanced typography component
-* Added: Tabs support inner tabs
-
-= 4.9.2 =
-* Added: CSS grid has up to 16 columns
-
-= 4.9.1 =
-* Added: CSS grid and Flexbox has option to control flex and grid parameters in each child Container separately [Overview of CSS grid control](https://www.facebook.com/groups/greenshiftwp/posts/887978685974738)
-
-= 4.9 =
-* Added: Advanced list have option to enable columns
-
-= 4.8.9 =
-* Added: Security improvements and image block fix for scenarios when image size is not available 
-
-= 4.8.8 =
-* Added: Margin auto switcher to spacing options 
-
-= 4.8.7 =
-* Added: Additional Size panel for Rows. 
-* Added: Skew options for CSS transforms
-* Added: Post link Post processor for Meta getter block
-* Added: Cookie option for visibility block
-
-= 4.8.6 =
-* Added: Improved Size panel. Added size panel to Advanced heading, text, container blocks
-
-= 4.8.5 =
-* Fix: fix widget notices and border radius issues
-
-= 4.8.4 =
-* Added: Responsive control to border radius
-* Added: Postfix to Counter block
-* Added: Removed redundant outline borders and toolbars on column and container hovers in editor when you hover on child element
-
-= 4.8.3 =
-* Added: Mailto links data type for Meta getter block
-* Added: Completely overwritten Custom Gap option for Row
-* Added: Option to set Subheading outside Heading tag
-* Added: Circle heading is recounting all numbers in post when you add new circle heading block
-* Added: How to [integrate theme in Greenshift](https://greenshiftwp.com/theme-integration-with-greenshift/)
-* Fix: some fixes in Copy style feature
-* Fix: not saving presets and styles on some hostings
-
-= 4.8.2 =
-* Added: Date field support for Meta getter
-* Added: Better Size units for icon picker, letter spacing, width, height
-* Added: Support for new Greenshift Woocommerce addon
-
-= 4.8.1 =
-* Added: Better Astra theme integration (row width fix, UI fixes, button color inheritance)
-* Added: Copy style option for countdown block
-
-= 4.8 =
-* Added: Custom font style option for typography panel
-* Added: Clean color option for icon picker (this will allow to use reusable styles for icon colors)
-* Added: Image scale (object fit and focal point) to image block
-* Added: Image block has Dynamic fields. But if you use Query loop builder, please, use Dynamic Post Image instead
-
-= 4.7 =
-* Added: Padding option for sliding panel and better mobile closing button point
-* Added: Support for reusable style option to columns
-* Added: Default button styles and icon colors are inherited from Blocksy theme (if you use it)
-* Added: Fix for Animated shape dividers
-* Added: Custom cursor option for typography panel

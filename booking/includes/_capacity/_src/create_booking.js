@@ -257,7 +257,7 @@ console.groupEnd();
 						error_message += ' (<b>' + jqXHR.status + '</b>)';
 						if (403 == jqXHR.status ){
 							error_message += '<br> Probably nonce for this page has been expired. Please <a href="javascript:void(0)" onclick="javascript:location.reload();">reload the page</a>.';
-							error_message += '<br> Otherwise, please check this <a style="font-weight: 600;" href="https://wpbookingcalendar.com/faq/request-do-not-pass-security-check/">troubleshooting instruction</a>.<br>'
+							error_message += '<br> Otherwise, please check this <a style="font-weight: 600;" href="https://wpbookingcalendar.com/faq/request-do-not-pass-security-check/?after_update=10.1.1">troubleshooting instruction</a>.<br>'
 						}
 					}
 					if ( jqXHR.responseText ){

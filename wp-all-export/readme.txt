@@ -2,7 +2,7 @@
 Contributors: soflyy, wpallimport
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 Requires PHP: 7.4
 Tags: export, wordpress csv export, wordpress xml export, export woocommerce, migrate, export csv from wordpress, export xml from wordpress, advanced xml export, advanced csv export, export data, bulk csv export, export custom post type, export woocommerce products, export woocommerce orders, migrate woocommerce, csv export, export csv, xml export, export xml, csv exporter, datafeed
 
@@ -183,6 +183,9 @@ Yes. Our plugin automatically detects all custom fields, categories, and tags cr
 If you are using the free version of the plugin, you can obtain support through the WordPress.org community forums. If you have purchased the premium version, you can email us directly and we will respond as quickly as we can, typically in less than one business day.
 
 == Changelog ==
+
+= 1.4.5 =
+* bug fix: restore compatibility with WooCommerce Export Add-On Pro
 
 = 1.4.4 =
 * improvement: update upgrade links

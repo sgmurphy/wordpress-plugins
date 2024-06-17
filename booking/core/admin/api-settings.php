@@ -642,7 +642,8 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'default'     => $default_options_values['booking_is_use_captcha']           //'Off'
                                 , 'title'       => __('CAPTCHA' ,'booking')
                                 , 'label'       => __('Check the box to activate CAPTCHA inside the booking form.' ,'booking')
-                                , 'description' => ''
+								, 'description' =>  '<strong>' . __('Note' ,'booking') . '!</strong> ' .
+								                    __( 'If your website uses a cache plugin or system, exclude pages with booking forms from caching to ensure CAPTCHA functions correctly.', 'booking' )
                                 , 'group'       => 'form'
             );
         $this->fields['booking_is_use_autofill_4_logged_user'] = array(
@@ -824,20 +825,20 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'options'     => $field_options
                                 , 'group'       => 'booking_listing'
                         );
-	    //FixIn: 9.5.5.7
-        $this->fields['booking_admin_panel_skin'] = array(
-                                  'type'        => 'select'
-                                , 'default'     => $default_options_values['booking_admin_panel_skin']                  // 'modern_1'
-                                , 'title'       => __('Theme of booking admin panel', 'booking')
-                                , 'description' => __('Select theme of your booking admin panel' ,'booking')
-                                , 'options'     => array(
-														      'modern_1' => __( 'Modern Theme', 'booking' )
-													        , 'legacy'   => __( 'Legacy Theme', 'booking' )
-							                            )
-                                , 'group'       => 'booking_listing'
-                        );
-
-	    //FixIn: 9.6.3.5
+//	    //FixIn: 9.5.5.7
+//        $this->fields['booking_admin_panel_skin'] = array(
+//                                  'type'        => 'select'
+//                                , 'default'     => $default_options_values['booking_admin_panel_skin']                  // 'modern_1'
+//                                , 'title'       => __('Theme of booking admin panel', 'booking')
+//                                , 'description' => __('Select theme of your booking admin panel' ,'booking')
+//                                , 'options'     => array(
+//														      'modern_1' => __( 'Modern Theme', 'booking' )
+//													        , 'legacy'   => __( 'Legacy Theme', 'booking' )
+//							                            )
+//                                , 'group'       => 'booking_listing'
+//                        );
+//
+//	    //FixIn: 9.6.3.5
 
         //Default booking resources 
         $this->fields = apply_filters( 'wpbc_settings_booking_listing_br_default_count', $this->fields, $default_options_values );
@@ -1262,6 +1263,18 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'is_demo_safe' => wpbc_is_this_demo()
             );
 
+		//FixIn: 10.1.1.2  //TODO: Update Text here 2024-06-16 12:57
+        $this->fields['booking_is_nonce_at_front_end'] = array(
+                                'type'          => 'checkbox'
+                                , 'default'     => $default_options_values['booking_is_nonce_at_front_end']             //'Off'
+                                , 'title'       => __( 'Use Nonce Fields', 'booking' )
+                                , 'label'       => __( 'Activate this option to add security tokens (nonce fields) to booking forms on the front-end. Please note that this may cause issues if you are using cache plugins or caching software.', 'booking' )
+                                , 'description' => ''
+                                , 'group'       => 'advanced'
+                                , 'tr_class'    => 'wpbc_advanced_is_nonce'  //wpbc_advanced_js_loading_settings wpbc_sub_settings_grayed hidden_items'
+	                            , 'toggle_class' => 'wpbc_toggle_danger'
+                                , 'is_demo_safe' => wpbc_is_this_demo()
+            );
 
 	    if ( wpbc_is_this_demo() ) {
 		    $this->fields['booking_pages_for_load_js_css_demo'] = array( 'group'    => 'advanced',

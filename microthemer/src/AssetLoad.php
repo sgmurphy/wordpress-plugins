@@ -301,7 +301,9 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			$this->addMTPlaceholder();
 
 			// Global CSS is just for the frontend
-			if ($this->isFrontend || $this->isBlockEditorScreen){
+			if ($this->isFrontend
+			    || ($this->isBlockEditorScreen && !empty($p['admin_asset_loading']))
+			){
 
 				// enqueue any Google Fonts
 				$this->addGlobalGoogleFonts($p, $add);

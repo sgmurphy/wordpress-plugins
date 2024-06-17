@@ -95,6 +95,7 @@ class UniteCreatorTemplateEngineWork{
 
 				//get dynamic settings from the widget if exists
 				$arrDynamicSettings = apply_filters("ue_get_current_widget_settings", array());
+				
 			}
 		}
 
@@ -848,9 +849,9 @@ class UniteCreatorTemplateEngineWork{
 	 * get post author
 	 */
 	public function getPostAuthor($authorID, $getMeta = false, $getAvatar = false){
-
+		
 		$arrUserData = UniteFunctionsWPUC::getUserDataById($authorID, $getMeta, $getAvatar);
-
+	
 		return($arrUserData);
 	}
 

@@ -398,11 +398,17 @@ class UniteCreatorFiltersProcess{
 	private function parseStrTerms($strFilters){
 
 		$arrUrlKeys = $this->getUrlPartsKeys();
-
-		$taxSapSign = UniteFunctionsUC::getVal($arrUrlKeys, "tax_sap","~");
+		
+		$taxSapSign = UniteFunctionsUC::getVal($arrUrlKeys, "tax_sap");
+		
+		
+		//fallback, if ~ sign exists - change to it
+		
+		if($taxSapSign != "~" && strpos($strFilters,"~") !== false)
+			$taxSapSign = "~";
 
 		$strFilters = trim($strFilters);
-
+				
 		$arrFilters = explode(";", $strFilters);
 
 		//fill the terms
@@ -1128,9 +1134,9 @@ class UniteCreatorFiltersProcess{
 
 				UniteFunctionsUC::throwError("Cannot output widget content for widget: $widgetType");
 			}
-
+						
 		}
-
+		
 		//get settings values
 
 		if(self::$isGutenberg == false)
@@ -1138,7 +1144,7 @@ class UniteCreatorFiltersProcess{
 		else
 			$arrSettingsValues = self::$objGutenberg->getSettingsFromBlock($arrElement);
 
-
+		
 		//init addon
 
 		$addon = new UniteCreatorAddon();
@@ -1174,14 +1180,16 @@ class UniteCreatorFiltersProcess{
 			$objAjaxSearch->initCustomAjaxSeach($addon);
 		}
 
+		GlobalsUnlimitedElements::$currentRenderingAddon = $addon;
+		
 		//------ get the html output
-
+		
 		//collect the debug html
 		if(self::$showDebug == false)
 			ob_start();
-
+		
 		$objOutput = new UniteCreatorOutput();
-
+		
 	    $isDebugFromGet = HelperUC::hasPermissionsFromQuery("ucfieldsdebug");
 
 	    if($isDebugFromGet == true)
@@ -1208,9 +1216,9 @@ class UniteCreatorFiltersProcess{
 
 		//get only items
 		if($isGrid == true){
-
+			
 			$arrHtml = $objOutput->getHtmlItems();
-
+			
 			$output["html"] = UniteFunctionsUC::getVal($arrHtml, "html_items1");
 			$output["html2"] = UniteFunctionsUC::getVal($arrHtml, "html_items2");
 
@@ -1229,7 +1237,9 @@ class UniteCreatorFiltersProcess{
 
 		if(!empty($htmlDebug))
 			$output["html_debug"] = $htmlDebug;
-
+		
+		GlobalsUnlimitedElements::$currentRenderingAddon = null;
+		
 		return($output);
 	}
 
@@ -1249,7 +1259,7 @@ class UniteCreatorFiltersProcess{
 		$this->contentWidgetsDebug = array();
 
 		foreach($arrIDs as $elementID){
-
+			
 			$output = $this->getContentWidgetHtml($arrContent, $elementID, $isGrid);
 
 			$htmlDebug = UniteFunctionsUC::getVal($output, "html_debug");
@@ -1393,8 +1403,7 @@ class UniteCreatorFiltersProcess{
 		self::$platform = UniteFunctionsUC::getPostGetVariable("platform","",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
 
 		self::$isGutenberg = (self::$platform == "gutenberg");
-
-
+		
 		$layoutID = UniteFunctionsUC::getPostGetVariable("layoutid","",UniteFunctionsUC::SANITIZE_KEY);
 		$elementID = UniteFunctionsUC::getPostGetVariable("elid","",UniteFunctionsUC::SANITIZE_KEY);
 
@@ -1414,7 +1423,7 @@ class UniteCreatorFiltersProcess{
 		$isModeReplace = UniteFunctionsUC::strToBool($isModeReplace);
 
 		GlobalsProviderUC::$isUnderAjax = true;
-
+		
 		self::$isModeReplace = $isModeReplace;
 
 		//if($isModeFiltersInit == true)
@@ -1504,7 +1513,7 @@ class UniteCreatorFiltersProcess{
 		}
 
 		$htmlDebug = UniteFunctionsUC::getVal($arrHtmlWidget, "html_debug");
-
+		
 		$addWidgetsHTML = $this->getContentWidgetsHTML($arrContent, $addElIDs);
 
 		$syncWidgetsHTML = $this->getContentWidgetsHTML($arrContent, $syncIDs, true);
@@ -1860,8 +1869,15 @@ class UniteCreatorFiltersProcess{
 	 */
 	private function getUrlPartsKeys(){
 
+		$taxSapSetting = HelperProviderCoreUC_EL::getGeneralSetting("tax_sap_sign");
+
+		$taxSapSetting = apply_filters("ue_filters_url_key__taxonomy_sap", $taxSapSetting);
+		
+		if(empty($taxSapSetting))
+			$taxSapSetting = "~";
+		
 		$arrParts = array();
-		$arrParts["tax_sap"] = apply_filters("ue_filters_url_key__taxonomy_sap","~");
+		$arrParts["tax_sap"] = apply_filters("ue_filters_url_key__taxonomy_sap", $taxSapSetting);
 
 		return($arrParts);
 	}

@@ -33,6 +33,7 @@ if( is_admin() ) {
 }
 
 // Functions
+require_once( WPBC_PLUGIN_DIR . '/includes/_functions/nonce_func.php' );                // Nonce functions - front-end excluding
 require_once( WPBC_PLUGIN_DIR . '/includes/_functions/regex_str.php' );                 // String and Regex functions for shortcodes
 require_once( WPBC_PLUGIN_DIR . '/includes/_functions/parse_booking_data.php' );        // Booking form data parsing and replacement
 require_once( WPBC_PLUGIN_DIR . '/core/wpbc_functions.php' );                   // Functions
@@ -147,6 +148,7 @@ require_once( WPBC_PLUGIN_DIR . '/core/admin/wpbc-gutenberg.php' );             
 ////////////////////////////////////////////////////////////////////////////////
 
 require_once( WPBC_PLUGIN_DIR . '/includes/page-form-simple/preview_form.php' );         	 // Preview - Booking Form
+require_once( WPBC_PLUGIN_DIR . '/includes/page-form-simple/templates_form_simple.php' );  	 // Templates - Simple Booking Form
 
 if ( file_exists( WPBC_PLUGIN_DIR.'/inc/_ps/personal.php' ) ){   
     require_once WPBC_PLUGIN_DIR . '/inc/_ps/personal.php';  

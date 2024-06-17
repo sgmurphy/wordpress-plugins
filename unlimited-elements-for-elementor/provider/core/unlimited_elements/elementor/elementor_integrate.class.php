@@ -8,7 +8,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 
 
 class UniteCreatorElementorIntegrate{
-
+	
 	const ADDONS_CATEGORY_TITLE = "Unlimited Elements";
 	const ADDONS_CATEGORY_NAME = "unlimited_elements";
 	const ADDONS_TYPE = "elementor";
@@ -60,9 +60,10 @@ class UniteCreatorElementorIntegrate{
 	public static $arrWidgetIcons = array();		//fill by the widgets
 	public static $isDarkMode = false;
 	private $isControlsRegistered = false;
-	private $isWidgetsRegistered = false;
+	private static $isWidgetsRegistered = false;
 	private $isOldElementorVersion = false;
-
+	public static $instance;
+	
 
 	/**
 	 * init some vars
@@ -74,9 +75,17 @@ class UniteCreatorElementorIntegrate{
 		$this->pathDynamicTags = $this->pathPlugin."dynamic_tags/";
 
 		self::$isLogMemory = $this->getIsLogMemory();
-
+		
+		self::$instance = $this;
 	}
 
+	/**
+	 * get instance
+	 */
+	public static function getInstance(){
+		
+		return(self::$instance);
+	}
 
 	/**
 	 * determine if log memory or not
@@ -172,10 +181,12 @@ class UniteCreatorElementorIntegrate{
 	 * register addons
 	 */
 	private function registerWidgets_addons($arrAddons, $isRecords = false){
-
-		if($this->isWidgetsRegistered == true)
+				
+		if(self::$isWidgetsRegistered == true)
 			return(false);
 
+		self::$isWidgetsRegistered = true;
+			
 		foreach ($arrAddons as $addon) {
 
 			self::$counterWidgets++;
@@ -219,7 +230,7 @@ class UniteCreatorElementorIntegrate{
 				return(false);
 
 			$className = "UCAddon_".$name;
-
+			
 			//if($isEnoughtMemory == false)
 				//$className .= "_no_memory";
 
@@ -233,7 +244,7 @@ class UniteCreatorElementorIntegrate{
 			    $widget = new $className();
 
 			    $manager = \Elementor\Plugin::instance()->widgets_manager;
-
+			    
 			    if(method_exists($manager, "register"))
 					$manager->register($widget);
             	else
@@ -248,7 +259,7 @@ class UniteCreatorElementorIntegrate{
 
 		    }
 
-			$this->isWidgetsRegistered = true;
+			self::$isWidgetsRegistered = true;
 
 		}
 
@@ -331,7 +342,7 @@ class UniteCreatorElementorIntegrate{
 	 * register elementor widgets from the library
 	 */
 	private function registerWidgets(){
-
+	
 		if($this->isSystemErrorOccured == true)
 			return(false);
 
@@ -411,14 +422,14 @@ class UniteCreatorElementorIntegrate{
      * register elementor widgets from the library
      */
     public function onWidgetsRegistered() {
-
+		
     	//$this->initTemplateTypeVars();
     	$this->initOtherVars();
 
     	$this->includePluginFiles();
 
     	$this->registerWidgets();
-
+		
     }
 
 
@@ -426,7 +437,7 @@ class UniteCreatorElementorIntegrate{
      * register controls
      */
     public function onRegisterControls($controls_manager) {
-
+		
     	if($this->isControlsRegistered == true)
     		return(false);
 
@@ -857,10 +868,15 @@ class UniteCreatorElementorIntegrate{
 						var objTemplate = objBgElement.children("template");
 
 						if(objTemplate.length){
-
+							
 					        var clonedContent = objTemplate[0].content.cloneNode(true);
-					        objBgElement.append(clonedContent);
 
+					    	var objScripts = jQuery(clonedContent).find("script");
+					    	if(objScripts.length)
+					    		objScripts.attr("type","text/javascript");
+					        
+					        objBgElement.append(clonedContent);
+							
 							objTemplate.remove();
 						}
 
@@ -1564,17 +1580,67 @@ class UniteCreatorElementorIntegrate{
 	}
 
 	/**
+	 * get elementor widget from addon
+	 */
+	private function getWidgetFromAddon($addon){
+		
+		$manager = \Elementor\Plugin::instance()->widgets_manager;
+		if(empty($manager))
+			return(null);
+			
+		$alias = $addon->getAlias();
+		$type = "ucaddon_{$alias}";
+		
+		$objType = $manager->get_widget_types($type);
+		
+		if(empty($objType))
+			return(null);
+
+		$arrValues = $addon->getOriginalValues();
+		
+		$data = array();
+		$data["id"] = "dummy_id";
+		$data["widgetType"] = $type;
+		$data["settings"] = $arrValues;
+		
+		$objWidget = Plugin::$instance->elements_manager->create_element_instance( $data, array(), $objType);
+		
+		if(empty($objWidget))
+			return(null);
+		
+		
+		return($objWidget);
+	}
+	
+	
+	/**
 	 * get current rendering widget settings
 	 */
 	public function onGetCurrentRenderingWidgetSettings($settings = array()){
-
-		if(empty(GlobalsUnlimitedElements::$currentRenderingWidget))
-			return(null);
-
-		$widget = GlobalsUnlimitedElements::$currentRenderingWidget;
-
-		$arrDynamic = $widget->ueGetDynamicSettingsValues();
-
+		
+		//get by elementor widget
+		
+		$arrDynamic = null;
+		
+		if(!empty(GlobalsUnlimitedElements::$currentRenderingWidget)){
+			
+			$widget = GlobalsUnlimitedElements::$currentRenderingWidget;
+			
+			$arrDynamic = $widget->ueGetDynamicSettingsValues();
+		}
+		else //get by addon (from ajax)
+		if(!empty(GlobalsUnlimitedElements::$currentRenderingAddon)){
+			
+			$hasDynamic = GlobalsUnlimitedElements::$currentRenderingAddon->hasElementorDynamicSettings();
+			
+			if($hasDynamic == true){
+				$widget = $this->getWidgetFromAddon(GlobalsUnlimitedElements::$currentRenderingAddon);
+				$arrDynamic = $widget->ueGetDynamicSettingsValues(true);
+			}
+			
+		}
+		
+		
 		return($arrDynamic);
 	}
 
@@ -1703,7 +1769,8 @@ class UniteCreatorElementorIntegrate{
     	$isEnabled = UniteFunctionsUC::strToBool($isEnabled);
     	if($isEnabled == false)
     		return(false);
-
+		
+    		
     	$isPreviewOption = UniteFunctionsUC::getGetVar("elementor-preview", "", UniteFunctionsUC::SANITIZE_KEY);
 
     	if(!empty($isPreviewOption))
@@ -1724,11 +1791,23 @@ class UniteCreatorElementorIntegrate{
 
     	$arrSettingsValues = HelperProviderCoreUC_EL::getGeneralSettingsValues();
 
+    	//validation for very old version
+    	
+    	$compareVeryOld = version_compare(ELEMENTOR_VERSION, '3.1.0');
+	    if($compareVeryOld < 0){
+
+			HelperUC::addAdminNotice("Unlimited Elements Don't support this very old version of Elementor (".ELEMENTOR_VERSION."). Please update Elementor version.");
+	    	
+	    	return(false);
+	    }
+    	
+    	
     	//detect old elementor version
     	$compare = version_compare(ELEMENTOR_VERSION, '3.7.0');
 	    if($compare < 0)
     		$this->isOldElementorVersion = true;
-
+		    		
+    		
     	//consolidation always false
     	self::$isConsolidated = false;
 
@@ -1792,8 +1871,8 @@ class UniteCreatorElementorIntegrate{
 		//get current dynamic settings from loop
 
 		add_filter( 'ue_get_current_widget_settings', array( $this, 'onGetCurrentRenderingWidgetSettings' ) );
-
-
+		
+		
     	// ------ admin related only ----------
 
     	if(is_admin() == false)

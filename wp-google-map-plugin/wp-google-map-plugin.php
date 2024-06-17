@@ -5,7 +5,7 @@ Plugin URI: https://weplugins.com/
 Description: A fully customizable WordPress Plugin for Google Maps. Create unlimited Google Maps Shortcodes, assign unlimited locations with custom infowindow messages and add to pages, posts and widgets.
 Author: flippercode
 Author URI: https://weplugins.com/
-Version: 4.6.0
+Version: 4.6.1
 Text Domain: wp-google-map-plugin
 Domain Path: /lang
 */
@@ -816,13 +816,13 @@ if ( ! class_exists( 'FC_Google_Maps_Lite' ) ) {
 				}
 			}
 
-			if ( is_array( $tables ) ) {
+			if ( isset($tables) && !empty($tables) && is_array( $tables ) ) {
 				foreach ( $tables as $i => $sql ) {
 					dbDelta( $sql );
 				}
 			}
 
-			$data = unserialize(get_option('wpgmp_ignore_buy_pro'));
+			$data = maybe_unserialize(get_option('wpgmp_ignore_buy_pro'));
 			if( !isset($data['wpgmp_show_sample_notice_time']) || empty($data['wpgmp_show_sample_notice_time'])){
 				$data['wpgmp_show_sample_notice_time'] = date('Y-m-d', strtotime('+3days'));
 				update_option('wpgmp_ignore_buy_pro', serialize($data));
@@ -841,7 +841,7 @@ if ( ! class_exists( 'FC_Google_Maps_Lite' ) ) {
 			define( 'WPGMP_SLUG', 'wpgmp_view_overview' );
 			
 			if ( ! defined( 'WPGMP_VERSION' ) )
-			define( 'WPGMP_VERSION', '4.6.0' );
+			define( 'WPGMP_VERSION', '4.6.1' );
 			
 			if ( ! defined( 'WPGMP_FOLDER' ) )
 			define( 'WPGMP_FOLDER', basename( dirname( __FILE__ ) ) );
@@ -914,11 +914,15 @@ if ( ! class_exists( 'FC_Google_Maps_Lite' ) ) {
 		 * Load all required core classes.
 		 */
 		private function wpgmp_load_files() {
-
 			
 			$coreInitialisationFile = plugin_dir_path( __FILE__ ).'core/class.initiate-core.php';
 			if ( file_exists( $coreInitialisationFile ) ) {
 			   require_once( $coreInitialisationFile );
+			}
+
+			$blockFile = WPGMP_PLUGIN_CLASSES.'class-wp-maps-block.php';
+			if ( file_exists( $blockFile ) ) {
+			   require_once( $blockFile );
 			}
 			
 			//Load Plugin Files	

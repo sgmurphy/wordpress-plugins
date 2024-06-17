@@ -139,7 +139,7 @@ function wpbc_captcha__simple__generate_html_content( $resource_id ) {
 	$html  = '<span class="wpbc_text_captcha_container">';
 	$html .=   '<input  autocomplete="off" type="hidden" name="wpdev_captcha_challenge_' . $resource_id . '"  id="wpdev_captcha_challenge_' . $resource_id . '" value="' . $captcha_challenge . '" />';
 	$html .=   '<input  autocomplete="off" type="text" class="captachinput" value="" name="captcha_input' . $resource_id . '" id="captcha_input' . $resource_id . '" />';
-	$html .=   '<img class="captcha_img"  id="captcha_img' . $resource_id . '" alt="captcha" src="' . $captcha_url . '" />';
+	$html .=   '<img class="captcha_img"  id="captcha_img' . $resource_id . '" alt="To show CAPTCHA, please deactivate cache plugin or exclude this page from caching or disable CAPTCHA at WP Booking Calendar > Settings General page in Form Options section." src="' . $captcha_url . '" />';
 	$html .= '</span>';
 
 	return $html;

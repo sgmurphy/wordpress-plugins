@@ -3,7 +3,7 @@
  * Plugin Name: Slider by 10Web
  * Plugin URI: https://10web.io/plugins/wordpress-slider/?utm_source=slider&utm_medium=free_plugin
  * Description: This is a responsive plugin, which allows adding sliders to your posts/pages and to custom location. It uses large number of transition effects and supports various types of layers.
- * Version: 1.2.55
+ * Version: 1.2.56
  * Author: 10Web
  * Author URI: https://10web.io/pricing/?utm_source=slider&utm_medium=free_plugin
  * License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,8 +79,8 @@ final class WDS {
     $this->plugin_dir = WP_PLUGIN_DIR . "/" . plugin_basename(dirname(__FILE__));
     $this->plugin_url = plugins_url(plugin_basename(dirname(__FILE__)));
     $this->main_file = plugin_basename(__FILE__);
-    $this->plugin_version = '1.2.55';
-    $this->db_version = '1.2.55';
+    $this->plugin_version = '1.2.56';
+    $this->db_version = '1.2.56';
     $this->prefix = 'wds';
     $this->nicename = __('Slider', $this->prefix);
     $this->use_home_url();

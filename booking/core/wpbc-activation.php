@@ -87,13 +87,18 @@ class WPBC_BookingInstall extends WPBC_Install {
 
 // <editor-fold     defaultstate="collapsed"                        desc=" Examples Data for Demos "  >
 
-function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
-        $version = wpbc_get_plugin_version_type();
+function wpbc_create_examples_4_demo( $my_bk_types = array() ){
+
+	global $wpdb;
+	$version = wpbc_get_plugin_version_type();
 
         if (class_exists('wpdev_bk_multiuser')) {
 
-          if (empty($my_bk_types))   $my_bk_types=array(13,14,15,16,17);                // The booking resources with these IDs are exist in the Demo sites
-          else                       shuffle($my_bk_types);
+	        if ( empty( $my_bk_types ) ) {
+		        $my_bk_types = array( 13, 14, 15, 16, 17 );	// The booking resources with these IDs are exist in the Demo sites
+	        } else {
+		        shuffle( $my_bk_types );
+	        }
 
           $trash_bookings = '  bk.trash != 1 ';                                //FixIn: 6.1.1.10  - check also  below usage of {$trash_bookings}
 
@@ -106,10 +111,15 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
          $max_num_bookings = 5;                                                        // How many bookings exist  per resource
           foreach ($my_bk_types as $resource_id) {                                     // Loop all resources                                        
                 $bk_type  = $resource_id;                                              // Booking Resource
-                $min_days = 2;
-                $max_days = 7;
-					$min_days = 1;        //FixIn: 10.0.0.51
-					$max_days = 1;        //FixIn: 10.0.0.51
+
+	          if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
+		          $min_days = 2;
+		          $max_days = 7;
+	          } else {
+		          $min_days = 1;        //FixIn: 10.0.0.51
+		          $max_days = 1;        //FixIn: 10.0.0.51
+	          }
+
                 $evry_one = $max_days+rand(1,5);                                                  // Multiplier of interval between 2 dates of different bookings
                 $days_start_shift =  rand($max_days,(3*$max_days));//(ceil($max_num_bookings/2)) * $max_days;           // How long far ago we are start bookings    
 
@@ -126,11 +136,14 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
 
                 $second_name = wpbc_get_initial_values_4_demo('second_name');
                 $city =  wpbc_get_initial_values_4_demo('city');
-                $start_time = '14:00';
-                $end_time   = '12:00';
-					$range_time = wpbc_get_initial_values_4_demo('rangetime');        //FixIn: 10.0.0.51
-					$start_time = $range_time[0];        //FixIn: 10.0.0.51
-					$end_time   = $range_time[1];        //FixIn: 10.0.0.51
+	            if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
+		            $start_time = '14:00';
+		            $end_time   = '12:00';
+	            } else {
+		            $range_time = wpbc_get_initial_values_4_demo( 'rangetime' );        //FixIn: 10.0.0.51
+		            $start_time = $range_time[0];        //FixIn: 10.0.0.51
+		            $end_time   = $range_time[1];        //FixIn: 10.0.0.51
+	            }
 
                 $form  = '';
                 	$form .= 'selectbox-one^rangetime'.$bk_type.'^'.$start_time.' - '.$end_time.'~';
@@ -161,10 +174,13 @@ function wpbc_create_examples_4_demo( $my_bk_types = array() ){ global $wpdb;
                 for ($d_num = 0; $d_num < $num_days; $d_num++) {
                     $my_interval = ( $i*$evry_one + $d_num);
 
-                    // $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL  -".$days_start_shift." day) + INTERVAL ".$my_interval." day  ,". $is_appr." ),";        //FixIn: 10.0.0.51
+	                if ( ( ( defined( 'WP_BK_BETA_DATA_FILL_AS' ) ) && ( 'BL' === WP_BK_BETA_DATA_FILL_AS ) ) && ( $_SERVER['HTTP_HOST'] === 'beta' ) ) {
+		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL  -" . $days_start_shift . " day) + INTERVAL " . $my_interval . " day  ," . $is_appr . " ),";
+	                } else {
+		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL -" . $days_start_shift . " DAY) + INTERVAL \"" . $my_interval . " " . $start_time . ":01\" DAY_SECOND  ," . $is_appr . " ),";        	//FixIn: 10.0.0.51
+		                $wp_queries_sub .= "( " . $temp_id . ", DATE_ADD(CURDATE(), INTERVAL -" . $days_start_shift . " DAY) + INTERVAL \"" . $my_interval . " " . $end_time . ":02\" DAY_SECOND  ," . $is_appr . " ),";        	//FixIn: 10.0.0.51
+	                }
 
-                    $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL -".$days_start_shift." DAY) + INTERVAL \"".$my_interval." ".$start_time.":01\" DAY_SECOND  ,". $is_appr." ),";        //FixIn: 10.0.0.51
-                    $wp_queries_sub .= "( ". $temp_id .", DATE_ADD(CURDATE(), INTERVAL -".$days_start_shift." DAY) + INTERVAL \"".$my_interval." ".$end_time.":02\" DAY_SECOND  ,". $is_appr." ),";        //FixIn: 10.0.0.51
                 }
                 $wp_queries_sub = substr($wp_queries_sub,0,-1) . ";";
 
@@ -927,8 +943,8 @@ function wpbc_get_default_options( $option_name = '', $is_get_multiuser_general_
     $default_options['booking_listing_default_view_mode'] = 'vm_booking_listing';	// 'vm_calendar';		//FixIn: 9.6.3.5
  $mu_option4delete[]='booking_listing_default_view_mode';
 
-    $default_options['booking_admin_panel_skin'] = 'modern_1';	            // 'modern_1'       //FixIn: 9.5.5.7
- $mu_option4delete[]='booking_admin_panel_skin';
+//    $default_options['booking_admin_panel_skin'] = 'modern_1';	            // 'modern_1'       //FixIn: 9.5.5.7	//FixIn: 10.1.1.3
+// $mu_option4delete[]='booking_admin_panel_skin';
 
     $default_options['booking_view_days_num'] = (  ( ! class_exists( 'wpdev_bk_personal' ) ) ? '90' : '30' );
  $mu_option4delete[]='booking_view_days_num';
@@ -972,6 +988,8 @@ function wpbc_get_default_options( $option_name = '', $is_get_multiuser_general_
     $default_options['booking_is_use_hints_at_admin_panel'] = 'On';
  $mu_option4delete[]='booking_is_use_hints_at_admin_panel';
     $default_options['booking_is_load_js_css_on_specific_pages'] = 'Off';
+ $mu_option4delete[]='booking_is_nonce_at_front_end';                                //FixIn: 10.1.1.2
+    $default_options['booking_is_nonce_at_front_end'] = 'Off';
 	//FixIn: 9.8.6.2
  $mu_option4delete[]='booking_load_balancer_max_threads';
 	$default_options['booking_load_balancer_max_threads'] = ( $is_demo ) ? '1' : '3';

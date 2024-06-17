@@ -7,7 +7,7 @@ Tested up to: 6.5
 Requires PHP: 7.3
 Stable tag: 1.5.0
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Login as User is a free WordPress plugin that helps admins switch user accounts instantly to check data.
 

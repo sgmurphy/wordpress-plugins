@@ -3710,7 +3710,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 			else
 				$objUser = get_user_by("slug", $userID);
 		}
-
+		
 		//if emtpy user - return empty
 		if(empty($objUser)){
 			$arrEmpty = array();

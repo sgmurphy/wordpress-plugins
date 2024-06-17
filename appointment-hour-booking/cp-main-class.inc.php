@@ -2497,6 +2497,9 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
             $to = str_replace('/','.',$to);
         }
 
+        $from = str_replace(',',' ',$from);
+        $to = str_replace(',',' ',$to);
+        
         $from = date("Y-m-d",strtotime($from));
         $to = date("Y-m-d",strtotime($to));
 

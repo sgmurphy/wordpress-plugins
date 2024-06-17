@@ -43,7 +43,7 @@
       } else {
         // reset data
         $product.attr('data-id', 0);
-        $product.attr('data-price', 0);
+        $product.attr('data-price', $product.data('o_price'));
         $product.attr('data-attrs', '');
 
         // reset price
@@ -190,7 +190,7 @@
 
       // reset data
       $product.attr('data-id', 0);
-      $product.attr('data-price', 0);
+      $product.attr('data-price', $product.data('o_price'));
       $product.attr('data-attrs', '');
 
       $(document).trigger('woosb_reset_data', [$product]);

@@ -35,14 +35,17 @@ $default_to = date("Y-m-d",strtotime("today +30 days"));
 $rawfrom = (isset($_GET["dfrom"]) ? sanitize_text_field($_GET["dfrom"]) : '');
 $rawto = (isset($_GET["dto"]) ? sanitize_text_field(@$_GET["dto"]) : '');
 
+$rawfrom = str_replace(',',' ',$rawfrom);
+$rawto = str_replace(',',' ',$rawto);
+
 if ($this->get_option('date_format', 'mm/dd/yy') == 'dd/mm/yy' || $this->get_option('date_format', 'mm/dd/yy') == 'd M, y')
 {
     $rawfrom = str_replace('/','.',$rawfrom);
     $rawto = str_replace('/','.',$rawto);
 }
 
-$dfrom = ($rawfrom ? date("Y-m-d", strtotime($rawfrom)) : $default_from);
-$dto = ($rawto ? date("Y-m-d", strtotime($rawto)) : $default_to);
+$dfrom = ($rawfrom != '' ? date("Y-m-d", strtotime($rawfrom)) : $default_from);
+$dto = ($rawto != '' ? date("Y-m-d", strtotime($rawto)) : $default_to);
 
 if ($this->get_option('date_format', 'mm/dd/yy') == 'd M, y')
 {

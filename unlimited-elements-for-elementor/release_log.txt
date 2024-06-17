@@ -1,5 +1,15 @@
 
 
+version 1.5.111:
+
+* Feature: added option in general settings: 'Taxonomy Separator Sign in Ajax Filter' for backward compatability
+* Changed - changed the default taxonomy saparator to ":" instead of "~"
+* Fix: fixed getting elementor dynamic item fields in ajax 
+* Fix: background widgets didn't worked with rocket lazy load
+* Fix: filters checkboxes wasn't visible in some cases
+* Fix: avoid error messages on very old elementor versions
+
+
 version 1.5.110:
 
 * Fix: remote arrows was sendin next/prev commands twice

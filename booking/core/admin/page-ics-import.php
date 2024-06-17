@@ -739,10 +739,11 @@ function wpbc_ajax_WPBC_IMPORT_ICS_URL() {
 		if ( ! isset( $_POST['params'] ) || empty( $_POST['params'] ) ) {
 			exit;
 		}
-		
+
 		// Check Security
 		$action_nonce_name	= 'wpbc_import_ics_nonce_actn';
-		$nonce_post_key = 'nonce';		
+		$nonce_post_key = 'nonce';
+		// This action  executed from  Admin  panel at WP Booking Calendar > Settings > Sync > "Import - .ics" page -> Section "Import", so no need to  check  this   if ( wpbc_is_use_nonce_at_front_end() ) {  ... }
 		$result = check_ajax_referer( $action_nonce_name, $nonce_post_key );							// Check Security
 
 		

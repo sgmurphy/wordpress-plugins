@@ -90,6 +90,7 @@ class GlobalsUnlimitedElements{
 	public static $urlAccount;
 	public static $renderingDynamicData;
 	public static $currentRenderingWidget;
+	public static $currentRenderingAddon;	//for ajax
 	public static $isImporting = false;
 	public static $pluginTitleCurrent;
 	

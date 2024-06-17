@@ -79,6 +79,20 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.1.0 (June 17th, 2024) =
+
+# Bugs fixed
+* Global CSS was loading on Edit Post / Page admin screens even if the "Support admin area style loading" preference was set to "No".
+
+= 7.3.0.9 (June 17th, 2024) =
+
+# Bugs fixed
+* Possible PHP error: "mt_rand() expects parameter 2 to be integer, float given".
+* In some places, the preferences text was too long to display neatly on laptop size screens.
+
+# Enhancement
+* Grid gaps are highlighted more explicitly, when CSS grid highlighting is enabled.
+
 = 7.3.0.8 (June 11th, 2024) =
 
 # Bugs fixed

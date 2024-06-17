@@ -56,7 +56,7 @@ if (!function_exists('gspb_AnimationRenderProps')) {
 				if (!empty($animation['sx'])) {
 					$animeprops['data-sy'] = esc_attr($animation['sx']);
 				}
-				if (!empty($animation['o'])) {
+				if (isset($animation['o'])) {
 					$animeprops['data-o'] = esc_attr($animation['o']);
 				}
 				if (!empty($animation['xo'])) {

@@ -105,7 +105,7 @@ $this->display_log();
 			            'explain' => __('Customise the design of the admin area just like on the frontend', 'microthemer')
 		            ),
                     'add_block_classes_all' => array(
-	                    'label' => __('Add classes to Gutenberg blocks even when editing outside of MT', 'microthemer'),
+	                    'label' => __('Always add classes to blocks (even outside of MT)', 'microthemer'),
 	                    'explain' => __('When loading Gutenberg inside Microthemer, it adds a unique class (e.g. "mctr-e5i34p") to all  blocks to make styling easier. You can also have this happen outside of Microthemer if you prefer using separate tabs with synced CSS and content changes.', 'microthemer')
                     ),
 	            )
@@ -179,8 +179,8 @@ $this->display_log();
 		            'fold_threshold' => array(
 			            'is_text' => 1,
 			            'one_line' => 1,
-			            'label' => __('Below fold threshold for async css (with Auto folder enabled)', 'microthemer'),
-			            'explain' => __('Set the screen height below which elements will be styled with asynchronous (non-blocking) CSS, for maximum page speed', 'microthemer'),
+			            'label' => __('Below fold threshold for async css', 'microthemer'),
+			            'explain' => __('Set the screen height below which elements will be styled with asynchronous (non-blocking) CSS, for maximum page speed ("Auto folder" must be enabled for this)', 'microthemer'),
 			            'combobox' => 'fold_threshold',
 		            ),
                     //
@@ -202,7 +202,7 @@ $this->display_log();
 			            'explain' =>__('If your selector targets elements that are off-screen, the browser will auto-scroll them into view', 'microthemer')
 		            ),
 		            'autofocus_editor' => array(
-			            'label' => __('Auto-focus the code editor cursor after selecting an element', 'microthemer'),
+			            'label' => __('Auto-focus the code editor cursor on element select', 'microthemer'),
 			            'explain' =>__('This saves time clicking on the code editor after selecting an element, but can also lead to accidental typing in the editor', 'microthemer')
 		            ),
 

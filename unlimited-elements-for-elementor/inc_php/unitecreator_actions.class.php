@@ -264,7 +264,7 @@ class UniteCreatorActions{
 				case "delete_addon":
 
 					HelperProviderUC::verifyAdminPermission();
-
+			
 					$addons->deleteAddonFromData($data);
 
 					HelperUC::ajaxResponseSuccess(esc_html__("The addon deleted successfully", "unlimited-elements-for-elementor"));

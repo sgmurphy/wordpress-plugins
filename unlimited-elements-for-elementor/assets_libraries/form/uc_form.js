@@ -1,6 +1,6 @@
 "use strict";
 
-//version: 1.15
+//version: 1.16
 
 function UnlimitedElementsForm(){
   
@@ -510,8 +510,14 @@ function UnlimitedElementsForm(){
       
       g_parents = removeDuplicatesFromArray(g_parents);
       
+	  //find if any inputs in formula are x / y field for some lookup table - if exist then push to g_parents parentAttr var
+      var objParentLookupTableInputByXField = jQuery('[data-field-name-x="'+names[i]+'"]');
+      var objParentLookupTableInputByYField = jQuery('[data-field-name-y="'+names[i]+'"]');
+      var isXFiledForLookupTable = objParentLookupTableInputByXField && objParentLookupTableInputByXField.length > 0;
+      var isYFiledForLookupTable = objParentLookupTableInputByYField && objParentLookupTableInputByYField.length > 0;
+		
       //for lookup tables (if already exist parent copy its name)
-      if(parentAttr !== undefined && dataLookup == true){        
+      if(parentAttr !== undefined && isXFiledForLookupTable == true || parentAttr !== undefined && isYFiledForLookupTable == true){        
         g_parents.push(parentAttr);
       }
       

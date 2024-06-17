@@ -1,7 +1,7 @@
 
 === WP Responsive Menu ===
 Contributors: sagarseth9, magnigenie, kshirod-patel
-Tags: Tags: responsive, mobile responsive, mobile menu, WordPress mobile menu, genesis mobile menu
+Tags: responsive, mobile menu, hamburg, menu, mega menu
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=pay@magnigeeks.com&item_name=wp-responsive-menu%20WordPress&return=http://wordpress.org/extend/plugins/wp-responsive-menu/
 Requires at least: 3.0
 Requires PHP: 5.4

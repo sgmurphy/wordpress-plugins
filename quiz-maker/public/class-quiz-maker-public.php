@@ -4884,7 +4884,7 @@ class Quiz_Maker_Public
 
         $sql = "SELECT *
                 FROM {$wpdb->prefix}aysquiz_answers
-                WHERE question_id=" . $id;
+                WHERE question_id=" . absint($id);
 
         $answer = $wpdb->get_results($sql, 'ARRAY_A');
 
@@ -4896,7 +4896,7 @@ class Quiz_Maker_Public
 
         $sql = "SELECT `question_ids`
                 FROM {$wpdb->prefix}aysquiz_quizes
-                WHERE id=" . $id;
+                WHERE id=" . absint($id);
 
         $questions_str = $wpdb->get_row($sql, 'ARRAY_A');
         $questions = explode(',', $questions_str['question_ids']);
@@ -4905,6 +4905,8 @@ class Quiz_Maker_Public
 
     public function get_question_bank_categories($q_ids){
         global $wpdb;
+
+        $q_ids = isset( $q_ids ) && $q_ids != '' ? sanitize_text_field($q_ids) : '';
         
         if($q_ids == ''){
             return array();
@@ -4914,8 +4916,7 @@ class Quiz_Maker_Public
                 JOIN {$wpdb->prefix}aysquiz_questions q
                 ON c.id = q.category_id
                 WHERE q.id IN ({$q_ids})";
-
-        $result = $wpdb->get_results($sql, 'ARRAY_A');
+        $result = $wpdb->get_results( $sql, 'ARRAY_A');
         $cats = array();
         
         foreach($result as $res){
@@ -4930,7 +4931,7 @@ class Quiz_Maker_Public
 
         $sql = "SELECT COUNT(*)
                 FROM {$wpdb->prefix}aysquiz_reports
-                WHERE quiz_id=" . $id;
+                WHERE quiz_id=" . absint($id);
 
         $count = intval($wpdb->get_var($sql));
 
@@ -6922,10 +6923,17 @@ class Quiz_Maker_Public
 
     public static function ays_get_average_score_by_category($id){
         global $wpdb;
+
+        $id = isset( $id ) && $id != '' && intval($id) > 0 ? absint($id) : null;
+
+        if( is_null($id) || $id <= 0 || $id == '' ){
+            return '';
+        }
+
         $quizes_table = $wpdb->prefix . 'aysquiz_quizes';
         $quizes_questions_table = $wpdb->prefix . 'aysquiz_questions';
         $quizes_questions_cat_table = $wpdb->prefix . 'aysquiz_categories';
-        $sql = "SELECT question_ids FROM {$quizes_table} WHERE id = ".$id;
+        $sql = "SELECT question_ids FROM {$quizes_table} WHERE id = ". absint($id);
         $results = $wpdb->get_var( $sql);
         $questions_ids = array();
         $questions_counts = array();
@@ -6941,14 +6949,14 @@ class Quiz_Maker_Public
                         JOIN {$quizes_questions_cat_table} AS c
                             ON q.category_id = c.id
                         WHERE q.id = {$key}; ";
-                $questions_cat_list[$key] = $wpdb->get_row( $sql);
+                $questions_cat_list[$key] = $wpdb->get_row($sql);
             }
         }
 
         $quizes_reports_table = $wpdb->prefix . 'aysquiz_reports';
         $sql = "SELECT options
                 FROM {$quizes_reports_table}
-                WHERE quiz_id =".$id;
+                WHERE quiz_id =".absint($id);
         $report = $wpdb->get_results( $sql, ARRAY_A );
         if(! empty($report)){
             foreach ($report as $key){
@@ -6997,7 +7005,7 @@ class Quiz_Maker_Public
                 $persentage = round(($sum_min*100)/$sum_max, 1);
             }
 
-            $passed_users_count = "SELECT COUNT(*) FROM {$wpdb->prefix}aysquiz_reports WHERE quiz_id=".$id;
+            $passed_users_count = "SELECT COUNT(*) FROM {$wpdb->prefix}aysquiz_reports WHERE quiz_id=". absint($id);
             $passed_users_count_res = $wpdb->get_var($passed_users_count);
             $avg_score_by_cat = "0%";
             if ($passed_users_count_res > 0) {

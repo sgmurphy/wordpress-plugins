@@ -795,8 +795,8 @@ function wpbc_calendar_show( resource_id ){
 
 
 	// -----------------------------------------------------------------------------------------------------------------
-	// S e l e c t e d    D a t e s  /  T i m e - F i e l d s
-	// -----------------------------------------------------------------------------------------------------------------
+	/*  ==  S e l e c t e d    D a t e s  /  T i m e - F i e l d s  ==
+	// ----------------------------------------------------------------------------------------------------------------- */
 
 	/**
 	 *  Get all selected dates in SQL format like this [ "2023-08-23", "2023-08-24" , ... ]
@@ -953,8 +953,8 @@ function wpbc_calendar_show( resource_id ){
 
 
 // ---------------------------------------------------------------------------------------------------------------------
-// S U P P O R T    for    C A L E N D A R
-// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  S U P P O R T    for    C A L E N D A R  ==
+// --------------------------------------------------------------------------------------------------------------------- */
 
 	/**
 	 * Get Calendar datepick  Instance
@@ -1227,7 +1227,9 @@ function wpbc_calendar_show( resource_id ){
 	}
 
 
-
+	// .................................................................................................................
+	/*  ==  Calendar Update  - View  ==
+	// ................................................................................................................. */
 
 	/**
 	 * Update Look  of calendar
@@ -1242,9 +1244,70 @@ function wpbc_calendar_show( resource_id ){
 	}
 
 
+	/**
+	 * Update dynamically Number of Months in calendar
+	 *
+	 * @param resource_id int
+	 * @param months_number int
+	 */
+	function wpbc_calendar__update_months_number( resource_id, months_number ){
+		var inst = wpbc_calendar__get_inst( resource_id );
+		if ( null !== inst ){
+			inst.settings[ 'numberOfMonths' ] = months_number;
+			//_wpbc.calendar__set_param_value( resource_id, 'calendar_number_of_months', months_number );
+			wpbc_calendar__update_look( resource_id );
+		}
+	}
+
+
+	/**
+	 * Show calendar in  different Skin
+	 *
+	 * @param selected_skin_url
+	 */
+	function wpbc__calendar__change_skin( selected_skin_url ){
+
+	//console.log( 'SKIN SELECTION ::', selected_skin_url );
+
+		// Remove CSS skin
+		var stylesheet = document.getElementById( 'wpbc-calendar-skin-css' );
+		stylesheet.parentNode.removeChild( stylesheet );
+
+
+		// Add new CSS skin
+		var headID = document.getElementsByTagName( "head" )[ 0 ];
+		var cssNode = document.createElement( 'link' );
+		cssNode.type = 'text/css';
+		cssNode.setAttribute( "id", "wpbc-calendar-skin-css" );
+		cssNode.rel = 'stylesheet';
+		cssNode.media = 'screen';
+		cssNode.href = selected_skin_url;	//"http://beta/wp-content/plugins/booking/css/skins/green-01.css";
+		headID.appendChild( cssNode );
+	}
+
+
+	function wpbc__css__change_skin( selected_skin_url, stylesheet_id = 'wpbc-time_picker-skin-css' ){
+
+		// Remove CSS skin
+		var stylesheet = document.getElementById( stylesheet_id );
+		stylesheet.parentNode.removeChild( stylesheet );
+
+
+		// Add new CSS skin
+		var headID = document.getElementsByTagName( "head" )[ 0 ];
+		var cssNode = document.createElement( 'link' );
+		cssNode.type = 'text/css';
+		cssNode.setAttribute( "id", stylesheet_id );
+		cssNode.rel = 'stylesheet';
+		cssNode.media = 'screen';
+		cssNode.href = selected_skin_url;	//"http://beta/wp-content/plugins/booking/css/skins/green-01.css";
+		headID.appendChild( cssNode );
+	}
+
+
 // ---------------------------------------------------------------------------------------------------------------------
-// S U P P O R T    M A T H
-// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  S U P P O R T    M A T H  ==
+// --------------------------------------------------------------------------------------------------------------------- */
 
 		/**
 		 * Merge several  intersected intervals or return not intersected:                        [[1,3],[2,6],[8,10],[15,18]]  ->   [[1,6],[8,10],[15,18]]
@@ -1352,8 +1415,8 @@ function wpbc_calendar_show( resource_id ){
 
 
 // ---------------------------------------------------------------------------------------------------------------------
-//  T O O L T I P S
-// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  T O O L T I P S  ==
+// --------------------------------------------------------------------------------------------------------------------- */
 
 	/**
 	 * Define tooltip to show,  when  mouse over Date in Calendar
@@ -1411,8 +1474,8 @@ function wpbc_calendar_show( resource_id ){
 
 
 // ---------------------------------------------------------------------------------------------------------------------
-//  ==  Dates Functions  ==
-// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  Dates Functions  ==
+// --------------------------------------------------------------------------------------------------------------------- */
 
 /**
  * Get number of dates between 2 JS Dates
@@ -1467,14 +1530,15 @@ function wpbc_dates__is_consecutive_dates_arr_range( sql_dates_arr ){											
 
 
 // ---------------------------------------------------------------------------------------------------------------------
-//  ==  Auto Dates Selection  ==
-// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  Auto Dates Selection  ==
+// --------------------------------------------------------------------------------------------------------------------- */
 
-// -------------------------------------------------------------------------------------------------------------
-// Auto Fill Fields / Auto Select Dates
-// -------------------------------------------------------------------------------------------------------------
 /**
- *  == How to  use ? ==      For Dates selection, we need to use this logic!     We need select the dates only after booking data loaded!     Check example bellow.
+ *  == How to  use ? ==
+ *
+ *  For Dates selection, we need to use this logic!     We need select the dates only after booking data loaded!
+ *
+ *  Check example bellow.
  *
  *	// Fire on all booking dates loaded
  *	jQuery( 'body' ).on( 'wpbc_calendar_ajx__loaded_data', function ( event, loaded_resource_id ){
@@ -1485,7 +1549,6 @@ function wpbc_dates__is_consecutive_dates_arr_range( sql_dates_arr ){											
  *	} );
  *
  */
-
 
 
 /**
@@ -1745,6 +1808,9 @@ function wpbc_auto_select_dates_in_calendar( resource_id, check_in_ymd, check_ou
 		return {'dates_js': original_array, 'dates_str': original_array};
 	}
 
+// =====================================================================================================================
+/*  ==  Auto Fill Fields / Auto Select Dates  ==
+// ===================================================================================================================== */
 
 jQuery( document ).ready( function (){
 
@@ -1782,7 +1848,6 @@ jQuery( document ).ready( function (){
 
 } );
 
-
 /**
  * Autofill / select booking form  fields by  values from  the GET request  parameter: ?wpbc_auto_fill=
  *
@@ -1802,7 +1867,6 @@ function wpbc_auto_fill_booking_fields( auto_fill_str ){																//FixIn:
 		jQuery( '[name="' + fields_arr[ i ][ 'name' ] + '"]' ).val( fields_arr[ i ][ 'value' ] );
 	}
 }
-
 
 	/**
 	 * Parse data from  get parameter:	?wpbc_auto_fill=visitors231^2~max_capacity231^2
@@ -1863,3 +1927,63 @@ function wpbc_auto_fill_booking_fields( auto_fill_str ){																//FixIn:
 		}
 		return filter_options_arr;
 	}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+/*  ==  Auto Update number of months in calendars ON screen size changed  ==
+// --------------------------------------------------------------------------------------------------------------------- */
+
+/**
+ * Auto Update Number of Months in Calendar, e.g.:  		if    ( WINDOW_WIDTH <= 782px )   >>> 	MONTHS_NUMBER = 1
+ *   ELSE:  number of months defined in shortcode.
+ * @param resource_id int
+ *
+ */
+function wpbc_calendar__auto_update_months_number__on_resize( resource_id ){
+
+	var local__number_of_months = parseInt( _wpbc.calendar__get_param_value( resource_id, 'calendar_number_of_months' ) );
+
+	if ( local__number_of_months > 1 ){
+
+		if ( jQuery( window ).width() <= 782 ){
+			wpbc_calendar__update_months_number( resource_id, 1 );
+		} else {
+			wpbc_calendar__update_months_number( resource_id, local__number_of_months );
+		}
+
+	}
+}
+
+/**
+ * Auto Update Number of Months in   ALL   Calendars
+ *
+ */
+function wpbc_calendars__auto_update_months_number(){
+
+	var all_calendars_arr = _wpbc.calendars_all__get();
+
+	for ( var calendar_id in all_calendars_arr ){
+		if ( 'calendar_' === calendar_id.slice( 0, 9 ) ){
+			var resource_id = parseInt( calendar_id.slice( 9 ) );			//  'calendar_3' -> 3
+			if ( resource_id > 0 ){
+				wpbc_calendar__auto_update_months_number__on_resize( resource_id );
+			}
+		}
+	}
+}
+
+/**
+ * If browser window changed,  then  update number of months.
+ */
+jQuery( window ).on( 'resize', function (){
+	wpbc_calendars__auto_update_months_number();
+} );
+
+/**
+ * Auto update calendar number of months on initial page load
+ */
+jQuery( document ).ready( function (){
+	var closed_timer = setTimeout( function (){
+		wpbc_calendars__auto_update_months_number();
+	}, 100 );
+});

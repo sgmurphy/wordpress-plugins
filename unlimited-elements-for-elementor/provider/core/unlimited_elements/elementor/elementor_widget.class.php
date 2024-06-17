@@ -19,7 +19,7 @@ use Elementor\Utils;
 class UniteCreatorElementorWidget extends Widget_Base {
 
     protected $objAddon;
-
+	
     private $isConsolidated = false;
     private $objCat, $arrAddons;
     private $isNoMemory = false;
@@ -46,14 +46,14 @@ class UniteCreatorElementorWidget extends Widget_Base {
      * set the addon
      */
     public function __construct($data = array(), $args = null) {
-
+				
         $className = get_class($this);
 
         if(strpos($className, "UCAddon_uccat_") === 0)
         	$this->initByCategory($className);
         else
         	$this->initByAddon($className);
-
+		
         $this->objControls = $this;
 
         parent::__construct($data, $args);
@@ -3754,14 +3754,13 @@ class UniteCreatorElementorWidget extends Widget_Base {
     /**
      * get dynamic settings values if exists
      */
-    public function ueGetDynamicSettingsValues(){
-
-    	if($this->hasDynamicSettings == false)
+    public function ueGetDynamicSettingsValues($isForce = false){
+		
+    	if($this->hasDynamicSettings == false && $isForce == false)
     		return(null);
-
+		
     	$arrDynamic = $this->parse_dynamic_settings(null);
-
-
+		
     	return($arrDynamic);
     }
 
@@ -3770,7 +3769,7 @@ class UniteCreatorElementorWidget extends Widget_Base {
      * render by addon
      */
     protected function ucRenderByAddon($objAddon){
-
+		
     	try{
 
 	    	if(empty($objAddon)){
@@ -3781,13 +3780,13 @@ class UniteCreatorElementorWidget extends Widget_Base {
 	    	GlobalsProviderUC::$renderPlatform = GlobalsProviderUC::RENDER_PLATFORM_ELEMENTOR;
 	    	
 	    	GlobalsUnlimitedElements::$currentRenderingWidget = $this;
-
+			
 	    	$arrAllSettings = $this->get_settings_for_display();
-
+			
 	    	//check if has dynamic
 
 	    	$arrDynamicSettings = UniteFunctionsUC::getVal($arrAllSettings, "__dynamic__");
-
+			
 	    	if(!empty($arrDynamicSettings))
 	    		$this->hasDynamicSettings = true;
 
@@ -3945,7 +3944,10 @@ class UniteCreatorElementorWidget extends Widget_Base {
     		HelperHtmlUC::outputException($e);
 
     	}
-
+	    
+    	
+    	GlobalsUnlimitedElements::$currentRenderingWidget = null;
+    	
     }
 
 

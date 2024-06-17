@@ -437,31 +437,6 @@ function wpbc_ajx_customize_plugin__calendar__show( calendar_params_arr ){
 	}
 }
 
-/**
- * Show calendar in  different Skin
- *
- * @param selected_skin_url
- */
-function wpbc__calendar__change_skin( selected_skin_url ){
-
-//console.log( 'SKIN SELECTION ::', selected_skin_url );
-
-	// Remove CSS skin
-	var stylesheet = document.getElementById( 'wpbc-calendar-skin-css' );
-	stylesheet.parentNode.removeChild( stylesheet );
-
-
-	// Add new CSS skin
-	var headID = document.getElementsByTagName( "head" )[ 0 ];
-	var cssNode = document.createElement( 'link' );
-	cssNode.type = 'text/css';
-	cssNode.setAttribute( "id", "wpbc-calendar-skin-css" );
-	cssNode.rel = 'stylesheet';
-	cssNode.media = 'screen';
-	cssNode.href = selected_skin_url;	//"http://beta/wp-content/plugins/booking/css/skins/green-01.css";
-	headID.appendChild( cssNode );
-}
-
 
 	/**
 	 *   Tooltips  ---------------------------------------------------------------------------------------------- */

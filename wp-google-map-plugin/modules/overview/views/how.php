@@ -20,6 +20,11 @@ echo wp_kses_post( $form->show_header() );
  <div class="fc-12">
             <h4 class="fc-title-blue"><?php esc_html_e('How to Create your First Map?','wp-google-map-plugin');?>  </h4>
               <div class="wpgmp-overview">
+                <p>
+                <?php 
+                $install_sample_data_url = '<a target="_blank" href="'.admin_url( 'admin.php?page=wpgmp_manage_tools' ).'">'.esc_html__('installing our Sample Data','wp-google-map-plugin').'</a>';
+                echo sprintf( esc_html__( "Get rolling fast by %s. It sets up everything for you - just add your Google Maps API key and you are good to go!", 'wp-google-map-plugin' ), $install_sample_data_url); ?>
+               </p>
                 <ol>
 
                     <li><?php 
@@ -80,7 +85,7 @@ echo wp_kses_post( $form->show_header() );
         <ul>
         <li> <?php esc_html_e('1. Make sure you have assigned locations to your map.','wp-google-map-plugin');?></li>
         <li> <?php esc_html_e('2. You must have google maps api key.','wp-google-map-plugin');?></li>
-        <li> <?php esc_html_e('3. Check HTTP referrers. It must be *yourwebsite.com/* or *.yourwebsite.com/*','wp-google-map-plugin');?> 
+        <li> <?php esc_html_e('3. Check HTTP referrers. It must be https://yourwebsiteurl.com or *yourwebsiteurl.com/*','wp-google-map-plugin');?> 
         </li>
         </ul>
         <p><img src="<?php echo WPGMP_IMAGES; ?>referrer.png"> </p>

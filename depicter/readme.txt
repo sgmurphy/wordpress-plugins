@@ -2,9 +2,9 @@
 Contributors: averta, averta_support, depicter1slider1support, depicter1carousel1popup1support
 Tags: slider, carousel slider, popup, post slider, slideshow
 Requires at least: 5.3.0
-Tested up to: WordPress 6.5.3
+Tested up to: WordPress 6.5.4
 Requires PHP: 7.4.0
-Stable tag: 3.0.2
+Stable tag: 3.1.0
 License: GPL-2.0-only
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,15 @@ Let's create: [Slider](https://depicter.com/slider) | [Popup](https://depicter.c
 
 
 == Changelog ==
+
+###3.1.0
+- *Released: 2024-06-17*
+- **Added**
+- Before and After Element: Showcase before and after states of photos interactively.
+- Alignment Controls: Easily align selected elements in the editor with new alignment controls.
+- Border Style Options: Apply border styles to your sliders, popups, and notification banners.
+- **Fixed**
+- Resolved an issue where the wrong blank popup and notification bar were displayed on the dashboard.
 
 ###3.0.2
 - *Released: 2024-05-22*

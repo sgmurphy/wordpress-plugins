@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 10.1
+Stable tag: 10.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -286,6 +286,15 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 10.1.1 =
+- Changes in **all** versions:
+	* **New** Added the option to select Calendar and Time Picker Skins on the WP Booking Calendar > Settings > Booking Form page when using the "Simple booking form".
+	* **New** Automatically update the number of months displayed in the calendar to one month on mobile devices. This makes the calendar more readable and UI-friendly. This feature also works when the browser width changes, applying a single month view when the screen size is below 782px.
+	* **New** The plugin now supports cache plugins, resolving warnings like 'Forbidden (403) Probably nonce for this page has been expired.' or 'Request did not pass security check! Please refresh the page and try again.' By default, the system disables using nonce fields in booking forms on the front-end. For more information on why using nonce in front-end booking forms is not always recommended, refer to the FAQ. If you prefer to continue using nonce on all front-end forms, you can activate this option in the WP Booking Calendar > Settings > General page under the "Advanced" section. (10.1.1.2)
+	* **Fix** Removed the deprecated Legacy booking admin theme from the settings. (10.1.1.3)
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Fix** Resolved the issue of parsing simple HTML tags correctly. In update 10.1, simple HTML tags like &lt;l&gt; were conflicting with other HTML tags, such as &lt;li&gt; (10.1.0.1)
+
 = 10.1 =
 - Changes in **all** versions:
 	* **New**: Introduced the Booking Form Setup page with an updated UI for configuring booking forms. Features include defining layout, size, and alignment, creating or editing fields, setting color themes, enabling CAPTCHA, and more.
@@ -312,11 +321,11 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **Under hood**: Added a new internal function to automatically fill booking form fields from URL parameters. For example, ''?wpbc_auto_fill=visitors1^2~children1^1' will auto-fill the specified fields. (10.0.0.47)
 	* **Under hood**: Added the ability to auto-select dates in the calendar based on URL parameters. For example, ?wpbc_select_check_in=2024-05-16&wpbc_select_check_out=2024-05-19&wpbc_select_calendar_id=1 will automatically select the specified dates. (10.0.0.48)
 	* **Under hood**: Removed most global JavaScript variables in the plugin and defined them under the _wpbc JS variable. Redefined the loading of JavaScript variables and some JS files.
-	* **Fix** 11 different fixes of the issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	* **Fix** 11 different fixes of the issues. Find more information at this page: https://wpbookingcalendar.com/changelog/
 - Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
 	* **New** "**Searchable Resource Setup**" for easy customization of search availability. This feature allows users to personalize search visibility and attributes for booking resources. Customize search options like **summary text and thumbnail images** to improve visibility and user engagement in search results. Additionally, configure specific **parameters for resource filtering in search forms**, providing users with targeted search options for finding relevant booking resources. (10.0.0.18) *(Business Large, MultiUser)*
 	* **New** Completely **New Search Availability Engine**. This feature enables searching for available dates and/or times based on existing bookings, unavailable dates, and other criteria defined in the search form. (10.0.0.37) *(Business Large, MultiUser)*
-    * **New** Added the ability to **search for specific time slots** on particular dates or date ranges. This feature enhances appointment-based businesses by enabling **searches for available time slots for various service providers**. Users can **search for appointments with specific providers, such as hair stylists or doctors**, on specified dates and times. Additionally, the feature allows for approximate date ranges (+/- N days from the desired date) to find available appointments within a specific time slot. *(Business Large, MultiUser)*
+	* **New** Added the ability to **search for specific time slots** on particular dates or date ranges. This feature enhances appointment-based businesses by enabling **searches for available time slots for various service providers**. Users can **search for appointments with specific providers, such as hair stylists or doctors**, on specified dates and times. Additionally, the feature allows for approximate date ranges (+/- N days from the desired date) to find available appointments within a specific time slot. *(Business Large, MultiUser)*
 	* **New** Automatically open the Check Out calendar for date selection after choosing a date in the Check In field in the search availability form. (10.0.0.39) (Business Large, MultiUser)
 	* **New** Updated the search interface on the Settings page. The help section has been improved to provide easier access to required shortcodes, enhancing usability and efficiency. *(Business Large, MultiUser)*
 	* **New** Added 6 new templates for the Search Form Availability on the WP Booking Calendar > Settings > Search page. This update provides more customization options for creating search forms. *(Business Large, MultiUser)*
@@ -343,7 +352,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **Under hood**: Shortcode  [bookinglooking] for help with search availability feature become deprecated and removed from Booking Calendar. *(Business Large, MultiUser)*
 	* **Under hood**: Deprecated the following shortcodes in the Search Form: [search_visitors], [additional_search "3"], [search_category], [search_tag]
 	* **Under hood**: Deprecated the following shortcodes in the Search Results: [booking_resource_title], [link_to_booking_resource "Book now"], [book_now_link], [num_available_resources], [booking_featured_image], [booking_info], [booking_resource_id], [standard_cost], [max_visitors]
-	* **Fix** Resolved more than 15 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	* **Fix** Resolved more than 15 different issues. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 = 10.0 =
 - Changes in **all** versions:
@@ -354,9 +363,8 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **Improvement** Prevent showing real preview in Elementor to reduce potential conflicts; instead, show 'WP Booking Calendar Shortcode block' (9.9.0.39).
 	* **Improvement** Prevent execution of Booking Calendar shortcodes while editing posts/pages, reducing potential conflicts (9.9.0.39).
 	* **Under hood**: Customize showing booked time slots as inactive slots with a red background after selecting specific dates. Configure this in the ../{Booking Calendar Folder}/js/wpbc_time-selector.js file  by searching //FixIn: 9.9.0.2 (9.9.0.2).
-	* **Translation**. Hungarian translation [96% completed] by VinczeI.
-	* **Translation**. German translation [96% completed] by Wibias.
-	* **Fix** Resolved more than 6 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	* **Translation**. German, Hungarian translation update
+	* **Fix** Resolved more than 6 different issues. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 	* **Support**  WordPress 6.5
 - Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
 	* **New** **UI Design of Resource Page**. Easily toggle between table header tabs to view specific information, such as the shortcode for embedding into pages, costs, default form, or parent/child relation for defining booking resource capacity. The interface is now clearer and more straightforward for a seamless experience. (9.9.0.6) (9.9.0.7) *(Personal, Business Small/Medium/Large, MultiUser)*
@@ -366,47 +374,28 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **New** Track Changes: **Booking Edit Notification**. Whenever a booking is edited, a note stating 'The booking has been edited' will be generated for the booking. This note also contains the URL of the page where the user made the modifications. With this feature, you gain control over tracking changes to booking details. *(Personal, Business Small/Medium/Large, MultiUser)*
 	* **New** Save Booking Notes. Now, booking notes such as "Imported from Google Calendar," "Payment section displayed," "Total cost manually entered," "Automatically calculated cost," etc., will be saved only if the "Logging actions for booking" option is activated in the WP Booking Calendar > Settings General page in the "Admin Panel" section. (9.9.0.41) *(Personal, Business Small/Medium/Large, MultiUser)*
 	* **New** Sage/Opayo gateway becoming a payment product under the Elavon brand. Update name of payment gateway from SagePay to **Opayo - Elavon**. For more information, visit: https://www.elavon.co.uk/resource-center/news-and-insights/opayo-migration-faqs.html  (9.9.0.34) *(Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Booking Management** - When editing or duplicating a booking in the admin panel, you will now be redirected to the Booking Listing page, where the specific booking will be displayed. (9.9.0.3) (9.9.0.38) *(Personal, Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Shortcode Functionality** - Resolve the "403 permission error" issue encountered when modifying booking forms on the WP Booking Calendar > Settings > Booking Form page by utilizing the **new shortcode [selectbox name "Option 1" "Option 2"]** instead of [selectbox name "Option 1" "Option 2"]. This update addresses the problem faced on certain Apache servers with ModSecurity firewall, which affects specific POST requests when saving booking form configurations. *(Personal, Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Deposit Management** - Now, when a booking is made in the admin panel at WP Booking Calendar > Add booking page, the deposit amount in the cost field and notes section, as well as the total cost for the booking, will be updated accordingly. This feature requires displaying payment forms at the Booking > Add booking page in such cases. (9.9.0.21) *(Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Resource Management** - You now have the ability to save the number of booking resources per page directly from the Booking > Resources page (at pagination section). (9.9.0.22) *(Personal, Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Import Functionality** - You can now utilize the option 'Trash / delete all imported bookings before new import' in situations where imports are initiated via the Google Calendar API instead of .ics feeds. This feature provides greater control over managing imported bookings and ensures a smoother import process. Please note that this feature requires the installation of the 'Booking Manager' plugin.  (9.9.0.25)
-	* **Improvement**: Enhanced **Payment Confirmation** - You now have the ability to **use the [booking_confirm] shortcode on the "Successful payment" page**, where users are redirected after making a payment via the Stripe or PayPal payment system. This allows you to configure the page to display a message such as 'Your payment for the booking has been successfully received. [booking_confirm]', providing users with confirmation of their payment along with booking details. (9.9.0.37) *(Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Added a restriction for the maximum number of dates selectable for the check-out date in the search availability form. This applies when you activate the range days selection mode and define the maximum number of days for selection. (9.9.0.44) *(Business Large, MultiUser)*
-	* **Improvement**: Now, when a visitor clicks on the search button in the search availability form, the system marks this button as disabled until the search results are displayed. This prevents multiple identical search requests from being sent by clicking the search availability button multiple times. (9.9.0.45) *(Business Large, MultiUser)*
-	* **Under hood**: Update the URLs for send transactions for Opayo - Elavon (former SagePay) to an Elavon domain on 31st March 2024. For more details, please refer to the following link: https://developer.elavon.com/products/opayo-forms/v1/test-and-live-urls-4633 (9.9.0.34) *(Business Small/Medium/Large, MultiUser)*
-	* **Under hood**: Option to **Hide Payment Form After Visitor Edits Own Booking** - You now have the ability to define not to show the payment form after a visitor edits their own booking. This can be achieved by using the shortcode **[visitorbookingediturl]&is_show_payment_form=Off** in the New (visitor) email template at the WP Booking Calendar > Settings > Emails page. (9.9.0.35) *(Business Small/Medium/Large, MultiUser)*
-	* **Fix** Resolved more than 10 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	* **Improvement**: Enhanced **Booking Management**, **Shortcode Functionality**, **Deposit Management**, **Resource Management**,**Import Functionality**, **Payment Confirmation**. Find more information at [this page](https://wpbookingcalendar.com/changelog/) 
+	* **Improvement**: Many other improvements and fixes. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
+	* **Fix** Resolved more than 10 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/
 
 = 9.9.1 =
 - Changes in **all** versions:
-	* **Fix** Resolved 2 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	* **Fix** Resolved 2 different issues. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 = 9.9 =
 - Changes in **all** versions:
 	* **New Feature**: Redesigned "Top Tabs" for page selection in the Booking Calendar Admin UI. This update enhances space utilization, resulting in a clearer and smoother interface for users. (9.8.15.2)
 	* **New** Resource menu page simplifies embedding your booking form. Easily integrate booking form into an existing page or create a new page with the booking form in just a few clicks. (9.8.15.7)
 	* **New** Introducing General Import Conditions options for importing events into the Booking Calendar for all booking resources. You can now enable the option **Import if Dates Available** to import events only if dates are available in the source calendar. Additionally, the option **Import Only New Events** allows you to import only if the event has not been imported before. This last option replaces the deprecated "Force import" option and can be configured at Booking > Settings > Sync > "General" page in the "Import advanced" section.  (9.8.15.8)
-	* **Improvement** Updated Top WordPress Bar menu for Booking Calendar (9.8.15.9)
-	**Translation Update**: German translation has been updated, reaching 94% completion, courtesy of Res Rickli
-	**Translation Update**: French translation has been updated, reaching 93% completion, courtesy of Res Rickli
-	**Translation Update**: Italian translation has been updated, reaching 85% completion, courtesy of Res Rickli
-	* **Improvement** Updated Booking Calendar icon for WordPress Classic Editor (TinyMCE) toolbar, during adding Booking Calendar shortcode into the post or page.
-	* **Fix**: Resolved a fatal error: Uncaught TypeError: Unsupported operand types: string * int in ../core/sync/wpbc-gcal-class.php (9.8.15.1)
+	* **Translation Update**: German, French, Italian translation has been updated
 - Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
 	* **New** Integrated **PayPal Standard Checkout** payment gateway. Enjoy various payment methods, including **card payments and PayPal**. Choose from different designs for PayPal buttons. The system now automatically responds from  the PayPal, updating the booking status and payment status.  *(Business Small/Medium/Large, MultiUser)*
 	* **New** The Prices menu now includes options such as "Seasonal Rates" (formerly "Rates"), "Duration-Based Cost" (formerly "Valuation days"), "Partial Payments" (formerly "Deposit"), "Form Options Costs" (formerly "Advanced costs"), and "Payment Gateways." This centralized location allows you to manage all prices for bookings in one place.  *(Business Medium/Large, MultiUser)*
 	* **New** Simplify the process of adding the booking form to your website with the **new 'Publish' button** on the Booking > Resources page. Easily add the booking form to an existing or new page with just a few clicks. (9.8.15.5)
-	* **Improvement** The "Availability" section has a new structure and titles. Now, the configuration of all "Calendars Availability" is located in the "Availability" menu page and its sub-pages, including "Days Availability," "Season Availability" (formerly "Availability"), and "General Availability." This provides a centralized location to manage all availability settings for calendars.
-	* **Improvement** The Resources menu now features an enhanced toolbar UI for creating new booking resources and managing options. This improvement provides a more user-friendly experience for resource management.
-	* **Improvement** Implemented the addition of the "autocomplete" attribute to the booking form fields. This enhancement ensures correct autofill functionality in the Chrome browser when using autofill addons. (9.8.15.3)
-	* **Fix** Resolved an issue where bookings with zero cost were not automatically approved when the option "Auto approve booking if booking cost is zero" was activated in the Booking > Settings General page under the "Auto Cancellation / Auto Approval" section. (9.8.15.4)
-	* **Fix** Resolved issue for ability to  use options parameter in the Timeline shortcode for defining links for booking resources titles: [bookingtimeline type='3,4' options='{resource_link 3="/resource-apartment3-id3/"},{resource_link 4="/resource-3-id4/"}' header_title='All Bookings'] (9.8.15.6)
-	* **Under hood** Now you can aggregate only 'bookings' without including unavailable dates from the 'Booking > Availability > Days Availability' page. If you use the 'aggregate' parameter in the Booking Calendar shortcode and wish to include only bookings, utilize the new parameter: options="{aggregate type=bookings_only}". For instance, in the shortcode example below, we aggregate only bookings: [bookingselect type='3,4' aggregate='3;4' options="{aggregate type=bookings_only}"]  (9.8.15.10)
+	* Many improvements and fixes. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 = 9.8.14 - 9.8.0.1 =
-- Changes in **all** versions:
-	* Find more information at this page: https://wpbookingcalendar.com/changelog/
+- Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 = 9.8 =
 = Changes in Free and Pro Versions: =
@@ -433,17 +422,6 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	- **Date : Time** section on the Booking > Settings General page, making it easier to configure date and time options. Now, the 'Time format' option is also available in the Booking Calendar Free version.
 	- **Daylight Saving Time Fix:** Resolved the 'Daylight Saving Time' issue that existed on some servers (possibly due to themes or other plugins defining different timezones than those in WordPress via date_default_timezone_set(...) )), ensuring localized dates and times work correctly for all booking dates/times without the need to activate any options in the settings.
 	- **Shortcodes Enhancement:** All shortcodes can now use the parameter 'resource_id' instead of the previously deprecated 'type' parameter.
-* **Under Hood Changes**:
-	- Removed the JavaScript wpbc_settings variable. Instead of wpbc_settings.set_option( 'pending_days_selectable', true ); use: _wpbc.calendar__set_param_value( resource_id , 'pending_days_selectable' , true  );  It's give ability to define this parameter separately per each calendar in paid versions.
-	- Replaced deprecated functions related to the new "Capacity and Availability" engine (9.7.3.13), and updated the cron system for Google Calendar imports.
-	- Replaced  JavaScript  function showErrorMessage( element , errorMessage , isScrollStop ) to 	wpbc_front_end__show_message__warning( jq_node, message ).
-	- **Test Dates Functions:** Added the [wpbc_test_dates_functions] shortcode for testing different dates functions on the server, relative to the possible 'Daylight Saving Time' issue.
-* **Support**:
-	- **Support for WordPress 6.4:** Added support for WordPress version 6.4.
-* **Bug Fixes**:
-	- **Fix** Resolved 5 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
-* **Translations**:
-	- Translation: Improved German (94% completed) by Reinhard Kappen and French (93% completed) by Roby.
 = Changes in Pro Versions: =
 * **New Features and Improvements**:
 	- **Capacity Engine**. With the new capacity engine, you can define booking capacities for your calendar, allowing you to receive a **specific number of bookings per time slots or full dates**. This enhances your control over bookings compared to the previous version, which only supported specific booking limits for full dates. *(Business Large, MultiUser)*
@@ -462,16 +440,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	- **Date Selection Condition:** Added a condition for defining a specific number of selected dates if started from a specific date. Condition format: '{select-day condition="date" for="2023-10-01" value="20,25,30-35"}'.  Example of shortcode: [booking type=3 options='{select-day condition="date" for="2023-10-01" value="20,25,30-35"}'] *(Business Medium/Large, MultiUser)*
 	- **Cancellation Date Hint Shortcode:** Introduced the [cancel_date_hint] shortcode, which shows the date that is 14 days before the selected check-in date. (9.7.3.16) *(Business Medium/Large, MultiUser)*
 * **Improvements**:
-	- Showing the **full URL .ics feed** at the Booking > Settings > Sync > **"Export - .ics" page** for easier copying of URLs (9.8.0.6). *(All Pro Versions)*
-	- When creating new fast blank bookings, all fields are autofilled with '---' instead of 'admin' values, and the email address is filled with 'blank@wpbookingmanager.com,' which is skipped during sending emails by Booking Calendar. *(Business Small/Medium/Large, MultiUser)*
-	- **Improved 'Aggregate' Parameter**: Now, when using 'aggregate,' if you mark specific dates as unavailable in **aggregation resources on the Booking > Availability page**, the system will automatically make those dates unavailable in the source resource. *(All Pro Versions)*
-	- Enhanced Availability Management: If you mark dates as unavailable in the aggregate booking resources on the Booking > Availability page, the system treats these dates as unavailable for all booking resources, including parent and child resources. This ensures consistent availability management. *(All Pro Versions. Capacity in Business Large, MultiUser)*
-	- For booking resources with specific capacities, when you use 'aggregate' for a 'parent booking resource' with a set capacity, the system adds bookings from 'aggregate booking resources' to the 'parent resource' and its child resources. Any 'unavailable dates' marked on the Booking > Availability page will affect both the parent and its child resources, making those times or dates unavailable for booking. *(Business Large, MultiUser)*
-* **Under Hood Changes**:
-	- Under Hood: Updated Stripe PHP library from version 9.0.0 to 12.6.0. *(Business Small/Medium/Large, MultiUser)*
-	- Deprecated shortcode '[max_visitors]' in search results at the Booking > Settings > Search page. *(Business Large, MultiUser)*
-* **Bug Fixes**:
-	- **Fix** Resolved 5 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/ 
+	- Many improvements and fixes. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 For more information, see the [full release notes](https://wpbookingcalendar.com/changelog/).
 

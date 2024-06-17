@@ -55,7 +55,15 @@
       label="Sort Attributes in Widgets Editor by A-Z"
       description="Sort the order of the attributes in widgets editor alphabetically">
     </field>
-  	
+    
+    <field name="tax_sap_sign"
+      default=":"
+      type="list"
+      label="Taxonomy Separator Sign in Ajax Filter"
+      description="Used in url's like: url?category~term">
+      <option value=":" text="[ : ]" />
+      <option value="~" text="[ ~ ]" />
+    </field>
   		
   </fieldset>
 

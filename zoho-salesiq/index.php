@@ -6,7 +6,7 @@ Plugin Name: Zoho SalesIQ
 Plugin URI: http://wordpress.org/plugins/zoho-salesiq/
 Description: Convert Website Visitors into Customers
 Author: Zoho SalesIQ Team
-Version: 2.0.3
+Version: 2.0.4
 Author URI: http://zoho.com/salesiq
 */
 
@@ -37,7 +37,7 @@ function ld_embedchat()
     }
     $script = '<script type="text/javascript" id="zsiqchat">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"WIDGETCODE", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="SALESIQURL";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script>';
 
-    $newScript = '<script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="WIDGETURL" defer></script>';
+    $newScript = '<script type="text/javascript">window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="WIDGETURL";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script>';
 
     if(!empty($ldwidgetcodeurl) && preg_match("/^(https:\/\/salesiq\.)(zoho\.|unionbankofindia\.|zohopublic\.)(([a-z]{1,3}\.)?[a-z]{1,3})(\/widget\?(widgetcode|wc)\=)([a-z0-9]{10,200})$/s", $ldwidgetcodeurl))
     {

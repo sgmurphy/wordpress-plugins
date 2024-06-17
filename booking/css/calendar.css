@@ -511,6 +511,13 @@ td.timespartly.check_in_time.check_out_time.check_out_time_date_approved.check_i
     max-width: 96% !important;                                              /* //FixIn: 9.6.2.1  */
     min-width: 96% !important;
 }
+.widget_wpdev_booking .wpbc__row .bk_calendar_frame,
+.widget_wpdev_booking .wpbc__field .bk_calendar_frame{
+    margin: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+}
 /* LEGEND items show in 2 rows in Widget */
 .widget_wpdev_booking .wpdev_hint_with_text{
     float: left;

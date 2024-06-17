@@ -218,7 +218,9 @@ function ajax_WPBC_AJX_CALENDAR_LOAD() {
 	// Security  ------------------------------------------------------------------------------------------------------ // in Ajax Post:   'nonce': _wpbc.get_secure_param( 'nonce' ),
 	$action_name    = 'wpbc_calendar_load_ajx' . '_wpbcnonce';
 	$nonce_post_key = 'nonce';
-	$result_check   = check_ajax_referer( $action_name, $nonce_post_key );
+	if ( wpbc_is_use_nonce_at_front_end() ) {           //FixIn: 10.1.1.2
+		$result_check = check_ajax_referer( $action_name, $nonce_post_key );
+	}
 
 	$user_id = ( isset( $_REQUEST['wpbc_ajx_user_id'] ) )  ?  intval( $_REQUEST['wpbc_ajx_user_id'] )  :  wpbc_get_current_user_id();
 

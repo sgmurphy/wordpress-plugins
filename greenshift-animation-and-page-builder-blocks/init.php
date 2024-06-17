@@ -284,7 +284,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gsshare',
 		GREENSHIFT_DIR_URL . 'libs/social-share/index.js',
 		array(),
-		'1.1',
+		'1.2',
 		true
 	);
 
