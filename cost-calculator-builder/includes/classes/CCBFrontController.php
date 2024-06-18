@@ -26,16 +26,7 @@ class CCBFrontController {
 		add_shortcode( 'stm-thank-you-page', array( self::class, 'render_thank_you_page' ) );
 		add_shortcode( 'stm-sticky-calc', array( self::class, 'ccb_render_sticky_calc' ) );
 		add_filter( 'ccb_order_data_by_id', array( self::class, 'get_order_data_by_id' ) );
-		add_filter( 'elementor/frontend/the_content', array( self::class, 'ccb_sticky_calc' ), 1 );
-		add_filter( 'the_content', array( self::class, 'ccb_sticky_calc' ), 1 );
-	}
-
-	public static function ccb_sticky_calc( $content ) {
-		if ( is_singular() && in_the_loop() && is_main_query() ) {
-			$content = self::ccb_sticky_calc_handler( $content );
-		}
-
-		return $content;
+		add_filter( 'wp_footer', array( self::class, 'ccb_render_sticky_calc' ) );
 	}
 
 	public static function ccb_render_sticky_calc() {
@@ -45,14 +36,8 @@ class CCBFrontController {
 	public static function ccb_sticky_calc_handler( $content = '' ) {
 		$calculators = CCBUpdatesCallbacks::get_calculators();
 
-		wp_enqueue_style( 'ccb-sticky-css', CALC_URL . '/frontend/dist/css/sticky.css', array(), CALC_VERSION );
-		wp_enqueue_style( 'ccb-bootstrap-css', CALC_URL . '/frontend/dist/css/modal.bootstrap.css', array(), CALC_VERSION );
-		wp_enqueue_script( 'ccb-bootstrap-js', CALC_URL . '/frontend/dist/libs/bootstrap.min.js', array(), CALC_VERSION, true );
-		wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );
-		wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );
-		wp_enqueue_script( 'ccb-sticky-js', CALC_URL . '/frontend/dist/sticky.js', array( 'ccb-bootstrap-js' ), CALC_VERSION, true );
-
-		$calc_sticky   = '<div id="ccb-sticky-floating-wrapper">';
+		$has_sticky    = false;
+		$calc_sticky   = '';
 		$sticky_banner = '';
 
 		$positions = array(
@@ -69,6 +54,17 @@ class CCBFrontController {
 		foreach ( array_reverse( $calculators ) as $calculator ) {
 			$calc_settings = CCBSettingsData::get_calc_single_settings( $calculator->ID );
 			if ( isset( $calc_settings['sticky_calc'] ) && ! empty( $calc_settings['sticky_calc']['enable'] ) && ccb_pro_active() ) {
+				if ( ! $has_sticky ) {
+					$has_sticky  = true;
+					$calc_sticky = '<div id="ccb-sticky-floating-wrapper">';
+
+					wp_enqueue_style( 'ccb-sticky-css', CALC_URL . '/frontend/dist/css/sticky.css', array(), CALC_VERSION );
+					wp_enqueue_style( 'ccb-bootstrap-css', CALC_URL . '/frontend/dist/css/modal.bootstrap.css', array(), CALC_VERSION );
+					wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );
+					wp_enqueue_script( 'ccb-velocity-ui-js', CALC_URL . '/frontend/dist/libs/velocity.ui.min.js', array(), CALC_VERSION, true );
+					wp_enqueue_script( 'ccb-sticky-js', CALC_URL . '/frontend/dist/sticky.js', array(), CALC_VERSION, true );
+				}
+
 				$page_id           = get_the_ID();
 				$not_allowed_pages = array();
 
@@ -138,7 +134,11 @@ class CCBFrontController {
 			}
 		}
 
-		$calc_sticky .= $sticky_banner . '</div>';
+		$close_tag = '';
+		if ( $has_sticky ) {
+			$close_tag = '</div>';
+		}
+		$calc_sticky .= $sticky_banner . $close_tag;
 
 		return $content . $calc_sticky;
 	}
@@ -339,8 +339,12 @@ class CCBFrontController {
 
 		$template_variables[ 'template' ] = \cBuilder\Classes\CCBTemplate::load( 'frontend/partials/calc-builder', $template_params ); // phpcs:ignore
 
-		add_action( 'wp_footer', function () use ( $calc_id, $template_params, $template_variables ) { // phpcs:ignore
-			echo ( '<script type="text/javascript">window["ccb_front_template_' . $calc_id . '"] = ' . json_encode( $template_variables ) . ';</script>' ); //phpcs:ignore
-		}); // phpcs:ignore
+		if ( ! empty( $sticky ) ) {
+			echo '<script type="text/javascript">window["ccb_front_template_' . $calc_id . '"] = ' . json_encode( $template_variables ) . ';</script>'; // phpcs:ignore
+		} else {
+			add_action( 'wp_footer', function () use ( $calc_id, $template_params, $template_variables ) { // phpcs:ignore
+				echo ( '<script type="text/javascript">window["ccb_front_template_' . $calc_id . '"] = ' . json_encode( $template_variables ) . ';</script>' ); //phpcs:ignore
+			}); // phpcs:ignore
+		}
 	}
 }

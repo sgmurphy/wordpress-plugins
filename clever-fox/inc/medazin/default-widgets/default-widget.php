@@ -1,6 +1,6 @@
 <?php
 $theme = wp_get_theme(); // gets the current theme
-$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.$theme->name.'/images/lightlogo.png';
+$footer_logo_default = CLEVERFOX_PLUGIN_URL .'inc/'.strtolower($theme->name).'/images/lightlogo.png';
 	
 $activate = array(
         'medazin-sidebar-primary' => array(
@@ -23,11 +23,11 @@ $activate = array(
     );
     /* the default titles will appear */
    update_option('widget_text', array(  
-		1 => array('title' => 'About Medazin',
+		1 => array('title' => 'About '.$theme->name,
 				'text'=>'<aside class="widget widget-text ">
 				<div class="widget-content ">
 					<div class="footer-logo ">
-						<a href="https://nayrathemes.com/demo/lite/medazin/" class="custom-logo-link" rel="home">
+						<a href="https://nayrathemes.com/demo/lite/'.strtolower($theme->name).'/" class="custom-logo-link" rel="home">
 							<img src="'.esc_url($footer_logo_default).'" class="custom-logo" alt="Medazin">
 						</a>
 					</div>

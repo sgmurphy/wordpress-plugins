@@ -174,7 +174,8 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
      */
     public function prepare_data_to_export($form_data, $batch_offset) {
 
-        
+        global $wpdb;
+
         $export_order_statuses = !empty($form_data['filter_form_data']['wt_iew_order_status']) ? $form_data['filter_form_data']['wt_iew_order_status'] : 'any';
         $products = !empty($form_data['filter_form_data']['wt_iew_products']) ? $form_data['filter_form_data']['wt_iew_products'] : '';
         $email = !empty($form_data['filter_form_data']['wt_iew_email']) ? $form_data['filter_form_data']['wt_iew_email'] : array(); // user email fields return user ids
@@ -235,7 +236,6 @@ class Wt_Import_Export_For_Woo_Basic_Order_Export {
                 $total_records=0;
                 
                 if ($exclude_already_exported) {
-                    global $wpdb;
                     if(strpos($this->table_name, 'wc_order') !== false ){
                         $exclude_query = "SELECT ot.id FROM {$wpdb->prefix}wc_orders as ot LEFT JOIN {$wpdb->prefix}wc_orders_meta as omt ON ot.id = omt.order_id AND omt.meta_key = 'wf_order_exported_status' WHERE omt.order_id IS NULL";
                     }else{

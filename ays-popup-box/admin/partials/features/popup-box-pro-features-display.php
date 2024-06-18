@@ -55,7 +55,7 @@
                         <div class="price-now">
                             <span style="text-decoration: line-through; color: red;">$75</span>
                         </div>
-                        <div class="price-now"><span>$59</span></div>
+                        <div class="price-now"><span>$49</span></div>
                         <a href="https://ays-pro.com/wordpress/popup-box" class="price-buy">
 							<?php echo __( 'Buy now', "ays-popup-box" ); ?><span class="hide-mobile"></span>
                         </a>

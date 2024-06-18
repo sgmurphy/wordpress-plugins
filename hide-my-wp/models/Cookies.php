@@ -39,7 +39,10 @@ class HMWP_Models_Cookies
                 switch_to_blog($blog_id);
 
                 ms_cookie_constants();
-                if (! is_subdomain_install() || trim(parse_url(get_option('siteurl'), PHP_URL_PATH), '/') ) {
+                //Set current site path
+                $path = parse_url(get_option('siteurl'), PHP_URL_PATH);
+                //is path based and path exists
+                if (! is_subdomain_install() || ($path && trim($path, '/')) ) {
                     $this->_admin_cookie_path = SITECOOKIEPATH;
                 } else {
                     $this->_admin_cookie_path = SITECOOKIEPATH . HMWP_Classes_Tools::getOption('hmwp_admin_url');

@@ -3,8 +3,8 @@
  * Plugin Name: Auto Post Scheduler
  * Plugin URI: http://www.superblogme.com/auto-post-scheduler/
  * Description: Publishes posts or recycles old posts at specified time intervals automatically.
- * Version: 1.83
- * Released: August 17, 2023
+ * Version: 1.84
+ * Released: June 17, 2024
  * Author: Super Blog Me
  * Author URI: http://www.superblogme.com
  * License: GPL2
@@ -375,16 +375,26 @@ function aps_options_page() {
         </td><td align="left">
 		<?php 
 			$aps_authors = get_option( 'aps_authors', '' ); 
-			$args = apply_filters( 'aps_get_users_args', array( 'capability' => 'authors', 'fields' => array( 'ID', 'display_name' ) ) ); 
+
+			$roles = array( 'publish_posts' );
+			foreach( wp_roles()->roles as $role_slug => $role ) {
+			    if( ! empty( $role['capabilities']['publish_posts'] ) ) {
+				$roles[] = $role_slug;
+				}
+			}
+			$args = apply_filters( 'aps_get_users_args', array( 'role__in' => $roles, 'fields' => array('id', 'display_name' ) ) );
+
 			$user_query = new WP_User_Query( $args );
 
 			// if more than 100 users, just show a select box instead
-			if ( $user_query->get_total() > apply_filters( 'aps_get_users_max', 100 ) ) { ?>
+			if ( $user_query->get_total() > apply_filters( 'aps_get_users_max', 100 ) ) { 
+?>
                 		<input name="aps_authors" type="text" size="20" value="<?php echo $aps_authors; ?>"/> (User IDs seperated by commas)
 			<?php }
 
 			else { 
 				$users = $user_query->get_results();
+				error_log("JPH users: " . print_r($users,true));
 				$aps_authors = explode( ",", $aps_authors );
 			?>
 		<select name="aps_authors[]" size="5" multiple class='aps-block' >

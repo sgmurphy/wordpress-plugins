@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.15 =
+
+* Fixes an issue processing the notification email attachments in the free plugin distribution.
+* Modifies the Form Settings tab, making it easier to customize the form design.
+* Moves the Customize Form Design CSS editor to the Advanced Settings tab in the form settings.
+* Implements new forms template.
+* Modifies the data sources fields (Developer and Platinum plugin versions).
+
 = 5.2.14 =
 
 * Include the internationalization WordPress function in some missed texts.

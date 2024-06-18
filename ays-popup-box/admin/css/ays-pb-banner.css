@@ -1,5 +1,5 @@
 /* New Popup Box PRO banner start */
-div#ays-pb-new-mega-bundle-dicount-month-main {
+/* div#ays-pb-new-mega-bundle-dicount-month-main {
     border: 0;
     background: #FFF;
     border-radius: 20px;
@@ -426,5 +426,418 @@ div#ays-pb-new-mega-bundle-dicount-month-main button.notice-dismiss:before {
     div#ays-pb-new-mega-bundle-dicount-month-main .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box {
         width: 35%;
     }
-}
+} */
 /* New Popup Box PRO banner end */
+
+/* New Popup PRO Banner by Emma | Start */
+div#ays-pb-new-pb-banner-dicount-month-main-2024 {
+    border: 0;
+    background: #FFF;
+    border-radius: 20px;
+    box-shadow: unset;
+    position: relative;
+    z-index: 1;
+    min-height: 80px;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024.ays_pb_dicount_info button {
+    display: flex;
+    align-items: center;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024 div#ays-pb-dicount-month a.ays-pb-sale-banner-link:focus {
+    outline: none;
+    box-shadow: 0;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024 .btn-link {
+    font-weight: 400;
+    color: #007bff;
+    background-color: transparent;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024.ays_pb_dicount_info {
+    background-color: #fff6df;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays_pb_dicount_month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays_pb_dicount_month img {
+    width: 80px;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-sale-banner-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box {
+    font-size: 14px;
+    padding: 4px;
+    text-align: center;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box {
+    color: #30499B;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box span {
+    font-size: 10px;
+    color: #30499B;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-pb-dicount-wrap-text-box-texts {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0.80px;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-color {
+    color: #971821;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-text-decoration {
+    text-decoration: underline;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-buy-now-button-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-new-pb-banner-limited-text {
+    background-image: url("../images/icons/rectangle-bundle-2024.png");
+    background-size: cover;
+    width: 102px;
+    display: inline-block;
+    height: auto;
+    background-repeat: no-repeat;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-discount-box-sale-image {
+    background-image: url("../images/30-sale-2024.png");
+    background-size: contain;
+    width: 290px;
+    display: inline-block;
+    height: auto;
+    background-repeat: no-repeat;
+    height: 117px;
+    background-position: center;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-buy-now-button-box {
+    width: 30%;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-button,
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-buy-now-button {
+    align-items: center;
+    font-weight: 500;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-buy-now-button {
+    background: #971821;
+    border-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-buy-now-button:hover {
+    background: #7d161d;
+    border-color: #971821;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 #ays-pb-dismiss-buttons-content {
+    display: flex;
+    justify-content: center;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 #ays-pb-dismiss-buttons-content .ays-button {
+    margin: 0 !important;
+    font-size: 13px;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-opacity-box {
+    width: 19%;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-buy-now-opacity-button {
+    padding: 40px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+#ays-pb-countdown-main-container .ays-pb-countdown-container {
+    color:#30499B;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#ays-pb-countdown-main-container #ays-pb-countdown-headline {
+    font-weight: normal;
+    letter-spacing: .125rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+    padding: 9px 0 4px 0;
+    line-height: 1.3;
+}
+
+#ays-pb-countdown-main-container li,
+#ays-pb-countdown-main-container ul {
+    margin: 0;
+}
+
+#ays-pb-countdown-main-container li {
+    display: inline-block;
+    font-size: 14px;
+    list-style-type: none;
+    padding: 14px;
+    text-transform: capitalize;
+    text-align: center;
+    margin: auto;
+}
+
+#ays-pb-countdown-main-container li span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    height: 56px;
+    width: 53px;
+    border-radius: 8px;
+    border: 0.534px solid #F4F4F4;
+    background: #30499B;
+    color: #fff;
+}
+
+#ays-pb-countdown-main-container .emoji {
+    display: none;
+    padding: 1rem;
+}
+
+#ays-pb-countdown-main-container .emoji span {
+    font-size: 30px;
+    padding: 0 .5rem;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box li {
+    position: relative;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box li span:after {
+    content: ":";
+    color: #30499B;
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    font-size: 40px;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box li span#ays-pb-countdown-seconds:after {
+    content: unset;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 #ays-button-top-buy-now {
+    display: flex;
+    align-items: center;
+    border-radius: 64px;
+    padding: 12px 32px;
+    background: #30499B;
+    color: #FFF;
+    font-size: 12.818px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+#ays-pb-new-pb-banner-dicount-month-main-2024 .button.ays-button {
+    margin: 0;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024 button.notice-dismiss:before {
+    color: #30499B;
+}
+
+div#ays-pb-new-pb-banner-dicount-month-main-2024 button.notice-dismiss:before {
+    color: #30499B;
+    content: "X";
+    font-family: cursive;
+    font-size: 16px;
+    font-weight: 600 !important;
+}
+
+@media all and (max-width: 768px) {
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 {
+        padding-right: 0;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays_pb_dicount_month {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        align-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box {
+        width: 100%;
+        text-align: center;
+    }
+
+    #ays-pb-countdown-main-container #ays-pb-countdown-headline {
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    #ays-pb-countdown-main-container ul {
+        font-weight: 500;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-text-box {
+        width: 100%;
+        text-align: center;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-countdown-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-button {
+        margin: 0 auto !important;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024.ays_pb_dicount_info.notice {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 #ays-pb-dismiss-buttons-content .ays-button {
+        padding-left: unset !important;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-buy-now-button-box {
+        justify-content: center;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-buy-now-button {
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-buy-now-opacity-button {
+        display: none;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dismiss-buttons-container-for-pb {
+        position: static !important;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-pb-dicount-wrap-text-box-texts {
+        height: 64px;
+    }
+
+    #ays-pb-countdown-main-container .ays-pb-countdown-container #ays-pb-countdown > ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box li span:after {
+        top: unset;
+    }
+
+    #ays-pb-countdown-main-container li {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    #ays-pb-countdown-main-container li span {
+        font-size: 26px;
+        min-height: 50px;
+        min-width: 50px;
+    }
+
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box.ays-pb-dicount-wrap-button-box {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1305px) and (min-width: 768px) {
+    div#ays-pb-new-pb-banner-dicount-month-main-2024.ays_pb_dicount_info.notice {
+        background-position: bottom right;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-pb-dicount-wrap-text-box-texts {
+        font-size: 15px;
+    }
+
+    #ays-pb-countdown-main-container li {
+        font-size: 11px;
+    }
+
+    div#ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-opacity-box {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 436px) {
+    #ays-pb-new-pb-banner-dicount-month-main-2024 .ays-pb-dicount-wrap-box .ays-pb-dicount-wrap-text-box-texts {
+        height: 110px;
+        margin-bottom: 25px;
+    }
+}
+/* New Popup PRO Banner | End */

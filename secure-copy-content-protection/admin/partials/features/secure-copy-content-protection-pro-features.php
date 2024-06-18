@@ -46,7 +46,7 @@
                             <th class="price-info">
                                 <div class="price-now"><span style="text-decoration: line-through; color: red;">$75</span>
                                 </div>
-                                <div class="price-now"><span>$59</span>
+                                <div class="price-now"><span>$49</span>
                                 </div>                                
                                 <div class="ays-sccp-pracing-table-td-flex">
                                     <a href="https://ays-pro.com/wordpress/secure-copy-content-protection" class="price-buy"><?php echo __('Buy now',$this->plugin_name)?><span class="hide-mobile"></span></a>

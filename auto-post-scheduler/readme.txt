@@ -6,7 +6,7 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: schedule post, schedule, auto post, draft, pending, publish, scheduling, posts, queue, post scheduler, automate posts, queue posts, auto publish, post
 Requires at least: 3.0
 Tested up to: 6.3
-Stable Tag: 1.83
+Stable Tag: 1.84
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ drafts, publish    yes             yes             drafts and published posts ar
 
 
 == Changelog ==
+
+= 1.84
+
+* Updated code to use modified user parameter for authors.
 
 = 1.83
 

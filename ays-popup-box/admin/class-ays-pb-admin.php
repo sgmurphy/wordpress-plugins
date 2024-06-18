@@ -221,6 +221,42 @@ class Ays_Pb_Admin {
         }
 	}
 
+    /**
+     * Register the administration menu for this plugin into the WordPress Dashboard menu.
+     *
+     * @since    1.0.0
+     */
+    public function add_plugin_admin_menu() {
+        add_menu_page(
+            __('Popup Box'),
+            __('Popup Box'),
+            'manage_options',
+            $this->plugin_name,
+            array($this, 'display_plugin_setup_page'),
+            plugin_dir_url(__FILE__) . '/images/icons/popup-sidemenu-logo.svg',
+            6
+        );
+    }
+
+    /**
+     * Render the settings page for this plugin.
+     *
+     * @since    1.0.0
+     */
+    public function display_plugin_setup_page() {
+		$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+
+        switch ($action) {
+            case 'add':
+            case 'edit':
+                include_once('partials/actions/ays-pb-admin-actions.php');
+                break;
+            default:
+                include_once('partials/ays-pb-admin-display.php');
+                break;
+        }
+    }
+
     // Code Mirror
     function codemirror_enqueue_scripts($hook) {
         if (false === strpos($hook, $this->plugin_name)) {
@@ -241,23 +277,6 @@ class Ays_Pb_Admin {
 
             wp_enqueue_style('wp-codemirror');
         }
-    }
-
-    /**
-     * Register the administration menu for this plugin into the WordPress Dashboard menu.
-     *
-     * @since    1.0.0
-     */
-    public function add_plugin_admin_menu() {
-        add_menu_page(
-            __('Popup Box'),
-            __('Popup Box'),
-            'manage_options',
-            $this->plugin_name,
-            array($this, 'display_plugin_setup_page'),
-            plugin_dir_url(__FILE__) . '/images/icons/popup-sidemenu-logo.svg',
-            6
-        );
     }
 
     public function add_plugin_popups_submenu() {
@@ -429,26 +448,6 @@ class Ays_Pb_Admin {
     }
 
     /**
-     * Render the settings page for this plugin.
-     *
-     * @since    1.0.0
-     */
-    public function display_plugin_setup_page() {
-		$action = (isset($_GET['action'])) ? sanitize_text_field( $_GET['action'] ) : '';
-
-        switch ( $action ) {
-            case 'add':
-                include_once( 'partials/actions/ays-pb-admin-actions.php' );
-                break;
-            case 'edit':
-                include_once( 'partials/actions/ays-pb-admin-actions.php' );
-                break;
-            default:
-                include_once( 'partials/ays-pb-admin-display.php' );
-        }
-    }
-
-    /**
      * Add settings action link to the plugins page.
      *
      * @since    1.0.0
@@ -460,7 +459,7 @@ class Ays_Pb_Admin {
         $settings_link = array(
             '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', "ays-popup-box") . '</a>',
             '<a href="https://ays-demo.com/popup-box-plugin-free-demo/" target="_blank">' . __('Demo', "ays-popup-box") . '</a>',
-            '<a id="ays-pb-plugins-buy-now-button" href="https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . __('Upgrade 20% Sale', "ays-popup-box") . '</a>',
+            '<a id="ays-pb-plugins-buy-now-button" href="https://ays-pro.com/wordpress/popup-box?utm_source=dashboard&utm_medium=popup-free&utm_campaign=plugins-buy-now-button" target="_blank">' . __('Upgrade 30% Sale', "ays-popup-box") . '</a>',
         );
         return array_merge(  $settings_link, $links );
 

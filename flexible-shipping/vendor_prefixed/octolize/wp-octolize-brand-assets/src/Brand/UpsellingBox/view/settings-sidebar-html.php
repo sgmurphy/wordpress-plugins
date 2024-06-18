@@ -12,7 +12,9 @@ namespace FSVendor;
  * @var int $min_width
  * @var int $position_right
  * @var string $align_top_to_element
+ * @var string $additional_content
  */
+$allowed_tags = ['a' => ['href' => \true, 'target' => \true], 'p' => ['class' => \true], 'label' => ['for' => \true, 'class' => \true, 'style' => \true], 'input' => ['type' => ['checkbox'], 'class' => \true]];
 ?>
 <div class="oct-metabox" style="display: none;">
 	<h3 class="oct-metabox-title"><?php 
@@ -29,6 +31,15 @@ foreach ($features as $feature) {
 }
 ?>
 	</ul>
+	<?php 
+if (!empty($additional_content)) {
+    ?>
+	<?php 
+    echo \wp_kses($additional_content, $allowed_tags);
+    ?>
+	<?php 
+}
+?>
 	<div class="oct-footer">
 		<a class="oct-metabox-btn" href="<?php 
 echo \esc_url($url);

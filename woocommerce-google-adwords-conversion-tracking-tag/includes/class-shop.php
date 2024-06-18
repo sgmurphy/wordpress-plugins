@@ -773,7 +773,7 @@ class Shop {
             return self::$transient_identifiers;
         }
         self::$transient_identifiers = self::get_value_from_woocommerce_session( self::get_transient_identifiers_key(), [] );
-        return self::$transient_identifiers;
+        return (array) self::$transient_identifiers;
     }
 
     public static function get_transient_identifiers_key() {

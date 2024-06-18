@@ -1,17 +1,17 @@
-﻿=== WP jQuery Lightbox ===
+﻿=== LightPress Lightbox ===
 Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
-Tested up to: 6.5.3
-Stable tag: 1.5.5
+Tested up to: 6.5.4
+Stable tag: 2.0.0
 Requires PHP: 7.0
 License: GPLv2 or later
 
-Simple and lightweight lightbox plugin for WordPress.
+Simple, lightweight lightbox plugin for WordPress. Formerly the WP JQuery Lightbox.
 
 == Description ==
 
-A simple, lightweight WordPress lightbox plugin. [See demo here](https://pandaboxwp.com).
+A simple, lightweight WordPress lightbox plugin. [See demo here](https://lightpress.io).
 
 **Features**
 
@@ -24,7 +24,7 @@ A simple, lightweight WordPress lightbox plugin. [See demo here](https://pandabo
 * Localization support.
 * Lightweight and fast.
 
-See the plugin in action here: [pandaboxwp.com](https://pandaboxwp.com)
+See the plugin in action here: [lightpress.io](https://lightpress.io)
 
 **Background and Thanks**
 
@@ -111,6 +111,12 @@ Lastly:
 Still have problems? Post a link and describe what issue you're having, and tell us what of these steps you've already tried.
 
 == Changelog ==
+
+= 2.0.0 (2024-06-19) =
+* Rename plugin to LightPress
+* Add core LightPress plugin class
+* Add new settings screen
+* Old plugin file can be loaded by setting JQLB_LEGACY constant to true 
 
 = 1.5.5 (2024-06-03) =
 * Update WP tested version
@@ -411,7 +417,7 @@ Translations and help with implementing them would be nice.
 
 == Additional Info ==
 Copyright (C) 2010-2023 Ulf Benjaminsson.
-Copyright (C) 2023-Present PandaboxWP LLC.
+Copyright (C) 2023-Present LightPress LLC.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

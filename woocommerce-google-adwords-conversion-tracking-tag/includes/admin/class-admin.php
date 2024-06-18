@@ -75,8 +75,61 @@ class Admin {
         );
     }
 
+    /**
+     * This returns a JavaScript function that is called after a purchase is made.
+     *
+     * @param $js_function
+     * @return string
+     */
     public function fs_after_purchase_js( $js_function ) {
-        return "\n\t\tfunction ( response ) {\n\n            let\n                isTrial = (null != response.purchase.trial_ends),\n                isSubscription = (null != response.purchase.initial_amount),\n                total = isTrial ? 0 : (isSubscription ? response.purchase.initial_amount : response.purchase.gross).toString(),\n                productName = 'Pixel Manager for WooCommerce',\n                // storeUrl = 'https://sweetcode.com',\n                storeName = 'SweetCode';\n            \n            window.dataLayer = window.dataLayer || [];\n\n            function gtag() {\n                dataLayer.push(arguments);\n            }\n    \n            gtag('js', new Date());            \n    \n            gtag('config', 'UA-39746956-10', {'anonymize_ip': true});\n            gtag('config', 'G-2QE000DX8D');\n            gtag('config', 'AW-406204436');\n            \n            gtag('event', 'purchase', {\n                'send_to':['UA-39746956-10', 'G-2QE000DX8D'],\n                'transaction_id':response.purchase.id.toString(),\n                'currency': response.purchase.currency.toUpperCase(),\n                'discount':0,\n                'items':[{\n                    'id':response.purchase.plan_id.toString(),\n                    'quantity':1,\n                    'price':total,\n                    'name':productName,\n                    'category': 'Plugin',\n                }],\n                'affiliation': storeName,\n                'value':response.purchase.initial_amount.toString()\n            });\n            \n            gtag('event', 'conversion', {\n              'send_to': 'AW-406204436/XrUYCK3J8YoCEJTg2MEB',\n              'value': response.purchase.initial_amount.toString(),\n              'currency': response.purchase.currency.toUpperCase(),\n              'transaction_id': response.purchase.id.toString()\n            });\n            \n            var _dcq = _dcq || [];\n\t\t\tvar _dcs = _dcs || {};\n\t\t\t_dcs.account = '5594556';\n\t\n\t\t\t(function() {\n\t\t\t\tvar dc = document.createElement('script');\n\t\t\t\tdc.type = 'text/javascript'; dc.async = true;\n\t\t\t\tdc.src = '//tag.getdrip.com/5594556.js';\n\t\t\t\tvar s = document.getElementsByTagName('script')[0];\n\t\t\t\ts.parentNode.insertBefore(dc, s);\n\t\t\t})();\n\t\t\t\n\t\t\twindow._dcq.push([\n\t\t\t\t'track',\n\t\t\t\t'Placed an order',\n\t\t\t]);\n\t\t\t\n\t\t\twindow._dcq.push([\n\t\t\t\t'track',\n\t\t\t\t'purchase',\n\t\t\t\t{\n\t\t\t\t\tvalue: total * 100,\n\t\t\t\t\tcurrency_code: response.purchase.currency.toUpperCase(),\n\t\t\t\t}\n\t\t\t]);\n  \n        }";
+        return <<<JS
+     (response) => {
+
+\t\tlet product_name = "Pixel Manager for WooCommerce";
+\t
+\t\tlet trial_conversion_percentage = 0.52;
+\t
+\t\tlet is_trial = (null != response.purchase.trial_ends),
+\t\t\tis_subscription = (null != response.purchase.initial_amount),
+\t\t\tpre_total = Number(is_subscription ? response.purchase.initial_amount : response.purchase.gross).toFixed(2),
+\t\t\ttrial_total = is_trial ? (pre_total * trial_conversion_percentage).toFixed(2) : pre_total,
+\t\t\ttotal = is_trial ? trial_total : pre_total,
+\t\t\tcurrency = response.purchase.currency.toUpperCase(),
+\t\t\ttransaction_id = response.purchase.id.toString(),
+\t\t\tstore_name = window.location.hostname;
+\t
+\t\twindow.dataLayer = window.dataLayer || [];
+\t
+\t\tdataLayer.push({
+\t\t\tevent: "purchase",
+\t\t\ttransaction_id: transaction_id,
+\t\t\ttransaction_value: total,
+\t\t\ttransaction_currency: currency,
+\t\t\ttransaction_coupon: response.purchase.coupon_id,
+\t\t\ttransaction_affiliation: store_name,
+\t\t\titems: [
+\t\t\t\t{
+\t\t\t\t\titem_name: product_name,
+\t\t\t\t\titem_id: response.purchase.plan_id.toString(),
+\t\t\t\t\titem_category: "Plugin",
+\t\t\t\t\tprice: response.purchase.initial_amount.toString(),
+\t\t\t\t\tquantity: 1,
+\t\t\t\t\tcurrency: currency,
+\t\t\t\t\taffiliation: store_name,
+\t\t\t\t},
+\t\t\t],
+\t\t});
+\t
+\t\t(function (w, d, s, l, i) {
+\t\t\tw[l] = w[l] || []; w[l].push({
+\t\t\t\t'gtm.start':
+\t\t\t\t\tnew Date().getTime(), event: 'gtm.js'
+\t\t\t}); var f = d.getElementsByTagName(s)[0],
+\t\t\t\tj = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+\t\t\t\t\t'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+\t\t})(window, document, 'script', 'dataLayer', 'GTM-NZ8WQ6QS');
+\t}
+JS;
     }
 
     // phpcs:disable
@@ -143,24 +196,26 @@ class Admin {
     public function pmw_edit_order_scripts( $hook_suffix ) {
         //		error_log('hook_suffix: ' . $hook_suffix);
         //		error_log('get_current_screen: ' . get_current_screen()->id);
+        //		error_log('pmw_edit_order_scripts');
         // Only output the remaining scripts on PMW settings page
         if ( 'shop_order' !== get_current_screen()->id ) {
             return;
         }
-        //		error_log('pmw_edit_order_scripts');
-        if ( wpm_fs()->can_use_premium_code__premium_only() && Options::is_ga4_data_api_active() ) {
-            wp_enqueue_script(
-                'pmw-edit-order',
-                PMW_PLUGIN_DIR_PATH . 'js/admin/edit-order-page.js',
-                ['jquery'],
-                PMW_CURRENT_VERSION,
-                false
-            );
-            wp_localize_script( 'pmw-edit-order', 'pmwAdminApi', [
-                'root'  => esc_url_raw( rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' ),
-            ] );
+        return;
+        if ( !Options::is_ga4_data_api_active() ) {
+            return;
         }
+        wp_enqueue_script(
+            'pmw-edit-order',
+            PMW_PLUGIN_DIR_PATH . 'js/admin/edit-order-page.js',
+            ['jquery'],
+            PMW_CURRENT_VERSION,
+            false
+        );
+        wp_localize_script( 'pmw-edit-order', 'pmwAdminApi', [
+            'root'  => esc_url_raw( rest_url() ),
+            'nonce' => wp_create_nonce( 'wp_rest' ),
+        ] );
     }
 
     // Load text domain function
@@ -1396,7 +1451,7 @@ class Admin {
 
 			<script>
 				if (typeof wpm_hide_script_blocker_warning === "function") {
-					wpm_hide_script_blocker_warning()
+					wpm_hide_script_blocker_warning();
 				}
 			</script>
 
@@ -3319,7 +3374,7 @@ class Admin {
 		<script>
 			jQuery("#setting_explicit_consent_regions").select2({
 				// theme: "classic"
-			})
+			});
 		</script>
 		<?php 
         self::get_documentation_html_by_key( 'restricted_consent_regions' );
@@ -3465,19 +3520,19 @@ class Admin {
 
 			<script>
 				const pmwCopyGa4ClientEmailToClipboardCA = () => {
-					navigator.clipboard.writeText(document.getElementById("pmw_setting_ga4_data_api_client_email").value)
-					const pmwCaFeedTooltip     = document.getElementById("myPmwGa4ClientEmailTooltip")
+					navigator.clipboard.writeText(document.getElementById("pmw_setting_ga4_data_api_client_email").value);
+					const pmwCaFeedTooltip     = document.getElementById("myPmwGa4ClientEmailTooltip");
 					pmwCaFeedTooltip.innerHTML = "<?php 
         esc_html_e( 'Copied the account email to the clipboard', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>"
-				}
+        ?>";
+				};
 
 				const resetGa4ClientEmailCopyButton = () => {
-					const pmwCaFeedTooltip     = document.getElementById("myPmwGa4ClientEmailTooltip")
+					const pmwCaFeedTooltip     = document.getElementById("myPmwGa4ClientEmailTooltip");
 					pmwCaFeedTooltip.innerHTML = "<?php 
         esc_html_e( 'Copy to clipboard', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>"
-				}
+        ?>";
+				};
 			</script>
 
 			<div class="pmwCaTooltip">
@@ -3549,7 +3604,8 @@ class Admin {
         esc_html_e( 'There was an error importing that file! Please try again.', 'woocommerce-google-adwords-conversion-tracking-tag' );
         ?>
 					</span>
-					<span id="ga4-api-credentials-upload-status-error-message" style="color: red; font-weight: bold"></span>
+					<span id="ga4-api-credentials-upload-status-error-message"
+						  style="color: red; font-weight: bold"></span>
 				</pre>
 			</div>
 		</div>
@@ -3767,20 +3823,20 @@ class Admin {
 					// const feedUrlElement = document.getElementById("pmw_plugin_google_ads_conversion_adjustments_feed")
 					// feedUrlElement.select()
 					// feedUrlElement.setSelectionRange(0, 99999)
-					navigator.clipboard.writeText(document.getElementById("pmw_plugin_google_ads_conversion_adjustments_feed").value)
+					navigator.clipboard.writeText(document.getElementById("pmw_plugin_google_ads_conversion_adjustments_feed").value);
 
-					const pmwCaFeedTooltip     = document.getElementById("myPmwCaTooltip")
+					const pmwCaFeedTooltip     = document.getElementById("myPmwCaTooltip");
 					pmwCaFeedTooltip.innerHTML = "<?php 
         esc_html_e( 'Copied feed URL to clipboard', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>"
-				}
+        ?>";
+				};
 
 				const resetCaCopyButton = () => {
-					const pmwCaFeedTooltip     = document.getElementById("myPmwCaTooltip")
+					const pmwCaFeedTooltip     = document.getElementById("myPmwCaTooltip");
 					pmwCaFeedTooltip.innerHTML = "<?php 
         esc_html_e( 'Copy to clipboard', 'woocommerce-google-adwords-conversion-tracking-tag' );
-        ?>"
-				}
+        ?>";
+				};
 			</script>
 			<div class="pmwCaTooltip">
 				<a href="javascript:void(0)" class="pmw-copy-icon pmwCaTooltip" onclick="pmwCopyToClipboardCA()"
@@ -4395,7 +4451,7 @@ class Admin {
 		<script>
 			jQuery("#wpm_setting_disable_tracking_for_user_roles").select2({
 				// theme: "classic"
-			})
+			});
 		</script>
 		<?php 
         //		self::get_documentation_html_by_key('google_consent_regions');
@@ -5273,12 +5329,12 @@ class Admin {
         ?>
 
 		<script>
-			var script   = document.createElement("script")
-			script.async = true
+			var script   = document.createElement("script");
+			script.async = true;
 			script.src   = 'https://fast.wistia.com/embed/medias/<?php 
         esc_html_e( $wistia_id );
-        ?>.jsonp'
-			document.getElementsByTagName("head")[0].appendChild(script)
+        ?>.jsonp';
+			document.getElementsByTagName("head")[0].appendChild(script);
 		</script>
 
 		<div class="pmw wistia_embed wistia_async_<?php 

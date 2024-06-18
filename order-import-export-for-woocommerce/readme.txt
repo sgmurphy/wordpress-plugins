@@ -4,7 +4,7 @@ Tags: order export, woocommerce, order, export, csv, order import, woocommerce e
 Requires at least: 3.0
 Tested up to: 6.5.4
 Requires PHP: 5.6
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -207,6 +207,8 @@ Yes.
 
 == Changelog ==
 
+= 2.5.4 2024-06-18 =
+* [Fix] - Issue with exporting while HPOS is enabled.
 = 2.5.3 2024-06-12 =
 * [Fix] -  Improvement in Encoding Characters.
 * [Compatibility] - Tested OK with WooCommerce 8.9.4
@@ -582,7 +584,5 @@ Yes.
 
 == Upgrade Notice ==
 
-= 2.5.3 =
-* [Improvement] - Improved Encoding of Different Characters.
-* [Compatibility] - Tested OK with WooCommerce 8.9.4
-* [Compatibility] - Tested OK with WordPress 6.5.4
+= 2.5.4 =
+* [Fix] - Issue with exporting while HPOS is enabled.

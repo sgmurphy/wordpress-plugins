@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb331c8a57590e1e14f9d34ec55224280
+class ComposerStaticInitbafe01075cdfa6d6b3dc011e035c4bbe
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -370,9 +370,15 @@ class ComposerStaticInitb331c8a57590e1e14f9d34ec55224280
         'FSVendor\\WPDesk\\Session\\Adapter\\WooCommerceSession' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wpdesk-sessions/src/WPDesk/Sessions/Adapter/WooCommerceSession.php',
         'FSVendor\\WPDesk\\Session\\Session' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wpdesk-sessions/src/WPDesk/Sessions/Session.php',
         'FSVendor\\WPDesk\\Session\\SessionFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wpdesk-sessions/src/WPDesk/Sessions/SessionFactory.php',
+        'FSVendor\\WPDesk\\ShowDecision\\AndStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/AndStrategy.php',
+        'FSVendor\\WPDesk\\ShowDecision\\ConstantDefinedStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/ConstantDefinedStrategy.php',
+        'FSVendor\\WPDesk\\ShowDecision\\ConstantNotDefinedStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/ConstantNotDefinedStrategy.php',
         'FSVendor\\WPDesk\\ShowDecision\\GetStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/GetStrategy.php',
+        'FSVendor\\WPDesk\\ShowDecision\\OrStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/OrStrategy.php',
         'FSVendor\\WPDesk\\ShowDecision\\PostTypeStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/PostTypeStrategy.php',
         'FSVendor\\WPDesk\\ShowDecision\\ShouldShowStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/ShouldShowStrategy.php',
+        'FSVendor\\WPDesk\\ShowDecision\\WooCommerce\\ShippingMethodInstanceStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/WooCommerce/ShippingMethodInstanceStrategy.php',
+        'FSVendor\\WPDesk\\ShowDecision\\WooCommerce\\ShippingMethodStrategy' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-show-decision/src/WooCommerce/ShippingMethodStrategy.php',
         'FSVendor\\WPDesk\\Tracker\\Assets' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker/src/PSR/WPDesk/Tracker/Assets.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\AjaxDeactivationDataHandler' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/AjaxDeactivationDataHandler.php',
         'FSVendor\\WPDesk\\Tracker\\Deactivation\\DeactivationContent' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-wpdesk-tracker-deactivation/src/WPDesk/Tracker/Deactivation/DeactivationContent.php',
@@ -408,13 +414,13 @@ class ComposerStaticInitb331c8a57590e1e14f9d34ec55224280
         'FSVendor\\WPDesk\\View\\Resolver\\NullResolver' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-view/src/Resolver/NullResolver.php',
         'FSVendor\\WPDesk\\View\\Resolver\\Resolver' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-view/src/Resolver/Resolver.php',
         'FSVendor\\WPDesk\\View\\Resolver\\WPThemeResolver' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-view/src/Resolver/WPThemeResolver.php',
+        'FSVendor\\WPDesk\\View\\Resolver\\WooTemplateResolver' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wp-view/src/Resolver/WooTemplateResolver.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\AbstractConverter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/AbstractConverter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\FilterConverter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/FilterConverter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\FilterConvertersFactory' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/FilterConvertersFactory.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\ShippingIntegrations' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/ShippingIntegrations.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\SwitcherConverter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/SwitcherConverter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\Switcher\\Aelia\\Converter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/Switcher/Aelia/Converter.php',
-        'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\Switcher\\CURCY\\Converter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/Switcher/CURCY/Converter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\Switcher\\CurrencySwitcherWoocommerce\\Converter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/Switcher/CurrencySwitcherWoocommerce/Converter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\Switcher\\FoxCurrencySwitcher\\Converter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/Switcher/FoxCurrencySwitcher/Converter.php',
         'FSVendor\\WPDesk\\WooCommerce\\CurrencySwitchers\\Switcher\\WCML\\Converter' => __DIR__ . '/../..' . '/vendor_prefixed/wpdesk/wc-currency-switchers-integrations/src/Switcher/WCML/Converter.php',
@@ -658,9 +664,9 @@ class ComposerStaticInitb331c8a57590e1e14f9d34ec55224280
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb331c8a57590e1e14f9d34ec55224280::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb331c8a57590e1e14f9d34ec55224280::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb331c8a57590e1e14f9d34ec55224280::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbafe01075cdfa6d6b3dc011e035c4bbe::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbafe01075cdfa6d6b3dc011e035c4bbe::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbafe01075cdfa6d6b3dc011e035c4bbe::$classMap;
 
         }, null, ClassLoader::class);
     }

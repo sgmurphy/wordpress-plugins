@@ -17,8 +17,9 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 
         public function mystickyelements_enqueue_script() {
 			$is_min = ( !WP_DEBUG ) ? '.min' : '';
-            $contact_form = get_option('mystickyelements-contact-form');
-            $general_settings = get_option('mystickyelements-general-settings');
+            $contact_form 		= get_option('mystickyelements-contact-form');
+            $general_settings 	= get_option('mystickyelements-general-settings');
+			$social_channels 	= get_option('mystickyelements-social-channels');			
 			$default_fonts = array('System Stack', 'Arial', 'Tahoma', 'Verdana', 'Helvetica', 'Times New Roman', 'Trebuchet MS', 'Georgia', 'Open Sans Hebrew');
 			
 			
@@ -108,7 +109,7 @@ if (!class_exists('MyStickyElementsFrontPage_pro')) {
 					}
 					form#stickyelements-form textarea::-moz-placeholder {
 						color: <?php echo esc_attr($placeholder_color); ?>
-					}
+					}					
 			</style>	
 			<?php
 			wp_enqueue_script('mystickyelements-cookie-js', plugins_url('/js/jquery.cookie.js', __FILE__), array('jquery'), MY_STICKY_ELEMENT_VERSION, ['strategy'  => 'defer', 'in_footer'=> true ]);

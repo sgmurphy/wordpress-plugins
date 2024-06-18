@@ -629,7 +629,7 @@ class HMWP_Models_Settings
                 //Set the cookies for the current path
                 $cookies = HMWP_Classes_ObjController::newInstance( 'HMWP_Models_Cookies' );
 
-                if ( HMWP_Classes_Tools::isNginx() || $cookies->setCookiesCurrentPath() ) {
+                if ( HMWP_Classes_Tools::isNginx() || HMWP_Classes_Tools::isCloudPanel() || $cookies->setCookiesCurrentPath() ) {
 
                     HMWP_Classes_Tools::saveOptions( 'logout', false );
                     //activate frontend test
@@ -641,8 +641,10 @@ class HMWP_Models_Settings
                     //trigger action after apply the permalink changes
                     do_action('hmwp_apply_permalink_changes');
 
-                    wp_redirect(HMWP_Classes_Tools::getSettingsUrl(HMWP_Classes_Tools::getValue('page')));
-                    exit();
+                    if(!HMWP_Classes_Tools::isNginx() && !HMWP_Classes_Tools::isCloudPanel()){
+                        wp_redirect(HMWP_Classes_Tools::getSettingsUrl(HMWP_Classes_Tools::getValue('page')));
+                        exit();
+                    }
                 }
 
             }

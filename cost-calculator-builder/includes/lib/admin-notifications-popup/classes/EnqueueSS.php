@@ -16,6 +16,11 @@ class EnqueueSS {
 		wp_enqueue_script( 'anp-script', STM_ANP_URL . 'assets/js/anp-scripts.js', 'jQuery', null, true );
 		wp_enqueue_style( 'anp-style', STM_ANP_URL . 'assets/css/anp-style.css', null, null, 'all' );
 
-		wp_localize_script( 'anp-script', 'anp_script_object', array( 'anp_nonce' => $anp_nonce ) );
+		wp_localize_script( 'anp-script',
+			'anp_script_object', array(
+				'anp_nonce' => $anp_nonce,
+				'api_fetch_url' => defined('STM_DEV')  ? 'http://stylemixnotification.local' : 'https://promo-dashboard.stylemixthemes.com',
+				)
+		);
 	}
 }

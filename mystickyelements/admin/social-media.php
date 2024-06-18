@@ -10,6 +10,7 @@ foreach ( $contact_field as $key=>$value ) {
 	<div class="" >
 		<!-- Social Channels Tabs Section -->
 		<div class="myStickyelements-container myStickyelements-social-channels-tabs">
+		
 			<div class="myStickyelements-header-title">
 				<h3><?php _e('Show Chat & Social Icons', 'mystickyelements'); ?></h3>
 				<label for="myStickyelements-social-channels-enabled" class="myStickyelements-switch">

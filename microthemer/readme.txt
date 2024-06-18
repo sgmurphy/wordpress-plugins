@@ -79,6 +79,16 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.1.1 (June 18th, 2024) =
+
+# Change
+* Global CSS does not load on block editor pages if the blocks are not embedded inside an iframe. Otherwise, the CSS can bleed into the top level WordPress toolbars and panels. Global CSS will still load in the Full Site Editor (FSE) however, which always uses an iframe.
+
+# Bugs fixed
+* Microthemer's global stylesheet could render in the footer if a value for "Stylesheet loading order" was set in the Preferences.
+* Another issue "Stylesheet loading order" being set was that conditional folders always loaded when using the MT interface (when they should have been disabled on certain pages). This is because JavaScript variables were being set before the CSS asset loading had been determined.
+* Microthemer could generate invalid folder logic when styling certain pages inside the Full Site Editor. This resulted in the style appearing for a split second and then disappearing.
+
 = 7.3.1.0 (June 17th, 2024) =
 
 # Bugs fixed

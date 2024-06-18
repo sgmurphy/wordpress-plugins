@@ -125,7 +125,7 @@ class Rate_My_Post_Admin
         $content .= '<p>';
         $content .= sprintf(
             esc_html__('If you are enjoying FeedbackWP and find it useful, please consider leaving a ★★★★★ review on WordPress.org. %sLeave a Review%s', 'rate-my-post'),
-            '<a class="feedbackwp-link" href="' . $review_url . '">', $link_icon . '</a>'
+            '<a target="_blank" class="feedbackwp-link" href="' . $review_url . '">', $link_icon . '</a>'
         );
         $content .= '</p>';
 
@@ -1242,7 +1242,7 @@ class Rate_My_Post_Admin
     // returns an array of feedback for the post
     public static function feedbacks($post_id = false)
     {
-        $post_id = $post_id ?? get_the_id();
+        $post_id = $post_id ?: get_the_id();
 
         // get feedback before version 2.7.0
         $legacy_feedback = get_post_meta($post_id, 'rmp_feedback_val', true);

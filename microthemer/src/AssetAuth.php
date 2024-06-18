@@ -212,9 +212,18 @@ class AssetAuth extends AssetLoad {
 
 		if ( is_user_logged_in() || isset($_GET['mt_nonlog']) ) {
 
+			global $wp_version;
 			$p = &$this->preferences;
             $min = !TVR_DEV_MODE ? '-min' : '/mod';
-			global $wp_version;
+			$asset_loading = !empty($p[$this->assetLoadingKey])
+				? $p[$this->assetLoadingKey]
+				: array();
+
+			// ensure that folderLoading config has been set
+			// it won't be if stylesheet_order has a value
+			if (!$this->folderLoadingChecked && isset($asset_loading['logic']) && count($asset_loading['logic'])){
+				$this->conditionalAssets($asset_loading['logic'], true);
+			}
 
             // Get the folder loading status of any draft folder too
 			$eligibleForLoading = !$this->isAdminArea || $this->supportAdminAssets();
@@ -593,10 +602,12 @@ class AssetAuth extends AssetLoad {
 		return isset($_GET['test_logic']);
 	}
 
-	function doLogicTest($folders, $logic){
+	function doLogicTest($folders, $logic, $forceAll = false){
 
-		$testFolder = $_GET['test_logic'];
-		$testAll = isset($_GET['test_all']);
+		$testFolder = isset($_GET['test_logic'])
+			? $_GET['test_logic']
+			: null;
+		$testAll = isset($_GET['test_all']) || $forceAll;
 		$getStylesheets = isset($_GET['get_simple_stylesheets']);
 		$stylesheets = '';
 		$getFrontData = isset($_GET['get_front_data']);
@@ -692,8 +703,10 @@ class AssetAuth extends AssetLoad {
 		//wp_die('Test all <pre>' . print_r($this->folderLoading, 1) . '</pre>');
 		//echo 'Helper::$debugOutput <pre>' . Helper::$debugOutput . '</pre>';
 
-		// return test folder result
-		$this->testResultResponse($dataToReturn);
+		// return test folder result - unless we are just running this to set folderLoading
+		if (!$forceAll){
+			$this->testResultResponse($dataToReturn);
+		}
 
 	}
 

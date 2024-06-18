@@ -2408,7 +2408,7 @@ $ays_users_roles = $wp_roles->roles;
                     </div>
                 </div>
                 <!-- Hide close button end -->
-                <hr class=" ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>">
+                <hr class="ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>">
                 <!-- Show close button by hovering over the popup start -->
                 <div class="form-group row ays_pb_close_bttn_option <?php echo $close_button == 'on' ? 'display_none' : ''; ?>" id="ays_pb_close_hover">
                     <div class="col-sm-3">

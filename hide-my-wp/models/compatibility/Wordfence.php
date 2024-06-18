@@ -4,7 +4,6 @@
  *
  * @file The Wordfence Model file
  * @package HMWP/Compatibility/Wordfence
- * @since 7.0.0
  */
 
 defined('ABSPATH') || die('Cheatin\' uh?');
@@ -48,6 +47,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
         //when cron is call
         add_action('wf_scan_monitor', array($this, 'witelistWordfence'));
         add_action('wordfence_start_scheduled_scan', array($this, 'witelistWordfence'));
+
     }
 
     /**
@@ -64,10 +64,12 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
         }
 
         $table = $wpdb->base_prefix . 'wfconfig';
-        if ($option = $wpdb->get_row($wpdb->prepare("SELECT name, val, autoload FROM {$table} WHERE name = %s", $key))) {
-            if(isset($option->val)){
-                self::$config[$key] = $option->val;
-                return $option->val;
+        if($wpdb->get_col($wpdb->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=%s',$table))){
+            if ($option = $wpdb->get_row($wpdb->prepare("SELECT name, val, autoload FROM {$table} WHERE name = %s", $key))) {
+                if(isset($option->val)){
+                    self::$config[$key] = $option->val;
+                    return $option->val;
+                }
             }
         }
 
@@ -83,10 +85,10 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
      */
     public function checkWordfenceScan($status) {
 
-        $action = HMWP_Classes_Tools::getValue('action');
-
         if($this->wfConfig('wf_scanRunning') || $this->wfConfig('scanStartAttempt')){
-            if(in_array($action, array('wordfence_testAjax', 'wordfence_doScan', 'record_scan_metrics'))){
+            $action = HMWP_Classes_Tools::getValue('action');
+
+            if(in_array($action, array('wordfence_testAjax', 'wordfence_doScan','record_scan_metrics'))){
                 $status = false;
             }
 
@@ -105,4 +107,6 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
     public function witelistWordfence() {
         set_transient('hmwp_disable_hide_urls', 1, 10);
     }
+
+
 }

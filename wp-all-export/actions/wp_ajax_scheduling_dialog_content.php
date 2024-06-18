@@ -853,7 +853,7 @@ function pmxe_wp_ajax_scheduling_dialog_content()
                                 </a>
                             </div>
                             <div class="text-container" style="position: absolute; left: 150px; top: 2px;">
-                                <p><?php esc_html_e('Get automatic scheduling for unlimited sites, just $9/mo.'); ?></p>
+                                <p><?php esc_html_e('Get automatic scheduling for unlimited sites, just $19/mo.'); ?></p>
                                 <p><?php esc_html_e('Have a license?'); ?>
                                     <a href="#"
                                        id="add-subscription"><?php esc_html_e('Register this site.'); ?></a> <?php esc_html_e('Questions?'); ?>

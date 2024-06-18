@@ -412,35 +412,52 @@
 				});
 
 				// CSS Editor
-				if( 'codeEditor' in wp)
-				{
-					var cssEditorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {},
-						editor;
-					cssEditorSettings.codemirror = _.extend(
-						{},
-						cssEditorSettings.codemirror,
+				$('.cff-form-settings-tabs-headers .cff-field-settings-tab-header-advanced').on('click', function(){
+					setTimeout(function(){
+						if( 'codeEditor' in wp)
 						{
-							indentUnit: 2,
-							tabSize: 2,
-							mode: 'css'
-						}
-					);
-					editor = wp.codeEditor.initialize( $('#fCustomStyles'), cssEditorSettings );
-					editor.codemirror.on('change', function(cm){ $('#fCustomStyles').val(cm.getValue()).trigger('change');});
-					editor.codemirror.on('keydown', function(cm, evt){
-						if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
-							evt.stopPropagation();
-						}
-					});
+							var cssEditorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {},
+								editor;
+							cssEditorSettings.codemirror = _.extend(
+								{},
+								cssEditorSettings.codemirror,
+								{
+									indentUnit: 2,
+									tabSize: 2,
+									mode: 'css'
+								}
+							);
+							editor = wp.codeEditor.initialize( $('#fCustomStyles'), cssEditorSettings );
+							editor.codemirror.on('change', function(cm){ $('#fCustomStyles').val(cm.getValue()).trigger('change');});
+							editor.codemirror.on('keydown', function(cm, evt){
+								if ( 'Escape' == evt.key && $('.CodeMirror-hint').length ) {
+									evt.stopPropagation();
+								}
+							});
 
-					$('.cff-editor-extend-shrink').on('click', function(){
-						let e = $(this).closest('.cff-editor-container'),
-							c = e.closest('.ctrlsColumn');
-						e.toggleClass('fullscreen');
-						if(e.hasClass('fullscreen')) c.css('z-index', 99991);
-						else c.css('z-index', 999);
-					});
-				}
+							$('.cff-editor-extend-shrink').on('click', function(){
+								let e = $(this).closest('.cff-editor-container'),
+									c = e.closest('.ctrlsColumn');
+								e.toggleClass('fullscreen');
+								if(e.hasClass('fullscreen')) c.css('z-index', 99991);
+								else c.css('z-index', 999);
+							});
+						}
+					}, 300);
+				});
+
+				// Advanced section
+				$(document).off("keyup", '[name^="advanced[css]"]');
+				$(document).on("keyup", '[name^="advanced[css]"]', function(e) {
+					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
+					$.fbuilder.reloadItems({'form':1});
+				});
+				$(document).off('click', '.cff-css-rule-delete');
+				$(document).on('click', '.cff-css-rule-delete', function(e) {
+					$(this).closest('.css-rule').remove();
+					$.fbuilder['updateAdvancedSettings'](theForm, $(this).attr('data-cff-css-component'));
+					$.fbuilder.reloadItems({'form':1});
+				});
 			};
 
 		$.fbuilder[ 'defineGeneralEvents' ] = function()
@@ -741,6 +758,14 @@
                 animate_form:0,
                 animation_effect:'fade',
 				customstyles:"",
+				advanced: { css : {} },
+				initAdv: function(){
+					if ( ! ( 'title' in this.advanced.css ) ) this.advanced.css.title = {label: 'Form title',rules:{}};
+					if ( ! ( 'description' in this.advanced.css ) ) this.advanced.css.description = {label: 'Form description',rules:{}};
+					if ( ! ( 'form' in this.advanced.css ) ) this.advanced.css.form = {label: 'Form area',rules:{}};
+					if ( ! ( 'buttons' in this.advanced.css ) ) this.advanced.css.buttons = {label: 'Form context buttons (Next page, Previous page, Submit)',rules:{}};
+					if ( ! ( 'buttons_hover' in this.advanced.css ) ) this.advanced.css.buttons_hover = {label: 'Form context buttons hover',rules:{}};
+				},
 				display:function()
 				{
 					let css = '', empty_class = '', title = this.title, description = this.description;
@@ -763,6 +788,8 @@
 						description = '',
 						selected    = '',
 						str 		= '';
+
+					me.initAdv();
 
 					for ( var i = 0; i< $.fbuilder.showSettings.formlayoutList.length; i++ )
 					{
@@ -790,6 +817,14 @@
 						template += '<option value="'+cff_esc_attr($.fbuilder.showSettings.formTemplateDic[i].prefix)+'" ' + selected + '>'+cff_esc_attr($.fbuilder.showSettings.formTemplateDic[i].title)+'</option>';
 					}
 
+					str = '<div class="cff-field-settings-tabs-headers cff-form-settings-tabs-headers">'+
+						'<div class="cff-field-settings-tab-header-basic cff-field-settings-tab-active">Basic Settings</div>'+
+						'<div class="cff-field-settings-tab-header-advanced">Advanced Settings</div>'+
+						'<div class="cff-field-settings-tabs-border"></div>'+
+					'</div>'+
+					'<div class="cff-field-settings-tabs-bodies">'+
+						'<div class="cff-field-settings-tab-body-basic cff-field-settings-tab-body-active">';
+
 					str += '<div><label>Form Category</label><input type="text" class="large" name="calculated-fields-form-category-mirror" id="calculated-fields-form-category-mirror" value="'+cff_esc_attr( $('[name="calculated-fields-form-category"]').val() )+'" list="calculated-fields-form-categories" /></div>'+
 					'<div><label>Form Name</label><input type="text" class="large" name="fTitle" id="fTitle" value="'+cff_esc_attr(me.title)+'" /></div>'+
 					'<div><label>Form Name Tag</label><select class="large" id="fTitleTag" name="fTitleTag">'+
@@ -804,7 +839,7 @@
 					'<label><input type="radio" name="fTextAlign" value="center" '+(me.textalign == 'center' ? 'checked' : '')+'><span>Center</span></label>'+
 					'<label><input type="radio" name="fTextAlign" value="right" '+(me.textalign == 'right' ? 'checked' : '')+'><span>Right</span></label></div></div>'+
 
-					'<div style="margin-top:10px;"><label style="display:inline-block;">Text Color</label> <input type="color" id="fHeaderColor" name="fHeaderColor" value="'+me.headertextcolor+'"></div>'+
+					'<div style="margin-top:10px;"><label style="display:inline-block;">Text Color</label> <input type="color" id="fHeaderColor" name="fHeaderColor" '+( me.headertextcolor !== '' ?  'value="'+cff_esc_attr( me.headertextcolor )+'"' : '')+'></div>'+
 					/* General Settings */
 					'<hr style="margin-top:10px;" />'+
 					'<h3>Form Settings</h3>'+
@@ -827,8 +862,14 @@
                     '<div><label>Animation effect</label><select name="fAnimationEffect" id="fAnimationEffect" class="large">'+
 					'<option value="fade" '+( (me.animation_effect == 'fade') ? 'SELECTED' : '' )+'>Fade</option>'+
 					'<option value="slide" '+( (me.animation_effect == 'slide') ? 'SELECTED' : '' )+'>Slide</option>'+
-					'</select></div>'+
-                    '<div class="cff-editor-container"><label><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>' ;
+					'</select></div>';
+
+					str += '<!-- Embed Basic Extra --></div>'+
+						'<div class="cff-field-settings-tab-body-advanced">' +
+						$.fbuilder['showAdvancedSettings']( this ) +
+						'<div class="cff-editor-container"><label><div class="cff-editor-extend-shrink" title="Fullscreen"></div>Customize Form Design <i>(Enter the CSS rules. <a href="http://cff.dwbooster.com/faq#q82" target="_blank">More information</a>)</i></label><textarea id="fCustomStyles" style="width:100%;height:150px;">'+cff_esc_attr(me.customstyles)+'</textarea></div>'+
+						'</div>'+
+					'</div>';
 
 					return str;
 				}
@@ -1183,6 +1224,83 @@
 		}
 	};
 
+	$.fbuilder['showAdvancedSettings'] = function( arg ) {
+		function css_rules_datalist() {
+			let css_rules = ['align-content', 'align-items', 'align-self', 'all', 'animation', 'animation-delay', 'animation-direction', 'animation-duration', 'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state', 'animation-timing-function', 'backface-visibility', 'background', 'background-attachment', 'background-blend-mode', 'background-clip', 'background-color', 'background-image', 'background-origin', 'background-position', 'background-repeat', 'background-size', 'border', 'border-bottom', 'border-bottom-color', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-image', 'border-image-outset', 'border-image-repeat', 'border-image-slice', 'border-image-source', 'border-image-width', 'border-left', 'border-left-color', 'border-left-style', 'border-left-width', 'border-radius', 'border-right', 'border-right-color', 'border-right-style', 'border-right-width', 'border-spacing', 'border-style', 'border-top', 'border-top-color', 'border-top-left-radius', 'border-top-right-radius', 'border-top-style', 'border-top-width', 'border-width', 'bottom', 'box-shadow', 'box-sizing', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color', 'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-rule-color', 'column-rule-style', 'column-rule-width', 'column-span', 'column-width', 'columns', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction', 'display', 'empty-cells', 'filter', 'flex', 'flex-basis', 'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font', 'font-family', 'font-kerning', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'grid', 'grid-area', 'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-column-end', 'grid-column-gap', 'grid-column-start', 'grid-gap', 'grid-row', 'grid-row-end', 'grid-row-gap', 'grid-row-start', 'grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows', 'height', 'hyphens', 'justify-content', 'left', 'letter-spacing', 'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'max-height', 'max-width', 'min-height', 'min-width', 'object-fit', 'object-position', 'opacity', 'order', 'outline', 'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow', 'overflow-x', 'overflow-y', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'page-break-after', 'page-break-before', 'page-break-inside', 'perspective', 'perspective-origin', 'pointer-events', 'position', 'quotes', 'right', 'scroll-behavior', 'table-layout', 'text-align', 'text-align-last', 'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style', 'text-indent', 'text-justify', 'text-overflow', 'text-shadow', 'text-transform', 'top', 'transform', 'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration', 'transition-property', 'transition-timing-function', 'user-select', 'vertical-align', 'visibility', 'white-space', 'width', 'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index'],
+			output = '<datalist id="cff-css-rules-datalist">';
+
+			for ( let i in css_rules )
+				output += '<option value="'+cff_esc_attr( css_rules[i] )+'"></option>';
+			output += '</datalist>';
+			return output;
+		};
+
+		fbuilderjQuery.fbuilder['css_rule_pair'] = function( component, rule, value ) {
+			let output = '';
+			rule  = rule  || '';
+			value = value || '';
+
+			output += '<div class="css-rule" style="margin-bottom:5px;">'+
+				'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist"></div>'+
+				'<div class="column width50">'+
+				'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:calc( 100% - 30px ) !important;">'+
+				'<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">'+
+				'</div>'+
+				'<div class="clearer"></div>'+
+				'</div>';
+
+			return output;
+		};
+
+		let output = '';
+		if( 'advanced' in arg ) {
+			if ( 'css' in arg.advanced ) {
+				output += css_rules_datalist();
+
+				if ( 'ftype' in arg ) {
+					// Top Message fields
+					output += '<p style="font-style:italic;">You can customize the appearance of a field\'s components by adding CSS rules. If you require more control over the field\'s styles, you can assign a class name to the field through the <a href="javascript:fbuilderjQuery(\'.cff-field-settings-tab-header-basic\').click();fbuilderjQuery(\'#sCsslayout\').focus();">"Add CSS Layout Keywords"</a> attribute in the "Basic Settings" tab and define it using the "Customize Form Design" attribute in the "Form Settings &gt; Advanced Settings" tab.</p>';
+				} else {
+					// Top Message form
+				output += '<p style="font-style:italic;">CSS rules are made to the form preview and public website. To input CSS blocks directly, scroll to the <a href="javascript:void(0);" onclick="document.getElementsByClassName(\'cff-editor-container\')[0].scrollIntoView({behavior:\'smooth\', block: \'end\'});">"<span style="font-weight:bold;">Customize Form Design</span>" attribute</a> <span style="font-style:normal; font-weight:bold; font-size:1.3em;">&ShortDownArrow;</span></p>';
+				}
+
+				let components = arg.advanced.css,
+					c;
+				for ( let i in components ) {
+					c = components[i];
+					if ( 'label' in c ) {
+						output += '<label>' + c['label'] + '</label>';
+					}
+					output += '<hr><div id="cff-css-rules-container-'+i+'">';
+					if ( 'rules' in c ) {
+						for ( let j in c['rules'] ) {
+							output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j] );
+						}
+					}
+					output += fbuilderjQuery.fbuilder['css_rule_pair']( i );
+					output += '</div>';
+					output += '<div style="text-align:right;"><input type="button" class="button-secondary" value="Add rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-'+i+'\').append(fbuilderjQuery.fbuilder.css_rule_pair(\''+i+'\'));"></div>';
+				}
+			}
+		}
+		return output;
+	};
+
+	$.fbuilder['updateAdvancedSettings'] = function( e, c ) {
+		let css = e.advanced.css;
+
+		css[c]['rules'] = {};
+		$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, e){
+			let css_rule = cff_sanitize( String(this.value).trim() ), v;
+			if ( css_rule == '' ) return;
+			v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() ).trim();
+			v = cff_sanitize( v.replace(/[\{\}]/g, '') );
+			css[c]['rules'][css_rule] = v;
+		});
+		e.advanced.css = css;
+	};
+
 	$.fbuilder.controls[ 'ffields' ] = function(){};
 	$.extend( $.fbuilder.controls[ 'ffields' ].prototype,
 		{
@@ -1370,29 +1488,16 @@
 					});
 
 				// Advanced section
-				function update_css_rules(e, c) {
-					let css = e.advanced.css;
-
-					css[c]['rules'] = {};
-					$('[data-cff-css-component="'+c+'"][name^="advanced[css][css_rule]"]').each( function(i, e){
-						let css_rule = cff_sanitize( String(this.value).trim() ), v;
-						if ( css_rule == '' ) return;
-						v = String( $('[data-cff-css-component="'+c+'"][name^="advanced[css][css_value]"]:eq('+i+')').val() ).trim();
-						v = cff_sanitize( v.replace(/[\{\}]/g, '') );
-						css[c]['rules'][css_rule] = v;
-					});
-					e.advanced.css = css;
-					$.fbuilder.reloadItems({'field':e});
-				};
-
 				$(document).off("keyup", '[name^="advanced[css]"]');
 				$(document).on("keyup", '[name^="advanced[css]"]', {obj: this}, function(e) {
-					update_css_rules(e.data.obj, $(this).attr('data-cff-css-component'));
+					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
+					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
 				$(document).off('click', '.cff-css-rule-delete');
 				$(document).on('click', '.cff-css-rule-delete', {obj: this}, function(e) {
 					$(this).closest('.css-rule').remove();
-					update_css_rules(e.data.obj, $(this).attr('data-cff-css-component'));
+					$.fbuilder['updateAdvancedSettings'](e.data.obj, $(this).attr('data-cff-css-component'));
+					$.fbuilder.reloadItems({'field':e.data.obj});
 				});
 			},
 
@@ -1531,59 +1636,9 @@
 
 			showAdvancedSettings:function()
 			{
-				function css_rules_datalist() {
-					let css_rules = ['align-content', 'align-items', 'align-self', 'all', 'animation', 'animation-delay', 'animation-direction', 'animation-duration', 'animation-fill-mode', 'animation-iteration-count', 'animation-name', 'animation-play-state', 'animation-timing-function', 'backface-visibility', 'background', 'background-attachment', 'background-blend-mode', 'background-clip', 'background-color', 'background-image', 'background-origin', 'background-position', 'background-repeat', 'background-size', 'border', 'border-bottom', 'border-bottom-color', 'border-bottom-left-radius', 'border-bottom-right-radius', 'border-bottom-style', 'border-bottom-width', 'border-collapse', 'border-color', 'border-image', 'border-image-outset', 'border-image-repeat', 'border-image-slice', 'border-image-source', 'border-image-width', 'border-left', 'border-left-color', 'border-left-style', 'border-left-width', 'border-radius', 'border-right', 'border-right-color', 'border-right-style', 'border-right-width', 'border-spacing', 'border-style', 'border-top', 'border-top-color', 'border-top-left-radius', 'border-top-right-radius', 'border-top-style', 'border-top-width', 'border-width', 'bottom', 'box-shadow', 'box-sizing', 'caption-side', 'caret-color', 'clear', 'clip', 'clip-path', 'color', 'column-count', 'column-fill', 'column-gap', 'column-rule', 'column-rule-color', 'column-rule-style', 'column-rule-width', 'column-span', 'column-width', 'columns', 'content', 'counter-increment', 'counter-reset', 'cursor', 'direction', 'display', 'empty-cells', 'filter', 'flex', 'flex-basis', 'flex-direction', 'flex-flow', 'flex-grow', 'flex-shrink', 'flex-wrap', 'float', 'font', 'font-family', 'font-kerning', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'grid', 'grid-area', 'grid-auto-columns', 'grid-auto-flow', 'grid-auto-rows', 'grid-column', 'grid-column-end', 'grid-column-gap', 'grid-column-start', 'grid-gap', 'grid-row', 'grid-row-end', 'grid-row-gap', 'grid-row-start', 'grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows', 'height', 'hyphens', 'justify-content', 'left', 'letter-spacing', 'line-height', 'list-style', 'list-style-image', 'list-style-position', 'list-style-type', 'margin', 'margin-bottom', 'margin-left', 'margin-right', 'margin-top', 'max-height', 'max-width', 'min-height', 'min-width', 'object-fit', 'object-position', 'opacity', 'order', 'outline', 'outline-color', 'outline-offset', 'outline-style', 'outline-width', 'overflow', 'overflow-x', 'overflow-y', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'page-break-after', 'page-break-before', 'page-break-inside', 'perspective', 'perspective-origin', 'pointer-events', 'position', 'quotes', 'right', 'scroll-behavior', 'table-layout', 'text-align', 'text-align-last', 'text-decoration', 'text-decoration-color', 'text-decoration-line', 'text-decoration-style', 'text-indent', 'text-justify', 'text-overflow', 'text-shadow', 'text-transform', 'top', 'transform', 'transform-origin', 'transform-style', 'transition', 'transition-delay', 'transition-duration', 'transition-property', 'transition-timing-function', 'user-select', 'vertical-align', 'visibility', 'white-space', 'width', 'word-break', 'word-spacing', 'word-wrap', 'writing-mode', 'z-index'],
-						output = '<datalist id="cff-css-rules-datalist">';
-					for ( let i in css_rules )
-						output += '<option value="'+cff_esc_attr( css_rules[i] )+'"></option>';
-					output += '</datalist>';
-					return output;
-				};
-
-				fbuilderjQuery.fbuilder['css_rule_pair'] = function( component, rule, value ) {
-					let output = '';
-					rule  = rule  || '';
-					value = value || '';
-
-					output += '<div class="css-rule" style="margin-bottom:5px;">'+
-						'<div class="column width50"><input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_rule][]" value="'+cff_esc_attr(rule)+'" class="large" placeholder="CSS rule" list="cff-css-rules-datalist"></div>'+
-						'<div class="column width50">'+
-						'<input type="text" data-cff-css-component="'+cff_esc_attr(component)+'" name="advanced[css][css_value][]" value="'+cff_esc_attr(value)+'" placeholder="CSS value" style="width:calc( 100% - 30px ) !important;">'+
-						'<input type="button" data-cff-css-component="'+cff_esc_attr(component)+'" value="-" class="button-secondary cff-css-rule-delete">'+
-						'</div>'+
-						'<div class="clearer"></div>'+
-						'</div>';
-
-					return output;
-				};
-
-				let output = '';
-				if( 'advanced' in this ) {
-					if ( 'css' in this.advanced ) {
-						output += css_rules_datalist();
-						// Top Message
-						output += '<p style="font-style:italic;">You can customize the appearance of a field\'s components by adding CSS rules. If you require more control over the field\'s styles, you can assign a class name to the field through the <a href="javascript:fbuilderjQuery(\'.cff-field-settings-tab-header-basic\').click();fbuilderjQuery(\'#sCsslayout\').focus();">"Add CSS Layout Keywords"</a> attribute in the "Basic Settings" tab and define it using the "Customize Form Design" attribute in the "Form Settings" tab.</p>';
-						let components = this.advanced.css,
-							c;
-						for ( let i in components ) {
-							c = components[i];
-							if ( 'label' in c ) {
-								output += '<label>' + c['label'] + '</label>';
-							}
-							output += '<hr><div id="cff-css-rules-container-'+i+'">';
-							if ( 'rules' in c ) {
-								for ( let j in c['rules'] ) {
-									output += fbuilderjQuery.fbuilder['css_rule_pair']( i, j, c['rules'][j] );
-								}
-							}
-							output += fbuilderjQuery.fbuilder['css_rule_pair']( i );
-							output += '</div>';
-						output += '<div style="text-align:right;"><input type="button" class="button-secondary" value="Add rule" onclick="fbuilderjQuery(\'#cff-css-rules-container-'+i+'\').append(fbuilderjQuery.fbuilder.css_rule_pair(\''+i+'\'));"></div>';
-						}
-					}
-				}
-				return output;
+				return $.fbuilder['showAdvancedSettings'](this);
 			},
+
 			fieldSettingsTabs:function( basic )
 			{
 				this.initAdv();

@@ -1,10 +1,10 @@
 === WP Chat App ===
 Contributors: ninjateam
 Donate link: https://1.envato.market/WP-WhatsApp
-Tags: whatsapp, whatsapp chat, woocommerce whatsapp, click to chat, whatsapp business, whats app, wame, wp social chat, join chat, wp whatsapp
+Tags: whatsapp, whatsapp chat, woocommerce whatsapp, click to chat, whatsapp business
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 3.6.6
+Stable tag: 3.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ Definitely yes! The pro version comes with cutting-edge features and performance
 3. WhatsApp Gutenberg Block Demo
 
 == Changelog ==
+
+= Jun 18, 2024 – Version 3.6.7 =
+- Improved: Button style conflicting with theme
+- Fixed: Background button
 
 = Jun 3, 2024 – Version 3.6.6 =
 - Improved: Web accessibility (using Tab and Shift + Tab to navigate the chat modal)

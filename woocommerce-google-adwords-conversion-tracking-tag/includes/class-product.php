@@ -168,12 +168,12 @@ class Product {
 				$product_details['parent_id_dyn_r_ids'] = self::get_dyn_r_ids($parent_product);
 				$product_details['parent_id']           = $parent_product->get_id();
 				$product_details['brand']               = self::get_brand_name($parent_product->get_id());
+				$product_details['category']            = self::get_product_category($product->get_parent_id());
 			} else {
 				Logger::debug('Variation ' . $product->get_id() . ' doesn\'t link to a valid parent product.');
 			}
 
 			$product_details['variant']      = self::get_formatted_variant_text($product);
-			$product_details['category']     = self::get_product_category($product->get_parent_id());
 			$product_details['is_variation'] = true;
 		} else { // It's not a variation, so get the fields for a regular product
 
@@ -380,7 +380,7 @@ class Product {
 
 		?>
 		<script<?php echo wp_kses(Helpers::get_opening_script_string(), Helpers::get_script_string_allowed_html()); ?>>
-			(window.wpmDataLayer = window.wpmDataLayer || {}).products             = window.wpmDataLayer.products || {}
+			(window.wpmDataLayer = window.wpmDataLayer || {}).products             = window.wpmDataLayer.products || {};
 			window.wpmDataLayer.products[<?php esc_html_e($product->get_id()); ?>] = <?php echo wp_json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;
 			<?php $set_position ? self::get_product_data_layer_script_html_part_2($product) : ''; ?>
 		</script>

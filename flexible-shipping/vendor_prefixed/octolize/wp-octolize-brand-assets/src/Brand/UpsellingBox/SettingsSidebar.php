@@ -48,8 +48,12 @@ class SettingsSidebar implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
     /**
      * @var string
      */
+    private string $additional_content;
+    /**
+     * @var string
+     */
     private $align_top_to_element;
-    public function __construct($action, \FSVendor\WPDesk\ShowDecision\ShouldShowStrategy $should_show_strategy, $title, array $features, $url, $label, $min_width = 1000, $position_right = 20, $align_top_to_element = '#mainform h2:first')
+    public function __construct($action, \FSVendor\WPDesk\ShowDecision\ShouldShowStrategy $should_show_strategy, $title, array $features, $url, $label, $min_width = 1000, $position_right = 20, $align_top_to_element = '#mainform h2:first', $additional_content = '')
     {
         $this->action = $action;
         $this->should_show_strategy = $should_show_strategy;
@@ -60,6 +64,7 @@ class SettingsSidebar implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
         $this->min_width = $min_width;
         $this->position_right = $position_right;
         $this->align_top_to_element = $align_top_to_element;
+        $this->additional_content = $additional_content;
     }
     /**
      * Hooks.
@@ -67,6 +72,10 @@ class SettingsSidebar implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
     public function hooks() : void
     {
         \add_action($this->action, [$this, 'maybe_display_settings_sidebar']);
+    }
+    public function set_additional_content(string $additional_content) : void
+    {
+        $this->additional_content = $additional_content;
     }
     /**
      * Maybe display settings sidebar.
@@ -81,6 +90,7 @@ class SettingsSidebar implements \FSVendor\WPDesk\PluginBuilder\Plugin\Hookable
             $min_width = $this->min_width;
             $position_right = $this->position_right;
             $align_top_to_element = $this->align_top_to_element;
+            $additional_content = $this->additional_content;
             include __DIR__ . '/view/settings-sidebar-html.php';
         }
     }

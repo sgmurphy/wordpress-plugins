@@ -183,6 +183,11 @@ cff_forms_templates = {
             "category": "Data Sources",
             "description": "Gets the registered user information from the database using DS fields.",
             "id": 18
+        }, {
+            "title": "Filtering WooCommerce Products",
+            "category": "WooCommerce",
+            "description": "The form filters WooCommerce products based on search terms.",
+            "id": 37
         }
     ],
     "plat": [

@@ -839,7 +839,7 @@ $options = \PMXE_Plugin::getInstance()->getOption();
                                     </a>
                                 </div>
                                 <div class="text-container" style="position: absolute; left: 150px; top: 2px;">
-                                    <p><?php esc_html_e('Get automatic scheduling for unlimited sites, just $9/mo.', PMXE_Plugin::LANGUAGE_DOMAIN); ?></p>
+                                    <p><?php esc_html_e('Get automatic scheduling for unlimited sites, just $19/mo.', PMXE_Plugin::LANGUAGE_DOMAIN); ?></p>
                                     <p><?php esc_html_e('Have a license?', PMXE_Plugin::LANGUAGE_DOMAIN); ?>
                                         <a href="#" id="add-subscription"><?php esc_html_e('Register this site.'); ?></a> <?php esc_html_e('Questions?', PMXE_Plugin::LANGUAGE_DOMAIN); ?> <a href="#" class="help_scheduling">Read more.</a></p>
                                     <input type="password" id="add-subscription-field" style="position: absolute; z-index: 2; font-size: 14px;" placeholder="<?php esc_html_e('Enter your license', PMXE_Plugin::LANGUAGE_DOMAIN); ?>"/>

@@ -451,7 +451,8 @@ textarea {resize: none}
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-active{
 	display:block;
 }
-.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced *{
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced>*:not(.cff-editor-container),
+.cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced>*:not(.cff-editor-container) *{
 	margin-bottom:0 !important;
 }
 .cff-field-settings-tabs-bodies .cff-field-settings-tab-body-advanced input{

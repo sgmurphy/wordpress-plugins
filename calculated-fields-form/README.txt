@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.14
+Stable tag: 5.2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -452,6 +452,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.15 =
+
+* Fixes an issue processing the notification email attachments in the free plugin distribution.
+* Modifies the Form Settings tab, making it easier to customize the form design.
+* Moves the Customize Form Design CSS editor to the Advanced Settings tab in the form settings.
+* Implements new forms template.
+* Modifies the data sources fields (Developer and Platinum plugin versions).
+
 = 5.2.14 =
 
 * Include the internationalization WordPress function in some missed texts.
@@ -481,11 +489,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.
 * Modifies the CFF - WooCommerce add-on to preserve the summary format in the WooCommerce cart when it uses the new Gutenberg block for the WooCommerce cart (Developer and Platinum plugin versions).
-
-= 5.2.9 =
-
-* Allows access to the form settings sections from the form builder in fullscreen mode.
-* Fixes an issue with the radio buttons and checkbox designs in the predefined template 8.
-* Reimplements the SCIENTIFICTODECIMAL operation in the Mathematical Operations module.
-* Modifies the field dependencies modules to trigger two events: add-ignore and remove-ignore when the dependencies activate or activate the fields.
-* The CFF - WooCommerce add-on implements the get_product_price_with_tax operation to apply the WooCommerce tax to the calculated prices (Developer and Platinum plugin versions).

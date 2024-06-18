@@ -565,25 +565,26 @@ function doLightBox(){
 	};
 	jQuery('a[rel^="lightbox"]').lightbox({
 		adminBarHeight: jQuery('#wpadminbar').height() || 0,
-		showNumbers: (haveConf && JQLBSettings.showNumbers == '0') ? false : true,
-		showCaption: (haveConf && JQLBSettings.showCaption == '0') ? false : true,
-		showTitle: (haveConf && JQLBSettings.showTitle == '0') ? false : true,
-		useAltForTitle: (haveConf && JQLBSettings.useAltForTitle == '0') ? false : true,
+		showNumbers: (haveConf && JQLBSettings.showNumbers == '1') ? true : false,
+		showCaption: (haveConf && JQLBSettings.showCaption == '1') ? true : false,
+		showTitle: (haveConf && JQLBSettings.showTitle == '1') ? true : false,
+		useAltForTitle: (haveConf && JQLBSettings.useAltForTitle == '1') ? true : false,
 		marginSize: (haveConf && ms) ? ms : 0,
 		fitToScreen: (haveConf && JQLBSettings.fitToScreen == '1') ? true : false,
 		resizeSpeed: (haveConf && rs >= 0) ? rs : 400,
 		slidehowSpeed: (haveConf && ss >= 0) ? ss : 4000,
-		showDownload: (haveConf && JQLBSettings.showDownload == '0') ? false : true,
-		navbarOnTop: (haveConf && JQLBSettings.navbarOnTop == '0') ? false : true,		
+		showDownload: (haveConf && JQLBSettings.showDownload == '1') ? true : false,
+		navbarOnTop: (haveConf && JQLBSettings.navbarOnTop == '1') ? true : false,		
 		strings: (haveConf && typeof JQLBSettings.prevLinkTitle == 'string') ? JQLBSettings : default_strings,
 		borderSize: (haveConf && JQLBSettings?.borderSize ? JQLBSettings?.borderSize : 10),
 		borderColor: (haveConf && JQLBSettings?.borderColor ),
 		overlayColor: (haveConf && JQLBSettings?.overlayColor ),
 		overlayOpacity: (haveConf && JQLBSettings?.overlayOpacity ),
-		newNavStyle: (haveConf && JQLBSettings?.newNavStyle == '0' ? false : true ),
-		fixedNav: (haveConf && JQLBSettings?.fixedNav == '0' ? false : true ),
+		newNavStyle: (haveConf && JQLBSettings?.newNavStyle == '1' ? true : false ),
+		fixedNav: (haveConf && JQLBSettings?.fixedNav == '1' ? true : false ),
 		navArrowColor: (haveConf && JQLBSettings?.navArrowColor ),
 		navBackgroundColor: (haveConf && JQLBSettings?.navBackgroundColor ),
-		showInfoBar: (haveConf && JQLBSettings?.showInfoBar == 0 ? false : true )
-	});	
+		showInfoBar: (haveConf && JQLBSettings?.showInfoBar == '1' ? true : false )
+	});
 }
+

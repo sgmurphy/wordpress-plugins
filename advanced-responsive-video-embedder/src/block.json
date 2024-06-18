@@ -1,6 +1,6 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
+    "apiVersion": 3,
     "name": "nextgenthemes/arve-block",
     "title": "Video Embed (ARVE)",
     "category": "embed",
@@ -13,7 +13,7 @@
         "vimeo",
         "odysee"
     ],
-    "version": "10.2.0",
+    "version": "10.2.2",
     "textdomain": "advanced-responsive-video-embedder",
     "supports": {
         "align": [

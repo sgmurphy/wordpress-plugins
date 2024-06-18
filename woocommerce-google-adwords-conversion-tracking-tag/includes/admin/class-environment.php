@@ -440,6 +440,10 @@ class Environment {
 		return is_plugin_active('gtranslate/gtranslate.php');
 	}
 
+	public static function is_google_site_kit_active() {
+		return is_plugin_active('google-site-kit/google-site-kit.php');
+	}
+
 	public static function is_wp_rocket_active() {
 		return is_plugin_active('wp-rocket/wp-rocket.php');
 	}
@@ -1195,6 +1199,24 @@ class Environment {
 //					}
 //				}
 			});
+		}
+
+		/**
+		 * If Google Site Kit is active, we need to disable the ads and analytics tags.
+		 * 
+		 * Source: https://github.com/google/site-kit-wp/blob/774ea23c2471170c96898f11c1909dedf6bc5db3/includes/Core/Modules/Tags/Module_Web_Tag.php#L31
+		 */
+		if (self::is_google_site_kit_active()) {
+
+			// https://github.com/google/site-kit-wp/blob/774ea23c2471170c96898f11c1909dedf6bc5db3/includes/Modules/Analytics_4.php#L122
+			if (Options::is_google_analytics_active()) {
+				add_filter('googlesitekit_analytics-4_tag_blocked', '__return_true');
+			}
+
+			// https://github.com/google/site-kit-wp/blob/774ea23c2471170c96898f11c1909dedf6bc5db3/includes/Modules/Ads.php#L60
+			if (Options::is_google_ads_active()) {
+				add_filter('googlesitekit_ads_tag_blocked', '__return_true');
+			}
 		}
 	}
 

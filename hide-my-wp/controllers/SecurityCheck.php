@@ -618,7 +618,11 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 $url = HMWP_Classes_ObjController::getClass('HMWP_Models_Rewrite')->find_replace_url($url);
                 $urls[] = $url;
 
-                $url = admin_url('admin-ajax.php') . '?hmwp_preview=1';
+                if (HMWP_Classes_Tools::getOption('hmwp_hideajax_admin')) {
+                    $url = home_url(HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url')) . '?hmwp_preview=1';
+                }else{
+                    $url = admin_url(HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url')) . '?hmwp_preview=1';
+                }
                 $url = HMWP_Classes_ObjController::getClass('HMWP_Models_Rewrite')->find_replace_url($url);
                 $urls[] = $url;
 
@@ -639,8 +643,35 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                     }
                 }
 
+                //Test new admin path. Send all cookies to admin path
+                if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url') ) {
+
+                    $url = admin_url('admin.php');
+                    $url = HMWP_Classes_ObjController::getClass('HMWP_Models_Rewrite')->find_replace_url($url);
+
+                    if (is_ssl()) {
+                        $url = str_replace('http://', 'https://', $url);
+                    }
+
+                    $response = HMWP_Classes_Tools::hmwp_localcall($url, array('redirection' => 1, 'cookies' => $_COOKIE));
+
+                    if (!is_wp_error($response) && in_array(wp_remote_retrieve_response_code($response), array(404, 302, 301))) {
+                        $error[] = '<a href="' . $url . '" target="_blank" style="word-break: break-word;">' . str_replace('?hmwp_preview=1', '', $url) . '</a> (' . wp_remote_retrieve_response_code($response) . ' ' . wp_remote_retrieve_response_message($response) . ')';
+
+                    }
+                }
+
+                if(!empty($error) && HMWP_Classes_Tools::isNginx()){
+                    $error[] = '<a href="' . esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/how-to-setup-hide-my-wp-on-nginx-server/') . '" target="_blank" style="word-break: break-word;line-height: 35px;font-weight: 700;">' . esc_html__("Don't forget to reload the Nginx service.", 'hide-my-wp') . '</a>';
+                }
+
                 if(empty($error)){
-                    wp_send_json_success(esc_html__('Great! The new paths are loading correctly.', 'hide-my-wp'));
+                    $message = array();
+                    $message[] = esc_html__('Great! The new paths are loading correctly.', 'hide-my-wp');
+                    if(HMWP_Classes_Tools::getOption('prevent_slow_loading')){
+                        $message[] = '<a href="' . esc_url(HMWP_Classes_Tools::getSettingsUrl('hmwp_advanced#tab=rollback', true) ) . '" target="_blank" style="word-break: break-word;line-height: 35px;font-weight: 700;">' . sprintf(esc_html__("You can now turn off '%s' option.", 'hide-my-wp'), __('Prevent Broken Website Layout', 'hide-my-wp')) . '</a>';
+                    }
+                    wp_send_json_success(join('<br />', $message));
                 }else{
                     wp_send_json_error(esc_html__('Error! The new paths are not loading correctly. Clear all cache and try again.', 'hide-my-wp') . "<br /><br />" .  join('<br />', $error));
                 }

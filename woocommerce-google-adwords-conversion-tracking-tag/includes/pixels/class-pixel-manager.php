@@ -189,10 +189,10 @@ class Pixel_Manager {
 		<script<?php 
         echo wp_kses( Helpers::get_opening_script_string(), Helpers::get_script_string_allowed_html() );
         ?>>
-			(window.wpmDataLayer = window.wpmDataLayer || {}).products = window.wpmDataLayer.products || {}
+			(window.wpmDataLayer = window.wpmDataLayer || {}).products = window.wpmDataLayer.products || {};
 			window.wpmDataLayer.products                               = Object.assign(window.wpmDataLayer.products, <?php 
         echo wp_json_encode( (object) $products );
-        ?>)
+        ?>);
 		</script>
 		<?php 
     }
@@ -660,10 +660,10 @@ class Pixel_Manager {
         echo wp_kses( Helpers::get_opening_script_string(), Helpers::get_script_string_allowed_html() );
         ?>>
 
-			window.wpmDataLayer = window.wpmDataLayer || {}
+			window.wpmDataLayer = window.wpmDataLayer || {};
 			window.wpmDataLayer = Object.assign(window.wpmDataLayer, <?php 
         echo wp_json_encode( $this->get_data_for_data_layer(), $json_encode_options );
-        ?>)
+        ?>);
 
 		</script>
 

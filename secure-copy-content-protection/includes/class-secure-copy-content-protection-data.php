@@ -47,7 +47,8 @@ class Ays_Sccp_Data {
                 // self::ays_sccp_sale_message2($ays_sccp_ishmar);
                 // self::ays_sccp_helloween_message($ays_sccp_ishmar);
                 // self::ays_sccp_black_friday_message($ays_sccp_ishmar);
-                self::ays_sccp_new_mega_bundle_message($ays_sccp_ishmar);
+                // self::ays_sccp_new_mega_bundle_message($ays_sccp_ishmar);
+                self::ays_sccp_new_mega_bundle_message_2024( $ays_sccp_ishmar );
             }
         }
     } 
@@ -90,6 +91,92 @@ class Ays_Sccp_Data {
             $content = implode( '', $content );
             echo $content;
         }
+    }
+
+    // New Mega Bundle 2024
+    public static function ays_sccp_new_mega_bundle_message_2024( $ishmar ){
+        if($ishmar == 0 ){
+            $content = array();
+            $content[] = '<div id="ays-sccp-new-mega-bundle-dicount-month-main-2024" class="notice notice-success is-dismissible ays_sccp_dicount_info">';
+                $content[] = '<div id="ays-sccp-dicount-month" class="ays_sccp_dicount_month">';
+
+                    $content[] = '<div class="ays-sccp-discount-box-sale-image"></div>';
+                    $content[] = '<div class="ays-sccp-dicount-wrap-box ays-sccp-dicount-wrap-text-box">';
+
+                        $content[] = '<div class="ays-sccp-dicount-wrap-text-box-texts">';
+                            $content[] = '<div>
+                                            <a href="https://ays-pro.com/wordpress/secure-copy-content-protection?utm_source=dashboard-sccp&utm_medium=free-sccp&utm_campaign=sale-banner-sccp" target="_blank" style="color:#30499B;">
+                                            <span class="ays-sccp-new-mega-bundle-limited-text">Limited</span> Offer for </a> <br> 
+                                            
+                                            <span style="font-size: 19px;">Secure Copy Content Protection</span>
+                                          </div>';
+                        $content[] = '</div>';
+
+                        $content[] = '<div style="font-size: 17px;">';
+                            $content[] = '<img style="width: 24px;height: 24px;" src="' . esc_attr(SCCP_ADMIN_URL) . '/images/icons/guarantee-new.png">';
+                            $content[] = '<span style="padding-left: 4px; font-size: 14px; font-weight: 600;"> 30 Day Money Back Guarantee</span>';
+                            
+                        $content[] = '</div>';
+
+                       
+
+                        $content[] = '<div style="position: absolute;right: 10px;bottom: 1px;" class="ays-sccp-dismiss-buttons-container-for-form">';
+
+                            $content[] = '<form action="" method="POST">';
+                                $content[] = '<div id="ays-sccp-dismiss-buttons-content">';
+                                    if( current_user_can( 'manage_options' ) ){
+                                        $content[] = '<button class="btn btn-link ays-button" name="ays_sccp_sale_btn" style="height: 32px; margin-left: 0;padding-left: 0; color: #30499B;
+                                        ">Dismiss ad</button>';
+                                        $content[] = wp_nonce_field( SCCP_NAME . '-sale-banner' , SCCP_NAME . '-sale-banner' );
+                                    }
+                                $content[] = '</div>';
+                            $content[] = '</form>';
+                            
+                        $content[] = '</div>';
+
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-sccp-dicount-wrap-box ays-sccp-dicount-wrap-countdown-box">';
+
+                        $content[] = '<div id="ays-sccp-countdown-main-container">';
+                            $content[] = '<div class="ays-sccp-countdown-container">';
+
+                                $content[] = '<div id="ays-sccp-countdown">';
+
+                                    $content[] = '<div style="font-weight: 500;">';
+                                        $content[] = __( "Offer ends in:", SCCP_NAME );
+                                    $content[] = '</div>';
+
+                                    $content[] = '<ul>';
+                                        $content[] = '<li><span id="ays-sccp-countdown-days"></span>days</li>';
+                                        $content[] = '<li><span id="ays-sccp-countdown-hours"></span>Hours</li>';
+                                        $content[] = '<li><span id="ays-sccp-countdown-minutes"></span>Minutes</li>';
+                                        $content[] = '<li><span id="ays-sccp-countdown-seconds"></span>Seconds</li>';
+                                    $content[] = '</ul>';
+                                $content[] = '</div>';
+
+                                $content[] = '<div id="ays-sccp-countdown-content" class="emoji">';
+                                    $content[] = '<span>🚀</span>';
+                                    $content[] = '<span>⌛</span>';
+                                    $content[] = '<span>🔥</span>';
+                                    $content[] = '<span>💣</span>';
+                                $content[] = '</div>';
+
+                            $content[] = '</div>';
+                        $content[] = '</div>';
+                            
+                    $content[] = '</div>';
+
+                    $content[] = '<div class="ays-sccp-dicount-wrap-box ays-sccp-dicount-wrap-button-box">';
+                        $content[] = '<a href="https://ays-pro.com/wordpress/secure-copy-content-protection?utm_source=dashboard-sccp&utm_medium=free-sccp&utm_campaign=sale-banner-sccp" class="button button-primary ays-button" id="ays-button-top-buy-now" target="_blank">' . __( 'Buy Now !', SCCP_NAME ) . '</a>';
+                        $content[] = '<span >' . __( 'One-time payment', SCCP_NAME ) . '</span>';
+                    $content[] = '</div>';
+                $content[] = '</div>';
+            $content[] = '</div>';
+
+            $content = implode( '', $content );
+            echo html_entity_decode(esc_html( $content ));
+        }        
     }
 
     // New Mega Bundle

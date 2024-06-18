@@ -197,7 +197,7 @@ class Cleverfox_Activator {
 				require CLEVERFOX_PLUGIN_DIR . 'inc/renoval/default-widgets/default-widget.php';
 			}
 			
-			if ( 'Medazin' == $theme->name || 'Child1' == $theme->name || 'Child2' == $theme->name ){
+			if ( 'Medazin' == $theme->name || 'Child1' == $theme->name || 'DoctorHub' == $theme->name ){
 				require CLEVERFOX_PLUGIN_DIR . 'inc/medazin/default-pages/upload-media.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/medazin/default-pages/home-page.php';
 				require CLEVERFOX_PLUGIN_DIR . 'inc/medazin/default-widgets/default-widget.php';

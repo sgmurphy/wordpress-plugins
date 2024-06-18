@@ -16,16 +16,16 @@
     ],
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "7.4"
         }
     },
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
         "ext-json": "*",
-        "php": ">=7.2",
+        "php": ">=7.4",
         "wpdesk\/wp-plugin-flow-common": "^1.1",
-        "wpdesk\/wp-show-decision": "^1.0"
+        "wpdesk\/wp-show-decision": "^1.1"
     },
     "require-dev": {
         "phpunit\/phpunit": "<7",
@@ -50,6 +50,16 @@
         "translations-folder": "lang",
         "po-files": {
             "pl_PL": "pl_PL.po"
+        }
+    },
+    "repositories": {
+        "octolize": {
+            "type": "composer",
+            "url": "https:\/\/gitlab.wpdesk.dev\/api\/v4\/group\/wpdesk\/-\/packages\/composer\/"
+        },
+        "wpdesk": {
+            "type": "composer",
+            "url": "https:\/\/gitlab.wpdesk.dev\/api\/v4\/group\/wpdesk\/-\/packages\/composer\/"
         }
     },
     "scripts": {

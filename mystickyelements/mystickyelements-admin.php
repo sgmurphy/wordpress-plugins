@@ -221,6 +221,15 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 					array( $this, 'mystickyelements_recommended_plugins' )
 				);
 			}
+			
+			add_submenu_page(
+				'hidden_page',
+				'Install Chatway Plugin',
+				'Install Chatway Plugin',
+				'manage_options',
+				'install-chatway-plugin',
+				array( $this, 'mystickyelements_install_chatway_plugin' )
+			);
 			add_submenu_page(
 				'my-sticky-elements',
 				'Upgrade to Pro ⭐️',
@@ -549,7 +558,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 			$contact_field = get_option( 'mystickyelements-contact-field' );
 			$is_widgest_create = 1;
 			if ( empty( $contact_field ) ) {
-				$is_widgest_create = 0;
+				$is_widgest_create = 'my-sticky-elements-new-widget';
 				$contact_field = array( 'name', 'phone', 'email', 'message', 'dropdown' );
 			}
 			$contact_form = get_option( 'mystickyelements-contact-form');
@@ -1448,6 +1457,10 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 				include_once 'recommended-plugins.php';
 			}
 			require_once MYSTICKYELEMENTS_PATH . 'help.php';
+		}
+		
+		public function mystickyelements_install_chatway_plugin() {
+			include_once 'admin/chatway-plugin.php';			
 		}
 
 		

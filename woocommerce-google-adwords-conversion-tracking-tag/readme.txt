@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.43.2
+Stable tag: 1.43.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -294,6 +294,16 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.43.3  =
+*Release date - 18.06.2024*
+
+* Tweak: Ensured `get_transient_identifiers()` returns an array.
+* Tweak: Added a few semicolons into the JavaScript inline code output to bolster the code against subpar JavaScript "optimizers" that otherwise may break the code.
+* Tweak: Added filters for Google Site Kit. If Google Ads and/or GA4 are enabled in the Pixel Manager, it will prevent Google Site Kit from adding its own tracking code.
+* Fix: Moved some GA4 JavaScript library functions from the premium to the free version, as they are called in the free version as well.
+* Fix: Added a safeguard to prevent a fatal error in case a parent product can't be loaded.
+* Fix: Fixed a bug when consent was changed in a Termly CMP.
+
 = 1.43.2  =
 *Release date - 05.06.2024*
 
@@ -307,278 +317,5 @@ We are committed to ensuring the security of our customers and their data. If yo
 * Tweak: Added add-to-cart event listener for Doofinder add-to-cart buttons.
 * Fix: Fixed a bug that would prevent consent from being processed immediately after consent was given through Cookiebot (only worked on page reload).
 
-= 1.43.1  =
-*Release date - 21.05.2024*
-
-
-= 1.43.0  =
-*Release date - 21.05.2024*
-
-* Tweak: Added a safeguard into the product container watcher to prevent an undefined error.
-* Tweak: Added a safeguard in case attributes for the console logger are not passed correctly.
-* Tweak: Bumped up WooCommerce version compatibility to 8.9
-
-= 1.42.8  =
-*Release date - 06.05.2024*
-
-* Fix: Fixed a bug with a filter for the Facebook for WooCommerce plugin that matches the product ID with the catalog ID.
-
-= 1.42.7  =
-*Release date - 05.05.2024*
-
-* Tweak: Added more index.php files to prevent directory listing.
-* Tweak: Added an override for the Facebook for WooCommerce plugin to match the catalog ID with the product ID set in the Pixel Manager for the Facebook pixel.
-* Fix: .br and .gz compressed JavaScript files got corrupted after updating a component of the build process. This update fixes the corrupted files.
-
-= 1.42.6  =
-*Release date - 02.05.2024*
-
-* Tweak: Refactored various parts of the codebase to streamline the code.
-
-= 1.42.5  =
-*Release date - 25.04.2024*
-
-* Tweak: Improved front-end consent state logging.
-* Tweak: Changed event listeners to be more efficient.
-* Tweak: Refactored various parts of the codebase to streamline the code.
-* Tweak: Updated vendor libraries.
-* Fix: Fixed consent event listener loading for Cookiebot and CookieYes.
-
-= 1.42.4  =
-*Release date - 23.04.2024*
-
-* Tweak: Added Virginia to the US states for the explicit consent management.
-* Tweak: On first load CookieYes sets the categories with no values, just empty strings. Not "yes" or "no" like in all subsequent loads. This update handles this case.
-* Tweak: Added a backwards compatibility process for website visitors that have saved a consent status before the latest update.
-* Tweak: Streamlined large parts of the codebase.
-* Tweak: Updated vendor libraries.
-* Fix: Fixed a bug that would prevent to fire a view_item event on opening variable products with preselected variations.
-
-= 1.42.3  =
-*Release date - 16.04.2024*
-
-* Tweak: Better browser geo region detection for the consent mode. This is helpful if a website manager requires explicit consent from visitors located in California.
-* Tweak: Block same page events after consent has been removed for various pixels.
-* Fix: Fixed a text output for CookieYes activation status.
-
-= 1.42.2  =
-*Release date - 11.04.2024*
-
-* Fix: Fixed a edge case bug that could prevent the save button in the UX to render.
-
-= 1.42.1  =
-*Release date - 10.04.2024*
-
-* Fix: Removed consent update reload triggers for some CMPs, as in some cases the CMPs emit CMP click events on each page load and lead to a reload loop.
-
-= 1.42.0  =
-*Release date - 10.04.2024*
-
-* Tweak: Updated all vendor packages.
-* Fix: Fixed a bug when reading the consent cookie of the free version of the Cookie Compliance CMP (by hu-manity.co).
-* Fix: Fixed a bug when reading the consent cookie of the old versions of the CookieYes CMP.
-* Fix: Fixed a bug that would throw an error if the site_id was not set.
-
-= 1.41.1  =
-*Release date - 09.04.2024*
-
-* Tweak: Extended the auto-off delay for HTTP request log feature.
-* Tweak: Enabled the Google Consent Mode as default.
-* Tweak: Removed Google Analytics Universal codes.
-* Tweak: Refactored internal class names and file structure and the autoload mechanism.
-* Tweak: Removed the author tab from the settings page.
-* Tweak: Refactored the consent regions logic and implemented an automatic API call for better handling of unrestricted regions.
-* Tweak: Added filter to suppress the version info output in the dev console.
-* Tweak: Refactored sections for shop and consent management in the settings page.
-* Tweak: Refactored the entire consent management logic to be more flexible and easier to maintain.
-* Fix: Fixed a bug that could prevent the Google Consent Mode activation.
-
-= 1.41.0  =
-*Release date - 21.03.2024*
-
-* Tweak: Added more page data output to the wpmDataLayer.
-* Tweak: Workaround for the Astra theme show_variation bug that triggers multiples times on page load on the product page.
-* Tweak: Added safeguard if server requests for fetching product data is missing input data.
-* Tweak: Added tweaks if Cookiebot is active. (Exclusions for script auto blocking and their Google Consent Mode)
-* Tweak: Removed Google Optimize as it was decommissioned by Google.
-* Tweak: Added safeguard to not run WooCommerce specific code on non-WooCommerce sites.
-* Tweak: Updated Complianz CMP cookie names.
-* Tweak: Added support for the WP Cookie Consent CMP.
-* Tweak: Bumped up WooCommerce version compatibility to 8.7
-* Tweak: Bumped up WordPress version compatibility to 6.5
-* Tweak: Updated vendor libraries.
-
-= 1.40.1  =
-*Release date - 01.03.2024*
-
-* Fix: Fixed a bug that could prevent detecting if the purchase conversions were fired.
-
-= 1.40.0  =
-*Release date - 27.02.2024*
-
-* New: Added support for the Google Consent Mode v2 in the free version of the Pixel Manager.
-* Tweak: Refactored a few internal functions.
-
-= 1.39.0  =
-*Release date - 19.02.2024*
-
-* Tweak: Added dashboard message for available opportunities.
-* Tweak: Bumped up WooCommerce version compatibility to 8.6
-* Tweak: Updated vendor libraries.
-* Tweak: Removed a few unnecessary parameters.
-
-
-= 1.38.0  =
-*Release date - 12.02.2024*
-
-* Tweak: Added LTV calculation opportunity to the opportunities tab.
-* Tweak: Added console logging for pixel events across platforms.
-* Tweak: Improved sanitization of settings strings.
-* Tweak: Improved Google Ads conversion ID and conversion label string extraction when saving the settings.
-* Tweak: Added exclusion rule for inline HTML scripts in case the Iubenda CMP is active.
-
-= 1.37.1  =
-*Release date - 01.02.2024*
-
-* Tweak: Disabled the automatic LTV recalculation.
-* Tweak: Added a button to stop an active LTV recalculation.
-* Tweak: Added an option to enable or disable the order level LTV calculation.
-* Tweak: Added more debug log output for Meta CAPI subscription events.
-
-= 1.37.0  =
-*Release date - 30.01.2024*
-
-* New: Opportunities tab that shows opportunities to improve tracking and marketing performance.
-* Tweak: Updated the order modal created by the Pixel Manager and added LTV values to it.
-* Tweak: Renamed the setting "order total logic" to "marketing value logic".
-* Tweak: Updated the translation file.
-* Tweak: Added option to disable the automatic lifetime value calculation.
-* Tweak: Added an automatic library version checker that shows an error message in the console if the library version is not matching the currently installed plugin version.
-* Tweak: Added a front-end error log output in case the gtag.js library can't be loaded.
-* Tweak: Added a safeguard for calls to as_has_scheduled_action().
-
-= 1.36.0  =
-*Release date - 16.01.2024*
-
-* New: Added GA4 enhanced e-commerce events to the free version.
-* New: Added a new logger tab to the settings page. It allows you to enable logging from within the plugin.
-* Tweak: Improved handling of session and persistent client data.
-* Tweak: Improved handling of saving and using the referrer.
-* Tweak: Implemented a possible fix for the Facebook IPv6 vs IPv4 warning.
-* Tweak: Updated vendor packages.
-* Tweak: Added new logger for better debugging.
-* Tweak: Refactored the tracking value variable into an object with more properties.
-* Tweak: Refactored the order item COG retrieval to get the COG value from the order, if available. Otherwise, it will use the current COG value from the product.
-* Tweak: Optimized shortcode trigger for the Meta pixel.
-* Tweak: Reordered the main subsection tabs.
-
-= 1.35.0  =
-*Release date - 19.12.2023*
-
-* New: AI support chat bot.
-* Fix: Safeguard for WooCommerce block editors that can cause a fatal error in rare cases.
-
-= 1.34.1  =
-*Release date - 14.12.2023*
-
-* Tweak: Removed user data output for the free version as it is not required.
-* Tweak: Bumped up WordPress version compatibility to 6.4.
-* Tweak: Bumped up WooCommerce version compatibility to 8.4
-* Tweak: Declare Cart and Checkout Blocks compatibility.
-* Tweak: Updated the Facebook pixel ID validation to allow for longer IDs.
-* Tweak: Updated the jQuery ready event detection to avoid deprecation warnings.
-* Fix: Don't call VarnishPurger's execute_purge() statically as it is not a static function.
-* Fix: Added a safeguard to avoid render issues on empty block-activated cart pages.
-
-= 1.34.0  =
-*Release date - 10.10.2023*
-
-* New: Added support for WP Consent API.
-* Tweak: Bumped up WooCommerce version compatibility to 8.1
-* Tweak: Added more how-to videos.
-* Tweak: Added root: null to the intersection observer options to avoid issues that occur on a small subset of browsers.
-* Tweak: Improve the function to retrieve the productId and quantity on cart content updates.
-* Tweak: Warning if transients are deactivated.
-* Fix: Fixed the fallback function to retrieve the product ID on product pages that don't use the regular WooCommerce product template.
-* Fix: Added safeguard for pure WP installs and WC is not active.
-
-= 1.33.1  =
-*Release date - 13.09.2023*
-
-* Tweak: Added an autodetect algorithm for product template elements which help tracking view_item_list events.
-* Tweak: Added a new begin_checkout CSS trigger for FunnelKit.
-* Tweak: Another fallback to retrieve the product ID in case the ID is saved in the value attribute for custom product pages.
-* Tweak: Renamed the internal value for TikTok for the Real Cookie Banner from tiktok to tik-tok-pixel.
-* Tweak: Added a filter to set the maximum orders for calculating the clv.
-* Tweak: Adjusted gtag container ID retrieval order to work around an issue that can happen for GA4 accounts with multiple data streams.
-* Tweak: Updated the Reddit advertiser ID validation to allow for a wider range of IDs.
-* Tweak: Better logging when GA4 data API credentials can't be uploaded.
-* Tweak: Added new video how tos.
-* Fix: Put the license expired warning behind a hook to avoid the headers already sent error on some installs.
-* Fix: Allow empty client_id for GA4 data API credentials.
-* Fix: Fixed the tax price output for additional currencies when WPML Multicurrency is active.
-* Fix: Fixed a bug in the view_item_list template detector for the niche case when detecting a list of one single product.
-
-= 1.33.0  =
-*Release date - 09.08.2023*
-
-* Tweak: Updated vendor libraries.
-* Tweak: Removed an unnecessary API call from the free version on the order view page.
-* Tweak: Bumped up WordPress version compatibility to 6.3
-* Tweak: Updated vendor libraries.
-* Tweak: UX improvements.
-* Tweak: Added hooks for third-party tools to print data layer product details.
-* Tweak: Fixes an issue where Elementor widgets would show the PMW scripts as visible outputs under rare conditions.
-* Tweak: Bumped up WooCommerce compatibility to 8.0.
-* Fix: Fixed Litespeed ESI implementation. Now only the Pixel Manager ESI block will be excluded from caching for logged in users (not the entire page). (except the woocommerce.com distribution which requires a patch in WP core)
-* Fix: Put the automatic phone and link click tracking info in the UX behind a premium feature flag as it is only available in the premium version.
-
-= 1.32.5  =
-*Release date - 19.07.2023*
-
-* Tweak: Support for the Iubenda CMP.
-* Tweak: Also flush cache on the first option save.
-* Tweak: Added cache purge for Nginx Helper (Nginx or Redis) if the Nginx Helper plugin is active.
-* Tweak: Added cache purge for Nginx Helper.
-* Tweak: Added cache purge for Proxy Cache Purge.
-* Tweak: Bumped up WooCommerce compatibility to 7.9
-* Fix: Fixed a user data retrieval bug when the main administrator views an order confirmation page.
-* Fix: Fixed a PMW Lazy Load activation bug.
-
-= 1.32.4  =
-*Release date - 11.07.2023*
-
-* Tweak: Made the pmw:ready event trigger independent of jQuery.
-* Tweak: Added a begin_checkout event trigger for the XT Floating Cart for WooCommerce plugin.
-* Tweak: CookieYes updated their cookie names. This update includes checks for the new cookies.
-* Tweak: Various smaller UX improvements.
-* Tweak: Removed the WC requirement for the wp.org distribution.
-* Fix: Fixed the consent detection for CookieScript when the Google Consent Mode is enabled in CookieScript.
-
-= 1.32.3  =
-*Release date - 05.07.2023*
-
-* Tweak: Disabled Google Analytics Universal.
-* Tweak: Updated vendor libraries.
-* Tweak: Several smaller UX improvements.
-
-= 1.32.2  =
-*Release date - 30.06.2023*
-
-* New: Support for the Real Cookie Banner by devowl.io
-* Tweak: Refactored saving the order status to optimize compatibility with cached nonces on purchase confirmation pages.
-* Tweak: Added filters that can be used to add more selectors for add-to-cart and begin-checkout buttons.
-* Tweak: Enabled sslverify unless on localhost.
-* Tweak: Updated the Borlabs autoconfiguration to re-enable cookie groups and cookies that should be active.
-* Tweak: Refactored and streamlined input sanitization.
-* Tweak: Added a new pmw_order_fees filter.
-* Tweak: Added more debugging info to the debugging page.
-
-= 1.32.1  =
-*Release date - 23.06.2023*
-
-* Tweak: Added a safeguard to prevent fatal errors if the Action Scheduler could not be loaded.
-* Tweak: Safeguard if Lazy Loading is active and the wpmDataLayer was modified by another plugin.
-* Tweak: Added possible solution to prevent Complianz from blocking the Pixel Manager configuration script.
-* Tweak: Bumped up WC version compatibility to 7.8
-
+= Earlier versions =
+For the changelog of earlier versions, please refer to the changelog in the /changelog-archive/ folder.

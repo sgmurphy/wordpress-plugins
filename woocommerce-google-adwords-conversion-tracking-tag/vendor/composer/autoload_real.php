@@ -31,7 +31,7 @@ class ComposerAutoloaderInitab770dc3559fd87d5167f1d33f2baf09
         require __DIR__ . '/autoload_static.php';
         call_user_func(\Composer\Autoload\ComposerStaticInitab770dc3559fd87d5167f1d33f2baf09::getInitializer($loader));
 
-        if (method_exists($loader, 'setApcuPrefix')) { $loader->setApcuPrefix('4lDx2FaVBNRsBES7ruLQ6'); }
+        if (method_exists($loader, 'setApcuPrefix')) { $loader->setApcuPrefix('56HW0wYT4bI30HZXjFx+d'); }
         $loader->register(true);
 
         $filesToLoad = \Composer\Autoload\ComposerStaticInitab770dc3559fd87d5167f1d33f2baf09::$files;

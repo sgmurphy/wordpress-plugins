@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.4
-Stable tag: 3.2.9
+Stable tag: 3.2.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,10 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.10 =
+- Fix: HTML code from Sticky Calculator is loaded on pages without it.
+- Fix: After clicking on the toggle element it opens and immediately closes on the site with the Avada theme.
 
 = 3.2.9 =
 - Enhancement: Paired IF and IF Else operators and brackets are now colored in Formula.

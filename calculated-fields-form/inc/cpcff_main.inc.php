@@ -605,7 +605,7 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					}
 
 					$iframe_id  = uniqid( 'cff-iframe-' );
-					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) { if ( "data" in e && "cff_height" in e.data && "cff_iframe" in e.data) {try{ let el = document.getElementById(e.data.cff_iframe); el.style.height = e.data.cff_height + "px";el.style.minHeight="auto"; if( "parent" in window ) parent.postMessage({sentinel: "amp",type:"embed-size",height: e.data.cff_height+25}, "*"); }catch(err){}}}, false);</script><iframe ' . ' id="' . $iframe_id . '"';
+					$iframe_tag = '<script type="text/javascript">window.addEventListener("message", function(e) { if ("data" in e && typeof e.data == "object" && ! Array.isArray(e.data) && "cff_height" in e.data && "cff_iframe" in e.data) {try{ let el = document.getElementById(e.data.cff_iframe); el.style.height = e.data.cff_height + "px";el.style.minHeight="auto"; if( "parent" in window ) parent.postMessage({sentinel: "amp",type:"embed-size",height: e.data.cff_height+25}, "*"); }catch(err){}}}, false);</script><iframe ' . ' id="' . $iframe_id . '"';
 
 					if ( ! empty( $form_obj ) ) {
 						$iframe_tag = $form_obj->get_height( '#' . $iframe_id ) . $iframe_tag;

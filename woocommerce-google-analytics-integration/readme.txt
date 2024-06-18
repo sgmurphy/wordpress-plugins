@@ -3,7 +3,7 @@ Contributors: woocommerce, automattic, claudiosanches, bor0, royho, laurendaviss
 Tags: woocommerce, google analytics
 Requires at least: 6.2
 Tested up to: 6.5
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Provides integration between Google Analytics and WooCommerce.
 
 This plugin provides the integration between Google Analytics and the WooCommerce plugin. You can link a referral to a purchase and add transaction information to your Google Analytics data. It supports Global Site Tag (GA4) and eCommerce event tracking.
 
-Please visit the [documentation page for additional information](https://woo.com/document/google-analytics-integration/).
+Please visit the [documentation page for additional information](https://woocommerce.com/document/google-analytics-integration/).
 
 Contributions are welcome via the [GitHub repository](https://github.com/woocommerce/woocommerce-google-analytics-integration).
 
@@ -48,6 +48,10 @@ Duplicate Google Analytics code causes a conflict in tracking. Remove any other 
 
 == Changelog ==
 
+= 2.1.2 - 2024-06-18 =
+* Tweak -  Replace woo.com references with woocommerce.com.
+* Tweak - Do not replace other extensions' `add_to_cart` listeners.
+
 = 2.1.1 - 2024-06-12 =
 * Tweak - Confirm WC_Cart is available before formatting cart data.
 * Tweak - WC 9.0 compatibility.
@@ -56,11 +60,5 @@ Duplicate Google Analytics code causes a conflict in tracking. Remove any other 
 * Add - Integration with the WP Consent API plugin.
 * Fix - Add E2E tests for denying via WP Consent API.
 * Tweak - Document WP Consent API support.
-
-= 2.0.7 - 2024-05-14 =
-* Dev - Add a manual workflow run for PHP unit tests.
-* Fix - Apply discounts to the ecommerce event if available.
-* Fix - Incorrect quantity value when adding product to the cart that exists in the cart.
-* Tweak - WC 8.9 compatibility.
 
 [See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce-google-analytics-integration/trunk/changelog.txt).

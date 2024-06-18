@@ -3736,7 +3736,7 @@ body .wrap.mystickyelement-wrap .settings-error + .mystickyelements-wrap {
 }
 .mystickyelements-tabs li {
 	margin-bottom: 0;
-	width: 33.33%;
+	width: 25%;
 }
 .mystickyelements-tabs li a {
 	color: rgb(170 174 181);
@@ -4691,7 +4691,7 @@ body .wrap.mystickyelement-wrap .settings-error + .mystickyelements-wrap {
 	height: 100%;
 	border: 1px solid #E3EAEE;
 }
-.mystickyelement-tab-box {
+.mystickyelement-dashboard  .mystickyelement-tab-box {
 	background-color: #F2F5F8;
 	padding: 10px 20px;
 }
@@ -6312,4 +6312,119 @@ input#preview-stickyelements-submit-form {
     left: 0;
     bottom: 0px !important;
     right: 0;
+}
+/* CSS 29032024 */
+
+.turn-off-message {
+	width: 100%;
+}
+.turn-off-message p,
+.myStickyelements-header-title > p {
+	width: 100%;
+	font-size: 14px;
+	color: #83A1B7;
+}
+.turn-off-message p a,
+.myStickyelements-header-title > p strong {
+	color: #83A1B7;
+	font-weight: 700;
+}
+.myStickyelements-header-title .contact-form-description {
+	font-size: 14px;
+	line-height: 1.5em;
+	color: #83A1B7;
+}
+.wrap.recommended-plugins {
+	padding: 0;
+}
+#mystickyelements-tab-live-chatway .wp-list-table.plugin-install {
+	max-width: 400px;
+}
+.plugin-install .plugin-card .plugin-card-top {
+	padding: 12px 12px 6px;
+}
+.plugin-install .plugin-card .plugin-card-top .plugin-icon {
+	max-width: 85px;
+	height: auto;
+	top: 13px;
+	right: 12px;
+}
+.plugin-install .plugin-card .action-links {
+	top: 13px;
+	left: 12px;
+}
+.plugin-install .plugin-card .plugin-card-top h3 {
+	font-size: 13px;
+	line-height: 1.3;
+	font-weight: 700;
+	margin: 0 0 8px;
+}
+.plugin-install .plugin-card .plugin-card-top p {
+	font-size: 13px;
+	margin: 0 0 8px;
+}
+.plugin-install .plugin-card .plugin-card-top p a {
+	font-style: italic;
+}
+.plugin-install .plugin-card .plugin-card-top .desc,
+.plugin-install .plugin-card .plugin-card-top .name {
+    margin-left: 95px;
+    margin-right: 95px;
+}
+.plugin-action-buttons a.install-now {
+	font-size: 12px;
+	line-height: 28px;
+}
+.mystickyelement-tab-boxes {
+	justify-content: flex-start;
+	padding-top: 40px;
+}
+/*
+body.rtl .mystickyelement-tab-boxes {
+	justify-content: flex-end;
+}
+*/
+.mystickyelement-tab-boxes-btn-wrap a.btn,
+.mystickyelement-tab-box.Chatway-activate a.btn {
+	height: 40px;
+	font-size: 14px;
+	color: #49687E;
+	line-height: 38px;
+	border: 1px solid #83A1B7;
+	border-radius: 8px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 16px;
+	text-decoration: none;
+}
+.mystickyelement-tab-boxes-btn-wrap a.btn:hover,
+.mystickyelement-tab-box.Chatway-activate a.btn:hover {
+	background-color: #3C85F7;
+	color: #ffffff;
+}
+.mystickyelement-tab-box label {
+	font-size: 18px;
+	letter-spacing: 0;
+	font-weight: 600;
+}
+.mystickyelement-tab-box-content p {
+	font-size: 14px;
+	color: #83A1B7;
+	margin: 0 0 12px;
+}
+.mystickyelement-tab-box.Chatway-activate {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#mystickyelements-tab-live-chatway{
+	min-height: 550px;
+}
+.recommended-chatway-plugins .mystickyelement-tab-boxes.mystickyelement-dashboard {
+	padding: 0;
+}
+.recommended-chatway-plugins .mystickyelement-tab-box-Chatway{
+	width: 100%;
+	margin: 0 0 20px 0;
 }

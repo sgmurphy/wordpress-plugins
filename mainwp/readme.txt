@@ -5,9 +5,9 @@ Author: mainwp
 Author URI: https://mainwp.com
 Plugin URI: https://mainwp.com
 Requires at least: 6.2
-Tested up to: 6.5.3
+Tested up to: 6.5.4
 Requires PHP: 7.4
-Stable tag: 5.0.3.2
+Stable tag: 5.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,12 +143,35 @@ Yes, we have a quick FAQ with many more questions and answers [here](https://mai
 
 == Changelog ==
 
+= 5.1 - 6-18-2024 =
+
+* Fixed: Corrected the display of site tags in the Manage Sites view when filtered by tags.
+* Fixed: Resolved an issue with hiding database errors in the Hardening feature.
+* Fixed: An issue with submitting Time Capsule settings.
+* Added: Integrated a Rollback feature to revert plugins to the last stable version in case of update errors.
+* Added: Implemented the Select DataTables extension to allow selecting multiple table rows with shift + select action.
+* Added: Added a horizontal scrollbar at the top of tables for better navigation.
+* Added: Implemented alt attributes for image elements to enhance accessibility.
+* Added: Introduced aria-label attributes to multiple elements to improve accessibility.
+* Updated: Show dot icon indicators for form fields to signify when a field's value differs from the default as soon as the change is made.
+* Updated: Button background for the Filter Sites button and similar elements across the plugin
+* Updated: Addressed coding standard issues found by SonarCloud.
+* Updated: Multiple libraries and extensions to enhance performance and compatibility.
+* Updated: Changed MainWP page title tag from H4 to H2 to improve accessibility.
+* Updated: Revised “See Details” button ID in the Site Hardening widget for enhanced accessibility.
+* Updated: Increased the maximum width for tooltip elements to optimize the display.
+* Updated: Adjusted tooltip positions in the Updates Overview widget for improved visibility.
+* Updated: Refined the header element style for a more uniform appearance.
+* Updated: Set a minimum width for the bulk actions menu element on the Manage Sites page.
+* Updated: Redesigned the layout of the Site Hardening and the Get Started widget for improved organization.
+
+[See Video Changelog](https://youtu.be/OtqrgU8q5RA)
+
 = 5.0.3.2 - 5-14-2024 =
 
 * Added: Quick Setup menu item to the MainWP flyout menu for users with no child sites.
 * Added: Quick Setup menu item to the MainWP main navigation for users with no child sites.
 * Updated: Renamed the "Setup Wizard" link in the plugin meta to "Quick Setup".
-
 
 = 5.0.3.1 - 4-16-2024 =
 

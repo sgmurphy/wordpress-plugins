@@ -24,9 +24,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 		protected $isFrontend = true;
 		protected $isAdminArea = false;
 		protected $isBlockEditorScreen;
-		protected $deferredHandles = array();
 		var $logicSettings = array();
-
 		var $preferences = array();
 		var $assetLoadingKey = 'asset_loading_published';
 		var $globalStylesheetRequiredKey = "global_stylesheet_required_published";
@@ -37,6 +35,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			'js' => array(),
 		);
 		var $folderLoading = array();
+		var $folderLoadingChecked = false;
 		var $mtv;
 		var $mts;
 		var $cacheParam;
@@ -93,12 +92,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 		// so defer setting CSS hook until the necessary WP functions are available to check that
 		function deferHookIfAdmin($hookAction, $hookMethod){
 			if ($this->isAdminArea){
-
 				add_action($hookAction, array(&$this, $hookMethod));
-
-				// bizare, but it seems I don't need this now. What happened?
-				//add_action('admin_enqueue_scripts', array(&$this, 'printDeferredHandles'));
-
 			} else {
 				$this->$hookMethod();
 			}
@@ -282,17 +276,21 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		function addCSS(){
 
-			// ensure that do_item() doesn't echo immediately as this could echo styles before the <html>
-			// When using enqueue_block_assets on the Gutenberg Edit Post/Page screen
-			// The code below means we shouldn't need the deferredHandles workaround
-			global $wp_styles, $pagenow;
-			$origConcatSettings = $wp_styles->do_concat;
-			$wp_styles->do_concat = true;
+			global $wp_styles;
 
 			$p = &$this->preferences;
 			$asset_loading = !empty($p[$this->assetLoadingKey])
 				? $p[$this->assetLoadingKey]
 				: array();
+			$action_hook = $this->getCSSActionHook($p);
+			$origConcatSettings = $wp_styles->do_concat;
+
+			// ensure that do_item() doesn't echo immediately as this could echo styles before the <html>
+			// When using enqueue_block_assets on the Gutenberg Edit Post/Page screen
+			// The code below means we shouldn't need the deferredHandles workaround
+			if ($action_hook === 'enqueue_block_assets'){
+				$wp_styles->do_concat = true;
+			}
 
 			// if stylesheet order is set, we add to $wp_styles object rather than enqueuing
 			$add = $this->addInsteadOfEnqueue();
@@ -321,14 +319,16 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			$this->addMTCSS();
 
 			// restore the default do_concat setting
+			// (which may have been changed if using enqueue_block_assets hook)
 			$wp_styles->do_concat = $origConcatSettings;
+
 		}
 
 		function supportLogicTest(){
 			return false;
 		}
 
-		function doLogicTest($folders, $logic){}
+		function doLogicTest($folders, $logic, $forceAll = false){}
 
 		function loadConditionalAssets($folders, $logic){
 
@@ -418,7 +418,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 			return $html;
 		}
 
-		function conditionalAssets($folders){
+		function conditionalAssets($folders, $forceAll = false){
 
 			if (!class_exists('Microthemer\Logic')){
 				require_once dirname(__FILE__) . '/Logic.php';
@@ -428,13 +428,15 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 			$logic = new Logic($this->logicSettings);
 
-			if ($this->supportLogicTest()){
-				$this->doLogicTest($folders, $logic);
+			if ($this->supportLogicTest() || $forceAll){
+				$this->doLogicTest($folders, $logic, $forceAll);
 			}
 
 			else {
 				$this->loadConditionalAssets($folders, $logic);
 			}
+
+			$this->folderLoadingChecked = true;
 
 		}
 
@@ -530,7 +532,6 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		}
 
-
 		function addMTPlaceholder(){}
 		function addMTCSS(){}
 		function addMTJS(){}
@@ -553,7 +554,7 @@ if (!class_exists('\Microthemer\AssetLoad')){
 				}
 			}
 
-			// insert MT JavaScript here if AssetAuth child class sf running
+			// insert MT JavaScript here if AssetAuth child class is running
 			// This needs to come before the user's JavaScript so that we can catch/log their JS errors
 			$this->addMTJS();
 
@@ -577,13 +578,13 @@ if (!class_exists('\Microthemer\AssetLoad')){
 
 		function enqueueOrAdd($add, $handle, $url, $config = array()){
 
-			global $wp_styles, $pagenow;
+			global $wp_styles;
 
 			// Allow for dependencies to be passed in - this doesn't work if do_item is run, but we need that
 			$deps = isset($config['deps']) ? $config['deps'] : array();
 
 			// add to $wp_styles
-			if ($add){ // && !$this->isBlockEditorScreen
+			if ($add){
 
 				// add content as inline style
 				if (!empty($config['inline'])){
@@ -596,7 +597,6 @@ if (!class_exists('\Microthemer\AssetLoad')){
 				else {
 
 					$wp_styles->add($handle, $url, $deps);
-
 					$wp_styles->enqueue(array($handle));
 
 					if (!empty($config['data_key'])){
@@ -609,23 +609,8 @@ if (!class_exists('\Microthemer\AssetLoad')){
 					}
 				}
 
-				// For some reason do_item() outputs styles before the <html> tag on the regular Gutenberg editor page
-				// My hacky workaround defers the do_item() until admin_enqueue_scripts - see printDeferredHandles()
-				// bizare, but it seems I don't need this now. What happened?
-				/*if (false && $this->isBlockEditorScreen && $pagenow === 'post.php'){
-					$this->deferredHandles['css'][$handle] = array($handle, $url, $deps, $config);
-					if (!isset($this->deferredHandles['wp_styles'])){
-						$this->deferredHandles['wp_styles'] = &$wp_styles;
-					}
-				} else {
-					$wp_styles->do_item($handle);
-					$wp_styles->done[] = $handle;
-				}*/
-
 				$wp_styles->do_item($handle);
 				$wp_styles->done[] = $handle;
-
-
 			}
 
 			// or enqueue normally

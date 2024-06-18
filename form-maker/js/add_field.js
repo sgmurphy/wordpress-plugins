@@ -3280,6 +3280,7 @@ function create_class(i, w_class) {
 }
 
 function change_class(x,id) {
+  x = x.replace(/[|&;$%@"<>=()+,]/g, "");
   if (document.getElementById(id + '_label_sectionform_id_temp')) {
     document.getElementById(id + '_label_sectionform_id_temp').setAttribute("class", x);
   }

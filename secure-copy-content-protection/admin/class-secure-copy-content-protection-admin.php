@@ -681,7 +681,7 @@ class Secure_Copy_Content_Protection_Admin {
 		$settings_link = array(
 			'<a href="' . admin_url('options-general.php?page=' . $this->plugin_name) . '">' . __('Settings', $this->plugin_name) . '</a>',
 			'<a href="https://ays-demo.com/secure-copy-content-protection-free-demo/" target="_blank">' . __('Demo', $this->plugin_name) . '</a>',
-            '<a href="https://ays-pro.com/wordpress/secure-copy-content-protection?utm_source=dashboard-sccp&utm_medium=free-sccp&utm_campaign=buy-now-sccp" class="ays-sccp-upgrade-plugin-btn" target="_blank" style="color:#01A32A; font-weight:bold;">' . __('Upgrade 20% Sale', $this->plugin_name) . '</a>',
+            '<a href="https://ays-pro.com/wordpress/secure-copy-content-protection?utm_source=dashboard-sccp&utm_medium=free-sccp&utm_campaign=buy-now-sccp" class="ays-sccp-upgrade-plugin-btn" target="_blank" style="color:#01A32A; font-weight:bold;">' . __('Upgrade 30% Sale', $this->plugin_name) . '</a>',
 		);
 
 		return array_merge($settings_link, $links);
