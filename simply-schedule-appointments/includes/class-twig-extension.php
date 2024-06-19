@@ -73,8 +73,18 @@ class SSA_Twig_Extension extends Twig\Extension\AbstractExtension {
 
 	}
 
-	public function internationalize_filter( Twig\Environment $env, $string ) {
-			return __( $string, 'simply-schedule-appointments' );
+	public function internationalize_filter( Twig\Environment $env, $string, $locale = null) {
+		if(! empty( $locale ) ) {
+			ssa()->translation->set_programmatic_locale( $locale );
+		}
+		
+		$translated_string = __( $string, 'simply-schedule-appointments' );
+		
+		if(! empty( $locale ) ) {
+			ssa()->translation->set_programmatic_locale( null );
+		}
+		
+		return $translated_string;
 	}
 
 	public function link( Twig\Environment $env, $string, $label ) {

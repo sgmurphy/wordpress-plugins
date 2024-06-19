@@ -6,8 +6,10 @@
 */
 
 //PHP Options
+$keepalive = 25;
 if(!set_time_limit(300)){
 	set_time_limit(60);
+	$keepalive = 25;
 }
 error_reporting(E_ALL);
 ignore_user_abort(true);
@@ -1687,6 +1689,10 @@ if(empty($can_write)){
 // Retrieve all the information from the form
 $data = array();
 
+if(empty($backuply['excludes'])){
+	$backuply['excludes'] = [];
+}
+
 //Exclude the "backuply" folder
 $backuply['excludes']['exact'][] = backuply_cleanpath(BACKUPLY_BACKUP_DIR);
 
@@ -1752,7 +1758,7 @@ backuply_backup_stop_checkpoint();
 
 // We need to stop execution in 25 secs.. We will be called again if the process is incomplete
 // Set default value
-$keepalive = 25;
+//$keepalive = 25;
 $GLOBALS['end'] = (int) time() + $keepalive;
 
 $name = $data['name'];

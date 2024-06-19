@@ -53,14 +53,16 @@ class Wp_Hide_Backed_Notices_Admin {
 
         // Add admin menu 
         add_action('admin_menu', array($this, 'add_custom_menu_in_dashboard'));
-        add_shortcode('warning_notices_settings', array($this, 'warning_notices_settings'));
 
         add_action('admin_enqueue_scripts', array($this, 'hk_ds_admin_theme_style'));
         add_action('login_enqueue_scripts', array($this, 'hk_ds_admin_theme_style'));
     }
 
     public function add_custom_menu_in_dashboard() {
-
+        // Check if the user has the required capability
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        }
         // Create a custom capability 
         $capability = 'manage_options';
 
@@ -242,6 +244,10 @@ class Wp_Hide_Backed_Notices_Admin {
 
     // Hide warnings from the wordpress backend
     public function hk_ds_admin_theme_style() {
+        // Check if the user has the required capability
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        }
         $roles = wp_roles()->get_names();
         $user_role_val_list = [];
         $user_role_name_list = [];

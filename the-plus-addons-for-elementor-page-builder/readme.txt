@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, elementor addons, elementor templates, widge
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.5.6
+Stable tag: 5.6.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -382,6 +382,19 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 12. Unique 22+ Elementor Extensions
 
 == Changelog ==
+
+= 5.6.0 =
+Add : New Widget : Table
+Add : New Widget : Carousel Anything
+Add : Accordion : Option to add content from elementor Templates
+Add : Accordion : Option to add padding for title background
+Add : Accordion : Option to add box border for title background
+Add : Info Box : Option to add padding for Description
+Add : Pricing Table : Option to add Alignment option for Title, Sub Title, Price & Ribbon
+Add : Pricing Table : Option to add padding for ribbon text
+Add : Pricing Table : Option to change position of pricing button
+Add : Tabs/Tour : Styling options for tabs Navigation area
+Fix : Minor Bug Fixes & performance Improvements
 
 = 5.5.6 =
 Fix : Minor Bug Fixes & performance Improvements

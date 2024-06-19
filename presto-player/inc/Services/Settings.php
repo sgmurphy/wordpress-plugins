@@ -258,6 +258,27 @@ class Settings
                 ]
             ]
         );
+
+        /**
+         * Instant Video Width Setting
+         */
+        \register_setting(
+            'presto_player',
+            'presto_player_instant_video_width',
+            [
+                'type'              => 'string',
+                'description'       => __('Instant video width.', 'presto-player'),
+                'show_in_rest'      => [
+                    'name' =>  'presto_player_instant_video_width',
+                    'type'  => 'string',
+                    'schema' => [
+                        'type' => 'string',
+                        'default' => '800px'
+                    ]
+                ],
+                'default' => '800px'
+            ]
+        );
     }
 
     public static function template()

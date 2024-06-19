@@ -38,6 +38,7 @@ class Deactivator
     delete_option('presto_player_bunny_storage_zones');
     delete_option('presto_player_bunny_pull_zones');
     delete_option('presto_player_bunny_uid');
+    delete_option('presto_player_instant_video_width');
 
     // notices
     delete_option('presto_player_dismissed_notice_nginx_rules');

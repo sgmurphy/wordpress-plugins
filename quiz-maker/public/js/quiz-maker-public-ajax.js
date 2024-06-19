@@ -836,6 +836,10 @@
             break;
         }
 
+        if ( form.parents('.ays-quiz-container').hasClass('ays_quiz_hide_bg_during_quiz') ) {
+            form.parents('.ays-quiz-container').removeClass('ays_quiz_hide_bg_during_quiz');
+        }
+
         if (myOptions.redirect_after_submit && myOptions.redirect_after_submit == 'on') {            
             var ays_block_element = form.parents('.ays-quiz-container');
             var quizId = form.parents('.ays-quiz-container').find('input[name="ays_quiz_id"]').val();

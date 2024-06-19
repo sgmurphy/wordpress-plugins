@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-23T21:31:37+00:00\n"
+"POT-Creation-Date: 2024-06-18T19:27:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -90,7 +90,7 @@ msgstr ""
 #: products/modules/BuyLink.js:138
 #: subscriptions/show/modules/Details.js:194
 #: test-mode-toggle/TestModeToggle.js:47
-#: Controllers/PaymentMethodController.php:179
+#: Controllers/PaymentMethodController.php:182
 #: Blocks/Payment/edit.js:33
 #: sc-license.js:129
 #: sc-order.js:179
@@ -211,12 +211,14 @@ msgstr ""
 #: customers/modules/Orders.js:58
 #: dashboard/components/overview/charts/ChartSummary.js:144
 #: orders/modules/LineItems/index.js:312
-#: subscriptions/edit/modules/Price.js:61
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:286
+#: subscriptions/edit/modules/Price.js:70
 #: subscriptions/show/modules/CurrentPlan.js:101
 #: subscriptions/show/modules/SubscriptionItems.js:109
 #: Blocks/CartSubtotal/Block.php:29
 #: Blocks/CheckoutForm/components/PriceChoices.js:65
 #: Blocks/ConditionalForm/translations.js:5
+#: Blocks/Total/deprecated.js:129
 #: Blocks/Total/edit.js:24
 #: Blocks/Total/edit.js:71
 #: Blocks/Total/edit.js:73
@@ -262,8 +264,8 @@ msgstr ""
 #: Blocks/Form/components/Mode.js:12
 #: Blocks/Form/components/Mode.js:32
 #: sc-customer-details2.js:76
-#: sc-customer-edit.js:97
-#: sc-payment-methods-list.js:156
+#: sc-customer-edit.js:98
+#: sc-payment-methods-list.js:167
 #: sc-subscription-payment-method.js:175
 msgid "Test"
 msgstr ""
@@ -491,7 +493,7 @@ msgstr ""
 #: product-groups/EditProductGroup.js:122
 #: products/components/product/ActionsDropdown.js:40
 #: products/modules/integrations/Integration.js:110
-#: products/modules/Prices/Price/Header.js:241
+#: products/modules/Prices/Price/Header.js:239
 #: products/modules/Variations/VariantItem.js:282
 #: settings/processors/ManualPaymentMethod.js:158
 #: settings/shipping/method/ShippingMethods.js:189
@@ -504,8 +506,8 @@ msgstr ""
 #: settings/tax-override/TaxOverrideRows.js:71
 #: settings/tax-region/RegistrationForm.js:313
 #: upsell-funnels/EditFunnel.js:243
-#: sc-payment-methods-list.js:156
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:160
+#: sc-payment-methods-list.js:194
 msgid "Delete"
 msgstr ""
 
@@ -897,7 +899,7 @@ msgstr ""
 #: coupons/modules/Code.js:118
 #: product-groups/EditProductGroup.js:164
 #: products/EditProduct.js:186
-#: products/modules/Prices/Price/Header.js:254
+#: products/modules/Prices/Price/Header.js:252
 #: products/modules/SingleDownload.js:259
 #: upsell-funnels/EditFunnel.js:261
 #: util.js:86
@@ -915,7 +917,7 @@ msgstr ""
 #: settings/shipping/rate/ShippingRateForm.js:391
 #: settings/shipping/zone/ShippingZone.js:98
 #: store/add-entities.js:257
-#: subscriptions/edit/modules/Price.js:48
+#: subscriptions/edit/modules/Price.js:57
 #: subscriptions/show/modules/CurrentPlan.js:87
 #: upsell-funnels/modules/Price.js:33
 #: Blocks/CheckoutForm/entities.js:19
@@ -941,11 +943,11 @@ msgstr ""
 #: src/Controllers/Admin/Products/ProductsListTable.php:305
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:188
 #: invoices/store/entities.js:70
-#: products/modules/Prices/NewPrice/index.js:153
-#: products/modules/Prices/Price/Header.js:87
+#: products/modules/Prices/NewPrice/index.js:144
+#: products/modules/Prices/Price/Header.js:85
 #: store/add-entities.js:418
 #: store/add-entities.js:425
-#: subscriptions/edit/EditSubscription.js:224
+#: subscriptions/edit/EditSubscription.js:231
 #: sc-subscription-details2.js:92
 #: sc-subscription.js:153
 msgid "Subscription"
@@ -1145,7 +1147,7 @@ msgstr ""
 #: coupons/modules/Code.js:155
 #: product-groups/EditProductGroup.js:118
 #: products/components/product/ActionsDropdown.js:29
-#: products/modules/Prices/Price/Header.js:226
+#: products/modules/Prices/Price/Header.js:224
 #: products/modules/SingleDownload.js:316
 #: upsell-funnels/EditFunnel.js:239
 msgid "Un-Archive"
@@ -1160,7 +1162,7 @@ msgstr ""
 #: coupons/modules/Code.js:156
 #: product-groups/EditProductGroup.js:119
 #: products/components/product/ActionsDropdown.js:30
-#: products/modules/Prices/Price/Header.js:227
+#: products/modules/Prices/Price/Header.js:225
 #: products/modules/SingleDownload.js:317
 #: upsell-funnels/EditFunnel.js:240
 msgid "Archive"
@@ -1390,6 +1392,7 @@ msgstr ""
 #: orders/modules/LineItems/index.js:286
 #: products/modules/Shipping.js:25
 #: settings/shipping/ShippingSettings.js:120
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:257
 #: subscriptions/show/modules/LineItems/index.js:121
 #: sc-line-item-shipping2.js:26
 #: sc-order-confirmation-totals2.js:35
@@ -1911,7 +1914,7 @@ msgid "%1d%% off"
 msgstr ""
 
 #: src/Controllers/Admin/Subscriptions/SubscriptionsListTable.php:392
-#: subscriptions/edit/EditSubscription.js:237
+#: subscriptions/edit/EditSubscription.js:244
 msgid "Edit Subscription"
 msgstr ""
 
@@ -2026,7 +2029,7 @@ msgstr ""
 #: src/Controllers/Web/DashboardController.php:89
 #: Controllers/CustomerController.php:54
 #: Controllers/CustomerController.php:106
-#: Controllers/PaymentMethodController.php:170
+#: Controllers/PaymentMethodController.php:173
 msgid "Billing"
 msgstr ""
 
@@ -2046,7 +2049,7 @@ msgstr ""
 #: Controllers/LicenseController.php:115
 #: Controllers/OrderController.php:59
 #: Controllers/OrderController.php:107
-#: Controllers/PaymentMethodController.php:153
+#: Controllers/PaymentMethodController.php:156
 #: Controllers/SubscriptionController.php:111
 #: Controllers/SubscriptionController.php:158
 #: Controllers/SubscriptionController.php:273
@@ -3145,7 +3148,7 @@ msgstr ""
 #: products/utility.js:8
 #: util/templates.js:8
 #: Blocks/Dashboard/CustomerPaymentMethods/edit.js:82
-#: sc-payment-methods-list.js:156
+#: sc-payment-methods-list.js:167
 msgid "Default"
 msgstr ""
 
@@ -5904,7 +5907,7 @@ msgstr ""
 #: src/WordPress/Shortcodes/ShortcodesServiceProvider.php:181
 #: web/buy-template.php:62
 #: products/modules/Prices/index.js:59
-#: subscriptions/edit/modules/Price.js:45
+#: subscriptions/edit/modules/Price.js:54
 #: subscriptions/show/modules/CurrentPlan.js:84
 msgid "Pricing"
 msgstr ""
@@ -5995,7 +5998,7 @@ msgstr ""
 #: settings/SettingsTemplate.js:77
 #: settings/shipping/zone/ShippingZoneForm.js:237
 #: settings/tax-override/TaxOverrideModal.js:272
-#: sc-customer-edit.js:122
+#: sc-customer-edit.js:123
 #: sc-order-bump2.js:79
 #: sc-wordpress-user-edit.js:61
 msgid "Save"
@@ -6363,7 +6366,7 @@ msgstr[1] ""
 #: products/modules/Image/ConfirmDeleteImage.js:53
 #: products/modules/integrations/NewIntegration.js:233
 #: products/modules/Inventory/StockAdjustmentModal.js:136
-#: products/modules/Prices/NewPrice/index.js:202
+#: products/modules/Prices/NewPrice/index.js:198
 #: products/modules/Prices/Price/index.js:257
 #: products/modules/Upgrades.js:130
 #: products/modules/Variations/NewVariant.js:198
@@ -6380,10 +6383,11 @@ msgstr[1] ""
 #: settings/tax-override/TaxOverrideModal.js:263
 #: subscriptions/edit/modules/Modals/UpdateAmount.js:41
 #: subscriptions/edit/modules/Modals/UpdatePrice.js:50
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:335
 #: subscriptions/edit/modules/PaymentMethod/EditPaymentMethod.js:168
 #: subscriptions/show/modules/modals/CancelUpdateModal.js:66
 #: subscriptions/show/modules/modals/CompleteSubscriptionModal.js:56
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:179
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:176
 #: subscriptions/show/modules/modals/DontCancelModal.js:59
 #: subscriptions/show/modules/modals/PayOffSubscriptionModal.js:74
 #: subscriptions/show/modules/modals/RenewSubscriptionAtModal.js:111
@@ -6406,7 +6410,7 @@ msgstr[1] ""
 #: formats/AddPriceUI.js:113
 #: sc-license.js:146
 #: sc-password-nag.js:93
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Cancel"
 msgstr ""
 
@@ -6533,14 +6537,16 @@ msgstr ""
 #: checkouts/modules/Payment.js:90
 #: invoices/modules/LineItems.js:127
 #: orders/modules/LineItems/index.js:239
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:215
 #: subscriptions/show/modules/LineItems/index.js:82
 #: subscriptions/show/modules/SubscriptionItems.js:84
 #: Blocks/Subtotal/edit.js:19
 #: Blocks/Subtotal/edit.js:53
 #: Blocks/Subtotal/save.js:15
+#: Blocks/Total/deprecated.js:136
 #: Blocks/Total/edit.js:44
-#: Blocks/Total/edit.js:77
-#: Blocks/Total/save.js:28
+#: Blocks/Total/edit.js:76
+#: Blocks/Total/save.js:27
 #: Blocks/Totals/edit.js:53
 #: Blocks/Upsell/UpsellTotals/edit.js:21
 #: sc-line-item-total2.js:34
@@ -6553,6 +6559,7 @@ msgid "Subtotal"
 msgstr ""
 
 #: web/buy-template.php:118
+#: Blocks/Total/deprecated.js:133
 #: Blocks/Total/edit.js:64
 #: Blocks/Total/save.js:24
 #: Blocks/Totals/edit.js:70
@@ -6760,7 +6767,7 @@ msgstr ""
 #: settings/processors/ManualPaymentMethod.js:52
 #: settings/processors/ManualPaymentMethod.js:83
 #: settings/subscription-preservation/Reason.js:45
-#: subscriptions/edit/EditSubscription.js:191
+#: subscriptions/edit/EditSubscription.js:198
 #: subscriptions/show/modules/CurrentPlan.js:62
 #: subscriptions/show/modules/CurrentPlan.js:67
 #: subscriptions/show/modules/modals/PauseSubscriptionUntilModal.js:70
@@ -6772,7 +6779,7 @@ msgstr ""
 #: upsell-funnels/modules/Upsell/Product.js:54
 #: sc-cart-form.js:73
 #: sc-charges-list.js:74
-#: sc-customer-edit.js:91
+#: sc-customer-edit.js:92
 #: sc-dashboard-customer-details.js:54
 #: sc-dashboard-downloads-list.js:63
 #: sc-dashboard-downloads-list.js:79
@@ -6794,10 +6801,10 @@ msgstr ""
 #: sc-orders-list.js:76
 #: sc-password-nag.js:55
 #: sc-password-nag.js:85
-#: sc-payment-methods-list.js:74
-#: sc-payment-methods-list.js:101
-#: sc-payment-methods-list.js:116
-#: sc-payment-methods-list.js:139
+#: sc-payment-methods-list.js:75
+#: sc-payment-methods-list.js:102
+#: sc-payment-methods-list.js:117
+#: sc-payment-methods-list.js:140
 #: sc-paypal-add-method.js:102
 #: sc-paystack-add-method.js:65
 #: sc-stripe-add-method.js:102
@@ -6855,7 +6862,7 @@ msgstr ""
 #: orders/Sidebar.js:30
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:71
 #: sc-customer-details2.js:43
-#: sc-customer-edit.js:112
+#: sc-customer-edit.js:113
 #: sc-order-billing-address.js:104
 msgid "Billing Address"
 msgstr ""
@@ -6914,7 +6921,7 @@ msgstr ""
 #: coupons/Sidebar.js:62
 #: products/components/price/parts/SetupFee.js:115
 #: products/components/price/parts/SetupFee.js:141
-#: products/modules/Prices/Price/Header.js:61
+#: products/modules/Prices/Price/Header.js:59
 #: settings/subscription-preservation/Reason.js:69
 #: upsell-funnels/modules/Upsell/Discount.js:35
 #: sc-coupon-form2.js:113
@@ -6954,6 +6961,7 @@ msgstr ""
 
 #: abandoned-checkouts/modules/LineItems/index.js:82
 #: orders/modules/LineItems/index.js:246
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:222
 #: subscriptions/show/modules/LineItems/index.js:89
 #: sc-order.js:144
 msgid "Proration"
@@ -6961,6 +6969,7 @@ msgstr ""
 
 #: abandoned-checkouts/modules/LineItems/index.js:90
 #: orders/modules/LineItems/index.js:254
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:230
 #: subscriptions/show/modules/LineItems/index.js:97
 #: sc-order.js:147
 #: sc-subscription-next-payment2.js:106
@@ -6971,6 +6980,7 @@ msgstr ""
 #: abandoned-checkouts/modules/LineItems/index.js:100
 #: invoices/modules/LineItems.js:138
 #: orders/modules/LineItems/index.js:264
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:249
 #: subscriptions/show/modules/LineItems/index.js:113
 #: subscriptions/show/modules/SubscriptionItems.js:95
 #: sc-subscription-next-payment2.js:106
@@ -7252,7 +7262,7 @@ msgstr ""
 #: coupons/modules/SelectCustomer.js:208
 #: customers/modules/Details.js:35
 #: Blocks/Dashboard/WordPressAccount/edit.js:60
-#: sc-customer-edit.js:97
+#: sc-customer-edit.js:98
 #: sc-wordpress-user-edit.js:61
 #: sc-wordpress-user.js:27
 msgid "First Name"
@@ -7268,7 +7278,7 @@ msgstr ""
 #: coupons/modules/SelectCustomer.js:220
 #: customers/modules/Details.js:47
 #: Blocks/Dashboard/WordPressAccount/edit.js:65
-#: sc-customer-edit.js:97
+#: sc-customer-edit.js:98
 #: sc-wordpress-user-edit.js:61
 #: sc-wordpress-user.js:27
 msgid "Last Name"
@@ -7795,7 +7805,7 @@ msgid "Create Order"
 msgstr ""
 
 #: checkouts/CreateCheckout.js:311
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:98
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:95
 #: subscriptions/show/modules/modals/PayOffSubscriptionModal.js:60
 #: subscriptions/show/modules/modals/RestoreSubscriptionModal.js:58
 #: sc-subscription-reactivate2.js:82
@@ -7858,16 +7868,28 @@ msgstr ""
 
 #: checkouts/modules/Payment.js:169
 #: products/components/price/parts/Trial.js:23
+#: products/modules/Prices/Price/Header.js:44
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:241
 #: subscriptions/edit/modules/Trial.js:8
+#: subscriptions/edit/modules/Trial.js:14
+#: subscriptions/edit/modules/UpcomingPeriod.js:77
 #: subscriptions/show/modules/LineItems/index.js:105
+#: Blocks/Total/edit.js:34
+#: Blocks/Total/edit.js:79
+#: Blocks/Total/save.js:30
+#: sc-line-item-total2.js:55
+#: sc-subscription-next-payment2.js:106
+#: sc-upcoming-invoice.js:223
+#: sc-upsell-totals.js:20
 msgid "Trial"
 msgstr ""
 
 #: checkouts/modules/Payment.js:186
 #: subscriptions/show/modules/LineItems/index.js:145
+#: Blocks/Total/deprecated.js:142
 #: Blocks/Total/edit.js:54
-#: Blocks/Total/edit.js:83
-#: Blocks/Total/save.js:34
+#: Blocks/Total/edit.js:82
+#: Blocks/Total/save.js:33
 #: sc-line-item-total2.js:55
 #: sc-order.js:170
 #: sc-upsell-totals.js:29
@@ -7881,7 +7903,7 @@ msgstr ""
 #: subscriptions/edit/modules/PaymentMethod/EditPaymentMethod.js:106
 #: Blocks/Dashboard/CustomerPaymentMethods/edit.js:78
 #: Blocks/Dashboard/CustomerPaymentMethods/edit.js:117
-#: sc-payment-methods-list.js:154
+#: sc-payment-methods-list.js:165
 #: sc-subscription-payment-method.js:177
 msgid "Exp."
 msgstr ""
@@ -7913,8 +7935,8 @@ msgstr ""
 
 #: checkouts/modules/Payment.js:270
 #: checkouts/modules/PaymentMethods.js:138
-#: Controllers/PaymentMethodController.php:173
-#: Controllers/PaymentMethodController.php:178
+#: Controllers/PaymentMethodController.php:176
+#: Controllers/PaymentMethodController.php:181
 #: sc-mollie-add-method.js:102
 msgid "Add Payment Method"
 msgstr ""
@@ -8246,7 +8268,7 @@ msgid "Select All"
 msgstr ""
 
 #: components/data-tables/charges-data-table/Refund.js:228
-#: subscriptions/edit/modules/Price.js:51
+#: subscriptions/edit/modules/Price.js:60
 #: subscriptions/show/modules/CurrentPlan.js:90
 #: subscriptions/show/modules/PendingUpdate.js:59
 msgid "Qty"
@@ -9137,7 +9159,7 @@ msgstr ""
 #: settings/account/AccountSettings.js:404
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:82
 #: sc-customer-details2.js:43
-#: sc-customer-edit.js:97
+#: sc-customer-edit.js:98
 msgid "Phone"
 msgstr ""
 
@@ -9173,8 +9195,8 @@ msgid "Default payment method changed."
 msgstr ""
 
 #: customers/modules/PaymentMethods/Actions.js:86
-#: sc-payment-methods-list.js:156
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:160
+#: sc-payment-methods-list.js:194
 msgid "Make Default"
 msgstr ""
 
@@ -9194,7 +9216,7 @@ msgstr ""
 
 #: customers/modules/PaymentMethods/index.js:47
 #: Controllers/CustomerController.php:59
-#: sc-payment-methods-list.js:177
+#: sc-payment-methods-list.js:188
 msgid "Payment Methods"
 msgstr ""
 
@@ -9348,7 +9370,7 @@ msgstr ""
 
 #: dashboard/components/overview/parts/ReportByDropdown.js:13
 #: dashboard/components/overview/parts/ReportByDropdown.js:30
-#: Blocks/CartItems/edit.js:75
+#: Blocks/CartItems/edit.js:79
 #: sc-subscription-switch.js:156
 msgid "Monthly"
 msgstr ""
@@ -9448,8 +9470,8 @@ msgstr ""
 #: orders/modules/Fulfillment/CreateFulfillment.js:272
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:60
 #: sc-customer-details2.js:43
-#: sc-customer-edit.js:97
-#: sc-order-shipping-address2.js:112
+#: sc-customer-edit.js:98
+#: sc-order-shipping-address2.js:113
 msgid "Shipping Address"
 msgstr ""
 
@@ -9690,7 +9712,7 @@ msgstr ""
 #: settings/shipping/method/ShippingMethodForm.js:146
 #: settings/shipping/rate/ShippingRateForm.js:196
 #: Blocks/Dashboard/CustomerPaymentMethods/edit.js:47
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Add"
 msgstr ""
 
@@ -10938,37 +10960,33 @@ msgid "Set up pricing for your product."
 msgstr ""
 
 #: products/modules/Prices/index.js:92
-#: products/modules/Prices/NewPrice/index.js:107
+#: products/modules/Prices/NewPrice/index.js:98
 msgid "Add A Price"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:42
-msgid "Are you sure you want to discard this price?"
-msgstr ""
-
-#: products/modules/Prices/NewPrice/index.js:63
+#: products/modules/Prices/NewPrice/index.js:54
 msgid "Price added."
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:137
+#: products/modules/Prices/NewPrice/index.js:128
 msgid "Payment type"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:145
-#: products/modules/Prices/Price/Header.js:90
+#: products/modules/Prices/NewPrice/index.js:136
+#: products/modules/Prices/Price/Header.js:88
 #: Blocks/Product/PriceChoices/edit.js:99
 msgid "One Time"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:149
+#: products/modules/Prices/NewPrice/index.js:140
 msgid "Installment"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:199
+#: products/modules/Prices/NewPrice/index.js:190
 msgid "Create Price"
 msgstr ""
 
-#: products/modules/Prices/NewPrice/index.js:220
+#: products/modules/Prices/NewPrice/index.js:216
 #: products/modules/Prices/Price/index.js:280
 msgid "Tax is included"
 msgstr ""
@@ -11025,20 +11043,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:45
-#: subscriptions/edit/modules/Trial.js:14
-#: subscriptions/edit/modules/UpcomingPeriod.js:77
-#: Blocks/Total/edit.js:34
-#: Blocks/Total/edit.js:80
-#: Blocks/Total/save.js:31
-#: sc-line-item-total2.js:55
-#: sc-subscription-next-payment2.js:106
-#: sc-upcoming-invoice.js:223
-#: sc-upsell-totals.js:20
-msgid "Free Trial"
-msgstr ""
-
-#: products/modules/Prices/Price/Header.js:62
+#: products/modules/Prices/Price/Header.js:60
 #: sc-price-choice-container2.js:69
 #: sc-price-choice.js:813
 #: sc-price2.js:56
@@ -11046,13 +11051,13 @@ msgstr ""
 msgid "Setup Fee"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:82
+#: products/modules/Prices/Price/Header.js:80
 #: Blocks/Product/PriceChoices/edit.js:119
 #: sc-subscription-switch.js:156
 msgid "Payment Plan"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:133
+#: products/modules/Prices/Price/Header.js:131
 #: sc-price-choice-container2.js:51
 #: sc-price-choice.js:804
 #: sc-price2.js:28
@@ -11060,7 +11065,7 @@ msgstr ""
 msgid "Custom Amount"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:178
+#: products/modules/Prices/Price/Header.js:176
 #: util/translations.js:6
 #: util/translations.js:49
 #: price.js:32
@@ -11070,11 +11075,11 @@ msgstr ""
 msgid "every"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:207
+#: products/modules/Prices/Price/Header.js:205
 msgid "More Options"
 msgstr ""
 
-#: products/modules/Prices/Price/Header.js:266
+#: products/modules/Prices/Price/Header.js:264
 msgid "Copy Links"
 msgstr ""
 
@@ -13039,7 +13044,6 @@ msgid "New Cancellation Reason"
 msgstr ""
 
 #: settings/subscription-preservation/EditReason.js:88
-#: Blocks/Address/edit.js:56
 #: Blocks/BumpLineItem/edit.js:16
 #: Blocks/CartBumpLineItem/edit.js:33
 #: Blocks/CartCoupon/edit.js:50
@@ -13305,6 +13309,14 @@ msgstr ""
 msgid "Customers will be able to cancel their subscriptions from the customer portal. You can configure what happens when a subscription cancellation happens from the Subscriptions settings page."
 msgstr ""
 
+#: settings/subscription/SubscriptionSettings.js:419
+msgid "Allow Customers To Remove Default Payment Method"
+msgstr ""
+
+#: settings/subscription/SubscriptionSettings.js:424
+msgid "When enabled, customers are allowed to remove their default payment method on file. This can lead to subscription payments failing since there is no payment method on file."
+msgstr ""
+
 #: settings/tax-override/index.js:35
 msgid "Tax Rate Overrides"
 msgstr ""
@@ -13468,8 +13480,7 @@ msgstr ""
 #: settings/tax-region/RegistrationForm.js:33
 #: settings/tax-region/RegistrationForm.js:34
 #: settings/tax-region/RegistrationForm.js:35
-#: Blocks/Address/edit.js:155
-#: Blocks/BillingAddress/edit.js:124
+#: Blocks/Address/edit.js:195
 #: sc-address2.js:122
 #: sc-order-billing-address.js:30
 #: sc-order-shipping-address2.js:43
@@ -13935,30 +13946,33 @@ msgstr ""
 msgid "Total Of Installment Payments Remaining"
 msgstr ""
 
-#: subscriptions/edit/EditSubscription.js:118
+#: subscriptions/edit/EditSubscription.js:124
 #: subscriptions/show/modules/modals/RenewSubscriptionAtModal.js:52
 #: subscriptions/show/modules/modals/RestoreSubscriptionAtModal.js:61
 msgid "Subscription updated."
 msgstr ""
 
-#: subscriptions/edit/EditSubscription.js:233
+#: subscriptions/edit/EditSubscription.js:240
 #: subscriptions/show/modules/SubscriptionItems.js:50
 #: subscriptions/show/ShowSubscription.js:374
 msgid "Subscription Details"
 msgstr ""
 
-#: subscriptions/edit/EditSubscription.js:257
+#: subscriptions/edit/EditSubscription.js:278
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:174
 msgid "Update Immediately"
 msgstr ""
 
-#: subscriptions/edit/EditSubscription.js:265
+#: subscriptions/edit/EditSubscription.js:286
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:331
 #: subscriptions/show/modules/modals/RenewSubscriptionAtModal.js:120
 #: subscriptions/show/modules/modals/RestoreSubscriptionAtModal.js:164
 #: subscriptions/show/ShowSubscription.js:251
 msgid "Update Subscription"
 msgstr ""
 
-#: subscriptions/edit/EditSubscription.js:266
+#: subscriptions/edit/EditSubscription.js:287
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:332
 msgid "Schedule Update"
 msgstr ""
 
@@ -13972,6 +13986,46 @@ msgstr ""
 msgid "Update Subscription Price"
 msgstr ""
 
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:98
+msgid "Confirm Price Change"
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:111
+msgid "Are you sure you want to update this subscription to use the current price? This will update this users subscription to use the current price."
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:129
+msgid "Price Change:"
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:150
+#: sc-price-range2.js:38
+msgid "to"
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:176
+msgid "Immediately updates the subscription to this new price, instead of waiting until renewal."
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:197
+#: subscriptions/edit/modules/UpcomingPeriod.js:118
+msgid "Prorate Charges"
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:199
+msgid "Apply a credit of unused time from the current billing period."
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:303
+#: subscriptions/edit/modules/UpcomingPeriod.js:62
+msgid "Customer Credit"
+msgstr ""
+
+#: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:306
+#: subscriptions/edit/modules/UpcomingPeriod.js:65
+msgid "Applied to balance"
+msgstr ""
+
 #: subscriptions/edit/modules/PaymentMethod/EditPaymentMethod.js:88
 #: Controllers/SubscriptionController.php:309
 #: sc-subscription-payment-method.js:170
@@ -13980,12 +14034,20 @@ msgstr ""
 msgid "Update Payment Method"
 msgstr ""
 
-#: subscriptions/edit/modules/Price.js:113
+#: subscriptions/edit/modules/Price.js:104
+msgid "Previous Price Version"
+msgstr ""
+
+#: subscriptions/edit/modules/Price.js:130
 msgid "Edit Amount"
 msgstr ""
 
-#: subscriptions/edit/modules/Price.js:119
+#: subscriptions/edit/modules/Price.js:136
 msgid "Change Price"
+msgstr ""
+
+#: subscriptions/edit/modules/Price.js:144
+msgid "Use Current Version"
 msgstr ""
 
 #: subscriptions/edit/modules/Summary.js:11
@@ -13993,11 +14055,11 @@ msgid "Started"
 msgstr ""
 
 #: subscriptions/edit/modules/Trial.js:13
-msgid "Free Trial Ends"
+msgid "Trial Ends"
 msgstr ""
 
 #: subscriptions/edit/modules/Trial.js:23
-msgid "Add Free Trial"
+msgid "Add Trial"
 msgstr ""
 
 #: subscriptions/edit/modules/Trial.js:24
@@ -14013,14 +14075,6 @@ msgstr ""
 msgid "Bills on"
 msgstr ""
 
-#: subscriptions/edit/modules/UpcomingPeriod.js:62
-msgid "Customer Credit"
-msgstr ""
-
-#: subscriptions/edit/modules/UpcomingPeriod.js:65
-msgid "Applied to balance"
-msgstr ""
-
 #: subscriptions/edit/modules/UpcomingPeriod.js:80
 msgid "%d day left in trial"
 msgid_plural "%d days left in trial"
@@ -14029,10 +14083,6 @@ msgstr[1] ""
 
 #: subscriptions/edit/modules/UpcomingPeriod.js:91
 msgid "Ends on"
-msgstr ""
-
-#: subscriptions/edit/modules/UpcomingPeriod.js:118
-msgid "Prorate Charges"
 msgstr ""
 
 #: subscriptions/shared/EndDate.js:10
@@ -14126,41 +14176,41 @@ msgstr ""
 msgid "Complete Subscription"
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:104
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:101
 msgid "The subscription will be restored in order to restore the purchase. The customer will immediately be charged %s for the first billing period."
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:113
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:110
 msgid "The subscription will be restored in order to restore the purchase. The customer will immediately be charged the first billing period."
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:125
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:122
 msgid "The subscription will be canceled in order to revoke the purchase."
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:132
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:129
 msgid "This action will re-enable associated access."
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:133
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:130
 msgid "This action will remove the associated access and trigger any cancelation automations you have set up."
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:142
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:139
 msgid "Unrevoke Purchase & Restore Subscription"
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:143
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:140
 msgid "Revoke Purchase & Cancel Subscription"
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:147
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:155
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:144
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:152
 msgid "Unrevoke Purchase"
 msgstr ""
 
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:148
-#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:156
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:145
+#: subscriptions/show/modules/modals/ConfirmRevokeModal.js:153
 msgid "Revoke Purchase"
 msgstr ""
 
@@ -14691,7 +14741,7 @@ msgstr ""
 #: Controllers/ChargeController.php:32
 #: Blocks/Dashboard/CustomerPaymentMethods/edit.js:43
 #: sc-charges-list.js:126
-#: sc-payment-methods-list.js:180
+#: sc-payment-methods-list.js:191
 msgid "Payment History"
 msgstr ""
 
@@ -14703,7 +14753,7 @@ msgid "Billing Details"
 msgstr ""
 
 #: Controllers/CustomerController.php:123
-#: sc-customer-edit.js:97
+#: sc-customer-edit.js:98
 msgid "Update Billing Details"
 msgstr ""
 
@@ -14725,32 +14775,32 @@ msgstr ""
 msgid "Order History"
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:111
+#: Controllers/PaymentMethodController.php:114
 msgid "You are not a live mode customer."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:114
+#: Controllers/PaymentMethodController.php:117
 msgid "Switch to test mode."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:118
+#: Controllers/PaymentMethodController.php:121
 msgid "You are not a test mode customer."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:121
+#: Controllers/PaymentMethodController.php:124
 msgid "Switch to live mode."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:125
+#: Controllers/PaymentMethodController.php:128
 msgid "You are not currently a customer."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:144
+#: Controllers/PaymentMethodController.php:147
 msgid "You cannot currently add a payment method. Please contact us for support."
 msgstr ""
 
-#: Controllers/PaymentMethodController.php:203
-#: Controllers/PaymentMethodController.php:233
+#: Controllers/PaymentMethodController.php:206
+#: Controllers/PaymentMethodController.php:236
 #: Blocks/Payment/components/PayPal.js:51
 #: Blocks/Payment/components/Stripe.js:37
 #: sc-payment.js:39
@@ -14824,15 +14874,14 @@ msgstr ""
 msgid "Update Password"
 msgstr ""
 
-#: Blocks/Address/edit.js:39
+#: Blocks/Address/edit.js:44
 #: Blocks/AddToCartButton/edit.js:78
-#: Blocks/BillingAddress/edit.js:33
 #: Blocks/BumpLineItem/edit.js:13
 #: Blocks/BuyButton/edit.js:84
 #: Blocks/Card/edit.js:25
 #: Blocks/CartBumpLineItem/edit.js:30
 #: Blocks/CartCoupon/edit.js:38
-#: Blocks/CartItems/edit.js:28
+#: Blocks/CartItems/edit.js:32
 #: Blocks/CartSubmit/edit.js:83
 #: Blocks/CartSubtotal/edit.js:30
 #: Blocks/Checkbox/components/Inspector.js:13
@@ -14894,7 +14943,7 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: Blocks/Address/edit.js:42
+#: Blocks/Address/edit.js:47
 #: Blocks/Checkbox/edit.js:31
 #: Blocks/FirstName/edit.js:29
 #: Blocks/Input/edit.js:28
@@ -14910,55 +14959,67 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: Blocks/Address/edit.js:47
+#: Blocks/Address/edit.js:52
 msgid "If tax or shipping is required for checkout the address field will automatically be required."
 msgstr ""
 
-#: Blocks/Address/edit.js:63
+#: Blocks/Address/edit.js:61
+msgid "Shipping Address Label"
+msgstr ""
+
+#: Blocks/Address/edit.js:68
+msgid "Collect Billing Address"
+msgstr ""
+
+#: Blocks/Address/edit.js:73
+msgid "If enabled, the user can enter a separate billing address. Otherwise, the billing address will be the same as the shipping address."
+msgstr ""
+
+#: Blocks/Address/edit.js:82
+msgid "Billing Address Toggle"
+msgstr ""
+
+#: Blocks/Address/edit.js:93
+msgid "Billing Address Label"
+msgstr ""
+
+#: Blocks/Address/edit.js:103
 msgid "Use a compact address if possible"
 msgstr ""
 
-#: Blocks/Address/edit.js:74
+#: Blocks/Address/edit.js:114
 msgid "If products in the cart require tax but not shipping, we will show a condensed version specifically for tax collection."
 msgstr ""
 
-#: Blocks/Address/edit.js:83
-#: Blocks/BillingAddress/edit.js:53
+#: Blocks/Address/edit.js:123
 msgid "Show the \"name or company name\" field in the form."
 msgstr ""
 
-#: Blocks/Address/edit.js:97
-#: Blocks/BillingAddress/edit.js:66
+#: Blocks/Address/edit.js:137
 msgid "Name Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:107
-#: Blocks/BillingAddress/edit.js:76
+#: Blocks/Address/edit.js:147
 msgid "Country Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:116
-#: Blocks/BillingAddress/edit.js:85
+#: Blocks/Address/edit.js:156
 msgid "City Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:125
-#: Blocks/BillingAddress/edit.js:94
+#: Blocks/Address/edit.js:165
 msgid "Address Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:134
-#: Blocks/BillingAddress/edit.js:103
+#: Blocks/Address/edit.js:174
 msgid "Postal Code Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:143
-#: Blocks/BillingAddress/edit.js:112
+#: Blocks/Address/edit.js:183
 msgid "State Placeholder"
 msgstr ""
 
-#: Blocks/Address/edit.js:154
-#: Blocks/BillingAddress/edit.js:123
+#: Blocks/Address/edit.js:194
 msgid "Default country"
 msgstr ""
 
@@ -15089,14 +15150,6 @@ msgstr ""
 msgid "Select Product"
 msgstr ""
 
-#: Blocks/BillingAddress/edit.js:36
-msgid "Switch Label"
-msgstr ""
-
-#: Blocks/BillingAddress/edit.js:45
-msgid "Address Label"
-msgstr ""
-
 #: Blocks/BuyButton/edit.js:78
 msgid "Change selected products"
 msgstr ""
@@ -15160,36 +15213,36 @@ msgstr ""
 msgid "Add a title…"
 msgstr ""
 
-#: Blocks/CartItems/edit.js:31
+#: Blocks/CartItems/edit.js:35
 #: Blocks/LineItems/edit.js:23
 msgid "Removable"
 msgstr ""
 
-#: Blocks/CartItems/edit.js:32
+#: Blocks/CartItems/edit.js:36
 #: Blocks/LineItems/edit.js:24
 msgid "Allow line items to be removed."
 msgstr ""
 
-#: Blocks/CartItems/edit.js:44
+#: Blocks/CartItems/edit.js:48
 #: Blocks/LineItems/edit.js:36
 msgid "Editable"
 msgstr ""
 
-#: Blocks/CartItems/edit.js:45
+#: Blocks/CartItems/edit.js:49
 #: Blocks/LineItems/edit.js:37
 msgid "Allow line item quantities to be editable."
 msgstr ""
 
-#: Blocks/CartItems/edit.js:64
-#: Blocks/CartItems/edit.js:74
+#: Blocks/CartItems/edit.js:68
+#: Blocks/CartItems/edit.js:78
 msgid "Example Product"
 msgstr ""
 
-#: Blocks/CartItems/edit.js:65
+#: Blocks/CartItems/edit.js:69
 msgid "Basic"
 msgstr ""
 
-#: Blocks/CartItems/edit.js:71
+#: Blocks/CartItems/edit.js:75
 msgid "every month"
 msgstr ""
 
@@ -16645,12 +16698,16 @@ msgstr ""
 msgid "Limit tax types"
 msgstr ""
 
+#: Blocks/Total/deprecated.js:139
+msgid "Free Trial"
+msgstr ""
+
 #: Blocks/Total/edit.js:21
 msgid "Total Label"
 msgstr ""
 
 #: Blocks/Total/edit.js:29
-msgid "Free Trial Label"
+msgid "Trial Label"
 msgstr ""
 
 #: Blocks/Total/edit.js:49
@@ -16781,7 +16838,7 @@ msgstr ""
 
 #: Blocks/Address/block.json
 msgctxt "block title"
-msgid "Shipping Address"
+msgid "Address"
 msgstr ""
 
 #: Blocks/Address/block.json
@@ -16790,7 +16847,6 @@ msgid "Display an shipping address form. This is used for shipping and tax calcu
 msgstr ""
 
 #: Blocks/Address/block.json
-#: Blocks/BillingAddress/block.json
 msgctxt "block keyword"
 msgid "address"
 msgstr ""
@@ -16803,7 +16859,6 @@ msgid "shipping"
 msgstr ""
 
 #: Blocks/Address/block.json
-#: Blocks/BillingAddress/block.json
 #: Blocks/TaxLineItem/block.json
 msgctxt "block keyword"
 msgid "tax"
@@ -16874,21 +16929,6 @@ msgstr ""
 #: Blocks/SessionDetail/block.json
 msgctxt "block keyword"
 msgid "customer"
-msgstr ""
-
-#: Blocks/BillingAddress/block.json
-msgctxt "block title"
-msgid "Billing Address"
-msgstr ""
-
-#: Blocks/BillingAddress/block.json
-msgctxt "block description"
-msgid "Display an billing address form. This is used for billing."
-msgstr ""
-
-#: Blocks/BillingAddress/block.json
-msgctxt "block keyword"
-msgid "billing"
 msgstr ""
 
 #: Blocks/BumpLineItem/block.json
@@ -19930,8 +19970,9 @@ msgstr ""
 msgid "You don't have any billing information."
 msgstr ""
 
-#: sc-customer-edit.js:112
-msgid "Billing address is different from shipping"
+#: sc-customer-edit.js:113
+#: sc-order-billing-address.js:37
+msgid "Billing address is same as shipping"
 msgstr ""
 
 #: sc-customer-email.js:91
@@ -20098,10 +20139,6 @@ msgstr ""
 
 #: sc-mollie-add-method.js:102
 msgid "Another step will appear after submitting your order to add this payment method."
-msgstr ""
-
-#: sc-order-billing-address.js:37
-msgid "Billing address is different from shipping address."
 msgstr ""
 
 #: sc-order-bump2.js:35
@@ -20306,31 +20343,31 @@ msgstr ""
 msgid "Savings"
 msgstr ""
 
-#: sc-payment-methods-list.js:149
+#: sc-payment-methods-list.js:150
 msgid "You don't have any saved payment methods."
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Update Default Payment Method"
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "A default payment method will be used as a fallback in case other payment methods get removed from a subscription."
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Update All Subscriptions"
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Update all existing subscriptions to use this payment method"
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 msgid "Delete Payment Method"
 msgstr ""
 
-#: sc-payment-methods-list.js:183
+#: sc-payment-methods-list.js:194
 #: sc-subscription-payment-method.js:110
 msgid "Are you sure you want to remove this payment method?"
 msgstr ""
@@ -20399,10 +20436,6 @@ msgstr ""
 
 #: sc-price-range2.js:38
 msgid "Price range from"
-msgstr ""
-
-#: sc-price-range2.js:38
-msgid "to"
 msgstr ""
 
 #: sc-price2.js:30

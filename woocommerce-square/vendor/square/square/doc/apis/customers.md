@@ -12,6 +12,10 @@ $customersApi = $client->getCustomersApi();
 
 * [List Customers](../../doc/apis/customers.md#list-customers)
 * [Create Customer](../../doc/apis/customers.md#create-customer)
+* [Bulk Create Customers](../../doc/apis/customers.md#bulk-create-customers)
+* [Bulk Delete Customers](../../doc/apis/customers.md#bulk-delete-customers)
+* [Bulk Retrieve Customers](../../doc/apis/customers.md#bulk-retrieve-customers)
+* [Bulk Update Customers](../../doc/apis/customers.md#bulk-update-customers)
 * [Search Customers](../../doc/apis/customers.md#search-customers)
 * [Delete Customer](../../doc/apis/customers.md#delete-customer)
 * [Retrieve Customer](../../doc/apis/customers.md#retrieve-customer)
@@ -48,7 +52,7 @@ function listCustomers(
 | `limit` | `?int` | Query, Optional | The maximum number of results to return in a single page. This limit is advisory. The response might contain more or fewer results.<br>If the specified limit is less than 1 or greater than 100, Square returns a `400 VALUE_TOO_LOW` or `400 VALUE_TOO_HIGH` error. The default value is 100.<br><br>For more information, see [Pagination](https://developer.squareup.com/docs/build-basics/common-api-patterns/pagination). |
 | `sortField` | [`?string(CustomerSortField)`](../../doc/models/customer-sort-field.md) | Query, Optional | Indicates how customers should be sorted.<br><br>The default value is `DEFAULT`. |
 | `sortOrder` | [`?string(SortOrder)`](../../doc/models/sort-order.md) | Query, Optional | Indicates whether customers should be sorted in ascending (`ASC`) or<br>descending (`DESC`) order.<br><br>The default value is `ASC`. |
-| `count` | `?bool` | Query, Optional | Indicates whether to return the total count of customers in the `count` field of the response.<br><br>The default value is `false`.<br>**Default**: `false` |
+| `count` | `?bool` | Query, Optional | Indicates whether to return the total count of customers in the `count` field of the response.<br><br>The default value is `false`. |
 
 ## Response Type
 
@@ -59,7 +63,13 @@ This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` met
 ```php
 $count = false;
 
-$apiResponse = $customersApi->listCustomers($count);
+$apiResponse = $customersApi->listCustomers(
+    null,
+    null,
+    null,
+    null,
+    $count
+);
 
 if ($apiResponse->isSuccess()) {
     $listCustomersResponse = $apiResponse->getResult();
@@ -136,6 +146,237 @@ var_dump($apiResponse->getHeaders());
 ```
 
 
+# Bulk Create Customers
+
+Creates multiple [customer profiles](../../doc/models/customer.md) for a business.
+
+This endpoint takes a map of individual create requests and returns a map of responses.
+
+You must provide at least one of the following values in each create request:
+
+- `given_name`
+- `family_name`
+- `company_name`
+- `email_address`
+- `phone_number`
+
+```php
+function bulkCreateCustomers(BulkCreateCustomersRequest $body): ApiResponse
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkCreateCustomersRequest`](../../doc/models/bulk-create-customers-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`BulkCreateCustomersResponse`](../../doc/models/bulk-create-customers-response.md).
+
+## Example Usage
+
+```php
+$body = BulkCreateCustomersRequestBuilder::init(
+    [
+        '8bb76c4f-e35d-4c5b-90de-1194cd9179f0' => BulkCreateCustomerDataBuilder::init()
+            ->givenName('Amelia')
+            ->familyName('Earhart')
+            ->emailAddress('Amelia.Earhart@example.com')
+            ->address(
+                AddressBuilder::init()
+                    ->addressLine1('500 Electric Ave')
+                    ->addressLine2('Suite 600')
+                    ->locality('New York')
+                    ->administrativeDistrictLevel1('NY')
+                    ->postalCode('10003')
+                    ->country(Country::US)
+                    ->build()
+            )
+            ->phoneNumber('+1-212-555-4240')
+            ->referenceId('YOUR_REFERENCE_ID')
+            ->note('a customer')
+            ->build(),
+        'd1689f23-b25d-4932-b2f0-aed00f5e2029' => BulkCreateCustomerDataBuilder::init()
+            ->givenName('Marie')
+            ->familyName('Curie')
+            ->emailAddress('Marie.Curie@example.com')
+            ->address(
+                AddressBuilder::init()
+                    ->addressLine1('500 Electric Ave')
+                    ->addressLine2('Suite 601')
+                    ->locality('New York')
+                    ->administrativeDistrictLevel1('NY')
+                    ->postalCode('10003')
+                    ->country(Country::US)
+                    ->build()
+            )
+            ->phoneNumber('+1-212-444-4240')
+            ->referenceId('YOUR_REFERENCE_ID')
+            ->note('another customer')
+            ->build()
+    ]
+)->build();
+
+$apiResponse = $customersApi->bulkCreateCustomers($body);
+
+if ($apiResponse->isSuccess()) {
+    $bulkCreateCustomersResponse = $apiResponse->getResult();
+} else {
+    $errors = $apiResponse->getErrors();
+}
+
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
+```
+
+
+# Bulk Delete Customers
+
+Deletes multiple customer profiles.
+
+The endpoint takes a list of customer IDs and returns a map of responses.
+
+```php
+function bulkDeleteCustomers(BulkDeleteCustomersRequest $body): ApiResponse
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkDeleteCustomersRequest`](../../doc/models/bulk-delete-customers-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`BulkDeleteCustomersResponse`](../../doc/models/bulk-delete-customers-response.md).
+
+## Example Usage
+
+```php
+$body = BulkDeleteCustomersRequestBuilder::init(
+    [
+        '8DDA5NZVBZFGAX0V3HPF81HHE0',
+        'N18CPRVXR5214XPBBA6BZQWF3C',
+        '2GYD7WNXF7BJZW1PMGNXZ3Y8M8'
+    ]
+)->build();
+
+$apiResponse = $customersApi->bulkDeleteCustomers($body);
+
+if ($apiResponse->isSuccess()) {
+    $bulkDeleteCustomersResponse = $apiResponse->getResult();
+} else {
+    $errors = $apiResponse->getErrors();
+}
+
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
+```
+
+
+# Bulk Retrieve Customers
+
+Retrieves multiple customer profiles.
+
+This endpoint takes a list of customer IDs and returns a map of responses.
+
+```php
+function bulkRetrieveCustomers(BulkRetrieveCustomersRequest $body): ApiResponse
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkRetrieveCustomersRequest`](../../doc/models/bulk-retrieve-customers-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`BulkRetrieveCustomersResponse`](../../doc/models/bulk-retrieve-customers-response.md).
+
+## Example Usage
+
+```php
+$body = BulkRetrieveCustomersRequestBuilder::init(
+    [
+        '8DDA5NZVBZFGAX0V3HPF81HHE0',
+        'N18CPRVXR5214XPBBA6BZQWF3C',
+        '2GYD7WNXF7BJZW1PMGNXZ3Y8M8'
+    ]
+)->build();
+
+$apiResponse = $customersApi->bulkRetrieveCustomers($body);
+
+if ($apiResponse->isSuccess()) {
+    $bulkRetrieveCustomersResponse = $apiResponse->getResult();
+} else {
+    $errors = $apiResponse->getErrors();
+}
+
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
+```
+
+
+# Bulk Update Customers
+
+Updates multiple customer profiles.
+
+This endpoint takes a map of individual update requests and returns a map of responses.
+
+You cannot use this endpoint to change cards on file. To make changes, use the [Cards API](../../doc/apis/cards.md) or [Gift Cards API](../../doc/apis/gift-cards.md).
+
+```php
+function bulkUpdateCustomers(BulkUpdateCustomersRequest $body): ApiResponse
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`BulkUpdateCustomersRequest`](../../doc/models/bulk-update-customers-request.md) | Body, Required | An object containing the fields to POST for the request.<br><br>See the corresponding object definition for field details. |
+
+## Response Type
+
+This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` method on this instance returns the response data which is of type [`BulkUpdateCustomersResponse`](../../doc/models/bulk-update-customers-response.md).
+
+## Example Usage
+
+```php
+$body = BulkUpdateCustomersRequestBuilder::init(
+    [
+        '8DDA5NZVBZFGAX0V3HPF81HHE0' => BulkUpdateCustomerDataBuilder::init()
+            ->emailAddress('New.Amelia.Earhart@example.com')
+            ->phoneNumber('phone_number2')
+            ->note('updated customer note')
+            ->version(2)
+            ->build(),
+        'N18CPRVXR5214XPBBA6BZQWF3C' => BulkUpdateCustomerDataBuilder::init()
+            ->givenName('Marie')
+            ->familyName('Curie')
+            ->version(0)
+            ->build()
+    ]
+)->build();
+
+$apiResponse = $customersApi->bulkUpdateCustomers($body);
+
+if ($apiResponse->isSuccess()) {
+    $bulkUpdateCustomersResponse = $apiResponse->getResult();
+} else {
+    $errors = $apiResponse->getErrors();
+}
+
+// Getting more response information
+var_dump($apiResponse->getStatusCode());
+var_dump($apiResponse->getHeaders());
+```
+
+
 # Search Customers
 
 Searches the customer profiles associated with a Square account using one or more supported query filters.
@@ -183,8 +424,8 @@ $body = SearchCustomersRequestBuilder::init()
                     )
                     ->createdAt(
                         TimeRangeBuilder::init()
-                            ->startAt('2018-01-01T00:00:00+00:00')
-                            ->endAt('2018-02-01T00:00:00+00:00')
+                            ->startAt('2018-01-01T00:00:00-00:00')
+                            ->endAt('2018-02-01T00:00:00-00:00')
                             ->build()
                     )
                     ->emailAddress(
@@ -230,9 +471,6 @@ var_dump($apiResponse->getHeaders());
 # Delete Customer
 
 Deletes a customer profile from a business. This operation also unlinks any associated cards on file.
-
-As a best practice, include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) control.
-If included, the value must be set to the current version of the customer profile.
 
 To delete a customer profile that was created by merging existing profiles, you must use the ID of the newly created profile.
 
@@ -310,11 +548,7 @@ var_dump($apiResponse->getHeaders());
 # Update Customer
 
 Updates a customer profile. This endpoint supports sparse updates, so only new or changed fields are required in the request.
-To add or update a field, specify the new value. To remove a field, specify `null` and include the `X-Clear-Null` header set to `true`
-(recommended) or specify an empty string (string fields only).
-
-As a best practice, include the `version` field in the request to enable [optimistic concurrency](https://developer.squareup.com/docs/build-basics/common-api-patterns/optimistic-concurrency) control.
-If included, the value must be set to the current version of the customer profile.
+To add or update a field, specify the new value. To remove a field, specify `null`.
 
 To update a customer profile that was created by merging existing profiles, you must use the ID of the newly created profile.
 
@@ -342,7 +576,7 @@ $customerId = 'customer_id8';
 
 $body = UpdateCustomerRequestBuilder::init()
     ->emailAddress('New.Amelia.Earhart@example.com')
-    ->phoneNumber('')
+    ->phoneNumber('phone_number2')
     ->note('updated customer note')
     ->version(2)
     ->build();

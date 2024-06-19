@@ -79,6 +79,7 @@
 
 .checkbox__label {
   line-height: var(--sc-checkbox-size);
+  margin-top: var(--sc-input-border-width);
   margin-left: 0.5em;
   flex: 1;
 }

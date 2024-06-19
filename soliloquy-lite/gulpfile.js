@@ -14,15 +14,13 @@ function getTask(task) {
 
 const scripts = getTask('scripts');
 const styles = getTask('styles');
-const gutenberg = getTask('gutenberg');
 const soliloquy = getTask('soliloquy_js');
 
 gulp.task('scripts', scripts);
 gulp.task('styles', styles);
-gulp.task('gutenberg', gutenberg);
 gulp.task('soliloquy', soliloquy);
 
-gulp.task('build', gulp.parallel(soliloquy, scripts, styles, gutenberg));
+gulp.task('build', gulp.parallel(soliloquy, scripts, styles));
 
 gulp.task('watch', function () {
 	gulp.watch('assets/js/*.js', scripts);

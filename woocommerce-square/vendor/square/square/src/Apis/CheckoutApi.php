@@ -16,7 +16,13 @@ use Square\Models\CreatePaymentLinkRequest;
 use Square\Models\CreatePaymentLinkResponse;
 use Square\Models\DeletePaymentLinkResponse;
 use Square\Models\ListPaymentLinksResponse;
+use Square\Models\RetrieveLocationSettingsResponse;
+use Square\Models\RetrieveMerchantSettingsResponse;
 use Square\Models\RetrievePaymentLinkResponse;
+use Square\Models\UpdateLocationSettingsRequest;
+use Square\Models\UpdateLocationSettingsResponse;
+use Square\Models\UpdateMerchantSettingsRequest;
+use Square\Models\UpdateMerchantSettingsResponse;
 use Square\Models\UpdatePaymentLinkRequest;
 use Square\Models\UpdatePaymentLinkResponse;
 
@@ -31,8 +37,6 @@ class CheckoutApi extends BaseApi
      * NOTE: The Checkout API has been updated with new features.
      * For more information, see [Checkout API highlights](https://developer.squareup.com/docs/checkout-
      * api#checkout-api-highlights).
-     * We recommend that you use the new [CreatePaymentLink](api-endpoint:Checkout-CreatePaymentLink)
-     * endpoint in place of this previously released endpoint.
      *
      * @deprecated
      *
@@ -60,13 +64,97 @@ class CheckoutApi extends BaseApi
     }
 
     /**
+     * Retrieves the location-level settings for a Square-hosted checkout page.
+     *
+     * @param string $locationId The ID of the location for which to retrieve settings.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function retrieveLocationSettings(string $locationId): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(
+            RequestMethod::GET,
+            '/v2/online-checkout/location-settings/{location_id}'
+        )->auth('global')->parameters(TemplateParam::init('location_id', $locationId));
+
+        $_resHandler = $this->responseHandler()->type(RetrieveLocationSettingsResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Updates the location-level settings for a Square-hosted checkout page.
+     *
+     * @param string $locationId The ID of the location for which to retrieve settings.
+     * @param UpdateLocationSettingsRequest $body An object containing the fields to POST for the
+     *        request.
+     *
+     *        See the corresponding object definition for field details.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function updateLocationSettings(string $locationId, UpdateLocationSettingsRequest $body): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(
+            RequestMethod::PUT,
+            '/v2/online-checkout/location-settings/{location_id}'
+        )
+            ->auth('global')
+            ->parameters(
+                TemplateParam::init('location_id', $locationId),
+                HeaderParam::init('Content-Type', 'application/json'),
+                BodyParam::init($body)
+            );
+
+        $_resHandler = $this->responseHandler()->type(UpdateLocationSettingsResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Retrieves the merchant-level settings for a Square-hosted checkout page.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function retrieveMerchantSettings(): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(RequestMethod::GET, '/v2/online-checkout/merchant-settings')
+            ->auth('global');
+
+        $_resHandler = $this->responseHandler()->type(RetrieveMerchantSettingsResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Updates the merchant-level settings for a Square-hosted checkout page.
+     *
+     * @param UpdateMerchantSettingsRequest $body An object containing the fields to POST for the
+     *        request.
+     *
+     *        See the corresponding object definition for field details.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function updateMerchantSettings(UpdateMerchantSettingsRequest $body): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(RequestMethod::PUT, '/v2/online-checkout/merchant-settings')
+            ->auth('global')
+            ->parameters(HeaderParam::init('Content-Type', 'application/json'), BodyParam::init($body));
+
+        $_resHandler = $this->responseHandler()->type(UpdateMerchantSettingsResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
      * Lists all payment links.
      *
      * @param string|null $cursor A pagination cursor returned by a previous call to this endpoint.
      *        Provide this cursor to retrieve the next set of results for the original query.
      *        If a cursor is not provided, the endpoint returns the first page of the results.
-     *        For more  information, see [Pagination](https://developer.squareup.
-     *        com/docs/basics/api101/pagination).
+     *        For more  information, see [Pagination](https://developer.squareup.com/docs/build-
+     *        basics/common-api-patterns/pagination).
      * @param int|null $limit A limit on the number of results to return per page. The limit is
      *        advisory and
      *        the implementation might return more or less results. If the supplied limit is

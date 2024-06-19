@@ -31,7 +31,7 @@ const ScOrderBillingAddress = class {
     this.postalCodePlaceholder = wp.i18n.__('Postal Code/Zip', 'surecart');
     this.statePlaceholder = wp.i18n.__('State/Province/Region', 'surecart');
     this.defaultCountry = undefined;
-    this.toggleLabel = wp.i18n.__('Billing address is different from shipping address.', 'surecart');
+    this.toggleLabel = wp.i18n.__('Billing address is same as shipping', 'surecart');
     this.address = {
       country: null,
       city: null,
@@ -88,7 +88,7 @@ const ScOrderBillingAddress = class {
   async onToggleBillingMatchesShipping(e) {
     state.checkout = {
       ...state.checkout,
-      billing_matches_shipping: !e.target.checked,
+      billing_matches_shipping: e.target.checked,
     };
   }
   shippingAddressFieldExists() {
@@ -96,7 +96,7 @@ const ScOrderBillingAddress = class {
   }
   render() {
     var _a, _b;
-    return (h(Fragment, null, this.shippingAddressFieldExists() && (h("sc-switch", { class: "order-billing-address__toggle", onScChange: e => this.onToggleBillingMatchesShipping(e), checked: !((_a = state.checkout) === null || _a === void 0 ? void 0 : _a.billing_matches_shipping) }, this.toggleLabel)), (!this.shippingAddressFieldExists() || !((_b = state.checkout) === null || _b === void 0 ? void 0 : _b.billing_matches_shipping)) && (h("sc-address", { exportparts: "label, help-text, form-control, input__base, select__base, columns, search__base, menu__base", ref: el => {
+    return (h(Fragment, null, this.shippingAddressFieldExists() && (h("sc-checkbox", { class: "order-billing-address__toggle", onScChange: e => this.onToggleBillingMatchesShipping(e), checked: (_a = state.checkout) === null || _a === void 0 ? void 0 : _a.billing_matches_shipping }, this.toggleLabel)), (!this.shippingAddressFieldExists() || !((_b = state.checkout) === null || _b === void 0 ? void 0 : _b.billing_matches_shipping)) && (h("sc-address", { exportparts: "label, help-text, form-control, input__base, select__base, columns, search__base, menu__base", ref: el => {
         this.input = el;
       }, label: this.label || wp.i18n.__('Billing Address', 'surecart'), placeholders: {
         name: this.namePlaceholder,

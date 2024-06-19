@@ -685,6 +685,7 @@ function theplus_pro_ver_notice(){
 		</div>	
 	</div>';
 }
+
 function theplus_pro_ver_group_control_notice(){
 	return '<div class="theplus-pro-features-wrapper">
 		<div class="tp-pf-icon-text"><i class="fa fa-lock" aria-hidden="true"></i> Pro Feature</div>

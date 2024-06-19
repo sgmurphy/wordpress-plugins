@@ -57,7 +57,7 @@ if (
     </div>
 
     <div class="cf7sr-row">
-        <label><?php echo __( 'Force hCaptcha to render in a specific language. Google auto-detects if unspecified.', 'cf7sr-free' ); ?></label>
+        <label><?php echo __( 'Force hCaptcha to render in a specific language.', 'cf7sr-free' ); ?></label>
         <select name="cf7sr_hc_language">
             <option value=""></option>
             <?php foreach ( CF7SR_LANGUAGES as $key => $label ) { ?>

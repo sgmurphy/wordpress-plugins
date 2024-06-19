@@ -30,6 +30,7 @@ a set of `TeamMemberWage` objects.
       "id": "pXS3qCv7BERPnEGedM4S8mhm",
       "job_id": "jxJNN6eCJsLrhg5UFJrDWDGE",
       "team_member_id": "33fJchumvVdJwxV0H6L9",
+      "tip_eligible": false,
       "title": "Manager"
     },
     {
@@ -40,6 +41,7 @@ a set of `TeamMemberWage` objects.
       "id": "rZduCkzYDUVL3ovh1sQgbue6",
       "job_id": "gcbz15vKGnMKmaWJJ152kjim",
       "team_member_id": "33fJchumvVdJwxV0H6L9",
+      "tip_eligible": true,
       "title": "Cook"
     },
     {
@@ -50,6 +52,7 @@ a set of `TeamMemberWage` objects.
       "id": "FxLbs5KpPUHa8wyt5ctjubDX",
       "job_id": "FzbJAtt9qEWncK1BWgVCxQ6M",
       "team_member_id": "33fJchumvVdJwxV0H6L9",
+      "tip_eligible": true,
       "title": "Barista"
     },
     {
@@ -60,27 +63,22 @@ a set of `TeamMemberWage` objects.
       "id": "vD1wCgijMDR3cX5TPnu7VXto",
       "job_id": "N4YKVLzFj3oGtNocqoYHYpW3",
       "team_member_id": "33fJchumvVdJwxV0H6L9",
+      "tip_eligible": true,
       "title": "Cashier"
     }
   ],
   "errors": [
     {
-      "category": "REFUND_ERROR",
-      "code": "MERCHANT_SUBSCRIPTION_NOT_FOUND",
-      "detail": "detail1",
-      "field": "field9"
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     },
     {
       "category": "MERCHANT_SUBSCRIPTION_ERROR",
-      "code": "BAD_REQUEST",
-      "detail": "detail2",
-      "field": "field0"
-    },
-    {
-      "category": "EXTERNAL_VENDOR_ERROR",
-      "code": "MISSING_REQUIRED_PARAMETER",
-      "detail": "detail3",
-      "field": "field1"
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     }
   ]
 }

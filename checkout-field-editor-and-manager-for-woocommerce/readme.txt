@@ -3,10 +3,12 @@ Author: Acowebs
 Author URI: https://acowebs.com
 Contributors: acowebs, acowebssupport, saneshacodez
 Donate link:
-Tags: WooCommerce custom checkout fields, WooCommerce Checkout field editor, WooCommerce Checkout Manager, WooCommerce Checkout Field Manager, checkout field customizer, checkout form editor, checkout form customizer, WooCommerce checkout, checkout form designer, woocommerce checkout addons, checkout manager, checkout field editor
+Tags: WooCommerce custom checkout fields, WooCommerce Checkout Field Manager,checkout field customizer, checkout form editor, checkout form designer
 Requires at least: 4.0
 Tested up to: 6.5
 Stable tag: 2.2.22
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WooCommerce checkout field editor and manager helps to manage checkout fields in WooCommerce
 

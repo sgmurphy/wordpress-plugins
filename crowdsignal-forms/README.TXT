@@ -4,7 +4,7 @@ Tags: polls, forms, surveys, gutenberg, block
 Requires at least: 6.0
 Requires PHP: 5.6.20
 Tested up to: 6.5
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,7 @@ Compare our [simple and affordable plans](https://crowdsignal.com/pricing/) or t
 == Changelog ==
 
 = 1.7.1 =
+* bump "Tested up to" to 6.5
 * check for empty cached poll data to prevent warning on load of editor (#278)
 * check for null `core/edit-post` selector which is causing a crash in 6.5 (#277)
 * disable PostPreviewButton because it is crashing the block on re-renders (#274)

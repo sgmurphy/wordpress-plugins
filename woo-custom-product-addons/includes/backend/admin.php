@@ -433,7 +433,8 @@ class Admin
     }
     public function writeUs()
     {
-        wp_redirect('https://support.acowebs.com/portal/en/newticket?departmentId=361181000000006907&layoutId=361181000000074011');
+//        wp_redirect('https://support.acowebs.com/portal/en/newticket?departmentId=361181000000006907&layoutId=361181000000074011');
+        wp_redirect('https://wordpress.org/support/plugin/woo-custom-product-addons/');
         exit;
     }
     /**

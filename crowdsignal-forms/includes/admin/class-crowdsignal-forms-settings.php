@@ -39,6 +39,13 @@ class Crowdsignal_Forms_Settings {
 	protected $settings = array();
 
 	/**
+	 * Settings group.
+	 *
+	 * @var string
+	 */
+	private $settings_group;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
@@ -66,7 +73,7 @@ class Crowdsignal_Forms_Settings {
 	 * Enqueues scripts for setup page.
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.7.1' );
+		wp_enqueue_style( 'admin-styles', plugin_dir_url( __FILE__ ) . '/admin-styles.css', array(), '1.7.2' );
 		wp_enqueue_script( 'videopress', 'https://videopress.com/videopress-iframe.js', array(), '1.0', false );
 	}
 

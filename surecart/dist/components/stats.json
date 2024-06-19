@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-05-23T21:27:56",
+  "timestamp": "2024-06-18T19:24:10",
   "compiler": {
     "name": "node",
     "version": "16.20.2"
@@ -9,7 +9,7 @@
     "fsNamespace": "surecart",
     "components": 221,
     "entries": 221,
-    "bundles": 3453,
+    "bundles": 3455,
     "outputs": [
       {
         "name": "dist-collection",
@@ -705,7 +705,7 @@
       },
       {
         "name": "dist-custom-elements",
-        "files": 998,
+        "files": 1000,
         "generatedFiles": [
           "./dist/components/_commonjsHelpers.js",
           "./dist/components/_commonjsHelpers.js.map",
@@ -883,6 +883,8 @@
           "./dist/components/sc-checkbox.d.ts",
           "./dist/components/sc-checkbox.js",
           "./dist/components/sc-checkbox.js.map",
+          "./dist/components/sc-checkbox2.js",
+          "./dist/components/sc-checkbox2.js.map",
           "./dist/components/sc-checkout-form-errors.d.ts",
           "./dist/components/sc-checkout-form-errors.js",
           "./dist/components/sc-checkout-form-errors.js.map",
@@ -2623,8 +2625,6 @@
           "./dist/surecart/p-0a2bcd71.entry.js.map",
           "./dist/surecart/p-0aa53c84.entry.js",
           "./dist/surecart/p-0aa53c84.entry.js.map",
-          "./dist/surecart/p-0d352012.entry.js",
-          "./dist/surecart/p-0d352012.entry.js.map",
           "./dist/surecart/p-0e3ce5b1.entry.js",
           "./dist/surecart/p-0e3ce5b1.entry.js.map",
           "./dist/surecart/p-0e7f2cf9.entry.js",
@@ -2667,6 +2667,8 @@
           "./dist/surecart/p-25eac736.entry.js.map",
           "./dist/surecart/p-26633c43.entry.js",
           "./dist/surecart/p-26633c43.entry.js.map",
+          "./dist/surecart/p-26863f89.entry.js",
+          "./dist/surecart/p-26863f89.entry.js.map",
           "./dist/surecart/p-273befdc.entry.js",
           "./dist/surecart/p-273befdc.entry.js.map",
           "./dist/surecart/p-296b7340.js",
@@ -2675,12 +2677,12 @@
           "./dist/surecart/p-2cc1d021.entry.js.map",
           "./dist/surecart/p-2cdd728a.entry.js",
           "./dist/surecart/p-2cdd728a.entry.js.map",
-          "./dist/surecart/p-2d5c6626.entry.js",
-          "./dist/surecart/p-2d5c6626.entry.js.map",
           "./dist/surecart/p-2e15d34c.entry.js",
           "./dist/surecart/p-2e15d34c.entry.js.map",
           "./dist/surecart/p-2e85a033.entry.js",
           "./dist/surecart/p-2e85a033.entry.js.map",
+          "./dist/surecart/p-2eb4b733.entry.js",
+          "./dist/surecart/p-2eb4b733.entry.js.map",
           "./dist/surecart/p-2f9b1dd9.js",
           "./dist/surecart/p-2f9b1dd9.js.map",
           "./dist/surecart/p-3233c25c.entry.js",
@@ -2693,14 +2695,16 @@
           "./dist/surecart/p-3f349466.entry.js.map",
           "./dist/surecart/p-3f50039d.entry.js",
           "./dist/surecart/p-3f50039d.entry.js.map",
-          "./dist/surecart/p-40e9b9ad.entry.js",
-          "./dist/surecart/p-40e9b9ad.entry.js.map",
+          "./dist/surecart/p-40ed7a18.entry.js",
+          "./dist/surecart/p-40ed7a18.entry.js.map",
           "./dist/surecart/p-413fb1fc.entry.js",
           "./dist/surecart/p-413fb1fc.entry.js.map",
           "./dist/surecart/p-421ff019.entry.js",
           "./dist/surecart/p-421ff019.entry.js.map",
           "./dist/surecart/p-4314425a.entry.js",
           "./dist/surecart/p-4314425a.entry.js.map",
+          "./dist/surecart/p-4376c5e6.entry.js",
+          "./dist/surecart/p-4376c5e6.entry.js.map",
           "./dist/surecart/p-49b9ce2f.entry.js",
           "./dist/surecart/p-49b9ce2f.entry.js.map",
           "./dist/surecart/p-4a5e45c2.entry.js",
@@ -2719,6 +2723,8 @@
           "./dist/surecart/p-506cd98b.entry.js.map",
           "./dist/surecart/p-50da3ba3.js",
           "./dist/surecart/p-50da3ba3.js.map",
+          "./dist/surecart/p-51366d8d.entry.js",
+          "./dist/surecart/p-51366d8d.entry.js.map",
           "./dist/surecart/p-513c4884.entry.js",
           "./dist/surecart/p-513c4884.entry.js.map",
           "./dist/surecart/p-52a42a3a.entry.js",
@@ -2803,6 +2809,8 @@
           "./dist/surecart/p-830ab1a3.js.map",
           "./dist/surecart/p-843fce65.entry.js",
           "./dist/surecart/p-843fce65.entry.js.map",
+          "./dist/surecart/p-8468fd6a.entry.js",
+          "./dist/surecart/p-8468fd6a.entry.js.map",
           "./dist/surecart/p-8617d8eb.js",
           "./dist/surecart/p-8617d8eb.js.map",
           "./dist/surecart/p-89527bb6.entry.js",
@@ -2817,12 +2825,12 @@
           "./dist/surecart/p-8de3fe03.entry.js.map",
           "./dist/surecart/p-8df6bfcd.entry.js",
           "./dist/surecart/p-8df6bfcd.entry.js.map",
+          "./dist/surecart/p-8fb85bc3.entry.js",
+          "./dist/surecart/p-8fb85bc3.entry.js.map",
           "./dist/surecart/p-90b844e8.entry.js",
           "./dist/surecart/p-90b844e8.entry.js.map",
           "./dist/surecart/p-91647d54.entry.js",
           "./dist/surecart/p-91647d54.entry.js.map",
-          "./dist/surecart/p-91bc50d1.entry.js",
-          "./dist/surecart/p-91bc50d1.entry.js.map",
           "./dist/surecart/p-93096031.entry.js",
           "./dist/surecart/p-93096031.entry.js.map",
           "./dist/surecart/p-95a9fc94.entry.js",
@@ -2837,6 +2845,8 @@
           "./dist/surecart/p-9a558fd2.entry.js.map",
           "./dist/surecart/p-9c0730e8.entry.js",
           "./dist/surecart/p-9c0730e8.entry.js.map",
+          "./dist/surecart/p-9c434bae.entry.js",
+          "./dist/surecart/p-9c434bae.entry.js.map",
           "./dist/surecart/p-9d515dcf.entry.js",
           "./dist/surecart/p-9d515dcf.entry.js.map",
           "./dist/surecart/p-9e1f3355.entry.js",
@@ -2875,6 +2885,8 @@
           "./dist/surecart/p-ae5faa34.entry.js.map",
           "./dist/surecart/p-b21c50e6.entry.js",
           "./dist/surecart/p-b21c50e6.entry.js.map",
+          "./dist/surecart/p-b341a1a5.entry.js",
+          "./dist/surecart/p-b341a1a5.entry.js.map",
           "./dist/surecart/p-b3738db2.js",
           "./dist/surecart/p-b3738db2.js.map",
           "./dist/surecart/p-b53606da.entry.js",
@@ -2887,12 +2899,8 @@
           "./dist/surecart/p-ba003d6d.entry.js.map",
           "./dist/surecart/p-ba37bf1e.entry.js",
           "./dist/surecart/p-ba37bf1e.entry.js.map",
-          "./dist/surecart/p-ba75d7ee.entry.js",
-          "./dist/surecart/p-ba75d7ee.entry.js.map",
           "./dist/surecart/p-bbadb31c.entry.js",
           "./dist/surecart/p-bbadb31c.entry.js.map",
-          "./dist/surecart/p-bd28b9b2.entry.js",
-          "./dist/surecart/p-bd28b9b2.entry.js.map",
           "./dist/surecart/p-bf662d81.entry.js",
           "./dist/surecart/p-bf662d81.entry.js.map",
           "./dist/surecart/p-c06b2e12.js",
@@ -2917,8 +2925,6 @@
           "./dist/surecart/p-c59d56fb.js.map",
           "./dist/surecart/p-c75b8d7f.entry.js",
           "./dist/surecart/p-c75b8d7f.entry.js.map",
-          "./dist/surecart/p-c9699bf6.entry.js",
-          "./dist/surecart/p-c9699bf6.entry.js.map",
           "./dist/surecart/p-c9f9d2b6.entry.js",
           "./dist/surecart/p-c9f9d2b6.entry.js.map",
           "./dist/surecart/p-caf3d475.entry.js",
@@ -2961,8 +2967,6 @@
           "./dist/surecart/p-dd5ece5d.entry.js.map",
           "./dist/surecart/p-df5776fb.entry.js",
           "./dist/surecart/p-df5776fb.entry.js.map",
-          "./dist/surecart/p-df9d4646.entry.js",
-          "./dist/surecart/p-df9d4646.entry.js.map",
           "./dist/surecart/p-dffd5708.js",
           "./dist/surecart/p-dffd5708.js.map",
           "./dist/surecart/p-e067096c.entry.js",
@@ -2977,8 +2981,6 @@
           "./dist/surecart/p-e2566bc2.entry.js.map",
           "./dist/surecart/p-e4cd2c80.js",
           "./dist/surecart/p-e4cd2c80.js.map",
-          "./dist/surecart/p-e5841d24.entry.js",
-          "./dist/surecart/p-e5841d24.entry.js.map",
           "./dist/surecart/p-e5c9b603.entry.js",
           "./dist/surecart/p-e5c9b603.entry.js.map",
           "./dist/surecart/p-e5cb25d9.entry.js",
@@ -2997,6 +2999,8 @@
           "./dist/surecart/p-ebaaa4a3.js.map",
           "./dist/surecart/p-ed5378c8.entry.js",
           "./dist/surecart/p-ed5378c8.entry.js.map",
+          "./dist/surecart/p-edd3c1dd.entry.js",
+          "./dist/surecart/p-edd3c1dd.entry.js.map",
           "./dist/surecart/p-ef1b3fea.entry.js",
           "./dist/surecart/p-ef1b3fea.entry.js.map",
           "./dist/surecart/p-ef3f8ada.entry.js",
@@ -3029,8 +3033,6 @@
           "./dist/surecart/p-fb7cca21.entry.js.map",
           "./dist/surecart/p-fc86253d.js",
           "./dist/surecart/p-fc86253d.js.map",
-          "./dist/surecart/p-fcac1ef6.entry.js",
-          "./dist/surecart/p-fcac1ef6.entry.js.map",
           "./dist/surecart/p-feae03d3.entry.js",
           "./dist/surecart/p-feae03d3.entry.js.map",
           "./dist/surecart/p-fee64d41.entry.js",
@@ -3063,8 +3065,6 @@
           "./www/build/p-0a2bcd71.entry.js.map",
           "./www/build/p-0aa53c84.entry.js",
           "./www/build/p-0aa53c84.entry.js.map",
-          "./www/build/p-0d352012.entry.js",
-          "./www/build/p-0d352012.entry.js.map",
           "./www/build/p-0e3ce5b1.entry.js",
           "./www/build/p-0e3ce5b1.entry.js.map",
           "./www/build/p-0e7f2cf9.entry.js",
@@ -3107,6 +3107,8 @@
           "./www/build/p-25eac736.entry.js.map",
           "./www/build/p-26633c43.entry.js",
           "./www/build/p-26633c43.entry.js.map",
+          "./www/build/p-26863f89.entry.js",
+          "./www/build/p-26863f89.entry.js.map",
           "./www/build/p-273befdc.entry.js",
           "./www/build/p-273befdc.entry.js.map",
           "./www/build/p-296b7340.js",
@@ -3115,12 +3117,12 @@
           "./www/build/p-2cc1d021.entry.js.map",
           "./www/build/p-2cdd728a.entry.js",
           "./www/build/p-2cdd728a.entry.js.map",
-          "./www/build/p-2d5c6626.entry.js",
-          "./www/build/p-2d5c6626.entry.js.map",
           "./www/build/p-2e15d34c.entry.js",
           "./www/build/p-2e15d34c.entry.js.map",
           "./www/build/p-2e85a033.entry.js",
           "./www/build/p-2e85a033.entry.js.map",
+          "./www/build/p-2eb4b733.entry.js",
+          "./www/build/p-2eb4b733.entry.js.map",
           "./www/build/p-2f9b1dd9.js",
           "./www/build/p-2f9b1dd9.js.map",
           "./www/build/p-3233c25c.entry.js",
@@ -3133,14 +3135,16 @@
           "./www/build/p-3f349466.entry.js.map",
           "./www/build/p-3f50039d.entry.js",
           "./www/build/p-3f50039d.entry.js.map",
-          "./www/build/p-40e9b9ad.entry.js",
-          "./www/build/p-40e9b9ad.entry.js.map",
+          "./www/build/p-40ed7a18.entry.js",
+          "./www/build/p-40ed7a18.entry.js.map",
           "./www/build/p-413fb1fc.entry.js",
           "./www/build/p-413fb1fc.entry.js.map",
           "./www/build/p-421ff019.entry.js",
           "./www/build/p-421ff019.entry.js.map",
           "./www/build/p-4314425a.entry.js",
           "./www/build/p-4314425a.entry.js.map",
+          "./www/build/p-4376c5e6.entry.js",
+          "./www/build/p-4376c5e6.entry.js.map",
           "./www/build/p-49b9ce2f.entry.js",
           "./www/build/p-49b9ce2f.entry.js.map",
           "./www/build/p-4a5e45c2.entry.js",
@@ -3159,6 +3163,8 @@
           "./www/build/p-506cd98b.entry.js.map",
           "./www/build/p-50da3ba3.js",
           "./www/build/p-50da3ba3.js.map",
+          "./www/build/p-51366d8d.entry.js",
+          "./www/build/p-51366d8d.entry.js.map",
           "./www/build/p-513c4884.entry.js",
           "./www/build/p-513c4884.entry.js.map",
           "./www/build/p-52a42a3a.entry.js",
@@ -3243,6 +3249,8 @@
           "./www/build/p-830ab1a3.js.map",
           "./www/build/p-843fce65.entry.js",
           "./www/build/p-843fce65.entry.js.map",
+          "./www/build/p-8468fd6a.entry.js",
+          "./www/build/p-8468fd6a.entry.js.map",
           "./www/build/p-8617d8eb.js",
           "./www/build/p-8617d8eb.js.map",
           "./www/build/p-89527bb6.entry.js",
@@ -3257,12 +3265,12 @@
           "./www/build/p-8de3fe03.entry.js.map",
           "./www/build/p-8df6bfcd.entry.js",
           "./www/build/p-8df6bfcd.entry.js.map",
+          "./www/build/p-8fb85bc3.entry.js",
+          "./www/build/p-8fb85bc3.entry.js.map",
           "./www/build/p-90b844e8.entry.js",
           "./www/build/p-90b844e8.entry.js.map",
           "./www/build/p-91647d54.entry.js",
           "./www/build/p-91647d54.entry.js.map",
-          "./www/build/p-91bc50d1.entry.js",
-          "./www/build/p-91bc50d1.entry.js.map",
           "./www/build/p-93096031.entry.js",
           "./www/build/p-93096031.entry.js.map",
           "./www/build/p-95a9fc94.entry.js",
@@ -3277,6 +3285,8 @@
           "./www/build/p-9a558fd2.entry.js.map",
           "./www/build/p-9c0730e8.entry.js",
           "./www/build/p-9c0730e8.entry.js.map",
+          "./www/build/p-9c434bae.entry.js",
+          "./www/build/p-9c434bae.entry.js.map",
           "./www/build/p-9d515dcf.entry.js",
           "./www/build/p-9d515dcf.entry.js.map",
           "./www/build/p-9e1f3355.entry.js",
@@ -3315,6 +3325,8 @@
           "./www/build/p-ae5faa34.entry.js.map",
           "./www/build/p-b21c50e6.entry.js",
           "./www/build/p-b21c50e6.entry.js.map",
+          "./www/build/p-b341a1a5.entry.js",
+          "./www/build/p-b341a1a5.entry.js.map",
           "./www/build/p-b3738db2.js",
           "./www/build/p-b3738db2.js.map",
           "./www/build/p-b53606da.entry.js",
@@ -3327,12 +3339,8 @@
           "./www/build/p-ba003d6d.entry.js.map",
           "./www/build/p-ba37bf1e.entry.js",
           "./www/build/p-ba37bf1e.entry.js.map",
-          "./www/build/p-ba75d7ee.entry.js",
-          "./www/build/p-ba75d7ee.entry.js.map",
           "./www/build/p-bbadb31c.entry.js",
           "./www/build/p-bbadb31c.entry.js.map",
-          "./www/build/p-bd28b9b2.entry.js",
-          "./www/build/p-bd28b9b2.entry.js.map",
           "./www/build/p-bf662d81.entry.js",
           "./www/build/p-bf662d81.entry.js.map",
           "./www/build/p-c06b2e12.js",
@@ -3357,8 +3365,6 @@
           "./www/build/p-c59d56fb.js.map",
           "./www/build/p-c75b8d7f.entry.js",
           "./www/build/p-c75b8d7f.entry.js.map",
-          "./www/build/p-c9699bf6.entry.js",
-          "./www/build/p-c9699bf6.entry.js.map",
           "./www/build/p-c9f9d2b6.entry.js",
           "./www/build/p-c9f9d2b6.entry.js.map",
           "./www/build/p-caf3d475.entry.js",
@@ -3401,8 +3407,6 @@
           "./www/build/p-dd5ece5d.entry.js.map",
           "./www/build/p-df5776fb.entry.js",
           "./www/build/p-df5776fb.entry.js.map",
-          "./www/build/p-df9d4646.entry.js",
-          "./www/build/p-df9d4646.entry.js.map",
           "./www/build/p-dffd5708.js",
           "./www/build/p-dffd5708.js.map",
           "./www/build/p-e067096c.entry.js",
@@ -3417,8 +3421,6 @@
           "./www/build/p-e2566bc2.entry.js.map",
           "./www/build/p-e4cd2c80.js",
           "./www/build/p-e4cd2c80.js.map",
-          "./www/build/p-e5841d24.entry.js",
-          "./www/build/p-e5841d24.entry.js.map",
           "./www/build/p-e5c9b603.entry.js",
           "./www/build/p-e5c9b603.entry.js.map",
           "./www/build/p-e5cb25d9.entry.js",
@@ -3437,6 +3439,8 @@
           "./www/build/p-ebaaa4a3.js.map",
           "./www/build/p-ed5378c8.entry.js",
           "./www/build/p-ed5378c8.entry.js.map",
+          "./www/build/p-edd3c1dd.entry.js",
+          "./www/build/p-edd3c1dd.entry.js.map",
           "./www/build/p-ef1b3fea.entry.js",
           "./www/build/p-ef1b3fea.entry.js.map",
           "./www/build/p-ef3f8ada.entry.js",
@@ -3469,8 +3473,6 @@
           "./www/build/p-fb7cca21.entry.js.map",
           "./www/build/p-fc86253d.js",
           "./www/build/p-fc86253d.js.map",
-          "./www/build/p-fcac1ef6.entry.js",
-          "./www/build/p-fcac1ef6.entry.js.map",
           "./www/build/p-feae03d3.entry.js",
           "./www/build/p-feae03d3.entry.js.map",
           "./www/build/p-fee64d41.entry.js",
@@ -3780,20 +3782,6 @@
         "originalByteSize": 5057
       },
       {
-        "key": "sc-checkbox.entry",
-        "components": [
-          "sc-checkbox"
-        ],
-        "bundleId": "p-bd28b9b2",
-        "fileName": "p-bd28b9b2.entry.js",
-        "imports": [
-          "p-cc7ce8c7.js",
-          "p-8617d8eb.js",
-          "p-d556eec7.js"
-        ],
-        "originalByteSize": 7370
-      },
-      {
         "key": "sc-checkout.entry",
         "components": [
           "sc-checkout"
@@ -3906,14 +3894,14 @@
         "components": [
           "sc-customer-edit"
         ],
-        "bundleId": "p-fcac1ef6",
-        "fileName": "p-fcac1ef6.entry.js",
+        "bundleId": "p-edd3c1dd",
+        "fileName": "p-edd3c1dd.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
           "p-1c2e2695.js"
         ],
-        "originalByteSize": 5872
+        "originalByteSize": 5935
       },
       {
         "key": "sc-customer-email.entry",
@@ -4343,8 +4331,8 @@
         "components": [
           "sc-order-billing-address"
         ],
-        "bundleId": "p-ba75d7ee",
-        "fileName": "p-ba75d7ee.entry.js",
+        "bundleId": "p-8468fd6a",
+        "fileName": "p-8468fd6a.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-24f06282.js",
@@ -4364,7 +4352,7 @@
           "p-8266bbed.js",
           "p-18e45a13.js"
         ],
-        "originalByteSize": 5171
+        "originalByteSize": 5153
       },
       {
         "key": "sc-order-confirmation.entry",
@@ -4607,15 +4595,15 @@
         "components": [
           "sc-payment-methods-list"
         ],
-        "bundleId": "p-2d5c6626",
-        "fileName": "p-2d5c6626.entry.js",
+        "bundleId": "p-26863f89",
+        "fileName": "p-26863f89.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
           "p-c2833cb1.js",
           "p-1c2e2695.js"
         ],
-        "originalByteSize": 9742
+        "originalByteSize": 10158
       },
       {
         "key": "sc-paypal-add-method.entry",
@@ -5277,8 +5265,8 @@
         "components": [
           "sc-upcoming-invoice"
         ],
-        "bundleId": "p-df9d4646",
-        "fileName": "p-df9d4646.entry.js",
+        "bundleId": "p-9c434bae",
+        "fileName": "p-9c434bae.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
@@ -5288,7 +5276,7 @@
           "p-1c2e2695.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 12672
+        "originalByteSize": 12667
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -5402,8 +5390,8 @@
         "components": [
           "sc-upsell-totals"
         ],
-        "bundleId": "p-0d352012",
-        "fileName": "p-0d352012.entry.js",
+        "bundleId": "p-40ed7a18",
+        "fileName": "p-40ed7a18.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-80b2fdca.js",
@@ -5422,7 +5410,7 @@
           "p-1c2e2695.js",
           "p-8266bbed.js"
         ],
-        "originalByteSize": 4332
+        "originalByteSize": 4327
       },
       {
         "key": "sc-wordpress-password-edit.entry",
@@ -5471,8 +5459,8 @@
           "sc-cancel-dialog",
           "sc-subscription-next-payment"
         ],
-        "bundleId": "p-91bc50d1",
-        "fileName": "p-91bc50d1.entry.js",
+        "bundleId": "p-51366d8d",
+        "fileName": "p-51366d8d.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-18e45a13.js",
@@ -5481,7 +5469,7 @@
           "p-1c2e2695.js",
           "p-7ef0f71c.js"
         ],
-        "originalByteSize": 11509
+        "originalByteSize": 11504
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -5563,8 +5551,8 @@
           "sc-order-confirm-provider",
           "sc-session-provider"
         ],
-        "bundleId": "p-e5841d24",
-        "fileName": "p-e5841d24.entry.js",
+        "bundleId": "p-2eb4b733",
+        "fileName": "p-2eb4b733.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-24f06282.js",
@@ -5591,7 +5579,7 @@
           "p-e64f9fcd.js",
           "p-c06b2e12.js"
         ],
-        "originalByteSize": 47334
+        "originalByteSize": 47304
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",
@@ -5756,6 +5744,19 @@
         "originalByteSize": 6078
       },
       {
+        "key": "sc-switch.entry",
+        "components": [
+          "sc-switch"
+        ],
+        "bundleId": "p-9a558fd2",
+        "fileName": "p-9a558fd2.entry.js",
+        "imports": [
+          "p-cc7ce8c7.js",
+          "p-8617d8eb.js"
+        ],
+        "originalByteSize": 8408
+      },
+      {
         "key": "sc-toggles.entry",
         "components": [
           "sc-toggles"
@@ -5786,6 +5787,20 @@
           "p-7ef0f71c.js"
         ],
         "originalByteSize": 22178
+      },
+      {
+        "key": "sc-checkbox.entry",
+        "components": [
+          "sc-checkbox"
+        ],
+        "bundleId": "p-b341a1a5",
+        "fileName": "p-b341a1a5.entry.js",
+        "imports": [
+          "p-cc7ce8c7.js",
+          "p-8617d8eb.js",
+          "p-d556eec7.js"
+        ],
+        "originalByteSize": 7410
       },
       {
         "key": "sc-checkout-form-errors.entry",
@@ -5864,8 +5879,8 @@
           "sc-radio-group",
           "sc-shipping-choices"
         ],
-        "bundleId": "p-40e9b9ad",
-        "fileName": "p-40e9b9ad.entry.js",
+        "bundleId": "p-4376c5e6",
+        "fileName": "p-4376c5e6.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-e64f9fcd.js",
@@ -5892,15 +5907,15 @@
           "p-7ef0f71c.js",
           "p-18e45a13.js"
         ],
-        "originalByteSize": 46558
+        "originalByteSize": 46617
       },
       {
         "key": "sc-line-item-total.entry",
         "components": [
           "sc-line-item-total"
         ],
-        "bundleId": "p-c9699bf6",
-        "fileName": "p-c9699bf6.entry.js",
+        "bundleId": "p-8fb85bc3",
+        "fileName": "p-8fb85bc3.entry.js",
         "imports": [
           "p-cc7ce8c7.js",
           "p-a27e9b70.js",
@@ -5915,7 +5930,7 @@
           "p-7ef0f71c.js",
           "p-50da3ba3.js"
         ],
-        "originalByteSize": 6435
+        "originalByteSize": 6430
       },
       {
         "key": "sc-payment-method-choice.sc-payment-selected.entry",
@@ -6057,19 +6072,6 @@
           "p-7ef0f71c.js"
         ],
         "originalByteSize": 14833
-      },
-      {
-        "key": "sc-switch.entry",
-        "components": [
-          "sc-switch"
-        ],
-        "bundleId": "p-9a558fd2",
-        "fileName": "p-9a558fd2.entry.js",
-        "imports": [
-          "p-cc7ce8c7.js",
-          "p-8617d8eb.js"
-        ],
-        "originalByteSize": 8408
       },
       {
         "key": "sc-toggle.entry",
@@ -6707,20 +6709,6 @@
         "originalByteSize": 5081
       },
       {
-        "key": "sc-checkbox.entry",
-        "components": [
-          "sc-checkbox"
-        ],
-        "bundleId": "sc-checkbox",
-        "fileName": "sc-checkbox.entry.js",
-        "imports": [
-          "index-644f5478.js",
-          "form-data-dd63c61f.js",
-          "page-align-8602c4c7.js"
-        ],
-        "originalByteSize": 7391
-      },
-      {
         "key": "sc-checkout.entry",
         "components": [
           "sc-checkout"
@@ -6840,7 +6828,7 @@
           "fetch-2525e763.js",
           "add-query-args-f4c5962b.js"
         ],
-        "originalByteSize": 5893
+        "originalByteSize": 5956
       },
       {
         "key": "sc-customer-email.entry",
@@ -7291,7 +7279,7 @@
           "mutations-0a628afa.js",
           "fetch-2525e763.js"
         ],
-        "originalByteSize": 5278
+        "originalByteSize": 5260
       },
       {
         "key": "sc-order-confirmation.entry",
@@ -7542,7 +7530,7 @@
           "lazy-64c2bf3b.js",
           "add-query-args-f4c5962b.js"
         ],
-        "originalByteSize": 9766
+        "originalByteSize": 10182
       },
       {
         "key": "sc-paypal-add-method.entry",
@@ -8215,7 +8203,7 @@
           "add-query-args-f4c5962b.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 12709
+        "originalByteSize": 12704
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -8349,7 +8337,7 @@
           "add-query-args-f4c5962b.js",
           "mutations-0a628afa.js"
         ],
-        "originalByteSize": 4425
+        "originalByteSize": 4420
       },
       {
         "key": "sc-wordpress-password-edit.entry",
@@ -8408,7 +8396,7 @@
           "add-query-args-f4c5962b.js",
           "currency-728311ef.js"
         ],
-        "originalByteSize": 11543
+        "originalByteSize": 11538
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -8518,7 +8506,7 @@
           "address-8d75115e.js",
           "util-64ee5262.js"
         ],
-        "originalByteSize": 47484
+        "originalByteSize": 47454
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",
@@ -8683,6 +8671,19 @@
         "originalByteSize": 6103
       },
       {
+        "key": "sc-switch.entry",
+        "components": [
+          "sc-switch"
+        ],
+        "bundleId": "sc-switch",
+        "fileName": "sc-switch.entry.js",
+        "imports": [
+          "index-644f5478.js",
+          "form-data-dd63c61f.js"
+        ],
+        "originalByteSize": 8420
+      },
+      {
         "key": "sc-toggles.entry",
         "components": [
           "sc-toggles"
@@ -8713,6 +8714,20 @@
           "currency-728311ef.js"
         ],
         "originalByteSize": 22218
+      },
+      {
+        "key": "sc-checkbox.entry",
+        "components": [
+          "sc-checkbox"
+        ],
+        "bundleId": "sc-checkbox",
+        "fileName": "sc-checkbox.entry.js",
+        "imports": [
+          "index-644f5478.js",
+          "form-data-dd63c61f.js",
+          "page-align-8602c4c7.js"
+        ],
+        "originalByteSize": 7431
       },
       {
         "key": "sc-checkout-form-errors.entry",
@@ -8819,7 +8834,7 @@
           "currency-728311ef.js",
           "fetch-2525e763.js"
         ],
-        "originalByteSize": 46717
+        "originalByteSize": 46776
       },
       {
         "key": "sc-line-item-total.entry",
@@ -8842,7 +8857,7 @@
           "currency-728311ef.js",
           "price-178c2e2b.js"
         ],
-        "originalByteSize": 6510
+        "originalByteSize": 6505
       },
       {
         "key": "sc-payment-method-choice.sc-payment-selected.entry",
@@ -8984,19 +8999,6 @@
           "currency-728311ef.js"
         ],
         "originalByteSize": 14865
-      },
-      {
-        "key": "sc-switch.entry",
-        "components": [
-          "sc-switch"
-        ],
-        "bundleId": "sc-switch",
-        "fileName": "sc-switch.entry.js",
-        "imports": [
-          "index-644f5478.js",
-          "form-data-dd63c61f.js"
-        ],
-        "originalByteSize": 8420
       },
       {
         "key": "sc-toggle.entry",
@@ -9636,20 +9638,6 @@
         "originalByteSize": 5301
       },
       {
-        "key": "sc-checkbox.entry",
-        "components": [
-          "sc-checkbox"
-        ],
-        "bundleId": "sc-checkbox.cjs",
-        "fileName": "sc-checkbox.cjs.entry.js",
-        "imports": [
-          "index-f1e4d53b.js",
-          "form-data-69000afe.js",
-          "page-align-bf197eb4.js"
-        ],
-        "originalByteSize": 7554
-      },
-      {
         "key": "sc-checkout.entry",
         "components": [
           "sc-checkout"
@@ -9769,7 +9757,7 @@
           "fetch-2dba325c.js",
           "add-query-args-17c551b6.js"
         ],
-        "originalByteSize": 6096
+        "originalByteSize": 6165
       },
       {
         "key": "sc-customer-email.entry",
@@ -10220,7 +10208,7 @@
           "mutations-8d7c4499.js",
           "fetch-2dba325c.js"
         ],
-        "originalByteSize": 5456
+        "originalByteSize": 5438
       },
       {
         "key": "sc-order-confirmation.entry",
@@ -10471,7 +10459,7 @@
           "lazy-bc8baeab.js",
           "add-query-args-17c551b6.js"
         ],
-        "originalByteSize": 10162
+        "originalByteSize": 10578
       },
       {
         "key": "sc-paypal-add-method.entry",
@@ -11144,7 +11132,7 @@
           "add-query-args-17c551b6.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 13120
+        "originalByteSize": 13115
       },
       {
         "key": "sc-upgrade-required.entry",
@@ -11278,7 +11266,7 @@
           "add-query-args-17c551b6.js",
           "mutations-8d7c4499.js"
         ],
-        "originalByteSize": 4842
+        "originalByteSize": 4837
       },
       {
         "key": "sc-wordpress-password-edit.entry",
@@ -11337,7 +11325,7 @@
           "add-query-args-17c551b6.js",
           "currency-ba038e2f.js"
         ],
-        "originalByteSize": 11913
+        "originalByteSize": 11908
       },
       {
         "key": "sc-cart-session-provider.sc-drawer.sc-error.entry",
@@ -11447,7 +11435,7 @@
           "address-07819c5b.js",
           "util-efd68af1.js"
         ],
-        "originalByteSize": 49502
+        "originalByteSize": 49472
       },
       {
         "key": "sc-fulfillment-shipping-status-badge.entry",
@@ -11612,6 +11600,19 @@
         "originalByteSize": 6333
       },
       {
+        "key": "sc-switch.entry",
+        "components": [
+          "sc-switch"
+        ],
+        "bundleId": "sc-switch.cjs",
+        "fileName": "sc-switch.cjs.entry.js",
+        "imports": [
+          "index-f1e4d53b.js",
+          "form-data-69000afe.js"
+        ],
+        "originalByteSize": 8519
+      },
+      {
         "key": "sc-toggles.entry",
         "components": [
           "sc-toggles"
@@ -11642,6 +11643,20 @@
           "currency-ba038e2f.js"
         ],
         "originalByteSize": 22607
+      },
+      {
+        "key": "sc-checkbox.entry",
+        "components": [
+          "sc-checkbox"
+        ],
+        "bundleId": "sc-checkbox.cjs",
+        "fileName": "sc-checkbox.cjs.entry.js",
+        "imports": [
+          "index-f1e4d53b.js",
+          "form-data-69000afe.js",
+          "page-align-bf197eb4.js"
+        ],
+        "originalByteSize": 7594
       },
       {
         "key": "sc-checkout-form-errors.entry",
@@ -11748,7 +11763,7 @@
           "currency-ba038e2f.js",
           "fetch-2dba325c.js"
         ],
-        "originalByteSize": 47878
+        "originalByteSize": 47937
       },
       {
         "key": "sc-line-item-total.entry",
@@ -11771,7 +11786,7 @@
           "currency-ba038e2f.js",
           "price-f1f1114d.js"
         ],
-        "originalByteSize": 6867
+        "originalByteSize": 6862
       },
       {
         "key": "sc-payment-method-choice.sc-payment-selected.entry",
@@ -11913,19 +11928,6 @@
           "currency-ba038e2f.js"
         ],
         "originalByteSize": 15166
-      },
-      {
-        "key": "sc-switch.entry",
-        "components": [
-          "sc-switch"
-        ],
-        "bundleId": "sc-switch.cjs",
-        "fileName": "sc-switch.cjs.entry.js",
-        "imports": [
-          "index-f1e4d53b.js",
-          "form-data-69000afe.js"
-        ],
-        "originalByteSize": 8519
       },
       {
         "key": "sc-toggle.entry",
@@ -16211,9 +16213,15 @@
       "componentClassName": "ScCheckbox",
       "assetsDirs": [],
       "dependencies": [],
-      "dependents": [],
+      "dependents": [
+        "sc-customer-edit",
+        "sc-order-billing-address"
+      ],
       "directDependencies": [],
-      "directDependents": [],
+      "directDependents": [
+        "sc-customer-edit",
+        "sc-order-billing-address"
+      ],
       "docs": {
         "tags": [
           {
@@ -20327,10 +20335,12 @@
         "sc-block-ui",
         "sc-button",
         "sc-card",
+        "sc-checkbox",
         "sc-column",
         "sc-columns",
         "sc-dashboard-module",
         "sc-dropdown",
+        "sc-flex",
         "sc-form",
         "sc-form-control",
         "sc-icon",
@@ -20341,7 +20351,6 @@
         "sc-phone-input",
         "sc-select",
         "sc-spinner",
-        "sc-switch",
         "sc-tag",
         "sc-tax-id-input",
         "sc-visually-hidden"
@@ -20356,8 +20365,9 @@
         "sc-column",
         "sc-input",
         "sc-phone-input",
+        "sc-flex",
         "sc-address",
-        "sc-switch",
+        "sc-checkbox",
         "sc-tax-id-input",
         "sc-button",
         "sc-block-ui"
@@ -20384,8 +20394,9 @@
         "sc-column",
         "sc-input",
         "sc-phone-input",
+        "sc-flex",
         "sc-address",
-        "sc-switch",
+        "sc-checkbox",
         "sc-tax-id-input",
         "sc-button",
         "sc-block-ui"
@@ -24797,6 +24808,7 @@
         "sc-charges-list",
         "sc-checkout",
         "sc-checkout-stock-alert",
+        "sc-customer-edit",
         "sc-dashboard-downloads-list",
         "sc-downloads-list",
         "sc-fulfillments",
@@ -24825,6 +24837,7 @@
         "sc-cancel-discount",
         "sc-cancel-survey",
         "sc-checkout-stock-alert",
+        "sc-customer-edit",
         "sc-downloads-list",
         "sc-fulfillments",
         "sc-license",
@@ -30741,6 +30754,7 @@
       "dependencies": [
         "sc-address",
         "sc-block-ui",
+        "sc-checkbox",
         "sc-dropdown",
         "sc-form-control",
         "sc-icon",
@@ -30750,12 +30764,11 @@
         "sc-menu-label",
         "sc-select",
         "sc-spinner",
-        "sc-switch",
         "sc-visually-hidden"
       ],
       "dependents": [],
       "directDependencies": [
-        "sc-switch",
+        "sc-checkbox",
         "sc-address"
       ],
       "directDependents": [],
@@ -30791,7 +30804,7 @@
         }
       ],
       "potentialCmpRefs": [
-        "sc-switch",
+        "sc-checkbox",
         "sc-address"
       ],
       "properties": [
@@ -31000,7 +31013,7 @@
           "mutable": false,
           "required": false,
           "optional": false,
-          "defaultValue": "__('Billing address is different from shipping address.', 'surecart')",
+          "defaultValue": "__('Billing address is same as shipping', 'surecart')",
           "complexType": {
             "original": "string",
             "resolved": "string",
@@ -35978,13 +35991,13 @@
         "sc-skeleton",
         "sc-divider",
         "sc-empty",
-        "sc-payment-method",
-        "sc-flex",
-        "sc-tag",
         "sc-dropdown",
         "sc-icon",
         "sc-menu",
         "sc-menu-item",
+        "sc-payment-method",
+        "sc-flex",
+        "sc-tag",
         "sc-dashboard-module",
         "sc-button",
         "sc-dialog",
@@ -36013,13 +36026,13 @@
         "sc-skeleton",
         "sc-divider",
         "sc-empty",
-        "sc-payment-method",
-        "sc-flex",
-        "sc-tag",
         "sc-dropdown",
         "sc-icon",
         "sc-menu",
         "sc-menu-item",
+        "sc-payment-method",
+        "sc-flex",
+        "sc-tag",
         "sc-dashboard-module",
         "sc-button",
         "sc-dialog",
@@ -36082,6 +36095,26 @@
           "docs": {
             "tags": [],
             "text": "Is this a customer"
+          },
+          "internal": false
+        },
+        {
+          "name": "canDetachDefaultPaymentMethod",
+          "type": "boolean",
+          "attribute": "can-detach-default-payment-method",
+          "reflect": false,
+          "mutable": false,
+          "required": false,
+          "optional": false,
+          "defaultValue": "false",
+          "complexType": {
+            "original": "boolean",
+            "resolved": "boolean",
+            "references": {}
+          },
+          "docs": {
+            "tags": [],
+            "text": "Whether default payment method can be detached"
           },
           "internal": false
         }
@@ -48838,14 +48871,10 @@
       "assetsDirs": [],
       "dependencies": [],
       "dependents": [
-        "sc-customer-edit",
-        "sc-order-billing-address",
         "sc-payment-methods-list"
       ],
       "directDependencies": [],
       "directDependents": [
-        "sc-customer-edit",
-        "sc-order-billing-address",
         "sc-payment-methods-list"
       ],
       "docs": {
@@ -54972,6 +55001,7 @@
             "sc-charges-list",
             "sc-checkout",
             "sc-checkout-stock-alert",
+            "sc-customer-edit",
             "sc-dashboard-downloads-list",
             "sc-downloads-list",
             "sc-fulfillments",
@@ -54999,6 +55029,7 @@
             "sc-cancel-discount",
             "sc-cancel-survey",
             "sc-checkout-stock-alert",
+            "sc-customer-edit",
             "sc-downloads-list",
             "sc-fulfillments",
             "sc-license",
@@ -59840,475 +59871,6 @@
     {
       "cmps": [
         {
-          "tagName": "sc-checkbox",
-          "excludeFromCollection": false,
-          "isCollectionDependency": false,
-          "componentClassName": "ScCheckbox",
-          "elementRef": "el",
-          "encapsulation": "shadow",
-          "shadowDelegatesFocus": false,
-          "properties": [
-            {
-              "name": "name",
-              "type": "string",
-              "attribute": "name",
-              "reflect": false,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "complexType": {
-                "original": "string",
-                "resolved": "string",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "The checkbox's name attribute."
-              },
-              "internal": false
-            },
-            {
-              "name": "value",
-              "type": "string",
-              "attribute": "value",
-              "reflect": false,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "complexType": {
-                "original": "string",
-                "resolved": "string",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "The checkbox's value attribute."
-              },
-              "internal": false
-            },
-            {
-              "name": "disabled",
-              "type": "boolean",
-              "attribute": "disabled",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Disables the checkbox."
-              },
-              "internal": false
-            },
-            {
-              "name": "edit",
-              "type": "boolean",
-              "attribute": "edit",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Makes this edit and not editable."
-              },
-              "internal": false
-            },
-            {
-              "name": "required",
-              "type": "boolean",
-              "attribute": "required",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Makes the checkbox a required field."
-              },
-              "internal": false
-            },
-            {
-              "name": "checked",
-              "type": "boolean",
-              "attribute": "checked",
-              "reflect": true,
-              "mutable": true,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Draws the checkbox in a checked state."
-              },
-              "internal": false
-            },
-            {
-              "name": "indeterminate",
-              "type": "boolean",
-              "attribute": "indeterminate",
-              "reflect": true,
-              "mutable": true,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Draws the checkbox in an indeterminate state."
-              },
-              "internal": false
-            },
-            {
-              "name": "invalid",
-              "type": "boolean",
-              "attribute": "invalid",
-              "reflect": true,
-              "mutable": true,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "This will be true when the control is in an invalid state. Validity is determined by the `required` prop."
-              },
-              "internal": false
-            }
-          ],
-          "virtualProperties": [],
-          "states": [
-            {
-              "name": "hasFocus"
-            }
-          ],
-          "methods": [
-            {
-              "name": "triggerClick",
-              "docs": {
-                "text": "Simulates a click on the checkbox.",
-                "tags": []
-              },
-              "complexType": {
-                "signature": "() => Promise<void>",
-                "parameters": [],
-                "references": {
-                  "Promise": {
-                    "location": "global"
-                  }
-                },
-                "return": "Promise<void>"
-              },
-              "internal": false
-            },
-            {
-              "name": "triggerFocus",
-              "docs": {
-                "text": "Sets focus on the checkbox.",
-                "tags": []
-              },
-              "complexType": {
-                "signature": "(options?: FocusOptions) => Promise<void>",
-                "parameters": [
-                  {
-                    "tags": [],
-                    "text": ""
-                  }
-                ],
-                "references": {
-                  "Promise": {
-                    "location": "global"
-                  },
-                  "FocusOptions": {
-                    "location": "global"
-                  }
-                },
-                "return": "Promise<void>"
-              },
-              "internal": false
-            },
-            {
-              "name": "triggerBlur",
-              "docs": {
-                "text": "Removes focus from the checkbox.",
-                "tags": []
-              },
-              "complexType": {
-                "signature": "() => Promise<void>",
-                "parameters": [],
-                "references": {
-                  "Promise": {
-                    "location": "global"
-                  }
-                },
-                "return": "Promise<void>"
-              },
-              "internal": false
-            },
-            {
-              "name": "reportValidity",
-              "docs": {
-                "text": "Checks for validity and shows the browser's validation message if the control is invalid.",
-                "tags": []
-              },
-              "complexType": {
-                "signature": "() => Promise<boolean>",
-                "parameters": [],
-                "references": {
-                  "Promise": {
-                    "location": "global"
-                  }
-                },
-                "return": "Promise<boolean>"
-              },
-              "internal": false
-            }
-          ],
-          "listeners": [],
-          "events": [
-            {
-              "name": "scBlur",
-              "method": "scBlur",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control loses focus."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            },
-            {
-              "name": "scChange",
-              "method": "scChange",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control's checked state changes."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            },
-            {
-              "name": "scFocus",
-              "method": "scFocus",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control gains focus."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            }
-          ],
-          "watchers": [
-            {
-              "propName": "checked",
-              "methodName": "handleStateChange"
-            },
-            {
-              "propName": "indeterminate",
-              "methodName": "handleStateChange"
-            }
-          ],
-          "styles": [
-            {
-              "modeName": "$",
-              "styleId": "SC-CHECKBOX",
-              "styleStr": null,
-              "styleIdentifier": "scCheckboxStyle",
-              "externalStyles": [
-                {
-                  "absolutePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.scss",
-                  "relativePath": "sc-checkbox.scss",
-                  "originalComponentPath": "sc-checkbox.scss"
-                }
-              ]
-            }
-          ],
-          "legacyConnect": [],
-          "legacyContext": [],
-          "internal": false,
-          "assetsDirs": [],
-          "styleDocs": [],
-          "docs": {
-            "tags": [
-              {
-                "name": "part",
-                "text": "base - The elements base wrapper."
-              },
-              {
-                "name": "part",
-                "text": "control - The control wrapper."
-              },
-              {
-                "name": "part",
-                "text": "checked-icon - Checked icon."
-              },
-              {
-                "name": "part",
-                "text": "indeterminate-icon - Indeterminate icon."
-              },
-              {
-                "name": "part",
-                "text": "label - The label."
-              }
-            ],
-            "text": ""
-          },
-          "jsFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.js",
-          "sourceFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.tsx",
-          "sourceMapPath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.js.map",
-          "hasAttributeChangedCallbackFn": false,
-          "hasComponentWillLoadFn": false,
-          "hasComponentDidLoadFn": true,
-          "hasComponentShouldUpdateFn": false,
-          "hasComponentWillUpdateFn": false,
-          "hasComponentDidUpdateFn": false,
-          "hasComponentWillRenderFn": false,
-          "hasComponentDidRenderFn": false,
-          "hasComponentDidUnloadFn": false,
-          "hasConnectedCallbackFn": false,
-          "hasDisconnectedCallbackFn": true,
-          "hasElement": false,
-          "hasEvent": true,
-          "hasLifecycle": true,
-          "hasListener": false,
-          "hasListenerTarget": false,
-          "hasListenerTargetWindow": false,
-          "hasListenerTargetDocument": false,
-          "hasListenerTargetBody": false,
-          "hasListenerTargetParent": false,
-          "hasMember": true,
-          "hasMethod": true,
-          "hasMode": false,
-          "hasAttribute": true,
-          "hasProp": true,
-          "hasPropNumber": false,
-          "hasPropBoolean": true,
-          "hasPropString": true,
-          "hasPropMutable": true,
-          "hasReflect": true,
-          "hasRenderFn": true,
-          "hasState": true,
-          "hasStyle": true,
-          "hasVdomAttribute": true,
-          "hasVdomXlink": false,
-          "hasVdomClass": true,
-          "hasVdomFunctional": true,
-          "hasVdomKey": false,
-          "hasVdomListener": true,
-          "hasVdomPropOrAttr": true,
-          "hasVdomRef": true,
-          "hasVdomRender": true,
-          "hasVdomStyle": false,
-          "hasVdomText": true,
-          "hasWatchCallback": true,
-          "isPlain": false,
-          "htmlAttrNames": [
-            "part",
-            "class",
-            "htmlFor",
-            "onMouseDown",
-            "viewBox",
-            "stroke",
-            "stroke-width",
-            "fill",
-            "fill-rule",
-            "stroke-linecap",
-            "transform",
-            "d",
-            "id",
-            "ref",
-            "type",
-            "name",
-            "value",
-            "checked",
-            "disabled",
-            "required",
-            "role",
-            "aria-checked",
-            "aria-labelledby",
-            "onClick",
-            "onBlur",
-            "onFocus"
-          ],
-          "htmlTagNames": [
-            "span",
-            "svg",
-            "g",
-            "path",
-            "input",
-            "slot"
-          ],
-          "htmlParts": [
-            "base",
-            "control",
-            "checked-icon",
-            "indeterminate-icon",
-            "label"
-          ],
-          "isUpdateable": true,
-          "potentialCmpRefs": [],
-          "directDependencies": [],
-          "dependencies": [],
-          "dependents": [],
-          "directDependents": []
-        }
-      ],
-      "entryKey": "sc-checkbox.entry"
-    },
-    {
-      "cmps": [
-        {
           "tagName": "sc-checkout",
           "excludeFromCollection": false,
           "isCollectionDependency": false,
@@ -62145,6 +61707,7 @@
             "label",
             "name",
             "value",
+            "flexDirection",
             "showName",
             "address",
             "required",
@@ -62167,9 +61730,10 @@
             "sc-column",
             "sc-input",
             "sc-phone-input",
+            "sc-flex",
             "div",
             "sc-address",
-            "sc-switch",
+            "sc-checkbox",
             "sc-tax-id-input",
             "sc-button",
             "sc-block-ui"
@@ -62185,8 +61749,9 @@
             "sc-column",
             "sc-input",
             "sc-phone-input",
+            "sc-flex",
             "sc-address",
-            "sc-switch",
+            "sc-checkbox",
             "sc-tax-id-input",
             "sc-button",
             "sc-block-ui"
@@ -62200,8 +61765,9 @@
             "sc-column",
             "sc-input",
             "sc-phone-input",
+            "sc-flex",
             "sc-address",
-            "sc-switch",
+            "sc-checkbox",
             "sc-tax-id-input",
             "sc-button",
             "sc-block-ui"
@@ -62212,10 +61778,12 @@
             "sc-block-ui",
             "sc-button",
             "sc-card",
+            "sc-checkbox",
             "sc-column",
             "sc-columns",
             "sc-dashboard-module",
             "sc-dropdown",
+            "sc-flex",
             "sc-form",
             "sc-form-control",
             "sc-icon",
@@ -62226,7 +61794,6 @@
             "sc-phone-input",
             "sc-select",
             "sc-spinner",
-            "sc-switch",
             "sc-tag",
             "sc-tax-id-input",
             "sc-visually-hidden"
@@ -69444,7 +69011,7 @@
               "mutable": false,
               "required": false,
               "optional": false,
-              "defaultValue": "__('Billing address is different from shipping address.', 'surecart')",
+              "defaultValue": "__('Billing address is same as shipping', 'surecart')",
               "complexType": {
                 "original": "string",
                 "resolved": "string",
@@ -69575,22 +69142,23 @@
             "onScChangeAddress"
           ],
           "htmlTagNames": [
-            "sc-switch",
+            "sc-checkbox",
             "sc-address"
           ],
           "htmlParts": [],
           "isUpdateable": true,
           "potentialCmpRefs": [
-            "sc-switch",
+            "sc-checkbox",
             "sc-address"
           ],
           "directDependencies": [
-            "sc-switch",
+            "sc-checkbox",
             "sc-address"
           ],
           "dependencies": [
             "sc-address",
             "sc-block-ui",
+            "sc-checkbox",
             "sc-dropdown",
             "sc-form-control",
             "sc-icon",
@@ -69600,7 +69168,6 @@
             "sc-menu-label",
             "sc-select",
             "sc-spinner",
-            "sc-switch",
             "sc-visually-hidden"
           ],
           "dependents": [],
@@ -73506,6 +73073,26 @@
                 "text": "Is this a customer"
               },
               "internal": false
+            },
+            {
+              "name": "canDetachDefaultPaymentMethod",
+              "type": "boolean",
+              "attribute": "can-detach-default-payment-method",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Whether default payment method can be detached"
+              },
+              "internal": false
             }
           ],
           "virtualProperties": [],
@@ -73623,16 +73210,16 @@
             "mobile-size",
             "name",
             "icon",
-            "paymentMethod",
-            "class",
-            "justify-content",
-            "align-items",
-            "type",
             "placement",
             "slot",
             "role",
             "tabIndex",
             "onClick",
+            "paymentMethod",
+            "class",
+            "justify-content",
+            "align-items",
+            "type",
             "no-padding",
             "error",
             "href",
@@ -73653,14 +73240,14 @@
             "sc-divider",
             "slot",
             "sc-empty",
-            "sc-payment-method",
-            "span",
-            "sc-flex",
-            "sc-tag",
             "sc-dropdown",
             "sc-icon",
             "sc-menu",
             "sc-menu-item",
+            "sc-payment-method",
+            "span",
+            "sc-flex",
+            "sc-tag",
             "sc-dashboard-module",
             "sc-button",
             "sc-dialog",
@@ -73678,13 +73265,13 @@
             "sc-skeleton",
             "sc-divider",
             "sc-empty",
-            "sc-payment-method",
-            "sc-flex",
-            "sc-tag",
             "sc-dropdown",
             "sc-icon",
             "sc-menu",
             "sc-menu-item",
+            "sc-payment-method",
+            "sc-flex",
+            "sc-tag",
             "sc-dashboard-module",
             "sc-button",
             "sc-dialog",
@@ -73700,13 +73287,13 @@
             "sc-skeleton",
             "sc-divider",
             "sc-empty",
-            "sc-payment-method",
-            "sc-flex",
-            "sc-tag",
             "sc-dropdown",
             "sc-icon",
             "sc-menu",
             "sc-menu-item",
+            "sc-payment-method",
+            "sc-flex",
+            "sc-tag",
             "sc-dashboard-module",
             "sc-button",
             "sc-dialog",
@@ -90659,6 +90246,400 @@
     {
       "cmps": [
         {
+          "tagName": "sc-switch",
+          "excludeFromCollection": false,
+          "isCollectionDependency": false,
+          "componentClassName": "ScSwitch",
+          "elementRef": "el",
+          "encapsulation": "shadow",
+          "shadowDelegatesFocus": false,
+          "properties": [
+            {
+              "name": "name",
+              "type": "string",
+              "attribute": "name",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "The switch's name attribute."
+              },
+              "internal": false
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "attribute": "value",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "The switch's value attribute."
+              },
+              "internal": false
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "attribute": "disabled",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Disables the switch."
+              },
+              "internal": false
+            },
+            {
+              "name": "required",
+              "type": "boolean",
+              "attribute": "required",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Makes the switch a required field."
+              },
+              "internal": false
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "attribute": "checked",
+              "reflect": true,
+              "mutable": true,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Draws the switch in a checked state."
+              },
+              "internal": false
+            },
+            {
+              "name": "invalid",
+              "type": "boolean",
+              "attribute": "invalid",
+              "reflect": true,
+              "mutable": true,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "This will be true when the control is in an invalid state. Validity is determined by the `required` prop."
+              },
+              "internal": false
+            },
+            {
+              "name": "reversed",
+              "type": "boolean",
+              "attribute": "reversed",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": ""
+              },
+              "internal": false
+            },
+            {
+              "name": "edit",
+              "type": "boolean",
+              "attribute": "edit",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "This will be true as a workaround in the block editor to focus on the content."
+              },
+              "internal": false
+            }
+          ],
+          "virtualProperties": [],
+          "states": [
+            {
+              "name": "hasDescription"
+            },
+            {
+              "name": "hasFocus"
+            }
+          ],
+          "methods": [
+            {
+              "name": "reportValidity",
+              "docs": {
+                "text": "Checks for validity and shows the browser's validation message if the control is invalid.",
+                "tags": []
+              },
+              "complexType": {
+                "signature": "() => Promise<boolean>",
+                "parameters": [],
+                "references": {
+                  "Promise": {
+                    "location": "global"
+                  }
+                },
+                "return": "Promise<boolean>"
+              },
+              "internal": false
+            }
+          ],
+          "listeners": [],
+          "events": [
+            {
+              "name": "scBlur",
+              "method": "scBlur",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control loses focus."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            },
+            {
+              "name": "scChange",
+              "method": "scChange",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control's checked state changes."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            },
+            {
+              "name": "scFocus",
+              "method": "scFocus",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control gains focus."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            }
+          ],
+          "watchers": [
+            {
+              "propName": "checked",
+              "methodName": "handleCheckedChange"
+            }
+          ],
+          "styles": [
+            {
+              "modeName": "$",
+              "styleId": "SC-SWITCH",
+              "styleStr": null,
+              "styleIdentifier": "scSwitchStyle",
+              "externalStyles": [
+                {
+                  "absolutePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.scss",
+                  "relativePath": "sc-switch.scss",
+                  "originalComponentPath": "sc-switch.scss"
+                }
+              ]
+            }
+          ],
+          "legacyConnect": [],
+          "legacyContext": [],
+          "internal": false,
+          "assetsDirs": [],
+          "styleDocs": [
+            {
+              "name": "--width",
+              "docs": "The width of the switch.",
+              "annotation": "prop"
+            },
+            {
+              "name": "--height",
+              "docs": "The height of the switch.",
+              "annotation": "prop"
+            },
+            {
+              "name": "--thumb-size",
+              "docs": "The size of the thumb.",
+              "annotation": "prop"
+            }
+          ],
+          "docs": {
+            "tags": [],
+            "text": ""
+          },
+          "jsFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.js",
+          "sourceFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.tsx",
+          "sourceMapPath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.js.map",
+          "hasAttributeChangedCallbackFn": false,
+          "hasComponentWillLoadFn": false,
+          "hasComponentDidLoadFn": true,
+          "hasComponentShouldUpdateFn": false,
+          "hasComponentWillUpdateFn": false,
+          "hasComponentDidUpdateFn": false,
+          "hasComponentWillRenderFn": false,
+          "hasComponentDidRenderFn": false,
+          "hasComponentDidUnloadFn": false,
+          "hasConnectedCallbackFn": false,
+          "hasDisconnectedCallbackFn": true,
+          "hasElement": false,
+          "hasEvent": true,
+          "hasLifecycle": true,
+          "hasListener": false,
+          "hasListenerTarget": false,
+          "hasListenerTargetWindow": false,
+          "hasListenerTargetDocument": false,
+          "hasListenerTargetBody": false,
+          "hasListenerTargetParent": false,
+          "hasMember": true,
+          "hasMethod": true,
+          "hasMode": false,
+          "hasAttribute": true,
+          "hasProp": true,
+          "hasPropNumber": false,
+          "hasPropBoolean": true,
+          "hasPropString": true,
+          "hasPropMutable": true,
+          "hasReflect": true,
+          "hasRenderFn": true,
+          "hasState": true,
+          "hasStyle": true,
+          "hasVdomAttribute": true,
+          "hasVdomXlink": false,
+          "hasVdomClass": true,
+          "hasVdomFunctional": true,
+          "hasVdomKey": false,
+          "hasVdomListener": true,
+          "hasVdomPropOrAttr": true,
+          "hasVdomRef": true,
+          "hasVdomRender": true,
+          "hasVdomStyle": false,
+          "hasVdomText": false,
+          "hasWatchCallback": true,
+          "isPlain": false,
+          "htmlAttrNames": [
+            "part",
+            "htmlFor",
+            "class",
+            "onMouseDown",
+            "ref",
+            "id",
+            "type",
+            "role",
+            "name",
+            "value",
+            "checked",
+            "disabled",
+            "required",
+            "aria-checked",
+            "aria-labelledby",
+            "onClick",
+            "onBlur",
+            "onFocus",
+            "onKeyDown"
+          ],
+          "htmlTagNames": [
+            "span",
+            "input",
+            "slot"
+          ],
+          "htmlParts": [
+            "base",
+            "control",
+            "thumb",
+            "title",
+            "description"
+          ],
+          "isUpdateable": true,
+          "potentialCmpRefs": [],
+          "directDependencies": [],
+          "dependencies": [],
+          "dependents": [
+            "sc-payment-methods-list"
+          ],
+          "directDependents": [
+            "sc-payment-methods-list"
+          ]
+        }
+      ],
+      "entryKey": "sc-switch.entry"
+    },
+    {
+      "cmps": [
+        {
           "tagName": "sc-toggles",
           "excludeFromCollection": false,
           "isCollectionDependency": false,
@@ -92490,6 +92471,481 @@
         }
       ],
       "entryKey": "sc-cancel-discount.sc-cancel-survey.sc-subscription-cancel.sc-textarea.entry"
+    },
+    {
+      "cmps": [
+        {
+          "tagName": "sc-checkbox",
+          "excludeFromCollection": false,
+          "isCollectionDependency": false,
+          "componentClassName": "ScCheckbox",
+          "elementRef": "el",
+          "encapsulation": "shadow",
+          "shadowDelegatesFocus": false,
+          "properties": [
+            {
+              "name": "name",
+              "type": "string",
+              "attribute": "name",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "The checkbox's name attribute."
+              },
+              "internal": false
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "attribute": "value",
+              "reflect": false,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "The checkbox's value attribute."
+              },
+              "internal": false
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "attribute": "disabled",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Disables the checkbox."
+              },
+              "internal": false
+            },
+            {
+              "name": "edit",
+              "type": "boolean",
+              "attribute": "edit",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Makes this edit and not editable."
+              },
+              "internal": false
+            },
+            {
+              "name": "required",
+              "type": "boolean",
+              "attribute": "required",
+              "reflect": true,
+              "mutable": false,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Makes the checkbox a required field."
+              },
+              "internal": false
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "attribute": "checked",
+              "reflect": true,
+              "mutable": true,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Draws the checkbox in a checked state."
+              },
+              "internal": false
+            },
+            {
+              "name": "indeterminate",
+              "type": "boolean",
+              "attribute": "indeterminate",
+              "reflect": true,
+              "mutable": true,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "Draws the checkbox in an indeterminate state."
+              },
+              "internal": false
+            },
+            {
+              "name": "invalid",
+              "type": "boolean",
+              "attribute": "invalid",
+              "reflect": true,
+              "mutable": true,
+              "required": false,
+              "optional": false,
+              "defaultValue": "false",
+              "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+              },
+              "docs": {
+                "tags": [],
+                "text": "This will be true when the control is in an invalid state. Validity is determined by the `required` prop."
+              },
+              "internal": false
+            }
+          ],
+          "virtualProperties": [],
+          "states": [
+            {
+              "name": "hasFocus"
+            }
+          ],
+          "methods": [
+            {
+              "name": "triggerClick",
+              "docs": {
+                "text": "Simulates a click on the checkbox.",
+                "tags": []
+              },
+              "complexType": {
+                "signature": "() => Promise<void>",
+                "parameters": [],
+                "references": {
+                  "Promise": {
+                    "location": "global"
+                  }
+                },
+                "return": "Promise<void>"
+              },
+              "internal": false
+            },
+            {
+              "name": "triggerFocus",
+              "docs": {
+                "text": "Sets focus on the checkbox.",
+                "tags": []
+              },
+              "complexType": {
+                "signature": "(options?: FocusOptions) => Promise<void>",
+                "parameters": [
+                  {
+                    "tags": [],
+                    "text": ""
+                  }
+                ],
+                "references": {
+                  "Promise": {
+                    "location": "global"
+                  },
+                  "FocusOptions": {
+                    "location": "global"
+                  }
+                },
+                "return": "Promise<void>"
+              },
+              "internal": false
+            },
+            {
+              "name": "triggerBlur",
+              "docs": {
+                "text": "Removes focus from the checkbox.",
+                "tags": []
+              },
+              "complexType": {
+                "signature": "() => Promise<void>",
+                "parameters": [],
+                "references": {
+                  "Promise": {
+                    "location": "global"
+                  }
+                },
+                "return": "Promise<void>"
+              },
+              "internal": false
+            },
+            {
+              "name": "reportValidity",
+              "docs": {
+                "text": "Checks for validity and shows the browser's validation message if the control is invalid.",
+                "tags": []
+              },
+              "complexType": {
+                "signature": "() => Promise<boolean>",
+                "parameters": [],
+                "references": {
+                  "Promise": {
+                    "location": "global"
+                  }
+                },
+                "return": "Promise<boolean>"
+              },
+              "internal": false
+            }
+          ],
+          "listeners": [],
+          "events": [
+            {
+              "name": "scBlur",
+              "method": "scBlur",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control loses focus."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            },
+            {
+              "name": "scChange",
+              "method": "scChange",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control's checked state changes."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            },
+            {
+              "name": "scFocus",
+              "method": "scFocus",
+              "bubbles": true,
+              "cancelable": true,
+              "composed": true,
+              "docs": {
+                "tags": [],
+                "text": "Emitted when the control gains focus."
+              },
+              "complexType": {
+                "original": "void",
+                "resolved": "void",
+                "references": {}
+              },
+              "internal": false
+            }
+          ],
+          "watchers": [
+            {
+              "propName": "checked",
+              "methodName": "handleStateChange"
+            },
+            {
+              "propName": "indeterminate",
+              "methodName": "handleStateChange"
+            }
+          ],
+          "styles": [
+            {
+              "modeName": "$",
+              "styleId": "SC-CHECKBOX",
+              "styleStr": null,
+              "styleIdentifier": "scCheckboxStyle",
+              "externalStyles": [
+                {
+                  "absolutePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.scss",
+                  "relativePath": "sc-checkbox.scss",
+                  "originalComponentPath": "sc-checkbox.scss"
+                }
+              ]
+            }
+          ],
+          "legacyConnect": [],
+          "legacyContext": [],
+          "internal": false,
+          "assetsDirs": [],
+          "styleDocs": [],
+          "docs": {
+            "tags": [
+              {
+                "name": "part",
+                "text": "base - The elements base wrapper."
+              },
+              {
+                "name": "part",
+                "text": "control - The control wrapper."
+              },
+              {
+                "name": "part",
+                "text": "checked-icon - Checked icon."
+              },
+              {
+                "name": "part",
+                "text": "indeterminate-icon - Indeterminate icon."
+              },
+              {
+                "name": "part",
+                "text": "label - The label."
+              }
+            ],
+            "text": ""
+          },
+          "jsFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.js",
+          "sourceFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.tsx",
+          "sourceMapPath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/checkbox/sc-checkbox.js.map",
+          "hasAttributeChangedCallbackFn": false,
+          "hasComponentWillLoadFn": false,
+          "hasComponentDidLoadFn": true,
+          "hasComponentShouldUpdateFn": false,
+          "hasComponentWillUpdateFn": false,
+          "hasComponentDidUpdateFn": false,
+          "hasComponentWillRenderFn": false,
+          "hasComponentDidRenderFn": false,
+          "hasComponentDidUnloadFn": false,
+          "hasConnectedCallbackFn": false,
+          "hasDisconnectedCallbackFn": true,
+          "hasElement": false,
+          "hasEvent": true,
+          "hasLifecycle": true,
+          "hasListener": false,
+          "hasListenerTarget": false,
+          "hasListenerTargetWindow": false,
+          "hasListenerTargetDocument": false,
+          "hasListenerTargetBody": false,
+          "hasListenerTargetParent": false,
+          "hasMember": true,
+          "hasMethod": true,
+          "hasMode": false,
+          "hasAttribute": true,
+          "hasProp": true,
+          "hasPropNumber": false,
+          "hasPropBoolean": true,
+          "hasPropString": true,
+          "hasPropMutable": true,
+          "hasReflect": true,
+          "hasRenderFn": true,
+          "hasState": true,
+          "hasStyle": true,
+          "hasVdomAttribute": true,
+          "hasVdomXlink": false,
+          "hasVdomClass": true,
+          "hasVdomFunctional": true,
+          "hasVdomKey": false,
+          "hasVdomListener": true,
+          "hasVdomPropOrAttr": true,
+          "hasVdomRef": true,
+          "hasVdomRender": true,
+          "hasVdomStyle": false,
+          "hasVdomText": true,
+          "hasWatchCallback": true,
+          "isPlain": false,
+          "htmlAttrNames": [
+            "part",
+            "class",
+            "htmlFor",
+            "onMouseDown",
+            "viewBox",
+            "stroke",
+            "stroke-width",
+            "fill",
+            "fill-rule",
+            "stroke-linecap",
+            "transform",
+            "d",
+            "id",
+            "ref",
+            "type",
+            "name",
+            "value",
+            "checked",
+            "disabled",
+            "required",
+            "role",
+            "aria-checked",
+            "aria-labelledby",
+            "onClick",
+            "onBlur",
+            "onFocus"
+          ],
+          "htmlTagNames": [
+            "span",
+            "svg",
+            "g",
+            "path",
+            "input",
+            "slot"
+          ],
+          "htmlParts": [
+            "base",
+            "control",
+            "checked-icon",
+            "indeterminate-icon",
+            "label"
+          ],
+          "isUpdateable": true,
+          "potentialCmpRefs": [],
+          "directDependencies": [],
+          "dependencies": [],
+          "dependents": [
+            "sc-customer-edit",
+            "sc-order-billing-address"
+          ],
+          "directDependents": [
+            "sc-customer-edit",
+            "sc-order-billing-address"
+          ]
+        }
+      ],
+      "entryKey": "sc-checkbox.entry"
     },
     {
       "cmps": [
@@ -101077,404 +101533,6 @@
         }
       ],
       "entryKey": "sc-subscription-details.sc-subscription-status-badge.entry"
-    },
-    {
-      "cmps": [
-        {
-          "tagName": "sc-switch",
-          "excludeFromCollection": false,
-          "isCollectionDependency": false,
-          "componentClassName": "ScSwitch",
-          "elementRef": "el",
-          "encapsulation": "shadow",
-          "shadowDelegatesFocus": false,
-          "properties": [
-            {
-              "name": "name",
-              "type": "string",
-              "attribute": "name",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "complexType": {
-                "original": "string",
-                "resolved": "string",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "The switch's name attribute."
-              },
-              "internal": false
-            },
-            {
-              "name": "value",
-              "type": "string",
-              "attribute": "value",
-              "reflect": false,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "complexType": {
-                "original": "string",
-                "resolved": "string",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "The switch's value attribute."
-              },
-              "internal": false
-            },
-            {
-              "name": "disabled",
-              "type": "boolean",
-              "attribute": "disabled",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Disables the switch."
-              },
-              "internal": false
-            },
-            {
-              "name": "required",
-              "type": "boolean",
-              "attribute": "required",
-              "reflect": true,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Makes the switch a required field."
-              },
-              "internal": false
-            },
-            {
-              "name": "checked",
-              "type": "boolean",
-              "attribute": "checked",
-              "reflect": true,
-              "mutable": true,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "Draws the switch in a checked state."
-              },
-              "internal": false
-            },
-            {
-              "name": "invalid",
-              "type": "boolean",
-              "attribute": "invalid",
-              "reflect": true,
-              "mutable": true,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "This will be true when the control is in an invalid state. Validity is determined by the `required` prop."
-              },
-              "internal": false
-            },
-            {
-              "name": "reversed",
-              "type": "boolean",
-              "attribute": "reversed",
-              "reflect": false,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": ""
-              },
-              "internal": false
-            },
-            {
-              "name": "edit",
-              "type": "boolean",
-              "attribute": "edit",
-              "reflect": false,
-              "mutable": false,
-              "required": false,
-              "optional": false,
-              "defaultValue": "false",
-              "complexType": {
-                "original": "boolean",
-                "resolved": "boolean",
-                "references": {}
-              },
-              "docs": {
-                "tags": [],
-                "text": "This will be true as a workaround in the block editor to focus on the content."
-              },
-              "internal": false
-            }
-          ],
-          "virtualProperties": [],
-          "states": [
-            {
-              "name": "hasDescription"
-            },
-            {
-              "name": "hasFocus"
-            }
-          ],
-          "methods": [
-            {
-              "name": "reportValidity",
-              "docs": {
-                "text": "Checks for validity and shows the browser's validation message if the control is invalid.",
-                "tags": []
-              },
-              "complexType": {
-                "signature": "() => Promise<boolean>",
-                "parameters": [],
-                "references": {
-                  "Promise": {
-                    "location": "global"
-                  }
-                },
-                "return": "Promise<boolean>"
-              },
-              "internal": false
-            }
-          ],
-          "listeners": [],
-          "events": [
-            {
-              "name": "scBlur",
-              "method": "scBlur",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control loses focus."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            },
-            {
-              "name": "scChange",
-              "method": "scChange",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control's checked state changes."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            },
-            {
-              "name": "scFocus",
-              "method": "scFocus",
-              "bubbles": true,
-              "cancelable": true,
-              "composed": true,
-              "docs": {
-                "tags": [],
-                "text": "Emitted when the control gains focus."
-              },
-              "complexType": {
-                "original": "void",
-                "resolved": "void",
-                "references": {}
-              },
-              "internal": false
-            }
-          ],
-          "watchers": [
-            {
-              "propName": "checked",
-              "methodName": "handleCheckedChange"
-            }
-          ],
-          "styles": [
-            {
-              "modeName": "$",
-              "styleId": "SC-SWITCH",
-              "styleStr": null,
-              "styleIdentifier": "scSwitchStyle",
-              "externalStyles": [
-                {
-                  "absolutePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.scss",
-                  "relativePath": "sc-switch.scss",
-                  "originalComponentPath": "sc-switch.scss"
-                }
-              ]
-            }
-          ],
-          "legacyConnect": [],
-          "legacyContext": [],
-          "internal": false,
-          "assetsDirs": [],
-          "styleDocs": [
-            {
-              "name": "--width",
-              "docs": "The width of the switch.",
-              "annotation": "prop"
-            },
-            {
-              "name": "--height",
-              "docs": "The height of the switch.",
-              "annotation": "prop"
-            },
-            {
-              "name": "--thumb-size",
-              "docs": "The size of the thumb.",
-              "annotation": "prop"
-            }
-          ],
-          "docs": {
-            "tags": [],
-            "text": ""
-          },
-          "jsFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.js",
-          "sourceFilePath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.tsx",
-          "sourceMapPath": "/home/runner/work/surecart-wp/surecart-wp/packages/components/src/components/ui/switch/sc-switch.js.map",
-          "hasAttributeChangedCallbackFn": false,
-          "hasComponentWillLoadFn": false,
-          "hasComponentDidLoadFn": true,
-          "hasComponentShouldUpdateFn": false,
-          "hasComponentWillUpdateFn": false,
-          "hasComponentDidUpdateFn": false,
-          "hasComponentWillRenderFn": false,
-          "hasComponentDidRenderFn": false,
-          "hasComponentDidUnloadFn": false,
-          "hasConnectedCallbackFn": false,
-          "hasDisconnectedCallbackFn": true,
-          "hasElement": false,
-          "hasEvent": true,
-          "hasLifecycle": true,
-          "hasListener": false,
-          "hasListenerTarget": false,
-          "hasListenerTargetWindow": false,
-          "hasListenerTargetDocument": false,
-          "hasListenerTargetBody": false,
-          "hasListenerTargetParent": false,
-          "hasMember": true,
-          "hasMethod": true,
-          "hasMode": false,
-          "hasAttribute": true,
-          "hasProp": true,
-          "hasPropNumber": false,
-          "hasPropBoolean": true,
-          "hasPropString": true,
-          "hasPropMutable": true,
-          "hasReflect": true,
-          "hasRenderFn": true,
-          "hasState": true,
-          "hasStyle": true,
-          "hasVdomAttribute": true,
-          "hasVdomXlink": false,
-          "hasVdomClass": true,
-          "hasVdomFunctional": true,
-          "hasVdomKey": false,
-          "hasVdomListener": true,
-          "hasVdomPropOrAttr": true,
-          "hasVdomRef": true,
-          "hasVdomRender": true,
-          "hasVdomStyle": false,
-          "hasVdomText": false,
-          "hasWatchCallback": true,
-          "isPlain": false,
-          "htmlAttrNames": [
-            "part",
-            "htmlFor",
-            "class",
-            "onMouseDown",
-            "ref",
-            "id",
-            "type",
-            "role",
-            "name",
-            "value",
-            "checked",
-            "disabled",
-            "required",
-            "aria-checked",
-            "aria-labelledby",
-            "onClick",
-            "onBlur",
-            "onFocus",
-            "onKeyDown"
-          ],
-          "htmlTagNames": [
-            "span",
-            "input",
-            "slot"
-          ],
-          "htmlParts": [
-            "base",
-            "control",
-            "thumb",
-            "title",
-            "description"
-          ],
-          "isUpdateable": true,
-          "potentialCmpRefs": [],
-          "directDependencies": [],
-          "dependencies": [],
-          "dependents": [
-            "sc-customer-edit",
-            "sc-order-billing-address",
-            "sc-payment-methods-list"
-          ],
-          "directDependents": [
-            "sc-customer-edit",
-            "sc-order-billing-address",
-            "sc-payment-methods-list"
-          ]
-        }
-      ],
-      "entryKey": "sc-switch.entry"
     },
     {
       "cmps": [

@@ -123,7 +123,7 @@ if ( ! class_exists( 'Wdesignkit_Banner' ) ) {
                                 <div class="theplus-enable-text"><?php echo esc_html__('Visit Plugin', 'tpebl'); ?></div>
                             </a>
                         <?php } ?>
-                        <a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links'><?php echo esc_html__('Learn More', 'tpebl'); ?></a>
+                        <a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links' target='_blank'><?php echo esc_html__('Learn More', 'tpebl'); ?></a>
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@ if ( ! class_exists( 'Wdesignkit_Banner' ) ) {
 									</div>
 								</a>
 							<?php } ?>
-							<a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links'>
+							<a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links' target='_blank'>
 								<?php echo esc_html__('Learn More', 'tpebl'); ?>
 							</a>
 						</div>
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Wdesignkit_Banner' ) ) {
 									</div>
 								</a>
 							<?php } ?>
-							<a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links'>
+							<a class='theplus_wdkit_new_banner_btn_link' href='https://wdesignkit.com/browse/template?builder=1001&temp_type=pagetemplate&utm_source=wpbackend&utm_medium=widgets&utm_campaign=links' target='_blank'>
 								<?php echo esc_html__('Learn More', 'tpebl'); ?>
 							</a>
 						</div>

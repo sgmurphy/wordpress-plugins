@@ -1,6 +1,12 @@
 {
     "news": [
         {
+            "date": "2024-06-14",
+            "label": "Blog",
+            "title": "A Foodie's Guide to Instagram Bio Brilliance",
+            "url": "https://bootstrapped.ventures/bio-for-food-bloggers/"
+        },
+        {
             "date": "2024-06-11",
             "label": "Release",
             "title": "WP Recipe Maker 9.5.0",

@@ -568,7 +568,7 @@ class SSA_Support {
 			}
 
 			if ( empty( $appointment_type['customer_information'] ) ) {
-				$appointment_type['custom_customer_information'] = array(
+				$appointment_type['customer_information'] = array(
 					array(
 						'field' => 'Name',
 						'display' => true,
@@ -588,8 +588,8 @@ class SSA_Support {
 				);
 			}
 
-			$appointment_type['custom_customer_information'] = array_values( $appointment_type['custom_customer_information'] );
-			$appointment_type['customer_information'] = array_values( $appointment_type['customer_information'] );
+			$appointment_type['custom_customer_information'] = array_values( (array) $appointment_type['custom_customer_information'] );
+			$appointment_type['customer_information'] = array_values( (array) $appointment_type['customer_information'] );
 
 			$appointment_types = $this->plugin->appointment_type_model->update(
 				$appointment_type['id'],

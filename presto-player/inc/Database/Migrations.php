@@ -9,6 +9,7 @@ use PrestoPlayer\Database\AudioPresets;
 use PrestoPlayer\Database\EmailCollection;
 use PrestoPlayer\Database\Upgrades\Upgrades;
 use PrestoPlayer\Database\Upgrades\PerformanceUpgrade;
+use PrestoPlayer\Services\RewriteRulesManager;
 
 class Migrations
 {
@@ -38,6 +39,9 @@ class Migrations
 
         $upgrades = new Upgrades();
         $upgrades->migrate();
+
+        $rewrite_rules_manager = new RewriteRulesManager();
+        $rewrite_rules_manager->bootstrap();
     }
 
     public static function remove()

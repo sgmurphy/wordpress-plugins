@@ -122,7 +122,8 @@ class Soliloquy_Metaboxes_Lite {
 	 * @since 1.0.0
 	 *
 	 * @global int $id      The current post ID.
-	 * @global object $post The current post object..
+	 * @global object $post The current post object.
+	 * @param string $hook  The current screen hook.
 	 * @return null         Return early if not on the proper screen.
 	 */
 	public function meta_box_scripts( $hook ) {
@@ -253,8 +254,8 @@ class Soliloquy_Metaboxes_Lite {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param array $params Params
-		 * @return array Params
+		 * @param array $params Params.
+		 * @return array Params.
 		 */
 	public function plupload_init( $params ) {
 
@@ -340,8 +341,7 @@ class Soliloquy_Metaboxes_Lite {
 		/**
 		 * Renders the Uploader HTML
 		 *
-		 * @access public
-		 * @param mixed $post
+		 * @param mixed $post Global $post object.
 		 * @return void
 		 * @since 2.5
 		 */
@@ -385,10 +385,10 @@ class Soliloquy_Metaboxes_Lite {
 			<?php
 	}
 		/**
-		 * settings_html function.
+		 * The settings_html function.
 		 *
 		 * @access public
-		 * @param mixed $post
+		 * @param mixed $post Post Object.
 		 * @return void
 		 */
 	public function settings_html( $post ) {
@@ -518,7 +518,7 @@ endforeach;
 	 * @since 1.0.0
 	 *
 	 * @global array $wp_meta_boxes Array of registered metaboxes.
-	 * @return array
+	 * @return void
 	 */
 	public function remove_all_the_metaboxes() {
 
@@ -822,7 +822,7 @@ endforeach;
 						</th>
 						<td>
 							<input id="soliloquy-config-duration" type="number" name="_soliloquy[duration]" value="<?php echo esc_attr( $this->get_config( 'duration', $this->get_config_default( 'duration' ) ) ); ?>" /> <span class="soliloquy-unit"><?php esc_html_e( 'ms', 'soliloquy' ); ?></span>
-							<p class="description"><?php _e( 'Sets the amount of time between each slide transition <strong>(in milliseconds)</strong>.', 'soliloquy' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Sets the amount of time between each slide transition <strong>(in milliseconds)</strong>.', 'soliloquy' ); ?></p>
 						</td>
 					</tr>
 					<tr id="soliloquy-config-slider-speed-box">
@@ -851,7 +851,7 @@ endforeach;
 						<label class="soliloquy-toggle">
 							<input id="soliloquy-config-slider" type="checkbox" name="_soliloquy[slider]" value="<?php echo esc_attr( $this->get_config( 'slider', $this->get_config_default( 'slider' ) ) ); ?>" <?php checked( $this->get_config( 'slider', $this->get_config_default( 'slider' ) ), 1 ); ?> />
 							<span class="soliloquy-switch"></span>
-							<span class="description"><?php _e( 'Enables or disables image cropping based on slider dimensions <strong>(recommended)</strong>.', 'soliloquy' ); ?></span>
+							<span class="description"><?php esc_html_e( 'Enables or disables image cropping based on slider dimensions <strong>(recommended)</strong>.', 'soliloquy' ); ?></span>
 						</label>
 						</td>
 					</tr>
@@ -916,7 +916,7 @@ endforeach;
 						</th>
 						<td>
 							<input id="soliloquy-config-slug" type="text" name="_soliloquy[slug]" value="<?php echo esc_attr( $this->get_config( 'slug', $this->get_config_default( 'slug' ) ) ); ?>" />
-							<p class="description"><?php _e( '<strong>Unique</strong> internal slider slug for identification and advanced slider queries.', 'soliloquy' ); ?></p>
+							<p class="description"><?php esc_html_e( '<strong>Unique</strong> internal slider slug for identification and advanced slider queries.', 'soliloquy' ); ?></p>
 						</td>
 					</tr>
 					<tr id="soliloquy-config-classes-box">
@@ -1086,7 +1086,9 @@ endforeach;
 			<div class="soliloquy-alert">
 
 				<p class="soliloquy-intro"><?php esc_attr_e( 'Want to add Thumbnail Navigation?', 'soliloquy' ); ?></p>
-				<p><?php esc_html_e( 'By upgrading to Soliloquy Pro, you can add thumbnail images as navigation for your WordPress slider. <a href="http://soliloquywp.com/addons/thumbnails/">(See Demo)</a>', 'soliloquy' ); ?></p>
+				<p><?php esc_html_e( 'By upgrading to Soliloquy Pro, you can add thumbnail images as navigation for your WordPress slider. ', 'soliloquy' ); ?>
+					<a target="_blank" href="<?php echo esc_url( 'http://soliloquywp.com/addons/thumbnails/' ); ?>"><?php esc_attr_e( '(See Demo)', 'soliloquy' ); ?></a>
+				</p>
 				<a href="<?php echo esc_url( $this->common->get_upgrade_link() ); ?>" target="_blank" class="button button-soliloquy"><?php esc_attr_e( 'Click here to Upgrade', 'soliloquy' ); ?></a>
 
 			</div>
@@ -1106,7 +1108,8 @@ endforeach;
 	public function save_meta_boxes( $post_id, $post ) {
 
 		// Bail out if we fail a security check.
-		if ( ! isset( $_POST['soliloquy'] ) || ! wp_verify_nonce( $_POST['soliloquy'], 'soliloquy' ) || ! isset( $_POST['_soliloquy'] ) ) {
+		// Bail out if we fail a security check.
+		if ( ! isset( $_POST['soliloquy'] ) || ! wp_verify_nonce( sanitize_key( $_POST['soliloquy'] ), 'soliloquy' ) || ! isset( $_POST['_soliloquy'] ) ) {
 			return;
 		}
 
@@ -1132,6 +1135,9 @@ endforeach;
 			return;
 		}
 
+		// Sanitize the input data.
+		$soliloquy = array_map( 'sanitize_text_field', wp_unslash( $_POST['_soliloquy'] ) );
+
 		// If the post has just been published for the first time, set meta field for the slider meta overlay helper.
 		if ( isset( $post->post_date ) && isset( $post->post_modified ) && $post->post_date === $post->post_modified ) {
 			update_post_meta( $post_id, '_sol_just_published', true );
@@ -1148,20 +1154,20 @@ endforeach;
 		$settings['id'] = $post_id;
 
 		// Save the config settings.
-		$settings['config']['type']          = isset( $_POST['_soliloquy']['type'] ) ? $_POST['_soliloquy']['type'] : $this->get_config_default( 'type' );
-		$settings['config']['slider_theme']  = preg_replace( '#[^a-z0-9-_]#', '', $_POST['_soliloquy']['slider_theme'] );
-		$settings['config']['slider_width']  = absint( $_POST['_soliloquy']['slider_width'] );
-		$settings['config']['slider_height'] = absint( $_POST['_soliloquy']['slider_height'] );
-		$settings['config']['transition']    = preg_replace( '#[^a-z0-9-_]#', '', $_POST['_soliloquy']['transition'] );
-		$settings['config']['duration']      = absint( $_POST['_soliloquy']['duration'] );
-		$settings['config']['speed']         = absint( $_POST['_soliloquy']['speed'] );
-		$settings['config']['gutter']        = absint( $_POST['_soliloquy']['gutter'] );
-		$settings['config']['slider']        = isset( $_POST['_soliloquy']['slider'] ) ? 1 : 0;
-		$settings['config']['aria_live']     = preg_replace( '#[^a-z0-9-_]#', '', $_POST['_soliloquy']['aria_live'] );
-		$settings['config']['classes']       = explode( "\n", wp_unslash( $_POST['_soliloquy']['classes'] ) );
-		$settings['config']['title']         = sanitize_text_field( wp_unslash( $_POST['_soliloquy']['title'] ) );
-		$settings['config']['slug']          = sanitize_text_field( wp_unslash( $_POST['_soliloquy']['slug'] ) );
-		$settings['config']['rtl']           = ( isset( $_POST['_soliloquy']['rtl'] ) ? 1 : 0 );
+		$settings['config']['type']          = isset( $soliloquy['type'] ) ? $soliloquy['type'] : $this->get_config_default( 'type' );
+		$settings['config']['slider_theme']  = preg_replace( '#[^a-z0-9-_]#', '', $soliloquy['slider_theme'] );
+		$settings['config']['slider_width']  = absint( $soliloquy['slider_width'] );
+		$settings['config']['slider_height'] = absint( $soliloquy['slider_height'] );
+		$settings['config']['transition']    = preg_replace( '#[^a-z0-9-_]#', '', $soliloquy['transition'] );
+		$settings['config']['duration']      = absint( $soliloquy['duration'] );
+		$settings['config']['speed']         = absint( $soliloquy['speed'] );
+		$settings['config']['gutter']        = absint( $soliloquy['gutter'] );
+		$settings['config']['slider']        = isset( $soliloquy['slider'] ) ? 1 : 0;
+		$settings['config']['aria_live']     = preg_replace( '#[^a-z0-9-_]#', '', $soliloquy['aria_live'] );
+		$settings['config']['classes']       = explode( "\n", wp_unslash( $soliloquy['classes'] ) );
+		$settings['config']['title']         = sanitize_text_field( wp_unslash( $soliloquy['title'] ) );
+		$settings['config']['slug']          = sanitize_text_field( wp_unslash( $soliloquy['slug'] ) );
+		$settings['config']['rtl']           = ( isset( $soliloquy['rtl'] ) ? 1 : 0 );
 
 		// If on an soliloquy post type, map the title and slug of the post object to the custom fields if no value exists yet.
 		if ( isset( $post->post_type ) && 'soliloquy' === $post->post_type ) {
@@ -1260,7 +1266,7 @@ endforeach;
 				<a href="#" class="soliloquy-modify-slide" title="<?php esc_attr_e( 'Modify Image Slide', 'soliloquy' ); ?>"><i class="soliloquy-icon-pencil"></i></a>
 
 				<div class="soliloquy-item-content">
-				<img class="soliloquy-item-img" src="<?php echo esc_url( $thumbnail[0] ); ?>" alt="<?php esc_attr_e( $data['alt'] ); ?>" />
+				<img class="soliloquy-item-img" src="<?php echo esc_url( $thumbnail[0] ); ?>" alt="<?php esc_attr( $data['alt'] ); ?>" />
 
 				<div class="soliloquy-item-info">
 
@@ -1283,7 +1289,7 @@ endforeach;
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param int $id The current post ID.
+	 * @param int $post_id The current post ID.
 	 */
 	public function change_slider_states( $post_id ) {
 
@@ -1370,13 +1376,13 @@ endforeach;
 	 * @param string $default A default value to use.
 	 * @return string         Key value on success, empty string on failure.
 	 */
-	public function get_config( $key, $default = false ) {
+	public function get_config( $key, $default = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound
 
 		global $id, $post;
 
 		// Get the current post ID. If ajax, grab it from the $_POST variable.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			$post_id = absint( $_POST['post_id'] );
+			$post_id = isset( $_POST['post_id'] ) ? absint( sanitize_text_field( wp_unslash( $_POST['post_id'] ) ) ) : (int) $id; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
 			$post_id = isset( $post->ID ) ? $post->ID : (int) $id;
 		}
@@ -1470,12 +1476,12 @@ endforeach;
 	 * Run through the array and check if ID or attachment_id is set.
 	 *
 	 * @access public
-	 * @param mixed $array
-	 * @return void
+	 * @param mixed $slides Array of slides to check.
+	 * @return boolean
 	 */
-	public function maybe_update_slides( $array ) {
+	public function maybe_update_slides( $slides ) {
 
-		foreach ( $array as $id => $data ) {
+		foreach ( $slides as $id => $data ) {
 
 			if ( ! array_key_exists( 'id', $data ) || ! array_key_exists( 'attachment_id', $data ) ) {
 
@@ -1495,8 +1501,8 @@ endforeach;
 	 * Update Soliloquy Lite slides to include ID and Attachemnt ID.
 	 *
 	 * @access public
-	 * @param mixed $post_id
-	 * @return void
+	 * @param mixed $post_id Post ID to update slides for.
+	 * @return array
 	 */
 	public function update_slides( $post_id ) {
 

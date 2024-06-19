@@ -334,20 +334,20 @@ var_dump($apiResponse->getHeaders());
 
 Creates a new `Shift`.
 
-A `Shift` represents a complete workday for a single employee.
+A `Shift` represents a complete workday for a single team member.
 You must provide the following values in your request to this
 endpoint:
 
 - `location_id`
-- `employee_id`
+- `team_member_id`
 - `start_at`
 
 An attempt to create a new `Shift` can result in a `BAD_REQUEST` error when:
 
-- The `status` of the new `Shift` is `OPEN` and the employee has another
+- The `status` of the new `Shift` is `OPEN` and the team member has another
   shift with an `OPEN` status.
 - The `start_at` date is in the future.
-- The `start_at` or `end_at` date overlaps another shift for the same employee.
+- The `start_at` or `end_at` date overlaps another shift for the same team member.
 - The `Break` instances are set in the request and a break `start_at`
   is before the `Shift.start_at`, a break `end_at` is after
   the `Shift.end_at`, or both.
@@ -371,10 +371,10 @@ This method returns a `Square\Utils\ApiResponse` instance. The `getResult()` met
 ```php
 $body = CreateShiftRequestBuilder::init(
     ShiftBuilder::init(
-        '2019-01-25T08:11:00+00:00'
+        'PAA1RJZZKXBFG',
+        '2019-01-25T03:11:00-05:00'
     )
-        ->locationId('PAA1RJZZKXBFG')
-        ->endAt('2019-01-25T18:11:00+00:00')
+        ->endAt('2019-01-25T13:11:00-05:00')
         ->wage(
             ShiftWageBuilder::init()
                 ->title('Barista')
@@ -384,22 +384,29 @@ $body = CreateShiftRequestBuilder::init(
                         ->currency(Currency::USD)
                         ->build()
                 )
+                ->tipEligible(true)
                 ->build()
         )
         ->breaks(
             [
                 MBreakBuilder::init(
-                    '2019-01-25T11:11:00+00:00',
+                    '2019-01-25T06:11:00-05:00',
                     'REGS1EQR1TPZ5',
                     'Tea Break',
                     'PT5M',
                     true
                 )
-                    ->endAt('2019-01-25T11:16:00+00:00')
+                    ->endAt('2019-01-25T06:16:00-05:00')
                     ->build()
             ]
         )
         ->teamMemberId('ormj0jJJZ5OZIzxrZYJI')
+        ->declaredCashTipMoney(
+            MoneyBuilder::init()
+                ->amount(500)
+                ->currency(Currency::USD)
+                ->build()
+        )
         ->build()
 )
     ->idempotencyKey('HIDSNG5KS478L')
@@ -424,19 +431,19 @@ var_dump($apiResponse->getHeaders());
 Returns a paginated list of `Shift` records for a business.
 The list to be returned can be filtered by:
 
-- Location IDs.
-- Employee IDs.
-- Shift status (`OPEN` and `CLOSED`).
-- Shift start.
-- Shift end.
-- Workday details.
+- Location IDs
+- Team member IDs
+- Shift status (`OPEN` or `CLOSED`)
+- Shift start
+- Shift end
+- Workday details
 
 The list can be sorted by:
 
-- `start_at`.
-- `end_at`.
-- `created_at`.
-- `updated_at`.
+- `START_AT`
+- `END_AT`
+- `CREATED_AT`
+- `UPDATED_AT`
 
 ```php
 function searchShifts(SearchShiftsRequest $body): ApiResponse
@@ -599,10 +606,10 @@ $id = 'id0';
 
 $body = UpdateShiftRequestBuilder::init(
     ShiftBuilder::init(
-        '2019-01-25T08:11:00+00:00'
+        'PAA1RJZZKXBFG',
+        '2019-01-25T03:11:00-05:00'
     )
-        ->locationId('PAA1RJZZKXBFG')
-        ->endAt('2019-01-25T18:11:00+00:00')
+        ->endAt('2019-01-25T13:11:00-05:00')
         ->wage(
             ShiftWageBuilder::init()
                 ->title('Bartender')
@@ -612,24 +619,31 @@ $body = UpdateShiftRequestBuilder::init(
                         ->currency(Currency::USD)
                         ->build()
                 )
+                ->tipEligible(true)
                 ->build()
         )
         ->breaks(
             [
                 MBreakBuilder::init(
-                    '2019-01-25T11:11:00+00:00',
+                    '2019-01-25T06:11:00-05:00',
                     'REGS1EQR1TPZ5',
                     'Tea Break',
                     'PT5M',
                     true
                 )
                     ->id('X7GAQYVVRRG6P')
-                    ->endAt('2019-01-25T11:16:00+00:00')
+                    ->endAt('2019-01-25T06:16:00-05:00')
                     ->build()
             ]
         )
         ->version(1)
         ->teamMemberId('ormj0jJJZ5OZIzxrZYJI')
+        ->declaredCashTipMoney(
+            MoneyBuilder::init()
+                ->amount(500)
+                ->currency(Currency::USD)
+                ->build()
+        )
         ->build()
 )->build();
 

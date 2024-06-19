@@ -280,6 +280,18 @@ $recipe_ratings = array(
 					'default' => __( 'Share your thoughts! What did you like about this recipe?', 'wp-recipe-maker' ),
 				),
 				array(
+					'id' => 'user_ratings_modal_name_placeholder',
+					'name' => __( 'Name Field Placeholder', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => '',
+				),
+				array(
+					'id' => 'user_ratings_modal_email_placeholder',
+					'name' => __( 'Email Field Placeholder', 'wp-recipe-maker' ),
+					'type' => 'text',
+					'default' => '',
+				),
+				array(
 					'id' => 'user_ratings_modal_submit_comment_button',
 					'name' => __( 'Submit Button', 'wp-recipe-maker' ),
 					'type' => 'text',

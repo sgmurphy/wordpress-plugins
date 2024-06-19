@@ -3,7 +3,6 @@
 namespace PrestoPlayer\Services;
 
 use PrestoPlayer\Plugin;
-use PrestoPlayer\WPackio\Enqueue;
 
 class Menu
 {
@@ -22,15 +21,8 @@ class Menu
             'publish_posts',
             'edit.php?post_type=pp_video_block',
             '',
-            PRESTO_PLAYER_PLUGIN_URL . 'img/menu-icon.svg'
-        );
-
-        add_submenu_page(
-            'edit.php?post_type=pp_video_block',
-            __('Media Hub', 'presto-player'),
-            __('Media Hub', 'presto-player'),
-            'publish_posts',
-            'edit.php?post_type=pp_video_block'
+            'data:image/svg+xml;base64,' . base64_encode( file_get_contents( PRESTO_PLAYER_PLUGIN_DIR . 'img/menu-icon.svg' ) ),
+            58
         );
 
         $analyics_page = add_submenu_page(

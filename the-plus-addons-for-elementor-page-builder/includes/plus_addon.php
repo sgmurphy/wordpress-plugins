@@ -930,6 +930,20 @@ function l_registered_widgets(){
 				),
 			),
 		),
+		'tp-carousel-anything' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/extra/slick.min.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/carousel/plus-carousel.css',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/carousel-anything/plus-carousel-anything.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/slick.min.js',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/general/plus-slick-carousel.min.js',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/carousel-anything/plus-carousel-anything.min.js',
+				],
+			],
+		],
 		'tp-caldera-forms' => [
 			'dependency' => [
 				'css' => [
@@ -1766,6 +1780,17 @@ function l_registered_widgets(){
 			'dependency' => [
 				'css' => [					
 					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/team-member-list/plus-team-member-style-3.css',
+				],
+			],
+		],
+		'tp-table' => [
+			'dependency' => [
+				'css' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/css/main/data-table/plus-data-table.css',
+				],
+				'js' => [
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/extra/jquery.datatables.min.js',
+					L_THEPLUS_PATH . DIRECTORY_SEPARATOR . 'assets/js/main/data-table/plus-data-table.min.js',
 				],
 			],
 		],

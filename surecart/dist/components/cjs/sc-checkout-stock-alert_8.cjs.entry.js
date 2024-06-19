@@ -43,9 +43,9 @@ const ScCheckoutStockAlert = class {
     return (((_b = (_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.line_items) === null || _b === void 0 ? void 0 : _b.data) || []).filter(lineItem => {
       var _a, _b, _c;
       const product = (_a = lineItem.price) === null || _a === void 0 ? void 0 : _a.product;
-      // no stock handling.
-      if (!(product === null || product === void 0 ? void 0 : product.stock_enabled) || (product === null || product === void 0 ? void 0 : product.allow_out_of_stock_purchases))
-        return;
+      // this item is not out of stock, don't include it.
+      if ((lineItem === null || lineItem === void 0 ? void 0 : lineItem.purchasable_status) !== 'out_of_stock')
+        return false;
       // check the variant stock.
       if ((_b = lineItem === null || lineItem === void 0 ? void 0 : lineItem.variant) === null || _b === void 0 ? void 0 : _b.id) {
         return ((_c = lineItem === null || lineItem === void 0 ? void 0 : lineItem.variant) === null || _c === void 0 ? void 0 : _c.available_stock) < lineItem.quantity;

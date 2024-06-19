@@ -13,7 +13,7 @@ class gdrive{
 	var $complete = 0;
 	var $offset = 0;
 	var $tmpsize = 0;
-	var $chunk = 2097152;		//upload chunks in google drive should be multiples of 256 KB
+	var $chunk = 2097152; //upload chunks in google drive should be multiples of 256 KB
 	var $range_lower_limit = 0;
 	var $range_upper_limit = 0;
 	var $tpfile = '';
@@ -22,6 +22,7 @@ class gdrive{
 	var $wp = NULL; // Memory Write Pointer
 	var $parents = array();
 	var $local_dest = '';
+	var $cache = [];
 	
 	// APP name is Softaculous Auto Installer and is assigned to developers@softaculous.com Google account
 	var $app_key = '';
@@ -32,52 +33,85 @@ class gdrive{
 	var $filelist = [];
 	var $readsize = 0;
 	var $orig_path = '';
+	var $stats = [];
+	var $access_generated_at = 0;
+	var $expires_in = 0;
 	//var $redirect_uri = 'http://test.nuftp.com/googledrive/callback.php';
-	
+
+	function __construct(){
+		if(empty($GLOBALS['remote_data'])){
+			return;
+		}
+
+		if(empty($this->access_token) && !empty($GLOBALS['remote_data']['access_token'])){
+			$this->access_token = $GLOBALS['remote_data']['access_token'];
+		}
+
+		if(empty($this->cache['fileid']) && !empty($GLOBALS['remote_data']['fileid'])){
+			$this->cache['fileid'] = $GLOBALS['remote_data']['fileid'];
+		}
+
+		if(empty($this->cache['stats']) && !empty($GLOBALS['remote_data']['stats'])){
+			$this->cache['stats'] = $GLOBALS['remote_data']['stats'];
+		}
+
+		// The seconds in which the access token will expire its around 1 hour by default.
+		if(empty($this->expires_in) && !empty($GLOBALS['remote_data']['expires_in'])){
+			$this->expires_in = intval($GLOBALS['remote_data']['expires_in']);
+		}
+
+		// Timestamp when the access_token was generated
+		if(empty($this->access_generated_at) && !empty($GLOBALS['remote_data']['access_generated_at'])){
+			$this->access_generated_at = intval($GLOBALS['remote_data']['access_generated_at']);
+		}
+
+		$GLOBALS['remote_data'] = []; // Reset
+	}
+
 	function stream_open($path, $mode, $options, &$opened_path){
 		global $error, $backuply;
-		
+
 		$stream = parse_url($path);
 		$this->orig_path = $path;
 
 		$this->refresh_token = $stream['host'];
 		//Google Drive access token expires in an hour so we need to refresh
 		$this->access_token = $this->refresh_token_func($this->refresh_token);
-		
+
 		$this->path = $stream['path'];
 		$this->mode = $mode;
-		
+
 		$pathinfo = pathinfo($this->path);
 		$dirlist = explode('/', $pathinfo['dirname']);
-		
+
 		//Generate parent directories IDs
-		
+
 		$this->parents = array();
-	
+
 		foreach($dirlist as $sk => $subdir){
-			
+
 			if(empty($subdir)){
 				continue;
 			}
-			
-			$this->parents[] = $this->get_gdrive_fileid($subdir);			 
+
+			$this->parents[] = $this->get_gdrive_fileid($subdir);
 		}
-		
+
 		$this->filename = $pathinfo['basename'];
-		
+
 		// if its a read mode the check if the file exists
 		if(strpos($this->mode, 'r') !== FALSE){
 			$file_stats = $this->url_stat($path);
 			$this->filesize = $file_stats['size'];
-			
+
 			if(empty($this->filesize)){
 				return false;
 			}
 		}
-		
+
 		//php://memory not working on localhost
 		$this->tpfile = 'php://temp';
-		
+
 		$ret = true;
 		if(preg_match('/w|a/is', $this->mode)){
 			$this->offset = 0;
@@ -142,7 +176,7 @@ class gdrive{
 		if(empty($backuply['status']['init_data'])){
 			$headers[] = 'Content-Range: */*';
 		}
-				
+
 		$post = json_encode(array('name' => $this->filename, 'parents' => array(end($this->parents))));
 		$resp = $this->__curl($upload_url, $headers, '', 0, $post);
 
@@ -379,8 +413,7 @@ class gdrive{
 	
 	function stream_close(){
 		global $error, $backuply;
-	
-	
+
 		if(preg_match('/w|a/is', $this->mode)){
 			
 			// Is there still some data left to be written ?			
@@ -444,22 +477,24 @@ class gdrive{
 	//In response to file_exists(), is_file(), is_dir()
 	function url_stat($path){
 		global $error;
-		
+
 		$stream = parse_url($path);
 		$this->refresh_token = $stream['host'];
 		$pathinfo = pathinfo($stream['path']);
 		$filename = $pathinfo['basename'];
 		
-		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
+		if(!empty($this->cache['stats']) && !empty($this->cache['stats'][$filename])){
+			return $this->cache['stats'][$filename];
 		}
-		
+
+		//Google Drive access token expires in an hour so we need to refresh
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
 		$this->get_gdrive_fileid($filename);
 		$url = 'https://www.googleapis.com/drive/v3/files/'.$this->gdrive_fileid.'?fields=kind,name,size,createdTime,modifiedTime,mimeType,explicitlyTrashed';
 		$headers = array('Authorization: Bearer '.$this->access_token);
-		
+
 		$resp = $this->__curl($url, $headers, '', 0, '', '', 'GET');
+
 		if(!empty($resp['error'])){
 			$error[] = 'Google Drive : '.$resp['error'];
 			return false;
@@ -467,7 +502,12 @@ class gdrive{
 		
 		preg_match('/{(.*?)}$/is', $resp['result'], $matches);
 		$data = json_decode($matches[0], true);
-		
+	
+		// Here error means file does not exist
+		if(!empty($data['error'])){
+			return false;
+		}
+
 		backuply_preg_replace('/drive#(.*?)$/is', $data['kind'], $filetype, 1);
 		
 		if($data['mimeType'] == 'application/vnd.google-apps.folder'){
@@ -477,7 +517,7 @@ class gdrive{
 		}
 		
 		if(!empty($data['name']) && empty($data['explicitlyTrashed'])){
-			$stat = array('dev' => 0,
+			$this->stats = array('dev' => 0,
 						'ino' => 0,
 						'mode' => $mode,
 						'nlink' => 0,
@@ -490,7 +530,9 @@ class gdrive{
 						'ctime' => $data['createdTime'],
 						'blksize' => 0,
 						'blocks' => 0);
-			return $stat;	
+
+			$this->cache['stats'][$filename] = $this->stats;
+			return $this->stats;	
 		}
 		return false;
 	}
@@ -510,9 +552,7 @@ class gdrive{
 		$sub_dirs = explode('/', $stream['path']);
 	
 		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
 		
 		foreach($sub_dirs as $sk => $subdir){
 			
@@ -547,8 +587,7 @@ class gdrive{
 	function create_dir($dirname, $parents = array()){
 		
 		global $error;
-		
-		
+
 		$url = 'https://www.googleapis.com/drive/v3/files';
 		$headers = array('Authorization: Bearer '.$this->access_token,
 						'Accept: application/json',
@@ -561,8 +600,7 @@ class gdrive{
 		}else{
 			$post = json_encode(array('name' => $dirname, 'mimeType' => "application/vnd.google-apps.folder"));
 		}
-		
-		
+
 		$resp = $this->__curl($url, $headers, '', 0, $post, '', 'POST');
 		if(!empty($resp['error'])){
 			$error[] = 'Google Drive : '.$resp['error'];
@@ -594,8 +632,8 @@ class gdrive{
 		$dir = explode('/', $stream['path']);
 		$dir_name = end($dir);
 		$dir_id = $this->get_gdrive_fileid($dir_name);
-		
-		$url = "https://www.googleapis.com/drive/v3/files?q='".$dir_id."'+in+parents&fields=files(name)";
+
+		$url = "https://www.googleapis.com/drive/v3/files?q='".$dir_id."'+in+parents+and+(trashed=false)&fields=files(name)";
 		$headers = array('Authorization: Bearer '.$this->access_token);
 		
 		$resp = $this->__curl($url , $headers, '', 0, '', 0, 'GET');
@@ -640,8 +678,14 @@ class gdrive{
 	function refresh_token_func($refresh_token){
 		global $error;
 		
-		$refresh_token = rawurldecode($refresh_token);		
-		
+		if(!empty($this->access_token)){
+			if((time() - 600) - ($this->access_generated_at + $this->expires_in) > 0){
+				return $this->access_token;
+			}
+		}
+
+		$refresh_token = rawurldecode($refresh_token);
+
 		$post = array('refresh_token' => $refresh_token,
 					'grant_type' => 'refresh_token',
 					'action' => 'get_access_token');
@@ -670,6 +714,13 @@ class gdrive{
 			return false;
 		}
 		
+		if(!empty($data['expires_in'])){
+			$GLOBALS['remote_data']['expires_in'] = intval($data['expires_in']);
+			$GLOBALS['remote_data']['access_generated_at'] = time();
+			$this->access_generated_at = $GLOBALS['remote_data']['access_generated_at'];
+			$this->expires_in = intval($data['expires_in']);
+		}
+
 		return $data['access_token'];
 	}
 	
@@ -688,10 +739,8 @@ class gdrive{
 		$to_file = $to_pathinfo['basename'];
 		
 		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
-		
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
+
 		$this->get_gdrive_fileid($from_file);
 		
 		$post = json_encode(array('name' => $to_file));
@@ -715,7 +764,6 @@ class gdrive{
 		// backuply_log(' dest : '.$dest);
 		// backuply_log(' dest : '.$startpos);
 		global $error;
-		
 		//Set chunk size for download as 2 MB
 		$this->chunk = 2097152;
 		
@@ -724,9 +772,8 @@ class gdrive{
 		$src_file = trim($stream['path'], '\//');
 		
 		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
+
 		
 		$pathinfo = pathinfo($stream['path']);
 		$src_file = $pathinfo['basename'];
@@ -734,7 +781,7 @@ class gdrive{
 		$this->get_gdrive_fileid($src_file);
 		
 		$file_stats = $this->url_stat($source);
-		$this->filesize = $file_stats['size'];
+		$this->filesize = !empty($file_stats) ? $file_stats['size'] : 0;
 
 		$this->range_lower_limit = $startpos;
 		$this->range_upper_limit = ($this->range_lower_limit + $this->chunk) - 1;
@@ -744,9 +791,12 @@ class gdrive{
 			
 			if(time() + 5 >= $GLOBALS['end']){
 				$GLOBALS['l_readbytes'] = filesize($dest);
+				$GLOBALS['remote_data']['access_token'] = $this->access_token;
+				$GLOBALS['remote_data']['fileid'] = $this->cache['fileid'];
+				$GLOBALS['remote_data']['stats'] = $this->cache['stats'];
 				break;
 			}
-			
+
 			if($this->range_upper_limit >= $this->filesize){
 				$this->range_upper_limit = $this->filesize - 1;
 			}
@@ -804,15 +854,19 @@ class gdrive{
 	
 	function get_gdrive_fileid($filename, $refresh_token = ''){
 		global $error;
-		
+
+		// We should not make a request if we already have this value.
+		if(!empty($this->cache['fileid']) && !empty($this->cache['fileid'][$filename])){
+			$this->gdrive_fileid = $this->cache['fileid'][$filename];
+			return $this->cache['fileid'][$filename];
+		}
+
 		if(!empty($refresh_token)){
 			$this->refresh_token = $refresh_token;
 		}
 		
 		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
 		
 		$url = 'https://www.googleapis.com/drive/v3/files?q=name=%27'.rawurlencode($filename).'%27%20and%20trashed=false';
 		$headers = array('Authorization: Bearer '.$this->access_token);
@@ -834,24 +888,27 @@ class gdrive{
 			}
 			return false;
 		}
-		
-		$this->gdrive_fileid = $data['files'][0]['id'];
+
+		$this->gdrive_fileid = false;
+		if(!empty($data['files'][0])){
+			$this->gdrive_fileid = $data['files'][0]['id'];
+			$this->cache['fileid'][$filename] = $this->gdrive_fileid;
+		}
+
 		return $this->gdrive_fileid;
 	}
 	
 	//Delete the backup from Google Drive
 	function unlink($path){
 		global $error;
-		
+
 		$stream = parse_url($path);
 		$this->refresh_token = $stream['host'];
 		$pathinfo = pathinfo($stream['path']);
 		$filename = $pathinfo['basename'];
 		
 		//Google Drive access token expires in an hour so we need to refresh
-		if(empty($this->access_token)){
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
 		
 		if(empty($this->gdrive_fileid)){
 			$this->get_gdrive_fileid($filename);
@@ -915,7 +972,7 @@ class gdrive{
 			$error[] = 'Google Drive : Refresh token not found in the response';
 			return false;
 		}
-		
+
 		return $data;
 	}
 
@@ -976,7 +1033,7 @@ class gdrive{
 		$resp = array();
 		$resp['result'] = curl_exec($ch);
 		$resp['error'] = curl_error($ch);
-		
+
 		/* echo '<br />Resp: ';
 		$errno = curl_errno($ch);
 		var_dump(curl_getinfo($ch, CURLINFO_HTTP_CODE)); */
@@ -989,9 +1046,7 @@ class gdrive{
 		$stream = parse_url($path);
 		$this->refresh_token = $stream['host'];
 		
-		if(empty($this->access_token)) {
-			$this->access_token = $this->refresh_token_func($this->refresh_token);
-		}
+		$this->access_token = $this->refresh_token_func($this->refresh_token);
 
 		// https://developers.google.com/drive/api/reference/rest/v3/about
 		$url = 'https://www.googleapis.com/drive/v3/about?fields=storageQuota';

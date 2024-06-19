@@ -30,7 +30,7 @@ class WC_Advanced_Shipment_Tracking_Email_Manager {
 	public function custom_init_emails( $emails ) {
 				
 		// Include the email class file if it's not included already		
-		$partial_shipped_status = get_option( 'wc_ast_status_partial_shipped', 0 );
+		$partial_shipped_status = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped', 0 );
 		if ( true == $partial_shipped_status ) {
 			if ( ! isset( $emails[ 'WC_Email_Customer_Partial_Shipped_Order' ] ) ) {
 				$emails[ 'WC_Email_Customer_Partial_Shipped_Order' ] = include_once( 'emails/class-shipment-partial-shipped-email.php' );

@@ -117,7 +117,7 @@ class Soliloquy_Settings {
 							printf(
 							// Translators: %1$s - Opening anchor tag, do not translate. %2$s - Closing anchor tag, do not translate.
 								esc_html__( 'To unlock more features consider %1$supgrading to PRO%2$s.', 'soliloquy' ),
-								'<strong><a href="' . esc_url( Soliloquy_Common_Admin_Lite::get_instance()->get_upgrade_link( 'https://soliloquywp.com/pricing', 'settingspage', 'upgradingtopro' ) ) . '" target="_blank" rel="noopener noreferrer">',
+								'<strong><a href="' . esc_url( Soliloquy_Common_Admin_Lite::get_instance()->get_upgrade_link( 'https://soliloquywp.com/lite', 'settingspage', 'upgradingtopro' ) ) . '" target="_blank" rel="noopener noreferrer">',
 								'</a></strong>'
 							);
 							?>

@@ -29,7 +29,18 @@ Describes a `ListInvoice` response.
         "cash_app_pay": false,
         "square_gift_card": false
       },
-      "created_at": "2020-06-18T17:45:13Z",
+      "attachments": [
+        {
+          "description": "Service contract",
+          "filename": "file.jpg",
+          "filesize": 102705,
+          "hash": "273ee02cb6f5f8a3a8ca23604930dd53",
+          "id": "inva:0-3bB9ZuDHiziThQhuC4fwWt",
+          "mime_type": "image/jpeg",
+          "uploaded_at": "2030-01-13T21:24:10Z"
+        }
+      ],
+      "created_at": "2030-01-13T17:45:13Z",
       "custom_fields": [
         {
           "label": "Event Reference Number",
@@ -80,11 +91,11 @@ Describes a `ListInvoice` response.
         "given_name": "Amelia",
         "phone_number": "1-212-555-4240",
         "address": {
-          "address_line_1": "address_line_18",
-          "address_line_2": "address_line_28",
-          "address_line_3": "address_line_34",
-          "locality": "locality8",
-          "sublocality": "sublocality8"
+          "address_line_1": "address_line_16",
+          "address_line_2": "address_line_26",
+          "address_line_3": "address_line_32",
+          "locality": "locality6",
+          "sublocality": "sublocality6"
         }
       },
       "sale_or_service_date": "2030-01-24",
@@ -93,8 +104,8 @@ Describes a `ListInvoice` response.
       "store_payment_method_enabled": false,
       "timezone": "America/Los_Angeles",
       "title": "Event Planning Services",
-      "updated_at": "2020-06-18T17:45:13Z",
-      "version": 0
+      "updated_at": "2030-01-13T21:24:10Z",
+      "version": 1
     },
     {
       "accepted_payment_methods": {
@@ -156,11 +167,11 @@ Describes a `ListInvoice` response.
         "given_name": "Amelia",
         "phone_number": "1-212-555-4240",
         "address": {
-          "address_line_1": "address_line_19",
-          "address_line_2": "address_line_29",
-          "address_line_3": "address_line_35",
-          "locality": "locality9",
-          "sublocality": "sublocality9"
+          "address_line_1": "address_line_16",
+          "address_line_2": "address_line_26",
+          "address_line_3": "address_line_32",
+          "locality": "locality6",
+          "sublocality": "sublocality6"
         }
       },
       "public_url": "https://squareup.com/pay-invoice/h9sfsfTGTSnYEhISUDBhEQ",
@@ -174,22 +185,10 @@ Describes a `ListInvoice` response.
   ],
   "errors": [
     {
-      "category": "REFUND_ERROR",
-      "code": "MERCHANT_SUBSCRIPTION_NOT_FOUND",
-      "detail": "detail1",
-      "field": "field9"
-    },
-    {
       "category": "MERCHANT_SUBSCRIPTION_ERROR",
-      "code": "BAD_REQUEST",
-      "detail": "detail2",
-      "field": "field0"
-    },
-    {
-      "category": "EXTERNAL_VENDOR_ERROR",
-      "code": "MISSING_REQUIRED_PARAMETER",
-      "detail": "detail3",
-      "field": "field1"
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     }
   ]
 }

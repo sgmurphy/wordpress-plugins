@@ -1247,6 +1247,17 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				),
 			)
 		);
+		$this->add_responsive_control(
+			'desc_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .info-box-inner  .info-box-bg-box .service-desc ' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -1579,7 +1590,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 			'button_icon_size',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => esc_html__( 'Icon Size', 'theplus' ),
+				'label'       => esc_html__( 'Icon Size', 'tpebl' ),
 				'size_units'  => array( 'px' ),
 				'range'       => array(
 					'px' => array(
@@ -2534,6 +2545,19 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				'separator'   => 'before',
 				'condition'   => array(
 					'main_style' => array( 'style_3' ),
+				),
+			)
+		);
+		$this->add_control(
+			'Parallax_options',
+			array(
+				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => '',
+				'description' => theplus_pro_ver_notice(),
+				'classes'     => 'plus-pro-version',
+				'condition'   => array(
+					'tilt_parallax' => 'yes',
 				),
 			)
 		);

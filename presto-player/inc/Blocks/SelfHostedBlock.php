@@ -16,6 +16,17 @@ class SelfHostedBlock extends Block
     protected $name = 'self-hosted';
 
     /**
+     * Translated block title
+     */
+    protected $title;
+
+    public function __construct(bool $isPremium = false, $version = 1)
+    {
+        parent::__construct($isPremium, $version);
+        $this->title = __('Self-hosted', 'presto-player');
+    }
+
+    /**
      * Register the block type.
      *
      * @return void

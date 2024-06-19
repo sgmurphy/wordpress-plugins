@@ -7,6 +7,7 @@ import {
   ToggleControl,
   RangeControl,
   Spinner,
+  __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import Disabled from "../components/Disabled";
 import Group from "../components/Group";
@@ -30,27 +31,23 @@ export default () => {
     };
   };
 
-  const {
-    presets,
-    loadingPresets,
-    audioPresets,
-    loadingAudioPresets,
-  } = useSelect((select) => {
-    const presetArgs = ["presto-player", "preset"];
-    const audioPresetArgs = ["presto-player", "audio-preset"];
-    return {
-      presets: select(coreStore).getEntityRecords(...presetArgs),
-      loadingPresets: select(coreStore).isResolving(
-        "getEntityRecords",
-        presetArgs
-      ),
-      audioPresets: select(coreStore).getEntityRecords(...audioPresetArgs),
-      loadingAudioPresets: select(coreStore).isResolving(
-        "getEntityRecords",
-        audioPresetArgs
-      ),
-    };
-  }, []);
+  const { presets, loadingPresets, audioPresets, loadingAudioPresets } =
+    useSelect((select) => {
+      const presetArgs = ["presto-player", "preset"];
+      const audioPresetArgs = ["presto-player", "audio-preset"];
+      return {
+        presets: select(coreStore).getEntityRecords(...presetArgs),
+        loadingPresets: select(coreStore).isResolving(
+          "getEntityRecords",
+          presetArgs
+        ),
+        audioPresets: select(coreStore).getEntityRecords(...audioPresetArgs),
+        loadingAudioPresets: select(coreStore).isResolving(
+          "getEntityRecords",
+          audioPresetArgs
+        ),
+      };
+    }, []);
 
   const [presetSettings, setPresetSettings] = useEntityProp(
     "root",
@@ -81,6 +78,7 @@ export default () => {
     "site",
     "presto_player_analytics"
   );
+
   const updateAnalytics = (data) => {
     setAnalytics({
       ...(analytics || {}),
@@ -105,12 +103,26 @@ export default () => {
     "site",
     "presto_player_uninstall"
   );
+
   const updateUninstall = (data) => {
     setUninstall({
       ...(uninstall || {}),
       ...data,
     });
   };
+
+  const units = [
+    { value: "px", label: "px" },
+    { value: "%", label: "%" },
+    { value: "vw", label: "vw" },
+    { value: "em", label: "em" },
+    { value: "rem", label: "rem" },
+  ];
+  const [instantVideoWidth, setInstantVideoWidth] = useEntityProp(
+    "root",
+    "site",
+    "presto_player_instant_video_width"
+  );
 
   return (
     <Page
@@ -160,6 +172,24 @@ export default () => {
         />
       </Group>
       <Group
+        title={__("Instant Video Page", "presto-player")}
+        description={__(
+          "Instant video page display settings.",
+          "presto-player"
+        )}
+      >
+        <UnitControl
+          label={__("Width", "presto-player")}
+          value={instantVideoWidth}
+          onChange={(width) => setInstantVideoWidth(width)}
+          units={units}
+          max={2000}
+          min={0}
+          help={__("Customize the video player width on the instant video page.", "presto-player")}
+          required
+        />
+      </Group>
+      <Group
         title={__("Analytics", "presto-player")}
         disabled={disabled()}
         description={__(
@@ -171,7 +201,7 @@ export default () => {
           <ToggleControl
             className={"presto-player__setting--analytics-enable"}
             label={__("Enable", "presto-player")}
-            help={__("Enable view analytics for your media", "presto-player")}
+            help={__("Enable view analytics for your media.", "presto-player")}
             checked={analytics?.enable}
             onChange={(enable) => updateAnalytics({ enable })}
           />

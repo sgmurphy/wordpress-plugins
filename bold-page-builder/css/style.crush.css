@@ -1712,6 +1712,9 @@
     }
 
 /* Interface Icons */
+.bt_bb_dialog_content .bt_bb_icon:before {
+    content: '\e90d';
+    }
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_accordion:before,
 .bt_bb_dialog_content .bt_bb_icon_bt_bb_accordion_item:before {
     content: '\e901';

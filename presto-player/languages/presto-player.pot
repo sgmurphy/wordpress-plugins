@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-22T20:45:17+00:00\n"
+"POT-Creation-Date: 2024-06-19T12:59:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -75,7 +75,8 @@ msgid "Top Users"
 msgstr ""
 
 #: admin/analytics/components/TopVideos.js:56
-#: admin/blocks/shared/components/SelectMediaDropdown.js:135
+#: admin/blocks/shared/components/SelectMediaDropdown.js:144
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:261
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:113
 msgid "Untitled"
 msgstr ""
@@ -138,9 +139,9 @@ msgid "Learn More"
 msgstr ""
 
 #: admin/analytics/pages/Dashboard.js:33
-#: admin/settings/pages/General.js:163
-#: Services/Menu.php:38
-#: Services/Menu.php:39
+#: admin/settings/pages/General.js:193
+#: Services/Menu.php:30
+#: Services/Menu.php:31
 msgid "Analytics"
 msgstr ""
 
@@ -175,7 +176,7 @@ msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:44
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:50
-#: admin/blocks/blocks/playlist-list-item/edit.js:31
+#: admin/blocks/blocks/playlist-list-item/edit.js:33
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:53
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:55
 #: admin/blocks/blocks/playlist-list/create.js:17
@@ -185,7 +186,7 @@ msgid "Title"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:62
-#: admin/blocks/shared/BlockInspectorControls.js:22
+#: admin/blocks/shared/BlockInspectorControls.js:23
 #: admin/blocks/shared/chapters/ChaptersPanel.js:6
 #: Services/Translation.php:74
 msgid "Chapters"
@@ -276,7 +277,7 @@ msgid "Audio Preset"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:171
-#: admin/blocks/shared/BlockInspectorControls.js:53
+#: admin/blocks/shared/BlockInspectorControls.js:55
 msgid "Global Player Branding"
 msgstr ""
 
@@ -479,24 +480,24 @@ msgstr ""
 msgid "Add or select a Bunny.net video"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/index.js:32
-#: admin/blocks/blocks/bunny/index.js:40
+#: admin/blocks/blocks/bunny/index.js:34
+#: admin/blocks/blocks/bunny/index.js:42
 msgid "Presto Bunny.net Video"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/index.js:34
+#: admin/blocks/blocks/bunny/index.js:36
 msgid "Serve video through Bunny.net CDN."
 msgstr ""
 
-#: admin/blocks/blocks/bunny/index.js:41
+#: admin/blocks/blocks/bunny/index.js:43
 msgid "Serve public video through Bunny.net CDN."
 msgstr ""
 
-#: admin/blocks/blocks/bunny/index.js:49
+#: admin/blocks/blocks/bunny/index.js:51
 msgid "Presto Bunny.net Private Video"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/index.js:64
+#: admin/blocks/blocks/bunny/index.js:66
 msgid "Serve private, secure video through Bunny.net CDN."
 msgstr ""
 
@@ -568,6 +569,7 @@ msgstr ""
 #: admin/blocks/blocks/bunny/popup/stream/Sidebar.js:105
 #: admin/blocks/shared/media/MediaPopup.js:116
 #: admin/blocks/shared/VisibilityEditor.js:46
+#: admin/toolbar/index.js:93
 msgid "Visibility"
 msgstr ""
 
@@ -703,13 +705,13 @@ msgid "Upgrade"
 msgstr ""
 
 #: admin/blocks/blocks/hosted/HostedPlaceholder.js:64
-#: admin/blocks/blocks/hosted/index.js:32
+#: admin/blocks/blocks/hosted/index.js:34
 msgid "Presto Private Video"
 msgstr ""
 
 #: admin/blocks/blocks/hosted/HostedPlaceholder.js:65
-#: admin/blocks/blocks/hosted/index.js:16
-#: admin/blocks/blocks/hosted/index.js:24
+#: admin/blocks/blocks/hosted/index.js:18
+#: admin/blocks/blocks/hosted/index.js:26
 #: Integrations/Elementor/VideoWidget.php:67
 msgid "Presto Video"
 msgstr ""
@@ -734,28 +736,44 @@ msgstr ""
 msgid "Private videos use php to stream your video. Keep in mind this will use up disk space and bandwidth so it may not be an appropriate choice for some hosts."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/index.js:18
-#: admin/blocks/blocks/hosted/index.js:25
+#: admin/blocks/blocks/hosted/index.js:20
+#: admin/blocks/blocks/hosted/index.js:27
 msgid "Presto Self-hosted video block."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/index.js:50
+#: admin/blocks/blocks/hosted/index.js:52
 msgid "Private video self-hosted block."
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:29
+#: admin/blocks/blocks/media-hub/edit.js:67
+msgid "Synced"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/edit.js:68
+msgid "Not synced"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/edit.js:93
+msgid "Sync to media hub"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/edit.js:101
+msgid "Don't sync to media hub"
+msgstr ""
+
+#: admin/blocks/blocks/playlist-list-item/edit.js:31
 #: admin/blocks/blocks/playlist/edit.js:209
 #: admin/settings/app.js:94
-#: admin/settings/pages/General.js:117
+#: admin/settings/pages/General.js:129
 msgid "General"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:38
+#: admin/blocks/blocks/playlist-list-item/edit.js:40
 #: Services/Translation.php:87
 msgid "Duration"
 msgstr ""
 
-#: admin/blocks/blocks/playlist-list-item/edit.js:57
+#: admin/blocks/blocks/playlist-list-item/edit.js:59
 msgid "Title..."
 msgstr ""
 
@@ -765,7 +783,8 @@ msgid "Playlist Item"
 msgstr ""
 
 #: admin/blocks/blocks/playlist-list-item/Placeholder.js:43
-#: admin/blocks/shared/components/SelectMediaDropdown.js:93
+#: admin/blocks/shared/components/SelectMediaDropdown.js:96
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:66
 #: admin/settings/app.js:47
 #: admin/settings/components/Group.js:25
 #: admin/settings/pages/parts/EmailExport.js:39
@@ -839,56 +858,21 @@ msgstr ""
 msgid "Transition Duration (Seconds)"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:115
+#: admin/blocks/blocks/reusable-display/edit.js:97
 msgid "The selected media item has been deleted or is unavailable."
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:148
-#: admin/blocks/blocks/reusable-edit/edit.js:70
-msgid "Choose a video type to get started."
+#: admin/blocks/blocks/reusable-display/edit.js:130
+msgid "Edit Original"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:152
-#: admin/blocks/blocks/reusable-edit/edit.js:74
-msgid "Choose a Video Type"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:160
-#: admin/blocks/blocks/reusable-edit/edit.js:82
-#: Integrations/Elementor/VideoWidget.php:148
-#: Services/Shortcodes.php:126
-msgid "Video"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:169
-#: admin/blocks/blocks/reusable-edit/edit.js:85
-#: admin/blocks/shared/presets/Behavior.js:155
-msgid "Youtube"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:178
-#: admin/blocks/blocks/reusable-edit/edit.js:88
-#: Integrations/Elementor/VideoWidget.php:160
-msgid "Vimeo"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:188
-#: admin/blocks/blocks/reusable-edit/edit.js:92
-msgid "Bunny.net"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:198
-#: admin/blocks/blocks/reusable-edit/edit.js:98
-msgid "Audio"
-msgstr ""
-
-#: admin/blocks/blocks/reusable-display/edit.js:207
-#: admin/blocks/blocks/reusable-display/edit.js:210
-msgid "Media Hub Title"
+#: admin/blocks/blocks/reusable-display/index.js:17
+#: Integrations/Elementor/ReusableVideoWidget.php:123
+msgid "Media Hub Item"
 msgstr ""
 
 #: admin/blocks/blocks/vimeo/edit.js:99
-#: admin/blocks/blocks/vimeo/index.js:23
+#: admin/blocks/blocks/vimeo/index.js:25
 msgid "Presto Vimeo Video"
 msgstr ""
 
@@ -900,12 +884,12 @@ msgstr ""
 msgid "Vimeo URL"
 msgstr ""
 
-#: admin/blocks/blocks/vimeo/index.js:25
+#: admin/blocks/blocks/vimeo/index.js:27
 msgid "A vimeo video wrapped in an awesome player."
 msgstr ""
 
 #: admin/blocks/blocks/youtube/edit.js:99
-#: admin/blocks/blocks/youtube/index.js:24
+#: admin/blocks/blocks/youtube/index.js:26
 msgid "Presto Youtube Video"
 msgstr ""
 
@@ -918,47 +902,23 @@ msgstr ""
 msgid "Youtube URL"
 msgstr ""
 
-#: admin/blocks/blocks/youtube/index.js:26
+#: admin/blocks/blocks/youtube/index.js:28
 msgid "A youtube video wrapped in an awesome player."
-msgstr ""
-
-#: admin/blocks/plugins/reusable-videos/render.js:174
-msgid "No videos found."
-msgstr ""
-
-#: admin/blocks/plugins/reusable-videos/render.js:179
-msgid "Create A Reusable Video"
-msgstr ""
-
-#: admin/blocks/plugins/reusable-videos/render.js:197
-#: admin/blocks/plugins/reusable-videos/render.js:252
-#: Services/Menu.php:30
-#: Services/Menu.php:31
-msgid "Media Hub"
-msgstr ""
-
-#: admin/blocks/plugins/reusable-videos/render.js:243
-#: admin/blocks/plugins/reusable-videos/render.js:247
-#: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:16
-#: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:17
-#: Services/Menu.php:20
-#: Services/Menu.php:21
-msgid "Presto Player"
 msgstr ""
 
 #: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:8
 msgid "Copied!"
 msgstr ""
 
-#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:37
+#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:38
 msgid "Timestamp Shortcode"
 msgstr ""
 
-#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:40
+#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:43
 msgid "Add convenient links to skip the player to a specific timestamp."
 msgstr ""
 
-#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:57
+#: admin/blocks/plugins/reusable-videos/ShortcodeInput.js:60
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -1355,7 +1315,7 @@ msgid "There is no logo image currently selected"
 msgstr ""
 
 #: admin/blocks/shared/branding/index.js:121
-#: admin/settings/pages/General.js:148
+#: admin/settings/pages/General.js:160
 msgid "Logo Max Width"
 msgstr ""
 
@@ -1380,32 +1340,34 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:47
-msgid "Add New"
-msgstr ""
-
-#: admin/blocks/shared/components/EntitySearchDropdown.js:54
+#: admin/blocks/shared/components/EntitySearchDropdown.js:36
+#: admin/blocks/shared/components/EntitySearchDropdown.js:68
 msgid "None found."
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:89
+#: admin/blocks/shared/components/EntitySearchDropdown.js:61
+msgid "Add New"
+msgstr ""
+
+#: admin/blocks/shared/components/EntitySearchDropdown.js:103
 msgid "Load More"
 msgstr ""
 
-#: admin/blocks/shared/components/EntitySearchDropdown.js:132
+#: admin/blocks/shared/components/EntitySearchDropdown.js:147
 msgid "Search..."
 msgstr ""
 
 #: admin/blocks/shared/components/ProBadge.js:5
-#: admin/settings/pages/General.js:135
+#: admin/settings/pages/General.js:147
 msgid "Pro"
 msgstr ""
 
-#: admin/blocks/shared/components/SelectMediaDropdown.js:116
+#: admin/blocks/shared/components/SelectMediaDropdown.js:118
 msgid "Create or select media"
 msgstr ""
 
-#: admin/blocks/shared/components/SelectMediaDropdown.js:129
+#: admin/blocks/shared/components/SelectMediaDropdown.js:130
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:248
 msgid "Choose media"
 msgstr ""
 
@@ -1563,7 +1525,7 @@ msgstr ""
 #: admin/blocks/shared/presets/Email.js:57
 #: admin/blocks/shared/presets/Search.js:52
 #: admin/blocks/shared/presets/Watermark.js:57
-#: admin/settings/pages/General.js:173
+#: admin/settings/pages/General.js:203
 #: admin/settings/pages/Integrations.js:174
 msgid "Enable"
 msgstr ""
@@ -1707,6 +1669,12 @@ msgstr ""
 
 #: admin/blocks/shared/presets/Behavior.js:130
 msgid "On Video End"
+msgstr ""
+
+#: admin/blocks/shared/presets/Behavior.js:155
+#: Blocks/YouTubeBlock.php:27
+#: Services/VideoPostType.php:499
+msgid "Youtube"
 msgstr ""
 
 #: admin/blocks/shared/presets/Behavior.js:159
@@ -1926,7 +1894,7 @@ msgid "Choose an audience"
 msgstr ""
 
 #: admin/blocks/shared/presets/parts/MailchimpConfig.js:75
-#: Services/VideoPostType.php:182
+#: Services/VideoPostType.php:322
 msgid "Tag"
 msgstr ""
 
@@ -2036,6 +2004,56 @@ msgstr ""
 msgid "Opacity percentage of the watermark."
 msgstr ""
 
+#: admin/blocks/shared/ProvidersPlaceholder/components/Separator.js:23
+msgid "or"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:128
+#: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:16
+#: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:17
+#: Services/Menu.php:19
+#: Services/Menu.php:20
+msgid "Presto Player"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:139
+msgid "Choose a video type to get started."
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:165
+#: Integrations/Elementor/VideoWidget.php:148
+#: Services/Shortcodes.php:126
+msgid "Video"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:173
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:204
+msgid "Bunny.net"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:181
+#: admin/settings/pages/Integrations.js:206
+#: Integrations/Elementor/VideoWidget.php:159
+msgid "YouTube"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:188
+#: Blocks/VimeoBlock.php:24
+#: Integrations/Elementor/VideoWidget.php:160
+#: Services/VideoPostType.php:498
+msgid "Vimeo"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:195
+#: Blocks/AudioBlock.php:26
+#: Services/VideoPostType.php:497
+msgid "Audio"
+msgstr ""
+
+#: admin/blocks/shared/ProvidersPlaceholder/ProvidersPlaceholder.js:235
+msgid "Select media"
+msgstr ""
+
 #: admin/blocks/shared/settings/index.js:41
 msgid "Note: Autoplaying videos may cause usability issues for some visitors."
 msgstr ""
@@ -2131,12 +2149,10 @@ msgid "Video Options"
 msgstr ""
 
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:210
-#: Services/VideoPostType.php:200
 msgid "Edit Video"
 msgstr ""
 
 #: admin/integrations/divi/fields/VideoSelector/VideoSelector.jsx:214
-#: Services/VideoPostType.php:199
 msgid "New Video"
 msgstr ""
 
@@ -2198,7 +2214,7 @@ msgid "Okay"
 msgstr ""
 
 #: admin/settings/entities.js:9
-#: admin/settings/pages/General.js:198
+#: admin/settings/pages/General.js:228
 msgid "Presets"
 msgstr ""
 
@@ -2210,91 +2226,108 @@ msgstr ""
 msgid "Webhook"
 msgstr ""
 
-#: admin/settings/pages/General.js:23
+#: admin/settings/pages/General.js:24
 #: admin/settings/pages/Integrations.js:69
 msgid "Pro Feature"
 msgstr ""
 
-#: admin/settings/pages/General.js:24
+#: admin/settings/pages/General.js:25
 #: admin/settings/pages/Integrations.js:70
 msgid "Unlock Presto Player Pro"
 msgstr ""
 
-#: admin/settings/pages/General.js:25
+#: admin/settings/pages/General.js:26
 #: admin/settings/pages/Integrations.js:71
 msgid "Get this feature and more with the Pro version of Presto Player!"
 msgstr ""
 
-#: admin/settings/pages/General.js:118
+#: admin/settings/pages/General.js:130
 msgid "Branding, analytics and uninstall data."
 msgstr ""
 
-#: admin/settings/pages/General.js:124
+#: admin/settings/pages/General.js:136
 msgid "Branding"
 msgstr ""
 
-#: admin/settings/pages/General.js:125
+#: admin/settings/pages/General.js:137
 msgid "Global player branding options"
 msgstr ""
 
-#: admin/settings/pages/General.js:132
+#: admin/settings/pages/General.js:144
 msgid "Logo"
 msgstr ""
 
-#: admin/settings/pages/General.js:165
+#: admin/settings/pages/General.js:175
+#: admin/toolbar/index.js:51
+msgid "Instant Video Page"
+msgstr ""
+
+#: admin/settings/pages/General.js:176
+msgid "Instant video page display settings."
+msgstr ""
+
+#: admin/settings/pages/General.js:182
+msgid "Width"
+msgstr ""
+
+#: admin/settings/pages/General.js:188
+msgid "Customize the video player width on the instant video page."
+msgstr ""
+
+#: admin/settings/pages/General.js:195
 #: admin/settings/pages/Integrations.js:166
 msgid "Analytics settings for media plays, watch times and more."
 msgstr ""
 
-#: admin/settings/pages/General.js:174
-msgid "Enable view analytics for your media"
+#: admin/settings/pages/General.js:204
+msgid "Enable view analytics for your media."
 msgstr ""
 
-#: admin/settings/pages/General.js:181
+#: admin/settings/pages/General.js:211
 msgid "Auto-Purge Data (recommended)"
 msgstr ""
 
-#: admin/settings/pages/General.js:182
+#: admin/settings/pages/General.js:212
 msgid "Automatically purge data older than 90 days."
 msgstr ""
 
-#: admin/settings/pages/General.js:200
+#: admin/settings/pages/General.js:230
 msgid "Media presets settings."
 msgstr ""
 
-#: admin/settings/pages/General.js:206
+#: admin/settings/pages/General.js:236
 msgid "Select default preset for video."
 msgstr ""
 
-#: admin/settings/pages/General.js:226
+#: admin/settings/pages/General.js:256
 msgid "Select default preset for audio."
 msgstr ""
 
-#: admin/settings/pages/General.js:244
+#: admin/settings/pages/General.js:274
 msgid "Custom CSS"
 msgstr ""
 
-#: admin/settings/pages/General.js:245
+#: admin/settings/pages/General.js:275
 msgid "Quickly add custom css to the player web component."
 msgstr ""
 
-#: admin/settings/pages/General.js:258
+#: admin/settings/pages/General.js:288
 msgid "Uninstall Options"
 msgstr ""
 
-#: admin/settings/pages/General.js:259
+#: admin/settings/pages/General.js:289
 msgid "Options to remove data on uninstall."
 msgstr ""
 
-#: admin/settings/pages/General.js:265
+#: admin/settings/pages/General.js:295
 msgid "Remove data on uninstall"
 msgstr ""
 
-#: admin/settings/pages/General.js:266
+#: admin/settings/pages/General.js:296
 msgid "This removes all data on uninstall."
 msgstr ""
 
-#: admin/settings/pages/General.js:272
+#: admin/settings/pages/General.js:302
 msgid "Caution: Data Loss. Are you sure you want to remove all the data from this plugin? This is irreversible!"
 msgstr ""
 
@@ -2356,11 +2389,6 @@ msgstr ""
 
 #: admin/settings/pages/Integrations.js:196
 msgid "Enter a Google Analytics Measurement ID, which can be found on your analytics admin page."
-msgstr ""
-
-#: admin/settings/pages/Integrations.js:206
-#: Integrations/Elementor/VideoWidget.php:159
-msgid "YouTube"
 msgstr ""
 
 #: admin/settings/pages/Integrations.js:207
@@ -2704,8 +2732,12 @@ msgstr ""
 msgid "Keep this on unless you do not plan on using automation, LMS or membership integrations."
 msgstr ""
 
-#: admin/settings/settings.js:63
+#: admin/settings/settings.js:64
 msgid "Settings saved."
+msgstr ""
+
+#: admin/toolbar/index.js:117
+msgid "An instant video page gives you an instant shareable page for your media."
 msgstr ""
 
 #: admin/ui/Menu.js:120
@@ -2731,6 +2763,7 @@ msgid "A audio player wrapper."
 msgstr ""
 
 #: admin/blocks/blocks/audio/block.json
+#: admin/blocks/blocks/media-hub/block.json
 msgctxt "block keyword"
 msgid "audio"
 msgstr ""
@@ -2757,6 +2790,7 @@ msgstr ""
 
 #: admin/blocks/blocks/bunny/block.json
 #: admin/blocks/blocks/hosted/block.json
+#: admin/blocks/blocks/media-hub/block.json
 #: admin/blocks/blocks/playlist/block.json
 #: admin/blocks/blocks/vimeo/block.json
 #: admin/blocks/blocks/youtube/block.json
@@ -2802,6 +2836,41 @@ msgstr ""
 #: admin/blocks/blocks/hosted/block.json
 msgctxt "block variation description"
 msgid "Presto Self-hosted video block."
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block title"
+msgid "Presto Player"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block keyword"
+msgid "media"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block keyword"
+msgid "youtube"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block keyword"
+msgid "vimeo"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block keyword"
+msgid "bunny"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block keyword"
+msgid "presto"
+msgstr ""
+
+#: admin/blocks/blocks/media-hub/block.json
+msgctxt "block description"
+msgid "Allows you to add videos and audio to your site using Presto Player."
 msgstr ""
 
 #: admin/blocks/blocks/playlist/block.json
@@ -2871,6 +2940,11 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
+#: Blocks/SelfHostedBlock.php:26
+#: Services/VideoPostType.php:496
+msgid "Self-hosted"
+msgstr ""
+
 #: Files.php:210
 msgid "Private: "
 msgstr ""
@@ -2887,7 +2961,7 @@ msgid "Presto Player Media"
 msgstr ""
 
 #: Integrations/BeaverBuilder/ReusableVideoModule/Module.php:78
-#: Services/Menu.php:62
+#: Services/Menu.php:54
 #: Services/Translation.php:98
 msgid "Settings"
 msgstr ""
@@ -2922,11 +2996,8 @@ msgstr ""
 msgid "Please choose media above before selecting dynamic URL override."
 msgstr ""
 
-#: Integrations/Elementor/ReusableVideoWidget.php:123
-msgid "Media Hub Item"
-msgstr ""
-
 #: Integrations/Elementor/ReusableVideoWidget.php:133
+#: Services/VideoPostType.php:341
 msgid "Edit Media"
 msgstr ""
 
@@ -2958,6 +3029,7 @@ msgid "Muted Preview"
 msgstr ""
 
 #: Integrations/Elementor/VideoWidget.php:307
+#: Services/VideoPostType.php:103
 msgid "Poster"
 msgstr ""
 
@@ -3058,7 +3130,7 @@ msgstr ""
 
 #: Services/API/RestAudioPresetsController.php:94
 #: Services/API/RestPresetsController.php:94
-#: Services/API/RestVideosController.php:129
+#: Services/API/RestVideosController.php:131
 msgid "Unique identifier for the object."
 msgstr ""
 
@@ -3116,39 +3188,39 @@ msgstr ""
 msgid "Markup is not allowed in CSS."
 msgstr ""
 
-#: Services/API/RestVideosController.php:135
+#: Services/API/RestVideosController.php:137
 msgid "Title of the video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:141
+#: Services/API/RestVideosController.php:143
 msgid "Slug for the video type (one of youtube, vimeo, attachment, link)"
 msgstr ""
 
-#: Services/API/RestVideosController.php:148
+#: Services/API/RestVideosController.php:150
 msgid "External unique id."
 msgstr ""
 
-#: Services/API/RestVideosController.php:154
+#: Services/API/RestVideosController.php:156
 msgid "The id of the attachment."
 msgstr ""
 
-#: Services/API/RestVideosController.php:158
+#: Services/API/RestVideosController.php:160
 msgid "The post the video is attached to."
 msgstr ""
 
-#: Services/API/RestVideosController.php:162
+#: Services/API/RestVideosController.php:164
 msgid "Video source url."
 msgstr ""
 
-#: Services/API/RestVideosController.php:216
+#: Services/API/RestVideosController.php:218
 msgid "Cannot create video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:242
+#: Services/API/RestVideosController.php:244
 msgid "Cannot get video."
 msgstr ""
 
-#: Services/API/RestVideosController.php:298
+#: Services/API/RestVideosController.php:300
 msgid "Cannot update video."
 msgstr ""
 
@@ -3170,7 +3242,7 @@ msgstr ""
 msgid "An Unexpected HTTP Error occurred during the API request."
 msgstr ""
 
-#: Services/Menu.php:61
+#: Services/Menu.php:53
 msgid "Presto Player Settings"
 msgstr ""
 
@@ -3217,6 +3289,10 @@ msgstr ""
 
 #: Services/Settings.php:240
 msgid "Youtube settings."
+msgstr ""
+
+#: Services/Settings.php:270
+msgid "Instant video width."
 msgstr ""
 
 #: Services/Shortcodes.php:124
@@ -3374,121 +3450,125 @@ msgstr ""
 msgid "Start Over"
 msgstr ""
 
-#: Services/VideoPostType.php:85
+#: Services/VideoPostType.php:105
 msgid "Shortcode"
 msgstr ""
 
-#: Services/VideoPostType.php:86
-msgid "PHP Function"
-msgstr ""
-
-#: Services/VideoPostType.php:122
+#: Services/VideoPostType.php:259
 msgid "Enter a title..."
 msgstr ""
 
-#: Services/VideoPostType.php:177
+#: Services/VideoPostType.php:317
 msgctxt "post type general name"
 msgid "Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:178
+#: Services/VideoPostType.php:318
 msgctxt "post type singular name"
 msgid "Media Tag"
 msgstr ""
 
-#: Services/VideoPostType.php:179
+#: Services/VideoPostType.php:319
 msgctxt "admin menu"
 msgid "Search Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:180
+#: Services/VideoPostType.php:320
 msgctxt "add new on admin bar"
 msgid "Popular Media Tags"
 msgstr ""
 
-#: Services/VideoPostType.php:193
+#: Services/VideoPostType.php:334
 msgctxt "post type general name"
 msgid "Media Hub"
 msgstr ""
 
-#: Services/VideoPostType.php:194
+#: Services/VideoPostType.php:335
 msgctxt "post type singular name"
 msgid "Media"
 msgstr ""
 
-#: Services/VideoPostType.php:195
+#: Services/VideoPostType.php:336
 msgctxt "admin menu"
 msgid "Media"
 msgstr ""
 
-#: Services/VideoPostType.php:196
+#: Services/VideoPostType.php:337
 msgctxt "add new on admin bar"
-msgid "Video"
+msgid "Media"
 msgstr ""
 
-#: Services/VideoPostType.php:197
-msgctxt "Video"
+#: Services/VideoPostType.php:338
+msgctxt "Media"
 msgid "Add New"
 msgstr ""
 
-#: Services/VideoPostType.php:198
-msgid "Add New Video"
+#: Services/VideoPostType.php:339
+msgid "Add New Media"
 msgstr ""
 
-#: Services/VideoPostType.php:201
-msgid "View Video"
+#: Services/VideoPostType.php:340
+msgid "New Media"
 msgstr ""
 
-#: Services/VideoPostType.php:202
-msgid "All Videos"
+#: Services/VideoPostType.php:342
+msgid "View Media"
 msgstr ""
 
-#: Services/VideoPostType.php:203
+#: Services/VideoPostType.php:343
+msgid "Media Hub"
+msgstr ""
+
+#: Services/VideoPostType.php:344
 msgid "Search Media"
 msgstr ""
 
-#: Services/VideoPostType.php:204
-msgid "No Videos found."
+#: Services/VideoPostType.php:345
+msgid "No Media found."
 msgstr ""
 
-#: Services/VideoPostType.php:205
-msgid "No Videos found in Trash."
+#: Services/VideoPostType.php:346
+msgid "No Media found in Trash."
 msgstr ""
 
-#: Services/VideoPostType.php:206
-msgid "Filter Videos list"
+#: Services/VideoPostType.php:347
+msgid "Filter Media list"
 msgstr ""
 
-#: Services/VideoPostType.php:207
-msgid "Videos list navigation"
+#: Services/VideoPostType.php:348
+msgid "Media list navigation"
 msgstr ""
 
-#: Services/VideoPostType.php:208
-msgid "Videos list"
+#: Services/VideoPostType.php:349
+msgid "Media list"
 msgstr ""
 
-#: Services/VideoPostType.php:209
-msgid "Video published."
+#: Services/VideoPostType.php:350
+msgid "Media published."
 msgstr ""
 
-#: Services/VideoPostType.php:210
-msgid "Video published privately."
+#: Services/VideoPostType.php:351
+msgid "Media published privately."
 msgstr ""
 
-#: Services/VideoPostType.php:211
-msgid "Video reverted to draft."
+#: Services/VideoPostType.php:352
+msgid "Media reverted to draft."
 msgstr ""
 
-#: Services/VideoPostType.php:212
-msgid "Video scheduled."
+#: Services/VideoPostType.php:353
+msgid "Media scheduled."
 msgstr ""
 
-#: Services/VideoPostType.php:213
-msgid "Video updated."
+#: Services/VideoPostType.php:354
+msgid "Media updated."
 msgstr ""
 
-#: Services/VideoPostType.php:256
+#: Services/VideoPostType.php:402
 msgid "Show all %s"
+msgstr ""
+
+#: Services/VideoPostType.php:500
+msgid "Bunny"
 msgstr ""
 
 #: Support/Utility.php:38
@@ -3515,6 +3595,10 @@ msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""
 msgstr[1] ""
+
+#: single-presto-media.php:42
+msgid "Unpublished"
+msgstr ""
 
 #: unauthorized.php:3
 msgid "Please login for access."

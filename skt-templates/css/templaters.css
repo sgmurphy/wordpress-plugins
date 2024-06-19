@@ -4931,3 +4931,71 @@ height:90px; background:url(https://demosktthemes.com/free/garden-care-lite/wp-c
 .skt-ad-agency-sec3-left-title1:after{display:none;}
 }
 /* Ad Agency Lite*/
+
+/* Vet Clinic */
+.vet-clinic-statistics-bar .elementor-progress-wrapper {margin-top:15px;}
+.vet-clinic-statistics-bar .elementor-progress-wrapper {overflow:visible !important;}
+.vet-clinic-statistics-bar .elementor-progress-percentage {position:absolute; right:0; top:-35px;}
+.vet-clinic-statistics-bar .elementor-progress-bar {border-radius:0px;}
+.statistics-arrow::before {content:''; width:0; height:0; border-top: 40px solid transparent; border-left:30px solid #fff; border-bottom: 40px solid transparent; position:absolute; left:58.5%; top:50%; transform: translate(-50%,-50%);}
+.vet-clinic-love-pet-img img {width:100%;}
+.vet-clinic-love-pet-content .elementor-widget-wrap.elementor-element-populated {width:575px;}
+.vet-clinic-love-pet-img .elementor-widget-wrap.elementor-element-populated {height:748px; overflow:hidden;}
+.vet-clinic-love-pet-box .elementor-counter-title {width:40%; margin:0 auto !important; padding-top:15px !important; text-align:center;}
+.vet-clinic-love-pet-box-outer .elementor-container {margin-left:-100px !important;}
+
+.vet-clinic-love-pet-video img {visibility:hidden !important;}
+.vet-clinic-love-pet-video{width:100px !important; height:110px; background:#002555 !important; position:absolute !important; z-index:99; right:0; bottom: 260px; margin-bottom:0px !important;}
+.vet-clinic-love-pet-video .elementor-custom-embed-play i{ opacity:1 !important;}
+.vet-clinic-love-pet-video .elementor-custom-embed-image-overlay{min-height:110px;}
+.vet-clinic-tab .elementor-tab-content {border-top:0 !important; padding-top:10px !important;}
+.vet-clinic-tab .elementor-tab-title { border-radius:10px;}
+.vet-clinic-tab .elementor-tab-title.elementor-active{ border-bottom-left-radius:0px; border-bottom-right-radius:0px;}
+.vet-clinic-tab .elementor-tab-content{ border-radius: 0px 0px 10px 10px;}
+.vet-clinic-tab .elementor-accordion-item {border-left:0px !important; border-right:0px !important;}
+.vet-clinic-choose-box .elementor-image-box-img {width:130px !important; height:130px; background:#fff; border-radius:100%; align-items:center !important; display:flex !important; justify-content:center !important; margin:0 auto !important; margin-bottom: 25px !important;}
+.vet-clinic-choose-box:hover .elementor-image-box-title {color:#fff !important;}
+@media screen and (max-width:63.938em) and (min-width:48.000em) {
+.vet-clinic-love-pet-img {width:100% !important;}
+.vet-clinic-love-pet-content-outer {width:100% !important;}
+.vet-clinic-love-pet-content .elementor-widget-wrap.elementor-element-populated {width:auto;}
+.vet-clinic-love-pet-box-outer .elementor-container {margin-left:0px !important;}
+.vet-clinic-love-pet-video{left:50%; right:50%; top:50%; bottom:50%; margin:0 auto !important; transform:translate(-50%,-50%);}
+.vet-clinic-special-care, .vet-clinic-special-care-member {}
+.vet-clinic-choose-left, .vet-clinic-choose-right {width:100% !important;}
+.vet-clinic-choose-right{ padding-top:40px !important;}
+.vet-clinic-blog-content, .vet-clinic-blog {width:100% !important;}
+}
+
+@media screen and (max-width:72.438em) and (min-width:63.250em) {
+.vet-clinic-special-care {width:40% !important;}
+.vet-clinic-special-care .elementor-widget-heading, .vet-clinic-special-care .elementor-widget-text-editor, .vet-clinic-special-care .elementor-widget-button{ text-align:left !important;}
+.vet-clinic-special-care-member {width:58% !important;}
+.vet-clinic-special-care-member .elementor-widget-wrap.elementor-element-populated{ padding-top:0px !important;}
+.vet-clinic-special-care-member .elementor-widget-image-box .elementor-widget-container{padding:45px 30px 50px 30px !important;}
+}
+
+@media screen and (max-width:1023px) and (min-width:999px) {
+.vet-clinic-choose-box {width:25% !important;}
+.vet-clinic-choose-box .elementor-widget-container {margin:5px !important;}
+}
+
+@media(min-width: 768px) and (max-width: 1023px){
+.skt-vet-clinic-box:nth-last-child(1) {width:100%;}
+.skt-vet-clinic-box:nth-last-child(1) .skt-vet-clinic-image img {width:100%;}
+}
+
+@media(max-width: 1199px){
+.vet-clinic-love-pet-img .elementor-widget-wrap.elementor-element-populated {height:inherit;}
+.vet-clinic-love-pet-box .elementor-counter-title {width:100%;}
+.vet-clinic-appointment .wpcf7-form-control-wrap .form-services {background-position-x:270px;}
+}
+
+@media(max-width: 767px){
+.vet-clinic-love-pet-img .elementor-widget-wrap.elementor-element-populated {height:inherit;}
+.vet-clinic-love-pet-video{bottom:0;}
+.vet-clinic-love-pet-box-outer .elementor-container {margin-left:0px !important;}
+.vet-clinic-love-pet-content .elementor-widget-wrap.elementor-element-populated {width:auto;}	
+}
+
+/* Vet Clinic */

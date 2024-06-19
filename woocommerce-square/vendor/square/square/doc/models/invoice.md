@@ -35,26 +35,27 @@ invoices. For more information, see [Invoices API Overview](https://developer.sq
 | `saleOrServiceDate` | `?string` | Optional | The date of the sale or the date that the service is rendered, in `YYYY-MM-DD` format.<br>This field can be used to specify a past or future date which is displayed on the invoice. | getSaleOrServiceDate(): ?string | setSaleOrServiceDate(?string saleOrServiceDate): void |
 | `paymentConditions` | `?string` | Optional | **France only.** The payment terms and conditions that are displayed on the invoice. For more information,<br>see [Payment conditions](https://developer.squareup.com/docs/invoices-api/overview#payment-conditions).<br><br>For countries other than France, Square returns an `INVALID_REQUEST_ERROR` with a `BAD_REQUEST` code and<br>"Payment conditions are not supported for this location's country" detail if this field is included in `CreateInvoice` or `UpdateInvoice` requests.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `2000` | getPaymentConditions(): ?string | setPaymentConditions(?string paymentConditions): void |
 | `storePaymentMethodEnabled` | `?bool` | Optional | Indicates whether to allow a customer to save a credit or debit card as a card on file or a bank transfer as a<br>bank account on file. If `true`, Square displays a __Save my card on file__ or __Save my bank on file__ checkbox on the<br>invoice payment page. Stored payment information can be used for future automatic payments. The default value is `false`. | getStorePaymentMethodEnabled(): ?bool | setStorePaymentMethodEnabled(?bool storePaymentMethodEnabled): void |
+| `attachments` | [`?(InvoiceAttachment[])`](../../doc/models/invoice-attachment.md) | Optional | Metadata about the attachments on the invoice. Invoice attachments are managed using the<br>[CreateInvoiceAttachment](api-endpoint:Invoices-CreateInvoiceAttachment) and [DeleteInvoiceAttachment](api-endpoint:Invoices-DeleteInvoiceAttachment) endpoints. | getAttachments(): ?array | setAttachments(?array attachments): void |
 
 ## Example (as JSON)
 
 ```json
 {
   "id": "id0",
-  "version": 172,
+  "version": 224,
   "location_id": "location_id4",
-  "order_id": "order_id6",
+  "order_id": "order_id4",
   "primary_recipient": {
     "customer_id": "customer_id2",
     "given_name": "given_name6",
     "family_name": "family_name8",
     "email_address": "email_address2",
     "address": {
-      "address_line_1": "address_line_10",
-      "address_line_2": "address_line_20",
-      "address_line_3": "address_line_36",
-      "locality": "locality0",
-      "sublocality": "sublocality0"
+      "address_line_1": "address_line_16",
+      "address_line_2": "address_line_26",
+      "address_line_3": "address_line_32",
+      "locality": "locality6",
+      "sublocality": "sublocality6"
     }
   }
 }

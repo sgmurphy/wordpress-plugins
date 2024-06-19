@@ -246,6 +246,7 @@ $options = array(
     'quiz_right_answers_text_decoration'        => "none",
     'quiz_wrong_answers_text_decoration'        => "none",
     'quiz_admin_note_letter_spacing'            => 0,
+    'quiz_bg_img_during_the_quiz'               => "off",
 );
 
 $quiz_intervals_default = array(
@@ -1315,6 +1316,10 @@ $quiz_wrong_answers_text_decoration = (isset($options[ 'quiz_wrong_answers_text_
 // Note letter spacing
 $quiz_admin_note_letter_spacing = (isset($options[ 'quiz_admin_note_letter_spacing' ]) && $options[ 'quiz_admin_note_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_admin_note_letter_spacing' ] ) ) : 0;
 
+// Hide background image during the quiz
+$options['quiz_bg_img_during_the_quiz'] = isset($options['quiz_bg_img_during_the_quiz']) ? $options['quiz_bg_img_during_the_quiz'] : 'off';
+$quiz_bg_img_during_the_quiz = (isset($options['quiz_bg_img_during_the_quiz']) && $options['quiz_bg_img_during_the_quiz'] == 'on') ? true : false;
+
 ?>
 <style id="ays_live_custom_css"></style>
 <div class="wrap">
@@ -2040,6 +2045,21 @@ $quiz_admin_note_letter_spacing = (isset($options[ 'quiz_admin_note_letter_spaci
                                         <div class="col-sm-4">
                                             <input type="checkbox" class="ays_toggle ays_toggle_slide" id="ays_quiz_bg_img_on_start_page" name="ays_quiz_bg_img_on_start_page" <?php echo ($quiz_bg_img_on_start_page) ? 'checked' : ''; ?>/>
                                             <label for="ays_quiz_bg_img_on_start_page" style="display:inline-block;margin-left:10px;" class="ays_switch_toggle">Toggle</label>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group row">
+                                        <div class="col-sm-8">
+                                            <label for="ays_quiz_bg_img_during_the_quiz">
+                                                <?php echo __( "Hide background image during the quiz", $this->plugin_name ); ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('If this option is enabled the quiz background image will not be displayed during the quiz.',$this->plugin_name); ?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="checkbox" class="ays_toggle ays_toggle_slide" id="ays_quiz_bg_img_during_the_quiz" name="ays_quiz_bg_img_during_the_quiz" <?php echo ($quiz_bg_img_during_the_quiz) ? 'checked' : ''; ?>/>
+                                            <label for="ays_quiz_bg_img_during_the_quiz" style="display:inline-block;margin-left:10px;" class="ays_switch_toggle">Toggle</label>
                                         </div>
                                     </div>
                                 </div>

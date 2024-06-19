@@ -140,6 +140,11 @@ class Soliloquy_Editor_Lite {
 		global $post;
 		$sliders = $this->base->get_sliders();
 
+		// Return early if no sliders are found.
+		if ( empty( $sliders ) ) {
+			return '';
+		}
+
 		ob_start();
 		?>
 		<div class="soliloquy-default-ui-wrapper" style="display: none;">
@@ -157,8 +162,10 @@ class Soliloquy_Editor_Lite {
 									<ul class="soliloquy-meta attachments" style="padding-left: 8px; top: 1em;">
 										<?php
 										foreach ( (array) $sliders as $slider ) :
-											if ( $post->ID === $slider['id'] ) {
-												continue;}
+											// Return early if no slider ID.
+											if ( ! isset( $slider['id'] ) || ( isset( $post->ID ) && $post->ID === $slider['id'] ) ) {
+												continue;
+											}
 											?>
 										<li class="attachment" data-soliloquy-id="<?php echo absint( $slider['id'] ); ?>" style="margin: 8px;">
 											<div class="attachment-preview">

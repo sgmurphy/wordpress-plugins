@@ -4,7 +4,7 @@ Tags: backup, restore, database backup, cloud backup, wordpress backup, migratio
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,13 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.3.2 (June 19th 2024) =
+* [Improvement] Restores work better now, will go in maintenance mode when restoring database to prevent noise from WordPress or plugin functionalities, which could break the restore sometimes.
+* [Improvement] We have refactored Google Drive lib and it will improve the speed of download when restoring by around 10%.
+* [Improvement] Backups will sync just after they are uploaded, using Backuply's upload module.
+* [Bug-Fix] PHP warnings on backup_ins.php has been fixed.
+* [Bug-Fix] PHP warnings when deletion of backups has been fixed.
 
 = 1.3.1 (May 09th 2024) =
 * [Bug-Fix] There was a issue with restore for some user, where Backuply was unable to unzip, that has been fixed.

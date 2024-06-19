@@ -44,6 +44,7 @@ Class L_Plus_Library {
 			'tp_clients_listout' => 'tp-clients-listout',
 			'tp_contact_form_7' => 'tp-contact-form-7',
 			'tp_countdown' => 'tp-countdown',
+			'tp_carousel_anything' => 'tp-carousel-anything',
 			'tp_dark_mode' => 'tp-dark-mode',
 			'tp_dynamic_categories' => 'tp-dynamic-categories',
 			'tp_everest_form' => 'tp-everest-form',
@@ -81,6 +82,7 @@ Class L_Plus_Library {
 			'tp_tabs_tours' => 'tp-tabs-tours',
 			'tp_team_member_listout' => 'tp-team-member-listout',
 			'tp_testimonial_listout' => 'tp-testimonial-listout',
+			'tp_table' => 'tp-table',
 			'tp_video_player' => 'tp-video-player',
 			'tp_wp_forms' => 'tp-wp-forms',
         ];

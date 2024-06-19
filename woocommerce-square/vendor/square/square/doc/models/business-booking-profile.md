@@ -1,6 +1,8 @@
 
 # Business Booking Profile
 
+A seller's business booking profile, including booking policy, appointment settings, etc.
+
 ## Structure
 
 `BusinessBookingProfile`
@@ -23,7 +25,7 @@
 ```json
 {
   "seller_id": "seller_id8",
-  "created_at": "created_at2",
+  "created_at": "created_at8",
   "booking_enabled": false,
   "customer_timezone_choice": "BUSINESS_LOCATION_TIMEZONE",
   "booking_policy": "ACCEPT_ALL"

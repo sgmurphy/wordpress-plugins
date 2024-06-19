@@ -42,29 +42,11 @@ class TaxIdsBuilder
     }
 
     /**
-     * Unsets eu vat field.
-     */
-    public function unsetEuVat(): self
-    {
-        $this->instance->unsetEuVat();
-        return $this;
-    }
-
-    /**
      * Sets fr siret field.
      */
     public function frSiret(?string $value): self
     {
         $this->instance->setFrSiret($value);
-        return $this;
-    }
-
-    /**
-     * Unsets fr siret field.
-     */
-    public function unsetFrSiret(): self
-    {
-        $this->instance->unsetFrSiret();
         return $this;
     }
 
@@ -78,15 +60,6 @@ class TaxIdsBuilder
     }
 
     /**
-     * Unsets fr naf field.
-     */
-    public function unsetFrNaf(): self
-    {
-        $this->instance->unsetFrNaf();
-        return $this;
-    }
-
-    /**
      * Sets es nif field.
      */
     public function esNif(?string $value): self
@@ -96,11 +69,11 @@ class TaxIdsBuilder
     }
 
     /**
-     * Unsets es nif field.
+     * Sets jp qii field.
      */
-    public function unsetEsNif(): self
+    public function jpQii(?string $value): self
     {
-        $this->instance->unsetEsNif();
+        $this->instance->setJpQii($value);
         return $this;
     }
 

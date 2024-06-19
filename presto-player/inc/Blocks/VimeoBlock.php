@@ -14,6 +14,17 @@ class VimeoBlock extends Block
     protected $name = 'vimeo';
 
     /**
+     * Translated block title
+     */
+    protected $title;
+
+    public function __construct(bool $isPremium = false, $version = 1)
+    {
+        parent::__construct($isPremium, $version);
+        $this->title = __('Vimeo', 'presto-player');
+    }
+
+    /**
      * Register the block type.
      *
      * @return void

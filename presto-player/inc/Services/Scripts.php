@@ -38,6 +38,9 @@ class Scripts
         add_action("presto_player_pro_register_license_page", [$this, 'licenseScripts']);
 
         add_action('after_setup_theme', [$this, 'addAppearanceToolsSupport'], 99999);
+
+        // custom template styles
+        add_action('wp_enqueue_scripts', [$this, 'presto_player_custom_template_styles']);
     }
 
     /**
@@ -462,5 +465,18 @@ class Scripts
                     }, 2000);
                 }, false);
             </script>';
+    }
+
+    public function presto_player_custom_template_styles()
+    {
+        if (is_singular('pp_video_block')) {
+            $assets = include trailingslashit(PRESTO_PLAYER_PLUGIN_DIR) . 'dist/media-page.asset.php';
+            wp_enqueue_style(
+                'presto-player/media-page',
+                trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/media-page.css',
+                [],
+                $assets['version']
+            );
+        }
     }
 }

@@ -110,7 +110,6 @@
   .playlist__preview {
     min-height: 200px;
   }
-
   ::slotted([provider=audio]) {
     padding: 30px;
     min-height: 200px;

@@ -15,7 +15,7 @@ A loyalty program can have a maximum of 10 loyalty promotions with an `ACTIVE` o
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `id` | `?string` | Optional | The Square-assigned ID of the promotion.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `255` | getId(): ?string | setId(?string id): void |
-| `name` | `string` | Required | The name of the promotion.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `50` | getName(): string | setName(string name): void |
+| `name` | `string` | Required | The name of the promotion.<br>**Constraints**: *Minimum Length*: `1`, *Maximum Length*: `70` | getName(): string | setName(string name): void |
 | `incentive` | [`LoyaltyPromotionIncentive`](../../doc/models/loyalty-promotion-incentive.md) | Required | Represents how points for a [loyalty promotion](../../doc/models/loyalty-promotion.md) are calculated,<br>either by multiplying the points earned from the base program or by adding a specified number<br>of points to the points earned from the base program. | getIncentive(): LoyaltyPromotionIncentive | setIncentive(LoyaltyPromotionIncentive incentive): void |
 | `availableTime` | [`LoyaltyPromotionAvailableTimeData`](../../doc/models/loyalty-promotion-available-time-data.md) | Required | Represents scheduling information that determines when purchases can qualify to earn points<br>from a [loyalty promotion](../../doc/models/loyalty-promotion.md). | getAvailableTime(): LoyaltyPromotionAvailableTimeData | setAvailableTime(LoyaltyPromotionAvailableTimeData availableTime): void |
 | `triggerLimit` | [`?LoyaltyPromotionTriggerLimit`](../../doc/models/loyalty-promotion-trigger-limit.md) | Optional | Represents the number of times a buyer can earn points during a [loyalty promotion](../../doc/models/loyalty-promotion.md).<br>If this field is not set, buyers can trigger the promotion an unlimited number of times to earn points during<br>the time that the promotion is available.<br><br>A purchase that is disqualified from earning points because of this limit might qualify for another active promotion. | getTriggerLimit(): ?LoyaltyPromotionTriggerLimit | setTriggerLimit(?LoyaltyPromotionTriggerLimit triggerLimit): void |
@@ -32,15 +32,16 @@ A loyalty program can have a maximum of 10 loyalty promotions with an `ACTIVE` o
 
 ```json
 {
-  "id": "id0",
-  "name": "name0",
+  "id": "id4",
+  "name": "name4",
   "incentive": {
     "type": "POINTS_MULTIPLIER",
     "points_multiplier_data": {
-      "points_multiplier": 16
+      "points_multiplier": 134,
+      "multiplier": "multiplier4"
     },
     "points_addition_data": {
-      "points_addition": 16
+      "points_addition": 218
     }
   },
   "available_time": {
@@ -55,8 +56,8 @@ A loyalty program can have a maximum of 10 loyalty promotions with an `ACTIVE` o
     "interval": "ALL_TIME"
   },
   "status": "ACTIVE",
-  "created_at": "created_at2",
-  "canceled_at": "canceled_at4"
+  "created_at": "created_at8",
+  "canceled_at": "canceled_at0"
 }
 ```
 

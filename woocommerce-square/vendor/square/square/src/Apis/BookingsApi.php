@@ -10,14 +10,20 @@ use Core\Request\Parameters\QueryParam;
 use Core\Request\Parameters\TemplateParam;
 use CoreInterfaces\Core\Request\RequestMethod;
 use Square\Http\ApiResponse;
+use Square\Models\BulkRetrieveBookingsRequest;
+use Square\Models\BulkRetrieveBookingsResponse;
+use Square\Models\BulkRetrieveTeamMemberBookingProfilesRequest;
+use Square\Models\BulkRetrieveTeamMemberBookingProfilesResponse;
 use Square\Models\CancelBookingRequest;
 use Square\Models\CancelBookingResponse;
 use Square\Models\CreateBookingRequest;
 use Square\Models\CreateBookingResponse;
 use Square\Models\ListBookingsResponse;
+use Square\Models\ListLocationBookingProfilesResponse;
 use Square\Models\ListTeamMemberBookingProfilesResponse;
 use Square\Models\RetrieveBookingResponse;
 use Square\Models\RetrieveBusinessBookingProfileResponse;
+use Square\Models\RetrieveLocationBookingProfileResponse;
 use Square\Models\RetrieveTeamMemberBookingProfileResponse;
 use Square\Models\SearchAvailabilityRequest;
 use Square\Models\SearchAvailabilityResponse;
@@ -37,6 +43,8 @@ class BookingsApi extends BaseApi
      * @param string|null $cursor The pagination cursor from the preceding response to return the
      *        next page of the results. Do not set this when retrieving the first page of the
      *        results.
+     * @param string|null $customerId The [customer](entity:Customer) for whom to retrieve bookings.
+     *        If this is not set, bookings for all customers are retrieved.
      * @param string|null $teamMemberId The team member for whom to retrieve bookings. If this is
      *        not set, bookings of all members are retrieved.
      * @param string|null $locationId The location for which to retrieve bookings. If this is not
@@ -51,6 +59,7 @@ class BookingsApi extends BaseApi
     public function listBookings(
         ?int $limit = null,
         ?string $cursor = null,
+        ?string $customerId = null,
         ?string $teamMemberId = null,
         ?string $locationId = null,
         ?string $startAtMin = null,
@@ -61,6 +70,7 @@ class BookingsApi extends BaseApi
             ->parameters(
                 QueryParam::init('limit', $limit),
                 QueryParam::init('cursor', $cursor),
+                QueryParam::init('customer_id', $customerId),
                 QueryParam::init('team_member_id', $teamMemberId),
                 QueryParam::init('location_id', $locationId),
                 QueryParam::init('start_at_min', $startAtMin),
@@ -78,7 +88,7 @@ class BookingsApi extends BaseApi
      * The required input must include the following:
      * - `Booking.location_id`
      * - `Booking.start_at`
-     * - `Booking.team_member_id`
+     * - `Booking.AppointmentSegment.team_member_id`
      * - `Booking.AppointmentSegment.service_variation_id`
      * - `Booking.AppointmentSegment.service_variation_version`
      *
@@ -132,6 +142,31 @@ class BookingsApi extends BaseApi
     }
 
     /**
+     * Bulk-Retrieves a list of bookings by booking IDs.
+     *
+     * To call this endpoint with buyer-level permissions, set `APPOINTMENTS_READ` for the OAuth scope.
+     * To call this endpoint with seller-level permissions, set `APPOINTMENTS_ALL_READ` and
+     * `APPOINTMENTS_READ` for the OAuth scope.
+     *
+     * @param BulkRetrieveBookingsRequest $body An object containing the fields to POST for the
+     *        request.
+     *
+     *        See the corresponding object definition for field details.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function bulkRetrieveBookings(BulkRetrieveBookingsRequest $body): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(RequestMethod::POST, '/v2/bookings/bulk-retrieve')
+            ->auth('global')
+            ->parameters(HeaderParam::init('Content-Type', 'application/json'), BodyParam::init($body));
+
+        $_resHandler = $this->responseHandler()->type(BulkRetrieveBookingsResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
      * Retrieves a seller's booking profile.
      *
      * @return ApiResponse Response from the API call
@@ -143,6 +178,48 @@ class BookingsApi extends BaseApi
 
         $_resHandler = $this->responseHandler()
             ->type(RetrieveBusinessBookingProfileResponse::class)
+            ->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Lists location booking profiles of a seller.
+     *
+     * @param int|null $limit The maximum number of results to return in a paged response.
+     * @param string|null $cursor The pagination cursor from the preceding response to return the
+     *        next page of the results. Do not set this when retrieving the first page of the
+     *        results.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function listLocationBookingProfiles(?int $limit = null, ?string $cursor = null): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(RequestMethod::GET, '/v2/bookings/location-booking-profiles')
+            ->auth('global')
+            ->parameters(QueryParam::init('limit', $limit), QueryParam::init('cursor', $cursor));
+
+        $_resHandler = $this->responseHandler()->type(ListLocationBookingProfilesResponse::class)->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Retrieves a seller's location booking profile.
+     *
+     * @param string $locationId The ID of the location to retrieve the booking profile.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function retrieveLocationBookingProfile(string $locationId): ApiResponse
+    {
+        $_reqBuilder = $this->requestBuilder(
+            RequestMethod::GET,
+            '/v2/bookings/location-booking-profiles/{location_id}'
+        )->auth('global')->parameters(TemplateParam::init('location_id', $locationId));
+
+        $_resHandler = $this->responseHandler()
+            ->type(RetrieveLocationBookingProfileResponse::class)
             ->returnApiResponse();
 
         return $this->execute($_reqBuilder, $_resHandler);
@@ -179,6 +256,31 @@ class BookingsApi extends BaseApi
 
         $_resHandler = $this->responseHandler()
             ->type(ListTeamMemberBookingProfilesResponse::class)
+            ->returnApiResponse();
+
+        return $this->execute($_reqBuilder, $_resHandler);
+    }
+
+    /**
+     * Retrieves one or more team members' booking profiles.
+     *
+     * @param BulkRetrieveTeamMemberBookingProfilesRequest $body An object containing the fields to
+     *        POST for the request.
+     *
+     *        See the corresponding object definition for field details.
+     *
+     * @return ApiResponse Response from the API call
+     */
+    public function bulkRetrieveTeamMemberBookingProfiles(
+        BulkRetrieveTeamMemberBookingProfilesRequest $body
+    ): ApiResponse {
+        $_reqBuilder = $this->requestBuilder(
+            RequestMethod::POST,
+            '/v2/bookings/team-member-booking-profiles/bulk-retrieve'
+        )->auth('global')->parameters(HeaderParam::init('Content-Type', 'application/json'), BodyParam::init($body));
+
+        $_resHandler = $this->responseHandler()
+            ->type(BulkRetrieveTeamMemberBookingProfilesResponse::class)
             ->returnApiResponse();
 
         return $this->execute($_reqBuilder, $_resHandler);

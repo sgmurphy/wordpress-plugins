@@ -2,27 +2,39 @@
 
 namespace PrestoPlayer\Support;
 
-
-use PrestoPlayer\Plugin;
 use PrestoPlayer\Models\Video;
 use PrestoPlayer\Models\Player;
 use PrestoPlayer\Models\Preset;
 use PrestoPlayer\Models\AudioPreset;
 use PrestoPlayer\Models\Setting;
-use PrestoPlayer\WPackio\Enqueue;
 use PrestoPlayer\Support\DynamicData;
 use PrestoPlayer\Integrations\LearnDash\LearnDash;
 
-use function cli\err;
-
+/**
+ * Base block class
+ */
 class Block
 {
-    protected $enqueue;
-    protected $assets;
-    protected $video_assets;
+    /**
+     * The block name (slug)
+     *
+     * @var string
+     */
     protected $name = '';
+
+    /**
+     * The translated block title
+     *
+     * @var string
+     */
+    protected $title = 'Video';
+
+    /**
+     * The template name
+     *
+     * @var string
+     */
     protected $template_name = 'video';
-    public $services;
 
     /**
      * Attributes
@@ -232,36 +244,39 @@ class Block
 
         // Default config
         $default_config = apply_filters(
-            'presto_player/block/default_attributes', [
-            'type' => $this->name,
-            'css' => wp_kses_post($css),
-            'class' => $class,
-            'is_hls' => $this->isHls($src),
-            'styles' => $styles,
-            'skin' => $preset->skin,
-            'playerClass' => $playerClass,
-            'id'    => $id,
-            'src'    => $src,
-            'autoplay' => !empty($attributes['autoplay']),
-            'playsInline' => !empty($attributes['playsInline']),
-            'poster' => !empty($attributes['poster']) ? $attributes['poster'] : '',
-            'branding' => $branding,
-            'youtube' => [
-                'noCookie' => (bool) Setting::get('youtube', 'nocookie'),
-                'channelId' => sanitize_text_field(Setting::get('youtube', 'channel_id')),
-                'show_count' => !empty($preset->action_bar['show_count'])
+            'presto_player/block/default_attributes',
+            [
+                'type' => $this->name,
+                'name' => $this->title,
+                'css' => wp_kses_post($css),
+                'class' => $class,
+                'is_hls' => $this->isHls($src),
+                'styles' => $styles,
+                'skin' => $preset->skin,
+                'playerClass' => $playerClass,
+                'id'    => $id,
+                'src'    => $src,
+                'autoplay' => !empty($attributes['autoplay']),
+                'playsInline' => !empty($attributes['playsInline']),
+                'poster' => !empty($attributes['poster']) ? $attributes['poster'] : '',
+                'branding' => $branding,
+                'youtube' => [
+                    'noCookie' => (bool) Setting::get('youtube', 'nocookie'),
+                    'channelId' => sanitize_text_field(Setting::get('youtube', 'channel_id')),
+                    'show_count' => !empty($preset->action_bar['show_count'])
+                ],
+                'preload' => !empty($attributes['preload']) ? $attributes['preload'] : '',
+                'tracks' => !empty($attributes['tracks']) ? (array) $attributes['tracks'] : [],
+                'preset' => $preset ? $preset->toArray() : [],
+                'chapters' => !empty($attributes['chapters']) ? $attributes['chapters'] : [],
+                'overlays' => DynamicData::replaceItems(!empty($attributes['overlays']) ? $attributes['overlays'] : [], 'text'),
+                'blockAttributes' => $attributes,
+                'provider' => $this->name,
+                'analytics' => Setting::get('analytics', 'enable', false),
+                'automations' => Setting::get('performance', 'automations', true),
+                'title' => !empty($attributes['title']) ? html_entity_decode($attributes['title']) : '',
             ],
-            'preload' => !empty($attributes['preload']) ? $attributes['preload'] : '',
-            'tracks' => !empty($attributes['tracks']) ? (array) $attributes['tracks'] : [],
-            'preset' => $preset ? $preset->toArray() : [],
-            'chapters' => !empty($attributes['chapters']) ? $attributes['chapters'] : [],
-            'overlays' => DynamicData::replaceItems(!empty($attributes['overlays']) ? $attributes['overlays'] : [], 'text'),
-            'blockAttributes' => $attributes,
-            'provider' => $this->name,
-            'analytics' => Setting::get('analytics', 'enable', false),
-            'automations' => Setting::get('performance', 'automations', true),
-            'title' => !empty($attributes['title']) ? html_entity_decode($attributes['title']) : '',
-            ], $attributes
+            $attributes
         );
 
         return wp_parse_args(
@@ -359,7 +374,9 @@ class Block
         // sanitize with sensible defaults
         $branding['color'] = !empty($branding['color']) ? sanitize_hex_color($branding['color']) : 'rgba(43,51,63,.7)';
         $branding['logo_width'] = !empty($branding['logo_width']) ? $branding['logo_width'] : 150;
-        $branding['logo'] = !empty($branding['logo']) && !$preset->hide_logo ? $branding['logo'] : '';
+        if (isset($branding['logo'])) {
+            $branding['logo'] = !empty($branding['logo'] && !$preset->hide_logo) ? $branding['logo'] : '';
+        }
 
         return $branding;
     }
@@ -416,7 +433,7 @@ class Block
     {
 
         // Set brand color.
-        $background_color = ( !empty($preset->background_color) ? sanitize_hex_color($preset->background_color) : "var(--presto-player-highlight-color, " . sanitize_hex_color($branding['color']) . ")" );
+        $background_color = (!empty($preset->background_color) ? sanitize_hex_color($preset->background_color) : "var(--presto-player-highlight-color, " . sanitize_hex_color($branding['color']) . ")");
         $styles = '--plyr-color-main: ' . $background_color . '; ';
 
         // video
@@ -510,7 +527,7 @@ class Block
         // get template data
         $data = apply_filters('presto_player_block_data', $this->getAttributes($attributes), $this);
 
-        
+
         // need and id and src
         if (empty($data['id']) && empty($data['src'])) {
             return false;
@@ -529,7 +546,7 @@ class Block
 
         $this->initComponentScript($data['id'], $data, $presto_player_instance);
         $this->iframeFallback($data);
-        
+
         // output schema markup for optimized seo
         $this->outputVideoSchemaMarkup($this->getSchema($data));
 
@@ -537,7 +554,6 @@ class Block
         ob_end_clean();
 
         return $template;
-
     }
 
     /**
@@ -586,7 +602,6 @@ class Block
             // recommended:
             'contentUrl'   => esc_url($data['src'] ?? ''),
         );
-
     }
 
     /**
@@ -603,13 +618,13 @@ class Block
             return false;
         }
 
-        ?>
+?>
         <script type="application/ld+json">
-            <?php 
-                echo wp_json_encode($data); 
+            <?php
+            echo wp_json_encode($data);
             ?>
         </script>
-        <?php
+    <?php
     }
 
     /**
@@ -621,7 +636,7 @@ class Block
         if (!$id) {
             return;
         }
-        ?>
+    ?>
         <script>
             var player = document.querySelector('presto-player#presto-player-<?php echo (int) $instance; ?>');
             player.video_id = <?php echo (int) $id; ?>;
@@ -697,7 +712,7 @@ class Block
                 <?php echo wp_oembed_get('https://vimeo.com/' . $atts['video_id']); ?>
             <?php } ?>
 
-            <?php
+<?php
             return ob_get_clean();
         }
     }

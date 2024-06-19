@@ -33,6 +33,10 @@ the request resulted in errors.
       }
     ],
     "created_at": "2019-02-28T00:39:02Z",
+    "declared_cash_tip_money": {
+      "amount": 500,
+      "currency": "USD"
+    },
     "employee_id": "ormj0jJJZ5OZIzxrZYJI",
     "end_at": "2019-01-25T13:11:00-05:00",
     "id": "K0YH4CV5462JB",
@@ -49,27 +53,28 @@ the request resulted in errors.
         "currency": "USD"
       },
       "job_id": "dZtrPh5GSDGugyXGByesVp51",
+      "tip_eligible": true,
       "title": "Bartender"
     }
   },
   "errors": [
     {
-      "category": "REFUND_ERROR",
-      "code": "MERCHANT_SUBSCRIPTION_NOT_FOUND",
-      "detail": "detail1",
-      "field": "field9"
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     },
     {
       "category": "MERCHANT_SUBSCRIPTION_ERROR",
-      "code": "BAD_REQUEST",
-      "detail": "detail2",
-      "field": "field0"
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     },
     {
-      "category": "EXTERNAL_VENDOR_ERROR",
-      "code": "MISSING_REQUIRED_PARAMETER",
-      "detail": "detail3",
-      "field": "field1"
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     }
   ]
 }

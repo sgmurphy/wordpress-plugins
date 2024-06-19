@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Responsive WordPress Slider - Soliloquy Lite
  * Plugin URI:  https://soliloquywp.com
- * Description: Soliloquy is best responsive WordPress slider plugin. This is the lite version.
+ * Description: Soliloquy is the best responsive WordPress slider plugin. This is the lite version.
  * Author:      Soliloquy Team
  * Author URI:  https://soliloquywp.com
- * Version:     2.7.5
+ * Version:     2.7.6
  * Text Domain: soliloquy
  * Domain Path: languages
  *
@@ -29,6 +29,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed
 
 /**
  * Main plugin class.
@@ -56,7 +58,7 @@ class Soliloquy_Lite {
 	 *
 	 * @var string
 	 */
-	public $version = '2.7.5';
+	public $version = '2.7.6';
 
 	/**
 	 * The name of the plugin.
@@ -68,7 +70,7 @@ class Soliloquy_Lite {
 	public $plugin_name = 'Soliloquy Lite';
 
 	/**
-	 * Unique plugin slug identifier.
+	 * Unique plugin slug identifier.z
 	 *
 	 * @since 1.0.0
 	 *
@@ -504,14 +506,14 @@ class Soliloquy_Lite {
 }
 
 register_activation_hook( __FILE__, 'soliloquy_lite_activation_hook' );
+
 /**
  * Fired when the plugin is activated.
  *
- * @since 1.0.0
- *
- * @global int $wp_version      The version of WordPress for this install.
- * @global object $wpdb         The WordPress database object.
  * @param boolean $network_wide True if WPMU superadmin uses "Network Activate" action, false otherwise.
+ * @return void
+ *
+ * @since 1.0.0
  */
 function soliloquy_lite_activation_hook( $network_wide ) {
 
@@ -569,9 +571,10 @@ if ( ! function_exists( 'soliloquy' ) ) {
 	 * @param int    $id     The ID of the slider to load.
 	 * @param string $type   The type of field to query.
 	 * @param array  $args   Associative array of args to be passed.
-	 * @param bool   $return Flag to echo or return the slider HTML.
+	 * @param bool   $html Flag to echo or return the slider HTML.
+	 * @return string|void The slider HTML or void if print.
 	 */
-	function soliloquy( $id, $type = 'id', $args = [], $return = false ) {
+	function soliloquy( $id, $type = 'id', $args = [], $html = false ) {
 
 		// If we have args, build them into a shortcode format.
 		$args_string = '';
@@ -585,7 +588,7 @@ if ( ! function_exists( 'soliloquy' ) ) {
 		$shortcode = ! empty( $args_string ) ? '[soliloquy ' . $type . '="' . $id . '"' . $args_string . ']' : '[soliloquy ' . $type . '="' . $id . '"]';
 
 		// Return or echo the shortcode output.
-		if ( $return ) {
+		if ( $html ) {
 			return do_shortcode( $shortcode );
 		} else {
 			echo do_shortcode( $shortcode );
@@ -601,17 +604,17 @@ if ( ! function_exists( 'soliloquy_slider' ) ) {
 	 * @since 1.0.0
 	 *
 	 * @param int  $id     The ID of the slider to load.
-	 * @param bool $return Flag to echo or return the slider HTML.
+	 * @param bool $html Flag to echo or return the slider HTML.
 	 */
-	function soliloquy_slider( $id, $return = false ) {
+	function soliloquy_slider( $id, $html = false ) {
 
 		// First test to see if the slider can be found by ID. If so, run that.
 		$by_id = Soliloquy_Lite::get_instance()->get_slider( $id );
 		if ( $by_id ) {
-			return soliloquy( $id, 'id', [], $return );
+			return soliloquy( $id, 'id', [], $html );
 		}
 
 		// If not by ID, it must be a slug, so return the slug.
-		return soliloquy( $id, 'slug', [], $return );
+		return soliloquy( $id, 'slug', [], $html );
 	}
 }

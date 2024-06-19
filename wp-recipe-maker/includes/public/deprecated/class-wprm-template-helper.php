@@ -70,7 +70,7 @@ class WPRM_Template_Helper {
 	 */
 	public static function ingredient_name( $ingredient, $show_link = false, $recipe = false ) {
 		$name = $ingredient['name'];
-		$show_link = WPRM_Addons::is_active( 'premium' ) ? $show_link : false;
+		$show_link = WPRM_Addons::is_active( 'premium' ) && WPRM_Settings::get( 'ingredient_links_enabled' ) ? $show_link : false;
 
 		$link = array();
 		if ( $show_link ) {

@@ -127,12 +127,19 @@ class SSA_Settings {
 				continue;
 			}
 			
+			if ( 'global' === $module_slug ) {
+				$module_settings_slug = 'settings_global';
+			} else {
+				$module_settings_slug = $module_slug.'_settings';
+			}
+			
+			if('license' === $module_slug && defined('SSA_LICENSE_KEY') && !empty(SSA_LICENSE_KEY)){
+				$settings['license']['license'] = "redacted-writeonly-secret";
+				$settings['license']['license_filtered'] = "redacted-writeonly-secret";
+				$settings['license']['license_renewal_link'] = "redacted-writeonly-secret";
+			}
+			
 			foreach ($module_settings as $field_slug => $module_setting_value) {
-				if ( 'global' === $module_slug ) {
-					$module_settings_slug = 'settings_global';
-				} else {
-					$module_settings_slug = $module_slug.'_settings';
-				}
 				$module_schema = $this->plugin->$module_settings_slug->get_schema();
 				$computed_schema = $this->plugin->$module_settings_slug->get_computed_schema();
 

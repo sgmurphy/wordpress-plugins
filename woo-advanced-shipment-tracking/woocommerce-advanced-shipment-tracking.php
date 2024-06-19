@@ -4,13 +4,13 @@
  * Plugin Name: Advanced Shipment Tracking for WooCommerce 
  * Plugin URI: https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/ 
  * Description: Add shipment tracking information to your WooCommerce orders and provide customers with an easy way to track their orders. Shipment tracking Info will appear in customers accounts (in the order panel) and in WooCommerce order complete email. 
- * Version: 3.6.6
+ * Version: 3.6.7
  * Author: zorem
  * Author URI: https://www.zorem.com 
  * License: GPL-2.0+
  * License URI: 
  * Text Domain: woo-advanced-shipment-tracking 
- * WC tested up to: 8.8.2
+ * WC tested up to: 9.0.0
  * Requires Plugins: woocommerce
 */
 
@@ -21,7 +21,7 @@ class Zorem_Woocommerce_Advanced_Shipment_Tracking {
 	 *
 	 * @var string
 	 */
-	public $version = '3.6.6';
+	public $version = '3.6.7';
 	public $plugin_file;
 	public $plugin_path;
 	public $table;
@@ -343,10 +343,6 @@ class Zorem_Woocommerce_Advanced_Shipment_Tracking {
 	 */
 	public function rest_api_register_routes() {
 		
-		if ( ! is_a( WC()->api, 'WC_API' ) ) {
-			return;
-		}
-		
 		require_once $this->get_plugin_path() . '/includes/api/class-wc-advanced-shipment-tracking-rest-api-controller.php';
 		
 		// Register route with default namespace wc/v3.
@@ -639,4 +635,22 @@ if ( ! function_exists( 'zorem_ast_tracking' ) ) {
 		return $zorem_tracking;
 	}
 	zorem_ast_tracking();
+}
+
+function get_ast_settings( $name, $key, $default_value = '' ) {
+	$data_array = get_option( $name, array() );
+	// return $data_array[$key] ?? $default_value;
+	return isset($data_array[$key]) ? $data_array[$key] : $default_value;
+}
+
+function update_ast_settings( $name, $key, $value ) {
+	$data_array = get_option( $name, array() );
+	$data_array[ $key ] = $value;
+	update_option( $name, $data_array );
+}
+
+function delete_ast_settings( $name, $key ) {
+	$data_array = get_option( $name, array() );
+	unset($data_array[$key]);
+	update_option( $name, $data_array );
 }

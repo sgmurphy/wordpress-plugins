@@ -260,6 +260,10 @@
                 return false;
             }
 
+            // Enable the Show/Hide toggle
+            myOptions.quiz_bg_img_during_the_quiz = (myOptions.quiz_bg_img_during_the_quiz) ? myOptions.quiz_bg_img_during_the_quiz : 'off';
+            var quiz_bg_img_during_the_quiz =(myOptions.quiz_bg_img_during_the_quiz && myOptions.quiz_bg_img_during_the_quiz == 'on') ? true : false;
+
             ays_quiz_container_id = $(this).parents(".ays-quiz-container").attr("id");
             ays_quiz_container = $('#'+ays_quiz_container_id);
             aysResetQuiz( ays_quiz_container );
@@ -323,6 +327,12 @@
 
             if ( ays_quiz_container.hasClass('ays_quiz_hide_bg_on_start_page') ) {
                 ays_quiz_container.removeClass('ays_quiz_hide_bg_on_start_page');
+            }
+
+            if( quiz_bg_img_during_the_quiz ){
+                if ( !ays_quiz_container.hasClass('ays_quiz_hide_bg_during_quiz') ) {
+                    ays_quiz_container.addClass('ays_quiz_hide_bg_during_quiz');
+                }
             }
         });
 

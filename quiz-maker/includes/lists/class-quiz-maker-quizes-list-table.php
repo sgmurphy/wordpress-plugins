@@ -912,6 +912,9 @@ class Quizes_List_Table extends WP_List_Table{
 
             // Note letter spacing
             $quiz_admin_note_letter_spacing = (isset($_REQUEST['ays_quiz_admin_note_letter_spacing']) && $_REQUEST['ays_quiz_admin_note_letter_spacing'] != '') ? stripslashes( absint( $_REQUEST['ays_quiz_admin_note_letter_spacing'] ) ) : 0;
+
+            // Hide background image during the quiz
+            $quiz_bg_img_during_the_quiz = (isset($_REQUEST['ays_quiz_bg_img_during_the_quiz']) && sanitize_text_field( $_REQUEST['ays_quiz_bg_img_during_the_quiz'] ) == 'on') ? 'on' : 'off';
             
 
             $options = array(
@@ -1147,6 +1150,7 @@ class Quizes_List_Table extends WP_List_Table{
                 'quiz_right_answers_text_decoration'                => $quiz_right_answers_text_decoration,
                 'quiz_wrong_answers_text_decoration'                => $quiz_wrong_answers_text_decoration,
                 'quiz_admin_note_letter_spacing'                    => $quiz_admin_note_letter_spacing,
+                'quiz_bg_img_during_the_quiz'                       => $quiz_bg_img_during_the_quiz,
             );
 
             $options['required_fields'] = !isset($_POST['ays_required_field']) ? null : array_map( 'sanitize_text_field', $_POST['ays_required_field'] );

@@ -36,7 +36,7 @@ class ReusableVideos
             <p><?php _e('The media hub is a more flexible way to add media to your site. It allows you to save audio and videos which you can later use in any post or page on your site - either through the Block Editor, a page builder, or by using a shortcode or php function.', 'presto-player'); ?></p>
             <p><a href="<?php echo esc_url(add_query_arg(array('presto_action' => 'dismiss_notices', 'presto_notice' => $notice_name))); ?>"><?php _e('Dismiss Notice', 'presto-player'); ?></a></p>
         </div>
-<?php
+        <?php
     }
 
     public function dismissNotice()
@@ -78,19 +78,19 @@ class ReusableVideos
     {
         $blocks = parse_blocks(self::get($id));
         $out = '';
-        if(is_feed()) {
-            foreach ($blocks as $block) {                
-                foreach ($block['innerBlocks'] as $innerblock) {                    
-                    $out .= self::getFeedHtml( $innerblock );
-                }               
-            }   
-            return $out;         
+        if (is_feed()) {
+            foreach ($blocks as $block) {
+                foreach ($block['innerBlocks'] as $innerblock) {
+                    $out .= self::getFeedHtml($innerblock);
+                }
+            }
+            return $out;
         }
 
         foreach ($blocks as $block) {
             $out .= render_block($block);
         }
-       
+
         return $out;
     }
 
@@ -109,37 +109,35 @@ class ReusableVideos
      * 
      * @param array $block array of block attributes.
      */
-    public static function getFeedHtml( $block ) {
-        
+    public static function getFeedHtml($block)
+    {
+
         $html = '';
-        if( $block['blockName']  === 'presto-player/vimeo') {
+        if ($block['blockName']  === 'presto-player/vimeo') {
             ob_start();
-            ?>
-            <div class="presto-iframe-fallback-container" >
-                <iframe style="width: 100%" class="presto-fallback-iframe" id="presto-iframe-fallback-<?php echo (int) $block['attrs']['id']; ?>" src="<?php echo esc_attr($block['attrs']['src']); ?>" ></iframe>
-            </div>
-            <?php
-            $html = ob_get_clean();
-        }
-        elseif( $block['blockName']  === 'presto-player/youtube') {
-            ob_start();
-            ?>
-            <div class="presto-iframe-fallback-container" >
+        ?>
+            <div class="presto-iframe-fallback-container">
                 <iframe style="width: 100%" class="presto-fallback-iframe" id="presto-iframe-fallback-<?php echo (int) $block['attrs']['id']; ?>" src="<?php echo esc_attr($block['attrs']['src']); ?>"></iframe>
             </div>
-            <?php
+        <?php
             $html = ob_get_clean();
-        } 
-        else {
+        } elseif ($block['blockName']  === 'presto-player/youtube') {
             ob_start();
-            ?>
-            <video controls preload="none" >
-              <source src="<?php echo esc_attr( $block['attrs']['src'] ); ?>" />
+        ?>
+            <div class="presto-iframe-fallback-container">
+                <iframe style="width: 100%" class="presto-fallback-iframe" id="presto-iframe-fallback-<?php echo (int) $block['attrs']['id']; ?>" src="<?php echo esc_attr($block['attrs']['src']); ?>"></iframe>
+            </div>
+        <?php
+            $html = ob_get_clean();
+        } else {
+            ob_start();
+        ?>
+            <video controls preload="none">
+                <source src="<?php echo esc_attr($block['attrs']['src']); ?>" />
             </video>
-            <?php
+<?php
             $html = ob_get_clean();
         }
         return $html;
-
     }
 }

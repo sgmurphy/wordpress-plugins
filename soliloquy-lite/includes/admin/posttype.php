@@ -246,8 +246,7 @@ class Soliloquy_Lite_Posttype_Admin {
 							break;
 					}
 					/* translators: %s: image count*/
-					echo esc_html( printf( _n( '%d Image', '%d Slides', count( $slider_data['slider'] ), 'soliloquy' ), count( $slider_data['slider'] ) ) );
-				}
+					printf( esc_html( _n( '%d Image', '%d Slides', count( $slider_data['slider'] ), 'soliloquy' ) ), esc_html( count( $slider_data['slider'] ) ) );             }
 				break;
 
 			/**
@@ -280,7 +279,7 @@ class Soliloquy_Lite_Posttype_Admin {
 				$slider_data = get_post_meta( $post_id, '_sol_slider_data', true );
 				if ( ! empty( $slider_data['slider'] ) && is_array( $slider_data['slider'] ) ) {
 					/* translators: %s: image count*/
-					echo esc_attr( printf( _n( '%d Slide', '%d Slides', intval( count( $slider_data['slider'] ) ) ), 'soliloquy' ), intval( count( $slider_data['slider'] ) ) );
+					printf( esc_html( _n( '%d Slide', '%d Slides', intval( count( $slider_data['slider'] ) ), 'soliloquy' ) ), intval( count( $slider_data['slider'] ) ) );
 				}
 				$posts = get_post_meta( $post_id, '_eg_in_posts', true );
 				if ( is_array( $posts ) ) {
@@ -478,7 +477,7 @@ class Soliloquy_Lite_Posttype_Admin {
 		}
 
 		// Check Post IDs have been submitted.
-		$post_ids = ( ! empty( $_REQUEST['post'] ) ) ? wp_unslash( $_REQUEST['post'] ) : [];
+		$post_ids = ( ! empty( $_REQUEST['post'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['post'] ) ) : [];
 		if ( empty( $post_ids ) || ! is_array( $post_ids ) ) {
 			return;
 		}

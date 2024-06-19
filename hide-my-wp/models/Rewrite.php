@@ -1486,6 +1486,13 @@ class HMWP_Models_Rewrite
             remove_all_actions('login_redirect');
             remove_all_actions('bbp_redirect_login');
 
+            add_action('login_header', function(){
+                global $error;
+                if ( ! empty( $error ) ) {
+                    unset($error);
+                }
+            });
+
             add_filter('login_headerurl', array($this, 'login_url'));
             add_filter('login_redirect', array($this, 'sanitize_login_redirect'), 1, 3);
         }

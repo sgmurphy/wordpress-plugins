@@ -5,7 +5,7 @@ Tags: recipe, recipes, food, cooking, schema
 Requires at least: 4.4
 Tested up to: 6.5
 Requires PHP: 5.4
-Stable tag: 9.5.0
+Stable tag: 9.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -137,6 +137,9 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 6. Fully compatible with the Classic Editor.
 
 == Changelog ==
+= 9.5.1 =
+* Fix: Interpretation of thousands separator when using decimal comma
+
 = 9.5.0 =
 * Feature: Shoppable Recipes with Chicory
 * Feature: Use image from Hubbub Pro for Pin Recipe button
@@ -266,6 +269,9 @@ Yes! We pride ourselves on offering awesome support and almost always answer sup
 For earlier versions, please refer to [our full changelog](https://help.bootstrapped.ventures/article/124-wp-recipe-maker-changelog).
 
 == Upgrade notice ==
+= 9.5.1 =
+Fixes a few small issues
+
 = 9.5.0 =
 Some great new features and improvements
 

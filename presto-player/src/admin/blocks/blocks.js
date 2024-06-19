@@ -133,6 +133,17 @@ wp.data.subscribe(function () {
   var isSavingPost = wp.data.select("core/editor").isSavingPost();
   var isAutosavingPost = wp.data.select("core/editor").isAutosavingPost();
 
+  const settings = wp.data.select("core/editor").getEditorSettings();
+
+  if (
+    !!settings?.onNavigateToPreviousEntityRecord &&
+    wp.data.select("core/editor").getCurrentPostType() === "pp_video_block"
+  ) {
+    document.body.classList.add("is-editing-pp-video-block");
+  } else {
+    document.body.classList.remove("is-editing-pp-video-block");
+  }
+
   if (isSavingPost && !isAutosavingPost) {
     if (saving) {
       return;

@@ -830,7 +830,7 @@ if ( !class_exists( 'MediaSync' ) ) :
                     set_time_limit($max_execution_time);
                 }
 
-                $attach_id = wp_insert_attachment($attachment, $absolute_path);
+                $attach_id = wp_insert_attachment($attachment, $absolute_path, 0, true);
             } catch (Exception $e) {
                 return array(
                     'errorMessage' => sprintf(__('Error inserting attachment (`wp_posts` table) for file: %s.', 'media-sync'), $absolute_path),

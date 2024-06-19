@@ -8,7 +8,7 @@
  */
 
 $base         = Soliloquy_Lite::get_instance();
-$upgrade_link = Soliloquy_Common_Admin_Lite::get_instance()->get_upgrade_link( 'https://soliloquywp.com/pricing', 'topbar', 'goPro' );
+$upgrade_link = Soliloquy_Common_Admin_Lite::get_instance()->get_upgrade_link( 'https://soliloquywp.com/lite', 'topbar', 'goPro' );
 // Load the base class object.
 $notifications_count = $base->notifications->get_count();
 $dismissed_count     = $base->notifications->get_dismissed_count();

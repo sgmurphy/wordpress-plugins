@@ -10,6 +10,47 @@
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                 <div class="card">
+                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-user-dashboard.png" alt="<?php echo esc_attr( __("User Dashboard Addon", $this->plugin_name) ); ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/49dKgAb" style="color: #000"><?php echo esc_attr( __("User Dashboard Addon", $this->plugin_name) ); ?></a></h5>
+                        <p class="card-text"><?php echo esc_attr( __("Use these amazing shortcodes for the Quiz Maker plugin and make your quizzes much more useful!", $this->plugin_name) ); ?></p>
+                        <div>
+                            <a target="_blank" href="https://www.youtube.com/watch?v=OmTRmbygnhc" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>
+                            <a target="_blank" href="https://bit.ly/49dKgAb" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- User Dashboard Addon -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-extra-shortcodes.png" alt="><?php echo esc_attr( __("Extra Shortcodes Addon", $this->plugin_name) ); ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/4axSbcF" style="color: #000"><?php echo esc_attr( __("Extra Shortcodes Addon", $this->plugin_name) ); ?></a></h5>
+                        <p class="card-text"><?php echo esc_attr( __("Amazing shortcodes for your Quiz Maker plugin. Allow your user to see their progress on the front page through statistics and charts.", $this->plugin_name) ); ?></p>
+                        <!-- <a target="_blank" href="https://wordpress.org/plugins/poll-maker/" class="btn btn-info">WP.org</a> -->
+                        <div>
+                            <a target="_blank" href="https://www.youtube.com/watch?v=H7jMnyJ_7vM" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>
+                            <a target="_blank" href="https://bit.ly/4axSbcF" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Extra Shortcodes Addon -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="card">
+                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-quiz-popup.png" alt="><?php echo esc_attr( __("Popup Quiz Addon", $this->plugin_name) ); ?>">
+                    <div class="card-body">
+                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/43P9zHP" style="color: #000"><?php echo esc_attr( __("Popup Quiz Addon", $this->plugin_name) ); ?></a></h5>
+                        <p class="card-text"><?php echo esc_attr( __("Add popup quizzes you made with Quiz Maker plugin to your website. Generate leads and engage your visitors with this simple tool.", $this->plugin_name) ); ?></p>
+                        <!-- <a target="_blank" href="https://wordpress.org/plugins/poll-maker/" class="btn btn-info">WP.org</a> -->
+                        <div>
+                            <a target="_blank" href="https://www.youtube.com/watch?v=YfdoMTiS2Eo" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>   
+                            <a target="_blank" href="https://bit.ly/43P9zHP" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Popup Quiz Addon -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                <div class="card">
                     <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/advanced-display-quizzes-logo.png" alt="<?php echo esc_attr( __("Advanced Display Quizzes Addon", $this->plugin_name) ); ?>" style="width: 120px;">
                     <div class="card-body">
                         <h5 class="card-title"><a target="_blank" href="https://bit.ly/49hly1z" style="color: #000"><?php echo esc_attr( __("Advanced Display Quizzes Addon", $this->plugin_name) ); ?></a></h5>
@@ -75,19 +116,6 @@
             </div> <!-- Frontend statistics Addon -->
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                 <div class="card">
-                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-user-dashboard.png" alt="<?php echo esc_attr( __("User Dashboard Addon", $this->plugin_name) ); ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/49dKgAb" style="color: #000"><?php echo esc_attr( __("User Dashboard Addon", $this->plugin_name) ); ?></a></h5>
-                        <p class="card-text"><?php echo esc_attr( __("Use these amazing shortcodes for the Quiz Maker plugin and make your quizzes much more useful!", $this->plugin_name) ); ?></p>
-                        <div>
-                            <a target="_blank" href="https://www.youtube.com/watch?v=OmTRmbygnhc" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>
-                            <a target="_blank" href="https://bit.ly/49dKgAb" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- User Dashboard Addon -->
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
                     <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-track-users.png" alt="<?php echo esc_attr( __("Track Users Addon", $this->plugin_name) ); ?>">
                     <div class="card-body">
                         <h5 class="card-title"><a target="_blank" href="https://bit.ly/3x7HTBE" style="color: #000"><?php echo esc_attr( __("Track Users Addon", $this->plugin_name) ); ?></a></h5>
@@ -99,34 +127,6 @@
                     </div>
                 </div>
             </div> <!-- Track Users Addon -->
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-quiz-popup.png" alt="><?php echo esc_attr( __("Popup Quiz Addon", $this->plugin_name) ); ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/43P9zHP" style="color: #000"><?php echo esc_attr( __("Popup Quiz Addon", $this->plugin_name) ); ?></a></h5>
-                        <p class="card-text"><?php echo esc_attr( __("Add popup quizzes you made with Quiz Maker plugin to your website. Generate leads and engage your visitors with this simple tool.", $this->plugin_name) ); ?></p>
-                        <!-- <a target="_blank" href="https://wordpress.org/plugins/poll-maker/" class="btn btn-info">WP.org</a> -->
-                        <div>
-                            <a target="_blank" href="https://www.youtube.com/watch?v=YfdoMTiS2Eo" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>   
-                            <a target="_blank" href="https://bit.ly/43P9zHP" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- Popup Quiz Addon -->
-            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                <div class="card">
-                    <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-extra-shortcodes.png" alt="><?php echo esc_attr( __("Extra Shortcodes Addon", $this->plugin_name) ); ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><a target="_blank" href="https://bit.ly/4axSbcF" style="color: #000"><?php echo esc_attr( __("Extra Shortcodes Addon", $this->plugin_name) ); ?></a></h5>
-                        <p class="card-text"><?php echo esc_attr( __("Amazing shortcodes for your Quiz Maker plugin. Allow your user to see their progress on the front page through statistics and charts.", $this->plugin_name) ); ?></p>
-                        <!-- <a target="_blank" href="https://wordpress.org/plugins/poll-maker/" class="btn btn-info">WP.org</a> -->
-                        <div>
-                            <a target="_blank" href="https://www.youtube.com/watch?v=H7jMnyJ_7vM" class="btn button ays-quiz-addon-menu-watch-video-button"><?php echo esc_attr( __("Watch video", $this->plugin_name) ); ?></a>
-                            <a target="_blank" href="https://bit.ly/4axSbcF" class="btn btn-primary"><?php echo esc_attr( __("See Pricing", $this->plugin_name) ); ?></a>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- Extra Shortcodes Addon -->
             <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                 <div class="card">
                     <img class="card-img-top" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/icons/addon-gamipress.png" alt="<?php echo esc_attr( __("GamiPress integration Addon", $this->plugin_name) ); ?>">

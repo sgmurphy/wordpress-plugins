@@ -14,6 +14,7 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Background;
+use Elementor\Group_Control_Box_Shadow;
 use TheplusAddons\L_Theplus_Element_Load;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -132,7 +133,7 @@ class L_ThePlus_Accordion extends Widget_Base {
 				'default' => 'content',
 				'options' => array(
 					'content'       => esc_html__( 'Content', 'tpebl' ),
-					'page_template' => esc_html__( 'Page Template (Pro)', 'tpebl' ),
+					'page_template' => esc_html__( 'Page Template', 'tpebl' ),
 				),
 			)
 		);
@@ -152,19 +153,28 @@ class L_ThePlus_Accordion extends Widget_Base {
 			)
 		);
 		$repeater->add_control(
-			'tab_content_options',
+			'content_template',
 			array(
-				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '',
-				'description' => theplus_pro_ver_notice(),
-				'classes'     => 'plus-pro-version',
-				'condition'   => array(
-					'content_source' => array( 'page_template' ),
-				),
+				'label'       => esc_html__( 'Elementor Templates', 'tpebl' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => '0',
+				'options'     => L_theplus_get_templates(),
+				'label_block' => 'true',
+				'condition'   => array( 'content_source' => 'page_template' ),
 			)
 		);
-
+		$repeater->add_control(
+			'backend_preview_template',
+			array(
+				'label'       => esc_html__( 'Backend Visibility', 'tpebl' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'default'     => 'no',
+				'label_on'    => esc_html__( 'Show', 'tpebl' ),
+				'label_off'   => esc_html__( 'Hide', 'tpebl' ),
+				'description' => esc_html__( 'Note : If disabled, Template will not visible/load in the backend for better page loading performance.', 'tpebl' ),
+				'separator'   => 'after',
+			)
+		);
 		$repeater->add_control(
 			'display_icon',
 			array(
@@ -297,7 +307,7 @@ class L_ThePlus_Accordion extends Widget_Base {
 			)
 		);
 		$this->add_control(
-			'icon_fontawesome_active_5',
+			'icon_fontawesome_5_active',
 			array(
 				'label'     => esc_html__( 'Icon Library', 'tpebl' ),
 				'type'      => Controls_Manager::ICONS,
@@ -810,6 +820,101 @@ class L_ThePlus_Accordion extends Widget_Base {
 			)
 		);
 		$this->add_responsive_control(
+			'title_accordion_padding',
+			array(
+				'label'      => esc_html__( 'Inner Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-header' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_control(
+			'title_border_options',
+			array(
+				'label'     => esc_html__( 'Border Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'title_box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
+				'default'   => 'no',
+			)
+		);
+
+		$this->add_control(
+			'title_border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-header' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'title_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'title_box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-header' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'title_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'title_box_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-header' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'title_box_border' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'title_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-header' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'title_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
 			'accordion_space',
 			array(
 				'label'      => esc_html__( 'Accordion Between Space', 'tpebl' ),
@@ -936,8 +1041,8 @@ class L_ThePlus_Accordion extends Widget_Base {
 			array(
 				'label'     => esc_html__( 'Box Border', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'no',
 			)
 		);
@@ -1022,6 +1127,23 @@ class L_ThePlus_Accordion extends Widget_Base {
 				'selector' => '{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content',
 			)
 		);
+		$this->add_control(
+			'content_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'content_box_shadow',
+				'selector' => '{{WRAPPER}} .theplus-accordion-wrapper .theplus-accordion-item .plus-accordion-content',
+			)
+		);
+		$this->end_controls_tab();
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -1311,7 +1433,7 @@ class L_ThePlus_Accordion extends Widget_Base {
 								$icons = ! empty( $settings['icon_fontawesome'] ) ? $settings['icon_fontawesome'] : '';
 							} elseif ( 'font_awesome_5' === $icon_style ) {
 								$fontawesome_5 = ! empty( $settings['icon_fontawesome_5'] ) ? $settings['icon_fontawesome_5'] : 'fas fa-plus';
-								$active_font_5 = ! empty( $settings['icon_fontawesome_active_5'] ) ? $settings['icon_fontawesome_active_5'] : 'fas fa-plus';
+								$active_font_5 = ! empty( $settings['icon_fontawesome_5_active'] ) ? $settings['icon_fontawesome_5_active'] : 'fas fa-plus';
 
 								ob_start();
 								\Elementor\Icons_Manager::render_icon( $fontawesome_5, array( 'aria-hidden' => 'true' ) );
@@ -1354,12 +1476,32 @@ class L_ThePlus_Accordion extends Widget_Base {
 						
 					</<?php echo l_theplus_validate_html_tag( $title_tag ); ?>>  
 
-					<?php if ( 'content' === $content_source && ! empty( $tab_content ) ) { ?>
+					<?php if ( 'content' === $content_source && ! empty( $tab_content ) || ( 'page_template' === $item['content_source'] && ! empty( $item['content_template'] ) ) ) { ?>
 						<div <?php echo $this->get_render_attribute_string( $tab_content_setting_key ); ?>>
 							<?php
 
 							if ( 'content' === $content_source && ! empty( $tab_content ) ) {
 								echo '<div class="plus-content-editor">' . $this->parse_text_editor( $tab_content ) . '</div>';
+							}
+
+							if ( \Elementor\Plugin::$instance->editor->is_edit_mode() && 'page_template' === $item['content_source'] && ! empty( $item['content_template'] ) ) {
+								if ( ! empty( $item['backend_preview_template'] ) && 'yes' === $item['backend_preview_template'] ) {
+									echo '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $item['content_template'] ) . '</div>';
+								} else {
+									$get_template_name = '';
+									$get_template_id   = $item['content_template'];
+									if ( ! empty( $templates ) && ! empty( $get_template_id ) ) {
+										foreach ( $templates as $value ) {
+											if ( $value['template_id'] == $get_template_id ) {
+												$get_template_name = $value['title'];
+											}
+										}
+									}
+
+									echo '<div class="tab-preview-template-notice"><div class="preview-temp-notice-heading">Selected Template : <b>"' . esc_attr( $get_template_name ) . '"</b></div><div class="preview-temp-notice-desc"><b>' . esc_html__( 'Note :', 'tpebl' ) . '</b> ' . esc_html__( 'We have turn off visibility of template in the backend due to performance improvements. This will be visible perfectly on the frontend.', 'tpebl' ) . '</div></div>';
+								}
+							} elseif ( 'page_template' === $item['content_source'] && ! empty( $item['content_template'] ) ) {
+								echo '<div class="plus-content-editor">' . L_Theplus_Element_Load::elementor()->frontend->get_builder_content_for_display( $item['content_template'] ) . '</div>';
 							}
 
 							?>

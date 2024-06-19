@@ -9,24 +9,47 @@ use PrestoPlayer\Blocks\SelfHostedBlock;
 use PrestoPlayer\Pro\Blocks\BunnyCDNBlock;
 use WP_Query;
 
+/**
+ * Reusable Video Model
+ */
 class ReusableVideo
 {
+    /**
+     * The post object
+     *
+     * @var \WP_Post
+     */
     public $post;
+
+    /**
+     * The post type
+     *
+     * @var string
+     */
     private $post_type = 'pp_video_block';
 
+    /**
+     * The setting name for instant video width option.
+     *
+     * @var string
+     */
+    public $instant_video_width_setting_key = 'presto_player_instant_video_width';
+
+    /**
+     * Constructor
+     *
+     * @param int $id The post ID.
+     */
     public function __construct($id = 0)
     {
-        if (!empty($id)) {
-            $this->post = \get_post($id);
-            return $this;
-        }
+        $this->post = \get_post($id);
         return $this;
     }
 
     /**
      * Get attributes properties
      *
-     * @param string $property
+     * @param string $property The property to get.
      * @return mixed
      */
     public function __get($property)
@@ -34,6 +57,13 @@ class ReusableVideo
         return isset($this->post->$property) ? $this->post->$property : null;
     }
 
+    /**
+     * Create a new video post
+     *
+     * @param array $args Arguments to pass to the wp_insert_post function.
+     * 
+     * @return int
+     */
     public function create($args = [])
     {
         return wp_insert_post(wp_parse_args($args, [
@@ -41,16 +71,30 @@ class ReusableVideo
         ]));
     }
 
+    /**
+     * Fetch video posts
+     *
+     * @param array $args Arguments to pass to the WP_Query.
+     * 
+     * @return \WP_Post[]
+     */
     public function fetch($args = [])
     {
         $args = wp_parse_args($args, [
             'post_type' => $this->post_type,
-            'post_status' => array( 'publish' )
+            'post_status' => array('publish')
         ]);
 
         return (new WP_Query($args))->posts;
     }
 
+    /**
+     * Get all video posts
+     *
+     * @param array $args Arguments to pass to the fetch method.
+     * 
+     * @return \WP_Post[]
+     */
     public function all($args = [])
     {
         $args = wp_parse_args($args, [
@@ -61,6 +105,13 @@ class ReusableVideo
         return get_posts($args);
     }
 
+    /**
+     * Get the first video post
+     *
+     * @param array $args Arguments to pass to the fetch method.
+     * 
+     * @return ReusableVideo|bool
+     */
     public function first($args = [])
     {
         $fetched = $this->fetch(wp_parse_args($args, ['per_page' => 1]));
@@ -79,9 +130,20 @@ class ReusableVideo
         }
         $blocks = \parse_blocks($this->post->post_content);
 
+        if (empty($blocks[0]['innerBlocks'])) {
+            return $blocks[0];
+        }
+
         return !empty($blocks[0]['innerBlocks'][0]) ? $blocks[0]['innerBlocks'][0] : [];
     }
 
+    /**
+     * Get attributes from the block
+     *
+     * @param array $overrides Attributes to override.
+     * 
+     * @return array
+     */
     public function getAttributes($overrides = [])
     {
         $block = $this->getBlock();
@@ -115,9 +177,17 @@ class ReusableVideo
         }
     }
 
+    /**
+     * Render block from video post
+     *
+     * @param array $overrides Attributes to override.
+     * 
+     * @return string
+     */
     public function renderBlock($overrides = [])
     {
         $block = $this->getBlock();
+
         if (empty($block)) {
             return '';
         }
@@ -146,7 +216,7 @@ class ReusableVideo
                 return (new VimeoBlock(true, '1'))->html($block['attrs'], '');
 
             case 'presto-player/bunny':
-                return (new BunnyCDNBlock(true, '1'))->html($block['attrs'], '');
+                return class_exists(BunnyCDNBlock::class) ? (new BunnyCDNBlock(true, '1'))->html($block['attrs'], '') : '';
 
             case 'presto-player/audio':
                 return (new AudioBlock(true, '1'))->html($block['attrs'], '');
@@ -155,6 +225,8 @@ class ReusableVideo
 
     /**
      * Maybe switch provider if the url is overridden
+     * 
+     * @param array $block The block to check.
      */
     protected function maybeSwitchProvider($block)
     {
@@ -198,11 +270,55 @@ class ReusableVideo
     /**
      * Get reusable video block function.
      * 
-     * @param mixed $id The ID of the reusable block.
      * @return $content The content of the block.
      */
     public function content()
     {
         return !empty($this->post->post_content) ? $this->post->post_content : '';
+    }
+
+    /**
+     * Retrieves the poster image URL from the first 
+     * 'presto-player/reusable-edit' block in the post content.
+     *
+     * @return string|bool The poster image URL or false if not set.
+     */
+    public function getPosterFromBlock()
+    {
+        $block = $this->getBlock();
+
+        if (empty($block)) {
+            return false;
+        }
+
+        // Attempt to extract the poster attribute from the first inner block.
+        return $block['attrs']['poster'] ?? '';
+    }
+
+    /**
+     * Check if instant video page is enabled
+     * 
+     * @return bool
+     */
+    public function instantVideoPageEnabled()
+    {
+        if (empty($this->post->ID)) {
+            return false;
+        }
+        return get_post_meta($this->post->ID, 'presto_player_instant_video_pages_enabled', true);
+    }
+
+    /**
+     * Get instant video width.
+     * 
+     * @return string|bool The video width + unit.
+     */
+    public function getInstantVideoWidth()
+    {
+        if (empty($this->post->ID)) {
+            return false;
+        }
+        $config = get_option($this->instant_video_width_setting_key, "800px");
+        return !empty($config) ? $config : "800px";
     }
 }

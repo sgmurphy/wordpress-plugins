@@ -13,6 +13,8 @@ export const name = "presto-player/self-hosted";
 export const options = {
   ...blockOptions,
 
+  usesContext: ["presto-player/playlist-media-id"],
+
   title: __("Presto Video", "presto-player"),
 
   description: __("Presto Self-hosted video block.", "presto-player"),

@@ -89,8 +89,13 @@ if( ! empty( $_GET['label'] ) ) {
 }
 
 if ( ! empty( $_GET['types'] ) ) {
-  $restricted_types = esc_attr( $_GET['types'] );
-  $restricted_types = explode( ',', $restricted_types );
+  $params_types = esc_attr( $_GET['types'] );
+} else if ( ! empty( $params['types'] ) ) {
+  $params_types = $params['types'];
+}
+
+if ( ! empty( $params_types ) ) {
+  $restricted_types = explode( ',', $params_types );
   $ssa_appointment_types = array_filter( $ssa_appointment_types, function( $appointment_type ) use ( $restricted_types ) {
     if ( empty( $appointment_type['id'] ) || empty( $appointment_type['slug'] ) ) {
       return false;
@@ -108,6 +113,9 @@ if ( ! empty( $_GET['types'] ) ) {
   });
   $ssa_appointment_types = array_values( $ssa_appointment_types );
 }
+
+$ssa_appointment_types = apply_filters( 'ssa_booking_appointment_types', $ssa_appointment_types );
+
 
 // Setup booking URL parameters for global variable
 $ssa_booking_url_settings = array(

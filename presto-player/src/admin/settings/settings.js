@@ -30,6 +30,7 @@ export function filterSettings(settings) {
     "presto_player_activecampaign",
     "presto_player_fluentcrm",
     "presto_player_audio_presets",
+    "presto_player_instant_video_width"
   ];
 
   let settingsToSet = {};

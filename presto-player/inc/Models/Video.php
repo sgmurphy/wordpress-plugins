@@ -91,35 +91,45 @@ class Video extends Model
         return $this;
     }
 
+    /**
+     * Get the videos embedded title from noembed.com
+     * 
+     * @return int Post ID
+     */
+    public function getEmbeddedTitle($src = '')
+    {
+        if (empty($src)) {
+            return '';
+        }
+        $response = wp_remote_get('https://noembed.com/embed?dataType=json&url=' . urlencode($src));
+        if (is_wp_error($response)) {
+            return $response;
+        }
+        $body = wp_remote_retrieve_body($response);
+        $api_response = json_decode($body, true);
+        return $api_response['title'] ?? '';
+    }
+
+    /**
+     * Maybe auto-create title if not set
+     *
+     * @param  array $args
+     * @return array
+     */
     public function maybeAutoCreateTitle($args)
     {
         // remotely get the title if not provided
-        if (empty($args['title'])) {
-            // youtube
-            if ($args['type'] === 'youtube') {
-                $youtube = new YoutubeBlockService();
-                if (isset($args['external_id'])) {
-                    $api_response = $youtube->getRemoteVideoData($args['external_id']);
-                    if (!empty($api_response['title'])) {
-                        $args['title'] = $api_response['title'];
-                    }
-                }
-            }
-            // vimeo
-            if ($args['type'] === 'vimeo') {
-                $vimeo = new VimeoBlockService();
-                if (isset($args['external_id'])) {
-                    $api_response = $vimeo->getRemoteVideoData($args['external_id']);
-                    if (!empty($api_response['title'])) {
-                        $args['title'] = $api_response['title'];
-                    }
-                }
+        if (empty($args['title']) && in_array($args['type'], ['youtube', 'vimeo'])) {
+            $title = $this->getEmbeddedTitle($args['src']);
+            if (!is_wp_error($title) && !empty($title)) {
+                $args['title'] = $title;
             }
         }
 
         // fallback to url
         $args['title'] = empty($args['title']) ? $args['src'] : $args['title'];
 
+        // return args.
         return $args;
     }
 
@@ -153,8 +163,8 @@ class Video extends Model
         if (!empty($args['attachment_id']) && !empty($args['title'])) {
             wp_update_post(
                 [
-                'ID' => $args['attachment_id'],
-                'post_title' => $args['title']
+                    'ID' => $args['attachment_id'],
+                    'post_title' => $args['title']
                 ]
             );
         }
@@ -164,10 +174,50 @@ class Video extends Model
     /**
      * Get the video's created at date.
      * 
-     * @return int Attachment ID
+     * @return string Created At date
      */
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    /**
+     * Get the video title.
+     * 
+     * @return string Title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get the attachment id.
+     * 
+     * @return int Attachment ID
+     */
+    public function getAttachmentID()
+    {
+        return $this->attachment_id;
+    }
+
+    /**
+     * Get the attachment post title.
+     * 
+     * @param int $attachment_id Attachment ID
+     * 
+     * @return string|false Title or false if not found
+     */
+    public function getAttachmentPostTitle($attachment_id = null)
+    {
+        if (empty($attachment_id)) {
+            return false;
+        }
+        $attachment = get_post($attachment_id);
+        $attachment_title = $attachment->post_title;
+        if (!empty($attachment_title)) {
+            return $attachment_title;
+        }
+        return false;
     }
 }

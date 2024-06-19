@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Contact Form 7 Captcha
-Description: Add reCAPTCHA or hCAPTCHA to Contact Form 7 using [cf7sr-recaptcha] or [cf7sr-hcaptcha] shortcode
-Version: 0.1.4
+Description: Add reCAPTCHA V2, hCAPTCHA or Cloudflare Turnstile CAPTCHA to Contact Form 7 using [cf7sr-recaptcha], [cf7sr-hcaptcha] or [cf7sr-turnstile] shortcode
+Version: 0.1.5
 Author: 247wd
 Text Domain: cf7sr-free
 Domain Path: /languages
@@ -22,6 +22,7 @@ define( 'CF7SR_PLUGIN_URL', untrailingslashit( plugin_dir_url( CF7SR_PLUGIN ) ) 
 require_once CF7SR_PLUGIN_DIR . '/includes/languages.php';
 require_once CF7SR_PLUGIN_DIR . '/includes/recaptcha.php';
 require_once CF7SR_PLUGIN_DIR . '/includes/hcaptcha.php';
+require_once CF7SR_PLUGIN_DIR . '/includes/turnstile.php';
 
 function cf7sr_load_admin_css() {
     $page = ! empty( $_GET['page'] ) ? $_GET['page'] : '';
@@ -34,30 +35,31 @@ add_action( 'admin_enqueue_scripts', 'cf7sr_load_admin_css' );
 
 function cf7sr_load_textdomain() {
     load_plugin_textdomain( 'cf7sr-free', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-    if ( isset( $_GET['cf7sr-notice-hcaptcha'] ) ) {
-        update_option( 'cf7sr_notice_hcaptcha', 1 );
+    if ( isset( $_GET['cf7sr-notice-015'] ) ) {
+        update_option( 'cf7sr_notice_015', 1 );
     }
 }
 add_action( 'init', 'cf7sr_load_textdomain' );
 
 function cf7sr_add_action_links($links) {
     array_unshift($links , '<a href="' . admin_url( 'options-general.php?page=cf7sr-edit' ) . '">Settings</a>');
-    array_unshift($links , '<a target="_blank" style="color: #df7128; font-weight: 700;" href="https://lukasapps.de/wordpress/plugins/cf7-captcha-pro/">Get Captcha Pro</a>');
+    array_unshift($links , '<a target="_blank" style="color: #df7128; font-weight: 700;" href="https://lukasapps.de/wordpress/plugins/cf7-captcha-pro/">Explore PRO Features</a>');
     return $links;
 }
 add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'cf7sr_add_action_links', 10, 2 );
 
 function cf7sr_activation_notice() {
-    $cf7sr_notice_hcaptcha = get_option('cf7sr_notice_hcaptcha');
-    if (empty($cf7sr_notice_hcaptcha)) { ?>
+    $cf7sr_notice_015 = get_option('cf7sr_notice_015');
+    if (empty($cf7sr_notice_015)) { ?>
         <div class="notice notice-success" style="position: relative">
-            <p><?php echo __( 'Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA.', 'cf7sr-free' ); ?></p>
+            <p><?php echo __( 'Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!', 'cf7sr-free' ); ?></p>
             <p>
-                <a href="<?php echo admin_url( 'options-general.php?page=cf7sr-edit' ); ?>"><?php echo __( 'Settings', 'cf7sr-free' ); ?></a>
-                <a style="text-decoration: none" href="<?php admin_url() ?>?cf7sr-notice-hcaptcha=0" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>
+            <?php echo __( 'Introducing PRO Feature: Responsive Captcha.', 'cf7sr-free' ); ?>
+            <a target="_blank" style="color: #df7128;" href="https://lukasapps.de/wordpress/plugins/cf7-captcha-pro/"><?php echo __( 'View all PRO features.', 'cf7sr-free' ); ?></a>
+                <a style="text-decoration: none" href="<?php admin_url() ?>?cf7sr-notice-015" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>
             </p>
         </div>
-   <?php }
+    <?php }
 }
 add_action( 'admin_notices', 'cf7sr_activation_notice' );
 
@@ -72,9 +74,10 @@ function cf7sr_adminhtml() {
     }
 
     $tabs = array(
-        'pro'         => 'Captcha PRO',
-        'recaptcha'   => 'reCaptcha',
-        'hcaptcha'    => 'hCaptcha'
+        'pro'         => 'GET Captcha PRO',
+        'recaptcha'   => 'Google reCaptcha',
+        'hcaptcha'    => 'hCaptcha',
+        'turnstile'    => 'Cloudflare Turnstile Captcha'
     );
 
     $tab = ! empty( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ? $_GET['tab'] : 'pro';

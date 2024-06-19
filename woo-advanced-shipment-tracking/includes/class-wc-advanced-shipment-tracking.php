@@ -299,7 +299,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 		
 		$default_provider = get_option( 'wc_ast_default_provider' );
 		$wc_ast_default_mark_shipped = 	1;
-		$wc_ast_status_partial_shipped = get_option( 'wc_ast_status_partial_shipped' );
+		$wc_ast_status_partial_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped', '' );
 		$value = 1;
 		$cbvalue = '';
 		
@@ -311,7 +311,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 			}			
 		}		
 		
-		$wc_ast_status_shipped = get_option( 'wc_ast_status_shipped' );
+		$wc_ast_status_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', '' );
 		
 		if ( 1 == $wc_ast_status_shipped && $order->has_status( array( 'pending', 'on-hold', 'processing' ) ) ) {
 			$change_order_status_label = __( 'Mark as Shipped?', 'woo-advanced-shipment-tracking' );
@@ -477,11 +477,11 @@ class WC_Advanced_Shipment_Tracking_Actions {
 	*/
 	public function mark_order_as_fields_html() {
 		
-		$wc_ast_status_shipped = get_option( 'wc_ast_status_shipped', 0 );
+		$wc_ast_status_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', 0 );
 		$shipped_label = ( 1 == $wc_ast_status_shipped ) ? __( 'Shipped', 'woo-advanced-shipment-tracking' ) : __( 'Completed', 'woo-advanced-shipment-tracking' );
 		
 		$wc_ast_default_mark_shipped	= apply_filters( 'wc_ast_default_mark_shipped', 1 );
-		$wc_ast_status_partial_shipped	= get_option( 'wc_ast_status_partial_shipped' );
+		$wc_ast_status_partial_shipped	= get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped', '' );
 		
 		$order_status_array = apply_filters( 'mark_order_as_fields_data' , array(
 				'change_order_to_shipped' => array(					
@@ -845,7 +845,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 	 */
 	public function email_display( $order, $sent_to_admin, $plain_text = null, $email = null ) {
 
-		$wc_ast_unclude_tracking_info = get_option( 'wc_ast_unclude_tracking_info' );
+		$wc_ast_unclude_tracking_info = get_ast_settings( 'ast_general_settings', 'wc_ast_unclude_tracking_info', '' );
 		
 		$order_id = is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id;
 		
@@ -1125,7 +1125,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 			if ( isset( $args['date_shipped'] ) ) {
 				
 				if ( isset($args['source']) && 'REST_API' == $args['source'] ) {
-					$wc_ast_api_date_format = get_option( 'wc_ast_api_date_format', 'd-m-Y' );					
+					$wc_ast_api_date_format = get_ast_settings( 'ast_general_settings', 'wc_ast_api_date_format', 'd-m-Y' );					
 					$date = date_i18n( $wc_ast_api_date_format, strtotime( $args['date_shipped'] ) );				
 				} else {									
 					$date = date_i18n( 'd-m-Y', strtotime( $args['date_shipped'] ) );

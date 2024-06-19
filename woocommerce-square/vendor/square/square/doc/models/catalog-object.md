@@ -20,7 +20,7 @@ For a more detailed discussion of the Catalog data model, please see the
 
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
-| `type` | [`string(CatalogObjectType)`](../../doc/models/catalog-object-type.md) | Required | Possible types of CatalogObjects returned from the catalog, each<br>containing type-specific properties in the `*_data` field corresponding to the specfied object type. | getType(): string | setType(string type): void |
+| `type` | [`string(CatalogObjectType)`](../../doc/models/catalog-object-type.md) | Required | Possible types of CatalogObjects returned from the catalog, each<br>containing type-specific properties in the `*_data` field corresponding to the specified object type. | getType(): string | setType(string type): void |
 | `id` | `string` | Required | An identifier to reference this object in the catalog. When a new `CatalogObject`<br>is inserted, the client should set the id to a temporary identifier starting with<br>a "`#`" character. Other objects being inserted or updated within the same request<br>may use this identifier to refer to the new object.<br><br>When the server receives the new object, it will supply a unique identifier that<br>replaces the temporary identifier for all future references.<br>**Constraints**: *Minimum Length*: `1` | getId(): string | setId(string id): void |
 | `updatedAt` | `?string` | Optional | Last modification [timestamp](https://developer.squareup.com/docs/build-basics/working-with-dates) in RFC 3339 format, e.g., `"2016-08-15T23:59:33.123Z"`<br>would indicate the UTC time (denoted by `Z`) of August 15, 2016 at 23:59:33 and 123 milliseconds. | getUpdatedAt(): ?string | setUpdatedAt(?string updatedAt): void |
 | `version` | `?int` | Optional | The version of the object. When updating an object, the version supplied<br>must match the version in the database, otherwise the write will be rejected as conflicting. | getVersion(): ?int | setVersion(?int version): void |
@@ -35,7 +35,7 @@ For a more detailed discussion of the Catalog data model, please see the
 | `itemVariationData` | [`?CatalogItemVariation`](../../doc/models/catalog-item-variation.md) | Optional | An item variation, representing a product for sale, in the Catalog object model. Each [item](../../doc/models/catalog-item.md) must have at least one<br>item variation and can have at most 250 item variations.<br><br>An item variation can be sellable, stockable, or both if it has a unit of measure for its count for the sold number of the variation, the stocked<br>number of the variation, or both. For example, when a variation representing wine is stocked and sold by the bottle, the variation is both<br>stockable and sellable. But when a variation of the wine is sold by the glass, the sold units cannot be used as a measure of the stocked units. This by-the-glass<br>variation is sellable, but not stockable. To accurately keep track of the wine's inventory count at any time, the sellable count must be<br>converted to stockable count. Typically, the seller defines this unit conversion. For example, 1 bottle equals 5 glasses. The Square API exposes<br>the `stockable_conversion` property on the variation to specify the conversion. Thus, when two glasses of the wine are sold, the sellable count<br>decreases by 2, and the stockable count automatically decreases by 0.4 bottle according to the conversion. | getItemVariationData(): ?CatalogItemVariation | setItemVariationData(?CatalogItemVariation itemVariationData): void |
 | `taxData` | [`?CatalogTax`](../../doc/models/catalog-tax.md) | Optional | A tax applicable to an item. | getTaxData(): ?CatalogTax | setTaxData(?CatalogTax taxData): void |
 | `discountData` | [`?CatalogDiscount`](../../doc/models/catalog-discount.md) | Optional | A discount applicable to items. | getDiscountData(): ?CatalogDiscount | setDiscountData(?CatalogDiscount discountData): void |
-| `modifierListData` | [`?CatalogModifierList`](../../doc/models/catalog-modifier-list.md) | Optional | A list of modifiers applicable to items at the time of sale.<br><br>For example, a "Condiments" modifier list applicable to a "Hot Dog" item<br>may contain "Ketchup", "Mustard", and "Relish" modifiers.<br>Use the `selection_type` field to specify whether or not multiple selections from<br>the modifier list are allowed. | getModifierListData(): ?CatalogModifierList | setModifierListData(?CatalogModifierList modifierListData): void |
+| `modifierListData` | [`?CatalogModifierList`](../../doc/models/catalog-modifier-list.md) | Optional | For a text-based modifier, this encapsulates the modifier's text when its `modifier_type` is `TEXT`.<br>For example, to sell T-shirts with custom prints, a text-based modifier can be used to capture the buyer-supplied<br>text string to be selected for the T-shirt at the time of sale.<br><br>For non text-based modifiers, this encapsulates a non-empty list of modifiers applicable to items<br>at the time of sale. Each element of the modifier list is a `CatalogObject` instance of the `MODIFIER` type.  <br>For example, a "Condiments" modifier list applicable to a "Hot Dog" item<br>may contain "Ketchup", "Mustard", and "Relish" modifiers.<br><br>A non text-based modifier can be applied to the modified item once or multiple times, if the `selection_type` field<br>is set to `SINGLE` or `MULTIPLE`, respectively. On the other hand, a text-based modifier can be applied to the item<br>only once and the `selection_type` field is always set to `SINGLE`. | getModifierListData(): ?CatalogModifierList | setModifierListData(?CatalogModifierList modifierListData): void |
 | `modifierData` | [`?CatalogModifier`](../../doc/models/catalog-modifier.md) | Optional | A modifier applicable to items at the time of sale. An example of a modifier is a Cheese add-on to a Burger item. | getModifierData(): ?CatalogModifier | setModifierData(?CatalogModifier modifierData): void |
 | `timePeriodData` | [`?CatalogTimePeriod`](../../doc/models/catalog-time-period.md) | Optional | Represents a time period - either a single period or a repeating period. | getTimePeriodData(): ?CatalogTimePeriod | setTimePeriodData(?CatalogTimePeriod timePeriodData): void |
 | `productSetData` | [`?CatalogProductSet`](../../doc/models/catalog-product-set.md) | Optional | Represents a collection of catalog objects for the purpose of applying a<br>`PricingRule`. Including a catalog object will include all of its subtypes.<br>For example, including a category in a product set will include all of its<br>items and associated item variations in the product set. Including an item in<br>a product set will also include its item variations. | getProductSetData(): ?CatalogProductSet | setProductSetData(?CatalogProductSet productSetData): void |
@@ -48,26 +48,14 @@ For a more detailed discussion of the Catalog data model, please see the
 | `customAttributeDefinitionData` | [`?CatalogCustomAttributeDefinition`](../../doc/models/catalog-custom-attribute-definition.md) | Optional | Contains information defining a custom attribute. Custom attributes are<br>intended to store additional information about a catalog object or to associate a<br>catalog object with an entity in another system. Do not use custom attributes<br>to store any sensitive information (personally identifiable information, card details, etc.).<br>[Read more about custom attributes](https://developer.squareup.com/docs/catalog-api/add-custom-attributes) | getCustomAttributeDefinitionData(): ?CatalogCustomAttributeDefinition | setCustomAttributeDefinitionData(?CatalogCustomAttributeDefinition customAttributeDefinitionData): void |
 | `quickAmountsSettingsData` | [`?CatalogQuickAmountsSettings`](../../doc/models/catalog-quick-amounts-settings.md) | Optional | A parent Catalog Object model represents a set of Quick Amounts and the settings control the amounts. | getQuickAmountsSettingsData(): ?CatalogQuickAmountsSettings | setQuickAmountsSettingsData(?CatalogQuickAmountsSettings quickAmountsSettingsData): void |
 | `subscriptionPlanVariationData` | [`?CatalogSubscriptionPlanVariation`](../../doc/models/catalog-subscription-plan-variation.md) | Optional | Describes a subscription plan variation. A subscription plan variation represents how the subscription for a product or service is sold.<br>For more information, see [Subscription Plans and Variations](https://developer.squareup.com/docs/subscriptions-api/plans-and-variations). | getSubscriptionPlanVariationData(): ?CatalogSubscriptionPlanVariation | setSubscriptionPlanVariationData(?CatalogSubscriptionPlanVariation subscriptionPlanVariationData): void |
+| `availabilityPeriodData` | [`?CatalogAvailabilityPeriod`](../../doc/models/catalog-availability-period.md) | Optional | Represents a time period of availability. | getAvailabilityPeriodData(): ?CatalogAvailabilityPeriod | setAvailabilityPeriodData(?CatalogAvailabilityPeriod availabilityPeriodData): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "type": "CATEGORY",
-  "id": "id0",
-  "item_data": {
-    "object": {
-      "id": "#Cocoa",
-      "item_data": {
-        "abbreviation": "Ch",
-        "description": "Hot chocolate",
-        "name": "Cocoa",
-        "visibility": "PRIVATE"
-      },
-      "present_at_all_locations": true,
-      "type": "ITEM"
-    }
-  },
+  "type": "TIME_PERIOD",
+  "id": "id4",
   "category_data": {
     "object": {
       "category_data": {
@@ -107,51 +95,6 @@ For a more detailed discussion of the Catalog data model, please see the
       "type": "DISCOUNT"
     }
   },
-  "modifier_list_data": {
-    "id": "#MilkType",
-    "modifier_list_data": {
-      "allow_quantities": false,
-      "modifiers": [
-        {
-          "modifier_data": {
-            "name": "Whole Milk",
-            "price_money": {
-              "amount": 0,
-              "currency": "USD"
-            }
-          },
-          "present_at_all_locations": true,
-          "type": "MODIFIER"
-        },
-        {
-          "modifier_data": {
-            "name": "Almond Milk",
-            "price_money": {
-              "amount": 250,
-              "currency": "USD"
-            }
-          },
-          "present_at_all_locations": true,
-          "type": "MODIFIER"
-        },
-        {
-          "modifier_data": {
-            "name": "Soy Milk",
-            "price_money": {
-              "amount": 250,
-              "currency": "USD"
-            }
-          },
-          "present_at_all_locations": true,
-          "type": "MODIFIER"
-        }
-      ],
-      "name": "Milk Type",
-      "selection_type": "SINGLE"
-    },
-    "present_at_all_locations": true,
-    "type": "MODIFIER_LIST"
-  },
   "modifier_data": {
     "object": {
       "modifier_data": {
@@ -165,16 +108,30 @@ For a more detailed discussion of the Catalog data model, please see the
       "type": "MODIFIER"
     }
   },
-  "updated_at": "updated_at4",
-  "version": 172,
+  "updated_at": "updated_at0",
+  "version": 186,
   "is_deleted": false,
   "custom_attribute_values": {
     "key0": {
-      "name": "name9",
-      "string_value": "string_value3",
-      "custom_attribute_definition_id": "custom_attribute_definition_id3",
-      "type": "BOOLEAN",
-      "number_value": "number_value9"
+      "name": "name8",
+      "string_value": "string_value2",
+      "custom_attribute_definition_id": "custom_attribute_definition_id4",
+      "type": "STRING",
+      "number_value": "number_value8"
+    },
+    "key1": {
+      "name": "name8",
+      "string_value": "string_value2",
+      "custom_attribute_definition_id": "custom_attribute_definition_id4",
+      "type": "STRING",
+      "number_value": "number_value8"
+    },
+    "key2": {
+      "name": "name8",
+      "string_value": "string_value2",
+      "custom_attribute_definition_id": "custom_attribute_definition_id4",
+      "type": "STRING",
+      "number_value": "number_value8"
     }
   },
   "catalog_v1_ids": [
@@ -183,8 +140,12 @@ For a more detailed discussion of the Catalog data model, please see the
       "location_id": "location_id4"
     },
     {
-      "catalog_v1_id": "catalog_v1_id5",
-      "location_id": "location_id5"
+      "catalog_v1_id": "catalog_v1_id4",
+      "location_id": "location_id4"
+    },
+    {
+      "catalog_v1_id": "catalog_v1_id4",
+      "location_id": "location_id4"
     }
   ]
 }

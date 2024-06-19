@@ -13,6 +13,8 @@ export const name = "presto-player/vimeo";
 export const options = {
   ...blockOptions,
 
+  usesContext: ["presto-player/playlist-media-id"],
+
   attributes: {
     ...blockOptions.attributes,
     video_id: {

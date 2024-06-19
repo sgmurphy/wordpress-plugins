@@ -1051,13 +1051,13 @@ function backuply_backup_upload(){
 	if(!current_user_can('manage_options')){
 		wp_send_json_error('You don\'t have privilege to upload the backup!');
 	}
-	
-	// Were using sanitize_filename here, but it adds _ in some cases so replacing that with optpost in version 1.2.6
-	$file_name = backuply_optpost('file_name'); 
+
+	$file_name = backuply_optpost('file_name');
 	$file_name = backuply_cleanpath($file_name); // Makes sure the file name is safe
+	$file_name = backuply_sanitize_filename($file_name);
 	$backup_dir = backuply_glob('backups');
 	
-	if(strpos($file_name, '.tar.gz') === FALSE){
+	if(!preg_match('/\.tar\.gz$/i', $file_name)){
 		wp_send_json_error(__('You are not uploading a Backup file, please choose the correct backup file', 'backuply'));
 	}
 	
@@ -1105,11 +1105,13 @@ function backuply_backup_upload(){
 	fclose($fh);
 	
 	if($chunk_number === $total_chunks){
-		$mime = mime_content_type($file_loc);
+		if(function_exists('mime_content_type')){
+			$mime = mime_content_type($file_loc);
 		
-		$possible_mime = ['application/gzip', 'application/x-gzip'];
-		if(!in_array($mime, $possible_mime)){
-			wp_send_json_error(__('Upload failed, file type is different than the expected', 'backuply'));
+			$possible_mime = ['application/gzip', 'application/x-gzip'];
+			if(!in_array($mime, $possible_mime)){
+				wp_send_json_error(__('Upload failed, file type is different than the expected', 'backuply'));
+			}
 		}
 		
 		rename($file_loc, $backup_dir . '/' . $file_name);

@@ -697,14 +697,14 @@ class Soliloquy_Shortcode_Lite {
 	 *
 	 * @since 1.0.4
 	 *
-	 * @param string $string  String of data to minify.
-	 * @return string $string Minified string of data.
+	 * @param string $string_data  String of data to minify.
+	 * @return string $string_data Minified string of data.
 	 */
-	public function minify( $string ) {
+	public function minify( $string_data ) {
 
-		$clean = preg_replace( '/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/', '', $string );
+		$clean = preg_replace( '/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/', '', $string_data );
 		$clean = str_replace( [ "\r\n", "\r", "\t", "\n", '  ', '    ', '     ' ], '', $clean );
-		return apply_filters( 'soliloquy_minified_string', $clean, $string );
+		return apply_filters( 'soliloquy_minified_string', $clean, $string_data );
 	}
 
 	/**

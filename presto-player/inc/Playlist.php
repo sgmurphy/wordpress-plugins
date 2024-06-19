@@ -44,39 +44,18 @@ class Playlist
         switch ($block_name) {
             case 'presto-player/self-hosted':
                 return (new SelfHostedBlock())->getAttributes($attributes, '');
-        
+
             case 'presto-player/youtube':
                 return (new YouTubeBlock())->getAttributes($attributes, '');
-        
+
             case 'presto-player/vimeo':
                 return (new VimeoBlock())->getAttributes($attributes, '');
-        
+
             case 'presto-player/bunny':
-                return (new BunnyCDNBlock())->getAttributes($attributes, '');
-        
+                return class_exists(BunnyCDNBlock::class)  ? (new BunnyCDNBlock())->getAttributes($attributes, '') : '';
+
             case 'presto-player/audio':
                 return (new AudioBlock())->getAttributes($attributes, '');
         }
-    }
-    /**
-     * Get Video details
-     *
-     * @param $videos Array of video IDs.
-     * @return array
-     */
-    public function get_playlist_details($video)
-    {
-        if ( empty( $video ) ) {
-            return [];
-        }
-        $block = parse_blocks(ReusableVideos::get($video));
-        // return $block;
-        if ( !isset($block[0]['innerBlocks'][0]['attrs']) ) {
-            return [];
-        }
-        $inner_block = $block[0]['innerBlocks'][0];
-        $attributes = $inner_block['attrs'];
-        $video_details = $this->parsed_attributes($inner_block['blockName'], $attributes);
-        return $video_details;
     }
 }

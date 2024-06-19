@@ -126,17 +126,17 @@ export default () =>
       }
 
       return (
-        <WrappedComponent
-          {...props}
-          lockSave={lock}
-          unlockSave={unlock}
-          createVideo={createVideo}
-          onUpdate={onUpdate}
-          onRemoveSrc={onRemoveSrc}
-          presetData={presetData}
-          setPresetData={setPresetData}
-          renderKey={count}
-        />
+          <WrappedComponent
+            {...props}
+            lockSave={lock}
+            unlockSave={unlock}
+            createVideo={createVideo}
+            onUpdate={onUpdate}
+            onRemoveSrc={onRemoveSrc}
+            presetData={presetData}
+            setPresetData={setPresetData}
+            renderKey={count}
+          />
       );
     },
     "withPlayerEdit"

@@ -347,13 +347,14 @@ const ScOrderShippingAddress = class {
     };
   }
   async updateAddressState(address) {
+    var _a;
     if (JSON.stringify(address) === JSON.stringify(this.address))
       return; // no change, don't update.
     this.address = address;
     try {
       lockCheckout('shipping-address');
       state$1.checkout = (await createOrUpdateCheckout({
-        id: state$1.checkout.id,
+        id: (_a = state$1.checkout) === null || _a === void 0 ? void 0 : _a.id,
         data: {
           shipping_address: this.address,
         },

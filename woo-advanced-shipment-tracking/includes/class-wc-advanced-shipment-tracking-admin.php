@@ -396,7 +396,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				
 				if ( 'checkbox' == $array['type'] ) {
 					$default = isset( $array['default'] ) ? $array['default'] : '';
-					$checked = ( get_option( $id, $default ) ) ? 'checked' : '' ;
+					$checked = ( get_ast_settings( $array['option_name'], $id, $default ) ) ? 'checked' : '' ;	
 					?>
 					<li>
 						<input type="hidden" name="<?php esc_html_e( $id ); ?>" value="0"/>
@@ -411,7 +411,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				<?php
 				} else if ( 'tgl_checkbox' == $array['type'] ) {
 					$default = isset( $array['default'] ) ? $array['default'] : '';
-					$checked = ( get_option( $id, $default ) ) ? 'checked' : '' ;
+					$checked = get_option( $id, $default ) ? 'checked' : '' ;
 					$tgl_class = isset( $array['tgl_color'] ) ? 'ast-tgl-btn-green' : '';
 					$disabled = isset( $array['disabled'] ) && true == $array['disabled'] ? 'disabled' : '';
 					?>
@@ -450,7 +450,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 						<?php
 
 						foreach ( (array) $array['options'] as $key => $val ) {
-							$selected = ( get_option( $id, $array['default'] ) == (string) $key ) ? 'checked' : '' ;
+							$selected = ( get_ast_settings( $array['option_name'], $id, $array['default'] ) == (string) $key ) ? 'checked' : '' ;
 							?>
 							<span class="radio_section">
 								<label class="" for="<?php esc_html_e( $id ); ?>_<?php esc_html_e( $key ); ?>">
@@ -473,7 +473,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 							<select multiple class="wc-enhanced-select" name="<?php esc_html_e( $id ); ?>[]" id="<?php esc_html_e( $id ); ?>">
 							<?php
 							foreach ( (array) $array['options'] as $key => $val ) {
-								$multi_checkbox_data = get_option( $id );
+								$multi_checkbox_data = get_ast_settings( $array['option_name'], $id, '' );
 								$checked = isset( $multi_checkbox_data[ $key ] ) && 1 == $multi_checkbox_data[ $key ] ? 'selected' : '' ;
 								?>
 								<option value="<?php echo esc_attr( $key ); ?>" <?php esc_html_e( $checked ); ?>><?php esc_html_e( $val['status'] ); ?></option>
@@ -495,7 +495,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 							<?php 
 							$op = 1;
 							foreach ( (array) $array['options'] as $key => $val ) {
-								$multi_checkbox_data = get_option($id);
+								$multi_checkbox_data = get_ast_settings( $array['option_name'], $id, '' );
 								$checked = isset( $multi_checkbox_data[ $key ] ) && 1 == $multi_checkbox_data[ $key ] ? 'checked' : '' ;
 								?>
 								<span class="multiple_checkbox">
@@ -508,38 +508,6 @@ class WC_Advanced_Shipment_Tracking_Admin {
 								</span>
 							<?php } ?>
 						</div>
-					</li>
-				<?php 
-				} else if ( 'dropdown_tpage' == $array['type'] ) {
-					?>
-					<li>
-						<label class="left_label"><?php esc_html_e( $array['title'] ); ?>
-							<?php if ( isset( $array['tooltip'] ) ) { ?>
-								<span class="woocommerce-help-tip tipTip" data-tip="<?php esc_html_e( $array['tooltip'] ); ?>"></span>
-							<?php } ?>
-						</label>
-
-						<select class="select select2 tracking_page_select" id="<?php esc_html_e( $id ); ?>" name="<?php esc_html_e( $id ); ?>">
-							<?php
-							foreach ( (array) $array['options'] as $page_id => $page_name ) { 
-								$selected = ( get_option( $id ) == $page_id ) ? 'selected' : '' ;
-								?>
-								<option value="<?php esc_html_e( $page_id ); ?>" <?php esc_html_e( $selected ); ?>><?php esc_html_e( $page_name ); ?></option>
-							<?php 
-							}
-							$selected = ( 'other' == get_option( $id ) ) ? 'selected' : '';
-							?>
-							<option <?php esc_html_e( $selected ); ?> value="other"><?php esc_html_e( 'Other', 'woo-advanced-shipment-tracking' ); ?></option>	
-						</select>
-						<?php $style = ( 'other' != get_option( $id ) ) ? 'display:none;' : ''; ?>
-						<fieldset style="<?php esc_html_e( $style ); ?>" class="trackship_other_page_fieldset">
-							<input type="text" name="wc_ast_trackship_other_page" id="wc_ast_trackship_other_page" value="<?php esc_html_e( get_option('wc_ast_trackship_other_page') ); ?>">
-						</fieldset>
-						
-						<p class="tracking_page_desc"><?php esc_html_e( 'add the [wcast-track-order] shortcode in the selected page.', 'woo-advanced-shipment-tracking' ); ?> 
-							<a href="https://docs.zorem.com/docs/ast-pro/advanced-shipment-tracking-free/trackship-integration/" target="blank"><?php esc_html_e( 'more info', 'woo-advanced-shipment-tracking' ); ?></a>
-						</p>
-
 					</li>
 				<?php 
 				} else if ( 'button' == $array['type'] ) { 
@@ -567,7 +535,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 
 	public function get_add_tracking_options() {
 		
-		$wc_ast_status_shipped = get_option( 'wc_ast_status_shipped', 0 );
+		$wc_ast_status_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', 0 );
 		
 		if ( 1 == $wc_ast_status_shipped ) {
 			$completed_order_label = __( 'Shipped', 'woo-advanced-shipment-tracking' );				
@@ -736,7 +704,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'type'		=> 'multiple_select',
 				'title'		=> __( 'Add Tracking Order action', 'woo-advanced-shipment-tracking' ),
 				'tooltip'		=> __( 'Choose which Order Status in your store you would like to display Add the Tracking icon in the Order Actions menu.', 'woo-advanced-shipment-tracking' ),			
-				'options'   => $action_order_status_array,					
+				'options'   => $action_order_status_array,
+				'option_name' => 'ast_general_settings',
 				'show'		=> true,
 				'class'     => '',
 			),
@@ -744,7 +713,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'type'		=> 'multiple_select',
 				'title'		=> __( 'Order Emails Display', 'woo-advanced-shipment-tracking' ),
 				'tooltip'		=> __( 'This option allows you to choose on which order status email you would like to display the tracking information', 'woo-advanced-shipment-tracking' ),
-				'options'   => $order_status_array,					
+				'options'   => $order_status_array,
+				'option_name' => 'ast_general_settings',
 				'show'		=> true,
 				'class'     => '',
 			),				
@@ -765,6 +735,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 							),
 				'default'   => 'd-m-Y',				
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 				'class'     => '',
 			),
 		);
@@ -839,6 +810,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'type'		=> 'checkbox',
 				'title'		=> __( 'Enable custom order status “Partially Shipped"', '' ),				
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 				'class'     => '',
 			),			
 			'wc_ast_status_partial_shipped_label_color' => array(
@@ -846,6 +818,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'title'		=> __( 'Partially Shipped Label color', '' ),				
 				'class'		=> 'partial_shipped_status_label_color_th',
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 			),
 			'wc_ast_status_partial_shipped_label_font_color' => array(
 				'type'		=> 'dropdown',
@@ -857,6 +830,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 								),			
 				'class'		=> 'partial_shipped_status_label_color_th',
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 			),			
 			'wcast_enable_partial_shipped_email' => array(
 				'type'		=> 'checkbox',
@@ -864,6 +838,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'title_link'=> '',
 				'class'		=> 'partial_shipped_status_label_color_th',
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 			),			
 		);
 		return $form_data;
@@ -879,6 +854,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'type'		=> 'checkbox',
 				'title'		=> __( 'Enable custom order status “Delivered"', '' ),				
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 				'class'     => '',
 			),			
 			'wc_ast_status_label_color' => array(
@@ -886,6 +862,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'title'		=> __( 'Delivered Label color', '' ),				
 				'class'		=> 'status_label_color_th',
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 			),
 			'wc_ast_status_label_font_color' => array(
 				'type'		=> 'dropdown',
@@ -897,6 +874,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				),			
 				'class'		=> 'status_label_color_th',
 				'show'		=> true,
+				'option_name' => 'ast_general_settings',
 			),							
 		);
 		return $form_data;
@@ -918,7 +896,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'edit_email'=> admin_url( 'admin.php?page=ast_customizer&email_type=partial_shipped' ),
 				'label_color_field' => 'wc_ast_status_partial_shipped_label_color',	
 				'font_color_field' => 'wc_ast_status_partial_shipped_label_font_color',	
-				'email_field' => 'wcast_enable_partial_shipped_email',					
+				'email_field' => 'wcast_enable_partial_shipped_email',
+				'option_name' => 'ast_general_settings',
 			),	
 			'delivered' => array(
 				'id'		=> 'wc_ast_status_delivered',
@@ -929,7 +908,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				'edit_email'=> '',
 				'label_color_field' => 'wc_ast_status_label_color',	
 				'font_color_field' => 'wc_ast_status_label_font_color',	
-				'email_field' => '',					
+				'email_field' => '',
+				'option_name' => 'ast_general_settings',
 			),		
 		);
 		
@@ -982,21 +962,24 @@ class WC_Advanced_Shipment_Tracking_Admin {
 					}
 					
 					if ( isset( $_POST[ $key ] ) ) {
-						update_option( $key, wc_clean( $_POST[ $key ] ) );
+						// update_option( $key, wc_clean( $_POST[ $key ] ) );
+						update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 					}
 					
 					
 				} else {
 					
 					if ( isset( $_POST[ $key ] ) ) {						
-						update_option( $key, wc_clean( $_POST[ $key ] ) );
+						// update_option( $key, wc_clean( $_POST[ $key ] ) );
+						update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 					}	
 				}
 				
 				if ( isset( $val['type'] ) && 'inline_checkbox' == $val['type'] ) {
 					foreach ( (array) $val['checkbox_array'] as $key1 => $val1 ) {
 						if ( isset( $_POST[ $key1 ] ) ) {						
-							update_option( $key1, wc_clean( $_POST[ $key1 ] ) );
+							// update_option( $key1, wc_clean( $_POST[ $key1 ] ) );
+							update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key1 ] ) );
 						}
 					}					
 				}
@@ -1007,7 +990,8 @@ class WC_Advanced_Shipment_Tracking_Admin {
 			foreach ( $data2 as $key => $val ) {				
 				
 				if ( isset( $_POST[ $key ] ) ) {						
-					update_option( $key, wc_clean( $_POST[ $key ] ) );
+					// update_option( $key, wc_clean( $_POST[ $key ] ) );
+					update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 				}
 			}
 
@@ -1020,13 +1004,14 @@ class WC_Advanced_Shipment_Tracking_Admin {
 			}
 
 			$wc_ast_status_shipped = isset( $_POST[ 'wc_ast_status_shipped' ] ) ? wc_clean( $_POST[ 'wc_ast_status_shipped' ] ) : '';
-			update_option( 'wc_ast_status_shipped', $wc_ast_status_shipped );
+			update_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', $wc_ast_status_shipped );
 			
 			
 			$data = $this->get_delivered_data();						
 			foreach ( $data as $key => $val ) {				
 				if ( isset( $_POST[ $key ] ) ) {						
-					update_option( $key, wc_clean( $_POST[ $key ] ) );
+					// update_option( $key, wc_clean( $_POST[ $key ] ) );
+					update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 				}
 			}
 			
@@ -1037,23 +1022,20 @@ class WC_Advanced_Shipment_Tracking_Admin {
 				
 				if ( 'wcast_enable_partial_shipped_email' == $key ) {						
 					if ( isset( $_POST['wcast_enable_partial_shipped_email'] ) ) {						
-						
-						if ( 1 == $_POST['wcast_enable_partial_shipped_email'] ) {
-							update_option( 'customizer_partial_shipped_order_settings_enabled', wc_clean( $_POST['wcast_enable_partial_shipped_email'] ) );
+						if ( isset($_POST['wcast_enable_partial_shipped_email']) && 1 == $_POST['wcast_enable_partial_shipped_email'] ) {
+							update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 							$enabled = 'yes';
 						} else {
-							update_option( 'customizer_partial_shipped_order_settings_enabled', '' );
+							update_ast_settings( $val['option_name'], $key, '' );
 							$enabled = 'no';
-						}						
-						
-						$wcast_enable_partial_shipped_email = get_option( 'woocommerce_customer_partial_shipped_order_settings' );
-						$wcast_enable_partial_shipped_email['enabled'] = $enabled;
-						update_option( 'woocommerce_customer_partial_shipped_order_settings', $wcast_enable_partial_shipped_email );	
-					}	
+						}
+						update_option( 'woocommerce_customer_partial_shipped_order_settings', 'enabled', $enabled );
+					}
+					update_option( 'woocommerce_customer_partial_shipped_order_settings', 'enabled', $enabled );	
 				}										
 				
 				if ( isset( $_POST[ $key ] ) ) {						
-					update_option( $key, wc_clean( $_POST[ $key ] ) );
+					update_ast_settings( $val['option_name'], $key, wc_clean( $_POST[ $key ] ) );
 				}
 			}
 			
@@ -1089,11 +1071,11 @@ class WC_Advanced_Shipment_Tracking_Admin {
 	*/	
 	public function footer_function() {
 		if ( !is_plugin_active( 'woocommerce-order-status-manager/woocommerce-order-status-manager.php' ) ) {
-			$bg_color = get_option( 'wc_ast_status_label_color', '#59c889' );
-			$color = get_option( 'wc_ast_status_label_font_color', '#fff' );						
+			$bg_color = get_ast_settings( 'ast_general_settings', 'wc_ast_status_label_color', '#59c889' );
+			$color = get_ast_settings( 'ast_general_settings', 'wc_ast_status_label_font_color', '#fff' );						
 			
-			$ps_bg_color = get_option( 'wc_ast_status_partial_shipped_label_color', '#1e73be' );
-			$ps_color = get_option( 'wc_ast_status_partial_shipped_label_font_color', '#fff' );
+			$ps_bg_color = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped_label_color', '#1e73be' );
+			$ps_color = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped_label_font_color', '#fff' );
 			
 			$ut_bg_color = get_option( 'wc_ast_status_updated_tracking_label_color', '#23a2dd' );
 			$ut_color = get_option( 'wc_ast_status_updated_tracking_label_font_color', '#fff' );
@@ -1129,7 +1111,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 		
 		$replace_tracking_info = isset( $_POST['replace_tracking_info'] ) ? wc_clean( $_POST['replace_tracking_info'] ) : '';
 		$date_format_for_csv_import = isset( $_POST['date_format_for_csv_import'] ) ? wc_clean( $_POST['date_format_for_csv_import'] ) : '';
-		update_option( 'date_format_for_csv_import', $date_format_for_csv_import );
+		update_ast_settings( 'ast_general_settings', 'date_format_for_csv_import', $date_format_for_csv_import );
 		$order_number = isset( $_POST['order_id'] ) ? wc_clean( $_POST['order_id'] ) : '';				
 		
 		$wast = WC_Advanced_Shipment_Tracking_Actions::get_instance();
@@ -1258,7 +1240,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 						
 						$status_shipped = ( isset( $_POST['status_shipped'] ) ? wc_clean( $_POST['status_shipped'] ) : '' );
 						
-						$autocomplete_order_tpi = get_option( 'autocomplete_order_tpi', 0 );
+						$autocomplete_order_tpi = get_ast_settings( 'ast_general_settings', 'autocomplete_order_tpi', 0 );
 						if ( 1 == $autocomplete_order_tpi ) {
 							$status_shipped = $this->autocomplete_order_after_adding_all_products( $order_id, $status_shipped, $products_list );
 							$args['status_shipped'] = $status_shipped;
@@ -1438,7 +1420,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 		
 		if ( 2 == $status_shipped ) {
 			
-			$wc_ast_status_partial_shipped = get_option( 'wc_ast_status_partial_shipped' );
+			$wc_ast_status_partial_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped', '' );
 			
 			if ( $wc_ast_status_partial_shipped ) {			
 				
@@ -1492,7 +1474,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 	* Change completed order email title to Shipped Order
 	*/
 	public function change_completed_woocommerce_email_title( $email_title, $email ) {
-		$wc_ast_status_shipped = get_option( 'wc_ast_status_shipped', 0 );		
+		$wc_ast_status_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', 0 );		
 		// Only on backend Woocommerce Settings "Emails" tab
 		if ( 1 == $wc_ast_status_shipped ) {
 			if ( isset( $_GET['page'] ) && 'wc-settings' == $_GET['page'] && isset( $_GET['tab'] ) && 'email' == $_GET['tab'] ) {
@@ -1522,7 +1504,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 			)
 		);			
 		
-		$wc_ast_show_orders_actions = get_option( 'wc_ast_show_orders_actions' );
+		$wc_ast_show_orders_actions = get_ast_settings( 'ast_general_settings', 'wc_ast_show_orders_actions', '' );
 		$order_array = array();
 		
 		foreach ( (array) $wc_ast_show_orders_actions as $order_status => $value ) {
@@ -1542,7 +1524,7 @@ class WC_Advanced_Shipment_Tracking_Admin {
 			}
 		}
 		
-		$wc_ast_status_shipped = get_option( 'wc_ast_status_shipped' );
+		$wc_ast_status_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_shipped', '' );
 		if ( $wc_ast_status_shipped ) {
 			$actions['complete']['name'] = __( 'Mark as Shipped', 'woo-advanced-shipment-tracking' );
 		}

@@ -119,7 +119,8 @@
     }
   ],
   "supports": {
-    "align": true
+    "align": true,
+    "inserter": false
   },
   "script": "presto-components"
 }

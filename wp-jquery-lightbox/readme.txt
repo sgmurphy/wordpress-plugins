@@ -1,9 +1,9 @@
-﻿=== LightPress Lightbox ===
+﻿=== LightPress Lightbox (WP JQuery Lightbox) ===
 Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
 Tested up to: 6.5.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -11,7 +11,9 @@ Simple, lightweight lightbox plugin for WordPress. Formerly the WP JQuery Lightb
 
 == Description ==
 
-A simple, lightweight WordPress lightbox plugin. [See demo here](https://lightpress.io).
+The LightPress Lightbox was formerly the WP JQuery Lightbox. Along with the name change, we'll be doing signficant development on this plugin in 2024, including the addition of additional, modern lightboxes (both free and pro). We'll still continue to include, support, and enhance the original lightbox!
+
+This plugin adds a simple, lightweight lightbox for viewing images. [See demos here](https://lightpress.io).
 
 **Features**
 
@@ -30,7 +32,7 @@ See the plugin in action here: [lightpress.io](https://lightpress.io)
 
 Special thanks to [Ulf Benjaminsson](http://www.ulfbenjaminsson.com), who created this plugin and maintained it for many years.
 
-This plugin lets you keep [Lightbox 2](http://www.huddletogether.com/projects/lightbox2/) functionality but sheds the bulk of the Prototype Framework and Scriptaculous Effects Library. Warren Krewenki [ported Lightbox to jQuery](http://warren.mesozen.com/jquery-lightbox/) and this plugin is mostly a wrapper to his work.
+The original WP JQuery Lightbox included with this plugin lets you keep [Lightbox 2](http://www.huddletogether.com/projects/lightbox2/) functionality but sheds the bulk of the Prototype Framework and Scriptaculous Effects Library. Warren Krewenki [ported Lightbox to jQuery](http://warren.mesozen.com/jquery-lightbox/) and this plugin is mostly a wrapper to his work.
 
 == Screenshots ==
 
@@ -112,7 +114,12 @@ Still have problems? Post a link and describe what issue you're having, and tell
 
 == Changelog ==
 
-= 2.0.0 (2024-06-19) =
+= 2.1.0 (2024-06-19) =
+* Major file reorganization
+* Fix image inserting not working in classic editor
+* Update plugin banner and icon
+
+= 2.0.0 (2024-06-18) =
 * Rename plugin to LightPress
 * Add core LightPress plugin class
 * Add new settings screen

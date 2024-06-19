@@ -2,8 +2,8 @@
 
 namespace PrestoPlayer\Services\API;
 
+use PrestoPlayer\Models\ReusableVideo;
 use PrestoPlayer\Models\Video;
-use PrestoPlayer\Playlist;
 
 class RestVideosController extends \WP_REST_Controller
 {
@@ -88,11 +88,12 @@ class RestVideosController extends \WP_REST_Controller
             'schema' => [$this, 'get_schema']
         ]);
 
+        // return the video block details from the REST API request.
         register_rest_field(
             'pp_video_block',
             'details',
             array(
-                'get_callback' => array($this, 'get_video_details'),
+                'get_callback' => array($this, 'getVideoDetails'),
                 'schema'       => null,
             )
         );
@@ -101,16 +102,17 @@ class RestVideosController extends \WP_REST_Controller
     /**
      * Get Video Details
      *
-     * @since x.x.x
-     * @param  string $object     Rest Object.
-     * @param  string $field_name Rest Field.
-     * @param  array  $request    Rest Request.
-     * @return string             Site type either Free or Premium.
+     * @param string $object     Rest Object.
+     * @param string $field_name Rest Field.
+     * @param array  $request    Rest Request.
+     * 
+     * @return array             Get the video details array
      */
-    public function get_video_details($object = '', $field_name = '', $request = array())
+    public function getVideoDetails($object = '', $field_name = '', $request = array())
     {
         $post_id = (int) $object['id'];
-        return (new Playlist())->get_playlist_details($post_id);
+        if(!$post_id) return [];
+        return (new ReusableVideo($post_id))->getAttributes();
     }
 
     /**

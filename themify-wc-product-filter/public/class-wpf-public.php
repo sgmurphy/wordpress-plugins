@@ -556,7 +556,9 @@ class WPF_Public
 		return $query_args;
 	}
 
-
+	/**
+	 * Fix variable products being displayed in the result if any of the variants are in stock
+	 */
 	private function filter_variable_outofstock_product( &$query_args ) {
 		global $wpdb;
 
@@ -565,9 +567,11 @@ class WPF_Public
 		$joins = array(); // for AND Operator only.
 
 		foreach ( $query_args['tax_query'] as $k => $tax_q ) {
-			if ( strtolower( $k ) === 'relation' ) continue;
+			if ( strtolower( $k ) === 'relation' || ! taxonomy_is_product_attribute( $tax_q['taxonomy'] ) ) {
+				continue;
+			}
 			$meta_key = 'attribute_' . $tax_q['taxonomy'];
-			$value = $tax_q['terms'];
+			$value = array_map( [ $wpdb, '_real_escape' ], $tax_q['terms'] );
 
 			foreach ( $value as $k => $tmp ) {
 				$value[ $k ] = '"' . $tmp . '"';
@@ -578,7 +582,9 @@ class WPF_Public
 			$conditions[] = $temp;
 		}
 
-		if ( count( $conditions ) > 1 ) {
+		if ( count( $conditions ) === 0 ) {
+			return;
+		} else if ( count( $conditions ) > 1 ) {
 			$i = 1;
 			foreach ( $conditions as $k => $condition ) {
 				if ( $opt === 'AND' ) {

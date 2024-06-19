@@ -13,6 +13,8 @@ export const name = "presto-player/bunny";
 export const options = {
   ...blockOptions,
 
+  usesContext: ["presto-player/playlist-media-id"],
+
   attributes: {
     ...blockOptions.attributes,
     ...{

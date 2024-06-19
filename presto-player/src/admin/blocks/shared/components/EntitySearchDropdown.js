@@ -19,11 +19,25 @@ const EntitySearchDropdown = ({
   onSelect,
   onNextPage,
   onCreate,
+  onOpen,
   renderItem = null,
   ...dropdownProps
 }) => {
   const renderContent = () => {
     if (isLoading && !options.length) return <Spinner />;
+    if (!options.length) {
+      return (
+        <>
+          <span
+            css={css`
+             margin: 8px;
+            `}
+          >
+            {__("None found.", "presto-player")}
+          </span>
+        </>
+      );
+    }
     return (
       <>
         {!!onCreate && (
@@ -64,7 +78,7 @@ const EntitySearchDropdown = ({
                   onClick={() => onSelect(item)}
                   {...item}
                 >
-                  {item?.title?.raw || "Untitled"}
+                  {item?.title || "Untitled"}
                 </MenuItem>
               );
             })}
@@ -103,6 +117,7 @@ const EntitySearchDropdown = ({
       `}
     >
       <Dropdown
+        onToggle={(open) => onOpen(open)}
         renderContent={() => (
           <div
             css={css`

@@ -25,6 +25,7 @@ return [
         \PrestoPlayer\Blocks\ReusableVideoBlock::class,
         \PrestoPlayer\Blocks\ReusableEditBlock::class,
         \PrestoPlayer\Blocks\AudioBlock::class,
+        \PrestoPlayer\Blocks\MediaHubBlock::class,
 
         // block services
         \PrestoPlayer\Services\Blocks\YoutubeBlockService::class,

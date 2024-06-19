@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit49b3cca69d37eb69567da76723427bb4
+class ComposerStaticInit92fdc5c7b613aa04758a833233277c11
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -220,7 +220,6 @@ class ComposerStaticInit49b3cca69d37eb69567da76723427bb4
         'SureCartBlocks\\Blocks\\AddToCartButton\\Block' => __DIR__ . '/../..' . '/packages/blocks/Blocks/AddToCartButton/Block.php',
         'SureCartBlocks\\Blocks\\Address\\Block' => __DIR__ . '/../..' . '/packages/blocks/Blocks/Address/Block.php',
         'SureCartBlocks\\Blocks\\BaseBlock' => __DIR__ . '/../..' . '/packages/blocks/Blocks/BaseBlock.php',
-        'SureCartBlocks\\Blocks\\BillingAddress\\Block' => __DIR__ . '/../..' . '/packages/blocks/Blocks/BillingAddress/Block.php',
         'SureCartBlocks\\Blocks\\BlockService' => __DIR__ . '/../..' . '/packages/blocks/Blocks/BlockService.php',
         'SureCartBlocks\\Blocks\\BlockServiceProvider' => __DIR__ . '/../..' . '/packages/blocks/Blocks/BlockServiceProvider.php',
         'SureCartBlocks\\Blocks\\BuyButton\\Block' => __DIR__ . '/../..' . '/packages/blocks/Blocks/BuyButton/Block.php',
@@ -1089,10 +1088,10 @@ class ComposerStaticInit49b3cca69d37eb69567da76723427bb4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit49b3cca69d37eb69567da76723427bb4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit49b3cca69d37eb69567da76723427bb4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit49b3cca69d37eb69567da76723427bb4::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit49b3cca69d37eb69567da76723427bb4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$classMap;
 
         }, null, ClassLoader::class);
     }

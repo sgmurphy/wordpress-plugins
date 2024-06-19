@@ -19,21 +19,8 @@ A batch of catalog objects.
 {
   "objects": [
     {
-      "type": "MODIFIER_LIST",
-      "id": "id8",
-      "item_data": {
-        "object": {
-          "id": "#Cocoa",
-          "item_data": {
-            "abbreviation": "Ch",
-            "description": "Hot chocolate",
-            "name": "Cocoa",
-            "visibility": "PRIVATE"
-          },
-          "present_at_all_locations": true,
-          "type": "ITEM"
-        }
-      },
+      "type": "PRODUCT_SET",
+      "id": "id6",
       "category_data": {
         "object": {
           "category_data": {
@@ -73,51 +60,6 @@ A batch of catalog objects.
           "type": "DISCOUNT"
         }
       },
-      "modifier_list_data": {
-        "id": "#MilkType",
-        "modifier_list_data": {
-          "allow_quantities": false,
-          "modifiers": [
-            {
-              "modifier_data": {
-                "name": "Whole Milk",
-                "price_money": {
-                  "amount": 0,
-                  "currency": "USD"
-                }
-              },
-              "present_at_all_locations": true,
-              "type": "MODIFIER"
-            },
-            {
-              "modifier_data": {
-                "name": "Almond Milk",
-                "price_money": {
-                  "amount": 250,
-                  "currency": "USD"
-                }
-              },
-              "present_at_all_locations": true,
-              "type": "MODIFIER"
-            },
-            {
-              "modifier_data": {
-                "name": "Soy Milk",
-                "price_money": {
-                  "amount": 250,
-                  "currency": "USD"
-                }
-              },
-              "present_at_all_locations": true,
-              "type": "MODIFIER"
-            }
-          ],
-          "name": "Milk Type",
-          "selection_type": "SINGLE"
-        },
-        "present_at_all_locations": true,
-        "type": "MODIFIER_LIST"
-      },
       "modifier_data": {
         "object": {
           "modifier_data": {
@@ -131,16 +73,16 @@ A batch of catalog objects.
           "type": "MODIFIER"
         }
       },
-      "updated_at": "updated_at4",
-      "version": 252,
+      "updated_at": "updated_at2",
+      "version": 164,
       "is_deleted": false,
       "custom_attribute_values": {
         "key0": {
-          "name": "name9",
-          "string_value": "string_value3",
-          "custom_attribute_definition_id": "custom_attribute_definition_id3",
-          "type": "SELECTION",
-          "number_value": "number_value9"
+          "name": "name8",
+          "string_value": "string_value2",
+          "custom_attribute_definition_id": "custom_attribute_definition_id4",
+          "type": "STRING",
+          "number_value": "number_value8"
         },
         "key1": {
           "name": "name8",
@@ -152,8 +94,16 @@ A batch of catalog objects.
       },
       "catalog_v1_ids": [
         {
-          "catalog_v1_id": "catalog_v1_id2",
-          "location_id": "location_id2"
+          "catalog_v1_id": "catalog_v1_id4",
+          "location_id": "location_id4"
+        },
+        {
+          "catalog_v1_id": "catalog_v1_id4",
+          "location_id": "location_id4"
+        },
+        {
+          "catalog_v1_id": "catalog_v1_id4",
+          "location_id": "location_id4"
         }
       ]
     }

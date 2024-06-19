@@ -69,6 +69,7 @@ Categorized, and sorted alphabeticaly
 - [Google Site Kit](https://wordpress.org/plugins/google-site-kit/).
 - [Pixel Manager for WooCommerce](https://wordpress.org/plugins/woocommerce-google-adwords-conversion-tracking-tag/).
 - [Woo](https://wordpress.org/plugins/woocommerce/).
+- [WP Statistics](https://wordpress.org/plugins/wp-statistics/).
 
 ## Demo site
 [wpconsentapi.org](https://wpconsentapi.org/)

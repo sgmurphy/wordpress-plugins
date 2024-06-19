@@ -1327,6 +1327,30 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'selector' => '{{WRAPPER}} .plus-pricing-table .pricing-title',
 			)
 		);
+		$this->add_responsive_control(
+			'title_alignment',
+			array(
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => esc_html__( 'Left', 'tpebl' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'tpebl' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => esc_html__( 'Right', 'tpebl' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .plus-pricing-table.pricing-style-1 .pricing-title' => 'text-align: {{VALUE}}',
+				),
+			)
+		);
 		$this->start_controls_tabs( 'tabs_title_style' );
 		$this->start_controls_tab(
 			'tab_title_normal',
@@ -1655,6 +1679,30 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'selector' => '{{WRAPPER}} .plus-pricing-table .pricing-table-inner .pricing-subtitle',
 			)
 		);
+		$this->add_responsive_control(
+			'subtitle_alignment',
+			array(
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => esc_html__( 'Left', 'tpebl' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'tpebl' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => esc_html__( 'Right', 'tpebl' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .plus-pricing-table.pricing-style-1 .pricing-subtitle' => 'text-align: {{VALUE}}',
+				),
+			)
+		);
 		$this->add_control(
 			'subtitle_color',
 			array(
@@ -1784,6 +1832,30 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'name'     => 'price_typography',
 				'label'    => esc_html__( 'Typography', 'tpebl' ),
 				'selector' => '{{WRAPPER}} .plus-pricing-table .pricing-price-wrap.style-1 span.price-prefix-text,{{WRAPPER}} .plus-pricing-table .pricing-price-wrap.style-1 .pricing-price',
+			)
+		);
+		$this->add_responsive_control(
+			'price_alignment',
+			array(
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => esc_html__( 'Left', 'tpebl' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'tpebl' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => esc_html__( 'Right', 'tpebl' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .plus-pricing-table.pricing-style-1 .pricing-price-wrap' => 'text-align: {{VALUE}}',
+				),
 			)
 		);
 		$this->start_controls_tabs( 'price_style_tab' );
@@ -2523,6 +2595,24 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			)
 		);
 		$this->add_control(
+			'button_top_bottom',
+			array(
+				'label'     => esc_html__( 'Position', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'default'   => 'middle',
+				'options'     => array(
+					'middle' => array(
+						'title' => esc_html__( 'Center', 'tpebl' ),
+						'icon'  => 'eicon-v-align-middle',
+					),
+					'bottom' => array(
+						'title' => esc_html__( 'Bottom', 'tpebl' ),
+						'icon'  => 'eicon-v-align-bottom',
+					),
+				),
+			)
+		);
+		$this->add_control(
 			'button_top_space',
 			array(
 				'type'        => Controls_Manager::SLIDER,
@@ -2883,6 +2973,48 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 				'default'   => '#fff',
 				'selectors' => array(
 					'{{WRAPPER}} .plus-pricing-table .pricing-ribbon-pin .ribbon-pin-inner,{{WRAPPER}} .plus-pricing-table .pricing-ribbon-pin .ribbon-pin-inner p' => 'color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'ribbon_alignment',
+			array(
+				'label'     => esc_html__( 'Alignment', 'tpebl' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'   => array(
+						'title' => esc_html__( 'Left', 'tpebl' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => esc_html__( 'Center', 'tpebl' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => esc_html__( 'Right', 'tpebl' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .plus-pricing-table .pricing-ribbon-pin.style-1 .ribbon-pin-inner' => 'text-align: {{VALUE}}',
+				),
+				'condition' => array(
+					'ribbon_pin_style' => 'style-1',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'ribbon_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .plus-pricing-table .pricing-ribbon-pin.style-1 .ribbon-pin-inner ' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'before',
+				'condition' => array(
+					'ribbon_pin_style' => 'style-1',
 				),
 			)
 		);
@@ -3650,9 +3782,15 @@ class L_ThePlus_Pricing_Table extends Widget_Base {
 			$pricing_output .= $ribbon_content;
 			$pricing_output .= $title_style_content;
 			$pricing_output .= $price_content;
-			$pricing_output .= $the_button;
-			$pricing_output .= $pricing_content;
-
+	
+			if( 'bottom' === $settings['button_top_bottom'] ){
+				$pricing_output .= $pricing_content;
+				$pricing_output .= $the_button;
+			}else{
+				$pricing_output .= $the_button;
+				$pricing_output .= $pricing_content;
+			}
+			
 			$pricing_output .= '<div class="pricing-overlay-color"></div>';
 		}
 

@@ -21,7 +21,7 @@ decreases by 2, and the stockable count automatically decreases by 0.4 bottle ac
 | Name | Type | Tags | Description | Getter | Setter |
 |  --- | --- | --- | --- | --- | --- |
 | `itemId` | `?string` | Optional | The ID of the `CatalogItem` associated with this item variation. | getItemId(): ?string | setItemId(?string itemId): void |
-| `name` | `?string` | Optional | The item variation's name. This is a searchable attribute for use in applicable query filters, and its value length is of Unicode code points.<br>**Constraints**: *Maximum Length*: `255` | getName(): ?string | setName(?string name): void |
+| `name` | `?string` | Optional | The item variation's name. This is a searchable attribute for use in applicable query filters.<br><br>Its value has a maximum length of 255 Unicode code points. However, when the parent [item](entity:CatalogItem)<br>uses [item options](entity:CatalogItemOption), this attribute is auto-generated, read-only, and can be<br>longer than 255 Unicode code points. | getName(): ?string | setName(?string name): void |
 | `sku` | `?string` | Optional | The item variation's SKU, if any. This is a searchable attribute for use in applicable query filters. | getSku(): ?string | setSku(?string sku): void |
 | `upc` | `?string` | Optional | The universal product code (UPC) of the item variation, if any. This is a searchable attribute for use in applicable query filters.<br><br>The value of this attribute should be a number of 12-14 digits long.  This restriction is enforced on the Square Seller Dashboard,<br>Square Point of Sale or Retail Point of Sale apps, where this attribute shows in the GTIN field. If a non-compliant UPC value is assigned<br>to this attribute using the API, the value is not editable on the Seller Dashboard, Square Point of Sale or Retail Point of Sale apps<br>unless it is updated to fit the expected format. | getUpc(): ?string | setUpc(?string upc): void |
 | `ordinal` | `?int` | Optional | The order in which this item variation should be displayed. This value is read-only. On writes, the ordinal<br>for each item variation within a parent `CatalogItem` is set according to the item variations's<br>position. On reads, the value is not guaranteed to be sequential or unique. | getOrdinal(): ?int | setOrdinal(?int ordinal): void |
@@ -41,17 +41,16 @@ decreases by 2, and the stockable count automatically decreases by 0.4 bottle ac
 | `imageIds` | `?(string[])` | Optional | The IDs of images associated with this `CatalogItemVariation` instance.<br>These images will be shown to customers in Square Online Store. | getImageIds(): ?array | setImageIds(?array imageIds): void |
 | `teamMemberIds` | `?(string[])` | Optional | Tokens of employees that can perform the service represented by this variation. Only valid for<br>variations of type `APPOINTMENTS_SERVICE`. | getTeamMemberIds(): ?array | setTeamMemberIds(?array teamMemberIds): void |
 | `stockableConversion` | [`?CatalogStockConversion`](../../doc/models/catalog-stock-conversion.md) | Optional | Represents the rule of conversion between a stockable [CatalogItemVariation](../../doc/models/catalog-item-variation.md)<br>and a non-stockable sell-by or receive-by `CatalogItemVariation` that<br>share the same underlying stock. | getStockableConversion(): ?CatalogStockConversion | setStockableConversion(?CatalogStockConversion stockableConversion): void |
-| `itemVariationVendorInfoIds` | `?(string[])` | Optional | A list of ids of [CatalogItemVariationVendorInfo](entity:CatalogItemVariationVendorInfo) objects that<br>reference this ItemVariation. (Deprecated in favor of item_variation_vendor_infos) | getItemVariationVendorInfoIds(): ?array | setItemVariationVendorInfoIds(?array itemVariationVendorInfoIds): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "item_id": "item_id0",
-  "name": "name0",
-  "sku": "sku4",
+  "item_id": "item_id4",
+  "name": "name4",
+  "sku": "sku0",
   "upc": "upc2",
-  "ordinal": 80
+  "ordinal": 76
 }
 ```
 

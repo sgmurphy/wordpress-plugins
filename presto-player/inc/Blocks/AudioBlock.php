@@ -16,6 +16,17 @@ class AudioBlock extends Block
   protected $name = 'audio';
 
   /**
+   * Translated block title
+   */
+  protected $title;
+
+  public function __construct(bool $isPremium = false, $version = 1)
+  {
+    parent::__construct($isPremium, $version);
+    $this->title = __('Audio', 'presto-player');
+  }
+
+  /**
    * Bail if user cannot access video
    *
    * @return void

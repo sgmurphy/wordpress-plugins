@@ -520,6 +520,13 @@
 
 /* Interface Icons */
 .bt_bb_dialog_content {
+
+	/* General */
+	.bt_bb_icon:before {
+		content: '\e90d';
+	}
+
+	/* Elements */
 	.bt_bb_icon_bt_bb_accordion:before, .bt_bb_icon_bt_bb_accordion_item:before {
 		content: '\e901';
 	}

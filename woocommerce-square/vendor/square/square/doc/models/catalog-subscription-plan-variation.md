@@ -15,37 +15,42 @@ For more information, see [Subscription Plans and Variations](https://developer.
 | `name` | `string` | Required | The name of the plan variation. | getName(): string | setName(string name): void |
 | `phases` | [`SubscriptionPhase[]`](../../doc/models/subscription-phase.md) | Required | A list containing each [SubscriptionPhase](entity:SubscriptionPhase) for this plan variation. | getPhases(): array | setPhases(array phases): void |
 | `subscriptionPlanId` | `?string` | Optional | The id of the subscription plan, if there is one. | getSubscriptionPlanId(): ?string | setSubscriptionPlanId(?string subscriptionPlanId): void |
+| `monthlyBillingAnchorDate` | `?int` | Optional | The day of the month the billing period starts.<br>**Constraints**: `>= 1`, `<= 31` | getMonthlyBillingAnchorDate(): ?int | setMonthlyBillingAnchorDate(?int monthlyBillingAnchorDate): void |
+| `canProrate` | `?bool` | Optional | Whether bills for this plan variation can be split for proration. | getCanProrate(): ?bool | setCanProrate(?bool canProrate): void |
+| `successorPlanVariationId` | `?string` | Optional | The ID of a "successor" plan variation to this one. If the field is set, and this object is disabled at all<br>locations, it indicates that this variation is deprecated and the object identified by the successor ID be used in<br>its stead. | getSuccessorPlanVariationId(): ?string | setSuccessorPlanVariationId(?string successorPlanVariationId): void |
 
 ## Example (as JSON)
 
 ```json
 {
-  "name": "name0",
+  "name": "name2",
   "phases": [
     {
-      "uid": "uid5",
-      "cadence": "EVERY_FOUR_MONTHS",
-      "periods": 241,
+      "uid": "uid0",
+      "cadence": "QUARTERLY",
+      "periods": 112,
       "recurring_price_money": {
-        "amount": 193,
-        "currency": "CHE"
+        "amount": 66,
+        "currency": "TMT"
       },
-      "ordinal": 207,
+      "ordinal": 78,
       "pricing": {
-        "type": "RELATIVE",
+        "type": "STATIC",
         "discount_ids": [
-          "discount_ids0",
-          "discount_ids1",
-          "discount_ids2"
+          "discount_ids5",
+          "discount_ids6"
         ],
         "price_money": {
-          "amount": 251,
-          "currency": "NZD"
+          "amount": 202,
+          "currency": "CNY"
         }
       }
     }
   ],
-  "subscription_plan_id": "subscription_plan_id2"
+  "subscription_plan_id": "subscription_plan_id0",
+  "monthly_billing_anchor_date": 38,
+  "can_prorate": false,
+  "successor_plan_variation_id": "successor_plan_variation_id2"
 }
 ```
 

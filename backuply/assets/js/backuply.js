@@ -1856,9 +1856,10 @@ function backuply_upload_backup(ev){
 				}
 				
 				show_alert(error_div, 'Backup <strong>'+ dropped_file.name + '</strong> of size ' + backuply_size_format(dropped_file.size) + ' successfully uploaded', 'success');
-				;
+				
+				jQuery('#backuply-btn-sync-bak').trigger('click');  // Triggers sync after upload has been completed.
+				jQuery(error_div).parent().append('<p style="text-align:center; color:green;">Syncing the backup, please wait for few seconds<span class="spinner is-active"></span></p>');
 			}
-			
 		});	
 	});
 

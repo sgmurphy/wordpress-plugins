@@ -1,5 +1,5 @@
 import { Address } from '../../../../types';
-import { ScSwitchCustomEvent } from 'src/components';
+import { ScCheckboxCustomEvent } from 'src/components';
 export declare class ScOrderBillingAddress {
   /** The input */
   private input;
@@ -31,7 +31,7 @@ export declare class ScOrderBillingAddress {
   prefillAddress(): void;
   componentWillLoad(): void;
   updateAddressState(address: Partial<Address>): Promise<void>;
-  onToggleBillingMatchesShipping(e: ScSwitchCustomEvent<void>): Promise<void>;
+  onToggleBillingMatchesShipping(e: ScCheckboxCustomEvent<void>): Promise<void>;
   shippingAddressFieldExists(): boolean;
   render(): any;
 }

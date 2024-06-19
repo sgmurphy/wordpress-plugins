@@ -882,7 +882,7 @@ class HMWP_Controllers_Firewall extends HMWP_Classes_FrontController
             wp_ob_end_flush_all();
             wp_die(
                 esc_html__("The process was blocked by the website’s firewall.", 'hide-my-wp'),
-                esc_html__('Blocked by ' . $name, 'hide-my-wp'),
+                esc_html__('Blocked by' . ' ' . $name, 'hide-my-wp'),
                 array('response' => 403)
             );
         }

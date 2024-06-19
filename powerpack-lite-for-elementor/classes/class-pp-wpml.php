@@ -22,21 +22,6 @@ class PP_Elements_WPML {
 			'fields'            => [],
 			'integration-class' => 'WPML_PP_Buttons',
 		];
-		$widgets[ 'pp-caldera-forms' ]        = [
-			'conditions' => [ 'widgetType' => 'pp-caldera-forms' ],
-			'fields'     => [
-				[
-					'field'       => 'form_title_custom',
-					'type'        => __( 'Caldera Forms - Title', 'powerpack' ),
-					'editor_type' => 'LINE'
-				],
-				[
-					'field'       => 'form_description_custom',
-					'type'        => __( 'Caldera Forms - Description', 'powerpack' ),
-					'editor_type' => 'AREA'
-				],
-			],
-		];
 		$widgets[ 'pp-contact-form-7' ]       = [
 			'conditions' => [ 'widgetType' => 'pp-contact-form-7' ],
 			'fields'     => [
@@ -167,6 +152,11 @@ class PP_Elements_WPML {
 			'conditions' => [ 'widgetType' => 'pp-flipbox' ],
 			'fields'     => [
 				[
+					'field'       => 'icon_text',
+					'type'        => __( 'Flip Box - Front Icon Text', 'powerpack' ),
+					'editor_type' => 'LINE'
+				],
+				[
 					'field'       => 'title_front',
 					'type'        => __( 'Flip Box - Front Title', 'powerpack' ),
 					'editor_type' => 'LINE',
@@ -175,6 +165,11 @@ class PP_Elements_WPML {
 					'field'       => 'description_front',
 					'type'        => __( 'Flip Box - Front Description', 'powerpack' ),
 					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'icon_text_back',
+					'type'        => __( 'Flip Box - Back Icon Text', 'powerpack' ),
+					'editor_type' => 'LINE'
 				],
 				[
 					'field'       => 'title_back',
@@ -426,6 +421,56 @@ class PP_Elements_WPML {
 				],
 			],
 		];
+		$widgets['pp-posts']                = [
+			'conditions' => [ 'widgetType' => 'pp-posts' ],
+			'fields'     => [
+				[
+					'field'       => 'query_id',
+					'type'        => __( 'Posts - Query Id', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'nothing_found_message',
+					'type'        => __( 'Posts - Nothing Found Message', 'powerpack' ),
+					'editor_type' => 'AREA',
+				],
+				[
+					'field'       => 'classic_post_terms_separator',
+					'type'        => __( 'Posts: Classic - Terms Separator', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_post_meta_separator',
+					'type'        => __( 'Posts: Classic - Post Meta Separator', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_author_prefix',
+					'type'        => __( 'Posts: Classic - Author Prefix', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_date_prefix',
+					'type'        => __( 'Posts: Classic - Date Prefix', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_button_text',
+					'type'        => __( 'Posts: Classic - Read More Button Text', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_pagination_prev_label',
+					'type'        => __( 'Posts: Classic - Pagination Prev Label', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+				[
+					'field'       => 'classic_pagination_next_label',
+					'type'        => __( 'Posts: Classic - Pagination Next Label', 'powerpack' ),
+					'editor_type' => 'LINE',
+				],
+			],
+		];
 		$widgets[ 'pp-price-menu' ]           = [
 			'conditions' => [ 'widgetType' => 'pp-price-menu' ],
 			'fields'     => [],
@@ -518,6 +563,16 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Scroll Image - URL', 'powerpack' ),
+					'editor_type' => 'LINK',
+				],
+			],
+		];
+		$widgets['pp-random-image']         = [
+			'conditions' => [ 'widgetType' => 'pp-random-image' ],
+			'fields'     => [
+				'link' => [
+					'field'       => 'url',
+					'type'        => __( 'Random Image - URL', 'powerpack' ),
 					'editor_type' => 'LINK',
 				],
 			],

@@ -1,9 +1,9 @@
 ﻿=== Hide Dashboard Notifications ===
 Contributors: wprepublic, thewebcitizen, hk1993, bitofwp
-Tags: hide dashboard notifications, hide admin notifications, hide updates nags, hide wordpress plugin update, disable update nags, hide nags, disable admin notices, hide admin notices
+Tags: hide dashboard notifications, hide admin notifications, hide wordpress plugin update, hide nags, hide admin notices
 Requires at least: 3.0
 Tested up to: 6.4.3
-Stable tag: 1.3
+Stable tag: 1.3.1
 Donate link: 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,6 +72,10 @@ You can find us under our WordPress Support Page.
 If you have installed the Hide WordPress DashBoard Notifications plugin then go ahead and leave a [review](https://wordpress.org/support/plugin/wp-hide-backed-notices/reviews/). We would be happy to receive your feedback and we will take it seriously into consideration.
 
 == Changelog ==
+
+= 1.3.1 (19 June 2024) =
+* Security Fix by adding capability checks. Kudos to [Francesco Carlucci](https://profiles.wordpress.org/francescocarlucci/)
+* Added missing admin icons(D'oh!)
 
 = 1.3 (19 February 2024) =
 * Security Fix

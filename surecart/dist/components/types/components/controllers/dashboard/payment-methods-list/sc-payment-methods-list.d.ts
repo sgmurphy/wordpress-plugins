@@ -7,6 +7,8 @@ export declare class ScPaymentMethodsList {
   heading: string;
   /** Is this a customer */
   isCustomer: boolean;
+  /** Whether default payment method can be detached */
+  canDetachDefaultPaymentMethod: boolean;
   /** Loaded payment methods */
   paymentMethods: Array<PaymentMethod>;
   /** Loading state */
@@ -37,6 +39,7 @@ export declare class ScPaymentMethodsList {
   getPaymentMethods(): Promise<void>;
   renderLoading(): any;
   renderEmpty(): any;
+  renderPaymentMethodActions(paymentMethod: PaymentMethod): any;
   renderList(): any[];
   renderContent(): any;
   handleEditPaymentMethodChange(): void;

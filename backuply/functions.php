@@ -999,20 +999,21 @@ function backuply_delete_backup($tar_file) {
 	if(!empty($files_exists)){
 		// Delete the backup
 		@unlink($backup_dir.'/'.$_file);
-		//backuply_log($_file.' Backup deleted successfully');
-		
+
 		// Delete the backup_info file
 		@unlink($backup_info_dir.'/'.$bkey.'.php');
-		//backuply_log($_file.' Backupi info file deleted successfully');
 		
 		// If the Location is remote
-		@unlink($backup_dir.'/'.$bkey.'.php');
-		@unlink($backup_dir.'/'.$bkey.'.info'); // Changed to info file since 1.0.2
-		
-		// Deleting log files from remote and local
-		@unlink($backup_dir.'/'.$bkey.'.log');
-		@unlink(BACKUPLY_BACKUP_DIR . $bkey.'_log.php');
-		
+		if(strpos($backup_dir, '://') !== FALSE){
+			@unlink($backup_dir.'/'.$bkey.'.info'); // Changed to info file since 1.0.2
+			@unlink($backup_dir.'/'.$bkey.'.log');
+		}
+
+		// Deleting log files from local
+		if(file_exists(BACKUPLY_BACKUP_DIR . $bkey.'_log.php')){
+			@unlink(BACKUPLY_BACKUP_DIR . $bkey.'_log.php');
+		}
+
 		$deleted = true;
 	}else{
 
@@ -1021,11 +1022,15 @@ function backuply_delete_backup($tar_file) {
 		
 		// If the Location is remote
 		@unlink($backup_dir.'/'.$bkey.'.php');
-		@unlink($backup_dir.'/'.$bkey.'.info'); // Changed to info file since 1.0.2
+		if(strpos($backup_dir, '://') !== FALSE){
+			@unlink($backup_dir.'/'.$bkey.'.info'); // Changed to info file since 1.0.2
+			@unlink($backup_dir.'/'.$bkey.'.log');
+		}
 		
 		// Deleting log files from remote and local
-		@unlink($backup_dir.'/'.$bkey.'.log');
-		@unlink(BACKUPLY_BACKUP_DIR . $bkey.'_log.php');
+		if(file_exists(BACKUPLY_BACKUP_DIR . $bkey.'_log.php')){
+			@unlink(BACKUPLY_BACKUP_DIR . $bkey.'_log.php');
+		}
 		
 		$deleted = true;
 	}
@@ -1167,22 +1172,21 @@ function backuply_stream_wrapper_register($protocol, $classname){
 
 // Includes Lib Files
 function backuply_include_lib($protocol) {
-	
+
 	if(!class_exists($protocol)){
-		
 		if(file_exists(BACKUPLY_DIR.'/lib/'.$protocol.'.php')) {
 			include_once(BACKUPLY_DIR.'/lib/'.$protocol.'.php');
 			return true;
 		}
-		
+
 		if(defined('BACKUPLY_PRO') && defined('BACKUPLY_PRO_DIR') && file_exists(BACKUPLY_PRO_DIR . '/lib/' .$protocol . '.php')) {
 			include_once(BACKUPLY_PRO_DIR . '/lib/' .$protocol . '.php');
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	return true;
 }
 

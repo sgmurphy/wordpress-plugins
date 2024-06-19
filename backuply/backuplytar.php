@@ -27,7 +27,7 @@ class backuply_tar{
 		$this->_compress = false;
 		$this->_compress_type = 'none';
 		if (($p_compress === null) || ($p_compress == '')) {
-			if (@file_exists($p_tarname)) {
+			if (@file_exists($p_tarname) && !is_dir($p_tarname)) {
 				if ($fp = @fopen($p_tarname, "rb")) {
 					// look for gzip magic cookie
 					$data = fread($fp, 2);
@@ -1341,7 +1341,7 @@ class backuply_tar{
 		}
 
 		// ----- Extract the checksum
-		$v_header['checksum'] = OctDec(trim($v_data['checksum']));
+		$v_header['checksum'] = @OctDec(trim($v_data['checksum']));
 		if ($v_header['checksum'] != $v_checksum) {
 			$v_header['filename'] = '';
 

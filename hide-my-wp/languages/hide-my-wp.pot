@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Hide My WP Ghost\n"
-"POT-Creation-Date: 2024-06-13 16:10+0300\n"
+"POT-Creation-Date: 2024-06-19 09:03+0300\n"
 "PO-Revision-Date: 2020-12-24 09:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -142,6 +142,14 @@ msgstr ""
 
 #: controllers/Connect.php:51
 msgid "ERROR! Please make sure you use the right token to activate the plugin"
+msgstr ""
+
+#: controllers/Firewall.php:884
+msgid "The process was blocked by the website’s firewall."
+msgstr ""
+
+#: controllers/Firewall.php:885
+msgid "Blocked by "
 msgstr ""
 
 #: controllers/Overview.php:60 controllers/Settings.php:161
@@ -1253,142 +1261,155 @@ msgstr ""
 msgid "Done!"
 msgstr ""
 
-#: controllers/SecurityCheck.php:643
+#: controllers/SecurityCheck.php:665
+msgid "Don't forget to reload the Nginx service."
+msgstr ""
+
+#: controllers/SecurityCheck.php:670
 msgid "Great! The new paths are loading correctly."
 msgstr ""
 
-#: controllers/SecurityCheck.php:645
+#: controllers/SecurityCheck.php:672
+#, php-format
+msgid "You can now turn off '%s' option."
+msgstr ""
+
+#: controllers/SecurityCheck.php:672 view/Advanced.php:37
+msgid "Prevent Broken Website Layout"
+msgstr ""
+
+#: controllers/SecurityCheck.php:676
 msgid ""
 "Error! The new paths are not loading correctly. Clear all cache and try "
 "again."
 msgstr ""
 
-#: controllers/SecurityCheck.php:651
+#: controllers/SecurityCheck.php:682
 msgid "Could not fix it. You need to change it manually."
 msgstr ""
 
-#: controllers/SecurityCheck.php:666
+#: controllers/SecurityCheck.php:697
 msgid "Saved! This task will be ignored on future tests."
 msgstr ""
 
-#: controllers/SecurityCheck.php:673
+#: controllers/SecurityCheck.php:704
 msgid "Saved! You can run the test again."
 msgstr ""
 
-#: controllers/SecurityCheck.php:727 controllers/SecurityCheck.php:732
-#: controllers/SecurityCheck.php:753 controllers/SecurityCheck.php:768
-#: controllers/SecurityCheck.php:784 controllers/SecurityCheck.php:801
-#: controllers/SecurityCheck.php:1042 controllers/SecurityCheck.php:1190
-#: controllers/SecurityCheck.php:1211 controllers/SecurityCheck.php:1220
-#: controllers/SecurityCheck.php:1227 controllers/SecurityCheck.php:1259
-#: controllers/SecurityCheck.php:1290 controllers/SecurityCheck.php:1302
-#: controllers/SecurityCheck.php:1327 controllers/SecurityCheck.php:1342
-#: controllers/SecurityCheck.php:1358 controllers/SecurityCheck.php:1374
-#: controllers/SecurityCheck.php:1388 controllers/SecurityCheck.php:1423
-#: controllers/SecurityCheck.php:1433 controllers/SecurityCheck.php:1455
-#: controllers/SecurityCheck.php:1484 controllers/SecurityCheck.php:1500
-#: controllers/SecurityCheck.php:1526 controllers/SecurityCheck.php:1553
-#: controllers/SecurityCheck.php:1584 controllers/SecurityCheck.php:1621
-#: controllers/SecurityCheck.php:1648 controllers/SecurityCheck.php:1672
-#: controllers/SecurityCheck.php:1679 controllers/SecurityCheck.php:1711
-#: controllers/SecurityCheck.php:1729 controllers/SecurityCheck.php:1744
+#: controllers/SecurityCheck.php:758 controllers/SecurityCheck.php:763
+#: controllers/SecurityCheck.php:784 controllers/SecurityCheck.php:799
+#: controllers/SecurityCheck.php:815 controllers/SecurityCheck.php:832
+#: controllers/SecurityCheck.php:1073 controllers/SecurityCheck.php:1221
+#: controllers/SecurityCheck.php:1242 controllers/SecurityCheck.php:1251
+#: controllers/SecurityCheck.php:1258 controllers/SecurityCheck.php:1290
+#: controllers/SecurityCheck.php:1321 controllers/SecurityCheck.php:1333
+#: controllers/SecurityCheck.php:1358 controllers/SecurityCheck.php:1373
+#: controllers/SecurityCheck.php:1389 controllers/SecurityCheck.php:1405
+#: controllers/SecurityCheck.php:1419 controllers/SecurityCheck.php:1454
+#: controllers/SecurityCheck.php:1464 controllers/SecurityCheck.php:1486
+#: controllers/SecurityCheck.php:1515 controllers/SecurityCheck.php:1531
+#: controllers/SecurityCheck.php:1557 controllers/SecurityCheck.php:1584
+#: controllers/SecurityCheck.php:1615 controllers/SecurityCheck.php:1652
+#: controllers/SecurityCheck.php:1679 controllers/SecurityCheck.php:1703
+#: controllers/SecurityCheck.php:1710 controllers/SecurityCheck.php:1742
+#: controllers/SecurityCheck.php:1760 controllers/SecurityCheck.php:1775
 msgid "No"
 msgstr ""
 
-#: controllers/SecurityCheck.php:732 controllers/SecurityCheck.php:753
-#: controllers/SecurityCheck.php:768 controllers/SecurityCheck.php:784
-#: controllers/SecurityCheck.php:801 controllers/SecurityCheck.php:1042
-#: controllers/SecurityCheck.php:1101 controllers/SecurityCheck.php:1190
-#: controllers/SecurityCheck.php:1211 controllers/SecurityCheck.php:1220
-#: controllers/SecurityCheck.php:1259 controllers/SecurityCheck.php:1290
-#: controllers/SecurityCheck.php:1302 controllers/SecurityCheck.php:1327
-#: controllers/SecurityCheck.php:1342 controllers/SecurityCheck.php:1358
-#: controllers/SecurityCheck.php:1374 controllers/SecurityCheck.php:1388
-#: controllers/SecurityCheck.php:1393 controllers/SecurityCheck.php:1428
-#: controllers/SecurityCheck.php:1455 controllers/SecurityCheck.php:1484
-#: controllers/SecurityCheck.php:1500 controllers/SecurityCheck.php:1519
-#: controllers/SecurityCheck.php:1553 controllers/SecurityCheck.php:1584
-#: controllers/SecurityCheck.php:1621 controllers/SecurityCheck.php:1648
-#: controllers/SecurityCheck.php:1672 controllers/SecurityCheck.php:1679
-#: controllers/SecurityCheck.php:1711 controllers/SecurityCheck.php:1729
-#: controllers/SecurityCheck.php:1744
+#: controllers/SecurityCheck.php:763 controllers/SecurityCheck.php:784
+#: controllers/SecurityCheck.php:799 controllers/SecurityCheck.php:815
+#: controllers/SecurityCheck.php:832 controllers/SecurityCheck.php:1073
+#: controllers/SecurityCheck.php:1132 controllers/SecurityCheck.php:1221
+#: controllers/SecurityCheck.php:1242 controllers/SecurityCheck.php:1251
+#: controllers/SecurityCheck.php:1290 controllers/SecurityCheck.php:1321
+#: controllers/SecurityCheck.php:1333 controllers/SecurityCheck.php:1358
+#: controllers/SecurityCheck.php:1373 controllers/SecurityCheck.php:1389
+#: controllers/SecurityCheck.php:1405 controllers/SecurityCheck.php:1419
+#: controllers/SecurityCheck.php:1424 controllers/SecurityCheck.php:1459
+#: controllers/SecurityCheck.php:1486 controllers/SecurityCheck.php:1515
+#: controllers/SecurityCheck.php:1531 controllers/SecurityCheck.php:1550
+#: controllers/SecurityCheck.php:1584 controllers/SecurityCheck.php:1615
+#: controllers/SecurityCheck.php:1652 controllers/SecurityCheck.php:1679
+#: controllers/SecurityCheck.php:1703 controllers/SecurityCheck.php:1710
+#: controllers/SecurityCheck.php:1742 controllers/SecurityCheck.php:1760
+#: controllers/SecurityCheck.php:1775
 msgid "Yes"
 msgstr ""
 
-#: controllers/SecurityCheck.php:876
+#: controllers/SecurityCheck.php:907
 #, php-format
 msgid "%s plugin(s) are outdated: %s"
 msgstr ""
 
-#: controllers/SecurityCheck.php:876
+#: controllers/SecurityCheck.php:907
 msgid "All plugins are up to date"
 msgstr ""
 
-#: controllers/SecurityCheck.php:911
+#: controllers/SecurityCheck.php:942
 #, php-format
 msgid "%s theme(s) are outdated: %s"
 msgstr ""
 
-#: controllers/SecurityCheck.php:911
+#: controllers/SecurityCheck.php:942
 msgid "Themes are up to date"
 msgstr ""
 
-#: controllers/SecurityCheck.php:962
+#: controllers/SecurityCheck.php:993
 #, php-format
 msgid ""
 "%s plugin(s) have NOT been updated by their developers in the past 12 "
 "months: %s"
 msgstr ""
 
-#: controllers/SecurityCheck.php:962
+#: controllers/SecurityCheck.php:993
 msgid "All plugins have been updated by their developers in the past 12 months"
 msgstr ""
 
-#: controllers/SecurityCheck.php:998
+#: controllers/SecurityCheck.php:1029
 msgid "All plugins are compatible"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1123
+#: controllers/SecurityCheck.php:1154
 #, php-format
 msgid "%s days since last update"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1123
+#: controllers/SecurityCheck.php:1154
 msgid "Updated"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1143
+#: controllers/SecurityCheck.php:1174
 msgid "Empty"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1148
+#: controllers/SecurityCheck.php:1179
 #, php-format
 msgid "only %d chars"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1153
+#: controllers/SecurityCheck.php:1184
 msgid "too simple"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1158
+#: controllers/SecurityCheck.php:1189
 msgid "Good"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1213
+#: controllers/SecurityCheck.php:1244
 msgid ""
 "Change the wp-config.php file permission to Read-Only using File Manager."
 msgstr ""
 
-#: controllers/SecurityCheck.php:1741
+#: controllers/SecurityCheck.php:1772
 msgid "Just another WordPress site"
 msgstr ""
 
-#: controllers/SecurityCheck.php:1767
+#: controllers/SecurityCheck.php:1798
 #, php-format
 msgid "%s don't have the correct permission."
 msgstr ""
 
-#: controllers/SecurityCheck.php:1767
+#: controllers/SecurityCheck.php:1798
 msgid "All files have the correct permissions."
 msgstr ""
 
@@ -1637,13 +1658,6 @@ msgstr ""
 #: models/Compatibility.php:734 models/Compatibility.php:738
 #, php-format
 msgid "Google reCaptcha V3 is not working with the current login form of %s ."
-msgstr ""
-
-#: models/Compatibility.php:742
-#, php-format
-msgid ""
-"Prevent Broken Website option is active. Test the website using a different "
-"browser before turning this option off. %s Go to option %s"
 msgstr ""
 
 #: models/ListTable.php:25
@@ -1921,13 +1935,13 @@ msgctxt "password mismatch"
 msgid "Mismatch"
 msgstr ""
 
-#: models/Rewrite.php:3149
+#: models/Rewrite.php:3156
 msgid ""
 "There has been a critical error on your website. Please check your site "
 "admin email inbox for instructions."
 msgstr ""
 
-#: models/Rewrite.php:3151
+#: models/Rewrite.php:3158
 msgid "There has been a critical error on your website."
 msgstr ""
 
@@ -2025,10 +2039,6 @@ msgstr ""
 
 #: view/Advanced.php:28
 msgid "Safe URL:"
-msgstr ""
-
-#: view/Advanced.php:37
-msgid "Prevent Broken Website Layout"
 msgstr ""
 
 #: view/Advanced.php:39 view/Advanced.php:91 view/Advanced.php:126
@@ -4343,52 +4353,52 @@ msgstr ""
 msgid "Login Test"
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:48
+#: view/blocks/FrontendLoginCheck.php:49
 #, php-format
 msgid "Run %s Frontend Test %s to check if the new paths are working."
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:49
+#: view/blocks/FrontendLoginCheck.php:50
 #, php-format
 msgid "Run %s Login Test %s and log in inside the popup."
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:50
+#: view/blocks/FrontendLoginCheck.php:51
 msgid "If you're able to log in, you've set the new paths correctly."
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:51
+#: view/blocks/FrontendLoginCheck.php:52
 msgid ""
 "Do not log out from this browser until you are confident that the Log in "
 "Page is working and you will be able to login again."
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:52
+#: view/blocks/FrontendLoginCheck.php:53
 #, php-format
 msgid ""
 "If you can't configure %s, switch to Deactivated Mode and %scontact us%s."
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:63
+#: view/blocks/FrontendLoginCheck.php:64
 #, php-format
 msgid "Your login URL is: %s"
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:67
+#: view/blocks/FrontendLoginCheck.php:68
 #, php-format
 msgid ""
 "Your login URL will be: %s In case you can't login, use the safe URL: %s"
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:76
+#: view/blocks/FrontendLoginCheck.php:77
 msgid "Yes, it's working"
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:83
+#: view/blocks/FrontendLoginCheck.php:84
 msgid "No, abort"
 msgstr ""
 
-#: view/blocks/FrontendLoginCheck.php:92
+#: view/blocks/FrontendLoginCheck.php:93
 msgid "Frontend Login Test"
 msgstr ""
 

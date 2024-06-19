@@ -177,6 +177,7 @@ class Field extends Controller {
 			$field_data           = json_decode( wp_unslash( $_REQUEST['field_data'] ), true );
 			$field_data_sanitized = wc_clean( $field_data );
 
+			$field_data_sanitized['label']       = wp_kses_post( $field_data['label'] );
 			$field_data_sanitized['description'] = wp_kses_post( $field_data['description'] );
 
 			if ( is_array( $field_data_sanitized ) ) {

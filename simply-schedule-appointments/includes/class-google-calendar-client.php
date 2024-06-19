@@ -92,9 +92,6 @@
 		$staff_access_token = $this->get_access_token_for_staff_id();
 		if( $staff_access_token != $this->access_token ) {
 			$this->access_token = $staff_access_token;
-			// switching tokens is expected behavior, we log it when debugging to better understand the flow
-			ssa_debug_log( "Switching Google client to impersonate staff ID " . $this->staff_id, 5 );
-			ssa_debug_log( ssa_get_stack_trace(), 5 );
 		}
 		
 		// check also if the access token is the correct one
@@ -636,7 +633,7 @@
 			'wp_next_base_uri' => $wp_next_base_uri, // grab from the parent page (example: /my-account/), like we do for booking_url in booking-app
 			// used for ssa_quick_connect - staff_id as well
 			'domain' => $site_home_url,
-			'license_key'=> $license_settings['license'],
+			'license_key'=> $license_settings['license_filtered'],
 		) ) ), '+/=', '-_,' );
 		
 		return $gcal_api_endpoint . $this->get_params_from_options( $params );

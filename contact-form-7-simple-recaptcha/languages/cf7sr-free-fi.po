@@ -7,9 +7,6 @@ msgstr "Virheellinen CAPTCHA -viesti"
 msgid "Save Settings"
 msgstr "Tallenna asetukset"
 
-msgid "Get Captcha Pro and unlock premium features"
-msgstr "Hanki Captcha Pro ja avaa premium-ominaisuuksia"
-
 msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr "Yli 100 000 yrityksen luottama maailmanlaajuisesti. PRO-versio on vielä parempi!"
 
@@ -49,9 +46,6 @@ msgstr "Päivitetty onnistuneesti!"
 msgid "PRO features:"
 msgstr "PRO-ominaisuudet:"
 
-msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
-msgstr "Contact Form 7 Captcha -laajennus päivitetty tukemaan reCAPTCHA:ta ja hCAPTCHA:ta."
-
 msgid "You can combine multiple attributes, sample shortcode:"
 msgstr "Voit yhdistää useita ominaisuuksia, esimerkki shortcode:"
 
@@ -79,11 +73,47 @@ msgstr "hCAPTCHA ei toimi, jollet määritä alla olevia asetuksia"
 msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
 msgstr "Lisätäksesi hCAPTCHA:n Contact Form 7 -lomakkeeseen lisää lomakkeeseen <strong>[cf7sr-hcaptcha]</strong> (mieluiten ennen lähetyspainiketta)"
 
-msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
-msgstr "Pakota hCAPTCHA renderöitymään tietyllä kielellä. Google tunnistaa kielen automaattisesti, jos sitä ei ole määritetty."
-
 msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
 msgstr "hCAPTCHA:n oletuskoko on normaali, kompaktia kokoa varten käytä shortcodea:"
 
 msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
 msgstr "hCAPTCHA:n oletusteeman väri on vaalea. Käytä tummaan teemaan shortcodea:"
+
+msgid "Force hCaptcha to render in a specific language."
+msgstr "Pakota hCaptcha näkymään tietyllä kielellä."
+
+msgid "Cloudflare Turnstile CAPTCHA will not work unless you set up the configuration below"
+msgstr "Cloudflare Turnstile CAPTCHA ei toimi, ellet määritä alla olevaa asetusta"
+
+msgid "Force CAPTCHA to render in a specific language"
+msgstr "Pakota CAPTCHA näkymään tietyllä kielellä"
+
+msgid "To add Cloudflare Turnstile CAPTCHA to Contact Form 7 form, add <strong>[cf7sr-turnstile]</strong> in your form ( preferable above submit button )"
+msgstr "Lisätäksesi Cloudflare Turnstile CAPTCHA:n Yhteydenottolomake 7 -lomakkeeseen, lisää <strong>[cf7sr-turnstile]</strong> lomakkeeseesi (mieluiten ennen lähettämispainiketta)"
+
+msgid "Default size of CAPTCHA is normal, for compact size use shortcode:"
+msgstr "CAPTCHA:n oletuskoko on normaali, tiiviimpää kokoa varten käytä pikakoodia:"
+
+msgid "Default color theme of CAPTCHA is auto, for dark or light theme use shortcode:"
+msgstr "CAPTCHA:n oletusväriteema on automaattinen, tummaa tai vaaleaa teemaa varten käytä pikakoodia:"
+
+msgid "Contact Form 7 Captcha plugin updated to support Google CAPTCHA V2, hCAPTCHA and Cloudflare Turnstile CAPTCHA"
+msgstr "Yhteydenottolomake 7 -lomakkeen Captcha-liitännäinen on päivitetty tukemaan Google CAPTCHA V2:a, hCAPTCHA:ta ja Cloudflare Turnstile CAPTCHA:ta"
+
+msgid "Get Captcha Pro starting from $0.83 per month:"
+msgstr "Hanki Captcha Pro alkaen $0.83 kuukaudessa:"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Hanki Captcha Pro ja avaa kaikki tehokkaat ominaisuudet"
+
+msgid "Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!"
+msgstr "Contact Form 7 Captcha -lisäosa päivitetty: tukee nyt Cloudflare Turnstile CAPTCHA:ta!"
+
+msgid "Introducing PRO Feature: Responsive Captcha."
+msgstr "Esitellään PRO-ominaisuus: Responsive Captcha."
+
+msgid "View all PRO features."
+msgstr "Näytä kaikki PRO-ominaisuudet."
+
+msgid "Responsive Captcha - adapts to smaller screens by switching to compact size when a predefined width is set."
+msgstr "Responsive Captcha - mukautuu pienempiin näyttöihin vaihtamalla tiiviimpään kokoon, kun ennalta määrätty leveys on asetettu."

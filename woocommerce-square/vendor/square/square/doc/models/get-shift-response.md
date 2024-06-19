@@ -33,6 +33,10 @@ the request resulted in errors.
       }
     ],
     "created_at": "2019-02-27T00:12:12Z",
+    "declared_cash_tip_money": {
+      "amount": 500,
+      "currency": "USD"
+    },
     "employee_id": "D71KRMQof6cXGUW0aAv7",
     "end_at": "2019-02-23T21:00:00-05:00",
     "id": "T35HMQSN89SV4",
@@ -49,27 +53,28 @@ the request resulted in errors.
         "currency": "USD"
       },
       "job_id": "N4YKVLzFj3oGtNocqoYHYpW3",
+      "tip_eligible": true,
       "title": "Cashier"
     }
   },
   "errors": [
     {
-      "category": "REFUND_ERROR",
-      "code": "MERCHANT_SUBSCRIPTION_NOT_FOUND",
-      "detail": "detail1",
-      "field": "field9"
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     },
     {
       "category": "MERCHANT_SUBSCRIPTION_ERROR",
-      "code": "BAD_REQUEST",
-      "detail": "detail2",
-      "field": "field0"
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     },
     {
-      "category": "EXTERNAL_VENDOR_ERROR",
-      "code": "MISSING_REQUIRED_PARAMETER",
-      "detail": "detail3",
-      "field": "field1"
+      "category": "MERCHANT_SUBSCRIPTION_ERROR",
+      "code": "MAP_KEY_LENGTH_TOO_LONG",
+      "detail": "detail6",
+      "field": "field4"
     }
   ]
 }

@@ -15,6 +15,7 @@ const ScPaymentMethodsList = class {
     this.query = undefined;
     this.heading = undefined;
     this.isCustomer = undefined;
+    this.canDetachDefaultPaymentMethod = false;
     this.paymentMethods = [];
     this.loading = undefined;
     this.busy = undefined;
@@ -127,12 +128,22 @@ const ScPaymentMethodsList = class {
   renderEmpty() {
     return (index.h("div", null, index.h("sc-divider", { style: { '--spacing': '0' } }), index.h("slot", { name: "empty" }, index.h("sc-empty", { icon: "credit-card" }, wp.i18n.__("You don't have any saved payment methods.", 'surecart')))));
   }
+  renderPaymentMethodActions(paymentMethod) {
+    const { id, customer } = paymentMethod;
+    // If this is a string, don't show the actions.
+    if (typeof customer === 'string')
+      return;
+    // If this is the default payment method and it cannot be detached, don't show the actions.
+    if (customer.default_payment_method === id && !this.canDetachDefaultPaymentMethod)
+      return;
+    return (index.h("sc-dropdown", { placement: "bottom-end", slot: "suffix" }, index.h("sc-icon", { role: "button", tabIndex: 0, name: "more-horizontal", slot: "trigger" }), index.h("sc-menu", null, customer.default_payment_method !== id && index.h("sc-menu-item", { onClick: () => (this.editPaymentMethod = paymentMethod) }, wp.i18n.__('Make Default', 'surecart')), index.h("sc-menu-item", { onClick: () => (this.deletePaymentMethod = paymentMethod) }, wp.i18n.__('Delete', 'surecart')))));
+  }
   renderList() {
     return this.paymentMethods.map(paymentMethod => {
       const { id, card, customer, live_mode, billing_agreement, paypal_account } = paymentMethod;
       return (index.h("sc-stacked-list-row", { style: { '--columns': billing_agreement ? '2' : '3' } }, index.h("sc-payment-method", { paymentMethod: paymentMethod }), index.h("div", { class: "payment-id" }, !!(card === null || card === void 0 ? void 0 : card.exp_month) && (index.h("span", null, wp.i18n.__('Exp.', 'surecart'), card === null || card === void 0 ? void 0 :
         card.exp_month, "/", card === null || card === void 0 ? void 0 :
-        card.exp_year)), !!paypal_account && (paypal_account === null || paypal_account === void 0 ? void 0 : paypal_account.email)), index.h("sc-flex", { "justify-content": "flex-start", "align-items": "center", style: { '--spacing': '0.5em', 'marginLeft': 'auto' } }, typeof customer !== 'string' && (customer === null || customer === void 0 ? void 0 : customer.default_payment_method) === id && index.h("sc-tag", { type: "info" }, wp.i18n.__('Default', 'surecart')), !live_mode && index.h("sc-tag", { type: "warning" }, wp.i18n.__('Test', 'surecart'))), typeof customer !== 'string' && (customer === null || customer === void 0 ? void 0 : customer.default_payment_method) !== id && (index.h("sc-dropdown", { placement: "bottom-end", slot: "suffix" }, index.h("sc-icon", { role: 'button', tabIndex: 0, name: "more-horizontal", slot: "trigger" }), index.h("sc-menu", null, index.h("sc-menu-item", { onClick: () => (this.editPaymentMethod = paymentMethod) }, wp.i18n.__('Make Default', 'surecart')), index.h("sc-menu-item", { onClick: () => (this.deletePaymentMethod = paymentMethod) }, wp.i18n.__('Delete', 'surecart')))))));
+        card.exp_year)), !!paypal_account && (paypal_account === null || paypal_account === void 0 ? void 0 : paypal_account.email)), index.h("sc-flex", { "justify-content": "flex-start", "align-items": "center", style: { '--spacing': '0.5em', 'marginLeft': 'auto' } }, typeof customer !== 'string' && (customer === null || customer === void 0 ? void 0 : customer.default_payment_method) === id && index.h("sc-tag", { type: "info" }, wp.i18n.__('Default', 'surecart')), !live_mode && index.h("sc-tag", { type: "warning" }, wp.i18n.__('Test', 'surecart'))), this.renderPaymentMethodActions(paymentMethod)));
     });
   }
   renderContent() {

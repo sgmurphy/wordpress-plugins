@@ -1,5 +1,19 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.26 - 2024-06-13
+
+### Fixes
+
+- update visibleLast for only_available view
+- Translate customer information field names based on customer locale
+
+### Features and Improvements
+
+- Adding appointment type views formidable integration
+- Add padding to formidable forms
+- Add preview to SSA Modules
+- Fixing booking views colors
+
 ## SSA-VERSION-PREFIX.6.7.24 - 2024-06-04
 
 ### Fixes

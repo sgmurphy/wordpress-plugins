@@ -357,7 +357,8 @@ class SSA_Notifications {
 			array( '<p>'      , '</p>'      , '}}'      , '%}'       ),
 			$string
 		);
-		$string = str_replace( '{{ Appointment.customer_information_summary }}', '{% for label, entered_value in Appointment.customer_information_strings %}{% if entered_value|trim %}{{ label|internationalize }}: {{ entered_value|trim|raw }} <br />{%endif%}{% endfor %}', $string );
+		$string = str_replace( '{{ Appointment.customer_information_summary }}', '{% for label, entered_value in Appointment.customer_information_strings %}{% if entered_value|trim %}{{ label|internationalize(Appointment.customer_locale) }}: {{ entered_value|trim|raw }} <br />{%endif%}{% endfor %}', $string );
+		$string = str_replace( '{{ Appointment.customer_information_summary_admin_locale }}', '{% for label, entered_value in Appointment.customer_information_strings %}{% if entered_value|trim %}{{ label|internationalize }}: {{ entered_value|trim|raw }} <br />{%endif%}{% endfor %}', $string );
 		$instructions = "{{ Appointment.AppointmentType.instructions|raw }} 
 
 			{% if Appointment.web_meeting_url %}

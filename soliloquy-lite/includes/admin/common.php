@@ -75,9 +75,8 @@ class Soliloquy_Common_Admin_Lite {
 		add_action( 'in_admin_footer', [ $this, 'footer_template' ] );
 		add_action( 'admin_footer', [ $this, 'notifications_template' ] );
 		add_action( 'admin_menu', [ $this, 'add_upgrade_menu_item' ], 99 );
-		add_action('admin_head', [ $this, 'admin_inline_styles' ] );
+		add_action( 'admin_head', [ $this, 'admin_inline_styles' ] );
 		add_action( 'admin_footer', [ $this, 'admin_sidebar_target' ] );
-
 	}
 
 	/**
@@ -210,15 +209,15 @@ class Soliloquy_Common_Admin_Lite {
 				}
 			)
 		);
-		$screen = get_current_screen();
+		$screen                = get_current_screen();
 		// Let's make sure we have an ID and the link is set in the menu.
 		if ( isset( $screen->id ) && isset( $submenu['edit.php?post_type=soliloquy'][ $upgrade_link_position ][2] ) ) {
 			// Let's clean up the screen id a bit.
 			$screen_id = str_replace(
-				array(
+				[
 					'code-snippets_page_',
 					'toplevel_page_',
-				),
+				],
 				'',
 				$screen->id
 			);
@@ -233,7 +232,6 @@ class Soliloquy_Common_Admin_Lite {
 			$submenu['edit.php?post_type=soliloquy'][ $upgrade_link_position ][] = 'soliloquy-sidebar-upgrade-pro';
 		}
 		// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited
-
 	}
 
 	/**
@@ -330,7 +328,7 @@ class Soliloquy_Common_Admin_Lite {
 	public function legacy_upgrade_success() {
 
 		// If the parameter is not set, do nothing.
-		if ( empty( $_GET['soliloquy-upgraded'] ) ) {
+		if ( empty( $_GET['soliloquy-upgraded'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 
@@ -417,7 +415,7 @@ class Soliloquy_Common_Admin_Lite {
 
 			// Delete the resized image.
 			if ( file_exists( $file ) ) {
-				unlink( $file );
+				wp_delete_file( $file );
 			}
 		}
 	}
@@ -484,6 +482,7 @@ class Soliloquy_Common_Admin_Lite {
 
 		update_post_meta( $id, '_sol_slider_data', $slider_data );
 	}
+
 	/**
 	 * Called whenever an upgrade button / link is displayed in Lite, this function will
 	 * check if there's a shareasale ID specified.
@@ -497,6 +496,12 @@ class Soliloquy_Common_Admin_Lite {
 	 * ShareASale to then redirect to soliloquywp.com/lite
 	 *
 	 * If no ID is present, just returns the soliloquywp.com/lite URL with UTM tracking.
+	 *
+	 * @param string $url    The URL to use if there's no ShareASale ID.
+	 * @param string $medium The UTM medium to use.
+	 * @param string $button The UTM campaign to use.
+	 * @param string $append Any additional query string to append.
+	 * @return string
 	 *
 	 * @since 2.5.0
 	 */

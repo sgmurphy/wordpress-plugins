@@ -1112,6 +1112,10 @@ class Quiz_Maker_Public
             $quiz_bg_img_class = 'ays_quiz_hide_bg_on_start_page';
         }
 
+        // Hide background image during the quiz
+        $options['quiz_bg_img_during_the_quiz'] = isset($options['quiz_bg_img_during_the_quiz']) ? $options['quiz_bg_img_during_the_quiz'] : 'off';
+        $quiz_bg_img_during_the_quiz = (isset($options['quiz_bg_img_during_the_quiz']) && $options['quiz_bg_img_during_the_quiz'] == 'on') ? true : false;
+
         
         /*
          * Quiz container border enabled/disabled
@@ -3506,6 +3510,19 @@ class Quiz_Maker_Public
             $quiz_styles .= "
             div#ays-quiz-container-" . $id . ".ays_quiz_hide_bg_on_start_page {
                 " . $ays_quiz_bg_style_value . ";
+            }";
+        }
+
+        if ($quiz_bg_img_during_the_quiz) {
+            if($enable_background_gradient) {
+                $ays_quiz_bg_during_quiz_style_value = "background-image: linear-gradient(". $quiz_gradient_direction .", ". $background_gradient_color_1 .", ". $background_gradient_color_2 .");";
+            }else {
+                $ays_quiz_bg_during_quiz_style_value = "background-image: unset";
+            }
+
+            $quiz_styles .= "
+            div#ays-quiz-container-" . $id . ".ays_quiz_hide_bg_during_quiz {
+                " . $ays_quiz_bg_during_quiz_style_value . ";
             }";
         }
 

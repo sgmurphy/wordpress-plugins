@@ -14,6 +14,7 @@ registerBlockType("ssa/upcoming-appointments", {
 		__('Displays Upcoming Appointments. You can select what to show in the appointment card.', 'simply-schedule-appointments'),
 	icon: "calendar-alt",
 	category: "widgets",
+	example: {},
 
 	edit: function (props) {
 		var options = [

@@ -720,9 +720,8 @@ class Soliloquy_Welcome {
 					</div>
 				</div>
 			<?php
-		} else {
-			if ( isset( $plugin['basename'] ) && is_plugin_active( $plugin['basename'] ) ) {
-				?>
+		} elseif ( isset( $plugin['basename'] ) && is_plugin_active( $plugin['basename'] ) ) {
+			?>
 							<div class="soliloquy-am-plugins">
 							<div class="soliloquy-am-plugins-main">
 								<div>
@@ -771,8 +770,8 @@ class Soliloquy_Welcome {
 				</div>
 						</div>
 				<?php
+
 			}
-		}
 	}
 
 	/**
@@ -1055,7 +1054,7 @@ class Soliloquy_Welcome {
 				'url'         => 'https://downloads.wordpress.org/plugin/duplicator.zip',
 				'basename'    => 'duplicator/duplicator.php',
 			],
-			'envira-gallery-lite'                       => [
+			'envira-gallery-lite'                          => [
 				'name'        => 'Gallery Plugin for WordPress – Envira Photo Gallery',
 				'description' => 'Envira Gallery is the fastest, easiest to use WordPress image gallery plugin. Lightbox with Drag & Drop builder that helps you create beautiful galleries.',
 				'icon'        => $images_url . 'envira.png',

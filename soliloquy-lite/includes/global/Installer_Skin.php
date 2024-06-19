@@ -95,8 +95,8 @@ class Soliloquy_Lite_Installer_Skin extends WP_Upgrader_Skin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $string The feedback string.
+	 * @param string $string_data The feedback string.
 	 * @param array  ...$args The args.
 	 */
-	public function feedback( $string, ...$args ) {}
+	public function feedback( $string_data, ...$args ) {}
 }

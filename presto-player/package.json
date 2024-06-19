@@ -81,6 +81,7 @@
     "@wordpress/element": "^4.20.0",
     "@wordpress/env": "^4.0.5",
     "@wordpress/i18n": "^4.25.0",
+    "@wordpress/icons": "^9",
     "@wordpress/scripts": "^24.6.0",
     "@wordpress/url": "^3.23.0",
     "@yarnpkg/plugin-workspace-tools": "^4.0.0-rc.30",

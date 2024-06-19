@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack Lite for Elementor
  * Plugin URI: https://powerpackelements.com
  * Description: Extend Elementor Page Builder with 40+ Creative Widgets and exciting extensions.
- * Version: 2.7.21
+ * Version: 2.7.22
  * Author: IdeaBox Creations
  * Author URI: http://ideabox.io/
  * License: GNU General Public License v2.0
@@ -20,7 +20,7 @@ if ( defined( 'POWERPACK_ELEMENTS_VER' ) ) {
 	return;
 }
 
-define( 'POWERPACK_ELEMENTS_LITE_VER', '2.7.21' );
+define( 'POWERPACK_ELEMENTS_LITE_VER', '2.7.22' );
 define( 'POWERPACK_ELEMENTS_LITE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_BASE', plugin_basename( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_URL', plugins_url( '/', __FILE__ ) );
@@ -138,10 +138,6 @@ function pp_elements_lite_load_plugin_textdomain() {
 add_action( 'plugins_loaded', 'pp_elements_lite_init' );
 
 function pp_elements_lite_init() {
-    if ( class_exists( 'Caldera_Forms' ) ) {
-        add_filter( 'caldera_forms_force_enqueue_styles_early', '__return_true' );
-    }
-
     // Notice if the Elementor is not active
 	if ( ! did_action( 'elementor/loaded' ) ) {
 		add_action( 'admin_notices', 'pp_elements_lite_fail_load' );

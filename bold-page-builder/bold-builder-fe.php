@@ -617,6 +617,11 @@ function bt_bb_fe_head() {
 		echo 'window.bt_bb_ajax_url = "' . esc_js( admin_url( 'admin-ajax.php' ) ) . '";'; // back. compat.
 		echo 'window.bt_bb_fa_url = "' . plugins_url( 'css/font-awesome.min.css', __FILE__ ) . '";';
 		echo 'window.bt_bb_fe_dialog_content_css_url = "' . plugins_url( 'css/front_end/fe_dialog_content.crush.css', __FILE__ ) . '";';
+		
+		if ( file_exists( get_parent_theme_file_path( '/admin-style.css' ) ) ) {
+			echo 'window.bt_bb_fe_dialog_admin_css = "' . get_parent_theme_file_uri( 'admin-style.css' ) . '";';
+		}
+		
 		echo 'window.bt_bb_fe_dialog_bottom_css_url = "' . plugins_url( 'css/front_end/fe_dialog_bottom.crush.css', __FILE__ ) . '";';
 		if ( is_rtl() ) {
 			echo 'window.bt_bb_rtl = true;';

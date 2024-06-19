@@ -7,9 +7,6 @@ msgstr "Ungültige Captcha-Fehlermeldung"
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-msgid "Get Captcha Pro and unlock premium features"
-msgstr "Holen Sie sich Captcha Pro und schalten Sie Premium-Funktionen frei"
-
 msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr "Vertrauen von mehr als 100.000 Unternehmen weltweit. Die PRO-Version ist noch besser!"
 
@@ -49,9 +46,6 @@ msgstr "Erfolgreich aktualisiert!"
 msgid "PRO features:"
 msgstr "PRO-Funktionen:"
 
-msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
-msgstr "Das Contact Form 7 Captcha-Plugin wurde aktualisiert, um reCAPTCHA und hCaptcha zu unterstützen."
-
 msgid "You can combine multiple attributes, sample shortcode:"
 msgstr "Sie können mehrere Attribute kombinieren, Beispiel-Shortcode:"
 
@@ -79,11 +73,47 @@ msgstr "hCaptcha funktioniert nicht, wenn Sie die folgende Konfiguration nicht e
 msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
 msgstr "Um hCaptcha zu einem Contact Form 7-Formular hinzuzufügen, fügen Sie <strong>[cf7sr-hcaptcha]</strong> in Ihr Formular ein (vorzugsweise über der Schaltfläche Senden)"
 
-msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
-msgstr "Erzwingen Sie, dass hCaptcha in einer bestimmten Sprache gerendert wird. Google erkennt dies automatisch, wenn keine Angabe gemacht wird."
-
 msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
 msgstr "Die Standardgröße von hCaptcha ist normal, für die kompakte Größe verwenden Sie den Shortcode:"
 
 msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
 msgstr "Das Standardfarbthema von hCaptcha ist hell, für ein dunkles Thema verwenden Sie den Shortcode:"
+
+msgid "Force hCaptcha to render in a specific language."
+msgstr "Erzwingen Sie, dass hCaptcha in einer bestimmten Sprache gerendert wird."
+
+msgid "Cloudflare Turnstile CAPTCHA will not work unless you set up the configuration below"
+msgstr "Cloudflare Turnstile CAPTCHA funktioniert nicht, es sei denn, Sie richten die unten stehende Konfiguration ein."
+
+msgid "Force CAPTCHA to render in a specific language"
+msgstr "Erzwingen Sie, dass CAPTCHA in einer bestimmten Sprache gerendert wird."
+
+msgid "To add Cloudflare Turnstile CAPTCHA to Contact Form 7 form, add <strong>[cf7sr-turnstile]</strong> in your form ( preferable above submit button )"
+msgstr "Um Cloudflare Turnstile CAPTCHA zu Ihrem Kontaktformular 7 hinzuzufügen, fügen Sie <strong>[cf7sr-turnstile]</strong> in Ihrem Formular hinzu (bevorzugt über dem Absendebutton)."
+
+msgid "Default size of CAPTCHA is normal, for compact size use shortcode:"
+msgstr "Die Standardgröße des CAPTCHA ist normal, für eine kompakte Größe verwenden Sie den Shortcode:"
+
+msgid "Default color theme of CAPTCHA is auto, for dark or light theme use shortcode:"
+msgstr "Das Standardfarbthema des CAPTCHA ist automatisch, für ein dunkles oder helles Thema verwenden Sie den Shortcode:"
+
+msgid "Contact Form 7 Captcha plugin updated to support Google CAPTCHA V2, hCAPTCHA and Cloudflare Turnstile CAPTCHA"
+msgstr "Das Captcha-Plugin für Kontaktformular 7 wurde aktualisiert, um Google CAPTCHA V2, hCAPTCHA und Cloudflare Turnstile CAPTCHA zu unterstützen."
+
+msgid "Get Captcha Pro starting from $0.83 per month:"
+msgstr "Holen Sie sich Captcha Pro ab $0.83 pro Monat:"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Erhalten Sie Captcha Pro und entsperren Sie alle leistungsstarken Funktionen"
+
+msgid "Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!"
+msgstr "Das Contact Form 7 Captcha-Plugin wurde aktualisiert: unterstützt jetzt Cloudflare Turnstile CAPTCHA!"
+
+msgid "Introducing PRO Feature: Responsive Captcha."
+msgstr "Vorstellung der PRO-Funktion: Responsive Captcha."
+
+msgid "View all PRO features."
+msgstr "Alle PRO-Funktionen anzeigen."
+
+msgid "Responsive Captcha - adapts to smaller screens by switching to compact size when a predefined width is set."
+msgstr "Responsive Captcha - passt sich kleineren Bildschirmen an, indem es bei einer vordefinierten Breite auf kompakte Größe umschaltet."

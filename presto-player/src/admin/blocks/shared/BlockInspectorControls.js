@@ -8,6 +8,7 @@ import ProBadge from "@/admin/blocks/shared/components/ProBadge";
 import VideoOverlays from "@/admin/blocks/shared/overlays";
 import VideoPresets from "@/admin/blocks/shared/presets";
 import VideoSettings from "@/admin/blocks/shared/settings";
+import InserterShortcodeInput from "../plugins/reusable-videos/ShortcodeInput";
 
 export default function ({ attributes, setAttributes }) {
   const userCanReadSettings = useSelect((select) =>
@@ -27,7 +28,6 @@ export default function ({ attributes, setAttributes }) {
       >
         <VideoChapters setAttributes={setAttributes} attributes={attributes} />
       </PanelBody>
-
       <PanelBody
         title={
           <>
@@ -47,6 +47,8 @@ export default function ({ attributes, setAttributes }) {
       <PanelBody title={__("Video Preset", "presto-player")}>
         <VideoPresets setAttributes={setAttributes} attributes={attributes} />
       </PanelBody>
+
+      <InserterShortcodeInput />
 
       {!!userCanReadSettings && (
         <PanelBody

@@ -38,6 +38,6 @@ class ReusableVideoBlock
     public function html($attributes)
     {
         $block = new ReusableVideo($attributes['id']);
-        return $block->renderBlock();
+        return $block->renderBlock($attributes);
     }
 }

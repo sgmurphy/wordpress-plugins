@@ -690,6 +690,7 @@ body:not(.bt_bb_fe_preview_toggle) .bt_bb_text.bt_bb_fe_editing_box > .bt_bb_fe_
     width: 100%;
     max-width: 100%;
     height: 2.88em;
+    min-height: auto;
     display: block;
     margin: 0;
     padding: 0 1.1em;

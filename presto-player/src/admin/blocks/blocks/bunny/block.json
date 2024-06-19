@@ -6,6 +6,7 @@
   "description": "Serve public video through Bunny.net CDN.",
   "keywords": ["video"],
   "textdomain": "presto-player",
+  "usesContext": ["presto-player/playlist-media-id"],
   "attributes": {
     "visibility": {
       "type": "string",
@@ -130,7 +131,8 @@
     }
   ],
   "supports": {
-    "align": true
+    "align": true,
+    "inserter": false
   },
   "script": "presto-components"
 }

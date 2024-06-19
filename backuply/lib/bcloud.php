@@ -2772,6 +2772,13 @@ final class S3Request
 		if (strstr($bucket, '..') !== false) return false;
 		if (!preg_match("/^[0-9a-z]/", $bucket)) return false;
 		if (!preg_match("/[0-9a-z]$/", $bucket)) return false;
+
+		// For Minio as minio as it provides self hosted S3 compatible storage
+		$host = $this->bucket.'.'.$this->endpoint;
+		if(gethostbyname($host) == $host){
+			return false;
+		}
+
 		return true;
 	}
 
@@ -2868,6 +2875,7 @@ class bcloud extends S3 {
 	public $filename = '';
 	public $filesize = 0;
 	public $url = [];
+	public $context; // This is used by stream wrapper, so we are not required to touch it
 
 	public function url_stat($path) {
 		self::set_bcloud_endpoint($path); // Updating endpoint

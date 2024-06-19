@@ -27,7 +27,7 @@ function backuply_died() {
 		return false;
 	}
 	
-	backuply_log(serialize($last_error()));
+	backuply_log(serialize($last_error));
 	
 	if(!empty($last_error['type']) && ($last_error['type'] === E_ERROR || $last_error['type'] === E_PARSE)){
 		backuply_log($last_error['message'], true);
@@ -2199,7 +2199,7 @@ function backuply_import($import_file, $conn){
 							$bacuply_version_query = "UPDATE ".$wp_old_prefix."options SET `option_value`='".$GLOBALS['backuply_version']."' WHERE `option_name`='backuply_version';";
 							backuply_mysql_query($bacuply_version_query, $conn);
 
-							backuply_log($bacuply_version_query);
+							//backuply_log($bacuply_version_query);
 						}
 					}
 
@@ -2439,7 +2439,7 @@ function backuply_die($txt, $l_file = '', $backuly_backup_dir = ''){
 	$array['result'] = $txt;
 	$array['data'] = $GLOBALS['data'];
 	
-	$globals = ['l_readbytes', 'import_i', 'import_len', 'import_offset', 'status', 'current_status', 'import_spos', 'part_no', 'backuply_version'];
+	$globals = ['l_readbytes', 'import_i', 'import_len', 'import_offset', 'status', 'current_status', 'import_spos', 'part_no', 'backuply_version', 'remote_data'];
 	
 	// Updating data with $GLOBALS
 	foreach($globals as $global){
@@ -2953,7 +2953,7 @@ function remote_archive_download_loop(){
 	}
 	
 	if(method_exists($url['scheme'], 'download_file_loop')){
-		
+
 		$obj = new $url['scheme'];
 		
 		//Delete the local file if the process is starting afresh and the file already exists
@@ -3212,6 +3212,10 @@ if(!empty($data['restore_db'])){
 	$GLOBALS['import_spos'] = !empty(backuply_optPOST('import_spos')) ? backuply_optPOST('import_spos') : 0;
 }
 
+if(backuply_optPOST('remote_data')){
+	$GLOBALS['remote_data'] = backuply_optPOST('remote_data');
+}
+
 if($data['site_url'] !== $data['backup_site_url']){
 	$data['is_migrating'] = true;
 }
@@ -3254,7 +3258,7 @@ if(preg_match('/\:\/\//', $data['backup_dir'])){
 	//$data['is_remote'] = true;
 	$data['local_tar'] = backuply_glob('backups') .'/'. $data['fname'];
 	$data['remote_tar'] = $data['backup_dir'].'/'.$data['fname'];
-	
+
 	//Download the file if its on remote location
 	if($data['size'] > $data['l_readbytes']) {
 		remote_archive_download_loop();
@@ -3278,7 +3282,7 @@ if(!empty($data['restore_dir']) && empty($GLOBALS['current_status'])){
 		backuply_die('restoreerror');
 	}
 
-	// Is the backup process INCOMPLETE ? 
+	// Is the backup process INCOMPLETE ?
 	if(!empty($GLOBALS['end_file'])){
 		$data['last_file'] = $GLOBALS['end_file'];
 		$data['status'] = 1;
@@ -3286,7 +3290,7 @@ if(!empty($data['restore_dir']) && empty($GLOBALS['current_status'])){
 		backuply_die('INCOMPLETE', $GLOBALS['end_file']);
 		///echo serialize($data);
 	}
-	
+
 	// See if a permission list is there ?
 	$perms = @file($data['softpath'].'/softperms.txt');
 	if(is_array($perms)){
@@ -3345,10 +3349,15 @@ if(!empty($data['restore_db']) && $GLOBALS['current_status'] < 2){
 	
 	// Store the progress
 	backuply_status_log('Working on restoring Database', 'working', !empty($data['restore_dir']) ? 67 : 24);
+	
+	// --- Enabling maintenance mode ---
+	$maintenance_string = '<?php $upgrading = ' . time() . '; ?>';
+	file_put_contents(cleanpath($data['backup_site_path']) . '/.maintenance', $maintenance_string);  // We need to update everytime the script calls itself, becuase .maintenance gets deleted after 10 minutes of inactivity with the file.
+	backuply_status_log('Maintainance mode enabled', 'info', !empty($data['restore_dir']) ? 68 : 25);
 
 	$dbuser = $data['softdbuser'];
 	$dbpass = $data['softdbpass'];
-	
+
 	// Does the USER exist ?
 	$mysql = @backuply_mysql_connect($data['softdbhost'], $dbuser, $dbpass, true);
 	
@@ -3452,6 +3461,13 @@ if(!empty($data['restore_db']) && $GLOBALS['current_status'] < 2){
 	}
 	
 	backuply_status_log('Import has been completed', 'working', !empty($data['restore_dir']) ? 70 : 28);
+	
+	// --- Disabling Maintenance mode ---
+	if(file_exists($data['backup_site_path'] . '/.maintenance')){
+		unlink($data['backup_site_path'] . '/.maintenance');
+		backuply_status_log('Maintainance mode disabled', 'info', !empty($data['restore_dir']) ? 72 : 29);
+	}
+
 	@unlink($data['softpath'].'/'.$data['dbexist']);
 	if(file_exists($data['softpath'].'/'.$data['fname'])){
 		@unlink($data['softpath'].'/'.$data['fname']);

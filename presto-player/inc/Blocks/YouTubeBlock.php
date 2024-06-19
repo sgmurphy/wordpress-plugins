@@ -15,6 +15,19 @@ class YouTubeBlock extends Block
     protected $name = 'youtube';
 
     /**
+     * Translated block title
+     * 
+     * @var string
+     */
+    protected $title;
+
+    public function __construct(bool $isPremium = false, $version = 1)
+    {
+        parent::__construct($isPremium, $version);
+        $this->title = __('Youtube', 'presto-player');
+    }
+
+    /**
      * Add url to template
      *
      * @param array $attributes
@@ -39,8 +52,10 @@ class YouTubeBlock extends Block
     {
         $id = $this->getIdFromURL(!empty($attributes['src']) ? $attributes['src'] : '');
 
+        if (empty($id)) {
+            return '';
+        }
         // build youtube url
-        $url = !empty($id) ? "//www.youtube.com/embed/{$id}" : "";
         return add_query_arg([
             'iv_load_policy' => 3,
             'modestbranding' => 1,
@@ -48,8 +63,7 @@ class YouTubeBlock extends Block
             'showinfo' => 0,
             'rel' => 0,
             'enablejsapi' => 1,
-            // 'autoplay' => !empty($attributes['autoplay']) ? 1 : 0
-        ], $url);
+        ], "//www.youtube.com/embed/{$id}");
     }
 
     /**
@@ -60,7 +74,7 @@ class YouTubeBlock extends Block
      */
     public function sanitizeAttributes($attributes, $default_config)
     {
-        $preset = new Preset($attributes['preset']);
+        $preset = !empty($attributes['preset']) ? new Preset($attributes['preset']) : null;
         $id = $this->getIdFromURL(!empty($attributes['src']) ? $attributes['src'] : '');
 
         return [
@@ -68,7 +82,7 @@ class YouTubeBlock extends Block
             'provider_video_id' => $id,
             'src'   => $this->makeUrl($attributes),
             'poster' => isset($attributes['poster']) ? esc_url($attributes['poster']) : false,
-            'hide_youtube' => !empty((bool)$preset->hide_youtube),
+            'hide_youtube' => !empty($preset) ? !empty((bool)$preset->hide_youtube) : false,
         ];
     }
 

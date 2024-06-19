@@ -7,9 +7,6 @@ msgstr "Mensaje de error de captcha inválido"
 msgid "Save Settings"
 msgstr "Guardar Ajustes"
 
-msgid "Get Captcha Pro and unlock premium features"
-msgstr "Consigue Captcha Pro y desbloquea funcionalidades premium"
-
 msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr "¡Utilizado por más de 100.000 empresas en todo el mundo. La versión PRO es aún mejor!"
 
@@ -49,9 +46,6 @@ msgstr "¡Actualizado con éxito!"
 msgid "PRO features:"
 msgstr "Funcionalidades PRO:"
 
-msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCaptcha."
-msgstr "El plugin Contact Form 7 Captcha ha sido actualizado para soportar reCAPTCHA y hCaptcha."
-
 msgid "You can combine multiple attributes, sample shortcode:"
 msgstr "Puedes combinar múltiples atributos. Ejemplo de shortcode:"
 
@@ -79,11 +73,47 @@ msgstr "hCaptcha no funcionará a menos que configures los ajustes a continuaci�
 msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
 msgstr "Para añadir hCaptcha a un formulario de Contact Form 7, inserta <strong>[cf7sr-hcaptcha]</strong> en tu formulario (preferiblemente encima del botón de envío)"
 
-msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
-msgstr "Fuerza a hCaptcha a mostrarse en un idioma específico. Google lo detecta automáticamente si no se especifica."
-
 msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
 msgstr "El tamaño predeterminado de hCaptcha es normal. Para el tamaño compacto, usa el shortcode:"
 
 msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
 msgstr "El tema de color predeterminado de hCaptcha es claro. Para el tema oscuro, usa el shortcode:"
+
+msgid "Force hCaptcha to render in a specific language."
+msgstr "Forzar hCaptcha a mostrarse en un idioma específico."
+
+msgid "Cloudflare Turnstile CAPTCHA will not work unless you set up the configuration below"
+msgstr "El CAPTCHA de Cloudflare Turnstile no funcionará a menos que configure la siguiente configuración"
+
+msgid "Force CAPTCHA to render in a specific language"
+msgstr "Forzar CAPTCHA a mostrarse en un idioma específico"
+
+msgid "To add Cloudflare Turnstile CAPTCHA to Contact Form 7 form, add <strong>[cf7sr-turnstile]</strong> in your form ( preferable above submit button )"
+msgstr "Para agregar CAPTCHA de Cloudflare Turnstile al formulario de Contact Form 7, agregue <strong>[cf7sr-turnstile]</strong> en su formulario (preferiblemente arriba del botón de enviar)"
+
+msgid "Default size of CAPTCHA is normal, for compact size use shortcode:"
+msgstr "El tamaño predeterminado del CAPTCHA es normal, para un tamaño compacto, use el shortcode:"
+
+msgid "Default color theme of CAPTCHA is auto, for dark or light theme use shortcode:"
+msgstr "El tema de color predeterminado del CAPTCHA es automático, para un tema oscuro o claro, use el shortcode:"
+
+msgid "Contact Form 7 Captcha plugin updated to support Google CAPTCHA V2, hCAPTCHA and Cloudflare Turnstile CAPTCHA"
+msgstr "El plugin de Captcha de Contact Form 7 se ha actualizado para admitir Google CAPTCHA V2, hCAPTCHA y CAPTCHA de Cloudflare Turnstile"
+
+msgid "Get Captcha Pro starting from $0.83 per month:"
+msgstr "Obtén Captcha Pro desde $0.83 al mes:"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Obtén Captcha Pro y desbloquea todas las potentes funciones"
+
+msgid "Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!"
+msgstr "¡El plugin de Captcha para Contact Form 7 ha sido actualizado: ahora soporta Cloudflare Turnstile CAPTCHA!"
+
+msgid "Introducing PRO Feature: Responsive Captcha."
+msgstr "Introducción de la función PRO: Captcha adaptable."
+
+msgid "View all PRO features."
+msgstr "Ver todas las funciones PRO."
+
+msgid "Responsive Captcha - adapts to smaller screens by switching to compact size when a predefined width is set."
+msgstr "Captcha adaptable: se adapta a pantallas más pequeñas cambiando a un tamaño compacto cuando se establece un ancho predefinido."

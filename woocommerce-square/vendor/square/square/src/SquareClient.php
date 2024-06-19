@@ -50,6 +50,8 @@ use Square\Apis\TransactionsApi;
 use Square\Apis\V1TransactionsApi;
 use Square\Apis\VendorsApi;
 use Square\Apis\WebhookSubscriptionsApi;
+use Square\Authentication\BearerAuthCredentialsBuilder;
+use Square\Authentication\BearerAuthManager;
 use Square\Utils\CompatibilityConverter;
 use Unirest\Configuration;
 use Unirest\HttpClient;
@@ -162,7 +164,7 @@ class SquareClient implements ConfigurationInterface
             ->jsonHelper(ApiHelper::getJsonHelper())
             ->apiCallback($this->config['httpCallback'] ?? null)
             ->userAgent(
-                'Square-PHP-SDK/29.0.0.20230720 ({api-version}) {engine}/{engine-version} ({os-' .
+                'Square-PHP-SDK/35.1.0.20240320 ({api-version}) {engine}/{engine-version} ({os-' .
                 'info}) {detail}'
             )
             ->userAgentConfig(
@@ -185,7 +187,7 @@ class SquareClient implements ConfigurationInterface
      */
     public function toBuilder(): SquareClientBuilder
     {
-        return SquareClientBuilder::init()
+        $builder = SquareClientBuilder::init()
             ->timeout($this->getTimeout())
             ->enableRetries($this->shouldEnableRetries())
             ->numberOfRetries($this->getNumberOfRetries())
@@ -200,8 +202,13 @@ class SquareClient implements ConfigurationInterface
             ->userAgentDetail($this->getUserAgentDetail())
             ->environment($this->getEnvironment())
             ->customUrl($this->getCustomUrl())
-            ->accessToken($this->bearerAuthManager->getAccessToken())
             ->httpCallback($this->config['httpCallback'] ?? null);
+
+        $bearerAuth = $this->getBearerAuthCredentialsBuilder();
+        if ($bearerAuth != null) {
+            $builder->bearerAuthCredentials($bearerAuth);
+        }
+        return $builder;
     }
 
     public function getTimeout(): int
@@ -274,9 +281,17 @@ class SquareClient implements ConfigurationInterface
         return $this->config['customUrl'] ?? ConfigurationDefaults::CUSTOM_URL;
     }
 
-    public function getBearerAuthCredentials(): ?BearerAuthCredentials
+    public function getBearerAuthCredentials(): BearerAuthCredentials
     {
         return $this->bearerAuthManager;
+    }
+
+    public function getBearerAuthCredentialsBuilder(): ?BearerAuthCredentialsBuilder
+    {
+        if (empty($this->bearerAuthManager->getAccessToken())) {
+            return null;
+        }
+        return BearerAuthCredentialsBuilder::init($this->bearerAuthManager->getAccessToken());
     }
 
     /**
@@ -304,7 +319,7 @@ class SquareClient implements ConfigurationInterface
      */
     public function getSdkVersion(): string
     {
-        return '29.0.0.20230720';
+        return '35.1.0.20240320';
     }
 
     /**

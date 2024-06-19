@@ -64,20 +64,21 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 		 * @since 3.0
 		 */
 		public function tp_white_label_update_free( $all_plugins ){				
-				$plugin_name =theplus_white_label_option('l_tp_plugin_name');
-				$tp_plugin_desc =theplus_white_label_option('l_tp_plugin_desc');
-				$tp_author_name =theplus_white_label_option('l_tp_author_name');
-				$tp_author_uri =theplus_white_label_option('l_tp_author_uri');
-			if(!empty($all_plugins[L_THEPLUS_PBNAME]) && is_array($all_plugins[L_THEPLUS_PBNAME])){
-			$all_plugins[L_THEPLUS_PBNAME]['Name']           = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Name'];
-			$all_plugins[L_THEPLUS_PBNAME]['PluginURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['PluginURI'];
-			$all_plugins[L_THEPLUS_PBNAME]['Description']    = ! empty( $tp_plugin_desc )     ? $tp_plugin_desc      : $all_plugins[L_THEPLUS_PBNAME]['Description'];
-			$all_plugins[L_THEPLUS_PBNAME]['Author']         = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['Author'];
-			$all_plugins[L_THEPLUS_PBNAME]['AuthorURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['AuthorURI'];
-			$all_plugins[L_THEPLUS_PBNAME]['Title']          = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Title'];
-			$all_plugins[L_THEPLUS_PBNAME]['AuthorName']     = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['AuthorName'];
+			$plugin_name =theplus_white_label_option('l_tp_plugin_name');
+			$tp_plugin_desc =theplus_white_label_option('l_tp_plugin_desc');
+			$tp_author_name =theplus_white_label_option('l_tp_author_name');
+			$tp_author_uri =theplus_white_label_option('l_tp_author_uri');
 
-			return $all_plugins;
+			if(!empty($all_plugins[L_THEPLUS_PBNAME]) && is_array($all_plugins[L_THEPLUS_PBNAME])){
+				$all_plugins[L_THEPLUS_PBNAME]['Name']           = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Name'];
+				$all_plugins[L_THEPLUS_PBNAME]['PluginURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['PluginURI'];
+				$all_plugins[L_THEPLUS_PBNAME]['Description']    = ! empty( $tp_plugin_desc )     ? $tp_plugin_desc      : $all_plugins[L_THEPLUS_PBNAME]['Description'];
+				$all_plugins[L_THEPLUS_PBNAME]['Author']         = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['Author'];
+				$all_plugins[L_THEPLUS_PBNAME]['AuthorURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['AuthorURI'];
+				$all_plugins[L_THEPLUS_PBNAME]['Title']          = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Title'];
+				$all_plugins[L_THEPLUS_PBNAME]['AuthorName']     = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['AuthorName'];
+
+				return $all_plugins;
 			}
 		}
 		/**
@@ -89,6 +90,7 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 			require_once L_THEPLUS_PATH.'modules/enqueue/plus-widgets-manager.php';
 			require_once L_THEPLUS_PATH.'modules/enqueue/plus-library.php';
 			require_once L_THEPLUS_PATH.'modules/enqueue/plus-generator.php';
+
 			if(!defined('THEPLUS_VERSION')){
 				require_once L_THEPLUS_PATH.'modules/enqueue/plus-wpml.php';
 			}
@@ -113,7 +115,8 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 				'tp_caldera_forms' => '\TheplusAddons\Widgets\L_ThePlus_Caldera_Forms',
 				'tp_clients_listout' => '\TheplusAddons\Widgets\L_ThePlus_Clients_ListOut',
 				'tp_contact_form_7' => '\TheplusAddons\Widgets\L_ThePlus_Contact_Form_7',
-				'tp_countdown' => '\TheplusAddons\Widgets\L_ThePlus_Countdown',	
+				'tp_countdown' => '\TheplusAddons\Widgets\L_ThePlus_Countdown',
+				'tp_carousel_anything' => '\TheplusAddons\Widgets\L_ThePlus_Carousel_Anything',
 				'tp_dark_mode' => '\TheplusAddons\Widgets\L_ThePlus_Dark_Mode',
 				'tp_dynamic_categories' => '\TheplusAddons\Widgets\L_ThePlus_Dynamic_Categories',
 				'tp_everest_form' => '\TheplusAddons\Widgets\L_ThePlus_Everest_form',
@@ -151,6 +154,7 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 				'tp_tabs_tours' => '\TheplusAddons\Widgets\L_ThePlus_Tabs_Tours',
 				'tp_team_member_listout' => '\TheplusAddons\Widgets\L_ThePlus_Team_Member_ListOut',
 				'tp_testimonial_listout' => '\TheplusAddons\Widgets\L_ThePlus_Testimonial_ListOut',
+				'tp_table' => '\TheplusAddons\Widgets\L_ThePlus_Data_Table',
 				'tp_video_player' => '\TheplusAddons\Widgets\L_ThePlus_Video_Player',				
 				'tp_wp_forms' => '\TheplusAddons\Widgets\L_ThePlus_Wp_Forms',
 			);

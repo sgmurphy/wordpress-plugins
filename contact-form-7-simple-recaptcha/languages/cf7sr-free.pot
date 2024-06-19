@@ -7,9 +7,6 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-msgid "Get Captcha Pro and unlock premium features"
-msgstr ""
-
 msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr ""
 
@@ -49,9 +46,6 @@ msgstr ""
 msgid "PRO features:"
 msgstr ""
 
-msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
-msgstr ""
-
 msgid "You can combine multiple attributes, sample shortcode:"
 msgstr ""
 
@@ -79,12 +73,45 @@ msgstr ""
 msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
 msgstr ""
 
-msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
-msgstr ""
-
 msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
 msgstr ""
 
 msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
+msgstr ""
+
+msgid "Force hCaptcha to render in a specific language."
+msgstr ""
+
+msgid "Cloudflare Turnstile CAPTCHA will not work unless you set up the configuration below"
+msgstr ""
+
+msgid "Force CAPTCHA to render in a specific language"
+msgstr ""
+
+msgid "To add Cloudflare Turnstile CAPTCHA to Contact Form 7 form, add <strong>[cf7sr-turnstile]</strong> in your form ( preferable above submit button )"
+msgstr ""
+
+msgid "Default size of CAPTCHA is normal, for compact size use shortcode:"
+msgstr ""
+
+msgid "Default color theme of CAPTCHA is auto, for dark or light theme use shortcode:"
+msgstr ""
+
+msgid "Get Captcha Pro starting from $0.83 per month:"
+msgstr ""
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr ""
+
+msgid "Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!"
+msgstr ""
+
+msgid "Introducing PRO Feature: Responsive Captcha."
+msgstr ""
+
+msgid "View all PRO features."
+msgstr ""
+
+msgid "Responsive Captcha - adapts to smaller screens by switching to compact size when a predefined width is set."
 msgstr ""
 

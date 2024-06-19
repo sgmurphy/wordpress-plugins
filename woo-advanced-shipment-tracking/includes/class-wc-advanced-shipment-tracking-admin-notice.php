@@ -66,8 +66,15 @@ class WC_Advanced_Shipment_Tracking_Admin_Notice {
 
 	public function ast_settings_admin_notice_ignore() {
 		if ( isset( $_GET['ast-pro-settings-ignore-notice'] ) ) {
-			if (isset($_GET['nonce']) && wp_verify_nonce($_GET['nonce'], 'ast_dismiss_notice')) {
-				set_transient( 'ast_settings_admin_notice_ignore', 'yes', 2592000 );
+			// if (isset($_GET['nonce']) && wp_verify_nonce($_GET['nonce'], 'ast_dismiss_notice')) {
+			// 	set_transient( 'ast_settings_admin_notice_ignore', 'yes', 2592000 );
+			// }
+
+			if (isset($_GET['nonce'])) {
+				$nonce = sanitize_text_field($_GET['nonce']);
+				if (wp_verify_nonce($nonce, 'ast_dismiss_notice')) {
+					set_transient( 'ast_settings_admin_notice_ignore', 'yes', 2592000 );
+				}
 			}
 		}
 	}
@@ -314,9 +321,17 @@ class WC_Advanced_Shipment_Tracking_Admin_Notice {
 	*/
 	public function ast_trackship_notice_ignore() {
 		if ( isset( $_GET['ast-trackship-notice'] ) ) {
-			if (isset($_GET['nonce']) && wp_verify_nonce($_GET['nonce'], 'ast_trackship_dismiss_notice')) {
-				update_option( 'ast_trackship_notice_ignore', 'true' );
+			// if (isset($_GET['nonce']) && wp_verify_nonce($_GET['nonce'], 'ast_trackship_dismiss_notice')) {
+			// 	update_option( 'ast_trackship_notice_ignore', 'true' );
+			// }
+			
+			if (isset($_GET['nonce'])) {
+				$nonce = sanitize_text_field($_GET['nonce']);
+				if (wp_verify_nonce($nonce, 'ast_trackship_dismiss_notice')) {
+					update_option('ast_trackship_notice_ignore', 'true');
+				}
 			}
+			
 		}
 	}
 }

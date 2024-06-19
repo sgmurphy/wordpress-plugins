@@ -131,7 +131,7 @@ class Fields_I18n {
 		}
 
 		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-		return esc_html__( $string, 'woocommerce' );
+		return __( $string, 'woocommerce' );
 	}
 
 	public function translate( $value ) {

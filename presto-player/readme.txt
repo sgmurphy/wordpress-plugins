@@ -2,9 +2,9 @@
 Contributors: 2winfactor, wpcrafter
 Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
-Requires at least: 5.6
+Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 2.3.3
+Stable tag: 3.0.0
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,16 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 3.0.0 =
+* New: Instant video pages. Create beautiful video pages with a single click.
+* New: Sync video blocks with media hub items. 
+* Improvement: Combine all Presto video blocks into a single block.
+* Improvement: New video placeholder lets you select existing media hub items.
+* Improvement: Admin media hub selector now shows video type, poster image.
+* Improvement: Update web components library dependency.
+* Fix: Presto Player admin menu icon sometimes being altered by problematic 3rd party plugins.
+* Fix: Issue where adding provider override to a shortcode was not working for audio player.
 
 = 2.3.3 =
 * Fix: Playinline setting not applying with some page builder modules.

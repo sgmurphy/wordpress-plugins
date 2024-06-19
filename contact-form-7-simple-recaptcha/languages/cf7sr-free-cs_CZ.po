@@ -7,9 +7,6 @@ msgstr "Chybová zpráva neplatného CAPTCHA"
 msgid "Save Settings"
 msgstr "Uložit nastavení"
 
-msgid "Get Captcha Pro and unlock premium features"
-msgstr "Získejte Captcha Pro a odemkněte prémiové funkce"
-
 msgid "Trusted by more than 100,000 businesses worldwide. PRO version is even better!"
 msgstr "Důvěryhodných pro více než 100 000 firem po celém světě. Verze PRO je ještě lepší!"
 
@@ -49,9 +46,6 @@ msgstr "Úspěšně aktualizováno!"
 msgid "PRO features:"
 msgstr "PRO funkce:"
 
-msgid "Contact Form 7 Captcha plugin updated to support reCAPTCHA and hCAPTCHA."
-msgstr "Plugin Contact Form 7 Captcha byl aktualizován a nyní podporuje reCAPTCHA a hCAPTCHA."
-
 msgid "You can combine multiple attributes, sample shortcode:"
 msgstr "Můžete kombinovat více atributů, příklad shortcodu:"
 
@@ -79,11 +73,47 @@ msgstr "hCaptcha nebude fungovat, dokud nenastavíte konfiguraci níže"
 msgid "To add hCaptcha to Contact Form 7 form, add <strong>[cf7sr-hcaptcha]</strong> in your form ( preferable above submit button )"
 msgstr "Chcete-li přidat hCaptcha do formuláře Contact Form 7, vložte do formuláře <strong>[cf7sr-hcaptcha]</strong> (ideálně nad tlačítko Odeslat)"
 
-msgid "Force hCaptcha to render in a specific language. Google auto-detects if unspecified."
-msgstr "Vynutit zobrazení hCaptcha v určitém jazyce. Pokud není jazyk zadán, Google jej detekuje automaticky."
-
 msgid "Default size of hCaptcha is normal, for compact size use shortcode:"
 msgstr "Výchozí velikost hCaptcha je normální, pro kompaktní velikost použijte shortcode:"
 
 msgid "Default color theme of hCaptcha is light, for dark theme use shortcode:"
 msgstr "Výchozí barevné téma hCaptcha je světné, pro tmavé téma použijte shortcode:"
+
+msgid "Force hCaptcha to render in a specific language."
+msgstr "Vynutit vykreslování hCaptcha v konkrétním jazyce."
+
+msgid "Cloudflare Turnstile CAPTCHA will not work unless you set up the configuration below"
+msgstr "CAPTCHA Cloudflare Turnstile nebude fungovat, pokud nenastavíte níže uvedenou konfiguraci."
+
+msgid "Force CAPTCHA to render in a specific language"
+msgstr "Vynutit vykreslování CAPTCHA v konkrétním jazyce"
+
+msgid "To add Cloudflare Turnstile CAPTCHA to Contact Form 7 form, add <strong>[cf7sr-turnstile]</strong> in your form ( preferable above submit button )"
+msgstr "Chcete-li přidat CAPTCHA Cloudflare Turnstile do formuláře Contact Form 7, přidejte <strong>[cf7sr-turnstile]</strong> do svého formuláře (nejlépe nad tlačítkem odeslat)"
+
+msgid "Default size of CAPTCHA is normal, for compact size use shortcode:"
+msgstr "Výchozí velikost CAPTCHA je normální, pro kompaktní velikost použijte zkratku:"
+
+msgid "Default color theme of CAPTCHA is auto, for dark or light theme use shortcode:"
+msgstr "Výchozí barevné téma CAPTCHA je automatické, pro tmavé nebo světlé téma použijte zkratku:"
+
+msgid "Contact Form 7 Captcha plugin updated to support Google CAPTCHA V2, hCAPTCHA and Cloudflare Turnstile CAPTCHA"
+msgstr "Plugin Captcha pro formulář Contact Form 7 byl aktualizován pro podporu Google CAPTCHA V2, hCAPTCHA a CAPTCHA Cloudflare Turnstile"
+
+msgid "Get Captcha Pro starting from $0.83 per month:"
+msgstr "Získejte Captcha Pro začínající od $0.83 měsíčně:"
+
+msgid "Get Captcha Pro and Unlock all the Powerful Features"
+msgstr "Získejte Captcha Pro a odemkněte všechny mocné funkce"
+
+msgid "Contact Form 7 Captcha plugin updated: now supports Cloudflare Turnstile CAPTCHA!"
+msgstr "Aktualizace pluginu Captcha pro Contact Form 7: nyní podporuje Cloudflare Turnstile CAPTCHA!"
+
+msgid "Introducing PRO Feature: Responsive Captcha."
+msgstr "Představujeme PRO funkci: Responsive Captcha."
+
+msgid "View all PRO features."
+msgstr "Zobrazit všechny PRO funkce."
+
+msgid "Responsive Captcha - adapts to smaller screens by switching to compact size when a predefined width is set."
+msgstr "Responsive Captcha - přizpůsobuje se menším obrazovkám přepnutím na kompaktní velikost při nastavení předdefinované šířky."

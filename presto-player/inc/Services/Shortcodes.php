@@ -4,11 +4,11 @@ namespace PrestoPlayer\Services;
 
 use PrestoPlayer\Blocks\AudioBlock;
 use PrestoPlayer\Pro\Blocks\PlaylistBlock;
-use PrestoPlayer\Playlist;
 use PrestoPlayer\Models\Video;
 use PrestoPlayer\Blocks\VimeoBlock;
 use PrestoPlayer\Blocks\YouTubeBlock;
 use PrestoPlayer\Blocks\SelfHostedBlock;
+use PrestoPlayer\Models\ReusableVideo;
 use PrestoPlayer\Services\ReusableVideos;
 use PrestoPlayer\Pro\Blocks\BunnyCDNBlock;
 
@@ -183,7 +183,7 @@ class Shortcodes
     }
 
     // get provider based on src, if not provided
-    $atts['provider'] = !$atts['provider'] ? $this->getProvider($atts['src']) : 'self-hosted';
+    $atts['provider'] = !$atts['provider'] ? $this->getProvider($atts['src']) : $atts['provider'];
 
     $atts['id'] = $this->getOrCreateVideoId($atts);
     $atts['chapters'] = $this->getChapters($content);
@@ -293,15 +293,7 @@ class Shortcodes
       ]
     );
     foreach ($items as $key => $item) {
-      $video_id = $item['id'];
-      $block = parse_blocks(ReusableVideos::get((int)$video_id));
-      if (!isset($block[0]['innerBlocks'][0]['attrs'])) {
-        unset($items[$key]);
-        continue;
-      }
-      $inner_block = $block[0]['innerBlocks'][0];
-      $attributes = $inner_block['attrs'];
-      $video_details = (new Playlist())->parsed_attributes($inner_block['blockName'], $attributes);
+      $video_details = (new ReusableVideo($item['id']))->getAttributes();
       $items[$key] = [
         'id' => $items[$key]['id'],
         'config' => $video_details,

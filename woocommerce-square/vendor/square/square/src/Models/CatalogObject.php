@@ -165,6 +165,11 @@ class CatalogObject implements \JsonSerializable
     private $subscriptionPlanVariationData;
 
     /**
+     * @var CatalogAvailabilityPeriod|null
+     */
+    private $availabilityPeriodData;
+
+    /**
      * @param string $type
      * @param string $id
      */
@@ -177,7 +182,7 @@ class CatalogObject implements \JsonSerializable
     /**
      * Returns Type.
      * Possible types of CatalogObjects returned from the catalog, each
-     * containing type-specific properties in the `*_data` field corresponding to the specfied object type.
+     * containing type-specific properties in the `*_data` field corresponding to the specified object type.
      */
     public function getType(): string
     {
@@ -187,7 +192,7 @@ class CatalogObject implements \JsonSerializable
     /**
      * Sets Type.
      * Possible types of CatalogObjects returned from the catalog, each
-     * containing type-specific properties in the `*_data` field corresponding to the specfied object type.
+     * containing type-specific properties in the `*_data` field corresponding to the specified object type.
      *
      * @required
      * @maps type
@@ -715,12 +720,22 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Returns Modifier List Data.
-     * A list of modifiers applicable to items at the time of sale.
+     * For a text-based modifier, this encapsulates the modifier's text when its `modifier_type` is `TEXT`.
+     * For example, to sell T-shirts with custom prints, a text-based modifier can be used to capture the
+     * buyer-supplied
+     * text string to be selected for the T-shirt at the time of sale.
      *
+     * For non text-based modifiers, this encapsulates a non-empty list of modifiers applicable to items
+     * at the time of sale. Each element of the modifier list is a `CatalogObject` instance of the
+     * `MODIFIER` type.
      * For example, a "Condiments" modifier list applicable to a "Hot Dog" item
      * may contain "Ketchup", "Mustard", and "Relish" modifiers.
-     * Use the `selection_type` field to specify whether or not multiple selections from
-     * the modifier list are allowed.
+     *
+     * A non text-based modifier can be applied to the modified item once or multiple times, if the
+     * `selection_type` field
+     * is set to `SINGLE` or `MULTIPLE`, respectively. On the other hand, a text-based modifier can be
+     * applied to the item
+     * only once and the `selection_type` field is always set to `SINGLE`.
      */
     public function getModifierListData(): ?CatalogModifierList
     {
@@ -729,12 +744,22 @@ class CatalogObject implements \JsonSerializable
 
     /**
      * Sets Modifier List Data.
-     * A list of modifiers applicable to items at the time of sale.
+     * For a text-based modifier, this encapsulates the modifier's text when its `modifier_type` is `TEXT`.
+     * For example, to sell T-shirts with custom prints, a text-based modifier can be used to capture the
+     * buyer-supplied
+     * text string to be selected for the T-shirt at the time of sale.
      *
+     * For non text-based modifiers, this encapsulates a non-empty list of modifiers applicable to items
+     * at the time of sale. Each element of the modifier list is a `CatalogObject` instance of the
+     * `MODIFIER` type.
      * For example, a "Condiments" modifier list applicable to a "Hot Dog" item
      * may contain "Ketchup", "Mustard", and "Relish" modifiers.
-     * Use the `selection_type` field to specify whether or not multiple selections from
-     * the modifier list are allowed.
+     *
+     * A non text-based modifier can be applied to the modified item once or multiple times, if the
+     * `selection_type` field
+     * is set to `SINGLE` or `MULTIPLE`, respectively. On the other hand, a text-based modifier can be
+     * applied to the item
+     * only once and the `selection_type` field is always set to `SINGLE`.
      *
      * @maps modifier_list_data
      */
@@ -1036,6 +1061,26 @@ class CatalogObject implements \JsonSerializable
     }
 
     /**
+     * Returns Availability Period Data.
+     * Represents a time period of availability.
+     */
+    public function getAvailabilityPeriodData(): ?CatalogAvailabilityPeriod
+    {
+        return $this->availabilityPeriodData;
+    }
+
+    /**
+     * Sets Availability Period Data.
+     * Represents a time period of availability.
+     *
+     * @maps availability_period_data
+     */
+    public function setAvailabilityPeriodData(?CatalogAvailabilityPeriod $availabilityPeriodData): void
+    {
+        $this->availabilityPeriodData = $availabilityPeriodData;
+    }
+
+    /**
      * Encode this object to JSON
      *
      * @param bool $asArrayWhenEmpty Whether to serialize this model as an array whenever no fields
@@ -1126,6 +1171,9 @@ class CatalogObject implements \JsonSerializable
         }
         if (isset($this->subscriptionPlanVariationData)) {
             $json['subscription_plan_variation_data'] = $this->subscriptionPlanVariationData;
+        }
+        if (isset($this->availabilityPeriodData)) {
+            $json['availability_period_data']         = $this->availabilityPeriodData;
         }
         $json = array_filter($json, function ($val) {
             return $val !== null;

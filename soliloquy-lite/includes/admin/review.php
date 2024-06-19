@@ -96,11 +96,8 @@ class Soliloquy_Review {
 				'dismissed' => false,
 			];
 			$load   = true;
-		} else {
-			// Check if it has been dismissed or not.
-			if ( ( isset( $review['dismissed'] ) && ! $review['dismissed'] ) && ( isset( $review['time'] ) && ( ( $review['time'] + DAY_IN_SECONDS ) <= $time ) ) ) {
-				$load = true;
-			}
+		} elseif ( ( isset( $review['dismissed'] ) && ! $review['dismissed'] ) && ( isset( $review['time'] ) && ( ( $review['time'] + DAY_IN_SECONDS ) <= $time ) ) ) {
+			$load = true;
 		}
 
 		// If we cannot load, return early.

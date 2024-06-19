@@ -1,44 +1,40 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import {
-  InspectorControls,
   useBlockProps,
   useInnerBlocksProps,
+  store as blockEditorStore,
+  __experimentalUseBlockPreview as useBlockPreview,
 } from "@wordpress/block-editor";
-import { createBlock } from "@wordpress/blocks";
-import {
-  Button,
-  PanelBody,
-  PanelRow,
-  Placeholder,
-  Spinner,
-  TextControl,
-} from "@wordpress/components";
-import {
-  store as coreStore,
-  useEntityBlockEditor,
-  useEntityProp,
-} from "@wordpress/core-data";
-import { useSelect, useDispatch } from "@wordpress/data";
-import { useEffect } from "@wordpress/element";
+import { BlockControls } from "@wordpress/block-editor";
+import { Button, Placeholder, Spinner, Toolbar } from "@wordpress/components";
+import { store as coreStore, useEntityBlockEditor } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
+import ProvidersPlaceholder from "../../shared/ProvidersPlaceholder/ProvidersPlaceholder";
 
-export default ({ attributes, context, isSelected, clientId }) => {
+export default ({ attributes, context, clientId }) => {
   const { id: idAttribute } = attributes;
   const id = context["presto-player/playlist-media-id"] || idAttribute;
   const blockProps = useBlockProps();
-  const { selectBlock } = useDispatch("core/editor");
   const [blocks, onInput, onChange] = useEntityBlockEditor(
     "postType",
     "pp_video_block",
     { id }
   );
-  const [title, setTitle] = useEntityProp(
-    "postType",
-    "pp_video_block",
-    "title",
-    id
+
+  const mediaBlocks = (blocks || []).filter(
+    (block) => block.name === "presto-player/reusable-edit"
   );
+
+  const hasSrc = (mediaBlocks?.[0]?.innerBlocks || []).some(
+    (block) => block.attributes.src
+  );
+
+  const blockPreviewProps = useBlockPreview({
+    blocks: mediaBlocks,
+  });
+
   const innerBlocksProps = useInnerBlocksProps(blockProps, {
     value: blocks,
     onInput,
@@ -46,45 +42,31 @@ export default ({ attributes, context, isSelected, clientId }) => {
     templateLock: "all",
   });
 
-  useEffect(() => {
-    // if this is selected, and we are in the playlist context, select the inner block.
-    if (isSelected && context["presto-player/playlist-media-id"]) {
-      const blockOrder = wp.data
-        .select("core/block-editor")
-        .getBlockOrder(clientId);
-      const firstInnerBlockClientId = blockOrder[0];
-      selectBlock(firstInnerBlockClientId);
-    }
-  }, [isSelected]);
-
-  // create a block and call innerblocks onChange function
-  // we use onChange instead of onInput to create an undo level.
-  const insertBlockType = (type) =>
-    onChange([createBlock(`presto-player/${type}`)], {});
-
-  const { isMissing, hasResolved } = useSelect(
-    (select) => {
-      const queryArgs = ["postType", "pp_video_block", id];
-      const hasResolved = select(coreStore).hasFinishedResolution(
-        "getEntityRecord",
-        queryArgs
-      );
-      const form = select(coreStore).getEntityRecord(...queryArgs);
-      const canEdit =
-        select(coreStore).canUserEditEntityRecord("pp_video_block");
-      return {
-        canEdit,
-        isMissing: hasResolved && !form,
-        hasResolved,
-        isResolving: select(coreStore).isResolving(
+  const { media, canEdit, onNavigateToEntityRecord, isMissing, hasResolved } =
+    useSelect(
+      (select) => {
+        const queryArgs = ["postType", "pp_video_block", id];
+        const hasResolved = select(coreStore).hasFinishedResolution(
           "getEntityRecord",
           queryArgs
-        ),
-        form,
-      };
-    },
-    [id]
-  );
+        );
+        const media = select(coreStore).getEntityRecord(...queryArgs);
+        const canEdit = select(coreStore).canUserEditEntityRecord(...queryArgs);
+        const { getSettings } = select(blockEditorStore);
+        return {
+          media,
+          canEdit,
+          isMissing: hasResolved && !media && id,
+          hasResolved,
+          onNavigateToEntityRecord: getSettings().onNavigateToEntityRecord,
+          isResolving: select(coreStore).isResolving(
+            "getEntityRecord",
+            queryArgs
+          ),
+        };
+      },
+      [id, clientId]
+    );
 
   if (!hasResolved) {
     return (
@@ -121,100 +103,42 @@ export default ({ attributes, context, isSelected, clientId }) => {
   }
 
   if (!blocks.length) {
-    return (
-      <Placeholder
-        css={css`
-          &.components-placeholder {
-            min-height: 350px;
-          }
-        `}
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="presto-block-icon"
-          >
-            <polygon points="23 7 16 12 23 17 23 7"></polygon>
-            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-          </svg>
-        }
-        instructions={__(
-          "Choose a video type to get started.",
-          "presto-player"
-        )}
-        label={__("Choose a Video Type", "presto-player")}
-      >
-        <Button
-          variant="primary"
-          onClick={() => {
-            insertBlockType("self-hosted");
-          }}
-        >
-          {__("Video", "presto-player")}
-        </Button>
-
-        <Button
-          variant="primary"
-          onClick={() => {
-            insertBlockType("youtube");
-          }}
-        >
-          {__("Youtube", "presto-player")}
-        </Button>
-
-        <Button
-          variant="primary"
-          onClick={() => {
-            insertBlockType("vimeo");
-          }}
-        >
-          {__("Vimeo", "presto-player")}
-        </Button>
-
-        {!!prestoPlayer?.isPremium && (
-          <Button
-            variant="primary"
-            onClick={() => {
-              insertBlockType("bunny");
-            }}
-          >
-            {__("Bunny.net", "presto-player")}
-          </Button>
-        )}
-
-        <Button
-          variant="primary"
-          onClick={() => {
-            insertBlockType("audio");
-          }}
-        >
-          {__("Audio", "presto-player")}
-        </Button>
-      </Placeholder>
-    );
+    return <ProvidersPlaceholder clientId={clientId} />;
   }
+
+  // we can edit the original if there is a block src,
+  // the user can edit, and there is a src or provider_video_id.
+  const editOriginal =
+    !!hasSrc &&
+    !!canEdit &&
+    !!(media?.details?.src || media?.details?.provider_video_id);
 
   return (
     <>
-      <InspectorControls>
-        <PanelBody title={__("Media Hub Title", "surecart")}>
-          <PanelRow>
-            <TextControl
-              label={__("Media Hub Title", "surecart")}
-              value={title}
-              onChange={(title) => setTitle(title)}
-            />
-          </PanelRow>
-        </PanelBody>
-      </InspectorControls>
-      <div {...innerBlocksProps} />
+      {editOriginal && (
+        <BlockControls>
+          <Toolbar>
+            <Button
+              icon="edit"
+              onClick={() =>
+                onNavigateToEntityRecord({
+                  postId: id,
+                  postType: "pp_video_block",
+                })
+              }
+            >
+              {__("Edit Original", "presto-player")}
+            </Button>
+          </Toolbar>
+        </BlockControls>
+      )}
+      {editOriginal ? (
+        <div {...blockProps}>
+          <div {...blockPreviewProps} />
+        </div>
+      ) : (
+        <div {...innerBlocksProps} />
+      )}
     </>
   );
 };

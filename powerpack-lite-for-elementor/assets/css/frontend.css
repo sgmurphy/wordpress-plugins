@@ -2157,35 +2157,6 @@ div[class*=' pa-'] {
 .pp-ninja-form-button-full-width .submit-container input[type="button"] {
   width: 100%; }
 
-.pp-caldera-form .control-label {
-  display: none; }
-
-.pp-caldera-form-labels-yes .control-label {
-  display: block; }
-
-.pp-caldera-form-button-center .form-group input[type="button"],
-.pp-caldera-form-button-center .form-group input[type="submit"] {
-  display: block;
-  margin: 0 auto; }
-
-.pp-caldera-form-button-right .form-group input[type="button"],
-.pp-caldera-form-button-right .form-group input[type="submit"] {
-  float: right; }
-
-.pp-caldera-form .intl-tel-input {
-  display: inherit; }
-
-.pp-custom-radio-checkbox .caldera-grid input[type="checkbox"],
-.pp-custom-radio-checkbox .caldera-grid input[type="radio"] {
-  border-style: solid;
-  border-width: 0;
-  padding: 3px;
-  -webkit-appearance: none; }
-
-.pp-caldera-form-button-full-width .form-group input[type="submit"],
-.pp-caldera-form-button-full-width .form-group input[type="button"] {
-  width: 100%; }
-
 .pp-wpforms .wpforms-container .wpforms-form input[type="submit"],
 .pp-wpforms .wpforms-container .wpforms-form button[type="submit"],
 .pp-wpforms .wpforms-container .wpforms-form .wpforms-page-button {

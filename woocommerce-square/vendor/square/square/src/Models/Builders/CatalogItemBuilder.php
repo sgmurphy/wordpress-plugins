@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Square\Models\Builders;
 
 use Core\Utils\CoreHelper;
+use Square\Models\CatalogEcomSeoData;
 use Square\Models\CatalogItem;
+use Square\Models\CatalogItemFoodAndBeverageDetails;
+use Square\Models\CatalogObjectCategory;
 
 /**
  * Builder for model CatalogItem
@@ -312,6 +315,24 @@ class CatalogItemBuilder
     }
 
     /**
+     * Sets categories field.
+     */
+    public function categories(?array $value): self
+    {
+        $this->instance->setCategories($value);
+        return $this;
+    }
+
+    /**
+     * Unsets categories field.
+     */
+    public function unsetCategories(): self
+    {
+        $this->instance->unsetCategories();
+        return $this;
+    }
+
+    /**
      * Sets description html field.
      */
     public function descriptionHtml(?string $value): self
@@ -335,6 +356,69 @@ class CatalogItemBuilder
     public function descriptionPlaintext(?string $value): self
     {
         $this->instance->setDescriptionPlaintext($value);
+        return $this;
+    }
+
+    /**
+     * Sets channels field.
+     */
+    public function channels(?array $value): self
+    {
+        $this->instance->setChannels($value);
+        return $this;
+    }
+
+    /**
+     * Unsets channels field.
+     */
+    public function unsetChannels(): self
+    {
+        $this->instance->unsetChannels();
+        return $this;
+    }
+
+    /**
+     * Sets is archived field.
+     */
+    public function isArchived(?bool $value): self
+    {
+        $this->instance->setIsArchived($value);
+        return $this;
+    }
+
+    /**
+     * Unsets is archived field.
+     */
+    public function unsetIsArchived(): self
+    {
+        $this->instance->unsetIsArchived();
+        return $this;
+    }
+
+    /**
+     * Sets ecom seo data field.
+     */
+    public function ecomSeoData(?CatalogEcomSeoData $value): self
+    {
+        $this->instance->setEcomSeoData($value);
+        return $this;
+    }
+
+    /**
+     * Sets food and beverage details field.
+     */
+    public function foodAndBeverageDetails(?CatalogItemFoodAndBeverageDetails $value): self
+    {
+        $this->instance->setFoodAndBeverageDetails($value);
+        return $this;
+    }
+
+    /**
+     * Sets reporting category field.
+     */
+    public function reportingCategory(?CatalogObjectCategory $value): self
+    {
+        $this->instance->setReportingCategory($value);
         return $this;
     }
 

@@ -48,6 +48,81 @@ class Plus_Widgets_Manager {
 	}
 
 	/**
+	 * Carousel dots style
+	 * 
+	 * @since 5.5.4
+	 * @version 5.5.4
+	 * @param string $options The option of the widgets.
+	 * 
+	 */
+	public function tp_carousel_dots( $options ) {
+		$sliderDots = isset( $options['slider_dots'] ) ? $options['slider_dots'] : 'yes';
+		$tablet_slider_dots = isset( $options['tablet_slider_dots'] ) ? $options['tablet_slider_dots'] : 'yes';
+		$mobile_slider_dots = isset( $options['mobile_slider_dots'] ) ? $options['mobile_slider_dots'] : 'yes';
+		
+		if ( 'yes' === $sliderDots ) {
+			
+			$slider_dots_style = ! empty( $options['slider_dots_style'] ) ? $options['slider_dots_style'] : 'style-1';
+			
+			$this->transient_widgets[] = 'tp-carousel-' . $slider_dots_style;
+			$this->transient_widgets[] = 'tp-carousel-style';
+		}
+		if ( 'yes' === $tablet_slider_dots ) {
+
+			$tablet_slider_dots_style = ! empty( $options['tablet_slider_dots_style'] ) ? $options['tablet_slider_dots_style'] : 'style-1';
+
+			$this->transient_widgets[] = 'tp-carousel-' . $tablet_slider_dots_style;
+			$this->transient_widgets[] = 'tp-carousel-style';
+		}
+		if ( 'yes' === $mobile_slider_dots ) {
+
+			$mobile_slider_dots_style = ! empty( $options['mobile_slider_dots_style'] ) ? $options['mobile_slider_dots_style'] : 'style-1';
+
+			$this->transient_widgets[] = 'tp-carousel-' . $mobile_slider_dots_style;
+			$this->transient_widgets[] = 'tp-carousel-style';
+		}
+	}
+
+	/**
+	 * Carousel arrows style
+	 * 
+	 * @since 5.5.4
+	 * @version 5.5.4
+	 * @param string $options The option of the widgets.
+	 * 
+	 */
+	public function tp_carousel_arrow( $options ){
+
+		$show_arrows = isset( $options['slider_arrows'] ) ? $options['slider_arrows'] : 'no';
+
+		$tablet_show_arrows  = isset( $options['tablet_slider_arrows'] ) ? $options['tablet_slider_arrows'] : 'no';
+		$mobile_show_arrows  = isset( $options['mobile_slider_arrows'] ) ? $options['mobile_slider_arrows'] : 'no';
+
+		
+		if ( 'yes' === $show_arrows ) {
+
+			$slider_arrows_style = ! empty( $options['slider_arrows_style'] ) ? $options['slider_arrows_style'] : 'style-1';
+
+			$this->transient_widgets[] = 'tp-arrows-' . $slider_arrows_style;
+			$this->transient_widgets[] = 'tp-arrows-style';
+		}
+		if ( 'yes' === $tablet_show_arrows ) {
+
+			$tablet_slider_arrows_style = ! empty( $options['tablet_slider_arrows_style'] ) ? $options['tablet_slider_arrows_style'] : 'style-1';
+
+			$this->transient_widgets[] = 'tp-arrows-' . $tablet_slider_arrows_style;
+			$this->transient_widgets[] = 'tp-arrows-style';
+		}
+		if ( 'yes' === $mobile_show_arrows ) {
+
+			$mobile_slider_arrows_style = ! empty( $options['mobile_slider_arrows_style'] ) ? $options['mobile_slider_arrows_style'] : 'style-1';
+
+			$this->transient_widgets[] = 'tp-arrows-' . $mobile_slider_arrows_style;
+			$this->transient_widgets[] = 'tp-arrows-style';
+		}
+	}
+
+	/**
 	 * get_element_list
 	 * get cached widget list
 	 *
@@ -283,6 +358,11 @@ class Plus_Widgets_Manager {
 					$show_arrows         = isset( $options['slider_arrows'] ) ? $options['slider_arrows'] : '';
 					$slider_arrows_style = ! empty( $options['slider_arrows_style'] ) ? $options['slider_arrows_style'] : 'style-2';
 
+					if ( ! empty( $show_arrows ) && 'style-1' === $slider_arrows_style ) {
+						$this->transient_widgets[] = 'tp-arrows-style-1';
+						$this->transient_widgets[] = 'tp-arrows-style';
+					}
+
 					if ( ! empty( $show_arrows ) && 'style-2' === $slider_arrows_style ) {
 						$this->transient_widgets[] = 'tp-arrows-style-2';
 						$this->transient_widgets[] = 'tp-arrows-style';
@@ -516,6 +596,13 @@ class Plus_Widgets_Manager {
 				}
 
 			}
+			
+			if ( 'tp-carousel-anything' == $widget_name ) {
+
+				$this->tp_carousel_dots( $options );
+				$this->tp_carousel_arrow( $options );
+			}
+
 		}
 	}
 }

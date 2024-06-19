@@ -180,7 +180,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 		$repeater->add_control(
 			'content_template',
 			array(
-				'label'       => esc_html__( 'Elementor Templates', 'theplus' ),
+				'label'       => esc_html__( 'Elementor Templates', 'tpebl' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '0',
 				'options'     => L_theplus_get_templates(),
@@ -194,7 +194,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 		$repeater->add_control(
 			'content_template_id',
 			array(
-				'label'       => esc_html__( 'Elementor Templates Shortcode', 'theplus' ),
+				'label'       => esc_html__( 'Elementor Templates Shortcode', 'tpebl' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'dynamic'     => array(
 					'active' => true,
@@ -213,9 +213,9 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'label'       => esc_html__( 'Backend Visibility', 'tpebl' ),
 				'type'        => Controls_Manager::SWITCHER,
 				'default'     => 'no',
-				'label_on'    => esc_html__( 'Show', 'theplus' ),
-				'label_off'   => esc_html__( 'Hide', 'theplus' ),
-				'description' => esc_html__( 'Note : If disabled, Template will not visible/load in the backend for better page loading performance.', 'theplus' ),
+				'label_on'    => esc_html__( 'Show', 'tpebl' ),
+				'label_off'   => esc_html__( 'Hide', 'tpebl' ),
+				'description' => esc_html__( 'Note : If disabled, Template will not visible/load in the backend for better page loading performance.', 'tpebl' ),
 				'separator'   => 'after',
 				'condition'   => array(
 					'content_source' => 'page_template',
@@ -271,7 +271,7 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 		$repeater->add_control(
 			'icon_fontawesome_5',
 			array(
-				'label'     => esc_html__( 'Icon Library', 'theplus' ),
+				'label'     => esc_html__( 'Icon Library', 'tpebl' ),
 				'type'      => Controls_Manager::ICONS,
 				'default'   => array(
 					'value'   => 'fas fa-plus',
@@ -1307,16 +1307,283 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
-		$this->add_control(
-			'section_nav_bg_styling_options',
+		$this->add_responsive_control(
+			'nav_bg_margin',
 			array(
-				'label'       => esc_html__( 'Unlock more possibilities', 'tpebl' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '',
-				'description' => theplus_pro_ver_notice(),
-				'classes'     => 'plus-pro-version',
+				'label'      => esc_html__( 'Margin Space', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'separator'  => 'before',
 			)
 		);
+		$this->add_responsive_control(
+			'nav_bg_padding',
+			array(
+				'label'      => esc_html__( 'Inner Padding', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg_box_border',
+			array(
+				'label'     => esc_html__( 'Box Border', 'tpebl' ),
+				'type'      => Controls_Manager::SWITCHER,
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
+				'default'   => 'no',
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'nav_bg_border_style',
+			array(
+				'label'     => esc_html__( 'Border Style', 'tpebl' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'solid',
+				'options'   => L_theplus_get_border_style(),
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'border-style: {{VALUE}};',
+				),
+				'condition' => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'nav_bg_box_border_width',
+			array(
+				'label'      => esc_html__( 'Border Width', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'default'    => array(
+					'top'    => 1,
+					'right'  => 1,
+					'bottom' => 1,
+					'left'   => 1,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->start_controls_tabs( 'nav_bg_border_tab' );
+		$this->start_controls_tab(
+			'nav_bg_border_normal',
+			array(
+				'label'     => esc_html__( 'Normal', 'tpebl' ),
+				'condition' => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg_box_border_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'nav_bg_border_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'nav_bg_border_hover',
+			array(
+				'label'     => esc_html__( 'Hover', 'tpebl' ),
+				'condition' => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg_box_border_hover_color',
+			array(
+				'label'     => esc_html__( 'Border Color', 'tpebl' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#252525',
+				'selectors' => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav:hover' => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->add_responsive_control(
+			'nav_bg_border_hover_radius',
+			array(
+				'label'      => esc_html__( 'Border Radius', 'tpebl' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'nav_bg_box_border' => 'yes',
+				),
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->start_controls_tabs( 'nav_bg_background_style' );
+		$this->start_controls_tab(
+			'nav_bg_background_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'nav_bg_box_background',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper,{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav',
+
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'nav_bg_background_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'     => 'nav_bg_box_hover_background',
+				'types'    => array( 'classic', 'gradient' ),
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav:hover',
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->add_control(
+			'nav_bg_shadow_options',
+			array(
+				'label'     => esc_html__( 'Box Shadow Options', 'tpebl' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+		$this->start_controls_tabs( 'nav_bg_shadow_style' );
+		$this->start_controls_tab(
+			'nav_bg_shadow_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'nav_bg_box_shadow',
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav',
+			)
+		);
+		$this->end_controls_tab();
+		$this->start_controls_tab(
+			'nav_bg_shadow_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'tpebl' ),
+			)
+		);
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'     => 'nav_bg_box_hover_shadow',
+				'selector' => '{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav:hover',
+			)
+		);
+		$this->end_controls_tab();
+		$this->end_controls_tabs();
+		$this->add_control(
+			'nav_bg_box_bf',
+			array(
+				'label'        => esc_html__( 'Backdrop Filter', 'tpebl' ),
+				'type'         => Controls_Manager::POPOVER_TOGGLE,
+				'label_off'    => __( 'Default', 'tpebl' ),
+				'label_on'     => __( 'Custom', 'tpebl' ),
+				'return_value' => 'yes',
+			)
+		);
+		$this->add_control(
+			'nav_bg_box_bf_blur',
+			array(
+				'label'      => esc_html__( 'Blur', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'max'  => 100,
+						'min'  => 1,
+						'step' => 1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 10,
+				),
+				'condition'  => array(
+					'nav_bg_box_bf' => 'yes',
+				),
+			)
+		);
+		$this->add_control(
+			'nav_bg_box_bf_grayscale',
+			array(
+				'label'      => esc_html__( 'Grayscale', 'tpebl' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array(
+					'px' => array(
+						'max'  => 1,
+						'min'  => 0,
+						'step' => 0.1,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+					'size' => 0,
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .theplus-tabs-wrapper .theplus-tabs-nav-wrapper .plus-tabs-nav' => '-webkit-backdrop-filter:grayscale({{nav_bg_box_bf_grayscale.SIZE}})  blur({{nav_bg_box_bf_blur.SIZE}}{{nav_bg_box_bf_blur.UNIT}}) !important;backdrop-filter:grayscale({{nav_bg_box_bf_grayscale.SIZE}})  blur({{nav_bg_box_bf_blur.SIZE}}{{nav_bg_box_bf_blur.UNIT}}) !important;',
+				),
+				'condition'  => array(
+					'nav_bg_box_bf' => 'yes',
+				),
+			)
+		);
+		$this->end_popover();
 		$this->end_controls_section();
 		$this->start_controls_section(
 			'section_desc_styling',
@@ -1387,8 +1654,8 @@ class L_ThePlus_Tabs_Tours extends Widget_Base {
 			array(
 				'label'     => esc_html__( 'Box Border', 'tpebl' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'theplus' ),
-				'label_off' => esc_html__( 'Hide', 'theplus' ),
+				'label_on'  => esc_html__( 'Show', 'tpebl' ),
+				'label_off' => esc_html__( 'Hide', 'tpebl' ),
 				'default'   => 'no',
 			)
 		);

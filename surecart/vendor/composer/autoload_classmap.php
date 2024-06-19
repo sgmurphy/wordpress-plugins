@@ -129,7 +129,6 @@ return array(
     'SureCartBlocks\\Blocks\\AddToCartButton\\Block' => $baseDir . '/packages/blocks/Blocks/AddToCartButton/Block.php',
     'SureCartBlocks\\Blocks\\Address\\Block' => $baseDir . '/packages/blocks/Blocks/Address/Block.php',
     'SureCartBlocks\\Blocks\\BaseBlock' => $baseDir . '/packages/blocks/Blocks/BaseBlock.php',
-    'SureCartBlocks\\Blocks\\BillingAddress\\Block' => $baseDir . '/packages/blocks/Blocks/BillingAddress/Block.php',
     'SureCartBlocks\\Blocks\\BlockService' => $baseDir . '/packages/blocks/Blocks/BlockService.php',
     'SureCartBlocks\\Blocks\\BlockServiceProvider' => $baseDir . '/packages/blocks/Blocks/BlockServiceProvider.php',
     'SureCartBlocks\\Blocks\\BuyButton\\Block' => $baseDir . '/packages/blocks/Blocks/BuyButton/Block.php',
