@@ -134,7 +134,7 @@ class Table_Addons_For_Elementor_Extension {
 			'<strong>' . esc_html__( 'Elementor', 'table-addons-for-elementor' ) . '</strong>'
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message) );
 
 	}
 
@@ -160,7 +160,7 @@ class Table_Addons_For_Elementor_Extension {
 			 self::MINIMUM_ELEMENTOR_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message) );
 
 	}
 
@@ -185,7 +185,7 @@ class Table_Addons_For_Elementor_Extension {
 			 self::MINIMUM_PHP_VERSION
 		);
 
-		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message) );
 
 	}
 

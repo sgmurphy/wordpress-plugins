@@ -34,6 +34,26 @@ class BackupFinderConfiguration
         ];
     }
 
+    public function getRootBackupModule()
+    {
+        $host = wp_umbrella_get_service('HostResolver')->getCurrentHost();
+
+        $source = ABSPATH;
+        if ($host === Host::FLYWHEEL) {
+            $source = untrailingslashit(WP_CONTENT_DIR) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+        }
+
+        if (empty($source)) {
+            $source = ABSPATH;
+        }
+
+        if (function_exists('apply_filters')) {
+            return apply_filters('wp_umbrella_backup_root_module', $source, $host);
+        }
+
+        return $source;
+    }
+
     public function getDefaultSource()
     {
         $host = wp_umbrella_get_service('HostResolver')->getCurrentHost();

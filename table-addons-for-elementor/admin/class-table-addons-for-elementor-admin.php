@@ -104,71 +104,71 @@ class Table_Addons_For_Elementor_Admin {
 	public function display_menu_page() {
 		?>
 		<div class="wrap tafe-wrapper">
-			<h1><?php _e( 'Table Addons For Elementor', 'table-addons-for-elementor' ); ?></h1>
+			<h1><?php esc_html_e( 'Table Addons For Elementor', 'table-addons-for-elementor' ); ?></h1>
 			<div class="tafe-box-info">
 				<div class="tafe-box-info-single">
-					<h4><?php _e( 'Documentation', 'table-addons-for-elementor' ); ?></h4>
-					<p><?php _e( 'Explore our documentation to get familiar with our plugin settings', 'table-addons-for-elementor' ); ?></p>
-					<a class="tafe-btn" href="https://fusionplugin.com/docs/table-addons-for-elementor/" target="_blank"><?php _e( 'Documentation', 'table-addons-for-elementor' ); ?></a>
+					<h4><?php esc_html_e( 'Documentation', 'table-addons-for-elementor' ); ?></h4>
+					<p><?php esc_html_e( 'Explore our documentation to get familiar with our plugin settings', 'table-addons-for-elementor' ); ?></p>
+					<a class="tafe-btn" href="https://fusionplugin.com/docs/table-addons-for-elementor/" target="_blank"><?php esc_html_e( 'Documentation', 'table-addons-for-elementor' ); ?></a>
 				</div>
 				<div class="tafe-box-info-single">
-					<h4><?php _e( 'Support', 'table-addons-for-elementor' ); ?></h4>
-					<p><?php _e( 'Require additional assistance? Please feel free to contact us.', 'table-addons-for-elementor' ); ?></p>
-					<a class="tafe-btn" href="https://fusionplugin.com/contact/" target="_blank"><?php _e( 'Contact Us', 'table-addons-for-elementor' ); ?></a>
+					<h4><?php esc_html_e( 'Support', 'table-addons-for-elementor' ); ?></h4>
+					<p><?php esc_html_e( 'Require additional assistance? Please feel free to contact us.', 'table-addons-for-elementor' ); ?></p>
+					<a class="tafe-btn" href="https://fusionplugin.com/contact/" target="_blank"><?php esc_html_e( 'Contact Us', 'table-addons-for-elementor' ); ?></a>
 				</div>
 				<div class="tafe-box-info-single">
-					<h4><?php _e( 'Rate Us', 'table-addons-for-elementor' ); ?></h4>
-					<p><?php _e( 'Enjoying our plugin? Please rate us; it will encourage us to improve the plugin.', 'table-addons-for-elementor' ); ?></p>
-					<a class="tafe-btn" href="https://wordpress.org/support/plugin/table-addons-for-elementor/reviews/#new-post" target="_blank"><?php _e( 'Rate Us', 'table-addons-for-elementor' ); ?></a>
+					<h4><?php esc_html_e( 'Rate Us', 'table-addons-for-elementor' ); ?></h4>
+					<p><?php esc_html_e( 'Enjoying our plugin? Please rate us; it will encourage us to improve the plugin.', 'table-addons-for-elementor' ); ?></p>
+					<a class="tafe-btn" href="https://wordpress.org/support/plugin/table-addons-for-elementor/reviews/#new-post" target="_blank"><?php esc_html_e( 'Rate Us', 'table-addons-for-elementor' ); ?></a>
 				</div>
 			</div>
 			<?php if( !defined( 'TABLE_ADDONS_PRO_FOR_ELEMENTOR_VERSION' ) ): ?>
 			<div class="tafe-cta">
 				<div class="tafe-cta-content">
-					<h3><?php _e('Do more with Table Addons Pro for Elementor', 'table-addons-for-elementor'); ?></h3>
-					<p><?php _e('Unlock more features and get premium support with Table Addons Pro for Elementor.', 'table-addons-for-elementor'); ?></p>
+					<h3><?php esc_html_e('Do more with Table Addons Pro for Elementor', 'table-addons-for-elementor'); ?></h3>
+					<p><?php esc_html_e('Unlock more features and get premium support with Table Addons Pro for Elementor.', 'table-addons-for-elementor'); ?></p>
 					<ul class="tafe-list-narrow">
-						<li><?php _e('Icon Field', 'table-addons-for-elementor'); ?></li>
-						<li><?php _e('Image Field', 'table-addons-for-elementor'); ?></li>
-						<li><?php _e('Link Field', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Icon Field', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Image Field', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Link Field', 'table-addons-for-elementor'); ?></li>
 					</ul>
 					<ul>
-						<li><?php _e('Icon + Content Field', 'table-addons-for-elementor'); ?></li>
-						<li><?php _e('Button Field', 'table-addons-for-elementor'); ?></li>
-						<li><?php _e('Rich Text Editor (WYSIWYG)', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Icon + Content Field', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Button Field', 'table-addons-for-elementor'); ?></li>
+						<li><?php esc_html_e('Rich Text Editor (WYSIWYG)', 'table-addons-for-elementor'); ?></li>
 					</ul>
 				</div>
-				<a class="tafe-btn" href="https://fusionplugin.com/plugins/table-addons-for-elementor/?utm_source=activesite&utm_campaign=elementortable&utm_medium=link" target="_blank"><?php _e('Upgrade to Pro', 'table-addons-for-elementor'); ?></a>
+				<a class="tafe-btn" href="https://fusionplugin.com/plugins/table-addons-for-elementor/?utm_source=activesite&utm_campaign=elementortable&utm_medium=link" target="_blank"><?php esc_html_e('Upgrade to Pro', 'table-addons-for-elementor'); ?></a>
 			</div>
 			<?php endif;?>
-			<h2 class="tafe-h2"><?php _e( 'Table Library', 'table-addons-for-elementor' ); ?></h2>
+			<h2 class="tafe-h2"><?php esc_html_e( 'Table Library', 'table-addons-for-elementor' ); ?></h2>
 			<div class="tafe-table-library">
 				<div class="tafe-table-library-single">
-					<div class="tafe-table-library-img"><img src="<?php echo plugin_dir_url( __FILE__ ) . 'img/sample-table-1.png'; ?>"></div>
+					<div class="tafe-table-library-img"><img src="<?php echo esc_url(plugin_dir_url( __FILE__ ) . 'img/sample-table-1.png'); ?>"></div>
 					<div class="tafe-table-library-content">
-						<h3><?php _e( 'Sample Table 1', 'table-addons-for-elementor' ); ?></h3>
-						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-1.json" download><?php _e('Download Table', 'table-addons-for-elementor' );?></a>
+						<h3><?php esc_html_e( 'Sample Table 1', 'table-addons-for-elementor' ); ?></h3>
+						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-1.json" download><?php esc_html_e('Download Table', 'table-addons-for-elementor' );?></a>
 					</div>
 				</div>
 				<div class="tafe-table-library-single">
-					<div class="tafe-table-library-img"><img src="<?php echo plugin_dir_url( __FILE__ ) . 'img/sample-table-2.png'; ?>"></div>
+					<div class="tafe-table-library-img"><img src="<?php echo esc_url(plugin_dir_url( __FILE__ ) . 'img/sample-table-2.png'); ?>"></div>
 					<div class="tafe-table-library-content">
-						<h3><?php _e( 'Sample Table 2', 'table-addons-for-elementor' ); ?></h3>
-						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-2.json" download><?php _e('Download Table', 'table-addons-for-elementor' );?></a>
+						<h3><?php esc_html_e( 'Sample Table 2', 'table-addons-for-elementor' ); ?></h3>
+						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-2.json" download><?php esc_html_e('Download Table', 'table-addons-for-elementor' );?></a>
 					</div>
 				</div>
 				<div class="tafe-table-library-single">
-					<div class="tafe-table-library-img"><img src="<?php echo plugin_dir_url( __FILE__ ) . 'img/sample-table-3.png'; ?>"></div>
+					<div class="tafe-table-library-img"><img src="<?php echo esc_url(plugin_dir_url( __FILE__ ) . 'img/sample-table-3.png'); ?>"></div>
 					<div class="tafe-table-library-content">
-						<h3><?php _e( 'Sample Table 3', 'table-addons-for-elementor' ); ?></h3>
-						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-3.json" download><?php _e('Download Table', 'table-addons-for-elementor' );?></a>
+						<h3><?php esc_html_e( 'Sample Table 3', 'table-addons-for-elementor' ); ?></h3>
+						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-3.json" download><?php esc_html_e('Download Table', 'table-addons-for-elementor' );?></a>
 					</div>
 				</div>
 				<div class="tafe-table-library-single">
-					<div class="tafe-table-library-img"><img src="<?php echo plugin_dir_url( __FILE__ ) . 'img/sample-table-4.png'; ?>"></div>
+					<div class="tafe-table-library-img"><img src="<?php echo esc_url(plugin_dir_url( __FILE__ ) . 'img/sample-table-4.png'); ?>"></div>
 					<div class="tafe-table-library-content">
-						<h3><?php _e( 'Sample Table 4', 'table-addons-for-elementor' ); ?></h3>
-						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-4.json" download><?php _e('Download Table', 'table-addons-for-elementor' );?></a>
+						<h3><?php esc_html_e( 'Sample Table 4', 'table-addons-for-elementor' ); ?></h3>
+						<a target="_blank" href="https://fusionplugin.com/plugin-data/elementor-table/sample-4.json" download><?php esc_html_e('Download Table', 'table-addons-for-elementor' );?></a>
 					</div>
 				</div>
 			</div>
@@ -206,11 +206,12 @@ class Table_Addons_For_Elementor_Admin {
 		}
 		echo '<hr class="tafe-update-warning__separator" /><div class="tafe-update-warning__message">';
 		printf(
+			/* translators: 1: strong tag start 2: strong tag end 3: break tag 4: new version */
 			esc_html__( '%1$sImportant:%2$s The latest update introduces significant changes throughout the plugin. We strongly recommend backing up %3$syour site before upgrading to version %4$s and testing the update in a staging environment first.', 'table-addons-for-elementor' ),
 			'<strong>',
 			'</strong>',
 			'<br/>',
-			$response->new_version
+			esc_html($response->new_version)
 		);
 		echo '</div>';
 	}

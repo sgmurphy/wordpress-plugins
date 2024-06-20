@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.5.2
 Requires PHP: 7.0
-Stable tag: 5.7.24
+Stable tag: 5.7.25
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,12 +438,19 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.24 =
+= 5.7.25 =
 
-* Fix: SQL Injection vulnerability during subscription - CVE-2024-5756 [Thanks to Wordfence team]
-* Update: Improved dashboard UI
+* Update: Improved campaign reports UI
+* Fix: Broken Dashboard UI
+* Fix: Sequence emails not triggering for imported users in some cases [MAX]
 
 == Changelog ==
+
+**5.7.25 (20.06.2024)**
+
+* Update: Improved campaign reports UI
+* Fix: Broken Dashboard UI
+* Fix: Sequence emails not triggering for imported users in some cases [MAX]
 
 **5.7.24 (12.06.2024)**
 

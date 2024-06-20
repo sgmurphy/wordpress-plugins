@@ -1,13 +1,13 @@
 === Branda – White Label WordPress, Custom Login Page Customizer ===
 Plugin Name: Branda – White Label WordPress, Custom Login Page Customizer
-Version: 3.4.17
+Version: 3.4.18
 Author: WPMU DEV
 Author URI: https://profiles.wordpress.org/wpmudev/
 Contributors: WPMUDEV
 Tags: white label wordpress, custom login page, login page customizer, whitelabel, customize system emails, customize default emails, rebrand, rebranding, coming soon page, maintenance mode, under construction page, coming soon template, login screen
 Requires at least: 5.2
-Tested up to: 6.4.3
-Stable tag: 3.4.17
+Tested up to: 6.5
+Stable tag: 3.4.18
 Requires PHP: 7.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -22,6 +22,10 @@ Save time, eliminate plugin compatibility problems, and improve security with on
 Even the best WordPress theme builders leave WordPress branding all over your site. Branda helps you rebrand!
 
 On your personal blog it is not a huge problem, but for a small business, design and development agency, or any professional site, a finished look with a complete brand package is important. That’s where Branda comes in! Turn WordPress into your own white-label solution.
+
+**Elevate your white labeling and branding customization from the start with [Branda Pro](https://wpmudev.com/project/ultimate-branding/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=branda-readme-above-the-fold&utm_content=branda_pro).**
+
+Level up immediately with exclusive Pro features like SMTP email logs, automated white label client reporting, and easy white label client portal creation. [Learn more about Pro](https://wpmudev.com/project/ultimate-branding/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=branda-readme-above-the-fold&utm_content=learn_more).
 
 [youtube https://www.youtube.com/watch?v=kqImIny3JR0&feature=youtu.be]
 
@@ -165,8 +169,11 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Build amazing Coming Soon and Maintenance pages
 
 == Changelog ==
+= 3.4.18 ( 2024-06-20 ) =
+Enhance: Security improvements
+
 = 3.4.17 ( 2024-03-12 ) =
-Fix: Branda Color Scheme can not be customized
+Fix: Branda Color Scheme can no longer be customized
 
 = 3.4.16 ( 2024-02-27 ) =
 Fix: PHP 8.0 Depreciation Errors

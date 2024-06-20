@@ -32,7 +32,6 @@ class TVC_Pricings
 ?>
 
 
-        <!-- Pricing page WP AIO-->
         <div class="convo-global">
             <div class="convo-pricingpage">
                 <!-- pricing timer -->
@@ -158,63 +157,86 @@ class TVC_Pricings
                                                 <h5>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                            Everything in Professional
+                                                            Everything in Professional, plus
                                                         </button>
                                                     </div>
                                                 </h5>
                                                 <span>&#43;</span>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Complete automation of server side tagging setup. No coding, no expertise needed.">
-                                                            End to end Server-Side Tagging automation
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Powerful Google Cloud hosting for 100% uptime and security.">
-                                                            Google cloud hosting
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Allows unlimited hits.">
-                                                            Unlimited hits
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Quick & One click automation of server and web GTM container and datalayer for mentioned channels.">
-                                                            sGTM automation for
 
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of server GTM container for ecommerce events and ad channels.">
+                                                            Automation of Server Container for sGTM
                                                         </button>
-                                                        <ul class="sub-list">
-                                                            <li>- GA4</li>
-                                                            <li>- Google Ads Tracking</li>
-                                                            <li>- Facebook pixel and conversions API</li>
-                                                            <li>- TikTok pixel and events API</li>
-                                                            <li>- Snapchat pixel and conversions API</li>
-                                                        </ul>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Add your own sub domain to make tagging first party compliant.">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of web GTM container for ecommerce events and ad channels.">
+                                                            Automation of Web Container for sGTM
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click provisioning of powerful google cloud server hosting for 100% uptime, scalability and security.">
+                                                            Google Cloud Hosting for sGTM
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="No code automation for server e-commerce events datalayer.">
+                                                            Server Ecommerce Data Layer Automation
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Sets first-party cookies. Extends cookie lifespan. Enhances GTM and GA4 to resist AdBlockers and ITP. Preserves data tracking integrity.">
                                                             Custom GTM Loader
-
                                                         </button>
 
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                            Free setup and audit
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Complete ecommerce tracking.">
+                                                            Server Side Tracking for GA4
+                                                        </button>
+
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Complete conversion tracking and audience building in Google Ads." data-bs-custom-class="custom-tooltip">
+                                                            Server Side Tracking for Google Ads
                                                         </button>
                                                     </div>
                                                 </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Complete conversion tracking and audience building in Facebook." data-bs-custom-class="custom-tooltip">
+                                                            Server Side Tracking for FB Ads and CAPI
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Complete conversion tracking and audience building in Snapchat." data-bs-custom-class="custom-tooltip">
+                                                            Server Side Tracking for Snapchat Ads and CAPI
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Complete conversion tracking and audience building in Tiktok." data-bs-custom-class="custom-tooltip">
+                                                            Server Side Tracking for Tiktok Events API
+                                                        </button>
+                                                    </div>
+                                                </li>
+
                                             </ul>
                                             <div class="features-link">
                                                 <a href="#seeallfeatures">Compare All Features</a>
@@ -311,90 +333,58 @@ class TVC_Pricings
                                                 <h5>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                            Everything in Starter
+                                                            Everything in Starter, plus
                                                         </button>
                                                     </div>
                                                 </h5>
                                                 <span>&#43;</span>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Facebook Conversions API integration for all the e-commerce events and conversions. Enhances accurate audience building, campaign tracking and performance.">
-                                                            Facebook Conversions API
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Track e-commerce and lead generation events in meta-pixel with conversion tracking. Track key ad interactions like PageView, ViewContent, AddToCart, InitiateCheckout, AddPaymentInfo, Purchase, and Lead tracking for optimized Facebook ad campaigns.  ">
+                                                            Facebook Pixel & Conversions API - FBCAPI
+                                                        </button>
+
+                                                        <small>Provides Advance Event Match Quality</small>
+                                                        <small>Improved Data Accuracy and Attribution</small>
+                                                        <small>Reduced Data Loss</small>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Gain valuable insights into TikTok ad performance with conversion tracking for key purchase events. (ecommerce and lead generation event tracking.">
+                                                            TikTok Pixel and Events API Tracking
+                                                        </button>
+                                                        <small>Provides Advance Event Match Quality</small>
+                                                        <small>Improved Data Accuracy and Attribution</small>
+                                                        <small>Reduced Data Loss</small>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Measure the effectiveness of your Snapchat ads with purchase event tracking.">
+                                                            Snapchat Pixel and Conversion API
+                                                        </button>
+                                                        <small>Provides Advance Event Match Quality</small>
+                                                        <small>Improved Data Accuracy and Attribution</small>
+                                                        <small>Reduced Data Loss</small>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Expand your reach with unlimited product feeds for Google Merchant Center, Facebook Catalog, and TikTok Catalog with auto sync interval. ">
+                                                            Unlimited Product Feed Management
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="TikTok Events API integration for all the e-commerce events and conversions. Enhances accurate audience building, campaign tracking and performance.">
-                                                            TikTok Events API
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Analytics and ads management becomes complicated some time. Our team of expert helps you in set up everything and performs audit so that you focus on the things that matter for your business. ">
+                                                            Free Setup and Audit
                                                         </button>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Snapchat Conversions API integration for all the e-commerce events and conversions. Enhances accurate audience building, campaign tracking and performance.">
-                                                            Snapchat Conversions API
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Builds dynamic remarketing audiences in ad channels like Google Ads, Meta, Snapchat, Tiktok, Pinterest, Microsoft Ads & more. Build and grow audiences based on the visitor browsing. ">
-                                                            Dynamic Audience building (8+ Ads Channels)
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Reach out to our professional team for custom events tracking like form tracking, conversion tracking for different goals.">
-                                                            Custom events tracking
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <span>&#43;</span>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Allows unlimited products sync.">
-                                                            Unlimited number of products sync
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Compatible with 50+ plugins so that you can sync any attribute you want. Reach out if you don't find specific attributes.">
-                                                            50+ plugins compatibility
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <span>&#43;</span>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="A dedicated customer success manager ensures that everything is set up accurately and helps you solve any issue that you may face.">
-                                                            Dedicated Customer Success Manager
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                            Priority support
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Analytics and Ads management becomes complicated some time. Our team of expert helps you in set up everything and performs audit so that you focus on the things that matter for your business.">
-                                                            Free setup and audit
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Worrying about lower ROAS or how to get started? Our team helps you define the right strategy for your business.">
-                                                            Free consultation for campaign management
-                                                        </button>
-                                                    </div>
-                                                </li>
+
                                             </ul>
                                             <div class="features-link">
                                                 <a href="#seeallfeatures">Compare All Features</a>
@@ -487,6 +477,7 @@ class TVC_Pricings
                                             </div>
 
                                             <ul class="feature-listing custom-scrollbar">
+
                                                 <h5>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
@@ -494,107 +485,118 @@ class TVC_Pricings
                                                         </button>
                                                     </div>
                                                 </h5>
-                                                <span>&#43;</span>
+
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of your own GTM container for faster page speed and flexibility. Create tags, triggers & variables based on your needs.">
-                                                            Automation of GTM container
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Customize your tags, triggers, and variables to fit your needs by using your own Google Tag Manager container with automated tag triggers for precise tracking.">
+                                                            Customizable Tracking with Your Own GTM Container
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Automates complete e-commerce datalayer for your Wordpress or WooCommerce stores. Single unified datalayer automation that can be used with all the analytics and Ads tracking.">
-                                                            E-Commerce datalayer automation
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enhanced user privacy with Google Consent Mode V2. Conversios supports Google V2 Consent and is compatible with various cookie consent plugins..">
+                                                            Google Consent Mode V2 for Tracking
                                                         </button>
                                                     </div>
                                                 </li>
+
+
+
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Email Click, Phone Click, Address Click and Form Submit event tracking in GA4, Google Ads, Facebook and others.">
-                                                            Lead generation event tracking.
-                                                        </button>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Automates complete GA4 e-commerce tracking. The most accurate and efficient GA4 solution in the market.">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="It monitors all E-commerce events such as page_view, purchase, view_item_list, view_item, select_item, add_to_cart, remove_from_cart, view_cart, begin_checkout, add_payment_info, and add_shipping_info.">
                                                             GA4 E-Commerce Tracking
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enables conversion tracking for Ads channels like Google Ads, Meta (Facebook + Instagram), Snapchat, Tiktok, Pinterest, Microsoft Ads, Twitter & More. Measures and optimizes your campaign performance. ">
-                                                            Conversion tracking for 8+ Ads Tracking
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Measure the effectiveness of your website forms and optimize for higher conversions. Capture data beyond purchases, like form submissions, phone clicks, email clicks, and address clicks.">
+                                                            Lead Generation Tracking
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="You can effectively monitor your Google Ads campaign performance using Conversion and Enhanced Conversion Tracking. Track Add To Cart and Begin Checkout events for better Google Ads optimization.">
+                                                            Google Ads Enhanced Conversion Tracking
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enable Google Ads Dynamic Remarketing Tracking to create remarketing and dynamic remarketing audience lists.Retarget website visitors with laser focus based on their actions (View Item, Add to Cart, Begin Checkout, Purchase).">
+                                                            Google Ads Dynamic Remarketing Tracking
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <span>&#43;</span>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Set up high quality product feed for Ad Channels like Google, Facebook and Tiktok.">
-                                                            Product feed for 3 Ad Channels
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ecommerce events tracking across multiple Ads channels such as Facebook, Snapchat, TikTok, Pinterest, Bing, and Twitter.">
+                                                            Ecommerce Tracking for Multiple Ads Channels
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Allows upto 500 product sync.">
-                                                            Upto 500 products sync limit
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Set up high-quality product feeds for ad channels like Google, Facebook, and TikTok to expand your reach. This includes product feeds for Google Merchant Center, Facebook Catalog, and TikTok Catalog with automatic sync intervals. Allows up to 500 product sync.">
+                                                            Product Feed for 3 Ad Channels (Upto 500 Products)
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Keep your product details up to date in Google Merchant Center, Facebook Catalog and TikTok Catalog. Set time interval for auto product sync.">
-                                                            Schedule product sync
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Schedule automatic updates to keep your product feeds fresh and accurately updated.">
+                                                            Schedule Product Sync
+                                                        </button>
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="tooltip-box">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Advance Attribute Mapping and Category Mapping for better visibility, improved product data quality, and better ad performance.">
+                                                            Advance Attribute Mapping & Category Mapping
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Create and manage campaigns based on feeds directly in Google Ads.">
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Create and manage high-performing Google Ads Performance Max Campaigns based on your product feeds.">
                                                             Feed based Campaign Management
                                                         </button>
                                                     </div>
                                                 </li>
-                                                <span>&#43;</span>
                                                 <li>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Know about e-commerce funnel, product, source and order performance reports from wordpress admin. Enables data driven decision making to increase conversion %.">
-                                                            E-Commerce reporting
+                                                            E-Commerce Reporting
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enables you to measure the campaign performance in Google Ads.">
-                                                            Ads reporting
+                                                            Google Ads Reporting
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="ChatGPT powered insights on your analytics and campaigns data.">
-                                                            AI powered Insights
+                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="AI powered insights on your analytics and campaigns data.">
+                                                            AI Powered Insights
                                                         </button>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="tooltip-box">
                                                         <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Schedule daily, weekly or monthly reports straight into your inbox.">
-                                                            Schedule email reports
+                                                            Schedule Email Reports
                                                         </button>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="tooltip-box">
-                                                        <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Create and manage Google Ads performance max campaigns and increase ROAS.">
-                                                            Product Ads Campaign Management
-                                                        </button>
-                                                    </div>
-                                                </li>
+
                                             </ul>
                                             <div class="features-link">
                                                 <a href="#seeallfeatures">Compare All Features</a>
@@ -647,8 +649,21 @@ class TVC_Pricings
                     </div>
 
                 </div>
-              
-               
+                <!-- one stop section -->
+                <div class="onestop-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="title-text">
+                                    <p>50,000+ E-commerce Businesses Use Conversios To Scale Faster as One Stop Solution to <br>
+                                        Save
+                                        Time, Efforts & Costs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Compare feature -->
                 <div class="comparefeature-wholebox" id="seeallfeatures">
                     <div class="comparefeature-area space">
@@ -674,7 +689,7 @@ class TVC_Pricings
                                                                     <div class="card">
                                                                         <div class="card-body">
                                                                             <div class="card-icon">
-                                                                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL.'/admin/images/pricing-privacy.png'); ?>" alt="" class="img-fluid">
+                                                                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/convo-images/pricing/privacy.png" alt="" class="img-fluid">
                                                                             </div>
                                                                             <h5 class="card-title">100% No Risk <br>
                                                                                 Moneyback Guarantee</h5>
@@ -909,188 +924,17 @@ class TVC_Pricings
                                                 <tr class="title-row" data-title="Accessibility Features">
                                                     <td colspan="5" class="data">
                                                         <div class="feature-title">
-                                                            Accessibility Features
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <!-- 1 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="A dedicated customer success manager ensures that everything is set up accurately and helps you solve any issue that you may face.">
-                                                                Dedicated Customer Success Manager
-                                                            </button>
-                                                        </div>
-
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 2 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                Priority Support
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 3 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Analytics and Ads management becomes complicated some time. Our team of expert helps you in set up everything and performs audit so that you focus on the things that matter for your business.">
-                                                                Free Setup and Audit
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 4 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Free consultation for campaign management and conversion rate optimization tips.">
-                                                                Free Consultation for Campaign Management & CRO
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-
-                                                <!-- GTM for Google Analytics and Pixels -->
-                                                <!-- 0 -->
-                                                <tr class="title-row">
-                                                    <td colspan="5" class="data">
-                                                        <div class="feature-title">
                                                             GTM & Datalayer Automation
+
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <!-- 1 -->
+
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="By default your website will interact with Conversios GTM container.">
-                                                                Conversios GTM container
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enhanced user privacy with Google Consent Mode V2. Conversios supports Google V2 Consent and is compatible with Real Cookie Banner, GDPR Cookie Compliance, and CookieYes.">
+                                                                <b>Customizable Tracking with GTM Container</b>
                                                             </button>
                                                         </div>
                                                     </th>
@@ -1118,144 +962,71 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
+                                                                <span class="cross">⤫</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 1 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enhanced user privacy with Google Consent Mode V2. Conversios supports Google V2 Consent and is compatible with Real Cookie Banner, GDPR Cookie Compliance, and CookieYes.">
+                                                                <b>Google Consent Mode V2 for Tracking</b>
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
                                                                 <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">⤫</span>
                                                             </div>
                                                         </div>
                                                     </td>
 
                                                 </tr>
                                                 <!-- 2 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of your own GTM container for faster page speed and flexibility. Create tags, triggers & variables based on your needs.">
-                                                                Automate your GTM container
-                                                            </button>
-                                                        </div>
-                                                    </th>
+                                                <!-- 1 -->
 
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
 
-                                                </tr>
-                                                <!-- 3 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Automates complete e-commerce datalayer for your Wordpress or WooCommerce stores. Single unified datalayer automation that can be used with all the analytics and Ads tracking.">
-                                                                E-Commerce Datalayer
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
                                                 <!-- GA4, Ads Conversion Tracking & Audience Building -->
                                                 <!-- 0 -->
                                                 <tr class="title-row" data-title="Accessibility Features">
                                                     <td colspan="5" class="data">
                                                         <div class="feature-title">
-                                                            GA4, Ads Conversion Tracking & Audience Building
+                                                            GA4 E-commerce Tracking
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <!-- 1 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>GA4 E-commerce tracking</b>
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
 
-                                                </tr>
                                                 <!-- 2 -->
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Tracking of all the web pages.">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
                                                                 page_view
                                                             </button>
                                                         </div>
@@ -1291,10 +1062,374 @@ class TVC_Pricings
 
                                                 </tr>
                                                 <!-- 3 -->
+
+                                                <!-- 4 -->
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Tracking of all the web pages.">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                view_item_list
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 5 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                view_item
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 6 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                select_item
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 7 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                add_to_cart
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 8 -->
+
+                                                <!-- 9 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                view_cart
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 10 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                remove_from_cart
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                begin_checkout
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 11 -->
+
+                                                <!-- 12 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                add_shipping_info
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <!-- 13 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                add_payment_info
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
                                                                 purchase
                                                             </button>
                                                         </div>
@@ -1327,1105 +1462,25 @@ class TVC_Pricings
                                                             </div>
                                                         </div>
                                                     </td>
-
                                                 </tr>
-                                                <!-- 4 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user views products on any product listing page. ie. Home page, product listing page, category page, similar products block etc.">
-                                                                view_item_list
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 5 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user views any specific product's details page">
-                                                                view_item
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 6 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user selects/clicks on any specific product.">
-                                                                select_item
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 7 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user add product in the cart.">
-                                                                add_to_cart
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 8 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user removes product from the cart.">
-                                                                remove_from_cart
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 9 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user views cart page.">
-                                                                view_cart
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 10 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user initiated checkout.">
-                                                                begin_checkout
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 11 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user selects payment method in checkout.">
-                                                                add_payment_info
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 12 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="GA4 tracking when user selects shipping method in checkout.">
-                                                                add_shipping_info
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                                <!-- 13 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Form submission tracking in GA4.">
-                                                                form field tracking
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 14 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Google Ads Tracking</b>
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 15 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Google Ads conversion tracking for purchase event.">
-                                                                Conversion Tracking for purchase
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 16 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Google Ads conversion tracking for add to cart event.">
-                                                                Conversion Tracking for add to cart
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 17 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Google Ads conversion tracking for begin checkout event.">
-                                                                Conversion Tracking for begin checkout
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 18 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Google Ads enhanced conversion tracking for accurate and efficient conversion recording.">
-                                                                Enhanced Conversion tracking
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 18 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Google Ads dynamic remarketing audience building based on user browsing behavior. 5 audience lists creation in Google Ads.">
-                                                                Dynamic Audience building
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 19 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Facebook Ads Tracking</b>
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 20 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Facebook Ads conversion tracking for purchase event.">
-                                                                Conversion tracking (purchase)
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 21 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Facebook dynamic remarketing audience building based on user browsing behavior. ">
-                                                                Audience building based on e-commerce events
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 22 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enable this feature to improve the event quality score in business management account. ">
-                                                                Advanced Matching
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 23 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Server-Side Tagging   for FB events in order to increase accurate and efficient events tracking.">
-                                                                Facebook Conversions API
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 24 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>TikTok Ads Tracking</b>
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 25 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="TikTok Ads conversion tracking for purchase event.">
-                                                                Conversion tracking (purchase)
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 26 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="TikTok dynamic remarketing audience building based on user browsing behavior. ">
-                                                                Audience building based on e-commerce events
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 27 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enable this feature to improve the event quality score in business management account.">
-                                                                Advanced Matching
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 28 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Server-Side Tagging of e-commerce events for accurate and efficient events tracking for TikTok Ads.">
-                                                                TikTok Events API
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
 
                                                 <!-- 29 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Snapchat Ads Tracking</b>
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                <tr class="title-row" data-title="Accessibility Features">
+                                                    <td colspan="5" class="data">
+                                                        <div class="feature-title">
+                                                            Lead Generation Tracking
 
+                                                        </div>
+                                                    </td>
                                                 </tr>
+
 
                                                 <!-- 30 -->
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Snapchat Ads conversion tracking for purchase event.">
-                                                                Conversion tracking (purchase)
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                form submissions
                                                             </button>
                                                         </div>
                                                     </th>
@@ -2464,12 +1519,278 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Snapchat dynamic remarketing audience building based on user browsing behavior. ">
-                                                                Audience building based on e-commerce events
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                phone clicks
                                                             </button>
                                                         </div>
                                                     </th>
 
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                                <!-- 32 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                email clicks
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                address clicks
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                                <!-- 14 -->
+                                                <tr class="title-row" data-title="Accessibility Features">
+                                                    <td colspan="5" class="data">
+                                                        <div class="feature-title">
+                                                            Google Ads Tracking
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+                                                <!-- 15 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="You can set up and optimize your Google Ad Campaigns and Google Merchant Centre with Target KPIs optimized by Google Smart Bidding. ">
+                                                                Setup Google Ads and Optimize
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- 16 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="You can effectively monitor your Google Ads campaign performance using Conversion and Enhanced Conversion Tracking. Track Add To Cart and Begin Checkout events for better Google Ads optimization.">
+                                                                Google Ads Enhanced Conversion Tracking
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                                <!-- 17 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enable Google Ads Dynamic Remarketing Tracking to create remarketing and dynamic remarketing audience lists.Retarget website visitors with laser focus based on their actions (View Item, Add to Cart, Begin Checkout, Purchase).">
+                                                                <b>Google Ads Dynamic Remarketing Tracking <br> (View Item, Add to Cart, Begin Checkout, Purchase)</b>
+                                                            </button>
+                                                        </div>
+                                                    </th>
+
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+
+
+
+
+                                                <!--Facebook Ecoomerce   -->
+                                                <tr class="title-row" data-title="hello">
+                                                    <td colspan="5" class="data">
+                                                        <div class="feature-title">
+                                                            Facebook Pixel & Conversions API
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- 1 -->
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                Page View
+                                                            </button>
+                                                        </div>
+                                                    </th>
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
@@ -2499,18 +1820,16 @@ class TVC_Pricings
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 32 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Server-Side Tagging of e-commerce events for accurate and efficient events tracking for Snapchat Ads.">
-                                                                Snapchat Conversions API
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                View Content
                                                             </button>
                                                         </div>
                                                     </th>
-
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
@@ -2540,98 +1859,16 @@ class TVC_Pricings
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 33 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Pinterest Ads Tracking</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                Add To Cart
                                                             </button>
                                                         </div>
                                                     </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 34 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Pinterest Ads conversion tracking for purchase event.">
-                                                                Conversion tracking (purchase)
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 35 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Pinterest dynamic remarketing audience building based on user browsing behavior. ">
-                                                                Audience building based on e-commerce events
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
@@ -2661,98 +1898,16 @@ class TVC_Pricings
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 36 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Microsoft Ads Tracking</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                Initiate Checkout
                                                             </button>
                                                         </div>
                                                     </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 37 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Microsoft Ads conversion tracking for purchase event.">
-                                                                Conversion tracking (purchase)
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                                <!-- 38 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Microsoft Ads dynamic remarketing audience building based on user browsing behavior.">
-                                                                Audience building based on e-commerce events
-                                                            </button>
-                                                        </div>
-                                                    </th>
-
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
@@ -2782,14 +1937,177 @@ class TVC_Pricings
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 39 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Microsoft Clarity Integration</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                Add Payment Info
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+                                                                Lead Tracking
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr class="title-row" data-title="Accessibility Features">
+                                                    <td colspan="5" class="data">
+                                                        <div class="feature-title">
+                                                            Ecommerce Tracking for Multiple Ads Channels
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Gain valuable insights into TikTok ad performance with conversion tracking for key purchase events. (ecommerce and lead generation event tracking.">
+                                                                TikTok Pixel and Events API Tracking
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Measure the effectiveness of your Snapchat ads with purchase event tracking.">
+                                                                Snapchat Pixel and Conversion API
+                                                            </button>
+                                                        </div>
+                                                    </th>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span>&#10003;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="feature-data">
+                                                            <div class="items">
+                                                                <span class="cross">&#10539;</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th class="th-data" scope="row">
+                                                        <div class="tooltip-box">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Optimize your Pinterest ad strategy with conversion tracking for crucial purchase events.">
+                                                                Pinterest Pixel Tracking
                                                             </button>
                                                         </div>
                                                     </th>
@@ -2817,19 +2135,19 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">&#10539;</span>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 40 -->
+
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Hotjar Integration</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Track ad performance across various stages of the purchase funnel with Microsoft(Bing) Ads integration.">
+                                                                Microsoft (Bing) Pixel and Conversion Tracking
                                                             </button>
                                                         </div>
                                                     </th>
@@ -2857,19 +2175,18 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">&#10539;</span>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 41 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Crazy Egg Integration</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Gain valuable insights into Twitter ad performance with conversion tracking.">
+                                                                Twitter Pixel Tracking
                                                             </button>
                                                         </div>
                                                     </th>
@@ -2897,19 +2214,18 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">&#10539;</span>
                                                             </div>
                                                         </div>
                                                     </td>
 
-                                                </tr>
 
-                                                <!-- 42 -->
+                                                </tr>
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc remove" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
-                                                                <b>Twitter Ads Tracking</b>
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Gain a visual understanding of user behavior with integrations for Microsoft Clarity, Hotjar, and Crazy Egg.">
+                                                                Heatmap and Screen Recording
                                                             </button>
                                                         </div>
                                                     </th>
@@ -2937,12 +2253,15 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">&#10539;</span>
                                                             </div>
                                                         </div>
                                                     </td>
 
+
                                                 </tr>
+                                                <!-- 2 -->
+
                                                 <!-- Server-Side Tagging  -->
                                                 <!-- 0 -->
                                                 <tr class="title-row" data-title="hello">
@@ -2956,8 +2275,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of server GTM container for e-commerce events and ad channels.">
-                                                                Automation of Server GTM
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click automation of server GTM container for ecommerce events and ad channels.">
+                                                                Automation of sGTM
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3037,7 +2356,7 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="One click provisioning of powerful google cloud server hosting for 100% uptime, scalability and security.">
-                                                                Google cloud hosting for sGTM
+                                                                Google Cloud Hosting for sGTM
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3077,7 +2396,7 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="No code automation for server e-commerce events datalayer.">
-                                                                Server e-commerce datalayer automation
+                                                                Server E-commerce Datalayer Automation
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3116,7 +2435,7 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Add your own sub domain to make tagging first party compliant.">
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Sets first-party cookies. Extends cookie lifespan. Enhances GTM and GA4 to resist AdBlockers and ITP. Preserves data tracking integrity.">
                                                                 Custom GTM Loader
                                                             </button>
                                                         </div>
@@ -3153,45 +2472,7 @@ class TVC_Pricings
 
                                                 </tr>
                                                 <!-- 6 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Unlimited number of hits on the server.">
-                                                                Unlimited hits
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span class="cross">&#10539;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
 
-
-                                                </tr>
                                                 <!-- 7 -->
                                                 <tr>
                                                     <th class="th-data" scope="row">
@@ -3400,7 +2681,7 @@ class TVC_Pricings
                                                 <tr class="title-row" data-title="hello">
                                                     <td colspan="5" class="data">
                                                         <div class="feature-title">
-                                                            Product Feed Manager
+                                                            Product Feed Management
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -3409,7 +2690,7 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Total number of WooCommerce product sync limit.">
-                                                                Number of products
+                                                                Number Of Products
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3512,7 +2793,7 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span class="cross">&#10539;</span>
+                                                                <span>&#10003;</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -3563,8 +2844,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Auto schedule product updates in ad channels.">
-                                                                Schedule auto product sync
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Schedule automatic updates to keep your product feeds fresh and accurately updated. ">
+                                                                Schedule Auto Product Sync
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3592,7 +2873,7 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">⤫</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -3605,8 +2886,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Filter your WooCommerce product to create feed.">
-                                                                Advanced filters
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Utilize advanced filters to create targeted product feeds for different platforms.">
+                                                                Advanced Filters
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3645,8 +2926,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Sync handpicked products from the product grid.">
-                                                                Select specific WooCommerce products
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Advance Attribute Mapping and Category Mapping for better visibility, improved product data quality, and better ad performance.">
+                                                                Advance Attribute Mapping & Category Mapping
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3685,8 +2966,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Sync product attributes from 50+ product plugins.">
-                                                                Compatibility with 50+ product plugins
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Create and manage high-performing Google Ads Performance Max Campaigns based on your product feeds.">
+                                                                Feed Based Campaign Management
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3734,8 +3015,8 @@ class TVC_Pricings
                                                 <tr>
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Know about e-commerce funnel, product, source and order performance reports from wordpress admin. Enables data driven decision making to increase conversion %.">
-                                                                E-Commerce reporting
+                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Know about e-commerce funnel(Conversion and Checkout), product, source and order performance reports from wordpress admin. Enables data driven decision making to increase conversion.">
+                                                                E-Commerce Reporting (GA4)
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3763,7 +3044,7 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">⤫</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -3775,7 +3056,7 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Enables you to measure the campaign performance in Google Ads.">
-                                                                Ads reporting
+                                                                Google Ads Reporting
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3803,7 +3084,7 @@ class TVC_Pricings
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                <span>&#10003;</span>
+                                                                <span class="cross">⤫</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -3815,35 +3096,35 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="ChatGPT powered insights on your analytics and campaigns data.">
-                                                                AI powered Insights
+                                                                AI Powered Insights
                                                             </button>
                                                         </div>
                                                     </th>
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                Unlimited
+                                                                <span>&#10003;</span>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                Unlimited
+                                                                <span>&#10003;</span>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                Upto 50
+                                                                <span>&#10003;</span>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="feature-data">
                                                             <div class="items">
-                                                                Upto 10
+                                                                <span class="cross">⤫</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -3858,7 +3139,7 @@ class TVC_Pricings
                                                     <th class="th-data" scope="row">
                                                         <div class="tooltip-box">
                                                             <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Schedule daily, weekly or monthly reports straight into your inbox.">
-                                                                Schedule smart email reports
+                                                                Schedule Smart Email Reports
                                                             </button>
                                                         </div>
                                                     </th>
@@ -3894,45 +3175,7 @@ class TVC_Pricings
 
                                                 </tr>
 
-                                                <!-- 5 -->
-                                                <tr>
-                                                    <th class="th-data" scope="row">
-                                                        <div class="tooltip-box">
-                                                            <button type="button" class="btn btn-secondary tooltipc" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Create and manage Google Ads performance max campaigns and increase ROAS. Create and manage campaigns based on feeds.">
-                                                                Product Ads Campaign Management
-                                                            </button>
-                                                        </div>
-                                                    </th>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="feature-data">
-                                                            <div class="items">
-                                                                <span>&#10003;</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
 
-                                                </tr>
 
                                                 <!-- 18 buttons -->
                                                 <tr>
@@ -4050,56 +3293,90 @@ class TVC_Pricings
                 </div>
             </div>
 
+        </div>
 
         </div>
+
         <script>
-            function checkperiod_domain() {
+            var distance = jQuery('#con_stick_this').offset().top;
+            $window = jQuery(window);
+            $window.scroll(function() {
+                if ($window.scrollTop() >= 1760 && $window.scrollTop() <= 6360) {
+                    jQuery("#con_stick_this").addClass("sticky-header");
+                    jQuery("#sticky-header-tbody-id").addClass("sticky-header-tbody");
 
-                jQuery(".dynamicprice_box").addClass("d-none");
+                } else {
+                    jQuery("#con_stick_this").removeClass("sticky-header");
+                    jQuery("#sticky-header-tbody-id").removeClass("sticky-header-tbody");
 
-                var yearmonth_checkbox = "monthly";
-                if (jQuery("#yearmonth_checkbox").is(":checked")) {
-                    yearmonth_checkbox = "yearly"
                 }
-                var domain_num = jQuery('input[name=inlineRadioOptions]:checked').val()
-                jQuery(".dynamicprice_box").each(function() {
-                    var boxperiod = jQuery(this).attr("boxperiod");
-                    var boxdomain = jQuery(this).attr("boxdomain");
-
-                    if (boxperiod == yearmonth_checkbox && boxdomain == domain_num) {
-                        jQuery(this).removeClass("d-none");
-                    }
-                });
-            }
-
-            jQuery(function() {
-                jQuery("#yearmonth_checkbox").click(function() {
-                    checkperiod_domain();
-                });
-
-                jQuery("input[name=inlineRadioOptions]").change(function() {
-                    checkperiod_domain();
-                });
-
-                var distance = jQuery('#con_stick_this').offset().top;
-                var convpwindow = jQuery(window);
-                convpwindow.scroll(function() {
-                    if (convpwindow.scrollTop() >= 2040 && convpwindow.scrollTop() <= 3650) {
-
-                        jQuery("#con_stick_this").addClass("sticky-header");
-                        jQuery("#sticky-header-tbody-id").addClass("sticky-header-tbody");
-                    } else {
-                        jQuery("#con_stick_this").removeClass("sticky-header");
-                        jQuery("#sticky-header-tbody-id").removeClass("sticky-header-tbody");
-                    }
-                });
             });
         </script>
+
+        <script>
+            jQuery('.testi-slider').slick({
+                dots: true,
+                arrows: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true, // time for slides changes
+                smartSpeed: 0, // duration of change of 1 slide
+                autoHeight: false,
+                cssEase: 'linear',
+                centerPadding: '0px',
+                centerMode: true,
+                autoplayHoverPause: false,
+                responsiveClass: true,
+                responsive: [{
+                        breakpoint: 1300,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+
+                        }
+                    },
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            dots: false,
+                            arrows: false,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            dots: false,
+                            arrows: false,
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            dots: false,
+                            arrows: false,
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+        </script>
+
 
         <script>
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
+
         <script>
             function checkperiod_domain() {
 
@@ -4111,17 +3388,15 @@ class TVC_Pricings
                 }
 
                 var domain_num = jQuery('input[name=inlineRadioOptions]:checked').val()
-                // console.log(domain_num);
-                // console.log(yearmonth_checkbox);
-
+                
                 jQuery(".dynamicprice_box").each(function() {
                     var boxperiod = jQuery(this).attr("boxperiod");
                     var boxdomain = jQuery(this).attr("boxdomain");
                     var plan_cat = jQuery(this).attr("plan_cat");
                     if (plan_cat == "enterprise03" || plan_cat == "enterprise05") {
-                        jQuery(this).addClass("conv_dim_box");
+                        jQuery(this).addClass("dim_box");
                     } else {
-                        jQuery(this).removeClass("conv_dim_box");
+                        jQuery(this).removeClass("dim_box");
                     }
                     if (boxperiod == yearmonth_checkbox && boxdomain == domain_num) {
                         jQuery(this).removeClass("d-none");
@@ -4139,6 +3414,56 @@ class TVC_Pricings
                 });
             });
         </script>
+
+        <script>
+            function startTimer(duration, display) {
+                var timer = duration,
+                    minutes, seconds;
+                setInterval(function() {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    // display.textContent = minutes + ":" + seconds;
+                    document.querySelector('#min').textContent = minutes;
+                    document.querySelector('#sec').textContent = seconds;
+
+                    if (--timer < 0) {
+                        timer = duration;
+                    }
+                }, 1000);
+            }
+
+            window.onload = function() {
+                var fiveMinutes = 60 * 5,
+                    display = document.querySelector('#time');
+                startTimer(fiveMinutes, display);
+            };
+
+            // jQuery('#sticky-header-tbody-id').find('td:nth-child(5)').remove();
+            // jQuery('#con_stick_this').find('th:nth-child(5)').remove();
+        </script>
+
+        <script>
+            // pricing default
+            jQuery(document).ready(function() {
+                jQuery(function() {
+                    var $radios = jQuery('input:radio[name=inlineRadioOptions]');
+                    if ($radios.is(':checked') === true) {
+                        $radios.filter('[value=1]').prop('checked', true);
+                    }
+                });
+            });
+
+            //plan inquire form 
+            jQuery(".planform-box").each(function() {
+                var url = document.title;
+                jQuery(this).find(".Platform_input input").val(url);
+            });
+        </script>
+
 <?php
     }
 }

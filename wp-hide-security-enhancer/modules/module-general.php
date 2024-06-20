@@ -10,7 +10,10 @@
                     
                     //add components
                     include(WPH_PATH . "/modules/components/general-meta.php");
-                    $this->components[]  =   new WPH_module_general_meta();                    
+                    $this->components[]  =   new WPH_module_general_meta();
+                    
+                    include(WPH_PATH . "/modules/components/general-block-detectors.php");
+                    $this->components[]  =   new WPH_module_general_block_detectors();                    
                     
                     include(WPH_PATH . "/modules/components/general-emulate.php");
                     $this->components[]  =   new WPH_module_general_emulate();

@@ -1740,7 +1740,11 @@ UBSTYLE;
 			$id           = ! empty( $_POST['id'] ) ? sanitize_text_field( $_POST['id'] ) : '';
 			$nonce_action = $this->get_nonce_action( $id );
 			$this->check_input_data( $nonce_action, array( 'id' ) );
-			$items = $this->get_value( 'settings', 'items', array() );
+			$items = $this->map_deep( 
+				$this->get_value( 'settings', 'items', array() ),
+				array( __CLASS__, 'esc_html' )
+			);
+			
 			/**
 			 * new
 			 */
@@ -1870,7 +1874,7 @@ UBSTYLE;
 		}
 
 		/**
-		 * Escape module fields.
+		 * Sanitize module fields.
 		 *
 		 * @param mixed|array|string $data
 		 * @return string
@@ -1881,6 +1885,20 @@ UBSTYLE;
 			}
 
 			return sanitize_text_field( $data['value'] );
+		}
+
+		/**
+		 * Escape module fields.
+		 *
+		 * @param mixed|array|string $data
+		 * @return string
+		 */
+		public static function esc_html( $data ) {
+			if ( empty( $data['key'] ) || empty( $data['value'] ) ) {
+				return $data;
+			}
+
+			return esc_html( stripslashes( $data['value'] ) );
 		}
 
 	}

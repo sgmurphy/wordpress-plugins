@@ -2,7 +2,7 @@
 Contributors: Carlos Doral.
 Tags: mantenimiento web, mantenimiento wordpress, modo mantenimiento, página en construcción
 Requires at least: 3.5
-Tested up to: 6.0.2
+Tested up to: 6.5.4
 Stable tag: 0.14
 License: GPLv2 or later 
 
@@ -12,7 +12,7 @@ Este plugin permite poner tu página en modo mantenimiento con el típico mensaj
 
 **NUEVO:** Ahora se incluyen plantillas animadas.
 
-**Para más información sobre [mantenimiento web de sitios Wordpress](https://webartesanal.com/mantenimiento-web/)**
+**Para más información sobre [mantenimiento web de sitios Wordpress](https://webartesanal.com/mantenimiento-web-wordpress/)**
 
 Características del plugin:
 

@@ -264,6 +264,7 @@ class TVC_Admin_Helper
    */
   public function update_remarketing_snippets()
   {
+    
     $customer_id = $this->get_currentCustomerId();
     if ($customer_id != "") {
       $rs = $this->customApiObj->get_remarketing_snippets($customer_id);
@@ -1596,7 +1597,7 @@ class TVC_Admin_Helper
    */
   function conv_all_pixel_event()
   {
-    $conv_pixel_events = array(
+    $conv_pixel_events['ecommerce'] = array(
       "view_item_list" => "View item list",
       "select_item" => "Select item",
       "add_to_cart_list" => "Add to cart on item list",
@@ -1609,6 +1610,14 @@ class TVC_Admin_Helper
       "add_payment_info" => "Add payment info",
       "purchase" => "Purchase"
     );
+
+    $conv_pixel_events['lead_generation'] = array(
+      "form_submit" => "Form Submit",
+      "email_click" => "Email Link Click",
+      "phone_click" => "Phone Link Click",
+      "address_click" => "Address Link Click",
+    );
+
     ksort($conv_pixel_events);
     return $conv_pixel_events;
   }

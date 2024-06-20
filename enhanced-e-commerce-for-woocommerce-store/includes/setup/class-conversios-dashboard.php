@@ -71,6 +71,7 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                 $this->resource_center_data = $resource_center_res->data;
             }
             $this->currency_symbol = '';
+            $currency_code_rs = $this->PMax_Helper->get_campaign_currency_code($this->google_ads_id);
             if ($this->google_ads_id) {
                 if (isset($currency_code_rs->data->currencyCode)) {
                     $this->currency_code = $currency_code_rs->data->currencyCode;
@@ -346,6 +347,7 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                     </div>
                     <div class="card-content recentpostcard">
                         <?php
+                        /*
                         $res_data = $this->resource_center_data;
                         foreach ($res_data as $key => $value) {
                             if ($value->screen_name != "dashboard" && $value->sub_type != "recentposts") {
@@ -355,7 +357,32 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                             <a href="<?php echo esc_url($value->link); ?>" target="_blank">
                                 <span><?php echo esc_html($value->title); ?></span>
                             </a>
-                        <?php } ?>
+                        <?php } */ ?>
+
+                        <a href="https://www.conversios.io/docs/how-to-install-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Install Conversios Plugin On WordPress?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-to-integrate-google-analytics-4-with-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Integrate Google Analytics 4 With Conversios Plugin?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-to-integrate-google-ads-with-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Integrate Google Ads With Conversios Plugin?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-to-integrate-facebook-meta-pixel-with-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Integrate Facebook Meta Pixel and Conversion API With Conversios Plugin?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-to-integrate-tiktok-pixel-with-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Integrate Tiktok Pixel and Conversion API With Conversios Plugin?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-to-integrate-snapchat-pixel-with-conversios-plugin/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Integrate Snapchat Pixel and Conversion API With Conversios Plugin?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/blog/why-conversios-is-the-best-for-product-feed-to-google-merchant-center/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("Why Conversios Is The Premier Choice For Google Merchant Center Product Feeds?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
+                        <a href="https://www.conversios.io/docs/how-you-can-leverage-the-conversios-data-layer-and-customize-tracking-based-on-your-requirements/?utm_source=inapp&utm_medium=dashboard&utm_campaign=helptopics" target="_blank">
+                            <span><?php esc_html_e("How To Use Conversios Google Tag Manager Data Layer To Get More Insights Into Your Customers?","enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -430,100 +457,48 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
             <div class="accordion-item">
                 <h2 class="accordion-header d-flex p-2" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/conv-accordio-pa.png'); ?>">
-                        <?php esc_html_e("Ecommerce & Conversion Tracking | Audience Building", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/conv-accordio-pa.svg'); ?>">
+                        <?php esc_html_e("Web and E-commerce Conversion Tracking | Audience Building", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         <ul class="ps-4 ms-2 mb-4">
                             <li class="pt-0 ps-1">
-                                <p class="py-2"><?php esc_html_e("Let's enhance your site's analytics and marketing capabilities in just three easy steps:", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                                 <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("Step 1: Integrate Google Tag Manager", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
+                                    <h3><?php esc_html_e("Step 1: Connect Google Tag Manager to Your Website Using a Plugin", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
                                     <?php echo wp_kses_post($gtm_status_icon); ?>
                                 </div>
-                                <div class="convps_threefive">
-                                    <p class="fw-bold ps-3 py-1">
-                                        <?php esc_html_e("Quick GTM Integration", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </p>
-
-                                    <ul class="list-styled pt-2">
-                                        <li>
-                                            <?php esc_html_e("Seamlessly connect Google Tag Manager with your website using our plugin. ", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("Activate your GTM container with a single click!", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                        <li>
-                                            <?php esc_html_e("Benefit from streamlined web analytics and ad tracking setup. GTM not only", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("ensures your pages load swiftly but also offers unmatched flexibility in managing", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("your tags.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <p class="mb-3"><?php esc_html_e("Set up a GTM container with a single click. Using GTM for web analytics and ads tracking ensures optimal page speed and flexibility.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                             </li>
 
                             <li class="pt-0 ps-1">
                                 <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("Step 2: Activate Comprehensive Tracking", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
+                                    <h3><?php esc_html_e("Step 2: Set up Web and E-commerce Tracking for GA4, Hotjar, Clarity, and Crazy Egg", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
                                     <?php echo wp_kses_post($webtracking_status_icon); ?>
                                 </div>
-                                <div class="convps_threefive">
-                                    <p class="fw-bold ps-3 py-1">
-                                        <?php esc_html_e("Advanced Analytics Setup", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </p>
-
-                                    <ul class="list-styled pt-2">
-                                        <li>
-                                            <?php esc_html_e("Effortlessly implement tracking for Web & Ecommerce activities with GA4, Hotjar,", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("Clarity, and Crazy Egg.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                        <li>
-                                            <?php esc_html_e("Gain insightful data on every interaction visitors have on your site. Use these", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("insights to make informed decisions, boosting both conversions and sales.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <p class="mb-3"><?php esc_html_e("Effortlessly set up web and behavioral analytics tools. Track every activity visitors perform on your site and start making data-driven decisions to increase conversions and sales.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                             </li>
 
                             <li class="pt-0 ps-1">
                                 <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("step 3: Optimize Your Ad Campaigns", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
+                                    <h3><?php esc_html_e("step 3: Track Ad Conversions and Build Audiences for Remarketing", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
                                     <?php echo wp_kses_post($adstracking_status_icon); ?>
                                 </div>
-                                <div class="convps_threefive">
-                                    <p class="fw-bold ps-3 py-1">
-                                        <?php esc_html_e("Conversion Tracking & Audience Building", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </p>
-
-                                    <ul class="list-styled pt-2">
-                                        <li>
-                                            <?php esc_html_e("Precisely configure conversion tracking for a range of ad platforms including", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("Google Ads, Meta, TikTok, Snapchat, Pinterest, and Microsoft Ads.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                        <li>
-                                            <?php esc_html_e("Enhance your ad campaigns' efficiency with accurate conversion data, allowing", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("for better optimization and performance evaluation.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                        <li>
-                                            <?php esc_html_e("Create targeted audiences for remarketing, ensuring you re-engage visitors who", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <br><?php esc_html_e("haven't converted yet.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <p class="mb-3"><?php esc_html_e("Accurately set up conversion tracking and audiences for Google Ads, Meta, TikTok, Snapchat, Pinterest, Microsoft Ads, and more.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
+                                <ul class="list-styled">
+                                    <li><?php esc_html_e("Efficient conversion tracking allows ad channels to further optimize the campaigns and helps you assess the campaign performance.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><?php esc_html_e("Remarketing audiences allow you to reach out to non converting site visitors.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                </ul>
                             </li>
 
                         </ul>
 
-                        <div class="convps_threefive">
-                            <p>
-                                <?php esc_html_e("Each step you complete brings you closer to a fully optimized site, ready to leverage", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                <br><?php esc_html_e("data for growth. Let's get started!", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </p>
-                        </div>
+                        
                         <div class="accbutbox d-flex justify-content-end pt-4">
-                            <?php if (array_sum($pixelprogressbarclass) != 99) { ?>
-                                <img class="align-self-baseline setupinfive scroll-bounce" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/setupin5min.png'); ?>">
-                            <?php } ?>
+                            <a class="btn btn-outline-primary ms-3 px-4 align-self-baseline" href="<?php echo esc_url('admin.php?page=conversios-google-analytics'); ?>">
+                                <?php esc_html_e("Set Up Manually", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </a>
                             <a class="btn btn-primary ms-3 px-4 align-self-baseline" href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>">
                                 <?php esc_html_e("Launch Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </a>
@@ -535,241 +510,6 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
 
         <?php
         }
-        public function get_reporting_accordion()
-        {
-
-            $reporting_setting = array(
-                "gasettings" => isset($this->ee_options['gm_id']) && $this->ee_options['gm_id'] != '' ? 'convo-active' : '',
-                "gadssettings" => isset($this->ee_options['google_ads_id']) && $this->ee_options['google_ads_id'] != '' ? 'convo-active' : ''
-            );
-            $launch_cls = '';
-            $ga_status_icon = '<span class="material-symbols-outlined text-warning">history_toggle_off</span>';
-            $init_reporting_status_icon = '<span class="material-symbols-outlined text-warning">history_toggle_off</span>';
-
-            if ($reporting_setting['gasettings'] == "convo-active" && $reporting_setting['gadssettings'] == "convo-active") {
-                $ga_status_icon = '<span class="material-symbols-outlined text-success">check_circle</span>';
-                $init_reporting_status_icon = $ga_status_icon;
-                $launch_cls = 'd-none';
-            } else {
-                if ($reporting_setting['gasettings'] == "convo-active") {
-                    $init_reporting_status_icon = '<span class="material-symbols-outlined text-success">check_circle</span>';
-                    $launch_cls = 'd-none';
-                }
-            }
-        ?>
-            <div class="accordion-item">
-                <h2 class="accordion-header d-flex p-2" id="flush-headingThree">
-                    <button class="accordion-button collapsed reporting-accordian" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/reporting-images/reporting_dashboard_icon.png'); ?>">
-                        <?php esc_html_e("Reports & Insights", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse " aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <ul class="ps-4 ms-2 mb-4">
-                            <li class="pt-0 ps-1">
-                                <div class="d-flex justify-content-between">
-                                    <h3>
-                                        <?php esc_html_e("Step 1: Setup Google Analytics 4 & Google Ads", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </h3>
-                                    <?php echo wp_kses_post($ga_status_icon); ?>
-                                </div>
-                                <div class="convps_threefive" bis_skin_checked="1">
-                                    <ul class="list-styled pt-2">
-                                        <li><?php esc_html_e("Connect your Google Analytics 4 & Google Ads account for advanced reporting & insights.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="pt-0 ps-1">
-                                <div class="d-flex justify-content-between">
-                                    <h3>
-                                        <?php esc_html_e("Step 2: Redirection to View Reports, AI Powered Insights & Live Event Tracking.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </h3>
-                                    <?php echo wp_kses_post($init_reporting_status_icon); ?>
-                                </div>
-                            </li>
-                        </ul>
-                        <?php if ($reporting_setting['gasettings'] == "convo-active") { ?>
-                            <div id="ga4reportcard" class="commoncard-box card">
-                                <div class="card-body">
-                                    <div class="title-title d-flex justify-content-between">
-                                        <h3>
-                                            <?php esc_html_e("Reports & Insights", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
-                                        </h3>
-                                        <h3 class="text-secondary fw-normal">
-                                            <?php esc_html_e("(Last 30 Days Google Analytics 4 Reports)", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                        </h3>
-                                    </div>
-                                    <div id="dash-reportnotgenerated" class="report-notgenratedbox d-none">
-                                        <div class="card-content">
-                                            <div class="card-image">
-                                                <img class="align-self-center" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/report_img.svg'); ?>" />
-                                            </div>
-                                            <div class="card-content">
-                                                <h3><?php esc_html_e("Report Not Generated", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                                <p><?php esc_html_e("Please Re-connect your Google Analytics or try again later", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="dash-reportgenerated" class="genrated-box d-none mb-2">
-                                        <ul>
-                                            <?php
-                                            $ga4ReportArr = array(
-                                                "totalRevenue" => array(
-                                                    "title" => "Revenue",
-                                                    "divid" => "totalRevenue",
-                                                ),
-                                                "transactions" => array(
-                                                    "title" => "Total Transactions",
-                                                    "divid" => "transactions",
-                                                ),
-                                                "averagePurchaseRevenue" => array(
-                                                    "title" => "Avg. Order Value",
-                                                    "divid" => "averagePurchaseRevenue",
-                                                ),
-                                                "addToCarts" => array(
-                                                    "title" => "Added to Cart",
-                                                    "divid" => "addToCarts",
-                                                ),
-                                                "sessions" => array(
-                                                    "title" => "Sessions",
-                                                    "divid" => "sessions",
-                                                ),
-                                                "totalUsers" => array(
-                                                    "title" => "Total Users",
-                                                    "divid" => "totalUsers",
-                                                ),
-                                                "newUsers" => array(
-                                                    "title" => "New Users",
-                                                    "divid" => "newUsers",
-                                                ),
-                                                "itemViews" => array(
-                                                    "title" => "Product Views",
-                                                    "divid" => "itemViews",
-                                                ),
-                                            );
-                                            foreach ($ga4ReportArr as $key => $value) {
-                                            ?>
-                                                <li id="<?php echo esc_attr($value['divid']); ?>">
-                                                    <div class="revenue-box card">
-                                                        <div class="card-body">
-                                                            <h3>
-                                                                <?php echo esc_html($value['title']);; ?>
-                                                            </h3>
-                                                            <p>
-                                                                <?php esc_html_e("From Previous Period", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                                            </p>
-                                                            <div class="market-box">
-                                                                <div class="price">-</div>
-                                                                <div class="market">
-                                                                    <img class="align-self-center greenup d-none" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/green-up.png'); ?>" />
-                                                                    <img class="align-self-center reddown d-none" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/red-down.png'); ?>" />
-                                                                    <span>-</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            <?php
-                                            }
-                                            ?>
-                                        </ul>
-                                        <div class="d-flex justify-content-end pe-2">
-                                            <a href="<?php echo esc_url('admin.php?page=conversios-analytics-reports'); ?>" class="conv-link-blue fw-bold">
-                                                <?php esc_html_e("View All Reports", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                function compareDates(date1, date2) {
-                                    const jsDate1 = new Date(
-                                        date1.split("-")[2],
-                                        date1.split("-")[1] - 1,
-                                        date1.split("-")[0]
-                                    );
-                                    const jsDate2 = new Date(
-                                        date2.split("-")[2],
-                                        date2.split("-")[1] - 1,
-                                        date2.split("-")[0]
-                                    );
-                                    if (jsDate1 > jsDate2) {
-                                        return 1;
-                                    } else if (jsDate1 < jsDate2) {
-                                        return -1;
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-                                jQuery(document).on('click', '.reporting-accordian', function() {
-                                    if (jQuery(this).attr("aria-expanded") == 'true') {
-                                        var post_data = {
-                                            action: 'get_google_analytics_reports_dashboard',
-                                            subscription_id: '<?php echo esc_attr($this->subscription_id); ?>',
-                                            start_date: '<?php echo esc_js(gmdate('d-m-Y', strtotime("-1 month"))) ?>',
-                                            end_date: '<?php echo esc_js(gmdate('d-m-Y', strtotime("now"))) ?>',
-                                            conversios_nonce: '<?php echo esc_js(wp_create_nonce('conversios_nonce')); ?>'
-                                        };
-                                        jQuery.ajax({
-                                            type: "POST",
-                                            dataType: "json",
-                                            url: tvc_ajax_url,
-                                            data: post_data,
-                                            success: function(response) {
-                                                //console.log("ga4 data", response);
-                                                jQuery("#ga4reportcard .spinner-border").addClass('d-none');
-                                                if (response.error == false) {
-                                                    jQuery("#dash-reportgenerated").removeClass("d-none");
-                                                    if (Object.keys(response.data).length > 0) {
-                                                        var data = JSON.parse(response.data);
-                                                        var dashboard_data_point = data.dashboard_data_point;
-                                                        Object.keys(dashboard_data_point).forEach(function(key, index) {
-                                                            let rawval = dashboard_data_point[key];
-                                                            let parsedval = parseFloat(rawval).toFixed(2);
-                                                            let divid = key.replace("compare_", "");
-                                                            if (key.includes("compare_")) {
-                                                                if (rawval < 0) {
-                                                                    jQuery("#" + divid + " .market .reddown").removeClass("d-none");
-                                                                } else {
-                                                                    jQuery("#" + divid + " .market .greenup").removeClass("d-none");
-                                                                }
-                                                                jQuery("#" + divid + " .market span").html(rawval + "%");
-                                                            } else {
-                                                                if (key == "averagePurchaseRevenue" || key == "totalRevenue") {
-                                                                    let currsymb = tvc_helper.get_currency_symbols(data.currencyCode);
-                                                                    jQuery("#" + divid + " .price").html(currsymb + parsedval);
-                                                                } else {
-                                                                    jQuery("#" + divid + " .price").html(rawval);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                } else {
-                                                    // console.log("error", "Error", "Analytics report data not fetched");
-                                                    jQuery("#dash-reportnotgenerated").removeClass("d-none");
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
-                        <?php } ?>
-                        <div class="accbutbox d-flex justify-content-end">
-                            <a class="btn btn-outline-primary px-4 d-none" href="<?php echo esc_url('admin.php?page=conversios-google-analytics'); ?>">
-                                <?php esc_html_e("Set Up Manually", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </a>
-                            <a class="btn btn-primary ms-3 px-4 <?php echo esc_attr($launch_cls); ?>" href="<?php echo esc_url('admin.php?page=conversios&wizard=pixelandanalytics'); ?>">
-                                <?php esc_html_e("Launch Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <?php }
         function evenOdd($number)
         {
             if ($number % 2 == 0) {
@@ -791,86 +531,58 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
             if (isset($this->ee_options['tiktok_setting']) && $this->ee_options['tiktok_setting']['tiktok_business_id'] !== '' && $this->is_channel_connected == false) {
                 $this->is_channel_connected = true;
             }
-            // if ($this->chkEvenOdd == 1) {
+            $ee_prod_mapped_attrs = get_option("ee_prod_mapped_attrs");
+            $ee_prod_mapped_cats = get_option("ee_prod_mapped_cats");
+            $feed_data = $this->TVC_Admin_Helper->ee_get_result_limit('ee_product_feed', 2);
+            $feed_count = !empty($feed_data) ? count($feed_data) : 0;
             ?>
                 <div class="accordion-body">
                     <ul class="ps-4 ms-2 mb-4">
                         <li class="pt-0 ps-1">
-                            <p class="py-2"><?php esc_html_e("Embark on optimizing your product visibility and boosting your advertising efficiency with our easy-to-follow guide. Here’s how you can leverage this feature for the greatest impact:", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                             <div class="d-flex justify-content-between">
                                 <h3>
-                                    <?php esc_html_e("Step 1: Streamlined Channel Setup", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <?php esc_html_e("Step 1: Channel Configuration", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </h3>
-
                                 <span class="material-symbols-outlined <?php echo $this->is_channel_connected ? 'text-success' : 'text-warning' ?>">
                                     <?php echo $this->is_channel_connected ? 'check_circle' : 'history_toggle_off' ?>
                                 </span>
                             </div>
-
-                            <div class="convps_threefive">
-                                <p class="fw-bold ps-3 py-1"><?php esc_html_e("One-Click Integration with Google Merchant Center, Facebook, and TikTok", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                <ul class="list-styled pt-2">
-                                    <li><b><?php esc_html_e("Single Click Connection:", "enhanced-e-commerce-for-woocommerce-store"); ?> </b>
-                                        <?php esc_html_e("Instantly link to Google Merchant Center and TikTok.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    <li><b><?php esc_html_e("Dual-Channel Benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
-                                        <?php esc_html_e("Boost visibility on Google and TikTok, enhancing ROAS.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                </ul>
-                            </div>
+                            <p class="mb-3"><?php esc_html_e("Set up Google Merchant Center and TikTok in a single click to boost visibility and enhance ROAS.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                         </li>
                         <li class="pt-0 ps-1">
                             <div class="d-flex justify-content-between">
                                 <h3>
-                                    <?php esc_html_e("Step 2: Effortless Product Attribute Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <?php esc_html_e("Step 2: Product Category Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </h3>
-                                <span class="material-symbols-outlined product-attribute text-warning">
-                                    history_toggle_off
+                                <span class="material-symbols-outlined product-attribute <?php echo $ee_prod_mapped_cats ? 'text-success' : 'text-warning' ?>">
+                                <?php echo $ee_prod_mapped_cats != false ? 'check_circle' : 'history_toggle_off' ?>
                                 </span>
                             </div>
-                            <div class="convps_threefive">
-                                <p class="fw-bold ps-3 py-1"><?php esc_html_e("Automatic Alignment with Conversios", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                <ul class="list-styled pt-2">
-                                    <li><b><?php esc_html_e("Intuitive Mapping: ", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
-                                        <?php esc_html_e("Automatically sync WooCommerce categories and attributes with Conversios.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    <li><b><?php esc_html_e("Enhanced Discoverability:", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
-                                        <?php esc_html_e("Ensure accurate categorization for better visibility.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                </ul>
-                            </div>
+                            <p class="mb-3"><?php esc_html_e("Map your product categories accurately to improve product relevance for customers. This leads to higher conversion rates and increased sales by making your products more easily discoverable.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                         </li>
                         <li class="pt-0 ps-1">
                             <div class="d-flex justify-content-between">
-                                <h3><?php esc_html_e("Step 3 : Advanced Product Feed Management", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                <span class="material-symbols-outlined create-product-feed text-warning">
-                                    history_toggle_off
+                                <h3><?php esc_html_e("Step 3 : Product Attribute Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
+                                <span class="material-symbols-outlined create-product-feed <?php echo $ee_prod_mapped_attrs ? 'text-success' : 'text-warning' ?>">
+                                <?php echo $ee_prod_mapped_attrs != false ? 'check_circle' : 'history_toggle_off' ?>
                                 </span>
                             </div>
-                            <div class="convps_threefive">
-                                <p class="fw-bold ps-3 py-1"><?php esc_html_e("Centralized Feed Optimization", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                <ul class="list-styled pt-2">
-                                    <li><b><?php esc_html_e("Single Click Connection:", "enhanced-e-commerce-for-woocommerce-store"); ?> </b>
-                                        <?php esc_html_e("Instantly link to Google Merchant Center and TikTok.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    <li><b><?php esc_html_e("Dual-Channel Benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
-                                        <?php esc_html_e("Boost visibility on Google and TikTok, enhancing ROAS.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                </ul>
+                            <p class="mb-3"><?php esc_html_e("Map your product attributes to ensure accurate and consistent data integration across shopping channels, enhancing visibility, sales, and customer experience.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
+                        </li>
+                        <li class="pt-0 ps-1">
+                            <div class="d-flex justify-content-between">
+                                <h3><?php esc_html_e("Step 4 : Manage & Create Product Feed", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
+                                <span class="material-symbols-outlined create-product-feed <?php echo $feed_count ? 'text-success' : 'text-warning' ?>">
+                                <?php echo $feed_count != 0 ? 'check_circle' : 'history_toggle_off' ?>
+                                </span>
                             </div>
+                            <p class="mb-3"><?php esc_html_e("Tailor your product feed with advanced settings and filters to meet specific advertising goals and target audiences through customization options.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                         </li>
                     </ul>
-                    <div class="convps_threefive">
-                        <p><?php esc_html_e("By implementing these steps, you position your products for optimal online visibility and", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        <div class="convps_threefive">
-                        <p><?php esc_html_e("By implementing these steps, you position your products for optimal online visibility and", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <br /><?php esc_html_e("engagement, ensuring a competitive edge in the digital marketplace. Start now to fully", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <br /><?php esc_html_e("utilize these features and drive tangible results for your eCommerce business.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        </p>
-                    </div>     <br /><?php esc_html_e("engagement, ensuring a competitive edge in the digital marketplace. Start now to fully", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <br /><?php esc_html_e("utilize these features and drive tangible results for your eCommerce business.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        </p>
-                    </div>
-                    <div class="feedTable"></div>
                     <div class="accbutbox d-flex justify-content-end">
-                        <a class="btn btn-outline-primary feed-management d-none" href="<?php echo esc_url('admin.php?page=conversios-google-shopping-feed&tab=feed_list'); ?>">
-                            <?php esc_html_e("Go To Feed Management", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <a class="btn btn-outline-primary feed-management" href="<?php echo esc_url('admin.php?page=conversios-google-shopping-feed&tab=gaa_config_page'); ?>">
+                            <?php esc_html_e("Set Up Manually", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </a>
-                        <img class="pf_wizard_img align-self-baseline setupinfive scroll-bounce" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/setupin5min.png'); ?>">
                         <a class="btn btn-primary ms-3 pf_wizard" href="<?php echo esc_url('admin.php?page=conversios&wizard=productFeedOdd'); ?>">
                             <?php esc_html_e("Launch Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </a>
@@ -928,8 +640,8 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                 </div>
                 <h2 class="accordion-header d-flex p-2" id="flush-headingTwo">
                     <button class="accordion-button collapsed product-feed-accordian fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/product_feed.png'); ?>">
-                        <?php esc_html_e("Product Feed Manager for Google Shopping, Tiktok & Facebook", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/product_feed.svg'); ?>">
+                        <?php esc_html_e("Product Feed Manager for Google Shopping, Tiktok and Facebook", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </button>
                 </h2>
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
@@ -937,440 +649,18 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                 </div>
             </div>
             <script>
-                jQuery(document).on('click', '.product-feed-accordian', function() {
-                    if (jQuery(this).attr("aria-expanded") == 'true') {
-                        var chkEvenOdd = '<?php echo esc_js($this->chkEvenOdd) ?>';
-                        var is_channel_connected = '<?php echo esc_js($this->is_channel_connected) ?>';
-                        var post_data = {
-                            action: "get_pf_accordian_data",
-                            conv_licence_nonce: '<?php echo esc_js(wp_create_nonce("conv_lic_nonce")); ?>',
-                        }
-                        jQuery.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: tvc_ajax_url,
-                            data: post_data,
-                            beforeSend: function() {
-                                jQuery('#pf_loader').removeClass('d-none')
-                                jQuery(".pf_wizard").css("pointer-events", "none");
-                            },
-                            success: function(response) {
-                                jQuery('#pf_loader').addClass('d-none')
-                                jQuery(".pf_wizard").css("pointer-events", "auto");
-                                if (is_channel_connected == true && response.ee_prod_mapped_attrs !== false && chkEvenOdd == 1) {
-                                    jQuery('.pf_wizard').text('Create Feed')
-                                    jQuery('.pf_wizard_img').addClass('d-none')
-                                } else if (is_channel_connected == true && chkEvenOdd == 0) {
-                                    jQuery('.pf_wizard').text('Create Feed')
-                                    jQuery('.pf_wizard_img').addClass('d-none')
-                                }
-                                jQuery('.feedTable').empty()
-                                if (response.ee_prod_mapped_attrs !== false) {
-                                    jQuery('.product-attribute').removeClass('text-warning');
-                                    jQuery('.product-attribute').addClass('text-success');
-                                    jQuery('.product-attribute').text('check_circle');
-                                }
-                                if (response.feed_count !== 0) {
-                                    jQuery('.create-product-feed').removeClass('text-warning');
-                                    jQuery('.create-product-feed').addClass('text-success');
-                                    jQuery('.create-product-feed').text('check_circle');
-                                    jQuery('.feed-management').removeClass('d-none')
-                                    var feed_wise_url = "admin.php?page=conversios-google-shopping-feed&tab=";
-                                    var html = '<div class="border border-bottom-0 rounded-top "><label class="p-2">Recent Feed List</label></div>' +
-                                        '<div class="table-responsive "><table class="table tablediv border">' +
-                                        '<thead class="table-light">' +
-                                        '<tr><th class="fw-semibold fs-14">FEED NAME</th><th class="fw-semibold fs-14">CHANNELS</th>' +
-                                        '<th class="fw-semibold fs-14">LAST SYNC</th><th class="fw-semibold fs-14 text-center">STATUS</th></tr></thead>' +
-                                        '<tbody>';
-                                    jQuery.each(response.feed_data, function(index, value) {
-                                        html += '<tr>';
-                                        if (value.is_delete == '1') {
-                                            html += '<td><span style="cursor: no-drop; font-size: 12px">' + value.feed_name + '</span></td>';
-                                        } else {
-                                            html += '<td><span style="font-size: 12px"><a style="font-size: 12px" title="Go to feed wise product list" href="' + feed_wise_url + 'product_list&id=' + value.id + '">' + value.feed_name + '</a></span></td>';
-                                        }
-                                        html += '<td>';
-                                        channel_id = value.channel_ids.split(",");
-                                        jQuery.each(channel_id, function(i, val) {
-                                            if (val == '1') {
-                                                html += '<img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>" />';
-                                            } else if (val == '2') {
-                                                html +='<img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') ?>" />';
-                                            } else if (val == '3') {
-                                                html += '<img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png') ?>" />';
-                                            }
-                                        });
-                                        html += '</td><td class="align-middle">';
-                                        var val_lastsync = "NA";
-                                        var val_lastsynctime = "NA";
-                                        if (value.last_sync_date && value.last_sync_date !== '0000-00-00 00:00:00') {
-                                            var inputDate = new Date(value.last_sync_date);
-                                            var day = ('0' + inputDate.getDate()).slice(-2);
-                                            var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                                            var month = monthNames[inputDate.getMonth()];
-                                            var year = inputDate.getFullYear();
-                                            val_lastsync = day + ' ' + month + ' ' + year;
-                                            var hours = ('0' + inputDate.getHours()).slice(-2);
-                                            var minutes = ('0' + inputDate.getMinutes()).slice(-2);
-                                            var period = inputDate.getHours() < 12 ? 'AM' : 'PM';
-                                            val_lastsynctime = hours + ':' + minutes + ' ' + period;
-                                        }
-                                        html += '<p style="font-size: 12px">' + val_lastsync + '</p><p class="mb-0" style="font-size: 12px">' + val_lastsynctime + '</p></td><td class="align-middle ">';
-                                        if (value.is_delete == '1') {
-                                            html += '<span class="badgebox deleted" style="font-size: 12px">Deleted</span>';
-                                        } else {
-                                            var draft = 0;
-                                            var inprogress = 0;
-                                            var synced = 0;
-                                            var failed = 0;
-                                            switch (value.status) {
-                                                case 'Draft':
-                                                    draft++;
-                                                    break;
-
-                                                case 'In Progress':
-                                                    inprogress++;
-                                                    break;
-
-                                                case 'Synced':
-                                                    synced++;
-                                                    break;
-
-                                                case 'Failed':
-                                                    failed++;
-                                                    break;
-                                            }
-
-                                            switch (value.tiktok_status) {
-                                                case 'Draft':
-                                                    draft++;
-                                                    break;
-
-                                                case 'In Progress':
-                                                    inprogress++;
-                                                    break;
-
-                                                case 'Synced':
-                                                    synced++;
-                                                    break;
-
-                                                case 'Failed':
-                                                    failed++;
-                                                    break;
-                                            }
-
-                                             switch (value.fb_status) {
-                                             case 'Draft':
-                                                 draft++;
-                                                 break;
-
-                                             case 'In Progress':
-                                                 inprogress++;
-                                                 break;
-
-                                             case 'Synced':
-                                                 synced++;
-                                                 break;
-
-                                             case 'Failed':
-                                                 failed++;
-                                                 break;
-                                             }
-                                            if (draft !== 0) {
-                                                var gmc = '';
-                                                var tiktok = '';
-                                                var fb = '';
-                                                if (value.status == 'Draft') {
-                                                    gmc = "<img class='draft-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' />";
-                                                }
-                                                if (value.tiktok_status == 'Draft') {
-                                                    tiktok = "<img class='draft-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png') ?>' />";
-                                                }
-                                                 if(value.fb_status == 'Draft'){
-                                                     fb ="<img class='draft-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') ?>' />";
-                                                 }
-                                                html += '<div class="badgebox draft" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover" data-bs-trigger="hover focus">' +
-                                                    'Draft<div class="count-badge" style="margin-top:-4px;color:#DCA310">' + draft + '</div></div>' +
-                                                    '<input type="hidden" class="draftGmcImg" value="' + gmc + '">' +
-                                                    '<input type="hidden" class="draftTiktokImg" value="' + tiktok + '">' +
-                                                    '<input type="hidden" class="draftfbImg" value="' + fb + '">';
-                                            }
-                                            if (inprogress !== 0) {
-                                                var gmc = '';
-                                                var tiktok = '';
-                                                var fb = '';
-                                                if (value.status == 'In Progress') {
-                                                    gmc = "<img class='inprogress-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' />";
-                                                }
-                                                if (value.tiktok_status == 'In Progress') {
-                                                    tiktok = "<img class='inprogress-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png') ?>' />";
-                                                }
-                                                 if(value.fb_status == 'In Progress'){
-                                                     fb ="<img class='inprogress-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') ?>' />";
-                                                 }
-                                                html += '<div class="badgebox inprogress" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover" data-bs-trigger="hover focus">' +
-                                                    'In Progress<div class="count-badge" style="margin-top:-4px;color:#209ee1">' + inprogress + '</div></div>' +
-                                                    '<input type="hidden" class="inprogressGmcImg" value="' + gmc + '">' +
-                                                    '<input type="hidden" class="inprogressTiktokImg" value="' + tiktok + '">' +
-                                                    '<input type="hidden" class="inprogressfbImg" value="' + fb + '">';
-                                            }
-                                            if (synced !== 0) {
-                                                var gmc = '';
-                                                var tiktok = '';
-                                                var fb = '';
-                                                if (value.status == 'Synced') {
-                                                    gmc = "<img class='synced-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' />";
-                                                }
-                                                if (value.tiktok_status == 'Synced') {
-                                                    tiktok = "<img class='synced-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png') ?>' />";
-                                                }
-                                                 if(value.fb_status == 'Synced'){
-                                                     fb ="<img class='synced-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') ?>' />";
-                                                 }
-                                                html += '<div class="badgebox synced" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover" data-bs-trigger="hover focus">' +
-                                                    'Synced<div class="count-badge" style="margin-top:-4px;color:#09bd83">' + synced + '</div></div>' +
-                                                    '<input type="hidden" class="syncedGmcImg" value="' + gmc + '">' +
-                                                    '<input type="hidden" class="syncedTiktokImg" value="' + tiktok + '">' +
-                                                    '<input type="hidden" class="syncedfbImg" value="' + fb + '">';
-                                            }
-                                            if (failed !== 0) {
-                                                var gmc = '';
-                                                var tiktok = '';
-                                                var fb = '';
-                                                if (value.status == 'Failed') {
-                                                    gmc = "<img class='failed-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' />";
-                                                }
-                                                if (value.tiktok_status == 'Failed') {
-                                                    tiktok = "<img class='failed-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/tiktok_channel_logo.png') ?>' />";
-                                                }
-                                                 if(value.fb_status == 'Failed'){
-                                                     fb ="<img class='failed-status' src='<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') ?>' />";
-                                                 }
-                                                html += '<div class="badgebox failed" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover" data-bs-trigger="hover focus">' +
-                                                    'Failed<div class="count-badge" style="margin-top:-4px;color:#DCA310">' + failed + '</div></div>' +
-                                                    '<input type="hidden" class="failedGmcImg" value="' + gmc + '">' +
-                                                    '<input type="hidden" class="failedTiktokImg" value="' + tiktok + '">' +
-                                                    '<input type="hidden" class="failedfbImg" value="' + fb + '">';
-                                            }
-                                        }
-                                        html += '</td></tr>';
-                                    });
-                                    html += '</tbody></table></div>';
-                                    jQuery('.feedTable').html(html)
-
-                                }
-                            }
-                        });
-                    }
-                })
-            </script>
-        <?php }
-                public function get_campain_accordan()
-                {
-                    $campaign_connected = false;
-                    if (isset($this->ee_options['google_merchant_center_id']) && isset($this->ee_options['google_ads_id']) && $this->ee_options['google_merchant_center_id'] !== '' && isset($this->ee_options['google_ads_id']) &&  $this->ee_options['google_ads_id'] !== '') {
-                        $campaign_connected = true;
-                    }
-        ?>
-            <div class="accordion-item">
-                <div id="campaign_loader" class="progress-materializecss d-none ps-2 pe-2" style="width:100%;">
-                    <div class="indeterminate"></div>
-                </div>
-                <h2 class="accordion-header d-flex p-2" id="flush-headingFour">
-                    <button class="accordion-button collapsed camapign-management-accordian fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/Campaign-Management.png'); ?>">
-                        <?php esc_html_e("Campaign Management For Google Shopping", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </button>
-                </h2>
-                <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <ul class="ps-4 ms-2 mb-4">
-                            <li class="pt-0 ps-1">
-                                <p class="py-2"><?php esc_html_e("Seamlessly connect Google Merchant Center with Google ads and select specific products to create performance max campaigns.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <h3>
-                                        <?php esc_html_e("Step 1: Link GMC & Google Ads Accounts", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    </h3>
-
-                                    <span class="material-symbols-outlined <?php echo $campaign_connected ? 'text-success' : 'text-warning' ?> ">
-                                        <?php echo $campaign_connected ? 'check_circle' : 'history_toggle_off' ?>
-                                    </span>
-                                </div>
-
-                                <div class="convps_threefive">
-                                    <ul class="list-styled pt-2">
-                                        <li><?php esc_html_e("Instantly integrate your Google Merchant Center with Google Ads with just one click.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("Step 2: Choose Product Feed & Launch Campaign", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                    <span class="material-symbols-outlined create-product-feed-campaign text-warning">
-                                        history_toggle_off
-                                    </span>
-                                </div>
-                                <div class="convps_threefive">
-                                    <ul class="list-styled pt-2">
-                                        <li><?php esc_html_e("Easily select your product feed and initiate your campaign. Utilize web and behavioral analytics to understand visitor actions on your site, enabling informed decisions to enhance conversions and sales", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="campaignTable"></div>
-                        <div class="accbutbox d-flex justify-content-end pt-4">
-                            <img class="campaign_wizard_img align-self-baseline setupinfive scroll-bounce" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/setupin5min.png'); ?>">
-                            <a class="btn btn-primary ms-3 campaign_wizard" href="<?php echo esc_url('admin.php?page=conversios&wizard=campaignManagement'); ?>">
-                                <?php $campaign_connected ? esc_html_e("Create Campaign", "enhanced-e-commerce-for-woocommerce-store") : esc_html_e("Launch Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                jQuery(document).on('click', '.camapign-management-accordian', function() {
-                    if (jQuery(this).attr("aria-expanded") == 'true') {
-                        var google_ads_id = "<?php echo isset($this->ee_options['google_ads_id']) ? esc_js($this->ee_options['google_ads_id']) : '' ?>";
-                        if (google_ads_id != '') {
-                            var data = {
-                                action: "get_category_for_filter",
-                                type: "get_campaign_accordan",
-                                get_category_for_filter: "<?php echo esc_html(wp_create_nonce('get_category_for_filter-nonce')); ?>"
-                            };
-                            jQuery.ajax({
-                                type: "POST",
-                                dataType: "json",
-                                url: tvc_ajax_url,
-                                data: data,
-                                beforeSend: function() {},
-                                success: function(response) {
-                                    if (response.count > 0) {
-                                        jQuery('.create-product-feed-campaign').removeClass('text-warning')
-                                        jQuery('.create-product-feed-campaign').html('check_circle')
-                                        jQuery('.create-product-feed-campaign').addClass('text-success')
-                                    }
-                                }
-                            });
-
-                            var data = {
-                                action: 'get_pmax_campaign_list',
-                                subscription_id: '<?php echo esc_attr($this->subscription_id); ?>',
-                                plan_id: "<?php echo esc_js(($this->plan_id)) ?>",
-                                plugin_url: '<?php echo esc_url(ENHANCAD_PLUGIN_URL); ?>',
-                                page_size: 3,
-                                page_token: "",
-                                page: 1,
-                                google_ads_id: google_ads_id,
-                                conversios_nonce: '<?php echo esc_js(wp_create_nonce('conversios_nonce')); ?>'
-                            };
-                            jQuery.ajax({
-                                type: "POST",
-                                dataType: "json",
-                                url: tvc_ajax_url,
-                                data: data,
-                                beforeSend: function() {
-                                    jQuery('#campaign_loader').removeClass('d-none')
-                                    jQuery(".campaign_wizard").css("pointer-events", "none");
-                                },
-                                success: function(response) {
-                                    jQuery('#campaign_loader').addClass('d-none')
-                                    jQuery(".campaign_wizard").css("pointer-events", "auto");
-                                    if (typeof(response.data) !== "undefined" && response.data.results !== null) {
-                                        jQuery('.campaign_wizard_img').addClass('d-none')
-                                        var html = '<div class="border border-bottom-0 rounded-top "><label class="p-2">Recent Campaign List</label></div>' +
-                                            '<div class="table-responsive "><table class="table tablediv border">' +
-                                            '<thead class="table-light">' +
-                                            '<tr><th class="fw-semibold fs-14 text-start">CAMPAIGN NAME</th><th class="fw-semibold fs-14 text-end">DAILY BUDGET (<?php echo esc_js($this->currency_symbol) ?>)</th><th class="fw-semibold fs-14 text-end">STATUS</th>' +
-                                            '<th class="fw-semibold fs-14 text-end">CLICK</th><th class="fw-semibold fs-14 text-end">COST (<?php echo esc_js($this->currency_symbol) ?>)</th><th class="fw-semibold fs-14 text-end">CONVERSION</th><th class="fw-semibold fs-14 text-end">SALES</th></tr></thead>';
-                                        html += '<tbody>';
-
-                                        jQuery.each(response.data.results, function(index, value) {
-                                            html += '<tr><td class="fs-12">' + value.campaign.name + '</td><td class="fs-12 text-end">' + numberWithCommas(parseInt(value.campaignBudget.amountMicros / 1000000).toFixed(2)) + '</td><td class="fs-12 text-end">' + value.campaign.status + '</td>' +
-                                                '<td class="fs-12 text-end">' + value.metrics.clicks + '</td><td class="fs-12 text-end">' + numberWithCommas((value.metrics.costMicros / 1000000).toFixed(2)) + '</td>' +
-                                                '<td class="fs-12 text-end">' + numberWithCommas(value.metrics.conversions.toFixed(2)) + '</td><td class="fs-12 text-end">' + numberWithCommas(value.metrics.conversionsValue.toFixed(2)) + '</td></tr>'
-                                        });
-                                        html += '</tbody></table></div>';
-                                        jQuery('.campaignTable').html(html)
-                                    }
-                                }
-                            });
-                        }
-                    }
+                jQuery(document).ready(function() {
+                    jQuery('.accordion-button').on('click', function() {
+                        jQuery('.accordion-collapse').collapse('toggle');
+                    });
                 });
-
-                function numberWithCommas(x) {
-                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                }
             </script>
         <?php }
 
-                function get_sst_accordion()
-                {
-        ?>
-            <div class="accordion-item">
-                <h2 class="accordion-header d-flex p-2" id="flush-headingFive">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-                        <img class="pe-2" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/conv-accordio-sst.png'); ?>">
-                        <?php esc_html_e("Server Side Tracking for GA4, Facebook, Tiktok, Snapchat & Google Ads.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </button>
-                </h2>
-                <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
 
-                    <div class="accordion-body">
-
-                        <ul class="ps-4 ms-2 mb-4">
-                            <li class="pt-0 ps-1">
-                                <p class="py-2"><?php esc_html_e("Let’s automate end to end server side tracking for Google, Facebook, Tiktok and Snapchat in 3 easy steps.", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("Step 1: Initialize Both Web and Server Containers", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                </div>
-                                <div class="convps_threefive">
-                                    <?php esc_html_e("Effortlessly link your web and server containers in just two steps, enabling server-side", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("event tracking. This enhances data accuracy while mitigating the effects of ad blockers ", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("and reducing reliance on third-party cookies.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </div>
-                            </li>
-
-                            <li class="pt-0 ps-1">
-                                <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("Step 2: Choose Your Server's Location and Set It Up", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                </div>
-                                <div class="convps_threefive">
-                                    <?php esc_html_e("Create a Google Cloud server with ease by selecting your preferred region, improving ", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("site speed and ensuring GDPR compliance.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </div>
-                            </li>
-
-                            <li class="pt-0 ps-1">
-                                <div class="d-flex justify-content-between">
-                                    <h3><?php esc_html_e("step 3: Implement Server-Side Tracking Across Major Platforms", "enhanced-e-commerce-for-woocommerce-store"); ?></h3>
-                                </div>
-                                <div class="convps_threefive">
-                                    <?php esc_html_e("Simplify the integration of server-side tracking for Google Analytics 4, Facebook, TikTok,", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("Snapchat, and Google Ads. Set up conversion APIs for Facebook, TikTok, and Snapchat", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("effortlessly.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </div>
-                            </li>
-
-                        </ul>
-
-                        <div class="accbutbox d-flex justify-content-end">
-                            <div class="btn btn-outline-primary conv-link-blue ms-2 fw-bold-500 upgradetopro_badge upgradetopro_badge_invert" data-bs-toggle="modal" data-bs-target="#convSsttoProModal">
-                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e("Upgrade to Premium", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
-        <?php
-                }
-                // Main function for HTM structure
-                public function current_html()
-                {
+        // Main function for HTM structure
+        public function current_html()
+        {
         ?>
             <style>
                 .accordion-item {
@@ -1383,24 +673,25 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
             <section style="max-width: 1200px; margin:auto;">
                 <div class="dash-convo">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="dash-area">
-                                    <div class="dashwhole-box">
-                                        <div class="head-title d-flex justify-content-between">
-                                            <h2 class="fw-bold text-dark">
-                                                <?php esc_html_e("Welcome to Your Onboarding Journey!", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="welcome-wholebox">
                             <div class="row">
-                                <div class="col-xl-8 col-lg-12 col-md-12 col-12 ">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12 ">
                                     <!-- licence key html call-->
                                     <?php $this->dashboard_licencebox_html(); ?>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="dash-area">
+                                                <div class="dashwhole-box">
+                                                    <div class="head-title d-flex justify-content-between">
+                                                        <h2 class="fw-bold text-dark">
+                                                            <?php esc_html_e("Quick Setup", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="pixel-setup card">
                                         <div class="card-body">
@@ -1416,34 +707,12 @@ if (class_exists('Conversios_Dashboard') === FALSE) {
                                                 }
                                                 ?>
 
-                                                <!-- Reporting Collaps -->
-                                                <?php
-                                                if (is_plugin_active_for_network('woocommerce/woocommerce.php') || in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-                                                    $this->get_reporting_accordion();
-                                                }
-                                                ?>
-
-                                                <!-- Campaign Collaps -->
-                                                <?php
-                                                if (is_plugin_active_for_network('woocommerce/woocommerce.php') || in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-                                                    $this->get_campain_accordan();
-                                                }
-                                                ?>
-
-                                                <?php $this->get_sst_accordion(); ?>
                                             </div>
                                         </div>
                                     </div>
 
                                     <?php $this->dashboard_recentpostbox_html(); ?>
 
-                                </div>
-
-                                <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-                                    <?php $this->dashboard_videocardbox_html(); ?>
-                                    <?php $this->dashboard_requestfeature_html(); ?>
-                                    <?php $this->dashboard_gethelp_html(); ?>
-                                    <?php $this->dashboard_convproducts_html(); ?>
                                 </div>
                             </div>
                         </div>

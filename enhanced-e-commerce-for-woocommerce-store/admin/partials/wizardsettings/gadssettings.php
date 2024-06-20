@@ -1,7 +1,10 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) {
+    exit;
+}
+// Exit if accessed directly
 $is_sel_disable_gads = 'disabled';
-$cust_g_email_gads =  (isset($tvc_data['g_mail']) && esc_attr($subscriptionId)) ? esc_attr($tvc_data['g_mail']) : "";
+$cust_g_email_gads = (isset($tvc_data['g_mail']) && esc_attr($subscriptionId)) ? esc_attr($tvc_data['g_mail']) : "";
 $tvs_admin = new TVC_Admin_Helper();
 $tvs_admin_data = $tvs_admin->get_ee_options_data();
 $store_id = $tvs_admin_data['setting']->store_id;
@@ -62,7 +65,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                             <!-- GAds Acc Selection -->
 
                             <div id="analytics_box_ads" class="py-1">
-                                <div class="row pt-2">
+                                <div class="row">
                                     <div class="col-5">
                                         <h5 class="fw-normal mb-1">
                                             <?php esc_html_e("Select Google Ads Account:", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -124,7 +127,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                 <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#gadsConversionAcco">
                     <div class="accordion-body pt-0">
                         <ul class="ps-0">
-                            <li class="d-flex align-items-center my-2">
+                            <li class="<?php echo !CONV_IS_WC ? 'hidden' : 'd-flex align-items-center my-2' ?>">
                                 <div class="inlist_text_pre ms-2 disabledsection" conversion_name="">
                                     <h5 class="mb-0"><?php esc_html_e("When product is added to cart:", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
                                     <div class="inlist_text_notconnected">
@@ -138,12 +141,12 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
 
                                 <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </span>
 
                             </li>
 
-                            <li class="d-flex align-items-center my-2">
+                            <li class="<?php echo !CONV_IS_WC ? 'hidden' : 'd-flex align-items-center my-2' ?>">
                                 <div class="inlist_text_pre ms-2 disabledsection" conversion_name="">
                                     <h5 class="mb-0"><?php esc_html_e("When checkout is initiated:", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
                                     <div class="inlist_text_notconnected">
@@ -156,11 +159,11 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                                 </div>
                                 <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </span>
                             </li>
 
-                            <li class="d-flex align-items-center my-2">
+                            <li class="<?php echo !CONV_IS_WC ? 'hidden' : 'd-flex align-items-center my-2' ?>">
                                 <div class="inlist_text_pre ms-2" conversion_name="PURCHASE">
                                     <h5 class="mb-0"><?php esc_html_e("When purchase happens:", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
                                     <div class="inlist_text_notconnected">
@@ -176,6 +179,22 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                                 </button>
                             </li>
 
+                            <li class="d-flex align-items-center my-2">
+                                <div class="inlist_text_pre ms-2" conversion_name="SUBMIT_LEAD_FORM">
+                                    <h5 class="mb-0"><?php esc_html_e("When lead form submitted:", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
+                                    <div class="inlist_text_notconnected">
+                                        <?php esc_html_e("Implement conversion tracking for 'form_lead_submit' events to evaluate campaign effectiveness.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </div>
+                                    <div class="inlist_text_connected d-flex d-none">
+                                        <div class="text-success"><?php esc_html_e("Connected with Conversion ID:", "enhanced-e-commerce-for-woocommerce-store"); ?></div>
+                                        <div class="inlist_text_connected_convid ps-2"></div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline-primary btn-sm ms-auto conv_con_modal_opener px-4 py-2" conversion_name="SUBMIT_LEAD_FORM">
+                                    <?php esc_html_e("+ Create Conversion", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </button>
+                            </li>
+
 
                         </ul>
                     </div>
@@ -187,24 +206,38 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         <?php esc_html_e("Setup Dynamic Remarketing Audience Building", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </button>
                 </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#gadsConversionAcco">
+                <div id="flush-collapseThree" class="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#gadsConversionAcco">
                     <div class="accordion-body pt-0">
 
                         <!-- Checkboxes -->
                         <div id="checkboxes_box">
 
-                            <div class="d-flex pt-2 align-items-center">
+                            <div class="d-flex pt-2 align-items-center pb-2">
                                 <input class="form-check-input" type="checkbox" value="1" id="remarketing_tags" name="remarketing_tags" <?php echo (esc_attr($googleDetail->remarketing_tags) == 1) ? 'checked="checked"' : ''; ?>>
                                 <label class="form-check-label ps-2" for="remarketing_tags">
                                     <?php esc_html_e("Enable remarketing tags", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </label>
                             </div>
 
-                            <div class="d-flex pt-2 align-items-center">
-                                <input class="form-check-input" type="checkbox" value="1" id="dynamic_remarketing_tags" name="dynamic_remarketing_tags" <?php echo (esc_attr($googleDetail->dynamic_remarketing_tags) == 1) ? 'checked="checked"' : ''; ?>>
-                                <label class="form-check-label ps-2" for="dynamic_remarketing_tags">
-                                    <?php esc_html_e("Enable dynamic remarketing tags", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </label>
+                            <div class="conv_highlightedcard">
+                                <div class="d-flex pt-2 align-items-center">
+                                    <input class="form-check-input" type="checkbox" value="1" style="pointer-events: none;">
+                                    <label class="form-check-label ps-2 readonly disabled">
+                                        <b><?php esc_html_e("Enable dynamic remarketing tags", "enhanced-e-commerce-for-woocommerce-store"); ?></b>
+                                    </label>
+                                    <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                        <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                        <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </span>
+                                </div>
+                                <div class="pb-2">
+                                    <ul class="pt-2">
+                                        <li><b><?php esc_html_e("View_item:", "enhanced-e-commerce-for-woocommerce-store"); ?></b> <?php esc_html_e("Retarget users who browsed specific products.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                        <li><b><?php esc_html_e("Add_to_cart:", "enhanced-e-commerce-for-woocommerce-store"); ?></b> <?php esc_html_e("Remarket to users who added items to their cart but abandoned it.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                        <li><b><?php esc_html_e("Begin_checkout:", "enhanced-e-commerce-for-woocommerce-store"); ?></b> <?php esc_html_e("Target users who initiated checkout but didn't complete the purchase.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                        <li><b><?php esc_html_e("Purchase:", "enhanced-e-commerce-for-woocommerce-store"); ?></b> <?php esc_html_e("Include past purchasers in retargeting campaigns for upsell or cross-sell opportunities.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <div class="d-flex pt-2 align-items-center">
@@ -247,14 +280,17 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             ?>
             <div id="fbpixel_box" class="py-1">
                 <div class="row pt-2">
-                    <div class="convwizard_pixtitle mt-0 mb-3">
-                        <div class="d-flex flex-row align-items-center">
+                    <div class="convwizard_pixtitle mt-0">
+                        <div class="d-flex flex-row align-items-center mb-3">
                             <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_meta_logo.png'); ?>" />
                             <h5 class="m-0 ms-2 h5">
                                 <?php esc_html_e("Meta (Facebook) Pixel", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </h5>
                         </div>
-                        <div class="mt-1">
+                        <label class="fw-bold mb-1 h6 text-dark">
+                            <?php esc_html_e("Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <div class="mt-0 mb-2">
                             <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                                 <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -281,29 +317,32 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             <div id="fbapi_box" class="pt-2">
                 <div class="row pt-2">
                     <div class="col-12">
-                        <div class="convwizard_pixtitle mt-0 mb-3">
+                        <div class="convwizard_pixtitle mt-0">
                             <div class="d-flex flex-row align-items-center">
-                                <h6 class="m-0 ms-0 h6 d-flex">
+                                <h6 class="mb-1 h6 d-flex">
                                     <?php esc_html_e("Meta (Facebook) Conversion API Token", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </h6>
-                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                    <img style="width: 14px;" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("Premium", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </span>
                             </div>
-                            <div class="mt-1">
+                            <div class="mt-0 mb-2">
                                 <?php esc_html_e("Configure Facebook Conversions API by adding it below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                                     <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
                                 </a>
                             </div>
                         </div>
-                        <div class="d-flex">
-                            <textarea readonly class="form-control disabled" style="height: 75px; cursor: not-allowed;"></textarea>
-                            <button type="button" class="shadow-none btn btn-sm d-flex conv-enable-selection_comman conv-link-blue align-items-center <?php echo $fb_conversion_api_token == "" ? "disabled text-dark" : ""; ?>">
-                                <span class="material-symbols-outlined md-18">edit</span>
-                                <span class="px-1"><?php esc_html_e("Edit", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                            </button>
+                        <div class="conv_highlightedcard">
+                            <div class="d-flex pt-2 align-items-top">
+                                <ul class="px-2">
+                                    <li><b><?php esc_html_e("Enhance", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("event match quality.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Improve", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("data accuracy and reliability.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Ensure", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("better user privacy and compliance.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Boost", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("ads performance and attribution.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                </ul>
+                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -314,69 +353,70 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
         </div>
 
         <!-- Ecommerce Events -->
-        <div class="mt-0 rounded-3 mt-3">
-            <div class="row">
-                <h5 class="fw-normal mb-1">
-                    <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    <span class="fw-400 text-color fs-12">
-                        <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
-                            info
-                        </span>
-                    </span>
-                </h5>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("View content", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-                <div class="col-md-4 pr-0">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-
-            <div class="row pt-3">
-                <div class="col-md-12 convutp_bot">
-                    <h5 class="fw-normal mb-1 d-flex">
-                        <span class="material-symbols-outlined text-success me-1">info</span>
-                        <?php esc_html_e(" To access full Facebook Ads tracking and the Facebook Conversions API, consider upgrading to our Starter Plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                            <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                            <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+        <div class="mt-0 rounded-3 mt-3 d-none">
+            <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                <div class="row">
+                    <h5 class="fw-normal mb-1">
+                        <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <span class="fw-400 text-color fs-12">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                info
+                            </span>
                         </span>
                     </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("View content", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-md-12 convutp_bot">
+                            <h5 class="fw-normal mb-1 d-flex">
+                                <span class="material-symbols-outlined text-success me-1">info</span>
+                                <?php esc_html_e(" To access full Facebook Ads tracking and the Facebook Conversions API, consider upgrading to our Starter Plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </span>
+                            </h5>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -403,7 +443,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         <?php esc_html_e("Snapchat Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </label>
 
-                    <div class="mt-1">
+                    <div class="mt-0 mb-2">
                         <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-snapchat-pixel-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                             <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -412,7 +452,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
 
                     <div class="col-6 d-flex flex-row">
                         <input <?php echo $snapchat_ads_pixel_id == "" ? "" : "readonly"; ?> type="text" name="snapchat_ads_pixel_id" id="snapchat_ads_pixel_id" class="form-control valtoshow_inpopup_this" value="<?php echo esc_attr($snapchat_ads_pixel_id); ?>" placeholder="e.g. 12e1ec0a-90aa-4267-b1a0-182c455711e9">
-                        <button type="button" class="shadow-none btn btn-sm d-flex conv-enable-selection_comman conv-link-blue align-items-center <?php echo $fb_pixel_id == "" ? "disabled text-dark" : ""; ?>">
+                        <button type="button" class="shadow-none btn btn-sm d-flex conv-enable-selection_comman conv-link-blue align-items-center <?php echo $snapchat_ads_pixel_id == "" ? "disabled text-dark" : ""; ?>">
                             <span class="material-symbols-outlined md-18">edit</span>
                             <span class="px-1"><?php esc_html_e("Edit", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
                         </button>
@@ -431,15 +471,15 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                 <div class="row pt-2">
                     <div class="col-12">
                         <label class="d-flex fw-normal mb-1 text-dark">
-                            <h5 class="mb-0"><?php esc_html_e("Snapchat Conversion API Token ", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
+                            <h6 class="mb-0 h6 d-flex"><?php esc_html_e("Snapchat Conversion API Token ", "enhanced-e-commerce-for-woocommerce-store"); ?></h6>
 
-                            <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                            <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                                 <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e(" UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                <?php esc_html_e(" Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </span>
                         </label>
 
-                        <div class="mt-1">
+                        <div class="mt-0 mb-2">
                             <?php esc_html_e("Configure Snapchat Conversions API by adding it below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-snapchat-pixel-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                                 <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -461,51 +501,52 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
 
 
         <!-- Ecommerce Events -->
-        <div class="mt-0 rounded-3 mt-3">
-            <div class="row">
-                <h5 class="fw-normal mb-1">
-                    <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    <span class="fw-400 text-color fs-12">
-                        <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
-                            info
+        <div class="mt-0 rounded-3 mt-3 d-none">
+            <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                <div class="row">
+                    <h5 class="fw-normal mb-1">
+                        <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <span class="fw-400 text-color fs-12">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                info
+                            </span>
                         </span>
-                    </span>
-                </h5>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </h5>
                 </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Product view", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Begin checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </span>
-                        <?php esc_html_e("Product view", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
                 </div>
-                <div class="col-md-4 pr-0">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Begin checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </span>
-                </div>
-
                 <div class="row pt-3">
                     <div class="col-md-12 convutp_bot">
                         <h5 class="fw-normal mb-1 d-flex">
@@ -514,7 +555,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                                 <?php esc_html_e("Get access to complete ecommerce tracking and snapchat conversions api, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                                 </span>
                             </div>
                         </h5>
@@ -522,6 +563,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
 
@@ -545,7 +587,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         <?php esc_html_e("Tiktok Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </label>
 
-                    <div class="mt-1">
+                    <div class="mt-0 mb-2">
                         <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-snapchat-pixel-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                             <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -567,17 +609,17 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             <div id="tiktok_capi_box" class="py-1">
                 <div class="row pt-2">
                     <div class="col-12">
-                        <h5>
+                        <h6 class="mb-1 h6 d-flex">
                             <?php esc_html_e("TikTok Events API Key", "enhanced-e-commerce-for-woocommerce-store"); ?>
 
-                            <span class="align-middle conv-link-blue fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                            <span class="ms-2 align-middle conv-link-blue fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                                 <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </span>
-                        </h5>
+                        </h6>
 
 
-                        <div class="mt-1">
+                        <div class="mt-0 mb-2">
                             <?php esc_html_e("Setup Tiktok Events API by adding the API ID below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-tiktok-pixel-tiktok-conversions-api-using-conversios-app/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                                 <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -599,72 +641,74 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
         </div>
 
         <!-- Ecommerce Events -->
-        <div class="mt-0 rounded-3 mt-3">
-            <div class="row">
-                <h5 class="fw-normal mb-1">
-                    <?php esc_html_e("Ecommerce Events for Tiktok Pixel", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    <span class="fw-400 text-color fs-12">
-                        <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
-                            info
-                        </span>
-                    </span>
-                </h5>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("View item", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-                <div class="col-md-4 pr-0">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Intiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-
-            <div class="row pt-3">
-                <div class="col-md-12 convutp_bot">
-                    <h5 class="fw-normal mb-1 d-flex">
-                        <span class="material-symbols-outlined text-success me-1">info</span>
-                        <div>
-                            <?php esc_html_e("Get access to complete ecommerce tracking and Tiktok Events api, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+        <div class="mt-0 rounded-3 mt-3 d-none">
+            <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                <div class="row">
+                    <h5 class="fw-normal mb-1">
+                        <?php esc_html_e("Ecommerce Events for Tiktok Pixel", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <span class="fw-400 text-color fs-12">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                info
                             </span>
-                        </div>
+                        </span>
                     </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("View item", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Intiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                </div>
 
+                <div class="row pt-3">
+                    <div class="col-md-12 convutp_bot">
+                        <h5 class="fw-normal mb-1 d-flex">
+                            <span class="material-symbols-outlined text-success me-1">info</span>
+                            <div>
+                                <?php esc_html_e("Get access to complete ecommerce tracking and Tiktok Events api, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </span>
+                            </div>
+                        </h5>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -691,7 +735,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         <?php esc_html_e("Pinterest Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </label>
 
-                    <div class="mt-1">
+                    <div class="mt-0 mb-2">
                         <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-set-up-pinterest-pixel-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                             <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -711,62 +755,64 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
         </div>
 
         <!-- Ecommerce Events -->
-        <div class="mt-0 rounded-3 mt-3">
-            <div class="row">
-                <h5 class="fw-normal mb-1">
-                    <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    <span class="fw-400 text-color fs-12">
-                        <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
-                            info
-                        </span>
-                    </span>
-                </h5>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Product views", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-                <div class="col-md-4 pr-0">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                    <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                </div>
-                <div class="col-md-4">
-                    <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                        <span class="material-symbols-outlined lock-icon">
-                            lock
-                        </span>
-                        <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </span>
-                </div>
-
-
-                <div class="row pt-3">
-                    <div class="col-md-12 convutp_bot">
-                        <h5 class="fw-normal mb-1 d-flex">
-                            <span class="material-symbols-outlined text-success me-1">info</span>
-                            <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+        <div class="mt-0 rounded-3 mt-3 d-none">
+            <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                <div class="row">
+                    <h5 class="fw-normal mb-1">
+                        <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <span class="fw-400 text-color fs-12">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                info
                             </span>
-                        </h5>
+                        </span>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Product views", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                            <span class="material-symbols-outlined lock-icon">
+                                lock
+                            </span>
+                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </span>
+                    </div>
+
+
+                    <div class="row pt-3">
+                        <div class="col-md-12 convutp_bot">
+                            <h5 class="fw-normal mb-1 d-flex">
+                                <span class="material-symbols-outlined text-success me-1">info</span>
+                                <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </span>
+                            </h5>
+                        </div>
                     </div>
                 </div>
 
@@ -795,7 +841,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         <?php esc_html_e("Bing Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
                     </label>
 
-                    <div class="mt-1">
+                    <div class="mt-0 mb-2">
                         <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-set-up-microsoft-ads-pixel-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                             <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -812,7 +858,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                     </div>
                 </div>
 
-                <div class="hideme_msbingconversios disabled" id="checkboxes_box_bing" class="pt-2">
+                <div id="checkboxes_box_bing" class="hideme_msbingconversios disabled pt-2 <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
                     <?php $msbing_conversion = isset($ee_options['msbing_conversion']) ? $ee_options['msbing_conversion'] : ""; ?>
                     <div class="d-flex pt-2 align-items-center">
                         <input class="form-check-input convchkbox_setting" type="checkbox" value="<?php echo esc_attr($msbing_conversion); ?>" id="msbing_conversion" name="msbing_conversion" <?php echo (esc_attr($msbing_conversion) == 1) ? 'checked="checked"' : ''; ?>>
@@ -826,64 +872,66 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             <!-- MS Bing Pixel End-->
 
             <!-- Ecommerce Events -->
-            <div class="mt-0 rounded-3 mt-3">
-                <div class="row">
-                    <h5 class="fw-normal mb-1">
-                        <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        <span class="fw-400 text-color fs-12">
-                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
-                                info
-                            </span>
-                        </span>
-                    </h5>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </div>
-                    <div class="col-md-4">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                    </div>
-                    <div class="col-md-4 pr-0">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </div>
-                    <div class="col-md-4">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        </span>
-                    </div>
-
-                    <div class="row pt-3">
-                        <div class="col-md-12 convutp_bot">
-                            <h5 class="fw-normal mb-1 d-flex">
-                                <span class="material-symbols-outlined text-success me-1">info</span>
-                                <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+            <div class="mt-0 rounded-3 mt-3 d-none">
+                <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                    <div class="row">
+                        <h5 class="fw-normal mb-1">
+                            <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            <span class="fw-400 text-color fs-12">
+                                <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                    info
                                 </span>
-                            </h5>
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                            <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                            <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </span>
+                        </div>
 
+                        <div class="row pt-3">
+                            <div class="col-md-12 convutp_bot">
+                                <h5 class="fw-normal mb-1 d-flex">
+                                    <span class="material-symbols-outlined text-success me-1">info</span>
+                                    <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                        <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                        <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </span>
+                                </h5>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -896,7 +944,17 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
     <form id="pixelsetings_form" class="convgawiz_form_webads convpixsetting-inner-box mt-4 pb-4 pt-3 convwiz_border" datachannel="Twitter">
         <div>
             <!-- Twitter Pixel -->
-            <?php $twitter_ads_pixel_id = isset($ee_options['twitter_ads_pixel_id']) ? $ee_options['twitter_ads_pixel_id'] : ""; ?>
+            <?php
+            $twitter_ads_pixel_id = isset($ee_options['twitter_ads_pixel_id']) ? $ee_options['twitter_ads_pixel_id'] : "";
+            $twitter_ads_form_submit_event_id = isset($ee_options['twitter_ads_form_submit_event_id']) ? $ee_options['twitter_ads_form_submit_event_id'] : "";
+            $twitter_ads_add_to_cart_event_id = isset($ee_options['twitter_ads_add_to_cart_event_id']) ? $ee_options['twitter_ads_add_to_cart_event_id'] : "";
+            $twitter_ads_checkout_initiated_event_id = isset($ee_options['twitter_ads_checkout_initiated_event_id']) ? $ee_options['twitter_ads_checkout_initiated_event_id'] : "";
+            $twitter_ads_payment_info_event_id = isset($ee_options['twitter_ads_payment_info_event_id']) ? $ee_options['twitter_ads_payment_info_event_id'] : "";
+            $twitter_ads_purchase_event_id = isset($ee_options['twitter_ads_purchase_event_id']) ? $ee_options['twitter_ads_purchase_event_id'] : "";
+            $twitter_ads_email_click_event_id = isset($ee_options['twitter_ads_email_click_event_id']) ? $ee_options['twitter_ads_email_click_event_id'] : "";
+            $twitter_ads_phone_click_event_id = isset($ee_options['twitter_ads_phone_click_event_id']) ? $ee_options['twitter_ads_phone_click_event_id'] : "";
+            $twitter_ads_address_click_event_id = isset($ee_options['twitter_ads_address_click_event_id']) ? $ee_options['twitter_ads_address_click_event_id'] : "";
+            ?>
             <div id="twitter_box" class="py-1">
                 <div class="row pt-2">
                     <div class="">
@@ -914,7 +972,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                             <?php esc_html_e("Twitter Pixel ID", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </label>
 
-                        <div class="mt-1">
+                        <div class="mt-0 mb-2">
                             <?php esc_html_e("Configure conversions and audience creation effortlessly in a single step outlined below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-twitter-pixel/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
                                 <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
@@ -928,75 +986,145 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                                 <span class="px-1"><?php esc_html_e("Edit", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
                             </button>
                         </div>
-
-
                     </div>
                 </div>
-            </div>
-            <!-- Twitter Pixel End-->
 
-            <!-- Ecommerce Events -->
-            <div class="mt-0 rounded-3 mt-3">
-                <div class="row">
-                    <h5 class="fw-normal mb-1">
-                        <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                <div class="row pt-2">
+                    <h5 class="fw-normal mb-1 mt-3">
+                        <?php esc_html_e("Twitter events settings", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         <span class="fw-400 text-color fs-12">
-                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Create events in the twitter ads and enter event IDs">
                                 info
                             </span>
                         </span>
                     </h5>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
-                        <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </div>
-                    <div class="col-md-4">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                    </div>
-                    <div class="col-md-4 pr-0">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
-                        <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                    </div>
-                    <div class="col-md-4">
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
-                            <span class="material-symbols-outlined lock-icon">
-                                lock
-                            </span>
-                            <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                        </span>
-                    </div>
-
+                <div class="pb-3 <?php echo !CONV_IS_WC ? 'hidden d-none' : '' ?>">
                     <div class="row pt-3">
-                        <div class="col-md-12 convutp_bot">
-                            <h5 class="fw-normal mb-1 d-flex">
-                                <span class="material-symbols-outlined text-success me-1">info</span>
-                                <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </span>
-                            </h5>
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Add to Cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_add_to_cart_event_id" id="twitter_ads_add_to_cart_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_add_to_cart_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Checkout Initiated", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_checkout_initiated_event_id" id="twitter_ads_checkout_initiated_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_checkout_initiated_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
                         </div>
                     </div>
+                    <div class="row pt-3">
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Payment Info Added", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_payment_info_event_id" id="twitter_ads_payment_info_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_payment_info_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_purchase_event_id" id="twitter_ads_purchase_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_purchase_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                    </div>
+                </div><!-- wc events -->
 
+                <div class="row pt-3">
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Form Submit", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_form_submit_event_id" id="twitter_ads_form_submit_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_form_submit_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Email Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_email_click_event_id" id="twitter_ads_email_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_email_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Phone Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_phone_click_event_id" id="twitter_ads_phone_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_phone_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Address Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_address_click_event_id" id="twitter_ads_address_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_address_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                </div>
+
+            </div>
+            <!-- Twitter Pixel End-->
+
+            <!-- Ecommerce Events -->
+            <div class="mt-0 rounded-3 mt-3 d-none">
+                <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                    <div class="row">
+                        <h5 class="fw-normal mb-1">
+                            <?php esc_html_e("Select Ecommerce Events for tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            <span class="fw-400 text-color fs-12">
+                                <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Page view and purchase event tracking are available in free plan. For complete ecommerce tracking, upgrade to our pro plan">
+                                    info
+                                </span>
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="checkbox" class="m-1" name="" style="-webkit-appearance: auto;" checked onclick="return false;">
+                            <?php esc_html_e("Page view", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Add to cart", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Initiate checkout", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="checkbox" name="" class="m-1" style="-webkit-appearance: auto;" checked onclick="return false;">
+                            <?php esc_html_e("Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Available with Pro Plan">
+                                <span class="material-symbols-outlined lock-icon">
+                                    lock
+                                </span>
+                                <?php esc_html_e("Add payment info", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </span>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col-md-12 convutp_bot">
+                                <h5 class="fw-normal mb-1 d-flex">
+                                    <span class="material-symbols-outlined text-success me-1">info</span>
+                                    <?php esc_html_e("Get access to complete ecommerce tracking, by switching to our premium plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                        <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                        <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                    </span>
+                                </h5>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -1273,6 +1401,13 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                             jQuery('#google_ads_id').append(AccOptions);
                             jQuery('#google_ads_id').prop("disabled", false);
                             jQuery(".conv-enable-selection").addClass('d-none');
+                            jQuery("#gadsConversionAcco .accordion-body").removeClass("disabledsection");
+                            jQuery(".accordion-button").removeClass("text-dark");
+
+                            if (jQuery("#ga4_property_id").val() != "") {
+                                jQuery("#link_google_analytics_with_google_ads").removeAttr("disabled");
+                                jQuery("#ga_GMC").removeAttr("disabled");
+                            }
                         }
                     }
                 } else {
@@ -1351,7 +1486,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
         var btn_cam = 'create_new';
         var ename = 'conversios_onboarding';
         var event_label = 'ads';
-        //user_tracking_data(btn_cam, error_msg,ename,event_label);   
+        //user_tracking_data(btn_cam, error_msg,ename,event_label);
         jQuery.ajax({
             type: "POST",
             dataType: "json",
@@ -1389,7 +1524,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                     var error_msg = response.errors;
                     add_message("error", response.data.message);
                 }
-                //user_tracking_data(btn_cam, error_msg,ename,event_label);   
+                //user_tracking_data(btn_cam, error_msg,ename,event_label);
             }
         });
     }
@@ -1410,6 +1545,8 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                 jQuery('div[conversion_name="PURCHASE"] .inlist_text_pre').find(".inlist_text_connected").find(".inlist_text_connected_convid").html("");
                 jQuery('div[conversion_name="PURCHASE"] .inlist_text_pre').next().html("+ Create Conversion");
                 jQuery("#convgadseditconfirm").modal("hide");
+
+                jQuery("input[name='COV - GAds - Form Submit - Conversion']").prop('checked', false);
 
                 jQuery("input[name='COV - GAds - AddToCart - Conversion']").prop('checked', false);
                 jQuery("input[name='COV - GAds - BeginCheckout - Conversion']").prop('checked', false);
@@ -1462,13 +1599,13 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
         }
         ?>
 
-        // gads_conversions = <?php echo wp_json_encode($gads_conversions); ?>;
-        // jQuery.each(gads_conversions, function(key, value) {
-        //     jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_notconnected").addClass("d-none");
-        //     jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_connected").removeClass("d-none");
-        //     jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_connected").find(".inlist_text_connected_convid").html(value);
-        //     jQuery('.inlist_text_pre[conversion_name="' + key + '"]').next().html("Edit");
-        // });
+        gads_conversions = <?php echo wp_json_encode($gads_conversions); ?>;
+        jQuery.each(gads_conversions, function(key, value) {
+            jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_notconnected").addClass("d-none");
+            jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_connected").removeClass("d-none");
+            jQuery('.inlist_text_pre[conversion_name="' + key + '"]').find(".inlist_text_connected").find(".inlist_text_connected_convid").html(value);
+            jQuery('.inlist_text_pre[conversion_name="' + key + '"]').next().html("Edit");
+        });
 
         <?php
         $ee_conversio_send_to = !empty(get_option('ee_conversio_send_to')) ? get_option('ee_conversio_send_to') : "";
@@ -1478,7 +1615,8 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             jQuery('.inlist_text_pre[conversion_name="PURCHASE"]').find(".inlist_text_connected").removeClass("d-none");
             jQuery('.inlist_text_pre[conversion_name="PURCHASE"]').find(".inlist_text_connected").find(".inlist_text_connected_convid").html('<?php echo esc_js($ee_conversio_send_to); ?>');
             jQuery('.inlist_text_pre[conversion_name="PURCHASE"]').next().html("Edit");
-        <?php } ?>
+        <?php
+        } ?>
 
 
         // jQuery(".conv-enable-selection_cli").click(function() {
@@ -1573,6 +1711,14 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             selected_vals_webads["msbing_conversion"] = jQuery("#msbing_conversion").val();
 
             selected_vals_webads["twitter_ads_pixel_id"] = jQuery("#twitter_ads_pixel_id").val();
+            selected_vals_webads["twitter_ads_form_submit_event_id"] = jQuery("#twitter_ads_form_submit_event_id").val();
+            selected_vals_webads["twitter_ads_email_click_event_id"] = jQuery("#twitter_ads_email_click_event_id").val();
+            selected_vals_webads["twitter_ads_phone_click_event_id"] = jQuery("#twitter_ads_phone_click_event_id").val();
+            selected_vals_webads["twitter_ads_address_click_event_id"] = jQuery("#twitter_ads_address_click_event_id").val();
+            selected_vals_webads["twitter_ads_add_to_cart_event_id"] = jQuery("#twitter_ads_add_to_cart_event_id").val();
+            selected_vals_webads["twitter_ads_checkout_initiated_event_id"] = jQuery("#twitter_ads_checkout_initiated_event_id").val();
+            selected_vals_webads["twitter_ads_payment_info_event_id"] = jQuery("#twitter_ads_payment_info_event_id").val();
+            selected_vals_webads["twitter_ads_purchase_event_id"] = jQuery("#twitter_ads_purchase_event_id").val();
 
             // selected_vals_webads["tiKtok_ads_pixel_id"] = jQuery("#tiKtok_ads_pixel_id").val();
             // selected_vals_webads["pinterest_ads_pixel_id"] = jQuery("#pinterest_ads_pixel_id").val();
@@ -1772,24 +1918,28 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                 ADD_TO_CART: "Setup Conversion tracking for Add To Cart",
                 BEGIN_CHECKOUT: "Setup Conversion tracking for Begin Checkout",
                 PURCHASE: "Setup Conversion tracking for Purchase",
+                SUBMIT_LEAD_FORM: "Setup Conversion tracking for Submit Lead Form",
             }
 
             conversion_label_arr = {
                 ADD_TO_CART: "Select conversion id and label from below",
                 BEGIN_CHECKOUT: "Select conversion id and label from below",
                 PURCHASE: "Select conversion id and label from below",
+                SUBMIT_LEAD_FORM: "Select conversion id and label from below",
             }
 
             conversion_value_arr = {
                 ADD_TO_CART: "Product Value",
                 BEGIN_CHECKOUT: "Order Total",
                 PURCHASE: "Order Total",
+                SUBMIT_LEAD_FORM: "Value"
             }
 
             conversion_name_arr = {
                 ADD_TO_CART: "Conversios-AddToCart",
                 BEGIN_CHECKOUT: "Conversios-BeginCheckout",
                 PURCHASE: "Conversios-Purchase",
+                SUBMIT_LEAD_FORM: "Conversios-SubmitLeadForm",
             }
 
             jQuery("#conv_con_modalLabel").html(conversion_label_arr[conversion_name]);
@@ -1891,10 +2041,13 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                         jQuery("input[name='COV - GAds - AddToCart - Conversion']").prop('checked', true);
                     } else if (conversion_category == "BEGIN_CHECKOUT") {
                         jQuery("input[name='COV - GAds - BeginCheckout - Conversion']").prop('checked', true);
+                    } else if (conversion_category == "SUBMIT_LEAD_FORM") {
+                        jQuery("input[name='COV - GAds - Form Submit - Conversion']").prop('checked', true);
                     } else {
                         jQuery("input[name='COV - Google Ads Conversion Tracking Purchase']").prop('checked', true);
                         jQuery("input[name='COV - Google ads dynamic remarketing purchase']").prop('checked', true)
                     }
+
                 }
             });
 
@@ -1908,15 +2061,15 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             if (jQuery("#google_ads_conversion_tracking").is(":checked")) {
                 get_conversion_list();
             }
-            var selectedAcc=jQuery("#google_ads_id").val();
-            if ( selectedAcc != "") {
+            var selectedAcc = jQuery("#google_ads_id").val();
+            if (selectedAcc != "") {
                 jQuery("#spinner_mcc_check").removeClass("d-none");
                 jQuery("#conv_mcc_alert").addClass("d-none");
                 //console.log("selected ads acc is "+selectedAcc);
                 var data = {
                     action: "conv_checkMcc",
                     ads_accountId: selectedAcc,
-                    subscription_id:"<?php echo esc_attr($subscriptionId); ?>",
+                    subscription_id: "<?php echo esc_attr($subscriptionId); ?>",
                     CONVNonce: "<?php echo esc_html(wp_create_nonce('conv_checkMcc-nonce')); ?>"
                 };
                 jQuery.ajax({
@@ -1925,14 +2078,14 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
                     data: data,
                     success: function(response) {
                         var newResponse = JSON.parse(response);
-                        if(newResponse.status == 200 && newResponse?.data[0] !=""){
+                        if (newResponse.status == 200 && newResponse?.data[0] != "") {
                             var managerStatus = newResponse.data[0]?.managerStatus;
-                            if(managerStatus){ //mcc true
+                            if (managerStatus) { //mcc true
                                 //console.log("mcc is there");
-                                jQuery("#conv_mcc_alert").removeClass("d-none"); 
+                                jQuery("#conv_mcc_alert").removeClass("d-none");
                                 jQuery("#google_ads_id").val('').trigger('change');
-                            }else{
-                                //console.log("not mcc do nothing!");   
+                            } else {
+                                //console.log("not mcc do nothing!");
                             }
                         }
                         jQuery("#spinner_mcc_check").addClass("d-none");
@@ -1942,7 +2095,7 @@ $is_gtm_automatic_process = isset($ee_options['gtm_settings']['is_gtm_automatic_
             } else {
                 jQuery("#accordionFlushExample .accordion-body").addClass("disabledsection");
             }
-            //cleargadsconversions(); 
+            //cleargadsconversions();
         });
 
     });

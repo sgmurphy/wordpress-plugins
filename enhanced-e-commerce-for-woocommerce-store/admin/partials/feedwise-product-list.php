@@ -2778,7 +2778,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                         jQuery('.pending_count_' + jQuery(this).val()).text(1);
                     }
 
-                    var channel_ids = <?php echo json_encode($channel_id) ?>;
+                    var channel_ids = <?php echo wp_json_encode($channel_id) ?>;
                     if(channel_ids.indexOf('1') != -1){
                         jQuery('.pending_issue_text_' + jQuery(this).val()).append("<h2 class='card-title fs-6'><img src='<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' /> Google Merchant Center</h2><span class='text-dark fs-7'><ul class='b'><li>Product Sync In Progress</li></ul></span>");
                     }
@@ -2806,7 +2806,7 @@ $conv_data['refresh_token'] = base64_encode(sanitize_text_field($googleDetail->r
                         jQuery('.pending_count_' + jQuery(this).val()).text(1);
                     }
 
-                    var channel_ids = <?php echo json_encode($channel_id) ?>;
+                    var channel_ids = <?php echo wp_json_encode($channel_id) ?>;
                     if(channel_ids.indexOf('1') != -1){
                         jQuery('.pending_issue_text_' + jQuery(this).val()).append("<h2 class='card-title fs-6'><img src='<?php echo esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/google_channel_logo.png') ?>' /> Google Merchant Center</h2><span class='text-dark fs-7'><ul class='b'><li>Product Sync In Progress</li></ul></span>");
                     }

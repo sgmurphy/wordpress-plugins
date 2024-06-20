@@ -3752,10 +3752,13 @@ class Ays_Pb_Public_Templates {
         // Main image redirect url
         $image_type_img_redirect_url = (isset($options->image_type_img_redirect_url) && $options->image_type_img_redirect_url != '') ? stripslashes( esc_url($options->image_type_img_redirect_url) ) : "";
 
+        // Notification button 1 redirect to the new tab
+        $image_type_img_redirect_to_new_tab = (isset($options->image_type_img_redirect_to_new_tab) && $options->image_type_img_redirect_to_new_tab == 'on') ? true : false;
+
         $main_image = "<img src='" . $image_type_img_src . "'>";
 
         if ($image_type_img_redirect_url != '') {
-            $main_image = $this->ays_pb_wrap_into_link($image_type_img_redirect_url, $main_image, false);
+            $main_image = $this->ays_pb_wrap_into_link($image_type_img_redirect_url, $main_image, $image_type_img_redirect_to_new_tab);
         }
 
         $popupbox_view = "

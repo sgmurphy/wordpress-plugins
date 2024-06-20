@@ -4,7 +4,7 @@ Donate link: https://wordpress.org/support/plugin/koko-analytics/reviews/#new-po
 Tags: analytics, statistics, stats, privacy, counter
 Requires at least: 6.0
 Tested up to: 6.5
-Stable tag: 1.3.9
+Stable tag: 1.3.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.3
@@ -29,7 +29,7 @@ Koko Analytics lets you focus on the important metrics, while respecting the pri
 - **No personal data** or anything visitor specific is tracked.
 - **No cookies**: There is an option to not use any cookies.
 - **Fast**: Handles hundreds of concurrent pageviews without breaking a sweat.
-- **Lightweight**: Adds less than 950 bytes of data to your pages. A year worth of data will take up less than 10 MB of storage.
+- **Lightweight**: Adds less than 850 bytes of data to your pages. A year worth of data will take up less than 10 MB of storage.
 - **GDPR**: Compliant by design.
 - **Metrics**: All the essentials: total pageviews, unique pageviews and referral URL's.
 - **Referrer spam:** Built-in blocklist to filter out referrer spam.
@@ -37,11 +37,13 @@ Koko Analytics lets you focus on the important metrics, while respecting the pri
 - **Open-Source**: The plugin code is [open-sourced](https://github.com/ibericode/koko-analytics) under the GPL-3.0-or-later license.
 - **Tested**: Ready for PHP 8.3, but compatible down to PHP 7.3.
 - **AMP**: Tracks AMP powered pages too ([official AMP plugin](https://wordpress.org/plugins/amp/) only).
+- **Event Tracking**: You can set up custom event tracking through [Koko Analytics Pro](https://www.kokoanalytics.com/pricing/).
 
 ### Contributing
 
 You can contribute to Koko Analytics in many different ways. For example:
 
+- [Purchase Koko Analytics Pro](https://www.kokoanalytics.com/pricing/)
 - Write about the plugin on your blog or share it on social media.
 - [Review the plugin here on WordPress.org](https://wordpress.org/support/plugin/koko-analytics/reviews/#new-post)
 - [Translate the plugin into your language](https://translate.wordpress.org/projects/wp-plugins/koko-analytics/stable/) using your WordPress.org account.
@@ -109,6 +111,8 @@ Example use with arguments:
 [koko_analytics_counter days="30" metric="pageviews" global="true"]
 `
 
+### How can I help fund Koko Analytics?
+You can [purchase Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) to help fund the plugin.
 
 
 == Screenshots ==
@@ -121,7 +125,14 @@ Example use with arguments:
 
 == Changelog ==
 
-#### 1.3.9 May 31, 2024
+#### 1.3.10 - Jun 20, 2024
+
+- Registration for [Koko Analytics Pro](https://www.kokoanalytics.com/pricing/) is open again. Purchase a license if you need custom event tracking or would just like to support the plugin.
+- Ignore requests from Facebook link previews and requests without a `User-Agent` HTTP header.
+- Update referrer blocklist.
+
+
+#### 1.3.9 - May 31, 2024
 
 - Fix Webpack issue with tracking script.
 

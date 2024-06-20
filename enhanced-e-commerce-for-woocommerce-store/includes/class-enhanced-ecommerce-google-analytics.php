@@ -147,13 +147,19 @@ class Enhanced_Ecommerce_Google_Analytics
     if (!function_exists('is_plugin_active_for_network')) {
       require_once(ABSPATH . '/wp-admin/includes/woocommerce.php');
     }
-    if ( is_plugin_active_for_network( 'woocommerce/woocommerce.php') || in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )  {
-      $TVC_Admin_Helper = new TVC_Admin_Helper();
+
+    /**
+     * The class responsible for defining all Wordpress tracking OR Non-ecommerce tracking
+     */
+    $TVC_Admin_Helper = new TVC_Admin_Helper();
+    require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-enhanced-ecommerce-google-analytics-wordpress.php';
+    if (is_plugin_active_for_network('woocommerce/woocommerce.php') || in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
       require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-enhanced-ecommerce-google-analytics-public.php';
-    } else {
-      $TVC_Admin_Helper = new TVC_Admin_Helper();
-      require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-enhanced-ecommerce-google-analytics-wordpress.php';
     }
+
+    /**
+     * Register all actions and filters for the plugin.
+     */
     $this->loader = new Enhanced_Ecommerce_Google_Analytics_Loader();
   }
 
@@ -203,11 +209,12 @@ class Enhanced_Ecommerce_Google_Analytics
    * @access   private
    */
   public function define_public_hooks()
-  {
+  { 
+    
+    new Enhanced_Ecommerce_Google_Analytics_Wordpress($this->get_plugin_name(), $this->get_version());
+
     if (is_plugin_active_for_network('woocommerce/woocommerce.php') || in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
       new Enhanced_Ecommerce_Google_Analytics_Public($this->get_plugin_name(), $this->get_version());
-    } else {
-      new Enhanced_Ecommerce_Google_Analytics_Wordpress($this->get_plugin_name(), $this->get_version());
     }
   }
 

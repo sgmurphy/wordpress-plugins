@@ -28,7 +28,7 @@ wp_localize_script(
 );
 ?>
 
-<div class="wrap heatbox-wrap udb-admin-bar-editor-page">
+<div class="wrap heatbox-wrap udb-admin-bar udb-menu-builder-editor-page">
 
 	<div class="heatbox-header heatbox-margin-bottom">
 
@@ -73,21 +73,21 @@ wp_localize_script(
 
 			<?php do_action( 'udb_admin_bar_before_form' ); ?>
 
-			<form action="options.php" method="post" class="udb-admin-bar--edit-form">
+			<form action="options.php" method="post" class="udb-menu-builder--edit-form">
 
-				<div class="heatbox udb-admin-bar-box">
+				<div class="heatbox udb-menu-builder-box">
 
-					<div class="udb-admin-bar-box--header">
-						<h2 class="udb-admin-bar-box--title">
+					<div class="udb-menu-builder-box--header">
+						<h2 class="udb-menu-builder-box--title">
 							<?php _e( 'Admin Bar Editor', 'ultimate-dashboard' ); ?>
 						</h2>
 
 						<?php do_action( 'udb_admin_bar_header' ); ?>
 					</div>
 
-					<div class="udb-admin-bar--edit-area">
-						<div id="udb-admin-bar--workspace" class="udb-admin-bar--workspace">
-							<ul class="udb-admin-bar--menu-list" data-menu-type="parent">
+					<div class="udb-menu-builder--edit-area">
+						<div id="udb-menu-builder--workspace" class="udb-menu-builder--workspace">
+							<ul class="udb-menu-builder--menu-list" data-menu-type="parent">
 								<!-- to be re-written via js -->
 								<li class="loading"></li>
 							</ul>
@@ -117,11 +117,18 @@ wp_localize_script(
 			</form>
 		</div>
 		<div class="heatbox-sidebar">
-			<div class="heatbox udb-tags-metabox">
-				<h2><?php _e( 'Placeholder Tags', 'ultimate-dashboard' ); ?></h2>
+			<div class="heatbox tags-heatbox">
+				<h2>
+					<?php _e( 'Placeholder Tags', 'ultimate-dashboard' ); ?>
+					<span class="action-status">📋 Copied</span>
+				</h2>
+
 				<div class="heatbox-content">
-					<p><?php _e( 'Use the placeholder tags below to display certain information dynamically.', 'ultimate-dashboard' ); ?></p>
-					<p class="tags-wrapper">
+					<p>
+						<?php _e( 'Use the placeholder tags below to display certain information dynamically.', 'ultimate-dashboard' ); ?>
+						<br><strong><?php esc_html_e( '(Click to copy)', 'ultimate-dashboard' ); ?></strong>
+					</p>
+					<div class="tags-wrapper">
 						<?php
 						$placeholder_tags = [
 							'{site_name}',
@@ -133,11 +140,11 @@ wp_localize_script(
 
 						foreach ( $placeholder_tags as $tag_index => $placeholder_tag ) {
 							?>
-							<code><?php echo esc_attr( $placeholder_tag ); ?></code><?php echo ( $total_tags - 1 === $tag_index ? '' : ',' ); ?>
+							<code><?php echo esc_attr( $placeholder_tag ); ?></code>
 							<?php
 						}
 						?>
-					</p>
+					</div>
 				</div>
 			</div>
 

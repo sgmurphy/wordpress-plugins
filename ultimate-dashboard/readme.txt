@@ -1,10 +1,10 @@
 === Ultimate Dashboard - Custom WordPress Dashboard ===
 Contributors: davidvongries
-Tags: Dashboard, Wordpress Dashboard, Dashboard Widgets, Custom WordPress Dashboard, Custom Dashboard, Login Customizer, Custom Login Screen, WP Admin, WordPress Admin, Screen Options, Remove Screen Options, Hide Admin Bar, Remove Admin Bar, Dashboard CSS, Admin CSS, Custom Admin CSS, Custom Login CSS, Login CSS, Ultimate Dash, Ultimate Client Dash, Login Redirect, Admin Bar Editor, Admin Menu Editor
+Tags: Custom Dashboard, Admin Menu Editor, Custom Login Screen, Custom WordPress Admin, Branda
 Requires at least: 4.6
 Tested up to: 6.4
 Requires PHP: 5.6
-Stable tag: 3.7.14
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,12 @@ For multisite support & more check out [Ultimate Dashboard PRO](https://ultimate
 11. Modules Screen
 
 == Changelog ==
+= 3.8 | June 19, 2024 =
+* New: Dark Mode (PRO)
+* New: Move sub-menu items across top-level menu items in the Admin Menu Editor (PRO)
+* Tweak: Overall improvements to the Admin Menu Editor (PRO)
+* Tweak: Overall UI/UX improvements
+* Fixed: Performance issues related to the Admin Menu Editor
 = 3.7.14 | May 10, 2024 =
 * Tested up to WordPress 6.5
 = 3.7.13 | January 09, 2024 =

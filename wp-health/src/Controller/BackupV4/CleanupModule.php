@@ -21,11 +21,13 @@ class CleanupModule extends AbstractController
             ]);
         }
 
+        $source = wp_umbrella_get_service('BackupFinderConfiguration')->getRootBackupModule();
+
         $files = [
-            ABSPATH . DIRECTORY_SEPARATOR . $params['filename'],
-            ABSPATH . DIRECTORY_SEPARATOR . 'cloner_error_log',
-            ABSPATH . DIRECTORY_SEPARATOR . sprintf('%s-dictionnary.php', $params['requestId']),
-            ABSPATH . DIRECTORY_SEPARATOR . sprintf('dictionnary.php', $params['requestId']),
+            $source . $params['filename'],
+            $source . 'cloner_error_log',
+            $source . sprintf('%s-dictionnary.php', $params['requestId']),
+            $source . sprintf('dictionnary.php', $params['requestId']),
         ];
 
         foreach ($files as $file) {
@@ -37,8 +39,8 @@ class CleanupModule extends AbstractController
         }
 
         $directories = [
-            ABSPATH . DIRECTORY_SEPARATOR . 'umb_database',
-            ABSPATH . DIRECTORY_SEPARATOR . 'wp-content' . DIRECTORY_SEPARATOR . 'umb_database',
+            $source . 'umb_database',
+            $source . 'wp-content' . DIRECTORY_SEPARATOR . 'umb_database',
         ];
 
         foreach ($directories as $directory) {
@@ -55,10 +57,18 @@ class CleanupModule extends AbstractController
     {
         try {
             if (!is_dir($dir) || is_link($dir)) {
-                return unlink($dir);
+                if (file_exists($dir)) {
+                    return unlink($dir);
+                }
             }
 
-            foreach (scandir($dir) as $file) {
+            $data = scandir($dir);
+
+            if (!is_array($data)) {
+                return rmdir($dir);
+            }
+
+            foreach ($data as $file) {
                 if ($file == '.' || $file == '..') {
                     continue;
                 }
@@ -69,6 +79,7 @@ class CleanupModule extends AbstractController
                     }
                 };
             }
+
             return rmdir($dir);
         } catch (\Exception $e) {
             return null;

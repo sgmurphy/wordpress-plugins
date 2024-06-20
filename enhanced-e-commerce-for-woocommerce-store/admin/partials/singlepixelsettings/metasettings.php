@@ -18,7 +18,7 @@ $timezone = get_option('timezone_string');
 $confirm_url = "admin.php?page=conversios-google-shopping-feed&subpage=metasettings";
 $fb_mail = isset($ee_options['facebook_setting']['fb_mail']) === TRUE ? esc_html($ee_options['facebook_setting']['fb_mail']) : '';
 if (isset($_GET['g_mail']) == TRUE) {
-    $fb_mail = $_GET['g_mail'];
+    $fb_mail = sanitize_email($_GET['g_mail']);
 }
 // $error = '';
 // if(isset($_GET['error'])) {
@@ -69,8 +69,7 @@ $contData = json_decode($getCountris);
     <div class="alert d-flex align-items-cente p-0">
         <div class="convpixsetting-inner-box">            
             <span>
-                <?php echo $fb_mail;                
-                    $signIn = (isset($ee_options['facebook_setting']['fb_business_id']) || isset($_GET['subscription_id'])) ? 'Change' : '<button class="btn conv-blue-bg text-white"><img style="width:24px" src="'. esc_url_raw(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') .'" /> &nbsp;Sign In with Facebook</button>' ;
+                <?php echo esc_html($fb_mail);                
                     $businessId = '';
                     $subId = isset($_GET['subscription_id']) ? esc_html($_GET['subscription_id']) : esc_html($subscriptionId);
                     $facebook_auth_url = TVC_API_CALL_URL_TEMP . '/auth/facebook?domain='.esc_url_raw(get_site_url()).'&app_id='.$app_id.'&country='.$country.'&user_currency='.$woo_currency.'&subscription_id='.$subId.'&confirm_url='.admin_url().$confirm_url.'&timezone='.$timezone.'&scope=productFeed' ;
@@ -91,7 +90,11 @@ $contData = json_decode($getCountris);
                 ?>
                 <span class="conv-link-blue ps-2 facebookLogin" id="facebookLogin">
                     <a onclick="window.open('<?php echo $facebook_auth_url ?>','MyWindow','width=800,height=700,left=300, top=150'); return false;" href="#">
-                        <?php echo $signIn; ?>
+                        <?php if(isset($ee_options['facebook_setting']['fb_business_id']) || isset($_GET['subscription_id'])) {
+                          echo 'Change'  ;
+                        }else{
+                          echo '<button class="btn conv-blue-bg text-white"><img style="width:24px" src="'. esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/fb_channel_logo.png') .'" /> &nbsp;Sign In with Facebook</button>';
+                        } ?>
                     </a>
                 </span>
             </span>
@@ -118,7 +121,7 @@ $contData = json_decode($getCountris);
                                             $selectBusChek = 'selected';
                                         }
                                         ?>
-                                            <option value="<?php echo $key ?>" <?php echo isset($ee_options['facebook_setting']['fb_business_id']) && $ee_options['facebook_setting']['fb_business_id'] == $key ?  "selected" : '' ?> ><?php echo esc_html($businessVal) ?></option>
+                                            <option value="<?php echo esc_attr($key) ?>" <?php echo isset($ee_options['facebook_setting']['fb_business_id']) && $ee_options['facebook_setting']['fb_business_id'] == $key ?  "selected" : '' ?> ><?php echo esc_html($businessVal) ?></option>
                                     <?php 
                                     }
                                 }
@@ -145,7 +148,7 @@ $contData = json_decode($getCountris);
                                             $selectChek = 'selected';
                                         }
                                         ?>                                                                                             
-                                            <option value="<?php echo $catalogVal->id ?>" <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) && $ee_options['facebook_setting']['fb_catalog_id'] == $catalogVal->id ?  "selected" : '' ?> ><?php echo esc_html($catalogVal->id).'-'.esc_html($catalogVal->name) ?></option>
+                                            <option value="<?php echo esc_attr($catalogVal->id) ?>" <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) && $ee_options['facebook_setting']['fb_catalog_id'] == $catalogVal->id ?  "selected" : '' ?> ><?php echo esc_html($catalogVal->id).'-'.esc_html($catalogVal->name) ?></option>
                                         <?php 
                                     }
                                 }

@@ -30,6 +30,23 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
 
   <form id="gtmsettings_form">
 
+    <div class="py-2 convwiz_border card mw-100">
+      <label class="form-check-label h6 mb-0">
+          <?php esc_html_e("V2 Consent", "enhanced-e-commerce-for-woocommerce-store"); ?>
+          <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+              <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+              <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+          </span>
+      </label>
+      <small><strong style="color:#0AB17B"><?php esc_html_e("Recommended:", "enhanced-e-commerce-for-woocommerce-store"); ?></strong>&nbsp; 
+        <?php esc_html_e("Conversios support Google V2 Consent & is compatible with", "enhanced-e-commerce-for-woocommerce-store"); ?>&nbsp;
+        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-real-cookie-banner-with-conversios-plugin/" target="_black">Real Cookie Banner,</a>
+        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-gdpr-cookie-compliance-with-conversios-plugin/" target="_black">GDPR Cookie Compliance,</a>
+        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-cookiebot-consent-with-conversios-plugin/" target="_black">CookieBot</a> and
+        <a class="conv-link-blue" href="https://www.conversios.io/docs/how-to-set-up-cookieyes-consent-with-conversios-plugin/" target="_black">CookieYes.</a>
+      </small>
+    </div>
+
     <div class="convpixsetting-inner-box mt-4">
       <h5 class="fw-normal mb-1">
         <?php esc_html_e("Select Google Tag Manager Container:", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -55,7 +72,7 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
             <?php esc_html_e("Use Your Google Tag Manager Container", "enhanced-e-commerce-for-woocommerce-store"); ?>
             <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
               <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-              <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+              <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
             </span>
             <br />
             <small>(Faster Page Speed & Tag Customization)</small>
@@ -67,29 +84,113 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
         </div>
 
       </div>
+      <div class="event-setting-div py-3 border-top">
+        <div class="row">
+          <h5><?php esc_html_e("Plugin Configurations", "enhanced-e-commerce-for-woocommerce-store"); ?></h5>
+          <div class="py-3 d-none">
+            <h5 class="fw-normal mb-1">
+              <?php esc_html_e("Select User Roles to Disable Tracking:", "enhanced-e-commerce-for-woocommerce-store"); ?>
+            </h5>
+            <select class="form-select mb-3 selecttwo w-100" id="conv_disabled_users" name="conv_disabled_users[]" multiple="multiple" data-placeholder="Select role">
+              <?php foreach ($TVC_Admin_Helper->conv_get_user_roles() as $slug => $name) {
+                $is_selected = "";
+                if (!empty($ee_options['conv_disabled_users'])) {
+                  $is_selected = in_array($slug, $ee_options['conv_disabled_users']) ? "selected" : "";
+                }
+              ?>
+                <option value="<?php echo esc_attr($slug); ?>" <?php echo esc_html($is_selected); ?>><?php echo esc_html($name); ?></option>
+              <?php } ?>
+            </select>
+          </div>
+          
+          <div class="py-2 conv_global_configs">
+            <h5 class="fw-normal mb-1">
+              <?php esc_html_e("Ecommerce Events to Track:", "enhanced-e-commerce-for-woocommerce-store"); ?>
+            </h5>
+            <?php if (!CONV_IS_WC) : ?>
+              <small><?php esc_html_e("To utilize these events, you'll need WooCommerce", "enhanced-e-commerce-for-woocommerce-store") ?></small>
+            <?php endif; ?>
+            <div style="<?php echo !CONV_IS_WC ? 'opacity:0.5' : ''; ?>">
+              <select class="form-select mb-3 selecttwo_configs w-100" id="ga_selected_events_ecomm" name="conv_selected_events[ga][]" multiple="multiple" required data-placeholder="Select event" <?php echo CONV_IS_WC ? '' : 'disabled' ?>>
+                <?php
+                $conv_selected_events = unserialize(get_option('conv_selected_events'));
+                $conv_all_pixel_event = $TVC_Admin_Helper->conv_all_pixel_event();
+                foreach ($conv_all_pixel_event['ecommerce'] as $slug => $name) {
+                  $is_selected = empty($conv_selected_events) ? "selected" : "";
+                  if (!empty($conv_selected_events['ga'])) {
+                    $is_selected =  in_array($slug, $conv_selected_events['ga']) ? "selected" : "";
+                  }
+                  ?>
+                  <option value="<?php echo esc_attr($slug); ?>" <?php echo esc_html($is_selected); ?>><?php echo esc_attr($name); ?></option>
+                <?php } ?>
+              </select>
+            </div>
+          </div>
 
-      <div class="py-3">
-        <h5 class="fw-normal mb-1">
-          <?php esc_html_e("Select User Roles to Disable Tracking:", "enhanced-e-commerce-for-woocommerce-store"); ?>
-        </h5>
-        <select class="form-select mb-3 selecttwo w-100" id="conv_disabled_users" name="conv_disabled_users[]" multiple="multiple" data-placeholder="Select role">
-          <?php foreach ($TVC_Admin_Helper->conv_get_user_roles() as $slug => $name) {
-            $is_selected = "";
-            if (!empty($ee_options['conv_disabled_users'])) {
-              $is_selected = in_array($slug, $ee_options['conv_disabled_users']) ? "selected" : "";
-            }
-          ?>
-            <option value="<?php echo esc_attr($slug); ?>" <?php echo esc_html($is_selected); ?>><?php echo esc_html($name); ?></option>
-          <?php } ?>
-        </select>
+          <div class="py-2 net_revenue_setting_box">
+            <div class="d-flex">
+              <h5 class="fw-normal mb-1">
+                <?php esc_html_e("Revenue Tracking", "enhanced-e-commerce-for-woocommerce-store"); ?>
+              </h5>
+              <span class="material-symbols-outlined text-secondary md-18 ps-2 align-self-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Select metrics from below that will be calculated for revenue tracking on the purchase event. For Example, if you select Product subtotal and Shipping then order revenue = product subtotal + shipping.">
+                info
+              </span>
+            </div>
+            <?php if(!CONV_IS_WC) : ?>
+                <small><?php esc_html_e("To utilize these tracking, you'll need WooCommerce", "enhanced-e-commerce-for-woocommerce-store") ?></small>
+            <?php endif; ?>
+            <div style="<?php echo !CONV_IS_WC ? 'opacity:0.5;pointer-events:none;' : ''; ?>padding:0 0.5em;">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input conv_revnue_checkinput" type="checkbox" id="conv_revnue_subtotal" value="subtotal" <?php echo isset($ee_options['net_revenue_setting']) ? 'checked onclick="return false" style="opacity:0.5"' : ''; ?>>
+                <label class="form-check-label" for="conv_revnue_subtotal">
+                  <?php esc_html_e("Product subtotal (Sum of Product prices)", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input conv_revnue_checkinput" type="checkbox" id="conv_revnue_shipping" value="shipping" <?php echo isset($ee_options['net_revenue_setting']) && in_array('shipping', $ee_options['net_revenue_setting']) ? "checked" : "" ?>>
+                <label class="form-check-label" for="conv_revnue_shipping">
+                  <?php esc_html_e("Include Shipping", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input conv_revnue_checkinput" type="checkbox" id="conv_revnue_tax" value="tax" <?php echo isset($ee_options['net_revenue_setting']) && in_array('tax', $ee_options['net_revenue_setting']) ? "checked" : "" ?>>
+                <label class="form-check-label" for="conv_revnue_tax">
+                  <?php esc_html_e("Include Tax", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="py-2 conv_global_configs">
+            <h5 class="fw-normal mb-1">
+              <?php esc_html_e("Lead Generation Events to Track:", "enhanced-e-commerce-for-woocommerce-store"); ?>
+            </h5>
+            <small><?php esc_html_e("Track form submit event for Contact Form 7, WpForm, Ninja Form, Gravity form, Formidable form and many more", "enhanced-e-commerce-for-woocommerce-store") ?></small>
+            <select class="form-select mb-3 selecttwo_configs w-100" id="ga_selected_events_leadgen" name="conv_selected_events[ga][]" multiple="multiple" required data-placeholder="Select event">
+              <?php
+              $conv_selected_events = unserialize(get_option('conv_selected_events'));
+              $conv_all_pixel_event = $TVC_Admin_Helper->conv_all_pixel_event();
+              foreach ($conv_all_pixel_event['lead_generation'] as $slug => $name) {
+                $is_selected = empty($conv_selected_events) ? "selected" : "";
+                if (!empty($conv_selected_events['ga'])) {
+                  $is_selected =  in_array($slug, $conv_selected_events['ga']) ? "selected" : "";
+                }
+              ?>
+                <option value="<?php echo esc_attr($slug); ?>" <?php echo esc_attr($is_selected); ?>><?php echo esc_attr($name); ?></option>
+              <?php } ?>
+            </select>
+          </div>
+        </div>
       </div>
+
       <input type="hidden" name="tracking_method" id="tracking_method" value="gtm">
     </div>
+
   </form>
 </div>
 
 <!-- Ecommerce Events -->
-<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3">
+<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3 d-none">
   <div class="row">
     <h5 class="fw-normal mb-1">
       <?php esc_html_e("Ecommerce Events", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -198,7 +299,7 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
         <?php esc_html_e("For complete ecommerce tracking and user browsing behavior for your Woo Shop, switch to our Starter plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
         <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
           <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-          <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+          <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
         </span>
       </h5>
     </div>
@@ -318,6 +419,8 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
 
 <script>
   jQuery(function() {
+    jQuery('#gtm_account_container_list').select2({ width: '100%' });
+    jQuery(".selecttwo_configs").select2({ width: '100%' });
 
     let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     let tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
@@ -357,13 +460,29 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
     });
 
     jQuery(document).on("click", ".conv-btn-connect-enabled-google", function() {
+
       conv_change_loadingbar("show");
       jQuery(this).addClass('disabled');
       var want_to_use_your_gtm = jQuery('input[type=radio][name=want_to_use_your_gtm]:checked').val();
       var use_your_gtm_id = jQuery('#use_your_gtm_id').val();
       var conv_disabled_users_arr = jQuery("#conv_disabled_users").val();
       var conv_disabled_users = conv_disabled_users_arr.length ? conv_disabled_users_arr : [""];
+
+      var ga_selected_events_pre = jQuery("#ga_selected_events_ecomm").val();
+      jQuery.merge(ga_selected_events_pre, jQuery("#ga_selected_events_leadgen").val())
+      var conv_selected_events_arr = {
+        ga: ga_selected_events_pre
+      };
+      var conv_selected_events = conv_selected_events_arr;
+
       var tracking_method = jQuery('#tracking_method').val();
+
+      var net_revenue_setting = [];
+      jQuery(".conv_revnue_checkinput").each(function() {
+        if (jQuery(this).is(":checked")) {
+          net_revenue_setting.push(jQuery(this).val());
+        }
+      });
 
       jQuery.ajax({
         type: "POST",
@@ -376,9 +495,11 @@ if ($ga4_id == "" || $google_ads_id == "" || $fb_pixel_id == "") {
             want_to_use_your_gtm: want_to_use_your_gtm,
             use_your_gtm_id: use_your_gtm_id,
             conv_disabled_users: conv_disabled_users,
-            tracking_method: tracking_method
+            conv_selected_events: conv_selected_events,
+            tracking_method: tracking_method,
+            net_revenue_setting: net_revenue_setting,
           },
-          conv_options_type: ["eeoptions", "eeapidata"],
+          conv_options_type: ["eeoptions", "eeapidata","eeselectedevents"],
         },
         beforeSend: function() {
           jQuery(".conv-btn-connect-enabled-google").text("Saving...");

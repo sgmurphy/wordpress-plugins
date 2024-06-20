@@ -725,7 +725,7 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 		if( !defined( 'TABLE_ADDONS_PRO_FOR_ELEMENTOR_VERSION' ) ):
 			$table_body_tab_title = '{{{ body_content_type == "icon" ? "Icon:" : body_content_type == "icon-content" ? "Icon Content:" : body_content_type == "button" ? "Button: " : body_content_type == "link" ? "link: " : body_content_type == "image" ? "Image: " : body_content_type == "editor" ? "Text Editor" : text }}}';
 		else:
-			$table_body_tab_title = '{{{ body_content_type == "icon" ? elementor.helpers.renderIcon( this, selected_icon, {}, "i", "panel" ) || \'<i class="{{ icon }}" aria-hidden="true"></i>\' : body_content_type == "icon-content" ? (elementor.helpers.renderIcon( this, icon_content_icon, {}, "i", "panel" ) || \'<i class="{{ icon }}" aria-hidden="true"></i>\') + icon_content_text : body_content_type == "button" ? "Button: " + button_text : body_content_type == "link" ? "link: " + link_text : body_content_type == "image" ? "Image" : body_content_type == "editor" ? "Advanced Text Editor" : text }}}';
+			$table_body_tab_title = '{{{ body_content_type == "icon" ? elementor.helpers.renderIcon( this, selected_icon, {}, "i", "panel" ) || \'<i class="{{ icon }}" aria-hidden="true"></i>\' : body_content_type == "icon-content" ? (elementor.helpers.renderIcon( this, icon_content_icon, {}, "i", "panel" ) || \'<i class="{{ icon }}" aria-hidden="true"></i>\') + icon_content_text : body_content_type == "button" ? "Button: " + button_text : body_content_type == "link" ? "Link: " + link_text : body_content_type == "image" ? "Image" : body_content_type == "editor" ? ((new DOMParser().parseFromString(editor, "text/html")).body.textContent.slice(0, 30) + "..." || "Advanced Text Editor") : text }}}';
 		endif;
 
 		$this->add_control(
@@ -948,6 +948,28 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'body_link_color',
+			[
+				'label' => __( 'Link Color', 'table-addons-for-elementor' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} table.tafe-table .tafe-table-body tr td a:not(.table-addons-button)' => 'color: {{VALUE}};',
+				]
+			]
+		);
+
+		$this->add_control(
+			'body_link_hover_color',
+			[
+				'label' => __( 'Link Hover Color', 'table-addons-for-elementor' ),
+				'type' => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} table.tafe-table .tafe-table-body tr td a:not(.table-addons-button):hover' => 'color: {{VALUE}};',
+				]
+			]
+		);
+
 		$this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
@@ -1008,6 +1030,43 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 
+		if( !defined( 'TABLE_ADDONS_PRO_FOR_ELEMENTOR_VERSION' ) ):
+			$this->start_controls_section(
+				'responsive_style_pro_notice',
+				[
+					'label' => __( 'Responsive Style', 'table-addons-pro-for-elementor' ),
+					'tab' => Controls_Manager::TAB_STYLE,
+				]
+			);
+
+			if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.19.0', '>' )) :
+				$this->add_control(
+					'pro_version_notice_responsive',
+					[
+						'type' => \Elementor\Controls_Manager::NOTICE,
+						'notice_type' => 'warning',
+						'dismissible' => false,
+						'heading' => esc_html__( 'Only available in pro version!', 'textdomain' ),
+						'content' => sprintf("%1\$s <a href='%2\$s' class='table-addons-notice-button' target='_blank'>%3\$s</a>",
+							__( 'Auto Responsive (Card Style) is available in pro version only.', 'table-addons-for-elementor' ),
+							'https://fusionplugin.com/plugins/table-addons-for-elementor/?utm_source=activesite&utm_campaign=elementortable&utm_medium=link',
+							__( 'Get Pro Version', 'table-addons-for-elementor' )
+						)
+					]
+				);
+			else:
+				$this->add_control(
+					'pro_version_notice_responsive_older_version',
+					[
+						'label'     => __('Get Pro Version to unlock this features', 'table-addons-for-elementor'),
+						'type'      => Controls_Manager::HEADING,
+					]
+				);
+			endif;
+
+			$this->end_controls_section();
+		endif;
+
 		do_action( 'table_addons_pro_style_control', $this );
 	}
 
@@ -1022,8 +1081,10 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 	protected function render() {
 
 		$settings = $this->get_settings_for_display();
+		$table_header_data = [];
+		$auto_responsive = isset($settings['responsive_active']) && $settings['responsive_active'] == 'yes' ? 'auto-responsive-active' : '';
 		?>
-		<table class="tafe-table">
+		<table class="tafe-table <?php echo esc_attr($auto_responsive);?>">
 			<thead  class="tafe-table-header">
 				<tr>
 					<?php
@@ -1031,16 +1092,20 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 						$repeater_setting_key = $this->get_repeater_setting_key( 'text', 'table_header', $index );
 						//$this->add_inline_editing_attributes( $repeater_setting_key );
 
-						$colspan = ($item['colspan'] == 'yes' && $item['advance'] == 'yes') ? 'colSpan="'.$item['colspannumber'].'"' : '';
+						$colspan = ($item['colspan'] == 'yes' && $item['advance'] == 'yes') ? 'colSpan="'.esc_attr($item['colspannumber']).'"' : '';
 
-						echo '<th class="elementor-inline-editing elementor-repeater-item-'.$item['_id'].'"  '.$colspan.' '.$this->get_render_attribute_string( $repeater_setting_key ).'>';
+						echo '<th class="elementor-inline-editing elementor-repeater-item-'.esc_attr($item['_id']).'"  '.wp_kses_post($colspan).' '.wp_kses_post($this->get_render_attribute_string( $repeater_setting_key )).'>';
 						
 						switch ($item['header_content_type']) {
 							case 'editor':
 								$this->render_editor_content( $item );
+								//$table_header_data[$index] = $item['editor'];
+								//escape all html tags
+								$table_header_data[$index] = isset($item['editor']) && !empty($item['editor']) ? wp_strip_all_tags($item['editor']) : '';
 								break;
 							default:
-								echo $item['text'];
+								echo wp_kses_post($item['text']);
+								$table_header_data[$index] = wp_strip_all_tags($item['text']);
 								break;
 						}
 
@@ -1049,26 +1114,35 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 					?>
 				</tr>
 			</thead>
+			<?php $data_label_index = 0;?>
 			<tbody class="tafe-table-body">
 				<tr>
 					<?php
 					foreach ($settings['table_body'] as $index => $item) {
 						$table_body_key = $this->get_repeater_setting_key( 'text', 'table_body', $index );
 
-						$this->add_render_attribute( $table_body_key, 'class', 'elementor-repeater-item-'.$item['_id'] );
-						$this->add_render_attribute( $table_body_key, 'class', 'td-content-type-'.$item['body_content_type'] );
+						$this->add_render_attribute( $table_body_key, 'class', 'elementor-repeater-item-'.esc_attr($item['_id']) );
+						$this->add_render_attribute( $table_body_key, 'class', 'td-content-type-'.esc_attr($item['body_content_type']) );
 						//$this->add_inline_editing_attributes( $table_body_key );
 
 						if($item['row'] == 'yes'){
 							echo '</tr><tr>';
 						}
 
-						$colspan = ($item['colspan'] == 'yes' && $item['advance'] == 'yes') ? 'colSpan="'.$item['colspannumber'].'"' : '';
+						$colspan = ($item['colspan'] == 'yes' && $item['advance'] == 'yes') ? 'colSpan="'.esc_attr($item['colspannumber']).'"' : '';
 
-						$rowspan = ($item['rowspan'] == 'yes' & $item['advance'] == 'yes') ? 'rowSpan="'.$item['rowspannumber'].'"' : '';
+						$rowspan = ($item['rowspan'] == 'yes' & $item['advance'] == 'yes') ? 'rowSpan="'.esc_attr($item['rowspannumber']).'"' : '';
+
+						if($item['row'] == 'yes') {
+							$data_label_index = 0;
+						}
+
+						$data_label = @$table_header_data[$data_label_index];
+						$data_label_index++;
+						if($item['colspan'] == 'yes' && $item['advance'] == 'yes') $data_label_index++;
 
 						//echo '<td '.$colspan.' '.$rowspan.' '.$this->get_render_attribute_string( $table_body_key ).' >'.$item['text'].'</td>';
-						echo '<td '.$colspan.' '.$rowspan.' '.$this->get_render_attribute_string( $table_body_key ).' >';
+						echo '<td data-label="'.esc_attr($data_label).'" '.wp_kses_post($colspan).' '.wp_kses_post($rowspan).' '.wp_kses_post($this->get_render_attribute_string( $table_body_key )).' >';
 
 						switch ($item['body_content_type']) {
 							case 'icon':
@@ -1090,7 +1164,7 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 								$this->render_editor_content( $item );
 								break;
 							default:
-								echo $item['text'];
+								echo wp_kses_post($item['text']);
 								break;
 						}
 						
@@ -1107,7 +1181,11 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 
 	protected function content_template() {
 		?>
-		<table class="tafe-table">
+		<#
+			var autoResponsive = settings.responsive_active == 'yes' ? 'auto-responsive-active' : '';
+			var tableHeaderData = [];
+		#>
+		<table class="tafe-table {{{autoResponsive}}}">
 			<thead class="tafe-table-header">
 				<tr>
 					<#
@@ -1131,10 +1209,12 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 										#>
 										{{{ item.editor }}}
 										<#
+										tableHeaderData.push(item.editor);
 									} else {
 										#>
 										{{{ item.text }}}
 										<#
+										tableHeaderData.push(item.text);
 									}
 								#>
 								<?php else: ?>
@@ -1158,6 +1238,7 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 					} #>
 				</tr>
 			</thead>
+			<# var dataLabelIndex = 0; #>
 			<tbody class="tafe-table-body">
 				<tr>
 					<#
@@ -1181,6 +1262,14 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 								rowSpan = '';
 							}
 
+							if( 'yes' === item.row){
+								dataLabelIndex = 0;
+							}
+
+							var dataLabel = tableHeaderData[dataLabelIndex];
+							dataLabelIndex++;
+							if( 'yes' === item.colspan && 'yes' === item.advance) dataLabelIndex++;
+
 							var tdTextKey = view.getRepeaterSettingKey( 'text', 'table_body', index );
 							
 							view.addRenderAttribute( tdTextKey, 'class', 'elementor-repeater-item-'+item._id );
@@ -1190,7 +1279,7 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 							#>
 							{{{newRow}}}
 							<!-- <td {{{rowSpan}}} {{{colSpan}}} {{{ view.getRenderAttributeString( tdTextKey ) }}}>{{{ item.text }}}</td> -->
-							<td {{{rowSpan}}} {{{colSpan}}} {{{ view.getRenderAttributeString( tdTextKey ) }}}>
+							<td {{{rowSpan}}} {{{colSpan}}} {{{ view.getRenderAttributeString( tdTextKey ) }}} data-label="{{{dataLabel}}}">
 								<?php if( defined( 'TABLE_ADDONS_PRO_FOR_ELEMENTOR_VERSION' ) ): ?>
 								<#
 									if( item.body_content_type == 'icon' ){
@@ -1320,8 +1409,9 @@ class Table_Addons_For_Elementor_Widget extends \Elementor\Widget_Base {
 		if( $is_edit_mode ){
 			echo '<div class="table-addons-editor-mode-pro-notice">';
 			printf(
+				/* translators: 1. Field type, 2. Link. */
 				esc_html__( '%1$s is available in pro version only. Get the %2$spro version%3$s.', 'table-addons-for-elementor' ),
-				'<strong>' . $type . '</strong>',
+				'<strong>' . esc_html($type) . '</strong>',
 				'<a href="https://fusionplugin.com/plugins/table-addons-for-elementor/?utm_source=activesite&utm_campaign=elementortable&utm_medium=link" target="_blank">',
 				'</a>'
 			);

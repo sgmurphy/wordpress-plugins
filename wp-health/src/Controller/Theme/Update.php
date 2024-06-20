@@ -18,7 +18,7 @@ class Update extends AbstractController
         try {
             wp_umbrella_get_service('ThemesProvider')->checkDiviTheme();
 
-            if (class_exists('\YOOtheme\Theme\Wordpress\ThemeLoader') || is_dir(get_theme_root() . '/yootheme')) {
+            if (class_exists('\YOOtheme\Theme\Wordpress\ThemeLoader', false) || is_dir(get_theme_root() . '/yootheme')) {
                 wp_umbrella_get_service('ThemesProvider')->checkYootheme(get_transient('update_themes'), [
                     'remote' => 'https://yootheme.com/api/update/yootheme_wp',
                     'id' => 'yootheme',

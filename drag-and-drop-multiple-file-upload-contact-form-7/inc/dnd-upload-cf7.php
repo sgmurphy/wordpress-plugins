@@ -1260,6 +1260,17 @@
 
 	// Save admin settings
 	function dnd_upload_register_settings() {
+
+		// Specific for "Auto delete" settings (Default value if not set)
+		$auto_delete_key = 'drag_n_drop_disable_auto_delete';
+		if ( isset( $_POST['dndmfu_settings'] ) && ! isset( $_POST['dndmfu_settings'][ $auto_delete_key ] ) ) {
+			$_POST['dndmfu_settings'][ $auto_delete_key ] = '';
+			if ( get_option( $auto_delete_key ) ) {
+				delete_option( $auto_delete_key ); // Delete old settings
+			}
+		}
+
+		// Save option
 		register_setting( 'drag-n-drop-upload-file-cf7', 'dndmfu_settings',  array( 'type' => 'array' ));
 	}
 
@@ -1269,15 +1280,20 @@
 		// Get option settings of the plugin
 		$settings = get_option( 'dndmfu_settings' );
 
+		// Auto delete option (Added to compatible with previous version, after the migration)
+		$key = 'drag_n_drop_disable_auto_delete';
+		if ( $option_name == $key ) {
+			if ( get_option( $key ) == 'yes' ) {
+				return get_option( $key );
+			}
+		}
+
 		// Check if option_name is set
 		if ( $settings && isset( $settings[ $option_name ] ) ) {
 			return ( ! is_array( $settings[ $option_name ] ) ? trim( $settings[ $option_name ] ) : $settings[ $option_name ] );
-		} elseif( get_option( $option_name ) ) {
-			return get_option( $option_name ); // fallback
-		} else{
-			return $default_value;
 		}
 
+		return $default_value;
 	}
 
     function dnd_upload_cf7_lang() {

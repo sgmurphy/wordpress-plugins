@@ -5,7 +5,7 @@ Donate link: https://divisupreme.com/supreme-modules-lite-for-divi/
 Requires at least: 4.5
 Tested up to: 6.5.4
 Requires PHP: 7.4
-Stable tag: 2.5.57
+Stable tag: 2.5.58
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ This is a common question that we get asked here every now and then which is why
 
 
 == Changelog ==
+= 2.5.58 – 20.06.2024 =
+* Fixed: Deprecated: Using ${var} in strings is deprecated, use {$var} instead warning message for Divi Flipbox. 
+
 = 2.5.57 – 15.06.2024 =
 * Fixed: Removed quotes in the data attribute for the Divi Lottie Module, which were causing invalid HTML and issues with the DOM parser.
 * Enhanced: Made the Divi Lottie Module compatible with TranslatePress.

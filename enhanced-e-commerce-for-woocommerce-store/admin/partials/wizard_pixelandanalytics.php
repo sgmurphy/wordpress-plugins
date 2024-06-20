@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 $TVC_Admin_Helper = new TVC_Admin_Helper();
 $ee_additional_data = $TVC_Admin_Helper->get_ee_additional_data();
@@ -251,7 +251,7 @@ if ($pixel_setting['gadssettings'] == "convo-active" || $pixel_setting['fbsettin
     <div id="convdynamictoast" class="toast-container position-absolute p-3 top-0 end-0" id="toastPlacement">
         <div class="toast text-white bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <strong class="me-auto">Opps</strong>
+                <strong class="me-auto">Oops</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div id="dynamictoastbody" class="toast-body"></div>
@@ -359,51 +359,31 @@ if ($pixel_setting['gadssettings'] == "convo-active" || $pixel_setting['fbsettin
 
 <!-- Upgrade to PRO modal -->
 <!-- Modal -->
-<div class="modal fade" id="upgradetopromodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="upgradetopromodal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
             <div class="modal-body p-4 pb-0">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-8">
-                            <h3 class="fw-bold text-uppercase pt-0">
-                                <?php esc_html_e("Upgrade to Pro &", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                <br><?php esc_html_e("Unlock Exclusive Benefits Today!", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </h3>
-                            <ul class="conv-upgrade-banner-list ps-4 pt-4">
-                                <li>
-                                    <?php esc_html_e("Personalize your GTM by integrating and automating with over 70 tags.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                                <li>
-                                    <?php esc_html_e("Track conversions precisely and create dynamic remarketing audiences across", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("Google Ads, Facebook, TikTok, Snapchat, and over 8 other advertising platforms.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                                <li>
-                                    <?php esc_html_e("Simplify Conversions APIs for Meta, Tiktok and Snapchat with our quick", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <br><?php esc_html_e("installation feature.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                                <li>
-                                    <?php esc_html_e("Explore detailed insights with our Ecommerce Reporting Dashboard.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                                <li>
-                                    <?php esc_html_e("Enjoy seamless Unlimited Product Feed synchronization via our robust Content", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <?php esc_html_e("API.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                                <li>
-                                    <?php esc_html_e("Benefit from a complimentary website audit, a dedicated success manager, and", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                    <?php esc_html_e("prioritized Slack support.", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-4 ms-auto">
-                            <div class="col-12">
-                                <button type="button" class="btn-close btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="col-12">
-                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgradetopro_popup_img.png'); ?>">
-                            </div>
 
+                        <div class="col-12">
+                            <h3 class="fw-bold text-uppercase pt-0 d-flex"><img style="height:29px;max-width:100%;margin-right: 10px;" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge_big.png'); ?>" />
+                                <?php esc_html_e("Upgrade to Pro now and enjoy exclusive benefits:", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <ul class="conv-upgrade-banner-list ps-4 pt-4">
+                                <li>Take advantage of <span>Google Consent Mode V2</span> for enhanced tracking across all platforms.</li>
+                                <li>Use your <span>own GTM container</span> with automated tag triggers.</li>
+                                <li>Optimize <span>Google Ads conversion tracking</span> for Add To Cart and Begin Checkout.</li>
+                                <li>Enable <span>Dynamic Remarketing</span> Tags for View_item, Add_to_cart, Begin_checkout, Purchase.</li>
+                                <li>Integrate seamlessly with <span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.</li>
+                                <li>Access detailed <span>GA4 e-commerce reporting</span>.</li>
+                                <li>Maximize results with <span>Google Ads conversion reporting</span>.</li>
+                                <li>Expand your reach with <span>unlimited product feed</span> for Google Merchant Center, FB Catalogue, and TikTok.</li>
+                                <li>Experience dedicated <span>customer support</span>.</li>
+                                <li>Implement <span>server-side tagging</span> for enhanced performance.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -412,7 +392,7 @@ if ($pixel_setting['gadssettings'] == "convo-active" || $pixel_setting['fbsettin
             </div>
             <div class="modal-footer border-0 pb-4 mb-1 pt-4">
                 <a id="upgradetopro_modal_link" class="btn conv-yellow-bg m-auto w-100 mx-4 p-2" href="https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=upgrade" target="_blank">
-                    <?php esc_html_e("Activate Your Pro Upgrade Today!", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    <?php esc_html_e("Upgrade Now", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 </a>
             </div>
         </div>
@@ -667,7 +647,7 @@ if ($pixel_setting['gadssettings'] == "convo-active" || $pixel_setting['fbsettin
 
             </div>
             <div class="modal-footer justify-content-end d-flex">
-                <div class="col-6 m-0 text-center">
+                <div class="col-6 m-0 text-center d-none hidden">
                     <button id="starttrackingbut_wizard" type="button" class="col-11 btn btn-primary btn btn-primary m-0">
                         <h4 class="text-white text-center"><?php esc_html_e("Event Tracking Wizard", "enhanced-e-commerce-for-woocommerce-store"); ?></h4>
                         <small><?php esc_html_e("See in real time if events are being tracked correctly on your website.", "enhanced-e-commerce-for-woocommerce-store"); ?></small>
@@ -716,7 +696,7 @@ require_once ENHANCAD_PLUGIN_DIR . 'admin/partials/singlepixelsettings/googlesig
         pixel_setting["crazyeggsettings"] = jQuery("#crazyegg_pixel_id").val() != "" ? "convo-active" : "";
         pixel_setting["claritysettings"] = jQuery("#msclarity_pixel_id").val() != "" ? "convo-active" : "";
 
-        
+
         var pixelprogressbarclass = [];
         var gtmtabicon = '<span class="material-symbols-outlined text-warning">history_toggle_off</span>';
         var gatabicon = '<span class="material-symbols-outlined text-warning">history_toggle_off</span>';

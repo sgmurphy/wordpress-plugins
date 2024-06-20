@@ -32,6 +32,18 @@ abstract class Controllers
                     ],
                 ]
             ],
+            '/v1/check-backup-capabilities' => [
+                'route' => '/check-backup-capabilities',
+                'methods' => [
+                    [
+                        'method' => 'GET',
+                        'class' => \WPUmbrella\Controller\BackupV4\CheckBackupCapabilities::class,
+                        'options' => [
+                            'permission' => Controller::PERMISSION_WITH_SECRET_TOKEN,
+                        ]
+                    ],
+                ]
+            ],
             '/v1/upload-module' => [
                 'route' => '/upload-module',
                 'methods' => [

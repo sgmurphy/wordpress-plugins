@@ -8,6 +8,8 @@ class UmbrellaRequest
 {
     protected $checkTypeQuery = null;
 
+    protected $method = null;
+
     protected $query = [];
 
     protected $request = [];

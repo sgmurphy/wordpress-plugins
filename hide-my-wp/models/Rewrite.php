@@ -1714,9 +1714,40 @@ class HMWP_Models_Rewrite
     public function sanitize_redirect( $redirect, $status = '' )
     {
 
+        //correct wp-admin redirect
         if (HMWP_Classes_Tools::$default['hmwp_admin_url'] <> HMWP_Classes_Tools::getOption('hmwp_admin_url') ) {
             if (strpos($redirect, 'wp-admin') !== false ) {
                 $redirect = $this->admin_url($redirect);
+            }
+        }
+
+        //prevent redirect to new login
+        if (HMWP_Classes_Tools::getDefault('hmwp_login_url') <> HMWP_Classes_Tools::getOption('hmwp_login_url') ) {
+            if(HMWP_Classes_Tools::getOption('hmwp_hide_newlogin')){
+
+                //if you do hide URLs is active
+                if (HMWP_Classes_Tools::doHideURLs()) {
+                    $url = (isset($_SERVER['REQUEST_URI']) ? untrailingslashit(strtok($_SERVER["REQUEST_URI"], '?')) : false);
+
+                    if (strpos($redirect, '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) !== false) {
+
+                        if($url){
+                            //if no hide default wp-admin, prevent new login redirect
+                            if(!HMWP_Classes_Tools::getOption('hmwp_hide_admin') && strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin_url')) !== false){
+                                return $redirect;
+                            }
+                            //if no hide new admin, prevent new login redirect
+                            if(!HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') && strpos($url, HMWP_Classes_Tools::getOption('hmwp_admin_url')) !== false){
+                                return $redirect;
+                            }
+                        }
+
+                        if (function_exists('is_user_logged_in') && !is_user_logged_in()) {
+                            $redirect = home_url();
+                        }
+                    }
+                }
+
             }
         }
 

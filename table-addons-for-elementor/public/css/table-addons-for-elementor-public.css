@@ -97,3 +97,31 @@ a.table-addons-link,
 	color: #2563EB;
 	text-decoration: none !important;
 }
+
+/*-- Responsive --*/
+@media only screen and (max-width: 767px){
+	table.tafe-table.auto-responsive-active, table.tafe-table.auto-responsive-active thead, table.tafe-table.auto-responsive-active tbody, table.tafe-table.auto-responsive-active td, table.tafe-table.auto-responsive-active tr {
+		display: block;
+	}
+	table.tafe-table.auto-responsive-active th {
+		display: none;
+	}
+	table.tafe-table.auto-responsive-active td {
+		padding-left: 50%;
+		position: relative;
+	}
+	table.tafe-table.auto-responsive-active td::before {
+		content: attr(data-label);
+		position: absolute;
+		left: 0;
+		padding: inherit;
+		padding-left: 15px;
+		top: 0;
+		width: 45%;
+		height: 100%;
+	}
+	table.tafe-table.auto-responsive-active td.td-content-type-image {
+		line-height: inherit;
+	}
+}
+

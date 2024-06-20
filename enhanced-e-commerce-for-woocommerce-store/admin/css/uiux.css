@@ -198,7 +198,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .convfixedcontainerfull {
-    max-width: 984px;
+    max-width: 1135px;
 }
 
 .conv-container,
@@ -940,13 +940,33 @@ progress[value]::-webkit-progress-value {
     margin-bottom: 20px;
 }
 
-.conv-green-banner-list li,
-.conv-upgrade-banner-list li {
+.conv-upgrade-banner-list li:before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../images/check-mark.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -25px;
+}
+
+.conv-green-banner-list li {
     list-style: disc;
 }
 
 .conv-upgrade-banner-list li {
-    margin-bottom: 8px;
+    margin-bottom: 18px;
+    position: relative;
+    font-size: 17px;
+    color: #5F6368;
+    line-height: 1;
+}
+
+.conv-upgrade-banner-list li span {
+    font-weight: bold;
+    color: #1085F1;
 }
 
 .conv-notification-alert {
@@ -1756,6 +1776,11 @@ input[type="checkbox"] {
 
 .videocard.recent-post.card a span {
     font-size: 14px !important;
+    color: #1967D2;
+}
+
+.videocard.recent-post.card u {
+    color: #1967D2;
 }
 
 .videocard.recent-post.card a {
@@ -1789,7 +1814,7 @@ input[type="checkbox"] {
 #gadsConversionAcco .accordion-item {
     border: 1px solid #CCC !important;
     border-radius: 10px !important;
-    margin-top: 8px;
+    margin: 15px 0;
     box-shadow: 0px 0px 5px 0px #00000038;
 }
 
@@ -1872,6 +1897,19 @@ input[type="checkbox"] {
     min-height: 85px;
 }
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    line-height: inherit;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.net_revenue_setting_box label {
+    line-height: 2;
+}
+
 #conversioshead_notice {
     background: #19357c !important;
 }
@@ -1941,33 +1979,54 @@ input[type="checkbox"] {
     border-radius: 5px;
     border: 1px solid #6373a3;
 }
+
 .convmodalcta div {
     font-size: 12px;
 }
+
 #convga360modal .modal-dialog {
     max-width: 950px !important;
 }
+
 #convga360_right button#convga360submit_but {
     background-color: #19357c;
     padding: 12px;
 }
+
 div#conv_ga360successmessage {
     line-height: 20px !important;
 }
-.conv_dim_box
-{
+
+.dim_box {
     opacity: 0.5;
     pointer-events: none;
 }
+
 .pricingcard-wholebox .card .card-body .feature-listing span {
     display: none !important;
 }
+
 .pricingcard-wholebox .card .card-body .feature-listing h5 .tooltipc.remove {
     font-weight: 700;
+    font-size: 20px;
+    color: black;
 }
+
 .convo-pricingpage .pricingcard-wholebox .card .card-body .feature-listing li::after {
     color: #07BB4F !important;
 }
+
 .convo-pricingpage .title-text h4 mark {
     background-color: #BAFFD6 !important;
+}
+
+#conversioshead a {
+    font-weight: bold;
+}
+
+.conv_highlightedcard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background: #ecffe6;
 }

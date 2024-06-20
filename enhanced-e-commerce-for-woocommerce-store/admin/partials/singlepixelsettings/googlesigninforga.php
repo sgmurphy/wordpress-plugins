@@ -64,14 +64,14 @@
 
                 </div>
                 <!--badge consent & toggle -->
-                <div style="margin-top: 10px;">
+                <!-- <div style="margin-top: 10px;">
                     <label id="badge_label_check" for="conv_show_badge_onboardingCheck" class="switch <?php echo empty($ee_options['conv_show_badge']) || esc_attr($ee_options['conv_show_badge']) == "no" ? "conv_default_cls_disabled" : "conv_default_cls_enabled"; ?>">
                         <input id="conv_show_badge_onboardingCheck" type="checkbox" <?php echo empty($ee_options['conv_show_badge']) || esc_attr($ee_options['conv_show_badge']) == "no" ? "class ='conv_default_cls_disabled'" : "class ='conv_default_cls_enabled' checked"; ?> />
                         <div></div>
                     </label>
                     <span style="font-weight: 600; padding: 10px;">Influence visitor's perceptions and actions on your
                         website via trusted partner Badge</span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

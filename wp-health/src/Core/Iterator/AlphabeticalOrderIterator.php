@@ -29,6 +29,7 @@ class AlphabeticalOrderIterator implements \Iterator
             count($this->collection->getItems()) - 1 : 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->collection->getItems()[$this->position];

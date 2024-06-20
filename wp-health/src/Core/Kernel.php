@@ -314,6 +314,20 @@ abstract class Kernel
         update_option('active_plugins', array_values($activePlugins));
     }
 
+    /**
+     * Hook third parties only WP Umbrella is loaded
+     */
+    protected static function hookThirdParties()
+    {
+        do_action('wp_umbrella_kernel_hook_third_parties');
+
+        // Compatibility with the plugin "ASE"
+        add_filter('option_admin_site_enhancements', function ($data) {
+            $data['disable_all_updates'] = false;
+            return $data;
+        });
+    }
+
     public static function execute($data)
     {
         if (!class_exists('ActionScheduler')) {
@@ -364,6 +378,8 @@ abstract class Kernel
 
         // Universal load by PHP
         if (self::$universalProcess['load']) {
+            self::hookThirdParties();
+
             add_filter('deprecated_function_trigger_error', '__return_false');
 
             $action = $request->getAction();
@@ -388,6 +404,8 @@ abstract class Kernel
         }
 
         if (self::$apiLoad) {
+            self::hookThirdParties();
+
             add_action('plugins_loaded', function () {
                 wp_umbrella_get_service('RequestSettings')->setupAdmin();
             }, 1);
@@ -483,7 +501,7 @@ abstract class Kernel
                 'only_ajax' => false
             ]);
 
-			wp_umbrella_get_service('SessionStore')->removeUmbrellaSessions();
+            wp_umbrella_get_service('SessionStore')->removeUmbrellaSessions();
 
             wp_send_json($result);
         } catch (\Exception $e) {

@@ -390,7 +390,7 @@ class CustomApi
       return $e->getMessage();
     }
   }
-  public function get_conversion_list($customer_id)
+  public function get_conversion_list($customer_id, $conversionCategory = "")
   {
     try {
       $header = array(
@@ -398,8 +398,12 @@ class CustomApi
         "Content-Type" => "application/json"
       );
       $url = $this->apiDomain . "/google-ads/conversion-list";
+      $TVC_Admin_Helper = new TVC_Admin_Helper();
+      $subscription_id = $TVC_Admin_Helper->get_subscriptionId();
       $data = [
-        'customer_id' => sanitize_text_field($customer_id)
+        'customer_id' => sanitize_text_field($customer_id),
+        'conversionCategory' => sanitize_text_field($conversionCategory),
+        'subscription_id' => sanitize_text_field($subscription_id),
       ];
       $args = array(
         'timeout' => 300,
@@ -439,9 +443,12 @@ class CustomApi
         "Content-Type" => "application/json"
       );
       $url = $this->apiDomain . "/google-ads/create-conversion";
+      $TVC_Admin_Helper = new TVC_Admin_Helper();
+      $subscription_id = $TVC_Admin_Helper->get_subscriptionId();
       $data = [
         'customer_id' => sanitize_text_field($customer_id),
         'name' => sanitize_text_field($conversionName),
+        'subscription_id' => sanitize_text_field($subscription_id),
         'conversionCategory' => sanitize_text_field($conversionCategory)
       ];
       $args = array(

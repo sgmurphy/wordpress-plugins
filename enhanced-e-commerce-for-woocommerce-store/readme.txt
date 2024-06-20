@@ -8,270 +8,116 @@ Author: Conversios
 Requires at least: 4.6
 Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 7.0.12
-Version: 7.0.12
+Stable tag: 7.1.0
+Version: 7.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Track for WooCommerce Google Analytics 4 (GA4), Meta Pixel (Facebook pixel), Google Ads, TikTok & more via Google Tag Manager (GTM). 
+Conversios is an all-in-one plugin that offers accurate tracking, insightful reporting, and optimized marketing strategies for Google Analytics 4, Google Ads, Meta Pixel & more.
 
-== Product Description ==
+== Description ==
 
-Conversios is a dynamic WooCommerce plugin, designed to streamline digital marketing and analytics. Integrating <strong>Google Analytics 4 (GA4)</strong> and various ad channel pixels through <strong>Google Tag Manager</strong>, it also offers <strong>advanced product feed management</strong>. Conversios is the go-to solution for enhancing e-commerce strategies, optimizing ad placements, and boosting sales and conversion rates.
-
-The plugin simplifies ecommerce and conversion tracking, and audience building. With <strong>GA4</strong> integration, it facilitates informed decision-making for improved conversions. Conversios supports <strong>Meta Pixel, Google Ads, TikTok Pixel</strong>, and more, enabling dynamic audience targeting and campaign monitoring. Its user-friendly Google Tag Manager interface requires no coding, focusing on <strong>GA4, Meta Pixel, and Google Tag Manager</strong> functionalities.
-
-Conversios also features cutting-edge <strong>server-side tracking</strong>, enhancing data collection accuracy by bypassing blockers like ad blockers. This feature is crucial for tools like <strong>GA4 and Meta Pixel</strong>, providing reliable tracking and optimizing store performance.
-
-Moreover, Conversios provides <strong>comprehensive ecommerce reporting and AI-generated insights</strong>. Its ecommerce reports offer essential KPIs and analytics, with smart email delivery and AI insights enabling strategic decision-making. This facilitates understanding audience trends and improving sales decisions.
-
-Finally, Conversios includes a <strong>Product Feed Manager for WooCommerce</strong>. Essential for <strong>Google Merchant Center, Facebook Catalog, and TikTok Catalog</strong>, it ensures up-to-date product feeds for advertising campaigns. The plugin supports automated updates and advanced product catalog management, increasing visibility and advertising effectiveness.
+Conversios is an easy-to-use, all-in-one plugin that offers accurate tracking, insightful reporting, and optimized marketing strategies. It easily integrates with Google Analytics 4, Google Tag Manager, and top ad platforms, including Google Ads, Meta Pixel (Facebook), Snapchat, Pinterest, TikTok, Microsoft Ads, and Twitter. Automate product feeds, access E-commerce Reporting and Google Ads Reporting with AI-powered insights, and manage campaigns directly from your WordPress dashboard.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/c8mVO2QfWvM?si=vWDgETp3lAJianvz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+**KEY FEATURES**
+
+**GA4 E-Commerce Tracking**
+Conversios provides precise and accurate tracking for Google Analytics 4 (GA4). It monitors all eCommerce events such as page_view, purchase, view_item_list, view_item, select_item, add_to_cart, remove_from_cart, view_cart, begin_checkout, add_payment_info, and add_shipping_info.
+
+**Lead Generation Tracking**
+Measure the effectiveness of your website forms and optimize for higher conversions. Capture data beyond purchases, like form submissions, phone clicks, email clicks, and address clicks.
+
+**Setup Google Ads and Optimize**
+You can set up and optimize your Google Ad Campaigns and Google Merchant Centre with **Target KPIs** optimized by **Google Smart Bidding**.
+
+**Google Ads Tracking**
+Effectively track your campaign performance for **Google Ads Conversion and Enhanced Conversion Tracking**. Enable Google Ads Dynamic Remarketing Tracking to create **remarketing and dynamic remarketing** audience lists.
+
+**Facebook Pixel and Conversion API**
+Track e-commerce and lead generation events in meta-pixel with **conversion tracking**. Track key ad interactions like PageView, ViewContent, AddToCart, InitiateCheckout, AddPaymentInfo, Purchase, and Lead tracking for optimized Facebook ad campaigns.
+
+**TikTok Pixel and Events API Tracking**
+Gain valuable insights into TikTok ad performance with conversion tracking for key **purchase events**.(ecommerce and lead generation event tracking.)
+
+**Snapchat Pixel and Conversion API**
+Measure the effectiveness of your Snapchat ads with purchase event tracking.
+
+**Pinterest Pixel Tracking**
+Optimize your Pinterest ad strategy with conversion tracking for crucial purchase events.
+
+**Microsoft (Bing) Pixel and Conversion Tracking**
+Track ad performance across various stages of the purchase funnel with Microsoft(Bing) Ads integration.
+
+**Twitter Pixel Tracking**
+Gain valuable insights into Twitter ad performance with conversion tracking.
+
+**Heatmap and Screen Recording**
+Gain a visual understanding of user behavior with integrations for Microsoft Clarity, Hotjar, and Crazy Egg.
+
+**E-commerce & Google Ads Reporting**
+Make data-driven decisions with comprehensive e-commerce reporting like GA4 general insights, Order performance, Product performance, Source/medium reports, and Google Ads Conversion reports.
+
+**Product Feed Manager**
+* API-based real-time product feeds for Google Merchant Center (GMC), Meta (Facebook) Catalog, and TikTok Catalog.
+* Multiple feed management with channels.
+* Schedule automatic updates to keep your product feeds fresh and accurately updated.
+* Utilize advanced filters to create targeted product feeds for different platforms.
+* Advanced attribute Mapping and Category Mapping for better visibility, improved product data quality, and better ad performance.
+* Feed-based Campaign Management: Create and manage high-performing Google Ads Performance Max Campaigns based on your product feeds.
+
+The above features empower you to:
+*Optimize your marketing spend with data-driven insights.
+*Track customer journeys across multiple touchpoints.
+*Make smarter decisions based on real-time data.
+*Increase conversions and boost your ROI.
+
+**PRO Feature - Advanced Marketing & Tracking Suite** - [Available in PRO](https://www.conversios.io/pricing/)
+**Enhanced User Privacy with Google Consent Mode V2**
+**Customizable Tracking with GTM Container**: Leverage your own GTM container with automated tag triggers for ultimate control over tracking.
+**Optimized Google Ads Conversions**:Track Add To Cart and Begin Checkout events for sharper Google Ads optimization.
+**Dynamic Remarketing Tags**: Retarget website visitors with laser focus based on their actions (View Item, Add to Cart, Begin Checkout, Purchase).
+**Conversion API Integrations**: Integrate seamlessly with Facebook CAPI, Snapchat Events API, and TikTok Events API for effortless ad platform tracking.
+**GA4 Reporting**: Access detailed GA4 e-commerce reports to gain a deeper understanding of your customer journey.
+**Advanced Google Ads Reporting**: Maximize your return on ad spend with in-depth Google Ads conversion reporting.
+**Automated Reporting Delivery**: Schedule daily, weekly, or monthly reports to be delivered directly to your inbox for effortless data analysis.
+**Unlimited Product Feed Management**: Expand your reach with unlimited product feeds for Google Merchant Center, Facebook Catalog, and TikTok Catalog with auto sync interval.
+**Dedicated Customer Support**: Get the support you need with priority access to our dedicated customer support team.
+**Server-Side Tagging for Performance**: Experience enhanced website performance with server-side tagging implementation.
+
+**Compatibility**
+Conversios is compatible with the following major plugins:
+- Perfect Brands for WooCommerce for the Product Feed process
+- YITH WooCommerce Brands️ for Product Feed process
+- WooCommerce Brands for Product Feed Process
+- YITH Multi-Currency Switcher for WooCommerce
+- YITH Custom Thank You Page for WooCommerce
+- Multi-currency plugins like WOOCS, CURCY, WBW Currency Switcher
+- Consent Management Platforms like CookieYes, GDPR Cookie Compliance, Real Cookie Banner, and CookieBot CMP for Consent mode v2
+- Lead generation plugins like Contact Form 7, Ninja Forms, Formidable, Wp Forms, Gravity Form
+
+== Screenshots ==
+1. This is the Dashboard screen, which shows the status of the Google Tag Manager implementation and setup of the various pixels, the link status of the Google Merchant Center, TikTok catalog, and the latest 2 feeds, and report insights for the running campaigns and the last 30 days' data for GA4
+2. This is a screenshot of the Pixels and Analytics page where you can browse the configuration you have done so far for your Google Tag Manager account. You can click on any integration to add/update the settings.
+3. You can view all the pixels' configurations and browse to a specific pixel to add/update the account.
+4. This is a Google Tag Manager setting page where you can configure your Google Tag Manager container or use Conversion Global Container (default).
+5. All the 76+ pre built tags, triggers and variable in your GTM account.
+6. This is a Google Analytics setting page.
+7. This is a Google Ads settings page where you can configure Google Ads conversion tracking, enhanced conversion tracking & dynamic remarketing tags for ecommerce events.
+8. This is a Facebook configuration page where you can configure Facebook Pixel and Facebook Conversions API tracking.
+9. Actionable dashboard which displays the key metrics that help your ecommerce business scale faster. ecommerce conversion and checkout funnel reports that help you to visualize user journeys from the Home page to order confirmation. Product, Source/Medium and Campaign Performance Report where you can see all the respective performances.
+10. Google Analytics 4 dashboard 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
+11. Google Analytics 4 dashboard 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 dashboard. The plugin captures all the data points related to ecommerce events.
+12. Google Analytics 4--> Monetization 1 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events.  
+13. Google Analytics 4--> Monetization 2 Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> Overview. The plugin captures all the data points related to ecommerce events. 
+14. Google Analytics 4 Monetization --> ecommerce purchases Once you connect Google Analytics 4 property from the plugin, your WooCommerce store's data will look like this in your Google Analytics 4 under Monetization --> ecommerce purchases. The plugin captures all the data points related to ecommerce events.  
+15. Product Feed --> Channel Configuration where you can link your Google Merchant Center Account and TikTok catalog to process Product Feed.
+16. This is the inner setting page for Google Merchant Center where you can SignIn using Google account and select Google Merchant Center Account to link along with doing Site verification and Domain claim.
+17. This is the inner setting page for TikTok catalog where you can Sign In using your Tiktok account, select TikTok Business Account and set TikTok catalogs country-wise.
+18. Product Feed --> Feed Management. This is where you can create and manage feeds.
+19. Product Feed --> Channel Configuration --> Attribute and Category mapping. This is where you can map your WooCommerce product attributes and categories to the Conversios product attributes and categories and save them.
 
-### Google Analytics 4 Ecommerce Tracking via Google Tag Manager
-
-### Conversion Tracking and Dynamic Audience Building with Multi-Platform Pixel Integrations (Google Ads Pixel, Meta (Facebook + Instagram) Pixel, Snapchat Pixel, Pinterest Pixel, Tiktok Pixel, Microsoft Ads Pixel, and Twitter Pixel)
-
-Leveraging Google Analytics 4 through Google Tag Manager, our approach encompasses comprehensive e-commerce tracking with easy setup. We seamlessly integrate a suite of pixels, including Google Ads, Meta (Facebook and Instagram), Snapchat, Pinterest, TikTok, Microsoft Ads, and Twitter, enhancing our capability to build dynamic audiences and accurately track conversions. This multi-platform pixel integration is pivotal in offering a holistic view of customer interactions, driving more effective marketing strategies and business growth.
-
-<strong>Effortless Integration and Streamlined Tracking with Data Accuracy:</strong>
-
-* Supercharge your WooCommerce store with seamless integration for: Google Analytics 4, Google Tag Manager, Google Ads, Meta Pixel (Facebook Ads), Snapchat Pixel, Pinterest Pixel, TikTok Pixel, Microsoft Ads Pixel, and Twitter Pixel.
-
-• Includes seamless integration for Google Analytics 4, Google Tag Manager, Google Ads, Meta Pixel, Snapchat Pixel, Pinterest Pixel, TikTok Pixel, Microsoft Ads Pixel, and Twitter Pixel.
-• Automates Google Tag Manager with 100+ Tags, Triggers & Variables in a single click.
-• One-click setup eliminates manual coding and configuration.
-• Google Tag Manager-based implementation for faster page load.
-• Integration and automation of Google Tag Manager account for full control and faster page speed.
-• Quick and easy installation with no code or expertise required.
-• Accurate page and e-commerce event tracking for insightful reporting.
-
-### Google Analytics 4 E-commerce Tracking Overview
-
-• Page_view: Tracks all web pages.
-• Purchase: Tracks the purchase event when an order is placed.
-• View_item_list: Tracks when a user views products on any product listing page.
-• Select_item: Tracks when a user selects/clicks on a specific product.
-• Add_to_cart: Tracks when a product is added to the cart.
-• Remove_from_cart: Tracks when a product is removed from the cart.
-• View_cart: Tracks when a user views the cart page.
-• Begin_checkout: Tracks when a user initiates checkout.
-• Add_payment_info: Tracks when a user selects a payment method.
-• Add_shipping_info: Tracks when a user selects a shipping method.
-
-### Boost Campaign Performance and Personalize Customer Journeys:
-
-Seamless integration with Google Ads, Meta Pixel (Facebook Ads), Snapchat Pixel, Pinterest Pixel, TikTok Pixel, Microsoft Ads Pixel, and Twitter Pixel: Streamline your advertising efforts with unified conversion tracking across platforms.
-
-### Google Ads Tracking Overview
-
-• Conversion tracking for purchase events.
-• Conversion tracking for add-to-cart events.
-• Conversion tracking for begin checkout events.
-• Enhanced conversion tracking for add-to-cart events.
-• Dynamic audience building based on user browsing behavior.
-• Five audience list creation in Google Ads.
-
-### Facebook Ads Tracking Overview
-
-• Conversion tracking for purchase events.
-• Dynamic remarketing audience building based on user browsing behavior.
-• Advanced Matching feature for improved event quality score.
-• Server-side tracking for Meta (Facebook) events.
-
-<strong>Setting Up FB Pixel and FBCAPI with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/)
-
-### TikTok Ads Tracking Overview
-
-• Conversion tracking for purchase events.
-• Dynamic audience building based on user browsing behavior.
-• Advanced Matching feature for improved event quality score.
-• TikTok Events API for server-side tracking of e-commerce events.
-
-<strong> Setting Up TikTok Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-set-up-tiktok-pixel-using-conversios-plugin/)
-
-### Snapchat Ads Tracking Overview
-
-• Conversion tracking for purchase events.
-• Audience building based on e-commerce events.
-• Snapchat Conversions API for server-side tracking of e-commerce events.
-
-<strong>Setting Up Snapchat Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-setup-snapchat-pixel-using-conversios-plugin/)
-
-### Pinterest Ads Tracking Overview
-• Conversion tracking for purchase events.
-• Dynamic remarketing audience building based on user browsing behavior.
-
-<strong>Setting Up Pinterest Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-set-up-pinterest-pixel-using-conversios-plugin/)
-
-### Microsoft Ads Tracking Overview
-• Conversion tracking for purchase events.
-• Dynamic remarketing audience building based on user browsing behavior.
-<strong>Setting Up Microsoft Ads Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-set-up-microsoft-ads-pixel-using-conversios-plugin/)
-
-Other Ads Integration
-
-    * Microsoft Clarity Integration
-    * Hotjar Integration
-    * Crazy Egg Integration
-    * Twitter Ads Tracking
-
-<strong>Setting Up Twitter Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-setup-twitter-pixel/)
-
-
-<strong>Setting Up Hotjar Pixel with Conversios Plugin:</strong>
-[Setup Guide](https://www.conversios.io/docs/how-to-setup-twitter-pixel/)
-
-### Google Ads Campaign Optimization
-
-• Use Google Analytics 4 data for data-driven decisions.
-• Track conversions across platforms for improvement.
-• Personalize shopping experience using user behavior data.
-
-### Enhanced Ecommerce Reporting and AI-Powered Insights:
-
-E-commerce Tracking and Reporting in WordPress
-• Manages tracking and reporting from one central location.
-• Provides Google Analytics 4 dashboards for easy access to metrics.
-• Offers AI-powered insights on Google Analytics and Google Ads data.
-• Schedule reports in your email inbox daily.
-• Automates data collection and reporting for efficient decision-making.
-• Enhances customer experience by providing insights into user behavior.
-• Reduces complexity and increases efficiency by automating data collection and reporting.
-
-### Server Side Tracking for Google Analytics 4, Google Ads, Meta (Facebook + Instagram), Tiktok and Snapchat for Enhanced Accuracy and Privacy
-
-Server-side Tagging Overview
-
-• Tracks user interactions and conversions on various platforms including Google Analytics 4, Facebook, Google Ads, Snapchat Conversions API, and TikTok Events API.
-• Enhances data accuracy, privacy, and performance through automation of server GTM (Google Tag Manager) and web GTM (Google Tag Manager).
-• Provides Google Cloud hosting for sGTM (Google Tag Manager) for 100% uptime, scalability, and security.
-• Eliminates manual coding with server ecommerce data layer automation and customer loader.
-• Offers unlimited hits on the server.
-• Provides comprehensive tracking and audience building for Google Analytics 4, Google Ads, Meta (Facebook) Pixel, Facebook CAPI, Snapchat Pixel, and TikTok Pixel and TikTok Events API.
-
-### Automate & Optimize Feeds for Google Shopping Feed, TikTok Catalog Feed, and Meta (Facebook) Catalog Feed.
-
-Supercharge your WooCommerce sales with a one-stop platform for streamlined product feed management. Say goodbye to manual data entry and hello to effortless syncs with leading ad platforms like Google Shopping Catalog Feed, TikTok Catalog Feed, and Meta (Facebook) Catalog Feed.
-
-* Effortless Feed Creation:
-    * Automated Syncs: Set it and forget it! Schedule automatic product updates for Google Shopping Feed, Meta (Facebook) Catalog Feed, and TikTok Catalog Feed.
-
-* Product Sync and Automation:
-    * Sync unlimited products from your WooCommerce store to your Google Merchant Center and TikTok Catalog, Meta (Facebook) Catalog using Product Feed Manager.
-     * Provides easy but advanced filters to segregate your products from the list of your WooCommerce products and select them for a product feed in channels like        Google, Meta(Facebook), and TikTok.
-    * Enables manual selection of products from the product grid.
-    * Compatible with 50+ product plugins for attribute syncing.
-    * Includes an Auto-sync feature for daily/weekly updates.
-
-* Feed Management:
-    * Allows management of feeds for different countries and campaigns.
-    * Provides mapping of WooCommerce categories and 60+ attributes for optimization.
-    * Map your WooCommerce product attributes to Additional Attributes for detailed product data sync.
-    * Offers mapping of additional attributes for detailed product data sync.
-
-* API-Based and AI-Powered:
-    * Product Feed Manager for Google Merchant Center uses powerful and real-time content API, there is no need for XML or CSV Product Feed.
-    * Integrate Product Feed Manager for TikTok Catalog using TikTok Ads APIs in seconds.
-    * Integrate Product Feed Manager for Meta (Facebook) Catalog using Meta (Facebook) Ads APIs in seconds. (Pro)
-  
-* Additional Features:
-    * Provides real-time approval status and error descriptions from Google and TikTok.
-    * Get real-time approval status along with error descriptions (for disapproved products) from Google, Meta (Facebook), and TikTok for your products.
-    * Compatible with stores having over 100,000+ products.
-    * User-friendly interface within the WordPress dashboard.
-
-* Feed Channels:
-    * Supports Google Shopping Feed
-    * TikTok Catalog Feed
-    * Meta (Facebook) Catalog Feed
-    * Snapchat Catalog Feed (Upcoming)
-    * Pinterest Catalog Feed (Upcoming)
-    * Microsoft Catalog Feed (Upcoming)
-
-### Reporting, AI-Powered Insights and Campaign Management
-
-Enhance e-commerce performance with key metrics such as conversion percentage, revenue, and order data presented through user-friendly reports. Google Analytics 4 data is organized to provide actionable insights, improving product, channel, and order strategies. Gain visibility into Google Ads performance to empower your campaigns. Scheduled smart emails deliver reports directly to your inbox, simplifying decision-making. AI-driven insights analyze Google Analytics 4 and Ads data, optimizing strategies for increased conversions and sales growth.
-
-* Powerful AI-Insights and Reporting:
-
-* E-Commerce Reporting:
-    * Intuitive reports: Track key metrics like conversion percentage, revenue, and orders.
-    * Data-driven decisions: Gain insights to optimize product, channel, and order strategies.
-    * Google Analytics 4 integration: Streamlined Google Analytics 4 data for actionable insights.
-    * Legacy reports: Access familiar reports like product and order performance.
-    * E-commerce funnel analysis: Understand customer journey through checkout.
-
-* Ads Reporting:
-    * Unveil Google Ads performance: Measure campaign effectiveness and improve performance.
-    * Empowered campaigns: Gain insights to optimize and refine your Ads strategy.
-
-* AI Insights:
-    * ChatGPT-powered insights: Decipher Google Analytics 4 and Google Ads data for enhanced marketing ROI.
-    * Maximize conversions and sales: Optimize strategy based on AI-driven insights.
-
-* Smart Email Reports:
-    * Automated reports: Schedule daily, weekly, or monthly reports straight to your inbox.
-    * Streamlined decision-making: Get key reports delivered directly, saving time.
-
-* Product Ads Campaign Management:
-    * Create and manage Google Ads Performance Max campaigns: Increase ROAS with dedicated tools.
-    * Feed-based campaign creation: Manage campaigns based on product feeds for better targeting.
-
-* Additional Features:
-
-    * WordPress admin panel integration: Access all features directly from your WordPress dashboard.
-    * User-friendly interface: Navigate easily and get insights quickly.
-
-* Effortless Campaign Management:
-    * Performance Max Made Easy: Create and manage Google Ads Performance Max campaigns directly from your WordPress admin panel. Streamline campaign creation, optimize ROAS, and maximize visibility.
-    * Feed-Based Campaigns: Create targeted campaigns based on your product feeds for precise and effective advertising with Google Ads Performance Max.
-    * Intuitive Interface: Manage all aspects of your campaigns with a user-friendly interface designed for simplicity and efficiency.
-    * Increase Conversions and Sales: Optimize your marketing strategies based on actionable insights and data-driven reports.
-    * Save Time and Resources: Automate reporting and campaign management tasks to focus on core business activities.
-Boost ROAS: Maximize your return on ad spend with AI-powered insights and optimized Google Ads campaigns.
-    * Stay Informed: Get regular reports delivered directly to your inbox for convenient access to critical data.
-
-* Dedicated Customer Success Manager
-    * A dedicated customer success manager ensures that everything is set up accurately and helps you solve any issues you may face
-
-### To install the Conversios plugin on a WordPress website:
-
-[HOW TO INSTALL CONVERSIOS PLUGIN?](https://www.conversios.io/docs/how-to-install-conversios-plugin/)
-
-Alternatively, you can upload and install the plugin manually:
-
-* Download the "All-in-one Google Analytics, Pixels, and Product Feed Manager for WooCommerce" file.
-* In the WordPress admin, go to "Plugins" > "Add New" and click "Upload Plugin."
-* Choose the downloaded file and click "Install Now," then "Activate."
-
-### To set up the Conversios plugin, follow these steps:
-
-[HOW TO SET UP THE CONVERSIOS PLUGIN?](https://www.conversios.io/docs/how-to-set-up-the-plugin/)
-
-###Conversios is compatible with the following major plugins
-
-* Perfect Brands for WooCommerce for the Product Feed process
-* YITH WooCommerce Brands️ for Product Feed process
-* WooCommerce Brands for Product Feed process
-* YITH Multi-Currency Switcher for WooCommerce
-* YITH Custom Thank You Page for WooCommerce
-* Multi-Currency plugins
-  - WOOCS: Currency Switcher for WooCommerce
-  - CURCY: Multi-Currency for WooCommerce
-  - WBW Currency Switcher for WooCommerce
-
-<strong><a target="_blank" href="https://conversios.io/pricings/?utm_source=EE+Plugin+Wordpress+Listing&utm_medium=Below+Free+Features&utm_campaign=Upsell+at+Conversios"> Fast track and scale your ecommerce business to new heights by unlocking more advanced tracking and enabling complete Google & Facebook shopping solutions for your WooCommerce store. Give a try to our pro version.</a></strong>
-
-<strong><a target="_blank" href="https://conversios.io/?utm_source=EE+Plugin+WordPress+Listing&utm_medium=Reach+out+to+us+with+your+query+Link&utm_campaign=Raise+query+at+Conversios#wpforms-form-11056">Reach out to us with your query here for a faster solution.</a></strong>
 
 ### Privacy Policy
 
@@ -302,105 +148,35 @@ Alternatively, you can upload and install the plugin manually:
 
 == Frequently Asked Questions ==
 
-= What does the Conversios WooCommerce plugin do? =
-Automates conversions for Google Analytics 4, Google Ads, Meta( Facebook) Pixel & Conversions API, Snapchat, Pinterest, and TikTok via Google Tag Manager, enhancing WooCommerce store analytics. It also helps in automating products feeds for Google Shopping, Facebook Catalog and Tiktok Catalog along with the campaign management and reporting.
+= How does Conversios improve my Google Analytics 4 tracking? =
+Conversios provides accurate tracking for GA4, including all essential e-commerce events like purchases, product views, and cart additions. This gives you valuable insights into customer behavior for informed marketing decisions.
 
-= What is Conversios for WooCommerce? =
-Conversios is a comprehensive WooCommerce plugin for advanced Google Analytics 4 tracking via Google Tag Manager. It specializes in integrating pixels for Google Ads, Meta (Facebook and Instagram), Snapchat, Pinterest, TikTok, Microsoft Ads, and Twitter, crucial for dynamic audience building and tracking e-commerce sales.
+= Can Conversios help me optimize my Google Ads campaigns? =
+Absolutely! Conversios allows you to set up and manage Google Ads campaigns directly from your WordPress dashboard. It also offers features like conversion tracking and dynamic remarketing to improve campaign performance and return on ad spend (ROAS).
 
-= How does Conversios personalize WooCommerce customer journeys? =
-By integrating with Google Ads, Meta Pixel, Snapchat Pixel, and others, Conversios personalizes customer journeys in WooCommerce. It provides unified conversion tracking, optimizes Google Ads campaigns using Google Analytics 4 data, and personalizes shopping experiences based on user behavior data.
+= Does Conversios work with Facebook Pixel tracking? =
+Yes, Conversios seamlessly integrates with Facebook Pixel. You can track key ad interactions and optimize your Facebook ad campaigns for conversions and lead generation.
 
-= How can the plugin enhance my online store's performance? = 
-Improves tracking accuracy, maximizes ad channel effectiveness, and automates WooCommerce Product Feed to Google Merchant Center and TikTok Catalog.
+= Can I track ad performance from other platforms like TikTok and Snapchat? =
+Conversios offers tracking for various ad platforms beyond Facebook Ads. You can gain insights into ad performance from TikTok Pixel, Snapchat Pixel, Pinterest Pixel, Microsoft Ads, and Twitter Pixel.
 
-= Can I integrate my own Google Tag Manager account with this plugin? = 
-Yes, it allows integration and automation of your Google Tag Manager account, especially beneficial for premium WooCommerce stores.
+= What are the benefits of the Conversios PRO features? =
+The PRO features offer advanced functionalities like unlimited product feed management, server-side tagging for improved performance, and dedicated customer support. It empowers you with more control, deeper insights, and streamlined workflows.
 
-= Which ad pixels does the plugin support for data layer automation? = 
-Supports data layer automation for Google Analytics 4, Google Ads, Facebook Pixel & Conversions API, TikTok, Snapchat, CrazyEggs, Pinterest, HotJar, etc.
+= How does Conversios handle user consent (GDPR)? =
+Conversios works seamlessly with popular GDPR compliance plugins like CookieYes and Real Cookie Banner. It supports Google Consent Mode V2 for enhanced user privacy control.
 
-= How does the plugin handle e-commerce event tracking for Google Analytics 4? = 
-Offers one-click Google Analytics 4 e-commerce tracking automation, covering events like product listing, clicks, viewed items, add to cart, checkout steps, and purchase.
-= Does the plugin include a Super feed feature for syncing Product Feed? = 
-Yes, provides a Super Feed feature for syncing Product Feed with a single click in WooCommerce.
-
-= Can I sync the Product Feed to Google Merchant Center and TikTok Catalog using this plugin? = 
-Yes, it automates Product Feed sync to Google Merchant Center and TikTok Catalog using powerful APIs in one click.
-= How does the plugin ensure GDPR compliance? = 
-Adheres to GDPR compliance standards to protect user privacy and data with a Server Side Tagging Solution.
-= Can I use the plugin to create and manage Performance Max campaigns for Google Ads? = 
-Yes, allows seamless creation and management of Performance Max campaigns directly from your WooCommerce store.
-
-= How does the plugin handle server-side tracking for various ad platforms? = 
-Supports server-side tracking for GA4, Facebook, Google Ads, Snapchat Conversions API & TikTok Events API.
-
-= Does the plugin offer reporting and insights for Google Analytics 4 and Google Ads? = 
-Yes, provides an insightful and user-friendly reporting dashboard for both Google Analytics 4 and Google Ads in WooCommerce.
-
-= What legacy reports are available for GA4 data in the plugin? = 
-Includes legacy reports such as product performance, order performance, channel performance, e-commerce funnel, and checkout funnel for GA4 data.
-
-= How does the plugin handle the automation of feed channels for upcoming campaigns? = 
-Offers an auto-sync feature to automate feed channels, ensuring your product data is up-to-date for upcoming campaigns in WooCommerce.
-
-= Can I customize the plugin for specific target countries and campaigns? = 
-Yes, allows you to manage feeds for target countries and apply advanced filters to tailor it for specific campaigns in WooCommerce.
-
-= Is there a limit to the number of products that can be synced using the Product Feed Manager? = 
-Supports syncing an unlimited number of products from your WooCommerce store to Google Merchant Center, TikTok Catalog & Facebook Catalogue.
-
-= How can I receive automated e-commerce reports from GA4 directly into my email inbox? = 
-Offers a smart email feature that delivers e-commerce reports from GA4 directly to your email inbox on a daily basis for WooCommerce users.
-
-= How do I contact support for any queries or assistance related to the plugin? = 
-Reach out to support by [insert support contact details here] for any WooCommerce plugin-related queries.
-
-= Can I manage WooCommerce Product Feed for other ad channels like Facebook, Snapchat, Pinterest, and Microsoft? = 
-Plans to support Product Feed for additional channels in upcoming versions for WooCommerce stores.
-
-= How can I validate Google Analytics 4 tracking on my website? = 
-Provides an Event Tracking Wizard to help in real-time validation of tracked events on your WooCommerce website.
-
-= Can I map WooCommerce product categories and attributes for optimizing campaigns? = 
-Yes, allows you to map WooCommerce product categories and attributes for optimizing your campaigns.
-
-= What is the advantage of using the Auto-sync feature for Product Feed? = 
-Automates your feed, keeping your product data up-to-date in the feed channels daily or weekly in WooCommerce.
-
-= How does the plugin handle error descriptions for disapproved products on Google and TikTok? = 
-Provides the approval status along with error descriptions for disapproved products from Google and TikTok.
-
-= Is there a trial period available for the plugin? = 
-No free trial is provided, but there is a 15-day no-question refund policy for the WooCommerce plugin.
-
-= How to activate my license key? = 
-Update to the Pro version in your WordPress backend, use your license key, and click on the arrow mark to activate it for WooCommerce.
-
-= How to get my invoice for my purchase/renewals with Conversios? = 
-Directly download invoices from the Conversios website using your subscription ID for your WooCommerce plugin purchase.
-
-= Why isn't my data updating in the GA4 dashboard within the plugin? = 
-Data typically takes 24 to 48 hours to sync with Google Analytics 4; this is a common aspect for WooCommerce stores.
-
-= Why are my Purchase events/Transactions not being tracked in the plugin dashboard and GA4 reports? = 
-Ensure your website is validated by placing a test order and using the Event Wizard tracking feature for diagnostics in WooCommerce.
-
-= I'm unable to complete the plugin setup as it keeps loading. What should I do? = 
-Initiate the plugin setup using Chrome, then use any browser to view it for WooCommerce.
-
-= Why am I seeing an alert when trying to claim my domain through the plugin? = 
-This may occur if the domain is already claimed in your Google Merchant Center account. Unclaim it there first for WooCommerce.
-
-= How long does it take for my products to sync into my Google Merchant account? = 
-Allow at least 30 minutes for products to sync with your Merchant Center after using the Conversios plugin in WooCommerce.
-
-= How to upgrade the plugin to the latest version? = 
-Enable auto-updates in your WordPress store for automatic updates or manually download the latest version from [website] for WooCommerce.
 
 
 == Changelog ==
-= 7.0.12 - 24/05/2024 =
+= 7.1.0 - 20/06/2024 =
+* Woocommerce event tracking added.
+* Lead Generation event tracking for Email Link Click, Address Link Click and Phone Number Link Click.
+* Form submit event tracking for Contact Form 7, WpForm, Ninja Form, Gravity form and Formidable form.
+* Google Ads Enhance conversion tracking on woocommerce purchase event.
+* Conversion tracking on form submission. 
+
+= 7.0.12 - 10/06/2024 =
 * Added menu channel configuration in Product Feed for channel auth.
 
 = 7.0.11 - 24/05/2024 =

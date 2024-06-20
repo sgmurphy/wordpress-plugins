@@ -21,10 +21,10 @@ $tiktok_user_id = isset($ee_options['tiktok_setting']['tiktok_user_id']) === TRU
 $tiktok_business_id = isset($ee_options['tiktok_setting']['tiktok_business_id']) === TRUE ? $ee_options['tiktok_setting']['tiktok_business_id'] : '';
 $tiktok_business_name = isset($ee_options['tiktok_setting']['tiktok_business_name']) === TRUE ? $ee_options['tiktok_setting']['tiktok_business_name'] : '';
 if (isset($_GET['tiktok_mail']) == TRUE) {
-    $tiktok_mail = $_GET['tiktok_mail'];
+    $tiktok_mail = sanitize_email($_GET['tiktok_mail']);
 }
 if (isset($_GET['tiktok_user_id']) == TRUE) {
-    $tiktok_user_id = $_GET['tiktok_user_id'];
+    $tiktok_user_id = sanitize_text_field($_GET['tiktok_user_id']);
 }
 
 $site_url = "admin.php?page=conversios-google-shopping-feed&tab=";
@@ -75,7 +75,7 @@ $contData = json_decode($getCountris);
     /**************Tiktok Auth start ********************************************************/
     $confirm_url = "admin.php?page=conversios-google-shopping-feed&subpage=tiktokBusinessSettings";
     $state = ['confirm_url' => admin_url() . $confirm_url, 'subscription_id' => $subscriptionId];
-    $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://connect.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(json_encode($state));
+    $tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laraveldev.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=q6uerfg9osn&state=" . urlencode(json_encode($state));
     
     //$tiktok_auth_url = "https://ads.tiktok.com/marketing_api/auth?app_id=7233778425326993409&redirect_uri=https://laravelapi.tatvic.com/laravelapi/public/auth/tiktok/callback&rid=tee9ehl4mwc&state=" . urlencode(json_encode($state));
 
@@ -92,7 +92,7 @@ $contData = json_decode($getCountris);
         <h5 class="fw-normal mb-1">
             <?php esc_html_e("Successfully signed in with account:", "enhanced-e-commerce-for-woocommerce-store"); ?>
         </h5>
-        <?php echo ($tiktok_mail . ', <b>User Id: </b>' . $tiktok_user_id . ' '); ?>
+        <?php echo esc_html($tiktok_mail) . ', <b>User Id: </b>' . esc_html($tiktok_user_id) . ' '; ?>
         <a onclick='window.open("<?php echo $tiktok_auth_url ?>","MyWindow","width=800,height=700,left=300, top=150"); return false;'
             href="#">Change</a>
     <?php }
@@ -117,7 +117,7 @@ $contData = json_decode($getCountris);
                     </select>
                 </div>
                 <?php if($tiktok_user_id !== '') { $enable = ($tiktok_user_id !== '' ? 'conv-enable-selection': ''); ?>
-                <div class="col-2 <?php echo $enable ?> conv-link-blue" >
+                <div class="col-2 <?php echo esc_attr($enable) ?> conv-link-blue" >
                     <span class="material-symbols-outlined pt-2">edit</span><label class="mb-2 fs-6 text">Edit</label>
                 </div>
                 <?php } ?>
@@ -150,10 +150,10 @@ $contData = json_decode($getCountris);
     </form>
 
     <input type="hidden" id="valtoshow_inpopup" value="TikTok Business Account:" />
-    <input type="hidden" id="tiktok_user_id" value="<?php echo $tiktok_user_id ?>" />
-    <input type="hidden" id="tiktok_mail" value="<?php echo $tiktok_mail ?>" />
+    <input type="hidden" id="tiktok_user_id" value="<?php echo esc_attr($tiktok_user_id) ?>" />
+    <input type="hidden" id="tiktok_mail" value="<?php echo esc_attr($tiktok_mail) ?>" />
     <input type="hidden" id="conversios_onboarding_nonce"
-        value="<?php echo wp_create_nonce('conversios_onboarding_nonce'); ?>" />
+        value="<?php echo esc_attr(wp_create_nonce('conversios_onboarding_nonce')); ?>" />
 
 </div>
 <!-- Error Save Modal -->
@@ -238,7 +238,7 @@ $contData = json_decode($getCountris);
                             class="gmcAccount fw-bolder"></span>
                             <?php esc_html_e("Has Been Successfully Connected", "enhanced-e-commerce-for-woocommerce-store"); ?></p>
                     <p class="my-3">
-                        <?php esc_html_e("Success! Your product feed is now linked to TikTok's powerful catalog, unlocking vast global audiences and maximizing your sales potential through our plugin."); ?>
+                        <?php esc_html_e("Success! Your product feed is now linked to TikTok's powerful catalog, unlocking vast global audiences and maximizing your sales potential through our plugin.","enhanced-e-commerce-for-woocommerce-store"); ?>
                     </p>
                 </div>
                 <div>
@@ -399,13 +399,13 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                     <div class="mb-3">
                         <div class="form-check form-check-custom">
                             <input class="form-check-input check-height fs-14 errorChannel" type="checkbox"
-                                value="<?php echo $google_merchant_center_id !== '' ? $google_merchant_center_id : '' ?>"
+                                value="<?php echo $google_merchant_center_id !== '' ? esc_attr($google_merchant_center_id) : '' ?>"
                                 id="gmc_id" name="gmc_id" <?php echo $google_merchant_center_id !== '' ? "checked" : 'disabled' ?>>
                             <label for="" class="col-form-label fs-14 pt-0 text-dark fw-500">
                                 <?php esc_html_e("Google Merchant Center Account :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 modal_google_merchant_center_id">
-                                <?php echo $google_merchant_center_id !== '' ? $google_merchant_center_id : '' ?>
+                                <?php echo $google_merchant_center_id !== '' ? esc_attr($google_merchant_center_id) : '' ?>
                             </label>
                         </div>
                         <div class="form-check form-check-custom">
@@ -425,7 +425,7 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                                 <?php esc_html_e("Facebook Catalog Id :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 fb_id">
-                                <?php echo $fb_catalog_id ?>
+                                <?php echo esc_html($fb_catalog_id) ?>
                             </label>
                         </div>
                     </div>
@@ -452,14 +452,14 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
      */
     function list_tiktok_business_account() {        
         conv_change_loadingbar("show");
-        var conversios_onboarding_nonce = "<?php echo wp_create_nonce('conversios_onboarding_nonce'); ?>";
+        var conversios_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conversios_onboarding_nonce')); ?>";
         jQuery.ajax({
             type: "POST",
             dataType: "json",
             url: tvc_ajax_url,
             data: {
                 action: "get_tiktok_business_account",
-                subscriptionId: "<?php echo $subscriptionId ?>",
+                subscriptionId: "<?php echo esc_js($subscriptionId) ?>",
                 conversios_onboarding_nonce: conversios_onboarding_nonce
             },
             success: function (response) {
@@ -470,7 +470,7 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                         text: "Select TikTok Business Account"
                     }));
                     if (response.data) {
-                        var tiktok_business_id = "<?php echo $tiktok_business_id ?>";
+                        var tiktok_business_id = "<?php echo esc_js($tiktok_business_id) ?>";
                         jQuery.each(response.data, function (key, value) {
                             jQuery('#tiktok_business_id').append(jQuery('<option>', {
                                 value: key,
@@ -492,11 +492,11 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
     }
     /*************************function to save tiktok data in ee_option start ******************************************************************************************/
     function saveTiktokUser() {
-        var tiktok_user_id = "<?php echo isset($ee_options['tiktok_setting']['tiktok_user_id']) === TRUE ? $ee_options['tiktok_setting']['tiktok_user_id'] : ''; ?>"
+        var tiktok_user_id = "<?php echo isset($ee_options['tiktok_setting']['tiktok_user_id']) === TRUE ? esc_js($ee_options['tiktok_setting']['tiktok_user_id']) : ''; ?>"
         var selected_vals = {};
         var tiktok_data = {};
-        tiktok_data["tiktok_mail"] = "<?php echo $tiktok_mail ?>";
-        tiktok_data["tiktok_user_id"] = "<?php echo $tiktok_user_id ?>";
+        tiktok_data["tiktok_mail"] = "<?php echo esc_js($tiktok_mail) ?>";
+        tiktok_data["tiktok_user_id"] = "<?php echo esc_js($tiktok_user_id) ?>";
         selected_vals["tiktok_setting"] = tiktok_data;
         if (tiktok_user_id == tiktok_data["tiktok_user_id"]) {
             jQuery.ajax({
@@ -505,9 +505,9 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                 url: tvc_ajax_url,
                 data: {
                     action: "conv_save_pixel_data",
-                    pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
+                    pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                     conv_options_data: selected_vals,
-                    customer_subscription_id: "<?php echo $subscriptionId ?>",
+                    customer_subscription_id: "<?php echo esc_js($subscriptionId) ?>",
                     conv_options_type: ["eeoptions"],
                 },
                 beforeSend: function () {
@@ -522,10 +522,10 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
     /*************************function to save tiktok data in ee_option end ******************************************************************************************/
     /*************************get user catalog id on tiktok business id change start ******************************************************************************************/
     jQuery(document).on("change", "#tiktok_business_id", function () {
-        var catalogCountry = <?php echo json_encode($catalogCountry) ?>;
-        var catalog_business_id = <?php echo json_encode($catalog_business_id) ?>;
+        var catalogCountry = <?php echo wp_json_encode($catalogCountry) ?>;
+        var catalog_business_id = <?php echo wp_json_encode($catalog_business_id) ?>;
         conv_change_loadingbar("show");
-        var conversios_onboarding_nonce = "<?php echo wp_create_nonce('conversios_onboarding_nonce'); ?>";
+        var conversios_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conversios_onboarding_nonce')); ?>";
         var business_id = jQuery('#tiktok_business_id').find(":selected").val();
         jQuery.ajax({
             type: "POST",
@@ -533,7 +533,7 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
             url: tvc_ajax_url,
             data: {
                 action: "get_tiktok_user_catalogs",
-                customer_subscription_id: "<?php echo $subscriptionId ?>",
+                customer_subscription_id: "<?php echo esc_js($subscriptionId) ?>",
                 business_id: business_id,
                 conversios_onboarding_nonce: conversios_onboarding_nonce
             },
@@ -635,10 +635,10 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                 url: tvc_ajax_url,
                 data: {
                     action: "conv_save_pixel_data",
-                    pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
+                    pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                     conv_options_data: selected_vals,
                     conv_catalogData: catalogData,
-                    customer_subscription_id: "<?php echo $subscriptionId ?>",
+                    customer_subscription_id: "<?php echo esc_js($subscriptionId) ?>",
                     conv_options_type: ["eeoptions", "tiktokmiddleware", "tiktokcatalog"],
                 },
                 beforeSend: function () {
@@ -837,7 +837,7 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
             last_sync_date: '',
             is_mapping_update: '',
             target_country: jQuery('#target_country').find(":selected").val(),
-            customer_subscription_id: "<?php echo $subscriptionId ?>",
+            customer_subscription_id: "<?php echo esc_js($subscriptionId) ?>",
             tiktok_business_account: jQuery('#tiktok_business_id').find(":selected").val(),
             conv_onboarding_nonce: conv_onboarding_nonce
         }

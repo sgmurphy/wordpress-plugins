@@ -39,6 +39,10 @@
   line-height: 28px;
   margin: 0px;
 }
+.dash-convo .accordion-body p {
+  max-width: 875px;
+  width: calc(100% - 30px);
+}
 .dash-convo span {
   font-style: normal;
   font-weight: 500;
@@ -469,7 +473,7 @@
 }
 
 .feed-manage {
-  background-image: url("../images/bkg_product_Feed.png");
+  background-image: url("../images/bkg_product_Feed.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -662,14 +666,12 @@
   display: block;
   position: absolute;
   right: 0;
-  top: 15%;
-  width: 50%;
+  width: 18%;
   height: 80%;
-  opacity: 0.2;
   background-image: url(../images/recentpostbox_bg.png);
   background-repeat: no-repeat;
-  background-position: 40% 0;
-  background-size: cover;
+  background-position: 50% 50%;
+  background-size: 80%;
   bottom: 0;
 }
 .recent-post .card-content a {

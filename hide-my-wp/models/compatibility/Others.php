@@ -193,6 +193,22 @@ class HMWP_Models_Compatibility_Others extends HMWP_Models_Compatibility_Abstrac
 			}
 		}
 
+        //Gravity Form security fix
+        add_filter('wp_redirect', function($redirect, $status = ''){
+            //prevent redirect to new login
+            if (HMWP_Classes_Tools::getDefault('hmwp_login_url') <> HMWP_Classes_Tools::getOption('hmwp_login_url') ) {
+                if(HMWP_Classes_Tools::getValue('gf_page')){
+                    if (strpos($redirect, '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) !== false) {
+                        if (function_exists('is_user_logged_in') && !is_user_logged_in()) {
+                            $redirect = home_url();
+                        }
+                    }
+                }
+            }
+
+            return $redirect;
+        }, PHP_INT_MAX, 2);
+
 	}
 
 

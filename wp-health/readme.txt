@@ -5,7 +5,7 @@ Tags: monitoring, backups, backup, restoration, update
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: v2.15.3
+Stable tag: v2.15.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,12 @@ Yes, multisite networks are fully supported, including the ability to backup and
 WP Umbrella is easier to use and faster than managewp. It's also a fantastic alternative to MainWP and WPRemote.
 
 == Changelog ==
+
+= 2.15.4 (06-20-2024) =
+- Improved: add new endpoint for the new backup and restore technology
+- Improved: bedrock compatibility with the new backup technology
+- Bugfix: property missing in a request class
+- Bugfix: yootheme unreadable
 
 = 2.15.3 (05-16-2024) =
 - Fix: check SecuPress update status

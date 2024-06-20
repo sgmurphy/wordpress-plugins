@@ -39,9 +39,11 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
             }
         });
 
-        //Add compatibility with Wordfence to not load the Bruteforce when 2FA is active
         if( HMWP_Classes_Tools::getOption('hmwp_bruteforce') && HMWP_Classes_Tools::getOption('brute_use_captcha_v3') ) {
-            add_filter('hmwp_option_brute_use_captcha_v3', '__return_false');
+            if ($this->wfIs2FA()) {
+                //Add compatibility with Wordfence to not load the Bruteforce when 2FA is active
+                add_filter('hmwp_option_brute_use_captcha_v3', '__return_false');
+            }
         }
 
         //when cron is call
@@ -70,6 +72,25 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
                     self::$config[$key] = $option->val;
                     return $option->val;
                 }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get 2FA data from Wordfence
+     * @param int $user_id
+     *
+     * @return false|mixed
+     */
+    public function wfIs2FA() {
+        global $wpdb;
+
+        $table = $wpdb->base_prefix . 'wfls_2fa_secrets';
+        if($wpdb->get_col($wpdb->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME=%s',$table))){
+            if ($wpdb->get_row($wpdb->prepare("SELECT id FROM {$table} LIMIT %d", 1))) {
+                return true;
             }
         }
 

@@ -539,12 +539,12 @@ if (isset($googleDetail->facebook_setting->fb_business_id) === TRUE && $googleDe
                         </div>
                         <div class="form-check form-check-custom">
                             <input class="form-check-input check-height fs-14 errorChannel" type="checkbox" value=""
-                                id="fb_id" name="fb_id" checked>
+                                id="fb_id" name="fb_id" <?php echo $fb_catalog_id !== '' ? "checked" : 'disabled' ?>>
                             <label for="" class="col-form-label fs-14 pt-0 text-dark fw-500">
                                 <?php esc_html_e("Facebook Catalog Id :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 fb_id">
-                                <?php echo $fb_catalog_id ?>
+                                <?php echo esc_html($fb_catalog_id) ?>
                             </label>
                         </div>
                     </div>

@@ -138,7 +138,7 @@ body {
     margin: -4.5rem -0.5rem -0.5rem auto;
 }
 #wpadminbar{
-    z-index: 100;
+    /*z-index: 100;*/
 }
 .new-badge{
     position: relative;

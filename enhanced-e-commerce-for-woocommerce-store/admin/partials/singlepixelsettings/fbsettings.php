@@ -35,12 +35,27 @@ $is_sel_disable = 'disabled';
                     <div class="col-12">
                         <label class="d-flex fw-normal mb-1 text-dark">
                             <?php esc_html_e("Meta (Facebook)Conversion API Token", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
-                                <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                                <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
-                            </span>
                         </label>
-                        <textarea type="text" class="form-control disabled" style="height: 150px" readonly></textarea>
+                        <div class="mt-0 mb-2">
+                            <?php esc_html_e("Configure Facebook Conversions API by adding it below.", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/docs/how-to-setup-fb-pixel-and-fbcapi-using-conversios-plugin/?utm_source=in_app&utm_medium=pixelandanalytics_wizard&utm_campaign=knowmore'); ?>" class="conv-link-blue">
+                                <u><?php esc_html_e("Know how", "enhanced-e-commerce-for-woocommerce-store"); ?></u>
+                            </a>
+                        </div>
+                        <div class="conv_highlightedcard">
+                            <div class="d-flex pt-2 align-items-top">
+                                <ul class="px-2">
+                                    <li><b><?php esc_html_e("Enhance", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("event match quality.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Improve", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("data accuracy and reliability.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Ensure", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("better user privacy and compliance.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                    <li><b><?php esc_html_e("Boost", "enhanced-e-commerce-for-woocommerce-store"); ?></b>&nbsp;<?php esc_html_e("ads performance and attribution.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+                                </ul>
+                                <span class="conv-link-blue ms-2 fw-bold-500 upgradetopro_badge ms-auto" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
+                                    <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
+                                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                                </span>
+                            </div>
+                        </div>
                         <input type="hidden" name="fb_conversion_api_token" id="fb_conversion_api_token">
                     </div>
 
@@ -55,7 +70,7 @@ $is_sel_disable = 'disabled';
 </div>
 
 <!-- Ecommerce Events -->
-<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3">
+<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3 d-none hidden">
     <div class="row">
         <h5 class="fw-normal mb-1">
             <?php esc_html_e("Ecommerce Events", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -117,7 +132,7 @@ $is_sel_disable = 'disabled';
                 <?php esc_html_e("For complete FB ads tracking, consider switching to our Started plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 </span>
             </h5>
         </div>

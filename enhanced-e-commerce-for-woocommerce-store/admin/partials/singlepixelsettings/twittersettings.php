@@ -6,7 +6,17 @@ $is_sel_disable = 'disabled';
     <form id="pixelsetings_form" class="convpixsetting-inner-box">
         <div>
             <!-- Twitter Pixel -->
-            <?php $twitter_ads_pixel_id = isset($ee_options['twitter_ads_pixel_id']) ? $ee_options['twitter_ads_pixel_id'] : ""; ?>
+            <?php
+            $twitter_ads_pixel_id = isset($ee_options['twitter_ads_pixel_id']) ? $ee_options['twitter_ads_pixel_id'] : "";
+            $twitter_ads_form_submit_event_id = isset($ee_options['twitter_ads_form_submit_event_id']) ? $ee_options['twitter_ads_form_submit_event_id'] : "";
+            $twitter_ads_add_to_cart_event_id = isset($ee_options['twitter_ads_add_to_cart_event_id']) ? $ee_options['twitter_ads_add_to_cart_event_id'] : "";
+            $twitter_ads_checkout_initiated_event_id = isset($ee_options['twitter_ads_checkout_initiated_event_id']) ? $ee_options['twitter_ads_checkout_initiated_event_id'] : "";
+            $twitter_ads_payment_info_event_id = isset($ee_options['twitter_ads_payment_info_event_id']) ? $ee_options['twitter_ads_payment_info_event_id'] : "";
+            $twitter_ads_purchase_event_id = isset($ee_options['twitter_ads_purchase_event_id']) ? $ee_options['twitter_ads_purchase_event_id'] : "";
+            $twitter_ads_email_click_event_id = isset($ee_options['twitter_ads_email_click_event_id']) ? $ee_options['twitter_ads_email_click_event_id'] : "";
+            $twitter_ads_phone_click_event_id = isset($ee_options['twitter_ads_phone_click_event_id']) ? $ee_options['twitter_ads_phone_click_event_id'] : "";
+            $twitter_ads_address_click_event_id = isset($ee_options['twitter_ads_address_click_event_id']) ? $ee_options['twitter_ads_address_click_event_id'] : "";
+            ?>
             <div id="twitter_box" class="py-1">
                 <div class="row pt-2">
                     <div class="col-7">
@@ -19,6 +29,77 @@ $is_sel_disable = 'disabled';
                         <input type="text" name="twitter_ads_pixel_id" id="twitter_ads_pixel_id" class="form-control valtoshow_inpopup_this" value="<?php echo esc_attr($twitter_ads_pixel_id); ?>" placeholder="e.g. ocihb">
                     </div>
                 </div>
+                <div class="row pt-4">
+                    <h5 class="fw-normal mb-1 mt-3">
+                        <?php esc_html_e("Twitter events settings", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        <span class="fw-400 text-color fs-12">
+                            <span class="material-symbols-outlined fs-6" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Create events in the twitter ads and enter event IDs">
+                                info
+                            </span>
+                        </span>
+                    </h5>
+                </div>
+
+                <div class="wc_event_configure <?php echo !CONV_IS_WC ? 'hidden' : '' ?>">
+                    <div class="row pt-3">
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Add to Cart", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_add_to_cart_event_id" id="twitter_ads_add_to_cart_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_add_to_cart_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Checkout Initiated", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_checkout_initiated_event_id" id="twitter_ads_checkout_initiated_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_checkout_initiated_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Payment Info Added", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_payment_info_event_id" id="twitter_ads_payment_info_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_payment_info_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                        <div class="col-6">
+                            <label class="d-flex fw-normal mb-1 text-dark">
+                                <?php esc_html_e("Event ID for Purchase", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                            </label>
+                            <input type="text" name="twitter_ads_purchase_event_id" id="twitter_ads_purchase_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_purchase_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                        </div>
+                    </div>
+                </div> <!-- wc events -->
+
+                <div class="row pt-3">
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Form Submit", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_form_submit_event_id" id="twitter_ads_form_submit_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_form_submit_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Email Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_email_click_event_id" id="twitter_ads_email_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_email_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                </div>
+                <div class="row pt-3">
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Phone Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_phone_click_event_id" id="twitter_ads_phone_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_phone_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                    <div class="col-6">
+                        <label class="d-flex fw-normal mb-1 text-dark">
+                            <?php esc_html_e("Event ID for Address Click", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                        </label>
+                        <input type="text" name="twitter_ads_address_click_event_id" id="twitter_ads_address_click_event_id" class="form-control" value="<?php echo esc_attr($twitter_ads_address_click_event_id); ?>" placeholder="e.g. tw-olwfn-olwio">
+                    </div>
+                </div>
             </div>
             <!-- Twitter Pixel End-->
         </div>
@@ -28,7 +109,7 @@ $is_sel_disable = 'disabled';
 </div>
 
 <!-- Ecommerce Events -->
-<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3">
+<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3 d-none hidden">
     <div class="row">
         <h5 class="fw-normal mb-1">
             <?php esc_html_e("Ecommerce Events", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -137,7 +218,7 @@ $is_sel_disable = 'disabled';
                 <?php esc_html_e("For complete ecommerce tracking and user browsing behavior for your Woo Shop, switch to our Starter plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 </span>
             </h5>
         </div>

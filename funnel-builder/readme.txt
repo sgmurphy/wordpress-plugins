@@ -2,7 +2,7 @@
 Contributors: amans2k, xlplugins, teamwoofunnels
 Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Click Upsells
 Requires at least: 5.4.0
-Tested up to: 6.5.0
+Tested up to: 6.5.4
 Requires PHP: 7.4
 Stable tag: 3.3.1
 License: GPLv3

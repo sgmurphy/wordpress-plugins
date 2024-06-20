@@ -785,7 +785,7 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
         $url = $this->apiDomain . '/google-analytics/ga-account-list';
 
         $access_token = sanitize_text_field(base64_decode($this->access_token));
-        $max_results = 50;
+        $max_results = 100;
         $page = (isset($postData['page']) && sanitize_text_field($postData['page']) > 1) ? sanitize_text_field($postData['page']) : "1";
         if ($page > 1) {
           //set index
@@ -1113,15 +1113,11 @@ if (!class_exists('Conversios_Onboarding_ApiCall')) {
           ];
         } else {
           $data = [
-            'type' => sanitize_text_field($postData['type']),
+            'type' => "GA4",
             'ads_customer_id' => sanitize_text_field($postData['ads_customer_id']),
-            'analytics_id' => '',
-            'web_property_id' => sanitize_text_field($postData['web_property_id']),
-            'profile_id' => '',
-            'web_property' => sanitize_text_field($postData['web_property']),
+            'subscription_id' => sanitize_text_field($postData['subscription_id']),
           ];
         }
-
         $args = array(
           'timeout' => 300,
           'headers' => array(

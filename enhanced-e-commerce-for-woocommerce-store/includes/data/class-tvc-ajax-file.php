@@ -95,6 +95,7 @@ if (!class_exists('TVC_Ajax_File')) :
       add_action('wp_ajax_get_fb_catalog_data', array($this, 'get_fb_catalog_data'));
       add_action('wp_ajax_conv_checkMcc', [$this, 'conv_checkMcc']);
       add_action('wp_ajax_conv_send_email', array($this, 'conv_send_email'));
+      add_action('wp_ajax_conv_convnewfeaturemodal_ajax', array($this, 'conv_convnewfeaturemodal_ajax'));
     }
 
     public function conv_create_ec_row()
@@ -120,7 +121,7 @@ if (!class_exists('TVC_Ajax_File')) :
 
         if ($subscription_id != "" && $ads_accountId != "") {
           $response = $customApiObj->ads_checkMcc($subscription_id, $ads_accountId);
-          echo json_encode($response);
+          echo wp_json_encode($response);
         }
       }
       exit;
@@ -140,10 +141,20 @@ if (!class_exists('TVC_Ajax_File')) :
         $formdata['subscription_id'] = isset($_POST['subscription_id']) ? sanitize_text_field($_POST['subscription_id']) : "";
         $customObj = new CustomApi();
         unset($_POST['action']);
-        echo json_encode($customObj->conv_send_email($formdata));
+        echo wp_json_encode($customObj->conv_send_email($formdata));
         die(1);
       } else {
         die(0);
+      }
+      die();
+    }
+    public function conv_convnewfeaturemodal_ajax()
+    {
+      if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wp_nonce'])), 'convnewfeaturemodal_nonce')) {
+        update_option('conv_popup_newfeature', 'yes');
+        wp_send_json( array('save'=>'success') );
+      } else {
+        wp_send_json( array('save'=>'failed') );
       }
       die();
     }
@@ -199,6 +210,7 @@ if (!class_exists('TVC_Ajax_File')) :
         }
       }
       update_option('ee_options', serialize($ee_options));
+      //echo '<pre>'; print_r(unserialize(get_option('ee_options'))); echo '</pre>'; exit('ohh');
     }
 
     // Save data in ee_options
@@ -311,22 +323,10 @@ if (!class_exists('TVC_Ajax_File')) :
           $postData = ['subscription_id' => sanitize_text_field($_POST['conv_options_data']['subscription_id']), 'merchant_id' => sanitize_text_field($_POST['conv_options_data']['merchant_id']), 'account_id' => sanitize_text_field($_POST['conv_options_data']['google_merchant_id']), 'adwords_id' => sanitize_text_field($_POST['conv_options_data']['google_ads_id'])];
           $api_obj->linkGoogleAdsToMerchantCenter($postData);
         }
-        if (in_array("eeselectedevents", $_POST['conv_options_type'])) {
-          $selectedevents = sanitize_text_field($_POST["conv_options_data"]["conv_selected_events"]);
-
-          $conv_posted_events = [];
-          if (!empty($selectedevents)) {
-            $arr = $selectedevents;
-            array_walk($arr, function (&$value) {
-              $temp_arr = [];
-              for ($i = 0; $i < count($value); $i++) {
-                $temp_arr[] = sanitize_text_field($value[$i]);
-              }
-              $value = $temp_arr;
-            });
-            $conv_posted_events = $arr;
-          }
-          update_option("conv_selected_events", serialize($conv_posted_events));
+        if (in_array("eeselectedevents", $_POST['conv_options_type']) && isset($_POST["conv_options_data"]["conv_selected_events"]['ga'])) {
+          $selectedevents = array_map('sanitize_text_field', $_POST["conv_options_data"]["conv_selected_events"]['ga']);
+          $selectedevents['ga'] = $selectedevents;
+          update_option("conv_selected_events", serialize($selectedevents));
         }
         if (in_array("tiktokmiddleware", $_POST['conv_options_type'])) {
           $this->conv_save_tiktokmiddleware($post);
@@ -372,6 +372,7 @@ if (!class_exists('TVC_Ajax_File')) :
         }
 
         if (isset($conv_options_data['google_ads_conversion_tracking'])) {
+          // update one flag in middleware also.
           update_option('google_ads_conversion_tracking', sanitize_text_field($conv_options_data['google_ads_conversion_tracking']));
           $googleDetail_setting["google_ads_conversion_tracking"] = sanitize_text_field($conv_options_data['google_ads_conversion_tracking']);
         }
@@ -424,6 +425,20 @@ if (!class_exists('TVC_Ajax_File')) :
           $postData = ['subscription_id' => sanitize_text_field($_POST['conv_options_data']['subscription_id']), 'merchant_id' => sanitize_text_field($_POST['conv_options_data']['merchant_id']), 'account_id' => sanitize_text_field($_POST['conv_options_data']['google_merchant_id']), 'adwords_id' => sanitize_text_field($_POST['conv_options_data']['google_ads_id'])];
           $api_obj->linkGoogleAdsToMerchantCenter($postData);
         }
+
+        if (isset($conv_options_data['link_google_analytics_with_google_ads'])) {
+          $access_token = $this->get_tvc_access_token();
+          $refresh_token = $this->get_tvc_refresh_token();
+          $api_obj = new Conversios_Onboarding_ApiCall(sanitize_text_field($access_token), sanitize_text_field($refresh_token));
+          $postData = [
+            'ads_customer_id' => sanitize_text_field($conv_options_data['google_ads_id']),
+            'web_property_id' => $conv_options_data['web_property_id'],
+            'web_property' => $conv_options_data['web_property_id'],
+            'subscription_id' => sanitize_text_field($conv_options_data['subscription_id'])
+          ];
+          $api_obj->linkAnalyticToAdsAccount($postData);
+        }
+        
       }
       echo "1";
       exit;
@@ -1534,7 +1549,7 @@ if (!class_exists('TVC_Ajax_File')) :
           );
           $TVC_Admin_DB_Helper->tvc_add_row("ee_product_feed", $profile_data, array("%s", "%s", "%s", "%d", "%s", "%s", "%s", "%s", "%s"));
           $result = $TVC_Admin_DB_Helper->tvc_get_last_row("ee_product_feed", array("id"));
-          echo json_encode($result);
+          echo wp_json_encode($result);
         }
       } else {
         echo wp_json_encode(array("error" => true, "message" => esc_html__("Admin security nonce is not verified.", "enhanced-e-commerce-for-woocommerce-store")));
@@ -3355,7 +3370,7 @@ if (!class_exists('TVC_Ajax_File')) :
             if (isset($ee_options['tiktok_setting']) && $ee_options['tiktok_setting']['tiktok_business_id'] !== '' && $is_channel_connected == 0) {
               $is_channel_connected = 1;
             }
-            echo json_encode(array("error" => false, "feed_count" => $feed_count, "isAttrMapped" => $isAttrMapped, "is_channel_connected" => $is_channel_connected, "iscatMapped" => $iscatMapped));
+            echo wp_json_encode(array("error" => false, "feed_count" => $feed_count, "isAttrMapped" => $isAttrMapped, "is_channel_connected" => $is_channel_connected, "iscatMapped" => $iscatMapped));
             break;
           case "getFeedList":
             $tvc_admin_helper = new TVC_Admin_Helper();
@@ -3382,7 +3397,7 @@ if (!class_exists('TVC_Ajax_File')) :
             }
 
             $href = esc_url_raw('admin.php?page=conversios&wizard=productFeedOdd'); //Odd
-            echo json_encode(array("data" => $result, "currency_symbol" => $currency_symbol, "href" => $href));
+            echo wp_json_encode(array("data" => $result, "currency_symbol" => $currency_symbol, "href" => $href));
             break;
           case "get_campaign_accordan":
             $TVC_Admin_DB_Helper = new TVC_Admin_DB_Helper();
@@ -4031,9 +4046,9 @@ if (!class_exists('TVC_Ajax_File')) :
         );
         $convCustomApi = new CustomApi();
         $result = $convCustomApi->getUserBusinesses($data);
-        echo json_encode($result);
+        echo wp_json_encode($result);
       } else {
-        echo json_encode(array("error" => true, "message" => esc_html__("Admin security nonce is not verified.", "product-feed-manager-for-woocommerce")));
+        echo wp_json_encode(array("error" => true, "message" => esc_html__("Admin security nonce is not verified.", "product-feed-manager-for-woocommerce")));
       }
       exit;
     }
@@ -4052,9 +4067,9 @@ if (!class_exists('TVC_Ajax_File')) :
         // $response = $convCustomApi->storeUserBusiness($data);
         $result = $convCustomApi->getCatalogList($data);
         // $response->CatalogList = $result->data;
-        echo json_encode($result->data);
+        echo wp_json_encode($result->data);
       } else {
-        echo json_encode(array("error" => true, "message" => esc_html__("Admin security nonce is not verified.", "product-feed-manager-for-woocommerce")));
+        echo wp_json_encode(array("error" => true, "message" => esc_html__("Admin security nonce is not verified.", "product-feed-manager-for-woocommerce")));
       }
       exit;
     }

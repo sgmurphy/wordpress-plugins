@@ -909,6 +909,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Image type img redirect url
         $image_type_img_redirect_url = (isset($data['ays_pb_image_type_img_redirect_url']) && $data['ays_pb_image_type_img_redirect_url'] != '') ? sanitize_url($data['ays_pb_image_type_img_redirect_url']) : "";
 
+        // Image type img redirect to the new tab
+        $image_type_img_redirect_to_new_tab = (isset($data['ays_pb_image_type_img_redirect_to_new_tab']) && $data['ays_pb_image_type_img_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
+
         // Facebook page URL
         $facebook_page_url = (isset($data['ays_pb_facebook_page_url']) && $data['ays_pb_facebook_page_url'] != '') ? sanitize_url($data['ays_pb_facebook_page_url']) : "";
 
@@ -1252,6 +1255,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'video_theme_url' => $video_theme_url,
             'image_type_img_src' => $image_type_img_src,
             'image_type_img_redirect_url' => $image_type_img_redirect_url,
+            'image_type_img_redirect_to_new_tab' => $image_type_img_redirect_to_new_tab,
             'facebook_page_url' => $facebook_page_url,
             'hide_fb_page_cover_photo' => $hide_fb_page_cover_photo,
             'use_small_fb_header' => $use_small_fb_header,

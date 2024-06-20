@@ -13,7 +13,7 @@
   Text Domain: woo-bulk-editor
   Domain Path: /languages
   WC requires at least: 3.6
-  WC tested up to: 8.9
+  WC tested up to: 9.0
   Forum URI: https://pluginus.net/support/forum/woobe-woocommerce-bulk-editor-professional/
  */
 

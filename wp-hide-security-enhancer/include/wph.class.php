@@ -1604,7 +1604,7 @@
                             if ( is_countable( $old_value ) && count( $old_value ) === 1 ) 
                                 {
                                     if ( $old_value[0] === $meta_value ) {
-                                        return false;
+                                        return true;
                                     }
                                 }
                         }

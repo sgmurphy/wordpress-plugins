@@ -19,7 +19,7 @@ class Admin_Menu_Module extends Base_Module {
 	/**
 	 * The class instance.
 	 *
-	 * @var object
+	 * @var Admin_Menu_Module
 	 */
 	public static $instance;
 
@@ -41,6 +41,8 @@ class Admin_Menu_Module extends Base_Module {
 
 	/**
 	 * Get instance of the class.
+	 *
+	 * @return Admin_Menu_Module
 	 */
 	public static function get_instance() {
 
@@ -129,8 +131,8 @@ class Admin_Menu_Module extends Base_Module {
 	 *
 	 * @see wp-content/plugins/ultimate-dashboard/helpers/class-user-helper.php
 	 *
-	 * @param object $ajax_handler The ajax handler class from the free version.
-	 * @param string $role The role target to simulate.
+	 * @param Ajax\Get_Menu $ajax_handler The ajax handler class from the free version.
+	 * @param string        $role The role target to simulate.
 	 */
 	public function get_admin_menu( $ajax_handler, $role ) {
 
@@ -186,12 +188,26 @@ class Admin_Menu_Module extends Base_Module {
 			return;
 		}
 
+		/**
+		 * We can't simply use the Screen_Helper class and check for is_admin_menu here.
+		 * Because we also need to check if get_current_screen() is null.
+		 */
+		$current_screen = get_current_screen();
+
+		if ( is_null( $current_screen ) ) {
+			return;
+		}
+
+		if ( 'edit-udb_widgets_page_udb_admin_menu' !== $current_screen->id ) {
+			return;
+		}
+
 		global $menu, $submenu;
 
 		$roles = wp_get_current_user()->roles;
 		$role  = $roles[0];
 
-		$recent_menu = $this->option( 'recent_admin_menu' );
+		$recent_menu = get_option( 'udb_recent_admin_menu', array() );
 
 		if ( ! isset( $recent_menu[ $role ] ) ) {
 			$recent_menu[ $role ] = array();
@@ -202,7 +218,7 @@ class Admin_Menu_Module extends Base_Module {
 			'submenu' => $submenu,
 		);
 
-		update_option( 'udb_recent_admin_menu', $recent_menu );
+		update_option( 'udb_recent_admin_menu', $recent_menu, false );
 
 	}
 

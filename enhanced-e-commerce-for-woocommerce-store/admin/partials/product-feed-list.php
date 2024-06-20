@@ -106,6 +106,16 @@ $data = unserialize(get_option('ee_options'));
     .dataTables_paginate {
         margin-top: 10px !important;
     }
+
+    button:disabled {
+        color: #131212;
+        border-color: #cccccc;
+    }
+    button:disabled:hover {
+        color: #131212;
+        border-color: #cccccc;
+    }
+    
 </style>
 <div class="container-fluid conv-light-grey-bg pt-4 ps-4">
     <div class="row ps-4 pe-4">
@@ -144,14 +154,14 @@ $data = unserialize(get_option('ee_options'));
                         $googleConnect_url = $TVC_Admin_Helper->get_custom_connect_url_subpage(admin_url() . 'admin.php?page=conversios-google-shopping-feed', "gadssettings"). "&amp;Campaign=Campaign";
                     ?>
                     <button
-                            class="signinWithGoogle btn btn-soft-primary fs-14 me-2 disabled campaignClass"
-                            title="Select Feed from below to create performance max campaign in Google Ads." style="pointer-events: auto !important">
+                            class="signinWithGoogle btn btn-soft-primary fs-14 me-2 campaignClass"
+                            title="Select Feed from below to create performance max campaign in Google Ads." style="pointer-events: auto !important" disabled>
                             <?php esc_html_e("Create Campaign", "enhanced-e-commerce-for-woocommerce-store"); ?>
                         </button>                                                                                                                
                     <?php } else { ?>
                         <button
-                            class="createCampaign btn btn-soft-primary fs-14 me-2 disabled campaignClass"
-                            title="Select Feed from below to create performance max campaign in Google Ads." style="pointer-events: auto !important">
+                            class="createCampaign btn btn-soft-primary fs-14 me-2 campaignClass"
+                            title="Select Feed from below to create performance max campaign in Google Ads." style="pointer-events: auto !important" disabled>
                             <?php esc_html_e("Create Campaign", "enhanced-e-commerce-for-woocommerce-store"); ?> 
                         </button>
                     <?php } 
@@ -1397,11 +1407,11 @@ $data = unserialize(get_option('ee_options'));
         jQuery(".checkbox_feed").not(':disabled').prop('checked', jQuery(this).prop('checked')); 
         if(jQuery(this).prop('checked')){
             if(feedId !== "") {
-                jQuery('.campaignClass').removeClass('disabled');
+                jQuery('.campaignClass').attr('disabled', false);
                 jQuery('#selecetdCampaign').val(feedId)
             }            
         } else {
-            jQuery('.campaignClass').addClass('disabled');
+            jQuery('.campaignClass').attr('disabled', true);
             jQuery('#selecetdCampaign').val('')
         }                 
     })
@@ -1416,7 +1426,7 @@ $data = unserialize(get_option('ee_options'));
             arr.push(thisVal);
             arr.join(',');
             jQuery('#selecetdCampaign').val(arr);
-            jQuery('.campaignClass').removeClass('disabled');
+            jQuery('.campaignClass').attr('disabled', false);
         } else {
             let arr = Array();
             let thisVal = jQuery(this).val();
@@ -1428,7 +1438,7 @@ $data = unserialize(get_option('ee_options'));
             jQuery('#selecetdCampaign').val(arr);
             jQuery("#selectAll").prop('checked', false)
             if(jQuery('#selecetdCampaign').val() == '') {
-                jQuery('.campaignClass').addClass('disabled');  
+                jQuery('.campaignClass').attr('disabled', true); 
             }
         }         
     })

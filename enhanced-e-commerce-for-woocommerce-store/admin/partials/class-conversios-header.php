@@ -253,11 +253,11 @@ if (class_exists('Conversios_Header') === FALSE) {
 											?>
 													<li class="nav-item fs-14 mt-1 fw-400 <?php echo esc_attr($active); ?> <?php echo esc_attr($is_parent_menu); ?>">
 														<?php if ($is_parent_menu == "") { ?>
-															<a class="nav-link text-<?php esc_attr($is_active); ?> " aria-current="page" href="<?php echo esc_url($menu_url); ?>">
+															<a class="nav-link text-<?php echo esc_attr($is_active); ?> " aria-current="page" href="<?php echo esc_url($menu_url); ?>">
 																<?php echo esc_attr($value['title']); ?>
 															</a>
 														<?php } else { ?>
-															<a class="new-badge nav-link dropdown-toggle text-<?php esc_attr($is_active); ?> " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+															<a class="new-badge nav-link dropdown-toggle text-<?php echo esc_attr($is_active); ?> " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 																<?php echo esc_attr($value['title']); ?>
 															</a>
 															<ul class="dropdown-menu fs-14 fw-400" aria-labelledby="navbarDropdown">

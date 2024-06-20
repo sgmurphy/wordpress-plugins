@@ -1219,7 +1219,7 @@ $str = json_decode($str);
             /*****Check for selected option to disabled end*******/                                              
             option += '<option value="'+value.field+'" '+ disabled +'>'+value.field+'</option>'
         });
-        var wooCommerceAttributes = <?php echo json_encode($wooCommerceAttributes); ?>;
+        var wooCommerceAttributes = <?php echo wp_json_encode($wooCommerceAttributes); ?>;
         var option1 = '<option value="">Please Select Attribute</option>';
         jQuery.each(wooCommerceAttributes, function (index, value) {
             option1 += '<option value="'+value.field+'">'+value.field+'</option>'
@@ -1321,7 +1321,7 @@ $str = json_decode($str);
     });
 
     jQuery(document).ready(function() { 
-        var tempArr = <?php echo json_encode($tempAddAttr) ?> 
+        var tempArr = <?php echo wp_json_encode($tempAddAttr) ?> 
         var arr = Object.keys(tempArr).map(function (key) { return key; });                                           
         selected = arr;
     })

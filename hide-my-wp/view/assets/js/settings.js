@@ -482,8 +482,10 @@
             'keyup', function () {
                 if ($(this).val() !== 'wp-login.php'  && $(this).val() != '') {
                     $this.find('.hmwp_hide_wplogin_div').show();
+                    $this.find('.hmwp_hide_newlogin_div').show();
                 } else {
                     $this.find('.hmwp_hide_wplogin_div').hide();
+                    $this.find('.hmwp_hide_newlogin_div').hide();
                 }
 
                 if ($(this).val() !== 'login'  && $(this).val() != '') {

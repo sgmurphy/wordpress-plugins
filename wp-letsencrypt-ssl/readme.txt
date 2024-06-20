@@ -5,7 +5,7 @@ Requires at least: 5.4
 License: GPL3
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 7.4.0
+Stable tag: 7.3.0
 
 Lifetime SSL solution & Security - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & monitoring.
 
@@ -175,11 +175,8 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 
 == Changelog ==
 
-= 7.4.0 =
-* Important - Leaf signature issue fix with dynamic CA bundle. Update immediately.
-
 = 7.3.0 =
-* Important - New R11 Intermediate CA added.
+* Important - New R11 Intermediate CA added. Update immediately.
 
 = 7.2.0 =
 * ajax plugin activation error fix

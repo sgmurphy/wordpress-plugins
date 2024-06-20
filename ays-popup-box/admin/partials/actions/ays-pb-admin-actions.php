@@ -47,6 +47,7 @@ $options = array(
     'video_theme_url' => '',
     'image_type_img_src' => '',
     'image_type_img_redirect_url' => '',
+    'image_type_img_redirect_to_new_tab' => 'off',
     'facebook_page_url' => 'https://www.facebook.com/wordpress',
     'hide_fb_page_cover_photo' => 'off',
     'use_small_fb_header' => 'on',
@@ -355,6 +356,9 @@ $image_type_img_src = (isset($options['image_type_img_src']) && $options['image_
 
 // Image type | Redirect URL
 $image_type_img_redirect_url = (isset($options['image_type_img_redirect_url']) && $options['image_type_img_redirect_url'] != '') ? esc_url($options['image_type_img_redirect_url']) : '';
+
+// Image type | Redirect to the new tab
+$image_type_img_redirect_to_new_tab = (isset($options['image_type_img_redirect_to_new_tab']) && $options['image_type_img_redirect_to_new_tab'] == 'on') ? true : false;
 
 // Facebook type | Facebook page URL
 $facebook_page_url = (isset($options['facebook_page_url']) && $options['facebook_page_url'] != '') ? esc_url($options['facebook_page_url']) : '';
@@ -1378,10 +1382,12 @@ $ays_users_roles = $wp_roles->roles;
             <input type="hidden" name="ays_pb_create_date" value="<?php echo $pb_create_date; ?>">
             <input type="hidden" name="ays_pb_author" value="<?php echo esc_attr(json_encode($pb_author, JSON_UNESCAPED_SLASHES)); ?>">
             <div class="ays-pb-heading-box">
-                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank" style="text-decoration: none;font-size: 13px;">
-                    <img src="<?php echo AYS_PB_ADMIN_URL . '/images/icons/text-file.svg' ?>">
-                    <span style="text-decoration: underline;"><?php echo __("View Documentation", "ays-popup-box"); ?></span>
-                </a>
+                <div class="ays-pb-wordpress-user-manual-box">
+                    <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
+                        <img src="<?php echo AYS_PB_ADMIN_URL . '/images/icons/text-file.svg' ?>">
+                        <span><?php echo __("View Documentation", "ays-popup-box"); ?></span>
+                    </a>
+                </div>
             </div>
             <h1 class="wp-heading-inline" style="display:flex; flex-wrap: wrap;">
                 <?php
@@ -1617,6 +1623,20 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="ays_pb_image_type_img_redirect_url" name="ays_pb_image_type_img_redirect_url" class="ays-text-input" value="<?php echo $image_type_img_redirect_url; ?>" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_image_type_img_redirect_to_new_tab">
+                                        <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" id="ays_pb_image_type_img_redirect_to_new_tab" name="ays_pb_image_type_img_redirect_to_new_tab" <?php echo $image_type_img_redirect_to_new_tab ? 'checked' : ''; ?>>
                                 </div>
                             </div>
                         </div>

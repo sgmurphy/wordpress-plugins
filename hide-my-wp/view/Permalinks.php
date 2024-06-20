@@ -381,13 +381,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_login_div" <?php echo(HMWP_DEFAULT_LOGIN == HMWP_Classes_Tools::$default['hmwp_login_url'] || HMWP_DEFAULT_LOGIN == 'login' ? 'style="display:none;"' : '') ?>>
+                            <?php if(HMWP_DEFAULT_LOGIN == HMWP_Classes_Tools::getDefault('hmwp_login_url') || HMWP_DEFAULT_LOGIN == 'login'){ ?>
+                                <input type="hidden" name="hmwp_hide_login" value="0"/>
+                            <?php }else{ ?>
+                                <div class="col-sm-12 row mb-1 ml-1 p-2" <?php echo(HMWP_DEFAULT_LOGIN == HMWP_Classes_Tools::getDefault('hmwp_login_url') || HMWP_DEFAULT_LOGIN == 'login' ? 'style="display:none;"' : '') ?>>
+                                    <div class="checker col-sm-12 row my-2 py-1">
+                                        <div class="col-sm-12 p-0 switch switch-sm">
+                                            <input type="hidden" name="hmwp_hide_login" value="0"/>
+                                            <input type="checkbox" id="hmwp_hide_login" name="hmwp_hide_login" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_login') ? 'checked="checked"' : '') ?> value="1"/>
+                                            <label for="hmwp_hide_login"><?php echo esc_html__('Hide "login" Path', 'hide-my-wp'); ?></label>
+                                            <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /login path from visitors.', 'hide-my-wp'); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }?>
+
+                            <div class="col-sm-12 row mb-1 ml-1 p-2" <?php echo(HMWP_DEFAULT_LOGIN == HMWP_Classes_Tools::$default['hmwp_login_url'] || HMWP_DEFAULT_LOGIN == 'login' ? 'style="display:none;"' : '') ?>>
                                 <div class="checker col-sm-12 row my-2 py-1">
                                     <div class="col-sm-12 p-0 switch switch-sm">
-                                        <input type="hidden" name="hmwp_hide_login" value="0"/>
-                                        <input type="checkbox" id="hmwp_hide_login" name="hmwp_hide_login" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_login') ? 'checked="checked"' : '') ?> value="1"/>
-                                        <label for="hmwp_hide_login"><?php echo esc_html__('Hide "login" Path', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /login path from visitors.', 'hide-my-wp'); ?></div>
+                                        <input type="hidden" name="hmwp_hide_newlogin" value="0"/>
+                                        <input type="checkbox" id="hmwp_hide_newlogin" name="hmwp_hide_newlogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newlogin') ? 'checked="checked"' : '') ?> value="1"/>
+                                        <label for="hmwp_hide_newlogin"><?php echo esc_html__('Hide the New Login Path', 'hide-my-wp'); ?></label>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from redirects when users are not logged in.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -422,6 +437,17 @@
                                         <input type="checkbox" id="hmwp_hide_login" name="hmwp_hide_login" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_login') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_login"><?php echo esc_html__('Hide "login" Path', 'hide-my-wp'); ?></label>
                                         <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /login path from visitors.', 'hide-my-wp'); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_newlogin_div" <?php echo(HMWP_Classes_Tools::getOption('hmwp_login_url') == HMWP_Classes_Tools::$default['hmwp_login_url'] ? 'style="display:none;"' : '') ?>>
+                                <div class="checker col-sm-12 row my-2 py-1">
+                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                        <input type="hidden" name="hmwp_hide_newlogin" value="0"/>
+                                        <input type="checkbox" id="hmwp_hide_newlogin" name="hmwp_hide_newlogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newlogin') ? 'checked="checked"' : '') ?> value="1"/>
+                                        <label for="hmwp_hide_newlogin"><?php echo esc_html__('Hide the New Login Path', 'hide-my-wp'); ?></label>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from redirects when users are not logged in.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>

@@ -48,7 +48,10 @@ class UploadModule extends AbstractController
         $data = $params['file'];
 
         $str = base64_decode($params['file']);
-        file_put_contents(ABSPATH . DIRECTORY_SEPARATOR . $params['filename'], $str);
+
+        $source = wp_umbrella_get_service('BackupFinderConfiguration')->getRootBackupModule();
+
+        file_put_contents($source . $params['filename'], $str);
 
         return $this->returnResponse([
             'success' => true,

@@ -328,6 +328,7 @@ class Ays_Pb_Activator {
             'video_theme_url' => '',
             'image_type_img_src' => '',
             'image_type_img_redirect_url' => '',
+            'image_type_img_redirect_to_new_tab' => 'off',
             'facebook_page_url' => '',
             'hide_fb_page_cover_photo' => 'off',
             'use_small_fb_header' => 'on',

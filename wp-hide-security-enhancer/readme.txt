@@ -3,8 +3,8 @@ Contributors: nsp-code, tdgu
 Donate link: https://www.nsp-code.com/
 Tags: wordpress hide, security, security headers, custom login, login hide
 Requires at least: 2.8
-Tested up to: 6.5.3
-Stable tag: 2.3.9
+Tested up to: 6.5.4
+Stable tag: 2.4
 License: GPLv2 or later
 
 Hide WordPress, wp-content, wp-includes, wp-admin, login URL, plugins, themes etc. Block the default URLs. Security Headers etc.
@@ -179,6 +179,10 @@ Since version 1.2, WP-Hide change individual plugin URLs and made them unrecogni
 * Remove adjacent_posts_rel Meta
 * Remove profile link
 * Remove canonical link
+
+**Hide -> General / Block Detectors**
+
+* Block Detectors
 
 **Hide -> General / Emulate CMS**
 
@@ -407,6 +411,10 @@ Please get in touch with us and we’ll do our best to include it inthe next ver
 2. Sample front html code.
 
 == Changelog ==
+
+= 2.4 =
+* New feature: Block common Theme / Plugin detectors and scanners  https://wp-hide.com/documentation/block-theme-plugin-detectors/
+* Fix: Return true when checking the post meta update if not changed. 
 
 = 2.3.9 =
 * New feature: Customize the default login page Logo

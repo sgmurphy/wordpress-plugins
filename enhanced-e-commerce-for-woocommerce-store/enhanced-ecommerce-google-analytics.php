@@ -16,7 +16,7 @@
  * Plugin Name:       Conversios.io - All-in-one Google Analytics, Pixels and Product Feed Manager for WooCommerce
  * Plugin URI:        https://www.conversios.io/
  * Description:       Track ecommerce events and conversions for GA4 and for the ad channels like Google Ads, Facebook, Tiktok, Snapchat and more. Automate end to end server side tracking. Create quality feeds for google shopping, tiktok, facebook and more. Leverage data driven decision making by enhanced ecommerce reporting and AI powered insights to increase sales.
- * Version:           7.0.12
+ * Version:           7.1.0
  * Author:            Conversios
  * Author URI:        conversios.io
  * License:           GPLv3
@@ -89,7 +89,7 @@ if (is_EeAioPro_active()) {
 }
 
 
-define('PLUGIN_TVC_VERSION', '7.0.12');
+define('PLUGIN_TVC_VERSION', '7.1.0');
 $fullName = plugin_basename(__FILE__);
 $dir = str_replace('/enhanced-ecommerce-google-analytics.php', '', $fullName);
 
@@ -137,8 +137,16 @@ if (!defined('TVC_Admin_Helper')) {
     include(ENHANCAD_PLUGIN_DIR . '/admin/class-tvc-admin-helper.php');
 }
 
-if (!defined('CNVS_LOG')) {
-    define('CNVS_LOG', ENHANCAD_PLUGIN_DIR . 'logs/');
+if (!defined('CONV_IS_WC')) {
+    if (is_plugin_active_for_network('woocommerce/woocommerce.php') || in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+        define('CONV_IS_WC', 1);
+    }else{ 
+        define('CONV_IS_WC', 0);
+    }
+}
+
+if (!defined('CONV_LOG')) {
+    define('CONV_LOG', ENHANCAD_PLUGIN_DIR . 'logs/');
 }
 
 add_action('upgrader_process_complete', 'tvc_upgrade_function', 10, 2);
@@ -150,6 +158,9 @@ function tvc_upgrade_function($upgrader_object, $options)
             if ($each_plugin == $fullName) {
                 $TVC_Admin_Helper = new TVC_Admin_Helper();
                 $TVC_Admin_Helper->update_app_status();
+
+                // on update plugin also need to show new feature popup, so will delete old flag value
+                update_option('conv_popup_newfeature','no-on-update');
             }
         }
     }
@@ -174,7 +185,6 @@ require plugin_dir_path(__FILE__) . 'includes/class-enhanced-ecommerce-google-an
 
 function run_enhanced_ecommerce_google_analytics()
 {
-
     $plugin = new Enhanced_Ecommerce_Google_Analytics();
     $plugin->run();
 }

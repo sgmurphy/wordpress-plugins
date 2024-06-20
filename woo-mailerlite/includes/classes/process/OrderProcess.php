@@ -39,7 +39,7 @@ class OrderProcess extends Singleton
             $mailerliteClient = new PlatformAPI(MAILERLITE_WP_API_KEY);
 
             if ($mailerliteClient->getApiType() == ApiType::CLASSIC) {
-                if(get_option('mailerlite_disable_checkout_sync')) {
+                if(!get_option('mailerlite_disable_checkout_sync')) {
                     $data = [];
                     $customer_data = $this->getCustomerDataFromOrder($order_id);
                     $data['email'] = $customer_data['email'];
@@ -523,7 +523,7 @@ class OrderProcess extends Singleton
             if ((isset($_COOKIE['mailerlite_accepts_marketing']) && $_COOKIE['mailerlite_accepts_marketing']) || MailerLiteSettings::getInstance()->getMlOption('checkout_hide') === 'yes') {
                 $order->add_meta_data('_woo_ml_subscribe', true);
                 $order->save_meta_data();
-            } elseif (!$_COOKIE['mailerlite_accepts_marketing']) {
+            } elseif (isset($_COOKIE['mailerlite_accepts_marketing']) && $_COOKIE['mailerlite_accepts_marketing'] === false) {
                 $order->add_meta_data('_woo_ml_subscribe', false);
                 $order->save_meta_data();
             }

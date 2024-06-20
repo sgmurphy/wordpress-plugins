@@ -11,8 +11,8 @@
  * @package    Ays_Pb
  * @subpackage Ays_Pb/admin/partials
  */
-$action = ( isset($_GET['action']) ) ? sanitize_text_field($_GET['action']) : '';
-$id = ( isset($_GET['popupbox']) ) ? absint( intval($_GET['popupbox']) ) : null;
+$action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+$id = isset($_GET['popupbox']) ? absint( intval($_GET['popupbox']) ) : null;
 $popup_max_id = Ays_Pb_Data::get_max_id();
 
 if ($action == 'duplicate') {
@@ -31,15 +31,15 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
 <div class="wrap ays-pb-list-table">
     <div class="ays-pb-heading-box">
         <div class="ays-pb-wordpress-user-manual-box">
-            <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank" style="text-decoration: none;font-size: 13px;">
+            <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
                 <img src="<?php echo AYS_PB_ADMIN_URL . '/images/icons/text-file.svg' ?>">
-                <span style="text-decoration: underline;"><?php echo __("View Documentation", "ays-popup-box"); ?></span>
+                <span><?php echo __("View Documentation", "ays-popup-box"); ?></span>
             </a>
         </div>
     </div>
     <h1 class="wp-heading-inline">
         <?php
-            echo __( esc_html(get_admin_page_title()), "ays-popup-box" );
+            echo __(esc_html(get_admin_page_title()), "ays-popup-box");
         ?>
     </h1>
     <div class="ays-pb-add-new-button-box">

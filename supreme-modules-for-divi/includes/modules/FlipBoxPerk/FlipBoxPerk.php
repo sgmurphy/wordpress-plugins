@@ -373,14 +373,14 @@ class DSM_FlipBox_Perk extends ET_Builder_Module {
 		$output = sprintf(
 			'<div class="dsm-flipbox%2$s%3$s%4$s%5$s%6$s%7$s dsm_flipbox_%8$s%9$s">%1$s</div>',
 			et_core_sanitized_previously( $this->content ),
-			( 'flip' === $flipbox_type ? esc_attr( " dsm-flipbox-effect-${flipbox_effect}" ) : '' ),
+			( 'flip' === $flipbox_type ? esc_attr( " dsm-flipbox-effect-{$flipbox_effect}" ) : '' ),
 			( 'flip' === $flipbox_type && 'off' !== $flipbox_3d ? ' dsm-flipbox-3d' : '' ),
 			( 'zoom-in' === $flipbox_type ? ' dsm-flipbox-zoom-in' : '' ),
 			( 'fade' === $flipbox_type ? ' dsm-flipbox-fade' : '' ),
-			( 'zoom-out' === $flipbox_type ? esc_attr( " dsm-flipbox-zoom dsm-flipbox-${flipbox_zoom_out_effect}" ) : '' ),
-			( 'slide' === $flipbox_type ? esc_attr( " dsm-flipbox-${flipbox_slide_effect}" ) : '' ),
+			( 'zoom-out' === $flipbox_type ? esc_attr( " dsm-flipbox-zoom dsm-flipbox-{$flipbox_zoom_out_effect}" ) : '' ),
+			( 'slide' === $flipbox_type ? esc_attr( " dsm-flipbox-{$flipbox_slide_effect}" ) : '' ),
 			esc_attr( $flipbox_trigger ),
-			( 'click' === $flipbox_trigger ? esc_attr( " dsm_flipbox_trigger_${flipbox_click}" ) : '' )
+			( 'click' === $flipbox_trigger ? esc_attr( " dsm_flipbox_trigger_{$flipbox_click}" ) : '' )
 		);
 
 		if ( isset( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && ! empty( get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) && 'on' === get_option( 'dsm_settings_misc' )['dsm_dynamic_assets'] ) {

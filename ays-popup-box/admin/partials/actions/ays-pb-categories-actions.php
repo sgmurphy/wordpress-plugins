@@ -61,9 +61,9 @@ if ( isset( $id ) && !is_null( $id ) ) {
     <div class="container-fluid">
         <div class="ays-pb-heading-box">
             <div class="ays-pb-wordpress-user-manual-box">
-                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank" style="text-decoration: none;font-size: 13px;">
+                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">
                     <img src="<?php echo AYS_PB_ADMIN_URL . '/images/icons/text-file.svg' ?>">
-                    <span style="text-decoration: underline;"><?php echo __("View Documentation", "ays-popup-box"); ?></span>
+                    <span><?php echo __("View Documentation", "ays-popup-box"); ?></span>
                 </a>
             </div>
         </div>

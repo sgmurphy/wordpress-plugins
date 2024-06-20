@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (!defined('ABSPATH')) exit; // Exit if accessed directly
 
 $TVC_Admin_Helper = new TVC_Admin_Helper();
 $this->customApiObj = new CustomApi();
@@ -190,17 +190,16 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
 
 
       $pixel_video_link = array(
-        "ga_id" => "https://www.conversios.io/docs/ecommerce-events-that-will-be-automated-using-conversios/?utm_source=galisting_inapp&utm_medium=resource_center_list&utm_campaign=resource_center",
         "gm_id" => "https://www.conversios.io/docs/ecommerce-events-that-will-be-automated-using-conversios/?utm_source=galisting_inapp&utm_medium=resource_center_list&utm_campaign=resource_center",
         "google_ads_id" => "https://youtu.be/Vr7vEeMIf7c",
         "fb_pixel_id" => "https://youtu.be/8nIyvQjeEkY",
-        "microsoft_ads_pixel_id" => "https://youtu.be/BeP1Tp0I92o",
+        "microsoft_ads_pixel_id" => "https://www.conversios.io/docs/how-to-integrate-microsoft-bing-pixel-with-conversios-plugin/?utm_source=galisting_inapp&utm_medium=resource_center_list&utm_campaign=resource_center",
         "twitter_ads_pixel_id" => "",
         "pinterest_ads_pixel_id" => "https://youtu.be/Z0rcP1ItJDk",
         "snapchat_ads_pixel_id" => "https://youtu.be/uLQqAMQhFUo",
         "tiKtok_ads_pixel_id" => "https://www.conversios.io/docs/how-to-set-up-tiktok-pixel-using-conversios-plugin/?utm_source=Tiktoklisting_inapp&utm_medium=resource_center_list&utm_campaign=resource_center",
         "hotjar_pixel_id" => "",
-        "crazyegg_pixel_id" => "",
+        "crazyegg_pixel_id" => "https://www.conversios.io/docs/how-to-integrate-crazy-egg-pixel-with-conversios-plugin/?utm_source=galisting_inapp&utm_medium=resource_center_list&utm_campaign=resource_center",
       );
       ?>
 
@@ -244,8 +243,8 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
 
         </div>
 
-         <!-- Google Ads -->
-         <div class="convcard conv-pixel-list-item d-flex flex-row p-2 mt-0 border-top <?php echo esc_attr($conv_gtm_not_connected); ?>">
+        <!-- Google Ads -->
+        <div class="convcard conv-pixel-list-item d-flex flex-row p-2 mt-0 border-top <?php echo esc_attr($conv_gtm_not_connected); ?>">
           <div class="p-2 pe-3 conv-pixel-logo border-end d-flex">
             <img class="align-self-center" src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/conv_gads_logo.png'); ?>" />
           </div>
@@ -276,7 +275,7 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
             </a>
           </div>
         </div>
-        
+
         <!-- FB Pixel -->
         <div class="convcard conv-pixel-list-item d-flex flex-row p-2 mt-0 border-top <?php echo esc_attr($conv_gtm_not_connected); ?>">
           <div class="p-2 pe-3 conv-pixel-logo border-end d-flex">
@@ -525,6 +524,10 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
           <div class="p-1 ps-3 align-self-center">
             <span class="fw-bold m-0">
               <?php esc_html_e("Crazyegg Pixel", "enhanced-e-commerce-for-woocommerce-store"); ?>
+              <a target="_blank" class="conv-link-blue conv-watch-video ps-2 fw-normal invisible" href="<?php echo esc_url($pixel_video_link['crazyegg_pixel_id']); ?>">
+                <span class="material-symbols-outlined align-text-bottom">play_circle_outline</span>
+                <?php esc_html_e("Watch here", "enhanced-e-commerce-for-woocommerce-store"); ?>
+              </a>
             </span>
             <?php if (empty($pixel_not_connected['crazyegg_pixel_id']) && $conv_gtm_not_connected == "conv-gtm-connected") { ?>
               <div class="d-flex pt-2">
@@ -593,12 +596,16 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
           </h3>
           <span class="text-light">
             <ul class="conv-green-banner-list ps-4">
-              <li><?php esc_html_e("Take control, boost speed. Automate your Google Tag Manager.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-              <li><?php esc_html_e("Maximize campaigns with Google Ads Conversion integration.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-              <li><?php esc_html_e("Quick and Easy install of Facebook Conversions API to drive sales via Facebook Ads.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-              <li><?php esc_html_e("Sync unlimited product feeds with Content API and more.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-              <li><?php esc_html_e("Make data-driven decisions. Scale your ecommerce business with our reporting dashboard.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-              <li><?php esc_html_e("Free website audit, dedicated success manager, priority slack support.", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+              <li><span>Google Consent Mode V2</span></li>
+              <li><span>Own GTM container</span> with automated tag triggers.</li>
+              <li><span>Google Ads conversion tracking</span></li>
+              <li><span>Dynamic Remarketing</span></li>
+              <li><span>FBCAPI, Snapchat CAPI, and TikTok Events API</span>.</li>
+              <li><span>GA4 e-commerce reporting</span>.</li>
+              <li><span>Google Ads conversion reporting</span>.</li>
+              <li><span>Unlimited product feed</span></li>
+              <li><span>Customer support</span>.</li>
+              <li><span>Server-side tagging</span></li>
             </ul>
           </span>
           <span class="d-flex">
@@ -621,43 +628,43 @@ $is_show_tracking_method_options =  true; //$TVC_Admin_Helper->is_show_tracking_
 
 <!-- Upgrade to SST modal -->
 <div class="modal fade upgradetosstmodal" id="convSsttoProModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <div class="modal-content">
+  <div class="modal-dialog">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-content">
 
-            <h2><?php esc_html_e("Unlock The benefits of", "enhanced-e-commerce-for-woocommerce-store"); ?> <br> <span><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></span> </h2>
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-12">
-                    <ul class="listing">
-                        <span><?php esc_html_e("Benefits", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                        <li><?php esc_html_e("Adopt To First Party Cookies", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Improve Data Accuracy & Reduced Ad Blocker Impact", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Faster Page Speed", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Enhanced Data Privacy & Security", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 col-md-12 col-12">
-                    <ul class="listing">
-                        <span><?php esc_html_e("Features", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
-                        <li><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Powerful Google Cloud Servers", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Custom Loader & Custom Domain Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Server Side Tagging For Google Analytics 4 (GA4), Google Ads, Facebook CAPI, Tiktok Events API & Snapchat CAPI", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                        <li><?php esc_html_e("Free Setup & Audit By Dedicated Customer Success Manager", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
-                    </ul>
-                </div>
-                <div class="col-12">
-                    <div class="discount-btn">
-                        <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=sstpopup'); ?>" class="btn btn-dark common-btn">Get Early Bird Discount</a>
-                    </div>
-                </div>
-            </div>
+      <h2><?php esc_html_e("Unlock The benefits of", "enhanced-e-commerce-for-woocommerce-store"); ?> <br> <span><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></span> </h2>
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-12">
+          <ul class="listing">
+            <span><?php esc_html_e("Benefits", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+            <li><?php esc_html_e("Adopt To First Party Cookies", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Improve Data Accuracy & Reduced Ad Blocker Impact", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Faster Page Speed", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Enhanced Data Privacy & Security", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+          </ul>
         </div>
+        <div class="col-lg-6 col-md-12 col-12">
+          <ul class="listing">
+            <span><?php esc_html_e("Features", "enhanced-e-commerce-for-woocommerce-store"); ?></span>
+            <li><?php esc_html_e("Server Side Tagging Via GTM", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Powerful Google Cloud Servers", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Custom Loader & Custom Domain Mapping", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Server Side Tagging For Google Analytics 4 (GA4), Google Ads, Facebook CAPI, Tiktok Events API & Snapchat CAPI", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+            <li><?php esc_html_e("Free Setup & Audit By Dedicated Customer Success Manager", "enhanced-e-commerce-for-woocommerce-store"); ?></li>
+          </ul>
+        </div>
+        <div class="col-12">
+          <div class="discount-btn">
+            <a target="_blank" href="<?php echo esc_url('https://www.conversios.io/wordpress/all-in-one-google-analytics-pixels-and-product-feed-manager-for-woocommerce-pricing/?utm_source=in_app&utm_medium=modal_popup&utm_campaign=sstpopup'); ?>" class="btn btn-dark common-btn">Get Early Bird Discount</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- EC Start -->
-<div class="rounded-3 p-3 bg-white ecbuttonbox">
+<div class="rounded-3 p-3 bg-white ecbuttonbox d-none hidden">
   <div class="convcard-left conv-pixel-logo">
     <div class="convcard-title">
       <h6 class="mb-0 text-white">

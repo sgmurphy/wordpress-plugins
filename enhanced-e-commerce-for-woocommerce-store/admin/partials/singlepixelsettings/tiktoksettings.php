@@ -28,7 +28,7 @@ $is_sel_disable = 'disabled';
 </div>
 
 <!-- Ecommerce Events -->
-<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3">
+<div class="convcard p-4 mt-0 rounded-3 shadow-sm mt-3 d-none hidden">
     <div class="row">
         <h5 class="fw-normal mb-1">
             <?php esc_html_e("Ecommerce Events", "enhanced-e-commerce-for-woocommerce-store"); ?>
@@ -137,7 +137,7 @@ $is_sel_disable = 'disabled';
                 <?php esc_html_e("For complete ecommerce tracking and user browsing behavior for your Woo Shop, switch to our Starter plan.", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 <span class="align-middle conv-link-blue ms-2 fw-bold-500 upgradetopro_badge" data-bs-toggle="modal" data-bs-target="#upgradetopromodal">
                     <img src="<?php echo esc_url(ENHANCAD_PLUGIN_URL . '/admin/images/logos/upgrade_badge.png'); ?>" />
-                    <?php esc_html_e("UPGRADE TO PRO", "enhanced-e-commerce-for-woocommerce-store"); ?>
+                    <?php esc_html_e("Available In Pro", "enhanced-e-commerce-for-woocommerce-store"); ?>
                 </span>
             </h5>
         </div>

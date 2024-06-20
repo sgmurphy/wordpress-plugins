@@ -173,7 +173,7 @@ class Themes
         $this->setThemeDirectories();
 
         // Check for YOOtheme themes
-        if (class_exists('\YOOtheme\Theme\Wordpress\ThemeLoader') || is_dir(get_theme_root() . '/yootheme')) {
+        if (class_exists('\YOOtheme\Theme\Wordpress\ThemeLoader', false) || is_dir(get_theme_root() . '/yootheme')) {
             $this->checkYootheme(get_site_transient('update_themes'), [
                 'remote' => 'https://yootheme.com/api/update/yootheme_wp',
                 'id' => 'yootheme',

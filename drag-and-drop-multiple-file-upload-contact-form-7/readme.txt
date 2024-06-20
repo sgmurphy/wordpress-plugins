@@ -4,7 +4,7 @@ Donate link : http://codedropz.com/donation
 Tags: drag and drop, contact form 7, ajax uploader, multiple file, upload
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 1.3.8.0
+Stable tag: 1.3.8.1
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -164,6 +164,9 @@ To install this plugin see below:
 7. Remote Storage - Pro Features
 
 == Changelog ==
+
+= 1.3.8.1 =
+- Quick Fix - Unable to uncheck "Send file(s) as links" option.
 
 = 1.3.8.0 =
 - Quick fix to prevent auto-deletion if the "Don't delete files" setting was overridden by recent updates.
