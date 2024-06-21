@@ -49,6 +49,7 @@ public static function init() {
         }
 
 
+
 	    /**
 	     *   Make Ajax, Response,  in this case    				$is_continue_at_frontend = false
 	     *   or

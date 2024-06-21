@@ -24,7 +24,7 @@
                                     <input type="checkbox" id="hmwp_activity_log" name="hmwp_activity_log" class="switch" <?php echo( HMWP_Classes_Tools::getOption('hmwp_activity_log') ? 'checked="checked"' : '' ) ?> value="1"/>
                                     <label for="hmwp_activity_log"><?php echo esc_html__('Log Users Events', 'hide-my-wp'); ?></label>
                                     <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/users-activity-log/#activate_user_events_log') ?>" target="_blank" class="d-inline-block ml-2"><i class="dashicons dashicons-editor-help"></i></a>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Track and log events that happen on your WordPress site', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Track and log events that happen on your WordPress site', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>

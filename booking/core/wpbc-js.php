@@ -89,6 +89,7 @@ class WPBC_JS extends WPBC_JS_CSS {
 		if (
 			   ( 'jquery-core' === $handle )
 			|| ( 'jquery-migrate' === $handle )
+			|| ( false !== strpos( $handle, 'wpbc_' ) )                 // Booking Calendar script wpbc_all.js          //FixIn: 10.1.2.3
 			|| ( false !== strpos( $handle, 'wpbc-' ) )                 // Booking Calendar scripts
 			|| ( false !== strpos( $handle, 'wpdevelop-' ) )
 			|| ( false !== strpos( $handle, 'wpbm-' ) )

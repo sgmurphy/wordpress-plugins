@@ -5,7 +5,7 @@ Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
 Tested up to: 6.5
-Stable tag: 2.21.11
+Stable tag: 2.21.12
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,22 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.21.12 =
+
+Improvements:
+
+* Background video of Ultimate for WPBakery.
+* Nivo Slider for jQuery.
+* Support for Smart Slider.
+* Use custom styles even if scripts are not delay loaded.
+
+Fixes:
+
+* Activation can be dropped when multi-language plugins are used.
+* HTML parser fails if 'ctype_digit' PHP function is not available.
+* Price Filter from WooCommerce.
+* Use internal requests for asynchronous tasks execution: on some Windows systems it fails.
 
 = 2.21.11 =
 

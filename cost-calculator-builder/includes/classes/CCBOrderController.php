@@ -203,7 +203,9 @@ class CCBOrderController {
 			$meta_data = array(
 				'converted' => $data['converted'] ?? array(),
 				'totals'    => isset( $data['totals'] ) ? wp_json_encode( $data['totals'] ) : array(),
+				'otherTotals' => isset( $data['otherTotals'] ) ? wp_json_encode( $data['otherTotals'] ) : array(),
 			);
+
 			update_option( 'calc_meta_data_order_' . $id, $meta_data );
 
 			do_action( 'ccb_order_created', $order_data, $payment_data );
@@ -495,11 +497,17 @@ class CCBOrderController {
 
 				$order['date_formatted'] = date( get_option( 'date_format' ) . ' - ' . get_option( 'time_format' ), strtotime( $order['created_at'] ) );
 				$order['totals']         = array();
-				$meta_data               = get_option( 'calc_meta_data_order_' . $order['id'], array() );
+				$order_meta_id           = 'calc_meta_data_order_' . $order['id'];
+				$meta_data               = get_option( $order_meta_id, array() );
 
 				$totals = $meta_data['totals'];
 				if ( isset( $meta_data['totals'] ) && is_string( $meta_data['totals'] ) ) {
 					$totals = json_decode( $meta_data['totals'] );
+				}
+
+				if ( isset( $meta_data['otherTotals'] ) && is_string( $meta_data['otherTotals'] ) ) {
+					$otherTotals          = json_decode( $meta_data['otherTotals'] );
+					$order['otherTotals'] = $otherTotals;
 				}
 
 				$order['totals'] = $totals;

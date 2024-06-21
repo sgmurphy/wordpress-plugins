@@ -91,3 +91,31 @@ function wpbc_check_nonce_in_admin_panel( $action_check = 'wpbc_ajax_admin_nonce
 //function wpbc_nonce_life_test( $lifespan ) {
 //	return 60;  //4 * HOUR_IN_SECONDS;
 //}
+
+
+function wpbc_do_not_cache() {
+
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+		define( 'DONOTCACHEPAGE', true );
+	}
+
+	if ( ! defined( 'DONOTCACHEDB' ) ) {
+		define( 'DONOTCACHEDB', true );
+	}
+
+	if ( ! defined( 'DONOTMINIFY' ) ) {
+		define( 'DONOTMINIFY', true );
+	}
+
+	if ( ! defined( 'DONOTCDN' ) ) {
+		define( 'DONOTCDN', true );
+	}
+
+	if ( ! defined( 'DONOTCACHEOBJECT' ) ) {
+		define( 'DONOTCACHEOBJECT', true );
+	}
+
+	// Set the headers to prevent caching for the different browsers.
+	nocache_headers();
+}
+

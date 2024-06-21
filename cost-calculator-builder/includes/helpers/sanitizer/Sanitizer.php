@@ -14,6 +14,7 @@ use enshrined\svgSanitize\ElementReference\Resolver;
  *
  * @package enshrined\svgSanitize
  */
+if(!class_exists('enshrined\svgSanitize\Sanitizer')){
 class Sanitizer
 {
 
@@ -699,4 +700,5 @@ class Sanitizer
             }
         }
     }
+}
 }

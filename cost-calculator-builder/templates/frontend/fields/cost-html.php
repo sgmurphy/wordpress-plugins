@@ -5,4 +5,4 @@
  */
 ?>
 
-<div :style="additionalCss" class="calc-item html" :data-id="htmlField.alias" v-html="htmlContent" :class="htmlField.additionalStyles"></div>
+<div :style="additionalCss" class="calc-item html" :data-id="htmlField.alias" v-html="htmlContent" :class="htmlField.additionalStyles" :data-repeater="repeater"></div>

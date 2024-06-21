@@ -7,6 +7,7 @@ namespace enshrined\svgSanitize\data;
  *
  * @package enshrined\svgSanitize\data
  */
+if (!interface_exists('enshrined\svgSanitize\data\AttributeInterface')) {
 interface AttributeInterface
 {
 
@@ -16,4 +17,5 @@ interface AttributeInterface
      * @return array
      */
     public static function getAttributes();
+}
 }

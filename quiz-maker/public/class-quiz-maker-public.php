@@ -4925,14 +4925,40 @@ class Quiz_Maker_Public
 
         $q_ids = isset( $q_ids ) && $q_ids != '' ? sanitize_text_field($q_ids) : '';
         
-        if($q_ids == ''){
+        if($q_ids == '' || empty( $q_ids )){
             return array();
         }
-        $sql = "SELECT DISTINCT c.id, c.title 
+
+        if( is_string($q_ids) ){
+            $q_ids = explode(',', $q_ids);
+        }
+
+        $new_ids_arr = array();
+        if (!empty( $q_ids )) {
+            foreach ($q_ids as $key => $q_id) {
+                if( !is_null($q_id) && $q_id != "" && absint( $q_id ) > 0  ){
+                    $new_ids_arr[] = absint($q_id);
+                }
+            }
+        }
+
+        if( empty( $new_ids_arr ) ){
+            return array();
+        }
+
+        $in_values = $new_ids_arr;
+
+        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+
+        $sql = $wpdb->prepare( 
+            "SELECT DISTINCT c.id, c.title 
                 FROM {$wpdb->prefix}aysquiz_categories c
                 JOIN {$wpdb->prefix}aysquiz_questions q
                 ON c.id = q.category_id
-                WHERE q.id IN ({$q_ids})";
+                WHERE q.id IN ( $in_pholders )",
+            array( ...$in_values )
+        );
+
         $result = $wpdb->get_results( $sql, 'ARRAY_A');
         $cats = array();
         
@@ -4979,7 +5005,7 @@ class Quiz_Maker_Public
             global $wpdb;
 
             // $quiz_id = absint(intval($_REQUEST['ays_quiz_id']));
-            $questions_answers = (isset($_REQUEST["ays_questions"])) ? Quiz_Maker_Admin::recursive_sanitize_text_field( $_REQUEST['ays_questions'] ) : array();
+            $questions_answers = (isset($_REQUEST["ays_questions"])) ? Quiz_Maker_Admin::recursive_sanitize_text_field_public( $_REQUEST['ays_questions'] ) : array();
             $is_training = isset( $_REQUEST["is_training"] ) && sanitize_text_field( $_REQUEST['is_training'] ) === 'true' ? true : false;
 
             $questions_ids = preg_split('/,/', sanitize_text_field( $_REQUEST['ays_quiz_questions'] ) );
@@ -5135,7 +5161,9 @@ class Quiz_Maker_Public
 
                 foreach($questions_answers as $key => $val){
                     $question_id = explode('-', $key)[2];
-                    $quiz_questions_ids[] = strval($question_id);
+                    if( absint($question_id) > 0 ){
+                        $quiz_questions_ids[] = strval( absint($question_id) );
+                    }
                 }
 
                 $questions_categories = $this->get_questions_categories( implode( ',', $quiz_questions_ids ) );
@@ -5145,7 +5173,9 @@ class Quiz_Maker_Public
                 }
 
                 foreach($quiz_questions_ids as $key => $question_id){
-                    $questions_cats[$quests[$question_id]['category_id']][$question_id] = null;
+                    if( isset($quests[$question_id]) ){
+                        $questions_cats[$quests[$question_id]['category_id']][$question_id] = null;
+                    }
                 }
                 foreach ($questions_answers as $key => $questions_answer) {
                     $continue = false;
@@ -6902,16 +6932,43 @@ class Quiz_Maker_Public
     public static function get_questions_categories($q_ids){
         global $wpdb;
 
-        if($q_ids == ''){
+        $q_ids = isset( $q_ids ) && $q_ids != '' ? sanitize_text_field($q_ids) : '';
+
+        if($q_ids == '' || empty( $q_ids )){
             return array();
         }
-        $sql = "SELECT DISTINCT c.id, c.title
+
+        if( is_string($q_ids) ){
+            $q_ids = explode(',', $q_ids);
+        }
+
+        $new_ids_arr = array();
+        if (!empty( $q_ids )) {
+            foreach ($q_ids as $key => $q_id) {
+                if( !is_null($q_id) && $q_id != "" && absint( $q_id ) > 0  ){
+                    $new_ids_arr[] = absint($q_id);
+                }
+            }
+        }
+
+        if( empty( $new_ids_arr ) ){
+            return array();
+        }
+
+        $in_values = $new_ids_arr;
+
+        $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+
+        $sql = $wpdb->prepare( 
+            "SELECT DISTINCT c.id, c.title
                 FROM {$wpdb->prefix}aysquiz_categories c
                 JOIN {$wpdb->prefix}aysquiz_questions q
                 ON c.id = q.category_id
-                WHERE q.id IN ({$q_ids})";
+                WHERE q.id IN ( $in_pholders )",
+            array( ...$in_values )
+        );
 
-        $result = $wpdb->get_results($sql, 'ARRAY_A');
+        $result = $wpdb->get_results( $sql, 'ARRAY_A');
         $cats = array();
 
         foreach($result as $res){
@@ -6927,10 +6984,30 @@ class Quiz_Maker_Public
 
         $results = array();
         if(!empty($ids)){
-            $ids = implode(",", $ids);
-            $sql = "SELECT * FROM {$wpdb->prefix}aysquiz_questions WHERE id IN (" . $ids . ")";
 
-            $results = $wpdb->get_results($sql, "ARRAY_A");
+            $new_ids_arr = array();
+            if (!empty( $ids )) {
+                foreach ($ids as $key => $q_id) {
+                    if( !is_null($q_id) && $q_id != "" && absint( $q_id ) > 0  ){
+                        $new_ids_arr[] = absint($q_id);
+                    }
+                }
+            }
+
+            if( empty( $new_ids_arr ) ){
+                return array();
+            }
+
+            $in_values = $new_ids_arr;
+
+            $in_pholders = implode( ',', array_fill( 0, count( $in_values ), '%s' ) );
+
+            $sql = $wpdb->prepare( 
+                "SELECT * FROM {$wpdb->prefix}aysquiz_questions WHERE id IN ( $in_pholders )",
+                array( ...$in_values )
+            );
+
+            $results = $wpdb->get_results( $sql, "ARRAY_A");
 
         }
 

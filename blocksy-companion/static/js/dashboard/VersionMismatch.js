@@ -1,12 +1,13 @@
 import { createElement, render, useState } from '@wordpress/element'
 import * as check from '@wordpress/element'
 import { __ } from 'ct-i18n'
+import cls from 'classnames'
 
-const VersionMismatch = () => {
+const VersionMismatch = ({ className = '' }) => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	return (
-		<div className="ct-theme-required">
+		<div className={cls('ct-theme-required', className)}>
 			<h2>
 				<span>
 					<svg viewBox="0 0 24 24">
@@ -14,20 +15,20 @@ const VersionMismatch = () => {
 					</svg>
 				</span>
 				{__(
-					'Action Required - Blocksy Theme and Companion version mismatch',
+					'Action required - please update Blocksy theme to the latest version!',
 					'blocksy-companion'
 				)}
 			</h2>
 			<p>
 				{__(
-					'We detected that you are using an outdated version of Blocksy Theme. Please update it to the latest version.',
+					'We detected that you are using an outdated version of Blocksy theme.',
 					'blocksy-companion'
 				)}
 			</p>
 
 			<p>
 				{__(
-					'In order to take full advantage of all features it has to offer - please install and activate the latest versions of both Blocksy theme and Blocksy Companion plugin.',
+					'In order to take full advantage of all features the core has to offer - please install and activate the latest version of Blocksy theme.',
 					'blocksy-companion'
 				)}
 			</p>
@@ -37,8 +38,26 @@ const VersionMismatch = () => {
 				onClick={(e) => {
 					e.preventDefault()
 					location = ctDashboardLocalizations.run_updates
+
+					setIsLoading(true)
+
+					wp.updates.ajax('update-theme', {
+						success: (...a) => {
+							setTimeout(() => {
+								location.reload()
+							}, 1000)
+						},
+						error: (...a) => {
+							setTimeout(() => {
+								location.reload()
+							}, 1000)
+						},
+						slug: 'blocksy',
+					})
 				}}>
-				{__('Update Now', 'blocksy-companion')}
+				{isLoading
+					? __('Loading...', 'blocksy-companion')
+					: __('Update Blocksy Theme Now', 'blocksy-companion')}
 			</button>
 		</div>
 	)

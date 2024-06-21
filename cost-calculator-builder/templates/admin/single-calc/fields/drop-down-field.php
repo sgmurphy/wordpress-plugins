@@ -27,7 +27,7 @@
 				<div class="col">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Name', 'cost-calculator-builder' ); ?></span>
-						<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="dropField.label" placeholder="<?php echo esc_attr( 'Enter field name' ); ?>">
+						<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="dropField.label" placeholder="<?php esc_attr_e( 'Enter field name', 'cost-calculator-builder' ); ?>">
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 				<div class="col-12">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Description', 'cost-calculator-builder' ); ?></span>
-						<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="dropField.description" placeholder="<?php echo esc_attr( 'Enter field description' ); ?>">
+						<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="dropField.description" placeholder="<?php esc_attr_e( 'Enter field description', 'cost-calculator-builder' ); ?>">
 					</div>
 				</div>
 			</div>
@@ -68,12 +68,12 @@
 								</div>
 								<div class="ccb-option-inner">
 									<div class="ccb-input-wrapper">
-										<input type="text" class="ccb-heading-5 ccb-light" v-model="option.optionText" placeholder="<?php echo esc_attr( 'Option label' ); ?>">
+										<input type="text" class="ccb-heading-5 ccb-light" v-model="option.optionText" placeholder="<?php esc_attr_e( 'Option label', 'cost-calculator-builder' ); ?>">
 									</div>
 								</div>
 								<div class="ccb-option-inner">
 									<div class="ccb-input-wrapper">
-										<input type="text" class="ccb-heading-5 ccb-light" step="1" min="0" :name="'option_' + index" @keyup="checkRequired('errorOptionValue' + index)" v-model="option.optionValue" placeholder="<?php echo esc_attr( 'Option Value' ); ?>">
+										<input type="text" class="ccb-heading-5 ccb-light" step="1" min="0" :name="'option_' + index" @keyup="checkRequired('errorOptionValue' + index)" v-model="option.optionValue" placeholder="<?php esc_attr_e( 'Option Value', 'cost-calculator-builder' ); ?>">
 										<span @click="numberCounterActionForOption(index)" class="input-number-counter up"></span>
 										<span @click="numberCounterActionForOption(index, '-')" class="input-number-counter down"></span>
 									</div>
@@ -199,7 +199,7 @@
 				<div class="col-4">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Unit symbol', 'cost-calculator-builder' ); ?></span>
-						<input type="text" v-model="fieldCurrency.currency" placeholder="<?php esc_attr_e( 'Enter currency sign', 'cost-calculator-builder' ); ?>">
+						<input type="text" maxlength="18" v-model="fieldCurrency.currency" placeholder="<?php esc_attr_e( 'Enter currency sign', 'cost-calculator-builder' ); ?>">
 					</div>
 				</div>
 				<div class="col-4">
@@ -257,7 +257,7 @@
 				<div class="col-12">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Additional Classes', 'cost-calculator-builder' ); ?></span>
-						<textarea class="ccb-heading-5 ccb-light" v-model="dropField.additionalStyles" placeholder="<?php echo esc_attr( 'Set Additional Classes' ); ?>"></textarea>
+						<textarea class="ccb-heading-5 ccb-light" v-model="dropField.additionalStyles" placeholder="<?php esc_attr_e( 'Set Additional Classes', 'cost-calculator-builder' ); ?>"></textarea>
 					</div>
 				</div>
 			</div>

@@ -120,7 +120,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                             </div>
 
                             <div class="col-sm-12 row py-4 border-bottom hmwp_security_header" >
-                                <input type="hidden" class="form-control bg-input" name="hmwp_security_headers[]" value="" />
+                                <input type="hidden" class="form-control bg-input w-100" name="hmwp_security_headers[]" value="" />
                                 <?php
                                 $headers = (array)HMWP_Classes_Tools::getOption('hmwp_security_headers');
                                 $help =  array(
@@ -186,7 +186,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                             </div>
                                             <div class="col-sm-8 p-0">
                                                 <div class=" input-group">
-                                                    <input type="text" class="form-control bg-input" name="hmwp_security_headers[<?php echo esc_attr($name)?>]" value="<?php echo esc_attr($value) ?>" />
+                                                    <input type="text" class="form-control bg-input w-100" name="hmwp_security_headers[<?php echo esc_attr($name)?>]" value="<?php echo esc_attr($value) ?>" />
                                                     <?php if(isset($help[$name]['link'])) { ?>
                                                         <a href="<?php echo esc_url($help[$name]['link'])?>" target="_blank" class="position-absolute float-right" style="right: 7px;top: 10px;"><i class="dashicons dashicons-editor-help"></i></a>
                                                     <?php }?>

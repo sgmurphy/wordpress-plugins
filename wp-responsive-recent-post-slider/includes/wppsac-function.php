@@ -97,10 +97,10 @@ function wppsac_sanitize_html_classes($classes, $sep = " ") {
  */
 function wppsac_slider_designs() {
 	$design_arr = array(
-		'design-1'  => __( 'Design 1', 'wp-responsive-recent-post-slider' ),
-		'design-2'  => __( 'Design 2', 'wp-responsive-recent-post-slider' ),
-		'design-3'  => __( 'Design 3', 'wp-responsive-recent-post-slider' ),
-		'design-4'  => __( 'Design 4', 'wp-responsive-recent-post-slider' ),
+		'design-1'	=> __( 'Design 1', 'wp-responsive-recent-post-slider' ),
+		'design-2'	=> __( 'Design 2', 'wp-responsive-recent-post-slider' ),
+		'design-3'	=> __( 'Design 3', 'wp-responsive-recent-post-slider' ),
+		'design-4'	=> __( 'Design 4', 'wp-responsive-recent-post-slider' ),
 	);
 
 	return apply_filters( 'wppsac_slider_designs', $design_arr );

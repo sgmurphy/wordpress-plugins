@@ -319,7 +319,7 @@
                                         <input type="hidden" name="hmwp_hide_admin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_admin" name="hmwp_hide_admin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_admin"><?php echo esc_html__('Hide "wp-admin"', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from visitors.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /wp-admin path from visitors.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -329,7 +329,7 @@
                                         <input type="hidden" name="hmwp_hide_admin_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_admin_loggedusers" name="hmwp_hide_admin_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_admin_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_admin_loggedusers"><?php echo esc_html__('Hide "wp-admin" From Non-Admin Users', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-admin path from non-administrator users.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /wp-admin path from non-administrator users.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -340,7 +340,7 @@
                                         <input type="hidden" name="hmwp_hide_newadmin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_newadmin" name="hmwp_hide_newadmin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_newadmin"><?php echo esc_html__('Hide the New Admin Path', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide the new admin path from visitors. Show the new admin path only for logged users.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new admin path from visitors. Show the new admin path only for logged users.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -376,7 +376,7 @@
                                         <input type="hidden" name="hmwp_hide_wplogin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_wplogin" name="hmwp_hide_wplogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_wplogin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_wplogin"><?php echo esc_html__('Hide "wp-login.php"', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-login.php path from visitors.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /wp-login.php path from visitors.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -402,7 +402,7 @@
                                         <input type="hidden" name="hmwp_hide_newlogin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_newlogin" name="hmwp_hide_newlogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newlogin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_newlogin"><?php echo esc_html__('Hide the New Login Path', 'hide-my-wp'); ?></label>
-                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from redirects when users are not logged in.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from visitors. Show the new login path only for direct access.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -425,7 +425,7 @@
                                         <input type="hidden" name="hmwp_hide_wplogin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_wplogin" name="hmwp_hide_wplogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_wplogin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_wplogin"><?php echo esc_html__('Hide "wp-login.php"', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /wp-login.php path from visitors.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /wp-login.php path from visitors.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -436,7 +436,7 @@
                                         <input type="hidden" name="hmwp_hide_login" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_login" name="hmwp_hide_login" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_login') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_login"><?php echo esc_html__('Hide "login" Path', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Hide /login path from visitors.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide /login path from visitors.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +447,7 @@
                                         <input type="hidden" name="hmwp_hide_newlogin" value="0"/>
                                         <input type="checkbox" id="hmwp_hide_newlogin" name="hmwp_hide_newlogin" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_newlogin') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_hide_newlogin"><?php echo esc_html__('Hide the New Login Path', 'hide-my-wp'); ?></label>
-                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from redirects when users are not logged in.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the new login path from visitors. Show the new login path only for direct access.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -466,7 +466,7 @@
                                                        class="switch"<?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_language_switcher') ? 'checked="checked"' : '') ?>
                                                        value="1"/>
                                                 <label for="hmwp_disable_language_switcher"><?php echo esc_html__('Hide Language Switcher', 'hide-my-wp'); ?></label>
-                                                <div class="offset-1 text-black-50"><?php echo esc_html__("Hide the language switcher option on the login page", 'hide-my-wp'); ?></div>
+                                                <div class="text-black-50 ml-5"><?php echo esc_html__("Hide the language switcher option on the login page", 'hide-my-wp'); ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -566,7 +566,7 @@
                                         <label for="hmwp_hide_authors"><?php echo esc_html__('Hide Author ID URL', 'hide-my-wp'); ?>
                                             <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#customize_author') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                         </label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__("Don't let URLs like domain.com?author=1 show the user login name", 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__("Don't let URLs like domain.com?author=1 show the user login name", 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -598,8 +598,8 @@
                                     <label for="hmwp_hideajax_admin"><?php echo esc_html__('Hide wp-admin from Ajax URL', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#customize_ajax') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo sprintf(esc_html__('Show /%s instead of /%s', 'hide-my-wp'), HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url'), HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/' . HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url')); ?></div>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('(works only with the custom admin-ajax path to avoid infinite loops)', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo sprintf(esc_html__('Show /%s instead of /%s', 'hide-my-wp'), HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url'), HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/' . HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url')); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('(works only with the custom admin-ajax path to avoid infinite loops)', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -612,7 +612,7 @@
                                     <label for="hmwp_hideajax_paths"><?php echo esc_html__('Change Paths in Ajax Calls', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#change_paths_ajax') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('This will prevent from showing the old paths when an image or font is called through ajax', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('This will prevent from showing the old paths when an image or font is called through ajax', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -681,7 +681,7 @@
                                     <label for="hmwp_hide_oldpaths"><?php echo esc_html__('Hide WordPress Common Paths', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_common_paths') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Hide the old /wp-content, /wp-include paths once they are changed with the new ones', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Hide the old /wp-content, /wp-include paths once they are changed with the new ones', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -697,7 +697,7 @@
                                     <label for="hmwp_hide_commonfiles"><?php echo esc_html__('Hide WordPress Common Files', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_common_files') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Hide wp-config.php , wp-config-sample.php, readme.html, license.txt, upgrade.php and install.php files', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Hide wp-config.php , wp-config-sample.php, readme.html, license.txt, upgrade.php and install.php files', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -716,8 +716,8 @@
                                         <label for="hmwp_disable_browsing"><?php echo esc_html__('Disable Directory Browsing', 'hide-my-wp'); ?>
                                             <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#disable_browsing') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                         </label>
-                                        <div class="offset-1 text-black-50"><?php echo sprintf(esc_html__("Don't let hackers see any directory content. See %sUploads Directory%s", 'hide-my-wp'), '<a href="' . $uploads['baseurl'] . '" target="_blank">', '</a>'); ?></div>
-                                        <div class="offset-1 text-danger my-2"><?php echo sprintf(esc_html__("Normally, the option to block visitors from browsing server directories is activated by the host through server configuration, and activating it twice in the config file may cause errors, so it's best to first check if the %sUploads Directory%s is visible.", 'hide-my-wp'), '<a href="' . $uploads['baseurl'] . '" target="_blank">', '</a>'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo sprintf(esc_html__("Don't let hackers see any directory content. See %sUploads Directory%s", 'hide-my-wp'), '<a href="' . $uploads['baseurl'] . '" target="_blank">', '</a>'); ?></div>
+                                        <div class="text-danger my-2 ml-5"><?php echo sprintf(esc_html__("Normally, the option to block visitors from browsing server directories is activated by the host through server configuration, and activating it twice in the config file may cause errors, so it's best to first check if the %sUploads Directory%s is visible.", 'hide-my-wp'), '<a href="' . $uploads['baseurl'] . '" target="_blank">', '</a>'); ?></div>
                                    </div>
                                 </div>
                             </div>
@@ -749,7 +749,7 @@
                                     <label for="hmwp_hide_plugins"><?php echo esc_html__('Hide Plugin Names', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#customize_plugins') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Give random names to each plugin', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Give random names to each plugin', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -759,7 +759,7 @@
                                     <input type="hidden" name="hmwp_hide_all_plugins" value="0"/>
                                     <input type="checkbox" id="hmwp_hide_all_plugins" name="hmwp_hide_all_plugins" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_all_plugins') ? 'checked="checked"' : '') ?> value="1"/>
                                     <label for="hmwp_hide_all_plugins"><?php echo esc_html__('Hide All The Plugins', 'hide-my-wp'); ?></label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Hide both active and deactivated plugins', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Hide both active and deactivated plugins', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -774,7 +774,7 @@
                                     <label for="hmwp_hide_oldpaths_plugins"><?php echo esc_html__('Hide WordPress Old Plugins Path', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_old_plugin_path') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Hide the old /wp-content/plugins path once it's changed with the new one", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Hide the old /wp-content/plugins path once it's changed with the new one", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -792,7 +792,7 @@
                                             <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#plugins_advanced_options') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                             <span class="text-black-50 small">(<?php echo esc_html__("not recommended", 'hide-my-wp'); ?>)</span> </label>
                                         </label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__("Manually customize each plugin name and overwrite the random name", 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__("Manually customize each plugin name and overwrite the random name", 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -824,7 +824,7 @@
                                     <label for="hmwp_hide_themes"><?php echo esc_html__('Hide Theme Names', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#customize_themes') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Give random names to each theme (works in WP multisite)', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Give random names to each theme (works in WP multisite)', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -840,7 +840,7 @@
                                     <label for="hmwp_hide_oldpaths_themes"><?php echo esc_html__('Hide WordPress Old Themes Path', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_old_theme_path') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Hide the old /wp-content/themes path once it's changed with the new one", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Hide the old /wp-content/themes path once it's changed with the new one", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -872,7 +872,7 @@
                                             <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#themes_advanced_options') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                             <span class="text-black-50 small">(<?php echo esc_html__("not recommended", 'hide-my-wp'); ?>)</span> </label>
                                         </label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__("Manually customize each theme name and overwrite the random name", 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__("Manually customize each theme name and overwrite the random name", 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -907,7 +907,7 @@
                                     <label for="hmwp_hide_rest_api"><?php echo esc_html__('Hide REST API URL link', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_rest_api') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Hide wp-json & ?rest_route link tag from website header", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Hide wp-json & ?rest_route link tag from website header", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -921,8 +921,8 @@
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_rest_api') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                         <span class="text-black-50 small">(<?php echo esc_html__("not recommended", 'hide-my-wp'); ?>)</span> </label>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Disable REST API access for not logged in users", 'hide-my-wp'); ?></div>
-                                    <div class="offset-1 text-danger my-2"><?php echo esc_html__("The REST API is crucial for many plugins as it allows them to interact with the WordPress database and perform various actions programmatically.", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Disable REST API access for not logged in users", 'hide-my-wp'); ?></div>
+                                    <div class="text-danger my-2 ml-5"><?php echo esc_html__("The REST API is crucial for many plugins as it allows them to interact with the WordPress database and perform various actions programmatically.", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -935,7 +935,7 @@
                                     <label for="hmwp_disable_rest_api_param"><?php echo esc_html__('Disable "rest_route" param access', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_rest_api') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a></label>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Disable REST API access using the parameter 'rest_route'", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Disable REST API access using the parameter 'rest_route'", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -948,8 +948,8 @@
                                     <label for="hmwp_disable_xmlrpc"><?php echo esc_html__('Disable XML-RPC access', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#disable_xml_rpc_access') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo sprintf(esc_html__("Disable the access to /xmlrpc.php to prevent %sBrute force attacks via XML-RPC%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/should-you-disable-xml-rpc-on-wordpress/" target="_blank">', '</a>'); ?></div>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Remove pingback link tag from the website header.", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo sprintf(esc_html__("Disable the access to /xmlrpc.php to prevent %sBrute force attacks via XML-RPC%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/should-you-disable-xml-rpc-on-wordpress/" target="_blank">', '</a>'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Remove pingback link tag from the website header.", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -962,7 +962,7 @@
                                     <label for="hmwp_hide_rsd"><?php echo esc_html__('Disable RSD Endpoint from XML-RPC', 'hide-my-wp'); ?>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/customize-paths-in-hide-my-wp-ghost/#hide_rsd') ?>" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                     </label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__("Disable the RSD (Really Simple Discovery) support for XML-RPC & remove RSD tag from header", 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__("Disable the RSD (Really Simple Discovery) support for XML-RPC & remove RSD tag from header", 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>

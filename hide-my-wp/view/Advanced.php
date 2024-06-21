@@ -38,7 +38,7 @@
                                             <a href="https://hidemywpghost.com/kb/advanced-wp-security/#prevent_slow_loading" target="_blank" class="d-inline ml-1"><i class="dashicons dashicons-editor-help d-inline"></i></a>
                                             <span class="text-black-50 small">(<?php echo esc_html__("recommended", 'hide-my-wp'); ?>)</span> </label>
                                         </label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__("If the rewrite rules are not loading correctly in the config file, do not load the plugin and do not change the paths.", 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__("If the rewrite rules are not loading correctly in the config file, do not load the plugin and do not change the paths.", 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -111,8 +111,8 @@
                                         <input type="checkbox" id="hmwp_remove_third_hooks" name="hmwp_remove_third_hooks" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_remove_third_hooks') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_remove_third_hooks"><?php echo esc_html__('Clean Login Page', 'hide-my-wp'); ?></label>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#clean_login_page') ?>" target="_blank" class="d-inline-block ml-2"><i class="dashicons dashicons-editor-help d-inline"></i></a>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Cancel the login hooks from other plugins and themes to prevent unwanted login redirects.', 'hide-my-wp'); ?></div>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('(useful when the theme is adding wrong admin redirects or infinite redirects)', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Cancel the login hooks from other plugins and themes to prevent unwanted login redirects.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('(useful when the theme is adding wrong admin redirects or infinite redirects)', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -124,8 +124,8 @@
                                             <input type="hidden" name="hmwp_rewrites_in_wp_rules" value="0"/>
                                             <input type="checkbox" id="hmwp_rewrites_in_wp_rules" name="hmwp_rewrites_in_wp_rules" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_rewrites_in_wp_rules') ? 'checked="checked"' : '') ?> value="1"/>
                                             <label for="hmwp_rewrites_in_wp_rules"><?php echo esc_html__('Add Rewrites in WordPress Rules Section', 'hide-my-wp'); ?> <span class="text-black-50 small">(<?php echo esc_html__("recommended", 'hide-my-wp'); ?>)</span> </label></label>
-                                            <div class="offset-1 text-black-50"><?php echo esc_html__("This option will add rewrite rules to the .htaccess file in the WordPress rewrite rules area between the comments # BEGIN WordPress and # END WordPress.", 'hide-my-wp'); ?></div>
-                                            <div class="offset-1 text-black-50 mt-2"><?php echo esc_html__("Some plugins may remove custom rewrite rules from the .htaccess file, especially if it's writable, which can affect the functionality of custom paths..", 'hide-my-wp'); ?></div>
+                                            <div class="text-black-50 ml-5"><?php echo esc_html__("This option will add rewrite rules to the .htaccess file in the WordPress rewrite rules area between the comments # BEGIN WordPress and # END WordPress.", 'hide-my-wp'); ?></div>
+                                            <div class="text-black-50 ml-5 mt-2"><?php echo esc_html__("Some plugins may remove custom rewrite rules from the .htaccess file, especially if it's writable, which can affect the functionality of custom paths..", 'hide-my-wp'); ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                         <input type="checkbox" id="hmwp_send_email" name="hmwp_send_email" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_send_email') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_send_email"><?php echo esc_html__('Email Notification', 'hide-my-wp'); ?></label>
                                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#email_notification') ?>" target="_blank" class="d-inline-block ml-2"><i class="dashicons dashicons-editor-help d-inline"></i></a>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Send me an email with the changed admin and login URLs', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Send me an email with the changed admin and login URLs', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>

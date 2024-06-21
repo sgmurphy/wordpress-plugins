@@ -12,7 +12,7 @@ require_once( __DIR__ . '/Cmn/Db.php' );
 require_once( __DIR__ . '/Cmn/Img.php' );
 require_once( __DIR__ . '/Cmn/Plugin.php' );
 
-const PLUGIN_SETT_VER								= 132;
+const PLUGIN_SETT_VER								= 133;
 const PLUGIN_DATA_VER								= 1;
 const PLUGIN_EULA_VER								= 1;
 const QUEUE_DB_VER									= 4;
@@ -755,6 +755,23 @@ function OnOptRead_Sett( $sett, $verFrom )
 		Gen::SetArrField( $sett, array( 'cache', 'cntLen' ), true );
 	}
 
+	if( $verFrom && $verFrom < 133 )
+	{
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'jqSldNivo' ), false );
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'upbCntVid' ), false );
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'wooPrcFlt' ), false );
+
+		{
+			$contCss = Gen::GetArrField( $sett, array( 'contPr', 'css', 'custom', 'n2-ss-slider', 'data' ) );
+			if( is_string( $contCss ) )
+			{
+				$contCss = str_replace( '[data-slide-public-id="1"]', '[data-slide-public-id][data-lzl-first="1"]', $contCss );
+				$contCss = str_replace( '[data-public-id="1"]', '[data-public-id][data-lzl-first="1"]', $contCss );
+				Gen::SetArrField( $sett, array( 'contPr', 'css', 'custom', 'n2-ss-slider', 'data' ), $contCss );
+			}
+		}
+	}
+
 	return( $sett );
 }
 
@@ -1330,8 +1347,8 @@ function OnOptGetDef_Sett()
 				'elmntrWdgtCntr' => true,
 				'elmntrWdgtAvoShcs' => true,
 				'elmntrWdgtLott' => true,
-				'elmntrStck' => true,
-				'elmntrShe' => true,
+				'elmntrStck' => false,
+				'elmntrShe' => false,
 				'elmntrStrtch' => true,
 				'xooelTabs' => true,
 				'phtncThmb' => true,
@@ -1355,6 +1372,7 @@ function OnOptGetDef_Sett()
 				'scrlSeq' => true,
 				'mkImgSrcSet' => true,
 				'woodmartPrcFlt' => true,
+				'wooPrcFlt' => true,
 				'wbwPrdFlt' => true,
 				'wooJs' => true,
 				'wpStrs' => true,
@@ -1365,6 +1383,7 @@ function OnOptGetDef_Sett()
 				'suTabs' => true,
 				'upbAni' => true,
 				'upbBgImg' => true,
+				'upbCntVid' => true,
 				'ultRspnsv' => true,
 				'ultVcHd' => true,
 				'ultAni' => true,
@@ -1379,6 +1398,7 @@ function OnOptGetDef_Sett()
 				'mnmgImg' => true,
 				'tldBgImg' => true,
 				'jqVide' => true,
+				'jqSldNivo' => true,
 				'wooSctrCntDwnTmr' => true,
 				'lottGen' => true,
 				'sprflMenu' => true,
@@ -1582,13 +1602,15 @@ function OnOptGetDef_Sett()
 					'jet-testimonials'		=> array( 'enable' => true,	'descr' => 'Jet Testimonials',	'data' => ".jet-testimonials__instance:not(.slick-initialized) .jet-testimonials__item {\r\n\tmax-width: 100%;\r\n}\r\n\r\n.jet-testimonials__instance:not(.slick-initialized) .jet-testimonials__item:nth-child(n+4) {\r\n\tdisplay: none !important;\r\n}" ),
 					'xo-slider'		=> array( 'enable' => true,		'descr' => 'XO Slider',					'data' => ".xo-slider .slide-content {\n\tdisplay: unset!important;\n}" ),
 
+					'jqSldNivo'	=> array( 'enable' => true,		'descr' => 'Nivo Slider for jQuery',	'data' => "body:is(.seraph-accel-js-lzl-ing, .seraph-accel-js-lzl-ing-ani) .nivo-caption {\r\n\topacity: 1 !important;\r\n}\r\n\r\n.nivo-caption {\r\n\tdisplay: none;\r\n}" ),
+
 					'owl-carousel'	=> array( 'enable' => true,		'descr' => 'OWL Carousel',				'data' => ".owl-carousel:not(.wd-owl):not(.owl-loaded) {\r\n\tdisplay: block !important;\r\n\tvisibility: visible !important;\r\n}\r\n\r\n.owl-carousel:not(.wd-owl):not(.owl-loaded) > *:not(:first-child) {\r\n\tdisplay: none;\r\n}\r\n\r\n.owl-carousel:not(.wd-owl) .container.full-screen {\r\n\theight: 100vh;\r\n}" ),
 
 					'ult-carousel'	=> array( 'enable' => true,		'descr' => 'Ultimate Carousel',			'data' => ".seraph-accel-js-lzl-ing .ult-carousel-wrapper {\n\tvisibility:initial!important;\n}\n\n.seraph-accel-js-lzl-ing .ult-carousel-wrapper .ult-item-wrap:not(:first-child) {\n\tdisplay:none;\n}" ),
 
 					'bdt-slideshow'	=> array( 'enable' => true,		'descr' => 'Airtech Plumber Slider',	'data' => ".seraph-accel-js-lzl-ing .bdt-prime-slider-previous, .seraph-accel-js-lzl-ing .bdt-prime-slider-next {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.seraph-accel-js-lzl-ing .bdt-post-slider-item:first-child {\r\n\tdisplay: unset !important;\r\n}" ),
 
-					'n2-ss-slider'	=> array( 'enable' => true,		'descr' => 'Smart Slider',				'data' => "ss3-force-full-width, ss3-fullpage {\r\n\ttransform: none !important;\r\n\topacity: 1 !important;\r\n\twidth: var(--seraph-accel-client-width) !important;\r\n\tmargin-left: calc((100% - var(--seraph-accel-client-width)) / 2);\r\n}\r\n\r\nss3-fullpage {\r\n\theight: 100vh !important;\r\n}\r\n\r\nbody.seraph-accel-js-lzl-ing .n2-ss-align {\r\n\toverflow: visible !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide-backgrounds [data-public-id=\"1\"],\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) [data-slide-public-id=\"1\"] {\r\n\ttransform: translate3d(0px, 0px, 0px) !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide:not([data-slide-public-id=\"1\"]),\r\n.n2-ss-slider:not(.n2-ss-loaded) .n2-ss-layer.js-lzl-n-ing,\r\n.n2-ss-slider:not(.n2-ss-loaded):not([style*=ss-responsive-scale]) [data-responsiveposition],\r\n.n2-ss-slider:not(.n2-ss-loaded):not([style*=ss-responsive-scale]) [data-responsivesize],\r\n.n2-ss-slider.n2-ss-loaded .n2-ss-layer.js-lzl-ing {\r\n\tvisibility: hidden !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) [data-slide-public-id=\"1\"] .n2-ss-layers-container,\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide-backgrounds [data-public-id=\"1\"],\r\n.n2-ss-slider:not(.n2-ss-loaded) .n2-ss-slider-controls-advanced {\r\n\topacity: 1 !important;\r\n}\r\n\r\n.n2-ss-slider[data-ss-carousel]:not(.n2-ss-loaded) .n2-ss-layers-container {\r\n\topacity: 1 !important;\r\n\tvisibility: visible !important;\r\n}\r\n\r\n.n2-ss-slider-pane {\r\n\topacity: 1 !important;\r\n\tanimation-name: none !important;\r\n\t--self-side-margin: auto !important;\r\n\t--slide-width: 100% !important;\r\n}\r\n\r\n/*.n2-ss-showcase-slides:not(.n2-ss-showcase-slides--ready) {\r\n\topacity: 1 !important;\r\n\ttransform: none !important;\r\n}*/" ),
+					'n2-ss-slider'	=> array( 'enable' => true,		'descr' => 'Smart Slider',				'data' => "ss3-force-full-width, ss3-fullpage {\r\n\ttransform: none !important;\r\n\topacity: 1 !important;\r\n\twidth: var(--seraph-accel-client-width) !important;\r\n\tmargin-left: calc((100% - var(--seraph-accel-client-width)) / 2);\r\n}\r\n\r\nss3-fullpage {\r\n\theight: 100vh !important;\r\n}\r\n\r\nbody.seraph-accel-js-lzl-ing .n2-ss-align {\r\n\toverflow: visible !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide-backgrounds [data-public-id][data-lzl-first=\"1\"],\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) [data-slide-public-id][data-lzl-first=\"1\"] {\r\n\ttransform: translate3d(0px, 0px, 0px) !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide:not([data-slide-public-id][data-lzl-first=\"1\"]),\r\n.n2-ss-slider:not(.n2-ss-loaded) .n2-ss-layer.js-lzl-n-ing,\r\n.n2-ss-slider:not(.n2-ss-loaded):not([style*=ss-responsive-scale]) [data-responsiveposition],\r\n.n2-ss-slider:not(.n2-ss-loaded):not([style*=ss-responsive-scale]) [data-responsivesize],\r\n.n2-ss-slider.n2-ss-loaded .n2-ss-layer.js-lzl-ing {\r\n\tvisibility: hidden !important;\r\n}\r\n\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) [data-slide-public-id][data-lzl-first=\"1\"] .n2-ss-layers-container,\r\n.n2-ss-slider:not(.n2-ss-loaded):not([data-ss-carousel]) .n2-ss-slide-backgrounds [data-public-id][data-lzl-first=\"1\"],\r\n.n2-ss-slider:not(.n2-ss-loaded) .n2-ss-slider-controls-advanced {\r\n\topacity: 1 !important;\r\n}\r\n\r\n.n2-ss-slider[data-ss-carousel]:not(.n2-ss-loaded) .n2-ss-layers-container {\r\n\topacity: 1 !important;\r\n\tvisibility: visible !important;\r\n}\r\n\r\n.n2-ss-slider-pane {\r\n\topacity: 1 !important;\r\n\tanimation-name: none !important;\r\n\t--self-side-margin: auto !important;\r\n\t--slide-width: 100% !important;\r\n}\r\n\r\n/*.n2-ss-showcase-slides:not(.n2-ss-showcase-slides--ready) {\r\n\topacity: 1 !important;\r\n\ttransform: none !important;\r\n}*/" ),
 
 					'wp-block-ultimate-post-slider'	=> array( 'enable' => true,		'descr' => 'Block Ultimate Post Slider',	'data' => "[class*=wp-block-ultimate-post-post-slider] .ultp-block-items-wrap:not(.slick-initialized) > .ultp-block-item:not(:first-child)\n{\n\tdisplay: none!important;\n}" ),
 
@@ -3070,7 +3092,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.11 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.12 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -4122,7 +4144,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.11';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.12';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

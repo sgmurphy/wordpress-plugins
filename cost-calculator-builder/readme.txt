@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.4
-Stable tag: 3.2.10
+Stable tag: 3.2.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,15 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.11 =
+- Enhancement: Separation of thousands is added to elements when the Add a measuring unit setting is enabled.
+- Enhancement: In Orders, all Formula elements are displayed regardless of selection in Payment Gateways and individual Formula elements with counts are highlighted (Pro).
+- Enhancement: Formula elements are displayed on WooCommerce Cart and Checkout pages (Pro).
+- Enhancement: In Email, all Formula elements are displayed regardless of their selection in Payment Gateways and separate Formula with counting are highlighted (Pro).
+- Fix: When activating the plugin, an error is output due to plugins with the same svgSanitizer library.
+- Fix: Calculations are not made because of totals with the largest ID.
+- Fix: Placeholders in Dropdown and Categories in Templates are not translated.
 
 = 3.2.10 =
 - Fix: HTML code from Sticky Calculator is loaded on pages without it.

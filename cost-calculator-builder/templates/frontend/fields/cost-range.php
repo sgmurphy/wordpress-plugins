@@ -6,7 +6,7 @@
 
 	$lang = get_bloginfo( 'language' );
 ?>
-<div :style="additionalCss" class="calc-item ccb-field" :class="{rtl: rtlClass('<?php echo esc_attr( $lang ); ?>'), required: $store.getters.isUnused(rangeField), [rangeField.additionalStyles]: rangeField.additionalStyles}" :data-id="rangeField.alias" >
+<div :style="additionalCss" class="calc-item ccb-field" :class="{rtl: rtlClass('<?php echo esc_attr( $lang ); ?>'), required: requiredActive, [rangeField.additionalStyles]: rangeField.additionalStyles}" :data-id="rangeField.alias" :data-repeater="repeater">
 	<div class="calc-range" :class="['calc_' + rangeField.alias]">
 		<div class="calc-item__title ccb-range-field">
 			<span>
@@ -14,7 +14,7 @@
 				<span class="ccb-required-mark" v-if="rangeField.required">*</span>
 				<span v-if="rangeField.required" class="calc-required-field">
 					<div class="ccb-field-required-tooltip">
-						<span class="ccb-field-required-tooltip-text" :class="{active: $store.getters.isUnused(rangeField)}" style="display: none;">
+						<span class="ccb-field-required-tooltip-text" :class="{active: requiredActive}" style="display: none;">
 							{{ $store.getters.getSettings.texts.required_msg }}
 						</span>
 					</div>
@@ -34,8 +34,8 @@
 		</div>
 
 		<div class="calc-range-slider-min-max">
-			<span>{{ min }}</span>
-			<span>{{ max }}</span>
+			<span>{{ minText }}</span>
+			<span>{{ maxText }}</span>
 		</div>
 
 		<div class="calc-item__description after" >

@@ -379,13 +379,14 @@ class Stla_Admin_Fetch_Content_Area {
 		$form           = GFAPI::get_form( $form_id );
 		$field_labels   = array();
 		$complex_fields = array( 'name', 'address', 'email' );
-		
-		$form_fields    = $form['fields'];
+
+		$form_fields = $form['fields'];
 		foreach ( $form_fields as $field ) {
 
 			$field_labels[] = array(
 				'id'    => $field->id,
 				'label' => $field->label,
+				'type'  => $field->type,
 			);
 
 			if ( in_array( $field->type, $complex_fields ) ) {
@@ -423,6 +424,7 @@ class Stla_Admin_Fetch_Content_Area {
 							$field_labels[] = array(
 								'id'    => $sub_field_id,
 								'label' => $sub_field['label'],
+								'type'  => $field->type,
 							);
 
 						}

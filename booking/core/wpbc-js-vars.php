@@ -75,6 +75,9 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 		$script .= "_wpbc.set_other_param( 'is_enabled_booking_search_results_days_select', '" . esc_js( get_bk_option( 'booking_search_results_days_select' ) ) . "' ); ";
 	}
 
+	$script .= "_wpbc.set_other_param( 'update', '" . WP_BK_VERSION_NUM . "' ); ";
+	$script .= "_wpbc.set_other_param( 'version', '" . wpbc_get_version_type__and_mu() . "' ); ";
+
 	// Warning Messages
 	$script .= "_wpbc.set_message( 'message_dates_times_unavailable', "        . wp_json_encode( __( 'These dates and times in this calendar are already booked or unavailable.', 'booking' ) ) . " ); ";
 	$script .= "_wpbc.set_message( 'message_choose_alternative_dates', "       . wp_json_encode( __( 'Please choose alternative date(s), times, or adjust the number of slots booked.', 'booking' ) ) . " ); ";
@@ -98,7 +101,7 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 	$script_before = 'var wpbc_url_ajax =' . wp_json_encode( admin_url( 'admin-ajax.php' ) ) . ';';
 	wp_add_inline_script( 'wpbc_all', $script_before, 'before' );
 
-	$script .= "console.log( '== WPBC VARS LOADED ==' );";
+	$script .= "console.log( '== WPBC VARS " . WP_BK_VERSION_NUM . ' ['.wpbc_get_version_type__and_mu() .  "] LOADED ==' );";
 	wp_add_inline_script( 'wpbc_all', $script );
 }
 add_action( 'wpbc_enqueue_js_files', 'wpbc_localize_js_vars', 51 );     // Need to  set  here 51,  because some JS has 50 priority,  for example at  WP Booking Calendar > Availability > Days Availability page       -> This hook fired after ENQUEUE of WPBC JS     -   wp_enqueue_script

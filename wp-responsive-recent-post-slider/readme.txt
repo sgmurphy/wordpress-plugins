@@ -1,9 +1,9 @@
 ﻿=== WP Responsive Recent Post Slider/Carousel ===
-Contributors: wponlinesupport, anoopranawat, pratik-jain, piyushpatel123, ridhimashukla, patelketan, mehulwpos, jahnavwponlinesupport
+Contributors: wponlinesupport, anoopranawat, pratik-jain, patelketan, piyushpatel123
 Tags: post slider, posts slider, recent post slider, recent posts slider, slider, responsive post slider, responsive posts slider, responsive recent post slider, responsive recent posts slider, WordPress posts slider, post slideshow, posts slideshow, recent posts slideshow, shortcodes, wponlinesupport
 Requires at least: 4.0
-Tested up to: 6.5.3
-Stable tag: 3.5.1
+Tested up to: 6.5.4
+Stable tag: 3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,10 @@ Where designs are : design-1, design-2, design-3, design-4. You can use same par
 8. Gutenberg Block Support
 
 == Changelog ==  
+
+= 3.6 (21 June 2024) =
+* [*] Check compatibility with WordPress version 6.5.4
+* [*] Update - Create Gutenberg blocks with block.JSON metadata.
 
 = 3.5.1 (12, Jun 2024) =
 * [*] PHP Warning Undefined array key "anylc_nonce" variable issue solved.

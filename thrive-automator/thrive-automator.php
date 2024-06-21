@@ -1,11 +1,12 @@
 <?php
-/*
-Plugin Name: Thrive Automator
-Plugin URI: https://thrivethemes.com
-Version: 1.20
-Author: <a href="https://thrivethemes.com">Thrive Themes</a>
-Author URI: https://thrivethemes.com
-Description: Create smart automations that integrate your website with your favourite apps and plugins
+/**
+ * Plugin Name: Thrive Automator
+ * Plugin URI: https://thrivethemes.com
+ * Version: 1.21.1
+ * Author: <a href="https://thrivethemes.com">Thrive Themes</a>
+ * Author URI: https://thrivethemes.com
+ * Description: Create smart automations that integrate your website with your favourite apps and plugins.
+ * Requires PHP: 7.4
 */
 
 use Thrive\Automator\Admin;
@@ -43,7 +44,7 @@ function thrive_automator_requirements() {
 		$error_message = __( 'Thrive Automator requires PHP version 7 or higher in order to work.', TAP_DOMAIN );
 	} elseif ( ! version_compare( get_bloginfo( 'version' ), TAP_REQUIRED_WP_VERSION, '>=' ) ) {
 		$ok            = false;
-		$error_message = __( 'Thrive Automator requires WordPress version ' . TAP_REQUIRED_WP_VERSION . ' in order to work. Please update your Wordpress version.', TAP_DOMAIN );
+		$error_message = __( 'Thrive Automator requires WordPress version ' . TAP_REQUIRED_WP_VERSION . ' in order to work. Please update your WordPress version.', TAP_DOMAIN );
 	}
 
 	if ( ! $ok ) {

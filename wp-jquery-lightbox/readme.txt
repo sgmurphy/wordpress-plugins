@@ -3,7 +3,7 @@ Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
 Tested up to: 6.5.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -113,6 +113,11 @@ Lastly:
 Still have problems? Post a link and describe what issue you're having, and tell us what of these steps you've already tried.
 
 == Changelog ==
+
+= 2.2.0 (2024-06-20) =
+* Add review requests
+* Add option to disable core lightbox
+* Change how plugin is instantiated
 
 = 2.1.0 (2024-06-19) =
 * Major file reorganization

@@ -1486,6 +1486,31 @@ class Quiz_Maker_Admin
 
         return $array;
     }
+
+    /**
+     * Public Recursive sanitation for an array
+     * 
+     * @param $array
+     *
+     * @return mixed
+     */
+    public static function recursive_sanitize_text_field_public($array) {
+        foreach ( $array as $key => &$value ) {
+            if ( is_array( $value ) ) {
+                $value = self::recursive_sanitize_text_field_public($value);
+            } else {
+                if( strpos($key, "ays-question") !== false  ){
+                    $value = sanitize_text_field( $value );
+                } else {
+                    if( isset($array[$key]) ){
+                        unset($array[$key]);
+                    }
+                }
+            }
+        }
+
+        return $array;
+    }
     
     public static function get_max_id($table) {
         global $wpdb;

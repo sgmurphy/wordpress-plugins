@@ -315,8 +315,9 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 				?>
 				<div class="clear" style="margin-bottom:10px;"></div>
 				<div class="metabox-holder"><?php
-
+//FixIn: 10.1.2.2		<div class="metabox-holder" style="display: flex;flex-flow: row wrap;justify-content: space-between;align-items: flex-start;">
 						$this->show_booking_form_fields_table( $booking_form_structure );
+						// $this->show_booking_form_fields_table( $booking_form_structure );	 //FixIn: 10.1.2.2
 
 						?><div class="clear" style="height:10px;"></div><?php
 
@@ -1803,7 +1804,7 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
         $booking_form_structure = maybe_unserialize( $booking_form_structure );  
 //debuge($booking_form_structure);     
         $skip_obligatory_field_types = array( 'calendar', 'submit', 'captcha' );
-        ?><table class="widefat wpbc_input_table sortable wpdevelop wpbc_table_form_free" cellspacing="0" cellpadding="0">
+        ?><table class="widefat wpbc_input_table sortable wpdevelop wpbc_table_form_free" cellspacing="0" cellpadding="0"> <?php //FixIn: 10.1.2.2 style="flex:0 1 49.9%;"> ?>
             <thead>
                 <tr>
                     <th class="sort"><span class="wpbc_icn_swap_vert" aria-hidden="true"></span></th>
@@ -2089,6 +2090,8 @@ $row .= $elemnt;
 						items:'tr',
 						cursor:'move',
 						axis:'y',
+	// connectWith: ".wpbc_table_form_free tbody",					////FixIn: 10.1.2.2
+	// //axis:'y',
 						scrollSensitivity:40,
 						forcePlaceholderSize: true,
 						helper: 'clone',

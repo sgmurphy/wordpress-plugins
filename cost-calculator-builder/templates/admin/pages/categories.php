@@ -82,13 +82,13 @@ wp_localize_script(
 										<div class="col-6">
 											<div class="ccb-input-wrapper">
 												<span class="ccb-input-label"><?php esc_html_e( 'Title', 'cost-calculator-builder' ); ?></span>
-												<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="currentCategory.title" placeholder="<?php echo esc_attr( 'Enter category title' ); ?>">
+												<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="currentCategory.title" placeholder="<?php esc_attr_e( 'Enter category title', 'cost-calculator-builder' ); ?>">
 											</div>
 										</div>
 										<div class="col-6">
 											<div class="ccb-input-wrapper" :class="{disabled: disableSlug}">
 												<span class="ccb-input-label"><?php esc_html_e( 'Slug', 'cost-calculator-builder' ); ?></span>
-												<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="currentCategory.slug" placeholder="<?php echo esc_attr( 'Enter Category slug' ); ?>">
+												<input type="text" class="ccb-heading-5 ccb-light" v-model.trim="currentCategory.slug" placeholder="<?php esc_attr_e( 'Enter Category slug', 'cost-calculator-builder' ); ?>">
 											</div>
 										</div>
 									</div>

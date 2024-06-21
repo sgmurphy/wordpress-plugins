@@ -1,4 +1,4 @@
-<div :style="additionalCss" class="calc-item ccb-field" :class="{required: $store.getters.isUnused(dropDownField), [dropDownField.additionalStyles]: dropDownField.additionalStyles}" :data-id="dropDownField.alias">
+<div :style="additionalCss" class="calc-item ccb-field" :class="{required: requiredActive, [dropDownField.additionalStyles]: dropDownField.additionalStyles}" :data-id="dropDownField.alias" :data-repeater="repeater">
 	<div class="calc-item__title">
 		<span>{{ dropDownField.label }}</span>
 		<span class="ccb-required-mark" v-if="dropDownField.required">*</span>
@@ -19,7 +19,7 @@
 						{{ getLabel ? getLabel : '<?php esc_html_e( 'Select value', 'cost-calculator-builder' ); ?>' }}
 					</span>
 					<i :class="['ccb-icon-Path-3485 ccb-select-arrow calc-dd-toggle', {'ccb-arrow-down': !openList}]"></i>
-					<span v-if="dropDownField.required" :class="{active: $store.getters.isUnused(dropDownField)}" class="ccb-error-tip front default">
+					<span v-if="dropDownField.required" :class="{active: requiredActive}" class="ccb-error-tip front default">
 						{{ $store.getters.getSettings.texts.required_msg }}
 					</span>
 				</span>

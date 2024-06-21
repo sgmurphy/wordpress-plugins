@@ -7,6 +7,7 @@ namespace enshrined\svgSanitize\data;
  *
  * @package enshrined\svgSanitize\data
  */
+if(!class_exists('enshrined\svgSanitize\data\AllowedTAgs')){
 class AllowedTags implements TagInterface
 {
 
@@ -97,4 +98,5 @@ class AllowedTags implements TagInterface
             '#text'
         );
     }
+}
 }

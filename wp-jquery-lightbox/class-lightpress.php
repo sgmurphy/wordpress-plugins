@@ -74,7 +74,6 @@ class LightPress {
 	 * Initializes the LightPress and sets up hooks and filters.
 	 */
 	public function __construct() {
-		// Frontend & Admin.
 		self::$active_lightbox = get_option( 'lightpress_active_lightbox', 'wp-jquery-lightbox' );
 		load_plugin_textdomain( 'wp-jquery-lightbox', false, LIGHTPRESS_PLUGIN_DIR . 'languages/' );
 		add_action( 'wp_loaded', array( $this, 'jqlb_save_date' ) );
@@ -85,6 +84,8 @@ class LightPress {
 			add_filter( 'plugin_row_meta', array( $this, 'set_plugin_meta' ), 2, 10 );
 			add_action( 'admin_init', array( $this, 'add_plugin_settings' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+			add_action( 'admin_notices', array( $this, 'show_review_request' ) );
+			add_action( 'wp_ajax_lightpress-review-action', array( $this, 'process_lightpress_review_action' ) );
 		}
 
 		// Include WP JQuery Lightbox.
@@ -107,7 +108,7 @@ class LightPress {
 			'dashicons-format-image',
 			85
 		);
-		if ( self::$show_pro_screen && ! class_exists( 'LightPressPro' ) ) {
+		if ( self::$show_pro_screen && ! class_exists( 'LightPress_Pro' ) ) {
 			add_submenu_page(
 				'lightpress-settings',
 				'LightPress Settings',
@@ -167,7 +168,7 @@ class LightPress {
 				<span style="font-weight:bold;"><?php esc_html_e( 'Big news!', 'wp-jquery-lightbox' ); ?></span>
 				<?php
 				/* translators: %1$s is replaced with a link, ie <a> tag */
-				printf( esc_html__( 'The WP JQuery Lightbox is now the LightPress Lightbox. Settings are now %1$s.', 'wp-jquery-lightbox' ), '<strong><a href="' . esc_url( admin_url( 'admin.php?page=lightpress-settings' ) ) . '">' . esc_html__( 'here', 'easy-fancybox' ) . '</a></strong>' );
+				printf( esc_html__( 'The WP JQuery Lightbox is now the LightPress Lightbox. Settings are now %1$s.', 'wp-jquery-lightbox' ), '<strong><a href="' . esc_url( admin_url( 'admin.php?page=lightpress-settings' ) ) . '">' . esc_html__( 'here', 'wp-jquery-lightbox' ) . '</a></strong>' );
 				?>
 			</p>
 		<?php
@@ -212,7 +213,7 @@ class LightPress {
 		// Add general plugin settings fields.
 		add_settings_field(
 			'lightpress_active_lightbox',
-			__( 'Choose Lighbox', 'easy-fancybox' ),
+			__( 'Choose Lighbox', 'wp-jquery-lightbox' ),
 			array( __CLASS__, 'render_choose_lightbox_field' ),
 			'lightpress-settings',
 			'lightpress-general-settings-section',
@@ -239,7 +240,7 @@ class LightPress {
 				<?php } ?>
 			</select>
 			<span class="description">
-				<?php echo esc_html__( 'Additional settings for the selected lightbox will appear below.', 'easy-fancybox' ); ?>
+				<?php echo esc_html__( 'Additional settings for the selected lightbox will appear below.', 'wp-jquery-lightbox' ); ?>
 			</span>
 		<?php
 	}
@@ -395,28 +396,44 @@ class LightPress {
 	 * Enqueues admin assets for the LightPress plugin.
 	 */
 	public function enqueue_admin_assets() {
-		$screen         = get_current_screen();
-		$should_load_js =
-			'dashboard' === $screen->id ||
-			self::$settings_screen_id === $screen->id ||
-			self::$pro_screen_id === $screen->id;
+		$screen                 = get_current_screen();
+		$is_lightpress_settings = self::$settings_screen_id === $screen->id;
+		$is_pro_landing         = self::$pro_screen_id === $screen->id;
+		$is_dashboard           = 'dashboard' === $screen->id;
+		$freemius_js            = 'https://checkout.freemius.com/checkout.min.js';
+		$purchase_js            = LIGHTPRESS_PLUGIN_URL . 'admin/admin-purchase.js';
+		$settings_js            = LIGHTPRESS_PLUGIN_URL . 'admin/admin-settings.js';
+		$notice_js              = LIGHTPRESS_PLUGIN_URL . 'admin/admin-notice.js';
+		$css_file               = LIGHTPRESS_PLUGIN_URL . 'admin/admin.css';
+		$version                = defined( 'WP_DEBUG' ) ? time() : EASY_FANCYBOX_PRO_VERSION;
 
-		if ( $should_load_js ) {
-			$css_file = LIGHTPRESS_PLUGIN_URL . 'admin/admin.css';
-			wp_register_style( 'lightpress-admin-css', $css_file, false, LIGHTPRESS_VERSION );
-			wp_enqueue_style( 'lightpress-admin-css' );
-
-			$js_file = LIGHTPRESS_PLUGIN_URL . 'admin/admin.js';
-			wp_register_script( 'lightpress-admin-js', $js_file, array( 'jquery', 'wp-dom-ready' ), LIGHTPRESS_VERSION, true );
-			wp_enqueue_script( 'lightpress-admin-js' );
+		if ( $is_pro_landing ) {
+			wp_register_script( 'lightpress-freemius-js', $freemius_js, array( 'jquery', 'wp-dom-ready' ), $version, true );
+			wp_register_script( 'lightpress-purchase-js', $purchase_js, array( 'jquery', 'wp-dom-ready' ), $version, true );
+			wp_enqueue_script( 'lightpress-freemius-js' );
+			wp_enqueue_script( 'lightpress-purchase-js' );
 		}
 
-		// Localize var to admin JS.
+		if ( $is_lightpress_settings ) {
+			wp_register_script( 'lightpress-settings-js', $settings_js, array( 'jquery', 'wp-dom-ready' ), $version, true );
+			wp_enqueue_script( 'lightpress-settings-js' );
+		}
+
+		if ( $is_lightpress_settings || $is_dashboard ) {
+			wp_register_script( 'lightpress-notice-js', $notice_js, array( 'jquery', 'wp-dom-ready' ), $version, true );
+			wp_enqueue_script( 'lightpress-notice-js' );
+		}
+
+		if ( $is_lightpress_settings || $is_pro_landing || $is_dashboard ) {
+			wp_register_style( 'lightpress-admin-css', $css_file, false, $version );
+			wp_enqueue_style( 'lightpress-admin-css' );
+		}
+
 		wp_localize_script(
-			'lightpress-admin-js',
-			'lightpress',
+			'lightpress-settings-js',
+			'settings',
 			array(
-				'proAdminUrl' => admin_url( 'admin.php?page=lightpress-pro' ),
+				'proLandingUrl' => admin_url( 'admin.php?page=lightpress-pro' ),
 			)
 		);
 	}
@@ -437,5 +454,164 @@ class LightPress {
 		$now           = new DateTimeImmutable( gmdate( 'Y-m-d' ) );
 		$now_as_string = $now->format( 'Y-m-d' );
 		update_option( 'jqlb_date', $now_as_string );
+	}
+
+	/**
+	 * Determine if the review request should be shown.
+	 *
+	 * To summarize, this will only show:
+	 * if is options screen and
+	 * if has not already been rated and
+	 * if user is selected for metered rollout and
+	 * if user has plugin more than 60 days and
+	 * if use has not interacted with reviews within 90 days.
+	 *
+	 * @access public
+	 *
+	 * @return bool Returns true if the review request should be shown, false otherwise.
+	 */
+	public function should_show_review_request() {
+		// Don't show if not on options screen or dashboard, or if already rated.
+		$screen                         = get_current_screen();
+		$is_dashboard_or_plugin_options = 'dashboard' === $screen->id || self::$settings_screen_id === $screen->id;
+		$already_rated                  = get_option( 'lightpress_plugin_rated' ) && get_option( 'lightpress_plugin_rated' ) === 'true';
+
+		if ( ! $is_dashboard_or_plugin_options || $already_rated ) {
+			return false;
+		}
+
+		// Limit review notices to 10% of users initially.
+		$user_review_number = get_option( 'lightpress_user_review_number' );
+		if ( ! $user_review_number ) {
+			$user_review_number = rand( 1, 10 ); // phpcs:ignore
+			update_option( 'lightpress_user_review_number', $user_review_number );
+		}
+		$selected = '1' === $user_review_number || '2' === $user_review_number || '3' === $user_review_number || '4' === $user_review_number;
+		if ( ! $selected ) {
+			return false;
+		}
+
+		// Only show if user has been using plugin for more than 60 days.
+		$current_date      = new DateTimeImmutable( gmdate( 'Y-m-d' ) );
+		$plugin_time_stamp = get_option( 'jqlb_date' );
+		$activation_date   = $plugin_time_stamp
+			? new DateTimeImmutable( $plugin_time_stamp )
+			: $current_date;
+		$days_using_plugin = $activation_date->diff( $current_date )->days;
+		if ( $days_using_plugin < 60 ) {
+			return false;
+		}
+
+		// Do not show if user interacted with reviews within last 90 days.
+		$lightpress_last_review_interaction = get_option( 'lightpress_last_review_interaction' );
+		if ( $lightpress_last_review_interaction ) {
+			$last_review_interaction_date = new DateTimeImmutable( $lightpress_last_review_interaction );
+			$days_since_last_interaction  = $last_review_interaction_date->diff( $current_date )->days;
+			if ( $days_since_last_interaction < 90 ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Render the review request to the user.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function show_review_request() {
+		if ( $this->should_show_review_request() ) {
+			?>
+				<div class="notice notice-success is-dismissible lightpress-review-notice">
+					<p><?php esc_html_e( 'You\'ve been using LightPress (WP JQuery Lightbox) for a long time! Awesome and thanks!', 'wp-jquery-lightbox' ); ?></p>
+					<p>
+						<?php
+						printf(
+							__( 'We work hard to maintain it - for over 10 years! Would you do us a BIG favor and give us a 5-star review on WordPress.org? Or share feedback <a %s>here</a>.', 'wp-jquery-lightbox' ), // phpcs:ignore
+							'href="https://lightpress.io/contact/" target="_blank"'
+						);
+						?>
+					</p>
+
+					<ul class="lightpress-review-actions" data-nonce="<?php echo esc_attr( wp_create_nonce( 'lightpress_review_action_nonce' ) ); ?>">
+						<li style="display:inline;"><a class="button-primary" data-rate-action="do-rate"
+							href="https://wordpress.org/support/plugin/wp-jquery-lightbox/reviews/#new-post" target="_blank"><?php esc_html_e( 'Ok, you deserve it!', 'wp' ); ?></a>
+						</li>
+						<li style="display:inline;"><a class="button-secondary" data-rate-action="maybe-later" href="#"><?php esc_html_e( 'Maybe later', 'wp-jquery-lightbox' ); ?></a></li>
+						<li style="display:inline;"><a class="button-secondary" data-rate-action="done" href="#"><?php esc_html_e( 'Already did!', 'wp-jquery-lightbox' ); ?></a></li>
+					</ul>
+				</div>
+
+			<?php
+		}
+	}
+
+	/**
+	 * Process Ajax request when user interacts with review requests
+	 */
+	public function process_lightpress_review_action() {
+		check_admin_referer( 'lightpress_review_action_nonce', '_n' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$rate_action            = isset( $_POST['rate_action'] )
+			? sanitize_text_field( wp_unslash( $_POST['rate_action'] ) )
+			: '';
+		$current_date           = new DateTimeImmutable( gmdate( 'Y-m-d' ) );
+		$current_date_as_string = $current_date->format( 'Y-m-d' );
+		update_option( 'lightpress_last_review_interaction', $current_date_as_string );
+
+		if ( 'done' === $rate_action ) {
+			update_option( 'lightpress_plugin_rated', 'true' );
+		}
+
+		exit;
+	}
+
+	/**
+	 * Disables/hides core lightbox for editor > image blocks.
+	 *
+	 * Helper function designed to be used by individual lightboxes
+	 * to disable core lightbox if they offer that option.
+	 *
+	 * @param array $theme_json  Theme json to filter.
+	 * @return array $theme_json Filtered theme json.
+	 */
+	public static function hide_core_lightbox_in_editor( $theme_json ) {
+		$new_data = array(
+			'version'  => 2,
+			'settings' => array(
+				'blocks' => array(
+					'core/image' => array(
+						'lightbox' => array(
+							'allowEditing' => false,
+							'enabled'      => false,
+						),
+					),
+				),
+			),
+		);
+		return $theme_json->update_with( $new_data );
+	}
+
+	/**
+	 * Removes filter and dequeues JS for core lightbox.
+	 *
+	 * Helper function designed to be used by individual lightboxes
+	 * to disable core lightbox if they offer that option.
+	 */
+	public static function disable_core_lightbox_on_frontend() {
+		// These are added for the core lightbox here:
+		// https://github.com/WordPress/gutenberg/blob/8dc36f6d30cc163671bdaa33f0656fdfe91f1447/packages/block-library/src/image/index.php#L64 .
+		if ( function_exists( 'wp_dequeue_script_module' ) ) {
+			wp_dequeue_script_module( '@wordpress/block-library/image' );
+		}
+		remove_filter( 'render_block_core/image', 'block_core_image_render_lightbox', 15 );
+		remove_filter( 'render_block_core/image', 'block_core_image_render_lightbox', 15, 2 );
 	}
 }

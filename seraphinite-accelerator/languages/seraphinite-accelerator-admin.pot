@@ -6,14 +6,14 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  cmn.admin.pot (seraphinite-accelerator 2.21.11)  #-#-#-#-#\n"
-"Project-Id-Version: seraphinite-accelerator 2.21.11\n"
+"#-#-#-#-#  cmn.admin.pot (seraphinite-accelerator 2.21.12)  #-#-#-#-#\n"
+"Project-Id-Version: seraphinite-accelerator 2.21.12\n"
 "Report-Msgid-Bugs-To: support@s-sols.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  main.admin.pot (seraphinite-accelerator 2.21.11)  #-#-#-#-#\n"
-"Project-Id-Version: seraphinite-accelerator 2.21.11\n"
+"#-#-#-#-#  main.admin.pot (seraphinite-accelerator 2.21.12)  #-#-#-#-#\n"
+"Project-Id-Version: seraphinite-accelerator 2.21.12\n"
 "Report-Msgid-Bugs-To: support@s-sols.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2326,6 +2326,10 @@ msgctxt "admin.Settings_Frames_ContParts"
 msgid "WoodmartPrcFltChk"
 msgstr ""
 
+msgctxt "admin.Settings_Frames_ContParts"
+msgid "WooPrcFltChk"
+msgstr ""
+
 # Product Filter by WBW
 msgctxt "admin.Settings_Frames_ContParts"
 msgid "WbwPrdFltChk"
@@ -2371,9 +2375,14 @@ msgctxt "admin.Settings_Frames_ContParts"
 msgid "UpbAniChk"
 msgstr ""
 
-# Background of Ultimate for WPBakery
+# Background image of Ultimate for WPBakery
 msgctxt "admin.Settings_Frames_ContParts"
 msgid "UpbBgImgChk"
+msgstr ""
+
+# Background video of Ultimate for WPBakery
+msgctxt "admin.Settings_Frames_ContParts"
+msgid "UpbCntVidChk"
 msgstr ""
 
 # Responsive of Ultimate
@@ -2444,6 +2453,11 @@ msgstr ""
 # Background video of Vide for jQuery
 msgctxt "admin.Settings_Frames_ContParts"
 msgid "JqVideChk"
+msgstr ""
+
+# Nivo Slider for jQuery
+msgctxt "admin.Settings_Frames_ContParts"
+msgid "JqSldNivoChk"
 msgstr ""
 
 # Sales Countdown Timer from Sctr
@@ -2788,6 +2802,11 @@ msgstr ""
 # Optional description to identify
 msgctxt "admin.Settings_Styles_Custom"
 msgid "DescrPhlr"
+msgstr ""
+
+# Use even if scripts are not delay loaded
+msgctxt "admin.Settings_Styles_Custom"
+msgid "NoJsDlChk"
 msgstr ""
 
 # CDN

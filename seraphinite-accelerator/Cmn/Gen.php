@@ -3723,10 +3723,10 @@ class HtmlNd
 		return( $nd -> nodeValue );
 	}
 
-	static function GetAttr( $nd, $name )
+	static function GetAttr( $nd, $name, $def = null )
 	{
 		$v = ( string )$nd -> getAttribute( $name );
-		return( strlen( $v ) ? $v : null );
+		return( strlen( $v ) ? $v : $def );
 	}
 
 	static function GetAttrClass( $nd )
@@ -4593,48 +4593,23 @@ class Wp
 			return( home_url( $path ) );
 
 		$obj = new AnyObj();
+		$obj -> vOpt = '';
 		$obj -> url = '';
+		$obj -> cb1 = function( $obj, $vOpt ) { return( $obj -> vOpt = $vOpt ); };
+		$obj -> cb2 = function( $obj, $vOpt ) { return( $obj -> vOpt ); };
 		$obj -> cb = function( $obj, $url ) { return( $obj -> url = $url ); };
+
+		add_filter( 'option_home', array( $obj, 'cb1' ), -99999, 1 );
+		add_filter( 'option_home', array( $obj, 'cb2' ), 99999, 1 );
 
 		add_filter( 'home_url', array( $obj, 'cb' ), -99999, 1 );
 		home_url( $path );
 		remove_filter( 'home_url', array( $obj, 'cb' ), -99999 );
 
+		remove_filter( 'option_home', array( $obj, 'cb2' ), 99999 );
+		remove_filter( 'option_home', array( $obj, 'cb1' ), -99999 );
+
 		return( $obj -> url );
-	}
-
-	static function GetSiteId()
-	{
-		$siteUrlParts = @parse_url( Wp::GetSiteWpRootUrl() );
-		if( !is_array( $siteUrlParts ) )
-			return( '' );
-
-		$res = $siteUrlParts[ 'host' ];
-
-		if( isset( $siteUrlParts[ 'port' ] ) )
-			$res .= '_' . $siteUrlParts[ 'port' ];
-
-		if( isset( $siteUrlParts[ 'path' ] ) )
-			$res .= '_' . str_replace( array( '/', '\\' ), '_', $siteUrlParts[ 'path' ] );
-
-		return( md5( $res ) );
-	}
-
-	static function GetSiteDisplayName()
-	{
-		$siteUrlParts = @parse_url( Wp::GetSiteWpRootUrl() );
-		if( !is_array( $siteUrlParts ) )
-			return( '' );
-
-		$res = $siteUrlParts[ 'host' ];
-
-		if( isset( $siteUrlParts[ 'port' ] ) )
-			$res .= ':' . $siteUrlParts[ 'port' ];
-
-		if( isset( $siteUrlParts[ 'path' ] ) )
-			$res .= $siteUrlParts[ 'path' ];
-
-		return( $res );
 	}
 
 	static function GetSiteWpRootUrl( $path = '', $blog_id = null, $base = false )
@@ -4661,6 +4636,45 @@ class Wp
 		remove_filter( 'option_siteurl', array( $obj, 'cb1' ), -99999 );
 
 		return( $obj -> url );
+	}
+
+	static function GetSiteId( $mode = null )
+	{
+		if( $mode === 'OLD' )
+			$siteUrl = Wp::GetSiteWpRootUrl();
+		else
+			$siteUrl = Wp::GetSiteRootUrl();
+
+		$siteUrlParts = @parse_url( $siteUrl );
+		if( !is_array( $siteUrlParts ) )
+			return( '' );
+
+		$res = $siteUrlParts[ 'host' ];
+
+		if( isset( $siteUrlParts[ 'port' ] ) )
+			$res .= '_' . $siteUrlParts[ 'port' ];
+
+		if( isset( $siteUrlParts[ 'path' ] ) )
+			$res .= '_' . str_replace( array( '/', '\\' ), '_', $siteUrlParts[ 'path' ] );
+
+		return( md5( $res ) );
+	}
+
+	static function GetSiteDisplayName()
+	{
+		$siteUrlParts = @parse_url( Wp::GetSiteRootUrl() );
+		if( !is_array( $siteUrlParts ) )
+			return( '' );
+
+		$res = $siteUrlParts[ 'host' ];
+
+		if( isset( $siteUrlParts[ 'port' ] ) )
+			$res .= ':' . $siteUrlParts[ 'port' ];
+
+		if( isset( $siteUrlParts[ 'path' ] ) )
+			$res .= $siteUrlParts[ 'path' ];
+
+		return( $res );
 	}
 
 	static function GetOptionsUrl( $page = null )

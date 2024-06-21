@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/wpmonks
 Tags: Gravity Forms CSS, gravity forms themes, gravity forms styler, Gravity Forms Design, Gravity Forms Material Design, Gravity Forms Tooltips
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 5.8
+Stable tag: 5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,10 +38,10 @@ You can easily create responsive designs like having different font size, widths
 = Premium Addons to Extend the Functionality =
 
 * [ **AI for Gravity Forms** ](https://wpmonks.com/downloads/ai-for-gravity-forms/)
-**This addon will add AI capabilities in your Gravity Forms. You can optimize field labels.** You can generate AI images on form submission with prompts that support merge tags.
+**This addon will add AI capabilities in your Gravity Forms.** You can generate AI text on form submission. You can optimize field labels. You can generate AI images on form submission with prompts that support merge tags. It also lets you use OpenAI's vision capabilities to images uploaded using Gravity Forms File Upload field.
 
 Checkout the below video to have a quick glance of AI for Gravity Forms addon
-[youtube https://www.youtube.com/watch?v=8z5ZNdJggjs]
+[youtube https://www.youtube.com/watch?v=DhPTo93ICHQ]
 
 * [ **Material Design** ](https://wpmonks.com/downloads/material-design/): [Online Demo](https://wpmonks.com/gravity-forms-material-design-demo/)
 **This addon will add material design to Gravity Form with single click of button**. Checkboxes can be converted into material design compatible switch buttons with ripple effect. Color of material design theme can be easily changed using color picker.
@@ -125,6 +125,10 @@ Yes, Gravity Forms embedded in Divi themes is also supported. Please check the t
 4. Options in settings
 
 == Changelog ==
+= 5.9 (21th June 2024) =
+* Added support confirmation text container border color
+* Added support for OpenAI vision
+
 = 5.8 (18th June 2024) =
 * Added support for field labels fontawesome icons 
 

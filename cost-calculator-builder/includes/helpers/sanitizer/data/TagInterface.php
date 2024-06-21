@@ -7,6 +7,7 @@ namespace enshrined\svgSanitize\data;
  *
  * @package enshrined\svgSanitize\tags
  */
+if (!interface_exists('enshrined\svgSanitize\data\TagInterface')) {
 interface TagInterface
 {
 
@@ -17,4 +18,5 @@ interface TagInterface
      */
     public static function getTags();
 
+}
 }

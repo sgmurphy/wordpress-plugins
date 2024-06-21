@@ -142,7 +142,7 @@
 								</div>
 							</div>
 							<div class="ccb-input-wrapper" style="margin-left: 10px; width: 160px;" v-if="!quantityField.allowCurrency">
-								<input type="text" maxlength="5" class="ccb-heading-5 ccb-light" v-model.trim="quantityField.unitSymbol" placeholder="<?php esc_attr_e( 'Unit (kg, cm,...)', 'cost-calculator-builder' ); ?>">
+								<input type="text" maxlength="18" class="ccb-heading-5 ccb-light" v-model.trim="quantityField.unitSymbol" placeholder="<?php esc_attr_e( 'Unit (kg, cm,...)', 'cost-calculator-builder' ); ?>">
 							</div>
 						</div>
 					</div>
@@ -221,7 +221,7 @@
 				<div class="col-4">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Unit Symbol', 'cost-calculator-builder' ); ?></span>
-						<input type="text" v-model="fieldCurrency.currency" placeholder="<?php esc_attr_e( 'Enter unit symbol', 'cost-calculator-builder' ); ?>">
+						<input type="text" maxlength="18" v-model="fieldCurrency.currency" placeholder="<?php esc_attr_e( 'Enter unit symbol', 'cost-calculator-builder' ); ?>">
 					</div>
 				</div>
 				<div class="col-4">

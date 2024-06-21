@@ -365,7 +365,7 @@ class Img
 
 					$cmdline = Gen::ExecEscArg( $mdl ) . ' --quality 0-' . $quality . ' --speed ' . $speed . ' --force --output ' . Gen::ExecEscArg( $fileNew ) . ' ' . Gen::ExecEscArg( $file );
 
-					$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes );
+					$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes, null, null, array( 'bypass_shell' => true ) );
 					if( $hProc )
 					{
 						$output = @stream_get_contents( (isset($pipes[ 2 ])?$pipes[ 2 ]:null) );
@@ -702,7 +702,7 @@ class Img
 			return( Gen::E_ACCESS_DENIED );
 		}
 
-		$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes );
+		$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes, null, null, array( 'bypass_shell' => true ) );
 		if( $hProc )
 		{
 			$output = @stream_get_contents( (isset($pipes[ 2 ])?$pipes[ 2 ]:null) );
@@ -819,7 +819,7 @@ class Img
 			return( Gen::E_ACCESS_DENIED );
 		}
 
-		$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes );
+		$hProc = @proc_open( $cmdline, array( 2 => array( 'pipe', 'w' ) ), $pipes, null, null, array( 'bypass_shell' => true ) );
 		if( $hProc )
 		{
 			$output = @stream_get_contents( (isset($pipes[ 2 ])?$pipes[ 2 ]:null) );

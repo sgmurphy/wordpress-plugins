@@ -24,7 +24,7 @@
 					<div class="col col-3">
 						<div class="ccb-input-wrapper">
 							<span class="ccb-input-label"><?php esc_html_e( 'Currency Sign', 'cost-calculator-builder' ); ?></span>
-							<input type="text" v-model="generalSettings.currency.currency" placeholder="<?php esc_attr_e( 'Enter currency sign', 'cost-calculator-builder' ); ?>">
+							<input type="text" maxlength="18" v-model="generalSettings.currency.currency" placeholder="<?php esc_attr_e( 'Enter currency sign', 'cost-calculator-builder' ); ?>">
 						</div>
 					</div>
 					<div class="col col-3">

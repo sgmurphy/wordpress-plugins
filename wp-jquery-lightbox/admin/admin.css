@@ -19,6 +19,12 @@
     margin-bottom: 0;
 }
 
+.lightpress-review-actions .button-primary {
+    padding: 0 12px !important;
+    text-transform: none !important;
+    font-size: 13px !important;
+}
+
 /* Settings page */
 
 .toplevel_page_lightpress-settings .efb-review-notice {
@@ -153,10 +159,6 @@
     background: #4fa959;
     border-color: #4fa959;
     color: #fff;
-}
-
-.toplevel_page_lightpress-settings .wp-core-ui .button-primary {
-
 }
 
 /* Pro Lightbox Promo */

@@ -7,6 +7,7 @@ namespace enshrined\svgSanitize\data;
  *
  * @package enshrined\svgSanitize\data
  */
+if(!class_exists('enshrined\svgSanitize\data\AllowedAttributes')){
 class AllowedAttributes implements AttributeInterface
 {
 
@@ -354,4 +355,5 @@ class AllowedAttributes implements AttributeInterface
             'xmlns:xlink',
         );
     }
+}
 }

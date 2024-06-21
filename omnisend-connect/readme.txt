@@ -18,37 +18,37 @@ Email Marketing, Newsletter, Email Automation, Forms, Pop Up, SMS, Abandoned Car
 
 https://www.youtube.com/watch?v=7nU2Xq2OJ5Q
 
-Omnisend is the ultimate email and SMS marketing plugin and CRM solution for WooCommerce, and helps more than 100,000 ecommerce stores around the world sell more stuff to more people. The platform is designed to help you increase your revenue and grow your business with ease. With Omnisend, you can manage your customer relationships, build your email and SMS lists, send targeted campaigns, create automation workflows, and track your results – all from within your WordPress dashboard. Best of all, it's completely free to get started!
+Omnisend is the ultimate email & SMS marketing plugin and CRM solution for WooCommerce, and helps more than 100,000 ecommerce stores around the world sell more stuff to more people. Our email marketing platform is designed to help you increase your revenue and grow your business with ease. With Omnisend, you can manage your customer relationships, build your email & SMS lists, send targeted campaigns, create automation workflows, and track your results – all from within your WordPress dashboard. Best of all, it’s completely free to get started!
 
 Some of the features of Omnisend include:
 
 **🎉 All-in-One Email & SMS Marketing Solution**
 
 With Omnisend, you can create and send email and SMS campaigns to targeted audiences, send sequential emails, onboard your new customers, and automate your full marketing strategy with a powerful automation visual workflow builder.
-Once your campaigns are sent, you can easily analyze the open rate, click rate, and sales made from that specific campaign. You can also track the data like who opened the emails and who clicked, and segment your customers further based on this information.
+Once your email marketing campaigns are sent, you can easily analyze the open rate, click rate, and sales made from that specific campaign. You can also track the data like who opened the emails and who clicked, and segment your customers further based on this information.
 
 **📧📱 Email & SMS Campaigns**
 
 * Build beautiful email and SMS campaigns using our easy-to-use drag-and-drop editor.
 * Use dynamic content to personalize the experience for your customers.
-* Automatically import your store’s branding (logos, colors and fonts) into your emails & popups to save even more time
+* Automatically import your store’s branding (logos, colors and fonts) into your email marketing messages & popups to save even more time
 * Send or schedule emails and SMS messages at a future date and time, and track your results in real-time.
-* Use customer data to segment and target your campaigns to the right audience at the right time. Create segments based on behavior, demographics, purchase history, and more.
+* Use customer data to segment and target your email marketing campaigns to the right audience at the right time. Create segments based on behavior, demographics, purchase history, and more.
 * Set up automated campaigns that trigger based on customer behavior. Welcome new subscribers, recover abandoned carts, upsell and cross-sell products, and more.
-* Use Omnisend's product recommendation feature to automatically suggest products that your customers are most likely to buy.
+* Use Omnisend’s product recommendation feature to automatically suggest products that your customers are most likely to buy.
 * Test different subject lines, content, and designs to see what works best for your audience.
 * Get insights into your campaigns with detailed reporting and analytics. See how many people opened, clicked, and converted from your emails.
 
 **🎉 Automation Workflows**
 
 * Build powerful automation workflows with our visual workflow builder.
-* Automate your full marketing strategy from welcome emails to abandoned cart reminders and win-back campaigns.
+* Automate your email marketing strategy from welcome emails to abandoned cart reminders and win-back campaigns.
 * Trigger automation workflows based on user actions like sign-up, form submission, product purchase, or even inactivity.
 * Measure workflow metrics in every step and find where you can do better.
 * Use Omnisend's powerful automation workflows to create seamless multi-channel experiences. Send emails, SMS, push notifications, and more in a single workflow.
 * Automatically sync your email and SMS audiences with Facebook Custom Audiences and Google Ads.
 * Use our visual workflow builder to create complex automation workflows that drive conversions and revenue. Trigger campaigns based on behavior, demographics, purchase history, and more.
-* Use dynamic content to personalize your campaigns based on customer data. Show different product recommendations, pricing, and messaging to different segments.
+* Use dynamic content to personalize your email marketing campaigns based on customer data. Show different product recommendations, pricing, and messaging to different segments.
 
 **📱 SMS Marketing**
 
@@ -66,7 +66,7 @@ Once your campaigns are sent, you can easily analyze the open rate, click rate, 
 **🎉 Built-in Analytics & Dashboards**
 
 * View your full business insights right from the Omnisend dashboard with graphs, charts, and data widgets.
-* Track every marketing email and SMS message and get in-detail metrics.
+* Track every email marketing and SMS message and get in-detail metrics.
 
 **🎉 Ecommerce integrations**
 
@@ -78,7 +78,7 @@ Once your campaigns are sent, you can easily analyze the open rate, click rate, 
 **🎉 Even More Features**
 
 * Turn your website visitors into subscribers with our website signup forms.
-* Push notifications that let you reach all people online that opted in to receive push messages
+* Push notifications that let you reach all people online who opted in to receive push messages
 * Double opt-in feature for getting quality leads.
 * Find out which contacts are becoming unengaged and optimize your email and SMS campaigns accordingly.
 
@@ -122,15 +122,15 @@ https://www.youtube.com/watch?v=CrXiK8XuDm0
 
 = NATIVE WOOCOMMERCE INTEGRATION: =
 
-Omnisend's email and SMS marketing plugin seamlessly integrates with WooCommerce help you collect leads, create targeted segments, send emails, and grow your email and SMS list.
+Omnisend’s email marketing & SMS plugin seamlessly integrates with WooCommerce to help you collect leads, create targeted segments, send emails, and grow your email and SMS list.
 
 = FORM INTEGRATION: =
 
-Easily add Omnisend's signup forms to your WordPress site and automatically add new subscribers to your Omnisend account. You can also segment subscribers based on the form they filled out or the page they signed up from.
+Easily add Omnisend’s signup forms to your WordPress site and automatically add new subscribers to your Omnisend account. You can also segment your email marketing & SMS subscribers based on the form they filled out or the page they signed up from.
 
 = WOO COMMERCE INTEGRATION: =
 
-Omnisend's plugin is the perfect tool for WooCommerce users. You can segment your contacts based on their purchase history, including items purchased, total spend, and more. You can also send targeted campaigns to customers based on their purchase history, such as abandoned cart reminders and post-purchase follow-ups.
+Omnisend’s plugin is the perfect tool for WooCommerce users. You can segment your email marketing & SMS contacts based on their purchase history, including items purchased, total spend, and more. You can also send targeted campaigns to customers based on their purchase history, such as abandoned cart reminders and post-purchase follow-ups.
 
 = SMS MARKETING: =
 
@@ -138,7 +138,7 @@ With Omnisend's SMS integration, you can easily send targeted SMS campaigns to y
 
 = EASY TO USE: =
 
-Omnisend's plugin is easy to use, with a user-friendly interface that allows you to create and manage campaigns directly from your WordPress dashboard. With Omnisend's plugin, you can take your email and SMS marketing to the next level.
+Omnisend’s plugin is easy to use, with a user-friendly interface that lets you create and manage email marketing & SMS campaigns directly from your WordPress dashboard. With Omnisend’s plugin, you can take your email & SMS marketing to the next level.
 
 Ads integrations:
 Drive more traffic to your store with improved targeting and reporting.

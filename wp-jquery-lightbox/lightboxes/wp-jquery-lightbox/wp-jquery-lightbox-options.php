@@ -228,6 +228,15 @@ $wp_jquery_lightbox_options = array(
 		'description'       => __( 'Uncheck this box to load jQuery and lightbox in the header of your page.', 'wp-jquery-lightbox' ),
 	),
 	array(
+		'id'                => 'jqlb_disable_core_lightbox',
+		'title'             => __( 'Disable Core Lightbox', 'lightpress-pro' ),
+		'input'             => 'checkbox',
+		'sanitize_callback' => 'wp_validate_boolean',
+		'default'           => '1',
+		'section'           => 'lightpress-jqlb-settings-section',
+		'description'       => __( 'Disable the core lightbox when lightbox is active.', 'wp-jquery-lightbox' ),
+	),
+	array(
 		'id'                => 'jqlb_pinchzoom',
 		'title'             => __( 'Enable Mobile Pinchzoom', 'wp-jquery-lightbox' ),
 		'input'             => 'checkbox',

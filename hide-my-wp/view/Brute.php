@@ -53,7 +53,7 @@
                                     <input type="checkbox" id="hmwp_bruteforce" name="hmwp_bruteforce" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce') ? 'checked="checked"' : '') ?> value="1"/>
                                     <label for="hmwp_bruteforce"><?php echo esc_html__('Use Brute Force Protection', 'hide-my-wp'); ?></label>
                                     <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#activate_brute_force') ?>" target="_blank" class="d-inline-block ml-2" ><i class="dashicons dashicons-editor-help"></i></a>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Protects your website against Brute Force login attacks.', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Protects your website against Brute Force login attacks.', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <div class="col-sm-12 p-0 switch switch-sm">
                                     <input type="checkbox" id="hmwp_bruteforce_lostpassword" name="hmwp_bruteforce_lostpassword" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword') ? 'checked="checked"' : '') ?> value="1"/>
                                     <label for="hmwp_bruteforce_lostpassword"><?php echo esc_html__('Lost Password Form Protection', 'hide-my-wp'); ?></label>
-                                    <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on lost password forms.', 'hide-my-wp'); ?></div>
+                                    <div class="text-black-50 ml-5"><?php echo esc_html__('Activate the Brute Force protection on lost password forms.', 'hide-my-wp'); ?></div>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                     <div class="col-sm-12 p-0 switch switch-sm">
                                         <input type="checkbox" id="hmwp_bruteforce_register" name="hmwp_bruteforce_register" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_bruteforce_register"><?php echo esc_html__('Sign Up Form Protection', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection on sign up forms.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Activate the Brute Force protection on sign up forms.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                     <div class="col-sm-12 p-0 switch switch-sm">
                                         <input type="checkbox" id="hmwp_bruteforce_woocommerce" name="hmwp_bruteforce_woocommerce" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_woocommerce') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_bruteforce_woocommerce"><?php echo esc_html__('WooCommerce Support', 'hide-my-wp'); ?></label>
-                                        <div class="offset-1 text-black-50"><?php echo esc_html__('Activate the Brute Force protection for Woocommerce login/signup forms.', 'hide-my-wp'); ?></div>
+                                        <div class="text-black-50 ml-5"><?php echo esc_html__('Activate the Brute Force protection for Woocommerce login/signup forms.', 'hide-my-wp'); ?></div>
                                     </div>
                                 </div>
                             </div>

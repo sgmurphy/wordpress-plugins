@@ -34,6 +34,13 @@ class WP_JQuery_Lightbox {
 	public $lightbox_slug = 'wp-jquery-lightbox';
 
 	/**
+	 * Is this lightbox active?
+	 *
+	 * @var bool
+	 */
+	public $is_active_lightbox = false;
+
+	/**
 	 * The group of the lightbox
 	 *
 	 * @var int
@@ -63,8 +70,10 @@ class WP_JQuery_Lightbox {
 	 * Initializes the LightPress and sets up hooks and filters.
 	 */
 	public function __construct() {
+		$this->is_active_lightbox = LightPress::$active_lightbox === $this->lightbox_slug;
+
 		// Frontend.
-		if ( ! is_admin() && LightPress::$active_lightbox === $this->lightbox_slug ) {
+		if ( ! is_admin() && $this->is_active_lightbox ) {
 			add_action( 'wp_print_styles', array( $this, 'enqueue_css' ) );
 			add_action( 'wp_print_scripts', array( $this, 'enqueue_js' ) );
 			add_filter( 'the_content', array( $this, 'filter_content' ), 99 );
@@ -73,13 +82,19 @@ class WP_JQuery_Lightbox {
 				remove_filter( 'pre_comment_content', 'wp_rel_nofollow' );
 				add_filter( 'comment_text', array( $this, 'lightbox_comment' ), 99 );
 			}
+			if ( $this->should_disable_core_lightbox() ) {
+				add_action( 'wp_enqueue_scripts', 'LightPress::disable_core_lightbox_on_frontend', 99 );
+			}
 		}
 
 		// Admin.
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'add_lightbox_settings' ) );
-			if ( LightPress::$active_lightbox === $this->lightbox_slug ) {
+			if ( $this->is_active_lightbox ) {
 				add_filter( 'image_send_to_editor', array( $this, 'remove_rel' ), 10, 2 );
+				if ( $this->should_disable_core_lightbox() ) {
+					add_filter( 'wp_theme_json_data_user', 'LightPress::hide_core_lightbox_in_editor' );
+				}
 			}
 		}
 	}
@@ -396,5 +411,22 @@ class WP_JQuery_Lightbox {
 		$comment = str_replace( 'rel="external nofollow"', '', $comment );
 		$comment = str_replace( 'rel="nofollow"', '', $comment );
 		return $this->filter_content( $comment );
+	}
+
+	/**
+	 * Determines if we should disable core lightbox.
+	 *
+	 * @return bool True if we should disable core lightbox.
+	 */
+	public function should_disable_core_lightbox() {
+		global $wp_version;
+		$is_supported_wp_version = isset( $wp_version ) && version_compare( $wp_version, '6.5.0' ) >= 0;
+		$is_disabled             = get_option( 'jqlb_disable_core_lightbox', true );
+
+		if ( $is_supported_wp_version && $this->is_active_lightbox && $is_disabled ) {
+			return true;
+		}
+
+		return false;
 	}
 }

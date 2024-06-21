@@ -2,9 +2,9 @@
 Contributors: thrivethemes
 Tags: automation, thrive
 Requires at least: 5.5
-Tested up to: 6.4
-Requires PHP: 7.0
-Stable tag: 1.20
+Tested up to: 6.5.4
+Requires PHP: 7.4
+Stable tag: 1.21.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -229,6 +229,12 @@ Thrive Automator is 100% free - *no refunds needed!*
 
 == Changelog ==
 
+= 1.21.1 - 2024-06-21 =
+* Minor fixes and improvements
+
+= 1.21 - 2024-06-19 =
+* Minor fixes and improvements
+
 = 1.20 - 2024-03-21 =
 * Minor fixes and improvements
 
@@ -298,7 +304,7 @@ Thrive Automator is 100% free - *no refunds needed!*
 * UI tweaks
 
 = 1.4.0 - 2022-09-20 =
-* Wordpress repository release
+* WordPress repository release
 
 = 1.3.0 - 2022-08-24 =
 * **Improvement** WordPress post related triggers and actions

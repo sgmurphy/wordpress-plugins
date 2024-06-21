@@ -248,7 +248,7 @@ class Futurio_Extra_Widget_Writing_Effect_Headline extends Widget_Base {
         wp_enqueue_script('jquery-typed');
         wp_enqueue_script('futurio-extra-frontend');
         ?>
-        <<?php echo $tag; ?> <?php echo $this->get_render_attribute_string('headline'); ?>>
+        <<?php echo esc_html($tag); ?> <?php echo $this->get_render_attribute_string('headline'); ?>>
         <?php if (!empty($settings['before_text'])) : ?>
             <span class="before-written"><?php echo wp_kses_post($settings['before_text']); ?></span>
         <?php endif; ?>
@@ -260,7 +260,7 @@ class Futurio_Extra_Widget_Writing_Effect_Headline extends Widget_Base {
         <?php if (!empty($settings['after_text'])) : ?>
             <span class="after-written"><?php echo wp_kses_post($settings['after_text']); ?></span>
         <?php endif; ?>
-        </<?php echo $tag; ?>>
+        </<?php echo esc_html($tag); ?>>
         <?php
     }
 

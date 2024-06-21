@@ -27,6 +27,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
         //If save settings is required, show the alert
         if (HMWP_Classes_Tools::getOption('changes') ) {
             add_action('admin_notices', array($this, 'showSaveRequires'));
+            HMWP_Classes_Tools::saveOptions('changes', false);
         }
 
         if (!HMWP_Classes_Tools::getOption('hmwp_valid') ) {
@@ -235,13 +236,13 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
                 HMWP_Classes_ObjController::getClass('HMWP_Classes_DisplayController')->loadMedia('alert');
 
                 ?>
-                <div class="hmwp_notice error notice" style="margin-left: 0;">
+                <div class="notice notice-warning is-dismissible">
                     <div style="display: inline-block;">
                         <form action="<?php echo HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks') ?>" method="POST">
                             <?php wp_nonce_field('hmwp_newpluginschange', 'hmwp_nonce') ?>
                             <input type="hidden" name="action" value="hmwp_newpluginschange"/>
                             <p>
-                                <?php echo sprintf(esc_html__("New Plugin/Theme detected! You need to save the %s Setting again to include them all! %sClick here%s", 'hide-my-wp'), HMWP_Classes_Tools::getOption('hmwp_plugin_name'), '<button type="submit" style="color: blue; text-decoration: underline; cursor: pointer; background: none; border: none;">', '</button>'); ?>
+                                <?php echo sprintf(esc_html__("New Plugin/Theme detected! Update %s settings to hide it. %sClick here%s", 'hide-my-wp'), HMWP_Classes_Tools::getOption('hmwp_plugin_name'), '<button type="submit" style="color: blue; text-decoration: underline; cursor: pointer; background: none; border: none;">', '</button>'); ?>
                             </p>
                         </form>
 

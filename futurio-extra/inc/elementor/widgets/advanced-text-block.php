@@ -26,8 +26,8 @@ class Futurio_Advanced_Text_Block extends Widget_Base {
     public function get_categories() {
         return array('basic');
     }
-
-    public function get_script_depends() {
+	
+	public function get_script_depends() {
         return [
             'futurio-animate-scripts'
         ];
@@ -113,6 +113,17 @@ class Futurio_Advanced_Text_Block extends Widget_Base {
                     'default' => '#888',
                     'selectors' => [
                         '{{WRAPPER}} .futurio_extra_adv_text_block .text-content-block p,{{WRAPPER}} .futurio_extra_adv_text_block .text-content-block' => 'color:{{VALUE}};',
+                    ],
+                ]
+        );
+		$this->add_control(
+                'content_links_color',
+                [
+                    'label' => __('Links Color', 'futurio_extra'),
+                    'type' => Controls_Manager::COLOR,
+                    'default' => '',
+                    'selectors' => [
+                        '{{WRAPPER}} .futurio_extra_adv_text_block .text-content-block p a,{{WRAPPER}} .futurio_extra_adv_text_block .text-content-block a' => 'color:{{VALUE}};',
                     ],
                 ]
         );
@@ -255,13 +266,13 @@ class Futurio_Advanced_Text_Block extends Widget_Base {
             $animation_attr = '';
         } else {
             $animated_class = 'animate-general';
-            $animation_attr = ' data-animate-type="' . esc_attr($animation_effects) . '" data-animate-delay="' . absint($animation_delay) . '"';
+            $animation_attr = ' data-animate-type="' . esc_attr($animation_effects) . '" data-animate-delay="' . esc_attr($animation_delay) . '"';
             if ($settings["animation_duration_default"] == 'yes') {
-                $animation_attr .= ' data-animate-duration="' . absint($animate_duration) . '"';
+                $animation_attr .= ' data-animate-duration="' . esc_attr($animate_duration) . '"';
             }
         }
 
-        $text_block = '<div class="futurio_extra_adv_text_block ' . esc_attr($animated_class) . '" ' . esc_attr($animation_attr) . '>';
+        $text_block = '<div class="futurio_extra_adv_text_block ' . $animated_class . '" ' . $animation_attr . '>';
         $text_block .= '<' . esc_html($block) . ' class="text-content-block">';
         $text_block .= wp_kses_post($content);
         $text_block .= '</div>';

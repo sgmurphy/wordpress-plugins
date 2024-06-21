@@ -1,10 +1,10 @@
 === LoginWP (Formerly Peter's Login Redirect) ===
 Contributors: marketingfire, collizo4sky
 Donate link: https://loginwp.com/pricing/
-Tags: login, logout, redirect, login form, user registration, admin, administration, dashboard, users, authentication
+Tags: login redirect, logout redirect, user registration redirect, login logout redirect
 Requires at least: 4.9
-Requires PHP: 5.6
-Tested up to: 6.3
+Requires PHP: 7.4
+Tested up to: 6.5
 Stable tag: 3.0.8.5
 License: GPL-2.0+
 
@@ -47,6 +47,7 @@ This is the lite version that works with the default WordPress login page and li
 * [WishList Member](https://loginwp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion#pro-integrations)
 * [Theme My Login](https://loginwp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion#pro-integrations)
 * [User Registration (WPEverest)](https://loginwp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion#pro-integrations)
+* [Elementor](https://loginwp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion#pro-integrations)
 
 
 == Installation ==

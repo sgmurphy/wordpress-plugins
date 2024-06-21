@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 10.1.1
+Stable tag: 10.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -286,6 +286,13 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 10.1.2 =
+- Changes in **all** versions:
+	* **Fix** Removed 'defer' from  wpbc_all.js script. (10.1.2.3)
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Fix** Resolved issue of showing '...' instead of booking resource title, during editing the bookings,  while activated range dates selection mode.  (10.1.2.1)
+	* **Improvement** Added several new form templates on the WP Booking Calendar > Settings > Booking Form page.
+
 = 10.1.1 =
 - Changes in **all** versions:
 	* **New** Added the option to select Calendar and Time Picker Skins on the WP Booking Calendar > Settings > Booking Form page when using the "Simple booking form".
@@ -374,7 +381,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 	* **New** Track Changes: **Booking Edit Notification**. Whenever a booking is edited, a note stating 'The booking has been edited' will be generated for the booking. This note also contains the URL of the page where the user made the modifications. With this feature, you gain control over tracking changes to booking details. *(Personal, Business Small/Medium/Large, MultiUser)*
 	* **New** Save Booking Notes. Now, booking notes such as "Imported from Google Calendar," "Payment section displayed," "Total cost manually entered," "Automatically calculated cost," etc., will be saved only if the "Logging actions for booking" option is activated in the WP Booking Calendar > Settings General page in the "Admin Panel" section. (9.9.0.41) *(Personal, Business Small/Medium/Large, MultiUser)*
 	* **New** Sage/Opayo gateway becoming a payment product under the Elavon brand. Update name of payment gateway from SagePay to **Opayo - Elavon**. For more information, visit: https://www.elavon.co.uk/resource-center/news-and-insights/opayo-migration-faqs.html  (9.9.0.34) *(Business Small/Medium/Large, MultiUser)*
-	* **Improvement**: Enhanced **Booking Management**, **Shortcode Functionality**, **Deposit Management**, **Resource Management**,**Import Functionality**, **Payment Confirmation**. Find more information at [this page](https://wpbookingcalendar.com/changelog/) 
+	* **Improvement**: Enhanced **Booking Management**, **Shortcode Functionality**, **Deposit Management**, **Resource Management**,**Import Functionality**, **Payment Confirmation**. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 	* **Improvement**: Many other improvements and fixes. Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 	* **Fix** Resolved more than 10 different issues. Find more information at this page: https://wpbookingcalendar.com/changelog/
 
