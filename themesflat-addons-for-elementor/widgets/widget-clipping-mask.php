@@ -612,19 +612,26 @@ class TFClipping_Mask_Widget extends \Elementor\Widget_Base {
 
 		$title = $html_description = '';
 		
-		$target = $settings['link']['is_external'] ? ' target="_blank"' : '';
-		$nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+
+		$this->add_render_attribute('title_text', 'href', esc_url($settings['link']['url'] ? $settings['link']['url'] : '#'));
+		if (!empty($settings['link']['is_external'])) {
+			$this->add_render_attribute('title_text', 'target', '_blank');
+		}
+		if (!empty($settings['link']['nofollow'])) {
+			$this->add_render_attribute('title_text', 'rel', 'nofollow');
+		}
+		$link_url = $this->get_render_attribute_string('title_text'); 
 
 		if ($settings['title'] != '') {
-			$title = '<'.$settings['title_tag'].' class="title">'.$settings['title'].'</'.$settings['title_tag'].'>';
+			$title = '<'.\Elementor\Utils::validate_html_tag($settings['title_tag']).' class="title">'.esc_attr($settings['title']).'</'.\Elementor\Utils::validate_html_tag($settings['title_tag']).'>';
 			if ( $settings['link']['url'] != '' ) {
-				$title = '<'.$settings['title_tag'].' class="title"><a href="' . $settings['link']['url'] . '"' . $target . $nofollow . '>'.$settings['title'].'</a></'.$settings['title_tag'].'>';
+				$title = '<'.\Elementor\Utils::validate_html_tag($settings['title_tag']).' class="title"><a '.$link_url . '>'.esc_attr($settings['title']).'</a></'.\Elementor\Utils::validate_html_tag($settings['title_tag']).'>';
 			}
 		}
 		
 
 		if ($settings['description'] != '') {
-			$html_description = '<div class="description">'.$settings['description'].'</div>';
+			$html_description = '<div class="description">'.esc_attr($settings['description']).'</div>';
 		}
 
 		echo sprintf ( 

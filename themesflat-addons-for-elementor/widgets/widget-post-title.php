@@ -254,7 +254,7 @@ class TFPostTitle_Widget_Free extends \Elementor\Widget_Base {
 
 		$animation = ! empty( $settings['hover_animation'] ) ? 'elementor-animation-' . esc_attr( $settings['hover_animation'] . ' inline-block' ) : '';
 
-		$content = sprintf( '<%1$s class="post-title %2$s">%3$s</%1$s>', $settings['html_tag'], $animation, $content );
+		$content = sprintf( '<%1$s class="post-title %2$s">%3$s</%1$s>', \Elementor\Utils::validate_html_tag($settings['html_tag']), $animation, $content );
 
 		echo sprintf ( 
 			'<div %1$s> 

@@ -52,11 +52,11 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 						],
 						'icon' => [
 							'title' => esc_html__( 'Icon', 'themesflat-elementor' ),
-							'icon' => 'eicon-favorite',
+							'icon' => 'fa fa-info-circle',
 						],
 						'image' => [
 							'title' => esc_html__( 'Image', 'themesflat-elementor' ),
-							'icon' => 'eicon-image',
+							'icon' => 'fa fa-image',
 						],
 					],
 					'default' => 'icon',
@@ -1155,17 +1155,17 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			} else if( $settings['icon_style'] == 'image' ) {
 				if ( $settings['icon_position'] == 'icon_before' || $settings['icon_position'] == 'icon_before_after' ) {
-					$icon_accodion_close = sprintf( '<img src="%1$s" alt=""/>', $settings['image_accodion']['url'] ); 
+					$icon_accodion_close = sprintf( '<img src="%1$s" alt=""/>', esc_url($settings['image_accodion']['url']) ); 
 				}
 				if ( $settings['icon_position'] == 'icon_after' || $settings['icon_position'] == 'icon_before_after' ) {
-					$icon_accodion_right_close = sprintf( '<img src="%1$s" alt=""/>', $settings['image_accodion_right']['url'] );
+					$icon_accodion_right_close = sprintf( '<img src="%1$s" alt=""/>', esc_url($settings['image_accodion_right']['url']) );
 				}
 
 				if ( $settings['icon_position'] == 'icon_before' || $settings['icon_position'] == 'icon_before_after' ) {
-					$icon_accodion_open = sprintf( '<img src="%1$s" alt=""/>', $settings['image_accodion_active']['url'] ); 
+					$icon_accodion_open = sprintf( '<img src="%1$s" alt=""/>', esc_url($settings['image_accodion_active']['url']) ); 
 				} 
 				if ( $settings['icon_position'] == 'icon_after' || $settings['icon_position'] == 'icon_before_after' ) {
-					$icon_accodion_right_open = sprintf( '<img src="%1$s" alt=""/>', $settings['image_accodion_right_active']['url'] );
+					$icon_accodion_right_open = sprintf( '<img src="%1$s" alt=""/>', esc_url($settings['image_accodion_right_active']['url']) );
 				}
 			}
 
@@ -1187,11 +1187,11 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 
 			if ($value['list_title'] != '') {
 				if ($settings['icon_position'] == 'icon_before_after') {
-					$html_title = sprintf('<div class="accordion-title %4$s %5$s">%2$s <span class="title-text">%1$s</span> %3$s</div>', $value['list_title'], $icon_title, $icon_title_right, $settings['icon_position'], $value['set_active']);
+					$html_title = sprintf('<div class="accordion-title %4$s %5$s">%2$s <span class="title-text">%1$s</span> %3$s</div>', esc_attr($value['list_title']), $icon_title, $icon_title_right, esc_attr($settings['icon_position']), esc_attr($value['set_active']));
 				}else if ($settings['icon_position'] == 'icon_before') {
-					$html_title = sprintf('<div class="accordion-title %3$s %4$s">%2$s <span class="title-text">%1$s</span></div>', $value['list_title'], $icon_title, $settings['icon_position'], $value['set_active']);
+					$html_title = sprintf('<div class="accordion-title %3$s %4$s">%2$s <span class="title-text">%1$s</span></div>', esc_attr($value['list_title']), $icon_title, esc_attr($settings['icon_position']), esc_attr($value['set_active']));
 				}else{
-					$html_title = sprintf('<div class="accordion-title %3$s %4$s"><span class="title-text">%1$s</span> %2$s</div>', $value['list_title'], $icon_title_right, $settings['icon_position'], $value['set_active']);
+					$html_title = sprintf('<div class="accordion-title %3$s %4$s"><span class="title-text">%1$s</span> %2$s</div>', esc_attr($value['list_title']), $icon_title_right, esc_attr($settings['icon_position']), esc_attr($value['set_active']));
 				}
 				
 			}

@@ -171,7 +171,7 @@ if (!class_exists("nxs_SNAP")) { class nxs_SNAP {//## SNAP General Class
     if (function_exists('nxs_v4doSMAS2')) { $rf = new ReflectionFunction('nxs_v4doSMAS2'); $trrd++; $rff = $rf->getFileName(); if (stripos($rff, "'d code")===false) $cst(chr(100).$trrd,$trrd); }
     //## Import Settings            
     if (isset($_POST['upload_NS_SNAutoPoster_settings'])) { if (!empty($_POST['nxs_mqTest']) && $_POST['nxs_mqTest']=="\'") {array_walk_recursive($_POST, 'nsx_stripSlashes');}  array_walk_recursive($_POST, 'nsx_fixSlashes');             
-      $secCheck =  wp_verify_nonce($_POST['nxsChkUpl_wpnonce'], 'nxsChkUpl');
+      $secCheck =  wp_verify_nonce(sanitize_text_field( wp_unslash ($_POST['nxsChkUpl_wpnonce'])), 'nxsChkUpl');
       if ($secCheck!==false && isset($_FILES['impFileSettings_button']) && is_uploaded_file($_FILES['impFileSettings_button']['tmp_name'])) { $fileData = trim(file_get_contents($_FILES['impFileSettings_button']['tmp_name']));
         while (substr($fileData, 0,1)!=='a') $fileData = substr($fileData, 1);  
         $uplOpt = maybe_unserialize($fileData); if (is_array($uplOpt) && (isset($uplOpt['imgNoCheck']) || isset($uplOpt['useSSLCert'])) ) { $options = $uplOpt; //### V3 import
@@ -915,7 +915,8 @@ if (!class_exists("nxs_SNAP")) { class nxs_SNAP {//## SNAP General Class
     </div> <?php }        
   function showQueryTab() { global $wpdb, $nxs_snapAvNts, $nxsOne, $nxs_isWPMU, $nxs_tpWMPU; $nxsOne = ''; $options = $this->nxs_options; 
           $uidQ = (!current_user_can( 'manage_options' ) && current_user_can( 'haveown_snap_accss' ) ) ? ' WHERE uid = '.get_current_user_id().' ' : ''; //echo "SELECT * FROM ". $wpdb->prefix . "nxs_query ".$uidQ." ORDER BY timetorun DESC";
-          $quPosts = $wpdb->get_results( "SELECT * FROM ". $wpdb->prefix . "nxs_query ".$uidQ." ORDER BY timetorun DESC", ARRAY_A );      
+	      $sql = $wpdb->prepare("SELECT * FROM %s ORDER BY timetorun DESC", $wpdb->prefix.'nxs_query'.$uidQ);
+	      $quPosts = $wpdb->get_results($sql, ARRAY_A);
         ?>
          <div style="width:99%;">
     <a href="#" style="float: right" onclick="nxs_rfLog();return false;" class="NXSButton" id="nxs_clearLog">Refresh</a>
@@ -1431,19 +1432,43 @@ class nxs_ReposterListTable extends WP_List_Table {
         );
         return $actions;
     }
-    function process_bulk_action() {
-        if( 'delete'===$this->current_action() ) { $items = is_array($_REQUEST['nxs_filter'])?$_REQUEST['nxs_filter']:[]; $jj = 0;  //prr($_REQUEST);
-           foreach ($items as $item ) { $item = sanitize_key($item); wp_delete_post( $item, true ); $jj++; }
-            wp_die($jj.' Items deleted.');
-        }
-        if( 'activate'===$this->current_action() ) { $items = is_array($_REQUEST['nxs_filter'])?$_REQUEST['nxs_filter']:[]; $jj = 0;  //prr($_REQUEST);
-           foreach ($items as $item ) { $item = sanitize_key($item); $o = maybe_unserialize(get_post_meta( $item, 'nxs_rpstr', true ));  $o['rpstOn']='1'; nxs_Filters::save_meta( $item, 'nxs_rpstr', $o ); $jj++; }
-           wp_die($jj.' Items activated.');
-        }
-        if( 'deactivate'===$this->current_action() ) { $items = is_array($_REQUEST['nxs_filter'])?$_REQUEST['nxs_filter']:[]; $jj = 0;  //prr($_REQUEST);
-           foreach ($items as $item ) { $item = sanitize_key($item); $o = maybe_unserialize(get_post_meta( $item, 'nxs_rpstr', true ));  $o['rpstOn']='0'; nxs_Filters::save_meta( $item, 'nxs_rpstr', $o ); $jj++; }
-           wp_die($jj.' Items deactivated.');
-        }
+    function process_bulk_action() { $ca = $this->current_action(); $items = is_array($_REQUEST['nxs_filter'])?$_REQUEST['nxs_filter']:[]; $jj = 0;
+
+	    if (!empty($ca) && !empty($items)) {
+		    $nonce = isset( $_REQUEST['my_bulk_action_nonce'] ) ? $_REQUEST['my_bulk_action_nonce'] : '';
+		    if ( ! wp_verify_nonce( $nonce, 'my_bulk_action_nonce' ) ) {
+			    wp_die( 'Security check failed!' );
+		    }
+
+		    if ( 'delete' === $ca ) {   //prr($_REQUEST);
+			    foreach ( $items as $item ) {
+				    $item = sanitize_key( $item );
+				    wp_delete_post( $item, true );
+				    $jj ++;
+			    }
+			    wp_die( $jj . ' Items deleted.' );
+		    }
+		    if ( 'activate' === $ca ) {
+			    foreach ( $items as $item ) {
+				    $item        = sanitize_key( $item );
+				    $o           = maybe_unserialize( get_post_meta( $item, 'nxs_rpstr', true ) );
+				    $o['rpstOn'] = '1';
+				    nxs_Filters::save_meta( $item, 'nxs_rpstr', $o );
+				    $jj ++;
+			    }
+			    wp_die( $jj . ' Items activated.' );
+		    }
+		    if ( 'deactivate' === $ca ) {
+			    foreach ( $items as $item ) {
+				    $item        = sanitize_key( $item );
+				    $o           = maybe_unserialize( get_post_meta( $item, 'nxs_rpstr', true ) );
+				    $o['rpstOn'] = '0';
+				    nxs_Filters::save_meta( $item, 'nxs_rpstr', $o );
+				    $jj ++;
+			    }
+			    wp_die( $jj . ' Items deactivated.' );
+		    }
+	    }
     }
 
     function prepare_items() {

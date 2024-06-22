@@ -498,7 +498,7 @@ class TFPostAuthorBox_Widget_Free extends \Elementor\Widget_Base {
 							<%1$s class="author-box-name">%2$s</%1$s>
 							<div class="author-box-bio">%3$s</div>
 						</div>',
-						$settings['html_tag'], $author_name, $author_bio 
+						\Elementor\Utils::validate_html_tag($settings['html_tag']), $author_name, $author_bio 
 					);
 
 		$content = sprintf('<div class="author-box">%1$s %2$s</div>', $box_avatar, $box_text);

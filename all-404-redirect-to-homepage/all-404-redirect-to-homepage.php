@@ -4,7 +4,7 @@ Plugin Name: All 404 Redirect to Homepage
 Plugin URI: https://www.wp-buy.com
 Description: a plugin to redirect 404 pages to home page or any custom page
 Author: wp-buy
-Version: 4.4
+Version: 4.5
 Author URI: https://www.wp-buy.com
 */
 register_activation_hook( __FILE__, 'p404_modify_htaccess' );
@@ -95,7 +95,8 @@ function p404_redirect()
 	 	if($options['p404_status']=='1' & $options['p404_redirect_to']!=''){
 			
 			// check if the execlude media links option is enabled
-		if($options['p404_execlude_media'] =='1' && isset($link) && strpos($link, '/wp-content') !== false)
+		//if($options['p404_execlude_media'] =='1' && isset($link) && strpos($link, '/wp-content') !== false)
+		if (isset($options['p404_execlude_media']) && $options['p404_execlude_media'] == '1' && isset($link) && strpos($link, '/wp-content') !== false)		
 			{
 				
 					

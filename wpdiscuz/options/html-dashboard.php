@@ -115,7 +115,7 @@ if (!defined("ABSPATH")) {
                      src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/dashboard/news/icon-social.png")); ?>"
                      style="width: 95px; margin: 5px 15px;">
                 <h1><?php esc_html_e("Social Login and Commenting", "wpdiscuz"); ?></h1>
-                <p><?php esc_html_e("wpDiscuz comes with built-in social login and share buttons. It includes Facebook, Twitter, Google, Disqus, WordPress.org, VK and OK Social Networks. You can enable those by managing API Keys in wpDiscuz > Settings > Social Login and Share options.", "wpdiscuz") ?></p>
+                <p><?php esc_html_e("wpDiscuz comes with built-in social login and share buttons. It includes Facebook, X, Google, Disqus, WordPress.org, VK and OK Social Networks. You can enable those by managing API Keys in wpDiscuz > Settings > Social Login and Share options.", "wpdiscuz") ?></p>
                 <img src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/dashboard/news/social-networks-shadow.png")); ?>"
                      style="float: right; width: 65%; max-width: 520px; padding: 0px 14px; margin-bottom: -20px; position: relative; z-index: 10;">
                 <div class="wpd-clear"></div>

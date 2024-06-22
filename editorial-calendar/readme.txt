@@ -1,12 +1,14 @@
 === Editorial Calendar ===
-Contributors: marketingfire, zgrossbart
-Tags: posts, post, calendar, AJAX, admin, administration
+Contributors: marketingfire
+Tags: schedule post, editorial calendar, quickedit post, manage post
 Requires at least: 4.0
 Tested up to: 6.3
 Requires PHP: 5.6
 Stable tag: 3.8.5
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog. 
+The Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
 
 == Description ==
 
@@ -197,294 +199,204 @@ The `edcal_default_status` property controls the default status for new posts in
 == Changelog ==
 
 = 3.8.5 =
-
 * Updated the allowed tags to allow script tags.
 
 = 3.8.4 =
-
 * Improved posts sanitization.
 
 = 3.8.3 =
-
 * Improved compatibility with PHP 8 and up. 
 * Fixed sanitization on saving options.
 
 = 3.8.2 =
-
 * Fixed error occurred while loading the calendar: undefined.
 
 = 3.8.1 =
-
 * Fixed Vulnerability type: Cross Site Scripting (XSS).
 
 = 3.8.0 =
-
 * Updated roles and capabilities.
 * Fixed data validation.
 * Fixed security issues.
 
 = 3.7.12 =
-
-The calendar will now add a CSS class for the post category on published posts and not just unpublished posts.
+* The calendar will now add a CSS class for the post category on published posts and not just unpublished posts.
 
 = 3.7.11 =
-
-We're now avoiding an error that shows up on the JavaScript console when opening the quick edit dialog.
-
-This version adds support for Hungarian.  A big thank you to @harasztigyula for providing this translation.
+* We're now avoiding an error that shows up on the JavaScript console when opening the quick edit dialog.
+* This version adds support for Hungarian.  A big thank you to @harasztigyula for providing this translation.
 
 = 3.7.10 =
-
-Fixed a minor error in two resourced strings so we can properly translate the drafts drawer title.
+* Fixed a minor error in two resourced strings so we can properly translate the drafts drawer title.
 
 = 3.7.9 =
-
-This version adds support for Traditional Chinese.  A big thank you to Alex Lion for providing this translation.
+* This version adds support for Traditional Chinese.  A big thank you to Alex Lion for providing this translation.
 
 = 3.7.8 =
-
-This version fixes a CSS layout issue so the calendar works with WordPress 5.6.
+* This version fixes a CSS layout issue so the calendar works with WordPress 5.6.
 
 = 3.7.7 =
-
-This version tweaks the libraries that support the calendar to avoid warnings from the Enable jQuery Migrate Helper plugin.
+* This version tweaks the libraries that support the calendar to avoid warnings from the Enable jQuery Migrate Helper plugin.
 
 = 3.7.5 =
-
-The calendar now support quick edit when a post has either a title or content instead of requiring a title.
+* The calendar now support quick edit when a post has either a title or content instead of requiring a title.
 
 = 3.7.4 =
-
-Fixed a specific issue which made the calendar show up as right to left instead of left to right in Dutch.
+* Fixed a specific issue which made the calendar show up as right to left instead of left to right in Dutch.
 
 = 3.7.3 =
-
-We are now making sure to set the correct right to left and left to right orientation in every language file.
+* We are now making sure to set the correct right to left and left to right orientation in every language file.
 
 = 3.7.2 =
-
-This version fixes an error with the drafts drawer that broke compatibility with WordPress 5.0.
+* This version fixes an error with the drafts drawer that broke compatibility with WordPress 5.0.
 
 = 3.7.1 =
-
-We now have an option so you can choose if you want to scroll the calendar with the mouse wheel or not.
+* We now have an option so you can choose if you want to scroll the calendar with the mouse wheel or not.
 
 = 3.7 =
-
-The calendar no longer responds to the mouse wheel.  We did some user testing and it was a better experience without having to worry about the mouse wheel.
-
-The current date range is now doing a better display job and not jumping around when the date changes.
+* The calendar no longer responds to the mouse wheel.  We did some user testing and it was a better experience without having to worry about the mouse wheel.
+* The current date range is now doing a better display job and not jumping around when the date changes.
 
 = 3.6.8 =
-
-The calendar now properly shows scrollbars for individual days when there are too many posts in a single day.
-
-The calendar is now showing the correct left to right orientation in Turkish.
+* The calendar now properly shows scrollbars for individual days when there are too many posts in a single day.
+* The calendar is now showing the correct left to right orientation in Turkish.
 
 = 3.6.7 =
-
-The calendar is now showing in the correct left to right orientation in Japanese.
+* The calendar is now showing in the correct left to right orientation in Japanese.
 
 = 3.6.6 =
-
-Added a new video and did complete testing to make sure the calendar is fully compatible with the latest version of WordPress.
+* Added a new video and did complete testing to make sure the calendar is fully compatible with the latest version of WordPress.
 
 = 3.6.5 =
-
-The calendar will no longer prompt new users to collect data about how they use the calendar.  We have all the data we need for now.
-
-The calendar has now been updated and tested for WordPress version 4.9.1.
+* The calendar will no longer prompt new users to collect data about how they use the calendar.  We have all the data we need for now.
+* The calendar has now been updated and tested for WordPress version 4.9.1.
 
 = 3.6.4 =
-
-The calendar has now been updated and tested for WordPress version 4.8.
+* The calendar has now been updated and tested for WordPress version 4.8.
 
 = 3.6.3 =
-
-The calendar has now been updated and tested for WordPress version 4.7.
+* The calendar has now been updated and tested for WordPress version 4.7.
 
 = 3.6.2 =
-
-The calendar has now been updated and tested for WordPress version 4.5.
-
-We have a new translation in turkish with updated strings and language fixes.
+* The calendar has now been updated and tested for WordPress version 4.5.
+* We have a new translation in turkish with updated strings and language fixes.
 
 = 3.6.1 =
-
-The calendar has now been updated and tested for WordPress version 4.4.
+* The calendar has now been updated and tested for WordPress version 4.4.
 
 = 3.6 =
-
-The calendar has now been updated and tested for WordPress version 4.3.1.
+* The calendar has now been updated and tested for WordPress version 4.3.1.
 
 = 3.5 =
-
-The calendar has now been translated into Turkish and updated for WordPress version 4.2.
+* The calendar has now been translated into Turkish and updated for WordPress version 4.2.
 
 = 3.4 = 
-
-The calendar has now been translated into Danish.  Thank you to our Danish translator Thomas Christensen.
+* The calendar has now been translated into Danish.  Thank you to our Danish translator Thomas Christensen.
 
 = 3.3 = 
-
-This version fixes an error handling apostrophes and ampersands in post titles in WordPress 4.0.
+* This version fixes an error handling apostrophes and ampersands in post titles in WordPress 4.0.
 
 = 3.2 = 
-
-We now have a new option for specifying the default status of a new post and documented the option for specifying the default time of a post.
-
-The calendar is now doing a better job of reporting errors when it can't parse the post information from the blog.
+* We now have a new option for specifying the default status of a new post and documented the option for specifying the default time of a post.
+* The calendar is now doing a better job of reporting errors when it can't parse the post information from the blog.
 
 = 3.1.1 = 
-
-This version is exactly the same as version 3.1, but it's been fully tested against WordPress 3.9.
+* This version is exactly the same as version 3.1, but it's been fully tested against WordPress 3.9.
 
 = 3.1 = 
-
-The calendar now adds the category slugs for each post as a class for the line of that post in the calendar.
-
-The calendar has a new option called edcal_custom_posts_public to control if the calendar shows for private custom posts or not.
+* The calendar now adds the category slugs for each post as a class for the line of that post in the calendar.
+* The calendar has a new option called edcal_custom_posts_public to control if the calendar shows for private custom posts or not.
 
 = 3.0 = 
-
-This version makes a few small bug fixes to work well with WordPress 3.8.  This includes showing the screen options with some better formatting and deleting posts from the drafts drawer properly.
+* This version makes a few small bug fixes to work well with WordPress 3.8.  This includes showing the screen options with some better formatting and deleting posts from the drafts drawer properly.
 
 = 2.9 = 
-
-Version 2.9 is another testing release.  This version makes sure everything works great with WordPress 3.7.1.
+* This version makes sure everything works great with WordPress 3.7.1.
 
 = 2.8 = 
-
-Version 2.8 is all about testing.  This version makes sure everything works great with WordPress 3.6 and jQuery 2.0.  It also has a couple of small bug fixes.
+* This version makes sure everything works great with WordPress 3.6 and jQuery 2.0.  It also has a couple of small bug fixes.
 
 = 2.7 = 
-
-The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs at http://www.webqbe.it.
-
-Changed all calls of the jQuery live method to use the new on method so the calendar will keep working when WordPress upgrades to jQuery 1.9.
-
-The Mozilla team is now using the Editorial Calendar in one of their blogs and performed a security review of the calendar.  They found a couple of potential issues which were fixed in this release.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
-
-The Editorial Calendar is now stripping all tags out of post titles created from the calendar.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
-
-We are now preventing a potential SQL injection attack with the start date and end date filter when querying posts.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
-
-We are adding an extra check to make sure that authors can't delete a post created by another author.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
+* The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs at http://www.webqbe.it.
+* Changed all calls of the jQuery live method to use the new on method so the calendar will keep working when WordPress upgrades to jQuery 1.9.
+* The Mozilla team is now using the Editorial Calendar in one of their blogs and performed a security review of the calendar.  They found a couple of potential issues which were fixed in this release.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
+* The Editorial Calendar is now stripping all tags out of post titles created from the calendar.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
+* We are now preventing a potential SQL injection attack with the start date and end date filter when querying posts.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
+* We are adding an extra check to make sure that authors can't delete a post created by another author.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
 
 = 2.6 = 
-
-Fixed some layout issues with the previous and next calendar buttons in WordPress 3.5.
-
-We are now properly saving new posts in the drafts drawer in WordPress 3.5.
-
-Added unit tests to cover creating a new post in the drafts drawer.
-
-Added a few performance improvements to the calendar like making sure we only load our code in the admin console.
+* Fixed some layout issues with the previous and next calendar buttons in WordPress 3.5.
+* We are now properly saving new posts in the drafts drawer in WordPress 3.5.
+* Added unit tests to cover creating a new post in the drafts drawer.
+* Added a few performance improvements to the calendar like making sure we only load our code in the admin console.
 
 = 2.5 =
-
-The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar to avoid some PHP warnings.
-
-The calendar is now more careful about PHP warnings so it still works if the blog is set to show PHP warnings.
-
-The unit tests are now using the correct CSS reference so they show up properly.
-
-Moved the setting for the default post time to the edcal.php so it's easier to change without recompiling the JavaScript.
-
-The calendar now supports Russian thanks to Danny Zawacki and Lyudmila Kostryka.  Danny blogs at http://dannyzawacki.com
-
-We have started to namespace css classes to avoid conflicts with other plugins & themes. 
+* The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar to avoid some PHP warnings.
+* The calendar is now more careful about PHP warnings so it still works if the blog is set to show PHP warnings.
+* The unit tests are now using the correct CSS reference so they show up properly.
+* Moved the setting for the default post time to the edcal.php so it's easier to change without recompiling the JavaScript.
+* The calendar now supports Russian thanks to Danny Zawacki and Lyudmila Kostryka.  Danny blogs at http://dannyzawacki.com
+* We have started to namespace css classes to avoid conflicts with other plugins & themes. 
 
 = 2.4 =
-
-Creating a new unscheduled draft is now working properly from the calendar.
+* Creating a new unscheduled draft is now working properly from the calendar.
 
 = 2.3 = 
-
-The calendar is now loading relative URLs for CSS, JavaScript, and image files using the right API so they load properly when using SSL.
+* The calendar is now loading relative URLs for CSS, JavaScript, and image files using the right API so they load properly when using SSL.
 
 = 2.2.1 =
-
-Fixed a memory leak in the calendar where the calendar doesn't load if you have too many posts in your blog.
+* Fixed a memory leak in the calendar where the calendar doesn't load if you have too many posts in your blog.
 
 = 2.2 =
-
-The calendar is using JavaScript compression to load less data and run faster.
-
-We've added a new mechanism to load the unscheduled drafts which spaces out the loading so the calendar responds super fast even when you have hundreds of unscheduled drafts.
-
-Added a new button to jump to the last post in the calendar.
-
-Added a namespace to fix a small issue of potential JavaScript file conflict with wp_enqueue_script().
+* The calendar is using JavaScript compression to load less data and run faster.
+* We've added a new mechanism to load the unscheduled drafts which spaces out the loading so the calendar responds super fast even when you have hundreds of unscheduled drafts.
+* Added a new button to jump to the last post in the calendar.
+* Added a namespace to fix a small issue of potential JavaScript file conflict with wp_enqueue_script().
 
 = 2.1 =
-
-The calendar now moves posts from the drafts drawer to the main calendar properly on blogs with the alternate functionality of the date function.
-
-The calendar can now display up to eight weeks at a time instead of just five.
+* The calendar now moves posts from the drafts drawer to the main calendar properly on blogs with the alternate functionality of the date function.
+* The calendar can now display up to eight weeks at a time instead of just five.
 
 = 2.0 =
-
-The calendar now has a new major feature, the "drafts drawer," a post staging area where we make all unscheduled posts available to drag onto the calendar. You can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
-
-Moved around functions in the js and css to be a bit more readable, and added table of contents to css file.
-
-Updated css of Screen Options to be more core WordPress.
+* The calendar now has a new major feature, the "drafts drawer," a post staging area where we make all unscheduled posts available to drag onto the calendar. You can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
+* Moved around functions in the js and css to be a bit more readable, and added table of contents to css file.
+* Updated css of Screen Options to be more core WordPress.
 
 = 1.9.1 =
-
-The calendar is no longer blocking typing in the calendar quick edit dialog.
+* The calendar is no longer blocking typing in the calendar quick edit dialog.
 
 = 1.9 =
-
-The calendar is now translated into Lithuanian.  Thanks to Vincent G. from <a href="http://www.host1free.com">host1free.com</a>.
+* The calendar is now translated into Lithuanian.  Thanks to Vincent G. from <a href="http://www.host1free.com">host1free.com</a>.
 
 = 1.8.6 =
-
-The calendar is now using the proper he_IL locale code for Hebrew instead of he.
+* The calendar is now using the proper he_IL locale code for Hebrew instead of he.
 
 = 1.8.5 =
-
-The calendar is now translated into Spanish.  Thanks to Alberto Balsalobre Rios who blogs at <a href="http://www.mediatripa.com">Mediatripa.com</a>.
-
-The calendar is now translated into Hebrew including right to left language support.  Thanks to Meir Pinto who blogs at <a href="http://www.meir-pinto.com/wp">Pintolog</a>.
+* The calendar is now translated into Spanish.  Thanks to Alberto Balsalobre Rios who blogs at <a href="http://www.mediatripa.com">Mediatripa.com</a>.
+* The calendar is now translated into Hebrew including right to left language support.  Thanks to Meir Pinto who blogs at <a href="http://www.meir-pinto.com/wp">Pintolog</a>.
 
 = 1.8 =
-
-The calendar is now translated into Norwegian.
-
-The mouse wheel scrolling with the calendar is now working properly on WordPress 3.3.  Previously it would only scroll up (into the past) and not down (into the future).
-
-The calendar is now translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
-
-Support for WordPress version 3.3.1.
+* The calendar is now translated into Norwegian.
+* The mouse wheel scrolling with the calendar is now working properly on WordPress 3.3.  Previously it would only scroll up (into the past) and not down (into the future).
+* The calendar is now translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
+* Support for WordPress version 3.3.1.
 
 = 1.7 =
-
-Version 1.7 supports WordPress 3.3 with fixes to the date display of newly created posts and alignment and margins of each day in the calendar.
-
-The calendar is now scrolling in the right direction with the up and down arrows keys.
+* Version 1.7 supports WordPress 3.3 with fixes to the date display of newly created posts and alignment and margins of each day in the calendar.
+* The calendar is now scrolling in the right direction with the up and down arrows keys.
 
 = 1.6 =
-
-The calendar is now setting the correct post time for manual set times at noon or midnight instead of changing it by 12 hours.
-
-The up, down, page up, and page down keys are now working properly for moving around in the text in the quick edit dialog.
-
-The calendar is now translated into Swedish.  Thanks to Johan Landström.
+* The calendar is now setting the correct post time for manual set times at noon or midnight instead of changing it by 12 hours.
+* The up, down, page up, and page down keys are now working properly for moving around in the text in the quick edit dialog.
+* The calendar is now translated into Swedish.  Thanks to Johan Landström.
 
 = 1.5 =
-
-The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.
-
-The calendar is now translated into German.  Thanks to Matthias Nattke who uses the Editorial Calendar on his site <a href="http://www.kikamagazin.de">Kikamagazin Bloggt</a>.
-
-The calendar is now supporting a special post type "edcal_show_calendar_" to make sure certain custom post types don't show up in the calendar.
+* The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.
+* The calendar is now translated into German.  Thanks to Matthias Nattke who uses the Editorial Calendar on his site <a href="http://www.kikamagazin.de">Kikamagazin Bloggt</a>.
+* The calendar is now supporting a special post type "edcal_show_calendar_" to make sure certain custom post types don't show up in the calendar.
 
 = 1.4 =
-
 * We now have a new look and feel for the quick edit dialog and a few other elements to match WordPress 3.2.
-
 * We've refactored the Editorial Calendar into a PHP class for easier maintainability and better scoping.
 
 = 1.3.4 =

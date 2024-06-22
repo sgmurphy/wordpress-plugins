@@ -1230,12 +1230,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 									<li><a href="<?php echo esc_attr($value['social_link']['url']) ?>" class="<?php echo esc_attr($class_icon); ?>">
 										<?php
 											\Elementor\Icons_Manager::render_icon( $value['social_icon'] ); ?>
-										<?php
-										// if ( $is_new || $migrated ) {
-										// 	\Elementor\Icons_Manager::render_icon( $value['social_icon'] );
-										// } else { ?>
-											<!-- <i class="<?php //echo esc_attr( $value['social'] ); ?>"></i> -->
-										<?php //} ?>
+									
 									</a></li>
 							<?php } ?>
 						</ul>
@@ -1286,12 +1281,7 @@ class TFTeam_Widget_Fr extends \Elementor\Widget_Base {
 									<li><a href="<?php echo esc_attr($value['social_link']['url']) ?>" class="<?php echo esc_attr($class_icon); ?>">
 										<?php
 											\Elementor\Icons_Manager::render_icon( $value['social_icon'] ); ?>
-										<?php
-										// if ( $is_new || $migrated ) {
-										// 	\Elementor\Icons_Manager::render_icon( $value['social_icon'] );
-										// } else { ?>
-											<!-- <i class="<?php //echo esc_attr( $value['social'] ); ?>"></i> -->
-										<?php //} ?>
+									
 									</a></li>
 							<?php } ?>
 						</ul>

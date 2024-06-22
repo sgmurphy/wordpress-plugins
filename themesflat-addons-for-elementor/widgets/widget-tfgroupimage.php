@@ -409,18 +409,18 @@
                 <div class="tf-image-group-widget">
                     <?php foreach ($settings['images_list'] as $index => $item) { 
                         if ( ! empty( $item['image']['url'] ) ) {
-                            $animation = isset( $item['animation'] ) ? $item['animation'] : '';
-                            $parallax_scale = isset( $item['parallax_scale'] ) ? $item['parallax_scale']['size'] : '';
-                            $parallax_delay = isset( $item['parallax_delay'] ) ? $item['parallax_delay']['size'] : '';
-                            $parallax_orientation = isset( $item['parallax_orientation'] ) ? $item['parallax_orientation'] : '';
-                            $parallax_transition = isset( $item['parallax_transition'] ) ? $item['parallax_transition']: '';
-                            $parallaxx_duration = isset( $item['transition_duration'] ) ? $item['transition_duration']: '0.4';
+                            $animation = isset( $item['animation'] ) ? esc_attr($item['animation']) : '';
+                            $parallax_scale = isset( $item['parallax_scale'] ) ? esc_attr($item['parallax_scale']['size'])  : '';
+                            $parallax_delay = isset( $item['parallax_delay'] ) ? esc_attr($item['parallax_delay']['size'])  : '';
+                            $parallax_orientation = isset( $item['parallax_orientation'] ) ? esc_attr($item['parallax_orientation'])  : '';
+                            $parallax_transition = isset( $item['parallax_transition'] ) ? esc_attr($item['parallax_transition']) : '';
+                            $parallaxx_duration = isset( $item['transition_duration'] ) ? esc_attr($item['transition_duration']) : '0.4';
                             $show_animation = isset( $item['parallax_enable'] ) ? $animation : '';
                             
                     ?>
                         <div class="elementor-repeater-item-<?php echo esc_attr($item['_id']); ?> <?php echo $show_animation; ?>  tf-image-item tf-image-group-widget-item-<?php echo ($index + 1); ?>">                            
                             <div class="inner-animate">
-                                <img src="<?php echo $item['image']['url'] ?>" data-parallax-transition="<?php echo $parallax_transition; ?>" data-parallax-duration="<?php echo $parallaxx_duration; ?>" data-parallax-scale="<?php echo $parallax_scale; ?>" data-parallax-delay="<?php echo $parallax_delay; ?>" data-parallax-orientation="<?php echo $parallax_orientation; ?>"  alt="">
+                                <img src="<?php echo esc_url($item['image']['url']); ?>" data-parallax-transition="<?php echo $parallax_transition; ?>" data-parallax-duration="<?php echo $parallaxx_duration; ?>" data-parallax-scale="<?php echo $parallax_scale; ?>" data-parallax-delay="<?php echo $parallax_delay; ?>" data-parallax-orientation="<?php echo $parallax_orientation; ?>"  alt="">
                             </div>
                         </div>
                     <?php }} ?>

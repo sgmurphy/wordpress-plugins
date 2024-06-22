@@ -1266,7 +1266,7 @@ if (!class_exists('TFMiniCart_Widget_Free')) {
 	                            <div class="content-text">
 	                                <h5><?php echo esc_attr($settings['text']); ?></h5>
 	                                <div>
-		                                <?php echo sprintf('( %1$s <span class="cart-contents-count">%2$s</span> )',$settings['text_count'], $count ); ?>
+		                                <?php echo sprintf('( %1$s <span class="cart-contents-count">%2$s</span> )',esc_attr($settings['text_count']), $count ); ?>
 		                            </div>
 	                            </div>
 	                        	<?php endif; ?>

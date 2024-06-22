@@ -598,17 +598,17 @@ class TFPostNavigation_Widget_Free extends \Elementor\Widget_Base {
 		$content = $prev_label = $next_label = $prev_arrow = $next_arrow = '';
 
 		if ( $settings['show_label'] == 'yes'  ) {
-			$prev_label = '<span class="post-navigation-label post-navigation-prev-label">' . $settings['prev_label'] . '</span>';
-			$next_label = '<span class="post-navigation-label post-navigation-next-label">' . $settings['next_label'] . '</span>';
+			$prev_label = '<span class="post-navigation-label post-navigation-prev-label">' . esc_attr($settings['prev_label']) . '</span>';
+			$next_label = '<span class="post-navigation-label post-navigation-next-label">' . esc_attr($settings['next_label']) . '</span>';
 		}
 
 		if ( $settings['show_arrow'] == 'yes' ) {
 			if ( is_rtl() ) {
-				$prev_icon_class = str_replace( 'left', 'right', $settings['arrow'] );
-				$next_icon_class = $settings['arrow'];
+				$prev_icon_class = str_replace( 'left', 'right', esc_attr($settings['arrow']) );
+				$next_icon_class = esc_attr($settings['arrow']);
 			} else {
-				$prev_icon_class = $settings['arrow'];
-				$next_icon_class = str_replace( 'left', 'right', $settings['arrow'] );
+				$prev_icon_class = esc_attr($settings['arrow']);
+				$next_icon_class = str_replace( 'left', 'right', esc_attr($settings['arrow']) );
 			}
 
 			$prev_arrow = '<span class="post-navigation-arrow-wrapper post-navigation-arrow-prev"><i class="' . $prev_icon_class . '" aria-hidden="true"></i></span>';
@@ -630,7 +630,7 @@ class TFPostNavigation_Widget_Free extends \Elementor\Widget_Base {
 		if ( ! empty( $settings['in_same_term'] ) && is_array( $settings['in_same_term'] ) && in_array( $post_type, $settings['in_same_term'] ) ) {
 			if ( isset( $settings[ $post_type . '_taxonomy' ] ) ) {
 				$in_same_term = true;
-				$taxonomy = $settings[ $post_type . '_taxonomy' ];
+				$taxonomy = esc_attr($settings[ $post_type . '_taxonomy' ]);
 			}
 		}
         ?>

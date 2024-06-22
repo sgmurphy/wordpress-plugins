@@ -629,9 +629,9 @@ class GoogleSitemapGeneratorStandardBuilder {
 				'taxonomy'		=> $taxonomy,
 				'number'		=> $links_per_page,
 				'offset'		=> $offset,
-				'hide_empty'	=> true,
 				'exclude'		=> $excludes,
 			];
+			$queryArr['hide_empty'] = apply_filters( 'sm_sitemap_taxonomy_hide_empty', true );
 			if (preg_match('/(post_tag|category)/', $taxonomy)) {
 				$queryArr['hierarchical'] = false;
 			}
@@ -674,6 +674,9 @@ class GoogleSitemapGeneratorStandardBuilder {
 						break;
 					case 'product_cat':
 						$gsg->add_url( get_term_link( $term, $step ), $term->_mod_date, $gsg->get_option( 'cf_product_cat' ), $gsg->get_option( 'pr_product_cat' ) );
+						break;
+					case 'post_tag':
+						$gsg->add_url( get_term_link( $term, $step ), $this->getTaxonomyUpdatedDate($term->term_id) ?: 0, $gsg->get_option( 'cf_tags' ), $gsg->get_option( 'pr_tags' ) );
 						break;
 					default:
 						$gsg->add_url( get_term_link( $term, $step ), $this->getTaxonomyUpdatedDate($term->term_id) ?: 0, $gsg->get_option( 'cf_' . $term->taxonomy ), $gsg->get_option( 'pr_' . $term->taxonomy ) );
@@ -898,11 +901,12 @@ class GoogleSitemapGeneratorStandardBuilder {
 		
 		foreach ( $enabled_taxonomies as $taxonomy ) {
 			if ( ! in_array( $taxonomy, $taxonomies_to_exclude, true ) ) {
-				$terms = $this->get_terms( array( 
+				$terms_args = [
 					'taxonomy' => $taxonomy,
-					'exclude' => $excludes,
-					'hide_empty' => true
-				) );
+					'exclude' => $excludes
+				];
+				$terms_args['hide_empty'] = apply_filters( 'sm_sitemap_taxonomy_hide_empty', true );
+				$terms = $this->get_terms( $terms_args );
 				$terms_by_taxonomy[ $taxonomy ] = $terms;
 			}
 		}
@@ -1107,13 +1111,13 @@ class GoogleSitemapGeneratorStandardBuilder {
 		$sql .= ' AND `tt`.term_id = `t`.term_id';
 
 		if ( ! empty( $args ) ) {
-			if ( isset( $args['hide_empty'] ) && $args['hide_empty'] == true ) {
+			if ( isset( $args['hide_empty'] ) && $args['hide_empty'] === true ) {
 				$sql .= ' AND `tt`.count != 0';
 			}
-			if ( isset( $args['hierarchical'] ) && $args['hierarchical'] == true ) {
+			if ( isset( $args['hierarchical'] ) && $args['hierarchical'] === true ) {
 				$sql .= ' AND `tt`.parent != 0';
 			}
-			if ( isset( $args['exclude'] ) && $args['exclude'] == true ) {
+			if ( isset( $args['exclude'] ) && is_array( $args['exclude'] ) && ! empty( $args['exclude'] ) ) {
 				foreach ( $args['exclude'] as $term_id ) {
 					$sql .= ' AND `tt`.term_id != ' . $term_id;
 				}

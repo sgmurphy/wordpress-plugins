@@ -1079,12 +1079,12 @@ if(!class_exists('Slide_Widget_Free')){
 		protected function render() {
 			$settings = $this->get_settings_for_display();
 			$count = $img_str = $content_html = $content_html_inner = $arrow_html = $content_top = $color_overlay = $class_slideshow = $heading_html = $sub_title_html = $desc_html = $btn_html = $prefix = $suffix = $delay = $fancy_text_heading = $custom_height = $custom_height_tablet = $custom_height_mobile = '';		
-	        $class_slideshow = 'hero-section ' . $settings['vegas_slideshow_style'] . ' ' . $settings['align'];
-	        $color_overlay = $settings['color_overlay'];
-	        $effect = $settings['effect'];
-	        $arrow_anchor = $settings['arrow_anchor'];
-	        $scroll_id = $settings['scroll_id'];
-	        $arrow_style = $settings['arrow_style'];
+	        $class_slideshow = 'hero-section ' . esc_attr($settings['vegas_slideshow_style']) . ' ' . esc_attr($settings['align']);
+	        $color_overlay = esc_attr($settings['color_overlay']);
+	        $effect = esc_attr($settings['effect']);
+	        $arrow_anchor = esc_attr($settings['arrow_anchor']);
+	        $scroll_id = esc_attr($settings['scroll_id']);
+	        $arrow_style = esc_attr($settings['arrow_style']);
 	        if ($settings['arrow_anchor_effect'] == 'yes') {
 	        	$arrow_style .= ' bounce-tf infinite-tf ';
 	        }
@@ -1094,14 +1094,10 @@ if(!class_exists('Slide_Widget_Free')){
 	        }
 	        $pattern_overlay = $settings['pattern_overlay'];
 
-	        //if ( $settings['vegas_slideshow_height'] == 'custom-height' ) {
-	        	$custom_height = $settings['custom_height']['size'];
-	        	$custom_height_tablet = $settings['custom_height_tablet']['size'];
-	        	$custom_height_mobile = $settings['custom_height_mobile']['size'];
-	        	//$custom_height = $settings['custom_height'];
-	        // }else {
-	        // 	$custom_height = 'full-height';
-	        // }
+			$custom_height = esc_attr($settings['custom_height']['size']);
+			$custom_height_tablet = esc_attr($settings['custom_height_tablet']['size']);
+			$custom_height_mobile = esc_attr($settings['custom_height_mobile']['size']);
+	 
 	        
 
 			if ( ! empty( $settings['vegas_slideshow_list'] ) ) {
@@ -1109,16 +1105,16 @@ if(!class_exists('Slide_Widget_Free')){
 	            $count = count( $imgs );
 	            $vegas_slideshow_list = $settings['vegas_slideshow_list'];
 	            foreach ( $vegas_slideshow_list as $vegasslideritem ){
-	                $img_str .= $vegasslideritem['vegas_slideshow_image']['url'].'|';                             
+	                $img_str .= esc_url($vegasslideritem['vegas_slideshow_image']['url']).'|';                             
 	            }
 	            $img_str = substr( $img_str, 0, -1 );           	
 	        }       
 	        
 	        if ( $settings['prefix_title_text'] != '' ) {
-	        	$prefix = '<h2 class="prefix-text"> '.$settings['prefix_title_text'].' </h2>'; 
+	        	$prefix = '<h2 class="prefix-text"> '.esc_attr($settings['prefix_title_text']).' </h2>'; 
 	        } 
 	        if ( $settings['suffix_title_text'] != '' ) {
-	        	$suffix  = '<h2 class="suffix-text"> '.$settings['suffix_title_text'].' </h2>'; 
+	        	$suffix  = '<h2 class="suffix-text"> '.esc_attr($settings['suffix_title_text']).' </h2>'; 
 	        }   
 
 	        if ( $settings['animation_heading'] == 'type' ) {
@@ -1137,11 +1133,11 @@ if(!class_exists('Slide_Widget_Free')){
 	            }
 	        	$heading_html = '<div class="wrap-heading">'.$prefix . '<div class="slide-fancy-text scroll fancy-text-heading"> '.$fancy_text_heading.' </div>' . $suffix.'</div>';
 	        }else {
-	        	$heading_html = '<div class="wrap-heading">'.$prefix.' <h2 class="heading"> '.$settings['vegas_title_text'].' </h2> '.$suffix.'</div>';    
+	        	$heading_html = '<div class="wrap-heading">'.$prefix.' <h2 class="heading"> '.wp_kses_post($settings['vegas_title_text']).' </h2> '.$suffix.'</div>';    
 	        }   
 
 	        if ($settings['vegas_sub_title_text'] != '') {
-	        	$sub_title_html = '<h3 class="sub-title">'.$settings['vegas_sub_title_text'].'</h3>'; 
+	        	$sub_title_html = '<h3 class="sub-title">'.wp_kses_post($settings['vegas_sub_title_text']).'</h3>'; 
 	        }	         
 
 	        if ($settings['vegas_desc_text'] != '') {
@@ -1151,11 +1147,20 @@ if(!class_exists('Slide_Widget_Free')){
 	        if ($settings['create_buttons']) {
 				foreach ( $settings['create_buttons'] as $key => $value ) {			
 					if( $key < 3 ) {
+						$this->add_render_attribute('button_text', 'class','button-one elementor-repeater-item-'.$value['_id']);
+						$this->add_render_attribute('button_text', 'href', esc_url($value['btn_url']['url'] ? $value['btn_url']['url'] : '#'));
+						if (!empty($value['btn_url']['is_external'])) {
+						$this->add_render_attribute('button_text', 'target', '_blank');
+						}
+						if (!empty($value['btn_url']['nofollow'])) {
+						$this->add_render_attribute('button_text', 'rel', 'nofollow');
+						}
+						$link_url = $this->get_render_attribute_string('button_text'); 
 						if ($value['btn_title'] != '') {					
 							if ( $value['icon_button_align'] == 'btn-icon-left' ) {
-								$btn_html .= sprintf('<a href="'.$value['btn_url']['url'].'" class="button-one elementor-repeater-item-'.$value['_id'].'"><span class="btn-icon-left">%s</span> '.$value['btn_title'].'</a>', \Elementor\Addon_Elementor_Icon_manager_free::render_icon( $value['btn_icon'], [ 'aria-hidden' => 'true' ] ) );
+								$btn_html .= sprintf('<a '.$link_url.'><span class="btn-icon-left">%s</span> '.$value['btn_title'].'</a>', \Elementor\Addon_Elementor_Icon_manager_free::render_icon( $value['btn_icon'], [ 'aria-hidden' => 'true' ] ) );
 							}else {
-								$btn_html .= sprintf('<a href="'.$value['btn_url']['url'].'" class="button-one elementor-repeater-item-'.$value['_id'].'">'.$value['btn_title'].' <span class="btn-icon-right">%s</span></a>', \Elementor\Addon_Elementor_Icon_manager_free::render_icon( $value['btn_icon'], [ 'aria-hidden' => 'true' ] ) );
+								$btn_html .= sprintf('<a '.$link_url.'>'.$value['btn_title'].' <span class="btn-icon-right">%s</span></a>', \Elementor\Addon_Elementor_Icon_manager_free::render_icon( $value['btn_icon'], [ 'aria-hidden' => 'true' ] ) );
 							}	
 						}		
 						
@@ -1165,20 +1170,20 @@ if(!class_exists('Slide_Widget_Free')){
 
 	        if ( $settings['content_into_grid'] == 'yes' ) {
 	        	if ($settings['sub_title_position'] == 'top') {
-	        		$content_html = sprintf( '<div class="vegas-container"><div class="vegas-content animation-heading-%s">%s %s %s %s</div></div>',  $settings['animation_heading'],$sub_title_html, $heading_html, $desc_html,  $btn_html );
+	        		$content_html = sprintf( '<div class="vegas-container"><div class="vegas-content animation-heading-%s">%s %s %s %s</div></div>',  esc_attr($settings['animation_heading']),$sub_title_html, $heading_html, $desc_html,  $btn_html );
 	        	}else{
-	        		$content_html = sprintf( '<div class="vegas-container"><div class="vegas-content animation-heading-%s">%s %s %s %s</div></div>',  $settings['animation_heading'],$heading_html, $sub_title_html, $desc_html,  $btn_html );
+	        		$content_html = sprintf( '<div class="vegas-container"><div class="vegas-content animation-heading-%s">%s %s %s %s</div></div>',  esc_attr($settings['animation_heading']),$heading_html, $sub_title_html, $desc_html,  $btn_html );
 	        	}            
 	        } else {
 	        	if ($settings['sub_title_position'] == 'top') {
-		            $content_html = sprintf( '<div class="vegas-content animation-heading-%s">%s %s %s %s</div>', $settings['animation_heading'], $sub_title_html, $heading_html, $desc_html, $btn_html );
+		            $content_html = sprintf( '<div class="vegas-content animation-heading-%s">%s %s %s %s</div>', esc_attr($settings['animation_heading']), $sub_title_html, $heading_html, $desc_html, $btn_html );
 		        }else{
-		        	$content_html = sprintf( '<div class="vegas-content animation-heading-%s">%s %s %s %s</div>', $settings['animation_heading'], $heading_html, $sub_title_html, $desc_html, $btn_html );
+		        	$content_html = sprintf( '<div class="vegas-content animation-heading-%s">%s %s %s %s</div>', esc_attr($settings['animation_heading']), $heading_html, $sub_title_html, $desc_html, $btn_html );
 		        }
 	        }  
 
 	        if ( $settings['delay'] != '' ) {
-	        	$delay = $settings['delay'];
+	        	$delay = esc_attr($settings['delay']);
 	        }     
 
 	        $content_top = $settings['content_top'];  
@@ -1206,7 +1211,7 @@ if(!class_exists('Slide_Widget_Free')){
 	        }
 
 	        if ( $settings['vegas_slideshow_style'] == 'slidevideo' ) {
-	        	$video_link = $settings['video_link'];
+	        	$video_link = esc_url($settings['video_link']);
 	        	$property = "{videoURL:'$video_link',containment:'.video.player', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, addRaster:'$pattern_overlay', quality:'default'}";
 
 	        	echo sprintf(

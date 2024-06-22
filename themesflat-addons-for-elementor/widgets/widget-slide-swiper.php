@@ -973,10 +973,10 @@ class TFSlideSwiper_Widget_Free extends \Elementor\Widget_Base {
 			$image_url = \Elementor\Group_Control_Image_Size::get_attachment_image_src( $attachment['id'], 'thumbnail', $settings );
 
 			if ( ! $image_url && isset( $attachment['url'] ) ) {
-				$image_url = $attachment['url'];
+				$image_url = esc_url($attachment['url']);
 			}
 
-			$slide_html .= '<div class="wrap-image"><img class="swiper-slide-image" src="' . esc_attr( $image_url ) . '" alt="' . esc_attr( \Elementor\Control_Media::get_image_alt( $attachment ) ) . '" /></div>';
+			$slide_html .= '<div class="wrap-image"><img class="swiper-slide-image" src="' . esc_url( $image_url ) . '" alt="' . esc_attr( \Elementor\Control_Media::get_image_alt( $attachment ) ) . '" /></div>';
 
 			$slides[] = '<div class="swiper-slide">' . $slide_html . '</div>';
 			$slide_count++;

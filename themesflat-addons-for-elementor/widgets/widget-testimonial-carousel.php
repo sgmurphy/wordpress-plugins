@@ -1150,20 +1150,20 @@ class TFTestimonialCarousel_Widget_Fr extends \Elementor\Widget_Base {
 					<?php if ($settings['testimonial_style'] == 'style-2'): ?>						
 						<div class="wrap-content">
 							<span class="bg-quote"></span>	
-							<div class="image-quote"><img src="<?php echo esc_attr($carousel['image_quote']['url']); ?>" alt="image"></div>
+							<div class="image-quote"><img src="<?php echo esc_url($carousel['image_quote']['url']); ?>" alt="image"></div>
 							<div class="description"><?php echo esc_attr($carousel['description']); ?></div>
 							<div class="wrap-author">				
-								<span class="avatar"><img src="<?php echo esc_attr($carousel['avatar']['url']); ?>" alt="image"></span>
+								<span class="avatar"><img src="<?php echo esc_url($carousel['avatar']['url']); ?>" alt="image"></span>
 								<span class="name"><?php echo esc_attr($carousel['name']); ?></span>
 								<span class="position"><?php echo esc_attr($carousel['position']); ?></span>
 							</div>	
 						</div>
 						<div class="line-bottom"></div>
 					<?php else: ?>
-						<div class="image-quote"><img src="<?php echo esc_attr($carousel['image_quote']['url']); ?>" alt="image"></div>
+						<div class="image-quote"><img src="<?php echo esc_url($carousel['image_quote']['url']); ?>" alt="image"></div>
 						<div class="description"><?php echo esc_attr($carousel['description']); ?></div>
 						<div class="wrap-author">				
-							<span class="avatar"><img src="<?php echo esc_attr($carousel['avatar']['url']); ?>" alt="image"></span>
+							<span class="avatar"><img src="<?php echo esc_url($carousel['avatar']['url']); ?>" alt="image"></span>
 							<span class="name"><?php echo esc_attr($carousel['name']); ?></span>
 							<span class="position"><?php echo esc_attr($carousel['position']); ?></span>
 						</div>

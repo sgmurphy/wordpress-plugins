@@ -198,11 +198,11 @@ class Tf_Register_Widgets extends \Elementor\Widget_Base {
 		            ],
 		            'icon' => [
 		                'title' => esc_html__('Icon', 'tf-addon-for-elementer'),
-		                'icon' => 'fa fa-gear',
+		                'icon' => 'fa fa-info-circle',
 		            ],
 		            'image' => [
 		                'title' => esc_html__('Image', 'tf-addon-for-elementer'),
-		                'icon' => 'fa fa-picture-o',
+		                'icon' => 'fa fa-image',
 		            ],
 				],
 				'default'  => 'icon'
@@ -650,50 +650,25 @@ class Tf_Register_Widgets extends \Elementor\Widget_Base {
 		$prefix = esc_attr( $settings['prefix']) ? esc_attr($settings['prefix']):" ";
 		$suffix = esc_attr( $settings['suffix']) ? esc_attr($settings['suffix']):" ";
 		$title = esc_attr( $settings['title']) ? esc_attr($settings['title']):" ";
-		
-		// if ( isset( $settings['icon_name']['value'] ) ) {
-		// 	if ( !empty( $settings['icon_name']['value']['url'] ) ) {
-		// 		$icon_name .= sprintf(
-		//            '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		//              $settings['icon_name']['value']['url'],
-		//              $settings['icon_name']['value']['id']
-		            
-		//          ); 
-		// 	} else {
-		// 		$icon_name .= sprintf(
-		//              '<i class="%1$s"></i>',
-		//             $settings['icon_name']['value']
-		//         );  
-		// 	}
-		// } else  {
-		// 	$icon_name .= sprintf(
-	    //          '<img src="%1$s" alt=""/>',
-	    //         $settings['counter_images']['url']
-	    //     );  
-		// }	
-
-		// if ( $settings['icon_name']['value'] != '' || $settings['counter_images']['url'] != '' && $settings['icon_type'] != 'none' ) {
-		// 	$icon_html = sprintf ('<div class="flat-icon"><span class="count-circle-sub">%1$s</span></div>', $icon_name);
-		// }
-		
+				
 		if ( isset( $settings['icon_name']['value'] ) ) {
 			if ( !empty( $settings['icon_name']['value']['url'] ) ) {
 				$icon_name .= sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['icon_name']['value']['url'],
-		             $settings['icon_name']['value']['id']
+		             esc_url($settings['icon_name']['value']['url']),
+					 esc_attr($settings['icon_name']['value']['id']) 
 		            
 		         ); 
 			} else {
 				$icon_name .= sprintf(
 		             '<i class="%1$s"></i>',
-		            $settings['icon_name']['value']
+					 esc_attr($settings['icon_name']['value'])
 		        );  
 			}
 		} else if ( isset( $settings['counter_images']['url'] )) {
 			$icon_name .= sprintf(
-	             '<img src="%1$s" alt=""/>',
-	            $settings['counter_images']['url']
+	             '<img src="%1$s" alt="image"/>',
+				 esc_url($settings['counter_images']['url'])
 	        );  
 		}	
 

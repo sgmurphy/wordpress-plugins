@@ -2,6 +2,7 @@
 /**
  * GOTMLS Brute-Force protections
  * @package GOTMLS
+ * @since 4.23.67
 */
 
 if (!(isset($GLOBALS["GOTMLS"]["detected_attacks"]) && $GLOBALS["GOTMLS"]["detected_attacks"])) {

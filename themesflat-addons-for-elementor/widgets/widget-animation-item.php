@@ -274,9 +274,9 @@ class TFAnimationitem_Widget extends \Elementor\Widget_Base {
 		$icon = $image = $animation_move = '';
 
 		$icon = \Elementor\Addon_Elementor_Icon_manager_free::render_icon( $settings['icon'], [ 'aria-hidden' => 'true' ] );
-        $animation_move = $settings['animation_move'];
+        $animation_move = esc_attr($settings['animation_move']);
 		if ($settings['image'] != '') {
-			$url = esc_attr($settings['image']['url']);
+			$url = esc_url($settings['image']['url']);
 			$image = sprintf( '<img src="%1s" alt="image">',$url);
 		}
 

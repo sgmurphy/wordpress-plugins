@@ -5,8 +5,7 @@ namespace wpdFormAttr;
 use wpdFormAttr\FormConst\wpdFormConst;
 use wpdFormAttr\Field\DefaultField\Captcha;
 
-class Form
-{
+class Form {
 
     public $wpdOptions;
     private $generalOptions = [];
@@ -26,8 +25,7 @@ class Form
     public $isUserCanComment = true;
     public $hasIcon = false;
 
-    public function __construct($options, $formID = 0)
-    {
+    public function __construct($options, $formID = 0) {
         $this->defaultsFieldsNames = [
             wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD,
             wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD,
@@ -35,17 +33,16 @@ class Form
             wpdFormConst::WPDISCUZ_FORMS_CAPTCHA_FIELD,
             wpdFormConst::WPDISCUZ_FORMS_SUBMIT_FIELD
         ];
-        $this->wpdOptions = $options;
+        $this->wpdOptions          = $options;
         $this->setFormID($formID);
-        $this->row = new Row();
+        $this->row         = new Row();
         $this->captchaFied = Captcha::getInstance();
     }
 
-    public function initFormMeta()
-    {
+    public function initFormMeta() {
         if ((int)$this->formID) {
             if (!$this->generalOptions) {
-                $goptions = get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS, true);
+                $goptions             = get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS, true);
                 $this->generalOptions = $goptions ? $goptions : [];
             }
             if (!$this->formeStructure) {
@@ -57,11 +54,10 @@ class Form
         }
     }
 
-    public function initFormFields()
-    {
+    public function initFormFields() {
         if (!$this->formFields) {
             $this->formCustomFields = [];
-            $this->formFields = get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_FIELDS, true);
+            $this->formFields       = get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_FIELDS, true);
             if (is_array($this->formFields)) {
                 foreach ($this->formFields as $key => $field) {
                     if (is_callable($field["type"] . "::getInstance") && !in_array($key, $this->defaultsFieldsNames)) {
@@ -81,13 +77,11 @@ class Form
         }
     }
 
-    public function getFormCustomFields()
-    {
+    public function getFormCustomFields() {
         return $this->formCustomFields;
     }
 
-    public function setFormID($formID)
-    {
+    public function setFormID($formID) {
         if ($formID == 0) {
             $this->formID = $formID;
 
@@ -98,7 +92,7 @@ class Form
             $this->formID = $formID;
             do_action("wpdiscuz_form_init", $this);
         } else {
-            $postRel = $this->wpdOptions->formPostRel;
+            $postRel    = $this->wpdOptions->formPostRel;
             $contentRel = $this->wpdOptions->formContentTypeRel;
             foreach ($postRel as $pid => $fid) {
                 if ($formID == $fid) {
@@ -118,18 +112,15 @@ class Form
         }
     }
 
-    public function getFormID()
-    {
+    public function getFormID() {
         return $this->formID;
     }
 
-    public function getGeneralOptions()
-    {
+    public function getGeneralOptions() {
         return $this->generalOptions;
     }
 
-    public function getHeaderTextSingle()
-    {
+    public function getHeaderTextSingle() {
         $this->initFormMeta();
         if (!isset($this->generalOptions["header_text_single"])) {
             $this->generalOptions["header_text_single"] = esc_html__("Comment", "wpdiscuz");
@@ -138,8 +129,7 @@ class Form
         return $this->generalOptions["header_text_single"];
     }
 
-    public function getHeaderTextPlural()
-    {
+    public function getHeaderTextPlural() {
         $this->initFormMeta();
         if (empty($this->generalOptions["header_text_plural"])) {
             $this->generalOptions["header_text_plural"] = esc_html__("Comments", "wpdiscuz");
@@ -148,8 +138,7 @@ class Form
         return $this->generalOptions["header_text_plural"];
     }
 
-    public function getTheme()
-    {
+    public function getTheme() {
         $this->initFormMeta();
         if (empty($this->generalOptions["theme"])) {
             $this->generalOptions["theme"] = $this->getDefaultTheme();
@@ -157,7 +146,7 @@ class Form
             if (!is_dir($this->generalOptions["theme"])) {
                 $themeName = wp_basename($this->generalOptions["theme"]);
                 if (strpos($this->generalOptions["theme"], "plugins") === false) {
-                    $uplDir = wp_upload_dir();
+                    $uplDir    = wp_upload_dir();
                     $themesDir = str_replace("\\", "/", $uplDir["basedir"]) . wpdFormConst::THEMES_DIR;
                     if (is_dir($themesDir . $themeName)) {
                         $this->generalOptions["theme"] = $themesDir . $themeName;
@@ -178,8 +167,7 @@ class Form
         return $this->generalOptions["theme"];
     }
 
-    public function getLayout()
-    {
+    public function getLayout() {
         $this->initFormMeta();
         if (empty($this->generalOptions["layout"])) {
             $this->generalOptions["layout"] = 1;
@@ -188,8 +176,7 @@ class Form
         return $this->generalOptions["layout"];
     }
 
-    public function getEnableRateOnPost()
-    {
+    public function getEnableRateOnPost() {
         $this->initFormMeta();
         if (!array_key_exists("enable_post_rating", $this->generalOptions)) {
             $this->generalOptions["enable_post_rating"] = 1;
@@ -198,8 +185,7 @@ class Form
         return (int)$this->generalOptions["enable_post_rating"];
     }
 
-    public function getPostRatingTitle()
-    {
+    public function getPostRatingTitle() {
         $this->initFormMeta();
         if (!isset($this->generalOptions["post_rating_title"])) {
             $this->generalOptions["post_rating_title"] = esc_html__("Article Rating", "wpdiscuz");
@@ -208,16 +194,14 @@ class Form
         return $this->generalOptions["post_rating_title"];
     }
 
-    public function getRatingsExists()
-    {
+    public function getRatingsExists() {
         $this->initFormMeta();
         $this->initFormFields();
 
         return $this->ratingsExists;
     }
 
-    public function getUserCanRateOnPost()
-    {
+    public function getUserCanRateOnPost() {
         $this->initFormMeta();
         if (!isset($this->generalOptions["allow_guests_rate_on_post"])) {
             $this->generalOptions["allow_guests_rate_on_post"] = 1;
@@ -226,21 +210,19 @@ class Form
         return $this->generalOptions["allow_guests_rate_on_post"];
     }
 
-    public function getCaptchaFied()
-    {
+    public function getCaptchaFied() {
         return $this->captchaFied;
     }
 
-    public function isShowSubscriptionBar()
-    {
+    public function isShowSubscriptionBar() {
         // default enabled if the setting does not exist in the db
         $isSubscriptionBarEnabled = isset($this->generalOptions["show_subscription_bar"]) ? (int)$this->generalOptions["show_subscription_bar"] : 1;
         // default enabled if the setting does not exist in the db
         $guestCanSubscribe = isset($this->generalOptions["guest_can_subscribe"]) ? (int)$this->generalOptions["guest_can_subscribe"] : 1;
         // default roles if the setting does not exist in the db
         $rolesCanSubscribe = isset($this->generalOptions["roles_can_subscribe"]) ? array_values(array_filter(array_map('trim', $this->generalOptions["roles_can_subscribe"]))) : $this->getDefaultRoles();
-        $currentUser = \WpdiscuzHelper::getCurrentUser();
-        $canUserSubscribe = false;
+        $currentUser       = \WpdiscuzHelper::getCurrentUser();
+        $canUserSubscribe  = false;
         if (empty($currentUser->ID) && $guestCanSubscribe) {
             $canUserSubscribe = true;
         } else if (!empty($currentUser->roles) && is_array($currentUser->roles)) {
@@ -260,35 +242,29 @@ class Form
         return $canUserSubscribe;
     }
 
-    public function isShowSubscriptionBarAgreement()
-    {
+    public function isShowSubscriptionBarAgreement() {
         $this->initFormMeta();
 
         return isset($this->generalOptions["show_subscription_agreement"]) ? $this->generalOptions["show_subscription_agreement"] : 0;
     }
 
-    public function subscriptionBarAgreementLabel()
-    {
+    public function subscriptionBarAgreementLabel() {
         return isset($this->generalOptions["subscription_agreement_label"]) ? $this->generalOptions["subscription_agreement_label"] : esc_html__("I allow to use my email address and send notification about new comments and replies (you can unsubscribe at any time).", "wpdiscuz");
     }
 
-    public function getCustomCSS()
-    {
+    public function getCustomCSS() {
         return get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_CSS, true);
     }
 
-    public function getFormPostTypes()
-    {
+    public function getFormPostTypes() {
         return $this->formPostTypes;
     }
 
-    public function getFormFields()
-    {
+    public function getFormFields() {
         return $this->formFields;
     }
 
-    public function theFormListData($column, $formID)
-    {
+    public function theFormListData($column, $formID) {
         $this->setFormID($formID);
         $this->generalOptions = get_post_meta($this->formID, wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS, true);
         if ($column === "form_post_types") {
@@ -301,8 +277,7 @@ class Form
         }
     }
 
-    public function saveFormData($formID)
-    {
+    public function saveFormData($formID) {
         $this->setFormID($formID);
         $this->initFormMeta();
         if (isset($_REQUEST[wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS])) {
@@ -318,18 +293,17 @@ class Form
         }
     }
 
-    public function saveCommentMeta($commentID)
-    {
-        $comment = get_comment($commentID);
+    public function saveCommentMeta($commentID) {
+        $comment         = get_comment($commentID);
         $commentApproved = $comment->comment_approved;
         do_action("wpdiscuz_before_save_commentmeta", $comment, $this->fieldsBeforeSave);
         foreach ($this->fieldsBeforeSave as $mettaKey => $data) {
             if ($this->ratingsExists && $this->formCustomFields[$mettaKey]["type"] === "wpdFormAttr\Field\RatingField") {
                 $oldCommentRating = get_comment_meta($commentID, $mettaKey, true);
-                $postID = $comment->comment_post_ID;
+                $postID           = $comment->comment_post_ID;
                 if (!(class_exists("WooCommerce") && get_post_type($postID) === "product") && $oldCommentRating && $commentApproved === "1") {
-                    $postRatingMeta = get_post_meta($postID, wpdFormConst::WPDISCUZ_RATING_COUNT, true);
-                    $postRatingMeta = is_array($postRatingMeta) ? $postRatingMeta : [];
+                    $postRatingMeta        = get_post_meta($postID, wpdFormConst::WPDISCUZ_RATING_COUNT, true);
+                    $postRatingMeta        = is_array($postRatingMeta) ? $postRatingMeta : [];
                     $oldCommentRatingCount = $postRatingMeta[$mettaKey][$oldCommentRating] - 1;
                     if ($oldCommentRatingCount > 0) {
                         $postRatingMeta[$mettaKey][$oldCommentRating] = $oldCommentRatingCount;
@@ -356,14 +330,13 @@ class Form
         }
     }
 
-    private function savePostRatingMeta($comment, $rating)
-    {
+    private function savePostRatingMeta($comment, $rating) {
         $postID = $comment->comment_post_ID;
         if (class_exists("WooCommerce") && get_post_type($postID) === "product") {
-            $ratingCount = get_post_meta($postID, "_wc_rating_count", true);
-            $ratingCount = is_string($ratingCount) ? [] : $ratingCount;
+            $ratingCount   = get_post_meta($postID, "_wc_rating_count", true);
+            $ratingCount   = is_string($ratingCount) ? [] : $ratingCount;
             $oldRatingMeta = get_comment_meta($comment->comment_ID, "rating", true);
-            $oldRating = $oldRatingMeta ? $oldRatingMeta : 0;
+            $oldRating     = $oldRatingMeta ? $oldRatingMeta : 0;
             if (isset($ratingCount[$oldRating])) {
                 $oldRatingCount = $ratingCount[$oldRating] - 1;
                 if ($oldRatingCount > 0) {
@@ -378,10 +351,10 @@ class Form
                 $ratingCount[$rating] = 1;
             }
             $allRatingSum = 0;
-            $allCount = 0;
+            $allCount     = 0;
             foreach ($ratingCount as $star => $count) {
                 $allRatingSum += $star * $count;
-                $allCount += $count;
+                $allCount     += $count;
             }
             if ($allCount) {
                 $averageRating = round($allRatingSum / $allCount, 2);
@@ -390,8 +363,8 @@ class Form
             }
         } else {
             $wpdiscuzRatingCountMeta = get_post_meta($postID, wpdFormConst::WPDISCUZ_RATING_COUNT, true);
-            $wpdiscuzRatingCount = $wpdiscuzRatingCountMeta && is_array($wpdiscuzRatingCountMeta) ? $wpdiscuzRatingCountMeta : [];
-            $wpdiscuzRatingCount = $this->cleanUnusedData($wpdiscuzRatingCount, $this->ratings);
+            $wpdiscuzRatingCount     = $wpdiscuzRatingCountMeta && is_array($wpdiscuzRatingCountMeta) ? $wpdiscuzRatingCountMeta : [];
+            $wpdiscuzRatingCount     = $this->cleanUnusedData($wpdiscuzRatingCount, $this->ratings);
             foreach ($this->ratings as $key => $value) {
                 if (isset($wpdiscuzRatingCount[$value["metakey"]][$value["value"]])) {
                     $wpdiscuzRatingCount[$value["metakey"]][$value["value"]] = $wpdiscuzRatingCount[$value["metakey"]][$value["value"]] + 1;
@@ -404,8 +377,7 @@ class Form
         }
     }
 
-    private function cleanUnusedData($ratingMeta, $ratings)
-    {
+    private function cleanUnusedData($ratingMeta, $ratings) {
         $ratingMetaKeys = array_keys($ratingMeta);
         foreach ($ratingMetaKeys as $key => $ratingMetaKey) {
             $exists = false;
@@ -423,8 +395,7 @@ class Form
         return $ratingMeta;
     }
 
-    public function displayRatingMeta($content)
-    {
+    public function displayRatingMeta($content) {
         global $post;
         if (!(class_exists("WooCommerce") && get_post_type($post) === "product")) {
             $this->initFormFields();
@@ -447,8 +418,7 @@ class Form
         return $content;
     }
 
-    public function displayRatingMetaBeforeCommentForm()
-    {
+    public function displayRatingMetaBeforeCommentForm() {
         global $post;
         $content = "";
         if (!(class_exists("WooCommerce") && get_post_type($post) === "product")) {
@@ -463,14 +433,13 @@ class Form
         echo $content;
     }
 
-    public function getPostRatingHtml($can_rate = true)
-    {
-        $html = "";
+    public function getPostRatingHtml($can_rate = true) {
+        $html     = "";
         $wpdiscuz = wpDiscuz();
         if ($wpdiscuz->isWpdiscuzLoaded && $this->getEnableRateOnPost() && (($this->wpdOptions->rating["ratingCssOnNoneSingular"] && !is_singular()) || is_singular())) {
             global $post;
             $currentUserId = get_current_user_id();
-            $class = "";
+            $class         = "";
             if ($can_rate && is_singular()) {
                 if (!empty($currentUserId)) {
                     $class = wpDiscuz()->dbManager->isUserRated($currentUserId, "", $post->ID) ? "" : " class='wpd-not-rated'";
@@ -478,13 +447,13 @@ class Form
                     $class = wpDiscuz()->dbManager->isUserRated(0, md5(wpDiscuz()->helper->getRealIPAddr()), $post->ID) ? "" : " class='wpd-not-rated'";
                 }
             }
-            $rating = (float)get_post_meta($post->ID, wpdFormConst::POSTMETA_POST_RATING, true);
-            $count = (int)get_post_meta($post->ID, wpdFormConst::POSTMETA_POST_RATING_COUNT, true);
-            $prefix = (int)$rating;
-            $suffix = $rating - $prefix;
+            $rating      = (float)get_post_meta($post->ID, wpdFormConst::POSTMETA_POST_RATING, true);
+            $count       = (int)get_post_meta($post->ID, wpdFormConst::POSTMETA_POST_RATING_COUNT, true);
+            $prefix      = (int)$rating;
+            $suffix      = $rating - $prefix;
             $fullStarSVG = apply_filters("wpdiscuz_full_star_svg", "<svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg>", "post", "fas fa-star");
             $halfStarSVG = apply_filters("wpdiscuz_half_star_svg", "<svg xmlns='https://www.w3.org/2000/svg' xmlns:xlink='https://www.w3.org/1999/xlink' viewBox='0 0 24 24'><defs><path id='a' d='M0 0h24v24H0V0z'/></defs><clipPath id='b'><use xlink:href='#a' overflow='visible'/></clipPath><path class='wpd-star wpd-active' clip-path='url(#b)' d='M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'/></svg>", "post", "fas fa-star");
-            $html .= "<div id='wpd-post-rating'{$class}>
+            $html        .= "<div id='wpd-post-rating'{$class}>
             <div class='wpd-rating-wrap'>
             <div class='wpd-rating-left'></div>
             <div class='wpd-rating-data'>
@@ -492,7 +461,7 @@ class Form
                     <span class='wpdrv'>" . esc_html($rating) . "</span>
                     <span class='wpdrc'>" . esc_html($count) . "</span>
                     <span class='wpdrt'>" . ((int)$count === 1 ? esc_html($this->wpdOptions->getPhrase("wc_vote_phrase")) : esc_html($this->wpdOptions->getPhrase("wc_votes_phrase"))) . "</span>";
-            $html .= "</div>
+            $html        .= "</div>
                 <div class='wpd-rating-title'>" . esc_html($this->getPostRatingTitle()) . "</div>
                 <div class='wpd-rating-stars'>";
             if ($prefix) {
@@ -524,17 +493,16 @@ class Form
         return $html;
     }
 
-    public function getRatingMetaHtml($atts = [])
-    {
+    public function getRatingMetaHtml($atts = []) {
         $html = "";
         $atts = shortcode_atts([
-            "metakey" => "all",
-            "show-label" => true,
-            "show-lable" => true,
+            "metakey"      => "all",
+            "show-label"   => true,
+            "show-lable"   => true,
             "show-average" => true,
-            "itemprop" => !!$this->wpdOptions->rating["enablePostRatingSchema"],
-            "post_id" => null,
-            "postid" => null,
+            "itemprop"     => !!$this->wpdOptions->rating["enablePostRatingSchema"],
+            "post_id"      => null,
+            "postid"       => null,
         ], $atts);
         if (!$atts["postid"]) {
             if ($atts["post_id"]) {
@@ -547,7 +515,7 @@ class Form
                 $atts["postid"] = $post->ID;
                 $this->resetData();
                 $wpdiscuz = wpDiscuz();
-                $form = $wpdiscuz->wpdiscuzForm->getForm($post->ID);
+                $form     = $wpdiscuz->wpdiscuzForm->getForm($post->ID);
                 if (is_rtl()) {
                     wp_enqueue_style("wpdiscuz-ratings-rtl");
                 } else {
@@ -566,10 +534,10 @@ class Form
             if ($this->ratingsExists && (($this->wpdOptions->rating["ratingCssOnNoneSingular"] && !is_singular()) || is_singular())) {
                 $ratingList = [];
                 foreach (array_unique($this->ratingsFieldsKey) as $key => $field) {
-                    $avg = floatval(get_post_meta($post->ID, wpdFormConst::WPDISCUZ_RATING_SEPARATE_AVG . $field, true));
-                    $c = intval(get_post_meta($post->ID, wpdFormConst::WPDISCUZ_RATING_SEPARATE_COUNT . $field, true));
+                    $avg                           = floatval(get_post_meta($post->ID, wpdFormConst::WPDISCUZ_RATING_SEPARATE_AVG . $field, true));
+                    $c                             = intval(get_post_meta($post->ID, wpdFormConst::WPDISCUZ_RATING_SEPARATE_COUNT . $field, true));
                     $ratingList[$field]["average"] = $avg ? $avg : 0;
-                    $ratingList[$field]["count"] = $c ? $c : 0;
+                    $ratingList[$field]["count"]   = $c ? $c : 0;
                 }
                 if ($ratingList) {
                     $atts["show-label"] = filter_var($atts['show-label'], FILTER_VALIDATE_BOOLEAN);
@@ -598,17 +566,16 @@ class Form
         return $html;
     }
 
-    private function getSingleRatingHtml($metakey, $ratingData, $args)
-    {
+    private function getSingleRatingHtml($metakey, $ratingData, $args) {
         global $post;
         $html = "";
         if (key_exists($metakey, $this->formCustomFields)) {
-            $title = !empty($this->formCustomFields[$metakey]["nameForTotal"]) ? $this->formCustomFields[$metakey]["nameForTotal"] : $this->formCustomFields[$metakey]["name"];
-            $icon = $this->formCustomFields[$metakey]['icon'];
-            $icon = strpos(trim($icon), ' ') ? $icon : 'fas ' . $icon;
+            $title       = !empty($this->formCustomFields[$metakey]["nameForTotal"]) ? $this->formCustomFields[$metakey]["nameForTotal"] : $this->formCustomFields[$metakey]["name"];
+            $icon        = $this->formCustomFields[$metakey]['icon'];
+            $icon        = strpos(trim($icon), ' ') ? $icon : 'fas ' . $icon;
             $fullStarSVG = apply_filters("wpdiscuz_full_star_svg", "<svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg>", "custom_field", $icon);
             $halfStarSVG = apply_filters("wpdiscuz_half_star_svg", "<svg xmlns='https://www.w3.org/2000/svg' xmlns:xlink='https://www.w3.org/1999/xlink' viewBox='0 0 24 24'><defs><path id='a' d='M0 0h24v24H0V0z'/></defs><clipPath id='b'><use xlink:href='#a' overflow='visible'/></clipPath><path class='wpd-star wpd-active' clip-path='url(#b)' d='M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4V6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z'/></svg>", "custom_field", $icon);
-            $html = "<div class='wpd-rating' title='" . esc_attr($title) . "'>
+            $html        = "<div class='wpd-rating' title='" . esc_attr($title) . "'>
             <div class='wpd-rating-wrap'>
             <div class='wpd-rating-left'></div>
             <div class='wpd-rating-data'>
@@ -616,11 +583,11 @@ class Form
                     <span class='wpdrv'>" . esc_html($ratingData["average"]) . "</span>
                     <span class='wpdrc'>" . esc_html($ratingData["count"]) . "</span>
                     <span class='wpdrt'>" . ((int)$ratingData["count"] === 1 ? esc_html($this->wpdOptions->getPhrase("wc_vote_phrase")) : esc_html($this->wpdOptions->getPhrase("wc_votes_phrase"))) . "</span>";
-            $html .= "</div>";
+            $html        .= "</div>";
             if ($args["show-label"]) {
                 $html .= "<div class='wpd-rating-title'>" . esc_html($title) . "</div>";
             }
-            $html .= "<div class='wpd-rating-stars'>";
+            $html   .= "<div class='wpd-rating-stars'>";
             $prefix = (int)$ratingData['average'];
             $suffix = $ratingData['average'] - $prefix;
             if ($prefix) {
@@ -646,10 +613,9 @@ class Form
         return $html;
     }
 
-    private function getRatingSchema($key, $ratingList, $postId)
-    {
+    private function getRatingSchema($key, $ratingList, $postId) {
         $average = 0;
-        $count = 0;
+        $count   = 0;
         if ($key === "" || $key === "all") {
             foreach ($ratingList as $k => $value) {
                 if (isset($this->formCustomFields[$k]) && $ratingList[$k]["count"]) {
@@ -662,7 +628,7 @@ class Form
             }
         } else if (isset($this->formCustomFields[$key]) && $ratingList[$key]["count"]) {
             $average = $ratingList[$key]["average"];
-            $count = $ratingList[$key]["count"];
+            $count   = $ratingList[$key]["count"];
         }
         $schema = "";
         if ($average) {
@@ -672,29 +638,28 @@ class Form
         return $schema;
     }
 
-    private function validateGeneralOptions($options)
-    {
+    private function validateGeneralOptions($options) {
         $validData = [
-            "lang" => get_user_locale(),
-            "roles_cannot_see_comments" => [],
-            "guest_can_see_comments" => 1,
-            "roles_cannot_comment" => [],
-            "guest_can_comment" => 1,
-            "show_subscription_bar" => 1,
-            "guest_can_subscribe" => 0,
-            "roles_can_subscribe" => [],
-            "header_text_single" => "",
-            "header_text_plural" => "",
+            "lang"                                        => get_user_locale(),
+            "roles_cannot_see_comments"                   => [],
+            "guest_can_see_comments"                      => 1,
+            "roles_cannot_comment"                        => [],
+            "guest_can_comment"                           => 1,
+            "show_subscription_bar"                       => 1,
+            "guest_can_subscribe"                         => 0,
+            "roles_can_subscribe"                         => [],
+            "header_text_single"                          => "",
+            "header_text_plural"                          => "",
             wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES => [],
-            "postid" => "",
-            "postidsArray" => [],
-            "show_subscription_agreement" => 0,
-            "subscription_agreement_label" => esc_html__("I allow to use my email address and send notification about new comments and replies (you can unsubscribe at any time).", "wpdiscuz"),
-            "theme" => $this->getDefaultTheme(),
-            "layout" => 1,
-            "enable_post_rating" => 1,
-            "post_rating_title" => esc_html__("Article Rating", "wpdiscuz"),
-            "allow_guests_rate_on_post" => 1,
+            "postid"                                      => "",
+            "postidsArray"                                => [],
+            "show_subscription_agreement"                 => 0,
+            "subscription_agreement_label"                => esc_html__("I allow to use my email address and send notification about new comments and replies (you can unsubscribe at any time).", "wpdiscuz"),
+            "theme"                                       => $this->getDefaultTheme(),
+            "layout"                                      => 1,
+            "enable_post_rating"                          => 1,
+            "post_rating_title"                           => esc_html__("Article Rating", "wpdiscuz"),
+            "allow_guests_rate_on_post"                   => 1,
         ];
         if (isset($options["roles_cannot_see_comments"])) {
             $validData["roles_cannot_see_comments"] = array_map("trim", $options["roles_cannot_see_comments"]);
@@ -758,7 +723,7 @@ class Form
         if (isset($options["postid"])) {
             $postIds = trim(strip_tags($options["postid"]));
             if ($postIds) {
-                $postIdsArray = [];
+                $postIdsArray   = [];
                 $postIdsExplode = explode(",", $postIds);
                 foreach ($postIdsExplode as $k => $postId) {
                     $postId = intval($postId);
@@ -769,7 +734,7 @@ class Form
                 $postIdsArray = array_unique($postIdsArray);
                 sort($postIdsArray);
                 $validData["postidsArray"] = $postIdsArray;
-                $postIds = implode(", ", $postIdsArray);
+                $postIds                   = implode(", ", $postIdsArray);
             }
             $validData["postid"] = $postIds;
         }
@@ -777,8 +742,7 @@ class Form
         return $validData;
     }
 
-    private function validateFormStructure($formStructure)
-    {
+    private function validateFormStructure($formStructure) {
         $this->formFields = [];
         foreach ($formStructure as $rowID => $rowData) {
             $sanitizeData = $this->row->sanitizeRowData($rowData, $this->formFields);
@@ -792,8 +756,7 @@ class Form
         return $formStructure;
     }
 
-    public function validateFields($currentUser)
-    {
+    public function validateFields($currentUser) {
         $allowedFieldsType = $this->row->allowedFieldsType();
         foreach ($this->formCustomFields as $fieldName => $fieldArgs) {
             $fieldType = $fieldArgs["type"];
@@ -809,14 +772,12 @@ class Form
         }
     }
 
-    public function validateDefaultCaptcha($currentUser)
-    {
+    public function validateDefaultCaptcha($currentUser) {
         $args = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_CAPTCHA_FIELD];
         $this->captchaFied->validateFieldData(wpdFormConst::WPDISCUZ_FORMS_CAPTCHA_FIELD, $args, $this->wpdOptions, $currentUser);
     }
 
-    public function validateSubscribtionCaptcha($addSubscription)
-    {
+    public function validateSubscribtionCaptcha($addSubscription) {
         if (!is_user_logged_in() && $this->wpdOptions->recaptcha["isShowOnSubscribeForm"]) {
             $addSubscription = $this->captchaFied->reCaptchaValidate($this->wpdOptions);
         }
@@ -824,43 +785,39 @@ class Form
         return $addSubscription;
     }
 
-    public function validateDefaultEmail($currentUser, &$isAnonymous)
-    {
-        $emailField = Field\DefaultField\Email::getInstance();
-        $args = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD];
-        $email = $emailField->validateFieldData(wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD, $args, $this->wpdOptions, $currentUser);
+    public function validateDefaultEmail($currentUser, &$isAnonymous) {
+        $emailField  = Field\DefaultField\Email::getInstance();
+        $args        = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD];
+        $email       = $emailField->validateFieldData(wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD, $args, $this->wpdOptions, $currentUser);
         $isAnonymous = $emailField->isAnonymous();
 
         return $email;
     }
 
-    public function validateDefaultName($currentUser)
-    {
+    public function validateDefaultName($currentUser) {
         $nameField = Field\DefaultField\Name::getInstance();
-        $args = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD];
+        $args      = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD];
 
         return $nameField->validateFieldData(wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD, $args, $this->wpdOptions, $currentUser);
     }
 
-    public function validateDefaultWebsite($currentUser)
-    {
+    public function validateDefaultWebsite($currentUser) {
         $webSiteField = Field\DefaultField\Website::getInstance();
-        $args = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_WEBSITE_FIELD];
+        $args         = $this->formFields[wpdFormConst::WPDISCUZ_FORMS_WEBSITE_FIELD];
 
         return $webSiteField->validateFieldData(wpdFormConst::WPDISCUZ_FORMS_WEBSITE_FIELD, $args, $this->wpdOptions, $currentUser);
     }
 
-    public function renderFrontCommentMetaHtml($commentID, &$output)
-    {
+    public function renderFrontCommentMetaHtml($commentID, &$output) {
         $htmlExists = false;
         if ($this->formCustomFields) {
-            $meta = get_comment_meta($commentID);
-            $top = $this->_renderFrontCommentMetaHtml($meta, $this->formCustomFields, "top");
+            $meta   = get_comment_meta($commentID);
+            $top    = $this->_renderFrontCommentMetaHtml($meta, $this->formCustomFields, "top");
             $bottom = $this->_renderFrontCommentMetaHtml($meta, $this->formCustomFields, "bottom");
             if ($top || $bottom) {
                 $htmlExists = true;
             }
-            $top = ($top) ? "<div class='wpd-top-custom-fields'>" . $top . "</div>" : "";
+            $top    = ($top) ? "<div class='wpd-top-custom-fields'>" . $top . "</div>" : "";
             $bottom = ($bottom) ? "<div class='wpd-bottom-custom-fields'>" . $bottom . "</div>" : "";
             $output = $top . $output . $bottom;
         }
@@ -868,17 +825,24 @@ class Form
         return $htmlExists;
     }
 
-    private function _renderFrontCommentMetaHtml($meta, $formCustomFields, $loc)
-    {
-        $html = "";
+    private function _renderFrontCommentMetaHtml($meta, $formCustomFields, $loc) {
+        $html              = "";
         $allowedFieldsType = $this->row->allowedFieldsType();
+        $currentUser       = \WpdiscuzHelper::getCurrentUser();
+
+        if (!apply_filters("wpdiscuz_user_can_view_fields", true, $currentUser)) {
+            return $html;
+        }
+
         foreach ($formCustomFields as $key => $value) {
             if (isset($value["loc"]) && $value["loc"] == $loc) {
-                $fieldType = $value["type"];
+                $fieldType  = $value["type"];
                 $metaValuen = isset($meta[$key][0]) ? maybe_unserialize($meta[$key][0]) : "";
                 if (in_array($fieldType, $allowedFieldsType, true) && is_callable($fieldType . "::getInstance") && $metaValuen) {
                     $field = call_user_func($fieldType . "::getInstance");
-                    $html .= $field->drawContent($metaValuen, $value);
+                    if (apply_filters("wpdiscuz_user_can_view_field", true, $currentUser, $value, $metaValuen)) {
+                        $html  .= $field->drawContent($metaValuen, $value);
+                    }
                 }
             }
         }
@@ -886,8 +850,7 @@ class Form
         return $html;
     }
 
-    public function renderFrontForm($isMain, $uniqueId, $commentsCount, $currentUser, $postID)
-    {
+    public function renderFrontForm($isMain, $uniqueId, $commentsCount, $currentUser, $postID) {
         $message = "";
         ?>
         <div class="wpd-form wpd-form-wrapper <?php echo !$isMain ? "wpd-secondary-form-wrapper" : "wpd-main-form-wrapper"; ?>" <?php echo !$isMain ? "id='wpd-secondary-form-wrapper-" . esc_attr($uniqueId) . "' style='display: none;'" : "id='wpd-main-form-wrapper-" . esc_attr($uniqueId) . "'"; ?>>
@@ -897,14 +860,14 @@ class Form
             <?php } ?>
             <?php
             if ($this->isUserCanComment($currentUser, $message)) {
-                $wpdDefaultFormArgs = [
-                    "method" => "post",
-                    "enctype" => "multipart/form-data",
+                $wpdDefaultFormArgs                 = [
+                    "method"         => "post",
+                    "enctype"        => "multipart/form-data",
                     "data_uploading" => "false",
-                    "class_form" => ["wpd_comm_form"]
+                    "class_form"     => ["wpd_comm_form"]
                 ];
                 $wpdDefaultFormArgs["class_form"][] = $isMain ? "wpd_main_comm_form" : "wpd-secondary-form-wrapper";
-                $wpdFormArgs = apply_filters('wpdiscuz_comment_form_args', $wpdDefaultFormArgs, $isMain, $postID);
+                $wpdFormArgs                        = apply_filters('wpdiscuz_comment_form_args', $wpdDefaultFormArgs, $isMain, $postID);
                 ?>
                 <form <?php
                 printf(' method="%s" enctype="%s" data-uploading="%s" class="%s"',
@@ -921,13 +884,13 @@ class Form
                             <div class="wpdiscuz-textarea-wrap <?php echo $this->wpdOptions->form["richEditor"] === "both" || (!wp_is_mobile() && $this->wpdOptions->form["richEditor"] === "desktop") ? "" : "wpd-txt"; ?>">
                                 <?php if ($this->wpdOptions->thread_layouts["showAvatars"] && $this->wpdOptions->wp["showAvatars"]) { ?>
                                     <?php
-                                    $authorName = $currentUser->ID ? $currentUser->display_name : "guest";
+                                    $authorName  = $currentUser->ID ? $currentUser->display_name : "guest";
                                     $authorEmail = $currentUser->ID ? $currentUser->user_email : "unknown@example.com";
                                     ?>
                                     <div class="wpd-avatar">
                                         <?php
                                         echo get_avatar($currentUser->ID ? $currentUser->ID : uniqid() . '@example.com', 56, "", $authorName, [
-                                            "wpdiscuz_current_user" => $currentUser,
+                                            "wpdiscuz_current_user"        => $currentUser,
                                             "wpdiscuz_gravatar_user_email" => $authorEmail
                                         ]);
                                         ?>
@@ -967,8 +930,7 @@ class Form
         <?php
     }
 
-    private function renderTextEditor($uniqueId, $commentsCount)
-    {
+    private function renderTextEditor($uniqueId, $commentsCount) {
         if ($this->wpdOptions->form["richEditor"] === "both" || (!wp_is_mobile() && $this->wpdOptions->form["richEditor"] === "desktop")) {
             ?>
             <div id="wpd-editor-wraper-<?php echo esc_attr($uniqueId); ?>" style="display: none;">
@@ -995,7 +957,7 @@ class Form
                 $commentTextMaxLength = intval($this->wpdOptions->content["replyTextMaxLength"]);
             }
             $commentTextLengthRange = ($commentTextMinLength && $commentTextMaxLength) ? 'pattern=".{' . $commentTextMinLength . ',' . $commentTextMaxLength . '}"' : '';
-            $textareaMaxLength = $commentTextMaxLength ? "maxlength=$commentTextMaxLength" : '';
+            $textareaMaxLength      = $commentTextMaxLength ? "maxlength=$commentTextMaxLength" : '';
             ?>
             <div class="wpd-textarea-wrap">
                 <div id="wpd-editor-char-counter-<?php echo esc_attr($uniqueId); ?>"
@@ -1015,115 +977,114 @@ class Form
         }
     }
 
-    private function renderTextEditorButtons($uniqueId)
-    {
+    private function renderTextEditorButtons($uniqueId) {
         $editorButtons = [];
         if ($this->wpdOptions->form["boldButton"]) {
             $editorButtons[] = [
                 "class" => "ql-bold",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Bold", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["italicButton"]) {
             $editorButtons[] = [
                 "class" => "ql-italic",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Italic", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["underlineButton"]) {
             $editorButtons[] = [
                 "class" => "ql-underline",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Underline", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["strikeButton"]) {
             $editorButtons[] = [
                 "class" => "ql-strike",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Strike", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["olButton"]) {
             $editorButtons[] = [
                 "class" => "ql-list",
                 "value" => "ordered",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Ordered List", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["ulButton"]) {
             $editorButtons[] = [
                 "class" => "ql-list",
                 "value" => "bullet",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Unordered List", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["blockquoteButton"]) {
             $editorButtons[] = [
                 "class" => "ql-blockquote",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Blockquote", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["codeblockButton"]) {
             $editorButtons[] = [
                 "class" => "ql-code-block",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Code Block", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["linkButton"]) {
             $editorButtons[] = [
                 "class" => "ql-link",
                 "value" => "",
-                "name" => "",
+                "name"  => "",
                 "title" => __("Link", "wpdiscuz"),
-                "svg" => ""
+                "svg"   => ""
             ];
         }
         if ($this->wpdOptions->form["sourcecodeButton"]) {
             $editorButtons[] = [
                 "class" => "ql-sourcecode",
                 "value" => "",
-                "name" => "sourcecode",
+                "name"  => "sourcecode",
                 "title" => __("Source Code", "wpdiscuz"),
-                "svg" => "{}"
+                "svg"   => "{}"
             ];
         }
         if ($this->wpdOptions->form["spoilerButton"]) {
             $editorButtons[] = [
                 "class" => "ql-spoiler",
                 "value" => "",
-                "name" => "spoiler",
+                "name"  => "spoiler",
                 "title" => __("Spoiler", "wpdiscuz"),
-                "svg" => "[+]"
+                "svg"   => "[+]"
             ];
         }
-        $editorButtons = apply_filters("wpdiscuz_editor_buttons", $editorButtons, $uniqueId);
+        $editorButtons     = apply_filters("wpdiscuz_editor_buttons", $editorButtons, $uniqueId);
         $editorButtonsHtml = apply_filters("wpdiscuz_editor_buttons_html", "", $uniqueId);
         ?>
         <div id="wpd-editor-toolbar-<?php echo esc_attr($uniqueId); ?>"<?php echo $editorButtons || $editorButtonsHtml ? "" : " class='wpd-toolbar-hidden'"; ?>>
             <?php
             foreach ($editorButtons as $k => $editorButton) {
-                $value = $editorButton["value"] ? "value='" . esc_attr($editorButton["value"]) . "'" : "";
+                $value    = $editorButton["value"] ? "value='" . esc_attr($editorButton["value"]) . "'" : "";
                 $dataName = $editorButton["name"] ? "data-wpde_button_name='" . esc_attr($editorButton["name"]) . "'" : "";
                 ?>
                 <button title="<?php esc_attr_e($editorButton["title"], "wpdiscuz"); ?>"
@@ -1140,12 +1101,11 @@ class Form
         <?php
     }
 
-    public function renderEditFrontCommentForm($comment)
-    {
+    public function renderEditFrontCommentForm($comment) {
         $uniqueId = $comment->comment_ID . "_" . $comment->comment_parent;
-        $html = "<div class='wpdiscuz-edit-form-wrap'><form id='wpdiscuz-edit-form'>";
-        $html .= "<div class='wpdiscuz-item wpdiscuz-textarea-wrap'>";
-        $content = str_replace(["<code>", "</code>"], [
+        $html     = "<div class='wpdiscuz-edit-form-wrap'><form id='wpdiscuz-edit-form'>";
+        $html     .= "<div class='wpdiscuz-item wpdiscuz-textarea-wrap'>";
+        $content  = str_replace(["<code>", "</code>"], [
             "`",
             "`"
         ], ($this->wpdOptions->form["richEditor"] === "both" || (!wp_is_mobile() && $this->wpdOptions->form["richEditor"] === "desktop") ? str_replace([
@@ -1157,14 +1117,14 @@ class Form
         $html .= ob_get_clean();
         $html .= "</div>";
         if ($this->formCustomFields) {
-            $html .= "<table class='form-table editcomment wpd-form-row'><tbody>";
+            $html              .= "<table class='form-table editcomment wpd-form-row'><tbody>";
             $allowedFieldsType = $this->row->allowedFieldsType();
             foreach ($this->formCustomFields as $key => $data) {
                 $fieldType = $data["type"];
                 if (in_array($fieldType, $allowedFieldsType, true)) {
                     $field = call_user_func($fieldType . "::getInstance");
                     $value = get_comment_meta($comment->comment_ID, $key, true);
-                    $html .= $field->editCommentHtml($key, $value, $data, $comment);
+                    $html  .= $field->editCommentHtml($key, $value, $data, $comment);
                 }
             }
             $html .= "</tbody></table>";
@@ -1179,8 +1139,7 @@ class Form
         return wp_send_json_success(['html' => $html, 'content' => $content]);
     }
 
-    public function renderEditAdminCommentForm($comment)
-    {
+    public function renderEditAdminCommentForm($comment) {
         if ($this->formCustomFields) {
             ?>
             <div class="stuffbox">
@@ -1211,8 +1170,7 @@ class Form
         }
     }
 
-    public function renderFormStructure()
-    {
+    public function renderFormStructure() {
         $this->initFormMeta();
         $blogRoles = get_editable_roles();
         ?>
@@ -1521,18 +1479,18 @@ class Form
                             <?php
                             $this->formPostTypes = $this->formPostTypes ? $this->formPostTypes : [];
                             $registeredPostTypes = get_post_types(["public" => true]);
-                            $formContentTypeRel = $this->wpdOptions->formContentTypeRel;
-                            $hasForm = false;
-                            $formRelExistsInfo = "<p class='wpd-info' style='padding-top:3px;'>" . esc_html__("The red marked post types are already attached to other comment form. If you set this form too, the old forms will not be used for them.", "wpdiscuz") . "</p>";
+                            $formContentTypeRel  = $this->wpdOptions->formContentTypeRel;
+                            $hasForm             = false;
+                            $formRelExistsInfo   = "<p class='wpd-info' style='padding-top:3px;'>" . esc_html__("The red marked post types are already attached to other comment form. If you set this form too, the old forms will not be used for them.", "wpdiscuz") . "</p>";
                             foreach ($registeredPostTypes as $typeKey => $typeValue) {
                                 if (!post_type_supports($typeKey, "comments")) {
                                     continue;
                                 }
-                                $checked = array_key_exists($typeKey, $this->formPostTypes) ? "checked" : "";
+                                $checked            = array_key_exists($typeKey, $this->formPostTypes) ? "checked" : "";
                                 $formRelExistsClass = "";
                                 if (!$checked && !empty($formContentTypeRel[$typeKey][$lang])) {
                                     $formRelExistsClass = "wpd-form-rel-exixts";
-                                    $hasForm = true;
+                                    $hasForm            = true;
                                 }
                                 ?>
                                 <label class="<?php echo esc_attr($formRelExistsClass); ?>"
@@ -1734,8 +1692,7 @@ class Form
         <?php
     }
 
-    public function isUserCanSeeComments($currentUser, $postId = 0)
-    {
+    public function isUserCanSeeComments($currentUser, $postId = 0) {
         global $post;
         if (!$post) {
             $post = get_post($postId);
@@ -1760,8 +1717,7 @@ class Form
         return $this->isUserCanSeeComments;
     }
 
-    public function isUserCanComment($currentUser, $postId = 0, &$message = "")
-    {
+    public function isUserCanComment($currentUser, $postId = 0, &$message = "") {
         global $post;
         if (!$post) {
             $post = get_post($postId);
@@ -1770,29 +1726,29 @@ class Form
         $this->initFormMeta();
         if ($currentUser && $currentUser->ID) {
             if ($post->post_author && $post->post_author != $currentUser->ID && $currentUser->roles && is_array($currentUser->roles)) {
-                $postId = $post && isset($post->ID) ? $post->ID : $postId;
-                $this->generalOptions["roles_cannot_comment"] = isset($this->generalOptions["roles_cannot_comment"]) ? $this->generalOptions["roles_cannot_comment"] : [];
+                $postId                                            = $post && isset($post->ID) ? $post->ID : $postId;
+                $this->generalOptions["roles_cannot_comment"]      = isset($this->generalOptions["roles_cannot_comment"]) ? $this->generalOptions["roles_cannot_comment"] : [];
                 $this->generalOptions["roles_cannot_see_comments"] = isset($this->generalOptions["roles_cannot_see_comments"]) ? $this->generalOptions["roles_cannot_see_comments"] : [];
                 foreach ($currentUser->roles as $k => $role) {
                     if (in_array($role, $this->generalOptions["roles_cannot_see_comments"]) || in_array($role, $this->generalOptions["roles_cannot_comment"])) {
                         //Filter hook to add extra conditions in user role dependent restriction.
                         $user_can_comment = apply_filters("wpdiscuz_user_role_can_comment", false, $role);
-                        $message = $this->wpdOptions->getPhrase("wc_roles_cannot_comment_message");
+                        $message          = $this->wpdOptions->getPhrase("wc_roles_cannot_comment_message");
                         break;
                     }
                 }
             }
         } else {
             $this->generalOptions["guest_can_see_comments"] = isset($this->generalOptions["guest_can_see_comments"]) ? $this->generalOptions["guest_can_see_comments"] : 1;
-            $this->generalOptions["guest_can_comment"] = isset($this->generalOptions["guest_can_comment"]) ? $this->generalOptions["guest_can_comment"] : 1;
-            $user_can_comment = $this->generalOptions["guest_can_see_comments"] && $this->generalOptions["guest_can_comment"];
+            $this->generalOptions["guest_can_comment"]      = isset($this->generalOptions["guest_can_comment"]) ? $this->generalOptions["guest_can_comment"] : 1;
+            $user_can_comment                               = $this->generalOptions["guest_can_see_comments"] && $this->generalOptions["guest_can_comment"];
         }
         if ($user_can_comment && class_exists("WooCommerce") && get_post_type($postId) === "product") {
             if (get_option("woocommerce_review_rating_verification_required") === "no" || wc_customer_bought_product("", get_current_user_id(), $postId)) {
                 $user_can_comment = true;
             } else {
                 $user_can_comment = false;
-                $message = "<p class='woocommerce-verification-required'>" . esc_html__("Only logged in customers who have purchased this product may leave a review.", "woocommerce") . "</p>";
+                $message          = "<p class='woocommerce-verification-required'>" . esc_html__("Only logged in customers who have purchased this product may leave a review.", "woocommerce") . "</p>";
             }
         }
         $this->isUserCanComment = $user_can_comment;
@@ -1800,44 +1756,43 @@ class Form
         return $user_can_comment;
     }
 
-    public function defaultFieldsData()
-    {
+    public function defaultFieldsData() {
         return [
             "column_type" => "two",
-            "row_order" => 0,
-            "default" => 1,
-            "left" => [
-                wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD => [
-                    "type" => "wpdFormAttr\Field\DefaultField\Name",
-                    "name" => esc_html__("Name", "wpdiscuz"),
-                    "desc" => "",
-                    "icon" => "fas fa-user",
+            "row_order"   => 0,
+            "default"     => 1,
+            "left"        => [
+                wpdFormConst::WPDISCUZ_FORMS_NAME_FIELD    => [
+                    "type"     => "wpdFormAttr\Field\DefaultField\Name",
+                    "name"     => esc_html__("Name", "wpdiscuz"),
+                    "desc"     => "",
+                    "icon"     => "fas fa-user",
                     "required" => "1"
                 ],
-                wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD => [
-                    "type" => "wpdFormAttr\Field\DefaultField\Email",
-                    "name" => esc_html__("Email", "wpdiscuz"),
-                    "desc" => "",
-                    "icon" => "fas fa-at",
+                wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD   => [
+                    "type"     => "wpdFormAttr\Field\DefaultField\Email",
+                    "name"     => esc_html__("Email", "wpdiscuz"),
+                    "desc"     => "",
+                    "icon"     => "fas fa-at",
                     "required" => "1"
                 ],
                 wpdFormConst::WPDISCUZ_FORMS_WEBSITE_FIELD => [
-                    "type" => "wpdFormAttr\Field\DefaultField\Website",
-                    "name" => esc_html__("Website", "wpdiscuz"),
-                    "desc" => "",
-                    "icon" => "fas fa-link",
+                    "type"   => "wpdFormAttr\Field\DefaultField\Website",
+                    "name"   => esc_html__("Website", "wpdiscuz"),
+                    "desc"   => "",
+                    "icon"   => "fas fa-link",
                     "enable" => "1"
                 ],
             ],
-            "right" => [
+            "right"       => [
                 wpdFormConst::WPDISCUZ_FORMS_CAPTCHA_FIELD => [
-                    "type" => "wpdFormAttr\Field\DefaultField\Captcha",
-                    "name" => "",
-                    "desc" => "",
+                    "type"            => "wpdFormAttr\Field\DefaultField\Captcha",
+                    "name"            => "",
+                    "desc"            => "",
                     "show_for_guests" => "0",
-                    "show_for_users" => "0"
+                    "show_for_users"  => "0"
                 ],
-                wpdFormConst::WPDISCUZ_FORMS_SUBMIT_FIELD => [
+                wpdFormConst::WPDISCUZ_FORMS_SUBMIT_FIELD  => [
                     "type" => "wpdFormAttr\Field\DefaultField\Submit",
                     "name" => esc_html__("Post Comment", "wpdiscuz")
                 ],
@@ -1845,8 +1800,7 @@ class Form
         ];
     }
 
-    private function saveFormContentTypeRel($data, $lang)
-    {
+    private function saveFormContentTypeRel($data, $lang) {
         $contentType = get_option(wpdFormConst::WPDISCUZ_FORMS_CONTENT_TYPE_REL, []);
         foreach ($this->formPostTypes as $k => $formPostType) {
             if (!in_array($formPostType, $data)) {
@@ -1855,7 +1809,7 @@ class Form
         }
         foreach ($data as $type => $lable) {
             if (isset($contentType[$type][$lang]) && $contentType[$type][$lang]) {
-                $existsFormID = $contentType[$type][$lang];
+                $existsFormID   = $contentType[$type][$lang];
                 $generalOptions = get_post_meta($existsFormID, wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS, true);
                 if (!empty($generalOptions)) {
                     unset($generalOptions[wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES][$type]);
@@ -1867,10 +1821,9 @@ class Form
         update_option(wpdFormConst::WPDISCUZ_FORMS_CONTENT_TYPE_REL, $contentType);
     }
 
-    private function saveFormPostRel($data)
-    {
+    private function saveFormPostRel($data) {
         $formPostIds = isset($this->generalOptions["postidsArray"]) ? $this->generalOptions["postidsArray"] : [];
-        $ids = get_option(wpdFormConst::WPDISCUZ_FORMS_POST_REL, []);
+        $ids         = get_option(wpdFormConst::WPDISCUZ_FORMS_POST_REL, []);
         foreach ($formPostIds as $k => $formPostId) {
             if (!in_array($formPostId, $data)) {
                 unset($ids[$formPostId]);
@@ -1878,7 +1831,7 @@ class Form
         }
         foreach ($data as $k1 => $id) {
             if (isset($ids[$id]) && $ids[$id]) {
-                $existsFormID = $ids[$id];
+                $existsFormID   = $ids[$id];
                 $generalOptions = get_post_meta($existsFormID, wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS, true);
                 if (!$generalOptions) {
                     $generalOptions = ["postidsArray" => []];
@@ -1896,39 +1849,34 @@ class Form
         update_option(wpdFormConst::WPDISCUZ_FORMS_POST_REL, $ids);
     }
 
-    public function transferJSData($data)
-    {
+    public function transferJSData($data) {
         $this->initFormFields();
         $data["is_email_field_required"] = empty($this->formFields[wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD]["required"]) ? 0 : $this->formFields[wpdFormConst::WPDISCUZ_FORMS_EMAIL_FIELD]["required"];
 
         return $data;
     }
 
-    public function showRecaptcha()
-    {
+    public function showRecaptcha() {
         return ($this->wpdOptions->recaptcha["showForGuests"] && !is_user_logged_in()) || ($this->wpdOptions->recaptcha["showForUsers"] && is_user_logged_in()) || ($this->wpdOptions->recaptcha["isShowOnSubscribeForm"] && !is_user_logged_in());
     }
 
-    public function customFieldsExists()
-    {
+    public function customFieldsExists() {
         $this->initFormFields();
 
         return $this->formCustomFields ? true : false;
     }
 
-    public function resetData()
-    {
-        $this->formID = 0;
-        $this->generalOptions = [];
+    public function resetData() {
+        $this->formID           = 0;
+        $this->generalOptions   = [];
         $this->formCustomFields = [];
-        $this->formFields = [];
+        $this->formFields       = [];
     }
 
-    public function getLayouts($theme = '')
-    {
-        $theme = $theme ? $theme : $this->generalOptions["theme"];
-        $layouts = [];
-        $path = $theme . "/layouts/";
+    public function getLayouts($theme = '') {
+        $theme          = $theme ? $theme : $this->generalOptions["theme"];
+        $layouts        = [];
+        $path           = $theme . "/layouts/";
         $scannedLayouts = scandir($path);
         unset($scannedLayouts[0]);
         unset($scannedLayouts[1]);
@@ -1941,10 +1889,9 @@ class Form
         return $layouts;
     }
 
-    public function getThemes()
-    {
+    public function getThemes() {
         $themes = [];
-        $path = str_replace("\\", "/", WPDISCUZ_DIR_PATH) . "/themes/";
+        $path   = str_replace("\\", "/", WPDISCUZ_DIR_PATH) . "/themes/";
         if (is_dir($path) && is_readable($path)) {
             $scannedThemes = scandir($path);
             if ($scannedThemes && is_array($scannedThemes)) {
@@ -1957,14 +1904,14 @@ class Form
                             $themes[$path . $scannedTheme] = [
                                 "name" => $theme->get("Name"),
                                 "desc" => $theme->get("Description"),
-                                "url" => plugins_url(WPDISCUZ_DIR_NAME . "/themes/$scannedTheme"),
+                                "url"  => plugins_url(WPDISCUZ_DIR_NAME . "/themes/$scannedTheme"),
                             ];
                         }
                     }
                 }
             }
         }
-        $uplDir = wp_upload_dir();
+        $uplDir    = wp_upload_dir();
         $themesDir = str_replace("\\", "/", $uplDir["basedir"]) . wpdFormConst::THEMES_DIR;
         if (is_dir($themesDir) && is_readable($themesDir)) {
             $scannedThemes = scandir($themesDir);
@@ -1978,7 +1925,7 @@ class Form
                             $themes[$themesDir . $scannedTheme] = [
                                 "name" => $theme->get("Name"),
                                 "desc" => $theme->get("Description"),
-                                "url" => $uplDir["baseurl"] . wpdFormConst::THEMES_DIR . $scannedTheme,
+                                "url"  => $uplDir["baseurl"] . wpdFormConst::THEMES_DIR . $scannedTheme,
                             ];
                         }
                     }
@@ -1989,9 +1936,8 @@ class Form
         return $themes;
     }
 
-    public function getDefaultTheme()
-    {
-        $path = str_replace("\\", "/", WPDISCUZ_DIR_PATH) . "/themes/";
+    public function getDefaultTheme() {
+        $path          = str_replace("\\", "/", WPDISCUZ_DIR_PATH) . "/themes/";
         $scannedThemes = scandir($path);
         unset($scannedThemes[0]);
         unset($scannedThemes[1]);
@@ -2005,29 +1951,26 @@ class Form
         }
     }
 
-    public function getAllowedFieldsType()
-    {
+    public function getAllowedFieldsType() {
         return $this->row->allowedFieldsType();
     }
 
-    public function updateSeparateRatingMeta($ratings, $post_id)
-    {
+    public function updateSeparateRatingMeta($ratings, $post_id) {
         foreach ($ratings as $key => $values) {
             $avg = 0;
-            $c = 0;
+            $c   = 0;
             foreach ($values as $rating => $count) {
                 $avg += $rating * $count;
-                $c += $count;
+                $c   += $count;
             }
             update_post_meta($post_id, wpdFormConst::WPDISCUZ_RATING_SEPARATE_AVG . $key, ($c === 0 ? 0 : round($avg / $c, 1)));
             update_post_meta($post_id, wpdFormConst::WPDISCUZ_RATING_SEPARATE_COUNT . $key, $c);
         }
     }
 
-    private function getDefaultRoles()
-    {
+    private function getDefaultRoles() {
         global $wp_roles;
-        $blogRoles = $wp_roles->roles;
+        $blogRoles    = $wp_roles->roles;
         $defaultRoles = [];
         foreach ($blogRoles as $role => $info) {
             if ($role == "administrator") {

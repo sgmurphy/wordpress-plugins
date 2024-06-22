@@ -1784,7 +1784,7 @@ class TFNavMenu_Widget_Free extends \Elementor\Widget_Base {
 			$one_page = ' has-one-page';
 		}
 
-		$class .= $settings['main_menu_position'] . ' ' . $settings['layout'] . ' '.$settings['menu_panel_style'] .' tf_link_effect_'. $settings['link_hover_effect'] .' tf_animation_line_'. $settings['animation_line'] . $one_page . ' '.$settings['dropdown_style'];
+		$class .= esc_attr($settings['main_menu_position']) . ' ' . esc_attr($settings['layout']) . ' '.esc_attr($settings['menu_panel_style']) .' tf_link_effect_'. esc_attr($settings['link_hover_effect']) .' tf_animation_line_'. esc_attr($settings['animation_line']) . $one_page . ' '.esc_attr($settings['dropdown_style']);
 
 		switch ($settings['submenu_icon']) {
 			case 'classic':
@@ -1805,8 +1805,8 @@ class TFNavMenu_Widget_Free extends \Elementor\Widget_Base {
 			if ( !empty( $settings['btn_menu_mobile_icon']['value']['url'] ) ) {
 				$btn_menu_mobile_icon = sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['btn_menu_mobile_icon']['value']['url'],
-		             $settings['btn_menu_mobile_icon']['value']['id']
+		             esc_url($settings['btn_menu_mobile_icon']['value']['url']),
+		             esc_attr($settings['btn_menu_mobile_icon']['value']['id'])
 		            
 		         ); 
 			} else {
@@ -1822,29 +1822,42 @@ class TFNavMenu_Widget_Free extends \Elementor\Widget_Base {
 			if ( !empty( $settings['btn_menu_close']['value']['url'] ) ) {
 				$btn_menu_close = sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['btn_menu_close']['value']['url'],
-		             $settings['btn_menu_close']['value']['id']
+				   	 esc_url($settings['btn_menu_close']['value']['url']),
+					esc_attr($settings['btn_menu_close']['value']['id'])
 		            
 		         ); 
 			} else {
 				$btn_menu_close = sprintf(
 		             '<i class="%1$s"></i>',
-		            $settings['btn_menu_close']['value']
+					 esc_attr($settings['btn_menu_close']['value'])
 		        );  
 			}
 		}
 
+			$this->add_render_attribute('nav_menu_logo_link', 'class','logo-nav');
+			$this->add_render_attribute('nav_menu_logo_link', 'href', esc_url($settings['nav_menu_logo_link']['url'] ? $settings['nav_menu_logo_link']['url'] : '#'));
+			if (!empty($settings['nav_menu_logo_link']['is_external'])) {
+				$this->add_render_attribute('nav_menu_logo_link', 'target', '_blank');
+			}
+			if (!empty($settings['nav_menu_logo_link']['nofollow'])) {
+				$this->add_render_attribute('nav_menu_logo_link', 'rel', 'nofollow');
+			}
+			$nav_menu_logo_link = $this->get_render_attribute_string('nav_menu_logo_link'); 
+
 		if ($settings['nav_menu_logo']['url']) {
-			$url_logo = $settings['nav_menu_logo']['url'];			
+			$url_logo = $settings['nav_menu_logo']['url'];	
+
+			
+
 			if ($settings['nav_menu_logo_url_to'] == 'custom') {			
-				$logo = '<a href="'.$settings['nav_menu_logo_link']['url'].'" class="logo-nav"> <img src="'.$url_logo.'" alt="'.get_bloginfo('name').'"> </a>';
+				$logo = '<a '.$nav_menu_logo_link.'> <img src="'.esc_url($url_logo).'" alt="'.get_bloginfo('name').'"> </a>';
 
 			}else {		
-				$logo = '<a href="'. esc_url(home_url('/')).'" class="logo-nav"> <img src="'.$url_logo.'" alt="'.get_bloginfo('name').'"></a>';
+				$logo = '<a href="'. esc_url(home_url('/')).'" class="logo-nav"> <img src="'.esc_url($url_logo).'" alt="'.get_bloginfo('name').'"></a>';
 			}
 		}else {
 			if ($settings['nav_menu_logo_url_to'] == 'custom') {			
-				$logo = '<a href="'.$settings['nav_menu_logo_link']['url'].'" class="logo-nav">'.get_bloginfo('name').'</a>';
+				$logo = '<a href="'.$nav_menu_logo_link.'" class="logo-nav">'.get_bloginfo('name').'</a>';
 
 			}else {		
 				$logo = '<a href="'. esc_url(home_url('/')).'" class="logo-nav">'.get_bloginfo('name').'</a>';

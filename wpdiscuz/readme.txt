@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 7.6.19
+Stable tag: 7.6.20
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -189,6 +189,12 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 Please don't forget delete all caches and purge CDN after the update.
 
+= Comments - wpDiscuz v7.6.20 - 22.06.2024 =
+
+* Added: wpDiscuz custom ajax now supports media uploading
+* Added: New hooks (wpdiscuz_user_can_view_fields, wpdiscuz_user_can_view_field) to control custom fields visibility, check out https://wpdiscuz.com/docs/codex/filters/ "docs" for more info
+* Added: A new option that will allow to control uploaded images thumbnails generation via WP cron job or immediately, default: enabled
+
 = Comments - wpDiscuz v7.6.19 - 08.05.2024 =
 
 * Fixed: Issue with date difference logic
@@ -244,57 +250,3 @@ Please don't forget delete all caches and purge CDN after the update.
 * Fixed: Security issue (Variables and options must be escaped when echo'd)
 * Fixed: Conflict with "Sign In with LinkedIn using OpenID Connect"
 * Fixed: Conflict with BuddyPress mentioning
-
-= Comments - wpDiscuz v7.6.9/10 - 25/26.09.2023 =
-
-* Added: Do not set a cookie if validation for guests is disabled
-
-= Comments - wpDiscuz v7.6.8 - 18.09.2023 =
-
-* Fixed: Nonce lifespan too few arguments error
-
-= Comments - wpDiscuz v7.6.7 - 17.09.2023 =
-
-* Fixed: Nonces timeout
-
-= Comments - wpDiscuz v7.6.6 - 15.09.2023 =
-
-* Fixed: SQL Injection vulnerability
-
-= Comments - wpDiscuz v7.6.5 - 14.09.2023 =
-
-* Fixed: "Nonce is invalid" issue
-
-= Comments - wpDiscuz v7.6.4 - 12.09.2023 =
-
-* Fixed: Issue with displaying inline comment when it isn't approved
-* Fixed: Comment editing issue (you are posting too quickly)
-* Fixed: Vulnerability - Insecure Direct Object References (IDOR)
-* Fixed: Vulnerability - Broken Access Control
-* Added: New hooks to allow to translate wpDiscuz's emails
-* Changed: jQuery selector on vote container
-* Changed: wpDiscuz's nonce logic (more secure way to generate and validate nonces)
-* Changed: Unsubscribe from post logic
-
-= Comments - wpDiscuz v7.6.3 - 12.08.2023 =
-
-* Fixed: Issue with nonces
-* Fixed: Accessibility issues
-
-= Comments - wpDiscuz v7.6.2 - 08.08.2023 =
-
-* Fixed: Issue with displaying guest default avatar on comment form
-* Fixed: Issue with initiating current user data
-* Fixed: Issue with caches ( wpDiscuz didn't clean caches on comment adding or editing (website URL). Security fix )
-* Fixed: Preventing comments duplications on comment editing
-
-= Comments - wpDiscuz v7.6.1 - 03.06.2023 =
-
-* Added: An option to enable subscription bar for guests
-* Added: An option to enable subscription bar for roles
-* Added: A new hook "wpdiscuz_commentlist_liveupdate_timer" to control live update check frequency
-* Added: A new hook "wpdiscuz_email_subject" to allow to change the subject of subscription notification email
-* Added: A new hook "wpdiscuz_confirm_email_subject" to allow to change the subject of confirmation email
-* Added: A new hook "wpdiscuz_confirm_email_content" to allow to change the content of confirmation email
-* Added: Nofollow, noindex on internal anchors to prevent google crawling
-* Fixed: Comment reply text max length is issue on reply forms

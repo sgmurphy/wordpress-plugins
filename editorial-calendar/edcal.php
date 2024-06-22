@@ -18,11 +18,12 @@
 
 /*
 Plugin Name: WordPress Editorial Calendar
-Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
+Plugin URI: https://editorialcalendarwp.com/
+Description: The Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
 Version: 3.8.5
-Author: MarketingFire
-Author URI: http://www.zackgrossbart.com
-Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
+Author: Editorial Calendar Team
+Author URI: https://editorialcalendarwp.com/
+Text Domain: editorial-calendar
 */
 
 

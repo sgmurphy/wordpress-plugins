@@ -348,20 +348,20 @@ class TFProgressBars_Widget_Fr extends \Elementor\Widget_Base {
 		$title = '<span class="title">'. esc_html( $settings['title'] ) .'</span>';
 
 		$percent = '<div class="wrap-perc-title">
-						<div class="perc">'.$title.'<span class="number-perc">'.$settings['percent']['size'].'%</span></div>
+						<div class="perc">'.$title.'<span class="number-perc">'.esc_attr($settings['percent']['size']).'%</span></div>
 					</div>';
 		
 		$content = sprintf( '
 			%1$s
 			<div class="progress-wrap">				
 				<div class="progress-animate" data-valuemax="100" data-valuemin="0" data-valuenow="%2$s"></div>
-			</div>' , $percent, $settings['percent']['size'] );
+			</div>' , $percent,esc_attr( $settings['percent']['size']) );
 
 		if ($settings['percentage_type'] == 'inner') {
 			$content = sprintf( '				
 				<div class="progress-wrap">				
 					<div class="progress-animate" data-valuemax="100" data-valuemin="0" data-valuenow="%2$s">%1$s</div>
-				</div>' , $percent, $settings['percent']['size'] );
+				</div>' , $percent, esc_attr($settings['percent']['size']) );
 		}
 
 		echo sprintf ( 

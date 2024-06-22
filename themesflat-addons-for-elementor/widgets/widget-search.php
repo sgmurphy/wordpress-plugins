@@ -451,21 +451,21 @@ class TFSearch_Widget_Free extends \Elementor\Widget_Base {
 	protected function render($instance = []) {
 		$settings = $this->get_settings_for_display();
 		$class = $icon_search = '';
-		$class .= $settings['button_search_position'];
-		$class .= ' '.$settings['form_style'];
+		$class .= esc_attr($settings['button_search_position']);
+		$class .= ' '.esc_attr($settings['form_style']);
 
 		if ( $settings['icon_search']['value'] != '' ) {
 			if ( !empty( $settings['icon_search']['value']['url'] ) ) {
 				$icon_search = sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['icon_search']['value']['url'],
-		             $settings['icon_search']['value']['id']
+				   esc_url($settings['icon_search']['value']['url']),
+				   esc_attr($settings['icon_search']['value']['id'])
 		            
 		         ); 
 			} else {
 				$icon_search = sprintf(
 		             '<i class="%1$s"></i>',
-		            $settings['icon_search']['value']
+					 esc_attr($settings['icon_search']['value'])
 		        );  
 			}
 		}

@@ -27,6 +27,11 @@
         themesflat_animation_fadeup(".tf-posts", ".item");
         themesflat_animation_fadeup(".tf-animated-column-elementor", ".elementor-column");
         themesflat_animation_fadeup(".tf-animated-item", ".elementor-widget-container");
+        themesflat_animation_fadeup(".tf-animated-item-fade", ".elementor-widget-container");
+        themesflat_animation_fadeup(".tf-animated-item-left", ".elementor-widget-container");
+        themesflat_animation_fadeup(".tf-animated-item-right", ".elementor-widget-container");
+        themesflat_animation_fadeup(".tf-animated-item-zoom-slide", ".elementor-widget-container");
+        themesflat_animation_fadeup(".tf-animated-item-slide-right", ".elementor-widget-container");
     };
 
     var themesflat_animation_mousemove = function (container, element) {

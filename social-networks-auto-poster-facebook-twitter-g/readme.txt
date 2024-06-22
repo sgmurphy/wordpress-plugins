@@ -4,8 +4,8 @@ Contributors: NextScripts, okapy
 Donate link: https://www.nextscripts.com/social-networks-auto-poster-for-wordpress
 Tags: automation, autopost, auto-post, auto post, socialnetworks, socialnetwork, social networks, social network, Flipboard, google,  Flickr, twitter, pinterest, google my business, 500px, tumblr, blogger, blogspot, linkedin, reddit, reddit.com, plugin, links, Post, posts, api, automatic, seo, scoop.it, integration, bookmark, bookmarks, admin, images, image, social, sharing, share, repost, re-post, wordpress.com, Diigo, vBulletin, Plurk, forums, vKontakte, open graph, LiveJournal, SETT, YouTube, Telegram, xing, medium, yo, Weibo, mailchimp, line, Odnoklassniki, ok.ru
 Requires at least: 5.0
-Tested up to: 6.4.1
-Stable tag: 4.4.3
+Tested up to: 6.5.3
+Stable tag: 4.4.6
 License: GPLv2 or later
 
 Automatically publishes blogposts to profiles/pages/groups on Twitter, Google+, Pinterest, LinkedIn, Blogger, Tumblr ... 22 more
@@ -176,6 +176,23 @@ Please see more <a href="https://www.nextscripts.com/faq/">Frequently asked ques
 = Details = 
 
 == Changelog ==
+
+= 4.4.6 [11/06/2024] = 
+
+* Bug Fix - Few possible security issues/unsafe XSS Calls
+
+
+= 4.4.5 [30/05/2024] = 
+
+* Bug Fix - Few possible security issues/unsafe SQL Calls
+
+= 4.4.4 [10/05/2024] = 
+
+* Bug Fix - Possible security issue [CVE-2024-2088]
+* Bug Fix - Possible security issue [CVE-2024-1762]
+* Bug Fix - Possible security issue [CVE-2024-1446]
+* Bug Fix - Possible XSS security issue [PS-e8dc2137-b88e-4916-a46d-d85a0e33c40b]
+* Bug Fix - Other possible security issues/unsafe SQL Calls
 
 = 4.4.3 [12/01/2023] = 
 

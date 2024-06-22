@@ -5,10 +5,10 @@ Author URI: http://wordpress.ieonly.com/category/my-plugins/anti-malware/
 Contributors: gotmls, scheeeli
 Donate link: https://gotmls.net/donate/
 Tags: security, firewall, anti-malware, scanner, automatic, repair, remove, malware, virus, threat, hacked, malicious, infection, timthumb, exploit, block, brute-force, wp-login, patch, antimalware, revslider, Revolution Slider
-Version: 4.23.57
-Stable tag: 4.23.57
+Version: 4.23.67
+Stable tag: 4.23.67
 Requires at least: 3.3
-Tested up to: 6.4.3
+Tested up to: 6.5.4
 
 This Anti-Malware scanner searches for Malware, Viruses, and other security threats and vulnerabilities on your server and it helps you fix them.
 
@@ -97,6 +97,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.23.67 =
+* Upgraded Brute-Force Login Protection to integrate the JS check on the login form with the session check.
+* Fixed session conflict with REST API and a couple Undefined Variable warnings.
+* Huge improvements to the Quick Scan on the Core Files when Core File Definitions are installed.
+* Added custom Whitelist that skips files you have chosen to ignore.
+* Fixed display of DB threats to properly decode HTML characters.
+* Checked code for compatibility with WordPress 6.5.4 and ClassicPress 2.1.0.
 
 = 4.23.57 =
 * Removed session incompatibilities within the Brute-Force Login Protection that failed when other plugins had already output page headers.
@@ -465,6 +473,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.23.67 =
+Upgraded Brute-Force Login Protection and the Quick Scan of Core Files, added custom Whitelist, fixed session conflict with REST API, and checked code for compatibility with WordPress 6.5.4 and ClassicPress 2.1.0.
 
 = 4.23.57 =
 Removed session incompatibilities within the Brute-Force Login Protection that failed when other plugins had already output page headers.

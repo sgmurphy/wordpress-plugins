@@ -1311,8 +1311,8 @@ class TFImageBox_Widget_Free extends \Elementor\Widget_Base {
 			if ( !empty( $settings['icon_button']['value']['url'] ) ) {
 				$icon_button .= sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['icon_button']['value']['url'],
-		             $settings['icon_button']['value']['id']
+				   	esc_url($settings['icon_button']['value']['url']),
+					esc_attr($settings['icon_button']['value']['id'])
 		            
 		         ); 
 			} else {
@@ -1325,43 +1325,62 @@ class TFImageBox_Widget_Free extends \Elementor\Widget_Base {
 
 		$btn_animation = 'hover-default';
 		if ($settings['button_animation_options'] == 'button') {
-			$btn_animation = 'hover-default ' . $settings['button_animation'];
+			$btn_animation = 'hover-default ' . esc_attr($settings['button_animation']);
 		}elseif ($settings['button_animation_options'] == 'button-overlay') {
-			$btn_animation = 'btn-overlay ' . $settings['button_animation_overlay'];
+			$btn_animation = 'btn-overlay ' . esc_attr($settings['button_animation_overlay']);
 		}		
 
 		if ( $settings['show_button'] == 'yes' ) {
 			$link_url = $settings['link']['url'];
-			
+
+			$title_url = $this->add_render_attribute('header_link', 'href', esc_url( $settings['link']['url'] ? $settings['link']['url'] : '#'));
+			if (!empty($settings['link']['is_external'])) {
+			$this->add_render_attribute('header_link', 'target', '_blank');
+			}
+			if (!empty($settings['link']['nofollow'])) {
+			$this->add_render_attribute('header_link', 'rel', 'nofollow');
+			}
+			$title_url = $this->get_render_attribute_string('header_link'); 
+
+
+			$this->add_render_attribute('button_text', 'class','tf-button '. $settings['button_icon_position'] . ' ' . $btn_animation);
+			$this->add_render_attribute('button_text', 'href', esc_url($settings['link']['url'] ? $settings['link']['url'] : '#'));
+			if (!empty($settings['link']['is_external'])) {
+			  $this->add_render_attribute('button_text', 'target', '_blank');
+			}
+			if (!empty($settings['link']['nofollow'])) {
+			  $this->add_render_attribute('button_text', 'rel', 'nofollow');
+			}
+			$link_url = $this->get_render_attribute_string('button_text'); 
+
 			if ($settings['button_icon_position'] == 'bt_icon_after') {
-				$button =  sprintf ('<div class="tf-button-container %4$s"><a class="tf-button %5$s %6$s" %7$s %8$s href="%3$s">%1$s %2$s</a></div>',$settings['button_text'] , $icon_button, $link_url, $settings['button_align'], $settings['button_icon_position'], $btn_animation , $target, $nofollow);
+				$button =  sprintf ('<div class="tf-button-container %3$s"><a  %4$s >%1$s %2$s</a></div>',esc_attr($settings['button_text']) , $icon_button,  esc_attr($settings['button_align']),$link_url );
 			}else{
-				$button =  sprintf ('<div class="tf-button-container %4$s"><a class="tf-button %5$s %6$s" %7$s %8$s href="%3$s">%2$s %1$s</a></div>',$settings['button_text'] , $icon_button, $link_url, $settings['button_align'], $settings['button_icon_position'], $btn_animation , $target, $nofollow);
+				$button =  sprintf ('<div class="tf-button-container %3$s"><a  %4$s >%2$s %1$s </a></div>',esc_attr($settings['button_text']) , $icon_button,  esc_attr($settings['button_align']),$link_url );
 			}
 
-			$target = $settings['link']['is_external'] ? ' target="_blank"' : '';
-			$nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+			
 			
 		}		
 
 		if ($settings['show_image_overlay'] == 'yes') {
-			$html_image_overlay = sprintf('<div class="image-overlay %1$s"></div>', $settings['image_overlay_effect']);
+			$html_image_overlay = sprintf('<div class="image-overlay %1$s"></div>', esc_attr($settings['image_overlay_effect']));
 		}
 
 		if ($settings['title'] != '') {
-			$html_title = sprintf('<%2$s class="title"><a href="%3$s">%1$s</a></%2$s>', $settings['title'], $settings['wrap_heading'], $link_url);
+			$html_title = sprintf('<%2$s class="title"><a %3$s>%1$s</a></%2$s>',  esc_attr($settings['title']) , \Elementor\Utils::validate_html_tag($settings['wrap_heading']), $title_url);
 		}
 
 		if ($settings['description'] != '') {
-			$html_description = sprintf('<div class="description">%1$s</div>', $settings['description']);
+			$html_description = sprintf('<div class="description">%1$s</div>', esc_attr($settings['description']));
 		}
 
 		if ( $settings['icon_name']['value'] != '' ) {
 			if ( !empty( $settings['icon_name']['value']['url'] ) ) {
 				$icon_name = sprintf(
 		           '<img class="logo_svg" src="%1$s" alt="%2$s"/>',
-		             $settings['icon_name']['value']['url'],
-		             $settings['icon_name']['value']['id']		            
+				   	esc_url($settings['icon_name']['value']['url']),
+					   esc_attr($settings['icon_name']['value']['id'])		            
 		        ); 
 
 		        $html_icon = sprintf('<div class="wrap-icon">%1$s</div>', $icon_name);

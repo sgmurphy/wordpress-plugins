@@ -26,9 +26,9 @@ You can choose which field to keep from the fields manager
 
 ### Add-ons:
 * [Custom Registration Fields](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - Add extra fields to registration form , display them on user profile & myaccount page. (See Fields page to know supported field types )
-* [Social Login](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - A single click login & registration with Google & Facebook.
+* [Social Login](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - A single click login & registration with Google, Facebook, Apple & X(Twitter).
 * [One time Password (SMS) Login](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - Allow users to login with OTP ( sent on their phone or email) therefore removing the need to remember a password.
-* [Google Recaptcha](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - Protect your form from bots using google recaptcha(v2/v3) + Password strength meter + Limit login attempts
+* [Recaptcha](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - Protect your form from bots using recaptcha. Choose from google recaptcha(v2/v3), Cloudflare Turnstile or Friendly GDPR. + Password strength meter + Limit login attempts
 * [Email Verification](http://xootix.com/plugins/easy-login-for-woocommerce#sp-addons) - Sends verification email on registration & restricts login access until email is verified
 
 

@@ -775,7 +775,7 @@ class SocialLogin
                 $response["message"] = $e->getOAuthMessage();
             }
         } else {
-            $response["message"] = esc_html__("Twitter Consumer Key and Consumer Secret  required.", "wpdiscuz");
+            $response["message"] = esc_html__("X Consumer Key and Consumer Secret  required.", "wpdiscuz");
         }
         return $response;
     }
@@ -788,7 +788,7 @@ class SocialLogin
         $oauthSecret = $oauthSecretData[wpdFormConst::WPDISCUZ_OAUTH_STATE_PROVIDER];
         $postID = $oauthSecretData[wpdFormConst::WPDISCUZ_OAUTH_CURRENT_POSTID];
         if (!$oauthVerifier || !$oauthSecret) {
-            $this->redirect($postID, esc_html__("Twitter authentication failed (OAuth secret does not exist).", "wpdiscuz"));
+            $this->redirect($postID, esc_html__("X authentication failed (OAuth secret does not exist).", "wpdiscuz"));
         }
         $twitter = new TwitterOAuth($this->generalOptions->social["twitterAppID"], $this->generalOptions->social["twitterAppSecret"], $oauthToken, $oauthSecret);
         try {
@@ -803,7 +803,7 @@ class SocialLogin
                 $this->setCurrentUser($uID);
                 $this->redirect($postID);
             } else {
-                $this->redirect($postID, esc_html__("Twitter connection failed.", "wpdiscuz"));
+                $this->redirect($postID, esc_html__("X connection failed.", "wpdiscuz"));
             }
         } catch (TwitterOAuthException $e) {
             $this->redirect($postID, $e->getOAuthMessage());

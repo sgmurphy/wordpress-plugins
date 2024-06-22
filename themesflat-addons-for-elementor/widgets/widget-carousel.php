@@ -939,7 +939,7 @@ class TFCarousel_Widget_Free extends \Elementor\Widget_Base {
 			<div class="owl-carousel owl-theme">
 			<?php foreach ($settings['carousel_list'] as $carousel): ?>
 				<?php if($carousel['list_content_type'] == 'content') : ?>
-					<div class="item"><img src="<?php echo esc_attr($carousel['image']['url']); ?>" alt="image"></div>
+					<div class="item"><img src="<?php echo esc_url($carousel['image']['url']); ?>" alt="image"></div>
 				<?php elseif($carousel['list_content_type'] == 'template') : ?>
 					<div class="item">
 						<?php 

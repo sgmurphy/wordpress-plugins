@@ -4,7 +4,7 @@ Plugin Name: Themesflat Addons For Elementor
 Description: The theme's components
 Author: Themesflat
 Author URI: http://themesflat-addons.com/
-Version: 2.1.1
+Version: 2.1.3
 Text Domain: themesflat-addons-for-elementor
 Domain Path: /languages
 */
@@ -82,8 +82,6 @@ final class ThemesFlat_Addon_For_Elementor_Free {
             add_action('admin_notices', [ $this, 'tf_admin_notice_compare_quick_view_wishlist' ] );
         }*/
 
-        // Add Plugin actions
-        // add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
 
         add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
         add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
@@ -124,7 +122,71 @@ final class ThemesFlat_Addon_For_Elementor_Free {
         add_action( 'save_post', [ $this, 'tf_header_footer_save_meta' ] );
         add_filter( 'single_template', [ $this, 'tf_header_footer_load_canvas_template' ] );
         add_action( 'wp', [ $this, 'hooks' ],100 );
-        add_action('elementor/element/section/section_layout/after_section_end', [$this, 'section_sticky'], 10);        
+        add_action('elementor/element/section/section_layout/after_section_end', [$this, 'section_sticky'], 10);   
+        
+        // Hook Animation All Widget
+        add_action('elementor/element/before_section_end', function( $section, $section_id, $args ) {
+            if( $section->get_name() == 'common' && $section_id == 'section_effects' ){
+                
+                $section->add_control( 
+                    'heading_tfanimation',
+                    [
+                        'label' => esc_html__( 'TF Entrace Animation', 'themesflat-addons-for-elementor' ),
+                        'type' => \Elementor\Controls_Manager::HEADING,
+                        'separator' => 'before',
+                    ]
+                );
+
+                $section->add_control(
+                    'ti_parallax', [
+                        'label' => __( 'Choose Animation', 'themesflat-addons-for-elementor' ),
+                        'type' => \Elementor\Controls_Manager::SELECT,
+                        'default' => '',
+                        'options' => [
+                            '' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-fade' => esc_html__( 'Fade In', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item' => esc_html__( 'Fade In Up', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-left' => esc_html__( 'Fade In Left', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-right' => esc_html__( 'Fade In Right', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-zoom-slide' => esc_html__( 'Zoom Slide', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-slide-right' => esc_html__( 'Slide In Right', 'themesflat-addons-for-elementor' ),
+                        ],
+                        'prefix_class' => '',
+                    ]
+                );
+            }
+        }, 10, 3 );
+        // Hook Animation Container
+        add_action('elementor/element/before_section_end', function( $section, $section_id, $args ) {
+            if( $section->get_name() == 'container' && $section_id == 'section_effects' ){
+                
+                $section->add_control( 
+                    'heading_tfanimation',
+                    [
+                        'label' => esc_html__( 'TF Entrace Animation', 'themesflat-addons-for-elementor' ),
+                        'type' => \Elementor\Controls_Manager::HEADING,
+                        'separator' => 'before',
+                    ]
+                );
+
+                $section->add_control(
+                    'ti_parallax', [
+                        'label' => __( 'Choose Animation', 'themesflat-addons-for-elementor' ),
+                        'type' => \Elementor\Controls_Manager::SELECT,
+                        'default' => '',
+                        'options' => [
+                            '' => esc_html__( 'Default', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-fade' => esc_html__( 'Fade In', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item' => esc_html__( 'Fade In Up', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-left' => esc_html__( 'Fade In Left', 'themesflat-addons-for-elementor' ),
+                            'tf-animated-item-right' => esc_html__( 'Fade In Right', 'themesflat-addons-for-elementor' ),
+                        ],
+                        'prefix_class' => '',
+                    ]
+                );
+            }
+        }, 10, 3 );
+
     }    
 
     public function tf_admin_notice_missing_main_plugin() {
@@ -306,6 +368,9 @@ final class ThemesFlat_Addon_For_Elementor_Free {
 
         // Update 9/8/2023
 
+        require_once( __DIR__ . '/widgets/widget-video.php' );
+        \Elementor\Plugin::instance()->widgets_manager->register( new \TFVideo_Widget() ); 
+
         
         if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
             require_once( __DIR__ . '/widgets/widget-woo-product-grid.php' );
@@ -351,6 +416,15 @@ final class ThemesFlat_Addon_For_Elementor_Free {
         // Update 9/8/2023
         
         wp_enqueue_style( 'tf-style' );
+
+        // Entrace Animation
+        wp_enqueue_style( 'entrace-animation', plugins_url( '/assets/css/tf-entrace-animation.css', __FILE__ ) );
+
+        // video
+        wp_register_style( 'tf-video', plugins_url( '/assets/css/video/tf-video.css', __FILE__ ) );
+
+        // 3dr
+        wp_register_style( 'magnific-popup', plugins_url( '/assets/css/magnific.popup.css', __FILE__ ) );
     }
 
     public function widget_scripts() {
@@ -384,15 +458,20 @@ final class ThemesFlat_Addon_For_Elementor_Free {
         wp_register_script( 'tf-countdown', plugins_url( '/assets/js/tf-countdown.js', __FILE__ ), [ 'jquery' ], false, true );
         wp_register_script( '3rd-piechart', plugins_url( '/assets/js/piechart.js', __FILE__ ), [ 'jquery' ], false, true );
         wp_register_script( 'tf-piechart', plugins_url( '/assets/js/tf-piechart.js', __FILE__ ), [ 'jquery' ], false, true );
+        wp_register_script( 'magnific-popup', plugins_url( '/assets/js/magnific.popup.min.js', __FILE__ ), [ 'jquery' ], false, true );
+
 
        // Update 9/8/2023
         wp_register_script( 'simple-parallax', plugins_url( '/assets/js/simple-parallax.min.js', __FILE__ ), [ 'jquery' ], false, true );
         wp_register_script( 'parallax-image', plugins_url( '/assets/js/tf-group-image.js', __FILE__ ), [ 'jquery' ], false, true );
         wp_enqueue_script( 'tf-animated', plugins_url( '/assets/js/tf-animated.js', __FILE__ ), [ 'jquery' ], false, true );
         // Update 9/8/2023
-        
-               
+
         wp_enqueue_script( 'tf-main' );
+
+        // video
+        wp_register_script( 'tf-video', plugins_url( '/assets/js/video/tf-video.js', __FILE__ ), [ 'jquery' ], false, true );
+
     }
 
     public function admin_scripts() {

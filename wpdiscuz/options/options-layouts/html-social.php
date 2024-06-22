@@ -9,7 +9,7 @@ if (!defined("ABSPATH")) {
         <img class="wpd-opt-img"
              src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/dashboard/" . $setting["icon"])); ?>"
              style="height: 90px; padding-top: 5px;"/>
-        <?php esc_html_e("wpDiscuz comes with built-in social login and share buttons. It includes Facebook, Twitter, Google, Disqus, WordPress.com, VK and OK Social Networks. Here you can configure App IDs and Keys to enable those. Once IDs and Keys are configured you'll see social login buttons on top of the main comment form. Social Login buttons are only available for guests, so make sure you're logged-out before checking those.", "wpdiscuz"); ?>
+        <?php esc_html_e("wpDiscuz comes with built-in social login and share buttons. It includes Facebook, X, Google, Disqus, WordPress.com, VK and OK Social Networks. Here you can configure App IDs and Keys to enable those. Once IDs and Keys are configured you'll see social login buttons on top of the main comment form. Social Login buttons are only available for guests, so make sure you're logged-out before checking those.", "wpdiscuz"); ?>
     </div>
     <div class="wpd-opt-doc" style="padding-top: 10px;">
         <a href="https://wpdiscuz.com/docs/wpdiscuz-7/plugin-settings/social-login-and-share/facebook-app-configuration/"
@@ -226,15 +226,15 @@ if (!defined("ABSPATH")) {
 
 
 <div class="wpd-social-label wpd-twitter" style="padding: 25px 0px 10px 0px;">
-    <img src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/social-icons/tw-m.png")); ?>"
+    <img src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/social-icons/x-m.png")); ?>"
          style="vertical-align:bottom; height: 24px; margin-bottom: -2px; position: relative; border-radius: 50%;">&nbsp;
-    Twitter
+    X
 </div>
 <p style="font-size: 14px; font-style: italic; margin-top: 5px;">
-    <?php esc_html_e("To start using Twitter Login Button you should get Consumer Key and Secret for your website. Please follow to this", "wpdiscuz"); ?>
+    <?php esc_html_e("To start using X Login Button you should get Consumer Key and Secret for your website. Please follow to this", "wpdiscuz"); ?>
     <a href="https://wpdiscuz.com/docs/wpdiscuz-7/plugin-settings/social-login-and-share/twitter-app-configuration/"
        target="_blank" style="font-weight: 600;"><?php esc_html_e("instruction &raquo;", "wpdiscuz"); ?></a> &nbsp;
-    <?php echo esc_html__("Twitter Callback URL", "wpdiscuz") . " : <code>" . esc_url_raw(admin_url("admin-ajax.php")) . "</code>"; ?>
+    <?php echo esc_html__("X Callback URL", "wpdiscuz") . " : <code>" . esc_url_raw(admin_url("admin-ajax.php")) . "</code>"; ?>
 </p>
 
 
@@ -312,7 +312,7 @@ if (!defined("ABSPATH")) {
 
 
 <div class="wpd-social-label wpd-google" style="padding: 25px 0px 10px 0px;">
-    <img src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/social-icons/gg-m.png")); ?>"
+    <img src="<?php echo esc_url_raw(plugins_url(WPDISCUZ_DIR_NAME . "/assets/img/social-icons/g-m.png")); ?>"
          style="vertical-align:bottom; height: 24px; margin-bottom: -2px; position: relative; border-radius: 50%;">&nbsp;
     Google
 </div>

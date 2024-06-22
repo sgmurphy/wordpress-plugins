@@ -38,7 +38,7 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 						],
 						'icon' => [
 							'title' => esc_html__( 'Icon', 'tf-addon-for-elementer' ),
-							'icon' => 'fa fa-paint-brush',
+							'icon' => 'fa fa-info-circle',
 						],
 						'image' => [
 							'title' => esc_html__( 'Image', 'tf-addon-for-elementer' ),
@@ -1381,17 +1381,25 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					<?php endif; ?>	
 
 					<div class="content">
-						<<?php echo esc_attr($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo esc_attr($settings['title_tag']);?>>
+						<<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?>>
 						<?php echo sprintf('<div class="description">%s</div>', $settings['description_text']); ?>
 						
 						<?php if ( $settings['show_button'] == 'yes' ): 
 
-							$target = $settings['link']['is_external'] ? ' target="_blank"' : '';
-							$nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+
+							$this->add_render_attribute('button_link', 'class','tf-button '.esc_attr($settings['button_icon_position']).' '.esc_attr($btn_animation));
+							$this->add_render_attribute('button_link', 'href', esc_url($settings['link']['url'] ? $settings['link']['url'] : '#'));
+							if (!empty($settings['link']['is_external'])) {
+								$this->add_render_attribute('button_link', 'target', '_blank');
+							}
+							if (!empty($settings['link']['nofollow'])) {
+								$this->add_render_attribute('button_link', 'rel', 'nofollow');
+							}
+							$button_link = $this->get_render_attribute_string('button_link'); 
 							?>
 							
 							<div class="tf-button-container <?php echo esc_attr($settings['button_align']); ?>">
-								<a href="<?php echo esc_url( $settings['link']['url'] ) ?>" class="tf-button <?php echo esc_attr($settings['button_icon_position']); ?> <?php echo esc_attr($btn_animation); ?>" <?php echo esc_attr($target) . esc_attr($nofollow) ?> >
+								<a <?php echo $button_link;?> >
 									<?php
 									if ($settings['button_icon_position'] == 'bt_icon_before' ) {
 										if ( $is_new || $migrated ) {
@@ -1448,15 +1456,24 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 					<?php endif; ?>	
 
 					<div class="content">
-						<<?php echo esc_attr($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo esc_attr($settings['title_tag']);?>>
+						<<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?>>
 						<?php echo sprintf('<div class="description">%s</div>', $settings['description_text']); ?>
 						
 						<?php if ( $settings['show_button'] == 'yes' ): 
-							$target = $settings['link']['is_external'] ? ' target="_blank"' : '';
-							$nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+							
+
+							$this->add_render_attribute('button_link', 'class','tf-button '.esc_attr($settings['button_icon_position']).' '.esc_attr($btn_animation));
+							$this->add_render_attribute('button_link', 'href', esc_url($settings['link']['url'] ? $settings['link']['url'] : '#'));
+							if (!empty($settings['link']['is_external'])) {
+								$this->add_render_attribute('button_link', 'target', '_blank');
+							}
+							if (!empty($settings['link']['nofollow'])) {
+								$this->add_render_attribute('button_link', 'rel', 'nofollow');
+							}
+							$button_link = $this->get_render_attribute_string('button_link'); 
 							?>
 							<div class="tf-button-container <?php echo esc_attr($settings['button_align']); ?>">
-								<a href="<?php echo esc_url( $settings['link']['url'] ) ?>" class="tf-button <?php echo esc_attr($settings['button_icon_position']); ?> <?php echo esc_attr($btn_animation); ?>" <?php echo esc_attr($target) . esc_attr($nofollow) ?>>
+								<a <?php echo $button_link ?>>
 									<?php
 									if ($settings['button_icon_position'] == 'bt_icon_before' ) {
 										if ( $is_new || $migrated ) {
@@ -1514,15 +1531,22 @@ class TFIconBox_Widget_Fr extends \Elementor\Widget_Base {
 				<?php endif; ?>	
 
 				<div class="content">
-					<<?php echo esc_attr($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo esc_attr($settings['title_tag']);?>>
+					<<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?> class="title"><?php echo esc_attr($settings['title_text']); ?></<?php echo \Elementor\Utils::validate_html_tag($settings['title_tag']);?>>
 					<?php echo sprintf('<div class="description">%s</div>', $settings['description_text']); ?>
 					
 					<?php if ( $settings['show_button'] == 'yes' ): 
-						$target = $settings['link']['is_external'] ? ' target="_blank"' : '';
-						$nofollow = $settings['link']['nofollow'] ? ' rel="nofollow"' : '';
+						$this->add_render_attribute('button_link', 'class','tf-button '.esc_attr($settings['button_icon_position']).' '.esc_attr($btn_animation));
+						$this->add_render_attribute('button_link', 'href', esc_url($settings['link']['url'] ? $settings['link']['url'] : '#'));
+						if (!empty($settings['link']['is_external'])) {
+							$this->add_render_attribute('button_link', 'target', '_blank');
+						}
+						if (!empty($settings['link']['nofollow'])) {
+							$this->add_render_attribute('button_link', 'rel', 'nofollow');
+						}
+						$button_link = $this->get_render_attribute_string('button_link'); 
 						?>
 						<div class="tf-button-container <?php echo esc_attr($settings['button_align']); ?>">
-							<a href="<?php echo esc_url( $settings['link']['url'] ) ?>" class="tf-button <?php echo esc_attr($settings['button_icon_position']); ?> <?php echo esc_attr($btn_animation); ?>" <?php echo esc_attr($target) . esc_attr($nofollow) ?> >
+							<a <?php echo $button_link ?> >
 								<?php
 								if ($settings['button_icon_position'] == 'bt_icon_before' ) {
 									if ( $is_new || $migrated ) {

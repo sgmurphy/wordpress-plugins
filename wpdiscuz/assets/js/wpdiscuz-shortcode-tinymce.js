@@ -1,6 +1,6 @@
 (function ($) {
 
-    if(wpdObject){
+    if(typeof wpdObject !== 'undefined'){
         tinymce.create( 'tinymce.plugins.wpDiscuz',{
 
             init : function (ed, url) {

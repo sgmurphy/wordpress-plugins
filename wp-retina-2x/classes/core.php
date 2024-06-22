@@ -1984,13 +1984,12 @@ class Meow_WR2X_Core {
 		foreach ( $plugin_options as $option => $default ) {
 			// The option already exists
 			if ( array_key_exists( $option, $options ) ) {
-				continue;
-			}else{
-				$this->log( '⚙️ Option does not exist: ' . $option . '. Adding it.' );
+					continue;
 			}
+			//$this->log( '⚙️ Option does not exist: ' . $option . '. Adding it.' );
 			// The option does not exist, so we need to add it.
 			// Let's use the old value if any, or the default value.
-			$options[$option] = get_option( 'wr2x_' . $option, $default );
+			$options[ $option ] = get_option( 'wr2x_' . $option, $default );
 			delete_option( 'wr2x_' . $option );
 			$hasChanges = true;
 		}

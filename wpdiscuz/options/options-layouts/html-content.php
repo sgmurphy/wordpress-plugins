@@ -297,10 +297,10 @@ if (!defined("ABSPATH")) {
 <!-- Option end -->
 
 <!-- Option start -->
-<div class="wpd-opt-row" data-wpd-opt="wmuImageSizes">
+<div class="wpd-opt-row" data-wpd-opt="wmuThumbnailSizes">
     <div class="wpd-opt-name">
-        <label for="wmuImageSizes"><?php echo esc_html($setting["options"]["wmuImageSizes"]["label"]) ?></label>
-        <p class="wpd-desc"><?php echo esc_html($setting["options"]["wmuImageSizes"]["description"]) ?></p>
+        <label for="wmuThumbnailSizes"><?php echo esc_html($setting["options"]["wmuThumbnailSizes"]["label"]) ?></label>
+        <p class="wpd-desc"><?php echo esc_html($setting["options"]["wmuThumbnailSizes"]["description"]) ?></p>
     </div>
     <div class="wpd-opt-input">
         <?php
@@ -309,7 +309,7 @@ if (!defined("ABSPATH")) {
         foreach ($allImageSizes as $imageSize) {
             $sizeWidth = 0;
             $sizeHeight = 0;
-            if (in_array($imageSize, $this->getDefaultImageSizes())) {
+            if (in_array($imageSize, $this->getDefaultThumbnailSizes())) {
                 $sizeWidth = intval(get_option("{$imageSize}_size_w"));
                 $sizeHeight = intval(get_option("{$imageSize}_size_h"));
             } else if (isset($additionalSizes[$imageSize])) {
@@ -317,7 +317,7 @@ if (!defined("ABSPATH")) {
                 $sizeHeight = $additionalSizes[$imageSize]["height"];
             }
             $disabled = "";
-            $checked = checked(in_array($imageSize, $this->content["wmuImageSizes"]), true, false);
+            $checked = checked(in_array($imageSize, $this->content["wmuThumbnailSizes"]), true, false);
             if (!$sizeWidth && !$sizeHeight) {
                 $disabled = "disabled='disabled'";
             }
@@ -325,7 +325,7 @@ if (!defined("ABSPATH")) {
             <div class="wpd-mublock">
                 <input type="checkbox" <?php echo $checked; ?> <?php echo $disabled; ?>
                        value="<?php echo esc_attr($imageSize); ?>"
-                       name="<?php echo esc_attr(WpdiscuzCore::TAB_CONTENT); ?>[wmuImageSizes][]"
+                       name="<?php echo esc_attr(WpdiscuzCore::TAB_CONTENT); ?>[wmuThumbnailSizes][]"
                        id="wmu<?php echo esc_attr($imageSize); ?>" style="margin:0px; vertical-align: middle;"/>
                 <label for="wmu<?php echo esc_attr($imageSize); ?>"><?php echo esc_html($imageSize . " ( " . $sizeWidth . " x " . $sizeHeight . " )"); ?></label>
             </div>
@@ -334,7 +334,26 @@ if (!defined("ABSPATH")) {
         ?>
     </div>
     <div class="wpd-opt-doc">
-        <?php $this->printDocLink($setting["options"]["wmuImageSizes"]["docurl"]) ?>
+        <?php $this->printDocLink($setting["options"]["wmuThumbnailSizes"]["docurl"]) ?>
+    </div>
+</div>
+<!-- Option end -->
+
+<!-- Option start -->
+<div class="wpd-opt-row" data-wpd-opt="wmuIsThumbnailsViaCron">
+    <div class="wpd-opt-name">
+        <label for="wmuIsThumbnailsViaCron"><?php echo esc_html($setting["options"]["wmuIsThumbnailsViaCron"]["label"]) ?></label>
+        <p class="wpd-desc"><?php echo esc_html($setting["options"]["wmuIsThumbnailsViaCron"]["description"]) ?></p>
+    </div>
+    <div class="wpd-opt-input">
+        <div class="wpd-switcher">
+            <input type="checkbox" <?php checked($this->content["wmuIsThumbnailsViaCron"] == 1); ?> value="1"
+                   name="<?php echo esc_attr(WpdiscuzCore::TAB_CONTENT); ?>[wmuIsThumbnailsViaCron]" id="wmuIsThumbnailsViaCron">
+            <label for="wmuIsThumbnailsViaCron"></label>
+        </div>
+    </div>
+    <div class="wpd-opt-doc">
+        <?php $this->printDocLink($setting["options"]["wmuIsThumbnailsViaCron"]["docurl"]) ?>
     </div>
 </div>
 <!-- Option end -->

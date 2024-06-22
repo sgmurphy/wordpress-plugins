@@ -3347,13 +3347,13 @@ class TFPosts_Widget_Free extends \Elementor\Widget_Base {
 		$migrated_ol = isset( $settings['__fa4_migrated']['overlay_icon'] );	
 		$is_new_ol = empty( $settings['icon_ol'] );
 
-		$author_icon = ( !empty($settings['author_icon']) ) ? '<i class="' . $settings['author_icon'] . '" aria-hidden="true"></i>' : '' ;
+		$author_icon = ( !empty($settings['author_icon']) ) ? '<i class="' . esc_attr($settings['author_icon']) . '" aria-hidden="true"></i>' : '' ;
 
-		$category_icon = ( !empty($settings['category_icon']) ) ? '<i class="' . $settings['category_icon'] . '" aria-hidden="true"></i>' : '' ;
+		$category_icon = ( !empty($settings['category_icon']) ) ? '<i class="' .  esc_attr($settings['category_icon']) . '" aria-hidden="true"></i>' : '' ;
 
-		$date_icon = ( !empty($settings['date_icon']) ) ? '<i class="' . $settings['date_icon'] . '" aria-hidden="true"></i>' : '' ;
+		$date_icon = ( !empty($settings['date_icon']) ) ? '<i class="' .  esc_attr($settings['date_icon']) . '" aria-hidden="true"></i>' : '' ;
 
-		$comments_icon = ( !empty($settings['comments_icon']) ) ? '<i class="' . $settings['comments_icon'] . '" aria-hidden="true"></i>' : '' ;
+		$comments_icon = ( !empty($settings['comments_icon']) ) ? '<i class="' .  esc_attr($settings['comments_icon']) . '" aria-hidden="true"></i>' : '' ;
 		
 		$query = new WP_Query( $query_args );
 		if ( $query->have_posts() ) : ?>
@@ -3365,54 +3365,7 @@ class TFPosts_Widget_Free extends \Elementor\Widget_Base {
 				<?php while ( $query->have_posts() ) : $query->the_post();
 				$get_id_post_thumbnail = get_post_thumbnail_id();
 				$featured_image = '';
-				/*switch ( get_post_format() ) {
-					case 'gallery':
-						$post_image_gallery_li = '';
-						$post_images_gallery = TF_Post_Format::themesflat_decode(TF_Post_Format::themesflat_meta( 'gallery_images'));
-						if ( !empty( $post_images_gallery ) && is_array( $post_images_gallery ) ) {
-							foreach ( $post_images_gallery as $post_image_gallery_id ) {
-								$post_image_gallery_li .= sprintf( '<li><img src="%s" alt="image"></li>', \Elementor\Group_Control_Image_Size::get_attachment_image_src( $post_image_gallery_id, 'thumbnail', $settings ) );                           
-							}
-							$gallery_slide_auto = ($settings['gallery_slide_auto'] == 'yes') ? 'true' : 'false' ;
-							$gallery_slide_arrow = ($settings['gallery_slide_arrow'] == 'yes') ? 'true' : 'false' ;
-							$featured_image = sprintf('
-								<div class="featured-image-gallery" data-autoplay="%2$s" data-animation_images="%3$s" data-controlnav="false" data-directionnav="%4$s" data-prevtext="%5$s" data-nexttext="%6$s">
-									<ul class="slides">
-										%1$s
-									</ul>
-								</div>', $post_image_gallery_li, $gallery_slide_auto, $settings['gallery_slide_animation'], $gallery_slide_arrow, $settings['gallery_slide_prev_icon'], $settings['gallery_slide_next_icon']);
-						} else {
-							$featured_image = sprintf('<img src="'.\Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ).'" alt="image">');
-						}						
-					break;
-
-					case 'video':
-						$post_video_url = TF_Post_Format::themesflat_meta('video_url');
-						if ( $post_video_url != '' ) {
-							$featured_image = sprintf('
-								<div class="themesflat_video_embed">
-									<img src="%1$s" alt="image">
-									<div class="video-video-box-overlay">
-										<div class="video-video-box-button-sm video-box-button-lg">					
-											<button class="video-video-play-icon" data-izimodal-open="#format-video">
-												<i class="%3$s"></i>
-											</button>
-										</div>					
-									</div>
-								</div>
-								<div class="izimodal" id="format-video" data-izimodal-width="850px" data-iziModal-fullscreen="true">
-								    <iframe height="430" src="%2$s" class="tf-video-full-width full-width shadow-primary"></iframe>
-								</div>',
-								\Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ), esc_url($post_video_url), $settings['btn_play_icon']);	
-						}else {
-							$featured_image = sprintf('<img src="%s" alt="image">', \Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ));
-						}		
-					break;
-					
-					default:
-						$featured_image = sprintf('<img src="%s" alt="image">', \Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ));
-					break;
-				}*/
+				
 				$featured_image = sprintf('<img src="%s" alt="image">', \Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ));
 				?>
 				<div class="column">
@@ -3423,7 +3376,7 @@ class TFPosts_Widget_Free extends \Elementor\Widget_Base {
 								case 'grid-styles-3':
 									if ( $settings['show_image'] == 'yes' ): ?>								
 										<div class="featured-post">
-											<!-- <img src="<?php //echo \Elementor\Group_Control_Image_Size::get_attachment_image_src( $get_id_post_thumbnail, 'thumbnail', $settings ); ?>" alt="image"> -->
+											
 											<?php echo sprintf('%s',$featured_image); ?>
 											<?php if( $settings['show_overlay'] == 'yes' ): ?>
 											<a href="<?php echo esc_url( get_permalink() ) ?>" class="overlay">

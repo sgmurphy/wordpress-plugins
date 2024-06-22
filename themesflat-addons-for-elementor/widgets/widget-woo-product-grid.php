@@ -3643,7 +3643,7 @@ if (!class_exists('TFWooProductGrid_Widget_Free')) {
 								}
 								$array_merge = array_merge($array_1, $array_2, $array_3);
 								$filters_badge = array_unique($array_merge);						
-								echo '<ul class="products-filter products-filter-badge '.$settings['filter_align'].'"><li class="active" data-filter="all"><a data-filter="*" href="#">' . esc_html__( 'All', 'themesflat-addons-for-elementor' ) . '</a></li>'; 
+								echo '<ul class="products-filter products-filter-badge '. esc_attr($settings['filter_align']).'"><li class="active" data-filter="all"><a data-filter="*" href="#">' . esc_html__( 'All', 'themesflat-addons-for-elementor' ) . '</a></li>'; 
 						
 									foreach ($filters_badge as $key => $value) {
 										echo '<li data-filter="' . esc_attr( strtolower($key)) . '"><a data-filter=".' . esc_attr( strtolower($key)) . '" href="#" title="' . esc_attr( $value ) . '">' . esc_html( $value ) . '</a></li>'; 
@@ -3679,7 +3679,7 @@ if (!class_exists('TFWooProductGrid_Widget_Free')) {
 									<li>
 										<?php $count_products = $query_products->post_count; ?>
 										<span class="woocommerce-result-count" data-count="<?php echo esc_attr($count_products) ?>"> 
-											<?php echo esc_attr($count_products) ?> products
+											<?php echo esc_attr($count_products) ?> <?php echo esc_html__('products','themesflat-addons-for-elementor') ?>
 										</span>
 									</li>
 									<li class="toolbar-filter-columns">
@@ -3707,7 +3707,7 @@ if (!class_exists('TFWooProductGrid_Widget_Free')) {
 											    <div class="product-filter category">
 											        <div class="filter-control">
 											            <select name="product_cats">
-											            	<option value="all">Select a Category</option>
+											            	<option value="all"><?php echo esc_html__('Select a Category','themesflat-addons-for-elementor') ?></option>
 											            	<?php 
 															foreach ( $filters_cat as $key => $value ) {
 																echo '<option value="' . esc_attr( strtolower($key)) . '">' . esc_html( $value ) . '</option>'; 
@@ -3720,7 +3720,6 @@ if (!class_exists('TFWooProductGrid_Widget_Free')) {
 											    <input type="hidden" name="product_tab_badge" id="product_tab_badge" value="all" />
 											    <button type="submit" class="filter-button"><?php esc_html_e('Filter','themesflat-addons-for-elementor'); ?></button>
 											    <input type="hidden" name="settings" value="<?php echo base64_encode(serialize($settings),); ?>" />
-											    <!-- <input type="hidden" name="action" value="tf_product_filter"> -->
 											</form>
 										</div>
 									</li>

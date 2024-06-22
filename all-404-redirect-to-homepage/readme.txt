@@ -2,8 +2,8 @@
 Contributors: wp-buy, osama.esh 
 Tags: 404 error, redirection, homepage, broken images, redirection, https, automatic redirection, 404 link,redirect, soft 404, redirected, 301 seo redirect, post redirect plugin, broken links, fix 404
 Requires at least: 4.5
-Tested up to: 6.5
-Stable tag: 4.4
+Tested up to: 6.5.4
+Stable tag: 4.5
 
 By using this smart plugin, you can fix all 404 error links by redirecting them to homepage using the SEO 301 redirection. Improve your visibility in search engines now..
 
@@ -33,6 +33,10 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 
 
 == Changelog ==
+
+= 4.5 =
+* Bug fixing in "exclude media" option
+
 
 = 4.4 =
 * Introducing a new feature on the plugin options page to prevent the logging of media links.

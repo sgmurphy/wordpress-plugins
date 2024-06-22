@@ -606,7 +606,7 @@ jQuery(document).ready(function ($) {
     });
 
     function wpdiscuzSendComment(wcForm, data, currentSubmitBtn) {
-        getAjaxObj(isNativeAjaxEnabled || wpdiscuzUploader, false, data)
+        getAjaxObj(isNativeAjaxEnabled, false, data)
                 .done(function (r) {
                     $(currentSubmitBtn).addClass('wpd_not_clicked');
                     if (typeof r === 'object') {
@@ -2330,6 +2330,7 @@ jQuery(document).ready(function ($) {
             });
         }
         var url = isNative ? wpdiscuzAjaxObj.url : wpdiscuzAjaxObj.customAjaxUrl;
+        console.log(url);
         return $.ajax({
             type: 'POST',
             url: url,

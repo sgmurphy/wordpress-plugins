@@ -514,7 +514,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 									<span class="list-icon">%1$s</span>
 									<span class="list-text">%2$s</span>
 								</li>' 
-								, $icon, $text , 'elementor-repeater-item-'.$info_list['_id'] );
+								, $icon, $text , 'elementor-repeater-item-'.esc_attr($info_list['_id']) );
 						break;
 
 						case 'date':
@@ -530,9 +530,9 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 								'3' => 'd/m/Y',
 								'custom' => $info_list['date_format_custom'],
 							];
-							$text = get_the_time( $format_options[ $info_list['date_format'] ] );
+							$text = get_the_time( $format_options[ esc_attr($info_list['date_format']) ] );
 							if ($info_list['link_to'] == 'link') {
-								$text = sprintf( '<a href="%1$s">%2$s</a>', get_day_link( get_post_time( 'Y' ), get_post_time( 'm' ), get_post_time( 'j' ) ), get_the_time( $format_options[ $info_list['date_format'] ] ) );
+								$text = sprintf( '<a href="%1$s">%2$s</a>', get_day_link( get_post_time( 'Y' ), get_post_time( 'm' ), get_post_time( 'j' ) ), get_the_time( $format_options[ esc_attr($info_list['date_format']) ] ) );
 							}
 
 							$content .= sprintf( '
@@ -540,7 +540,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 									<span class="list-icon">%1$s</span>
 									<span class="list-text">%2$s</span>
 								</li>' 
-								, $icon, $text , 'elementor-repeater-item-'.$info_list['_id'] );
+								, $icon, $text , 'elementor-repeater-item-'.esc_attr($info_list['_id']) );
 						break;
 
 						case 'comments':
@@ -554,13 +554,13 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 								$string_comments = esc_html__( '%s Comments', 'themesflat-addons-for-elementor' );	
 
 								if ( ! empty( $info_list['string_no_comments'] ) ) {
-									$string_no_comments = $info_list['string_no_comments'];
+									$string_no_comments = esc_attr($info_list['string_no_comments']);
 								}
 								if ( ! empty( $info_list['string_one_comment'] ) ) {
-									$string_one_comment = $info_list['string_one_comment'];
+									$string_one_comment = esc_attr($info_list['string_one_comment']);
 								}
 								if ( ! empty( $info_list['string_comments'] ) ) {
-									$string_comments = $info_list['string_comments'];
+									$string_comments = esc_attr($info_list['string_comments']);
 								}
 
 								$num_comments = (int) get_comments_number();
@@ -579,7 +579,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 										<span class="list-icon">%1$s</span>
 										<span class="list-text">%2$s</span>
 									</li>' 
-									, $icon, $text , 'elementor-repeater-item-'.$info_list['_id'] );
+									, $icon, $text , 'elementor-repeater-item-'.esc_attr($info_list['_id']) );
 							}
 						break;
 
@@ -595,7 +595,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 								$term_name = $term->name;
 								$term_url = get_term_link( $term );								
 								if ($info_list['link_to'] == 'link') {
-									$terms_list[] = '<a href="' . esc_attr( $term_url ) . '" class="terms-list-item">' . esc_html( $term_name ) . '</a>';
+									$terms_list[] = '<a href="' . esc_url( $term_url ) . '" class="terms-list-item">' . esc_html( $term_name ) . '</a>';
 								}else {
 									$terms_list[] = '<span class="terms-list-item">' . esc_html( $term_name ) . '</span>';
 								}
@@ -607,7 +607,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 										<span class="list-icon">%1$s</span>
 										<span class="list-text">%2$s</span>
 									</li>' 
-									, $icon, $text , 'elementor-repeater-item-'.$info_list['_id'] );
+									, $icon, $text , 'elementor-repeater-item-'.esc_attr($info_list['_id']) );
 						break;
 
 						case 'custom':
@@ -617,9 +617,9 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 
 							$text = $info_list['custom_text'];
 							if ($info_list['custom_url']['url'] != '') {
-								$target = $info_list['custom_url']['is_external'] ? ' target="_blank"' : '';
-								$nofollow = $info_list['custom_url']['nofollow'] ? ' rel="nofollow"' : '';
-								$text = sprintf( '<a href="%1$s" %3$s %4$s>%2$s</a>', $info_list['custom_url']['url'], $info_list['custom_text'], $target, $nofollow );
+								$target = esc_attr($info_list['custom_url']['is_external']) ? ' target="_blank"' : '';
+								$nofollow = esc_attr($info_list['custom_url']['nofollow']) ? ' rel="nofollow"' : '';
+								$text = sprintf( '<a href="%1$s" %3$s %4$s>%2$s</a>', esc_attr($info_list['custom_url']['url']), esc_attr($info_list['custom_text']), $target, $nofollow );
 							}
 
 							$content .= sprintf( '
@@ -627,7 +627,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 										<span class="list-icon">%1$s</span>
 										<span class="list-text">%2$s</span>
 									</li>' 
-									, $icon, $text, 'elementor-repeater-item-'.$info_list['_id'] );
+									, $icon, $text, 'elementor-repeater-item-'.esc_attr($info_list['_id']) );
 						break;
 					}				
 				}				
