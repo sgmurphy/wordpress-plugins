@@ -71,6 +71,8 @@ class library
 		echo '</pre>';
 	}
 
+	public function ExceptionMessage($ex, $extended=true){ 	return "Exception Message: {$ex->getMessage()} \r\n[{$ex->getTraceAsString()}] \r\n";	}  //[{$ex->getFile()}::{$ex->getLine()}]
+
 	public function stringify($data, $pretty=false) { 
 		if( $this->is_simple_type($data) ) {
 			if ($pretty && $this->is_json($array_or_txt)) {

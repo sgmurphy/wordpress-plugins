@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wp Social 3.0.2\n"
+"Project-Id-Version: Wp Social 3.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-social\n"
-"POT-Creation-Date: 2024-05-13 05:47:33+00:00\n"
+"POT-Creation-Date: 2024-06-23 11:33:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -195,173 +195,173 @@ msgstr ""
 msgid "WP Social Share Style Settings"
 msgstr ""
 
-#: inc/admin-settings.php:72
+#: inc/admin-settings.php:73
 msgid "Icon with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:78
+#: inc/admin-settings.php:79
 msgid "Icon with fill color and space"
 msgstr ""
 
-#: inc/admin-settings.php:84
+#: inc/admin-settings.php:85
 msgid "Icon with hover fill color and space"
 msgstr ""
 
-#: inc/admin-settings.php:98
+#: inc/admin-settings.php:99
 msgid "Icon with text"
 msgstr ""
 
-#: inc/admin-settings.php:104
+#: inc/admin-settings.php:105
 msgid "Icon with text & slightly rounded"
 msgstr ""
 
-#: inc/admin-settings.php:110
+#: inc/admin-settings.php:111
 msgid "Circled Icon with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:116
+#: inc/admin-settings.php:117
 msgid "Circled Icon with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:122
+#: inc/admin-settings.php:123
 msgid "Icon with colored border"
 msgstr ""
 
-#: inc/admin-settings.php:128
+#: inc/admin-settings.php:129
 msgid "Icon with hover colored border"
 msgstr ""
 
-#: inc/admin-settings.php:134
+#: inc/admin-settings.php:135
 msgid "Icon with colored rounded border"
 msgstr ""
 
-#: inc/admin-settings.php:140
+#: inc/admin-settings.php:141
 msgid "Icon with hover colored rounded border"
 msgstr ""
 
-#: inc/admin-settings.php:146
+#: inc/admin-settings.php:147
 msgid "Icon with hover fill color border"
 msgstr ""
 
-#: inc/admin-settings.php:152
+#: inc/admin-settings.php:153
 msgid "Slightly rounded icon with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:158
+#: inc/admin-settings.php:159
 msgid "Icon with follower count"
 msgstr ""
 
-#: inc/admin-settings.php:164
+#: inc/admin-settings.php:165
 msgid "Rounded filled icon with text"
 msgstr ""
 
-#: inc/admin-settings.php:170
+#: inc/admin-settings.php:171
 msgid "Semi-rounded icon with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:176
+#: inc/admin-settings.php:177
 msgid "Semi-rounded icon and border color"
 msgstr ""
 
-#: inc/admin-settings.php:182
+#: inc/admin-settings.php:183
 msgid "Icon with text and follower count"
 msgstr ""
 
-#: inc/admin-settings.php:202
+#: inc/admin-settings.php:203
 msgid "Flat style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:209
+#: inc/admin-settings.php:210
 msgid "Line style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:216
+#: inc/admin-settings.php:217
 msgid "Line slightly rounded style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:230
+#: inc/admin-settings.php:231
 msgid "Flat style with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:236
+#: inc/admin-settings.php:237
 msgid "Metro style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:242
+#: inc/admin-settings.php:243
 msgid "Flat style with hover icon color"
 msgstr ""
 
-#: inc/admin-settings.php:248
+#: inc/admin-settings.php:249
 msgid "Flat style with icon color"
 msgstr ""
 
-#: inc/admin-settings.php:254
+#: inc/admin-settings.php:255
 msgid "Flat style with icon fill color"
 msgstr ""
 
-#: inc/admin-settings.php:260
+#: inc/admin-settings.php:261
 msgid "Flat style with fill color & rounded icon"
 msgstr ""
 
-#: inc/admin-settings.php:266
+#: inc/admin-settings.php:267
 msgid "Vertical line style with icon color"
 msgstr ""
 
-#: inc/admin-settings.php:272
+#: inc/admin-settings.php:273
 msgid "Vertical line style with icon fill color"
 msgstr ""
 
-#: inc/admin-settings.php:278
+#: inc/admin-settings.php:279
 msgid "Vertical line style with fill color & rounded icon"
 msgstr ""
 
-#: inc/admin-settings.php:284
+#: inc/admin-settings.php:285
 msgid "Rounded icon style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:290
+#: inc/admin-settings.php:291
 msgid "Rounded icon style with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:296
+#: inc/admin-settings.php:297
 msgid "Slightly Rounded icon style with fill color"
 msgstr ""
 
-#: inc/admin-settings.php:302
+#: inc/admin-settings.php:303
 msgid "Slightly Rounded icon style with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:308
+#: inc/admin-settings.php:309
 msgid "Metro style with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:314
+#: inc/admin-settings.php:315
 msgid "Line style with hover fill color"
 msgstr ""
 
-#: inc/admin-settings.php:335
+#: inc/admin-settings.php:336
 msgid "WP Social Login Ultimate"
 msgstr ""
 
-#: inc/admin-settings.php:335 lib/onboard/views/onboard-steps/step-05.php:5
-#: wp-social.php:158
+#: inc/admin-settings.php:336 lib/onboard/views/onboard-steps/step-05.php:5
+#: wp-social.php:160
 msgid "WP Social"
 msgstr ""
 
-#: inc/admin-settings.php:336 inc/elementor/elements.php:47
+#: inc/admin-settings.php:337 inc/elementor/elements.php:47
 #: inc/login-widget.php:63
 msgid "Social Login"
 msgstr ""
 
-#: inc/admin-settings.php:337
+#: inc/admin-settings.php:338
 msgid "Social Share"
 msgstr ""
 
-#: inc/admin-settings.php:338
+#: inc/admin-settings.php:339
 msgid "Social Counter"
 msgstr ""
 
-#: inc/admin-settings.php:339 template/admin/counter/providers-counter.php:90
+#: inc/admin-settings.php:340 template/admin/counter/providers-counter.php:90
 #: template/admin/providers-setting.php:53
 #: template/admin/providers-setting.php:86
 #: template/admin/share/share-providers.php:68
@@ -699,12 +699,12 @@ msgstr ""
 msgid "No-Code Email Customizer for WordPress"
 msgstr ""
 
-#: lib/onboard/views/onboard-steps/step-03.php:69 wp-social.php:176
+#: lib/onboard/views/onboard-steps/step-03.php:69 wp-social.php:178
 msgid "Most flexible drag-and-drop form builder"
 msgstr ""
 
 #: lib/onboard/views/onboard-steps/step-03.php:79
-#: lib/onboard/views/onboard-steps/step-03.php:89 wp-social.php:184
+#: lib/onboard/views/onboard-steps/step-03.php:89 wp-social.php:186
 msgid "Integrate various styled review system in your website"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 
 #: lib/onboard/views/onboard-steps/step-05.php:2
 msgid ""
-"Exclusive <strong>40% Discount</strong> Only for <br/> Next <strong>2 "
+"Exclusive <strong>20% Discount</strong> Only for <br/> Next <strong>2 "
 "Hours</strong> - Grab It Now"
 msgstr ""
 
@@ -831,7 +831,7 @@ msgstr ""
 msgid "Get started"
 msgstr ""
 
-#: lib/onboard/views/settings-sections/dashboard.php:26 wp-social.php:121
+#: lib/onboard/views/settings-sections/dashboard.php:26 wp-social.php:123
 msgid "Video Tutorials"
 msgstr ""
 
@@ -1002,6 +1002,12 @@ msgstr ""
 
 #: lib/rating/rating.php:361
 msgid "No, not good enough"
+msgstr ""
+
+#: lib/user-consent-banner/consent-check-view.php:42
+msgid ""
+"Show update & fix related important messages, essential tutorials and "
+"promotional images on WP Dashboard"
 msgstr ""
 
 #: template/admin/counter/counter-setting.php:10
@@ -1467,177 +1473,177 @@ msgstr ""
 msgid "Shares"
 msgstr ""
 
-#: wp-social.php:115
+#: wp-social.php:117
 msgid "Join the Community"
 msgstr ""
 
-#: wp-social.php:117
+#: wp-social.php:119
 msgid ""
 "Join our Facebook group to get 20% discount coupon on premium products. "
 "Follow us to get more exciting offers."
 msgstr ""
 
-#: wp-social.php:123
+#: wp-social.php:125
 msgid ""
 "Learn the step by step process for developing your site easily from video "
 "tutorials."
 msgstr ""
 
-#: wp-social.php:128
+#: wp-social.php:130
 msgid "Request a feature"
 msgstr ""
 
-#: wp-social.php:130
+#: wp-social.php:132
 msgid "Have any special feature in mind? Let us know through the feature request."
 msgstr ""
 
-#: wp-social.php:135
+#: wp-social.php:137
 msgid "Documentation"
 msgstr ""
 
-#: wp-social.php:137
+#: wp-social.php:139
 msgid ""
 "Detailed documentation to help you understand the functionality of each "
 "feature."
 msgstr ""
 
-#: wp-social.php:142
+#: wp-social.php:144
 msgid "Public Roadmap"
 msgstr ""
 
-#: wp-social.php:144
+#: wp-social.php:146
 msgid "Check our upcoming new features, detailed development stories and tasks"
 msgstr ""
 
-#: wp-social.php:150 wp-social.php:226
+#: wp-social.php:152 wp-social.php:228
 msgid "GetGenie"
 msgstr ""
 
-#: wp-social.php:152
+#: wp-social.php:154
 msgid "Your AI-Powered Content & SEO Assistant for WordPress"
 msgstr ""
 
-#: wp-social.php:160
+#: wp-social.php:162
 msgid "All-in-One drag and drop Addons for Elementor"
 msgstr ""
 
-#: wp-social.php:166
+#: wp-social.php:168
 msgid "ShopEngine"
 msgstr ""
 
-#: wp-social.php:168
+#: wp-social.php:170
 msgid "Complete WooCommerce Solution for Elementor"
 msgstr ""
 
-#: wp-social.php:174 wp-social.php:248
+#: wp-social.php:176 wp-social.php:250
 msgid "MetForm"
 msgstr ""
 
-#: wp-social.php:182
+#: wp-social.php:184
 msgid "Ultimate Review"
 msgstr ""
 
-#: wp-social.php:190
+#: wp-social.php:192
 msgid "Fundraising & Donation Platform"
 msgstr ""
 
-#: wp-social.php:192
+#: wp-social.php:194
 msgid "Enable donation system in your website"
 msgstr ""
 
-#: wp-social.php:218
+#: wp-social.php:220
 msgid "ElementsKit"
 msgstr ""
 
-#: wp-social.php:221
+#: wp-social.php:223
 msgid ""
 "All-in-one Elementor addon trusted by 1 Million+ users, makes your website "
 "builder process easier with ultimate freedom.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:229
+#: wp-social.php:231
 msgid ""
 "Your personal AI assistant for content and SEO. Write content that ranks on "
 "Google with NLP keywords and SERP analysis data."
 msgstr ""
 
-#: wp-social.php:233
+#: wp-social.php:235
 msgid "GutenKit"
 msgstr ""
 
-#: wp-social.php:236
+#: wp-social.php:238
 msgid ""
 "Gutenberg blocks, patterns, and templates that extend the page-building "
 "experience using the WordPress block editor."
 msgstr ""
 
-#: wp-social.php:240
+#: wp-social.php:242
 msgid "Shopengine"
 msgstr ""
 
-#: wp-social.php:243
+#: wp-social.php:245
 msgid ""
 "Complete WooCommerce solution for Elementor to fully customize any pages "
 "including cart, checkout, shop page, and so on.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:251
+#: wp-social.php:253
 msgid ""
 "Drag & drop form builder for Elementor to create contact forms, multi-step "
 "forms, and more — smoother, faster, and better!\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:256
+#: wp-social.php:258
 msgid "EmailKit"
 msgstr ""
 
-#: wp-social.php:259
+#: wp-social.php:261
 msgid ""
 "Advanced email customizer for WooCommerce and WordPress. Build, customize, "
 "and send emails from WordPress to boost your sales!"
 msgstr ""
 
-#: wp-social.php:263
+#: wp-social.php:265
 msgid "WP Ultimate Review"
 msgstr ""
 
-#: wp-social.php:266
+#: wp-social.php:268
 msgid ""
 "Collect and showcase reviews on your website to build brand credibility and "
 "social proof with the easiest solution.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:271
+#: wp-social.php:273
 msgid "FundEngine"
 msgstr ""
 
-#: wp-social.php:274
+#: wp-social.php:276
 msgid ""
 "Create fundraising, crowdfunding, and donation websites with PayPal and "
 "Stripe payment gateway integration.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:279
+#: wp-social.php:281
 msgid "Blocks for ShopEngine"
 msgstr ""
 
-#: wp-social.php:282
+#: wp-social.php:284
 msgid ""
 "All in one WooCommerce solution for Gutenberg! Build your WooCommerce pages "
 "in a block editor with full customization.\n"
 "\t\t\t\t\t"
 msgstr ""
 
-#: wp-social.php:287
+#: wp-social.php:289
 msgid "Genie Image"
 msgstr ""
 
-#: wp-social.php:290
+#: wp-social.php:292
 msgid ""
 "AI-powered text-to-image generator for WordPress with OpenAI’s DALL-E 2 "
 "technology to generate high-quality images in one click."

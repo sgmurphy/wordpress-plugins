@@ -5,7 +5,7 @@ Tags: countdown timer, evergreen countdown, woocommerce countdown timer, recurri
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.7
+WC tested up to: 9.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Requires PHP: 5.6

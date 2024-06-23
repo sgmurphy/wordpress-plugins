@@ -4599,15 +4599,21 @@ class Wp
 		$obj -> cb2 = function( $obj, $vOpt ) { return( $obj -> vOpt ); };
 		$obj -> cb = function( $obj, $url ) { return( $obj -> url = $url ); };
 
-		add_filter( 'option_home', array( $obj, 'cb1' ), -99999, 1 );
-		add_filter( 'option_home', array( $obj, 'cb2' ), 99999, 1 );
+		if( $base === 'base' )
+		{
+			add_filter( 'option_home', array( $obj, 'cb1' ), -99999, 1 );
+			add_filter( 'option_home', array( $obj, 'cb2' ), 99999, 1 );
+		}
 
 		add_filter( 'home_url', array( $obj, 'cb' ), -99999, 1 );
 		home_url( $path );
 		remove_filter( 'home_url', array( $obj, 'cb' ), -99999 );
 
-		remove_filter( 'option_home', array( $obj, 'cb2' ), 99999 );
-		remove_filter( 'option_home', array( $obj, 'cb1' ), -99999 );
+		if( $base === 'base' )
+		{
+			remove_filter( 'option_home', array( $obj, 'cb2' ), 99999 );
+			remove_filter( 'option_home', array( $obj, 'cb1' ), -99999 );
+		}
 
 		return( $obj -> url );
 	}
@@ -4643,7 +4649,7 @@ class Wp
 		if( $mode === 'OLD' )
 			$siteUrl = Wp::GetSiteWpRootUrl();
 		else
-			$siteUrl = Wp::GetSiteRootUrl();
+			$siteUrl = Wp::GetSiteRootUrl( '', 'base' );
 
 		$siteUrlParts = @parse_url( $siteUrl );
 		if( !is_array( $siteUrlParts ) )
@@ -6040,10 +6046,10 @@ class Wp
 			return( $mofile . '.SKIP' );
 
 		if( !empty( self::$_locLoadCtx[ 'subSystemIdCur' ] ) )
-			$mofile = str_replace( self::$_locLoadCtx[ 'localeLoading' ] . '.', self::$_locLoadCtx[ 'subSystemIdCur' ] . '-' . self::$_locLoadCtx[ 'localeLoading' ] . '.', $mofile );
+			$mofile = Gen::GetFileDir( $mofile ) . '/' . str_replace( self::$_locLoadCtx[ 'localeLoading' ] . '.', self::$_locLoadCtx[ 'subSystemIdCur' ] . '-' . self::$_locLoadCtx[ 'localeLoading' ] . '.', Gen::GetFileName( $mofile ) );
 
 		if( !empty( self::$_locLoadCtx[ 'localeCur' ] ) )
-			$mofile = str_replace( self::$_locLoadCtx[ 'localeLoading' ] . '.', self::$_locLoadCtx[ 'localeCur' ] . '.', $mofile );
+			$mofile = Gen::GetFileDir( $mofile ) . '/' . str_replace( self::$_locLoadCtx[ 'localeLoading' ] . '.', self::$_locLoadCtx[ 'localeCur' ] . '.', Gen::GetFileName( $mofile ) );
 
 		$pathAbsRoot = self::$_locLoadCtx[ 'pathAbsRoot' ];
 		$pathAbsRootTouched = substr( $mofile, 0, strlen( $pathAbsRoot ) ) == $pathAbsRoot;

@@ -192,7 +192,7 @@ Please don't forget delete all caches and purge CDN after the update.
 = Comments - wpDiscuz v7.6.20 - 22.06.2024 =
 
 * Added: wpDiscuz custom ajax now supports media uploading
-* Added: New hooks (wpdiscuz_user_can_view_fields, wpdiscuz_user_can_view_field) to control custom fields visibility, check out https://wpdiscuz.com/docs/codex/filters/ "docs" for more info
+* Added: New hooks (wpdiscuz_user_can_view_fields, wpdiscuz_user_can_view_field) to control custom fields visibility, check out [docs](https://wpdiscuz.com/docs/codex/filters/) for more info
 * Added: A new option that will allow to control uploaded images thumbnails generation via WP cron job or immediately, default: enabled
 
 = Comments - wpDiscuz v7.6.19 - 08.05.2024 =

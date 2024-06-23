@@ -4,7 +4,7 @@
  * Plugin URI: https://wpmet.com/
  * Description: Wp Social Login / Social Sharing / Social Counter System for Facebook, Google, Twitter, Linkedin, Dribble, Pinterest, Wordpress, Instagram, GitHub, Vkontakte, Reddit and more providers.
  * Author: Wpmet
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author URI: https://wpmet.com/
  * Text Domain: wp-social
  * Domain Path: /languages/
@@ -15,8 +15,8 @@
 
 defined('ABSPATH') || exit;
 
-define('WSLU_VERSION', '3.0.2');
-define('WSLU_VERSION_PREVIOUS_STABLE_VERSION', '3.0.1');
+define('WSLU_VERSION', '3.0.3');
+define('WSLU_VERSION_PREVIOUS_STABLE_VERSION', '3.0.2');
 
 define("WSLU_LOGIN_PLUGIN", plugin_dir_path(__FILE__));
 define("WSLU_LOGIN_PLUGIN_URL", plugin_dir_url(__FILE__));
@@ -74,25 +74,27 @@ if(!function_exists('wslu_social_init')) :
 		\WP_Social\Inc\Login::instance()->init();
 		\WP_Social\App\Avatar::instance()->init();
 
-		/**
-		 * ----------------------------------------
-		 *  Ask for rating ⭐⭐⭐⭐⭐
-		 *  A rating notice will appear depends on
-		 *
-		 * @set_first_appear_day methods
-		 * ----------------------------------------
-		 */
-		\Wpmet\Libs\Rating::instance('wp-social')
-			->set_plugin_logo('https://ps.w.org/wp-social/assets/icon-128x128.png')
-			->set_plugin('Wpsocial', 'https://wordpress.org/plugins/wp-social')
-			->set_allowed_screens('toplevel_page_wslu_global_setting')
-			->set_allowed_screens('wp-social_page_wslu_share_setting')
-			->set_allowed_screens('wp-social_page_wslu_counter_setting')
-			->set_allowed_screens('wp-social_page_wp-social_get_help')
-			->set_priority(50)
-			->set_first_appear_day(7)
-			->set_condition(true)
-			->call();
+		if( get_option( 'wp_social_user_consent_for_promotional_content', 'yes' ) == 'yes' ){
+			/**
+			 * ----------------------------------------
+			 *  Ask for rating ⭐⭐⭐⭐⭐
+			 *  A rating notice will appear depends on
+			 *
+			 * @set_first_appear_day methods
+			 * ----------------------------------------
+			 */
+			\Wpmet\Libs\Rating::instance('wp-social')
+				->set_plugin_logo('https://ps.w.org/wp-social/assets/icon-128x128.png')
+				->set_plugin('Wpsocial', 'https://wordpress.org/plugins/wp-social')
+				->set_allowed_screens('toplevel_page_wslu_global_setting')
+				->set_allowed_screens('wp-social_page_wslu_share_setting')
+				->set_allowed_screens('wp-social_page_wslu_counter_setting')
+				->set_allowed_screens('wp-social_page_wp-social_get_help')
+				->set_priority(50)
+				->set_first_appear_day(7)
+				->set_condition(true)
+				->call();
+		}
 
 
 		\Wpmet\Libs\Pro_Awareness::init();
@@ -301,14 +303,16 @@ if(!function_exists('wslu_social_init')) :
 		$filter_string .= (!class_exists('\MetForm\Plugin') ? '' : ',metform');
 		$filter_string .= (!class_exists('\MetForm_Pro\Plugin') ? '' : ',metform-pro');
 
-		/**
-		 * Show WPMET stories widget in dashboard
-		 */
-		\Wpmet\Libs\Stories::instance('wp-social')
-			->set_filter($filter_string)
-			->set_plugin('Wpsocial', 'https://wpmet.com/plugin/wp-social/')
-			->set_api_url('https://api.wpmet.com/public/stories/')
-			->call();
+		if( get_option( 'wp_social_user_consent_for_promotional_content', 'yes' ) == 'yes' ){
+			/**
+			 * Show WPMET stories widget in dashboard
+			 */
+			\Wpmet\Libs\Stories::instance('wp-social')
+				->set_filter($filter_string)
+				->set_plugin('Wpsocial', 'https://wpmet.com/plugin/wp-social/')
+				->set_api_url('https://api.wpmet.com/public/stories/')
+				->call();
+		}
 
 
 		add_action('widgets_init', '\WP_Social\Inc\Counter_Widget::register');
@@ -318,14 +322,15 @@ if(!function_exists('wslu_social_init')) :
 
 		do_action('wslu_social/plugin_loaded');
 
-
-		\Wpmet\Libs\Banner::instance('wp-social')
-			->set_filter($filter_string)
-			->set_api_url('https://api.wpmet.com/public/jhanda/index.php')
-			->set_plugin_screens('toplevel_page_wslu_global_setting')
-			->set_plugin_screens('wp-social_page_wslu_share_setting')
-			->set_plugin_screens('wp-social_page_wslu_counter_setting')
-			->call();
+		if( get_option( 'wp_social_user_consent_for_promotional_content', 'yes' ) == 'yes' ){
+			\Wpmet\Libs\Banner::instance('wp-social')
+				->set_filter($filter_string)
+				->set_api_url('https://api.wpmet.com/public/jhanda/index.php')
+				->set_plugin_screens('toplevel_page_wslu_global_setting')
+				->set_plugin_screens('wp-social_page_wslu_share_setting')
+				->set_plugin_screens('wp-social_page_wslu_counter_setting')
+				->call();
+		}
 
 
 		\WP_Social\Plugin::instance()->enqueue();
@@ -334,6 +339,28 @@ if(!function_exists('wslu_social_init')) :
 		if(isset($_GET['wp-social-met-onboard-steps']) && sanitize_text_field($_GET['wp-social-met-onboard-steps']) == 'loaded') {
 			\WP_Social\Lib\Onboard\Attr::instance();
 		}
+
+		/**
+		 * Initializes the Template Library of the Gutenkit plugin
+		 * 
+		 * This code block checks if certain conditions are met and then initializes the Template Library of the Gutenkit plugin.
+		 * 
+		 * Conditions:
+		 * - The class '\WP_Social\Lib\Template_Library\Init' exists.
+		 * - The plugin 'gutenkit-blocks-addon' is not active or install.
+		 * 
+		 * If any of the above conditions are met, the Template Library is initialized by creating a new instance of 
+		 * the class '\WP_Social\Lib\Template_Library\Init'.
+		 * 
+		 * @since 3.0.3
+		 */
+		if ( get_option( 'wp_social_user_consent_for_promotional_content', 'yes' ) == 'yes' && class_exists('\WP_Social\Lib\Template_Library\Init' ) && ! did_action( 'gutenkit/init' ) ) {
+			new \WP_Social\Lib\Template_Library\Init();
+		}
+
+		add_action("wp-social/pro_awareness/before_grid_contents", function() {
+			include \WP_Social\Plugin::instance()->lib_dir() . 'user-consent-banner/consent-check-view.php';
+		});
 	}
 
 	add_action('plugins_loaded', 'wslu_social_init', 118);

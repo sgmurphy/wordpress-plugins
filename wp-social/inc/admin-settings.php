@@ -52,6 +52,7 @@ class Admin_Settings {
 		add_action('wp_ajax_sort_providers_share', [$this, 'sort_providers_share']);
 
 		add_action('wp_ajax_sort_providers_counter', [$this, 'sort_providers_counter']);
+		add_action('wp_ajax_wp_social_admin_consent_action', [$this, 'wp_social_admin_consent_action']);
 
 		if($load) {
 			// added admin menu
@@ -943,6 +944,27 @@ class Admin_Settings {
 		update_option(Counter::ORDER_LIST_PROVIDER_COUNTER, $providers); // frontend sort
 
 		return update_option(Providers::ORDER_LIST_PROVIDER_COUNTER, $providers); // backend sort
+	}
+
+	/**
+	 * wp_social_admin_consent_action - ajax action
+	 * 
+	 * @since 3.0.3
+	 * @access public
+	 * 
+	 * @return void
+	 */
+	public function wp_social_admin_consent_action() {
+
+		if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_key(wp_unslash($_POST['nonce'])), 'ajax-nonce' ) || ! current_user_can( 'manage_options' ) ) {
+			
+			return;
+		}
+
+		if( isset($_POST['wp_social_user_consent_for_promotional_content'])){
+
+			update_option('wp_social_user_consent_for_promotional_content', sanitize_text_field($_POST['wp_social_user_consent_for_promotional_content']));
+		}
 	}
 
 }

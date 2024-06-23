@@ -1,4 +1,4 @@
-=== BetterDocs – Best Documentation, FAQ & Knowledge Base Plugin with AI Support & Instant Answer for Elementor & Gutenberg ===
+=== BetterDocs – Advanced AI-Driven Documentation, FAQ & Knowledge Base Plugin for Elementor & Gutenberg with Encyclopedia, AI Support, Instant Answers ===
 Contributors: wpdevteam, re_enter_rupok, asif2bd, emsohel, priyomukul, cu121, fencermonir, sapanmozammel, seakashdiu
 Donate link: https://wpdeveloper.com
 Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer

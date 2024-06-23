@@ -2296,7 +2296,7 @@ if (! class_exists('\\Puvox\\wp_plugin')) {
 	}
 
 
-	public function paypal_donation_button(){ return '<a class="button" style="display:inline-block; line-height:1em; min-height:25px; color:#179bd7; " href="javascript:tt_donate_trigger(event);" onclick="tt_donate_trigger(event);"/> <img style="height:20px; vertical-align:middle;" src="'.  $this->helpers->image_svg("paypal") .'" /> '. __("donation") .'</a>'; }
+	public function paypal_donation_button(){ return '<a target="_blank" href="'. $this->static_settings['donate_url']. '" class="button" style="display:inline-block; line-height:1em; min-height:25px; color:#179bd7;"/> <img style="height:20px; vertical-align:middle;" src="'.  $this->helpers->image_svg("paypal") .'" /> '. __("donation") .'</a>'; }
 	
 	public function donations_trigger_popup()
 	{
@@ -2968,17 +2968,7 @@ if (! class_exists('\\Puvox\\wp_plugin')) {
 				<h3><?php _e('More Actions');?></h3>
 				<ul class="donations_block">
 					<li class="donation_li">
-						<!-- <?php _e('If you found this plugin useful, any donation is welcomed');?> :  $<input id="donate_pt" type="number" class="numeric_input" value="4" /> <button onclick="tt_donate_trigger(event);"/><?php _e('Donate');?></button> -->
-						<?php _e('If you found this plugin useful, any amount of');?> <?php echo $this->paypal_donation_button();?> <?php _e(' is welcomed');?> 
-						<script>
-						function tt_donate_trigger(e)
-						{
-							e.preventDefault();
-							var url= '<?php echo esc_url($this->static_settings['donate_url']);?>'; //+ '/'+ document.getElementById('donate_pt').value
-							window.open(url,'_blank');
-						}
-						</script>
-						<!-- <a href="%s" class="button" target="_blank">donation</a> -->
+						<?php _e('If you found this plugin useful, any amount of');?> <?php echo $this->paypal_donation_button();?> <?php _e(' is welcomed');?>
 					</li>
 				</ul>
 				<ul>

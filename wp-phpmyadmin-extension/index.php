@@ -4,7 +4,7 @@
  * Description:   Read the <a href="https://wordpress.org/plugins/wp-phpmyadmin-extension/">official readme</a> of this plugin.
  * Text Domain:   wp-phpmyadmin-extension
  * Domain Path:   /languages
- * Version:       5.2.1.12
+ * Version:       5.2.1.13
  * WordPress URI: https://wordpress.org/plugins/wp-phpmyadmin-extension/
  * Plugin URI:    https://puvox.software/software/wordpress-plugins/?plugin=wp-phpmyadmin-extension
  * Contributors:  puvoxsoftware,ttodua
