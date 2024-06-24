@@ -223,7 +223,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gstoggler',
 		GREENSHIFT_DIR_URL . 'libs/toggler/index.js',
 		array(),
-		'1.2',
+		'1.3',
 		true
 	);
 
@@ -465,7 +465,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gspb_interactions',
 		GREENSHIFT_DIR_URL . 'libs/interactionlayer/index.js',
 		array(),
-		'2.1',
+		'2.2',
 		true
 	);
 
@@ -2232,6 +2232,25 @@ function gspb_update_global_settings($request)
 			update_option('gspb_global_settings', $settings);
 		}
 
+		if(!empty($params['figma_classes']) && is_array($params['figma_classes'])){
+			$figma_classes = $params['figma_classes'];
+			$classes = !empty($defaults['global_classes']) ? $defaults['global_classes'] : [];
+			$classes_values = array_column($classes, 'value');
+
+			foreach($figma_classes as $key=>$value){
+				if(!empty($value['value'])){
+					$index = array_search($value['value'], $classes_values);
+					if($index){
+						$classes[$index] = $value;
+					}else{
+						$classes[] = $value;
+					}
+				}
+			}
+			$defaults['global_classes'] = $classes;
+			update_option('gspb_global_settings', $defaults);
+		}
+
 		if(!empty($params['figma_gradients']) && is_array($params['figma_gradients'])){
 			$figma_gradients = $params['figma_gradients'];
 			$gradients = !empty($defaults['gradients']) ? $defaults['gradients'] : [];
@@ -2471,6 +2490,7 @@ if (!function_exists('gspb_get_all_layouts')) {
 if (!function_exists('gspb_get_layout')) {
 	function gspb_get_layout()
 	{
+		if(!current_user_can('manage_options')) return false;
 		$get_args = array(
 			'timeout'   => 200,
 			'sslverify' => false,

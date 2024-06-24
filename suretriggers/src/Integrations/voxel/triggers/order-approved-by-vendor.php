@@ -102,18 +102,52 @@ if ( ! class_exists( 'OrderApprovedByVendor' ) ) :
 			$context['shipping_amount'] = $order->get_shipping_amount();
 			$context['status']          = $order->get_status();
 			$context['created_at']      = $order->get_created_at();
+			$context['subtotal']        = $order->get_subtotal();
+			$context['total']           = $order->get_total();
 
 			// Get order items.
 			$order_items                 = $order->get_items();
 			$context['order_item_count'] = $order->get_item_count();
 			foreach ( $order_items as $item ) {
+				$addon_data = [];
+				if ( is_object( $item ) && method_exists( $item, 'get_addons' ) ) {
+					$addons     = $item->get_addons();
+					$addon_data = [];
+					if ( $addons && isset( $addons['summary'] ) ) {
+						$addon_data = $addons['summary'];
+					}
+				}
 				$context['order_items'][] = [
+					'id'                    => $item->get_id(),
 					'type'                  => $item->get_type(),
+					'currency'              => $item->get_currency(),
 					'quantity'              => $item->get_quantity(),
+					'subtotal'              => $item->get_subtotal(),
+					'product_id'            => $item->get_post()->get_id(),
 					'product_label'         => $item->get_product_label(),
 					'product_thumbnail_url' => $item->get_product_thumbnail_url(),
 					'product_link'          => $item->get_product_link(),
+					'description'           => $item->get_product_description(),
+					'addon_data'            => $addon_data,
 				];
+				// If booking item, get booking details.
+				if ( 'booking' === $item->get_type() ) {
+					$details                                = $item->get_order_page_details();
+					$context['order_items']['booking_type'] = $details['booking']['type'];
+					if ( isset( $details['booking']['count_mode'] ) ) {
+						$context['order_items']['booking_count_mode'] = $details['booking']['count_mode'];
+					}
+					if ( 'date_range' === $details['booking']['type'] ) {
+						$context['order_items']['booking_start_date'] = $details['booking']['start_date'];
+						$context['order_items']['booking_end_date']   = $details['booking']['end_date'];
+					} elseif ( 'single_day' === $details['booking']['type'] ) {
+						$context['order_items']['booking_date'] = $details['booking']['date'];
+					} elseif ( 'timeslots' === $details['booking']['type'] ) {
+						$context['order_items']['booking_date']      = $details['booking']['date'];
+						$context['order_items']['booking_slot_from'] = $details['booking']['slot']['from'];
+						$context['order_items']['booking_slot_to']   = $details['booking']['slot']['to'];                           
+					}
+				}
 			}
 
 			// Get Customer.

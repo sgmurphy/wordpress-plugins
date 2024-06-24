@@ -13,7 +13,6 @@ import {
 import PreviewWebsite from '../../pages/preview';
 import { STORE_KEY } from '../../store';
 import LimitExceedModal from '../limit-exceeded-modal';
-// import GetStarted from './authorize-account';
 import ContinueProgressModal from '../continue-progress-modal';
 import AiBuilderExitButton from '../ai-builder-exit-button';
 import { AnimatePresence } from 'framer-motion';
@@ -89,9 +88,9 @@ const OnboardingAI = () => {
 			return 'border-zip-dark-theme-heading text-zip-dark-theme-heading border-solid';
 		}
 		if ( step > stepIndex ) {
-			return 'bg-zip-dark-theme-content-background text-zip-app-inactive-icon border-zip-dark-theme-content-background border-solid';
+			return 'bg-transparent text-white/50 border-white/50 border-solid';
 		}
-		return 'border-solid border-zip-app-inactive-icon text-zip-app-inactive-icon';
+		return 'border-solid border-white/50 text-white/50';
 	};
 
 	const dynamicClass = function ( cStep, sIndex ) {
@@ -102,21 +101,11 @@ const OnboardingAI = () => {
 			return 'bg-gradient-to-b from-white to-transparent';
 		}
 		if ( cStep > sIndex ) {
-			return 'bg-zip-dark-theme-border';
+			return 'bg-white/50';
 		}
-		return 'bg-gradient-to-b from-gray-700 to-transparent';
+		return 'bg-gradient-to-b from-white/50 to-transparent';
 	};
 
-	/* useEffect( () => {
-		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
-		) {
-			// If the user has no remaining sites, show the limit exceeded modal
-		}
-	}, [] ); */
 	const urlParams = new URLSearchParams( window.location.search );
 	useLayoutEffect( () => {
 		const token = urlParams.get( 'token' );
@@ -265,7 +254,7 @@ const OnboardingAI = () => {
 															'text-sm font-semibold',
 															currentStep >=
 																stepIdx
-																? 'text-zip-app-inactive-icon'
+																? 'text-white/50'
 																: 'text-zip-dark-theme-body',
 															currentStep ===
 																stepIdx &&
@@ -279,8 +268,8 @@ const OnboardingAI = () => {
 															'text-sm font-normal',
 															currentStep >=
 																stepIdx
-																? 'text-zip-app-inactive-icon'
-																: 'text-zip-app-inactive-icon',
+																? 'text-white/50'
+																: 'text-white/50',
 															currentStep ===
 																stepIdx &&
 																'text-zip-dark-theme-body'

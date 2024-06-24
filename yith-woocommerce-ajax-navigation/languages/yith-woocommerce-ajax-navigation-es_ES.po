@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Product Filter\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-product-filter\n"
-"POT-Creation-Date: 2024-05-20 11:00:39+00:00\n"
+"POT-Creation-Date: 2024-06-24 13:11:13+00:00\n"
 "PO-Revision-Date: 2024-04-22 16:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -210,7 +210,7 @@ msgstr "Restablecer todos los filtros"
 msgid "Button Label"
 msgstr "Etiqueta del botón"
 
-#: init.php:158
+#: init.php:159
 msgid ""
 "YITH WooCommerce Ajax Product Filter is enabled but not effective. It "
 "requires WooCommerce in order to work."
@@ -218,7 +218,7 @@ msgstr ""
 "YITH WooCommerce Ajax Product Filter está activado pero no es efectivo. "
 "Necesita WooCommerce para funcionar. "
 
-#: init.php:176
+#: init.php:177
 msgid ""
 "YITH WooCommerce Ajax Product Filter was deactivated as you're running an "
 "higher tier version of the same plugin."
@@ -683,13 +683,13 @@ msgctxt ""
 msgid "Clear All"
 msgstr "Limpiar todo"
 
-#: includes/class-yith-wcan-install.php:101
+#: includes/class-yith-wcan-install.php:194
 msgctxt "[ADMIN] Name of default preset that is installed with the plugin"
 msgid "Default preset"
 msgstr "Pre establecimiento predeterminado"
 
 #. translators: 1. Taxonomy name.
-#: includes/class-yith-wcan-install.php:362
+#: includes/class-yith-wcan-install.php:455
 msgctxt "[ADMIN] Name of default taxonomy filter created by plugin"
 msgid "Filter by %s"
 msgstr "Filtrar por %s"
@@ -1192,9 +1192,10 @@ msgid "Add \"nofollow\" to filter anchors"
 msgstr "Añadir ‘’nofollow’’ para filtrar anclajes"
 
 #: plugin-options/seo-options.php:61
+#, fuzzy
 msgctxt "[ADMIN] Seo settings page"
 msgid ""
-"When enabled, adds re=\"nofollow\" attribute to all the filter anchors "
+"When enabled, adds rel=\"nofollow\" attribute to all the filter anchors "
 "across the plugin"
 msgstr ""
 "Cuando está activado, añade re=\"nofollow\" atributos a todas las anclas de "

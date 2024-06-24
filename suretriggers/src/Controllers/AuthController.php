@@ -89,6 +89,14 @@ class AuthController {
 
 		$saved_triggers = OptionController::set_option( 'triggers', $saved_triggers );
 
+		// Remove the respective integration triggers field data after deleting the connection.
+		$saved_triggers_data = OptionController::get_option( 'trigger_data', [] );
+		foreach ( $saved_triggers_data as $index => $trigger ) {
+			if ( is_array( $saved_triggers_data ) && is_array( $trigger ) && ! empty( $trigger ) && $integration === $index ) {
+				unset( $saved_triggers_data[ $index ] );
+			}
+		}
+		$saved_triggers_data = OptionController::set_option( 'trigger_data', $saved_triggers_data );
 	}
 
 	/**

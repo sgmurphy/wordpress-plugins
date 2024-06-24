@@ -37,7 +37,7 @@
           :ref="el => customFieldsRefs[index] = el"
           :key="index"
           class="am-fs__info-form__item"
-          :class="{'is-required': cf.type === 'file' && cf.required}"
+          :class="[{'is-required': cf.type === 'file' && cf.required}, `am-cf-width-${cf.width}`]"
           label-position="top"
           :prop="cf.required && cf.type !== 'content' ? 'cf' + cf.id : 'inputFile'"
         >
@@ -623,6 +623,10 @@ export default {
 
         .el-form-item {
           width: calc(50% - 12px);
+
+          &.am-cf-width-100 {
+            width: 100%;
+          }
         }
 
         &-mobile {

@@ -115,6 +115,7 @@ class SettingsStorage implements SettingsStorageInterface
     public function getFrontendSettings()
     {
         $phoneCountryCode = $this->getSetting('general', 'phoneDefaultCountryCode');
+        $ipLocateApyKey   = $this->getSetting('general', 'ipLocateApiKey');
 
         $capabilities = [];
         $additionalCapabilities = [];
@@ -161,7 +162,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'customersFilterLimit'                   => $this->getSetting('general', 'customersFilterLimit'),
                 'calendarEmployeesPreselected'           => $this->getSetting('general', 'calendarEmployeesPreselected'),
                 'phoneDefaultCountryCode'                => $phoneCountryCode === 'auto' ?
-                    $this->locationService->getCurrentLocationCountryIso() : $phoneCountryCode,
+                    $this->locationService->getCurrentLocationCountryIso($ipLocateApyKey) : $phoneCountryCode,
                 'timeSlotLength'                         => $this->getSetting('general', 'timeSlotLength'),
                 'serviceDurationAsSlot'                  => $this->getSetting('general', 'serviceDurationAsSlot'),
                 'defaultAppointmentStatus'               => $this->getSetting('general', 'defaultAppointmentStatus'),
@@ -247,6 +248,7 @@ class SettingsStorage implements SettingsStorageInterface
                 'onSite'                     => $this->getSetting('payments', 'onSite'),
                 'couponsCaseInsensitive'     => $this->getSetting('payments', 'couponsCaseInsensitive'),
                 'coupons'                    => $this->getSetting('payments', 'coupons'),
+                'taxes'                      => $this->getSetting('payments', 'taxes'),
                 'cart'                       => $this->getSetting('payments', 'cart'),
                 'paymentLinks'               => [
                     'enabled'              => $this->getSetting('payments', 'paymentLinks')['enabled'],
@@ -263,8 +265,8 @@ class SettingsStorage implements SettingsStorageInterface
                     'enabled'            => $this->getSetting('payments', 'stripe')['enabled'],
                     'testMode'           => $this->getSetting('payments', 'stripe')['testMode'],
                     'livePublishableKey' => $this->getSetting('payments', 'stripe')['livePublishableKey'],
-                    'testPublishableKey' => $this->getSetting('payments', 'stripe')['testPublishableKey']
-
+                    'testPublishableKey' => $this->getSetting('payments', 'stripe')['testPublishableKey'],
+                    'connect'            => $this->getSetting('payments', 'stripe')['connect'],
                 ],
                 'wc'                         => [
                     'enabled'      => $this->getSetting('payments', 'wc')['enabled'],

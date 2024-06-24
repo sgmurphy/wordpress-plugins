@@ -164,6 +164,7 @@ if ( ! class_exists( 'YITH_WCAN' ) ) {
 
 			// init general classes.
 			YITH_WCAN_Presets::instance();
+			YITH_WCAN_Cron::instance();
 
 			// init ajax handling.
 			YITH_WCAN_Ajax::init();

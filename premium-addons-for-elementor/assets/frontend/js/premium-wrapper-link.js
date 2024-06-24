@@ -4,8 +4,8 @@
         var premiumWrapperLinkHandler = function ($scope) {
 
             function isURL(str) {
-                // Regular expression for URL validation
-                var urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+                // Regular expression for URL validation, supporting Unicode characters
+                var urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.-]{2,})([\/\w \u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF%.-]*)*\/?$/i;
 
                 // Test the string against the regular expression
                 return urlPattern.test(str);

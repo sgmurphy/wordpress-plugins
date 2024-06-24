@@ -16,6 +16,7 @@ namespace SureTriggers\Integrations\AffiliateWP\Triggers;
 use SureTriggers\Controllers\AutomationController;
 use SureTriggers\Integrations\WordPress\WordPress;
 use SureTriggers\Traits\SingletonLoader;
+use Affiliate_WP_Base;
 
 if ( ! class_exists( 'AffiliateWcProductPurchased' ) ) :
 
@@ -112,14 +113,31 @@ if ( ! class_exists( 'AffiliateWcProductPurchased' ) ) :
 			$referral_data   = get_object_vars( $referral );
 			$dynamic_coupons = affwp_get_dynamic_affiliate_coupons( $referral->affiliate_id, false );
 
+			if ( function_exists( 'affwp_calc_referral_amount' ) && function_exists( 'affiliate_wp' ) ) {
+				$referral_data['amount']   = number_format( affwp_calc_referral_amount( $order->get_total(), $affiliate->ID ), 2 );
+				$referral_data['products'] = [];
+				$items                     = $order->get_items();
+				foreach ( $items as $item ) {
+					if ( ! affiliate_wp()->settings->get( 'exclude_tax' ) ) {
+						$amount = $item['line_total'] + $item['line_tax'];
+					} else {
+						$amount = $item['line_total'];
+					}
+					$referral_data['products'][] = [
+						'name'            => $item['name'],
+						'id'              => $item['product_id'],
+						'price'           => $amount,
+						'referral_amount' => number_format( affwp_calc_referral_amount( $amount, $order_id, $item['product_id'] ), 2 ),
+					];
+				}
+			}
 			$context = array_merge(
 				$user_data,
 				$affiliate_data,
 				$referral_data,
 				$dynamic_coupons
 			);
-
-			$items = $order->get_items();
+			$items   = $order->get_items();
 			foreach ( $items as $item ) {
 				$context['product'] = $item['product_id'];
 			}

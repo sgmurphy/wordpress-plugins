@@ -17,7 +17,7 @@ $elements = array(
 				'name'     => 'premium-mobile-menu',
 				'title'    => __( 'Mobile Menu', 'premium-addons-for-elementor' ),
 				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-mobile-menu-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'draw_svg' => true,
 			),
 			array(
@@ -138,9 +138,9 @@ $elements = array(
 			array(
 				'key'   => 'premium-fancytext',
 				'name'  => 'premium-addon-fancy-text',
-				'title' => __( 'Fancy Text', 'premium-addons-for-elementor' ),
-				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/fancy-text-widget-for-elementor-page-builder/', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fancy-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'title' => __( 'Animated Text', 'premium-addons-for-elementor' ),
+				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
 				'key'      => 'premium-title',
@@ -750,7 +750,7 @@ $elements = array(
 				'name'     => 'premium-mobile-menu',
 				'title'    => __( 'Mobile Menu', 'premium-addons-for-elementor' ),
 				'demo'     => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-ajax-search-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'      => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-mobile-menu-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'draw_svg' => true,
 			),
 			array(
@@ -788,9 +788,9 @@ $elements = array(
 			array(
 				'key'   => 'premium-fancytext',
 				'name'  => 'premium-addon-fancy-text',
-				'title' => __( 'Fancy Text', 'premium-addons-for-elementor' ),
-				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/fancy-text-widget-for-elementor-page-builder/', 'settings-page', 'wp-dash', 'dashboard' ),
-				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fancy-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'title' => __( 'Animated Text', 'premium-addons-for-elementor' ),
+				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
 				'key'      => 'premium-title',

@@ -98,6 +98,7 @@ class CreateAgent extends AutomateAction {
 			'email'        => isset( $selected_options['email'] ) ? $selected_options['email'] : '',
 			'phone'        => isset( $selected_options['phone'] ) ? $selected_options['phone'] : '',
 			'status'       => isset( $selected_options['status'] ) ? $selected_options['status'] : 'active',
+			'wp_user_id'   => isset( $selected_options['wp_user_id'] ) ? $selected_options['wp_user_id'] : '',
 			'extra_emails' => isset( $selected_options['extra_emails'] ) ? $selected_options['extra_emails'] : '',
 			'extra_phones' => isset( $selected_options['extra_phones'] ) ? $selected_options['extra_phones'] : '',
 			'title'        => isset( $selected_options['title'] ) ? $selected_options['title'] : '',

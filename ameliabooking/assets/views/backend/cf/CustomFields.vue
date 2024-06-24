@@ -157,7 +157,7 @@
   import imageMixin from '../../../js/common/mixins/imageMixin'
   import entitiesMixin from '../../../js/common/mixins/entitiesMixin'
   import stashMixin from '../../../js/backend/mixins/stashMixin'
-  //import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
+  // import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
 
   export default {
     components: {
@@ -336,7 +336,8 @@
           position: this.customFields.length + 1,
           required: true,
           services: [],
-          type: type
+          type: type,
+          width: 50
         }
 
         this.$http.post(`${this.$root.getAjaxUrl}/fields`, {

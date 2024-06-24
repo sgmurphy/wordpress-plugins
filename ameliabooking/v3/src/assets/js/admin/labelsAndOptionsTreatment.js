@@ -94,11 +94,19 @@ let starterLabelsTreatment = deepMerge(
         ],
         page: [
           'multiple_locations',
+          'total_tax_colon',
+          'incl_tax',
         ],
       },
       categoryService: {
         header: [
           'multiple_locations',
+          'total_tax_colon',
+          'incl_tax',
+        ],
+        page: [
+          'total_tax_colon',
+          'incl_tax',
         ],
       },
     },
@@ -109,6 +117,22 @@ let starterLabelsTreatment = deepMerge(
           'select_location',
           'please_select_location',
         ],
+        dropdown: [
+          'total_tax_colon',
+          'incl_tax',
+        ],
+      },
+      extrasStep: {
+        card: [
+          'total_tax_colon',
+          'incl_tax',
+        ],
+      },
+      dateTimeStep: {
+        content: [
+          'total_tax_colon',
+          'incl_tax',
+        ],
       },
       paymentStep: {
         summarySegment: [
@@ -116,7 +140,9 @@ let starterLabelsTreatment = deepMerge(
           'summary_recurrences',
           'paying_now',
           'paying_later',
-          'full_amount_consent'
+          'full_amount_consent',
+          'total_tax_colon',
+          'incl_tax',
         ],
         paymentSegment: [
           'payment_method',
@@ -135,9 +161,21 @@ let starterLabelsTreatment = deepMerge(
       },
     },
     elf: {
+      list: {
+        card: [
+          'total_tax_colon',
+          'incl_tax',
+        ],
+      },
       info: {
         tabTickets: [
           'remove',
+        ],
+      },
+      payment: {
+        summarySegment: [
+          'total_tax_colon',
+          'incl_tax',
         ],
       },
       congrats: {
@@ -328,19 +366,28 @@ let starterOptionsTreatment = deepMerge(
       categoryItemsList: [
         'filterLocation',
         'serviceLocation',
+        'tax',
       ],
       categoryService: [
         'serviceLocation',
+        'tax',
       ],
     },
     sbsNew: {
       initStep: [
         'location',
+        'tax',
+      ],
+      extrasStep: [
+        'tax',
       ],
     },
     elf: {
       info: [
         'eventOrganizer',
+      ],
+      list: [
+        'tax',
       ],
     },
     capc: {
@@ -405,7 +452,7 @@ function useLicenceMenuClass (step, licence) {
   }
 
   if (licence.isStarter) {
-    if (['cartStep', 'recurringStep', 'recurringSummary'].includes(step)) {
+    if (['cartStep', 'recurringStep', 'recurringSummary', 'tickets'].includes(step)) {
       return 'am-starter-version'
     }
   }

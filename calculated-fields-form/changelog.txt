@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.16 =
+
+* Modifies the installation module to create a JSON backup file of the forms structures before updating the database.
+* Adds new form templates.
+* Modifies the CFF Elementor Block.
+
 = 5.2.15 =
 
 * Fixes an issue processing the notification email attachments in the free plugin distribution.

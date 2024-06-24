@@ -2,146 +2,235 @@
 (function ($) {
     var PremiumFancyTextHandler = function ($scope, $) {
 
-        var $elem = $scope.find(".premium-fancy-text-wrapper"),
+        var $elem = $scope.find(".premium-atext__wrapper"),
             settings = $elem.data("settings"),
             loadingSpeed = settings.delay || 2500,
-            itemCount = $elem.find('.premium-fancy-list-items').length,
-            loopCount = ('' === settings.count && !['typing', 'slide', 'autofade'].includes(settings.effect)) ? 'infinite' : (settings.count * itemCount);
+            $animatedText = $elem.find('.premium-atext__text');
+
 
         function escapeHtml(unsafe) {
             return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(
                 /"/g, "&quot;");
         }
 
-        if ("typing" === settings.effect) {
+        if ('switch' === settings.style) {
 
-            var fancyStrings = [];
+            var itemCount = $elem.find('.premium-fancy-list-items').length,
+                loopCount = ('' === settings.count && !['typing', 'slide', 'autofade'].includes(settings.effect)) ? 'infinite' : (settings.count * itemCount);
 
-            settings.strings.forEach(function (item) {
-                fancyStrings.push(escapeHtml(item));
-            });
-            var fancyTextID = '#' + $elem.find('.premium-fancy-text').attr('id');
-            var typedInstance = new Typed(fancyTextID, {
-                strings: fancyStrings,
-                typeSpeed: settings.typeSpeed,
-                backSpeed: settings.backSpeed,
-                startDelay: settings.startDelay,
-                backDelay: settings.backDelay,
-                showCursor: settings.showCursor,
-                cursorChar: settings.cursorChar,
-                loop: settings.loop
-            });
+            if ("typing" === settings.effect) {
 
-            //To start/stop programmatically.
-            if ($scope.hasClass("fancy-text-stop")) {
-                typedInstance.stop();
-            }
+                var fancyStrings = [];
 
-            $(".fancy-text-stop").bind("fancy-text-start", function () {
-                typedInstance.start();
-            });
+                settings.strings.forEach(function (item) {
+                    fancyStrings.push(escapeHtml(item));
+                });
+                var fancyTextID = '#' + $animatedText.attr('id');
+                var typedInstance = new Typed(fancyTextID, {
+                    strings: fancyStrings,
+                    typeSpeed: settings.typeSpeed,
+                    backSpeed: settings.backSpeed,
+                    startDelay: settings.startDelay,
+                    backDelay: settings.backDelay,
+                    showCursor: settings.showCursor,
+                    cursorChar: settings.cursorChar,
+                    loop: settings.loop
+                });
 
-
-        } else if ("slide" === settings.effect) {
-            loadingSpeed = settings.pause;
-
-            $elem.find(".premium-fancy-text").vTicker({
-                speed: settings.speed,
-                showItems: settings.showItems,
-                pause: settings.pause,
-                mousePause: settings.mousePause,
-                direction: "up"
-            });
-
-        } else if ('auto-fade' === settings.effect) {
-            var $items = $elem.find(".premium-fancy-list-items"),
-                len = $items.length;
-
-            if (0 === len) {
-                return;
-            }
-
-            var delay = settings.duration / len,
-                itemDelay = 0;
-
-            loadingSpeed = delay;
-
-            $items.each(function ($index, $item) {
-                $item.style.animationDelay = itemDelay + 'ms';
-                itemDelay += delay;
-            });
-
-        } else {
-
-            setFancyAnimation();
-
-            function setFancyAnimation() {
-
-                var $item = $elem.find(".premium-fancy-list-items"),
-                    current = 1;
-
-                //Get effect settings
-                var delay = settings.delay || 2500,
-                    loopCount = settings.count;
-
-                //If Loop Count option is set
-                if (loopCount) {
-                    var currentLoop = 1,
-                        fancyStringsCount = $elem.find(".premium-fancy-list-items").length;
+                //To start/stop programmatically.
+                if ($scope.hasClass("fancy-text-stop")) {
+                    typedInstance.stop();
                 }
 
-                var loopInterval = setInterval(function () {
+                $(".fancy-text-stop").bind("fancy-text-start", function () {
+                    typedInstance.start();
+                });
 
-                    var animationClass = "";
 
-                    //Add animation class
-                    if (settings.effect === "custom")
-                        animationClass = "animated " + settings.animation;
+            } else if ("slide" === settings.effect) {
+                loadingSpeed = settings.pause;
 
-                    //Show current active item
-                    $item.eq(current).addClass("premium-fancy-item-visible " + animationClass).removeClass("premium-fancy-item-hidden");
+                $animatedText.vTicker({
+                    speed: settings.speed,
+                    showItems: settings.showItems,
+                    pause: settings.pause,
+                    mousePause: settings.mousePause,
+                    direction: "up"
+                });
 
-                    var $inactiveItems = $item.filter(function (index) {
-                        return index !== current;
-                    });
+            } else {
 
-                    //Hide inactive items
-                    $inactiveItems.addClass("premium-fancy-item-hidden").removeClass("premium-fancy-item-visible " + animationClass);
+                setFancyAnimation();
 
-                    current++;
+                function setFancyAnimation() {
 
-                    //Restart loop
-                    if ($item.length === current)
-                        current = 0;
+                    var $item = $elem.find(".premium-fancy-list-items"),
+                        $stringsWrap = $elem.find('.premium-atext__items-wrapper'),
+                        current = 1;
 
-                    //Increment interval and check if loop count is reached
+                    //Get effect settings
+                    var delay = settings.delay || 2500,
+                        loopCount = settings.count;
+
+                    //If Loop Count option is set
                     if (loopCount) {
-                        currentLoop++;
-
-                        if ((fancyStringsCount * loopCount) === currentLoop)
-                            clearInterval(loopInterval);
+                        var currentLoop = 1,
+                            fancyStringsCount = $elem.find(".premium-fancy-list-items").length;
                     }
 
+                    var loopInterval = setInterval(function () {
 
-                }, delay);
+                        if ('clip' === settings.effect) {
+
+                            $stringsWrap.animate({
+                                width: 0
+                            }, (settings.speed / 2) || 1000, function () {
+
+                                //Show current active item
+                                $item.eq(current).addClass("premium-fancy-item-visible").removeClass("premium-fancy-item-hidden");
+
+                                var $inactiveItems = $item.filter(function (index) {
+                                    return index !== current;
+                                });
+
+                                //Hide inactive items
+                                $inactiveItems.addClass("premium-fancy-item-hidden").removeClass("premium-fancy-item-visible");
+
+                                var visibleTextWidth = $stringsWrap.find('.premium-fancy-item-visible').outerWidth();
+
+                                $stringsWrap.animate({
+                                    width: visibleTextWidth + 10
+                                }, (settings.speed / 2) || 1000, function () {
+
+                                    current++;
+
+                                    //Restart loop
+                                    if ($item.length === current)
+                                        current = 0;
+
+                                    //Increment interval and check if loop count is reached
+                                    if (loopCount) {
+                                        currentLoop++;
+
+                                        if ((fancyStringsCount * loopCount) === currentLoop)
+                                            clearInterval(loopInterval);
+                                    }
+
+                                });
+
+                            });
+                        } else {
+
+                            var animationClass = "";
+
+                            //Add animation class
+                            if (settings.effect === "custom")
+                                animationClass = "animated " + settings.animation;
+
+                            $stringsWrap.css('transition', 'width 0.5s');
+
+                            //Show current active item
+                            $item.eq(current).addClass("premium-fancy-item-visible " + animationClass).removeClass("premium-fancy-item-hidden");
+
+                            var $inactiveItems = $item.filter(function (index) {
+                                return index !== current;
+                            });
+
+                            //Hide inactive items
+                            $inactiveItems.addClass("premium-fancy-item-hidden").removeClass("premium-fancy-item-visible " + animationClass);
+
+                            var visibleTextWidth = $stringsWrap.find('.premium-fancy-item-visible').outerWidth();
+
+                            $stringsWrap.css('width', visibleTextWidth);
+
+                            current++;
+
+                            //Restart loop
+                            if ($item.length === current)
+                                current = 0;
+
+                            //Increment interval and check if loop count is reached
+                            if (loopCount) {
+                                currentLoop++;
+
+                                if ((fancyStringsCount * loopCount) === currentLoop)
+                                    clearInterval(loopInterval);
+                            }
+
+                        }
+
+                    }, delay);
+
+                }
+            }
+
+            //Show the strings after the layout is set.
+            if ("typing" !== settings.effect) {
+                setTimeout(function () {
+                    $animatedText.css('opacity', '1');
+                }, 500);
 
             }
-        }
 
-        //Show the strings after the layout is set.
-        if ("typing" !== settings.effect) {
-            setTimeout(function () {
-                $elem.find(".premium-fancy-text").css('opacity', '1');
-            }, 500);
+            if (settings.loading && 'typing' !== settings.effect) {
+                $scope.find('.premium-atext__text').append('<span class="premium-loading-bar"></span>');
+                $scope.find('.premium-loading-bar').css({
+                    'animation-iteration-count': loopCount,
+                    'animation-duration': loadingSpeed + 'ms'
+                });
+            }
+        } else {
 
-        }
+            var highlightEffect = settings.effect;
 
-        if ('loading' === settings.loading && 'typing' !== settings.effect) {
-            $scope.find('.premium-fancy-text').append('<span class="premium-loading-bar"></span>');
-            $scope.find('.premium-loading-bar').css({
-                'animation-iteration-count': loopCount,
-                'animation-duration': loadingSpeed + 'ms'
-            });
+            if (['tilt', 'flip', 'wave', 'pop'].includes(highlightEffect)) {
+
+                var textArray = $animatedText.text().trim().split("");
+
+
+                // element.firstChild.remove();
+
+                var elArray = textArray.map(function (letter, index) {
+
+                    if (letter == " ")
+                        letter = '&nbsp;';
+
+                    var el = document.createElement("span");
+
+                    el.className = "premium-atext__letter";
+                    el.innerHTML = letter;
+                    el.style.animationDelay = index / (textArray.length) + "s";
+
+                    return el;
+                });
+
+                $animatedText.html(elArray);
+                setTimeout(function () {
+                    $elem.css('opacity', 1);
+                }, 1000);
+
+
+            } else if ('shape' === highlightEffect) {
+
+                var animationDelay = settings.delay || 4,
+                    animationSpeed = settings.duration || 1.2;
+
+                elementorFrontend.waypoint($elem, function () {
+
+                    $elem.addClass('draw-shape');
+
+                    setInterval(function () {
+                        $elem.addClass('hide-shape');
+
+                        setTimeout(function () {
+                            $elem.removeClass('hide-shape');
+                        }, 1000);
+                    }, 1000 * (animationSpeed + animationDelay));
+
+                });
+
+            }
+
         }
 
     };

@@ -1,6 +1,6 @@
 <template>
     <el-form-item
-      v-if="totalPrice > 0 && !this.$root.settings.payments.wc.enabled && paymentOptions.length > 1"
+      v-if="totalPrice && !this.$root.settings.payments.wc.enabled && paymentOptions.length > 1"
       class="am-payment-buttons-wrapper"
       :style="{minHeight: (formField.paymentMethodFormField.switchPaymentMethodView && formField.paymentMethodFormField.switchPaymentMethodView === 'Selectbox')
        ? 'unset' : ''}"
@@ -62,7 +62,7 @@ export default {
 
   props: {
     totalPrice: {
-      type: String
+      type: Boolean
     },
     bookableColor: {
       type: String

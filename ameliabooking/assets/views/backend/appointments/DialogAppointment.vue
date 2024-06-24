@@ -627,10 +627,20 @@
                     <el-col :span="10" class="align-right ">{{ getFormattedPrice(appointment.extrasTotalPrice) }}
                     </el-col>
                   </el-row>
+                  <el-row :gutter="10" v-if="appointment.taxTotalPrice">
+                    <el-col :span="14" class="align-right">{{ $root.labels.tax }}:</el-col>
+                    <el-col :span="10" class="align-right ">{{ getFormattedPrice(appointment.taxTotalPrice) }}
+                    </el-col>
+                  </el-row>
+                  <el-row :gutter="10" v-if="appointment.discountTotalPrice">
+                    <el-col :span="14" class="align-right">{{ $root.labels.discount }}:</el-col>
+                    <el-col :span="10" class="align-right ">{{ getFormattedPrice(appointment.discountTotalPrice) }}
+                    </el-col>
+                  </el-row>
                   <el-row class="am-strong" :gutter="10">
                     <el-col :span="14" class="align-right">{{ $root.labels.total }}:</el-col>
                     <el-col :span="10" class="align-right ">
-                      {{ getAppointmentPrice(savedAppointment ? savedAppointment.serviceId : appointment.serviceId, getAppointmentService(appointment), appointment.bookings, false) }}
+                      {{ getFormattedPrice(appointment.serviceTotalPrice + appointment.extrasTotalPrice - appointment.discountTotalPrice + appointment.taxTotalPrice) }}
                     </el-col>
                   </el-row>
                 </div>
@@ -864,6 +874,7 @@
 
 <script>
   import licenceMixin from '../../../js/common/mixins/licenceMixin'
+  import taxMixin from '../../../js/common/mixins/taxesMixin'
   import formsCustomizationMixin from '../../../js/common/mixins/formsCustomizationMixin'
   import appointmentPriceMixin from '../../../js/backend/mixins/appointmentPriceMixin'
   import customFieldMixin from '../../../js/common/mixins/customFieldMixin'
@@ -889,6 +900,7 @@
 
     mixins: [
       licenceMixin,
+      taxMixin,
       customerMixin,
       entitiesMixin,
       imageMixin,
@@ -1231,7 +1243,7 @@
           allowedServices.push(this.getServiceById(this.appointment.serviceId))
         }
 
-        return allowedServices
+        return allowedServices.sort((a, b) => a.disabled - b.disabled)
       },
 
       filterServices () {
@@ -2005,6 +2017,7 @@
             let serviceTotalPrice = 0
             let extrasTotalPrice = 0
             let discountTotalPrice = 0
+            let taxTotalPrice = 0
 
             $this.appointment.bookings.forEach(function (booking) {
               if (['approved', 'pending'].includes(booking.status)) {
@@ -2012,38 +2025,43 @@
 
                 let providerServicePrice = $this.getBookingServicePrice(providerService, booking)
 
-                let bookingExtrasTotalPrice = 0
+                let priceData = {
+                  price: booking.id
+                    ? (isChangedServicePrice || isChangedBookingDuration ? providerServicePrice : booking.price)
+                    : providerServicePrice,
+                  aggregatedPrice: booking.id ? booking.aggregatedPrice : service.aggregatedPrice,
+                  id: booking.id ? null : $this.appointment.serviceId
+                }
 
-                let aggregatedPrice = booking.id ? booking.aggregatedPrice : service.aggregatedPrice
+                if (booking.id) {
+                  priceData.tax = booking.tax
+                }
 
-                booking.extras.forEach(function (extItem) {
-                  if (extItem.selected) {
-                    let serviceExtra = service.extras.filter(extra => extra.id === extItem.extraId)
+                let amountData = $this.getAppointmentPriceAmount(
+                  priceData,
+                  booking.extras.filter(i => i.selected),
+                  booking.persons,
+                  booking.coupon,
+                  false
+                )
 
-                    let extraPrice = booking.id ? extItem.price : (serviceExtra.length ? serviceExtra[0].price : 0)
-
-                    let aggregatedExtraPrice = extItem.aggregatedPrice === null ? (booking.id ? booking.aggregatedPrice : service.aggregatedPrice) : extItem.aggregatedPrice
-
-                    bookingExtrasTotalPrice += (aggregatedExtraPrice ? booking.persons : 1) * (extItem.quantity ? extItem.quantity : 0) * extraPrice
-                  }
-                })
-
-                let servicePricePrice = booking.id ? (isChangedServicePrice || isChangedBookingDuration ? providerServicePrice : booking.price) : providerServicePrice
-
-                booking.extrasTotalPrice = bookingExtrasTotalPrice
-                booking.bookingPrice = servicePricePrice
-                booking.serviceTotalPrice = servicePricePrice * (aggregatedPrice ? booking.persons : 1)
-                booking.discountTotalPrice = (booking.serviceTotalPrice + booking.extrasTotalPrice) / 100 * (booking.coupon ? booking.coupon.discount : 0) + (booking.coupon ? booking.coupon.deduction : 0)
+                booking.extrasTotalPrice = amountData.total - amountData.totalBookable
+                booking.bookingPrice = amountData.total
+                booking.serviceTotalPrice = amountData.totalBookable
+                booking.discountTotalPrice = amountData.discount
+                booking.taxTotalPrice = amountData.tax
 
                 serviceTotalPrice += booking.serviceTotalPrice
                 extrasTotalPrice += booking.extrasTotalPrice
                 discountTotalPrice += booking.discountTotalPrice
+                taxTotalPrice += booking.taxTotalPrice
               }
             })
 
             $this.appointment.serviceTotalPrice = serviceTotalPrice
             $this.appointment.extrasTotalPrice = extrasTotalPrice
             $this.appointment.discountTotalPrice = discountTotalPrice
+            $this.appointment.taxTotalPrice = taxTotalPrice
           }
         })
       },
@@ -2269,8 +2287,8 @@
           for (let newBooking of this.appointment.bookings) {
             let oldBooking = this.clonedBookings.find(b => b.id === newBooking.id)
             if (oldBooking && oldBooking.id !== 0) {
-              let oldPrice = this.getBookingPrice(oldBooking, true, oldBooking.bookingPrice ? oldBooking.bookingPrice : oldBooking.price, oldBooking.aggregatedPrice)
-              let newPrice = this.getBookingPrice(newBooking, true, newBooking.bookingPrice ? newBooking.bookingPrice : newBooking.price, newBooking.aggregatedPrice)
+              let oldPrice = this.getBookingPrice(oldBooking, false, oldBooking.bookingPrice ? oldBooking.bookingPrice : oldBooking.price, oldBooking.aggregatedPrice, service.id)
+              let newPrice = this.getBookingPrice(newBooking, false, newBooking.bookingPrice ? newBooking.bookingPrice : newBooking.price, newBooking.aggregatedPrice, service.id)
               if (oldPrice < newPrice) {
                 priceChanged = true
                 this.saveConfirmMessage = this.$root.labels.price_changed_message

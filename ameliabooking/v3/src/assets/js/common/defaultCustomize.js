@@ -44,6 +44,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.service_input_field,
           filterable: true
         },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
+        },
         location: {
           name: globalLabels.location_input_field,
           required: false,
@@ -112,6 +116,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.popup_heading,
           visibility: true
         },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
+        },
         primaryButton: {
           name: globalLabels.primary_button_type,
           buttonType: 'filled',
@@ -131,6 +139,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.continue_button_type,
           buttonType: 'filled',
           typeOptions: ['filled', 'plain', 'text']
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
         }
       },
       translations: null
@@ -173,6 +185,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.continue_button_type,
           buttonType: 'filled',
           typeOptions: ['filled', 'plain', 'text']
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
         }
       },
       translations: null
@@ -185,6 +201,10 @@ let defaultCustomizeSettings = {
         },
         description: {
           name: globalLabels.extras_description,
+          visibility: true
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
           visibility: true
         },
         duration: {
@@ -232,6 +252,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.back_to_cart_button_type,
           buttonType: 'text',
           typeOptions: ['filled', 'plain', 'text']
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
         },
         primaryFooterButton: {
           name: globalLabels.continue_button_type,
@@ -492,6 +516,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.package_price,
           visibility: true,
         },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
+        },
         packageCategory: {
           name: globalLabels.package_category,
           visibility: true
@@ -580,6 +608,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.service_price,
           visibility: true,
         },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
+        },
         serviceCategory: {
           name: globalLabels.service_category,
           visibility: true
@@ -662,6 +694,10 @@ let defaultCustomizeSettings = {
         packagePrice: {
           name: globalLabels.package_price,
           visibility: true,
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
         },
         packageCategory: {
           name: globalLabels.package_category,
@@ -757,6 +793,10 @@ let defaultCustomizeSettings = {
           name: globalLabels.event_price,
           visibility: true
         },
+        tax: {
+          name: globalLabels.tax_visibility,
+          visibility: true
+        },
         status: {
           name: globalLabels.event_status,
           visibility: true
@@ -795,6 +835,10 @@ let defaultCustomizeSettings = {
         },
         price: {
           name: globalLabels.event_price,
+          visibility: true
+        },
+        tax: {
+          name: globalLabels.tax_visibility,
           visibility: true
         },
         status: {
@@ -1360,6 +1404,8 @@ let defaultTranslations = {
           dropdown_category_heading: null,
           dropdown_items_heading: null,
           dropdown_empty: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1422,7 +1468,9 @@ let defaultTranslations = {
         name: globalLabels.content,
         labels: {
           discount_save: null,
-          separator_or: null
+          separator_or: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1456,7 +1504,9 @@ let defaultTranslations = {
           without_expiration: null,
           multiple_locations: null,
           show_more: null,
-          show_less: null
+          show_less: null,
+          total_tax_colon: null,
+          incl_tax:null
         },
       },
       content: {
@@ -1537,7 +1587,9 @@ let defaultTranslations = {
           package_overview_date: null,
           package_overview_time: null,
           package_overview_employee: null,
-          package_overview_location: null
+          package_overview_location: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1566,7 +1618,9 @@ let defaultTranslations = {
         labels: {
           extras_card_open: null,
           extras_card_close: null,
-          duration_colon: null
+          duration_colon: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1586,7 +1640,9 @@ let defaultTranslations = {
       content: {
         name: globalLabels.step_content,
         labels: {
-          date_time_slots_selected: null
+          date_time_slots_selected: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1621,7 +1677,9 @@ let defaultTranslations = {
           total_price: null,
           info: null,
           delete: null,
-          edit: null
+          edit: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       footer: {
@@ -1795,7 +1853,9 @@ let defaultTranslations = {
           total_amount_colon: null,
           paying_now: null,
           paying_later: null,
-          full_amount_consent: null
+          full_amount_consent: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       paymentSegment: {
@@ -1924,7 +1984,9 @@ let defaultTranslations = {
           multiple_locations: null,
           in_package: null,
           view_employees: null,
-          continue: null
+          continue: null,
+          total_tax_colon: null,
+          incl_tax: null
         }
       },
       employeeDialog: {
@@ -1953,6 +2015,8 @@ let defaultTranslations = {
           view_all_photos: null,
           about_service: null,
           tab_employees: null,
+          total_tax_colon: null,
+          incl_tax: null
         }
       },
       packBlock: {
@@ -2003,7 +2067,9 @@ let defaultTranslations = {
           about_package: null,
           tab_employees: null,
           package_includes: null,
-          package_book_service: null
+          package_book_service: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
     }
@@ -2041,6 +2107,8 @@ let defaultTranslations = {
           upcoming: null,
           closed: null,
           canceled: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       pagination: {
@@ -2064,6 +2132,8 @@ let defaultTranslations = {
           upcoming: null,
           closed: null,
           canceled: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       tabInfo: {
@@ -2190,7 +2260,9 @@ let defaultTranslations = {
           total_amount_colon: null,
           paying_now: null,
           paying_later: null,
-          full_amount_consent: null
+          full_amount_consent: null,
+          total_tax_colon: null,
+          incl_tax:null
         }
       },
       coupon: {

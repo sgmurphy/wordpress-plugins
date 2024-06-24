@@ -65,7 +65,11 @@ export default {
           locations: [],
           tags: []
         }
-      }
+      },
+      searchCounter: 0,
+      loadingEvents: false,
+      searchEventsTimer: null,
+      searchedEvents: []
     }
   },
 
@@ -333,6 +337,56 @@ export default {
       this.eventBookings = null
       this.dialogAttendees = true
       this.getEvent(id)
+    },
+
+    searchEvents (query, groupEvents = false) {
+      clearTimeout(this.searchEventsTimer)
+
+      this.loadingEvents = true
+      this.searchCounter++
+
+      this.searchEventsTimer = setTimeout(() => {
+        let lastSearchCounter = this.searchCounter
+
+        this.$http.get(`${this.$root.getAjaxUrl}/events`, {
+          params: {search: query, page: 1, limit: 100, skipCount: 1, dates: [moment().format('YYYY-MM-DD')]}
+        })
+        .then(response => {
+          if (lastSearchCounter >= this.searchCounter) {
+            this.searchedEvents = groupEvents ? this.groupRecurringEvents(response.data.data.events) : response.data.data.events
+          }
+
+          this.loadingEvents = false
+        })
+        .catch(e => {
+          this.loadingEvents = false
+        })
+      }, 500)
+    },
+
+    groupRecurringEvents (originalEvents) {
+      let events = []
+      if (originalEvents) {
+        for (let i = 0; i < originalEvents.length; i++) {
+          let ev = originalEvents[i]
+          if (ev.status !== 'approved') {
+            continue
+          }
+          let sameEvent = events.find(e => (e.id === ev.parentId || e.parentId === ev.parentId) && ev.parentId !== null)
+          if (sameEvent) {
+            continue
+          }
+          let sameNameEvent = events.find(e => e.name === ev.name && e.id !== ev.id)
+          if (sameNameEvent) {
+            ev.displayName = ev.name + ' (' + this.getFrontedFormattedDateTime(ev.periods[0].periodStart) + ')'
+            sameNameEvent.displayName = sameNameEvent.name + ' (' + this.getFrontedFormattedDateTime(sameNameEvent.periods[0].periodStart) + ')'
+            events.push(ev)
+          } else {
+            events.push(ev)
+          }
+        }
+      }
+      return events
     }
   },
 

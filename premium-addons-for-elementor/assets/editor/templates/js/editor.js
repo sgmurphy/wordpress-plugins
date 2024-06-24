@@ -16,6 +16,7 @@
         ModalLoadingView: null,
         ModalBodyView: null,
         ModalErrorView: null,
+        ModalInvalidLicenseErrorView: null,
         LibraryCollection: null,
         KeywordsModel: null,
         ModalCollectionView: null,
@@ -280,6 +281,11 @@
                                 withMedia: insertMedia
                             },
                             success: function (data) {
+
+                                if (data.invalid) {
+                                    PremiumEditor.layout.showInvalidLicenseError();
+                                    return;
+                                }
 
                                 if (!data.license) {
                                     PremiumEditor.layout.showLicenseError();
@@ -632,6 +638,10 @@
                     this.modalContent.show(new self.ModalErrorView());
                 },
 
+                showInvalidLicenseError: function () {
+                    this.modalContent.show(new self.ModalInvalidLicenseErrorView());
+                },
+
                 showTemplatesView: function (templatesCollection, categoriesCollection, keywords) {
 
                     this.getRegion('modalContent').show(new self.ModalBodyView());
@@ -673,8 +683,13 @@
             });
 
             self.ModalErrorView = Marionette.ItemView.extend({
-                id: 'premium-template-modal-loading',
+                id: 'premium-template-modal-error',
                 template: '#tmpl-premium-template-modal-error'
+            });
+
+            self.ModalInvalidLicenseErrorView = Marionette.ItemView.extend({
+                id: 'premium-template-invalid-license-error',
+                template: '#tmpl-premium-template-invalid-license-error'
             });
 
         },

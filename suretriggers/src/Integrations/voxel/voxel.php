@@ -771,6 +771,86 @@ class Voxel extends Integrations {
 	}
 
 	/**
+	 * Get Post Fields and it's values.
+	 *
+	 * @access public
+	 * @since 1.0
+	 * @param int $post_id Post ID.
+	 * @return array
+	 */
+	public static function get_post_fields( $post_id ) {
+		if ( ! class_exists( 'Voxel\Post' ) ) {
+			return [];
+		}
+		$post         = \Voxel\Post::force_get( $post_id );
+		$context      = [];
+		$context_data = [];
+		if ( ! empty( $post ) ) {
+			$fields = $post->get_fields();
+			if ( is_array( $fields ) && ! empty( $fields ) ) {
+				foreach ( $fields as $field ) {
+					$field_key     = $field->get_key();
+					$field_type    = $field->get_type();
+					$field_value   = $field->get_value();
+					$field_content = null;
+					switch ( $field_type ) {
+						case 'taxonomy':
+							$field_content = join(
+								', ',
+								array_map(
+									function( $term ) {
+										return $term->get_label();
+									},
+									$field_value
+								)
+							);
+							break;
+						case 'location':
+							$field_content = $field_value['address'];
+							break;
+						case 'work-hours':
+							$hours = [];
+							foreach ( $field_value as $work_hour ) {
+								if ( 'hours' === $work_hour['status'] ) {
+									foreach ( $work_hour['days'] as $day ) {
+										foreach ( $work_hour['hours'] as $hour_key => $hour ) {
+											$hours[ $day . '_' . $hour_key ] = $hour['from'] . '-' . $hour['to'];
+										}
+									}
+								}
+							}
+							$field_content                         = $field_value;
+							$context[ $field_key . '_simplified' ] = wp_json_encode( $hours );
+							break;
+						case 'file':
+						case 'image':
+						case 'profile-avatar':
+						case 'gallery':
+							if ( is_array( $field_value ) ) {
+								foreach ( $field_value as $file_key => $file_id ) {
+									$field_content[ $field_key . '_' . $file_key . '_url' ] = wp_get_attachment_url( $file_id );
+								}
+							} else {
+								$field_content[ $field_key . '_url' ] = wp_get_attachment_url( $field_value );
+							}
+							break;
+						default:
+							$field_content = $field_value;
+							break;
+					}
+					$context[ $field_key ] = $field_content;
+				}
+			}
+		}
+		if ( ! empty( $context ) ) {
+			foreach ( $context as $key => $value ) {
+				$context_data[ 'field_' . $key ] = $value;
+			}
+		}
+		return $context_data;
+	}
+
+	/**
 	 * Is Plugin depended plugin is installed or not.
 	 *
 	 * @return bool

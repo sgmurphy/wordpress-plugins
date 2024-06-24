@@ -564,7 +564,7 @@ if ( ! class_exists( 'YITH_WCAN_Admin' ) ) {
 					'name'     => _x( 'Clear Product Filter transients', '[ADMIN] WooCommerce Tools tab, name of the tool', 'yith-woocommerce-ajax-navigation' ),
 					'button'   => _x( 'Clear', '[ADMIN] WooCommerce Tools tab, button for the tool', 'yith-woocommerce-ajax-navigation' ),
 					'desc'     => _x( 'This will clear all transients related to the YITH WooCommerce AJAX Product Filter plugin. It may be useful if you changed your product\'s configuration, and filters do not display the expected results.', '[ADMIN] WooCommerce Tools tab, description of the tool', 'yith-woocommerce-ajax-navigation' ),
-					'callback' => array( 'YITH_WCAN_Cache_Helper', 'delete_transients' ),
+					'callback' => array( 'YITH_WCAN_Cache_Helper', 'empty' ),
 				),
 				'run_widget_upgrade'     => array(
 					'name'     => _x( 'Run filter widgets upgrade', '[ADMIN] WooCommerce Tools tab, name of the tool', 'yith-woocommerce-ajax-navigation' ),

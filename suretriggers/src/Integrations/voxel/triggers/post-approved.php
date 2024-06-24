@@ -14,8 +14,10 @@
 namespace SureTriggers\Integrations\Voxel\Triggers;
 
 use SureTriggers\Controllers\AutomationController;
+use SureTriggers\Controllers\OptionController;
 use SureTriggers\Traits\SingletonLoader;
 use SureTriggers\Integrations\WordPress\WordPress;
+use SureTriggers\Integrations\Voxel\Voxel;
 
 if ( ! class_exists( 'PostApproved' ) ) :
 
@@ -68,15 +70,17 @@ if ( ! class_exists( 'PostApproved' ) ) :
 		 * @return array
 		 */
 		public function register( $triggers ) {
-
+			$trigger_data                                     = OptionController::get_option( 'trigger_data' );
 			$triggers[ $this->integration ][ $this->trigger ] = [
 				'label'         => __( 'Post Approved', 'suretriggers' ),
 				'action'        => $this->trigger,
-				'common_action' => 'voxel/app-events/post-types/post/post:approved',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
 				'accepted_args' => 1,
 			];
+			if ( ! empty( $trigger_data ) && is_array( $trigger_data ) && isset( $trigger_data[ $this->integration ][ $this->trigger ]['selected_options']['post_type']['value'] ) ) {
+				$triggers[ $this->integration ][ $this->trigger ]['common_action'] = 'voxel/app-events/post-types/' . $trigger_data[ $this->integration ][ $this->trigger ]['selected_options']['post_type']['value'] . '/post:approved';
+			}
 
 			return $triggers;
 		}
@@ -91,8 +95,12 @@ if ( ! class_exists( 'PostApproved' ) ) :
 			if ( ! property_exists( $event, 'post' ) ) {
 				return;
 			}
-			$post    = WordPress::get_post_context( $event->post->get_id() );
-			$context = $post;
+			$post            = WordPress::get_post_context( $event->post->get_id() );
+			$context         = $post;
+			$context['post'] = Voxel::get_post_fields( $event->post->get_id() );
+			// Get the post type.
+			$post_type            = get_post_type( $event->post->get_id() );
+			$context['post_type'] = $post_type;
 
 			AutomationController::sure_trigger_handle_trigger(
 				[

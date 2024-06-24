@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 2.5.5
+Stable tag: 2.5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -527,6 +527,11 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 == Changelog ==
 
+= Version 2.5.6 - Date: 2024-06-24 =
+* Fixed: Sanitizing and Escaping issue in Video Player, User Login, and User Register Widgets.
+* Fixed: A few minor issues.
+* Tested: Compatibility with the latest version of Elementor.
+
 = Version 2.5.5 - Date: 2024-06-09 =
 * Added: Progress bar border radius option in Audio Player Widget.
 * Added: Volume bar border radius option in Audio Player Widget.
@@ -936,229 +941,6 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 * Fixed: Template selector issue on Offcanvas addon
 * Fixed: Link Redirect issue on user login form addon
 * Fixed: Escaping issues on Text editor content
-
-= Version: 1.8.1 - Date: 2022-02-12 =
-* Fixed: CSS Issue Fixed on Call To Action.
-
-= Version: 1.8.0 - Date: 2022-02-12 =
-
-<strong>Template and Asset Loading</strong>
-
-* Fixed: Widget wise asset loading
-* Added: Import template library button and manage library in the editor.
-
-<strong>Image Marker</strong>
-
-* Moved: Image section moved to Marker section.
-* Update: Image marker style.
-* Added: Style Layout six.
-* Added: Marker Placeholder background text
-* Added: Marker Content position.
-* Added: Content Indicator position control.
-* Added: Content Alignment Control.
-* Added: Title bottom border control.
-* Added: Placeholder text style control.
-
-<strong>User Register Form</strong>
-
-* Added: Area Background control.
-* Added: Border Radius control.
-* Added: Box shadow control.
-* Added: Form register Header 
-* Added: Form Register header style control.
-* Added: Submit button width control.
-* Added: Login button style control.
-
-<strong>Pricing Table</strong>
-
-* Moved: Header padding control style to content for Header, Price, and Features
-* Added: Style Layout Eight and Nine.
-* Added: Price Alignment Control for Header, Price, and Features
-* Added: Badge control and style control
-* Added: Some style control on the style section. 
-
-<strong>Social Share</strong>
-
-* Update: Some style control. 
-* Added: Alignment control. 
-
-<strong>User Login Form</strong>
-
-* Update: Some style control. 
-* Added: Login header section element and style control.
-
-<strong>Data Table</strong>
-
-* Update: Table Header Gradient color support
-* Added: Table Box Shadow controller support
-* Added: Table column Icon controller support
-* Added: Table column Image controller support
-* Added: Table column Icon Color support
-* Added: Table Single-cell Background column support
-* Added: Table Single Heading sell Background Color support
-* Added: Table Single Heading sell Border and Radius controller support
-* Added: Table Single Heading sell Border Shadow controller support
-
-<strong>Tabs</strong>
-
-* Update: Tabs Icon Color Controller
-* Update: Tabs Icon Box Size, background color, and Gradient color Controller
-* Added: Tabs Icon Border Controller
-* Added: Tabs Icon box Width and Height Controller
-* Added: Style 5 Tab area Separator color, Height, width, Position Controller
-* Added: Tabs Icon Active color, background, gradient color Controller
-* Added: Tabs Icon Active Border Controller
-
-<strong>Drop caps</strong>
-
-* Fixed: CSS Issue 
-* Added: Drop caps text Gradient color option
-* Added: Drop caps text Alignment change option.
-
-<strong>Count Down</strong>
-
-* Added: Countdown Area Width and Height Controller
-* Added: Countdown Timer Separator Width Controller
-* Added: Countdown Area Timer Image Separator Controller
-* Added: Countdown Area Timer Image Separator Position Controller
-* Added: New Flip Count Down Style.
-
-<strong>Google Maps</strong>
-
-* Added: Google Maps Marker Info box Text Enable/Disable Controls Support
-* Added: Info Address Text color change Controller support
-* Added: Info Address Text typography Controller support
-* Added: Info Address Heading Text color change Controller support
-* Added: Google address style support
-* Added: New Style-Fixed Maps address.
-
-<strong>Inline Navigation</strong>
-
-* Fixed: CSS Issue
-* Added: New 4 Style support
-* Added: Style 8 before Border Position Controller
-* Added: Style 8 before Border Position Controller support
-
-<strong>Instagram</strong>
-
-* Update: Caption Font Size Controller
-* Added: Caption Font Typography group Controller
-* Added: Instagram Item Overlay Controller
-* Added: Instagram Follow Button Font Color Controller
-* Added: Instagram Follow Button Typography Controller
-* Added: Instagram Follow Button Margin and Padding Controller
-* Added: Instagram Follow Button Icon Width and Height Controller
-* Added: Instagram Follow Button Icon Color and Background Controller
-* Added: Instagram Follow Button Icon Line Hight Controller
-* Added: Instagram Follow Button Border Controller
-
-<strong>Switcher</strong>
-
-* Fixed: CSS Issue
-* Added: Switcher Active Border
-* Added: Switcher Active Before Border Controller
-
-<strong>Image Comparison</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: Box CSS Style.
-* Added: Handler Option & Reveal Option.
-
-<strong>Light Box</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: CSS Style.
-* Added: Box Shadow & Alignment Option.
-
-<strong>Modal</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: CSS Style.
-* Update: Modal Content Box.
-* Added: Modal Box Style & Close Button Style.
-
-<strong>Call To Action</strong>
-
-* Fixed: Elementor Deprecated Function.
-* Update: CSS Style.
-* Update: Primary Button Style.
-* Added: Secondary Button & Button Style.
-* Added: Sub Title Field & Sub Title Style Option.
-
-<strong>Custom Carousel</strong>
-
-* Update: Box Style.
-* Update: CSS Style.
-* Added: Arrow Vertical & Horizontal Position Option.
-* Added: Pagination Vertical & Horizontal Position Option.
-* Added: Custom Carousel Style Seven.
-* Added: Responsive Control Option.
-
-<strong>Search</strong>
-
-* Fixed: SVG icon issues
-* Update: Input form style option
-* Update: Button style option
-* Added: Close button option
-
-<strong>Panel Slider</strong>
-
-* Fixed: Arrow SVG icon issues
-* Fixed: Center padding issues
-* Fixed: Pagination style issues
-* Update: Content style option
-* Added: Column space Option
-* Added: Slider arrow position option
-
-<strong>Testimonial</strong>
-
-* Fixed: Arrow SVG Icon issues
-* Fixed: Center padding issues
-* Update: Client say style option
-* Update: Image style option
-* Update: Content style option
-* Update: Designation style option
-* Added: Column space option
-* Added: Slider Arrow position option
-* Added: layout Ten, Eleven, Twelve, Thirteen
-* Added: Rating option
-* Added: Item Box style option
-
-<strong>Testimonial Grid</strong>
-
-* Fixed: Content style issues
-* Update: Designation style option
-* Update: Rating Style option
-* Added: Column space option
-* Added:  Item Box style option
-
-<strong>Toggle</strong>
-
-* Fixed: SVG icon style issue
-* Fixed: Content style issue
-* Update: Button style option
-
-<strong>Tooltip</strong>
-
-* Fixed: SVG icon style issue
-* Fixed: Hover animation issue
-
-<strong>Vertical Timeline</strong>
-
-* Fixed: Content style issue
-* Update: Title style option
-* Update: Date style option
-* Update: Timeline style option
-* Update: Responsive issues
-* Added: Layout four
-
-<strong>Working Process</strong>
-
-* Fixed: SVG icon style issue
-* Update: Item box style option
-* Update: Icon box style option
-* Update: Timeline style option
-* Added:  Layout Five
 
 
 

@@ -66,7 +66,7 @@ const InformPreviousErrorModal = ( {
 						__html: sprintf(
 							// translators: %s: support link
 							__(
-								'If you proceed without resolving these issues, you may encounter the same errors again, which could exhaust your AI site creation attempts. Please address the errors before continuing. For assistance, reach out to us %1$s. Do you still want to continue?',
+								'If you proceed without fixing these issues, you may encounter the same errors again, which could exhaust your AI site creation attempts. Please fix the errors first. If you need help, feel free to contact us %1$s. Do you still want to continue?',
 								'ai-builder'
 							),
 							renderToString( supportLink )
@@ -80,7 +80,7 @@ const InformPreviousErrorModal = ( {
 						variant="primary"
 						onClick={ handleConfirm }
 					>
-						{ __( 'Continue Building', 'ai-builder' ) }
+						{ __( 'Continue Anyway', 'ai-builder' ) }
 					</Button>
 					<Button
 						className="w-fit px-2 py-0 mx-auto text-accent-st"

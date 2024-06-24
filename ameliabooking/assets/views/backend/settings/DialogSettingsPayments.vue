@@ -127,9 +127,15 @@
 
         <!-- Default Payment Method -->
         <el-form-item
-            label="placeholder" :label="$root.labels.default_payment_method + ':'"
             v-if="!settings.wc.enabled"
         >
+          <label slot="label">
+            {{ $root.labels.default_payment_method }}:
+            <el-tooltip placement="top">
+              <div slot="content" v-html="$root.labels.payment_tooltip"></div>
+              <i class="el-icon-question am-tooltip-icon"></i>
+            </el-tooltip>
+          </label>
           <el-select v-model="settings.defaultPaymentMethod">
             <el-option
                 v-for="item in defaultPaymentMethods"
@@ -140,16 +146,6 @@
             </el-option>
           </el-select>
         </el-form-item>
-
-        <el-alert
-            v-if="hasDisabledBookablePaymentMethod"
-            type="warning"
-            show-icon
-            title=""
-            :description="$root.labels.payment_warning_settings"
-            :closable="false"
-        >
-        </el-alert>
 
         <!-- Cart -->
         <div
@@ -285,6 +281,54 @@
           </el-alert>
 
           <LicenceBlock/>
+        </div>
+
+        <!-- Taxes -->
+        <div
+          v-if="notInLicence() ? licenceVisible() : true"
+          class="am-setting-box am-switch-box"
+          :class="licenceClass()"
+        >
+          <el-row type="flex" align="middle" :gutter="24">
+            <el-col :span="16">
+              <span>{{ $root.labels.tax_enable }}</span>
+            </el-col>
+            <el-col :span="8" class="align-right">
+              <el-switch
+                v-model="settings.taxes.enabled"
+                :disabled="notInLicence()"
+              ></el-switch>
+            </el-col>
+          </el-row>
+
+          <el-row style="margin-top: 16px" v-if="settings.taxes.enabled" class="">
+            <el-col class="am-settings-taxes">
+              <div style="padding: 10px">
+                <el-radio v-model="settings.taxes.excluded" :label="true" :value=true class="am-settings-taxes-radio">
+                  {{$root.labels.tax_exclude}}
+                  <el-tooltip placement="top">
+                    <div slot="content" v-html="$root.labels.tax_exclude_tooltip"></div>
+                    <i class="el-icon-question am-tooltip-icon"></i>
+                  </el-tooltip>
+                </el-radio>
+              </div>
+              <div style="padding: 10px">
+                <el-radio v-model="settings.taxes.excluded" :label="false" class="am-settings-taxes-radio">
+                  {{$root.labels.tax_include}}
+                  <el-tooltip placement="top">
+                    <div slot="content" v-html="$root.labels.tax_include_tooltip"></div>
+                    <i class="el-icon-question am-tooltip-icon"></i>
+                  </el-tooltip>
+                </el-radio>
+              </div>
+            </el-col>
+          </el-row>
+
+          <LicenceBlock></LicenceBlock>
+        </div>
+
+        <!-- Invoices -->
+        <div>
         </div>
 
         <!-- Service Paid On-site -->
@@ -772,6 +816,78 @@
               <el-input v-model.trim="settings.stripe.returnUrl" auto-complete="off"></el-input>
             </el-form-item>
 
+            <div
+              v-if="notInLicence('pro') ? licenceVisible() : true"
+              :class="licenceClass('pro')"
+            >
+
+            <!-- Stripe Use Connect -->
+            <el-row type="flex" align="middle" :gutter="24" v-show="settings.stripe.enabled === true">
+              <el-col :span="16">
+                <p>{{ $root.labels.use_stripe_connect }}:</p>
+              </el-col>
+              <el-col :span="8" class="align-right">
+                <el-switch
+                  v-model="settings.stripe.connect.enabled"
+                  @change="handleStripeValidationRules"
+                  active-text=""
+                  inactive-text=""
+                  :disabled="notInLicence('pro')"
+                >
+                </el-switch>
+              </el-col>
+            </el-row>
+
+            <!-- Stripe direct vs destination vs transfer -->
+            <el-form-item
+              v-show="settings.stripe.enabled && settings.stripe.connect.enabled"
+            >
+              <label slot="label">
+                {{ $root.labels.use_charge_type }}:
+                <el-tooltip placement="top">
+                  <div slot="content" v-html="$root.labels.use_charge_type_tooltip"></div>
+                  <i class="el-icon-question am-tooltip-icon"></i>
+                </el-tooltip>
+              </label>
+              <el-select v-model="settings.stripe.connect.method">
+                <el-option
+                  v-for="item in [{value: 'transfer', label: $root.labels.use_transfers_payment}, {value: 'direct', label: $root.labels.use_direct_payment}]"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+
+            <el-alert
+              v-if="settings.stripe.enabled && settings.stripe.connect.enabled && settings.stripe.connect.method === 'direct'"
+              type="warning"
+              show-icon
+              title=""
+              :description="$root.labels.use_charge_alert"
+              :closable="false"
+            >
+            </el-alert>
+
+            <!-- Stripe percentage price -->
+            <el-form-item
+              :label="(settings.stripe.connect.method === 'transfer' ? $root.labels.use_transfer_amount : $root.labels.use_direct_amount) + ':'"
+              v-show="settings.stripe.enabled && settings.stripe.connect.enabled && settings.stripe.connect.type === 'percentage'"
+            >
+              <el-input-number
+                v-model="settings.stripe.connect.amount"
+                :min="0"
+                :precision="2"
+                :step="0.1"
+                :max="100"
+                @input="clearValidation()"
+              >
+              </el-input-number>
+            </el-form-item>
+
+            <LicenceBlock :licence="'pro'"></LicenceBlock>
+            </div>
           </el-collapse-item>
 
           <LicenceBlock/>
@@ -1036,7 +1152,6 @@
             }
           ]
         },
-        hasDisabledBookablePaymentMethod: false,
         rules: {
           stripe: {},
           mollie: {},
@@ -1052,7 +1167,6 @@
     },
 
     mounted () {
-      this.inspectBookableSettingsPayments()
       this.handleStripeValidationRules()
       this.handlePayPalValidationRules()
       this.handleMollieValidationRules()
@@ -1065,86 +1179,6 @@
     methods: {
       languageChanged (selectedLanguage) {
         this.language = selectedLanguage
-      },
-
-      inspectBookableSettingsPayments () {
-        if (this.settings.wc.enabled) {
-          return
-        }
-
-        this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
-          params: this.getAppropriateUrlParams({
-            types: ['categories', 'events']
-          })
-        })
-          .then(response => {
-            let hasDisabledBookablePaymentMethod = false
-
-            let $this = this
-
-            response.data.data.categories.forEach(function (category) {
-              category.serviceList.forEach(function (service) {
-                let serviceSettings = JSON.parse(service.settings)
-
-                if (!serviceSettings || (serviceSettings && !('payments' in serviceSettings))) {
-                  return
-                }
-
-                let enabledOnSite = $this.settings.onSite
-                let enabledPayPal = $this.settings.payPal.enabled
-                let enabledStripe = $this.settings.stripe.enabled
-
-                if (enabledOnSite && 'onSite' in serviceSettings.payments && !serviceSettings.payments.onSite) {
-                  enabledOnSite = false
-                }
-
-                if (enabledPayPal && 'payPal' in serviceSettings.payments && !serviceSettings.payments.payPal.enabled) {
-                  enabledPayPal = false
-                }
-
-                if (enabledStripe && 'stripe' in serviceSettings.payments && !serviceSettings.payments.stripe.enabled) {
-                  enabledStripe = false
-                }
-
-                if (!enabledOnSite && !enabledPayPal && !enabledStripe) {
-                  hasDisabledBookablePaymentMethod = true
-                }
-              })
-            })
-
-            response.data.data.events.forEach(function (event) {
-              let eventSettings = JSON.parse(event.settings)
-
-              if (!eventSettings || (eventSettings && !('payments' in eventSettings))) {
-                return
-              }
-
-              let enabledOnSite = $this.settings.onSite
-              let enabledPayPal = $this.settings.payPal.enabled
-              let enabledStripe = $this.settings.stripe.enabled
-
-              if (enabledOnSite && 'onSite' in eventSettings.payments && !eventSettings.payments.onSite) {
-                enabledOnSite = false
-              }
-
-              if (enabledPayPal && 'payPal' in eventSettings.payments && !eventSettings.payments.payPal.enabled) {
-                enabledPayPal = false
-              }
-
-              if (enabledStripe && 'stripe' in eventSettings.payments && !eventSettings.payments.stripe.enabled) {
-                enabledStripe = false
-              }
-
-              if (!enabledOnSite && !enabledPayPal && !enabledStripe) {
-                hasDisabledBookablePaymentMethod = true
-              }
-            })
-
-            this.hasDisabledBookablePaymentMethod = hasDisabledBookablePaymentMethod
-          })
-          .catch(e => {
-            console.log(e.message)
-          })
       },
 
       closeDialog () {
@@ -1242,7 +1276,6 @@
       },
 
       toggleOnSite () {
-        this.inspectBookableSettingsPayments()
         this.clearValidation()
         if (this.settings.defaultPaymentMethod === 'onSite' && this.settings.onSite === false) {
           this.settings.defaultPaymentMethod = this.defaultPaymentMethods[0].value
@@ -1250,7 +1283,6 @@
       },
 
       toggleStripe () {
-        this.inspectBookableSettingsPayments()
         this.checkOnSitePayment()
         this.handleStripeValidationRules()
 
@@ -1264,7 +1296,6 @@
       },
 
       togglePayPal () {
-        this.inspectBookableSettingsPayments()
         this.checkOnSitePayment()
         this.handlePayPalValidationRules()
         this.handleMollieValidationRules()
@@ -1305,7 +1336,6 @@
       },
 
       toggleRazorpay () {
-        this.inspectBookableSettingsPayments()
         this.checkOnSitePayment()
         this.handleRazorpayValidationRules()
         this.handleMollieValidationRules()

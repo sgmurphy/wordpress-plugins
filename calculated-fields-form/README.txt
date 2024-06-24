@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.15
+Stable tag: 5.2.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -452,6 +452,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.16 =
+
+* Modifies the installation module to create a JSON backup file of the forms structures before updating the database.
+* Adds new form templates.
+* Modifies the CFF Elementor Block.
+
 = 5.2.15 =
 
 * Fixes an issue processing the notification email attachments in the free plugin distribution.
@@ -484,8 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the predefined template 09.
 * The form shortcode supports the template attribute to allow modifying and applying different templates to the same form via shortcode.
 * Modifies the Gutenberg editor block for form insertion to support the new template attribute.
-
-= 5.2.10 =
-
-* Modifies the Default settings section to activate/deactivate the Submit button by default or change its status in the existing forms.
-* Modifies the CFF - WooCommerce add-on to preserve the summary format in the WooCommerce cart when it uses the new Gutenberg block for the WooCommerce cart (Developer and Platinum plugin versions).

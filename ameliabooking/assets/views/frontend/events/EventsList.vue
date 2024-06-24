@@ -352,6 +352,7 @@
                 v-bind="cacheData && (cacheData.status === 'canceled' || cacheData.status === 'failed') ? getCacheDataRequestProps() : {
                   bookableType: 'event',
                   containerId: getContainerId(),
+                  taxes: options.entities.taxes,
                   bookable: getBookableData(evt),
                   marketing: marketing,
                   appointment: appointment,
@@ -464,6 +465,7 @@
         },
         options: {
           entities: {
+            taxes: [],
             tags: [],
             locations: []
           }

@@ -16,7 +16,7 @@
     }
 
     $(window).on('elementor/frontend/init', function() {
-        elementorFrontend.hooks.addAction( 'frontend/element_ready/tf_video_popup.default', tfVideoIziModal );
+        elementorFrontend.hooks.addAction( 'frontend/element_ready/tf_addon_video_popup.default', tfVideoIziModal );
     });
 
 })(jQuery);

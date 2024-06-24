@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import {
 	FunnelIcon,
 	HeartIcon,
@@ -15,9 +15,7 @@ import { STORE_KEY } from '../store';
 import { classNames } from '../helpers';
 import NavigationButtons from '../components/navigation-buttons';
 import { useNavigateSteps } from '../router';
-import PreBuildConfirmModal from '../components/pre-build-confirm-modal';
-import PremiumConfirmModal from '../components/premium-confirm-modal';
-import InformPrevErrorModal from '../components/inform-prev-error-modal';
+import withBuildSiteController from '../components/hoc/withBuildSiteController';
 
 const fetchStatus = {
 	fetching: 'fetching',
@@ -33,98 +31,21 @@ const ICON_SET = {
 	'live-chat': ChatBubbleLeftEllipsisIcon,
 };
 
-const Features = () => {
-	const { nextStep, previousStep } = useNavigateSteps();
+const Features = ( { handleClickStartBuilding, isInProgress } ) => {
+	const { previousStep } = useNavigateSteps();
 
-	const {
-		setSiteFeatures,
-		storeSiteFeatures,
-		setWebsiteInfoAIStep,
-		setLimitExceedModal,
-		updateImportAiSiteData,
-	} = useDispatch( STORE_KEY );
-	const {
-		siteFeatures,
-		stepsData: {
-			businessName,
-			selectedImages = [],
-			keywords = [],
-			businessType,
-			businessDetails,
-			businessContact,
-			selectedTemplate,
-			siteLanguage,
-			selectedTemplateIsPremium,
-			templateList,
-		},
-		loadingNextStep,
-	} = useSelect( ( select ) => {
-		const { getSiteFeatures, getAIStepData, getLoadingNextStep } =
-			select( STORE_KEY );
+	const { setSiteFeatures, storeSiteFeatures } = useDispatch( STORE_KEY );
+	const { siteFeatures, loadingNextStep } = useSelect( ( select ) => {
+		const { getSiteFeatures, getLoadingNextStep } = select( STORE_KEY );
 
 		return {
 			siteFeatures: getSiteFeatures(),
-			stepsData: getAIStepData(),
 			loadingNextStep: getLoadingNextStep(),
 		};
 	}, [] );
 	const [ isFetchingStatus, setIsFetchingStatus ] = useState(
 		fetchStatus.fetching
 	);
-	const [ isInProgress, setIsInProgress ] = useState( false );
-	const [ preBuildModal, setPreBuildModal ] = useState( {
-		open: false,
-		skipFeature: false,
-	} );
-	const [ premiumModal, setPremiumModal ] = useState( false );
-	const [ prevErrorAlert, setPrevErrorAlert ] = useReducer(
-			( state, action ) => ( {
-				...state,
-				...action,
-			} ),
-			{ open: false, error: {}, requestData: {} }
-		),
-		setPrevErrorAlertOpen = ( value ) =>
-			setPrevErrorAlert( { open: value } );
-	const selectedTemplateData = templateList.find(
-			( item ) => item.uuid === selectedTemplate
-		),
-		isEcommarceSite = selectedTemplateData?.features?.ecommerce === 'yes';
-
-	const handleClosePreBuildModal = ( value = false ) => {
-		setPreBuildModal( ( prev ) => {
-			return {
-				...prev,
-				open: value,
-			};
-		} );
-	};
-
-	const handleClickStartBuilding =
-		( skipFeature = false ) =>
-		() => {
-			if ( isInProgress ) {
-				return;
-			}
-
-			if (
-				aiBuilderVars?.zip_plans?.active_plan?.slug === 'free' &&
-				selectedTemplateIsPremium
-			) {
-				setPremiumModal( true );
-				return;
-			}
-
-			if ( 'yes' !== aiBuilderVars.firstImportStatus ) {
-				handleGenerateContent( skipFeature )();
-				return;
-			}
-
-			setPreBuildModal( {
-				open: true,
-				skipFeature,
-			} );
-		};
 
 	const fetchSiteFeatures = async () => {
 		const response = await apiFetch( {
@@ -148,169 +69,6 @@ const Features = () => {
 
 	const handleToggleFeature = ( featureId ) => () => {
 		setSiteFeatures( featureId );
-	};
-
-	const limitExceeded = () => {
-		const zipPlans = aiBuilderVars?.zip_plans;
-		const sitesRemaining = zipPlans?.plan_data?.remaining;
-		const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
-		const allSitesRemainingCount = sitesRemaining?.all_sites_count;
-
-		if (
-			( typeof aiSitesRemainingCount === 'number' &&
-				aiSitesRemainingCount <= 0 ) ||
-			( typeof allSitesRemainingCount === 'number' &&
-				allSitesRemainingCount <= 0 )
-		) {
-			return true;
-		}
-
-		return false;
-	};
-
-	const createSite = async ( {
-		template,
-		email,
-		description,
-		name,
-		phone,
-		address,
-		category,
-		imageKeyword,
-		socialProfiles,
-		language,
-		images,
-		features,
-	} ) =>
-		await apiFetch( {
-			path: 'zipwp/v1/site',
-			method: 'POST',
-			data: {
-				template,
-				business_email: email,
-				business_description: description,
-				business_name: name,
-				business_phone: phone,
-				business_address: address,
-				business_category: category,
-				image_keyword: imageKeyword,
-				social_profiles: socialProfiles,
-				language,
-				images,
-				site_features: features,
-			},
-		} );
-
-	const previousErrors = async () => {
-		try {
-			const response = await apiFetch( {
-				path: 'zipwp/v1/import-error-log',
-				method: 'GET',
-			} );
-			if ( response.success ) {
-				const errorData = response.data.data;
-				if ( errorData && Object.values( errorData ).length > 0 ) {
-					return errorData;
-				}
-			}
-
-			return {};
-		} catch ( error ) {
-			return {};
-		}
-	};
-
-	const handleCreateSiteResponse = async ( requestData ) => {
-		if ( isInProgress ) {
-			return;
-		}
-		// Start the process.
-		setIsInProgress( true );
-
-		const response = await createSite( requestData );
-
-		if ( response.success ) {
-			const websiteData = response.data.data.site;
-			// Close the onboarding screen on success.
-			setWebsiteInfoAIStep( websiteData );
-			updateImportAiSiteData( {
-				templateId: websiteData.uuid,
-				importErrorMessages: {},
-				importErrorResponse: [],
-				importError: false,
-			} );
-			nextStep();
-		} else {
-			// Handle error.
-			const message = response?.data?.data;
-			if (
-				typeof message === 'string' &&
-				message.includes( 'Usage limit' )
-			) {
-				setLimitExceedModal( {
-					open: true,
-				} );
-			}
-			setIsInProgress( false );
-		}
-	};
-
-	const handleGenerateContent =
-		( skip = false ) =>
-		async () => {
-			if ( isInProgress ) {
-				return;
-			}
-
-			if ( limitExceeded() ) {
-				setLimitExceedModal( {
-					open: true,
-				} );
-				return;
-			}
-
-			const enabledFeatures = skip
-				? []
-				: siteFeatures
-						.filter( ( feature ) => feature.enabled )
-						.map( ( feature ) => feature.id );
-
-			// Add ecommerce feature if selected template is ecommerce.
-			if ( isEcommarceSite ) {
-				enabledFeatures.push( 'ecommerce' );
-			}
-
-			const requestData = {
-				template: selectedTemplate,
-				email: businessContact?.email,
-				description: businessDetails,
-				name: businessName,
-				phone: businessContact?.phone,
-				address: businessContact?.address,
-				category: businessType,
-				imageKeyword: keywords,
-				socialProfiles: businessContact?.socialMedia,
-				language: siteLanguage,
-				images: selectedImages,
-				features: enabledFeatures,
-			};
-
-			const previousError = await previousErrors();
-			if ( previousError && Object.values( previousError ).length > 0 ) {
-				setPrevErrorAlert( {
-					open: true,
-					error: previousError,
-					requestData,
-				} );
-				return;
-			}
-
-			await handleCreateSiteResponse( requestData );
-		};
-
-	const onConfirmErrorAlert = async () => {
-		setPrevErrorAlert( { open: false, error: {}, requestData: {} } );
-		await handleCreateSiteResponse( prevErrorAlert.requestData );
 	};
 
 	useEffect( () => {
@@ -434,25 +192,8 @@ const Features = () => {
 				loading={ isInProgress }
 				skipButtonText={ __( 'Skip & Start Building', 'ai-builder' ) }
 			/>
-			<PreBuildConfirmModal
-				open={ preBuildModal.open }
-				setOpen={ handleClosePreBuildModal }
-				startBuilding={ handleGenerateContent(
-					preBuildModal.skipFeature
-				) }
-			/>
-			<PremiumConfirmModal
-				open={ premiumModal }
-				setOpen={ setPremiumModal }
-			/>
-			<InformPrevErrorModal
-				open={ prevErrorAlert.open }
-				setOpen={ setPrevErrorAlertOpen }
-				onConfirm={ onConfirmErrorAlert }
-				errorString={ JSON.stringify( prevErrorAlert.error ) }
-			/>
 		</div>
 	);
 };
 
-export default Features;
+export default withBuildSiteController( Features );

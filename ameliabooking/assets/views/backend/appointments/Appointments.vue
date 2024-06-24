@@ -1079,7 +1079,7 @@
           this.fetched = true
           this.options.fetched = true
         }, {
-          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'coupons', 'lessonSpace_spaces', 'resources'],
+          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'coupons', 'lessonSpace_spaces', 'resources', 'taxes'],
           page: 'appointments',
           isFrontEnd: false,
           isPanel: false
@@ -1153,7 +1153,7 @@
                 })
               })
 
-              this.useSortedDateStrings(Object.keys(appointmentDays)).forEach(function (dateKey) {
+              /*this.useSortedDateStrings(Object.keys(appointmentDays)).forEach(function (dateKey) {
                 appointmentDays[dateKey].appointments.forEach(function (app) {
                   if (app.bookings[0].status === 'approved') {
                     $this.appointmentStatusCount.approved++
@@ -1163,7 +1163,7 @@
                     $this.appointmentStatusCount.pending++
                   }
                 })
-              })
+              })*/
             } else {
               appointmentDays = response.data.data.appointments
 

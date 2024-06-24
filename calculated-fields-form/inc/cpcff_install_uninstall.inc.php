@@ -19,6 +19,11 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 	class CPCFF_INSTALLER {
 
 		/**
+		 * Backup directory where storing the files when the plugin is uninstalled.
+		 */
+		private static $bk_directory  = 'calculated-fields-form-bk';
+
+		/**
 		 * Creates the database structure and resource files in every new blog.
 		 * The method is called by the 'wpmu_new_blog' hook.
 		 *
@@ -82,6 +87,10 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 		private static function _db_structure() {
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
+			update_option('CP_CALCULATEDFIELDSF_VERSION', CP_CALCULATEDFIELDSF_VERSION);
+
+			self::_db_backup();
+
 			global $wpdb;
 			$charset_collate = $wpdb->get_charset_collate();
 
@@ -112,15 +121,6 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				used int(10) unsigned NOT NULL DEFAULT 0,
 				UNIQUE KEY id (id)
 				) $charset_collate;";
-
-			// CHANGE ROW_FORMAT ONLY ONCE.
-			if ( get_option( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '_ROW_FORMAT', 0 ) == 0 ) {
-				update_option( $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '_ROW_FORMAT', 1 );
-				$check_table_exists = $wpdb->get_results( 'SHOW TABLES LIKE "' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . '"' ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-				if ( count( $check_table_exists ) ) {
-					$wpdb->query( 'ALTER TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . ' ROW_FORMAT=DYNAMIC' ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-				}
-			}
 
 			// Forms structures table.
 			$db_queries[] = 'CREATE TABLE ' . $wpdb->prefix . CP_CALCULATEDFIELDSF_FORMS_TABLE . " (
@@ -202,6 +202,25 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 				UNIQUE KEY id (id)
 				) $charset_collate;";
 
+			// CHANGE ROW_FORMAT
+			if ( 0 == get_option( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'_ROW_FORMAT', 0 ) ) {
+                update_option($wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE.'_ROW_FORMAT', 1);
+
+                try {
+					$table_status = $wpdb->get_row( $wpdb->prepare( 'SHOW TABLE STATUS FROM ' . $wpdb->dbname . ' WHERE name=%s;', $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+					if ( $wpdb->last_error ) {
+						throw new Exception($wpdb->last_error);
+					}
+
+					if ( ! empty( $table_status ) && isset( $table_status[ 'Row_format' ] ) &&  strtolower( $table_status['Row_format'] ) !== 'dynamic' ) {
+						$db_queries[] =  "ALTER TABLE " . $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE . " ROW_FORMAT=DYNAMIC"; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					}
+				} catch ( Exception $err ) {
+					error_log( $err->getMessage() );
+				}
+            }
+
 			dbDelta( $db_queries ); // Running the queries.
 
 			// Alter table.
@@ -219,7 +238,67 @@ if ( ! class_exists( 'CPCFF_INSTALLER' ) ) {
 			self::_predefined_forms();
 		} // End _db_structure.
 
-		private static function _alter_table( $table, $new_columns = array() ) {
+		private static function _create_dir_bk() {
+			try {
+				$dirname = WP_PLUGIN_DIR.'/'.self::$bk_directory;
+				if ( !file_exists( $dirname ) ) mkdir( $dirname );
+				if ( is_dir( $dirname ) ) {
+					if ( ! file_exists( $dirname . '/.htaccess' ) ) {
+						try {
+							file_put_contents( $dirname . '/.htaccess', 'Deny from All' );
+						} catch ( Exception $err ) {}
+					}
+					return $dirname;
+				}
+			} catch( Exception $err ){}
+			return false;
+		} // End _create_dir_bk
+
+		/**
+		 * Stores the forms structures and submissions in .JSON  files.
+		 * WP_PLUGIN_DIR/bk_directory/tableName_blogID_yyyy_mm_dd_hh_ii_ss_######.json
+		 *
+		 */
+		private static function _db_backup() {
+			$dirname = self::_create_dir_bk();
+
+			if ( $dirname ) {
+				global $wpdb;
+
+				$wpdb->suppress_errors();
+
+				// Implemented as array for future uses.
+				$tables = array( $wpdb->prefix.CP_CALCULATEDFIELDSF_FORMS_TABLE );
+
+				foreach ( $tables as $table_name ) {
+					$rows = $wpdb->get_results( 'SELECT * FROM ' . $table_name, ARRAY_A  );
+
+					if ( ! empty( $rows ) ) {
+
+						$file_path = $dirname . '/' . sanitize_file_name( $table_name . '_' . date( 'Y_m_d_H_i_s') . '_' . uniqid( '', true) . '.json' );
+
+						$separator = '';
+						$h = fopen( $file_path, 'a');
+
+						if ( false !== $h ) {
+							try {
+								fwrite( $h, "[" );
+
+								foreach ( $rows as $row ) {
+									fwrite( $h, $separator . json_encode( $row, JSON_INVALID_UTF8_SUBSTITUTE|JSON_PARTIAL_OUTPUT_ON_ERROR ) );
+									$separator = ",\n";
+								}
+								fwrite( $h, "]" );
+							} catch ( Exception $err ) {}
+
+							fclose( $h );
+						}
+					}
+				}
+			}
+		} // End _db_backup
+
+        private static function _alter_table( $table, $new_columns = array() ) {
 			try {
 				if ( count( $new_columns ) ) {
 					global $wpdb;

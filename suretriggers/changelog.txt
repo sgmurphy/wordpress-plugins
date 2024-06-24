@@ -1,3 +1,12 @@
+Version 1.0.50 - Monday, 24th June 2024
+- Improvement: "myCred" - Added new Actions
+- Improvement: "Voxel" - Added new Triggers and Actions, and enhanced order Triggers response
+- Improvement: "LatePoint" - Added WP user support in "Create Agent" Action
+- Improvement: "AffiliateWP" - Added improvement for referral amount in "WooCommerce Product Purchased using Affiliate Referral" Trigger
+- Improvement: "GiveWP" - Added support for custom field data in Triggers
+- Improvement: "Easy Digital Downloads" - Added support for custom field data in Triggers
+- Improvement: "Jetpack CRM" - Added new Action
+
 Version 1.0.49 - Tuesday, 4th June 2024
 - Improvement: "Voxel" - Enhanced Order related Triggers
 - Improvement: "BuddyBoss" - Enhanced "Create Group" Action with Group Type support

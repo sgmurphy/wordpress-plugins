@@ -52,6 +52,15 @@ class Elementor_CFF_Widget extends Widget_Base {
 			}
 		}
 
+		$templates = array('' => ' - ');
+		$default_template = '';
+
+		require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_templates.inc.php';
+		$templates_list = \CPCFF_TEMPLATES::load_templates();
+		foreach ( $templates_list as $template_item ) {
+			$templates[ $template_item['prefix'] ] = esc_html( $template_item['title'] );
+		}
+
 		$this->add_control(
 			'form',
 			array(
@@ -74,6 +83,27 @@ class Elementor_CFF_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'templates',
+			array(
+				'label' 	=>  __('Apply template', 'calculated-fields-form'),
+				'type' 		=> Controls_Manager::SELECT,
+				'classes' 	=> 'cff-widefat cff-template-selector',
+				'options' 	=> $templates,
+				'default' 	=> $default_template
+			)
+		);
+
+		$this->add_control(
+			'template_thumbnail',
+			array(
+				'type' 			=> Controls_Manager::RAW_HTML,
+				'show_label' 	=> false,
+				'classes' 		=> 'cff-widefat',
+				'raw'			=> '<div class="cff-thumbnail-container"></div>'
+			)
+		);
+
 		if ( current_user_can( 'manage_options' ) ) {
 			$this->add_control(
 				'open-editor',
@@ -92,12 +122,18 @@ class Elementor_CFF_Widget extends Widget_Base {
 	} // End register_controls
 
 	private function _get_shortcode() {
-		 $settings = $this->get_settings_for_display();
-		$attrs     = sanitize_text_field( $settings['attrs'] );
+		$settings  	= $this->get_settings_for_display();
+		$attrs     	= sanitize_text_field( $settings['attrs'] );
+		$template 	= sanitize_text_field($settings['templates']);
+
 		if ( ! empty( $attrs ) ) {
 			$attrs = ' ' . $attrs;
 		}
-		return '[CP_CALCULATED_FIELDS id="' . @intval( $settings['form'] ) . '"' . $attrs . ']';
+		if ( ! empty( $template ) ) {
+			$template = ' template="' . esc_attr( $template ) . '"';
+		}
+
+		return '[CP_CALCULATED_FIELDS id="' . @intval( $settings['form'] ) . '"' . $attrs . $template . ']';
 	} // End _get_shortcode
 
 	protected function render() {
@@ -119,6 +155,8 @@ class Elementor_CFF_Widget extends Widget_Base {
 				}
 				if ( 'id' == $i ) {
 					$url .= '&cff-amp-form';
+				} elseif ( 'template' == $i ) {
+					$url .= '&cff-form-attr-template';
 				} else {
 					$url .= '&' . urlencode( sanitize_text_field( $i ) );
 				}

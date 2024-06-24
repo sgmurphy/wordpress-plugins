@@ -1090,7 +1090,7 @@ class Bl_Post_Archive_ELement extends Widget_Base {
                                             <a class="htbuilder-read-more-btn" href="<?php the_permalink(); ?>">
                                                 <?php
                                                     if( !empty( $settings['read_more_btn_text'] ) ){
-                                                        echo esc_html__( $settings['read_more_btn_text'], 'htmega-addons' );
+                                                        echo esc_html( $settings['read_more_btn_text'] );
                                                     }else{
                                                         echo esc_html__( 'Read more', 'htmega-addons' );
                                                     }

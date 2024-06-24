@@ -913,7 +913,11 @@ export default {
       let j = i.length > 3 ? i.length % 3 : 0
 
       return (showCurrency ? pricePrefix : '') + (j ? i.substr(0, j) + thousandSeparator : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + thousandSeparator) + (decimalPlaces ? decimalSeparator + Math.abs(price - i).toFixed(decimalPlaces).slice(2) : '') + (showCurrency ? priceSuffix : '')
-    }
+    },
+
+    getPercentage (amount, percentage) {
+      return amount * percentage / 100
+    },
   },
 
   computed: {

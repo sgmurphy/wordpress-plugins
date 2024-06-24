@@ -3,7 +3,7 @@
         'name' => 'ninjateam/filebird',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3fb1975fcc45fe7eaf7cc80cfa39e805069fcbac',
+        'reference' => '24af49089885f0c0cf35f63c3eb89929f01ce64d',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'ninjateam/filebird' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3fb1975fcc45fe7eaf7cc80cfa39e805069fcbac',
+            'reference' => '24af49089885f0c0cf35f63c3eb89929f01ce64d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

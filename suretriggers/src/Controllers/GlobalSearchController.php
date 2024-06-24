@@ -32,6 +32,7 @@ use OsAgentHelper;
 use OsBookingHelper;
 use OsCustomerHelper;
 use OsServiceHelper;
+use OsWpUserHelper;
 use PrestoPlayer\Models\Video;
 use RGFormsModel;
 use SureTriggers\Integrations\AffiliateWP\AffiliateWP;
@@ -79,6 +80,7 @@ use PeepSoUser;
 use PeepSoField;
 use Mint\MRM\DataBase\Models\ContactModel;
 use Mint\MRM\DataBase\Models\ContactGroupModel;
+use SureTriggers\Integrations\Voxel\Voxel;
 
 /**
  * GlobalSearchController- Add ajax related functions here.
@@ -1642,8 +1644,14 @@ class GlobalSearchController {
 					$pluggable_data['zip']            = $address_data['zip'];
 					$pluggable_data['country']        = $address_data['country'];
 				}
-				$donor_comment             = give_get_donor_donation_comment( $payment->ID, $payment->donor_id );
-				$pluggable_data['comment'] = isset( $doner['comment_content'] ) ? $donor_comment : '';
+				// Payment meta.
+				$payment_meta = $payment->get_meta();
+				if ( is_array( $payment_meta ) && isset( $payment_meta['user_info'] ) ) {
+					unset( $payment_meta['user_info'] );
+				}
+				$pluggable_data['payment_meta'] = $payment_meta;
+				$donor_comment                  = give_get_donor_donation_comment( $payment->ID, $payment->donor_id );
+				$pluggable_data['comment']      = ( is_array( $donor_comment ) && isset( $donor_comment['comment_content'] ) ) ? $donor_comment : '';
 			}
 
 			$context['response_type'] = 'live';
@@ -5424,8 +5432,9 @@ class GlobalSearchController {
 		$product_id = (int) ( isset( $data['filter']['product_id']['value'] ) ? $data['filter']['product_id']['value'] : -1 );
 		$term       = isset( $data['search_term'] ) ? $data['search_term'] : '';
 
-		$order_status    = ( isset( $data['filter']['to_status']['value'] ) ? $data['filter']['to_status']['value'] : -1 );
-		$order_note_type = ( isset( $data['filter']['note_type']['value'] ) ? $data['filter']['note_type']['value'] : -1 );
+		$order_status      = ( isset( $data['filter']['to_status']['value'] ) ? $data['filter']['to_status']['value'] : -1 );
+		$from_order_status = ( isset( $data['filter']['from_status']['value'] ) ? $data['filter']['from_status']['value'] : -1 );
+		$order_note_type   = ( isset( $data['filter']['note_type']['value'] ) ? $data['filter']['note_type']['value'] : -1 );
 
 		if ( in_array( $term, [ 'product_added_to_cart', 'product_viewed' ], true ) ) {
 			if ( -1 === $product_id ) {
@@ -5756,16 +5765,65 @@ class GlobalSearchController {
 			$orders   = wc_get_orders( $args );
 			$order_id = '';
 			if ( count( $orders ) > 0 ) {
-				$order_id                 = $orders[0]->get_id();
-				$order                    = wc_get_order( $order_id );
-				$user_id                  = $order->get_customer_id();
-				$order_sample_data        = array_merge(
+				$order_id    = $orders[0]->get_id();
+				$order       = wc_get_order( $order_id );
+				$user_id     = $order->get_customer_id();
+				$items       = $order->get_items();
+				$product_ids = [];
+				foreach ( $items as $item ) {
+					$product_ids[] = $item['product_id'];
+				}
+				$product_data = [];
+				foreach ( $product_ids as $key => $product_id ) {
+					/**
+					 *
+					 * Ignore line
+					 *
+					 * @phpstan-ignore-next-line
+					 */
+					$product_data[ 'product' . $key ] = WooCommerce::get_product_context( $product_id );
+					/**
+					 *
+					 * Ignore line
+					 *
+					 * @phpstan-ignore-next-line
+					 */
+					$terms = get_the_terms( $product_id, 'product_cat' );
+					if ( ! empty( $terms ) && is_array( $terms ) && isset( $terms[0] ) ) {
+						$cat_name = [];
+						foreach ( $terms as $cat ) {
+							$cat_name[] = $cat->name;
+						}
+						$product_data[ 'product' . $key ]['category'] = implode( ', ', $cat_name );
+					}
+					/**
+					 *
+					 * Ignore line
+					 *
+					 * @phpstan-ignore-next-line
+					 */
+					$terms_tags = get_the_terms( $product_id, 'product_tag' );
+					if ( ! empty( $terms_tags ) && is_array( $terms_tags ) && isset( $terms_tags[0] ) ) {
+						$tag_name = [];
+						foreach ( $terms_tags as $tag ) {
+							$tag_name[] = $tag->name;
+						}
+						$product_data[ 'product' . $key ]['tag'] = implode( ', ', $tag_name );
+					}
+				}
+				$order_sample_data                = array_merge(
 					WooCommerce::get_order_context( $order_id ),
-					WordPress::get_user_context( $user_id )
+					$product_data
 				);
-				$context['response_type'] = 'live';
+				$order_sample_data['user']        = WordPress::get_user_context( $user_id );
+				$order_sample_data['to_status']   = $order_status;
+				$order_sample_data['from_status'] = $from_order_status;
+				$context['response_type']         = 'live';
 			}
-			$context['pluggable_data'] = $order_sample_data;
+
+			$order_sample_data['to_status']   = $order_status;
+			$order_sample_data['from_status'] = $from_order_status;
+			$context['pluggable_data']        = $order_sample_data;
 		} elseif ( 'order_note_added' === $term ) {
 			global $wpdb;
 			$result   = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}comments WHERE comment_type ='order_note' ORDER BY comment_ID DESC LIMIT 1" );
@@ -15641,6 +15699,28 @@ class GlobalSearchController {
 	}
 
 	/**
+	 * Prepare LatePoint Agents WP User List.
+	 *
+	 * @param array $data Search Params.
+	 * @return array
+	 */
+	public function search_lp_user_agents_list( $data ) {
+
+		if ( ! class_exists( 'OsWpUserHelper' ) ) {
+			return [];
+		}
+		$agents  = OsWpUserHelper::get_wp_users_for_select( [ 'role' => 'latepoint_agent' ] );
+		$options = [];
+		if ( ! empty( $agents ) ) {
+			$options = $agents;
+		}
+		return [
+			'options' => $options,
+			'hasMore' => false,
+		];
+	}
+
+	/**
 	 * Prepare LatePoint Statuses List.
 	 *
 	 * @param array $data Search Params.
@@ -16068,7 +16148,7 @@ class GlobalSearchController {
 			'hasMore' => false,
 		];
 	}
-
+	
 	/**
 	 * Prepare elementor forms.
 	 *
@@ -17088,6 +17168,8 @@ class GlobalSearchController {
 				$context['pluggable_data']['payment_method'] = $results[0]['payment_method'];
 				$context['pluggable_data']['status']         = $results[0]['status'];
 				$context['pluggable_data']['created_at']     = $results[0]['created_at'];
+				$context['pluggable_data']['subtotal']       = $results[0]['subtotal'];
+				$context['pluggable_data']['total']          = $results[0]['total'];
 				// Get order items.
 				$order                                        = \Voxel\Product_Types\Orders\Order::find(
 					[
@@ -17100,19 +17182,54 @@ class GlobalSearchController {
 				$context['pluggable_data']['shipping_amount'] = $order->get_shipping_amount();
 				$context['pluggable_data']['order_item_count'] = $order->get_item_count();
 				foreach ( $order_items as $item ) {
+					$addon_data = [];
+					if ( is_object( $item ) && method_exists( $item, 'get_addons' ) ) {
+						// Get addon details.
+						$addons     = $item->get_addons();
+						$addon_data = [];
+		
+						// Add the addons to the simple entry.
+						if ( $addons && isset( $addons['summary'] ) ) {
+							$addon_data = $addons['summary'];
+						}
+					}
 					$context['pluggable_data']['order_items'][] = [
+						'id'                    => $item->get_id(),
 						'type'                  => $item->get_type(),
+						'currency'              => $item->get_currency(),
 						'quantity'              => $item->get_quantity(),
+						'subtotal'              => $item->get_subtotal(),
+						'product_id'            => $item->get_post()->get_id(),
 						'product_label'         => $item->get_product_label(),
 						'product_thumbnail_url' => $item->get_product_thumbnail_url(),
 						'product_link'          => $item->get_product_link(),
+						'description'           => $item->get_product_description(),
+						'addon_data'            => $addon_data,
 					];
+					// If booking item, get booking details.
+					if ( 'booking' === $item->get_type() ) {
+						$details = $item->get_order_page_details();
+						$context['pluggable_data']['order_items']['booking_type'] = $details['booking']['type'];
+						if ( isset( $details['booking']['count_mode'] ) ) {
+							$context['pluggable_data']['order_items']['booking_count_mode'] = $details['booking']['count_mode'];
+						}
+						if ( 'date_range' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_start_date'] = $details['booking']['start_date'];
+							$context['pluggable_data']['order_items']['booking_end_date']   = $details['booking']['end_date'];
+						} elseif ( 'single_day' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_date'] = $details['booking']['date'];
+						} elseif ( 'timeslots' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_date']      = $details['booking']['date'];
+							$context['pluggable_data']['order_items']['booking_slot_from'] = $details['booking']['slot']['from'];
+							$context['pluggable_data']['order_items']['booking_slot_to']   = $details['booking']['slot']['to'];                         
+						}
+					}
 				}
 				// Get Customer.
 				$context['pluggable_data']['customer'] = WordPress::get_user_context( $results[0]['customer_id'] );
 				$context['response_type']              = 'live';
 			} else {
-				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"type": "regular","quantity": 1,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/product-1\/"}],"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
+				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","subtotal": 10,"total": 10,"tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"id": 11,"type": "regular","currency": "USD","quantity": 1,"subtotal": 10,"product_id": 9211,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/pro-1\/","description": "","addon_data": []}],"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
 		} elseif ( 'order_approved' === $term || 'order_declined' === $term ) {
 			if ( 'order_approved' === $term ) {
@@ -17129,6 +17246,8 @@ class GlobalSearchController {
 				$context['pluggable_data']['payment_method'] = $results[0]['payment_method'];
 				$context['pluggable_data']['status']         = $results[0]['status'];
 				$context['pluggable_data']['created_at']     = $results[0]['created_at'];
+				$context['pluggable_data']['subtotal']       = $results[0]['subtotal'];
+				$context['pluggable_data']['total']          = $results[0]['total'];
 				// Get order items.
 				$order                                        = \Voxel\Product_Types\Orders\Order::find(
 					[
@@ -17141,13 +17260,48 @@ class GlobalSearchController {
 				$context['pluggable_data']['shipping_amount'] = $order->get_shipping_amount();
 				$context['pluggable_data']['order_item_count'] = $order->get_item_count();
 				foreach ( $order_items as $item ) {
+					$addon_data = [];
+					if ( is_object( $item ) && method_exists( $item, 'get_addons' ) ) {
+						// Get addon details.
+						$addons     = $item->get_addons();
+						$addon_data = [];
+		
+						// Add the addons to the simple entry.
+						if ( $addons && isset( $addons['summary'] ) ) {
+							$addon_data = $addons['summary'];
+						}
+					}
 					$context['pluggable_data']['order_items'][] = [
+						'id'                    => $item->get_id(),
 						'type'                  => $item->get_type(),
+						'currency'              => $item->get_currency(),
 						'quantity'              => $item->get_quantity(),
+						'subtotal'              => $item->get_subtotal(),
+						'product_id'            => $item->get_post()->get_id(),
 						'product_label'         => $item->get_product_label(),
 						'product_thumbnail_url' => $item->get_product_thumbnail_url(),
 						'product_link'          => $item->get_product_link(),
+						'description'           => $item->get_product_description(),
+						'addon_data'            => $addon_data,
 					];
+					// If booking item, get booking details.
+					if ( 'booking' === $item->get_type() ) {
+						$details = $item->get_order_page_details();
+						$context['pluggable_data']['order_items']['booking_type'] = $details['booking']['type'];
+						if ( isset( $details['booking']['count_mode'] ) ) {
+							$context['pluggable_data']['order_items']['booking_count_mode'] = $details['booking']['count_mode'];
+						}
+						if ( 'date_range' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_start_date'] = $details['booking']['start_date'];
+							$context['pluggable_data']['order_items']['booking_end_date']   = $details['booking']['end_date'];
+						} elseif ( 'single_day' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_date'] = $details['booking']['date'];
+						} elseif ( 'timeslots' === $details['booking']['type'] ) {
+							$context['pluggable_data']['order_items']['booking_date']      = $details['booking']['date'];
+							$context['pluggable_data']['order_items']['booking_slot_from'] = $details['booking']['slot']['from'];
+							$context['pluggable_data']['order_items']['booking_slot_to']   = $details['booking']['slot']['to'];                         
+						}
+					}
 				}
 				// Get Customer.
 				$context['pluggable_data']['customer'] = WordPress::get_user_context( $results[0]['customer_id'] );
@@ -17155,7 +17309,7 @@ class GlobalSearchController {
 				$context['pluggable_data']['vendor'] = WordPress::get_user_context( $results[0]['vendor_id'] );
 				$context['response_type']            = 'live';
 			} else {
-				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"type": "regular","quantity": 1,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/product-1\/"}],"vendor": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}},"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
+				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","subtotal": null,"total": null,"tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"id": 11,"type": "regular","currency": "USD","quantity": 1,"subtotal": 10,"product_id": 9211,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/pro-1\/","description": "","addon_data": []}],"vendor": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}},"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
 		}
 		return $context;
@@ -17218,7 +17372,11 @@ class GlobalSearchController {
 	public function search_voxel_posts_triggers_last_data( $data ) {
 		$context = [];
 		global $wpdb;
-		$term    = $data['search_term'];
+		$post_type = 'post';
+		$term      = $data['search_term'];
+		if ( isset( $data['filter']['post_type']['value'] ) ) {
+			$post_type = $data['filter']['post_type']['value'];
+		}
 		$results = [];
 		$args    = [
 			'post_type'      => 'post',
@@ -17233,12 +17391,28 @@ class GlobalSearchController {
 			ON vt.post_id = pm.post_id
 			WHERE pm.meta_key LIKE '%voxel:review_stats%' AND vt.details IS NOT NULL";
 			$results      = $wpdb->get_results( $sql, ARRAY_A );// @phpcs:ignore
+		} elseif ( 'post_submitted' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'post_updated' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY post_modified DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'collection_post_submitted' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'collection' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'collection_post_updated' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY post_modified DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'collection' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'new_wall_post_by_user' === $term ) {
+			$sql     = "SELECT vt.* FROM  {$wpdb->prefix}voxel_timeline vt JOIN {$wpdb->prefix}posts p ON vt.post_id = p.ID JOIN  {$wpdb->prefix}postmeta pm ON pm.post_id = p.ID WHERE p.post_type LIKE %s ORDER BY vt.id DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, $post_type ), ARRAY_A );// @phpcs:ignore
 		}
-		if ( 'post_approved' === $term || 'post_rejected' === $term ) {
+		if ( 'post_approved' === $term || 'post_rejected' === $term || 'post_submitted' === $term || 'post_updated' === $term ) {
 			$posts = get_posts( $args );
 			if ( ! empty( $posts ) ) {
-				$context['pluggable_data'] = WordPress::get_post_context( $posts[0]->ID );
-				$context['response_type']  = 'live';
+				$context['pluggable_data']         = WordPress::get_post_context( $posts[0]->ID );
+				$context['pluggable_data']['post'] = Voxel::get_post_fields( $posts[0]->ID );
+				$context['response_type']          = 'live';
 			} else {
 				$context['pluggable_data'] = [
 					'ID'                    => 557,
@@ -17260,7 +17434,7 @@ class GlobalSearchController {
 					'post_modified_gmt'     => '2022-11-18 12:18:14',
 					'post_content_filtered' => '',
 					'post_parent'           => 0,
-					'guid'                  => 'https://abc.com/test-post/',
+					'guid'                  => 'https://example.com/test-post/',
 					'menu_order'            => 0,
 					'post_type'             => 'post',
 					'post_mime_type'        => '',
@@ -17272,6 +17446,7 @@ class GlobalSearchController {
 		} elseif ( 'post_reviewed' === $term ) {
 			if ( ! empty( $results ) ) {
 				$context['pluggable_data']                      = WordPress::get_post_context( $results[0]['post_id'] );
+				$context['pluggable_data']['post']              = Voxel::get_post_fields( $results[0]['post_id'] );
 				$context['pluggable_data']['review_content']    = $results[0]['content'];
 				$context['pluggable_data']['review_created_at'] = $results[0]['created_at'];
 				$context['pluggable_data']['review_details']    = json_decode( $results[0]['details'], true );
@@ -17279,6 +17454,178 @@ class GlobalSearchController {
 				$context['response_type']                       = 'live';
 			} else {
 				$context = json_decode( '{"pluggable_data":{"ID": 8291,"post_author": "1","post_date": "2024-03-18 09:01:54","post_date_gmt": "2024-03-18 09:01:54","post_content": "<p>PizzaCrust - Since 2009! Whether it\u2019s our iconic Sandwiches, wooden baked pizzas, signature sauce, original fresh dough or toppings, we invest in bringing the freshest and best ingredients to bring you the tastiest meal.<\/p>","post_title": "Pizza Crust","post_excerpt": "","post_status": "publish","comment_status": "open","ping_status": "closed","post_password": "","post_name": "sach-pizza","to_ping": "","pinged": "","post_modified": "2024-03-18 09:01:54","post_modified_gmt": "2024-03-18 09:01:54","post_content_filtered": "","post_parent": 0,"guid": "https:\/\/suretriggers-wpnew.local\/places\/sach-pizza\/","menu_order": 0,"post_type": "places","post_mime_type": "","comment_count": "0","filter": "raw","review_content": "Nice one","review_created_at": "2024-04-04 12:59:22","review_details": {"rating": {"score": -1,"custom-660": -1,"custom-978": -1,"custom-271": -1}},"review_by": {"wp_user_id": 188,"user_login": "dev4","display_name": "dev4","user_firstname": "","user_lastname": "","user_email": "dev4@yopmail.com","user_role": ["subscriber"]}},"response_type":"sample"}', true );// @phpcs:ignore
+			}
+		} elseif ( 'collection_post_submitted' === $term || 'collection_post_updated' === $term ) {
+			if ( ! empty( $results ) ) {
+				$context['pluggable_data']               = Voxel::get_post_fields( $results[0]['ID'] );
+				$context['pluggable_data']['collection'] = WordPress::get_post_context( $results[0]['ID'] );
+				$context['response_type']                = 'live';
+			} else {
+				$context = json_decode(
+					'{"pluggable_data":{"field_step-general": null,"field_title": "First Collection","field_items": [8909,8293],"collection": {"ID": 9142,"post_author": "35",
+                "post_date": "2024-05-27 05:55:21","post_date_gmt": "2024-05-27 05:55:21","post_content": "This is a first collection","post_title": "First Collection","post_excerpt": "","post_status": "publish","comment_status": "open","ping_status": "closed","post_password": "","post_name": "first-collection","to_ping": "","pinged": "","post_modified": "2024-05-27 05:55:21","post_modified_gmt": "2024-05-27 05:55:21","post_content_filtered": "","post_parent": 0,"guid": "https:\/\/example.com\/collection\/first-collection\/","menu_order": 0,"post_type": "collection","post_mime_type": "","comment_count": "0","filter": "raw"}},"response_type":"sample"}', true );// @phpcs:ignore
+			}
+		} elseif ( 'new_wall_post_by_user' === $term ) {
+			if ( ! empty( $results ) ) {
+				$context['pluggable_data']['post'] = Voxel::get_post_fields( $results[0]['post_id'] );
+				$user                              = get_userdata( $results[0]['user_id'] );
+				if ( $user ) {
+					$user_data                                      = (array) $user->data;
+					$context['pluggable_data']['user_display_name'] = $user_data['display_name'];
+					$context['pluggable_data']['user_name']         = $user_data['user_nicename'];
+					$context['pluggable_data']['user_email']        = $user_data['user_email'];
+					$context['pluggable_data']['user_id']           = $results[0]['user_id'];
+				}
+				if ( function_exists( 'Voxel\Timeline\prepare_status_json' ) && class_exists( 'Voxel\Timeline\Status' ) ) {
+					// Get the status details.
+					$args           = [
+						'post_id'  => $results[0]['post_id'],
+						'order_by' => 'created_at',
+						'order'    => 'desc',
+					];
+					$statuses       = \Voxel\Timeline\Status::query( $args );
+					$status_details = \Voxel\Timeline\prepare_status_json( $statuses[0] );
+					foreach ( (array) $status_details as $key => $value ) {
+						$context['pluggable_data']['wall_post'][ $key ] = $value;
+					}
+				}
+				$context['response_type'] = 'live';
+			} else {
+				$context = json_decode( '{"pluggable_data":{"post": {"step-general": null,"voxel:name": "johnd","voxel:avatar": [],"description": "","field_step-general": null,"field_voxel:name": "johnd","field_voxel:avatar": [],"field_description": ""},"user_display_name": "johnd","user_name": "johnd","user_email": "johnd@yopmail.com","user_id": "1","wall_post": {"content": "new wallpost","created_at": "2024-06-13 08:44:05","files": [{"source": "existing","id": 9331,"name": "download-1-1.png","alt": "","url": "https:\/\/example.com\/wp-content\/uploads\/2024\/06\/download-1-1.png","preview": "https:\/\/example.com\/wp-content\/uploads\/2024\/06\/download-1-1.png","type": "image\/png"}]}},"response_type":"sample"}', true );// @phpcs:ignore
+			}
+		}
+		return $context;
+	}
+
+	/**
+	 * Get Voxel Profiles Last Data
+	 *
+	 * @param array $data data.
+	 *
+	 * @return array|mixed|string
+	 */
+	public function search_voxel_profiles_triggers_last_data( $data ) {
+		
+		global $wpdb;
+		$context = [];
+		$term    = $data['search_term'];
+
+		if ( ! class_exists( 'Voxel\Timeline\Status' ) || ! function_exists( 'Voxel\Timeline\prepare_status_json' ) || ! class_exists( 'Voxel\Post_Type' ) ) {
+				return;
+		}
+
+		if ( 'profile_created' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'profile_approved' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s AND post_status LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile', 'publish' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'profile_rejected' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s AND post_status LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile', 'rejected' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'profile_reviewed' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}voxel_timeline vt LEFT JOIN {$wpdb->prefix}posts pm
+			ON vt.post_id = pm.ID
+			WHERE pm.post_type LIKE %s AND vt.details IS NOT NULL ORDER BY vt.id DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'profile_updated' === $term ) {
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY post_modified DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		} elseif ( 'profile_new_wall_post' === $term ) {
+			$sql     = "SELECT vt.* FROM  {$wpdb->prefix}voxel_timeline vt JOIN {$wpdb->prefix}posts p ON vt.post_id = p.ID JOIN  {$wpdb->prefix}postmeta pm ON pm.post_id = p.ID WHERE p.post_type LIKE 'profile' ORDER BY vt.id DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+		}
+		if ( 'profile_created' === $term || 'profile_approved' === $term || 'profile_rejected' === $term || 'profile_updated' === $term ) {
+			if ( ! empty( $results ) ) {
+				$context['pluggable_data'] = Voxel::get_post_fields( $results[0]['ID'] );
+				$user                      = get_userdata( $results[0]['post_author'] );
+				if ( $user ) {
+					$user_data = (array) $user->data;
+					$context['pluggable_data']['profile_display_name'] = $user_data['display_name'];
+					$context['pluggable_data']['profile_email']        = $user_data['user_email'];
+					$context['pluggable_data']['profile_user_id']      = $results[0]['post_author'];
+					$context['pluggable_data']['profile_id']           = $results[0]['ID'];
+				}
+				$context['response_type'] = 'live';
+			} else {
+				$context = json_decode( '{"pluggable_data":{"field_step-general": null,"field_voxel:name":"johnd","field_voxel:avatar": [],"field_description": "","profile_display_name": "johnd","profile_name": "johnd","profile_email": "johnd@yopmail.com","profile_user_id": "1"},"response_type":"sample"}', true );// @phpcs:ignore
+			}
+		} elseif ( 'profile_new_wall_post' === $term ) {
+			if ( ! empty( $results ) ) {
+				$context['pluggable_data']['profile'] = Voxel::get_post_fields( $results[0]['post_id'] );
+				$user                                 = get_userdata( $results[0]['user_id'] );
+				if ( $user ) {
+					$user_data = (array) $user->data;
+					$context['pluggable_data']['profile_display_name'] = $user_data['display_name'];
+					$context['pluggable_data']['profile_name']         = $user_data['user_nicename'];
+					$context['pluggable_data']['profile_email']        = $user_data['user_email'];
+					$context['pluggable_data']['profile_user_id']      = $results[0]['user_id'];
+				}
+				// Get the status details.
+				$args           = [
+					'post_id'  => $results[0]['post_id'],
+					'order_by' => 'created_at',
+					'order'    => 'desc',
+				];
+				$statuses       = \Voxel\Timeline\Status::query( $args );
+				$status_details = \Voxel\Timeline\prepare_status_json( $statuses[0] );
+				foreach ( (array) $status_details as $key => $value ) {
+					$context['pluggable_data']['wall_post'][ $key ] = $value;
+				}
+				$context['response_type'] = 'live';
+			} else {
+				$context = json_decode( '{"pluggable_data":{"profile": {"step-general": null,"voxel:name": "johnd","voxel:avatar": [],"description": "","field_step-general": null,"field_voxel:name": "johnd","field_voxel:avatar": [],"field_description": ""},"profile_display_name": "johnd","profile_name": "johnd","profile_email": "johnd@yopmail.com","profile_user_id": "1""wall_post": {"content": "new wallpost","created_at": "2024-06-13 08:44:05","files": [{"source": "existing","id": 9331,"name": "download-1-1.png","alt": "","url": "https:\/\/example.com\/wp-content\/uploads\/2024\/06\/download-1-1.png","preview": "https:\/\/example.com\/wp-content\/uploads\/2024\/06\/download-1-1.png","type": "image\/png"}]}},"response_type":"sample"}', true );// @phpcs:ignore
+			}
+		} elseif ( 'profile_reviewed' === $term ) {
+			if ( ! empty( $results ) ) {
+				// Get the review details.
+				$args           = [
+					'post_id'  => $results[0]['post_id'],
+					'order_by' => 'created_at',
+					'order'    => 'desc',
+				];
+				$statuses       = \Voxel\Timeline\Status::query( $args );
+				$review_details = \Voxel\Timeline\prepare_status_json( $statuses[0] );
+				foreach ( (array) $review_details as $key => $value ) {
+					if ( 'user_can_edit' == $key || 'publisher' == $key || 'user_can_edit' == $key || 'user_can_moderate' == $key ) {
+						continue;
+					}
+					if ( 'files' === $key ) {
+						$value = wp_json_encode( $value );
+					} elseif ( 'reviews' === $key ) {
+						$review_ratings   = isset( $value['ratings'] ) && is_array( $value['ratings'] ) ? $value['ratings'] : [];
+						$value['ratings'] = [];
+						$type             = \Voxel\Post_Type::get( 'profile' );
+					
+						if ( ! empty( $review_ratings ) ) {
+							$rating_levels = $type->reviews->get_rating_levels();
+							$categories    = $type->reviews->get_categories();
+					
+							foreach ( $categories as $category ) {
+								$category_key   = $category['key'];
+								$category_label = strtolower( $category['label'] );
+					
+								if ( isset( $review_ratings[ $category_key ] ) && $category_label ) {
+									foreach ( $rating_levels as $rating_level ) {
+										if ( $review_ratings[ $category_key ] === $rating_level['score'] ) {
+											$value['ratings'][ $category_label ] = $rating_level['label'];
+											break;
+										}
+									}
+								}
+							}
+						}
+					} else {
+						$key = 'review_' . $key;
+					}
+					$context['pluggable_data'][ $key ] = $value;
+				}
+				if ( isset( $context['pluggable_data']['review_user'] ) ) {
+					unset( $context['pluggable_data']['review_user']['avatar'] );
+				}
+				$context['response_type'] = 'live';
+			} else {
+				$context = json_decode( '{"pluggable_data":{"review_id":32,"review_key":"152b0720","review_link":"https://example.com/newsfeed/?status_id=32","review_time":"3 hours ago","review_edit_time":null,"review_content":"new review","review_raw_content":"new review","files":null,"review_is_review":true,"review_user":{"exists":true,"name":"johnd","link":"https://example.com/members/johnd/","id":217},"review_post":{"exists":true,"title":"admin","link":"https://example.com/members/admin/","is_profile":false,"post_type":"profile"},"review_liked_by_user":false,"review_like_count":null,"review_reply_count":null,"review_replies":{"requested":false,"visible":false,"page":1,"loading":false,"hasMore":false,"list":[]},"reviews":{"score":0,"score_formatted":"3.0","mode":"numeric","ratings":{"rating":"Good"}}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
 		}
 		return $context;

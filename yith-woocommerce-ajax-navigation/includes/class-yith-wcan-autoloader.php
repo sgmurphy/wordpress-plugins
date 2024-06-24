@@ -46,6 +46,7 @@ if ( ! class_exists( 'YITH_WCAN_Autoloader' ) ) {
 			$base     = str_replace( '_', '-', $class );
 
 			if ( false !== strpos( $class, 'interface' ) ) {
+				$base     = str_replace( '-interface', '', $base );
 				$filename = 'interface-' . $base . '.php';
 			} elseif ( false !== strpos( $class, 'trait' ) ) {
 				$base     = str_replace( '-trait', '', $base );
@@ -105,6 +106,8 @@ if ( ! class_exists( 'YITH_WCAN_Autoloader' ) ) {
 				$path = $this->include_path . 'widgets/';
 			} elseif ( false !== strpos( $class, 'elementor' ) ) {
 				$path = $this->include_path . 'elementor/';
+			} elseif ( false !== strpos( $class, 'cache_provider' ) ) {
+				$path = $this->include_path . 'cache-providers/';
 			} elseif ( false !== strpos( $class, 'table' ) ) {
 				$path = $this->include_path . 'tables/';
 			} elseif ( false !== strpos( $class, 'shortcode' ) && false === strpos( $class, 'shortcodes' ) ) {

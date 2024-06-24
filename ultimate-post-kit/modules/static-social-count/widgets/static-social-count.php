@@ -279,7 +279,7 @@ class Static_Social_Count extends Group_Control_Query {
 		$repeater->add_control(
 			'heading_icon_social_single',
 			[
-				'label'     => esc_html__('ICON NORMAL', 'ultiamte-post-kit-pro'),
+				'label'     => esc_html__('ICON NORMAL', 'ultimate-post-kit'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -317,7 +317,7 @@ class Static_Social_Count extends Group_Control_Query {
 		$repeater->add_control(
 			'heading_icon_h_social_single',
 			[
-				'label'     => esc_html__('ICON HOVER', 'ultiamte-post-kit-pro'),
+				'label'     => esc_html__('ICON HOVER', 'ultimate-post-kit'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -355,7 +355,7 @@ class Static_Social_Count extends Group_Control_Query {
 		$repeater->add_control(
 			'heading_number_social_single',
 			[
-				'label'     => esc_html__('N U M B E R', 'ultiamte-post-kit-pro'),
+				'label'     => esc_html__('NUMBER', 'ultimate-post-kit'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -374,7 +374,7 @@ class Static_Social_Count extends Group_Control_Query {
 		$repeater->add_control(
 			'heading_meta_social_single',
 			[
-				'label'     => esc_html__('M E T A', 'ultiamte-post-kit-pro'),
+				'label'     => esc_html__('META', 'ultimate-post-kit'),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -527,7 +527,7 @@ class Static_Social_Count extends Group_Control_Query {
 			Group_Control_Background::get_type(),
 			[
 				'name'      => 'static_social_hover_bg',
-				'label'     => esc_html__('Background', 'ultiamte-post-kit-pro'),
+				'label'     => esc_html__('Background', 'ultimate-post-kit'),
 				'types'     => ['classic', 'gradient'],
 				'exclude' => ['image'],
 				'selector'  => '{{WRAPPER}} .upk-static-social-count .upk-item:hover',
@@ -539,7 +539,7 @@ class Static_Social_Count extends Group_Control_Query {
 		$this->start_controls_section(
 			'section_social_count_style',
 			[
-				'label' => esc_html__('Icons', 'ultimate-post-kit'),
+				'label' => esc_html__('Icon', 'ultimate-post-kit'),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -617,7 +617,7 @@ class Static_Social_Count extends Group_Control_Query {
 					]
 				],
 				'selectors' => [
-					'{{WRAPPER}} .upk-static-social-count .upk-icon span i' => 'font-size: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .upk-static-social-count .upk-icon span' => 'font-size: {{SIZE}}{{UNIT}};',
 				]
 			]
 		);
@@ -791,13 +791,13 @@ class Static_Social_Count extends Group_Control_Query {
 					'elementor-repeater-item-' . $social_link['_id'],
 				]);
 				if ($social_link['social_site_link']['is_external'] !== 'on') {
-					$this->add_render_attribute($link_key, 'href', $social_link['social_site_link']['url']);
+					$this->add_render_attribute($link_key, 'href', esc_url($social_link['social_site_link']['url']));
 				} else {
 					$this->add_render_attribute(
 						$link_key,
 						[
 							'href' => [
-								$social_link['social_site_link']['url']
+								esc_url($social_link['social_site_link']['url'])
 							],
 							'target' => '_blank'
 						],

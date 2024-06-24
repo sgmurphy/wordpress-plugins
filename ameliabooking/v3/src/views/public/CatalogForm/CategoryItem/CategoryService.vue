@@ -27,41 +27,52 @@
           class="am-fcis__header-top"
         >
           <div class="am-fcis__header-text">
-        <span class="am-fcis__header-name">
-          {{service.name}}
-        </span>
+            <span class="am-fcis__header-name">
+              {{service.name}}
+            </span>
             <div
               v-if="customizedOptions.serviceBadge.visibility"
               class="am-fcis__badge am-service"
             >
               <span class="am-icon-service"></span>
               <span>
-            {{ amLabels.heading_service }}
-          </span>
+                {{ amLabels.heading_service }}
+              </span>
             </div>
           </div>
           <div class="am-fcis__header-action">
-        <span
-          v-if="customizedOptions.servicePrice.visibility"
-          class="am-fcis__header-price"
-        >
-          {{ (useServicePrice(amEntities, service.id).min || useServicePrice(amEntities, service.id).max) ? useServicePrice(amEntities, service.id).price : amLabels.free }}
-        </span>
+            <span
+              v-if="customizedOptions.servicePrice.visibility"
+              class="am-fcis__header-price"
+            >
+              {{ (useServicePrice(amEntities, service.id).min || useServicePrice(amEntities, service.id).max) ? useServicePrice(amEntities, service.id).price : amLabels.free }}
+            </span>
+            <span
+              v-if="(customizedOptions.tax?.visibility ?? true) && useTaxVisibility(store, service.id, 'service')"
+              class="am-fcis__header-tax"
+            >
+              <template v-if="amSettings.payments.taxes.excluded">
+                {{ `+${amLabels.total_tax_colon}` }}
+              </template>
+              <template v-else>
+                {{amLabels.incl_tax}}
+              </template>
+            </span>
             <span class="am-fcis__header-btn">
-          <AmButton
-            :type="customizedOptions.bookingBtn.buttonType"
-            @click="bookNow"
-          >
-            {{ amLabels.book_now }}
-          </AmButton>
-        </span>
+              <AmButton
+                :type="customizedOptions.bookingBtn.buttonType"
+                @click="bookNow"
+              >
+                {{ amLabels.book_now }}
+              </AmButton>
+            </span>
           </div>
         </div>
         <div
           v-if="customizedOptions.serviceCategory.visibility
-       || customizedOptions.serviceDuration.visibility
-       || customizedOptions.serviceCapacity.visibility
-       || customizedOptions.serviceLocation.visibility"
+          || customizedOptions.serviceDuration.visibility
+          || customizedOptions.serviceCapacity.visibility
+          || customizedOptions.serviceLocation.visibility"
           class="am-fcis__header-bottom"
         >
           <div class="am-fcis__mini-info">
@@ -92,8 +103,8 @@
             >
               <span class="am-icon-locations"></span>
               <span>
-            {{ displayServiceLocationLabel(amEntities, service.id) }}
-          </span>
+                {{ displayServiceLocationLabel(amEntities, service.id) }}
+              </span>
             </div>
           </div>
         </div>
@@ -336,7 +347,18 @@
                       {{`${amLabels.save} ${pack.discount}%`}}
                     </span>
                     <span class="am-fcis__include-price">
-                      {{ pack.price ? useFormattedPrice(pack.calculatedPrice ? pack.price : pack.price - pack.price / 100 * pack.discount) : amLabels.free }}
+                      {{ pack.price ? useFormattedPrice(usePackageAmount(pack)) : amLabels.free }}
+                    </span>
+                    <span
+                      v-if="(customizedOptions.tax?.visibility ?? true) && useTaxVisibility(store, pack.id, 'package')"
+                      class="am-fcis__include-price"
+                    >
+                      <template v-if="amSettings.payments.taxes.excluded">
+                        {{ `+${amLabels.total_tax_colon}` }}
+                      </template>
+                      <template v-else>
+                        {{amLabels.incl_tax}}
+                      </template>
                     </span>
                   </div>
                 </div>
@@ -487,7 +509,10 @@ import {
 } from '../../../../assets/js/public/catalog.js'
 import { useFormattedPrice } from '../../../../assets/js/common/formatting.js'
 import { useColorTransparency } from '../../../../assets/js/common/colorManipulation.js'
-import { useBuildPackage } from '../../../../assets/js/public/package.js'
+import {
+  usePackageAmount,
+  useBuildPackage,
+} from '../../../../assets/js/public/package.js'
 import { useDescriptionVisibility } from "../../../../assets/js/common/helper";
 import { useFillAppointments } from "../../../../assets/js/common/appointments";
 import {
@@ -498,6 +523,7 @@ import {
   useCartHasItems,
   useCartStep
 } from '../../../../assets/js/public/cart'
+import { useTaxVisibility } from "../../../../assets/js/common/pricing";
 
 // * Plugin Licence
 let licence = inject('licence')
@@ -905,7 +931,10 @@ export default {
                 }
 
                 &-price {
-                  width: 100%;
+                  margin-bottom: 12px;
+                }
+
+                &-tax {
                   margin-bottom: 12px;
                 }
 
@@ -923,8 +952,6 @@ export default {
             }
           }
         }
-
-        &-text {}
 
         &-name {
           display: inline-flex;
@@ -946,7 +973,20 @@ export default {
           color: var(--am-c-fcis-primary);
         }
 
-        &-btn {}
+        &-tax {
+          display: inline-flex;
+          flex: 0 0 auto;
+          align-items: center;
+          height: 28px;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 1;
+          border-radius: 14px;
+          padding: 0 8px;
+          margin-right: 10px;
+          background-color: var(--am-c-fcis-primary-op20);
+          color: var(--am-c-fcis-primary)
+        }
 
         &-bottom {
           padding: 0 0 16px;

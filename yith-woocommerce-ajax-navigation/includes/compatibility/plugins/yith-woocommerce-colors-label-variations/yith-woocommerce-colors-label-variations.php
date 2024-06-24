@@ -34,8 +34,8 @@ if ( ! class_exists( 'YITH_WCAN_Color_Label_Compatibility' ) ) {
 		 */
 		public function init() {
 			// clear transients when C&L options change.
-			add_action( 'update_option_yith-wccl-show-single-variations-loop', array( 'YITH_WCAN_Cache_Helper', 'delete_transients' ) );
-			add_action( 'update_option_yith-wccl-hide-parent-products-loop', array( 'YITH_WCAN_Cache_Helper', 'delete_transients' ) );
+			add_action( 'update_option_yith-wccl-show-single-variations-loop', array( 'YITH_WCAN_Cache_Helper', 'empty' ) );
+			add_action( 'update_option_yith-wccl-hide-parent-products-loop', array( 'YITH_WCAN_Cache_Helper', 'empty' ) );
 
 			// add support for variations in query, when C&L asks for it.
 			if ( 'yes' === get_option( 'yith-wccl-show-single-variations-loop', 'no' ) ) {

@@ -294,6 +294,7 @@ function visibleChange (eventValue) {
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-text-op65', useColorTransparency(amColors.value.colorDropText, 0.65))
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-hover', useColorTransparency(amColors.value.colorDropText, 0.1))
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-selected', amColors.value.colorPrimary)
+  amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-selected-op10', useColorTransparency(amColors.value.colorPrimary, 0.1))
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-img-bgr', amColors.value.colorSuccess)
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-c-option-img-text', amColors.value.colorMainBgr)
   amSelect.value.tooltipRef.popperRef.contentRef.style.setProperty('--am-font-family', amFonts.value.fontFamily)

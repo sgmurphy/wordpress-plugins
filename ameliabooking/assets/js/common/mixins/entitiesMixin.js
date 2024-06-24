@@ -35,7 +35,7 @@ export default {
       let providerService = this.getProviderById(providerId).serviceList.find(service => service.id === parseInt(serviceId))
 
       return providerService ? Object.assign(
-        this.getServiceById(serviceId),
+        JSON.parse(JSON.stringify(this.getServiceById(serviceId))),
         providerService
       ) : null
     },
@@ -430,6 +430,8 @@ export default {
 
           this.options.entities.categories = this.options.entities.categories.filter(category => availableCategoriesIds.indexOf(category.id) !== -1)
         }
+
+        this.options.entities.taxes = entities.taxes
       }
     },
 
@@ -445,6 +447,7 @@ export default {
           this.responseEntities.services = this.getServicesFromCategories(this.responseEntities.categories)
           this.responseEntities.packages = entities.packages ? entities.packages.filter(pack => pack.available) : []
           this.responseEntities.daysOff = entities.settings ? entities.settings.daysOff : []
+          this.responseEntities.taxes = entities.taxes ? entities.taxes : []
 
           entities.packages = entities.packages.filter(pack => pack.available)
           if (!this.params || !this.params.sort) {
@@ -499,6 +502,8 @@ export default {
       }
 
       this.options.entities.tags = 'tags' in entities ? entities.tags : []
+
+      this.options.entities.taxes = 'taxes' in entities ? entities.taxes : []
     },
 
     getShortCodeEntityIds () {
@@ -696,7 +701,7 @@ export default {
         ).length > 0
       )
 
-      return this.options.isFrontEnd ? employees : this.getFilteredEntities(employees.map(employee => employee.id), 'employees', 'providerId')
+      return this.options.isFrontEnd ? employees : this.getFilteredEntities(employees.map(employee => employee.id), 'employees', 'providerId').sort((a, b) => a.disabled - b.disabled)
     },
 
     servicesFiltered () {
@@ -766,7 +771,7 @@ export default {
         (!this.appointment.categoryId ? true : (typeof selectedCategory !== 'undefined' ? this.employeesFiltered.filter(employee => employee.serviceList.filter(employeeService => employeeService.status === 'visible' && employeeService.categoryId === selectedCategory.id && this.isEmployeeServiceLocation(employee.id, employeeService.id, location.id)).length > 0).length > 0 : false))
       )
 
-      return this.options.isFrontEnd ? locations : this.getFilteredEntities(locations.map(location => location.id), 'locations', 'locationId')
+      return this.options.isFrontEnd ? locations : this.getFilteredEntities(locations.map(location => location.id), 'locations', 'locationId').sort((a, b) => a.disabled - b.disabled)
     },
 
     couponsFilteredService () {
@@ -810,7 +815,7 @@ export default {
         (!this.appointment.providerId ? true : (typeof selectedEmployee !== 'undefined' ? selectedEmployee.serviceList.filter(employeeService => employeeService.status === 'visible' && this.isEmployeeService(this.appointment.providerId, employeeService.id)).map(employeeService => employeeService.categoryId).indexOf(category.id) !== -1 : false))
       )
 
-      return this.options.isFrontEnd ? categories : this.getFilteredEntities(categories.map(category => category.id), 'categories', 'categoryId')
+      return this.options.isFrontEnd ? categories : this.getFilteredEntities(categories.map(category => category.id), 'categories', 'categoryId').sort((a, b) => a.disabled - b.disabled)
     }
   }
 

@@ -546,9 +546,9 @@ class HTMega_Elementor_Widget_VideoPlayer extends Widget_Base {
                 </div>';
             }
         ?>
-            <div class="htmega-player-container" data-videotype=<?php echo wp_json_encode( $videocontainer ); ?>>
+            <div class="htmega-player-container" data-videotype="<?php echo esc_attr( wp_json_encode( $videocontainer ) ); ?>">
                 <?php if($settings['videocontainer'] == 'self'): ?>
-                    <div class="htmega-video-player" data-property=<?php echo wp_json_encode( $player_options_settings );?> ></div>
+                    <div class="htmega-video-player" data-property="<?php echo esc_attr( wp_json_encode( $player_options_settings ) ); ?> "></div>
                 <?php else:
                     if( 'icon' == $buttonicon_type && $settings['buttonicon']['value'] != '' ){
                         echo sprintf('<a class="magnify-video-active" href="%1$s">%2$s %3$s %4$s</a>',esc_url( $settings['video_url'] ),HTMega_Icon_manager::render_icon( $settings['buttonicon'], [ 'aria-hidden' => 'true' ] ), htmega_kses_title($settings['buttontext'] ), $animation_markup );

@@ -99,6 +99,7 @@ const ImportAiSite = () => {
 		xmlImportDone,
 		pluginInstallationAttempts,
 		importErrorMessages,
+		templateId,
 	} = useSelect( ( select ) => {
 		const { getImportSiteProgressData } = select( STORE_KEY );
 		return {
@@ -186,7 +187,7 @@ const ImportAiSite = () => {
 				tryAgainCount,
 			} )
 		);
-		reportErr.append( 'id', templateResponse?.id );
+		reportErr.append( 'id', templateId );
 		reportErr.append( 'plugins', JSON.stringify( requiredPlugins ) );
 		fetch( ajaxurl, {
 			method: 'post',
@@ -2024,8 +2025,12 @@ const ImportAiSite = () => {
 				<div className="flex items-center justify-center gap-x-6">
 					{ showProgressBar && ! importError && (
 						<CircularProgressBar
-							colorCircle="#3d45921a"
-							colorSlice={ importError ? '#EF4444' : '#3D4592' }
+							colorCircle="rgba(var(--zip-blue-crayola) / var(--zip-circle-bg-opacity, 0.102))"
+							colorSlice={
+								importError
+									? 'rgb(var(--zip-alert-error))'
+									: 'rgb(var(--accent-st))'
+							}
 							percent={ importPercent }
 							round
 							speed={

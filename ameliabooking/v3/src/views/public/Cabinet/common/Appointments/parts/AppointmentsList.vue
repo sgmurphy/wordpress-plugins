@@ -25,7 +25,7 @@
           :start="getFrontedFormattedTime(appointment.bookingStart.split(' ')[1].slice(0, 5))"
           :name="store.getters['entities/getService'](appointment.serviceId).name"
           :employee="appointmentEmployee(appointment.provider.id)"
-          :price="useAppointmentPrice(appointment)"
+          :price="getPrice(appointment)"
           :duration="useAppointmentDuration(store, appointment)"
           :periods="[]"
           :extras="useExtrasData(appointment.bookings, store.getters['entities/getService'](appointment.serviceId))"
@@ -100,8 +100,10 @@ import {
 } from "../../../../../../assets/js/common/date";
 import {
   useAppointmentDuration,
-  useAppointmentPrice
 } from "../../../../../../assets/js/admin/appointment";
+import {
+  useAppointmentBookingAmountData,
+} from "../../../../../../assets/js/common/appointments";
 import {
   useCustomFieldsData,
   useExtrasData
@@ -182,6 +184,23 @@ function cancelBooking () {
   }).finally(() => {
     waitingForCancelation.value = false
   })
+}
+
+function getPrice (appointment) {
+  let amountData = useAppointmentBookingAmountData(
+      store,
+      {
+        price: appointment.bookings[0].price,
+        persons: appointment.bookings[0].persons,
+        aggregatedPrice: appointment.bookings[0].aggregatedPrice,
+        extras: appointment.bookings[0].extras,
+        tax: appointment.bookings[0].tax,
+        coupon: appointment.bookings[0].coupon
+      },
+      false
+  )
+
+  return amountData.total - amountData.discount + amountData.tax
 }
 
 function rescheduling (data) {

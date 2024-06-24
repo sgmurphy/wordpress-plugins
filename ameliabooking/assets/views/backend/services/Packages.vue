@@ -489,9 +489,25 @@
   import customFieldMixin from '../../../js/common/mixins/customFieldMixin'
   import PaginationBlock from '../parts/PaginationBlock.vue'
   import packageMixin from '../../../js/frontend/mixins/packageMixin'
+  import taxMixin from '../../../js/common/mixins/taxesMixin'
 
 export default {
-    mixins: [customFieldMixin, paymentMixin, entitiesMixin, appointmentMixin, imageMixin, dateMixin, durationMixin, notifyMixin, customerMixin, priceMixin, helperMixin, appointmentPriceMixin, packageMixin],
+    mixins: [
+      customFieldMixin,
+      paymentMixin,
+      entitiesMixin,
+      appointmentMixin,
+      imageMixin,
+      dateMixin,
+      durationMixin,
+      notifyMixin,
+      customerMixin,
+      priceMixin,
+      helperMixin,
+      appointmentPriceMixin,
+      packageMixin,
+      taxMixin
+    ],
 
     props: [
       'purchasedPackage',
@@ -584,17 +600,15 @@ export default {
 
     methods: {
       getPackageDiscountedPrice (packCustomer) {
-        let discount = 0
-        let price = packCustomer.price
-        let coupon = []
+        let amountData = this.getAmountData(
+          packCustomer.tax && packCustomer.tax.length ? packCustomer.tax[0] : null,
+          packCustomer.price,
+          this.options.entities.coupons.length && packCustomer.couponId
+            ? this.options.entities.coupons.find(c => c.id === packCustomer.couponId)
+            : null
+        )
 
-        if (this.options.entities.coupons.length && packCustomer.couponId) {
-          coupon = this.options.entities.coupons.filter(c => c.id === packCustomer.couponId)
-        }
-
-        discount = coupon.length ? (price * coupon[0].discount / 100 - coupon[0].deduction) : 0
-
-        return (price - Math.abs(discount) < 0) ? 0 : (price - discount)
+        return amountData.total - amountData.discount + amountData.tax
       },
 
       saveCustomerCallback (response) {

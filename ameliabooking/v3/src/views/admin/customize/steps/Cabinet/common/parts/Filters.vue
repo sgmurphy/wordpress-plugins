@@ -20,6 +20,7 @@
         :clearable="false"
         :format="momentDateFormat()"
         :style="cssVars"
+        :lang="localLanguage"
         class="am-capf__menu-datepicker"
         @calendar-change="datesChanged"
       ></AmDatePicker>
@@ -123,6 +124,8 @@ const emits = defineEmits(['changeFilters'])
 
 // * Customize
 let amCustomize = inject('customize')
+
+let localLanguage = inject('localLanguage')
 
 // * Labels
 let langKey = inject('langKey')

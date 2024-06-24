@@ -241,10 +241,31 @@ class RestController {
 	 */
 	public function manage_triggers( $request ) {
 		$events = $request->get_param( 'events' ) ? json_decode( stripslashes( $request->get_param( 'events' ) ), true ) : [];
+		// Selected field data from the trigger.
+		$data = $request->get_param( 'data' ) ? json_decode( stripslashes( $request->get_param( 'data' ) ), true ) : [];
+
+		// Get the trigger data from the option and append data in trigger data option.
+		$trigger_data = OptionController::get_option( 'trigger_data' );
+		if ( empty( $trigger_data ) ) {
+			$trigger_data = [];
+		}
+		if ( is_array( $data ) && is_array( $events ) ) {
+			$index = array_search( $data['trigger'], array_column( $events, 'trigger' ) );
+			if ( is_array( $trigger_data ) && false !== $index && $data['integration'] === $events[ $index ]['integration'] ) {
+				$trigger_data[ $data['integration'] ][ $data['trigger'] ]['selected_options'] = $data['selected_data'];
+			}
+		}
 
 		OptionController::set_option( 'triggers', $events );
+		// Set the new option for the trigger data.
+		OptionController::set_option( 'trigger_data', $trigger_data );
 		$events = array_column( $events, 'trigger' );
-		return self::success_message( [ 'events' => $events ] );
+		return self::success_message(
+			[
+				'events' => $events,
+				'data'   => $trigger_data,
+			] 
+		);
 	}
 
 	/**

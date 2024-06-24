@@ -152,19 +152,29 @@
           <i class="el-icon-plus"></i> <span class="button-text">{{ $root.labels.add_resource }}</span>
         </el-button>
 
+        <!-- New Tax -->
+        <el-button
+          v-if="$router.currentRoute.name === 'wpamelia-finance' && addNewTaxBtnDisplay && $root.settings.capabilities.canWrite === true"
+          type="primary"
+          @click="showDialogTax"
+          class="am-dialog-create"
+          :class="licenceClassDisabled()"
+          :disabled="notInLicence()"
+        >
+          <i class="el-icon-plus"></i> <span class="button-text">{{ $root.labels.new_tax }}</span>
+        </el-button>
+
         <!-- New Coupon -->
-        <transition name="fade">
-          <el-button
-            v-if="$router.currentRoute.name === 'wpamelia-finance' && addNewCouponBtnDisplay && $root.settings.capabilities.canWrite === true"
-            type="primary"
-            @click="showDialogCoupon"
-            class="am-dialog-create"
-            :class="licenceClassDisabled('starter')"
-            :disabled="notInLicence('starter')"
-          >
-            <i class="el-icon-plus"></i> <span class="button-text">{{ $root.labels.new_coupon }}</span>
-          </el-button>
-        </transition>
+        <el-button
+          v-if="$router.currentRoute.name === 'wpamelia-finance' && addNewCouponBtnDisplay && $root.settings.capabilities.canWrite === true"
+          type="primary"
+          @click="showDialogCoupon"
+          class="am-dialog-create"
+          :class="licenceClassDisabled('starter')"
+          :disabled="notInLicence('starter')"
+        >
+          <i class="el-icon-plus"></i> <span class="button-text">{{ $root.labels.new_coupon }}</span>
+        </el-button>
 
         <!-- New Custom Field -->
         <transition name="fade">
@@ -311,6 +321,7 @@
       'servicesTotal',
       'categoriesTotal',
       'financeTotal',
+      'addNewTaxBtnDisplay',
       'addNewCouponBtnDisplay',
       'addNewCustomFieldBtnDisplay',
       'locations',
@@ -359,6 +370,10 @@
 
       showDialogResource () {
         this.$emit('newResourceBtnClicked')
+      },
+
+      showDialogTax () {
+        this.$emit('newTaxBtnClicked')
       },
 
       showDialogCoupon () {

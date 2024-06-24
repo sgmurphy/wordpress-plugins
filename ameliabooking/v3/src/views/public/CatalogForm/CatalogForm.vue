@@ -126,6 +126,7 @@ store.dispatch(
       'packages',
       'entitiesRelations',
       'customFields',
+      'taxes',
     ],
     licence: licence,
     loadEntities: !shortcodeData.value.trigger ? (window.ameliaShortcodeData.filter(i => !i.hasApiCall).length === window.ameliaShortcodeData.length

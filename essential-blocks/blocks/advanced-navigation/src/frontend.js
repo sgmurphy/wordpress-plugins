@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
                  * menu indicator height
                  */
                 element.querySelectorAll('.eb-menu-indicator').forEach(function (indicator) {
-                    indicator.addEventListener('click', function (e) {
+                    indicator?.addEventListener('click', function (e) {
                         e.preventDefault();
                         // Find the parent li element and its corresponding anchor tag
                         const parentLi = this.parentNode;
@@ -100,7 +100,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const mediaQuery = window.matchMedia("(max-width: 767px)");
         // if (mediaQuery.matches) {
         anchors.forEach((anchor) => {
-            anchor.addEventListener("click", function (e) {
+            anchor?.addEventListener("click", function (e) {
                 if (anchor.hash !== "") {
                     e.preventDefault();
                     advNav
@@ -145,12 +145,12 @@ window.addEventListener("DOMContentLoaded", () => {
         const hamburgerOpen = advNav.querySelector('.wp-block-navigation__responsive-container-open');
         const hamburgerClose = advNav.querySelector('.wp-block-navigation__responsive-container-close');
 
-        hamburgerOpen.addEventListener("click", function (e) {
+        hamburgerOpen?.addEventListener("click", function (e) {
             indicators?.forEach((indicator) => {
                 indicator.style.display = 'block';
             });
         });
-        hamburgerClose.addEventListener("click", function (e) {
+        hamburgerClose?.addEventListener("click", function (e) {
             indicators?.forEach((indicator) => {
                 indicator.style.display = 'none';
             });

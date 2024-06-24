@@ -65,7 +65,7 @@
                 {{ getConfirmStatusButtonText().yes }}
               </el-button>
               <el-button size="small" v-if="isStatusOff()" @click="showEntity(false)" type="primary">
-                {{ getConfirmStatusButtonText().yes }}
+                {{ getConfirmStatusButtonText().no }}
               </el-button>
             </div>
           </div>

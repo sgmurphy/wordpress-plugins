@@ -144,6 +144,17 @@ if ( ! class_exists( 'CPCFF_PAGE_BUILDERS' ) ) {
 		public function elementor_editor() {
 			if ( is_admin() ) {
 				wp_enqueue_script( 'cp_calculatedfieldsf_elementor_editor_js', plugins_url( '/pagebuilders/elementor/assets/elementor.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
+
+				// Templates with thumbnails
+				require_once CP_CALCULATEDFIELDSF_BASE_PATH . '/inc/cpcff_templates.inc.php';
+				$templates_list = CPCFF_TEMPLATES::load_templates();
+				$templates = array();
+				foreach ( $templates_list as $template_item ) {
+					$templates[ $template_item['prefix'] ] = esc_attr( ! empty( $template_item['thumbnail'] ) ? $template_item['thumbnail'] : '' );
+				}
+
+				wp_add_inline_script('cp_calculatedfieldsf_elementor_editor_js', 'const cff_template_thumbnail_list=' . json_encode( $templates ), 'before');
+
 				wp_enqueue_style( 'cp_calculatedfieldsf_elementor_editor_css', plugins_url( '/pagebuilders/elementor/assets/elementor.css', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
 
 				if ( current_user_can( 'manage_options' ) ) {

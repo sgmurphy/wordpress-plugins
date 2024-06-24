@@ -625,7 +625,7 @@ class General extends Widget_Base {
 		$this->add_control(
 			'animation_parallax',
 			[ 
-				'label'     => esc_html__( 'Parallax Animation', 'bdthemes-element-pack' ),
+				'label'     => esc_html__( 'Parallax Animation', 'bdthemes-prime-slider' ),
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'separator' => 'before',
@@ -663,7 +663,7 @@ class General extends Widget_Base {
 		$this->add_control(
 			'animation_status',
 			[ 
-				'label'   => esc_html__( 'Advanced Animation', 'bdthemes-element-pack' ),
+				'label'   => esc_html__( 'Advanced Animation', 'bdthemes-prime-slider' ),
 				'type'    => Controls_Manager::SWITCHER,
 				'classes' => BDTPS_CORE_IS_PC,
 			]
@@ -674,13 +674,13 @@ class General extends Widget_Base {
 			$this->add_control(
 				'animation_of',
 				[ 
-					'label'     => __( 'Animation Of', 'bdthemes-element-pack' ),
+					'label'     => __( 'Animation Of', 'bdthemes-prime-slider' ),
 					'type'      => Controls_Manager::SELECT2,
 					'multiple'  => true,
 					'options'   => [ 
-						'.bdt-ps-sub-title'   => __( 'Sub Title', 'bdthemes-element-pack' ),
-						'.bdt-title-tag'      => __( 'Title', 'bdthemes-element-pack' ),
-						'.bdt-slider-excerpt' => __( 'Excerpt', 'bdthemes-element-pack' ),
+						'.bdt-ps-sub-title'   => __( 'Sub Title', 'bdthemes-prime-slider' ),
+						'.bdt-title-tag'      => __( 'Title', 'bdthemes-prime-slider' ),
+						'.bdt-slider-excerpt' => __( 'Excerpt', 'bdthemes-prime-slider' ),
 					],
 					'default'   => [ '.bdt-title-tag' ],
 					'condition' => [ 
@@ -2217,21 +2217,21 @@ class General extends Widget_Base {
 		//Viewport Height
 		$ratio = ( ! empty( $settings['slider_size_ratio']['width'] ) && ! empty( $settings['slider_size_ratio']['height'] ) ) ? $settings['slider_size_ratio']['width'] . ":" . $settings['slider_size_ratio']['height'] : '16:9';
 
-		if ( isset( $settings["viewport_height"]["size"] ) && 'vh' == $settings['viewport_height']['unit'] ) {
+		if ( $settings['enable_height'] && !empty( $settings["viewport_height"]["size"] )  ) {
 			$ratio = false;
 		}
 
 		$this->add_render_attribute( 'slideshow-items', 'class', 'bdt-slideshow-items' );
 
-		if ( isset( $settings["viewport_height"]["size"] ) && $ratio == false ) {
-			$this->add_render_attribute(
-				[ 
-					'slideshow-items' => [ 
-						'style' => 'min-height:' . $settings["viewport_height"]["size"] . 'vh'
-					]
-				]
-			);
-		}
+		// if ( isset( $settings["viewport_height"]["size"] ) && $ratio == false ) {
+		// 	$this->add_render_attribute(
+		// 		[ 
+		// 			'slideshow-items' => [ 
+		// 				'style' => 'min-height:' . $settings["viewport_height"]["size"] . 'vh'
+		// 			]
+		// 		]
+		// 	);
+		// }
 
 		$this->add_render_attribute(
 			[ 

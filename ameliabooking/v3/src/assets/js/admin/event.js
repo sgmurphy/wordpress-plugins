@@ -4,6 +4,7 @@ import {
   getNameTranslated,
   getTicketTranslated
 } from "../public/translation";
+import {useAmount} from "../common/pricing";
 
 function useParsedEvents (events, timeZone, store) {
   let eventsDay = {}
@@ -74,9 +75,15 @@ function useEventBookingsPrice (event) {
         subTotal += event.price
       }
 
-      let discountTotal = (subTotal / 100 * (booking.coupon ? booking.coupon.discount : 0)) + (booking.coupon ? booking.coupon.deduction : 0)
+      let amountData = useAmount(
+        event,
+        booking.coupon,
+        booking.tax ? booking.tax[0] : null,
+        subTotal,
+        false,
+      )
 
-      price += discountTotal > subTotal ? 0 : subTotal - discountTotal
+      price += amountData.price - amountData.discount + amountData.tax
     }
   })
 

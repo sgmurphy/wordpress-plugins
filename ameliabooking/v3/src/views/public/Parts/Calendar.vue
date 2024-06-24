@@ -14,6 +14,9 @@
       :busyness="busyness"
       :date="props.date"
       :service-id="props.serviceId"
+      :tax-visibility="props.taxVisibility"
+      :tax-label="props.taxLabel"
+      :tax-label-incl="props.taxLabelIncl"
       @selected-date="setSelectedDate"
       @selected-time="setSelectedTime"
       @changed-month="changeMonth"
@@ -121,6 +124,18 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  taxVisibility: {
+    type: Boolean,
+    default: false
+  },
+  taxLabel: {
+    type: String,
+    default: ''
+  },
+  taxLabelIncl: {
+    type: String,
+    default: ''
+  }
 })
 
 const emits = defineEmits([
@@ -227,7 +242,9 @@ function setSelectedDuration (value) {
 
   calendarServiceDuration.value = value
 
-  getSlots(() => {})
+  nextTick(() => {
+    getSlots(() => {})
+  })
 }
 
 function setSelectedDate (value) {

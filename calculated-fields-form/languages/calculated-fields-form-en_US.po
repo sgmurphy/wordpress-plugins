@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-06-12 21:18+0200\n"
-"PO-Revision-Date: 2024-06-12 21:18+0200\n"
+"POT-Creation-Date: 2024-06-24 17:06+0200\n"
+"PO-Revision-Date: 2024-06-24 17:06+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -19,15 +19,15 @@ msgstr ""
 msgid "Form Preview"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:176
+#: cp_calculatedfieldsf_free.php:177
 msgid "At least a required field is empty"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:274
+#: cp_calculatedfieldsf_free.php:275
 msgid "Failed security check"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:314
+#: cp_calculatedfieldsf_free.php:315
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the database structure. Please, go to the plugins "
@@ -36,7 +36,7 @@ msgid ""
 "please <a href=\"https://cff.dwbooster.com/contact-us\">contact us</a></div>"
 msgstr ""
 
-#: cp_calculatedfieldsf_free.php:325
+#: cp_calculatedfieldsf_free.php:326
 msgid ""
 "<div class=\"error-text\">The data cannot be stored in database because has "
 "occurred an error with the form structure. Please, try to save the data "
@@ -757,7 +757,7 @@ msgstr ""
 msgid "Troubleshoot settings updated"
 msgstr ""
 
-#: inc/cpcff_admin_int_list.inc.php:158 inc/cpcff_page_builders.inc.php:170
+#: inc/cpcff_admin_int_list.inc.php:158 inc/cpcff_page_builders.inc.php:181
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:9
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:11
 #: pagebuilders/beaverbuilder/cff/cff/cff.php:12
@@ -1167,7 +1167,7 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:89
-#: pagebuilders/elementor/elementor.pb.php:58
+#: pagebuilders/elementor/elementor.pb.php:67
 msgid "Select a form"
 msgstr ""
 
@@ -1181,7 +1181,7 @@ msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:92
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:39
-#: pagebuilders/divi/cff.pb.php:49 pagebuilders/elementor/elementor.pb.php:69
+#: pagebuilders/divi/cff.pb.php:49 pagebuilders/elementor/elementor.pb.php:78
 msgid "Additional attributes"
 msgstr ""
 
@@ -1191,7 +1191,7 @@ msgstr ""
 
 #: inc/cpcff_page_builders.inc.php:94
 #: pagebuilders/beaverbuilder/cff/cff.inc.php:44
-#: pagebuilders/elementor/elementor.pb.php:83
+#: pagebuilders/elementor/elementor.pb.php:113
 #: pagebuilders/siteorigin/siteorigin-cpcff/fields/cff-button.class.php:14
 msgid "Edit form"
 msgstr ""
@@ -1271,15 +1271,19 @@ msgstr ""
 msgid "Select the form."
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:170
+#: pagebuilders/elementor/elementor.pb.php:89
+msgid "Apply template"
+msgstr ""
+
+#: pagebuilders/elementor/elementor.pb.php:208
 msgid "Variable Shortcode"
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:177
+#: pagebuilders/elementor/elementor.pb.php:215
 msgid "Variable shortcode"
 msgstr ""
 
-#: pagebuilders/elementor/elementor.pb.php:182
+#: pagebuilders/elementor/elementor.pb.php:220
 msgid "I need help [+]"
 msgstr ""
 

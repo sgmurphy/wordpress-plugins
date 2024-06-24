@@ -251,7 +251,7 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 					[
 						'label' => esc_html__( 'Choose Template', 'themesflat-elementor' ),
 						'type' => \Elementor\Controls_Manager::SELECT,
-						//'options' => ThemesFlat_Addon_For_Elementor_Carenow::tf_get_template_elementor(),
+						'options' => ThemesFlat_Addon_For_Elementor_Free::tf_get_template_elementor(),
 						'condition' => [
 	                        'list_content_text_type' => 'template',
 	                    ],
@@ -1200,14 +1200,15 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 			if ( $value['list_content_text_type'] == 'template' ) {
 
 				if ( !empty($value['list_content_template']) ) {
+					$post_id = flat_get_post_page_content($value['list_content_template']);
 		            $frontend = new \Elementor\Frontend;
-		            $html_content = sprintf('<div class="accordion-content">%1$s</div>', $frontend->get_builder_content_for_display($value['list_content_template'], true));
+		            $html_content = sprintf('<div class="accordion-content">%1$s</div>', $frontend->get_builder_content_for_display(esc_attr($post_id), true));
 		        }
 			}else {
-				$html_content = sprintf('<div class="accordion-content">%1$s</div>', do_shortcode( $value['list_content'] ));
+				$html_content = sprintf('<div class="accordion-content">%1$s</div>', do_shortcode( esc_attr($value['list_content'] )));
 			}			
 
-			$accordion_item .= sprintf('<div class="tf-accordion-item %3$s">%1$s %2$s</div>', $html_title, $html_content, $value['set_active']);
+			$accordion_item .= sprintf('<div class="tf-accordion-item %3$s">%1$s %2$s</div>', $html_title, $html_content, esc_attr($value['set_active']));
 		}
 
 

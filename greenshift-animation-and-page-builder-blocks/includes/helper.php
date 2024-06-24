@@ -233,8 +233,12 @@ if (!function_exists('gspb_AnimationRenderProps')) {
 						$animeprops['data-stchild'] = "yes";
 					}
 				}
-				if ((!empty($animation['o']) && ($animation['o'] == 1 || $animation['o'] === 0) && $animation['set_from'] != 'to') || !empty($animation['prehide'])) {
-					$animeprops['data-prehidden'] = 1;
+				if ((!empty($animation['o']) && ($animation['o'] == 1 || $animation['o'] === 0)) || !empty($animation['prehide'])) {
+					if((!empty($animation['set_from']) && $animation['set_from'] == 'to')){
+
+					}else{
+						$animeprops['data-prehidden'] = 1;
+					}
 				}
 				if (!empty($animation['onload']) && empty($animation['triggertype'])) {
 					$animeprops['data-triggertype'] = "load";

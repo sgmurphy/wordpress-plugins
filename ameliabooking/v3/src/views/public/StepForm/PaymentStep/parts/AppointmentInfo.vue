@@ -33,35 +33,39 @@
                   {{ amLabels.summary_services_subtotal }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(prepaidServiceAmount + postpaidServiceAmount) }}
+                  {{ useFormattedPrice(appointmentsAmount.prepaid.totalServiceAmount + appointmentsAmount.postpaid.totalServiceAmount) }}
                 </p>
               </div>
             </Transition>
           </template>
           <template #default>
             <div class="am-fs__payments-services-open">
-              <div
-                v-for="(sNum, sPrice) in servicePrices"
-                :key="sPrice"
-                class="am-fs__payments-services-open-text"
-              >
+              <div class="am-fs__payments-services-open-bordered">
+                <div
+                  v-for="(sNum, sPrice) in appointmentsAmount.servicesPrices"
+                  :key="sPrice"
+                  class="am-fs__payments-services-open-text"
+                >
                 <span>
                   {{`${service.name} (${useFormattedPrice(sPrice)}) x ${persons} ${personsLabel}`}}
                 </span>
-                <span class="am-amount">
+                  <span class="am-amount">
                   {{ useFormattedPrice(sPrice*(service.aggregatedPrice ? persons : 1)) }}
                 </span>
+                </div>
               </div>
 
-              <div
-                v-for="(sNum, sPrice) in servicePrices"
-                v-show="isRecurring"
-                :key="sPrice"
-                class="am-fs__payments-services-open-total am-fs__payments-services-open-text"
-              >
+              <div class="am-fs__payments-services-open-bordered">
+                <div
+                  v-for="(sNum, sPrice) in appointmentsAmount.servicesPrices"
+                  v-show="isRecurring"
+                  :key="sPrice"
+                  class="am-fs__payments-services-open-total am-fs__payments-services-open-text"
+                >
                 <span>
                   {{ `${sNum} ${recurrenceLabel(sNum)} x ${service.name} (${useFormattedPrice(sPrice)}) x ${persons} ${personsLabel}` }}
                 </span>
+                </div>
               </div>
 
               <div class="am-fs__payments-services-sub">
@@ -69,7 +73,7 @@
                   {{ amLabels.summary_services_subtotal }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(prepaidServiceAmount + postpaidServiceAmount) }}
+                  {{ useFormattedPrice(appointmentsAmount.prepaid.totalServiceAmount + appointmentsAmount.postpaid.totalServiceAmount) }}
                 </p>
               </div>
             </div>
@@ -85,7 +89,7 @@
           </span>
         </div>
         <div class="am-fs__payments-services-open">
-          <div v-for="(sNum, sPrice) in servicePrices" :key="sPrice" class="am-fs__payments-services-sub">
+          <div v-for="(sNum, sPrice) in appointmentsAmount.servicesPrices" :key="sPrice" class="am-fs__payments-services-sub">
             <p>
               {{ `${service.name} (${useFormattedPrice(sPrice)})` }}
               <span v-if="service.aggregatedPrice">
@@ -93,14 +97,14 @@
               </span>
             </p>
             <p class="am-amount">
-              {{ useFormattedPrice(sPrice*(service.aggregatedPrice ? persons : 1)) }}
+              {{ useFormattedPrice(appointmentsAmount.prepaid.totalServiceAmount + appointmentsAmount.postpaid.totalServiceAmount) }}
             </p>
           </div>
         </div>
       </div>
 
       <AmCollapse
-        v-if="extras.length"
+        v-if="extras.length > 0"
         class="am-fs__payments-services"
       >
         <!--  -->
@@ -130,38 +134,42 @@
                   {{ amLabels.summary_extras_subtotal }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(postpaidExtrasAmount + prepaidExtrasAmount) }}
+                  {{ useFormattedPrice(appointmentsAmount.prepaid.totalExtrasAmount + appointmentsAmount.postpaid.totalExtrasAmount) }}
                 </p>
               </div>
             </Transition>
           </template>
           <template #default>
             <div class="am-fs__payments-services-open">
-              <div
-                v-for="extra in extras"
-                :key="extra.extraId"
-                class="am-fs__payments-services-open-text"
-              >
+              <div :class="{'am-fs__payments-services-open-bordered': isRecurring}">
+                <div
+                  v-for="extra in extras"
+                  :key="extra.extraId"
+                  class="am-fs__payments-services-open-text"
+                >
                 <span>
-                  {{ `${extra.quantity} ${extra.name} (${useFormattedPrice(extra.price)})` }}
+                  {{ `${extra.quantity} x ${extra.name} (${useFormattedPrice(extra.price)})` }}
                   <span
                     v-if="extra.aggregatedPrice === null ? service.aggregatedPrice : extra.aggregatedPrice">
                     {{ `x ${persons} ${personsLabel}` }}
                   </span>
                 </span>
-                <span class="am-amount">
+                  <span class="am-amount">
                   {{ useFormattedPrice(useAppointmentExtraAmount(service, extra, persons)) }}
                 </span>
+                </div>
               </div>
 
-              <div
-                v-for="(sNum, sPrice) in servicePrices"
-                v-show="isRecurring"
-                :key="sPrice" class="am-fs__payments-services-open-total am-fs__payments-services-open-text"
-              >
+              <div class="am-fs__payments-services-open-bordered">
+                <div
+                  v-for="(extra, index) in extras"
+                  v-show="isRecurring"
+                  :key="index" class="am-fs__payments-services-open-total am-fs__payments-services-open-text"
+                >
                 <span>
-                  {{ `${sNum} ${recurrenceLabel(sNum)} x ${amLabels.summary_extras} ( ${useFormattedPrice(extras.reduce((partialSum, extra) => partialSum + useAppointmentExtraAmount(service, extra, persons), 0))} )` }}
+                  {{ `${bookingsCount} ${amLabels.summary_recurrences} x ${extra.name} ( ${useFormattedPrice(useAppointmentExtraAmount(service, extra, persons))} )` }}
                 </span>
+                </div>
               </div>
 
               <div class="am-fs__payments-services-sub">
@@ -169,25 +177,37 @@
                   {{ amLabels.summary_extras_subtotal }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(postpaidExtrasAmount + prepaidExtrasAmount) }}
+                  {{ useFormattedPrice(appointmentsAmount.prepaid.totalExtrasAmount + appointmentsAmount.postpaid.totalExtrasAmount) }}
                 </p>
               </div>
             </div>
           </template>
         </AmCollapseItem>
       </AmCollapse>
+      <div v-else-if="extras.length" class="am-fs__payments-extra">
+        <div class="am-fs__payments-services-info">
+          <span>
+            {{ amLabels.summary_extras }}
+          </span>
+        </div>
+        <div class="am-fs__payments-services-open">
+          <div class="am-fs__payments-services-sub">
+            <p>
+              {{ `${extras[0].quantity} ${extras[0].name} (${useFormattedPrice(extras[0].price)})` }}
+              <span
+                v-if="extras[0].aggregatedPrice === null ? service.aggregatedPrice : extras[0].aggregatedPrice">
+                {{ `x ${persons} ${personsLabel}` }}
+              </span>
+            </p>
+            <p class="am-amount">
+              {{ useFormattedPrice(appointmentsAmount.prepaid.totalExtrasAmount + appointmentsAmount.postpaid.totalExtrasAmount) }}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="am-fs__payments-app-info">
-      <div class="am-fs__payments-app-info-subtotal">
-        <span>
-          {{`${amLabels.subtotal}:`}}
-        </span>
-        <span class="am-amount">
-          {{ useFormattedPrice(totalPrice) }}
-        </span>
-      </div>
-
       <Coupon
         v-if="settings.payments.coupons"
         type="appointment"
@@ -196,67 +216,75 @@
         @coupon-applied="couponApplied"
       />
 
+      <div
+        v-if="!onlyTotal"
+        class="am-fs__payments-app-info-subtotal"
+      >
+        <span>
+          {{`${amLabels.subtotal}:`}}
+        </span>
+        <span class="am-amount">
+          {{ useFormattedPrice(appointmentsAmount.prepaid.totalAmount + appointmentsAmount.postpaid.totalAmount) }}
+        </span>
+      </div>
+
       <Transition name="am-fade">
         <div
           v-if="settings.payments.coupons"
-          v-show="discount.prepaid > 0"
+          v-show="appointmentsAmount.prepaid.discountAmount > 0"
           class="am-fs__payments-app-info-discount"
-          :class="{'am-fs__payments-app-info-discount-green': discount.prepaid > 0 }"
+          :class="{'am-fs__payments-app-info-discount-green': appointmentsAmount.prepaid.discountAmount > 0 }"
         >
           <span>
             {{`${amLabels.discount_amount_colon}:`}}
           </span>
           <span class="am-amount">
-            {{ totalDiscount > totalPrice ? useFormattedPrice(totalPrice) : useFormattedPrice(totalDiscount) }}
+            {{ appointmentsAmount.prepaid.discountAmount + appointmentsAmount.postpaid.discountAmount > appointmentsAmount.prepaid.totalAmount + appointmentsAmount.postpaid.totalAmount
+            ? useFormattedPrice(appointmentsAmount.prepaid.totalAmount + appointmentsAmount.postpaid.totalAmount)
+            : useFormattedPrice(appointmentsAmount.prepaid.discountAmount + appointmentsAmount.postpaid.discountAmount) }}
           </span>
         </div>
       </Transition>
 
       <div
-        class="am-fs__payments-app-info-total"
-        :class="{'am-single-row': !settings.payments.coupons || discount.prepaid === 0}"
+        v-if="appointmentsAmount.prepaid.taxAmount + appointmentsAmount.postpaid.taxAmount > 0"
+        class="am-fs__payments-app-info-tax"
       >
-        <span>{{amLabels.total_amount_colon}}</span>
+        <span>{{ amLabels.total_tax_colon}}:</span>
         <span class="am-amount">
-          {{ useFormattedPrice(totalAmount) }}
+          {{ useFormattedPrice(appointmentsAmount.prepaid.taxAmount + appointmentsAmount.postpaid.taxAmount) }}
         </span>
       </div>
 
-      <div v-if="hasDeposit && paymentGateway !== 'onSite'">
-        <div class="am-fs__payments-app-info-total">
+      <div
+        class="am-fs__payments-app-info-total"
+        :class="{'am-single-row': onlyTotal, 'am-fs__payments-bordered': !onlyTotal}"
+      >
+        <span>{{amLabels.total_amount_colon}}</span>
+        <span class="am-amount">
+          {{ useFormattedPrice(getTotalAmount()) }}
+          <template v-if="taxVisibility && !amSettings.payments.taxes.excluded">
+            {{amLabels.incl_tax}}
+          </template>
+        </span>
+      </div>
+
+      <div v-if="(hasDeposit || (isRecurring && appointmentsAmount.postpaid.totalAmount)) && paymentGateway !== 'onSite'">
+        <div class="am-fs__payments-app-info-deposit">
           <span>
             {{ `${amLabels.paying_now}:` }}
           </span>
           <span class="am-amount">
-            {{ useFormattedPrice((paymentDeposit ? prepaidTotalAmount : depositAmount)) }}
+            {{ useFormattedPrice(getPrepaidAmount()) }}
           </span>
         </div>
 
-        <div class="am-fs__payments-app-info-total">
+        <div class="am-fs__payments-app-info-remaining">
           <span>
             {{ `${amLabels.paying_later}:` }}
           </span>
           <span class="am-amount">
-            {{ useFormattedPrice(paymentDeposit ? totalAmount - prepaidTotalAmount : (totalAmount - depositAmount)) }}
-          </span>
-        </div>
-      </div>
-      <div v-else-if="isRecurring && paymentGateway !== 'onSite'">
-        <div class="am-fs__payments-app-info-total">
-          <span>
-            {{ `${amLabels.paying_now }:`}}
-          </span>
-          <span class="am-amount">
-            {{ useFormattedPrice(prepaidServiceAmount + prepaidExtrasAmount - discount.prepaid) }}
-          </span>
-        </div>
-
-        <div class="am-fs__payments-app-info-total">
-          <span>
-            {{ `${amLabels.paying_later}:` }}
-          </span>
-          <span class="am-amount">
-            {{ useFormattedPrice(postpaidServiceAmount + postpaidExtrasAmount - discount.postpaid) }}
+            {{ useFormattedPrice(getPostpaidAmount()) }}
           </span>
         </div>
       </div>
@@ -272,58 +300,22 @@ import { inject, provide, reactive, ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { useFormattedPrice } from '../../../../../assets/js/common/formatting.js'
 import {
-  useAppointmentsAmount,
-  useAppointmentExtrasAmount,
   useAppointmentExtraAmount,
-  useDiscountAmount,
-  useAppointmentsDepositAmount,
-  useAppointmentsPayments,
-  useEmployeeService,
+  useAppointmentsAmountInfo
 } from '../../../../../assets/js/common/appointments.js'
 import { useCartItem } from "../../../../../assets/js/public/cart";
 import { useColorTransparency } from '../../../../../assets/js/common/colorManipulation.js'
+import {useTaxVisibility} from "../../../../../assets/js/common/pricing";
 
 const store = useStore()
+
+// * Root Settings
+const amSettings = inject('settings')
 
 const amLabels = inject('amLabels')
 
 // * Root Settings
 const settings = inject('settings')
-
-let appointments = reactive({
-  prepaid: [],
-  postpaid: [],
-})
-
-let discount = computed(() => {
-  let discount = {
-    prepaid: 0,
-    postpaid: 0,
-  }
-
-  let coupon = store.getters['booking/getCoupon']
-
-  if (coupon) {
-    let couponLimit = coupon.limit
-
-    if (couponLimit) {
-      discount.prepaid = useDiscountAmount(store, coupon, appointments.prepaid.slice(0, couponLimit))
-
-      couponLimit = couponLimit > appointments.prepaid.length ? couponLimit - appointments.prepaid.length : 0
-
-      discount.postpaid = useDiscountAmount(store, coupon, appointments.postpaid.slice(0, couponLimit))
-    }
-  }
-
-  return discount
-})
-provide('discount', discount)
-
-let prepaidServiceAmount = ref(0)
-
-let prepaidExtrasAmount = ref(0)
-
-let servicePrices = ref({})
 
 let extras = computed(() => store.getters['booking/getSelectedExtras'])
 
@@ -337,33 +329,83 @@ function recurrenceLabel (num) {
   return num > 1 ? amLabels.value.summary_recurrences : amLabels.value.summary_recurrence
 }
 
-let postpaidServiceAmount = ref(0)
-
-let postpaidExtrasAmount = ref(0)
-
 let isRecurring = ref(false)
-
-let totalPrice = computed(() => prepaidServiceAmount.value + prepaidExtrasAmount.value + postpaidServiceAmount.value + postpaidExtrasAmount.value)
-
-let prepaidTotalPrice = computed(() => prepaidServiceAmount.value + prepaidExtrasAmount.value)
-
-let totalDiscount = computed(() => discount.value.prepaid + discount.value.postpaid)
-
-let prepaidTotalDiscount = computed(() => discount.value.prepaid)
-
-let totalAmount = computed(() => {
-  return (totalPrice.value - totalDiscount.value) <= 0 ? 0 : (totalPrice.value - totalDiscount.value)
-})
-
-let prepaidTotalAmount = computed(() => {
-  return (prepaidTotalPrice.value - prepaidTotalDiscount.value) <= 0 ? 0 : (prepaidTotalPrice.value - prepaidTotalDiscount.value)
-})
-
-let paymentDeposit = computed(() => store.getters['booking/getPaymentDeposit'])
 
 let hasDeposit = inject('hasDeposit')
 
-let depositAmount = computed(() => useAppointmentsDepositAmount(store))
+let appointmentsAmount = computed(() => {
+  let amountInfo = useAppointmentsAmountInfo(store)
+
+  let amount = {
+    prepaid: {
+      totalAmount: 0,
+      totalServiceAmount: 0,
+      totalExtrasAmount: 0,
+      discountAmount: 0,
+      taxAmount: 0,
+      depositAmount: 0,
+    },
+    postpaid: {
+      totalAmount: 0,
+      totalServiceAmount: 0,
+      totalExtrasAmount: 0,
+      discountAmount: 0,
+      taxAmount: 0,
+      depositAmount: 0,
+    }
+  }
+
+  amountInfo.forEach((item) => {
+    amount.prepaid.totalAmount += item.prepaid.totalAmount
+    amount.postpaid.totalAmount += item.postpaid.totalAmount
+
+    amount.prepaid.totalServiceAmount += item.prepaid.totalServiceAmount
+    amount.postpaid.totalServiceAmount += item.postpaid.totalServiceAmount
+
+    amount.prepaid.totalExtrasAmount += item.prepaid.totalExtrasAmount
+    amount.postpaid.totalExtrasAmount += item.postpaid.totalExtrasAmount
+
+    amount.prepaid.discountAmount += item.prepaid.discountAmount
+    amount.postpaid.discountAmount += item.postpaid.discountAmount
+
+    amount.prepaid.taxAmount += item.prepaid.taxAmount
+    amount.postpaid.taxAmount += item.postpaid.taxAmount
+
+    amount.prepaid.depositAmount += item.prepaid.depositAmount
+    amount.postpaid.depositAmount += item.postpaid.depositAmount
+
+    amount.servicesPrices = item.servicesPrices
+
+    amount.prepaid.count = item.prepaid.count
+    amount.postpaid.count = item.postpaid.count
+  })
+
+  return amount
+})
+
+function getPrepaidAmount () {
+  return appointmentsAmount.value.prepaid.depositAmount
+    ? appointmentsAmount.value.prepaid.depositAmount
+    : appointmentsAmount.value.prepaid.totalAmount - appointmentsAmount.value.prepaid.discountAmount + appointmentsAmount.value.prepaid.taxAmount
+}
+
+function getPostpaidAmount () {
+  return getTotalAmount() - getPrepaidAmount()
+}
+
+function getTotalAmount () {
+  return appointmentsAmount.value.prepaid.totalAmount +
+    appointmentsAmount.value.postpaid.totalAmount +
+    appointmentsAmount.value.prepaid.taxAmount +
+    appointmentsAmount.value.postpaid.taxAmount -
+    appointmentsAmount.value.prepaid.discountAmount -
+    appointmentsAmount.value.postpaid.discountAmount
+}
+
+let onlyTotal = computed(() => {
+  return (!settings.payments.coupons || appointmentsAmount.value.prepaid.discountAmount === 0) &&
+    (!settings.payments.taxes.enabled || (appointmentsAmount.value.prepaid.taxAmount + appointmentsAmount.value.postpaid.taxAmount === 0))
+})
 
 let paymentGateway = computed(() => store.getters['booking/getPaymentGateway'])
 
@@ -378,54 +420,15 @@ let service = reactive(store.getters['entities/getService'](
 const emits = defineEmits(['setOnSitePayment'])
 
 function couponApplied () {
-  let appointments = useAppointmentsPayments(
-    store,
-    service.id,
-    useCartItem(store).services[service.id].list
-  )
-
   emits(
     'setOnSitePayment',
-      useAppointmentsAmount(store, service, appointments.prepaid) + useAppointmentExtrasAmount(service, appointments.prepaid) - discount.value.prepaid <= 0
+    appointmentsAmount.value.prepaid.totalAmount - appointmentsAmount.value.prepaid.discountAmount + appointmentsAmount.value.prepaid.taxAmount <= 0
   )
 }
 onMounted(() => {
-  appointments = useAppointmentsPayments(
-    store,
-    service.id,
-    useCartItem(store).services[service.id].list
-  )
+  isRecurring.value = appointmentsAmount.value.prepaid.count > 1 || appointmentsAmount.value.postpaid.count > 0
 
-  servicePrices.value = {}
-
-  appointments.prepaid.concat(appointments.postpaid).forEach((appointment) => {
-    let employeeService = useEmployeeService(store, service.id, appointment.providerId)
-
-    let servicePrice =
-      service.customPricing.enabled &&
-      appointment.duration in service.customPricing.durations
-        ? employeeService.customPricing.durations[appointment.duration].price
-        : employeeService.price
-
-    if (!(servicePrice in servicePrices.value)) {
-      servicePrices.value[servicePrice] = 0
-    }
-
-    servicePrices.value[servicePrice]++
-  })
-
-  prepaidServiceAmount.value = useAppointmentsAmount(store, service, appointments.prepaid)
-
-  postpaidServiceAmount.value = useAppointmentsAmount(store, service, appointments.postpaid)
-
-  prepaidExtrasAmount.value = useAppointmentExtrasAmount(service, appointments.prepaid)
-
-  postpaidExtrasAmount.value = useAppointmentExtrasAmount(service, appointments.postpaid)
-
-
-  isRecurring.value = appointments.prepaid.length > 1 || appointments.postpaid.length > 0
-
-  bookingsCount.value = appointments.prepaid.length + appointments.postpaid.length
+  bookingsCount.value = appointmentsAmount.value.prepaid.count + appointmentsAmount.value.postpaid.count
 
   store.commit('booking/setBookingsCount', bookingsCount.value)
 })
@@ -449,6 +452,10 @@ function onCollapseOpen (el) {
     el.style.height = '0px'
   }, 100)
 }
+
+let taxVisibility = computed(() => {
+  return useTaxVisibility(store, service.id, 'service')
+})
 
 // * Colors
 let amColors = inject('amColors')
@@ -475,15 +482,17 @@ export default {
 .amelia-v2-booking {
   #amelia-container {
     .am-fs__payments {
+      &-bordered {
+        border-top: 1px dashed var(--am-c-pay-text-op30);
+      }
+
       &-app-info {
         margin: 0;
 
         &-subtotal {
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px dashed var(--am-c-pay-text-op30);
-          padding: 0 0 16px;
-          margin: 16px 0 0;
+          margin-top: 16px;
 
           span {
             font-size: 14px;
@@ -493,21 +502,31 @@ export default {
           }
         }
 
-        &-discount {
+        &-discount, &-tax {
           display: flex;
           justify-content: space-between;
           font-size: 13px;
           font-weight: 400;
           line-height: 1.3846;
           color: var(--am-c-pay-text);
-          padding: 16px 0 0;
+          padding: 8px 0 0;
 
           &-green {
             color: var(--am-c-pay-success);
           }
         }
 
+        &-discount {
+          &-green {
+            color: var(--am-c-pay-success);
+          }
+        }
+
         &-total {
+          margin-top: 8px;
+        }
+
+        &-total, &-deposit, &-remaining {
           display: flex;
           justify-content: space-between;
           font-size: 15px;
@@ -526,11 +545,15 @@ export default {
         }
       }
 
-      &-service {
+      &-service, &-extra {
         border: 1px solid var(--am-c-pay-text-op30);
         border-radius: 8px;
         padding: 12px;
         box-sizing: border-box;
+      }
+
+      &-extra {
+        margin: 8px 0;
       }
 
       &-services {
@@ -582,11 +605,13 @@ export default {
         &-open {
           width: 100%;
 
-          &-total {
-            border-top: 1px dashed var(--am-c-pay-text-op30);
-            padding: 12px 0 0;
-            margin: 12px 0 4px;
+          &-bordered {
+            border-bottom: 1px dashed var(--am-c-pay-text-op30);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+          }
 
+          &-total {
             & > span {
               color: var(--am-c-pay-text-op70)
             }

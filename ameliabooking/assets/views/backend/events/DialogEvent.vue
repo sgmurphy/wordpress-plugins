@@ -1609,11 +1609,11 @@
         depositOptions: [
           {
             value: 'fixed',
-            label: this.$root.labels.fixed_amount
+            label: this.$root.labels.amount_fixed
           },
           {
             value: 'percentage',
-            label: this.$root.labels.percentage
+            label: this.$root.labels.amount_percentage
           }
         ],
         originRecurring: null,

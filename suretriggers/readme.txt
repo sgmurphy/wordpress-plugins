@@ -1,18 +1,18 @@
-=== SureTriggers - Connect All Your Plugins, Apps, Tools & Automate Everything! ===
+=== SureTriggers: All-in-One WordPress Automation Plugin ===
 Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.0.49
+Stable tag: 1.0.50
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-SureTriggers automates tasks by linking various apps, plugins, and services, enabling seamless information sharing and automated actions.
+SureTriggers is an all in one WordPress Automation Plugin & Platform. Automate tasks, connect apps & streamline workflows with NO CODE! Powerful & Easy-to-Use for WordPress & Beyond.
 
 == Description ==
 
-**SURETRIGGERS - THE BEST INTEGRATION & AUTOMATION PLATFORM**
+**SURETRIGGERS – THE ALL IN ONE WORDPRESS AUTOMATION PLUGIN AND BEYOND**
 ★★★★★
 
 👉 [Official Website Link](https://suretriggers.com/)
@@ -21,13 +21,13 @@ SureTriggers automates tasks by linking various apps, plugins, and services, ena
 [youtube https://www.youtube.com/watch?v=mSjEcwpOfIk]
 
 
-## CONNECT YOUR WORDPRESS PLUGINS, APPS, WEBSITES AND CREATE POWERFUL AUTOMATIONS ⚡ ##
+## CONNECT YOUR WORDPRESS PLUGINS, APPS & WEBSITES TO CREATE POWERFUL AUTOMATIONS ⚡ ##
 
-Our mission at SureTriggers is to give you the power to connect your favorite apps, automate mundane tasks, and discover new growth opportunities.
+At SureTriggers, our mission is to empower you to connect your favorite apps, automate repetitive tasks, and unlock new growth opportunities for your business.
 
-Today, running a business means dealing with a lot of different apps, services, and plugins. On average, organizations use 110 softwares to run their business.
+Today, running a business means dealing with a lot of different apps, services, and plugins. On average, organizations use 110 different softwares to run their business.
 
-Contact forms, Email marketing tools, Social media sites, Payment gateways, CRMs, Helpdesk, eCommerce plugins, Communication tools, Project management platforms, LMS, and the list goes on...
+Contact forms, Email marketing tools, Social media sites, Payment gateways, CRMs, Helpdesk, eCommerce plugins, Communication tools, Project management platforms, LMS, and the list goes on.
 
 That's a lot of moving pieces!
 
@@ -47,9 +47,9 @@ Just for an example, imagine a small business owner named Jane. She runs an eCom
 
 This is just one simple use case of a small business owner, trying to run and grow her simple eCommerce website. It is just impossible to manually do all of these tasks for each and every order that comes through her website!
 
-That’s why we created SureTriggers.
+That's why we created SureTriggers.
 
-SureTriggers is an integration platform that automates processes between different websites, applications, and WordPress plugins. It helps you create powerful workflows to connect your apps and automate mundane tasks. It can automatically do any number of things in different apps, after something happens.
+SureTriggers is an automation platform that automates processes between different websites, applications, and WordPress plugins. It helps you create powerful workflows to connect your apps and automate repetitive tasks. It can automatically do any number of things in different apps, after something happens.
 
 For example:
 
@@ -61,13 +61,13 @@ For example:
 
 Now there are some tools, like Zapier that might help you do some of this. However, they do not connect well with WordPress and are quite expensive. Furthermore, they were made years ago, and their user experience leaves a lot to be desired.
 
-And there are some WordPress automation plugins. But they have limited integrations, are bloated, and are known to slow down your website. They require a lot of technical knowledge to use and yet are unreliable.
+Furthermore, many WordPress automation tools suffer from limited integrations, are bloated, and can slow down your website. They require a lot of technical knowledge to use and yet are unreliable.
 
 SureTriggers is different.
 
-It is the only platform that is built from the ground up to specifically integrate with WordPress and outside applications. We have a modern user interface that is easy to use, and our platform is designed to be lightweight and fast.
+SureTriggers is the only platform built specifically to seamlessly integrate with WordPress and external applications. We have a modern user interface that is easy to use, and our platform is designed to be lightweight and fast.
 
-And most importantly, it doesn’t break the bank.
+And most importantly, it doesn't break the bank.
 
 Now Jane can easily connect her website to her CRM, accounting system, email marketing platform, and other apps she wants.
 
@@ -77,7 +77,7 @@ SureTriggers is our way to make sure that businesses, like Jane, can connect the
 
 ### DISCLAIMER: ###
 
-SureTriggers is a SaaS platform and requires an account on our website. When you install this plugin, you’ll need to register for a free account. Or, if you already have an account with us, you can simply connect this plugin to it.
+SureTriggers is a SaaS platform and requires an account on our website. When you install this plugin, you'll need to register for a free account. Or, if you already have an account with us, you can simply connect this plugin to it.
 
 This plugin helps you connect your WordPress website to the SureTriggers SaaS platform.
 
@@ -93,13 +93,14 @@ From your WordPress dashboard, navigate to the Plugins menu and click on the "Ad
 
 Once the plugin is installed, you will be redirected to the SureTriggers settings page in your WordPress dashboard. There you will find a button to connect your WordPress website with the SureTriggers platform. If you do not have an account on the platform, you can create it for free in less than 60 seconds. Or if you already have an account, just sign in with your login credentials.
 
-All plugins that we support such as WooCommerce, Fluent Forms, LearnDash, BuddyBoss, etc on this website will automatically be connected to the SureTriggers platform automatically. Yaay, you’re almost ready to start automating tasks on this website!
+All compatible plugins, such as WooCommerce, Fluent Forms, LearnDash, BuddyBoss, etc., will automatically connect to the SureTriggers platform during this process. Yaay, you're almost ready to start automating tasks on this website!
+
 
 ### Step 3. Connect other apps 🔗 ###
 
 If you want to connect other apps and websites such as Google sheets, MailChimp, Twitter, Stripe, Trello, etc. you can do that now. Just select the apps you use, and follow the instructions to connect your accounts.
 
-SureTriggers already support hundreds of popular apps, and we’re adding more each week!
+SureTriggers already support hundreds of popular apps, and we're adding more each week!
 
 ### Step 4. Choose a trigger 💣 ###
 
@@ -113,7 +114,7 @@ Now whenever the trigger happens, all the actions will be executed automatically
 
 ## SOME OF THE POWERFUL FEATURES  💪 ##
 
-SureTriggers is packed with features that will help you streamline your processes and save time. Below are just some of the top features it offers:
+SureTriggers is packed with advanced features that will help you streamline your processes and save time. Below are just some of the advanced features it offers:
 
 ### Canvas Builder 💙 ###
 
@@ -257,6 +258,7 @@ Even if you are an individual, SureTriggers can be highly beneficial. It can be 
 * TypeForm
 * Vimeo
 
+
 These are just some of the WordPress plugins and apps that are popular among SureTriggers users.
 
 If you have apps that are not yet integrated with SureTriggers, please [submit a request for integration here.](https://ideas.suretriggers.com/boards/requests) We are releasing new integrations every week!
@@ -310,7 +312,7 @@ On the other hand, WordPress plugins that offer automation features need a lot o
 
 = Is SureTriggers a cloud-based platform or is it a WordPress plugin? =
 
-SureTriggers is a cloud platform that also offers a WordPress plugin. This plugin serves as a bridge between your WordPress website and the platform. All the heavy lifting necessary for automations is done on the cloud platform, which keeps your website lean, fast and reliable.
+SureTriggers is a cloud based automation platform that also offers a WordPress plugin. This plugin serves as a bridge between your WordPress website and the platform. All the heavy lifting necessary for automations is done on the cloud platform, which keeps your website lean, fast and reliable.
 
 = Some of my apps are not yet integrated. Can I submit a request? =
 
@@ -324,6 +326,15 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.50 - Monday, 24th June 2024 =
+* Improvement: "myCred" - Added new Actions
+* Improvement: "Voxel" - Added new Triggers and Actions, and enhanced order Triggers response
+* Improvement: "LatePoint" - Added WP user support in "Create Agent" Action
+* Improvement: "AffiliateWP" - Added improvement for referral amount in "WooCommerce Product Purchased using Affiliate Referral" Trigger
+* Improvement: "GiveWP" - Added support for custom field data in Triggers
+* Improvement: "Easy Digital Downloads" - Added support for custom field data in Triggers
+* Improvement: "Jetpack CRM" - Added new Action
 
 = Version 1.0.49 - Tuesday, 4th June 2024 =
 * Improvement: "Voxel" - Enhanced Order related Triggers

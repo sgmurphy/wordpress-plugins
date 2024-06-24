@@ -227,6 +227,8 @@ function getPackagesAppointments (passedData) {
                     start: bookingItem.start,
                     end: bookingItem.end,
                     price: bookingItem.price,
+                    tax: bookingItem.tax,
+                    coupon: bookingItem.coupon,
                     status: bookingItem.status,
                     type: 'package',
                     payments: bookingItem.payments,

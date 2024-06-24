@@ -15,7 +15,7 @@
     <template #default>
       <div class="am-dialog-new-customize__content">
         <div class="am-dialog-new-customize__content-img">
-          <img :src="$root.getUrl + 'public/img/am-update-popup.png'" :alt="$root.labels.whats_new_heading">
+          <img :src="$root.getUrl + 'public/img/am-update-popup-7-6.png'" :alt="$root.labels.whats_new_heading">
         </div>
 <!--        <div class="am-dialog-new-customize__content-heading" v-html=""></div>-->
 <!--        <div class="am-dialog-new-customize__content-description"></div>-->
@@ -182,7 +182,7 @@ export default {
   }
 
   .el-dialog {
-    max-width: 500px;
+    max-width: 700px;
     width: 100%;
     background-color: #ffffff;
     border-radius: 8px;

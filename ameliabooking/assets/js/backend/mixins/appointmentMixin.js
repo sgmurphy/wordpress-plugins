@@ -325,6 +325,7 @@ export default {
                   serExtItem.quantity = bookExtItem.quantity ? bookExtItem.quantity : 1
                   serExtItem.price = bookExtItem.price
                   serExtItem.aggregatedPrice = bookExtItem.aggregatedPrice
+                  serExtItem.tax = bookExtItem.tax
                 }
               })
             })

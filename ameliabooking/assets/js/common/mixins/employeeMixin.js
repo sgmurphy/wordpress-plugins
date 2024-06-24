@@ -26,6 +26,7 @@ export default {
         description: '',
         pictureFullPath: '',
         pictureThumbPath: '',
+        stripeConnect: null,
         serviceList: [],
         weekDayList: this.getSettingsSchedule(),
         specialDayList: [],

@@ -45,6 +45,7 @@ export default {
       this.processEntities(entities)
 
       this.options.entities.tags = entities.tags
+      this.options.entities.taxes = 'taxes' in entities ? entities.taxes : []
 
       let preselectedTag = this.getPreselectedTag()
 
@@ -66,13 +67,14 @@ export default {
       this.processEntities(entities)
 
       this.options.entities.tags = this.getPreselectedTag() ? [] : entities.tags
+      this.options.entities.taxes = 'taxes' in entities ? entities.taxes : []
     },
 
     getEntities (callback) {
       if (this.$root.hasApiCall && !this.entitiesLoaded()) {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams({
-            types: ['locations', 'tags', 'custom_fields', 'employees']
+            types: ['locations', 'tags', 'custom_fields', 'employees', 'taxes']
           })
         }).then(response => {
           window.ameliaEventEntities = JSON.parse(JSON.stringify(response.data.data))

@@ -21,7 +21,9 @@
         :clearable="false"
         :format="momentDateFormat()"
         :style="cssVars"
+        :lang="localLanguage"
         class="am-capf__menu-datepicker"
+        :custom-input-display="true"
       ></AmDatePicker>
       <div v-if="!props.empty && filterCustomizeVisibility && filterVisibility">
         <AmButton
@@ -449,7 +451,6 @@ export default {
         display: flex;
         flex-wrap: nowrap;
         justify-content: right;
-        margin-bottom: 20px;
 
         &-datepicker {
           .el-input {

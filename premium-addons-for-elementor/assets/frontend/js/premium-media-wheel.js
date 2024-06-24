@@ -224,7 +224,7 @@
                     accumlativeWidth = 0;
 
                 // clone the items till the width is equal to the viewport width
-                while (horAlignWidth <= $scope.outerWidth()) {
+                while (horAlignWidth <= $scope.outerWidth(true) || ( horAlignWidth - $scope.outerWidth(true) <= 400 ) ) {
 
                     cloneItems();
                     // recalculate the full width.
@@ -242,8 +242,8 @@
                     }
                 });
 
+
                 var fullWidth = (horAlignWidth + ($scope.find('.premium-adv-carousel__item').length * parseFloat(slidesSpacing)));
-                // var fullWidth = (horAlignWidth + (($mediaItem.length - 2) * parseFloat(slidesSpacing)));
                 var animation = gsap.to($scope.find('.premium-adv-carousel__item-outer-wrapper'), {
                     duration: settings.speed,
                     ease: "none",

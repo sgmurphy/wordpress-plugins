@@ -35,7 +35,7 @@
                   {{ `${selectedEvent.name} x ${eventPersonsNumber} ${personsLabel(eventPersonsNumber)}` }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(eventSubtotalPrice) }}
+                  {{ useFormattedPrice(amountData.price) }}
                 </p>
               </div>
             </Transition>
@@ -64,7 +64,7 @@
                   {{ selectedEvent.name }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(eventSubtotalPrice) }}
+                  {{ useFormattedPrice(amountData.price) }}
                 </p>
               </div>
             </div>
@@ -90,7 +90,7 @@
                   {{ `x ${persons} ${personsLabel(persons)}`}}
                 </span>
               </p>
-              <p class="am-amount"> {{ useFormattedPrice(eventSubtotalPrice) }} </p>
+              <p class="am-amount"> {{ useFormattedPrice(amountData.price) }} </p>
             </div>
           </div>
         </div>
@@ -98,12 +98,6 @@
     </div>
 
     <div class="am-pei__info">
-      <div class="am-pei__info-subtotal">
-        <span>{{amLabels.subtotal}}:</span>
-        <span class="am-amount">
-          {{ useFormattedPrice(eventSubtotalPrice) }}
-        </span>
-      </div>
       <Coupon
         v-if="amSettings.payments.coupons"
         :bookings-count="1"
@@ -112,48 +106,76 @@
         @coupon-applied="couponApplied"
       />
 
+      <div
+        v-if="!onlyTotal"
+        class="am-pei__info-subtotal"
+      >
+        <span>{{amLabels.subtotal}}:</span>
+        <span class="am-amount">
+          {{ useFormattedPrice(amountData.price) }}
+        </span>
+      </div>
+
       <Transition name="am-fade">
         <div
           v-if="amSettings.payments.coupons"
-          v-show="discount > 0"
+          v-show="amountData.discount > 0"
           class="am-pei__info-discount"
-          :class="{'am-pei__info-discount-green': discount > 0 }"
+          :class="{'am-pei__info-discount-green': amountData.discount > 0 }"
         >
           <span>
             {{ `${amLabels.discount_amount_colon}:` }}
           </span>
           <span class="am-amount">
-            {{ useFormattedPrice(discount) }}
+            {{ useFormattedPrice(amountData.discount) }}
+          </span>
+        </div>
+      </Transition>
+
+      <Transition name="am-fade">
+        <div
+          v-if="props.taxVisibility && amSettings.payments.taxes.excluded"
+          v-show="amountData.tax > 0"
+          class="am-pei__info-tax"
+        >
+          <span>
+            {{ amLabels.total_tax_colon }}:
+          </span>
+          <span class="am-amount">
+            {{ useFormattedPrice(amountData.tax) }}
           </span>
         </div>
       </Transition>
 
       <div
         class="am-pei__info-total"
-        :class="{'am-single-row': !discount}"
+        :class="{'am-single-row': !amountData.discount, 'am-pei__info-bordered': !onlyTotal}"
       >
         <span>{{ amLabels.total_amount_colon }}</span>
         <span class="am-amount">
-          {{ useFormattedPrice(totalAmount) }}
+          {{ useFormattedPrice(amountData.price - amountData.discount + amountData.tax) }}
+          <template v-if="props.taxVisibility && !amSettings.payments.taxes.excluded">
+            {{amLabels.incl_tax}}
+          </template>
         </span>
       </div>
 
       <template v-if="hasDeposit && paymentGateway !== 'onSite'">
-        <div class="am-pei__info-total">
+        <div class="am-pei__info-deposit">
           <span>
             {{ amLabels.paying_now }}:
           </span>
           <span class="am-amount">
-            {{ paymentDeposit ? useFormattedPrice(totalAmount) : useFormattedPrice(depositAmount) }}
+            {{ useFormattedPrice(paymentDeposit ? amountData.price - amountData.discount + amountData.tax : amountData.deposit) }}
           </span>
         </div>
 
-        <div class="am-pei__info-total">
+        <div class="am-pei__info-remaining">
           <span>
             {{ amLabels.paying_later }}:
           </span>
           <span class="am-amount">
-            {{ !paymentDeposit ? useFormattedPrice(totalAmount - depositAmount) : useFormattedPrice(0) }}
+            {{ useFormattedPrice(!paymentDeposit ? amountData.price - amountData.discount + amountData.tax - amountData.deposit : 0) }}
           </span>
         </div>
       </template>
@@ -173,16 +195,27 @@ import {
   provide,
   ref,
   computed,
-  onMounted
 } from 'vue'
 
 // * Import from Vuex
 import { useStore } from 'vuex'
 
 // * Composables
-import { useFormattedPrice } from '../../../../../assets/js/common/formatting.js'
-import { useEventDepositAmount } from '../../../../../assets/js/public/payment.js'
+import {
+  useFormattedPrice,
+} from '../../../../../assets/js/common/formatting.js'
 import { useColorTransparency } from '../../../../../assets/js/common/colorManipulation.js'
+import {
+  useAmount,
+  useEntityTax,
+} from "../../../../../assets/js/common/pricing";
+
+let props = defineProps({
+  taxVisibility: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const store = useStore()
 
@@ -212,20 +245,6 @@ function ticketDisplayCalculation (ticket) {
   return `(${ticket.persons} ${personsLabel(ticket.persons)})`
 }
 
-let eventSubtotalPrice = computed(() => {
-  let price = 0
-  if (selectedEvent.value.customPricing) {
-    tickets.value.forEach(t => {
-      if (t.persons) {
-        price += selectedEvent.value.aggregatedPrice ? t.price * t.persons : t.price
-      }
-    })
-    return price
-  }
-
-  return selectedEvent.value.aggregatedPrice ? selectedEvent.value.price * persons.value : selectedEvent.value.price
-})
-
 let eventPersonsNumber = computed(() => {
   let ePersons = 0
 
@@ -240,46 +259,48 @@ let eventPersonsNumber = computed(() => {
   return persons.value
 })
 
+let tax = ref(useEntityTax(store, store.getters['eventBooking/getSelectedEventId'], 'event'))
+
+let amountData = computed(() => {
+  let price = 0
+
+  if (selectedEvent.value.customPricing) {
+    tickets.value.forEach(t => {
+      if (t.persons) {
+        price += selectedEvent.value.aggregatedPrice ? t.price * t.persons : t.price
+      }
+    })
+  } else {
+    price = selectedEvent.value.aggregatedPrice ? selectedEvent.value.price * persons.value : selectedEvent.value.price
+  }
+
+  return useAmount(
+    selectedEvent.value,
+    store.getters['coupon/getCoupon'],
+    amSettings.payments.taxes.enabled ? Object.assign({}, tax.value, {excluded: amSettings.payments.taxes.excluded}) : null,
+    price,
+    true
+  )
+})
+
 let paymentDeposit = computed(() => store.getters['payment/getPaymentDeposit'])
 
 let hasDeposit = inject('hasDeposit')
 
-let discount = computed(() => {
-  let coupon = store.getters['coupon/getCoupon']
-  let discountAmount = ref(0)
-
-  if (coupon && coupon.limit) {
-    let calculation = eventSubtotalPrice.value / 100 * coupon.discount + coupon.deduction
-    discountAmount.value = calculation > eventSubtotalPrice.value ? eventSubtotalPrice.value : calculation
-  }
-
-  return discountAmount.value
+let onlyTotal = computed(() => {
+  return (!amSettings.payments.coupons || amountData.value.discount === 0) &&
+    (!amSettings.payments.taxes.enabled || amountData.value.tax === 0)
 })
 
-provide('discount', discount)
-
-let totalAmount = computed(() => {
-  return eventSubtotalPrice.value - discount.value
-})
-
-let depositAmount = computed(() => useEventDepositAmount(
-    store,
-    selectedEvent.value,
-    totalAmount.value
-  )
-)
+provide('discount', amountData.value.discount)
 
 let paymentGateway = computed(() => store.getters['payment/getPaymentGateway'])
 
 const emits = defineEmits(['setOnSitePayment'])
 
 function couponApplied () {
-  emits('setOnSitePayment', totalAmount.value <= 0)
+  emits('setOnSitePayment', amountData.value.price + amountData.value.tax - amountData.value.discount <= 0)
 }
-
-onMounted(() => {
-
-})
 
 // * Collapse visualisation
 let segmentCollapseState = ref(true)
@@ -345,9 +366,7 @@ export default {
         &-subtotal {
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px dashed var(--am-c-pay-text-op30);
-          padding: 0 0 16px;
-          margin: 16px 0 0;
+          margin-top: 16px;
 
           span {
             font-size: 14px;
@@ -357,28 +376,33 @@ export default {
           }
         }
 
-        &-discount {
+        &-discount, &-tax {
           display: flex;
           justify-content: space-between;
           font-size: 13px;
           font-weight: 400;
           line-height: 1.3846;
           color: var(--am-c-pay-text);
-          padding: 16px 0 0;
+          padding-top: 8px;
 
           &-green {
             color: var(--am-c-pay-success);
           }
         }
 
-        &-total {
+        &-bordered {
+          border-top: 1px dashed var(--am-c-pay-text-op30);
+        }
+
+        &-total, &-deposit, &-remaining {
           display: flex;
           justify-content: space-between;
           font-size: 15px;
           font-weight: 500;
           line-height: 1.33333;
           color: var(--am-c-pay-text);
-          padding: 8px 0 0;
+          margin-top: 8px;
+          padding-top: 8px;
 
           &.am-single-row {
             padding-top: 16px;

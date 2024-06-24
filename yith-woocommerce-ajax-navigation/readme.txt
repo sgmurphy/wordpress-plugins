@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: shop filter, Ajax product filter, product filter, woocommerce product filter, woocommerce filter
 Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 5.1.0
+Stable tag: 5.2.0
 Requires PHP: 7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -157,6 +157,19 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 14. Gutenberg block
 
 == Changelog ==
+
+= 5.2.0 - Released on 24 June 2024 =
+
+* New: support for WooCommerce 9.0
+* New: added table for cache management
+* Update: YITH plugin framework
+* Fix: fatal error when saving post, due to call to wrong method (protected) on Cache_Providere class
+* Fix: Passing null to parameter #1 ($num) of type int|float is deprecated
+* Fix: fatal error on array_values(), Argument #1 ($array) must be of type array, null given
+* Fix: prevent possible XSS on legacy widgets
+* Fix: avoid query error in variations filtering, when filtered attribute set is empty
+* Fix: select fields not correctly initialized when adding new filter to the preset
+* Tweak: changed type of taxonomy labels shown during filter configuration
 
 = 5.1.0 - Released on 20 May 2024 =
 

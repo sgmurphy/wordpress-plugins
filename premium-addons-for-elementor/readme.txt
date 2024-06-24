@@ -5,7 +5,7 @@ Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_c
 Requires at least: 5.0
 Tested Up To: 6.5.4
 Requires PHP: 7.0
-Stable Tag: 4.10.34
+Stable Tag: 4.10.35
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -101,7 +101,7 @@ Each widget and addon has been tested on different screen sizes, mobile devices,
 * [**Team Members Widget**](https://premiumaddons.com/persons-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Very good widget to list team members, co-workers, etc. Team Members Widget comes with many customization options.
 * [**Tabs Widget**](https://premiumaddons.com/elementor-tabs-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Create both Vertical and Horizontal tabs with tons of styling features.
 * [**Content Switcher**](https://premiumaddons.com/content-switcher-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(PRO)*: Present multiple content in a smart way using Content Switcher Widget. This widget is ideal for to present pricing plans. It works with simple text editor or Elementor templates.
-* [**Fancy Text Widget**](https://premiumaddons.com/fancy-text-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The animated Fancy Text Widget comes with very useful options to help you create attractive marketing messages.
+* [**Animated Text Widget**](https://premiumaddons.com/elementor-animated-text-widget/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: The animated Fancy Text Widget comes with very useful options to help you create attractive marketing messages.
 * [**Heading Widget**](https://premiumaddons.com/heading-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Heading Widget has many customization options and ready-made heading styles.
 * [**Dual Heading Widget**](https://premiumaddons.com/dual-header-widget-for-elementor-page-builder/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme) *(FREE)*: Create a headeline with 2 different unique styles. Dual Heading Widget has numerous customization options.
 
@@ -234,6 +234,13 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.35 =
+
+- New: Fancy Text widget rebuilt. It's now Animated Text - [here](https://premiumaddons.com/elementor-animated-text-widget).
+- Tweak: Recent Posts Notification, Textual Showcase, Search Form and Mobile Menu are now translatable using WPML.
+- Fixed: Wrapper Link addon not working with non-ASCII encoded URLs.
+- Fixed: Conflict between carousel widgets and JetEngine plugin.
 
 = 4.10.34 =
 

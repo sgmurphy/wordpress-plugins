@@ -60,7 +60,8 @@ export default {
             type: c.type,
             position: c.position,
             options: c.options,
-            required: c.required
+            required: c.required,
+            width: c.width
           }
 
           switch (c.type) {

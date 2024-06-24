@@ -62,6 +62,14 @@
         class="am-ec__info-price"
       >
         {{ eventCardPrice }}
+        <template v-if="useCheckIfEventNotFree(props.event) && props.taxVisible">
+          <template v-if="amSettings.payments.taxes.excluded">
+            {{ `+${props.labels.total_tax_colon}` }}
+          </template>
+          <template v-else>
+            {{props.labels.incl_tax}}
+          </template>
+        </template>
       </p>
       <p
         v-if="props.customizedOptions.location.visibility && useEventLocation(props.event, locations)"
@@ -104,6 +112,17 @@
       >
         <p>
           {{ eventCardPrice }}
+        </p>
+        <p
+          v-if="useCheckIfEventNotFree(props.event) && props.taxVisible"
+          class="am-tax"
+        >
+          <template v-if="amSettings.payments.taxes.excluded">
+            {{ `+${props.labels.total_tax_colon}` }}
+          </template>
+          <template v-else>
+            {{props.labels.incl_tax}}
+          </template>
         </p>
       </div>
       <p
@@ -150,7 +169,6 @@ import {
 } from "../../../../../assets/js/common/formatting";
 import { useColorTransparency } from "../../../../../assets/js/common/colorManipulation";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
-
 
 // * Component Properties
 let props = defineProps({
@@ -225,11 +243,18 @@ let props = defineProps({
   inDialog: {
     type: Boolean,
     default: false
+  },
+  taxVisible: {
+    type: Boolean,
+    default: false
   }
 })
 
 // * Component Emits
 const emits = defineEmits(['click'])
+
+// * Root Settings
+const amSettings = inject('settings')
 
 // * Container width
 let cWidth = inject('containerWidth')
@@ -591,6 +616,9 @@ export default {
       }
 
       &-price {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
         font-size: var(--am-fs-ec-title);
         font-weight: 500;
         line-height: 1.6;
@@ -605,6 +633,10 @@ export default {
           }
         }
 
+        &.am-rw-360 {
+          flex-wrap: wrap;
+        }
+
         p {
           font-size: inherit;
           font-weight: inherit;
@@ -612,6 +644,10 @@ export default {
           text-align: right;
           color: inherit;
           margin: 0 0 8px;
+
+          &.am-tax {
+            margin-left: 8px;
+          }
         }
       }
 

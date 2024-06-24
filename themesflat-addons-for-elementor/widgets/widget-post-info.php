@@ -157,6 +157,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 						'placeholder' => esc_html__( 'F j, Y', 'themesflat-addons-for-elementor' ),
 						'description' => 	wp_kses(
 												sprintf(
+													/* translators:Insert custom date format for single post meta. For more detail about this format, please refer to <a href="%s" target="_blank">Developer Codex</a>.*/
 													__( 'Insert custom date format for single post meta. For more detail about this format, please refer to <a href="%s" target="_blank">Developer Codex</a>.', 'themesflat-addons-for-elementor' ),
 													'https://wordpress.org/support/article/formatting-date-and-time/'
 												),
@@ -199,6 +200,7 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 						'label' => esc_html__( 'Comments', 'themesflat-addons-for-elementor' ),
 						'type' => \Elementor\Controls_Manager::TEXT,
 						'default' => '%s Comments',
+						/* translators:'%s Comments*/
 						'placeholder' => esc_html__( '%s Comments', 'themesflat-addons-for-elementor' ),
 						'condition' => [
 							'type' => 'comments',
@@ -548,9 +550,10 @@ class TFPostInfo_Widget_Free extends \Elementor\Widget_Base {
 								ob_start();
 								$icon = \Elementor\Icons_Manager::render_icon( $info_list['icon_info'], [ 'aria-hidden' => 'true' ] );
 								$icon = ob_get_clean();
-
+								
 								$string_no_comments = esc_html__( 'No Comments', 'themesflat-addons-for-elementor' );
 								$string_one_comment = esc_html__( 'One Comment', 'themesflat-addons-for-elementor' );
+								/* translators:/* %s Comments*/
 								$string_comments = esc_html__( '%s Comments', 'themesflat-addons-for-elementor' );	
 
 								if ( ! empty( $info_list['string_no_comments'] ) ) {

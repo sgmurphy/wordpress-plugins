@@ -502,18 +502,17 @@ function htmega_validation_data( $user_data = null, $messages = null ){
             return wp_json_encode( [ 'registerauth' =>false, 'message'=> $password_length_msg ] );
         }
     }
-    if( !empty( $user_data['user_email'] ) ){
-        if ( !is_email( $user_data['user_email'] ) ) {
 
-            $invalid_email_msg = !empty( $messages['invalid_email_msg'] ) ? esc_html( $messages['invalid_email_msg'] ) : esc_html__('Email is not valid', 'htmega-addons');
-            
-            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $invalid_email_msg ] );
-        }
-        if ( email_exists( $user_data['user_email'] ) ) {
-            $email_exists_msg = !empty( $messages['email_exists_msg'] ) ? esc_html( $messages['email_exists_msg'] ) : esc_html__('Email Already in Use', 'htmega-addons');
-            
-            return wp_json_encode( [ 'registerauth' =>false, 'message'=> $email_exists_msg ] );
-        }
+    if ( !is_email( $user_data['user_email'] ) ) {
+
+        $invalid_email_msg = !empty( $messages['invalid_email_msg'] ) ? esc_html( $messages['invalid_email_msg'] ) : esc_html__('Email is not valid', 'htmega-addons');
+        
+        return wp_json_encode( [ 'registerauth' =>false, 'message'=> $invalid_email_msg ] );
+    }
+    if ( email_exists( $user_data['user_email'] ) ) {
+        $email_exists_msg = !empty( $messages['email_exists_msg'] ) ? esc_html( $messages['email_exists_msg'] ) : esc_html__('Email Already in Use', 'htmega-addons');
+        
+        return wp_json_encode( [ 'registerauth' =>false, 'message'=> $email_exists_msg ] );
     }
     if( !empty( $user_data['user_url'] ) ){
         if ( !filter_var( $user_data['user_url'], FILTER_VALIDATE_URL ) ) {
@@ -970,3 +969,20 @@ if( !function_exists('htmega_get_module_option') ) {
 
     }
 }
+
+/**
+ * [htmega_clean]
+ * @param  [JSON] $var
+ * @return [array]
+ */
+
+ if( !function_exists('htmega_clean') ) {
+
+    function htmega_clean( $var ) {
+        if ( is_array( $var ) ) {
+            return array_map( 'htmega_clean', $var );
+        } else {
+            return is_scalar( $var ) ? esc_html( $var ) : $var;
+        }
+    }
+ }

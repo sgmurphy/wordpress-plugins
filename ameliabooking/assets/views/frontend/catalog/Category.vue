@@ -262,6 +262,7 @@
         categoryId: '',
         fetchedCategory: false,
         responseEntities: {
+          taxes: [],
           categories: [],
           employees: [],
           locations: [],
@@ -342,7 +343,7 @@
             $this.fetchedEntities(success)
           }
         }, {
-          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages'],
+          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'taxes'],
           isFrontEnd: true,
           isPanel: false
         })

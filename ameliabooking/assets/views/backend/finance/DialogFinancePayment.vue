@@ -122,7 +122,8 @@
             <p v-if="modalData.bookableType !== 'package' && modalData.bookableType !== 'event'">{{ $root.labels.extras }}</p>
             <p v-if="modalData.bookableType !== 'package' && modalData.bookableType !== 'event'">{{ $root.labels.subtotal }}</p>
             <p>{{ $root.labels.discount_amount }}</p>
-            <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0">{{ $root.labels.tax }}</p>
+            <p v-if="finance.tax">{{ $root.labels.tax }}</p>
+            <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0">{{ $root.labels.tax }} (Woo)</p>
             <p v-if="payments.length === 1">{{ $root.labels.paid }}</p>
             <p v-if="payments.length > 1">{{ $root.labels.paid_deposit }}</p>
             <p v-if="payments.length > 1">{{ $root.labels.paid_remaining_amount }}</p>
@@ -136,7 +137,8 @@
             <p v-if="modalData.bookableType !== 'package' && modalData.bookableType !== 'event'" class="am-semi-strong">{{ getFormattedPrice(finance.extrasPriceTotal) }}</p>
             <p v-if="modalData.bookableType !== 'package' && modalData.bookableType !== 'event'" class="am-semi-strong">{{ getFormattedPrice(finance.subTotal) }}</p>
             <p class="am-semi-strong">{{ getFormattedPrice(finance.discountTotal > finance.subTotal ? finance.subTotal : finance.discountTotal ) }}</p>
-            <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0" class="am-semi-strong">{{ getFormattedPrice(finance.tax) }}</p>
+            <p v-if="finance.tax" class="am-semi-strong">{{ getFormattedPrice(finance.tax) }}</p>
+            <p v-if="payments.filter(p => (p.wcOrderId && p.wcItemTaxValue)).length > 0" class="am-semi-strong">{{ getFormattedPrice(finance.wcTax) }}</p>
             <p class="am-semi-strong" v-if="payments.length === 1">{{ getFormattedPrice(finance.paidRemaining + finance.paidDeposit) }}</p>
             <p class="am-semi-strong" v-if="payments.length > 1">{{ getFormattedPrice(finance.paidDeposit) }}</p>
             <p class="am-semi-strong" v-if="payments.length > 1">{{ getFormattedPrice(finance.paidRemaining) }}</p>
@@ -294,10 +296,19 @@
   import priceMixin from '../../../js/common/mixins/priceMixin'
   import paymentMixin from '../../../js/backend/mixins/paymentMixin'
   import customerMixin from '../../../js/backend/mixins/customerMixin'
+  import taxMixin from '../../../js/common/mixins/taxesMixin'
 
 export default {
 
-    mixins: [imageMixin, dateMixin, notifyMixin, priceMixin, paymentMixin, customerMixin],
+    mixins: [
+      imageMixin,
+      dateMixin,
+      notifyMixin,
+      priceMixin,
+      paymentMixin,
+      customerMixin,
+      taxMixin
+    ],
 
     props: {
       modalData: null,
@@ -320,7 +331,8 @@ export default {
           refunded: 0,
           paidDeposit: 0,
           paidRemaining: 0,
-          tax: 0
+          tax: 0,
+          wcTax: 0
         },
         form: new Form(),
         payment: null,
@@ -472,47 +484,77 @@ export default {
 
         $this.modalData.bookings.forEach(function (bookItem) {
           if ($this.modalData.customerBookingId === bookItem.id) {
-            $this.finance.extrasPriceTotal = 0
+            switch ($this.modalData.bookableType) {
+              case ('appointment'):
+                let amountData = $this.getAppointmentPriceAmount(
+                  {
+                    price: bookItem.price,
+                    aggregatedPrice: bookItem.aggregatedPrice,
+                    tax: bookItem.tax,
+                    id: null
+                  },
+                  bookItem.extras,
+                  bookItem.persons,
+                  bookItem.coupon,
+                  false
+                )
 
-            bookItem.extras.forEach(function (extItem) {
-              $this.finance.extrasPriceTotal += extItem.price * extItem.quantity * (extItem.aggregatedPrice ? bookItem.persons : 1)
-            })
+                $this.finance.bookablePriceTotal = amountData.totalBookable
+                $this.finance.extrasPriceTotal = amountData.total - amountData.totalBookable
+                $this.finance.tax = amountData.tax
+                $this.finance.discountTotal = amountData.discount
 
-            if (bookItem.ticketsData && bookItem.ticketsData.length) {
-              let bookablePriceTotal = 0
+                break
 
-              bookItem.ticketsData.forEach((ticketData) => {
-                bookablePriceTotal += ticketData.price * (bookItem.aggregatedPrice ? ticketData.persons : 1)
-              })
+              case ('event'):
+                let eventAmountData = $this.getEventBookingPriceAmount(bookItem)
 
-              $this.finance.bookablePriceTotal = bookablePriceTotal
-            } else {
-              $this.finance.bookablePriceTotal = bookItem.price * (bookItem.aggregatedPrice ? bookItem.persons : 1)
+                $this.finance.bookablePriceTotal = eventAmountData.total
+                $this.finance.extrasPriceTotal = 0
+                $this.finance.tax = eventAmountData.tax
+                $this.finance.discountTotal = eventAmountData.discount
+
+                break
+              case ('package'):
+                let coupon = null
+
+                bookItem.payments.forEach(function (payItem) {
+                  coupon = payItem.coupon ? payItem.coupon : coupon
+                })
+
+                let packagePrice = bookItem.price * (bookItem.aggregatedPrice ? bookItem.persons : 1)
+
+                let packageAmountData = $this.getAmountData(
+                  bookItem.tax && bookItem.tax.length ? bookItem.tax[0] : null,
+                  packagePrice,
+                  coupon
+                )
+
+                $this.finance.bookablePriceTotal = packageAmountData.total
+                $this.finance.extrasPriceTotal = 0
+                $this.finance.tax = packageAmountData.tax
+                $this.finance.discountTotal = packageAmountData.discount
+
+                break
             }
 
             $this.finance.subTotal = $this.finance.bookablePriceTotal + $this.finance.extrasPriceTotal
-            $this.finance.discountTotal = ($this.finance.subTotal / 100 * (bookItem.coupon ? bookItem.coupon.discount : 0)) + (bookItem.coupon ? bookItem.coupon.deduction : 0)
 
-            $this.finance.total = $this.finance.subTotal
+            $this.finance.total = $this.finance.subTotal + $this.finance.tax
 
             let paidDeposit = 0
             let paidRemaining = 0
             bookItem.payments.forEach(function (payItem) {
-              // if it's a package take coupon from payment
-              if (payItem.packageCustomerId) {
-                $this.finance.discountTotal = ($this.finance.subTotal / 100 * (payItem.coupon ? payItem.coupon.discount : 0)) + (payItem.coupon ? payItem.coupon.deduction : 0)
-              }
-
               $this.finance.discountTotal += (payItem.wcOrderId ? payItem.wcItemCouponValue : 0)
               $this.finance.total += (payItem.wcOrderId ? payItem.wcItemTaxValue : 0)
               if (payItem.status === 'paid') {
                 paidRemaining += payItem.amount
-              } else if (payItem.status === 'partiallyPaid' || payItem.status === 'pending') {
+              } else if (payItem.status === 'partiallyPaid') {
                 paidDeposit += payItem.amount
               }
 
               if (payItem.wcOrderId && payItem.wcItemTaxValue) {
-                $this.finance.tax += payItem.wcItemTaxValue
+                $this.finance.wcTax += payItem.wcItemTaxValue
               }
             })
             let paidAmount = paidDeposit + paidRemaining

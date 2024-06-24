@@ -43,13 +43,13 @@
         <AmOption
           v-for="item in calendarServiceDurations"
           :key="item.duration"
-          :label="useSecondsToDuration(item.duration, amLabels.h, amLabels.min) + (item.priceLabel === '' ? '' : '(' + item.priceLabel + ')')"
+          :label="useSecondsToDuration(item.duration, amLabels.h, amLabels.min) + (item.priceLabel === '' ? '' : '(' + item.priceLabel + ')' + taxText)"
           :value="item.duration"
         >
           <AmOptionTemplate1
             :identifier="item.duration"
             :label="useSecondsToDuration(item.duration, amLabels.h, amLabels.min)"
-            :price-string="item.priceLabel"
+            :price-string="`${item.priceLabel} ${taxText}`"
             icon-string="clock"
           ></AmOptionTemplate1>
         </AmOption>
@@ -213,6 +213,18 @@ const props = defineProps({
     default: () => {
       return {}
     }
+  },
+  taxVisibility: {
+    type: Boolean,
+    default: false
+  },
+  taxLabel: {
+    type: String,
+    default: ''
+  },
+  taxLabelIncl: {
+    type: String,
+    default: ''
   }
 })
 
@@ -222,6 +234,18 @@ let containerWrapper = inject('formWrapper', ref(null))
 // timeZoneString: this.$root.settings.general.showClientTimeZone ? Intl.DateTimeFormat().resolvedOptions().timeZone : this.$root.settings.wordpress.timezone
 const amSettings = inject('settings')
 let timeZoneString = ref(amSettings.general.showClientTimeZone ? Intl.DateTimeFormat().resolvedOptions().timeZone : amSettings.wordpress.timezone)
+
+let taxText = computed(() => {
+  if(props.taxVisibility) {
+    if (amSettings.payments.taxes.excluded) {
+      return props.taxLabel
+    } else {
+      return props.taxLabelIncl
+    }
+  }
+
+  return ''
+})
 
 // * Calendar Reference
 const advCalendarRef = ref(null);

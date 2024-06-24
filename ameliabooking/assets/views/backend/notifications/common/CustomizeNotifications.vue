@@ -376,12 +376,15 @@
                     <el-select
                         v-model="selectedEvents"
                         :placeholder="$root.labels.all_events"
+                        :remote-method="query => searchEvents(query, true)"
+                        :loading="loadingEvents"
+                        remote
                         multiple
                         filterable
                         collapse-tags
                     >
                       <el-option
-                          v-for="event in events"
+                          v-for="event in searchedEvents"
                           :key="event.id"
                           :label="event.displayName ? event.displayName : event.name"
                           :value="event.id">
@@ -1151,6 +1154,7 @@
   import placeholdersMixin from '../../../../js/backend/mixins/placeholdersMixin'
   import priceMixin from '../../../../js/common/mixins/priceMixin'
   import whatsappNotificationMixin from '../../../../js/backend/mixins/whatsappNotificationMixin'
+  import eventMixin from '../../../../js/backend/mixins/eventMixin'
 
   export default {
     mixins: [
@@ -1163,7 +1167,8 @@
       entitiesMixin,
       placeholdersMixin,
       priceMixin,
-      whatsappNotificationMixin
+      whatsappNotificationMixin,
+      eventMixin
     ],
 
     props: {
@@ -1345,6 +1350,7 @@
       this.getNotification(null)
       this.usedLanguages = this.passedUsedLanguages
       this.services = this.getServicesFromCategories(this.categories)
+      this.searchedEvents = this.events
     },
 
     methods: {

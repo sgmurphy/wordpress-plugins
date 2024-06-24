@@ -13,14 +13,14 @@
       <AmButton
         :size="props.btnSize"
         :type="props.type"
-        :suffix="paymentMethods.length > 1 && usePayable(props.reservation) ? arrowDown : ''"
-        :class="[{'am-button-single': paymentMethods.length === 1 || !usePayable(props.reservation)}, props.class]"
+        :suffix="paymentMethods.length > 1 && usePayable(store, props.reservation) ? arrowDown : ''"
+        :class="[{'am-button-single': paymentMethods.length === 1 || !usePayable(store, props.reservation)}, props.class]"
         :loading="!!paymentButtonLoader"
         :loading-icon="'loading'"
-        :disabled="!usePayable(props.reservation)"
+        :disabled="!usePayable(store, props.reservation)"
         @click="paymentLinkActivated"
       >
-        {{ usePayable(props.reservation) ? amLabels.pay_now_btn : amLabels.paid }}
+        {{ usePayable(store, props.reservation) ? amLabels.pay_now_btn : amLabels.paid }}
       </AmButton>
     </template>
     <div

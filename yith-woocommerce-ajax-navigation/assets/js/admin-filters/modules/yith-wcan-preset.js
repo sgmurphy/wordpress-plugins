@@ -144,12 +144,13 @@ export default class YITH_WCAN_Preset {
 				id: index || this.nextRowIndex(),
 				key: this.filters.size,
 			} ),
-			$newFilter = $( newFilter ),
-			filter = new YITH_WCAN_Filter( $newFilter, this );
-
-		data && filter.populate( data );
+			$newFilter = $( newFilter );
 
 		this.$filtersContainer.append( $newFilter );
+
+		const filter = new YITH_WCAN_Filter( $newFilter, this );
+		data && filter.populate( data );
+
 		this.afterFilterAdd( filter );
 
 		return $newFilter;

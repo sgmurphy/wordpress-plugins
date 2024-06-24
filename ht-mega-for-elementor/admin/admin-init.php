@@ -122,6 +122,7 @@ class HTMega_Admin_Setting{
 		
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		printf( '<style>%s</style>', $styles );
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		printf( '<script>%s</script>', $scripts );
     }
     
@@ -182,7 +183,7 @@ class HTMega_Admin_Setting{
     public function dashboard_hasthemes_widget() {
         ob_start();
         self::load_template('widget');
-        echo ob_get_clean();
+        echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**

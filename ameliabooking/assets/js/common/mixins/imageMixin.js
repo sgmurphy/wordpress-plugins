@@ -21,6 +21,11 @@ export default {
   }),
 
   methods: {
+    deleteImage (entity) {
+      entity.pictureThumbPath = ''
+      entity.pictureFullPath = ''
+    },
+
     getAppropriateUrlParams (params) {
       if (!this.$root.settings.activation.disableUrlParams) {
         return params

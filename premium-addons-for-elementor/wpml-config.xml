@@ -262,6 +262,15 @@
         <widget name="premium-world-clock">
             <fields>
                 <field name="World Clock: Title" editor_type="LINE">clock_title</field>
+                <field name="World Clock: Zone Name" editor_type="LINE">custom_tz</field>
+            </fields>
+        </widget>
+
+        <widget name="premium-notifications">
+            <fields>
+                <field name="Trigger Text" editor_type="LINE">text</field>
+                <field name="Header Text" editor_type="LINE">header_text</field>
+                <field name="Readmore Text" editor_type="LINE">premium_blog_excerpt_text</field>
             </fields>
         </widget>
 
@@ -289,6 +298,33 @@
                 <field name="Item: Description" editor_type="LINE">media_desc</field>
                 <field name="Item: Link" editor_type="LINK">media_wheel_custom_link>url</field>
             </fields-in-item>
+        </widget>
+
+        <widget name="premium-mobile-menu">
+            <fields-in-item items_of="menu_items">
+                <field name="Item: Title" editor_type="LINE">menu_item_text</field>
+                <field name="Item: Link" editor_type="LINK">link>url</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-textual-showcase">
+            <fields-in-item items_of="content">
+                <field name="Item: Text" editor_type="LINE">item_txt</field>
+                <field name="Item: Hover Text" editor_type="LINE">item_txt_hov</field>
+                <field name="Item: Link" editor_type="LINK">link>url</field>
+            </fields-in-item>
+        </widget>
+
+        <widget name="premium-search-form">
+            <field name="Empty Query Text" editor_type="LINE">empty_query_text</field>
+            <field name="Label Text" editor_type="LINE">label_text</field>
+            <field name="Results Number Text" editor_type="LINE">results_number_text</field>
+            <field name="Placeholder Text" editor_type="LINE">placeholder_text</field>
+            <field name="Button Text" editor_type="LINE">button_text</field>
+            <field name="Search Page Link" editor_type="LINK">search_page_link</field>
+            <field name="Readmore Text" editor_type="LINE">excerpt_text</field>
+            <field name="Previous Page" editor_type="LINE">premium_blog_prev_text</field>
+            <field name="Next Page" editor_type="LINE">premium_blog_next_text</field>
         </widget>
 
     </elementor-widgets>

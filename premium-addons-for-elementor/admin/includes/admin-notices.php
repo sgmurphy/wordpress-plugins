@@ -61,10 +61,10 @@ class Admin_Notices {
 
 		self::$notices = array(
 			'pa-review',
-			'mobile_menu',
+			'animated_text',
 		);
 
-		delete_option( 'search_form' );
+		delete_option( 'mobile_menu' );
 
 	}
 
@@ -106,7 +106,7 @@ class Admin_Notices {
 			return;
 		}
 
-		$this->get_mobile_menu_notice();
+		$this->get_animated_text_notice();
 
 	}
 
@@ -235,22 +235,22 @@ class Admin_Notices {
 
 	/**
 	 *
-	 * Shows admin notice for Mobile Menu widget.
+	 * Shows admin notice for Animated Text widget.
 	 *
-	 * @since 4.10.32
+	 * @since 4.10.35
 	 * @access public
 	 *
 	 * @return void
 	 */
-	public function get_mobile_menu_notice() {
+	public function get_animated_text_notice() {
 
-		$option = get_option( 'mobile_menu' );
+		$option = get_option( 'animated_text' );
 
 		if ( '1' === $option ) {
 			return;
 		}
 
-		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-mobile-menu-widget', 'mobile-menu-notification', 'wp-dash', 'mobile-menu' );
+		$link = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget', 'animated-text-notification', 'wp-dash', 'animated-text' );
 
 		?>
 
@@ -260,11 +260,11 @@ class Admin_Notices {
 			</div>
 			<div class="pa-text-wrap">
 				<p>
-					<strong><?php echo __( 'Premium Mobile Menu widget', 'premium-addons-for-elemetor' ); ?></strong>
-					<?php echo sprintf( __( 'is now available in Premium Addons for Elementor. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
+					<strong><?php echo __( 'Elementor Fancy Text widget', 'premium-addons-for-elemetor' ); ?></strong>
+					<?php echo sprintf( __( 'got a huge update. <a href="%s" target="_blank">Check it out now!</a>', 'premium-addons-for-elementor' ), $link ); ?>
 				</p>
 			</div>
-			<div class="pa-notice-close" data-notice="mobile-menu">
+			<div class="pa-notice-close" data-notice="animated-text">
 				<span class="dashicons dashicons-dismiss"></span>
 			</div>
 		</div>

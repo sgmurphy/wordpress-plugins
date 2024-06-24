@@ -13,6 +13,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
 use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Text_Shadow;
+use Elementor\Group_Control_Background;
 
 // PremiumAddons Classes.
 use PremiumAddons\Includes\Helper_Functions;
@@ -44,7 +45,7 @@ class Premium_Fancytext extends Widget_Base {
 	 * @access public
 	 */
 	public function get_title() {
-		return __( 'Fancy Text', 'premium-addons-for-elementor' );
+		return __( 'Animated Text', 'premium-addons-for-elementor' );
 	}
 
 	/**
@@ -83,6 +84,7 @@ class Premium_Fancytext extends Widget_Base {
 	 */
 	public function get_script_depends() {
 		return array(
+			'elementor-waypoints',
 			'pa-typed',
 			'pa-vticker',
 			'premium-addons',
@@ -98,7 +100,7 @@ class Premium_Fancytext extends Widget_Base {
 	 * @return string Widget keywords.
 	 */
 	public function get_keywords() {
-		return array( 'pa', 'premium', 'typing', 'slide', 'headline', 'heading', 'animation' );
+		return array( 'pa', 'premium', 'fancy', 'typing', 'headline', 'heading', 'animation' );
 	}
 
 	/**
@@ -143,21 +145,50 @@ class Premium_Fancytext extends Widget_Base {
 	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 
 		$this->start_controls_section(
-			'premium_fancy_text_content',
+			'general_section',
 			array(
-				'label' => __( 'Fancy Text', 'premium-addons-for-elementor' ),
+				'label' => __( 'General', 'premium-addons-for-elementor' ),
+			)
+		);
+
+		$this->add_control(
+			'style',
+			array(
+				'label'        => __( 'Text Style', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SELECT,
+				'prefix_class' => 'premium-atext__',
+				'options'      => array(
+					'switch'    => __( 'Switched', 'premium-addons-for-elementor' ),
+					'highlight' => __( 'Highlighted', 'premium-addons-for-elementor' ),
+				),
+				'default'      => 'switch',
+				'render_type'  => 'template',
 			)
 		);
 
 		$this->add_control(
 			'premium_fancy_prefix_text',
 			array(
-				'label'       => __( 'Prefix', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Before Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
 				'default'     => __( 'This is', 'premium-addons-for-elementor' ),
-				'description' => __( 'Text before Fancy text', 'premium-addons-for-elementor' ),
 				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'text',
+			array(
+				'label'       => __( 'Highlighted Text', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'dynamic'     => array( 'active' => true ),
+				'separator'   => 'before',
+				'default'     => __( 'animated', 'premium-addons-for-elementor' ),
+				'label_block' => true,
+				'condition'   => array(
+					'style' => 'highlight',
+				),
 			)
 		);
 
@@ -191,17 +222,48 @@ class Premium_Fancytext extends Widget_Base {
 				),
 				'fields'      => $repeater->get_controls(),
 				'title_field' => '{{{ premium_text_strings_text_field }}}',
+				'condition'   => array(
+					'style' => 'switch',
+				),
 			)
 		);
 
 		$this->add_control(
 			'premium_fancy_suffix_text',
 			array(
-				'label'       => __( 'Suffix', 'premium-addons-for-elementor' ),
+				'label'       => __( 'After Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'dynamic'     => array( 'active' => true ),
 				'default'     => __( 'Text', 'premium-addons-for-elementor' ),
-				'description' => __( 'Text after Fancy text', 'premium-addons-for-elementor' ),
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'link',
+			array(
+				'label'     => __( 'Link', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::URL,
+				'dynamic'   => array(
+					'active' => true,
+				),
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'display',
+			array(
+				'label'       => __( 'Display', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array(
+					'inline' => __( 'Inline', 'premium-addons-for-elementor' ),
+					'block'  => __( 'Block', 'premium-addons-for-elementor' ),
+				),
+				'default'     => 'inline',
+				'selectors'   => array(
+					'{{WRAPPER}} .premium-prefix-text, {{WRAPPER}} .premium-suffix-text' => 'display: {{VALUE}}',
+				),
 				'label_block' => true,
 			)
 		);
@@ -228,8 +290,30 @@ class Premium_Fancytext extends Widget_Base {
 				'default'   => 'center',
 				'toggle'    => false,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text-wrapper' => 'text-align: {{VALUE}};',
+					'{{WRAPPER}} .premium-atext__headline' => 'text-align: {{VALUE}};',
 				),
+			)
+		);
+
+		$this->add_control(
+			'text_tag',
+			array(
+				'label'       => __( 'HTML Tag', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'h3',
+				'options'     => array(
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'div',
+					'span' => 'span',
+					'p'    => 'p',
+				),
+				'label_block' => true,
+				'separator'   => 'after',
 			)
 		);
 
@@ -248,18 +332,63 @@ class Premium_Fancytext extends Widget_Base {
 				'label'       => __( 'Effect', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'options'     => array(
-					'typing'    => __( 'Typing', 'premium-addons-for-elementor' ),
-					'slide'     => __( 'Slide Up', 'premium-addons-for-elementor' ),
-					'zoomout'   => __( 'Zoom Out', 'premium-addons-for-elementor' ),
-					'rotate'    => __( 'Rotate', 'premium-addons-for-elementor' ),
-					'auto-fade' => __( 'Auto Fade', 'premium-addons-for-elementor' ),
-					'custom'    => __( 'Custom', 'premium-addons-for-elementor' ),
+					'typing'  => __( 'Typing', 'premium-addons-for-elementor' ),
+					'clip'    => apply_filters( 'pa_pro_label', __( 'Clip (Pro)', 'premium-addons-for-elementor' ) ),
+					'slide'   => __( 'Slide Up', 'premium-addons-for-elementor' ),
+					'zoomout' => __( 'Zoom Out', 'premium-addons-for-elementor' ),
+					'rotate'  => __( 'Rotate', 'premium-addons-for-elementor' ),
+					'custom'  => __( 'Custom', 'premium-addons-for-elementor' ),
 				),
 				'default'     => 'typing',
 				'render_type' => 'template',
 				'label_block' => true,
+				'condition'   => array(
+					'style' => 'switch',
+				),
 			)
 		);
+
+		$this->add_control(
+			'highlight_effect',
+			array(
+				'label'       => __( 'Effect', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array(
+					'shadow'    => __( 'Animated Shadow', 'premium-addons-for-elementor' ),
+					'pattern'   => __( 'Animated Pattern', 'premium-addons-for-elementor' ),
+					'fill'      => __( 'Animated Fill', 'premium-addons-for-elementor' ),
+					'tilt'      => __( 'Tilt', 'premium-addons-for-elementor' ),
+					'flip'      => apply_filters( 'pa_pro_label', __( 'Flip (Pro)', 'premium-addons-for-elementor' ) ),
+					'wave'      => apply_filters( 'pa_pro_label', __( 'Wave (Pro)', 'premium-addons-for-elementor' ) ),
+					'pop'       => apply_filters( 'pa_pro_label', __( 'Pop (Pro)', 'premium-addons-for-elementor' ) ),
+					'reveal'    => apply_filters( 'pa_pro_label', __( 'Reveal (Pro)', 'premium-addons-for-elementor' ) ),
+					'lines'     => apply_filters( 'pa_pro_label', __( 'Moving Lines (Pro)', 'premium-addons-for-elementor' ) ),
+					'underline' => apply_filters( 'pa_pro_label', __( 'Color Highlight (Pro)', 'premium-addons-for-elementor' ) ),
+					'shape'     => apply_filters( 'pa_pro_label', __( 'Draw Shape (Pro)', 'premium-addons-for-elementor' ) ),
+				),
+				'default'     => 'shadow',
+				'label_block' => true,
+				'condition'   => array(
+					'style' => 'highlight',
+				),
+			)
+		);
+
+		$this->add_control(
+			'pattern_notice',
+			array(
+				'raw'             => __( 'This effect works only with one word highlighted text.', 'premium-addons-for-elementor' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'condition'       => array(
+					'style'            => 'highlight',
+					'highlight_effect' => 'pattern',
+
+				),
+			)
+		);
+
+		do_action( 'pa_atext_highlight_controls', $this );
 
 		$this->add_control(
 			'custom_animation',
@@ -269,6 +398,7 @@ class Premium_Fancytext extends Widget_Base {
 				'render_type' => 'template',
 				'default'     => 'fadeIn',
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'custom',
 				),
 			)
@@ -282,6 +412,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'Set typing effect speed in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -295,10 +426,11 @@ class Premium_Fancytext extends Widget_Base {
 				'render_type' => 'template',
 				'description' => __( 'Set animation speed in milliseconds. Default value is 1000', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 				'selectors'   => array(
-					'{{WRAPPER}} .premium-fancy-text-wrapper:not(.typing):not(.slide) .premium-fancy-list-items'   => 'animation-duration: {{VALUE}}ms',
+					'{{WRAPPER}} .premium-atext__wrapper:not(.premium-atext__typing):not(.premium-atext__slide) .premium-fancy-list-items'   => 'animation-duration: {{VALUE}}ms',
 				),
 			)
 		);
@@ -308,9 +440,10 @@ class Premium_Fancytext extends Widget_Base {
 			array(
 				'label'       => __( 'Animation Delay', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'Set animation delay in milliseconds.Default value is 2500', 'premium-addons-for-elementor' ),
+				'description' => __( 'Set animation delay in milliseconds. Default value is 2500', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'premium_fancy_text_effect!' => array( 'typing', 'slide', 'auto-fade' ),
+					'style'                      => 'switch',
+					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 			)
 		);
@@ -321,7 +454,8 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Loop Count', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::NUMBER,
 				'condition' => array(
-					'premium_fancy_text_effect!' => array( 'typing', 'slide', 'auto-fade' ),
+					'style'                      => 'switch',
+					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 			)
 		);
@@ -334,6 +468,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'Set a speed for backspace effect in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -347,6 +482,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'If you set it on 5000 milliseconds, the first word/string will appear after 5 seconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -360,6 +496,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'If you set it on 5000 milliseconds, the word/string will remain visible for 5 seconds before backspace effect.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -372,6 +509,7 @@ class Premium_Fancytext extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -384,6 +522,7 @@ class Premium_Fancytext extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -397,6 +536,7 @@ class Premium_Fancytext extends Widget_Base {
 				'dynamic'   => array( 'active' => true ),
 				'default'   => '|',
 				'condition' => array(
+					'style'                          => 'switch',
 					'premium_fancy_text_effect'      => 'typing',
 					'premium_fancy_text_show_cursor' => 'yes',
 				),
@@ -411,6 +551,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 200,
 				'description' => __( 'Set a duration value in milliseconds for slide up effect.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -419,11 +560,12 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'premium_slide_up_pause_time',
 			array(
-				'label'       => __( 'Pause Time (Milliseconds)', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Pause Time', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 3000,
 				'description' => __( 'How long should the word/string stay visible? Set a value in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -437,6 +579,7 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 1,
 				'description' => __( 'How many items should be visible at a time?', 'premium-addons-for-elementor' ),
 				'condition'   => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -445,11 +588,44 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'premium_slide_up_hover_pause',
 			array(
-				'label'       => __( 'Pause on Hover', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => __( 'If you enabled this option, the slide will be paused when mouseover.', 'premium-addons-for-elementor' ),
-				'condition'   => array(
-					'premium_fancy_text_effect' => 'slide',
+				'label'        => __( 'Pause on Hover', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'premium-atext__paused-',
+				'render_type'  => 'template',
+				'conditions'   => array(
+					'relation' => 'or',
+					'terms'    => array(
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'highlight',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'underline',
+								),
+								array(
+									'name'     => 'highlight_effect',
+									'operator' => '!==',
+									'value'    => 'shape',
+								),
+							),
+						),
+						array(
+							'terms' => array(
+								array(
+									'name'  => 'style',
+									'value' => 'switch',
+								),
+								array(
+									'name'  => 'premium_fancy_text_effect',
+									'value' => 'slide',
+								),
+							),
+						),
+					),
 				),
 			)
 		);
@@ -457,9 +633,12 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'loading_bar',
 			array(
-				'label'     => __( 'Loading Bar', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'condition' => array(
+				'label'        => __( 'Loading Bar', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'premium-atext__loading-',
+				'render_type'  => 'template',
+				'condition'    => array(
+					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => 'typing',
 				),
 			)
@@ -468,7 +647,7 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_responsive_control(
 			'premium_fancy_slide_align',
 			array(
-				'label'     => __( 'Fancy Text Alignment', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Animated Text Alignment', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => array(
 					'left'   => array(
@@ -490,6 +669,7 @@ class Premium_Fancytext extends Widget_Base {
 					'{{WRAPPER}} .premium-fancy-list-items' => 'text-align: {{VALUE}}',
 				),
 				'condition' => array(
+					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -520,10 +700,22 @@ class Premium_Fancytext extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'premium_fancy_text_style_tab',
+			'animated_text_style_section',
 			array(
-				'label' => __( 'Fancy Text', 'premium-addons-for-elementor' ),
+				'label' => __( 'Animated Text', 'premium-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'fancy_text_typography',
+				'label'    => __( 'Headline Typography', 'premium-addons-for-elementor' ),
+				'selector' => '{{WRAPPER}} .premium-atext__headline, {{WRAPPER}} .premium-atext__text svg g > text',
+				'global'   => array(
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				),
 			)
 		);
 
@@ -536,20 +728,127 @@ class Premium_Fancytext extends Widget_Base {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .premium-fancy-svg-text .premium-fancy-list-items' => 'fill : {{VALUE}};',
+					'{{WRAPPER}} .premium-atext__text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-fancy-svg-text .premium-fancy-list-items, {{WRAPPER}} .text' => 'fill : {{VALUE}};',
+				),
+				'condition' => array(
+					'highlight_effect!' => array( 'fill', 'reveal' ),
 				),
 			)
 		);
 
 		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+			Group_Control_Background::get_type(),
 			array(
-				'name'     => 'fancy_text_typography',
-				'global'   => array(
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				'name'      => 'fill_background',
+				'types'     => array( 'classic', 'gradient' ),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => 'fill',
 				),
-				'selector' => '{{WRAPPER}} .premium-fancy-text-wrapper:not(.auto-fade) .premium-fancy-text, {{WRAPPER}} .premium-fancy-text svg g > text',
+				'selector'  => '{{WRAPPER}} .premium-atext__text',
+			)
+		);
+
+		$this->add_control(
+			'highlight_color',
+			array(
+				'label'     => __( 'Highlight Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text::after' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => 'underline',
+				),
+			)
+		);
+
+		$this->add_control(
+			'shadow_first_color',
+			array(
+				'label'     => __( 'First Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_PRIMARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text' => '--pa-atext-fc: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => array( 'shadow', 'pattern', 'lines' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'shadow_second_color',
+			array(
+				'label'     => __( 'Second Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text, {{WRAPPER}} .premium-atext__pattern .premium-atext__text::after' => '--pa-atext-sc: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => array( 'shadow', 'pattern', 'lines' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'shadow_third_color',
+			array(
+				'label'     => __( 'Third Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_TEXT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text' => '--pa-atext-tc: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => array( 'shadow', 'lines' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'shadow_fourth_color',
+			array(
+				'label'     => __( 'Fourth Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_ACCENT,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text' => '--pa-atext-foc: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => array( 'shadow', 'lines' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'shadow_fifth_color',
+			array(
+				'label'     => __( 'Fifth Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text' => '--pa-atext-fic: {{VALUE}}',
+				),
+				'condition' => array(
+					'style'            => 'highlight',
+					'highlight_effect' => 'lines',
+				),
 			)
 		);
 
@@ -559,7 +858,10 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Background Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .premium-atext__text' => 'background-color: {{VALUE}}',
+				),
+				'condition' => array(
+					'highlight_effect!' => 'fill',
 				),
 			)
 		);
@@ -568,34 +870,9 @@ class Premium_Fancytext extends Widget_Base {
 			Group_Control_Text_Shadow::get_type(),
 			array(
 				'name'      => 'text_shadow',
-				'selector'  => '{{WRAPPER}} .premium-fancy-text',
+				'selector'  => '{{WRAPPER}} .premium-atext__text',
 				'condition' => array(
-					'premium_fancy_text_effect!' => 'auto-fade',
-				),
-			)
-		);
-
-		$this->add_control(
-			'autofade_shadow',
-			array(
-				'label'     => esc_html__( 'Text Shadow', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::POPOVER_TOGGLE,
-				'condition' => array(
-					'premium_fancy_text_effect' => 'auto-fade',
-				),
-			)
-		);
-
-		$this->add_control(
-			'stroke_text_color',
-			array(
-				'label'     => __( 'Stroke Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'condition' => array(
-					'premium_fancy_text_effect!' => 'auto-fade',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => '-webkit-text-stroke-color: {{VALUE}}',
+					'highlight_effect!' => array( 'shadow', 'lines' ),
 				),
 			)
 		);
@@ -606,136 +883,82 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Stroke Width', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SLIDER,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => '-webkit-text-stroke-width: {{SIZE}}px',
-				),
-				'condition' => array(
-					'premium_fancy_text_effect!' => 'auto-fade',
+					'{{WRAPPER}} .premium-atext__text' => '-webkit-text-stroke-width: {{SIZE}}px',
+					'{{WRAPPER}} .text'                => 'stroke-width: {{SIZE}}',
 				),
 			)
 		);
-
-		$this->start_popover();
 
 		$this->add_control(
-			'autofade_shadow_color',
+			'stroke_text_color',
 			array(
-				'label'       => __( 'Color', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::COLOR,
-				'default'     => 'rgba(0, 0, 0, 0.3)',
-				'render_type' => 'ui',
-			)
-		);
-
-		$this->add_responsive_control(
-			'autofade_shadow_blur',
-			array(
-				'label'       => __( 'Blur', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SLIDER,
-				'default'     => array(
-					'size' => 10,
+				'label'     => __( 'Stroke Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'highlight_effect!' => 'lines',
 				),
-				'render_type' => 'ui',
-			)
-		);
-
-		$this->add_responsive_control(
-			'autofade_shadow_hor',
-			array(
-				'label'       => __( 'Horizontal', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SLIDER,
-				'range'       => array(
-					'px' => array(
-						'min'  => -100,
-						'max'  => 100,
-						'step' => 10,
-					),
-				),
-				'default'     => array(
-					'size' => 0,
-				),
-				'render_type' => 'ui',
-			)
-		);
-
-		$this->add_responsive_control(
-			'autofade_shadow_ver',
-			array(
-				'label'       => __( 'Vertical', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SLIDER,
-				'range'       => array(
-					'px' => array(
-						'min'  => -100,
-						'max'  => 100,
-						'step' => 10,
-					),
-				),
-				'default'     => array(
-					'size' => 0,
-				),
-				'condition'   => array(
-					'autofade_shadow' => 'yes',
-				),
-				'render_type' => 'ui',
-				'selectors'   => array(
-					'{{WRAPPER}} .premium-fancy-svg-text' => 'filter:drop-shadow( {{autofade_shadow_hor.SIZE}}px {{autofade_shadow_ver.SIZE}}px {{autofade_shadow_blur.SIZE}}px {{autofade_shadow_color.VALUE}} )',
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text' => '-webkit-text-stroke-color: {{VALUE}}',
 				),
 			)
 		);
 
-		$this->end_popover();
-
-		$this->add_responsive_control(
-			'premium_fancy_autofade_width',
+		$this->add_control(
+			'animation_speed',
 			array(
-				'label'     => __( 'Width', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Animation Speed (sec)', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => array(
 					'px' => array(
 						'min'  => 0,
-						'max'  => 500,
-						'step' => 10,
+						'max'  => 15,
+						'step' => 0.1,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-atext__text, {{WRAPPER}} .premium-atext__text::after, {{WRAPPER}} .premium-atext__letter, {{WRAPPER}} .text' => 'animation-duration: {{SIZE}}s',
+					'{{WRAPPER}} .premium-atext__shape svg path' => '--pa-animation-duration: {{SIZE}}s',
+				),
+				'condition' => array(
+					'style'             => 'highlight',
+					'highlight_effect!' => 'underline',
+				),
+			)
+		);
+
+		$this->add_control(
+			'animation_delay',
+			array(
+				'label'     => __( 'Animation Delay (sec)', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::SLIDER,
+				'range'     => array(
+					's' => array(
+						'min' => 0,
+						'max' => 15,
 					),
 				),
 				'condition' => array(
-					'premium_fancy_text_effect' => 'auto-fade',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => 'width: {{SIZE}}{{UNIT}};',
+					'style'            => 'highlight',
+					'highlight_effect' => 'shape',
 				),
 			)
 		);
 
 		$this->add_responsive_control(
-			'premium_fancy_autofade_v_align',
+			'text_margin',
 			array(
-				'label'     => __( 'Vertical Alignment', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => array(
-					'text-top'    => array(
-						'title' => __( 'Top', 'premium-addons-for-elementor' ),
-						'icon'  => 'eicon-arrow-up',
-					),
-					'middle'      => array(
-						'title' => __( 'Center', 'premium-addons-for-elementor' ),
-						'icon'  => 'eicon-text-align-justify',
-					),
-					'text-bottom' => array(
-						'title' => __( 'Bottom', 'premium-addons-for-elementor' ),
-						'icon'  => 'eicon-arrow-down',
-					),
-				),
-				'default'   => 'middle',
-				'toggle'    => false,
-				'condition' => array(
-					'premium_fancy_text_effect' => 'auto-fade',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .premium-fancy-text' => 'vertical-align: {{VALUE}};',
+				'label'      => __( 'Margin', 'premium-addons-for-elementor' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', 'em', '%' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .premium-atext__text' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 			)
 		);
 
 		$this->end_controls_section();
+
+		do_action( 'pa_atext_shape_style', $this );
 
 		$this->start_controls_section(
 			'premium_fancy_cursor_text_style_tab',
@@ -743,6 +966,7 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Cursor Text', 'premium-addons-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
+					'style'                           => 'switch',
 					'premium_fancy_text_cursor_text!' => '',
 					'premium_fancy_text_effect'       => 'typing',
 				),
@@ -767,9 +991,6 @@ class Premium_Fancytext extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'fancy_text_cursor_typography',
-				'global'   => array(
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				),
 				'selector' => '{{WRAPPER}} .typed-cursor',
 			)
 		);
@@ -790,21 +1011,35 @@ class Premium_Fancytext extends Widget_Base {
 		$this->start_controls_section(
 			'premium_prefix_suffix_style_tab',
 			array(
-				'label' => __( 'Prefix & Suffix', 'premium-addons-for-elementor' ),
+				'label' => __( 'Before & After Text', 'premium-addons-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$this->add_control(
-			'premium_prefix_suffix_text_color',
+			'premium_prefix_text_color',
 			array(
-				'label'     => __( 'Color', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Before Text Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => array(
 					'default' => Global_Colors::COLOR_SECONDARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .premium-prefix-text, {{WRAPPER}} .premium-suffix-text' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-prefix-text' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'premium_suffix_text_color',
+			array(
+				'label'     => __( 'After Text Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'global'    => array(
+					'default' => Global_Colors::COLOR_SECONDARY,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .premium-suffix-text' => 'color: {{VALUE}};',
 				),
 			)
 		);
@@ -813,21 +1048,11 @@ class Premium_Fancytext extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'prefix_suffix_typography',
+				'selector' => '{{WRAPPER}} .premium-prefix-text, {{WRAPPER}} .premium-suffix-text',
 				'global'   => array(
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 				),
-				'selector' => '{{WRAPPER}} .premium-prefix-text, {{WRAPPER}} .premium-suffix-text',
-			)
-		);
-
-		$this->add_control(
-			'premium_prefix_suffix_text_background_color',
-			array(
-				'label'     => __( 'Background Color', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					'{{WRAPPER}} .premium-prefix-text, {{WRAPPER}} .premium-suffix-text' => 'background-color: {{VALUE}};',
-				),
+				'exclude'  => array( 'font_size' ),
 			)
 		);
 
@@ -839,6 +1064,7 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Loading Bar', 'premium-addons-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
+					'style'                      => 'switch',
 					'loading_bar'                => 'yes',
 					'premium_fancy_text_effect!' => 'typing',
 				),
@@ -854,7 +1080,7 @@ class Premium_Fancytext extends Widget_Base {
 					'default' => Global_Colors::COLOR_PRIMARY,
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .loading .premium-loading-bar' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}}.premium-atext__loading-yes .premium-loading-bar' => 'background-color: {{VALUE}};',
 				),
 			)
 		);
@@ -871,7 +1097,7 @@ class Premium_Fancytext extends Widget_Base {
 					),
 				),
 				'selectors' => array(
-					'{{WRAPPER}} .loading .premium-loading-bar' => 'height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}}.premium-atext__loading-yes .premium-loading-bar' => 'height: {{SIZE}}{{UNIT}}',
 				),
 			)
 		);
@@ -891,132 +1117,192 @@ class Premium_Fancytext extends Widget_Base {
 
 		$settings = $this->get_settings_for_display();
 
-		$effect = $settings['premium_fancy_text_effect'];
+		$papro_activated = apply_filters( 'papro_activated', false );
 
-		$loading_bar = 'yes' === $settings['loading_bar'] ? 'loading' : '';
+		if ( ! $papro_activated || version_compare( PREMIUM_PRO_ADDONS_VERSION, '2.9.18', '<' ) ) {
 
-		$pause = '';
+			if ( ( 'switch' === $settings['style'] && 'clip' === $settings['premium_fancy_text_effect'] ) || ( 'highlight' === $settings['style'] && ! in_array( $settings['highlight_effect'], array( 'shadow', 'pattern', 'fill', 'tilt' ), true ) ) ) {
 
-		if ( 'typing' === $effect ) {
+				?>
+				<div class="premium-error-notice">
+					<?php
+						$message = __( 'This option is available in <b>Premium Addons Pro</b>.', 'premium-addons-for-elementor' );
+						echo wp_kses_post( $message );
+					?>
+				</div>
+				<?php
+				return false;
 
-			$show_cursor = ( ! empty( $settings['premium_fancy_text_show_cursor'] ) ) ? true : false;
-
-			$cursor_text = addslashes( $settings['premium_fancy_text_cursor_text'] );
-
-			$loop = ! empty( $settings['premium_fancy_text_type_loop'] ) ? true : false;
-
-			$strings = array();
-
-			foreach ( $settings['premium_fancy_text_strings'] as $item ) {
-				if ( ! empty( $item['premium_text_strings_text_field'] ) ) {
-					array_push( $strings, str_replace( '\'', '&#39;', $item['premium_text_strings_text_field'] ) );
-				}
-			}
-
-            $cursor_text = html_entity_decode( $cursor_text );
-			$fancytext_settings = array(
-				'effect'     => $effect,
-				'strings'    => $strings,
-				'typeSpeed'  => $settings['premium_fancy_text_type_speed'],
-				'backSpeed'  => $settings['premium_fancy_text_back_speed'],
-				'startDelay' => $settings['premium_fancy_text_start_delay'],
-				'backDelay'  => $settings['premium_fancy_text_back_delay'],
-				'showCursor' => $show_cursor,
-				'cursorChar' => wp_kses_post ( $cursor_text ),
-				'loop'       => $loop,
-			);
-		} elseif ( 'slide' === $effect ) {
-
-			$this->add_render_attribute( 'prefix', 'class', 'premium-fancy-text-span-align' );
-			$this->add_render_attribute( 'suffix', 'class', 'premium-fancy-text-span-align' );
-
-			$mouse_pause        = 'yes' === $settings['premium_slide_up_hover_pause'] ? true : false;
-			$pause              = $mouse_pause ? 'pause' : '';
-			$fancytext_settings = array(
-				'effect'     => $effect,
-				'speed'      => $settings['premium_slide_up_speed'],
-				'showItems'  => $settings['premium_slide_up_shown_items'],
-				'pause'      => $settings['premium_slide_up_pause_time'],
-				'mousePause' => $mouse_pause,
-			);
-		} elseif ( 'auto-fade' === $effect ) {
-
-			$fancytext_settings = array(
-				'duration' => ( '' === $settings['premium_fancy_text_zoom_speed'] || 0 === $settings['premium_fancy_text_zoom_speed'] ) ? 9000 : $settings['premium_fancy_text_zoom_speed'],
-				'effect'   => $effect,
-			);
-
-			$this->add_render_attribute( 'autofade_behavior', 'operator', 'atop' );
-
-		} else {
-
-			$fancytext_settings = array(
-				'effect' => $effect,
-				'delay'  => $settings['premium_fancy_text_zoom_delay'],
-				'count'  => $settings['loop_count'],
-			);
-
-			if ( 'custom' === $effect ) {
-				$fancytext_settings['animation'] = $settings['custom_animation'];
 			}
 		}
 
-		$fancytext_settings['loading'] = $loading_bar;
+		$effect = $settings['premium_fancy_text_effect'];
 
-		$this->add_render_attribute(
-			'wrapper',
-			array(
-				'class'         => array( 'premium-fancy-text-wrapper', $effect, $loading_bar, $pause ),
-				'data-settings' => wp_json_encode( $fancytext_settings ),
-			)
-		);
+		$title_tag = Helper_Functions::validate_html_tag( $settings['text_tag'] );
+
+		$this->add_render_attribute( 'wrapper', 'class', 'premium-atext__wrapper' );
+
+		if ( 'switch' === $settings['style'] ) {
+
+			$loading_bar = 'yes' === $settings['loading_bar'];
+
+			$pause = '';
+
+			if ( 'typing' === $effect ) {
+
+				$show_cursor = ( ! empty( $settings['premium_fancy_text_show_cursor'] ) ) ? true : false;
+
+				$cursor_text = addslashes( $settings['premium_fancy_text_cursor_text'] );
+
+				$loop = ! empty( $settings['premium_fancy_text_type_loop'] ) ? true : false;
+
+				$strings = array();
+
+				foreach ( $settings['premium_fancy_text_strings'] as $item ) {
+					if ( ! empty( $item['premium_text_strings_text_field'] ) ) {
+						array_push( $strings, str_replace( '\'', '&#39;', $item['premium_text_strings_text_field'] ) );
+					}
+				}
+
+				$cursor_text    = html_entity_decode( $cursor_text );
+				$atext_settings = array(
+					'effect'     => $effect,
+					'strings'    => $strings,
+					'typeSpeed'  => $settings['premium_fancy_text_type_speed'],
+					'backSpeed'  => $settings['premium_fancy_text_back_speed'],
+					'startDelay' => $settings['premium_fancy_text_start_delay'],
+					'backDelay'  => $settings['premium_fancy_text_back_delay'],
+					'showCursor' => $show_cursor,
+					'cursorChar' => wp_kses_post( $cursor_text ),
+					'loop'       => $loop,
+				);
+
+			} elseif ( 'slide' === $effect ) {
+
+				$this->add_render_attribute( 'prefix', 'class', 'premium-atext__span-align' );
+				$this->add_render_attribute( 'suffix', 'class', 'premium-atext__span-align' );
+
+				$mouse_pause    = 'yes' === $settings['premium_slide_up_hover_pause'] ? true : false;
+				$pause          = $mouse_pause ? 'pause' : '';
+				$atext_settings = array(
+					'effect'     => $effect,
+					'speed'      => $settings['premium_slide_up_speed'],
+					'showItems'  => $settings['premium_slide_up_shown_items'],
+					'pause'      => $settings['premium_slide_up_pause_time'],
+					'mousePause' => $mouse_pause,
+				);
+			} else {
+
+				$atext_settings = array(
+					'effect' => $effect,
+					'delay'  => $settings['premium_fancy_text_zoom_delay'],
+					'count'  => $settings['loop_count']
+				);
+
+				if ( 'custom' === $effect ) {
+					$atext_settings['animation'] = $settings['custom_animation'];
+				} elseif( 'clip' === $effect ) {
+                    $atext_settings['speed'] = $settings['premium_fancy_text_zoom_speed'];
+                }
+			}
+
+			$atext_settings['loading'] = $loading_bar;
+			$atext_settings['style']   = $settings['style'];
+
+			$this->add_render_attribute(
+				'wrapper',
+				array(
+					'class'         => array(
+						'premium-atext__' . $effect,
+						$pause,
+					),
+					'data-settings' => wp_json_encode( $atext_settings ),
+				)
+			);
+
+		} else {
+
+			$this->add_render_attribute( 'wrapper', 'class', 'premium-atext' );
+
+			$effect = $settings['highlight_effect'];
+
+			$atext_settings = array(
+				'effect' => $effect,
+				'style'  => $settings['style'],
+			);
+
+			if ( 'shape' === $effect ) {
+				$atext_settings['delay']    = $settings['animation_delay']['size'];
+				$atext_settings['duration'] = $settings['animation_speed']['size'];
+			}
+
+			$this->add_render_attribute(
+				'wrapper',
+				array(
+					'class'         => array(
+						'premium-atext__' . $effect,
+					),
+					'data-settings' => wp_json_encode( $atext_settings ),
+				)
+			);
+
+		}
+
+		if ( ! empty( $settings['link']['url'] ) ) {
+			$this->add_link_attributes( 'url', $settings['link'] );
+		}
 
 		?>
 		<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'wrapper' ) ); ?>>
+
+			<<?php echo wp_kses_post( $title_tag ); ?> class="premium-atext__headline">
 			<?php if ( ! empty( $settings['premium_fancy_prefix_text'] ) ) : ?>
 				<span class="premium-prefix-text">
 					<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'prefix' ) ); ?>><?php echo wp_kses( ( $settings['premium_fancy_prefix_text'] ), true ); ?></span>
 				</span>
 			<?php endif; ?>
 
-		<?php if ( 'typing' === $effect ) : ?>
-			<span id="<?php echo esc_attr( 'premium-fancy-text-' . $this->get_id() ); ?>" class="premium-fancy-text"></span>
-		<?php elseif ( 'auto-fade' === $effect ) : ?>
-			<span class="premium-fancy-text">
-				<svg class="premium-fancy-svg-text" viewBox="0 -200 1500 400" width="100%" height="100%" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-					<defs>
-						<filter id="wrap">
-							<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-							<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -5" result="wrap"/>
-							<feComposite in="SourceGraphic" in2="wrap" <?php echo wp_kses_post( $this->get_render_attribute_string( 'autofade_behavior' ) ); ?> />
-						</filter>
-					</defs>
-					<g filter="url(#wrap)">
-					<?php
-					foreach ( $settings['premium_fancy_text_strings'] as $index => $item ) :
-						if ( ! empty( $item['premium_text_strings_text_field'] ) ) :
-							$this->add_render_attribute(
-								'text_' . $item['_id'],
-								array(
-									'class' => 'premium-fancy-list-items',
-									'x'     => '0',
-									'y'     => '60',
-								)
-							);
-							?>
-								<text <?php echo wp_kses_post( $this->get_render_attribute_string( 'text_' . $item['_id'] ) ); ?>>
-									<?php echo wp_kses_post( $item['premium_text_strings_text_field'] ); ?>
-								</text>
-							<?php
-						endif;
-					endforeach;
-					?>
-					</g>
-				</svg>
-			</span>
+			<?php
+			if ( 'highlight' === $settings['style'] ) :
+				$this->render_highlight_text();
+			else :
+				$this->render_switch_text();
+			endif;
+			?>
+
+			<?php if ( ! empty( $settings['premium_fancy_suffix_text'] ) ) : ?>
+				<span class="premium-suffix-text">
+					<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'suffix' ) ); ?>><?php echo wp_kses( ( $settings['premium_fancy_suffix_text'] ), true ); ?></span>
+				</span>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $settings['link']['url'] ) ) : ?>
+				<a <?php $this->print_render_attribute_string( 'url' ); ?>></a>
+			<?php endif; ?>
+
+			</<?php echo wp_kses_post( $title_tag ); ?>>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render Highlight Text
+	 *
+	 * @since 4.10.34
+	 * @access protected
+	 */
+	protected function render_switch_text() {
+
+		$settings = $this->get_settings_for_display();
+
+		$effect = $settings['premium_fancy_text_effect'];
+
+		if ( 'typing' === $effect ) :
+			?>
+			<span id="<?php echo esc_attr( 'premium-atext__text-' . $this->get_id() ); ?>" class="premium-atext__text"></span>
 		<?php else : ?>
-			<div class="premium-fancy-text" style='display: inline-block; text-align: center'>
-				<ul class="premium-fancy-text-items-wrapper">
+			<div class="premium-atext__text" style='display: inline-block; text-align: center'>
+				<ul class="premium-atext__items-wrapper">
 			<?php
 			foreach ( $settings['premium_fancy_text_strings'] as $index => $item ) :
 				if ( ! empty( $item['premium_text_strings_text_field'] ) ) :
@@ -1038,151 +1324,83 @@ class Premium_Fancytext extends Widget_Base {
 			?>
 				</ul>
 			</div>
-		<?php endif; ?>
-		<?php if ( ! empty( $settings['premium_fancy_suffix_text'] ) ) : ?>
-			<span class="premium-suffix-text">
-				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'suffix' ) ); ?>><?php echo wp_kses( ( $settings['premium_fancy_suffix_text'] ), true ); ?></span>
-			</span>
-		<?php endif; ?>
-	</div>
-		<?php
+			<?php
+		endif;
 	}
 
 	/**
-	 * Render Fancy Text widget output in the editor.
+	 * Render Switch Text
 	 *
-	 * Written as a Backbone JavaScript template and used to generate the live preview.
-	 *
-	 * @since  1.0.0
+	 * @since 4.10.34
 	 * @access protected
 	 */
-	protected function content_template() {
+	protected function render_highlight_text() {
+
+		$settings = $this->get_settings_for_display();
+
+		$this->add_render_attribute(
+			'text',
+			array(
+				'class'     => 'premium-atext__text',
+				'data-text' => $settings['text'],
+			)
+		);
+
 		?>
-		<#
-			view.addInlineEditingAttributes('prefix');
-			view.addInlineEditingAttributes('suffix');
 
-			var effect = settings.premium_fancy_text_effect;
+			<?php if ( 'lines' !== $settings['highlight_effect'] ) : ?>
+				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'text' ) ); ?>>
+					<?php echo wp_kses_post( $settings['text'] ); ?>
+					<?php if ( 'shape' === $settings['highlight_effect'] ) : ?>
+						<?php $this->render_draw_shape(); ?>
+					<?php endif; ?>
+				</span>
 
-			var loadingBar = 'yes' === settings.loading_bar ? 'loading' : '';
+			<?php else : ?>
+				<svg class="premium-atext__text">
+					<!-- Symbol -->
+					<symbol id="s-text">
+						<text text-anchor="middle" x="50%" y="50%" dy=".35em">
+							<?php echo wp_kses_post( $settings['text'] ); ?>
+						</text>
+					</symbol>
 
-			var fancyTextSettings = {
-				'loading' : loadingBar,
-			};
+					<!-- Duplicate symbols -->
+					<use xlink:href="#s-text" class="text"></use>
+					<use xlink:href="#s-text" class="text"></use>
+					<use xlink:href="#s-text" class="text"></use>
+					<use xlink:href="#s-text" class="text"></use>
+					<use xlink:href="#s-text" class="text"></use>
 
-			fancyTextSettings.effect = effect;
-
-			var pause =  '';
-
-		if( 'typing' === effect ) {
-
-			var cursorText          = settings.premium_fancy_text_cursor_text,
-				cursorTextEscaped   = cursorText.replace(/'/g, "\\'"),
-				showCursor  = settings.premium_fancy_text_show_cursor ? true : false,
-				loop        = settings.premium_fancy_text_type_loop ? true : false,
-				strings     = [];
-
-			_.each( settings.premium_fancy_text_strings, function( item ) {
-				if ( '' !== item.premium_text_strings_text_field ) {
-
-					var fancyString = item.premium_text_strings_text_field;
-
-					strings.push( fancyString );
-				}
-			});
-
-			fancyTextSettings.strings    = strings,
-			fancyTextSettings.typeSpeed  = settings.premium_fancy_text_type_speed,
-			fancyTextSettings.backSpeed  = settings.premium_fancy_text_back_speed,
-			fancyTextSettings.startDelay = settings.premium_fancy_text_start_delay,
-			fancyTextSettings.backDelay  = settings.premium_fancy_text_back_delay,
-			fancyTextSettings.showCursor = showCursor,
-			fancyTextSettings.cursorChar = cursorTextEscaped,
-			fancyTextSettings.loop       = loop;
-
-		} else if ( 'slide' === effect ) {
-
-			view.addRenderAttribute( 'prefix', 'class', 'premium-fancy-text-span-align' );
-			view.addRenderAttribute( 'suffix', 'class', 'premium-fancy-text-span-align' );
-
-			var mausePause = 'yes' === settings.premium_slide_up_hover_pause ? true : false;
-
-			pause        = mausePause ? 'pause' : '';
-
-			fancyTextSettings.speed         = settings.premium_slide_up_speed,
-			fancyTextSettings.showItems     = settings.premium_slide_up_shown_items,
-			fancyTextSettings.pause         = settings.premium_slide_up_pause_time,
-			fancyTextSettings.mousePause    = mausePause;
-
-		} else if ( 'auto-fade' === effect ) {
-			fancyTextSettings.duration = ( '' === settings.premium_fancy_text_zoom_speed || 0 === settings.premium_fancy_text_zoom_speed) ? 9000 : settings.premium_fancy_text_zoom_speed;
-			fancyTextSettings.effect = effect;
-
-			view.addRenderAttribute('autoFadeBehavior', 'operator', 'atop');
-		} else {
-
-			fancyTextSettings.delay         = settings.premium_fancy_text_zoom_delay;
-			fancyTextSettings.count         = settings.loop_count;
-
-			if( 'custom' === effect ) {
-				fancyTextSettings.animation = settings.custom_animation;
-			}
-		}
-			view.addRenderAttribute( 'container', {
-			'class': [ 'premium-fancy-text-wrapper', effect, loadingBar, pause ],
-			'data-settings' : JSON.stringify( fancyTextSettings )
-			});
-		#>
-			<div {{{ view.getRenderAttributeString('container') }}}>
-				<span class="premium-prefix-text"><span {{{ view.getRenderAttributeString('prefix') }}}>{{{ settings.premium_fancy_prefix_text }}}</span></span>
-
-			<# if ( 'typing' === effect ) { #>
-				<span id="premium-fancy-text-{{{view.getID()}}}" class="premium-fancy-text"></span>
-			<# } else if ( 'auto-fade' === effect ) { #>
-				<span class="premium-fancy-text" >
-				<svg class="premium-fancy-svg-text" viewBox="0 -200 1500 400" width="100%" height="100%" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" >
-				<defs>
-					<filter id="wrap">
-						<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-						<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -5" result="wrap"/>
-						<feComposite in="SourceGraphic" in2="wrap" {{{ view.getRenderAttributeString('autoFadeBehavior') }}} />
-					</filter>
-				</defs>
-				<g filter="url(#wrap)">
-				<# _.each ( settings.premium_fancy_text_strings, function ( item, index ) {
-					if ( '' !== item.premium_text_strings_text_field ) {
-						view.addRenderAttribute(
-							'text_' + item['_id'],
-							{
-								'class' : 'premium-fancy-list-items',
-								'x'     : '0',
-								'y'     : '60',
-							}
-						);
-						#>
-						<text {{{ view.getRenderAttributeString('text_' + item._id ) }}}>{{{ item.premium_text_strings_text_field }}}</text>
-						<# } }); #>
-				</g>
 				</svg>
-			</span>
-			<# } else { #>
-				<div class="premium-fancy-text" style=' display: inline-block; text-align: center;'>
-					<ul class="premium-fancy-text-items-wrapper">
-						<# _.each ( settings.premium_fancy_text_strings, function ( item, index ) {
-							if ( '' !== item.premium_text_strings_text_field ) {
-								view.addRenderAttribute( 'text_' + item._id, 'class', 'premium-fancy-list-items' );
-							if( ( 'typing' !== effect && 'slide' !== effect ) && 0 !== index ) {
-								view.addRenderAttribute( 'text_' + item._id, 'class', 'premium-fancy-item-hidden' );
-							} else {
-								view.addRenderAttribute( 'text_' + item._id, 'class', 'premium-fancy-item-visible' );
-							} #>
-								<li {{{ view.getRenderAttributeString('text_' + item._id ) }}}>{{{ item.premium_text_strings_text_field }}}</li>
-						<# } }); #>
-					</ul>
-				</div>
-			<# } #>
-				<span class="premium-suffix-text"><span {{{ view.getRenderAttributeString('suffix') }}}>{{{ settings.premium_fancy_suffix_text }}}</span></span>
-			</div>
+			<?php endif; ?>
+
 		<?php
+	}
+
+	protected function render_draw_shape() {
+
+		$settings = $this->get_settings_for_display();
+
+		$shape = $settings['shape'];
+
+		$shapes_array = array(
+			'circle'    => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7 c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"></path></svg>',
+
+			'wavy'      => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,146.1c17.1-8.8,33.5-17.8,51.4-17.8c15.6,0,17.1,18.1,30.2,18.1c22.9,0,36-18.6,53.9-18.6 c17.1,0,21.3,18.5,37.5,18.5c21.3,0,31.8-18.6,49-18.6c22.1,0,18.8,18.8,36.8,18.8c18.8,0,37.5-18.6,49-18.6c20.4,0,17.1,19,36.8,19 c22.9,0,36.8-20.6,54.7-18.6c17.7,1.4,7.1,19.5,33.5,18.8c17.1,0,47.2-6.5,61.1-15.6"></path></svg>',
+
+			'underline' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M7.7,145.6C109,125,299.9,116.2,401,121.3c42.1,2.2,87.6,11.8,87.3,25.7"></path></svg>',
+
+			'double'    => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M5,125.4c30.5-3.8,137.9-7.6,177.3-7.6c117.2,0,252.2,4.7,312.7,7.6"></path><path d="M26.9,143.8c55.1-6.1,126-6.3,162.2-6.1c46.5,0.2,203.9,3.2,268.9,6.4"></path></svg>',
+
+			'zigzag'    => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M9.3,127.3c49.3-3,150.7-7.6,199.7-7.4c121.9,0.4,189.9,0.4,282.3,7.2C380.1,129.6,181.2,130.6,70,139 c82.6-2.9,254.2-1,335.9,1.3c-56,1.4-137.2-0.3-197.1,9"></path></svg>',
+
+			'strike'    => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M3,75h493.5"></path></svg>',
+
+			'cross'     => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M497.4,23.9C301.6,40,155.9,80.6,4,144.4"></path><path d="M14.1,27.6c204.5,20.3,393.8,74,467.3,111.7"></path></svg>',
+
+		);
+
+		echo $shapes_array[ $shape ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

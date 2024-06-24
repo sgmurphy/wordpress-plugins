@@ -39,6 +39,7 @@ class TFCountdown_Widget extends \Elementor\Widget_Base {
 					'label' => esc_html__( 'Due Date', 'themesflat-elementor' ),
 					'type' => \Elementor\Controls_Manager::DATE_TIME,
 					'default' => gmdate( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
+					/* translators:Date set according to your timezone: %s.*/
 					'description' => sprintf( esc_html__( 'Date set according to your timezone: %s.', 'themesflat-elementor' ), \Elementor\Utils::get_timezone_string() ),
 				]
 			);

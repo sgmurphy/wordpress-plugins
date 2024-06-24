@@ -386,6 +386,8 @@ let targetPurchase = computed(() => {
     packageReservations: packageReservations,
     payments: props.data.packageData.payments,
     price: props.data.packageData.price,
+    tax: props.data.packageData.tax,
+    coupon: props.data.packageData.coupon,
     discount: props.data.packageData.discount,
     end: props.data.packageData.end
   }

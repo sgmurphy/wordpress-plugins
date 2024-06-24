@@ -271,7 +271,7 @@
                     {{`${labelsDisplay('save')} ${pack.discount}%`}}
                   </span>
                   <span class="am-fcis__include-price">
-                    {{ pack.price ? useFormattedPrice(pack.calculatedPrice ? pack.price : pack.price - pack.price / 100 * pack.discount) : labelsDisplay('free') }}
+                    {{ pack.price ? useFormattedPrice(usePackageAmount(pack)) : labelsDisplay('free') }}
                   </span>
                 </div>
               </div>
@@ -358,6 +358,9 @@ import {
   amCardColors,
   useColorTransparency
 } from '../../../../assets/js/common/colorManipulation.js'
+import {
+  usePackageAmount,
+} from '../../../../assets/js/public/package.js'
 
 // * Plugin Licence
 let licence = inject('licence')

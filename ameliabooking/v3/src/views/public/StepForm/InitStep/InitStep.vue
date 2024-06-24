@@ -13,9 +13,8 @@
     >
       <template v-for="field in amCustomize.initStep.order" :key="field.id">
         <component
-          :is="amFields[field.id]"
-          :visibility="amCustomize.initStep.options[field.id] ? amCustomize.initStep.options[field.id].visibility : true"
-          :filterable="isFieldFilterable(field.id)"
+          :is="amFields[field.id].template"
+          v-bind="amFields[field.id].props"
         ></component>
       </template>
     </el-form>
@@ -57,7 +56,7 @@
     <!--/ Bringing Anyone with you -->
 
     <!-- Packages Popup -->
-    <PackagesPopup @continue-with-service="continueWithService()" class="am-fs__init__package"></PackagesPopup>
+    <PackagesPopup class="am-fs__init__package" @continue-with-service="continueWithService()"></PackagesPopup>
     <!--/ Packages Popup -->
   </div>
 
@@ -102,12 +101,37 @@ let props = defineProps({
 
 let amCustomize = inject('amCustomize')
 
+// * Amelia Settings
 const amSettings = inject('settings')
 
+function isFieldFilterable(key) {
+  return  (amCustomize.initStep.options[key] &&
+    'filterable' in amCustomize.initStep.options[key]) ?
+    amCustomize.initStep.options[key].filterable : true
+}
+
 let amFields = reactive({
-  service: markRaw(ServiceFormField),
-  location: markRaw(LocationFormField),
-  employee: markRaw(EmployeeFormField)
+  service: {
+    template: markRaw(ServiceFormField),
+    props: {
+      filterable: isFieldFilterable('service'),
+      taxVisible: amCustomize.initStep.options.tax?.visibility ?? true
+    }
+  },
+  location: {
+    template: markRaw(LocationFormField),
+    props: {
+      visibility: amCustomize.initStep.options.location.visibility,
+      filterable: isFieldFilterable('location')
+    }
+  },
+  employee: {
+    template: markRaw(EmployeeFormField),
+    props: {
+      visibility: amCustomize.initStep.options.employee.visibility,
+      filterable: isFieldFilterable('employee')
+    }
+  }
 })
 
 // * Store
@@ -198,12 +222,6 @@ function noOneBringWith() {
   closeBringingPopup()
   store.commit('booking/setBookingPersons', 0)
   nextStep()
-}
-
-function isFieldFilterable(key) {
-  return  (amCustomize.initStep.options[key] &&
-  'filterable' in amCustomize.initStep.options[key]) ?
-      amCustomize.initStep.options[key].filterable : true
 }
 
 function bringPeopleWithYou() {

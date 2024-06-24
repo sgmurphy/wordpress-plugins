@@ -3,8 +3,8 @@ Contributors: tawkto
 Tags: tawk,tawk.to,tawkto,chat,free chat,livechat,chat widget,plugin,chat for web,chat online,chat software,free live chat,IM Chat,,live chat,live support,live web chat,online chat,online support,snapengage,wordpress chat,wordpress live chat
 Requires at least: 2.7
 Requires PHP: 5.6
-Tested up to: 6.4.1
-Stable tag: 0.8.2
+Tested up to: 6.5
+Stable tag: 0.8.3
 
 (OFFICIAL tawk.to plugin) Instantly chat with  visitors on your website with the free tawk.to chat widget.
 Website: [http://tawk.to](http://tawk.to)
@@ -68,6 +68,9 @@ Follow these steps:
 Note: You will need a free tawk.to account: [Create one for free here!](https://tawk.to/?utm_source=wpdirectory&utm_medium=link&utm_campaign=signup)
 
 == Changelog ==
+
+= 0.8.3 =
+* Supported version bump to 6.5
 
 = 0.8.2 =
 * Supported version bump to 6.4.1

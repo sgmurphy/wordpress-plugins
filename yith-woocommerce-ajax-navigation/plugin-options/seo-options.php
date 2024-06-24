@@ -58,7 +58,7 @@ return apply_filters(
 
 				'nofollow'          => array(
 					'name'      => _x( 'Add "nofollow" to filter anchors', '[ADMIN] Seo settings page', 'yith-woocommerce-ajax-navigation' ),
-					'desc'      => _x( 'When enabled, adds re="nofollow" attribute to all the filter anchors across the plugin', '[ADMIN] Seo settings page', 'yith-woocommerce-ajax-navigation' ),
+					'desc'      => _x( 'When enabled, adds rel="nofollow" attribute to all the filter anchors across the plugin', '[ADMIN] Seo settings page', 'yith-woocommerce-ajax-navigation' ),
 					'id'        => 'yith_wcan_seo_rel_nofollow',
 					'type'      => 'yith-field',
 					'yith-type' => 'onoff',

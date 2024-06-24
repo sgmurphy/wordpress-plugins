@@ -429,7 +429,7 @@ class UpdateSettingsCommandHandler extends CommandHandler
 
         $settings = $settingsService->getAllSettingsCategorized();
         $settings['general']['phoneDefaultCountryCode'] = $settings['general']['phoneDefaultCountryCode'] === 'auto' ?
-            $locationService->getCurrentLocationCountryIso() : $settings['general']['phoneDefaultCountryCode'];
+            $locationService->getCurrentLocationCountryIso($settings['general']['ipLocateApiKey']) : $settings['general']['phoneDefaultCountryCode'];
 
         do_action('amelia_after_settings_updated', $settingsFields);
 

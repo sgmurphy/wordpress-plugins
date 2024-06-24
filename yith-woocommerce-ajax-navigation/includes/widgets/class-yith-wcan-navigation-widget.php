@@ -822,47 +822,39 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
 		 * @since  1.0.0
 		 */
 		public function ajax_print_terms() {
-			$unsanitize_posted_data = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$posted_data            = array();
+			$type      = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : false;
+			$attribute = isset( $_POST['attribute'] ) ? sanitize_text_field( wp_unslash( $_POST['attribute'] ) ) : false;
+			$post_id   = isset( $_POST['id'] ) ? sanitize_text_field( wp_unslash( $_POST['id'] ) ) : false;
+			$name      = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : false;
 
-			foreach ( $unsanitize_posted_data as $k => $v ) {
-				$posted_data[ $k ] = esc_html( $v );
+			if ( ! $type ) {
+				wp_send_json_error();
 			}
-
-			$type      = $posted_data['value'];
-			$attribute = $posted_data['attribute'];
-			$post_id   = $posted_data['id'];
-			$name      = $posted_data['name'];
-			$return    = array(
-				'message' => '',
-				'content' => $posted_data,
-			);
 
 			$settings        = $this->get_settings();
-			$widget_settings = $settings[ $this->number ];
+			$widget_settings = $settings[ $this->number ] ?? false;
 			$value           = '';
 
-			if ( 'label' === $type ) {
-				$value = $widget_settings['labels'];
-			} elseif ( 'color' === $type ) {
-				$value = $widget_settings['colors'];
-			} elseif ( 'multicolor' === $type ) {
-				$value = $widget_settings['multicolor'];
+			if ( $widget_settings ) {
+				if ( 'label' === $type ) {
+					$value = $widget_settings['labels'];
+				} elseif ( 'color' === $type ) {
+					$value = $widget_settings['colors'];
+				} elseif ( 'multicolor' === $type ) {
+					$value = $widget_settings['multicolor'];
+				}
 			}
 
-			if ( $type ) {
-				$return['content'] = yith_wcan_attributes_table(
+			wp_send_json_success(
+				yith_wcan_attributes_table(
 					$type,
 					$attribute,
 					$post_id,
 					$name,
 					$value,
 					false
-				);
-			}
-
-			echo wp_json_encode( $return );
-			die();
+				)
+			);
 		}
 
 		/**

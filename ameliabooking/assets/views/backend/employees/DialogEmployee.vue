@@ -39,7 +39,7 @@
                   :edited-entity="this.employee"
                   :entity-name="'employee'"
                   v-on:pictureSelected="pictureSelected"
-                  v-on:deleteImage="deleteImage"
+                  v-on:deleteImage="() => deleteImage(employee)"
               >
               </picture-upload>
               <h2>{{ employee.firstName }} {{ employee.lastName }}</h2>
@@ -459,6 +459,77 @@
               <!-- /Badge -->
             </el-row>
 
+            <el-row
+              v-if="$root.settings.payments.stripe.enabled && $root.settings.payments.stripe.connect.enabled && $root.settings.role !== 'admin' && $root.settings.role !== 'manager'"
+              :gutter="16"
+            >
+              <el-col :sm="24">
+                <el-col class="am-cabinet-profile__stripe">
+                  <cabinet-dashboard-stripe
+                    :stripeProvider="stripeProvider"
+                    :authorizationObject="{}"
+                    :profile="employee"
+                    @stripeDisconnect="stripeProvider = null"
+                  />
+                </el-col>
+              </el-col>
+            </el-row>
+
+            <el-row
+              v-if="$root.settings.payments.stripe.enabled && $root.settings.payments.stripe.connect.enabled && ($root.settings.role === 'admin' || $root.settings.role === 'manager')"
+              :gutter="16"
+            >
+              <el-col :sm="24">
+                <el-form-item label="placeholder">
+                  <label slot="label">
+                    {{ $root.labels.stripe_account }}:
+                  </label>
+                  <el-select
+                    v-model="employee.stripeConnect.id"
+                    filterable
+                    :placeholder="$root.labels.stripe_account"
+                    clearable
+                    @change="changeStripeAccount"
+                  >
+                    <div class="am-drop">
+                      <el-option
+                        v-if="item.type === 'standard' || item.type === 'express'"
+                        v-for="item in stripeProviders"
+                        :key="item.id"
+                        :label="item.email + ' (' + (item.type === 'standard' ? $root.labels.stripe_account_standard : $root.labels.stripe_account_express) + ')'"
+                        :value="item.id"
+                      >
+                      </el-option>
+                    </div>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row
+              v-if="$root.settings.payments.stripe.enabled && $root.settings.payments.stripe.connect.enabled && ($root.settings.role === 'admin' || $root.settings.role === 'manager') && employee.stripeConnect.id"
+              :gutter="16"
+            >
+              <el-col :sm="12">
+                <!-- Stripe percentage price -->
+                <el-form-item
+                  :label="($root.settings.payments.stripe.connect.method === 'transfer' ? $root.labels.use_transfer_amount : $root.labels.use_direct_amount) + ':'"
+                >
+                  <el-input-number
+                    v-model="employee.stripeConnect.amount"
+                    class="am-stripe-amount"
+                    :min="0"
+                    :precision="2"
+                    :step="0.1"
+                    :max="100"
+                    @input="clearValidation()"
+                    :placeholder="employee.stripeConnect.amount ? employee.stripeConnect.amount.toString() : $root.settings.payments.stripe.connect.amount.toString()"
+                  >
+                  </el-input-number>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
             <div class="am-divider"></div>
 
             <!-- Description -->
@@ -528,7 +599,7 @@
                 <days-off
                   @changeDaysOff="changeDaysOff"
                   @showCompanyDaysOffSettingsDialog="showCompanyDaysOffSettingsDialog"
-                  :daysOff="employee.id !== 0 ? employee.dayOffList : []"
+                  :daysOff="employee.dayOffList"
                   :listedDaysOff="companyDaysOff"
                 >
                 </days-off>
@@ -615,6 +686,7 @@
 
 <script>
   import AssignedServices from '../../parts/assignedServices/AssignedServices'
+  import CabinetDashboardStripe from '../../frontend/cabinet/dashboard/stripe/CabinetDashboardStripe'
   import DaysOff from '../parts/DaysOff.vue'
   import WorkingHours from '../parts/WorkingHours.vue'
   import SpecialDays from '../parts/SpecialDays.vue'
@@ -674,6 +746,14 @@
         googleLoading: false,
         outlookLoading: false,
         zoomUsers: [],
+        stripeLoading: false,
+        stripeProvider: null,
+        stripeProviders: null,
+        stripeConnectMethods: [{value: 'transfer', label: this.$root.labels.use_transfers_payment}, {value: 'direct', label: this.$root.labels.use_direct_payment}],
+        stripeConnect: {
+          account: null,
+          amount: null
+        },
         rules: {
           firstName: [
             {required: true, message: this.$root.labels.enter_first_name_warning, trigger: 'submit'}
@@ -713,11 +793,6 @@
     },
 
     methods: {
-      deleteImage () {
-        this.employee.pictureThumbPath = ''
-        this.employee.pictureFullPath = ''
-      },
-
       showDialogEmployeeBadges () {
         this.$emit('showDialogEmployeeBadges')
       },
@@ -753,6 +828,23 @@
 
           if (this.$root.settings.zoom.enabled && !this.$root.licence.isLite && !this.$root.licence.isStarter) {
             this.getZoomUsers()
+          }
+
+          if (this.$root.settings.payments.stripe.enabled && this.$root.settings.payments.stripe.connect.enabled) {
+            if (this.$root.settings.role === 'admin' || this.$root.settings.role === 'manager') {
+              this.getStripeProviders()
+            }
+
+            if (this.$root.settings.role !== 'admin' && this.$root.settings.role !== 'manager') {
+              this.getStripeProvider()
+            }
+          }
+
+          if (!this.employee.stripeConnect) {
+            this.employee.stripeConnect = {
+              id: null,
+              amount: 0
+            }
           }
 
           if (this.employee.id in this.futureAppointments) {
@@ -818,7 +910,64 @@
           item.customPricing = this.getJsonCustomPricing(item.customPricing)
         })
 
+        if (this.employee.stripeConnect.id === '' || this.employee.stripeConnect.id === null) {
+          employee.stripeConnect = null
+        } else if (!employee.stripeConnect.amount) {
+          employee.stripeConnect.amount = null
+        }
+
         return employee
+      },
+
+      setStripeConnectAmount () {
+        if (!this.employee.stripeConnect.amount) {
+          let elements = document.getElementsByClassName('am-stripe-amount')
+
+          for (let i = 0; i < elements.length; i++) {
+            elements[i].getElementsByClassName('el-input__inner')[0].value = ''
+          }
+        }
+      },
+
+      changeStripeAccount () {
+        setTimeout(
+          () => {
+            this.setStripeConnectAmount()
+          },
+          200
+        )
+      },
+
+      getStripeProvider () {
+        this.stripeLoading = true
+
+        this.$http.get(`${this.$root.getAjaxUrl}/stripe/accounts/` + this.employee.id,
+          {},
+          {}
+        ).then(response => {
+          if (response.data.data.account) {
+            this.stripeLoading = false
+            this.stripeProvider = response.data.data.account
+          }
+        }).catch(e => {
+        })
+      },
+
+      getStripeProviders () {
+        this.stripeLoading = true
+
+        this.$http.get(`${this.$root.getAjaxUrl}/stripe/accounts`,
+          {},
+          {}
+        ).then(response => {
+          if (response.data.data.accounts) {
+            this.stripeLoading = false
+            this.stripeProviders = response.data.data.accounts
+          }
+
+          this.setStripeConnectAmount()
+        }).catch(e => {
+        })
       },
 
       changeDaysOff (data) {
@@ -991,6 +1140,7 @@
 
     components: {
       AssignedServices,
+      CabinetDashboardStripe,
       PhoneInput,
       PictureUpload,
       DaysOff,

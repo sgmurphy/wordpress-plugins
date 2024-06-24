@@ -13,7 +13,7 @@ $taxonomy_details     = array();
 
 if ( ! empty( $supported_taxonomies ) ) {
 	foreach ( $supported_taxonomies as $taxonomy_slug => $taxonomy_obj ) {
-		$taxonomy_options[ $taxonomy_slug ] = $taxonomy_obj->label;
+		$taxonomy_options[ $taxonomy_slug ] = $taxonomy_obj->labels->singular_name;
 		$taxonomy_details[ $taxonomy_slug ] = array(
 			'terms_count'     => wp_count_terms( $taxonomy_slug ),
 			'is_attribute'    => 0 === strpos( $taxonomy_slug, 'pa_' ),

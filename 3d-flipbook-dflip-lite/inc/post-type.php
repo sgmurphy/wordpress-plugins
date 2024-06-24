@@ -62,6 +62,7 @@ class DFlip_Post_Type {
         'description'        => __( 'Description.', '3d-flipbook-dflip-lite' ),
         'public'             => false,  //this removes the permalink option
         'publicly_queryable' => false,
+        'exclude_from_search' => true, // if not excluded, posts will be displayed in normal search. This will hide it from other archive and taxonomy listing, and needs to be fetched manually.
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
@@ -77,19 +78,22 @@ class DFlip_Post_Type {
     register_post_type( 'dflip', $args );
     
     register_taxonomy( 'dflip_category', 'dflip', array(
-        'hierarchical'      => true,
-        'public'            => true,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'show_in_nav_menus' => true,
-        'rewrite'           => array( 'slug' => 'dflip_category' ),
+        'hierarchical'       => true,
+        'public'             => true,
+        'publicly_queryable' => false,
+        'show_ui'            => true, //display the category admin page
+        'show_admin_column'  => true,
+        'show_in_nav_menus'  => true,
+        'rewrite'            => array( 'slug' => 'dflip_category' ),
     ) );
     
-    if ( is_admin() ) {
+    if ( is_admin() && !( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
       $this->init_admin();
+    } else {// Load frontend only components.
+      $this->init_front();
     }
     
-    add_filter( 'the_content', array( $this, 'filter_the_pdf_attachment_content' ) );
+    
   }
   
   /**
@@ -111,6 +115,12 @@ class DFlip_Post_Type {
     
     //Optimize the icons for retina display
     add_action( 'admin_head', array( $this, 'menu_icon' ) );
+    
+  }
+  
+  public function init_front() {
+    
+    add_filter( 'the_content', array( $this, 'filter_the_pdf_attachment_content' ) );
     
   }
   

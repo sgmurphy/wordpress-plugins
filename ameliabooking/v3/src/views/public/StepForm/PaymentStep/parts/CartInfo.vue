@@ -7,7 +7,7 @@
         :key="index"
       >
         <AmCollapseItem
-          v-if="(paymentGateway !== 'onSite' && item.depositAmount && store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled') || item.discountAmount"
+          v-if="(paymentGateway !== 'onSite' && item.prepaid.depositAmount && store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled') || item.prepaid.discountAmount"
           :ref="el => servicesRef[index] = el"
           :side="true"
           :delay="500"
@@ -35,7 +35,7 @@
                   {{ amLabels.total_price }}
                 </p>
                 <p class="am-amount">
-                  {{ useFormattedPrice(item.totalAmount) }}
+                  {{ useFormattedPrice(item.prepaid.totalAmount) }}
                 </p>
               </div>
             </Transition>
@@ -44,65 +44,65 @@
             <div class="am-fs__payments-cart-open">
               <!-- Discount -->
               <div
-                v-if="item.discountAmount"
+                v-if="item.prepaid.discountAmount"
                 class="am-fs__payments-cart-open-text"
               >
                 <span>
                   {{amLabels.summary_services_subtotal}}:
                 </span>
                 <span class="am-amount">
-                  {{ useFormattedPrice(item.totalAmount + item.discountAmount) }}
+                  {{ useFormattedPrice(item.prepaid.totalAmount) }}
                 </span>
               </div>
 
               <div
-                v-if="item.discountAmount"
+                v-if="item.prepaid.discountAmount"
                 class="am-fs__payments-cart-open-text am-fs__payments-cart-open-text-discount"
               >
                 <span>
                   {{amLabels.discount_amount_colon}}:
                 </span>
                 <span class="am-amount">
-                  {{ useFormattedPrice(item.discountAmount) }}
+                  {{ useFormattedPrice(item.prepaid.discountAmount) }}
                 </span>
               </div>
               <!-- /Discount -->
 
               <div
-                v-if="store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled' && item.depositAmount && paymentGateway !== 'onSite'"
+                class="am-fs__payments-cart-sub"
+                :class="{'am-fs__payments-cart-sub-border': paymentGateway !== 'onSite' || item.prepaid.discountAmount}"
+              >
+                <p>
+                  {{ amLabels.total_price }}:
+                </p>
+                <p class="am-amount">
+                  {{ useFormattedPrice(item.prepaid.totalAmount - item.prepaid.discountAmount) }}
+                </p>
+              </div>
+
+              <div
+                v-if="store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled' && item.prepaid.depositAmount && paymentGateway !== 'onSite'"
                 class="am-fs__payments-cart-open-text"
-                :class="{'am-fs__payments-cart-open-text-border': item.discountAmount}"
+                :class="{'am-fs__payments-cart-open-text-border': item.prepaid.discountAmount}"
               >
                 <span>
                   {{amLabels.paying_now}}:
                 </span>
                 <span>
-                  {{ useFormattedPrice(item.depositAmount) }}
+                  {{ useFormattedPrice(item.prepaid.depositAmount) }}
                 </span>
               </div>
 
               <div
-                v-if="store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled' && item.depositAmount && paymentGateway !== 'onSite'"
+                v-if="store.getters['entities/getService'](item.serviceId).depositPayment !== 'disabled' && item.prepaid.depositAmount && paymentGateway !== 'onSite'"
                 class="am-fs__payments-cart-open-text"
               >
                 <span>
                   {{amLabels.paying_later}}:
                 </span>
                 <span>
-                  {{ useFormattedPrice(item.totalAmount - item.depositAmount) }}
+                  {{ useFormattedPrice(item.prepaid.totalAmount - item.prepaid.discountAmount - item.prepaid.depositAmount) }}
                 </span>
-              </div>
-
-              <div
-                class="am-fs__payments-cart-sub"
-                :class="{'am-fs__payments-cart-sub-border': paymentGateway !== 'onSite' || item.discountAmount}"
-              >
-                <p>
-                  {{ amLabels.total_price }}:
-                </p>
-                <p class="am-amount">
-                  {{ useFormattedPrice(item.totalAmount) }}
-                </p>
               </div>
             </div>
           </template>
@@ -119,7 +119,7 @@
                 {{ amLabels.total_price }}
               </p>
               <p class="am-amount">
-                {{ useFormattedPrice(item.totalAmount + item.discountAmount) }}
+                {{ useFormattedPrice(item.prepaid.totalAmount + item.prepaid.discountAmount) }}
               </p>
             </div>
           </div>
@@ -128,11 +128,6 @@
     </AmCollapse>
 
     <div class="am-fs__payments-app-info">
-      <div class="am-fs__payments-app-info-subtotal">
-        <span>{{amLabels.subtotal}}:</span>
-        <span class="am-amount">{{ useFormattedPrice(cartAmount.totalAmount) }}</span>
-      </div>
-
       <Coupon
         v-if="settings.payments.coupons"
         type="cart"
@@ -140,6 +135,14 @@
         :ids="useCart(store).filter(i => i.serviceId && (i.serviceId in i.services)).map(i => i.serviceId)"
         @coupon-applied="couponApplied"
       />
+
+      <div
+        v-if="!onlyTotal"
+        class="am-fs__payments-app-info-subtotal"
+      >
+        <span>{{amLabels.subtotal}}:</span>
+        <span class="am-amount">{{ useFormattedPrice(cartAmount.totalAmount) }}</span>
+      </div>
 
       <Transition name="am-fade">
         <div
@@ -155,28 +158,48 @@
         </div>
       </Transition>
 
+      <Transition name="am-fade">
+        <div
+          v-if="settings.payments.taxes.enabled"
+          v-show="cartAmount.taxAmount > 0"
+          class="am-fs__payments-app-info-tax"
+        >
+          <span>
+            <template v-if="amSettings.payments.taxes.excluded">
+              {{ `+${amLabels.total_tax_colon}` }}
+            </template>
+            <template v-else>
+              {{amLabels.incl_tax}}
+            </template>
+          </span>
+          <span class="am-amount">
+            {{ useFormattedPrice(cartAmount.taxAmount) }}
+          </span>
+        </div>
+      </Transition>
+
       <div
         class="am-fs__payments-app-info-total"
-        :class="{'am-single-row': !settings.payments.coupons || cartAmount.discountAmount}"
+        :class="{'am-fs__payments-bordered': !onlyTotal}"
       >
         <span>{{amLabels.total_amount_colon}}</span>
         <span class="am-amount">
-          {{ useFormattedPrice(cartAmount.totalAmount) }}
+          {{ useFormattedPrice(cartAmount.totalAmount - cartAmount.discountAmount + cartAmount.taxAmount) }}
         </span>
       </div>
 
       <div v-if="hasDeposit && paymentGateway !== 'onSite'">
-        <div class="am-fs__payments-app-info-total">
+        <div class="am-fs__payments-app-info-deposit">
           <span>{{ amLabels.paying_now }}:</span>
           <span class="am-amount">
-            {{ useFormattedPrice(cartAmount.depositAmount) }}
+            {{ useFormattedPrice(cartAmount.depositAmount ? cartAmount.depositAmount : cartAmount.totalAmount - cartAmount.discountAmount + cartAmount.taxAmount - cartAmount.depositAmount) }}
           </span>
         </div>
 
-        <div class="am-fs__payments-app-info-total">
+        <div class="am-fs__payments-app-info-remaining">
           <span>{{ amLabels.paying_later }}:</span>
           <span class="am-amount">
-            {{ useFormattedPrice(cartAmount.totalAmount - cartAmount.depositAmount) }}
+            {{ useFormattedPrice(cartAmount.depositAmount ? cartAmount.totalAmount - cartAmount.discountAmount + cartAmount.taxAmount - cartAmount.depositAmount : 0) }}
           </span>
         </div>
       </div>
@@ -201,7 +224,7 @@ import {
   useFormattedPrice
 } from '../../../../../assets/js/common/formatting.js'
 import {
-  useAppointmentsAmountInfo,
+  useAppointmentsAmountInfo
 } from '../../../../../assets/js/common/appointments.js'
 import {
   useCart
@@ -219,31 +242,39 @@ import Coupon from '../../../Parts/Payment/Coupon.vue'
 
 const store = useStore()
 
+// * Settings
+let amSettings = inject('settings')
+
 const amLabels = inject('amLabels')
 
 const settings = inject('settings')
 
 let cart = computed(() => useCart(store))
 
+let onlyTotal = computed(() => {
+  return (!settings.payments.coupons || cartAmount.value.discountAmount === 0) &&
+    (!settings.payments.taxes.enabled || (cartAmount.value.taxAmount === 0))
+})
+
 let cartAmount = computed(() => {
   let amountInfo = useAppointmentsAmountInfo(store)
 
   let amount = {
     totalAmount: 0,
-    depositAmount: 0,
     discountAmount: 0,
+    taxAmount: 0,
+    depositAmount: 0,
   }
 
   amountInfo.forEach((item) => {
-    amount.totalAmount += item.totalAmount
-    amount.depositAmount += item.depositAmount
-    amount.discountAmount += item.discountAmount
+    amount.totalAmount += item.prepaid.totalAmount
+    amount.discountAmount += item.prepaid.discountAmount
+    amount.taxAmount += item.prepaid.taxAmount
+    amount.depositAmount += item.prepaid.depositAmount
   })
 
   return amount
 })
-
-let paymentDeposit = computed(() => store.getters['booking/getPaymentDeposit'])
 
 let hasDeposit = inject('hasDeposit')
 
@@ -321,15 +352,17 @@ export default {
 .amelia-v2-booking {
   #amelia-container {
     .am-fs__payments {
+      &-bordered {
+        border-top: 1px dashed var(--am-c-pay-text-op30);
+      }
+
       &-app-info {
         margin: 0;
 
         &-subtotal {
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px dashed var(--am-c-pay-text-op30);
-          padding: 0 0 16px;
-          margin: 16px 0 0;
+          margin-top: 16px;
 
           span {
             font-size: 14px;
@@ -339,21 +372,22 @@ export default {
           }
         }
 
-        &-discount {
+        &-discount, &-tax {
           display: flex;
           justify-content: space-between;
           font-size: 13px;
           font-weight: 400;
           line-height: 1.3846;
           color: var(--am-c-pay-text);
-          padding: 16px 0 0;
+        }
 
+        &-discount {
           &-green {
             color: var(--am-c-pay-success);
           }
         }
 
-        &-total {
+        &-total, &-deposit {
           display: flex;
           justify-content: space-between;
           font-size: 15px;

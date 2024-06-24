@@ -48,7 +48,8 @@ export default {
     tags:[],
     locations: [],
     employees: [],
-    customFields: []
+    customFields: [],
+    taxes: [],
   }),
 
   getters: {
@@ -80,15 +81,31 @@ export default {
       return state.customFields.filter(customField => customField.events.filter(event => event.id === id).length)
     },
 
+    getFilteredLocations: (state) => (shortcode) => {
+      return state.locations.filter(l => (shortcode.locations && shortcode.locations.length > 0 ? shortcode.locations.find(loc => parseInt(loc) === l.id) : true ))
+    },
+
     getFilteredTags: (state) => (shortcode) => {
       return state.tags.filter(t =>
           (shortcode.tags && shortcode.tags.length > 0 ? shortcode.tags.includes(t.name) : true ) &&
           (shortcode.ids && shortcode.ids.length > 0 ? state.events.map(e => e.tags).flat().filter(tag => tag.name === t.name).length > 0 : true)
       )
     },
+
+    getTaxes (state) {
+      return state.taxes
+    },
+
+    getTax: (state) => (id) => {
+      return state.taxes.find(i => parseInt(i.id) === parseInt(id)) || null
+    },
   },
 
   mutations: {
+    setTaxes (state, payload) {
+      state.taxes = payload
+    },
+
     setEvents (state, payload) {
       state.events = payload
     },

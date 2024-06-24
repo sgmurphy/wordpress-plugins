@@ -34,9 +34,11 @@
             <div class="am-service-profile">
 
               <picture-upload
+                  :delete-icon-visibility="service.pictureThumbPath && service.pictureFullPath"
                   :edited-entity="this.service"
                   :entity-name="'service'"
                   @pictureSelected="servicePictureSelected"
+                  v-on:deleteImage="() => deleteImage(service)"
               >
               </picture-upload>
               <el-popover
@@ -1124,11 +1126,11 @@
         depositOptions: [
           {
             value: 'fixed',
-            label: this.$root.labels.fixed_amount
+            label: this.$root.labels.amount_fixed
           },
           {
             value: 'percentage',
-            label: this.$root.labels.percentage
+            label: this.$root.labels.amount_percentage
           }
         ],
         executeUpdate: true,

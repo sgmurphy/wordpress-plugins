@@ -1591,9 +1591,9 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
                                 <?php endif;?>
                                 <?php if( $settings['twitter_meta'] == 'yes' ): ?>
                                     <ul class="twitter-meta">
-                                        <li><a href="https://twitter.com/intent/favorite?tweet_id=<?php echo esc_attr__( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="https://twitter.com/intent/retweet?tweet_id=<?php echo esc_attr__( $tweet->id_str ); ?>"><i class="fa fa-repeat"></i></a></li>
-                                        <li><a href="https://twitter.com/intent/tweet?in_reply_to=<?php echo esc_attr__( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-reply"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/favorite?tweet_id=<?php echo esc_attr( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/retweet?tweet_id=<?php echo esc_attr( $tweet->id_str ); ?>"><i class="fa fa-repeat"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/tweet?in_reply_to=<?php echo esc_attr( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-reply"></i></a></li>
                                     </ul>
                                 <?php endif;?>
                             </div>
@@ -1639,9 +1639,9 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
 
                                 <?php if( $settings['twitter_meta'] == 'yes' ): ?>
                                     <ul class="twitter-meta">
-                                        <li><a href="https://twitter.com/intent/favorite?tweet_id=<?php echo esc_attr__( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="https://twitter.com/intent/retweet?tweet_id=<?php echo esc_attr__( $tweet->id_str ); ?>"><i class="fa fa-repeat"></i></a></li>
-                                        <li><a href="https://twitter.com/intent/tweet?in_reply_to=<?php echo esc_attr__( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-reply"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/favorite?tweet_id=<?php echo esc_attr( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/retweet?tweet_id=<?php echo esc_attr( $tweet->id_str ); ?>"><i class="fa fa-repeat"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/tweet?in_reply_to=<?php echo esc_attr( $tweet->id_str ); ?>" target="_blank"><i class="fa fa-reply"></i></a></li>
                                     </ul>
                                 <?php endif;?>
 

@@ -14,8 +14,10 @@
 namespace SureTriggers\Integrations\Voxel\Triggers;
 
 use SureTriggers\Controllers\AutomationController;
+use SureTriggers\Controllers\OptionController;
 use SureTriggers\Traits\SingletonLoader;
 use SureTriggers\Integrations\WordPress\WordPress;
+use SureTriggers\Integrations\Voxel\Voxel;
 
 if ( ! class_exists( 'PostReviewed' ) ) :
 
@@ -68,15 +70,17 @@ if ( ! class_exists( 'PostReviewed' ) ) :
 		 * @return array
 		 */
 		public function register( $triggers ) {
-
+			$trigger_data                                     = OptionController::get_option( 'trigger_data' );
 			$triggers[ $this->integration ][ $this->trigger ] = [
 				'label'         => __( 'Post Reviewed', 'suretriggers' ),
 				'action'        => $this->trigger,
-				'common_action' => 'voxel/app-events/post-types/post/review:created',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
 				'accepted_args' => 1,
 			];
+			if ( ! empty( $trigger_data ) && is_array( $trigger_data ) && isset( $trigger_data[ $this->integration ][ $this->trigger ]['selected_options']['post_type']['value'] ) ) {
+				$triggers[ $this->integration ][ $this->trigger ]['common_action'] = 'voxel/app-events/post-types/' . $trigger_data[ $this->integration ][ $this->trigger ]['selected_options']['post_type']['value'] . '/review:created';
+			}
 
 			return $triggers;
 		}
@@ -92,10 +96,14 @@ if ( ! class_exists( 'PostReviewed' ) ) :
 				return;
 			}
 			$context                      = WordPress::get_post_context( $event->post->get_id() );
+			$context['post']              = Voxel::get_post_fields( $event->post->get_id() );
 			$context['review_content']    = $event->review->get_content();
 			$context['review_created_at'] = $event->review->get_created_at();
 			$context['review_details']    = $event->review->get_details();
 			$context['review_by']         = WordPress::get_user_context( $event->review->get_user_id() );
+			// Get the post type.
+			$post_type            = get_post_type( $event->post->get_id() );
+			$context['post_type'] = $post_type;
 			AutomationController::sure_trigger_handle_trigger(
 				[
 					'trigger' => $this->trigger,

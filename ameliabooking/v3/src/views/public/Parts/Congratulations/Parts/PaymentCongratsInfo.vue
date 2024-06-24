@@ -103,25 +103,10 @@ let priceDisplay = computed(() => {
 
   if (props.booked) {
     let pricePart = ''
-    if (props.booked.payments[0].gateway !== 'onSite') {
-      pricePart = useFormattedPrice(props.booked.paymentAmount)
-    } else {
-      let discountAmount = ref(0)
-      let eventPrice = ref(0)
 
-      if (props.booked.customPricing) {
-        eventPrice.value = props.booked.price
-      } else {
-        eventPrice.value = props.booked.price * props.booked.persons
-      }
-
-      if (props.coupon.code) {
-        let calculation = ref(eventPrice.value / 100 * props.coupon.discount + props.coupon.deduction)
-        discountAmount.value = calculation.value > eventPrice.value ? props.booked.price : calculation.value
-      }
-
-      pricePart = useFormattedPrice(eventPrice.value - discountAmount.value < 0 ? 0 : eventPrice.value - discountAmount.value)
-    }
+    pricePart = props.booked.payments[0].gateway !== 'onSite'
+      ? useFormattedPrice(props.booked.paymentAmount)
+      : useFormattedPrice(props.booked.price)
 
     let label = ''
     if (props.booked.payments[0].status !== 'paid') {

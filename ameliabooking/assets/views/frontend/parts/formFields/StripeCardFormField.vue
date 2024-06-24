@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <el-form-item
-      v-show="appointment.payment.gateway === 'stripe' && totalPrice > 0"
+      v-show="appointment.payment.gateway === 'stripe' && totalPrice"
       :class="$root.settings.customization.forms ? `am-block-${classIdentifier}`: ''"
       :error="errors.stripe"
     >
@@ -21,7 +21,7 @@ export default {
 
   props: {
     totalPrice: {
-      type: String
+      type: Boolean
     },
     errors: {
       type: Object,

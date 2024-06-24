@@ -946,7 +946,7 @@ class Premium_Mobile_Menu extends Widget_Base {
 		$this->add_responsive_control(
 			'menu_custom_hpos',
 			array(
-				'label'      => __( 'Horizontal Offset (%)', 'premium-addons-pro' ),
+				'label'      => __( 'Horizontal Offset', 'premium-addons-pro' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => array( 'px', '%' ),
 				'range'      => array(
@@ -1002,12 +1002,6 @@ class Premium_Mobile_Menu extends Widget_Base {
 			array(
 				'label'     => __( 'Vertical Offset (%)', 'premium-addons-pro' ),
 				'type'      => Controls_Manager::SLIDER,
-				'range'     => array(
-					'px' => array(
-						'min' => 0,
-						'max' => 800,
-					),
-				),
 				'default'   => array(
 					'size' => 0,
 					'unit' => '%',

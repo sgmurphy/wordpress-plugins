@@ -215,6 +215,19 @@
           </el-select>
         </el-form-item>
 
+        <!-- iplocate API Key -->
+        <el-form-item v-show="settings.phoneDefaultCountryCode == 'auto'">
+          <label slot="label">
+            {{ $root.labels.iplocate_api_key }}:
+            <el-tooltip placement="top">
+              <div slot="content" v-html="$root.labels.iplocate_api_key_tooltip"></div>
+              <i class="el-icon-question am-tooltip-icon"></i>
+            </el-tooltip>
+          </label>
+          <el-input v-model.trim="settings.ipLocateApiKey" auto-complete="off"/>
+        </el-form-item>
+        <!-- iplocate API Key -->
+
         <!-- Default required phone number input -->
         <div class="am-setting-box am-switch-box">
           <el-row type="flex" align="middle" :gutter="24">

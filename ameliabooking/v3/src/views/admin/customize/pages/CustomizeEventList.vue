@@ -78,7 +78,6 @@ import {
 // * Import composables
 import { usePopulateMultiDimensionalObject } from '../../../../assets/js/common/objectAndArrayManipulation.js'
 import { defaultCustomizeSettings } from '../../../../assets/js/common/defaultCustomize.js'
-import { useLicenceMenuClass } from '../../../../assets/js/admin/labelsAndOptionsTreatment.js'
 import {useColorTransparency} from "../../../../assets/js/common/colorManipulation";
 
 // * Plugin Licence

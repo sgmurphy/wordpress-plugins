@@ -27,6 +27,7 @@
        vertical-orientation="start"
        :in-header="true"
        :in-dialog="true"
+       :tax-visible="useTaxVisibility(store, selectedEvent.id, 'event') && (customizedOptions.tax?.visibility ?? true)"
      ></EventCard>
     </div>
 
@@ -185,6 +186,7 @@ import {
 } from "../../../../../assets/js/common/date";
 import { useColorTransparency } from "../../../../../assets/js/common/colorManipulation";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
+import { useTaxVisibility } from "../../../../../assets/js/common/pricing";
 import moment from "moment/moment";
 
 // * Components Properties

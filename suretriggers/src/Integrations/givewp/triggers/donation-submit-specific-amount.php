@@ -118,8 +118,14 @@ if ( ! class_exists( 'GiveWPDonationSubmitSpecificAmount' ) ) :
 				$context['zip']            = $address_data['zip'];
 				$context['country']        = $address_data['country'];
 			}
-			$donor_comment      = give_get_donor_donation_comment( $payment_id, $payment->donor_id );
-			$context['comment'] = $donor_comment->comment_content;
+			// Payment meta.
+			$payment_meta = $payment->get_meta();
+			if ( is_array( $payment_meta ) && isset( $payment_meta['user_info'] ) ) {
+				unset( $payment_meta['user_info'] );
+			}
+			$context['payment_meta'] = $payment_meta;
+			$donor_comment           = give_get_donor_donation_comment( $payment_id, $payment->donor_id );
+			$context['comment']      = $donor_comment->comment_content;
 			AutomationController::sure_trigger_handle_trigger(
 				[
 					'trigger' => $this->trigger,

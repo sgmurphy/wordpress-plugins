@@ -276,7 +276,7 @@
                   <el-col :lg="14" :md="14" :sm="14">
                     <div v-for="(payment, index) in app.bookings[key].payments">
                       <p class="am-value"><span v-if="app.bookings[key].payments.length > 1">{{ index + 1 }}. </span>
-                        {{ getFormattedPrice(payment.amount - (payment.wcItemTaxValue ? payment.wcItemTaxValue : 0)) }}
+                        {{ getFormattedPrice((payment.status === 'paid' || payment.status === 'partiallyPaid') ? (payment.amount - (payment.wcItemTaxValue ? payment.wcItemTaxValue : 0)) : 0) }}
                         <span v-if="payment.wcItemTaxValue"> {{ $root.labels.plus_tax }}</span></p>
                     </div>
                   </el-col>

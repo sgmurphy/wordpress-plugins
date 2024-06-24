@@ -110,10 +110,20 @@ cff_forms_templates = {
             "description": "Calculate the number of calories a person needs to consume each day for weight maintenance and the activity level alternatives.",
             "id": 32
         }, {
+            "title": "Macronutrients Calculator",
+            "category": "Health",
+            "description": "Calculate the essential nutrients based on individual physical condition, activity, and goals.",
+            "id": 39
+        }, {
             "title": "Daily Hydratation Calculator",
             "category": "Health",
             "description": "Calculate the daily water intake based on gender, age, activity level, and climate.",
             "id": 33
+        }, {
+            "title": "Daily Hydratation Calculator",
+            "category": "Health",
+            "description": "Calculate the daily water intake based on weight, activity level, and climate.",
+            "id": 38
         }, {
             "title": "Weight Goal",
             "category": "Health",
@@ -188,6 +198,11 @@ cff_forms_templates = {
             "category": "WooCommerce",
             "description": "The form filters WooCommerce products based on search terms.",
             "id": 37
+        }, {
+            "title": "WooCommerce Buyers List",
+            "category": "WooCommerce",
+            "description": "Retrieve buyer emails, product quantities, and total amounts per buyer.",
+            "id": 40
         }
     ],
     "plat": [

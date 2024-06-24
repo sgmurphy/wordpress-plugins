@@ -1,8 +1,8 @@
 <template>
   <div
     v-show="ready && !loading"
-    class="am-payments"
     ref="paymentRef"
+    class="am-payments"
     :class="[props.componentClass, props.globalClass]"
     :style="cssVars"
   >
@@ -26,6 +26,7 @@
 
     <component
       :is="componentTypes[bookableType]"
+      :tax-visibility="props.taxVisibility"
       @set-on-site-payment="setOnSitePayment"
     ></component>
 
@@ -146,6 +147,10 @@ let props = defineProps({
     required: true
   },
   inDialog: {
+    type: Boolean,
+    default: false
+  },
+  taxVisibility: {
     type: Boolean,
     default: false
   }

@@ -1,5 +1,6 @@
 const { EBDisplayIcon, sanitizeURL, BlockProps } = window.EBControls;
 
+import { RichText } from "@wordpress/block-editor";
 const Save = ({ attributes }) => {
     const {
         blockId,
@@ -34,9 +35,11 @@ const Save = ({ attributes }) => {
                         {...(buttonOneNewWindow && { target: "_blank" })}
                         rel="noopener"
                     >
-                        <div className="eb-button-text eb-button-one-text">
-                            {buttonTextOne}
-                        </div>
+                        <RichText.Content
+                            tagName="div"
+                            className="eb-button-text eb-button-one-text"
+                            value={buttonTextOne}
+                        />
                     </a>
 
                     {showConnector && (
@@ -59,9 +62,11 @@ const Save = ({ attributes }) => {
                         {...(buttonTwoNewWindow && { target: "_blank" })}
                         rel="noopener"
                     >
-                        <div className="eb-button-text eb-button-two-text">
-                            {buttonTextTwo}
-                        </div>
+                        <RichText.Content
+                            tagName="div"
+                            className="eb-button-text eb-button-two-text"
+                            value={buttonTextTwo}
+                        />
                     </a>
                 </div>
             </div>

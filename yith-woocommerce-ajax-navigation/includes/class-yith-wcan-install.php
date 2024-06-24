@@ -34,6 +34,13 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		protected static $stored_version;
 
 		/**
+		 * Stored DB version
+		 *
+		 * @var string
+		 */
+		protected static $stored_db_version;
+
+		/**
 		 * Default preset slug
 		 *
 		 * @var string
@@ -47,6 +54,7 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 		 */
 		public static function init() {
 			add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
+			add_action( 'init', array( __CLASS__, 'check_db_version' ), 5 );
 
 			add_filter( 'yith_wcan_default_accent_color', array( __CLASS__, 'set_default_accent' ) );
 		}
@@ -61,6 +69,19 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 
 			if ( version_compare( self::$stored_version, YITH_WCAN_VERSION, '<' ) ) {
 				self::update();
+			}
+		}
+
+		/**
+		 * Check current version, and trigger db update procedures when needed
+		 *
+		 * @return void
+		 */
+		public static function check_db_version() {
+			self::$stored_db_version = get_option( 'yith_wcan_db_version' );
+
+			if ( version_compare( self::$stored_db_version, YITH_WCAN_DB_VERSION, '<' ) ) {
+				self::update_db();
 			}
 		}
 
@@ -82,6 +103,78 @@ if ( ! class_exists( 'YITH_WCAN_Install' ) ) {
 			 * Triggered after plugin has been updated to a new version
 			 */
 			do_action( 'yith_wcan_updated' );
+		}
+
+		/**
+		 * DB update/install procedure
+		 *
+		 * @return void
+		 */
+		public static function update_db() {
+			self::maybe_update_tables();
+			self::update_db_version();
+
+			/**
+			 * DO_ACTION: yith_wcan_db_updated
+			 *
+			 * Triggered after database update
+			 */
+			do_action( 'yith_wcan_db_updated' );
+		}
+
+		/**
+		 * Returns DB structure for the plugin
+		 *
+		 * @return string
+		 */
+		public static function get_db_structure() {
+			global $wpdb;
+
+			$db_structure = '';
+
+			$table   = $wpdb->prefix . YITH_WCAN_Cache_Provider_Table::TABLE;
+			$collate = '';
+
+			if ( $wpdb->has_cap( 'collation' ) ) {
+				$collate = $wpdb->get_charset_collate();
+			}
+
+			$db_structure .= "CREATE TABLE {$table} (
+							`ID` BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+							`group` VARCHAR( 255 ) NOT NULL,
+							`version` VARCHAR( 10 ) NOT NULL,
+							`index` CHAR( 32 ) NULL DEFAULT NULL,
+							`value` LONGTEXT NOT NULL,
+							`expiration` timestamp NOT NULL,
+							PRIMARY KEY  ( `ID` ),
+							UNIQUE KEY cache_entry ( `group`, `version`, `index` ),
+							INDEX cache_set ( `group`, `version` ),
+							KEY cache_version ( `version` ),
+							KEY cache_expiration ( `expiration` )
+						) $collate;";
+
+			return $db_structure;
+		}
+
+		/**
+		 * Create or update tables for the plugin
+		 *
+		 * The dbDelta function will require correct operation depending on current DB structure.
+		 *
+		 * @return void
+		 */
+		public static function maybe_update_tables() {
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			dbDelta( self::get_db_structure() );
+		}
+
+		/**
+		 * Updated version option to latest db version, to avoid executing upgrade multiple times
+		 *
+		 * @return void
+		 */
+		public static function update_db_version() {
+			update_option( 'yith_wcan_db_version', YITH_WCAN_DB_VERSION );
 		}
 
 		/**

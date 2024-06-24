@@ -1,6 +1,5 @@
-import {useDiscountAmountPackage} from "./package";
 import moment from "moment";
-import {useCartTotalAmount, useAppointmentsDiscountAmount} from "../common/appointments";
+import {useAppointmentsAmountInfo} from "../common/appointments";
 import {useCart} from "./cart";
 import httpClient from "../../../plugins/axios.js";
 import {
@@ -22,8 +21,6 @@ import {
   useCartItem
 } from "./cart";
 import {
-  useAppointmentsTotalAmount,
-  useDiscountAmount,
   useServices
 } from "../common/appointments";
 import {
@@ -33,6 +30,10 @@ import useAction from "./actions";
 import {
   useUrlQueryParams
 } from "../common/helper";
+import {
+  useAmount,
+  useEntityTax
+} from "../common/pricing";
 
 const globalLabels = reactive(window.wpAmeliaLabels)
 let errorMessage = ref()
@@ -674,13 +675,23 @@ function useAppointmentCalendarData (store, response) {
 
   runAction(store, response)
 
+  let amountInfo = useAppointmentsAmountInfo(store)
+
+  let totalAmount = 0
+
+  amountInfo.forEach((item) => {
+    totalAmount += item.prepaid.totalAmount + item.postpaid.totalAmount -
+      item.prepaid.discountAmount - item.postpaid.discountAmount +
+      item.prepaid.taxAmount + item.postpaid.taxAmount
+  })
+
   return {
     type: 'appointment',
     data: appointments,
     token: response.booking.token,
     payments: payments,
     paymentAmount: paymentAmount,
-    price: useCartTotalAmount(store) - useAppointmentsDiscountAmount(store),
+    price: totalAmount,
     customerCabinetUrl: response.customerCabinetUrl,
   }
 }
@@ -702,7 +713,19 @@ function usePackageCalendarData (store, response) {
 
   runAction(store, response)
 
-  let coupon = store.getters['booking/getCoupon']
+  let pack = store.getters['entities/getPackage'](
+    store.getters['booking/getPackageId']
+  )
+
+  let tax = useEntityTax(store, store.getters['booking/getPackageId'], 'package')
+
+  let amountData = useAmount(
+      pack,
+      store.getters['booking/getCoupon'],
+      settings.payments.taxes.enabled ? Object.assign({}, tax, {excluded: settings.payments.taxes.excluded}) : null,
+      usePackageAmount(pack),
+      false
+  )
 
   return {
     type: 'package',
@@ -711,7 +734,7 @@ function usePackageCalendarData (store, response) {
     payments: [response.payment],
     paymentAmount: response.payment.amount,
     payment: response.payment,
-    price: usePackageAmount(store) - (coupon ? useDiscountAmountPackage(store, coupon) : 0),
+    price: amountData.deposit && response.payment.gateway !== 'onSite' ? amountData.deposit : amountData.price - amountData.discount + amountData.tax,
     customerCabinetUrl: response.customerCabinetUrl,
   }
 }
@@ -831,6 +854,34 @@ function useEventCalendarData (store, response) {
 
   runAction(store, response)
 
+  let event = store.getters['eventEntities/getEvent'](store.getters['eventBooking/getSelectedEventId'])
+
+  let tickets = store.getters['tickets/getTicketsData']
+
+  let persons = store.getters['persons/getPersons']
+
+  let price = 0
+
+  if (event.customPricing) {
+    tickets.forEach(t => {
+      if (t.persons) {
+        price += event.aggregatedPrice ? t.price * t.persons : t.price
+      }
+    })
+  } else {
+    price = event.aggregatedPrice ? event.price * persons : event.price
+  }
+
+  let tax = useEntityTax(store, store.getters['eventBooking/getSelectedEventId'], 'event')
+
+  let amountData = useAmount(
+      event,
+      store.getters['coupon/getCoupon'],
+      settings.payments.taxes.enabled ? Object.assign({}, tax, {excluded: settings.payments.taxes.excluded}) : null,
+      price,
+      false
+  )
+
   return {
     type: response.type,
     active: settings.general.addToCalendar,
@@ -844,7 +895,7 @@ function useEventCalendarData (store, response) {
     persons: response.booking.persons,
     payments: [response.payment],
     paymentAmount: response.payment.amount,
-    price: response.booking.price,
+    price: amountData.deposit && response.payment.gateway !== 'onSite' ? amountData.deposit : amountData.price - amountData.discount + amountData.tax,
     redirectAfterBookingUrl: afterBookingUrl.value,
     customerCabinetUrl: customerPanelUrl.value,
   }

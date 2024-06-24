@@ -667,7 +667,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                                     if( $settings['switcher_one_icon']['value'] != ''){
                                         echo HTMega_Icon_manager::render_icon( $settings['switcher_one_icon'], [ 'aria-hidden' => 'true' ] ).esc_html( $settings['switch_one_title'] );
                                     }else{
-                                        echo esc_html__( $settings['switch_one_title'],'htmega-addons' );
+                                        echo esc_html( $settings['switch_one_title'] );
                                     }
                                 ?>
                             </span>

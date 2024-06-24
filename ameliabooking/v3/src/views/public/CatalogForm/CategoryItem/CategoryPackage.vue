@@ -47,7 +47,18 @@
             v-if="customizedOptions.packagePrice.visibility"
             class="am-fcip__header-price"
           >
-            {{ pack.price ? useFormattedPrice(pack.calculatedPrice ? pack.price : pack.price - pack.price / 100 * pack.discount) : amLabels.free }}
+            {{ pack.price ? useFormattedPrice(usePackageAmount(pack)) : amLabels.free }}
+          </span>
+          <span
+            v-if="pack.price && (customizedOptions.tax?.visibility ?? true)  && useTaxVisibility(store, pack.id, 'package')"
+            class="am-fcip__header-tax"
+          >
+            <template v-if="amSettings.payments.taxes.excluded">
+              {{ `+${amLabels.total_tax_colon}` }}
+            </template>
+            <template v-else>
+              {{amLabels.incl_tax}}
+            </template>
           </span>
           <span class="am-fcip__header-btn">
             <AmButton
@@ -404,12 +415,16 @@ import { useStore } from 'vuex'
 // * Composables
 import { useFormattedPrice } from '../../../../assets/js/common/formatting.js'
 import { useColorTransparency } from '../../../../assets/js/common/colorManipulation.js'
-import { useBuildPackage } from '../../../../assets/js/public/package.js'
+import {
+  usePackageAmount,
+  useBuildPackage,
+} from '../../../../assets/js/public/package.js'
 import {
   usePackageEmployees,
   usePackageLocations
 } from '../../../../assets/js/public/catalog.js'
 import { useDescriptionVisibility } from "../../../../assets/js/common/helper";
+import { useTaxVisibility } from "../../../../assets/js/common/pricing";
 
 // * Global functions
 let {
@@ -714,7 +729,7 @@ export default {
                   flex-wrap: wrap;
                 }
 
-                &-discount, &-price {
+                &-discount, &-price, &-tax {
                   margin-bottom: 6px;
                 }
 
@@ -783,7 +798,18 @@ export default {
           color: var(--am-c-fcip-primary);
         }
 
-        &-btn {}
+        &-tax {
+          display: inline-flex;
+          align-items: center;
+          height: 28px;
+          padding: 0 12px 0;
+          border-radius: 14px;
+          font-size: 18px;
+          font-weight: 500;
+          margin: 0 12px 0 0;
+          color: var(--am-c-fcip-primary);
+          background-color: var(--am-c-fcip-primary-op20);
+        }
 
         &-bottom {
           padding: 0 0 16px;

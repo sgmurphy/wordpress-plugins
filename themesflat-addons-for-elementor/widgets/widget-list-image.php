@@ -166,35 +166,35 @@ class TFListImage_Widget extends \Elementor\Widget_Base {
 					'fields' => $repeater->get_controls(),
 					'default' => [
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 						[
-							'image' => esc_html__( '', 'themesflat-addons-for-elementor' ),
+							'image' =>  URL_THEMESFLAT_ADDONS_ELEMENTOR_FREE."assets/img/placeholder.jpg",
 							'link' => esc_html__( '#', 'themesflat-addons-for-elementor' ),
 						],
 					],

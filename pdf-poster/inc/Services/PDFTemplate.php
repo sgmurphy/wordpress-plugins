@@ -29,12 +29,21 @@ class PDFTemplate{
             $pdf_path = $t['file'];
         }
         ob_start();
+        // echo md5('http://localhost/freemius/wp-content/uploads/2023/11/compressed.tracemonkey-pldi-09.pdf');
+        // echo "<br />";
+        // echo '110dd61fd57444010b1ab5ff38782f0f';
+        // echo '<pre>';
+        // print_r( $t );
+        // echo '</pre>';
 
 		?>
 		<style>
             <?php echo esc_html(self::renderStyle($data['template'])); ?>
             <?php echo esc_html(Functions::isset($data['additional'], 'CSS')); ?>
             <?php echo esc_html(Functions::isset($data['template'], 'CSS')); ?>
+            <?php if($t['raw']){
+                echo esc_html("#$iid iframe { border: none}");
+            } ?>
         </style>
         <?php 
             if($t['file']){ 
@@ -90,7 +99,7 @@ class PDFTemplate{
             $t['file'] = Functions::scramble('encode', $t['file']);
             $t['print'] = 'false';
             $t['download'] = 'false';
-            $viewer_base_url = PDFPRO_PLUGIN_DIR."pdfjs-new/web/pviewer.html";
+            $viewer_base_url = PDFPRO_PLUGIN_DIR."pdfjs-new/web/viewer.html";
         }else{
             $viewer_base_url = PDFPRO_PLUGIN_DIR."pdfjs-new/web/viewer.html";
             if($t['downloadButton']){
@@ -102,7 +111,7 @@ class PDFTemplate{
 
         $zoomLevel = "&z=auto";
         if($t['zoomLevel'] !== 'auto'){
-            $zoomLevel = "&z=". (int) $t['zoomLevel']/100;
+            $zoomLevel = "&z=". (int) $t['zoomLevel'] / 100;
         }
 
         $t['final_url'] = $viewer_base_url."?file=".$t['file']."&nobaki=".$t['download'].$zoomLevel."&stdono=".$t['print']."&onlypdf=".$t['onlyPDF']."&raw=".$t['raw']."&fullscreen=".$t['fullscreenButton']."&sidebarOpen=".$t['sidebarOpen']."&side=".$t['thumbMenu']."&open=false&hrscroll=".$hr."#page=".$t['initialPage'];
@@ -214,10 +223,7 @@ class PDFTemplate{
         $t = self::$data['template'];
         ?>
         <style>
-            <?php echo esc_attr(self::$uniqid); ?>{
-                margin: 0 auto;
-
-            }
+            <?php echo esc_html(self::$uniqid." {margin: 0 auto}") ?>
         </style>
         <div id="<?php echo esc_attr(self::$uniqid); ?>" class="pdfp_wrapper <?php echo esc_attr(Functions::isset(self::$data['additional'], 'Class')) ?>" data-infos="<?php echo esc_attr(wp_json_encode(self::$data['infos'])) ?>">
             <div class="cta_wrapper">

@@ -277,33 +277,21 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.7.2", "essential-blocks")}
+                                    {__("Version: 4.7.3", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("12/06/2024", "essential-blocks")}
+                                        {__("24/06/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Fixed: Animation Delay Option not working for blocks",
+                                            "Improved: Custom CSS Editor better performance",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Column Block | responsive not working properly",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Column Block | animation not working properly",
-                                            "essential-blocks"
-                                        )}
-                                    </li>
-                                    <li>
-                                        {__(
-                                            "Fixed: Responsive control not working properly for all blocks",
+                                            "Fixed: Dual Button | HTML Tag not working properly",
                                             "essential-blocks"
                                         )}
                                     </li>

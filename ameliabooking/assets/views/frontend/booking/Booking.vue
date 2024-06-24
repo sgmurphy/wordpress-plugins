@@ -187,6 +187,7 @@
         v-bind="cacheData && (cacheData.status === 'canceled' || cacheData.status === 'failed') ? getCacheDataRequestProps() : {
           bookableType: selectedPackage === null ? 'appointment' : 'package',
           containerId: getContainerId(),
+          taxes: options.entities.taxes,
           bookable: getBookableData(),
           appointment: appointment,
           marketing: marketing,
@@ -441,6 +442,7 @@
         loadingTimeSlots: false,
         slotsIndexStarted: 0,
         responseEntities: {
+          taxes: [],
           categories: [],
           employees: [],
           locations: [],
@@ -455,6 +457,7 @@
           },
           entitiesRelations: {},
           entities: {
+            taxes: [],
             packages: [],
             services: [],
             employees: [],
@@ -549,7 +552,7 @@
             $this.fetchedEntities()
           }
         }, {
-          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages'],
+          types: ['locations', 'employees', 'categories', 'custom_fields', 'packages', 'taxes'],
           isFrontEnd: true,
           isPanel: false
         })

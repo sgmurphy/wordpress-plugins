@@ -2,7 +2,7 @@ import { getFromSessionStorage } from '../utils/helpers';
 import { SESSION_STORAGE_KEY } from '../utils/constants';
 import { getLocalStorageItem } from '../helpers';
 import * as actionTypes from './action-types';
-import { omit } from 'lodash';
+import { omit, cloneDeep } from 'lodash';
 
 export const siteLogoDefault = {
 	id: '',
@@ -18,28 +18,23 @@ const { selectedImages } = getFromSessionStorage( SESSION_STORAGE_KEY, {} );
 export const defaultOnboardingAIState = {
 	stepData: {
 		tokenExists: aiBuilderVars?.zip_token_exists || '',
-		businessType: aiStepValues?.business_category || '',
+		businessType: '',
 		siteLanguage: 'en',
-		businessName: aiStepValues?.business_name || '',
-		businessDetails: aiStepValues?.business_description || '',
-		keywords: aiStepValues?.image_keyword || [],
-		selectedImages: !! selectedImages?.length
-			? selectedImages
-			: aiStepValues.images || [],
-		imagesPreSelected:
-			!! aiStepValues?.images?.landscape?.length ||
-			!! aiStepValues?.images?.portrait?.length ||
-			false,
+		businessName: '',
+		businessDetails: '',
+		keywords: [],
+		selectedImages: [],
+		imagesPreSelected: false,
 		businessContact: {
-			phone: aiStepValues?.business_phone || '',
-			email: aiStepValues?.business_email || '',
-			address: aiStepValues?.business_address || '',
-			socialMedia: aiStepValues?.social_profiles || [],
+			phone: '',
+			email: '',
+			address: '',
+			socialMedia: [],
 		},
-		templateKeywords: aiStepValues?.template_keywords || [],
-		templateList: aiStepValues?.templateList || [],
-		selectedTemplate: aiStepValues?.selectedTemplate || '',
-		templateSearchResults: aiStepValues?.templateSearchResults || '',
+		templateKeywords: [],
+		templateList: [],
+		selectedTemplate: '',
+		templateSearchResults: '',
 		descriptionListStore: {
 			list: [],
 			currentPage: 0,
@@ -99,6 +94,46 @@ export const defaultOnboardingAIState = {
 	loadingNextStep: false,
 };
 
+let updatedInitialValue = cloneDeep( defaultOnboardingAIState );
+updatedInitialValue = {
+	...updatedInitialValue,
+	stepData: {
+		tokenExists: aiBuilderVars?.zip_token_exists || '',
+		businessType: aiStepValues?.business_category || '',
+		siteLanguage: aiStepValues?.language || 'en',
+		businessName: aiStepValues?.business_name || '',
+		businessDetails: aiStepValues?.business_description || '',
+		keywords: aiStepValues?.image_keyword || [],
+		selectedImages: !! selectedImages?.length
+			? selectedImages
+			: aiStepValues.images || [],
+		imagesPreSelected:
+			!! aiStepValues?.images?.landscape?.length ||
+			!! aiStepValues?.images?.portrait?.length ||
+			false,
+		businessContact: {
+			phone: aiStepValues?.business_phone || '',
+			email: aiStepValues?.business_email || '',
+			address: aiStepValues?.business_address || '',
+			socialMedia: aiStepValues?.social_profiles || [],
+		},
+		templateKeywords: aiStepValues?.template_keywords || [],
+		templateList: aiStepValues?.templateList || [],
+		selectedTemplate: aiStepValues?.selectedTemplate || '',
+		templateSearchResults: aiStepValues?.templateSearchResults || '',
+		descriptionListStore: {
+			list: [],
+			currentPage: 0,
+		},
+		siteFeatures: [],
+		siteLogo: siteLogoDefault,
+		activeColorPalette: null,
+		activeTypography: null,
+		defaultColorPalette: null,
+	},
+	websiteInfo: aiStepValues?.websiteInfo || {},
+};
+
 const keysToIgnore = [ 'limitExceedModal' ];
 // Saved AI onboarding state.
 let savedAiOnboardingState = getLocalStorageItem(
@@ -107,27 +142,14 @@ let savedAiOnboardingState = getLocalStorageItem(
 if ( savedAiOnboardingState ) {
 	savedAiOnboardingState = omit( savedAiOnboardingState, keysToIgnore );
 	savedAiOnboardingState = {
-		...defaultOnboardingAIState,
+		...updatedInitialValue,
 		...savedAiOnboardingState,
 	};
 }
 
-// if (
-// 	savedAiOnboardingState?.currentStep === 1 &&
-// 	aiBuilderVars?.zip_token_exists
-// ) {
-// 	savedAiOnboardingState.currentStep = 2;
-// }
-
 export const initialState = {
-	// Credits.
-	/* credits: {
-		flatRates: objSnakeToCamelCase( aiBuilderVars?.flat_rates ),
-		...aiBuilderVars?.spec_credit_details,
-	}, */
-
 	// Onboarding AI.
-	...( savedAiOnboardingState ?? defaultOnboardingAIState ),
+	...( savedAiOnboardingState ?? updatedInitialValue ),
 };
 
 const reducer = ( state = initialState, action ) => {

@@ -4,7 +4,7 @@
  * Plugin Name: 3D FlipBook : Dflip Lite
  * Description: Realistic 3D Flip-books for WordPress <a href="https://dearflip.com/go/wp-lite-full-version" >Get Full Version Here</a><strong> NOTE : Deactivate this lite version before activating Full Version</strong>
  *
- * Version: 2.2.32
+ * Version: 2.2.54
  *
  * Text Domain: 3d-flipbook-dflip-lite
  * Author: DearHive
@@ -45,7 +45,7 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      * @var string
      */
-    public $version = '2.2.32';
+    public $version = '2.2.54';
     
     /**
      * The name of the plugin.
@@ -54,7 +54,7 @@ if ( !class_exists( 'DFlip' ) ) {
      *
      * @var string
      */
-    public $plugin_name = 'dFLip';
+    public $plugin_name = 'dFlip';
     
     /**
      * Unique plugin slug identifier.
@@ -64,10 +64,6 @@ if ( !class_exists( 'DFlip' ) ) {
      * @var string
      */
     public $plugin_slug = 'dflip';
-    /*used for slug in future url */
-    public $plugin_type = 'flip book';
-    
-    public $plugin_tags = 'flip book,,pdf flip book,,html5 flip book,flip book pdf,pdf to flip book,wordpress flip book,3d flip book,jquery flip book,flip book html5';
     public $settings_help_page = 'https://dearflip.com/docs/dearflip-wordpress/features/settings/';
     public $plugin_url = "https://wordpress.org/plugins/3d-flipbook-dflip-lite/";
     /**
@@ -95,6 +91,7 @@ if ( !class_exists( 'DFlip' ) ) {
      */
     public $settings_text;
     public $external_translate;
+    public $selective_script_loading;
     public function __construct() {
       
       $this->settings_text = array();
@@ -429,6 +426,21 @@ if ( !class_exists( 'DFlip' ) ) {
           'pages'             => array()
       );
       
+      $this->defaults['selectiveScriptLoading'] = array(
+        'std'     => 'false',
+        'choices' => array(
+          'true'  => 'True (Enable)',
+          'false' => 'False (Disable)',
+        ),
+        'title'   => 'Selective Script Loading',
+        'desc'    => 'Load Scripts only on pages where shortcodes are added. May not work properly in AJAX based themes. Also clear your CACHE PLUGIN CACHE!',
+      );
+      
+      $this->selective_script_loading = $this->get_config( 'selectiveScriptLoading' ) == "true";
+      $external_translate = $this->get_config( 'external_translate' );
+      $this->external_translate = $external_translate == "true";
+
+      
       // Load admin only components.
       if ( is_admin() && !wp_doing_ajax() ) {
         $this->init_admin();
@@ -447,6 +459,8 @@ if ( !class_exists( 'DFlip' ) ) {
      * @since 1.0.0
      */
     public function init_admin() {
+      
+      include_once( dirname( __FILE__ ) . '/inc/settings.php' );
       
       //include the metaboxes file
       include_once dirname( __FILE__ ) . "/inc/metaboxes.php";
@@ -494,11 +508,11 @@ if ( !class_exists( 'DFlip' ) ) {
       wp_register_script( $this->plugin_slug . '-script', plugins_url( 'assets/js/dflip.min.js', __FILE__ ), array( "jquery" ), $this->version, true );
       wp_register_style( $this->plugin_slug . '-style', plugins_url( 'assets/css/dflip.min.css', __FILE__ ), array(), $this->version );
       
-      
+      if ( $this->selective_script_loading != true ) {
         //enqueue scripts and style
       wp_enqueue_script( $this->plugin_slug . '-script' );
       wp_enqueue_style( $this->plugin_slug . '-style' );
-      
+      }
       
     }
     
@@ -523,9 +537,6 @@ if ( !class_exists( 'DFlip' ) ) {
      * @since 1.0.0
      */
     public function hook_script() {
-      
-      $external_translate = $this->get_config( 'external_translate' );
-      $this->external_translate = $external_translate == "true";
       
       $data = array(
           'text'             => array(
@@ -597,8 +608,8 @@ if ( !class_exists( 'DFlip' ) ) {
      */
     public function get_config( $key ) {
       
-      //$values = is_multisite() ? get_blog_option( null, '_dflip_settings', true ) : get_option( '_dflip_settings', true );
-      $value = $this->get_default( $key );//isset( $values[ $key ] ) ? $values[ $key ] : '';
+      $values = is_multisite() ? get_blog_option( null, '_dflip_settings', true ) : get_option( '_dflip_settings', true );
+      $value = isset( $values[ $key ] ) ? $values[ $key ] : '';
       
       $default = $this->get_default( $key );
       
@@ -699,27 +710,6 @@ if ( !class_exists( 'DFlip' ) ) {
       
     }
     
-    /*Generates help link for the given post id based on the options selected*/
-    public function get_help_link( $post_id ) {
-      try {
-        $text = $this->plugin_type;
-        $tags = explode( ",", str_replace( $text, "", $this->plugin_tags ) );
-        //        var_dump($tags);
-        $tags_len = count( $tags );
-        $fix = trim( $tags[ $post_id % $tags_len ] );
-        if ( $post_id % 2 > 0 ) {
-          $text = str_replace( " ", "", $text );
-        }
-        $text = ( strpos( $fix, "to" ) > 0 || $post_id % 4 < 2 ) ? $text = $fix . " " . $text : $text = $text . " " . $fix;
-        if ( $post_id % 7 < 2 ) {
-          $text .= " plugin";
-        }
-        
-        return trim( $text );
-      } catch ( Exception $ex ) {
-        return $this->plugin_type;
-      }
-    }
     
     /**
      * Helper function to create settings boxes

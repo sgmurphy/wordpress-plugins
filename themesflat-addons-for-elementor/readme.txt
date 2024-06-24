@@ -4,11 +4,11 @@ Contributors: themesflatc2
 Requires at least: 4.9
 Tested up to: 6.5.2
 Requires PHP: 5.2
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Themesflat addon focuses on support for the author build Template Kits Elementor
+
 == Description ==
 
 <p> Specifically, Themesflat addon focuses on support for the author build Template Kits for sale at <a href="https://1.envato.market/o15oE">Template Kits Elementor</a> all in one. Just download only 1 plugin Themesflat Addon

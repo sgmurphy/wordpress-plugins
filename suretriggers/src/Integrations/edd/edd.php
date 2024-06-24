@@ -114,6 +114,18 @@ class EDD extends Integrations {
 			$context['license_key_expire_date'] = $licesnses->expiration;
 			$context['license_key_status']      = $licesnses->status;
 		}
+
+		// Fetch custom checkout fields.
+		$post_id_option = get_option( 'cfm-checkout-form' );
+		if ( is_numeric( $post_id_option ) ) {
+			$post_id = (int) $post_id_option;
+			$fields  = get_post_meta( $post_id, 'cfm-form', true );
+			if ( is_array( $fields ) && ! empty( $fields ) && function_exists( 'edd_get_order_meta' ) ) {
+				foreach ( $fields as $field ) {
+					$context[ $field['name'] ] = edd_get_order_meta( $payment->ID, $field['name'], true );
+				}
+			}
+		}
 		return $context;
 	}
 

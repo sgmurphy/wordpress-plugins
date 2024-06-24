@@ -1,31 +1,5 @@
 import { useConvertedUtcToLocalDateTime } from "../common/date";
 
-function useServiceBookingPrice(booking) {
-  let extrasPriceTotal = 0
-
-  booking.extras.forEach((extra) => {
-    extrasPriceTotal += extra.price * extra.quantity * (extra.aggregatedPrice ? booking.persons : 1)
-  })
-
-  let servicePriceTotal = booking.price * (booking.aggregatedPrice ? booking.persons : 1)
-  let subTotal = servicePriceTotal + extrasPriceTotal
-  let discountTotal = (subTotal / 100 * (booking.coupon ? booking.coupon.discount : 0)) + (booking.coupon ? booking.coupon.deduction : 0)
-
-  return discountTotal > subTotal ? 0 : subTotal - discountTotal
-}
-
-function useAppointmentPrice(appointment) {
-  let price = 0
-
-  appointment.bookings.forEach((booking) => {
-    if (['approved', 'pending'].includes(booking.status)) {
-      price += useServiceBookingPrice(booking)
-    }
-  })
-
-  return price >= 0 ? price : 0
-}
-
 function useAppointmentDuration(store, appointment) {
   let service = store.getters['entities/getService'](
     appointment.serviceId
@@ -130,8 +104,6 @@ function useParsedAppointments (appointments, timeZone) {
 }
 
 export {
-  useServiceBookingPrice,
-  useAppointmentPrice,
   useAppointmentDuration,
   useParsedAppointments,
 }

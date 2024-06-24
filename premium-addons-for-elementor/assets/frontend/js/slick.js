@@ -225,6 +225,7 @@
             _.windowTimer = null;
             _.myAnimation = null;
 
+
             dataSettings = $(element).data('slick') || {};
 
             _.options = $.extend({}, _.defaults, settings, dataSettings);
@@ -3119,21 +3120,26 @@
 
     };
 
-    $.fn.slick = function () {
-        var _ = this,
-            opt = arguments[0],
-            args = Array.prototype.slice.call(arguments, 1),
-            l = _.length,
-            i,
-            ret;
-        for (i = 0; i < l; i++) {
-            if (typeof opt == 'object' || typeof opt == 'undefined')
-                _[i].slick = new Slick(_[i], opt);
-            else
-                ret = _[i].slick[opt].apply(_[i].slick, args);
-            if (typeof ret != 'undefined') return ret;
-        }
-        return _;
-    };
+    var shouldTrigger = $('.jet-listing-grid__slider').length < 1;
+
+    if (shouldTrigger) {
+        $.fn.slick = function () {
+            var _ = this,
+                opt = arguments[0],
+                args = Array.prototype.slice.call(arguments, 1),
+                l = _.length,
+                i,
+                ret;
+
+            for (i = 0; i < l; i++) {
+                if (typeof opt == 'object' || typeof opt == 'undefined')
+                    _[i].slick = new Slick(_[i], opt);
+                else
+                    ret = _[i].slick[opt].apply(_[i].slick, args);
+                if (typeof ret != 'undefined') return ret;
+            }
+            return _;
+        };
+    }
 
 }));

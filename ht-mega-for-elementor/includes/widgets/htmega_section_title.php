@@ -1229,7 +1229,7 @@ class HTMega_Elementor_Widget_Section_Title extends Widget_Base {
             }
 
             echo "<style>";
-                esc_html_e($css_print);
+            echo esc_html($css_print);
             echo "</style>";
         }
     }

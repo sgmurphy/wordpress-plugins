@@ -5,6 +5,8 @@
 @layer base {
 	:root {
 		--accent-st: 61 69 146;
+		--accent-st-tertiary: 255 88 14;
+		--zip-alert-error: 239 68 68;
 		--zip-body-text: 71 85 105;
 		--zip-app-highlight-bg: 246 250 254;
 		--zip-app-heading: 15 23 42;
@@ -18,6 +20,7 @@
 		--zip-app-border-hover: 209 218 229;
 		--zip-app-inactive-icon: 148 163 184;
 		--zip-app-light-bg: 240 244 250;
+		--zip-blue-crayola: 61 69 146;
 	}
 	h1 {
 		@apply text-3xl font-semibold leading-9 text-zip-app-heading;
@@ -146,6 +149,16 @@
 	color: #fff;
 	padding: 0 8px;
 	border-radius: 4px;
+}
+
+// Change default style of tooltip on "appearance_page_ai-builder" page
+// Used on inc/assets/src/pages/preview.js
+.appearance_page_ai-builder .zw-tooltip,
+.appearance_page_ai-builder .zw-tooltip {
+	@apply bg-white rounded-md shadow-lg block #{!important};
+	p {
+		@apply px-2 py-1 text-zip-body-text text-sm m-0;
+	}
 }
 
 .zw-tooltip > .tippy-content {
@@ -306,9 +319,6 @@ a {
 	inset: -1px;
 }
 
-.input-focus-border:focus {
-	border: 2px solid #3d4592 !important;
-}
 #spectra-onboarding-ai {
 	:disabled,
 	[data-disabled="true"] {

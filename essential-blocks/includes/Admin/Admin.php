@@ -276,10 +276,9 @@ use PriyoMukul\WPNotice\Utils\NoticeRemover;
             /**
              * Early bird specials
              */
-            $b_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;">Early bird specials: Grab <strong>LIFETIME</strong> access to premium Gutenberg Blocks</p>
-        <a class="button button-primary" href="https://essential-blocks.com/" target="_blank">Upgrade to PRO Now</a>
-        <a class="button button-secondary" href="https://essential-blocks.com/#pricing" target="_blank">Give Me LIFETIME Access</a>
-        <button data-dismiss="true" class="dismiss-btn button button-link">I Don\'t Want To Save Money</button>';
+            $b_message = '<p class="eb_notice_content" style="margin-top: 0; margin-bottom: 10px;">🔥 Essential Blocks PRO: Get access to premium Gutenberg blocks, features & website templates</p>
+        <a class="button button-primary" href="https://essential-blocks.com/eb-pro-upgrade" target="_blank">Upgrade to PRO Now</a>
+        <button data-dismiss="true" class="dismiss-btn button button-secondary">I Don\'t Want To Save Money</button>';
             $_black_friday_notice = [
                 'thumbnail' => ESSENTIAL_BLOCKS_URL . 'assets/images/eb-logo-full.svg',
                 'html'      => $b_message

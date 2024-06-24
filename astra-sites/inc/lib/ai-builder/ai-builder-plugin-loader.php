@@ -390,6 +390,7 @@ class Ai_Builder_Plugin_Loader {
 			'dashboard_url'      => admin_url(),
 			'migrateSvg'         => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
 			'business_details'   => Ai_Builder_ZipWP_Integration::get_business_details(),
+			'skipFeatures'       => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
 		);
 	}
 

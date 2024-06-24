@@ -29,6 +29,7 @@
       </div>
       <AmSettingsCard
         v-for="card in settingsCardArray"
+        :class="useLicenceMenuClass(card.trigger, licence)"
         :key="card.heading"
         class="am-cs-menu__card"
         :header="card.heading"
@@ -47,6 +48,8 @@ import {
   inject,
   computed
 } from 'vue';
+// * Import composables
+import { useLicenceMenuClass } from '../../../../../assets/js/admin/labelsAndOptionsTreatment.js'
 
 // * Labels
 let amLabels = inject('labels')

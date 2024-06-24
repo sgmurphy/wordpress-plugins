@@ -329,6 +329,7 @@ store.dispatch(
       'employees',
       'locations',
       'customFields',
+      'taxes',
     ],
     loadEntities: !shortcodeData.value.trigger ? (window.ameliaShortcodeData.filter(i => !i.hasApiCall).length === window.ameliaShortcodeData.length
       ? true : shortcodeData.value.hasApiCall) : true

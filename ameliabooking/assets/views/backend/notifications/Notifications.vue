@@ -134,6 +134,7 @@
   import dateMixin from '../../../js/common/mixins/dateMixin'
   // import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
   import WhatsAppNotifications from './whatsapp/WhatsAppNotifications.vue'
+  import eventMixin from '../../../js/backend/mixins/eventMixin'
 
   export default {
     mixins: [
@@ -142,7 +143,8 @@
       notifyMixin,
       durationMixin,
       helperMixin,
-      dateMixin
+      dateMixin,
+      eventMixin
     ],
 
     data () {
@@ -185,36 +187,11 @@
       getEntities () {
         this.$http.get(`${this.$root.getAjaxUrl}/entities`, {
           params: this.getAppropriateUrlParams({
-            types: ['custom_fields', 'categories', 'coupons', 'settings', 'events'],
-            getAllEvents: true
+            types: ['custom_fields', 'categories', 'coupons', 'settings', 'events']
           })
         }).then(response => {
           this.options.entities = response.data.data
-
-          let events = []
-          if (this.options.entities.events) {
-            for (let i = 0; i < this.options.entities.events.length; i++) {
-              let ev = this.options.entities.events[i]
-              if (ev.status !== 'approved') {
-                continue
-              }
-              let sameEvent = events.find(e => (e.id === ev.parentId || e.parentId === ev.parentId) && ev.parentId !== null)
-              if (sameEvent) {
-                continue
-              }
-              let sameNameEvent = events.find(e => e.name === ev.name && e.id !== ev.id)
-              if (sameNameEvent) {
-                ev.displayName = ev.name + ' (' + this.getFrontedFormattedDateTime(ev.periods[0].periodStart) + ')'
-                sameNameEvent.displayName = sameNameEvent.name + ' (' + this.getFrontedFormattedDateTime(sameNameEvent.periods[0].periodStart) + ')'
-                events.push(ev)
-              } else {
-                events.push(ev)
-              }
-            }
-          }
-
-          this.options.entities.events = events
-
+          this.options.entities.events = this.groupRecurringEvents(this.options.entities.events)
           this.options.fetched = true
           this.options.settings.general.usedLanguages = response.data.data.settings.general.usedLanguages
           this.languagesData = response.data.data.settings.languages

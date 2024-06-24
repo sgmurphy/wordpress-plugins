@@ -331,7 +331,7 @@
           :span="formsData[formName][bookableType].itemsStatic.paymentMethodFormField.switchPaymentMethodView &&
            formsData[formName][bookableType].itemsStatic.paymentMethodFormField.switchPaymentMethodView === 'Selectbox' ? 12 : 24">
             <payment-method-form-field
-              :total-price="getTotalPrice()"
+              :total-price="getTotalPrice() > 0"
               :bookable-color="bookable.color"
               :payment-options="paymentOptions"
               :appointment="appointment"
@@ -347,7 +347,7 @@
             <stripe-card-form-field
               :appointment="appointment"
               :errors="errors"
-              :total-price="getTotalPrice()"
+              :total-price="getTotalPrice() > 0"
               :stripe-payment="stripePayment"
               :class-identifier="($root.settings.customization.hasOwnProperty('forms') && $root.settings.customization.forms.hasOwnProperty(formType)) ? `${formType}-${formName}-${bookableType}` : ''"
               :form-field="formsData[formName][bookableType].itemsStatic"
@@ -414,7 +414,7 @@
               <!-- Extras Price -->
               <el-row
                 class="am-confirmation-extras-cost" :gutter="24"
-                v-if="appointment.bookings[0].extras.length > 0 && getBookablePrice() > 0"
+                v-if="appointment.bookings[0].extras.length > 0 && amountData.instant.total > 0"
               >
                 <el-collapse
                   accordion v-if="selectedExtras.length > 0"
@@ -451,36 +451,10 @@
               </el-row>
               <!-- /Extras Price -->
 
-              <!-- Subtotal Price -->
-              <el-row :gutter="24" v-if="appointment.bookings[0].extras.length > 0 && getBookablePrice() > 0">
-                <el-col :span="10">
-                  <p>{{ priceLabels.subtotal_colon.value || $root.labels.subtotal_colon }}</p>
-                </el-col>
-                <el-col :span="14">
-                  <p class="am-semi-strong am-align-right">
-                    {{ getFormattedPrice(getSubtotalPrice(), !$root.settings.payments.hideCurrencySymbolFrontend) }}
-                  </p>
-                </el-col>
-              </el-row>
-              <!-- /Subtotal Price -->
-
-              <!-- Discount Price -->
-              <el-row :gutter="24" v-if="$root.settings.payments.coupons && getBookablePrice() > 0">
-                <el-col :span="8">
-                  <p>{{ priceLabels.discount_amount_colon.value || $root.labels.discount_amount_colon }}</p>
-                </el-col>
-                <el-col :span="16">
-                  <p class="am-semi-strong am-align-right">
-                    {{ getFormattedPrice((discount = getDiscountData('instant')) > (subtotal = getSubtotalPrice()) ? subtotal : discount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
-                  </p>
-                </el-col>
-              </el-row>
-              <!-- /Discount Price -->
-
               <!-- Coupon -->
               <el-row
                 :gutter="0" class="am-add-coupon am-flex-row-middle-align"
-                v-if="$root.settings.payments.coupons && getBookablePrice() > 0"
+                v-if="$root.settings.payments.coupons && amountData.instant.total > 0"
               >
 
                 <!-- Coupon Label -->
@@ -578,44 +552,55 @@
               <!-- /Coupons Used Message -->
 
               <div
-                v-if="getBookablePrice() > 0"
+                v-if="amountData.instant.total > 0"
                 class="am-confirmation-total"
               >
               <!-- :style="{'color': bookable.color, 'background-color': bookableType === 'event' && !useGlobalCustomization ? '#E8E8E8' : ''}" -->
-
-                <!-- Deposit -->
-                <el-row
-                  class="am-confirmation-deposit" :gutter="24" v-if="depositAmount > 0 && getPaymentGateway() !== 'onSite' && paymentType === 'depositOnly'"
-                  :style="{'color': bookable.color}"
-                >
+                <!-- SubTotal Price -->
+                <el-row :gutter="24" v-if="amountData.instant.discount > 0 || amountData.instant.tax > 0">
                   <el-col :span="12">
-                    <p>{{ priceLabels.deposit.value || $root.labels.deposit }} <label class="am-confirmation-deposit-info">{{ priceLabels.pay_now.value || $root.labels.pay_now }}</label></p>
+                    <p>
+                      {{ priceLabels.subtotal_colon.value || $root.labels.subtotal_colon }}
+                    </p>
                   </el-col>
                   <el-col :span="12">
                     <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
-                      {{ getFormattedPrice(depositAmount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                      {{ getFormattedPrice(amountData.instant.total, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                     </p>
                   </el-col>
                 </el-row>
+                <!-- /SubTotal Price -->
 
-                <el-row
-                  class="am-confirmation-deposit-price"
-                  :gutter="24" v-if="depositAmount > 0 && getPaymentGateway() !== 'onSite' && paymentType === 'depositOnly'"
-                  :style="{'color': bookable.color}"
-                >
+                <!-- Discount Amount -->
+                <el-row :gutter="24" v-if="amountData.instant.discount > 0">
                   <el-col :span="12">
-                    <p>{{ priceLabels.pay_later.value || $root.labels.pay_later }}</p>
+                    <p>{{ priceLabels.discount_amount_colon.value || $root.labels.discount_amount_colon }}</p>
                   </el-col>
                   <el-col :span="12">
                     <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
-                      {{ getFormattedPrice(getTotalPrice() - depositAmount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                      {{ getFormattedPrice(amountData.instant.discount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                     </p>
                   </el-col>
                 </el-row>
-                <!-- /Deposit -->
+                <!-- /Discount Amount -->
+
+                <!-- Tax Amount -->
+                <el-row :gutter="24" v-if="amountData.instant.tax > 0">
+                  <el-col :span="12">
+                    <p>
+                      {{ getTaxLabel() }}
+                    </p>
+                  </el-col>
+                  <el-col :span="12">
+                    <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
+                      {{ getFormattedPrice(amountData.instant.tax, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                    </p>
+                  </el-col>
+                </el-row>
+                <!-- /Tax Amount -->
 
                 <!-- Total Price -->
-                <el-row :gutter="24">
+                <el-row :gutter="24" :class="{'am-confirmation-total-bordered': !onlyTotal}">
                   <el-col :span="12">
                     <p>
                       {{ priceLabels.total_cost_colon.value || $root.labels.total_cost_colon }}
@@ -629,12 +614,43 @@
                 </el-row>
                 <!-- /Total Price -->
 
+                <!-- Deposit -->
+                <el-row
+                  class="am-confirmation-deposit" :gutter="24" v-if="withDeposit"
+                  :style="{'color': bookable.color}"
+                >
+                  <el-col :span="12">
+                    <p>{{ priceLabels.deposit.value || $root.labels.deposit }} <label class="am-confirmation-deposit-info">{{ priceLabels.pay_now.value || $root.labels.pay_now }}</label></p>
+                  </el-col>
+                  <el-col :span="12">
+                    <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
+                      {{ getFormattedPrice(amountData.instant.deposit, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                    </p>
+                  </el-col>
+                </el-row>
+
+                <el-row
+                  class="am-confirmation-deposit-price"
+                  :gutter="24" v-if="withDeposit"
+                  :style="{'color': bookable.color}"
+                >
+                  <el-col :span="12">
+                    <p>{{ priceLabels.pay_later.value || $root.labels.pay_later }}</p>
+                  </el-col>
+                  <el-col :span="12">
+                    <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
+                      {{ getFormattedPrice(getTotalPrice() - amountData.instant.deposit, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                    </p>
+                  </el-col>
+                </el-row>
+                <!-- /Deposit -->
+
               </div>
 
               <!-- Recurring Price -->
               <el-row
                 class="am-confirmation-extras-cost" :gutter="24"
-                v-if="recurringData.length && postponedPaymentBasePriceData.length > 0"
+                v-if="recurringData.length && amountData.postponed.total > 0"
               >
                 <el-collapse
                   accordion
@@ -644,24 +660,28 @@
                     <template slot="title">
                       <div class="am-extras-title">{{ priceLabels.recurring_costs_colon.value || $root.labels.recurring_costs_colon }}</div>
                       <div class="am-extras-total-cost am-semi-strong">
-                        {{ getFormattedPrice(getPostponedPaymentTotalPrice(), !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                        {{ getFormattedPrice(amountData.postponed.total - amountData.postponed.discount + amountData.postponed.tax, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                       </div>
                     </template>
-                    <div v-for="(item, key) in postponedPaymentBasePriceData" :key="key">
+                    <div v-for="(item, key) in amountData.postponed.totals" :key="key">
                       <div class="am-extras-details" :style="{'visibility': key === 0 ? 'visible' : 'hidden'}">
                         {{ priceLabels.base_price_colon.value || $root.labels.base_price_colon }}
                       </div>
-                      <div class="am-extras-cost">{{ getBookingBasePriceCalculationString(item.count, item.price) }}
+                      <div class="am-extras-cost">
+                        {{ item.count + ' ' + (item.count ? $root.labels.appointments.toLowerCase() : $root.labels.appointment.toLowerCase()) + ' x ' + getFormattedPrice(item.total, !$root.settings.payments.hideCurrencySymbolFrontend) + ' = ' + getFormattedPrice(item.count * item.total, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                       </div>
                     </div>
-                    <div v-if="selectedExtras.length > 0">
-                      <div class="am-extras-details"> {{ priceLabels.extras_costs_colon.value || $root.labels.extras_costs_colon }}</div>
-                      <div class="am-extras-cost">{{ getPostponedPaymentExtrasPriceDetails() }}</div>
-                    </div>
-                    <div v-if="getDiscountData('postponed')">
+                    <div v-if="amountData.postponed.discount">
                       <div class="am-extras-details"> {{ priceLabels.discount_amount_colon.value || $root.labels.discount_amount_colon }}</div>
                       <div class="am-extras-cost">
-                        {{ getFormattedPrice(getDiscountData('postponed'), !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                        {{ getFormattedPrice(amountData.postponed.discount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                      </div>
+                    </div>
+                    <div v-if="amountData.postponed.tax">
+                      <div class="am-extras-details">
+                        {{ getTaxLabel() }}
+                      </div>
+                      <div class="am-extras-cost">{{ getFormattedPrice(amountData.postponed.tax, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                       </div>
                     </div>
                   </el-collapse-item>
@@ -674,33 +694,38 @@
               class="am-confirmation-total am-confirmation-booking-cost"
               v-else-if="bookable.price > 0"
             >
-              <!-- Deposit -->
-              <el-row class="am-confirmation-deposit" :gutter="24" v-if="depositAmount > 0 && getPaymentGateway() !== 'onSite'  && paymentType === 'depositOnly'">
+              <!-- SubTotal Price -->
+              <el-row :gutter="24" v-if="amountData.instant.tax > 0">
                 <el-col :span="12">
-                  <p>{{ priceLabels.deposit.value || $root.labels.deposit }} <label class="am-confirmation-deposit-info">{{ priceLabels.pay_now.value || $root.labels.pay_now }}</label></p>
+                  <p>
+                    {{ priceLabels.subtotal_colon.value || $root.labels.subtotal_colon }}
+                  </p>
                 </el-col>
                 <el-col :span="12">
                   <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
-                    {{ getFormattedPrice(depositAmount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                    {{ getFormattedPrice(amountData.instant.total, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                   </p>
                 </el-col>
               </el-row>
+              <!-- /SubTotal Price -->
 
-              <el-row
-                class="am-confirmation-deposit-price"
-                :gutter="24"
-                v-if="depositAmount > 0 && getPaymentGateway() !== 'onSite' && paymentType === 'depositOnly'">
+              <!-- Tax Amount -->
+              <el-row :gutter="24" v-if="amountData.instant.tax > 0">
                 <el-col :span="12">
-                  <p>{{ priceLabels.pay_later.value || $root.labels.pay_later }}</p>
+                  <p>
+                    {{ getTaxLabel() }}
+                  </p>
                 </el-col>
                 <el-col :span="12">
-                  <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
-                    {{ getFormattedPrice(getTotalPrice() - depositAmount, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                  <p class="am-semi-strong am-align-right">
+                    {{ getFormattedPrice(amountData.instant.tax, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                   </p>
                 </el-col>
               </el-row>
-              <!-- /Deposit -->
-              <el-row :gutter="24" v-if="bookable.price > 0">
+              <!-- /Tax Amount -->
+
+              <!-- Total Price -->
+              <el-row :gutter="24" v-if="bookable.price > 0" :class="{'am-confirmation-total-bordered': !onlyTotal}">
                 <el-col :span="12">
                   <p>
                     {{ priceLabels.total_cost_colon.value || $root.labels.total_cost_colon }}
@@ -708,10 +733,38 @@
                 </el-col>
                 <el-col :span="12">
                   <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
-                    {{ getFormattedPrice(bookable.price, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                    {{ getFormattedPrice(amountData.instant.total + amountData.instant.tax, !$root.settings.payments.hideCurrencySymbolFrontend) }}
                   </p>
                 </el-col>
               </el-row>
+              <!-- /Total Price -->
+
+              <!-- Deposit -->
+              <el-row class="am-confirmation-deposit" :gutter="24" v-if="withDeposit">
+                <el-col :span="12">
+                  <p>{{ priceLabels.deposit.value || $root.labels.deposit }} <label class="am-confirmation-deposit-info">{{ priceLabels.pay_now.value || $root.labels.pay_now }}</label></p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
+                    {{ getFormattedPrice(amountData.instant.deposit, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                  </p>
+                </el-col>
+              </el-row>
+
+              <el-row
+                class="am-confirmation-deposit-price"
+                :gutter="24"
+                v-if="withDeposit">
+                <el-col :span="12">
+                  <p>{{ priceLabels.pay_later.value || $root.labels.pay_later }}</p>
+                </el-col>
+                <el-col :span="12">
+                  <p class="am-semi-strong am-align-right" :style="{'color': bookable.color}">
+                    {{ getFormattedPrice(getTotalPrice() - amountData.instant.deposit, !$root.settings.payments.hideCurrencySymbolFrontend) }}
+                  </p>
+                </el-col>
+              </el-row>
+              <!-- /Deposit -->
             </div>
             <!-- /Payment Data -->
 
@@ -736,7 +789,7 @@
         </div>
 
         <div
-          v-show="$root.settings.payments.payPal.enabled && appointment.payment.gateway === 'payPal' && getTotalPrice() !== 0 && getTotalPrice() !== '0'"
+          v-show="$root.settings.payments.payPal.enabled && appointment.payment.gateway === 'payPal' && getTotalPrice() !== 0"
           class="paypal-button el-button el-button--primary"
           :style="bookableType === 'event' ? bookableConfirmStyle : ''"
           @mouseleave="setBookableConfirmStyle(false)"
@@ -829,6 +882,7 @@
 
 <script>
 import moment from 'moment'
+import taxesMixin from '../../../js/common/mixins/taxesMixin'
 import marketingMixin from '../../../js/frontend/mixins/marketingMixin'
 import imageMixin from '../../../js/common/mixins/imageMixin'
 import dateMixin from '../../../js/common/mixins/dateMixin'
@@ -852,7 +906,16 @@ import formsCustomizationMixin from '../../../js/common/mixins/formsCustomizatio
 export default {
   name: 'confirmBookingForm',
 
-  mixins: [imageMixin, dateMixin, priceMixin, helperMixin, customFieldMixin, windowMixin, formsCustomizationMixin],
+  mixins: [
+    taxesMixin,
+    imageMixin,
+    dateMixin,
+    priceMixin,
+    helperMixin,
+    customFieldMixin,
+    windowMixin,
+    formsCustomizationMixin
+  ],
 
   props: {
     trigger: null,
@@ -866,6 +929,10 @@ export default {
     recurringString: '',
     useGlobalCustomization: false,
     bookableType: null,
+    taxes: {
+      default: () => [],
+      type: Array
+    },
     bookable: {
       default: () => {},
       type: Object
@@ -1399,7 +1466,7 @@ export default {
     },
 
     isDefaultOnSitePayment () {
-      return (this.getTotalPrice() === 0 || this.getTotalPrice() === '0') &&
+      return this.getTotalPrice() === 0 &&
         (
           this.appointment.payment.gateway === 'payPal' ||
           this.appointment.payment.gateway === 'stripe' ||
@@ -1642,60 +1709,10 @@ export default {
       return totalPrice
     },
 
-    getSubtotalPrice () {
-      let price = this.basePriceMultipleValue * this.bookable.price
-
-      this.recurringData.forEach((item, index) => {
-        if (index < this.instantPaymentBookingsCount - 1) {
-          price += this.basePriceMultipleValue * item.price
-        }
-      })
-
-      return price + this.getExtrasPrice(this.instantPaymentBookingsCount)
-    },
-
-    getDiscountData (discountPeriodType) {
-      let bookingExtrasPrice = this.getExtrasPrice(1)
-
-      let discountData = {
-        instant: 0,
-        postponed: 0
-      }
-
-      let couponLimit = this.couponLimit
-
-      if (couponLimit) {
-        let bookingPrice = this.basePriceMultipleValue * this.bookable.price + bookingExtrasPrice
-        let bookingDiscount = bookingPrice / 100 * this.coupon.discount + this.coupon.deduction
-
-        discountData.instant = bookingDiscount
-        couponLimit--
-
-        this.recurringData.forEach((item, index) => {
-          if (couponLimit) {
-            bookingPrice = this.basePriceMultipleValue * item.price + bookingExtrasPrice
-            bookingDiscount = bookingPrice / 100 * this.coupon.discount + this.coupon.deduction
-
-            discountData[index < this.instantPaymentBookingsCount - 1 ? 'instant' : 'postponed'] += bookingDiscount
-
-            couponLimit--
-          }
-        })
-      }
-
-      return discountData[discountPeriodType]
-    },
-
-    getBookablePrice () {
-      return this.bookable.ticketsData ? this.bookable.ticketsData.totalPrice : this.getSubtotalPrice()
-    },
-
     getTotalPrice () {
-      let price = this.getBookablePrice()
+      let totalPrice = this.amountData.instant.total - this.amountData.instant.discount + this.amountData.instant.tax
 
-      let totalPrice = (price - this.getDiscountData('instant')).toFixed(2)
-
-      return totalPrice > 0 ? totalPrice : '0'
+      return totalPrice > 0 ? totalPrice : 0
     },
 
     getSelectedExtraDetails (extra) {
@@ -1794,39 +1811,6 @@ export default {
       return result
     },
 
-    getPostponedPaymentExtrasPriceDetails () {
-      let postponedPaymentBookingCount = 0
-
-      let postponedExtrasPrice = this.getExtrasPrice(1)
-
-      for (let entityId in this.paymentPeriodData.postponed) {
-        postponedPaymentBookingCount += this.paymentPeriodData.postponed[entityId].count
-      }
-
-      let result = ''
-
-      if (postponedPaymentBookingCount && postponedExtrasPrice) {
-        result += postponedPaymentBookingCount + ' ' + (this.instantPaymentBookingsCount > 1 ? this.$root.labels.appointments.toLowerCase() : this.$root.labels.appointment.toLowerCase()) + ' x '
-        result += this.getFormattedPrice(this.getExtrasPrice(1), !this.$root.settings.payments.hideCurrencySymbolFrontend) + ' = '
-      }
-
-      return result + this.getFormattedPrice(this.getExtrasPrice(postponedPaymentBookingCount), !this.$root.settings.payments.hideCurrencySymbolFrontend)
-    },
-
-    getPostponedPaymentTotalPrice () {
-      let postponedBasePrice = 0
-
-      let postponedPaymentBookingCount = 0
-
-      for (let entityId in this.paymentPeriodData.postponed) {
-        postponedPaymentBookingCount += this.paymentPeriodData.postponed[entityId].count
-
-        postponedBasePrice += this.getBasePrice(this.paymentPeriodData.postponed[entityId].count, this.paymentPeriodData.postponed[entityId].price)
-      }
-
-      return postponedBasePrice + this.getExtrasPrice(postponedPaymentBookingCount) - this.getDiscountData('postponed')
-    },
-
     checkCoupon (ev) {
       ev.preventDefault()
 
@@ -1867,7 +1851,7 @@ export default {
         }
       }
 
-      this.appointment.payment.amount = (this.paymentType !== 'fullAmount') ? this.depositAmount.toFixed(2).toString() : this.getFormattedAmount()
+      this.appointment.payment.amount = (this.paymentType !== 'fullAmount') ? this.amountData.instant.deposit.toFixed(2).toString() : this.getTotalPrice().toFixed(2).toString()
 
       this.appointment.payment.currency = this.$root.settings.payments.currencyCode
 
@@ -2055,10 +2039,6 @@ export default {
         data: bookingData,
         options: requestOptions
       }
-    },
-
-    getFormattedAmount () {
-      return this.getTotalPrice().toString()
     },
 
     handleSaveBookingErrors (response) {
@@ -2381,16 +2361,242 @@ export default {
       } else {
         callback()
       }
+    },
+
+    getAppointmentsAmountData () {
+      let data = {
+        instant: {
+          total: 0,
+          tax: 0,
+          discount: 0,
+          base: 0,
+          deposit: 0
+        },
+        postponed: {
+          total: 0,
+          tax: 0,
+          discount: 0,
+          base: 0,
+          deposit: 0,
+          totals: {}
+        }
+      }
+
+      let coupon = this.coupon && (this.coupon.discount || this.coupon.deduction) ? this.coupon : null
+
+      let couponLimit = this.couponLimit
+
+      let instantPaymentCount = 1
+
+      if (this.service.recurringPayment) {
+        instantPaymentCount = this.service.recurringPayment > this.recurringData.length + 1
+          ? this.recurringData.length + 1
+          : this.service.recurringPayment
+      }
+
+      let periodType = 'instant'
+
+      let amounts = [this.bookable.price]
+
+      this.recurringData.forEach((item) => {
+        amounts.push(item.price)
+      })
+
+      let postponedAppointmentsIndex = 0
+
+      amounts.forEach((serviceAmount, index) => {
+        if (coupon && couponLimit > 0) {
+          couponLimit--
+        } else {
+          coupon = null
+        }
+
+        let appointmentData = this.getAppointmentPriceAmount(
+          Object.assign({}, this.bookable, {price: serviceAmount}),
+          this.selectedExtras,
+          this.appointment.bookings[0].persons,
+          coupon,
+          true
+        )
+
+        if (index < instantPaymentCount) {
+          data[periodType].deposit += this.getDepositAmount(appointmentData.total - appointmentData.discount + appointmentData.tax)
+        } else {
+          periodType = 'postponed'
+        }
+
+        data[periodType].total += appointmentData.total
+        data[periodType].discount += appointmentData.discount
+        data[periodType].tax += appointmentData.tax
+
+        if (periodType === 'postponed') {
+          if (!(appointmentData.total in data[periodType].totals)) {
+            data[periodType].totals[appointmentData.total] = {
+              index: postponedAppointmentsIndex,
+              count: 1,
+              total: appointmentData.total
+            }
+
+            postponedAppointmentsIndex++
+          } else {
+            data[periodType].totals[appointmentData.total].count++
+          }
+        }
+      })
+
+      let totals = []
+
+      Object.keys(data.postponed.totals).forEach((total) => {
+        totals[data.postponed.totals[total].index] = {
+          total: total,
+          count: data.postponed.totals[total].count,
+        }
+      })
+
+      data.postponed.totals = totals
+
+      return data
+    },
+
+    getEventAmountData () {
+      let price = this.bookable.ticketsData
+        ? this.bookable.ticketsData.totalPrice
+        : this.basePriceMultipleValue * this.bookable.price
+
+      let eventTax = this.getEntityTax(this.bookable.id, 'event')
+
+      if (this.$root.settings.payments.taxes.enabled && eventTax && !this.$root.settings.payments.taxes.excluded && this.coupon && this.couponLimit) {
+        price = this.getBaseAmount(price, eventTax)
+      }
+
+      let discount = this.coupon && this.couponLimit ? (price / 100 * this.coupon.discount) + this.coupon.deduction : 0
+
+      let tax = 0
+
+      if (this.$root.settings.payments.taxes.enabled && eventTax && this.$root.settings.payments.taxes.excluded) {
+        tax = this.getEntityTaxAmount(eventTax, price - discount)
+      } else if (this.$root.settings.payments.taxes.enabled && eventTax && !this.$root.settings.payments.taxes.excluded && discount) {
+        price += this.getEntityTaxAmount(eventTax, price - discount)
+      }
+
+      return {
+        instant: {
+          total: price,
+          discount: discount,
+          tax: tax,
+          deposit: this.getDepositAmount(price - discount + tax)
+        },
+        postponed: {
+          total: 0,
+          discount: 0,
+          tax: 0,
+          deposit: 0
+        }
+      }
+    },
+
+    getPackageAmountData () {
+      let price = this.basePriceMultipleValue * this.bookable.price
+
+      let packageTax = this.getEntityTax(this.bookable.id, 'package')
+
+      if (this.$root.settings.payments.taxes.enabled && packageTax && !this.$root.settings.payments.taxes.excluded && this.coupon && this.couponLimit) {
+        price = this.getBaseAmount(price, packageTax)
+      }
+
+      let discount = this.coupon && this.couponLimit ? (price / 100 * this.coupon.discount) + this.coupon.deduction : 0
+
+      let tax = 0
+
+      if (this.$root.settings.payments.taxes.enabled && packageTax && this.$root.settings.payments.taxes.excluded) {
+        tax = this.getEntityTaxAmount(packageTax, price - discount)
+      } else if (this.$root.settings.payments.taxes.enabled && packageTax && !this.$root.settings.payments.taxes.excluded && discount) {
+        price += this.getEntityTaxAmount(packageTax, price - discount)
+      }
+
+      return {
+        instant: {
+          total: price,
+          discount: discount,
+          tax: tax,
+          deposit: this.getDepositAmount(price - discount + tax)
+        },
+        postponed: {
+          total: 0,
+          discount: 0,
+          tax: 0,
+          deposit: 0
+        }
+      }
+    },
+
+    getDepositAmount (totalAmount) {
+      let depositAmount = 0
+
+      if (this.bookable.depositData) {
+        switch (this.bookable.depositData.depositPayment) {
+          case ('fixed'):
+            depositAmount = this.bookable.depositData.depositPerPerson
+              ? this.appointment.bookings[0].persons * this.bookable.depositData.deposit
+              : this.bookable.depositData.deposit
+
+            break
+
+          case ('percentage'):
+            depositAmount = this.getPercentage(totalAmount, this.bookable.depositData.deposit)
+
+            break
+        }
+      }
+
+      return this.getRound(totalAmount > depositAmount ? depositAmount : 0)
+    },
+
+    getTaxLabel () {
+      let entityTax = this.getEntityTax(this.bookable.id, this.bookableType === 'appointment' ? 'service' : this.bookableType)
+
+      let taxes = {}
+
+      taxes[entityTax.id] = entityTax.name
+
+      this.selectedExtras.forEach((extItem) => {
+        let extraTax = this.getEntityTax(extItem.extraId, 'extra')
+
+        if (extraTax) {
+          taxes[extraTax.id] = extraTax.name
+        }
+      })
+
+      let label = 'total_tax_colon' in this.priceLabels
+        ? this.priceLabels.total_tax_colon.value || this.$root.labels.total_tax_colon
+        : this.$root.labels.total_tax_colon
+
+      return Object.keys(taxes).length === 1 ? Object.values(taxes)[0] : label
     }
   },
 
   computed: {
-    instantPaymentBasePriceData () {
-      return this.getBookingBasePriceData('instant')
+    amountData () {
+      switch (this.bookableType) {
+        case ('appointment'):
+          return this.getAppointmentsAmountData()
+        case ('event'):
+          return this.getEventAmountData()
+        case ('package'):
+          return this.getPackageAmountData()
+      }
     },
 
-    postponedPaymentBasePriceData () {
-      return this.getBookingBasePriceData('postponed')
+    withDeposit () {
+      return this.amountData.instant.deposit > 0 && this.getPaymentGateway() !== 'onSite' && this.paymentType === 'depositOnly'
+    },
+
+    onlyTotal () {
+      return !(this.amountData.instant.tax > 0 || this.amountData.instant.discount > 0)
+    },
+
+    instantPaymentBasePriceData () {
+      return this.getBookingBasePriceData('instant')
     },
 
     basePriceMultipleValue () {
@@ -2405,46 +2611,49 @@ export default {
       return (this.recurringData.length < this.service.recurringPayment ? this.recurringData.length : this.service.recurringPayment) + 1
     },
 
-    depositAmount () {
-      let depositAmount = 0
-
-      let totalPrice = this.getTotalPrice()
-
-      if (this.bookable.depositData) {
-        switch (this.bookable.depositData.depositPayment) {
-          case ('fixed'):
-            if (this.bookable.depositData.depositPerPerson && this.bookable.aggregatedPrice) {
-              let persons = 'ticketsData' in this.bookable && this.bookable.ticketsData && 'totalTickets' in this.bookable.ticketsData
-                ? this.bookable.ticketsData.totalTickets : this.appointment.bookings[0].persons
-
-              depositAmount = persons * this.bookable.depositData.deposit
-            } else {
-              depositAmount = this.bookable.depositData.deposit
-            }
-
-            if (this.bookableType === 'appointment') {
-              this.recurringData.forEach((value, index) => {
-                if (this.instantPaymentBookingsCount - 1 > index) {
-                  depositAmount +=
-                    this.bookable.depositData.depositPerPerson
-                      ? this.appointment.bookings[0].persons * value.depositData.deposit : value.depositData.deposit
-                } else if (value.depositData) {
-                  value.depositData = null
-                }
-              })
-            }
-
-            break
-
-          case 'percentage':
-            depositAmount = totalPrice / 100 * this.bookable.depositData.deposit
-
-            break
-        }
-      }
-
-      return totalPrice > depositAmount ? depositAmount : 0
-    },
+    // amountData.instant.deposit () {
+    //   return this.amountData.instant.deposit
+    //
+    //   let amountData.instant.deposit = 0
+    //
+    //   let totalPrice = this.getTotalPrice()
+    //
+    //   if (this.bookable.depositData) {
+    //     switch (this.bookable.depositData.depositPayment) {
+    //       case ('fixed'):
+    //         if (this.bookable.depositData.depositPerPerson && this.bookable.aggregatedPrice) {
+    //           let persons = 'ticketsData' in this.bookable && this.bookable.ticketsData && 'totalTickets' in this.bookable.ticketsData
+    //             ? this.bookable.ticketsData.totalTickets : this.appointment.bookings[0].persons
+    //
+    //           amountData.instant.deposit = persons * this.bookable.depositData.deposit
+    //         } else {
+    //           amountData.instant.deposit = this.bookable.depositData.deposit
+    //         }
+    //
+    //         if (this.bookableType === 'appointment') {
+    //           this.recurringData.forEach((value, index) => {
+    //             if (this.instantPaymentBookingsCount - 1 > index) {
+    //               amountData.instant.deposit +=
+    //                 this.bookable.depositData.depositPerPerson
+    //                   ? this.appointment.bookings[0].persons * value.depositData.deposit : value.depositData.deposit
+    //             } else if (value.depositData) {
+    //               value.depositData = null
+    //             }
+    //           })
+    //         }
+    //
+    //         break
+    //
+    //       case 'percentage':
+    //         amountData.instant.deposit = totalPrice / 100 * this.bookable.depositData.deposit
+    //         console.log(amountData.instant.deposit)
+    //
+    //         break
+    //     }
+    //   }
+    //
+    //   return totalPrice > amountData.instant.deposit ? amountData.instant.deposit : 0
+    // },
 
     paymentPeriodData () {
       let instantPaymentData = {}
@@ -2604,7 +2813,7 @@ export default {
         this.appointment.payment.gateway === 'mollie' ||
         this.appointment.payment.gateway === 'stripe' ||
         this.appointment.payment.gateway === 'razorpay' ||
-        (this.appointment.payment.gateway === 'payPal' && (this.getTotalPrice() === 0 || this.getTotalPrice() === '0'))
+        (this.appointment.payment.gateway === 'payPal' && this.getTotalPrice() === 0)
     },
 
     priceLabels () {

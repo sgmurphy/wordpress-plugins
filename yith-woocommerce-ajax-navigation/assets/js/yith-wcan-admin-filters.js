@@ -6,10 +6,10 @@ var __webpack_exports__ = {};
 
 
 /* global globalThis, jQuery, yith_wcan_shortcodes, accounting */
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var $ = jQuery,
   // we can do this as WebPack will compact all together inside a closure.
   $body = $('body'),
@@ -96,12 +96,12 @@ var $ = jQuery,
 
 
 /* global ajaxurl */
-function ajax_typeof(obj) { "@babel/helpers - typeof"; return ajax_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, ajax_typeof(obj); }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { ajax_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function ajax_defineProperty(obj, key, value) { key = ajax_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function ajax_toPropertyKey(arg) { var key = ajax_toPrimitive(arg, "string"); return ajax_typeof(key) === "symbol" ? key : String(key); }
-function ajax_toPrimitive(input, hint) { if (ajax_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (ajax_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function ajax_typeof(o) { "@babel/helpers - typeof"; return ajax_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, ajax_typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { ajax_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ajax_defineProperty(e, r, t) { return (r = ajax_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function ajax_toPropertyKey(t) { var i = ajax_toPrimitive(t, "string"); return "symbol" == ajax_typeof(i) ? i : i + ""; }
+function ajax_toPrimitive(t, r) { if ("object" != ajax_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != ajax_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var request = function request(method, action, params, args) {
     // retrieve wrapper as current context.
@@ -251,35 +251,31 @@ var filterFieldsDependencies = {
 
 
 /* global yith_wcan_admin, ajaxurl */
-function yith_wcan_dependencies_handler_typeof(obj) { "@babel/helpers - typeof"; return yith_wcan_dependencies_handler_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, yith_wcan_dependencies_handler_typeof(obj); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function yith_wcan_dependencies_handler_typeof(o) { "@babel/helpers - typeof"; return yith_wcan_dependencies_handler_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, yith_wcan_dependencies_handler_typeof(o); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, yith_wcan_dependencies_handler_toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function yith_wcan_dependencies_handler_defineProperty(obj, key, value) { key = yith_wcan_dependencies_handler_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function yith_wcan_dependencies_handler_toPropertyKey(arg) { var key = yith_wcan_dependencies_handler_toPrimitive(arg, "string"); return yith_wcan_dependencies_handler_typeof(key) === "symbol" ? key : String(key); }
-function yith_wcan_dependencies_handler_toPrimitive(input, hint) { if (yith_wcan_dependencies_handler_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (yith_wcan_dependencies_handler_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, yith_wcan_dependencies_handler_toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function yith_wcan_dependencies_handler_defineProperty(e, r, t) { return (r = yith_wcan_dependencies_handler_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function yith_wcan_dependencies_handler_toPropertyKey(t) { var i = yith_wcan_dependencies_handler_toPrimitive(t, "string"); return "symbol" == yith_wcan_dependencies_handler_typeof(i) ? i : i + ""; }
+function yith_wcan_dependencies_handler_toPrimitive(t, r) { if ("object" != yith_wcan_dependencies_handler_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != yith_wcan_dependencies_handler_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var YITH_WCAN_Dependencies_Handler = /*#__PURE__*/function () {
-  // container
-
-  // fields;
-
-  // dependencies tree.
-
-  // context object.
-
   function YITH_WCAN_Dependencies_Handler($container, dependenciesTree, context) {
     var _this$$container, _this$$fields;
     _classCallCheck(this, YITH_WCAN_Dependencies_Handler);
+    // container
     yith_wcan_dependencies_handler_defineProperty(this, "$container", void 0);
+    // fields;
     yith_wcan_dependencies_handler_defineProperty(this, "$fields", void 0);
+    // dependencies tree.
     yith_wcan_dependencies_handler_defineProperty(this, "dependencies", {});
+    // context object.
     yith_wcan_dependencies_handler_defineProperty(this, "context", null);
     yith_wcan_dependencies_handler_defineProperty(this, "checkFieldConditions", function (conditions) {
       var result = true;
@@ -300,8 +296,8 @@ var YITH_WCAN_Dependencies_Handler = /*#__PURE__*/function () {
         if ($field.first().is('input[type="radio"]')) {
           fieldValue = $field.filter(':checked').val().toString();
         } else {
-          var _$field2, _$field2$val;
-          fieldValue = (_$field2 = $field) === null || _$field2 === void 0 ? void 0 : (_$field2$val = _$field2.val()) === null || _$field2$val === void 0 ? void 0 : _$field2$val.toString();
+          var _$field2;
+          fieldValue = (_$field2 = $field) === null || _$field2 === void 0 || (_$field2 = _$field2.val()) === null || _$field2 === void 0 ? void 0 : _$field2.toString();
         }
         if (Array.isArray(condition)) {
           result = condition.includes(fieldValue);
@@ -334,7 +330,7 @@ var YITH_WCAN_Dependencies_Handler = /*#__PURE__*/function () {
     }
     this.initDependencies();
   }
-  _createClass(YITH_WCAN_Dependencies_Handler, [{
+  return _createClass(YITH_WCAN_Dependencies_Handler, [{
     key: "initFields",
     value: function initFields() {
       this.$fields = this.$container.find(':input');
@@ -382,53 +378,49 @@ var YITH_WCAN_Dependencies_Handler = /*#__PURE__*/function () {
         var $field = this.findField(field, true),
           show = this.checkFieldConditions(conditions);
         if (show) {
-          $field === null || $field === void 0 ? void 0 : $field.css({
+          $field === null || $field === void 0 || $field.css({
             display: 'table'
           });
           if ('function' === typeof (conditions === null || conditions === void 0 ? void 0 : conditions.__show)) {
-            conditions === null || conditions === void 0 ? void 0 : conditions.__show(this.context);
+            conditions === null || conditions === void 0 || conditions.__show(this.context);
           }
         } else {
-          $field === null || $field === void 0 ? void 0 : $field.hide();
+          $field === null || $field === void 0 || $field.hide();
           if ('function' === typeof (conditions === null || conditions === void 0 ? void 0 : conditions.__hide)) {
-            conditions === null || conditions === void 0 ? void 0 : conditions.__hide(this.context);
+            conditions === null || conditions === void 0 || conditions.__hide(this.context);
           }
         }
       }
     }
   }]);
-  return YITH_WCAN_Dependencies_Handler;
 }();
 
 ;// CONCATENATED MODULE: ./assets/js/admin-filters/modules/yith-wcan-filter-term.js
 
 
 /* global yith_wcan_admin, ajaxurl */
-function yith_wcan_filter_term_typeof(obj) { "@babel/helpers - typeof"; return yith_wcan_filter_term_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, yith_wcan_filter_term_typeof(obj); }
-function yith_wcan_filter_term_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function yith_wcan_filter_term_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, yith_wcan_filter_term_toPropertyKey(descriptor.key), descriptor); } }
-function yith_wcan_filter_term_createClass(Constructor, protoProps, staticProps) { if (protoProps) yith_wcan_filter_term_defineProperties(Constructor.prototype, protoProps); if (staticProps) yith_wcan_filter_term_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function yith_wcan_filter_term_defineProperty(obj, key, value) { key = yith_wcan_filter_term_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function yith_wcan_filter_term_toPropertyKey(arg) { var key = yith_wcan_filter_term_toPrimitive(arg, "string"); return yith_wcan_filter_term_typeof(key) === "symbol" ? key : String(key); }
-function yith_wcan_filter_term_toPrimitive(input, hint) { if (yith_wcan_filter_term_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (yith_wcan_filter_term_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function yith_wcan_filter_term_typeof(o) { "@babel/helpers - typeof"; return yith_wcan_filter_term_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, yith_wcan_filter_term_typeof(o); }
+function yith_wcan_filter_term_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function yith_wcan_filter_term_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, yith_wcan_filter_term_toPropertyKey(o.key), o); } }
+function yith_wcan_filter_term_createClass(e, r, t) { return r && yith_wcan_filter_term_defineProperties(e.prototype, r), t && yith_wcan_filter_term_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function yith_wcan_filter_term_defineProperty(e, r, t) { return (r = yith_wcan_filter_term_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function yith_wcan_filter_term_toPropertyKey(t) { var i = yith_wcan_filter_term_toPrimitive(t, "string"); return "symbol" == yith_wcan_filter_term_typeof(i) ? i : i + ""; }
+function yith_wcan_filter_term_toPrimitive(t, r) { if ("object" != yith_wcan_filter_term_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != yith_wcan_filter_term_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var YITH_WCAN_Filter_Term = /*#__PURE__*/function () {
-  /**
-   * Term id
-   */
-
-  /**
-   * Dom object for containing term box
-   */
-
-  /**
-   * Filter object
-   */
-
   function YITH_WCAN_Filter_Term($term, filter) {
     yith_wcan_filter_term_classCallCheck(this, YITH_WCAN_Filter_Term);
+    /**
+     * Term id
+     */
     yith_wcan_filter_term_defineProperty(this, "id", void 0);
+    /**
+     * Dom object for containing term box
+     */
     yith_wcan_filter_term_defineProperty(this, "$term", void 0);
+    /**
+     * Filter object
+     */
     yith_wcan_filter_term_defineProperty(this, "filter", void 0);
     if (!$term.length) {
       return;
@@ -442,7 +434,7 @@ var YITH_WCAN_Filter_Term = /*#__PURE__*/function () {
   }
 
   // init object
-  yith_wcan_filter_term_createClass(YITH_WCAN_Filter_Term, [{
+  return yith_wcan_filter_term_createClass(YITH_WCAN_Filter_Term, [{
     key: "init",
     value: function init() {
       this.initTabs();
@@ -632,38 +624,34 @@ var YITH_WCAN_Filter_Term = /*#__PURE__*/function () {
       return termData;
     }
   }]);
-  return YITH_WCAN_Filter_Term;
 }();
 
 ;// CONCATENATED MODULE: ./assets/js/admin-filters/modules/yith-wcan-filter-range.js
 
 
 /* global yith_wcan_admin, ajaxurl */
-function yith_wcan_filter_range_typeof(obj) { "@babel/helpers - typeof"; return yith_wcan_filter_range_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, yith_wcan_filter_range_typeof(obj); }
-function yith_wcan_filter_range_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function yith_wcan_filter_range_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, yith_wcan_filter_range_toPropertyKey(descriptor.key), descriptor); } }
-function yith_wcan_filter_range_createClass(Constructor, protoProps, staticProps) { if (protoProps) yith_wcan_filter_range_defineProperties(Constructor.prototype, protoProps); if (staticProps) yith_wcan_filter_range_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function yith_wcan_filter_range_defineProperty(obj, key, value) { key = yith_wcan_filter_range_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function yith_wcan_filter_range_toPropertyKey(arg) { var key = yith_wcan_filter_range_toPrimitive(arg, "string"); return yith_wcan_filter_range_typeof(key) === "symbol" ? key : String(key); }
-function yith_wcan_filter_range_toPrimitive(input, hint) { if (yith_wcan_filter_range_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (yith_wcan_filter_range_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function yith_wcan_filter_range_typeof(o) { "@babel/helpers - typeof"; return yith_wcan_filter_range_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, yith_wcan_filter_range_typeof(o); }
+function yith_wcan_filter_range_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function yith_wcan_filter_range_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, yith_wcan_filter_range_toPropertyKey(o.key), o); } }
+function yith_wcan_filter_range_createClass(e, r, t) { return r && yith_wcan_filter_range_defineProperties(e.prototype, r), t && yith_wcan_filter_range_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function yith_wcan_filter_range_defineProperty(e, r, t) { return (r = yith_wcan_filter_range_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function yith_wcan_filter_range_toPropertyKey(t) { var i = yith_wcan_filter_range_toPrimitive(t, "string"); return "symbol" == yith_wcan_filter_range_typeof(i) ? i : i + ""; }
+function yith_wcan_filter_range_toPrimitive(t, r) { if ("object" != yith_wcan_filter_range_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != yith_wcan_filter_range_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 var yith_wcan_filter_range_YITH_WCAN_Filter = /*#__PURE__*/function () {
-  /**
-   * ID of the range
-   */
-
-  /**
-   * Dom object for containing range box
-   */
-
-  /**
-   * Filter object
-   */
-
   function YITH_WCAN_Filter($range, filter) {
     yith_wcan_filter_range_classCallCheck(this, YITH_WCAN_Filter);
+    /**
+     * ID of the range
+     */
     yith_wcan_filter_range_defineProperty(this, "id", void 0);
+    /**
+     * Dom object for containing range box
+     */
     yith_wcan_filter_range_defineProperty(this, "$range", void 0);
+    /**
+     * Filter object
+     */
     yith_wcan_filter_range_defineProperty(this, "filter", void 0);
     if (!$range.length) {
       return;
@@ -677,7 +665,7 @@ var yith_wcan_filter_range_YITH_WCAN_Filter = /*#__PURE__*/function () {
   }
 
   // init objec
-  yith_wcan_filter_range_createClass(YITH_WCAN_Filter, [{
+  return yith_wcan_filter_range_createClass(YITH_WCAN_Filter, [{
     key: "init",
     value: function init() {
       this.initDependencies();
@@ -738,33 +726,32 @@ var yith_wcan_filter_range_YITH_WCAN_Filter = /*#__PURE__*/function () {
       return this.id || (this.id = this.$range.data('range_id'));
     }
   }]);
-  return YITH_WCAN_Filter;
 }();
 
 ;// CONCATENATED MODULE: ./assets/js/admin-filters/modules/yith-wcan-filter.js
 
 
 /* global yith_wcan_admin, ajaxurl */
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || yith_wcan_filter_unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || yith_wcan_filter_unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return yith_wcan_filter_arrayLikeToArray(arr); }
-function yith_wcan_filter_typeof(obj) { "@babel/helpers - typeof"; return yith_wcan_filter_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, yith_wcan_filter_typeof(obj); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = yith_wcan_filter_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function yith_wcan_filter_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function yith_wcan_filter_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? yith_wcan_filter_ownKeys(Object(source), !0).forEach(function (key) { yith_wcan_filter_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : yith_wcan_filter_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function yith_wcan_filter_slicedToArray(arr, i) { return yith_wcan_filter_arrayWithHoles(arr) || yith_wcan_filter_iterableToArrayLimit(arr, i) || yith_wcan_filter_unsupportedIterableToArray(arr, i) || yith_wcan_filter_nonIterableRest(); }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return yith_wcan_filter_arrayLikeToArray(r); }
+function yith_wcan_filter_typeof(o) { "@babel/helpers - typeof"; return yith_wcan_filter_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, yith_wcan_filter_typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = yith_wcan_filter_unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function yith_wcan_filter_ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function yith_wcan_filter_objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? yith_wcan_filter_ownKeys(Object(t), !0).forEach(function (r) { yith_wcan_filter_defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : yith_wcan_filter_ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function yith_wcan_filter_slicedToArray(r, e) { return yith_wcan_filter_arrayWithHoles(r) || yith_wcan_filter_iterableToArrayLimit(r, e) || yith_wcan_filter_unsupportedIterableToArray(r, e) || yith_wcan_filter_nonIterableRest(); }
 function yith_wcan_filter_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function yith_wcan_filter_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return yith_wcan_filter_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return yith_wcan_filter_arrayLikeToArray(o, minLen); }
-function yith_wcan_filter_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function yith_wcan_filter_iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function yith_wcan_filter_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function yith_wcan_filter_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function yith_wcan_filter_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, yith_wcan_filter_toPropertyKey(descriptor.key), descriptor); } }
-function yith_wcan_filter_createClass(Constructor, protoProps, staticProps) { if (protoProps) yith_wcan_filter_defineProperties(Constructor.prototype, protoProps); if (staticProps) yith_wcan_filter_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function yith_wcan_filter_defineProperty(obj, key, value) { key = yith_wcan_filter_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function yith_wcan_filter_toPropertyKey(arg) { var key = yith_wcan_filter_toPrimitive(arg, "string"); return yith_wcan_filter_typeof(key) === "symbol" ? key : String(key); }
-function yith_wcan_filter_toPrimitive(input, hint) { if (yith_wcan_filter_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (yith_wcan_filter_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function yith_wcan_filter_unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return yith_wcan_filter_arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? yith_wcan_filter_arrayLikeToArray(r, a) : void 0; } }
+function yith_wcan_filter_arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function yith_wcan_filter_iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function yith_wcan_filter_arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function yith_wcan_filter_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function yith_wcan_filter_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, yith_wcan_filter_toPropertyKey(o.key), o); } }
+function yith_wcan_filter_createClass(e, r, t) { return r && yith_wcan_filter_defineProperties(e.prototype, r), t && yith_wcan_filter_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function yith_wcan_filter_defineProperty(e, r, t) { return (r = yith_wcan_filter_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function yith_wcan_filter_toPropertyKey(t) { var i = yith_wcan_filter_toPrimitive(t, "string"); return "symbol" == yith_wcan_filter_typeof(i) ? i : i + ""; }
+function yith_wcan_filter_toPrimitive(t, r) { if ("object" != yith_wcan_filter_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != yith_wcan_filter_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 
@@ -772,32 +759,27 @@ function yith_wcan_filter_toPrimitive(input, hint) { if (yith_wcan_filter_typeof
 
 
 var YITH_WCAN_Filter = /*#__PURE__*/function () {
-  /**
-   * Unique ID of the filter
-   */
-
-  /**
-   * Dom object for containing filter form
-   */
-
-  /**
-   * Preset object
-   */
-
-  /**
-   * Terms map
-   */
-
-  /**
-   * Ranges map
-   */
-
   function YITH_WCAN_Filter($filter, preset) {
     yith_wcan_filter_classCallCheck(this, YITH_WCAN_Filter);
+    /**
+     * Unique ID of the filter
+     */
     yith_wcan_filter_defineProperty(this, "id", void 0);
+    /**
+     * Dom object for containing filter form
+     */
     yith_wcan_filter_defineProperty(this, "$filter", void 0);
+    /**
+     * Preset object
+     */
     yith_wcan_filter_defineProperty(this, "preset", void 0);
+    /**
+     * Terms map
+     */
     yith_wcan_filter_defineProperty(this, "terms", new Map());
+    /**
+     * Ranges map
+     */
     yith_wcan_filter_defineProperty(this, "ranges", new Map());
     if (!$filter.length) {
       return;
@@ -813,7 +795,7 @@ var YITH_WCAN_Filter = /*#__PURE__*/function () {
   }
 
   // init object
-  yith_wcan_filter_createClass(YITH_WCAN_Filter, [{
+  return yith_wcan_filter_createClass(YITH_WCAN_Filter, [{
     key: "init",
     value: function init() {
       this.initTitle();
@@ -1249,11 +1231,11 @@ var YITH_WCAN_Filter = /*#__PURE__*/function () {
       var $showToggle = this.findField('show_toggle'),
         $tooltips = this.findField('tooltip', false);
       if ('horizontal' === layout) {
-        $showToggle === null || $showToggle === void 0 ? void 0 : $showToggle.hide().find(':input').prop('checked', false).val('no').change();
-        $tooltips === null || $tooltips === void 0 ? void 0 : $tooltips.parent().hide();
+        $showToggle === null || $showToggle === void 0 || $showToggle.hide().find(':input').prop('checked', false).val('no').change();
+        $tooltips === null || $tooltips === void 0 || $tooltips.parent().hide();
       } else {
-        $showToggle === null || $showToggle === void 0 ? void 0 : $showToggle.show();
-        $tooltips === null || $tooltips === void 0 ? void 0 : $tooltips.parent().show();
+        $showToggle === null || $showToggle === void 0 || $showToggle.show();
+        $tooltips === null || $tooltips === void 0 || $tooltips.parent().show();
       }
     }
 
@@ -1768,46 +1750,42 @@ var YITH_WCAN_Filter = /*#__PURE__*/function () {
       $input.addClass('required-field-empty').addClass('validation-error').next('.validation-message').remove().end().after($message);
     }
   }]);
-  return YITH_WCAN_Filter;
 }();
 
 ;// CONCATENATED MODULE: ./assets/js/admin-filters/modules/yith-wcan-preset.js
 
 
 /* global yith_wcan_admin, ajaxurl */
-function yith_wcan_preset_typeof(obj) { "@babel/helpers - typeof"; return yith_wcan_preset_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, yith_wcan_preset_typeof(obj); }
-function yith_wcan_preset_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = yith_wcan_preset_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function yith_wcan_preset_toConsumableArray(arr) { return yith_wcan_preset_arrayWithoutHoles(arr) || yith_wcan_preset_iterableToArray(arr) || yith_wcan_preset_unsupportedIterableToArray(arr) || yith_wcan_preset_nonIterableSpread(); }
+function yith_wcan_preset_typeof(o) { "@babel/helpers - typeof"; return yith_wcan_preset_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, yith_wcan_preset_typeof(o); }
+function yith_wcan_preset_createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = yith_wcan_preset_unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function yith_wcan_preset_toConsumableArray(r) { return yith_wcan_preset_arrayWithoutHoles(r) || yith_wcan_preset_iterableToArray(r) || yith_wcan_preset_unsupportedIterableToArray(r) || yith_wcan_preset_nonIterableSpread(); }
 function yith_wcan_preset_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function yith_wcan_preset_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return yith_wcan_preset_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return yith_wcan_preset_arrayLikeToArray(o, minLen); }
-function yith_wcan_preset_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function yith_wcan_preset_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return yith_wcan_preset_arrayLikeToArray(arr); }
-function yith_wcan_preset_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function yith_wcan_preset_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function yith_wcan_preset_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, yith_wcan_preset_toPropertyKey(descriptor.key), descriptor); } }
-function yith_wcan_preset_createClass(Constructor, protoProps, staticProps) { if (protoProps) yith_wcan_preset_defineProperties(Constructor.prototype, protoProps); if (staticProps) yith_wcan_preset_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function yith_wcan_preset_defineProperty(obj, key, value) { key = yith_wcan_preset_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function yith_wcan_preset_toPropertyKey(arg) { var key = yith_wcan_preset_toPrimitive(arg, "string"); return yith_wcan_preset_typeof(key) === "symbol" ? key : String(key); }
-function yith_wcan_preset_toPrimitive(input, hint) { if (yith_wcan_preset_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (yith_wcan_preset_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function yith_wcan_preset_unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return yith_wcan_preset_arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? yith_wcan_preset_arrayLikeToArray(r, a) : void 0; } }
+function yith_wcan_preset_iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function yith_wcan_preset_arrayWithoutHoles(r) { if (Array.isArray(r)) return yith_wcan_preset_arrayLikeToArray(r); }
+function yith_wcan_preset_arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function yith_wcan_preset_classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function yith_wcan_preset_defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, yith_wcan_preset_toPropertyKey(o.key), o); } }
+function yith_wcan_preset_createClass(e, r, t) { return r && yith_wcan_preset_defineProperties(e.prototype, r), t && yith_wcan_preset_defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function yith_wcan_preset_defineProperty(e, r, t) { return (r = yith_wcan_preset_toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function yith_wcan_preset_toPropertyKey(t) { var i = yith_wcan_preset_toPrimitive(t, "string"); return "symbol" == yith_wcan_preset_typeof(i) ? i : i + ""; }
+function yith_wcan_preset_toPrimitive(t, r) { if ("object" != yith_wcan_preset_typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != yith_wcan_preset_typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
 
 
 var YITH_WCAN_Preset = /*#__PURE__*/function () {
-  // status
-
-  // dom objects
-
-  // filters
-
   function YITH_WCAN_Preset($wrapper) {
     yith_wcan_preset_classCallCheck(this, YITH_WCAN_Preset);
+    // status
     yith_wcan_preset_defineProperty(this, "rowIndex", 0);
+    // dom objects
     yith_wcan_preset_defineProperty(this, "$wrapper", void 0);
     yith_wcan_preset_defineProperty(this, "$mainAddNewFilterButton", void 0);
     yith_wcan_preset_defineProperty(this, "$loadMoreFiltersButtons", void 0);
     yith_wcan_preset_defineProperty(this, "$filtersContainer", void 0);
     yith_wcan_preset_defineProperty(this, "$layout", void 0);
     yith_wcan_preset_defineProperty(this, "$page", void 0);
+    // filters
     yith_wcan_preset_defineProperty(this, "filters", new Map());
     if (!$wrapper.length) {
       return;
@@ -1822,7 +1800,7 @@ var YITH_WCAN_Preset = /*#__PURE__*/function () {
   }
 
   // init object
-  yith_wcan_preset_createClass(YITH_WCAN_Preset, [{
+  return yith_wcan_preset_createClass(YITH_WCAN_Preset, [{
     key: "init",
     value: function init() {
       this.initFilters();
@@ -1949,10 +1927,10 @@ var YITH_WCAN_Preset = /*#__PURE__*/function () {
           id: index || this.nextRowIndex(),
           key: this.filters.size
         }),
-        $newFilter = $(newFilter),
-        filter = new YITH_WCAN_Filter($newFilter, this);
-      data && filter.populate(data);
+        $newFilter = $(newFilter);
       this.$filtersContainer.append($newFilter);
+      var filter = new YITH_WCAN_Filter($newFilter, this);
+      data && filter.populate(data);
       this.afterFilterAdd(filter);
       return $newFilter;
     }
@@ -2136,7 +2114,6 @@ var YITH_WCAN_Preset = /*#__PURE__*/function () {
       return index ? parseInt(index) : 0;
     }
   }]);
-  return YITH_WCAN_Preset;
 }();
 
 ;// CONCATENATED MODULE: ./assets/js/admin-filters/index.js

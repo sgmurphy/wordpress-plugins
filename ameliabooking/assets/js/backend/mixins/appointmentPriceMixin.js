@@ -1,4 +1,7 @@
+import taxesMixin from '../../../js/common/mixins/taxesMixin'
+
 export default {
+  mixins: [taxesMixin],
 
   data () {
     return {}
@@ -33,13 +36,11 @@ export default {
 
         // for old bookings use price from booking
         if (booking.payments.length > 0) {
-           if (['approved', 'pending'].includes(booking.status)) {
-              totalBookings += $this.getBookingPrice(booking, isChangedService, isChangedService || isChangedBookingDuration ? servicePrice : booking.price, booking.aggregatedPrice)
-           }
-        }
-        // for new bookings use price from service
-        else if (!isList) {
-          totalBookings += $this.getBookingPrice(booking, true, servicePrice, service.aggregatedPrice)
+          if (['approved', 'pending'].includes(booking.status)) {
+            totalBookings += $this.getBookingPrice(booking, isChangedService, isChangedService || isChangedBookingDuration ? servicePrice : booking.price, booking.aggregatedPrice, service.id)
+          }
+        } else if (!isList) {
+          totalBookings += $this.getBookingPrice(booking, true, servicePrice, service.aggregatedPrice, service.id)
         }
       })
 
@@ -49,22 +50,26 @@ export default {
       ) : (totalBookings >= 0 ? totalBookings : 0)
     },
 
-    getBookingPrice (booking, isNewBooking, servicePrice, aggregatedPrice) {
-      let extrasPriceTotal = 0
+    getBookingPrice (booking, isNewBooking, bookingPrice, aggregatedPrice, entityId = null) {
+      let priceData = {
+        price: !isNewBooking ? booking.price : bookingPrice,
+        aggregatedPrice: aggregatedPrice,
+        id: !isNewBooking ? entityId : null
+      }
 
-      booking.extras.forEach(function (extra) {
-        if (typeof extra.selected === 'undefined' || extra.selected === true) {
-          let aggregatedExtraPrice = extra.aggregatedPrice === null ? aggregatedPrice : extra.aggregatedPrice
+      if (!isNewBooking) {
+        priceData.tax = booking.tax
+      }
 
-          extrasPriceTotal += extra.price * extra.quantity * (aggregatedExtraPrice ? booking.persons : 1)
-        }
-      })
+      let amountData = this.getAppointmentPriceAmount(
+        priceData,
+        booking.extras.filter(i => 'selected' in i ? i.selected : true),
+        booking.persons,
+        booking.coupon,
+        false
+      )
 
-      let servicePriceTotal = (isNewBooking ? servicePrice : booking.price) * (aggregatedPrice ? booking.persons : 1)
-      let subTotal = servicePriceTotal + extrasPriceTotal
-      let discountTotal = (subTotal / 100 * (booking.coupon ? booking.coupon.discount : 0)) + (booking.coupon ? booking.coupon.deduction : 0)
-
-      return discountTotal > subTotal ? 0 : subTotal - discountTotal
+      return amountData.discount > amountData.total ? 0 : amountData.total - amountData.discount + amountData.tax
     },
 
     getPackagePrice (pack, key) {

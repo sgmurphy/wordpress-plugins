@@ -7035,7 +7035,7 @@ button.premium-modal-box-modal-close {
   }
 
   .premium-nav-hor:not(.premium-hamburger-menu) .premium-nav-menu-item > .premium-sub-menu .premium-sub-menu {
-    left: 100%;
+    right: 100%;
     top: 0;
   }
 

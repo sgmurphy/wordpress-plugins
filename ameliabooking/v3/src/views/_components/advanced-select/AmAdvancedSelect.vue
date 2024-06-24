@@ -60,6 +60,17 @@
           </span>
           <span v-if="data.price" class="am-adv-select__item-price">
             {{` ${useFormattedPrice(data.price)}` }}
+            <span
+              v-if="taxVisibility(data.id)"
+              class="am-adv-select__item-tax"
+            >
+              <template v-if="props.taxOptions.find(a => a.id === data.id).excluded">
+                {{ props.taxLabel }}
+              </template>
+              <template v-else>
+                {{props.taxLabelIncl}}
+              </template>
+            </span>
           </span>
         </div>
       </template>
@@ -188,6 +199,24 @@ const props = defineProps({
   dropdownArrowVisibility: {
     type: Boolean,
     default: false
+  },
+  taxOptions: {
+    type: [Object, Array],
+    default: () => {
+      return []
+    }
+  },
+  taxLabel: {
+    type: String,
+    default: ''
+  },
+  taxLabelIncl: {
+    type: String,
+    default: ''
+  },
+  taxVisible: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -206,7 +235,12 @@ let model = computed({
   }
 })
 
-// Container Width
+// * Tat Visibility
+function taxVisibility (id) {
+  return props.taxVisible && !!props.taxOptions.filter(a => a.id === id).length
+}
+
+// * Container Width
 let cWidth = inject('containerWidth', 0)
 let checkScreen = computed(() => cWidth.value < 560 || (cWidth.value > 560 && cWidth.value < 640))
 
@@ -289,6 +323,7 @@ let cssVars = computed(() => {
 let cssDropdownVars = computed(() => {
   return {
     '--am-c-advs-item-price': amColors.value.colorPrimary,
+    '--am-c-advs-item-price-op10': useColorTransparency(amColors.value.colorPrimary, 0.1),
     '--am-c-advs-item-selected': amColors.value.colorPrimary,
     '--am-c-advs-item-label-op40': useColorTransparency(amColors.value.colorDropText, 0.4),
     '--am-font-family': amFonts.value.fontFamily
@@ -646,6 +681,17 @@ onMounted(() => {
         font-weight: 400;
         line-height: 1.714;
         color: var(--am-c-advs-item-price);
+      }
+
+      &-tax {
+        display: inline-flex;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--am-c-advs-item-price);
+        background-color: var(--am-c-advs-item-price-op10);
+        border-radius: 10px;
+        padding: 3px 8px;
       }
     }
   }

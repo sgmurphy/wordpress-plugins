@@ -39,9 +39,11 @@
         <!-- Profile Photo -->
         <div class="am-service-profile">
           <picture-upload
+            :delete-icon-visibility="category.pictureThumbPath && category.pictureFullPath"
             :edited-entity="this.category"
             :entity-name="'category'"
             @pictureSelected="categoryPictureSelected"
+            v-on:deleteImage="() => deleteImage(category)"
           >
           </picture-upload>
 

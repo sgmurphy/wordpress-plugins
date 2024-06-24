@@ -35,7 +35,7 @@
             {{`${labelsDisplay('save')} ${pack.discount}%`}}
           </span>
           <span v-if="customizeOptions.packagePrice.visibility" class="am-fcip__header-price">
-            {{ pack.price ? useFormattedPrice(pack.calculatedPrice ? pack.price : pack.price - pack.price / 100 * pack.discount) : amLabels.free }}
+            {{ pack.price ? useFormattedPrice(usePackageAmount(pack)) : amLabels.free }}
           </span>
           <span class="am-fcip__header-btn">
             <AmButton :type="customizeOptions.bookingBtn.buttonType">
@@ -306,6 +306,9 @@ import {
   amCardColors,
   useColorTransparency
 } from '../../../../assets/js/common/colorManipulation.js'
+import {
+  usePackageAmount,
+} from '../../../../assets/js/public/package.js'
 
 // * Customize
 let amCustomize = inject('customize')

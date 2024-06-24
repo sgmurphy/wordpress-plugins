@@ -1,4 +1,5 @@
 import {useCartItem} from "./cart";
+import {usePercentageAmount} from "../common/pricing";
 
 function useBuildPackage (index, entity) {
   let items = [{
@@ -152,43 +153,12 @@ function useFilteredLocations (store) {
   )
 }
 
-function usePackageAmount (store) {
-  let pack = store.getters['entities/getPackage'](
-    store.getters['booking/getPackageId']
-  )
-
-  return pack.discount && !pack.calculatedPrice ? pack.price - pack.price * (pack.discount/100) : pack.price
+function usePackageAmount (pack) {
+  return pack.discount && !pack.calculatedPrice ? pack.price - usePercentageAmount(pack.price, pack.discount) : pack.price
 }
 
-function useDiscountAmountPackage (store, coupon) {
-  let discountAmount = 0
-
-  let amount = usePackageAmount(store)
-
-  discountAmount += amount / 100 * coupon.discount + coupon.deduction
-
-  return discountAmount
-}
-
-
-function usePackageDepositAmount (pack, totalAmount) {
-  let depositAmount = 0
-
-  if (pack.depositPayment !== 'disabled') {
-    switch (pack.depositPayment) {
-      case ('fixed'):
-        depositAmount = pack.deposit
-
-        break
-
-      case 'percentage':
-        depositAmount = totalAmount / 100 * pack.deposit
-
-        break
-    }
-  }
-
-  return totalAmount > depositAmount ? depositAmount : 0
+function usePackageDiscountAmount (pack, coupon) {
+  return usePercentageAmount(usePackageAmount(pack), coupon.discount) + coupon.deduction
 }
 
 function useCalculateDiscount (pack) {
@@ -209,7 +179,6 @@ export {
   useFilteredProviders,
   useFilteredLocations,
   usePackageAmount,
-  usePackageDepositAmount,
   useCalculateDiscount,
-  useDiscountAmountPackage
+  usePackageDiscountAmount,
 }

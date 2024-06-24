@@ -1432,6 +1432,7 @@ if (!function_exists('greenshift_download_file_localy')) {
 if (!function_exists('greenshift_save_file_localy')) {
 	function greenshift_save_file_localy($file_uri, $img_title = '', $check_type = '')
 	{
+		if(!current_user_can('manage_options')) return false;
 		$newfilename = basename($file_uri);
 		$ext = pathinfo(basename($file_uri), PATHINFO_EXTENSION);
 

@@ -82,11 +82,11 @@ const Input = (
 							label ? 'mt-2' : '',
 							noBorder
 								? 'bg-transparent'
-								: 'px-3 border border-solid focus:ring-1 focus:ring-accent-st',
+								: 'px-3 border border-solid focus:!ring-1 focus:ring-accent-st',
 							enableAutoGrow && 'absolute left-0 min-w-[50px]',
 							disabled ? 'cursor-not-allowed' : '',
 							inputClassName,
-							! noBorder && 'input-focus-border'
+							! noBorder && 'focus:!border-accent-st'
 						) }
 						style={ {
 							borderColor:

@@ -147,6 +147,7 @@ class SubmenuPageHandler
                         BackendStrings::getEntityFormStrings(),
                         BackendStrings::getUserStrings(),
                         BackendStrings::getEmployeeStrings(),
+                        BackendStrings::getStripeStrings(),
                         BackendStrings::getCommonStrings(),
                         BackendStrings::getScheduleStrings()
                     )
@@ -288,6 +289,7 @@ class SubmenuPageHandler
                         BackendStrings::getEntityFormStrings(),
                         BackendStrings::getUserStrings(),
                         BackendStrings::getEmployeeStrings(),
+                        BackendStrings::getStripeStrings(),
                         BackendStrings::getFinanceStrings(),
                         BackendStrings::getCommonStrings(),
                         BackendStrings::getScheduleStrings(),
@@ -388,7 +390,7 @@ class SubmenuPageHandler
         } else {
             wp_enqueue_script(
                 $scriptId,
-                AMELIA_URL . 'v3/public/assets/admin.cc84ee5f.js',
+                AMELIA_URL . 'v3/public/assets/admin.adb95b3a.js',
                 [],
                 AMELIA_VERSION,
                 true

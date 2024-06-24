@@ -6,6 +6,7 @@
     <Payment
       v-if="selectedEvent"
       :selected-item="selectedEvent"
+      :tax-visibility="taxVisible"
       :in-dialog="true"
     ></Payment>
   </div>
@@ -28,6 +29,7 @@ import { useStore } from "vuex";
 
 // * Composables
 import { useColorTransparency } from "../../../../../assets/js/common/colorManipulation";
+import { useTaxVisibility } from "../../../../../assets/js/common/pricing";
 
 let props = defineProps({
   globalClass: {
@@ -92,6 +94,11 @@ provide('amLabels', amLabels.value)
 
 // * Event obj
 let selectedEvent = computed(() => store.getters['eventEntities/getEvent'](store.getters['eventBooking/getSelectedEventId']))
+
+// * Tax
+let taxVisible = computed(() => {
+  return useTaxVisibility(store, selectedEvent.value.id, 'event')
+})
 
 // * Colors
 let amColors = inject('amColors')

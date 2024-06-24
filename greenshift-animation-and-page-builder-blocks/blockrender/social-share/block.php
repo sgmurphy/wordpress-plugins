@@ -95,6 +95,7 @@ class SocialShare
 
     static function get_social_share($_post, $socialLabelsDef, $socialEnabledStatus, $queryString, $id)
     {
+        if(!is_object($_post)) return '';
         $link = get_permalink($_post->ID);
         if ($queryString) {
             $link = $link . '?wishlistids=' . $queryString;

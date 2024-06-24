@@ -56,7 +56,7 @@
                 <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
               </div>
 
-              <div v-if="item.text" class="am-whats-new-blog-subtitle-text">{{item.text.replace(':','')}}</div>
+              <div v-if="item.text" class="am-whats-new-blog-subtitle-text" v-html="item.text.replace(':','')"></div>
             </div>
 
             <p class="am-whats-new-changelog-list-title" v-if="!$root.licence.isDeveloper && getLicencesItems(getHigherLicences()).length">{{$root.labels.included_plan_higher}}</p>
@@ -65,7 +65,7 @@
                 <img v-if="item.type" :src="$root.getUrl+`public/img/am-${getIconType(item.type)}.svg`" />
               </div>
 
-              <div v-if="item.text" class="am-whats-new-blog-subtitle-text">{{item.text.replace(':','')}}</div>
+              <div v-if="item.text" class="am-whats-new-blog-subtitle-text" v-html="item.text.replace(':','')"></div>
             </div>
 
             <a class="am-whats-new-changelog-link" href="https://wpamelia.com/changelog/" target="_blank" rel="nofollow">
@@ -202,51 +202,63 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.5.1',
+         version: '7.6',
          starter: {
            feature: [],
            improvement: [
-             'Added option on Customize page to remove scroll from Catalog 2.0 booking form'
+             'Implemented logic so users first see services from the selected category on the back-end',
+             'Added an option to remove Service and Categories pictures',
+             'Added option to insert IPLocate API Key for 1000 API requests/day in case of auto-locate phone country code'
            ],
            translations: [
-             'Updated Dutch and Hebrew languages\n'
+             'Updated Romanian, Turkish and Spanish translations'
            ],
            bugfix: [
-             'Fixed issue with HTML notifications and \'quill\' editor',
-             'Fixed issue with time slots when timezone is hidden on the new customer panel'
+             'Fixed issue with translating Calendar step on new Customer Panel 2.0',
+             'Fixed issue with appointments when the customer logs in to WP-admin',
+             'Fixed issue with duplicated employee and days off section',
+             'Fixed issue with attendees search when name has two words',
+             'Fixed vulnerability for description fields'
            ],
            other: [
              'Other small bug fixes and stability improvements'
            ]
          },
          basic: {
-           feature: [],
-           improvement: [
-             'Added \'Fifth\' as a recurrence option for the Monthly recurring events'
+           feature: [
+             '<strong>TAX FEATURE</strong> - Now you can automatically calculate and apply taxes to your bookings',
+             'Custom Field Width Customization - Enabled users to customize the width of custom fields, allowing selection between half-width and full-width'
            ],
-           translations: [],
-           bugfix:[],
-           other: []
-         },
-         pro: {
-           feature: [],
            improvement: [
-             'Added sorting option for services within packages',
-             'Implemented sorting of packages by validation date on Customer Panel 2.0'
+             'Added option to preselect location in shortcode for the Event List 2.0 form'
            ],
            translations: [],
            bugfix: [
-             'Fixed issue with notifications and google sync when duplicating appointment from package'
+             'Fixed issue with payment links when appointments are booked on the back-end',
+             'Fixed issue with a large number of (recurring) events',
+             'Fixed issue with “Paid” amount on backend for WooCommerce payments',
+             'Fixed issue with the appointment_id placeholder in Mollie description/metadata',
+             'Fixed issue with the ‘Limit appointments per employee’ option and rescheduling',
+             'Fixed issue with deposit when deposit amount is equal to service price'
            ],
+           other: []
+         },
+         pro: {
+           feature: [
+             'Stripe Connect Integration - Seamless integration with Stripe Connect for easier payment processing'
+           ],
+           improvement: [],
+           translations: [],
+           bugfix: [],
            other: []
          },
          developer: {
            feature: [],
-           improvement: [
-             'Improved API bookings logic'
-           ],
+           improvement: [],
            translations: [],
-           bugfix: [],
+           bugfix: [
+             'Fixed issue with get coupon API call'
+           ],
            other: []
          }
        },

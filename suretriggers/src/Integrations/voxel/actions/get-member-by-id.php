@@ -134,17 +134,7 @@ class GetMemberByID extends AutomateAction {
 					$content = $field->get_value();
 				}
 
-				$fields[ $key ] = is_array( $content ) ? wp_json_encode( $content ) : $content;
-			}
-
-			// If fields are available, then add to the simple entry.
-			if ( ! empty( $fields ) ) {
-				$member_fields['all_fields'] = wp_json_encode( $fields );
-
-				// Loop through each field and add to the simple entry.
-				foreach ( $fields as $key => $value ) {
-					$member_fields[ 'field_' . $key ] = $value;
-				}
+				$member_fields[ $key ] = $content;
 			}
 		}
 

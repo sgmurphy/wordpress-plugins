@@ -1,7 +1,7 @@
 <template id="picture-upload">
   <div class="am-profile-photo" @click="openMediaModal">
     <i
-        class="el-icon-delete" @click="(e) => removeEmployeeImage(e)"
+        class="el-icon-delete" @click="(e) => removeImage(e)"
        v-if="deleteIconVisibility"
     ></i>
     <i :class="{ 'el-icon-plus': entityName === 'gallery', 'el-icon-picture': entityName !== 'gallery' }"></i>
@@ -32,7 +32,7 @@
     },
 
     methods: {
-      removeEmployeeImage (e) {
+      removeImage (e) {
         e.stopPropagation()
 
         this.pictureFullPath = ''

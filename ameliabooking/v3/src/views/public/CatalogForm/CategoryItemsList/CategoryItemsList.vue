@@ -207,7 +207,15 @@
                     {{`${amLabels.save} ${item.discount}%`}}
                   </span>
                   <span class="am-fcil__item-price">
-                    {{ item.price ? useFormattedPrice(item.calculatedPrice ? item.price : item.price - item.price / 100 * item.discount) : amLabels.free }}
+                    {{ item.price ? useFormattedPrice(usePackageAmount(item)) : amLabels.free }}
+                  </span>
+                  <span v-if="item.price && (customizedOptions.tax?.visibility ?? true) && useTaxVisibility(store,item.id, 'package')" class="am-fcil__item-price">
+                    <template v-if="amSettings.payments.taxes.excluded">
+                      {{ `+${amLabels.total_tax_colon}` }}
+                    </template>
+                    <template v-else>
+                      {{amLabels.incl_tax}}
+                    </template>
                   </span>
                 </div>
               </div>
@@ -341,6 +349,14 @@
                 >
                   <span v-if="useServicePrice(amEntities, item.id).min || useServicePrice(amEntities, item.id).max" class="am-fcil__item-price">
                     {{ useServicePrice(amEntities, item.id).price }}
+                  </span>
+                  <span v-if="(customizedOptions.tax?.visibility ?? true) && useTaxVisibility(store,item.id, 'service')" class="am-fcil__item-price">
+                    <template v-if="amSettings.payments.taxes.excluded">
+                      {{ `+${amLabels.total_tax_colon}` }}
+                    </template>
+                    <template v-else>
+                      {{amLabels.incl_tax}}
+                    </template>
                   </span>
                 </div>
               </div>
@@ -586,9 +602,13 @@ import {
 } from '../../../../assets/js/public/cart'
 import { useFormattedPrice } from '../../../../assets/js/common/formatting.js'
 import { useColorTransparency } from '../../../../assets/js/common/colorManipulation.js'
-import { useBuildPackage } from "../../../../assets/js/public/package";
+import {
+  useBuildPackage,
+  usePackageAmount,
+} from "../../../../assets/js/public/package";
 import useAction from "../../../../assets/js/public/actions";
 import { useDescriptionVisibility } from "../../../../assets/js/common/helper";
+import { useTaxVisibility } from "../../../../assets/js/common/pricing";
 
 // * Plugin Licence
 let licence = inject('licence')
@@ -765,7 +785,6 @@ let categoryPackages = computed(() => {
 
   return arr
 })
-
 let categoryServices = computed(() => {
   let arr = []
   amEntities.value.services.forEach(service => {

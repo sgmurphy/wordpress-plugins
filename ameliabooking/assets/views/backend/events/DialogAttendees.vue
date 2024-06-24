@@ -477,7 +477,9 @@
             (booking.customer.lastName + ' ' + booking.customer.firstName).toLowerCase().startsWith($this.search.toLowerCase()) ||
             (booking.customer.email !== null && booking.customer.email.toLowerCase().startsWith($this.search.toLowerCase())) ||
             (booking.customer.phone !== null && booking.customer.phone.toLowerCase().startsWith($this.search.toLowerCase())) ||
-            (booking.token !== null ? booking.token.toLowerCase().substring(0, 5).startsWith($this.search.toLowerCase()) : false)
+            (booking.token !== null ? booking.token.toLowerCase().substring(0, 5).startsWith($this.search.toLowerCase()) : false) ||
+            (booking.customer.firstName.split(' ').map(part => part.toLowerCase().startsWith($this.search.toLowerCase())).includes(true)) ||
+            (booking.customer.lastName.split(' ').map(part => part.toLowerCase().startsWith($this.search.toLowerCase())).includes(true))
           )
         })
 

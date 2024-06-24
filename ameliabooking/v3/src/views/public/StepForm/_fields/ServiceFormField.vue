@@ -21,6 +21,10 @@
       :category-name="amLabels.dropdown_category_heading"
       :sub-category-name="amLabels.dropdown_items_heading"
       :empty-state-string="amLabels.dropdown_empty"
+      :tax-options="taxServicesOptions"
+      :tax-label="`+${amLabels.total_tax_colon}`"
+      :tax-label-incl="amLabels.incl_tax"
+      :tax-visible="props.taxVisible"
       @change="changeService"
     ></AmAdvancedSelect>
     <AmSelect
@@ -39,8 +43,26 @@
         :label="service.name"
       >
         <div class="am-select-service">
-          <span class="am-select-service-name">{{ service.name }}</span>
-          <span v-if="service.price > 0" class="am-select-service-price">{{ useFormattedPrice(service.price) }}</span>
+          <span class="am-select-service-name">
+            {{ service.name }}
+          </span>
+          <span
+            v-if="service.price > 0"
+            class="am-select-service-price"
+          >
+            {{ useFormattedPrice(service.price) }}
+            <span
+              v-if="taxVisibility(service.id)"
+              class="am-select-service-tax"
+            >
+              <template v-if="taxServicesOptions.find(a => a.id === service.id).excluded">
+                {{ `+${amLabels.total_tax_colon}` }}
+              </template>
+              <template v-else>
+                {{ `${amLabels.incl_tax}` }}
+              </template>
+            </span>
+          </span>
         </div>
 
       </AmOption>
@@ -56,13 +78,21 @@ import AmOption from '../../../_components/select/AmOption'
 import AmAdvancedSelect from '../../../_components/advanced-select/AmAdvancedSelect'
 import useAction from "../../../../assets/js/public/actions";
 import { useFormattedPrice } from "../../../../assets/js/common/formatting"
+import { useEntityTax } from "../../../../assets/js/common/pricing";
 
 let props = defineProps({
   filterable: {
     type: Boolean,
     default: true
+  },
+  taxVisible: {
+    type: Boolean,
+    default: true
   }
 })
+
+// * Amelia Settings
+const amSettings = inject('settings')
 
 // * Store
 let store = useStore();
@@ -116,6 +146,24 @@ let categoryOptions = computed(() => store.getters['entities/filteredCategories'
 let serviceOptions = computed(() => store.getters['entities/filteredServices'](
     Object.assign(store.getters['booking/getSelection'], {serviceId: null, categoryId: null})
 ))
+let taxServicesOptions = computed(() => {
+  let arr = []
+
+  if (amSettings.payments.taxes.enabled) {
+    serviceOptions.value.forEach(service => {
+      let tax = useEntityTax(store, service.id, 'service')
+      if (tax) {
+        let obj = {
+          id: service.id,
+          excluded: amSettings.payments.taxes.excluded
+        }
+        arr.push(obj)
+      }
+    })
+  }
+
+  return arr
+})
 
 /**
  * Change Service function
@@ -163,6 +211,10 @@ function changeOnlyService (val) {
 
   sidebarDataCollector(serviceData)
 }
+
+function taxVisibility (id) {
+  return props.taxVisible && !!taxServicesOptions.value.filter(a => a.id === id).length
+}
 </script>
 
 <script>
@@ -198,6 +250,17 @@ export default {
       font-weight: 400;
       line-height: 1.714;
       color: var(--am-c-ss-item-price);
+    }
+
+    &-tax {
+      display: inline-flex;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--am-c-ss-item-price);
+      background-color: var(--am-c-option-selected-op10);
+      border-radius: 10px;
+      padding: 3px 8px;
     }
   }
 }

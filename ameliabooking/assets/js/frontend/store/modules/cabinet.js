@@ -153,6 +153,10 @@ const mutations = {
     state.isUserAuthenticated = value
   },
 
+  setStripeProvider (state, value) {
+    state.stripeProvider = value
+  },
+
   setLoadingAuthentication (state, value) {
     state.loadingAuthentication = value
   }

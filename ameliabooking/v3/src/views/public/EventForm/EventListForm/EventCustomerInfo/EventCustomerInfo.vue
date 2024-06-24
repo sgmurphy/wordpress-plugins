@@ -86,17 +86,6 @@ import {
   watchEffect,
 } from 'vue'
 
-let props = defineProps({
-  globalClass: {
-    type: String,
-    default: ''
-  },
-  inDialog: {
-    type: Boolean,
-    default: false
-  }
-})
-
 // * Form Fields Templates
 import { formFieldsTemplates } from '../../../../../assets/js/common/formFieldsTemplates.js'
 
@@ -111,6 +100,17 @@ import { usePrepaidPrice } from "../../../../../assets/js/common/appointments";
 // * _components
 import AmAlert from "../../../../_components/alert/AmAlert.vue";
 import useAction from "../../../../../assets/js/public/actions";
+
+let props = defineProps({
+  globalClass: {
+    type: String,
+    default: ''
+  },
+  inDialog: {
+    type: Boolean,
+    default: false
+  }
+})
 
 // * Store
 const store = useStore()
@@ -372,7 +372,7 @@ Object.keys(customFields.value).forEach((fieldKey) => {
       itemName: fieldKey,
       label: customFields.value[fieldKey].label,
       options: customFields.value[fieldKey].options,
-      class: 'am-elfci__item'
+      class: `am-elfci__item am-cf-width-${customFields.value[fieldKey].width}`
     }
   }
 
@@ -594,6 +594,10 @@ export default {
 
       .am-elfci__item {
         width: calc(50% - 12px);
+
+        &.am-cf-width-100 {
+          width: 100%;
+        }
 
         .el-form-item {
           &__label {

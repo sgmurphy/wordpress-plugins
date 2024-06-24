@@ -2,7 +2,9 @@ import { reactive } from "vue";
 import moment from "moment";
 import {settings} from "../../../plugins/settings";
 import httpClient from "../../../plugins/axios";
-import { useServiceBookingPrice } from "../admin/appointment";
+import {
+  useAppointmentBookingAmountData,
+} from "../common/appointments";
 import { usePackageBookingPrice } from "../admin/package";
 import {useEventBookingsPrice} from "../admin/event";
 
@@ -139,10 +141,26 @@ function usePaymentMethods (entitySettings) {
   return paymentOptions
 }
 
-function usePayable (reservation) {
+function usePayable (store, reservation) {
   switch (reservation.type) {
-    case ('appointment'):
-      return useServiceBookingPrice(reservation.bookings[0]) > reservation.bookings[0].payments.reduce((partialSum, a) => partialSum + a.amount, 0)
+    case ('appointment'): {
+      let amountData = useAppointmentBookingAmountData(
+        store,
+        {
+          price: reservation.bookings[0].price,
+          persons: reservation.bookings[0].persons,
+          aggregatedPrice: reservation.bookings[0].aggregatedPrice,
+          extras: reservation.bookings[0].extras,
+          serviceId: null,
+          tax: reservation.bookings[0].tax,
+          coupon: reservation.bookings[0].coupon
+        },
+        false
+      )
+
+      return amountData.total - amountData.discount + amountData.tax > reservation.bookings[0].payments.reduce((partialSum, a) => partialSum + a.amount, 0)
+    }
+
     case ('event'):
       return useEventBookingsPrice(reservation) > reservation.bookings[0].payments.reduce((partialSum, a) => partialSum + a.amount, 0)
     case ('package'):

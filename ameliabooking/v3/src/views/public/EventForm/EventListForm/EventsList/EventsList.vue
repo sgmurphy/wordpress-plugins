@@ -65,7 +65,7 @@
             </AmSelect>
           </div>
           <div
-            v-if="locations.length > 0"
+            v-if="(!store.getters['params/getShortcodeParams'].locations || store.getters['params/getShortcodeParams'].locations.length !== 1) && locations.length > 0"
             class="am-els__filters-menu__items"
             :class="[responsiveClass, filterClassWidth.location]"
           >
@@ -112,6 +112,7 @@
             :labels="amLabels"
             :locations="locations"
             :customized-options="customizedOptions"
+            :tax-visible="useTaxVisibility(store, event.id, 'event') && (customizedOptions.tax?.visibility ?? true)"
             @click="selectEvent"
           ></EventCard>
         </template>
@@ -183,7 +184,8 @@ import {
 } from "../../../../../assets/js/common/colorManipulation";
 import useAction from "../../../../../assets/js/public/actions";
 import { useResponsiveClass } from "../../../../../assets/js/common/responsive";
-import {useUrlQueryParams} from "../../../../../assets/js/common/helper";
+import { useUrlQueryParams } from "../../../../../assets/js/common/helper";
+import { useTaxVisibility } from "../../../../../assets/js/common/pricing";
 
 // * Define store
 const store = useStore()
@@ -280,7 +282,7 @@ let filterIcon = defineComponent({
 })
 
 // * Locations array
-let locations = computed(() => store.getters['eventEntities/getLocations'])
+let locations = computed(() => store.getters['eventEntities/getFilteredLocations'](store.getters['params/getShortcodeParams']))
 
 // * Tags array
 let tags = computed(() => store.getters['eventEntities/getFilteredTags'](store.getters['params/getShortcodeParams']))
@@ -291,10 +293,11 @@ let filterClassWidth = computed(() => {
   // a - array
   let pTag = store.getters['params/getShortcodeParams'].tags && store.getters['params/getShortcodeParams'].tags.length === 1
   let aTag = tags.value.length
+  let pLocation = store.getters['params/getShortcodeParams'].locations && store.getters['params/getShortcodeParams'].locations.length === 1
   let aLocation = locations.value.length
 
   let tagVisibility = !pTag && aTag > 0
-  let locationVisibility = aLocation > 0
+  let locationVisibility = !pLocation && aLocation > 0
 
   let classFilter = {
     tag: 'am-mw33',

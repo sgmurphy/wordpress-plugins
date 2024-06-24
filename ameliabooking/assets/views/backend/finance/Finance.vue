@@ -4,27 +4,24 @@
 
       <!-- Page Header -->
       <page-header
-          :financeTotal="financeTabs === 'payments' ? paymentsFilteredCount : couponsFilteredCount"
-          :addNewCouponBtnDisplay="addNewCouponBtnDisplay"
+          :financeTotal="options.fetched ? getTotal() : 0"
+          :addNewTaxBtnDisplay="options.fetched ? addNewTaxBtnDisplay : false"
+          @newTaxBtnClicked="showDialogNewTax()"
+          :addNewCouponBtnDisplay="options.fetched ? addNewCouponBtnDisplay : false"
           @newCouponBtnClicked="showDialogNewCoupon()"
       >
       </page-header>
 
-      <!-- Spinner -->
-      <div class="am-spinner am-section" v-show="isPaymentsFiltering && isCouponsFiltering">
-        <img :src="$root.getUrl + 'public/img/spinner.svg'"/>
-      </div>
-
       <!-- Finance -->
       <div class="am-finances am-section">
 
-        <el-tabs v-model="financeTabs" @tab-click="handleTabClick" v-show="!isPaymentsFiltering || !isCouponsFiltering">
+        <el-tabs v-model="financeTabs" @tab-click="handleTabClick">
           <el-tab-pane :label="$root.labels.payments" name="payments">
 
             <!-- Filter Finance -->
             <div
                 class="am-finance-filter"
-                v-show="hasPayments"
+                v-show="hasPayments && options.fetched"
             >
               <el-form class="" :action="exportPaymentsAction" method="POST">
                 <el-row :gutter="16">
@@ -145,11 +142,15 @@
                               v-model="paymentsParams.events"
                               multiple
                               clearable
+                              filterable
+                              :remote-method="searchEvents"
+                              :loading="loadingEvents"
+                              remote
                               :placeholder="$root.labels.events"
                               @change="filterPayments"
                           >
                             <el-option
-                                v-for="item in options.entities.events"
+                                v-for="item in searchedEvents"
                                 :key="item.id"
                                 :label="item.name"
                                 :value="item.id"
@@ -233,14 +234,14 @@
 
             <!-- Spinner -->
             <div class="am-spinner am-section"
-                 v-show="isPaymentsFiltering"
+                 v-show="isPaymentsFiltering || !options.fetched"
             >
               <img :src="$root.getUrl + 'public/img/spinner.svg'"/>
             </div>
 
             <!-- Empty State -->
             <EmptyState
-              :visible="!hasPayments && !isPaymentsFiltering"
+              :visible="!hasPayments && !isPaymentsFiltering && options.fetched"
               :title="$root.labels.no_payments_yet"
             >
             </EmptyState>
@@ -248,7 +249,7 @@
             <!-- Table Header -->
             <div
                 class="am-finance-list-head"
-                v-show="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering"
+                v-show="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering && options.fetched"
             >
               <el-row>
 
@@ -309,7 +310,7 @@
             <!-- Collapsible Data  -->
             <div
                 class="am-finance-list"
-                v-show="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering"
+                v-show="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering && options.fetched"
             >
 
               <el-collapse>
@@ -470,9 +471,9 @@
                           <!-- Amount -->
                           <el-col :lg="12" :sm="10">
                             <p class="am-data">{{ $root.labels.amount }}:</p>
-                            <p class="am-value">{{ getFormattedPrice(payment.amount) }}</p>
+                            <p class="am-value">{{ getFormattedPrice(payment.status === 'paid' || payment.status === 'partiallyPaid' ? payment.amount : 0) }}</p>
                             <div v-for="payment2 in payment.secondaryPayments">
-                              <p class="am-value">{{ getFormattedPrice(payment2.amount) }}</p>
+                              <p class="am-value">{{ getFormattedPrice(payment.status === 'paid' || payment.status === 'partiallyPaid' ? payment2.amount : 0) }}</p>
                             </div>
                           </el-col>
 
@@ -488,7 +489,7 @@
 
             <!-- No Results -->
             <div class="am-empty-state am-section"
-                 v-show="hasPayments && !hasPaymentsFiltered && !isPaymentsFiltering">
+                 v-show="hasPayments && !hasPaymentsFiltered && !isPaymentsFiltering && options.fetched">
               <img :src="$root.getUrl + 'public/img/emptystate.svg'">
               <h2>{{ $root.labels.no_results }}</h2>
             </div>
@@ -499,7 +500,7 @@
                 :count="paymentsFilteredCount"
                 :show="paymentsParams.show"
                 :label="$root.labels.payments_lower"
-                :visible="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering"
+                :visible="hasPayments && hasPaymentsFiltered && !isPaymentsFiltering && options.fetched"
                 @change="filterPayments"
             >
             </pagination-block>
@@ -512,7 +513,7 @@
           >
             <!-- Filter Coupons -->
             <div class="am-finance-filter"
-                 v-show="hasCoupons">
+                 v-show="hasCoupons && options.fetched">
               <el-form class="" :action="exportCouponsAction" method="POST">
                 <el-row :gutter="16">
                   <el-col :md="24" :lg="8">
@@ -520,7 +521,7 @@
                       <el-form-item>
                         <el-input
                             class="calc-width-mobile"
-                            :placeholder="searchPlaceholder"
+                            :placeholder="searchCouponsPlaceholder"
                             v-model="couponsParams.search"
                         >
                         </el-input>
@@ -564,13 +565,12 @@
                       </el-col>
 
                       <!-- Events Filter -->
-                      <el-col :md="24" :lg="8">
+                      <el-col :md="24" :lg="7">
                         <el-form-item>
                           <el-select
                               v-model="couponsParams.events"
                               multiple
                               filterable
-                              class="calc-width"
                               :placeholder="$root.labels.events"
                               @change="filterCoupons"
                               collapse-tags
@@ -635,7 +635,7 @@
 
             <!-- Spinner -->
             <div class="am-spinner am-section"
-                 v-show="isCouponsFiltering && hasCoupons"
+                 v-show="isCouponsFiltering || !options.fetched"
             >
               <img :src="$root.getUrl + 'public/img/spinner.svg'"/>
             </div>
@@ -652,7 +652,7 @@
             <!-- Coupons Table Header -->
             <div
                 class="am-finance-list-head"
-                v-show="hasCoupons && hasCouponsFiltered && !isCouponsFiltering"
+                v-show="hasCoupons && hasCouponsFiltered && !isCouponsFiltering && options.fetched"
             >
               <el-row>
 
@@ -732,7 +732,7 @@
 
             <div
                 class="am-finance-list"
-                v-show="hasCoupons && hasCouponsFiltered && !isCouponsFiltering"
+                v-show="hasCoupons && hasCouponsFiltered && !isCouponsFiltering && options.fetched"
             >
               <div v-for="coupon in coupons"
                    :class="{'am-coupon-row am-hidden-entity' : coupon.status === 'hidden', 'am-coupon-row' : coupon.status === 'visible'}"
@@ -871,7 +871,7 @@
 
             <!-- No Results -->
             <div class="am-empty-state am-section"
-                 v-show="hasCoupons && !hasCouponsFiltered && !isCouponsFiltering">
+                 v-show="hasCoupons && !hasCouponsFiltered && !isCouponsFiltering && options.fetched">
               <img :src="$root.getUrl + 'public/img/emptystate.svg'">
               <h2>{{ $root.labels.no_results }}</h2>
             </div>
@@ -881,10 +881,401 @@
                 :params="couponsParams"
                 :count="couponsFilteredCount"
                 :label="$root.labels.coupons_lower"
-                :visible="hasCoupons && hasCouponsFiltered && !isCouponsFiltering"
+                :visible="hasCoupons && hasCouponsFiltered && !isCouponsFiltering && options.fetched"
                 @change="filterCoupons"
             >
             </pagination-block>
+          </el-tab-pane>
+
+          <el-tab-pane
+            :label="$root.labels.taxes"
+            name="taxes"
+            v-if="$root.settings.payments.taxes.enabled && (notInLicence() ? licenceVisible() : true)"
+          >
+            <!-- Filter Taxes -->
+            <div class="am-finance-filter"
+                 v-show="hasTaxes && options.fetched">
+              <el-form class="">
+                <el-row :gutter="16">
+                  <el-col :md="24" :lg="4">
+                    <div class="am-search">
+                      <el-form-item>
+                        <el-input
+                          class="calc-width-mobile-tax"
+                          :placeholder="searchTaxesPlaceholder"
+                          v-model="taxesParams.search"
+                        >
+                        </el-input>
+                      </el-form-item>
+                    </div>
+                  </el-col>
+
+                  <transition name="fade">
+                    <div class="am-filter-fields" v-show="filterTaxesFields">
+
+                      <!-- Services Filter -->
+                      <el-col :md="24" :lg="5">
+                        <el-form-item>
+                          <el-select
+                            v-model="taxesParams.services"
+                            multiple
+                            filterable
+                            :placeholder="$root.labels.services"
+                            @change="filterTaxes"
+                            collapse-tags
+                          >
+                            <div v-for="category in options.entities.categories"
+                                 :key="category.id">
+                              <div
+                                class="am-drop-parent"
+                                @click="selectAllInCategoryTaxes(category.id)"
+                              >
+                                <span>{{ category.name }}</span>
+                              </div>
+                              <el-option
+                                v-for="service in category.serviceList"
+                                :key="service.id"
+                                :label="service.name"
+                                :value="service.id"
+                                class="am-drop-child"
+                              >
+                              </el-option>
+                            </div>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+
+                      <!-- Extras Filter -->
+                      <el-col :md="24" :lg="5">
+                        <el-form-item>
+                          <el-select
+                            v-model="taxesParams.extras"
+                            multiple
+                            filterable
+                            :placeholder="$root.labels.extras"
+                            @change="filterTaxes"
+                            collapse-tags
+                          >
+                            <div v-for="service in options.entities.services"
+                                 :key="service.id"
+                                 v-if="service.extras.length">
+                              <div
+                                class="am-drop-parent"
+                                @click="selectAllInServiceTaxes(service.id)"
+                              >
+                                <span>{{ service.name }} ({{getCategoryById(service.categoryId).name}})</span>
+                              </div>
+                              <el-option
+                                v-for="extra in service.extras"
+                                :key="extra.id"
+                                :label="extra.name"
+                                :value="extra.id"
+                                class="am-drop-child"
+                              >
+                              </el-option>
+                            </div>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+
+                      <!-- Packages Filter -->
+                      <el-col :md="24" :lg="5">
+                        <el-form-item>
+                          <el-select
+                            v-model="taxesParams.packages"
+                            multiple
+                            filterable
+                            :placeholder="$root.labels.packages"
+                            @change="filterTaxes"
+                            collapse-tags
+                          >
+                            <el-option
+                              v-for="pack in options.entities.packages"
+                              :key="pack.id"
+                              :label="pack.name"
+                              :value="pack.id"
+                              class="am-drop-child"
+                            >
+                            </el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+
+                      <!-- Events Filter -->
+                      <el-col :md="24" :lg="5">
+                        <el-form-item>
+                          <el-select
+                            v-model="taxesParams.events"
+                            multiple
+                            filterable
+                            :placeholder="$root.labels.events"
+                            @change="filterTaxes"
+                            collapse-tags
+                          >
+                            <el-option
+                              v-for="event in options.entities.events"
+                              :key="event.id"
+                              :label="event.name + ( event.periods && event.periods.length ? ' (' + getFrontedFormattedDate(event.periods[0].periodStart.split(' ')[0]) + ')' : '')"
+                              :value="event.id"
+                              class="am-drop-child"
+                            >
+                            </el-option>
+                          </el-select>
+                        </el-form-item>
+                      </el-col>
+
+                    </div>
+                  </transition>
+
+                  <!-- Toggle More Filters -->
+                  <div class="">
+                    <el-button class="button-filter-toggle am-button-icon" title="Toggle Filters" style="right: 8px;"
+                               @click="filterTaxesFields = !filterTaxesFields">
+                      <img class="svg-amelia" alt="Toggle Filters"
+                           :src="$root.getUrl+'public/img/filter.svg'"/>
+                    </el-button>
+                  </div>
+                </el-row>
+              </el-form>
+            </div>
+
+            <!-- Spinner -->
+            <div class="am-spinner am-section"
+                 v-show="isTaxesFiltering || !options.fetched"
+            >
+              <img :src="$root.getUrl + 'public/img/spinner.svg'"/>
+            </div>
+
+            <!-- Empty State -->
+            <EmptyState
+              :visible="!hasTaxes && !isTaxesFiltering"
+              :licence="'basic'"
+              :title="$root.labels.no_taxes_yet"
+            >
+            </EmptyState>
+            <!-- /Empty State -->
+
+            <!-- Taxes Table Header -->
+            <div
+              class="am-finance-list-head"
+              v-show="hasTaxes && hasTaxesFiltered && !isTaxesFiltering && options.fetched"
+            >
+              <el-row>
+
+                <!-- Checkbox, Name, Amount -->
+                <el-col :lg="7">
+                  <el-row :gutter="10" class="am-finance-flex-row-middle-align">
+
+                    <!-- Checkbox -->
+                    <el-col :lg="2" v-if="$root.settings.capabilities.canDelete === true">
+                      <p>
+                        <el-checkbox
+                          v-model="checkTaxData.allChecked"
+                          @change="checkTaxData = handleCheckAll(coupons, checkTaxData)">
+                        </el-checkbox>
+                      </p>
+                    </el-col>
+
+                    <!-- Name -->
+                    <el-col :lg="11">
+                      <p>{{ $root.labels.name }}:</p>
+                    </el-col>
+
+                    <!-- Rate -->
+                    <el-col :lg="11">
+                      <p>{{ $root.labels.rate }}:</p>
+                    </el-col>
+
+                  </el-row>
+                </el-col>
+
+                <!-- Service, Extra, Event, Package -->
+                <el-col :lg="17">
+                  <el-row :gutter="10" class="am-finance-flex-row-middle-align">
+
+                    <el-col :lg="0" class="hide-on-mobile"></el-col>
+
+                    <!-- Service -->
+                    <el-col :lg="5">
+                      <p>{{ $root.labels.service }}:</p>
+                    </el-col>
+
+                    <!-- Extra -->
+                    <el-col :lg="5">
+                      <p>{{ $root.labels.extra }}:</p>
+                    </el-col>
+
+                    <!-- Package -->
+                    <el-col :lg="5">
+                      <p>{{ $root.labels.package }}:</p>
+                    </el-col>
+
+                    <!-- Event -->
+                    <el-col :lg="5">
+                      <p>{{ $root.labels.event }}:</p>
+                    </el-col>
+
+                  </el-row>
+                </el-col>
+
+              </el-row>
+            </div>
+
+            <div
+              class="am-finance-list"
+              v-show="hasTaxes && hasTaxesFiltered && !isTaxesFiltering && options.fetched"
+            >
+              <div v-for="tax in taxes"
+                   :class="{'am-coupon-row am-hidden-entity' : tax.status === 'hidden', 'am-coupon-row' : tax.status === 'visible'}"
+              >
+                <el-row>
+
+                  <!-- Checkbox, Name, Amount -->
+                  <el-col :lg="7">
+                    <el-row :gutter="10" class="am-finance-flex-row-middle-align">
+
+                      <!-- Checkbox -->
+                      <el-col :lg="2" :sm="1" v-if="$root.settings.capabilities.canDelete === true">
+                        <span @click.stop>
+                          <el-checkbox
+                            v-model="tax.checked"
+                            @change="checkTaxData = handleCheckSingle(taxes, checkTaxData)"
+                          >
+                          </el-checkbox>
+                        </span>
+                      </el-col>
+
+                      <!-- Name -->
+                      <el-col :lg="11" :sm="11">
+                        <p class="am-col-title">{{ $root.labels.name }}:</p>
+                        <h4>{{ tax.name }}</h4>
+                      </el-col>
+
+                      <!-- Rate -->
+                      <el-col :lg="11" :sm="11">
+                        <p class="am-col-title">{{ $root.labels.rate }}:</p>
+                        <h4>{{ tax.type === 'percentage' ? tax.amount + '%' : getFormattedPrice(tax.amount) }}</h4>
+                      </el-col>
+
+                    </el-row>
+                  </el-col>
+
+                  <!-- Service, Extra, Event, Package -->
+                  <el-col :lg="17">
+                    <el-row :gutter="10" class="am-finance-flex-row-middle-align">
+
+                      <el-col :lg="0" :sm="1" class="hide-on-mobile"></el-col>
+
+                      <!-- Service -->
+                      <el-col :lg="5" :sm="9">
+                        <p class="am-col-title">{{ $root.labels.service }}:</p>
+                        <h4>
+                          {{tax.serviceList.length > 0 ? (tax.serviceList[0].name) : ''}}
+                          <br>
+                          <span>
+                            {{
+                              (tax.serviceList.length > 1
+                                ? (tax.serviceList.length === 2 ?
+                                    ('+' + (tax.serviceList.length - 1) + ' ' + $root.labels.service)
+                                    : ('+' + (tax.serviceList.length - 1) + ' ' + $root.labels.services)
+                                )
+                                : '')
+                            }}
+                          </span>
+                        </h4>
+                      </el-col>
+
+                      <!-- Extra -->
+                      <el-col :lg="5" :sm="9">
+                        <p class="am-col-title">{{ $root.labels.extra }}:</p>
+                        <h4>
+                          {{tax.extraList.length > 0 ? (tax.extraList[0].name) : ''}}
+                          <br>
+                          <span>
+                            {{
+                              (tax.extraList.length > 1
+                                ? (tax.extraList.length === 2 ?
+                                    ('+' + (tax.extraList.length - 1) + ' ' + $root.labels.extra)
+                                    : ('+' + (tax.extraList.length - 1) + ' ' + $root.labels.extras)
+                                )
+                                : '')
+                            }}
+                          </span>
+                        </h4>
+                      </el-col>
+
+                      <!-- Package -->
+                      <el-col :lg="5" :sm="9">
+                        <p class="am-col-title">{{ $root.labels.package }}:</p>
+                        <h4>
+                          {{tax.packageList.length > 0 ? (tax.packageList[0].name) : ''}}
+                          <br>
+                          <span>
+                            {{
+                              (tax.packageList.length > 1
+                                ? (tax.packageList.length === 2 ?
+                                    ('+' + (tax.packageList.length - 1) + ' ' + $root.labels.package)
+                                    : ('+' + (tax.packageList.length - 1) + ' ' + $root.labels.packages)
+                                )
+                                : '')
+                            }}
+                          </span>
+                        </h4>
+                      </el-col>
+
+                      <!-- Event -->
+                      <el-col :lg="5" :sm="9">
+                        <p class="am-col-title">{{ $root.labels.event }}:</p>
+                        <h4>
+                          {{tax.eventList.length > 0 ? (tax.eventList[0].name) : ''}}
+                          <br>
+                          <span>
+                            {{
+                              (tax.eventList.length > 1
+                                ? (tax.eventList.length === 2 ?
+                                    ('+' + (tax.eventList.length - 1) + ' ' + $root.labels.event)
+                                    : ('+' + (tax.eventList.length - 1) + ' ' + $root.labels.events)
+                                )
+                                : '')
+                            }}
+                          </span>
+                        </h4>
+                      </el-col>
+
+                      <!-- Edit Button -->
+                      <el-col :lg="4" :sm="4" class="align-right">
+                        <div @click.stop>
+                          <el-button @click="showDialogEditTax(tax.id)">{{ $root.labels.edit }}</el-button>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+
+            <!-- No Results -->
+            <div class="am-empty-state am-section"
+                 v-show="hasTaxes && !hasTaxesFiltered && !isTaxesFiltering && options.fetched">
+              <img :src="$root.getUrl + 'public/img/emptystate.svg'">
+              <h2>{{ $root.labels.no_results }}</h2>
+            </div>
+
+            <!-- Pagination -->
+            <pagination-block
+              :params="taxesParams"
+              :count="taxesFilteredCount"
+              :label="$root.labels.taxes_lower"
+              :visible="hasTaxes && hasTaxesFiltered && !isTaxesFiltering && options.fetched"
+              @change="filterTaxes"
+            >
+            </pagination-block>
+          </el-tab-pane>
+
+          <el-tab-pane
+            name="invoices"
+          >
+
           </el-tab-pane>
 
         </el-tabs>
@@ -905,6 +1296,18 @@
 
       <!-- Selected Popover Delete -->
       <group-delete
+        name="taxes"
+        :entities="taxes"
+        :checkGroupData="checkTaxData"
+        :confirmDeleteMessage="$root.labels.confirm_delete_tax"
+        :successMessage="{single: $root.labels.tax_deleted, multiple: $root.labels.taxes_deleted}"
+        :errorMessage="{single: $root.labels.tax_not_deleted, multiple: $root.labels.taxes_not_deleted}"
+        @groupDeleteCallback="taxGroupDeleteCallback"
+      >
+      </group-delete>
+
+      <!-- Selected Popover Delete -->
+      <group-delete
           name="coupons"
           :entities="coupons"
           :checkGroupData="checkCouponData"
@@ -914,6 +1317,31 @@
           @groupDeleteCallback="couponGroupDeleteCallback"
       >
       </group-delete>
+
+      <!-- Dialog Tax -->
+      <transition name="slide" v-if="$root.settings.payments.taxes.enabled">
+        <el-dialog
+          :close-on-click-modal="false"
+          class="am-side-dialog am-dialog-coupon"
+          :visible.sync="dialogTax"
+          :show-close="false"
+          v-if="dialogTax"
+        >
+          <dialog-tax
+            :tax="tax"
+            :taxes="taxes"
+            :services="options.entities.services"
+            :extras="options.entities.extras"
+            :events="options.entities.events"
+            :packages="options.entities.packages"
+            :taxFetched="taxFetched"
+            @closeDialog="closeDialogTax()"
+            @saveCallback="savedTax"
+            @duplicateCallback="duplicateTaxCallback"
+          >
+          </dialog-tax>
+        </el-dialog>
+      </transition>
 
       <!-- Dialog Coupon -->
       <transition name="slide" v-if="$root.settings.payments.coupons">
@@ -931,7 +1359,7 @@
               :packages="options.entities.packages"
               :couponFetched="couponFetched"
               @closeDialog="closeDialogCoupon()"
-              @saveCallback="fetchData"
+              @saveCallback="savedCoupon"
               @duplicateCallback="duplicateCouponCallback"
           >
           </dialog-coupon>
@@ -975,11 +1403,13 @@
 <script>
   import PageHeader from '../parts/PageHeader.vue'
   import Form from 'form-object'
+  import stashMixin from '../../../js/backend/mixins/stashMixin'
   import licenceMixin from '../../../js/common/mixins/licenceMixin'
   import customerMixin from '../../../js/backend/mixins/customerMixin'
   import imageMixin from '../../../js/common/mixins/imageMixin'
   import dateMixin from '../../../js/common/mixins/dateMixin'
   import checkMixin from '../../../js/backend/mixins/checkMixin'
+  import DialogTax from './DialogFinanceTax.vue'
   import DialogCoupon from './DialogFinanceCoupon.vue'
   import DialogPayment from './DialogFinancePayment.vue'
   import DialogExport from '../parts/DialogExport.vue'
@@ -993,10 +1423,12 @@
   //import DialogNewCustomize from '../parts/DialogNewCustomize.vue'
   import appointmentPriceMixin from '../../../js/backend/mixins/appointmentPriceMixin'
   import moment from "moment/moment";
+  import eventMixin from '../../../js/backend/mixins/eventMixin'
 
   export default {
 
     mixins: [
+      stashMixin,
       licenceMixin,
       customerMixin,
       paymentMixin,
@@ -1007,7 +1439,8 @@
       notifyMixin,
       priceMixin,
       helperMixin,
-      appointmentPriceMixin
+      appointmentPriceMixin,
+      eventMixin
     ],
 
     data () {
@@ -1016,6 +1449,11 @@
         bookingFetched: false,
         paymentsFilteredCount: 0,
         paymentsTotalCount: 0,
+
+        taxFetched: false,
+        taxesFilteredCount: 0,
+        taxesTotalCount: 0,
+
         couponFetched: false,
         couponsFilteredCount: 0,
         couponsTotalCount: 0,
@@ -1023,20 +1461,31 @@
         displayTotalCount: 0,
 
         paymentsFiltering: false,
+        taxesFiltering: false,
         couponsFiltering: false,
 
         fetchedFilteredPayments: false,
+        fetchedFilteredTaxes: false,
         fetchedFilteredCoupons: false,
 
+        addNewTaxBtnDisplay: false,
         addNewCouponBtnDisplay: false,
+
+        dialogTax: false,
         dialogCoupon: false,
         dialogPayment: false,
 
+        tax: null,
         coupon: null,
 
         form: new Form(),
 
         checkPaymentData: {
+          toaster: false,
+          allChecked: false
+        },
+
+        checkTaxData: {
           toaster: false,
           allChecked: false
         },
@@ -1050,6 +1499,8 @@
           entities: {
             events: [],
             services: [],
+            packages: [],
+            extras: [],
             employees: [],
             customers: []
           },
@@ -1088,6 +1539,15 @@
         },
         exportPaymentsAction: '',
 
+        taxesParams: {
+          page: 1,
+          status: '',
+          services: [],
+          extras: [],
+          events: [],
+          packages: [],
+          search: ''
+        },
         couponsParams: {
           page: 1,
           status: '',
@@ -1136,12 +1596,16 @@
 
         // Filter
         filterPaymentsFields: true,
+        filterTaxesFields: true,
+        searchTaxesPlaceholder: this.$root.labels.finance_taxes_search_placeholder,
+
         filterCouponsFields: true,
-        searchPlaceholder: this.$root.labels.finance_coupons_search_placeholder,
+        searchCouponsPlaceholder: this.$root.labels.finance_coupons_search_placeholder,
 
         // Finance
         financeTabs: 'payments',
         payments: [],
+        taxes: [],
         coupons: [],
 
         timer: null
@@ -1174,7 +1638,16 @@
 
       if (urlParams['status']) { this.paymentsParams.status = urlParams['status'] }
 
-      this.fetchData()
+      this.getPayments()
+
+      if (this.$root.settings.payments.taxes.enabled) {
+        this.getTaxes()
+      }
+
+      if (this.$root.settings.payments.coupons) {
+        this.getCoupons()
+      }
+
       this.handleResize()
       this.getFinanceOptions()
     },
@@ -1227,8 +1700,13 @@
         return 'pending'
       },
 
-      fetchData () {
-        this.getPayments()
+      savedTax () {
+        this.updateStashEntities({})
+        this.getTaxes()
+      },
+
+      savedCoupon () {
+        this.updateStashEntities({})
         this.getCoupons()
       },
 
@@ -1281,12 +1759,6 @@
             this.paymentsFilteredCount = response.data.data.filteredCount
             this.paymentsTotalCount = response.data.data.totalCount
 
-            if (this.financeTabs === 'coupons') {
-              this.displayTotalCount = this.couponsTotalCount
-            } else {
-              this.displayTotalCount = this.paymentsTotalCount
-            }
-
             this.paymentsFiltering = false
             this.fetchedFilteredPayments = true
           })
@@ -1296,6 +1768,22 @@
             this.paymentsFiltering = false
             this.fetchedFilteredPayments = true
           })
+      },
+
+      getTotal () {
+        switch (this.financeTabs) {
+          case ('payments'):
+            return this.paymentsFilteredCount
+
+          case ('coupons'):
+            return this.couponsFilteredCount
+
+          case ('taxes'):
+            return this.taxesFilteredCount
+
+          case ('invoices'):
+            return 0
+        }
       },
 
       getFinanceOptions () {
@@ -1331,12 +1819,79 @@
 
             this.options.entities.services = this.getServicesFromCategories(this.options.entities.categories)
 
+            let extras = []
+
+            this.options.entities.services.forEach((service) => {
+              extras = extras.concat(service.extras)
+            })
+
+            this.options.entities.extras = extras
+
+            this.setEntitiesToTaxes()
+
             this.options.fetched = true
+
+            this.searchedEvents = this.options.entities.events
           })
           .catch(e => {
             console.log(e.message)
 
             this.options.fetched = true
+          })
+      },
+
+      setEntitiesToTaxes () {
+        this.taxes.forEach((tax, taxIndex) => {
+          ['service', 'extra', 'event', 'package'].forEach((type) => {
+            tax[type + 'List'].forEach((item, itemIndex) => {
+              let entity = this.options.entities[type + 's'].find(i => i.id === item.id)
+
+              if (typeof entity !== undefined && entity) {
+                this.taxes[taxIndex][type + 'List'][itemIndex] = entity
+              }
+            })
+          })
+        })
+      },
+
+      getTaxes () {
+        if (this.$root.licence.isLite || this.$root.licence.isStarter) {
+          this.taxesFiltering = false
+
+          this.fetchedFilteredTaxes = false
+
+          return
+        }
+
+        this.taxesFiltering = true
+        this.fetchedFilteredTaxes = false
+
+        let params = JSON.parse(JSON.stringify(this.taxesParams))
+
+        Object.keys(params).forEach((key) => (!params[key] && params[key] !== 0) && delete params[key])
+
+        this.$http.get(`${this.$root.getAjaxUrl}/taxes`, {
+          params: params
+        })
+          .then(response => {
+            response.data.data.taxes.forEach(function (taxItem) {
+              taxItem.checked = false
+            })
+
+            this.taxes = response.data.data.taxes
+            this.taxesFilteredCount = response.data.data.filteredCount
+            this.taxesTotalCount = response.data.data.totalCount
+
+            this.setEntitiesToTaxes()
+
+            this.taxesFiltering = false
+            this.fetchedFilteredTaxes = true
+          })
+          .catch(e => {
+            console.log(e.message)
+
+            this.taxesFiltering = false
+            this.fetchedFilteredTaxes = true
           })
       },
 
@@ -1367,12 +1922,6 @@
             this.coupons = response.data.data.coupons
             this.couponsFilteredCount = response.data.data.filteredCount
             this.couponsTotalCount = response.data.data.totalCount
-
-            if (this.financeTabs === 'coupons') {
-              this.displayTotalCount = this.couponsTotalCount
-            } else {
-              this.displayTotalCount = this.paymentsTotalCount
-            }
 
             this.couponsFiltering = false
             this.fetchedFilteredCoupons = true
@@ -1438,19 +1987,49 @@
         this.selectedPaymentModalData.bookings[0] = {
           price: payment.bookedPrice,
           payments: [payment].concat(payment.secondaryPayments ? Object.values(payment.secondaryPayments) : []),
+          tax: payment.bookedTax ? JSON.parse(payment.bookedTax) : null,
           extras: []
         }
 
         this.bookingFetched = true
       },
 
+      getTax (taxId) {
+        this.$http.get(`${this.$root.getAjaxUrl}/taxes/` + taxId)
+          .then(response => {
+            let tax = response.data.data.tax
+
+            let servicesIds = this.options.entities.services.map(service => service.id)
+
+            tax.serviceList = tax.serviceList.filter(service => servicesIds.indexOf(service.id) !== -1)
+
+            let extrasIds = []
+
+            this.options.entities.services.forEach((service) => {
+              extrasIds = extrasIds.concat(service.extras.map(extra => extra.id))
+            })
+
+            tax.extraList = tax.extraList.filter(extra => extrasIds.indexOf(extra.id) !== -1)
+
+            let eventsIds = this.options.entities.events.map(event => event.id)
+
+            tax.eventList = tax.eventList.filter(event => eventsIds.indexOf(event.id) !== -1)
+
+            let packagesIds = this.options.entities.packages.map(pack => pack.id)
+
+            tax.packageList = tax.packageList.filter(pack => packagesIds.indexOf(pack.id) !== -1)
+
+            this.tax = tax
+            this.taxFetched = true
+          })
+          .catch(e => {
+            console.log(e.message)
+          })
+      },
+
       getCoupon (couponId) {
         this.$http.get(`${this.$root.getAjaxUrl}/coupons/` + couponId)
           .then(response => {
-            response.data.data.coupon.serviceList.forEach(function (coupItem) {
-              coupItem.checked = true
-            })
-
             let coupon = response.data.data.coupon
 
             coupon.expirationDate = coupon.expirationDate ? this.getDate(coupon.expirationDate) : null
@@ -1474,13 +2053,21 @@
       paymentGroupDeleteCallback () {
         this.checkPaymentData.allChecked = false
         this.checkPaymentData.toaster = false
-        this.fetchData()
+        this.getPayments()
+      },
+
+      taxGroupDeleteCallback () {
+        this.checkTaxData.allChecked = false
+        this.checkTaxData.toaster = false
+        this.updateStashEntities({})
+        this.getTaxes()
       },
 
       couponGroupDeleteCallback () {
         this.checkCouponData.allChecked = false
         this.checkCouponData.toaster = false
-        this.fetchData()
+        this.updateStashEntities({})
+        this.getCoupons()
       },
 
       changeRange () {
@@ -1493,13 +2080,25 @@
         this.getPayments()
       },
 
+      filterTaxes () {
+        this.getTaxes()
+      },
+
       filterCoupons () {
         this.getCoupons()
       },
 
       updatePaymentCallback () {
         this.dialogPayment = false
-        this.fetchData()
+        this.getPayments()
+      },
+
+      duplicateTaxCallback (tax) {
+        setTimeout(() => {
+          this.$set(this, 'tax', tax)
+          this.$set(this.tax, 'id', 0)
+          this.dialogTax = true
+        }, 300)
       },
 
       duplicateCouponCallback (coupon) {
@@ -1512,12 +2111,23 @@
 
       handleResize () {
         this.filterPaymentsFields = window.innerWidth >= 992
+        this.filterTaxesFields = window.innerWidth >= 992
         this.filterCouponsFields = window.innerWidth >= 992
+      },
+
+      showDialogNewTax () {
+        this.tax = this.getInitTaxObject()
+        this.dialogTax = true
       },
 
       showDialogNewCoupon () {
         this.coupon = this.getInitCouponObject()
         this.dialogCoupon = true
+      },
+
+      showDialogEditTax (taxId) {
+        this.dialogTax = true
+        this.getTax(taxId)
       },
 
       showDialogEditCoupon (couponId) {
@@ -1543,9 +2153,17 @@
 
       handleTabClick (tab) {
         if (tab.name === 'coupons') {
+          this.addNewTaxBtnDisplay = false
           this.addNewCouponBtnDisplay = true
           this.displayTotalCount = this.couponsTotalCount
+        } else if (tab.name === 'taxes') {
+          this.addNewTaxBtnDisplay = true
+          this.addNewCouponBtnDisplay = false
+          this.displayTotalCount = this.taxesTotalCount
+        } else if (tab.name === 'invoices') {
+
         } else {
+          this.addNewTaxBtnDisplay = false
           this.addNewCouponBtnDisplay = false
           this.displayTotalCount = this.paymentsTotalCount
         }
@@ -1565,6 +2183,34 @@
         this.filterPayments()
       },
 
+      selectAllInCategoryTaxes (id) {
+        let services = this.getCategoryServices(id)
+        let servicesIds = services.map(service => service.id)
+
+        // Deselect all services if they are already selected
+        if (_.isEqual(_.intersection(servicesIds, this.taxesParams.services), servicesIds)) {
+          this.taxesParams.services = _.difference(this.taxesParams.services, servicesIds)
+        } else {
+          this.taxesParams.services = _.uniq(this.taxesParams.services.concat(servicesIds))
+        }
+
+        this.filterTaxes()
+      },
+
+      selectAllInServiceTaxes (id) {
+        let service = this.getServiceById(id)
+        let extrasIds = service.extras.map(extra => extra.id)
+
+        // Deselect all extras if they are already selected
+        if (_.isEqual(_.intersection(extrasIds, this.taxesParams.extras), extrasIds)) {
+          this.taxesParams.extras = _.difference(this.taxesParams.extras, extrasIds)
+        } else {
+          this.taxesParams.extras = _.uniq(this.taxesParams.extras.concat(extrasIds))
+        }
+
+        this.filterTaxes()
+      },
+
       selectAllInCategoryCoupons (id) {
         let services = this.getCategoryServices(id)
         let servicesIds = services.map(service => service.id)
@@ -1577,6 +2223,20 @@
         }
 
         this.filterCoupons()
+      },
+
+      getInitTaxObject () {
+        return {
+          id: 0,
+          name: '',
+          amount: 0,
+          type: 'percentage',
+          status: 'visible',
+          serviceList: [],
+          extraList: [],
+          eventList: [],
+          packageList: []
+        }
       },
 
       getInitCouponObject () {
@@ -1601,6 +2261,12 @@
         this.bookingFetched = false
       },
 
+      closeDialogTax () {
+        this.tax = null
+        this.dialogTax = false
+        this.taxFetched = false
+      },
+
       closeDialogCoupon () {
         this.coupon = null
         this.dialogCoupon = false
@@ -1609,6 +2275,11 @@
     },
 
     watch: {
+      'taxesParams.search' () {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(this.filterTaxes, 500)
+      },
+
       'couponsParams.search' () {
         clearTimeout(this.timer)
         this.timer = setTimeout(this.filterCoupons, 500)
@@ -1617,6 +2288,13 @@
       'dialogPayment' () {
         if (this.dialogPayment === false) {
           this.bookingFetched = false
+        }
+      },
+
+      'dialogTax' () {
+        if (this.dialogTax === false) {
+          this.taxFetched = false
+          this.tax = null
         }
       },
 
@@ -1641,6 +2319,18 @@
         return this.paymentsFiltering && this.financeTabs === 'payments'
       },
 
+      hasTaxes () {
+        return this.taxesTotalCount !== 0
+      },
+
+      hasTaxesFiltered () {
+        return this.taxes.length !== 0
+      },
+
+      isTaxesFiltering () {
+        return this.taxesFiltering && this.financeTabs === 'taxes'
+      },
+
       hasCoupons () {
         return this.couponsTotalCount !== 0
       },
@@ -1656,6 +2346,7 @@
 
     components: {
       PageHeader,
+      DialogTax,
       DialogCoupon,
       DialogPayment,
       DialogExport,

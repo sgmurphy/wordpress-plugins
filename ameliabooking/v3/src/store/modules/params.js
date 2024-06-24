@@ -20,7 +20,8 @@ export default {
     },
     shortcodeParams: {
       ids: null,
-      tags: null
+      tags: null,
+      locations: null
     }
   }),
 
@@ -42,21 +43,23 @@ export default {
     },
 
     getEventParams (state) {
-      return {
-        dates: [getDateString(state.params.dates)],
-        id: state.params.id ? state.params.id : state.shortcodeParams.ids,
-        search: state.params.search,
-        locationId: state.params.locationId,
-        tag: state.params.tag ? state.params.tag : state.shortcodeParams.tags,
-        recurring: state.params.recurring,
-        providers: state.params.providers
-      }
+      return Object.assign({
+          dates: [getDateString(state.params.dates)],
+          id: state.params.id ? state.params.id : state.shortcodeParams.ids,
+          search: state.params.search,
+          tag: state.params.tag ? state.params.tag : state.shortcodeParams.tags,
+          recurring: state.params.recurring,
+          providers: state.params.providers
+        },
+ state.params.locationId ? {locationId: state.params.locationId} : {locations: state.shortcodeParams.locations}
+      )
     },
 
     getShortcodeParams (state) {
       return {
         ids: state.shortcodeParams.ids,
-        tags: state.shortcodeParams.tags
+        tags: state.shortcodeParams.tags,
+        locations: state.shortcodeParams.locations
       }
     },
 
@@ -103,6 +106,13 @@ export default {
       }
       if (urlParameters && urlParameters.ameliaEventTag) {
         state.shortcodeParams.tags = urlParameters.ameliaEventTag.split(',')
+      }
+
+      if (payload.locationId) {
+        state.shortcodeParams.locations = payload.locationId.split(',')
+      }
+      if (urlParameters && urlParameters.ameliaLocationId) {
+        state.shortcodeParams.locations = urlParameters.ameliaLocationId.split(',')
       }
 
       if (payload.eventRecurring) {

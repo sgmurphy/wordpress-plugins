@@ -25,7 +25,11 @@ class GetMeta{
     function single_doc_callback(\WP_REST_Request $request){
         $response = [];
         $params = $request->get_params();
-        $id = $params['id'];
+        $id = $params['id'] ?? null;
+
+        if(!$id){
+            return new \WP_REST_Response(null);
+        }
 
         $data = $this->get_data($id);
         // $video = ['data' => 'no data available'];

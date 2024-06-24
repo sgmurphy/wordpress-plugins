@@ -126,7 +126,7 @@ class HTMega_Elementor_Widget_Slider_Thumb_Gallery extends Widget_Base {
 
                         [
                             'slider_title'           => __('Location Name Here.','htmega-addons'),
-                            'slider_sub_title'           => __('','htmega-addons'),
+                            'slider_sub_title'           => '',
                         ],
 
                     ],

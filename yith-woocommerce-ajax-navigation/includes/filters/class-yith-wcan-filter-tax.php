@@ -666,7 +666,7 @@ if ( ! class_exists( 'YITH_WCAN_Filter_Tax' ) ) {
 				$term_ids = array_unique( array_merge( $active_term_ids, $term_ids ) );
 			}
 
-			$this->sorted_term_ids = array_values( $term_ids );
+			$this->sorted_term_ids = is_array( $term_ids ) ? array_values( $term_ids ) : array();
 
 			return $this->sorted_term_ids;
 		}

@@ -51,13 +51,11 @@ if ( ! class_exists( 'YITH_WCAN_Booking_Compatibility' ) ) {
 				return $post_in;
 			}
 
-			$search_helper = YITH_WCBK()->search_form_helper;
-
-			if ( ! $search_helper ) {
+			if ( ! function_exists('yith_wcbk_search_booking_products') ) {
 				return $post_in;
 			}
 
-			$product_ids = $search_helper->search_booking_products( $request );
+			$product_ids = yith_wcbk_search_booking_products( $request );
 
 			if ( empty( $post_in ) && ! empty( $product_ids ) ) {
 				return $product_ids;

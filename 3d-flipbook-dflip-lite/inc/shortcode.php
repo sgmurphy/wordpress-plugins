@@ -53,6 +53,14 @@ class DFlip_ShortCode {
    */
   public function shortcode( $attr, $content = '' ) {
     
+    if ( $this->base->selective_script_loading == true ) {
+      //enqueue script
+      wp_enqueue_script( $this->base->plugin_slug . '-script' );
+      
+      //enqueue styles
+      wp_enqueue_style( $this->base->plugin_slug . '-style' );
+    }
+    
     $ismulti = isset( $attr['books'] ) && trim( $attr['books'] ) !== '';
     $atts_default = array(
         'class' => '',
@@ -147,7 +155,9 @@ class DFlip_ShortCode {
     
     //atts or post defaults
     $atts = shortcode_atts( $atts_default, $attr, 'dflip' );
-    
+    if($atts["type"] === "hidden"){
+      return "";
+    }
     //in PHP7 if $attr is not an array it causes issue
     if ( is_array( $attr ) == false ) {
       $attr = array();
@@ -156,12 +166,13 @@ class DFlip_ShortCode {
     
     //default data
     $id = $atts['id'] === '' ? 'df_rand' . rand() : $atts['id'];
+    $id = sanitize_title($id);
     $type = $atts['type'];
     $class = $atts['class'];
     $title = do_shortcode( $content );
     
     //get Id
-    $post_id = $atts['id'];
+    $post_id = $id;
     $hasId = false;
     $thumb_url = '';
     $thumb_tag_type = $base->get_config( 'thumb_tag_type' );
@@ -294,9 +305,9 @@ class DFlip_ShortCode {
       }
       //			$attr['slug'] = $post->post_name;
       
-      $help_tip = $base->get_help_link( $post_id );
-      $help_info = '<a href="' . $base->plugin_url . '#installation">DearFlip WordPress Flipbook Plugin Help</a>';
-      
+      $help_tip = ""; //todo remove
+      $help_info = ''; //todo remove
+      $html_attr['_slug'] = get_post( $post_id )->post_name;
     } else {
       /*handled by new attribute support*/
     }
@@ -308,7 +319,7 @@ class DFlip_ShortCode {
     } else if ( $share_slug == 'true' ) {
       $html_attr['slug'] = get_post( $post_id )->post_name;
     }
-    $html_attr['_slug'] = get_post( $post_id )->post_name;
+
     
     if ( empty( $title ) ) {
       $title = "Open Book";

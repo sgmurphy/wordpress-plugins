@@ -6,7 +6,7 @@ Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 2.2.32
+Stable tag: 2.2.54
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -281,6 +281,20 @@ We recommend to use lightbox for PDF viewer instead of PDF embed viewer. Using e
 == Changelog ==
 
 This lite version is available in WordPress plugin directory since version 1.2.8
+
+= 2.2.54: =
+* Fix: HTML output in prev-next button
+* Improvement: Auto pagemode detection in mobile
+
+= 2.2.49: =
+* Fix: 3D shadow artifact
+* Improvement: Requirejs detection improved
+* Improvement: Hash Detection improved
+* Improvement: PDF.js updated to version 3.11
+
+= 2.2.39: =
+* Fix: Security Fix related to Shortcode
+* Add: Selective loading for scripts
 
 = 2.2.32: =
 * Fix: domain url correction logic, doesn't affect subdomains

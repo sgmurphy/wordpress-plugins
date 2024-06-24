@@ -6,7 +6,7 @@ Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -289,6 +289,14 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.1.8
+*Improvement:  Implemented logic so users first see services from the selected category on the back-end
+*Improvement: Added an option to remove Service and Categories pictures
+*Improvement: Added option to insert IPLocate API Key for 1000 API requests/day in case of auto-locate phone country code
+*BugFix: Fixed issue with appointments when the customer logs in to WP-admin
+*BugFix: Fixed issue with attendees search when name has two words
+*Other small bug fixes and stability improvements
+
 V1.1.7
 *Small bug fixes and stability improvements
 

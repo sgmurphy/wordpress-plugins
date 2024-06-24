@@ -10,6 +10,8 @@ import Features from '../pages/features';
 import ImportAiSite from '../pages/import-ai-site';
 import BuildDone from '../pages/done';
 
+const skipFeatures = !! aiBuilderVars?.skipFeatures;
+
 // Steps
 const steps = [
 	{
@@ -87,23 +89,31 @@ const steps = [
 			contentClassName:
 				'px-0 pt-0 md:px-0 md:pt-0 lg:px-0 lg:pt-0 xl:px-0 xl:pt-0',
 			hideCredits: false,
+			...( skipFeatures && { screen: 'done' } ),
 		},
 		requiredStates: [ 'selectedTemplate' ],
 	},
-	{
-		path: '/features',
-		component: Features,
-		layoutConfig: {
-			stepNumber: 6,
-			name: __( 'Features', 'ai-builder' ),
-			description: __( 'Select features as you need', 'ai-builder' ),
-			screen: 'done',
-			contentClassName:
-				'px-0 pt-0 md:px-0 md:pt-0 lg:px-0 lg:pt-0 xl:px-0 xl:pt-0',
-			hideCredits: false,
-		},
-		requiredStates: [ 'websiteInfo' ],
-	},
+	...( ! skipFeatures
+		? [
+				{
+					path: '/features',
+					component: Features,
+					layoutConfig: {
+						stepNumber: 6,
+						name: __( 'Features', 'ai-builder' ),
+						description: __(
+							'Select features as you need',
+							'ai-builder'
+						),
+						contentClassName:
+							'px-0 pt-0 md:px-0 md:pt-0 lg:px-0 lg:pt-0 xl:px-0 xl:pt-0',
+						hideCredits: false,
+						screen: 'done',
+					},
+					requiredStates: [ 'websiteInfo' ],
+				},
+		  ]
+		: [] ),
 	{
 		path: '/building-website',
 		component: ImportAiSite,

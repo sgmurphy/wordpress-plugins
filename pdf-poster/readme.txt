@@ -1,10 +1,10 @@
-=== PDF Poster- PDF Embedder Plugin ===
+=== PDF Poster - PDF Embedder Plugin ===
 Contributors: abuhayat, shehabulislam, freemius,bplugins
 Tags: PDF Embedder, embed pdf, pdf viewer, pdf, pdf plugin
 Donate link: https://www.buymeacoffee.com/abuhayat/
 Requires at least: 5.0
-Tested up to: 6.5.3
-Stable tag: 2.1.21
+Tested up to: 6.5.4
+Stable tag: 2.1.22
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -151,6 +151,10 @@ If you find a conflict between our plugin and a third-party plugin, please let u
 4. Full Screen preview 
 
 == Changelog ==
+
+= 2.1.22 - 24 June, 2024 =
+* Fixed: Vulnerability
+
 
 = 2.1.21 - 25 March, 2024 =
 * Fixed: Avada Builder style broken

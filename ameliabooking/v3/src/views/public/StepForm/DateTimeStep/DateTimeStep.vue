@@ -6,10 +6,10 @@
   >
     <div v-if="limitPerEmployeeError" ref="limitError" class="am-fs__payments-error" >
       <AmAlert
-          type="error"
-          :title="limitPerEmployeeError"
-          :show-icon="true"
-          :closable="false"
+        type="error"
+        :title="limitPerEmployeeError"
+        :show-icon="true"
+        :closable="false"
       >
       </AmAlert>
     </div>
@@ -26,6 +26,9 @@
       :service-id="cartItem ? cartItem.serviceId : 0"
       :date="date"
       :slots-params="slotsParams"
+      :tax-visibility="taxVisibility"
+      :tax-label="amLabels.total_tax_colon"
+      :tax-label-incl="amLabels.incl_tax"
     ></Calendar>
 
     <!-- Recurring Appointment -->
@@ -70,7 +73,15 @@
 
 <script setup>
 import { useStore } from "vuex";
-import {ref, provide, inject, computed, onMounted, watchEffect, reactive, watch} from "vue";
+import {
+  ref,
+  provide,
+  inject,
+  computed,
+  onMounted,
+  watchEffect,
+  reactive
+} from "vue";
 import AmButton from "../../../_components/button/AmButton.vue";
 import AmSlidePopup from "../../../_components/slide-popup/AmSlidePopup.vue";
 import Calendar from "../../Parts/Calendar.vue";
@@ -90,12 +101,16 @@ import {
   usePaymentError,
   useBusySlots,
 } from "../../../../assets/js/common/appointments.js";
-import {useCart, useCartItem} from '../../../../assets/js/public/cart'
+import {
+  useCart,
+  useCartItem
+} from '../../../../assets/js/public/cart'
 import PackagesPopup from "../PakagesStep/parts/PackagesPopup";
 import { useCurrentUser } from "../../../../assets/js/public/user";
 import { defaultCustomizeSettings } from "../../../../assets/js/common/defaultCustomize";
 import AmAlert from "../../../_components/alert/AmAlert.vue";
-import {useScrollTo} from "../../../../assets/js/common/scrollElements";
+import { useScrollTo } from "../../../../assets/js/common/scrollElements";
+import { useTaxVisibility } from "../../../../assets/js/common/pricing";
 
 let props = defineProps({
   globalClass: {
@@ -120,7 +135,34 @@ let busyTimeSlotsVisibility = computed(() => {
 
 const store = useStore()
 
-const amLabels = inject('amLabels')
+// * Amelia Settings
+const amSettings = inject('settings')
+
+// * Labels
+const globalLabels = inject('labels')
+
+// * local language short code
+const localLanguage = inject('localLanguage')
+
+// * if local lang is in settings lang
+let langDetection = computed(() => amSettings.general.usedLanguages.includes(localLanguage.value))
+
+// * Computed labels
+let amLabels = computed(() => {
+  let computedLabels = reactive({...globalLabels})
+
+  if (amSettings.customizedData && amSettings.customizedData.sbsNew && amSettings.customizedData.sbsNew.dateTimeStep.translations) {
+    let customizedLabels = amSettings.customizedData.sbsNew.dateTimeStep.translations
+    Object.keys(customizedLabels).forEach(labelKey => {
+      if (customizedLabels[labelKey][localLanguage.value] && langDetection.value) {
+        computedLabels[labelKey] = customizedLabels[labelKey][localLanguage.value]
+      } else if (customizedLabels[labelKey].default) {
+        computedLabels[labelKey] = customizedLabels[labelKey].default
+      }
+    })
+  }
+  return computedLabels
+})
 
 let date = computed(() => {
   return cartItem.value &&
@@ -139,6 +181,14 @@ let time = computed(() => {
 let cart = useCart(store)
 
 let cartItem = computed(() => useCartItem(store))
+
+let taxVisibility = computed(() => {
+  let visible = amCustomize.dateTimeStep.options.tax?.visibility ?? true
+  if (cartItem.value && visible) {
+    return useTaxVisibility(store, cartItem.value.serviceId, 'service')
+  }
+  return false
+})
 
 let slotsParams = computed(() => {
   return useAppointmentParams(store)

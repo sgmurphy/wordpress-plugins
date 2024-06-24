@@ -1,7 +1,7 @@
 <template>
   <div class="am-dialog-table">
     <div v-if="appointment.bookings.length > 0">
-      <div v-for="booking in appointment.bookings" class="am-customer-extras">
+      <div v-for="booking in appointment.bookings" class="am-customer-extras" v-if="booking.id">
         <el-row class="am-customer-extras-data">
           <el-col>
             <h3 :class="getNoShowClass(booking.customerId)">{{ booking.customer.firstName }} {{ booking.customer.lastName }}</h3>
@@ -104,32 +104,35 @@
               {{ getFormattedPrice((discount = getBookingDiscount(booking)) > (subtotal = getBookingSubtotal(booking)) ? subtotal : discount) }}
             </el-col>
 
-            <el-col :span="14" class="align-right" v-if="getBookingTax(booking)">
+            <el-col :span="14" class="align-right">
               {{ $root.labels.tax }}:
+            </el-col>
+            <el-col :span="10" class="align-right">
+              {{ getFormattedPrice(booking.taxTotalPrice) }}
+            </el-col>
+
+            <el-col :span="14" class="align-right" v-if="getBookingTax(booking)">
+              {{ $root.labels.tax }} (Woo):
             </el-col>
             <el-col :span="10" class="align-right" v-if="getBookingTax(booking)">
               {{ getFormattedPrice(getBookingTax(booking)) }}
             </el-col>
 
             <el-col :span="14" class="align-right">
-              <span v-if="booking.payments.length === 1">{{ $root.labels.paid }}</span>
-              <span v-if="booking.payments.length > 1">{{ $root.labels.paid_deposit }}</span>
+              <span v-if="booking.payments.length === 1">{{ $root.labels.paid }}:</span>
+              <span v-if="booking.payments.length > 1">{{ $root.labels.paid_deposit }}:</span>
             </el-col>
             <el-col :span="10" class="align-right">
-              <el-row style="margin-bottom: 0">
-                <span v-if="booking.payments.length === 1">{{ getFormattedPrice(booking.payments.filter(p => p.status !== 'pending' && p.status !== 'refunded').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
-                <span v-if="booking.payments.length > 1">{{ getFormattedPrice(booking.payments.filter(p => p.status === 'partiallyPaid').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
-              </el-row>
+              <span v-if="booking.payments.length === 1">{{ getFormattedPrice(booking.payments.filter(p => p.status !== 'pending' && p.status !== 'refunded').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
+              <span v-if="booking.payments.length > 1">{{ getFormattedPrice(booking.payments.filter(p => p.status === 'partiallyPaid').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
             </el-col>
 
 
             <el-col :span="14" class="align-right" v-if="booking.payments.length > 1">
-              <span>{{ $root.labels.paid_remaining_amount }}</span>
+              <span>{{ $root.labels.paid_remaining_amount }}:</span>
             </el-col>
             <el-col :span="10" class="align-right" v-if="booking.payments.length > 1">
-              <el-row style="margin-bottom: 0">
-                <span>{{ getFormattedPrice(booking.payments.filter(p => p.status === 'paid').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
-              </el-row>
+              <span>{{ getFormattedPrice(booking.payments.filter(p => p.status === 'paid').reduce((partialSum, a) => partialSum + a.amount, 0)) }}</span>
             </el-col>
 
             <el-col :span="14" class="align-right" v-if="getRefundedAmount(booking) > 0">
@@ -345,7 +348,7 @@
       },
 
       getBookingDue (booking) {
-        let due = this.getBookingTotal(booking) - (booking.payments.length > 0 ? booking.payments.filter(p => p.status !== 'refunded').reduce((partialSum, a) => partialSum + a.amount, 0) : 0)
+        let due = this.getBookingTotal(booking) - (booking.payments.length > 0 ? booking.payments.filter(p => p.status !== 'refunded' && p.status !== 'pending').reduce((partialSum, a) => partialSum + a.amount, 0) : 0)
 
         return due >= 0 ? due : 0
       },
@@ -355,7 +358,7 @@
       },
 
       getBookingTotal (booking) {
-        let total = (this.getBookingSubtotal(booking) + this.getBookingTax(booking)) - this.getBookingDiscount(booking)
+        let total = (this.getBookingSubtotal(booking) + booking.taxTotalPrice + this.getBookingTax(booking)) - this.getBookingDiscount(booking)
 
         return total >= 0 ? total : 0
       },

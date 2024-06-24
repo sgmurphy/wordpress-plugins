@@ -4,7 +4,7 @@ Plugin Name: Themesflat Addons For Elementor
 Description: The theme's components
 Author: Themesflat
 Author URI: http://themesflat-addons.com/
-Version: 2.1.3
+Version: 2.1.4
 Text Domain: themesflat-addons-for-elementor
 Domain Path: /languages
 */
@@ -192,8 +192,10 @@ final class ThemesFlat_Addon_For_Elementor_Free {
     public function tf_admin_notice_missing_main_plugin() {
         if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
 
+        
         $message = sprintf(
-            esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'themesflat-addons-for-elementor' ),
+            /* translators:plugin %1$s requires plugin %2$s to be installed and activated*/
+            esc_html__( '"%1$s" requires "%2$s" .', 'themesflat-addons-for-elementor' ),
             '<strong>' . esc_html__( 'Themesflat Addons For Elementor', 'themesflat-addons-for-elementor' ) . '</strong>',
             '<strong>' . esc_html__( 'Elementor', 'themesflat-addons-for-elementor' ) . '</strong>'
         );
@@ -204,6 +206,7 @@ final class ThemesFlat_Addon_For_Elementor_Free {
     public function admin_notice_minimum_elementor_version() {
         if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
         $message = sprintf(
+            /* translators:plugin %1$s requires plugin %2$s version %3$s or greater*/
             esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'themesflat-addons-for-elementor' ),
             '<strong>' . esc_html__( 'Themesflat Addons For Elementor', 'themesflat-addons-for-elementor' ) . '</strong>',
             '<strong>' . esc_html__( 'Elementor', 'themesflat-addons-for-elementor' ) . '</strong>',
@@ -218,6 +221,7 @@ final class ThemesFlat_Addon_For_Elementor_Free {
 
         if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
         $message = sprintf(
+           /* translators:plugin %1$s requires plugin %2$s version %3$s or greater*/
             esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'themesflat-addons-for-elementor' ),
             '<strong>' . esc_html__( 'Themesflat Addons For Elementor', 'themesflat-addons-for-elementor' ) . '</strong>',
             '<strong>' . esc_html__( 'PHP', 'themesflat-addons-for-elementor' ) . '</strong>',
@@ -369,7 +373,7 @@ final class ThemesFlat_Addon_For_Elementor_Free {
         // Update 9/8/2023
 
         require_once( __DIR__ . '/widgets/widget-video.php' );
-        \Elementor\Plugin::instance()->widgets_manager->register( new \TFVideo_Widget() ); 
+        \Elementor\Plugin::instance()->widgets_manager->register( new \TF_Addon_Video_Widget() ); 
 
         
         if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
@@ -1029,12 +1033,12 @@ final class ThemesFlat_Addon_For_Elementor_Free {
             $post_label  = ucwords( $post_type->label );
             $post_name   = $post_type->name;
             $post_option = array();
-
+            /* translators:All %s*/
             $all_posts                          = sprintf( esc_html__( 'All %s', 'themesflat-addons-for-elementor' ), $post_label );
             $post_option[ $post_name . '|all' ] = $all_posts;
 
             if ( 'pages' != $post_key ) {
-
+                /* translators:All %s Archive*/
                 $all_archive                                = sprintf( esc_html__( 'All %s Archive', 'themesflat-addons-for-elementor' ), $post_label );
                 $post_option[ $post_name . '|all|archive' ] = $all_archive;
             }
@@ -1042,7 +1046,7 @@ final class ThemesFlat_Addon_For_Elementor_Free {
             if ( in_array( $post_type->name, $taxonomy->object_type ) ) {
                 $tax_label = ucwords( $taxonomy->label );
                 $tax_name  = $taxonomy->name;
-
+                /* translators:All %s Archive*/
                 $tax_archive = sprintf( esc_html__( 'All %s Archive', 'themesflat-addons-for-elementor' ), $tax_label );
 
                 $post_option[ $post_name . '|all|taxarchive|' . $tax_name ] = $tax_archive;
@@ -1607,7 +1611,7 @@ final class ThemesFlat_Addon_For_Elementor_Free {
                         $taxonomies = get_object_taxonomies( $q_obj->post_type );
                         $terms      = wp_get_post_terms( $q_obj->ID, $taxonomies );
 
-                        foreach ( $terms as $key => $term ) {
+                        foreach ( $terms as $term ) {
                             $meta_args .= " OR pm.meta_value LIKE '%\"tax-{$term->term_id}-single-{$term->taxonomy}\"%'";
                         }
 
@@ -1620,7 +1624,11 @@ final class ThemesFlat_Addon_For_Elementor_Free {
                         break;
                 }
 
-                $posts  = $wpdb->get_results( $query . ' AND (' . $meta_args . ')' . $orderby );            
+                $posts  = $wpdb->get_results( "SELECT p.ID, pm.meta_value FROM {$wpdb->postmeta} as pm
+                INNER JOIN {$wpdb->posts} as p ON pm.post_id = p.ID
+                WHERE pm.meta_key = '{$location}'
+                AND p.post_type = '{$post_type}'
+                AND p.post_status = 'publish' " . ' AND (' . $meta_args . ')' . ' ORDER BY p.post_date DESC' );            
 
                 foreach ( $posts as $local_post ) {
                     self::$current_page_data[ $post_type ][ $local_post->ID ] = array(

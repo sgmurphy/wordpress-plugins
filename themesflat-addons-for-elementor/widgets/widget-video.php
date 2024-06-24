@@ -1,8 +1,8 @@
 <?php
-class TFVideo_Widget extends \Elementor\Widget_Base {
+class TF_Addon_Video_Widget extends \Elementor\Widget_Base {
 
 	public function get_name() {
-        return 'tf_video_popup';
+        return 'tf_addon_video_popup';
     }
     
     public function get_title() {
@@ -311,7 +311,7 @@ class TFVideo_Widget extends \Elementor\Widget_Base {
 	protected function render($instance = []) {
 		$settings = $this->get_settings_for_display();
 
-		$this->add_render_attribute( 'tf_video_popup', ['id' => "tf-video-popup-{$this->get_id()}", 'class' => ['tf-video-popup'], 'data-tabid' => $this->get_id()] );
+		$this->add_render_attribute( 'tf_addon_video_popup', ['id' => "tf-video-popup-{$this->get_id()}", 'class' => ['tf-video-popup'], 'data-tabid' => $this->get_id()] );
 
 		$blurred_text = $icon = $video_url = '';
 
@@ -326,7 +326,7 @@ class TFVideo_Widget extends \Elementor\Widget_Base {
 					<a class="video-icon popup-video %4$s" href="%2$s">%3$s</a>
 				</div>				
             </div>',
-            $this->get_render_attribute_string('tf_video_popup'),
+            $this->get_render_attribute_string('tf_addon_video_popup'),
             $video_url,
             $icon,
             esc_attr($settings['tf_animation'])

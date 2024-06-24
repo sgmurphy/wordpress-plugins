@@ -3,98 +3,58 @@ import {useCart, useCartItem} from "../public/cart";
 import {useSortedDateStrings} from "./helper";
 import {settings} from "../../../plugins/settings";
 import {checkLimitPerEmployee, sortForEmployeeSelection} from "./employee";
+import {useEntityTax, usePercentageAmount, useRoundAmount, useTaxAmount, useTaxedAmount} from "./pricing";
 
 function useEmployeeService (store, serviceId, employeeId) {
-  return employeeId
-    ? store.getters['entities/getEmployeeService'](employeeId, serviceId)
-    : store.getters['entities/getService'](serviceId)
+  let service = store.getters['entities/getService'](serviceId)
+
+  let employeeService = employeeId ? store.getters['entities/getEmployeeService'](employeeId, serviceId) : service
+
+  return Object.assign(
+    {},
+    service,
+    {
+      price: employeeService.price,
+      minCapacity: employeeService.minCapacity,
+      maxCapacity: employeeService.maxCapacity,
+      customPricing: employeeService.customPricing,
+    }
+  )
+}
+
+function useAppointmentServicePrice (employeeService, duration) {
+  return employeeService.customPricing.enabled && (duration in employeeService.customPricing.durations)
+    ? employeeService.customPricing.durations[duration].price : employeeService.price
 }
 
 function useAppointmentServiceAmount (employeeService, persons, duration) {
-  let price = employeeService.customPricing.enabled && (duration in employeeService.customPricing.durations)
-    ? employeeService.customPricing.durations[duration].price : employeeService.price
-
-  return price * (employeeService.aggregatedPrice ? persons : 1)
-}
-
-function useCartItemTotalAmount (store, item) {
-  let value = 0
-
-  item.services[item.serviceId].list.forEach((appointment) => {
-    value += useAppointmentsTotalAmount(
-      store,
-      useEmployeeService(store, item.serviceId, appointment.providerId),
-      [appointment]
-    )
-  })
-
-  return value
-}
-
-function useCartTotalAmount (store) {
-  let value = 0
-
-  useCart(store).forEach((item) => {
-    value += useCartItemTotalAmount(store, item)
-  })
-
-  return parseFloat(parseFloat(value).toFixed(2))
-}
-
-function useAppointmentTotalAmount (service, appointment) {
-  let value = useAppointmentServiceAmount(service, appointment.persons, appointment.duration)
-
-  appointment.extras.forEach((selectedExtra) => {
-    value += useAppointmentExtraAmount(service, selectedExtra, appointment.persons)
-  })
-
-  return value
-}
-
-function useAppointmentDiscountAmount (service, appointment, coupon) {
-  let amount = useAppointmentServiceAmount(service, appointment.persons, appointment.duration)
-
-  appointment.extras.forEach((selectedExtra) => {
-    amount += useAppointmentExtraAmount(service, selectedExtra, appointment.persons)
-  })
-
-  return parseFloat(parseFloat((amount / 100 * coupon.discount).toFixed(2)) + coupon.deduction)
-}
-
-function useAppointmentsDiscountAmount (store) {
-  let value = 0
-
-  let coupon = store.getters['booking/getCoupon']
-
-  if (coupon && coupon.limit) {
-    let couponLimit = coupon.limit
-
-    let servicesIds = coupon.servicesIds
-
-    useCart(store).filter(i => servicesIds.indexOf(i.serviceId) !== -1).forEach((item) => {
-      item.services[item.serviceId].list.forEach((appointment) => {
-        if (couponLimit) {
-          value += couponLimit ? useAppointmentDiscountAmount(
-            useEmployeeService(store, item.serviceId, appointment.providerId),
-            appointment,
-            coupon
-          ) : 0
-
-          couponLimit--
-        }
-      })
-    })
-  }
-
-  return parseFloat(value)
+  return useAppointmentServicePrice(employeeService, duration) * (employeeService.aggregatedPrice ? persons : 1)
 }
 
 function useAppointmentAmountData (store, item, coupon, couponLimit) {
-  let depositAmount = 0
+  let instantTotalAmount = 0
+
+  let instantTotalServiceAmount = 0
+
+  let instantTotalExtrasAmount = 0
+
+  let instantDiscountAmount = 0
+
+  let instantTaxAmount = 0
+
+  let instantDepositAmount = 0
 
   let totalAmount = 0
 
+  let totalServiceAmount = 0
+
+  let totalExtrasAmount = 0
+
   let discountAmount = 0
+
+  let taxAmount = 0
+
+  let depositAmount = 0
 
   let useFullAmount = store.getters['booking/getPaymentDeposit']
 
@@ -113,56 +73,355 @@ function useAppointmentAmountData (store, item, coupon, couponLimit) {
 
   let appliedCoupon = false
 
-  item.services[item.serviceId].list.slice(0, instantPaymentCount).forEach((appointment) => {
+  let servicesPrices = {}
+
+  let prepaidCount = 0
+
+  let totalCount = 0
+
+  item.services[item.serviceId].list.forEach((appointment, index) => {
     let employeeService = useEmployeeService(store, item.serviceId, appointment.providerId)
 
-    let appointmentTotalAmount = useAppointmentTotalAmount(employeeService, appointment)
+    let amountData = useAppointmentBookingAmountData(
+      store,
+      {
+        price: useAppointmentServicePrice(employeeService, appointment.duration),
+        persons: appointment.persons,
+        aggregatedPrice: service.aggregatedPrice,
+        extras: appointment.extras,
+        serviceId: item.serviceId,
+        coupon: applyCoupon && couponLimit > 0 ? coupon : null
+      },
+      true
+    )
 
     if (applyCoupon && couponLimit > 0) {
       appliedCoupon = true
 
-      discountAmount = useAppointmentDiscountAmount(employeeService, appointment, coupon)
-
-      appointmentTotalAmount = appointmentTotalAmount >= discountAmount ? appointmentTotalAmount - discountAmount : 0
-
       couponLimit--
     }
+
+    let appointmentTotalAmount = amountData.total
+
+    let appointmentDiscountAmount = amountData.discount
+
+    let appointmentTaxAmount = amountData.tax
+
+    totalExtrasAmount += amountData.total - amountData.bookable
+
+    totalServiceAmount += amountData.bookable
+
+    let appointmentDepositAmount = 0
+
+    let servicePrice = useAppointmentServicePrice(employeeService, appointment.duration)
+
+    servicesPrices[servicePrice] = !(servicePrice in servicesPrices) ? 1 : servicesPrices[servicePrice] + 1
 
     if (service.depositPayment !== 'disabled' && (useFullAmount ? !service.fullPayment : true)) {
       switch (service.depositPayment) {
         case ('fixed'):
-          depositAmount += (service.depositPerPerson && service.aggregatedPrice
-            ? appointment.persons : 1) * service.deposit
+          appointmentDepositAmount = (service.depositPerPerson && service.aggregatedPrice ? appointment.persons : 1) * service.deposit
 
           break
 
         case 'percentage':
-          depositAmount += parseFloat(parseFloat(appointmentTotalAmount / 100 * service.deposit).toFixed(2))
+          appointmentDepositAmount = useRoundAmount(
+            usePercentageAmount(
+              appointmentTotalAmount - appointmentDiscountAmount + appointmentTaxAmount,
+              service.deposit
+            )
+          )
 
           break
       }
-    } else {
-      depositAmount += appointmentTotalAmount
     }
 
-    totalAmount += parseFloat(appointmentTotalAmount)
-  })
+    totalAmount += appointmentTotalAmount
 
-  item.services[item.serviceId].list.slice(instantPaymentCount).forEach((appointment) => {
-    totalAmount += useAppointmentTotalAmount(
-      useEmployeeService(store, item.serviceId, appointment.providerId),
-      appointment
-    )
+    discountAmount += appointmentDiscountAmount
+
+    taxAmount += appointmentTaxAmount
+
+    depositAmount += appointmentDepositAmount
+
+    totalCount++
+
+    if (index < instantPaymentCount) {
+      instantTotalAmount = totalAmount
+
+      instantTotalServiceAmount = totalServiceAmount
+
+      instantTotalExtrasAmount = totalExtrasAmount
+
+      instantDiscountAmount = discountAmount
+
+      instantTaxAmount = taxAmount
+
+      instantDepositAmount = depositAmount
+
+      prepaidCount++
+    }
   })
 
   return {
     serviceId: service.id,
-    totalAmount: totalAmount,
-    depositAmount: depositAmount,
-    discountAmount: discountAmount,
+    postpaid: {
+      totalAmount: totalAmount - instantTotalAmount,
+      totalServiceAmount: totalServiceAmount - instantTotalServiceAmount,
+      totalExtrasAmount: totalExtrasAmount - instantTotalExtrasAmount,
+      discountAmount: discountAmount - instantDiscountAmount,
+      taxAmount: taxAmount - instantTaxAmount,
+      depositAmount: 0,
+      count: totalCount - prepaidCount,
+    },
+    prepaid: {
+      totalAmount: instantTotalAmount,
+      totalServiceAmount: instantTotalServiceAmount,
+      totalExtrasAmount: instantTotalExtrasAmount,
+      discountAmount: instantDiscountAmount,
+      taxAmount: instantTaxAmount,
+      depositAmount: instantDepositAmount,
+      count: prepaidCount,
+    },
     appliedCoupon: appliedCoupon,
-    couponLimit: couponLimit
+    couponLimit: couponLimit,
+    servicesPrices: servicesPrices,
   }
+}
+
+function useAppointmentBookingAmountData (store, appointment, includedTaxInTotal) {
+  let serviceTax = null
+
+  let excludedServiceTax = settings.payments.taxes.excluded
+
+  let enabledServiceTax = settings.payments.taxes.enabled
+
+  if ('tax' in appointment) {
+    serviceTax = appointment.tax && appointment.tax.length ? appointment.tax[0] : null
+
+    excludedServiceTax = serviceTax ? serviceTax.excluded : excludedServiceTax
+
+    enabledServiceTax = serviceTax !== null
+  } else if (enabledServiceTax) {
+    serviceTax = useEntityTax(store, appointment.serviceId, 'service')
+  }
+
+  let serviceAmount = (appointment.aggregatedPrice ? appointment.persons : 1) * appointment.price
+
+  let appointmentServiceAmount = 0
+
+  let appointmentTotalAmount = 0
+
+  let appointmentDiscountAmount = 0
+
+  let appointmentTaxAmount = 0
+
+  if (appointment.coupon) {
+    appointmentTotalAmount = serviceAmount
+
+    appointmentServiceAmount = serviceAmount
+
+    if (enabledServiceTax && serviceTax && !excludedServiceTax) {
+      serviceAmount = useTaxedAmount(serviceAmount, serviceTax)
+    }
+
+    let serviceDiscountAmount = appointment.coupon.discount
+      ? usePercentageAmount(serviceAmount, appointment.coupon.discount)
+      : 0
+
+    let serviceDiscountedAmount = serviceAmount - serviceDiscountAmount
+
+    serviceAmount = serviceDiscountedAmount
+
+    let deduction = appointment.coupon.deduction
+
+    let serviceDeductionAmount = 0
+
+    if (serviceDiscountedAmount > 0 && deduction > 0) {
+      serviceDeductionAmount = serviceDiscountedAmount >= deduction ? deduction : serviceDiscountedAmount
+
+      serviceAmount = serviceDiscountedAmount - serviceDeductionAmount
+
+      deduction = serviceDiscountedAmount >= deduction ? 0 : deduction - serviceDiscountedAmount
+    }
+
+    if (enabledServiceTax && serviceTax && excludedServiceTax) {
+      appointmentTaxAmount = useTaxAmount(serviceTax, serviceAmount)
+    } else if (enabledServiceTax && serviceTax && !excludedServiceTax) {
+      serviceAmount = useTaxedAmount(
+        (appointment.aggregatedPrice ? appointment.persons : 1) * appointment.price,
+        serviceTax
+      )
+
+      let serviceTaxAmount = useTaxAmount(serviceTax, serviceAmount - serviceDiscountAmount - serviceDeductionAmount)
+
+      if (includedTaxInTotal) {
+        appointmentTotalAmount = serviceAmount + serviceTaxAmount
+
+        appointmentServiceAmount = serviceAmount + serviceTaxAmount
+      } else {
+        appointmentTotalAmount = serviceAmount
+
+        appointmentServiceAmount = serviceAmount
+
+        appointmentTaxAmount = serviceTaxAmount
+      }
+    }
+
+    appointmentDiscountAmount = serviceDiscountAmount + serviceDeductionAmount
+
+    appointment.extras.forEach((selectedExtra) => {
+      let extraTax = null
+
+      let excludedExtraTax = settings.payments.taxes.excluded
+
+      let enabledExtraTax = settings.payments.taxes.enabled
+
+      if ('tax' in selectedExtra) {
+        extraTax = selectedExtra.tax && selectedExtra.tax.length ? selectedExtra.tax[0] : null
+
+        excludedExtraTax = extraTax ? extraTax.excluded : excludedExtraTax
+
+        enabledExtraTax = extraTax !== null
+      } else if (enabledExtraTax) {
+        extraTax = useEntityTax(store, selectedExtra.extraId, 'extra')
+      }
+
+      let extraAggregatedPrice = selectedExtra.aggregatedPrice === null ? appointment.aggregatedPrice : selectedExtra.aggregatedPrice
+
+      let extraAmount = useExtraAmount(selectedExtra, extraAggregatedPrice, appointment.persons)
+
+      let extraTotalAmount = extraAmount
+
+      if (enabledExtraTax && extraTax && !excludedExtraTax) {
+        extraAmount = useTaxedAmount(extraAmount, extraTax)
+      }
+
+      let extraDiscountAmount = appointment.coupon.discount
+        ? usePercentageAmount(extraAmount, appointment.coupon.discount)
+        : 0
+
+      let extraDiscountedAmount = extraAmount - extraDiscountAmount
+
+      extraAmount = extraDiscountedAmount
+
+      let extraDeductionAmount = 0
+
+      if (extraDiscountedAmount > 0 && deduction > 0) {
+        extraDeductionAmount = extraDiscountedAmount >= deduction ? deduction : extraDiscountedAmount
+
+        extraAmount = extraDiscountedAmount - extraDeductionAmount
+
+        deduction = extraDiscountedAmount >= deduction ? 0 : deduction - extraDiscountedAmount
+      }
+
+      if (enabledExtraTax && extraTax && excludedExtraTax) {
+        appointmentTaxAmount += useTaxAmount(extraTax, extraAmount)
+      } else if (enabledExtraTax && extraTax && !excludedExtraTax) {
+        extraAmount = useTaxedAmount(
+          useExtraAmount(selectedExtra, extraAggregatedPrice, appointment.persons),
+          extraTax
+        )
+
+        let extraTaxAmount = useTaxAmount(extraTax, extraAmount - extraDiscountAmount - extraDeductionAmount)
+
+        if (includedTaxInTotal) {
+          extraTotalAmount = extraAmount + extraTaxAmount
+        } else {
+          extraTotalAmount = extraAmount
+
+          appointmentTaxAmount += extraTaxAmount
+        }
+      } else if (enabledExtraTax && !extraTax && !excludedExtraTax) {
+        extraTotalAmount = useExtraAmount(selectedExtra, extraAggregatedPrice, appointment.persons)
+      }
+
+      appointmentTotalAmount += extraTotalAmount
+
+      appointmentDiscountAmount += extraDiscountAmount + extraDeductionAmount
+    })
+  } else {
+    if (enabledServiceTax && serviceTax && excludedServiceTax) {
+      appointmentTaxAmount = useTaxAmount(serviceTax, serviceAmount)
+    } else if (enabledServiceTax && serviceTax && !excludedServiceTax && !includedTaxInTotal) {
+      serviceAmount = useTaxedAmount(
+        (appointment.aggregatedPrice ? appointment.persons : 1) * appointment.price,
+        serviceTax
+      )
+
+      appointmentTaxAmount = useTaxAmount(serviceTax, serviceAmount)
+    }
+
+    appointmentTotalAmount = serviceAmount
+
+    appointmentServiceAmount = serviceAmount
+
+    appointment.extras.forEach((selectedExtra) => {
+      let extraAggregatedPrice = selectedExtra.aggregatedPrice === null ? appointment.aggregatedPrice : selectedExtra.aggregatedPrice
+
+      let extraAmount = useExtraAmount(selectedExtra, extraAggregatedPrice, appointment.persons)
+
+      let extraTax = null
+
+      let excludedExtraTax = settings.payments.taxes.excluded
+
+      let enabledExtraTax = settings.payments.taxes.enabled
+
+      if ('tax' in selectedExtra) {
+        extraTax = selectedExtra.tax && selectedExtra.tax.length ? selectedExtra.tax[0] : null
+
+        excludedExtraTax = extraTax ? extraTax.excluded : excludedExtraTax
+
+        enabledExtraTax = extraTax !== null
+      } else if (enabledExtraTax) {
+        extraTax = useEntityTax(store, selectedExtra.extraId, 'extra')
+      }
+
+      if (enabledExtraTax && extraTax && excludedExtraTax) {
+        appointmentTaxAmount += useTaxAmount(extraTax, extraAmount)
+      } else if (enabledExtraTax && extraTax && !excludedExtraTax && !includedTaxInTotal) {
+        extraAmount = useTaxedAmount(
+          useExtraAmount(selectedExtra, extraAggregatedPrice, appointment.persons),
+          extraTax
+        )
+
+        appointmentTaxAmount += useTaxAmount(extraTax, extraAmount)
+      }
+
+      appointmentTotalAmount += extraAmount
+    })
+  }
+
+  return {
+    total: appointmentTotalAmount,
+    bookable: appointmentServiceAmount,
+    discount: appointmentDiscountAmount,
+    tax: appointmentTaxAmount
+  }
+}
+
+function useTaxLabel (store, label) {
+  let taxes = {}
+
+  useCart(store).forEach((item) => {
+    item.services[item.serviceId].list.forEach((appointment) => {
+      let serviceTax = useEntityTax(store, item.serviceId, 'service')
+
+      if (serviceTax) {
+        taxes[serviceTax.id] = serviceTax.name
+      }
+
+      appointment.extras.forEach((selectedExtra) => {
+        let extraTax = useEntityTax(store, selectedExtra.extraId, 'extra')
+
+        if (extraTax) {
+          taxes[extraTax.id] = extraTax.name
+        }
+      })
+    })
+  })
+
+  return Object.keys(taxes).length === 1 ? Object.values(taxes)[0] : label
 }
 
 function useAppointmentsAmountInfo (store) {
@@ -183,30 +442,6 @@ function useAppointmentsAmountInfo (store) {
   })
 
   return amountsInfo
-}
-
-function useAppointmentsDepositAmount (store) {
-  let coupon = store.getters['booking/getCoupon']
-
-  let couponLimit = coupon && coupon.limit ? coupon.limit : 0
-
-  let amount = {
-    totalAmount: 0,
-    depositAmount: 0,
-    discountAmount: 0,
-  }
-
-  useCart(store).forEach((item) => {
-    let itemAmount = useAppointmentAmountData(store, item, coupon, couponLimit)
-
-    amount.totalAmount += itemAmount.totalAmount
-
-    amount.depositAmount += itemAmount.depositAmount
-
-    amount.discountAmount += itemAmount.discountAmount
-  })
-
-  return amount.totalAmount > amount.depositAmount ? amount.depositAmount : 0
 }
 
 function useCapacity (employeeServices) {
@@ -556,12 +791,6 @@ function setProviderServicePrice (store, employeeId, serviceId) {
   }
 }
 
-function getAppointmentServiceAmount (store, serviceId, appointment) {
-  let employeeService = store.getters['entities/getEmployeeService'](appointment.providerId, serviceId)
-
-  return employeeService.price * (employeeService.aggregatedPrice ? store.getters['booking/getBookingPersons'] : 1)
-}
-
 function useAppointmentsAmount (store, service, appointments) {
   let amount = 0
 
@@ -574,6 +803,12 @@ function useAppointmentsAmount (store, service, appointments) {
   })
 
   return amount
+}
+
+function useExtraAmount (extra, serviceAggregatedPrice, persons) {
+  let extraAggregatedPrice = extra.aggregatedPrice === null ? serviceAggregatedPrice : extra.aggregatedPrice
+
+  return extra.price * extra.quantity * (extraAggregatedPrice ? persons : 1)
 }
 
 function useAppointmentExtraAmount (service, selectedExtra, persons) {
@@ -604,32 +839,6 @@ function useAppointmentExtrasAmount (service, appointments) {
 
 function useAppointmentsTotalAmount (store, service, appointments) {
   return useAppointmentsAmount(store, service, appointments) + useAppointmentExtrasAmount(service, appointments)
-}
-
-function useDiscountAmount (store, coupon, appointments) {
-  let service = store.getters['entities/getService'](
-    store.getters['booking/getServiceId']
-  )
-
-  let discountAmount = 0
-
-  appointments.forEach((appointment) => {
-    let employeeService = useEmployeeService(store, service.id, appointment.providerId)
-
-    let amount = useAppointmentServiceAmount(
-      useEmployeeService(store, employeeService.id, appointment.providerId),
-      appointment.persons,
-      appointment.duration
-    )
-
-    appointment.extras.forEach((selectedExtra) => {
-      amount += useAppointmentExtraAmount(employeeService, selectedExtra, appointment.persons)
-    })
-
-    discountAmount += parseFloat((amount / 100 * coupon.discount).toFixed(2)) + coupon.deduction
-  })
-
-  return discountAmount
 }
 
 function useAppointmentsPayments (store, serviceId, appointments) {
@@ -667,55 +876,6 @@ function useServicePrices (store, serviceId, appointments) {
   })
 
   return data
-}
-
-function useAppointmentsLabels (store, serviceId, appointments) {
-  let data = useServicePrices(store, serviceId, appointments)
-
-  let persons = store.getters['booking/getBookingPersons']
-
-  let labels = []
-
-  for (let price in data) {
-    let count = data[price]
-
-    labels.push(
-      count + ' ' + (count > 1 ? 'recurrences' : 'recurrence')
-      + ' x ' + persons + ' ' + (persons > 1 ? 'persons' : 'person')
-      + ' x ' + useFormattedPrice(price)
-    )
-  }
-
-  return labels
-}
-
-function useExtrasLabels (store, service, appointments) {
-  let labels = []
-
-  let selectedExtras = store.getters['booking/getSelectedExtras']
-
-  let persons = store.getters['booking/getBookingPersons']
-
-  selectedExtras.forEach((selectedExtra) => {
-    let count = appointments.length
-
-    let extra = service.extras.find(i => i.id === parseInt(selectedExtra.extraId))
-
-    if (extra) {
-      labels.push(
-          {
-            name: extra.name,
-            value: count + ' ' + (count > 1 ? 'appointments' : 'appointment')
-                + ' x ' + selectedExtra.quantity + ' x '
-                + (persons + ' ' + (persons > 1 ? 'persons' : 'person'))
-                + ' x ' + useFormattedPrice(extra.price)
-          }
-      )
-    }
-
-  })
-
-  return labels
 }
 
 function setPreferredEntitiesData (bookings, store, serviceId, chosenEmployees) {
@@ -987,22 +1147,17 @@ export {
   useFillAppointments,
   useCalendarEvents,
   useAppointmentsPayments,
-  useCartTotalAmount,
-  useCartItemTotalAmount,
   useAppointmentsAmountInfo,
-  useAppointmentTotalAmount,
   useAppointmentServiceAmount,
   useAppointmentExtrasAmount,
   useAppointmentExtraAmount,
   useAppointmentsAmount,
-  useDiscountAmount,
-  useAppointmentDiscountAmount,
-  useAppointmentsDiscountAmount,
-  useAppointmentsDepositAmount,
   useAppointmentsTotalAmount,
   useDuration,
   usePrepaidPrice,
   usePaymentError,
   useServices,
   useEmployeeService,
+  useTaxLabel,
+  useAppointmentBookingAmountData,
 }

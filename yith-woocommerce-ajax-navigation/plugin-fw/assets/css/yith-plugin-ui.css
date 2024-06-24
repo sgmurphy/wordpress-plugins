@@ -63,7 +63,7 @@
   --yith-field-border-radius: 6px;
   --yith-field-placeholder-color: #8f9eb0;
   --yith-link: #0079b0;
-  --yith-dialog-z-index: 999999;
+  --yith-dialog-z-index: 999995;
   --yith-modal-z-index: 999999;
   --yith-modal-allow-wp-z-index: 1500;
   --yith-tip-tip-z-index: 1500;
@@ -971,13 +971,15 @@
 }
 
 .yith-plugin-fw__list-item:not(.yith-plugin-fw__list-item--no-link) .yith-plugin-fw__list-item__wrap:hover .yith-plugin-fw__list-item__step,
+.yith-plugin-fw__list-item:not(.yith-plugin-fw__list-item--no-link) .yith-plugin-fw__list-item__wrap:hover .yith-plugin-fw__list-item__title,
 .yith-plugin-fw__list-item:not(.yith-plugin-fw__list-item--no-link) .yith-plugin-fw__list-item__wrap:hover .yith-plugin-fw__list-item__arrow {
   color: var(--yith-link);
 }
 
 .yith-plugin-fw__list-item mark {
   background: transparent;
-  color: var(--yith-link);
+  color: inherit;
+  font-weight: 600;
 }
 
 .yith-plugin-fw__list-item .yith-plugin-fw__list-item__step {

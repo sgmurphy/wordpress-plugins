@@ -1,3 +1,28 @@
+v1.0.50 - 21-June-2024
+- Fix: Sile creation limit exceeded popup was not showing.
+
+v1.0.49 - 19-June-2024
+- Fix: Showing irrelevant errors in logging for import failures.
+
+v1.0.48 - 18-June-2024
+- Improvement: Add tooltip for "sneak peek" message for better UX
+
+v1.0.47 - 17-June-2024
+- Improvement: Add tooltip for "sneak peek" message for better UX
+- Improvement: Ability to skip Features screen using a filter.
+
+v1.0.46 - 14-June-2024
+- Improvement: Updated the sidebar icons and connecting lines color.
+
+v1.0.45 - 14-June-2024
+- Chore: Included build files.
+
+v1.0.44 - 14-June-2024
+- Improvement: Updated the Sidebar steps text color.
+
+v1.0.43 - 12-June-2024
+- Improvement: Added new color variables to the TailwindCSS config.
+
 v1.0.42 - 11-June-2024
 - Fix: Resolved PHP 8.2 deprecated notice related to the creation of dynamic properties.
 

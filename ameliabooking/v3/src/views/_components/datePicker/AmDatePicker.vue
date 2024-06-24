@@ -1,51 +1,82 @@
 <template>
 
   <!-- Date Picker -->
-  <div class="am-date-picker-wrapper">
-    <el-date-picker
-      v-bind="$props"
-      :id="id"
-      ref="amDatePicker"
-      v-model="model"
-      :type="type"
-      :value="value"
-      :prefix-icon="prefixIcon"
-      :popper-class="popperClass"
-      :placeholder="placeholder"
-      :clear-icon="clearIcon"
-      :default-value="defaultValue"
-      :clearable="clearable"
-      :disabled-date="disabledDate"
-      :value-format="valueFormat"
-      :format="format"
-      :editable="editable"
-      class="am-date-picker"
-      :popper-style="cssVars"
-      :class="[`am-date-picker--${size}`, {'am-date-picker--disabled': disabled}]"
-      @input="(eventValue) => $emit('input', eventValue)"
-      @change="(eventValue) => $emit('change', eventValue)"
-      @blur="(e) => $emit('blur', e)"
-      @focus="(e) => $emit('focus', e)"
-      @calendar-change="(e) => $emit('calendar-change', e)"
+  <div
+    class="am-date-picker-wrapper"
+    :class="`am-date-picker--${size}`"
+  >
+    <div
+      v-if="props.customInputDisplay && props.type === 'daterange' && model.length"
+      class="am-date-picker__input"
+      :class="`am-date-picker--${size}`"
+      @click="triggerCalendar"
     >
-      <slot/>
-    </el-date-picker>
+      <span class="am-icon-calendar"></span>
+      <div class="am-date-picker__input-inner">
+        <span class="am-date-picker__input-start">
+          {{ getFrontedFormattedDate(moment(model[0]).format('YYYY-MM-DD')) }}
+        </span>
+        <span class="am-date-picker__input-separator">
+          -
+        </span>
+        <span class="am-date-picker__input-end">
+          {{ getFrontedFormattedDate(moment(model[1]).format('YYYY-MM-DD')) }}
+        </span>
+      </div>
+    </div>
+    <el-config-provider :locale="elementPlusTranslations(props.lang)">
+      <el-date-picker
+        v-bind="$props"
+        :id="id"
+        ref="amDatePicker"
+        v-model="model"
+        :type="type"
+        :value="value"
+        :prefix-icon="prefixIcon"
+        :popper-class="popperClass"
+        :placeholder="placeholder"
+        :clear-icon="clearIcon"
+        :default-value="defaultValue"
+        :clearable="clearable"
+        :disabled-date="disabledDate"
+        :value-format="valueFormat"
+        :format="format"
+        :editable="editable"
+        class="am-date-picker"
+        :popper-style="cssVars"
+        :class="[`am-date-picker--${size}`, {'am-date-picker--disabled': disabled}, {'am-date-picker--custom': props.type === 'daterange' && props.customInputDisplay}]"
+        @input="(eventValue) => $emit('input', eventValue)"
+        @change="(eventValue) => $emit('change', eventValue)"
+        @blur="(e) => $emit('blur', e)"
+        @focus="(e) => $emit('focus', e)"
+        @calendar-change="(e) => $emit('calendar-change', e)"
+      ></el-date-picker>
+    </el-config-provider>
   </div>
   <!-- /Date Picker -->
 
 </template>
 
 <script setup>
-import AmeliaIconClose from "../icons/IconClose";
-import AmeliaIconCalendar from "../icons/IconCalendar";
+// * Import from Vue
 import {
   computed,
   ref,
   toRefs,
-  inject
+  inject,
 } from "vue";
 
+// * Libraries
+import moment from "moment";
+
+// * components
+import AmeliaIconClose from "../icons/IconClose";
+import AmeliaIconCalendar from "../icons/IconCalendar";
+
+// * Composables
 import { useColorTransparency } from "../../../assets/js/common/colorManipulation";
+import { elementPlusTranslations } from "../../../assets/js/common/translationsElementPlus";
+import { getFrontedFormattedDate } from "../../../assets/js/common/date";
 
 /**
  * Component Props
@@ -102,8 +133,8 @@ const props = defineProps({
     default: 'Select Date'
   },
   popperClass: {
-     type: String,
-     default: ''
+    type: String,
+    default: ''
   },
   teleported: {
     type: Boolean,
@@ -121,6 +152,14 @@ const props = defineProps({
     type: Function,
     default: () => {}
   },
+  lang: {
+    type: String,
+    default: ''
+  },
+  customInputDisplay: {
+    type: Boolean,
+    default: false
+  }
 })
 
 /**
@@ -143,6 +182,12 @@ let model = computed({
  * Component reference
  */
 const amDatePicker = ref(null)
+
+function triggerCalendar () {
+  if (amDatePicker.value) {
+    amDatePicker.value.focus()
+  }
+}
 
 // * Colors block
 let amColors = inject('amColors');
@@ -189,6 +234,12 @@ let cssVars = computed(() => {
   .am-date-picker-wrapper {
     text-align: center;
     flex: 1;
+
+    &.am-date-picker {
+      &--small {
+        height: 32px;
+      }
+    }
 
     &:last-child {
       border-right: none;
@@ -258,6 +309,53 @@ let cssVars = computed(() => {
           display: flex;
           align-items: center;
         }
+      }
+    }
+
+    .am-date-picker {
+      &__input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        outline: none;
+        border: 1px solid var(--am-c-inp-border);
+        border-radius: 6px;
+        background: var(--am-c-inp-bgr);
+        color: var(--am-c-inp-text);
+        padding-left: 10px;
+        cursor: pointer;
+
+        &-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 100%;
+        }
+
+        &-start, &-end, &-separator {
+          font-size: 14px;
+          font-weight: 500;
+          background-color: transparent;
+        }
+
+        .am-icon-calendar {
+          font-size: 24px;
+          color: var(--am-c-capf-text);
+        }
+
+        &.am-date-picker {
+          &--small {
+            min-height: 32px;
+          }
+        }
+      }
+
+      &--custom {
+        height: 0 !important;
+        overflow: hidden;
+        border: none;
+        position: relative;
+        top: -16px;
       }
     }
   }

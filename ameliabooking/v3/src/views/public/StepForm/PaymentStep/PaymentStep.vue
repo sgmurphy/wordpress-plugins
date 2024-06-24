@@ -89,7 +89,8 @@ import {
   markRaw,
   watch,
   computed,
-  onMounted
+  onMounted,
+  reactive
 } from "vue";
 import AmCheckbox from '../../../_components/checkbox/AmCheckbox.vue'
 import AmAlert from '../../../_components/alert/AmAlert.vue'
@@ -124,7 +125,32 @@ const store = useStore()
 const baseUrls = inject('baseUrls')
 
 // * Labels
-const amLabels = inject('amLabels')
+const globalLabels = inject('labels')
+
+// * local language short code
+const localLanguage = inject('localLanguage')
+
+// * if local lang is in settings lang
+let langDetection = computed(() => settings.general.usedLanguages.includes(localLanguage.value))
+
+// * Computed labels
+let amLabels = computed(() => {
+  let computedLabels = reactive({...globalLabels})
+
+  if (settings.customizedData && settings.customizedData.sbsNew && settings.customizedData.sbsNew.paymentStep.translations) {
+    let customizedLabels = settings.customizedData.sbsNew.paymentStep.translations
+    Object.keys(customizedLabels).forEach(labelKey => {
+      if (customizedLabels[labelKey][localLanguage.value] && langDetection.value) {
+        computedLabels[labelKey] = customizedLabels[labelKey][localLanguage.value]
+      } else if (customizedLabels[labelKey].default) {
+        computedLabels[labelKey] = customizedLabels[labelKey].default
+      }
+    })
+  }
+  return computedLabels
+})
+
+provide('amLabels', amLabels)
 
 // * Payment Part
 const componentTypes = {

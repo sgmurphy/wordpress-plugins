@@ -85,7 +85,7 @@ if ( ! class_exists( 'GiveWPDonationViaForm' ) ) :
 		/**
 		 * Trigger listener
 		 *
-		 * @param array $payment_id ID of payment.
+		 * @param int   $payment_id ID of payment.
 		 * @param array $status Current donation status.
 		 * @param array $old_status Old donation status.
 		 * @since 1.0.0
@@ -128,8 +128,14 @@ if ( ! class_exists( 'GiveWPDonationViaForm' ) ) :
 				$context['zip']            = $address_data['zip'];
 				$context['country']        = $address_data['country'];
 			}
-			$donor_comment      = give_get_donor_donation_comment( $payment_id, $payment->donor_id );
-			$context['comment'] = isset( $donor_comment['comment_content'] ) ? $donor_comment : '';
+			// Payment meta.
+			$payment_meta = $payment->get_meta();
+			if ( is_array( $payment_meta ) && isset( $payment_meta['user_info'] ) ) {
+				unset( $payment_meta['user_info'] );
+			}
+			$context['payment_meta'] = $payment_meta;
+			$donor_comment           = give_get_donor_donation_comment( $payment_id, $payment->donor_id );
+			$context['comment']      = ( is_array( $donor_comment ) && isset( $donor_comment['comment_content'] ) ) ? $donor_comment : '';
 			AutomationController::sure_trigger_handle_trigger(
 				[
 					'trigger' => $this->trigger,

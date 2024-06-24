@@ -230,6 +230,7 @@ export default {
   namespaced: true,
 
   state: () => ({
+    taxes: [],
     categories: [],
     services: [],
     employees: [],
@@ -256,6 +257,14 @@ export default {
 
     getPreselected (state) {
       return state.preselected
+    },
+
+    getTaxes (state) {
+      return state.taxes
+    },
+
+    getTax: (state) => (id) => {
+      return state.taxes.find(i => parseInt(i.id) === parseInt(id)) || null
     },
 
     getCategories (state) {
@@ -538,6 +547,10 @@ export default {
   },
 
   mutations: {
+    setTaxes (state, payload) {
+      state.taxes = payload
+    },
+
     setCategories (state, payload) {
       state.categories = payload
 
