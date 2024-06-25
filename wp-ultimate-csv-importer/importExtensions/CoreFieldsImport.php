@@ -236,7 +236,7 @@ class CoreFieldsImport {
 							foreach($matches[1] as $value){
 								$get_value = $helpers_instance->replace_header_with_values($value, $header_array, $value_array);
 								$values = '{'.$value.'}';
-								$get_value = "'".$get_value."'";
+								$get_value = '"'.$get_value.'"';
 								$matched_element = str_replace($values, $get_value, $matched_element);
 							}
 							$csv_element = $helpers_instance->evalPhp($matched_element);

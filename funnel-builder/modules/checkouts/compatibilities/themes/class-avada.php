@@ -4,20 +4,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-#[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_Active_Avada {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_Active_Avada {
 
 	public $js_folder_url = '';
 
 	public function __construct() {
 
-		add_action( 'wfacp_after_checkout_page_found', [ $this, 'remove_actions' ] );
-		add_action( 'wfacp_checkout_page_found', [ $this, 'remove_actions' ] );
+		add_action( 'wp', [ $this, 'remove_actions' ] ,999);
+
 		add_filter( 'wfacp_do_not_allow_shortcode_printing', [ $this, 'do_not_execute_shortcode' ] );
 	}
 
+	public function wp_enqueue_script() {
+		wp_enqueue_script( 'lazysizes', $this->js_folder_url . '/library/lazysizes.js', [], '4.1.5', true );
+	}
+
+	public function dequeue_scripts() {
+		WFACP_Common::remove_actions( 'wp_enqueue_scripts', 'Avada_Scripts', 'dequeue_scripts' );
+	}
+
 	public function remove_actions() {
+
+		$id = WFACP_Common::get_id();
+		if ( absint( $id ) <= 0 ) {
+			return;
+		}
 
 		global $avada_woocommerce, $fusion_settings;
 
@@ -64,15 +76,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 		}
 	}
-
-	public function wp_enqueue_script() {
-		wp_enqueue_script( 'lazysizes', $this->js_folder_url . '/library/lazysizes.js', [], '4.1.5', true );
-	}
-
-	public function dequeue_scripts() {
-		WFACP_Common::remove_actions( 'wp_enqueue_scripts', 'Avada_Scripts', 'dequeue_scripts' );
-	}
-
 
 	public function internal_css() {
 

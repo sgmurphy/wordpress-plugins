@@ -102,7 +102,7 @@ class ACFImport {
 	 * @param string $post_id - inserted post id
 	 */
 	function acf_import_function($acf_wpname_element ,$post_values,$acf_csv_element, $importAs , $post_id,$mode, $hash_key,$line_number){
-
+		
 		$acf_wp_name = $acf_wpname_element;
 
 		$acf_csv_name = $acf_csv_element; 
@@ -244,12 +244,18 @@ class ACFImport {
 					foreach ($exploded_relations as $relVal) {
 						$relationTerm = trim($relVal);
 						//$relTerm[] = $relationTerm;
-
+						$tax_field_type = $get_type_field['field_type'];
 						if ($field_type == 'taxonomy') {
 							$taxonomy_name =  $get_type_field['taxonomy'];
 							// $check_is_valid_term = $helpers_instance->get_requested_term_details($post_id, $relTerm, $taxonomy_name);
 							$check_is_valid_term = $helpers_instance->get_requested_term_details($post_id, array($relationTerm), $taxonomy_name);
-							$relations[] = $check_is_valid_term;
+							//$relations[] = $check_is_valid_term;
+							if(isset($tax_field_type) && ($tax_field_type == 'select' || $tax_field_type == 'radio')){
+								$single_relations  = $check_is_valid_term;
+							}
+							else{
+								$relations[]         = $check_is_valid_term;
+							}
 						} else {
 							$reldata = strlen($relationTerm);
 							$checkrelid = intval($relationTerm);
@@ -287,6 +293,24 @@ class ACFImport {
 							$update_id = unserialize($get_relation_field);
 							$update_id[] = $post_id;
 							if ($field_type == 'taxonomy') {
+									if(isset($tax_field_type) && ($tax_field_type == 'select' || $tax_field_type == 'radio')){
+										update_term_meta($relation_id, $field_value, $bidirectional_single);
+									}
+									else{
+										update_term_meta($relation_id, $field_value, $update_id);
+									}
+										update_term_meta($relation_id, '_' . $field_value, $bidirectional);
+							}
+							else{
+								if(isset($tax_field_type) && ($tax_field_type == 'select' || $tax_field_type == 'radio')){
+									update_post_meta($relation_id, $field_value, $bidirectional_single);
+								}
+								else{
+									update_post_meta($relation_id, $field_value, $update_id);
+								}
+								update_post_meta($relation_id, '_' . $field_value, $bidirectional);
+							}
+							if ($field_type == 'taxonomy') {
 								update_term_meta($relation_id, $field_value, $update_id);
 								update_term_meta($relation_id, '_' . $field_value, $bidirectional);
 							}
@@ -297,7 +321,13 @@ class ACFImport {
 						}
 					}
 				}
-				$map_acf_csv_element = $relations;
+				if(isset($tax_field_type) && ($tax_field_type == 'select' || $tax_field_type == 'radio')){
+					$map_acf_csv_element = $single_relations;
+				}
+				else{
+					$map_acf_csv_element = $relations;
+				}
+				//$map_acf_csv_element = $relations;
 				$map_acf_wp_element = $acf_wp_name;
 			}	
 			if($field_type == 'date_picker'){

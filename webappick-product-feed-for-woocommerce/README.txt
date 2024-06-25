@@ -1,11 +1,11 @@
 === CTX Feed – WooCommerce Product Feed Manager Plugin ===
-Contributors: wahid0003, webappick, nashirbabu, hasanazizul
+Contributors: wahid0003, webappick
 Donate link: https://webappick.com
 Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, Facebook Catalog
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.4.37
+Stable tag: 6.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,6 +155,9 @@ Categories are the essential key to get products into search results. It is best
 4. Category Mapping
 
 == Changelog ==
+
+= 6.5.0 (2024-06-25) =
+* Updated : Plugin compatibility code refactor
 
 = 6.4.37 (2024-06-13) =
 * Updated : Facebook Pixel default value.

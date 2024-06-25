@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	public function __construct() {
 
-		add_filter( 'wfacp_allow_zero_discounting', [ $this, 'allow_zero_discounting' ], 10, 2 );
 		add_filter( 'wfacp_product_raw_data', [ $this, 'wfacp_product_raw_data' ], 10, 2 );
 		add_filter( 'wfacp_custom_field_order_id', [ $this, 'add_invoice_field' ] );
 	}
@@ -25,14 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	public function price_by_country_enabled() {
 		return function_exists( 'wcj_get_option' ) && ( 'yes' == wcj_get_option( 'wcj_price_by_country_enabled', 'no' ) );
-	}
-
-	public function allow_zero_discounting( $status ) {
-		if ( $this->price_by_country_enabled() ) {
-			$status = false;
-		}
-
-		return $status;
 	}
 
 	public function wfacp_product_raw_data( $raw_data, $pro ) {

@@ -323,12 +323,16 @@ class SplitText extends EAE_Widget_Base {
 			<div id="eae-at-<?php echo esc_attr($this->get_id()); ?>" class="eae-st-transform-text-wrapper">
 				<div <?php echo $this->get_render_attribute_string( 'eae-st-transform-text' ); ?>>
 					<?php if ( $settings['split_mode'] === 'text' ) { ?> 
-						<?php echo sprintf( '<%1$s class="eae-st-transform-text-title">%2$s</%1$s>', Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ), '<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . substr( $settings['text'], 0, $split_count ) . '</div><div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . substr( $settings['text'], $split_count, strlen( $settings['text'] ) - $split_count ) . '</div>' ); ?>
+						<?php echo sprintf( '<%1$s class="eae-st-transform-text-title">%2$s</%1$s>', 
+						Helper::validate_html_tag( $settings['title_size'], 
+						[ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ), 
+						'<div ' . $this->get_render_attribute_string( 'eae-st-split-text' ) . '>' . substr( Helper::eae_wp_kses($settings['text']), 0, $split_count ) . '</div>'. 
+						'<div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . substr( Helper::eae_wp_kses($settings['text']), $split_count, strlen( $settings['text'] ) - $split_count ) . '</div>' ); ?>
 					<?php } else { ?>
 						<?php
 						$arr = explode( ' ', $settings['text'] );
 						if ( count( $arr ) <= $split_count ) {
-							$split_text = '<div ' . $this->get_render_attribute_string( 'eae-st-split-full-text' ) . '>' . $settings['text'] . '</div>';
+							$split_text = '<div ' . $this->get_render_attribute_string( 'eae-st-split-full-text' ) . '>' . Helper::eae_wp_kses( $settings['text'] ) . '</div>';
 							printf(
 								'<%1$s class="eae-st-transform-text-title">%2$s</%1$s>',
 								Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ),
@@ -339,7 +343,8 @@ class SplitText extends EAE_Widget_Base {
 							$rest_text  = '<div ' . $this->get_render_attribute_string( 'eae-st-rest-text' ) . '>' . implode( ' ', array_slice( $arr, $split_count, count( $arr ) ) ) . '</div>';
 							printf(
 								'<%1$s class="eae-st-transform-text-title">%2$s</%1$s>',
-								Helper::validate_html_tag( $settings['title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ),
+								Helper::validate_html_tag( $settings['title_size'], 
+								[ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h3' ),
 								$split_text . $rest_text
 							);
 						}

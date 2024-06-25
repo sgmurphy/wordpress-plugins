@@ -9,13 +9,16 @@
   class WFACP_Compatibility_WC_SendinBlue
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_WC_SendinBlue {
+class WFACP_Compatibility_WC_SendinBlue {
 
 	public function __construct() {
 		/* Register Add field */
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_field' ], 20 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 	}
 
@@ -23,15 +26,14 @@
 	public function add_field( $fields ) {
 
 		$fields['ws_opt_in'] = [
-			'label'          => __( 'Sendinblue', 'woofunnels-aero-checkout' ),
-			'data_label'     => __( 'Sendinblue', 'woofunnels-aero-checkout' ),
-			'type'           => 'checkbox',
-			'is_wfacp_field' => true,
-			'id'             => 'ws_opt_in',
-			'field_type'     => 'advanced',
-			'cssready'       => [ 'wfacp-col-full' ],
-			'class'          => [ 'wfacp-form-control-wrapper', 'wfacp-col-full', 'wfacp_checkbox_field', 'sendinblue' ],
-			'input_class'    => [ 'wfacp-form-control' ],
+			'label'       => __( 'Brevo', 'woofunnels-aero-checkout' ),
+			'data_label'  => __( 'Brevo', 'woofunnels-aero-checkout' ),
+			'type'        => 'checkbox',
+			'id'          => 'ws_opt_in',
+			'field_type'  => 'advanced',
+			'cssready'    => [ 'wfacp-col-full' ],
+			'class'       => [ 'wfacp-form-control-wrapper', 'wfacp-col-full', 'wfacp_checkbox_field', 'sendinblue' ],
+			'input_class' => [ 'wfacp-form-control' ],
 		];
 
 
@@ -55,5 +57,6 @@
 
 
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_WC_SendinBlue(), 'wc-sendin-blue' );
 

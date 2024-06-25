@@ -137,7 +137,13 @@
                 }
             });
 
-            return valid;
+
+
+            window.wffnFormValid = valid;
+
+
+            jQuery(document).trigger('wffn_custom_optin_form_validate', [formElem, valid]);
+            return window.wffnFormValid;
         },
         setUpClick: function (FormElem) {
             let inst = this;
@@ -218,10 +224,10 @@
 
         },
         handleLeadEvent: function () {
-            if( 1 != wffnfunnelVars.op_should_render ){
+            if (1 != wffnfunnelVars.op_should_render) {
                 return;
             }
-            if ( 'object' === typeof wffnfunnelVars.op_lead_tracking.fb.enable && 'yes' === wffnfunnelVars.op_lead_tracking.fb.enable[0] && false !== wffnfunnelVars.op_lead_tracking.fb.fb_pixels) {
+            if ('object' === typeof wffnfunnelVars.op_lead_tracking.fb.enable && 'yes' === wffnfunnelVars.op_lead_tracking.fb.enable[0] && false !== wffnfunnelVars.op_lead_tracking.fb.fb_pixels) {
                 if (typeof fbq === 'undefined') {
                     (function (f, b, e, v, n, t, s) {
                         if (f.fbq) return;
@@ -253,7 +259,7 @@
                 fbq('track', 'Lead', data, {'eventID': wffnfunnelVars.op_lead_tracking.fb.event_ID});
             }
 
-            if ( 'object' === typeof wffnfunnelVars.op_lead_tracking.pint.enable && 'yes' === wffnfunnelVars.op_lead_tracking.pint.enable[0] && false !== wffnfunnelVars.op_lead_tracking.pint.pixels) {
+            if ('object' === typeof wffnfunnelVars.op_lead_tracking.pint.enable && 'yes' === wffnfunnelVars.op_lead_tracking.pint.enable[0] && false !== wffnfunnelVars.op_lead_tracking.pint.pixels) {
                 !function (e) {
                     if (!window.pintrk) {
                         window.pintrk = function () {
@@ -279,7 +285,7 @@
             }
 
 
-            if ( 'object' === typeof wffnfunnelVars.op_lead_tracking.ga.enable && 'yes' === wffnfunnelVars.op_lead_tracking.ga.enable[0] && false !== wffnfunnelVars.op_lead_tracking.ga.ids) {
+            if (typeof gtag !== "undefined" && 'object' === typeof wffnfunnelVars.op_lead_tracking.ga.enable && 'yes' === wffnfunnelVars.op_lead_tracking.ga.enable[0] && false !== wffnfunnelVars.op_lead_tracking.ga.ids) {
                 const pixelIds = wffnfunnelVars.op_lead_tracking.ga.ids.split(',');
                 var data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent({}) : {};
                 data.send_to = pixelIds[0];
@@ -287,7 +293,7 @@
                 gtag('event', 'Lead', data);
             }
 
-            if ( 'object' === typeof wffnfunnelVars.op_lead_tracking.gad.enable && 'yes' === wffnfunnelVars.op_lead_tracking.gad.enable[0] && false !== wffnfunnelVars.op_lead_tracking.gad.ids) {
+            if (typeof gtag !== "undefined" && 'object' === typeof wffnfunnelVars.op_lead_tracking.gad.enable && 'yes' === wffnfunnelVars.op_lead_tracking.gad.enable[0] && false !== wffnfunnelVars.op_lead_tracking.gad.ids) {
                 const pixelIds = wffnfunnelVars.op_lead_tracking.gad.ids.split(',');
                 var data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent({}) : {};
                 data.send_to = pixelIds[0];

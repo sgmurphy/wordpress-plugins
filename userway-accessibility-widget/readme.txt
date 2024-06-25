@@ -9,6 +9,7 @@ UserWay’s Accessibility Widget creates a simpler and more accessible browsing 
 
 == Description ==
 Web accessibility can seem complex and overwhelming if you don’t know where to start.
+
 Let us make it easier, and, to coin a phrase, more accessible for everyone. UserWay’s Accessibility Widget creates a simpler and more accessible browsing experience for your users while increasing compliance with WCAG 2.1, ATAG 2.0, European EN 301 549, ADA, & Section 508 requirements.
 
 UserWay’s Accessibility Widget will strengthen any weak areas that could cause accessibility issues on your site. We are proud to say that a significant number of websites are more accessible today thanks to UserWay.
@@ -79,6 +80,8 @@ change Admin menu location and icon
 improve README file
 = 2.5.1 =
 Implementation of Compliant Admin Notice
+= 2.5.2 =
+Admin banner CTA button event added
 
 *
 *Added translations for the plugin:

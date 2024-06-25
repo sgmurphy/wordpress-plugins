@@ -145,7 +145,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           valid = false;
         }
       });
-      return valid;
+      window.wffnFormValid = valid;
+      jQuery(document).trigger('wffn_custom_optin_form_validate', [formElem, valid]);
+      return window.wffnFormValid;
     },
     setUpClick: function setUpClick(FormElem) {
       var inst = this;
@@ -290,7 +292,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         pintrk('track', 'Lead', data);
       }
 
-      if ('object' === _typeof(wffnfunnelVars.op_lead_tracking.ga.enable) && 'yes' === wffnfunnelVars.op_lead_tracking.ga.enable[0] && false !== wffnfunnelVars.op_lead_tracking.ga.ids) {
+      if (typeof gtag !== "undefined" && 'object' === _typeof(wffnfunnelVars.op_lead_tracking.ga.enable) && 'yes' === wffnfunnelVars.op_lead_tracking.ga.enable[0] && false !== wffnfunnelVars.op_lead_tracking.ga.ids) {
         var _pixelIds2 = wffnfunnelVars.op_lead_tracking.ga.ids.split(',');
 
         var data = typeof wffnAddTrafficParamsToEvent !== "undefined" ? wffnAddTrafficParamsToEvent({}) : {};
@@ -298,7 +300,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         gtag('event', 'Lead', data);
       }
 
-      if ('object' === _typeof(wffnfunnelVars.op_lead_tracking.gad.enable) && 'yes' === wffnfunnelVars.op_lead_tracking.gad.enable[0] && false !== wffnfunnelVars.op_lead_tracking.gad.ids) {
+      if (typeof gtag !== "undefined" && 'object' === _typeof(wffnfunnelVars.op_lead_tracking.gad.enable) && 'yes' === wffnfunnelVars.op_lead_tracking.gad.enable[0] && false !== wffnfunnelVars.op_lead_tracking.gad.ids) {
         var _pixelIds3 = wffnfunnelVars.op_lead_tracking.gad.ids.split(',');
 
         var data = typeof wffnAddTrafficParamsToEvent !== "undefined" ? wffnAddTrafficParamsToEvent({}) : {};

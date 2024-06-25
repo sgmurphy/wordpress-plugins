@@ -71,7 +71,7 @@ if ( ! function_exists( 'wffn_alter_conversion_table' ) ) {
 
 		$conv_table = BWF_Ecomm_Tracking_Common::get_instance()->conversion_table_name();
 		$table_name = $wpdb->prefix . $conv_table;
-		$is_col     = $wpdb->get_col( $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%s' AND column_name = 'checkout_total'", $table_name ) );
+		$is_col     = $wpdb->get_col( $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = %s AND column_name = 'checkout_total'", $table_name ) );
 
 		if ( ! empty( $is_col ) ) {
 			return;
@@ -95,7 +95,7 @@ if ( ! function_exists( 'wffn_alter_conversion_table' ) ) {
 			    ADD INDEX (offer_rejected),
 			    ADD INDEX (first_landing_url)";
 
-		$wpdb->query( $sql_query );
+		$wpdb->query( $sql_query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 }
 
@@ -120,7 +120,7 @@ if ( ! function_exists( 'wffn_add_utm_columns_in_conversion_table' ) ) {
 
 		$conv_table = BWF_Ecomm_Tracking_Common::get_instance()->conversion_table_name();
 		$table_name = $wpdb->prefix . $conv_table;
-		$is_col     = $wpdb->get_col( $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%s' AND column_name = 'referrer_last'", $table_name ) );
+		$is_col     = $wpdb->get_col( $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = %s AND column_name = 'referrer_last'", $table_name ) );
 
 		if ( ! empty( $is_col ) ) {
 			return;
@@ -141,6 +141,6 @@ if ( ! function_exists( 'wffn_add_utm_columns_in_conversion_table' ) ) {
 				ADD INDEX (utm_medium_last($max_index_length)),
 				ADD INDEX (utm_campaign_last($max_index_length)),
 				ADD INDEX (utm_term_last($max_index_length))";
-		$wpdb->query( $sql_query );
+		$wpdb->query( $sql_query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
 }

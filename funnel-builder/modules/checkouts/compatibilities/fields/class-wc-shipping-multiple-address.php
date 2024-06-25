@@ -10,9 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-#[AllowDynamicProperties]
-
-  class WFACP_WC_Ship_To_Multiple_Address {
+#[AllowDynamicProperties] 
+ class WFACP_WC_Ship_To_Multiple_Address {
 	public $instance = null;
 
 	public function __construct() {
@@ -42,10 +41,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
-	}
+		/* prevent third party fields and wrapper*/
 
-	public function is_enable() {
-		return class_exists( 'WC_Ship_Multiple' );
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function setup_shipping() {
@@ -79,6 +78,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function is_enable() {
+		return class_exists( 'WC_Ship_Multiple' );
+	}
 
 	public function display_field( $field, $key, $args ) {
 
@@ -107,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 
-        <script>
+		<script>
 
             window.addEventListener('bwf_checkout_load', function () {
                 (function ($) {
@@ -121,7 +123,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 })(jQuery);
             });
 
-        </script>
+		</script>
 		<?php
 
 		$instance = wfacp_template();

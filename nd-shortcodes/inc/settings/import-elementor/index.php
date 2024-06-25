@@ -208,14 +208,12 @@ function nicdark_import_demo() {
 
 
                     //start if is love travel for wp bakery alert
-                    if ( $nd_options_theme_name == 'lovetravel' ) {
+                    if ( $nd_options_theme_name == 'lovetravell' ) {
 
                     }else{
 
 
                       $nd_options_step_demo_2_bakery = '
-
-                      '.$nd_options_theme_name.'
 
                       <div class="nd_options_box_sizing_border_box nd_options_padding_20 nd_options_float_left nd_options_width_100_percentage">
                         <div class="notice notice-error nd_options_padding_20 nd_options_margin_top_30 nd_options_margin_0">
@@ -550,7 +548,7 @@ function nicdark_import_demo() {
                   $nd_options_theme_name = $nd_options_theme_name->get('TextDomain');
 
                   //start if is love travel for new import
-                  if ( $nd_options_theme_name == 'lovetravel' ) {
+                  if ( $nd_options_theme_name == 'lovetravell' ) {
 
 
 

@@ -22,6 +22,20 @@ if ( ! class_exists( 'BWF_Admin_Settings' ) ) {
 
 				return $menu;
 			} );
+
+            if(wffn_is_wc_active()) {
+	            add_filter( 'woofunnels_global_settings', function ( $menu ) {
+		            array_push( $menu, array(
+			            'title'          => __( 'Stripe', 'funnel-builder' ),
+			            'slug'           => 'stripe',
+			            'link'           => apply_filters( 'stripe', 'javascript:void(0)' ),
+			            'is_recommended' => true,
+			            'priority'       => 6,
+		            ) );
+
+		            return $menu;
+	            },4 );
+            }
 			add_filter( 'woofunnels_global_settings_fields', function ( $settings ) {
 				$settings['tools'] = array(
 					'tools' => array(

@@ -94,7 +94,17 @@ function wffnDefaultEvent(result) {
     }
 
     result.flt = wffnGetAdminTime();
-    result.referrer = document.referrer.indexOf(window.location.hostname) === -1 ? document.referrer : '';
+
+    /**
+     * save referrer when manually pass by url
+     */
+    if (result.hasOwnProperty('fkreferrer') && result.fkreferrer !== '') {
+        result.referrer = result.fkreferrer;
+        delete result.fkreferrer;
+    }else {
+        result.referrer = document.referrer.indexOf(window.location.hostname) === -1 ? document.referrer : '';
+    }
+
     result.fl_url = (typeof window.location.pathname !== "undefined") ? window.location.pathname : '/';
 
     let getDevice = wffnDetectDevice();
@@ -109,21 +119,37 @@ function wffnDefaultEvent(result) {
     return result;
 }
 
-/** get wp admin current time*/
-function wffnGetAdminTime(getEpochTime = false) {
-    let getTime = new Date();
-    let userOffset = getTime.getTimezoneOffset();
-    let adminOffset = parseFloat(wffnUtm.utc_offset);
-    /** add user offset for reach utc time **/
-    getTime.setMinutes(getTime.getMinutes() + (userOffset));
-    /** add admin offset for reach admin time **/
-    getTime.setMinutes(getTime.getMinutes() + (adminOffset));
 
+/** get wp admin current time*/
+function wffnGetAdminTime(getEpochTime = false, isObject = false) {
+    var getTime = new Date();
+    var getIsoString = getTime.toISOString();
+
+    // Convert the ISO string to a Date object
+    var dateFromIso = new Date(getIsoString);
+
+    // Set Admin offset to get user time according admin
+    dateFromIso.setMinutes(dateFromIso.getMinutes() + parseInt(wffnUtm.utc_offset));
+    getIsoString = dateFromIso.toISOString();
+    const [datePart, timePart] = getIsoString.split("T");
+
+    // Extract year, month, day
+    const [getYear, getMonth, getDay] = datePart.split("-").map(Number);
+    // Extract hours, minutes, seconds
+    const [getHours, getMinutes, secondsWithMillis] = timePart.split(":");
+    const getSeconds = secondsWithMillis.split(".")[0];
     if (true === getEpochTime) {
         /** get time in seconds **/
-        return Math.round(getTime.getTime() / 1000);
+        dateFromIso = new Date(getYear + '-' + (getMonth) + '-' + getDay + ' ' + getHours + ':' + getMinutes + ':' + getSeconds);
+        return Math.round(dateFromIso.getTime() / 1000);
     }
-    return getTime.getFullYear() + '-' + (getTime.getMonth() + 1) + '-' + getTime.getDate() + ' ' + getTime.getHours() + ':' + getTime.getMinutes() + ':' + getTime.getSeconds();
+
+    if (true === isObject) {
+        return new Date(getYear + '-' + (getMonth) + '-' + getDay + ' ' + getHours + ':' + getMinutes + ':' + getSeconds);
+
+    }
+
+    return getYear + '-' + (getMonth) + '-' + getDay + ' ' + getHours + ':' + getMinutes + ':' + getSeconds;
 }
 
 function wffnGetTrafficSource() {
@@ -175,7 +201,7 @@ function wffnManageCookies() {
                     if ('undefined' !== typeof wffnCookieManage && '' === wffnCookieManage.getCookie('wffn_' + wffnUtm_terms[k])) {
                         wffnCookieManage.setCookie('wffn_' + wffnUtm_terms[k], queryVars[wffnUtm_terms[k]], 2);
                     }
-                } else if ('' !== wffnUtm_terms[k]) {
+                } else{
                     wffnCookieManage.setCookie('wffn_' + wffnUtm_terms[k], queryVars[wffnUtm_terms[k]], 2);
                 }
             }
@@ -192,16 +218,16 @@ function wffnManageCookies() {
  * Return UTM terms from request query variables or from cookies.
  */
 function wffnGetUTMs() {
-
     try {
-
         var terms = {};
         var queryVars = wffnGetQueryVars();
-
+        /** exclude parameter for utm event **/
+        var excludeArray = ["flt", "timezone", "is_mobile", "browser", "fbclid", "gclid", "referrer", "fl_url"];
         for (var k in wffnUtm_terms) {
-            if (wffnCookieManage.getCookie('wffn_' + wffnUtm_terms[k]) === '' && Object.prototype.hasOwnProperty.call(queryVars, wffnUtm_terms[k])) {
 
-                wffnCookieManage.setCookie('wffn_' + wffnUtm_terms[k], queryVars[wffnUtm_terms[k]], 2);
+            if (wffnCookieManage.getCookie('wffn_' + wffnUtm_terms[k]) === '' && Object.prototype.hasOwnProperty.call(queryVars, wffnUtm_terms[k])) {
+                terms[wffnUtm_terms[k]] = wffnCookieManage.getCookie('wffn_' + wffnUtm_terms[k]);
+
             }
         }
         return terms;
@@ -227,7 +253,7 @@ function wffnAddTrafficParamsToEvent(params) {
         /**
          * getting current day and time to send with this event
          */
-        var e = new Date();
+        var e = wffnGetAdminTime(false, true);
         var a = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][e.getDay()],
             b = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][e.getMonth()],
             c = ["00-01", "01-02", "02-03", "03-04", "04-05", "05-06", "06-07", "07-08", "08-09", "09-10", "10-11", "11-12", "12-13", "13-14", "14-15", "15-16", "16-17", "17-18", "18-19", "19-20", "20-21", "21-22", "22-23", "23-24"][e.getHours()];
@@ -237,7 +263,6 @@ function wffnAddTrafficParamsToEvent(params) {
         params.event_hour = c;
 
         params.traffic_source = wffnGetTrafficSource();
-
 
         var getUTMs = wffnGetUTMs();
 

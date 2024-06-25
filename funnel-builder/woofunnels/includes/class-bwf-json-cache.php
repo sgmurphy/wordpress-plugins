@@ -9,6 +9,11 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 
 			/** WordPress REST API Authentication */
 			self::check_wp_rest_api_authentication();
+
+			/**
+			 * wp rocket cache
+			 */
+			self::check_wp_rocket();
 		}
 
 		/**
@@ -32,6 +37,7 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 
 			$exc_endpoints[] = "^/wp-json/woofunnels/";
 			$exc_endpoints[] = "^/wp-json/funnelkit-automations/";
+			$exc_endpoints   = self::maybe_clear_fb_endpoints( $exc_endpoints );
 
 			$exc_endpoints = self::unique( $exc_endpoints );
 			update_option( 'litespeed.conf.cache-exc', wp_json_encode( $exc_endpoints ) );
@@ -82,6 +88,7 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 				"/autonami/v2",
 				"/funnelkit-automations",
 			];
+			$exc_endpoints = self::maybe_clear_fb_endpoints( $exc_endpoints, 'api-auth' );
 
 			$endpoints = array_filter( $endpoints, function ( $endpoint ) use ( $exc_endpoints ) {
 				foreach ( $exc_endpoints as $url ) {
@@ -94,6 +101,43 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 			} );
 			$endpoints = self::unique( $endpoints );
 			update_option( 'mo_api_authentication_protectedrestapi_route_whitelist', $endpoints );
+		}
+
+
+		/**
+		 * For litespeed cache
+		 * https://wordpress.org/plugins/litespeed-cache/
+		 *
+		 * @return void
+		 */
+		public static function check_wp_rocket() {
+			if ( ! defined( 'WP_ROCKET_VERSION' ) ) {
+				return;
+			}
+
+			if ( ! function_exists( 'get_rocket_option' ) ) {
+				return;
+			}
+
+			$exc_endpoints = (array) get_rocket_option( 'cache_reject_uri', [] );
+
+			$exc_endpoints = self::make_array( $exc_endpoints );
+
+			if ( defined( 'BWFAN_API_NAMESPACE' ) ) {
+				$exc_endpoints[] = "^/wp-json/" . BWFAN_API_NAMESPACE . "/";
+			}
+
+			$exc_endpoints[] = "/wp-json/woofunnels/*";
+			$exc_endpoints[] = "/wp-json/funnelkit-automations/*";
+			$exc_endpoints   = self::maybe_clear_fb_endpoints( $exc_endpoints, 'wp_rocket' );
+
+			// Update the "Never cache the following pages" option.
+			$exc_endpoints = self::unique( $exc_endpoints );
+			update_rocket_option( 'cache_reject_uri', $exc_endpoints );
+
+			// Update config file.
+			rocket_generate_config_file();
+
 		}
 
 		/**
@@ -141,6 +185,56 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 			sort( $value );
 
 			return $value;
+		}
+
+		/**
+		 * @param $endpoints
+		 * @param $plugin_slug
+		 *
+		 * @return array|mixed
+		 */
+		public static function maybe_clear_fb_endpoints( $endpoints, $plugin_slug = '' ) {
+
+			if ( ! class_exists( 'WFFN_Core' ) ) {
+				return $endpoints;
+			}
+
+			if ( ! is_array( $endpoints ) ) {
+				$endpoints = [];
+			}
+
+			if ( 'api-auth' === $plugin_slug ) {
+				$endpoints[] = "/funnelkit-app/";
+
+				return $endpoints;
+			}
+
+			$endpoints[] = "^/wp-json/funnelkit-app/";
+
+			$db_options = get_option( 'bwf_gen_config', [] );
+
+			if ( is_array( $db_options ) ) {
+				$cl_slug = isset( $db_options['checkout_page_base'] ) ? $db_options['checkout_page_base'] : '';
+				$of_slug = isset( $db_options['wfocu_page_base'] ) ? $db_options['wfocu_page_base'] : '';
+
+				if ( 'wp_rocket' === $plugin_slug ) {
+					if ( ! empty( $cl_slug ) ) {
+						$endpoints[] = '/' . $cl_slug . '/(.*)';
+					}
+					if ( ! empty( $of_slug ) ) {
+						$endpoints[] = '/' . $of_slug . '/(.*)';
+					}
+				} else {
+					if ( ! empty( $cl_slug ) ) {
+						$endpoints[] = '/' . $cl_slug . '/';
+					}
+					if ( ! empty( $of_slug ) ) {
+						$endpoints[] = '/' . $of_slug . '/';
+					}
+				}
+			}
+
+			return $endpoints;
 		}
 	}
 }

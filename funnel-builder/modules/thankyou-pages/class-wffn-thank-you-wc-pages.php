@@ -50,6 +50,7 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 			add_filter( 'woocommerce_get_checkout_order_received_url', array( $this, 'redirect_to_thankyou' ), 999, 2 );
 			add_action( 'init', array( $this, 'register_post_type' ), 5 );
 			add_action( 'wp', array( $this, 'maybe_check_for_custom_page' ), 1 );
+			add_action( 'wp', array( $this, 'maybe_redirect_funnel_thankyou' ), 2 );
 			add_action( 'wp', array( $this, 'set_id' ), 2 );
 			add_action( 'wp', array( $this, 'validate_order' ), 11 );
 			add_action( 'wp', array( $this, 'wfty_add_shortcodes' ), 12 );
@@ -326,6 +327,11 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 		public function maybe_set_query_var( $wp_query_obj ) {
 			if ( true === $this->is_wfty_page() ) {
 				$get_order_id = filter_input( INPUT_GET, 'order_id', FILTER_SANITIZE_NUMBER_INT );
+
+				if ( empty( $get_order_id ) ) {
+					$get_order_id = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_NUMBER_INT );
+				}
+
 				if ( $get_order_id !== null ) {
 					$get_order_received_endpoint                = get_option( 'woocommerce_checkout_order_received_endpoint', 'order-received' );
 					$wp_query_obj->query_vars['order-received'] = $get_order_id;
@@ -362,7 +368,7 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 				 * Check order key from URL so that users cannot open other's thank you page
 				 */
 				$order_key = $order->get_order_key();
-				if ( ! empty( $order_key ) && filter_input( INPUT_GET, 'key', FILTER_UNSAFE_RAW ) !== $order_key ) {
+				if ( ! empty( $order_key ) && filter_input( INPUT_GET, 'key', FILTER_SANITIZE_SPECIAL_CHARS ) !== $order_key ) {
 					if ( $this->is_wfty_page() ) {
 						wp_die( __( 'Unable to process your request.', 'funnel-builder' ) ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
@@ -524,7 +530,7 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 
 		public function get_optionsShortCode( $key = 'all', $id = 0 ) {
 			$id = ( 0 === $id ) ? $this->edit_id : $id;
-			$id = empty( $id ) ? filter_input( INPUT_GET, 'preview_id', FILTER_UNSAFE_RAW ) : $id;
+			$id = empty( $id ) ? filter_input( INPUT_GET, 'preview_id', FILTER_SANITIZE_SPECIAL_CHARS ) : $id;
 			$id = empty( $id ) ? $this->thankyoupage_id : $id;
 
 			if ( empty( $id ) ) {
@@ -1058,6 +1064,56 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 			$this->thankyoupage_id  = $maybe_wfty_id;
 			$this->wfty_is_thankyou = true;
 			$this->maybe_set_query_var( $wp_query );
+
+		}
+
+		/**
+		 *  Redirects to the funnel builder thank you page when any gateway
+		 *  hard return pass order received url without run order received url function
+		 *
+		 * @param $wp_obj
+		 *
+		 * @return void
+		 */
+		public function maybe_redirect_funnel_thankyou( $wp_obj ) {
+
+			// Check if on the funnel thank you page or if the thankyou page reattempt is in progress
+			if ( ! empty( filter_input( INPUT_GET, 'wfty_source', FILTER_SANITIZE_NUMBER_INT ) ) || ! empty( filter_input( INPUT_GET, 'nt', FILTER_SANITIZE_SPECIAL_CHARS ) ) ) {
+				return;
+			}
+
+			// Ensure the WooCommerce order received page function exists and we're on that page
+			if ( ! function_exists( 'is_order_received_page' ) || ! is_order_received_page() ) {
+				return;
+			}
+
+			$order_id = '';
+
+			if ( ! empty( $wp_obj->query_vars ) && isset( $wp_obj->query_vars['order-received'] ) ) {
+				$order_id = absint( $wp_obj->query_vars['order-received'] );
+			}
+
+			// Proceed only if there's a valid order ID
+			if ( empty( $order_id ) ) {
+				return;
+			}
+
+			// Retrieve the order using the order ID and redirect if it's a valid order
+			$order = wc_get_order( $order_id );
+			if ( $order instanceof WC_Order ) {
+
+				$url = $order->get_checkout_order_received_url();
+
+				if ( empty( $url ) ) {
+					return;
+				}
+
+				$url = add_query_arg( [ 'nt' => '1' ], $url );
+				wp_redirect( $url );
+				exit;
+			}
+
+			return;
 
 		}
 

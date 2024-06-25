@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Facturare WooCommerce By George Ciobanu
+ * Facturare - Persoana Fizica sau Juridica By Avian Studio
  * Plugin URI: https://wordpress.org/plugins/facturare-persoana-fizica-sau-juridica/
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Facturare_WC {
+class WFACP_Compatibility_Facturare_WC {
 	private $obj = null;
 	private $px = 7;
 	private $facturare_arr = [ 'tip_facturare', 'cnp', 'cui', 'nr_reg_com', 'nume_banca', 'iban', 'billing_company' ];
@@ -16,12 +15,16 @@
 		/* Register Add field */ //
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'remove_action' ] );
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_field' ], 20 );
-		add_filter( 'wfacp_html_fields_tip_facturare', '__return_false' );
+		add_filter( 'wfacp_html_fields_wfacp_tip_facturare', '__return_false' );
 
 		add_filter( 'wfacp_html_fields_tip_facturare_fields', '__return_false' );
 		add_action( 'process_wfacp_html', [ $this, 'process_wfacp_html' ], 10, 2 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 
 	}
@@ -33,11 +36,11 @@
 
 	public function add_field( $fields ) {
 
-		$fields['tip_facturare']        = [
+		$fields['wfacp_tip_facturare']  = [
 			'type'       => 'wfacp_html',
 			'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'WooFacturare' ],
-			'id'         => 'tip_facturare',
-			'field_type' => 'tip_facturare',
+			'id'         => 'wfacp_tip_facturare',
+			'field_type' => 'wfacp_tip_facturare',
 			'label'      => __( 'WooFacturare', 'woofunnels-aero-checkout' ),
 
 		];
@@ -120,8 +123,9 @@
 
 		}
 
-		if ( 'tip_facturare' == $key ) {
-			woocommerce_form_field( $key, $finalfields[ $key ] );
+
+		if ( 'wfacp_tip_facturare' == $key ) {
+			woocommerce_form_field( 'tip_facturare', $finalfields['tip_facturare'] );
 
 		} elseif ( 'tip_facturare_fields' == $key ) {
 			unset( $finalfields['tip_facturare'] );
@@ -140,7 +144,11 @@
 			return $args;
 		}
 
+
 		$width_class = 'wfacp-col-left-half';
+		if ( $key == 'tip_facturare' ) {
+			$width_class = 'wfacp-col-full';
+		}
 
 		if ( ! in_array( 'av_tip_facturare_radio', $args['class'] ) ) {
 			$all_cls             = array_merge( [ 'wfacp-form-control-wrapper ', $width_class ], $args['class'] );
@@ -178,6 +186,35 @@
             body .wfacp_main_form.woocommerce .form-row.av-hide {
                 display: none;
             }
+            #wfacp-e-form .wfacp_main_form p#tip_facturare_field >label{
+                position: relative;
+                padding-left:0 !important;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                top: auto !important;
+                font-size: 14px !important;
+            }
+            #wfacp-e-form .wfacp_main_form p#tip_facturare_field label span input[type="radio"] {
+                position: relative;
+                display: none !important;
+                left:auto;
+                top:auto;
+                bottom:auto;
+                right:auto;
+                margin-right:10px !important;
+            }
+
+            body #wfacp-sec-wrapper .wfacp_main_form.woocommerce p#tip_facturare_field input[type="radio"] + label {
+
+                padding-left: 10px;
+                font-size: 14px !important;
+                margin-left: 4px;
+                position: relative;
+                left: auto;
+                display: inline-block;
+            }
+
         </style>
         <script>
             window.addEventListener('bwf_checkout_load', function () {

@@ -84,7 +84,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			return $shortcode_exist;
 		}
 		global $post;
-		$shortcodes     = get_post_meta( $post->ID, "ct_builder_shortcodes", true );
+		$shortcodes     = get_post_meta( $post->ID, WFACP_Common::oxy_get_meta_prefix("ct_builder_shortcodes"), true );
 		$start_position = strpos( $shortcodes, '[wfacp_forms' );
 		if ( false !== $start_position ) {
 			$shortcode_string = substr( $shortcodes, $start_position );

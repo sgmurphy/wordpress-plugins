@@ -825,7 +825,7 @@ class FlipBox extends EAE_Widget_Base {
 								'<%1$s %2$s>%3$s</%1$s>',
 								Helper::validate_html_tag( $settings['front_title_html_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
 								$this->get_render_attribute_string( 'front-icon-title' ),
-								$settings['front_title']
+								Helper::eae_wp_kses($settings['front_title'])
 							);
 
 						}
@@ -860,7 +860,7 @@ class FlipBox extends EAE_Widget_Base {
 								'<%1$s %2$s>%3$s</%1$s>',
 								Helper::validate_html_tag( $settings['back_title_html_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
 								$this->get_render_attribute_string( 'back-icon-title' ),
-								$settings['back_title']
+								Helper::eae_wp_kses($settings['back_title'])
 							);
 						}
 						?>

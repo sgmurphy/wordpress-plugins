@@ -1,5 +1,5 @@
 import { r as registerInstance, h, a as getElement } from './index-644f5478.js';
-import { s as state } from './watchers-f761bdb6.js';
+import { s as state } from './watchers-7ddfd1b5.js';
 import './index-1046c77e.js';
 
 const scPaymentMethodChoiceCss = ":host{display:block}:slotted([slot=\"summary\"]){line-height:1;display:flex;align-items:center;gap:0.5em}";

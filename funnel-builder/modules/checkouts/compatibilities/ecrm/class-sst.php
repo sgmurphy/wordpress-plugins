@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_filter( 'wfacp_html_fields_sst_tax', '__return_false' );
 		add_action( 'process_wfacp_html', [ $this, 'call_sst_hook' ], 10, 3 );
 		add_action( 'wfacp_internal_css', [ $this, 'add_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function remove_sst_hook() {

@@ -10,29 +10,26 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Author: laboratorio d'Avanguardia
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_WC_PDF_Italian_addon {
+class WFACP_Compatibility_With_WC_PDF_Italian_addon {
 	private $new_fields = [];
 	private $object = null;
 
 	public function __construct() {
 		/* Register Add field */
-
 		if ( WFACP_Common::is_funnel_builder_3() ) {
 			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_fields_billing' ] );
 		} else {
 			add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
 		}
-
-
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'remove_action' ] );
 		add_filter( 'wfacp_html_fields_billing_pdf_invoice_italian', '__return_false' );
 		add_action( 'process_wfacp_html', [ $this, 'call_fields_hook' ], 50, 3 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
-	}
 
-	public function is_enabled() {
-		return class_exists( 'WooCommerce_Italian_add_on' );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_fields' ] );
 	}
 
 	public function setup_fields_billing() {
@@ -43,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		new WFACP_Add_Address_Field( 'pdf_invoice_italian', array(
 			'type'         => 'wfacp_html',
 			'label'        => __( 'WC PDF Invoices Italian', 'woocommerce-fakturownia' ),
-			'palaceholder' => __( 'NIP', 'woocommerce-fakturownia' ),
+			'placeholder' => __( 'NIP', 'woocommerce-fakturownia' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,
@@ -51,6 +48,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		) );
 
 
+	}
+
+	public function is_enabled() {
+		return class_exists( 'WooCommerce_Italian_add_on' );
 	}
 
 	public function remove_action() {
@@ -106,7 +107,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		return $args;
 	}
 
+	public function disabled_third_party_fields( $fields ) {
+		if ( is_array( $this->new_fields ) && count( $this->new_fields ) ) {
+			foreach ( $this->new_fields as $k => $field ) {
+				if ( isset( $fields[ $k ] ) ) {
+					unset( $fields[ $k ] );
+				}
+			}
+		}
+
+		return $fields;
+	}
+
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WC_PDF_Italian_addon(), 'wfacp-woocommerce-pdf-italian-add-on' );
 
 

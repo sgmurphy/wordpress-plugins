@@ -22,12 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		add_filter( 'wfacp_internal_css', [ $this, 'add_internal_css' ] );
 
+		/* prevent third party fields and wrapper*/
+		
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
-	}
 
-
-	public function enabled() {
-		return class_exists( 'SUMO_PP_Checkout_Manager' );
 	}
 
 	public function add_field( $fields ) {
@@ -43,6 +42,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		];
 
 		return $fields;
+	}
+
+	public function enabled() {
+		return class_exists( 'SUMO_PP_Checkout_Manager' );
 	}
 
 	public function add_action() {

@@ -164,7 +164,7 @@ if ( ! class_exists( 'WFFN_Session_Handler' ) ) {
 
 			$this->set_cookie( 'wffn_ay_'.$get_key, '', time() - DAY_IN_SECONDS );
 			$this->set_cookie( 'wffn_si', '', time() - DAY_IN_SECONDS );
-			WFFN_Core()->logger->log( "destroying the session" . print_r( $get_key, true ) ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WFFN_Core()->logger->log( "Clearing the session" . print_r( $get_key, true ) ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 
 
 		}

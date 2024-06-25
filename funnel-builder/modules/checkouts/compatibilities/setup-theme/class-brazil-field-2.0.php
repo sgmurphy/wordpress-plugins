@@ -8,6 +8,26 @@ class WFACP_Brazil_Field_2 {
 	private static $instance = null;
 	private $settings = [];
 
+	private $billing_new_fields = [
+		'billing_persontype',
+		'billing_cpf',
+		'billing_rg',
+		'billing_cnpj',
+		'billing_ie',
+		'billing_birthdate',
+		'billing_gender',
+		'billing_number',
+		'billing_neighborhood',
+		'billing_number',
+		'billing_cellphone',
+
+	];
+
+	private $shipping_new_fields = [
+		'shipping_number',
+		'shipping_house_number_suffix',
+	];
+
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -44,6 +64,12 @@ class WFACP_Brazil_Field_2 {
 		/*-----------------------------------Add Internal Css----------------------------------------*/
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css_js' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
+		add_filter( 'wfacp_third_party_shipping_fields', [ $this, 'disabled_third_party_shipping_fields' ] );
+
 
 	}
 
@@ -63,6 +89,7 @@ class WFACP_Brazil_Field_2 {
 				new WFACP_Add_Address_Field( 'persontype', [
 					'type'        => 'select',
 					'label'       => __( 'Person type', 'woocommerce-extra-checkout-fields-for-brazil' ),
+					'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
 					'class'       => [ 'form-row-wide', 'person-type-field' ],
 					'cssready'    => [ 'wfacp-col-full' ],
 					'input_class' => [ 'wc-ecfb-select' ],
@@ -79,32 +106,35 @@ class WFACP_Brazil_Field_2 {
 				if ( isset( $settings['rg'] ) ) {
 
 					new WFACP_Add_Address_Field( 'cpf', [
-						'label'    => __( 'CPF', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-first', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-left-half' ],
-						'required' => false,
-						'type'     => 'tel',
-						'priority' => 23,
+						'label'       => __( 'CPF', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-first', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-left-half' ],
+						'required'    => false,
+						'type'        => 'tel',
+						'priority'    => 23,
 					], 'billing', false );
 
 
 					new WFACP_Add_Address_Field( 'rg', [
-						'label'    => __( 'RG', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-last', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-left-half' ],
-						'required' => false,
-						'priority' => 24,
+						'label'       => __( 'RG', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-last', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-left-half' ],
+						'required'    => false,
+						'priority'    => 24,
 					], 'billing', false );
 
 
 				} else {
 					new WFACP_Add_Address_Field( 'cpf', [
-						'label'    => __( 'CPF', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-first', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-left-half' ],
-						'required' => false,
-						'type'     => 'tel',
-						'priority' => 23,
+						'label'       => __( 'CPF', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-first', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-left-half' ],
+						'required'    => false,
+						'type'        => 'tel',
+						'priority'    => 23,
 					], 'billing', false );
 
 				}
@@ -115,20 +145,22 @@ class WFACP_Brazil_Field_2 {
 				if ( isset( $settings['ie'] ) ) {
 
 					new WFACP_Add_Address_Field( 'cnpj', [
-						'label'    => __( 'CNPJ', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-first', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-left-half' ],
-						'required' => false,
-						'type'     => 'tel',
-						'priority' => 26,
+						'label'       => __( 'CNPJ', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-first', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-left-half' ],
+						'required'    => false,
+						'type'        => 'tel',
+						'priority'    => 26,
 					], 'billing', false );
 
 					new WFACP_Add_Address_Field( 'ie', [
-						'label'    => __( 'State Registration', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-last', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-left-half' ],
-						'required' => false,
-						'priority' => 27,
+						'label'       => __( 'State Registration', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-last', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-left-half' ],
+						'required'    => false,
+						'priority'    => 27,
 					], 'billing', false );
 
 
@@ -136,12 +168,13 @@ class WFACP_Brazil_Field_2 {
 
 
 					new WFACP_Add_Address_Field( 'cnpj', [
-						'label'    => __( 'CNPJ', 'woocommerce-extra-checkout-fields-for-brazil' ),
-						'class'    => [ 'form-row-wide', 'person-type-field' ],
-						'cssready' => [ 'wfacp-col-full' ],
-						'required' => false,
-						'type'     => 'tel',
-						'priority' => 26,
+						'label'       => __( 'CNPJ', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+						'class'       => [ 'form-row-wide', 'person-type-field' ],
+						'cssready'    => [ 'wfacp-col-full' ],
+						'required'    => false,
+						'type'        => 'tel',
+						'priority'    => 26,
 					], 'billing', false );
 				}
 			}
@@ -180,31 +213,34 @@ class WFACP_Brazil_Field_2 {
 
 
 		new WFACP_Add_Address_Field( 'number', array(
-			'label'    => __( 'Number', 'woocommerce-extra-checkout-fields-for-brazil' ),
-			'class'    => [ 'form-row-first', 'address-field' ],
-			'cssready' => [ 'wfacp-col-left-half' ],
-			'clear'    => true,
-			'required' => true,
-			'priority' => 55,
+			'label'       => __( 'Number', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'class'       => [ 'form-row-first', 'address-field' ],
+			'cssready'    => [ 'wfacp-col-left-half' ],
+			'clear'       => true,
+			'required'    => true,
+			'priority'    => 55,
 		), 'billing', false );
 
 
 		new WFACP_Add_Address_Field( 'neighborhood', array(
-			'label'    => __( 'Neighborhood', 'woocommerce-extra-checkout-fields-for-brazil' ),
-			'class'    => [ 'form-row-first', 'address-field' ],
-			'cssready' => [ 'wfacp-col-left-half' ],
-			'clear'    => true,
-			'priority' => 65,
+			'label'       => __( 'Neighborhood', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'class'       => [ 'form-row-first', 'address-field' ],
+			'cssready'    => [ 'wfacp-col-left-half' ],
+			'clear'       => true,
+			'priority'    => 65,
 		), 'billing', false );
 
 
 		if ( isset( $settings['cell_phone'] ) ) {
 			new WFACP_Add_Address_Field( 'cellphone', array(
-				'label'    => __( 'Cell Phone', 'woocommerce-extra-checkout-fields-for-brazil' ),
-				'class'    => [ 'form-row-last' ],
-				'cssready' => [ 'wfacp-col-full' ],
-				'clear'    => true,
-				'priority' => 105,
+				'label'       => __( 'Cell Phone', 'woocommerce-extra-checkout-fields-for-brazil' ),
+				'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+				'class'       => [ 'form-row-last' ],
+				'cssready'    => [ 'wfacp-col-full' ],
+				'clear'       => true,
+				'priority'    => 105,
 			), 'billing', false );
 		}
 	}
@@ -214,20 +250,22 @@ class WFACP_Brazil_Field_2 {
 			return;
 		}
 		new WFACP_Add_Address_Field( 'number', array(
-			'label'    => __( 'Number', 'woocommerce-extra-checkout-fields-for-brazil' ),
-			'class'    => [ 'form-row-first', 'address-field' ],
-			'cssready' => [ 'wfacp-col-left-half' ],
-			'clear'    => true,
-			'required' => true,
-			'priority' => 55,
+			'label'       => __( 'Number', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'class'       => [ 'form-row-first', 'address-field' ],
+			'cssready'    => [ 'wfacp-col-left-half' ],
+			'clear'       => true,
+			'required'    => true,
+			'priority'    => 55,
 		), 'shipping', false );
 
 		new WFACP_Add_Address_Field( 'neighborhood', array(
-			'label'    => __( 'Neighborhood', 'woocommerce-extra-checkout-fields-for-brazil' ),
-			'class'    => [ 'form-row-first', 'address-field' ],
-			'cssready' => [ 'wfacp-col-left-half' ],
-			'clear'    => true,
-			'priority' => 65,
+			'label'       => __( 'Neighborhood', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'placeholder' => __( '', 'woocommerce-extra-checkout-fields-for-brazil' ),
+			'class'       => [ 'form-row-first', 'address-field' ],
+			'cssready'    => [ 'wfacp-col-left-half' ],
+			'clear'       => true,
+			'priority'    => 65,
 		), 'shipping', false );
 	}
 
@@ -268,7 +306,7 @@ class WFACP_Brazil_Field_2 {
 	 * Validation For billing company
 	 */
 
-	public function check_wc_validations_billing( $fields ) {
+	public function check_wc_validations_billing( $fields, $key ) {
 
 		if ( false == $this->is_enabled() ) {
 			return $fields;
@@ -390,6 +428,30 @@ class WFACP_Brazil_Field_2 {
             });
         </script>
 		<?php
+	}
+
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->billing_new_fields ) && count( $this->billing_new_fields ) ) {
+			foreach ( $this->billing_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
+	}
+
+	public function disabled_third_party_shipping_fields( $fields ) {
+		if ( is_array( $this->shipping_new_fields ) && count( $this->shipping_new_fields ) ) {
+			foreach ( $this->shipping_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 }
 

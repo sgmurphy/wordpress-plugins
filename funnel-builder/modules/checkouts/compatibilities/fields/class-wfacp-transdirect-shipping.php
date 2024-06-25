@@ -19,6 +19,10 @@
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'actions' ] );
 		add_action( 'process_wfacp_html', [ $this, 'call_fields_hook' ], 999, 3 );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function actions() {
@@ -30,6 +34,15 @@
 		add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
 	}
 
+	public function is_enabled() {
+		if ( function_exists( 'woocommerce_transdirect_init' ) ) {
+
+			return true;
+		}
+
+		return false;
+
+	}
 
 	public function add_field( $fields ) {
 
@@ -64,20 +77,10 @@
 		}
 	}
 
-	public function is_enabled() {
-		if ( function_exists( 'woocommerce_transdirect_init' ) ) {
-
-			return true;
-		}
-
-		return false;
-
-	}
-
 	public function wfacp_internal_css() {
 		?>
 
-        <style>
+		<style>
             #wfacp_transdirect_shipping_wrap input[type=radio] {
                 position: relative;
                 left: auto;
@@ -183,7 +186,7 @@
             #shipping_type span:last-child {
                 margin: 0;
             }
-        </style>
+		</style>
 		<?php
 
 	}

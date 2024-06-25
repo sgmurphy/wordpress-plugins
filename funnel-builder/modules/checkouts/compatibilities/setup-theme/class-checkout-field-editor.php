@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_before_get_address_field_admin', [ $this, 'remove_locale_my_parcel_nederlend' ] );
 		add_action( 'wfacp_checkout_page_found', [ $this, 'actions' ] );
 		add_action( 'wfacp_before_process_checkout_template_loader', [ $this, 'actions' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function remove_locale_my_parcel_nederlend() {
@@ -50,6 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_CheckoutFields(), 'CheckoutFields' );
 
 

@@ -2,20 +2,21 @@
 
 /**
  * Order delivery date pro tyche
- * #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Order_Delivery_Date_Tyche_lite
+*  class WFACP_Compatibility_Order_Delivery_Date_Tyche_lite
  */
 if ( ! class_exists( 'WFACP_Compatibility_Order_Delivery_Date_Tyche_lite' ) ) {
-	#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Order_Delivery_Date_Tyche_lite {
+	#[AllowDynamicProperties] 
+ class WFACP_Compatibility_Order_Delivery_Date_Tyche_lite {
 		public function __construct() {
 			add_filter( 'wfacp_advanced_fields', [ $this, 'add_field' ], 20 );
 			add_action( 'wfacp_header_print_in_head', [ $this, 'enqueue_js' ] );
 			add_filter( 'wfacp_html_fields_oddt', '__return_false' );
 			add_action( 'process_wfacp_html', [ $this, 'call_birthday_addon_hook' ], 10, 3 );
 			add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
+
+			/* prevent third party fields and wrapper*/
+
+			add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 		}
 
 		public function add_field( $fields ) {
@@ -25,7 +26,7 @@ if ( ! class_exists( 'WFACP_Compatibility_Order_Delivery_Date_Tyche_lite' ) ) {
 					'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'aw_addon_wrap', 'oddt' ],
 					'id'         => 'oddt',
 					'field_type' => 'advanced',
-					'label'      => __( 'Delivery Date', 'funnel-builder' ),
+					'label'      => __( 'Delivery Date', 'woofunnels-aero-checkout' ),
 				];
 			}
 

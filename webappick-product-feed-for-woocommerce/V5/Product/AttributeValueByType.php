@@ -263,7 +263,9 @@ class AttributeValueByType {
 				'_identifier_ean',
 				'_identifier_mpn'
 			), $this->attribute ) ) {
+
 			$output = ProductHelper::get_custom_field( $this->attribute, $this->product, $this->config );
+
 		} elseif ( false !== strpos( $this->attribute, self::PRODUCT_ATTRIBUTE_PREFIX ) ) {
 			$this->attribute = str_replace( self::PRODUCT_ATTRIBUTE_PREFIX, '', $this->attribute );
 			$output          = ProductHelper::get_product_attribute( $this->attribute, $this->product, $this->config );

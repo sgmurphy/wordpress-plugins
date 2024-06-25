@@ -26,6 +26,7 @@
             var mobile_width = parseInt(settings['mobile_width']) || 480;
             var mobile_display_columns = parseInt(settings['mobile_display_columns']) || 1;
             var mobile_scroll_columns = parseInt(settings['mobile_scroll_columns']) || 1;
+            var rtl = $('html').attr('dir') === 'rtl' ? true : false;
 
             slider_elem.slick({
                 arrows: arrows,
@@ -41,6 +42,7 @@
                 draggable: pause_on_dragging,
                 slidesToShow: display_columns,
                 slidesToScroll: scroll_columns,
+                rtl: rtl,
                 responsive: [
                     {
                         breakpoint: tablet_width,

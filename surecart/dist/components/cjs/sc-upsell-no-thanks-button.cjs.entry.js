@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
-const mutations = require('./mutations-350dedab.js');
+const mutations = require('./mutations-2558dfa8.js');
 require('./fetch-2dba325c.js');
 require('./add-query-args-17c551b6.js');
 require('./store-1aade79c.js');

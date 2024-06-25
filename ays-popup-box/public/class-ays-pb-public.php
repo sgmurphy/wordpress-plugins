@@ -1385,6 +1385,26 @@ class Ays_Pb_Public {
 
             $notification_button_1_padding = $notification_button_1_padding_top_bottom . ' ' . $notification_button_1_padding_left_right;
 
+            // Notification type | Button 1 box shadow
+            $notification_button_1_enable_box_shadow = (isset($options['notification_button_1_enable_box_shadow']) && $options['notification_button_1_enable_box_shadow'] == 'on') ? true : false;
+
+            $notification_button_1_box_shadow = 'none';
+            if ($notification_button_1_enable_box_shadow) {
+                // Notification type | Button 1 box shadow color
+                $notification_button_1_box_shadow_color = (isset($options['notification_button_1_box_shadow_color']) && $options['notification_button_1_box_shadow_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_box_shadow_color']) ) : '#FF8319';
+
+                // Notification type | Button 1 box shadow X offset
+                $notification_button_1_box_shadow_x_offset = (isset($options['notification_button_1_box_shadow_x_offset']) && $options['notification_button_1_box_shadow_x_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_x_offset']) ) : 0;
+
+                // Notification type | Button 1 box shadow Y offset
+                $notification_button_1_box_shadow_y_offset = (isset($options['notification_button_1_box_shadow_y_offset']) && $options['notification_button_1_box_shadow_y_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_y_offset']) ) : 0;
+
+                // Notification type | Button 1 box shadow Z offset
+                $notification_button_1_box_shadow_z_offset = (isset($options['notification_button_1_box_shadow_z_offset']) && $options['notification_button_1_box_shadow_z_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_z_offset']) ) : 10;
+
+                $notification_button_1_box_shadow = $notification_button_1_box_shadow_x_offset . 'px ' . $notification_button_1_box_shadow_y_offset . 'px ' . $notification_button_1_box_shadow_z_offset . 'px ' . $notification_button_1_box_shadow_color;
+            }
+
             $popupbox_view .= "$screen_shade
                         <input type='hidden' class='ays_pb_delay_".$id."' value='".$ays_pb_delay."'/>
                         <input type='hidden' class='ays_pb_delay_mobile_".$id."' value='".$ays_pb_open_delay_mobile."'/>
@@ -1413,6 +1433,7 @@ class Ays_Pb_Public {
                             border-radius: " . $notification_button_1_border_radius . ";
                             border: " . $notification_button_1_border . ";
                             padding: " . $notification_button_1_padding . ";
+                            box-shadow: " . $notification_button_1_box_shadow . ";
                         }
                         
                         .ays_cmd_window {

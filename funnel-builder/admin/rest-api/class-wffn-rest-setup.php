@@ -77,6 +77,7 @@ if ( ! class_exists( 'WFFN_REST_Setup' ) ) {
 					$statuses['override_global_checkout'] = array(
 						'funnel_id'   => $global_funnel_id,
 						'funnel_name' => $get_funnel->get_title(),
+						'funnel_status' => $get_funnel->get_status(),
 					);
 				}
 			}

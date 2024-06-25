@@ -1,9 +1,9 @@
-﻿=== HT Slider For Elementor ===
+=== HT Slider For Elementor ===
 Contributors: hasthemes, htplugins, devitemsllc, zenaulislam, aslamhasib, tarekht
 Tags: Slider, Elementor, Widgets, Post type slider, Elementor Addons
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,11 +11,22 @@ The HT Slider is an Elementor slider plugin that enables you to add advanced sli
 
 == Description ==
 
-HT Slider For Elementor is a WordPress slider builder plugin for the well-liked Elementor page builder that empowers you to effortlessly create and customize sliders using a drag-and-drop interface within the Elementor.
+**[HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/)** For Elementor is a WordPress slider builder plugin for the popular **Elementor page builder and Gutenberg block editor**. It empowers you to effortlessly create and customize sliders using a drag-and-drop interface within the Elementor.
 
-With its user-friendly features, you can easily control the appearance of your slider, apply custom styling, and arrange slides based on their ID and category. The plugin also provides tailored design options for slider navigation and pagination.
+With its user-friendly features, you can easily create a variety of stunning WordPress sliders and carousels like **image sliders, video sliders, post slider carousels, product carousels, and more.**
 
-== ❤️Features: ==
+The plugin also offers a wide range of custom styling options to tailor your sliders, including slider **navigation and pagination.** You can also control how your sliders appear on different devices.
+
+With [HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/), you have the freedom to showcase content from any custom post type, including WooCommerce products. Furthermore, it offers multiple layouts to display your posts within a slider.
+
+
+**👉 [Purchase Pro]( https://hasthemes.com/plugins/ht-slider-pro-for-elementor/) | [Support](https://hasthemes.com/contact-us/") 👈**
+
+**👉 [80+ Pre-Designed Templates Demo](https://theplugindemo.com/ht-slider/)**
+
+[youtube https://youtu.be/Jl-hdWg2l10]
+
+== ❤️ Features: ==
 * Create Slides using Elementors Drag n Drop Addons or Gutenberg blocks.
 * Display Slider using Elementor Addons/Shortcode.
 * Custom Styling Options.
@@ -42,90 +53,32 @@ With its user-friendly features, you can easily control the appearance of your s
 * Arrow Icon Type(Icon, Image, Text).
 * Arrow Custom Position.
 
-**👉[PURCHASE HT Slider PRO]( https://hasthemes.com/plugins/ht-slider-pro-for-elementor/)**
+== ✅ Pre-made Slider Templates for various categories ==
 
-== ✅ Pre-made Available Slide Templates ==
-
-1.[Animal Slider One](https://99fy.thethemedemo.com/animal/)
-2.[Animal Slider Two](https://99fy.thethemedemo.com/animal/home-2/)
-3.[Animal Slider Three](https://99fy.thethemedemo.com/animal/home-3/)
-4.[Animal Slider Four](https://99fy.thethemedemo.com/animal/home-4/)
-5.[Book Slider One](https://99fy.thethemedemo.com/book/)
-6.[Book Slider Two](https://99fy.thethemedemo.com/book/home-two/)
-7.[Book Slider Three](https://99fy.thethemedemo.com/book/home-three/)
-8.[Car & Motors Slider One](https://99fy.thethemedemo.com/carmotors/)
-9.[Car & Motors Slider Two](https://99fy.thethemedemo.com/carmotors/home-two/)
-10.[Cosmetic Slider One](https://99fy.thethemedemo.com/cosmetic/)
-11.[Cosmetic Slider Two](https://99fy.thethemedemo.com/cosmetic/home-two/)
-12.[Fashion Slider One](https://99fy.thethemedemo.com/fashion/)
-13.[Fashion Slider Two](https://99fy.thethemedemo.com/fashion/home-two/)
-14.[Fashion Slider Three](https://99fy.thethemedemo.com/fashion/home-three/)
-15.[Fashion Slider Four](https://99fy.thethemedemo.com/fashion/home-four/)
-16.[Fashion Slider Five](https://99fy.thethemedemo.com/fashion/home-five/)
-17.[Fashion Slider Six](https://99fy.thethemedemo.com/fashion/home-six/)
-18.[Fashion Slider Seven](https://99fy.thethemedemo.com/fashion/home-seven/)
-19.[Fashion Slider Eight](https://99fy.thethemedemo.com/fashion/home-eight/)
-20.[Fashion Slider Nine](https://99fy.thethemedemo.com/fashion/home-nine/)
-21.[Fashion Slider Ten](https://99fy.thethemedemo.com/fashion/home-ten/)
-22.[Fashion Slider Eleven](https://99fy.thethemedemo.com/fashion/home-eleven/)
-23.[Fashion Slider Twelve](https://99fy.thethemedemo.com/fashion/home-twelve/)
-24.[Fashion Slider Thirteen](https://99fy.thethemedemo.com/fashion/home-thirteen/)
-25.[Fashion Slider Fourteen](https://99fy.thethemedemo.com/fashion/home-fourteen/)
-26.[Fashion Slider Fifteen](https://99fy.thethemedemo.com/fashion/home-fifteen/)
-27.[Fashion Slider Sixteen](https://99fy.thethemedemo.com/fashion/home-sixteen/)
-28.[Fashion Slider Seventeen](https://99fy.thethemedemo.com/fashion/home-seventeen/)
-29.[Fashion Slider Eighteen](https://99fy.thethemedemo.com/fashion/home-eighteen/)
-30.[Fashion Slider Nineteen](https://99fy.thethemedemo.com/fashion/home-nineteen/)
-31.[Flower Slider One](https://99fy.thethemedemo.com/flowers/)
-32.[Flower Slider Two](https://99fy.thethemedemo.com/flowers/home-2/)
-33.[Food Slider One](https://99fy.thethemedemo.com/food/)
-34.[Fruits Slider One](https://99fy.thethemedemo.com/fruits/)
-35.[Fruits Slider Two](https://99fy.thethemedemo.com/fruits/home-2/)
-36.[Furniture Slider One](https://99fy.thethemedemo.com/furniture/)
-37.[Furniture Slider Two](https://99fy.thethemedemo.com/furniture/home-2/)
-38.[Furniture Slider Three](https://99fy.thethemedemo.com/furniture/home-3/)
-39.[Furniture Slider Four](https://99fy.thethemedemo.com/furniture/home-4/)
-40.[Furniture Slider Five](https://99fy.thethemedemo.com/furniture/home-5/)
-41.[Furniture Slider Six](https://99fy.thethemedemo.com/furniture/home-6/)
-42.[Furniture Slider Seven](https://99fy.thethemedemo.com/furniture/home-7/)
-43.[Furniture Slider Eight](https://99fy.thethemedemo.com/furniture/home-8/)
-44.[Furniture Slider Nine](https://99fy.thethemedemo.com/furniture/home-9/)
-45.[Furniture Slider Ten](https://99fy.thethemedemo.com/furniture/home-10/)
-46.[Electronic Slider One](https://99fy.thethemedemo.com/electronics/)
-47.[Electronic Slider Two](https://99fy.thethemedemo.com/electronics/home-2/)
-48.[Electronic Slider Three](https://99fy.thethemedemo.com/electronics/home-3/)
-49.[Electronic Slider Four](https://99fy.thethemedemo.com/electronics/home-4/)
-50.[Electronic Slider Five](https://99fy.thethemedemo.com/electronics/home-5/)
-51.[Electronic Slider Six](https://99fy.thethemedemo.com/electronics/home-6/)
-52.[Electronic Slider Seven](https://99fy.thethemedemo.com/electronics/home-7/)
-53.[Handmade Slider One](https://99fy.thethemedemo.com/handmade/)
-54.[Handmade Slider Two](https://99fy.thethemedemo.com/handmade/home-2/)
-55.[Jewelry Slider One](https://99fy.thethemedemo.com/jewelry/)
-56.[Jewelry Slider Two](https://99fy.thethemedemo.com/jewelry/home-2/)
-57.[Jewelry Slider Three](https://99fy.thethemedemo.com/jewelry/home-3/)
-58.[Jewelry Slider Four](https://99fy.thethemedemo.com/jewelry/home-4/)
-59.[Kids Slider One](https://99fy.thethemedemo.com/kids/)
-60.[Kitchen Slider One](https://99fy.thethemedemo.com/kitchen/)
-61.[Kitchen Slider Two](https://99fy.thethemedemo.com/kitchen/home-2/)
-62.[Kitchen Slider Three](https://99fy.thethemedemo.com/kitchen/home-3/)
-63.[Maternity Slider one](https://99fy.thethemedemo.com/maternity/)
-64.[Maternity Slider Two](https://99fy.thethemedemo.com/maternity/home-2/)
-65.[Matcha Slider One](https://99fy.thethemedemo.com/matcha/)
-66.[Matcha Slider Two](https://99fy.thethemedemo.com/matcha/home-2/)
-67.[Perfume Slider One](https://99fy.thethemedemo.com/perfume/)
-68.[Nursery Slider One](https://99fy.thethemedemo.com/plantsnursery/)
-69.[Health Slider One](https://99fy.thethemedemo.com/healthbeauty/)
-70.[Minimal Slider One](https://99fy.thethemedemo.com/minimal/)
-71.[Minimal Slider Two](https://99fy.thethemedemo.com/minimal/home-2/)
-72.[Minimal Slider Three](https://99fy.thethemedemo.com/minimal/home-3/)
-73.[Sports Slider One](https://99fy.thethemedemo.com/sports/)
-74.[Sports Slider Two](https://99fy.thethemedemo.com/sports/home-two/)
-75.[Sports Slider Three](https://99fy.thethemedemo.com/sports/home-three/)
-76.[Watch Slider One](https://99fy.thethemedemo.com/watch/)
-77.[Watch Slider Two](https://99fy.thethemedemo.com/watch/home-two/)
-78.[Watch Slider Three](https://99fy.thethemedemo.com/watch/home-three/)
-79.[Tools Slider One](https://99fy.thethemedemo.com/toolsequipment/)
-80.[Tools Slider Two](https://99fy.thethemedemo.com/toolsequipment/home-2/)
+1.[ Animal Pets Slider (4+)](https://theplugindemo.com/ht-slider/?category=pets)
+2.[ Book Slider (3+)](https://theplugindemo.com/ht-slider/?category=books)
+3.[ Car & Motors Slider (2+)](https://theplugindemo.com/ht-slider/?category=car)
+4.[ Cosmetic Slider (2+)](https://theplugindemo.com/ht-slider/?category=cosmetics)
+5.[ Fashion Slider (26+)](https://theplugindemo.com/ht-slider/?category=fashion)
+6.[ Flower Slider (3+)](https://theplugindemo.com/ht-slider/?category=flower)
+7.[ Food Slider (1)](https://theplugindemo.com/ht-slider/?category=food)
+8.[ Fruits Slider (2+)](https://theplugindemo.com/ht-slider/?category=fruits)
+9. [Furniture Slider (13+)](https://theplugindemo.com/ht-slider/?category=furniture)
+10.[ Electronics Slider (10+)](https://theplugindemo.com/ht-slider/?category=electronics)
+11.[ Handmade Slider (2+)](https://theplugindemo.com/ht-slider/?category=handmade)
+12.[ Jewelry Slider (4+)](https://theplugindemo.com/ht-slider/?category=jewelry)
+13.[ Kids Slider (1)](https://theplugindemo.com/ht-slider/?category=kids)
+14.[ Kitchen Slider (4+)](https://theplugindemo.com/ht-slider/?category=kitchen)
+15.[ Maternity Slider (2+)](https://theplugindemo.com/ht-slider/?category=maternity)
+16.[ Matcha Coffee Slider (2+)](https://theplugindemo.com/ht-slider/?category=coffee)
+17.[ Perfume Slider (1)](https://theplugindemo.com/ht-slider/?category=perfumes)
+18.[ Nursery Slider (1)](https://theplugindemo.com/ht-slider/?category=plant)
+19.[ Health Beauty Slider (1)](https://theplugindemo.com/ht-slider/?category=health-beauty)
+20.[ Minimal Slider (5+)](https://theplugindemo.com/ht-slider/?category=minimal)
+21.[ Sports Slider (3+)](https://theplugindemo.com/ht-slider/?category=sports)
+22.[ Watch Slider (4+)](https://theplugindemo.com/ht-slider/?category=watches)
+23.[ Tools Equipment Slider (2+)](https://theplugindemo.com/ht-slider/?category=tools)
+24.[ Shapewear Slider (1)](https://theplugindemo.com/ht-slider/?category=shapewear)
 
 Elementor Slider widgets are versatile tools designed to enhance the visual storytelling of your website. HT Slider is a highly versatile and feature-rich Elementor WordPress slider plugin that empowers users to create stunning section sliders, post sliders, and content sliders with ease. This dynamic plugin serves as the perfect addon for Elementor, offering a wide range of customization options and pre-designed slider templates to choose from.
 
@@ -137,22 +90,22 @@ Whether you are an experienced designer or a beginner, this tool enables you to 
 
 ==Numerous Pre-Designed Slider Templates==
 
-Experience the versatility of the HT Slider Plugin, complete with an impressive array of 80 meticulously crafted slider templates, all at your fingertips. Among these templates, you can choose one as per your needs and use it in different sections of your website such as hero section, banner, etc. It empowers you to seamlessly tailor each template to perfectly match your unique needs, ensuring a captivating visual presence on your website
+Experience the versatility of the **[HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/)** Plugin, complete with an impressive array of **[80 meticulously crafted slider templates](https://theplugindemo.com/ht-slider/),** all at your fingertips. Among these templates, you can choose one as per your needs and use it in different sections of your website such as hero section, banner, etc. It empowers you to seamlessly tailor each template to perfectly match your unique needs, ensuring a captivating visual presence on your website
 
 == Seamless Integration with Elementor ==
-HT Slider seamlessly integrates into the Elementor page builder, enhancing your design capabilities without requiring you to leave your familiar workspace. Create impressive sliders right within the Elementor interface using the intuitive drag-and-drop builder.
+[HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/) seamlessly integrates into the Elementor page builder, enhancing your design capabilities without requiring you to leave your familiar workspace. Create impressive sliders right within the Elementor interface using the intuitive drag-and-drop builder.
 
 == Dynamic Content Possibilities ==
-Empower your sliders with a wide range of content options. HT Slider allows you to incorporate images, videos, text, buttons, and even dynamic post content. Bring your posts to life through captivating slides. This ensures that your sliders remain fresh, relevant, and engaging, making them a powerful tool for conveying your message.
+Empower your sliders with a wide range of content options. [HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/) allows you to incorporate images, videos, text, buttons, and even dynamic post content. Bring your posts to life through captivating slides. This ensures that your sliders remain fresh, relevant, and engaging, making them a powerful tool for conveying your message.
 
 == Customizable Navigation and Pagination ==
 Control the navigation and pagination elements of your sliders with ease. Tailor their appearance and behavior to match your website's design and user experience preferences, ensuring seamless navigation through your slider content.
 
 == Responsive and Mobile-Ready ==
-In today's mobile-centric world, responsiveness is paramount. HT Slider ensures that your sliders adapt flawlessly to different screen sizes and devices, guaranteeing a consistent and visually pleasing experience for every visitor, regardless of their device.
+In today's mobile-centric world, responsiveness is paramount. [HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/) ensures that your sliders adapt flawlessly to different screen sizes and devices, guaranteeing a consistent and visually pleasing experience for every visitor, regardless of their device.
 
 ==Whom This Plugin is For==
-HT Slider plugin is designed for a wide range of users who are looking to enhance their Elementor-powered websites with visually appealing and interactive sliders. This plugin is suitable for:
+[HT Slider](https://hasthemes.com/plugins/ht-slider-pro-for-elementor/) plugin is designed for a wide range of users who are looking to enhance their Elementor-powered websites with visually appealing and interactive sliders. This plugin is suitable for:
 
 **Website Owners:** Whether you run a personal blog, a business website, or an e-commerce store, HT Slider offers you the tools to create captivating section sliders, post sliders, and content sliders that engage your audience and elevate the visual appeal of your website.
 Developers: HT Slider provides developers with a versatile plugin to create customized sliders and carousel sliders for their clients' Elementor websites. With its extensive customization options and seamless integration with Elementor, developers can easily create sliders that align with their clients' branding and design preferences.
@@ -250,6 +203,10 @@ HT Slider allows you to design and customize banner sliders that can effectively
 
 
 == Changelog ==
+
+= Version: 1.5.5 - Date: 2024-06-25 =
+
+* Fixed: RTL issue in HT Slider Widget.
 
 = Version: 1.5.4 - Date: 2024-05-02 =
 
@@ -361,8 +318,13 @@ HT Slider allows you to design and customize banner sliders that can effectively
 * Added:80 template
 
 == Screenshots ==
-1. Slider Options in dashboard
-2. Elementor Addons slider content Options
-3. Elementor Addons slider control Options
-4. Elementor Addons slider navigation and pagination button Styling Options
-5. Front end View
+1. Pre-Designed Template Library
+2. Creating Image Slides with HT Slider
+3. Creating Post Slides with HT Slider
+4. Creating Video Slides with HT Slider
+5. Customized Navigation and Pagination
+6. Slider Settings in the Dashboard
+7. HT Slider Elementor Widget
+8. Slider Content Options
+9. Slider Control Options
+10. Slider Controller Style Options

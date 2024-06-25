@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	public function __construct() {
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_fields' ] );
 		add_action( 'wfacp_internal_css', [ $this, 'actions' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function actions() {

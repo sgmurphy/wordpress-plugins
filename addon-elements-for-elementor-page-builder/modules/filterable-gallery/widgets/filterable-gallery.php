@@ -1410,8 +1410,8 @@ class FilterableGallery extends EAE_Widget_Base {
 							$images = $demo_images;
 						}
 						if ( ! empty( $images ) ) {
-							$filter_label = $filter_group['eae_filter_label'];
-							$filter_name  = strtolower( $filter_group['eae_filter_label'] );
+							$filter_label = Helper::eae_wp_kses( $filter_group['eae_filter_label']);
+							$filter_name  = strtolower( Helper::eae_wp_kses($filter_group['eae_filter_label']) );
 							$filter_name  = str_replace( ' ', '-', $filter_name );
 							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'class', ['eae-filter-label' ] );
 							$this->add_render_attribute( 'filter-item-' . $filter_group['_id'], 'href', '#' );

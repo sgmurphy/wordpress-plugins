@@ -507,6 +507,17 @@ class Js_Combinator extends Abstract_Combinator {
 	);
 
 	/**
+	 * Array containing all script ids that should be excluded.
+	 *
+	 * @since 7.7.0
+	 *
+	 * @var   array Array containing all script ids that should be excluded.
+	 */
+	public $excluded_ids = array(
+		'@wordpress/block-library/navigation-js-module',
+	);
+
+	/**
 	 * Array containing all script handle regex' that should be excluded.
 	 *
 	 * @since 7.1.0
@@ -703,6 +714,19 @@ class Js_Combinator extends Abstract_Combinator {
 				$script[0], // The script tag.
 				$matches // The matches.
 			);
+
+
+			// If the script tag exists, retrieve the script id, check if it should be excluded, if so - continue with the next script.
+			if ( isset( $script[0] ) ) {
+				preg_match( '/id="([^"]+)"/', $script[0], $match_id );
+				if ( ! empty( $match_id ) ) {
+					$script_id = $match_id[1];
+					$excluded_ids = apply_filters( 'sgo_javascript_combine_exclude_ids', $this->excluded_ids );
+					if ( in_array( $script_id, $excluded_ids ) ) {
+						continue;
+					}
+				}
+			}
 
 			if ( isset( $matches[2] ) ) {
 				$content[ $script[0] ] = $this->process_script( $matches[2] );

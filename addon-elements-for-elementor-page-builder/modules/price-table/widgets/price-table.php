@@ -777,7 +777,7 @@ class PriceTable extends EAE_Widget_Base {
 		$this->add_render_attribute( 'heading', 'class', 'eae-pt-heading' );
 		$this->add_render_attribute( 'sub_heading', 'class', 'eae-pt-sub-heading' );
 		$this->add_render_attribute( 'button', 'class', 'eae-pt-action-button' );
-		$this->add_render_attribute( 'icon-align', 'class', 'eae-pt-align-icon-' . $settings['icon_align'] );
+		$this->add_render_attribute( 'icon-align', 'class', 'eae-pt-align-icon-' . esc_attr( $settings['icon_align'] ) );
 
 		if ( ! empty( $settings['link']['url'] ) ) {
 			$this->add_link_attributes( 'button', $settings['link'] );
@@ -798,7 +798,7 @@ class PriceTable extends EAE_Widget_Base {
 					'<%1$s %2$s>%3$s</%1$s>',
 					Helper::validate_html_tag( $settings['heading_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h2' ),
 					$this->get_render_attribute_string( 'heading' ),
-					$settings['heading']
+					Helper::eae_wp_kses($settings['heading'])
 				);
 			}
 			?>
@@ -809,7 +809,7 @@ class PriceTable extends EAE_Widget_Base {
 					'<%1$s %2$s>%3$s</%1$s>',
 					Helper::validate_html_tag( $settings['sub_heading_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
 					$this->get_render_attribute_string( 'sub_heading' ),
-					$settings['sub-heading']
+					Helper::eae_wp_kses($settings['sub-heading'])
 				);
 			}
 			?>

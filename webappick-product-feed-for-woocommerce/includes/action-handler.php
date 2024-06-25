@@ -1,21 +1,18 @@
 <?php
 
+use CTXFeed\Compatibility\CompatibilityFactory;
+use CTXFeed\Compatibility\JWTAuth;
+use CTXFeed\Compatibility\MultiVendor;
 use CTXFeed\V5\Common\DisplayNotices;
 use CTXFeed\V5\Common\DownloadFiles;
 use CTXFeed\V5\Common\ExportFeed;
 use CTXFeed\V5\Common\Helper;
 use CTXFeed\V5\Common\ImportFeed;
-use CTXFeed\V5\Compatibility\CompatibilityFactory;
-use CTXFeed\V5\Compatibility\DynamicDiscount;
-use CTXFeed\V5\Compatibility\JWTAuth;
-use CTXFeed\V5\Compatibility\MultiCurrency;
-use CTXFeed\V5\Compatibility\MultiVendor;
 use CTXFeed\V5\CustomFields\CustomFieldFactory;
 use CTXFeed\V5\Helper\CommonHelper;
 use CTXFeed\V5\Helper\CronHelper;
 use CTXFeed\V5\Helper\FeedHelper;
 use CTXFeed\V5\Override\OverrideFactory;
-use CTXFeed\V5\Query\QueryFactory;
 use CTXFeed\V5\Utility\Config;
 use CTXFeed\V5\Utility\Logs;
 

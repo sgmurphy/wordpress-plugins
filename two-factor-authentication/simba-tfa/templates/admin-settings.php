@@ -127,7 +127,7 @@ if (!defined('ABSPATH')) die('Access denied.');
 		<?php if ($encryption_enabled) { ?>
 		<h2><?php _e('Encrypt keys in database', 'two-factor-authentication'); ?></h2>
 		<p>
-		<strong><?php echo __('Encrypt keys in database has been enabled.', 'two-factor-authentication').' '.__('This feature cannot be turned off.', 'two-factor-authentication'); ?></strong>
+		<strong><?php echo __('Encryption of keys in the database has been enabled.', 'two-factor-authentication').' '.__('This feature cannot be turned off.', 'two-factor-authentication'); ?></strong>
 		</p>
 		<?php } else { ?>
 		<form method="post" action="options.php" style="margin-top: 40px">

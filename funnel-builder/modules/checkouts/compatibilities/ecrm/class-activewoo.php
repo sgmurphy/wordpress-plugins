@@ -12,15 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_outside_header', [ $this, 'actions' ] );
 		$this->dequeue_js();
 		$this->remove_actions();
-	}
 
-	public function actions() {
-		global $activewoo;
-		remove_action( 'woocommerce_before_checkout_form', array( $activewoo->recover_cart, 'print_subscribe_form' ) );
-	}
-
-	public function is_enable() {
-		return class_exists( 'WC_Active_Woo' );
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function dequeue_js() {
@@ -44,12 +38,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function is_enable() {
+		return class_exists( 'WC_Active_Woo' );
+	}
+
 	public function remove_actions() {
 		if ( function_exists( 'G3D_APP' ) && G3D_APP() instanceof G3D_APP ) {
 			remove_filter( 'woocommerce_cart_item_thumbnail', array( G3D_APP(), 'cart_item_uses_large_image_link' ), 10 );
 		}
 	}
 
+	public function actions() {
+		global $activewoo;
+		remove_action( 'woocommerce_before_checkout_form', array( $activewoo->recover_cart, 'print_subscribe_form' ) );
+	}
+
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_Active_Woo(), 'activewoo' );
 

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 abstract class WFACP_AJAX_Controller {
 	private static $bump_action_data = '';
 	private static $output_resp = [];
-
+	public static $posted_data = [];
 
 	public static function init() {
 		/**
@@ -75,7 +75,8 @@ abstract class WFACP_AJAX_Controller {
 		if ( empty( $bump_action_data ) ) {
 			return;
 		}
-		$action = $bump_action_data['action'];
+		self::$posted_data = $post_data;
+		$action            = $bump_action_data['action'];
 
 		/* fetching available payment method before modifying bump */
 		$input_data = [];
@@ -449,10 +450,21 @@ abstract class WFACP_AJAX_Controller {
 	public function update_edit_url() {
 		self::check_nonce( true );
 
-		$id  = isset( $_POST['id'] ) ? wc_clean( $_POST['id'] ) : 0;//phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$url = isset( $_POST['url'] ) ? wc_clean( $_POST['url'] ) : '';//phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$id       = isset( $_POST['id'] ) ? wc_clean( $_POST['id'] ) : 0;//phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$url      = isset( $_POST['url'] ) ? wc_clean( $_POST['url'] ) : '';//phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$edit_url = '';
 
-		if ( absint( $id ) > 0 && ( $url !== '' ) ) {
+		if ( function_exists( 'oxygen_add_posts_quick_action_link' ) ) {
+			$post = get_post( $id );
+			if ( ! is_null( $post ) ) {
+				$actions = oxygen_add_posts_quick_action_link( array(), $post, "array" );
+				if ( is_array( $actions ) && isset( $actions['url'] ) ) {
+					$edit_url = $actions['url'];
+				}
+			}
+		}
+
+		if ( empty( $edit_url ) && absint( $id ) > 0 && ( $url !== '' ) ) {
 
 
 			// Get post template
@@ -470,7 +482,7 @@ abstract class WFACP_AJAX_Controller {
 					$default_template = ct_get_posts_template( $id );
 				}
 				if ( $default_template ) {
-					$shortcodes = get_post_meta( $default_template->ID, 'ct_builder_shortcodes', true );
+					$shortcodes = get_post_meta( $default_template->ID, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 					if ( $shortcodes && strpos( $shortcodes, '[ct_inner_content' ) !== false ) {
 						$post_editable  = true;
 						$template_inner = true;
@@ -481,7 +493,7 @@ abstract class WFACP_AJAX_Controller {
 			} else if ( $post_template == - 1 ) { // None
 				$post_editable = true;
 			} else { // Custom template
-				$shortcodes = get_post_meta( $post_template, 'ct_builder_shortcodes', true );
+				$shortcodes = get_post_meta( $post_template, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 				if ( $shortcodes && strpos( $shortcodes, '[ct_inner_content' ) !== false ) {
 					$post_editable  = true;
 					$template_inner = true;
@@ -497,7 +509,7 @@ abstract class WFACP_AJAX_Controller {
 
 		$resp = [
 			'status' => true,
-			'url'    => $url,
+			'url'    => ! empty( $edit_url ) ? $edit_url : $url,
 		];
 		self::send_resp( $resp );
 	}
@@ -1009,6 +1021,9 @@ abstract class WFACP_AJAX_Controller {
 	public static function apply_coupon( $bump_action_data ) {
 
 		if ( isset( $bump_action_data['coupon_code'] ) ) {
+			if ( isset( self::$posted_data['billing_email'] ) && is_email( self::$posted_data['billing_email'] ) ) {
+				wc()->customer->set_billing_email( self::$posted_data['billing_email'] );
+			}
 			remove_all_filters( 'woocommerce_coupons_enabled' );
 			do_action( 'wfacp_before_coupon_apply', $bump_action_data );
 			$status = true;
@@ -1315,6 +1330,11 @@ abstract class WFACP_AJAX_Controller {
 		$data       = $_POST['data'];
 		$event_data = $data['event_data'];
 		$source     = isset( $data['source'] ) ? $data['source'] : '';
+
+		if ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
+			$source = $_SERVER['HTTP_REFERER'];
+		}
+
 		$pixel      = WFACP_Analytics_Pixel::get_instance();
 
 		$get_all_fb_pixel  = $pixel->get_key();

@@ -110,26 +110,6 @@
 		return $item_added_data;
 	}
 
-	public function get_product_item( $product_obj ) {
-
-		if ( ! $product_obj instanceof WC_Product ) {
-			return parent::get_product_item( $product_obj );
-		}
-		$item_id         = $product_obj->get_id();
-		$item_id         = $this->get_product_content_id( $item_id );
-		$categories      = implode( ',', $this->get_object_terms( 'product_cat', $item_id ) );
-		$sub_total       = $product_obj->get_price();
-		$sub_total       = $this->number_format( $sub_total );
-		$item_added_data = [
-			'item_ids'      => [ $item_id ],
-			'item_category' => $categories,
-			'price'         => $sub_total,
-			'currency'      => get_woocommerce_currency(),
-		];
-
-		return $item_added_data;
-	}
-
 	public function remove_item( $product_obj, $cart_item ) {
 		return $this->get_item( $product_obj, $cart_item );
 	}

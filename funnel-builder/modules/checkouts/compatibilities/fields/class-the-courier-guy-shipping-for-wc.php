@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The Courier Guy Shipping for WooCommerce by The Courier Guy (v.4.4.9)
  *
  */
-#[AllowDynamicProperties]
-
-  class The_Courier_Guy_Shipping_For_WC {
+#[AllowDynamicProperties] 
+ class The_Courier_Guy_Shipping_For_WC {
 
 	public function __construct() {
+		/* Register Add field */
 		if ( WFACP_Common::is_funnel_builder_3() ) {
 			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_billing' ] );
 			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_shipping' ] );
@@ -20,14 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			add_action( 'init', [ $this, 'setup_shipping' ], 20 );
 
 		}
+
+
 		/* Internal css  */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
-	}
 
-	public function is_enable() {
-		return class_exists( 'TCG_Plugin' );
-	}
+		/* prevent third party fields and wrapper*/
 
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+	}
 
 	public function setup_billing() {
 		if ( ! $this->is_enable() ) {
@@ -67,6 +68,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		] );
 
 
+	}
+
+	public function is_enable() {
+		return class_exists( 'TCG_Plugin' );
 	}
 
 	public function setup_shipping() {
@@ -131,7 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$cssHtml .= $bodyClass . "#shipping_sg_checkout_location_picker{width:100%;}";
 		$cssHtml .= $bodyClass . "#shipping_sg_checkout_location_picker input[type=text]{padding:12px 10px;}";
 		$cssHtml .= "</style>";
-		
+
 		echo $cssHtml;
 
 

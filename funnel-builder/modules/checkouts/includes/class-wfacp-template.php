@@ -119,6 +119,15 @@ abstract class WFACP_Template_Common {
 			'shipping_company'    => 'billing_company',
 		];
 
+		/**
+		 * Hooking over checkout update order review to check cart coupons during calculate totals
+		 * This is required to update the cart coupons when the cart is updated
+		 * Also hooking in before the fragment filter is important for messages to work smoothly
+		 */
+		add_action( 'woocommerce_checkout_update_order_review', function () {
+			add_action( 'woocommerce_after_calculate_totals', array( $this, 'check_cart_coupons' ), PHP_INT_MAX );
+		} );
+
 	}
 
 	public function get_template_slug() {
@@ -250,7 +259,6 @@ abstract class WFACP_Template_Common {
 	}
 
 	public function add_checkout_fragments( $fragments ) {
-		$fragments = $this->check_cart_coupons( $fragments );
 		$fragments = $this->remove_order_summary_table_add_extra_data( $fragments );
 		$fragments = $this->add_fragment_order_summary( $fragments );
 		$fragments = $this->add_fragment_shipping_calculator( $fragments );
@@ -786,6 +794,14 @@ abstract class WFACP_Template_Common {
 
 	public function set_priority_of_form_fields( $template_fields, $fields ) {
 
+		$unset_required_fields = [
+			'order_comments',
+			'order_summary',
+			'order_coupon',
+			'order_total',
+			'shipping_calculator',
+		];
+
 		foreach ( $template_fields as $type => $sections ) {
 			if ( empty( $sections ) ) {
 				continue;
@@ -793,6 +809,13 @@ abstract class WFACP_Template_Common {
 			foreach ( $sections as $key => $field ) {
 				$template_fields[ $type ][ $key ]['priority'] = 0;
 				if ( isset( $field['type'] ) && ( 'wfacp_wysiwyg' == $field['type'] || 'hidden' == $field['type'] ) && isset( $field['required'] ) ) {
+					unset( $template_fields[ $type ][ $key ]['required'] );
+				}
+
+				/**
+				 * unset required fields
+				 */
+				if ( isset( $field['id'] ) && isset( $field['required'] ) && true === wc_string_to_bool( $field['required'] ) && in_array( $field['id'], $unset_required_fields ) ) {
 					unset( $template_fields[ $type ][ $key ]['required'] );
 				}
 			}
@@ -1678,12 +1701,11 @@ abstract class WFACP_Template_Common {
 
 	}
 
-	public function check_cart_coupons( $fragments ) {
+	public function check_cart_coupons() {
 		if ( ! is_null( WC()->cart ) ) {
 			WC()->cart->check_cart_coupons();
 		}
 
-		return $fragments;
 	}
 
 	public function call_before_cart_link( $breadcrumb ) {
@@ -2458,6 +2480,7 @@ abstract class WFACP_Template_Common {
 
 		return $template;
 	}
+
 	/**
 	 * check if payment fragments is empty then build fragment and assign to fragments array.
 	 *

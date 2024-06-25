@@ -167,11 +167,14 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 			}
 
 			if ( $init === $plugin_file ) {
-				$row_meta_args['slug'] = 'yith-woocommerce-badge-management';
+				$row_meta_args[ 'live_demo' ]     = array( 'url' => $this->demo_url );
+				$row_meta_args[ 'documentation' ] = array( 'url' => $this->doc_url );
+				$row_meta_args[ 'slug' ]          = 'yith-woocommerce-badges-management';
 				if ( ! defined( 'YITH_WCBM_PREMIUM' ) ) {
-					$row_meta_args['support'] = array( 'url' => 'https://wordpress.org/support/plugin/yith-woocommerce-badges-management' );
+					$row_meta_args[ 'premium_version' ] = array( 'url' => $this->plugin_url );
+					$row_meta_args[ 'support' ]         = array( 'url' => 'https://wordpress.org/support/plugin/yith-woocommerce-badges-management' );
 				} else {
-					$row_meta_args['is_premium'] = true;
+					$row_meta_args[ 'is_premium' ] = true;
 				}
 			}
 
@@ -248,7 +251,7 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 			);
 
 			foreach ( $data_to_localize as $handle => $data ) {
-				wp_localize_script( $handle, $data['object_name'], $data['data'] );
+				wp_localize_script( $handle, $data[ 'object_name' ], $data[ 'data' ] );
 			}
 		}
 
@@ -264,7 +267,7 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 			$args        = compact( 'type' );
 			$badge_list  = defined( 'YITH_WCBM_PREMIUM' ) && YITH_WCBM_PREMIUM && function_exists( 'yith_wcbm_get_badges_list' ) ? yith_wcbm_get_badges_list( $type ) : yith_wcbm_get_local_badges_list( $type );
 			foreach ( $badge_list as $badge_style ) {
-				$args['style']       = $badge_style;
+				$args[ 'style' ]     = $badge_style;
 				$key                 = str_replace( '.svg', '', $badge_style );
 				$badges_html[ $key ] = yith_wcbm_get_badge_svg( $args, true );
 			}
@@ -449,9 +452,9 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 		 */
 		public function toggle_enable_badge() {
 			$response = array( 'success' => false );
-			if ( isset( $_POST['security'], $_POST['badge_id'], $_POST['badge_enable'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'yith_wcbm_toggle_enable_badge' ) ) {
-				update_post_meta( absint( $_POST['badge_id'] ), '_enabled', 'yes' === $_POST['badge_enable'] ? 'yes' : 'no' );
-				$response['success'] = true;
+			if ( isset( $_POST[ 'security' ], $_POST[ 'badge_id' ], $_POST[ 'badge_enable' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ 'security' ] ) ), 'yith_wcbm_toggle_enable_badge' ) ) {
+				update_post_meta( absint( $_POST[ 'badge_id' ] ), '_enabled', 'yes' === $_POST[ 'badge_enable' ] ? 'yes' : 'no' );
+				$response[ 'success' ] = true;
 			}
 			wp_send_json( $response );
 			exit();
@@ -470,20 +473,20 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 		 * @param array $args Field Args.
 		 */
 		public function print_badge_library_field( $args = array() ) {
-			$defaults        = array(
+			$defaults          = array(
 				'id'           => '',
 				'library'      => array(),
 				'allow_upload' => 'no',
 				'url'          => '',
 			);
-			$args            = wp_parse_args( $args, $defaults );
-			$args['library'] = array_flip( $args['library'] );
+			$args              = wp_parse_args( $args, $defaults );
+			$args[ 'library' ] = array_flip( $args[ 'library' ] );
 
-			foreach ( $args['library'] as $badge_id => &$badge_url ) {
-				$badge_url = $args['url'] . $badge_id;
+			foreach ( $args[ 'library' ] as $badge_id => &$badge_url ) {
+				$badge_url = $args[ 'url' ] . $badge_id;
 			}
 
-			if ( ! empty( $args['id'] ) ) {
+			if ( ! empty( $args[ 'id' ] ) ) {
 				yith_wcbm_get_view( '/fields/badge-library.php', compact( 'args' ) );
 			}
 		}
@@ -539,7 +542,7 @@ if ( ! class_exists( 'YITH_WCBM_Admin' ) ) {
 		public function is_panel() {
 			$screen_id = is_callable( 'get_current_screen' ) ? get_current_screen()->id ?? false : false;
 
-			return is_admin() && ( ( $screen_id && str_replace( 'edit-', '', $screen_id ) === 'yith-wcbm-badge' ) || ( isset( $_GET['page'] ) && $this->panel_page === $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return is_admin() && ( ( $screen_id && str_replace( 'edit-', '', $screen_id ) === 'yith-wcbm-badge' ) || ( isset( $_GET[ 'page' ] ) && $this->panel_page === $_GET[ 'page' ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 		/**

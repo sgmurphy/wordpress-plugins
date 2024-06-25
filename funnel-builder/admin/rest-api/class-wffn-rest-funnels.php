@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WFFN_REST_Funnels
  *
- * * @extends WP_REST_Controller
+ * * @extends WFFN_REST_Controller
  */
 if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 	#[AllowDynamicProperties]
-	class WFFN_REST_Funnels extends WP_REST_Controller {
+	class WFFN_REST_Funnels extends WFFN_REST_Controller {
 
 		public static $_instance = null;
 
@@ -307,6 +307,16 @@ if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 				'permission_callback' => array( $this, 'get_write_api_permission_check' ),
 			) );
 
+			register_rest_route( $this->namespace, '/' . $this->rest_base . '/funnel-list/revenue', array(
+				array(
+					'args'                => [],
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'get_funnel_list_revenue' ),
+					'permission_callback' => array( $this, 'get_read_api_permission_check' ),
+				),
+			) );
+
+
 		}
 
 		public function get_read_api_permission_check() {
@@ -371,6 +381,41 @@ if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 				} else {
 					$return['steps'] = [];
 				}
+
+				$steps = $return['steps'];
+
+				if ( ! empty( $steps ) && is_array( $steps ) && count( $steps ) > 0 ) {
+					$is_pro = class_exists( 'WFFN_Pro_Core' );
+					foreach ( $steps as $step ) {
+						$funnel_id_meta = get_post_meta( $step['id'], '_bwf_in_funnel', true );
+						$steps_ids      = [ $step['id'] ];
+						$variant_ids    = [];
+
+						if ( $is_pro ) {
+							/**
+							 * Get all variants id for add funnel meta if missing
+							 */
+							$get_step = WFFN_Pro_Core()->steps->get_integration_object( $step['type'] );
+							if ( $get_step instanceof WFFN_Pro_Step ) {
+								$variant_ids = $get_step->maybe_get_ab_variants( $step['id'] );
+							}
+						}
+
+						if ( ! empty( $funnel_id_meta ) && empty( $variant_ids ) ) {
+							continue;
+						}
+
+						$steps_ids       = empty( $funnel_id_meta ) ? array_merge( $steps_ids, $variant_ids ) : $variant_ids;
+						$get_integration = WFFN_Core()->steps->get_integration_object( $step['type'] );
+
+						if ( $get_integration instanceof WFFN_Step ) {
+							foreach ( $steps_ids as $step_id ) {
+								$get_integration->update_funnel_meta_in_step( $step_id, $funnel_id );
+							}
+						}
+					}
+				}
+
 			}
 
 			return $return;
@@ -910,7 +955,7 @@ if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 
 
 				/**
-				 * Lets do the data import which will first create the steps and their respective entities
+				 * Let's do the data import which will first create the steps and their respective entities
 				 */
 				$funnel_data[0]['id'] = $funnel_id;
 
@@ -1167,7 +1212,7 @@ if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 
 			}
 
-			return $resp;
+			return apply_filters( 'wffn_rest_get_templates_response', $resp );
 		}
 
 		public function get_create_funnels_collection() {
@@ -1444,6 +1489,84 @@ if ( ! class_exists( 'WFFN_REST_Funnels' ) ) {
 
 		}
 
+		public function get_funnel_list_revenue( $request ) {
+			$response              = array(
+				'status'  => true,
+				'msg'     => __( 'success', 'funnel-builder-powerpack' ),
+				'funnels' => array()
+			);
+			$funnel_ids            = isset( $request['funnel_ids'] ) ? $request['funnel_ids'] : '';
+
+			if ( empty( $funnel_ids ) ) {
+				return $response;
+			}
+
+			$funnel_ids = ! is_array( $funnel_ids ) ? explode( ',', $funnel_ids ) : $funnel_ids;
+			$all_funnels = [];
+			foreach ( $funnel_ids as $fid ) {
+				$all_funnels[ $fid ] = array(
+					'fid'             => $fid,
+					'total'           => 0,
+					'views'           => 0,
+					'order_count'     => 0,
+					'conversion'      => 0,
+					'conversion_rate' => 0
+				);
+
+			}
+			$funnel_ids = implode( ',', $funnel_ids );
+			/**
+			 * get all funnel conversion from conversion table order by top conversion table
+			 */
+
+			global $wpdb;
+			$f_query     = $wpdb->prepare( "SELECT conv.funnel_id as fid, '' as title, SUM( conv.value ) as total, SUM( CASE WHEN conv.type = 2 THEN 1 ELSE 0 END ) as order_count, 0 as views, COUNT(conv.ID) as conversion, 0 as conversion_rate 
+			FROM {$wpdb->prefix}bwf_conversion_tracking AS conv WHERE conv.funnel_id IN ( %1s ) GROUP BY conv.funnel_id ORDER BY SUM( conv.value ) DESC ", $funnel_ids ); //@codingStandardsIgnoreLine
+			$get_funnels = $wpdb->get_results( $f_query, ARRAY_A ); //@codingStandardsIgnoreLine
+
+			if ( method_exists( 'WFFN_Common', 'maybe_wpdb_error' ) ) {
+				$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
+				if ( false === $db_error['db_error'] ) {
+					if ( is_array( $get_funnels ) && count( $get_funnels ) > 0 ) {
+						foreach ( $get_funnels as $f_data ) {
+							if ( isset( $all_funnels[ $f_data['fid'] ] ) ) {
+								$all_funnels[ $f_data['fid'] ]['total']           = is_null( $f_data['total'] ) ? 0 : $f_data['total'];
+								$all_funnels[ $f_data['fid'] ]['order_count']     = is_null( $f_data['order_count'] ) ? 0 : $f_data['order_count'];
+								$all_funnels[ $f_data['fid'] ]['conversion']      = is_null( $f_data['conversion'] ) ? 0 : absint( $f_data['conversion'] );
+								$all_funnels[ $f_data['fid'] ]['conversion_rate'] = is_null( $f_data['conversion_rate'] ) ? 0 : $f_data['conversion_rate'];
+							}
+						}
+					}
+				}
+			}
+
+			/**
+			 *  get funnel unique views and conversion rate
+			 */
+			$view_query  = $wpdb->prepare( "SELECT object_id as fid , SUM(COALESCE(no_of_sessions, 0)) AS views FROM {$wpdb->prefix}wfco_report_views WHERE type = 7 AND object_id IN (%1s) GROUP BY object_id", $funnel_ids ); //@codingStandardsIgnoreLine
+			$report_data = $wpdb->get_results( $view_query, ARRAY_A ); //@codingStandardsIgnoreLine
+			if ( method_exists( 'WFFN_Common', 'maybe_wpdb_error' ) ) {
+				$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
+				if ( false === $db_error['db_error'] ) {
+					if ( is_array( $report_data ) && count( $report_data ) > 0 ) {
+						/**
+						 * prepare data for sales funnels and add views and conversion
+						 */
+						if ( is_array( $report_data ) && count( $report_data ) > 0 ) {
+							foreach ( $report_data as $r_data ) {
+								if ( isset( $all_funnels[ $r_data['fid'] ] ) ) {
+									$all_funnels[ $r_data['fid'] ]['views']           = is_null( $r_data['views'] ) ? 0 : absint( $r_data['views'] );
+									$all_funnels[ $r_data['fid'] ]['conversion_rate'] = $this->get_percentage( absint( $r_data['views'] ), $all_funnels[ $r_data['fid'] ]['conversion'] );
+								}
+							}
+						}
+					}
+				}
+			}
+			$response['funnels'] = $all_funnels;
+
+			return rest_ensure_response( $response );
+		}
 
 	}
 

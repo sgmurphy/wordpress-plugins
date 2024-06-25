@@ -19,6 +19,9 @@
 		add_action( 'wfacp_before_process_checkout_template_loader', [ $this, 'action' ] );
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_field( $fields ) {
@@ -27,7 +30,7 @@
 			'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_yth_wc_delivery_date' ],
 			'id'         => 'wfacp_yth_wc_delivery_date',
 			'field_type' => 'wfacp_yth_wc_delivery_date',
-			'label'      => __( 'YITH Delivery Date', 'funnel-builder' ),
+			'label'      => __( 'YITH Delivery Date', 'woofunnels-aero-checkout' ),
 		];
 
 		return $fields;

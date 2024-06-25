@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'process_wfacp_html', [ $this, 'add_field_hook' ], 10, 3 );
 		add_filter( 'wfacp_html_fields_wfacp-aw-news-letter', '__return_false' );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_field( $field ) {

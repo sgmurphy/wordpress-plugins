@@ -1,8 +1,8 @@
 === Two Factor Authentication ===
 Tags: two factor, 2fa, tfa, two factor auth, google authenticator
 Requires at least: 3.4
-Tested up to: 6.5
-Stable tag: 1.14.17
+Tested up to: 6.6
+Stable tag: 1.14.23
 Requires PHP: 5.6
 Author: DavidAnderson
 Contributors: DavidAnderson, DNutbourne
@@ -30,7 +30,9 @@ Features (please see the "Screenshots" for more information):
 * Encrypt the TFA-generating secret keys using an on-disk encryption key, so that an attacker would need to break into both your WordPress database *and* your files in order to break TFA codes (as well as breaking a user's password in order to use them)
 * Works together with <a href="https://wordpress.org/plugins/theme-my-login/">"Theme My Login"</a> (both forms and widgets)
 * Includes support for the WooCommerce and Affiliates-WP login forms
+* Includes support for Ultimate Membership Pro
 * Includes support for CozmosLabs Profile Builder
+* Includes support for Ultimate Member login forms (Premium version)
 * Includes support for Elementor Pro login forms (Premium version)
 * Includes support for bbPress login forms (Premium version)
 * Includes support for login forms from the Gravity Forms User Registration add-on (Premium version)
@@ -159,6 +161,36 @@ Note that the two factor authentication plugin has no mechanism to compare or ap
 13. Allowing users to have trusted devices (Premium version)
 
 == Changelog ==
+
+= 1.14.23 - 25/Jun/2024 =
+
+* TWEAK: Do not require TFA codes for API requests authenticated via an application password
+* TWEAK: Improve formatting of "trust this device" checkbox
+
+= 1.14.22 - 28/Nov/2023 =
+
+* FIX: Fix a fatal error that occured due to a failure to process a WP_Error object on an Affiliates WP login form
+* TWEAK: Further improve styling when used on Ultimate Member login forms
+* TWEAK: Force unsetting of disabled property before triggering click event
+
+= 1.14.21 - 01/Nov/2023 =
+
+* TWEAK: Improve styling when used on Ultimate Member login forms
+
+= 1.14.20 - 27/Oct/2023 =
+
+* FEATURE: Add support (Premium version) for Ultimate Member login forms
+
+= 1.14.19 - 14/Oct/2023 =
+
+* TWEAK: Change the "not available for your user" message to be more appropriate when output on pages without login
+* TWEAK: Prevent PHP coding notice when logging an incorrect login
+* TWEAK: Updated bundled updater library to latest series
+
+= 1.14.18 - 30/Aug/2023 =
+
+* TWEAK: The settings for making TFA compulsory (Premium feature) have had their layout and descriptions changed to enhance clarity.
+* TWEAK: The filter simba_tfa_apply_redirect_in_admin has had its default value changed from false to true. This means that when users are forcibly redirected to a setup page, this happens in the admin area too.
 
 = 1.14.17 - 26/Aug/2023 =
 
@@ -838,4 +870,4 @@ Note that the two factor authentication plugin has no mechanism to compare or ap
 * User interface simplified/de-cluttered
 
 == Upgrade Notice ==
-* 1.14.17 : Notify a user if someone enters multiple wrong TFA codes (indicating a password compromise). Add a Gutenburg block. Other tweaks. A recommended update for all.
+* 1.14.22 : Improve support for Ultimate Member and Affiliate WP login forms (Premium version). A recommended update for all.

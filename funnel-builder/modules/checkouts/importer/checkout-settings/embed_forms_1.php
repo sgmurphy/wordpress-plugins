@@ -5,8 +5,9 @@ $advanced_field = WFACP_Common::get_advanced_fields();
 
 $customizer_data = [
 	'wfacp_form' => [
-		'wfacp_form_section_embed_forms_2_step_form_max_width'                        => '450',
-		'wfacp_form_section_embed_forms_2_active_step_bg_color'                       => '#4c4c4c',
+		'wfacp_form_section_embed_forms_2_step_form_max_width'  => '450',
+		'wfacp_form_section_embed_forms_2_active_step_bg_color' => '#4c4c4c',
+
 		'wfacp_form_section_embed_forms_2_active_step_text_color'                     => '#ffffff',
 		'wfacp_form_section_embed_forms_2_active_step_count_bg_color'                 => '#ffffff',
 		'wfacp_form_section_embed_forms_2_active_step_count_border_color'             => '#ffffff',
@@ -19,6 +20,9 @@ $customizer_data = [
 		'wfacp_form_section_embed_forms_2_inactive_step_tab_border_color'             => '#ededed',
 		'wfacp_form_section_embed_forms_2_active_step_count_text_color'               => '#4c4c4c',
 		'wfacp_form_section_embed_forms_2_step_heading_font_size'                     => 19,
+		'wfacp_form_form_fields_1_embed_forms_2_billing_email'                        => 'wfacp-col-full',
+		'wfacp_form_form_fields_1_embed_forms_2_billing_phone'                        => 'wfacp-col-full',
+		'wfacp_form_form_fields_1_embed_forms_2_billing_address_1'                    => 'wfacp-col-full',
 		'wfacp_form_form_fields_1_embed_forms_2_billing_first_name'                   => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_billing_last_name'                    => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_billing_city'                         => 'wfacp-col-left-half',
@@ -26,6 +30,7 @@ $customizer_data = [
 		'wfacp_form_form_fields_1_embed_forms_2_billing_country'                      => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_billing_state'                        => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_shipping_city'                        => 'wfacp-col-left-half',
+		'wfacp_form_form_fields_1_embed_forms_2_shipping_address_1'                   => 'wfacp-col-full',
 		'wfacp_form_form_fields_1_embed_forms_2_shipping_postcode'                    => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_shipping_country'                     => 'wfacp-col-left-half',
 		'wfacp_form_form_fields_1_embed_forms_2_shipping_state'                       => 'wfacp-col-left-half',
@@ -48,29 +53,32 @@ $customizer_data = [
 		'wfacp_form_section_embed_forms_2_btn_order-place_btn_font_weight'            => 'bold',
 		'wfacp_form_product_switcher_section_embed_forms_2_product_switcher_bg_color' => '#ffffff',
 		'wfacp_form_section_embed_forms_2_btn_order-place_border_radius'              => '10',
-		'wfacp_form_section_embed_forms_2_form_border_width' => '1',
+
+		'wfacp_form_section_embed_forms_2_form_border_width'  => '1',
 		'wfacp_form_section_embed_forms_2_form_border_type'   => 'solid',
 		'wfacp_form_section_embed_forms_2_form_border_color'  => '#bbbbbb',
 		'wfacp_form_section_embed_forms_2_form_inner_padding' => '15',
 		'wfacp_form_section_embed_forms_2_name_0'             => __( 'GET YOUR FREE COPY OF AMAZING BOOK', 'woofunnels-aero-checkout' ),
 		'wfacp_form_section_embed_forms_2_headline_0'         => __( 'Shipped in less than 3 days!', 'woofunnels-aero-checkout' ),
-		'wfacp_form_section_embed_forms_2_heading_talign' => 'wfacp-text-left',
-		'wfacp_form_section_embed_forms_2_sec_bg_color'      => 'transparent',
-		'wfacp_form_section_embed_forms_2_rbox_border_type'  => 'none',
-		'wfacp_form_section_embed_forms_2_rbox_border_width' => '1',
-		'wfacp_form_section_embed_forms_2_rbox_padding'      => '0',
-		'wfacp_form_section_embed_forms_2_rbox_margin'       => '10',
-		'wfacp_form_section_embed_forms_2_sub_heading_fs'    => 13,
-		'wfacp_form_section_embed_forms_2_sub_heading_talign'    => 'wfacp-text-left',
-		'wfacp_form_section_embed_forms_2_sec_sub_heading_color' => '#666666',
-		'wfacp_form_section_embed_forms_2_field_style_fs'        => 13,
-		'wfacp_form_section_embed_forms_2_step_alignment' => 'center',
-		'wfacp_form_section_ct_active_inactive_tab'       => 'active',
-		'wfacp_form_section_embed_forms_2_field_border_layout' => 'solid',
-		'wfacp_form_section_embed_forms_2_field_style_color' => '#888888',
-		'wfacp_form_section_embed_forms_2_field_focus_color' => '#61bdf7',
-		'wfacp_form_section_embed_forms_2_field_input_color' => '#404040',
-		'wfacp_form_section_payment_methods_sub_heading' => '',
+
+		'wfacp_form_section_embed_forms_2_heading_talign'                               => 'wfacp-text-left',
+		'wfacp_form_section_embed_forms_2_sec_bg_color'                                 => 'transparent',
+		'wfacp_form_section_embed_forms_2_rbox_border_type'                             => 'none',
+		'wfacp_form_section_embed_forms_2_rbox_border_width'                            => '1',
+		'wfacp_form_section_embed_forms_2_rbox_padding'                                 => '0',
+		'wfacp_form_section_embed_forms_2_rbox_margin'                                  => '10',
+		'wfacp_form_section_embed_forms_2_sub_heading_fs'                               => 13,
+		'wfacp_form_section_embed_forms_2_sub_heading_talign'                           => 'wfacp-text-left',
+		'wfacp_form_section_embed_forms_2_sec_sub_heading_color'                        => '#666666',
+		'wfacp_form_section_embed_forms_2_field_style_fs'                               => 13,
+		'wfacp_form_section_embed_forms_2_step_alignment'                               => 'center',
+		'wfacp_form_section_ct_active_inactive_tab'                                     => 'active',
+		'wfacp_form_section_embed_forms_2_field_border_width'                           => '1',
+		'wfacp_form_section_embed_forms_2_field_border_layout'                          => 'solid',
+		'wfacp_form_section_embed_forms_2_field_style_color'                            => '#888888',
+		'wfacp_form_section_embed_forms_2_field_focus_color'                            => '#61bdf7',
+		'wfacp_form_section_embed_forms_2_field_input_color'                            => '#404040',
+		'wfacp_form_section_payment_methods_sub_heading'                                => '',
 		'wfacp_form_section_embed_forms_2_btn_order-place_fs'                           => 25,
 		'wfacp_form_section_embed_forms_2_btn_order-place_top_bottom_padding'           => '14',
 		'wfacp_form_section_embed_forms_2_btn_order-place_left_right_padding'           => '22',
@@ -85,13 +93,11 @@ $customizer_data = [
 		'wfacp_form_section_embed_forms_2_section_bg_color'                             => '#ffffff',
 		'wfacp_form_section_embed_forms_2_form_content_link_color_type'                 => 'normal',
 		'wfacp_form_section_embed_forms_2_form_content_link_hover_color'                => '#965d5d',
+		'wfacp_style_typography_embed_forms_2_content_ff'                               => 'ABeeZee',
 	]
 
 
-
 ];
-
-
 
 
 $steps = [

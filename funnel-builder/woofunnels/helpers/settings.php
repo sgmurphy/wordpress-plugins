@@ -22,7 +22,7 @@ return apply_filters( 'bwf_settings_config', array(
 			array(
 				'key'           => 'default_selected_builder',
 				'type'          => 'select',
-				'label'         => 'Default Page Builder',
+				'label'         =>  __( 'Default Page Builder', 'woofunnels' ),
 				'hint'          => '',
 				'values'        => [
 					[ 'id' => 'elementor', 'name' => __( 'Elementor', 'woofunnels' ) ],
@@ -38,9 +38,9 @@ return apply_filters( 'bwf_settings_config', array(
 
 				'key'   => 'set_funnel_as_home',
 				'type'  => 'html',
-				'label' => __( 'Set Funnel as Homepage', 'funnel-builder' ),
+				'label' => __( 'Set Funnel as Homepage', 'woofunnels' ),
 				'hint'  => '',
-				'html' => __( 'Select the Funnel page you want to set as the Homepage.  <a href="' . admin_url( 'options-reading.php' ) . '">Go to Wordpress Settings</a>', 'funnel-builder' ),
+				'html' => __( 'Select the Funnel page you want to set as the Homepage.  <a href="' . admin_url( 'options-reading.php' ) . '">Go to Wordpress Settings</a>', 'woofunnels' ),
 			),
 		) ),
 		'priority' => 1,
@@ -61,7 +61,7 @@ return apply_filters( 'bwf_settings_config', array(
 				'key'   => 'funnelkit_google_map_key',
 				'type'  => 'text',
 				'label' => 'Google Map API Key',
-				'hint'  => __( 'Enter the Google Maps API key for Google Address AutoComplete on Checkout.', 'funnel-builder' ),
+				'hint'  => __( 'Enter the Google Maps API key for Google Address AutoComplete on Checkout. <a href="https://funnelkit.com/google-address-autocomplete-for-woocommerce/?utm_source=WordPress&utm_campaign=Lite+Plugin&utm_medium=Settings+Google+Map+Api+Key" target="_blank">Learn More</a>', 'woofunnels' ),
 				'value' => '',
 			)
 		),
@@ -454,19 +454,6 @@ return apply_filters( 'bwf_settings_config', array(
 				'label'       => __( 'Analytics ID', 'woofunnels' ),
 				'placeholder' => __( 'G-9F3K2TGHH4', 'woofunnels' ),
 				'hint'        => __( 'Log into your Google Analytics account to find your Analytics ID. <a target="_blank" href="https://support.google.com/analytics/answer/10269537">Learn More</a>', 'woofunnels' ),
-			),
-			array(
-				'key'    => 'is_ga4_tracking',
-				'type'   => 'checklist',
-				'label'  => __( 'Analytics 4', 'woofunnels' ),
-				'values' => array(
-					array(
-						'name'  => __( 'Enable Analytics 4', 'woofunnels' ),
-						'value' => 'yes',
-					),
-				),
-				'hint'   => __( 'Note: GA4 must be activated in your Google Analytics account. To enable GA4 <a target="_blank" href="https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319">Learn More</a>', 'woofunnels' ),
-
 			),
 
 			array(
@@ -1418,7 +1405,7 @@ return apply_filters( 'bwf_settings_config', array(
 			array(
 				'key'          => 'track_utms',
 				'type'         => 'upgrade_pro',
-				'label'        => __( 'In the lite version, you manage UTM tracking with third-party tools. In the Pro version, we store UTM information and provide real-time analytics.', 'funnel-builder' ),
+				'label'        => __( 'In the lite version, you manage UTM tracking with third-party tools. In the Pro version, we store UTM information and provide real-time analytics.', 'woofunnels' ),
 				'styleClasses' => [ 'wfacp_checkbox_wrap', 'wfacp_setting_track_and_events_end' ],
 				'hint'         => '',
 			),
@@ -1426,25 +1413,6 @@ return apply_filters( 'bwf_settings_config', array(
 		),
 		'priority' => 5,
 	),
-	'fk_stripe_gateway'     => array(
-		'title'    => __( 'Activate Stripe', 'woofunnels' ),
-		'heading'  => __( 'Activate Stripe', 'woofunnels' ),
-		'slug'     => 'fk_stripe_gateway',
-		'fields'   => array(
-			array(
-				'type'         => 'label',
-				'key'          => 'label_fk_stripe',
-				'label'        => __( 'Activate Stripe', 'woofunnels' ),
-				'styleClasses' => [ 'wfacp_setting_track_and_events_start', 'bwf_wrap_custom_html_tracking_general' ],
-			),
-			array(
-				'key'          => 'fk_stripe',
-				'type'         => 'fk_stripe',
-				'label'        => '',
-				'styleClasses' => [ 'wfacp_checkbox_wrap', 'wfacp_setting_track_and_events_end' ],
-				'hint'         => __( ' Use Apple/Google Pay express checkout with deeper compatibility with FunnelKit including upsells. <a target="_blank" href="https://funnelkit.com/docs/stripe-gateway-for-woocommerce?utm_source=WordPress&utm_campaign=Stripe+Plugin&utm_medium=Stripe+Install+Notification">Learn More</a>', 'woofunnels' ),
-			),
-		),
-		'priority' => 45,
-	),
+
 ) );
+

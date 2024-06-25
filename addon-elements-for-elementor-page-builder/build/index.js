@@ -441,21 +441,40 @@ class SwiperBase{
             mswiper.on('slideChangeTransitionStart', function () {
                 mswiper.$wrapperEl.find('.swiper-slide-duplicate').each(function (element) {
                     const parentDiv = element.closest('.eae-vg-video-container');
-
+					
                     if(parentDiv !== null){
-                        let videoWrapper = element.querySelector('.eae-vg-element');
+                        let videoWrapper = element.querySelector('.eae-vg-element');	
                         videoWrapper.addEventListener('click', function(e){
-                            videoWrapper.classList.remove('eae-vg-image-overlay');
-                            let video_type = videoWrapper.getAttribute('data-video-url');
-                            let url = videoWrapper.getAttribute('data-video-url');
-                            videoWrapper.innerHTML = '';
-                            var iframe = document.createElement('iframe');
-                            iframe.classList.add('eae-vg-video-iframe');
-                            iframe.setAttribute('src', url);
-                            iframe.setAttribute('frameborder', '0');
-                            iframe.setAttribute('allowfullscreen', '1');
-                            iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-                            videoWrapper.append(iframe);
+							let element = videoWrapper
+                            element.classList.remove('eae-vg-image-overlay');
+							let video_type = element.getAttribute('data-video-url');
+							let video_t = element.getAttribute('data-video-type');
+							if(video_t != 'hosted'){
+								let url = element.getAttribute('data-video-url');
+								element.innerHTML = '';
+								var iframe = document.createElement('iframe');
+								iframe.classList.add('eae-vg-video-iframe');
+								iframe.setAttribute('src', url);
+								iframe.setAttribute('frameborder', '0');
+								iframe.setAttribute('allowfullscreen', '1');
+								iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+								element.append(iframe);
+							}else{
+								if(element.querySelector('.eae-hosted-video') == null){
+								let videoHtml = element.getAttribute('data-hosted-html');
+									element.innerHTML = '';
+									let hostedVideoHtml = JSON.parse(videoHtml);
+									element.innerHTML += hostedVideoHtml;
+									let hostedVideo = element.querySelector('video');
+									hostedVideo.setAttribute('autoplay', 'autoplay');
+									if(element.hasAttribute('data-video-downaload')){
+										hostedVideo.setAttribute('controlslist', 'nodownload');
+									}
+									if(element.hasAttribute('data-controls')){
+										hostedVideo.setAttribute('controls', '');
+									}   
+								}    
+							}
                         });
                     }
 					
@@ -3548,20 +3567,40 @@ class SwiperBase{
     // }
 
     function get_video(element){
+        // console.log(element);
+        // return;
         const wrapper = element.querySelectorAll('.eae-vg-element');    
         wrapper.forEach(function(element , index){
             element.addEventListener('click', function(e){
                 element.classList.remove('eae-vg-image-overlay');
                 let video_type = element.getAttribute('data-video-url');
-                let url = element.getAttribute('data-video-url');
-                element.innerHTML = '';
-                var iframe = document.createElement('iframe');
-                iframe.classList.add('eae-vg-video-iframe');
-                iframe.setAttribute('src', url);
-                iframe.setAttribute('frameborder', '0');
-                iframe.setAttribute('allowfullscreen', '1');
-                iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-                element.append(iframe);
+                let video_t = element.getAttribute('data-video-type');
+                if(video_t != 'hosted'){
+                    let url = element.getAttribute('data-video-url');
+                    element.innerHTML = '';
+                    var iframe = document.createElement('iframe');
+                    iframe.classList.add('eae-vg-video-iframe');
+                    iframe.setAttribute('src', url);
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allowfullscreen', '1');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+                    element.append(iframe);
+                }else{
+                    if(element.querySelector('.eae-hosted-video') == null){
+                       let videoHtml = element.getAttribute('data-hosted-html');
+                        element.innerHTML = '';
+                        let hostedVideoHtml = JSON.parse(videoHtml);
+                        element.innerHTML += hostedVideoHtml;
+                        let hostedVideo = element.querySelector('video');
+                        hostedVideo.setAttribute('autoplay', 'autoplay');
+                        if(element.hasAttribute('data-video-downaload')){
+                            hostedVideo.setAttribute('controlslist', 'nodownload');
+                        }
+                        if(element.hasAttribute('data-controls')){
+                            hostedVideo.setAttribute('controls', '');
+                        }   
+                    }    
+                }
             });
         });
     }

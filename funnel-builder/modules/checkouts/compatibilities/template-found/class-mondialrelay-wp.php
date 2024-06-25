@@ -9,10 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * https://mondialrelay-wp.com/
  */
 
-
-#[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_Mondialrelay_WP {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_Mondialrelay_WP {
 
 	private $obj = null;
 	private $plugin_name = 'Mondial Relay - WordPress';
@@ -37,6 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		remove_action( 'woocommerce_after_order_notes', [ $this->instance, 'my_custom_checkout_field' ] );
+		remove_action( 'woocommerce_after_order_notes', [ $this->instance, 'modaal_content' ] );
+		remove_action( 'woocommerce_review_order_after_payment', [ $this->instance, 'my_custom_checkout_field' ] );
+		remove_action( 'woocommerce_review_order_after_payment', [ $this->instance, 'modaal_content' ] );
 		add_action( 'wfacp_after_shipping_calculator_field', [ $this, 'move_link' ] );
 
 		if ( method_exists( $this->instance, 'my_custom_checkout_field' ) ) {

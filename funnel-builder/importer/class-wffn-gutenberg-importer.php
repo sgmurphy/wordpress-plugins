@@ -32,7 +32,7 @@ if ( ! class_exists( 'WFFN_Gutenberg_Importer' ) ) {
 		}
 
 		public function export( $module_id, $slug ) { //phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedParameter,VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
-			return get_post_meta( $module_id, 'ct_builder_shortcodes', true );
+			return get_post_meta( $module_id, WFFN_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 		}
 
 		public function delete_oxy_data( $post_id ) {

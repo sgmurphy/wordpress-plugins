@@ -527,6 +527,8 @@ class WooFunnels_Process {
 					break;
 				case "admin.php?page=bwf&path=/store-checkout":
 					$new_sub_menu[11] = $sub_item;
+                                       $new_sub_menu[11][4] = 'bwf_store_checkout';
+
 					break;
 				case "admin.php?page=bwf&path=/analytics":
 					$new_sub_menu[12] = $sub_item;

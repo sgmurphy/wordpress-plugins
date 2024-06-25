@@ -228,14 +228,28 @@ class Ays_Pb_Admin {
      */
     public function add_plugin_admin_menu() {
         add_menu_page(
-            __('Popup Box'),
-            __('Popup Box'),
+            __('Popup Box', "ays-popup-box"),
+            __('Popup Box', "ays-popup-box"),
             'manage_options',
             $this->plugin_name,
             array($this, 'display_plugin_setup_page'),
             plugin_dir_url(__FILE__) . '/images/icons/popup-sidemenu-logo.svg',
             6
         );
+    }
+
+    public function add_plugin_popups_submenu() {
+        $hook_popupbox = add_submenu_page(
+            $this->plugin_name,
+            __('Popups', "ays-popup-box"),
+            __('Popups', "ays-popup-box"),
+            'manage_options',
+            $this->plugin_name,
+            array($this, 'display_plugin_setup_page')
+        );
+
+        add_action( "load-$hook_popupbox", array($this, 'screen_option_popupbox') );
+        add_action( "load-$hook_popupbox", array($this, 'add_tabs') );
     }
 
     /**
@@ -256,6 +270,52 @@ class Ays_Pb_Admin {
                 break;
         }
     }
+
+    public function screen_option_popupbox() {
+		$option = 'per_page';
+		$args = array(
+			'label' => __('PopupBox', "ays-popup-box"),
+			'default' => 20,
+			'option' => 'popupboxes_per_page'
+		);
+
+		add_screen_option($option, $args);
+		$this->popupbox_obj = new Ays_PopupBox_List_Table($this->plugin_name);
+        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
+	}
+
+    public function add_tabs() {
+		$screen = get_current_screen();
+
+		if (!$screen) {
+			return;
+		}
+
+		$screen->add_help_tab(
+			array(
+				'id' => 'popupbox_help_tab',
+				'title' => __('General Information:', "ays-popup-box"),
+				'content' =>
+					'<h2>' . __('Popup Information', "ays-popup-box") . '</h2>' .
+					'<p>'
+						. __('The WordPress Popup plugin will help you to create engaging popups with fully customizable and responsive designs. Attract your audience and convert them into email subscribers or paying customers.  Construct advertising offers, generate more leads by creating option forms and subscription popups.',  "ays-popup-box") .
+                    '</p>'
+			)
+		);
+
+		$screen->set_help_sidebar(
+			'<p><strong>' . __('For more information:', "ays-popup-box") . '</strong></p>' .
+			'<p>
+                <a href="https://www.youtube.com/watch?v=YSf6-icT2Ro&list=PL18_gEiPDg8Ocrbwn1SUjs2XaSZlgHpWj" target="_blank">' . __('Youtube video tutorials', "ays-popup-box") . '</a>
+            </p>' .
+			'<p>
+                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">' . __('Documentation: ', "ays-popup-box") . '</a>
+            </p>' .
+			'<p>
+                <a href="https://ays-pro.com/wordpress/popup-box" target="_blank">' . __('Popup Box plugin Premium version:', "ays-popup-box") . '</a>
+            </p>'
+		);
+	}
 
     // Code Mirror
     function codemirror_enqueue_scripts($hook) {
@@ -278,54 +338,6 @@ class Ays_Pb_Admin {
             wp_enqueue_style('wp-codemirror');
         }
     }
-
-    public function add_plugin_popups_submenu() {
-
-        $hook_popupbox = add_submenu_page(
-            $this->plugin_name,
-            __('Popups', $this->plugin_name),
-            __('Popups', $this->plugin_name),
-            'manage_options',
-            $this->plugin_name,
-            array($this, 'display_plugin_setup_page')
-        );
-
-        add_action( "load-$hook_popupbox", array( $this, 'screen_option_popupbox' ) );
-        add_action( "load-$hook_popupbox", array( $this, 'add_tabs' ));
-    }
-
-    public function add_tabs() {
-		$screen = get_current_screen();
-
-		if ( ! $screen) {
-			return;
-		}
-
-		$screen->add_help_tab(
-			array(
-				'id'      => 'popupbox_help_tab',
-				'title'   => __( 'General Information:
-                    '),
-				'content' =>
-					'<h2>' . __( 'Popup Information', "ays-popup-box") . '</h2>' .
-					'<p>' .
-						__( 'The WordPress Popup plugin will help you to create engaging popups with fully customizable and responsive designs. Attract your audience and convert them into email subscribers or paying customers.  Construct advertising offers, generate more leads by creating option forms and subscription popups.',  "ays-popup-box" ).'</p>'
-			)
-		);
-
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', "ays-popup-box") . '</strong></p>' .
-			'<p>
-                <a href=" https://www.youtube.com/watch?v=YSf6-icT2Ro&list=PL18_gEiPDg8Ocrbwn1SUjs2XaSZlgHpWj" target="_blank">' . __( 'Youtube video tutorials', "ays-popup-box" ) . '</a>
-            </p>' .
-			'<p>
-                <a href="https://ays-pro.com/wordpress-popup-box-plugin-user-manual" target="_blank">' . __( 'Documentation: ', "ays-popup-box" ) . '</a>
-            </p>' .
-			'<p>
-                <a href="https://ays-pro.com/wordpress/popup-box" target="_blank">' . __( 'Popup Box plugin Premium version:', "ays-popup-box" ) . '</a>
-            </p>'
-		);
-	}
 
     public function add_plugin_categories_submenu() {
 
@@ -528,19 +540,6 @@ class Ays_Pb_Admin {
     public function display_plugin_featured_plugins_page(){
         include_once('partials/features/ays-pb-plugin-featured-display.php');
     }
-	
-	public function screen_option_popupbox() {
-		$option = 'per_page';
-		$args   = array(
-			'label'   => __('PopupBox', "ays-popup-box"),
-			'default' => 20,
-			'option'  => 'popupboxes_per_page'
-		);
-
-		add_screen_option( $option, $args );
-		$this->popupbox_obj = new Ays_PopupBox_List_Table($this->plugin_name);
-        $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
-	}
 
     public function screen_option_categories() {
         $option = 'per_page';

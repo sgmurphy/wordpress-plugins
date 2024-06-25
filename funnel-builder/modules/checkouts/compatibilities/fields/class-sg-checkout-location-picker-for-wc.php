@@ -7,9 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Sg Checkout Location Picker for WooCommerce by Sevengits (v.1.0.6)
  * Plugin Path : https://sevengits.com/
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Sg_Checkout_Location_Picker_For_WC {
+#[AllowDynamicProperties] 
+ class WFACP_Sg_Checkout_Location_Picker_For_WC {
 	/**
 	 * @var Sg_Checkout_Location_Picker
 	 */
@@ -27,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		} else {
 			add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
 			add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
-
 		}
+
 
 		add_filter( 'wfacp_html_fields_billing_sg_checkout_location_picker', '__return_false' );
 		add_filter( 'wfacp_html_fields_shipping_sg_checkout_location_picker', '__return_false' );
@@ -47,16 +46,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/* closing Div of customer_details   */
 		add_action( 'wfacp_after_form', [ $this, 'close_div' ], 100 );
 
-	}
+		/* prevent third party fields and wrapper*/
 
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
-	public function is_enable() {
-
-		if ( get_option( 'sg_enable_picker' ) == 'enable' && class_exists( 'Sg_Checkout_Location_Picker_Public' ) ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	public function action() {
@@ -66,6 +59,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$this->instance = WFACP_Common::remove_actions( 'woocommerce_after_checkout_billing_form', 'Sg_Checkout_Location_Picker_Public', 'showBillingMap' );
 		WFACP_Common::remove_actions( 'woocommerce_after_checkout_shipping_form', 'Sg_Checkout_Location_Picker_Public', 'showBillingMap' );
 
+	}
+
+	public function is_enable() {
+
+		if ( get_option( 'sg_enable_picker' ) == 'enable' && class_exists( 'Sg_Checkout_Location_Picker_Public' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	public function setup_fields_billing() {
@@ -165,3 +167,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 WFACP_Plugin_Compatibilities::register( new WFACP_Sg_Checkout_Location_Picker_For_WC(), 'wfacp-sg-checkout-location-picker-for-wc' );
+

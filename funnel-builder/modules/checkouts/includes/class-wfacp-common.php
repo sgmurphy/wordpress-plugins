@@ -49,8 +49,8 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 
 
 		//try to resolve cache
-		add_filter( 'upload_mimes', [ __CLASS__, 'allow_svg_mime_type' ], 99 );
-		add_action( 'woocommerce_checkout_update_order_review_expired', [ __CLASS__, 'do_not_show_session_expired_message' ] );
+
+		add_filter( 'woocommerce_checkout_update_order_review_expired', [ __CLASS__, 'do_not_show_session_expired_message' ] );
 
 		add_action( 'wp_loaded', [ __CLASS__, 'initiate_track_and_analytics' ], 99 );
 
@@ -96,6 +96,10 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 		add_shortcode( 'wfacp_order_total', [ __CLASS__, 'wfacp_order_total' ] );
 
 		add_action( 'template_redirect', [ __CLASS__, 'do_wc_ajax' ], - 1 );
+
+		add_action( 'init', [ __CLASS__, 'setup_fields_billing' ], 20 );
+		add_action( 'wfacp_template_load', [ __CLASS__, 'include_third_party_field' ] );
+		add_filter( 'wfacp_import_checkout_settings', [ __CLASS__, 'add_third_party_fields_to_checkout_form' ], 10, 3 );
 	}
 
 	public static function add_global_settings_fields( $fields ) {
@@ -763,10 +767,11 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 	 */
 	public static function woocommerce_form_field_hidden( $field, $key, $args, $value ) {
 		$args['input_class'][] = 'wfacp_hidden_field';
-		$field                 = '<input type="' . esc_attr( $args['type'] ) . '" class="input-hidden ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" placeholder="' . esc_attr( $args['placeholder'] ) . '"  value="' . esc_attr( do_shortcode( $value ) ) . '"  />';
+		$field                 = '<input type="' . esc_attr( $args['type'] ) . '" class="input-hidden ' . esc_attr( implode( ' ', $args['input_class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $args['id'] ) . '" placeholder="' . esc_attr( $args['placeholder'] ) . '"  value="' . esc_attr( is_string( $value ) && ! empty( $value ) ? do_shortcode( $value ) : '' ) . '"  />';
 
 		return $field;
 	}
+
 
 	/**
 	 * This function print our custom radion field type `wfacp_radio`
@@ -1128,6 +1133,10 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 					foreach ( $fields as $field_index => $field ) {
 						$field_id   = isset( $field['id'] ) ? $field['id'] : '';
 						$field_type = isset( $field['field_type'] ) ? $field['field_type'] : '';
+						if ( empty( $field_type ) && isset( $field['is_wfacp_field'] ) && isset( $field['allow_delete'] ) ) {
+							$field_type          = 'advanced';
+							$field['field_type'] = $field_type;
+						}
 						if ( ( $field_id == 'address' || $field_id == 'shipping-address' ) && in_array( $field_type, [ 'billing', 'shipping' ] ) ) {
 							$field_type = 'billing';
 							if ( $field_id == 'shipping-address' ) {
@@ -1510,7 +1519,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 
 
 	/**
-	 * @param  WC_Product_Variable $product;
+	 * @param WC_Product_Variable $product ;
 	 */
 	public static function get_default_variation( $product ) {
 
@@ -1568,6 +1577,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 
 		return null;
 	}
+
 	/**
 	 * CHeck is blank attribute present in Variation Attribute
 	 * @return boolean
@@ -1579,6 +1589,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 
 		return is_array( $blank_attribute ) && ! empty( $blank_attribute );
 	}
+
 	/**
 	 * get first available variation
 	 *
@@ -1612,7 +1623,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 			$first_key = key( $available_variable );
 			//check any any case
 			$variation_attributes = $available_variable[ $first_key ]['attributes'];
-			if (self::is_invalid_variation_attribute( $variation_attributes ) ) {
+			if ( self::is_invalid_variation_attribute( $variation_attributes ) ) {
 				$available_variable[ $first_key ]['attributes'] = self::map_variation_attributes( wc_get_product( $first_key )->get_attributes(), $product_attributes );
 			}
 
@@ -2662,7 +2673,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 			$params['fn']          = $user->get( 'user_firstname' );
 			$params['ln']          = $user->get( 'user_lastname' );
 			$params['em']          = $user->get( 'user_email' );
-			$params['ph']          = get_user_meta( $user->ID,'user_phone',true);
+			$params['ph']          = get_user_meta( $user->ID, 'user_phone', true );
 			$params['external_id'] = $user->ID;
 		}
 
@@ -2751,6 +2762,7 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 
 		return round( $value, $precision );
 	}
+
 	public static function get_aero_registered_checkout_fields() {
 		$fields = [
 			'billing_email',
@@ -2793,5 +2805,87 @@ abstract class WFACP_Common extends WFACP_Common_Helper {
 		return apply_filters( 'wfacp_aero_registered_checkout_fields', $fields );
 
 	}
+
+	/**
+	 * @return void
+	 *  Register AeroCheckout custom Fields for billing
+	 */
+	public static function setup_fields_billing() {
+
+
+		new WFACP_Add_Address_Field( 'wc_custom_field', array(
+			'type'         => 'wfacp_html',
+			'label'        => 'Extra Billing Fields',
+			'placeholder' => 'Extra Billing Fields',
+			'cssready'     => [ 'wfacp-col-left-third' ],
+			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
+			'required'     => false,
+			'priority'     => 60,
+		) );
+		new WFACP_Add_Address_Field( 'wc_custom_field', array(
+			'type'         => 'wfacp_html',
+			'label'        => 'Extra Shipping Fields',
+			'placeholder' => 'Extra Shipping Fields',
+			'cssready'     => [ 'wfacp-col-left-third' ],
+			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
+			'required'     => false,
+			'priority'     => 60,
+		), 'shipping' );
+
+
+	}
+
+	public static function include_third_party_field( $wfacp_id ) {
+
+		$fields = WFACP_Common::get_checkout_fields( $wfacp_id );
+		if ( isset( $fields['advanced']['wc_advanced_order_field'] ) || isset( $fields['billing']['billing_wc_custom_field'] ) || isset( $fields['shipping']['shipping_wc_custom_field'] ) ) {
+			include_once WFACP_PLUGIN_DIR . '/includes/class-register-third-party-fields.php';
+			WFACP_Class_Register_Third_Party_Fields::get_instance( $fields );
+		}
+
+
+	}
+
+	/**
+	 * Insert Third Party field in checkout form during the template import.
+	 *
+	 * @param $data
+	 *
+	 * @return array
+	 */
+	public static function add_third_party_fields_to_checkout_form( $data ) {
+		$steps = [ 'third_step', 'two_step', 'single_step' ];
+		foreach ( $steps as $step ) {
+			if ( isset( $data['page_layout']['fieldsets'][ $step ] ) ) {
+				$data['page_layout']['fieldsets'][ $step ] = self::map_third_party_field_into_last_section_form( $data['page_layout']['fieldsets'][ $step ] );
+				break;
+			}
+		}
+
+		return $data;
+	}
+
+	public static function map_third_party_field_into_last_section_form( $sections ) {
+		$last_section = end( $sections );
+		if ( false === $last_section ) {
+			return $sections;
+		}
+		$adavanced_fields = self::get_advanced_fields();
+		if ( ! isset( $adavanced_fields['wc_advanced_order_field'] ) ) {
+			return $sections;
+		}
+		$last_section_index                          = array_key_last( $sections );
+		$sections[ $last_section_index ]['fields'][] = $adavanced_fields['wc_advanced_order_field'];
+
+		return $sections;
+	}
+	public static function oxy_get_meta_prefix( $key ) {
+		if ( function_exists( 'oxy_get_meta_prefix' ) ) {
+			$key = oxy_get_meta_prefix( $key );
+		}
+
+		return $key;
+	}
+
 
 }

@@ -574,6 +574,37 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                         <hr>
                         <div class="copy_protection_container form-group row">
                             <div class="col-sm-3">
+                                <label for="sccp_disabled_rclick_link"><?= __("Disable right click for links", $this->plugin_name); ?></label>
+                                <a class="ays_help" data-toggle="tooltip"
+                                   title="<?= __('By enabling the option, the right-click for the links will be not allowed in the copy protection enabled areas on the website.', $this->plugin_name) ?>">
+                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="checkbox" class="modern-checkbox-options right_link"
+                                       id="sccp_disabled_rclick_link"
+                                       name="sccp_disabled_rclick_link" <?= isset($data["options"]["rclick_link"]) ? $data["options"]["rclick_link"] : 'checked'; ?>
+                                       value="true">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="checkbox" class="modern-checkbox modern_checkbox_mess right_link-mess"
+                                       id="sccp_disabled_rclick_link_mess"
+                                       name="sccp_disabled_rclick_link_mess" <?= isset($data["options"]["rclick_link_mess"]) ? $data["options"]["rclick_link_mess"] : "checked"; ?>
+                                       value="true">
+                                <label for="sccp_enable_context_menu_mess"></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="checkbox" class="modern-checkbox modern_checkbox_audio right_link-audio"
+                                       id="sccp_disabled_rclick_link_audio"
+                                       name="sccp_disabled_rclick_link_audio" <?= isset($data["options"]["rclick_link_audio"]) ? $data["options"]["rclick_link_audio"] : ''; ?>
+                                       value="true">
+                                <label for="sccp_enable_right_click_audio"></label>
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <hr>
+                        <div class="copy_protection_container form-group row">
+                            <div class="col-sm-3">
                                 <label for="sccp_enable_developer_tools"><?= __("Disable Developer Tools Hot-keys", $this->plugin_name); ?></label>
                                 <a class="ays_help" data-toggle="tooltip"
                                    title="<?= __('Not allowed to open developer tools by CTRL+SHIFT+C/CMD+OPT+C, CTRL+SHIFT+J/CMD+OPT+J, CTRL+SHIFT+I/CMD+OPT+I', $this->plugin_name) ?>">

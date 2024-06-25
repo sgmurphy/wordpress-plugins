@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-18T19:27:54+00:00\n"
+"POT-Creation-Date: 2024-06-25T14:07:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -604,7 +604,7 @@ msgstr ""
 #: src/Controllers/Admin/AffiliationReferrals/AffiliationReferralsListTable.php:142
 #: src/Controllers/Admin/ProductCollections/ProductCollectionsListTable.php:125
 #: src/Controllers/Admin/ProductGroups/ProductGroupsListTable.php:195
-#: src/Controllers/Admin/Products/ProductsListTable.php:489
+#: src/Controllers/Admin/Products/ProductsListTable.php:490
 #: affiliation-referrals/modules/Payout.js:77
 #: components/data-tables/affiliates/ReferralsDataTable.js:109
 #: components/data-tables/licenses-data-table/license-item.js:74
@@ -621,7 +621,7 @@ msgstr ""
 #: src/Controllers/Admin/Customers/CustomersListTable.php:150
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:110
 #: src/Controllers/Admin/ProductCollections/ProductCollectionsListTable.php:124
-#: src/Controllers/Admin/Products/ProductsListTable.php:487
+#: src/Controllers/Admin/Products/ProductsListTable.php:488
 #: src/Controllers/Admin/Subscriptions/SubscriptionsListTable.php:399
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:269
 #: src/Integrations/Beaver/BeaverFormModule.php:95
@@ -940,7 +940,7 @@ msgid "No order bumps found."
 msgstr ""
 
 #: src/Controllers/Admin/Bumps/BumpsListTable.php:193
-#: src/Controllers/Admin/Products/ProductsListTable.php:305
+#: src/Controllers/Admin/Products/ProductsListTable.php:306
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:188
 #: invoices/store/entities.js:70
 #: products/modules/Prices/NewPrice/index.js:144
@@ -954,18 +954,23 @@ msgid "Subscription"
 msgstr ""
 
 #: src/Controllers/Admin/Bumps/BumpsListTable.php:206
-#: src/Controllers/Admin/Products/ProductsListTable.php:318
+#: src/Controllers/Admin/Products/ProductsListTable.php:319
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:201
 msgid "One-Time"
 msgstr ""
 
 #: src/Controllers/Admin/Bumps/BumpsListTable.php:227
-#: src/Controllers/Admin/Products/ProductsListTable.php:378
+#: src/Controllers/Admin/Products/ProductsListTable.php:379
 #: src/Controllers/Admin/Tables/ListTable.php:74
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:222
 #: settings/shipping/profile/ShippingProfile.js:114
 #: settings/tax-region/TaxRegionSettings.js:227
 msgid "Updated"
+msgstr ""
+
+#: src/Controllers/Admin/Bumps/BumpsListTable.php:272
+#: bumps/EditBump.js:163
+msgid "Edit Bump"
 msgstr ""
 
 #: src/Controllers/Admin/CancellationInsights/CancellationInsightsController.php:23
@@ -1028,6 +1033,13 @@ msgstr ""
 
 #: src/Controllers/Admin/CancellationInsights/CancellationInsightsListTable.php:123
 msgid "No cancellation acts."
+msgstr ""
+
+#: src/Controllers/Admin/CancellationInsights/CancellationInsightsListTable.php:147
+#: src/Controllers/Admin/Customers/CustomersListTable.php:143
+#: src/Controllers/Admin/Licenses/LicensesListTable.php:134
+#: customers/EditCustomer.js:123
+msgid "Edit Customer"
 msgstr ""
 
 #: src/Controllers/Admin/CancellationInsights/CancellationInsightsListTable.php:148
@@ -1140,7 +1152,7 @@ msgstr ""
 
 #: src/Controllers/Admin/Coupons/CouponsListTable.php:295
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:165
-#: src/Controllers/Admin/Products/ProductsListTable.php:501
+#: src/Controllers/Admin/Products/ProductsListTable.php:502
 #: bumps/EditBump.js:127
 #: coupons/components/coupon/ActionsDropdown.js:29
 #: coupons/components/CouponActionsDropdown.js:96
@@ -1155,7 +1167,7 @@ msgstr ""
 
 #: src/Controllers/Admin/Coupons/CouponsListTable.php:295
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:165
-#: src/Controllers/Admin/Products/ProductsListTable.php:501
+#: src/Controllers/Admin/Products/ProductsListTable.php:502
 #: bumps/EditBump.js:128
 #: coupons/components/coupon/ActionsDropdown.js:30
 #: coupons/components/CouponActionsDropdown.js:97
@@ -1205,7 +1217,7 @@ msgid "Not spam"
 msgstr ""
 
 #: src/Controllers/Admin/Coupons/CouponsListTable.php:364
-#: src/Controllers/Admin/Products/ProductsListTable.php:589
+#: src/Controllers/Admin/Products/ProductsListTable.php:590
 msgid "Delete permanently"
 msgstr ""
 
@@ -1247,7 +1259,7 @@ msgid "No customers found."
 msgstr ""
 
 #: src/Controllers/Admin/Customers/CustomersListTable.php:119
-#: src/Controllers/Admin/Products/ProductsListTable.php:335
+#: src/Controllers/Admin/Products/ProductsListTable.php:336
 #: src/Integrations/TutorLMS/TutorLMSService.php:167
 msgid "No price"
 msgstr ""
@@ -1331,6 +1343,10 @@ msgstr ""
 msgid "No licenses found."
 msgstr ""
 
+#: src/Controllers/Admin/Licenses/LicensesListTable.php:103
+msgid "Edit License"
+msgstr ""
+
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:125
 #: components/data-tables/purchases-data-table/purchase-item.js:37
 #: licenses/modules/Details/index.js:17
@@ -1340,18 +1356,27 @@ msgstr ""
 msgid "Revoked"
 msgstr ""
 
+#: src/Controllers/Admin/Licenses/LicensesListTable.php:151
+#: src/Controllers/Admin/Products/ProductsListTable.php:458
+#: src/Controllers/Web/BuyPageController.php:52
+#: src/Controllers/Web/ProductPageController.php:82
+#: products/EditProduct.js:218
+#: components/PriceInfo.js:103
+msgid "Edit Product"
+msgstr ""
+
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:166
-#: src/Controllers/Admin/Products/ProductsListTable.php:502
+#: src/Controllers/Admin/Products/ProductsListTable.php:503
 msgid "Are you sure you want to restore this product? This will be be available to purchase."
 msgstr ""
 
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:166
-#: src/Controllers/Admin/Products/ProductsListTable.php:502
+#: src/Controllers/Admin/Products/ProductsListTable.php:503
 msgid "Are you sure you want to archive this product? This will be unavailable for purchase."
 msgstr ""
 
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:173
-#: src/Controllers/Admin/Products/ProductsListTable.php:509
+#: src/Controllers/Admin/Products/ProductsListTable.php:510
 msgid "Toggle Product Archive"
 msgstr ""
 
@@ -1497,7 +1522,7 @@ msgid "Delivered"
 msgstr ""
 
 #: src/Controllers/Admin/Orders/OrdersListTable.php:448
-#: src/Controllers/Admin/Products/ProductsListTable.php:568
+#: src/Controllers/Admin/Products/ProductsListTable.php:569
 #: sc-product-item-list.js:257
 msgid "Filter"
 msgstr ""
@@ -1635,16 +1660,16 @@ msgstr ""
 msgid "%d Available"
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:285
+#: src/Controllers/Admin/Products/ProductsListTable.php:286
 #: sc-product-item-list.js:275
 msgid "No products found."
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:342
+#: src/Controllers/Admin/Products/ProductsListTable.php:343
 msgid "Name your own price"
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:345
+#: src/Controllers/Admin/Products/ProductsListTable.php:346
 #: checkouts/modules/SelectShipping.js:130
 #: sc-line-item-shipping2.js:26
 #: sc-order-bump2.js:72
@@ -1655,39 +1680,39 @@ msgid "Free"
 msgstr ""
 
 #. translators: %d is the number of other prices.
-#: src/Controllers/Admin/Products/ProductsListTable.php:356
+#: src/Controllers/Admin/Products/ProductsListTable.php:357
 msgid " and %d other price."
 msgid_plural " and %d other prices."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:414
+#: src/Controllers/Admin/Products/ProductsListTable.php:415
 #: products/components/Status/index.js:81
 #: products/components/Status/index.js:94
 #: products/modules/BuyLink.js:114
 msgid "Published"
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:416
+#: src/Controllers/Admin/Products/ProductsListTable.php:417
 #: products/components/Status/index.js:74
 #: products/components/Status/index.js:95
 #: util.js:87
 msgid "Draft"
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:478
+#: src/Controllers/Admin/Products/ProductsListTable.php:479
 msgid "Successfully deleted."
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:482
+#: src/Controllers/Admin/Products/ProductsListTable.php:483
 msgid "Queued for deletion."
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:626
+#: src/Controllers/Admin/Products/ProductsListTable.php:627
 msgid "Filter by Product Collection"
 msgstr ""
 
-#: src/Controllers/Admin/Products/ProductsListTable.php:629
+#: src/Controllers/Admin/Products/ProductsListTable.php:630
 msgid "All Product Collections"
 msgstr ""
 
@@ -1951,6 +1976,10 @@ msgstr ""
 msgid "No upsell funnels found."
 msgstr ""
 
+#: src/Controllers/Admin/Upsells/UpsellsListTable.php:263
+msgid "Edit Upsell"
+msgstr ""
+
 #: src/Controllers/Rest/CheckEmailController.php:22
 #: src/Controllers/Rest/VerificationCodeController.php:66
 msgid "There is no account with that username or email address."
@@ -1990,13 +2019,6 @@ msgstr ""
 
 #: src/Controllers/Rest/VerificationCodeController.php:85
 msgid "Invalid verification code"
-msgstr ""
-
-#: src/Controllers/Web/BuyPageController.php:52
-#: src/Controllers/Web/ProductPageController.php:82
-#: products/EditProduct.js:218
-#: components/PriceInfo.js:103
-msgid "Edit Product"
 msgstr ""
 
 #. translators: %1$1s is the store name, %2$2s is the opening anchor tag, %3$3s is the closing anchor tag, %4$4s is the opening anchor tag, %5$5s is the closing anchor tag.
@@ -7564,10 +7586,6 @@ msgstr ""
 msgid "Save Order Bump"
 msgstr ""
 
-#: bumps/EditBump.js:163
-msgid "Edit Bump"
-msgstr ""
-
 #: bumps/modules/Behavior.js:12
 msgid "Auto Apply Discount"
 msgstr ""
@@ -9047,10 +9065,6 @@ msgstr ""
 msgid "this customer"
 msgstr ""
 
-#: customers/EditCustomer.js:123
-msgid "Edit Customer"
-msgstr ""
-
 #: customers/EditCustomer.js:145
 msgid "Save Customer"
 msgstr ""
@@ -9647,8 +9661,8 @@ msgstr ""
 #: Blocks/Form/edit.js:498
 #: sc-cancel-survey2.js:88
 #: sc-checkout-stock-alert2.js:115
-#: sc-order-confirm-provider2.js:101
-#: sc-upsell.js:32
+#: sc-order-confirm-provider2.js:102
+#: sc-upsell.js:29
 #: store3.js:101
 msgid "Continue"
 msgstr ""
@@ -13266,54 +13280,62 @@ msgid "Whether or not a payment method should be required for subscriptions that
 msgstr ""
 
 #: settings/subscription/SubscriptionSettings.js:303
+msgid "Prevent Duplicate Trials"
+msgstr ""
+
+#: settings/subscription/SubscriptionSettings.js:305
+msgid "When enabled, this setting prevents customers from receiving multiple trial periods for the same product. If a customer has previously used a trial for the product, they will be charged the full price instead of receiving another trial."
+msgstr ""
+
+#: settings/subscription/SubscriptionSettings.js:320
 msgid "Purchase Revoke Behavior"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:331
+#: settings/subscription/SubscriptionSettings.js:348
 msgid "Revoke Immediately"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:335
+#: settings/subscription/SubscriptionSettings.js:352
 msgid "Revoke Purchase After All Payment Retries Fail"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:346
+#: settings/subscription/SubscriptionSettings.js:363
 msgid "Customer Portal"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:347
+#: settings/subscription/SubscriptionSettings.js:364
 msgid "Manage what your customers are able to see and do from the customer portal."
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:363
+#: settings/subscription/SubscriptionSettings.js:380
 msgid "Allow Subscription Changes"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:365
+#: settings/subscription/SubscriptionSettings.js:382
 msgid "Customers will be able to switch pricing plans from the customer portal. You can configure what happens when a subscription change happens from the Subscriptions settings page."
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:382
+#: settings/subscription/SubscriptionSettings.js:399
 msgid "Allow Subscription Quantity Changes"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:384
+#: settings/subscription/SubscriptionSettings.js:401
 msgid "Customers will be able to change subscription quantities from the customer portal."
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:401
+#: settings/subscription/SubscriptionSettings.js:418
 msgid "Allow Subscription Cancellations"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:403
+#: settings/subscription/SubscriptionSettings.js:420
 msgid "Customers will be able to cancel their subscriptions from the customer portal. You can configure what happens when a subscription cancellation happens from the Subscriptions settings page."
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:419
+#: settings/subscription/SubscriptionSettings.js:436
 msgid "Allow Customers To Remove Default Payment Method"
 msgstr ""
 
-#: settings/subscription/SubscriptionSettings.js:424
+#: settings/subscription/SubscriptionSettings.js:441
 msgid "When enabled, customers are allowed to remove their default payment method on file. This can lead to subscription payments failing since there is no payment method on file."
 msgstr ""
 
@@ -15975,7 +15997,7 @@ msgid "Thank you!"
 msgstr ""
 
 #: Blocks/Form/edit.js:481
-#: sc-order-confirm-provider2.js:101
+#: sc-order-confirm-provider2.js:102
 #: store3.js:100
 msgid "Your payment was successful. A receipt is on its way to your inbox."
 msgstr ""
@@ -20182,11 +20204,11 @@ msgstr ""
 msgid "Order bump summary"
 msgstr ""
 
-#: sc-order-confirm-provider2.js:39
+#: sc-order-confirm-provider2.js:40
 msgid "Order has been confirmed. Please select continue to go to the next step."
 msgstr ""
 
-#: sc-order-confirm-provider2.js:101
+#: sc-order-confirm-provider2.js:102
 msgid "Thanks for your order!"
 msgstr ""
 

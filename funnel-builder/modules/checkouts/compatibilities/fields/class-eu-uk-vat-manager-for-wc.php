@@ -9,10 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * EU/UK VAT for WooCommerce by WPWhale
  * Plugin URI: https://wpfactory.com/author/wpwhale/
  */
-
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_EU_UK_Vat_Manager_For_WC {
+class WFACP_Compatibility_With_EU_UK_Vat_Manager_For_WC {
 
 	private $instance = null;
 	private $keys = [];
@@ -28,6 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_styling' ], 10, 2 );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 	}
 

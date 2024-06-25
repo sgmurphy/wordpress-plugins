@@ -102,7 +102,7 @@ if ( ! function_exists( 'bwf_get_fonts_list' ) ) {
 		 */
 		$fonts[] = array(
 			'id'   => 'default',
-			'name' => __( 'Default', 'funnel-builder' )
+			'name' => __( 'Default', 'woofunnels' )
 		);
 		foreach ( $web_fonts as $web_font_family ) {
 			if ( $web_font_family !== 'Open Sans' ) {

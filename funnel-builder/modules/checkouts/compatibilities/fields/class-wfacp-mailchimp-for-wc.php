@@ -6,9 +6,8 @@
  * Compatibility  URL:        https://wordpress.org/plugins/mailchimp-for-woocommerce/
  */
 
-#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Mailchimp_For_WC {
+#[AllowDynamicProperties] 
+ class WFACP_Compatibility_Mailchimp_For_WC {
 	private $object = null;
 
 	public function __construct() {
@@ -18,6 +17,19 @@
 		add_filter( 'wfacp_html_fields_wfacp_mailchimp_for_wc', '__return_false' );
 		add_action( 'process_wfacp_html', [ $this, 'display_field' ], 999, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+	}
+
+	public function add_action() {
+		if ( false === $this->is_enabled() ) {
+			return '';
+		}
+		$render_on = $this->object->getOption( 'mailchimp_checkbox_action', 'woocommerce_after_checkout_billing_form' );
+
+		WFACP_Common::remove_actions( $render_on, 'MailChimp_Newsletter', 'applyNewsletterField' );
 	}
 
 	public function is_enabled() {
@@ -45,15 +57,6 @@
 		}
 
 		return true;
-	}
-
-	public function add_action() {
-		if ( false === $this->is_enabled() ) {
-			return '';
-		}
-		$render_on = $this->object->getOption( 'mailchimp_checkbox_action', 'woocommerce_after_checkout_billing_form' );
-
-		WFACP_Common::remove_actions( $render_on, 'MailChimp_Newsletter', 'applyNewsletterField' );
 	}
 
 	public function add_field( $fields ) {
@@ -87,7 +90,7 @@
 			return;
 		}
 		?>
-        <style>
+		<style>
             #wfacp_mailchild_field_wrap {
                 position: relative;
                 clear: both;
@@ -114,7 +117,8 @@
             body .wfacp_main_form.woocommerce #wfacp_checkout_form #wfacp_mailchild_field_wrap label span {
                 font-weight: normal;
             }
-            body .wfacp_main_form.woocommerce #wfacp_checkout_form #wfacp_mailchild_field_wrap label span{
+
+            body .wfacp_main_form.woocommerce #wfacp_checkout_form #wfacp_mailchild_field_wrap label span {
                 vertical-align: middle;
             }
 
@@ -128,7 +132,7 @@
                 padding: 0 !important;
                 display: inline-block !important;
             }
-        </style>
+		</style>
 		<?php
 	}
 }

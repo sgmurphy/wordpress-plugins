@@ -264,11 +264,12 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				add_filter( 'woocommerce_countries_allowed_countries', array( 'WFACP_Optimizations', 'preferred_country' ) );
 				$data = $this->format_optimizations_data( $settings, $layout_data, $layout_data['current_step'] );
 
-				$data['auto_fill_url']['values']['auto_fill_url_product_qty_url'] = empty( $data['auto_fill_url']['values']['auto_fill_url_product_qty_url'] ) ? $checkout_url . '?' : $data['auto_fill_url']['values']['auto_fill_url_product_qty_url'];
+				$data['auto_fill_url']['values']['auto_fill_url_product_qty_url'] = empty( $data['auto_fill_url']['values']['auto_fill_url_product_qty_url'] ) ? $checkout_url : $data['auto_fill_url']['values']['auto_fill_url_product_qty_url'];
 
 				$resp['success']               = true;
 				$resp['msg']                   = __( 'Optimizations Loaded', 'funnel-builder' );
 				$resp['data']['optimizations'] = $data;
+
 
 			}
 
@@ -351,6 +352,8 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 		public function format_optimizations_data( $value, $layout_data, $multistep_form = 'single_step' ) {
 
+			$prompt_display_message = __( 'Hey there! It seems you have a {{site_title}} account.', 'woofunnel-aero-checkout' );
+
 			$smart_button_positions = [
 				'wfacp_form_single_step_start'         => __( 'At top of checkout Page', 'woofunnels-aero-checkout' ),
 				'wfacp_before_product_switching_field' => __( 'Before product switcher', 'woofunnels-aero-checkout' ),
@@ -362,12 +365,23 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 			$live_validation                                            = [];
 			$optional_field_db_values                                   = [];
-			$apply_coupon_fields['coupons']                             = ! empty( $value['coupons'] ) ? wc_clean( $value['coupons'] ) : '';
-			$apply_coupon_fields['enable_coupon']                       = ! empty( $value['enable_coupon'] ) ? wc_clean( $value['enable_coupon'] ) : '';
-			$apply_coupon_fields['disable_coupon']                      = ! empty( $value['disable_coupon'] ) ? wc_clean( $value['disable_coupon'] ) : '';
-			$time_checkout_expiry['close_after_x_purchase']             = ! empty( $value['close_after_x_purchase'] ) ? wc_clean( $value['close_after_x_purchase'] ) : 'false';
-			$time_checkout_expiry['total_purchased_allowed']            = ! empty( $value['total_purchased_allowed'] ) ? wc_clean( $value['total_purchased_allowed'] ) : '';
-			$time_checkout_expiry['close_checkout_after_date']          = ! empty( $value['close_checkout_after_date'] ) ? wc_clean( $value['close_checkout_after_date'] ) : 'false';
+			$apply_coupon_fields                                        = [];
+			$time_checkout_expiry                                       = [];
+			$preferred_countries                                        = [];
+			$auto_populate_fields                                       = [];
+			$autocomplete_google_key                                    = [];
+			$autopopulate_state                                         = [];
+			$smart_buttons                                              = [];
+			$preview_section                                            = [];
+			$enhanced_phone_field                                       = [];
+			$smart_login                                                = [];
+			$auto_fill_url                                              = [];
+			$apply_coupon_fields['coupons']                             = ! empty( $value['coupons'] ) ? bwf_clean( $value['coupons'] ) : '';
+			$apply_coupon_fields['enable_coupon']                       = ! empty( $value['enable_coupon'] ) ? bwf_clean( $value['enable_coupon'] ) : '';
+			$apply_coupon_fields['disable_coupon']                      = ! empty( $value['disable_coupon'] ) ? bwf_clean( $value['disable_coupon'] ) : '';
+			$time_checkout_expiry['close_after_x_purchase']             = ! empty( $value['close_after_x_purchase'] ) ? bwf_clean( $value['close_after_x_purchase'] ) : 'false';
+			$time_checkout_expiry['total_purchased_allowed']            = ! empty( $value['total_purchased_allowed'] ) ? bwf_clean( $value['total_purchased_allowed'] ) : '';
+			$time_checkout_expiry['close_checkout_after_date']          = ! empty( $value['close_checkout_after_date'] ) ? bwf_clean( $value['close_checkout_after_date'] ) : 'false';
 			$time_checkout_expiry['close_checkout_on']                  = ! empty( $value['close_checkout_on'] ) ? wffn_clean( $value['close_checkout_on'] ) : '';
 			$time_checkout_expiry['close_checkout_redirect_url']        = ! empty( $value['close_checkout_redirect_url'] ) ? esc_url( $value['close_checkout_redirect_url'] ) : '';
 			$time_checkout_expiry['total_purchased_redirect_url']       = ! empty( $value['total_purchased_redirect_url'] ) ? esc_url( $value['total_purchased_redirect_url'] ) : '';
@@ -377,10 +391,14 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 			$auto_populate_fields['enable_autopopulate_fields']         = ! empty( $value['enable_autopopulate_fields'] ) ? wffn_clean( $value['enable_autopopulate_fields'] ) : 'false';
 			$autopopulate_state['enable_autopopulate_state']            = ! empty( $value['enable_autopopulate_state'] ) ? wffn_clean( $value['enable_autopopulate_state'] ) : 'false';
 			$autocomplete_google_key['enable_google_autocomplete']      = ! empty( $value['enable_google_autocomplete'] ) ? wffn_clean( $value['enable_google_autocomplete'] ) : 'false';
-			$disallow_autocomplete_countries                            = ( $autocomplete_google_key['disallow_autocomplete_countries'] = ! empty( $value['disallow_autocomplete_countries'] ) ) ? wffn_clean( wffn_rest_api_helpers()->array_change_key( wffn_rest_api_helpers()->array_change_key( $value['disallow_autocomplete_countries'], 'id', 'value' ), "name", "label" ) ) : 'false';
+			$disallow_autocomplete_countries                            = ( ! empty( $value['disallow_autocomplete_countries'] ) ) ? wffn_clean( wffn_rest_api_helpers()->array_change_key( wffn_rest_api_helpers()->array_change_key( $value['disallow_autocomplete_countries'], 'id', 'value' ), "name", "label" ) ) : 'false';
 			$autocomplete_google_key['disallow_autocomplete_countries'] = ! empty( $value['disallow_autocomplete_countries'] ) ? $disallow_autocomplete_countries : false;
 			$smart_buttons['enable_smart_buttons']                      = ! empty( $value['enable_smart_buttons'] ) ? wffn_clean( $value['enable_smart_buttons'] ) : 'false';
+			$smart_buttons['enable_smart_login']                        = ! empty( $value['enable_smart_buttons'] ) ? wffn_clean( $value['enable_smart_buttons'] ) : 'false';
 			$smart_buttons['smart_button_position']                     = ! empty( $value['smart_button_position']['id'] ) ? wffn_clean( $value['smart_button_position']['id'] ) : 'wfacp_form_single_step_start';
+			$smart_login['display_smart_login']                         = ! empty( $value['display_smart_login'] ) ? wffn_clean( $value['display_smart_login'] ) : 'false';
+			$smart_login['display_prompt_returning_user']               = ! empty( $value['display_prompt_returning_user'] ) ? wffn_clean( $value['display_prompt_returning_user'] ) : 'false';
+			$smart_login['display_prompt_returning_user_message']       = ! empty( $value['display_prompt_returning_user_message'] ) ? wffn_clean( $value['display_prompt_returning_user_message'] ) : $prompt_display_message;
 			$enhanced_phone_field['enable_phone_flag']                  = ! empty( $value['enable_phone_flag'] ) ? wffn_clean( $value['enable_phone_flag'] ) : 'false';
 			$enhanced_phone_field['enable_phone_validation']            = ! empty( $value['enable_phone_validation'] ) ? wffn_clean( $value['enable_phone_validation'] ) : 'false';
 			$enhanced_phone_field['save_phone_number_type']             = ! empty( $value['save_phone_number_type'] ) ? wffn_clean( $value['save_phone_number_type'] ) : 'false';
@@ -388,7 +406,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 			$preview_section['preview_section_heading']                 = ! empty( $value['preview_section_heading'] ) ? wffn_clean( $value['preview_section_heading'] ) : '';
 			$preview_section['preview_section_subheading']              = ! empty( $value['preview_section_subheading'] ) ? wffn_clean( $value['preview_section_subheading'] ) : '';
 			$preview_section['preview_field_preview_text']              = ! empty( $value['preview_field_preview_text'] ) ? wffn_clean( $value['preview_field_preview_text'] ) : '';
-			$live_validation['enable_live_validation']                  = ! empty( $value['enable_live_validation'] ) ? wc_clean( $value['enable_live_validation'] ) : 'false';
+			$live_validation['enable_live_validation']                  = ! empty( $value['enable_live_validation'] ) ? bwf_clean( $value['enable_live_validation'] ) : 'false';
 			$optional_field_db_values['collapsible_optional_fields']    = ! empty( $value['collapsible_optional_fields'] ) ? wffn_clean( $value['collapsible_optional_fields'] ) : [];
 			$optional_field_db_values['collapsible_optional_link_text'] = ! empty( $value['collapsible_optional_link_text'] ) ? wffn_clean( $value['collapsible_optional_link_text'] ) : __( "Add", 'woofunnels-aero-checkout' );
 			$preview_fields                                             = [];
@@ -402,9 +420,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 								continue;
 							}
 							$field_inner['label'] = ! empty( $field_inner['label'] ) ? ucwords( $field_inner['label'] ) : $field_inner['data_label'];
-							$field['value']       = $k . "::" . $field_inner['id'];
-							$field['name']        = ucwords( $field_inner['label'] );
-							$fields[]             = $field;
+							$fields[]             = [ 'value' => $k . "::" . $field_inner['id'], 'name' => ucwords( $field_inner['label'] ) ];;
 						}
 					}
 				}
@@ -466,7 +482,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 
 				if ( wc_string_to_bool( $o_field['disable'] ) ) {
-					$s_index = array_search( $optional_key, $optional_field_db_values['collapsible_optional_fields'] );
+					$s_index = array_search( $optional_key, $optional_field_db_values['collapsible_optional_fields'] ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 					if ( false !== $s_index ) {
 						unset( $optional_field_db_values['collapsible_optional_fields'][ $s_index ] );
 					}
@@ -576,6 +592,67 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					],
 					'priority' => 10,
 					'values'   => $smart_buttons,
+				],
+				'smart_login'             => [
+					'title'    => __( 'Smart Login', 'funnel-builder' ),
+					'heading'  => __( 'Smart Login', 'funnel-builder' ),
+					'hint'     => __( "Enable Smart Login feature to choose login form style and show a message to returning users when they enter the email.", 'funnel-builder' ),
+					'slug'     => 'smart_login',
+					'fields'   => [
+						[
+							'type'     => 'radios',
+							'key'      => 'display_smart_login',
+							'label'    => __( 'Login Form Style', 'funnel-builder' ),
+							'hint'     => '',
+							'values'   => [
+								0 => [
+									'value' => 'true',
+									'name'  => 'Overlay',
+								],
+								1 => [
+									'value' => 'false',
+									'name'  => 'Inline',
+								],
+
+							],
+							'required' => false,
+						],
+						[
+							'type'     => 'radios',
+							'key'      => 'display_prompt_returning_user',
+							'label'    => __( 'Nudge Returning Users to login', 'funnel-builder' ),
+							'hint'     => '',
+							'values'   => [
+								0 => [
+									'value' => 'true',
+									'name'  => 'Yes',
+								],
+								1 => [
+									'value' => 'false',
+									'name'  => 'No',
+								],
+							],
+							'required' => false,
+						],
+						[
+							'type'        => 'textarea',
+							'key'         => 'display_prompt_returning_user_message',
+							'className'   => 'h-96',
+							'label'       => __( 'Message', 'funnel-builder' ),
+							'required'    => true,
+							'hint'        => __( 'This message appears below the email field when the system detects an existing user account.', 'woofunnels-aero-checkout' ),
+							'placeholder' => '',
+							'toggler'     => [
+								'key'   => 'display_prompt_returning_user',
+								'value' => 'true',
+							],
+						],
+
+
+					],
+					'priority' => 10,
+					'values'   => $smart_login,
+					'pro'      => true,
 				],
 				'enable_live_validation'  => [
 					'title'    => __( 'Inline Field Validation', 'funnel-builder' ),
@@ -1167,7 +1244,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 				$resp['success']        = true;
 				$resp['msg']            = __( 'Fields Loaded 1', 'funnel-builder' );
-				$resp['data']['fields'] = $fields;
+				$resp['data']['fields'] = isset( $fields ) ? $fields : array();
 
 			}
 
@@ -1176,6 +1253,13 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 		// Checkout Field functions.
 		public function get_checkout_form_fields( WP_REST_Request $request ) {
+			add_filter( 'wfacp_advanced_fields', function ( $fields ) {
+				if ( isset( $fields['wc_advanced_order_field'] ) ) {
+					unset( $fields['wc_advanced_order_field'] );
+				}
+
+				return $fields;
+			} );
 			$resp                   = array();
 			$resp['success']        = false;
 			$resp['msg']            = __( 'Failed', 'funnel-builder' );
@@ -1305,6 +1389,21 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				$resp['data']['fields_data']         = $this->checkout_fetch_fields( $step_id );
 
 
+				/* Third Party key */
+				$resp['data']['fields_data']['third_party'][] = [
+					'id'             => 'wc_advanced_order_field',
+					'type'           => 'wfacp_html',
+					'label'          => __( 'Extra Advanced Fields' ),
+					'placeholder'   => '',
+					'data_label'     => __( 'Extra Advanced Fields' ),
+					'required'       => false,
+					'default'        => '',
+					'field_type'     => 'advanced',
+					'is_wfacp_field' => 'true',
+					'class'          => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_date_field' ],
+				];
+
+
 				/* Registed Advanced field types */
 				$fields_types                 = [
 					[
@@ -1416,7 +1515,6 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				}
 
 
-
 				if ( ! empty( $data['product_fields']['settings'] ) ) {
 					$data['product_settings'] = $data['product_fields']['settings'];
 				}
@@ -1439,6 +1537,8 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 					}
 
+
+					$advanced_custom_fields = [];
 					/**
 					 * Handle options saving without pipes
 					 */
@@ -1455,6 +1555,9 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 										}
 									}
 									$field['options'] = $new_sanitize_option;
+								}
+								if ( isset( $field['id'] ) && ! empty( $field['id'] ) && isset( $field['is_wfacp_field'] ) ) {
+									$advanced_custom_fields[ $field['id'] ] = $field;
 								}
 							}
 						}
@@ -1493,8 +1596,29 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 						}
 					}
 
-
 					WFACP_Common::update_page_layout( $wfacp_id, $data );
+
+
+					if ( ! empty( $advanced_custom_fields ) ) {
+						$custom_fields = WFACP_Common::get_page_custom_fields( $wfacp_id );
+
+
+						foreach ( $custom_fields['advanced'] as $c_id => $c_value ) {
+
+							if ( isset( $advanced_custom_fields[ $c_id ] ) && isset( $advanced_custom_fields[ $c_id ]['is_wfacp_field'] ) ) {
+								$custom_fields['advanced'][ $c_id ] = wp_parse_args( $advanced_custom_fields[ $c_id ], $c_value );
+							} elseif ( ! isset( $custom_fields['advanced'][ $c_id ]['wfacp_advanced_field'] ) && ! isset( $custom_fields['advanced'][ $c_id ]['is_wfacp_field'] ) ) {
+
+								unset( $custom_fields['advanced'][ $c_id ] );
+
+
+							}
+
+						}
+
+						WFACP_Common::update_page_custom_fields( $wfacp_id, $custom_fields );;
+					}
+
 					$resp['success']        = true;
 					$resp['msg']            = __( 'Fields Updated', 'funnel-builder' );
 					$resp['data']['fields'] = $data;
@@ -1581,7 +1705,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 								if ( ! empty( $fields['fields_options'] ) ) {
 									$options                = [];
-									$field_type             = ( 'address' == $fields['id'] ) ? 'billing' : 'shipping';
+									$field_type             = ( 'address' === $fields['id'] ) ? 'billing' : 'shipping';
 									$address_fields_options = WFACP_Common::get_single_address_fields( $field_type );
 
 									$main_options = $address_fields_options['fields_options'];
@@ -1655,7 +1779,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 					}
 					// Convert Options Object to ARRAY
-					$options = json_decode( json_encode( $options ), 1 );
+					$options = json_decode( wp_json_encode( $options ), 1 );
 				}
 
 				if ( ! empty( $options ) ) {
@@ -1683,7 +1807,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 			if ( absint( $step_id ) > 0 && class_exists( 'WFACP_Common' ) ) {
 
 				$afield            = array();
-				$fields['basic']   = WFACP_Common::get_address_fields();
+				$fields['basic']   = apply_filters( 'wfacp_admin_basic_fields', WFACP_Common::get_address_fields() );
 				$fields['product'] = WFACP_Common::get_product_field();
 
 				$fields['product']['product_switching']['data_label'] = __( 'Products', 'woocommerce' );
@@ -1787,13 +1911,13 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				$name                          = sanitize_title( $name );
 				$label                         = trim( $posted_data['label'] );
 				$placeholder                   = trim( $posted_data['placeholder'] );
-				$cssready                      = $posted_data['cssready'] != '' ? explode( ',', trim( $_POST['cssready'] ) ) : [];
+				$cssready                      = $posted_data['cssready'] !== '' ? explode( ',', trim( $posted_data['cssready'] ) ) : [];
 				$field_type                    = trim( $posted_data['field_type'] );
 				$section_type                  = trim( $posted_data['section_type'] );
 				$show_custom_field_at_thankyou = ! empty( $posted_data['show_custom_field_at_thankyou'] ) ? wffn_string_to_bool( $posted_data['show_custom_field_at_thankyou'] ) : false;
 				$show_custom_field_at_email    = ! empty( $posted_data['show_custom_field_at_email'] ) ? wffn_string_to_bool( $posted_data['show_custom_field_at_email'] ) : false;
 				$default                       = trim( $posted_data['default'] );
-				$options                       = $posted_data['options'] != '' ? ( explode( '|', trim( $posted_data['options'] ) ) ) : '';
+				$options                       = $posted_data['options'] !== '' ? ( explode( '|', trim( $posted_data['options'] ) ) ) : '';
 
 
 				if ( method_exists( 'WC_Order', "set_{$name}" ) ) {
@@ -1834,11 +1958,11 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					'is_wfacp_field'                => true,
 					'field_type'                    => 'advanced',
 				];
-				if ( 'multiselect' == $field_type ) {
+				if ( 'multiselect' === $field_type ) {
 					$data['multiselect_maximum']       = trim( $posted_data['multiselect_maximum'] );
 					$data['multiselect_maximum_error'] = trim( $posted_data['multiselect_maximum_error'] );
 				}
-				if ( 'email' == $field_type ) {
+				if ( 'email' === $field_type ) {
 					$data['validate'][] = 'email';
 				}
 				if ( 'wfacp_wysiwyg' === $field_type ) {
@@ -1870,7 +1994,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 		public function rectify_fields_options( $fields_options ) {
 			$options = [];
 			if ( ! empty( $fields_options ) && is_array( $fields_options ) ) {
-				foreach ( $fields_options as $ch_key => $option ) {
+				foreach ( $fields_options as  $option ) {
 					if ( empty( $option['heading'] ) ) {
 						$key = str_replace( [ 'address_1', 'address_2', 'city', 'postcode', 'country', 'state', 'phone' ], [
 							'street_address_1',
@@ -1904,7 +2028,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 			if ( absint( $step_id ) > 0 ) {
 				$wfacp_id = absint( $step_id );
-				if ( isset( $message_type ) && 'global' == $message_type ) {
+				if ( isset( $message_type ) && 'global' === $message_type ) {
 					$notification = get_option( 'wfacp_global_notifications', [] );
 				} else {
 					$notification = get_post_meta( $wfacp_id, 'notifications', true );
@@ -1914,7 +2038,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				}
 
 				$notification[ $index ] = true;
-				if ( isset( $message_type ) && 'global' == $message_type ) {
+				if ( isset( $message_type ) && 'global' === $message_type ) {
 					update_option( 'wfacp_global_notifications', $notification, 'no' );
 				} else {
 					update_post_meta( $wfacp_id, 'notifications', $notification );
@@ -1930,7 +2054,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 				$options = array_values( $options );
 				if ( '' !== $options[0] && false === strpos( $seperator, $options[0] ) ) {
 					$values = array_filter( $options, function ( $value ) {
-						return ''!=$value;
+						return '' !== $value;
 					} );
 				} else {
 					$values        = $options;
@@ -1938,7 +2062,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					if ( count( $option_values ) ) {
 
 						$values = array_filter( $option_values, function ( $value ) {
-							return ''!=$value;
+							return '' !== $value;
 						} );
 					}
 				}
@@ -2033,7 +2157,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					$resp['msg']     = __( 'Products loaded', 'funnel-builder' );
 
 					$tabs_data                        = array();
-					$tabs_data['add_to_cart_setting'] = ! empty( $switcher_settings['add_to_cart_setting'] ) ? wc_clean( $switcher_settings['add_to_cart_setting'] ) : '2';
+					$tabs_data['add_to_cart_setting'] = ! empty( $switcher_settings['add_to_cart_setting'] ) ? bwf_clean( $switcher_settings['add_to_cart_setting'] ) : '2';
 
 					$tabs = [
 						'fields'      => [
@@ -2188,7 +2312,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					$wfacp_id     = absint( $step_id );
 					$section_type = $posted_data['section'];
 					$index        = $posted_data['index'];
-					if ( '' == $index ) {
+					if ( '' === $index ) {
 						wp_send_json( $resp );
 					}
 					$custom_fields = WFACP_Common::get_page_custom_fields( $wfacp_id );
@@ -2326,7 +2450,6 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 					$old_settings = WFACP_Common::get_page_product_settings( $wfacp_id );
 					if ( isset( $old_settings['add_to_cart_setting'] ) && $old_settings['add_to_cart_setting'] !== $options['settings']['add_to_cart_setting'] ) {
-						//unset default products
 						$s = get_post_meta( $wfacp_id, '_wfacp_product_switcher_setting', true );
 						if ( ! empty( $s ) ) {
 							$s['default_products'] = [];
@@ -2449,7 +2572,7 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 
 				// Sort field Options based on posted data
 				$field_options = array_merge( array_flip( $data_keys ), $options );
-
+				$address_order = [];
 				foreach ( $data as $datum ) {
 					$address_order[ $datum['key'] ] = $datum;
 				}
@@ -2505,14 +2628,14 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 						foreach ( $address_fields as $address_id => $field ) {
 							$key = str_replace( [ 'billing_', 'shipping_' ], [ '' ], $field['key'] );
 
-							if ( isset( $field['required'] ) && true == bwf_string_to_bool( $field['required'] ) ) {
+							if ( isset( $field['required'] ) && true === bwf_string_to_bool( $field['required'] ) ) {
 								$field['required'] = 'true';
 							} else {
 								$field['required'] = 'false';
 							}
 
 							$field['key']    = $key;
-							$field['status'] = ! empty( $field['status'] && true == bwf_string_to_bool( $field['status'] ) ) ? 'true' : 'false';
+							$field['status'] = ! empty( $field['status'] && true === bwf_string_to_bool( $field['status'] ) ) ? 'true' : 'false';
 
 							unset( $field['hint'], $field['heading'] );
 							if ( isset( $field['configuration_message'] ) ) {
@@ -2557,14 +2680,15 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					$key                             = str_replace( [ 'shipping_', 'billing_' ], [ '' ], $option['key'] );
 					$key_to_use                      = $this->prepare_post_address_fields( $key, 'key' );
 					$field_label                     = $this->prepare_post_address_fields( $key );
-					$data[ $key_to_use ]             = ( isset( $option['status'] ) && true == bwf_string_to_bool( $option['status'] ) ) ? 'true' : 'false';
+					$data = [];
+					$data[ $key_to_use ]             = ( isset( $option['status'] ) && true === bwf_string_to_bool( $option['status'] ) ) ? 'true' : 'false';
 					$data[ $field_label . '_label' ] = ! empty( $option['label'] ) ? $option['label'] : '';
 
 					if ( ! strpos( $option['key'], 'same_as' ) ) {
 						$data[ $key . '_placeholder' ] = ! empty( $option['placeholder'] ) ? $option['placeholder'] : '';
 						$data[ $key . '_hint' ]        = ! empty( $option['hint'] ) ? $option['hint'] : '';
 
-						if ( isset( $option['required'] ) && true == bwf_string_to_bool( $option['required'] ) ) {
+						if ( isset( $option['required'] ) && true === bwf_string_to_bool( $option['required'] ) ) {
 							$data['required'] = 'true';
 						}
 
@@ -2576,7 +2700,6 @@ if ( ! class_exists( 'WFFN_REST_CHECKOUT_API_EndPoint' ) ) {
 					}
 
 					$field_options[ $key ] = $data;
-					$data                  = [];
 				}
 			}
 

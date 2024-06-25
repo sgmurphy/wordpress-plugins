@@ -5,8 +5,7 @@
  * Plugin URL - https://wordpress.org/plugins/delivery-date-for-woocommerce/
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Delivery_Date_For_WC {
+class WFACP_Compatibility_Delivery_Date_For_WC {
 	private $object = null;
 	private $ddfw_version = '1.0.0';
 	private $ddfw_plugin_name = 'delivery_date_for_woocommerce';
@@ -21,6 +20,11 @@
 		add_filter( 'wfacp_html_fields_wfacp_ddfw_enable_delivery', '__return_false' );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_print_advanced_custom_fields', [ $this, 'print_third_party' ], 99, 2 );
 
 	}
 
@@ -38,6 +42,10 @@
 		return $fields;
 	}
 
+	public function is_enabled() {
+		return class_exists( 'DDFW_Public' );
+	}
+
 	public function action() {
 		if ( ! $this->is_enabled() ) {
 			return;
@@ -46,6 +54,7 @@
 			$this->ddfw_version = DELIVERY_DATE_FOR_WOOCOMMERCE_VERSION;
 		}
 		$this->object = new DDFW_Public( $this->ddfw_plugin_name, $this->ddfw_version );
+		WFACP_Common::remove_actions( 'woocommerce_after_order_notes', 'DDFW_Public', 'ddfw_delivery_options' );
 	}
 
 	public function call_fields_hook( $field, $key, $args ) {
@@ -54,7 +63,6 @@
 			$this->object->ddfw_delivery_options( WC()->checkout() );
 		}
 	}
-
 
 	public function add_default_wfacp_styling( $args, $key ) {
 
@@ -66,11 +74,6 @@
 		}
 
 		return $args;
-	}
-
-
-	public function is_enabled() {
-		return class_exists( 'DDFW_Public' );
 	}
 
 	public function internal_css() {
@@ -90,7 +93,7 @@
 		}
 
 		echo "<style>";
-		echo $bodyClass . ' .wfacp_main_form.woocommerce .wfacp-delivery-date-for-wc input#datepicker{padding-left: 32px;}';
+		echo $bodyClass . ' .wfacp_main_form.woocommerce .wfacp-delivery-date-for-wc input#datepicker{padding-left: 32px !important;}';
 		echo $bodyClass . ' .wfacp_main_form.woocommerce .wfacp-delivery-date-for-wc .ddfwCalander:before{width: 20px;height: 20px;background-size: 20px;top: 50%;margin-top: -10px;}';
 		echo $bodyClass . ' .wfacp_main_form.woocommerce .wfacp-delivery-date-for-wc label.wfacp-form-control-label{left: 40px;}';
 		echo $bodyClass . ' .wfacp_main_form.woocommerce p.wfacp-form-control-wrapper.wfacp-delivery-date-for-wc.wfacp-anim-wrap label.wfacp-form-control-label{left: 40px;}';
@@ -100,6 +103,16 @@
 
 	}
 
+	public function print_third_party( $field, $key ) {
+		if ( strpos( $key, 'ddfw' ) !== false ) {
+			return [];
+		}
+
+
+		return $field;
+	}
+
 
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_Delivery_Date_For_WC(), 'wfacp-delivery-date-for-wc' );

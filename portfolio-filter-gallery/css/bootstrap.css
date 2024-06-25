@@ -1705,7 +1705,19 @@ progress {
   .gy-xxl-5 {
     --bs-gutter-y: 3rem;
   }
-}/*
+}
+
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.text-center {
+  text-align: center !important;
+}
+
+/*
 .table {
   --bs-table-color-type: initial;
   --bs-table-bg-type: initial;
@@ -7446,15 +7458,7 @@ fieldset:disabled .btn {
 .lh-lg {
   line-height: 2 !important;
 }
-.text-start {
-  text-align: left !important;
-}
-.text-end {
-  text-align: right !important;
-}
-.text-center {
-  text-align: center !important;
-}
+
 .text-decoration-none {
   text-decoration: none !important;
 }

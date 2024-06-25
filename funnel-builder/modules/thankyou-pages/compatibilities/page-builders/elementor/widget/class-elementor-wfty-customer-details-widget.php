@@ -230,7 +230,7 @@ if ( ! class_exists( 'Elementor_WFTY_Customer_Details_Widget' ) ) {
 
 		}
 
-		public function _add_typography( $group, $args, $typography_type = 'TYPOGRAPHY_1' ) {
+		public function _add_typography( $group, $args ) {
 
 			if ( version_compare( ELEMENTOR_VERSION, '3.15.0', '>=' ) ) {
 				$args['global'] = [
@@ -255,8 +255,8 @@ if ( ! class_exists( 'Elementor_WFTY_Customer_Details_Widget' ) ) {
 		 */
 		protected function render() {
 			$settings       = $this->get_settings_for_display();
-			$heading_text   = $settings['customer_details_heading'];
-			$layout_setting = $settings['customer_layout'];
+			$heading_text   = isset( $settings['customer_details_heading'] ) ? $settings['customer_details_heading'] : '';
+			$layout_setting = isset( $settings['customer_layout'] ) ? $settings['customer_layout'] : '50';
 			if ( $layout_setting === '50' ) {
 				$layout_setting = '2c';
 			}

@@ -4,9 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-#[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_FooEvent {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_FooEvent {
 
 	private $instance = null;
 
@@ -44,6 +43,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			return;
 		}
 
+        add_action('wp_enqueue_scripts',function(){
+	        wp_enqueue_style( 'dashicons' );
+        },999);
 
 		add_action( 'wfacp_after_order_comments_field', [ $this, 'get_attendee_checkout' ] );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
@@ -66,22 +68,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! isset( $px ) || $px == '' ) {
 			return;
 		}
+		$bodyClass = "body #wfacp-sec-wrapper ";
+		$px        = $instance->get_template_type_px() . "px";
+		if ( 'pre_built' !== $instance->get_template_type() ) {
+
+			$px = "7px";
+		}
 		?>
         <style>
-            body .wfacp_main_form .foo_event_wrap h3 {
+            body #wfacp-sec-wrapper .foo_event_wrap h3 {
                 font-size: 20px;
                 line-height: 1.5;
                 margin: 0 0 15px;
-                padding-left: <?php echo $px; ?>px;
-                padding-right: <?php echo $px; ?>px;
+                padding-left: <?php echo $px; ?>;
+                padding-right: <?php echo $px; ?>;
             }
 
-            body .wfacp_main_form .foo_event_wrap h4 {
+            body #wfacp-sec-wrapper .foo_event_wrap h4 {
                 font-size: 15px;
                 line-height: 1.5;
                 margin: 0 0 15px;
-                padding-left: <?php echo $px; ?>px;
-                padding-right: <?php echo $px; ?>px;
+                padding-left: <?php echo $px; ?>;
+                padding-right: <?php echo $px; ?>;
+            }
+
+            body #wfacp-sec-wrapper .fooevents-copy-from-purchaser:before {
+                display: none;
+            }
+
+            body #wfacp-sec-wrapper .fooevents-checkout-attendee-info + p {
+                width: auto;
+                padding-left: <?php echo $px; ?>;
+                padding-right: <?php echo $px; ?>;
+            }
+            body #wfacp-sec-wrapper .foo_event_wrap .dashicons, .dashicons-before:before {
+                font-family: dashicons !important;
+            }
+   body #wfacp-sec-wrapper .fooevents-attendee a:empty {
+                display: none;
             }
 
         </style>
@@ -124,7 +148,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$args['label_class'] = array_merge( [ 'wfacp-form-control-label', 'woocommerce-billing-fields' ], $args['label_class'] );;
 		}
 
-		if ( strpos( $key, 'attendee' ) !== false ) {
+		if ( strpos( $key, 'attendee' ) !== false || strpos( $key, 'fooevents' ) !== false ) {
 
 			$all_cls     = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
 			$input_class = array_merge( [ 'wfacp-form-control' ], $args['input_class'] );
@@ -134,6 +158,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$args['cssready']    = [ 'wfacp-col-full' ];
 			$args['input_class'] = $input_class;
 			$args['label_class'] = $label_class;
+
+
+			/**
+			 * Add Placeholder as label in the Foo event fields placeholder when Placeholder is empty
+			 */
+
+			if ( ( isset( $args['placeholder'] ) || empty( $args['placeholder'] ) ) && isset( $args['label'] ) ) {
+				$args['placeholder'] = $args['label'];
+			}
 		}
 
 		return $args;

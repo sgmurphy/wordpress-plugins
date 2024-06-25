@@ -10,7 +10,7 @@ class WFACP_Analytics_GA extends WFACP_Analytics {
 
 	protected function __construct() {
 		parent::__construct();
-
+		$this->admin_general_settings = BWF_Admin_General_Settings::get_instance();
 		add_action( 'wfacp_internal_css', [ $this, 'print_tag_js' ] );
 
 	}
@@ -35,7 +35,6 @@ class WFACP_Analytics_GA extends WFACP_Analytics {
 
 
 	public function print_tag_js() {
-
 		if ( ! $this->admin_general_settings instanceof BWF_Admin_General_Settings ) {
 			$this->prepare_data();
 		}
@@ -61,11 +60,10 @@ class WFACP_Analytics_GA extends WFACP_Analytics {
 			$this->add_to_cart_data = $add_to_cart_data;
 			$options['add_to_cart'] = $add_to_cart_data;
 		}
-		if ( wc_string_to_bool( $options['settings']['checkout'] ) ) {
-			$data                = $this->get_items_data();
-			$this->checkout_data = $data;
-			$options['checkout'] = $data;
-		}
+
+		$data                = $this->get_items_data();
+		$this->checkout_data = $data;
+		$options['checkout'] = $data;
 
 		return $options;
 	}
@@ -85,67 +83,66 @@ class WFACP_Analytics_GA extends WFACP_Analytics {
 		$content_id = $this->get_product_content_id( $product_id );
 		$name       = $product->get_title();
 		if ( $cart_item['variation_id'] ) {
-			$variation = wc_get_product( $cart_item['variation_id'] );
-			if ( $variation->get_type() === 'variation' ) {
-				$variation_name = implode( "/", $variation->get_variation_attributes() );
-				$categories     = implode( '/', $this->get_object_terms( 'product_cat', $variation->get_parent_id() ) );
+			$product = wc_get_product( $cart_item['variation_id'] );
+			if ( $product->get_type() === 'variation'  ) {
+				$variation_name = implode( "/", $product->get_variation_attributes() );
+				$categories     = $this->get_object_terms( 'product_cat', $product->get_parent_id() );
 			} else {
 				$variation_name = null;
-				$categories     = implode( '/', $this->get_object_terms( 'product_cat', $product_id ) );
+				$categories     = $this->get_object_terms( 'product_cat', $product_id );
 			}
 		} else {
 			$variation_name = null;
-			$categories     = implode( '/', $this->get_object_terms( 'product_cat', $product_id ) );
+			$categories     = $this->get_object_terms( 'product_cat', $product_id );
 		}
 
 		if ( true === $is_cart ) {
 			$sub_total = $cart_item['line_subtotal'];
 			$sub_total = $this->number_format( $sub_total );
+			$price     = $sub_total;
 		} else {
 			$sub_total = $cart_item['line_subtotal'];
 			$sub_total = $this->number_format( $sub_total );
-
-			$quantity = absint( $cart_item['quantity'] );
+			$price     = $sub_total;
+			$quantity  = absint( $cart_item['quantity'] );
 			if ( $quantity > 0 ) {
+				$price     = $sub_total;
 				$sub_total = WFACP_Common::wfacp_round( $sub_total / $quantity );
 			}
 		}
+		$currency = get_woocommerce_currency();
 
 		$item = array(
-			'id'       => $content_id,
-			'name'     => $name,
-			'category' => $categories,
-			'quantity' => $cart_item['quantity'],
-			'price'    => $sub_total,
-			'variant'  => $variation_name,
+			'item_id'   => $content_id,
+			'item_name' => $name,
+			'quantity'  => absint( $cart_item['quantity'] ),
+			'price'     => floatval( $sub_total ),
+			'currency'  => $currency
 		);
 
-		return $item;
-	}
-
-	public function get_product_item( $product ) {
-		if ( ! $product instanceof WC_Product ) {
-			return parent::get_product_item( $product );
+		if ( ! is_null( $variation_name ) ) {
+			$item['item_variant'] = $variation_name;
+		}
+		$cat_count = 0;
+		if ( is_array( $categories ) && count( $categories ) > 0 ) {
+			foreach ( $categories as $cat ) {
+				$item_category          = ( 0 === $cat_count ) ? 'item_category' : 'item_category' . $cat_count;
+				$item[ $item_category ] = $cat;
+				$cat_count ++;
+			}
 		}
 
-		$content_id     = $product->get_id();
-		$name           = $product->get_title();
-		$variation_name = null;
-		$categories     = implode( '/', $this->get_object_terms( 'product_cat', $content_id ) );
-		$sub_total      = $product->get_price();
-		$sub_total      = $this->number_format( $sub_total );
-		$content_id     = $this->get_product_content_id( $content_id );
-		$item           = array(
-			'id'       => $content_id,
-			'name'     => $name,
-			'category' => $categories,
-			'quantity' => 1,
-			'price'    => $sub_total,
-			'variant'  => $variation_name,
-		);
+		$event_data = [
+			'value'        => floatval( $price ),
+			'content_type' => 'product',
+			'currency'     => get_woocommerce_currency(),
+			'items'        => [ $item ],
+			'user_roles'   => WFACP_Common::get_current_user_role(),
+		];
 
-		return $item;
+		return $event_data;
 	}
+
 
 	public function remove_item( $product_obj, $cart_item ) {
 		return $this->get_item( $product_obj, $cart_item );

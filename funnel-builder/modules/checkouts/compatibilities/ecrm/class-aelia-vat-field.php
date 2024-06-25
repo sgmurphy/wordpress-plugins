@@ -44,13 +44,19 @@ class WFACP_Compatibility_With_Aliea_vat {
 
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_fields' ] );
+
+
 	}
 
 	public function setup_fields_billing() {
 		new WFACP_Add_Address_Field( 'wfacp_vat_fields', array(
 			'type'         => 'wfacp_html',
 			'label'        => __( 'vat Fields', 'woocommerce-aero-checkout' ),
-			'palaceholder' => __( 'vat Fields', 'woocommerce-fakturownia' ),
+			'placeholder' => __( 'vat Fields', 'woocommerce-fakturownia' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,
@@ -70,7 +76,7 @@ class WFACP_Compatibility_With_Aliea_vat {
 			return $fields;
 		}
 
-		$aero_fields = $this->get_aero_checkout_fields();
+		$aero_fields = WFACP_Common::get_aero_registered_checkout_fields();
 
 
 		foreach ( $fields as $index => $field ) {
@@ -193,47 +199,20 @@ class WFACP_Compatibility_With_Aliea_vat {
 
 	}
 
-	private function get_aero_checkout_fields() {
-		$fields = [
-			'billing_email',
-			'billing_first_name',
-			'billing_last_name',
-			'billing_company',
-			'billing_address_1',
-			'billing_address_2',
-			'billing_city',
-			'billing_postcode',
-			'billing_country',
-			'billing_state',
-			'billing_phone',
-			'billing_same_as_shipping',
-			'shipping_email',
-			'shipping_first_name',
-			'shipping_last_name',
-			'shipping_company',
-			'shipping_address_1',
-			'shipping_address_2',
-			'shipping_city',
-			'shipping_postcode',
-			'shipping_country',
-			'shipping_state',
-			'shipping_phone',
-			'shipping_same_as_billing',
-			'shipping_calculator',
-			'order_comments',
-			'order_summary',
-			'order_coupon',
-			'order_total',
-			'product_switching',
-			'billing_wc_custom_field',
-			'shipping_wc_custom_field',
-			'account_username',
-			'account_password',
-			'wc_advanced_order_field'
-		];
+	public function disabled_third_party_fields( $fields ) {
+
+		if ( is_array( $this->new_fields['billing'] ) && count( $this->new_fields['billing'] ) > 0 ) {
+			foreach ( $this->new_fields['billing'] as $i => $field_array ) {
+				if ( isset( $fields[ $i ] ) ) {
+					unset( $fields[ $i ] );
+				}
+
+			}
+		}
 
 		return $fields;
 	}
+
 
 }
 

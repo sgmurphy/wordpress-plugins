@@ -72,12 +72,15 @@ const ScCart = class {
   }
   /** Fetch the order */
   async fetchOrder() {
-    var _a;
+    var _a, _b;
+    if (!((_a = state.checkout) === null || _a === void 0 ? void 0 : _a.id)) {
+      return;
+    }
     try {
       updateFormState('FETCH');
       state.checkout = (await apiFetch({
         method: 'GET',
-        path: addQueryArgs(`${baseUrl}${(_a = state.checkout) === null || _a === void 0 ? void 0 : _a.id}`, {
+        path: addQueryArgs(`${baseUrl}${(_b = state.checkout) === null || _b === void 0 ? void 0 : _b.id}`, {
           expand,
         }),
       }));

@@ -3,10 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/*
+ * Plugin name: ActiveCampaign for WooCommerce by ActiveCampaign v 2.7.2
+ */
 
-#[AllowDynamicProperties] 
 
-  class WFACP_Compatibility_With_WC_ActiveCompaign {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_WC_ActiveCompaign {
 
 	private $wc_ac_obj = null;
 	private $field_arg = null;
@@ -22,6 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'process_wfacp_html', [ $this, 'call_wc_ac_hook' ], 10, 3 );
 
 		add_action( 'wfacp_internal_css', [ $this, 'add_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 
@@ -50,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	public function actions() {
-		$checkbox_display_option = get_option( ACTIVECAMPAIGN_FOR_WOOCOMMERCE_DB_OPTION_NAME );
+		$checkbox_display_option = get_option( 'activecampaign_for_woocommerce_settings' );
 
 		if ( ! is_array( $checkbox_display_option ) || count( $checkbox_display_option ) == 0 || ! isset( $checkbox_display_option['checkbox_display_option'] ) ) {
 			return;
@@ -212,7 +218,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                 vertical-align: middle;
                 width: 16px !important;
                 min-width: 16px;
-                box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
                 transition: .05s border-color ease-in-out;
                 position: absolute;
                 left: 0;
@@ -226,4 +231,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WC_ActiveCompaign(), 'wcac' );

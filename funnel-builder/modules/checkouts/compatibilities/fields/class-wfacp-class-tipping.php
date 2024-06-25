@@ -8,9 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin URI: https://www.wpslash.com
  * Version:           1.0.6
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_WC_Tipping {
+#[AllowDynamicProperties] 
+ class WFACP_Compatibility_With_WC_Tipping {
 
 	public function __construct() {
 
@@ -26,6 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		/* styling for tipping field */
 		add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_field( $fields ) {
@@ -46,6 +49,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		return $fields;
 
+	}
+
+	public function is_enabled() {
+
+		return function_exists( 'wpslash_tipping_woocommerce_checkout_order_review_form' );
 	}
 
 	public function process_wfacp_html( $field, $key ) {
@@ -72,11 +80,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		remove_action( 'woocommerce_review_order_after_cart_contents', 'wpslash_tipping_woocommerce_checkout_order_review_form', 10, 0 );
 	}
 
-	public function is_enabled() {
-
-		return function_exists( 'wpslash_tipping_woocommerce_checkout_order_review_form' );
-	}
-
 	public function wfacp_internal_css() {
 		if ( ! $this->is_enabled() ) {
 			return;
@@ -84,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		?>
 
-        <style>
+		<style>
             #wfacp_wc_tipping .wpslash-tip-wrapper {
                 margin-bottom: 25px;
             }
@@ -145,7 +148,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 box-shadow: 0px 1px 0px 0px #000000;
                 background-color: #28a745;
-                border-radius: 8px;
+                border-radius: 6px;
                 border: 1px solid #808080;
                 cursor: pointer;
                 text-shadow: 0px 1px 0px #282828;
@@ -153,7 +156,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 border-bottom-left-radius: 0px;
 
             }
-        </style>
+		</style>
 		<?php
 	}
 

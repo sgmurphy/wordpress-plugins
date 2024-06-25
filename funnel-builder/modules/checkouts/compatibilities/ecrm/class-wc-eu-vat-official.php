@@ -3,10 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
+/**
+ * WooCommerce EU VAT Number  By WooCommerce
+ *
+ */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_WC_EU_Vat_Official {
+class WFACP_Compatibility_With_WC_EU_Vat_Official {
 
 	public function __construct() {
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_eu_fields' ] );
@@ -15,6 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'action' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 
 	}
@@ -56,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	public function process_wfacp_html( $field, $key ) {
 		if ( 'wc_eu_vat_official_vat_number' == $key && $this->is_enable() ) {
 			$user_id = get_current_user_id();
-			if ( defined( 'WC_EU_VAT_VERSION' ) && version_compare( WC_EU_VAT_VERSION, '2.3.1', '>' ) ) {
+			if ( defined( 'WC_EU_VAT_VERSION' ) && version_compare( WC_EU_VAT_VERSION, '2.3.18', '>' ) ) {
 				woocommerce_form_field( 'billing_vat_number', [
 					'required'    => 'yes' === get_option( 'woocommerce_eu_vat_number_b2b', 'false' ),
 					'label'       => get_option( 'woocommerce_eu_vat_number_field_label', 'VAT number' ),
@@ -83,18 +89,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	public function add_default_wfacp_styling( $args, $key ) {
 
 
-		if ( $key == 'billing_vat_number' && $this->is_enable() ) {
-
-			$all_cls     = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
-			$input_class = array_merge( [ 'wfacp-form-control' ], $args['input_class'] );
-			$label_class = array_merge( [ 'wfacp-form-control-label' ], $args['label_class'] );
-
-			$args['class']       = $all_cls;
-			$args['cssready']    = [ 'wfacp-col-full' ];
-			$args['input_class'] = $input_class;
-			$args['label_class'] = $label_class;
-
+		if ( strpos( $key, 'vat_number' ) === false || ! $this->is_enable() ) {
+			return $args;
 		}
+
+		if ( isset( $args['type'] ) && 'checkbox' !== $args['type'] ) {
+
+			$args['input_class'] = array_merge( [ 'wfacp-form-control' ], $args['input_class'] );
+			$args['label_class'] = array_merge( [ 'wfacp-form-control-label' ], $args['label_class'] );
+			$args['class']       = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full' ], $args['class'] );
+			$args['cssready']    = [ 'wfacp-col-full' ];
+
+		} else {
+			$args['class']    = array_merge( [ 'wfacp-form-control-wrapper wfacp-col-full ' ], $args['class'] );
+			$args['cssready'] = [ 'wfacp-col-full' ];
+		}
+
 
 		return $args;
 	}
@@ -150,4 +160,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WC_EU_Vat_Official(), 'wc-eu-vat-official' );

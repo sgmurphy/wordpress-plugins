@@ -2,7 +2,7 @@ import { r as registerInstance, c as createEvent, h, a as getElement } from './i
 import { s as state } from './mutations-b8f9af9f.js';
 import { s as state$1 } from './store-dde63d4d.js';
 import { s as state$3 } from './store-e7eca601.js';
-import './watchers-482a0bed.js';
+import './watchers-6aa4e294.js';
 import { s as state$2 } from './getters-03bf9a6d.js';
 import { U as Universe } from './universe-0f7e3f08.js';
 import './index-1046c77e.js';
@@ -13,7 +13,7 @@ import './index-c5a96d53.js';
 import './google-357f4c4c.js';
 import './currency-728311ef.js';
 import './price-178c2e2b.js';
-import './watchers-f761bdb6.js';
+import './watchers-7ddfd1b5.js';
 import './util-64ee5262.js';
 
 const scCheckoutCss = "sc-checkout{--sc-form-focus-within-z-index:5;display:block;font-family:var(--sc-font-sans);font-size:var(--sc-checkout-font-size, 16px);position:relative}sc-checkout h3{font-size:var(--sc-input-label-font-size-medium)}sc-alert{margin-bottom:var(--sc-form-row-spacing)}.sc-checkout-container.sc-align-center{max-width:500px;margin-left:auto;margin-right:auto}.sc-checkout-container.sc-align-wide{max-width:800px;margin-left:auto;margin-right:auto}::slotted(*){font-family:var(--sc-font-sans)}";

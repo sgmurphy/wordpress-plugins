@@ -7,20 +7,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * https://wordpress.org/plugins/woo-postnl
  * this official woocommerce plugin for PostNl Field
- * #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_Woo_PostNl
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_Woo_PostNl {
+class WFACP_Compatibility_With_Woo_PostNl {
 
 
 	public $instance = null;
 
+	private $billing_new_fields = [
+		'billing_street_name',
+		'billing_house_number',
+		'billing_house_number_suffix',
+
+	];
+	private $shipping_new_fields = [
+		'shipping_street_name',
+		'shipping_house_number',
+		'shipping_house_number_suffix',
+	];
+
 	public function __construct() {
-		add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
-		add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
+		if ( WFACP_Common::is_funnel_builder_3() ) {
+			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_fields_billing' ] );
+			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_fields_shipping' ] );
+		} else {
+			add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
+			add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
+		}
 
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'actions' ] );
 		add_action( 'wfacp_css_js_removal_paths', [ $this, 'remove_style' ] );
@@ -29,22 +42,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		// Ajax Actions
 		add_action( 'wfacp_before_process_checkout_template_loader', [ $this, 'validation_fields' ] );
 
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
-	}
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
+		add_filter( 'wfacp_third_party_shipping_fields', [ $this, 'disabled_third_party_shipping_fields' ] );
 
-	public function is_enabled() {
 
-
-		if ( class_exists( 'Woocommerce_PostNL_Postcode_Fields' ) || class_exists( 'WCPOST' ) ) {
-
-			$options = get_option( 'woocommerce_postnl_checkout_settings', [] );
-
-			if ( isset( $options['use_split_address_fields'] ) && wc_string_to_bool( $options['use_split_address_fields'] ) ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public function remove_style( $path ) {
@@ -85,6 +89,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'priority'  => 62,
 		) );
 
+	}
+
+	public function is_enabled() {
+
+
+		if ( class_exists( 'Woocommerce_PostNL_Postcode_Fields' ) || class_exists( 'WCPOST' ) ) {
+
+			$options = get_option( 'woocommerce_postnl_checkout_settings', [] );
+
+			if ( isset( $options['use_split_address_fields'] ) && wc_string_to_bool( $options['use_split_address_fields'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public function setup_fields_shipping() {
@@ -287,6 +306,30 @@ if ( ! defined( 'ABSPATH' ) ) {
             }
         </style>
 		<?php
+	}
+
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->billing_new_fields ) && count( $this->billing_new_fields ) ) {
+			foreach ( $this->billing_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
+	}
+
+	public function disabled_third_party_shipping_fields( $fields ) {
+		if ( is_array( $this->shipping_new_fields ) && count( $this->shipping_new_fields ) ) {
+			foreach ( $this->shipping_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 

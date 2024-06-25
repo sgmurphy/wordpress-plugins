@@ -1428,7 +1428,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 									printf(
 										'<%1$s class="eae-tl-item-title">%2$s</%1$s>',
 										Helper::validate_html_tag( $item['item_title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
-										$item['item_title_text']
+										Helper::eae_wp_kses( $item['item_title_text'] )
 									);
 									echo '<div class="eae-tl-content-innner">' . wp_kses_post($item['item_content']) . '</div>';
 									?>
@@ -1541,7 +1541,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 				'<%1$s itemprop="name" class="eae-tl-item-title" %2$s>%3$s</%1$s>',
 				Helper::validate_html_tag( $settings['html_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h2' ),
 				'',
-				$title_html
+				Helper::eae_wp_kses( $title_html )
 			);
 		}
 	}

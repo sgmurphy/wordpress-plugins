@@ -62,8 +62,8 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 
 
 				$this->pending_events['pint'][] = array(
-					'event' => 'AddToCart',
-					'data'  => $this->get_pint_add_to_cart_prams( $product_id, $variation_id, $quantity ),
+					'event' => 'addtocart',
+					'data'  => $this->get_add_to_cart_prams( $product_id, $variation_id, $quantity, 'pint' ),
 				);
 
 
@@ -95,32 +95,69 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 		}
 
 		public function get_add_to_cart_prams( $product_id, $variation_id, $quantity, $mode ) {
-			if ( ! empty( $variation_id ) && $variation_id > 0 && ( $this->do_treat_variable_as_simple( $mode ) ) ) {
-				$_product_id = $variation_id;
+
+			$product_id_to_use = ! empty( $variation_id ) && $variation_id > 0 && $this->do_treat_variable_as_simple( $mode ) ? $variation_id : $product_id;
+			$product           = wc_get_product( $product_id_to_use );
+
+			// Calculate price
+			$price = apply_filters( 'wffn_add_to_cart_tracking_price', $product->get_price(), $product, $variation_id, $quantity, $mode, $this->admin_general_settings );
+
+			// Get category names for the product
+
+			if ( $product->is_type( 'variation' ) ) {
+				$cat_id = $product->get_parent_id();
 			} else {
-				$_product_id = $product_id;
+				$cat_id = $product->get_id();
 			}
 
-			$categories = '';
+			$cat_list       = $this->get_product_tags( 'product_cat', $cat_id );
+			$category_names = ! empty( $cat_list ) ? implode( ', ', $cat_list ) : '';
 
-			$product_obj = wc_get_product( $_product_id );
-			$price       = apply_filters( 'wffn_add_to_cart_tracking_price', $product_obj->get_price(), $product_obj, $variation_id, $quantity, $mode, $this->admin_general_settings );
+			$quantity = ! empty( $quantity ) ? absint( $quantity ) : 1;
 
-			if ( $product_obj->get_type() === 'product_variation' ) {
-				$cat_post_id = $product_obj->get_parent_id(); // get terms from parent
-				$cat_list    = $this->get_product_tags( 'product_cat', $cat_post_id );
+			if ( 'pint' === $mode ) {
+				// Prepare line item details including category information
+				$line_item = [
+					'product_id'       => $this->get_woo_product_content_id( $product_id, $mode ), // Ensure product ID is treated as a string
+					'product_name'     => $product->get_name(),
+					'product_price'    => floatval( $price ),
+					'product_quantity' => $quantity,
+					'product_category' => $category_names,
+				];
 
-			} else {
-				$cat_list = $this->get_product_tags( 'product_cat', $product_obj->get_id() );
-			}
+				if ( $product->is_type( 'variation' ) ) {
 
-			if ( count( $cat_list ) ) {
-				$categories = implode( ', ', $cat_list );
+					$variation_name                  = implode( ",", $product->get_variation_attributes() );
+					$line_item['product_variant_id'] = $product->get_id();
+					$line_item['product_variant']    = $variation_name;
+
+
+					$tag_list = $this->get_product_tags( 'product_tag', $product->get_id() );
+					if ( count( $tag_list ) > 0 ) {
+						$line_item['tags'] = implode( ', ', $tag_list );
+					}
+
+					// Prepare Pinterest-specific event data
+					$event_data = [
+						'event_id'       => $this->get_event_id( 'AddToCart' ),
+						'value'          => floatval( $price ) * floatval( $quantity ),
+						'order_quantity' => $quantity,
+						'currency'       => get_woocommerce_currency(),
+						'content_type'   => 'product',
+						'line_items'     => [ $line_item ], // Include line item in an array
+						'traffic_source' => $this->get_traffic_source( 'source' ),
+						'user_role'      => $this->get_current_user_role(),
+						'event_url'      => $this->getEventRequestUri(),
+						'user_roles'     => $this->get_current_user_role(),
+					];
+
+					return $event_data;
+				}
 			}
 
 			$event_data = [
 				'value'        => $price,
-				'content_name' => $product_obj->get_name(),
+				'content_name' => $product->get_name(),
 				'content_type' => 'product',
 				'currency'     => get_woocommerce_currency(),
 				'content_ids'  => [ $this->get_woo_product_content_id( $product_id, $mode ) ],
@@ -159,39 +196,50 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				$event_data['number_items']  = count( $event_data['content_ids'] );
 				$event_data['item_ids']      = $event_data['content_ids'];
 				$event_data['price']         = $price;
-				$event_data['item_category'] = $categories;
+				$event_data['item_category'] = $category_names;
 				unset( $event_data['content_ids'] );
 				unset( $event_data['user_roles'] );
 				unset( $event_data['contents'] );
 			}
 
-			if ( 'pint' === $mode ) {
-				$event_data['product_id']       = $this->get_woo_product_content_id( $product_id, $mode );
-				$event_data['product_name']     = $product_obj->get_name();
-				$event_data['product_price']    = $price;
-				$event_data['product_quantity'] = $quantity;
-			}
-
 			if ( 'google_ua' === $mode ) {
+				$total_price = $price;
 				if ( function_exists( 'wc_get_price_to_display' ) && absint( $quantity ) > 1 ) {
-					$price = (float) wc_get_price_to_display( $product_obj, array( 'qty' => $quantity, 'price' => $price ) );
+					$total_price = (float) wc_get_price_to_display( $product, array( 'qty' => $quantity, 'price' => $price ) );
 				}
 				$event_data['items'][0]['id']       = $product_id;
-				$event_data['items'][0]['name']     = $product_obj->get_name();
-				$event_data['items'][0]['category'] = $categories;
+				$event_data['items'][0]['name']     = $product->get_name();
+				$event_data['items'][0]['category'] = $category_names;
 				$event_data['items'][0]['quantity'] = $quantity;
-				$event_data['items'][0]['price']    = $price;
+				$event_data['items'][0]['price']    = floatval( $price );
 				if ( $this->is_ga4_tracking() ) {
+					$event_data['value']                 = floatval( $total_price );
 					$event_data['items'][0]['item_id']   = $event_data['items'][0]['id'];
 					$event_data['items'][0]['item_name'] = $event_data['items'][0]['name'];
 					$event_data['items'][0]['currency']  = get_woocommerce_currency();
+					if ( $product->is_type( 'variation' ) ) {
+						$event_data['items'][0]['item_variant'] = implode( "/", $product->get_variation_attributes() );
+					}
+					$cat_count = 0;
+					if ( is_array( $cat_list ) && count( $cat_list ) > 0 ) {
+						foreach ( $cat_list as $cat ) {
+							$item_category                            = ( 0 === $cat_count ) ? 'item_category' : 'item_category_' . $cat_count;
+							$event_data['items'][0][ $item_category ] = $cat;
+							$cat_count ++;
+						}
+					}
+
 					unset( $event_data['items'][0]['id'] );
 					unset( $event_data['items'][0]['name'] );
+					unset( $event_data['items'][0]['category'] );
 					unset( $event_data['event_category'] );
 					unset( $event_data['ecomm_pagetype'] );
 					unset( $event_data['ecomm_prodid'] );
 					unset( $event_data['ecomm_totalvalue'] );
-
+					unset( $event_data['contents'] );
+					unset( $event_data['content_name'] );
+					unset( $event_data['content_ids'] );
+					unset( $event_data['content_type'] );
 				}
 			}
 
@@ -298,6 +346,7 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				'ajax_endpoint'  => admin_url( 'admin-ajax.php' ),
 				'pending_events' => $this->pending_events,
 				'should_render'  => apply_filters( 'wffn_allow_site_wide_tracking_js', true ),
+				'is_delay'       => 0,
 
 			];
 
@@ -326,7 +375,7 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				$data['ga']['content_data']['view_item'] = $this->get_view_items_data( 'ga' );
 			}
 
-			return $data;
+			return apply_filters( 'wffn_load_sitewide_events_data', $data, $this->admin_general_settings );
 		}
 
 		public function tracking_script() {
@@ -355,7 +404,7 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				return false;
 			}
 
-			wp_enqueue_script( 'wffn-tracking', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/tracks' . $suffix . '.js', [ 'jquery' ], WFFN_VERSION_DEV, false );
+			wp_enqueue_script( 'wffn-tracking', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/tracks' . $suffix . '.js', [ 'jquery' ], WFFN_VERSION_DEV, array( 'is_footer' => false, 'strategy' => 'defer') );
 			wp_localize_script( 'wffn-tracking', 'wffnTracking', $this->track_event_data() );
 
 		}
@@ -444,7 +493,6 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				'content_ids'    => [ $this->get_woo_product_content_id( $product->get_id(), 'pixel' ) ],
 				'product_price'  => $product->get_price(),
 				'post_id'        => $post->ID,
-				'landing_page'   => $this->get_traffic_source( 'referrer' ),
 				'contents'       => [
 					[
 						'id'       => $this->get_woo_product_content_id( $product->get_id(), 'pixel' ),
@@ -454,9 +502,13 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				'traffic_source' => $this->get_traffic_source( 'source' ),
 			];
 
-			if ( isset( $_COOKIE['wffn_referrer'] ) ) {
-				$event_data['landing_page'] = wffn_clean( $_COOKIE['wffn_referrer'] );
+			$landing_page = $this->get_traffic_source( 'referrer' );
+
+			if ( ! empty( $_COOKIE['wffn_referrer'] ) ) {
+				$landing_page = wffn_clean( $_COOKIE['wffn_referrer'] );
 			}
+
+			$event_data['landing_page'] = ! empty( $landing_page ) ? $landing_page : '';
 
 			$tag_list = $this->get_product_tags( 'product_tag', $product->get_id() );
 			if ( count( $tag_list ) ) {
@@ -495,87 +547,49 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				return $event_data;
 			}
 
+			$mode       = 'pint';
+			$product_id = $product->get_id();
+
+			// Get category names for the product
+			$cat_id         = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
+			$cat_list       = $this->get_product_tags( 'product_cat', $cat_id );
+			$category_names = ! empty( $cat_list ) ? implode( ', ', $cat_list ) : '';
+
+			$price = $product->get_price();
+
+
+			// Prepare line item details including category information
+			$line_item = [
+				'product_id'       => $this->get_woo_product_content_id( $product_id, $mode ), // Ensure product ID is treated as a string
+				'product_name'     => $product->get_name(),
+				'product_price'    => floatval( $price ),
+				'product_quantity' => 1,
+				'product_category' => $category_names,
+			];
+
+			$tag_list = $this->get_product_tags( 'product_tag', $product->get_id() );
+			if ( count( $tag_list ) > 0 ) {
+				$line_item['tags'] = implode( ', ', $tag_list );
+			}
+
+			// Prepare Pinterest-specific event data
 			$event_data = [
-				'post_type'      => 'product',
-				'product_id'     => $this->get_woo_product_content_id( $product->get_id(), 'pint' ),
-				'product_price'  => $product->get_price(),
-				'content_name'   => $product->get_name(),
-				'value'          => $product->get_price(),
+				'event_id'       => $this->get_event_id( 'view' ),
+				'value'          => floatval( $price ),
+				'order_quantity' => 1,
 				'currency'       => get_woocommerce_currency(),
-				'page_title'     => $post->post_title,
-				'post_id'        => $post->ID,
-				'event_url'      => $this->getEventRequestUri(),
-				'user_role'      => $this->get_current_user_role(),
+				'content_type'   => 'product',
+				'line_items'     => [ $line_item ], // Include line item in an array
 				'traffic_source' => $this->get_traffic_source( 'source' ),
+				'user_role'      => $this->get_current_user_role(),
+				'event_url'      => $this->getEventRequestUri(),
 			];
 
-			if ( isset( $_COOKIE['wffn_referrer'] ) ) {
-				$event_data['landing_page'] = wffn_clean( $_COOKIE['wffn_referrer'] );
+			$landing_page = $this->get_traffic_source( 'referrer' );
+			if ( ! empty( $_COOKIE['wffn_referrer'] ) ) {
+				$landing_page = wffn_clean( $_COOKIE['wffn_referrer'] );
 			}
-
-			$tag_list = $this->get_product_tags( 'product_tag', $product->get_id() );
-			if ( count( $tag_list ) > 0 ) {
-				$event_data['tags'] = implode( ', ', $tag_list );
-			}
-
-			if ( $post->post_type === 'product_variation' ) {
-				$cat_post_id = $post->post_parent; // get terms from parent
-				$cat_list    = $this->get_product_tags( 'product_cat', $cat_post_id );
-
-			} else {
-				$cat_list = $this->get_product_tags( 'product_cat', $product->get_id() );
-			}
-
-			if ( count( $cat_list ) > 0 ) {
-				$event_data['category_name'] = implode( ', ', $cat_list );
-			}
-
-			return $event_data;
-		}
-
-		public function get_pint_add_to_cart_prams( $product_id, $variation_id, $quantity ) {
-			$mode = 'pint';
-			if ( ! empty( $variation_id ) && $variation_id > 0 && ( $this->do_treat_variable_as_simple( $mode ) ) ) {
-				$_product_id = $variation_id;
-			} else {
-				$_product_id = $product_id;
-			}
-
-			$product = wc_get_product( $_product_id );
-			$price   = apply_filters( 'wffn_add_to_cart_tracking_price', $product->get_price(), $product, $variation_id, $quantity, $mode, $this->admin_general_settings );
-
-			$event_data = [
-				'post_type'        => 'product',
-				'product_id'       => $this->get_woo_product_content_id( $product_id, $mode ),
-				'product_quantity' => $quantity,
-				'content_name'     => $product->get_name(),
-				'value'            => $price,
-				'currency'         => get_woocommerce_currency(),
-				'product_price'    => $price,
-				'page_title'       => $product->get_name(),
-				'post_id'          => $product_id,
-				'event_url'        => $this->getEventRequestUri(),
-				'user_role'        => $this->get_current_user_role(),
-				'traffic_source'   => $this->get_traffic_source( 'source' ),
-				'eventID'          => $this->get_event_id( 'AddToCart' )
-			];
-
-			$tag_list = $this->get_product_tags( 'product_tag', $product->get_id() );
-			if ( count( $tag_list ) > 0 ) {
-				$event_data['tags'] = implode( ', ', $tag_list );
-			}
-
-			if ( $product->get_type() === 'product_variation' ) {
-				$cat_post_id = $product->get_parent_id(); // get terms from parent
-				$cat_list    = $this->get_product_tags( 'product_cat', $cat_post_id );
-
-			} else {
-				$cat_list = $this->get_product_tags( 'product_cat', $product->get_id() );
-			}
-
-			if ( count( $cat_list ) > 0 ) {
-				$event_data['category_name'] = implode( ', ', $cat_list );
-			}
+			$event_data['referrer'] = ! empty( $landing_page ) ? $landing_page : '';
 
 			return $event_data;
 		}
@@ -625,57 +639,60 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 				$categories = implode( '/', $cat_list );
 			}
 
+			$price        = $product->get_price();
+			$product_id   = $product->get_id();
+			$product_name = $product->get_name();
+			$currency     = get_woocommerce_currency();
+
 			$event_data = array(
 				'event_category'   => 'ecommerce',
-				'ecomm_prodid'     => $this->get_woo_product_content_id( $product->get_id(), $mode ),
+				'ecomm_prodid'     => $this->get_woo_product_content_id( $product_id, $mode ),
 				'ecomm_pagetype'   => 'product',
-				'ecomm_totalvalue' => $product->get_price(),
+				'ecomm_totalvalue' => $price,
 				'items'            => array(
 					array(
-						'id' => $this->get_woo_product_content_id( $product->get_id(), $mode ),
+						'id' => $this->get_woo_product_content_id( $product_id, $mode ),
 					)
 				),
 			);
 
 			if ( 'gad' === $mode ) {
-				$event_data['page_title'] = $post->post_title;
-				$event_data['post_id']    = $post->ID;
+				$event_data['page_title'] = $product_name;
+				$event_data['post_id']    = $product_id;
 				$event_data['post_type']  = 'product';
-				$event_data['value']      = $product->get_price();
+				$event_data['value']      = $price;
 			}
 
 			if ( 'ga' === $mode ) {
-				$event_data['items'][0]['name']          = $product->get_name();
-				$event_data['items'][0]['category']      = $categories;
-				$event_data['items'][0]['quantity']      = 1;
-				$event_data['items'][0]['list_position'] = 1;
-				$event_data['items'][0]['price']         = $product->get_price();
+				$event_data['currency']             = $currency;
+				$event_data['items'][0]['id']       = $product_id;
+				$event_data['items'][0]['name']     = $product->get_name();
+				$event_data['items'][0]['category'] = $categories;
+				$event_data['items'][0]['quantity'] = 1;
+				$event_data['items'][0]['price']    = floatval( $price );
+				$event_data['items'][0]['index']    = 0;
 				if ( $this->is_ga4_tracking() ) {
+					$event_data['value']                 = floatval( $price );
 					$event_data['items'][0]['item_id']   = $event_data['items'][0]['id'];
 					$event_data['items'][0]['item_name'] = $event_data['items'][0]['name'];
-					$event_data['items'][0]['currency']  = get_woocommerce_currency();
-					$event_data['post_id']               = $post->ID;
-					$event_data['post_type']             = "product";
-					$event_data['items'][0]['index']     = 0;
-					$count                               = 1;
-					if ( is_array( $cat_list ) && count( $cat_list ) > 0 ) {
-						foreach ( $cat_list as $cat_name ) {
-							if ( 1 === $count ) {
-								$event_data['items'][0]['item_category'] = $cat_name;
+					$event_data['items'][0]['currency']  = $currency;
 
-							} else {
-								$event_data['items'][0][ 'item_category' . $count ] = $cat_name;
-							}
-							$count ++;
+					$cat_count = 0;
+					if ( is_array( $cat_list ) && count( $cat_list ) > 0 ) {
+						foreach ( $cat_list as $cat ) {
+							$item_category                            = ( 0 === $cat_count ) ? 'item_category' : 'item_category' . $cat_count;
+							$event_data['items'][0][ $item_category ] = $cat;
+							$cat_count ++;
 						}
 					}
+
 					unset( $event_data['items'][0]['id'] );
 					unset( $event_data['items'][0]['name'] );
+					unset( $event_data['items'][0]['category'] );
 					unset( $event_data['event_category'] );
 					unset( $event_data['ecomm_pagetype'] );
 					unset( $event_data['ecomm_prodid'] );
 					unset( $event_data['ecomm_totalvalue'] );
-
 				}
 			}
 
@@ -684,8 +701,8 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 		}
 
 		public function is_ga4_tracking() {
-			$is_ga4_tracking = $this->admin_general_settings->get_option( 'is_ga4_tracking' );
-			if ( is_array( $is_ga4_tracking ) && count( $is_ga4_tracking ) > 0 && 'yes' === $is_ga4_tracking[0] ) {
+			$ga_id = $this->admin_general_settings->get_option( 'ga_key' );
+			if ( ! empty( $ga_id ) && strpos( $ga_id, "G-" ) !== false ) {
 				return true;
 			}
 
@@ -693,9 +710,6 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 		}
 
 		public function get_traffic_source( $type = 'source' ) {
-			$referrer = "";
-			$source   = "";
-
 			$referrer = wp_get_referer();
 
 			if ( 'referrer' === $type ) {
@@ -705,7 +719,7 @@ if ( ! class_exists( 'WFFN_Tracking_SiteWide' ) ) {
 			if ( empty( $referrer ) ) {
 				$external = false;
 			} else {
-				$external = strpos( site_url(), $referrer ) == 0; //phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+				$external = strpos( site_url(), $referrer ) === 0;
 			}
 
 			if ( ! $external ) {

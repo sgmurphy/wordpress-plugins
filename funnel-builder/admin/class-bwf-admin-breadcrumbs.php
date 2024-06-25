@@ -5,7 +5,7 @@
  */
 if ( ! class_exists( 'BWF_Admin_Breadcrumbs' ) ) {
 
-	#[AllowDynamicProperties]
+#[AllowDynamicProperties]
 
 class BWF_Admin_Breadcrumbs {
 

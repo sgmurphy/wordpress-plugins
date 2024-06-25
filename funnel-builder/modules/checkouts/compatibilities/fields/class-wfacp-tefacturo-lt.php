@@ -17,6 +17,10 @@
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_field' ], 20 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function add_field( $fields ) {
@@ -71,7 +75,7 @@
 			return;
 		}
 		?>
-        <style>
+		<style>
             p#t_docum_field {
                 padding-bottom: 0 !important;
             }
@@ -90,7 +94,7 @@
                 padding-top: 12px;
                 padding-bottom: 12px;
             }
-        </style>
+		</style>
 		<?php
 	}
 }

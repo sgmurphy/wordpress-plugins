@@ -6,7 +6,7 @@ const index = require('./index-f1e4d53b.js');
 const mutations = require('./mutations-164b66b1.js');
 const store = require('./store-96a02d63.js');
 const store$1 = require('./store-73afe412.js');
-require('./watchers-bb018b12.js');
+require('./watchers-ce17ff92.js');
 const getters = require('./getters-ea9c2b72.js');
 const universe = require('./universe-739a1804.js');
 require('./index-00f0fc21.js');
@@ -17,7 +17,7 @@ require('./index-fb76df07.js');
 require('./google-62bdaeea.js');
 require('./currency-ba038e2f.js');
 require('./price-f1f1114d.js');
-require('./watchers-d7bdd741.js');
+require('./watchers-fecceee2.js');
 require('./util-efd68af1.js');
 
 const scCheckoutCss = "sc-checkout{--sc-form-focus-within-z-index:5;display:block;font-family:var(--sc-font-sans);font-size:var(--sc-checkout-font-size, 16px);position:relative}sc-checkout h3{font-size:var(--sc-input-label-font-size-medium)}sc-alert{margin-bottom:var(--sc-form-row-spacing)}.sc-checkout-container.sc-align-center{max-width:500px;margin-left:auto;margin-right:auto}.sc-checkout-container.sc-align-wide{max-width:800px;margin-left:auto;margin-right:auto}::slotted(*){font-family:var(--sc-font-sans)}";

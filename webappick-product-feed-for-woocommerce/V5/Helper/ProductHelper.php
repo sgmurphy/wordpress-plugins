@@ -221,22 +221,7 @@ class ProductHelper {
 		return $img_urls;
 	}
 
-	/**
-	 * Determines if a sufficient number of identifier attributes exist for a product.
-	 *
-	 * @param mixed      $attribute Ignored parameter, remains for backward compatibility.
-	 * @param WC_Product $product   The WooCommerce product object.
-	 * @param mixed      $config    Configuration or context.
-	 *
-	 * @return string 'yes' if at least two identifiers are present, 'no' otherwise.
-	 */
-	public static function overwrite_identifier_exists( $attribute, $product, $config ) {
-		$counter = 0;
-		$counter += self::count_identifiers_in_attributes( $product, $config );
-		$counter += self::count_identifiers_in_mattributes( $product, $config );
 
-		return $counter >= 2 ? 'yes' : 'no';
-	}
 
 	private static function count_identifiers_in_attributes( $product, $config ) {
 		$count       = 0;
@@ -358,7 +343,72 @@ class ProductHelper {
 	 * @param WC_Product $product  The WooCommerce product object.
 	 * @param Config     $config   Additional configuration or context.
 	 *
+	 * @return string
+	 */
+	public static function overwrite_identifier_exists( $attribute, $product, $config ) {
+
+		/**
+		 * Please add the plugins name if any plugin needs to do extra code to get proper identifier_exists attribute value.
+		 *
+		 * Here is the already compatible plugin list:
+		 * 1. EAN for WooCommerce
+		 * 2. Custom Post Type UI
+		 * 3. ACF
+		 */
+
+		$identifiers = array( 'brand', 'upc', 'sku', 'mpn', 'gtin' );
+
+		$structure             = get_transient( 'ctx_feed_structure_transient' );
+		$have_attributes_value = [];
+		foreach ( $identifiers as $single_identifier ) {
+			$attribute_key = self::array_search_key( $single_identifier, $structure );
+			if ( ! is_array( $attribute_key ) ) {
+				continue;
+			}
+
+			$attributeValueByType = new AttributeValueByType( $attribute_key['attribute'], $product, $config, $attribute_key['mattribute'] );
+			$value                = $attributeValueByType->get_value();
+			if ( $value ) {
+				$have_attributes_value[ $single_identifier ] = $value;
+			}
+		}
+
+		return count( $have_attributes_value ) > 1 ? "yes" : "no";
+	}
+
+	/**
+	 * Get merchant attribute and attribute
+	 *
+	 * @param $needle_key
+	 * @param $structure
+	 *
+	 * @return array|false
+	 */
+	private static function array_search_key( $needle_key, $structure ) {
+		foreach ( $structure as $key => $value ) {
+			if ( strpos( $key, $needle_key ) !== false ) {
+
+				return [
+					'attribute'  => $value,
+					'mattribute' => $key,
+				];
+			}
+			if ( is_array( $value ) ) {
+				if ( ( $result = self::array_search_key( $needle_key, $value ) ) !== false ) {
+					return $result;
+				}
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Get Product Taxonomy.
+=======
 	 * @return string A string containing the taxonomy terms separated by the specified separator.
+>>>>>>> develop
 	 *
 	 * Note: Test case writing is pending for this function.
 	 */
@@ -1142,6 +1192,7 @@ class ProductHelper {
 				array_push( $products, $product );
 			}
 			$variations = $product->get_visible_children();
+
 			foreach ( $variations as $variation_id ) {
 				$variation_product = wc_get_product( $variation_id );
 				array_push( $products, $variation_product );

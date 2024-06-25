@@ -1678,7 +1678,7 @@ class WFACP_Pre_Built extends WFACP_Template_Common {
 			$heading_talign = $form_data['heading_section']['heading_talign'];
 		}
 
-		if ( isset( $form_data['heading_section']['heading_talign'] ) ) {
+		if ( isset( $form_data['heading_section']['heading_font_weight'] ) ) {
 			$heading_font_weight = $form_data['heading_section']['heading_font_weight'];
 		}
 

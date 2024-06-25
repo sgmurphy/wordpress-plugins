@@ -5536,6 +5536,10 @@ body .wfacp_main_form.woocommerce #wfacp_checkout_form p.form-row.wfacp_collapsi
 body #wfacp-sec-wrapper #wfacp_checkout_form .wfacp_collapsible_enable .select2-container {
     width: 100% !important;
 }
+#wfacp-e-form .wfacp_main_form .wfacp_collapsible svg {
+    display: inline;
+}
+
 
 /* --------------------------------- Alignment Classes ---------------------------------*/
 
@@ -5751,6 +5755,12 @@ body #wfacp-sec-wrapper .wfacp_main_form.woocommerce #payment ul.payment_methods
 
 body #wfacp-sec-wrapper .wfacp_main_form.woocommerce #payment ul.payment_methods li.payment_method_stripe_cc .wc-stripe_cc-container input + label {
     display: inline-block;
+}
+
+/* -----------------------------------------------Add Form Css ---------------------------------------- */
+
+body #wfacp-sec-wrapper .woocommerce-checkout {
+    display: block;
 }
 
 /* -----------------------------------------------MEDIA QUERY---------------------------------------- */

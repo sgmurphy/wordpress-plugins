@@ -2,6 +2,8 @@
 
 #[AllowDynamicProperties]
 class WFACP_Compatibility_WPML_WCML {
+	private $process = false;
+
 	public function __construct() {
 		add_action( 'woocommerce_before_calculate_totals', [ $this, 'woocommerce_calculate_totals' ], 200 );
 		add_filter( 'wfacp_product_raw_data', [ $this, 'change_raw_data' ], 10, 2 );
@@ -109,7 +111,7 @@ class WFACP_Compatibility_WPML_WCML {
 
 	public function js() {
 		?>
-		<script>
+        <script>
             window.addEventListener('load', function () {
                 (function ($) {
                     wfacp_frontend.hooks.addFilter('wfacp_before_ajax_data_update_product_qty', set_custom_data);
@@ -132,7 +134,7 @@ class WFACP_Compatibility_WPML_WCML {
 
                 })(jQuery);
             });
-		</script>
+        </script>
 		<?php
 	}
 }

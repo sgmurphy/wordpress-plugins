@@ -14,8 +14,8 @@ const index$2 = require('./index-fb76df07.js');
 const mutations$2 = require('./mutations-8d7c4499.js');
 const mutations$3 = require('./mutations-7f57e396.js');
 const addQueryArgs = require('./add-query-args-17c551b6.js');
-const watchers = require('./watchers-d7bdd741.js');
-require('./watchers-bb018b12.js');
+const watchers = require('./watchers-fecceee2.js');
+require('./watchers-ce17ff92.js');
 const getters$2 = require('./getters-ea9c2b72.js');
 const formData = require('./form-data-69000afe.js');
 const getQueryArg = require('./get-query-arg-53bf21e2.js');
@@ -464,6 +464,7 @@ const ScOrderConfirmProvider = class {
     this.scOrderPaid = index.createEvent(this, "scOrderPaid", 7);
     this.scSetState = index.createEvent(this, "scSetState", 7);
     this.showSuccessModal = false;
+    this.manualPaymentMethod = undefined;
     this.checkoutStatus = undefined;
     this.successUrl = undefined;
   }
@@ -481,7 +482,7 @@ const ScOrderConfirmProvider = class {
   }
   /** Confirm the order. */
   async confirmOrder() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     try {
       mutations.state.checkout = (await fetch.apiFetch({
         method: 'PATCH',
@@ -494,10 +495,11 @@ const ScOrderConfirmProvider = class {
       mutations$2.createErrorNotice(e);
     }
     finally {
+      this.manualPaymentMethod = ((_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.manual_payment_method) || null;
       const checkout = mutations.state.checkout;
       const formId = mutations.state.formId;
       // If there is an initial upsell redirect to it.
-      if (!!((_b = checkout === null || checkout === void 0 ? void 0 : checkout.current_upsell) === null || _b === void 0 ? void 0 : _b.permalink)) {
+      if (!!((_c = checkout === null || checkout === void 0 ? void 0 : checkout.current_upsell) === null || _c === void 0 ? void 0 : _c.permalink)) {
         setTimeout(() => {
           var _a;
           return window.location.assign(addQueryArgs.addQueryArgs((_a = checkout === null || checkout === void 0 ? void 0 : checkout.current_upsell) === null || _a === void 0 ? void 0 : _a.permalink, {
@@ -509,7 +511,7 @@ const ScOrderConfirmProvider = class {
         return;
       }
       // get success url.
-      const successUrl = ((_c = checkout === null || checkout === void 0 ? void 0 : checkout.metadata) === null || _c === void 0 ? void 0 : _c.success_url) || this.successUrl;
+      const successUrl = ((_d = checkout === null || checkout === void 0 ? void 0 : checkout.metadata) === null || _d === void 0 ? void 0 : _d.success_url) || this.successUrl;
       if (successUrl) {
         // set state to redirecting.
         this.scSetState.emit('REDIRECT');
@@ -536,9 +538,8 @@ const ScOrderConfirmProvider = class {
     }
   }
   render() {
-    var _a, _b, _c, _d, _e, _f, _g;
-    const manualPaymentMethod = (_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.manual_payment_method;
-    return (index.h(index.Host, null, index.h("slot", null), index.h("sc-dialog", { open: !!this.showSuccessModal, style: { '--body-spacing': 'var(--sc-spacing-xxx-large)' }, noHeader: true, onScRequestClose: e => e.preventDefault() }, index.h("div", { class: "confirm__icon" }, index.h("div", { class: "confirm__icon-container" }, index.h("sc-icon", { name: "check" }))), index.h("sc-dashboard-module", { heading: ((_c = (_b = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _b === void 0 ? void 0 : _b.success) === null || _c === void 0 ? void 0 : _c.title) || wp.i18n.__('Thanks for your order!', 'surecart'), style: { '--sc-dashboard-module-spacing': 'var(--sc-spacing-x-large)', 'textAlign': 'center' } }, index.h("span", { slot: "description" }, ((_e = (_d = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _d === void 0 ? void 0 : _d.success) === null || _e === void 0 ? void 0 : _e.description) || wp.i18n.__('Your payment was successful. A receipt is on its way to your inbox.', 'surecart')), !!(manualPaymentMethod === null || manualPaymentMethod === void 0 ? void 0 : manualPaymentMethod.name) && !!(manualPaymentMethod === null || manualPaymentMethod === void 0 ? void 0 : manualPaymentMethod.instructions) && (index.h("sc-alert", { type: "info", open: true, style: { 'text-align': 'left' } }, index.h("span", { slot: "title" }, manualPaymentMethod === null || manualPaymentMethod === void 0 ? void 0 : manualPaymentMethod.name), index.h("div", { innerHTML: manualPaymentMethod === null || manualPaymentMethod === void 0 ? void 0 : manualPaymentMethod.instructions }))), index.h("sc-button", { href: this.getSuccessUrl(), size: "large", type: "primary", ref: el => (this.continueButton = el) }, ((_g = (_f = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _f === void 0 ? void 0 : _f.success) === null || _g === void 0 ? void 0 : _g.button) || wp.i18n.__('Continue', 'surecart'), index.h("sc-icon", { name: "arrow-right", slot: "suffix" }))))));
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    return (index.h(index.Host, null, index.h("slot", null), index.h("sc-dialog", { open: !!this.showSuccessModal, style: { '--body-spacing': 'var(--sc-spacing-xxx-large)' }, noHeader: true, onScRequestClose: e => e.preventDefault() }, index.h("div", { class: "confirm__icon" }, index.h("div", { class: "confirm__icon-container" }, index.h("sc-icon", { name: "check" }))), index.h("sc-dashboard-module", { heading: ((_b = (_a = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _a === void 0 ? void 0 : _a.success) === null || _b === void 0 ? void 0 : _b.title) || wp.i18n.__('Thanks for your order!', 'surecart'), style: { '--sc-dashboard-module-spacing': 'var(--sc-spacing-x-large)', 'textAlign': 'center' } }, index.h("span", { slot: "description" }, ((_d = (_c = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _c === void 0 ? void 0 : _c.success) === null || _d === void 0 ? void 0 : _d.description) || wp.i18n.__('Your payment was successful. A receipt is on its way to your inbox.', 'surecart')), !!((_e = this.manualPaymentMethod) === null || _e === void 0 ? void 0 : _e.name) && !!((_f = this.manualPaymentMethod) === null || _f === void 0 ? void 0 : _f.instructions) && (index.h("sc-alert", { type: "info", open: true, style: { 'text-align': 'left' } }, index.h("span", { slot: "title" }, (_g = this.manualPaymentMethod) === null || _g === void 0 ? void 0 : _g.name), index.h("div", { innerHTML: (_h = this.manualPaymentMethod) === null || _h === void 0 ? void 0 : _h.instructions }))), index.h("sc-button", { href: this.getSuccessUrl(), size: "large", type: "primary", ref: el => (this.continueButton = el) }, ((_k = (_j = store.state === null || store.state === void 0 ? void 0 : store.state.text) === null || _j === void 0 ? void 0 : _j.success) === null || _k === void 0 ? void 0 : _k.button) || wp.i18n.__('Continue', 'surecart'), index.h("sc-icon", { name: "arrow-right", slot: "suffix" }))))));
   }
   get el() { return index.getElement(this); }
   static get watchers() { return {

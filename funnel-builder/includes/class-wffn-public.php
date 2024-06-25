@@ -213,13 +213,13 @@ if ( ! class_exists( 'WFFN_Public' ) ) {
 				if ( in_array( $post->post_type, array( 'wffn_landing', 'wffn_optin', 'wffn_oty', 'wffn_ty' ), true ) ) {
 
 					wp_deregister_script( 'js-cookie' );
-					wp_register_script( 'js-cookie', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/js.cookie.min.js', array( 'jquery' ), WFFN_VERSION, false );
+					wp_register_script( 'js-cookie', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/js.cookie.min.js', array( 'jquery' ), WFFN_VERSION, array( 'is_footer' => false, 'strategy' => 'defer') );
 				}
 			}
 
 			wp_enqueue_script( 'js-cookie' );
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'wffn-public', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/public' . $suffix . '.js', [ 'js-cookie', 'jquery' ], WFFN_VERSION, true );
+			wp_enqueue_script( 'wffn-public', plugin_dir_url( WFFN_PLUGIN_FILE ) . 'assets/' . $live_or_dev . '/js/public' . $suffix . '.js', [ 'js-cookie', 'jquery' ], WFFN_VERSION, array( 'is_footer' => true, 'strategy' => 'defer') );
 
 			wp_localize_script( 'wffn-public', 'wffnfunnelData', $this->funnel_setup_result );
 			wp_localize_script( 'wffn-public', 'wffnfunnelEnvironment', $this->environment );

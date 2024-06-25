@@ -76,12 +76,15 @@ const ScCart = class {
   }
   /** Fetch the order */
   async fetchOrder() {
-    var _a;
+    var _a, _b;
+    if (!((_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.id)) {
+      return;
+    }
     try {
       mutations$1.updateFormState('FETCH');
       mutations.state.checkout = (await fetch.apiFetch({
         method: 'GET',
-        path: addQueryArgs.addQueryArgs(`${index$1.baseUrl}${(_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.id}`, {
+        path: addQueryArgs.addQueryArgs(`${index$1.baseUrl}${(_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.id}`, {
           expand: index$1.expand,
         }),
       }));

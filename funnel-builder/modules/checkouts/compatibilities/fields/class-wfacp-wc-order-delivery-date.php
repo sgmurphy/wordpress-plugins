@@ -1,15 +1,12 @@
 <?php
 
 /**
- * WooCommerce Order Delivery by Themesquad
+ * WooCommerce Order Delivery by Kestrel
  * Plugin URL: https://woocommerce.com/products/woocommerce-order-delivery/
- * #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_WC_delivery_date
+ * class WFACP_Compatibility_WC_delivery_date
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_WC_delivery_date {
+class WFACP_Compatibility_WC_delivery_date {
 
 	private $wc_delivery_date_obj = null;
 	private $locations = array(
@@ -49,6 +46,7 @@
 
 	public function __construct() {
 
+
 		/* Register Add field */
 		add_action( 'wfacp_template_load', [ $this, 'remove_wc_delivery_date_hook' ] );
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_field' ], 20 );
@@ -59,7 +57,19 @@
 
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
+		add_action( 'wfacp_after_checkout_page_found', [ $this, 'action' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_print_advanced_custom_fields', [ $this, 'print_third_party' ], 99, 2 );
+
+
+	}
+
+	public function action() {
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 999, 2 );
+
 	}
 
 	public function remove_wc_delivery_date_hook() {
@@ -82,6 +92,9 @@
 				}
 			}
 		}
+		if ( is_null( $obj ) && class_exists( 'WC_OD_Checkout' ) ) {
+			$obj = WC_OD_Checkout::instance();
+		}
 
 
 		if ( ! is_null( $obj ) ) {
@@ -89,6 +102,11 @@
 
 			return;
 		}
+
+	}
+
+	public function is_enable() {
+		return class_exists( 'WC_Order_Delivery' );
 	}
 
 	public function add_field( $fields ) {
@@ -114,8 +132,13 @@
 		}
 	}
 
-	public function is_enable() {
-		return class_exists( 'WC_Order_Delivery' );
+	public function add_default_wfacp_styling( $args, $key ) {
+
+		if ( $key == 'delivery_date' && $this->is_enable() ) {
+			$args['input_class'] = [ 'wfacp-form-control' ];
+		}
+
+		return $args;
 	}
 
 	public function internal_css() {
@@ -143,17 +166,16 @@
 		echo '</style>';
 	}
 
-
-	public function add_default_wfacp_styling( $args, $key ) {
-
-		if ( $key == 'delivery_date' && $this->is_enable() ) {
-
-			$args['input_class'] = [ 'wfacp-form-control' ];
-
+	public function print_third_party( $field, $key ) {
+		if ( strpos( $key, 'delivery_date' ) !== false ) {
+			return [];
 		}
 
-		return $args;
+
+		return $field;
 	}
+
+
 }
 
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_WC_delivery_date(), 'wfacp-wc-delivery-date' );

@@ -591,7 +591,8 @@
     padding: 10px 20px;
     border-radius: 4px;
     font-size: 18px;
-    line-height: 1.5
+    line-height: 1;
+    fill: #fff;
 }
 
 .bwf-custom-button a:hover {
@@ -639,7 +640,19 @@
 .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper {
     display: inline-block;
 }
-
+.elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper span.bwf_icon, .elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper span.bwf_icon svg {
+    height: 1em;
+}
+.elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper span.et-pb-icon.right, .elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper span.bwf_icon.right{
+    order: 2;
+}
+.elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper span.bwf_icon svg {
+    line-height: 1.8em;
+}
+.elementor-element .wfop_popup_wrapper .bwf-custom-button span.bwf-text-wrapper {
+    display: flex;
+    justify-content: center;
+}
 .bwfac_form_sec .submit_text {
     display: block
 }

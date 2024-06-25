@@ -4,8 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 #[AllowDynamicProperties]
-
- abstract class WFACP_Analytics {
+abstract class WFACP_Analytics {
 	protected $slug = '';
 
 	protected $checkout_data = [];
@@ -21,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	protected $id_suffix = '';
 	protected $exclude_tax = false;
 	protected $content_id_type = '';
-	public $admin_general_settings=[];
+	public $admin_general_settings = [];
 
 	protected function __construct() {
 	}
@@ -31,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			return;
 		}
 		$this->admin_general_settings = BWF_Admin_General_Settings::get_instance();
-		self::$page_settings = WFACP_Common::get_page_settings( WFACP_Common::get_id() );
+		self::$page_settings          = WFACP_Common::get_page_settings( WFACP_Common::get_id() );
 
 		$this->content_id_type    = $this->admin_general_settings->get_option( $this->slug . '_content_id_type' );
 		$this->variable_as_simple = $this->admin_general_settings->get_option( $this->slug . '_variable_as_simple' );
@@ -83,6 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( is_array( $is_fb_enable_content_on ) && count( $is_fb_enable_content_on ) > 0 && 'yes' === $is_fb_enable_content_on[0] ) {
 			return true;
 		}
+		return false;
 	}
 
 	public function get_product_content_id( $product_id ) {
@@ -275,14 +275,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 	}
 
-	/**
-	 * @param $product \WC_Product
-	 *
-	 * @return array
-	 */
-	public function get_product_item( $product ) {
-		return [];
-	}
 
 	public function is_global_pageview_enabled() {
 		return false;
@@ -299,6 +291,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		return $request_uri;
+	}
+
+	public function do_treat_variable_as_simple( $mode = 'pixel' ) {
+
+		$do_treat_variable_as_simple = $this->admin_general_settings->get_option( $mode . '_variable_as_simple' );
+
+		if ( ( 'pixel' === $mode ) && ( true !== $this->is_fb_enable_content_on() ) ) {
+			return false;
+		}
+
+		if ( 1 === absint( $do_treat_variable_as_simple ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

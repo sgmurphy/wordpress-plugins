@@ -1,5 +1,5 @@
 import { EventEmitter } from '../../../stencil-public-runtime';
-import { Checkout } from '../../../types';
+import { Checkout, ManualPaymentMethod } from '../../../types';
 /**
  * This component listens to the order status
  * and confirms the order when payment is successful.
@@ -10,6 +10,8 @@ export declare class ScOrderConfirmProvider {
   el: HTMLScOrderConfirmProviderElement;
   /** Whether to show success modal */
   showSuccessModal: boolean;
+  /** Whether to show success modal */
+  manualPaymentMethod: ManualPaymentMethod;
   /** Checkout status to listen and do payment related stuff. */
   checkoutStatus: string;
   /** Success url. */

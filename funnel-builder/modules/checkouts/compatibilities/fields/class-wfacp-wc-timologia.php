@@ -5,32 +5,30 @@
  * Plugin URI: https://wordpress.org/plugins/timologia-for-woocommerce/
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_WC_Timologia {
+class WFACP_Compatibility_With_WC_Timologia {
 	private static $instance = null;
-
-	public static function get_instance() {
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
+	private $plugin_registered_fields = [
+		'billing_timologio',
+		'billing_vat',
+		'billing_irs',
+		'billing_store',
+	];
 
 	private function __construct() {
-
 		if ( WFACP_Common::is_funnel_builder_3() ) {
 			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_fields_billing' ] );
 		} else {
 			$this->setup_fields_billing();
 		}
-		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 11, 2 );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_fields' ] );
+
+		return self::$instance;
 	}
 
-
-	private function is_enabled() {
-		return function_exists( 'tfwc_get_keys_labels' );
-	}
 
 	public function setup_fields_billing() {
 
@@ -70,7 +68,7 @@
 		new WFACP_Add_Address_Field( 'timologio', array(
 			'type'         => 'select',
 			'label'        => $invoice_text,
-			'palaceholder' => $invoice_text,
+			'placeholder' => $invoice_text,
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => [ 'form-row-first', 'address-field', 'timologio-select', 'wfacp_drop_list', 'wfacp_dropdown', 'wfacp-timologio' ],
 			'required'     => false,
@@ -84,7 +82,7 @@
 		new WFACP_Add_Address_Field( 'vat', array(
 			'type'         => 'text',
 			'label'        => $vat_text,
-			'palaceholder' => $vat_text,
+			'placeholder' => $vat_text,
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-first', 'timologio-hide', 'validate-required' ),
 			'required'     => false,
@@ -94,7 +92,7 @@
 		new WFACP_Add_Address_Field( 'irs', array(
 			'type'         => 'text',
 			'label'        => $tax_office_text,
-			'palaceholder' => $tax_office_text,
+			'placeholder' => $tax_office_text,
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-first', 'timologio-hide', 'validate-required' ),
 			'required'     => false,
@@ -104,7 +102,7 @@
 		new WFACP_Add_Address_Field( 'store', array(
 			'type'         => 'text',
 			'label'        => $store_text,
-			'palaceholder' => $store_text,
+			'placeholder' => $store_text,
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-first', 'timologio-hide', 'validate-required' ),
 			'required'     => false,
@@ -112,6 +110,18 @@
 		) );
 
 
+	}
+
+	private function is_enabled() {
+		return function_exists( 'tfwc_get_keys_labels' );
+	}
+
+	public static function get_instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
 	public function add_default_wfacp_styling( $args, $key ) {
@@ -125,6 +135,20 @@
 		}
 
 		return $args;
+	}
+
+	public function disabled_third_party_fields( $fields ) {
+
+		if ( is_array( $fields ) && count( $fields ) ) {
+			foreach ( $fields as $k => $field ) {
+				if ( in_array( $k, $this->plugin_registered_fields ) && isset($field[$k]) ) {
+					unset($field[$k]);
+				}
+
+			}
+		}
+
+		return $fields;
 	}
 
 

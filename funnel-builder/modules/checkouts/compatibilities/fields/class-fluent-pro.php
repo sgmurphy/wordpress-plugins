@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FluentCRM Pro  by Fluent CRM
+ * FluentCRM Pro  by Fluent CRM version 2.8.45
  * Plugin URI: https://fluentcrm.com
  */
 
@@ -64,7 +64,7 @@ class WFACP_FluentPro {
 
 	public function display_field( $field, $key ) {
 
-		
+
 		if ( ! $this->is_enable() || empty( $key ) || 'wfacp_fluent_wc_subscription_checkbox' !== $key || ! $this->instance instanceof FluentCampaign\App\Services\Integrations\WooCommerce\WooInit ) {
 			return '';
 		}
@@ -124,6 +124,7 @@ class WFACP_FluentPro {
 		$cssHtml .= $bodyClass . "#wfacp_fluent_wc_subscription_checkbox {clear:both;}";
 
 		if ( ! empty( $px ) ) {
+			$cssHtml .= $bodyClass . "#wfacp_fluent_wc_subscription_checkbox p {padding:0 $px;}";
 			$cssHtml .= $bodyClass . "#wfacp_fluent_wc_subscription_checkbox p {padding:0 $px;}";
 		}
 

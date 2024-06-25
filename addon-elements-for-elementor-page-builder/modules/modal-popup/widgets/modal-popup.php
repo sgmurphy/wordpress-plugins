@@ -1049,7 +1049,6 @@ class ModalPopup extends EAE_Widget_Base {
 		$data      = $this->get_data();
 		$id        = wp_rand( 10, 2147483647 );
 		$close_btn = $settings['btn_in_out'] === 'yes' ? 'true' : 'false';
-
 		$icon_migrated           = isset( $settings['__fa4_migrated']['button_icon_new'] );
 		$icon_is_new             = empty( $settings['button_icon'] );
 		$close_btn_icon_migrated = isset( $settings['__fa4_migrated']['close_btn_icon_new'] );
@@ -1057,7 +1056,7 @@ class ModalPopup extends EAE_Widget_Base {
 		$effect = Helper::validate_option_value($settings['effect'], $this->get_effect_options(), '');
 		$close_button_type = isset( $settings['close_btn_icon_new']['value']['url'] ) ? 'svg' : 'icon';
 		if ( $close_button_type === 'svg' ) {
-			$close_button = $settings['close_btn_icon_new']['value']['url'];
+			$close_button = esc_url($settings['close_btn_icon_new']['value']['url']);
 		} else {
 			if ( $close_btn_icon_migrated || $close_btn_icon_is_new ) :
 				$close_button = $settings['close_btn_icon_new']['value'];

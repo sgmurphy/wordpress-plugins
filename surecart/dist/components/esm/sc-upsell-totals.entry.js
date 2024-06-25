@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './index-644f5478.js';
-import './watchers-cbd08352.js';
+import './watchers-3d20392b.js';
 import { s as state } from './store-77f83bce.js';
 import './watchers-5af31452.js';
 import './index-1046c77e.js';
@@ -10,7 +10,7 @@ import './utils-00526fde.js';
 import './util-64ee5262.js';
 import './index-c5a96d53.js';
 import './getters-2e810784.js';
-import './mutations-ce7a925f.js';
+import './mutations-fa2a01e9.js';
 import './fetch-2525e763.js';
 import './add-query-args-f4c5962b.js';
 import './mutations-0a628afa.js';

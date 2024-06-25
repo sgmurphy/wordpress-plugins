@@ -16,11 +16,6 @@ abstract class WFACP_Common_Helper {
 		return self::$ip_data;
 	}
 
-	public static function allow_svg_mime_type( $mimes ) {
-		$mimes['svg'] = 'image/svg+xml';
-
-		return $mimes;
-	}
 
 	public static function set_session( $key, $data ) {
 
@@ -1562,7 +1557,7 @@ abstract class WFACP_Common_Helper {
 	 */
 	public static function all_global_settings_fields() {
 		$global_template_pages = WFACP_Common::save_publish_checkout_pages_in_transient();
-		$data = array(
+		$data                  = array(
 
 			'wfacp_global_checkout' => array(
 				'title'    => __( 'Global Checkout', 'funnel-builder' ),
@@ -1990,7 +1985,18 @@ abstract class WFACP_Common_Helper {
 			'coupon_remove_message_heading'  => __( 'Coupon code removed successfully.', 'funnel-builder' ),
 			'label'                          => __( 'Coupon code', 'funnel-builder' ),
 		];
-
+		$field['wc_advanced_order_field'] = [
+			'id'             => 'wc_advanced_order_field',
+			'type'           => 'wfacp_html',
+			'label'          => __( 'Extra Advanced Fields' ),
+			'placeholder'   => '',
+			'data_label'     => __( 'Extra Advanced Fields' ),
+			'required'       => false,
+			'default'        => '',
+			'field_type'     => 'advanced',
+			'is_wfacp_field' => 'true',
+			'class'          => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_date_field' ],
+		];
 		return apply_filters( 'wfacp_advanced_fields', $field );
 	}
 
@@ -2006,7 +2012,7 @@ abstract class WFACP_Common_Helper {
 			'data_label'  => __( 'Products', 'woocommerce' ),
 			'field_type'  => 'product',
 			'placeholder' => '',
-			'is_pro'     => true,
+			'is_pro'      => true,
 		];
 
 		$output = apply_filters( 'wfacp_products_field', $output );
@@ -2273,7 +2279,7 @@ abstract class WFACP_Common_Helper {
 	public static function import_checkout_settings( $post_id, $file_path ) {
 		if ( file_exists( $file_path ) ) {
 			$page_layout = include $file_path;
-
+			$page_layout = apply_filters( 'wfacp_import_checkout_settings', $page_layout, $post_id, $file_path );
 			if ( isset( $page_layout['page_layout'] ) ) {
 				WFACP_Common::update_page_layout( $post_id, $page_layout['page_layout'], true );
 			}

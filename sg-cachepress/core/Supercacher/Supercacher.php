@@ -312,6 +312,7 @@ class Supercacher {
 		}
 
 		// Require pluggable.php in order to check_admin_referer.
+		\wp_cookie_constants();
 		require_once ABSPATH . '/wp-includes/pluggable.php';
 
 		// Bail if we do not have option page and nonce is invalid.

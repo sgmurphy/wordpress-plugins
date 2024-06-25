@@ -6,17 +6,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * YITH WooCommerce EU VAT & OSS Premium by YITH (2.0.1)
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Yth_Wc_Eu_Vat {
+#[AllowDynamicProperties] 
+ class WFACP_Yth_Wc_Eu_Vat {
 	private $new_fields = [];
+
+	private $billing_new_fields = [
+		'billing_yweu_vat',
+
+
+	];
 
 
 	public function __construct() {
 
 		/* Register Add field */
 
-		add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
+		if ( WFACP_Common::is_funnel_builder_3() ) {
+			add_action( 'wffn_rest_checkout_form_actions', [ $this, 'setup_fields_billing' ] );
+		} else {
+			add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
+		}
 		add_filter( 'wfacp_html_fields_billing_wfacp_yweu_vat', '__return_false' );
 
 
@@ -31,11 +40,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
-	}
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
 
 
-	public function is_enable() {
-		return class_exists( 'YITH_WooCommerce_EU_VAT' );
 	}
 
 	public function setup_fields_billing() {
@@ -53,6 +63,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		) );
 
 
+	}
+
+	public function is_enable() {
+		return class_exists( 'YITH_WooCommerce_EU_VAT' );
 	}
 
 	public function action() {
@@ -142,6 +156,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		$cssHtml .= "</style>";
 		echo $cssHtml;
+	}
+
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->billing_new_fields ) && count( $this->billing_new_fields ) ) {
+			foreach ( $this->billing_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 

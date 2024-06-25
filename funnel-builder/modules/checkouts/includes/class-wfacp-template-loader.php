@@ -6,8 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * Class WFACP_View
  */
 #[AllowDynamicProperties]
-
- final class WFACP_Template_loader {
+final class WFACP_Template_loader {
 
 	public static $is_checkout = false;
 	private static $ins = null;
@@ -483,6 +482,12 @@ defined( 'ABSPATH' ) || exit;
 				'name'          => 'gutenberg',
 				'template_type' => $template_type,
 			);
+		} else if ( $template_type === 'embed_forms' ) {
+			return array(
+				'path'          => WFACP_BUILDER_DIR . '/customizer/templates/embed_forms_1/template.php',
+				'slug'          => $slug,
+				'template_type' => $template_type,
+			);
 		}
 		if ( $template_type === 'oxy' ) {
 			return array(
@@ -737,16 +742,16 @@ defined( 'ABSPATH' ) || exit;
 
 		foreach ( $get_all_opted_page_builders as $builder ) {
 			$page_builder    = $this->get_dependent_plugins_for_page_builder( $builder );
-			$plugin_string   = sprintf( __( 'This template needs <strong>%s plugin</strong> activated.', 'funnel-builder'  ), esc_html( $page_builder['title'] ) );
+			$plugin_string   = sprintf( __( 'This template needs <strong>%s plugin</strong> activated.', 'funnel-builder' ), esc_html( $page_builder['title'] ) );
 			$button_text     = __( 'Activate', 'funnel-builder' );
 			$cancel_btn      = __( 'Cancel', 'funnel-builder' );
 			$no_install      = 'no';
-			$title           = __( 'Import Template', 'funnel-builder'  );
+			$title           = __( 'Import Template', 'funnel-builder' );
 			$show_cancel_btn = 'yes';
 			$plugin_status   = isset( $page_builder['plugin-status'] ) ? $page_builder['plugin-status'] : '';
 			$theme_status    = isset( $page_builder['theme-status'] ) ? $page_builder['theme-status'] : '';
-			$string          = sprintf( __( ' Click the button to install and activate %s.', 'funnel-builder'  ), esc_html( $page_builder['title'] ) );
-			$install         = sprintf( __( ' Install and activate %s.', 'funnel-builder'  ), esc_html( $page_builder['title'] ) );
+			$string          = sprintf( __( ' Click the button to install and activate %s.', 'funnel-builder' ), esc_html( $page_builder['title'] ) );
+			$install         = sprintf( __( ' Install and activate %s.', 'funnel-builder' ), esc_html( $page_builder['title'] ) );
 			$builder_link    = '';
 			/**
 			 * If its a divi builder we need to handle few cases down there for best user experience
@@ -759,14 +764,14 @@ defined( 'ABSPATH' ) || exit;
 					$plugin_string .= $string;
 				} else {
 					$plugin_string .= $install;
-					$button_text   = __( 'Install Divi Builder', 'funnel-builder'  );
+					$button_text   = __( 'Install Divi Builder', 'funnel-builder' );
 					$no_install    = 'yes';
 					$builder_link  = esc_url( 'https://www.elegantthemes.com/' );
 				}
 			} else if ( 'oxy' === $builder ) {
 				if ( 'install' === $plugin_status ) {
 					$plugin_string .= $string;
-					$button_text   = __( 'Install Oxygen Builder', 'funnel-builder'  );
+					$button_text   = __( 'Install Oxygen Builder', 'funnel-builder' );
 					$no_install    = 'yes';
 					$builder_link  = esc_url( 'https://oxygenbuilder.com/' );
 				} else {
@@ -835,7 +840,7 @@ defined( 'ABSPATH' ) || exit;
 	 */
 	private function remove_wc_block_checkout_notices() {
 
-		if(!class_exists('Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils')){
+		if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils' ) ) {
 			return;
 		}
 

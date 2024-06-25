@@ -29,12 +29,6 @@
 	}
 
 	// Xt Floating Plugin create issue with Local Pickup Dropdown Menu
-	public function remove_xt_floating_cart_fragments() {
-		if ( ! class_exists( 'XT_Woo_Floating_Cart_Ajax' ) || ! wp_doing_ajax() ) {
-			return;
-		}
-		WFACP_Common::remove_actions( 'woocommerce_update_order_review_fragments', 'XT_Woo_Floating_Cart_Ajax', 'cart_fragments' );
-	}
 
 	private function is_enabled() {
 		if ( class_exists( 'WC_Shipping_Local_Pickup_Plus' ) ) {
@@ -42,6 +36,13 @@
 		}
 
 		return false;
+	}
+
+	public function remove_xt_floating_cart_fragments() {
+		if ( ! class_exists( 'XT_Woo_Floating_Cart_Ajax' ) || ! wp_doing_ajax() ) {
+			return;
+		}
+		WFACP_Common::remove_actions( 'woocommerce_update_order_review_fragments', 'XT_Woo_Floating_Cart_Ajax', 'cart_fragments' );
 	}
 
 	public function make_checkout( $status ) {
@@ -94,7 +95,7 @@
                     });
                 })(jQuery);
             });
-        </script>
+		</script>
 		<?php
 	}
 }

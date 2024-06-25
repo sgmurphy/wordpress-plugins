@@ -88,7 +88,7 @@ if ( ! class_exists( 'WFTY_Data' ) ) {
 				$this->order    = $order_id;
 			} else {
 				if ( $order_id < 1 ) {
-					$order_id = ( isset( $_GET['order_id'] ) && ( ! empty( $_GET['order_id'] ) ) ) ? wffn_clean( $_GET['order_id'] ) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$order_id = $this->maybe_get_order_id( $order_id );
 				}
 				if ( $order_id > 0 ) {
 					$this->order_id = $order_id;
@@ -146,7 +146,7 @@ if ( ! class_exists( 'WFTY_Data' ) ) {
 			}
 
 			if ( $order_id < 1 ) {
-				$order_id = ( isset( $_GET['order_id'] ) && ( ! empty( $_GET['order_id'] ) ) ) ? wffn_clean( $_GET['order_id'] ) : 0; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$order_id = $this->maybe_get_order_id( $order_id );
 			}
 			if ( $order_id > 0 ) {
 				$this->order_id = $order_id;
@@ -279,9 +279,7 @@ if ( ! class_exists( 'WFTY_Data' ) ) {
 
 			$order_id = absint( $atts['order_id'] );
 			if ( $order_id == 0 ) {
-				if ( isset( $_REQUEST['order_id'] ) && $_REQUEST['order_id'] > 0 ) {
-					$order_id = absint( $_REQUEST['order_id'] );
-				}
+				$order_id = $this->maybe_get_order_id( $order_id );
 			}
 			$order_id = apply_filters( 'wfty_custom_field_order_id', $order_id );
 			if ( $order_id == 0 ) {
@@ -294,5 +292,18 @@ if ( ! class_exists( 'WFTY_Data' ) ) {
 
 			return '';
 		}
+
+		public function maybe_get_order_id( $order_id ) {
+			if ( isset( $_REQUEST['order_id'] ) && $_REQUEST['order_id'] > 0 ) {
+				$order_id = absint( wffn_clean( $_REQUEST['order_id'] ) );
+			}
+
+			if ( isset( $_REQUEST['order'] ) && $_REQUEST['order'] > 0 ) {
+				$order_id = absint( wffn_clean( $_REQUEST['order'] ) );
+			}
+
+			return $order_id;
+		}
+
 	}
 }

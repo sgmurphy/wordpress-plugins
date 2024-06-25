@@ -454,6 +454,7 @@ function omnisend_detect_environment_changes() {
 		Omnisend_Logger::info(
 			"detected environment change $previous_environment -> $current_environment. site: " . Omnisend_Helper::get_domain( home_url() )
 		);
+		Omnisend_Install::disconnect();
 	}
 
 	update_option( $option_name, $current_environment );
@@ -466,8 +467,7 @@ function omnisend_detect_domain_change() {
 	$current_domain_host   = Omnisend_Helper::get_domain( $current_domain );
 
 	if ( $connected_domain_host && $connected_domain_host !== $current_domain_host ) {
-		Omnisend_Logger::info( "detected site domain change $connected_domain_host -> $current_domain_host - disconnecting Omnisend" );
-		Omnisend_Install::disconnect();
+		Omnisend_Logger::info( "detected site domain change $connected_domain_host -> $current_domain_host" );
 	}
 
 	update_option( 'omnisend_connected_domain', $current_domain );

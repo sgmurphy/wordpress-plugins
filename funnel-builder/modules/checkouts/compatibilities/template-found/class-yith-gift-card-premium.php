@@ -11,6 +11,7 @@ class  WFACP_Compatibility_With_Yith_Gift {
 
 	public function __construct() {
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'action' ] );
+		add_filter( 'wfacp_product_image_thumbnail_html', [ $this, 'call_thumbnail' ], 10, 2 );
 
 	}
 
@@ -26,6 +27,16 @@ class  WFACP_Compatibility_With_Yith_Gift {
 		}
 
 		return $text;
+	}
+
+	public function call_thumbnail( $image, $cart_item, $cart_item_key = '' ) {
+
+		if ( isset( $cart_item['ywgc_product_id'] ) ) {
+			return apply_filters( 'woocommerce_cart_item_thumbnail', $cart_item['data']->get_image(), $cart_item, $cart_item_key );
+		}
+
+
+		return $image;
 	}
 }
 

@@ -10,19 +10,56 @@ if ( ! class_exists( 'WFFN_Plugin_Compatibilities' ) ) {
 		public static $plugin_compatibilities = array();
 
 		public static function load_all_compatibilities() {
-			// load all the WFFN_Compatibilities files automatically
-			foreach ( glob( plugin_dir_path( WFFN_PLUGIN_FILE ) . 'compatibilities/*.php' ) as $_field_filename ) {
 
-				require_once( $_field_filename );  // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
-			}
+			$compatibilities = array(
+				'class-wffn-beaver-builder-compatibility.php'            => class_exists( 'FLBuilderLoader' ),
+				'class-wffn-cartflows-compatibility.php'                 => class_exists( 'Cartflows_Checkout_Markup' ),
+				'class-wffn-nextmove-compatibility.php'                  => class_exists( 'xlwcty' ),
+				'class-wffn-oxygen-builder-compatibility.php'            => true, //force load for now
+				'class-wffn-pixel-cog.php'                               => defined( 'PIXEL_COG_VERSION' ),
+				'class-wffn-thrive-theme-compatibility.php'              => defined( 'THRIVE_TEMPLATE' ),
+				'class-wffn-ux-builder-compatibility.php'                => function_exists( 'add_ux_builder_post_type' ),
+				'class-wffn-wc-cashfree.php'                             => class_exists( 'WC_Gateway_cashfree' ),
+				'class-wffn-wc-deposite.php'                             => function_exists( 'wc_deposits_woocommerce_is_active' ) && wc_deposits_woocommerce_is_active(),
+				'class-wffn-weglot-compatibility.php'                    => class_exists( 'WeglotWP\Third\Woocommerce\WC_Filter_Urls_Weglot' ),
+				'rest/class-bwfan-compatibility-with-sg-cache.php'       => function_exists( 'sg_cachepress_purge_cache' ),
+				'rest/class-wffn-clearfy-compatibility.php'              => class_exists( 'Clearfy_Plugin' ),
+				'rest/class-wffn-force-login-compability.php'            => function_exists( 'v_forcelogin_rest_access' ),
+				'rest/class-wffn-password-protected-compability.php'     => class_exists( 'Password_Protected' ),
+				'rest/class-wffn-permatters-compability.php'             => defined( 'PERFMATTERS_VERSION' ),
+				'rest/class-wffn-wp-rest-authenticate-compatibility.php' => function_exists( 'mo_api_auth_activate_miniorange_api_authentication' ),
+			);
 
-			// load rest compatibilities
-			foreach ( glob( plugin_dir_path( WFFN_PLUGIN_FILE ) . 'compatibilities/rest/*.php' ) as $_field_filename ) {
+			add_action( 'after_setup_theme', [ __CLASS__, 'themes' ] );
+			self::add_files( $compatibilities );
+		}
 
-				require_once( $_field_filename );  // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
+		public static function add_files( $paths ) {
+			try {
+				foreach ( $paths as $file => $condition ) {
+					if ( false === $condition ) {
+						continue;
+					}
+					include_once __DIR__ . '/' . $file;
+				}
+			} catch ( Exception|Error $e ) {
+				BWF_Logger::get_instance()->log( 'Error while loading compatibility files: ' . $e->getMessage(), 'wffn-compatibilities' );
 			}
 		}
 
+		public static function themes() {
+			$themes_compatibilities = array(
+				'class-wffn-bricks-theme-compatibility.php'  => function_exists( 'bricks_is_builder' ),
+				'class-wffn-divi-theme-compatibility.php'    => defined( 'ET_CORE_VERSION' ),
+				'class-wffn-enfold-theme-compatibility.php'  => class_exists( 'AviaBuilder' ),
+				'class-wffn-rehub-theme-compatibility.php'   => defined( 'RH_MAIN_THEME_VERSION' ),
+				'class-wffn-woodmart-theme-compatibilty.php' => defined( 'WOODMART_THEME_DIR' ),
+				'class-wffn-thrive-theme-compatibility.php'  => defined( 'THRIVE_TEMPLATE' ),
+				'class-wffn-ux-builder-compatibility.php'    => function_exists( 'add_ux_builder_post_type' ),
+			);
+			self::add_files( $themes_compatibilities );
+
+		}
 
 		public static function register( $object, $slug ) {
 			self::$plugin_compatibilities[ $slug ] = $object;
@@ -32,45 +69,7 @@ if ( ! class_exists( 'WFFN_Plugin_Compatibilities' ) ) {
 			return ( isset( self::$plugin_compatibilities[ $slug ] ) ) ? self::$plugin_compatibilities[ $slug ] : false;
 		}
 
-		public static function get_fixed_currency_price( $price, $currency = null ) {
 
-			if ( ! empty( self::$plugin_compatibilities ) ) {
-
-				foreach ( self::$plugin_compatibilities as $plugins_class ) {
-
-					if ( $plugins_class->is_enable() && is_callable( array( $plugins_class, 'alter_fixed_amount' ) ) ) {
-
-						try {
-							return call_user_func( array( $plugins_class, 'alter_fixed_amount' ), $price, $currency );
-						} catch ( Exception $e ) {
-							return $price;
-						}
-					}
-				}
-			}
-
-			return $price;
-		}
-
-		public static function get_fixed_currency_price_reverse( $price, $from = null, $to = null ) {
-
-			if ( ! empty( self::$plugin_compatibilities ) ) {
-
-				foreach ( self::$plugin_compatibilities as $plugins_class ) {
-
-					if ( $plugins_class->is_enable() && is_callable( array( $plugins_class, 'get_fixed_currency_price_reverse' ) ) ) {
-						try {
-							return call_user_func( array( $plugins_class, 'get_fixed_currency_price_reverse' ), $price, $from, $to );
-						} catch ( Exception $e ) {
-							return $price;
-						}
-
-					}
-				}
-			}
-
-			return $price;
-		}
 	}
 
 	WFFN_Plugin_Compatibilities::load_all_compatibilities();

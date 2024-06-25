@@ -319,20 +319,20 @@ class WFACP_OXY {
 	 * Delete oxy saved data from postmeta of aerocheckout ID
 	 */
 	public function delete_oxy_data( $post_id ) {
-		delete_post_meta( $post_id, 'ct_other_template' );
-		delete_post_meta( $post_id, 'ct_builder_shortcodes' );
-		delete_post_meta( $post_id, 'ct_page_settings' );
-		delete_post_meta( $post_id, 'ct_builder_json' );
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_other_template') );
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes' ));
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_page_settings') );
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_json') );
 	}
 
 	public function duplicate_template( $new_post_id, $post_id, $data ) {
 		if ( 'oxy' === $data['_wfacp_selected_design']['selected_type'] ) {
-			$content  = get_post_meta( $post_id, 'ct_builder_shortcodes', true );
-			$settings = get_post_meta( $post_id, 'ct_page_settings', true );
-			$template = get_post_meta( $post_id, 'ct_other_template', true );
-			update_post_meta( $new_post_id, 'ct_other_template', $template );
-			update_post_meta( $new_post_id, 'ct_page_settings', $settings );
-			update_post_meta( $new_post_id, 'ct_builder_shortcodes', $content );
+			$content  = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
+			$settings = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_page_settings'), true );
+			$template = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_other_template'), true );
+			update_post_meta( $new_post_id, WFACP_Common::oxy_get_meta_prefix('ct_other_template'), $template );
+			update_post_meta( $new_post_id, WFACP_Common::oxy_get_meta_prefix('ct_page_settings'), $settings );
+			update_post_meta( $new_post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), $content );
 		}
 	}
 

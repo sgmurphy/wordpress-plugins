@@ -9,9 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-#[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_Breakdance {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_Breakdance {
 
 	public function __construct() {
 		add_filter( 'wfacp_shortcode_exist', [ $this, 'action' ], 10, 2 );
@@ -77,7 +76,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			return false;
 		}
 
-		$panels_data = get_post_meta( $post->ID, 'breakdance_data', true );;
+		$panels_data = get_post_meta( $post->ID, 'breakdance_data', true );
+		if ( empty( $panels_data ) ) {
+			$panels_data = get_post_meta( $post->ID, '_breakdance_data', true );
+		}
 
 
 		if ( empty( $panels_data ) ) {

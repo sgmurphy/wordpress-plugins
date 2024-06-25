@@ -438,6 +438,14 @@ class WFACP_Compatibility_With_Wcnl_Postcode {
 			return '';
 		}
 		?>
+        <style>
+            body #wfacp-sec-wrapper .wcnlpc-error {
+                float: none;
+                flex: 0 0 auto;
+                width: 100%;
+                margin: 0 0 8px;
+            }
+        </style>
         <script>
             window.addEventListener('load', function () {
                 (function ($) {

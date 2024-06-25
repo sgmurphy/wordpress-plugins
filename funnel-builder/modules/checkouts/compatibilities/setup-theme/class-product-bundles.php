@@ -22,15 +22,7 @@
 		add_action( 'woocommerce_checkout_update_order_review', [ $this, 'get_data' ], 5 );
 		add_filter( 'woocommerce_update_order_review_fragments', [ $this, 'unset_fragments' ], 900 );
 
-		add_action( 'wfacp_template_load', [ $this, 'action' ] );
 
-	}
-
-	public function action() {
-		if ( ! class_exists( 'WC_PB_Display' ) ) {
-			return;
-		}
-		WFACP_Common::remove_actions( 'woocommerce_cart_item_subtotal', 'WC_PB_Display', 'cart_item_subtotal' );
 	}
 
 	public function do_not_display( $status, $cart_item ) {

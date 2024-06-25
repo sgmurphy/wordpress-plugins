@@ -161,7 +161,7 @@ jQuery(document).ready(function() {
 	var isBadgeWidget = function() {
 		let layoutId = jQuery('.ti-widget-editor-preview .ti-widget').data('layout-id');
 
-		return [ 11, 12, 20, 22, 24, 25, 26, 27, 28, 29, 35, 55, 56, 57, 58, 59, 60, 61, 62 ].indexOf(layoutId) != -1;
+		return [ 11, 12, 20, 22, 24, 25, 26, 27, 28, 29, 35, 55, 56, 57, 58, 59, 60, 61, 62, 97, 98, 99, 100, 101, 102, 103, 104 ].indexOf(layoutId) != -1;
 	};
 
 	// apply filter when change or init

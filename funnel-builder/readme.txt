@@ -2,9 +2,9 @@
 Contributors: amans2k, xlplugins, teamwoofunnels
 Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Click Upsells
 Requires at least: 5.4.0
-Tested up to: 6.5.4
+Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.3.1
+Stable tag: 3.4.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,58 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.0 (Jun 25, 2024) =
+* Added: Checkout- A new field "WooCommerce Advanced Field" was added to provide compatibility with third-party add-ons registering their fields on checkout. (#5305)
+* Added: A new filter to tracking scripts with a delay. (#6190)
+* Added: New Widget added for WordPress admin dashboard. (#5962)
+* Added: Revenue and conversions on the funnel listing page. (#5962)
+* Added: Compatibility with Weglot translation plugin for thank you page translation. (#6225)
+* Added: Compatibility with LiteSpeed added to auto-exclude all JSON endpoints related to FunnelKit. (#6031)
+* Added: Compatibility with WP Rocket added to auto-exclude all JSON endpoints related to FunnelKit. (#6183)
+* Improved: Various code and performance optimizations. (#6291)
+* Improved: Checkout- Compatibility with Borlabs Cookie - Cookie Opt-in plugin updated. (#6258)
+* Improved: Google Analytics item array improved for all events. (#6240, #6117)
+* Improved: Checkout: Updated compatibility with EveryPay gateway. (#5394)
+* Improved: Error handling in our frontend JS to avoid breaking errors. (#6233)
+* Improved: Checkout: Multi-select values are not saving correctly in a few cases. (#6218, #6110, #6143, #6236)
+* Improved: Events for Pinterest were corrected for a few cases. (#6221, #6243)
+* Improved: Checkout: Compatibility with Mailpoet plugin updated. (#6225)
+* Improved: Checkout: Compatibility with Fooevent plugin updated. (#6225)
+* Improved: Checkout: WooCommerce Order Delivery by Kestrel updated. (#6107)
+* Improved: Site-wide 'add_to_cart' event to send unique for a product. (#6125)
+* Improved: Optional settings for Google Analytics version 4 are removed. (#6139)
+* Improved: Compatibility with Booster For Woocommerce plugin Updated. (#6144)
+* Improved: UTM tracking data to send with all tracking events. (#6104)
+* Improved: Checkout - compatibility with Order WooCommerce Sendinblue Newsletter Subscription updated. (#6152)
+* Improved: Checkout- Compatibility with X store theme updated. (#6165)
+* Improved: Manually redirect to thank you page if WC native thank you page opening & FunnelKit thank you set. (#6172)
+* Improved: Show status tag for store checkout on the admin menu. (#6080)
+* Improved: Compatibility with Oxygen builder updated. (#6193, #6182, #6206)
+* Improved: Checkout- Compatibility with YITH WooCommerce Gift Certificates Premium updated. (#6193)
+* Improved: Checkout- Compatibility with Facturare - Persoana Fizica sau Juridica. (#5395)
+* Improved: Checkout- Compatibility with Composite products updated. (#6245)
+* Improved: Checkout- Compatibility with Breakdance page builder updated. (#5422)
+* Improved: Compatibility with Elementor Page builder updated for SVG icons in widgets. (#6293)
+* Improved: Checkout- Compatibility with WooCommerce Delivery Date & Time Pro updated. (#6253)
+* Improved: Checkout- Compatibility with WooCommerce Currency Switcher plugin updated. (#6256)
+* Improved: Checkout - Compatibility with Mondialrelay plugin updated. (#6278)
+* Improved: Checkout- Compatibility with WooCommerce EU VAT Number updated. (#6301)
+* Improved: Checkout- Compatibility with Order Delivery Date Pro for WooCommerce updated. (#6235)
+* Improved: Checkout- Compatibility with Avada theme updated. (#6168)
+* Improved: Checkout- Compatibility with Pre-order for WooCommerce updated. (#6211)
+* Improved: Checkout- Coupon validation during update_order_review improved to handle 3rd party coupon plugins better (For eg: Advanced Coupon By Rymera). (#6327)
+* Fixed: Width issue for Gutenberg block editor fixed. (#6226)
+* Fixed: Checkout: Collapsible address field color settings were not working correctly. (#6088)
+* Fixed: The date in the conversions table is not showing according to WordPress timezone settings. (#6095)
+* Fixed: 'event_url' was not passing correctly for every event for the FaceBook Conversion API. (#6082)
+* Fixed: Optin: Form was not submitted when Complianz – GDPR/CCPA Cookie Consent is active. (#6120)
+* Fixed: Checkout: Link color settings for mini cart Gutenberg block were not working. (#6130)
+* Fixed: Multiselects inside the Rules interfaces are distorted in WP admin. (#6141)
+* Fixed: Checkout - Coupon was not getting applied in case email restrictions were set. (#6128)
+* Fixed: Checkout- Disallow SVG files upload through WP media default uploader causing security issues. (#6251)
+* Fixed: PHP notice resolved during the thankyou page elementor widgets on the front end. (#6322)
+
 = 3.3.1 (Apr 08, 2024) =
 * Improved: Checkout - language translations compatibility improved. (#5261)
 * Improved: Checkout - Amazon Pay design improved. (#5968)

@@ -6,7 +6,7 @@ Description: Backup and Staging by WP Time Capsule is an incremental automated s
 Author: Revmakx
 Version: 1.22.19
 Author URI: http://www.revmakx.com
-Tested up to: 6.4.2
+Tested up to: 6.5.5
 /************************************************************
  * This plugin was modified by Revmakx
  * Copyright (c) 2020 Revmakx

@@ -36,9 +36,12 @@ class WFACP_Compatibility_With_X_Store {
 		if ( function_exists( 'etheme_refresh_header_buttons_partials' ) ) {
 			remove_action( 'customize_register', 'etheme_refresh_header_buttons_partials', 999 );
 		}
-		if ( function_exists( 'etheme_enqueue_style' ) ) {
+		
+
+		if ( ! WFACP_Common::is_theme_builder() && function_exists( 'etheme_enqueue_style' ) ) {
 			etheme_enqueue_style( "swatches-style" );
 		}
+
 
 	}
 

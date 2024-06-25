@@ -22,6 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_filter( 'wfacp_html_fields_ckwc_opt_in', '__return_false' );
 		add_action( 'process_wfacp_html', [ $this, 'call_wc_drip_hook' ], 10, 3 );
 
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function init_class() {

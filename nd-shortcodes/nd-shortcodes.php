@@ -2,7 +2,7 @@
 /*
 Plugin Name:       ND Shortcodes
 Description:       The plugin adds some useful components to your page builder ( Elementor or WP Bakery Page Builder ). All components are full responsive and retina ready.
-Version:           7.6
+Version:           7.7
 Plugin URI:        https://nicdark.com
 Author:            Nicdark
 Author URI:        https://nicdark.com

@@ -119,7 +119,7 @@ class Simba_TFA_Login_Form_Integrations {
 		$code_ok = apply_filters('simbatfa_affwp_process_login_form_auth_result', $code_ok, $params);
 		
 		if (is_wp_error($code_ok)) {
-			$login->add_error($code_ok->get_error_code, $code_ok->get_error_message());
+			$login->add_error($code_ok->get_error_code(), $code_ok->get_error_message());
 		} elseif (!$code_ok) {
 			$login->add_error('authentication_failed', __('Error:', 'two-factor-authentication').' '.apply_filters('simba_tfa_message_code_incorrect', __('The one-time password (TFA code) you entered was incorrect.', 'two-factor-authentication')));
 		}

@@ -10,9 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-#[AllowDynamicProperties]
-
-  class WFACP_WC_Disability_Vat_Exemption {
+#[AllowDynamicProperties] 
+ class WFACP_WC_Disability_Vat_Exemption {
 	public $instance = null;
 
 	public function __construct() {
@@ -28,6 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 	}
 

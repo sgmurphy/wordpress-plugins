@@ -2,8 +2,7 @@
 defined( 'ABSPATH' ) || exit; //Exit if accessed directly
 
 #[AllowDynamicProperties]
-
-  class WFACP_Reporting {
+class WFACP_Reporting {
 
 	private static $ins = null;
 	private $is_cart_restored = false;
@@ -15,11 +14,9 @@ defined( 'ABSPATH' ) || exit; //Exit if accessed directly
 		add_action( 'woocommerce_checkout_create_order', [ $this, 'update_reporting_data_in_meta' ], 11, 2 );
 		add_action( 'woocommerce_order_status_changed', array( $this, 'insert_row_for_ipn_based_gateways' ), 10, 3 );
 
-		if ( class_exists( 'BWF_WC_Compatibility' ) && BWF_WC_Compatibility::is_hpos_enabled() ) {
-			add_action( 'woocommerce_delete_order', [ $this, 'delete_report_for_order' ] );
-		} else {
-			add_action( 'delete_post', [ $this, 'delete_report_for_order' ] );
-		}
+		add_action( 'woocommerce_delete_order', [ $this, 'delete_report_for_order' ] );
+		add_action( 'delete_post', [ $this, 'delete_report_for_order' ] );
+
 		add_action( 'wfab_pre_abandoned_cart_restored', [ $this, 'check_if_autobot_cart_restored' ] );
 		add_action( 'woocommerce_thankyou', [ $this, 'wfacp_clear_view_session' ], 10, 1 );
 

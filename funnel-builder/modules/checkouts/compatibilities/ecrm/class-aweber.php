@@ -14,10 +14,9 @@
 		add_action( 'wfacp_after_template_found', [ $this, 'actions' ] );
 		add_action( 'process_wfacp_html', [ $this, 'process_wfacp_html' ], 10, 2 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
-	}
 
-	private function is_enable() {
-		return class_exists( 'WC_Aweber_Checkout' );
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function actions() {
@@ -45,6 +44,9 @@
 		return $field;
 	}
 
+	private function is_enable() {
+		return class_exists( 'WC_Aweber_Checkout' );
+	}
 
 	public function process_wfacp_html( $field, $key ) {
 		if ( ! empty( $key ) && $key == 'wfacp_aweber_field' && $this->is_enable() ) {

@@ -68,8 +68,8 @@ return admin_url('admin-ajax.php') . '?action='. $this->getWebhookAction();
 public function getAbRand()
 {
 $rand = get_option($this->get_option_name('ab-rand'));
-if (!$rand) {
-$rand = rand(1, 15);
+if (!$rand || $rand > 12) {
+$rand = rand(1, 12);
 update_option($this->get_option_name('ab-rand'), $rand, false);
 }
 return (int)$rand;
@@ -84,24 +84,19 @@ $buttons = [
 'range' => '1-3',
 ],
 [
-'campaign-suffix' => 'B',
-'text' => __('Create Free Account to Get All Your Reviews', 'trustindex-plugin'),
-'range' => '4-6',
-],
-[
 'campaign-suffix' => 'C',
 'text' => __('Sign Up Free', 'trustindex-plugin'),
-'range' => '7-9',
+'range' => '4-6',
 ],
 [
 'campaign-suffix' => 'D',
 'text' => __('Create a Free Account', 'trustindex-plugin'),
-'range' => '10-12',
+'range' => '7-9',
 ],
 [
 'campaign-suffix' => 'E',
 'text' => __('Sign Up Free – Try PRO Features', 'trustindex-plugin'),
-'range' => '13-15',
+'range' => '10-12',
 ],
 ];
 $currentButton = $buttons[0];
@@ -135,7 +130,7 @@ wp_remote_post('https://admin.trustindex.io/source/wordpressPageRequest', [
 'is_delete' => 1,
 'id' => $requestId
 ],
-'timeout' => '30',
+'timeout' => 300,
 'redirection' => '5',
 'blocking' => true
 ]);
@@ -443,6 +438,8 @@ return [
 'notifications',
 'update-version-check',
 'ab-rand',
+'top-rated-type',
+'top-rated-date',
 ];
 }
 
@@ -461,7 +458,6 @@ $list = [
 'hide-on-open' => true,
 'redirect' => 'https://wordpress.org/support/plugin/'. $this->get_plugin_slug() .'/reviews/?rate=5#new-post',
 'text' =>
-'<div class="trustindex-star-row">&starf;&starf;&starf;&starf;&starf;</div>' .
 /* translators: %s: Name of the plugin */
 sprintf(__('We have worked a lot on the free "%s" plugin.', 'trustindex-plugin'), $this->plugin_name) . '<br />' .
 __('If you love our features, please write a review to help us make the plugin even better.', 'trustindex-plugin') . '<br />' .
@@ -719,7 +715,7 @@ if (isset($this->plugin_slugs[ $forcePlatform ])) {
 $filePath = preg_replace('/[^\/\\\\]+([\\\\\/]trustindex-plugin\.class\.php)/', $this->plugin_slugs[ $forcePlatform ] . '$1', $filePath);
 }
 $className = 'TrustindexPlugin_' . $forcePlatform;
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.8.6", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-11.9", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -735,7 +731,7 @@ return $this->error_box_for_admins(__('Your shortcode is deficient: Trustindex W
 public function error_box_for_admins($text)
 {
 if (!current_user_can('manage_options')) {
-return "";
+return " ";
 }
 return self::get_alertbox('error', ' @ <strong>'. __('Trustindex plugin', 'trustindex-plugin') .'</strong> <i style="opacity: 0.65">('. __('This message is not be visible to visitors in public mode.', 'trustindex-plugin') .')</i><br /><br />'. $text, false);
 }
@@ -758,11 +754,6 @@ public function noreg_save_css($setChange = false)
 {
 $styleId = (int)get_option($this->get_option_name('style-id'), 4);
 $setId = get_option($this->get_option_name('scss-set'));
-$args = [
-'timeout' => '20',
-'redirection' => '5',
-'blocking' => true
-];
 add_filter('https_ssl_verify', '__return_false');
 add_filter('block_local_requests', '__return_false');
 $params = [
@@ -786,7 +777,7 @@ $params['set_id'] = $setId;
 }
 $url = 'https://admin.trustindex.io/' . 'api/getLayoutScss?' . http_build_query($params);
 $server_output = $this->post_request($url, [
-'timeout' => '20',
+'timeout' => 300,
 'redirection' => '5',
 'blocking' => true
 ]);
@@ -888,6 +879,7 @@ echo $html . '</p></div>';
 }
 return $success;
 }
+public static $topRatedMinimumScore = 4.5;
 public static $widget_templates = array (
  'categories' => 
  array (
@@ -895,7 +887,7 @@ public static $widget_templates = array (
  'sidebar' => '6,7,8,9,10,18,54,81',
  'list' => '33,80',
  'grid' => '16,31,38,48,79',
- 'badge' => '11,12,20,22,23,55,56,57,58',
+ 'badge' => '11,12,20,22,23,55,56,57,58,97,98,99,100,101,102,103,104',
  'button' => '24,25,26,27,28,29,30,32,35,59,60,61,62',
  'floating' => '17,21,52,53',
  'popup' => '23,30,32',
@@ -907,336 +899,656 @@ public static $widget_templates = array (
  'name' => 'Slider I.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  14 => 
  array (
  'name' => 'Slider I. - with header',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  45 => 
  array (
  'name' => 'Slider I. - Big picture',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  46 => 
  array (
  'name' => 'Slider II. - Big picture',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  47 => 
  array (
  'name' => 'Slider III. - Big picture',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  48 => 
  array (
  'name' => 'Grid I. - Big picture',
  'type' => 'grid',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  95 => 
  array (
  'name' => 'Slider I. - with AI summary',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  5 => 
  array (
  'name' => 'Slider II.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  36 => 
  array (
  'name' => 'Slider III.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  34 => 
  array (
  'name' => 'Slider IV.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  39 => 
  array (
  'name' => 'Slider II. - centered',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  13 => 
  array (
  'name' => 'Slider V.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  15 => 
  array (
  'name' => 'Slider VI.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  19 => 
  array (
  'name' => 'Slider IV.',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  37 => 
  array (
  'name' => 'Slider VII.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  44 => 
  array (
  'name' => 'Slider VI.',
  'type' => 'slider',
  'is-active' => false,
- ),
- 20 => 
+ 'is-top-rated-badge' => false,
+ 'params' => 
  array (
- 'name' => 'HTML badge III.',
- 'type' => 'badge',
- 'is-active' => false,
+ ),
  ),
  33 => 
  array (
  'name' => 'List I.',
  'type' => 'list',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  80 => 
  array (
  'name' => 'List I. - with header',
  'type' => 'list',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  16 => 
  array (
  'name' => 'Grid',
  'type' => 'grid',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  31 => 
  array (
  'name' => 'Mansonry grid',
  'type' => 'grid',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  38 => 
  array (
  'name' => 'Grid II.',
  'type' => 'grid',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  79 => 
  array (
  'name' => 'Mansonry grid - with header',
  'type' => 'grid',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  54 => 
  array (
  'name' => 'Sidebar slider I.',
  'type' => 'sidebar',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  6 => 
  array (
  'name' => 'Sidebar slider II.',
  'type' => 'sidebar',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  7 => 
  array (
  'name' => 'Sidebar slider II.',
  'type' => 'sidebar',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  18 => 
  array (
  'name' => 'Full sidebar I.',
  'type' => 'sidebar',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  81 => 
  array (
  'name' => 'Full sidebar I. - with header',
  'type' => 'sidebar',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  8 => 
  array (
  'name' => 'Full sidebar II.',
  'type' => 'sidebar',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  9 => 
  array (
  'name' => 'Full sidebar II.',
  'type' => 'sidebar',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  10 => 
  array (
  'name' => 'Full sidebar III.',
  'type' => 'sidebar',
  'is-active' => false,
- ),
- 24 => 
+ 'is-top-rated-badge' => false,
+ 'params' => 
  array (
- 'name' => 'Button I.',
- 'type' => 'button',
- 'is-active' => false,
  ),
- 27 => 
+ ),
+ 97 => 
  array (
- 'name' => 'Button I.',
- 'type' => 'button',
+ 'name' => 'Top Rated badge I.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 26 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button II.',
- 'type' => 'button',
+ 'top-rated-badge-border' => false,
+ 'default-hide-date' => false,
+ ),
+ ),
+ 98 => 
+ array (
+ 'name' => 'Top Rated badge II.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 29 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button III.',
- 'type' => 'button',
+ 'top-rated-badge-border' => false,
+ 'default-hide-date' => true,
+ ),
+ ),
+ 99 => 
+ array (
+ 'name' => 'Top Rated badge III.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 30 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button IV. - with dropdown',
- 'type' => 'button',
+ 'top-rated-badge-border' => false,
+ 'default-hide-date' => false,
+ ),
+ ),
+ 100 => 
+ array (
+ 'name' => 'Top Rated badge IV.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 28 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button V.',
- 'type' => 'button',
- 'is-active' => false,
+ 'top-rated-badge-border' => false,
+ 'default-hide-date' => true,
  ),
- 60 => 
+ ),
+ 101 => 
  array (
- 'name' => 'Button V.',
- 'type' => 'button',
+ 'name' => 'Top Rated badge V.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 25 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button VI.',
- 'type' => 'button',
+ 'top-rated-badge-border' => true,
+ 'default-hide-date' => false,
+ ),
+ ),
+ 102 => 
+ array (
+ 'name' => 'Top Rated badge VI.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 32 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button VII. - with dropdown',
- 'type' => 'button',
+ 'top-rated-badge-border' => true,
+ 'default-hide-date' => true,
+ ),
+ ),
+ 103 => 
+ array (
+ 'name' => 'Top Rated badge VII.',
+ 'type' => 'badge',
  'is-active' => true,
- ),
- 35 => 
+ 'is-top-rated-badge' => true,
+ 'params' => 
  array (
- 'name' => 'Button VII.',
- 'type' => 'button',
- 'is-active' => false,
+ 'top-rated-badge-border' => true,
+ 'default-hide-date' => false,
  ),
- 59 => 
- array (
- 'name' => 'Button VIII.',
- 'type' => 'button',
- 'is-active' => false,
  ),
- 61 => 
+ 104 => 
  array (
- 'name' => 'Button X.',
- 'type' => 'button',
- 'is-active' => false,
+ 'name' => 'Top Rated badge VIII.',
+ 'type' => 'badge',
+ 'is-active' => true,
+ 'is-top-rated-badge' => true,
+ 'params' => 
+ array (
+ 'top-rated-badge-border' => true,
+ 'default-hide-date' => true,
  ),
- 62 => 
- array (
- 'name' => 'Button XI.',
- 'type' => 'button',
- 'is-active' => false,
  ),
  55 => 
  array (
  'name' => 'HTML badge I.',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  11 => 
  array (
  'name' => 'HTML badge II.',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  12 => 
  array (
  'name' => 'HTML badge III.',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  56 => 
  array (
  'name' => 'HTML badge IV.',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  22 => 
  array (
  'name' => 'Company badge I.',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  23 => 
  array (
  'name' => 'Company badge I. - with popup',
  'type' => 'badge',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  57 => 
  array (
  'name' => 'HTML badge V.',
  'type' => 'badge',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  58 => 
  array (
  'name' => 'HTML badge VI.',
  'type' => 'badge',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 20 => 
+ array (
+ 'name' => 'HTML badge III.',
+ 'type' => 'badge',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 27 => 
+ array (
+ 'name' => 'Button I.',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 24 => 
+ array (
+ 'name' => 'Button I.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 26 => 
+ array (
+ 'name' => 'Button II.',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 29 => 
+ array (
+ 'name' => 'Button III.',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 30 => 
+ array (
+ 'name' => 'Button IV. - with dropdown',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 60 => 
+ array (
+ 'name' => 'Button V.',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 28 => 
+ array (
+ 'name' => 'Button V.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 25 => 
+ array (
+ 'name' => 'Button VI.',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 35 => 
+ array (
+ 'name' => 'Button VII.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 32 => 
+ array (
+ 'name' => 'Button VII. - with dropdown',
+ 'type' => 'button',
+ 'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 59 => 
+ array (
+ 'name' => 'Button VIII.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 61 => 
+ array (
+ 'name' => 'Button X.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 62 => 
+ array (
+ 'name' => 'Button XI.',
+ 'type' => 'button',
+ 'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  17 => 
  array (
  'name' => 'Floating I.',
  'type' => 'floating',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  53 => 
  array (
  'name' => 'Floating II.',
  'type' => 'floating',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  21 => 
  array (
  'name' => 'Floating III.',
  'type' => 'floating',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  52 => 
  array (
  'name' => 'Floating IV.',
  'type' => 'floating',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
  ),
  ),
 );
@@ -1249,7 +1561,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 0,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1272,7 +1583,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1342,7 +1652,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 0,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1365,7 +1674,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1435,7 +1743,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 1,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1458,7 +1765,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1528,7 +1834,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 1,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1551,7 +1856,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'true',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1621,7 +1925,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 1,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1644,7 +1947,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1714,7 +2016,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 1,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1737,7 +2038,6 @@ public static $widget_styles = array (
  'arrow-color' => '#8d8d8d',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'true',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1807,7 +2107,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 2,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1830,7 +2129,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'false',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1900,7 +2198,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 2,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -1923,7 +2220,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -1993,7 +2289,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 3,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2016,7 +2311,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2086,7 +2380,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 3,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2109,7 +2402,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2179,7 +2471,6 @@ public static $widget_styles = array (
  'position' => 1,
  'select-position' => 4,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2202,7 +2493,6 @@ public static $widget_styles = array (
  'arrow-color' => '#b7b7b7',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2272,7 +2562,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 5,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2295,7 +2584,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2365,7 +2653,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 6,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2388,7 +2675,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2458,7 +2744,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 7,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2481,7 +2766,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2551,7 +2835,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 8,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2574,7 +2857,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2644,7 +2926,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 9,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2667,7 +2948,6 @@ public static $widget_styles = array (
  'arrow-color' => '#593072',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'true',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2737,7 +3017,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 9,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2760,7 +3039,6 @@ public static $widget_styles = array (
  'arrow-color' => '#999999',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'false',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2830,7 +3108,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 10,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2853,7 +3130,6 @@ public static $widget_styles = array (
  'arrow-color' => '#555555',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -2923,7 +3199,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 10,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -2946,7 +3221,6 @@ public static $widget_styles = array (
  'arrow-color' => '#252c44',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'true',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3016,7 +3290,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 10,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3039,7 +3312,6 @@ public static $widget_styles = array (
  'arrow-color' => '#242f62',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'true',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3109,7 +3381,6 @@ public static $widget_styles = array (
  'position' => 1,
  'select-position' => 11,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3132,7 +3403,6 @@ public static $widget_styles = array (
  'arrow-color' => '#666666',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3202,7 +3472,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 11,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3225,7 +3494,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3295,7 +3563,6 @@ public static $widget_styles = array (
  'position' => 1,
  'select-position' => 12,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3318,7 +3585,6 @@ public static $widget_styles = array (
  'arrow-color' => '#444444',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3388,7 +3654,6 @@ public static $widget_styles = array (
  'position' => 1,
  'select-position' => 14,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3411,7 +3676,6 @@ public static $widget_styles = array (
  'arrow-color' => '#ffffff',
  'float-widget-align' => 'left',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'true',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -3481,7 +3745,6 @@ public static $widget_styles = array (
  'position' => 0,
  'select-position' => 15,
  'reviewer-photo' => true,
- 'verified-icon' => true,
  'hide-logos' => false,
  'hide-stars' => false,
  '_vars' => 
@@ -3504,7 +3767,6 @@ public static $widget_styles = array (
  'arrow-color' => '#cccccc',
  'float-widget-align' => 'right',
  'nav' => 'desktop',
- 'dots' => 'mobile',
  'hover-anim' => 'false',
  'review-italic' => 'false',
  'enable-font' => 'true',
@@ -4022,258 +4284,6 @@ private static $widget_rating_texts = array (
  4 => '非常好',
  ),
 );
-private static $widget_recommendation_texts = array (
- 'en' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON not recommends',
- 'positive' => 'RECOMMEND_ICON recommends',
- ),
- 'af' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON beveel nie aan',
- 'positive' => 'RECOMMEND_ICON beveel aan',
- ),
- 'ar' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON لا توصي',
- 'positive' => 'RECOMMEND_ICON توصي',
- ),
- 'az' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON tövsiyə etmir',
- 'positive' => 'RECOMMEND_ICON tövsiyə edir',
- ),
- 'bg' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON не препоръчва',
- 'positive' => 'RECOMMEND_ICON препоръчва',
- ),
- 'bn' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON সুপারিশ করে না',
- 'positive' => 'RECOMMEND_ICON সুপারিশ করে',
- ),
- 'bs' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ne preporučuje',
- 'positive' => 'RECOMMEND_ICON preporučuje',
- ),
- 'cs' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nedoporučuje',
- 'positive' => 'RECOMMEND_ICON doporučuje',
- ),
- 'cy' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ddim yn argymell',
- 'positive' => 'RECOMMEND_ICON yn argymell',
- ),
- 'da' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON anbefaler ikke',
- 'positive' => 'RECOMMEND_ICON anbefaler',
- ),
- 'de' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON wird nicht empfohlen',
- 'positive' => 'RECOMMEND_ICON empfiehlt',
- ),
- 'el' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON δεν συνιστά',
- 'positive' => 'RECOMMEND_ICON συνιστά',
- ),
- 'es' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON no recomienda',
- 'positive' => 'RECOMMEND_ICON recomienda',
- ),
- 'et' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ei soovita',
- 'positive' => 'RECOMMEND_ICON soovitab',
- ),
- 'fa' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON توصیه نمی کند',
- 'positive' => 'RECOMMEND_ICON توصیه می‌کند',
- ),
- 'fi' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ei suosittele',
- 'positive' => 'RECOMMEND_ICON suosittelee',
- ),
- 'fr' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ne recommande pas',
- 'positive' => 'RECOMMEND_ICON recommande',
- ),
- 'gd' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON no moladh',
- 'positive' => 'RECOMMEND_ICON a ’moladh',
- ),
- 'gl' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON non recomendado',
- 'positive' => 'RECOMMEND_ICON recomenda',
- ),
- 'he' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON לא ממליץ',
- 'positive' => 'RECOMMEND_ICON ממליץ',
- ),
- 'hi' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON अनुशंसा नहीं करता है',
- 'positive' => 'RECOMMEND_ICON अनुशंसा करता है',
- ),
- 'hr' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ne preporučuje',
- 'positive' => 'RECOMMEND_ICON preporučuje',
- ),
- 'hu' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nem ajánlja',
- 'positive' => 'RECOMMEND_ICON ajánlja',
- ),
- 'hy' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON-ը խորհուրդ չի տալիս',
- 'positive' => 'RECOMMEND_ICON խորհուրդ է տալիս',
- ),
- 'id' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON tidak merekomendasikan',
- 'positive' => 'RECOMMEND_ICON merekomendasikan',
- ),
- 'is' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON mælir ekki með',
- 'positive' => 'RECOMMEND_ICON mælir með',
- ),
- 'it' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON non lo consiglia',
- 'positive' => 'RECOMMEND_ICON consiglia',
- ),
- 'ja' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON おすすめできない',
- 'positive' => 'RECOMMEND_ICON おすすめ',
- ),
- 'ka' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON არ გირჩევთ',
- 'positive' => 'RECOMMEND_ICON გირჩევთ',
- ),
- 'kk' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ұсынбайды',
- 'positive' => 'RECOMMEND_ICON ұсынады',
- ),
- 'ko' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON 권장하지 않음',
- 'positive' => 'RECOMMEND_ICON 추천',
- ),
- 'lt' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nerekomenduoja',
- 'positive' => 'RECOMMEND_ICON rekomenduoja',
- ),
- 'mk' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON не препорачува',
- 'positive' => 'RECOMMEND_ICON препорачува',
- ),
- 'ms' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON tidak mengesyorkan',
- 'positive' => 'RECOMMEND_ICON mengesyorkan',
- ),
- 'nl' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON niet aanbevolen',
- 'positive' => 'RECOMMEND_ICON aanbevolen',
- ),
- 'no' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON anbefaler ikke',
- 'positive' => 'RECOMMEND_ICON anbefaler',
- ),
- 'pl' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nie poleca',
- 'positive' => 'RECOMMEND_ICON poleca',
- ),
- 'pt' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON não recomenda',
- 'positive' => 'RECOMMEND_ICON recomenda',
- ),
- 'ro' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nu se recomandă',
- 'positive' => 'RECOMMEND_ICON recomandă',
- ),
- 'ru' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON не рекомендует',
- 'positive' => 'RECOMMEND_ICON рекомендует',
- ),
- 'sk' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON neodporúča',
- 'positive' => 'RECOMMEND_ICON odporúča',
- ),
- 'sl' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ne priporoča',
- 'positive' => 'RECOMMEND_ICON priporoča',
- ),
- 'sq' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON nuk rekomandon',
- 'positive' => 'RECOMMEND_ICON rekomandon',
- ),
- 'sr' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON не препоручује',
- 'positive' => 'RECOMMEND_ICON препоручује',
- ),
- 'sv' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON rekommenderar inte',
- 'positive' => 'RECOMMEND_ICON rekommenderar',
- ),
- 'th' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON ไม่แนะนำ',
- 'positive' => 'RECOMMEND_ICON แนะนำ',
- ),
- 'tr' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON önerilmez',
- 'positive' => 'RECOMMEND_ICON önerir',
- ),
- 'uk' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON не рекомендує',
- 'positive' => 'RECOMMEND_ICON рекомендує',
- ),
- 'vi' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON không được đề xuất',
- 'positive' => 'RECOMMEND_ICON đề xuất',
- ),
- 'zh' => 
- array (
- 'negative' => 'NOT_RECOMMEND_ICON 不推荐',
- 'positive' => 'RECOMMEND_ICON 推荐',
- ),
-);
 private static $widget_verified_texts = array (
  'en' => 'Verified',
  'af' => 'Geverifieer',
@@ -4325,6 +4335,58 @@ private static $widget_verified_texts = array (
  'uk' => 'Перевірено',
  'vi' => 'Đã xác minh',
  'zh' => '已验证',
+);
+private static $widget_verified_platform_texts = array (
+ 'en' => 'Trustindex verifies that the original source of the review is %platform%.',
+ 'af' => 'Trustindex verifieer dat die oorspronklike bron van die resensie %platform% is.',
+ 'ar' => 'تتحقق Trustindex من أن المصدر الأصلي للمراجعة هو %platform%.',
+ 'az' => 'Trustindex yoxlamanın orijinal mənbəyinin %platform% olduğunu təsdiqləyir.',
+ 'bg' => 'Trustindex проверява дали оригиналният източник на прегледа е %platform%.',
+ 'bn' => 'Trustindex যাচাই করে যে পর্যালোচনার মূল উৎস হল %platform%।',
+ 'bs' => 'Trustindex potvrđuje da je izvorni izvor recenzije %platform%.',
+ 'cs' => 'Trustindex ověřuje, že původní zdroj recenze je %platform%.',
+ 'cy' => 'Mae Trustindex yn gwirio mai ffynhonnell wreiddiol yr adolygiad yw %platform%.',
+ 'da' => 'Trustindex verificerer, at den oprindelige kilde til anmeldelsen er %platform%.',
+ 'de' => 'Trustindex überprüft, ob die Originalquelle der Bewertung %platform% ist.',
+ 'el' => 'Το Trustindex επαληθεύει ότι η αρχική πηγή της κριτικής είναι %platform%.',
+ 'es' => 'Trustindex verifica que la fuente original de la reseña sea %platform%.',
+ 'et' => 'Trustindex kontrollib, et arvustuse algallikas on %platform%.',
+ 'fa' => 'Trustindex تأیید می کند که منبع اصلی بازبینی %platform% است.',
+ 'fi' => 'Trustindex vahvistaa, että arvostelun alkuperäinen lähde on %platform%.',
+ 'fr' => 'Trustindex vérifie que la source originale de l\'avis est %platform%.',
+ 'gd' => 'Tha Trustindex a’ dearbhadh gur e %platform% tùs an ath-bhreithneachaidh.',
+ 'gl' => 'Trustindex verifica que a fonte orixinal da revisión é %platform%.',
+ 'he' => 'Trustindex מוודא שהמקור המקורי של הסקירה הוא %platform%.',
+ 'hi' => 'ट्रस्टइंडेक्स सत्यापित करता है कि समीक्षा का मूल स्रोत %platform% है।',
+ 'hr' => 'Trustindex provjerava je li izvorni izvor recenzije %platform%.',
+ 'hu' => 'A Trustindex hitelesíti, hogy a vélemény eredeti forrása %platform%.',
+ 'hy' => 'Trustindex-ը հաստատում է, որ վերանայման սկզբնական աղբյուրը %platform% է:',
+ 'id' => 'Trustindex memverifikasi bahwa sumber asli ulasan adalah %platform%.',
+ 'is' => 'Trustindex sannreynir að upprunaleg uppspretta endurskoðunarinnar sé %platform%.',
+ 'it' => 'Trustindex verifica che la fonte originale della recensione sia %platform%.',
+ 'ja' => 'Trustindex は、レビューの元のソースが %platform% であることを確認します。',
+ 'ka' => 'Trustindex ადასტურებს, რომ მიმოხილვის ორიგინალური წყაროა %platform%.',
+ 'kk' => 'Trustindex шолудың бастапқы көзі %platform% екенін тексереді.',
+ 'ko' => 'Trustindex는 리뷰의 원본 소스가 %platform% 인지 확인합니다.',
+ 'lt' => 'Trustindex patikrina, ar pirminis apžvalgos šaltinis yra %platform%.',
+ 'mk' => 'Trustindex потврдува дека оригиналниот извор на прегледот е %platform%.',
+ 'ms' => 'Trustindex mengesahkan bahawa sumber asal semakan adalah %platform%.',
+ 'nl' => 'Trustindex verifieert dat de oorspronkelijke bron van de recensie %platform% is.',
+ 'no' => 'Trustindex bekrefter at den opprinnelige kilden til anmeldelsen er %platform%.',
+ 'pl' => 'Trustindex sprawdza, czy pierwotnym źródłem recenzji jest %platform%.',
+ 'pt' => 'Trustindex verifica se a fonte original da avaliação é %platform%.',
+ 'ro' => 'Trustindex verifică că sursa originală a recenziei este %platform%.',
+ 'ru' => 'Trustindex проверяет, что первоначальным источником отзыва является %platform%.',
+ 'sk' => 'Trustindex overuje, že pôvodný zdroj recenzie je %platform%.',
+ 'sl' => 'Trustindex preveri, ali je izvorni vir ocene %platform%.',
+ 'sq' => 'Trustindex verifikon që burimi origjinal i rishikimit është %platform%.',
+ 'sr' => 'Trustindex потврђује да је оригинални извор рецензије %platform%.',
+ 'sv' => 'Trustindex verifierar att den ursprungliga källan till recensionen är %platform%.',
+ 'th' => 'Trustindex ตรวจสอบว่าแหล่งที่มาดั้งเดิมของรีวิวคือ %platform%',
+ 'tr' => 'Trustindex, incelemenin orijinal kaynağının %platform% olduğunu doğrular.',
+ 'uk' => 'Trustindex перевіряє, що вихідним джерелом відгуку є %platform%.',
+ 'vi' => 'Trustindex xác minh rằng nguồn đánh giá ban đầu là %platform%.',
+ 'zh' => 'Trustindex 核实该评论的原始来源是 %platform%。',
 );
 private static $widget_footer_filter_texts = array (
  'en' => 
@@ -5460,6 +5522,485 @@ public static $widget_date_format_locales = array (
  'vi' => '%d %s trước|hôm nay|ngày|ngày|tuần|tuần|tháng|tháng|năm|năm',
  'zh' => '%d %s 前|今天|天|天|周|周|个月|个月|年|年',
 );
+public static $widget_top_rated_titles = array (
+ 'Apartment' => 
+ array (
+ 'en' => 'Top Rated <br /> Apartment %date%',
+ 'af' => 'Topgegradeerde <br /> woonstel %date%',
+ 'ar' => 'شقة <br />الأعلى تقييمًا %date%',
+ 'az' => 'Ən Reytinqli <br /> Mənzil %date%',
+ 'bg' => 'Най-високо оценен <br /> апартамент %date%',
+ 'bn' => 'শীর্ষ রেটেড <br /> অ্যাপার্টমেন্ট %date%',
+ 'bs' => 'Najbolje ocijenjen <br /> stan %date%',
+ 'cs' => 'Nejlépe hodnocený <br /> apartmán %date%',
+ 'cy' => 'Fflat â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> lejlighed %date%',
+ 'de' => 'Bestbewertete <br /> Wohnung %date%',
+ 'el' => 'Διαμέρισμα με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Apartamento mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> korter %date%',
+ 'fa' => 'آپارتمان با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> huoneisto %date%',
+ 'fr' => 'Appartement le <br /> mieux noté %date%',
+ 'gd' => 'Apartment le <br /> inbhe as àirde %date%',
+ 'gl' => 'Apartamento mellor <br /> valorado %date%',
+ 'he' => 'דירה בדירוג <br />הגבוה ביותר %date%',
+ 'hi' => 'शीर्ष रेटेड <br /> अपार्टमेंट %date%',
+ 'hr' => 'Najbolje ocijenjen <br /> stan %date%',
+ 'hu' => 'Kiválóra értékelt <br /> apartman %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշով <br /> բնակարան %date% թ',
+ 'id' => 'Apartemen dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Íbúð með <br /> hæstu einkunn %date%',
+ 'it' => 'Appartamento più <br /> votato %date%',
+ 'ja' => 'トップ評価の <br />アパート%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> ბინა %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған пәтер %date%',
+ 'ko' => '%date%년 최고 <br /> 등급 아파트',
+ 'lt' => 'Geriausiai įvertintas <br /> %date% m. butas',
+ 'mk' => 'Највисоко оценет <br /> стан за %date% година',
+ 'ms' => 'Pangsapuri <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> appartement %date%',
+ 'no' => 'Topprangerte <br /> leilighet %date%',
+ 'pl' => 'Najwyżej oceniane <br /> mieszkanie %date%',
+ 'pt' => 'Apartamento mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat apartament %date%',
+ 'ru' => 'Самый рейтинговый <br /> Квартира %date% года',
+ 'sk' => 'Najlepšie hodnotený <br /> apartmán v roku %date%',
+ 'sl' => 'Najbolje ocenjeno <br /> stanovanje %date%',
+ 'sq' => 'Apartament me vlerësim <br /> më të lartë %date%',
+ 'sr' => 'Најбоље оцењен <br /> стан %date%',
+ 'sv' => 'Topprankad <br /> lägenhet %date%',
+ 'th' => 'อพาร์ทเมนต์ <br /> ติดอันดับยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Daire %date%',
+ 'uk' => 'Квартира з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Căn hộ được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 公寓 %date%',
+ ),
+ 'Bar' => 
+ array (
+ 'en' => 'Top Rated <br /> Bar %date%',
+ 'af' => 'Topgegradeerde <br /> kroeg %date%',
+ 'ar' => 'الشريط <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Bar %date%',
+ 'bg' => 'Най-високо оценен <br /> бар %date%',
+ 'bn' => 'শীর্ষ রেটযুক্ত <br /> বার %date%',
+ 'bs' => 'Najbolje ocijenjeni <br /> bar %date%',
+ 'cs' => 'Nejlépe hodnocený <br /> bar %date%',
+ 'cy' => 'Bar â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> bar %date%',
+ 'de' => 'Bestbewertete <br /> Bar %date%',
+ 'el' => 'Μπαρ με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Barra mejor <br /> valorada %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> baar %date%',
+ 'fa' => 'بار با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> baari %date%',
+ 'fr' => 'Barre la <br /> mieux notée %date%',
+ 'gd' => 'Bàr le <br /> inbhe as àirde %date%',
+ 'gl' => 'Bar mellor <br /> valorado %date%',
+ 'he' => 'בר <br />המדורג מוביל %date%',
+ 'hi' => 'टॉप रेटेड <br /> बार %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> bar %date%',
+ 'hu' => 'Kiválóra értékelt <br /> bár %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող բար %date% թ',
+ 'id' => 'Bar dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Hæsta einkunn <br /> bar %date%',
+ 'it' => 'Bar più <br /> votato del %date%',
+ 'ja' => 'トップ評価の <br />バー%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> ბარი %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған жолақ %date%',
+ 'ko' => '%date%년 최고 <br /> 등급 바',
+ 'lt' => 'Geriausiai įvertintas <br /> %date% m. baras',
+ 'mk' => 'Најдобро оценет <br /> бар %date% година',
+ 'ms' => 'Bar Penilaian <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> staaf %date%',
+ 'no' => 'Topprangerte <br /> bar %date%',
+ 'pl' => 'Najwyżej oceniany <br /> bar %date%',
+ 'pt' => 'Barra mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat bar %date%',
+ 'ru' => 'Самый рейтинговый <br /> бар %date% года',
+ 'sk' => 'Najlepšie hodnotený <br /> bar %date%',
+ 'sl' => 'Najbolje ocenjen <br /> bar %date%',
+ 'sq' => 'Bar me vlerësim <br /> më të lartë %date%',
+ 'sr' => 'Најбоље оцењени <br /> бар %date%',
+ 'sv' => 'Topprankad <br /> bar %date%',
+ 'th' => 'บาร์ <br /> เรทสูงสุด %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Çubuk %date%',
+ 'uk' => 'Бар з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Thanh được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 酒吧 %date%',
+ ),
+ 'Cafe' => 
+ array (
+ 'en' => 'Top Rated <br /> Cafe %date%',
+ 'af' => 'Topgegradeerde <br /> kafee %date%',
+ 'ar' => 'المقهى <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Kafe %date%',
+ 'bg' => 'Най-високо оценено <br /> кафене %date% г',
+ 'bn' => 'শীর্ষ রেটেড <br /> ক্যাফে %date%',
+ 'bs' => 'Najbolje ocijenjen <br /> kafić %date%',
+ 'cs' => 'Nejlépe hodnocená <br /> kavárna %date%',
+ 'cy' => 'Caffi o\'r <br /> Radd Flaenaf %date%',
+ 'da' => 'Bedst bedømte <br /> cafe %date%',
+ 'de' => 'Bestbewertetes <br /> Café %date%',
+ 'el' => 'Κορυφαία βαθμολογία <br /> Cafe %date%',
+ 'es' => 'Café mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> kohvik %date%',
+ 'fa' => 'کافه با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> kahvila %date%',
+ 'fr' => 'Café le <br /> mieux noté %date%',
+ 'gd' => 'Cafaidh le <br /> inbhe as àirde %date%',
+ 'gl' => 'Café mellor <br /> valorado %date%',
+ 'he' => 'בית קפה עם הדירוג <br />הגבוה ביותר %date%',
+ 'hi' => 'टॉप रेटेड <br /> कैफ़े %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> kafić %date%',
+ 'hu' => 'Kiválóra értékelt <br /> kávézó %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող Սրճարան %date%',
+ 'id' => 'Kafe dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Kaffihús með <br /> hæstu einkunn %date%',
+ 'it' => 'Il caffè più <br /> votato del %date%',
+ 'ja' => 'トップ評価の <br />カフェ%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> კაფე %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған кафе %date%',
+ 'ko' => '%date%년 최고 <br /> 평점 카페',
+ 'lt' => 'Geriausiai įvertinta <br /> %date% m. kavinė',
+ 'mk' => 'Најдобро оценет <br /> Кафе %date% година',
+ 'ms' => 'Kafe <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeeld <br /> café %date%',
+ 'no' => 'Topprangerte <br /> kafé %date%',
+ 'pl' => 'Najwyżej oceniana <br /> kawiarnia %date%',
+ 'pt' => 'Café mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat cafe %date%',
+ 'ru' => 'Самый рейтинговый <br /> Кафе %date% года',
+ 'sk' => 'Najlepšie hodnotená <br /> kaviareň v roku %date%',
+ 'sl' => 'Najbolje ocenjena <br /> kavarna %date%',
+ 'sq' => 'Kafeneja më e <br /> vlerësuar %date%',
+ 'sr' => 'Најбоље оцењени <br /> кафић %date%',
+ 'sv' => 'Topprankade <br /> kafé %date%',
+ 'th' => 'คาเฟ่ <br /> ยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Kafe %date%',
+ 'uk' => 'Кафе з найвищим <br /> рейтингом %date% року',
+ 'vi' => 'Quán cà phê được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 咖啡厅 %date%',
+ ),
+ 'Clinic' => 
+ array (
+ 'en' => 'Top Rated <br /> Clinic %date%',
+ 'af' => 'Topgegradeerde <br /> kliniek %date%',
+ 'ar' => 'العيادة <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Klinika %date%',
+ 'bg' => 'Най-високо оценена <br /> клиника %date% г',
+ 'bn' => 'শীর্ষ রেটেড <br /> ক্লিনিক %date%',
+ 'bs' => 'Najbolje ocijenjena <br /> klinika %date%',
+ 'cs' => 'Nejlépe hodnocená <br /> klinika %date%',
+ 'cy' => 'Clinig â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> klinik %date%',
+ 'de' => 'Bestbewertete <br /> Klinik %date%',
+ 'el' => 'Κλινική με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Clínica mejor <br /> valorada %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> kliinik %date%',
+ 'fa' => 'کلینیک با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> klinikka %date%',
+ 'fr' => 'Clinique la <br /> mieux notée %date%',
+ 'gd' => 'Clionaig le <br /> inbhe as àirde %date%',
+ 'gl' => 'Clínica mellor <br /> valorada %date%',
+ 'he' => 'המרפאה <br />המדורגת ביותר %date%',
+ 'hi' => 'शीर्ष रेटेड <br /> क्लिनिक %date%',
+ 'hr' => 'Najbolje ocijenjena <br /> klinika %date%',
+ 'hu' => 'Kiválóra értékelt <br /> klinika %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող կլինիկա %date%',
+ 'id' => 'Klinik dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Hæstu einkunnir <br /> heilsugæslustöðvar %date%',
+ 'it' => 'Clinica più <br /> votata %date%',
+ 'ja' => 'トップ評価の <br />クリニック%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> კლინიკა %date% წელი',
+ 'kk' => 'Ең жоғары <br /> бағаланған клиника %date%',
+ 'ko' => '%date%년 최고 <br /> 등급 클리닉',
+ 'lt' => 'Geriausiai įvertinta <br /> klinika %date% m',
+ 'mk' => 'Најдобро оценета <br /> клиника %date% година',
+ 'ms' => 'Klinik <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> kliniek %date%',
+ 'no' => 'Topprangerte <br /> klinikk %date%',
+ 'pl' => 'Najwyżej oceniana <br /> klinika %date%',
+ 'pt' => 'Clínica mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat clinică %date%',
+ 'ru' => 'Самый рейтинговый <br /> Клиника %date% года',
+ 'sk' => 'Najlepšie hodnotená <br /> klinika %date%',
+ 'sl' => 'Najbolje ocenjena <br /> klinika %date%',
+ 'sq' => 'Klinika më e <br /> vlerësuar %date%',
+ 'sr' => 'Најбоље оцењена <br /> клиника %date%',
+ 'sv' => 'Topprankad <br /> klinik %date%',
+ 'th' => 'คลินิก <br /> ยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Klinik %date%',
+ 'uk' => 'клініка з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Phòng khám được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 诊所 %date%',
+ ),
+ 'Hotel' => 
+ array (
+ 'en' => 'Top Rated <br /> Hotel %date%',
+ 'af' => 'Topgegradeerde <br /> hotel %date%',
+ 'ar' => 'الفندق <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Otel %date%',
+ 'bg' => 'Най-високо оценен <br /> хотел %date% г',
+ 'bn' => 'শীর্ষ রেটেড <br /> হোটেল %date%',
+ 'bs' => 'Najbolje ocijenjeni <br /> hotel %date%',
+ 'cs' => 'Nejlépe hodnocený <br /> hotel %date%',
+ 'cy' => 'Gwesty â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> hotel %date%',
+ 'de' => 'Bestbewertetes <br /> Hotel %date%',
+ 'el' => 'Ξενοδοχείο με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Hotel mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> hotell %date%',
+ 'fa' => 'هتل با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> hotelli %date%',
+ 'fr' => 'Hôtel le <br /> mieux noté en %date%',
+ 'gd' => 'Taigh-òsta aig an <br /> ìre as àirde %date%',
+ 'gl' => 'Hotel mellor <br /> valorado en %date%',
+ 'he' => 'המלון בעל הדירוג <br />הגבוה ביותר לשנת %date%',
+ 'hi' => 'शीर्ष रेटेड <br /> होटल %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> hotel %date%',
+ 'hu' => 'Kiválóra értékelt <br /> szálláshely %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող հյուրանոց %date%',
+ 'id' => 'Hotel dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Hæsta einkunn <br /> hótel %date%',
+ 'it' => 'Hotel con le migliori <br /> valutazioni nel %date%',
+ 'ja' => 'トップ評価の <br />ホテル%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> სასტუმრო %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған қонақ үй %date%',
+ 'ko' => '%date%년 최고 <br /> 등급 호텔',
+ 'lt' => 'Geriausiai įvertintas <br /> viešbutis %date% m',
+ 'mk' => 'Највисоко оценет <br /> хотел за %date% година',
+ 'ms' => 'Hotel Penilaian <br /> Teratas %date%',
+ 'nl' => 'Best beoordeelde <br /> hotel %date%',
+ 'no' => 'Topprangerte <br /> hotell %date%',
+ 'pl' => 'Najwyżej oceniany <br /> hotel %date%',
+ 'pt' => 'Hotéis mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat hotel %date%',
+ 'ru' => 'Самый рейтинговый <br /> отель %date% года',
+ 'sk' => 'Najlepšie hodnotený <br /> hotel v roku %date%',
+ 'sl' => 'Najbolje ocenjen <br /> hotel %date%',
+ 'sq' => 'Hoteli më i <br /> vlerësuar %date%',
+ 'sr' => 'Најбоље оцењен <br /> хотел %date%',
+ 'sv' => 'Topprankade <br /> hotell %date%',
+ 'th' => 'โรงแรม <br /> ยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Otel %date%',
+ 'uk' => 'готель з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Khách sạn được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 酒店 %date%',
+ ),
+ 'Provider' => 
+ array (
+ 'en' => 'Top Rated <br /> Provider %date%',
+ 'af' => 'Topgegradeerde <br /> verskaffer %date%',
+ 'ar' => 'المزود <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Provayder %date%',
+ 'bg' => 'Най-високо оценен <br /> доставчик %date% г',
+ 'bn' => 'শীর্ষ রেট <br /> প্রদানকারী %date%',
+ 'bs' => 'Najbolje ocijenjeni <br /> provajder %date%',
+ 'cs' => 'Nejlépe hodnocený <br /> poskytovatel %date%',
+ 'cy' => 'Darparwr â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> udbyder %date%',
+ 'de' => 'Bestbewerteter <br /> Anbieter %date%',
+ 'el' => 'Πάροχος με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Proveedor mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> teenusepakkuja %date%',
+ 'fa' => 'ارائه دهنده با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> palveluntarjoaja %date%',
+ 'fr' => 'Fournisseur le <br /> mieux noté en %date%',
+ 'gd' => 'Solaraiche le <br /> inbhe as àirde %date%',
+ 'gl' => 'Provedor mellor <br /> valorado %date%',
+ 'he' => 'הספק <br />המדורג מוביל %date%',
+ 'hi' => 'शीर्ष रेटेड <br /> प्रदाता %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> pružatelj usluga %date%',
+ 'hu' => 'Kiválóra értékelt <br /> szolgáltató %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող մատակարար %date%',
+ 'id' => 'Penyedia Nilai <br /> Tertinggi %date%',
+ 'is' => 'Hæst metinn <br /> veitandi %date%',
+ 'it' => 'Fornitore più <br /> votato %date%',
+ 'ja' => 'トップ評価の <br />プロバイダー%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> პროვაიდერი %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған провайдер %date%',
+ 'ko' => '%date%년 최고 <br /> 등급 제공업체',
+ 'lt' => 'Geriausiai įvertintas <br /> teikėjas %date% m',
+ 'mk' => 'Најдобро оценет <br /> провајдер за %date% година',
+ 'ms' => 'Penyedia Penilaian <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> aanbieder %date%',
+ 'no' => 'Topprangerte <br /> leverandør %date%',
+ 'pl' => 'Najwyżej oceniany <br /> dostawca %date%',
+ 'pt' => 'Provedor mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat furnizor %date%',
+ 'ru' => 'Самый рейтинговый <br /> провайдер %date% года.',
+ 'sk' => 'Najlepšie hodnotený <br /> poskytovateľ v roku %date%',
+ 'sl' => 'Najbolje ocenjeni <br /> ponudnik %date%',
+ 'sq' => 'Ofruesi më i <br /> vlerësuar për %date%',
+ 'sr' => 'Најбоље оцењени <br /> провајдер %date%',
+ 'sv' => 'Topprankad <br /> leverantör %date%',
+ 'th' => 'ผู้ให้บริการ <br /> ที่ได้รับคะแนนสูงสุดปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Sağlayıcısı %date%',
+ 'uk' => 'постачальник з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Nhà cung cấp được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 提供商 %date%',
+ ),
+ 'Restaurant' => 
+ array (
+ 'en' => 'Top Rated <br /> Restaurant %date%',
+ 'af' => 'Topgegradeerde <br /> restaurant %date%',
+ 'ar' => 'المطعم <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Restoran %date%',
+ 'bg' => 'Най-високо оценен <br /> ресторант %date% г',
+ 'bn' => 'শীর্ষ রেটিং <br /> রেস্তোরাঁ %date%',
+ 'bs' => 'Najbolje ocijenjen <br /> restoran %date%',
+ 'cs' => 'Nejlépe hodnocená <br /> restaurace %date%',
+ 'cy' => 'Bwyty â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> restaurant %date%',
+ 'de' => 'Bestbewertetes <br /> Restaurant %date%',
+ 'el' => 'Εστιατόριο με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Restaurante mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> restoran %date%',
+ 'fa' => 'رستوران با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> ravintola %date%',
+ 'fr' => 'Restaurant le <br /> mieux noté en %date%',
+ 'gd' => 'Taigh-bìdh leis an <br /> ìre as àirde %date%',
+ 'gl' => 'Restaurante mellor <br /> valorado en %date%',
+ 'he' => 'המסעדה <br />המדורגת ביותר %date%',
+ 'hi' => 'शीर्ष रेटेड <br /> रेस्तरां %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> restoran %date%',
+ 'hu' => 'Kiválóra értékelt <br /> étterem %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող ռեստորան %date% թ',
+ 'id' => 'Restoran dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Veitingastaður með <br /> hæstu einkunn %date%',
+ 'it' => 'Ristorante più <br /> votato %date%',
+ 'ja' => 'トップ評価の <br />レストラン%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> რესტორანი %date% წელი',
+ 'kk' => 'Ең жоғары <br /> бағаланған мейрамхана %date%',
+ 'ko' => '%date%년 최고 <br /> 평점 레스토랑',
+ 'lt' => 'Geriausiai įvertintas <br /> %date% m. restoranas',
+ 'mk' => 'Најдобро оценет <br /> ресторан %date% година',
+ 'ms' => 'Restoran Penarafan <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> restaurant %date%',
+ 'no' => 'Topprangerte <br /> restaurant %date%',
+ 'pl' => 'Najwyżej oceniana <br /> restauracja %date%',
+ 'pt' => 'Restaurante mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat restaurant %date%',
+ 'ru' => 'Самый рейтинговый <br /> Ресторан %date% года',
+ 'sk' => 'Najlepšie hodnotená <br /> reštaurácia v roku %date%',
+ 'sl' => 'Najbolje ocenjena <br /> restavracija %date%',
+ 'sq' => 'Restorant me vlerësim <br /> më të lartë %date%',
+ 'sr' => 'Најбоље оцењен <br /> ресторан %date%',
+ 'sv' => 'Topprankad <br /> restaurang %date%',
+ 'th' => 'ร้านอาหาร <br /> ยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Restoran %date%',
+ 'uk' => 'Ресторан з найвищим <br /> рейтингом %date% року',
+ 'vi' => 'Nhà hàng được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 餐厅 %date%',
+ ),
+ 'Service' => 
+ array (
+ 'en' => 'Top Rated <br /> Service %date%',
+ 'af' => 'Topgegradeerde <br /> diens %date%',
+ 'ar' => 'الخدمة <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Xidmət %date%',
+ 'bg' => 'Най-високо оценена <br /> услуга %date% г',
+ 'bn' => 'সেরা রেটেড <br /> পরিষেবা %date%',
+ 'bs' => 'Najbolje ocijenjena <br /> usluga %date%',
+ 'cs' => 'Nejlépe hodnocená <br /> služba %date%',
+ 'cy' => 'Gwasanaeth o\'r <br /> Radd Flaenaf %date%',
+ 'da' => 'Bedst bedømte <br /> service %date%',
+ 'de' => 'Bestbewerteter <br /> Service %date%',
+ 'el' => 'Υπηρεσία με κορυφαία <br /> βαθμολογία %date%',
+ 'es' => 'Servicio mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> teenus %date%',
+ 'fa' => 'خدمات با <br />رتبه برتر %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> palvelu %date%',
+ 'fr' => 'Service le <br /> mieux noté %date%',
+ 'gd' => 'Seirbheis aig an <br /> ìre as àirde %date%',
+ 'gl' => 'Servizo mellor <br /> valorado %date%',
+ 'he' => 'השירות <br />המדורג ביותר %date%',
+ 'hi' => 'सर्वोच्च रेटेड <br /> सेवा %date%',
+ 'hr' => 'Najbolje ocijenjena <br /> usluga %date%',
+ 'hu' => 'Kiválóra értékelt <br /> szolgáltatás %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող ծառայություն %date%',
+ 'id' => 'Layanan Nilai <br /> Tertinggi %date%',
+ 'is' => 'Hæsta einkunn <br /> þjónusta %date%',
+ 'it' => 'Servizio più <br /> votato %date%',
+ 'ja' => 'トップ評価の <br />サービス%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> სერვისი %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған қызмет %date%',
+ 'ko' => '%date%년 최고 <br /> 평점 서비스',
+ 'lt' => 'Geriausiai įvertinta <br /> %date% m. paslauga',
+ 'mk' => 'Најдобро оценет <br /> сервис за %date% година',
+ 'ms' => 'Perkhidmatan <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> service %date%',
+ 'no' => 'Topprangerte <br /> tjeneste %date%',
+ 'pl' => 'Najwyżej oceniana <br /> usługa %date%',
+ 'pt' => 'Serviço mais <br /> bem avaliado em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat serviciu %date%',
+ 'ru' => 'Самый рейтинговый <br /> сервис %date% года',
+ 'sk' => 'Najlepšie hodnotená <br /> služba %date%',
+ 'sl' => 'Najbolje ocenjena <br /> storitev %date%',
+ 'sq' => 'Shërbimi më i <br /> vlerësuar %date%',
+ 'sr' => 'Најбоље оцењена <br /> услуга %date%',
+ 'sv' => 'Topprankad <br /> tjänst %date%',
+ 'th' => 'บริการ <br /> ยอดนิยมปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> Hizmet %date%',
+ 'uk' => 'сервіс з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Dịch vụ được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 服务 %date%',
+ ),
+ 'Webshop' => 
+ array (
+ 'en' => 'Top Rated <br /> Webshop %date%',
+ 'af' => 'Topgegradeerde <br /> webwinkel %date%',
+ 'ar' => 'متجر الويب <br />الأعلى تقييمًا لعام %date%',
+ 'az' => 'Ən Reytinqli <br /> Veb Mağaza %date%',
+ 'bg' => 'Най-високо оценен <br /> уеб магазин %date% г',
+ 'bn' => 'সেরা রেটেড <br /> ওয়েবশপ %date%',
+ 'bs' => 'Najbolje ocijenjena <br /> web trgovina %date%',
+ 'cs' => 'Nejlépe hodnocený <br /> internetový obchod roku %date%',
+ 'cy' => 'Gwefan â\'r <br /> sgôr uchaf %date%',
+ 'da' => 'Bedst bedømte <br /> webshop %date%',
+ 'de' => 'Bestbewerteter <br /> Webshop %date%',
+ 'el' => 'Κορυφαία βαθμολογία <br /> webshop %date%',
+ 'es' => 'Tienda web mejor <br /> valorado %date%',
+ 'et' => 'Kõrgeimalt hinnatud <br /> veebipood %date%',
+ 'fa' => 'متجر الويب <br />الأعلى تقييمًا لعام %date%',
+ 'fi' => 'Parhaiksi arvioitu <br /> verkkokauppa %date%',
+ 'fr' => 'Boutique en ligne la <br /> mieux notée en %date%',
+ 'gd' => 'Bùth lìn aig an <br /> ìre as àirde %date%',
+ 'gl' => 'Tenda web mellor <br /> valorada %date%',
+ 'he' => 'חנות אינטרנט <br />בדירוג הגבוה ביותר %date%',
+ 'hi' => 'टॉप रेटेड <br /> वेबशॉप %date%',
+ 'hr' => 'Najbolje ocijenjeni <br /> webshop %date%',
+ 'hu' => 'Kiválóra értékelt <br /> webáruház %date%',
+ 'hy' => 'Ամենաբարձր վարկանիշ <br /> ունեցող վեբ խանութ %date% թ',
+ 'id' => 'Toko Web dengan <br /> Nilai Tertinggi %date%',
+ 'is' => 'Vefverslun með <br /> hæstu einkunn %date%',
+ 'it' => 'Il negozio online più <br /> votato del %date%',
+ 'ja' => 'トップ評価の <br />ウェブショップ%date%',
+ 'ka' => 'ყველაზე რეიტინგული <br /> ვებ მაღაზია %date%',
+ 'kk' => 'Ең жоғары <br /> бағаланған веб-дүкен %date%',
+ 'ko' => '%date%년 최고 <br /> 평점 웹숍',
+ 'lt' => 'Geriausiai įvertinta <br /> internetinė parduotuvė %date% m',
+ 'mk' => 'Најдобро оценет <br /> веб-продавница %date% година',
+ 'ms' => 'Kedai Web Penilaian <br /> Tertinggi %date%',
+ 'nl' => 'Best beoordeelde <br /> webshop %date%',
+ 'no' => 'Topprangerte <br /> nettbutikk %date%',
+ 'pl' => 'Najwyżej oceniany <br /> sklep internetowy %date%',
+ 'pt' => 'Loja virtual mais <br /> bem avaliada em %date%',
+ 'ro' => 'Cel mai bine <br /> cotat magazin web %date%',
+ 'ru' => 'Самый рейтинговый <br /> Интернет-магазин %date% года',
+ 'sk' => 'Najlepšie hodnotený <br /> internetový obchod v roku %date%',
+ 'sl' => 'Najbolje ocenjena <br /> spletna trgovina %date%',
+ 'sq' => 'Dyqani në internet më i <br /> vlerësuar për %date%',
+ 'sr' => 'Најбоље оцењена <br /> веб продавница %date%',
+ 'sv' => 'Topprankad <br /> webbshop %date%',
+ 'th' => 'เว็บช็อป <br /> ยอดนิยมประจำปี %date%',
+ 'tr' => 'En Çok Oy Alan <br /> İnternet Mağazası %date%',
+ 'uk' => 'веб-магазину з найвищим <br /> рейтингом %date%',
+ 'vi' => 'Webshop được xếp <br /> hạng hàng đầu năm %date%',
+ 'zh' => '评分最高的 <br /> 网店 %date%',
+ ),
+);
 private static $page_urls = array (
  'facebook' => 'https://www.facebook.com/pg/%page_id%',
  'google' => 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id=%page_id%',
@@ -5563,9 +6104,6 @@ return $html;
 public function get_default_no_rating_text($styleId, $setId)
 {
 $value = in_array($styleId, [ 15, 19, 36, 38, 39, 44 ]) ? 1 : 0;
-if ($setId && self::$widget_styles[ $setId ]['_vars']['dots'] === 'true') {
-$value = 1;
-}
 return $value;
 }
 private $previewContent = null;
@@ -5580,13 +6118,21 @@ $content = get_option($this->get_option_name('review-content'));
 $lang = get_option($this->get_option_name('lang'), 'en');
 $dateformat = get_option($this->get_option_name('dateformat'), 'Y-m-d');
 $noRatingText = get_option($this->get_option_name('no-rating-text'), $this->get_default_no_rating_text($styleId, $setId));
-$verifiedIcon = get_option($this->get_option_name('verified-icon'), 0);
+$verifiedIcon = get_option($this->get_option_name('verified-icon'), in_array($styleId, [5,34]) ? 1 : 0);
 $showReviewersPhoto = get_option($this->get_option_name('show-reviewers-photo'), self::$widget_styles[ $setId ]['reviewer-photo'] ? 1 : 0);
 $showLogos = get_option($this->get_option_name('show-logos'), self::$widget_styles[ $setId ]['hide-logos'] ? 0 : 1);
 $showStars = get_option($this->get_option_name('show-stars'), self::$widget_styles[ $setId ]['hide-stars'] ? 0 : 1);
 $footerFilterText = get_option($this->get_option_name('footer-filter-text'), 0);
 $showHeaderButton = get_option($this->get_option_name('show-header-button'), 1);
 $reviewsLoadMore = get_option($this->get_option_name('reviews-load-more'), 1);
+$topRatedType = get_option($this->get_option_name('top-rated-type'), 'Service');
+$topRatedDate = get_option($this->get_option_name('top-rated-date'), in_array($styleId, [98, 100, 102, 104]) ? 'hide' : '');
+if (!$onlyPreview && !$listAll && self::$widget_templates['templates'][$styleId]['is-top-rated-badge'] && (float)$pageDetails['rating_score'] < self::$topRatedMinimumScore) {
+$text = sprintf(__('Our exclusive "Top Rated" badge is awarded to service providers with a rating of %s and above.', 'trustindex-plugin'), self::$topRatedMinimumScore)
+.'<br />'
+.'<a href="'.admin_url('admin.php?page='.$this->get_plugin_slug().'/settings.php&tab=free-widget-configurator&step=2').'">'.__('Please select another widget', 'trustindex-plugin').'.</a>';
+return $this->error_box_for_admins($text);
+}
 $needToParse = true;
 if ($onlyPreview) {
 $content = false;
@@ -5600,6 +6146,12 @@ $content = $this->previewContent['content'];
 }
 $noRatingText = $this->get_default_no_rating_text($styleId, $setId);
 $footerFilterText = 0;
+$topRatedType = 'Service';
+$topRatedDate = '';
+if (in_array($styleId, [98, 100, 102, 104])) {
+$topRatedDate = 'hide';
+}
+$verifiedIcon = in_array($styleId, [5,34]) ? 1 : 0;
 }
 $sqlRatingField = 'rating';
 if ($this->is_ten_scale_rating_platform()) {
@@ -5685,7 +6237,7 @@ add_action('http_api_curl', function($handle) {
 curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
 }, 10);
-$response = wp_remote_get("https://cdn.trustindex.io/widget-assets/template/$lang.json", [ 'timeout' => 30 ]);
+$response = wp_remote_get("https://cdn.trustindex.io/widget-assets/template/$lang.json", [ 'timeout' => 300 ]);
 if (is_wp_error($response)) {
 echo $this->get_alertbox('error', '<br />'. __('Could not download the template for the widget.<br />Please reload the page.<br />If the problem persists, please write an email to support@trustindex.io.', 'trustindex-plugin') .'<br /><br />'. print_r($response, true));
 die;
@@ -5712,6 +6264,8 @@ $content = $this->parse_noreg_list_reviews([
 'footer-filter-text' => $footerFilterText,
 'show-header-button' => $showHeaderButton,
 'reviews-load-more' => $reviewsLoadMore,
+'top-rated-type' => $topRatedType,
+'top-rated-date' => $topRatedDate,
 ]);
 $this->previewContent = [
 'id' => $styleId,
@@ -5794,13 +6348,14 @@ if ($this->is_ten_scale_rating_platform()) {
 $ratingContent = '<div class="ti-rating-box">'. $this->formatTenRating($r->original_rating, $array['language']) .'</div>';
 }
 $platformName = ucfirst($this->getShortName());
-if ($array['verified-icon'] && in_array($platformName, self::$verified_platforms)) {
-if ($array['style-id'] == 21) {
-$ratingContent .= '</div><div class="ti-logo-text"><span class="ti-verified-review"><span class="ti-verified-tooltip">'. self::$widget_verified_texts[ $array['language'] ] .'</span></span><span class="ti-logo-title">Trustindex</span></div><div>';
+if ($array['verified-icon']) {
+$verifiedIconTooltipText = self::$widget_verified_texts[$array['language']];
+$verifiedIconClass = 'ti-verified-review';
+if (!in_array($platformName, self::$verified_platforms)) {
+$verifiedIconClass = 'ti-verified-review ti-verified-platform';
+$verifiedIconTooltipText = str_replace('%platform%', 'PLATFORM_NAME', self::$widget_verified_platform_texts[$array['language']]);
 }
-else {
-$ratingContent .= '<span class="ti-verified-review"><span class="ti-verified-tooltip">'. self::$widget_verified_texts[ $array['language'] ] .'</span></span>';
-}
+$ratingContent .= '<span class="'.$verifiedIconClass.'"><span class="ti-verified-tooltip">'.$verifiedIconTooltipText.'</span></span>';
 }
 if (!$array['show-reviewers-photo']) {
 $matches[1] = str_replace('<div class="ti-profile-img"> <img src="%reviewer_photo%" alt="%reviewer_name%" /> </div>', '', $matches[1]);
@@ -5933,6 +6488,19 @@ if (isset($matches[1]) && !empty($matches[1])) {
 $array['content'] = str_replace($matches[0], $matches[0] . ' width="150" height="25"', $array['content']);
 $array['content'] = preg_replace('/width="([\d%]+)" height="([\d%]+)"( alt="[^"]+")? width="([\d%]+)" height="([\d%]+)"/', 'width="$1" height="$2"$3', $array['content']);
 }
+}
+if (self::$widget_templates['templates'][ $array['style-id'] ]['is-top-rated-badge']) {
+$date = date('Y');
+if ($array['top-rated-date'] === 'last-year') {
+$date = date('Y') - 1;
+} else if ($array['top-rated-date'] === 'hide') {
+$date = '';
+}
+$title = trim(str_replace('%date%', $date, self::$widget_top_rated_titles[$array['top-rated-type']][$array['language']]));
+if (in_array($array['style-id'], [97, 98, 104])) {
+$title = str_replace('<br />', '', $title);
+}
+$array['content'] = preg_replace('/<div class="ti-top-rated-title">.*<\/div>/mU', '<div class="ti-top-rated-title">'. $title .'</div>', $array['content']);
 }
 return $array['content'];
 }
@@ -6147,7 +6715,7 @@ $url = "https://admin.trustindex.io/" . "api/connectApi";
 $postData['wp_info'] = $this->get_wp_details();
 $serverOutput = $this->post_request($url, [
 'body' => $postData,
-'timeout' => '5',
+'timeout' => 300,
 'redirection' => '5',
 'blocking' => true
 ]);

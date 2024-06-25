@@ -15,7 +15,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			if ( ! class_exists( 'WFFN_Core' ) ) {
 				return;
 			}
-			add_action( 'wp_head', array( $this, 'render' ), 12 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'render' ), 1 );
 			add_action( 'wffn_optin_form_submit', array( $this, 'update_optin_tracking_data' ), 10, 2 );
 			add_filter( 'bwf_add_db_table_schema', array( $this, 'create_db_tables' ), 10, 2 );
 			add_action( 'add_meta_boxes', array( $this, 'add_single_order_meta_box' ), 50, 2 );
@@ -23,18 +23,19 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'add_tracking_data_in_order_meta' ), 12, 1 );
 			add_action( 'wfocu_offer_accepted_and_processed', array( $this, 'insert_tracking_data_in_upsell_order' ), 10, 4 );
 			add_action( 'woocommerce_thankyou', array( $this, 'insert_tracking_data_from_order_meta' ), 9, 1 );
-			add_action( 'woocommerce_order_status_changed', array( $this, 'maybe_insert_pending_tracking_data' ), 9, 3 );
+			add_action( 'woocommerce_order_status_changed', array( $this, 'maybe_insert_pending_tracking_data' ), 9, 4 );
+			add_action( 'woocommerce_order_status_processing_to_cancelled', array( $this, 'removed_cod_order_after_canceled' ), 10, 2 );
+
 
 			/***
 			 * conversion delete row process on order delete and fully refunded
 			 */
 			add_action( 'woocommerce_order_fully_refunded', array( $this, 'delete_conversion_row' ) );
 			add_action( 'woocommerce_order_partially_refunded', array( $this, 'partially_refunded_process' ), 10, 2 );
-			if ( ! BWF_WC_Compatibility::is_hpos_enabled() ) {
-				add_action( 'delete_post', array( $this, 'delete_conversion_row' ) );
-			} else {
-				add_action( 'woocommerce_delete_order', array( $this, 'delete_conversion_row' ) );
-			}
+
+			add_action( 'delete_post', array( $this, 'delete_conversion_row' ) );
+
+			add_action( 'woocommerce_delete_order', array( $this, 'delete_conversion_row' ) );
 
 
 			add_action( 'bwf_conversion_tracking_index_completed', array( $this, 'update_conversion_table' ), 10, 2 );
@@ -72,7 +73,10 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				'cookieKeys'         => [ "flt", "timezone", "is_mobile", "browser", "fbclid", "gclid", "referrer", "fl_url" ]
 			] );
 
-			wp_enqueue_script( 'wfco-utm-tracking', plugin_dir_url( WooFunnel_Loader::$ultimate_path ) . 'woofunnels/assets/js/utm-tracker' . $min . '.js', array(), WooFunnel_Loader::$version, false );
+			wp_enqueue_script( 'wfco-utm-tracking', plugin_dir_url( WooFunnel_Loader::$ultimate_path ) . 'woofunnels/assets/js/utm-tracker' . $min . '.js', array(), WooFunnel_Loader::$version, array(
+				'is_footer' => false,
+				'strategy'  => 'defer'
+			) );
 			wp_localize_script( 'wfco-utm-tracking', 'wffnUtm', $data );
 
 		}
@@ -175,7 +179,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 
 		public function conversion_table_schema() {
 			$max_index_length = 191;
-			$blank = "NOT NULL DEFAULT ''";
+			$blank            = "NOT NULL DEFAULT ''";
 
 			return "CREATE TABLE `{table_prefix}" . $this->conv_table . "` (
 						`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -355,6 +359,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				$new_order->update_meta_data( '_wffn_need_normalize', 'yes' );
 				$new_order->update_meta_data( '_wfocu_offer_id', $offer_id );
 				$order->save_meta_data();
+
 				return;
 			}
 			/** Insert data */
@@ -393,16 +398,17 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 		}
 
 		/**
-         *  Insert tracking data on change order status which is not
+		 *  Insert tracking data on change order status which is not
 		 *  insert on thankyou hook due to order status not paid
 		 *
 		 * @param $order_id
 		 * @param $from
 		 * @param $to
+		 * @param $order
 		 *
 		 * @return false|void
 		 */
-		public function maybe_insert_pending_tracking_data( $order_id, $from, $to ) {
+		public function maybe_insert_pending_tracking_data( $order_id, $from, $to, $order ) {
 
 			if ( ! class_exists( 'WFACP_Core' ) ) {
 				return false;
@@ -412,12 +418,10 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 				return false;
 			}
 
-			$order = wc_get_order( $order_id );
-
 			if ( ! $order instanceof WC_Order ) {
 				return;
 			}
-            $payment_method = $order->get_payment_method();
+			$payment_method = $order->get_payment_method();
 
 			/**
 			 * If this is a renewal order then delete the meta if exists and return straight away
@@ -460,6 +464,48 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 					}
 
 				}
+			}
+
+		}
+
+		/**
+		 * Remove cod order from analytics if it marked cancelled
+		 *
+		 * @param $order_id
+		 * @param $from
+		 * @param $to
+		 * @param $order
+		 *
+		 * @return void
+		 */
+		public function removed_cod_order_after_canceled( $order_id, $order ) {
+
+
+			if ( ! $order instanceof WC_Order ) {
+				return;
+			}
+
+			$payment_method = $order->get_payment_method();
+
+			if ( 'cod' !== $payment_method ) {
+				return;
+			}
+
+			/**
+			 * delete order data from conversion table
+			 */
+			$this->delete_conversion_row( $order_id );
+
+			if ( class_exists( 'WFACP_Core' ) ) {
+				WFACP_Core()->reporting->delete_report_for_order( $order_id );
+			}
+
+			if ( class_exists( 'WFOB_Reporting' ) ) {
+				WFOB_Reporting::get_instance()->delete_report_for_order( $order_id );
+			}
+
+			if ( class_exists( 'WFOCU_Core' ) ) {
+				WFOCU_Core()->admin->clear_session_record_on_shop_order_delete( $order_id );
 			}
 
 		}
@@ -688,7 +734,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			}
 
 			if ( 0 === absint( $order_id ) && $post instanceof WP_Post ) {
-				$order_id =$post->ID;
+				$order_id = $post->ID;
 			}
 
 			if ( 0 === absint( $order_id ) ) {
@@ -698,8 +744,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			/**
 			 * @todo we will update code showing for funnel meta box currently not have exact mata for check order create by funnel
 			 * so we run query in conversion table and check order created by funnel
-             */
-            global $wpdb;
+			 */ global $wpdb;
 			$query    = $wpdb->prepare( "SELECT * from " . $wpdb->prefix . $this->conv_table . " WHERE source = %d", $order_id );
 			$get_data = $wpdb->get_row( $query, ARRAY_A );//phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( empty( $get_data ) ) {
@@ -748,8 +793,8 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 			$offer_total    = 0;
 
 
-			$offer_query = $wpdb->prepare( "SELECT events.object_type as object_type, events.id as event_id, events.object_id as object_id, events.action_type_id as action_type_id, events.value as total FROM ".$wpdb->prefix ."wfocu_event AS events
-                  LEFT JOIN ".$wpdb->prefix ."wfocu_session AS session ON ( events.sess_id = session.id ) WHERE 1=1 AND events.object_type = 'offer' AND (events.action_type_id = '4' OR events.action_type_id = '6' ) AND session.order_id = %s", $order_id );
+			$offer_query = $wpdb->prepare( "SELECT events.object_type as object_type, events.id as event_id, events.object_id as object_id, events.action_type_id as action_type_id, events.value as total FROM " . $wpdb->prefix . "wfocu_event AS events
+                  LEFT JOIN " . $wpdb->prefix . "wfocu_session AS session ON ( events.sess_id = session.id ) WHERE 1=1 AND events.object_type = 'offer' AND (events.action_type_id = '4' OR events.action_type_id = '6' ) AND session.order_id = %s", $order_id );
 
 			$offer_data = $wpdb->get_results( $offer_query, ARRAY_A );
 
@@ -793,7 +838,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 		public function order_meta_box_data( $post, $meta_data ) {
 
 			if ( ! is_array( $meta_data ) || ! isset( $meta_data['args'] ) || ! isset( $meta_data['args']['bwf_meta_data'] ) ) {
-                return;
+				return;
 			}
 			$get_data = $meta_data['args']['bwf_meta_data'];
 

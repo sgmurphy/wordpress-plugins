@@ -28,15 +28,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 	}
 
-	/**
-	 * @return WOOMULTI_CURRENCY_Data
-	 */
-	private function get_currency_instance() {
-		if ( is_null( $this->woo_multi_currency_data ) && class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
-			$this->woo_multi_currency_data = WOOMULTI_CURRENCY_Data::get_ins();
+	public function remove_actions( $item = [] ) {
+		$instance = WFACP_Common::remove_actions( 'woocommerce_product_get_regular_price', 'WOOMULTI_CURRENCY_Frontend_Price', 'woocommerce_product_get_regular_price' );
+		if ( ! $instance instanceof WOOMULTI_CURRENCY_Frontend_Price ) {
+			return $item;
 		}
+		remove_filter( 'woocommerce_product_get_sale_price', [ $instance, 'woocommerce_product_get_sale_price' ], 99 );
+		remove_filter( 'woocommerce_product_get_price', [ $instance, 'woocommerce_product_get_price' ], 99 );
+		remove_filter( 'woocommerce_product_variation_get_price', [ $instance, 'woocommerce_product_variation_get_price' ], 99 );
+		remove_filter( 'woocommerce_product_variation_get_regular_price', [ $instance, 'woocommerce_product_variation_get_regular_price' ], 99 );
+		remove_filter( 'woocommerce_product_variation_get_sale_price', [ $instance, 'woocommerce_product_variation_get_sale_price' ], 99 );
 
-		return $this->woo_multi_currency_data;
+		return $item;
 	}
 
 	/**
@@ -75,18 +78,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		return $raw_data;
 	}
 
-	public function remove_actions( $item = [] ) {
-		$instance = WFACP_Common::remove_actions( 'woocommerce_product_get_regular_price', 'WOOMULTI_CURRENCY_Frontend_Price', 'woocommerce_product_get_regular_price' );
-		if ( ! $instance instanceof WOOMULTI_CURRENCY_Frontend_Price ) {
-			return $item;
+	/**
+	 * @return WOOMULTI_CURRENCY_Data
+	 */
+	private function get_currency_instance() {
+		if ( is_null( $this->woo_multi_currency_data ) && class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
+			$this->woo_multi_currency_data = WOOMULTI_CURRENCY_Data::get_ins();
 		}
-		remove_filter( 'woocommerce_product_get_sale_price', [ $instance, 'woocommerce_product_get_sale_price' ], 99 );
-		remove_filter( 'woocommerce_product_get_price', [ $instance, 'woocommerce_product_get_price' ], 99 );
-		remove_filter( 'woocommerce_product_variation_get_price', [ $instance, 'woocommerce_product_variation_get_price' ], 99 );
-		remove_filter( 'woocommerce_product_variation_get_regular_price', [ $instance, 'woocommerce_product_variation_get_regular_price' ], 99 );
-		remove_filter( 'woocommerce_product_variation_get_sale_price', [ $instance, 'woocommerce_product_variation_get_sale_price' ], 99 );
 
-		return $item;
+		return $this->woo_multi_currency_data;
 	}
 
 	public function wfacp_discount_amount_data( $discount_amount, $discount_type ) {

@@ -5,8 +5,11 @@
  * Plugin URI: https://marketpress.de/shop/plugins/woocommerce-german-market/
  */
 #[AllowDynamicProperties]
+class WFACP_Compatibility_WC_German_Market {
 
-  class WFACP_Compatibility_WC_German_Market {
+	private $billing_new_fields = [
+		'billing_vat',
+	];
 
 	public function __construct() {
 		if ( WFACP_Common::is_funnel_builder_3() ) {
@@ -17,6 +20,13 @@
 
 		add_action( 'wfacp_checkout_preview_form_start', [ $this, 're_display_payment_section' ] );
 		add_action( 'wfacp_template_class_found', [ $this, 'paypal_payments' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
+
 	}
 
 	public function add_field() {
@@ -36,6 +46,18 @@
 
 		// Removing all Position of button render because we break the order - review fragment into multipart i.e Payment,Order Summary,Shipping Method
 		remove_all_actions( 'woocommerce_paypal_payments_checkout_button_renderer_hook' );
+	}
+
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->billing_new_fields ) && count( $this->billing_new_fields ) ) {
+			foreach ( $this->billing_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 }

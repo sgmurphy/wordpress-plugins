@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Creative Mail by Constant Contact ( version 1.3.5)
+ * Creative Mail by Newfold Digital ( version 1.6.9)
  * Plugin Path: https://wordpress.org/plugins/creative-mail-by-constant-contact/
  */
 
@@ -26,15 +26,9 @@
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
-	}
+		/* prevent third party fields and wrapper*/
 
-	public function is_enable() {
-
-		if ( ! class_exists( 'CreativeMail\Helpers\OptionsHelper' ) || is_null( $this->instance ) || ! $this->instance instanceof CreativeMail\Managers\EmailManager ) {
-			return false;
-		}
-
-		return true;
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 	}
 
@@ -70,6 +64,16 @@
 
 		<?php
 
+
+	}
+
+	public function is_enable() {
+
+		if ( ! class_exists( 'CreativeMail\Helpers\OptionsHelper' ) || is_null( $this->instance ) || ! $this->instance instanceof CreativeMail\Managers\EmailManager ) {
+			return false;
+		}
+
+		return true;
 
 	}
 

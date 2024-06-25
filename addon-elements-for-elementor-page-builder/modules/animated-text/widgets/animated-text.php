@@ -355,7 +355,7 @@ class AnimatedText extends EAE_Widget_Base {
 		$this->add_render_attribute( 'eae-at-post-txt', 'class', 'eae-at-post-text' );
 
 		?>
-			<div id="eae-at-<?php echo $this->get_id(); ?>" class="eae-animtext-wrapper">
+			<div id="eae-at-<?php echo esc_attr($this->get_id()); ?>" class="eae-animtext-wrapper">
 				<div <?php echo $this->get_render_attribute_string( 'eae-at-animated' ); ?>>
 					<span <?php echo $this->get_render_attribute_string( 'eae-at-pre-txt' ); ?>><?php echo Helper::eae_wp_kses($settings['pre-text']); ?></span>
 						<?php
@@ -379,10 +379,10 @@ class AnimatedText extends EAE_Widget_Base {
 				</div>
 			</div>
 			<script>
-				jQuery(document).trigger('elementor/render/animation-text','#eae-at-<?php echo $this->get_id(); ?>');
+				jQuery(document).trigger('elementor/render/animation-text',<?php echo json_encode('#eae-at-' . $this->get_id()); ?>);
 
 				jQuery(document).ready(function(){
-					jQuery(document).trigger('elementor/render/animation-text','#eae-at-<?php echo $this->get_id(); ?>');
+					jQuery(document).trigger('elementor/render/animation-text',<?php echo json_encode('#eae-at-' . $this->get_id()); ?>);
 				});
 			</script>
 		<?php

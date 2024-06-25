@@ -631,10 +631,18 @@ class WooFunnels_Contact {
 		$contact['last_modified'] = current_time( 'mysql' );
 
 		if ( $this->get_id() > 0 ) {
+			/** Existing contact */
 			$contact['id'] = $this->get_id();
+
+			/** Check if UID empty */
+			if ( empty( $this->get_uid() ) ) {
+				$contact['uid'] = md5( $this->email . $this->wp_id . time() );
+				$this->set_uid( $contact['uid'] );
+			}
+
 			$this->db_operations->update_contact( $contact );
 		} elseif ( empty( $this->get_id() ) ) {
-			$contact['uid']  = md5( $this->email . $this->wp_id );
+			$contact['uid']  = md5( $this->email . $this->wp_id . time() );
 			$contact['wpid'] = $this->get_wpid() > 0 ? $this->get_wpid() : 0;
 			$this->set_uid( $contact['uid'] );
 			$contact_id = $this->db_operations->insert_contact( $contact );

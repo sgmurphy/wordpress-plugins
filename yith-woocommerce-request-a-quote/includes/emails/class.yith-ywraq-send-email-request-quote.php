@@ -23,6 +23,20 @@ if ( ! class_exists( 'YITH_YWRAQ_Send_Email_Request_Quote' ) ) {
 	class YITH_YWRAQ_Send_Email_Request_Quote extends WC_Email {
 
 		/**
+		 * Check if the emails should be sent as CC
+		 *
+		 * @var bool
+		 */
+		public $enable_cc = false;
+
+		/**
+		 * Thew quore request data
+		 *
+		 * @var array
+		 */
+		public $raq = array();
+
+		/**
 		 * Constructor method, used to return object of the class to WC
 		 *
 		 * @return void

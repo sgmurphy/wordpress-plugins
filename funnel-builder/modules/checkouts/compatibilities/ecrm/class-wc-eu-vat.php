@@ -19,6 +19,9 @@ class WFACP_Compatibility_With_WC_EU_Vat {
 		add_action( 'process_wfacp_html', [ $this, 'process_wfacp_html' ], 10, 2 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_eu_fields( $field ) {
@@ -106,7 +109,7 @@ class WFACP_Compatibility_With_WC_EU_Vat {
 		?>
         <style>
 
-            body .wfacp_main_form #woocommerce_eu_vat_compliance {
+            body #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance {
                 float: none;
                 clear: both;
             }
@@ -193,22 +196,51 @@ class WFACP_Compatibility_With_WC_EU_Vat {
                 margin-bottom: 8px;
             }
 
+            body #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_self_certify p > label {
+                position: relative;
+                top: auto !important;
+                margin: 0 0 8px;
+                left: auto;
+                right: auto;
+                bottom: auto;
+            }
+
+
+            body #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_self_certify p input[type="radio"] {
+                position: relative;
+                left: 0;
+            }
+
+            body #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_self_certify p input[type="radio"] + label {
+                position: relative;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                top: auto !important;
+                margin: 0 0 12px 8px;
+                line-height: 1.5 !important;
+            }
+
+            body #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_self_certify p input[type="radio"] + label:last-child {
+                margin-bottom: 0;
+            }
+
             @media (max-width: 991px) {
-                #wfacp-e-form .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 {
+                #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 {
                     font-size: 20px;
                 }
 
-                #wfacp-e-form .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 + p {
+                #wfacp-sec-wrapper .wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 + p {
                     font-size: 14px;
                 }
             }
 
             @media (max-width: 767px) {
-                #wfacp-e-form.wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 {
+                #wfacp-sec-wrapper.wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 {
                     font-size: 20px;
                 }
 
-                #wfacp-e-form.wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 + p {
+                #wfacp-sec-wrapper.wfacp_main_form #woocommerce_eu_vat_compliance #woocommerce_eu_vat_compliance_vat_number h3 + p {
                     font-size: 14px;
                 }
 
@@ -232,7 +264,5 @@ class WFACP_Compatibility_With_WC_EU_Vat {
 
 }
 
-global $woocommerce_eu_vat_compliance_classes;
-if ( ! is_null( $woocommerce_eu_vat_compliance_classes ) && isset( $woocommerce_eu_vat_compliance_classes['WC_EU_VAT_Compliance_VAT_Number'] ) && ( $woocommerce_eu_vat_compliance_classes['WC_EU_VAT_Compliance_VAT_Number'] instanceof WC_EU_VAT_Compliance_VAT_Number ) ) {
-	WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WC_EU_Vat(), 'wc-eu-vats' );
-}
+WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WC_EU_Vat(), 'wc-eu-vats' );
+

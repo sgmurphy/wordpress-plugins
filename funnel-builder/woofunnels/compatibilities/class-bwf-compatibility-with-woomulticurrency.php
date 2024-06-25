@@ -4,10 +4,7 @@
 class BWF_Compatibility_With_WooMultiCurrency {
 
 	public function __construct() {
-		if ( defined( 'WOOMULTI_CURRENCY_VERSION' ) ) {
-			add_filter( 'woocommerce_get_checkout_order_received_url', array( $this, 'maybe_add_currency_converter_url' ), 999, 2 );
 
-		}
 
 	}
 

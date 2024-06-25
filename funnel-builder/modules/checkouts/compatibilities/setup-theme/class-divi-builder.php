@@ -5,13 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 #[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_Divi_builder {
+ class WFACP_Compatibility_With_Divi_builder {
 
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'remove_action' ] );
 		add_filter( 'et_builder_enabled_builder_post_type_options', function ( $options ) {
+			if ( ! is_array( $options ) ) {
+				$options = [];
+			}
 			$options[ WFACP_Common::get_post_type_slug() ] = 'on';
 
 			return $options;
@@ -22,18 +24,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	public function remove_action() {
-			if ( ( isset( $_GET['page'] ) ) && isset( $_GET['tab'] ) && ( $_GET['tab'] == 'wfacp-wizard' && $_GET['page'] == 'wfacp' ) ) {
-				remove_action( 'admin_init', 'et_theme_builder_load_portability' );
-			}
+		if ( ( isset( $_GET['page'] ) ) && isset( $_GET['tab'] ) && ( $_GET['tab'] == 'wfacp-wizard' && $_GET['page'] == 'wfacp' ) ) {
+			remove_action( 'admin_init', 'et_theme_builder_load_portability' );
+		}
 	}
 
 	public function remove_meta( $wfacp_id ) {
-		if (  $wfacp_id > 0 ) {
+		if ( $wfacp_id > 0 ) {
 			global $wpdb;
 			$wpdb->delete( $wpdb->postmeta, [ 'meta_key' => '_et_pb_use_builder', 'post_id' => $wfacp_id ] );
 		}
 	}
-
 
 
 	public function enable_divi_builder( $aero_id, $data ) {

@@ -396,18 +396,6 @@
                 {
                     type: "checklist",
                     listBox: true,
-                    label: "",
-                    styleClasses: "wfocu_gsettings_sec_chlist",
-                    model: "is_ga4_tracking",
-                    inputName: 'is_ga4_tracking',
-                    visible: function (modal) {
-                        return ('1' === bwfAdminGen.if_ga4_enabled);
-                    },
-
-                },
-                {
-                    type: "checklist",
-                    listBox: true,
                     styleClasses: "wfocu_gsettings_sec_chlist",
                     model: "is_ga_page_view_lp",
                     inputName: 'is_ga_page_view_lp',

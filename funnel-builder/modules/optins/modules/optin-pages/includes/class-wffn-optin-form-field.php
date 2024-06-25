@@ -200,7 +200,7 @@ if ( ! class_exists( 'WFFN_Optin_Form_Field' ) ) {
 		}
 
 		public function get_sanitized_value( $data, $field ) {
-			return isset( $data[ $field['InputName'] ] ) ? wffn_clean( $data[ $field['InputName'] ] ) : '';
+			return isset( $data[ $field['InputName'] ] ) ? wffn_clean( wp_unslash( $data[ $field['InputName'] ] ) ) : '';
 		}
 
 		public function get_editor_data() {

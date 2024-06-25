@@ -67,7 +67,7 @@ function pgc_sgb_amp_item(  $item  ) {
         }
     } else {
         if ( $item['type'] === 'video' ) {
-            $poster = ( $image ? 'poster="' . $image['src'] . '"' : '' );
+            $poster = ( $image ? 'poster="' . esc_url( $image['src'] ) . '"' : '' );
             $itemElemant = '<video controls preload="none" ' . $poster . ' src="' . esc_url( $item['url'] ) . '"></video>';
         }
     }
@@ -114,9 +114,9 @@ function pgc_sgb_render_callback(  $atr, $content  ) {
     if ( isset( $atr['align'] ) ) {
         $align = $align . 'align' . $atr['align'];
     }
-    $className = PGC_SGB_BLOCK_PREF . $skinType . ' ' . $align;
+    $className = PGC_SGB_BLOCK_PREF . sanitize_html_class( $skinType ) . ' ' . sanitize_html_class( $align );
     if ( isset( $atr['className'] ) ) {
-        $className = $className . ' ' . $atr['className'];
+        $className = $className . ' ' . sanitize_html_class( $atr['className'] );
     }
     if ( $skinType === 'slider' || $skinType === 'splitcarousel' || $skinType === 'horizon' || $skinType === 'accordion' || $skinType === 'showcase' ) {
         $minHeight = ( isset( $atr['sliderMaxHeight'] ) ? esc_attr( $atr['sliderMaxHeight'] ) : 400 );
@@ -124,12 +124,12 @@ function pgc_sgb_render_callback(  $atr, $content  ) {
     }
     $noscript = '<div class="simply-gallery-amp pgc_sgb_slider ' . esc_attr( $align ) . '" style="display: none;"><div class="sgb-gallery">' . pgc_sgb_noscript( $atr['images'] ) . '</div></div>';
     $preloaderColor = ( isset( $galleryDataArr['galleryPreloaderColor'] ) ? $galleryDataArr['galleryPreloaderColor'] : '#d4d4d4' );
-    $preloder = '<div class="sgb-preloader" id="pr_' . $atr['galleryId'] . '">
+    $preloder = '<div class="sgb-preloader" id="pr_' . esc_attr( $atr['galleryId'] ) . '">
 	<div class="sgb-square" style="background:' . esc_attr( $preloaderColor ) . '"></div>
 	<div class="sgb-square" style="background:' . esc_attr( $preloaderColor ) . '"></div>
 	<div class="sgb-square" style="background:' . esc_attr( $preloaderColor ) . '"></div>
 	<div class="sgb-square" style="background:' . esc_attr( $preloaderColor ) . '"></div></div>';
-    $html = '<div class="pgc-sgb-cb ' . $className . '" data-gallery-id="' . $atr['galleryId'] . '"' . (( isset( $style ) ? $style : '' )) . '>' . $preloder . $noscript . '<script type="application/json" class="sgb-data">' . $galleryData . '</script>' . '<script>(function(){if(window.PGC_SGB && window.PGC_SGB.searcher){window.PGC_SGB.searcher.initBlocks()}})()</script>' . '</div>';
+    $html = '<div class="pgc-sgb-cb ' . $className . '" data-gallery-id="' . esc_attr( $atr['galleryId'] ) . '"' . (( isset( $style ) ? $style : '' )) . '>' . $preloder . $noscript . '<script type="application/json" class="sgb-data">' . $galleryData . '</script>' . '<script>(function(){if(window.PGC_SGB && window.PGC_SGB.searcher){window.PGC_SGB.searcher.initBlocks()}})()</script>' . '</div>';
     return $html;
 }
 

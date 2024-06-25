@@ -8,7 +8,7 @@ Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-
+Themesflat Addons For Elementor plugin you install after Elementor!. Themesflat addon focuses on support for the author build Template Kits
 == Description ==
 
 <p> Specifically, Themesflat addon focuses on support for the author build Template Kits for sale at <a href="https://1.envato.market/o15oE">Template Kits Elementor</a> all in one. Just download only 1 plugin Themesflat Addon

@@ -5,11 +5,21 @@
  * Plugin URI: https://collivery.net/integration/woocommerce
  */
 #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Colivery {
+class WFACP_Compatibility_Colivery {
 
 	private $checkout_keys = [];
 	private $temp_fields = [];
+	private $billing_new_fields = [
+		'billing_city_int',
+		'billing_suburb',
+		'billing_location_type',
+
+	];
+	private $shipping_new_fields = [
+		'shipping_location_type',
+		'shipping_location_type',
+		'shipping_location_type',
+	];
 
 
 	public function __construct() {
@@ -21,9 +31,18 @@
 			add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
 		}
 
+		add_action( 'init', [ $this, 'setup_fields_billing' ], 20 );
+		add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
 		add_action( 'wfacp_forms_field', [ $this, 'wfacp_forms_field' ], 20, 2 );
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'assign_data' ], 20 );
 		add_action( 'wfacp_internal_css', [ $this, 'add_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
+		add_filter( 'wfacp_third_party_shipping_fields', [ $this, 'disabled_third_party_shipping_fields' ] );
 
 
 	}
@@ -58,6 +77,9 @@
 
 	}
 
+	public function is_enabled() {
+		return class_exists( 'MdsColliveryService' );
+	}
 
 	public function setup_fields_billing() {
 
@@ -166,11 +188,6 @@
 
 	}
 
-	public function is_enabled() {
-		return class_exists( 'MdsColliveryService' );
-	}
-
-
 	public function add_internal_css() {
 		if ( ! $this->is_enabled() || ! function_exists( 'wfacp_template' ) ) {
 			return;
@@ -205,6 +222,32 @@
 
 	}
 
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->billing_new_fields ) && count( $this->billing_new_fields ) ) {
+			foreach ( $this->billing_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
+	}
+
+	public function disabled_third_party_shipping_fields( $fields ) {
+		if ( is_array( $this->shipping_new_fields ) && count( $this->shipping_new_fields ) ) {
+			foreach ( $this->shipping_new_fields as $i => $key ) {
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+		}
+
+		return $fields;
+	}
+
+
 }
+
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_Colivery(), 'mds-colivery' );
 

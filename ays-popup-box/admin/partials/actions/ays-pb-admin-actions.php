@@ -66,6 +66,11 @@ $options = array(
     'notification_button_1_border_style' => 'solid',
     'notification_button_1_padding_left_right' => 32,
     'notification_button_1_padding_top_bottom' => 12,
+    'notification_button_1_enable_box_shadow' => 'off',
+    'notification_button_1_box_shadow_color' => '#FF8319',
+    'notification_button_1_box_shadow_x_offset' => 0,
+    'notification_button_1_box_shadow_y_offset' => 0,
+    'notification_button_1_box_shadow_z_offset' => 10,
     'except_post_types' => array(),
     'except_posts' => array(),
     'show_on_home_page' => 'off',
@@ -430,6 +435,21 @@ $notification_button_1_padding_left_right = (isset($options['notification_button
 
 // Notification type | Button 1 padding top/bottom
 $notification_button_1_padding_top_bottom = (isset($options['notification_button_1_padding_top_bottom']) && $options['notification_button_1_padding_top_bottom'] !== '') ? absint( esc_attr($options['notification_button_1_padding_top_bottom']) ) : 12;
+
+// Notification type | Button 1 box shadow
+$notification_button_1_enable_box_shadow = (isset($options['notification_button_1_enable_box_shadow']) && $options['notification_button_1_enable_box_shadow'] == 'on') ? true : false;
+
+// Notification type | Button 1 box shadow color
+$notification_button_1_box_shadow_color = (isset($options['notification_button_1_box_shadow_color']) && $options['notification_button_1_box_shadow_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_box_shadow_color']) ) : '#FF8319';
+
+// Notification type | Button 1 box shadow X offset
+$notification_button_1_box_shadow_x_offset = (isset($options['notification_button_1_box_shadow_x_offset']) && $options['notification_button_1_box_shadow_x_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_x_offset']) ) : 0;
+
+// Notification type | Button 1 box shadow Y offset
+$notification_button_1_box_shadow_y_offset = (isset($options['notification_button_1_box_shadow_y_offset']) && $options['notification_button_1_box_shadow_y_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_y_offset']) ) : 0;
+
+// Notification type | Button 1 box shadow Z offset
+$notification_button_1_box_shadow_z_offset = (isset($options['notification_button_1_box_shadow_z_offset']) && $options['notification_button_1_box_shadow_z_offset'] != '') ? absint( intval($options['notification_button_1_box_shadow_z_offset']) ) : 10;
 
 // Popup description
 $description = (isset($popupbox['description']) && $popupbox['description'] != '') ? stripslashes($popupbox['description']) : '';
@@ -1941,6 +1961,53 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-4 ays_divider_left">
                                         <span class="ays-pb-small-hint-text"><?php echo  __('Top / Bottom',"ays-popup-box") ?></span>
                                         <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_top_bottom" name="ays_pb_notification_button_1_padding_top_bottom" style="width: 100px;" value="<?php echo $notification_button_1_padding_top_bottom; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_enable_box_shadow">
+                                        <span>
+                                            <?php echo __('Box shadow',"ays-popup-box"); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Allow button box shadow.',"ays-popup-box")?>">
+                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                            </a>
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group row ays_toggle_parent">
+                                        <input type="checkbox" class="ays_toggle ays_toggle_slide" id="ays_pb_notification_button_1_enable_box_shadow" name="ays_pb_notification_button_1_enable_box_shadow" <?php echo $notification_button_1_enable_box_shadow ? 'checked' : ''; ?>>
+                                        <label for="ays_pb_notification_button_1_enable_box_shadow" class="ays_switch_toggle">Toggle</label>
+                                        <div class="col-sm-12 ays_toggle_target ays_divider_top" style="margin-top: 10px; padding: 10px 0 0 0; <?php echo $notification_button_1_enable_box_shadow ? '' : 'display: none'; ?>">
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <label for="ays_pb_notification_button_1_box_shadow_color">
+                                                        <?php echo __('Box shadow color',"ays-popup-box")?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The color of the shadow of the button',"ays-popup-box" ); ?>">
+                                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                        </a>
+                                                    </label>
+                                                    <input type="text" class="ays_pb_color_input" id='ays_pb_notification_button_1_box_shadow_color' name='ays_pb_notification_button_1_box_shadow_color' data-alpha="true" data-default-color="#000000" value="<?php echo $notification_button_1_box_shadow_color; ?>"/>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group row">
+                                                <div class="col-sm-4 ays_pb_notification_button_offset_container">
+                                                    <span class="ays_pb_small_hint_text"><?php echo __('X', "ays-popup-box"); ?></span>
+                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_x_offset' name='ays_pb_notification_button_1_box_shadow_x_offset' value="<?php echo $notification_button_1_box_shadow_x_offset; ?>" />
+                                                </div>
+                                                <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
+                                                    <span class="ays_pb_small_hint_text"><?php echo __('Y', "ays-popup-box"); ?></span>
+                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_y_offset' name='ays_pb_notification_button_1_box_shadow_y_offset' value="<?php echo $notification_button_1_box_shadow_y_offset; ?>" />
+                                                </div>
+                                                <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
+                                                    <span class="ays_pb_small_hint_text"><?php echo __('Z', "ays-popup-box"); ?></span>
+                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_z_offset' name='ays_pb_notification_button_1_box_shadow_z_offset' value="<?php echo $notification_button_1_box_shadow_z_offset; ?>" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -302,8 +302,10 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 				'upsell'   => [],
 			];
 
-			$subtotal = 0;
-			$currency = get_woocommerce_currency();
+			$subtotal       = 0;
+			$currency       = $order->get_currency();
+			$order_total    = $order->get_total();
+			$total_discount = $order->get_total_discount();
 			foreach ( $items as $item ) {
 
 				$key = 'checkout';
@@ -323,9 +325,6 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 			}
 
 			if ( ! empty( $output ) ) {
-
-				$order_total        = $order->get_total();
-				$total_discount     = $order->get_total_discount();
 				$response['status'] = true;
 				$response['items']  = $output;
 				$remaining_amount   = $order_total - ( $subtotal - $total_discount );
@@ -333,9 +332,9 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 					$response['other_cost_html'] = sprintf( __( 'including shipping and taxes ,other costs: %s', 'funnel-builder' ), wc_price( $remaining_amount, [ 'currency' => $currency ] ) );
 					$response['other_cost']      = $remaining_amount;
 				}
-				if ( $order->get_total_discount() > 0 ) {
-					$response['order_discount']      = $order->get_total_discount();
-					$response['order_discount_html'] = sprintf( __( "Discount : <span>-</sapn> %s", 'funnel-builder' ), wc_price( $order->get_total_discount(), [ 'currency' => $currency ] ) );
+				if ( $total_discount > 0 ) {
+					$response['order_discount']      = $total_discount;
+					$response['order_discount_html'] = sprintf( __( "Discount : <span>-</sapn> %s", 'funnel-builder' ), wc_price( $total_discount, [ 'currency' => $currency ] ) );
 				}
 				$response['order_total']      = $order_total;
 				$response['order_total_html'] = wc_price( $order_total, [ 'currency' => $currency ] );
@@ -397,13 +396,13 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 
 			if ( $args['total_count'] ) {
 				$count_query                = "SELECT count(aero_stats.ID) as total_count FROM  `{$wpdb->prefix}wfacp_stats` as aero_stats JOIN `{$wpdb->prefix}wc_order_stats` as orders ON aero_stats.order_id = orders.order_id JOIN {$wpdb->prefix}bwf_contact as cust ON cust.id = aero_stats.cid " . $conv_join . " WHERE {$where_query}";
-				$count_results              = $wpdb->get_results( $count_query, ARRAY_A );
+				$count_results              = $wpdb->get_results( $count_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				$output_data['total_count'] = $count_results[0]['total_count'] ?? 0;
 			}
 
 
 			$order_stats_query = "SELECT aero_stats.order_id,aero_stats.wfacp_id,aero_stats.fid,aero_stats.cid,cust.f_name,cust.l_name, cust.email, cust.contact_no as phone,orders.total_sales, aero_stats.date " . $case_string . " FROM  `{$wpdb->prefix}wfacp_stats` as aero_stats JOIN `{$wpdb->prefix}wc_order_stats` as orders ON aero_stats.order_id = orders.order_id JOIN {$wpdb->prefix}bwf_contact as cust ON cust.id = aero_stats.cid " . $conv_join . " WHERE {$where_query} ORDER BY aero_stats.date DESC {$limit}";
-			$results           = $wpdb->get_results( $order_stats_query, ARRAY_A );
+			$results           = $wpdb->get_results( $order_stats_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			$output_data['data'] = $this->add_funnel_title( $results );
 
@@ -478,13 +477,13 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 			if ( $args['total_count'] ) {
 				$count_query = "SELECT count(tracking.id) as total_count FROM `{$wpdb->prefix}bwf_conversion_tracking` as tracking JOIN {$wpdb->prefix}bwf_contact as cust ON cust.id = tracking.contact_id " . $conv_join . " WHERE {$where_query}";
 
-				$count_results              = $wpdb->get_results( $count_query, ARRAY_A );
+				$count_results              = $wpdb->get_results( $count_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				$output_data['total_count'] = $count_results[0]['total_count'] ?? 0;
 			}
 
 
 			$order_stats_query = "SELECT (CASE WHEN TIMESTAMPDIFF( SECOND, tracking.first_click, tracking.timestamp ) != 0 THEN TIMESTAMPDIFF( SECOND, tracking.first_click, tracking.timestamp ) ELSE 0 END ) as 'convert_time', tracking.source as 'order_id', tracking.step_id as 'wfacp_id', tracking.funnel_id as 'fid', tracking.contact_id as 'cid', cust.f_name as 'f_name', cust.l_name as 'l_name', cust.email as 'email', cust.contact_no as 'phone', tracking.value as 'total_sales', tracking.timestamp as 'date' " . $case_string . " FROM  `{$wpdb->prefix}bwf_conversion_tracking` as tracking JOIN {$wpdb->prefix}bwf_contact as cust ON cust.id = tracking.contact_id " . $conv_join . " WHERE {$where_query} ORDER BY tracking.timestamp DESC {$limit}";
-			$results           = $wpdb->get_results( $order_stats_query, ARRAY_A );
+			$results           = $wpdb->get_results( $order_stats_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			$output_data['data'] = $this->add_funnel_title( $results );
 
@@ -535,7 +534,7 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 		public function add_funnel_title( $args ) {
 			global $wpdb;
 			$sql         = "select id as 'fid', title from {$wpdb->prefix}bwf_funnels WHERE 1 = 1";
-			$results     = $wpdb->get_results( $sql, ARRAY_A );
+			$results     = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			$funnel_data = [];
 			if ( is_array( $results ) && count( $results ) > 0 ) {
 				foreach ( $results as $item ) {
@@ -628,6 +627,7 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 					'phone'        => $result['phone'] ?? '',
 					'date'         => $result['date'] ?? '',
 					'referrers'    => $result['referrers'] ?? '',
+					'device'       => $result['device'] ?? '',
 					'utm_campaign' => $result['utm_campaign'] ?? '',
 					'utm_source'   => $result['utm_source'] ?? '',
 					'utm_medium'   => $result['utm_medium'] ?? '',
@@ -635,7 +635,7 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 					'customer_id'  => $result['cid'],
 					'funnel_title' => $result['funnel_title'] ?? '',
 					'fid'          => $result['fid'] ?? '',
-					'convert_time' => (isset($result['convert_time'])) ? human_time_diff( current_time( 'timestamp' ), current_time( 'timestamp' ) + absint( $result['convert_time'] ) ) ?? '':''
+					'convert_time' => ( isset( $result['convert_time'] ) ) ? human_time_diff( current_time( 'timestamp' ), current_time( 'timestamp' ) + absint( $result['convert_time'] ) ) ?? '' : ''
 				];
 
 				if ( true === $return_data ) {
@@ -753,14 +753,14 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 			$select_type = "select optin.*, optin.funnel_id as fid {$case_string} ";
 			if ( 'yes' === $args['total_count'] ) {
 				$total_count_query  = "select count(optin.id) as total_count  from {$wpdb->prefix}bwf_optin_entries as optin {$conv_join} where {$where_query}";
-				$total_count_result = $wpdb->get_results( $total_count_query, ARRAY_A );
+				$total_count_result = $wpdb->get_results( $total_count_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				if ( ! empty( $total_count_result ) ) {
 					$response['total_count'] = absint( $total_count_result[0]['total_count'] );
 				}
 			}
 
 			$sql_query = "{$select_type}  from {$wpdb->prefix}bwf_optin_entries as optin {$conv_join} where {$where_query} ORDER BY optin.date DESC {$limit_str}";
-			$results   = $wpdb->get_results( $sql_query, ARRAY_A );
+			$results   = $wpdb->get_results( $sql_query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			$db_error  = WFFN_Common::maybe_wpdb_error( $wpdb );
 			if ( is_array( $db_error ) && isset( $db_error['db_error'] ) && true === $db_error['db_error'] ) {
 				return rest_ensure_response( $response );
@@ -787,11 +787,12 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 				$phone          = ! empty( $result['phone'] ) ? $result['phone'] : ( ! empty( $optin_data['optin_phone'] ) ? $optin_data['optin_phone'] : '' );
 				$final_result[] = [
 					'entry_id'     => $entry_id,
-					'email'        => $result['email'] ?? ''    ,
+					'email'        => $result['email'] ?? '',
 					'name'         => $full_name,
 					'phone'        => $phone,
 					'others'       => $contact->prepare_optin_data( $result['data'] ),
 					'date'         => $result['date'] ?? '',
+					'device'       => $result['device'] ?? '',
 					'referrers'    => $result['referrers'] ?? '',
 					'utm_campaign' => $result['utm_campaign'] ?? '',
 					'utm_source'   => $result['utm_source'] ?? '',

@@ -35,6 +35,14 @@ class WFACP_Compatibility_Fattura_24 {
 
 		/* Add Internal Css for plugin */
 		add_filter( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_fields' ] );
+
+
 	}
 
 
@@ -42,7 +50,7 @@ class WFACP_Compatibility_Fattura_24 {
 		new WFACP_Add_Address_Field( 'fattura_24', [
 			'type'         => 'wfacp_html',
 			'label'        => __( 'Fattura 24', 'woofunnels-aero-checkout' ),
-			'palaceholder' => __( 'Fattura 24', 'woofunnels-aero-checkout' ),
+			'placeholder' => __( 'Fattura 24', 'woofunnels-aero-checkout' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,
@@ -71,9 +79,11 @@ class WFACP_Compatibility_Fattura_24 {
 			return;
 		}
 
+
 		foreach ( $this->new_fields as $field_key => $field_val ) {
 			woocommerce_form_field( $field_key, $field_val );
 		}
+
 
 	}
 
@@ -113,23 +123,24 @@ class WFACP_Compatibility_Fattura_24 {
 		}
 
 		$bodyClass = "body #wfacp-sec-wrapper ";
-
-		$cssHtml = "<style>";
-		$cssHtml .= $bodyClass . ".form-row.fattura24 label {text-align: left;position: relative;left: auto;margin: 0;right: auto;top: auto;bottom: auto;top: auto !important;    font-size: inherit;}";
-		$cssHtml .= $bodyClass . ".form-row.fattura24.wfacp-anim-wrap label {width: 100%;font-size: 13px;}";
-		$cssHtml .= $bodyClass . ".fattura24 input[type='text'] {padding: 10px 12px !important;}";
-		$cssHtml .= $bodyClass . ".fattura24 input[type='email'] {padding: 10px 12px !important;}";
-		$cssHtml .= $bodyClass . ".fattura24 input[type='number'] {padding: 10px 12px !important;}";
-		$cssHtml .= $bodyClass . ".fattura24 label a {float: none !important;margin-left: 5px;pointer-events: auto;}";
-		$cssHtml .= $bodyClass . " .form-row.fattura24 .wfacp-form-control::-moz-placeholder {opacity: 1;}";
-		$cssHtml .= $bodyClass . " .form-row.fattura24 .wfacp-form-control:-ms-input-placeholder {opacity: 1;}";
-		$cssHtml .= $bodyClass . " .form-row.fattura24 .wfacp-form-control:-moz-placeholder {opacity: 1;}";
-		$cssHtml .= $bodyClass . " .form-row.fattura24 .wfacp-form-control::-webkit-input-placeholder {opacity: 1;}";
-		$cssHtml .= "body #wfacp-sec-wrapper p.wfacp-form-control-wrapper.wfacp-anim-wrap.fattura24 label.wfacp-form-control-label {left: auto;top: auto !important;font-size: inherit !important;}";
+		$cssHtml   = "<style>";
+		$cssHtml   .= $bodyClass . " .wfacp-form:not(.wfacp-top) p.wfacp-form-control-wrapper.wfacp-anim-wrap label.wfacp-form-control-label {top: 6px!important;font-size: 12px!important;background: 0 0!important;bottom: auto;right: 8px;margin-top: 0;line-height: 1.3;}";
+		$cssHtml   .= "";
 
 		$cssHtml .= "</style>";
 		echo $cssHtml;
 
+	}
+	public function disabled_third_party_fields( $fields ) {
+		if ( is_array( $this->new_fields ) && count( $this->new_fields ) ) {
+			foreach ( $this->new_fields as $k => $field ) {
+				if ( isset( $fields[ $k ] ) ) {
+					unset( $fields[ $k ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 }
 

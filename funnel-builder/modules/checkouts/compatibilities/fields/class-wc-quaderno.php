@@ -4,9 +4,8 @@
  * WooCommerce Quaderno by Quaderno
  * Plugin URI: https://quaderno.io/integrations/woocommerce/?utm_source=wordpress&utm_campaign=woocommerce
  */
-#[AllowDynamicProperties]
-
-  class WFACP_WC_Quaderno {
+#[AllowDynamicProperties] 
+ class WFACP_WC_Quaderno {
 	public $instance = null;
 
 	public function __construct() {
@@ -20,10 +19,10 @@
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
-	}
 
-	public function is_enable() {
-		return class_exists( 'WC_QD_Tax_Id_Field' );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_field( $fields ) {
@@ -45,17 +44,21 @@
 		$this->instance = WFACP_Common::remove_actions( 'woocommerce_after_checkout_billing_form', 'WC_QD_Tax_Id_Field', 'print_field' );
 	}
 
+	public function is_enable() {
+		return class_exists( 'WC_QD_Tax_Id_Field' );
+	}
+
 	public function display_field( $field, $key ) {
 		if ( ! $this->is_enable() || empty( $key ) || 'tax_id' !== $key || ! $this->instance instanceof WC_QD_Tax_Id_Field ) {
 			return '';
 		}
 
 		?>
-        <div class="wfacp_quaderno_tax_id" id="wfacp_quaderno_tax_id">
+		<div class="wfacp_quaderno_tax_id" id="wfacp_quaderno_tax_id">
 			<?php
 			$this->instance->print_field();
 			?>
-        </div>
+		</div>
 		<?php
 	}
 

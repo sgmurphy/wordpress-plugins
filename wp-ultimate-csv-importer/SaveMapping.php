@@ -109,8 +109,20 @@ class SaveMapping{
 		$file_table_name = $wpdb->prefix . "smackcsv_file_events";
 
 		$mapped_fields = json_decode(stripslashes($map_fields),true);
-
+		$helpers_instance = ImportHelpers::getInstance();
 		$response = [];
+		foreach($mapped_fields as $maps){
+			foreach($maps as $header_keys => $value){
+				if( strpos($header_keys, '->cus2') !== false) {
+					if(!empty($value)){
+						$helpers_instance->write_to_customfile($value);
+						
+					}
+				}
+				
+			}
+		}
+
 		$mapping_fields = serialize( $mapped_fields );
 		$time = date('Y-m-d h:i:s');
 

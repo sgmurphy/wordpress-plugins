@@ -6,9 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Multiple Customer Addresses  by Lagudi Domenico
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_With_WC_Multiple_Customer_Addresses {
+#[AllowDynamicProperties] 
+ class WFACP_Compatibility_With_WC_Multiple_Customer_Addresses {
 	public $instance = null;
 
 	public function __construct() {
@@ -36,6 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/* Custom CSS added */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ], 10 );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 
@@ -56,6 +59,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function is_enabled() {
+		global $wcmca_checkout_page_addon;
+
+		if ( ! class_exists( 'WCMCA_CheckoutPage' ) ) {
+			return false;
+		}
+
+		if ( ! $wcmca_checkout_page_addon instanceof WCMCA_CheckoutPage ) {
+			return false;
+		}
+		$this->instance = $wcmca_checkout_page_addon;
+
+		return true;
+
+	}
+
 	public function setup_fields_shipping() {
 		if ( ! $this->is_enabled() ) {
 			return;
@@ -70,22 +89,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'priority' => 60,
 		), 'shipping' );
 
-
-	}
-
-	public function is_enabled() {
-		global $wcmca_checkout_page_addon;
-
-		if ( ! class_exists( 'WCMCA_CheckoutPage' ) ) {
-			return false;
-		}
-
-		if ( ! $wcmca_checkout_page_addon instanceof WCMCA_CheckoutPage ) {
-			return false;
-		}
-		$this->instance = $wcmca_checkout_page_addon;
-
-		return true;
 
 	}
 
@@ -165,7 +168,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$cssHtml .= $bodyClass . "#wcmca_form_popup_container_shipping .form-row-first,body #wcmca_form_popup_container_billing .form-row-first {float: none;position: relative;width: 100%;margin: 0 0 15px;}";
 		$cssHtml .= $bodyClass . "#wcmca_address_form_container_billing .select2-selection__rendered, body #wcmca_address_form_container_shipping .select2-selection__rendered {font-size: 14px;line-height: 1.5;width: 100%;background-color: #ffffff;border-radius: 4px;position: relative;color: #404040;display: block;min-height: 52px;padding: 20px 12px 5px;border: 1px solid #bfbfbf;opacity: 1;}";
 		$cssHtml .= $bodyClass . "#wcmca_address_form_container_shipping button,body #wcmca_address_form_container_billing button {font-size: 15px;cursor: pointer;background-color: #999999;color: #ffffff;text-decoration: none;font-weight: normal;line-height: 18px;margin-bottom: 0;padding: 10px 20px;border: 1px solid rgba(0, 0, 0, 0.1);border-radius: 4px;}";
-		$cssHtml .= $bodyClass . "#wcmca_add_new_address_button_billing {font-size: 100%;margin: 0;line-height: 1;cursor: pointer;position: relative;text-decoration: none;overflow: visible;padding: 10px 15px;font-weight: 700;border-radius: 8px;left: auto;border: 0;display: inline-block;background-image: none;box-shadow: none;margin-top: 12px;background-color: #999999;text-shadow: none;color: #fff;}";
+		$cssHtml .= $bodyClass . "#wcmca_add_new_address_button_billing {font-size: 100%;margin: 0;line-height: 1;cursor: pointer;position: relative;text-decoration: none;overflow: visible;padding: 10px 15px;font-weight: 700;border-radius: 3px;left: auto;border: 0;display: inline-block;background-image: none;box-shadow: none;margin-top: 12px;background-color: #999999;text-shadow: none;color: #fff;}";
 		$cssHtml .= $bodyClass . ".wfacp_main_form.woocommerce input[type=email]{font-size: 14px;line-height: 1.5;width: 100%;background-color: #fff;border-radius: 4px;position: relative;color: #404040;display: block;min-height: 52px;padding: 23px 12px 6px;vertical-align: top;box-shadow: none;border: 1px solid #bfbfbf;margin-bottom: 0 !important;font-weight: 400;height: auto;margin-bottom: 0;}";
 		$cssHtml .= $bodyClass . ".wfacp_main_form.woocommerce input[type=number]{font-size: 14px;line-height: 1.5;width: 100%;background-color: #fff;border-radius: 4px;position: relative;color: #404040;display: block;min-height: 52px;padding: 23px 12px 6px;vertical-align: top;box-shadow: none;border: 1px solid #bfbfbf;margin-bottom: 0 !important;font-weight: 400;height: auto;margin-bottom: 0;}";
 		$cssHtml .= $bodyClass . ".wfacp_main_form.woocommerce input[type=text]{font-size: 14px;line-height: 1.5;width: 100%;background-color: #fff;border-radius: 4px;position: relative;color: #404040;display: block;min-height: 52px;padding: 23px 12px 6px;vertical-align: top;box-shadow: none;border: 1px solid #bfbfbf;margin-bottom: 0 !important;font-weight: 400;height: auto;margin-bottom: 0;}";

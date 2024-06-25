@@ -35,6 +35,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_before_process_checkout_template_loader', [ $this, 'intialise_automate_woo_obj' ] );
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'intialise_automate_woo_obj' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function intialise_automate_woo_obj() {

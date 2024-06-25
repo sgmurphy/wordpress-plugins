@@ -35,6 +35,11 @@ class WFACP_Compatibility_WC_Italian_Add_ON {
 
 		/* update order meta of funnelkit checkout fields*/
 		add_action( 'woocommerce_checkout_update_order_meta', [ $this, 'woocommerce_checkout_update_order_meta' ], 99, 2 );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_billing_fields', [ $this, 'disabled_third_party_billing_fields' ] );
 	}
 
 	public function checkout_fields( $fields ) {
@@ -67,7 +72,7 @@ class WFACP_Compatibility_WC_Italian_Add_ON {
 		new WFACP_Add_Address_Field( 'wfacp_wc_italian_add_on', array(
 			'type'         => 'wfacp_html',
 			'label'        => __( 'WC Italian Fields', 'woofunnels-aero-checkout' ),
-			'palaceholder' => __( 'WC Italian Fields', 'woofunnels-aero-checkout' ),
+			'placeholder' => __( 'WC Italian Fields', 'woofunnels-aero-checkout' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,
@@ -117,10 +122,22 @@ class WFACP_Compatibility_WC_Italian_Add_ON {
 		foreach ( $this->add_fields as $item ) {
 			if ( isset( $_POST[ $item ] ) ) {
 				$order->{$item} = $_POST[ $item ];
-				$order->update_meta_data( '_'.$item, $_POST[ $item ] );
+				$order->update_meta_data( '_' . $item, $_POST[ $item ] );
 			}
 		}
 		$order->save();
+	}
+
+	public function disabled_third_party_billing_fields( $fields ) {
+		if ( is_array( $this->new_fields ) && count( $this->new_fields ) ) {
+			foreach ( $this->new_fields as $i => $field ) {
+				if ( isset( $fields[ $i ] ) ) {
+					unset( $fields[ $i ] );
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 

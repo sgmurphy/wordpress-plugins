@@ -90,40 +90,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		return $event_data;
 	}
 
-	public function get_product_item( $product ) {
-		if ( ! $product instanceof WC_Product ) {
-			return parent::get_product_item( $product );
-		}
-
-		$content_id     = $product->get_id();
-		$name           = $product->get_title();
-		$variation_name = null;
-		$categories     = implode( '/', $this->get_object_terms( 'product_cat', $content_id ) );
-		$price          = $product->get_price();
-		$sub_total      = $this->number_format( $price );
-		$content_id     = $this->get_product_content_id( $content_id );
-		$event_data     = [
-			'value'        => $price,
-			'content_name' => $name,
-			'content_type' => 'product',
-			'currency'     => get_woocommerce_currency(),
-			'content_ids'  => [ $content_id ],
-			'contents'     => [
-				[
-					'id'         => $content_id,
-					'item_price' => $sub_total,
-					'quantity'   => 1,
-					'value'      => $price,
-					'category'   => $categories,
-					'variant'    => $variation_name,
-				],
-			],
-			'user_roles'   => WFACP_Common::get_current_user_role(),
-		];
-
-		return $event_data;
-	}
-
 	public function remove_item( $product_obj, $cart_item ) {
 		return $this->get_item( $product_obj, $cart_item );
 	}

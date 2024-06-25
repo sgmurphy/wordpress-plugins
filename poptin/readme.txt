@@ -35,7 +35,7 @@ Poptin forms and popup plugin tracks the website's visitors' behavior and shows 
 
 You can create anything your marketing heart desires, from advanced overlays to pop-ups, inline forms, lead form widgets, exit popups, and social widgets - it's all on-brand and fully customizable with our powerful popup builder. Reduce cart abandonment and bounce rate and increase conversion rate!
 
-= EXIT INTENT TRIGGER INCLUDED! =
+= EXIT INTENT TRIGGER INCLUDED 🥳 =
 Our popup plugin includes exit intent trigger on the free plan and many other advanced features. The free plan comes with 1,000 visitors of popups and forms per month.
 <strong>Unlimited popups, unlimited forms, unlimited integrations, unlimited leads.</strong>
 

@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './index-644f5478.js';
-import { s as state } from './watchers-f761bdb6.js';
+import { s as state } from './watchers-7ddfd1b5.js';
 import { c as currentCheckout } from './getters-c162c255.js';
 import './index-1046c77e.js';
 import './mutations-b8f9af9f.js';

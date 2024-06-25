@@ -160,7 +160,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 							printf(
 								'<%1$s class="eae-ic-heading">%2$s</%1$s>',
 								Helper::validate_html_tag( $item['ic_item_title_size'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ], 'h3' ),
-								$item['ic_item_title']
+								wp_kses_post($item['ic_item_title'])
 							);
 							?>								
 								<div class="eae-ic-description">

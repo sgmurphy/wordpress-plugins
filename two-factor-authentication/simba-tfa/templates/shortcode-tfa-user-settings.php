@@ -3,7 +3,10 @@
 if (!defined('ABSPATH')) die('No direct access.');
 
 if (!$is_activated_for_user) {
-	_e('Two factor authentication is not available for your user.', 'two-factor-authentication');
+	
+	global $current_user;
+	echo empty($current_user->ID) ? '('.__('Not logged in.', 'two-factor-authentication').')' : __('Two factor authentication is not available for your user.', 'two-factor-authentication');
+
 } else {
 	
 	?>

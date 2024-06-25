@@ -7,9 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * AffiliateWP - Checkout Referrals by Sandhills Development, LLC (v.1.0.9)
  * Plugin Path : https://affiliatewp.com/add-ons/official-free/checkout-referrals/
  */
-#[AllowDynamicProperties]
-
-  class WFACP_AffiliateWP_Checkout_Referrals_WC {
+#[AllowDynamicProperties] 
+ class WFACP_AffiliateWP_Checkout_Referrals_WC {
 	/**
 	 * @var AffiliateWP_Checkout_Referrals
 	 */
@@ -27,10 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'process_wfacp_html', [ $this, 'display_field' ], 10, 3 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
-	}
 
-	public function is_enable() {
-		return class_exists( 'AffiliateWP_Checkout_Referrals_WooCommerce' );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function action() {
@@ -56,11 +55,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		?>
-        <div class="wfacp_affiliate_referrals_wc" id="wfacp_affiliate_referrals_wc">
+		<div class="wfacp_affiliate_referrals_wc" id="wfacp_affiliate_referrals_wc">
 			<?php $this->instance->affiliate_select_or_input( WC()->checkout() ); ?>
-        </div>
+		</div>
 		<?php
 
+	}
+
+	public function is_enable() {
+		return class_exists( 'AffiliateWP_Checkout_Referrals_WooCommerce' );
 	}
 
 	public function add_default_wfacp_styling( $args, $key ) {

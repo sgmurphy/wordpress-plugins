@@ -11,10 +11,15 @@ class BWF_Plugin_Compatibilities {
 
 	public static function load_all_compatibilities() {
 
-		// load all the BWF_Compatibilities files automatically
-		foreach ( glob( __DIR__ . '/*.php' ) as $_field_filename ) {
-			require_once( $_field_filename ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
-		}
+		$compat = [
+			'class-bwf-compatibilitiy-with-curcy.php'             => class_exists( 'WOOMULTI_CURRENCY_F_VERSION' ),
+			'class-bwf-compatibility-with-aelia-cs.php'           => class_exists( 'Aelia\WC\CurrencySwitcher\WC_Aelia_CurrencySwitcher' ),
+			'class-bwf-compatibility-with-woocs.php'              => isset( $GLOBALS['WOOCS'] ) && $GLOBALS['WOOCS'] instanceof WOOCS,
+			'class-bwf-compatibility-with-woomulticurrency.php'   => defined( 'WOOMULTI_CURRENCY_VERSION' ),
+			'class-bwf-compatibility-with-wpml-multicurrency.php' => class_exists( 'woocommerce_wpml' ),
+			'class-bwf-compatibility-with-yaycurrency.php'        => class_exists( 'Yay_Currency\Helpers\YayCurrencyHelper' ),
+		];
+		self::add_files( $compat );
 	}
 
 	public static function register( $object, $slug ) {
@@ -41,6 +46,9 @@ class BWF_Plugin_Compatibilities {
 
 	public static function get_fixed_currency_price_reverse( $price, $from = null, $to = null ) {
 		if ( empty( self::$plugin_compatibilities ) ) {
+			BWF_Plugin_Compatibilities::load_all_compatibilities();
+		}
+		if ( empty( self::$plugin_compatibilities ) ) {
 			return $price;
 		}
 
@@ -52,6 +60,25 @@ class BWF_Plugin_Compatibilities {
 
 		return $price;
 	}
+
+	public static function add_files( $paths ) {
+		try {
+			foreach ( $paths as $file => $condition ) {
+				if ( false === $condition ) {
+					continue;
+				}
+
+				include_once __DIR__ . '/' . $file;
+
+			}
+
+		} catch ( Exception|Error $e ) {
+
+			BWF_Logger::get_instance()->log( 'Error while loading compatibility files: ' . $e->getMessage(),'bwf-compatibilities' ) ;
+		}
+
+	}
 }
 
-BWF_Plugin_Compatibilities::load_all_compatibilities();
+
+

@@ -86,6 +86,11 @@ YITH WooCommerce Badge Management will add:
 
 == Changelog ==
 
+= 3.8.0 - Released on 25 June 2024 =
+
+* New: support for WooCommerce 9.0
+* Update: YITH plugin framework
+
 = 3.7.0 - Released on 22 May 2024 =
 
 * New: support for WooCommerce 8.9

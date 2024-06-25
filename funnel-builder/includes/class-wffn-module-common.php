@@ -184,7 +184,7 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 					$default_template = ct_get_posts_template( $post_ID );
 				}
 				if ( $default_template ) {
-					$shortcodes = get_post_meta( $default_template->ID, 'ct_builder_shortcodes', true );
+					$shortcodes = get_post_meta( $default_template->ID, WFFN_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 					if ( $shortcodes && strpos( $shortcodes, '[ct_inner_content' ) !== false ) {
 						$post_editable  = true;
 						$template_inner = true;
@@ -195,7 +195,7 @@ if ( ! class_exists( 'WFFN_Module_Common' ) ) {
 			} else if ( $post_template == - 1 ) { //phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 				$post_editable = true;
 			} else { // Custom template
-				$shortcodes = get_post_meta( $post_template, 'ct_builder_shortcodes', true );
+				$shortcodes = get_post_meta( $post_template, WFFN_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 				if ( $shortcodes && strpos( $shortcodes, '[ct_inner_content' ) !== false ) {
 					$post_editable  = true;
 					$template_inner = true;

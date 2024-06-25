@@ -1401,10 +1401,6 @@ wp_nonce_field('pfg_save_settings', 'pfg_save_nonce');
 			}
 		});
 
-
-
-
-
 	});
 
 	//dismiss

@@ -1338,7 +1338,7 @@ class WFACP_OXY_Form extends WFACP_OXY_HTML_BLOCK {
 		if ( ! isset( $_GET['action'] ) || $_GET['action'] != "ct_save_components_tree" ) {
 			return;
 		}
-		$data = get_post_meta( $post_id, 'ct_builder_shortcodes', true );
+		$data = get_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), true );
 		if ( ! is_null( $data ) ) {
 			if ( false !== strpos( $data, 'wfacp-modern-label' ) ) {
 				$field_label = 'wfacp-modern-label';

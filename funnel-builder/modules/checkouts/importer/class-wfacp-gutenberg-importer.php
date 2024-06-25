@@ -140,10 +140,10 @@
 
 
 	public function delete_other_builder_data( $post_id ) {
-		delete_post_meta( $post_id, '_et_pb_use_builder' );
-		delete_post_meta( $post_id, 'ct_other_template' );
-		update_post_meta( $post_id, 'ct_builder_shortcodes', ' ' );
-		update_post_meta( $post_id, 'ct_builder_json', ' ' );
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('_et_pb_use_builder') );
+		delete_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_other_template') );
+		update_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), ' ' );
+		update_post_meta( $post_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_json'), ' ' );
 		delete_post_meta( $post_id, '_elementor_edit_mode' );
 		delete_post_meta( $post_id, '_elementor_data' );
 	}

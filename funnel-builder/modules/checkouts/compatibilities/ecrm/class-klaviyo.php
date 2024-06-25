@@ -9,6 +9,9 @@ class WFACP_Compatibility_With_Klaviyo {
 		add_filter( 'wfacp_advanced_fields', [ $this, 'add_fields' ] );
 		add_action( 'wfacp_after_template_found', [ $this, 'setup' ] );
 		add_filter( 'wfacp_checkout_data', [ $this, 'prepare_checkout_data' ], 10, 2 );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_fields( $fields ) {

@@ -3,16 +3,16 @@
  * Plugin Name: FunnelKit Funnel Builder
  * Plugin URI: https://funnelkit.com/wordpress-funnel-builder/
  * Description: Create high-converting sales funnels on WordPress that look professional by following a well-guided step-by-step process.
- * Version: 3.3.1
+ * Version: 3.4.0
  * Author: FunnelKit
  * Author URI: https://funnelkit.com
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: funnel-builder
- * Elementor tested up to: 3.20.0
+ * Elementor tested up to: 3.22.2
  *
  * Requires at least: 5.4.0
- * Tested up to: 6.5.4
+ * Tested up to: 6.5.5
  * Requires PHP: 7.4
  * WooFunnels: true
  *
@@ -153,8 +153,8 @@ if ( ! class_exists( 'WFFN_Core' ) ) {
 		 */
 		public function define_plugin_properties() {
 
-			define( 'WFFN_VERSION', '3.3.1' );
-			define( 'WFFN_BWF_VERSION', '1.10.12.07' );
+			define( 'WFFN_VERSION', '3.4.0' );
+			define( 'WFFN_BWF_VERSION', '1.10.12.13' );
 
 			define( 'WFFN_MIN_WC_VERSION', '3.5.0' );
 			define( 'WFFN_MIN_WP_VERSION', '5.4.0' );
@@ -266,6 +266,11 @@ if ( ! class_exists( 'WFFN_Core' ) ) {
 
 			/**Automation Recipes Loader */
 			include_once __DIR__ . '/admin/class-bwfan-recipe-loader.php';
+
+			if ( is_admin() ) {
+				include_once __DIR__ . '/admin/includes/class-wffn-stripe-admin-controller.php';
+
+			}
 		}
 
 		/**
@@ -460,7 +465,7 @@ if ( ! class_exists( 'WFFN_Core' ) ) {
 		}
 
 		/**
-		 * Added redirection on plugin activation
+		 * Added redirection on plugin activation 
 		 *
 		 * @param $plugin
 		 */

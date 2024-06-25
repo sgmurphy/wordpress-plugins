@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the YITH WooCommerce Badge Management package.
 msgid ""
 msgstr ""
-"Project-Id-Version: YITH WooCommerce Badge Management 3.7.0\n"
+"Project-Id-Version: YITH WooCommerce Badge Management 3.8.0\n"
 "Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2024-05-22 11:02:57+00:00\n"
+"POT-Creation-Date: 2024-06-25 14:23:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,15 +24,15 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: includes/class-yith-wcbm-admin.php:227
+#: includes/class-yith-wcbm-admin.php:230
 msgid "Choose image"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:236
+#: includes/class-yith-wcbm-admin.php:239
 msgid "Choose badge type"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:303
+#: includes/class-yith-wcbm-admin.php:306
 #. translators: %s is the name of the plugin that is updating data in
 #. background. Don't use the full stop at the end because there will be a smile
 #. emoji.
@@ -41,84 +41,84 @@ msgid ""
 "automatic and can take few minutes. Please wait"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:339
+#: includes/class-yith-wcbm-admin.php:342
 #: includes/class-yith-wcbm-post-types.php:48
 msgid "Badges"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:340
+#: includes/class-yith-wcbm-admin.php:343
 msgid "Create, customize, and manage unlimited badges for your shop."
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:344
+#: includes/class-yith-wcbm-admin.php:347
 msgid "General Settings"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:355
+#: includes/class-yith-wcbm-admin.php:358
 msgid "Upload a custom image/icon to use as a badge"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:356
+#: includes/class-yith-wcbm-admin.php:359
 msgid ""
 "Access a free library with <b>60 ready-to-use badges</b> for Black Friday, "
 "Christmas, End-of-season sales, Cyber Monday, etc. (and we will add more!)"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:357
+#: includes/class-yith-wcbm-admin.php:360
 msgid ""
 "Unblock additional customization options: padding, margin, flip "
 "text,position, etc."
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:358
+#: includes/class-yith-wcbm-admin.php:361
 msgid ""
 "Create dynamic badges for on-sale products and <b>automatically show the "
 "discount % and the saving</b>"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:359
+#: includes/class-yith-wcbm-admin.php:362
 msgid ""
 "Create rules to automatically show badges in <b>on-sale / recent / low "
 "stock / in stock / back to order and featured products</b>"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:360
+#: includes/class-yith-wcbm-admin.php:363
 msgid ""
 "Create rules to automatically show badges in products of <b>specific "
 "categories / tags / shipping classes</b>"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:361
+#: includes/class-yith-wcbm-admin.php:364
 msgid "<b>Schedule badges</b> to set when automatically show and hide them"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:362
+#: includes/class-yith-wcbm-admin.php:365
 msgid "Choose to show badges only to specific users, user roles or members"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:364
+#: includes/class-yith-wcbm-admin.php:367
 #. translators: %s is the name of out plugin YITH WooCommerce Dynamic Pricing
 #. and Discounts.
 msgid "Assign badges to discounts and promotions created with our %s"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:365
+#: includes/class-yith-wcbm-admin.php:368
 msgid "Regular updates, Translations and Premium Support"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:500
+#: includes/class-yith-wcbm-admin.php:503
 msgid "Your Inspiration Themes"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:504
+#: includes/class-yith-wcbm-admin.php:507
 msgid "Plugin Documentation"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:508
+#: includes/class-yith-wcbm-admin.php:511
 msgid "Plugin Site"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:512
+#: includes/class-yith-wcbm-admin.php:515
 msgid "Live Demo"
 msgstr ""
 
@@ -561,23 +561,23 @@ msgid ""
 "<strong>YITH</strong></a>"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:229
+#: includes/class-yith-wcbm-admin.php:232
 msgctxt "[ADMIN] Confirm delete modal title on badges page"
 msgid "Confirm delete"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:231
+#: includes/class-yith-wcbm-admin.php:234
 #. translators: %s is the badge rule name.
 msgctxt "[ADMIN] Confirm delete modal message on badges page"
 msgid "Are you sure you want to delete <b>\"%s\"</b>?"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:232
+#: includes/class-yith-wcbm-admin.php:235
 msgctxt "[ADMIN] Confirm delete modal button on badges page"
 msgid "Delete"
 msgstr ""
 
-#: includes/class-yith-wcbm-admin.php:345
+#: includes/class-yith-wcbm-admin.php:348
 msgctxt "[ADMIN] Tab description"
 msgid "Configure the plugin's general settings."
 msgstr ""

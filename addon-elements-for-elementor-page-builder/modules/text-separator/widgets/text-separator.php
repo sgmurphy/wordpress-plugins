@@ -508,7 +508,7 @@ class TextSeparator extends EAE_Widget_Base {
 					'<%1$s %2$s>%3$s</%1$s>',
 					Helper::validate_html_tag( $settings['html_tag'], [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'span', 'p' ], 'h2' ),
 					$this->get_render_attribute_string( 'title' ),
-					$settings['title']
+					Helper::eae_wp_kses( $settings['title'] )
 				);
 			}
 			?>

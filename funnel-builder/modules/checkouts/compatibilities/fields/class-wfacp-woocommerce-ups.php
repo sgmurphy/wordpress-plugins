@@ -19,6 +19,9 @@
 		add_action( 'process_wfacp_html', [ $this, 'call_fields_hook' ], 999, 3 );
 		add_action( 'wfacp_internal_css', [ $this, 'js' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function add_field( $fields ) {

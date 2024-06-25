@@ -20,6 +20,9 @@
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 99, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'css' ] );
 		add_filter( 'woocommerce_update_order_review_fragments', [ $this, 'add_fragments' ], 1000 );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function actions() {
@@ -45,7 +48,7 @@
 			'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryDatePosition' ],
 			'id'         => 'wc_to_zoom_checkout',
 			'field_type' => 'wc_to_zoom_checkout',
-			'label'      => __( 'Zoom Meetings', 'funnel-builder' ),
+			'label'      => __( 'Zoom Meetings', 'woofunnels-aero-checkout' ),
 		];
 
 

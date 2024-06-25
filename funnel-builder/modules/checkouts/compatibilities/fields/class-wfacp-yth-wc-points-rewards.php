@@ -22,6 +22,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'action' ] );
 		/* styling for tipping field */
 		add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+	}
+
+	public function action() {
+		if ( ! $this->is_enabled() ) {
+			return;
+		}
+		$this->instance = WFACP_Common::remove_actions( 'woocommerce_checkout_fields', 'YITH_WC_Points_Rewards_Frontend', 'add_birthday_field_checkout' );
+
 	}
 
 	public function is_enabled() {
@@ -35,14 +47,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		return true;
-	}
-
-	public function action() {
-		if ( ! $this->is_enabled() ) {
-			return;
-		}
-		$this->instance = WFACP_Common::remove_actions( 'woocommerce_checkout_fields', 'YITH_WC_Points_Rewards_Frontend', 'add_birthday_field_checkout' );
-
 	}
 
 	public function add_field( $fields ) {

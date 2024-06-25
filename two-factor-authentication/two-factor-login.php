@@ -5,7 +5,7 @@ Plugin URI: https://www.simbahosting.co.uk/s3/product/two-factor-authentication/
 Description: Secure your WordPress login forms with two factor authentication - including WooCommerce login forms
 Author: David Anderson, original plugin by Oskar Hane and enhanced by Dee Nutbourne
 Author URI: https://www.simbahosting.co.uk
-Version: 1.14.17
+Version: 1.14.23
 Text Domain: two-factor-authentication
 Domain Path: /languages
 License: GPLv2 or later
@@ -52,7 +52,7 @@ if (!class_exists('Simba_Two_Factor_Authentication_Plugin')):
  */
 class Simba_Two_Factor_Authentication_Plugin extends Simba_Two_Factor_Authentication_1 {
 	
-	public $version = '1.14.17';
+	public $version = '1.14.22';
 	
 	const PHP_REQUIRED = '5.6';
 	
@@ -272,10 +272,10 @@ if (file_exists(__DIR__.'/simba-tfa/premium/loader.php') && empty($GLOBALS['simb
 
 	$GLOBALS['simba_two_factor_authentication_premium'] = new Simba_Two_Factor_Authentication_Premium($GLOBALS['simba_two_factor_authentication']);
 
-	if (!class_exists('Updraft_Manager_Updater_1_8')) require_once(plugin_dir_path(__FILE__).'vendor/davidanderson684/simba-plugin-manager-updater/class-udm-updater.php');
+	if (!class_exists('Updraft_Manager_Updater_1_9')) require_once(plugin_dir_path(__FILE__).'vendor/davidanderson684/simba-plugin-manager-updater/class-udm-updater.php');
 
 	try {
-		new Updraft_Manager_Updater_1_8('https://www.simbahosting.co.uk/s3', 1, 'two-factor-authentication-premium/two-factor-login.php', array('require_login' => false));
+		new Updraft_Manager_Updater_1_9('https://www.simbahosting.co.uk/s3', 1, 'two-factor-authentication-premium/two-factor-login.php', array('require_login' => false));
 	} catch (Exception $e) {
 		error_log($e->getMessage());
 	}

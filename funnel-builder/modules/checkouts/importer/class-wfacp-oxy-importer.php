@@ -37,6 +37,7 @@
 
 		if ( $templates[ $slug ] && isset( $templates[ $slug ]['build_from_scratch'] ) ) {
 			delete_post_meta( $aero_id, 'ct_other_template' );
+			update_post_meta( $aero_id, 'ct_other_template', '-1' );
 			$this->save_data( $aero_id );
 
 			return [ 'status' => true ];
@@ -51,8 +52,8 @@
 		$content = $data['data'];
 
 		if ( ! empty( $content ) && ( false == strpos( $content, '<script' ) ) ) {
-			update_post_meta( $aero_id, 'ct_other_template', '-1' );
-			update_post_meta( $aero_id, 'ct_builder_shortcodes', $content );
+			update_post_meta( $aero_id, WFACP_Common::oxy_get_meta_prefix('ct_other_template'), '-1' );
+			update_post_meta( $aero_id, WFACP_Common::oxy_get_meta_prefix('ct_builder_shortcodes'), $content );
 			WFACP_Common::update_label_meta( $aero_id, $content );
 			$this->clear_oxy_page_cache_css( $aero_id );
 			$this->save_data( $this->post_id );

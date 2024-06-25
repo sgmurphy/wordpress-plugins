@@ -36,7 +36,7 @@ if ( ! class_exists( 'WFTY_Order_Details_Component' ) ) {
 			$this->data['order_download_heading']              = isset( $this->data['order_download_heading'] ) ? $this->data['order_download_heading'] : WFFN_Core()->thank_you_pages->get_optionsShortCode( 'order_download_heading', $order_id );
 		}
 
-		public function subs_get_template( $located, $template_name, $args, $template_path, $default_path ) { //phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedParameter
+		public function subs_get_template( $located, $template_name, $args, $template_path, $default_path ) { //phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedParameter, VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 
 			if ( 'myaccount/related-subscriptions.php' === $template_name ) {
 				return __DIR__ . '/views/related-subscriptions.php';

@@ -4,9 +4,8 @@
  * WooCommerce Taxamo By WooCommerce
  * Plugin URI: https://www.woocommerce.com/
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_WC_Taxamo {
+#[AllowDynamicProperties] 
+ class WFACP_Compatibility_WC_Taxamo {
 	public $instance = null;
 
 	public function __construct() {
@@ -25,12 +24,11 @@
 
 		/* Internal css  */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 
-	}
-
-	public function is_enable() {
-		return class_exists( 'WC_TA_Vat_Number_Field' );
 	}
 
 	public function add_field( $fields ) {
@@ -57,6 +55,10 @@
 
 	}
 
+	public function is_enable() {
+		return class_exists( 'WC_TA_Vat_Number_Field' );
+	}
+
 	public function display_field( $field, $key ) {
 
 
@@ -66,11 +68,11 @@
 
 
 		?>
-        <div class="wfacp_taxamo" id="wfacp_taxamo">
+		<div class="wfacp_taxamo" id="wfacp_taxamo">
 			<?php
 			$this->instance->print_field();
 			?>
-        </div>
+		</div>
 		<?php
 
 	}

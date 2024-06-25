@@ -33,6 +33,11 @@ class WFACP_Compatibility_With_Woo_Delivery_Slots_Premium {
 		/* Display the field */
 		add_action( 'process_wfacp_html', [ $this, 'process_wfacp_html' ], 10, 2 );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_print_advanced_custom_fields', [ $this, 'print_third_party' ], 99, 2 );
+
 	}
 
 	public function add_field( $fields ) {
@@ -201,6 +206,14 @@ class WFACP_Compatibility_With_Woo_Delivery_Slots_Premium {
             });
         </script>
 		<?php
+	}
+	public function print_third_party( $field, $key ) {
+		if ( strpos( $key, 'jckwds' ) !== false ) {
+			return [];
+		}
+
+
+		return $field;
 	}
 }
 

@@ -7,13 +7,13 @@ class BWF_Compatibility_With_CURCY {
 	}
 
 	public function is_enable() {
-		return class_exists( 'WOOMULTI_CURRENCY_Data' );
+		return class_exists( 'WOOMULTI_CURRENCY_F_Data' );
 	}
 
 	public function alter_fixed_amount( $price, $currency = null ) {
-		if ( class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
+		if ( class_exists( 'WOOMULTI_CURRENCY_F_Data' ) ) {
 			$currentCurrencyRate   = 1;
-			$multiCurrencySettings = WOOMULTI_CURRENCY_Data::get_ins();
+			$multiCurrencySettings = WOOMULTI_CURRENCY_F_Data::get_ins();
 			$wmcCurrencies         = $multiCurrencySettings->get_list_currencies();
 			$currentCurrency       = $multiCurrencySettings->get_current_currency();
 			$currentCurrencyRate   = floatval( $wmcCurrencies[ $currentCurrency ]['rate'] );
@@ -26,8 +26,8 @@ class BWF_Compatibility_With_CURCY {
 	}
 
 	public function get_fixed_currency_price_reverse( $price, $from = null, $base = null ) {
-		if ( class_exists( 'WOOMULTI_CURRENCY_Data' ) ) {
-			$data = new WOOMULTI_CURRENCY_Data();
+		if ( class_exists( 'WOOMULTI_CURRENCY_F_Data' ) ) {
+			$data = new WOOMULTI_CURRENCY_F_Data();
 			$from = ( is_null( $from ) ) ? $data->get_current_currency() : $from;
 			$base = ( is_null( $base ) ) ? get_option( 'woocommerce_currency' ) : $base;
 

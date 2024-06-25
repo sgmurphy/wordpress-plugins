@@ -187,7 +187,7 @@ Each **_point release_** usually corresponds with the addition of one new module
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
 
-### 7.1.1 (2024.06.17) - ASE Free and Pro
+### 7.1.1 (2024.06.24) - ASE Free and Pro
 
 * **[IMPROVED in Pro] Utilities >> Email Delivery**: add option to set the number of most recent email delivery log entries to keep. This should prevent database bloat when logging is enabled.
 

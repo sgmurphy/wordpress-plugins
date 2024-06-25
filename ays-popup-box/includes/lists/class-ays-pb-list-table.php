@@ -966,6 +966,21 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 padding top/bottom
         $notification_button_1_padding_top_bottom = (isset($data['ays_pb_notification_button_1_padding_top_bottom']) && $data['ays_pb_notification_button_1_padding_top_bottom'] !== '') ? absint( intval($data['ays_pb_notification_button_1_padding_top_bottom']) ) : 12;
 
+        // Notification type | Button 1 box shadow
+        $notification_button_1_enable_box_shadow = (isset($data['ays_pb_notification_button_1_enable_box_shadow']) && $data['ays_pb_notification_button_1_enable_box_shadow'] == 'on') ? 'on' : 'off';
+
+        // Notification type | Button 1 box shadow color
+        $notification_button_1_box_shadow_color = (isset($data['ays_pb_notification_button_1_box_shadow_color']) && $data['ays_pb_notification_button_1_box_shadow_color'] != '') ? sanitize_text_field($data['ays_pb_notification_button_1_box_shadow_color']) : '#FF8319';
+
+        // Notification type | Button 1 box shadow X offset
+        $notification_button_1_box_shadow_x_offset = (isset($data['ays_pb_notification_button_1_box_shadow_x_offset']) && $data['ays_pb_notification_button_1_box_shadow_x_offset'] != '') ? intval($data['ays_pb_notification_button_1_box_shadow_x_offset']) : 0;
+
+        // Notification type | Button 1 box shadow Y offset
+        $notification_button_1_box_shadow_y_offset = (isset($data['ays_pb_notification_button_1_box_shadow_y_offset']) && $data['ays_pb_notification_button_1_box_shadow_y_offset'] != '') ? intval($data['ays_pb_notification_button_1_box_shadow_y_offset']) : 0;
+
+        // Notification type | Button 1 box shadow Z offset
+        $notification_button_1_box_shadow_z_offset = (isset($data['ays_pb_notification_button_1_box_shadow_z_offset']) && $data['ays_pb_notification_button_1_box_shadow_z_offset'] != '') ? intval($data['ays_pb_notification_button_1_box_shadow_z_offset']) : 10;
+
         // Min Height
         $pb_min_height = (isset($data['ays_pb_min_height']) && $data['ays_pb_min_height'] != '') ? absint(intval($data['ays_pb_min_height'])) : '';
 
@@ -1274,6 +1289,11 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_border_style' => $notification_button_1_border_style,
             'notification_button_1_padding_left_right' => $notification_button_1_padding_left_right,
             'notification_button_1_padding_top_bottom' => $notification_button_1_padding_top_bottom,
+            'notification_button_1_enable_box_shadow' => $notification_button_1_enable_box_shadow,
+            'notification_button_1_box_shadow_color' => $notification_button_1_box_shadow_color,
+            'notification_button_1_box_shadow_x_offset' => $notification_button_1_box_shadow_x_offset,
+            'notification_button_1_box_shadow_y_offset' => $notification_button_1_box_shadow_y_offset,
+            'notification_button_1_box_shadow_z_offset' => $notification_button_1_box_shadow_z_offset,
             'pb_max_height' => $pb_max_height,
             'popup_max_height_by_percentage_px' => $popup_max_height_by_percentage_px,
             'pb_max_height_mobile' => $pb_max_height_mobile,

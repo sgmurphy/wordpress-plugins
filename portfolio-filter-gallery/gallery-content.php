@@ -191,7 +191,7 @@ while ( $loop->have_posts() ) : $loop->the_post();
 
 					// LD Lighbox
 					if($light_box == 4) {
-						$a_attrs = 'href="'.$full[0].'" class="pfg-lightbox-all pfg-lightbox-'.esc_html($filter_keys2).'" data-lightbox="pfg-lightbox"  data-title="'.esc_html($title).'" data-alt="'.esc_html($title).'"';
+						$a_attrs = 'href="'. esc_url($full[0]) .'" class="pfg-lightbox-all pfg-lightbox-'.esc_html($filter_keys2).'" data-lightbox="pfg-lightbox"  data-title="'.esc_html($title).'" data-alt="'.esc_html($title).'"';
 					
 						if($image_type == 'video') {
 							$a_attrs = 'href="'.esc_url($image_link_url).'" data-title="'.esc_attr($title).'" data-alt="'.esc_attr($title).'" class="video-box-'.esc_attr($pf_gallery_id).'"';

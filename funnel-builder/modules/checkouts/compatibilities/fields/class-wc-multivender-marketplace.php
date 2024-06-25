@@ -5,9 +5,8 @@
  * Plugin URI: https://wclovers.com/knowledgebase_category/wcfm-marketplace/
  */
 
-#[AllowDynamicProperties]
-
-  class WFACP_Multivender_Market_Place {
+#[AllowDynamicProperties] 
+ class WFACP_Multivender_Market_Place {
 	private $instance = null;
 	private $new_fields = [];
 	private $add_fields = [
@@ -25,6 +24,10 @@
 		add_action( 'process_wfacp_html', [ $this, 'process_html' ], 999, 3 );
 
 		add_action( 'woocommerce_checkout_fields', [ $this, 'assign_checkout_fields' ], 99 );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function assign_checkout_fields( $fields ) {

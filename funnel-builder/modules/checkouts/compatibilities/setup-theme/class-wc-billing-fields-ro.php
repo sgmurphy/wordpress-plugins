@@ -14,6 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_filter( 'wfacp_html_fields_romania_firma_field', '__return_false' );
 		add_action( 'woocommerce_form_field_args', [ $this, 'register_ro_field_style' ], 10, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function register_ro_field_style( $args, $key ) {

@@ -23,15 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
-	public function enable() {
-		$is_global_checkout = WFACP_Core()->public->is_checkout_override();
-		if ( ! class_exists( 'WC_Quantities_and_Units_Filters' ) || false === $is_global_checkout ) {
-			return false;
-		}
-
-		return true;
-	}
-
 	public function action() {
 		if ( ! $this->enable() ) {
 			return;
@@ -41,6 +32,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function enable() {
+		$is_global_checkout = WFACP_Core()->public->is_checkout_override();
+		if ( ! class_exists( 'WC_Quantities_and_Units_Filters' ) || false === $is_global_checkout ) {
+			return false;
+		}
+
+		return true;
+	}
 
 	public function cart_item_min_max_quantity( $MinMax, $cart_item ) {
 

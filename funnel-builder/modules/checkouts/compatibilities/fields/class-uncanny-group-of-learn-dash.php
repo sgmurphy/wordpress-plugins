@@ -5,9 +5,8 @@
  * Plugin Path: https://www.uncannyowl.com
  */
 
-#[AllowDynamicProperties]
-
-  class WFACP_Uncanny_Groups_For_LearnDash {
+#[AllowDynamicProperties] 
+ class WFACP_Uncanny_Groups_For_LearnDash {
 	public $instance = null;
 
 	public function __construct() {
@@ -26,16 +25,11 @@
 
 		/* Internal css  */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 
 
-	}
-
-	public function is_enable() {
-		if ( ! class_exists( 'uncanny_learndash_groups\WoocommerceLicense' ) ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	public function add_field( $fields ) {
@@ -62,6 +56,14 @@
 
 	}
 
+	public function is_enable() {
+		if ( ! class_exists( 'uncanny_learndash_groups\WoocommerceLicense' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
 	public function display_field( $field, $key ) {
 
 
@@ -71,11 +73,11 @@
 
 
 		?>
-        <div class="wfacp_ulgm_group_name" id="wfacp_ulgm_group_name">
+		<div class="wfacp_ulgm_group_name" id="wfacp_ulgm_group_name">
 			<?php
 			$this->instance->create_group_related_fields( WC()->checkout() );
 			?>
-        </div>
+		</div>
 		<?php
 
 	}

@@ -1,9 +1,7 @@
 <?php
 /**
  * https://makewebbetter.com/
- * #[AllowDynamicProperties]
-
-  class WFACP_Hubspot_MakeWebBetter_Compatibilities
+ WFACP_Hubspot_MakeWebBetter_Compatibilities
  */
 
 #[AllowDynamicProperties]
@@ -20,6 +18,10 @@
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'actions' ] );
 		add_action( 'process_wfacp_html', [ $this, 'process_wfacp_html' ], 10, 2 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
+
+		/* prevent third party fields and wrapper*/
+		
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function actions() {

@@ -9,6 +9,8 @@ $ti_command_list = [
 'save-set',
 'save-language',
 'save-dateformat',
+'save-top-rated-type',
+'save-top-rated-date',
 'save-options',
 'save-align',
 'save-review-text-mode',
@@ -159,7 +161,9 @@ $optionsToDelete = [
 'show-reviewers-photo',
 'show-logos',
 'show-stars',
-'footer-filter-text'
+'footer-filter-text',
+'top-rated-type',
+'top-rated-date',
 ];
 foreach ($optionsToDelete as $name) {
 delete_option($pluginManagerInstance->get_option_name($name));
@@ -229,6 +233,16 @@ exit;
 else if ($ti_command === 'save-dateformat') {
 check_admin_referer('ti-save-dateformat');
 update_option($pluginManagerInstance->get_option_name('dateformat'), sanitize_text_field($_POST['dateformat']), false);
+exit;
+}
+else if ($ti_command === 'save-top-rated-type') {
+check_admin_referer('ti-save-top-rated-type');
+update_option($pluginManagerInstance->get_option_name('top-rated-type'), sanitize_text_field($_POST['type']), false);
+exit;
+}
+else if ($ti_command === 'save-top-rated-date') {
+check_admin_referer('ti-save-top-rated-date');
+update_option($pluginManagerInstance->get_option_name('top-rated-date'), sanitize_text_field($_POST['date']), false);
 exit;
 }
 else if ($ti_command === 'save-options') {
@@ -331,7 +345,7 @@ $lang = get_option($pluginManagerInstance->get_option_name('lang'), 'en');
 $dateformat = get_option($pluginManagerInstance->get_option_name('dateformat'), 'Y-m-d');
 $noRatingText = get_option($pluginManagerInstance->get_option_name('no-rating-text'), $pluginManagerInstance->get_default_no_rating_text($styleId, $scssSet));
 $filter = get_option($pluginManagerInstance->get_option_name('filter'), $pluginManagerInstance->get_widget_default_filter());
-$verifiedIcon = get_option($pluginManagerInstance->get_option_name('verified-icon'), 0);
+$verifiedIcon = get_option($pluginManagerInstance->get_option_name('verified-icon'), in_array($styleId, [5,34]) ? 1 : 0);
 $enableAnimation = get_option($pluginManagerInstance->get_option_name('enable-animation'), 1);
 $showArrows = get_option($pluginManagerInstance->get_option_name('show-arrows'), 1);
 $showHeaderButton = get_option($pluginManagerInstance->get_option_name('show-header-button'), 1);
@@ -341,6 +355,8 @@ $disableFont = get_option($pluginManagerInstance->get_option_name('disable-font'
 $align = get_option($pluginManagerInstance->get_option_name('align'), in_array($styleId, [ 36, 37, 38, 39 ]) ? 'center' : 'left');
 $reviewTextMode = get_option($pluginManagerInstance->get_option_name('review-text-mode'), 'readmore');
 $footerFilterText = get_option($pluginManagerInstance->get_option_name('footer-filter-text'), 0);
+$topRatedType = get_option($pluginManagerInstance->get_option_name('top-rated-type'), 'Service');
+$topRatedDate = get_option($pluginManagerInstance->get_option_name('top-rated-date'), in_array($styleId, [98, 100, 102, 104]) ? 'hide' : '');
 $scssSetTmp = $scssSet ? $scssSet : 'light-background';
 $showReviewersPhoto = get_option($pluginManagerInstance->get_option_name('show-reviewers-photo'), $pluginManager::$widget_styles[ $scssSetTmp ]['reviewer-photo'] ? 1 : 0);
 $showLogos = get_option($pluginManagerInstance->get_option_name('show-logos'), $pluginManager::$widget_styles[ $scssSetTmp ]['hide-logos'] ? 0 : 1);
@@ -349,6 +365,12 @@ if (!$pluginManagerInstance->is_noreg_linked()) {
 $styleId = null;
 $scssSet = null;
 $widgetSettedUp = null;
+} else {
+$pageDetails = $pluginManagerInstance->getPageDetails();
+$isTopRatedBadge = $styleId ? $pluginManager::$widget_templates['templates'][$styleId]['is-top-rated-badge'] : false;
+if ($isTopRatedBadge) {
+$isTopRatedBadgeValid = (float)$pageDetails['rating_score'] >= $pluginManager::$topRatedMinimumScore;
+}
 }
 wp_enqueue_style('trustindex-widget-preview-css', 'https://cdn.trustindex.io/assets/ti-preview-box.css');
 ?>
@@ -377,6 +399,9 @@ $stepDone = 2;
 }
 else if ($pluginManagerInstance->is_noreg_linked()) {
 $stepDone = 1;
+}
+if ($stepDone >= 4 && $isTopRatedBadge && !$isTopRatedBadgeValid) {
+$stepDone = 3;
 }
 if (!$stepCurrent) {
 $stepCurrent = $stepDone + 1;
@@ -413,7 +438,6 @@ echo sprintf(__("You have connected your Trustindex account, so you can find pre
 <?php if ($stepCurrent === 1): ?>
 <h1 class="ti-header-title"><?php echo sprintf(__('Connect %s', 'trustindex-plugin'), 'Google'); ?></h1>
 <?php if ($pluginManagerInstance->is_noreg_linked()): ?>
-<?php $pageDetails = $pluginManagerInstance->getPageDetails(); ?>
 <div class="ti-source-box">
 <?php if (isset($pageDetails['avatar_url'])): ?>
 <img src="<?php echo esc_url($pageDetails['avatar_url']); ?>" />
@@ -445,7 +469,7 @@ update_option($pluginManagerInstance->get_option_name('review-download-token'), 
 <input type="hidden" id="ti-noreg-connect-token" name="ti-noreg-connect-token" value="<?php echo $reviewDownloadToken; ?>" />
 <input type="hidden" id="ti-noreg-webhook-url" value="<?php echo $pluginManagerInstance->getWebhookUrl(); ?>" />
 <input type="hidden" id="ti-noreg-email" value="<?php echo get_option('admin_email'); ?>" />
-<input type="hidden" id="ti-noreg-version" value="11.8.6" />
+<input type="hidden" id="ti-noreg-version" value="11.9" />
 <input type="hidden" id="ti-noreg-review-download" name="review_download" value="0" />
 <input type="hidden" id="ti-noreg-review-request-id" name="review_request_id" value="" />
 <input type="hidden" id="ti-noreg-manual-download" name="manual_download" value=0 />
@@ -498,6 +522,14 @@ $set = 'light-background';
 if (in_array($template['type'], [ 'badge', 'button' ])) {
 $set = 'drop-shadow';
 }
+if ($template['is-top-rated-badge']) {
+$set = 'light-minimal';
+
+if (isset($template['params']['top-rated-badge-border']) && $template['params']['top-rated-badge-border']) {
+$set = 'ligth-border';
+}
+}
+$isTopRatedBadgeValid = (float)$pageDetails['rating_score'] >= $pluginManager::$topRatedMinimumScore;
 if (!isset($template['is-active']) || $template['is-active']):
 ?>
 <div class="<?php echo esc_attr($className); ?>">
@@ -506,10 +538,19 @@ if (!isset($template['is-active']) || $template['is-active']):
 <div class="ti-box-header ti-box-header-normal">
 <?php echo __('Layout', 'trustindex-plugin'); ?>:
 <strong><?php echo esc_html(__($template['name'], 'trustindex-plugin')); ?></strong>
+<?php if (!$template['is-top-rated-badge'] || $isTopRatedBadgeValid): ?>
 <a href="<?php echo wp_nonce_url('?page='. esc_attr($_GET['page']) .'&tab=free-widget-configurator&command=save-style&style_id='. esc_attr(urlencode($id)), 'ti-save-style'); ?>" class="ti-btn ti-btn-sm ti-btn-loading-on-click ti-pull-right"><?php echo __('Select', 'trustindex-plugin'); ?></a>
 <div class="clear"></div>
+<?php endif; ?>
 </div>
 <div class="preview">
+<?php if ($template['is-top-rated-badge'] && !$isTopRatedBadgeValid): ?>
+<div class="ti-notice ti-notice-info" style="margin: 0 0 15px 0">
+<p>
+<?php echo sprintf(__('Our exclusive "Top Rated" badge is awarded to service providers with a rating of %s and above.', 'trustindex-plugin'), $pluginManager::$topRatedMinimumScore); ?><br />
+</p>
+</div>
+<?php endif; ?>
 <?php echo str_replace('ti-widget ti-disabled', 'ti-widget', $pluginManagerInstance->get_noreg_list_reviews(null, true, $id, $set, true, true)); ?>
 </div>
 </div>
@@ -556,14 +597,22 @@ $className = 'ti-half-width';
 </div>
 <?php elseif ($stepCurrent === 4): ?>
 <?php
-$widgetType = $pluginManager::$widget_templates[ 'templates' ][ $styleId ]['type'];
-$widgetHasReviews = !in_array($widgetType, [ 'button', 'badge' ]) || in_array($styleId, [ 23, 30, 32 ]);
+$widgetType = $pluginManager::$widget_templates['templates'][$styleId]['type'];
+$widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($styleId, [23, 30, 32]);
 ?>
 <h1 class="ti-header-title"><?php echo __('Set up widget', 'trustindex-plugin'); ?></h1>
 <?php if (!count($reviews) && !$isReviewDownloadInProgress): ?>
 <div class="ti-notice ti-notice-warning" style="margin: 0 0 15px 0">
 <p>
 <?php echo sprintf(__('There are no reviews on your %s platform.', 'trustindex-plugin'), 'Google'); ?>
+</p>
+</div>
+<?php endif; ?>
+<?php if ($isTopRatedBadge && !$isTopRatedBadgeValid): ?>
+<div class="ti-notice ti-notice-error" style="margin: 0 0 15px 0">
+<p>
+<?php echo sprintf(__('Our exclusive "Top Rated" badge is awarded to service providers with a rating of %s and above.', 'trustindex-plugin'), $pluginManager::$topRatedMinimumScore); ?><br />
+<a href="?page=<?php echo esc_attr($_GET['page']); ?>&tab=free-widget-configurator&step=2" class="ti-btn ti-btn-sm ti-btn-loading-on-click" style="margin-top: 10px"><?php echo __('Please select another widget', 'trustindex-plugin'); ?></a>
 </p>
 </div>
 <?php endif; ?>
@@ -686,6 +735,32 @@ break;
 </div>
 <?php endif; ?>
 <?php endif; ?>
+<?php if ($isTopRatedBadge): ?>
+<div class="ti-form-group">
+<label><?php echo __('Select type', 'trustindex-plugin'); ?></label>
+<form method="post" action="">
+<input type="hidden" name="command" value="save-top-rated-type" />
+<?php wp_nonce_field('ti-save-top-rated-type'); ?>
+<select class="ti-form-control" name="type">
+<?php foreach ($pluginManager::$widget_top_rated_titles as $type => $langs): ?>
+<option value="<?php echo esc_attr($type); ?>" <?php echo $topRatedType == $type ? 'selected' : ''; ?>><?php echo esc_html(__($type, 'trustindex-plugin')); ?></option>
+<?php endforeach; ?>
+</select>
+</form>
+</div>
+<div class="ti-form-group">
+<label><?php echo __('Select date format', 'trustindex-plugin'); ?></label>
+<form method="post" action="">
+<input type="hidden" name="command" value="save-top-rated-date" />
+<?php wp_nonce_field('ti-save-top-rated-date'); ?>
+<select class="ti-form-control" name="date">
+<option value="hide"<?php if ($topRatedDate === 'hide'): ?> selected<?php endif; ?>><?php echo esc_html(__("Hide", 'trustindex-plugin')); ?></option>
+<option value="last-year"<?php if ($topRatedDate === 'last-year'): ?> selected<?php endif; ?>><?php echo esc_html(__("Last year", 'trustindex-plugin')); ?></option>
+<option value=""<?php if (!$topRatedDate): ?> selected<?php endif; ?>><?php echo esc_html(__("Current year", 'trustindex-plugin')); ?></option>
+</select>
+</form>
+</div>
+<?php endif; ?>
 </div>
 <div class="ti-right-block">
 <form method="post" id="ti-widget-options">
@@ -721,7 +796,7 @@ break;
 <label><?php echo __('Show "Load more" button', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
-<?php if ($widgetHasReviews && in_array(ucfirst($pluginManagerInstance->getShortName()), $pluginManager::$verified_platforms)): ?>
+<?php if ($widgetHasReviews): ?>
 <span class="ti-checkbox ti-checkbox-row">
 <input type="checkbox" name="verified-icon" value="1"<?php if ($verifiedIcon): ?> checked<?php endif; ?> />
 <label><?php echo __('Show verified review icon', 'trustindex-plugin'); ?></label>
@@ -746,7 +821,7 @@ break;
 </label>
 </span>
 <?php endif; ?>
-<?php if (!in_array($widgetType, [ 'floating' ])): ?>
+<?php if (!in_array($widgetType, [ 'floating' ]) && !$isTopRatedBadge): ?>
 <span class="ti-checkbox ti-checkbox-row">
 <input type="checkbox" name="enable-animation" value="1"<?php if ($enableAnimation): ?> checked<?php endif; ?> />
 <label><?php echo __('Enable mouseover animation', 'trustindex-plugin'); ?></label>
@@ -771,10 +846,12 @@ break;
 </form>
 </div>
 <div class="clear"></div>
+<?php if (!$isTopRatedBadge || $isTopRatedBadgeValid): ?>
 <div class="ti-box-footer">
 <a href="<?php echo wp_nonce_url('?page='. esc_attr($_GET['page']) .'&tab=free-widget-configurator&setup_widget', 'ti-setup-widget'); ?>" class="ti-btn ti-btn-loading-on-click ti-pull-right"><?php echo __('Save and get code', 'trustindex-plugin'); ?></a>
 <div class="clear"></div>
 </div>
+<?php endif; ?>
 </div>
 </div>
 </div>

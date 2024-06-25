@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
-const watchers = require('./watchers-d7bdd741.js');
+const watchers = require('./watchers-fecceee2.js');
 const getters = require('./getters-8b2c88a6.js');
 require('./index-00f0fc21.js');
 require('./mutations-164b66b1.js');

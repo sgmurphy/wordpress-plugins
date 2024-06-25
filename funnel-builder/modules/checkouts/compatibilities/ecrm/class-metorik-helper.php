@@ -21,6 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		/* checkout page */
 		$this->remove_metorki_hook();
 		add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function remove_metorki_hook() {

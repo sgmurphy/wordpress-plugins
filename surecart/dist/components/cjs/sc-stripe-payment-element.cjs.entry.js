@@ -4,10 +4,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
 const pure = require('./pure-5be33f24.js');
-const watchers = require('./watchers-d7bdd741.js');
+const watchers = require('./watchers-fecceee2.js');
 const mutations = require('./mutations-164b66b1.js');
 const store = require('./store-96a02d63.js');
-require('./watchers-bb018b12.js');
+require('./watchers-ce17ff92.js');
 const getters = require('./getters-ea9c2b72.js');
 const getters$1 = require('./getters-1e382cac.js');
 const mutations$2 = require('./mutations-8d7c4499.js');

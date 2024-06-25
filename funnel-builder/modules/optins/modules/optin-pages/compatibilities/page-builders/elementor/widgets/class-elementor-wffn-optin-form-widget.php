@@ -727,7 +727,7 @@ if ( ! class_exists( 'Elementor_WFFN_Optin_Form_Widget' ) ) {
 			$color_selectors = [];
 			if ( is_array( $selectors ) && count( $selectors ) > 0 ) {
 				foreach ( $selectors as $selector ) {
-					$color_selectors[ $selector ] = 'color:{{VALUE}} !important;';
+					$color_selectors[ $selector ] = 'color:{{VALUE}} !important; fill:{{VALUE}} !important;';
 				}
 			}
 			$this->add_control( $field_key, [

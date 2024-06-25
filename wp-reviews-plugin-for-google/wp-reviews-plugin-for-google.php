@@ -9,7 +9,7 @@ Author: Trustindex.io <support@trustindex.io>
 Author URI: https://www.trustindex.io/
 Contributors: trustindex
 License: GPLv2 or later
-Version: 11.8.6
+Version: 11.9
 Text Domain: wp-reviews-plugin-for-google
 Domain Path: /languages
 Donate link: https://www.trustindex.io/prices/
@@ -19,7 +19,7 @@ Copyright 2019 Trustindex Kft (email: support@trustindex.io)
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once plugin_dir_path( __FILE__ ) . 'trustindex-plugin.class.php';
-$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.8.6", "Widgets for Google Reviews", "Google");
+$trustindex_pm_google = new TrustindexPlugin_google("google", __FILE__, "11.9", "Widgets for Google Reviews", "Google");
 $pluginManagerInstance = $trustindex_pm_google;
 register_activation_hook(__FILE__, [ $pluginManagerInstance, 'activate' ]);
 register_deactivation_hook(__FILE__, [ $pluginManagerInstance, 'deactivate' ]);
@@ -99,9 +99,11 @@ foreach ($pluginManagerInstance->getNotificationOptions() as $type => $options) 
 if (!$pluginManagerInstance->isNotificationActive($type)) {
 continue;
 }
-echo '
-<div class="notice notice-'. esc_attr($options['type']) .' '. ($options['is-closeable'] ? 'is-dismissible' : '') .' trustindex-notification-row '. $options['extra-class'].'" data-close-url="'. admin_url('admin.php?page='. $pluginManagerInstance->get_plugin_slug() .'/settings.php&notification='. $type .'&action=close') .'">
-<p>'. str_replace('&amp;starf', '&starf', wp_kses_post($options['text'])) .'<p>';
+echo '<div class="notice notice-'. esc_attr($options['type']) .' '. ($options['is-closeable'] ? 'is-dismissible' : '') .' trustindex-notification-row '. $options['extra-class'].'" data-close-url="'. admin_url('admin.php?page='. $pluginManagerInstance->get_plugin_slug() .'/settings.php&notification='. $type .'&action=close') .'">';
+if ($type === 'rate-us') {
+echo '<div class="trustindex-star-row">&starf;&starf;&starf;&starf;&starf;</div>';
+}
+echo '<p>'. wp_kses_post($options['text']) .'<p>';
 if ($type === 'rate-us') {
 echo '
 <a href="'. esc_url(admin_url('admin.php?page='. $pluginManagerInstance->get_plugin_slug() .'/settings.php&notification='. $type .'&action=open')) .'" class="ti-close-notification" target="_blank">

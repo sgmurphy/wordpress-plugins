@@ -32,35 +32,10 @@
 		add_action( 'process_wfacp_html', [ $this, 'call_fields_hook' ], 999, 3 );
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 99, 2 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
-	}
 
-	public function add_field( $fields ) {
-		if ( $this->is_enable() ) {
-			$fields['deliveryDatePosition'] = [
-				'type'       => 'wfacp_html',
-				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryDatePosition' ],
-				'id'         => 'oddt',
-				'field_type' => 'deliveryDatePosition',
-				'label'      => __( 'Delivery Date', 'funnel-builder' ),
-			];
+		/* prevent third party fields and wrapper*/
 
-			$fields['deliveryTimePosition']     = [
-				'type'       => 'wfacp_html',
-				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryTimePosition' ],
-				'id'         => 'oddt',
-				'field_type' => 'deliveryTimePosition',
-				'label'      => __( 'Delivery Time', 'funnel-builder' ),
-			];
-			$fields['deliveryLocationPosition'] = [
-				'type'       => 'wfacp_html',
-				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryLocationPosition' ],
-				'id'         => 'deliveryLocationPosition',
-				'field_type' => 'deliveryLocationPosition',
-				'label'      => __( 'Delivery Location', 'funnel-builder' ),
-			];
-		}
-
-		return $fields;
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function actions() {
@@ -98,7 +73,6 @@
 		return $this->options[ $option ];
 	}
 
-
 	public function call_fields_hook( $field, $key, $args ) {
 		if ( ! empty( $key ) && $this->is_enable() ) {
 			if ( 'deliveryDatePosition' === $key && $this->deliveryDatePosition instanceof WooCommerce_Delivery_Date ) {
@@ -113,6 +87,35 @@
 		}
 	}
 
+	public function add_field( $fields ) {
+		if ( $this->is_enable() ) {
+			$fields['deliveryDatePosition'] = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryDatePosition' ],
+				'id'         => 'oddt',
+				'field_type' => 'deliveryDatePosition',
+				'label'      => __( 'Delivery Date', 'woofunnels-aero-checkout' ),
+			];
+
+			$fields['deliveryTimePosition']     = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryTimePosition' ],
+				'id'         => 'oddt',
+				'field_type' => 'deliveryTimePosition',
+				'label'      => __( 'Delivery Time', 'woofunnels-aero-checkout' ),
+			];
+			$fields['deliveryLocationPosition'] = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'deliveryLocationPosition' ],
+				'id'         => 'deliveryLocationPosition',
+				'field_type' => 'deliveryLocationPosition',
+				'label'      => __( 'Delivery Location', 'woofunnels-aero-checkout' ),
+			];
+		}
+
+		return $fields;
+	}
+
 	public function add_default_wfacp_styling( $args, $key ) {
 		if ( in_array( $key, $this->field_keys ) ) {
 			$args['input_class'] = array_merge( $args['input_class'], [ 'wfacp-form-control' ] );
@@ -125,11 +128,11 @@
 
 	public function internal_css() {
 		?>
-        <style>
+		<style>
             .woocommerce-delivery-date-container {
                 clear: both;
             }
-        </style>
+		</style>
 		<?php
 	}
 }

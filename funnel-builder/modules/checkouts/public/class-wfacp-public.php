@@ -454,10 +454,10 @@ class WFACP_Public {
 			return $item;
 		}
 		$discount_amount = $item['_wfacp_options']['discount_amount'];
+
 		if ( floatval( $discount_amount ) == 0 && true == apply_filters( 'wfacp_allow_zero_discounting', true, $item ) ) {
 			return $item;
 		}
-
 		/**
 		 * @var $product WC_product;
 		 */
@@ -1035,8 +1035,8 @@ class WFACP_Public {
 					$custom_data['_wfacp_product']     = true;
 					$custom_data['_wfacp_product_key'] = $index;
 					$custom_data['_wfacp_options']     = $data;
-
-					$cart_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes, $custom_data );
+					$attributes                        = apply_filters( 'wfacp_product_attributes', $attributes, $product_obj, $product_id, $variation_id, $custom_data );
+					$cart_key                          = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $attributes, $custom_data );
 					if ( is_string( $cart_key ) ) {
 						$success[]                        = $cart_key;
 						$this->products_in_cart[ $index ] = 1;

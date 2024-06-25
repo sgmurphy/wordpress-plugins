@@ -190,11 +190,11 @@ class Helper {
 			switch ( $default['icon_type'] ) {
 
 				case 'image':
-					$icon_html = '<i><img src="' . $default['image']['url'] . '"/></i>';
+					$icon_html = '<i><img src="' . esc_url($default['image']['url']) . '"/></i>';
 					break;
 
 				case 'text':
-					$icon_html = '<i class="">' . $default['text'] . '</i>';
+					$icon_html = '<i class="">' . esc_attr( $default['text'] ) . '</i>';
 					break;
 			}
 
@@ -229,11 +229,11 @@ class Helper {
 			switch ( $settings[ $control_name . '_icon_type' ] ) {
 
 				case 'image':
-					$icon_html = '<i><img src="' . $settings[ $control_name . '_image' ]['url'] . '" /></i>';
+					$icon_html = '<i><img src="' . esc_url($settings[ $control_name . '_image' ]['url']) . '" /></i>';
 					break;
 
 				case 'text':
-					$icon_html = '<i class="">' . $settings[ $control_name . '_text' ] . '</i>';
+					$icon_html = '<i class="">' . esc_attr( $settings[ $control_name . '_text' ] ) . '</i>';
 					break;
 			}
 
@@ -317,7 +317,7 @@ class Helper {
 			$icon_html .= '</span>';
 		}
 
-		return $icon_html;
+		return Helper::eae_wp_kses( $icon_html );
 	}
 
 

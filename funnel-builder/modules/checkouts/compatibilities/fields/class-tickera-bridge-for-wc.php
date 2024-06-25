@@ -27,6 +27,10 @@ class Tickera_Bridge_For_WC {
 		/* internal css for plugin */
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 
@@ -72,7 +76,7 @@ class Tickera_Bridge_For_WC {
 	}
 
 	public function is_enable() {
-		if ( is_null( $this->instance ) || ! $this->instance instanceof TC_WooCommerce_Bridge || "no" === $this->tc_general_settings['show_owner_fields'] ) {
+		if ( is_null( $this->instance ) || ! $this->instance instanceof TC_WooCommerce_Bridge || ! isset( $this->tc_general_settings['show_owner_fields'] ) || "no" === $this->tc_general_settings['show_owner_fields'] ) {
 			return false;
 		}
 

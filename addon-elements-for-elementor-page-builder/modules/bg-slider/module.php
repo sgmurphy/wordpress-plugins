@@ -248,11 +248,19 @@ class Module {
 		if ( empty( $slides ) ) {
 			return;
 		}
+		$animation = '';
+		$transition = '';
 		
 		$element_id = $element->get_id(); // Only fetch once and reuse
 		$slides = wp_json_encode($slides); // Properly encode slides for JavaScript
-		$transition = esc_js($settings['eae_slider_transition']);
-		$animation = $settings['eae_slider_animation'];
+		if ( isset( $settings['eae_slider_transition'] ) && ! empty( $settings['eae_slider_transition'] ) ) {
+			$transition = esc_js($settings['eae_slider_transition']);
+		}		
+		
+		if ( isset( $settings['eae_slider_animation'] ) && ! empty( $settings['eae_slider_animation'] ) ) {
+			$animation = esc_js($settings['eae_slider_animation']);
+		}
+		
 		$cover = filter_var($settings['eae_slider_cover'], FILTER_VALIDATE_BOOLEAN);
 		if(!$cover){
 			$cover = 'false';

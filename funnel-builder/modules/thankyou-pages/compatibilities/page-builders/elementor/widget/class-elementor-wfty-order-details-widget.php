@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
-use Elementor\Core\Schemes\Color;
 use Elementor\Core\Schemes\Typography;
 
 /**
@@ -180,7 +179,7 @@ if ( ! class_exists( 'Elementor_WFTY_Order_Details_Widget' ) ) {
 				'fields_options' => [
 					// first mimic the click on Typography edit icon
 					'typography'  => [ 'default' => 'yes' ],
-					// then redifine the Elementor defaults
+					// then redefine the Elementor defaults
 					'font_family' => [ 'default' => 'Open Sans' ],
 					'font_size'   => [ 'default' => [ 'size' => 24 ] ],
 					'font_weight' => [ 'default' => 600 ],
@@ -240,7 +239,7 @@ if ( ! class_exists( 'Elementor_WFTY_Order_Details_Widget' ) ) {
 				'fields_options' => [
 					// first mimic the click on Typography edit icon
 					'typography'  => [ 'default' => 'yes' ],
-					// then redifine the Elementor defaults
+					// then redefine the Elementor defaults
 					'font_family' => [ 'default' => 'Open Sans' ],
 					'font_size'   => [ 'default' => [ 'size' => 15 ] ],
 					'font_weight' => [ 'default' => 400 ],
@@ -308,7 +307,7 @@ if ( ! class_exists( 'Elementor_WFTY_Order_Details_Widget' ) ) {
 				'fields_options' => [
 					// first mimic the click on Typography edit icon
 					'typography'  => [ 'default' => 'yes' ],
-					// then redifine the Elementor defaults
+					// then redefine the Elementor defaults
 					'font_family' => [ 'default' => 'Open Sans' ],
 					'font_size'   => [ 'default' => [ 'size' => 20 ] ],
 					'font_weight' => [ 'default' => 600 ],
@@ -551,7 +550,7 @@ if ( ! class_exists( 'Elementor_WFTY_Order_Details_Widget' ) ) {
 
 		}
 
-		public function _add_typography( $group, $args, $typography_type = 'TYPOGRAPHY_1' ) {
+		public function _add_typography( $group, $args ) {
 
 			if ( version_compare( ELEMENTOR_VERSION, '3.15.0', '>=' ) ) {
 				$args['global'] = [
@@ -577,10 +576,10 @@ if ( ! class_exists( 'Elementor_WFTY_Order_Details_Widget' ) ) {
 		protected function render() {
 			$settings                   = $this->get_settings_for_display();
 			$classes                    = 'elementor-order-details-wrapper';
-			$order_heading_text         = $settings['order_details_heading'];
+			$order_heading_text         = isset( $settings['order_details_heading'] ) ? $settings['order_details_heading'] : '';
 			$order_subscription_heading = isset( $settings['order_subscription_heading'] ) ? $settings['order_subscription_heading'] : '';
 
-			$download_btn_text       = $settings['order_downloads_btn_text'];
+			$download_btn_text       = isset( $settings['order_downloads_btn_text'] ) ? $settings['order_downloads_btn_text'] : '';
 			$show_column_download    = ( empty( $settings['order_downloads_show_file_downloads'] ) || 'no' === $settings['order_downloads_show_file_downloads'] ) ? 'false' : 'true';
 			$show_column_file_expiry = ( empty( $settings['order_downloads_show_file_expiry'] ) || 'no' === $settings['order_downloads_show_file_expiry'] ) ? 'false' : 'true';
 			$order_download_heading  = isset( $settings['order_download_heading'] ) ? $settings['order_download_heading'] : '';

@@ -3,7 +3,7 @@ Contributors: nicdark
 Tags: wp bakery page builder, components, elementor, shortcodes, elementor library, post-grid, elementor templates, elementor pages, elementor sections, services
 Requires at least: 4.5
 Tested up to: 6.4
-Stable tag: 7.6
+Stable tag: 7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,9 @@ The plugin adds some useful components to your page builder ( Elementor or WP Ba
 1. Example of WP Bakery Page Builder dashboard
 
 == Changelog ==
+
+= 7.7 =
+* added new css classes 
 
 = 7.6 =
 * removed nd_options_enable_svg_media_upload() function for avoid svg image upload and improve sicurity

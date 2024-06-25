@@ -287,7 +287,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				$additional_info[]       = [ 'name' => 'contact_id', 'value' => $bwf_contact->get_id() ];
 			}
 
-			$activity_records = $this->get_contact_activity_records( $cid, $activity_ids );
+			$activity_records = $this->get_contact_activity_records( $cid, $activity_ids, $funnel_id );
 
 			$user_info['additional'] = $this->get_nice_names_for_keys( $additional_info );
 
@@ -516,8 +516,6 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 		}
 
 
-
-
 		/**
 		 * Prepare Optin Data Comma Separated
 		 *
@@ -687,7 +685,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 			if ( false === $this->is_advance_filters( $filters ) && false === $total_count ) {
 				$query .= " LIMIT $offset, $limit";
 			}
-			$contact_data = $wpdb->get_results( $query, ARRAY_A );
+			$contact_data = $wpdb->get_results( $query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			$db_error = WFFN_Common::maybe_wpdb_error( $wpdb );
 			if ( true === $db_error['db_error'] ) {
@@ -764,7 +762,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 		}
 
 
-		public function get_contact_activity_records( $cid, $activity_ids, $funnel_id = '' ) {
+		public function get_contact_activity_records( $cid, $activity_ids, $funnel_id = 0 ) {
 			$sales_data      = [];
 			$optin_data      = [];
 			$all_orders      = [];
@@ -811,10 +809,10 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 					$conv_data  = apply_filters( 'wffn_conversion_tracking_data_activity', [], $cid, $order_id );
 					$conv_order = array_merge( $conv_order, $conv_data );
 
-					$conv_order['products'] = $product_data['products'];
-					$sales_data             = array_merge( $sales_data, $product_data['timeline_data'] );
-					$funnel_ids             = array_unique( array_column( $conv_order['products'], 'fid' ) );
-					$conv_order['order_id'] = $order_id;
+					$conv_order['products']         = $product_data['products'];
+					$sales_data                     = array_merge( $sales_data, $product_data['timeline_data'] );
+					$conv_order['order_id']         = $order_id;
+					$conv_order['order_total_html'] = $product_data['order_total_html'];
 
 					if ( isset( $conv_order['overview'] ) ) {
 						unset( $conv_order['overview'] );
@@ -823,7 +821,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 					if ( isset( $conv_order['conversion'] ) ) {
 						$conv_order['conversion']['funnel_link']  = '';
 						$conv_order['conversion']['funnel_title'] = '';
-						$s_funnel_id                              = ! empty( $funnel_id ) ? $funnel_id : ( ( is_array( $funnel_ids ) && count( $funnel_ids ) > 0 ) ? $funnel_ids[0] : 0 );
+						$s_funnel_id                              = ! empty( $conv_order['conversion']['funnel_id'] ) ? $conv_order['conversion']['funnel_id'] : $funnel_id;
 						$conv_order['conversion']['funnel_id']    = $s_funnel_id;
 
 						$get_funnel = new WFFN_Funnel( $s_funnel_id );
@@ -935,9 +933,10 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 			$timeline_data = [];
 			$products      = [];
 			$data          = [
-				'products'      => $products,
-				'date_added'    => '',
-				'timeline_data' => $timeline_data,
+				'products'         => $products,
+				'date_added'       => '',
+				'timeline_data'    => $timeline_data,
+				'order_total_html' => $timeline_data,
 			];
 
 			$order = wc_get_order( $order_id );
@@ -945,9 +944,14 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				return $data;
 			}
 
-			$items    = $order->get_items();
-			$subtotal = 0;
-			$i        = 0;
+			$items          = $order->get_items();
+			$currency       = $order->get_currency();
+			$order_total    = $order->get_total();
+			$total_discount = $order->get_total_discount();
+			$subtotal       = 0;
+			$i              = 0;
+
+			$data['order_total_html'] = wc_price( $order_total, [ 'currency' => $currency ] );
 			foreach ( $items as $item ) {
 				$product       = new stdClass();
 				$key           = 'checkout';
@@ -963,7 +967,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 					$aero_obj         = WFACP_Contacts_Analytics::get_instance();
 					$checkout_records = $aero_obj->get_contacts_revenue_records( $cid, $order_id );
 					if ( is_array( $checkout_records ) && ! isset( $checkout_records['db_error'] ) && isset( $checkout_records[0] ) ) {
-						$data['date_added']      = $checkout_records[0]->date;
+						$data['date_added']    = $checkout_records[0]->date;
 						$data['timeline_data'] = array_merge( $data['timeline_data'], $checkout_records );
 					}
 
@@ -975,7 +979,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 						$upsell_records = $upsell_obj->get_contacts_revenue_records( $cid, $order_id );
 
 						if ( is_array( $upsell_records ) && ! isset( $upsell_records['db_error'] ) && isset( $upsell_records[0] ) ) {
-							$data['date_added']      = empty( $data['date_added'] ) ? $upsell_records[0]->date : $data['date_added'];
+							$data['date_added']    = empty( $data['date_added'] ) ? $upsell_records[0]->date : $data['date_added'];
 							$data['timeline_data'] = array_merge( $data['timeline_data'], $upsell_records );
 						}
 
@@ -988,36 +992,37 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 						$bump_records = $bump_obj->get_contacts_revenue_records( $cid, $order_id );
 
 						if ( is_array( $bump_records ) && ! isset( $bump_records['db_error'] ) && isset( $bump_records[0] ) ) {
-							$data['date_added']      = empty( $data['date_added'] ) ? $bump_records[0]->date : $data['date_added'];
+							$data['date_added']    = empty( $data['date_added'] ) ? $bump_records[0]->date : $data['date_added'];
 							$data['timeline_data'] = array_merge( $data['timeline_data'], $bump_records );
 						}
 					}
 				}
 
-				$sub_total          = WFFN_Common::wffn_round( $item->get_subtotal() );
-				$product->name      = $item->get_name();
-				$product->revenue   = $sub_total;
-				$product->type      = $key;
-				$data['products'][] = $product;
-				$subtotal           += $sub_total;
+				$sub_total             = WFFN_Common::wffn_round( $item->get_subtotal() );
+				$product->name         = $item->get_name();
+				$product->revenue      = $sub_total;
+				$product->type         = $key;
+				$product->html_revenue = wc_price( $product->revenue, [ 'currency' => $currency ] );
+				$data['products'][]    = $product;
+				$subtotal              += $sub_total;
 				$i ++;
 			}
-			$order_total      = $order->get_total();
-			$total_discount   = $order->get_total_discount();
 			$remaining_amount = $order_total - ( $subtotal - $total_discount );
 			if ( $remaining_amount > 0 ) {
-				$shipping_tax          = new stdClass();
-				$shipping_tax->name    = __( 'Including shipping and taxes ,other costs', 'funnel-builder' );
-				$shipping_tax->revenue = WFFN_Common::wffn_round( $remaining_amount );
-				$shipping_tax->type    = 'shipping';
-				$data['products'][]    = $shipping_tax;
+				$shipping_tax               = new stdClass();
+				$shipping_tax->name         = __( 'Including shipping and taxes ,other costs', 'funnel-builder' );
+				$shipping_tax->revenue      = WFFN_Common::wffn_round( $remaining_amount );
+				$shipping_tax->type         = 'shipping';
+				$shipping_tax->html_revenue = wc_price( $shipping_tax->revenue, [ 'currency' => $currency ] );
+				$data['products'][]         = $shipping_tax;
 			}
-			if ( $order->get_total_discount() > 0 ) {
-				$discount           = new stdClass();
-				$discount->name     = __( 'Discount', 'funnel-builder' );
-				$discount->revenue  = WFFN_Common::wffn_round( $order->get_total_discount() );
-				$discount->type     = 'discount';
-				$data['products'][] = $discount;
+			if ( $total_discount > 0 ) {
+				$discount               = new stdClass();
+				$discount->name         = __( 'Discount', 'funnel-builder' );
+				$discount->revenue      = WFFN_Common::wffn_round( $total_discount );
+				$discount->type         = 'discount';
+				$discount->html_revenue = wc_price( $discount->revenue, [ 'currency' => $currency ] );
+				$data['products'][]     = $discount;
 			}
 
 			return $data;
@@ -1038,12 +1043,12 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				$bump_sql = "SELECT DISTINCT fid as funnel_id FROM " . $wpdb->prefix . "wfob_stats WHERE cid = " . $cid . $convert;
 
 				if ( $all ) {
-					$bump_funnel_id = $wpdb->get_col( $bump_sql );
+					$bump_funnel_id = $wpdb->get_col( $bump_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( is_array( $bump_funnel_id ) && count( $bump_funnel_id ) > 0 ) {
 						$funnel_id = array_merge( $funnel_id, $bump_funnel_id );
 					}
 				} else {
-					$bump_funnel_id = $wpdb->get_var( $bump_sql );
+					$bump_funnel_id = $wpdb->get_var( $bump_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( ! empty( $bump_funnel_id ) ) {
 						$funnel_id[] = $bump_funnel_id;
 					}
@@ -1052,12 +1057,12 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				// Fetch Funnel ID from Checkout
 				$checkout_sql = "SELECT DISTINCT fid as funnel_id FROM " . $wpdb->prefix . "wfacp_stats WHERE cid = " . $cid;
 				if ( $all ) {
-					$checkout_funnel_id = $wpdb->get_col( $checkout_sql );
+					$checkout_funnel_id = $wpdb->get_col( $checkout_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( is_array( $checkout_funnel_id ) && count( $checkout_funnel_id ) > 0 ) {
 						$funnel_id = array_merge( $funnel_id, $checkout_funnel_id );
 					}
 				} else {
-					$checkout_funnel_id = $wpdb->get_var( $checkout_sql );
+					$checkout_funnel_id = $wpdb->get_var( $checkout_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( ! empty( $checkout_funnel_id ) ) {
 						$funnel_id[] = $checkout_funnel_id;
 					}
@@ -1066,12 +1071,12 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				// Fetch Funnel ID from Optin
 				$optin_sql = "SELECT DISTINCT funnel_id FROM " . $wpdb->prefix . "bwf_optin_entries WHERE cid = " . $cid;
 				if ( $all ) {
-					$optin_funnel_id = $wpdb->get_col( $optin_sql );
+					$optin_funnel_id = $wpdb->get_col( $optin_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( is_array( $optin_funnel_id ) && count( $optin_funnel_id ) > 0 ) {
 						$funnel_id = array_merge( $funnel_id, $optin_funnel_id );
 					}
 				} else {
-					$optin_funnel_id = $wpdb->get_var( $optin_sql );
+					$optin_funnel_id = $wpdb->get_var( $optin_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( ! empty( $optin_funnel_id ) ) {
 						$funnel_id[] = $optin_funnel_id;
 					}
@@ -1080,12 +1085,12 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 				// Fetch Funnel ID from Upsell
 				$upsell_sql = "SELECT DISTINCT fid as funnel_id FROM " . $wpdb->prefix . "wfocu_session WHERE cid = " . $cid;
 				if ( $all ) {
-					$upsell_funnel_id = $wpdb->get_col( $upsell_sql );
+					$upsell_funnel_id = $wpdb->get_col( $upsell_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( is_array( $upsell_funnel_id ) && count( $upsell_funnel_id ) > 0 ) {
 						$funnel_id = array_merge( $funnel_id, $upsell_funnel_id );
 					}
 				} else {
-					$upsell_funnel_id = $wpdb->get_var( $upsell_sql );
+					$upsell_funnel_id = $wpdb->get_var( $upsell_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 					if ( ! empty( $upsell_funnel_id ) ) {
 						$funnel_id[] = $upsell_funnel_id;
 					}
@@ -1114,7 +1119,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 			$funnel_optin_q = ( intval( $funnel_id ) > 0 ) ? " AND funnel_id = " . $funnel_id . " " : " AND funnel_id != 0 ";
 			$optin_sql      = "SELECT DISTINCT id as 'entry_id' FROM " . $wpdb->prefix . "bwf_optin_entries WHERE 1 = 1" . $funnel_optin_q . " AND cid = " . $cid . " ORDER BY entry_id DESC";
 
-			$optin_funnel_id = $wpdb->get_col( $optin_sql );
+			$optin_funnel_id = $wpdb->get_col( $optin_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( is_array( $optin_funnel_id ) && count( $optin_funnel_id ) > 0 ) {
 				$optin_ids = $optin_funnel_id;
 			}
@@ -1122,7 +1127,7 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 
 			// Fetch Funnel ID from Checkout
 			$checkout_sql       = "SELECT DISTINCT order_id as order_id FROM " . $wpdb->prefix . "wfacp_stats WHERE order_id != 0 " . $funnel_q . " AND cid = " . $cid . " ORDER BY order_id DESC";
-			$checkout_funnel_id = $wpdb->get_col( $checkout_sql );
+			$checkout_funnel_id = $wpdb->get_col( $checkout_sql ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( is_array( $checkout_funnel_id ) && count( $checkout_funnel_id ) > 0 ) {
 				$order_ids = $checkout_funnel_id;
 			}
@@ -1242,8 +1247,6 @@ if ( ! class_exists( 'WFFN_Funnel_Contacts', false ) ) {
 
 			return $filters;
 		}
-
-
 
 
 	}

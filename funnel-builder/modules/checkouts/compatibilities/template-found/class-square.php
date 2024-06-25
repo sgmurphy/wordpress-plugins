@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_action( 'wfacp_internal_css', [ $this, 'unblock_shipping_method' ] );
 	}
 
+	public static function is_enable() {
+		return class_exists( 'WooCommerce_Square_Loader' );
+	}
+
 	public function is_enabled() {
 		if ( WFACP_Common::is_theme_builder() ) {
 			return;
@@ -49,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			return;
 		}
 		?>
-        <script>
+		<script>
             window.addEventListener('load', function () {
                 (function ($) {
                     $(document).ajaxComplete(function (event, jqxhr, settings) {
@@ -59,12 +63,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                     });
                 })(jQuery);
             });
-        </script>
+		</script>
 		<?php
-	}
-
-	public static function is_enable() {
-		return class_exists( 'WooCommerce_Square_Loader' );
 	}
 }
 

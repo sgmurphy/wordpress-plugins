@@ -1,5 +1,4 @@
 <?php
-
 /*
     Copyright 2021  UserWay  (email: admin@userway.org)
 */
@@ -34,7 +33,7 @@ function usw_userway_settings_page() {
 		}
 		if ( isset( $accountDb->state ) ) {
 			$state     = $accountDb->state ? 'true' : 'false';
-			$widgetUrl .= "&active=${state}";
+			$widgetUrl .= "&active={$state}";
 		}
 	}
 

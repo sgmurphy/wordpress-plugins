@@ -8,7 +8,7 @@
  */
 
 
-define( 'BWF_VERSION', '1.10.12.07' );
+define( 'BWF_VERSION', '1.10.12.13' );
 define( 'BWF_DB_VERSION', '1.0.5' );
 
 #[AllowDynamicProperties]
@@ -736,6 +736,18 @@ class WooFunnels_Dashboard {
 			if ( is_file( $contact_path ) ) {
 				require_once $contact_path;
 			}
+
+			/**
+			 * loading compatibility classes
+			 */
+			if ( false !== strpos( $class_name, 'Compatibility' ) || false !== strpos( $class_name, 'Compatibilities' ) ) {
+				$path = WooFunnel_Loader::$ultimate_path . 'compatibilities/class-' . self::slugify_classname( $class_name ) . '.php';
+
+				if ( is_file( $path ) ) {
+					require_once $path;
+				}
+
+			}
 		}
 		if ( 0 === strpos( $class_name, 'WFCO_' ) ) {
 			$path       = WooFunnel_Loader::$ultimate_path . 'connector/class-' . self::slugify_classname( $class_name ) . '.php';
@@ -765,11 +777,11 @@ class WooFunnels_Dashboard {
 		$classname = sanitize_title( $class_name );
 		$classname = str_replace( '_', '-', $classname );
 
+
 		return $classname;
 	}
 
 	public static function load_core_classes() {
-		include_once dirname( __DIR__ ) . '/compatibilities/class-bwf-wc-compatibility.php';
 		require dirname( __DIR__ ) . '/includes/bwf-functions.php';
 		require dirname( __DIR__ ) . '/contact/woofunnels-db-updater-functions.php';
 		require dirname( __DIR__ ) . '/contact/woofunnels-contact-functions.php';
@@ -795,10 +807,6 @@ class WooFunnels_Dashboard {
 			$class::init();
 		}
 
-		/**
-		 * Common function files
-		 */
-		include_once dirname( __DIR__ ) . '/compatibilities/class-bwf-plugin-compatibilities.php';
 
 		/** WooFunnels AS Data Store */
 		include_once dirname( __DIR__ ) . '/as-data-store/class-woofunnels-as-ds.php';

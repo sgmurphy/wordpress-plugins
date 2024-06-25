@@ -189,7 +189,6 @@ if ( ! class_exists( 'BWF_Admin_General_Settings' ) ) {
 				'google_ads_content_id_suffix'      => '',
 				'gad_exclude_from_total'            => array(),
 				'ga_key'                            => '',
-				'is_ga4_tracking'                   => array(),
 				'is_ga_page_view_global'            => '',
 				'is_ga_view_item_global'            => '',
 				'is_ga_page_view_lp'                => array(),
@@ -444,6 +443,11 @@ if ( ! class_exists( 'BWF_Admin_General_Settings' ) ) {
 			if ( $options !== 0 ) {
 				update_option( 'bwf_gen_config', $options, true );
 				update_option( 'bwf_needs_rewrite', 'yes', true );
+
+				if ( class_exists( 'BWF_JSON_Cache' ) && method_exists( 'BWF_JSON_Cache', 'run_json_endpoints_cache_handling' ) ) {
+					BWF_JSON_Cache::run_json_endpoints_cache_handling();
+				}
+
 				$resp['status'] = true;
 			}
 

@@ -67,11 +67,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
-	public function send_thrive_content( $post_content ) {
-		return ! empty( $this->shortcode_content ) ? $this->shortcode_content : $post_content;
-	}
-
-
 	public function get_shortcode_content() {
 
 		if ( ! function_exists( 'tve_get_post_meta' ) ) {
@@ -105,9 +100,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function send_thrive_content( $post_content ) {
+		return ! empty( $this->shortcode_content ) ? $this->shortcode_content : $post_content;
+	}
+
 	public function footer_scripts() {
 		?>
-        <script type="text/javascript">
+		<script type="text/javascript">
             document.addEventListener('DOMContentLoaded', (event) => {
                 if (typeof TVE !== "undefined") {
                     TVE.add_filter('tve.allowed.empty.posts.type', function (list) {
@@ -117,7 +116,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 }
             });
 
-        </script>
+		</script>
 		<?php
 	}
 

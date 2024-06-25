@@ -1687,6 +1687,12 @@ span.ays-pb-small-hint-text.ays-pb-show-only-for-author-hint-text {
     display: block;
 }
 
+.ays_pb_notification_button_offset_container {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
 @media screen and (max-width: 768px) {
     .ays_pb_notification_button_paddings_container,
     .ays_pb_notification_button_paddings_container .col-sm-4 {
@@ -1700,6 +1706,13 @@ span.ays-pb-small-hint-text.ays-pb-show-only-for-author-hint-text {
 
     .ays_pb_notification_button_paddings_container .ays_divider_left {
         border: none;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .ays_pb_notification_button_offset_container {
+        margin-bottom: 10px;
+        border: 0;
     }
 }
 

@@ -1094,6 +1094,7 @@ class ThumbGallery extends EAE_Widget_Base {
 				'default'   => 'yes',
 				'label_on'  => __( 'Yes', 'wts-eae' ),
 				'label_off' => __( 'No', 'wts-eae' ),
+				'return_value' => 'yes',
 				'condition' => [
 					'slider_autoplay' => 'yes',
 				],
@@ -2370,7 +2371,7 @@ class ThumbGallery extends EAE_Widget_Base {
 			$slider_data['autoplay']['slider_direction'] = $settings['slider_direction'];
 
 			$settings['slider_pause_on_interaction'] === 'yes' ? $slider_data['autoplay']['disableOnInteraction'] = true : $slider_data['autoplay']['disableOnInteraction'] = false;
-			$slider_data['autoplay']['pauseOnHover'] = $settings['slider_pause_on_hover'];
+			$slider_data['pauseOnHover'] = $settings['slider_pause_on_hover'] == 'yes' ? 'yes' : false;
 		} else {
 			$swiper_data['autoplay'] = false;
 		}

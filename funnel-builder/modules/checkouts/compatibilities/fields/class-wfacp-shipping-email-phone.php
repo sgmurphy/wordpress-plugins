@@ -16,6 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		'phone_field_enabled' => 'billing',
 		'email_field_enabled' => 'billing'
 	);
+	private $shipping_new_fields = [
+		'shipping_phone',
+		'shipping_email',
+	];
+
 
 	public function __construct() {
 
@@ -25,6 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			add_action( 'init', [ $this, 'setup_fields_shipping' ], 20 );
 		}
 		add_action( 'wfacp_before_process_checkout_template_loader', [ $this, 'actions' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		add_filter( 'wfacp_third_party_shipping_fields', [ $this, 'disabled_third_party_shipping_fields' ] );
+
 	}
 
 	public function actions() {
@@ -36,16 +46,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		remove_filter( 'woocommerce_shipping_fields', 'F4\WCSPE\Core\Hooks::add_address_shipping_fields' );
 
 	}
-
-	public function is_enabled() {
-
-		if ( class_exists( 'F4\WCSPE\Core\Hooks' ) ) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 	public function setup_fields_shipping() {
 
@@ -80,6 +80,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	}
 
+	public function is_enabled() {
+
+		if ( class_exists( 'F4\WCSPE\Core\Hooks' ) ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	public function validation_fields() {
 		add_filter( 'wfacp_checkout_fields', [ $this, 'make_validation' ] );
@@ -131,6 +139,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 		return $template_fields;
+	}
+
+	public function disabled_third_party_shipping_fields( $fields ) {
+		if ( is_array( $this->shipping_new_fields ) && count( $this->shipping_new_fields ) ) {
+			foreach ( $this->shipping_new_fields as $i => $key ) {
+
+				if ( isset( $fields[ $key ] ) ) {
+					unset( $fields[ $key ] );
+
+				}
+			}
+		}
+
+		return $fields;
 	}
 
 

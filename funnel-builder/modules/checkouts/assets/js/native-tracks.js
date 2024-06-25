@@ -46,20 +46,33 @@
             let step_changed = false;
             let payment_trigger = false;
             $('#billing_email').on('change', function () {
-                self.fire_events('email');
+                try {
+                    self.fire_events('email');
+                }catch (error) {
+                    console.log( error );
+                }
+
             });
 
             if (document.readyState === 'complete' || document.readyState === 'loading') {
                 $(document).ready(function () {
-                    self.fire_events('load');
-                    self.load();
-                    self.single_event_trigger();
+                    try {
+                        self.fire_events('load');
+                        self.load();
+                        self.single_event_trigger();
+                    }catch (error) {
+                        console.log( error );
+                    }
                 });
             } else {
                 $(window).on('load', function () {
-                    self.fire_events('load');
-                    self.load();
-                    self.single_event_trigger();
+                    try {
+                        self.fire_events('load');
+                        self.load();
+                        self.single_event_trigger();
+                    }catch (error) {
+                        console.log( error );
+                    }
                 });
             }
 
@@ -72,35 +85,59 @@
             let payment_trigger = false;
             if (step_button.length > 0) {
                 $(document.body).on('wfacp_step_switching', function () {
-                    if (false === step_changed) {
-                        self.fire_events('button');
-                        step_changed = true;
+                    try {
+                        if (false === step_changed) {
+                            self.fire_events('button');
+                            step_changed = true;
+                        }
+                    }catch (error) {
+                        console.log( error );
                     }
                 });
             }
 
             $(document.body).on('angelleye_paypal_onclick', function () {
-                if (false === payment_trigger) {
-                    self.payment_info();
-                    payment_trigger = true;
+                try {
+                    if (false === payment_trigger) {
+                        self.payment_info();
+                        payment_trigger = true;
+                    }
+                }catch (error) {
+                    console.log( error );
                 }
             });
             $(document.body).on('kp_auth_success', function () {
-                if (false === payment_trigger) {
-                    self.payment_info();
-                    payment_trigger = true;
+                try {
+                    if (false === payment_trigger) {
+                        self.payment_info();
+                        payment_trigger = true;
+                    }
+                }catch (error) {
+                    console.log( error );
                 }
             });
 
             $(document.body).on('wfob_product_added', function (e, v) {
-                self.track_bump_item(v);
+                try {
+                    self.track_bump_item(v);
+                }catch (error) {
+                    console.log( error );
+                }
             });
             $(document.body).on('wfob_product_removed', function (e, v) {
-                self.track_remove_bump_item(v);
+                try {
+                    self.track_remove_bump_item(v);
+                }catch (error) {
+                    console.log( error );
+                }
             });
 
             $(document.body).on('wfacp_product_added', function (e, v) {
-                self.add_item(v);
+                try {
+                    self.add_item(v);
+                }catch (error) {
+                    console.log( error );
+                }
             });
 
             $(document.body).on('wfacp_checkout_data', function (e, v) {
@@ -466,7 +503,6 @@
             super(data);
             this.track_name = 'google_ua';
             window.dataLayer = window.dataLayer || [];
-            gtag('config', this.track_id, []);
         }
 
         static enqueue_js(analytics_id) {
@@ -500,27 +536,39 @@
         }
 
         event_checkout(checkout_data) {
-            var event_data = {
-                send_to: this.track_id, event_category: "ecommerce", items: JSON.parse(checkout_data), non_interaction: true
-            };
+
+            var event_data = [];
+            if ('google_ua' === this.track_name) {
+                checkout_data = JSON.parse(checkout_data);
+                if (checkout_data.length > 0) {
+                    event_data = checkout_data[0];
+                    event_data.send_to = this.track_id;
+                    event_data.event_category = "ecommerce";
+                    event_data.non_interaction = true;
+                }
+            } else {
+                event_data = {
+                    send_to: this.track_id, event_category: "ecommerce", items: JSON.parse(checkout_data), non_interaction: true
+                };
+            }
+
             event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(event_data) : event_data;
             this.gtag('event', 'begin_checkout', event_data);
         }
 
         event_single_add_to_cart(data) {
-            var event_data = {
-                send_to: this.track_id, event_category: "ecommerce", items: [data], non_interaction: true
-            };
-            event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(event_data) : event_data;
-
+            data.send_to = this.track_id;
+            data.event_category = "ecommerce";
+            data.non_interaction = true;
+            var event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(data) : data;
             this.gtag('event', 'add_to_cart', event_data);
         }
 
         event_remove_add_to_cart(data, item_key) {
-            var event_data = {
-                send_to: this.track_id, event_category: "ecommerce", items: [data], non_interaction: true
-            };
-            event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(event_data) : event_data;
+            data.send_to = this.track_id;
+            data.event_category = "ecommerce";
+            data.non_interaction = true;
+            var event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(data) : data;
 
             this.gtag('event', 'remove_from_cart', event_data);
         }
@@ -532,14 +580,21 @@
             let data = JSON.stringify(this.data.add_to_cart);
             data = JSON.parse(data);
             for (let item_key in data) {
-
-
                 this.event_single_add_to_cart(data[item_key]);
             }
         }
 
         event_payment_info() {
             var event_data = {send_to: this.track_id, non_interaction: true};
+            if ('google_ua' === this.track_name) {
+                var checkout_data = this.data.checkout;
+                if (checkout_data.length > 0) {
+                    event_data = checkout_data[0];
+                    event_data.send_to = this.track_id;
+                    event_data.non_interaction = true;
+                }
+            }
+
             event_data = (typeof wffnAddTrafficParamsToEvent !== "undefined") ? wffnAddTrafficParamsToEvent(event_data) : event_data;
 
             this.gtag('event', 'add_payment_info', event_data);
@@ -562,6 +617,7 @@
             super(data);
             this.track_name = 'google_ads';
             window.dataLayer = window.dataLayer || [];
+            this.gtag('config', this.track_id);
         }
 
         event_single_add_to_cart(data) {
@@ -587,7 +643,7 @@
             this.track_name = 'pint';
         }
 
-        init() {
+        static enqueue_js() {
             !function (e) {
                 if (!window.pintrk) {
                     window.pintrk = function () {
@@ -601,6 +657,10 @@
                     r.parentNode.insertBefore(t, r);
                 }
             }("https://s.pinimg.com/ct/core.js");
+        }
+
+        init(tracks_ids) {
+
             let ids = this.track_id.split(',');
             ids.forEach(function (pixelId) {
                 pintrk('load', pixelId);
@@ -632,7 +692,7 @@
         }
 
         event_single_add_to_cart(data) {
-            this.pint('AddToCart', data);
+            this.pint('addtocart', data);
         }
 
         event_remove_add_to_cart(data, item_key) {
@@ -909,6 +969,7 @@
                 if (wfacp_analytics_data.hasOwnProperty('pint') && wfacp_analytics_data.pint.hasOwnProperty('id')) {
                     let ids = wfacp_analytics_data.pint.id.split(',');
                     if (ids.length > 0) {
+                        Pinterest.enqueue_js();
                         wfacp_analytics_data.wfacp_frontend.tracks.pint = {};
                         for (let f = 0; f < ids.length; f++) {
                             let f_id = ids[f];
@@ -953,5 +1014,9 @@
         }
     }
 
-    Loader.init();
+    try {
+        Loader.init();
+    } catch (e) {
+        console.log(e);
+    }
 })(jQuery);

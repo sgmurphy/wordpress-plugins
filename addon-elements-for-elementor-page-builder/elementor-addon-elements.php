@@ -5,10 +5,10 @@
  * Description: Elementor Addon Elements comes with 40+ widgets and extensions to extend the power of Elementor Page Builder.
  * Plugin URI: https://www.elementoraddons.com/elements-addon-elements/
  * Author: WPVibes
- * Version: 1.13.5
+ * Version: 1.13.6
  * Author URI: https://wpvibes.com/
- * Elementor tested up to: 3.20
- * Elementor Pro tested up to: 3.20
+ * Elementor tested up to: 3.21
+ * Elementor Pro tested up to: 3.21
  * Text Domain: wts-eae
  * @package WTS_EAE
  */
@@ -19,7 +19,7 @@ if(! defined('EAE_FILE')){
 	define( 'EAE_URL', plugins_url( '/', __FILE__ ) );
 	define( 'EAE_PATH', plugin_dir_path( __FILE__ ) );
 	define( 'EAE_SCRIPT_SUFFIX', defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
-	define( 'EAE_VERSION', '1.13.5' );
+	define( 'EAE_VERSION', '1.13.6' );
 }
 
 

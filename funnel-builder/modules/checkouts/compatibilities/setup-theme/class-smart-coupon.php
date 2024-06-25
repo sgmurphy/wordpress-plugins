@@ -23,6 +23,9 @@
 		add_action( 'woocommerce_checkout_update_order_review', [ $this, 'get_data' ], 5 );
 		add_filter( 'woocommerce_update_order_review_fragments', [ $this, 'unset_fragments' ], 900 );
 		add_action( 'wfacp_after_checkout_page_found', [ $this, 'action' ] );
+
+		/* prevent third party fields and wrapper*/
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
 	}
 
 	public function action() {
@@ -106,19 +109,6 @@
 		return $fragments;
 	}
 
-	public function wc_coupon_message_display() {
-
-		if ( ! is_object( WC() ) || ! is_object( WC()->cart ) || WC()->cart->is_empty() ) {
-			return;
-		}
-
-		echo '<div class="wc_coupon_message_wrap" style="padding: 10px 0 10px;">';
-		echo $this->instance->print_coupon_message();
-		echo '</div>';
-
-
-	}
-
 	public function wc_coupon_html() {
 
 		$applied_coupons = WC()->cart->get_applied_coupons();
@@ -137,6 +127,18 @@
 
 	}
 
+	public function wc_coupon_message_display() {
+
+		if ( ! is_object( WC() ) || ! is_object( WC()->cart ) || WC()->cart->is_empty() ) {
+			return;
+		}
+
+		echo '<div class="wc_coupon_message_wrap" style="padding: 10px 0 10px;">';
+		echo $this->instance->print_coupon_message();
+		echo '</div>';
+
+
+	}
 
 	public function wfacp_internal_css_script() {
 

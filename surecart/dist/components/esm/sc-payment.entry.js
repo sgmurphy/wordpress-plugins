@@ -1,8 +1,8 @@
 import { r as registerInstance, h, F as Fragment, H as Host, a as getElement } from './index-644f5478.js';
 import { s as state$1 } from './mutations-b8f9af9f.js';
-import './watchers-482a0bed.js';
+import './watchers-6aa4e294.js';
 import { s as state, h as hasOtherAvailableCreditCardProcessor, d as hasMultipleProcessorChoices, e as getAvailableProcessor, a as availableProcessors, b as availableManualPaymentMethods } from './getters-03bf9a6d.js';
-import { s as state$2 } from './watchers-f761bdb6.js';
+import { s as state$2 } from './watchers-7ddfd1b5.js';
 import { M as ManualPaymentMethods, a as MockProcessor } from './MockProcessor-0e1b73d7.js';
 import { a as addQueryArgs } from './add-query-args-f4c5962b.js';
 import './index-1046c77e.js';

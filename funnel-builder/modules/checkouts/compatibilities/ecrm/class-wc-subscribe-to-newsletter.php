@@ -20,6 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 10, 2 );
 		add_action( 'wfacp_after_template_found', [ $this, 'remove_action' ] );
 
+		/* prevent third party fields and wrapper*/
+
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function remove_action() {

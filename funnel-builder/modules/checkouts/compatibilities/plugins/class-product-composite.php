@@ -1,8 +1,7 @@
 <?php
 
-#[AllowDynamicProperties] 
-
-  class WFACP_WooCommerce_Product_Composite {
+#[AllowDynamicProperties]
+class WFACP_WooCommerce_Product_Composite {
 
 	public function __construct() {
 		add_filter( 'wfacp_show_item_quantity', [ $this, 'do_not_display_quantity_increment' ], 10, 2 );
@@ -16,9 +15,19 @@
 		add_filter( 'wfacp_show_item_quantity_placeholder', [ $this, 'display_item_quantity' ], 10, 3 );
 		add_action( 'wfacp_internal_css', [ $this, 'hide_quantity' ] );
 
+		/**
+		 * Composite product item quantity count min max handling
+		 */
+
+		add_filter( 'wfacp_cart_item_min_max_quantity', [ $this, 'handle_min_max_quantity' ], 99, 2 );
+
 	}
 
 	public function do_not_display( $status, $cart_item ) {
+		if ( $cart_item['data']->get_type() == 'composite' ) {
+			$status = true;
+		}
+
 		if ( isset( $cart_item['composite_parent'] ) ) {
 			$status = false;
 		}
@@ -81,5 +90,34 @@
 	}
 
 
+	/**
+	 * @return void Handle Min Max quantity for Composite product
+	 */
+	public function handle_min_max_quantity( $MinMax, $cart_item ) {
+
+		if ( empty( $cart_item ) || empty( $cart_item['data'] ) || ! isset( $cart_item['composite_parent'] ) || ! isset( $cart_item['composite_item'] ) ) {
+			return $MinMax;
+		}
+		$product = $cart_item['data'];
+
+		if ( $product instanceof WC_Product && isset( $cart_item['composite_data'] ) && is_array( $cart_item['composite_data'] ) ) {
+			$composite_item = $cart_item['composite_item'];
+
+			if ( isset( $cart_item['composite_data'][ $composite_item ]['quantity_min'] ) ) {
+				$MinMax['min'] = $cart_item['composite_data'][ $composite_item ]['quantity_min'];
+			}
+
+			if ( isset( $cart_item['composite_data'][ $composite_item ]['quantity_max'] ) ) {
+				$MinMax['max'] = $cart_item['composite_data'][ $composite_item ]['quantity_max'];
+			}
+		}
+
+
+		return $MinMax;
+	}
+
+
+
 }
+
 new WFACP_WooCommerce_Product_Composite();

@@ -163,7 +163,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		new WFACP_Add_Address_Field( 'vat_id', [
 			'type'         => 'text',
 			'label'        => __( 'VAT ID', 'woocommerce-germanized-pro' ),
-			'palaceholder' => __( 'VAT ID', 'woocommerce-germanized-pro' ),
+			'placeholder' => __( 'VAT ID', 'woocommerce-germanized-pro' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,
@@ -172,7 +172,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		new WFACP_Add_Address_Field( 'vat_id', [
 			'type'         => 'text',
 			'label'        => __( 'VAT ID', 'woocommerce-germanized-pro' ),
-			'palaceholder' => __( 'VAT ID', 'woocommerce-germanized-pro' ),
+			'placeholder' => __( 'VAT ID', 'woocommerce-germanized-pro' ),
 			'cssready'     => [ 'wfacp-col-left-third' ],
 			'class'        => array( 'form-row-third first', 'wfacp-col-full' ),
 			'required'     => false,

@@ -705,7 +705,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 			$file_api = new WooFunnels_File_Api( 'wffn-transient' );
 
 			$woofunnels_core_dir = $file_api->woofunnels_core_dir . '/wffn-transient';
-			$dir                 = @opendir( $woofunnels_core_dir . '/' );
+			$dir                 = @opendir( $woofunnels_core_dir . '/' ); //phpcs:ignore Generic.PHP.NoSilencedErrors.Forbidden
 
 			if ( empty( $dir ) ) {
 				return;
@@ -715,7 +715,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 			self::$start_time = time();
 			$i                = 0;
 			if ( is_dir( $woofunnels_core_dir ) ) {
-				while ( false !== ( $file = @readdir( $dir ) ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition,Generic.PHP.NoSilencedErrors.Forbidden
+				while ( false !== ( $file = @readdir( $dir ) ) ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition, Generic.PHP.NoSilencedErrors.Forbidden, WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 
 					if ( $file === '.' || $file === '..' ) {
 						continue;
@@ -746,7 +746,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 			$file_api = new WooFunnels_File_Api( 'funnel-builder-logs' );
 
 			$woofunnels_core_dir = $file_api->woofunnels_core_dir . '/funnel-builder-logs';
-			$dir                 = @opendir( $woofunnels_core_dir . '/' );
+			$dir                 = @opendir( $woofunnels_core_dir . '/' ); //phpcs:ignore Generic.PHP.NoSilencedErrors.Forbidden
 
 			if ( empty( $dir ) ) {
 				return;
@@ -767,7 +767,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 			self::$start_time = time();
 			$i                = 0;
 			if ( is_dir( $woofunnels_core_dir ) ) {
-				while ( false !== ( $file = @readdir( $dir ) ) ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition,Generic.PHP.NoSilencedErrors.Forbidden
+				while ( false !== ( $file = @readdir( $dir ) ) ) { // phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition,Generic.PHP.NoSilencedErrors.Forbidden, WordPress.CodeAnalysis.AssignmentInCondition
 
 					if ( $file === '.' || $file === '..' ) {
 						continue;
@@ -797,6 +797,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 
 		public static function memory_exceeded() {
 			$memory_limit   = self::get_memory_limit() * 0.9; // 90% of max memory
+
 			$current_memory = memory_get_usage( true );
 			$return         = false;
 
@@ -1074,10 +1075,10 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 				return $args;
 			}
 
-			if ( isset( $params["em"] ) && $params["em"] != "" ) {
+			if ( isset( $params["em"] ) && $params["em"] !== "" ) {
 				$args['sha256_email'] = hash( 'sha256', $params["em"] );
 			}
-			if ( isset( $params["ph"] ) && $params["ph"] != "" ) {
+			if ( isset( $params["ph"] ) && $params["ph"] !== "" ) {
 				$args['sha256_phone_number'] = hash( 'sha256', $params['ph'] );
 			}
 
@@ -1094,7 +1095,7 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 				$params['fn']          = $user->get( 'user_firstname' );
 				$params['ln']          = $user->get( 'user_lastname' );
 				$params['em']          = $user->get( 'user_email' );
-				$params['ph']          = get_user_meta( $user->ID,'user_phone',true);
+				$params['ph']          = get_user_meta( $user->ID, 'user_phone', true );
 				$params['external_id'] = $user->ID;
 			}
 
@@ -1177,18 +1178,23 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 				return (int) $_REQUEST['order_id'];
 			}
 
+			if ( ! empty( $_REQUEST['wfty_source'] ) && ! empty( $_REQUEST['order'] ) ) {
+				return (int) $_REQUEST['order'];
+			}
+
 			if ( ! empty( $_REQUEST['wcf-order'] ) ) {
 				return (int) $_REQUEST['wcf-order'];
 			}
+
 			// @codingStandardsIgnoreEnd
 			return - 1;
 		}
 
 		public static function sanitize_advanced_matching_param( $value, $key ) {
 			$value = strtolower( $value );
-			if ( $key == 'ph' ) {
+			if ( $key === 'ph' ) {
 				$value = preg_replace( '/\D/', '', $value );
-			} elseif ( $key == 'em' ) {
+			} elseif ( $key === 'em' ) {
 				$value = preg_replace( '/[^a-z0-9._+-@]+/i', '', $value );
 			} else {
 				// only letters with unicode support
@@ -1406,5 +1412,13 @@ if ( ! class_exists( 'WFFN_Common' ) ) {
 			return $type;
 		}
 
+		public static function oxy_get_meta_prefix( $key ) {
+			if ( function_exists( 'oxy_get_meta_prefix' ) ) {
+				$key = oxy_get_meta_prefix( $key );
+			}
+
+			return $key;
+		}
 	}
+
 }

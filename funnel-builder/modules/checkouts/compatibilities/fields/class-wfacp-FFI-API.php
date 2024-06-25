@@ -4,9 +4,8 @@
  * FFl API By Optimum7
  * Plugin URI: https://wordpress.org/plugins/ffl-api/
  */
-#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_FFI_API {
+#[AllowDynamicProperties] 
+ class WFACP_Compatibility_FFI_API {
 
 	public $is_field = false;
 
@@ -18,10 +17,10 @@
 		add_action( 'process_wfacp_html', [ $this, 'display_ffl_field' ], 999, 3 );
 		add_action( 'wfacp_internal_css', [ $this, 'internal_css' ] );
 
-	}
+		/* prevent third party fields and wrapper*/
 
-	public function is_enabled() {
-		return class_exists( 'Ffl_Api_Public' );
+		add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+
 	}
 
 	public function add_field( $fields ) {
@@ -40,6 +39,10 @@
 		];
 
 		return $fields;
+	}
+
+	public function is_enabled() {
+		return class_exists( 'Ffl_Api_Public' );
 	}
 
 	public function display_ffl_field( $field, $key, $args ) {
@@ -78,7 +81,7 @@
 
 		?>
 
-        <script>
+		<script>
 
             window.addEventListener('load', function () {
                 (function ($) {
@@ -121,9 +124,9 @@
 
                 })(jQuery);
             });
-        </script>
+		</script>
 
-        <style>
+		<style>
             #ffl_container .columns {
                 display: block;
                 margin-top: 15px;
@@ -166,7 +169,7 @@
             #ffl_container .columns:after {
                 clear: both;
             }
-        </style>
+		</style>
 		<?php
 	}
 

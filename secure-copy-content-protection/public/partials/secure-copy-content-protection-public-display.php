@@ -19,6 +19,7 @@ $enable_left_click      = ((isset($data["left_click"]) && ($data["left_click"] =
 $enable_developer_tools = ((isset($data["developer_tools"]) && ($data["developer_tools"] == "checked")) || !isset($data["left_click"])) ? true : false;
 $enable_context_menu    = ((isset($data["context_menu"]) && ($data["context_menu"] == "checked")) || !isset($data["context_menu"])) ? true : false;
 $enable_rclick_img      = ((isset($data["rclick_img"]) && ($data["rclick_img"] == "checked"))) ? true : false;
+$enable_rclick_link     = ((isset($data["rclick_link"]) && ($data["rclick_link"] == "checked"))) ? true : false;
 $enable_drag_start      = ((isset($data["drag_start"]) && ($data["drag_start"] == "checked")) || !isset($data["drag_start"])) ? true : false;
 $enable_mobile_img      = ((isset($data["mobile_img"]) && ($data["mobile_img"] == "checked")) || !isset($data["mobile_img"])) ? true : false;
 $enable_ctrlc           = ((isset($data["ctrlc"]) && ($data["ctrlc"] == "checked")) || !isset($data["ctrlc"])) ? true : false;
@@ -46,6 +47,7 @@ $enable_left_click_mess      = ((isset($data["left_click_mess"]) && ($data["left
 $enable_developer_tools_mess = (isset($data["developer_tools_mess"]) && ($data["developer_tools_mess"] == "checked") || (!isset($data["developer_tools_mess"]))) ? true : false;
 $enable_context_menu_mess    = (isset($data["context_menu_mess"]) && ($data["context_menu_mess"] == "checked") || (!isset($data["context_menu_mess"]))) ? true : false;
 $enable_rclick_img_mess      = (isset($data["rclick_img_mess"]) && ($data["rclick_img_mess"] == "checked")) ? true : false;
+$enable_rclick_link_mess      = (isset($data["rclick_link_mess"]) && ($data["rclick_link_mess"] == "checked")) ? true : false;
 $enable_mobile_img_mess      = (isset($data["mobile_img_mess"]) && ($data["mobile_img_mess"] == "checked") || (!isset($data["mobile_img_mess"]))) ? true : false;
 $enable_drag_start_mess      = (isset($data["drag_start_mess"]) && ($data["drag_start_mess"] == "checked") || (!isset($data["drag_start_mess"]))) ? true : false;
 $enable_ctrlc_mess           = (isset($data["ctrlc_mess"]) && ($data["ctrlc_mess"] == "checked") || (!isset($data["ctrlc_mess"]))) ? true : false;
@@ -70,7 +72,8 @@ $enable_printscreen_mess     = (isset($data["printscreen_mess"]) && ($data["prin
 
 $enable_left_click_audio      = (isset($data["left_click_audio"]) && ($data["left_click_audio"] == "checked")) ? true : false;
 $right_click_audio            = (isset($data["right_click_audio"]) && ($data["right_click_audio"] == "checked")) ? true : false;
-$enabled_rclick_img_audio     = (isset($data["rclick_img_audio"]) && ($data["rclick_img_audio"] == "checked")) ? true : false;
+$enable_rclick_img_audio     = (isset($data["rclick_img_audio"]) && ($data["rclick_img_audio"] == "checked")) ? true : false;
+$enable_rclick_link_audio     = (isset($data["rclick_link_audio"]) && ($data["rclick_link_audio"] == "checked")) ? true : false;
 $enable_developer_tools_audio = (isset($data["developer_tools_audio"]) && ($data["developer_tools_audio"] == "checked")) ? true : false;
 $enable_drag_start_audio      = (isset($data["drag_start_audio"]) && ($data["drag_start_audio"] == "checked")) ? true : false;
 $enable_mobile_img_audio      = (isset($data["mobile_img_audio"]) && ($data["mobile_img_audio"] == "checked")) ? true : false;
@@ -224,7 +227,7 @@ if (!isset($_GET['elementor-preview'])): ?>
     				<?php if($enable_context_menu) : ?>
                     $(document).on('contextmenu', function (e) {
                         let target = $(event.target);
-                        if (!target.is("<?=$exclude_css_selectors?>") && (!target.is("<?=$enable_rclick_img?>") && !target.is("img")) ) {
+                        if (!target.is("<?=$exclude_css_selectors?>") && (!target.is("<?=$enable_rclick_img?>") && !target.is("img")) && (!target.is("<?=$enable_rclick_link?>") && !target.is("a")) ) {
                             let t = e || window.event;
                             let n = t.target || t.srcElement;
                             if (n.nodeName !== "A") {
@@ -245,7 +248,7 @@ if (!isset($_GET['elementor-preview'])): ?>
                             let n = t.target || t.srcElement;
                             if (n.nodeName !== "A") {
                                 show_tooltip(<?php echo $enable_rclick_img_mess?> );
-                                audio_play(<?php echo $enabled_rclick_img_audio?>);
+                                audio_play(<?php echo $enable_rclick_img_audio?>);
                             }
                             return false;
                         }
@@ -265,6 +268,17 @@ if (!isset($_GET['elementor-preview'])): ?>
                         }
                     });
     				<?php endif; ?>
+
+                    <?php if($enable_rclick_link) : ?>
+                    $(document).on('contextmenu', function (e) {
+                        let target = $(event.target);
+                        if (target.is("a") || target.is("div.ays_tooltip_class")) {
+                            show_tooltip(<?php echo $enable_rclick_link_mess?> );
+                            audio_play(<?php echo $enable_rclick_link_audio?>);
+                            return false;
+                        }
+                    });
+                    <?php endif; ?>
 
     				<?php if($enable_drag_start) : ?>
                     $(document).on('dragstart', function () {

@@ -128,38 +128,7 @@
 		return $item_added_data;
 	}
 
-	public function get_product_item( $product_obj ) {
 
-		if ( ! $product_obj instanceof WC_Product ) {
-			return parent::get_product_item( $product_obj );
-		}
-
-		$item_id         = $product_obj->get_id();
-		$item_id         = $this->get_product_content_id( $item_id );
-		$sub_total       = apply_filters( 'wfacp_add_to_cart_tracking_price', $product_obj->get_price(), $product_obj, 1, 'pixel', $this->admin_general_settings );
-		$sub_total       = $this->number_format( $sub_total );
-		$item_added_data = [
-			'value'        => $sub_total,
-			'content_name' => $product_obj->get_name(),
-			'content_type' => 'product',
-			'currency'     => get_woocommerce_currency(),
-			'user_roles'   => WFACP_Common::get_current_user_role(),
-		];
-
-		if ( true === $this->is_fb_enable_content_on() ) {
-			$item_added_data['content_ids'] = [ $item_id ];
-			$item_added_data['contents']    = [
-				[
-					'id'         => $item_id,
-					'item_price' => $sub_total,
-					'quantity'   => 1,
-					'value'      => $sub_total,
-				],
-			];
-		}
-
-		return $item_added_data;
-	}
 
 	public function remove_item( $product_obj, $cart_item ) {
 		return $this->get_item( $product_obj, $cart_item );

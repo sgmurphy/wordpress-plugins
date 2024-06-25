@@ -1,16 +1,12 @@
 <?php
 
 /**
- * Order delivery date pro tyche
- * #[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro
+ * Order Delivery Date Pro for WooCommerce v.10.6.0 Tyche Softwares
+ * class WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro
  */
-if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
+if ( ! class_exists( 'WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro' ) ) {
 	#[AllowDynamicProperties]
-
-  class WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro
-	{
+	class WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro {
 		/**
 		 * @var orddd_process
 		 */
@@ -28,6 +24,38 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
 			add_filter( 'woocommerce_form_field_args', [ $this, 'add_default_wfacp_styling' ], 50, 2 );
 
 			add_action( 'wfacp_internal_css', [ $this, 'wfacp_internal_css' ] );
+
+			/* prevent third party fields and wrapper*/
+
+			add_action( 'wfacp_add_billing_shipping_wrapper', '__return_false' );
+		}
+
+		public function add_field( $fields ) {
+			$fields['oddt']            = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'oddt' ],
+				'id'         => 'oddt',
+				'field_type' => 'advanced',
+				'label'      => __( 'Delivery Date', 'woofunnels-aero-checkout' ),
+			];
+			$fields['orddd_time_slot'] = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'orddd_time_slot' ],
+				'id'         => 'orddd_time_slot',
+				'field_type' => 'advanced',
+				'label'      => __( 'Time Slot', 'woofunnels-aero-checkout' ),
+			];
+			$fields['orddd_locations'] = [
+				'type'       => 'wfacp_html',
+				'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'orddd_locations' ],
+				'id'         => 'orddd_locations',
+				'field_type' => 'advanced',
+				'label'      => __( 'Pickup Location', 'woofunnels-aero-checkout' ),
+			];
+
+
+			return $fields;
+
 		}
 
 		public function actions() {
@@ -35,9 +63,7 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
 		}
 
 		public function add_js() {
-			if ( ! $this->is_enable() ) {
-				return '';
-			}
+
 			?>
             <script>
                 window.addEventListener('load', function () {
@@ -45,7 +71,12 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
                     var orddd_custom_settings = tyche.orddd.orddd_get_applied_custom_settings(0);
                     (function ($) {
                         add_aero_class();
-                        var $this = $("#e_deliverydate_0_field");
+
+                        var $this = '';
+
+                        if ($("#e_deliverydate_0_field").length > 0) {
+                            $this = $("#e_deliverydate_0_field");
+                        }
 
 
                         removeLableClass();
@@ -111,65 +142,25 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
 			<?php
 		}
 
-		public function add_field( $fields ) {
-			if ( $this->is_enable() ) {
-				$fields['oddt']            = [
-					'type'       => 'wfacp_html',
-					'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'oddt' ],
-					'id'         => 'oddt',
-					'field_type' => 'advanced',
-					'label'      => __( 'Delivery Date', 'woofunnels-aero-checkout' ),
-				];
-				$fields['orddd_time_slot'] = [
-					'type'       => 'wfacp_html',
-					'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'orddd_time_slot' ],
-					'id'         => 'orddd_time_slot',
-					'field_type' => 'advanced',
-					'label'      => __( 'Time Slot', 'woofunnels-aero-checkout' ),
-				];
-				$fields['orddd_locations'] = [
-					'type'       => 'wfacp_html',
-					'class'      => [ 'wfacp-col-full', 'wfacp-form-control-wrapper', 'wfacp_anim_wrap', 'orddd_locations' ],
-					'id'         => 'orddd_locations',
-					'field_type' => 'advanced',
-					'label'      => __( 'Pickup Location', 'woofunnels-aero-checkout' ),
-				];
-			}
-
-			return $fields;
-
-		}
-
-		private function is_enable() {
-			if ( class_exists( 'order_delivery_date' ) ) {
-				if ( get_option( 'orddd_enable_delivery_date' ) === 'on' ) {
-					return true;
-				}
-			}
-
-			return false;
-		}
 
 		public function enqueue_js() {
-			if ( $this->is_enable() ) {
-				if ( class_exists( 'orddd_common' ) ) {
-					$orddd_shopping_cart_hook       = orddd_common::orddd_get_shopping_cart_hook();
-					$this->order_instance           = WFACP_Common::remove_actions( $orddd_shopping_cart_hook, 'orddd_process', 'orddd_date_after_checkout_billing_form' );
-					$this->orddd_locations_instance = WFACP_Common::remove_actions( $orddd_shopping_cart_hook, 'orddd_locations', 'orddd_locations_after_checkout_billing_form' );;
-					if ( $this->order_instance instanceof orddd_process ) {
-						remove_action( $orddd_shopping_cart_hook, array( $this->order_instance, 'orddd_time_slot_after_checkout_billing_form' ) );
-						remove_action( $orddd_shopping_cart_hook, array( $this->order_instance, 'orddd_text_block_after_checkout_billing_form' ) );
-					}
+			if ( class_exists( 'orddd_common' ) ) {
+				$orddd_shopping_cart_hook       = orddd_common::orddd_get_shopping_cart_hook();
+				$this->order_instance           = WFACP_Common::remove_actions( $orddd_shopping_cart_hook, 'orddd_process', 'orddd_date_after_checkout_billing_form' );
+				$this->orddd_locations_instance = WFACP_Common::remove_actions( $orddd_shopping_cart_hook, 'orddd_locations', 'orddd_locations_after_checkout_billing_form' );;
+				if ( $this->order_instance instanceof orddd_process ) {
+					remove_action( $orddd_shopping_cart_hook, array( $this->order_instance, 'orddd_time_slot_after_checkout_billing_form' ) );
+					remove_action( $orddd_shopping_cart_hook, array( $this->order_instance, 'orddd_text_block_after_checkout_billing_form' ) );
 				}
-				$instance = WFACP_Common::remove_actions( 'wp_enqueue_scripts', 'orddd_scripts', 'orddd_front_scripts_css' );
-				if ( $instance instanceof orddd_scripts ) {
-					add_action( 'wfacp_internal_css', [ $instance, 'orddd_front_scripts_css' ] );
-				}
+			}
+			$instance = WFACP_Common::remove_actions( 'wp_enqueue_scripts', 'orddd_scripts', 'orddd_front_scripts_css' );
+			if ( $instance instanceof orddd_scripts ) {
+				add_action( 'wfacp_internal_css', [ $instance, 'orddd_front_scripts_css' ] );
 			}
 		}
 
 		public function call_birthday_addon_hook( $field, $key, $args ) {
-			if ( $this->is_enable() && ! empty( $key ) ) {
+			if ( ! empty( $key ) ) {
 				if ( $this->order_instance instanceof orddd_process ) {
 					if ( 'oddt' === $key && method_exists( $this->order_instance, 'orddd_date_after_checkout_billing_form' ) ) {
 						$this->order_instance->orddd_date_after_checkout_billing_form();
@@ -195,6 +186,11 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
 				$args['label_class'] = array_merge( $args['label_class'], [ 'wfacp-form-control-label' ] );
 				$args['class']       = array_merge( $args['class'], [ 'wfacp-col-full', 'wfacp-form-control-wrapper' ] );
 			}
+			if ( $args['type'] == 'select' ) {
+				$args['class'][] = 'wfacp-anim-wrap';
+
+			}
+
 
 			return $args;
 		}
@@ -211,17 +207,107 @@ if (!class_exists('WFACP_Compatibility_Order_Delivery_Date_Tyche_Pro')) {
 				$bodyClass = "body #wfacp-e-form ";
 			}
 
+
 			$cssHtml = "<style>";
-			$cssHtml .= $bodyClass . "#orddd_time_slot_0_field {padding: 0 7px;}";
-			$cssHtml .= $bodyClass . ".wfacp_main_form p#e_deliverydate_0_field {padding: 0 7px;}";
-			$cssHtml .= $bodyClass . "#e_deliverydate_0_field .orddd_field_note {float: none;}";
-			$cssHtml .= $bodyClass . "#e_deliverydate_0_field {position: relative;clear: both;}";
-			$cssHtml .= $bodyClass . ".wfacp_main_form #e_deliverydate_0_field.wfacp-anim-wrap label {top: 4px;font-size: 12.5px;background: transparent;bottom: auto;right: auto;margin-top: 0;left: 20px;}";
-			$cssHtml .= $bodyClass . ".orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) .hasDatepicker {padding: 12px 12px 12px;}";
-			$cssHtml .= $bodyClass . ".orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) label {top: 16px;margin: 0;bottom: auto;}";
-			$cssHtml .= $bodyClass . ".wfacp-top .orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) label {top: 0px;}";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+			$cssHtml .= $bodyClass . "";
+
 
 			$cssHtml .= "</style>";
+
+			?>
+
+            <style>
+                body #wfacp-sec-wrapper #orddd_time_slot_0_field {
+                    padding: 0 7px;
+                }
+
+                body #wfacp-sec-wrapper .wfacp_main_form p#e_deliverydate_0_field {
+                    padding: 0 7px;
+                }
+
+                body #wfacp-sec-wrapper #e_deliverydate_0_field .orddd_field_note {
+                    float: none;
+                }
+
+                body #wfacp-sec-wrapper #e_deliverydate_0_field {
+                    position: relative;
+                    clear: both;
+                }
+
+                body #wfacp-sec-wrapper .wfacp_main_form #e_deliverydate_0_field.wfacp-anim-wrap label {
+                    top: 4px;
+                    font-size: 12.5px;
+                    background: transparent;
+                    bottom: auto;
+                    right: auto;
+                    margin-top: 0;
+                    left: 20px;
+                }
+
+                body #wfacp-sec-wrapper .orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) .hasDatepicker {
+                    padding: 12px 12px 12px;
+                }
+
+                body #wfacp-sec-wrapper .orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) label {
+                    top: 16px;
+                    margin: 0;
+                    bottom: auto;
+                }
+
+                body #wfacp-sec-wrapper .wfacp-top .orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) label {
+                    top: 0px;
+                }
+
+                body #wfacp-sec-wrapper .wfacp-top .orddd-checkout-fields p.form-row:not(.wfacp-anim-wrap) label {
+                    top: 0px;
+                }
+
+                body #wfacp-sec-wrapper #wfacp_checkout_form .orddd-checkout-fields input[type="radio"],
+                body #wfacp-sec-wrapper #wfacp_checkout_form .orddd-checkout-fields input[type="checkbox"] {
+                    position: relative;
+                    left: auto;
+                    right: auto;
+                    top: auto;
+                    bottom: auto;
+                    margin: 0 8px 0 0;
+                }
+
+                body #wfacp-sec-wrapper #wfacp_checkout_form .orddd-checkout-fields .list-view {
+                    display: inline-block;
+                    margin: 0.3em 0.3em 0 0;
+                    background-color: #f5f5f5;
+                    border: 1px solid #D0D0D0;
+                }
+
+                body #wfacp-sec-wrapper #wfacp_checkout_form .orddd-checkout-fields .list-view input[type="radio"] {
+                    display: none;
+                }
+
+                body #wfacp-sec-wrapper #wfacp_checkout_form .orddd-checkout-fields .list-view.selected {
+                    color: #fff;
+                }
+
+                body #wfacp-sec-wrapper #orddd_time_slot_0_field > label {
+                    position: relative !important;
+                    position: relative;
+                    left: auto;
+                    right: auto;
+                    top: auto;
+                    bottom: auto;
+                    font-size: 14px !important;
+                }
+
+            </style>
+
+			<?php
 
 			echo $cssHtml;
 

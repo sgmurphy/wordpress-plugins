@@ -237,8 +237,8 @@ if ( ! class_exists( 'WFFN_REST_Store_Checkout' ) ) {
 		}
 
 		public function get_store_checkout( WP_REST_Request $request ) {
-			$funnel_id                    = $request->get_param( 'funnel_id' );
-			$funnel                       = new WFFN_Funnel( $funnel_id );
+			$funnel_id = $request->get_param( 'funnel_id' );
+			$funnel    = new WFFN_Funnel( $funnel_id );
 
 			if ( $funnel->get_id() === 0 ) {
 				return new WP_Error( 'woofunnels_rest_funnel_not_exists', __( 'Invalid funnel ID.', 'funnel-builder' ), array( 'status' => 404 ) );
@@ -287,7 +287,48 @@ if ( ! class_exists( 'WFFN_REST_Store_Checkout' ) ) {
 				$steps = apply_filters( 'wffn_rest_get_funnel_steps', $steps, $funnel );
 			}
 
-			$funnel_status = ( 0 === (int) WFFN_Core()->get_dB()->get_meta( $funnel_id, 'status' ) ) ?  'Draft' :  'Published';
+			if ( ! empty( $steps ) && is_array( $steps ) && count( $steps ) > 0 ) {
+				$is_pro = class_exists( 'WFFN_Pro_Core' );
+				foreach ( $steps as $step ) {
+					$funnel_id_meta = get_post_meta( $step['id'], '_bwf_in_funnel', true );
+					$steps_ids      = [ $step['id'] ];
+					$variant_ids    = [];
+
+					if ( $is_pro ) {
+						/**
+						 * Get all variants id for add funnel meta if missing
+						 */
+						$get_step = WFFN_Pro_Core()->steps->get_integration_object( $step['type'] );
+						if ( $get_step instanceof WFFN_Pro_Step ) {
+							$variant_ids = $get_step->maybe_get_ab_variants( $step['id'] );
+						}
+					}
+
+					if ( ! empty( $funnel_id_meta ) && empty( $variant_ids ) ) {
+						continue;
+					}
+
+					$steps_ids       = empty( $funnel_id_meta ) ? array_merge( $steps_ids, $variant_ids ) : $variant_ids;
+					$get_integration = WFFN_Core()->steps->get_integration_object( $step['type'] );
+
+					if ( $get_integration instanceof WFFN_Step ) {
+						foreach ( $steps_ids as $step_id ) {
+							$get_integration->update_funnel_meta_in_step( $step_id, $funnel_id );
+						}
+					}
+				}
+			}
+
+			/**
+			 * migrate downsell and upsell
+			 */
+			$upsell_step = WFFN_Core()->steps->get_integration_object( 'wc_upsells' );
+			if ( $upsell_step instanceof WFFN_Step && method_exists( $upsell_step, 'maybe_migrate_downsells' ) ) {
+				WFFN_Core()->steps->get_integration_object( 'wc_upsells' )->maybe_migrate_downsells( $steps );
+
+			}
+
+			$funnel_status = ( 0 === (int) WFFN_Core()->get_dB()->get_meta( $funnel_id, 'status' ) ) ? 'Draft' : 'Published';
 			$return        = array(
 				'id'          => $funnel->get_id(),
 				'title'       => $funnel->get_title(),
@@ -504,6 +545,7 @@ if ( ! class_exists( 'WFFN_REST_Store_Checkout' ) ) {
 
 			}
 			$resp['setup'] = WFFN_REST_Setup::get_instance()->get_status_responses( false );
+
 			return rest_ensure_response( $resp );
 		}
 
@@ -707,6 +749,7 @@ if ( ! class_exists( 'WFFN_REST_Store_Checkout' ) ) {
 			}
 
 			$result['setup'] = WFFN_REST_Setup::get_instance()->get_status_responses( false );
+
 			return rest_ensure_response( $result );
 		}
 
