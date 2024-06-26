@@ -46,7 +46,7 @@ class WCFM_Enquiry_Manage_Controller {
 			// Handle Attachment Uploads - 6.1.5
 			$attchments = wcfm_handle_file_upload();
 	  	
-	  	$inquiry_reply           = wp_filter_post_kses( apply_filters( 'wcfm_editor_content_before_save', stripslashes( html_entity_decode( $_POST['inquiry_reply'], ENT_QUOTES, 'UTF-8' ) ) ) );
+		$inquiry_reply           = apply_filters( 'wcfm_editor_content_before_save', stripslashes( wp_filter_post_kses( html_entity_decode( $_POST['inquiry_reply'], ENT_QUOTES, 'UTF-8' ) ) ) );
 	  	$inquiry_reply_by        = apply_filters( 'wcfm_message_author', get_current_user_id() );
 	  	$inquiry_id              = absint( $wcfm_enquiry_reply_form_data['inquiry_id'] );
 	  	$inquiry_product_id      = absint( $wcfm_enquiry_reply_form_data['inquiry_product_id'] );

@@ -63,7 +63,7 @@ class Shop {
      *
      * @return float
      */
-    public static function pmw_get_order_total_marketing( $order, $apply_multipliers = false ) {
+    public static function get_order_value_total_marketing( $order, $apply_multipliers = false ) {
         $order_total = $order->get_total();
         if ( in_array( Options::get_options_obj()->shop->order_total_logic, ['0', 'order_subtotal'], true ) ) {
             // Order subtotal
@@ -97,6 +97,34 @@ class Shop {
         // filter to adjust the order value
         $order_total = apply_filters( 'pmw_marketing_conversion_value_filter', $order_total, $order );
         return (float) Helpers::format_decimal( (float) $order_total, 2 );
+    }
+
+    /**
+     * Return the filtered order total value for statistics pixels.
+     *
+     * @param $order
+     * @return float
+     *
+     * @since 1.43.4
+     */
+    public static function get_order_value_total_statistics( $order ) {
+        $order_total = $order->get_total();
+        $order_total = apply_filters( 'pmw_order_value_total_statistics', $order_total, $order );
+        return (float) Helpers::format_decimal( (float) $order_total, 2 );
+    }
+
+    /**
+     * Return the filtered order subtotal value for statistics pixels.
+     *
+     * @param $order
+     * @return float
+     *
+     * @since 1.43.4
+     */
+    public static function get_order_value_subtotal_statistics( $order ) {
+        $order_subtotal = $order->get_subtotal();
+        $order_subtotal = apply_filters( 'pmw_order_value_subtotal_statistics', $order_subtotal, $order );
+        return (float) Helpers::format_decimal( (float) $order_subtotal, 2 );
     }
 
     public static function is_backend_manual_order( $order ) {
@@ -325,7 +353,7 @@ class Shop {
         $orders = self::get_all_paid_orders_by_billing_email( $billing_email );
         $value = 0;
         foreach ( $orders as $order ) {
-            $value += (float) self::pmw_get_order_total_marketing( $order );
+            $value += (float) self::get_order_value_total_marketing( $order );
         }
         return Helpers::format_decimal( $value, 2 );
     }

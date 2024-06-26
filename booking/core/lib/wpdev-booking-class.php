@@ -324,9 +324,9 @@ class wpdev_booking {
 
 		if ( $my_selected_dates_without_calendar !== '' ) {                                                             //FixIn: 9.3.1.1
 			// Disable booked time slots, for predefined selected date in the booking form (it's shortcode for booking form,  without the calendar)
-			$start_script_code .= "<script type='text/javascript'> jQuery(document).ready( function(){ ";
-			$start_script_code .= "    bkDisableBookedTimeSlots( jQuery( '#date_booking{$resource_id}' ).val(), {$resource_id} ); ";
-			$start_script_code .= " }); </script>";
+	        $start_script_code .= '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                 //FixIn: 10.1.3.7
+			$start_script_code .= " bkDisableBookedTimeSlots( jQuery( '#date_booking{$resource_id}' ).val(), {$resource_id} ); ";
+			$start_script_code .= wpbc_jq_ready_end() . '</script>';                                                          //FixIn: 10.1.3.7
 		}
 
 
@@ -497,9 +497,9 @@ class wpdev_booking {
         
         if ($my_selected_dates_without_calendar == '' ) {
             // Check according already shown Booking Calendar  and set do not visible of it
-            $return_form .= '<script type="text/javascript">
-                                jQuery(document).ready( function(){
-                                    jQuery(".widget_wpdev_booking .booking_form.form-horizontal").removeClass("form-horizontal");
+
+	        $return_form .= '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                 //FixIn: 10.1.3.7
+			$return_form .=  ' jQuery(".widget_wpdev_booking .booking_form.form-horizontal").removeClass("form-horizontal");
                                     var visible_calendars_count = _wpbc.get_other_param( "calendars__on_this_page" ).length;
                                     if (visible_calendars_count !== null ) {
                                         for (var i=0;i< visible_calendars_count ;i++){
@@ -516,18 +516,13 @@ class wpdev_booking {
                                           }
                                         }
                                         _wpbc.get_other_param( "calendars__on_this_page" )[ visible_calendars_count ]=' . intval( $resource_id ) . ';
-                                    }
-                                });
-                            </script>';
+                                    } ';
+		    $return_form .= wpbc_jq_ready_end() . '</script>';                                                          //FixIn: 10.1.3.7
         } else {
-            if (1)                                                              //FixIn:6.1.1.16	//FixIn: 8.2.1.13
-            $return_form .= '<script type="text/javascript">
-                                jQuery(document).ready( function(){            
-                                    if(typeof( showCostHintInsideBkForm ) == "function") {
-                                        showCostHintInsideBkForm(' . $resource_id . ');
-                                    }
-                                });
-                            </script>';
+            //FixIn:6.1.1.16	//FixIn: 8.2.1.13
+	        $return_form .= '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                 //FixIn: 10.1.3.7
+            $return_form .= ' if(typeof( showCostHintInsideBkForm ) == "function") {  showCostHintInsideBkForm(' . $resource_id . ');  } ';
+			$return_form .= wpbc_jq_ready_end() . '</script>';                                                          //FixIn: 10.1.3.7
         }
 
         $is_use_auto_fill_for_logged = get_bk_option( 'booking_is_use_autofill_4_logged_user' ) ;
@@ -538,18 +533,11 @@ class wpdev_booking {
 
                 $curr_user = wpbc_get_current_user();
                 if ( $curr_user->ID > 0 ) {
-//$user_nick_name =get_user_meta($curr_user->ID, 'nickname')[0];
-//debuge( $user_nick_name );
-	                //FixIn: 8.7.1.5
 					$user_nick_name = get_user_meta( $curr_user->ID, 'nickname' );
-					if ( empty( $user_nick_name ) ) {
-						$user_nick_name = '';
-					} else {
-						$user_nick_name = $user_nick_name[0];
-					}
-                    $return_form .= '<script type="text/javascript">
-                                jQuery(document).ready( function(){
-                                    var bk_af_submit_form = document.getElementById( "booking_form' . $resource_id . '" );
+					$user_nick_name = ( empty( $user_nick_name ) ) ? '' : $user_nick_name[0];                           //FixIn: 8.7.1.5
+
+					$return_form .= '<script type="text/javascript"> ' . wpbc_jq_ready_start();                         //FixIn: 10.1.3.7
+                    $return_form .= 'var bk_af_submit_form = document.getElementById( "booking_form' . $resource_id . '" );
                                     var bk_af_count = bk_af_submit_form.elements.length;
                                     var bk_af_element;
                                     var bk_af_reg;
@@ -599,9 +587,8 @@ class wpdev_booking {
                                                     if (bk_af_element.value == "" )
                                                         bk_af_element.value  = "'.str_replace("'",'',$curr_user->user_url).'";
                                            }
-                                    }
-                                });
-                                </script>';
+                                    }';
+					$return_form .= wpbc_jq_ready_end() . '</script>';                                                          //FixIn: 10.1.3.7
                 }
              }
 

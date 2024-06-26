@@ -1,6 +1,6 @@
-=== Conversios - Google Analytics 4 (GA4), Meta Pixel & more Via Google Tag Manager For WooCommerce ===
+=== Conversios – Google Analytics 4 (GA4), Google Ads, Meta Pixel & more for WooCommerce ===
 Contributors: Tatvic, Conversios
-Plugin Name: Conversios - Google Analytics 4 (GA4), Meta Pixel & more Via Google Tag Manager For WooCommerce
+Plugin Name: Conversios – Google Analytics 4 (GA4), Google Ads, Meta Pixel & more for WooCommerce
 Plugin URI: https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
 Tags: google analytics 4, meta pixel, google tag manager, tiktok pixel, facebook pixel
 Author URI: https://conversios.io/
@@ -8,8 +8,8 @@ Author: Conversios
 Requires at least: 4.6
 Tested up to: 6.5.3
 Requires PHP: 5.6
-Stable tag: 7.1.0
-Version: 7.1.0
+Stable tag: 7.1.1
+Version: 7.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,7 +19,7 @@ Conversios is an all-in-one plugin that offers accurate tracking, insightful rep
 
 Conversios is an easy-to-use, all-in-one plugin that offers accurate tracking, insightful reporting, and optimized marketing strategies. It easily integrates with Google Analytics 4, Google Tag Manager, and top ad platforms, including Google Ads, Meta Pixel (Facebook), Snapchat, Pinterest, TikTok, Microsoft Ads, and Twitter. Automate product feeds, access E-commerce Reporting and Google Ads Reporting with AI-powered insights, and manage campaigns directly from your WordPress dashboard.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/c8mVO2QfWvM?si=vWDgETp3lAJianvz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EAP7tem09jU?si=uJ-kMNpQfHbibJzY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 **KEY FEATURES**
 
@@ -89,7 +89,7 @@ The above features empower you to:
 **Compatibility**
 Conversios is compatible with the following major plugins:
 - Perfect Brands for WooCommerce for the Product Feed process
-- YITH WooCommerce Brands️ for Product Feed process
+- YITH WooCommerce Brandsï¸ for Product Feed process
 - WooCommerce Brands for Product Feed Process
 - YITH Multi-Currency Switcher for WooCommerce
 - YITH Custom Thank You Page for WooCommerce
@@ -364,7 +364,7 @@ Google Tag Manager based single click implementation for Google Analytics, Googl
 Use your own Google Tag Manager account with the conversios plugin.
 * What will you get out of it?
   1. Google Tag Manager based implementation helps in data collection accuracy and you have more control over your tags implemented on the website.
-  2. Many website’s page speed decreases because of gtag.js implementation as it renders multiple Javascripts on the website. Google Tag Manager based implementation uses datalayer to push data to GA or other ad channels and it renders only once on your web page. Hence, your site speed will be intact with this approach.
+  2. Many websiteâ€™s page speed decreases because of gtag.js implementation as it renders multiple Javascripts on the website. Google Tag Manager based implementation uses datalayer to push data to GA or other ad channels and it renders only once on your web page. Hence, your site speed will be intact with this approach.
   3. Debugging which events are tracking correctly or not becomes a lot easier in Google Tag Manager based implementation. Hence, less possibility of data leakage from your web store and more insights from the visitors.
   4. Google Tag Manager based implementation will prepare you for the next privacy-centric industry revolution leveraging first party cookies. Sooner or later stores like yours will have to go for server side tagging. GTM based implementation is our first step for you in that direction.
   5. If you want us to add any other pixel in the plugin, shout out and that will be done in 3 business days.
@@ -431,11 +431,11 @@ Bug to "remove from cart" has been resolved when user updates product quantity i
 * New: (PRO) Now compatible with WooCommerce custom attribute mapping for the brands (product) in the product sync.
 
 = 4.7.1 - 13/04/2022 =
-*  New: (PRO) Product sync feature now compatible with various Brand plugins like Perfect Brands for WooCommerce, YITH WooCommerce Brands️ and WooCommerce Brands.
+*  New: (PRO) Product sync feature now compatible with various Brand plugins like Perfect Brands for WooCommerce, YITH WooCommerce Brandsï¸ and WooCommerce Brands.
 
 = 4.7.0 - 05/04/2022 =
 *  New: Facebook Pixel Conversion Tracking for major ecommerce events like Page view, Add to Cart, Initiate checkout, Purchase, View Content and Search events.
-*  New: Compatible with Multi Currency plugins like "WOOCS", "CURCY – Multi-Currency for WooCommerce" and "WBW Currency Switcher for WooCommerce"
+*  New: Compatible with Multi Currency plugins like "WOOCS", "CURCY â€“ Multi-Currency for WooCommerce" and "WBW Currency Switcher for WooCommerce"
 
 = 4.6.9 - 21/03/2022 =
 * Fix: - Site verification issue for some users.

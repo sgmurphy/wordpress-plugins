@@ -216,6 +216,11 @@ abstract class AbstractCartItem
         $this->recalculateHash();
     }
 
+    public function setPriceAdjustments(array $adjustments)
+    {
+        $this->priceAdjustments = $adjustments;
+    }
+
     public function getPriceAdjustments(): array
     {
         return $this->priceAdjustments;
@@ -268,6 +273,8 @@ abstract class AbstractCartItem
     {
         return $this->getPrice() * $this->qty;
     }
+
+    abstract function getPrice();
 
     public function areRuleApplied(): bool
     {

@@ -43,7 +43,7 @@ body.wp-admin.index-php .wp-menu-name .sb-callout-ctn[data-type="side-menu"]{
 	top: unset;
 }
 
-.sb-fs {
+.sb-callout-ctn .sb-fs {
 	width: 100%;
 	float: left;
 	position: relative;

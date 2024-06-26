@@ -346,7 +346,7 @@ class Pixel_Manager {
         $adjusted_value = $order_total - $refunded_amount;
         // Calculate the new order value considering the order total logic that has been applied by the user
         $adjusted_value_percentage = $adjusted_value / $order_total;
-        $adjusted_value = Shop::pmw_get_order_total_marketing( $order, true ) * $adjusted_value_percentage;
+        $adjusted_value = Shop::get_order_value_total_marketing( $order, true ) * $adjusted_value_percentage;
         return Helpers::format_decimal( $adjusted_value, 2 );
     }
 
@@ -528,7 +528,7 @@ class Pixel_Manager {
         //		$json_encode_options = $json_encode_options | JSON_PRETTY_PRINT;
         ?>
 		<script>
-			window.wpmDataLayer.cart_item_keys                                          = window.wpmDataLayer.cart_item_keys || {}
+			window.wpmDataLayer.cart_item_keys                                          = window.wpmDataLayer.cart_item_keys || {};
 			window.wpmDataLayer.cart_item_keys['<?php 
         echo esc_js( $cart_item_key );
         ?>'] = <?php 
@@ -1013,9 +1013,9 @@ class Pixel_Manager {
                 'affiliation'      => (string) get_bloginfo( 'name' ),
                 'currency'         => (string) Shop::get_order_currency( $order ),
                 'value'            => [
-                    'marketing' => (float) Shop::pmw_get_order_total_marketing( $order, true ),
-                    'total'     => (float) $order->get_total(),
-                    'subtotal'  => (float) $order->get_subtotal(),
+                    'marketing' => Shop::get_order_value_total_marketing( $order, true ),
+                    'total'     => Shop::get_order_value_total_statistics( $order ),
+                    'subtotal'  => Shop::get_order_value_subtotal_statistics( $order ),
                 ],
                 'discount'         => (float) $order->get_total_discount(),
                 'tax'              => (float) $order->get_total_tax(),
@@ -1239,29 +1239,8 @@ class Pixel_Manager {
         $order->save();
     }
 
-    private function experimental_inject_polyfill_io_active() {
-        $inject_polyfill_io_active = apply_filters_deprecated(
-            'wpm_experimental_inject_polyfill_io',
-            [false],
-            '1.31.2',
-            'pmw_experimental_inject_polyfill_io'
-        );
-        return apply_filters( 'pmw_experimental_inject_polyfill_io', $inject_polyfill_io_active );
-    }
-
     public function front_end_scripts() {
         $pmw_dependencies = ['jquery', 'wp-hooks'];
-        // enable polyfill.io with filter
-        if ( wpm_fs()->can_use_premium_code__premium_only() && $this->experimental_inject_polyfill_io_active() ) {
-            wp_enqueue_script(
-                'polyfill-io',
-                'https://cdn.polyfill.io/v2/polyfill.min.js',
-                false,
-                PMW_CURRENT_VERSION,
-                false
-            );
-            $pmw_dependencies[] = 'polyfill-io';
-        }
         wp_enqueue_script(
             'wpm',
             PMW_PLUGIN_DIR_PATH . 'js/public/wpm-public.p1.min.js',

@@ -84,7 +84,7 @@ class WCFMmp_Gateway_Stripe_Split extends WC_Payment_Gateway {
 		$this->title        = apply_filters( 'wcfmmp_stripe_split_pay_title', __('Credit or Debit Card (Stripe)', 'wc-multivendor-marketplace') );
 		$this->description  = __('Pay with your credit or debit card via Stripe.', 'wc-multivendor-marketplace');
 		$this->charge_type  = isset( $WCFMmp->wcfmmp_withdrawal_options['stripe_split_pay_mode'] ) ? $WCFMmp->wcfmmp_withdrawal_options['stripe_split_pay_mode'] : 'direct_charges';
-		$this->debug        = false; //$this->is_testmode;
+		$this->debug        = apply_filters('wcfmmp_enable_stripe_split_debug_mode', false); //$this->is_testmode;
 		
 		if( !class_exists("Stripe\Stripe") ) {
 			require_once( $WCFMmp->plugin_path . 'includes/Stripe/init.php' );
@@ -462,10 +462,32 @@ class WCFMmp_Gateway_Stripe_Split extends WC_Payment_Gateway {
 								"application_fee" => $this->get_stripe_amount($distribution_info['gross_sales'] - $re_total_commission),
 								"description"     => $wcfmmp_stripe_split_pay_list['description'],
 							);
+							
+							/**
+							 * 	In case of Stripe Direct Charge, the stripe fee is deducted directly from the connected account (i.e. vendor account)
+							 * 	If we set Transaction fee in the WCFM dashboard > payment settings, 
+							 * 	then the Transaction fee also added to the application_fee (admin commission) & returned to the admin account
+							 * 	This causes deduction of stripe_fee twice from vendor
+							 */
+							if ( apply_filters( 'wcfmmp_prevent_stripe_direct_charge_deduct_transaction_fee', true ) ) {
+								$re_total_transaction_charge = $wpdb->get_var(
+									$wpdb->prepare(
+										"SELECT SUM(order_meta.value)
+										FROM {$wpdb->prefix}wcfm_marketplace_orders as orders
+										INNER JOIN {$wpdb->prefix}wcfm_marketplace_orders_meta as order_meta
+										ON orders.ID = order_meta.order_commission_id
+										WHERE order_id = %d AND vendor_id = %d AND order_meta.key = 'transaction_charge'", 
+										[$order_id, $vendor_id]
+									)
+								);
+
+								$charge_data['application_fee'] -= $this->get_stripe_amount($re_total_transaction_charge);
+							}
+
 							$vendor_stripe_account = array(
 								"stripe_account" => $distribution_info['destination']
 							);
-							$charge_data = apply_filters('wcfmmp_stripe_split_pay_create_direct_charges', $charge_data);
+							$charge_data = apply_filters('wcfmmp_stripe_split_pay_create_direct_charges', $charge_data, $order_id, $vendor_id);
 							$i++;
 							
 							if ($this->debug)

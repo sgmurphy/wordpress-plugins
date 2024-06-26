@@ -367,8 +367,8 @@ $is_refresh_token_expire = false;
                                                         </span>
                                                         <a onclick='window.open("<?php echo esc_url($tiktok_auth_url) ?>","MyWindow","width=800,height=700,left=300, top=150"); return false;' href="#" class="signIn">Change</a>
                                                     <?php } ?>
-                                                    <input type="hidden" id="tiktok_mail" value=<?php echo esc_attr($tiktok_mail) ?>>
-                                                    <input type="hidden" id="tiktok_user_id" value=<?php echo esc_attr($tiktok_user_id) ?>>
+                                                    <input type="hidden" id="tiktok_mail" value="<?php echo esc_attr($tiktok_mail) ?>">
+                                                    <input type="hidden" id="tiktok_user_id" value="<?php echo esc_attr($tiktok_user_id) ?>">
                                                 </div>
                                             </div>
                                         </li>

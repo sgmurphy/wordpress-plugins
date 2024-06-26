@@ -1261,23 +1261,46 @@ class WCFMvm_Frontend {
 				$notify_url = add_query_arg( array( 'wcfmvm_process_ipn' => 'stripe_sca_ipn',
 																				'ref_id' => $ref_id
 																			), get_wcfm_membership_page() );
-		
-				$opts = array(
-					'payment_method_types'       => array( 'card' ),
-					'client_reference_id'        => $ref_id,
-					'billing_address_collection' => 'auto',
-					'line_items'                 => array(
-						array(
-							'name'        => $title,
-							'description' => number_format( $payment_amount, 2 ) . ' ' . $payment_currency,
-							'amount'      => wcfmvm_membership_tax_price($price_in_cents),
-							'currency'    => $payment_currency,
-							'quantity'    => 1,
+				if(!apply_filters('wcfm_stripe_api_2023_or_later', false)){
+					$opts = array(
+						'payment_method_types'       => array( 'card' ),
+						'client_reference_id'        => $ref_id,
+						'billing_address_collection' => 'auto',
+						'line_items'                 => array(
+							array(
+								'name'        => $title,
+								'description' => number_format( $payment_amount, 2 ) . ' ' . $payment_currency,
+								'amount'      => wcfmvm_membership_tax_price($price_in_cents),
+								'currency'    => $payment_currency,
+								'quantity'    => 1,
+							),
 						),
-					),
-					'success_url'                => $notify_url,
-					'cancel_url'                 => $current_url,
-				);
+						'success_url'                => $notify_url,
+						'cancel_url'                 => $current_url,
+					);
+				} else {
+					$opts = array(
+						'mode'                       => 'payment',
+						'payment_method_types'       => array( 'card' ),
+						'client_reference_id'        => $ref_id,
+						'billing_address_collection' => 'auto',
+						'line_items'                 => array(
+							array(
+								'price_data'  => array(
+									'currency' => $payment_currency,
+									'product_data' => array(
+										'name' => $title,
+										'description' => number_format( $payment_amount, 2 ) . ' ' . $payment_currency,
+									),
+									'unit_amount_decimal' => wcfmvm_membership_tax_price($price_in_cents),
+								),
+								'quantity'    => 1,
+							),
+						),
+						'success_url'                => $notify_url,
+						'cancel_url'                 => $current_url,
+					);
+				}
 			} else {
 				//Return, cancel, notifiy URLs
 				$notify_url = add_query_arg( array( 'wcfmvm_process_ipn' => 'stripe_sca_subs_ipn',

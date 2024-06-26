@@ -101,12 +101,22 @@ class WPBC_CSS extends WPBC_JS_CSS{
 		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(3) a { border-top: 1px dashed #707070;margin-top: 6px; } ";
 		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454; padding-top: 10px; margin-top: 6px; font-weight: 600; font-size: 1em; } ";
 		        // Mark last item in menu 'Get Pro' with green color
-		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(-n+1) a { color: #adc636; } ";
+
+		        //FixIn: 10.1.3.1
+		        //$wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(-n+1) a { color: #adc636; } ";
+		        if ( 'hide' !== get_bk_option( 'booking_menu_go_pro' ) ) {
+					// Get Pro  as a button
+			        //$wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { font-weight: 600;background-color: #0b9300;color: #fff;margin: 10px 10px 0;display: block;text-align: center;border-radius: 3px;transition: all .3s;box-shadow: none; } ";
+			        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { font-weight: 600;background-color: #075c00;color: #fff;margin: 10px 10px 0;display: block;text-align: center;border-radius: 3px;transition: all .3s;box-shadow: none; } ";
+			        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) { margin-top: 10px;border-top: 1px solid #535454; } ";
+		        }
 	        } else {
 		        // Mark 2 last  items in menu with  line
 		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(2) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
+		        //FixIn: 10.1.3.1
+		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
 	        }
-	        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
+
 	        wp_add_inline_style( 'wpbc-admin-pages', $wpbc_inline_css );
 
         }

@@ -18,7 +18,7 @@ class Post_Tags_Field extends Action_Field {
 	}
 
 	public static function get_description() {
-		return __( 'Wordpress post tag', 'thrive-automator' );
+		return __( 'WordPress post tag', 'thrive-automator' );
 	}
 
 	public static function get_placeholder() {

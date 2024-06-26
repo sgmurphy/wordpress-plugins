@@ -47,7 +47,7 @@ class WPBC_BookingInstall extends WPBC_Install {
                                                                        . esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-about'  ), 'index.php' ) ) ) 
                                                                        .'">'. "What's New".'</a>'
                 , 'link_faq' => '<a title="FAQ" href="https://wpbookingcalendar.com/faq/">FAQ</a>'
-                , 'link_up'  => '<a title="Check Pro functionality" href="https://wpbookingcalendar.com/overview/#link_up" style="color: rgb(0, 163, 42);font-weight:700;">Get Pro</a>'
+                , 'link_up'  => '<a title="Check Pro functionality" href="https://wpbookingcalendar.com/features/#link_up" style="color: rgb(0, 163, 42);font-weight:700;">Get Pro</a>'
                 , 'link_upgrade'  => '<a title="Upgrade to higher version" href="'
 														. esc_url( admin_url( add_query_arg( array( 'page' => 'wpbc-settings', 'tab' => 'upgrade' ), 'admin.php' ) ) )
 														. '" style="color: rgb(0, 163, 42);font-weight:700;">Get More</a>'

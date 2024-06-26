@@ -42,7 +42,7 @@ class RangeDiscountTableDisplay
         $this->context            = adp_context();
         $this->customizer         = $contextOrCustomizer instanceof CustomizerExtensions ? $contextOrCustomizer : $customizerOrEngine;
         $this->engine             = $customizerOrEngine instanceof Engine ? $customizerOrEngine : $deprecated;
-        $this->rangeDiscountTable = Factory::get("VolumePricingTable_RangeDiscountTable", $this->customizer, $this->engine);        
+        $this->rangeDiscountTable = Factory::get("VolumePricingTable_RangeDiscountTable", $this->customizer, $this->engine);
     }
 
     public function withContext(Context $context)
@@ -58,7 +58,7 @@ class RangeDiscountTableDisplay
                 $actions = array($themeOptions->productBulkTable->options->tablePositionAction);
 
                 foreach (apply_filters('wdp_product_bulk_table_action', $actions) as $action) {
-                    add_action($action, array($this, 'echoProductTableContent'), 50, 2);
+                    add_action($action, array($this, 'echoProductTableContent'), 50, 0);
                 }
             }
 
@@ -66,7 +66,7 @@ class RangeDiscountTableDisplay
                 $actions = array($themeOptions->categoryBulkTable->options->tablePositionAction);
 
                 foreach (apply_filters('wdp_category_bulk_table_action', $actions) as $action) {
-                    add_action($action, array($this, 'echoCategoryTableContent'), 50, 2);
+                    add_action($action, array($this, 'echoCategoryTableContent'), 50, 0);
                 }
             }
 

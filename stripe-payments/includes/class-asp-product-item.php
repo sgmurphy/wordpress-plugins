@@ -207,14 +207,57 @@ class ASP_Product_Item {
 		}
 		return $this->price;
 	}
+
+    public function get_surcharge()
+    {
+        $surcharge_amount = get_post_meta( $this->post_id, 'asp_surcharge_amount', true );
+
+        return !empty($surcharge_amount) && is_numeric($surcharge_amount) ? $surcharge_amount : 0;
+    }
+
+    public function get_surcharge_label()
+    {
+        $surcharge_label = get_post_meta( $this->post_id, 'asp_surcharge_label', true );
+
+        return !empty($surcharge_label) ? $surcharge_label : __("Surcharge", 'stripe-payments');
+    }
+
+    public function get_surcharge_type()
+    {
+        $surcharge_type = get_post_meta( $this->post_id, 'asp_surcharge_type', true );
+
+        return empty($surcharge_type) ? 'flat' : $surcharge_type;
+    }
+
+    /**
+     * Calculate the total surcharge amount based on the surcharge type and amount.
+     *
+     * @param bool $in_cents Whether to return the result in cents.
+     *
+     * @return float|int
+     */
+    public function calculate_total_surcharge(bool $in_cents = false)
+    {
+        $surcharge_amount = $this->get_surcharge();
+        $surcharge_type = $this->get_surcharge_type();
+
+        if ( $surcharge_type == 'perc' ){
+            $calculate_from_amount = $this->get_total();
+            $surcharge_percentage = floatval($surcharge_amount);
+            $amount = ( $calculate_from_amount / 100 ) * $surcharge_percentage;
+        } else {
+            $amount = floatval($surcharge_amount);
+        }
+
+        return $in_cents ? $this->in_cents( $amount ) : $amount;
+    }
+
 	/**
 	* Returns min amount for donation product
 	*
 	* @param bool $in_cents Return amount in cents if set to `true`
 	*
 	* @return integer|float
-	*
-	* @since 2.0.31
 	*/
 	public function get_min_amount( $in_cents = false ) {
 		$min_amount = get_post_meta( $this->post_id, 'asp_product_min_amount', true );
@@ -226,8 +269,6 @@ class ASP_Product_Item {
 	* Returns product type
 	*
 	* @return string
-	*
-	* @since 2.0.31
 	*/
 	public function get_type() {
 		$type = get_post_meta( $this->post_id, 'asp_product_type', true );
@@ -676,7 +717,16 @@ class ASP_Product_Item {
 
 		// Calculate the expected total amount.
 		$expected_total_amount = $this->get_total(true);
-		
+
+        // Check if surcharge feature is enabled.
+        if ( !empty($this->get_surcharge()) ){
+			// Surcharge is enabled. Calculate the surcharge amount then adjust the expected total.
+            $surcharge_amount = round($this->calculate_total_surcharge(true));//This is in cents so round it to 0 decimal place.
+			
+			ASP_Debug_Logger::log("The surcharge feature is enabled. Applied surcharge amount (in cents): ". $surcharge_amount, true);
+            $expected_total_amount += $surcharge_amount;
+        }
+
 		// Trigger a filter so addons can override it. 
 		$expected_total_amount = apply_filters('asp_pre_api_submission_expected_amount', $expected_total_amount, $amount, $this->post_id);
 		

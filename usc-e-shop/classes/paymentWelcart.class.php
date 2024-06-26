@@ -4021,7 +4021,7 @@ jQuery(document).ready( function( $ ) {
 					. __( 'Please read "* Provision of Personal Information to Third Parties" below and enter your card information only if you agree to the terms of the agreement.', 'usces' ) . "\n"
 					. __( '* Provision of Personal Information to Third Parties', 'usces' ) . "\n"
 					. __( 'The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer.', 'usces' ) . "\n"
-					. __( '"Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
+					. __( '"Full name", "e-mail address", "Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
 					. __( 'If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs.', 'usces' ) . "\n"
 					. __( 'If you are a minor, you are required to obtain the consent of a person with parental authority or a guardian before using the Service.', 'usces' ) . "\n"
 					. __( '* Agreement to provide personal information to a third party', 'usces' ) . "\n"
@@ -4064,7 +4064,7 @@ jQuery(document).ready( function( $ ) {
 					. __( 'Please read "* Provision of Personal Information to Third Parties" below and enter your card information only if you agree to the terms of the agreement.', 'usces' ) . "\n"
 					. __( '* Provision of Personal Information to Third Parties', 'usces' ) . "\n"
 					. __( 'The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer.', 'usces' ) . "\n"
-					. __( '"Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
+					. __( '"Full name", "e-mail address", "Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
 					. __( 'If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs.', 'usces' ) . "\n"
 					. __( 'If you are a minor, you are required to obtain the consent of a person with parental authority or a guardian before using the Service.', 'usces' ) . "\n"
 					. __( '* Agreement to provide personal information to a third party', 'usces' ) . "\n"
@@ -4469,10 +4469,11 @@ jQuery(document).ready( function( $ ) {
 			$register     = ( 'member_register_settlement' === $usces->page ) ? true : false;
 			$deleted      = false;
 
-			$cardno = '';
-			$seccd  = '';
-			$expyy  = '';
-			$expmm  = '';
+			$cardno   = '';
+			$seccd    = '';
+			$expyy    = '';
+			$expmm    = '';
+			$cardname = '';
 
 			if ( 'on' === $acting_opts['quickpay'] ) {
 				if ( isset( $_POST['update'] ) ) {
@@ -4491,6 +4492,7 @@ jQuery(document).ready( function( $ ) {
 							$seccd                 = filter_input( INPUT_POST, 'seccd', FILTER_DEFAULT );
 							$expyy                 = filter_input( INPUT_POST, 'expyy', FILTER_DEFAULT );
 							$expmm                 = filter_input( INPUT_POST, 'expmm', FILTER_DEFAULT );
+							$cardname              = filter_input( INPUT_POST, 'cardname', FILTER_DEFAULT );
 						}
 					}
 				} elseif ( isset( $_POST['register'] ) ) {
@@ -4509,6 +4511,7 @@ jQuery(document).ready( function( $ ) {
 							$seccd                 = filter_input( INPUT_POST, 'seccd', FILTER_DEFAULT );
 							$expyy                 = filter_input( INPUT_POST, 'expyy', FILTER_DEFAULT );
 							$expmm                 = filter_input( INPUT_POST, 'expmm', FILTER_DEFAULT );
+							$cardname              = filter_input( INPUT_POST, 'cardname', FILTER_DEFAULT );
 						}
 					}
 				}
@@ -4568,6 +4571,13 @@ jQuery(document).ready( function( $ ) {
 					$html .= '
 							</select>' . __( 'year', 'usces' ) . '
 							</td>
+						</tr>';
+
+					$cardname_attention = apply_filters( 'usces_filter_cardname_attention', __( '(Alphabetic characters only)', 'usces' ) . '<div class="attention">' . __( '* Use a space to separate the first and last name, and enter all characters in uppercase.', 'usces' ) . '</div>' );
+					$html              .= '
+						<tr>
+							<th scope="row">' . __( 'Card name', 'usces' ) . '</th>
+							<td colspan="2"><input name="cardname" id="cardname" type="text" value="" />' . $cardname_attention . '</td>
 						</tr>
 					</table>';
 				}
@@ -4646,10 +4656,12 @@ jQuery.event.add( window, "load", function() {
 				if ( 'token' === $acting_opts['card_activate'] ) :
 					?>
 			<input type="hidden" name="token" id="token" value="" />
+			<input type="hidden" name="billingname" id="billingname" value="" />
 					<?php
 				endif;
 				if ( 'on' === $acting_opts['sec3d_activate'] ) :
 					?>
+			<input type="hidden" name="billingemail" id="billingemail" value="<?php echo esc_attr( $member['mailaddress1'] ); ?>" />
 			<input type="hidden" name="rand" id="rand" value="<?php echo esc_attr( usces_acting_key() ); ?>" />
 					<?php
 				endif;

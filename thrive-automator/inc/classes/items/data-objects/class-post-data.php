@@ -21,7 +21,7 @@ class Post_Data extends Data_Object {
 	}
 
 	public static function get_nice_name() {
-		return __( 'Wordpress post', 'thrive-automator' );
+		return __( 'WordPress post', 'thrive-automator' );
 	}
 
 	/**

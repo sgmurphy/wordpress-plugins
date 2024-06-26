@@ -575,7 +575,35 @@ class SSA_Templates {
 			$string
 		);
 
+		$string = $this->strip_mustache_content($string);
+
 		return $string;
+	}
+
+	/**
+	 * Cleans HTML tags within mustache and template tags in the provided text.
+	 * 
+	 * This function processes the input text to remove any HTML entities or elements
+	 * inside mustache tags ({{ }}) and template tags ({% %}). It ensures that the content
+	 * within these tags is stripped of any HTML, leaving only the plain text or function calls.
+	 *
+	 * @param string $text The input text containing mustache and template tags.
+	 * @return string The cleaned text with HTML tags removed from mustache and template tags.
+	 */
+	public function strip_mustache_content($text) {
+		$mustachePattern = '/{{\s*([^}]+)\s*}}/';
+				$mustacheCallback = function ($matches) {
+				return '{{ ' . strip_tags($matches[1]) . ' }}';
+		};
+		$text = preg_replace_callback($mustachePattern, $mustacheCallback, $text);
+		
+		$templatePattern = '/{%\s*([^}]+)\s*%}/';
+		$templateCallback = function ($matches) {
+				return '{% ' . strip_tags($matches[1]) . ' %}';
+		};
+		$text = preg_replace_callback($templatePattern, $templateCallback, $text);
+		
+		return $text;
 	}
 
 	/**

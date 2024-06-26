@@ -298,10 +298,10 @@ function wpbc_do_shortcode__booking_confirm( $attr ){
 
 		$return_str =  '<div class="wpbc_container ">'
 		                  . '<div id="booking_form' . $resource_id . '"></div>'
-						  . '<script type="text/javascript">'
+		                  . '<script type="text/javascript"> ' . wpbc_jq_ready_start()                                  //FixIn: 10.1.3.7
 		                    . ' wpbc_show_thank_you_message_after_booking(' .wp_json_encode( $json_arr ) . '); '
-		                    . ' jQuery(document).ready(function(){ setTimeout( function (){ wpbc_do_scroll( "#wpbc_scroll_point_' . intval( $resource_id ) . '", 10 ); }, 500 );  });'
-		               .'</script>'
+		                    . ' setTimeout( function (){ wpbc_do_scroll( "#wpbc_scroll_point_' . intval( $resource_id ) . '", 10 ); }, 500 ); '
+					   . wpbc_jq_ready_end() . '</script>'                                                          	//FixIn: 10.1.3.7
 					 . '</div>';
 	}
 

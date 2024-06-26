@@ -17,7 +17,10 @@
                ?>
                         </ul>
 
-                        <?php $saved_mail_tags = get_post_meta( $form_id, 'gs_map_mail_tags' );
+                        <?php 
+if(isset($form_id) && !empty($form_id)){
+
+                        $saved_mail_tags = get_post_meta( $form_id, 'gs_map_mail_tags' );
       
       // fetch mail tags
       $assoc_arr = [ ];
@@ -63,6 +66,7 @@
          }
       }
    }
+}
       ?>
       </ul>
 </div>

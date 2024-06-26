@@ -372,7 +372,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 			</div>
 			<div class="welcome-icon welcome-widgets-menus" style="text-align:right;"><?php
 				printf( __( 'Need even more functionality? Check %s Pro Versions %s.','booking'),
-						'<a href="https://wpbookingcalendar.com/overview/" target="_blank">',
+						'<a href="https://wpbookingcalendar.com/features/" target="_blank">',
 						'</a>'
 					); ?>
 			</div>

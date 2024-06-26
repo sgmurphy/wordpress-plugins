@@ -2043,6 +2043,7 @@ class Auxin_Demo_Importer {
         $patterns = array(
             '"wp_gallery":(\[.*?\])',
             '"carousel":(\[.*?\])',
+            '"images":(\[.*?\])',
             '"attach_id":\{.*?\}'
         );
         foreach( $patterns as $key => $pattern ) {

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Auxin Essential Elements\n"
 "Report-Msgid-Bugs-To: http://averta.net/phlox/wordpress-theme/\n"
-"POT-Creation-Date: 2024-05-19 07:51:03+00:00\n"
+"POT-Creation-Date: 2024-06-26 07:42:47+00:00\n"
 "PO-Revision-Date: 2016-11-09 12:50+0330\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -214,12 +214,12 @@ msgid ""
 "Please make sure the image aspect ratio for all image sizes are the same."
 msgstr ""
 
-#: admin/includes/admin-hooks.php:615 includes/general-hooks.php:984
+#: admin/includes/admin-hooks.php:615 includes/general-hooks.php:996
 #, fuzzy
 msgid "Footer Brand Image"
 msgstr "تصویر پوستر"
 
-#: admin/includes/admin-hooks.php:616 includes/general-hooks.php:985
+#: admin/includes/admin-hooks.php:616 includes/general-hooks.php:997
 msgid "This image appears as site brand image on footer section."
 msgstr ""
 
@@ -692,7 +692,7 @@ msgstr ""
 #: admin/includes/metaboxes/metabox-fields-general-header-template.php:71
 #: admin/includes/metaboxes/metabox-fields-general-header.php:27
 #: admin/includes/metaboxes/metabox-fields-general-top-header.php:27
-#: includes/general-hooks.php:176 includes/general-hooks.php:588
+#: includes/general-hooks.php:188 includes/general-hooks.php:600
 msgid "Disable it to replace header section with an Elementor template"
 msgstr ""
 
@@ -821,7 +821,7 @@ msgstr ""
 #: admin/includes/metaboxes/metabox-fields-general-header-template.php:70
 #: admin/includes/metaboxes/metabox-fields-general-header.php:26
 #: admin/includes/metaboxes/metabox-fields-general-top-header.php:26
-#: includes/general-hooks.php:175 includes/general-hooks.php:587
+#: includes/general-hooks.php:187 includes/general-hooks.php:599
 msgid "Use Legacy Header"
 msgstr ""
 
@@ -1215,7 +1215,7 @@ msgstr "وسط"
 #: includes/elements/staff.php:236 includes/elements/staff.php:274
 #: includes/elements/text.php:122 includes/elements/text.php:150
 #: includes/elements/text.php:617 includes/elements/text.php:804
-#: includes/general-hooks.php:434 includes/general-hooks.php:846
+#: includes/general-hooks.php:446 includes/general-hooks.php:858
 msgid "Left"
 msgstr "چپ"
 
@@ -1266,7 +1266,7 @@ msgstr "تراز المان خط زمانی را مشخص می کند."
 #: includes/elements/divider.php:88 includes/elements/socials-list.php:61
 #: includes/elements/socials-list.php:197 includes/elements/staff.php:461
 #: includes/elements/text.php:466 includes/elements/text.php:674
-#: includes/general-hooks.php:284 includes/general-hooks.php:696
+#: includes/general-hooks.php:296 includes/general-hooks.php:708
 msgid "Small"
 msgstr "کوچک"
 
@@ -1282,8 +1282,8 @@ msgstr "کوچک"
 #: includes/elements/socials-list.php:62 includes/elements/socials-list.php:198
 #: includes/elements/staff.php:109 includes/elements/staff.php:462
 #: includes/elements/text.php:427 includes/elements/text.php:467
-#: includes/elements/text.php:673 includes/general-hooks.php:283
-#: includes/general-hooks.php:695
+#: includes/elements/text.php:673 includes/general-hooks.php:295
+#: includes/general-hooks.php:707
 msgid "Medium"
 msgstr "متوسط"
 
@@ -1298,7 +1298,7 @@ msgstr "متوسط"
 #: includes/elements/socials-list.php:199 includes/elements/staff.php:108
 #: includes/elements/staff.php:463 includes/elements/text.php:426
 #: includes/elements/text.php:468 includes/elements/text.php:672
-#: includes/general-hooks.php:282 includes/general-hooks.php:694
+#: includes/general-hooks.php:294 includes/general-hooks.php:706
 msgid "Large"
 msgstr "بزرگ"
 
@@ -1370,8 +1370,8 @@ msgstr ""
 #: includes/elements/gallery.php:118 includes/elements/quote.php:108
 #: includes/elements/recent-posts-tiles-carousel.php:296
 #: includes/elements/recent-posts-tiles.php:326 includes/elements/text.php:177
-#: includes/elements/text.php:803 includes/general-hooks.php:430
-#: includes/general-hooks.php:842 includes/general-hooks.php:1063
+#: includes/elements/text.php:803 includes/general-hooks.php:442
+#: includes/general-hooks.php:854 includes/general-hooks.php:1075
 msgid "Default"
 msgstr "پیش فرض"
 
@@ -3115,7 +3115,7 @@ msgstr "بالا"
 #: includes/elements/staff.php:228 includes/elements/staff.php:282
 #: includes/elements/text.php:130 includes/elements/text.php:158
 #: includes/elements/text.php:621 includes/elements/text.php:805
-#: includes/general-hooks.php:438 includes/general-hooks.php:850
+#: includes/general-hooks.php:450 includes/general-hooks.php:862
 msgid "Right"
 msgstr "راست"
 
@@ -3411,7 +3411,7 @@ msgstr "پیوند"
 #: includes/elements/recent-posts-tiles.php:152
 #: includes/elements/recent-posts-timeline.php:147
 #: includes/elements/testimonial.php:129 includes/elements/text.php:900
-#: includes/general-hooks.php:1214
+#: includes/general-hooks.php:1226
 msgid "None"
 msgstr "هیچکدام"
 
@@ -3732,7 +3732,7 @@ msgid "Pages URL"
 msgstr "برگه ها"
 
 #: includes/elementor/modules/dynamic-tags/login-url.php:44
-#: includes/general-hooks.php:1048
+#: includes/general-hooks.php:1060
 msgid "Login Page"
 msgstr "صفحه ورود"
 
@@ -4428,7 +4428,7 @@ msgid "Logo"
 msgstr ""
 
 #: includes/elementor/modules/settings/general/manager.php:47
-#: includes/general-hooks.php:1011
+#: includes/general-hooks.php:1023
 #, fuzzy
 msgid "Footer Brand Height"
 msgstr "ارتفاع لوگو"
@@ -4454,7 +4454,7 @@ msgid "Select Post Type"
 msgstr "نوع گالری را انتخاب کنید."
 
 #: includes/elementor/modules/theme-builder/module.php:131
-#: includes/general-hooks.php:1373 includes/general-hooks.php:1379
+#: includes/general-hooks.php:1385 includes/general-hooks.php:1391
 #, fuzzy
 msgid "404 Page"
 msgstr "صفحه"
@@ -4733,7 +4733,7 @@ msgstr "کادربندی شده"
 #: includes/elementor/widgets/theme-elements/select.php:309
 #: includes/elementor/widgets/theme-elements/select.php:550
 #: includes/elements/button.php:116 includes/elements/text.php:735
-#: includes/general-hooks.php:349 includes/general-hooks.php:761
+#: includes/general-hooks.php:361 includes/general-hooks.php:773
 msgid "Normal"
 msgstr "معمولی"
 
@@ -5473,8 +5473,8 @@ msgstr "عرض"
 #: includes/elements/text.php:761 includes/elements/text.php:777
 #: includes/elements/text.php:793 includes/elements/text.php:818
 #: includes/elements/text.php:836 includes/elements/text.php:853
-#: includes/elements/text.php:874 includes/general-hooks.php:257
-#: includes/general-hooks.php:669
+#: includes/elements/text.php:874 includes/general-hooks.php:269
+#: includes/general-hooks.php:681
 #, fuzzy
 msgid "Button"
 msgstr "اندازه دکمه"
@@ -5513,8 +5513,8 @@ msgstr "اندازه دکمه"
 #: includes/elementor/widgets/button.php:160
 #: includes/elementor/widgets/modern-button.php:318
 #: includes/elementor/widgets/text.php:1043 includes/elements/button.php:61
-#: includes/elements/text.php:671 includes/general-hooks.php:281
-#: includes/general-hooks.php:693
+#: includes/elements/text.php:671 includes/general-hooks.php:293
+#: includes/general-hooks.php:705
 msgid "Exlarge"
 msgstr "خیلی بزرگ"
 
@@ -5523,7 +5523,7 @@ msgstr "خیلی بزرگ"
 #: includes/elementor/widgets/modern-button.php:322
 #: includes/elementor/widgets/text.php:1047 includes/elements/button.php:65
 #: includes/elements/divider.php:89 includes/elements/text.php:675
-#: includes/general-hooks.php:285 includes/general-hooks.php:697
+#: includes/general-hooks.php:297 includes/general-hooks.php:709
 msgid "Tiny"
 msgstr "خیلی کوچک"
 
@@ -5546,16 +5546,16 @@ msgstr "جعبه"
 #: includes/elementor/widgets/button.php:192
 #: includes/elementor/widgets/modern-button.php:305
 #: includes/elementor/widgets/text.php:1372 includes/elements/button.php:93
-#: includes/elements/text.php:709 includes/general-hooks.php:316
-#: includes/general-hooks.php:728
+#: includes/elements/text.php:709 includes/general-hooks.php:328
+#: includes/general-hooks.php:740
 msgid "Round"
 msgstr "گرد"
 
 #: includes/elementor/widgets/button.php:196
 #: includes/elementor/widgets/modern-button.php:306
 #: includes/elementor/widgets/text.php:1376 includes/elements/button.php:97
-#: includes/elements/text.php:713 includes/general-hooks.php:320
-#: includes/general-hooks.php:732
+#: includes/elements/text.php:713 includes/general-hooks.php:332
+#: includes/general-hooks.php:744
 msgid "Curve"
 msgstr "منحنی"
 
@@ -5566,16 +5566,16 @@ msgstr "ظاهر دکمه"
 
 #: includes/elementor/widgets/button.php:215
 #: includes/elementor/widgets/text.php:1396 includes/elements/button.php:120
-#: includes/elements/text.php:739 includes/general-hooks.php:353
-#: includes/general-hooks.php:765
+#: includes/elements/text.php:739 includes/general-hooks.php:365
+#: includes/general-hooks.php:777
 msgid "3D"
 msgstr "سه بعدی"
 
 #: includes/elementor/widgets/button.php:219
 #: includes/elementor/widgets/modern-button.php:292
 #: includes/elementor/widgets/text.php:1400 includes/elements/button.php:124
-#: includes/elements/text.php:743 includes/general-hooks.php:357
-#: includes/general-hooks.php:769
+#: includes/elements/text.php:743 includes/general-hooks.php:369
+#: includes/general-hooks.php:781
 msgid "Outline"
 msgstr "خط بیرونی"
 
@@ -5675,15 +5675,15 @@ msgstr "تراز شکلک"
 #: includes/elementor/widgets/button.php:380
 #: includes/elementor/widgets/modern-button.php:814
 #: includes/elementor/widgets/text.php:1152 includes/elements/button.php:189
-#: includes/elements/text.php:806 includes/general-hooks.php:442
-#: includes/general-hooks.php:854
+#: includes/elements/text.php:806 includes/general-hooks.php:454
+#: includes/general-hooks.php:866
 msgid "Over"
 msgstr "رو"
 
 #: includes/elementor/widgets/button.php:381
 #: includes/elementor/widgets/text.php:1153 includes/elements/button.php:193
-#: includes/elements/text.php:807 includes/general-hooks.php:446
-#: includes/general-hooks.php:858
+#: includes/elements/text.php:807 includes/general-hooks.php:458
+#: includes/general-hooks.php:870
 msgid "Animate from Left"
 msgstr "متحرک سازی از چپ"
 
@@ -6270,7 +6270,7 @@ msgstr ""
 #: includes/elementor/widgets/theme-elements/search.php:201
 #: includes/elementor/widgets/theme-elements/search.php:404
 #: includes/elementor/widgets/touch-slider.php:303
-#: includes/general-hooks.php:1147
+#: includes/general-hooks.php:1159
 msgid "Background Color"
 msgstr "رنگ پس زمینه"
 
@@ -7007,7 +7007,7 @@ msgstr ""
 
 #: includes/elementor/widgets/image.php:278
 #: includes/elementor/widgets/theme-elements/shopping-cart.php:101
-#: includes/general-hooks.php:1521
+#: includes/general-hooks.php:1533
 msgid "Settings"
 msgstr ""
 
@@ -8369,7 +8369,7 @@ msgstr ""
 #: includes/elements/recent-posts-tiles-carousel.php:197
 #: includes/elements/recent-posts-tiles.php:227
 #: includes/elements/recent-posts-timeline.php:222
-#: includes/general-hooks.php:1461
+#: includes/general-hooks.php:1473
 msgid "Include posts"
 msgstr "شامل شدن این نوشته ها"
 
@@ -9224,8 +9224,8 @@ msgstr "نوع دکمه"
 msgid "Shape Style"
 msgstr "ظاهر نقشه"
 
-#: includes/elementor/widgets/text.php:1387 includes/general-hooks.php:342
-#: includes/general-hooks.php:754
+#: includes/elementor/widgets/text.php:1387 includes/general-hooks.php:354
+#: includes/general-hooks.php:766
 #, fuzzy
 msgid "Button Style"
 msgstr "ظاهر دکمه"
@@ -10146,7 +10146,7 @@ msgstr "یک المان درباره نویسنده اضافه می کند."
 msgid "The name which appears in about widget."
 msgstr "نامی که در ابزارک درباره ما نشان داده می شود."
 
-#: includes/elements/about-widget.php:70 includes/general-hooks.php:1992
+#: includes/elements/about-widget.php:70 includes/general-hooks.php:2014
 msgid "Skills"
 msgstr "مهارت ها"
 
@@ -10325,14 +10325,14 @@ msgstr "تیره تر کردن برچسب"
 msgid "Darken label of button."
 msgstr "برچسب دکمه"
 
-#: includes/elements/button.php:197 includes/general-hooks.php:450
-#: includes/general-hooks.php:862
+#: includes/elements/button.php:197 includes/general-hooks.php:462
+#: includes/general-hooks.php:874
 #, fuzzy
 msgid "Animate from Righ"
 msgstr "متحرک سازی از راست"
 
-#: includes/elements/button.php:225 includes/general-hooks.php:518
-#: includes/general-hooks.php:930
+#: includes/elements/button.php:225 includes/general-hooks.php:530
+#: includes/general-hooks.php:942
 #, fuzzy
 msgid "Button Link"
 msgstr "اندازه دکمه"
@@ -10342,12 +10342,12 @@ msgid "Open link in"
 msgstr "باز کردن پیوند در"
 
 #: includes/elements/button.php:245 includes/elements/text.php:863
-#: includes/general-hooks.php:547 includes/general-hooks.php:959
+#: includes/general-hooks.php:559 includes/general-hooks.php:971
 msgid "Current page"
 msgstr "صفحه جاری"
 
 #: includes/elements/button.php:246 includes/elements/text.php:864
-#: includes/general-hooks.php:548 includes/general-hooks.php:960
+#: includes/general-hooks.php:560 includes/general-hooks.php:972
 msgid "New page"
 msgstr "صفحه جدید"
 
@@ -11088,7 +11088,7 @@ msgstr "تعداد تصاویر برای نمایش اولیه. حداکثر 33.
 msgid "Resolution/size of the photos. "
 msgstr "رزولوشن/اندازه تصاویر."
 
-#: includes/elements/instagram-feed.php:94 includes/general-hooks.php:1187
+#: includes/elements/instagram-feed.php:94 includes/general-hooks.php:1199
 msgid "Auto"
 msgstr "خودکار"
 
@@ -11825,7 +11825,7 @@ msgid "Single Color"
 msgstr "رنگ شکلک"
 
 #: includes/elements/text.php:198 includes/elements/text.php:293
-#: includes/general-hooks.php:1164
+#: includes/general-hooks.php:1176
 msgid "Background Image"
 msgstr "تصویر پس زمینه"
 
@@ -11845,7 +11845,7 @@ msgid "Wrapper Background Image Display"
 msgstr "تصویر پس زمینه"
 
 #: includes/elements/text.php:251 includes/elements/text.php:346
-#: includes/general-hooks.php:1195
+#: includes/general-hooks.php:1207
 msgid "Cover"
 msgstr "پوشاننده"
 
@@ -11859,7 +11859,7 @@ msgid "Centered, with original size"
 msgstr ""
 
 #: includes/elements/text.php:254 includes/elements/text.php:349
-#: includes/general-hooks.php:1328
+#: includes/general-hooks.php:1340
 msgid "Fixed"
 msgstr "ثابت"
 
@@ -12210,171 +12210,184 @@ msgstr ""
 "کد بازاریابی گوگل خود را می توانید در این قسمت وارد کنید. از تگ  %s استفاده "
 "نکنید %s."
 
-#: includes/general-hooks.php:145
+#: includes/general-hooks.php:140
+msgid "Google Marketing Code Second Part (optional)"
+msgstr ""
+
+#: includes/general-hooks.php:141
+#, fuzzy
+msgid ""
+"You can add your second part of Google marketing code here.%s DO NOT use %s "
+"tag."
+msgstr ""
+"کد بازاریابی گوگل خود را می توانید در این قسمت وارد کنید. از تگ  %s استفاده "
+"نکنید %s."
+
+#: includes/general-hooks.php:157
 msgid "Logo 2 (optional)"
 msgstr ""
 
-#: includes/general-hooks.php:146
+#: includes/general-hooks.php:158
 msgid ""
 "The secondary logo which appears when the header becomes sticky (optional)."
 msgstr ""
 
-#: includes/general-hooks.php:162
+#: includes/general-hooks.php:174
 msgid "Header Button 1"
 msgstr ""
 
-#: includes/general-hooks.php:163
+#: includes/general-hooks.php:175
 msgid "Setting for Header Button 1"
 msgstr ""
 
-#: includes/general-hooks.php:185
+#: includes/general-hooks.php:197
 #, fuzzy
 msgid "Display Header Button 1"
 msgstr "نمایش دکمه لایک"
 
-#: includes/general-hooks.php:186 includes/general-hooks.php:598
+#: includes/general-hooks.php:198 includes/general-hooks.php:610
 #, fuzzy
 msgid "Enable this option to display a button in header."
 msgstr "برای نمایش پس زمینه دلخواه در صفحه ورود این گزینه را فعال کنید."
 
-#: includes/general-hooks.php:206
+#: includes/general-hooks.php:218
 msgid "Hide Button 1 on Tablet"
 msgstr ""
 
-#: includes/general-hooks.php:207 includes/general-hooks.php:230
+#: includes/general-hooks.php:219 includes/general-hooks.php:242
 msgid "Enable it to hide header button 1 on tablet devices."
 msgstr ""
 
-#: includes/general-hooks.php:229
+#: includes/general-hooks.php:241
 msgid "Hide Button 1 on Mobile"
 msgstr ""
 
-#: includes/general-hooks.php:252 includes/general-hooks.php:664
+#: includes/general-hooks.php:264 includes/general-hooks.php:676
 #, fuzzy
 msgid "Button Label"
 msgstr "برچسب دکمه"
 
-#: includes/general-hooks.php:253 includes/general-hooks.php:665
+#: includes/general-hooks.php:265 includes/general-hooks.php:677
 #, fuzzy
 msgid "Specifies the label of button."
 msgstr "برچسب دکمه"
 
-#: includes/general-hooks.php:275 includes/general-hooks.php:687
+#: includes/general-hooks.php:287 includes/general-hooks.php:699
 #, fuzzy
 msgid "Button Size"
 msgstr "اندازه دکمه"
 
-#: includes/general-hooks.php:305 includes/general-hooks.php:717
+#: includes/general-hooks.php:317 includes/general-hooks.php:729
 #, fuzzy
 msgid "Button Shape"
 msgstr "نوع دکمه"
 
-#: includes/general-hooks.php:312 includes/general-hooks.php:724
+#: includes/general-hooks.php:324 includes/general-hooks.php:736
 msgid "Sharp"
 msgstr ""
 
-#: includes/general-hooks.php:379 includes/general-hooks.php:791
+#: includes/general-hooks.php:391 includes/general-hooks.php:803
 #, fuzzy
 msgid "Button Typography"
 msgstr "نوع دکمه"
 
-#: includes/general-hooks.php:401 includes/general-hooks.php:813
+#: includes/general-hooks.php:413 includes/general-hooks.php:825
 #, fuzzy
 msgid "Icon for Button"
 msgstr "شکلک برای دکمه"
 
-#: includes/general-hooks.php:423 includes/general-hooks.php:835
+#: includes/general-hooks.php:435 includes/general-hooks.php:847
 #, fuzzy
 msgid "Icon Alignment"
 msgstr "تراز شکلک"
 
-#: includes/general-hooks.php:472 includes/general-hooks.php:884
+#: includes/general-hooks.php:484 includes/general-hooks.php:896
 #, fuzzy
 msgid "Color of Button"
 msgstr "رنگ دکمه"
 
-#: includes/general-hooks.php:495 includes/general-hooks.php:907
+#: includes/general-hooks.php:507 includes/general-hooks.php:919
 #, fuzzy
 msgid "Color of Button on Sticky"
 msgstr "رنگ دکمه"
 
-#: includes/general-hooks.php:496 includes/general-hooks.php:908
+#: includes/general-hooks.php:508 includes/general-hooks.php:920
 msgid "Specifies the color of the button when the header sticky is enabled."
 msgstr ""
 
-#: includes/general-hooks.php:541 includes/general-hooks.php:953
+#: includes/general-hooks.php:553 includes/general-hooks.php:965
 #, fuzzy
 msgid "Open Link in"
 msgstr "باز کردن پیوند در"
 
-#: includes/general-hooks.php:574
+#: includes/general-hooks.php:586
 msgid "Header Button 2"
 msgstr ""
 
-#: includes/general-hooks.php:575
+#: includes/general-hooks.php:587
 msgid "Setting for Header Button 2"
 msgstr ""
 
-#: includes/general-hooks.php:597
+#: includes/general-hooks.php:609
 #, fuzzy
 msgid "Display Header Button 2"
 msgstr "نمایش دکمه لایک"
 
-#: includes/general-hooks.php:618
+#: includes/general-hooks.php:630
 msgid "Hide Button 2 on Tablet"
 msgstr ""
 
-#: includes/general-hooks.php:619 includes/general-hooks.php:642
+#: includes/general-hooks.php:631 includes/general-hooks.php:654
 msgid "Enable it to hide header button 2 on tablet devices."
 msgstr ""
 
-#: includes/general-hooks.php:641
+#: includes/general-hooks.php:653
 msgid "Hide Button 2 on Mobile"
 msgstr ""
 
-#: includes/general-hooks.php:1012
+#: includes/general-hooks.php:1024
 #, fuzzy
 msgid "Specifies maximum height of logo in footer."
 msgstr "ارتفاع لوگو را بر حسب پیکسل مشخص می کند."
 
-#: includes/general-hooks.php:1049
+#: includes/general-hooks.php:1061
 msgid "Preview login page"
 msgstr "پیش نمایش صفحه ورود"
 
-#: includes/general-hooks.php:1056
+#: includes/general-hooks.php:1068
 msgid "Login Skin"
 msgstr "نمای صفحه ورود"
 
-#: includes/general-hooks.php:1057
+#: includes/general-hooks.php:1069
 msgid "Specifies a skin for login page of your website."
 msgstr "نمای صفحه ورود را در سایت شما مشخص می کند."
 
-#: includes/general-hooks.php:1067
+#: includes/general-hooks.php:1079
 msgid "Clean white"
 msgstr "سفید تمیز"
 
-#: includes/general-hooks.php:1071
+#: includes/general-hooks.php:1083
 msgid "Simple white"
 msgstr "سفید ساده"
 
-#: includes/general-hooks.php:1075
+#: includes/general-hooks.php:1087
 msgid "Simple gray"
 msgstr "خاکستری ساده"
 
-#: includes/general-hooks.php:1085
+#: includes/general-hooks.php:1097
 msgid "Login message"
 msgstr "پیام ورود"
 
-#: includes/general-hooks.php:1086
+#: includes/general-hooks.php:1098
 #, fuzzy
 msgid "Enter a text to display above the login form."
 msgstr "متنی را برای نمایش در بالای فرم ورود وارد کنید."
 
-#: includes/general-hooks.php:1098
+#: includes/general-hooks.php:1110
 msgid "Login Page Logo"
 msgstr "لوگوی صفحه ورود"
 
-#: includes/general-hooks.php:1099
+#: includes/general-hooks.php:1111
 msgid ""
 "Specifies a logo to display on login page.(width of logo image could be up "
 "to 320px)"
@@ -12382,55 +12395,55 @@ msgstr ""
 "لوگویی را برای نمایش در صفحه ورود مشخص می کند.(عرض لوگو می تواند تا 320 "
 "پیکسل باشد)"
 
-#: includes/general-hooks.php:1110
+#: includes/general-hooks.php:1122
 msgid "Logo Width"
 msgstr "عرض لوگو"
 
-#: includes/general-hooks.php:1111
+#: includes/general-hooks.php:1123
 msgid "Specifies width of logo image in pixel."
 msgstr "ارتفاع لوگو را بر حسب پیکسل مشخص می کند."
 
-#: includes/general-hooks.php:1122
+#: includes/general-hooks.php:1134
 msgid "Logo Height"
 msgstr "ارتفاع لوگو"
 
-#: includes/general-hooks.php:1123
+#: includes/general-hooks.php:1135
 msgid "Specifies height of logo image in pixel."
 msgstr "ارتفاع لوگو را بر حسب پیکسل مشخص می کند."
 
-#: includes/general-hooks.php:1135
+#: includes/general-hooks.php:1147
 msgid "Enable Background"
 msgstr "فعالسازی پس زمینه"
 
-#: includes/general-hooks.php:1136
+#: includes/general-hooks.php:1148
 msgid "Enable it to display custom background on login page."
 msgstr "برای نمایش پس زمینه دلخواه در صفحه ورود این گزینه را فعال کنید."
 
-#: includes/general-hooks.php:1148
+#: includes/general-hooks.php:1160
 msgid "Specifies background color of website."
 msgstr "رنگ پس زمینه وب سایت را مشخص می کند."
 
-#: includes/general-hooks.php:1165
+#: includes/general-hooks.php:1177
 msgid "You can upload custom image for background of login page"
 msgstr "می توانید تصویر دلخواهی را به عنوان پس زمینه صفحه ورود بارگذاری کنید."
 
-#: includes/general-hooks.php:1180
+#: includes/general-hooks.php:1192
 msgid "Background Size"
 msgstr "اندازه پس زمینه"
 
-#: includes/general-hooks.php:1181
+#: includes/general-hooks.php:1193
 msgid "Specifies background size on login page."
 msgstr "اندازه تصویر پس زمینه در صفحه ورود را مشخص می کند."
 
-#: includes/general-hooks.php:1191
+#: includes/general-hooks.php:1203
 msgid "Contain"
 msgstr "دربرگیرنده"
 
-#: includes/general-hooks.php:1210
+#: includes/general-hooks.php:1222
 msgid "Background Pattern"
 msgstr "الگوی پس زمینه"
 
-#: includes/general-hooks.php:1211
+#: includes/general-hooks.php:1223
 msgid ""
 "You can select one of these patterns as login background image. %s Some of "
 "these can be used as a pattern over your background image."
@@ -12438,79 +12451,79 @@ msgstr ""
 "می توانید یکی از این الگوها را به عنوان تصویر پس زمینه انتخاب کنید. %s بعضی "
 "از این ها می توانند به عنوان الگو بر روی تصویر پس زمینه شما استفاده شوند."
 
-#: includes/general-hooks.php:1227
+#: includes/general-hooks.php:1239
 msgid "Background Repeat"
 msgstr "تکرار پس زمینه"
 
-#: includes/general-hooks.php:1228
+#: includes/general-hooks.php:1240
 msgid "Specifies how background image repeats."
 msgstr "نحوه تکرار تصویر پس زمینه را مشخص می کند."
 
-#: includes/general-hooks.php:1233
+#: includes/general-hooks.php:1245
 msgid "No repeat"
 msgstr "بدون تکرار"
 
-#: includes/general-hooks.php:1237
+#: includes/general-hooks.php:1249
 msgid "Repeat horizontally and vertically"
 msgstr "تکرار افقی و عمودی"
 
-#: includes/general-hooks.php:1241
+#: includes/general-hooks.php:1253
 msgid "Repeat horizontally"
 msgstr "تکرار افقی"
 
-#: includes/general-hooks.php:1245
+#: includes/general-hooks.php:1257
 msgid "Repeat vertically"
 msgstr "تکرار عمودی"
 
-#: includes/general-hooks.php:1261
+#: includes/general-hooks.php:1273
 msgid "Background Position"
 msgstr "موقعیت پس زمینه"
 
-#: includes/general-hooks.php:1262
+#: includes/general-hooks.php:1274
 msgid "Specifies background image position."
 msgstr "موقعیت تصویر پس زمینه را مشخص می کند."
 
-#: includes/general-hooks.php:1267
+#: includes/general-hooks.php:1279
 msgid "Left top"
 msgstr "چپ بالا"
 
-#: includes/general-hooks.php:1271
+#: includes/general-hooks.php:1283
 msgid "Center top"
 msgstr "وسط بالا"
 
-#: includes/general-hooks.php:1275
+#: includes/general-hooks.php:1287
 msgid "Right top"
 msgstr "راست بالا"
 
-#: includes/general-hooks.php:1280
+#: includes/general-hooks.php:1292
 msgid "Left center"
 msgstr "چپ وسط"
 
-#: includes/general-hooks.php:1284
+#: includes/general-hooks.php:1296
 msgid "Center center"
 msgstr "وسط وسط"
 
-#: includes/general-hooks.php:1288
+#: includes/general-hooks.php:1300
 msgid "Right center"
 msgstr "راست وسط"
 
-#: includes/general-hooks.php:1293
+#: includes/general-hooks.php:1305
 msgid "Left bottom"
 msgstr "چپ پایین"
 
-#: includes/general-hooks.php:1297
+#: includes/general-hooks.php:1309
 msgid "Center bottom"
 msgstr "وسط پایین"
 
-#: includes/general-hooks.php:1301
+#: includes/general-hooks.php:1313
 msgid "Right bottom"
 msgstr "راست پایین"
 
-#: includes/general-hooks.php:1317
+#: includes/general-hooks.php:1329
 msgid "Background Attachment"
 msgstr "پیوست پس زمینه"
 
-#: includes/general-hooks.php:1318
+#: includes/general-hooks.php:1330
 msgid ""
 "Specifies whether the background is fixed or scrollable as user scrolls the "
 "page."
@@ -12518,15 +12531,15 @@ msgstr ""
 "مشخص می کند پس زمینه هنگام اسکرول کردن صفحه توسط کاربر ثابت باشد یا اسکرول "
 "شود."
 
-#: includes/general-hooks.php:1324
+#: includes/general-hooks.php:1336
 msgid "Scroll"
 msgstr "اسکرول"
 
-#: includes/general-hooks.php:1345
+#: includes/general-hooks.php:1357
 msgid "Custom CSS class name"
 msgstr "نام کلاس دلخواه CSS"
 
-#: includes/general-hooks.php:1346
+#: includes/general-hooks.php:1358
 msgid ""
 "In this field you can define custom CSS class name for login page.\n"
 "                          This class name will be added to body classes in "
@@ -12536,243 +12549,243 @@ msgstr ""
 "                          این نام کلاس به بدنه (body) صفحه ورود اضافه خواهد "
 "شدو برای موارد استایل دهی پیشرفته مورد استفاده قرار می گیرد."
 
-#: includes/general-hooks.php:1357
+#: includes/general-hooks.php:1369
 #, fuzzy
 msgid "Login Style"
 msgstr "نمای صفحه ورود"
 
-#: includes/general-hooks.php:1358
+#: includes/general-hooks.php:1370
 msgid "Custom Css style for login page"
 msgstr ""
 
-#: includes/general-hooks.php:1374
+#: includes/general-hooks.php:1386
 #, fuzzy
 msgid "404 Page Options"
 msgstr "تنظیمات طراحی"
 
-#: includes/general-hooks.php:1380
+#: includes/general-hooks.php:1392
 msgid "Specifies a page to display on 404."
 msgstr ""
 
-#: includes/general-hooks.php:1395 includes/general-hooks.php:1412
+#: includes/general-hooks.php:1407 includes/general-hooks.php:1424
 msgid "Maintenance or Comingsoon Page"
 msgstr ""
 
-#: includes/general-hooks.php:1396
+#: includes/general-hooks.php:1408
 msgid "Maintenance or Comingsoon Page Options"
 msgstr ""
 
-#: includes/general-hooks.php:1401
+#: includes/general-hooks.php:1413
 msgid "Enable Maintenance or Comingsoon Mode"
 msgstr ""
 
-#: includes/general-hooks.php:1402
+#: includes/general-hooks.php:1414
 msgid "With this option you can manually enable Maintenance or Comingsoon mode"
 msgstr ""
 
-#: includes/general-hooks.php:1413
+#: includes/general-hooks.php:1425
 msgid ""
 "In This Case You Can Set Your Specifc Page for Maintenance or Comingsoon Mode"
 msgstr ""
 
-#: includes/general-hooks.php:1432
+#: includes/general-hooks.php:1444
 msgid "Search Results"
 msgstr ""
 
-#: includes/general-hooks.php:1433
+#: includes/general-hooks.php:1445
 msgid "Search Results Options"
 msgstr ""
 
-#: includes/general-hooks.php:1439
+#: includes/general-hooks.php:1451
 #, fuzzy
 msgid "Exclude Posts Types"
 msgstr "نادیده گرفتن این نوشته ها"
 
-#: includes/general-hooks.php:1440
+#: includes/general-hooks.php:1452
 msgid "The post types which should be excluded from search results."
 msgstr ""
 
-#: includes/general-hooks.php:1450
+#: includes/general-hooks.php:1462
 #, fuzzy
 msgid "Exclude Posts Without Featured Image"
 msgstr "نادیده گرفتن نوشته های بدون تصویر"
 
-#: includes/general-hooks.php:1451
+#: includes/general-hooks.php:1463
 #, fuzzy
 msgid "Exclude posts without featured image in search results."
 msgstr "نادیده گرفتن نوشته های بدون تصویر"
 
-#: includes/general-hooks.php:1462
+#: includes/general-hooks.php:1474
 msgid ""
 "If you intend to include additional posts, you should specify the posts here."
 "<br>You have to insert the Post IDs that are separated by camma (eg. "
 "53,34,87,25)"
 msgstr ""
 
-#: includes/general-hooks.php:1476
+#: includes/general-hooks.php:1488
 msgid "Import/Export"
 msgstr ""
 
-#: includes/general-hooks.php:1477
+#: includes/general-hooks.php:1489
 #, fuzzy
 msgid "Import or Export options"
 msgstr "تنظیمات نوشته نقل قول"
 
-#: includes/general-hooks.php:1484
+#: includes/general-hooks.php:1496
 msgid "Export Data"
 msgstr ""
 
-#: includes/general-hooks.php:1485
+#: includes/general-hooks.php:1497
 msgid "Your theme options code which you can import later."
 msgstr ""
 
-#: includes/general-hooks.php:1495
+#: includes/general-hooks.php:1507
 msgid "Import Data"
 msgstr ""
 
-#: includes/general-hooks.php:1496
+#: includes/general-hooks.php:1508
 msgid "Paste the exported theme options code to import into theme."
 msgstr ""
 
-#: includes/general-hooks.php:1511
+#: includes/general-hooks.php:1523
 #, fuzzy
 msgid "White Label"
 msgstr "فاصله خالی"
 
-#: includes/general-hooks.php:1512
+#: includes/general-hooks.php:1524
 msgid "White Label Settings"
 msgstr ""
 
-#: includes/general-hooks.php:1522
+#: includes/general-hooks.php:1534
 msgid "Change PHLOX labels."
 msgstr ""
 
-#: includes/general-hooks.php:1526
+#: includes/general-hooks.php:1538
 #, fuzzy
 msgid "Theme Name"
 msgstr "پوسته"
 
-#: includes/general-hooks.php:1537
+#: includes/general-hooks.php:1549
 #, fuzzy
 msgid "Theme Author Name"
 msgstr "نام نویسنده"
 
-#: includes/general-hooks.php:1546
+#: includes/general-hooks.php:1558
 #, fuzzy
 msgid "Theme Author URL"
 msgstr "شخصی ساز پوسته"
 
-#: includes/general-hooks.php:1555
+#: includes/general-hooks.php:1567
 #, fuzzy
 msgid "Theme Description"
 msgstr "توضیحات المان"
 
-#: includes/general-hooks.php:1564
+#: includes/general-hooks.php:1576
 msgid "Theme Screenshot (1200x900)"
 msgstr ""
 
-#: includes/general-hooks.php:1577
+#: includes/general-hooks.php:1589
 #, fuzzy
 msgid "Displays"
 msgstr "نوع نمایش"
 
-#: includes/general-hooks.php:1578
+#: includes/general-hooks.php:1590
 msgid "Change PHLOX admin views."
 msgstr ""
 
-#: includes/general-hooks.php:1582
+#: includes/general-hooks.php:1594
 #, fuzzy
 msgid "Hide Notifications"
 msgstr "تنظیمات نوشته ویدیویی"
 
-#: includes/general-hooks.php:1593
+#: includes/general-hooks.php:1605
 msgid "Hide Theme Badge"
 msgstr ""
 
-#: includes/general-hooks.php:1604
+#: includes/general-hooks.php:1616
 msgid "Hide Phlox Menu"
 msgstr ""
 
-#: includes/general-hooks.php:1615
+#: includes/general-hooks.php:1627
 #, fuzzy
 msgid "Hide Dashboard Section"
 msgstr "افزودن بخش"
 
-#: includes/general-hooks.php:1633
+#: includes/general-hooks.php:1645
 msgid "Hide Customization Section"
 msgstr ""
 
-#: includes/general-hooks.php:1651
+#: includes/general-hooks.php:1663
 msgid "Hide Demo Importer Section"
 msgstr ""
 
-#: includes/general-hooks.php:1669
+#: includes/general-hooks.php:1681
 msgid "Hide Template Kits Section"
 msgstr ""
 
-#: includes/general-hooks.php:1687
+#: includes/general-hooks.php:1699
 msgid "Hide Plugins Section"
 msgstr ""
 
-#: includes/general-hooks.php:1705
+#: includes/general-hooks.php:1717
 #, fuzzy
 msgid "Hide Tutorials Section"
 msgstr "بخش زبانه ها"
 
-#: includes/general-hooks.php:1723
+#: includes/general-hooks.php:1735
 #, fuzzy
 msgid "Hide Feedback Section"
 msgstr "افزودن بخش"
 
-#: includes/general-hooks.php:1985
+#: includes/general-hooks.php:2007
 msgid "Twitter"
 msgstr ""
 
-#: includes/general-hooks.php:1986
+#: includes/general-hooks.php:2008
 msgid "Facebook"
 msgstr ""
 
-#: includes/general-hooks.php:1987
+#: includes/general-hooks.php:2009
 msgid "Google Plus"
 msgstr ""
 
-#: includes/general-hooks.php:1988
+#: includes/general-hooks.php:2010
 msgid "Flickr"
 msgstr ""
 
-#: includes/general-hooks.php:1989
+#: includes/general-hooks.php:2011
 msgid "Delicious"
 msgstr ""
 
-#: includes/general-hooks.php:1990
+#: includes/general-hooks.php:2012
 msgid "Pinterest"
 msgstr ""
 
-#: includes/general-hooks.php:1991
+#: includes/general-hooks.php:2013
 msgid "GitHub"
 msgstr ""
 
-#: includes/general-hooks.php:2157
+#: includes/general-hooks.php:2179
 #, fuzzy
 msgid "Page Options"
 msgstr "تنظیمات طراحی"
 
-#: includes/general-hooks.php:2165
+#: includes/general-hooks.php:2187
 #, fuzzy
 msgid "Post Options"
 msgstr "تنظیمات نوشته صوتی"
 
-#: includes/general-hooks.php:2611
+#: includes/general-hooks.php:2633
 #, fuzzy
 msgid "Page %s"
 msgstr "برگه ها"
 
-#: includes/general-hooks.php:3188
+#: includes/general-hooks.php:3210
 #, fuzzy
 msgid "current "
 msgstr "صفحه جاری"
 
-#: includes/general-hooks.php:3218
+#: includes/general-hooks.php:3240
 msgid "Edit Header & Footer"
 msgstr ""
 
@@ -12942,13 +12955,13 @@ msgid "Chats"
 msgstr ""
 
 #. translators: playlist item title
-#: includes/general-hooks.php:2632
+#: includes/general-hooks.php:2654
 msgctxt "playlist item title"
 msgid "&#8220;%s&#8221;"
 msgstr ""
 
 #. translators: playlist item title
-#: includes/general-hooks.php:2657 includes/general-hooks.php:2662
+#: includes/general-hooks.php:2679 includes/general-hooks.php:2684
 msgctxt "playlist item title"
 msgid "%s"
 msgstr ""

@@ -574,7 +574,7 @@ class usc_e_shop
 				do_action('usces_pre_update_orderdata', $_REQUEST['order_id']);
 				$res = usces_update_orderdata();
 				if ( 1 === $res ) {
-					$backtolist = ( empty($_POST['usces_referer']) || false !== strpos( $_POST['usces_referer'], 'order_action=editpost' ) ) ? admin_url('admin.php?page=usces_orderlist&returnList=1') : esc_url(stripslashes( $_POST['usces_referer'] ));
+					$backtolist = ( empty($_POST['usces_referer']) || false !== strpos( $_POST['usces_referer'], 'order_action=editpost' ) ) ? admin_url('admin.php?page=usces_orderlist&returnList=1&wc_nonce=' . wp_create_nonce( 'order_list' ) ) : esc_url(stripslashes( $_POST['usces_referer'] ));
 					$this->set_action_status('success', __('order date is updated','usces').' <a href="'.$backtolist.'">'.__('back to the summary','usces').'</a>');
 				} elseif ( 0 === $res ) {
 					$this->set_action_status('none', '');
@@ -2401,7 +2401,7 @@ class usc_e_shop
 		</script>
 <?php
 		endif;
-}
+	}
 
 	function main() {
 		global $wpdb, $wp_locale, $wp_version, $post_ID;
@@ -3609,12 +3609,12 @@ class usc_e_shop
 	function goDefaultPage(){
 		global $post;
 
-		if( null !== $post && (int) $post->ID === (int) USCES_CART_NUMBER ) {
+		if( is_object( $post ) && null !== $post && (int) $post->ID === (int) USCES_CART_NUMBER ) {
 
 			$this->page = 'cart';
 			add_filter('the_content', array($this, 'filter_cartContent'),20);
 
-		} elseif ( null !== $post && (int) $post->ID === (int) USCES_MEMBER_NUMBER ) {
+		} elseif ( is_object( $post ) && null !== $post && (int) $post->ID === (int) USCES_MEMBER_NUMBER ) {
 
 			$this->page = 'member';
 
@@ -5577,7 +5577,7 @@ class usc_e_shop
 
 	function display_cart() {
 		if($this->cart->num_row() > 0) {
-			include (USCES_PLUGIN_DIR . '/includes/cart_table.php');
+			// include (USCES_PLUGIN_DIR . '/includes/cart_table.php');
 		} else {
 			echo "<div class='no_cart'>" . __('There are no items in your cart.', 'usces') . "</div>\n";
 		}
@@ -5585,7 +5585,7 @@ class usc_e_shop
 
 	function display_cart_confirm() {
 		if($this->cart->num_row() > 0) {
-			include (USCES_PLUGIN_DIR . '/includes/cart_confirm.php');
+			// include (USCES_PLUGIN_DIR . '/includes/cart_confirm.php');
 		} else {
 			echo "<div class='no_cart'>" . __('There are no items in your cart.', 'usces') . "</div>\n";
 		}
@@ -6485,69 +6485,46 @@ class usc_e_shop
 		$target_market = $this->options['system']['target_market'];
 
 		$update_shipping_charge = false;
-		$shipping_charge = isset($this->options['shipping_charge']) ? $this->options['shipping_charge'] : array();
-		$shipping_charge_count = ( $shipping_charge && is_array( $shipping_charge ) ) ? count( $shipping_charge ) : 0;
-		foreach( (array)$target_market as $tm ) {
-			for( $i = 0; $i < $shipping_charge_count; $i++ ) {
-				if( isset($shipping_charge[$i]['country']) and $shipping_charge[$i]['country'] == $tm ) {
-					foreach( $shipping_charge[$i]['value'] as $pref => $value ) {
-						$shipping_charge[$i][$tm][$pref] = $value;
+		$shipping_charge        = isset( $this->options['shipping_charge'] ) ? $this->options['shipping_charge'] : array();
+		$shipping_charge_count  = ( $shipping_charge && is_array( $shipping_charge ) ) ? count( $shipping_charge ) : 0;
+		foreach ( (array) $target_market as $tm ) {
+			for ( $i = 0; $i < $shipping_charge_count; $i++ ) {
+				if ( isset( $shipping_charge[ $i ]['country'] ) && $shipping_charge[ $i ]['country'] == $tm ) {
+					foreach ( $shipping_charge[ $i ]['value'] as $pref => $value ) {
+						$shipping_charge[ $i ][ $tm ][$pref] = $value;
 					}
-					unset($shipping_charge[$i]['country']);
-					unset($shipping_charge[$i]['value']);
+					unset( $shipping_charge[ $i ]['country'] );
+					unset( $shipping_charge[ $i ]['value'] );
 					$update_shipping_charge = true;
 				}
 			}
 		}
-		if( $update_shipping_charge ) $this->options['shipping_charge'] = $shipping_charge;
+		if ( $update_shipping_charge ) {
+			$this->options['shipping_charge'] = $shipping_charge;
+		}
 
 		$update_delivery_days = false;
-		$delivery_days = isset($this->options['delivery_days']) ? $this->options['delivery_days'] : array();
-		$delivery_days_count = ( $delivery_days && is_array( $delivery_days ) ) ? count( $delivery_days ) : 0;
-		foreach( (array)$target_market as $tm ) {
-			for( $i = 0; $i < $delivery_days_count; $i++ ) {
-				if( isset($delivery_days[$i]['country']) and $delivery_days[$i]['country'] == $tm ) {
-					foreach( $delivery_days[$i]['value'] as $pref => $value ) {
-						$delivery_days[$i][$tm][$pref] = $value;
+		$delivery_days        = isset( $this->options['delivery_days'] ) ? $this->options['delivery_days'] : array();
+		$delivery_days_count  = ( $delivery_days && is_array( $delivery_days ) ) ? count( $delivery_days ) : 0;
+		foreach ( (array) $target_market as $tm ) {
+			for ( $i = 0; $i < $delivery_days_count; $i++ ) {
+				if ( isset( $delivery_days[ $i ]['country'] ) && $delivery_days[ $i ]['country'] == $tm ) {
+					foreach ( $delivery_days[ $i ]['value'] as $pref => $value ) {
+						$delivery_days[ $i ][ $tm ][ $pref ] = $value;
 					}
-					unset($delivery_days[$i]['country']);
-					unset($delivery_days[$i]['value']);
+					unset( $delivery_days[ $i ]['country'] );
+					unset( $delivery_days[ $i ]['value'] );
 					$update_delivery_days = true;
 				}
 			}
 		}
-		if( $update_delivery_days ) $this->options['delivery_days'] = $delivery_days;
-
-		$update_acting_settings_paydesign = false;
-		if( isset($this->options['acting_settings']['digitalcheck']['card_activate']) and 'on' == $this->options['acting_settings']['digitalcheck']['card_activate'] ) {
-			$pos = strpos( $this->options['acting_settings']['digitalcheck']['send_url_card'], 'paydesign' );
-			if( $pos === false ) {
-				$this->options['acting_settings']['digitalcheck']['send_url_card'] = "https://www.paydesign.jp/settle/settle3/bp3.dll";
-				$this->payment_structure['acting_digitalcheck_card'] = 'カード決済（メタップスペイメント）';
-				$update_acting_settings_paydesign = true;
-			}
-			if( isset($this->options['acting_settings']['digitalcheck']['card_user_id']) and 'on' == $this->options['acting_settings']['digitalcheck']['card_user_id'] ) {
-				$pos = strpos( $this->options['acting_settings']['digitalcheck']['send_url_user_id'], 'paydesign' );
-				if( $pos === false ) {
-					$this->options['acting_settings']['digitalcheck']['send_url_user_id'] = "https://www.paydesign.jp/settle/settlex/credit2.dll";
-					$update_acting_settings_paydesign = true;
-				}
-			}
-		}
-		if( isset($this->options['acting_settings']['digitalcheck']['conv_activate']) and 'on' == $this->options['acting_settings']['digitalcheck']['conv_activate'] ) {
-			$pos = strpos( $this->options['acting_settings']['digitalcheck']['send_url_conv'], 'paydesign' );
-			if( $pos === false ) {
-				$this->options['acting_settings']['digitalcheck']['send_url_conv'] = "https://www.paydesign.jp/settle/settle3/bp3.dll";
-				$this->payment_structure['acting_digitalcheck_conv'] = 'コンビニ決済（メタップスペイメント）';
-				$update_acting_settings_paydesign = true;
-			}
+		if ( $update_delivery_days ) {
+			$this->options['delivery_days'] = $delivery_days;
 		}
 
-		if( $update_shipping_charge or $update_delivery_days or $update_acting_settings_paydesign )
+		if ( $update_shipping_charge || $update_delivery_days ) {
 			update_option( 'usces', $this->options );
-
-		if( $update_acting_settings_paydesign )
-			update_option( 'usces_payment_structure', $this->payment_structure );
+		}
 	}
 
 	function get_item_cat_ids(){
@@ -7180,354 +7157,432 @@ class usc_e_shop
 
 	}
 
-	function acting_processing( $acting_flg, $post_query, $acting_status ) {
+	/**
+	 * 決済処理
+	 *
+	 * @param string $acting_flg Payment type.
+	 * @param array $post_query Post data.
+	 * @param string $acting_status Status.
+	 * @return mixed
+	 */
+	public function acting_processing( $acting_flg, $post_query, $acting_status ) {
 		global $wpdb;
-		$entry = $this->cart->get_entry();
-		$delim = apply_filters( 'usces_filter_delim', $this->delim );
-		$acting_flg = trim($acting_flg);
 
-		if( empty($acting_flg) ) return 'error';
+		$entry      = $this->cart->get_entry();
+		$delim      = apply_filters( 'usces_filter_delim', $this->delim );
+		$acting_flg = trim( $acting_flg );
 
-		if($acting_flg == 'paypal.php'){
+		if ( empty( $acting_flg ) ) {
+			return 'error';
+		}
 
-		}else if($acting_flg == 'epsilon.php'){
-			if( !file_exists($this->options['settlement_path'] . $acting_flg) )
-				return 'error';
+		if ( 'paypal.php' == $acting_flg ) {
 
-			if ( $this->use_ssl ) {
-				$redirect = str_replace('http://', 'https://', USCES_CART_URL);
-			}else{
-				$redirect = USCES_CART_URL;
-			}
-			usces_log('epsilon card entry data (acting_processing) : '.print_r($entry, true), 'acting_transaction.log');
-			$post_query .= '&settlement=epsilon&redirect_url=' . urlencode($redirect);
-			$post_query = $delim . ltrim($post_query, '&');
-			header("location: " . $redirect . $post_query);
-			exit;
+		} elseif ( 'epsilon.php' == $acting_flg ) {
 
-		} else if( $acting_flg == 'acting_paypal_ec' ) {
-			$acting_opts = $this->options['acting_settings']['paypal'];
+		} elseif ( 'acting_paypal_ec' == $acting_flg ) {
+			$acting_opts  = $this->options['acting_settings']['paypal'];
 			$addroverride = '1';
-			if( isset( $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] ) ) {
-				if( 'US' == $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] || 'CA' == $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] ) $addroverride = '0';
+			if ( isset( $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] ) ) {
+				if ( 'US' == $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] || 'CA' == $_POST['PAYMENTREQUEST_0_SHIPTOCOUNTRYCODE'] ) {
+					$addroverride = '0';
+				}
 			} else {
 				$addroverride = '0';
 			}
 			$rand = ( isset( $_POST['PAYMENTREQUEST_0_CUSTOM'] ) ) ? $_POST['PAYMENTREQUEST_0_CUSTOM'] : '(empty key)';
 
 			$nvpstr  = $post_query;
-			$nvpstr .= '&ADDROVERRIDE='.$addroverride;
-			$nvpstr .= '&PAYMENTREQUEST_0_PAYMENTACTION='.apply_filters( 'usces_filter_paypal_ec_paymentaction', 'Sale' );
+			$nvpstr .= '&ADDROVERRIDE=' . $addroverride;
+			$nvpstr .= '&PAYMENTREQUEST_0_PAYMENTACTION=' . apply_filters( 'usces_filter_paypal_ec_paymentaction', 'Sale' );
 
-			//The returnURL is the location where buyers return to when a payment has been succesfully authorized.
-			$nvpstr .= '&RETURNURL='.urlencode( USCES_CART_URL.$delim.'acting=paypal_ec&acting_return=1' );
+			// The returnURL is the location where buyers return to when a payment has been succesfully authorized.
+			$nvpstr .= '&RETURNURL=' . urlencode( USCES_CART_URL . $delim . 'acting=paypal_ec&acting_return=1' );
 
-			//The cancelURL is the location buyers are sent to when they hit the cancel button during authorization of payment during the PayPal flow
-			$cancelurl = urlencode( USCES_CART_URL.$delim.'confirm=1' );
-			$pos = strpos( $post_query, 'paypal_from_cart' );
-			if( false !== $pos ) {
+			// The cancelURL is the location buyers are sent to when they hit the cancel button during authorization of payment during the PayPal flow.
+			$cancelurl = urlencode( USCES_CART_URL . $delim . 'confirm=1' );
+			$pos       = strpos( $post_query, 'paypal_from_cart' );
+			if ( false !== $pos ) {
 				$cancelurl = urlencode( USCES_CART_URL );
 			}
-			$nvpstr .= '&CANCELURL='.apply_filters( 'usces_filter_paypal_ec_cancelurl', $cancelurl, $post_query );
+			$nvpstr .= '&CANCELURL=' . apply_filters( 'usces_filter_paypal_ec_cancelurl', $cancelurl, $post_query );
 
-			$nvpstr .= '&PAYMENTREQUEST_0_NOTIFYURL='.urlencode( USCES_PAYPAL_NOTIFY_URL );
+			$nvpstr .= '&PAYMENTREQUEST_0_NOTIFYURL=' . urlencode( USCES_PAYPAL_NOTIFY_URL );
 
-			//Seamless checkout
-			if( isset( $_SESSION['liwpp']['token'] ) && !empty( $_SESSION['liwpp']['token'] ) ) {
-				$nvpstr .= '&IDENTITYACCESSTOKEN='.$_SESSION['liwpp']['token'];
+			// Seamless checkout.
+			if ( isset( $_SESSION['liwpp']['token'] ) && ! empty( $_SESSION['liwpp']['token'] ) ) {
+				$nvpstr .= '&IDENTITYACCESSTOKEN=' . $_SESSION['liwpp']['token'];
 			}
 
 			$this->paypal->setMethod( 'SetExpressCheckout' );
 			$this->paypal->setData( $nvpstr );
-			$res = $this->paypal->doExpressCheckout();
+			$res      = $this->paypal->doExpressCheckout();
 			$resArray = $this->paypal->getResponse();
-			$ack = strtoupper( $resArray["ACK"] );
-			if( $ack == "SUCCESS" || $ack == "SUCCESSWITHWARNING" ) {
-				$token = urldecode( $resArray["TOKEN"] );
-				$payPalURL = $acting_opts['paypal_url'].'?cmd=_express-checkout&token='.$token.'&useraction=commit';
-				header( "Location: ".$payPalURL );
+			$ack      = strtoupper( $resArray['ACK'] );
+			if ( 'SUCCESS' == $ack || 'SUCCESSWITHWARNING' == $ack ) {
+				$token     = urldecode( $resArray['TOKEN'] );
+				$payPalURL = $acting_opts['paypal_url'] . '?cmd=_express-checkout&token=' . $token . '&useraction=commit';
+				header( 'Location: ' . $payPalURL );
 
 			} else {
-				//Display a user friendly Error on the page using any of the following error information returned by PayPal
-				$ErrorCode = urldecode( $resArray["L_ERRORCODE0"] );
-				$ErrorShortMsg = urldecode( $resArray["L_SHORTMESSAGE0"] );
-				$ErrorLongMsg = urldecode( $resArray["L_LONGMESSAGE0"] );
-				$ErrorSeverityCode = urldecode( $resArray["L_SEVERITYCODE0"] );
-				usces_log( 'PayPal : SetExpressCheckout API call failed. Error Code:['.$ErrorCode.'] Error Severity Code:['.$ErrorSeverityCode.'] Short Error Message:'.$ErrorShortMsg.' Detailed Error Message:'.$ErrorLongMsg, 'acting_transaction.log' );
-				$log = array( 'acting'=>'paypal_ec', 'key'=>$rand, 'result'=>$ack, 'data'=>$resArray );
+				// Display a user friendly Error on the page using any of the following error information returned by PayPal.
+				$ErrorCode         = urldecode( $resArray['L_ERRORCODE0'] );
+				$ErrorShortMsg     = urldecode( $resArray['L_SHORTMESSAGE0'] );
+				$ErrorLongMsg      = urldecode( $resArray['L_LONGMESSAGE0'] );
+				$ErrorSeverityCode = urldecode( $resArray['L_SEVERITYCODE0'] );
+				usces_log( 'PayPal : SetExpressCheckout API call failed. Error Code:[' . $ErrorCode . '] Error Severity Code:[' . $ErrorSeverityCode . '] Short Error Message:' . $ErrorShortMsg . ' Detailed Error Message:' . $ErrorLongMsg, 'acting_transaction.log' );
+				$log = array(
+					'acting' => 'paypal_ec',
+					'key'    => $rand,
+					'result' => $ack,
+					'data'   => $resArray,
+				);
 				usces_save_order_acting_error( $log );
-				header( "Location: ".USCES_CART_URL.$delim.'acting=paypal_ec&acting_return=0' );
+				header( 'Location: ' . USCES_CART_URL . $delim . 'acting=paypal_ec&acting_return=0' );
 			}
 			exit;
 
-		} elseif( $acting_flg == 'acting_telecom_edy' ) {
-			$table_meta_name = $wpdb->prefix."usces_order_meta";
-			$value = array();
-			$value['usces_cart'] = $_SESSION['usces_cart'];
-			$value['usces_entry'] = $_SESSION['usces_entry'];
+		} elseif ( 'acting_telecom_edy' == $acting_flg ) { /* テレコムクレジット Edy決済 */
+			$table_meta_name       = $wpdb->prefix . 'usces_order_meta';
+			$value                 = array();
+			$value['usces_cart']   = $_SESSION['usces_cart'];
+			$value['usces_entry']  = $_SESSION['usces_entry'];
 			$value['usces_member'] = $_SESSION['usces_member'];
-			$mvalue = serialize( $value );
-			$mquery = $wpdb->prepare( "INSERT INTO $table_meta_name (order_id, meta_key, meta_value) VALUES (%d, %s, %s)", $_POST['option'], $_POST['option'], $mvalue );
-			$res = $wpdb->query( $mquery );
+			$mvalue                = serialize( $value );
+			$mquery                = $wpdb->prepare( "INSERT INTO $table_meta_name (order_id, meta_key, meta_value) VALUES (%d, %s, %s)", $_POST['option'], $_POST['option'], $mvalue );
+			$res                   = $wpdb->query( $mquery );
 
 			unset( $_SESSION['usces_cart'] );
 			unset( $_SESSION['usces_entry'] );
 
 			$acting_opts = $this->options['acting_settings']['telecom'];
-			header( "location: ".$acting_opts['send_url_edy'].'?acting=telecom_edy'.$post_query );
+			header( 'location: ' . $acting_opts['send_url_edy'] . '?acting=telecom_edy' . $post_query );
 			exit;
 
-		} else if( $acting_flg == 'acting_digitalcheck_card' ) {
+		} elseif ( 'acting_digitalcheck_card' == $acting_flg ) { /* メタップスペイメント カード決済（旧デジタルチェック、旧ペイデザイン） */
 			$acting_opts = $this->options['acting_settings']['digitalcheck'];
-			$interface = parse_url($acting_opts['send_url_user_id']);
-			$kakutei = ( empty($acting_opts['card_kakutei']) ) ? '0' : $acting_opts['card_kakutei'];
+			$interface   = parse_url( $acting_opts['send_url_user_id'] );
+			$kakutei     = ( empty( $acting_opts['card_kakutei'] ) ) ? '0' : $acting_opts['card_kakutei'];
 
-			$vars  = 'IP='.$acting_opts['card_ip'];
-			$vars .= '&PASS='.$acting_opts['card_pass'];
-			$vars .= '&IP_USER_ID='.$_POST['IP_USER_ID'];
-			$vars .= '&SID='.$_POST['SID'];
-			$vars .= '&STORE=51';
-			$vars .= '&N1='.$_POST['N1'];
-			$vars .= '&K1='.$_POST['K1'];
-			$vars .= '&KAKUTEI='.$kakutei;
-			$vars .= '&FUKA='.$acting_flg;
+			$params = array(
+				'IP'         => $acting_opts['card_ip'],
+				'PASS'       => $acting_opts['card_pass'],
+				'SID'        => $_POST['SID'],
+				'IP_USER_ID' => $_POST['IP_USER_ID'],
+				'N1'         => $_POST['N1'],
+				'K1'         => $_POST['K1'],
+				'FUKA'       => $acting_flg,
+				'KAKUTEI'    => $kakutei,
+			);
+			$vars  = http_build_query( $params );
 
-			$header  = "POST ".$interface['path']." HTTP/1.1\r\n";
-			$header .= "Host: ".$_SERVER['HTTP_HOST']."\r\n";
+			$header  = 'POST ' . $interface['path'] . " HTTP/1.1\r\n";
+			$header .= 'Host: ' . $interface['host'] . "\r\n";
 			$header .= "User-Agent: PHP Script\r\n";
 			$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-			$header .= "Content-Length: ".strlen($vars)."\r\n";
+			$header .= 'Content-Length: ' . strlen( $vars ) . "\r\n";
 			$header .= "Connection: close\r\n\r\n";
 			$header .= $vars;
-			$fp = @stream_socket_client( 'tlsv1.2://'.$interface['host'].':443', $errno, $errstr, 30 );
-			if( !$fp ){
-				usces_log( 'digitalcheck card : TLS(v1.2) Error', 'acting_transaction.log' );
-				$fp = fsockopen('ssl://'.$interface['host'],443,$errno,$errstr,30);
-				if( !$fp ){
-					usces_log('digitalcheck card : SSL Error', 'acting_transaction.log');
-					$log = array( 'acting'=>'digitalcheck_card', 'key'=>$_POST['SID'], 'result'=>'SSL/TLS ERROR ('.$errno.')', 'data'=>array($errstr) );
-					usces_save_order_acting_error( $log );
-					header( "location: ".USCES_CART_URL.$delim.'acting=digitalcheck_card&acting_return=0' );
-				}
+
+			$fp = @stream_socket_client( 'tlsv1.2://' . $interface['host'] . ':443', $errno, $errstr, 30 );
+			if ( ! $fp ) {
+				// usces_log( 'digitalcheck card : TLS(v1.2) Error', 'acting_transaction.log' );
+				$log = array(
+					'acting' => 'digitalcheck_card',
+					'key'    => $_POST['SID'],
+					'result' => 'SSL/TLS ERROR (' . $errno . ')',
+					'data'   => array( $errstr ),
+				);
+				usces_save_order_acting_error( $log );
+				wp_redirect(
+					add_query_arg(
+						array(
+							'acting'        => 'digitalcheck_card',
+							'acting_return' => 0,
+						),
+						USCES_CART_URL
+					)
+				);
+				exit();
 			}
 
-			if( $fp ) {
+			if ( $fp ) {
 				fwrite( $fp, $header );
-				$page = '';
-				while( !feof($fp) ) {
+				$headerdone = false;
+				$page       = '';
+				while ( ! feof( $fp ) ) {
 					$line = fgets( $fp, 1024 );
-					if( strcmp($line, "\r\n") == 0 ) {
+					if ( 0 == strcmp( $line, "\r\n" ) ) {
 						$headerdone = true;
-					} elseif( $headerdone ) {
+					} elseif ( $headerdone ) {
 						$page .= $line;
 					}
 				}
-				fclose($fp);
-				$lines = explode("\n", $page);
-				if( false !== strpos( $lines[0], 'OK') ) {
-					usces_log('digitalcheck card entry data (acting_processing) : '.print_r($entry, true), 'acting_transaction.log');
-					$args = '&SID='.$_POST['SID'].'&FUKA='.$acting_flg;
-					header( "location: ".USCES_CART_URL.$delim.'acting=digitalcheck_card&acting_return=1'.$args );
+				fclose( $fp );
+				$lines = explode( "\n", $page );
+				if ( false !== strpos( $lines[0], 'OK' ) ) {
+					// usces_log( 'digitalcheck card entry data (acting_processing) : ' . print_r( $entry, true ), 'acting_transaction.log');
+					wp_redirect(
+						add_query_arg(
+							array(
+								'acting'        => 'digitalcheck_card',
+								'acting_return' => 1,
+								'SID'           => $_POST['SID'],
+								'FUKA'          => $acting_flg,
+							),
+							USCES_CART_URL
+						)
+					);
+					exit();
 				} else {
-					usces_log('digitalcheck card : Certification Error : '.$page, 'acting_transaction.log');
-					$log = array( 'acting'=>'digitalcheck_card', 'key'=>$_POST['SID'], 'result'=>'CERTIFICATION ERROR', 'data'=>$lines );
+					// usces_log( 'digitalcheck card : Certification Error : ' . $page, 'acting_transaction.log' );
+					$log = array(
+						'acting' => 'digitalcheck_card',
+						'key'    => $_POST['SID'],
+						'result' => 'CERTIFICATION ERROR',
+						'data'   => $lines,
+					);
 					usces_save_order_acting_error( $log );
-					header( "location: ".USCES_CART_URL.$delim.'acting=digitalcheck_card&acting_return=0' );
+					wp_redirect(
+						add_query_arg(
+							array(
+								'acting'        => 'digitalcheck_card',
+								'acting_return' => 0,
+							),
+							USCES_CART_URL
+						)
+					);
+					exit();
 				}
 			}
-			exit;
-		} else if( $acting_flg == 'acting_digitalcheck_conv' ) {
-			if( isset($_REQUEST['STORE']) and '99' != $_REQUEST['STORE'] ) {
+			exit();
+
+		} elseif ( 'acting_digitalcheck_conv' == $acting_flg ) { /* メタップスペイメント コンビニ決済（旧デジタルチェック、旧ペイデザイン） */
+			if ( isset( $_REQUEST['STORE'] ) && '99' != $_REQUEST['STORE'] ) {
 				$res = $this->order_processing();
-				if( 'ordercompletion' == $res ) {
-					$table_meta_name = $wpdb->prefix."usces_order_meta";
-					$mquery = $wpdb->prepare("SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'SID', $_REQUEST['SID'] );
-					$order_id = $wpdb->get_var($mquery);
-					if( $order_id ) {
-						$data = array( "settltment_status" => __("Failure",'usces'), "settltment_errmsg" => __("Settlement was not completed.",'usces') );
+				if ( 'ordercompletion' == $res ) {
+					$table_meta_name = $wpdb->prefix . 'usces_order_meta';
+					$mquery          = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'SID', $_REQUEST['SID'] );
+					$order_id        = $wpdb->get_var( $mquery );
+					if ( $order_id ) {
+						$data = array(
+							'settltment_status' => __( 'Failure', 'usces' ),
+							'settltment_errmsg' => __( 'Settlement was not completed.', 'usces' ),
+						);
 						$this->set_order_meta_value( 'acting_digitalcheck_conv', serialize( $data ), $order_id );
 						$this->set_order_meta_value( 'wc_trans_id', $_REQUEST['SID'], $order_id );
 					}
 					$this->cart->crear_cart();
 					$acting_opts = $this->options['acting_settings']['digitalcheck'];
-					header( "location: ".$acting_opts['send_url_conv'].'?acting=digitalcheck_conv'.$post_query );
+					header( 'location: ' . $acting_opts['send_url_conv'] . '?acting=digitalcheck_conv' . $post_query );
 					exit;
 				} else {
-					usces_log('digitalcheck conv : order processing error', 'acting_transaction.log');
-					$log = array( 'acting'=>'digitalcheck_conv', 'key'=>$_REQUEST['SID'], 'result'=>'ORDER DATA REGISTERED ERROR', 'data'=>$_REQUEST );
+					// usces_log( 'digitalcheck conv : order processing error', 'acting_transaction.log' );
+					$log = array(
+						'acting' => 'digitalcheck_conv',
+						'key'    => $_REQUEST['SID'],
+						'result' => 'ORDER DATA REGISTERED ERROR',
+						'data'   => $_REQUEST,
+					);
 					usces_save_order_acting_error( $log );
-					header( "location: ".USCES_CART_URL.$delim.'acting=digitalcheck_conv&acting_return=0' );
+					header( 'location: ' . USCES_CART_URL . $delim . 'acting=digitalcheck_conv&acting_return=0' );
+					exit;
 				}
 			} else {
 				$acting_opts = $this->options['acting_settings']['digitalcheck'];
-				header( "location: ".$acting_opts['send_url_conv'].'?acting=digitalcheck_conv'.$post_query );
+				header( 'location: ' . $acting_opts['send_url_conv'] . '?acting=digitalcheck_conv' . $post_query );
 				exit;
 			}
 
-		} else if( $acting_flg == 'acting_veritrans_card' or $acting_flg == 'acting_veritrans_conv' ) {
-			$acting_opts = $this->options['acting_settings']['veritrans'];
-			$acting = substr( $acting_flg, 7 );
+		} elseif ( 'acting_veritrans_card' == $acting_flg || 'acting_veritrans_conv' == $acting_flg ) { /* ベリトランス カード決済・コンビニ決済 */
+			$acting_opts        = $this->options['acting_settings']['veritrans'];
+			$acting             = substr( $acting_flg, 7 );
 			$dummy_payment_flag = ( 'public' == $acting_opts['ope'] ) ? '0' : '1';
-			$order_id = isset( $_POST['ORDER_ID'] ) ? $_POST['ORDER_ID'] : '';
-			$regist_url = ( defined('VERITRANS_SHA2_TEST') ) ? "https://sair.veritrans.co.jp/web/commodityRegist.action" : $acting_opts['regist_url'];
-			$url = parse_url( $regist_url );
-			$path = empty($url['path']) ? '/' : $url['path'];
+			$order_id           = isset( $_POST['ORDER_ID'] ) ? $_POST['ORDER_ID'] : '';
+			$regist_url         = ( defined('VERITRANS_SHA2_TEST') ) ? 'https://sair.veritrans.co.jp/web/commodityRegist.action' : $acting_opts['regist_url'];
+			$url                = parse_url( $regist_url );
+			$path               = empty( $url['path'] ) ? '/' : $url['path'];
 
 			$postdata = $post_query;
-			if( 'acting_veritrans_card' == $acting_flg ) {
+			if ( 'acting_veritrans_card' == $acting_flg ) {
 				$card_capture_flag = ( 'capture' == $acting_opts['card_capture_flag'] ) ? '1' : '0';
-				$postdata .= '&CARD_CAPTURE_FLAG='.$card_capture_flag;
+				$postdata         .= '&CARD_CAPTURE_FLAG=' . $card_capture_flag;
 			}
-			if( 'acting_veritrans_conv' == $acting_flg ) {
-				$postdata .= '&NAME1='.urlencode( mb_substr( mb_convert_kana( $entry['customer']['name1'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' ) );
-				$postdata .= '&NAME2='.urlencode( mb_substr( mb_convert_kana( $entry['customer']['name2'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' ) );
-				if( !empty($entry['customer']['name3']) ) {
+			if ( 'acting_veritrans_conv' == $acting_flg ) {
+				$postdata .= '&NAME1=' . urlencode( mb_substr( mb_convert_kana( $entry['customer']['name1'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' ) );
+				$postdata .= '&NAME2=' . urlencode( mb_substr( mb_convert_kana( $entry['customer']['name2'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' ) );
+				if ( ! empty( $entry['customer']['name3'] ) ) {
 					$kana1 = mb_substr( mb_convert_kana( $entry['customer']['name3'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' );
 					mb_regex_encoding( 'UTF-8' );
-					if( mb_ereg("^[ア-ン゛゜ァ-ォャ-ョー]+$", $kana1) )
-						$postdata .= '&KANA1='.urlencode( $kana1 );
+					if ( mb_ereg( "^[ア-ン゛゜ァ-ォャ-ョー]+$", $kana1 ) ) {
+						$postdata .= '&KANA1=' . urlencode( $kana1 );
+					}
 				}
-				if( !empty($entry['customer']['name4']) ) {
+				if ( ! empty( $entry['customer']['name4'] ) ) {
 					$kana2 = mb_substr( mb_convert_kana( $entry['customer']['name4'], 'ASKV', 'UTF-8' ), 0, 10, 'UTF-8' );
 					mb_regex_encoding( 'UTF-8' );
-					if( mb_ereg("^[ア-ン゛゜ァ-ォャ-ョー]+$", $kana2) )
+					if ( mb_ereg( "^[ア-ン゛゜ァ-ォャ-ョー]+$", $kana2 ) ) {
 						$postdata .= '&KANA2='.urlencode( $kana2 );
+					}
 				}
-				$postdata .= '&TELEPHONE_NO='.str_replace( '-', '', $entry['customer']['tel'] );
-				if( 1 < (int)$acting_opts['conv_timelimit'] and (int)$acting_opts['conv_timelimit'] <= 60 ) {
-					$timelimit = date( 'Ymd', strtotime('+'.$acting_opts['conv_timelimit'].' days') );
-					$postdata .= '&TIMELIMIT_OF_PAYMENT='.$timelimit;
+				$postdata .= '&TELEPHONE_NO=' . str_replace( '-', '', $entry['customer']['tel'] );
+				if ( 1 < (int) $acting_opts['conv_timelimit'] && (int) $acting_opts['conv_timelimit'] <= 60 ) {
+					$timelimit = date( 'Ymd', strtotime( '+' . $acting_opts['conv_timelimit'] . ' days' ) );
+					$postdata .= '&TIMELIMIT_OF_PAYMENT=' . $timelimit;
 				}
 			}
-			if( 'on' == $acting_opts['mailaddress'] ) {
-				$postdata .= '&MAILADDRESS='.$entry['customer']['mailaddress1'];
+			if ( 'on' == $acting_opts['mailaddress'] ) {
+				$postdata .= '&MAILADDRESS=' . $entry['customer']['mailaddress1'];
 			}
-			$postdata .= '&MERCHANT_ID='.$acting_opts['merchant_id'];
-			$postdata .= '&SESSION_ID='.session_id();
-			$postdata .= '&FINISH_PAYMENT_RETURN_URL='.urlencode( USCES_CART_URL.$delim.'acting='.$acting.'&acting_return=1&result=1' );
-			$postdata .= '&UNFINISH_PAYMENT_RETURN_URL='.urlencode( USCES_CART_URL.$delim.'acting='.$acting.'&confirm=1' );
-			$postdata .= '&ERROR_PAYMENT_RETURN_URL='.urlencode( USCES_CART_URL.$delim.'acting='.$acting.'&acting_return=0' );
-			$postdata .= '&FINISH_PAYMENT_ACCESS_URL='.urlencode( USCES_CART_URL.$delim.'acting='.$acting );
-			$postdata .= '&DUMMY_PAYMENT_FLAG='.$dummy_payment_flag;
+			$postdata .= '&MERCHANT_ID=' . $acting_opts['merchant_id'];
+			$postdata .= '&SESSION_ID=' . session_id();
+			$postdata .= '&FINISH_PAYMENT_RETURN_URL=' . urlencode( USCES_CART_URL . $delim . 'acting=' . $acting . '&acting_return=1&result=1' );
+			$postdata .= '&UNFINISH_PAYMENT_RETURN_URL=' . urlencode( USCES_CART_URL . $delim. 'acting=' . $acting . '&confirm=1' );
+			$postdata .= '&ERROR_PAYMENT_RETURN_URL=' . urlencode( USCES_CART_URL . $delim . 'acting=' . $acting . '&acting_return=0' );
+			$postdata .= '&FINISH_PAYMENT_ACCESS_URL=' . urlencode( USCES_CART_URL . $delim . 'acting=' . $acting );
+			$postdata .= '&DUMMY_PAYMENT_FLAG=' . $dummy_payment_flag;
 
 			$postlength = strlen( $postdata );
 
-			$request  = "POST ".$path." HTTP/1.1"."\r\n";
-			$request .= "Host: ".$url['host']."\r\n";
-			$request .= "User-Agent: HttpRequest Powered by ".phpversion()."\r\n";
-			$request .= "Connection: close"."\r\n";
-			$request .= "Accept-Language: ja"."\r\n";
-			$request .= "Content-Type: application/x-www-form-urlencoded"."\r\n";
-			$request .= "Content-Length: ".$postlength."\r\n\r\n";
+			$request  = 'POST ' . $path . ' HTTP/1.1' . "\r\n";
+			$request .= 'Host: ' . $url['host'] . "\r\n";
+			$request .= 'User-Agent: HttpRequest Powered by ' . phpversion() . "\r\n";
+			$request .= 'Connection: close' . "\r\n";
+			$request .= 'Accept-Language: ja' . "\r\n";
+			$request .= 'Content-Type: application/x-www-form-urlencoded' . "\r\n";
+			$request .= 'Content-Length: ' . $postlength . "\r\n\r\n";
 			$request .= $postdata;
 
-			$code = 0;
-			$resBody = "";
-			$con = @stream_socket_client( 'tlsv1.2://'.$url['host'].':443', $errno, $errstr, 30 );
-			if( !$con ) {
+			$code    = 0;
+			$resBody = '';
+			$con     = @stream_socket_client( 'tlsv1.2://' . $url['host'] . ':443', $errno, $errstr, 30 );
+			if ( ! $con ) {
 				usces_log( 'Veritrans : TLS(v1.2) Error', 'acting_transaction.log' );
-				$con = @fsockopen( 'ssl://'.$url['host'], 443, $errno, $errstr, 30 );
-				if( !$con ) {
+				$con = @fsockopen( 'ssl://' . $url['host'], 443, $errno, $errstr, 30 );
+				if ( ! $con ) {
 					usces_log( 'Veritrans : SSL Error', 'acting_transaction.log' );
-					$log = array( 'acting'=>$acting, 'key'=>$order_id, 'result'=>'SSL/TLS ERROR ('.$errno.')', 'data'=>array($errstr) );
+					$log = array(
+						'acting' => $acting,
+						'key'    => $order_id,
+						'result' => 'SSL/TLS ERROR (' . $errno . ')',
+						'data'   => array( $errstr ),
+					);
 					usces_save_order_acting_error( $log );
-					header( "location: ".USCES_CART_URL.$delim.'acting='.$acting_flg.'&acting_return=0' );
+					header( 'location: ' . USCES_CART_URL . $delim . 'acting=' . $acting_flg . '&acting_return=0' );
 					exit;
 				}
 			}
 
-			if( $con ) {
+			if ( $con ) {
 				$ret = fwrite( $con, $request );
-				if( $ret == strlen($request) ) {
-					$res = $this->readResponse( $con );
-					$code = $res['Code'];
+				if ( $ret == strlen( $request ) ) {
+					$res     = $this->readResponse( $con );
+					$code    = $res['Code'];
 					$resBody = $res['Body'];
 
 				} else {
-					usces_log( 'Veritrans Write NG: Sent:'.strlen($request).' Send:'.$ret, "acting_transaction.log" );
+					usces_log( 'Veritrans Write NG: Sent:' . strlen( $request ) . ' Send:' . $ret, 'acting_transaction.log' );
 				}
 				fclose( $con );
 			}
 
-			// 正常終了（200 OK）が返ったか
-			if( intval($code) == 200 ) {
-				$merchantKey = null;
-				$browserKey = null;
-				$scd = null;
+			// 正常終了（200 OK）が返ったか.
+			if ( 200 == intval( $code ) ) {
+				$merchantKey   = null;
+				$browserKey    = null;
+				$scd           = null;
 				$error_message = null;
 
-				// レスポンスデータからマーチャントキー、ブラウザキーを取得
+				// レスポンスデータからマーチャントキー、ブラウザキーを取得.
 				$bodyLine = explode( "\n", $resBody );
-				foreach( $bodyLine as $line ) {
-					if( preg_match( '/^MERCHANT_ENCRYPTION_KEY=(.+)/', $line, $match ) ) {
+				foreach ( $bodyLine as $line ) {
+					if ( preg_match( '/^MERCHANT_ENCRYPTION_KEY=(.+)/', $line, $match ) ) {
 						$merchantKey = $match[1];
-					} elseif( preg_match( '/^BROWSER_ENCRYPTION_KEY=(.+)/', $line, $match ) ) {
+					} elseif ( preg_match( '/^BROWSER_ENCRYPTION_KEY=(.+)/', $line, $match ) ) {
 						$browserKey = $match[1];
-					} elseif( preg_match('/^SCD=(.+)/', $line, $match ) ) {
+					} elseif ( preg_match('/^SCD=(.+)/', $line, $match ) ) {
 						$scd = $match[1];
-					} elseif( preg_match( '/^ERROR_MESSAGE=(.+)/', $line, $match ) ) {
+					} elseif ( preg_match( '/^ERROR_MESSAGE=(.+)/', $line, $match ) ) {
 						$error_message = $match[1];
 					}
 				}
 
-				// 両方取れたらOK。SCDはカードでセキュリティコードが入力された場合のみ
-				if( !is_null($merchantKey) && !is_null($browserKey) ) {
-					$getdata  = '?MERCHANT_ID='.$acting_opts['merchant_id'];
-					$getdata .= '&ORDER_ID='.$order_id;
-					$getdata .= '&BROWSER_ENCRYPTION_KEY='.urlencode($browserKey);
-					$payment_url = ( defined('VERITRANS_SHA2_TEST') ) ? "https://sair.veritrans.co.jp/web/paymentStart.action" : $acting_opts['payment_url'];
-					header( "location: ".$payment_url.$getdata );
+				// 両方取れたらOK。SCDはカードでセキュリティコードが入力された場合のみ.
+				if ( ! is_null( $merchantKey ) && ! is_null( $browserKey ) ) {
+					$getdata     = '?MERCHANT_ID=' . $acting_opts['merchant_id'];
+					$getdata    .= '&ORDER_ID=' . $order_id;
+					$getdata    .= '&BROWSER_ENCRYPTION_KEY=' . urlencode( $browserKey );
+					$payment_url = ( defined('VERITRANS_SHA2_TEST') ) ? 'https://sair.veritrans.co.jp/web/paymentStart.action' : $acting_opts['payment_url'];
+					header( 'location: ' . $payment_url . $getdata );
 
 				} else {
-					if( !is_null($error_message) ) {
-						usces_log( "Veritrans AWeb:".$error_message, "acting_transaction.log" );
-						$log = array( 'acting'=>$acting, 'key'=>$order_id, 'result'=>$code, 'data'=>$bodyLine );
+					if ( ! is_null( $error_message ) ) {
+						usces_log( 'Veritrans AWeb:' . $error_message, 'acting_transaction.log' );
+						$log = array(
+							'acting' => $acting,
+							'key'    => $order_id,
+							'result' => $code,
+							'data'   => $bodyLine,
+						);
 						usces_save_order_acting_error( $log );
 					}
-					header( "location: ".USCES_CART_URL.$delim.'acting='.$acting_flg.'&acting_return=0' );
+					header( 'location: ' . USCES_CART_URL . $delim . 'acting=' . $acting_flg . '&acting_return=0' );
 				}
 
 			} else {
-				usces_log( "Veritrans Response NG: ".$resBody, "acting_transaction.log" );
+				usces_log( 'Veritrans Response NG: ' . $resBody, 'acting_transaction.log' );
 				$bodyLine = explode( "\n", $resBody );
-				$log = array( 'acting'=>$acting, 'key'=>$order_id, 'result'=>$code, 'data'=>$bodyLine );
+				$log      = array(
+					'acting' => $acting,
+					'key'    => $order_id,
+					'result' => $code,
+					'data'   => $bodyLine,
+				);
 				usces_save_order_acting_error( $log );
-				header( "location: ".USCES_CART_URL.$delim.'acting='.$acting_flg.'&acting_return=0' );
+				header( 'location: ' . USCES_CART_URL . $delim . 'acting=' . $acting_flg . '&acting_return=0' );
 			}
 			exit;
 		}
-		do_action('usces_action_acting_processing', $acting_flg, $post_query);
+
+		do_action( 'usces_action_acting_processing', $acting_flg, $post_query );
 		$acting_status = apply_filters( 'usces_filter_acting_processing', $acting_flg, $post_query, $acting_status );
 		return $acting_status;
 	}
 
 	private function readResponse( $fp ) {
-		$res = array( 'Status'=>'', 'Version'=>'', 'Code'=>0, 'Message'=>'', 'Headers'=>array(), 'Body'=>'' );
+		$res = array(
+			'Status'  => '',
+			'Version' => '',
+			'Code'    => 0,
+			'Message' => '',
+			'Headers' => array(),
+			'Body'    => '',
+		);
 
-		// HTTPステータスの読み込み
+		// HTTPステータスの読み込み.
 		$line = $this->readLine( $fp );
-		if( preg_match( '/^(HTTP\/1\.[0-9x]+)\s+([0-9]+)\s+(.+)/i', $line, $match ) == 0 ) {
+		if ( 0 == preg_match( '/^(HTTP\/1\.[0-9x]+)\s+([0-9]+)\s+(.+)/i', $line, $match ) ) {
 			return $res;
 		}
-		$res['Status'] = $line;
+		$res['Status']  = $line;
 		$res['Version'] = $match[1];
-		$res['Code'] = $match[2];
+		$res['Code']    = $match[2];
 		$res['Message'] = $match[3];
 
-		// レスポンスヘッダの読み込み
-		while( !feof($fp) ) {
+		// レスポンスヘッダの読み込み.
+		while ( ! feof( $fp ) ) {
 			$line = $this->readLine( $fp );
-			if( $line != '' ) {
+			if ( '' != $line ) {
 				list( $hname, $hvalue ) = explode( ':', $line, 2 );
-				$res['Headers'][strtolower($hname)] = ltrim($hvalue);
+				$res['Headers'][ strtolower( $hname ) ] = ltrim( $hvalue );
 			} else {
 				break;
 			}
 		}
-		// レスポンスデータの読み込み
-		while( !feof($fp) ) {
-			$data = $this->readLine( $fp )."\n";
-			if( '' == $data ) {
+		// レスポンスデータの読み込み.
+		while ( ! feof( $fp ) ) {
+			$data = $this->readLine( $fp ) . "\n";
+			if ( '' == $data ) {
 				break;
 			}
 			$res['Body'] .= $data;
@@ -7536,14 +7591,14 @@ class usc_e_shop
 	}
 
 	private function readLine( $fp ) {
-		if( !$fp ) {
+		if ( ! $fp ) {
 			return '';
 		}
-		// レスポンスデータを受信
+		// レスポンスデータを受信.
 		$line = null;
-		while( !feof($fp) ) {
+		while ( ! feof( $fp ) ) {
 			$line .= @fgets( $fp, 4096 );
-			if( substr($line, -1) == "\n" ) {
+			if ( "\n" == substr( $line, -1 ) ) {
 				return rtrim( $line, "\r\n" );
 			}
 		}
@@ -7962,6 +8017,7 @@ class usc_e_shop
 
 		} else {
 			$discount = $this->get_order_discount( NULL, $carts );
+			$entries['order']['discount'] = $discount;
 			$amount_by_cod = $total_items_price - $use_point + $discount;
 			if ( 'all' == usces_is_fee_subject() ) {
 				$amount_by_cod += $shipping_charge;
@@ -7978,6 +8034,8 @@ class usc_e_shop
 			$materials = compact( 'member', 'entries', 'carts', 'total_items_price', 'shipping_charge', 'payments', 'discount', 'cod_fee', 'use_point' );
 			$tax = $this->getTax( $total_price, $materials );
 		}
+		$entries['order']['total_price'] = $total_price;
+		$entries['order']['tax'] = $tax;
 
 		if( 'exclude' == $this->options['tax_mode'] ) {
 			if( 0 < $use_point ) {
@@ -7993,7 +8051,9 @@ class usc_e_shop
 		$total_full_price = apply_filters( 'usces_filter_set_cart_fees_total_full_price', $total_full_price, $total_items_price, $use_point, $discount, $shipping_charge, $cod_fee );
 		$entries['order']['total_full_price'] = $total_full_price;
 
-		$get_point = $this->get_order_point( (isset($member['ID']) ? $member['ID'] : null) );
+		$mem_id    = isset($member['ID']) ? $member['ID'] : null;
+		$get_point = $this->get_order_point( $mem_id );
+		$get_point = apply_filters( 'usces_filter_set_get_point', $get_point, $entries, $carts );
 
 		$array = array(
 				'total_items_price' => $total_items_price,
@@ -8912,6 +8972,13 @@ class usc_e_shop
 				if(is_array($meta_values)){
 					foreach( $meta_values as $key => $meta_value ){
 						$fields[$key] = $meta_value;
+					}
+				} else {
+					$meta_values = maybe_unserialize( $value['meta_value'] );
+					if ( is_array( $meta_values ) ) {
+						foreach ( $meta_values as $key => $meta_value ) {
+							$fields[ $key ] = $meta_value;
+						}
 					}
 				}
 			}

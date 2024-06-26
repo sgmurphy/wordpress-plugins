@@ -2677,10 +2677,15 @@ if ( ! $this->is_frontend ) {
 		//FixIn: 10.0.0.25		// removed loader text  from  here
 
 	    //FixIn: 9.1.2.4
-        ?><script type="text/javascript">
-			jQuery( '.flex_tl_table_loading').hide();
+		echo '<script type="text/javascript"> 
+				if ( ( document.readyState !== "loading" ) &&  ( ( "undefined" !== typeof jQuery ) &&  ( window.jQuery ) ) ){ 
+					jQuery( ".flex_tl_table_loading").hide();
+					jQuery( ".flex_tl_table" ).show();
+				} else { ' . wpbc_jq_ready_start();                                 //FixIn: 10.1.3.7
+        ?>  jQuery( '.flex_tl_table_loading').hide();
 			jQuery( '.flex_tl_table' ).show();
-       	 </script><?php
+		<?php
+		echo wpbc_jq_ready_end() . ' } </script>';                                                          //FixIn: 10.1.3.7
     }
 
 	/**
@@ -3081,23 +3086,13 @@ function wpbc_ajax_flex_timeline() {
         $is_show_popover_in_timeline  = wpbc_is_show_popover_in_flex_timeline( $attr['is_frontend'], $attr['booking_hash'] );    	//FixIn: 8.1.3.5
 
         if ( $is_show_popover_in_timeline ) {                                   // Update New Popovers
-            
-            ?><script type="text/javascript">
 
-					wpbc_define_tippy_popover();
-//Deprecated: FixIn: 9.0.1.1.1
-// if ( 'function' === typeof( jQuery(".popover_click.popover_bottom" ).popover )  ) {      //FixIn: 7.0.1.2  - 2016-12-10
-// 	jQuery('.popover_click.popover_bottom').popover( {
-// 		  placement: 'bottom'														//FixIn: 8.4.5.12
-// 		, trigger:'manual'
-// 		//, delay: {show: 100, hide: 8}
-// 		, content: ''
-// 		, template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-close"><a href="javascript:void(0)" data-dismiss="popover" aria-hidden="true">&times;</a></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-// 		, container: '.wpbc_timeline_frame,.flex_timeline_frame'
-// 		, html: 'true'
-// 	});
-// }
-            </script><?php 
+			$html  = '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                 		//FixIn: 10.1.3.7
+			$html .= ' wpbc_define_tippy_popover(); ';
+			$html .= wpbc_jq_ready_end() . '</script>';                                                            		//FixIn: 10.1.3.7
+			echo $html;
+
+            /* ?><script type="text/javascript"> wpbc_define_tippy_popover(); </script><?php */
         }
     //echo '</div>'; 
 

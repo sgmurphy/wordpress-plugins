@@ -213,6 +213,7 @@ class Options implements AdminTabInterface
                 'doc_link'  => 'https://docs.algolplus.com/algol_pricing/coupons-pro/',
 				'templates' => array(
 					5  => "external_coupons_behavior",
+					7 => "individual_wc_coupon_suppress_coupons",
 					15 => "hide_coupon_word_in_totals",
 				),
 			),

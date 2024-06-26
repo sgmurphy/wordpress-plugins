@@ -224,7 +224,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 
 		if ( $is_panel_visible ) {
 			?>
-			<div id="toolbar_booking_resources" style="position:relative;">
+			<div id="toolbar_booking_resources" style="position:relative;margin-bottom:5em;">
 				<div class="wpdvlp-top-tabs wpbc_blur">
 					<div class="wpdvlp-tabs-wrapper">
 						<div class="nav-tabs">
@@ -278,7 +278,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
 									<div class="ui_group    ui_group__upgrade" style="/*! float: right; */">
 										<div class="wpbc_upgrade_note wpbc_upgrade_theme_green" style="margin-left: auto;right: 50px;transform: translate(0) translateY(-50%);width: Min(500px, 90%);">
 											<div>
-												This <a target="_blank" href="https://wpbookingcalendar.com/overview/#personal">feature</a>
+												This <a target="_blank" href="https://wpbookingcalendar.com/features/#personal">feature</a>
 												is available in the <strong>Pro versions</strong>.
 												<a target="_blank" href="https://wpbookingcalendar.com/prices/#bk_news_section">Upgrade to Pro</a>.
 											</div>

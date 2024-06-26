@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 10.1.2
+Stable tag: 10.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -286,21 +286,16 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
-= 10.1.2 =
+= 10.1.3 =
 - Changes in **all** versions:
-	* **Fix** Removed 'defer' from  wpbc_all.js script. (10.1.2.3)
+	* **Improvement** Resolve cache issues with most of cache plugins, such as Jetpack Boost, WP-Optimize, WP Super Cache, WP Fastest Cache, W3 Total Cache, and more. (10.1.3.1)
+	* **Improvement** Updated plugin menu. (10.1.3.1)
 - Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
-	* **Fix** Resolved issue of showing '...' instead of booking resource title, during editing the bookings,  while activated range dates selection mode.  (10.1.2.1)
-	* **Improvement** Added several new form templates on the WP Booking Calendar > Settings > Booking Form page.
+	* **Improvement** Ability to use "Wizard (several steps)" form  template with  buttons that is defined only  by CSS classes,  such as this: <a class="wpbc_button_light wpbc_wizard_step_button wpbc_wizard_step_1">Step 1</a>   |  <a class="wpbc_button_light wpbc_wizard_step_button wpbc_wizard_step_2">Step 2</a> (10.1.3.2)
+	* **Under hood**: Added action hook on changing status of payment, after response from payment system such as these: do_action( 'wpbc_booking_change_payment_status', 'paypal_std_co', $status, $booking_id ); and do_action( 'wpbc_booking_change_payment_status', 'stripe_v3', $status, $booking_id ); (10.1.3.5) *(Business Small/Medium/Large, MultiUser)*
 
-= 10.1.1 =
-- Changes in **all** versions:
-	* **New** Added the option to select Calendar and Time Picker Skins on the WP Booking Calendar > Settings > Booking Form page when using the "Simple booking form".
-	* **New** Automatically update the number of months displayed in the calendar to one month on mobile devices. This makes the calendar more readable and UI-friendly. This feature also works when the browser width changes, applying a single month view when the screen size is below 782px.
-	* **New** The plugin now supports cache plugins, resolving warnings like 'Forbidden (403) Probably nonce for this page has been expired.' or 'Request did not pass security check! Please refresh the page and try again.' By default, the system disables using nonce fields in booking forms on the front-end. For more information on why using nonce in front-end booking forms is not always recommended, refer to the FAQ. If you prefer to continue using nonce on all front-end forms, you can activate this option in the WP Booking Calendar > Settings > General page under the "Advanced" section. (10.1.1.2)
-	* **Fix** Removed the deprecated Legacy booking admin theme from the settings. (10.1.1.3)
-- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
-	* **Fix** Resolved the issue of parsing simple HTML tags correctly. In update 10.1, simple HTML tags like &lt;l&gt; were conflicting with other HTML tags, such as &lt;li&gt; (10.1.0.1)
+= 10.1.1 - 10.1.2 =
+- Find more information at [this page](https://wpbookingcalendar.com/changelog/)
 
 = 10.1 =
 - Changes in **all** versions:

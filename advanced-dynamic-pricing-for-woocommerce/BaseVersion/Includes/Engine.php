@@ -172,7 +172,7 @@ class Engine
         add_action('woocommerce_checkout_process', function () {
             $context = $this->context;
             $context->setProps(array($context::WC_CHECKOUT_PAGE => true));
-            $this->process();
+//            $this->process();
         }, PHP_INT_MAX);
 
         /**

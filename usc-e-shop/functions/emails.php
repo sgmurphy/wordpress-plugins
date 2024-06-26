@@ -1338,15 +1338,14 @@ function usces_get_adminmail_textbody( $args ) {
  */
 function usces_ajax_send_mail() {
 	global $wpdb, $usces;
-	$_POST = $usces->stripslashes_deep_post( $_POST );
 
-	$nonce       = filter_input( INPUT_POST, 'wc_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-	$message     = filter_input( INPUT_POST, 'message' );
-	$name        = filter_input( INPUT_POST, 'name' );
-	$mailaddress = filter_input( INPUT_POST, 'mailaddress' );
-	$subject     = filter_input( INPUT_POST, 'subject' );
-	$order_id    = filter_input( INPUT_POST, 'order_id' );
-	$checked     = filter_input( INPUT_POST, 'checked' );
+	$nonce       = isset( $_POST['wc_nonce'] ) ? filter_var( wp_unslash( $_POST['wc_nonce'] ), FILTER_SANITIZE_FULL_SPECIAL_CHARS ) : null;
+	$message     = isset( $_POST['message'] ) ? filter_var( wp_unslash( $_POST['message'] ), FILTER_SANITIZE_STRING ) : null;
+	$name        = isset( $_POST['name'] ) ? filter_var( wp_unslash( $_POST['name'] ), FILTER_SANITIZE_STRING ) : null;
+	$mailaddress = isset( $_POST['mailaddress'] ) ? filter_var( wp_unslash( $_POST['mailaddress'] ), FILTER_SANITIZE_EMAIL ) : null;
+	$subject     = isset( $_POST['subject'] ) ? filter_var( wp_unslash( $_POST['subject'] ), FILTER_SANITIZE_STRING ) : null;
+	$order_id    = isset( $_POST['order_id'] ) ? filter_var( wp_unslash( $_POST['order_id'] ), FILTER_SANITIZE_STRING ) : null;
+	$checked     = isset( $_POST['checked'] ) ? filter_var( wp_unslash( $_POST['checked'] ), FILTER_SANITIZE_STRING ) : null;
 
 	if ( ! wp_verify_nonce( $nonce, 'wc_send_mail_order_nonce' ) ) {
 		$error_msg = array( 'message' => 'Your request is not valid.' );

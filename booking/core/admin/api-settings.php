@@ -1175,7 +1175,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 													<div class="ui_container    ui_container_toolbar		ui_container_small" style="background: #fff;position: relative;">
 														<div class="ui_group    ui_group__upgrade">
 															<div class="wpbc_upgrade_note wpbc_upgrade_theme_green">
-																<div>This <a target="_blank" href="https://wpbookingcalendar.com/overview/#capacity">feature</a> 
+																<div>This <a target="_blank" href="https://wpbookingcalendar.com/features/#capacity">feature</a> 
 																	 is available in the <strong>Business Large or MultiUser version</strong>. 
 																	<a target="_blank" href="https://wpbookingcalendar.com/prices/#bk_news_section">Upgrade to Pro</a>.																
 																</div>

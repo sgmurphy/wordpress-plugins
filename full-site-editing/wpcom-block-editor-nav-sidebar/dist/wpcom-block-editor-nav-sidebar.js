@@ -3545,7 +3545,7 @@ const GOOGLE_TRANSFER = 'google-transfer';
 const HUNDRED_YEAR_PLAN_FLOW = 'hundred-year-plan';
 const REBLOGGING_FLOW = 'reblogging';
 const DOMAIN_FOR_GRAVATAR_FLOW = 'domain-for-gravatar';
-const ONBOARDING_GUIDED_FLOW = 'guided';
+const ONBOARDING_GUIDED_FLOW = 'onboarding';
 const isLinkInBioFlow = flowName => {
   return Boolean(flowName && [LINK_IN_BIO_FLOW, LINK_IN_BIO_TLD_FLOW, LINK_IN_BIO_POST_SETUP_FLOW].includes(flowName));
 };

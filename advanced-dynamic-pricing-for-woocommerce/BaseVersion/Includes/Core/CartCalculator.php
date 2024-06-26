@@ -48,7 +48,7 @@ class CartCalculator implements ICartCalculator
      * @param RulesCollection|Listener|null $ruleCollectionOrListener
      * @param Listener|null $deprecated
      */
-    public function __construct($contextOrRuleCollection, $ruleCollectionOrListener = null, $deprecated = null)
+    final public function __construct($contextOrRuleCollection, $ruleCollectionOrListener = null, $deprecated = null)
     {
         $this->context                  = adp_context();
         $this->ruleCollection           = $contextOrRuleCollection instanceof RulesCollection ? $contextOrRuleCollection : $ruleCollectionOrListener;

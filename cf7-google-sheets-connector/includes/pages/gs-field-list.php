@@ -6,7 +6,11 @@
 			<div class="cd-faq-content cd-faq-content1" style="display: block;">
 				<div class="gs-demo-fields gs-second-block">
                   <h2><span class="gs-info"><?php echo esc_html( __( 'Map mail tags with custom header name and save automatically to google sheet. ', 'gsconnector')); ?> </span></h2>
-					<?php $this->display_form_fields( $form_id ); ?>
+					<?php 
+                 if(isset($form_id) && !empty($form_id)){
+	               $this->display_form_fields( $form_id );
+                  }
+                  ?>
 				</div>
 			</div>
 		</li>

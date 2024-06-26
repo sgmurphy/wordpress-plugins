@@ -126,7 +126,7 @@ class AdminAjax implements LoadStrategy
         $wcCartStatsCollector->setActionCheckoutOrderProcessed();
 
         if ($this->context->getOption('update_cross_sells')) {
-            add_filter('woocommerce_add_to_cart_fragments', array($this, 'woocommerceAddToCartFragments'), 10, 2);
+            add_filter('woocommerce_add_to_cart_fragments', array($this, 'woocommerceAddToCartFragments'), 10);
         }
 
         /** Register shortcodes for quick view */

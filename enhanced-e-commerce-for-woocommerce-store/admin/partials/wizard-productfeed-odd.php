@@ -364,8 +364,8 @@ $google_detail_api = $googledetail =$customApiObj->getGoogleAnalyticDetail($subs
                                                         <a onclick='window.open("<?php echo esc_url($tiktok_auth_url) ?>","MyWindow","width=800,height=700,left=300, top=150"); return false;'
                                                             href="#" class="signIn">Change</a>
                                                     <?php } ?>   
-                                                    <input type="hidden" id="tiktok_mail" value=<?php echo esc_attr($tiktok_mail) ?>>
-                                                    <input type="hidden" id="tiktok_user_id" value=<?php echo esc_attr($tiktok_user_id) ?>> 
+                                                    <input type="hidden" id="tiktok_mail" value="<?php echo esc_attr($tiktok_mail) ?>">
+                                                    <input type="hidden" id="tiktok_user_id" value="<?php echo esc_attr($tiktok_user_id) ?>"> 
                                                 </div>    
                                             </div>                                    
                                         </li>
@@ -1312,7 +1312,7 @@ $str = json_decode($str);;
             var data = {
                 action: "save_category_mapping",
                 ee_data: ee_data,
-                auto_product_sync_setting: "<?php echo esc_html_e(wp_create_nonce('auto_product_sync_setting-nonce')); ?>"
+                auto_product_sync_setting: "<?php echo esc_js(wp_create_nonce('auto_product_sync_setting-nonce')); ?>"
             };
             jQuery.ajax({
                 type: "POST",
@@ -1380,7 +1380,7 @@ $str = json_decode($str);;
             var data = {
                 action: "save_attribute_mapping",
                 ee_data: ee_data,
-                auto_product_sync_setting: "<?php echo esc_html(wp_create_nonce('auto_product_sync_setting-nonce')); ?>"
+                auto_product_sync_setting: "<?php echo esc_js(wp_create_nonce('auto_product_sync_setting-nonce')); ?>"
             };
             jQuery.ajax({
                 type: "POST",
@@ -1440,7 +1440,7 @@ $str = json_decode($str);;
             var data = {
                     action: "get_category_for_filter",
                     type: "all_product",
-                    get_category_for_filter: "<?php echo esc_html(wp_create_nonce('get_category_for_filter-nonce')); ?>"
+                    get_category_for_filter: "<?php echo esc_js(wp_create_nonce('get_category_for_filter-nonce')); ?>"
                 };
                 jQuery.ajax({
                     type: "POST",
@@ -1464,7 +1464,7 @@ $str = json_decode($str);;
                 var data = {
                     action: "get_category_for_filter",
                     type: "category",
-                    get_category_for_filter: "<?php echo esc_html(wp_create_nonce('get_category_for_filter-nonce')); ?>"
+                    get_category_for_filter: "<?php echo esc_js(wp_create_nonce('get_category_for_filter-nonce')); ?>"
                 };
                 jQuery.ajax({
                     type: "POST",
@@ -1689,7 +1689,7 @@ $str = json_decode($str);;
     });
     
     function list_tiktok_business_account() {   
-        var conversios_onboarding_nonce = "<?php echo esc_attr(wp_create_nonce('conversios_onboarding_nonce')); ?>";    
+        var conversios_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conversios_onboarding_nonce')); ?>";    
         jQuery.ajax({
             type: "POST",
             dataType: "json",
@@ -1735,7 +1735,7 @@ $str = json_decode($str);;
     function get_tiktok_user_catalogs() {
         var catalogCountry = <?php echo wp_json_encode($catalogCountry) ?>;
         var catalog_business_id = <?php echo wp_json_encode($catalog_business_id) ?>;
-        var conversios_onboarding_nonce = "<?php echo esc_attr(wp_create_nonce('conversios_onboarding_nonce')); ?>";
+        var conversios_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conversios_onboarding_nonce')); ?>";
         var business_id = jQuery('#tiktok_business_id').find(":selected").val();
         jQuery('.selection').find("[aria-labelledby='select2-tiktok_business_id-container']").removeClass('selectError');
         jQuery('#table-body').empty();
@@ -1781,7 +1781,7 @@ $str = json_decode($str);;
     function getAttrubuteMappingDiv() {
         var data = {
                 action: "get_attribute_mappingv_div",                
-                fb_business_nonce: "<?php echo esc_attr(wp_create_nonce('fb_business_nonce')); ?>"
+                fb_business_nonce: "<?php echo esc_js(wp_create_nonce('fb_business_nonce')); ?>"
             }
             jQuery.ajax({
                 type: "POST",
@@ -1850,7 +1850,7 @@ $str = json_decode($str);;
                 productVal: productVal,
                 conditionVal: conditionVal,
                 valueVal: valueVal,
-                getFilterCount: "<?php echo esc_html(wp_create_nonce('getFilterCount-nonce')); ?>"
+                getFilterCount: "<?php echo esc_js(wp_create_nonce('getFilterCount-nonce')); ?>"
             };
             jQuery.ajax({
                 type: "POST",
@@ -1872,7 +1872,7 @@ $str = json_decode($str);;
             action: "get_category_for_filter",
             type: "getAllChannel",
             target_country: target_country,
-            get_category_for_filter: "<?php echo esc_html(wp_create_nonce('get_category_for_filter-nonce')); ?>"
+            get_category_for_filter: "<?php echo esc_js(wp_create_nonce('get_category_for_filter-nonce')); ?>"
         };
         jQuery.ajax({
             type: "POST",
@@ -1910,7 +1910,7 @@ $str = json_decode($str);;
         });
     }
     function getCatalogId($countryCode) {
-        var conv_country_nonce = "<?php echo esc_html(wp_create_nonce('conv_country_nonce')); ?>";
+        var conv_country_nonce = "<?php echo esc_js(wp_create_nonce('conv_country_nonce')); ?>";
         var data = {
             action: "ee_getCatalogId",
             countryCode: $countryCode,
@@ -1945,7 +1945,7 @@ $str = json_decode($str);;
     }
     
     function save_feed_data() {
-        var conv_onboarding_nonce = "<?php echo esc_html(wp_create_nonce('conv_onboarding_nonce')); ?>";
+        var conv_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conv_onboarding_nonce')); ?>";
         var product_selection = jQuery('input[name="product_selection"]:checked').val();
         var productVal= jQuery('#productVal').val();
         var conditionVal = jQuery('#conditionVal').val();
@@ -2051,7 +2051,7 @@ $str = json_decode($str);;
             }
             data = {
                 action: "conv_save_pixel_data", 
-                pix_sav_nonce: "<?php echo esc_attr(wp_create_nonce('pix_sav_nonce_val')); ?>",
+                pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                 conv_options_data: selected_vals,
                 conv_options_type: conv_options_type,
                 update_site_domain: update_site_domain,
@@ -2075,7 +2075,7 @@ $str = json_decode($str);;
             conv_options_type = ["eeoptions", "middleware", "facebookmiddleware", "facebookcatalog"];
             data = {
                 action: "conv_save_pixel_data", 
-                pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
+                pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                 conv_options_data: selected_vals,
                 conv_options_type: conv_options_type,
                 customer_subscription_id: "<?php echo esc_html($subId) ?>",
@@ -2099,7 +2099,7 @@ $str = json_decode($str);;
             conv_options_type = ["eeoptions", "middleware", "tiktokmiddleware", "tiktokcatalog"];
             data = {
                 action: "conv_save_pixel_data", 
-                pix_sav_nonce: "<?php echo esc_attr(wp_create_nonce('pix_sav_nonce_val')); ?>",
+                pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                 conv_options_data: selected_vals,
                 conv_options_type: conv_options_type,
                 customer_subscription_id: "<?php echo esc_attr($subscriptionId) ?>",
@@ -2229,7 +2229,7 @@ $str = json_decode($str);;
         var data = {
             action: "get_category_for_filter",
             type: "getProgressCount",
-            get_category_for_filter: "<?php echo esc_html(wp_create_nonce('get_category_for_filter-nonce')); ?>"
+            get_category_for_filter: "<?php echo esc_js(wp_create_nonce('get_category_for_filter-nonce')); ?>"
         };
         jQuery.ajax({
             type: "POST",
@@ -2326,7 +2326,7 @@ $str = json_decode($str);;
         var data = {
                 action: "get_user_businesses",
                 customer_subscription_id: <?php echo esc_html($subId) ?>,
-                fb_business_nonce: "<?php echo wp_create_nonce('fb_business_nonce'); ?>"
+                fb_business_nonce: "<?php echo esc_js(wp_create_nonce('fb_business_nonce')); ?>"
             }
             jQuery.ajax({
                 type: "POST",
@@ -2339,7 +2339,7 @@ $str = json_decode($str);;
                 success: function(response){
                     if(Object.keys(response).length > 0) {
                         // jQuery('#fb_business_id').removeAttr('disabled')
-                        var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_business_id']) ? $ee_options['facebook_setting']['fb_business_id'] : '' ?>";                      
+                        var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_business_id']) ? esc_js($ee_options['facebook_setting']['fb_business_id']) : '' ?>";                      
                         var html = '<option value="">Select Catalog Id</option>';
                         jQuery.each(response, function(index, value){
                             var selected = (index == cat_id ) ? 'selected' : '';                        
@@ -2360,7 +2360,7 @@ $str = json_decode($str);;
                 action: "get_fb_catalog_data",
                 customer_subscription_id: <?php echo esc_html($subId) ?>,
                 fb_business_id: fb_business,
-                fb_business_nonce: "<?php echo wp_create_nonce('fb_business_nonce'); ?>"
+                fb_business_nonce: "<?php echo esc_js(wp_create_nonce('fb_business_nonce')); ?>"
             }
             jQuery.ajax({
                 type: "POST",
@@ -2372,7 +2372,7 @@ $str = json_decode($str);;
                 },
                 success: function(response){ 
                     // jQuery('#fb_catalog_id').removeAttr('disabled')
-                    var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? $ee_options['facebook_setting']['fb_catalog_id'] : '' ?>";                      
+                    var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_js($ee_options['facebook_setting']['fb_catalog_id']) : '' ?>";                      
                     var html = '<option value="">Select Catalog Id</option>';
                     jQuery.each(response, function(index, value){
                         var selected = (value.id == cat_id ) ? 'selected' : '';                        

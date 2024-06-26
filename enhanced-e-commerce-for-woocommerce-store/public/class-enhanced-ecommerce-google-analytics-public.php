@@ -49,7 +49,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public extends Con_Settings
     $this->version  = sanitize_text_field($version);
 
     add_action("wp", array($this, "tvc_call_hooks"));
-    
+
     $this->fb_page_view_event_id = $this->get_fb_event_id();
 
     /*
@@ -1060,7 +1060,7 @@ class Con_GTM_WC_Tracking extends Con_Settings
       if (!$this->disable_tracking($this->ga_eeT, "add_to_cart_single")) {
         global $product, $woocommerce;
         $variations_data = array();
-        if ($product->is_type('variable')) {
+        if (isset($product->is_type) && $product->is_type('variable')) {
           $variations_data['default_attributes'] = $product->get_default_attributes();
           $variations_data['available_variations'] = $product->get_available_variations(); //get all child variations
           $variations_data['available_attributes'] = $product->get_variation_attributes();

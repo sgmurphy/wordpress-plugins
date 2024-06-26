@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,9 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.1 (Jun 26, 2024) =
+* Fixed: Funnel Pages built using Divi theme causing styling issue. (#6350)
 
 = 3.4.0 (Jun 25, 2024) =
 * Added: Checkout- A new field "WooCommerce Advanced Field" was added to provide compatibility with third-party add-ons registering their fields on checkout. (#5305)

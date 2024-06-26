@@ -296,6 +296,13 @@ class OptionsInstaller
                 __('Hide "Coupon" word in cart totals', 'advanced-dynamic-pricing-for-woocommerce')
             ),
 
+            $builder::boolean(
+                'individual_wc_coupon_suppress_coupons',
+                false,
+                __('"Individual use" WC coupon suppress coupons added by rules', 'advanced-dynamic-pricing-for-woocommerce')
+            ),
+
+
             $builder::selective(
                 "process_product_strategy",
                 __('When the striked price should be shown', 'advanced-dynamic-pricing-for-woocommerce'),
@@ -436,7 +443,7 @@ class OptionsInstaller
             ),
             $builder::boolean(
                 'disable_shipping_calc_during_process',
-                true,
+                false,
                 __('Disable shipping calculation', 'advanced-dynamic-pricing-for-woocommerce')
             ),
             $builder::boolean(

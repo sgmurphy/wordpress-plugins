@@ -145,7 +145,7 @@ function wpbc__calendar__load( $params = array() ){
 	// Resource ID
 	$params['resource_id'] = (int) $params['resource_id'];
 
-    $start_script_code  = "<script type='text/javascript'> jQuery(document).ready( function(){ ";
+	$start_script_code  = '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                   //FixIn: 10.1.3.7
 
 	//$start_script_code  .= " wpbc_calendar__loading__start( {$params['resource_id']} ); ";
 
@@ -202,7 +202,7 @@ function wpbc__calendar__load( $params = array() ){
 	// Send Ajax request to  load bookings
 	$start_script_code .= " wpbc_calendar__load_data__ajx( {$params_for_request} ); ";
 
-    $start_script_code .= " } ); </script>";
+	$start_script_code .= wpbc_jq_ready_end() . '</script>';                                                            //FixIn: 10.1.3.7
 
 	return $start_script_code;
 }

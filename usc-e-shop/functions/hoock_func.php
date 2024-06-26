@@ -2,7 +2,7 @@
 /**
  * Hoock functions.
  *
- * @package  Welcart
+ * @package Welcart
  */
 
 add_action( 'usces_construct', 'usces_action_acting_construct', 10 );
@@ -99,6 +99,7 @@ function usces_action_acting_transaction() {
 
 	/* remise_card */
 	if ( isset( $_POST['X-TRANID'] ) && ! isset( $_POST['OPT'] ) ) {
+		$data = array();
 		foreach ( $_POST as $key => $value ) {
 			$data[ $key ] = mb_convert_encoding( $value, 'UTF-8', 'SJIS' );
 		}
@@ -185,6 +186,7 @@ function usces_action_acting_transaction() {
 
 		/* remise_conv */
 	} elseif ( isset( $_POST['S_TORIHIKI_NO'] ) && isset( $_POST['REC_FLG'] ) ) {
+		$data = array();
 		foreach ( $_POST as $key => $value ) {
 			$data[ $key ] = mb_convert_encoding( $value, 'UTF-8', 'SJIS' );
 		}
@@ -244,26 +246,29 @@ function usces_action_acting_transaction() {
 
 		/* jpayment_conv */
 	} elseif ( isset( $_REQUEST['acting'] ) && 'jpayment_conv' == $_REQUEST['acting'] && isset( $_GET['ap'] ) ) {
-		foreach ( $_REQUEST as $key => $value ) {
-			$data[ $key ] = $value;
-		}
-
 		switch ( $_GET['ap'] ) {
 			case 'CPL_PRE': /* コンビニペーパーレス決済識別コード */
 				break;
 
 			case 'CPL': /* 入金確定 */
+				$acting = wp_unslash( $_REQUEST['acting'] );
+				$data   = array();
+				foreach ( $_GET as $key => $value ) {
+					$data[ $key ] = esc_sql( $value );
+				}
+				$cod = ( isset( $data['cod'] ) ) ? $data['cod'] : '';
+
 				$table_name      = $wpdb->prefix . 'usces_order';
 				$table_meta_name = $wpdb->prefix . 'usces_order_meta';
 
-				$query    = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'settlement_id', $_GET['cod'] );
+				$query    = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'settlement_id', $cod );
 				$order_id = $wpdb->get_var( $query );
 				if ( null == $order_id ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_GET['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER DATA KEY ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error1 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -273,26 +278,23 @@ function usces_action_acting_transaction() {
 				$res = usces_change_order_receipt( $order_id, 'receipted' );
 				if ( false === $res ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_GET['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER DATA UPDATE ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error2 : ' . print_r( $data, true ), 'acting_transaction.log' );
 					die( 'error2' );
 				}
 
-				foreach ( $_GET as $key => $value ) {
-					$data[ $key ] = esc_sql( $value );
-				}
-				$res = $usces->set_order_meta_value( 'acting_' . wp_unslash( $_REQUEST['acting'] ), serialize( $data ), $order_id );
+				$res = $usces->set_order_meta_value( 'acting_' . $acting, serialize( $data ), $order_id );
 				if ( false === $res ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_REQUEST['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER META DATA UPDATE ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error3 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -301,22 +303,29 @@ function usces_action_acting_transaction() {
 
 				usces_action_acting_getpoint( $order_id );
 
-				usces_log( 'ROBOT PAYMENT conv transaction : ' . wp_unslash( $_GET['gid'] ), 'acting_transaction.log' );
+				usces_log( 'ROBOT PAYMENT conv transaction : ' . $data['gid'], 'acting_transaction.log' );
 				die( 'ROBOT PAYMENT' );
 				break;
 
 			case 'CVS_CAN': /* 入金取消 */
+				$acting = wp_unslash( $_REQUEST['acting'] );
+				$data   = array();
+				foreach ( $_GET as $key => $value ) {
+					$data[ $key ] = esc_sql( $value );
+				}
+				$cod = ( isset( $data['cod'] ) ) ? $data['cod'] : '';
+
 				$table_name      = $wpdb->prefix . 'usces_order';
 				$table_meta_name = $wpdb->prefix . 'usces_order_meta';
 
-				$query    = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'settlement_id', $_GET['cod'] );
+				$query    = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'settlement_id', $cod );
 				$order_id = $wpdb->get_var( $query );
 				if ( null == $order_id ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_GET['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER DATA KEY ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error1 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -326,26 +335,23 @@ function usces_action_acting_transaction() {
 				$res = usces_change_order_receipt( $order_id, 'noreceipt' );
 				if ( false === $res ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_GET['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER DATA UPDATE ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error2 : ' . print_r( $data, true ), 'acting_transaction.log' );
 					die( 'error2' );
 				}
 
-				foreach ( $_GET as $key => $value ) {
-					$data[ $key ] = esc_sql( $value );
-				}
-				$res = $usces->set_order_meta_value( 'acting_' . wp_unslash( $_REQUEST['acting'] ), serialize( $data ), $order_id );
+				$res = $usces->set_order_meta_value( 'acting_' . $acting, serialize( $data ), $order_id );
 				if ( false === $res ) {
 					$log = array(
-						'acting' => wp_unslash( $_REQUEST['acting'] ),
-						'key'    => wp_unslash( $_REQUEST['cod'] ),
+						'acting' => $acting,
+						'key'    => $cod,
 						'result' => 'ORDER META DATA UPDATE ERROR',
-						'data'   => wp_unslash( $_REQUEST ),
+						'data'   => $data,
 					);
 					usces_save_order_acting_error( $log );
 					usces_log( 'jpayment conv error3 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -354,37 +360,37 @@ function usces_action_acting_transaction() {
 
 				usces_action_acting_getpoint( $order_id, false );
 
-				usces_log( 'ROBOT PAYMENT conv transaction : ' . wp_unslash( $_GET['gid'] ), 'acting_transaction.log' );
+				usces_log( 'ROBOT PAYMENT conv transaction : ' . $data['gid'], 'acting_transaction.log' );
 				die( 'ROBOT PAYMENT' );
 				break;
 		}
 
 		/* jpayment_bank */
-	} elseif ( isset( $_REQUEST['acting'] ) && 'jpayment_bank' == wp_unslash( $_REQUEST['acting'] ) ) {
-		foreach ( $_REQUEST as $key => $value ) {
-			$data[ $key ] = $value;
-		}
-		$acting = wp_unslash( $_REQUEST['acting'] );
-		$ap     = ( isset( $_GET['ap'] ) ) ? wp_unslash( $_GET['ap'] ) : '';
-
-		switch ( $ap ) {
+	} elseif ( isset( $_REQUEST['acting'] ) && 'jpayment_bank' == $_REQUEST['acting'] && isset( $_GET['ap'] ) ) {
+		switch ( $_GET['ap'] ) {
 			case 'BANK': /* 受付完了 */
 				break;
 
 			case 'BAN_SAL': /* 入金完了 */
 				if ( isset( $_GET['mf'] ) && '1' == wp_unslash( $_GET['mf'] ) ) { /* 入金マッチングの場合 */
+					$acting = wp_unslash( $_REQUEST['acting'] );
+					$data   = array();
+					foreach ( $_GET as $key => $value ) {
+						$data[ $key ] = esc_sql( $value );
+					}
+					$cod = ( isset( $data['cod'] ) ) ? $data['cod'] : '';
+
 					$table_name      = $wpdb->prefix . 'usces_order';
 					$table_meta_name = $wpdb->prefix . 'usces_order_meta';
 
-					$cod      = ( isset( $_GET['cod'] ) ) ? wp_unslash( $_GET['cod'] ) : '';
-					$query    = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'settlement_id', $cod );
+					$query    = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'settlement_id', $cod );
 					$order_id = $wpdb->get_var( $query );
 					if ( null == $order_id ) {
 						$log = array(
 							'acting' => $acting,
 							'key'    => $cod,
 							'result' => 'ORDER DATA KEY ERROR',
-							'data'   => wp_unslash( $_REQUEST ),
+							'data'   => $data,
 						);
 						usces_save_order_acting_error( $log );
 						usces_log( 'jpayment bank error1 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -397,23 +403,20 @@ function usces_action_acting_transaction() {
 							'acting' => $acting,
 							'key'    => $cod,
 							'result' => 'ORDER DATA UPDATE ERROR',
-							'data'   => wp_unslash( $_REQUEST ),
+							'data'   => $data,
 						);
 						usces_save_order_acting_error( $log );
 						usces_log( 'jpayment bank error2 : ' . print_r( $data, true ), 'acting_transaction.log' );
 						die( 'error2' );
 					}
 
-					foreach ( $_GET as $key => $value ) {
-						$data[ $key ] = esc_sql( $value );
-					}
 					$res = $usces->set_order_meta_value( 'acting_' . $acting, serialize( $data ), $order_id );
 					if ( false === $res ) {
 						$log = array(
 							'acting' => $acting,
 							'key'    => $cod,
 							'result' => 'ORDER META DATA UPDATE ERROR',
-							'data'   => $_REQUEST,
+							'data'   => $data,
 						);
 						usces_save_order_acting_error( $log );
 						usces_log( 'jpayment bank error3 : ' . print_r( $data, true ), 'acting_transaction.log' );
@@ -423,7 +426,7 @@ function usces_action_acting_transaction() {
 					usces_action_acting_getpoint( $order_id );
 				}
 
-				usces_log( 'ROBOT PAYMENT bank transaction : ' . wp_unslash( $_REQUEST['gid'] ), 'acting_transaction.log' );
+				usces_log( 'ROBOT PAYMENT bank transaction : ' . $data['gid'], 'acting_transaction.log' );
 				die( 'ROBOT PAYMENT' );
 				break;
 		}
@@ -431,6 +434,7 @@ function usces_action_acting_transaction() {
 		/* PayPal ipn */
 	} elseif ( ! isset( $_GET['acting_return'] ) && ( isset( $_GET['acting'] ) && 'paypal_ipn' == wp_unslash( $_GET['acting'] ) ) ) {
 		if ( file_exists( $usces->options['settlement_path'] . 'paypal.php' ) ) {
+			$data = array();
 			foreach ( $_REQUEST as $key => $value ) {
 				$data[ $key ] = $value;
 			}
@@ -453,6 +457,7 @@ function usces_action_acting_transaction() {
 
 		/* PayPal ipn (WPP) */
 	} elseif ( isset( $_REQUEST['ipn_track_id'] ) ) {
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
@@ -514,26 +519,28 @@ function usces_action_acting_transaction() {
 			die( 'PayPal' );
 		}
 
-		/* telecom edy **/
+		/* telecom edy */
 	} elseif ( isset( $_REQUEST['clientip'] ) && isset( $_REQUEST['sendid'] ) && ( isset( $_REQUEST['acting'] ) && 'telecom_edy' == $_REQUEST['acting'] ) ) {
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
 		usces_log( 'telecom edy : ' . print_r( $data, true ), 'acting_transaction.log' );
 
 	} elseif ( isset( $_REQUEST['clientip'] ) && isset( $_REQUEST['sendid'] ) && isset( $_REQUEST['edy'] ) ) {
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
 		if ( 'yes' === wp_unslash( $_REQUEST['rel'] ) && isset( $_REQUEST['option'] ) ) {
-			$table_meta_name = $wpdb->prefix . 'usces_order_meta';
-			$mquery          = $wpdb->prepare( "SELECT order_id, meta_value FROM $table_meta_name WHERE meta_key = %s", wp_unslash( $_REQUEST['option'] ) );
-			$mvalue          = $wpdb->get_row( $mquery, ARRAY_A );
-			$value           = unserialize( $mvalue['meta_value'] );
+			$table_meta_name          = $wpdb->prefix . 'usces_order_meta';
+			$mquery                   = $wpdb->prepare( "SELECT order_id, meta_value FROM $table_meta_name WHERE meta_key = %s", wp_unslash( $_REQUEST['option'] ) );
+			$mvalue                   = $wpdb->get_row( $mquery, ARRAY_A );
+			$value                    = unserialize( $mvalue['meta_value'] );
 			$_SESSION['usces_cart']   = $value['usces_cart'];
 			$_SESSION['usces_entry']  = $value['usces_entry'];
 			$_SESSION['usces_member'] = $value['usces_member'];
-			$res = $usces->order_processing();
+			$res                      = $usces->order_processing();
 			if ( 'ordercompletion' == $res ) {
 				$query = $wpdb->prepare( "DELETE FROM $table_meta_name WHERE meta_key = %s", wp_unslash( $_REQUEST['option'] ) );
 				$res   = $wpdb->query( $query );
@@ -562,6 +569,7 @@ function usces_action_acting_transaction() {
 
 		/* telecom credit */
 	} elseif ( isset( $_REQUEST['clientip'] ) && isset( $_REQUEST['sendid'] ) && isset( $_REQUEST['rel'] ) ) {
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
@@ -580,41 +588,70 @@ function usces_action_acting_transaction() {
 
 		/* digitalcheck card */
 	} elseif ( isset( $_REQUEST['SID'] ) && isset( $_REQUEST['FUKA'] ) && 'acting_digitalcheck_card' == substr( wp_unslash( $_REQUEST['FUKA'] ), 0, 24 ) ) {
+		if ( isset( $_GET['acting_return'] ) && isset( $_GET['acting'] ) && 'digitalcheck_card' === $_GET['acting'] ) {
+			return;
+		}
+
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
 		$sid = ( isset( $data['SID'] ) ) ? $data['SID'] : '';
 
 		if ( isset( $data['SEQ'] ) ) {
-			$acting_opts = $usces->options['acting_settings']['digitalcheck'];
-			$ip_user_id  = substr( $data['FUKA'], 24 );
+			$table_meta_name = $wpdb->prefix . 'usces_order_meta';
+			$query           = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'SID', $sid );
+			$order_id        = $wpdb->get_var( $query );
+			if ( ! $order_id ) {
+				$acting_opts = $usces->options['acting_settings']['digitalcheck'];
+				$ip_user_id  = substr( $data['FUKA'], 24 );
+				if ( 'on' == $acting_opts['card_user_id'] && ! empty( $ip_user_id ) ) {
+					$usces->set_member_meta_value( 'digitalcheck_ip_user_id', $ip_user_id, $ip_user_id );
+				}
 
-			if ( 'on' == $acting_opts['card_user_id'] && ! empty( $ip_user_id ) ) {
-				$usces->set_member_meta_value( 'digitalcheck_ip_user_id', $ip_user_id, $ip_user_id );
-			}
-
-			$res = $usces->order_processing();
-			if ( 'ordercompletion' == $res ) {
-				$order_id = $usces->cart->get_order_entry( 'ID' );
-				$usces->set_order_meta_value( 'acting_digitalcheck_card', serialize( $data ), $order_id );
-				$usces->set_order_meta_value( 'wc_trans_id', $sid, $order_id );
-			} else {
-				$log = array(
-					'acting' => 'digitalcheck_card',
-					'key'    => $sid,
-					'result' => 'ORDER DATA REGISTERED ERROR',
-					'data'   => wp_unslash( $_REQUEST ),
-				);
-				usces_save_order_acting_error( $log );
-				usces_log( 'digitalcheck card : order processing error', 'acting_transaction.log' );
+				$res = $usces->order_processing();
+				if ( 'ordercompletion' == $res ) {
+					$order_id = $usces->cart->get_order_entry( 'ID' );
+					$usces->set_order_meta_value( 'acting_digitalcheck_card', serialize( $data ), $order_id );
+					$usces->set_order_meta_value( 'wc_trans_id', $sid, $order_id );
+				} else {
+					$log = array(
+						'acting' => 'digitalcheck_card',
+						'key'    => $sid,
+						'result' => 'ORDER DATA REGISTERED ERROR',
+						'data'   => wp_unslash( $_REQUEST ),
+					);
+					usces_save_order_acting_error( $log );
+					// usces_log( 'digitalcheck card : order processing error', 'acting_transaction.log' );
+				}
 			}
 
 			header( 'Content-Type: text/plain; charset=Shift_JIS' );
-			die( '0' );
+			die( "0\r\n" );
+
+		} elseif ( isset( $data['purchase'] ) ) {
+			return;
+
+		} else {
+			$table_meta_name = $wpdb->prefix . 'usces_order_meta';
+			$query           = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'SID', $sid );
+			$order_id        = $wpdb->get_var( $query );
+			if ( $order_id ) {
+				header( 'Content-Type: text/plain; charset=Shift_JIS' );
+				die( "0\r\n" );
+			}
 		}
+
+		header( 'Content-Type: text/plain; charset=Shift_JIS' );
+		die( "0\r\n" );
 
 		/* digitalcheck conv */
 	} elseif ( isset( $_REQUEST['SID'] ) && isset( $_REQUEST['FUKA'] ) && 'acting_digitalcheck_conv' == substr( wp_unslash( $_REQUEST['FUKA'] ), 0, 24 ) ) {
+		if ( isset( $_GET['acting_return'] ) && isset( $_GET['acting'] ) && 'digitalcheck_conv' === $_GET['acting'] ) {
+			return;
+		}
+
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
@@ -623,9 +660,8 @@ function usces_action_acting_transaction() {
 		if ( isset( $data['SEQ'] ) ) {
 			$table_name      = $wpdb->prefix . 'usces_order';
 			$table_meta_name = $wpdb->prefix . 'usces_order_meta';
-
-			$query    = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'SID', $sid );
-			$order_id = $wpdb->get_var( $query );
+			$query           = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'SID', $sid );
+			$order_id        = $wpdb->get_var( $query );
 			if ( null == $order_id ) {
 				$log = array(
 					'acting' => 'digitalcheck_conv',
@@ -636,7 +672,7 @@ function usces_action_acting_transaction() {
 				usces_save_order_acting_error( $log );
 				usces_log( 'digitalcheck conv error1 : ' . print_r( $data, true ), 'acting_transaction.log' );
 				header( 'Content-Type: text/plain; charset=Shift_JIS' );
-				die( '9' );
+				die( "9\r\n" );
 			}
 
 			if ( isset( $data['CVS'] ) ) { /* 入金 */
@@ -651,7 +687,7 @@ function usces_action_acting_transaction() {
 					usces_save_order_acting_error( $log );
 					usces_log( 'digitalcheck conv error2 : ' . print_r( $data, true ), 'acting_transaction.log' );
 					header( 'Content-Type: text/plain; charset=Shift_JIS' );
-					die( '9' );
+					die( "9\r\n" );
 				}
 
 				usces_action_acting_getpoint( $order_id );
@@ -668,7 +704,7 @@ function usces_action_acting_transaction() {
 					usces_save_order_acting_error( $log );
 					usces_log( 'digitalcheck conv error3 : ' . print_r( $data, true ), 'acting_transaction.log' );
 					header( 'Content-Type: text/plain; charset=Shift_JIS' );
-					die( '9' );
+					die( "9\r\n" );
 				}
 
 				usces_action_acting_getpoint( $order_id, false );
@@ -680,12 +716,12 @@ function usces_action_acting_transaction() {
 			$res    = $wpdb->query( $dquery );
 
 			header( 'Content-Type: text/plain; charset=Shift_JIS' );
-			die( '0' );
+			die( "0\r\n" );
 
 		} else {
 			if ( isset( $data['CVS'] ) && isset( $data['SHNO'] ) ) { /* 決済 */
 				$table_meta_name = $wpdb->prefix . 'usces_order_meta';
-				$query           = $wpdb->prepare( "SELECT order_id FROM $table_meta_name WHERE meta_key = %s AND meta_value = %s", 'SID', $sid );
+				$query           = $wpdb->prepare( "SELECT `order_id` FROM $table_meta_name WHERE `meta_key` = %s AND `meta_value` = %s", 'SID', $sid );
 				$order_id        = $wpdb->get_var( $query );
 				if ( $order_id ) {
 					$usces->set_order_meta_value( 'acting_digitalcheck_conv', serialize( $data ), $order_id );
@@ -706,8 +742,9 @@ function usces_action_acting_transaction() {
 						usces_log( 'digitalcheck conv : order processing error', 'acting_transaction.log' );
 					}
 				}
+
 				header( 'Content-Type: text/plain; charset=Shift_JIS' );
-				die( '0' );
+				die( "0\r\n" );
 
 			} elseif ( isset( $data['purchase'] ) ) {
 
@@ -757,6 +794,7 @@ function usces_action_acting_transaction() {
 		$permalink_structure = get_option( 'permalink_structure' );
 		$delim               = ( ! $usces->use_ssl && $permalink_structure ) ? '?' : '&';
 		if ( '' != $tdate ) { /* 入金通知 */
+			$data = array();
 			foreach ( $_REQUEST as $key => $value ) {
 				$data[ $key ] = $value;
 			}
@@ -818,11 +856,12 @@ function usces_action_acting_transaction() {
 
 		/* AnotherLane credit */
 	} elseif ( isset( $_REQUEST['SiteId'] ) && isset( $_REQUEST['TransactionId'] ) && isset( $_REQUEST['Result'] ) ) {
-		$acting_opts = $usces->options['acting_settings']['anotherlane'];
+		$data = array();
 		foreach ( $_REQUEST as $key => $value ) {
 			$data[ $key ] = $value;
 		}
 
+		$acting_opts = $usces->options['acting_settings']['anotherlane'];
 		if ( ! isset( $_REQUEST['KickType'] ) && isset( $_REQUEST['TransactionId'] ) ) {
 			$permalink_structure = get_option( 'permalink_structure' );
 			$delim               = ( ! $usces->use_ssl && $permalink_structure ) ? '?' : '&';

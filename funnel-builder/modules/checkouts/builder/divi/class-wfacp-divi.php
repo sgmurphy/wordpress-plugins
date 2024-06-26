@@ -100,6 +100,7 @@ class WFACP_DIVI {
 
 
 	public function initialize_divi_widgets( $post_id ) {
+
 		$design = WFACP_Common::get_page_design( $post_id );
 		if ( 'divi' == $design['selected_type'] ) {
 			add_filter( 'et_builder_add_outer_content_wrap', '__return_true', 999 );

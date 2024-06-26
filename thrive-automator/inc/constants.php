@@ -14,7 +14,7 @@ defined( 'TAP_REQUIRED_WP_VERSION' ) || define( 'TAP_REQUIRED_WP_VERSION', '5.5'
 defined( 'TAP_DOMAIN' ) || define( 'TAP_DOMAIN', 'thrive-automator' );
 defined( 'TAP_SLUG' ) || define( 'TAP_SLUG', 'thrive_automator' );
 defined( 'TAP_PLUGIN' ) || define( 'TAP_PLUGIN', 'thrive-automator/thrive-automator.php' );
-defined( 'TAP_VERSION' ) || define( 'TAP_VERSION', '1.19' );
+defined( 'TAP_VERSION' ) || define( 'TAP_VERSION', '1.21.1' );
 defined( 'TAP_TAG' ) || define( 'TAP_TAG', 'tap' );
 defined( 'TAP_DB_VERSION' ) || define( 'TAP_DB_VERSION', '1.2' );
 defined( 'TAP_DB_PREFIX' ) || define( 'TAP_DB_PREFIX', 'tap_' );

@@ -4,7 +4,11 @@
 			<a class="cd-faq-trigger" data-id="5" href="#0"><?php echo esc_html( __( 'Conditional Logic ', 'gsconnector' ) ); ?><span class="pro">Pro</span></a>
 			<div class="cd-faq-content cd-faq-content5" style="display: none;">
 				<div class="gs-demo-fields gs-third-block">
-					<?php $this->display_form_conditional_logic( $form_id, $post ); ?>
+					<?php 
+					if(isset($form_id) && !empty($form_id)){
+					$this->display_form_conditional_logic( $form_id, $post ); 
+                     }
+					?>
 				 </div>
 			</div>
 		</li>

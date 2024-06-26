@@ -21,18 +21,31 @@ class SBI_Callout
 	const TWO_WEEKS_WAIT = 1209600;
 
 	public $plugins_list;
+	public $should_show_callout;
 
 	public function __construct()
 	{
 		$this->dismiss_notice();
 		$this->plugins_list = self::get_callout_plugins_list();
-		if (sizeof($this->plugins_list) !== 0 || self::should_show_callout()) {
-			add_action('wp_enqueue_scripts', [$this, 'register_assets']);
-		}
+		$this->should_show_callout = sizeof($this->plugins_list) !== 0 && self::should_show_callout();
 
+		add_action('wp_enqueue_scripts', [$this, 'register_assets']);
 		add_action('admin_enqueue_scripts', [$this, 'register_assets']);
 		add_action('wp_dashboard_setup', [$this, 'dashboard_widget']);
+	}
 
+	public function is_dashboad_screen()
+	{
+		if (is_admin()) {
+			if (!function_exists( 'get_current_screen')) {
+				require_once ABSPATH . '/wp-admin/includes/screen.php';
+			}
+			$screen = get_current_screen();
+			if ($screen->id === "dashboard") {
+				return true;
+			}
+		}
+		return false;
 	}
 
 
@@ -43,22 +56,25 @@ class SBI_Callout
 	 */
 	public function register_assets()
 	{
-		if (is_admin()) {
-			wp_enqueue_script(
-				'callout-js',
-				self::ASSETS_JS . 'callout.js',
-				null,
-				null,
-				true
+		$should_show_dashboard = sizeof($this->plugins_list) !== 0 && $this->is_dashboad_screen();
+		if ($this->should_show_callout || $should_show_dashboard) {
+			if (is_admin()) {
+				wp_enqueue_script(
+					'callout-js',
+					self::ASSETS_JS . 'callout.js',
+					null,
+					null,
+					true
+				);
+			}
+
+			wp_enqueue_style(
+				'callout-style',
+				self::ASSETS_CSS . 'callout.css',
+				false,
+				null
 			);
 		}
-
-		wp_enqueue_style(
-			'callout-style',
-			self::ASSETS_CSS . 'callout.css',
-			false,
-			null
-		);
 	}
 
 	/**
@@ -406,8 +422,8 @@ class SBI_Callout
 	 */
 	public function dashboard_widget()
 	{
-
-		if (sizeof($this->plugins_list) > 0) {
+		$should_show_dashboard = sizeof($this->plugins_list) !== 0 && $this->is_dashboad_screen();
+		if ($should_show_dashboard) {
 			wp_add_dashboard_widget(
 				'sb_dashboard_widget',
 				__( 'Smash Balloon Feeds', 'instagram-feeds'),

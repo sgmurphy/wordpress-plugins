@@ -315,8 +315,8 @@ class ASP_Process_IPN_NG {
 		}
 
 		//Item price
-		$price    = $item->get_price();
-		$curr     = $item->get_currency();
+		$price = $item->get_price();
+		$curr = $item->get_currency();
 		$shipping = $item->get_shipping();
 
 		if ( ! method_exists( $item, 'get_plan_id' ) ) {
@@ -376,7 +376,7 @@ class ASP_Process_IPN_NG {
 		$item_price = $item->get_price();
 
 		//Variatoions
-		$variations        = array();
+		$variations = array();
 		$posted_variations = $this->get_post_var( 'asp_stripeVariations', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		if ( $posted_variations ) {
 			// we got variations posted. Let's get variations from product
@@ -600,6 +600,17 @@ class ASP_Process_IPN_NG {
 			$ship_str = apply_filters( 'asp_customize_text_msg', __( 'Shipping', 'stripe-payments' ), 'shipping_str' );
 			$data['additional_items'][ ucfirst( $ship_str ) ] = $item->get_shipping();
 			$data['shipping']                                 = $item->get_shipping();
+		}
+
+		$product_type = $item->get_type();
+		//Check if surcharge is enabled for this product (if one-time or donations type product).
+		if ( in_array($product_type, array('one_time', 'donation')) ){
+			//Surcharge feature is currently supported for one_time and donation products only.
+			$surcharge_amount = $p_data->get_surcharge_data('amount');
+			if ( !empty($surcharge_amount) ){
+				$surcharge_label = $p_data->get_surcharge_data('label');
+				$data['additional_items'][$surcharge_label] = $surcharge_amount;
+			}
 		}
 
 		//custom fields

@@ -343,10 +343,15 @@ class CartTotals
             return array();
         }
         $tax_class = $item->product->get_tax_class();
-        $item_tax_rates = isset($this->item_tax_rates[$tax_class]) ? $this->item_tax_rates[$tax_class] : $this->item_tax_rates[$tax_class] = \WC_Tax::get_rates(
-            $item->product->get_tax_class(),
-            WC()->cart->get_customer()
-        );
+
+        $item_tax_rates = array();
+
+        if (isset($this->item_tax_rates)) {
+            $item_tax_rates = $this->item_tax_rates[$tax_class] ?? $this->item_tax_rates[$tax_class] = \WC_Tax::get_rates(
+                $item->product->get_tax_class(),
+                WC()->cart->get_customer()
+            );
+        }
 
         // Allow plugins to filter item tax rates.
 //        return apply_filters( 'woocommerce_cart_totals_get_item_tax_rates', $item_tax_rates, $item, $this->cart );

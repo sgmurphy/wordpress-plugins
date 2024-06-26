@@ -1105,6 +1105,8 @@ class Quiz_Maker_Admin
         $quick_quiz_autofill_user_data                      = 'off';
         $quick_quiz_display_fields_labels                   = 'off';
 
+        // Styles Settings
+        $quick_quiz_width                                   = 800;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1177,6 +1179,13 @@ class Quiz_Maker_Admin
 
             // Login button
             $quick_quiz_custom_texts_login_button = (isset($_REQUEST['ays_quick_quiz_custom_texts_login_button']) && $_REQUEST['ays_quick_quiz_custom_texts_login_button'] != '') ? stripslashes( esc_attr( $_REQUEST['ays_quick_quiz_custom_texts_login_button'] ) ) : $gen_login_button;
+
+            /**
+             * Style Settings
+             */
+
+            $quick_quiz_width = (isset($_REQUEST['ays_quick_quiz_width']) && $_REQUEST['ays_quick_quiz_width'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_width'] ) ) : "";
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1228,7 +1237,7 @@ class Quiz_Maker_Admin
             'bg_color'                                  => '#fff',
             'text_color'                                => '#000000',
             'height'                                    => 450,
-            'width'                                     => 800,
+            'width'                                     => $quick_quiz_width,
             'timer'                                     => 100,
             'information_form'                          => 'disable',
             'form_name'                                 => '',

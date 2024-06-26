@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.5
-Stable tag:        1.6.7.26
+Stable tag:        1.6.7.28
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,22 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.28 - 2024-06-18 ==
+
+= Fixes =
+
+- Upcoming appointments module previous appointments bug
+- Avoid adding multiple payment records with same payment ID
+- Fix round robin assignment to staff with zero appointments
+- Fix notification template rendering non valid tags
+- Fix | Team reassignment not working on rescheduling
+
+= Features and Improvements =
+
+- Fixing translation strings
+- Updated the author and author URI.
+- Added unique ids and classes to the input fields.
+
 == 1.6.7.26 - 2024-06-13 ==
 
 = Fixes =
@@ -288,23 +304,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 == 1.6.7.18 - 2024-05-15 ==
 
 = Fixes =
-
-- Fix fonts for mobile
-- Fixed logic to reference the most recent date for the twigs business_prev_start_date & customer_prev_start_date
-- Segment GCAL availability records by calendar ID only - staff and appointment types exclude the events by just the calendar IDs
-- Remove pending reminders corresponding to previous start dates of a rescheduled appointment
-- Better error handling when SSA fails to insert or update a Google Calendar event
-- Admin app - fix timezone conversion appointment start date
-- Ticket: start_date parameter omitted from postMessage in handleSaveAppointment()
-- New booking app - Improve text color on dark background
-- Fix Stored Cross-Site Scripting vulnerability reported by WordFence
-- Update start date notifications after rescheduling an appointment.
-- GCAL conflict-checking not working as expected
-- Quick Connect - Staff excluded calendars wiped out
-
-= Features and Improvements =
-
-- Update minimum required PHP version to 7.4
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

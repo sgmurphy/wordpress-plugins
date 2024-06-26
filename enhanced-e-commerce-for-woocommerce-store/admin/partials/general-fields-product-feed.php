@@ -280,7 +280,7 @@ $conv_data = $TVC_Admin_Helper->get_store_data();
                         </span>
                         <span class="d-flex">
                             <a style="padding:8px 24px 8px 24px;" class="btn conv-yellow-bg mt-4 btn-lg"
-                                href="<?php echo $TVC_Admin_Helper->get_conv_pro_link_adv("banner", "channel_config", "", "linkonly") ?>"
+                                href="<?php echo esc_url($TVC_Admin_Helper->get_conv_pro_link_adv("banner", "channel_config", "", "linkonly")); ?>"
                                 target="_blank">Upgrade Now</a>
                         </span>
                     </div>
@@ -1193,7 +1193,7 @@ $str = json_decode($str);
 </script>
 <script>
     var selected = Array();
-    var cnt = <?php echo $cnt ?>;
+    var cnt = <?php echo esc_js($cnt) ?>;
     jQuery(document).on('click', '.add_additional_attr', function() {                                                
         var additionalAttribute=[{"field":"condition"},{"field":"shipping_weight"},{"field":"product_weight"},
                                     {"field":"gender"},{"field":"sizes"},{"field":"color"},{"field":"age_group"},

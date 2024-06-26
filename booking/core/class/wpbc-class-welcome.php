@@ -831,7 +831,7 @@ if (0) {
                                                    ) 
                                             , array( 
                                                      'text' => '<strong>' . sprintf( 'Need even more functionality?' ) . '</strong>'
-                                                             . '<p>' . sprintf( ' Check %shigher versions%s of Booking Calendar', '<a href="https://wpbookingcalendar.com/overview/" target="_blank">', '</a>' ) . '</p>'
+                                                             . '<p>' . sprintf( ' Check %shigher versions%s of Booking Calendar', '<a href="https://wpbookingcalendar.com/features/" target="_blank">', '</a>' ) . '</p>'
 
                                                    ) 
 
@@ -969,7 +969,7 @@ at the popup configuration dialog, during inserting booking shortcode into post 
             
             $this->show_separator();
 
-            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in  Booking Calendar Personal version at <a target="_blank" href="https://wpbookingcalendar.com/overview/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
+            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in  Booking Calendar Personal version at <a target="_blank" href="https://wpbookingcalendar.com/features/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
             
             ?><div class="clear" style="height:30px;"></div><?php
             
@@ -1082,7 +1082,7 @@ at the popup configuration dialog, during inserting booking shortcode into post 
             
             $this->show_separator();
 
-            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Small version at <a target="_blank" href="https://wpbookingcalendar.com/overview/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
+            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Small version at <a target="_blank" href="https://wpbookingcalendar.com/features/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
             
             ?><div class="clear" style="height:30px;"></div><?php
             
@@ -1241,7 +1241,7 @@ at the popup configuration dialog, during inserting booking shortcode into post 
 
             $this->show_separator();
 
-            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Medium version at <a target="_blank" href="https://wpbookingcalendar.com/overview/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
+            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Medium version at <a target="_blank" href="https://wpbookingcalendar.com/features/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
             
             ?><div class="clear" style="height:30px;"></div><?php
             
@@ -1319,7 +1319,7 @@ at the popup configuration dialog, during inserting booking shortcode into post 
 
             $this->show_separator();
 
-            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Large version at <a target="_blank" href="https://wpbookingcalendar.com/overview/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
+            echo wpbc_replace_to_strong_symbols( '<div style="font-size: 0.95em;font-style:italic;text-align:right;margin:5px 0 10px;">Check many other nice features in Booking Calendar Business Large version at <a target="_blank" href="https://wpbookingcalendar.com/features/">features list</a> and test <a target="_blank" href="https://wpbookingcalendar.com/demo/">live demo</a>.</div>' );
             
             ?><div class="clear" style="height:30px;"></div><?php
             

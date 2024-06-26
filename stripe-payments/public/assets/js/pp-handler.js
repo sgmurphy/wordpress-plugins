@@ -1,4 +1,11 @@
-/* eslint-disable no-undef */
+/**
+ * Note: the 'vars.data' is an external variable that is available in the current context.
+ *
+ * @var vars object is available here because of the inline scripting at - /public/views/templates/default/payment-popup.php:21
+ * The data for it ($a['vars']['vars']) is prepared at - /includes/class-asp-pp-display.php:587
+*/
+// console.log('vars.data' , vars.data); // Debug purpose only.
+
 var closeBtn = document.getElementById('modal-close-btn');
 closeBtn.addEventListener('click', function () {
 	if (typeof checkAgeInterval !== "undefined") {
@@ -303,25 +310,34 @@ card.addEventListener('change', function (event) {
 });
 
 jQuery(form).on('submit', function (event) {
+	// Payment popup form submitted.
+	console.log('Payment form submitted.');
 	event.preventDefault();
 
+	// Check if the form can proceed.
 	if (!canProceed()) {
+		console.log('The canProceed() function returned false.');
 		return false;
 	}
 
 	if (!is_full_discount() && ('def' === vars.data.currentPM || !vars.data.currentPM) && !vars.data.cardComplete) {
+		// If not full discount and the current payment method is default or not set then focus on the card element.
 		card.focus();
 		return false;
 	}
 
+	//Reset the error container.
 	errorCont.style.display = 'none';
+
+	// Disable the submit button.
 	submitBtn.disabled = true;
 
+	//Calculate and update the total amount.
 	updateAllAmounts();
 
-	smokeScreen(true);
+	smokeScreen(true);// Show the smoke screen.
 
-	doAddonAction('readyToProceed');
+	doAddonAction('readyToProceed');// Trigger the readyToProceed event.
 
 	handlePayment();
 
@@ -470,6 +486,7 @@ function updateAllAmounts() {
 			}
 		}
 	}
+	//Trigger the allAmountsUpdated event.
 	doAddonAction('allAmountsUpdated');
 }
 
@@ -537,7 +554,36 @@ function calcTotal() {
 	if (vars.data.shipping) {
 		tAmount = tAmount + vars.data.shipping;
 	}
+
+	if (vars.data.surcharge){
+		let surcharge_amount = calc_surcharge(tAmount);
+		vars.data.surcharge_amount = surcharge_amount;
+		tAmount = tAmount + surcharge_amount;
+	}
+
 	vars.data.amount = PHP_round(tAmount, 0);
+}
+
+/**
+ * Calculate the surcharge amount.
+ *
+ * @param tAmount Grand total amount without surcharge (in cents).
+ *
+ * @returns {number} The surcharge amount in cents.
+ */
+function calc_surcharge(tAmount){
+	const amount = parseFloat(vars.data.surcharge);
+	const type = vars.data.surcharge_type;
+	// console.log("Calculating surcharge on :", cents_to_amount(tAmount, vars.data.currency));
+	let surcharge = 0;
+
+	if (type == 'perc') {
+		surcharge = (tAmount / 100) * amount;
+	} else {
+		surcharge = amount_to_cents(amount, vars.data.currency);
+	}
+
+	return surcharge;
 }
 
 function PHP_round(num, dec) {
@@ -848,15 +894,14 @@ function canProceed() {
 }
 
 function handlePayment() {
+	console.log('Entering handlePayment()');
+
 	var billingNameInput = document.getElementById('billing-name');
 	var emailInput = document.getElementById('email');
 	var billingDetails = {
 		name: encodeURIComponent(billingNameInput.value),
 		email: encodeURIComponent(emailInput.value),
 	};
-
-	
-	
 
 	if (vars.data.billing_address) {
 		var bAddr =  document.getElementById('address');
@@ -937,6 +982,11 @@ function handlePayment() {
 			reqStr += '&coupon=' + vars.data.coupon.code;
 		}
 
+		if (vars.data.surcharge) {
+			let surcharge_amount = cents_to_amount(vars.data.surcharge_amount, vars.data.currency);
+			reqStr += '&surcharge_amount=' + surcharge_amount;
+		}
+
 		// Check if price variation is set, if so, then process it to add this in query param.
 		if (vars.data.variations.constructor === Object && vars.data.variations.hasOwnProperty('applied')) {			
 			variation_counts = vars.data.variations.groups.length
@@ -967,7 +1017,7 @@ function handlePayment() {
 		
 		vars.data.csRegenParams = reqStr;
 		doAddonAction('csBeforeRegenParams');
-		console.log('Doing asp_pp_create_pi');
+		console.log('Doing asp_pp_create_pi ajax request.');
 		new ajaxRequest(vars.ajaxURL, vars.data.csRegenParams,
 			function (res) {
 				try {
@@ -1018,7 +1068,9 @@ function handlePayment() {
 		return false;
 	}
 
+	//If not full discount transaction, create and confirm token.
 	if (!is_full_discount() && vars.data.create_token) {
+		//Create token for the payment intent then confirm the token.
 		console.log('Creating token');
 		opts = {
 			name: billingNameInput.value
@@ -1059,17 +1111,20 @@ function handlePayment() {
 
 		vars.confirmToken_reqStr = ct_reqStr;
 
+		console.log('The confirm token request string before preConfirmToken event: ' + ct_reqStr);
 		doAddonAction('preConfirmToken');
 
 		ct_reqStr = vars.confirmToken_reqStr;
 
 		if (vars.data.pm_id) {
 			ct_reqStr = 'action=asp_pp_confirm_token&asp_pm_id=' + vars.data.pm_id + ct_reqStr;
+			console.log('Confirming token for payment method ID: ' + vars.data.pm_id);
 			confirmToken(ct_reqStr);
 			return true;
 		}
 
 		stripe.createToken(card, opts).then(function (result) {
+			console.log('stripe.createToken() - token created');
 			//console.log(result);
 			if (result.error) {
 				submitBtn.disabled = false;
@@ -1288,10 +1343,14 @@ function handleCardPaymentResult(result) {
 }
 
 function confirmToken(reqStr) {
+	//This function is used to confirm the token.
+	//Primarily used for subscriptions type products.
 	vars.data.confirmTokenStr = reqStr;
 	vars.data.canProceed = true;
 	console.log('Doing action asp_pp_confirm_token');
+	//console.log('The confirm token request string: ' + reqStr);//Debug purpose.
 	doAddonAction('confirmToken');
+
 	if (!vars.data.canProceed) {
 		return false;
 	}

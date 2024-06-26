@@ -377,9 +377,8 @@ class PMXE_Export_Record extends PMXE_Model_Record {
                     switch( XmlExportEngine::$exportOptions['xml_template_type'] ){
                         case 'XmlGoogleMerchants':
                         case 'custom':
-                            require_once PMXE_ROOT_DIR . '/classes/XMLWriter.php';
-                            file_put_contents($file_path, PMXE_XMLWriter::preprocess_xml("\n".XmlExportEngine::$exportOptions['custom_xml_template_footer']), FILE_APPEND);
-                        break;
+
+							break;
                     }
 
 				    if ( ! in_array(XmlExportEngine::$exportOptions['xml_template_type'], array('custom', 'XmlGoogleMerchants')) )

@@ -5,7 +5,7 @@ Tags: woocommerce, dynamic pricing, discount, pricing rule, bulk discount
 Requires PHP: 7.0
 Requires at least: 4.8
 Tested up to: 6.5
-Stable tag: 4.8.1
+Stable tag: 4.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,17 @@ You should be PHP programmer to do it. [Please, review sample addon and adapt it
 
 
 == Changelog ==
+
+= 4.8.2 - 2024-06-26 =
+* Fully support Block-Based Checkout
+* The option "Disable shipping calculation" is OFF, by default
+* Added option "Individual use" WC coupon suppress coupons added by rules" (>Settings>Coupons)
+* Fixed bug - bulk table was not displayed if final range is less than qty in the cart
+* Fixed bug - bulk table was not displayed if product sale price is lower than the bulk price
+* Fixed bug - wrong order total if "Don't recalculate cart on page load" enabled
+* Updated compatibility with "Woo Product Bundles", item subtotal was incorrect
+* Updated compatibility with "WooCommerce Mix and Match Products", item subtotal was incorrect
+* Fixed non-reported bugs, detected by PHPStan
 
 = 4.8.1 - 2024-06-05 =
 * Fixed bug - option "Add products to cart at normal cost" added coupon with 0 amount if product has sale price

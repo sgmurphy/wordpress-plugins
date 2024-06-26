@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Give - Donation Plugin plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Give - Donation Plugin 3.12.3\n"
+"Project-Id-Version: Give - Donation Plugin 3.13.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/givewp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-19T18:51:53+00:00\n"
+"POT-Creation-Date: 2024-06-26T16:16:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: give\n"
@@ -984,7 +984,7 @@ msgstr ""
 #: includes/class-give-scripts.php:252
 #: includes/class-give-scripts.php:303
 #: includes/forms/template.php:1671
-#: assets/dist/js/admin.js:6138
+#: assets/dist/js/admin.js:6147
 #: assets/dist/js/give-admin-donation-forms.js:5872
 #: assets/dist/js/give-admin-donations.js:4630
 #: assets/dist/js/give-admin-donors.js:4449
@@ -1360,7 +1360,7 @@ msgid "Zip / Postal Code:"
 msgstr ""
 
 #: includes/admin/donors/donors.php:773
-#: assets/dist/js/admin.js:6138
+#: assets/dist/js/admin.js:6147
 msgid "Save"
 msgstr ""
 
@@ -7784,7 +7784,7 @@ msgid "Do you want to delete this item?"
 msgstr ""
 
 #: includes/class-give-scripts.php:332
-#: assets/dist/js/admin.js:8325
+#: assets/dist/js/admin.js:8334
 #: assets/dist/js/give.js:3933
 msgid "Dismiss this notice."
 msgstr ""
@@ -7969,7 +7969,7 @@ msgid "Please Wait..."
 msgstr ""
 
 #: includes/class-give-scripts.php:505
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:267
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:272
 msgid "This will only take a second!"
 msgstr ""
 
@@ -13108,7 +13108,7 @@ msgstr ""
 #: includes/forms/template.php:1121
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:52
 #: src/Helpers/Gateways/Stripe.php:108
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:245
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:250
 msgid "Card Number"
 msgstr ""
 
@@ -13123,7 +13123,7 @@ msgstr ""
 #: includes/forms/template.php:1133
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:53
 #: src/Helpers/Gateways/Stripe.php:131
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:246
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:251
 msgid "CVC"
 msgstr ""
 
@@ -14252,7 +14252,7 @@ msgid "Donate"
 msgstr ""
 
 #: includes/gateways/stripe/includes/give-stripe-scripts.php:49
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:265
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:270
 msgid "Donation Processing..."
 msgstr ""
 
@@ -14972,19 +14972,19 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/API/Endpoints/Reports/TotalDonors.php:92
-#: assets/dist/js/admin-reports-widget.js:6644
+#: assets/dist/js/admin-reports-widget.js:6654
 #: assets/dist/js/admin-reports.js:2527
 msgid "Total Donors"
 msgstr ""
 
 #: src/API/Endpoints/Reports/TotalIncome.php:99
-#: assets/dist/js/admin-reports-widget.js:6632
+#: assets/dist/js/admin-reports-widget.js:6642
 #: assets/dist/js/admin-reports.js:2515
 msgid "Total Revenue"
 msgstr ""
 
 #: src/API/Endpoints/Reports/TotalRefunds.php:92
-#: assets/dist/js/admin-reports-widget.js:6650
+#: assets/dist/js/admin-reports-widget.js:6660
 #: assets/dist/js/admin-reports.js:2533
 msgid "Total Refunds"
 msgstr ""
@@ -15951,11 +15951,11 @@ msgstr ""
 msgid "Subscribe to our newsletter?"
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:89
+#: src/FormMigration/ServiceProvider.php:90
 msgid "The ID of the form (v2) to migrate to v3."
 msgstr ""
 
-#: src/FormMigration/ServiceProvider.php:113
+#: src/FormMigration/ServiceProvider.php:114
 msgid "The ID of the form (v3) to transfer donations (from v2)."
 msgstr ""
 
@@ -17028,23 +17028,23 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:194
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:195
 msgid "You are not allowed to perform this action."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:348
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:350
 msgid "Make sure to complete the entire PayPal process. Do not close the window until you have finished the process."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:352
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:354
 msgid "The last screen of the PayPal connect process includes a button to be sent back to your site. It is important you click this and do not close the window yourself."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:356
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:358
 msgid "If you’re still having problems connecting: "
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:364
+#: src/PaymentGateways/PayPalCommerce/AjaxRequestHandler.php:366
 msgid "Having trouble connecting to PayPal?"
 msgstr ""
 
@@ -18024,19 +18024,27 @@ msgstr ""
 msgid "To create a paypal order, please provide formId, donationAmount and payer"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:122
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:123
 msgid "Disconnect PayPal Account"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:123
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:124
 msgid "Are you sure you want to disconnect your PayPal account?"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:127
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:128
+msgid "Continue to receive events, including subscription renewals, from the disconnected account? If you have existing recurring donations with this account, you'll want to leave this checked. This is not reversible."
+msgstr ""
+
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:130
+msgid "Learn why this is critically important."
+msgstr ""
+
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:132
 msgid "You’re connected to PayPal! Here’s what’s next..."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:129
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:134
 msgid ""
 "PayPal allows you to accept credit or debit cards directly on your website. Because of\n"
 "                            this, your site needs to maintain <a href=\"%1$s\" target=\"_blank\">PCI-DDS compliance</a>.\n"
@@ -18044,61 +18052,61 @@ msgid ""
 "                            seamlessly with SSL certificates. Compliance is comprised of, but not limited to:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:139
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:144
 msgid "Using a trusted, secure hosting provider – preferably one which claims and actively promotes PCI compliance."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:143
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:148
 msgid "Maintain security best practices when setting passwords and limit access to your server."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:147
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:152
 msgid "Implement an SSL certificate to keep your donations secure."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:148
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:153
 msgid "Keep plugins up to date to ensure latest security fixes are present."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:223
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:228
 msgid "Unable to load PayPal Commerce client token. Please try again later. Error: %1$s"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:240
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:245
 msgid "Card Expiration Date:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:241
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:246
 msgid "Card Number:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:242
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:247
 msgid "Card CVC:"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:247
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:252
 msgid "MM/YY"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:249
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:254
 #: build/payPalCommerceGateway.js:1
 msgid "There was a problem authenticating your payment method. Please try again. If the problem persists, please try another payment method."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:253
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:258
 msgid "Error Code"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:254
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:259
 msgid "There was an error processing your donation. Please contact the administrator."
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:261
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:266
 #: build/payPalCommerceGateway.js:1
 msgid "Or pay with card"
 msgstr ""
 
-#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:266
+#: src/PaymentGateways/PayPalCommerce/ScriptLoader.php:271
 msgid "Checking donation status with PayPal."
 msgstr ""
 
@@ -18349,28 +18357,87 @@ msgid "Shop now"
 msgstr ""
 
 #: src/Promotions/InPluginUpsells/resources/views/sale-banners.php:43
+#: src/Promotions/InPluginUpsells/resources/views/stellarwp-sale-banner.php:54
+#: assets/dist/js/admin-reports-widget.js:6748
 msgid "Dismiss"
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:54
+#: src/Promotions/InPluginUpsells/SaleBanners.php:53
 msgid "Black Friday/Giving Tuesday Sale"
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:57
-#: src/Promotions/InPluginUpsells/SaleBanners.php:69
+#: src/Promotions/InPluginUpsells/SaleBanners.php:56
+#: src/Promotions/InPluginUpsells/SaleBanners.php:68
 msgid "Upgrade to a Pricing Plan for Recurring Donations, Fee Recovery, and more."
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:61
+#: src/Promotions/InPluginUpsells/SaleBanners.php:60
 msgid "Upgrade to a Plus Plan to get all must-have add-ons."
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:65
+#: src/Promotions/InPluginUpsells/SaleBanners.php:64
 msgid "Upgrade to Pro and get Peer-to-Peer fundraising."
 msgstr ""
 
-#: src/Promotions/InPluginUpsells/SaleBanners.php:75
+#: src/Promotions/InPluginUpsells/SaleBanners.php:74
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:28
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:65
+#: src/Promotions/ReportsWidgetBanner/ReportsWidgetBanner.php:22
 msgid "Shop Now"
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:19
+msgid "Make it stellar."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:20
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:63
+#: assets/dist/js/admin-reports-widget.js:6734
+msgid "Make it yours."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:23
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:26
+msgid "Save 40% on the GiveWP Plus Plan."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:24
+msgid "Save 40% on the GiveWP Pro Plan."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:25
+msgid "Save 40% on all StellarWP products."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:35
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:71
+msgid "View all StellarWP Deals"
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:38
+msgid "Take %s off all brands during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:40
+msgid "Take %s off all StellarWP brands during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:64
+msgid "Save 40% on Peer-to-Peer Fundraising."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:74
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:77
+msgid "Open up your donation forms to your supporters during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:75
+#: src/Promotions/InPluginUpsells/StellarSaleBanners.php:76
+msgid "Upgrade to the Pro Plan and get Peer-to-Peer Fundraising during the annual Stellar Sale. Now through July 30."
+msgstr ""
+
+#: src/Promotions/ReportsWidgetBanner/ReportsWidgetBanner.php:21
+msgid "Make it yours. Save 40% on all GiveWP products."
 msgstr ""
 
 #: src/Receipt/DonationReceipt.php:103
@@ -18665,7 +18732,7 @@ msgid "All Time"
 msgstr ""
 
 #: src/Views/Admin/Pages/templates/reports-template.php:50
-#: assets/dist/js/admin-reports-widget.js:6622
+#: assets/dist/js/admin-reports-widget.js:6632
 #: assets/dist/js/admin-reports.js:5974
 #: assets/dist/js/give-admin-event-tickets-details.js:2165
 msgid "Overview"
@@ -19496,24 +19563,28 @@ msgstr ""
 msgid "Skip joining community"
 msgstr ""
 
-#: assets/dist/js/admin-reports-widget.js:6638
+#: assets/dist/js/admin-reports-widget.js:6648
 msgid "Avg. Donation"
 msgstr ""
 
-#: assets/dist/js/admin-reports-widget.js:6671
+#: assets/dist/js/admin-reports-widget.js:6681
 msgid "Get a quick view of your donation activity"
 msgstr ""
 
-#: assets/dist/js/admin-reports-widget.js:6673
+#: assets/dist/js/admin-reports-widget.js:6683
 msgid "You don't have any donations yet"
 msgstr ""
 
-#: assets/dist/js/admin-reports-widget.js:6675
+#: assets/dist/js/admin-reports-widget.js:6685
 msgid "Boost your fundraising by over 30% with our improved recurring add-on and start collecting donations effortlessly on your website."
 msgstr ""
 
-#: assets/dist/js/admin-reports-widget.js:6682
+#: assets/dist/js/admin-reports-widget.js:6692
 msgid "Get more donations"
+msgstr ""
+
+#: assets/dist/js/admin-reports-widget.js:6737
+msgid "Save 40% on all GiveWP products"
 msgstr ""
 
 #: assets/dist/js/admin-reports.js:2506
@@ -19710,84 +19781,84 @@ msgstr ""
 msgid "Read more about the connection types"
 msgstr ""
 
-#: assets/dist/js/admin.js:6193
+#: assets/dist/js/admin.js:6202
 msgid "Invalid Statement Descriptor Text"
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "Please enter a valid Stripe statement descriptor."
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "List of important Stripe statement descriptor text requirements:"
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "Contains only Latin characters."
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "Contains between 5 and 22 characters, inclusive."
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "Contains at least one letter."
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
+#: assets/dist/js/admin.js:6203
 msgid "Does not contain any of the special characters < > \\ ' \" *."
 msgstr ""
 
-#: assets/dist/js/admin.js:6194
-#: assets/dist/js/admin.js:6206
+#: assets/dist/js/admin.js:6203
+#: assets/dist/js/admin.js:6215
 msgid "Read more about stripe statement descriptor text requirements."
 msgstr ""
 
-#: assets/dist/js/admin.js:6205
+#: assets/dist/js/admin.js:6214
 msgid "Invalid Stripe Statement Descriptor Text"
 msgstr ""
 
-#: assets/dist/js/admin.js:6206
+#: assets/dist/js/admin.js:6215
 msgid "We are unable to update Stripe statement descriptor."
 msgstr ""
 
-#: assets/dist/js/admin.js:9309
+#: assets/dist/js/admin.js:9318
 msgid "Select a Stripe Account"
 msgstr ""
 
-#: assets/dist/js/admin.js:9310
+#: assets/dist/js/admin.js:9319
 msgid "You've selected to customize the Stripe account for this form, but not selected a different account. Please set an account as default for this form on the Stripe settings tab."
 msgstr ""
 
-#: assets/dist/js/admin.js:9350
+#: assets/dist/js/admin.js:9359
 msgid "Disconnect Stripe Account"
 msgstr ""
 
-#: assets/dist/js/admin.js:9351
+#: assets/dist/js/admin.js:9360
 msgid "Are you sure you want to disconnect this Stripe account?"
 msgstr ""
 
-#: assets/dist/js/admin.js:9409
+#: assets/dist/js/admin.js:9418
 msgid "Account Name"
 msgstr ""
 
-#: assets/dist/js/admin.js:9411
+#: assets/dist/js/admin.js:9420
 msgid "Account Email"
 msgstr ""
 
-#: assets/dist/js/admin.js:9413
+#: assets/dist/js/admin.js:9422
 msgid "View Documentation >"
 msgstr ""
 
-#: assets/dist/js/admin.js:9414
+#: assets/dist/js/admin.js:9423
 msgid "Please confirm you’d like to set the account below as the new default Stripe account. All donation forms set to inherit the Global Settings will use this new default account. %1$s<br>%2$s%3$s"
 msgstr ""
 
-#: assets/dist/js/admin.js:9414
+#: assets/dist/js/admin.js:9423
 msgid "Please confirm you’d like to set the account below as the new default Stripe account for this donation form. All donations will process through this Stripe account rather than the Global default Stripe account. %1$s<br>%2$s%3$s"
 msgstr ""
 
-#: assets/dist/js/admin.js:9420
+#: assets/dist/js/admin.js:9429
 msgid "Confirm New Default Account"
 msgstr ""
 
@@ -22554,6 +22625,18 @@ msgstr ""
 
 #: build/stripePaymentElementFormBuilder.js:1
 msgid "All donations are processed through the default Stripe account."
+msgstr ""
+
+#: build/stripePaymentElementGateway.js:1
+msgid "Invalid Payment Data."
+msgstr ""
+
+#: build/stripePaymentElementGateway.js:1
+msgid "Invalid Payment Data. Error Details: %s"
+msgstr ""
+
+#: build/stripePaymentElementGateway.js:1
+msgid "Invalid Payment Data. Error Details: %s (code: %s)"
 msgstr ""
 
 #: build/DonationForms/Blocks/DonationFormBlock/block.json

@@ -1297,7 +1297,7 @@ class L_ThePlus_Video_Player extends Widget_Base {
 			}
 		}
 
-		$vid_color = ! empty( $settings['video_color'] ) ? $settings['video_color'] : '';
+		$vid_color = ! empty( $settings['video_color'] ) ? tp_senitize_role( $settings['video_color'] ) : '';
 
 		if ( ! empty( $vid_color ) ) {
 			if ( 'vimeo' === $video_type ) {

@@ -4,7 +4,7 @@ Tags: Welcart, e-Commerce, shopping, cart, eShop, store, admin, calendar, manage
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 7.4 - 8.1
-Stable tag: 2.10.3
+Stable tag: 2.10.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,18 @@ Please see [Welcart Forum(Japanese)](https://www.welcart.com/community/forums).
 
 
 == Changelog ==
+
+26 June 2024
+= V2.10.4 =
+-----------
+* [e-SCOTT/WelcartPay/Metaps Payment] Added 3DS authentication parameters for card payments.
+* [ZEUS] Fixed some bugs with 3DS authentication for card payments and corrected error messages.
+* [Metaps Payment] Fixed a bug with user ID payments.
+* [Metaps Payment/ROBOT PAYMENT] Fixed a bug where payment information was not displayed.
+* Fixed a bug where an error occurred when returning via the "Back to List" link after updating order data.
+* Fixed a bug where the stock status style was not applied in the order data editing page.
+* Added hooks.
+* Fixed PHP errors.
 
 8 May 2024
 = V2.10.3 =

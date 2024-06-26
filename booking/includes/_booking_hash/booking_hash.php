@@ -123,8 +123,7 @@ function wpbc_hash__update_booking_hash( $booking_id, $resource_id = '1' ) {
  */
 function wpbc_get_dates_selection_js_code( $to_select__dates_sql_arr, $resource_id ){
 
-	$dates_selection_js_code  = '<script type="text/javascript">';
-	$dates_selection_js_code .= 'jQuery(document).ready(function(){';
+	$dates_selection_js_code  = '<script type="text/javascript"> ' . wpbc_jq_ready_start();                                 				//FixIn: 10.1.3.7
 
 	//FixIn: 10.0.0.50
 	$dates_selection_js_code .= ' var select_dates_in_calendar_id = ' . intval( $resource_id ) . ';';
@@ -143,8 +142,7 @@ function wpbc_get_dates_selection_js_code( $to_select__dates_sql_arr, $resource_
 	$dates_selection_js_code .= " 	} ";
 	$dates_selection_js_code .= " } ); ";
 
-	$dates_selection_js_code .= '});';
-	$dates_selection_js_code .= '</script>';
+	$dates_selection_js_code .= wpbc_jq_ready_end() . '</script>';                                                          				//FixIn: 10.1.3.7
 
 	return $dates_selection_js_code;
 }

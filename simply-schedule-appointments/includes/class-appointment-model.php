@@ -585,9 +585,24 @@ class SSA_Appointment_Model extends SSA_Db_Model {
 
 	public function filter_where_conditions( $where, $args ) {
 		global $wpdb;
-		
-		if ( ! empty( $args['customer_id'] ) ) {
-			$where .= $wpdb->prepare( ' AND customer_id=%d', sanitize_text_field( $args['customer_id'] ) );
+
+		// Check if both customer_id and customer_information are provided
+		if ( ! empty( $args['customer_id'] ) && ! empty( $args['customer_information'] ) ) {
+			$customer_id_condition = $wpdb->prepare( 'customer_id=%d', sanitize_text_field( $args['customer_id'] ) );
+			$email = sanitize_text_field( $args['customer_information'] );
+			$email_condition = $wpdb->prepare( 'customer_information LIKE %s', '%' . $wpdb->esc_like( '"Email":"' . $email . '"' ) . '%' );
+			
+			$where .= ' AND (' . $customer_id_condition . ' OR ' . $email_condition . ')';
+		} else {
+			// Add individual conditions if only one is provided
+			if ( ! empty( $args['customer_id'] ) ) {
+				$where .= $wpdb->prepare( ' AND customer_id=%d', sanitize_text_field( $args['customer_id'] ) );
+			}
+
+			if ( ! empty( $args['customer_information'] ) ) {
+				$email = sanitize_text_field( $args['customer_information'] );
+				$where .= $wpdb->prepare( ' AND customer_information LIKE %s', '%' . $wpdb->esc_like( '"Email":"' . $email . '"' ) . '%' );
+			}
 		}
 
 		if ( ! empty( $args['group_id'] ) ) {

@@ -1783,3 +1783,6 @@ form.booking_form {
     font-size: 17px;
     color:#444;
 }
+.wpbc_wizard_step_hidden {
+    display:none;
+}

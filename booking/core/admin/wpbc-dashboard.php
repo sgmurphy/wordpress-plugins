@@ -493,7 +493,7 @@ function wpbc_dashboard_section_version() {
         <div class="wpbc_dashboard_section border_orrange" id="bk_upgrade_section"> 
             <div style="padding:0px 10px;width:96%;">
                 <h4><?php _e('Upgrade to higher versions' ,'booking') ?>:</h4>
-                <p>Check additional advanced functionality, which exist in higher versions and can be interesting for you <a href="https://wpbookingcalendar.com/overview/" target="_blank">here &raquo;</a></p>
+                <p>Check additional advanced functionality, which exist in higher versions and can be interesting for you <a href="https://wpbookingcalendar.com/features/" target="_blank">here &raquo;</a></p>
                 <p><a class="button button-primary" style="margin-top: 10px;font-weight: 600;"  href="<?php echo wpbc_up_link(); ?>" target="_blank"><?php if ( wpbc_get_ver_sufix() == '' ) { _e('Purchase' ,'booking'); } else { _e('Upgrade Now' ,'booking'); } ?></a> </p>
             </div>
         </div>
@@ -552,11 +552,11 @@ function wpbc_dashboard_section_version() {
 					<td colspan="2" style="border:none;text-align:center;" class=""><?php
 						?><?php  wpbc_is_dismissed( 'wpbc_dashboard_section_current_version_upgrade' , array( 'css' => 'padding: 0 0px;' ) );        //FixIn: 8.1.3.10  ?><?php
 						if ($version == 'free') {
-							?><a class="button-primary button" style="font-weight:600;" target="_blank" href="https://wpbookingcalendar.com/overview/"><?php _e('Check Premium Features' ,'booking');?></a><?php
+							?><a class="button-primary button" style="font-weight:600;" target="_blank" href="https://wpbookingcalendar.com/features/"><?php _e('Check Premium Features' ,'booking');?></a><?php
 						} elseif  ( wpbc_get_ver_sufix() != '' )  {
 							?><a class="button-primary button"  href="<?php echo wpbc_get_settings_url(); ?>&tab=upgrade"><?php _e('Upgrade' ,'booking');?></a><?php
 						} else {
-							?><a class="button-primary button" target="_blank" href="https://wpbookingcalendar.com/overview/"><?php _e('Explore Premium Features' ,'booking');?></a><?php
+							?><a class="button-primary button" target="_blank" href="https://wpbookingcalendar.com/features/"><?php _e('Explore Premium Features' ,'booking');?></a><?php
 						}
 				  ?></td>
 				</tr>

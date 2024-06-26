@@ -94,16 +94,16 @@ class Tools implements AdminTabInterface
 
     public function exportJsonSettings()
     {
-        $this->checkNonceOrDie();
-        header("Content-type: application/json");
-        header("Expires: 0");
-        header("Content-Disposition: attachment; filename=advanced-dynamic-json-{$export}.json");
-
         $export = $_REQUEST['export_select'] ?? false;
 
         if($export === false) {
             die();
         }
+
+        $this->checkNonceOrDie();
+        header("Content-type: application/json");
+        header("Expires: 0");
+        header("Content-Disposition: attachment; filename=advanced-dynamic-json-{$export}.json");
 
         $this->prepareExportGroups();
 

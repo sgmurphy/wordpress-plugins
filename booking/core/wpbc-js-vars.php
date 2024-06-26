@@ -102,6 +102,25 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 	wp_add_inline_script( 'wpbc_all', $script_before, 'before' );
 
 	$script .= "console.log( '== WPBC VARS " . WP_BK_VERSION_NUM . ' ['.wpbc_get_version_type__and_mu() .  "] LOADED ==' );";
+
+
+	// Load this _wpbc only  after  loading of all scripts                                                              //FixIn: 10.1.3.4
+	$script  = " function wpbc_init__head(){ " . $script . " } ";
+	$script .= "( function() { if ( document.readyState === 'loading' ){ document.addEventListener( 'DOMContentLoaded', wpbc_init__head ); } else { wpbc_init__head(); } }() );";
+
 	wp_add_inline_script( 'wpbc_all', $script );
+
+	/**
+	 * Help info. Order of JS events:
+	 *
+	 *  window.addEventListener("load", (event) => {     log.textContent += "load\n";  });                              -> window.onload (which is implemented even in old browsers), which fires when the entire page loads (images, styles, etc.)
+	 *  document.addEventListener("readystatechange", (event) => { log.textContent += `readystate: ${document.readyState}\n`; });
+	 *  document.addEventListener("DOMContentLoaded", (event) => { log.textContent += "DOMContentLoaded\n"; });         -> newish event which fires when the document's DOM is loaded (which may be some time before the images, etc. are loaded);
+	 * ::
+	 *  DOMContentLoaded
+	 *  readystate: complete
+	 *  load
+	 */
 }
 add_action( 'wpbc_enqueue_js_files', 'wpbc_localize_js_vars', 51 );     // Need to  set  here 51,  because some JS has 50 priority,  for example at  WP Booking Calendar > Availability > Days Availability page       -> This hook fired after ENQUEUE of WPBC JS     -   wp_enqueue_script
+

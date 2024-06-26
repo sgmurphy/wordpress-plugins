@@ -304,6 +304,7 @@ class CartProcessor
      */
     public function process($first = false)
     {
+        static $doFirst = false;
         $wcCart           = $this->wcCart;
         $wcNoFilterWorker = $this->wcNoFilterWorker;
 
@@ -330,9 +331,10 @@ class CartProcessor
             return $cart;
         }
 
-        $optionDontProcessCart = $this->context->getOption("dont_recalculate_cart_on_page_load", true);
-        if( $first AND apply_filters('adp_dont_process_cart_on_page_load', $optionDontProcessCart) ) {
+        $optionDontProcessCart = apply_filters('adp_dont_process_cart_on_page_load', $this->context->getOption("dont_recalculate_cart_on_page_load", true));
+        if( $first AND $optionDontProcessCart ) {
             $this->cartCouponsProcessor->applyCouponsToWcCart($cart, $wcCart);
+            $doFirst = true;
             return $cart;
         }
 
@@ -430,7 +432,8 @@ class CartProcessor
 
                 $productExt = new ProductExtension($this->context, $product);
 
-                if ($first || $optionDontProcessCart) {
+                if ($first || $doFirst) {
+                    $doFirst = false;
                     $facade->setInitialCustomPrice(null);
 
                     if ( $facade->isContainerType() ) {

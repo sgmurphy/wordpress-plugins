@@ -1630,7 +1630,7 @@ function usces_the_itemImageDescription( $number = 0, $post = '', $out = '' ) {
 			$ind       = $number - 1;
 			$attach_ob = get_post( $pictids[ $ind ] );
 		}
-		$excerpt = $attach_ob->post_content;
+		$excerpt = ( isset( $attach_ob->post_content ) ) ? $attach_ob->post_content : '';
 	}
 
 	if ( 'return' === $out ) {

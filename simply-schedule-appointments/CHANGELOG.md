@@ -1,5 +1,21 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.28 - 2024-06-18
+
+### Fixes
+
+- Upcoming appointments module previous appointments bug
+- Avoid adding multiple payment records with same payment ID
+- Fix round robin assignment to staff with zero appointments
+- Fix notification template rendering non valid tags
+- Fix | Team reassignment not working on rescheduling
+
+### Features and Improvements
+
+- Fixing translation strings
+- Updated the author and author URI.
+- Added unique ids and classes to the input fields.
+
 ## SSA-VERSION-PREFIX.6.7.26 - 2024-06-13
 
 ### Fixes

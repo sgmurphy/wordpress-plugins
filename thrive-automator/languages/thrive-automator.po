@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-14 11:53+0000\n"
+"POT-Creation-Date: 2024-06-21 12:46+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -323,7 +323,7 @@ msgid "Post category"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-post-categories-field.php:22
-msgid "Wordpress post category"
+msgid "WordPress post category"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-post-categories-field.php:38
@@ -339,7 +339,7 @@ msgid "Post tag"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-post-tags-field.php:21
-msgid "Wordpress post tag"
+msgid "WordPress post tag"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-post-tags-field.php:37
@@ -419,7 +419,7 @@ msgid "Webhook URL:"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-user-role-field.php:20, ../inc/classes/items/action-fields/class-user-role-field.php:24
-msgid "Wordpress user role"
+msgid "WordPress user role"
 msgstr ""
 
 #: ../inc/classes/items/action-fields/class-webhook-headers.php:19
@@ -871,7 +871,7 @@ msgid "Global data"
 msgstr ""
 
 #: ../inc/classes/items/data-objects/class-post-data.php:24
-msgid "Wordpress post"
+msgid "WordPress post"
 msgstr ""
 
 #: ../inc/classes/items/data-objects/class-user-data.php:26

@@ -35,9 +35,13 @@ class CompositeToPricingCartItemAdapter extends SimpleToPricingCartItemAdapter i
 
         if ($this->compositeCmp->isAllowToProcessPricedIndividuallyItems()) {
             if ($this->compositeCmp->isCompositeItemNotPricedIndividually($facade)) {
+                $facade->setInitialCustomPrice(0.0);
                 $item->addAttr(CartItemAttributeEnum::IMMUTABLE());
             }
         } else {
+            if ($this->compositeCmp->isCompositeItemNotPricedIndividually($facade)) {
+                $facade->setInitialCustomPrice(0.0);
+            }
             $item->addAttr(CartItemAttributeEnum::IMMUTABLE());
         }
 

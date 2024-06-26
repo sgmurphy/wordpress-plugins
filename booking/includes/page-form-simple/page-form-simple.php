@@ -75,7 +75,7 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
                               'title' => __('Free vs Pro','booking')                // Title of TAB
                             , 'hint'  => __('Upgrade to higher versions', 'booking')              // Hint    
                             //, 'page_title' => __('Upgrade', 'booking')        // Title of Page    
-                            , 'link' => 'https://wpbookingcalendar.com/overview/'                    // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
+                            , 'link' => 'https://wpbookingcalendar.com/features/'                    // Can be skiped,  then generated link based on Page and Tab tags. Or can  be extenral link
                             , 'position' => 'right'                             // 'left'  ||  'right'  ||  ''
                             //, 'css_classes' => ''                             // CSS class(es)
                             //, 'icon' => ''                                    // Icon - link to the real PNG img
@@ -881,13 +881,13 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 
 				<?php
 					printf( 'Explore %sother versions%s of Booking Calendar where you can %sfully customize the booking form%s structure to meet your website design and your needs.',
-						'<a href="https://wpbookingcalendar.com/overview/" target="_blank" style="text-decoration:underline;">','</a>',
+						'<a href="https://wpbookingcalendar.com/features/" target="_blank" style="text-decoration:underline;">','</a>',
 						'<a href="https://wpbookingcalendar.com/faq/booking-form-fields/" target="_blank" style="text-decoration:underline;">','</a>'
 					);
 					/*
 				?>
 				<strong class="alert-heading">Note!</strong>
-					Check how in <a href="https://wpbookingcalendar.com/overview/" target="_blank" style="text-decoration:underline;">other versions of Booking Calendar</a>
+					Check how in <a href="https://wpbookingcalendar.com/features/" target="_blank" style="text-decoration:underline;">other versions of Booking Calendar</a>
 					possible fully <a href="https://wpbookingcalendar.com/faq/booking-form-fields/" target="_blank" style="text-decoration:underline;">customize the booking form</a>
 					<em>(add or remove fields, configure time-slots, change structure of booking form, etc...).</em>
 					*/?>

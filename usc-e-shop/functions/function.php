@@ -1870,49 +1870,55 @@ function usces_check_acting_return() {
 
 		case 'jpayment_card':
 			$results = $_GET;
-			if ( 2 === (int) $_GET['rst'] ) {
+			$rst     = ( isset( $_GET['rst'] ) ) ? (int) $_GET['rst'] : 0;
+			if ( 2 === $rst ) {
 				usces_log( 'jpayment card error : ' . print_r( $entry, true ), 'acting_transaction.log' );
+				$cod = ( isset( $_GET['cod'] ) ) ? $_GET['cod'] : '';
 				$log = array(
 					'acting' => $acting,
-					'key'    => $_GET['cod'],
-					'result' => $_GET['rst'],
+					'key'    => $cod,
+					'result' => $rst,
 					'data'   => $_GET,
 				);
 				usces_save_order_acting_error( $log );
 			}
-			$results[0]           = ( 1 === (int) $_GET['rst'] ) ? 1 : 0;
+			$results[0]           = ( 1 === $rst ) ? 1 : 0;
 			$results['reg_order'] = true;
 			break;
 
 		case 'jpayment_conv':
 			$results = $_GET;
-			if ( 2 === (int) $_GET['rst'] ) {
+			$rst     = ( isset( $_GET['rst'] ) ) ? (int) $_GET['rst'] : 0;
+			if ( 2 === $rst ) {
 				usces_log( 'jpayment conv error : ' . print_r( $entry, true ), 'acting_transaction.log' );
+				$cod = ( isset( $_GET['cod'] ) ) ? $_GET['cod'] : '';
 				$log = array(
 					'acting' => $acting,
-					'key'    => $_GET['cod'],
-					'result' => $_GET['rst'],
+					'key'    => $cod,
+					'result' => $rst,
 					'data'   => $_GET,
 				);
 				usces_save_order_acting_error( $log );
 			}
-			$results[0]           = ( 1 === (int) $_GET['rst'] && 'CPL_PRE' === $_GET['ap'] ) ? 1 : 0;
+			$results[0]           = ( 1 === $rst && 'CPL_PRE' === $_GET['ap'] ) ? 1 : 0;
 			$results['reg_order'] = true;
 			break;
 
 		case 'jpayment_bank':
 			$results = $_GET;
-			if ( 2 === (int) $_GET['rst'] ) {
+			$rst     = ( isset( $_GET['rst'] ) ) ? (int) $_GET['rst'] : 0;
+			if ( 2 === $rst ) {
 				usces_log( 'jpayment bank error : ' . print_r( $entry, true ), 'acting_transaction.log' );
+				$cod = ( isset( $_GET['cod'] ) ) ? $_GET['cod'] : '';
 				$log = array(
 					'acting' => $acting,
-					'key'    => $_GET['cod'],
-					'result' => $_GET['rst'],
+					'key'    => $cod,
+					'result' => $rst,
 					'data'   => $_GET,
 				);
 				usces_save_order_acting_error( $log );
 			}
-			$results[0]           = ( 1 === (int) $_GET['rst'] ) ? 1 : 0;
+			$results[0]           = ( 1 === $rst ) ? 1 : 0;
 			$results['reg_order'] = true;
 			break;
 
@@ -3128,6 +3134,7 @@ function usces_page_name( $out = '' ) {
 	} else {
 		$page = $usces->page;
 	}
+	$page = apply_filters( 'usces_filter_usces_page_name', $page );
 
 	if ( 'return' === $out ) {
 		return esc_js( $page );
@@ -4386,7 +4393,7 @@ function usces_get_ordercart_row( $order_id, $cart = array() ) {
 		<td><input name="skuPrice[<?php echo esc_attr( $ordercart_id ); ?>]" class="text price" type="text" value="<?php echo esc_attr( usces_crform( $skuPrice, false, false, 'return', false ) ); ?>" /><?php do_action( 'usces_admin_order_cart_after_price', $materials ); ?></td>
 		<td><input name="quant[<?php echo esc_attr( $ordercart_id ); ?>]" class="text quantity" type="text" value="<?php echo esc_attr( $cart_row['quantity'] ); ?>" /></td>
 		<td><p id="sub_total[<?php echo esc_attr( $ordercart_id ); ?>]" class="aright">&nbsp;</p><?php do_action( 'usces_admin_order_cart_after_sub_total', $materials ); ?></td>
-		<td <?php echo esc_attr( $red ); ?>><?php echo esc_html( $stock ); ?></td>
+		<td <?php wel_esc_script_e( $red ); ?>><?php echo esc_html( $stock ); ?></td>
 		<td>
 		<input name="postId[<?php echo esc_attr( $ordercart_id ); ?>]" type="hidden" value="<?php echo esc_attr( $post_id ); ?>" />
 		<input name="advance[<?php echo esc_attr( $ordercart_id ); ?>]" type="hidden" value="<?php echo esc_attr( $advance_value ); ?>" />

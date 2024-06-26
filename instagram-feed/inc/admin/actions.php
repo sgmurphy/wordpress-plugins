@@ -20,30 +20,10 @@ function sb_instagram_menu() {
 	$cap = current_user_can( 'manage_instagram_feed_options' ) ? 'manage_instagram_feed_options' : 'manage_options';
 	$cap = apply_filters( 'sbi_settings_pages_capability', $cap );
 
-	global $sb_instagram_posts_manager;
-	$notice = '';
-	if ( $sb_instagram_posts_manager->are_critical_errors() ) {
-		$notice = ' <span class="update-plugins sbi-error-alert sbi-notice-alert"><span>!</span></span>';
-	}
-
-	$notifications = false;
-	if ( class_exists( '\SBI_Notifications' ) ) {
-		$sbi_notifications = new \SBI_Notifications();
-		$notifications = $sbi_notifications->get();
-	}
-
-	$notice_bubble = '';
-	if ( empty( $notice ) && ! empty( $notifications ) && is_array( $notifications ) ) {
-		$notice_bubble = ' <span class="sbi-notice-alert"><span>' . count( $notifications ) . '</span></span>';
-	}
-	$callout = SBI_Callout::print_callout_ob_html('side-menu');
-	$print_callout = $callout !== false ? $callout : '';
-
-
-
+	$notice_bubble = sb_menu_notice_bubble();
 	add_menu_page(
 		__( 'Instagram Feed', 'instagram-feed' ),
-		__( 'Instagram Feed', 'instagram-feed' ). $notice_bubble . $notice . $print_callout,
+		__( 'Instagram Feed', 'instagram-feed' ). $notice_bubble,
 		$cap,
 		'sb-instagram-feed',
 		'sb_instagram_settings_page'
@@ -125,6 +105,7 @@ function sb_menu_notice_bubble() {
 		return ' <span class="update-plugins sbi-error-alert sbi-notice-alert"><span>!</span></span>';
 	}
 
+	$notice = '';
 	$notifications = false;
 	if ( class_exists( '\SBI_Notifications' ) ) {
 		$sbi_notifications = new \SBI_Notifications();
@@ -135,19 +116,14 @@ function sb_menu_notice_bubble() {
 		}
 	}
 
-	global $sbi_notices;
-	$template_notice = $sbi_notices->get_notice('custom_feed_templates');
-	$sbi_statuses = get_option('sbi_statuses', array());
-
-	if ($template_notice && isset($sbi_statuses['custom_templates_notice'])) {
-		$notifications = $notifications ? $notifications + 1 : 1;
-	}
+	$callout = SBI_Callout::print_callout_ob_html('side-menu');
+	$print_callout = $callout !== false ? $callout : '';
 
 	if ( $notifications ) {
-		return ' <span class="sbi-notice-alert"><span>' . absint( $notifications ) . '</span></span>';
+		$notice = ' <span class="sbi-notice-alert"><span>' . absint( $notifications ) . '</span></span>';
 	}
 
-	return '';
+	return $notice . $print_callout;
 }
 
 function sbi_add_settings_link( $links ) {

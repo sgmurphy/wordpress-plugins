@@ -57,7 +57,7 @@ class WPBC_JS extends WPBC_JS_CSS {
 		 * Remove `async` and `defer`  ( check more here https://javascript.info/script-async-defer )
 		 * for scripts registered or enqueued, that required for correct  working of plugin,  like
 		 * jquery and all Booking Calendar scripts
-		 * because inside content of the page can  be something like  jQuery(document).ready( function(){ ...} which  will
+		 * because inside content of the page can  be something like  jQuery( document ).ready( function(){ ...} which  will
 		 * generate         Uncaught ReferenceError: jQuery is not defined
 		 */
 		add_filter( 'script_loader_tag', array( $this, 'filter_script_loader_tag' ), 9000000000 , 3 );
@@ -378,4 +378,41 @@ function wpbc_load_js__required_for_media_upload(){
 		$script .= "}); ";
 		wp_add_inline_script( 'jquery', $script );
 	}
+}
+
+
+/**
+ * On jQuery(...).ready function Start
+ *
+ * @return string
+ */
+function wpbc_jq_ready_start() {
+
+	return "(function() { var a = setInterval( function() {  if ( ( 'undefined' === typeof jQuery ) || ! window.jQuery ) { return; } clearInterval( a ); jQuery( document ).ready( function (){";
+
+	// Help description:
+	?><script type="text/javascript">
+		(function (){
+			var a = setInterval( function (){
+				if ( ('undefined' === typeof jQuery) || !window.jQuery ){
+					return;
+				}
+				clearInterval( a );
+				// Here can  be executed jQuery functions
+				jQuery( document ).ready( function (){
+					// Here is my code start
+				} );
+			}, 500 );
+		})();
+	</script><?php
+}
+
+
+/**
+ * On jQuery(...).ready function end
+ * @return string
+ */
+function wpbc_jq_ready_end() {
+
+	return "} ); }, 500 ); })();";
 }

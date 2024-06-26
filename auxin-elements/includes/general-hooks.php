@@ -136,6 +136,18 @@ function auxin_add_theme_options_in_plugin( $fields_sections_list ){
         'type'          => 'code'
     );
 
+    $fields_sections_list['fields'][] = array(
+        'title'         => __('Google Marketing Code Second Part (optional)', 'auxin-elements'),
+        'description'   => sprintf( __('You can add your second part of Google marketing code here.%s DO NOT use %s tag.', 'auxin-elements'), '<br />' , '<code>&lt;noscript&gt;</code>' ),
+        'id'            => 'auxin_user_google_marketing_second_part',
+        'section'       => 'general-section-seo',
+        'dependency'    => array(),
+        'default'       => '',
+        'mode'          => 'html',
+        'button_labels' => array( 'label' => false ),
+        'type'          => 'code'
+    );
+
     // Secondary logo for sticky header  ----------------------------------
 
 
@@ -1787,6 +1799,16 @@ function auxin_ele_add_theme_options_to_js_file( $js ){
 }
 add_filter( 'auxin_custom_js_file_content', 'auxin_ele_add_theme_options_to_js_file' );
 
+/*-----------------------------------------------------------------------------------*/
+/*  print google marketing tag second part right after body tag opens in page
+/*-----------------------------------------------------------------------------------*/
+function auxin_ele_print_google_marketing_code_second_part() {
+    $code = auxin_get_option( 'auxin_user_google_marketing_second_part', '' );
+    if ( !empty( $code ) ) {
+        echo "<noscript>" . wp_kses_post( $code ) . "</noscript>";
+    }
+}
+add_action( 'auxin_after_body_open', 'auxin_ele_print_google_marketing_code_second_part', 1 );
 
 /*-----------------------------------------------------------------------------------*/
 /*  Adds the custom CSS class of the login page to body element

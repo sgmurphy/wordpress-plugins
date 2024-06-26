@@ -590,11 +590,25 @@ class SBI_Global_Settings {
 		}
 
 		global $sb_instagram_posts_manager;
-
 		$sb_instagram_posts_manager->remove_all_errors();
 
 		global $sbi_notices;
 		$sbi_notices->remove_notice( 'critical_error' );
+
+		$user_id = get_current_user_id();
+		update_user_meta($user_id, 'sbi_ignore_new_user_sale_notice', 'always');
+		$sbi_notices->remove_notice( 'discount' );
+
+		$sbi_statuses_option = get_option('sbi_statuses', array());
+		update_option('sbi_rating_notice', 'dismissed', false);
+		$sbi_statuses_option['rating_notice_dismissed'] = sbi_get_current_time();
+		update_option('sbi_statuses', $sbi_statuses_option, false);
+
+		// remove the rating notice step 1 and step 2 from global notices
+		$sbi_notices->remove_notice('review_step_1');
+		$sbi_notices->remove_notice('review_step_2');
+		$sbi_notices->remove_notice('review_step_1_all_pages');
+		$sbi_notices->remove_notice('review_step_2_all_pages');
 
 		wp_send_json_success();
 	}

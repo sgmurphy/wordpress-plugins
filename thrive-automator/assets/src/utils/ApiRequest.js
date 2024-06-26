@@ -16,7 +16,7 @@ export default class ApiRequest {
 	}
 
 	/**
-	 * Generic api request through apiFetch of Wordpress
+	 * Generic api request through apiFetch of WordPress
 	 * @param path
 	 * @param method
 	 * @param payload

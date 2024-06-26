@@ -2567,13 +2567,13 @@ class DethemeKit_Grid extends Widget_Base {
 							$no_follow = $image['dethemekit_gallery_img_link']['nofollow'] ? 'rel="nofollow"' : '';
 
 							?>
-								<a class="pa-gallery-whole-link" href="<?php echo esc_attr( $icon_link ); ?>" <?php echo wp_kses_post( $external ); ?><?php echo wp_kses_post( $no_follow ); ?>></a>
+								<a class="pa-gallery-whole-link" href="<?php echo esc_url( $icon_link ); ?>" <?php echo wp_kses_post( $external ); ?><?php echo wp_kses_post( $no_follow ); ?>></a>
 
 							<?php
 						} elseif ( 'link' === $image['dethemekit_gallery_img_link_type'] ) {
 							$icon_link = get_permalink( $image['dethemekit_gallery_img_existing'] );
 							?>
-								<a class="pa-gallery-whole-link" href="<?php echo esc_attr( $icon_link ); ?>"></a>
+								<a class="pa-gallery-whole-link" href="<?php echo esc_url( $icon_link ); ?>"></a>
 							<?php
 						}
 					} elseif ( 'yes' === $lightbox ) {
@@ -2906,7 +2906,7 @@ class DethemeKit_Grid extends Widget_Base {
 					$this->add_render_attribute(
 						$link_key,
 						array(
-							'href'   => $icon_link,
+							'href'   => esc_url( $icon_link ),
 							'target' => $external,
 							'rel'    => $no_follow,
 						)
@@ -2919,7 +2919,7 @@ class DethemeKit_Grid extends Widget_Base {
 					$this->add_render_attribute(
 						$link_key,
 						array(
-							'href' => $icon_link,
+							'href' => esc_url( $icon_link ),
 						)
 					);
 

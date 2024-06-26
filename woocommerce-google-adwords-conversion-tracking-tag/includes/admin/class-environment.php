@@ -875,7 +875,6 @@ class Environment {
 		$exclude_list[] = 'wpm-google-ads';
 		$exclude_list[] = 'wpm-ga-ua-eec';
 		$exclude_list[] = 'wpm-ga4-eec';
-		$exclude_list[] = 'polyfill-io';
 
 		$exclude_list[] = 'jquery';
 		$exclude_list[] = 'jquery-core';
@@ -1505,8 +1504,6 @@ class Environment {
 			'wpm__premium_only.min.js',
 			'wpm-public.p1.min.js',
 			'wpm-public__premium_only.p1.min.js',
-			'polyfill-io',
-			'polyfill.min.js',
 			//            'facebook.js',
 			//            'facebook.min.js',
 			//            'facebook__premium_only.js',

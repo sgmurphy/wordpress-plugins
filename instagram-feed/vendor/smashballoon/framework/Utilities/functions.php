@@ -153,3 +153,19 @@ if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\flatten_a
         return $result;
     }
 }
+if (!\function_exists('InstagramFeed\\Vendor\\Smashballoon\\Framework\\sb_get_active_plugins')) {
+    /**
+     * Get active plugins.
+     *
+     * @return array $active_plugins Active plugins.
+     */
+    function sb_get_active_plugins()
+    {
+        if (is_multisite()) {
+            $active_plugins = \array_keys((array) get_site_option('active_sitewide_plugins', array()));
+        } else {
+            $active_plugins = (array) get_option('active_plugins', array());
+        }
+        return $active_plugins;
+    }
+}

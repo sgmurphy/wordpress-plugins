@@ -3,10 +3,10 @@
  * Settlement Class.
  * e-SCOTT Smart
  *
- * @package  Welcart
- * @author   Collne Inc.
- * @version  1.2.0
- * @since    1.9.0
+ * @package Welcart
+ * @author  Welcart Inc.
+ * @version 1.2.0
+ * @since   1.9.0
  */
 
 /**
@@ -873,11 +873,14 @@ class ESCOTT_MAIN {
 				$token        = filter_input( INPUT_POST, 'token', FILTER_DEFAULT );
 				$paytype      = filter_input( INPUT_POST, 'paytype', FILTER_DEFAULT );
 				$quick_member = filter_input( INPUT_POST, 'quick_member', FILTER_DEFAULT );
+				$billingname  = filter_input( INPUT_POST, 'billingname', FILTER_DEFAULT );
 				$html         = '<form id="purchase_form" action="' . USCES_CART_URL . '" method="post" onKeyDown="if(event.keyCode == 13){return false;}">
 					<input type="hidden" name="token" value="' . trim( $token ) . '">
 					<input type="hidden" name="paytype" value="' . trim( $paytype ) . '">
 					<input type="hidden" name="rand" value="' . $rand . '">
 					<input type="hidden" name="quick_member" value="' . $quick_member . '">
+					<input type="hidden" name="billingname" value="' . $billingname . '">
+					<input type="hidden" name="billingemail" value="' . $usces_entries['customer']['mailaddress1'] . '">
 					<div class="send">
 						' . apply_filters( 'usces_filter_confirm_before_backbutton', null, $payments, $acting_flg, $rand ) . '
 						<input name="backDelivery" type="submit" id="back_button" class="back_to_delivery_button" value="' . __( 'Back', 'usces' ) . '"' . apply_filters( 'usces_filter_confirm_prebutton', null ) . ' />
@@ -947,7 +950,8 @@ class ESCOTT_MAIN {
 			$html .= '
 			<input type="hidden" name="token" value="' . filter_input( INPUT_POST, 'token' ) . '">
 			<input type="hidden" name="paytype" value="' . filter_input( INPUT_POST, 'paytype', FILTER_DEFAULT ) . '">
-			<input type="hidden" name="quick_member" value="' . filter_input( INPUT_POST, 'quick_member', FILTER_DEFAULT ) . '">';
+			<input type="hidden" name="quick_member" value="' . filter_input( INPUT_POST, 'quick_member', FILTER_DEFAULT ) . '">
+			<input type="hidden" name="billingname" value="' . filter_input( INPUT_POST, 'billingname', FILTER_DEFAULT ) . '">';
 		}
 		return $html;
 	}
@@ -974,7 +978,7 @@ class ESCOTT_MAIN {
 		$encrypt_value = base64_decode( filter_input( INPUT_POST, 'EncryptValue' ) );
 		$query         = openssl_decrypt( $encrypt_value, $algo, $key, OPENSSL_RAW_DATA, $iv );
 		parse_str( $query, $results );
-		if ( isset( $results['ResponseCd'] ) && isset( $results['SecureResultCode'] ) && ( isset( $results['OperateId'] ) && ( '3Secure' === $results['OperateId'] || '4MemAdd' === $results['OperateId'] || '4MemChg' === $results['OperateId'] ) ) ) { // phpcs:ignore
+		if ( isset( $results['ResponseCd'] ) && isset( $results['SecureResultCode'] ) && ( isset( $results['OperateId'] ) && ( '3Secure' === $results['OperateId'] || '4MemAdd' === $results['OperateId'] || '4MemChg' === $results['OperateId'] ) ) ) {
 		} else {
 			return;
 		}
@@ -1027,10 +1031,10 @@ class ESCOTT_MAIN {
 
 				/* 3Dセキュアのresを送る */
 				if ( isset( $results['SecureResultCode'] ) ) {
-					echo '<input type="hidden" name="SecureResultCode" value="' . $results['SecureResultCode'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="SecureResultCode" value="' . $results['SecureResultCode'] . '" />' . "\n";
 				}
 				if ( isset( $results['ResponseCd'] ) ) {
-					echo '<input type="hidden" name="ResponseCd" value="' . $results['ResponseCd'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="ResponseCd" value="' . $results['ResponseCd'] . '" />' . "\n";
 				}
 				?>
 <input type="hidden" name="done3d_member" value="1" />
@@ -1099,31 +1103,31 @@ class ESCOTT_MAIN {
 
 				/* 3Dセキュアのresを送る */
 				if ( isset( $results['EncodeXId3D'] ) ) {
-					echo '<input type="hidden" name="EncodeXId3D" value="' . $results['EncodeXId3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="EncodeXId3D" value="' . $results['EncodeXId3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['MessageVersionNo3D'] ) ) {
-					echo '<input type="hidden" name="MessageVersionNo3D" value="' . $results['MessageVersionNo3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="MessageVersionNo3D" value="' . $results['MessageVersionNo3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['TransactionStatus3D'] ) ) {
-					echo '<input type="hidden" name="TransactionStatus3D" value="' . $results['TransactionStatus3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="TransactionStatus3D" value="' . $results['TransactionStatus3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['CAVVAlgorithm3D'] ) ) {
-					echo '<input type="hidden" name="CAVVAlgorithm3D" value="' . $results['CAVVAlgorithm3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="CAVVAlgorithm3D" value="' . $results['CAVVAlgorithm3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['ECI3D'] ) ) {
-					echo '<input type="hidden" name="ECI3D" value="' . $results['ECI3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="ECI3D" value="' . $results['ECI3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['CAVV3D'] ) ) {
-					echo '<input type="hidden" name="CAVV3D" value="' . $results['CAVV3D'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="CAVV3D" value="' . $results['CAVV3D'] . '" />' . "\n";
 				}
 				if ( isset( $results['SecureResultCode'] ) ) {
-					echo '<input type="hidden" name="SecureResultCode" value="' . $results['SecureResultCode'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="SecureResultCode" value="' . $results['SecureResultCode'] . '" />' . "\n";
 				}
 				if ( isset( $results['DSTransactionId'] ) ) {
-					echo '<input type="hidden" name="DSTransactionId" value="' . $results['DSTransactionId'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="DSTransactionId" value="' . $results['DSTransactionId'] . '" />' . "\n";
 				}
 				if ( isset( $results['ThreeDSServerTransactionId'] ) ) {
-					echo '<input type="hidden" name="ThreeDSServerTransactionId" value="' . $results['ThreeDSServerTransactionId'] . '" />' . "\n"; // phpcs:ignore
+					echo '<input type="hidden" name="ThreeDSServerTransactionId" value="' . $results['ThreeDSServerTransactionId'] . '" />' . "\n";
 				}
 				?>
 <input type="hidden" name="purchase" value="" />
@@ -1175,7 +1179,9 @@ class ESCOTT_MAIN {
 		$acting_opts = $this->get_acting_settings();
 		$token       = ( isset( $post_data['token'] ) ) ? trim( $post_data['token'] ) : '';
 		if ( ! empty( $token ) ) {
-			$params['Token'] = $token;
+			$params['Token']           = $token;
+			$params['BillingFullName'] = ( isset( $post_data['billingname'] ) ) ? trim( $post_data['billingname'] ) : '';
+			$params['BillingEmail']    = ( isset( $post_data['billingemail'] ) ) ? trim( $post_data['billingemail'] ) : '';
 		} elseif ( ! empty( $member_id ) && 'on' === $acting_opts['quickpay'] ) {
 			$response_member = $this->escott_member_reference( $member_id );
 			if ( 'OK' === $response_member['ResponseCd'] ) {
@@ -1243,8 +1249,10 @@ class ESCOTT_MAIN {
 			$params['KaiinId']   = $kaiin_id;
 			$params['KaiinPass'] = $kaiin_pass;
 		}
-		$params['ProcNo']      = usces_rand( 7 ); /* 適当な数値7桁 */
-		$params['RedirectUrl'] = $member_settlement_url;
+		$params['ProcNo']          = usces_rand( 7 ); /* 適当な数値7桁 */
+		$params['RedirectUrl']     = $member_settlement_url;
+		$params['BillingFullName'] = ( isset( $post_data['billingname'] ) ) ? trim( $post_data['billingname'] ) : '';
+		$params['BillingEmail']    = ( isset( $post_data['billingemail'] ) ) ? trim( $post_data['billingemail'] ) : '';
 
 		$query = http_build_query( $params );
 
@@ -1774,7 +1782,7 @@ class ESCOTT_MAIN {
 	 */
 	public function register_orderdata( $args ) {
 		global $usces;
-		extract( $args ); // phpcs:ignore
+		extract( $args );
 
 		$acting_flg = $payments['settlement'];
 		if ( ! in_array( $acting_flg, $this->pay_method, true ) ) {
@@ -2003,7 +2011,7 @@ class ESCOTT_MAIN {
 					. __( 'Please read "* Provision of Personal Information to Third Parties" below and enter your card information only if you agree to the terms of the agreement.', 'usces' ) . "\n"
 					. __( '* Provision of Personal Information to Third Parties', 'usces' ) . "\n"
 					. __( 'The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer.', 'usces' ) . "\n"
-					. __( '"Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
+					. __( '"Full name", "e-mail address", "Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
 					. __( 'If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs.', 'usces' ) . "\n"
 					. __( 'If you are a minor, you are required to obtain the consent of a person with parental authority or a guardian before using the Service.', 'usces' ) . "\n"
 					. __( '* Agreement to provide personal information to a third party', 'usces' ) . "\n"
@@ -2115,6 +2123,7 @@ jQuery(document).ready( function($) {
 					<input type="hidden" name="acting" value="' . $this->paymod_id . '" />
 					<input type="hidden" name="confirm" value="confirm" />
 					<input type="hidden" name="token" id="token" value="" />
+					<input type="hidden" name="billingname" id="billingname" value="" />
 					<input type="hidden" name="paytype" value="" />
 					<input type="hidden" name="quick_member" value="" />
 					<input type="hidden" name="card_change" value="" />';
@@ -2259,6 +2268,13 @@ jQuery(document).ready( function($) {
 				$html .= '
 						</select>' . __( 'year', 'usces' ) . '
 					</td>
+				</tr>';
+
+				$cardname_attention = apply_filters( 'usces_filter_cardname_attention', __( '(Alphabetic characters only)', 'usces' ) . '<div class="attention">' . __( '* Use a space to separate the first and last name, and enter all characters in uppercase.', 'usces' ) . '</div>' );
+				$html              .= '
+				<tr>
+					<th scope="row">' . __( 'Card name', 'usces' ) . '</th>
+					<td colspan="2"><input name="billingname" type="text" value="" />' . $cardname_attention . '</td>
 				</tr>';
 			}
 
@@ -2413,7 +2429,7 @@ jQuery(document).ready( function($) {
 	 * @param  int    $post_id Post ID.
 	 * @return string
 	 */
-	public function set_uscesL10n( $l10n, $post_id ) { // phpcs:ignore
+	public function set_uscesL10n( $l10n, $post_id ) {
 		global $usces;
 
 		if ( $usces->is_cart_page( $_SERVER['REQUEST_URI'] ) && 'delivery' === $usces->page ) {
@@ -2533,6 +2549,13 @@ jQuery(document).ready( function($) {
 					$html .= '
 							</select>' . __( 'year', 'usces' ) . '
 						</td>
+					</tr>';
+
+					$cardname_attention = apply_filters( 'usces_filter_cardname_attention', __( '(Alphabetic characters only)', 'usces' ) . '<div class="attention">' . __( '* Use a space to separate the first and last name, and enter all characters in uppercase.', 'usces' ) . '</div>' );
+					$html              .= '
+					<tr>
+						<th scope="row">' . __( 'Card name', 'usces' ) . '</th>
+						<td colspan="2"><input id="cardname" type="text" value="" />' . $cardname_attention . '</td>
 					</tr>';
 				}
 
@@ -3091,7 +3114,7 @@ jQuery(document).ready( function($) {
 	/**
 	 * e-SCOTT 会員情報更新
 	 *
-	 * @param  int $member_id Member ID.
+	 * @param int $member_id Member ID.
 	 * @return array
 	 */
 	public function escott_member_update( $member_id ) {

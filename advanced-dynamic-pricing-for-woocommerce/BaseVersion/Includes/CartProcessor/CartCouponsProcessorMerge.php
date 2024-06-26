@@ -100,7 +100,7 @@ class CartCouponsProcessorMerge implements ICartCouponsProcessor
     {
         add_filter('woocommerce_cart_coupon_types', array($this, 'addCouponCartType'), 10, 1);
         add_filter('woocommerce_coupon_discount_types', array($this, 'addCouponDiscountType'), 10, 1);
-        add_filter('woocommerce_coupon_custom_discounts_array', array($this, 'calculateCouponDiscountsArray'), 10, 5);
+        add_filter('woocommerce_coupon_custom_discounts_array', array($this, 'calculateCouponDiscountsArray'), 10, 2);
     }
 
     public function init()
@@ -276,24 +276,41 @@ class CartCouponsProcessorMerge implements ICartCouponsProcessor
 
     protected function processIndividualUseCoupons(Cart $cart, WC_Cart $wcCart)
     {
-        $mergedCoupons = $this->mergedCoupons;
+        $hasIndividual = false;
+        $mergedCoupons = [];
 
-        foreach ($mergedCoupons as $couponCode => $coupons) {
+        foreach ($this->mergedCoupons as $couponCode => $coupons) {
             foreach ($coupons as $coupon) {
                 if ($coupon instanceof WcCouponCart) {
                     $wcCoupon = $this->loadWcCouponByCode($coupon->getCode());
                     if ($wcCoupon->get_individual_use("edit")) {
-                        $this->mergedCoupons = [$couponCode => [$coupon]];
+                        $mergedCoupons = [$couponCode => [$coupon]];
+                        $hasIndividual = true;
                         break 2;
                     }
                 } elseif ($coupon instanceof WcCouponExternal) {
                     $wcCoupon = $coupon->getWcCoupon();
                     if ($wcCoupon->get_individual_use("edit")) {
-                        $this->mergedCoupons = [$couponCode => [$coupon]];
+                        $mergedCoupons = [$couponCode => [$coupon]];
+                        $hasIndividual = true;
                         break 2;
                     }
                 }
             }
+        }
+
+        if($hasIndividual) {
+            if(!$this->context->getOption('individual_wc_coupon_suppress_coupons')) {
+                foreach ($this->mergedCoupons as $couponCode => $coupons) {
+                    foreach ($coupons as $coupon) {
+                        if ($coupon instanceof CouponCart) {
+                            $mergedCoupons[$couponCode] = array_merge($mergedCoupons[$couponCode] ?? [], [$coupon]); 
+                        }
+                    }
+                }
+            }
+
+            $this->mergedCoupons = $mergedCoupons;
         }
     }
 

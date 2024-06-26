@@ -30,15 +30,18 @@ class Gs_Connector_Service {
       
       add_action( 'wp_ajax_deactivate_gs_integation', array( $this, 'deactivate_gs_integation' ) );
 
-    // clear debug logs method using ajax for system status tab
-    add_action('wp_ajax_cf7_clear_debug_log', array($this, 'cf7_clear_debug_logs'));
+      // clear debug logs method using ajax for system status tab
+      add_action('wp_ajax_cf7_clear_debug_log', array($this, 'cf7_clear_debug_logs'));
 
       // Add new tab to contact form 7 editors panel
       add_filter( 'wpcf7_editor_panels', array( $this, 'cf7_gs_editor_panels' ) );
 
       add_action( 'wpcf7_after_save', array( $this, 'save_gs_settings' ) );
       add_action( 'wpcf7_before_send_mail', array( $this, 'save_uploaded_files_local' ) );
+
       add_action( 'wpcf7_mail_sent', array( $this, 'cf7_save_to_google_sheets' ) );
+
+     // add_action('wpcf7_submit', array($this, 'cf7_save_to_google_sheets'));
 
       add_action( 'admin_init', array( $this, 'execute_post_data_cf7_free' ) );
 
@@ -719,7 +722,17 @@ class Gs_Connector_Service {
 		    }
 		}
 	    }
-            // Filter Form Submitted data such as for repetable fields plugin
+        if(!empty($data)){
+           foreach ($data as $key => $value) {
+           // Check if the value starts with one of the specified characters and remove it if it does
+          if (strpos($value, '=') === 0 || strpos($value, '+') === 0 || strpos($value, '-') === 0 || strpos($value, '@') === 0) {
+                $data[$key] = ltrim($value, '=+-@');
+              }
+        }
+           }
+
+
+        // Filter Form Submitted data such as for repetable fields plugin
             $data = apply_filters( 'gsc_filter_form_data', $data, $form );
             if( ! empty( $data[0] ) && is_array( $data[0] ) ) {
               $doc->add_multiple_row( $data );
@@ -741,8 +754,7 @@ class Gs_Connector_Service {
     */
 
    public function cf7_editor_panel_google_sheet( $post ) {
-      $form_id = sanitize_text_field( $_GET['post'] );
-      $form_data = get_post_meta( $form_id, 'gs_settings' );
+      
       // Check if the user is authenticated
        $authenticated = get_option('gs_token');
       
@@ -766,6 +778,12 @@ class Gs_Connector_Service {
      <?php 
    }
    if($show_setting == 1){
+    $form_data = "";
+    if(isset($_GET['post'])){
+      $form_id = sanitize_text_field( $_GET['post'] );
+      $form_data = get_post_meta( $form_id, 'gs_settings' );
+    }
+    
       ?>
      
 

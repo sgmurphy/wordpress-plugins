@@ -60,7 +60,7 @@ class Functions
     /**
      * @param Engine|null $engine
      */
-    public function __construct($engine = null)
+    final public function __construct($engine = null)
     {
         $this->context           = adp_context();
         $this->globalEngine      = $engine;

@@ -11,7 +11,7 @@ use WebpConverter\Settings\Option\AccessTokenOption;
  */
 class UpgradeNotice extends NoticeAbstract implements NoticeInterface {
 
-	const NOTICE_OPTION    = 'webpc_notice_upgrade';
+	const NOTICE_OPTION    = 'webpc_notice_pro_version';
 	const NOTICE_VIEW_PATH = 'components/notices/upgrade.php';
 
 	/**

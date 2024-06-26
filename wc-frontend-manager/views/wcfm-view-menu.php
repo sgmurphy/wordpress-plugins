@@ -136,7 +136,7 @@ if( wcfm_is_mobile() || wcfm_is_tablet() ) {
 							<span class="text">
 							  <?php 
 							  $wcfm_menu_lable_length = (int) apply_filters( 'wcfm_is_allow_menu_lable_length', 25 );
-							  if( strlen( $wcfm_menu_data['label'] ) > $wcfm_menu_lable_length ) {
+							  if( mb_strlen($wcfm_menu_data['label'], 'UTF-8') > $wcfm_menu_lable_length ) {
 							  	echo substr( $wcfm_menu_data['label'], 0, $wcfm_menu_lable_length ) . ' ..';
 							  } else {
 							  	_e( $wcfm_menu_data['label'], 'wc-frontend-manager' );

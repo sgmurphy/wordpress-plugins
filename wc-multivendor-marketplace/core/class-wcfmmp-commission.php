@@ -19,6 +19,9 @@ class WCFMmp_Commission {
 
 		// Generating Marketplace Order on WC Process Checkout
 		add_action('woocommerce_checkout_order_processed', array(&$this, 'wcfmmp_checkout_order_processed'), 30, 3);
+		
+		// Generating Marketplace Order on WooCommerce Block Checkout via Store API
+		add_action('woocommerce_store_api_checkout_order_processed', array(&$this, 'wcfmmp_store_api_checkout_order_processed'));
 
 		// Marketplace Manual Order Reset
 		add_action('wcfm_manual_order_reset', array(&$this, 'wcfmmp_commission_order_reset'), 30, 2);
@@ -482,6 +485,16 @@ class WCFMmp_Commission {
 		}
 
 		return;
+	}
+
+	/**
+	 * 	WCfM Marketplace Order create on WC Order Process via Store API (WooCommerce Block Checkout)
+	 */
+	public function wcfmmp_store_api_checkout_order_processed($order) {
+		$order_id = $order->get_id();
+		if ($order_id) {
+			$this->wcfmmp_checkout_order_processed($order_id, null, $order);
+		}
 	}
 
 	/**

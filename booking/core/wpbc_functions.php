@@ -641,6 +641,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 
 
+		/**
+		 * Check if this Beta Demo website
+		 *
+		 * @return bool
+		 */
+		function wpbc_is_this_beta() {
+
+			$is_beta = ( $_SERVER['HTTP_HOST'] === 'beta' );
+
+			return $is_beta;
+		}
+
+
 		/** Get Warning Text  for Demo websites */
 		function wpbc_get_warning_text_in_demo_mode() {
 			// return '<div class="wpbc-error-message wpbc_demo_test_version_warning"><strong>Warning!</strong> Demo test version does not allow changes to these items.</div>'; //Old Style

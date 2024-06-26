@@ -2,8 +2,8 @@
 Contributors: deTheme
 Requires at least: WordPress 5.2
 Tested up to: WordPress 6.4
-Version: 2.1.5
-Stable tag: 2.1.5
+Version: 2.1.6
+Stable tag: 2.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: detheme, dethemekit, elementor
@@ -168,6 +168,9 @@ GNU General Public License for more details.
     License URL: https://github.com/ionic-team/ionicons/blob/master/LICENSE
 
 == Changelog ==
+
+= 2.1.6 =
+* Fix: Fixed a security issue reported by Wordfence and discovered by Webbernaut 
 
 = 2.1.5 =
 * Fix: Fixed a security issue reported by Wordfence and discovered by wesley (wcraft) 

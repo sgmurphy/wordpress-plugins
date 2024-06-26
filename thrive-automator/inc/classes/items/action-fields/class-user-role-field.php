@@ -17,11 +17,11 @@ class User_Role_Field extends Action_Field {
 	}
 
 	public static function get_description() {
-		return __( 'Wordpress user role', 'thrive-automator' );
+		return __( 'WordPress user role', 'thrive-automator' );
 	}
 
 	public static function get_placeholder() {
-		return __( 'Wordpress user role', 'thrive-automator' );
+		return __( 'WordPress user role', 'thrive-automator' );
 	}
 
 	public static function get_id() {

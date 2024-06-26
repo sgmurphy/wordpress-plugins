@@ -233,7 +233,7 @@ function auxin_widget_contact_form_callback( $atts, $shortcode_content = null ){
             </form>
 
             <?php } else {
-                echo wp_kses_post( do_shortcode($cf7_shortcode) );
+                echo do_shortcode($cf7_shortcode);
             } ?>
 
 

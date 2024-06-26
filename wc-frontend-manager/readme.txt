@@ -5,9 +5,9 @@ Donate link: https://www.paypal.me/wclovers/25usd
 Requires at least: 4.4
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.9.0
+WC tested up to: 9.0.0
 Requires PHP: 5.6
-Stable tag: 6.7.11
+Stable tag: 6.7.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -220,6 +220,15 @@ Fully compatible with all major multi-vendor marketplace plugins - <strong>WCFM 
 25. WCFM Dashboard - Mobile view
 
 == Changelog ==
+
+= 6.7.12 =
+*Updated - 26/06/2024*
+
+* Enhanced – WooCommerce 9.0+ compatibility added
+* Enhanced – wcfm_get_customers_orders_stat() function to accurately calculate the total amount spent by vendors. This update resolves previous inaccuracies in displaying vendor-specific order statistics.
+* Fixed    – PHP Notice: Function ID was called incorrectly. Order properties should not be accessed directly.
+* Fixed    - Replaced strlen() with mb_strlen() to support UTF-8 characters for menu labels in store-manager dashboard.
+
 
 = 6.7.11 =
 *Updated - 07/06/2024*
@@ -2653,6 +2662,8 @@ Fully compatible with all major multi-vendor marketplace plugins - <strong>WCFM 
 
 == Upgrade Notice ==
 
-= 6.7.11 =
-* Enhanced – WordPress 6.5+ compatibility added
-* Enhanced – WooCommerce 8.9+ compatibility added
+= 6.7.12 =
+* Enhanced – WooCommerce 9.0+ compatibility added
+* Enhanced – wcfm_get_customers_orders_stat() function to accurately calculate the total amount spent by vendors. This update resolves previous inaccuracies in displaying vendor-specific order statistics.
+* Fixed    – PHP Notice: Function ID was called incorrectly. Order properties should not be accessed directly.
+* Fixed    - Replaced strlen() with mb_strlen() to support UTF-8 characters for menu labels in store-manager dashboard.

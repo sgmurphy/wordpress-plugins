@@ -195,15 +195,23 @@ Please refer to our [support pages](https://melapress.com/support/?utm_source=wp
 == Screenshots ==
 
 1. The WordPress activity logs from where the site administrator can see all the user and site changes.
-2. See who is logged in to your WordPress and manage users sessions with Users Sessions Management.
+2. See who is logged in to your WordPress and manage users sessions with Users Sessions Management in the Premium edition.
 3. The plugin settings from where site administrator can configure generic plugin settings such as [reverse proxy support](https://melapress.com/support/kb/wp-activity-log-support-reverse-proxies-web-application-firewalls/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=wsal), who can manage the plugin etc.
-4. The WordPress audit trail settings from where you can configure automatic pruning of alerts, which timestamp should be used and more.
-5. Configuring WordPress email and SMS alerts with the Email & SMS Notifications module.
+4. Use the event Inspector to see more technical details about each event in the activity log, such as the session ID and UserAgent string.
+5. Configuring WordPress email and instant SMS alerts with the Email & SMS Notifications module in the Premium edition.
 6. Search in the WordPress activity log with the use filters to fine tune the search results.
 7. The Enable/Disable events section from where Administrators can disable or enable activity log events.
-8. The Log Viewer of a Super Admin in a WordPress multisite network installation with the Site selection drop down menu.
+8. The Activity Log Viewer of a Super Admin in a WordPress multisite network installation alllows the admin to view the logs from all the network, or filter the logs of a specific site.
 9. WP Activity Log is integrated with the built-in revision system of WordPress, thus allowing you to see what content changes users make on your WordPress posts, pages and custom post types. For more information read [Keep Record of All WordPress Content Changes](https://melapress.com/support/kb/wp-activity-log-how-keep-record-of-content-changes/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=wsal)
-10. Mirror the WordPress activity log to an external solution such as Syslog or Papertrail to centralize logging, ensure logs are always available and cannot be tampered with in the unfortunate case of a hack attack.
+10. Mirror the WordPress activity log to an external solution such as Syslog or Papertrail to centralize logging in the Premium edition, to ensure logs are always available and cannot be tampered with in the unfortunate case of a hack attack.
+11. Use the plugin settings to exclude objects from the logs, configure automatic pruning of events, which timestamp to be shonw in the logs and much more. The plugin is fully confirable.
+12. Generate any type of statistics reports from the actiivty log with the Premium edition. You can see statistics such as number of newly registered users, number of user profile changes, number of logins, different IP addresses per user, and much more.
+13. Use the Premium edition to also export any activity log data to an HTML report or CSV file. CSV files are the most widely supported format and can easily be read, parsed and imported in third party systems.
+
+
+
+
+11.
 
 == Changelog ==
 

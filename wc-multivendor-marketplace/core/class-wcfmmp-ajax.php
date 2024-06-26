@@ -330,32 +330,37 @@ class WCFMmp_Ajax {
             wp_die();
         }
 
-        $search_term     = isset($_REQUEST['search_term']) ? sanitize_text_field($_REQUEST['search_term']) : '';
-        $search_category = isset($_REQUEST['wcfmmp_store_category']) ? sanitize_text_field($_REQUEST['wcfmmp_store_category']) : '';
-        $pagination_base = isset($_REQUEST['pagination_base']) ? sanitize_text_field($_REQUEST['pagination_base']) : '';
-        $paged           = isset($_REQUEST['paged']) ? sanitize_text_field($_REQUEST['paged']) : '';
-        $per_row         = isset($_REQUEST['per_row']) ? sanitize_text_field($_REQUEST['per_row']) : '3';
-        $length          = isset($_REQUEST['per_page']) ? (int) $_REQUEST['per_page'] : 10;
-        $includes        = isset($_REQUEST['includes']) ? sanitize_text_field($_REQUEST['includes']) : '';
-        $excludes        = isset($_REQUEST['excludes']) ? sanitize_text_field($_REQUEST['excludes']) : '';
-        $has_product     = isset($_REQUEST['has_product']) ? sanitize_text_field($_REQUEST['has_product']) : '';
-        $sidebar         = isset($_REQUEST['sidebar']) ? sanitize_text_field($_REQUEST['sidebar']) : '';
-        //$filter_vendor   = isset( $_REQUEST['filter_vendor'] ) ? sanitize_text_field( $_REQUEST['filter_vendor'] ) : '';
-        $search_data     = array();
+        if (!apply_filters('wcfmmp_show_all_vendor_markers_on_map', false)) {
+            $search_term     = isset($_REQUEST['search_term']) ? sanitize_text_field($_REQUEST['search_term']) : '';
+            $search_category = isset($_REQUEST['wcfmmp_store_category']) ? sanitize_text_field($_REQUEST['wcfmmp_store_category']) : '';
+            $pagination_base = isset($_REQUEST['pagination_base']) ? sanitize_text_field($_REQUEST['pagination_base']) : '';
+            $paged           = isset($_REQUEST['paged']) ? sanitize_text_field($_REQUEST['paged']) : '';
+            $per_row         = isset($_REQUEST['per_row']) ? sanitize_text_field($_REQUEST['per_row']) : '3';
+            $length          = isset($_REQUEST['per_page']) ? (int) $_REQUEST['per_page'] : 10;
+            $includes        = isset($_REQUEST['includes']) ? sanitize_text_field($_REQUEST['includes']) : '';
+            $excludes        = isset($_REQUEST['excludes']) ? sanitize_text_field($_REQUEST['excludes']) : '';
+            $has_product     = isset($_REQUEST['has_product']) ? sanitize_text_field($_REQUEST['has_product']) : '';
+            $sidebar         = isset($_REQUEST['sidebar']) ? sanitize_text_field($_REQUEST['sidebar']) : '';
+            //$filter_vendor   = isset( $_REQUEST['filter_vendor'] ) ? sanitize_text_field( $_REQUEST['filter_vendor'] ) : '';
+            $search_data     = array();
 
-        if (isset($_POST['search_data']))
-            parse_str($_POST['search_data'], $search_data);
+            if (isset($_POST['search_data']))
+                parse_str($_POST['search_data'], $search_data);
 
-        $search_data = wc_clean(wp_unslash($search_data));
+            $search_data = wc_clean(wp_unslash($search_data));
 
-        $offset  = (absint($paged) - 1) * absint($length);
+            $offset  = (absint($paged) - 1) * absint($length);
 
-        $search_data['excludes'] = $excludes;
+            $search_data['excludes'] = $excludes;
 
-        if ($includes) $includes = explode(",", $includes);
-        else $includes = array();
+            if ($includes) $includes = explode(",", $includes);
+            else $includes = array();
 
-        $stores = $WCFMmp->wcfmmp_vendor->wcfmmp_get_vendors($offset, $length, $search_term, $includes, 'ASC', 'ID', $search_data, $search_category, $has_product);
+            $stores = $WCFMmp->wcfmmp_vendor->wcfmmp_get_vendors($offset, $length, $search_term, $includes, 'ASC', 'ID', $search_data, $search_category, $has_product);
+        } else {
+            $stores = $WCFMmp->wcfmmp_vendor->wcfmmp_get_vendors();
+        }
+
         $store_list_markers = '';
         if (!empty($stores)) {
             $stores = apply_filters('wcfmmp_include_all_valid_branches_for_map_marker', $stores);

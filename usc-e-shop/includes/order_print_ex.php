@@ -48,12 +48,12 @@ function usces_pdf_out( $pdf, $data ) {
 	$pdf->setPrintFooter( false );
 
 	/* Template file */
-	if ( isset( $usces->options['print_size'] ) && 'A4' === $usces->options['print_size'] ) {
-		$tplfile = USCES_PLUGIN_DIR . '/images/orderform_A4.pdf';
-	} else {
-		$tplfile = USCES_PLUGIN_DIR . '/images/orderform_B5.pdf';
-	}
-	$tplfile = apply_filters( 'usces_filter_pdf_template', $tplfile );
+	// if ( isset( $usces->options['print_size'] ) && 'A4' === $usces->options['print_size'] ) {
+	// 	$tplfile = USCES_PLUGIN_DIR . '/images/orderform_A4.pdf';
+	// } else {
+	// 	$tplfile = USCES_PLUGIN_DIR . '/images/orderform_B5.pdf';
+	// }
+	// $tplfile = apply_filters( 'usces_filter_pdf_template', $tplfile );
 
 	$pdf->SetLeftMargin( 0 );
 	$pdf->SetTopMargin( 0 );
@@ -1444,8 +1444,10 @@ function usces_get_pdf_myaddress( $pdf, $lineheight ) {
 	switch ( $applyform ) {
 		case 'JP':
 			$address = ( empty( $options['address2'] ) ) ? $options['address1'] : $options['address1'] . "\n" . $options['address2'];
+			$address = apply_filters( 'usces_filter_pdf_mycompany_address', $address );
 			if ( ! empty( $options['zip_code'] ) ) {
-				$pdf->MultiCell( 60, $lineheight, usces_conv_euc( __( 'zip code', 'usces' ) . ' ' . $options['zip_code'] ), 0, 'L' );
+				$zip_code = apply_filters( 'usces_filter_pdf_mycompany_zip', __( 'zip code', 'usces' ) . ' ' . $options['zip_code'] );
+				$pdf->MultiCell( 60, $lineheight, usces_conv_euc( $zip_code ), 0, 'L' );
 			}
 			$pdf->MultiCell( 60, $lineheight, usces_conv_euc( $address ), 0, 'L' );
 			break;

@@ -7,7 +7,7 @@ Author: wpdevelop, oplugins
 Author URI: https://wpbookingcalendar.com/
 Text Domain: booking
 Domain Path: /languages/
-Version: 10.1.2
+Version: 10.1.3
 */
 
 /*  Copyright 2009 - 2024  www.wpbookingcalendar.com  (email: info@wpbookingcalendar.com),
@@ -29,7 +29,7 @@ Version: 10.1.2
 if ( ! defined( 'ABSPATH' ) ) die( '<h3>Direct access to this file do not allow!</h3>' );       // Exit if accessed directly
 
 
-if ( ! defined( 'WP_BK_VERSION_NUM' ) ) {       define( 'WP_BK_VERSION_NUM',    '10.1.2' ); }
+if ( ! defined( 'WP_BK_VERSION_NUM' ) ) {       define( 'WP_BK_VERSION_NUM',    '10.1.3' ); }
 if ( ! defined( 'WP_BK_MINOR_UPDATE' ) ) {      define( 'WP_BK_MINOR_UPDATE',    true    ); }
 
 
@@ -64,10 +64,11 @@ if ( ! defined( 'WP_BK_RESPONSE' ) ) {          define( 'WP_BK_RESPONSE',       
 // ---------------------------------------------------------------------------------------------------------------------
 // ==  DEBUG  CONSTANTS  ==
 // ---------------------------------------------------------------------------------------------------------------------
-if ( 1 ) {
+$is_debug = 0;
+if ( ! $is_debug ) {
 	if ( ! defined( 'WP_BK_BETA_DATA_FILL' ) ) { define( 'WP_BK_BETA_DATA_FILL', 0 ); }                                 // Set 0 for no filling or 2 for 241 bookings or more for more
 } else {
-	define( 'WP_BK_BETA_DATA_FILL', 2 );
+	define( 'WP_BK_BETA_DATA_FILL', 3 );
 	define( 'WP_BK_BETA_DATA_FILL_AS', 'BL' );      // BL - Dates   ,   MU - Times
 }
 

@@ -744,6 +744,23 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </div>
                                     </div>
                                 </div><!-- Display form fields with labels -->
+                                <p class="ays-subtitle"><?php echo __('Styles',$this->plugin_name); ?></p>
+                                <hr class="ays-quiz-bolder-hr"/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_width">
+                                            <?php echo __('Quiz width',"quiz-maker"); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="ays_quiz_display_flex_width">
+                                            <div>
+                                                <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_width' name='ays_quick_quiz_width' value="800"/>
+                                                <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- Display form fields with labels -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

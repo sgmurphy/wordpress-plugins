@@ -52,20 +52,7 @@ final Class XmlCsvExport
             }
 		}
 		elseif ( XmlExportEngine::$is_comment_export ) {  // exporting comments
-			global $wp_version;
-
-			if ( version_compare($wp_version, '4.2.0', '>=') ) {
-				$comments = XmlExportEngine::$exportQuery->get_comments();
-			}
-			else {
-				$comments = XmlExportEngine::$exportQuery;
-			}
-
-			foreach ( $comments as $comment ) {
-                $articles[] = XmlExportComment::prepare_data($comment, false, XmlExportEngine::$implode, $preview);
-                $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
-                if (!$preview) do_action('pmxe_exported_post', $comment->comment_ID, XmlExportEngine::$exportRecord);
-            }
+			die(\__('WP All Export Pro is required to run this export. If you already own it, you can download it here: <a href="http://www.wpallimport.com/portal/downloads" target="_blank">http://www.wpallimport.com/portal/downloads</a>', 'wp_all_export_plugin'));
 		}
 		elseif ( XmlExportEngine::$is_taxonomy_export )  { // exporting WordPress taxonomy terms
 
@@ -380,44 +367,7 @@ final Class XmlCsvExport
         }
 		elseif ( XmlExportEngine::$is_comment_export ) // exporting comments
 		{
-			global $wp_version;
-					
-			if ( version_compare($wp_version, '4.2.0', '>=') ) {
-				$comments = XmlExportEngine::$exportQuery->get_comments();
-			}
-			else {
-				$comments = XmlExportEngine::$exportQuery;
-			}
-
-			foreach ( $comments as $comment ) {
-
-                $is_export_record = apply_filters('wp_all_export_xml_rows', true, $comment, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
-
-                if (!$is_export_record) continue;
-
-                if (!$is_custom_xml) {
-                    // add additional information before each node
-                    self::before_xml_node($xmlWriter, $comment->comment_ID);
-
-                    $xmlWriter->startElement(self::$node_xml_tag);
-
-                    XmlExportComment::prepare_data($comment, $xmlWriter, XmlExportEngine::$implode, $preview);
-
-                    $xmlWriter->closeElement(); // end post
-
-                    // add additional information after each node
-                    self::after_xml_node($xmlWriter, $comment->comment_ID);
-                } else {
-                    $articles = array();
-                    $articles[] = XmlExportComment::prepare_data($comment, $xmlWriter, XmlExportEngine::$implode, $preview);
-                    $articles = apply_filters('wp_all_export_csv_rows', $articles, XmlExportEngine::$exportOptions, XmlExportEngine::$exportID);
-
-                    $xmlWriter->writeArticle($articles);
-                }
-
-                if (!$preview) do_action('pmxe_exported_post', $comment->comment_ID, XmlExportEngine::$exportRecord);
-
-            }
+			die(\__('WP All Export Pro is required to run this export. If you already own it, you can download it here: <a href="http://www.wpallimport.com/portal/downloads" target="_blank">http://www.wpallimport.com/portal/downloads</a>', 'wp_all_export_plugin'));
 		}
 		else {// exporting custom post types
 			while ( XmlExportEngine::$exportQuery->have_posts() ) {

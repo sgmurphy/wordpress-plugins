@@ -287,8 +287,8 @@ defined('ABSPATH') or exit;
             </div>
 
 
-            <div class="wdp-column wdp-btn-remove wdp_filter_remove">
-                <div class="wdp-btn-remove-handle">
+            <div class="wdp-column wdp-btn-remove">
+                <div class="wdp-btn-remove-handle wdp_filter_remove">
                     <span class="dashicons dashicons-no-alt"></span>
                 </div>
             </div>
@@ -586,8 +586,8 @@ defined('ABSPATH') or exit;
 
             <div class="wdp-column wdp-column-subfields wdp-condition-field-sub"></div>
 
-            <div class="wdp-column wdp-btn-remove wdp_filter_remove">
-                <div class="wdp-btn-remove-handle">
+            <div class="wdp-column wdp-btn-remove">
+                <div class="wdp-btn-remove-handle wdp_filter_remove">
                     <span class="dashicons dashicons-no-alt"></span>
                 </div>
             </div>

@@ -608,7 +608,7 @@ $data = unserialize(get_option('ee_options'));
                                 <?php esc_html_e("Facebook Catalog Id :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 fb_id">
-                                <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? $ee_options['facebook_setting']['fb_catalog_id'] : ''; ?>
+                                <?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_html($ee_options['facebook_setting']['fb_catalog_id']) : ''; ?>
                             </label>
                         </div>
                     </div>

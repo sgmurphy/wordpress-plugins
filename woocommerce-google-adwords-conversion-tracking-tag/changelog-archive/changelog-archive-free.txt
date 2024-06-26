@@ -1,3 +1,15 @@
+= 1.43.2 = 05.06.2024
+
+* Tweak: Refactored directory structure.
+* Tweak: Updated Google's IP ranges in ip_services.js
+* Tweak: Added add_shipping_info event processing for GA4.
+* Tweak: Added add_payment_info event processing for GA4, Facebook (Meta).
+* Tweak: Added a safeguard and an error message when trying to upload invalid JSON settings files.
+* Tweak: Added a safeguard to REST API endpoint tester to not follow redirects. Also added a proper check for the response message.
+* Tweak: Removed Partytown Web Worker experiment.
+* Tweak: Added add-to-cart event listener for Doofinder add-to-cart buttons.
+* Fix: Fixed a bug that would prevent consent from being processed immediately after consent was given through Cookiebot (only worked on page reload).
+
 = 1.43.1 = 21.05.2024
 
 

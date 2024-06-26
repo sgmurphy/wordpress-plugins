@@ -865,7 +865,11 @@ if(!sbi_js_exists) {
         if (this.settings.consentGiven || !this.settings.gdpr) {
           return true;
         }
-        if (typeof CLI_Cookie !== "undefined") { // GDPR Cookie Consent by WebToffee
+        if (typeof window.cookieyes !== "undefined") { // CookieYes | GDPR Cookie Consent by CookieYes
+          if (typeof window.cookieyes._ckyConsentStore.get !== 'undefined') {
+            this.settings.consentGiven = window.cookieyes._ckyConsentStore.get('functional') === 'yes';
+          }
+        } else if (typeof CLI_Cookie !== "undefined") { // GDPR Cookie Consent by WebToffee
           if (CLI_Cookie.read(CLI_ACCEPT_COOKIE_NAME) !== null)  {
 
             // WebToffee no longer uses this cookie but being left here to maintain backwards compatibility
@@ -1000,10 +1004,10 @@ if(!sbi_js_exists) {
     });
 
     // GDPR Cookie Consent by WebToffee
-    $('.cli-user-preference-checkbox').on('click',function(){
+    $('.cli-user-preference-checkbox, .cky-notice button').on('click',function(){
       setTimeout(function() {
         $.each(window.sbi.feeds,function(index){
-          window.sbi.feeds[ index ].settings.consentGiven = false;
+          window.sbi.feeds[index].checkConsent();
           window.sbi.feeds[ index ].afterConsentToggled();
         });
       },1000);

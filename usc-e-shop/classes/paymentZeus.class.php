@@ -3,10 +3,10 @@
  * Settlement Class.
  * ZEUS
  *
- * @package  Welcart
- * @author   Collne Inc.
- * @version  1.1.0
- * @since    2.4.0
+ * @package Welcart
+ * @author  Welcart Inc.
+ * @version 1.1.0
+ * @since   2.4.0
  */
 
 /**
@@ -3324,10 +3324,12 @@ jQuery(document).ready(function($) {
 				if ( $this->is_activate_card( 'api' ) && 1 === (int) $acting_opts['3dsecur'] ) {
 					$form .= '<div id="3dscontainer"></div>';
 				}
+				$amount = apply_filters( 'zeus_secure_payreq_amount', usces_crform( $entry['order']['total_full_price'], false, false, 'return', false ), $entry );
+
 				$form .= '<form name="purchase_form" id="purchase_form" action="' . USCES_CART_URL . '" method="post" onKeyDown="if (event.keyCode == 13) {return false;}">
 				<input type="hidden" name="card_option" id="card_option" value="' . $zeus_card_option . '">
 				<input type="hidden" name="token_key" id="token_key" value="' . $zeus_token_value . '">
-				<input type="hidden" name="money" value="' . usces_crform( $entry['order']['total_full_price'], false, false, 'return', false ) . '">
+				<input type="hidden" name="money" value="' . $amount . '">
 				<input type="hidden" name="telno" value="' . esc_attr( str_replace( '-', '', $entry['customer']['tel'] ) ) . '">
 				<input type="hidden" name="email" value="' . esc_attr( $entry['customer']['mailaddress1'] ) . '">
 				<input type="hidden" name="sendid" id="sendid" value="' . $mem_id . '">
@@ -3854,7 +3856,8 @@ jQuery(document).ready(function($) {
 					$order_ref = wel_zeus_get_order_ref( $results['zeusordd'] );
 					$status    = ( empty( $order_ref['status'] ) ) ? 'payment' : $order_ref['status'];
 					if ( ! isset( $results['money'] ) ) {
-						$results['money'] = usces_crform( $entry['order']['total_full_price'], false, false, 'return', false );
+						$amount           = apply_filters( 'zeus_secure_payreq_amount', usces_crform( $entry['order']['total_full_price'], false, false, 'return', false ), $entry );
+						$results['money'] = $amount;
 					}
 					$results = apply_filters( 'usces_filter_zeus_card_register_orderdata_log', $results, $args );
 					wel_zeus_save_acting_log( $results, 'zeus_card', $status, 'OK', $order_id, $tracking_id );
@@ -3960,12 +3963,20 @@ jQuery(document).ready(function($) {
 					$form .= '<br />カードの有効期限が正しくないようです。';
 				} elseif ( in_array( $code, array( '02130922' ), true ) ) {
 					$form .= '<br />カードの有効期限が切れているようです。';
+				} elseif ( in_array( $code, array( '02131014', '02131017' ), true ) ) {
+					$form .= '<br />セキュリティコードが正しくないようです。';
 				} elseif ( in_array( $code, array( '02131117', '02131123', '02131124' ), true ) ) {
 					$form .= '<br />カードの名義が正しくないようです。';
+				} elseif ( in_array( $code, array( '02131317', '02131325', '02131310', '02131326' ), true ) ) {
+					$form .= '<br />指定の支払い回数はご利用いただけません。';
 				} elseif ( in_array( $code, array( '02131414', '02131417', '02131437' ), true ) ) {
 					$form .= '<br />お客様情報の電話番号が正しくないようです。';
 				} elseif ( in_array( $code, array( '02131527', '02131528', '02131529', '02131537' ), true ) ) {
 					$form .= '<br />お客様情報のEメールアドレスが正しくないようです。';
+				} elseif ( in_array( $code, array( '02100431' ), true ) ) {
+					$form .= '<br />今回のお申し込みは受け付けられませんでした。ご利用サイトは3Dセキュアの認証が必要のため、お使いのクレジットカードではお取扱出来ません。';
+				} else {
+					$form .= '<br />今回のお申し込みは受け付けられませんでした。';
 				}
 				$form .= '<br />
 				<br />
@@ -3977,7 +3988,7 @@ jQuery(document).ready(function($) {
 				$form .= '<br />
 				カード番号を再入力する場合はこちらをクリックしてください。<br />
 				<br />
-				<a href="' . USCES_CUSTOMER_URL . '&re-enter=1">カード番号の再入力 》</a><br />';
+				<a href="' . USCES_CUSTOMER_URL . '">もう一度決済を行う 》</a><br />';
 			}
 			$form .= '<br />
 			株式会社ゼウス カスタマーサポート　（24時間365日対応）<br />
@@ -3996,6 +4007,8 @@ jQuery(document).ready(function($) {
 					$form .= '<br />お申し込み情報が正しく入力されていないか、通信時にエラーが発生している可能性がございます。入力情報を再度ご確認いただいた上でお申し込みをいただくか、カスタマーサポートまでお問い合わせください。';
 				} elseif ( in_array( $code, array( '0008' ), true ) ) {
 					$form .= '<br />このコンビニはお取り扱いできません。別のコンビニをご選択いただき、再度お申し込みをいただくか、カスタマーサポートまでお問い合わせください。';
+				} else {
+					$form .= '<br />詳細に関してはカスタマーサポートまでお問い合わせください。';
 				}
 			} else {
 				if ( 'zeus_conv' === $acting ) {
@@ -5688,7 +5701,28 @@ jQuery.event.add(window,'load',function() {
 
 		$request_body = file_get_contents( 'php://input' );
 		$body         = json_decode( $request_body, true );
-		if ( ! empty( $body['MD'] ) && ! empty( $body['PaRes'] ) ) {
+		if ( ! empty( $body['MD'] ) && ! empty( $body['PaRes'] ) && ! empty( $body['status'] ) ) {
+			if ( 'failure' === $body['status'] || 'invalid' === $body['status'] || 'maintenance' === $body['status'] ) {
+				$log = array(
+					'acting' => 'zeus_card_API(3D Auth)',
+					'key'    => $sendpoint,
+					'result' => 'PaRes Error',
+					'data'   => $body,
+				);
+				usces_save_order_acting_error( $log );
+				wp_redirect(
+					add_query_arg(
+						array(
+							'acting'        => 'zeus_card',
+							'acting_return' => '0',
+							'status'        => $body['status'],
+						),
+						USCES_CART_URL
+					)
+				);
+				exit();
+			}
+
 			$data          = array();
 			$data['xid']   = $body['MD'];
 			$data['PaRes'] = $body['PaRes'];
@@ -5711,8 +5745,7 @@ jQuery.event.add(window,'load',function() {
 						array(
 							'acting'        => 'zeus_card',
 							'acting_return' => '0',
-							'status'        => 'AuthReq',
-							'code'          => '0',
+							'status'        => 'error',
 						),
 						USCES_CART_URL
 					)
@@ -5764,8 +5797,7 @@ jQuery.event.add(window,'load',function() {
 						array(
 							'acting'        => 'zeus_card',
 							'acting_return' => '0',
-							'status'        => 'PayRes',
-							'code'          => '0',
+							'status'        => 'error',
 						),
 						USCES_CART_URL
 					)
@@ -5896,8 +5928,7 @@ jQuery.event.add(window,'load',function() {
 					array(
 						'acting'        => 'zeus_card',
 						'acting_return' => '0',
-						'status'        => 'PayReq',
-						'code'          => '0',
+						'status'        => 'error',
 					),
 					USCES_CART_URL
 				)

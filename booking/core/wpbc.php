@@ -234,17 +234,6 @@ public function define_admin_menu(){
                                                   , 'user_role' => get_bk_option( 'booking_user_role_resources' )
                                                                             )
                                                 );
-	} else {
-	    //FixIn: 9.8.15.7
-        self::$instance->admin_menu['resources']    = new WPBC_Admin_Menus(
-                                                    'wpbc-resources' , array (
-                                                    'in_menu' => 'wpbc'
-                                                  , 'menu_title'    => __('Resource', 'booking')
-                                                  , 'page_header'   => ucwords( __('Booking resource','booking') )
-                                                  , 'browser_header'=> __('Resource', 'booking') . ' - ' . __('Booking Calendar', 'booking')
-                                                  , 'user_role' => get_bk_option( 'booking_user_role_settings' )
-                                                                            )
-                                                );
 	}
 
 	if ( WPBC_customize_plugin )
@@ -268,6 +257,18 @@ public function define_admin_menu(){
                                                                             )
                                                 );
 
+	if ( ! class_exists( 'wpdev_bk_personal' ) ) {            //FixIn: 10.1.3.1
+	    //FixIn: 9.8.15.7
+        self::$instance->admin_menu['resources']    = new WPBC_Admin_Menus(
+                                                    'wpbc-resources' , array (
+                                                    'in_menu' => 'wpbc'
+                                                  , 'menu_title'    =>   __('Publish', 'booking')  // __('Resource', 'booking')
+                                                  , 'page_header'   => ucwords( __('Booking resource','booking') )
+                                                  , 'browser_header'=> __('Resource', 'booking') . ' - ' . __('Booking Calendar', 'booking')
+                                                  , 'user_role' => get_bk_option( 'booking_user_role_settings' )
+                                                                            )
+                                                );
+	}
 
 
 	if ( class_exists( 'wpdev_bk_multiuser' ) ) {
@@ -305,7 +306,7 @@ public function define_admin_menu(){
 
 
 
-	//FixIn: 8.0.1.6
+	//FixIn: 8.0.1.6		//FixIn: 10.1.3.1
 	if ( ! class_exists( 'wpdev_bk_personal' ) ) {
 
 		$is_show_this_menu = get_bk_option('booking_menu_go_pro');

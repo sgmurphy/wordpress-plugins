@@ -50,7 +50,7 @@ if ( ! class_exists( 'WFFN_Plugin_Compatibilities' ) ) {
 		public static function themes() {
 			$themes_compatibilities = array(
 				'class-wffn-bricks-theme-compatibility.php'  => function_exists( 'bricks_is_builder' ),
-				'class-wffn-divi-theme-compatibility.php'    => defined( 'ET_CORE_VERSION' ),
+				'class-wffn-divi-theme-compatibility.php'    => defined( 'ET_CORE_VERSION' ) || function_exists( 'et_setup_theme' ),
 				'class-wffn-enfold-theme-compatibility.php'  => class_exists( 'AviaBuilder' ),
 				'class-wffn-rehub-theme-compatibility.php'   => defined( 'RH_MAIN_THEME_VERSION' ),
 				'class-wffn-woodmart-theme-compatibilty.php' => defined( 'WOODMART_THEME_DIR' ),

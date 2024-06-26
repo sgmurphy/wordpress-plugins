@@ -374,7 +374,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                                 <?php esc_html_e("Google Merchant Center Account :", "enhanced-e-commerce-for-woocommerce-store"); ?>
                             </label>
                             <label class="col-form-label fs-14 pt-0 fw-400 modal_google_merchant_center_id">
-                                <?php echo $google_merchant_center_id !== '' ? $google_merchant_center_id : '' ?>
+                                <?php echo $google_merchant_center_id !== '' ? esc_html($google_merchant_center_id) : '' ?>
                             </label>
                         </div>
                         <div class="form-check form-check-custom">
@@ -468,7 +468,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                 url: tvc_ajax_url,
                 data: {
                     action: "conv_save_pixel_data",
-                    pix_sav_nonce: "<?php echo wp_create_nonce('pix_sav_nonce_val'); ?>",
+                    pix_sav_nonce: "<?php echo esc_js(wp_create_nonce('pix_sav_nonce_val')); ?>",
                     conv_options_data: selected_vals,
                     customer_subscription_id: "<?php echo esc_html($subId) ?>",
                     conv_options_type: ["eeoptions", "facebookmiddleware", "facebookcatalog"],
@@ -527,7 +527,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                 action: "get_fb_catalog_data",
                 customer_subscription_id: <?php echo esc_html($subId) ?>,
                 fb_business_id: fb_business,
-                fb_business_nonce: "<?php echo wp_create_nonce('fb_business_nonce'); ?>"
+                fb_business_nonce: "<?php echo esc_js(wp_create_nonce('fb_business_nonce')); ?>"
             }
             jQuery.ajax({
                 type: "POST",
@@ -538,7 +538,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
                     conv_change_loadingbar('show') 
                 },
                 success: function(response){ 
-                    var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? $ee_options['facebook_setting']['fb_catalog_id'] : '' ?>";                      
+                    var cat_id = "<?php echo isset($ee_options['facebook_setting']['fb_catalog_id']) ? esc_js($ee_options['facebook_setting']['fb_catalog_id']) : '' ?>";                      
                     $html = '<option value="">Select Catalog Id</option>';
                     $.each(response, function(index, value){
                         var selected = (value.id == cat_id ) ? 'selected' : '';                        
@@ -636,7 +636,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
     }
         /*************************************Save Feed Data Start*************************************************************************/
         function save_feed_data() {
-            var conv_onboarding_nonce = "<?php echo esc_html(wp_create_nonce('conv_onboarding_nonce')); ?>"
+            var conv_onboarding_nonce = "<?php echo esc_js(wp_create_nonce('conv_onboarding_nonce')); ?>"
             var planid = "<?php echo esc_attr($plan_id); ?>";
             var data = {
                 action: "save_feed_data",
@@ -763,7 +763,7 @@ if (isset($googleDetail->tiktok_setting->tiktok_business_id) === TRUE && $google
     /****************Get tiktok catalog id on check box change end ***************************************/
     /****************Get tiktok catalog id on target country change ***************************************/
     jQuery(document).on('change', '#target_country', function (e) {
-        var tiktok_business_account = "<?php echo $tiktok_business_account ?>";
+        var tiktok_business_account = "<?php echo esc_js($tiktok_business_account); ?>";
         jQuery('.select2-selection').css('border', '1px solid #c6c6c6');
         let target_country = jQuery('#target_country').find(":selected").val();
         jQuery('#tiktok_id').empty();

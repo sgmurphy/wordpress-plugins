@@ -2077,9 +2077,9 @@ function wpbc_bs_javascript_popover() {
 			});
 		}
 
-        jQuery(document).ready( function(){
+        <?php echo wpbc_jq_ready_start();		//FixIn: 10.1.3.7 ?>
 			wpbc_define_tippy_popover();		//FixIn: 9.0.1.1
-        });
+        <?php echo wpbc_jq_ready_end(); ?>
     </script><?php
 }
     

@@ -689,7 +689,7 @@ class TVC_Pricings
                                                                     <div class="card">
                                                                         <div class="card-body">
                                                                             <div class="card-icon">
-                                                                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/convo-images/pricing/privacy.png" alt="" class="img-fluid">
+                                                                                <img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/convo-images/pricing/privacy.png" alt="" class="img-fluid">
                                                                             </div>
                                                                             <h5 class="card-title">100% No Risk <br>
                                                                                 Moneyback Guarantee</h5>

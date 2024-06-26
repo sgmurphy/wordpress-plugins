@@ -375,7 +375,7 @@ class LTV {
 		$order_values = self::default_pmw_order_values();
 
 		// Calculate the marketing value of the order
-		$order_values['marketing_order_value'] = (float) Shop::pmw_get_order_total_marketing($order);
+		$order_values['marketing_order_value'] = (float) Shop::get_order_value_total_marketing($order);
 		$order_values['total_order_value']     = (float) $order->get_total();
 
 		// LTV is the LTV of the previous order + the marketing value of the current order
@@ -451,7 +451,7 @@ class LTV {
 		}
 
 		$marketing_order_value_old = self::get_marketing_order_value_from_order($order);
-		$marketing_order_value_new = Shop::pmw_get_order_total_marketing($order);
+		$marketing_order_value_new = Shop::get_order_value_total_marketing($order);
 
 		// Stop if it is null
 		// It means the marketing order value was never calculated on that order

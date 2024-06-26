@@ -118,4 +118,33 @@ function wpbc_do_not_cache() {
 	// Set the headers to prevent caching for the different browsers.
 	nocache_headers();
 }
+//wpbc_do_not_cache();
 
+
+// =====================================================================================================================
+// Exclude from  Minify  and caching from  different CACHE Plugins
+// =====================================================================================================================
+
+/**
+ * Add exclusion  of minify JS files in 'WP-Optimize' plugin            //FixIn: 10.1.3.3
+ *
+ *  Otherwise default rules:
+ *  *plugins/booking*
+ *  *jquery/jquery.min.js
+ *  *jquery/jquery-migrate.min.js
+ *
+ * @param $excluded_filter_arr
+ *
+ * @return mixed
+ */
+function wpbc_exclude_for_wp_optimize( $excluded_filter_arr ) {
+
+	if ( is_array( $excluded_filter_arr ) ) {
+		$excluded_filter_arr[] = '*/plugins/booking*';
+		$excluded_filter_arr[] = '*/jquery/jquery.min.js';
+		$excluded_filter_arr[] = '*/jquery/jquery-migrate.min.js';
+	}
+
+	return $excluded_filter_arr;
+}
+add_filter( 'wp-optimize-minify-default-exclusions', 'wpbc_exclude_for_wp_optimize', 10, 1 );

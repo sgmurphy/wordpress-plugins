@@ -6,7 +6,7 @@
  * ( 旧 デジタルチェック )
  *
  * @package  Welcart
- * @author   Collne Inc.
+ * @author   Welcart Inc.
  * @version  1.0.0
  * @since    1.9.20
  */
@@ -81,7 +81,6 @@ class DIGITALCHECK_SETTLEMENT {
 		$this->initialize_data();
 
 		if ( is_admin() ) {
-			// add_action( 'admin_print_footer_scripts', array( $this, 'admin_scripts' ) );
 			add_action( 'usces_action_admin_settlement_update', array( $this, 'settlement_update' ) );
 			add_action( 'usces_action_settlement_tab_title', array( $this, 'settlement_tab_title' ) );
 			add_action( 'usces_action_settlement_tab_body', array( $this, 'settlement_tab_body' ) );
@@ -90,7 +89,7 @@ class DIGITALCHECK_SETTLEMENT {
 		if ( $this->is_activate_card() || $this->is_activate_conv() ) {
 			add_filter( 'usces_filter_settle_info_field_meta_keys', array( $this, 'settlement_info_field_meta_keys' ) );
 			add_filter( 'usces_filter_settle_info_field_keys', array( $this, 'settlement_info_field_keys' ) );
-			// add_filter( 'usces_filter_settle_info_field_value', array( $this, 'settlement_info_field_value' ), 10, 3 );
+			add_filter( 'usces_filter_check_acting_return_duplicate', array( $this, 'check_acting_return_duplicate' ), 10, 2 );
 			add_action( 'usces_action_reg_orderdata', array( $this, 'register_orderdata' ) );
 		}
 
@@ -112,7 +111,7 @@ class DIGITALCHECK_SETTLEMENT {
 	 * Return an instance of this class.
 	 */
 	public static function get_instance() {
-		if ( null == self::$instance ) {
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -122,7 +121,7 @@ class DIGITALCHECK_SETTLEMENT {
 	 * Initialize.
 	 */
 	public function initialize_data() {
-		$options = get_option( 'usces' );
+		$options = get_option( 'usces', array() );
 		if ( ! isset( $options['acting_settings'] ) || ! isset( $options['acting_settings']['digitalcheck'] ) ) {
 			$options['acting_settings']['digitalcheck']['card_activate'] = 'off';
 			$options['acting_settings']['digitalcheck']['card_ip']       = '';
@@ -134,6 +133,22 @@ class DIGITALCHECK_SETTLEMENT {
 			$options['acting_settings']['digitalcheck']['conv_store']    = array();
 			$options['acting_settings']['digitalcheck']['conv_kigen']    = '14';
 			update_option( 'usces', $options );
+		} else {
+			$options['acting_settings']['digitalcheck']['card_activate'] = ( isset( $options['acting_settings']['digitalcheck']['card_activate'] ) ) ? $options['acting_settings']['digitalcheck']['card_activate'] : 'off';
+			$options['acting_settings']['digitalcheck']['conv_activate'] = ( isset( $options['acting_settings']['digitalcheck']['conv_activate'] ) ) ? $options['acting_settings']['digitalcheck']['conv_activate'] : 'off';
+			if ( 'on' === $options['acting_settings']['digitalcheck']['card_activate'] || 'on' === $options['acting_settings']['digitalcheck']['card_activate'] ) {
+				$options['acting_settings']['digitalcheck']['card_ip']          = ( isset( $options['acting_settings']['digitalcheck']['card_ip'] ) ) ? $options['acting_settings']['digitalcheck']['card_ip'] : '';
+				$options['acting_settings']['digitalcheck']['card_pass']        = ( isset( $options['acting_settings']['digitalcheck']['card_pass'] ) ) ? $options['acting_settings']['digitalcheck']['card_pass'] : '';
+				$options['acting_settings']['digitalcheck']['card_kakutei']     = ( isset( $options['acting_settings']['digitalcheck']['card_kakutei'] ) ) ? $options['acting_settings']['digitalcheck']['card_kakutei'] : '0';
+				$options['acting_settings']['digitalcheck']['card_user_id']     = ( isset( $options['acting_settings']['digitalcheck']['card_user_id'] ) ) ? $options['acting_settings']['digitalcheck']['card_user_id'] : 'off';
+				$options['acting_settings']['digitalcheck']['send_url_card']    = 'https://www.paydesign.jp/settle/settle3/bp3.dll';
+				$options['acting_settings']['digitalcheck']['send_url_user_id'] = 'https://www.paydesign.jp/settle/settlex/credit2.dll';
+				$options['acting_settings']['digitalcheck']['conv_ip']          = ( isset( $options['acting_settings']['digitalcheck']['conv_ip'] ) ) ? $options['acting_settings']['digitalcheck']['conv_ip'] : '';
+				$options['acting_settings']['digitalcheck']['conv_store']       = ( isset( $options['acting_settings']['digitalcheck']['conv_store'] ) ) ? $options['acting_settings']['digitalcheck']['conv_store'] : array();
+				$options['acting_settings']['digitalcheck']['conv_kigen']       = ( isset( $options['acting_settings']['digitalcheck']['conv_kigen'] ) ) ? $options['acting_settings']['digitalcheck']['conv_kigen'] : '14';
+				$options['acting_settings']['digitalcheck']['send_url_conv']    = 'https://www.paydesign.jp/settle/settle3/bp3.dll';
+				update_option( 'usces', $options );
+			}
 		}
 	}
 
@@ -226,14 +241,6 @@ class DIGITALCHECK_SETTLEMENT {
 	}
 
 	/**
-	 * 管理画面スクリプト
-	 * admin_print_footer_scripts
-	 */
-	public function admin_scripts() {
-
-	}
-
-	/**
 	 * 決済オプション登録・更新
 	 * usces_action_admin_settlement_update
 	 */
@@ -252,8 +259,8 @@ class DIGITALCHECK_SETTLEMENT {
 		$options['acting_settings']['digitalcheck']['card_activate'] = ( isset( $_POST['card_activate'] ) ) ? $_POST['card_activate'] : 'off';
 		$options['acting_settings']['digitalcheck']['card_ip']       = ( isset( $_POST['card_ip'] ) ) ? $_POST['card_ip'] : '';
 		$options['acting_settings']['digitalcheck']['card_pass']     = ( isset( $_POST['card_pass'] ) ) ? $_POST['card_pass'] : '';
-		$options['acting_settings']['digitalcheck']['card_kakutei']  = ( isset( $_POST['card_kakutei'] ) ) ? $_POST['card_kakutei'] : '';
-		$options['acting_settings']['digitalcheck']['card_user_id']  = ( isset( $_POST['card_user_id'] ) ) ? $_POST['card_user_id'] : '';
+		$options['acting_settings']['digitalcheck']['card_kakutei']  = ( isset( $_POST['card_kakutei'] ) ) ? $_POST['card_kakutei'] : '0';
+		$options['acting_settings']['digitalcheck']['card_user_id']  = ( isset( $_POST['card_user_id'] ) ) ? $_POST['card_user_id'] : 'off';
 		$options['acting_settings']['digitalcheck']['conv_activate'] = ( isset( $_POST['conv_activate'] ) ) ? $_POST['conv_activate'] : 'off';
 		$options['acting_settings']['digitalcheck']['conv_ip']       = ( isset( $_POST['conv_ip'] ) ) ? $_POST['conv_ip'] : '';
 		$options['acting_settings']['digitalcheck']['conv_store']    = ( isset( $_POST['conv_store'] ) ) ? $_POST['conv_store'] : array();
@@ -471,9 +478,9 @@ class DIGITALCHECK_SETTLEMENT {
 			<?php
 			$selected = array_fill( 1, 30, '' );
 			if ( isset( $acting_opts['conv_kigen'] ) ) {
-				$selected[ $acting_opts['conv_kigen'] ] = ' selected';
+				$selected[ $acting_opts['conv_kigen'] ] = ' selected="selected"';
 			} else {
-				$selected[14] = ' selected';
+				$selected[14] = ' selected="selected"';
 			}
 			?>
 				<select name="conv_kigen" id="conv_kigen">
@@ -508,7 +515,7 @@ class DIGITALCHECK_SETTLEMENT {
 	 * @return array
 	 */
 	public function settlement_info_field_meta_keys( $keys ) {
-		$keys = array_merge( $keys, array( 'SID', 'DATE', 'TIME', 'CVS', 'SHNO' ) );
+		$keys = array_merge( $keys, array( 'SID', 'DATE', 'TIME', 'CVS', 'SHONIN', 'SHNO' ) );
 		return $keys;
 	}
 
@@ -520,21 +527,27 @@ class DIGITALCHECK_SETTLEMENT {
 	 * @return array
 	 */
 	public function settlement_info_field_keys( $keys ) {
-		$keys = array_merge( $keys, array( 'SID', 'DATE', 'TIME', 'CVS', 'SHNO' ) );
+		$keys = array_merge( $keys, array( 'SID', 'DATE', 'TIME', 'CVS', 'SHONIN', 'SHNO' ) );
 		return $keys;
 	}
 
 	/**
-	 * 受注編集画面に表示する決済情報の値整形
-	 * usces_filter_settle_info_field_value
+	 * 重複オーダー禁止処理
+	 * usces_filter_check_acting_return_duplicate
 	 *
-	 * @param  string $value Settlement information value.
-	 * @param  string $key Settlement information key.
-	 * @param  string $acting Acting type.
+	 * @param  string $trans_id Transaction ID.
+	 * @param  array  $results Result data.
 	 * @return string
 	 */
-	public function settlement_info_field_value( $value, $key, $acting ) {
-		return $value;
+	public function check_acting_return_duplicate( $trans_id, $results ) {
+		if ( isset( $_REQUEST['SID'] ) && isset( $_REQUEST['FUKA'] ) ) {
+			$fuka = substr( wp_unslash( $_REQUEST['FUKA'] ), 0, 24 );
+			if ( 'acting_digitalcheck_card' == $fuka || 'acting_digitalcheck_conv' == $fuka ) {
+				$trans_id                      = wp_unslash( $_REQUEST['SID'] );
+				$_REQUEST['absolute_trans_id'] = $trans_id;
+			}
+		}
+		return $trans_id;
 	}
 
 	/**
@@ -558,11 +571,16 @@ class DIGITALCHECK_SETTLEMENT {
 		}
 
 		if ( isset( $_REQUEST['SID'] ) && isset( $_REQUEST['FUKA'] ) ) {
-			if ( 'acting_digitalcheck_card' == substr( wp_unslash( $_REQUEST['FUKA'] ), 0, 24 ) ) {
-				$data['SID'] = wp_unslash( $_REQUEST['SID'] );
-				$usces->set_order_meta_value( $_REQUEST['FUKA'], serialize( $data ), $order_id );
+			$fuka = substr( wp_unslash( $_REQUEST['FUKA'] ), 0, 24 );
+			if ( 'acting_digitalcheck_card' == $fuka ) {
+				$data = array();
+				foreach ( $_REQUEST as $key => $value ) {
+					$data[ $key ] = $value;
+				}
+				$usces->set_order_meta_value( 'acting_digitalcheck_card', serialize( $data ), $order_id );
 			}
-			if ( 'acting_digitalcheck_conv' == substr( $_REQUEST['FUKA'], 0, 24 ) ) {
+			if ( 'acting_digitalcheck_conv' == $fuka ) {
+				$data        = array();
 				$data['SID'] = wp_unslash( $_REQUEST['SID'] );
 				if ( ! empty( $_REQUEST['CVS'] ) ) {
 					$data['CVS'] = wp_unslash( $_REQUEST['CVS'] );
@@ -573,7 +591,7 @@ class DIGITALCHECK_SETTLEMENT {
 				if ( ! empty( $_REQUEST['FURL'] ) ) {
 					$data['FURL'] = wp_unslash( $_REQUEST['FURL'] );
 				}
-				$usces->set_order_meta_value( wp_unslash( $_REQUEST['FUKA'] ), serialize( $data ), $order_id );
+				$usces->set_order_meta_value( 'acting_digitalcheck_conv', serialize( $data ), $order_id );
 			}
 			$usces->set_order_meta_value( 'SID', wp_unslash( $_REQUEST['SID'] ), $order_id );
 			$usces->set_order_meta_value( 'wc_trans_id', wp_unslash( $_REQUEST['SID'] ), $order_id );

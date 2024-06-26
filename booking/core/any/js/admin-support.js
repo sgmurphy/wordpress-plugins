@@ -361,11 +361,6 @@ function wpbc_save_custom_user_data( us_id, data_name, data_value , is_reload ){
 //]]>
 
 
-// Activate All tooltips. For performance reasons, the Tooltip disabled by default
-//jQuery(document).ready( function(){
-//    if ( 'function' === typeof( jQuery('[data-toggle="tooltip"]').tooltip ) )
-//         jQuery('[data-toggle="tooltip"]').tooltip();
-//});
 
 
 ////////////////////////////////////////////////////////////////////////////////

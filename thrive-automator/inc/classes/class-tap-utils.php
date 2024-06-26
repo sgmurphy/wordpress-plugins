@@ -530,7 +530,7 @@ class Utils {
 				 * Replace each field that might be inside the value
 				 */
 				foreach ( $data as $key => $data_value ) {
-					$data_value = $data_value ?: '';
+					$data_value = is_string( $data_value ) ? $data_value : '';
 
 					if ( is_string( $item ) ) {
 						$item = str_replace( $shortcode_tag . $key . $shortcode_tag, $data_value, $item );

@@ -728,7 +728,7 @@ class WPBC_AJX__Customize_Plugin__Templates {
 							<?php
 							$is_blur = ( ! class_exists( 'wpdev_bk_biz_s' ) ) ? 'wpbc_blur' : '';
 							if ( ! empty( $is_blur ) ) {
-								wpbc_ajx_cstm__ui__upgrade_note( 'biz_s', 'https://wpbookingcalendar.com/overview/#range-days-selection' );
+								wpbc_ajx_cstm__ui__upgrade_note( 'biz_s', 'https://wpbookingcalendar.com/features/#range-days-selection' );
 							}
 							?>
 							<div class="ui_group    ui_group__change_calendar_dates_selection <?php echo $is_blur; ?>">
@@ -801,7 +801,7 @@ class WPBC_AJX__Customize_Plugin__Templates {
 									$is_blur = ( ! class_exists( 'wpdev_bk_biz_m' ) ) ? 'wpbc_blur' : '';
 									if ( ! empty( $is_blur ) ) {
 										?><div class="clear" style="width:101%;height:50px;"></div><?php
-										wpbc_ajx_cstm__ui__upgrade_note( 'biz_m', 'https://wpbookingcalendar.com/overview/#availability-from-today' );
+										wpbc_ajx_cstm__ui__upgrade_note( 'biz_m', 'https://wpbookingcalendar.com/features/#availability-from-today' );
 									}
 							?>
 							<div class="ui_group    ui_group__change_calendar_weekdays_availability <?php echo $is_blur; ?>">
@@ -890,7 +890,7 @@ if ( true ) {
  *
  * @return void
  *
- *             Example:		wpbc_ajx_cstm__ui__upgrade_note( 'biz_s', 'https://wpbookingcalendar.com/overview/#range-days-selection' );
+ *             Example:		wpbc_ajx_cstm__ui__upgrade_note( 'biz_s', 'https://wpbookingcalendar.com/features/#range-days-selection' );
  */
 function wpbc_ajx_cstm__ui__upgrade_note( $version, $url ){
 

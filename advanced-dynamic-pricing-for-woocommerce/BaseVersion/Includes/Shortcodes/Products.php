@@ -33,7 +33,7 @@ abstract class Products extends WC_Shortcode_Products
         });
     }
 
-    public function __construct($attributes = array(), $type = 'products')
+    final public function __construct($attributes = array(), $type = 'products')
     {
         $this->context = adp_context();
         parent::__construct($attributes, $type);
@@ -245,7 +245,7 @@ abstract class Products extends WC_Shortcode_Products
      *
      * @return bool
      */
-    protected static function filterRule($rule) 
+    protected static function filterRule($rule)
     {
         return false;
     }

@@ -303,6 +303,19 @@ class Context
         return $wordpress;
     }
 
+    public function isWCStoreAPIRequest() {
+        if (empty($_SERVER['REQUEST_URI'])) {
+            return false;
+        }
+
+        $rest_prefix = trailingslashit(rest_get_url_prefix());
+        $wc_store_prefix = $rest_prefix . 'wc/store';
+        $request_uri = esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']));
+        $wordpress   = (false !== strpos($request_uri, $wc_store_prefix));
+
+        return $wordpress;
+    }
+
     protected static function isDoingPhpUnit()
     {
         return defined("PHPUNIT_COMPOSER_INSTALL");

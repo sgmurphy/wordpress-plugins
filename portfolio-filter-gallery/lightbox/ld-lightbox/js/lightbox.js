@@ -487,7 +487,7 @@
       this.album[this.currentImageIndex].title !== '') {
       var $caption = this.$lightbox.find('.lb-caption');
       if (this.options.sanitizeTitle) {
-        $caption.text(this.album[this.currentImageIndex].title);
+        $caption.text(esc_js(this.album[this.currentImageIndex].title));
       } else {
         $caption.html(this.album[this.currentImageIndex].title);
       }

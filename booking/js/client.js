@@ -649,10 +649,34 @@ function wpbc_wizard_step( el, step_num, step_from ){
     }
 
     if ( br_id != undefined ){
-        jQuery( "#booking_form" + br_id + " .wpbc_wizard_step" ).css( {"display": "none"} );
+        jQuery( "#booking_form" + br_id + " .wpbc_wizard_step" ).css( {"display": "none"} ).removeClass('wpbc_wizard_step_hidden');
         jQuery( "#booking_form" + br_id + " .wpbc_wizard_step" + step_num ).css( {"display": "block"} );
     }
 }
+
+//FixIn: 10.1.3.2
+jQuery( document ).ready( function (){
+
+    // CSS classes in Wizard Next / Prior links can  be like this:  <a class="wpbc_button_light wpbc_wizard_step_button wpbc_wizard_step_1">Step 1</a>   |  <a class="wpbc_button_light wpbc_wizard_step_button wpbc_wizard_step_2">Step 2</a>
+
+    jQuery( '.wpbc_wizard_step_button' ).attr( {
+        href: 'javascript:void(0)'
+    } );
+
+    jQuery( '.wpbc_wizard_step_button' ).on( 'click', function ( event ){
+
+        var found_steps_arr = jQuery( this ).attr( 'class' ).match( /wpbc\_wizard\_step\_([\d]+)([\s'"]+|$)/ );
+
+        if ( (null !== found_steps_arr) && (found_steps_arr.length > 2) ){
+            var step = parseInt( found_steps_arr[ 1 ] );
+            if ( step > 0 ){
+                wpbc_wizard_step( this, step );
+            }
+        }
+    } );
+
+} );
+
 
 //FixIn: 8.6.1.15
 /**

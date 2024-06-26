@@ -116,7 +116,7 @@ class CartFeeProcessor
 
     public function setFilterToCalculateFees()
     {
-        add_filter('woocommerce_cart_calculate_fees', array($this, 'calculateFees'), 10, 3);
+        add_filter('woocommerce_cart_calculate_fees', array($this, 'calculateFees'), 10);
     }
 
     public function unsetFilterToCalculateFees()

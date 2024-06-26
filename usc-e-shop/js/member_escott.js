@@ -43,6 +43,9 @@ jQuery( function($) {
 						check = false;
 					}
 				}
+				if( "" == $("#cardname").val() ) {
+					check = false;
+				}
 				if( !check ) {
 					alert(uscesL10n.escott_token_error_message);
 					return false;
@@ -125,6 +128,7 @@ jQuery( function($) {
 function setToken(token,card) {
 	if( token ) {
 		document.getElementById("token").value = token;
+		document.getElementById("billingname").value = document.getElementById("cardname").value;
 		document.getElementById("member-card-info").submit();
 	}
 }

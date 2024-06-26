@@ -118,6 +118,7 @@ class Admin {
 \t\t\t\t\taffiliation: store_name,
 \t\t\t\t},
 \t\t\t],
+\t\t\tfreemius_data: response,
 \t\t});
 \t
 \t\t(function (w, d, s, l, i) {

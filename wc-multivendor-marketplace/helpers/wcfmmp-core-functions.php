@@ -462,6 +462,7 @@ if(!function_exists('get_wcfm_store_new_order_email_allowed_order_status')) {
 		if( isset( $store_new_order_email_allowed_order_status['wc-cancelled'] ) ) unset( $store_new_order_email_allowed_order_status['wc-cancelled'] );
 		if( isset( $store_new_order_email_allowed_order_status['wc-refunded'] ) ) unset( $store_new_order_email_allowed_order_status['wc-refunded'] );
 		if( isset( $store_new_order_email_allowed_order_status['wc-failed'] ) ) unset( $store_new_order_email_allowed_order_status['wc-failed'] );
+		if( isset( $store_new_order_email_allowed_order_status['wc-checkout-draft'] ) ) unset( $store_new_order_email_allowed_order_status['wc-checkout-draft'] );
 		
 		return apply_filters( 'wcfmmp_store_new_order_email_allowed_order_status', $store_new_order_email_allowed_order_status );
 	}

@@ -19,7 +19,7 @@ class Post_Categories_Field extends Action_Field {
 	}
 
 	public static function get_description() {
-		return __( 'Wordpress post category', 'thrive-automator' );
+		return __( 'WordPress post category', 'thrive-automator' );
 	}
 
 	public static function get_placeholder() {

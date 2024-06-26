@@ -705,6 +705,8 @@ class SSA_Shortcodes {
 				'start_date_min'             => ssa_datetime()->sub( new DateInterval( 'PT1H' ) )->format( 'Y-m-d H:i:s' ),
 				'details_link_displayed'     => true,
 				'details_link_label'         => __( 'View Details', 'simply-schedule-appointments' ),
+				'all_appointments_link_label'         => __( 'View all upcoming appointments', 'simply-schedule-appointments' ),
+				'web_meeting_link_label'         => __( 'Open Web Meeting', 'simply-schedule-appointments' ),
 
 				'web_meeting_url'            => true,
 				'appointment_type_displayed' => false,
@@ -762,6 +764,7 @@ class SSA_Shortcodes {
 				'orderby'                    => 'start_date',
 				'order'                      => 'ASC',
 				'customer_id'                => get_current_user_id(),
+				'customer_information'       => wp_get_current_user()->user_email,
 
 				'no_results_message'         => __( 'No upcoming appointments', 'simply-schedule-appointments' ),
 				'logged_out_message'         => '',

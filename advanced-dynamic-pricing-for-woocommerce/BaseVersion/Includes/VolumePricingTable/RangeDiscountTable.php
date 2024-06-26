@@ -233,12 +233,18 @@ class RangeDiscountTable
      *
      * @return SingleItemRule|null
      * @throws Exception
-     */     
+     */
     public function findRuleForProductTable($product)
     {
         if ( ! $product || ! ($product instanceof WC_Product) || $product instanceof \WC_Product_Grouped) {
             return null;
         }
+
+        static $cachedProductId = 0, $cachedRule = null;
+        if($cachedProductId && $cachedProductId == $product->get_id()) {
+            return $cachedRule;
+        }
+        $cachedProductId  = $product->get_id();
 
         $context          = $this->context;
         $productProcessor = $this->getProductProcessor();
@@ -269,8 +275,9 @@ class RangeDiscountTable
                 }
             }
         }
-        
+
         if( ! $rule ) {
+            $cachedRule = null;
             return null;
         }
 
@@ -279,34 +286,38 @@ class RangeDiscountTable
             //to correctly show prices in bulk table
             $rule->getProductRangeAdjustmentHandler()->setReplaceAsCartAdjustment(false);
         }
-
+        
+        $cachedRule = $rule;
         return $rule;
     }
 
     public function getProductProcessor()
     {
-        $context = $this->context;
-        if($context->getOption('discount_table_ignores_conditions')) {
-            $newRules = array();
-            foreach (CacheHelper::loadActiveRules()->getRules() as $loopRule) {
-                $newLoopRule = clone $loopRule;
+        $ignoresConditions = $this->context->getOption('discount_table_ignores_conditions');
+        $newRules = array();
+        foreach (CacheHelper::loadActiveRules()->getRules() as $loopRule) {
+            $newLoopRule = clone $loopRule;
+            if($ignoresConditions) {
                 $newLoopRule->setConditions(array());
-                $newRules[] = $newLoopRule;
             }
 
-            /** @var CartCalculator $calc */
-            $calc = Factory::get("Core_CartCalculator", new RulesCollection($newRules));
+            if($handler = $newLoopRule->getProductRangeAdjustmentHandler()) {
+                $ranges       = $handler->getRanges();
+                $lastRange    = array_pop($ranges);
+                $newLastRange = new RangeDiscount($lastRange->getFrom(), INF, $lastRange->getData());
+                array_push($ranges, $newLastRange);
+                $handler->setRanges($ranges);
+            }
 
-            $productProcessor = new Processor($calc);
-            $cart = clone $this->engine->getProductProcessor()->getCart();
-            $productProcessor->withCart($cart);
-        } else if($this->context->getOption("process_product_strategy") === "after") {
-            $productProcessor = new Processor();
-            $cart = clone $this->engine->getProductProcessor()->getCart();
-            $productProcessor->withCart($cart);
-        } else {
-            $productProcessor = $this->engine->getProductProcessor();
+            $newRules[] = $newLoopRule;
         }
+        
+        /** @var CartCalculator $calc */
+        $calc = Factory::get("Core_CartCalculator", new RulesCollection($newRules));
+
+        $productProcessor = new Processor($calc);
+        $cart = clone $this->engine->getProductProcessor()->getCart();
+        $productProcessor->withCart($cart);
 
         return $productProcessor;
     }
@@ -859,8 +870,9 @@ class RangeDiscountTable
                             );
                         }
 
-                        $price = $priceToDisplay;
-                        $value = $this->priceFunctions->format($priceToDisplay);
+                        $wcSalePrice = $processedProd->getProduct()->get_sale_price('edit');
+                        $price = !$wcSalePrice || $priceToDisplay < $wcSalePrice ? $priceToDisplay : $wcSalePrice;
+                        $value = $this->priceFunctions->format($price);
                         $dataRow['discounted_price'] = $price;
                     }
                 }

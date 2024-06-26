@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: FunnelKit Funnel Builder 3.4.0\n"
+"Project-Id-Version: FunnelKit Funnel Builder 3.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/funnel-builder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-25T17:58:49+05:30\n"
+"POT-Creation-Date: 2024-06-26T12:16:09+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: funnel-builder\n"
@@ -215,7 +215,7 @@ msgid "Get Help"
 msgstr ""
 
 #: admin/class-wffn-admin-dashboard-widget.php:282
-msgid "Watch Tutorial"
+msgid "Watch Tutorials"
 msgstr ""
 
 #: admin/class-wffn-admin-dashboard-widget.php:286

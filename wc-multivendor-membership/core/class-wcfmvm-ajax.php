@@ -319,6 +319,7 @@ class WCFMvm_Ajax {
 										break;
 										
 										case 'phone':
+											if(is_array($field_value)) $field_value = '';
 											?>
 											<tr>
 												<td class="wcfm_vendor_approval_response_form_label wcfm_popup_label"><?php esc_html_e( 'Store Phone', 'wc-frontend-manager' ); ?></td>

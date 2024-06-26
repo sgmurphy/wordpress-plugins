@@ -3,10 +3,10 @@
  * Settlement Class.
  * e-SCOTT Smart
  *
- * @package  Welcart
- * @author   Collne Inc.
- * @version  1.2.0
- * @since    1.4.14
+ * @package Welcart
+ * @author  Welcart Inc.
+ * @version 1.2.0
+ * @since   1.4.14
  */
 class ESCOTT_SETTLEMENT extends ESCOTT_MAIN {
 	/**

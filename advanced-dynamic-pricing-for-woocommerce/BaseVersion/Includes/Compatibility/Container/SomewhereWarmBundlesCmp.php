@@ -223,39 +223,4 @@ class SomewhereWarmBundlesCmp extends AbstractContainerCompatibility
             $product->bundled_cart_item = $child;
     }
 
-    public function adaptContainerCartItem(
-        WcCartItemFacade $facade,
-        array $children,
-        int $pos
-    ): ContainerCartItem {
-        $containerItem = parent::adaptContainerCartItem($facade, $children, $pos);
-
-        return $containerItem->setItems(
-            array_map(
-                function ($subContainerItem) use ($facade) {
-                    /** @var ContainerPartCartItem $subContainerItem */
-                    return $this->modifyPartOfContainerItemQty($subContainerItem, $facade);
-                },
-                array_map([$this, 'adaptContainerPartCartItem'], $children)
-            )
-        );
-    }
-
-    /**
-     * Children are stored in the WC_Cart with total qty from ALL bundles.
-     * Change to qty of a single container.
-     * To get total qty in the future we will multiply it to qty of parent (container).
-     *
-     * @param ContainerPartCartItem $subContainerItem
-     * @param WcCartItemFacade $parentFacade
-     * @return ContainerPartCartItem
-     */
-    protected function modifyPartOfContainerItemQty(
-        ContainerPartCartItem $subContainerItem,
-        WcCartItemFacade $parentFacade
-    ): ContainerPartCartItem {
-        $subContainerItem->setQty($subContainerItem->getQty() / $parentFacade->getQty());
-
-        return $subContainerItem;
-    }
 }

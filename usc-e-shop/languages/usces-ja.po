@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Welcart e-Commerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/usc-e-shop\n"
 "POT-Creation-Date: 2020-10-19T15:20:12+09:00\n"
-"PO-Revision-Date: 2024-04-08 16:28+0900\n"
+"PO-Revision-Date: 2024-06-14 14:32+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Plugin Name of the plugin
 msgid "Welcart e-Commerce"
@@ -10287,8 +10287,8 @@ msgstr "「支払方法ページへ」"
 msgid "Card name"
 msgstr "カード名義"
 
-msgid "(Alphabetic characters)"
-msgstr "(半角英字)"
+msgid "(Alphabetic characters only)"
+msgstr "(半角英字のみ)"
 
 msgid "Thank you for your use."
 msgstr "ご利用ありがとうございました。"
@@ -11345,8 +11345,8 @@ msgstr "■個人情報の第三者提供"
 msgid "The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer."
 msgstr "お客様から収集した以下の個人情報等は、カード発行会社が行う不正利用検知・防止のために、お客様が利用されているカードの発行会社へ提供させていただきます。"
 
-msgid "\"Membership information held by the business\", \"IP address\", \"device information\", \"Information on the Internet usage environment\", and \"Billing address\"."
-msgstr "「事業者が保有する会員情報」、「IPアドレス」、「デバイス情報」、「インターネット利用環境に関する情報」、「請求書送付先住所」"
+msgid "\"Full name\", \"e-mail address\", \"Membership information held by the business\", \"IP address\", \"device information\", \"Information on the Internet usage environment\", and \"Billing address\"."
+msgstr "「氏名」、「email アドレス」、「事業者が保有する会員情報」、「IPアドレス」、「デバイス情報」、「インターネット利用環境に関する情報」、「請求書送付先住所」"
 
 msgid "If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs."
 msgstr "お客様が利用されているカードの発行会社が外国にある場合、これらの情報は当該発行会社が所属する国に移転される場合があります。"
@@ -11410,6 +11410,9 @@ msgstr "同意する"
 
 msgid "Disagree"
 msgstr "同意しない"
+
+msgid "* Use a space to separate the first and last name, and enter all characters in uppercase."
+msgstr "※スペースを使用して姓と名を区切り、全て大文字で入力してください。"
 
 #: classes\loglist.class.php
 msgid "Author"

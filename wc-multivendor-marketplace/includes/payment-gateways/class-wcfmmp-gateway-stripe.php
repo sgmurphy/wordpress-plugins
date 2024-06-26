@@ -51,7 +51,7 @@ class WCFMmp_Gateway_Stripe extends WCFMmp_Abstract_Gateway {
 			$this->secret_key = isset( $WCFMmp->wcfmmp_withdrawal_options['stripe_test_secret_key'] ) ? $WCFMmp->wcfmmp_withdrawal_options['stripe_test_secret_key'] : '';
 		}
 		
-		$this->debug = $this->is_testmode;
+		$this->debug = apply_filters('wcfmmp_enable_stripe_debug_mode', $this->is_testmode);
 		
 		if( !class_exists("Stripe\Stripe") ) {
 			require_once( $WCFMmp->plugin_path . 'includes/Stripe/init.php' );
@@ -130,10 +130,19 @@ class WCFMmp_Gateway_Stripe extends WCFMmp_Abstract_Gateway {
 					'destination'         => $this->stripe_user_id,
 					'description'         => __('Payout for withdrawal ID #', 'wc-multivendor-marketplace') . sprintf( '%06u', $this->withdrawal_id )
 			);
+
+			if (apply_filters( 'wcfmmp_stripe_split_pay_source_transaction_enabled', true, $this->vendor_id )) {
+				$transfer_args['source_transaction'] = '';
+			}
+
 			if( $this->transaction_mode == 'manual' ) {
 				$transfer_args['transfer_group'] = __('Payout for withdrawal ID #', 'wc-multivendor-marketplace') . sprintf( '%06u', $this->withdrawal_id );
 			}
 			$transfer_args = wp_parse_args($args, $transfer_args);
+
+			if ($this->debug)
+				wcfm_stripe_log("Before creating transfer with Stripe. Stripe Transfer Data: " . serialize($transfer_args));
+
 			$transfer = Transfer::create($transfer_args);
 			$result_array = $transfer->jsonSerialize();
 			
