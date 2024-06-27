@@ -6,12 +6,21 @@ import {
   store as blockEditorStore,
   __experimentalUseBlockPreview as useBlockPreview,
 } from "@wordpress/block-editor";
-import { BlockControls } from "@wordpress/block-editor";
-import { Button, Placeholder, Spinner, Toolbar } from "@wordpress/components";
+import { BlockControls, InspectorControls } from "@wordpress/block-editor";
+import {
+  Button,
+  Placeholder,
+  Spinner,
+  Toolbar,
+  PanelBody,
+  BaseControl,
+  Flex,
+} from "@wordpress/components";
 import { store as coreStore, useEntityBlockEditor } from "@wordpress/core-data";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 import ProvidersPlaceholder from "../../shared/ProvidersPlaceholder/ProvidersPlaceholder";
+import { Icon, symbolFilled } from "@wordpress/icons";
 
 export default ({ attributes, context, clientId }) => {
   const { id: idAttribute } = attributes;
@@ -116,21 +125,56 @@ export default ({ attributes, context, clientId }) => {
   return (
     <>
       {editOriginal && (
-        <BlockControls>
-          <Toolbar>
-            <Button
-              icon="edit"
-              onClick={() =>
-                onNavigateToEntityRecord({
-                  postId: id,
-                  postType: "pp_video_block",
-                })
-              }
-            >
-              {__("Edit Original", "presto-player")}
-            </Button>
-          </Toolbar>
-        </BlockControls>
+        <>
+          <BlockControls>
+            <Toolbar>
+              <Button
+                icon="edit"
+                onClick={() =>
+                  onNavigateToEntityRecord({
+                    postId: id,
+                    postType: "pp_video_block",
+                  })
+                }
+              >
+                {__("Edit Original", "presto-player")}
+              </Button>
+            </Toolbar>
+          </BlockControls>
+          <InspectorControls>
+            <PanelBody>
+              <Flex align="center" justify="flex-start">
+                <Icon icon={symbolFilled} />
+                <h2 class="block-editor-block-card__title">
+                  {__("Synced", "presto-player")}
+                </h2>
+              </Flex>
+
+              <BaseControl
+                help={__(
+                  "This item is synced with the media hub and can be reused across your site.",
+                  "presto-player"
+                )}
+                css={css`
+                  margin-bottom: 10px !important;
+                `}
+              ></BaseControl>
+
+              <Button
+                icon="edit"
+                onClick={() =>
+                  onNavigateToEntityRecord({
+                    postId: id,
+                    postType: "pp_video_block",
+                  })
+                }
+                variant="secondary"
+              >
+                {__("Edit Original", "presto-player")}
+              </Button>
+            </PanelBody>
+          </InspectorControls>
+        </>
       )}
       {editOriginal ? (
         <div {...blockProps}>

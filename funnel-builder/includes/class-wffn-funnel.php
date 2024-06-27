@@ -411,9 +411,8 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 		/**
 		 * @param $funnel_id
 		 * @param $step_id
-		 * @param $type
 		 *
-		 * @return mixed
+		 * @return false|int|mixed|void
 		 */
 		public function delete_step( $funnel_id, $step_id ) {
 			$steps  = $this->get_steps();
@@ -462,7 +461,7 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 		/**
 		 * @param $steps
 		 *
-		 * @return mixed
+		 * @return false|int|mixed|void
 		 */
 		public function reposition_steps( $steps ) {
 			if ( ! is_array( $steps ) || count( $steps ) === 0 ) {
@@ -533,7 +532,7 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 		/**
 		 * @param $data
 		 *
-		 * @return mixed
+		 * @return false|int|mixed|void
 		 */
 		public function update( $data ) {
 			$funnel_id = isset( $data['funnel_id'] ) ? $data['funnel_id'] : $this->get_id();
@@ -708,6 +707,15 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 				$current_type      = '';
 				$is_checkout_group = false;
 				foreach ( $steps as $step ) {
+					/**
+					 * unset all unpublish steps from frontend group
+					 */
+					if ( $is_frontend && $step['type'] !== 'wc_native' && $step['id'] > 0 && get_post( $step['id'] ) instanceof WP_Post ) {
+						$post_status = get_post_status( $step['id'] );
+						if ( 'publish' !== $post_status ) {
+							continue;
+						}
+					}
 
 					if ( in_array( $step['type'], array( 'wc_native', 'wc_checkout' ), true ) ) {
 						$is_checkout_group = true;
@@ -794,13 +802,14 @@ if ( ! class_exists( 'WFFN_Funnel' ) ) {
 			$is_checkout_group = false;
 			if ( is_array( $group_steps ) && isset( $group_steps['groups'] ) && count( $group_steps['groups'] ) > 0 ) {
 				foreach ( $group_steps['groups'] as $key => $step ) {
+
 					if ( in_array( $step['type'], array( 'wc_native', 'wc_checkout' ), true ) ) {
 						$is_checkout_group = true;
 					}
 					/**
 					 * find current step id in each step group
 					 */
-					$get_key = array_search( $current_step_id, $step['steps'] );
+					$get_key = array_search( $current_step_id, $step['steps'] ); //phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 
 					if ( false !== $get_key ) {
 						/**

@@ -21,7 +21,7 @@ if ( ! class_exists( 'WFFN_Plugin_Compatibilities' ) ) {
 				'class-wffn-ux-builder-compatibility.php'                => function_exists( 'add_ux_builder_post_type' ),
 				'class-wffn-wc-cashfree.php'                             => class_exists( 'WC_Gateway_cashfree' ),
 				'class-wffn-wc-deposite.php'                             => function_exists( 'wc_deposits_woocommerce_is_active' ) && wc_deposits_woocommerce_is_active(),
-				'class-wffn-weglot-compatibility.php'                    => class_exists( 'WeglotWP\Third\Woocommerce\WC_Filter_Urls_Weglot' ),
+				'class-wffn-weglot-compatibility.php'                    => ( defined( 'WEGLOT_VERSION' ) || class_exists( 'WeglotWP\Third\Woocommerce\WC_Filter_Urls_Weglot' )),
 				'rest/class-bwfan-compatibility-with-sg-cache.php'       => function_exists( 'sg_cachepress_purge_cache' ),
 				'rest/class-wffn-clearfy-compatibility.php'              => class_exists( 'Clearfy_Plugin' ),
 				'rest/class-wffn-force-login-compability.php'            => function_exists( 'v_forcelogin_rest_access' ),

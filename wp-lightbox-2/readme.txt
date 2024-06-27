@@ -9,7 +9,7 @@ Stable tag:        3.0.6.7
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-3.0.html
 
-WP Lightbox 2 is awesome tool for adding responsive lightbox effect for images and also create lightbox for photo album/gallery on your WordPress blog. WordPress Lightbox is one of the most useful plugins for your website.
+WP Lightbox 2 adds stunning lightbox effects to images and galleries on your WordPress site.
 
 == Description ==
 

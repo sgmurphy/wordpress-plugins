@@ -5,7 +5,7 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-define('LOGINIZER_VERSION', '1.8.6');
+define('LOGINIZER_VERSION', '1.8.7');
 define('LOGINIZER_DIR', dirname(LOGINIZER_FILE));
 define('LOGINIZER_URL', plugins_url('', LOGINIZER_FILE));
 define('LOGINIZER_PRO_URL', 'https://loginizer.com/features#compare');
@@ -230,7 +230,7 @@ function loginizer_load_plugin(){
 	$loginizer['notify_email_address'] = lz_is_multisite() ? get_site_option('admin_email') : get_option('admin_email');
 	$loginizer['trusted_ips'] = empty($options['trusted_ips']) ? false : true;
 	$loginizer['blocked_screen'] = empty($options['blocked_screen']) ? false : true;
-
+	$loginizer['social_settings'] = get_option('loginizer_social_settings', []);
 	
 	if(!empty($options['notify_email_address'])){
 		$loginizer['notify_email_address'] = $options['notify_email_address'];
@@ -334,7 +334,17 @@ $sitename','loginizer');
 		add_action('wp_login_errors', 'loginizer_error_handler', 10001, 2);
 		add_action('woocommerce_login_failed', 'loginizer_woocommerce_error_handler', 10001);
 		add_action('wp_login', 'loginizer_login_success', 10, 2);
+
+		if(!empty($_COOKIE['lz_social_error']) && !empty($loginizer['social_settings']) && !loginizer_is_blacklisted()){
+			add_filter('wp_login_errors', 'loginizer_social_login_error_handler', 10000, 2);
+		}
+	}
 	
+	// Social Login Form Actions
+	if(!empty($loginizer['social_settings']) && !loginizer_is_blacklisted()){
+		if(!empty($loginizer['social_settings']['login']['login_form'])){
+			add_action('login_form', 'loginizer_social_btn_login');
+		}
 	}
 	
 	// ----------------
@@ -513,7 +523,7 @@ $site_name';
 			
 			}
 			
-			if(!file_exists(LOGINIZER_DIR.'/premium.php') && current_user_can('activate_plugins') && !empty($loginizer['csrf_promo']) && $loginizer['csrf_promo'] > 0 && $loginizer['csrf_promo'] < (time() - 86400)){
+			if(!empty($loginizer['csrf_promo']) && $loginizer['csrf_promo'] > 0 && $loginizer['csrf_promo'] < (time() - 86400)){
 				
 				add_action('admin_notices', 'loginizer_csrf_promo');
 				
@@ -541,7 +551,12 @@ $site_name';
 			}
 		}
 	}
-
+	
+	// Secuity checks for social login.
+	if(!empty($_GET['lz_social_provider']) && loginizer_can_login()){
+		include_once LOGINIZER_DIR . '/main/social-login.php';
+		return;
+	}
 }
 
 // Should return NULL if everything is fine
@@ -765,7 +780,14 @@ function loginizer_login_failed($username, $is_2fa = ''){
 
 	if(empty($lz_cannot_login) && empty($loginizer['ip_is_whitelisted']) && empty($loginizer['no_loginizer_logs'])){
 		
-		$url = @addslashes((!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+		// The params which comes when social login returns an error, have some characters, which WordPress could not save.
+		$server_uri = $_SERVER['REQUEST_URI'];
+		if(!empty($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'lz_social_provider') !== FALSE){
+			$request_uri = explode('=', $_SERVER['REQUEST_URI']);
+			$server_uri = $request_uri[0];
+		}
+
+		$url = @addslashes((!empty($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$server_uri);
 		$url = esc_url($url);
 		
 		$sel_query = $wpdb->prepare("SELECT * FROM `".$wpdb->prefix."loginizer_logs` WHERE `ip` = %s", $loginizer['current_ip']);
@@ -909,9 +931,23 @@ function loginizer_login_success($user_login, $user) {
 
 	$message = lz_lang_vars_name($loginizer['login_mail_body'], $vars);
 	$subject = lz_lang_vars_name($loginizer['login_mail_subject'], $vars);
+	
+	$headers = [];
+	
+	// Do we need to send the email as HTML ? 
+	if(!empty($loginizer['login_mail']['html_mail'])){
+		$headers[] = 'Content-Type: text/html; charset=UTF-8';
+		
+		if(!empty($loginizer['login_mail']['body'])){
+			$message = html_entity_decode($message);
+		}else{
+			$message = preg_replace("/\<br\s*\/\>/i", "<br/>", $message);
+			$message = preg_replace('/(?<!<br\/>)\n/i', "<br/>\n", $message);
+		}
+	}
 
 	// Sending notification
-	if(empty(wp_mail($email, $subject, $message))){
+	if(empty(wp_mail($email, $subject, $message, $headers))){
 		error_log(__('There was a problem sending your email.', 'loginizer'));
 		return;
 	}
@@ -935,7 +971,7 @@ function loginizer_update_attempt_stats($type){
 function loginizer_error_handler($errors, $redirect_to){
 	
 	global $wpdb, $loginizer, $lz_user_pass, $lz_cannot_login;
-	
+
 	//echo 'loginizer_error_handler :';print_r($errors->errors);echo '<br>';
 	if(is_null($errors) || empty($errors)){
 		return true;
@@ -973,13 +1009,33 @@ function loginizer_error_handler($errors, $redirect_to){
 
 // Handles the error of the password not being there
 function loginizer_woocommerce_error_handler(){
-	
+
 	global $wpdb, $loginizer, $lz_user_pass, $lz_cannot_login;
 	
 	if(function_exists('wc_add_notice')){
 		wc_add_notice( loginizer_retries_left(), 'error' );
 	}
-	
+}
+
+// Handles social login URL
+function loginizer_social_login_error_handler($errors = '', $redirect_to = ''){
+	global $loginizer;
+
+	loginizer_get_social_error();
+
+	if(empty($loginizer['social_errors'])){
+		return $errors;
+	}
+
+	if(is_null($errors) || empty($errors) || !is_wp_error($errors)){
+		$errors = new WP_Error();
+	}
+
+	foreach($loginizer['social_errors'] as $key => $text){
+		$errors->add($key, $text);
+	}
+
+	return $errors;
 }
 
 // Returns a string with the number of retries left
@@ -997,16 +1053,16 @@ function loginizer_retries_left(){
 }
 
 function loginizer_reset_retries(){
-	
+
 	global $wpdb, $loginizer;
-	
+
 	$deltime = time() - $loginizer['reset_retries'];
-	
+
 	$del_query = $wpdb->prepare("DELETE FROM `".$wpdb->prefix."loginizer_logs` WHERE `time` <= %d", $deltime);
 	$result = $wpdb->query($del_query);
-	
+
 	update_option('loginizer_last_reset', time());
-	
+
 }
 
 // Sorry to see you going

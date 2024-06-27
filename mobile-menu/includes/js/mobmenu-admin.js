@@ -555,7 +555,7 @@
             e.preventDefault();
             if (e.which != 13) {
                 var demo = $( this ).attr( 'data-demo-id' );
-                location.href += '&mobmenu-action=import-settings&demo=' + demo;
+                location.href += '&mobmenu-action=import-settings&demo=' + demo + '&security=' + mobmenu_admin_obj.security;
                 return false;
             }
         });

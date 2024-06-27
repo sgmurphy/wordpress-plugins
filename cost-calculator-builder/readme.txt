@@ -5,8 +5,8 @@ Donate link: https://stylemixthemes.com
 Tags: cost calculator, calculator, calculator form builder, cost estimation, shipping calculator, taxi fare calculator, price calculator, tax calculation
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 6.5.4
-Stable tag: 3.2.12
+Tested up to: 6.5.5
+Stable tag: 3.2.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,12 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.13 =
+- Enhancement: Added new options for Click action setting of Sticky Calculator: Pop up summary, Download PDF, Share invoice, WooCheckout action after submit, Pop up on WooProduct page and WooCheckout action on WooProduct page (Pro).
+- Enhancement: Added a setting to show or not a calculator in the background when the Sticky Calculator is enabled (Pro).
+- Fix: Made the function descriptions in the Formula element translatable.
+- Fix: Removed the possibility to enter HTML tags in element descriptions.
 
 = 3.2.12 =
 - Fix: HTML element is not displayed.

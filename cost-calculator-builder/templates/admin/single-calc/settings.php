@@ -55,7 +55,7 @@ $modal_types = array(
 					<?php if ( isset( $ccb_page['type'] ) && sanitize_text_field( $ccb_page['type'] ) === 'pro' ) : ?>
 						<span class="ccb-settings-tab-list-item" :class="{active: tab === '<?php echo esc_attr( $ccb_page['slug'] ); ?>'}" @click="tab = '<?php echo esc_attr( $ccb_page['slug'] ); ?>'">
 							<i class="<?php echo esc_attr( $ccb_page['icon'] ); ?>"></i>
-							<span><?php echo esc_html( $ccb_page['title'] ); ?></span>
+							<span :class="{'ccb-shine-effect': getShineClass('<?php echo esc_attr( $ccb_page['slug'] ); ?>')}"><?php echo esc_html( $ccb_page['title'] ); ?></span>
 						</span>
 					<?php endif; ?>
 				<?php endforeach; ?>
@@ -67,6 +67,7 @@ $modal_types = array(
 			<?php foreach ( $ccb_pages as $ccb_page ) : ?>
 				<component
 						inline-template
+						@update-shine="updateShineClass"
 						:is="getComponent"
 						:key="$store.getters.getFieldsKey"
 						v-if="tab === '<?php echo esc_attr( $ccb_page['slug'] ); ?>'"

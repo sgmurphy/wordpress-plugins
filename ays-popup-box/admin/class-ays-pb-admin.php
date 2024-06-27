@@ -317,6 +317,34 @@ class Ays_Pb_Admin {
 		);
 	}
 
+    public static function get_listtables_title_length($listtable_name) {
+        global $wpdb;
+
+        $settings_table = $wpdb->prefix . "ays_pb_settings";
+        $sql = "SELECT meta_value FROM " . $settings_table . " WHERE meta_key = 'options'";
+        $result = $wpdb->get_var($sql);
+        $options = ($result == "") ? array() : json_decode(stripcslashes($result), true);
+        $listtable_title_length = 5;
+
+        if (!empty($options)) {
+            switch ($listtable_name) {
+                case 'popups':
+                    $listtable_title_length = (isset($options['popup_title_length']) && intval($options['popup_title_length']) != 0) ? absint( intval($options['popup_title_length']) ) : 5;
+                    break;
+                case 'categories':
+                    $listtable_title_length = (isset($options['categories_title_length']) && intval($options['categories_title_length']) != 0) ? absint( intval($options['categories_title_length']) ) : 5;
+                    break;
+                default:
+                    $listtable_title_length = 5;
+                    break;
+            }
+
+            return $listtable_title_length;
+        }
+
+        return $listtable_title_length;
+    }
+
     // Code Mirror
     function codemirror_enqueue_scripts($hook) {
         if (false === strpos($hook, $this->plugin_name)) {
@@ -687,31 +715,6 @@ class Ays_Pb_Admin {
             break;
         }
         return $output;
-    }
-
-    public static function get_listtables_title_length( $listtable_name ) {
-        global $wpdb;
-
-        $settings_table = $wpdb->prefix . "ays_pb_settings";
-        $sql = "SELECT meta_value FROM ".$settings_table." WHERE meta_key = 'options'";
-        $result = $wpdb->get_var($sql);
-        $options = ($result == "") ? array() : json_decode(stripcslashes($result), true);
-        $listtable_title_length = 5;
-        if(! empty($options) ){
-            switch ( $listtable_name ) {
-                case 'popups':
-                    $listtable_title_length = (isset($options['popup_title_length']) && intval($options['popup_title_length']) != 0) ? absint(intval($options['popup_title_length'])) : 5;
-                    break; 
-                case 'categories':
-                    $listtable_title_length = (isset($options['categories_title_length']) && intval($options['categories_title_length']) != 0) ? absint(intval($options['categories_title_length'])) : 5;
-                    break;
-                default:
-                    $listtable_title_length = 5;
-                    break;
-            }
-            return $listtable_title_length;
-        }
-        return $listtable_title_length;
     }
 
     public function get_next_or_prev_row_by_id( $id, $type = "next", $table = "ays_pb" ) {

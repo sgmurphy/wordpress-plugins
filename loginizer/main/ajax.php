@@ -8,9 +8,12 @@ if(!defined('ABSPATH')){
 // ------- ACTIONS -------/
 add_action('wp_ajax_loginizer_dismiss_csrf', 'loginizer_dismiss_csrf');
 add_action('wp_ajax_loginizer_dismiss_backuply', 'loginizer_dismiss_backuply');
+add_action('wp_ajax_loginizer_dismiss_social_alert', 'loginizer_dismiss_social_alert');
 add_action('wp_ajax_loginizer_dismiss_newsletter', 'loginizer_dismiss_newsletter');
 add_action('wp_ajax_loginizer_failed_login_export', 'loginizer_failed_login_export');
 add_action('wp_ajax_loginizer_export', 'loginizer_export');
+add_action('wp_ajax_loginizer_social_order', 'loginizer_social_order');
+add_action('wp_ajax_loginizer_dismiss_license_alert', 'loginizer_dismiss_license_alert');
 
 
 // ----- FUNCTIONS ------//
@@ -27,6 +30,20 @@ function loginizer_dismiss_csrf(){
 	update_option('loginizer_csrf_promo_time', (0 - time()));
 	echo 1;
 	wp_die();
+}
+
+function loginizer_dismiss_social_alert(){
+
+	// Some AJAX security
+	check_ajax_referer('loginizer_admin_ajax', 'nonce');
+	 
+	if(!current_user_can('manage_options')){
+		wp_send_json_error('Sorry, but you do not have permissions to change settings.');
+	}
+
+	update_option('loginizer_social_login_url', wp_login_url());
+	
+	wp_send_json_success();
 }
 
 function loginizer_dismiss_backuply(){
@@ -156,4 +173,33 @@ function loginizer_export(){
 	fclose($file);
 	
 	wp_die();
+}
+
+function loginizer_social_order(){
+	
+	// Some AJAX security
+	check_ajax_referer('loginizer_social_nonce', 'security');
+
+	if(!current_user_can('manage_options')){
+		wp_die(__('Sorry, but you do not have permissions to change settings.', 'loginizer'));
+	}
+	
+	$order = map_deep(map_deep($_POST['order'], 'wp_unslash'), 'sanitize_text_field');
+
+	update_option('loginizer_social_order', array_flip($order));
+	
+	wp_send_json_success();
+	
+}
+
+function loginizer_dismiss_license_alert(){
+	// Some AJAX security
+	check_ajax_referer('loginizer_license_notice', 'security');
+
+	if(!current_user_can('manage_options')){
+		wp_die(__('Sorry, but you do not have permissions to change settings.', 'loginizer'));
+	}
+	
+	update_option('loginizer_license_notice', (0 - time()), false);
+	die('DONE');
 }

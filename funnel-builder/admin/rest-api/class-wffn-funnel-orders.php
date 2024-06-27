@@ -639,12 +639,15 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 				];
 
 				if ( true === $return_data ) {
+					wffn_rest_api_helpers()->remove_all_wc_price_action();
+
 					$data['step_id']        = ! empty( $result['step_id'] ) ? $result['step_id'] : 0;
-					$data['checkout_total'] = ! empty( $result['checkout_total'] ) ? $result['checkout_total'] : 0;
-					$data['bump_total']     = ! empty( $result['bump_total'] ) ? $result['bump_total'] : 0;
+					$data['total_spent']    = ! empty( $result['total_sales'] ) ? $this->get_price_format( $result['total_sales'] ) : 0;
+					$data['checkout_total'] = ! empty( $result['checkout_total'] ) ? $this->get_price_format( $result['checkout_total'] ) : 0;
+					$data['bump_total']     = ! empty( $result['bump_total'] ) ? $this->get_price_format( $result['bump_total'] ) : 0;
 					$data['bump_accepted']  = ! empty( $result['bump_accepted'] ) ? $result['bump_accepted'] : '';
 					$data['bump_rejected']  = ! empty( $result['bump_rejected'] ) ? $result['bump_rejected'] : '';
-					$data['offer_total']    = ! empty( $result['offer_total'] ) ? $result['offer_total'] : 0;
+					$data['offer_total']    = ! empty( $result['offer_total'] ) ? $this->get_price_format( $result['offer_total'] ) : 0;
 					$data['offer_accepted'] = ! empty( $result['offer_accepted'] ) ? $result['offer_accepted'] : '';
 					$data['offer_rejected'] = ! empty( $result['offer_rejected'] ) ? $result['offer_rejected'] : '';
 				}
@@ -652,6 +655,21 @@ if ( ! class_exists( 'WFFN_Funnel_Orders' ) ) {
 				return $data;
 
 			}, $final_orders );
+		}
+
+		public function get_price_format( $price ) {
+			if ( ! function_exists( 'wc_price' ) ) {
+				return $price;
+			}
+
+			$args = array(
+				'decimal_separator'  => wc_get_price_decimal_separator(),
+				'thousand_separator' => wc_get_price_thousand_separator(),
+				'decimals'           => wc_get_price_decimals(),
+			);
+
+			return number_format( $price, $args['decimals'], $args['decimal_separator'], $args['thousand_separator'] );
+
 		}
 
 		/**

@@ -18,6 +18,23 @@ function ccb_update_calc_new_values( $data ) {
 		update_option( 'stm_ccb_form_settings_' . sanitize_text_field( $data['id'] ), apply_filters( 'stm_ccb_sanitize_array', $data['settings'] ) );
 		update_post_meta( $data['id'], 'stm-name', $title );
 		update_post_meta( $data['id'], 'stm-formula', ! empty( $data['formula'] ) ? apply_filters( 'stm_ccb_sanitize_array', $data['formula'] ) : array() );
+
+		if ( isset( $data['builder'] ) ) {
+			foreach ( $data['builder'] as $idx => $builder ) {
+				if ( isset( $builder['description'] ) ) {
+					$data['builder'][ $idx ]['description'] = sanitize_text_field( $builder['description'] );
+				}
+
+				if ( isset( $builder['label'] ) ) {
+					$data['builder'][ $idx ]['label'] = sanitize_text_field( $builder['label'] );
+				}
+
+				if ( isset( $builder['placeholder'] ) ) {
+					$data['builder'][ $idx ]['placeholder'] = sanitize_text_field( $builder['placeholder'] );
+				}
+			}
+		}
+
 		update_post_meta( $data['id'], 'stm-fields', ! empty( $data['builder'] ) ? apply_filters( 'stm_ccb_sanitize_array', $data['builder'] ) : array() );
 		update_post_meta( $data['id'], 'stm-conditions', ! empty( $data['conditions'] ) ? apply_filters( 'stm_ccb_sanitize_array', $data['conditions'] ) : array() );
 		update_post_meta( $data['id'], 'calc_saved', true );

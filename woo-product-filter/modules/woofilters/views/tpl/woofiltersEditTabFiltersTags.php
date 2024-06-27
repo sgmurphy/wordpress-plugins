@@ -15,7 +15,8 @@
 						'dropdown' => esc_attr__( 'Dropdown', 'woo-product-filter' ),
 						'mul_dropdown' => esc_attr__( 'Multiple Dropdown', 'woo-product-filter' ),
 						'buttons' => esc_attr__( 'Buttons', 'woo-product-filter' ) . $labelPro,
-						'text' => esc_attr__( 'Text', 'woo-product-filter' ) . $labelPro
+						'text' => esc_attr__( 'Text', 'woo-product-filter' ) . $labelPro,
+						'colors' => esc_attr__(  'Colors', 'woo-product-filter' ) . $labelPro,
 					),
 					'attrs' => 'class="woobewoo-flat-input"'
 				));
@@ -28,8 +29,14 @@ if ( $isPro ) :
 	DispatcherWpf::doAction( 'addEditTabFilters', 'partEditTabFiltersSelectDefaultId' );
 	DispatcherWpf::doAction( 'addEditTabFilters', 'partEditTabFiltersMultiSelect' );
 	DispatcherWpf::doAction( 'addEditTabFilters', 'partEditTabFiltersButtonsType' );
+	DispatcherWpf::doAction( 'addEditTabFilters', 'partEditTabFiltersTagColors' );
 else :
 	?>
+	<div class="row-settings-block col-md-12 wpfFilterTypePro wpfTypeSwitchable wpfHidden" data-type="colors" data-parent="f_list">
+		<a href="https://woobewoo.com/plugins/woocommerce-filter/" target="_blank">
+			<img class="wpfProAd" src="<?php echo esc_url( $adPath . 'attributes_colors.png' ); ?>">
+		</a>
+	</div>
 	<div class="row-settings-block wpfTypeSwitchable dataParentIgnore" data-type="dropdown radio list" data-parent="f_list" data-no-values="custom_meta_field_check">
 		<div class="settings-block-label col-xs-4 col-sm-3">
 			<?php esc_html_e( 'Select default id', 'woo-product-filter' ); ?>
@@ -263,7 +270,7 @@ endif;
 		</div>
 	</div>
 </div>
-<div class="row-settings-block wpfTypeSwitchable" data-not-type="dropdown mul_dropdown">
+<div class="row-settings-block wpfTypeSwitchable" data-not-type="dropdown colors mul_dropdown">
 	<div class="settings-block-label settings-w100 col-xs-4 col-sm-3">
 		<?php esc_html_e('Layout', 'woo-product-filter'); ?>
 		<i class="fa fa-question woobewoo-tooltip no-tooltip" title="<?php echo esc_attr(__('Select a vertical or horizontal layout and set the count of columns.', 'woo-product-filter') . ' <a href="https://woobewoo.com/documentation/product-tags/" target="_blank">' . __('Learn More', 'woo-product-filter') . '</a>.'); ?>"></i>

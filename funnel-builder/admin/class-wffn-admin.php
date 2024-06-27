@@ -923,7 +923,7 @@ if ( ! class_exists( 'WFFN_Admin' ) ) {
 			// Check to make sure we're on a WooFunnels admin page.
 			if ( isset( $current_screen->id ) && apply_filters( 'bwf_funnels_funnels_display_admin_footer_text', in_array( $current_screen->id, $wffn_pages, true ), $current_screen->id ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// Change the footer text.
-				$footer_text = __( 'Over 648+ 5 star reviews show that FunnelKit users trust our top-rated support for their online business. Do you need help? <a href="https://funnelkit.com/support/?utm_source=WordPress&utm_medium=Support+Footer&utm_campaign=Lite+Plugin" target="_blank"><b>Contact FunnelKit Support</b></a>', 'funnel-builder' );
+				$footer_text = __( 'Over 722+ 5 star reviews show that FunnelKit users trust our top-rated support for their online business. Do you need help? <a href="https://funnelkit.com/support/?utm_source=WordPress&utm_medium=Support+Footer&utm_campaign=Lite+Plugin" target="_blank"><b>Contact FunnelKit Support</b></a>', 'funnel-builder' );
 
 			}
 

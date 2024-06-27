@@ -275,10 +275,8 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
 			wp_enqueue_script( 'wp-pointer' );
 			wp_enqueue_style( 'wp-pointer' );
 
-			$current_user_id = get_current_user_id();
-			wp_localize_script( 'wp-pointer', 'wffnStripe', [
-				'current_user_id' => $current_user_id
-			] );
+
+
 
 			?>
             <script>
@@ -308,6 +306,13 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
 
                             return button.on('click.pointer', function (e) {
                                 e.preventDefault();
+                                jQuery('#wp-admin-bar-funnelkit-stripe-menu').remove();
+                                apiService('funnelkit-app/user-preference', 'POST', JSON.stringify({
+                                    action: 'notice_close',
+                                    key: 'stripe-menu-button',
+                                    user_id: <?php echo esc_html(get_current_user_id()); ?>,
+                                })).then((res) => {
+                                }).catch((e) => console.log(e));
                                 t.element.pointer('close');
                             });
                         },
@@ -373,16 +378,7 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
 
                     addClickEvent();
 
-                    //remove notice
-                    jQuery('.fk-stripe-tooltip .wp-pointer-buttons .close').click(function () {
-                        jQuery('#wp-admin-bar-funnelkit-stripe-menu').remove();
-                        apiService('funnelkit-app/user-preference', 'POST', JSON.stringify({
-                            action: 'notice_close',
-                            key: 'stripe-menu-button',
-                            user_id: wffnStripe.current_user_id,
-                        })).then((res) => {
-                        }).catch((e) => console.log(e))
-                    });
+
 
                 });
             </script>

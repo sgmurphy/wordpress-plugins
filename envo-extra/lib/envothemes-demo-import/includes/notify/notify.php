@@ -41,14 +41,14 @@ function envothemes_review_notice() {
     }
 	if( 
 	(defined('ENTR_PRO_CURRENT_VERSION') && version_compare(ENTR_PRO_CURRENT_VERSION, '1.2.0', '<') ) ||
-	(defined('ENVO_STOREFRONT_PRO_CURRENT_VERSION') && version_compare(ENVO_STOREFRONT_PRO_CURRENT_VERSION, '1.8.0', '<') ) ||
-	(defined('ENVO_SHOP_PRO_CURRENT_VERSION') && version_compare(ENVO_SHOP_PRO_CURRENT_VERSION, '1.9.4', '<') ) ||
+	(defined('ENVO_STOREFRONT_PRO_CURRENT_VERSION') && version_compare(ENVO_STOREFRONT_PRO_CURRENT_VERSION, '1.8.1', '<') ) ||
+	(defined('ENVO_SHOP_PRO_CURRENT_VERSION') && version_compare(ENVO_SHOP_PRO_CURRENT_VERSION, '1.9.5', '<') ) ||
 	(defined('ENVO_ONLINE_STORE_PRO_CURRENT_VERSION') && version_compare(ENVO_ONLINE_STORE_PRO_CURRENT_VERSION, '1.8.0', '<') ) ||
 	(defined('ENVO_SHOPPER_PRO_CURRENT_VERSION') && version_compare(ENVO_SHOPPER_PRO_CURRENT_VERSION, '1.9.0', '<') ) ||
 	(defined('ENVO_MARKETPLACE_PRO_CURRENT_VERSION') && version_compare(ENVO_MARKETPLACE_PRO_CURRENT_VERSION, '1.9.0', '<') ) ||
 	(defined('ENWOO_PRO_CURRENT_VERSION') && version_compare(ENWOO_PRO_CURRENT_VERSION, '1.5.0') ) ||
-	(defined('ENVO_ECOMMERCE_PRO_CURRENT_VERSION') && version_compare(ENVO_ECOMMERCE_PRO_CURRENT_VERSION, '2.2.0', '<')  ) ||
-	(defined('ENVO_MAGAZINE_PRO_CURRENT_VERSION') && version_compare(ENVO_MAGAZINE_PRO_CURRENT_VERSION, '2.1.0', '<')  )
+	(defined('ENVO_ECOMMERCE_PRO_CURRENT_VERSION') && version_compare(ENVO_ECOMMERCE_PRO_CURRENT_VERSION, '2.2.1', '<')  ) ||
+	(defined('ENVO_MAGAZINE_PRO_CURRENT_VERSION') && version_compare(ENVO_MAGAZINE_PRO_CURRENT_VERSION, '2.1.1', '<')  )
 	)	{add_action('admin_notices',  'envo_extra_admin_notice_update_pro' );}
 }
 

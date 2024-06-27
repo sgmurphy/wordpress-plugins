@@ -20,9 +20,6 @@ if ( ! class_exists( 'WCPBC_PayPal_Payments' ) ) :
 	class WCPBC_PayPal_Payments {
 
 		/**
-		 * Returns the PayPal Payments
-		 */
-		/**
 		 * Hook actions and filters
 		 */
 		public static function init() {

@@ -1791,7 +1791,9 @@ class WoofiltersViewWpf extends ViewWpf {
 				'excludes' => $excludeIds,
 				'includes' => false,
 				'display' => $layout,
-				'class' => $inLineClass
+				'class' => $inLineClass,
+				'show_all' => $show_all_tags,
+				'view_id' => $viewId,
 			));
 		}
 

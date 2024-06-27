@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="calc-item__description before">
-		<span v-html="textField.description"></span>
+		<span v-text="textField.description"></span>
 	</div>
 	<div class="calc-textarea-box">
 		<textarea v-model="textareaValue" @change="onChange" :id="labelId" :placeholder="textField.placeholder" :class="['calc-textarea ccb-appearance-field calc-item']"></textarea>
@@ -23,6 +23,6 @@
 	</div>
 
 	<div class="calc-item__description after">
-		<span v-html="textField.description"></span>
+		<span v-text="textField.description"></span>
 	</div>
 </div>

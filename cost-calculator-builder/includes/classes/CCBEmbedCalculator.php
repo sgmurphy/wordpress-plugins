@@ -5,6 +5,11 @@ namespace cBuilder\Classes;
 class CCBEmbedCalculator {
 	public static function create_page() {
 		check_ajax_referer( 'embed_create_page', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
+		}
+
 		$data          = json_decode( stripslashes( $_POST['data'] ) );
 		$page_name     = strval( $data->page_name );
 		$calculator_id = strval( $data->calculator_id );
@@ -37,7 +42,12 @@ class CCBEmbedCalculator {
 	}
 
 	public static function get_all_pages() {
+
 		check_ajax_referer( 'embed_get_pages', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
+		}
 
 		$args = array(
 			'sort_order'   => 'asc',
@@ -77,7 +87,12 @@ class CCBEmbedCalculator {
 	}
 
 	public static function insert_pages() {
+
 		check_ajax_referer( 'embed_insert_pages', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
+		}
 
 		$data          = json_decode( stripslashes( $_POST['data'] ) );
 		$calculator_id = filter_var( $data->calculator_id, FILTER_SANITIZE_STRING );
@@ -94,7 +109,7 @@ class CCBEmbedCalculator {
 			$args               = $page;
 			$args->post_content = $page->post_content . '[stm-calc id="' . $calculator_id . '"]';
 
-			$post_id = wp_insert_post( $args );
+			wp_insert_post( $args );
 		}
 
 		wp_send_json_success(

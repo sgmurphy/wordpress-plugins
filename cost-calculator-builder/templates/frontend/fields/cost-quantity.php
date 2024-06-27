@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="calc-item__description before">
-		<span v-html="quantityField.description"></span>
+		<span v-text="quantityField.description"></span>
 	</div>
 
 	<div :class="['calc-input-wrapper ccb-field', 'calc_' + quantityField.alias]">
@@ -41,6 +41,6 @@
 	</div>
 
 	<div class="calc-item__description after">
-		<span v-html="quantityField.description"></span>
+		<span v-text="quantityField.description"></span>
 	</div>
 </div>

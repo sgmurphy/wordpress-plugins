@@ -58,6 +58,7 @@ $options = array(
     'notification_button_1_redirect_url' => '',
     'notification_button_1_redirect_to_new_tab' => 'off',
     'notification_button_1_bg_color' => '#F66123',
+    'notification_button_1_bg_hover_color' => '#F66123',
     'notification_button_1_text_color' => '#FFFFFF',
     'notification_button_1_font_size' => 15,
     'notification_button_1_border_radius' => 6,
@@ -411,6 +412,9 @@ $notification_button_1_redirect_to_new_tab = (isset($options['notification_butto
 
 // Notification type | Button 1 background color
 $notification_button_1_bg_color = (isset($options['notification_button_1_bg_color']) && $options['notification_button_1_bg_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_color']) ) : '#F66123';
+
+// Notification type | Button 1 background color
+$notification_button_1_bg_hover_color = (isset($options['notification_button_1_bg_hover_color']) && $options['notification_button_1_bg_hover_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_hover_color']) ) : $notification_button_1_bg_color;
 
 // Notification type | Button 1 text color
 $notification_button_1_text_color = (isset($options['notification_button_1_text_color']) && $options['notification_button_1_text_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_color']) ) : '#FFFFFF';
@@ -1831,13 +1835,27 @@ $ays_users_roles = $wp_roles->roles;
                                 <div class="col-sm-3">
                                     <label for="ays_pb_notification_button_1_bg_color">
                                         <?php  echo __('Background color', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the background color of the button.", "ays-popup-box"); ?>" >
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button.", "ays-popup-box"); ?>" >
                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                         </a>
                                     </label>
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="ays_pb_notification_button_1_bg_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_color" value="<?php echo $notification_button_1_bg_color ?>" data-default-color="#F66123" data-alpha="true" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="ays_pb_notification_button_1_bg_hover_color">
+                                        <?php  echo __('Background hover color', "ays-popup-box" ) ?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button on hover.", "ays-popup-box"); ?>" >
+                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="ays_pb_notification_button_1_bg_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_hover_color" value="<?php echo $notification_button_1_bg_hover_color ?>" data-default-color="#F66123" data-alpha="true" />
                                 </div>
                             </div>
                             <hr>

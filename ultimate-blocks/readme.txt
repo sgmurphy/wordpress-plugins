@@ -3,7 +3,7 @@ Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, 
 Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 3.1.9
+Stable tag: 3.2.0
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -144,11 +144,20 @@ That's it. You're done!
 
 == Screenshot ==
 
-1. Review Block (Schema Enabled).
-2. Table of Contents Block.
-3. Tabbed Content Block.
+1. Countdown Block.
+2. Button Block.
+3. Content Toggle Block.
+4. Testimonial Block.
+5. Image Slider Block.
 
 == Changelog ==
+
+= 3.2.0 =
+
+* FIX: Aspect Ratio not working on uploaded video in advanced video block.
+* FIX: Content Toggle not working properly.
+* FIX: Howto step image height showing incorrectly.
+* FIX: Styled List Item icon change to default on add new item by pressing enter.
 
 = 3.1.9 =
 

@@ -4,10 +4,39 @@ if(!defined('ABSPATH')){
 	die('Hacking Attempt!');
 }
 
-
 // HOOKS
 add_action('admin_menu', 'loginizer_admin_menu');
+add_action('admin_notices', 'loginizer_social_login_url_alert');
+add_action('admin_footer', 'loginizer_social_interim_js');
+add_action('admin_init', 'loginizer_admin_actions');
 //add_filter("plugin_action_links_plugin_loginizer", 'loginizer_plugin_action_links');
+
+function loginizer_admin_actions(){
+	global $loginizer;
+	
+	if(defined('LOGINIZER_PREMIUM') && !defined('SITEPAD') && current_user_can('activate_plugins') && isset($_GET['page']) && strpos($_GET['page'], 'loginizer') !== FALSE){
+
+		$license_notice = get_option('loginizer_license_notice', 0);
+		if(empty($license_notice)){
+			$license_notice = time();
+			update_option('loginizer_license_notice', $license_notice);
+		}
+		
+		$loginizer['license'] = get_option('loginizer_license', []);
+
+		// Here we are making sure that we have a license and it has expiry time and has not been dismissed for 2 months
+		if(!empty($loginizer['license']) && !empty($loginizer['license']['expires']) && ($license_notice > 0 || (abs($license_notice) + MONTH_IN_SECONDS * 2) < time())){
+			$current_timestamp = time();
+			$expiration_timestamp = strtotime($loginizer['license']['expires']);
+			$timediff = $expiration_timestamp - $current_timestamp;
+
+			if($timediff <= WEEK_IN_SECONDS){
+				add_action('admin_notices', 'loginizer_check_expires');
+			}
+		}
+	}
+}
+
 
 
 // Add settings link on plugin page
@@ -485,6 +514,9 @@ function loginizer_admin_menu() {
 	// Temporary Login
 	add_submenu_page('loginizer', __($loginizer['prefix'].'SSO', 'loginizer'), __('Single Sign On', 'loginizer'). ((time() < strtotime('30 November 2023')) ? ' <span style="color:yellow;">Update</span>' : ''), 'activate_plugins', 'loginizer_sso', 'loginizer_sso_settings');
 	
+	// Social Login
+	$hook_name =  add_submenu_page('loginizer', __($loginizer['prefix'].'social_login', 'loginizer'), __('Social Login', 'loginizer') . ((time() < strtotime('30 July 2024')) ? ' <span style="color:red;">New</span>' : ''), 'activate_plugins', 'loginizer_social_login', 'loginizer_social_login_settings');
+	
 	// Security Settings
 	if(!defined('SITEPAD')){
 	
@@ -502,7 +534,18 @@ function loginizer_admin_menu() {
 		add_submenu_page('loginizer', __('Loginizer Go Pro', 'loginizer'), __('Go Pro', 'loginizer'), 'activate_plugins', LOGINIZER_PRO_URL);
 		
 	}
+
+	// NOTE: This hook is just for Social Login for now,
+	// will need to change if we make different CSS files for every Menu page
+	// INFO:: Using this action helps is loading the CSS beforehand preventing any layout change on load.
+	add_action('load-'.$hook_name, 'loginizer_load_admin_assets');
 	
+}
+
+// Loads assets like CSS and JS for admin Pages.
+function loginizer_load_admin_assets(){
+	wp_enqueue_style('loginizer_social_style', LOGINIZER_URL . '/assets/css/social-admin.css', [], LOGINIZER_VERSION);
+	wp_enqueue_script('loginizer_social_script', LOGINIZER_URL . '/assets/js/social-admin.js', ['jquery', 'jquery-ui-sortable'], LOGINIZER_VERSION, true);
 }
 
 // Show the promo
@@ -659,3 +702,134 @@ function loginizer_sso_settings(){
 	
 	loginizer_sso();
 }
+
+function loginizer_social_login_settings(){
+	include_once LOGINIZER_DIR . '/main/settings/social_login.php';
+	
+	loginizer_social_login();
+}
+
+// Hides the interim login poup after successful login.
+function loginizer_social_interim_js(){
+
+	if(isset($_GET['interim_login']) && $_GET['interim_login'] === 'lz' && is_user_logged_in()){
+		echo '<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			parent.document.querySelector("#wp-auth-check-wrap")?.classList.add("hidden");
+		});
+		</script>';
+	}
+}
+
+// Show alert when the login url gets changes from when the Loginizer social settings were setup.
+function loginizer_social_login_url_alert(){
+
+	// We want to show this error to user which has sufficient privilage
+	if(!current_user_can('activate_plugins')){
+		return;
+	}
+
+	if(get_option('loginizer_social_login_url', '') === wp_login_url()){
+		return;
+	}
+
+	$provider_settings = get_option('loginizer_provider_settings', []);
+	
+	// If we dont have any settings then it dosent matter what URL is set.
+	// As it will be updated once user saves the settings.
+	if(empty($provider_settings)){
+		return;
+	}
+
+	$has_enabled = false;
+	foreach($provider_settings as $provider){
+		if($provider['enabled']){
+			$has_enabled = true;
+			break;
+		}
+	}
+
+	// If we have no Provider enabled then just show the warning on the social login page.
+	if(empty($has_enabled) && (empty($_GET['page']) || $_GET['page'] !== 'loginizer_social_login')){
+		return;
+	}
+	
+	echo '<div class="notice notice-error">
+		<h4>'.esc_html__('Your changed login slug!', 'loginizer').'</h4>
+		<p>'.esc_html__('You changed the login slug and have some social login apps enabled. These social login apps use the login URL as the redirect URI. This means that since the login URL has changed, the social login will now break.', 'loginizer').'</p>
+
+		<h4>'.esc_html__('How to fix:', 'loginizer').'</h4>
+		<p>'.esc_html__('When you created secret keys for the social apps, you also provided a Redirect URI. To fix this issue, you need to update that Redirect URI.', 'loginizer').'<br/>
+		You just need to update the <code>/wp-login.php</code> to the new slug you have.</p>
+		<p><button class="button button-primary" id="loginizer-social-login-alert">'.esc_html__('I have fixed this issue', 'loginizer').'</button></p>
+	</div>';
+	
+	
+	wp_register_script('loginizer_social_alert', '', ['jquery'], LOGINIZER_VERSION, true);
+	wp_enqueue_script('loginizer_social_alert');
+	wp_add_inline_script('loginizer_social_alert', '
+		jQuery("#loginizer-social-login-alert").on("click", function(){
+			jQuery(this).closest(".notice").slideToggle();
+
+			var data = new Object();
+			data["action"] = "loginizer_dismiss_social_alert";
+			data["nonce"]	= "'.wp_create_nonce('loginizer_admin_ajax').'";
+			
+			var admin_url = "'.admin_url().'"+"admin-ajax.php";
+			jQuery.post(admin_url, data, function(response){
+			});
+		});');
+}
+
+function loginizer_check_expires(){
+	global $loginizer;
+
+	$current_timestamp = time();
+	$expiration_timestamp = strtotime($loginizer['license']['expires']);
+	$time_diff = $expiration_timestamp - $current_timestamp;
+
+	// Renew link
+	$loginizer_user_license = $loginizer['license']['license'];
+	$loginizer_user_plan = $loginizer['license']['plan'];
+	$loginizer_renew_url = 'https://www.softaculous.com/clients?ca=loginizer_buy&plan=' . $loginizer_user_plan . '&license=' . $loginizer_user_license;
+
+	if($time_diff > 0 && $time_diff <= WEEK_IN_SECONDS){
+		$human_time = human_time_diff($current_timestamp, $expiration_timestamp);
+
+		echo '<style>.loginizer_promo-close{float:right;text-decoration:none;margin: 5px 10px 0px 0px;}.loginizer_promo-close:hover{color: red;}</style>
+		<div class="notice notice-error" id="loginizer_license_notice">
+		<a class="loginizer_promo-close" id="loginizer-license-promo-close" href="javascript:" aria-label="Dismiss this Notice">
+			<span class="dashicons dashicons-dismiss"></span> '.esc_html__('Dismiss for 60 days', 'loginizer').'
+		</a>
+		<p>' . sprintf(esc_html__('Alert : Your Loginizer Premium license will expire in %s. Renew to keep getting updates!', 'loginizer'), esc_html($human_time)).'
+		<a href="' . esc_url($loginizer_renew_url) . '" target="_blank">' . esc_html__('Click here to renew', 'loginizer') . '</a>
+		</p>
+		</div>';
+
+	} else if($time_diff <= 0){
+		echo '<style>.loginizer_promo-close{float:right;text-decoration:none;margin: 5px 10px 0px 0px;}.loginizer_promo-close:hover{color: red;}</style>
+		<div class="notice notice-error" id="loginizer_license_notice">
+		<a class="loginizer_promo-close" id="loginizer-license-promo-close" href="javascript:" aria-label="Dismiss this Notice">
+			<span class="dashicons dashicons-dismiss"></span> '.esc_html__('Dismiss for 60 days', 'loginizer').'
+		</a>
+		<p>' . esc_html__('Alert: Your Loginizer Premium license has expired. Please renew immediately to keep getting updates ', 'loginizer').'
+		<a href="' . esc_url($loginizer_renew_url) . '" target="_blank">' . esc_html__('Click here to renew', 'loginizer') . '</a></p>
+		</div>';
+	}
+	
+	wp_register_script('loginizer_license_alert', '', ['jquery'], LOGINIZER_VERSION, true);
+	wp_enqueue_script('loginizer_license_alert');
+	wp_add_inline_script('loginizer_license_alert', '
+		jQuery("#loginizer-license-promo-close").on("click", function(){
+			jQuery(this).closest("#loginizer_license_notice").slideToggle();
+
+			var data = new Object();
+			data["action"] = "loginizer_dismiss_license_alert";
+			data["security"] = "'.wp_create_nonce('loginizer_license_notice').'";
+			
+			var admin_url = "'.admin_url().'"+"admin-ajax.php";
+			jQuery.post(admin_url, data, function(response){
+			});
+		});');
+	
+} 

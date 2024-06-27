@@ -2801,7 +2801,10 @@
 			selectedOptions = {'is_one': (filterType == 'dropdown'), 'list': []},
 			statistics = [],
 			withCount = $filter.hasClass('wpfShowCount'),
-			i = 0;
+			i = 0,
+			proFilterType = [
+				'colors'
+			];
 
 		//options for backend (filtering)
 		if(filterType === 'dropdown'){
@@ -2824,7 +2827,7 @@
 				statistics.push(name);
 				i++;
 			});
-		} else {
+		} else if (jQuery.inArray(filterType, proFilterType) == -1 ) {
 			$filter.find('input:checked').each(function () {
 				var li = jQuery(this).closest('li'),
 					id = li.attr('data-term-id');
@@ -2836,16 +2839,29 @@
 				i++;
 			});
 		}
-		optionsArray['backend'] = options;
+		
+		var data = {
+			options : options,
+			frontendOptions : frontendOptions,
+			selectedOptions : selectedOptions,
+			statistics : statistics,
+			i : i,
+		}
+
+		if (typeof window.wpfFrontendPage.getTagsFilterOptionsPro == 'function') {
+			data = window.wpfFrontendPage.getTagsFilterOptionsPro($filter, data);
+		}
+
+		optionsArray['backend'] = data.options;
 
 		//options for frontend(change url)
 		var getParams = $filter.attr('data-get-attribute');
 
 		optionsArray['frontend'] = [];
 		optionsArray['frontend']['taxonomy'] = getParams;
-		optionsArray['frontend']['settings'] = frontendOptions;
-		optionsArray['selected'] = selectedOptions;
-		optionsArray['stats'] = statistics;
+		optionsArray['frontend']['settings'] = data.frontendOptions;
+		optionsArray['selected'] = data.selectedOptions;
+		optionsArray['stats'] = data.statistics;
 
 		return optionsArray;
 	});

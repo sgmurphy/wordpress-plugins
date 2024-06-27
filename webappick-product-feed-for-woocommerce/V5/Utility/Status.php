@@ -2,6 +2,7 @@
 
 namespace CTXFeed\V5\Utility;
 
+use Automattic\WooCommerce\Utilities\RestApiUtil;
 use WC_Product_Query;
 use Woo_Feed_Log_Handler_File;
 use WP_Query;
@@ -330,7 +331,8 @@ class Status {
 	 * @return array
 	 */
 	private function server_info( ) {
-		$report             = wc()->api->get_endpoint_data( '/wc/v3/system_status' );
+		$report = wc_get_container()->get( RestApiUtil::class )->get_endpoint_data( '/wc/v3/system_status' );
+
 		$environment        = $report['environment'];
 		$theme              = $report['theme'];
 		$active_plugins     = $report['active_plugins'];

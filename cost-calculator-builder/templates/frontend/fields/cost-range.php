@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="calc-item__description before">
-			<span v-html="rangeField.description"></span>
+			<span v-text="rangeField.description"></span>
 		</div>
 
 		<div :class="['range_' + rangeField.alias]" class="calc-range-slider" :style="getStyles">
@@ -39,7 +39,7 @@
 		</div>
 
 		<div class="calc-item__description after" >
-			<span v-html="rangeField.description"></span>
+			<span v-text="rangeField.description"></span>
 		</div>
 	</div>
 </div>

@@ -54,6 +54,10 @@ class UpgradeNotice extends NoticeAbstract implements NoticeInterface {
 		}
 
 		$option_value = OptionsAccessManager::get_option( $this->get_option_name() );
+		if ( $option_value === null ) {
+			NoticeIntegrator::set_default_value( self::NOTICE_OPTION, self::get_default_value() );
+		}
+
 		return ( ( $option_value !== null ) && ( $option_value < time() ) );
 	}
 

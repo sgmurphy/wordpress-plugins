@@ -41,7 +41,14 @@ defined( 'ABSPATH' ) || exit;
 						<div class="wcpbc-input-container">
 							<label class="wcpbc-input-label"><?php esc_html_e( 'License key', 'woocommerce-product-price-based-on-countries' ); ?></label>
 							<div class="wcpbc-input-wrap">
-								<input type="text" name="wc_price_based_country_license_license_key" id="wc_price_based_country_license_license_key" autocomplete="off" placeholder="<?php echo esc_attr( __( 'Paste your license key here', 'woocommerce-product-price-based-on-countries' ) ); ?>" value="<?php echo esc_attr( $license['key'] ); ?>" />
+								<?php
+								printf(
+									'<input type="text" name="%1$s" id="%1$s" autocomplete="off" placeholder="%2$s" value="%3$s" />',
+									esc_attr( WCPBC_License_Settings::instance()->get_field_key( 'license_key' ) ),
+									esc_attr__( 'Paste your license key here', 'woocommerce-product-price-based-on-countries' ),
+									esc_attr( $license['key'] )
+								);
+								?>
 							</div>
 							<p class="wcpbc-input-help"><?php esc_html_e( 'Enter your license key and click "Activate" to activate Price Based on Country Pro!', 'woocommerce-product-price-based-on-countries' ); ?></p>
 						</div>

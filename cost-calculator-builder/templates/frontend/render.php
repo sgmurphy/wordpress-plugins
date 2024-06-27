@@ -154,6 +154,6 @@ if ( ( isset( $general_settings['payment_gateway']['cards']['razorpay'] ) && ! e
 wp_localize_script( 'calc-builder-main-js', 'calc_data_' . $calc_id, $data );
 ?>
 
-<div class="calculator-settings ccb-front ccb-wrapper-<?php echo esc_attr( $calc_id ); ?>" data-calc-id="<?php echo esc_attr( $calc_id ); ?>">
+<div class="calculator-settings ccb-front ccb-wrapper-<?php echo esc_attr( $calc_id . ' ' . $extra_style ); ?>" data-calc-id="<?php echo esc_attr( $calc_id ); ?>">
 	<calc-builder-front v-cloak custom="<?php echo esc_attr( $custom_defined ); ?>" :content="<?php echo esc_attr( wp_json_encode( $data, 0, JSON_UNESCAPED_UNICODE ) ); ?>"></calc-builder-front>
 </div>

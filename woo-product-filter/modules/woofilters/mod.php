@@ -2111,6 +2111,21 @@ class WoofiltersWpf extends ModuleWpf {
 		if ( empty( $taxQuery ) || ! is_array( $taxQuery ) ) {
 			return $taxQuery;
 		}
+		
+		//for leer tax_query change OR-relation to AND
+		if (!empty($taxQuery['relation']) && 'OR' == $taxQuery['relation']) {
+			$isLeer = true;
+			$exclude = array('relation', 'wpf_tax');
+			foreach ($taxQuery as $k => $v) {
+				if (!in_array($k, $exclude) && !empty($v)) {
+					$isLeer = false;
+					break;
+				}
+			}
+			if ($isLeer) {
+				$taxQuery['relation'] = 'AND';
+			}
+		}
 
 		$taxGroupedList = array(
 			'product_cat',

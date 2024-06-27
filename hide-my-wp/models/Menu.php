@@ -281,6 +281,13 @@ class HMWP_Models_Menu
             ),
         );
 
+        if (HMWP_Classes_Tools::isPluginActive('woocommerce/woocommerce.php')) {
+            $subtabs['hmwp_brute'][] = array(
+                'title' => esc_html__("Woocommerce", 'hide-my-wp'),
+                'tab' =>'woocommerce',
+            );
+        }
+
         //Remove the submenu is the user hides it from all features
         foreach ($subtabs as $key => &$values) {
             foreach ($values as $index => $value) {

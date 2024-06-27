@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="calc-item__description before">
-		<span v-html="dropDownField.description"></span>
+		<span v-text="dropDownField.description"></span>
 	</div>
 
 	<div :class="['ccb-drop-down', 'calc_' + dropDownField.alias]">
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 	<div class="calc-item__description after">
-		<span v-html="dropDownField.description"></span>
+		<span v-text="dropDownField.description"></span>
 	</div>
 
 </div>

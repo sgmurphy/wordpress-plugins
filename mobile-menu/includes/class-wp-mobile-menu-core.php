@@ -964,9 +964,20 @@ class WP_Mobile_Menu_Core {
         $message = '';
         $message_code = '';
         $plugin_settings = MobileMenuOptions::getInstance( 'mobmenu' );
+        $file_content = '';
         $left_menu = $plugin_settings->getOption( 'left_menu' );
         // If we are importing an oficial demo.
-        if ( isset( $_REQUEST['demo'] ) ) {
+        $security = -1;
+        if ( !isset( $_POST["mobmenu_settings_nonce"] ) ) {
+            if ( isset( $_REQUEST['security'] ) ) {
+                $security = wp_verify_nonce( $_REQUEST['security'], 'mobmenu-importer-exporter-nonce' );
+            }
+            if ( $security < 1 ) {
+                $message_code = 'error';
+                $message = __( 'Invalid request.', 'mobile-menu' );
+            }
+        }
+        if ( isset( $_REQUEST['demo'] ) && $security == 1 ) {
             $file = $_REQUEST['demo'] . '.txt';
             $file_content = file_get_contents( WP_MOBILE_MENU_PLUGIN_PATH . 'includes/demo-content/' . $file );
         } else {

@@ -1071,6 +1071,10 @@
 			jQuery('#wpfContainerSortBy a.js-wpfMove').on('click', function(e) {
 				wpfSortBy_MoveRow(e, this);
 			});
+		} else if( id === 'wpfTags' ){
+			if(typeof(_this.changeAttributeTermsPro) == 'function') {
+				_this.changeAttributeTermsPro(blockTemplate);
+			}
 		}
 		if(typeof(_this.eventsFiltersPro) == 'function') {
 			_this.eventsFiltersPro(blockTemplate, settings);

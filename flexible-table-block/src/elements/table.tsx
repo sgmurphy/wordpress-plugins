@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 import type { Properties } from 'csstype';
 import type { Dispatch, SetStateAction, MouseEvent, KeyboardEvent } from 'react';
 
@@ -67,6 +67,7 @@ type Props = {
 	setSelectedCells: Dispatch< SetStateAction< VSelectedCells > >;
 	selectedLine: VSelectedLine;
 	setSelectedLine: Dispatch< SetStateAction< VSelectedLine > >;
+	isContentOnlyMode: boolean;
 };
 
 export default function Table( {
@@ -80,6 +81,7 @@ export default function Table( {
 	setSelectedCells,
 	selectedLine,
 	setSelectedLine,
+	isContentOnlyMode,
 }: Props ) {
 	const { hasFixedLayout, isStackedOnMobile, sticky } = attributes;
 
@@ -240,6 +242,12 @@ export default function Table( {
 			// range-select mode or multi-select mode.
 			setIsSelectMode( true );
 		} else if ( key === 'Tab' && options.tab_move && tableRef.current ) {
+			const isInsideTableBlock =
+				( event.target as HTMLElement ).closest( '.wp-block-flexible-table-block-table' ) !== null;
+
+			if ( ! isInsideTableBlock ) {
+				return;
+			}
 			// Focus on the next cell.
 			isTabMove = true;
 
@@ -305,9 +313,8 @@ export default function Table( {
 		const { key } = event;
 
 		if ( key === 'Shift' || key === 'Control' || key === 'Meta' ) {
-			const targetElement = event.target as HTMLElement;
 			const isInsideTableBlock =
-				targetElement.closest( '.wp-block-flexible-table-block-table' ) !== null;
+				( event.target as HTMLElement ).closest( '.wp-block-flexible-table-block-table' ) !== null;
 
 			if ( ! isInsideTableBlock ) {
 				return;
@@ -319,9 +326,8 @@ export default function Table( {
 
 	const onClickCell = ( event: MouseEvent, clickedCell: VCell ) => {
 		const { shiftKey, ctrlKey, metaKey } = event;
-		const clickedElement = event.target as HTMLElement;
 		const isInsideTableBlock =
-			clickedElement.closest( '.wp-block-flexible-table-block-table' ) !== null;
+			( event.target as HTMLElement ).closest( '.wp-block-flexible-table-block-table' ) !== null;
 
 		if ( ! isInsideTableBlock ) {
 			return;
@@ -389,7 +395,9 @@ export default function Table( {
 
 	// Remove cells from the virtual table that are not needed for dom rendering.
 	const filteredVTable = Object.keys( vTable ).reduce( ( result: any, sectionName ) => {
-		if ( isEmptySection( vTable[ sectionName as SectionName ] ) ) return result;
+		if ( isEmptySection( vTable[ sectionName as SectionName ] ) ) {
+			return result;
+		}
 		return {
 			...result,
 			[ sectionName ]: vTable[ sectionName as SectionName ].map( ( row ) => ( {
@@ -398,14 +406,16 @@ export default function Table( {
 		};
 	}, {} );
 
-	if ( ! filteredVTable ) return null;
+	if ( ! filteredVTable ) {
+		return null;
+	}
 
 	const filteredSections = Object.keys( filteredVTable ) as SectionName[];
 
 	return (
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 		<table
-			className={ classnames( colorProps.className, {
+			className={ clsx( colorProps.className, {
 				'has-fixed-layout': hasFixedLayout,
 				'is-stacked-on-mobile': isStackedOnMobile,
 				[ `is-sticky-${ sticky }` ]: sticky,
@@ -447,7 +457,7 @@ export default function Table( {
 									<Cell
 										key={ vColIndex }
 										name={ tag }
-										className={ classnames( className, { 'is-selected': isCellSelected } ) }
+										className={ clsx( className, { 'is-selected': isCellSelected } ) }
 										rowSpan={ rowSpan > 1 ? rowSpan : undefined }
 										colSpan={ colSpan > 1 ? colSpan : undefined }
 										style={ cellStylesObj }
@@ -457,6 +467,7 @@ export default function Table( {
 										onClick={ ( event: MouseEvent ) => onClickCell( event, cell ) }
 									>
 										{ isSelected &&
+											! isContentOnlyMode &&
 											options.show_label_on_section &&
 											rowIndex === 0 &&
 											vColIndex === 0 && (
@@ -472,11 +483,11 @@ export default function Table( {
 													{ `t${ sectionName }` }
 												</Button>
 											) }
-										{ isSelected && options.show_control_button && (
+										{ isSelected && ! isContentOnlyMode && options.show_control_button && (
 											<>
 												{ rowIndex === 0 && vColIndex === 0 && (
 													<Button
-														className={ classnames( 'ftb-row-before-inserter', {
+														className={ clsx( 'ftb-row-before-inserter', {
 															'ftb-row-before-inserter--has-prev-section': sectionIndex > 0,
 														} ) }
 														label={ __( 'Insert row before', 'flexible-table-block' ) }
@@ -574,7 +585,7 @@ export default function Table( {
 												) }
 												{ vColIndex === 0 && (
 													<Button
-														className={ classnames( 'ftb-row-after-inserter', {
+														className={ clsx( 'ftb-row-after-inserter', {
 															'ftb-row-after-inserter--has-next-section':
 																sectionIndex < Object.keys( filteredVTable ).length - 1 &&
 																rowIndex + rowSpan - 1 === filteredVTable[ sectionName ].length - 1,
@@ -605,6 +616,7 @@ export default function Table( {
 											aria-label={ CELL_ARIA_LABEL[ sectionName as SectionName ] }
 										/>
 										{ isSelected &&
+											! isContentOnlyMode &&
 											options.show_control_button &&
 											sectionIndex === 0 &&
 											rowIndex === 0 && (

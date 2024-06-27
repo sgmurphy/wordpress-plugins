@@ -150,7 +150,8 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
             HMWP_Classes_Tools::saveOptions('hmwp_bruteforce', HMWP_Classes_Tools::getValue('hmwp_bruteforce'));
             HMWP_Classes_Tools::saveOptions('hmwp_bruteforce_register', HMWP_Classes_Tools::getValue('hmwp_bruteforce_register'));
 	        HMWP_Classes_Tools::saveOptions('hmwp_bruteforce_lostpassword', HMWP_Classes_Tools::getValue('hmwp_bruteforce_lostpassword'));
-	        HMWP_Classes_Tools::saveOptions('hmwp_bruteforce_woocommerce', HMWP_Classes_Tools::getValue('hmwp_bruteforce_woocommerce'));
+            HMWP_Classes_Tools::saveOptions('hmwp_bruteforce_username', HMWP_Classes_Tools::getValue('hmwp_bruteforce_username'));
+            HMWP_Classes_Tools::saveOptions('hmwp_bruteforce_woocommerce', HMWP_Classes_Tools::getValue('hmwp_bruteforce_woocommerce'));
 
             //whitelist_ip
             $whitelist = HMWP_Classes_Tools::getValue('whitelist_ip', '', true);
@@ -261,6 +262,9 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
         if (!empty($ips)) {
             $cnt = 1;
             foreach ($ips as $transient => $ip) {
+                //increment fail attempt as it starts from 0
+                $ip['attempts'] = (int)$ip['attempts'] + 1;
+
                 $data .= "<tr>
                         <td>" . $cnt . "</td>
                         <td>{$ip['ip']}</td>
@@ -381,6 +385,13 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
                     foreach ($errors as $error) {
                         if ($error == 'empty_username' || $error == 'empty_password') {
                             return $user;
+                        }
+
+                        if (HMWP_Classes_Tools::getOption('hmwp_bruteforce_username')) {
+                            if($error == 'invalid_username'){
+                                $ip = $this->model->brute_get_ip();
+                                $this->model->block_ip($ip);
+                            }
                         }
                     }
                 }

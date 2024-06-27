@@ -4,7 +4,7 @@ Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 6.3
 Tested up to: 6.5
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,13 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 3.0.1 =
+* New: Setting for changing the default Media Hub sync behavior for new blocks.
+* Improvement: Add "Edit Original" to inspector sidebar for synced media hub items to increase visibility of new feature.
+* Fix: Issue with private bunny.net private video not signing urls correctly when synced with media hub.
+* Fix: Making CSS more specific on instant video page to prevent conflicts with themes.
+* Fix: Wrong textdomain on some translations.
 
 = 3.0.0 =
 * New: Instant video pages. Create beautiful video pages with a single click.

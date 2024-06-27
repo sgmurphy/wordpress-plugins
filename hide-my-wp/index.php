@@ -94,7 +94,7 @@ if ( defined( 'ABSPATH' ) && !defined( 'HMW_VERSION' ) ) {
                 //on core or plugins update
 	            add_action('automatic_updates_complete', function($options)
 	            {
-		            if($options['action'] == 'update') {
+		            if(isset($options['action']) && $options['action'] == 'update') {
 			            set_transient( 'hmwp_update', 1 );
 		            }
 	            }, 10, 1);
@@ -104,7 +104,7 @@ if ( defined( 'ABSPATH' ) && !defined( 'HMW_VERSION' ) ) {
 	            {
 		            $our_plugin = plugin_basename( __FILE__ );
 
-		            if($options['action'] == 'update') {
+		            if(isset($options['action']) && $options['action'] == 'update') {
 			            if( $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
 				            foreach( $options['plugins'] as $plugin ) {
 					            if( $plugin <> $our_plugin ) {

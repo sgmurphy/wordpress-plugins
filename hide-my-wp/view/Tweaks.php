@@ -218,8 +218,8 @@ if (function_exists('wp_roles') ) {
                                 </div>
 
                                 <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_in_sitemap">
-                                    <div class="checker col-sm-12 row my-2 py-1">
-                                        <div class="col-sm-12 p-0 switch switch-sm">
+                                    <div class="checker col-sm-12 row my-2 py-0">
+                                        <div class="col-sm-12 p-0 switch switch-xxs pl-5">
                                             <input type="hidden" name="hmwp_hide_author_in_sitemap" value="0"/>
                                             <input type="checkbox" id="hmwp_hide_author_in_sitemap" name="hmwp_hide_author_in_sitemap" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_author_in_sitemap') ? 'checked="checked"' : '') ?> value="1"/>
                                             <label for="hmwp_hide_author_in_sitemap"><?php echo esc_html__('Remove Plugins Authors & Style in Sitemap XML', 'hide-my-wp'); ?>
@@ -347,8 +347,8 @@ if (function_exists('wp_roles') ) {
                             </div>
                         </div>
                         <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_hide_version">
-                            <div class="checker col-sm-12 row my-2 py-1">
-                                <div class="col-sm-12 p-0 switch switch-sm">
+                            <div class="checker col-sm-12 row my-2 py-0">
+                                <div class="col-sm-12 p-0 switch switch-xxs pl-5">
                                     <input type="hidden" name="hmwp_hide_version_random" value="0"/>
                                     <input type="checkbox" id="hmwp_hide_version_random" name="hmwp_hide_version_random" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_hide_version_random') ? 'checked="checked"' : '') ?>value="<?php echo mt_rand(11111,99999) ?>"/>
                                     <label for="hmwp_hide_version_random"><?php echo esc_html__('Random Static Number', 'hide-my-wp'); ?></label>
@@ -483,8 +483,8 @@ if (function_exists('wp_roles') ) {
                             </div>
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_click">
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_click_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_click_loggedusers" name="hmwp_disable_click_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_click_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_click_loggedusers"><?php echo esc_html__('Disable Right-Click for Logged Users', 'hide-my-wp'); ?></label>
@@ -539,8 +539,8 @@ if (function_exists('wp_roles') ) {
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_inspect">
 
-                                <div class="checker col-sm-12 row my-2 py-1 hmwp_disable_inspect">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0 hmwp_disable_inspect">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_inspect_blank" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_inspect_blank" name="hmwp_disable_inspect_blank" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_inspect_blank') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_inspect_blank"><?php echo esc_html__('Blank Screen On Debugging', 'hide-my-wp'); ?> <em>(<?php echo esc_html__('not recommended', 'hide-my-wp'); ?>)</em></label>
@@ -549,8 +549,8 @@ if (function_exists('wp_roles') ) {
                                     </div>
                                 </div>
 
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_inspect_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_inspect_loggedusers" name="hmwp_disable_inspect_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_inspect_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_inspect_loggedusers"><?php echo esc_html__('Disable Inspect Element for Logged Users', 'hide-my-wp'); ?></label>
@@ -604,8 +604,8 @@ if (function_exists('wp_roles') ) {
                             </div>
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_source">
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_source_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_source_loggedusers" name="hmwp_disable_source_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_source_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_source_loggedusers"><?php echo esc_html__('Disable View Source for Logged Users', 'hide-my-wp'); ?></label>
@@ -659,8 +659,8 @@ if (function_exists('wp_roles') ) {
                             </div>
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_copy_paste">
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_copy_paste_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_copy_paste_loggedusers" name="hmwp_disable_copy_paste_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_copy_paste_loggedusers"><?php echo esc_html__('Disable Copy/Paste for Logged Users', 'hide-my-wp'); ?></label>
@@ -714,8 +714,8 @@ if (function_exists('wp_roles') ) {
                             </div>
 
                             <div class="col-sm-12 row mb-1 ml-1 hmwp_disable_drag_drop">
-                                <div class="checker col-sm-12 row my-2 py-1">
-                                    <div class="col-sm-12 p-0 switch switch-sm">
+                                <div class="checker col-sm-12 row my-2 py-0">
+                                    <div class="col-sm-12 p-0 switch switch-xxs">
                                         <input type="hidden" name="hmwp_disable_drag_drop_loggedusers" value="0"/>
                                         <input type="checkbox" id="hmwp_disable_drag_drop_loggedusers" name="hmwp_disable_drag_drop_loggedusers" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_disable_drag_drop_loggedusers') ? 'checked="checked"' : '') ?> value="1"/>
                                         <label for="hmwp_disable_drag_drop_loggedusers"><?php echo esc_html__('Disable Drag/Drop for Logged Users', 'hide-my-wp'); ?></label>

@@ -825,21 +825,37 @@ Kirki::add_field( 'envo_extra', array(
 Kirki::add_field( 'envo_extra', array(
 	'type'		 => 'multicolor',
 	'settings'	 => 'categories_colors',
-	'label'		 => esc_attr__( 'Category menu background', 'envo-extra' ),
+	'label'		 => esc_attr__( 'Category menu', 'envo-extra' ),
 	'section'	 => 'category_menu',
 	'priority'	 => 20,
 	'transport'	 => 'auto',
 	'choices'	 => array(
 		'bg' => esc_attr__( 'Background', 'envo-extra' ),
+		'bg-hover' => esc_attr__( 'Background hover', 'envo-extra' ),
+		'font-hover' => esc_attr__( 'Font hover', 'envo-extra' ),
 	),
 	'default'	 => array(
-		'font' => '',
+		'bg' => '',
+		'bg-hover' => '',
+		'font-hover' => '',
 	),
 	'output'	 => array(
 		array(
 			'choice'	 => 'bg',
 			'element'	 => '.navbar-nav.envo-categories-menu',
 			'property'	 => 'background-color',
+			'suffix'	 => '!important',
+		),
+		array(
+			'choice'	 => 'bg-hover',
+			'element'	 => '.navbar-nav.envo-categories-menu:hover a.envo-categories-menu-first',
+			'property'	 => 'background-color',
+			'suffix'	 => '!important',
+		),
+		array(
+			'choice'	 => 'font-hover',
+			'element'	 => '.navbar-nav.envo-categories-menu:hover a.envo-categories-menu-first',
+			'property'	 => 'color',
 			'suffix'	 => '!important',
 		),
 	),

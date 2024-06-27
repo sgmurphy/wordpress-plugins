@@ -729,7 +729,7 @@ class MailerLiteAPI
                 }
             }
         }
-        $response = $this->client->remote_post('/ecommerce/shops/' . $shop_id . '/orders?with_resource_id',
+        $response = $this->client->remote_post('/ecommerce/shops/' . $shop_id . '/orders/queue-order-sync?with_resource_id',
             $parameters);
 
         $response = self::parseResponse($response);

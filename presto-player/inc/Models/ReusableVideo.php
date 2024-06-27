@@ -196,9 +196,7 @@ class ReusableVideo
         $block['attrs'] = wp_parse_args($overrides, (array)$block['attrs']);
 
         // maybe switch provider depending on url
-        if (!empty($overrides)) {
-            $block = $this->maybeSwitchProvider($block);
-        }
+        $block = $this->maybeSwitchProvider($block);
 
         // remove attachment_id if the src changes.
         if (!empty($overrides['src'])) {
@@ -259,9 +257,10 @@ class ReusableVideo
                 return $block;
             }
 
-            // default to self-hsoted
-            $block['blockName'] = 'presto-player/self-hosted';
-            return $block;
+            if (empty($block['blockName'])) {
+                $block['blockName'] = 'presto-player/self-hosted';
+                return $block;
+            }
         }
 
         return $block;

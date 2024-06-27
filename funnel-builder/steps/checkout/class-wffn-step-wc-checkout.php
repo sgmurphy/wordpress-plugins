@@ -57,7 +57,7 @@ if ( ! class_exists( 'WFFN_Step_WC_Checkout' ) ) {
 		 * @return array|void
 		 */
 		public function get_supports() {
-			return array_unique( array_merge( parent::get_supports(), [ 'open_link', 'next_link' ] ) );
+			return array_unique( array_merge( parent::get_supports(), [ 'open_link' ] ) );
 		}
 
 		/**

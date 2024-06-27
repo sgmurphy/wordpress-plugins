@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,12 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.2 (Jun 27, 2024) =
+* Improved: Funnel Step next url code improved to handle few edge cases when multiple steps are draft. (#6357)
+* Improved: Checkout - Compatibility with WCML/WPML updated. (#6355)
+* Fixed: Compatibility with Weglot translation plugin updated. (#6369)
+* Fixed: Admin tootlip to connect with Stripe addon was not dismissing forever in a few cases. (#6366)
 
 = 3.4.1 (Jun 26, 2024) =
 * Fixed: Funnel Pages built using Divi theme causing styling issue. (#6350)

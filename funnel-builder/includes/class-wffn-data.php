@@ -24,6 +24,9 @@ if ( ! class_exists( 'WFFN_Data' ) ) {
 
 		}
 
+		/**
+		 * @return WFFN_Session_Handler|self|null
+		 */
 		public static function get_instance() {
 			if ( self::$ins === null ) {
 				self::$ins = new self;
@@ -32,9 +35,8 @@ if ( ! class_exists( 'WFFN_Data' ) ) {
 			return self::$ins;
 		}
 
-
 		/**
-		 * @return array|false|mixed|object|string
+		 * @return array|mixed|object|string
 		 */
 		public function get_current_step() {
 			return $this->get( 'current_step', false );
@@ -56,36 +58,38 @@ if ( ! class_exists( 'WFFN_Data' ) ) {
 
 		/**
 		 * Find the next url to open in the funnel
-		 *
 		 * @param $current_step_id array Id to take into account to search for the next link
 		 *
-		 * @return bool|false|string
+		 * @return false|string
 		 */
 		public function get_next_url( $current_step_id ) {
 
-			$get_funnel            = $this->get_session_funnel();
-			$get_next_step         = $this->get_next_step( $get_funnel, $current_step_id );
-            if (false === $get_next_step) {
-                return false;
-            }
-			$get_next_step['type'] = isset( $get_next_step['type'] ) ? $get_next_step['type'] : '';
-			$get_step_object       = WFFN_Core()->steps->get_integration_object( $get_next_step['type'] );
+			$get_funnel = $this->get_session_funnel();
 
-			if ( ! empty( $get_step_object ) && $get_step_object->supports( 'next_link' ) ) {
-
-				$properties = $get_step_object->populate_data_properties( $get_next_step, $get_funnel->get_id() );
-
-				$id = $get_next_step['id'];
-
-				if ( $get_step_object->is_disabled( $get_step_object->get_enitity_data( $properties['_data'], 'status' ) ) ) {
-
-					return $this->get_next_url( $id );
-				}
-
-				return $get_step_object->get_url( $id );
+			$current_step = $this->get_current_step();
+			if ( ! is_array( $current_step ) || 0 === count( $current_step ) ) {
+				return false;
 			}
 
-			return false;
+			$current_step['type'] = isset( $current_step['type'] ) ? $current_step['type'] : '';
+			$step_object          = WFFN_Core()->steps->get_integration_object( $current_step['type'] );
+
+			/**
+			 * return if current step not support next link
+			 */
+			if ( empty( $step_object ) || ! $step_object->supports( 'next_link' ) ) {
+				return false;
+			}
+
+			$get_next_step = $this->get_next_step( $get_funnel, $current_step_id );
+			if ( false === $get_next_step ) {
+				return false;
+			}
+
+			$get_next_id = isset( $get_next_step['id'] ) ? $get_next_step['id'] : 0;
+
+			return ( $get_next_id === 0 ) ? false : get_permalink( $get_next_id );
+
 		}
 
 
@@ -101,11 +105,10 @@ if ( ! class_exists( 'WFFN_Data' ) ) {
 		/**
 		 * Loop over the current funnel running and compare the steps against the current one
 		 * Find out if the next step available & return
-		 *
 		 * @param $funnel WFFN_Funnel
 		 * @param $current_step
 		 *
-		 * @return array|bool
+		 * @return array|false
 		 */
 		public function get_next_step( $funnel, $current_step ) {
 			$current_step = apply_filters( 'wffn_maybe_get_ab_control', $current_step );

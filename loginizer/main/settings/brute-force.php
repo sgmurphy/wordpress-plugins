@@ -56,8 +56,9 @@ function loginizer_page_brute_force(){
 	if(isset($_POST['save_lz_login_email'])){
 		$login_email['enable'] = (int) lz_optpost('loginizer_login_mail_enable');
 		$login_email['disable_whitelist'] = (int) lz_optpost('loginizer_login_mail_disable_whitelist');
+		$login_email['html_mail'] = (!empty(lz_optpost('loginizer_notify_html_mail')) ? true : false);
 		$login_email['subject'] = sanitize_textarea_field(wp_unslash($_POST['loginizer_login_mail_subject']));
-		$login_email['body'] = sanitize_textarea_field(wp_unslash($_POST['loginizer_login_mail_body']));
+		$login_email['body'] = wp_kses_post(wp_unslash($_POST['loginizer_login_mail_body']));
 		$login_email['roles'] = !empty($_POST['loginizer_login_mail_roles']) ? map_deep($_POST['loginizer_login_mail_roles'], 'sanitize_text_field') : [];
 
 		// Save the options
@@ -1135,6 +1136,15 @@ function lz_shift_check_all(check_class){
 					</td>
 					<td>
 						<input type="checkbox" value="1" name="loginizer_login_mail_disable_whitelist" id="loginizer_login_mail_disable_whitelist" <?php echo lz_POSTchecked('loginizer_login_mail_disable_whitelist', (empty($loginizer['login_mail']['disable_whitelist']) ? false : true)); ?> />
+					</td>
+				</tr>
+				
+				<tr>
+					<td scope="row" valign="top" style="width:350px !important">
+						<label for="loginizer_notify_html_mail"><?php echo __('Send email as HTML', 'loginizer'); ?></label>
+					</td>
+					<td>
+						<input type="checkbox" value="1" name="loginizer_notify_html_mail" id="loginizer_notify_html_mail" <?php echo lz_POSTchecked('loginizer_notify_html_mail', (empty($loginizer['login_mail']['html_mail']) ? false : true)); ?> />
 					</td>
 				</tr>
 

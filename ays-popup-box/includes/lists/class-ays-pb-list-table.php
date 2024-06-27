@@ -3,17 +3,49 @@ ob_start();
 class Ays_PopupBox_List_Table extends WP_List_Table {
     private $plugin_name;
     private $title_length;
+
     /** Class constructor */
     public function __construct($plugin_name) {
         $this->plugin_name = $plugin_name;
         $this->title_length = Ays_Pb_Admin::get_listtables_title_length('popups');
-        parent::__construct( array(
-            "singular" => __( "PopupBox", "ays-popup-box" ), //singular name of the listed records
-            "plural"   => __( "PopupBoxes", "ays-popup-box" ), //plural name of the listed records
-            "ajax"     => false //does this table support ajax?
-        ) );
-        add_action( "admin_notices", array( $this, "popupbox_notices" ) );
 
+        parent::__construct(array(
+            "singular" => __( "PopupBox", "ays-popup-box" ), //singular name of the listed records
+            "plural" => __( "PopupBoxes", "ays-popup-box" ), //plural name of the listed records
+            "ajax" => false //does this table support ajax?
+        ));
+
+        add_action( "admin_notices", array($this, "popupbox_notices") );
+    }
+
+    public function popupbox_notices() {
+        $status = isset($_REQUEST["status"]) ? sanitize_text_field($_REQUEST["status"]) : "";
+        $type = isset($_REQUEST["type"]) ? sanitize_text_field($_REQUEST["type"]) : "";
+
+        if (empty($status)) return;
+
+        if ("created" == $status)
+            $updated_message = esc_html( __("PopupBox created.", "ays-popup-box") );
+        elseif ("updated" == $status)
+            $updated_message = esc_html( __("PopupBox saved.", "ays-popup-box") );
+        elseif ("deleted" == $status)
+            $updated_message = esc_html( __("PopupBox deleted.", "ays-popup-box") );
+        elseif ("duplicated" == $status)
+            $updated_message = esc_html( __("PopupBox duplicated.", "ays-popup-box") );
+        elseif ("published" == $status)
+            $updated_message = esc_html( __("PopupBox published.", "ays-popup-box") );
+        elseif ("unpublished" == $status)
+            $updated_message = esc_html( __("PopupBox unpublished.", "ays-popup-box") );
+        elseif ("error" == $status)
+            $updated_message = __( "You're not allowed to add popupbox for more popupboxes please checkout to ", "ays-popup-box")."<a href='https://ays-pro.com/wordpress/popup-box' target='_blank'>PRO ".__("version", "ays-popup-box")."</a>.";
+
+        if (empty($updated_message)) return;
+
+        ?>
+        <div class="notice notice-<?php echo esc_attr($type); ?> is-dismissible">
+            <p> <?php echo $updated_message; ?> </p>
+        </div>
+        <?php
     }
 
     public function display_tablenav( $which ) {
@@ -942,6 +974,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 background color
         $notification_button_1_bg_color = (isset($data['ays_pb_notification_button_1_bg_color']) && $data['ays_pb_notification_button_1_bg_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_bg_color']) ) : '#F66123';
 
+        // Notification type | Button 1 background hover color
+        $notification_button_1_bg_hover_color = (isset($data['ays_pb_notification_button_1_bg_hover_color']) && $data['ays_pb_notification_button_1_bg_hover_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_bg_hover_color']) ) : '#F66123';
+
         // Notification type | Button 1 text color
         $notification_button_1_text_color = (isset($data['ays_pb_notification_button_1_text_color']) && $data['ays_pb_notification_button_1_text_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_color']) ) : '#FFFFFF';
 
@@ -1281,6 +1316,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_redirect_url' => $notification_button_1_redirect_url,
             'notification_button_1_redirect_to_new_tab' => $notification_button_1_redirect_to_new_tab,
             'notification_button_1_bg_color' => $notification_button_1_bg_color,
+            'notification_button_1_bg_hover_color' => $notification_button_1_bg_hover_color,
             'notification_button_1_text_color' => $notification_button_1_text_color,
             'notification_button_1_font_size' => $notification_button_1_font_size,
             'notification_button_1_border_radius' => $notification_button_1_border_radius,
@@ -2113,37 +2149,5 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $url = esc_url_raw( remove_query_arg(array('action', 'question', '_wpnonce')  ) ) . '&status=unpublished';
             wp_redirect( $url );
         }
-    }
-
-    public function popupbox_notices(){
-        $status = (isset($_REQUEST["status"])) ? sanitize_text_field( $_REQUEST["status"] ) : "";
-        $type = (isset($_REQUEST["type"])) ? sanitize_text_field( $_REQUEST["type"] ) : "";
-
-        if ( empty( $status ) )
-            return;
-
-        if ( "created" == $status )
-            $updated_message = esc_html( __( "PopupBox created.", "ays-popup-box" ) );
-        elseif ( "updated" == $status )
-            $updated_message = esc_html( __( "PopupBox saved.", "ays-popup-box" ) );
-        elseif ( "deleted" == $status )
-            $updated_message = esc_html( __( "PopupBox deleted.", "ays-popup-box" ) );
-        elseif ( 'duplicated' == $status )
-            $updated_message = esc_html( __( 'PopupBox duplicated.', "ays-popup-box" ) );
-        elseif ( 'published' == $status )
-            $updated_message = esc_html( __( 'PopupBox published.', "ays-popup-box" ) );
-        elseif ( 'unpublished' == $status )
-            $updated_message = esc_html( __( 'PopupBox unpublished.', "ays-popup-box" ) );
-        elseif ( "error" == $status )
-            $updated_message = __( "You're not allowed to add popupbox for more popupboxes please checkout to ", "ays-popup-box")."<a href='http://ays-pro.com/wordpress/facebook-popup-likebox' target='_blank'>PRO ".__("version", "ays-popup-box")."</a>.";
-
-        if ( empty( $updated_message ) )
-            return;
-
-        ?>
-        <div class="notice notice-<?php echo esc_attr($type); ?> is-dismissible">
-            <p> <?php echo $updated_message; ?> </p>
-        </div>
-        <?php
     }
 }

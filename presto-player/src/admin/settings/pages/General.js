@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { __ } from "@wordpress/i18n";
 import { useEntityProp, store as coreStore } from "@wordpress/core-data";
 import { useSelect } from "@wordpress/data";
@@ -7,6 +9,13 @@ import {
   ToggleControl,
   RangeControl,
   Spinner,
+  MenuItem,
+  Icon,
+  Dropdown,
+  MenuGroup,
+  Flex,
+  Button,
+  BaseControl,
   __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import Disabled from "../components/Disabled";
@@ -14,6 +23,7 @@ import Group from "../components/Group";
 import Media from "../components/Media";
 import Page from "../components/Page";
 import CodeMirror from "../components/CodeMirror";
+import { symbol, symbolFilled } from "@wordpress/icons";
 
 export default () => {
   const disabled = () => {
@@ -54,6 +64,7 @@ export default () => {
     "site",
     "presto_player_presets"
   );
+
   const updatePresetSettings = (data) => {
     setPresetSettings({
       ...(presetSettings || {}),
@@ -124,6 +135,12 @@ export default () => {
     "presto_player_instant_video_width"
   );
 
+  const [mediaHubSyncDefault, setMediaHubSyncDefault] = useEntityProp(
+    "root",
+    "site",
+    "presto_player_media_hub_sync_default"
+  );
+
   return (
     <Page
       title={__("General", "presto-player")}
@@ -172,20 +189,91 @@ export default () => {
         />
       </Group>
       <Group
-        title={__("Instant Video Page", "presto-player")}
-        description={__(
-          "Instant video page display settings.",
-          "presto-player"
-        )}
+        title={__("Media Hub", "presto-player")}
+        description={__("Manage the Media Hub settings.", "presto-player")}
       >
+        <BaseControl
+          label={__("Default Sync Behavior", "presto-player")}
+          help={__(
+            "Choose the default sync behavior of Presto Player blocks with the Media Hub.",
+            "presto-player"
+          )}
+        >
+          <div>
+            <Dropdown
+              popoverProps={{ placement: "bottom-start" }}
+              renderToggle={({ onToggle }) => (
+                <Flex>
+                  <Button
+                    onClick={onToggle}
+                    icon={
+                      mediaHubSyncDefault ? (
+                        <Icon icon={symbolFilled} />
+                      ) : (
+                        <Icon icon={symbol} />
+                      )
+                    }
+                    variant="secondary"
+                  >
+                    {mediaHubSyncDefault
+                      ? __("Synced", "presto-player")
+                      : __("Not synced", "presto-player")}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="w-4 h-4"
+                      width={"16px"}
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Button>
+                </Flex>
+              )}
+              renderContent={({ onClose }) => (
+                <MenuGroup>
+                  <MenuItem
+                    onClick={() => {
+                      setMediaHubSyncDefault(true);
+                      onClose();
+                    }}
+                    icon={<Icon icon={symbolFilled} />}
+                    isSelected={!!mediaHubSyncDefault}
+                    iconPosition="left"
+                  >
+                    {__("Sync blocks to media hub.", "presto-player")}
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setMediaHubSyncDefault(false);
+                      onClose();
+                    }}
+                    icon={<Icon icon={symbol} />}
+                    isSelected={!mediaHubSyncDefault}
+                    iconPosition="left"
+                  >
+                    {__("Don't sync blocks to media hub.", "presto-player")}
+                  </MenuItem>
+                </MenuGroup>
+              )}
+            />
+          </div>
+        </BaseControl>
         <UnitControl
-          label={__("Width", "presto-player")}
+          label={__("Instant Video Page Width", "presto-player")}
           value={instantVideoWidth}
           onChange={(width) => setInstantVideoWidth(width)}
           units={units}
           max={2000}
           min={0}
-          help={__("Customize the video player width on the instant video page.", "presto-player")}
+          help={__(
+            "Customize the video player width on the instant video page.",
+            "presto-player"
+          )}
           required
         />
       </Group>

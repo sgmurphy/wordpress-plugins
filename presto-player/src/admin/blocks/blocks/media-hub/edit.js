@@ -20,6 +20,7 @@ import {
 } from "@wordpress/components";
 import { symbol, symbolFilled } from "@wordpress/icons";
 import { useState } from "@wordpress/element";
+import { useEntityProp } from "@wordpress/core-data";
 
 export default ({ clientId }) => {
   const { setTemplateValidity } = useDispatch(blockEditorStore);
@@ -32,7 +33,12 @@ export default ({ clientId }) => {
     templateLock: false,
     renderAppender: false,
   });
-  const [sync, setSync] = useState(true);
+  const [mediaHubSyncDefault] = useEntityProp(
+    "root",
+    "site",
+    "presto_player_media_hub_sync_default"
+  );
+  const [sync, setSync] = useState(() => mediaHubSyncDefault);
   if (!innerBlocks?.length) {
     return (
       <div {...innerBlocksProps}>
@@ -90,7 +96,7 @@ export default ({ clientId }) => {
                         isSelected={sync}
                         iconPosition="left"
                       >
-                        {__("Sync to media hub", "surecart")}
+                        {__("Sync to media hub", "presto-player")}
                       </MenuItem>
                       <MenuItem
                         onClick={() => setSync(false)}
@@ -98,7 +104,7 @@ export default ({ clientId }) => {
                         isSelected={!sync}
                         iconPosition="left"
                       >
-                        {__("Don't sync to media hub", "surecart")}
+                        {__("Don't sync to media hub", "presto-player")}
                       </MenuItem>
                     </MenuGroup>
                   )}

@@ -84,6 +84,9 @@ class TemplateFactory {
 
 		if ('Googlereview' === $template && class_exists($class) && method_exists($class, $method)) {
 			$structure =  (new $class($config, $ids))->$method();
+			set_transient('ctx_feed_structure_transient', $structure, HOUR_IN_SECONDS);
+
+			return $structure;
 		}
 
 		if (class_exists($class) && method_exists($class, $method)) {

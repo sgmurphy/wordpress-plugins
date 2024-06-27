@@ -1,7 +1,7 @@
 === FooGallery – Responsive Photo Gallery, Image Viewer, Justified, Masonry & Carousel ===
 Contributors: bradvin, steveush, fooplugins
 Donate link: https://fooplugins.com
-Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, best gallery plugin, albums, media gallery, video gallery, lightbox
+Tags: gallery, image gallery, photo gallery, responsive gallery, wordpress gallery plugin, albums, media gallery, video gallery, lightbox
 Requires at least: 5.3
 Tested up to: 6.5
 Stable tag: 2.4.16
@@ -25,13 +25,9 @@ Live previews are available while creating an image gallery, and also within the
 
 FooGallery was built to be highly configurable and extendable for developers or freelancers.
 
-That is why we think FooGallery is the best WordPress gallery plugin. After using it, we hope you will agree.
-
 [Visit the FooGallery Homepage](https://fooplugins.com/foogallery-wordpress-gallery-plugin/)
 
 = WordPress Gallery Plugin Features =
-
-The following free features make FooGallery the **best gallery plugin** on the market!
 
 *	7 Beautiful Image Gallery templates
 	*	Responsive Image Gallery - [demo](https://fooplugins.com/foogallery-wordpress-gallery-plugin/responsive-image-gallery/)
@@ -194,12 +190,6 @@ FooGallery was designed to be the most developer-friendly image gallery plugin a
 
 Thanks to Fortinet FortiGuard Labs for the security testing conducted on the plugin. FooGallery is a safer plugin thanks to them.
 
-== Best Wordpress Gallery Plugin ==
-
-We did the research. FooGallery has the best performance and has the most features out of any free WordPress gallery plugin. Read our blog post about it:
-
-[What is the Best WordPress Gallery Plugin?](https://fooplugins.com/best-wordpress-gallery-plugin/)
-
 == Installation ==
 
 1. Upload `foogallery` folder to the `/wp-content/plugins/` directory
@@ -241,6 +231,12 @@ First thing to do is restore your site to it's previous working state.
     * What version of FooGallery you installed.
     * What error was shown when your site was broken?
     * What plugins and theme are you using?
+
+= Is FooGallery The Best Wordpress Gallery Plugin? =
+
+We certainly think so, but do not take our word for it. We did the research. FooGallery has the best performance and has the most features out of any free WordPress gallery plugin. Read our blog post about it:
+
+[What is the Best WordPress Gallery Plugin?](https://fooplugins.com/best-wordpress-gallery-plugin/)
 
 = Do you care for Google's Core Web Vitals? =
 
@@ -302,10 +298,6 @@ Yes, you can link to any external website by choosing "Custom URL" for the Thumb
 = How do I turn off all the PRO Promotions in the admin? =
 
 Goto FooGallery Settings -> Advanced Tab and check "Disable PRO Promotions" and then save your settings.
-
-= How can you claim that FooGallery is the best WordPress gallery plugin? =
-
-We did the research and comparison. See our findings : [What is the Best WordPress Gallery Plugin?](https://fooplugins.com/best-wordpress-gallery-plugin/)
 
 == Screenshots ==
 

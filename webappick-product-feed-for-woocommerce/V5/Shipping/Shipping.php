@@ -12,7 +12,9 @@ namespace CTXFeed\V5\Shipping;
 use CTXFeed\V5\Utility\Cache;
 use CTXFeed\V5\Utility\Settings;
 use WC_Shipping_Flat_Rate;
+use WC_Shipping_Rate;
 use WC_Shipping_Zones;
+use WC_Tax;
 
 /**
  * Class representing the shipping.
@@ -71,19 +73,7 @@ class Shipping {
 			Cache::set( 'ctx_feed_shipping_info', $this->shipping );
 			$shippingInfo = Cache::get( 'ctx_feed_shipping_info' );
 		}
-		if ( $type=='csv' ) {
-			$zones = WC_Shipping_Zones::get_zones('json');
-			if ( ! empty( $zones ) ) {
-				foreach ( $zones as $zone ) {
-					$this->zoneId   = $zone['zone_id'];
-					$this->zoneName = $zone['zone_name'];
-					$this->methods  = $zone['shipping_methods'];
-					$this->get_locations( $zone['zone_locations'] );
-				}
-			}
-			Cache::set( 'ctx_feed_shipping_info', $this->shipping );
-			$shippingInfo = Cache::get( 'ctx_feed_shipping_info' );
-		}
+
 		$this->shipping = $shippingInfo;
 	}
 
@@ -157,6 +147,59 @@ class Shipping {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get shipping cost.
+	 *
+	 * @param $shipping array shipping information
+	 *
+	 * @return mixed $shipping_cost shipping cost
+	 * @since 5.2.0
+	 */
+	private function get_shipping_price_new( $shipping ) {
+
+		if ( ! is_object( $this->product ) ) {
+			return "";
+		}
+
+		// Initialize shipping cost and tax
+		$shipping_cost = 0;
+		$tax = 0;
+		defined( 'WC_ABSPATH' ) || exit;
+
+		// Load required WooCommerce classes
+		if ( ! class_exists( 'WC_Shipping_Zones' ) ) {
+			include_once WC_ABSPATH . 'includes/class-wc-shipping-zones.php';
+		}
+		if ( ! class_exists( 'WC_Shipping_Rate' ) ) {
+			include_once WC_ABSPATH . 'includes/class-wc-shipping-rate.php';
+		}
+
+		// Set Shipping Country and State.
+		WC()->customer->set_shipping_country( $shipping['country'] ?? '' );
+		WC()->customer->set_shipping_state( $shipping['state'] ?? '' );
+
+		$chosen_ship_method_id = $shipping['method_id'] . ':' . $shipping['method_instance_id'];
+		// If table rate plugin installed
+		if ( isset( $shipping['table_rate_id'] ) && 'table_rate' === $shipping['method_id'] && is_plugin_active( 'woocommerce-table-rate-shipping/woocommerce-table-rate-shipping.php' ) ) {
+			$chosen_ship_method_id = $shipping['method_id'] . ':' . $shipping['method_instance_id'] . ':' . $shipping['table_rate_id'];
+		}
+		WC()->session->set( 'chosen_shipping_methods', array( $chosen_ship_method_id ) );
+
+		// Calculate shipping cost and taxes
+		$shipping_rate = new WC_Shipping_Rate( $shipping['method'] . ':' . $shipping['instance_id'], $shipping['title'], $shipping['price'], array(), $shipping['id'] );
+		if ( $shipping_rate ) {
+			$shipping_cost = $shipping_rate->get_cost();
+			$taxes = WC_Tax::calc_shipping_tax( $shipping_cost, WC_Tax::get_shipping_tax_rates() );
+
+			foreach ( $taxes as $tax_value ) {
+				$tax += $tax_value;
+			}
+
+			$shipping_cost += $tax;
+		}
+		return $shipping_cost;
 	}
 
 	/**

@@ -4,7 +4,7 @@ Tags: security, access, admin, Loginizer, login, logs, ban ip, failed login, ip,
 Requires at least: 3.0
 Tested up to: 6.5
 Requires PHP: 5.5
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 License: LGPLv2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -29,6 +29,7 @@ Free Features :
 * Allow only Trusted IP.
 * Blocked Screen in place of the Login page.
 * Email Notification on successful login.
+* Let users login with LinkedIn
 
 = Get Support and Pro Features =
 
@@ -54,7 +55,8 @@ Pro Features :
 * Auto Blacklist IPs - IPs will be auto blacklisted, if certain usernames saved by the Admin are used to login by malicious bots / users.
 * Disable Pingbacks - Simple way to disable PingBacks.
 * SSO - Single Sign-on, let any user access to your WordPress Dashboard without the need to share username or password.
-* Limit Concurrent Logins: It prevents user to login from different devices concurrently, you can define how many devices you want to allow, and how you want to restrict the user when concurrent limit is reached.
+* Limit Concurrent Logins - It prevents user to login from different devices concurrently, you can define how many devices you want to allow, and how you want to restrict the user when concurrent limit is reached.
+* Social Login - Users can login or register with their Google, Github, Facebook, X (Twitter), Discord, Twitch, LinkedIn with support for WooCommerce.
 
 Features in Loginizer include:
 
@@ -82,6 +84,11 @@ That's it. You're done!
 3. Loginizer Brute Force Settings page
 
 == Changelog ==
+
+= 1.8.7 =
+* [Feature] Social Login: Now you can let the users login through LinkedIn Login.
+* [Feature] Send Login Notification as HTML email.
+* [Pro Feature] Supports social login with Google, GitHub, Facebook, X(Formly Twitter) and more Login Providers.
 
 = 1.8.6 =
 * [Bug-Fix] There was an issue with Login Notification body and subject, it was adding \(slashes) if "(double-quotes) where being used. This has been fixed.

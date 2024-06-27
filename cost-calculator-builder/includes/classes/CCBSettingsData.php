@@ -73,6 +73,8 @@ class CCBSettingsData {
 				'pages'            => array(),
 				'btn_text'         => 'Open calculator',
 				'one_click_action' => 'open_modal',
+				'show_calculator'  => false,
+				'show_total'       => true,
 				'custom_text'      => '',
 				'custom_desc'      => '',
 				'classes'          => '',

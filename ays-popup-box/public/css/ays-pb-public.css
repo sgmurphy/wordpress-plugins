@@ -20,6 +20,7 @@ div[class*=ays-pb-modal_].ays_winxp_window {
 .ays-pb-modals.ays-pb-notification-modal {
     position: unset;
     text-align: unset;
+    height: auto;
 }
 
 div[class*=ays-pb-modal_].ays_notification_window {
@@ -899,6 +900,7 @@ div[class*=ays-pb-modal_].ays_minimal_window {
     line-height: normal;
     margin: 0;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .ays_minimal_header .ays_popup_minimal_title h2 {

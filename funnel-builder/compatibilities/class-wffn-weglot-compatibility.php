@@ -12,18 +12,11 @@ if ( ! class_exists( 'WFFN_Compatibility_With_Weglot' ) ) {
 	class WFFN_Compatibility_With_Weglot {
 
 		public function __construct() {
-			if ( $this->is_enable() ) {
-				return;
-			}
 			add_filter( 'wfty_woocommerce_get_checkout_order_received_url', array( $this, 'weglot_comptibility_function' ) );
 		}
 
 		public function is_enable() {
-			if ( class_exists( 'WeglotWP\Third\Woocommerce\WC_Filter_Urls_Weglot' ) ) {
-				return true;
-			}
-
-			return false;
+			return true;
 		}
 
 		public function weglot_comptibility_function( $urlRedirect ) {

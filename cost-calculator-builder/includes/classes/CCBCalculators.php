@@ -79,10 +79,24 @@ class CCBCalculators {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
 
+		$params = array(
+			'discount'    => $_GET['discount'] ?? '',
+			'page_params' => self::get_filter_data( $_GET ),
+		);
+
+		$params['calc_id'] = ! empty( $_GET['calc_id'] ) ? sanitize_text_field( $_GET['calc_id'] ) : '';
+		$result            = self::edit_calc_body( $params );
+		$result['success'] = true;
+		$result['message'] = '';
+
+		wp_send_json( $result );
+	}
+
+	public static function edit_calc_body( $params ) {
 		$result = self::get_default_calculator_data();
 
-		if ( isset( $_GET['calc_id'] ) ) {
-			$calc_id = (int) sanitize_text_field( $_GET['calc_id'] );
+		if ( ! empty( $params['calc_id'] ) ) {
+			$calc_id = (int) sanitize_text_field( $params['calc_id'] );
 
 			$result['id']         = $calc_id;
 			$result['title']      = get_post_meta( $calc_id, 'stm-name', true );
@@ -138,8 +152,8 @@ class CCBCalculators {
 			$result['builder'] = ! empty( $stm_fields ) ? $stm_fields : array();
 
 			$discount_params = array();
-			if ( isset( $_GET['discount'] ) ) {
-				$discount_params = self::get_filter_data( $_GET['discount'] );
+			if ( isset( $params['discount'] ) ) {
+				$discount_params = self::get_filter_data( $params['discount'] );
 			}
 
 			$discount_params['calc_id'] = $calc_id;
@@ -199,7 +213,7 @@ class CCBCalculators {
 
 			$settings = CCBSettingsData::get_calc_single_settings( $calc_id );
 
-			if ( ! empty( $settings ) && isset( $settings[0] ) && isset( $settings[0]['general'] ) ) {
+			if ( isset( $settings[0]['general'] ) ) {
 				$settings = $settings[0];
 			}
 
@@ -230,14 +244,11 @@ class CCBCalculators {
 			$ccb_sync           = ccb_sync_settings_from_general_settings( $result['settings'], $general_settings );
 			$result['settings'] = $ccb_sync['settings'];
 
-			$params                = self::get_filter_data( $_GET );
-			$result['calculators'] = self::get_calculator_list( $params );
-			$result['success']     = true;
-			$result['message']     = '';
+			$page_params           = self::get_filter_data( $params['page_params'] );
+			$result['calculators'] = self::get_calculator_list( $page_params );
 		}
 
-		// send data
-		wp_send_json( $result );
+		return $result;
 	}
 
 	/**
@@ -660,21 +671,13 @@ class CCBCalculators {
 				self::savepoint( $data );
 			}
 
-			$sp_list = get_post_meta( $data['id'], 'ccb_savepoint_list', true );
+			$params = array(
+				'discount'    => $data['discount'] ?? '',
+				'page_params' => self::get_filter_data( $data['params'] ?? array() ),
+			);
 
-			if ( empty( $sp_list ) ) {
-				$sp_list = array();
-			}
-
-			foreach ( $sp_list as $key => $sp ) {
-				$result['sp_list'][] = array_merge(
-					$sp['basic'],
-					array(
-						'key'     => $key,
-						'created' => ccb_format_history_created( $sp['basic']['timestamp'] ),
-					)
-				);
-			}
+			$params['calc_id'] = ! empty( $data['id'] ) ? sanitize_text_field( $data['id'] ) : '';
+			$result['data']    = self::edit_calc_body( $params );
 
 			$result['success']     = true;
 			$result['message']     = 'Calculator updated successfully';

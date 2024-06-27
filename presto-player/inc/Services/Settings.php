@@ -279,6 +279,27 @@ class Settings
                 'default' => '800px'
             ]
         );
+
+        /**
+         * Set the default for media hub sync setting.
+         */
+        \register_setting(
+            'presto_player',
+            'presto_player_media_hub_sync_default',
+            [
+                'type'              => 'boolean',
+                'description'       => __('Set the default for media hub sync setting.', 'presto-player'),
+                'show_in_rest'      => [
+                    'name' =>  'presto_player_media_hub_sync_default',
+                    'type'  => 'boolean',
+                    'schema' => [
+                        'type' => 'boolean',
+                        'default' => true
+                    ]
+                ],
+                'default' => true
+            ]
+        );
     }
 
     public static function template()

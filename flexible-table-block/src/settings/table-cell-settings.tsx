@@ -74,13 +74,17 @@ export default function TableCellSettings( { setAttributes, vTable, selectedCell
 	const cellWidthUnits = useCustomUnits( { availableUnits: CELL_WIDTH_UNITS } );
 	const fontSizeUnits = useCustomUnits( { availableUnits: FONT_SIZE_UNITS } );
 
-	if ( ! selectedCells.length ) return null;
+	if ( ! selectedCells.length ) {
+		return null;
+	}
 
 	const { sectionName, rowIndex, vColIndex } = selectedCells[ 0 ];
 
 	const targetCell = vTable[ sectionName as SectionName ][ rowIndex ].cells[ vColIndex ];
 
-	if ( ! targetCell ) return null;
+	if ( ! targetCell ) {
+		return null;
+	}
 
 	const selectedCellTags: ( 'th' | 'td' )[] = selectedCells.reduce(
 		( result: CellTagValue[], selectedCell ) => {
@@ -410,7 +414,7 @@ export default function TableCellSettings( { setAttributes, vTable, selectedCell
 				autoComplete="off"
 				value={ targetCell.className || '' }
 				onChange={ onChangeClass }
-				help={ __( 'Separate multiple classes with spaces.' ) }
+				help={ __( 'Separate multiple classes with spaces.', 'flexible-table-block' ) }
 			/>
 			{ selectedCellTags.length === 1 && (
 				<>

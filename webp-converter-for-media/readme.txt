@@ -303,7 +303,7 @@ Current list of supported CDN servers:
 
 == Changelog ==
 
-= 5.13.0 (2024-06-25) =
+= 5.13.0 (2024-06-27) =
 * `[Fixed]` Filter `webpc_option_quality_levels` to change conversion quality levels
 * `[Added]` Support for WordPress 6.6
 
