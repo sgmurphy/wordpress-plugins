@@ -1,6 +1,6 @@
 <?php
 /* ======================================================
- # Login as User for WordPress - v1.5.0 (free version)
+ # Login as User for WordPress - v1.5.1 (free version)
  # -------------------------------------------------------
  # For WordPress
  # Author: Web357
@@ -9,7 +9,7 @@
  # Website: https://www.web357.com/product/login-as-user-wordpress-plugin
  # Demo: https://demo-wordpress.web357.com/try-the-login-as-a-user-wordpress-plugin/
  # Support: https://www.web357.com/support
- # Last modified: Monday 17 June 2024, 11:51:22 AM
+ # Last modified: Friday 28 June 2024, 06:04:10 PM
  ========================================================= */
 /**
  * Define the internationalization functionality
@@ -132,6 +132,8 @@ class LoginAsUser_fields {
 			placeholder="<?php echo esc_html__($args['placeholder']); ?>"><?php echo esc_textarea(isset($options[$args['name']]) && !empty($options[$args['name']]) ? $options[$args['name']] : $default_value); ?></textarea>
 		<?php
 	}
+
+	
 
 	function selectField($args)
 	{ 

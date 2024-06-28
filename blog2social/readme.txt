@@ -5,7 +5,7 @@ Tags: social media tool, social media automation, auto-post, social media plugin
 Donate link: https://paypal.me/adenion
 Requires at least: 4.7.0
 Tested up to: 6.5
-Stable tag: 7.5.2
+Stable tag: 7.5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -268,6 +268,8 @@ To get started with the basics of Blog2Social and maybe find some useful tips an
 
 
 == Changelog ==
+= 7.5.3 =
+Usability Optimization
 = 7.5.2 =
 Usability Optimization
 = 7.5.1 =
@@ -314,108 +316,10 @@ Bugfix: Pinterest Autorisation
 Bugfix: Autoposting
 = 7.0.0 = 
 Publish and share videos
-= 6.9.14 = 
-Optimize Auto-Poster & Re-Poster
-= 6.9.13 = 
-Optimize Social Media Metrics & Usability Optimization
-= 6.9.12 = 
-Additional Security Update
-= 6.9.11 = 
-Additional Security Update & Bugfix Instagram carousel post
-= 6.9.10 = 
-Additional Security Update
-= 6.9.9 = 
-Usability Optimization
-= 6.9.8 = 
-Additional Security Update
-= 6.9.7 = 
-Additional Security Update
-= 6.9.6 = 
-Additional Security Update
-= 6.9.5 = 
-Instagram multi image & additional Security Update
-= 6.9.4 = 
-Additional Security Update
-= 6.9.3 = 
-Usability Optimization, Twitter Threads & LinkedIn multi image
-= 6.9.2 = 
-Bugfixing Pinterest Connection
-= 6.9.1 = 
-Bugfixing Installing
-= 6.9.0 = 
-Social Media Metrics and more
-= 6.8.7 = 
-Additional Security Update
-= 6.8.6 = 
-Bugfixing Meta Tags
-= 6.8.5 = 
-Usability Optimization & LinkedIn text length updated
-= 6.8.4 = 
-Ravelry & Instapaper integration
-= 6.8.3 = 
-Usability Optimization
-= 6.8.2 = 
-Usability Optimization
-= 6.8.1 = 
-Usability Optimization
-= 6.8.0 = 
-Usability Optimization & Blogger.com integration
-= 6.7.2 = 
-Usability Optimization & Blogger.com integration
-= 6.7.1 = 
-Usability Optimization
-= 6.7.0 = 
-Instagram Business Solution & Usability Optimization
-= 6.6.4 = 
-Usability Optimization
-= 6.6.3 = 
-Usability Optimization
-= 6.6.2 = 
-Usability Optimization
-= 6.6.1 = 
-Usability Optimization
-= 6.6.0 = 
-Share text-posts and video links, Instagram hashtag shuffle and Telegram add-on for your Smart or Pro license
-= 6.5.8 = 
-Usability Optimization
-= 6.5.7 = 
-Usability Optimization
-= 6.5.6 = 
-Usability Optimization
-= 6.5.5 = 
-Usability Optimization
-= 6.5.4 = 
-Usability Optimization
-= 6.5.3 = 
-Optimization Twitter Image Post
-= 6.5.2 = 
-Usability Optimization
-= 6.5.1 = 
-Usability Optimization
-= 6.5.0 = 
-Multiple image post & Telegram Network
-= 6.4.2 = 
-Usability Optimization
-= 6.4.1 = 
-Usability Optimization
-= 6.4.0 = 
-New Blog2Social Posting Templates
-= 6.3.1 = 
-Additional Security Update
-= 6.3.0 = 
-Blog2Social Community and Autoposter Retweets
-= 6.2.0 = 
-Usability Optimization, Snip.ly integration, Re-poster
-= 6.1.2 = 
-Usability Optimization
-= 6.1.1 = 
-Usability Optimization
-= 6.1.0 = 
-Usability Optimization, Rebrandly integration, url parameter settings
-= 6.0.0 = 
-New Image Posts, Imgur, Animated Gifs and Emojis
 
 == Upgrade Notice ==
+= 7.5.3 =
+Usability Optimization
 = 7.5.2 =
 Usability Optimization
 = 7.5.1 =
@@ -462,103 +366,3 @@ Bugfix: Pinterest Autorisation
 Bugfix: Autoposting
 = 7.0.0 = 
 Publish and share videos
-= 6.9.14 = 
-Optimize Auto-Poster & Re-Poster
-= 6.9.13 = 
-Optimize Social Media Metrics & Usability Optimization
-= 6.9.12 = 
-Additional Security Update
-= 6.9.11 = 
-Additional Security Update & Bugfix Instagram carousel post
-= 6.9.10 = 
-Additional Security Update
-= 6.9.9 = 
-Usability Optimization
-= 6.9.8 = 
-Additional Security Update
-= 6.9.7 = 
-Additional Security Update
-= 6.9.6 = 
-Additional Security Update
-= 6.9.5 = 
-Instagram multi image & additional Security Update
-= 6.9.4 = 
-Additional Security Update
-= 6.9.3 = 
-Usability Optimization, Twitter Threads & LinkedIn multi image
-= 6.9.2 = 
-Bugfixing Pinterest Connection
-= 6.9.1 = 
-Bugfixing Installing
-= 6.9.0 = 
-Social Media Metrics and more
-= 6.8.7 = 
-Additional Security Update
-= 6.8.6 = 
-Bugfixing Meta Tags
-= 6.8.5 = 
-Usability Optimization & LinkedIn text length updated
-= 6.8.4 = 
-Ravelry & Instapaper integration
-= 6.8.3 = 
-Usability Optimization
-= 6.8.2 = 
-Usability Optimization
-= 6.8.1 = 
-Usability Optimization
-= 6.8.0 = 
-Usability Optimization & Blogger.com integration
-= 6.7.2 = 
-Usability Optimization
-= 6.7.1 = 
-Usability Optimization
-= 6.7.0 = 
-Instagram Business Solution & Usability Optimization
-= 6.6.4 = 
-Usability Optimization
-= 6.6.3 = 
-Usability Optimization
-= 6.6.2 = 
-Usability Optimization
-= 6.6.1 = 
-Usability Optimization
-= 6.6.0 = 
-Share text-posts and video links, Instagram hashtag shuffle and Telegram add-on for your Smart or Pro license
-= 6.5.8 = 
-Usability Optimization
-= 6.5.7 = 
-Usability Optimization
-= 6.5.6 = 
-Usability Optimization
-= 6.5.5 = 
-Usability Optimization
-= 6.5.4 = 
-Usability Optimization
-= 6.5.3 = 
-Optimization Twitter Image Post
-= 6.5.2 = 
-Usability Optimization
-= 6.5.1 = 
-Usability Optimization
-= 6.5.0 = 
-Multiple image post & Telegram Network
-= 6.4.2 = 
-Usability Optimization
-= 6.4.1 = 
-Usability Optimization
-= 6.4.0 = 
-New Blog2Social Posting Templates
-= 6.3.1 = 
-Additional Security Update
-= 6.3.0 = 
-Blog2Social Community and Autoposter Retweets
-= 6.2.0 = 
-Usability Optimization, Snip.ly integration, Re-poster
-= 6.1.2 = 
-Usability Optimization
-= 6.1.1 = 
-Usability Optimization
-= 6.1.0 = 
-Usability Optimization, Rebrandly integration, url parameter settings
-= 6.0.0 = 
-New Image Posts, Imgur, Animated Gifs and Emojis

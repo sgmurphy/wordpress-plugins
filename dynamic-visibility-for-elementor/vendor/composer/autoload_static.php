@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit825f80ff7a9f3434ffcccb9775ead1a4
+class ComposerStaticInitfe790510a9f6dd24ddea822939326087
 {
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -32,7 +32,6 @@ class ComposerStaticInit825f80ff7a9f3434ffcccb9775ead1a4
         'DynamicVisibilityForElementor\\Plugins' => __DIR__ . '/../..' . '/class/trait/plugins.php',
         'DynamicVisibilityForElementor\\Strings' => __DIR__ . '/../..' . '/class/trait/strings.php',
         'DynamicVisibilityForElementor\\Validation' => __DIR__ . '/../..' . '/class/trait/validation.php',
-        'DynamicVisibilityForElementor\\Woo' => __DIR__ . '/../..' . '/class/trait/woo.php',
         'DynamicVisibilityForElementor\\Wp' => __DIR__ . '/../..' . '/class/trait/wp.php',
         'DynamicVisibilityForElementor\\Wpml' => __DIR__ . '/../..' . '/class/wpml.php',
     );
@@ -40,7 +39,7 @@ class ComposerStaticInit825f80ff7a9f3434ffcccb9775ead1a4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit825f80ff7a9f3434ffcccb9775ead1a4::$classMap;
+            $loader->classMap = ComposerStaticInitfe790510a9f6dd24ddea822939326087::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -5,7 +5,7 @@ Donate link: https://www.paypal.me/web357
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,11 +20,7 @@ Login as User is a free WordPress plugin that helps admins switch user accounts 
 
 == Demo ==
 
-[Try Demo](https://demo.web357.com/wordpress/login-as-user/wp-admin/)
-`
-    Username: demo
-    Password: demo
-`
+[Live Demo](https://demo.web357.com/wordpress/login-as-user/wp-admin/)
 
 == Basic Features ==
 - In the Admin area, you select Users in the left-hand side menu and click All Users in the sub-menu. Now, all users of your website appear on the screen along with the Login as… button besides each name. You can click the button of the user you want to switch account.
@@ -59,6 +55,17 @@ This plugin is helpful if you are an admin and you want to sign in as any user, 
 5. Settings.
 
 == Changelog ==
+= 28-Jun-2024 : v1.5.1 =
+* Fully compatible with WooCommerce v9.0.x and WooCommerce Subscriptions v6.4.x
+* [New Feature]: Role Management Permissions in Login as User Plugin. Define which roles can log in as users of other roles, enhancing security and control by limiting this capability to specific roles. Learn more https://docs.web357.com/article/118-role-management-permissions-in-login-as-user-plugin-pro-only
+* [New Feature]: Added option to display the admin link in the topbar.
+* Fixed 'Login as User' column compatibility with WooCommerce Subscriptions 6.4.
+* [Bug Fix] Enhanced order column compatibility using WooCommerce's get_customer_id method.
+* [UI] Implemented minor fixes and improvements for a smoother user experience, including a go-back link in the WordPress top navbar.
+* Added button_name parameter to [login_as_user] shortcode for customizable button text, including support for dynamic user type placeholder  (e.g., [ login_as_user user_id="357" redirect_to="/my-account" button_name="Login as "]). [Thank you, Giorgos Iordanidis] Documentation updated: https://docs.web357.com/article/102-shortcode-login-as-user
+* [Improvement] The default value for the message_display_position should be "bottom", not "top".
+* Minor fixes and Improvements.
+
 = 26-Apr-2024 : v1.5.0 =
 * Improved handling of user_id and redirect_to parameters in the [login_as_user] shortcode for enhanced functionality. Documentation updated: https://docs.web357.com/article/102-shortcode-login-as-user
 

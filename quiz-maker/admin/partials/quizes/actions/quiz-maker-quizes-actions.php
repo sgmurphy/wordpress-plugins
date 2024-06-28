@@ -491,17 +491,17 @@ $quiz_message_vars_limitation_message = array(
 );
 
 $quiz_message_vars_logged_in_users = array(
-    "%%quiz_name%%"                             => __("Quiz Title", $this->plugin_name),
-    "%%questions_count%%"                       => __("Questions count", $this->plugin_name),
-    "%%quiz_creation_date%%"                    => __("Quiz creation date", $this->plugin_name),
-    "%%current_quiz_author%%"                   => __("Quiz Author", $this->plugin_name),
-    "%%current_user_ip%%"                       => __("User's IP Address", $this->plugin_name),
-    "%%current_quiz_author_email%%"             => __("Quiz Author Email", $this->plugin_name),
-    "%%current_quiz_author_nickname%%"          => __("Quiz Author Nickname", $this->plugin_name),
-    "%%admin_email%%"                           => __("Admin Email", $this->plugin_name),
-    "%%home_page_url%%"                         => __("Home page URL", $this->plugin_name),
-    "%%quiz_id%%"                               => __("Quiz ID", $this->plugin_name),
-    "%%user_id%%"                               => __("User ID", $this->plugin_name),
+    "%%quiz_name%%"                                 => __("Quiz Title", $this->plugin_name),
+    "%%questions_count%%"                           => __("Questions count", $this->plugin_name),
+    "%%quiz_creation_date%%"                        => __("Quiz creation date", $this->plugin_name),
+    "%%current_quiz_author%%"                       => __("Quiz Author", $this->plugin_name),
+    "%%current_user_ip%%"                           => __("User's IP Address", $this->plugin_name),
+    "%%current_quiz_author_email%%"                 => __("Quiz Author Email", $this->plugin_name),
+    "%%current_quiz_author_nickname%%"              => __("Quiz Author Nickname", $this->plugin_name),
+    "%%admin_email%%"                               => __("Admin Email", $this->plugin_name),
+    "%%home_page_url%%"                             => __("Home page URL", $this->plugin_name),
+    "%%quiz_id%%"                                   => __("Quiz ID", $this->plugin_name),
+    "%%user_id%%"                                   => __("User ID", $this->plugin_name),
 );
 
 $quiz_message_vars_only_selected_user_role = array(

@@ -943,7 +943,7 @@ class B2S_Network_Item {
         $content .= '</div>';
         $content .= '<div class="row">';
         $content .= '<div class="col-md-12 b2s-edit-template-link-info">';
-        if ($networkId != 24 && $networkId != 12 && $networkId != 2 && $networkId != 1) {
+        if ($networkId != 43 && $networkId != 24 && $networkId != 12 && $networkId != 2 && $networkId != 1) {
             if ($networkId == 11) {
                 $content .= '<i class="glyphicon glyphicon-info-sign"></i> ' . esc_html__('The link will be transmitted as a canonical link, i.e. in the source code of your page, in order to refer to the original source of the content and to increase the reach from search engines like Google.', 'blog2social');
             } else if ($networkId == 39) {

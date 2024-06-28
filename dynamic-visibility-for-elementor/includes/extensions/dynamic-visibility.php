@@ -475,7 +475,7 @@ class DynamicVisibility extends ExtensionPrototype {
 					// told to add the data-visibility-ok attribute to the
 					// style tag. So future changes should take that into
 					// account.
-					preg_match_all( '$<style>.*?</style>$s', $content, $matches );
+					preg_match_all( '$<style( id="[^"]*"|)>.*?</style>$s', $content, $matches );
 					foreach ( $matches[0] as $m ) {
 						echo $m;
 					}
@@ -3131,7 +3131,7 @@ class DynamicVisibility extends ExtensionPrototype {
 						$archive_type = '';
 						$term_ids = [];
 
-						if ( get_class( $queried_object ) == 'WP_Term' ) {
+						if ( $queried_object instanceof \WP_Term ) {
 							switch ( $archive ) {
 								case 'is_tax':
 									if ( $settings['dce_visibility_archive_tax'] && $queried_object->taxonomy == $settings['dce_visibility_archive_tax'] ) {
@@ -3158,7 +3158,7 @@ class DynamicVisibility extends ExtensionPrototype {
 							$term_ids = Helper::wpml_translate_object_id_by_type( $term_ids, $archive_type );
 						}
 
-						if ( empty( $term_ids ) || in_array( $queried_object->term_id, $term_ids ) ) {
+						if ( empty( $term_ids ) || ( $queried_object instanceof \WP_Term ) && in_array( $queried_object->term_id, $term_ids ) ) {
 							$context_archive_advanced = true;
 						}
 

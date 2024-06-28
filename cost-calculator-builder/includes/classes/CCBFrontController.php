@@ -258,6 +258,12 @@ class CCBFrontController {
 			self::ccb_add_custom_data( $calc_id, $custom_sticky, $settings, $general_settings, $custom_action );
 
 			$templates = \cBuilder\Helpers\CCBFieldsHelper::get_fields_templates( $settings, $general_settings );
+			$payments  = array();
+
+			if ( ccb_pro_active() ) {
+				$payments = \cBuilder\Classes\CCBProSettings::get_payments();
+			}
+
 			wp_enqueue_script( 'calc-builder-main-js', CALC_URL . '/frontend/dist/bundle.js', array( 'cbb-sticky-sidebar-js' ), CALC_VERSION, true );
 			wp_localize_script(
 				'calc-builder-main-js',
@@ -268,7 +274,7 @@ class CCBFrontController {
 					'templates'        => $templates,
 					'pro_active'       => ccb_pro_active(),
 					'the_id'           => get_the_ID(),
-					'payments'         => \cBuilder\Classes\CCBProSettings::get_payments(),
+					'payments'         => $payments,
 					'general_settings' => $general_settings,
 				)
 			);

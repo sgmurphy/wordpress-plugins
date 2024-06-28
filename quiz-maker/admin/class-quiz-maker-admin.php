@@ -1107,6 +1107,7 @@ class Quiz_Maker_Admin
 
         // Styles Settings
         $quick_quiz_width                                   = 800;
+        $quick_quiz_height                                  = 450;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1184,7 +1185,11 @@ class Quiz_Maker_Admin
              * Style Settings
              */
 
+            // Quiz Width
             $quick_quiz_width = (isset($_REQUEST['ays_quick_quiz_width']) && $_REQUEST['ays_quick_quiz_width'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_width'] ) ) : "";
+
+            // Quiz min-height
+            $quick_quiz_height = (isset($_REQUEST['ays_quick_quiz_height']) && $_REQUEST['ays_quick_quiz_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_height'] ) ) : 450;
 
         }
         
@@ -1236,7 +1241,7 @@ class Quiz_Maker_Admin
             'color'                                     => '#5d6cf9',
             'bg_color'                                  => '#fff',
             'text_color'                                => '#000000',
-            'height'                                    => 450,
+            'height'                                    => $quick_quiz_height,
             'width'                                     => $quick_quiz_width,
             'timer'                                     => 100,
             'information_form'                          => 'disable',
@@ -1509,6 +1514,8 @@ class Quiz_Maker_Admin
                 $value = self::recursive_sanitize_text_field_public($value);
             } else {
                 if( strpos($key, "ays-question") !== false  ){
+                    $value = sanitize_text_field( $value );
+                }elseif (is_numeric($key)) {
                     $value = sanitize_text_field( $value );
                 } else {
                     if( isset($array[$key]) ){

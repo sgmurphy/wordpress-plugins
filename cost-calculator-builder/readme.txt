@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.5
-Stable tag: 3.2.13
+Stable tag: 3.2.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,9 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.14 =
+- Fix: The calculator page does not load  with some themes if only free version of the plugin is installed.
 
 = 3.2.13 =
 - Enhancement: Added new options for Click action setting of Sticky Calculator: Pop up summary, Download PDF, Share invoice, WooCheckout action after submit, Pop up on WooProduct page and WooCheckout action on WooProduct page (Pro).

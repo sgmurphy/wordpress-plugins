@@ -2358,7 +2358,7 @@ class Ajax_Post {
                         if ((int) $_POST['networkId'] == 2) {
                             $new_template[$type]['twitterThreads'] = ((isset($data['twitterThreads']) && $data['twitterThreads'] == 'false') ? false : true);
                         }
-                        if ((int) $_POST['networkId'] == 24 || (int) $_POST['networkId'] == 12 || (int) $_POST['networkId'] == 1 || (int) $_POST['networkId'] == 2) {
+                        if ((int) $_POST['networkId'] == 43 || (int) $_POST['networkId'] == 24 || (int) $_POST['networkId'] == 12 || (int) $_POST['networkId'] == 1 || (int) $_POST['networkId'] == 2) {
                             $new_template[$type]['addLink'] = ((isset($data['addLink']) && $data['addLink'] == 'false') ? false : true);
                         }
                         if ((int) $_POST['networkId'] == 12) {

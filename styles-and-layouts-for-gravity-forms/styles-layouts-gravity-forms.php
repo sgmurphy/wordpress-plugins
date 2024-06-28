@@ -3,7 +3,7 @@
 Plugin Name: Gravity Booster ( Style & Layouts )
 Plugin URI:  http://wpmonks.com/styles-layouts-gravity-forms
 Description: Create beautiful styles for your gravity forms
-Version:     5.9
+Version:     5.10
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'GF_STLA_DIR', WP_PLUGIN_DIR . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_URL', plugins_url() . '/' . basename( __DIR__ ) );
 define( 'GF_STLA_STORE_URL', 'https://wpmonks.com' );
-define( 'GF_STLA_VERSION', '5.9' );
+define( 'GF_STLA_VERSION', '5.10' );
 
 if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include_once GF_STLA_DIR . '/admin-menu/EDD_SL_Plugin_Updater.php';
@@ -298,7 +298,9 @@ class Gravity_customizer_admin {
 					if ( class_exists( 'RGFormsModel' ) ) {
 						$forms       = RGFormsModel::get_forms( null, 'title' );
 						$field_names = array( 'padding', 'margin' );
+
 						$field_types = array( 'form-wrapper', 'checkbox-inputs', 'confirmation-message', 'dropdown-fields', 'error-message', 'field-descriptions', 'field-labels', 'field-sub-labels', 'form-description', 'form-header', 'form-title', 'form-wrapper', 'list-field', 'paragraph-textarea', 'placeholders', 'radio-inputs', 'section-break-description', 'section-break-title', 'submit-button', 'text-fields' );
+
 						foreach ( $forms as $form ) {
 							$form_id      = $form->id;
 							$stla_options = get_option( 'gf_stla_form_id_' . $form_id );
@@ -405,8 +407,10 @@ class Gravity_customizer_admin {
 			array_push( $this->form_styles_processed, $css_form_id );
 			$main_class_object = $this;
 			include 'display/class-styles.php';
+			include 'display/class-fields-styles.php';
 			// }
 		}
+
 		do_action( 'gf_stla_after_post_style_display', $this );
 	}
 
@@ -573,15 +577,22 @@ class Gravity_customizer_admin {
 	}
 
 
-	public function gf_sb_get_saved_styles( $form_id, $category, $important = '' ) {
+	public function gf_sb_get_saved_styles( $form_id, $category, $important = '', $field_id = '' ) {
+
 		if ( is_customize_preview() ) {
 			$important = '';
 		}
 
 		$settings = get_option( 'gf_stla_form_id_' . $form_id );
-		if ( empty( $settings ) ) {
-			return;
+
+		// get the styler settings specific to fields.
+		if ( ! empty( $field_id ) ) {
+			$settings = get_option( 'gf_stla_field_id_' . $form_id );
+
+			// get the settings of field id whoes css has to be printed.
+			$settings = $settings[ $field_id ];
 		}
+
 		$input_styles = '';
 
 		if ( isset( $settings[ $category ]['font-style'] ) ) {
@@ -671,11 +682,18 @@ class Gravity_customizer_admin {
 		return $input_styles;
 	}
 
-	public function gf_sb_get_saved_styles_tab( $form_id, $category, $important = '' ) {
+	public function gf_sb_get_saved_styles_tab( $form_id, $category, $important = '', $field_id = '' ) {
+
 		$settings = get_option( 'gf_stla_form_id_' . $form_id );
-		if ( ! isset( $settings ) ) {
-			return;
+
+		// get the styler settings specific to fields.
+		if ( ! empty( $field_id ) ) {
+			$settings = get_option( 'gf_stla_field_id_' . $form_id );
+
+			// get the settings of field id whoes css has to be printed.
+			$settings = $settings[ $field_id ];
 		}
+
 		$input_styles  = '';
 		$input_styles .= ! isset( $settings[ $category ]['width-tab'] ) ? '' : 'width:' . $settings[ $category ]['width-tab'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['width-tab'] ) . $important . ';';
 		$input_styles .= ! isset( $settings[ $category ]['max-width-tab'] ) ? '' : 'width:' . $settings[ $category ]['max-width-tab'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['max-width-tab'] ) . $important . ';';
@@ -687,11 +705,17 @@ class Gravity_customizer_admin {
 		return $input_styles;
 	}
 
-	public function gf_sb_get_saved_styles_phone( $form_id, $category, $important = '' ) {
+	public function gf_sb_get_saved_styles_phone( $form_id, $category, $important = '', $field_id = '' ) {
+
 		$settings = get_option( 'gf_stla_form_id_' . $form_id );
-		if ( ! isset( $settings ) ) {
-			return;
+		// get the styler settings specific to fields.
+		if ( ! empty( $field_id ) ) {
+			$settings = get_option( 'gf_stla_field_id_' . $form_id );
+
+			// get the settings of field id whoes css has to be printed.
+			$settings = $settings[ $field_id ];
 		}
+
 		$input_styles  = '';
 		$input_styles .= ! isset( $settings[ $category ]['width-phone'] ) ? '' : 'width:' . $settings[ $category ]['width-phone'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['width-phone'] ) . $important . ';';
 		$input_styles .= ! isset( $settings[ $category ]['max-width-phone'] ) ? '' : 'width:' . $settings[ $category ]['max-width-phone'] . $this->gf_stla_add_px_to_value( $settings[ $category ]['max-width-phone'] ) . $important . ';';

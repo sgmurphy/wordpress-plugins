@@ -1,11 +1,10 @@
 === Honeypot for Contact Form 7 ===
 Tags: honeypot, antispam, anti-spam, captcha, spam, bots, form, forms, contact form 7, contactform7, contact form, cf7
 Requires at least: 4.8
-Tested up to: 6.5
+Tested up to: 6.5.5
 Stable tag: trunk
 Requires PHP: 5.6
-Contributors: nocean, DaoByDesign
-Donate link: http://www.nocean.ca/buy-us-a-coffee/
+Contributors: wpexpertsio
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +89,9 @@ I realize not everyone loves ads, but daddy's gotta pay the bills. I'm extremely
 2. Honeypot CF7 Form Tag Settings
 
 == Changelog ==
+= 2.1.2 =
+Changed contributor to WPExperts
+
 = 2.1.1 =
 Fixes small bug when enabling in bulk with other plugins.
 

@@ -199,13 +199,13 @@ class Results_List_Table extends WP_List_Table{
                 if ( $sql_orderby ) {
                     $sql .= ' ORDER BY ' . $sql_orderby;
                 } else {
-                    $sql .= ' ORDER BY end_date DESC';
+                    $sql .= ' ORDER BY id DESC';
                 }
             }
 
         }
         else{
-            $sql .= ' ORDER BY end_date DESC';
+            $sql .= ' ORDER BY id DESC';
         }
 
         $sql .= " LIMIT $per_page";

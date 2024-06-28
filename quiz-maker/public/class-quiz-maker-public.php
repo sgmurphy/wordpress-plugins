@@ -7017,6 +7017,11 @@ class Quiz_Maker_Public
 
     public static function ays_get_average_score_by_category($id){
         global $wpdb;
+        $user_id = get_current_user_id();
+
+        if( is_null($user_id) || $user_id == 0 ){
+            return "";
+        }
 
         $id = isset( $id ) && $id != '' && intval($id) > 0 ? absint($id) : null;
 
@@ -7051,6 +7056,11 @@ class Quiz_Maker_Public
         $sql = "SELECT options
                 FROM {$quizes_reports_table}
                 WHERE quiz_id =".absint($id);
+
+        if( isset($user_id) && $user_id > 0 ){
+            $sql .= " AND user_id =".absint($user_id);
+        }
+
         $report = $wpdb->get_results( $sql, ARRAY_A );
         if(! empty($report)){
             foreach ($report as $key){

@@ -707,6 +707,11 @@
   margin-left: 1rem;
 }
 
+#learn-press-become-teacher-form .become-teacher-fields {
+  list-style: none;
+  padding: 0;
+}
+
 @keyframes lp-rotating {
   from {
     -webkit-transform: rotate(0deg);
@@ -807,6 +812,11 @@
   position: relative;
 }
 
+@media (min-width: 1024px) {
+  body.theme-divi {
+    --lp-cotainer-padding:0;
+  }
+}
 .learnpress.widget {
   margin-bottom: 30px;
 }

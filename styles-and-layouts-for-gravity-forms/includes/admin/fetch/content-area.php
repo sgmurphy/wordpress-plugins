@@ -14,6 +14,8 @@ class Stla_Admin_Fetch_Content_Area {
 		add_action( 'wp_ajax_stla_gravity_form_confirmation_html', array( $this, 'stla_gravity_form_confirmation_html' ) );
 		add_action( 'wp_ajax_stla_get_page_count', array( $this, 'stla_get_page_count' ) );
 		add_action( 'wp_ajax_stla_styler_settings', array( $this, 'stla_styler_settings' ) );
+		add_action( 'wp_ajax_stla_styler_fields_settings', array( $this, 'stla_styler_fields_settings' ) );
+
 		add_action( 'wp_ajax_stla_get_forms_with_styling', array( $this, 'stla_get_forms_with_styling' ) );
 		add_action( 'wp_ajax_stla_delete_forms_styles', array( $this, 'stla_delete_forms_styles' ) );
 		add_action( 'wp_ajax_stla_save_styler_settings', array( $this, 'stla_save_styler_settings' ) );
@@ -170,6 +172,29 @@ class Stla_Admin_Fetch_Content_Area {
 	}
 
 	/**
+	 * Return the field settings of active field in styler
+	 *
+	 * @return void
+	 */
+	function stla_styler_fields_settings() {
+
+		// Verify nonce
+		$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+
+		if ( ! check_ajax_referer( 'stla_gravity_booster_nonce', 'nonce', false ) ) {
+			wp_send_json_error( 'Invalid nonce' );
+		}
+
+		$form_id = isset( $_POST['formId'] ) ? $_POST['formId'] : '';
+
+		// GFFormDisplay::enqueue_form_scripts( 24 );
+		$settings = get_option( 'gf_stla_field_id_' . $form_id );
+		$settings = empty( $settings ) ? array() : $settings;
+
+		wp_send_json_success( $settings );
+	}
+
+	/**
 	 * Returns all the forms which have styles applied.
 	 *
 	 * @return void
@@ -267,12 +292,13 @@ class Stla_Admin_Fetch_Content_Area {
 		$general_settings = stripslashes( $general_settings );
 		$general_settings = json_decode( $general_settings, true );
 
-		// $styler_settings = serialize( $styler_settings );
+		$styler_fields_settings = isset( $_POST['stylerFieldsSettings'] ) ? $_POST['stylerFieldsSettings'] : 0;
+		$styler_fields_settings = stripslashes( $styler_fields_settings );
+		$styler_fields_settings = json_decode( $styler_fields_settings, true );
 
 		update_option( 'gf_stla_form_id_' . $formId, $styler_settings );
 		update_option( 'gf_stla_general_settings' . $formId, $general_settings );
-
-		$styler_options = get_option( 'gf_stla_form_id_' . $formId );
+		update_option( 'gf_stla_field_id_' . $formId, $styler_fields_settings );
 
 		wp_send_json_success( '' );
 	}
@@ -375,18 +401,67 @@ class Stla_Admin_Fetch_Content_Area {
 		if ( empty( $form_id ) ) {
 			wp_send_json_error( 'Form id not selected' );
 		}
+		require_once GFCommon::get_base_path() . '/form_display.php';
 
-		$form           = GFAPI::get_form( $form_id );
+		$form = GFAPI::get_form( $form_id );
+
 		$field_labels   = array();
 		$complex_fields = array( 'name', 'address', 'email' );
 
 		$form_fields = $form['fields'];
+
 		foreach ( $form_fields as $field ) {
 
+			$supported_styler_settings = array();
+			$field_content             = GFFormDisplay::get_field_content( $field, '', true, $form_id, $form );
+
+			error_log( print_r( $field_content, true ) );
+
+			if ( str_contains( $field_content, 'gfield_label' ) ) {
+				array_push( $supported_styler_settings, 'field-labels' );
+			}
+
+			if ( str_contains( $field_content, 'gfield_description' ) ) {
+				array_push( $supported_styler_settings, 'field-descriptions' );
+			}
+
+			if ( str_contains( $field_content, 'gfield_list' ) || str_contains( $field_content, 'gfield_list_group' ) ) {
+				array_push( $supported_styler_settings, 'list-field-table', 'list-field-heading', 'list-field-cell', 'list-field-cell-container' );
+			}
+
+			if ( str_contains( $field_content, 'ginput_container_radio' ) ) {
+				array_push( $supported_styler_settings, 'radio-inputs' );
+			}
+
+			if ( str_contains( $field_content, 'ginput_container_checkbox' ) ) {
+				array_push( $supported_styler_settings, 'checkbox-inputs' );
+			}
+
+			if ( str_contains( $field_content, 'gform-field-label--type-sub' ) ) {
+				array_push( $supported_styler_settings, 'field-sub-labels' );
+			}
+
+			if ( str_contains( $field_content, 'gfield_select' ) ) {
+				array_push( $supported_styler_settings, 'dropdown-fields' );
+			}
+
+			if ( str_contains( $field_content, 'gsection' ) ) {
+				array_push( $supported_styler_settings, 'section-break-title', 'section-break-description' );
+			}
+
+			if ( str_contains( $field_content, 'ginput_container_textarea' ) ) {
+				array_push( $supported_styler_settings, 'paragraph-textarea' );
+			}
+
+			if ( str_contains( $field_content, "type='text'" ) || str_contains( $field_content, "type='email'" ) || str_contains( $field_content, "type='password'" ) || str_contains( $field_content, "type='tel'" ) || str_contains( $field_content, "type='url'" ) || str_contains( $field_content, "type='number'" ) ) {
+				array_push( $supported_styler_settings, 'text-fields' );
+			}
+
 			$field_labels[] = array(
-				'id'    => $field->id,
-				'label' => $field->label,
-				'type'  => $field->type,
+				'id'                      => $field->id,
+				'label'                   => $field->label,
+				'type'                    => $field->type,
+				'supportedStylerControls' => $supported_styler_settings,
 			);
 
 			if ( in_array( $field->type, $complex_fields ) ) {

@@ -58,8 +58,12 @@ class B2S_Util {
     }
 
     public static function getUsedPercentOfXy($open, $total) {
-        $usedOf = (100 - ((100 / $total) * $open));
-        return round($usedOf, 2);
+        if ((int) $total > 0 && (int) $open > 0) {
+            $usedOf = (100 - ((100 / $total) * $open));
+            return round($usedOf, 2);
+        } else {
+            return 100;
+        }
     }
 
     public static function returnInByts($val = "") {
@@ -380,7 +384,7 @@ class B2S_Util {
         if ($allowHtml !== false) {
             $prepareContent = preg_replace("/(<[\/]*)strong(>)/", "$1b$2", $prepareContent);
             $prepareContent = preg_replace("/(<[\/]*)em(>)/", "$1i$2", $prepareContent);
-            $tempContent = nl2br(preg_replace('/(?:[ \t]*(?:\n|\r\n?)){3,}/', "\n", trim(strip_tags($prepareContent, $allowHtml))));
+            $tempContent = preg_replace('/(?:[ \t]*(?:\n|\r\n?)){2,}/', "\n", trim(strip_tags($prepareContent, $allowHtml)));
             if (preg_match_all('%<img.*?src=[\"\'](.*?)[\"\'].*?/>%', $tempContent, $matches)) {
                 foreach ($matches[1] as $key => $imgUrl) {
                     if ($imgUrl == false) {

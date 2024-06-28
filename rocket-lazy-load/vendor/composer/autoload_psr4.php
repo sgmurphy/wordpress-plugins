@@ -8,5 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'RocketLazyload\\' => array($vendorDir . '/wp-media/rocket-lazyload-common/src'),
     'RocketLazyLoadPlugin\\' => array($baseDir . '/src'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

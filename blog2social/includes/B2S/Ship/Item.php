@@ -1582,7 +1582,7 @@ class B2S_Ship_Item {
 
                 if (($networkId == 12) && isset($this->post_template[$networkId][$networkType]['addLink']) && $this->post_template[$networkId][$networkType]['addLink'] == false) {
                     $urlValue = '';
-                } else if (($networkId == 1 || $networkId == 2 || $networkId == 24) && isset($this->post_template[$networkId][$networkType]['format']) && (int) $this->post_template[$networkId][$networkType]['format'] == 1 && isset($this->post_template[$networkId][$networkType]['addLink']) && $this->post_template[$networkId][$networkType]['addLink'] == false) {
+                } else if (($networkId == 1 || $networkId == 2 || $networkId == 24 || $networkId == 43) && isset($this->post_template[$networkId][$networkType]['format']) && (int) $this->post_template[$networkId][$networkType]['format'] == 1 && isset($this->post_template[$networkId][$networkType]['addLink']) && $this->post_template[$networkId][$networkType]['addLink'] == false) {
                     $urlValue = '';
                     $isRequiredClass = '';
                 } else {

@@ -40,6 +40,7 @@ function woo_ml_public_scripts()
 
     wp_enqueue_script('woo-ml-public-script', WOO_MAILERLITE_URL . 'public/js/public.js', ['jquery'], WOO_MAILERLITE_VER);
     wp_localize_script('woo-ml-public-script', 'woo_ml_public_post', ['ajax_url' => admin_url('admin-ajax.php'), 'language' => get_locale(), 'checkbox_settings' => [
+        'enabled' => MailerLite\Includes\Classes\Settings\MailerLiteSettings::getInstance()->getMlOption('checkout', 'no'),
         'label' => MailerLite\Includes\Classes\Settings\MailerLiteSettings::getInstance()->getMlOption('checkout_label'),
         'preselect' => MailerLite\Includes\Classes\Settings\MailerLiteSettings::getInstance()->getMlOption('checkout_preselect', 'no'),
         'hidden' => MailerLite\Includes\Classes\Settings\MailerLiteSettings::getInstance()->getMlOption('checkout_hide', 'no'),

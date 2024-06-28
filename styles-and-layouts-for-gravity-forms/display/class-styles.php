@@ -5,11 +5,16 @@ $important            = isset( $get_general_settings['force-style'] ) ? $get_gen
 if ( $important ) {
 	$important = ' !important';
 }
+if ( empty( $get_form_options ) ) {
+	return;
+}
 ob_start();
 ?>
 
 <style type="text/css">
+
 <?php
+
 if ( isset( $get_form_options['form-wrapper']['font'] ) ) {
 	$font_name = $get_form_options['form-wrapper']['font'];
 	$font_name = str_replace( ' ', '+', $font_name );
@@ -65,10 +70,12 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 				echo 'background-color:' . $main_class_object->hex_rgba( $get_form_options['form-wrapper']['background-color'], $background_opacity ) . ';';
 			}
 		}
+
 		if ( $get_form_options['form-wrapper']['background-type'] == 'image' ) {
 			echo empty( $get_form_options['form-wrapper']['background-image'] ) ? '' : 'background-image:url("' . $get_form_options['form-wrapper']['background-image'] . '") ;';
 			echo 'background-repeat: no-repeat;';
 		}
+
 		if ( ! empty( $get_form_options['form-wrapper']['font'] ) ) {
 			if ( $get_form_options['form-wrapper']['font'] == 'Default' ) {
 				echo 'font-family:inherit;';
@@ -139,6 +146,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 		<?php echo isset( $get_form_options['submit-button']['hover-color'] ) ? 'background-color:' . $get_form_options['submit-button']['hover-color'] . ';' : ''; ?>
 		<?php echo isset( $get_form_options['submit-button']['font-hover-color'] ) ? 'color:' . $get_form_options['submit-button']['font-hover-color'] . ';' : ''; ?>
 	}
+
 	body #gform_wrapper_<?php echo $css_form_id; ?> .gform_footer,
 	body #gform_wrapper_<?php echo $css_form_id; ?> .gform_page_footer,
 	body #gform_wrapper_<?php echo $css_form_id; ?> #field_submit.gfield {
@@ -165,6 +173,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 		}
 		?>
 	}
+
 <?php } ?>
 
 <?php if ( ! empty( $get_form_options['text-fields']['max-width'] ) ) { ?>
@@ -195,16 +204,13 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 
 <?php if ( isset( $get_form_options['text-fields'] ) || isset( $get_form_options['paragraph-textarea'] ) ) { ?>
 	body #gform_wrapper_<?php echo $css_form_id; ?> .gform_body .gform_fields .gfield textarea {
-		<?php
-		if ( isset( $get_form_options['paragraph-textarea'] ) ) {
-			echo $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'paragraph-textarea', $important );
-		}
-		?>
+
+		
+
 		<?php
 		if ( ! isset( $get_form_options['text-fields']['border-size'] ) ) {
 			echo 'border-width: 1px;';
 		}
-
 		?>
 
 		<?php echo empty( $get_form_options['text-fields']['background-color'] ) ? '' : 'background:' . $get_form_options['text-fields']['background-color'] . ';'; ?>
@@ -220,6 +226,12 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 			echo '-moz-border-radius: ' . $get_form_options['text-fields']['border-radius'] . $main_class_object->gf_stla_add_px_to_value( $get_form_options['text-fields']['border-radius'] ) . ';';
 		}
 		?>
+
+	<?php
+	if ( isset( $get_form_options['paragraph-textarea'] ) ) {
+		echo $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'paragraph-textarea', $important );
+	}
+	?>
 	}
 <?php } ?>
 
@@ -390,6 +402,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 	body #gform_wrapper_<?php echo $css_form_id; ?> .gform_body .gform_fields .gfield .gfield_date_year label {
 		<?php echo $main_class_object->gf_sb_get_saved_styles( $css_form_id, 'field-sub-labels', $important ); ?>
 	}
+
 <?php } ?>
 
 <?php if ( isset( $get_form_options['list-field-table'] ) ) { ?>
@@ -435,11 +448,13 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 
 /* Styling for Tablets */
 @media only screen and ( max-width: 800px ) and ( min-width:481px ) {
+
 	<?php if ( stla_isset_checker( $get_form_options, 'form-wrapper', array( 'max-width-tab' ) ) ) { ?>
 			body #gform_wrapper_<?php echo $css_form_id; ?> {
 				<?php echo $main_class_object->gf_sb_get_saved_styles_tab( $css_form_id, 'form-wrapper', $important ); ?>
 			}	
 	<?php } ?>
+
 	<?php if ( stla_isset_checker( $get_form_options, 'form-title', array( 'font-size-tab', 'line-height-tab' ) ) ) { ?>
 			body #gform_wrapper_<?php echo $css_form_id; ?> .gform_heading .gform_title {
 				<?php echo $main_class_object->gf_sb_get_saved_styles_tab( $css_form_id, 'form-title', $important ); ?>
@@ -480,6 +495,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 	<?php } ?>
 
 	<?php if ( ! empty( $get_form_options['text-fields']['max-width-tab'] ) ) { ?>
+		
 			body #gform_wrapper_<?php echo $css_form_id; ?> div.ginput_complex.ginput_container.ginput_container_name,
 			body #gform_wrapper_<?php echo $css_form_id; ?> div.ginput_complex.ginput_container,
 			body #gform_wrapper_<?php echo $css_form_id; ?> .gfield .ginput_container.ginput_container_list {
@@ -588,6 +604,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 				<?php echo ! empty( $get_form_options['error-message']['line-height-tab'] ) ? 'line-height:' . $get_form_options['error-message']['line-height-tab'] . ';' : ''; ?>
 			}
 	<?php } ?>
+
 	<?php if ( stla_isset_checker( $get_form_options, 'field-sub-labels', array( 'font-size-tab', 'line-height-tab' ) ) ) { ?>
 		body #gform_wrapper_<?php echo $css_form_id; ?> .gform_body .gform_fields .gfield .ginput_complex .ginput_full label,
 	body #gform_wrapper_<?php echo $css_form_id; ?> .gform_body .gform_fields .gfield .ginput_complex .ginput_right label,
@@ -647,6 +664,7 @@ if ( isset( $get_form_options['form-wrapper'] ) ) {
 }
 /* Styling for phones */
 @media only screen and ( max-width: 480px ) {
+	
 	<?php if ( stla_isset_checker( $get_form_options, 'form-wrapper', array( 'max-width-phone' ) ) ) { ?>
 			body #gform_wrapper_<?php echo $css_form_id; ?> {
 			<?php echo $main_class_object->gf_sb_get_saved_styles_phone( $css_form_id, 'form-wrapper', $important ); ?>
@@ -872,6 +890,7 @@ if ( stla_isset_checker( $get_form_options, 'general-settings', array( 'custom-c
 ?>
 
 </style>
+
 <?php
 $styles = ob_get_contents();
 ob_end_clean();

@@ -31,7 +31,6 @@ return array(
     'DynamicVisibilityForElementor\\Plugins' => $baseDir . '/class/trait/plugins.php',
     'DynamicVisibilityForElementor\\Strings' => $baseDir . '/class/trait/strings.php',
     'DynamicVisibilityForElementor\\Validation' => $baseDir . '/class/trait/validation.php',
-    'DynamicVisibilityForElementor\\Woo' => $baseDir . '/class/trait/woo.php',
     'DynamicVisibilityForElementor\\Wp' => $baseDir . '/class/trait/wp.php',
     'DynamicVisibilityForElementor\\Wpml' => $baseDir . '/class/wpml.php',
 );

@@ -10,13 +10,13 @@ class B2S_Tools {
         return B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, $data, 30);
     }
 
-    public static function setUserDetails() {
+    public static function setUserDetails($blog_user_id = null, $blog_url = null, $email = null) {
         if (defined("B2S_PLUGIN_TOKEN")) {
             delete_option('B2S_PLUGIN_USER_VERSION_' . B2S_PLUGIN_BLOG_USER_ID);
             delete_option('B2S_PLUGIN_PRIVACY_POLICY_USER_ACCEPT_' . B2S_PLUGIN_BLOG_USER_ID);
 
             $currentDate = new DateTime("now", wp_timezone());
-            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 'current_date' => $currentDate->format('Y-m-d'), 'token' => B2S_PLUGIN_TOKEN, 'version' => B2S_PLUGIN_VERSION), 30));
+            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 'blog_user_id' => $blog_user_id, 'blog_url' => $blog_url, 'email' => $email, 'current_date' => $currentDate->format('Y-m-d'), 'token' => B2S_PLUGIN_TOKEN, 'version' => B2S_PLUGIN_VERSION), 30));
 
             $tokenInfo = array();
             $tokenInfo['B2S_PLUGIN_USER_VERSION'] = (isset($version->version) ? $version->version : 0);
@@ -63,7 +63,7 @@ class B2S_Tools {
                         }
                     }
                 }
-                
+
                 if (!defined('B2S_PLUGIN_ALLOWED_USER_APPS')) {
                     define('B2S_PLUGIN_ALLOWED_USER_APPS', serialize($network_quantities));
                     $tokenInfo['B2S_PLUGIN_ALLOWED_USER_APPS'] = serialize($network_quantities);

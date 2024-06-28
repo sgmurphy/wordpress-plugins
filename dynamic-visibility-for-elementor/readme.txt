@@ -2,9 +2,9 @@
 Contributors: dynamicooo
 Tags: elementor, visibility, hide, dynamic, container, widget
 Requires at least: 5.2
-Tested up to: 6.3.2
-Requires PHP: 5.6
-Stable tag: 5.0.11
+Tested up to: 6.5.5
+Requires PHP: 7.1
+Stable tag: 5.0.13
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,8 @@ Dynamic Visibility extension allows you to hide widgets, columns, containers, se
 It is particularly useful when you are building something that you don’t want to show everyone.
 
 It’s an Elementor extension, so you must install Elementor Free version (also working with Elementor Pro) before activating the plugin.
+
+Note: As a plugin for Elementor, it only affects the visibility of content within the Elementor frontend pages
 
 - Choose an OR/AND condition.
 - Limit visibility for specific custom fields or pages.
@@ -69,6 +71,13 @@ Please leave us a good review rating. We appreciate your support.
 5. Integrated with Elementor Navigator and Contextual Menu
 
 == Changelog ==
+
+= 5.0.13 =
+* Fix: PHP error (validation.php missing)
+
+= 5.0.12 =
+* Fix: Elementor's Loop Grid widget styles might be missing with visibility enabled
+* Fix: PHP Error (get_class on Null) in some cases
 
 = 5.0.11 =
 * Tweak: the Event Trigger now has a transition delay setting

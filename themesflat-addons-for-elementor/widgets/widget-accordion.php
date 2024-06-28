@@ -1205,10 +1205,10 @@ class TFAccordion_Widget_Fr extends \Elementor\Widget_Base {
 		            $html_content = sprintf('<div class="accordion-content">%1$s</div>', $frontend->get_builder_content_for_display(esc_attr($post_id), true));
 		        }
 			}else {
-				$html_content = sprintf('<div class="accordion-content">%1$s</div>', do_shortcode( esc_attr($value['list_content'] )));
+				$html_content = sprintf('<div class="accordion-content">%1$s</div>', do_shortcode( ($value['list_content'] )));
 			}			
 
-			$accordion_item .= sprintf('<div class="tf-accordion-item %3$s">%1$s %2$s</div>', $html_title, $html_content, esc_attr($value['set_active']));
+			$accordion_item .= sprintf('<div class="tf-accordion-item %3$s">%1$s %2$s</div>', $html_title, $html_content, ($value['set_active']));
 		}
 
 

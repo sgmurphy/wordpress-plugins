@@ -1,24 +1,26 @@
-=== Testimonial Slider ===
+=== Testimonial - Testimonial Slider and Showcase Plugin ===
 Contributors: techlabpro1
 Donate link:
-Tags: testimonials slider, testimonial, testimonials,testimonial slider, testimonial showcase, responsive testimonial, testimonial plugin
-Requires at least: 4.5
+Tags: testimonial, testimonial slider, testimonial showcase, customer review, star ratings
+Requires at least: 5.6
 Tested up to: 6.5
 Stable tag: 2.3.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Best Testimonial Slider and Showcase plugin for WordPress website. Testimonials Slider plugin is most customizable and developer friendly testimonial plugin to manage your customers testimonial.
+Testimonial Slider and Showcase WordPress plugin is most customizable and user friendly testimonial plugin to manage your customers testimonial.
+
+Testimonial Slider and Showcase plugin for WordPress websites. The Testimonial Slider plugin is highly customizable and developer-friendly, making it easy to manage your customer testimonials.
 
 == Description ==
 
-Best Testimonial Slider and Showcase plugin for WordPress website. It is a developer and user-friendly testimonial plugin that facilitates easy management of customer testimonials. Since it is fully responsive, it ensures that your testimonials appear in beautiful layouts on all devices.
+[Testimonial](https://www.radiustheme.com/downloads/wp-testimonial-slider-showcase-pro-wordpress/) Testimonial Slider and Showcase plugin for WordPress website. It is a developer and user-friendly testimonial plugin that facilitates easy management of customer testimonials. Since it is fully responsive, it ensures that your testimonials appear in beautiful layouts on all devices.
 
 👉 [ShortCode Demo](https://www.radiustheme.com/demo/plugins/testimonial-slider/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/testimonial-slider/elementor-grid-layout-1/) | [Documentation](https://www.radiustheme.com/docs/testimonial-slider/getting-started/installation/) | [Get Pro](https://www.radiustheme.com/downloads/wp-testimonial-slider-showcase-pro-wordpress/) 👈
 
-This testimonial slider plugin is 100% customizable and allows you to generate shortcodes easily. You can summon the shortcodes onto any post or page on which you need to showcase testimonials in slider or grid view. It offers many variations of the grid and slider layouts.
+This testimonial slider plugin is full customizable and allows you to generate shortcodes easily. You can use the shortcodes onto any post or page on which you need to showcase testimonials in slider or grid view. It offers many variations of the grid and slider layouts.
 
-You also get to customize the testimonials&#39; fields, style, color, and general appearance. With this WordPress testimonial plugin, you can control whether the profile images on the testimonials you display are square or rounded. The Testimonial Slider and Showcase Pro allow you to customize the image size. It also lets you order testimonials by date, title, or id.
+You also get to customize the testimonials fields, style, color, and general appearance. With this WordPress testimonial plugin, you can control whether the profile images on the testimonials you display are square or rounded. The Testimonial Slider and Showcase Pro allow you to customize the image size. It also lets you order testimonials by date, title, or id.
 
 [youtube https://www.youtube.com/watch?v=Aik0cfidl4A]
 
@@ -39,15 +41,15 @@ You can make money from posting ads where users pay for each ad or for ad promot
 
 * **Ordering Option:** The ordering option that comes with this testimonial plugin enables you to order the testimonials you display by date, title, or id. What’s more, you get to order your testimonials by drag &amp; drop. You can also order your testimonials by various taxonomy.
 
-* **Image Size Control:** When you have many large images on your website, your site will become slow. You get to limit the size of the images on your website with this plugin to avoid that. The PRO version gives you the option of a custom image size.
+* **Image Size Control:** When you have many large images on your website, your site will become slow. You get to limit the size of the images on your website with this plugin to avoid that. The PRO version gives you the option of a custom image size.
 
-* **Style Control:** With Testimonial Slider and Showcase, you can control the style in which your testimonials appear. You get to choose the colors and styles you want for your testimonial sections. It even allows you to display the testimonial profile images in round or square borders. The device-wise display control means that all your visitors will view the best versions of your testimonials.
+* **Style Control:** With Testimonial Slider and Showcase, you can control the style in which your testimonials appear. You get to choose the colors and styles you want for your testimonial sections. It even allows you to display the testimonial profile images in round or square borders. The device-wise display control means that all your visitors will view the versions of your testimonials.
 
-* **Member Filter Option:** This testimonial plugin allows you to display testimonials by department or individual member. Your testimonials can be displayed with various filter options for your members.
+* **Member Filter Option:** This testimonial plugin allows you to display testimonials by department or individual member. Your testimonials can be displayed with various filter options for your members.
 
-* **Translation Support:** Whichever language your website uses, it won&#39;t conflict with this plugin because it is fully translatable. You get this plugin with ready POT files for various languages. You can translate your website very easily.
+* **Translation Support:** Whichever language your website uses, it won&#39;t conflict with this plugin because it is fully translatable. You get this plugin with ready POT files for various languages. You can translate your website very easily.
 
-* **RTL Support:** If you want a website that translates into any RTL language, this plugin totally supports that. It supports all RTL languages, including Hebrew, Persian, and Arabic. This means that your website can display the testimonials from all your users, regardless of their language preferences.
+* **RTL Support:** If you want a website that translates into any RTL language, this plugin totally supports that. It supports all RTL languages, including Hebrew, Persian, and Arabic. This means that your website can display the testimonials from all your users, regardless of their language preferences.
 
 == 3 Easy Steps to Using Testimonial Slider and Showcase Plugin ==
 
@@ -96,7 +98,7 @@ here is how you go about it.
         1. Select the style for writing the author’s name, author’s bio, rating, and social, all of which let you set the color, font size, weight, and alignment.
         1. Choose the overall testimonial style, including color, font size, font style, weight, and alignment.
 
-3. Now, summon the shortcode in the page or post you want it to go using Gutenberg or Elementor addon. Alternatively, just copy the shortcode and paste it on the page or post.
+3.Now, use the shortcode in the page or post you want it to go using Gutenberg or Elementor addon. Alternatively, just copy the shortcode and paste it on the page or post.
 
 == 🏆 Available Testimonial Fields ==
 
@@ -113,25 +115,25 @@ The following are the fields that this plugin allows you to have on your testimo
 
 == 🏆 Features of the Pro Version of the Testimonial Slider and Showcase ==
 
-* **Layouts:** The premium version of this plugin comes with 9 additional grid layouts, 11 sliders, and 6 isotope filter layouts.
+* **Layouts:** The premium version of this plugin comes with 9 additional grid layouts, 11 sliders, and 6 isotope filter layouts.
 
-* **Detail Page Popup:** The testimonial detail page can have multiple, single, or smart popups.
+* **Detail Page Popup:** The testimonial detail page can have multiple, single, or smart popups.
 
-* **Grid Filter:** You can use various grid layouts for filtering the testimonials.
+* **Grid Filter:** You can use various grid layouts for filtering the testimonials.
 
-* **Filter Preview:** The premium plugin also lets you filter your testimonials by categories or tags.
+* **Filter Preview:** The premium plugin also lets you filter your testimonials by categories or tags.
 
-* **Layout Preview:** Before taking your creation or customization work live, you can view the preview easily.
+* **Layout Preview:** Before taking your creation or customization work live, you can view the preview easily.
 
-* **Disable Show All Button:** You can hide or display the Show All button when your testimonials are in an isotope or filter layout. You can also make the department default.
+* **Disable Show All Button:** You can hide or display the Show All button when your testimonials are in an isotope or filter layout. You can also make the department default.
 
-* **Ajax Pagination:** The premium version supports Ajax load more, load more on scroll, and number pagination.
+* **Ajax Pagination:** The premium version supports Ajax load more, load more on scroll, and number pagination.
 
-* **Masonry Grid:** You can showcase your testimonials with the elegance of the masonry grid.
+* **Masonry Grid:** You can showcase your testimonials with the elegance of the masonry grid.
 
-* **Margin Control:** You have control over where the margins of the testimonials start and stop.
+* **Margin Control:** You have control over where the margins of the testimonials start and stop.
 
-* **Gutter/ Padding Control:** You can customize the size of the gutter margins or inter-column space.
+* **Gutter/ Padding Control:** You can customize the size of the gutter margins or inter-column space.
 
 = Fully translatable =
 * POT files included (/languages/)
@@ -145,6 +147,27 @@ The following are the fields that this plugin allows you to have on your testimo
 = Requirements =
 * **WordPress version:** >= 4.4
 * **PHP version:** >= 7.2
+
+== Need Any Help? ==
+* For any bug, support or suggestion please submit your ticket [here](https://www.radiustheme.com/ticket-support/).
+
+== Liked RadiusTheme ==
+* Join our [Facebook Group](https://www.facebook.com/groups/radiustheme).
+* Learn from our tutorials on [YouTube Channel](https://www.youtube.com/@RadiusTheme).
+
+== 🔥 WHAT’S NEXT ==
+
+If you like The Post Grid Plugin, then consider checking out our other WordPress Plugins:
+
+* [The Post Grid](https://wordpress.org/plugins/the-post-grid/) – Shortcode, Gutenberg Blocks and Elementor Addon for Post Grid.
+
+* [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels. 
+
+* [Variation Gallery](https://wordpress.org/plugins/woo-product-variation-gallery/) - Woocommerce Variation Gallery plugin allows to add UNLIMITED additional images for each variation of product.
+
+* [ShopBuilder](https://wordpress.org/plugins/shopbuilder/) - Elementor WooCommerce Builder Addons with 84+ widgets and 10+ modules.
+
+* [Food Menu](https://wordpress.org/plugins/tlp-food-menu/) – Restaurant Menu & Online Ordering using WooCommerce.
 
 == Frequently Asked Questions ==
 
@@ -173,7 +196,7 @@ The following are the fields that this plugin allows you to have on your testimo
 = How Can I get Support ? =
 
 * Please mail us at `support@radiustheme.com`
-* We provide `12 hours live support`
+
 
 == Screenshots ==
 

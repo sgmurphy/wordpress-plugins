@@ -105,7 +105,7 @@ module.exports = window["wp"]["i18n"];
   \************************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"learnpress/single-course","title":"Single Course","category":"learnpress-category","description":"Renders template Single Course PHP templates.","textdomain":"learnpress","keywords":["single course","learnpress"],"usesContext":[],"supports":{}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"learnpress/single-course","title":"Single Course","category":"learnpress-category","description":"Renders template Single Course PHP templates.","textdomain":"learnpress","keywords":["single course","learnpress"],"usesContext":[],"supports":{}}');
 
 /***/ })
 

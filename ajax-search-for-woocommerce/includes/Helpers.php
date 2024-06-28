@@ -995,7 +995,7 @@ class Helpers {
      * @return bool
      */
     public static function keyIsValid( $key ) {
-        return !preg_match( '/[^\\p{L}\\p{N}\\:\\.\\_\\s\\-]+/u', $key );
+        return is_string( $key ) && !preg_match( '/[^\\p{L}\\p{N}\\:\\.\\_\\s\\-]+/u', $key );
     }
 
     /**

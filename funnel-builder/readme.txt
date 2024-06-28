@@ -380,7 +380,6 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 * Improved: Funnel Step next url code improved to handle few edge cases when multiple steps are draft. (#6357)
 * Improved: Checkout - Compatibility with WCML/WPML updated. (#6355)
 * Fixed: Compatibility with Weglot translation plugin updated. (#6369)
-* Fixed: Admin tootlip to connect with Stripe addon was not dismissing forever in a few cases. (#6366)
 
 = 3.4.1 (Jun 26, 2024) =
 * Fixed: Funnel Pages built using Divi theme causing styling issue. (#6350)

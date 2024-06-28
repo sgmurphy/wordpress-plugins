@@ -583,27 +583,27 @@ class Troubleshooting {
          * @var \ElementorPro\Modules\ThemeBuilder\Documents\Theme_Document $document
          */
         $document = current( $documents );
-        if ( !$this->doesElementorElementsContainsWidget( $document->get_elements_data(), 'wc-archive-products' ) ) {
-            $linkToDocs = 'https://fibosearch.com/documentation/troubleshooting/the-search-results-page-created-in-elementor-doesnt-display-products/';
-            $dismissButton = get_submit_button(
-                __( 'Dismiss', 'ajax-search-for-woocommerce' ),
-                'secondary',
-                'dgwt-wcas-async-action-dismiss-elementor-template',
-                false,
-                array(
-                    'data-internal-action' => 'dismiss_elementor_template',
-                )
-            );
-            $templateLink = '<a target="_blank" href="' . admin_url( 'post.php?post=' . $document->get_post()->ID . '&action=elementor' ) . '">' . $document->get_post()->post_title . '</a>';
-            $result['label'] = __( 'There is no correct template in the Elementor Theme Builder for the WooCommerce search results page.', 'ajax-search-for-woocommerce' );
-            $result['description'] = '<p>' . sprintf( __( 'You are using Elementor and we noticed that the template used in the search results page titled <strong>%s</strong> does not include the <strong>Archive Products</strong> widget.', 'ajax-search-for-woocommerce' ), $templateLink ) . '</p>';
-            $result['description'] .= '<p><b>' . __( 'Solution', 'ajax-search-for-woocommerce' ) . '</b></p>';
-            $result['description'] .= '<p>' . sprintf( __( 'Add <strong>Archive Products</strong> widget to the template <strong>%s</strong> or create a new template dedicated to the WooCommerce search results page. Learn how to do it in <a href="%s" target="_blank">our documentation</a>.', 'ajax-search-for-woocommerce' ), $templateLink, $linkToDocs ) . '</p>';
-            $result['description'] .= '<br/><hr/><br/>';
-            $result['description'] .= '<p>' . sprintf( __( 'If you think the search results page is displaying your products correctly, you can ignore and dismiss this message: %s', 'ajax-search-for-woocommerce' ), $dismissButton ) . '<span class="dgwt-wcas-ajax-loader"></span></p>';
-            $result['status'] = 'critical';
+        if ( $this->doesElementorElementsContainsWidget( $document->get_elements_data(), 'wc-archive-products' ) || $this->doesElementorElementsContainsWidget( $document->get_elements_data(), 'jet-listing-grid' ) ) {
             return $result;
         }
+        $linkToDocs = 'https://fibosearch.com/documentation/troubleshooting/the-search-results-page-created-in-elementor-doesnt-display-products/';
+        $dismissButton = get_submit_button(
+            __( 'Dismiss', 'ajax-search-for-woocommerce' ),
+            'secondary',
+            'dgwt-wcas-async-action-dismiss-elementor-template',
+            false,
+            array(
+                'data-internal-action' => 'dismiss_elementor_template',
+            )
+        );
+        $templateLink = '<a target="_blank" href="' . admin_url( 'post.php?post=' . $document->get_post()->ID . '&action=elementor' ) . '">' . $document->get_post()->post_title . '</a>';
+        $result['label'] = __( 'There is no correct template in the Elementor Theme Builder for the WooCommerce search results page.', 'ajax-search-for-woocommerce' );
+        $result['description'] = '<p>' . sprintf( __( 'You are using Elementor and we noticed that the template used in the search results page titled <strong>%s</strong> does not include the <strong>Archive Products</strong> widget.', 'ajax-search-for-woocommerce' ), $templateLink ) . '</p>';
+        $result['description'] .= '<p><b>' . __( 'Solution', 'ajax-search-for-woocommerce' ) . '</b></p>';
+        $result['description'] .= '<p>' . sprintf( __( 'Add <strong>Archive Products</strong> widget to the template <strong>%s</strong> or create a new template dedicated to the WooCommerce search results page. Learn how to do it in <a href="%s" target="_blank">our documentation</a>.', 'ajax-search-for-woocommerce' ), $templateLink, $linkToDocs ) . '</p>';
+        $result['description'] .= '<br/><hr/><br/>';
+        $result['description'] .= '<p>' . sprintf( __( 'If you think the search results page is displaying your products correctly, you can ignore and dismiss this message: %s', 'ajax-search-for-woocommerce' ), $dismissButton ) . '<span class="dgwt-wcas-ajax-loader"></span></p>';
+        $result['status'] = 'critical';
         return $result;
     }
 
@@ -753,7 +753,7 @@ class Troubleshooting {
         if ( !is_array( $elements ) || empty( $elements ) || empty( $widget ) ) {
             return false;
         }
-        if ( isset( $elements['widgetType'] ) && $elements['widgetType'] === 'wc-archive-products' ) {
+        if ( isset( $elements['widgetType'] ) && $elements['widgetType'] === $widget ) {
             $result = true;
         }
         // Plain array of elements

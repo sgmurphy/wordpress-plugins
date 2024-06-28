@@ -106,7 +106,7 @@ $canUseVideoAddon = (defined('B2S_PLUGIN_ADDON_VIDEO') && !empty(B2S_PLUGIN_ADDO
                     <div class="panel-body">
                         <div class="clearfix"></div>
                         <div class="b2s-video-upload-drag-drop" >
-                            <h3><?php esc_html_e("Upload a video or select a video from your media library to share to your networks.", 'blog2social') ?> <span class="label label-success"><?php esc_html_e("ADDON", "blog2social"); ?></h3>                                            
+                            <h3><?php esc_html_e("Upload a video or select a video from your media library to share to your networks.", 'blog2social') ?> <span class="label label-success"><?php esc_html_e("ADDON", "blog2social"); ?></span></h3>                                            
                             <div id="b2s-video-upload-success" class="alert alert-success b2s-video-upload-success">
                                 <span class="glyphicon glyphicon-ok glyphicon-success"></span> <?php esc_html_e('Your video file has successfully been added to the media library!', 'blog2social'); ?>
                             </div>                          

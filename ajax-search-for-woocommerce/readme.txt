@@ -2,9 +2,9 @@
 Contributors: damian-gora, matczar
 Tags: woocommerce search, ajax search, search by sku, product search, woocommerce
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.28.0
+Stable tag: 1.28.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,7 +107,7 @@ We have prepared a one-click replacement of the search bar for the following the
 *  Astra
 *  Avada
 *  Sailent
-*  and 43 more... See a complete list of integrated themes on [our documentation](https://fibosearch.com/documentation/themes-integrations/?utm_source=readme&utm_medium=referral&utm_campaign=asfw&utm_content=theme-integrations).
+*  and 45 more... See a complete list of integrated themes on [our documentation](https://fibosearch.com/documentation/themes-integrations/?utm_source=readme&utm_medium=referral&utm_campaign=asfw&utm_content=theme-integrations).
 
 
 If you want to replace your search bar in another theme, please [contact our support team](https://fibosearch.com/contact/?utm_source=readme&utm_medium=referral&utm_campaign=asfw&utm_content=contact&utm_gen=utmdc).
@@ -143,6 +143,11 @@ You can read more and compare Pro and Free features here: [Full comparison - Pro
 5. Settings page
 
 == Changelog ==
+
+= 1.28.1, June 28, 2024 =
+* FIXED: Removed the phrase “**polyfill.io**” from the JavaScript code comment. FiboSearch has never linked to this compromised library, but some security tools recognize this JavaScript comment as a potential link to malware. All reports are **false positive**.
+* FIXED: PHP deprecated notice in `\DgoraWcas\Helpers::keyIsValid`
+* FIXED: Unnecessary display of warning in **Troubleshooting** when products are displayed using a widget from “**JetSmartFilters**”
 
 = 1.28.0, May 27, 2024 =
 * ADDED: New search bar style - a compact version of a “Pirx” style

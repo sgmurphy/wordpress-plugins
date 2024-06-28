@@ -338,6 +338,7 @@ const getResponse = async ele => {
     data
   } = response;
   ele.innerHTML += data;
+  ele.classList.add('can-finish-course');
   _show_lp_overlay_complete_item__WEBPACK_IMPORTED_MODULE_1__["default"].init();
 };
 

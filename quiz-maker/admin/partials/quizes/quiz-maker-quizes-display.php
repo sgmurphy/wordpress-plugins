@@ -756,11 +756,27 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         <div class="ays_quiz_display_flex_width">
                                             <div>
                                                 <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_width' name='ays_quick_quiz_width' value="800"/>
-                                                <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
+                                                <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", "quiz-maker");?></span>
                                             </div>
                                         </div>
                                     </div>
-                                </div><!-- Display form fields with labels -->
+                                </div><!-- Quiz width -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for='ays_quick_quiz_height'>
+                                            <?php echo __('Quiz min-height', "quiz-maker"); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8 ays_quiz_display_flex_width">
+                                        <div>
+                                            <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_height' name='ays_quick_quiz_height' value="450"/>
+                                        </div>
+                                        <div class="ays_quiz_dropdown_max_width">
+                                            <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                        </div>
+                                    </div>
+                                </div><!-- Quiz min-height -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

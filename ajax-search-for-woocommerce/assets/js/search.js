@@ -3612,7 +3612,6 @@
         /* IE11 polyfills
         /*-----------------------------------------------------------------*/
         if (utils.isIE11()) {
-            // https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.includes%2CString.prototype.includes
             (function (self, undefined) {
                 function Call(t, l) {
                     var n = arguments.length > 2 ? arguments[2] : [];

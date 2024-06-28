@@ -150,7 +150,7 @@ module.exports = window["wp"]["primitives"];
   \*********************************************************************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"learnpress/item-curriculum-course","title":"Item curriculum Course","category":"learnpress-category","description":"Renders template Single Item Curriculum Course PHP templates.","textdomain":"learnpress","keywords":["item curriculum course","learnpress"],"usesContext":[],"supports":{}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"learnpress/item-curriculum-course","title":"Item curriculum Course","category":"learnpress-category","description":"Renders template Single Item Curriculum Course PHP templates.","textdomain":"learnpress","keywords":["item curriculum course","learnpress"],"usesContext":[],"supports":{}}');
 
 /***/ })
 

@@ -28,6 +28,42 @@ class Helper {
 	use Date;
 	use Pagination;
 	use I18n;
+	use Validation;
+
+	const ALLOWED_HTML_WRAPPER_TAGS = [
+		'article',
+		'aside',
+		'div',
+		'footer',
+		'h1',
+		'h2',
+		'h3',
+		'h4',
+		'h5',
+		'h6',
+		'header',
+		'main',
+		'nav',
+		'p',
+		'section',
+		'span',
+		'code',
+	];
+
+	const NOT_ALLOWED_USER_FIELDS = [
+		'user_login',
+		'login',
+		'user_pass',
+		'pass',
+		'user_email',
+		'email',
+		'user_registered',
+		'registered',
+		'user_activation_key',
+		'activation_key',
+		'user_status',
+		'status',
+	];
 
 	public static function can_register_unsafe_controls() {
 		if ( current_user_can( 'administrator' ) ) {
@@ -87,29 +123,6 @@ class Helper {
 	}
 
 	/**
-	 * A list of safe tage for `validate_html_tag` method.
-	 */
-	const ALLOWED_HTML_WRAPPER_TAGS = [
-		'article',
-		'aside',
-		'div',
-		'footer',
-		'h1',
-		'h2',
-		'h3',
-		'h4',
-		'h5',
-		'h6',
-		'header',
-		'main',
-		'nav',
-		'p',
-		'section',
-		'span',
-		'code',
-	];
-
-	/**
 	 * @param array<string,mixed> $settings
 	 * @param string $key
 	 * @param string $old_default
@@ -157,26 +170,30 @@ class Helper {
 				}
 				break;
 			case 'lt':
+				if ( is_numeric( $field ) ) {
+					$field = floatval( $field );
+				}
+				if ( is_numeric( $value ) ) {
+					$value = floatval( $value );
+				}
 				if ( is_array( $field ) && count( $field ) < $value ) {
 					return true;
 				}
-				if ( ! empty( $field ) && $field < $value ) {
-					return true;
-				}
-				break;
+				return $field < $value;
 			case 'gt':
+				if ( is_numeric( $field ) ) {
+					$field = floatval( $field );
+				}
+				if ( is_numeric( $value ) ) {
+					$value = floatval( $value );
+				}
 				if ( is_array( $field ) && count( $field ) > $value ) {
 					return true;
 				}
-				if ( ! empty( $field ) && $field > $value ) {
-					return true;
-				}
-				break;
+				return $field > $value;
 			case 'contain':
-				if ( ! empty( $field ) ) {
-					if ( is_array( $field ) && in_array( $value, $field ) ) {
-						return true;
-					}
+				if ( is_array( $field ) && in_array( $value, $field ) ) {
+					return true;
 				}
 				if ( is_string( $field ) && $value !== '' && strpos( $field, $value ) !== false ) {
 					return true;
@@ -198,19 +215,14 @@ class Helper {
 					$value = Helper::to_string( $value );
 					$value = Helper::str_to_array( ',', $value );
 				}
-				if ( is_array( $value ) && in_array( $field, $value ) ) {
+				if ( in_array( $field, $value ) ) {
 					return true;
 				}
 				break;
 			case 'not_value':
-				if ( $field != $value ) {
-					return true;
-				}
-				// no break
+				return $field != $value;
 			case 'value':
-				if ( $field == $value ) {
-					return true;
-				}
+				return $field == $value;
 		}
 		return false;
 	}

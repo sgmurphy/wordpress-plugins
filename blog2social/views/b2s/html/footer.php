@@ -176,7 +176,7 @@
                             <div class="col-md-6">
                                 <br>
                                 <b>2) <?php esc_html_e('Image Post', 'blog2social') ?></b><br>
-                                <?php esc_html_e('An image post will display the cover image of the linked website or post and add it to the library of the selected social media networks. Blog2Social will automatically include a link to the website in the text field of the social media post. You can customize the link for each network.', 'blog2social') . "<br><br>" . esc_html('Selecting an individual post format for your social media posts is only one of Blog2Social’s Premium features. Here are some more things you can do with Blog2Social Premium:', 'blog2social'); ?>
+                                <?php esc_html_e('An image post will display the cover image of the linked website or post and add it to the library of the selected social media networks. Blog2Social will automatically include a link to the website in the text field of the social media post. You can customize the link for each network.', 'blog2social') . "<br><br>" . esc_html_e('Selecting an individual post format for your social media posts is only one of Blog2Social Premium features. Here are some more things you can do with Blog2Social Premium:', 'blog2social'); ?>
                                 <br>
                                 <span class="glyphicon glyphicon-ok glyphicon-success"></span> <?php esc_html_e('Select frames or crop, flip and rotate images', 'blog2social') ?><br>
                                 <span class="glyphicon glyphicon-ok glyphicon-success"></span> <?php esc_html_e('Create your own custom social media post templates', 'blog2social') ?><br>
