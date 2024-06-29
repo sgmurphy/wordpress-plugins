@@ -1,14 +1,14 @@
 === Ibtana - WordPress Website Builder ===
 Contributors: VowelWeb
-Tags: blocks, website builder, gutenberg, One click demo Import, templates, page builder
+Tags: website builder, gutenberg, One click demo Import, templates, page builder
 Requires at least: 5.2
 Tested up to: 6.5.3
 Requires PHP: 7.2
-Stable tag: 1.2.3.3
+Stable tag: 1.2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Ibtana Gutenberg Editor has ready made eye catching responsive templates build with custom blocks and options to extend Gutenberg’s default capabilities.
+Build your dream WordPress website with Ibtana, a powerful website builder with customizable templates and drag-and-drop elements for customization.
 
 == Description ==
 
@@ -139,6 +139,12 @@ Add contact form to your page with reCaptcha.
 17. Carousel Block.
 
 == Changelog ==
+
+= 1.2.3.5 - 2024-29-06 =
+* **Added** - Added Protest Riot font family.
+
+= 1.2.3.4 - 2024-29-05 =
+* **Fixes** - Minor Bug Fixes.
 
 = 1.2.3.3 - 2024-24-05 =
 * **Updated** - Font size settings in advanced text block.

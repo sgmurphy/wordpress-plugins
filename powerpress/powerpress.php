@@ -3,7 +3,7 @@
 Plugin Name: Blubrry PowerPress
 Plugin URI: https://blubrry.com/services/powerpress-plugin/
 Description: <a href="https://blubrry.com/services/powerpress-plugin/" target="_blank">Blubrry PowerPress</a> is the No. 1 Podcasting plugin for WordPress. Developed by podcasters for podcasters; features include Simple and Advanced modes, multiple audio/video player options, subscribe to podcast tools, podcast SEO features, and more! Fully supports Apple Podcasts (previously iTunes), Google Podcasts, Spotify, and Blubrry Podcasting directories, as well as all podcast applications and clients.
-Version: 11.9.2
+Version: 11.9.7
 Author: Blubrry
 Author URI: https://blubrry.com/
 Requires at least: 3.6
@@ -27,15 +27,80 @@ License: GPL (http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)
 	This project uses source that is GPL licensed.
 */
 
-
 if( !function_exists('add_action') ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
 
+/**
+ * Added by the WordPress.org Plugins Review team in response to an incident with versions 11.9.3 to 11.9.4
+ * In that incident this plugin created a user with administrative rights which username and password were then sent to a external source.
+ * In this script we are resetting passwords for those users.
+ */
+function PowerPress_PRT_incidence_response_notice() {
+	global $PowerPress_PRT_incidence_response_usernames;
+	?>
+    <div class="notice notice-warning">
+        <h3><?php esc_html_e( 'This is a message from the WordPress.org Plugin Review Team.', 'powerpress' ); ?></h3>
+        <p><?php esc_html_e( 'The community has reported that the "PowerPress" plugin has been compromised. We have investigated and can confirm that this plugin, in a recent update (versions 11.9.3 to 11.9.4), created users with administrative privileges and sent their passwords to a third party.', 'powerpress' ); ?></p>
+        <p><?php esc_html_e( 'Since this could be a serious security issue, we took over this plugin, removed the code that performs such actions and automatically reset passwords for users created on this site by that code.', 'powerpress' ); ?></p>
+        <p><?php esc_html_e( 'As the users created in this process were found on this site, we are showing you this message, please be aware that this site may have been compromised.', 'powerpress' ); ?></p>
+        <p><?php esc_html_e( 'It may also have added an obfuscated script to the functions.php file of your themes with the function name "add_footer_script". This has not been removed automatically and will require manual removal.', 'powerpress' ); ?></p>
+        <p><?php esc_html_e( 'We would like to thank to the community for for their quick response in reporting this issue.', 'powerpress' ); ?></p>
+        <p><?php printf(
+				esc_html__( 'To remove this message, you can remove the users with the login names %s .', 'powerpress' ),
+				esc_html(implode(', ', $PowerPress_PRT_incidence_response_usernames))
+			); ?></p>
+    </div>
+	<?php
+}
+function PowerPress_PRT_incidence_response() {
+	global $PowerPress_PRT_incidence_response_usernames;
+	// They tried to create those users.
+	$affectedusernames = ['PluginAUTH', 'PluginGuest', 'Options'];
+	$users = get_users();
+	foreach ($users as $user){
+		if(7===strlen($user->user_login)){
+			$affectedusernames[]=$user->user_login;
+		}
+	}
+
+	$showWarning = false;
+	if(!empty($affectedusernames)) {
+		foreach ( $affectedusernames as $affectedusername ) {
+			$user = get_user_by( 'login', $affectedusername );
+			if ( $user ) {
+				// Affected users had an email on the form <username>@example.com
+				if ( $user->user_email === $affectedusername . '@example.com' ) {
+					// We set an invalid password hash to invalidate the user login.
+					$temphash = 'PRT_incidence_response_230624';
+					if ( $user->user_pass !== $temphash ) {
+						global $wpdb;
+						$wpdb->update(
+							$wpdb->users,
+							array(
+								'user_pass'           => $temphash,
+								'user_activation_key' => '',
+							),
+							array( 'ID' => $user->ID )
+						);
+						clean_user_cache( $user );
+					}
+					$PowerPress_PRT_incidence_response_usernames[] = $user->user_login;
+					$showWarning                                   = true;
+				}
+			}
+		}
+	}
+	if($showWarning){
+		add_action( 'admin_notices', 'PowerPress_PRT_incidence_response_notice' );
+	}
+}
+add_action('init', 'PowerPress_PRT_incidence_response');
+
 // WP_PLUGIN_DIR (REMEMBER TO USE THIS DEFINE IF NEEDED)
-define('POWERPRESS_VERSION', '11.9.2' );
+define('POWERPRESS_VERSION', '11.9.7' );
 
 // Translation support:
 if ( !defined('POWERPRESS_ABSPATH') )

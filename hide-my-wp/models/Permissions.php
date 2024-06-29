@@ -27,6 +27,7 @@ class HMWP_Models_Permissions
                 ABSPATH . HMWP_Classes_Tools::getDefault('hmwp_wp-includes_url') => 0755,
                 ABSPATH . HMWP_Classes_Tools::getDefault('hmwp_admin_url') => 0755,
                 ABSPATH . HMWP_Classes_Tools::getDefault('hmwp_admin_url') . '/js' => 0755,
+                ABSPATH . HMWP_Classes_Tools::getDefault('hmwp_login_url')  => 0640,
                 WP_CONTENT_DIR => 0755,
                 get_theme_root() => 0755,
                 WP_PLUGIN_DIR => 0755,

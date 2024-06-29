@@ -9,14 +9,25 @@ if ( ! function_exists( 'ibtana_visual_editor_register_ajax_json_endpont' ) ) {
 	function ibtana_visual_editor_register_ajax_json_endpont() {
 
 		register_rest_route(
-        'ibtana-visual-editor/v1',
-        '/update_google_recaptcha_keys',
-        array(
-            'methods'            	=>	'POST',
-            'callback'           	=>	'ibtana_visual_editor_update_key_option',
-            'permission_callback'	=>	'__return_true',
-        )
-    );
+			'ibtana-visual-editor/v1',
+			'/update_google_recaptcha_keys',
+			array(
+				'methods'            	=>	'POST',
+				'callback'           	=>	'ibtana_visual_editor_update_key_option',
+				'permission_callback'	=>	'check_update_recaptcha_keys_permissions',
+			)
+    	);
+
+		register_rest_route(
+			'ibtana-visual-editor/v1',
+			'/get_google_recaptcha_keys', array(
+				'methods' => 'GET',
+				'callback' => 'get_google_recaptcha_keys',
+				'permission_callback' => function () {
+					return current_user_can('manage_options');
+				}
+			)
+		);	
 	}
 	add_action( 'rest_api_init', 'ibtana_visual_editor_register_ajax_json_endpont' );
 }
@@ -36,12 +47,23 @@ if ( ! function_exists( 'ibtana_visual_editor_get_all_categories' ) ) {
 	add_action('rest_api_init', 'ibtana_visual_editor_get_all_categories');
 }
 
+function get_google_recaptcha_keys() {
+    return array(
+        'site_key' => get_option('ive_googleReCaptchaAPISiteKey'),
+        'secret_key' => get_option('ive_googleReCaptchaAPISecretKey')
+    );
+}
+
 function ibtana_visual_editor_getAllCategories() {
 	$categories = get_categories(array(
 		'orderby' => 'name',
 		'order'   => 'ASC'
 	));
 	return array('result' => $categories);
+}
+
+function check_update_recaptcha_keys_permissions(WP_REST_Request $request) {
+    return current_user_can('manage_options');
 }
 
 function ibtana_visual_editor_update_key_option($request) {
@@ -51,15 +73,15 @@ function ibtana_visual_editor_update_key_option($request) {
 	$showRecaptcha	=	sanitize_text_field( $request->get_param( 'showRecaptcha' ) );
 
 	update_option( 'ive_googleReCaptchaAPISiteKey', $site_key );
-  update_option( 'ive_googleReCaptchaAPISecretKey', $secret_key );
-  update_option( 'ive_googleReCaptchaAPIToggle', $showRecaptcha );
+	update_option( 'ive_googleReCaptchaAPISecretKey', $secret_key );
+	update_option( 'ive_googleReCaptchaAPIToggle', $showRecaptcha );
 	return new WP_REST_Response(
-      array(
-          'success'  => true,
-          'response' => true,
-      ),
-      200
-  );
+		array(
+			'success'  => true,
+			'response' => true,
+		),
+		200
+  	);
 }
 
 function ibtana_visual_editor_file_generation() {

@@ -144,7 +144,6 @@ class PWS_Admin {
 		include 'class-tapin.php';
 		include 'class-tools.php';
 		include 'class-city.php';
-		include 'class-map.php';
 	}
 
 }

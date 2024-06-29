@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.5
-Stable tag: 5.2.16
+Stable tag: 5.2.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -452,6 +452,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.17 =
+
+* Implements the predefined class names col-xs-0, col-sm-0, col-md-0, and col-lg-0 to allow hiding fields on mobiles, tables, desktops, and large screens, respectively.
+* Includes a close button in QRCode controls to close the scan dialog.
+* Escape style tags and attributes in form fields to prevent them from affecting the forms builder's functionality.
+* Enhances user experience by automatically scrolling the properties sidebar to the top when selecting a field for editing.
+
 = 5.2.16 =
 
 * Modifies the installation module to create a JSON backup file of the forms structures before updating the database.
@@ -483,10 +490,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Improves the Gutenberg block displaying the templates' thumbnails and reducing the code required for rendering the forms.
 * Fixes some issues with the AMP support.
 * Improves the feature to load the form into iframe tags.
-
-= 5.2.11 =
-
-* Modifies the Date control to prevent the date selection from closing the Elementor popups when it contains a form.
-* Modifies the predefined template 09.
-* The form shortcode supports the template attribute to allow modifying and applying different templates to the same form via shortcode.
-* Modifies the Gutenberg editor block for form insertion to support the new template attribute.

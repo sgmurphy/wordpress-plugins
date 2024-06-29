@@ -173,6 +173,10 @@ body{
 *[dir="rtl"] #fbuilder .col-xs-offset-10 {margin-right: 83.33333333%;}
 *[dir="rtl"] #fbuilder .col-xs-offset-11 {margin-right: 91.66666667%;}
 
+@media only screen and (max-width: 48em) {
+	#fbuilder .col-xs-0{display: none !important;}
+}
+
 @media only screen and (min-width: 48em) {
   #fbuilder .col-sm-1,
   #fbuilder .col-sm-2,
@@ -237,6 +241,10 @@ body{
   *[dir="rtl"] #fbuilder .col-sm-offset-9 {margin-right: 75%;}
   *[dir="rtl"] #fbuilder .col-sm-offset-10 {margin-right: 83.33333333%;}
   *[dir="rtl"] #fbuilder .col-sm-offset-11 {margin-right: 91.66666667%;}
+}
+
+@media only screen and (min-width: 48em) and (max-width: 64em){
+	#fbuilder .col-sm-0{display: none !important;}
 }
 
 @media only screen and (min-width: 64em) {
@@ -305,6 +313,10 @@ body{
   *[dir="rtl"] #fbuilder .col-md-offset-11 {margin-right: 91.66666667%;}
 }
 
+@media only screen and (min-width: 64em) and (max-width: 75em){
+	#fbuilder .col-md-0{display: none !important;}
+}
+
 @media only screen and (min-width: 75em) {
   #fbuilder .col-lg-1,
   #fbuilder .col-lg-2,
@@ -369,6 +381,10 @@ body{
   *[dir="rtl"] #fbuilder .col-lg-offset-9 {margin-right: 75%;}
   *[dir="rtl"] #fbuilder .col-lg-offset-10 {margin-right: 83.33333333%;}
   *[dir="rtl"] #fbuilder .col-lg-offset-11 {margin-right: 91.66666667%;}
+}
+
+@media only screen and (min-width: 75em){
+	#fbuilder .col-lg-0{display: none !important;}
 }
 
 /* END NEW COLUMNS SYSTEM */
@@ -712,7 +728,9 @@ body{
 #fbuilder .cff-spinner input{max-width: calc( 100% - 70px );margin-left:5px !important;margin-right:5px !important;}
 
 #fbuilder .cff-qrcode-container{margin-bottom:10px;}
-
+#fbuilder .cff-qrcode-container:empty{border:0 !important;}
+#fbuilder .cff-qrcode-container .cff-qrcode-field-close{background:#666666; color:white;display:inline-block;width:20px;height:20px;font-size:18px;line-height:20px;text-align:center;cursor:pointer;margin:2px;}
+#fbuilder .cff-qrcode-container .cff-qrcode-field-close:hover{background:#000000;}
 #fbuilder .cff-page-break-after{page-break-after:always !important;}
 #fbuilder .cff-page-break-before{page-break-before:always !important;}
 

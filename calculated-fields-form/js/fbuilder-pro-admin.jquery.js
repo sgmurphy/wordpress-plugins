@@ -107,7 +107,10 @@
         if(typeof value == 'string')
             value = value.replace(/<script\b.*\bscript>/ig, '')
                          .replace(/<script[^>]*>/ig, '')
-                         .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=");
+                         .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
+						 .replace(/<style\b.*\bstyle>/ig, '')
+                         .replace(/<style[^>]*>/ig, '')
+                         .replace(/(\b)style\s*=/ig, "$1_style=");
 		return value;
 	};
 
@@ -215,11 +218,13 @@
 
 		$.fbuilder[ 'editItem' ] = function( id )
 			{
+				let scrollTopFlag = (selected != id);
                 selected = id;
 
                 try
                 {
 					$('#tabs-2').html( items[id].showAllSettings() );
+					if ( scrollTopFlag ) $('#tabs-2')[0].scrollTop = 0;
                 } catch (e) {}
 				items[id].editItemEvents();
 				setTimeout(function(){try{$('#tabs-2 .choicesSet select:visible, #tabs-2 .cf_dependence_field:visible, #tabs-2 #sSelectedField, #tabs-2 #sFieldList').chosen({search_contains: true});}catch(e){}}, 50);

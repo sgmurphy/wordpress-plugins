@@ -159,6 +159,9 @@ class Ibtana_Visual_Editor_Init_Class {
 
     $ive_active_vw_theme_text_domain = get_option( 'ive_active_vw_theme_text_domain' ) ? get_option( 'ive_active_vw_theme_text_domain' ) : 'sirat';
 
+    $current_user = wp_get_current_user();
+    $is_admin = user_can($current_user, 'manage_options');
+
     wp_localize_script(
       'ibtana-visual-editor-modal-js',
 			'ibtana_visual_editor_modal_js',
@@ -171,8 +174,8 @@ class Ibtana_Visual_Editor_Init_Class {
 				'adminUrl'                            =>  admin_url(),
         'adminAjax'                           =>  admin_url( 'admin-ajax.php' ),
 				'admin_user_ibtana_license_key'       =>  get_option('vw_pro_theme_key'),
-        'googleReCaptchaAPISiteKey'           =>  get_option('ive_googleReCaptchaAPISiteKey'),
-        'googleReCaptchaAPISecretKey'         =>  get_option('ive_googleReCaptchaAPISecretKey'),
+        'googleReCaptchaAPISiteKey'           =>  $is_admin ? get_option('ive_googleReCaptchaAPISiteKey') : '',
+        'googleReCaptchaAPISecretKey'         =>  $is_admin ? get_option('ive_googleReCaptchaAPISecretKey') : '',
 				'get_template_directory_uri_image'    =>  get_template_directory_uri() . "/screenshot.png",
 				'path'                                =>  get_site_url(),
 				'current_theme_name'                  =>  wp_get_theme()->get( 'Name' ),
@@ -185,10 +188,12 @@ class Ibtana_Visual_Editor_Init_Class {
         'wpnonce' 										        =>  wp_create_nonce( 'ive_whizzie_nonce' ),
         'is_woocommerce_available'            =>  class_exists( 'woocommerce' ) ? true : false,
         'post_type'                           =>  get_post_type(),
+        'wp_rest_nonce'                       => wp_create_nonce('wp_rest'),
         'save_templates_limit_info'           =>  IVE_Ibtana_CPT::get_template_limit_info(),
         'ive_general_settings'                =>  get_option( 'ive_general_settings' ),
         'ive_active_vw_theme_text_domain'     =>  $ive_active_vw_theme_text_domain,
-        'showRecaptcha'                       =>  get_option('ive_googleReCaptchaAPIToggle')
+        'showRecaptcha'                       =>  get_option('ive_googleReCaptchaAPIToggle'),
+        'isAdmin'                             => $is_admin
 			)
 		);
     wp_enqueue_script( 'ibtana-visual-editor-modal-js' );

@@ -54,9 +54,9 @@ var IVE_WIZARD = (function($) {
       var demo_description      = data.data.description;
       var data_template_type    = data.data.template_type;
 
-      var is_premium__key_valid  = data.is_key_valid;
-      
       demo_permalink = demo_permalink.replace("/themes", "/products");
+
+      var is_premium__key_valid  = data.is_key_valid;
 
       jQuery( '.ive-sidebar-import-button a.ive-import-demo-btn' ).removeClass( 'ive-install-plugin' );
       jQuery( '.ive-sidebar-content .ive-required-plugin' ).remove();
@@ -1534,7 +1534,7 @@ window.addEventListener( 'load', function() {
     var demo_permalink = jQuery(this).attr('ive-template-permalink');
     var is_key_valid = jQuery(this).attr('ive-is-key-valid');
     var demo_description = jQuery(this).attr('ive-template-description');
-    
+
     demo_permalink = demo_permalink.replace("/themes", "/products");
 
     if (is_key_valid == 0) {

@@ -225,6 +225,7 @@
                 var name      = data.data.is_found.name;
                 var permalink = data.data.is_found.permalink;
                 permalink = permalink.replace("/themes", "/products");
+
                 $( '#ive-admin-notice' ).append(
                   `<div class="notice notice-info is-dismissible">
                     <p>

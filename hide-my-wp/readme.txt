@@ -305,8 +305,11 @@ Update - Firewall message on blocking process when loading on WP initialization
 Update - Compatibility with Wordfence to prevent rewrite rules update on security scan
 Update - language translation and typos
 Update - Disable click and keys to work without jQuery
+Update - Added the option to immediately block a wrong username in Brute Force
+Update - Sub-option layouts
 Fixed - Trim error in cookie when main domain cookie is set
 Fixed - Filter words in 8G Firewall that might be used in article slugs
+Fixed - Small bugs
 
 
 = 5.2.01 (04 June 2024) =

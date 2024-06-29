@@ -22,15 +22,17 @@
 					$('#'+me.name).on(
 						'focus',
 						function(){
+							var qrc = $('#fbuilder .cff-qrcode-container[id="'+me.name+'_qrcontainer"]');
 							$('#fbuilder .cff-qrcode-container[id!="'+me.name+'_qrcontainer"]').html('');
 							if (
 								typeof Html5QrcodeScanner != 'undefined' &&
-								$('#fbuilder .cff-qrcode-container[id="'+me.name+'_qrcontainer"]').html() == ''
+								qrc.html() == ''
 							) {
 								( new Html5QrcodeScanner( me.name+'_qrcontainer', { fps: 10 }, false ) ).render(
 									function(decodedText, decodedResult){me.setVal(decodedText);$('#html5-qrcode-button-camera-stop').trigger('click');},
 									function(error){console.warn(`Code scan error = ${error}`);}
 								);
+								qrc.prepend('<span class="cff-qrcode-field-close" onclick="fbuilderjQuery(this).parent().html(\'\')">X</span>');
 							}
 						}
 					);

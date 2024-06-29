@@ -2003,7 +2003,7 @@
         var template_text_domain  = data.data.domain;
         var demo_description      = data.data.description;
         var data_template_type    = data.data.template_type;
-        
+
         demo_permalink = demo_permalink.replace("/themes", "/products");
 
         var is_premium__key_valid  = data.is_key_valid;
@@ -2228,7 +2228,7 @@
         var demo_permalink        = data.data.permalink;
         var demo_description      = data.data.description;
         var data_template_type    = data.data.template_type;
-        
+
         demo_permalink = demo_permalink.replace("/themes", "/products");
 
         var is_premium__key_valid  = data.is_key_valid;

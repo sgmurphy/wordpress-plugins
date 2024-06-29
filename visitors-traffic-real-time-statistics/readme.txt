@@ -1,13 +1,13 @@
 === Visitor Traffic Real Time Statistics ===
 Contributors: wp-buy, osamaesh
-Tags: visitor, traffic, statistics, analytics, stats, online, Visit, WordPress analytics ,visitors online, count visitor, google analytics, analytics, GeoIP, Geo locations, analytics dashboard, visits, chart, browser, blog, today, yesterday, week, month, wp Statistics, year, post, page, sidebar, summary, feedburner, hits, pagerank, google, histats, alexa, live visit, counter, diagram, graph
+Tags: visitor, traffic, statistics, stats analytics, hits counter
 Requires at least: 3.0.1
-Tested up to: 6.4.3
+Tested up to: 6.5.5
 Stable tag: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Best statistics plugin for WordPress to display your site statistics & traffic. Enable you to display how many users are online on your WordPress blog with detailed statistics, easy to install and working fine.
+Show your site stats & traffic. Enable to display current online users on your WordPress blog with detailed stats. Easy to install and works perfectly.
 
 == Description ==
 

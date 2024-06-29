@@ -179,12 +179,14 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 				if ( $allow_cff_fields_tags ) {
 					$v = str_replace( array( '<%', '%>' ), array( 'cff______%', '%______cff' ), $v );
 				}
-				
+
 				if ( $no_trim ) {
 					$v = wp_kses( wp_unslash( $v ), $allowed_tags );
 				} else {
 					$v = wp_kses( trim( wp_unslash( $v ) ), $allowed_tags );
 				}
+
+				$v = str_ireplace( '&amp;', '&', $v );
 
 				/* Recovers the <% and %> symbols. */
 				if ( $allow_cff_fields_tags ) {
@@ -803,6 +805,8 @@ if ( ! class_exists( 'CPCFF_AUXILIARY' ) ) {
 			if ( 'html' == $format ) {
 				$text = str_replace( "\n", '<br>', $text );
 			}
+
+			$text = str_ireplace( '&amp;', '&', $text );
 
 			return array(
 				'text'  => apply_filters( 'cpcff_custom_tags', $text, $postid ),

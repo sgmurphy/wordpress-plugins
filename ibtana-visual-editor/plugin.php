@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Ibtana - WordPress Website Builder
  * Plugin URI:        https://www.vwthemes.com/products/wordpress-website-builder/
- * Description:       Ibtana Gutenberg Editor has ready made eye catching responsive templates build with custom blocks and options to extend Gutenberg’s default capabilities. You can easily import demo content for the block or templates with a single click. Once done, you can straight away start making the desired changes. It also kit with individual components and blocks to build internal pages. Now you don’t need to invest too much time in editing or recreating the template you love. Now its just drag and drop and easy edit of your favourite template with just few clicks.
- * Version:           1.2.3.3
+ * Description:       Build your dream WordPress website with Ibtana, a powerful website builder with customizable templates and drag-and-drop elements for customization.
+ * Version:           1.2.3.5
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            VowelWeb
