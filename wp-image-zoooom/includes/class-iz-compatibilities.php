@@ -32,6 +32,9 @@ class IZ_Compatibilities {
 
 		$opt                       = get_option( 'zoooom_general', array() );
 		$opt['enable_woocommerce'] = isset( $opt['enable_woocommerce'] ) ? $opt['enable_woocommerce'] : true;
+        $is_woocommerce  = $opt['enable_woocommerce'] && class_exists( 'woocommerce' ) ? true : false;
+        $is_woocommerce3 = ( $is_woocommerce ) && version_compare( WC_VERSION, '3.0', '>' ) ? true : false;
+
 
 		$style = 'img.zoooom,.zoooom img{padding:0!important;}';
 
@@ -98,7 +101,7 @@ class IZ_Compatibilities {
 		/**
 		 * TheGem theme, WooCommerce product gallery.
 		 */
-		if ( strpos( $theme, 'thegem' ) !== false && $opt['enable_woocommerce'] && class_exists( 'woocommerce' ) && version_compare( WC_VERSION, '3.0', '>' ) ) {
+		if ( strpos( $theme, 'thegem' ) !== false && $is_woocommerce3 ) {
 			$style .= '.single-product div.product .woocommerce-product-gallery .attachment-shop_thumbnail {width: 100%;height: 100%;}';
 			$style .= '.single-product div.product .woocommerce-product-gallery .flex-control-thumbs {margin: 0;padding: 0;margin-top: 10px;}';
 			$style .= '.single-product div.product .woocommerce-product-gallery .flex-control-thumbs::before {content: "";display: table;}';
@@ -109,7 +112,7 @@ class IZ_Compatibilities {
 		/**
 		 * Brooklyn theme, WooCommerce product gallery.
 		 */
-		if ( strpos( $theme, 'brooklyn' ) !== false && $opt['enable_woocommerce'] && class_exists( 'woocommerce' ) && version_compare( WC_VERSION, '3.0', '>' ) ) {
+		if ( strpos( $theme, 'brooklyn' ) !== false && $is_woocommerce3 ) {
 			$style .= '.woocommerce div.product div.images .woocommerce-product-gallery__wrapper { -webkit-box-pack: start; -ms-flex-pack: start; justify-content: start; }';
 		}
 
@@ -172,6 +175,51 @@ class IZ_Compatibilities {
 		if ( ! empty( $style ) ) {
 			echo '<style' . $type . '>' . $style . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
+
+
+
+        $js = '';
+
+
+        /**
+         * The Kalium theme. It uses other CSS class names for the static WooCommerce product image.
+         */
+        if ( strpos( $theme, 'kalium' ) !== false && $is_woocommerce3 ) {
+            ob_start();
+            ?>
+            jQuery(window).ready(function($) {
+
+                var attrchange_zoom2 = {
+                    trackValues: true,
+                    callback: function(event) {
+                        if ( event.newValue == event.oldValue ) {
+                            return;
+                        }
+                        if ( event.attributeName == 'href' ) {
+                            $( this ).attr( 'src', event.newValue );
+                        }
+                        if ( event.attributeName == 'src' ) {
+                            $( ".zoomContainer" ).remove();
+                            $( this ).image_zoom( IZ.options );
+                        }
+                    }
+                };
+
+
+                if ( $( ".kalium-woocommerce-product-gallery .attachment-woocommerce_single" ).length > 0 ) {
+                    $( ".kalium-woocommerce-product-gallery .attachment-woocommerce_single" ).image_zoom( IZ.options );
+                }
+
+                $( ".kalium-woocommerce-product-gallery .attachment-woocommerce_single" ).attrchange( attrchange_zoom2 );
+            });
+            <?php
+            $js .= ob_get_contents();
+            ob_end_clean();
+        }
+
+
+        $type = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/javascript"';
+        echo '<script' . $type . '>' . $js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 

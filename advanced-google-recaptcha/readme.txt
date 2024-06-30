@@ -5,7 +5,7 @@ Tags: captcha, recaptcha, google recaptcha, comment recaptcha, login recaptcha
 Requires at least: 4.9
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 1.21
+Stable tag: 1.22
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 9. Plugin settings
 
 == Changelog ==
+= 1.22 - 30/06/2024 =
+* minor security fix
+
 = 1.21 - 13/04/2024
 * reCAPTCHA validation request error handling fix
 

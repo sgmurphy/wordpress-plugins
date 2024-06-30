@@ -21,7 +21,7 @@
 </p>
 
 <p id="disclaimer" style="display: none;">&bull;
-  <em><?php printf( __( 'You selected the users table. Only the <strong><u>%s</u></strong> user will be restored', 'wordpress-database-reset' ), esc_attr($this->user->user_login) ) ?>.</em>
+  <em><?php printf( esc_html__( 'You selected the users table. Only the <strong><u>%s</u></strong> user will be restored', 'wordpress-database-reset' ), esc_attr($this->user->user_login) ) ?>.</em>
 </p>
 
 <hr>

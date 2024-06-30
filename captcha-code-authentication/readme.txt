@@ -3,7 +3,7 @@ Contributors: WebFactory
 Tags: captcha, recaptcha, form captcha, login captcha, comments spam
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 3.1
+Stable tag: 3.2
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,6 +55,10 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 
 
 == Changelog ==
+
+= 3.2 =
+* 2024/06/30
+* minor security fix
 
 = 3.1 =
 * 2024/03/13

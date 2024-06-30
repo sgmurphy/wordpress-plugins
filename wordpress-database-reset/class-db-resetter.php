@@ -36,7 +36,7 @@ if (!class_exists('DB_Resetter')) :
         $this->reinstall();
         $this->restore_backup();
       } else {
-        throw new Exception(__('Please reload the page and try again. Double check your security code.', 'wordpress-database-reset'));
+        throw new Exception(esc_html__('Please reload the page and try again. Double check your security code.', 'wordpress-database-reset'));
       }
     }
 
@@ -47,7 +47,7 @@ if (!class_exists('DB_Resetter')) :
         return;
       }
 
-      throw new Exception(__('You did not select any database tables', 'wordpress-database-reset'));
+      throw new Exception(esc_html__('You did not select any database tables', 'wordpress-database-reset'));
     }
 
     private function set_backup()

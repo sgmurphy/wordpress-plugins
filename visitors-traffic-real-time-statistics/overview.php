@@ -129,7 +129,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
     <div class="row">
         <div class="col-lg-3">
             <div class="box_widget greenBox">
-                <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&box=true"><img src="<?php echo esc_url(plugins_url('/images/upgrade_now.png', AHCFREE_PLUGIN_MAIN_FILE)) ?>"></a>
+                <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile"><img src="<?php echo esc_url(plugins_url('/images/upgrade_now.png', AHCFREE_PLUGIN_MAIN_FILE)) ?>"></a>
                 <br /><span class="txt"><img src="<?php echo esc_url(plugins_url('/images/live.gif', AHCFREE_PLUGIN_MAIN_FILE)) ?>">&nbsp; Online Users</span>
             </div>
         </div>
@@ -192,7 +192,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
             <div class="panel" style="width:100% !important">
 
                 <div class="panelcontent" style="width:100% !important">
-                    <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&box=true">
+                    <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile">
                         <img width="99%" src="<?php echo esc_url(plugins_url('/images/geomap_pro.jpg', AHCFREE_PLUGIN_MAIN_FILE)); ?>">
                     </a>
                 </div>
@@ -375,7 +375,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
                 </h2>
 
                 <div class="panelcontent" style="width:100% !important">
-                    <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&box=true">
+                    <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile">
                         <img width="99%" src="<?php echo plugins_url('/images/today_traffic_by_country_pro.jpg', AHCFREE_PLUGIN_MAIN_FILE) ?>">
                     </a>
                 </div>
@@ -440,7 +440,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
             <div class="panel" style="width:100% !important">
                 <h2 class="box-heading" style="border-radius: 7px 7px 0 0 !important; padding:12px 15px !important ; border-bottom:0 !important">Traffic by country (all time)</h2>
                 <div class="panelcontent" style="width:100% !important">
-                    <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&box=true">
+                    <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile">
                         <img width="99%" src="<?php echo esc_url(plugins_url('/images/traffic_by_country_pro.jpg', AHCFREE_PLUGIN_MAIN_FILE)); ?>">
                     </a>
                 </div>
@@ -454,7 +454,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
                 <h2 class="box-heading" style="border-radius: 7px 7px 0 0 !important; padding:12px 15px !important ; border-bottom:0 !important">Top Referring Countries (all time)</h2>
 
                 <div class="panelcontent" style="width:100% !important">
-                    <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&box=true">
+                    <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile">
                         <img width="99%" src="<?php echo esc_url(plugins_url('/images/top_refferring_countries_pro.jpg', AHCFREE_PLUGIN_MAIN_FILE)); ?>">
                     </a>
                 </div>

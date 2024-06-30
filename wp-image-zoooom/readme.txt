@@ -5,7 +5,7 @@ Email: diana@burduja.eu
 Tags: zoom, image zoom, magnify image, image magnifier, woocommerce zoom 
 Requires at least: 3.0.1
 Tested up to: 6.5 
-Stable tag: 1.56
+Stable tag: 1.57
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 5.2.4
@@ -155,6 +155,10 @@ Alternatively you can upgrade to the Pro version, as there the zoom lens is buil
 
 == Changelog ==
 
+= 1.57 2024-06-30 =
+* Compatibility with the Kalium theme 
+* Add translation file for Korean
+
 = 1.56 2024-03-29 =
 * Feature: support AVIF images
 
@@ -172,4 +176,4 @@ Alternatively you can upgrade to the Pro version, as there the zoom lens is buil
 * Fix: remove zoom on placeholder photos on WooCommerce category pages
 * Feature: support SVG images
 
-[See changelog for all versions](https://plugins.svn.wordpress.org/wp-image-zoooom/trunk/changelog.txt).
+[See full changelog](https://plugins.svn.wordpress.org/wp-image-zoooom/trunk/changelog.txt).

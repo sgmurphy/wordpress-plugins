@@ -3,7 +3,7 @@ Contributors: WebFactory
 Tags: 301 redirect, redirects, redirect url, 404 error log, 404 error
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 1.03
+Stable tag: 1.04
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. Just add title, section, old link & new link to redirect URLs.
 
 == Changelog ==
+= v1.04 =
+* 2024/06/30
+* minor security fixes
 
 = v1.03 =
 * 2024/03/25

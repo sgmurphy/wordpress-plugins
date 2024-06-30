@@ -352,14 +352,12 @@ function bbq_admin_notice() {
 			
 			?>
 			
-			<div class="notice notice-success">
+			<div class="notice notice-success notice-custom">
 				<p>
-					<strong><?php esc_html_e('Go Pro!', 'block-bad-queries'); ?></strong> 
-					<?php esc_html_e('Save 30% on our', 'block-bad-queries'); ?> 
-					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'block-bad-queries'); ?></a> 
-					<?php esc_html_e('and', 'block-bad-queries'); ?> 
-					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'block-bad-queries'); ?></a>. 
-					<?php esc_html_e('Apply code', 'block-bad-queries'); ?> <code>PLANET24</code> <?php esc_html_e('at checkout. Sale ends 5/25/24.', 'block-bad-queries'); ?> 
+					<strong><?php esc_html_e('Pro Plugin Sale!', 'block-bad-queries'); ?></strong> 
+					<?php esc_html_e('Buy one get one FREE with code', 'block-bad-queries'); ?> <code>BOGO24</code>, 
+					<?php esc_html_e('or take 30% off with code', 'block-bad-queries'); ?> <code>SUPER24</code> 
+					⭐ <a class="notice-link" target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/super-summer-sale/"><?php esc_html_e('Get&nbsp;plugins&nbsp;&raquo;', 'block-bad-queries'); ?></a> 
 					<?php echo bbq_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -434,13 +432,13 @@ function bbq_dismiss_notice_link() {
 	
 	$label = esc_html__('Dismiss', 'block-bad-queries');
 	
-	echo '<a class="bbq-dismiss-notice" href="'. esc_url($href) .'">'. esc_html($label) .'</a>';
+	return '<a class="bbq-dismiss-notice" href="'. esc_url($href) .'">'. esc_html($label) .'</a>';
 	
 }
 
 function bbq_check_date_expired() {
 	
-	$expires = apply_filters('bbq_check_date_expired', '2024-05-25');
+	$expires = apply_filters('bbq_check_date_expired', '2024-09-22');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	

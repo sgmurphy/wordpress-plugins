@@ -532,7 +532,7 @@ class WPCaptcha_Admin extends WPCaptcha
   static function footer_save_button()
   {
     echo '<p class="submit">';
-    echo '<button class="button button-primary button-large">' . __('Save Changes', 'advanced-google-recaptcha') . ' <i class="wpcaptcha-icon wpcaptcha-checkmark"></i></button>';
+    echo '<button class="button button-primary button-large">' . esc_html__('Save Changes', 'advanced-google-recaptcha') . ' <i class="wpcaptcha-icon wpcaptcha-checkmark"></i></button>';
     echo '</p>';
   } // footer_save_button
 } // class

@@ -5,7 +5,7 @@
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: easy-hide-login
-  Version: 1.2
+  Version: 1.3
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -307,7 +307,7 @@ class Easy_Hide_Login
   static function options_page()
   {
     if (!current_user_can('manage_options')) {
-      wp_die(__('You do not have sufficient permissions to access this page.'));
+      wp_die(esc_html__('You do not have sufficient permissions to access this page.'));
     }
 
     $options = self::get_options();
@@ -529,7 +529,7 @@ class Easy_Hide_Login
 		</style>';
 
     echo '<div style="margin: 20px; color:#444;">';
-    echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term') . '">install the plugin manually via Plugins page</a><br><br>';
+    echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
     echo 'Starting ...<br><br>';
 
     wp_cache_flush();
@@ -552,11 +552,11 @@ class Easy_Hide_Login
       if (is_null($activate)) {
         echo 'WP 301 Redirects Activated.<br />';
 
-        echo '<script>setTimeout(function() { top.location = "' . admin_url('options-general.php?page=eps_redirects') . '"; }, 1000);</script>';
-        echo '<br>If you are not redirected in a few seconds - <a href="' . admin_url('options-general.php?page=eps_redirects') . '" target="_parent">click here</a>.';
+        echo '<script>setTimeout(function() { top.location = "' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '"; }, 1000);</script>';
+        echo '<br>If you are not redirected in a few seconds - <a href="' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '" target="_parent">click here</a>.';
       }
     } else {
-      echo 'Could not install WP 301 Redirects. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term') . '">download and install manually</a>.';
+      echo 'Could not install WP 301 Redirects. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">download and install manually</a>.';
     }
 
     echo '</div>';

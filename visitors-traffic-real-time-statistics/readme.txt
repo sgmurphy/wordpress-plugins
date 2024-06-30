@@ -3,7 +3,7 @@ Contributors: wp-buy, osamaesh
 Tags: visitor, traffic, statistics, stats analytics, hits counter
 Requires at least: 3.0.1
 Tested up to: 6.5.5
-Stable tag: 7.3
+Stable tag: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -177,6 +177,11 @@ This plugin supports IPv6; however, PHP must be compiled with IPv6 support enabl
 
 
 == Changelog ==
+
+= 7.4 =
+1. changing the upgrade to PRO link
+2. Bug fixes - NOTICE message 
+
 
 = 7.3 =
 1. Security Bug fixing in ajax requests (Broken Access Control)

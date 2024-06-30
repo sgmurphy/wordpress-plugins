@@ -4,7 +4,7 @@ Tags: reset, database reset, wp reset, reset wp, wordpress reset
 Requires at least: 4.2
 Requires PHP: 5.2
 Tested up to: 6.5
-Stable tag: 3.23
+Stable tag: 3.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 1. The WP Database Reset plugin page
 
 == Changelog ==
+
+= 3.24 =
+* 2024/06/30
+* minor security fix
 
 = 3.23 =
 * 2024/02/19

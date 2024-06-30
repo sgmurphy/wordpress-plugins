@@ -260,8 +260,9 @@ class Widget_Writing_Effect_Headline extends Widget_Base {
 		var headlineClasses = 'a13ree-written-headline';
 		var speed = settings.writing_speed.size;
 		var loop = settings.loop === 'yes' ? 1 : 0;
+        var tag = elementor.helpers.validateHTMLTag( settings.tag );
 		#>
-		<{{{ settings.tag }}} class="{{{ headlineClasses }}}" data-speed="{{{ speed }}}" data-loop="{{{ loop }}}">
+		<{{{ tag }}} class="{{{ headlineClasses }}}" data-speed="{{{ speed }}}" data-loop="{{{ loop }}}">
 			<# if ( settings.before_text ) { #>
 				<span class="before-written">{{{ settings.before_text }}}</span>
 			<# } #>
@@ -273,7 +274,7 @@ class Widget_Writing_Effect_Headline extends Widget_Base {
 			<# if ( settings.after_text ) { #>
 				<span class="after-written">{{{ settings.after_text }}}</span>
 			<# } #>
-		</{{{ settings.tag }}}>
+		</{{{ tag }}}>
 		<?php
 	}
 }

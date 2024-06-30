@@ -2,7 +2,7 @@
 /*
 Plugin Name: Captcha Code
 Description: Adds captcha to front-end forms.
-Version: 3.1
+Version: 3.2
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 License: GPL2
@@ -860,7 +860,7 @@ class WP_Captcha_Code
 		</style>';
 
     echo '<div style="margin: 20px; color:#444;">';
-    echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term') . '">install the plugin manually via Plugins page</a><br><br>';
+    echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
     echo 'Starting ...<br><br>';
 
     wp_cache_flush();
@@ -883,11 +883,11 @@ class WP_Captcha_Code
       if (is_null($activate)) {
         echo 'WP 301 Redirects Activated.<br />';
 
-        echo '<script>setTimeout(function() { top.location = "' . admin_url('options-general.php?page=eps_redirects') . '"; }, 1000);</script>';
-        echo '<br>If you are not redirected in a few seconds - <a href="' . admin_url('options-general.php?page=eps_redirects') . '" target="_parent">click here</a>.';
+        echo '<script>setTimeout(function() { top.location = "' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '"; }, 1000);</script>';
+        echo '<br>If you are not redirected in a few seconds - <a href="' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '" target="_parent">click here</a>.';
       }
     } else {
-      echo 'Could not install WP 301 Redirects. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term') . '">download and install manually</a>.';
+      echo 'Could not install WP 301 Redirects. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">download and install manually</a>.';
     }
 
     echo '</div>';

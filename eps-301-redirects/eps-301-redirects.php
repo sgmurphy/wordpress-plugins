@@ -2,7 +2,7 @@
  /*
 Plugin Name: 301 Redirects
 Description: Easily create and manage redirect rules, and view 404 error log.
-Version: 2.75
+Version: 2.76
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
@@ -1010,7 +1010,7 @@ $EPS_Redirects = new EPS_Redirects();
       printf(
         '<div class="%s"><p>%s</p></div>',
         "error",
-        '<b>WARNING</b>: <a href="' . admin_url($deactivate) . '">Deactivate</a> the 301 Redirects free plugin. PRO version is active. You can\'t use both at the same time.'
+        '<b>WARNING</b>: <a href="' . esc_url(admin_url($deactivate)) . '">Deactivate</a> the 301 Redirects free plugin. PRO version is active. You can\'t use both at the same time.'
       );
     }
 }

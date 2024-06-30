@@ -141,7 +141,7 @@ msgstr ""
 msgid "WordPress Widgets"
 msgstr ""
 
-#: inc/admin-widget-dialog.php:214, inc/settings.php:431
+#: inc/admin-widget-dialog.php:215, inc/settings.php:431
 msgid "Recommended Widgets"
 msgstr ""
 

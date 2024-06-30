@@ -1,5 +1,14 @@
 ----------------
 
+= 1.2.2(30.06.2024) =
+
+Tested with WordPress 6.5
+
+Fixed:
+- DOM XSS in Widget
+
+----------------
+
 = 1.2.1(04.09.2023) =
 
 Tested with WordPress 6.3

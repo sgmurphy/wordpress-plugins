@@ -4,9 +4,9 @@ Contributors: urkekg, techwebux
 Donate link: https://urosevic.net/wordpress/donate/?donate_for=head-footer-code
 Tags: head, header, footer, body, scripts, wp_head, wp_footer, wp_body_open, head footer code, custom script
 Requires at least: 4.9
-Tested up to: 6.3
-Stable tag: 1.3.3
-Requires PHP: 5.6
+Tested up to: 6.5.5
+Stable tag: 1.3.4
+Requires PHP: 5.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,7 +71,7 @@ If you find **Head &amp; Footer Code** useful for your project, please [review p
 
 ### Features
 
-* **Multisite** and **PHP 8.2** compatible!
+* **Multisite** and **PHP 8.3** compatible!
 * Set site-wide custom content for:
   * head page section (before the `</head>`)
   * body section (after the `<body>`) - **Requires WordPress 5.2!**
@@ -160,9 +160,9 @@ if ( function_exists( 'wp_body_open' ) ) {
 }
 `
 
-### How can I report security bugs?
+### Where do I report security bugs found in this plugin?
 
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/head-footer-code)
+Please report security bugs found in the source code of the Head & Footer Code plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/head-footer-code). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
 
 
 ## Screenshots
@@ -186,6 +186,11 @@ Initial release of new plugin developed by Aleksandar Urosevic.
 
 
 ## Changelog
+
+### 1.3.4 (2024-06-30)
+* Tested: PHP 8.3.7 and WordPress 6.5.5 with Twenty Twenty-Four theme 1.1 (Single and Multisite)
+* Change: PHP version lowered to 5.5
+* Fix: Activation on deprecated PHP or WordPress
 
 ### 1.3.3 (2023-07-21)
 * Tested: PHP 8.2.8 and WordPress 6.3-RC1 with Twenty Twenty-Three theme (Single and Multisite)

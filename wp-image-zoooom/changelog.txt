@@ -1,4 +1,26 @@
-== Changelog ==
+
+=== Changelog for the WP Image Zoom plugin ===
+
+= 1.57 2024-06-30 =
+* Compatibility with the Kalium theme 
+* Add translation file for Korean
+
+= 1.56 2024-03-29 =
+* Feature: support AVIF images
+
+= 1.55 2023-12-19 =
+* Fix: deprecation notices with PHP8.3
+
+= 1.54 2023-11-14 =
+* Fix: support SVG images with intrinsic size larger than zero
+
+= 1.53 2023-05-17 =
+* Compatibility with the WooCommerce "Custom Order Tables" feature
+
+= 1.52 2022-11-16 =
+* Fix: the zoom lens should be under the menu for the Flatsome theme
+* Fix: remove zoom on placeholder photos on WooCommerce category pages
+* Feature: support SVG images
 
 = 1.51 2022-07-08 =
 * Feature: set the lens above the finger for the touch-screen devices

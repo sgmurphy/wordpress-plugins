@@ -53,6 +53,14 @@ It can be found under name "Writing Effect Headline" in "Basic" Widgets in Eleme
 
 
 == Changelog ==
+----------------
+
+= 1.2.2(30.06.2024) =
+
+Tested with WordPress 6.5
+
+Fixed:
+- DOM XSS in Widget
 
 ----------------
 

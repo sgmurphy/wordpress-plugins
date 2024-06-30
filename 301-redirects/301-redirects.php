@@ -3,7 +3,7 @@
   Plugin Name: 301 Redirects
   Plugin URI: https://wp301redirects.com/
   Description: Easily create & manage redirections, and view 404 error log.
-  Version: 1.03
+  Version: 1.04
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Requires at least: 4.0
@@ -235,7 +235,7 @@ class ts_redirects
     }
 ?>
     <div class="wrap">
-      <h1><img class="logo" src="<?php echo plugin_dir_url(__FILE__); ?>/img/301-black-logo.png" alt="301 Redirects" title="301 Redirects">301 Redirects</h1><br>
+      <h1><img class="logo" src="<?php echo esc_url(plugin_dir_url(__FILE__) . '/img/301-black-logo.png'); ?>" alt="301 Redirects" title="301 Redirects">301 Redirects</h1><br>
 
       <?php
       if ($savedsuccesfully) {

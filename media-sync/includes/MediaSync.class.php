@@ -778,11 +778,13 @@ if ( !class_exists( 'MediaSync' ) ) :
                     return $mime_type;
                 }
 
+                $decoded_relative_path = urldecode($relative_path);
+
                 // Prepare an array of post data for the attachment.
                 $attachment = array(
-                    'guid'           => get_site_url() . $relative_path,
+                    'guid'           => get_site_url() . $decoded_relative_path,
                     'post_mime_type' => $mime_type,
-                    'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $relative_path ) ),
+                    'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $decoded_relative_path ) ),
                     'post_content'   => '',
                     'post_status'    => 'inherit'
                 );
