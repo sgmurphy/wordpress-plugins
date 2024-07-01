@@ -2136,14 +2136,14 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                 $args['date_query'] = array(
                     array(
                         'before'    => array(
-                            'year'  => date('Y', $order_by_date_before),
-                            'month' =>date('m', $order_by_date_before),
-                            'day'   => date('d', $order_by_date_before),
+                            'year'  => gmdate('Y', $order_by_date_before),
+                            'month' =>gmdate('m', $order_by_date_before),
+                            'day'   => gmdate('d', $order_by_date_before),
                         ),
                         'after'    => array(
-                            'year'  => date('Y', $order_by_date_after),
-                            'month' =>date('m', $order_by_date_after),
-                            'day'   => date('d', $order_by_date_after),
+                            'year'  => gmdate('Y', $order_by_date_after),
+                            'month' =>gmdate('m', $order_by_date_after),
+                            'day'   => gmdate('d', $order_by_date_after),
                         ),
                         'inclusive' => true,
                     ),
@@ -2274,7 +2274,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     ?>
                             <ul class="meta">
                                 <?php if( $settings['show_author'] == 'yes' ): ?>
-                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a></li>
+                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ); ?>"><?php the_author();?></a></li>
                                 <?php endif; if( $settings['show_date'] == 'yes' ):?>
                                     <li><i class="fa fa-clock-o"></i><?php the_time('d F Y');?></li>
                                 <?php endif; ?>
@@ -2288,7 +2288,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                             <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                         <?php
                         } else { ?>
-                            <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' ); ?></a></h2>
+                            <h2><a href="<?php the_permalink();?>"><?php echo esc_html( wp_trim_words( get_the_title(), floatval( $settings['title_length'] ), '' ) ); ?></a></h2>
                         <?php
                          }
                         
@@ -2301,7 +2301,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     ?>
                                 <ul class="meta">
                                     <?php if( $settings['show_author'] == 'yes' ): ?>
-                                        <li><i class="fa fa-user-circle"></i><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a></li>
+                                        <li><i class="fa fa-user-circle"></i><a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ); ?>"><?php the_author();?></a></li>
                                     <?php endif; if( $settings['show_date'] == 'yes' ):?>
                                         <li><i class="fa fa-clock-o"></i><?php the_time('d F Y');?></li>
                                     <?php endif; ?>
@@ -2312,9 +2312,9 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     <?php
                         if( $settings['show_content'] == 'yes' ){
                             if( $settings['content_type'] == 'excerpt' ){
-                                echo '<p>'. wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) .'</p>';
+                                echo '<p>'. esc_html( wp_trim_words( get_the_excerpt(), floatval( $settings['content_length'] ),'' ) ) .'</p>';
                             } else {
-                                echo '<p>'.wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ).'</p>'; 
+                                echo '<p>'. wp_kses_post( wp_trim_words( strip_shortcodes( get_the_content() ), floatval( $settings['content_length'] ), '' ) ).'</p>'; 
                             }
                         }
                     ?>
@@ -2325,7 +2325,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
                     ?>
                             <ul class="meta">
                                 <?php if( $settings['show_author'] == 'yes' ): ?>
-                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a></li>
+                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ) ; ?>"><?php the_author();?></a></li>
                                 <?php endif; if( $settings['show_date'] == 'yes' ):?>
                                     <li><i class="fa fa-clock-o"></i><?php the_time('d F Y');?></li>
                                 <?php endif; ?>
@@ -2349,7 +2349,7 @@ class HTMega_Elementor_Widget_Post_Carousel extends Widget_Base {
         if ( has_post_thumbnail() ){
             the_post_thumbnail( $thumbnails_size ); 
         }else{
-            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
         }
     }
     // post query fields

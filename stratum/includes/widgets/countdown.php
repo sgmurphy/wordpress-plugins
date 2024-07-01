@@ -32,10 +32,24 @@ class Countdown extends Stratum_Widget_Base {
 		preg_match( '/^(.*)_/', get_locale(), $current_locale );
 		$locale_prefix = isset( $current_locale[ 1 ] ) && $current_locale[ 1 ] !='en' ? $current_locale[ 1 ] : '';
 
+		// do not filter empty locale
+		if ( $locale_prefix ) {
+			$locale_prefix = apply_filters( 'wpml_current_language', $locale_prefix );
+		}
+
 		if ( $locale_prefix != '' ) {
 			$locale_path = 'vendors/jquery.countdown/localization/jquery.countdown-' . $locale_prefix . '.js';
 
 			if ( file_exists( stratum_get_plugin_path( $locale_path ) ) ) {
+
+				wp_register_script(
+					'jquery-countdown-' . $locale_prefix,
+					stratum_get_plugin_url( $locale_path ),
+					[ 'jquery-countdown' ],
+					'2.1.0',
+					true
+				);
+
 				$script_depends[] = 'jquery-countdown-' . $locale_prefix;
 			}
 		}

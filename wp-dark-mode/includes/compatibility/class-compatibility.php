@@ -69,6 +69,7 @@ if ( ! class_exists( 'Compatibility' ) ) {
                 'sahifa' => [ $themes_object, 'sahifa' ],
                 'the7' => [ $themes_object, 'the7' ],
                 'spectra-one' => [ $themes_object, 'spectra_one' ],
+                'virtue' => [ $themes_object, 'virtue' ],
             ];
 
             return apply_filters( 'wp_dark_mode_supported_themes', $themes );

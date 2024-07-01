@@ -4,13 +4,13 @@
  * Plugin Name: Advanced Shipment Tracking for WooCommerce 
  * Plugin URI: https://www.zorem.com/products/woocommerce-advanced-shipment-tracking/ 
  * Description: Add shipment tracking information to your WooCommerce orders and provide customers with an easy way to track their orders. Shipment tracking Info will appear in customers accounts (in the order panel) and in WooCommerce order complete email. 
- * Version: 3.6.7
+ * Version: 3.6.8
  * Author: zorem
  * Author URI: https://www.zorem.com 
  * License: GPL-2.0+
  * License URI: 
  * Text Domain: woo-advanced-shipment-tracking 
- * WC tested up to: 9.0.0
+ * WC tested up to: 9.0.2
  * Requires Plugins: woocommerce
 */
 
@@ -21,7 +21,7 @@ class Zorem_Woocommerce_Advanced_Shipment_Tracking {
 	 *
 	 * @var string
 	 */
-	public $version = '3.6.7';
+	public $version = '3.6.8';
 	public $plugin_file;
 	public $plugin_path;
 	public $table;
@@ -255,12 +255,13 @@ class Zorem_Woocommerce_Advanced_Shipment_Tracking {
 		
 		add_action( 'wp_ajax_wc_ast_custom_order_status_form_update', array( $this->admin, 'wc_ast_custom_order_status_form_update' ) );			
 		
-		$wc_ast_status_partial_shipped = get_option( 'wc_ast_status_partial_shipped' );		
+		$wc_ast_status_partial_shipped = get_ast_settings( 'ast_general_settings', 'wc_ast_status_partial_shipped', '' );
+		
 		if ( $wc_ast_status_partial_shipped ) {
 			add_action( 'woocommerce_order_status_partial-shipped', array( $this, 'email_trigger_partial_shipped' ), 10, 2 );			
 		}
 	
-		$wc_ast_status_updated_tracking = get_option( 'wc_ast_status_updated_tracking' );		
+		$wc_ast_status_updated_tracking = get_ast_settings( 'ast_general_settings', 'wc_ast_status_updated_tracking', '' );
 		if ( $wc_ast_status_updated_tracking ) {
 			add_action( 'woocommerce_order_status_updated-tracking', array( $this, 'email_trigger_updated_tracking' ), 10, 2 );	
 		}			
@@ -612,7 +613,6 @@ function wc_advanced_shipment_tracking() {
  *
  * Backward compatibility.
 */
-wc_advanced_shipment_tracking();
 
 add_action( 'before_woocommerce_init', function() {
 	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
@@ -637,20 +637,28 @@ if ( ! function_exists( 'zorem_ast_tracking' ) ) {
 	zorem_ast_tracking();
 }
 
-function get_ast_settings( $name, $key, $default_value = '' ) {
-	$data_array = get_option( $name, array() );
-	// return $data_array[$key] ?? $default_value;
-	return isset($data_array[$key]) ? $data_array[$key] : $default_value;
+if (!function_exists('get_ast_settings')) {
+	function get_ast_settings( $name, $key, $default_value = '' ) {
+		$data_array = get_option( $name, array() );
+		// return $data_array[$key] ?? $default_value;
+		return isset($data_array[$key]) ? $data_array[$key] : $default_value;
+	}
 }
 
-function update_ast_settings( $name, $key, $value ) {
-	$data_array = get_option( $name, array() );
-	$data_array[ $key ] = $value;
-	update_option( $name, $data_array );
+if (!function_exists('update_ast_settings')) {
+	function update_ast_settings( $name, $key, $value ) {
+		$data_array = get_option( $name, array() );
+		$data_array[ $key ] = $value;
+		update_option( $name, $data_array );
+	}
 }
 
-function delete_ast_settings( $name, $key ) {
-	$data_array = get_option( $name, array() );
-	unset($data_array[$key]);
-	update_option( $name, $data_array );
+if (!function_exists('delete_ast_settings')) {
+	function delete_ast_settings( $name, $key ) {
+		$data_array = get_option( $name, array() );
+		unset($data_array[$key]);
+		update_option( $name, $data_array );
+	}
 }
+
+wc_advanced_shipment_tracking();

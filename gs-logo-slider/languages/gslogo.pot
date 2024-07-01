@@ -212,7 +212,7 @@ msgstr ""
 msgid "No shortcode ID found"
 msgstr ""
 
-#: ../build/gs-logo-slider/includes/shortcode.php:123, ../includes/shortcode.php:123
+#: ../build/gs-logo-slider/includes/shortcode.php:123, ../includes/shortcode.php:125
 msgid "Please upgrade to pro version to use this template"
 msgstr ""
 

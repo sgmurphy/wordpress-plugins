@@ -149,7 +149,7 @@ class Query extends Base {
         $query       = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}term_relationships WHERE term_taxonomy_id = %d", $term_id );
         $query_key   = "docs_order_by_terms_{$term_id}_" . md5( $query );
 
-        if (  ( $results = $this->database->get_cache( $query_key ) ) !== false ) {
+        if ( ( $results = $this->database->get_cache( $query_key ) ) !== false ) {
             return $results;
         }
 
@@ -250,9 +250,9 @@ class Query extends Base {
         $_docs_order = $_orderby === 'betterdocs_order' ? $_docs_order : [];
 
         if ( empty( $_docs_order ) ) {
-            $statuses = [ 'publish' ];
+            $statuses = ['publish'];
 
-            if( is_user_logged_in() ) {
+            if ( is_user_logged_in() ) {
                 $statuses[] = 'private';
             }
 
@@ -440,8 +440,8 @@ class Query extends Base {
         }
 
         $args['orderby'] = $_orderby;
-        if( ! empty( $_order ) ) {
-            $args['order']   = $_order;
+        if ( ! empty( $_order ) ) {
+            $args['order'] = $_order;
         }
 
         /**
@@ -469,7 +469,7 @@ class Query extends Base {
         if ( ! empty( $args['terms'] ) ) {
             $args['include'] = explode( ',', $args['terms'] );
             $args['orderby'] = 'include';
-            $args['order'] = 'ASC';
+            $args['order']   = 'ASC';
 
             unset( $default_args['parent'] );
             unset( $args['parent'] );
@@ -628,14 +628,14 @@ class Query extends Base {
             ]
         ];
 
-        $args['orderby']  = 'post__in';
-        $args['post__in'] = $this->get_docs_order_by_terms($_term_id);
+        if ( ! isset( $args['orderby'] ) || $args['orderby'] == 'betterdocs_order' ) {
+            $args['orderby']  = 'post__in';
+            $args['post__in'] = $this->get_docs_order_by_terms( $_term_id );
+        }
 
         if ( isset( $args['tax_query'] ) ) {
             $tax_query = $args['tax_query'];
         }
-
-
 
         $args['tax_query'] = apply_filters(
             'betterdocs_docs_tax_query_args',
@@ -720,7 +720,7 @@ class Query extends Base {
         $query     = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}term_relationships WHERE term_taxonomy_id = %d", $term_id );
         $query_key = "betterdocs_faq_order_" . md5( $query );
 
-        if (  ( $results = $this->database->get_cache( $query_key ) ) !== false ) {
+        if ( ( $results = $this->database->get_cache( $query_key ) ) !== false ) {
             return $results;
         }
 
@@ -788,8 +788,8 @@ class Query extends Base {
     }
 
     public function get_doc_ids_by_term( $term, $optional = null, $nested_subcategory = false ) {
-        $args = [ 'include' => $term->term_id ];
-        if( $nested_subcategory ) {
+        $args = ['include' => $term->term_id];
+        if ( $nested_subcategory ) {
             $args['child_of'] = $term->term_id;
             unset( $args['include'] );
         }

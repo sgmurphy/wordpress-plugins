@@ -131,7 +131,7 @@ class weatherResource{
          	
         $day = array();
         $day['timestamp'] 		= $forecast_item->dt;
-        $day['day_of_week'] 	= $this->week_days[ date('w', $forecast_item->dt) ];
+        $day['day_of_week'] 	= $this->week_days[ gmdate('w', $forecast_item->dt) ];
         
         // TEMPS
         $day['high']  			= round($forecast_item->temp->max);

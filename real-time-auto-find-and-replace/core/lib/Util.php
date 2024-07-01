@@ -31,7 +31,7 @@ class Util {
 	 * @param type $tagline
 	 */
 	public static function markup_tag( $tagline ) {
-		 echo sprintf( "\n<!--%s - %s-->\n", CS_RTAFAR_PLUGIN_NAME, $tagline );
+		printf( "\n<!--%s - %s-->\n", CS_RTAFAR_PLUGIN_NAME, $tagline );
 	}
 
 	/**
@@ -355,6 +355,4 @@ class Util {
 	public static function cs_free_plugins() {
 		return \self_admin_url( 'plugin-install.php?s=codesolz&tab=search&type=author' );
 	}
-
 }
-

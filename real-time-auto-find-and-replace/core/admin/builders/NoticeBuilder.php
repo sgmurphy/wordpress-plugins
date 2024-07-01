@@ -131,7 +131,6 @@ class NoticeBuilder {
 
 		$this->admin_notices->{$type}[] = $notice;
 	}
-
 }
 
 

@@ -28,19 +28,18 @@ class Preset_Manage {
         die();
     }
 
-    protected static function get_presets_option($presete_name){
+    protected static function get_presets_option($presete_name) {
         $preset_path = HTMEGA_ADDONS_PL_PATH . 'admin/assets/presets/' . $presete_name . '.json'; 
-        if( is_plugin_active('htmega-pro/htmega_pro.php') ){
-            if(!file_exists($preset_path)){
-                $preset_path = HTMEGA_ADDONS_PL_PATH_PRO . 'assets/preset-json/'. $presete_name . '.json';
+    
+        if (is_plugin_active('htmega-pro/htmega_pro.php')) {
+            if (!file_exists($preset_path)) {
+                $preset_path = HTMEGA_ADDONS_PL_PATH_PRO . 'assets/preset-json/' . $presete_name . '.json';
             }
         }
-        $preset_design = $preset_path;
-        if ( ! is_readable( $preset_design ) ) {
-            return false;
-        }
-        return file_get_contents( $preset_design );
+
+        return htmega_get_local_file_data( $preset_path );
     }
+    
 }
 
 Preset_Manage::init();

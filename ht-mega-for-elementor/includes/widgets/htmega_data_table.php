@@ -762,8 +762,8 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
             'htmega_update_pro',
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('%s UPGRADE NOW %s', 'htmega-addons'),
+                'raw' => sprintf( /* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('%1$s UPGRADE NOW %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',
@@ -1706,7 +1706,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                         <tr>
                             <?php
                                 foreach ( $settings['header_column_list'] as $headeritem ) {
-                                    echo "<th class='elementor-repeater-item-". esc_attr( $headeritem['_id'] )."'>".esc_html__( $headeritem['column_name'],'htmega-addons' ).'</th>';
+                                    echo "<th class='elementor-repeater-item-". esc_attr( $headeritem['_id'] )."'>".esc_html( $headeritem['column_name'] ).'</th>';
                                 }
                             ?>
                         </tr>
@@ -1721,7 +1721,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                                         printf('<td class="elementor-repeater-item-%1$s" %2$s>%3$s</td>',
                                             esc_attr( $table_td[$j]['content_sal_id'] ),
                                             ( $table_td[$j]['colspan'] > 1 ) ? ' colspan="'.esc_attr( $table_td[$j]['colspan']).'"' : '',
-                                            $table_td[$j]['title']
+                                            wp_kses_post( $table_td[$j]['title'] )
                                         );
                                     endif; 
                                 endfor; 
@@ -1758,7 +1758,7 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
                         ordering:  <?php echo esc_js(( $settings['show_datatable_ordering'] == 'yes' ) ? 'true' : 'false'); ?>,
                         info: <?php echo esc_js(( $settings['show_datatable_info'] == 'yes' ) ? 'true' : 'false'); ?>,
                         pageLength: <?php echo esc_js($default_row_number ); ?>,
-                        lengthMenu: [ [<?php echo esc_js( $display_options ).$show_all_num;?>], [<?php echo esc_js( $display_options ).$show_all_text;?>] ],
+                        lengthMenu: [ [<?php echo esc_js( $display_options ).$show_all_num;?>], [<?php echo esc_js( $display_options ).$show_all_text;?>] ], // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     });
                  });
             </script>
@@ -1769,8 +1769,8 @@ class HTMega_Elementor_Widget_Data_Table extends Widget_Base {
             'update_pro'.$condition_key,
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',

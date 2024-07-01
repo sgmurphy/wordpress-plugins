@@ -118,7 +118,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                         'metaname' => 'date',
                         'date_format' => 'custom',
                     ],
-                    'description' => sprintf(
+                    'description' => sprintf( /* translators: %s: List of date format letters */
                         __( 'Use the letters: %s', 'htmega-addons' ),
                         'l D d j S F m M n Y y'
                     ),
@@ -157,7 +157,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                         'metaname' => 'time',
                         'time_format' => 'custom',
                     ],
-                    'description' => sprintf(
+                    'description' => sprintf( /* translators: %s: List of time format letters */
                         __( 'Use the letters: %s', 'htmega-addons' ),
                         'g G H i a A'
                     ),
@@ -249,7 +249,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                     'label' => __( 'Comments', 'htmega-addons' ),
                     'type' => Controls_Manager::TEXT,
                     'label_block' => false,
-                    'placeholder' => __( '%s Comments', 'htmega-addons' ),
+                    'placeholder' => __( '%s Comments', 'htmega-addons' ),// phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
                     'condition' => [
                         'comments_custom_strings' => 'yes',
                         'metaname' => 'comments',
@@ -592,7 +592,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                 $default_strings = [
                     'string_no_comments' => __( 'No Comments', 'htmega-addons' ),
                     'string_one_comment' => __( 'One Comment', 'htmega-addons' ),
-                    'string_comments' => __( '%s Comments', 'htmega-addons' ),
+                    'string_comments' => __( '%s Comments', 'htmega-addons' ),// phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
                 ];
 
                 if ( 'yes' === $repeater_item['comments_custom_strings'] ) {
@@ -614,7 +614,8 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                 if ( 0 === $num_comments ) {
                     $item_data['text'] = $default_strings['string_no_comments'];
                 } else {
-                    $item_data['text'] = sprintf( _n( $default_strings['string_one_comment'], $default_strings['string_comments'], $num_comments, 'htmega-addons' ), $num_comments );
+                    
+                    $item_data['text'] = sprintf( _n( $default_strings['string_one_comment'], $default_strings['string_comments'], $num_comments, 'htmega-addons' ), $num_comments ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralPlural, WordPress.WP.I18n.NonSingularStringLiteralSingle
                 }
 
                 if ( 'yes' === $repeater_item['link'] ) {
@@ -671,9 +672,9 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
         <span class="htbuilder-meta-icon">
             <?php
                 if ( ! empty( $item_data['image'] ) ) {
-                    echo '<img src="'.esc_url( $item_data['image'] ).'" alt="'.esc_attr( $item_data['text'] ).'">';
+                    echo '<img src="'.esc_url( $item_data['image'] ).'" alt="'.esc_attr( $item_data['text'] ).'">'; 
                 }else{
-                    echo HTMega_Icon_manager::render_icon( $item_data['icon'], [ 'aria-hidden' => 'true' ] );
+                    echo HTMega_Icon_manager::render_icon( $item_data['icon'], [ 'aria-hidden' => 'true' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 }
             ?>
         </span>
@@ -709,7 +710,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                 ?>
                 <li class="elementor-repeater-item-<?php echo esc_attr($repeater_item['_id']); ?>">
                     <?php if ( ! empty( $item_data['url']['url'] ) ) : ?>
-                        <a <?php echo $this->get_render_attribute_string( 'link_'.$repeater_item['_id'] ); ?>>
+                        <a <?php echo $this->get_render_attribute_string( 'link_'.$repeater_item['_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
                             <?php endif; ?>
                                 <?php
                                     $this->render_item_icon_image( $item_data, $repeater_item );
@@ -724,7 +725,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
                                                     $terms_list[] = '<span>' . esc_html( $term['text'] ) . '</span>';
                                                 }
                                             }
-                                            echo implode( ', ', $terms_list );
+                                            echo implode( ', ', $terms_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                         echo '</span>';
                                     }
                                     else{
@@ -748,7 +749,7 @@ class Bl_Post_Meta_Info_ELement extends Widget_Base {
 
         if ( empty( $items_html ) ) { return; }
 
-        echo '<ul class="htmeta-info meta-layout-'.esc_attr($settings['layout']).'">'.$items_html.'</ul>';
+        echo '<ul class="htmeta-info meta-layout-'.esc_attr($settings['layout']).'">'.$items_html.'</ul>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

@@ -117,7 +117,7 @@ class HTMega_Elementor_Widget_Countdown extends Widget_Base {
                     'picker_options'=>array(
                         'dateFormat' =>"Y/m/d",
                     ),
-                    'default'     => date( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
+                    'default'     => gmdate( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
                     'condition'=>[
                         'show_event_list!'=>'yes',
                     ]
@@ -1197,7 +1197,7 @@ class HTMega_Elementor_Widget_Countdown extends Widget_Base {
         if( $settings['show_event_list'] == 'yes' && function_exists('tribe_get_start_date') ){
             $data_options['htmegadate']  =  tribe_get_start_date ( absint( $settings['event_id'] ), false,  'Y/m/d' );
         }else{ 
-            $data_options['htmegadate'] = isset( $settings['target_date'] ) ? esc_attr( $settings['target_date'] ) : date( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
+            $data_options['htmegadate'] = isset( $settings['target_date'] ) ? esc_attr( $settings['target_date'] ) : gmdate( 'Y/m/d', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) );
         }
 
         // Hide Countdownload item

@@ -539,7 +539,6 @@ class AddNewRule {
 		<?php
 		do_action( 'bfrp_footer_add_new_rule_masking' );
 	}
-
 }
 
 

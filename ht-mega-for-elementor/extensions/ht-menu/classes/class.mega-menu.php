@@ -66,7 +66,7 @@ class HTMegaMenu_Elementor {
         $elements_manager->add_category(
             'htmegamenu-addons',
             [
-                'title' => __( 'HTMega Menu', 'htmega-addons' ),
+                'title' => esc_html__( 'HTMega Menu', 'htmega-addons' ),
                 'icon' => 'fa fa-snowflake-o',
             ]
         );
@@ -85,7 +85,7 @@ class HTMegaMenu_Elementor {
         if ( 'nav-menus.php' == $pagenow ) {
             add_meta_box(
                 'HT_Mega_Menu_meta_box',
-                __('Mega Menu Settings', 'htmega-addons'),
+                esc_html__('Mega Menu Settings', 'htmega-addons'),
                 array( $this, 'metabox_contents' ),
                 'nav-menus',
                 'side',
@@ -97,12 +97,13 @@ class HTMegaMenu_Elementor {
     public function metabox_contents(){
         // Get recently edited nav menu.
         $recently_edited = absint( get_user_option( 'nav_menu_recently_edited' ) );
-        $nav_menu_selected_id = isset( $_REQUEST['menu'] ) ? absint( $_REQUEST['menu'] ) : 0;
+        $nav_menu_selected_id = isset( $_REQUEST['menu'] ) ? absint( $_REQUEST['menu'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if ( empty( $recently_edited ) && is_nav_menu( $nav_menu_selected_id ) )
             $recently_edited = $nav_menu_selected_id;
         
         // Use $recently_edited if none are selected.
-        if ( empty( $nav_menu_selected_id ) && ! isset( $_GET['menu'] ) && is_nav_menu( $recently_edited ) )
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( empty( $nav_menu_selected_id ) && ! isset( $_GET['menu'] ) && is_nav_menu( $recently_edited ) ) 
             $nav_menu_selected_id = $recently_edited;
         
         $options = get_option( "ht_menu_options_" . $nav_menu_selected_id );
@@ -117,7 +118,7 @@ class HTMegaMenu_Elementor {
                 <input type="checkbox" class="alignright pull-right-input" id="htmegamenu-menu-metabox-input-is-enabled" <?php echo isset($options['enable_menu']) && $options['enable_menu'] == 'on' ? 'checked="true"' : '' ?>>
             </p>
             <p>
-                <?php echo get_submit_button( esc_html__('Save', 'htmega-addons' ), 'htmegamenu-menu-settings-save button-primary alignright','', false); ?>
+                <?php echo get_submit_button( esc_html__('Save', 'htmega-addons' ), 'htmegamenu-menu-settings-save button-primary alignright','', false); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <span class='spinner'></span>
             </p>
 
@@ -261,13 +262,13 @@ class HTMegaMenu_Elementor {
                     <span><i class="dashicons dashicons-warning"></i></span>
                     <p>
                         <?php
-                            echo __('Purchase our','htmega-addons').' <strong><a href="'.esc_url( 'https://wphtmega.com/pricing/' ).'" target="_blank" rel="nofollow">'.__( 'premium version', 'htmega-addons' ).'</a></strong> '.__('to unlock these pro options!','htmega-addons');
+                            echo esc_html__('Purchase our','htmega-addons').' <strong><a href="'.esc_url( 'https://wphtmega.com/pricing/' ).'" target="_blank" rel="nofollow">'.esc_html__( 'premium version', 'htmega-addons' ).'</a></strong> '.esc_html__('to unlock these pro options!','htmega-addons');
                         ?>
                     </p>
                 </div>
             </div>
         <?php
-        echo ob_get_clean();
+        echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**

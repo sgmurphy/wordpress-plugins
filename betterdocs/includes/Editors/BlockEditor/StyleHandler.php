@@ -45,8 +45,7 @@ final class StyleHandler extends Base {
 
     public function __construct() {
         add_action( 'admin_enqueue_scripts', [$this, 'betterdocs_blocks_edit_post'] );
-        add_action( 'wp_ajax_betterdocs_write_block_css', [$this, 'write_block_css'] );
-        add_action( 'wp_enqueue_scripts', [$this, 'enqueue_frontend_css'] );
+        // add_action( 'wp_ajax_betterdocs_write_block_css', [$this, 'write_block_css'] );
     }
 
     /**
@@ -160,32 +159,6 @@ final class StyleHandler extends Base {
         }
 
         wp_send_json_success( 'done' );
-    }
-
-    /**
-     * Enqueue frontend css for post if have one
-     * @return void
-     * @since 1.0.2
-     */
-    public function enqueue_frontend_css() {
-        global $post;
-
-        if ( ! empty( $post ) && ! empty( $post->ID ) ) {
-            $upload_dir = wp_upload_dir();
-
-            $style_css_path = $upload_dir['basedir'] . '/betterdocs-style/betterdocs-style-' . $post->ID . '.min.css';
-            $style_css_url  = $upload_dir['baseurl'] . '/betterdocs-style/betterdocs-style-' . $post->ID . '.min.css';
-
-            if ( file_exists( $style_css_path ) ) {
-                wp_enqueue_style(
-                    'betterdocs-block-style-' . $post->ID,
-                    $style_css_url, ['betterdocs-faq'], betterdocs()->version, 'all'
-                );
-            }
-            if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() && file_exists( $upload_dir['basedir'] . '/betterdocs-style/betterdocs-style-edit-site.min.css' ) ) {
-                wp_enqueue_style( 'betterdocs-fullsite-style', $upload_dir['baseurl'] . '/betterdocs-style/betterdocs-style-edit-site.min.css', [], substr( md5( microtime( true ) ), 0, 10 ) );
-            }
-        }
     }
 
     /**

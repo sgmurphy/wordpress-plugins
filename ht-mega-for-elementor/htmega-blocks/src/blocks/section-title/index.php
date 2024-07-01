@@ -64,7 +64,7 @@
 				}
 				if($settings['showSubTitle'] && ($settings['subTitlePosition'] === 'before' || empty($settings['subTitlePosition']))) {
 					if($settings['subTitleSeparator'] && $settings['subTitleSeparatorPosition'] == 'before') {
-						echo $subTitleSeparator;
+						echo $subTitleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					$subTitle = html_entity_decode($settings['subTitle']);
 					echo sprintf(
@@ -74,12 +74,12 @@
                         wp_kses_post($subTitle)
 					);
 					if($settings['subTitleSeparator'] && ($settings['subTitleSeparatorPosition'] == 'after' || empty($settings['subTitleSeparatorPosition']))) {
-						echo $subTitleSeparator;
+						echo $subTitleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				}
 				if($settings['showTitle']) {
 					if($settings['titleSeparator'] && $settings['titleSeparatorPosition'] == 'before') {
-						echo $titleSeparator;
+						echo $titleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					$title = html_entity_decode($settings['title']);
 					echo sprintf(
@@ -91,12 +91,12 @@
                         tag_escape($settings['titleTag'])
 					);
 					if($settings['titleSeparator'] && ($settings['titleSeparatorPosition'] == 'after' || empty($settings['titleSeparatorPosition']))) {
-						echo $titleSeparator;
+						echo $titleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				}
 				if($settings['showSubTitle'] && $settings['subTitlePosition'] === 'after') {
 					if($settings['subTitleSeparator'] && $settings['subTitleSeparatorPosition'] == 'before') {
-						echo $subTitleSeparator;
+						echo $subTitleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					$subTitle = html_entity_decode($settings['subTitle']);
 					echo sprintf(
@@ -106,12 +106,12 @@
                         wp_kses_post($subTitle)
 					);
 					if($settings['subTitleSeparator'] && ($settings['subTitleSeparatorPosition'] == 'after' || empty($settings['subTitleSeparatorPosition']))) {
-						echo $subTitleSeparator;
+						echo $subTitleSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				}
 				if($settings['showDescription']) {
 					if($settings['descriptionSeparator'] && $settings['descriptionSeparatorPosition'] == 'before') {
-						echo $descriptionSeparator;
+						echo $descriptionSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 					$description = html_entity_decode($settings['description']);
 					echo sprintf(
@@ -121,11 +121,11 @@
                         wp_kses_post($description)
 					);
 					if($settings['descriptionSeparator'] && ($settings['descriptionSeparatorPosition'] == 'after' || empty($settings['descriptionSeparatorPosition']))) {
-						echo $descriptionSeparator;
+						echo $descriptionSeparator; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				}
 			?>
 		</div>
 	<?php
-	echo ob_get_clean();
+	echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

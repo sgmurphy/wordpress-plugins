@@ -4,7 +4,7 @@ Plugin Name: Visitor Traffic Real Time Statistics
 Description: Hits counter that shows analytical numbers of your WordPress site visitors and hits.
 Author: wp-buy
 Author URI: https://www.wp-buy.com/
-Version: 7.4
+Version: 7.5
 Text Domain: visitors-traffic-real-time-statistics
 Domain Path: /languages
 */
@@ -57,7 +57,7 @@ function ahcfree_after_plugin_row($plugin_file, $plugin_data, $status) {
 		        <td  colspan="4" class="plugin-update">
 		        <div id="<?php echo $class_name;?>-upgradeMsg" class="update-message" style="background:#FFF8E5; padding-left:10px; border-left:#FFB900 solid 4px" >
 
-				You are running visitor traffic free. To get more features (<b style="color:red">Online users, GEO locations and visitors on the map</b>), you can <a href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/#plugins-page" target="_blank"><strong>upgrade now</strong></a> or 
+				You are running visitor traffic free. To get more features (<b style="color:red">Online users, GEO locations and visitors on the map</b>), you can <a href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile" target="_blank"><strong>upgrade now</strong></a> or 
 				        
 				<span id="HideMe" style="cursor:pointer" ><a href="javascript:void(0)"><strong>dismiss</strong></a> this message</span>
 				</div>

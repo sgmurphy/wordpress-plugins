@@ -2,7 +2,7 @@
 Tags: honeypot, antispam, anti-spam, captcha, spam, bots, form, forms, contact form 7, contactform7, contact form, cf7
 Requires at least: 4.8
 Tested up to: 6.5.5
-Stable tag: trunk
+Stable tag: 2.1.3
 Requires PHP: 5.6
 Contributors: wpexpertsio
 License: GPLv2 or later
@@ -24,9 +24,7 @@ You will need [Contact Form 7](https://wordpress.org/plugins/contact-form-7/) ve
 We highly recommend [Flamingo](https://wordpress.org/plugins/flamingo/) with CF7 and this plugin. Using Flamingo allows you to track spam submissions (via `inbound messages / spam` tab in Flamingo), showing you what got caught in the honeypot and why. Be sure to check your Honeypot settings to turn storing the honeypot on for this.
 
 = SUPPORT / SOCIALS =
-Support can be found [here](http://wordpress.org/support/plugin/contact-form-7-honeypot). Follow us on [Twitter](https://twitter.com/NoceanCA) and on [Facebook](https://www.facebook.com/nocean.ca/) for updates and news.
-
-Visit the [Honeypot for Contact Form 7 plugin page](http://www.nocean.ca/plugins/honeypot-module-for-contact-form-7-wordpress-plugin/) for additional information or to **[buy us a coffee](http://www.nocean.ca/buy-us-a-coffee/)** to say thanks.
+Support can be found [here](http://wordpress.org/support/plugin/contact-form-7-honeypot). Follow us on [Twitter](https://twitter.com/wpexpertsio) and on [Facebook](https://www.facebook.com/wpexpertsio/) for updates and news.
 
 = PRIVACY =
 This plugin does not track users, store any user data, send user data to external servers, nor does it use cookies. This is an addon plugin, and requires Contact Form 7. Please review Contact Form 7's privacy policies for more information.
@@ -89,6 +87,9 @@ I realize not everyone loves ads, but daddy's gotta pay the bills. I'm extremely
 2. Honeypot CF7 Form Tag Settings
 
 == Changelog ==
+= 2.1.3 July 01, 2024 =
+* Tweak: Updated old URLs
+
 = 2.1.2 =
 Changed contributor to WPExperts
 

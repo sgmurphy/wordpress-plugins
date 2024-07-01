@@ -711,7 +711,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
         <div class="col-12">
             <div class="panel" style="background-color: #fff; border-radius:7px ; padding:20px 10px 10px 10px">
                 <center>
-                    <a target="_blank" href="https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?attribute_license=Single%20License%2029$&footer=true">
+                    <a target="_blank" href="https://wpbuy.gumroad.com/l/OrOdo?layout=profile">
                         <p style="color:#00F; font-size:15px;">if you need more statistics you can upgrade to the professional version now, The premium version of Visitor Traffic real-time statistics is completely different from the free version as there are a lot more features included.</p>
 
                         <p><img  height="auto" src="<?php echo esc_url(plugins_url('/images/upgradenow-button.png', AHCFREE_PLUGIN_MAIN_FILE)); ?>" /></p>
@@ -906,7 +906,7 @@ $mystart_date = $mystart_date->format('Y-m-d');
     });
     jQuery(document).on('click', '.SwalBtn2', function() {
         window.open(
-	  "https://www.wp-buy.com/product/visitors-traffic-real-time-statistics-pro/?popup=1",
+	  "https://wpbuy.gumroad.com/l/OrOdo?layout=profile",
 	  '_blank'
 	);
        

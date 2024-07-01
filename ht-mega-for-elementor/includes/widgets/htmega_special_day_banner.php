@@ -831,7 +831,7 @@ class HTMega_Elementor_Widget_Special_day_Banner extends Widget_Base {
                             echo '<h6>'.htmega_kses_title( $settings['banner_sub_title'] ).'</h6>';
                         }
                         if( !empty( $settings['banner_offer'] ) ){
-                            echo '<h5>'.$settings['banner_offer'].'<span>'.esc_html( $settings['banner_offer_tag_line'] ).'</span></h5>';
+                            echo '<h5>'. esc_html( $settings['banner_offer'] ) . '<span>'.esc_html( $settings['banner_offer_tag_line'] ).'</span></h5>';
                         }
                         if( !empty( $settings['banner_description'] ) ){
                             echo '<p>'.htmega_kses_desc( $settings['banner_description'] ).'</p>';

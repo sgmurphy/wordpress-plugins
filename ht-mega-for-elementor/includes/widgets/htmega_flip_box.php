@@ -86,8 +86,8 @@ class HTMega_Elementor_Widget_Flip_Box extends Widget_Base {
             $this->add_control(
                 'pro_notice2',
                 [
-                    'raw' => sprintf(
-                        __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                    'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                        __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                         '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                         '</a></strong>'),
                     'type' => Controls_Manager::RAW_HTML,
@@ -255,8 +255,8 @@ class HTMega_Elementor_Widget_Flip_Box extends Widget_Base {
             $this->add_control(
                 'pro_noticeb',
                 [
-                    'raw' => sprintf(
-                        __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                    'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                        __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                         '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                         '</a></strong>'),
                     'type' => Controls_Manager::RAW_HTML,
@@ -550,8 +550,8 @@ class HTMega_Elementor_Widget_Flip_Box extends Widget_Base {
                 'pro_notice',
                 [
                     'type' => Controls_Manager::RAW_HTML,
-                    'raw' => sprintf(
-                        __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                    'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                        __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                         '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                         '</a></strong>'),
                     'content_classes' => 'htmega-pro-notice',

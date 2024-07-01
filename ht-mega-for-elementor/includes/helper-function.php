@@ -246,7 +246,7 @@ if( !function_exists('htmega_custom_pagination') ){
     function htmega_custom_pagination( $totalpage ){
         $big = 999999999;
         echo '<div class="htbuilder-pagination">';
-            echo paginate_links( array(
+            echo paginate_links( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
                 'format' => '?paged=%#%',
                 'current' => max( 1, get_query_var('paged') ),
@@ -256,7 +256,7 @@ if( !function_exists('htmega_custom_pagination') ){
                 'type'      => 'list', 
                 'end_size'  => 3, 
                 'mid_size'  => 3
-            ) );
+            ) ); 
         echo '</div>';
     }
 }
@@ -328,7 +328,7 @@ if( !function_exists('htmega_get_all_create_menus') ){
     function htmega_get_all_create_menus() {
         $raw_menus = wp_get_nav_menus();
         $menus     = wp_list_pluck( $raw_menus, 'name', 'term_id' );
-        $parent    = isset( $_GET['parent_menu'] ) ? absint( $_GET['parent_menu'] ) : 0;
+        $parent    = isset( $_GET['parent_menu'] ) ? absint( $_GET['parent_menu'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if ( 0 < $parent && isset( $menus[ $parent ] ) ) {
             unset( $menus[ $parent ] );
         }
@@ -448,7 +448,7 @@ function htmega_ajax_register() {
     }
 
     if ( htmega_validation_data( $user_data ) !== true ) {
-        echo htmega_validation_data( $user_data, $messages  );
+        echo htmega_validation_data( $user_data, $messages  ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     } else {
         $register_user = wp_insert_user( $user_data );
 
@@ -466,8 +466,8 @@ function htmega_ajax_register() {
 
 // Register Data Validation
 function htmega_validation_data( $user_data = null, $messages = null ){
-
-    if( empty( $user_data['user_login'] ) || empty( $_POST['reg_email'] ) || empty( $_POST['reg_password'] ) ){
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+    if( empty( $user_data['user_login'] ) || empty( $_POST['reg_email'] ) || empty( $_POST['reg_password'] ) ){ // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
         $required_msg = !empty( $messages['required_msg'] ) ? esc_html( $messages['required_msg'] ) : esc_html__('Username, Password and E-Mail are required', 'htmega-addons');
         return wp_json_encode( [ 'registerauth' =>false, 'message'=> $required_msg ] );
@@ -771,7 +771,7 @@ function htmega_get_allowed_tag_desc( $tag_type = 'title' ) {
 	}
 
 	$tags_string = '<' . implode('>,<', array_keys(htmega_get_html_allowed_tags( $tag_type ))) . '>';
-	return sprintf(__('This input field supports the following HTML tags: %1$s', 'htmega-addons'), '<code>' . esc_html($tags_string) . '</code>');
+	return sprintf( /* translators: %s: List of supported HTML tags */ __('This input field supports the following HTML tags: %1$s', 'htmega-addons'), '<code>' . esc_html($tags_string) . '</code>');
 }
 
 
@@ -830,8 +830,8 @@ if( !function_exists('htmega_instagram_feed_list') ){
         global $wpdb;
         $table_name     =  esc_sql( $wpdb->prefix . 'sbi_sources' );
         $feeds_sql      = "SELECT username FROM $table_name WHERE %d";
-        $feeds_query    = $wpdb->prepare( $feeds_sql, 1 );
-        $get_feeds      = $wpdb->get_results( $feeds_query, ARRAY_A );
+        $feeds_query    = $wpdb->prepare( $feeds_sql, 1 ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $get_feeds      = $wpdb->get_results( $feeds_query, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $all_feeds      = array();
         if( !empty( $get_feeds ) ){
             foreach($get_feeds as $value){
@@ -918,8 +918,8 @@ function htmega_pro_notice( $repeater,$condition_key, $array_value, $type ){
         'update_pro'.$condition_key,
         [
             'type' => $type,
-            'raw' => sprintf(
-                __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+            'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                 '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                 '</a></strong>'),
             'content_classes' => 'htmega-addons-notice',
@@ -986,3 +986,63 @@ if( !function_exists('htmega_get_module_option') ) {
         }
     }
  }
+
+/**
+ * [htmega_get_local_file_data]
+ * @param  string $file_path
+ * @return mixed  $data | false
+ */
+if ( ! function_exists( 'htmega_get_local_file_data' ) ) {
+    function htmega_get_local_file_data( $file_path ) {
+        if ( ! file_exists( $file_path ) ) {
+            return false;
+        }
+
+        // Initialize the WordPress filesystem
+        global $wp_filesystem;
+        if ( empty( $wp_filesystem ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            WP_Filesystem();
+        }
+        
+        // Check if the file is readable
+        if ( ! is_readable( $file_path ) ) {
+            return false;
+        }
+        
+        // Read the file contents using the WP_Filesystem API
+        $data = $wp_filesystem->get_contents( $file_path );
+        if ( $data === false ) {
+            return false;
+        }
+
+        return $data;
+    }
+}
+
+/**
+ * [htmega_get_remote_file_data]
+ * @param  string $file_url
+ * @return mixed  $data | false
+ */
+if ( ! function_exists( 'htmega_get_remote_file_data' ) ) {
+    function htmega_get_remote_file_data( $file_url ) {
+        // Using wp_remote_get to fetch the remote file
+        $response = wp_remote_get( $file_url );
+
+        // Check if the response contains an error
+        if ( is_wp_error( $response ) ) {
+            return false;
+        }
+
+        // Retrieve the body of the response
+        $data = wp_remote_retrieve_body( $response );
+
+        // Check if the body is empty
+        if ( empty( $data ) ) {
+            return false;
+        }
+
+        return $data;
+    }
+}

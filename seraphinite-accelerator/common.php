@@ -12,7 +12,7 @@ require_once( __DIR__ . '/Cmn/Db.php' );
 require_once( __DIR__ . '/Cmn/Img.php' );
 require_once( __DIR__ . '/Cmn/Plugin.php' );
 
-const PLUGIN_SETT_VER								= 133;
+const PLUGIN_SETT_VER								= 134;
 const PLUGIN_DATA_VER								= 1;
 const PLUGIN_EULA_VER								= 1;
 const QUEUE_DB_VER									= 4;
@@ -772,6 +772,13 @@ function OnOptRead_Sett( $sett, $verFrom )
 		}
 	}
 
+	if( $verFrom && $verFrom < 134 )
+	{
+		Gen::SetArrField( $sett, array( 'contPr', 'cp', 'sldRev7' ), false );
+		Gen::SetArrField( $sett, array( 'contPr', 'css', 'font', 'deinlLrg' ), false );
+		Gen::SetArrField( $sett, array( 'contPr', 'css', 'font', 'deinlLrgSize' ), 512 );
+	}
+
 	return( $sett );
 }
 
@@ -1327,6 +1334,7 @@ function OnOptGetDef_Sett()
 				'sldN2Ss' => true,
 				'sldRev' => true,
 				'sldRev_SmthLd' => true,
+				'sldRev7' => true,
 				'tdThumbCss' => true,
 				'elmsKitImgCmp' => true,
 				'elmsKitLott' => true,
@@ -1557,9 +1565,15 @@ function OnOptGetDef_Sett()
 				'groupCombine' => false,
 				'groupNonCrit' => true,
 				'groupNonCritCombine' => false,
+
 				'groupFont' => true,
 				'groupFontCombine' => true,
+				'font' => array(
+					'deinlLrg' => false,
+					'deinlLrgSize' => 512,
+				),
 				'fontPreload' => false,
+
 				'sepImp' => true,
 				'min' => true,
 				'optLoad' => true,
@@ -3092,7 +3106,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.13 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3436,7 +3450,7 @@ function ProcessCtlData_GetFullPath( $file = '' )
 {
 	if( $file === null )
 		return( null );
-	return( GetCacheDir() . '/pc' . ( $file ? ( '/' . $file ) : '' ) );
+	return( GetCacheDir() . '/pc' . ( $file ? ( '/' . Gen::GetFileName( $file ) ) : '' ) );
 }
 
 function ProcessCtlData_IsAborted( $fileCtl )
@@ -4144,7 +4158,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.13';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

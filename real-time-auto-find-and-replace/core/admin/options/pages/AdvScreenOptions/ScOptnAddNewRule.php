@@ -50,14 +50,14 @@ class ScOptnAddNewRule {
 				'id'       => 'overview',
 				'title'    => __( 'Overview', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'arr_overview' ),
+				'callback' => array( __CLASS__, 'arr_overview' ),
 				'priority' => 1,
 			),
 			array(
 				'id'       => 'available_features',
 				'title'    => __( 'Available Features', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'arr_available_features' ),
+				'callback' => array( __CLASS__, 'arr_available_features' ),
 				'priority' => 1,
 			),
 		);
@@ -69,7 +69,7 @@ class ScOptnAddNewRule {
 	 * @return void
 	 */
 	public static function arr_overview() {
-		echo \sprintf(
+		\printf(
 			__( '%1$s This screen provides the  the functionalities to add new rule. You can add real-time rules as well as some specific rules in Database. After installing the pro version, these muted pro features will be activated automatically. %2$s', 'real-time-auto-find-and-replace' ),
 			'<p>',
 			'</p>'
@@ -89,15 +89,15 @@ class ScOptnAddNewRule {
 			</p>
 			<ul>
 				<li>
-					<?php echo sprintf( __( '%1$s Rule\'s Type %2$s allows to specify the type of a search and replacement rule. You can add real-time rule or rule for database. Real-time (masking) rules will take places before your website renders to the browser. It it will not effect anything on database.', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
+					<?php printf( __( '%1$s Rule\'s Type %2$s allows to specify the type of a search and replacement rule. You can add real-time rule or rule for database. Real-time (masking) rules will take places before your website renders to the browser. It it will not effect anything on database.', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
 				</li>
 				<li>
-					<?php echo sprintf( __( '%1$s Where to Replace %2$s allows to specify where you want to apply the rules. You need pro version to avail the muted features.', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
+					<?php printf( __( '%1$s Where to Replace %2$s allows to specify where you want to apply the rules. You need pro version to avail the muted features.', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
 				</li>
 			</ul>
 			
 			<p>
-				<?php echo sprintf( __( '%1$s Tutorial %2$s : To read more about the features,  %3$scheck plugin\'s documentation%4$s from our website', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>', '<a href="https://docs.codesolz.net/better-find-and-replace/" target="_blank">', '</a>' ); ?>
+				<?php printf( __( '%1$s Tutorial %2$s : To read more about the features,  %3$scheck plugin\'s documentation%4$s from our website', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>', '<a href="https://docs.codesolz.net/better-find-and-replace/" target="_blank">', '</a>' ); ?>
 			</p>
 		<?php
 	}
@@ -120,6 +120,4 @@ class ScOptnAddNewRule {
 
 		return $html;
 	}
-
-
 }

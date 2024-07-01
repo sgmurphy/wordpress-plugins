@@ -4,7 +4,7 @@ Tags: database, search replace, search, replace, search and replace, real-time r
 Donate link: https://codesolz.net/our-products/wordpress-plugin/real-time-auto-find-and-replace/?utm_source=wordpress.org&utm_medium=README_DONATE_BTN
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 1.5.9
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,7 @@ Additionally, it allows for the removal or un-setting of any element in serializ
 * Remove any item from **Serialized Data** in Database 
 * Assign a specific role to manage this plugin for lower level of users
 * Real-time find and replace compatible with Gutenberg and other block / page builders
+* Refine your search results for database replacements by targeting post or page titles, content, or excerpts.
 
 == How to replace in DB? ==
 * First create a report by selecting *dry run* from bottom of the setting section 
@@ -170,6 +171,10 @@ code block in find field*
 7. List of All Masking Rules with pro features 
 
 == Changelog ==
+
+= Version: 1.6.0 ( July 01, 2024 ) =
+* **New:** Refined Search Results - Narrow your search for precise database replacements. 
+* **New:** Targeted Content - Focus on post or page titles, content, and excerpts for more control.
 
 = Version: 1.5.9 ( April 13, 2024 ) =
 * **Upgrade:** Updated for WordPress latest version

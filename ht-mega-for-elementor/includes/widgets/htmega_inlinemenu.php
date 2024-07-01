@@ -85,7 +85,8 @@ class HTMega_Elementor_Widget_InlineMenu extends Widget_Base {
                         'default' => array_keys( $this->get_available_menus() )[0],
                         'save_default' => true,
                         'separator' => 'after',
-                        'description' => sprintf( __( 'Go to the <a href="%s" target="_blank">Menus Option</a> to manage your menus.', 'htmega-addons' ), admin_url( 'nav-menus.php' ) ),
+                        'description' => sprintf( /* translators: %s: URL to the Menus Option page */ 
+                             __( 'Go to the <a href="%s" target="_blank">Menus Option</a> to manage your menus.', 'htmega-addons' ), admin_url( 'nav-menus.php' ) ),
                     ]
                 );
             } else {
@@ -93,7 +94,8 @@ class HTMega_Elementor_Widget_InlineMenu extends Widget_Base {
                     'inline_menu_id',
                     [
                         'type' => Controls_Manager::RAW_HTML,
-                        'raw' => sprintf( __( '<strong>There are no menus in your site.</strong><br>Go to the <a href="%s" target="_blank">Menus Option</a> to create one.', 'htmega-addons' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
+                        'raw' => sprintf(/* translators: %s: URL to the Menus Option page */ 
+                            __( '<strong>There are no menus in your site.</strong><br>Go to the <a href="%s" target="_blank">Menus Option</a> to create one.', 'htmega-addons' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
                         'separator' => 'after',
                     ]
                 );

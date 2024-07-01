@@ -11,7 +11,7 @@
         ?>
         <div class="forcast-day">
             <?php if($i == 0): ?>
-                <p class="week-day"><?php echo __('Today','htmega-addons'); ?></p>
+                <p class="week-day"><?php echo esc_html__('Today','htmega-addons'); ?></p>
                 <?php echo wp_kses_post( $weather['current']['icon'] ); ?>
                 <p class="forcast-temp"><?php echo esc_html( $weather['current']['temp'] ); ?><sup>&deg;</sup><?php echo esc_html( $units ); ?></p>
             <?php else: ?>

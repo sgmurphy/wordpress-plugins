@@ -642,6 +642,13 @@ class Elementor extends BaseEditor {
          */
         $assets->register( 'betterdocs-el-category-grid', 'elementor/js/category-grid.js', ['jquery', 'betterdocs-category-toggler'] );
 
+         /**
+         * Localize This In Order To Know If This Block Is Arriving From Betterdocs Templates Or Not
+         */
+        betterdocs()->assets->localize('betterdocs-el-category-grid', 'betterdocsCategoryGridConfig', [
+            'is_betterdocs_templates' => betterdocs()->helper->is_templates() ? true : false
+        ]);
+
         if ( betterdocs()->helper->is_el_templates() == true ) {
             $assets->enqueue( 'betterdocs-elementor-editor', 'elementor/css/betterdocs-el-edit.css' );
 

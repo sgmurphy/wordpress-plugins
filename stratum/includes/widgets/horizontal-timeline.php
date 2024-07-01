@@ -1600,6 +1600,9 @@ class Horizontal_Timeline extends Stratum_Widget_Base {
 				}
 
 				if ( ! empty( $item[ 'item_link' ][ 'url' ] ) ) {
+
+					$item[ 'item_link' ][ 'url' ] = stratum_translate_url( $item[ 'item_link' ][ 'url' ] );
+
 					$this->add_link_attributes( 'url' . $index, $item[ 'item_link' ] );
 					$out .= "<a class='".esc_attr( $class.'-item__card-link' )."' " . $this->get_render_attribute_string( 'url' . $index ) . ">";
 				}

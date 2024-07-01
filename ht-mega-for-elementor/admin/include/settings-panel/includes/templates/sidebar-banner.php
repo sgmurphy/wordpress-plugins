@@ -38,4 +38,4 @@ $template_data = HTMega_Template_Library::instance()->get_templates_info();
     </div>
 
 </div>
-<?php echo apply_filters('htmega_sidebar_adds_banner', ob_get_clean() ); ?>
+<?php echo apply_filters('htmega_sidebar_adds_banner', ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

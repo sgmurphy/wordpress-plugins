@@ -103,7 +103,6 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                     'label' => __( 'Login Content', 'htmega-addons' ),
                     'type' => Controls_Manager::TEXTAREA,
                     'default' => __( "Don’t Have account? You can create an account by using this form.","htmega-addons" ),
-                    'placeholder' => __( '', 'htmega-addons' ),
                     'placeholder' => __( "Don’t Have account? You can create an account by using this form.","htmega-addons" ),
                     'condition'=>[
                         'show_loginform_heading' => 'yes',
@@ -582,8 +581,8 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                 'update_pro_validation_messages',
                 [
                     'type' => Controls_Manager::RAW_HTML,
-                    'raw' => sprintf(
-                        __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                    'raw' => sprintf( /* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                        __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                         '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                         '</a></strong>'),
                     'content_classes' => 'htmega-addons-notice',
@@ -1682,8 +1681,8 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
             'update_pro_error_style',
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',
@@ -1727,13 +1726,21 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                 <div id="htmega_message_<?php echo esc_attr( $id ); ?>" class="htmega_message">&nbsp;</div>
 
                 <?php
-                    if ( is_user_logged_in() && !Plugin::instance()->editor->is_edit_mode() ) {
+                    if ( is_user_logged_in() && ! Plugin::instance()->editor->is_edit_mode() ) {
                         $current_user = wp_get_current_user();
+                        $logout_url = wp_logout_url( $current_url );
+                    
                         echo '<div class="htmega-user-login">' .
-                            sprintf( __( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'htmega-addons' ), $current_user->display_name, wp_logout_url( $current_url ) ) .
-                            '</div>';
+                            sprintf(
+                                /* translators: 1: user's display name, 2: logout URL */
+                                esc_html__( 'You are logged in as %1$s (%2$s)', 'htmega-addons' ),
+                                esc_html( $current_user->display_name ),
+                                '<a href="' . esc_url( $logout_url ) . '">' . esc_html__( 'Logout', 'htmega-addons' ) . '</a>'
+                            ) .
+                        '</div>';
                         return;
                     }
+
                 ?>
 
                     <?php if($settings['show_loginform_heading']): ?>
@@ -1756,9 +1763,8 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                         <div class="htb-col-lg-12 input-alignment">
                             <?php
 
-                                $username_label_id = esc_attr('login_username').esc_attr( $id );
                                 if( $settings['htmega_form_show_label'] == 'yes'){
-                                    echo sprintf('<label for="%1$s">%2$s</label>' , $username_label_id , htmega_kses_title( $user_label ));
+                                    echo sprintf('<label for="%1$s">%2$s</label>' , esc_attr('login_username'. $id ), htmega_kses_title( $user_label ));
                                 }
 
                             ?>
@@ -1771,9 +1777,8 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
 
                         <div class="htb-col-lg-12 input-alignment">
                             <?php
-                                $password_label_id = esc_attr('login_password').esc_attr( $id );
                                 if( $settings['htmega_form_show_label'] == 'yes'){
-                                    echo sprintf('<label for="%1$s">%2$s</label>', $password_label_id , htmega_kses_title( $pass_label ));
+                                    echo sprintf('<label for="%1$s">%2$s</label>', esc_attr( 'login_password'. $id ) , htmega_kses_title( $pass_label ));
                                 }
                             ?>
                             <input 
@@ -1791,7 +1796,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                                         <span class="checkmark"></span>
                                     </label>
                                 <?php endif; if( $settings['lost_password'] == 'yes' && $settings['lost_password_position'] == 'before-login' ): ?>
-                                    <a href="<?php echo wp_lostpassword_url( $current_url ); ?>" class="fright"><?php esc_html_e('Forgot Password?','htmega-addons'); ?></a>
+                                    <a href="<?php echo esc_url( wp_lostpassword_url( $current_url ) ); ?>" class="fright"><?php esc_html_e('Forgot Password?','htmega-addons'); ?></a>
                                 <?php endif;?>
                             </div>
                         </div>
@@ -1805,7 +1810,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                                     value="<?php if( !empty( $settings['login_button_text'] ) ){ echo esc_attr( $settings['login_button_text'] ); } else { esc_html_e( 'Login', 'htmega-addons' ); } ?>">
                                     <div class="login-register-buit">
                                         <?php if( get_option( 'users_can_register' ) && $settings['register_link'] == 'yes' ): ?>
-                                            <a href="<?php echo wp_registration_url(); ?>" class="login_register_text">
+                                            <a href="<?php echo esc_url( wp_registration_url() ); ?>" class="login_register_text">
                                                 <?php if( !empty( $settings['register_link_text'] ) ){ echo esc_attr( $settings['register_link_text'] ); } else { esc_html_e( 'Register', 'htmega-addons' ); } ?>
                                             </a>
                                         <?php endif;?>    
@@ -1814,7 +1819,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
                             </div>   
                             <?php if( $settings['lost_password'] == 'yes' && $settings['lost_password_position'] == 'after-login' ): ?>
                             <div class="log-remember">
-                                <a href="<?php echo wp_lostpassword_url( $current_url ); ?>" class="fright"><?php esc_html_e('Forgot Password?','htmega-addons'); ?></a>
+                                <a href="<?php echo esc_url( wp_lostpassword_url( $current_url ) ); ?>" class="fright"><?php esc_html_e('Forgot Password?','htmega-addons'); ?></a>
                             </div> 
                             <?php endif;?>
                         </div>
@@ -1842,7 +1847,7 @@ class HTMega_Elementor_Widget_User_Login_Form extends Widget_Base {
             jQuery(document).ready(function($) {
                 "use strict";
 
-                var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+                var ajaxurl = '<?php echo esc_js( admin_url('admin-ajax.php') ); ?>';
                 var loadingmessage = '<?php echo esc_html__('Please wait...','htmega-addons'); ?>';
                 var login_form_id = 'form#htmega_login_form_<?php echo esc_attr( $id ); ?>';
                 var login_button_id = '#login_form_submit_<?php echo esc_attr( $id ); ?>';

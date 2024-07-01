@@ -155,7 +155,7 @@ class Menu {
     public function plugin_page() {
         ob_start();
 		include_once HTMEGAOPT_INCLUDES .'/templates/settings-page.php';
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
 }

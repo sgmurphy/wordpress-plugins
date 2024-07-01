@@ -2346,7 +2346,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2467,7 +2467,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2526,7 +2526,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2585,7 +2585,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2640,7 +2640,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2701,7 +2701,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2773,7 +2773,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>
@@ -2828,7 +2828,7 @@ class HTMega_Elementor_Widget_Pricing_Table extends Widget_Base
                                     if (!empty($features['htmega_features_icon']['value'])) {
                                         echo HTMega_Icon_manager::render_icon($features['htmega_features_icon'], ['aria-hidden' => 'true']);
                                     }
-                                    echo esc_html__($features['htmega_features_title'], 'htmega-addons');
+                                    echo esc_html( $features['htmega_features_title'] );
                                     ?>
                                 </li>
                             <?php endforeach; ?>

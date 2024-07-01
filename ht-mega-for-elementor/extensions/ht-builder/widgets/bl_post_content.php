@@ -112,11 +112,11 @@ class Bl_Post_Content_ELement extends Widget_Base {
         
         if( Elementor::instance()->editor->is_edit_mode() ){
            // echo '<h3>' . __('Post Content', 'htmega-addons' ). '</h3>';
-            echo '<p>' . __('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like.', 'htmega-addons' ). '</p>';
+            echo '<p>' . esc_html__('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like.', 'htmega-addons' ). '</p>';
         }else{
 
             if ( post_password_required( $post->ID ) ) {
-                echo get_the_password_form( $post->ID );
+                echo get_the_password_form( $post->ID );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 return;
             }
 
@@ -132,9 +132,9 @@ class Bl_Post_Content_ELement extends Widget_Base {
                 $build_width = Elementor::$instance->db->is_built_with_elementor( $post->ID );
             }
            if( $build_width ){
-                echo Elementor::instance()->frontend->get_builder_content( $post->ID, true );
+                echo Elementor::instance()->frontend->get_builder_content( $post->ID, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }else{
-                echo apply_filters( 'the_content', get_the_content() );
+                echo apply_filters( 'the_content', get_the_content() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 wp_link_pages( [
                     'before' => '<div class="page-links"><span class="page-links-title elementor-page-links-title">' . __( 'Pages:', 'htmega-addons' ) . '</span>',
                     'after' => '</div>',

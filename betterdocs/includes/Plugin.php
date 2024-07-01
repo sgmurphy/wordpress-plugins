@@ -31,6 +31,7 @@ use WPDeveloper\BetterDocs\FrontEnd\TemplateTags;
 use WPDeveloper\BetterDocs\Admin\Customizer\Customizer;
 use WPDeveloper\BetterDocs\Admin\HelpScoutMigration;
 use WPDeveloper\BetterDocs\Dependencies\DI\ContainerBuilder;
+use WPDeveloper\BetterDocs\Modules\StyleHandler as ModulesStyleHandler;
 
 final class Plugin {
     private static $_instance = null;
@@ -116,7 +117,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '3.5.8';
+    public $version = '3.5.9';
 
     /**
      * WriteWithAI Class
@@ -155,6 +156,11 @@ final class Plugin {
          * For AJAX only
          */
         $this->ajax();
+
+        /**
+         * Style Handler For Parsing and Saving Styles as file.
+         */
+        ModulesStyleHandler::init();
     }
 
     private function define_constants() {

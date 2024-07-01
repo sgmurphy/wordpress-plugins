@@ -76,7 +76,4 @@ class RTAFAR_CustomAjax {
 		echo ( new $class_path() )->{$method[1]}( $data );
 		exit;
 	}
-
 }
-
-

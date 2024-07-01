@@ -1,7 +1,7 @@
 <?php
 
-add_action('ux_builder_setup', 'dfc_ux_builder_element'); 
-function dfc_ux_builder_element(){
+add_action('ux_builder_setup', 'zb_twenty20_ux_builder_element'); 
+function zb_twenty20_ux_builder_element(){
   add_ux_builder_shortcode( 'twenty20', array(
     'name' => __( 'Twenty20' ),
     'thumbnail' =>  twenty20_ux_builder_thumbnails( 'twenty20' ),
@@ -93,11 +93,6 @@ function dfc_ux_builder_element(){
             'false'  => 'No'
         )
       ),
-
-      
-
-      
-     
     ),
   ));
 }

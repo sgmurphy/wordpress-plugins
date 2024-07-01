@@ -126,7 +126,7 @@ class Library_Source extends Source_Base {
 		$data = json_decode( $data, true );
 
 		if ( empty( $data ) || empty( $data['content'] ) ) {
-			throw new \Exception( __( 'Template does not have any content', 'htmega-addons' ) );
+			throw new \Exception( esc_html__( 'Template does not have any content', 'htmega-addons' ) );
 		}
 
 		$data['content'] = $this->replace_elements_ids( $data['content']['content'] );

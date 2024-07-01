@@ -5,7 +5,7 @@ Tags: elementor, elementor addons, elementor plugins, elementor widgets, element
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,6 +109,10 @@ Stratum plugin is distributed under the terms of the GNU GPL.
 3. Find Stratum widgets in Elementor.
 
 == Changelog ==
+
+= 1.4.3, Jun 28 2024 =
+* Improved compatibility with WPML plugin.
+* Minor bugfixes and improvements.
 
 = 1.4.2, Jun 14 2024 =
 * Minor bugfixes and improvements.

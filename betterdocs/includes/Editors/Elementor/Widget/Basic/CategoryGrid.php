@@ -1675,32 +1675,26 @@ class CategoryGrid extends BaseWidget {
     public function view_params() {
         $settings = &$this->attributes;
 
-        $this->add_render_attribute(
-            'bd_category_grid_wrapper',
-            [
-                'id'    => 'el-betterdocs-cat-grid-' . esc_attr( $this->get_id() ),
-                'class' => ['betterdocs-category-grid-wrapper']
-            ]
-        );
+        $wrapper_attr = [
+            'id'    => 'el-betterdocs-cat-grid-' . esc_attr( $this->get_id() ),
+            'class' => ['betterdocs-category-grid-wrapper']
+        ];
 
-        $this->add_render_attribute(
-            'bd_category_grid_inner',
-            [
-                'class'                     => [
-                    'betterdocs-category-grid-inner-wrapper',
-                    'betterdocs-category-grid',
-                    $settings['layout_mode']
-                ],
-                'data-layout-mode'          => $settings['layout_mode'],
-                'data-column_space_desktop' => $settings['grid_space'],
-                'data-column_space_tab'     => isset( $settings['grid_space_tablet'] ) ? $settings['grid_space_tablet'] : $settings['grid_space'],
-                'data-column_space_mobile'  => isset( $settings['grid_space_mobile'] ) ? $settings['grid_space_mobile'] : $settings['grid_space'],
-                'data-column'               => $settings['grid_column'],
-                'data-column_desktop'       => $settings['grid_column'],
-                'data-column_tab'           => isset( $settings['grid_column_tablet'] ) ? $settings['grid_column_tablet'] : $settings['grid_column'],
-                'data-column_mobile'        => isset( $settings['grid_column_mobile'] ) ? $settings['grid_column_mobile'] : $settings['grid_column']
-            ]
-        );
+        $inner_wrapper_attr = [
+            'class'                     => [
+                'betterdocs-category-grid-inner-wrapper',
+                'betterdocs-category-grid',
+                $settings['layout_mode']
+            ],
+            'data-layout-mode'          => $settings['layout_mode'],
+            'data-column_space_desktop' => $settings['grid_space'],
+            'data-column_space_tab'     => isset( $settings['grid_space_tablet'] ) ? $settings['grid_space_tablet'] : $settings['grid_space'],
+            'data-column_space_mobile'  => isset( $settings['grid_space_mobile'] ) ? $settings['grid_space_mobile'] : $settings['grid_space'],
+            'data-column'               => $settings['grid_column'],
+            'data-column_desktop'       => $settings['grid_column'],
+            'data-column_tab'           => isset( $settings['grid_column_tablet'] ) ? $settings['grid_column_tablet'] : $settings['grid_column'],
+            'data-column_mobile'        => isset( $settings['grid_column_mobile'] ) ? $settings['grid_column_mobile'] : $settings['grid_column']
+        ];
 
         $default_multiple_kb = (bool) betterdocs()->editor->get( 'elementor' )->multiple_kb_status();
 
@@ -1752,11 +1746,29 @@ class CategoryGrid extends BaseWidget {
 
         $kb_slug = isset( $settings['selected_knowledge_base'] ) ? $settings['selected_knowledge_base'] : '';
 
+        /**
+         * Add This Attribute When Using Outside Betterdocs Templates Only
+         */
+        if( $default_multiple_kb == 1 && ( ! empty( $kb_slug ) ) && ( ! betterdocs()->helper->is_templates() ) ) {
+            $inner_wrapper_attr['data-mkb-slug'] = $kb_slug;
+        }
+
+
+        $this->add_render_attribute(
+            'bd_category_grid_wrapper',
+            $wrapper_attr
+        );
+
+        $this->add_render_attribute(
+            'bd_category_grid_inner',
+            $inner_wrapper_attr
+        );
+
         $params = wp_parse_args( [
             'wrapper_attr'            => $this->get_render_attributes( 'bd_category_grid_wrapper' ),
             'inner_wrapper_attr'      => $this->get_render_attributes( 'bd_category_grid_inner' ),
             'widget_type'             => 'category-grid',
-            'layout'                  => $settings['layout_template'],
+            'layout'                  => sanitize_file_name( $settings['layout_template'] ),
             'is_edit_mode'            => $is_edit_mode,
             'terms_query_args'        => $this->betterdocs( 'query' )->terms_query( $terms_query ),
             'list_icon_name'          => $settings['list_icon'],

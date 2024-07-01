@@ -1,6 +1,6 @@
 === Security Optimizer - The All-In-One Protection Plugin ===
 Contributors: Hristo Sg, siteground, sstoqnov, stoyangeorgiev, elenachavdarova, ignatggeorgiev
-Tags: security, firewall, malware scanner, web application firewall, two factor authentication, block hackers, country blocking, clean hacked site, blocklist, waf, login security, free
+Tags: security, firewall, malware scanner, web application firewall, login
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 7.0

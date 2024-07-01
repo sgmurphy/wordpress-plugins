@@ -210,7 +210,7 @@ class WPvivid_one_drive extends WPvivid_Remote
             ?>
             <div id="storage_account_one_drive" class="storage-account-page" style="display:none;">
                 <div style="background-color:#f1f1f1; padding: 10px;">
-                    'Please read <a target="_blank" href="https://wpvivid.com/privacy-policy" style="text-decoration: none;">this privacy policy</a> for use of our Microsoft OneDrive authorization app (none of your backup data is sent to us).
+                    Please read <a target="_blank" href="https://wpvivid.com/privacy-policy" style="text-decoration: none;">this privacy policy</a> for use of our Microsoft OneDrive authorization app (none of your backup data is sent to us).
                 </div>
                 <div style="color:#8bc34a; padding: 10px 10px 10px 0;">
                     <strong><?php esc_html_e('Authentication is done, please continue to enter the storage information, then click \'Add Now\' button to save it.', 'wpvivid-backuprestore'); ?></strong>
@@ -1427,7 +1427,13 @@ class WPvivid_one_drive extends WPvivid_Remote
     public function finish_add_remote()
     {
         global $wpvivid_plugin;
-        $wpvivid_plugin->ajax_check_security();
+        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
+        $check=current_user_can('manage_options');
+        $check=apply_filters('wpvivid_ajax_check_security',$check);
+        if(!$check)
+        {
+            die();
+        }
         try {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote'])) {
                 die();

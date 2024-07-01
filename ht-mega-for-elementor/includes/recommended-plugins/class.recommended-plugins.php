@@ -159,7 +159,7 @@ class HTRP_Recommended_Plugins {
 
         ?>
             <div class="wrap">
-                <h2><?php echo get_admin_page_title(); ?></h2>
+                <h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
                 <style>
                     .htrp-admin-tab-pane{
                       display: none;
@@ -217,7 +217,7 @@ class HTRP_Recommended_Plugins {
                                 if( array_key_exists( $plugin['slug'], $prepare_plugin ) ){
                                     $plugins_type = 'free';
                                     $image_url    = $this->plugin_icon( $plugins_type, $prepare_plugin[$data['slug']]['icons'] );
-                                    $description  = strip_tags( $prepare_plugin[$data['slug']]['description'] );
+                                    $description  = wp_strip_all_tags( $prepare_plugin[$data['slug']]['description'] );
                                     $author_name  = wp_kses( $prepare_plugin[$data['slug']]['author'], $this->plugins_allowedtags );
                                     $details_link = self_admin_url('plugin-install.php?tab=plugin-information&amp;plugin=' . $plugin['slug'] .'&amp;TB_iframe=true&amp;width=772&amp;height=577');
                                     $target       = '_self';
@@ -230,7 +230,7 @@ class HTRP_Recommended_Plugins {
                                     $author_name    = esc_html__( 'HasTheme', 'htmega-addons' );
                                     $author_link    = isset( $plugin['author_link'] ) ? $plugin['author_link'] : '';
                                     $details_link   = isset( $plugin['link'] ) ? $plugin['link'] : '';
-                                    $button_text    = esc_html__('Buy Now', $this->text_domain );
+                                    $button_text    = esc_html__('Buy Now', 'htmega-addons' );
                                     $button_classes = 'button button-primary';
                                     $target         = '_blank';
                                     $modal_class    = '';
@@ -261,20 +261,20 @@ class HTRP_Recommended_Plugins {
                                         <div class="plugin-card-top">
                                             <div class="name column-name" style="margin-right: 0;">
                                                 <h3>
-                                                    <a href="<?php echo esc_url( $details_link ) ?>" target="<?php echo esc_attr( $target ) ?>" <?php echo $modal_class; ?>>
+                                                    <a href="<?php echo esc_url( $details_link ) ?>" target="<?php echo esc_attr( $target ) ?>" <?php echo $modal_class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
                                                         <?php echo esc_html( $title ) ?>
                                                         <img src="<?php echo esc_url( $image_url ) ?>" class="plugin-icon" alt="<?php echo esc_attr( $title ) ?>">
                                                     </a>
                                                 </h3>
                                             </div>
                                             <div class="desc column-description" style="margin-right: 0;">
-                                                <p><?php echo wp_trim_words( $description, 23, '....'); ?></p>
+                                                <p><?php echo esc_html( wp_trim_words( $description, 23, '....') ); ?></p>
                                                 <p class="authors">
                                                     <cite><?php echo esc_html__( 'By ', 'htmega-addons' ); ?>
                                                         <?php if( $plugins_type == 'free' ): ?>
-                                                            <?php echo $author_name; ?>
+                                                            <?php echo $author_name; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                                         <?php else: ?>
-                                                            <a href="<?php echo esc_url( $author_link ); ?>"  target="_blank" ><?php echo $author_name; ?></a>
+                                                            <a href="<?php echo esc_url( $author_link ); ?>"  target="_blank" ><?php echo esc_html( $author_name ); ?></a>
                                                         <?php endif; ?>
                                                     </cite>
                                                 </p>
@@ -287,17 +287,17 @@ class HTRP_Recommended_Plugins {
                                                         echo '<a class="button button-primary" href="'.esc_url( $details_link ).'" target="'.esc_attr( $target ).'">'.esc_html__( 'Buy Now', 'htmega-addons' ).'</a>';
                                                     }else{
                                                 ?>
-                                                    <button class="<?php echo $button_classes; ?>" data-pluginopt='<?php echo wp_json_encode( $data ); ?>'><?php echo $button_text; ?></button>
+                                                    <button class="<?php echo esc_attr( $button_classes ); ?>" data-pluginopt='<?php echo esc_attr(  wp_json_encode( $data ) ); ?>'><?php echo esc_html( $button_text ); ?></button>
                                                     
                                                 <?php } ?>
                                             </div>
                                             <div class="column-downloaded">
-                                                <a href="<?php echo esc_url( $details_link ) ?>" target="<?php echo esc_attr( $target ) ?>" <?php echo $modal_class; ?>><?php echo esc_html__('More Details', 'htmega-addons') ?></a>
+                                                <a href="<?php echo esc_url( $details_link ) ?>" target="<?php echo esc_attr( $target ) ?>" <?php echo $modal_class; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html__('More Details', 'htmega-addons') ?></a>
                                                 <span class="downloaded-count">
                                                     <?php
                                                         if( $plugins_type == 'free' ){
                                                             /* translators: %s: Number of installations. */
-                                                            printf( __( '%s Active Installations', 'htmega-addons' ), $this->active_install_count( $prepare_plugin[$data['slug']]['active_installs'] ) );
+                                                            printf( esc_html__( '%s Active Installations', 'htmega-addons' ), $this->active_install_count( $prepare_plugin[$data['slug']]['active_installs'] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                                         }
                                                     ?>
                                                 </span>

@@ -66,10 +66,10 @@ class TemplateLoader extends Base {
             // Use a custom taxonomy template for your custom taxonomy
 
             $_default_template = 'templates/single/layout-1';
-            $layout            = 'templates/single/layout-7'; 
-    
+            $layout            = 'templates/single/layout-7';
+
             $eligible_template = $this->views->path( $layout, $_default_template );
-    
+
             if ( file_exists( $eligible_template ) ) {
                 $template = &$eligible_template;
             }

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Flexible Shipping plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flexible Shipping 4.25.1\n"
+"Project-Id-Version: Flexible Shipping 4.25.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flexible-shipping\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-18T17:01:48+00:00\n"
+"POT-Creation-Date: 2024-07-01T11:17:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: flexible-shipping\n"
@@ -763,11 +763,11 @@ msgstr ""
 msgid "Create shipping manifest"
 msgstr ""
 
-#: src/WPDesk/FS/Shipment/BulkAction/HandleActionLabels.php:61
+#: src/WPDesk/FS/Shipment/BulkAction/HandleActionLabels.php:55
 msgid "Unable to create temporary zip archive for labels. Check temporary folder configuration on server."
 msgstr ""
 
-#: src/WPDesk/FS/Shipment/BulkAction/HandleActionLabels.php:63
+#: src/WPDesk/FS/Shipment/BulkAction/HandleActionLabels.php:57
 msgid "Unable to create temporary file for labels. Check temporary folder configuration on server."
 msgstr ""
 

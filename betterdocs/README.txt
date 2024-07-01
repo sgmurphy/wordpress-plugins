@@ -1,11 +1,11 @@
-=== BetterDocs – Advanced AI-Driven Documentation, FAQ & Knowledge Base Plugin for Elementor & Gutenberg with Encyclopedia, AI Support, Instant Answers ===
+=== BetterDocs – Best Documentation, FAQ & Knowledge Base Plugin with AI Support & Instant Answer for Elementor & Gutenberg ===
 Contributors: wpdevteam, re_enter_rupok, asif2bd, emsohel, priyomukul, cu121, fencermonir, sapanmozammel, seakashdiu
 Donate link: https://wpdeveloper.com
 Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 3.5.8
+Stable tag: 3.5.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.5.9 - 01/07/2024 =
+
+- Fixed: Customizations for the docs page from FSE were not working
+- Fixed: Changing the "Encyclopedia Root Slug" not updating the path for single Encyclopedia items
+- Fixed: Single Doc Elementor template was loading customizer CSS
+- Fixed: HelpScout migration not completing
+- Few minor bug fixes and improvements
 
 = 3.5.8 - 11/06/2024 =
 - Fixed: Edited Sample CSV file returning an error

@@ -184,7 +184,7 @@ class Settings extends BaseAPI {
             ];
         }
 
-        $api_endpoint = 'https://docsapi.helpscout.net/v1/collections/' . $collection_id . '/articles';
+        $api_endpoint = 'https://docsapi.helpscout.net/v1/collections/' . $collection_id . '/articles?pageSize=1';
 
         $headers = array(
             'Authorization' => 'Basic ' . base64_encode($api_key . ':X'),
@@ -193,7 +193,7 @@ class Settings extends BaseAPI {
 
         $initial_response = wp_remote_get($api_endpoint, array('headers' => $headers));
 
-        if ( $initial_response['response']['code'] == '401' ) {
+        if ( $initial_response['response']['code'] == '404' ) {
             return [
                 'status' => 'error',
                 'message' => esc_html__('Unauthorized API Key or Collection ID', 'betterdocs')

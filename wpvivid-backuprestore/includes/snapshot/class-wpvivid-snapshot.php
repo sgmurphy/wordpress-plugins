@@ -1452,25 +1452,6 @@ class WPvivid_Snapshot_Ex
         die();
     }
 
-    public function ajax_check_security($role='administrator')
-    {
-        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-
-        if(is_admin()&&current_user_can('administrator'))
-        {
-            return;
-        }
-        else
-        {
-            $check=is_admin()&&current_user_can($role);
-            $check=apply_filters('wpvivid_ajax_check_security',$check);
-            if(!$check)
-            {
-                die();
-            }
-        }
-    }
-
     public function check_create_snapshot($check)
     {
         return true;

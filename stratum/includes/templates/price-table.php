@@ -128,9 +128,11 @@ $subtitles_typography_html_tag = stratum_validate_heading_html_tag( $subtitles_t
 
 		if ( $button_show == 'yes' ) {
 			//Button
+
+			$buttonUrl = stratum_translate_url( $button_url['url'] );
 			?>
 			<div class="<?php echo esc_attr($class); ?>__button elementor-widget-button">
-				<a href="<?php echo esc_url($button_url['url']); ?>" class="button elementor-button" <?php
+				<a href="<?php echo esc_url($buttonUrl); ?>" class="button elementor-button" <?php
 					if ( $button_url['is_external'] ) {
 						?>
 						target="_blank"

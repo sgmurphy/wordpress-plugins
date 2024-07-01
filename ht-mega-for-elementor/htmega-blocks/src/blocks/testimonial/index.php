@@ -61,7 +61,7 @@ $slider && $slider_settings = "data-settings='" . wp_json_encode($slider_setting
 
 ob_start();
 ?>
-<div class="<?php echo esc_attr($classes); ?>" <?php echo esc_attr($slider_direction); ?> <?php echo ($slider ? $slider_settings : ''); ?>>
+<div class="<?php echo esc_attr($classes); ?>" <?php echo esc_attr($slider_direction); ?> <?php echo ($slider ? $slider_settings : ''); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<?php
 	if (is_array($testimonials)) {
 		foreach ($testimonials as $key => $testimonial):
@@ -77,12 +77,12 @@ ob_start();
 
 					<?php if ($showThumbnail): ?>
 						<div class='htmega-testimonial-thumbnail'>
-							<?php echo ($testimonial_image); ?>
+							<?php echo ($testimonial_image); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 					<?php endif; ?>
 
 					<?php if ($showRatting && ($testimonialStyle === '1' || $testimonialStyle === '2' || $testimonialStyle === '5')): ?>
-						<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); ?>
+						<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php endif; ?>
 
 					<div class='htmega-testimonial-content'>
@@ -92,14 +92,14 @@ ob_start();
 								<?php echo esc_html($testimonial['content']); ?>
 								<?php if ($showIcon && $testimonialStyle === '1'): ?>
 									<div class='htmega-testimonial-quote-icon'>
-										<?php echo file_get_contents($quote_icon); ?>
+										<?php echo htmega_get_local_file_data($quote_icon); // phpcs:ignore  WordPress.Security.EscapeOutput.OutputNotEscaped ?> 
 									</div>
 								<?php endif; ?>
 							</div>
 						<?php endif; ?>
 
 						<?php if ($showRatting && ($testimonialStyle === '3' || $testimonialStyle === '4')): ?>
-							<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); ?>
+							<?php echo htmegaBlocks_testimonial_ratting($testimonial['ratting']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php endif; ?>
 
 						<?php if ($showName) {
@@ -118,7 +118,7 @@ ob_start();
 
 						<?php if ($showIcon && $testimonialStyle !== '1'): ?>
 							<div class='htmega-testimonial-quote-icon'>
-								<?php echo file_get_contents($quote_icon); ?>
+								<?php echo htmega_get_local_file_data($quote_icon); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</div>
 						<?php endif; ?>
 					</div>
@@ -131,4 +131,4 @@ ob_start();
 	?>
 </div>
 <?php
-echo ob_get_clean();
+echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

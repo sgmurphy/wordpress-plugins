@@ -1268,14 +1268,14 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                 $args['date_query'] = array(
                     array(
                         'before'    => array(
-                            'year'  => date('Y', $order_by_date_before),
-                            'month' =>date('m', $order_by_date_before),
-                            'day'   => date('d', $order_by_date_before),
+                            'year'  => gmdate('Y', $order_by_date_before),
+                            'month' =>gmdate('m', $order_by_date_before),
+                            'day'   => gmdate('d', $order_by_date_before),
                         ),
                         'after'    => array(
-                            'year'  => date('Y', $order_by_date_after),
-                            'month' =>date('m', $order_by_date_after),
-                            'day'   => date('d', $order_by_date_after),
+                            'year'  => gmdate('Y', $order_by_date_after),
+                            'month' =>gmdate('m', $order_by_date_after),
+                            'day'   => gmdate('d', $order_by_date_after),
                         ),
                         'inclusive' => true,
                     ),
@@ -1331,7 +1331,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1365,7 +1365,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail( $image_size ); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1393,7 +1393,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1424,7 +1424,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1455,7 +1455,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1494,7 +1494,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
                                         }else{
-                                            echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                            echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                         }
                                     ?>
                                 </a>
@@ -1533,14 +1533,14 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                                     <?php
                                     } else { ?>
-                                        <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), (int)$title_length, '' ); ?></a></h2>
+                                        <h2><a href="<?php the_permalink();?>"><?php echo esc_html( wp_trim_words( get_the_title(), (int)$title_length, '' ) ); ?></a></h2>
                                     <?php
                                      }
                                     ?>
 
                                     <?php endif; if( $settings['show_date'] == 'yes' ): ?>
                                     <ul class="meta">
-                                        <li><i class="fa fa-user-circle"></i> <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a></li>
+                                        <li><i class="fa fa-user-circle"></i> <a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ); ?>"><?php the_author();?></a></li>
                                         <li><i class="fa fa-clock-o"></i> <?php the_time( 'd F Y' ); ?></li>
                                     </ul>
                                     <?php endif; if( $settings['show_content'] == 'yes' ):
@@ -1548,7 +1548,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                                         
                                         ?>
                                     
-                                    <p><?php echo wp_trim_words( get_the_content(), (int)$content_limit, '' ); ?></p>
+                                    <p><?php echo wp_kses_post( wp_trim_words( get_the_content(), (int)$content_limit, '' ) ) ; ?></p>
 
                                 <?php endif; if( $settings['show_read_more_btn'] == 'yes' ): ?>
                                     <div class="post-btn">

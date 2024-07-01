@@ -983,6 +983,8 @@ class Image_Accordion extends Stratum_Widget_Base {
 		] );
 
 		if ( ! empty( $link[ 'url' ] ) ) {
+
+			$link['url'] = stratum_translate_url( $link['url'] );
 			$this->add_link_attributes( 'button' . $index, $link );
 		}
 

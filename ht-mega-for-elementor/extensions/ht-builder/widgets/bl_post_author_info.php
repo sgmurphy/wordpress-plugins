@@ -338,9 +338,9 @@ class Bl_Post_Author_Info_ELement extends Widget_Base {
                     <div class="htavatar">
                         <?php
                             if( !empty( $author_link ) ){
-                                echo sprintf( '<a href="%1$s" target="_blank"><img %2$s ></a>', esc_url( $author_link ), $this->get_render_attribute_string( 'avatar_attr' ) );
+                                echo sprintf( '<a href="%1$s" target="_blank"><img %2$s ></a>', esc_url( $author_link ), $this->get_render_attribute_string( 'avatar_attr' ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             }else{
-                                echo sprintf( '<img %1$s >', $this->get_render_attribute_string( 'avatar_attr' ) );
+                                echo sprintf( '<img %1$s >', $this->get_render_attribute_string( 'avatar_attr' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             }
                         ?>
                     </div>
@@ -349,9 +349,9 @@ class Bl_Post_Author_Info_ELement extends Widget_Base {
                     <?php
                         if( $settings['show_name'] == 'yes' ){
                             if( !empty( $author_link ) ){
-                                echo sprintf( '<a href="%1$s" target="_blank"><%2$s class="htauthor-name">%3$s</%2$s></a>', esc_url( $author_link ) , $name_tag, esc_html( $author_info['display_name'] ) );
+                                echo sprintf( '<a href="%1$s" target="_blank"><%2$s class="htauthor-name">%3$s</%2$s></a>', esc_url( $author_link ) , esc_attr( $name_tag ), esc_html( $author_info['display_name'] ) );
                             }else{
-                                echo sprintf( '<%1$s class="htauthor-name">%2$s</%1$s>', $name_tag, esc_url( $author_info['display_name'] ) );
+                                echo sprintf( '<%1$s class="htauthor-name">%2$s</%1$s>', esc_attr( $name_tag ), esc_html( $author_info['display_name'] ) );
                             }
                         }
                         if( $settings['show_biography'] == 'yes' ){

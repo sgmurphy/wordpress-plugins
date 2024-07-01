@@ -327,12 +327,36 @@ class Fs
 		'xsl'     => 'text/xml',
 		'xwd'     => 'image/x-xwindowdump',
 		'xyz'     => 'chemical/x-xyz',
-		'zip'     => 'application/zip'
+		'zip'     => 'application/zip',
+	);
+
+	static $mime_types_rev = array(
+		'font/eot'									=> 'eot',
+		'application/vnd.ms-fontobject'				=> 'eot',
+
+		'font/opentype'								=> 'otf',
+		'application/font-opentype'					=> 'otf',
+		'application/x-font-opentype'				=> 'otf',
+
+		'application/font-ttf'						=> 'ttf',
+		'application/x-font-ttf'					=> 'ttf',
+		'application/x-font-truetype'				=> 'ttf',
+
+		'font/woff'									=> 'woff',
+		'application/font-woff'						=> 'woff',
+		'application/x-font-woff'					=> 'woff',
+
+		'application/font-woff2'					=> 'woff2',
+		'application/x-font-woff2'					=> 'woff2',
 	);
 
 	static function GetMimeContentType( $filename )
 	{
-		$mimeType = (isset(self::$mime_types[ strtolower( Gen::GetFileExt( $filename ) ) ])?self::$mime_types[ strtolower( Gen::GetFileExt( $filename ) ) ]:null);
+		static $aMime = null;
+		if( !$aMime )
+			$aMime = array_merge( self::$mime_types, array_flip( self::$mime_types_rev ) );
+
+		$mimeType = (isset($aMime[ strtolower( Gen::GetFileExt( $filename ) ) ])?$aMime[ strtolower( Gen::GetFileExt( $filename ) ) ]:null);
 		if( empty( $mimeType ) )
 			$mimeType = self::_GetMimeContentType( $filename );
 		if( empty( $mimeType ) )
@@ -358,8 +382,11 @@ class Fs
 
 	static function GetFileTypeFromMimeContentType( $mimeType )
 	{
-		$types = array_flip( self::$mime_types );
-		return( (isset($types[ $mimeType ])?$types[ $mimeType ]:null) );
+		static $aMimeRev = null;
+		if( !$aMimeRev )
+			$aMimeRev = array_merge( self::$mime_types_rev, array_flip( self::$mime_types ) );
+
+		return( (isset($aMimeRev[ $mimeType ])?$aMimeRev[ $mimeType ]:null) );
 	}
 }
 

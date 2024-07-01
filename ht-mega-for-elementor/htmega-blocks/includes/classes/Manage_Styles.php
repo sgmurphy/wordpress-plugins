@@ -152,7 +152,7 @@ class Manage_Styles {
 			} else {
 				delete_post_meta( $post_id, '_htmega_active' );
 				if ( file_exists( $dirname.$filename ) ) {
-					unlink( $dirname.$filename );
+					wp_delete_file( $dirname.$filename );
 				}
 				delete_post_meta( $post_id, '_htmega_css' );
 				return [
@@ -196,7 +196,7 @@ class Manage_Styles {
 			update_post_meta( $post_id, '_htmega_active', 'yes' );
 			
 			if ( ! $wp_filesystem->put_contents( $dirname . $filename, $css ) ) {
-				throw new Exception( __('You are not permitted to save CSS.', 'htmega-addons' ) );
+				throw new Exception( esc_html__('You are not permitted to save CSS.', 'htmega-addons' ) );
 			}
 
 			wp_send_json_success(
@@ -264,18 +264,18 @@ class Manage_Styles {
 			foreach ( $reusable_id as $id ) {
 				$reusable_dir_path = $upload_css_dir_url."htmega-addons/htmega-css-{$id}.css";
 				if (file_exists( $reusable_dir_path )) {
-					$reusable_block_css .= file_get_contents( $reusable_dir_path );
+					$reusable_block_css .= htmega_get_local_file_data( $reusable_dir_path );
 				}else{
 					$reusable_block_css .= get_post_meta($id, '_htmega_css', true);
 				}
 			}
 
 			if ( file_exists( $css_file_path ) ) {
-				echo '<style type="text/css">'.file_get_contents( $css_file_path ).$reusable_block_css.'</style>';
+				echo '<style type="text/css">'.htmega_get_local_file_data( $css_file_path ).$reusable_block_css.'</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			} else {
 				$css = get_post_meta( $post_id, '_htmega_css', true );
 				if( $css ) {
-					echo '<style type="text/css">'.$css.$reusable_block_css.'</style>';
+					echo '<style type="text/css">'.$css.$reusable_block_css.'</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				}
 			}
 		}

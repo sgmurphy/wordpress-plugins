@@ -117,7 +117,7 @@ class Blocks_init {
             'enqueue_style'		=> false,
             'enqueue_script'	=> false,
             'enqueue_assets'	=> false,
-            'is_editor'         => ( isset($_GET['is_editor_mode']) && $_GET['is_editor_mode'] == 'yes' )
+            'is_editor'         => ( isset($_GET['is_editor_mode']) && $_GET['is_editor_mode'] == 'yes' ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         ] );
 
         $block['render_callback'] = function ( $settings, $content ) use ( $block, $block_file ) {

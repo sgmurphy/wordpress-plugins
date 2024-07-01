@@ -239,7 +239,7 @@ if( class_exists('TwitterOAuth') ){
 
 		  function __construct($http_method, $http_url, $parameters=NULL) {
 			@$parameters or $parameters = array();
-			$parameters = array_merge( OAuthUtil::parse_parameters(parse_url($http_url, PHP_URL_QUERY)), $parameters);
+			$parameters = array_merge( OAuthUtil::parse_parameters(wp_parse_url($http_url, PHP_URL_QUERY)), $parameters);
 			$this->parameters = $parameters;
 			$this->http_method = $http_method;
 			$this->http_url = $http_url;
@@ -278,7 +278,7 @@ if( class_exists('TwitterOAuth') ){
 							 "application/x-www-form-urlencoded")
 				  ) {
 				$post_data = OAuthUtil::parse_parameters(
-				  file_get_contents(self::$POST_INPUT)
+					htmega_get_local_file_data(self::$POST_INPUT)
 				);
 				$parameters = array_merge($parameters, $post_data);
 			  }
@@ -389,7 +389,7 @@ if( class_exists('TwitterOAuth') ){
 		   * scheme://host/path
 		   */
 		  public function get_normalized_http_url() {
-			$parts = parse_url($this->http_url);
+			$parts = wp_parse_url($this->http_url);
 
 			//$port = @$parts['port'];
 			$port = '';
@@ -484,7 +484,7 @@ if( class_exists('TwitterOAuth') ){
 		   */
 		  private static function generate_nonce() {
 			$mt = microtime();
-			$rand = mt_rand();
+			$rand = wp_rand();
 
 			return md5($mt . $rand); // md5s look nicer than numbers
 		  }
@@ -573,7 +573,11 @@ if( class_exists('TwitterOAuth') ){
 			  $version = '1.0';
 			}
 			if ($version !== $this->version) {
-			  throw new OAuthException("OAuth version '$version' not supported");
+				$error_message = sprintf(
+					esc_html__('OAuth version \'%s\' not supported', 'htmega-addons'),
+					esc_html($version)
+				);
+			  throw new OAuthException($error_message); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
 			return $version;
 		  }
@@ -591,14 +595,19 @@ if( class_exists('TwitterOAuth') ){
 			  throw new OAuthException('No signature method parameter. This parameter is required');
 			}
 
-			if (!in_array($signature_method,
-						  array_keys($this->signature_methods))) {
-			  throw new OAuthException(
-				"Signature method '$signature_method' not supported " .
-				"try one of the following: " .
-				implode(", ", array_keys($this->signature_methods))
-			  );
+			if (!in_array($signature_method, array_keys($this->signature_methods))) {
+				$supported_methods = implode(", ", array_keys($this->signature_methods));
+			
+				// Translate and format the error message
+				$error_message = sprintf(
+					esc_html__('Signature method \'%1$s\' not supported. Try one of the following: %2$s', 'htmega-addons'),
+					esc_html($signature_method), // Escape the signature method
+					esc_html($supported_methods) // Escape the list of supported methods
+				);
+			
+				throw new OAuthException($error_message); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
+
 			return $this->signature_methods[$signature_method];
 		  }
 
@@ -622,16 +631,29 @@ if( class_exists('TwitterOAuth') ){
 		  /**
 		   * try to find the token for the provided request's token key
 		   */
+
 		  private function get_token(&$request, $consumer, $token_type="access") {
 			$token_field = @$request->get_parameter('oauth_token');
 			$token = $this->data_store->lookup_token(
-			  $consumer, $token_type, $token_field
+				$consumer,
+				$token_type,
+				$token_field
 			);
+			
 			if (!$token) {
-			  throw new OAuthException("Invalid $token_type token: $token_field");
+				// Translate and format the error message
+				$error_message = sprintf(
+					esc_html__('Invalid %1$s token: %2$s', 'htmega-addons'),
+					ucfirst($token_type), // Capitalize the token type
+					esc_html($token_field) // Escape the token field
+				);
+		
+				throw new OAuthException($error_message); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
+			
 			return $token;
-		  }
+		}
+		
 
 		  /**
 		   * all-in-one function to check the signature on a request
@@ -656,7 +678,7 @@ if( class_exists('TwitterOAuth') ){
 			);
 
 			if (!$valid_sig) {
-			  throw new OAuthException("Invalid signature");
+			  throw new OAuthException( esc_html__( 'Invalid signature','htmega-addons') );
 			}
 		  }
 
@@ -664,40 +686,57 @@ if( class_exists('TwitterOAuth') ){
 		   * check that the timestamp is new enough
 		   */
 		  private function check_timestamp($timestamp) {
-			if( ! $timestamp )
-			  throw new OAuthException(
-				'Missing timestamp parameter. The parameter is required'
-			  );
+			if (! $timestamp ) {
+				throw new OAuthException(
+					esc_html__('Missing timestamp parameter. The parameter is required', 'htmega-addons')
+				);
+			}
 			
-			// verify that timestamp is recentish
+			// Verify that timestamp is recentish
 			$now = time();
 			if (abs($now - $timestamp) > $this->timestamp_threshold) {
-			  throw new OAuthException(
-				"Expired timestamp, yours $timestamp, ours $now"
-			  );
+				// Translate and format the error message
+				$error_message = sprintf(
+					esc_html__('Expired timestamp, yours %1$s, ours %2$s', 'htmega-addons'),
+					esc_html($timestamp), // Escape the timestamp
+					esc_html($now) // Escape the current time
+				);
+		
+				throw new OAuthException($error_message);// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			}
-		  }
+		}
+		
 
 		  /**
 		   * check that the nonce is not repeated
 		   */
-		  private function check_nonce($consumer, $token, $nonce, $timestamp) {
-			if( ! $nonce )
-			  throw new OAuthException(
-				'Missing nonce parameter. The parameter is required'
-			  );
 
-			// verify that the nonce is uniqueish
-			$found = $this->data_store->lookup_nonce(
-			  $consumer,
-			  $token,
-			  $nonce,
-			  $timestamp
-			);
-			if ($found) {
-			  throw new OAuthException("Nonce already used: $nonce");
+		  private function check_nonce($consumer, $token, $nonce, $timestamp) {
+			if (! $nonce ) {
+				throw new OAuthException(
+					esc_html__('Missing nonce parameter. The parameter is required', 'htmega-addons')
+				);
 			}
-		  }
+		
+			// Verify that the nonce is uniqueish
+			$found = $this->data_store->lookup_nonce(
+				$consumer,
+				$token,
+				$nonce,
+				$timestamp
+			);
+			
+			if ($found) {
+				// Translate and format the error message
+				$error_message = sprintf(
+					esc_html__('Nonce already used: %s', 'htmega-addons'),
+					esc_html($nonce) // Escape the nonce
+				);
+		
+				throw new OAuthException($error_message); // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			}
+		}
+		
 
 		}
 
@@ -1079,57 +1118,95 @@ class TwitterOAuth {
     }
   }
 
-  /**
-   * Make an HTTP request
-   *
-   * @return API results
-   */
-  function http($url, $method, $postfields = NULL) {
-    $this->http_info = array();
-    $ci = curl_init();
-    /* Curl settings */
-    curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
-    curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
-    curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
-    curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
-    curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
-    curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
-    curl_setopt($ci, CURLOPT_HEADER, FALSE);
+// /**
+//    * Make an HTTP request
+//    *
+//    * @return API results
+//    */
+//   function http($url, $method, $postfields = NULL) {
+//     $this->http_info = array();
+//     $ci = curl_init();
+//     /* Curl settings */
+//     curl_setopt($ci, CURLOPT_USERAGENT, $this->useragent);
+//     curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, $this->connecttimeout);
+//     curl_setopt($ci, CURLOPT_TIMEOUT, $this->timeout);
+//     curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
+//     curl_setopt($ci, CURLOPT_HTTPHEADER, array('Expect:'));
+//     curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
+//     curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
+//     curl_setopt($ci, CURLOPT_HEADER, FALSE);
 
-    switch ($method) {
-      case 'POST':
-        curl_setopt($ci, CURLOPT_POST, TRUE);
-        if (!empty($postfields)) {
-          curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
-        }
-        break;
-      case 'DELETE':
-        curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        if (!empty($postfields)) {
-          $url = "{$url}?{$postfields}";
-        }
-    }
+//     switch ($method) {
+//       case 'POST':
+//         curl_setopt($ci, CURLOPT_POST, TRUE);
+//         if (!empty($postfields)) {
+//           curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
+//         }
+//         break;
+//       case 'DELETE':
+//         curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'DELETE');
+//         if (!empty($postfields)) {
+//           $url = "{$url}?{$postfields}";
+//         }
+//     }
 
-    curl_setopt($ci, CURLOPT_URL, $url);
-    $response = curl_exec($ci);
-    $this->http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
-    $this->http_info = array_merge($this->http_info, curl_getinfo($ci));
-    $this->url = $url;
-    curl_close ($ci);
-    return $response;
-  }
+//     curl_setopt($ci, CURLOPT_URL, $url);
+//     $response = curl_exec($ci);
+//     $this->http_code = curl_getinfo($ci, CURLINFO_HTTP_CODE);
+//     $this->http_info = array_merge($this->http_info, curl_getinfo($ci));
+//     $this->url = $url;
+//     curl_close ($ci);
+//     return $response;
+//   }
 
-  /**
-   * Get the header info to store.
-   */
-  function getHeader($ch, $header) {
-    $i = strpos($header, ':');
-    if (!empty($i)) {
-      $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
-      $value = trim(substr($header, $i + 2));
-      $this->http_header[$key] = $value;
-    }
-    return strlen($header);
-  }
+//   /**
+//    * Get the header info to store.
+//    */
+//   function getHeader($ch, $header) {
+//     $i = strpos($header, ':');
+//     if (!empty($i)) {
+//       $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
+//       $value = trim(substr($header, $i + 2));
+//       $this->http_header[$key] = $value;
+//     }
+//     return strlen($header);
+//   }
+
+
+
+	/**
+	 * Make an HTTP request using wp_remote_get
+	 *
+	 * @return API results
+	 */
+	function http($url, $method, $postfields = NULL) {
+		$this->http_info = array();
+		
+		$args = array(
+			'method' => $method,
+			'timeout' => $this->timeout,
+			'redirection' => 5,
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => array('Expect:' => ''),
+			'sslverify' => $this->ssl_verifypeer,
+			'body' => $postfields,
+			'user-agent' => $this->useragent
+		);
+		
+		$response = wp_remote_request($url, $args);
+		
+		if (is_wp_error($response)) {
+			$this->http_code = 0;
+			$this->http_info = array('error' => $response->get_error_message());
+			return false;
+		}
+		
+		$this->http_code = wp_remote_retrieve_response_code($response);
+		$this->http_info = wp_remote_retrieve_headers($response);
+		$this->url = $url;
+		
+		return wp_remote_retrieve_body($response);
+	}
+
 }

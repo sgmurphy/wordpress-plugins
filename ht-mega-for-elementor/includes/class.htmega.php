@@ -96,7 +96,7 @@ final class HTMega_Addons_Elementor {
          * @var [type]
          */
 
-        if(isset($_GET['page']) && 'htmega_addons_templates_library' === $_GET['page'] ){
+        if(isset($_GET['page']) && 'htmega_addons_templates_library' === $_GET['page'] ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             if( is_admin() && class_exists('HTMega_Template_Library') ){
 
                 $stror_time = (int) get_option( 'htmega_api_last_req' );
@@ -246,9 +246,9 @@ final class HTMega_Addons_Elementor {
 
             $message = '<p>' . __( '<strong>HTMEGA Addons for Elementor</strong> requires "<strong>Elementor</strong>" plugin to be active. Please install the Elementor plugin to continue.', 'htmega-addons' ) . '</p>';
 
-            $message .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, __( 'Elementor Install Now', 'htmega-addons' ) ) . '</p>';
+            $message .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, esc_html__( 'Elementor Install Now', 'htmega-addons' ) ) . '</p>';
         }
-        echo '<div class="error"><p>' . $message . '</p></div>';
+        echo '<div class="error"><p>' . $message . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
@@ -258,12 +258,13 @@ final class HTMega_Addons_Elementor {
     public function admin_notice_minimum_elementor_version() {
         if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
         $message = sprintf(
+            /* translators: 1: Plugin name (HTMega Addons), 2: Required plugin name (Elementor), 3: Minimum required version */
             __( '"%1$s" requires "%2$s" version %3$s or greater.', 'htmega-addons' ),
             '<strong>' . __( 'HTMega Addons', 'htmega-addons' ) . '</strong>',
             '<strong>' . __( 'Elementor', 'htmega-addons' ) . '</strong>',
              self::MINIMUM_ELEMENTOR_VERSION
         );
-        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
@@ -272,14 +273,14 @@ final class HTMega_Addons_Elementor {
      */
     public function admin_notice_minimum_php_version() {
         if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
-        $message = sprintf(
+        $message = sprintf( /* translators: 1: Plugin name (HTMega Addons), 2: Required component name (PHP), 3: Minimum required version */
             __( '"%1$s" requires "%2$s" version %3$s or greater.', 'htmega-addons' ),
             '<strong>' . __( 'HTMega Addons', 'htmega-addons' ) . '</strong>',
             '<strong>' . __( 'PHP', 'htmega-addons' ) . '</strong>',
              self::MINIMUM_PHP_VERSION
         );
-        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-    }
+        printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    } 
 
     /**
      * [plugins_setting_links]

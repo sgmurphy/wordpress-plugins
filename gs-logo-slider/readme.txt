@@ -5,7 +5,7 @@ Tags: Logo Slider, wordpress logo slider, logo carousel, logo carousel slider, l
 Requires at least: 4.3
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 3.6.8
+Stable tag: 3.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Logo Slider is The Best Responsive Plugin for Logo Showcase, Logo Carousel and d
 
 Logo Slider - The best easy-to-use WordPress plugin to Show off your clients, partners, or sponsors on your website with a sleek and professional slider. You can customize it to match your brand and style. Start today and make your website look even better!
 
-> [ Live Demo](https://logo.gsplugins.com) | [Upgrade to PRO](https://www.gsplugins.com/product/gs-logo-slider) | [Documentation](https://docs.gsplugins.com/gs-logo-slider) | [Support](https://www.gsplugins.com/contact)
+🎬 [Live Demo](https://logo.gsplugins.com) ⬆️ [Upgrade to PRO](https://www.gsplugins.com/product/gs-logo-slider) 📚 [Documentation](https://docs.gsplugins.com/gs-logo-slider) 🙋‍♂️ [Support](https://www.gsplugins.com/contact)
 
 https://www.youtube.com/playlist?list=PLLrT2alOaYX7BYElWvN_juWXo7yYAcjoh
 
@@ -80,35 +80,31 @@ Use the following shortcode to display logos for partners, clients, or sponsors.
 
 `
 [gslogo id=1]
-[gs_logo theme="slider1"] (Old Style)
-`
-
-**Shortcode attributes Usage**
-`
-[gslogo id=1]
-[gs_logo title="yes" posts="15" order="ASC" logo_cat="food" mode="vertical" speed="1000" inf_loop="0" ticker="1" logo_color="gray_to_def"] (Old Style)
 `
 
 **Shortcode PHP Usage**
 `
 <?php echo do_shortcode( '[gslogo id=1]' ); ?>
-<?php echo do_shortcode( '[gs_logo theme="slider1"]' ); ?>
 `
 
-### Lite version supported themes.
-Use old style shortcode or generate shortcode from GS Logos > **Logo Shortcode**
+### Documentation
+If you have any questions regarding the **WordPress Logo Carousel** plugin and how to work with it, We recommend referring to our comprehensive online documentation. It provides detailed information and instructions to assist you in navigating and utilizing the plugin effectively. You can find the [Documentation](https://docs.gsplugins.com/gs-logo-slider) here.
 
-`
-[gs_logo theme="slider1"]
-[gs_logo theme="grid1"]
-[gs_logo theme="list1"]
-[gs_logo theme="table1"]
-`
+### Quick Support & Bug Reporting
+If you encounter any problems or discover bugs, please post them in our [Support](https://www.gsplugins.com/contact) channel. We aim to respond as soon as possible (excluding holidays). 
 
-Confused?
+***Pro users are requested to contact our support channel for dedicated assistance.***
 
-*   [View live Demos &raquo;](https://logo.gsplugins.com)
-*   [Documentation &raquo;](https://docs.gsplugins.com/gs-logo-slider)
+🙋‍♂️ Alternatively, you can reach out to us through our [Support](https://www.gsplugins.com/contact) or [WordPress.org](https://wordpress.org/support/plugin/gs-logo-slider/) support forum.
+
+### Development Team
+Crafted and Developed with Passion by [GS Plugins](https://www.gsplugins.com)
+
+### Confused?
+
+🎬 [View live Demos &raquo;](https://logo.gsplugins.com)
+📚 [Documentation &raquo;](https://docs.gsplugins.com/gs-logo-slider)
+
 
 ### 🔥 You may like other plugins from [GS Plugins](https://www.gsplugins.com)
 
@@ -270,6 +266,9 @@ Recommended dimension 200px X 200px.
 23. Divi Builder - Module.
 
 == Changelog ==
+= Version 3.6.9 [1st Jul 2024] =
+* [Fixed]: XSS Issue.
+
 = Version 3.6.8 [31st Mar 2024] =
 * [Improved]: CSS Issue.
 
@@ -590,6 +589,9 @@ Recommended dimension 200px X 200px.
 * Initial release
 
 == Upgrade notice ==
+= Version 3.6.9 [1st Jul 2024] =
+* [Fixed]: XSS Issue.
+
 = Version 3.6.8 [31st Mar 2024] =
 * [Improved]: CSS Issue.
 

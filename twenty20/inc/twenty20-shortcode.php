@@ -6,7 +6,7 @@ function sanitize_xss_offset( $input ) {
 }
 
 function twenty20_shortcode_init( $atts) {
-  extract( shortcode_atts(
+  $atts = shortcode_atts(
     array(
       'img1' => '',
       'img2' => '',
@@ -16,8 +16,8 @@ function twenty20_shortcode_init( $atts) {
       'align' => '',
       'before' => '',
       'after' => '',
-      'hover' => false
-    ), $atts )
+      'hover' => 'false',
+    ), $atts, 'twenty20'
   );
 
   static $i = 1;
@@ -29,31 +29,31 @@ function twenty20_shortcode_init( $atts) {
   $isLeft = "";
   $isRight = "";
 
-  if ($align == "right"){
+  if (esc_attr( $atts['align'] ) == "right"){
     $isRight = " float: right; margin-left: 20px;";
-    if (empty($width)){ $width = "width: 50%;"; }
+    if (empty($atts['width'])){ $atts['width'] = "width: 50%;"; }
   }
 
-  if ($align == "left"){
+  if (esc_attr( $atts['align'] ) == "left"){
     $isLeft = " float: left; margin-right: 20px;";
-    if (empty($width)){ $width = "width: 50%;"; }
+    if (empty($atts['width'])){ $atts['width'] = "width: 50%;"; }
   }
 
-  if( is_numeric( $width ) ){
-    if (empty($width)){
-      $width = "width: 100% !important; clear: both;";
+  if( is_numeric( $atts['width'] ) ){
+    if (empty($atts['width'])){
+      $atts['width'] = "width: 100% !important; clear: both;";
     }else{
-      $width = "width: " . $width . '%;';
+      $atts['width'] = "width: " . $atts['width'] . '%;';
     }
   }else{
-    $width = "width: 100% !important; clear: both;";
+    $atts['width'] = "width: 100% !important; clear: both;";
   }
 
-  if($direction == "vertical"){
-    $isVertical = ' data-orientation="vertical"';
+  if($atts['direction'] == "vertical"){
+    $isVertical = ' data-orientation=vertical';
     $data_vertical = ", orientation: 'vertical'";
   }
-  if( $hover === "true"){
+  if( $atts['hover'] === "true"){
     $isHover = ',move_slider_on_hover: true';
     $yesHover = "t20-hover";
   }else{
@@ -61,40 +61,36 @@ function twenty20_shortcode_init( $atts) {
     $yesHover = '';
   }
 
-if(!empty($img1) && !empty($img2)){
-  $img1_alt = get_post_meta( $img1, '_wp_attachment_image_alt', true);
-  $img2_alt = get_post_meta( $img2, '_wp_attachment_image_alt', true);
+if(!empty($atts['img1']) && !empty($atts['img2'])){
+  $img1_alt = get_post_meta($atts['img1'], '_wp_attachment_image_alt', true);
+  $img2_alt = get_post_meta($atts['img2'], '_wp_attachment_image_alt', true);
 
-  if($img1_alt){
-    $img1_alt = ' alt="' . esc_attr( $img1_alt ) . '" title="'. esc_attr( $img1_alt ) .'"';
-  }else{
-    $img1_alt = '';
-  }
-  if($img2_alt){
-    $img2_alt = ' alt="' . esc_attr( $img2_alt ) . '" title="'.esc_attr( $img2_alt ).'"';
-  }else{
-    $img2_alt = '';
-  }
 
-  $output = '<div id="'.esc_attr($t20ID).'" class="twenty20" style="'. esc_attr($width . $isLeft . $isRight) . '">';
+ $img1_alt_attr = $img1_alt ? ' alt="' . esc_attr($img1_alt) . '" title="' . esc_attr($img1_alt) . '"' : '';
+    $img2_alt_attr = $img2_alt ? ' alt="' . esc_attr($img2_alt) . '" title="' . esc_attr($img2_alt) . '"' : '';
+
+
+  $output = '<div id="'.esc_attr($t20ID).'" class="twenty20" style="'. esc_attr($atts['width'] . $isLeft . $isRight) . '">';
   $output .= '<div class="twentytwenty-container '. esc_attr( $t20ID . ' ' . $yesHover ) .'"' . esc_attr( $isVertical ) . '>';
-  $output .= '<img class="skip-lazy" src="'. wp_get_attachment_url( $img1 ) .'"'.$img1_alt.' />';
-  $output .= '<img class="skip-lazy" src="'. wp_get_attachment_url( $img2 ) .'"'.$img2_alt.' />';
+  $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img1'] ) ) .'"'.$img1_alt.' />';
+  $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img2'] ) ) .'"'.$img2_alt.' />';
   $output .= '</div>';
   $output .= '<script>jQuery( document ).ready(function( $ ) {';
-  if($direction == "vertical"){
-    $output .= '$(".twentytwenty-container.'.esc_js($t20ID).'[data-orientation=\'vertical\']").twentytwenty({default_offset_pct: ' . sanitize_xss_offset(esc_js($offset . $data_vertical . $isHover)) . '});';
+  if($atts['direction'] == "vertical"){
+    $direc = "[data-orientation='vertical']";
+    $output .= '$(".twentytwenty-container.'.esc_js($t20ID). $direc . '").twentytwenty({default_offset_pct: ' . esc_js($atts['offset'] . $isHover) . $data_vertical . '});';
   }else{
-    $output .= '$(".twentytwenty-container.'.esc_js($t20ID).'[data-orientation!=\'vertical\']").twentytwenty({default_offset_pct: '. sanitize_xss_offset(esc_js($offset . $isHover)) .'});';
+    $direc = "[data-orientation!='vertical']";
+    $output .= '$(".twentytwenty-container.'.esc_js($t20ID).$direc.'").twentytwenty({default_offset_pct: '. esc_js($atts['offset'] . $isHover) .'});';
   }
   
-  if($before){
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. sanitize_xss_offset(esc_js($before)) .'");';
+  if($atts['before']){
+    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. sanitize_xss_offset(esc_js($atts['before'])) .'");';
   }else{
     $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
   }
-  if($after){
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. sanitize_xss_offset(esc_js($after)) .'");';
+  if($atts['after']){
+    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. sanitize_xss_offset(esc_js($atts['after'])) .'");';
   }else{
     $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
   }

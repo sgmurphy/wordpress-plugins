@@ -49,7 +49,7 @@
                     <div class="col-auto htmega-tempate-sync-wrapper">
                         <div class="htmega-template-library-page-sync">
                             <i class="eicon-sync" aria-hidden="true" title="<?php esc_attr_e( 'Sync Library', 'htmega-addons' ); ?>"></i>
-                            <span class="elementor-screen-only"><?php echo __( 'Sync Library', 'htmega-addons' ); ?></span>
+                            <span class="elementor-screen-only"><?php echo esc_html__( 'Sync Library', 'htmega-addons' ); ?></span>
                         </div>
                         <div class="htwpt-type-select">
                             <select id="htwpt-type">

@@ -3,8 +3,8 @@
     <div class="htm-current-weather">
         <?php if($hide_current_stats):?>
         <div class="htm-current-1">
-            <p class="week-days"><?php echo date("l"); ?></p>
-            <p class="current-date"><?php echo date("F j, Y"); ?></p>
+            <p class="week-days"><?php echo esc_html( gmdate("l") ); ?></p>
+            <p class="current-date"><?php echo esc_html( gmdate("F j, Y") ); ?></p>
             <p class="wind">Wind <?php echo esc_html($weather['current']['wind_speed']); ?> <?php echo esc_html($weather['current']['wind_speed_text']); ?></p>
             <span class="humidity"><i class="wi wi-raindrop"></i><span class="humidity-percent"><?php echo esc_html($weather['current']['humidity']); ?>%</span></span>
         </div>

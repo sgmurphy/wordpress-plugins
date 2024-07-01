@@ -2,9 +2,9 @@
     $current_category = get_queried_object();
 
     if ( $current_category != null && $layout == 'layout-1' ):
-        
+
         ?>
-            <div class='betterdocs-content-area block-archive-list <?php echo $blockId; ?>'>
+            <div class='betterdocs-content-area block-archive-list <?php echo esc_attr($blockId); ?>'>
                 <div class="betterdocs-content-inner-area">
                             <div class="betterdocs-entry-title">
                                 <?php

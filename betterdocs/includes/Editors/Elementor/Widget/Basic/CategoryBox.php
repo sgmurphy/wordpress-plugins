@@ -1221,7 +1221,7 @@ class CategoryBox extends BaseWidget {
         $params = wp_parse_args( [
             'wrapper_attr'            => $this->get_render_attributes( 'bd_category_box_wrapper' ),
             'inner_wrapper_attr'      => $this->get_render_attributes( 'bd_category_box_inner' ),
-            'layout'                  => $settings['layout_template'],
+            'layout'                  => sanitize_file_name( $settings['layout_template'] ),
             'widget_type'             => 'category-box',
             'multiple_knowledge_base' => $default_multiple_kb,
             'kb_slug'                 => $kb_slug,

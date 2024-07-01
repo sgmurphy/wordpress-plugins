@@ -681,7 +681,7 @@ class HTMega_Elementor_Widget_Button extends Widget_Base {
             $button_text = sprintf( '<a %1$s><span class="htmega_button_txt">%2$s</span><span class="htmega_button_icon">%3$s</span></a>', $this->get_render_attribute_string( 'url' ), htmega_kses_desc( $settings['button_text'] ), $button_icon );
         }
         if( !empty( $button_text ) ){
-            printf( '<div %1$s>%2$s</div>', $this->get_render_attribute_string( 'htmega_button' ), $button_text );
+            printf( '<div %1$s>%2$s</div>', $this->get_render_attribute_string( 'htmega_button' ), $button_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
     }
 }

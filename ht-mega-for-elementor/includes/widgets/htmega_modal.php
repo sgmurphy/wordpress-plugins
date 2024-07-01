@@ -1073,7 +1073,7 @@ class HTMega_Elementor_Widget_Modal extends Widget_Base {
                         $buttontxt = HTMega_Icon_manager::render_icon( $settings['button_icon'], [ 'aria-hidden' => 'true' ] ).$buttontxt;
                     }
 
-                    echo sprintf('<button type="button" data-toggle="htbmodal" data-target="#htmegamodal%1$s">%2$s</button>', esc_attr( $id ), $buttontxt );
+                    echo sprintf('<button type="button" data-toggle="htbmodal" data-target="#htmegamodal%1$s">%2$s</button>', esc_attr( $id ), $buttontxt ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 ?>
             </div>
 
@@ -1098,7 +1098,7 @@ class HTMega_Elementor_Widget_Modal extends Widget_Base {
                                 echo '<div class="htb-modal-body">'.wp_kses_post( $settings['custom_content'] ).'</div>';
                             } elseif ( $settings['content_source'] == "elementor" && !empty( $template_id )) {
                                 
-                                echo '<div class="htb-modal-body">'.Plugin::instance()->frontend->get_builder_content_for_display( $template_id ).'</div>';
+                                echo '<div class="htb-modal-body">'.Plugin::instance()->frontend->get_builder_content_for_display( $template_id ).'</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             }
                         ?>
 

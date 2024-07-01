@@ -1,6 +1,6 @@
 === Speed Optimizer - The All-In-One Performance-Boosting Plugin ===
 Contributors: Hristo Sg, siteground, sstoqnov, stoyangeorgiev, elenachavdarova, ignatggeorgiev
-Tags: nginx, caching, speed, memcache, memcached, performance, siteground, free, supercacher
+Tags: nginx, caching, speed, performance, siteground
 Requires at least: 4.7
 Requires PHP: 7.0
 Tested up to: 6.5
@@ -8,7 +8,7 @@ Stable tag: 7.6.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Boost your website performance and page speed, and increase conversions with powerful caching, frontend, media, and environment optimizations. Free to use and easy to set up.
+Boost your website performance and page speed, and increase conversions with powerful caching, frontend, media, and environment optimizations.
 
 == Description ==
 

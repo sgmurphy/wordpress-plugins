@@ -167,14 +167,14 @@ class HTMega_Post_Dupicator{
 
                     }
                     $sql_query.= implode(",", $sql_query_val). ';';
-                    $wpdb->query( $wpdb->prepare( $sql_query, $sql_query_sel ) );
+                    $wpdb->query( $wpdb->prepare( $sql_query, $sql_query_sel ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
                 }
             }
             $redirect_to = admin_url( 'post.php?action=edit&post=' . $new_post_id );
             wp_safe_redirect( $redirect_to );
 
         }else {
-            wp_die( esc_html__( 'Post creation failed, could not find original post: ','htmega-addons' ) . $post_id );
+            wp_die( esc_html__( 'Post creation failed, could not find original post: ','htmega-addons' ) . esc_attr( $post_id ) );
         }
 
 

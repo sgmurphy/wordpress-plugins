@@ -1863,7 +1863,7 @@ class HTMega_Elementor_Widget_Audio_Player extends Widget_Base {
 				<?php if ( !empty( $settings['audio_poster_image']['url'] ) ) { ?>
                 <div class="htmega-audio-thumb">
                     <?php
-                    echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'poster_image_size', 'audio_poster_image' );
+                    echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'poster_image_size', 'audio_poster_image' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     ?>
                 </div>
 				<?php } ?>

@@ -147,10 +147,15 @@ foreach ( $content_items as $index => $item ) {
 				}
 
 				if ( ! empty( $item[ 'content_template' ] ) ) :
+
+
+					$content_template_id = $item[ 'content_template' ];
+					$content_template_id = stratum_translate_post( $content_template_id );
+
 					?>
 					<div class="<?php echo esc_attr( $item_class ); ?>" id="id-content-<?php echo esc_attr( $item[ '_id' ] . $unique_id ); ?>" >
 						<div class="<?php echo esc_attr( $class . '__item-wrapper' ); ?>">
-							<?php echo $frontend->get_builder_content( $item[ 'content_template' ], true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo $frontend->get_builder_content( $content_template_id, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</div>
 					</div>
 				<?php

@@ -247,6 +247,7 @@ $options = array(
     'quiz_wrong_answers_text_decoration'        => "none",
     'quiz_admin_note_letter_spacing'            => 0,
     'quiz_bg_img_during_the_quiz'               => "off",
+    'quiz_quest_explanation_letter_spacing'     => 0,
 );
 
 $quiz_intervals_default = array(
@@ -471,23 +472,23 @@ $quiz_message_vars_description = array(
 );
 
 $quiz_message_vars_limitation_message = array(
-    "%%quiz_name%%"                             => __("Quiz Title", $this->plugin_name),
-    "%%user_first_name%%"                       => __("User's First Name", $this->plugin_name),
-    "%%user_last_name%%"                        => __("User's Last Name", $this->plugin_name),
-    "%%questions_count%%"                       => __("Questions count", $this->plugin_name),
-    "%%user_nickname%%"                         => __("User's Nick Name", $this->plugin_name),
-    "%%user_display_name%%"                     => __("User's Display Name", $this->plugin_name),
-    "%%user_wordpress_email%%"                  => __("User's WordPress profile email", $this->plugin_name),
-    "%%user_wordpress_roles%%"                  => __("User's WordPress Roles", $this->plugin_name),
-    "%%quiz_creation_date%%"                    => __("Quiz creation date", $this->plugin_name),
-    "%%current_quiz_author%%"                   => __("Quiz Author", $this->plugin_name),
-    "%%current_user_ip%%"                       => __("User's IP Address", $this->plugin_name),
-    "%%current_quiz_author_email%%"             => __("Quiz Author Email", $this->plugin_name),
-    "%%current_quiz_author_nickname%%"          => __("Quiz Author Nickname", $this->plugin_name),
-    "%%admin_email%%"                           => __("Admin Email", $this->plugin_name),
-    "%%home_page_url%%"                         => __("Home page URL", $this->plugin_name),
-    "%%quiz_id%%"                               => __("Quiz ID", $this->plugin_name),
-    "%%user_id%%"                               => __("User ID", $this->plugin_name),
+    "%%quiz_name%%"                                 => __("Quiz Title", $this->plugin_name),
+    "%%user_first_name%%"                           => __("User's First Name", $this->plugin_name),
+    "%%user_last_name%%"                            => __("User's Last Name", $this->plugin_name),
+    "%%questions_count%%"                           => __("Questions count", $this->plugin_name),
+    "%%user_nickname%%"                             => __("User's Nick Name", $this->plugin_name),
+    "%%user_display_name%%"                         => __("User's Display Name", $this->plugin_name),
+    "%%user_wordpress_email%%"                      => __("User's WordPress profile email", $this->plugin_name),
+    "%%user_wordpress_roles%%"                      => __("User's WordPress Roles", $this->plugin_name),
+    "%%quiz_creation_date%%"                        => __("Quiz creation date", $this->plugin_name),
+    "%%current_quiz_author%%"                       => __("Quiz Author", $this->plugin_name),
+    "%%current_user_ip%%"                           => __("User's IP Address", $this->plugin_name),
+    "%%current_quiz_author_email%%"                 => __("Quiz Author Email", $this->plugin_name),
+    "%%current_quiz_author_nickname%%"              => __("Quiz Author Nickname", $this->plugin_name),
+    "%%admin_email%%"                               => __("Admin Email", $this->plugin_name),
+    "%%home_page_url%%"                             => __("Home page URL", $this->plugin_name),
+    "%%quiz_id%%"                                   => __("Quiz ID", $this->plugin_name),
+    "%%user_id%%"                                   => __("User ID", $this->plugin_name),
 );
 
 $quiz_message_vars_logged_in_users = array(
@@ -1313,12 +1314,15 @@ $quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_
 // Wrong answer text decoration
 $quiz_wrong_answers_text_decoration = (isset($options[ 'quiz_wrong_answers_text_decoration' ]) && $options[ 'quiz_wrong_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_wrong_answers_text_decoration' ] ) ) : 'none';
 
-// Note letter spacing
+// Note letter spacing | Admin note
 $quiz_admin_note_letter_spacing = (isset($options[ 'quiz_admin_note_letter_spacing' ]) && $options[ 'quiz_admin_note_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_admin_note_letter_spacing' ] ) ) : 0;
 
 // Hide background image during the quiz
 $options['quiz_bg_img_during_the_quiz'] = isset($options['quiz_bg_img_during_the_quiz']) ? $options['quiz_bg_img_during_the_quiz'] : 'off';
 $quiz_bg_img_during_the_quiz = (isset($options['quiz_bg_img_during_the_quiz']) && $options['quiz_bg_img_during_the_quiz'] == 'on') ? true : false;
+
+// Letter spacing | Question Explanation
+$quiz_quest_explanation_letter_spacing = (isset($options[ 'quiz_quest_explanation_letter_spacing' ]) && $options[ 'quiz_quest_explanation_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_quest_explanation_letter_spacing' ] ) ) : 0;
 
 ?>
 <style id="ays_live_custom_css"></style>
@@ -3245,7 +3249,7 @@ $quiz_bg_img_during_the_quiz = (isset($options['quiz_bg_img_during_the_quiz']) &
                                         <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
                                     </div>
                                 </div>
-                            </div><!-- Buttons border radius -->
+                            </div><!-- Letter spacing -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>
@@ -3358,6 +3362,25 @@ $quiz_bg_img_during_the_quiz = (isset($options['quiz_bg_img_during_the_quiz']) &
                                     </select>
                                 </div>
                             </div><!-- Admin note text transform -->
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="ays_quiz_quest_explanation_letter_spacing">
+                                        <?php echo __('Letter spacing',$this->plugin_name)?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the space between the letters of the question explanation text in pixels. Note: The default value for this option is 0.',$this->plugin_name); ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-7 ays_divider_left ays_quiz_display_flex_width">
+                                    <div>
+                                        <input type="number" class="ays-text-input ays-text-input-short" id="ays_quiz_quest_explanation_letter_spacing" name="ays_quiz_quest_explanation_letter_spacing" value="<?php echo $quiz_quest_explanation_letter_spacing; ?>"/>
+                                    </div>
+                                    <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: flex-start;">
+                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                    </div>
+                                </div>
+                            </div><!-- Letter spacing -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>

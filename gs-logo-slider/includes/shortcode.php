@@ -16,6 +16,8 @@ class Shortcode {
 		if ( empty($atts['id']) ) {
 			return __( 'No shortcode ID found', 'gslogo' );
 		}
+
+		$atts['id'] = sanitize_text_field( $atts['id'] );
 	
 		$is_preview = ! empty($atts['preview']);
 	
@@ -105,7 +107,7 @@ class Shortcode {
 
 		?>
 	
-		<div id="<?php echo 'gs_logo_area_' . esc_attr( $id ); ?>" class="<?php echo implode( ' ', $classes ); ?>" style="opacity: 0; visibility: hidden;">
+		<div id="<?php echo 'gs_logo_area_' . esc_attr( $id ); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="opacity: 0; visibility: hidden;">
 			<div class="gs_logo_area--inner">
 	
 				<?php

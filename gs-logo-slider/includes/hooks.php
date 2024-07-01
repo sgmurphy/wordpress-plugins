@@ -12,7 +12,7 @@ class Hooks {
         add_action( 'admin_init', [ $this, 'maybe_redirect' ] );
         add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
         add_action( 'plugins_loaded', [ $this, 'plugin_loaded' ] );
-        add_action( 'in_admin_header', [ $this, 'disable_admin_notices' ], 1000 );
+        add_action( 'in_admin_header', [ $this, 'disable_admin_notices' ], PHP_INT_MAX );
         add_filter( 'jetpack_content_options_featured_image_exclude_cpt', [$this, 'jetpack__featured_image_exclude_cpt']);
         add_filter( 'use_block_editor_for_post_type', [$this, 'disable_gutenberg'], 10, 2 );
     }

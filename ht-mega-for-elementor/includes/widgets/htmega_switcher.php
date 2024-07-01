@@ -691,7 +691,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <div class="htmega-single-switch htb-fade htb-tab-pane <?php echo ( 'active1' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switcherone<?php echo esc_attr( $sectionid ); ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_one_content_source'] == "elementor" && !empty( $settings['switcher_one_template_id'] ) ) {
-                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] );
+                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                                 else {
                                     echo '<div class="htmega_switcher_content">'.wp_kses_post( $settings['switcher_one_custom_content'] ).'</div>';
@@ -704,7 +704,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <div class="htmega-single-switch htb-fade htb-tab-pane <?php echo ( 'active2' == $active_item ) ? ' htb-active htb-show' : ''; ?>" id="switchertwo<?php echo esc_attr( $sectionid ); ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_two_content_source'] == "elementor" && !empty( $settings['switcher_two_template_id'] ) ) {
-                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] );
+                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                                 else {
                                     echo '<div class="htmega_switcher_content">'.wp_kses_post( $settings['switcher_two_custom_content'] ).'</div>';
@@ -751,7 +751,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <div class="htmega-single-toggle-switch htb-fade toggle-tab-pane toggl-active" id="switchertglone-<?php echo esc_attr( $sectionid ); ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_one_content_source'] == "elementor" && !empty( $settings['switcher_one_template_id'] ) ) {
-                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] );
+                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_one_template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                                 else {
                                     echo '<div class="htmega_switcher_content">'.wp_kses_post( $settings['switcher_one_custom_content'] ).'</div>';
@@ -764,7 +764,7 @@ class HTMega_Elementor_Widget_Switcher extends Widget_Base {
                         <div class="htmega-single-toggle-switch htb-fade toggle-tab-pane" id="switchertgltwo-<?php echo esc_attr( $sectionid ); ?>" role="tabpanel">
                             <?php
                                 if ( $settings['switcher_two_content_source'] == "elementor" && !empty( $settings['switcher_two_template_id'] ) ) {
-                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] );
+                                    echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['switcher_two_template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                                 else {
                                     echo '<div class="htmega_switcher_content">'.wp_kses_post( $settings['switcher_two_custom_content'] ).'</div>';

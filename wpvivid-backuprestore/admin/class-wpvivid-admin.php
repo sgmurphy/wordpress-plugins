@@ -103,7 +103,7 @@ class WPvivid_Admin
 
     public function current_user_show_toolbar($show_toolbar, $capability)
     {
-        if(is_admin()&&current_user_can('administrator'))
+        if(is_admin()&&current_user_can('manage_options'))
         {
             $show_toolbar=true;
         }
@@ -425,7 +425,7 @@ class WPvivid_Admin
             if ($show_admin_bar === true)
             {
                 $show_toolbar=false;
-                if(is_admin()&&current_user_can('administrator'))
+                if(is_admin()&&current_user_can('manage_options'))
                 {
                     $show_toolbar=true;
                 }

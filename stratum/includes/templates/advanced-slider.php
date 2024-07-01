@@ -43,6 +43,8 @@ $slider_options = stratum_generate_swiper_options($settings);
 				$id = $item[ 'image' ][ 'id' ];
 
 				if ( $id ) {
+
+					$id = stratum_translate_post( $id );
 					$url = wp_get_attachment_image_url($id, $image_size );
 				} else {
 					$url = Utils::get_placeholder_image_src();
@@ -80,9 +82,11 @@ $slider_options = stratum_generate_swiper_options($settings);
 							}
 
 							if ( !empty($item['button_text']) ) {
+
+								$buttonUrl = stratum_translate_url( $item['button_link']['url'] );
 								?>
 								<div class="<?php echo esc_attr( $widget_class . '__button' ); ?>">
-									<a href="<?php echo esc_url( $item['button_link']['url'] ) ?>" <?php if ( $item['button_link']['is_external'] ) { ?>target="_blank" <?php } ?> ><?php echo esc_html( $item['button_text'] ); ?></a>
+									<a href="<?php echo esc_url( $buttonUrl ) ?>" <?php if ( $item['button_link']['is_external'] ) { ?>target="_blank" <?php } ?> ><?php echo esc_html( $item['button_text'] ); ?></a>
 								</div>
 							<?php
 							}

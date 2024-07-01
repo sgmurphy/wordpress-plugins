@@ -31,7 +31,7 @@ final class Twenty20_Image_Elementor_Extension {
 
 	public function i18n() {
 
-		load_plugin_textdomain( ZB_T20_DOMAIN );
+		load_plugin_textdomain( 'zb_twenty20' );
 
 	}
 
@@ -63,13 +63,19 @@ final class Twenty20_Image_Elementor_Extension {
 	
 	public function admin_notice_missing_main_plugin() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
+        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
+	    }
+	    // If nonce verification passes, proceed with your code
+	    unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', ZB_T20_DOMAIN ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', ZB_T20_DOMAIN ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', ZB_T20_DOMAIN ) . '</strong>'
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'zb_twenty20' ),
+			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'zb_twenty20' ) . '</strong>'
 		);
 
 		//printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
@@ -78,13 +84,19 @@ final class Twenty20_Image_Elementor_Extension {
 
 	public function admin_notice_minimum_elementor_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
+        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
+	    }
+	    // If nonce verification passes, proceed with your code
+	    unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', ZB_T20_DOMAIN ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', ZB_T20_DOMAIN ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', ZB_T20_DOMAIN ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'zb_twenty20' ),
+			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', 'zb_twenty20' ) . '</strong>',
 			 self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -94,13 +106,19 @@ final class Twenty20_Image_Elementor_Extension {
 
 	public function admin_notice_minimum_php_version() {
 
-		if ( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) {
+	    if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'activate_nonce_action' ) ) {
+        wp_die( esc_html__( 'Nonce verification failed', 'zb_twenty20' ) );
+	    }
+	    // If nonce verification passes, proceed with your code
+	    unset( $_GET['activate'] );
+		}
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', ZB_T20_DOMAIN ),
-			'<strong>' . esc_html__( 'Twenty20 Before-After', ZB_T20_DOMAIN ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', ZB_T20_DOMAIN ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'zb_twenty20' ),
+			'<strong>' . esc_html__( 'Twenty20 Before-After', 'zb_twenty20' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', 'zb_twenty20' ) . '</strong>',
 			 self::MINIMUM_PHP_VERSION
 		);
 

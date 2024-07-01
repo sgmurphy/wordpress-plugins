@@ -39,7 +39,7 @@ class HTMegaWC_Sales_Notification{
                 'order' => 'DESC',
                 'posts_per_page' => htmega_get_option( 'notification_limit','htmegawcsales_setting_tabs','5' ),
                 'date_query' => array(
-                    'after' => date('Y-m-d', strtotime('-'.'7'.' days'))
+                    'after' => gmdate('Y-m-d', strtotime('-'.'7'.' days'))
                 )
             );
             $posts = get_posts( $args );
@@ -113,7 +113,7 @@ class HTMegaWC_Sales_Notification{
     function ajaxurl() {
         ?>
             <script type="text/javascript">
-                var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+                var ajaxurl = '<?php echo esc_url( admin_url('admin-ajax.php') ); ?>';
             </script>
         <?php
     }
@@ -131,19 +131,19 @@ class HTMegaWC_Sales_Notification{
             <script>
                 jQuery( document ).ready( function( $ ) {
 
-                    var notposition = '<?php echo $notposition; ?>',
-                        notlayout = ' '+'<?php echo $notlayout; ?>';
+                    var notposition = '<?php echo esc_js( $notposition ); ?>',
+                        notlayout = ' '+'<?php echo esc_js( $notlayout ); ?>';
 
                     $('body').append('<div class="wcsales-sale-notification"><div class="wcsales-notification-content '+notposition+notlayout+'"></div></div>');
 
                     var data = {
                         action: 'wcsales_purchased_products',
-                        security: '<?php echo $ajax_nonce; ?>',
+                        security: '<?php echo esc_js( $ajax_nonce ); ?>',
                         whatever: 1234
                     };
                     var intervaltime = 4000,
                         i = 0,
-                        duration = <?php echo $duration; ?>,
+                        duration = <?php echo esc_js( $duration ); ?>,
                         inanimation = 'fadeInLeft',
                         outanimation = 'fadeOutRight';
 

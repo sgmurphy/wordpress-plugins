@@ -171,9 +171,9 @@ class Bl_Post_Archive_Title_ELement extends Widget_Base {
         $title_tag = htmega_validate_html_tag( $settings['title_html_tag'] );
 
         if( Elementor::instance()->editor->is_edit_mode() ){
-            echo sprintf( '<%1$s class="htarchive-title">' . __('Archive Title', 'htmega-addons' ). '</%1$s>', $title_tag );
+            echo sprintf( '<%1$s class="htarchive-title">' . esc_html__('Archive Title', 'htmega-addons' ). '</%1$s>', esc_attr( $title_tag ) );
         }else{
-            echo sprintf( '<%1$s class="htarchive-title">%2$s</%1$s>', $title_tag, get_the_archive_title()  );
+            echo sprintf( '<%1$s class="htarchive-title">%2$s</%1$s>', esc_attr( $title_tag ), esc_html( get_the_archive_title() ) );
         }
 
     }

@@ -111,7 +111,11 @@ $once_active_content = false;
 							}
 						} elseif ( $item['content_type'] == 'template' ) {
 							if ( !empty($item['tab_template']) ) {
-								echo $frontend->get_builder_content($item['tab_template'], true); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+								$tab_template_id = $item['tab_template'];
+								$tab_template_id = stratum_translate_post( $tab_template_id );
+
+								echo $frontend->get_builder_content($tab_template_id, true); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							}
 						}
 						?>

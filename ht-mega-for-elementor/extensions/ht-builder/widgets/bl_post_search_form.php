@@ -333,13 +333,13 @@ class Bl_Post_Search_Form_ELement extends Widget_Base {
         
         ?>
             <form class="htbuilder-search-form" role="search" action="<?php echo esc_url( home_url() ); ?>" method="get">
-                <input <?php echo $this->get_render_attribute_string( 'inputattr' ); ?>>
+                <input <?php echo $this->get_render_attribute_string( 'inputattr' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
                 <button class="htbuilder-submit" type="submit">
                     <?php
                         if( $settings['button_type'] == 'text' ){
                             echo wp_kses_post( $settings['button_text'] );
                         }else{
-                            echo HTMega_Icon_manager::render_icon($settings['button_icon'], ['aria-hidden' => 'true']);
+                            echo HTMega_Icon_manager::render_icon($settings['button_icon'], ['aria-hidden' => 'true']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }
                     ?>
                 </button>

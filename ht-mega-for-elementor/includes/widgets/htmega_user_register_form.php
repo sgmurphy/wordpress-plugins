@@ -102,7 +102,6 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                     'label' => __( 'Register Content', 'htmega-addons' ),
                     'type' => Controls_Manager::TEXTAREA,
                     'default' => __( "Don’t Have account? You can create an account by using this form. ","htmega-addons" ),
-                    'placeholder' => __( '', 'htmega-addons' ),
                     'placeholder' => __( "Don’t Have account? You can create an account by using this form. ","htmega-addons" ),
                     'condition'=>[
                         'show_register_heading'=>'yes',
@@ -762,8 +761,8 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
             'update_pro_validation_messages',
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',
@@ -2547,8 +2546,8 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
             'update_pro_error_style',
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',
@@ -2586,13 +2585,35 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
 
         ?>
             <?php
+                // if ( is_user_logged_in() && ! Plugin::instance()->editor->is_edit_mode() ) {
+                //     $current_user = wp_get_current_user();
+                //     echo '<div class="htmega-user-login">' .
+                //         sprintf(/* translators: %1$s is replaced with the user's display name, %2$s is replaced with the logout URL */
+                //             esc_html__( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'htmega-addons' ), esc_html( $current_user->display_name ), wp_logout_url( $current_url ) ) .
+                //         '</div>';
+                //     return;
+                // }
                 if ( is_user_logged_in() && ! Plugin::instance()->editor->is_edit_mode() ) {
                     $current_user = wp_get_current_user();
+                    $logout_url = wp_logout_url( $current_url );
+                
                     echo '<div class="htmega-user-login">' .
-                        sprintf( __( 'You are Logged in as %1$s (<a href="%2$s">Logout</a>)', 'htmega-addons' ), $current_user->display_name, wp_logout_url( $current_url ) ) .
-                        '</div>';
+                        sprintf(
+                            /* translators: 1: user's display name, 2: logout URL */
+                            esc_html__( 'You are logged in as %1$s (%2$s)', 'htmega-addons' ),
+                            esc_html( $current_user->display_name ),
+                            '<a href="' . esc_url( $logout_url ) . '">' . esc_html__( 'Logout', 'htmega-addons' ) . '</a>'
+                        ) .
+                    '</div>';
                     return;
                 }
+                
+
+
+
+
+
+
             ?>
 
             <?php
@@ -3353,11 +3374,11 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
                 jQuery(document).ready(function($) {
                     "use strict";
 
-                    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+                    var ajaxurl = '<?php echo esc_js( admin_url('admin-ajax.php') ); ?>';
                     var loadingmessage = '<?php echo esc_html__('Please Wait...','htmega-addons'); ?>';
                     var form_id = 'form#htmega_register_form_<?php echo esc_attr( $id ); ?>';
                     var button_id = '#reg_submit<?php echo esc_attr( $id ); ?>';
-                    var nonce = '<?php echo wp_create_nonce( 'htmega_register_nonce' ); ?>';
+                    var nonce = '<?php echo esc_js( wp_create_nonce( 'htmega_register_nonce' ) ); ?>';
                     var redirect = '<?php echo esc_attr( $reddirectstatus ); ?>';
 
                     $( button_id ).on('click', function(){
@@ -3409,8 +3430,8 @@ class HTMega_Elementor_Widget_User_Register_Form extends Widget_Base {
             'update_pro'.$condition_key,
             [
                 'type' => Controls_Manager::RAW_HTML,
-                'raw' => sprintf(
-                    __('Upgrade to pro version to use this feature %s Pro Version %s', 'htmega-addons'),
+                'raw' => sprintf(/* translators: 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags */
+                    __('Upgrade to pro version to use this feature %1$s Pro Version %2$s', 'htmega-addons'),
                     '<strong><a href="https://wphtmega.com/pricing/" target="_blank">',
                     '</a></strong>'),
                 'content_classes' => 'htmega-addons-notice',

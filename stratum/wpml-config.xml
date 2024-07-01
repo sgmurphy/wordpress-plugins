@@ -1,13 +1,5 @@
 <wpml-config>
   <elementor-widgets>
-    <widget name="stratum-masonry-gallery">
-      <fields>
-        <field>gallery_images</field>
-      </fields>
-      <fields-in-item items_of="gallery_images">
-        <field>id</field>
-      </fields-in-item>
-    </widget>
     <widget name="stratum-advanced-accordion">
       <fields>
         <field>accordion_items</field>
@@ -45,7 +37,7 @@
         <field>title</field>
         <field>description</field>
         <field>button_text</field>
-        <field>button_link>url</field>
+        <field key_of="button_link">url</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-advanced-tabs">
@@ -56,7 +48,6 @@
         <field>text</field>
         <field>tab_title</field>
         <field>tab_text</field>
-        <field>tab_template</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-banner">
@@ -86,7 +77,7 @@
         <field>back_title_text</field>
         <field>back_description_text</field>
         <field>button_text</field>
-        <field>show_button</field>
+        <field key_of="link">url</field>
       </fields>
     </widget>
     <widget name="stratum-image-accordion">
@@ -97,8 +88,7 @@
         <field>item_title</field>
         <field>item_description</field>
         <field>button_text</field>
-        <field>image>id</field>
-        <field>image>alt</field>
+        <field key_of="link">url</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-image-hotspot">
@@ -139,7 +129,7 @@
         <field>price_description</field>
         <field>content_items</field>
         <field>button_text</field>
-        <field>button_url>url</field>
+        <field key_of="button_url">url</field>
         <field>price</field>
       </fields>
       <fields-in-item items_of="content_items">
@@ -162,7 +152,6 @@
       </fields>
       <fields-in-item items_of="content_items">
         <field>title</field>
-        <field>content_template</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-countdown">
@@ -174,6 +163,7 @@
         <field>label_hours</field>
         <field>label_minutes</field>
         <field>label_seconds</field>
+        <field key_of="expire_redirect_url">url</field>
       </fields>
     </widget>
     <widget name="stratum-horizontal-timeline">
@@ -186,6 +176,7 @@
         <field>item_description_editor</field>
         <field>item_meta</field>
         <field>item_point_text</field>
+        <field key_of="item_link">url</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-table">
@@ -210,6 +201,7 @@
         <field>item_description_editor</field>
         <field>item_meta</field>
         <field>item_point_text</field>
+        <field key_of="item_link">url</field>
       </fields-in-item>
     </widget>
     <widget name="stratum-lottie-animations">

@@ -2,6 +2,7 @@
 
 namespace WPDeveloper\BetterDocs\Core;
 use WPDeveloper\BetterDocs\Utils\Base;
+use  WPDeveloper\BetterDocs\Utils\Helper;
 
 class Scripts extends Base {
     protected $settings;
@@ -65,6 +66,13 @@ class Scripts extends Base {
             'search_letter_limit' => $this->settings->get( 'search_letter_limit' )
         ] );
 
+         /**
+         * Localize This In Order To Know If This Shortcode Is Arriving From Betterdocs Templates Or Not
+         */
+        betterdocs()->assets->localize('betterdocs-category-grid', 'betterdocsCategoryGridConfig', [
+            'is_betterdocs_templates' => betterdocs()->helper->is_templates() ? true : false
+        ]);
+        
         $this->blocks( $assets );
 
         return $assets;

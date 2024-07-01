@@ -164,8 +164,8 @@ class Api {
                 $item['time']           = get_the_date();
                 $item['title']          = get_the_title();
                 $item['permalink']      = get_permalink();
-                $item['excerpt']        = strip_tags( get_the_excerpt() );
-                $item['content']        = strip_tags( get_the_content() );
+                $item['excerpt']        = strip_tags( get_the_excerpt() ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags
+                $item['content']        = strip_tags( get_the_content() ); // phpcs:ignore WordPress.WP.AlternativeFunctions.strip_tags_strip_tags
                 $item['price_sale']     = $product->get_sale_price();
                 $item['price_regular']  = $product->get_regular_price();
                 $item['on_sale']        = $product->is_on_sale();
@@ -201,7 +201,7 @@ class Api {
 
                 $time           = current_time('timestamp');
 		        $time_to        = strtotime( $product->get_date_on_sale_to() );
-                $item['deal']   = ( $item['price_sale'] && $time_to > $time ) ? date( 'Y/m/d', $time_to ) : '';
+                $item['deal']   = ( $item['price_sale'] && $time_to > $time ) ? gmdate( 'Y/m/d', $time_to ) : '';
 
                 // Images
                 if( has_post_thumbnail() ){

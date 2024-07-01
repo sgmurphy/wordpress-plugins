@@ -1564,7 +1564,7 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
                                         </div>
                                     <?php endif;?>
                                     <p>
-                                        <?php echo wp_trim_words( $tweet->text, $settings['content_length'], ' ' );
+                                        <?php echo wp_kses_post( wp_trim_words( $tweet->text, $settings['content_length'], ' ' ) );
                                             if( !empty( $tweet_short_link ) ){
                                                 echo '<a href="'.esc_url($tweet_short_link ).'" target="_blank">'.esc_attr( $tweet_short_link ).'</a>';
                                             }
@@ -1630,7 +1630,7 @@ class HTMega_Elementor_Widget_Twitter_Feed extends Widget_Base {
                                     <?php endif; ?>
                                 </div>
                                 <p>
-                                    <?php echo wp_trim_words( $tweet->text, $settings['content_length'], ' ' );
+                                    <?php echo wp_kses_post( wp_trim_words( $tweet->text, $settings['content_length'], ' ' ) );
                                         if( !empty( $tweet_short_link ) ){
                                             echo '<a href="'.esc_url($tweet_short_link ).'" target="_blank">'.esc_attr( $tweet_short_link ).'</a>';
                                         }

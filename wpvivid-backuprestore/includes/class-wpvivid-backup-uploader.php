@@ -309,6 +309,7 @@ class Wpvivid_BackupUploader
 
             $backupdir=WPvivid_Setting::get_backupdir();
             $filePath = WP_CONTENT_DIR.DIRECTORY_SEPARATOR.$backupdir.DIRECTORY_SEPARATOR.$fileName;
+
             $out = @fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
 
             if ($out)

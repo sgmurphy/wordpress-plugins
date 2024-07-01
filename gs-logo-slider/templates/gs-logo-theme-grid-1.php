@@ -15,7 +15,7 @@ global $gs_logo_loop;
 
 ?>
 
-<div class="gs_logo_container gs_logo_container_grid gs_logo_fix_height_and_center" style="justify-content:<?php echo $gs_l_align; ?>">
+<div class="gs_logo_container gs_logo_container_grid gs_logo_fix_height_and_center" style="justify-content:<?php echo esc_attr($gs_l_align); ?>">
 
 	<?php if ( $gs_logo_loop->have_posts() ) : ?>
 

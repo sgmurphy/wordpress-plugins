@@ -196,7 +196,7 @@ class Bl_Site_Logo_ELement extends Widget_Base {
         if( $settings['logo_type'] == 'default' ){
             if( has_custom_logo() ){ the_custom_logo(); }
         }else{
-            echo '<a href="'.esc_url( home_url( '/' ) ).'">'.Group_Control_Image_Size::get_attachment_image_html( $settings, 'logosize', 'sitelogo_image' ).'</a>';
+            echo '<a href="'.esc_url( home_url( '/' ) ).'">'.Group_Control_Image_Size::get_attachment_image_html( $settings, 'logosize', 'sitelogo_image' ).'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
         echo "</div>";
     }

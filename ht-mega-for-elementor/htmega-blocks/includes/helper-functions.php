@@ -30,25 +30,31 @@ function htmegaBlocks_get_last_product_id(){
 * Woocommerce Product last order id return
 */
 function htmegaBlocks_get_last_order_id(){
-    global $wpdb;
-    $statuses = array_keys(wc_get_order_statuses());
-    $statuses = implode( "','", $statuses );
+    if( function_exists('wc_get_orders') ){
+        $orders = wc_get_orders( array(
+            'limit' => 1,  // Limit the query to one order
+            'orderby' => 'date',  // Order by date
+            'order' => 'DESC',    // Sort in descending order (latest first)
+        ));
 
-    // Getting last Order ID (max value)
-    $results = $wpdb->get_col( "
-        SELECT MAX(ID) FROM {$wpdb->prefix}posts
-        WHERE post_type LIKE 'shop_order'
-        AND post_status IN ('$statuses')" 
-    );
-    return reset($results);
+        // Check if there are any orders
+        if ( !empty( $orders ) ) {
+            $latest_order = reset( $orders ); // Get the first (latest) order in the array
+            return $latest_order->get_id(); // Get the order ID
+        }
+    }
+
+    return 0;
+
 }
 
 /**
 * Template Editor Mode
 */
 function htmegaBlocks_edit_mode(){
-    if( !empty( $_GET['post'] ) && $_GET['action'] === 'edit' ){
-        $post_obj = get_post( $_GET['post'] );
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+    if( !empty( $_GET['post'] ) && $_GET['action'] === 'edit' ){ // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $post_obj = get_post( $_GET['post'] );  // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if( $post_obj->post_type === 'htmega-template' ) {
             return true;
         }else{
@@ -328,6 +334,7 @@ function htmegaBlocks_taxnomy_data( $taxnomySlug = '', $number = 20, $order = 'a
     $taxnomyKey = 'product_cat';
 
     $queryArg = array(
+        'taxonomy'   => 'product_cat',
         'orderby'    => 'name',
         'order'      => $order,
         'number'     => $number,
@@ -338,7 +345,7 @@ function htmegaBlocks_taxnomy_data( $taxnomySlug = '', $number = 20, $order = 'a
         $queryArg['slug'] = $taxnomySlug;
     }
 
-    $term_data = get_terms( 'product_cat', $queryArg );
+    $term_data = get_terms( $queryArg );
 
     if( !empty( $term_data ) && !is_wp_error( $term_data ) ){
 
@@ -604,3 +611,63 @@ function htmegaBlocks_testimonial_ratting($ratting) {
 		$ratting > 4 && $ratting < 5 ? '-half-o' : ($ratting >= 5 ? '' : '-o'),
 	);
 };
+
+/**
+ * [htmega_get_local_file_data]
+ * @param  string $file_path
+ * @return mixed  $data | false
+ */
+if ( ! function_exists( 'htmega_get_local_file_data' ) ) {
+    function htmega_get_local_file_data( $file_path ) {
+        if ( ! file_exists( $file_path ) ) {
+            return false;
+        }
+
+        // Initialize the WordPress filesystem
+        global $wp_filesystem;
+        if ( empty( $wp_filesystem ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            WP_Filesystem();
+        }
+        
+        // Check if the file is readable
+        if ( ! is_readable( $file_path ) ) {
+            return false;
+        }
+        
+        // Read the file contents using the WP_Filesystem API
+        $data = $wp_filesystem->get_contents( $file_path );
+        if ( $data === false ) {
+            return false;
+        }
+
+        return $data;
+    }
+}
+
+/**
+ * [htmega_get_remote_file_data]
+ * @param  string $file_url
+ * @return mixed  $data | false
+ */
+if ( ! function_exists( 'htmega_get_remote_file_data' ) ) {
+    function htmega_get_remote_file_data( $file_url ) {
+        // Using wp_remote_get to fetch the remote file
+        $response = wp_remote_get( $file_url );
+
+        // Check if the response contains an error
+        if ( is_wp_error( $response ) ) {
+            return false;
+        }
+
+        // Retrieve the body of the response
+        $data = wp_remote_retrieve_body( $response );
+
+        // Check if the body is empty
+        if ( empty( $data ) ) {
+            return false;
+        }
+
+        return $data;
+    }
+}

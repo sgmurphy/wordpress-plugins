@@ -224,7 +224,7 @@ class Wpvivid_Google_drive extends WPvivid_Remote
             ?>
             <div id="storage_account_google_drive" class="storage-account-page">
                 <div style="background-color:#f1f1f1; padding: 10px;">
-                    <?php esc_html_e('Please read <a target="_blank" href="https://wpvivid.com/privacy-policy" style="text-decoration: none;">this privacy policy</a> for use of our Google Drive authorization app (none of your backup data is sent to us).', 'wpvivid-backuprestore'); ?>
+                    Please read <a target="_blank" href="https://wpvivid.com/privacy-policy" style="text-decoration: none;">this privacy policy</a> for use of our Google Drive authorization app (none of your backup data is sent to us).
                 </div>
                 <div style="color:#8bc34a; padding: 10px 10px 10px 0;">
                     <strong>Authentication is done, please continue to enter the storage information, then click 'Add Now' button to save it.</strong>
@@ -683,6 +683,7 @@ class Wpvivid_Google_drive extends WPvivid_Remote
                         $this->options['token']['refresh_token']=base64_encode($this->options['token']['refresh_token']);
                     }
                     $remote_options['token']=$this->options['token'];
+                    $remote_options['is_encrypt']=1;
                     WPvivid_Setting::update_remote_option($this->options['id'],$remote_options);
 
                     $client=$this->get_client();
@@ -1204,7 +1205,13 @@ class Wpvivid_Google_drive extends WPvivid_Remote
     public function finish_add_remote()
     {
         global $wpvivid_plugin;
-        $wpvivid_plugin->ajax_check_security();
+        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
+        $check=current_user_can('manage_options');
+        $check=apply_filters('wpvivid_ajax_check_security',$check);
+        if(!$check)
+        {
+            die();
+        }
         try {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote'])) {
                 die();

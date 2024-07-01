@@ -2888,7 +2888,7 @@ function wpvivid_backuppage_add_schedule_module(){
         <div class="schedule-block">
             <p id="wpvivid_schedule_status"><strong><?php esc_html_e('Schedule Status: ', 'wpvivid-backuprestore'); ?></strong><?php echo esc_html($schedule_status); ?></p>
             <div id="wpvivid_schedule_info">
-                <p><strong><?php esc_html_e('Server Time: ', 'wpvivid-backuprestore'); ?></strong><?php echo esc_html(gmdate("l, F-d-Y H:i",time())); ?></p>
+                <p><strong><?php esc_html_e('Server Time: ', 'wpvivid-backuprestore'); ?></strong><?php echo esc_html(gmdate("F-d-Y H:i",time())); ?></p>
                 <p><span id="wpvivid_last_backup_msg"><?php do_action('wpvivid_get_last_backup_message_output'); ?></span></p>
                 <p id="wpvivid_next_backup"><strong><?php esc_html_e('Next Backup: ', 'wpvivid-backuprestore'); ?></strong><?php echo esc_html($next_backup_time); ?></p>
             </div>

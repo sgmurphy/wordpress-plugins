@@ -56,6 +56,9 @@ $inner_classes  = $this->get_render_attribute_string( 'inner' );
                             <div class="<?php echo esc_attr( $class . '-item__card-content' );?>">
 							<?php
 								if ( ! empty( $item[ 'item_link' ][ 'url' ] ) ) {
+
+                                    $item[ 'item_link' ][ 'url' ] = stratum_translate_url( $item[ 'item_link' ][ 'url' ] );
+
 									$this->add_link_attributes( 'url' . $index, $item[ 'item_link' ] ); ?>
 									<a class="<?php echo esc_attr( $class . '-item__card-link' );?>" <?php
 										echo $this->get_render_attribute_string( 'url' . $index ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

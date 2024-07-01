@@ -717,9 +717,11 @@ class PostType extends Base {
 
         register_taxonomy( $this->glossaries, [$this->post_type], $args );
 
+        $slug = $this->settings->get( 'encyclopedia_root_slug' );
+
         // Change the rewrite rules for the custom taxonomy
         global $wp_rewrite;
-        $wp_rewrite->extra_permastructs[$this->glossaries]['struct'] = '/'.$this->glossaries.'/%glossaries%';
+        $wp_rewrite->extra_permastructs[$this->glossaries]['struct'] = '/'.$slug.'/%glossaries%';
     }
 
 

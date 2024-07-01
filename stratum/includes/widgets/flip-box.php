@@ -1320,6 +1320,8 @@ class Flip_box extends Stratum_Widget_Base {
 			'stratum-flip-box__button'
 		]);
 		if ( ! empty( $link['url'] ) ) {
+
+			$link['url'] = stratum_translate_url( $link['url'] );
 			$this->add_link_attributes( 'button', $link );
 		}
 		$button_class = $this->get_render_attribute_string( 'button' );

@@ -532,12 +532,12 @@ class WPvivid_Restore_DB_2
                 }
             }*/
 
-            $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($this->offset,2).'/'.size_format($this->sum,2).'</span>';
+            $sub_task['last_msg']='Importing sql file:'.$sql_file_name.' table: '.$sub_task['exec_sql']['current_table'].' '.size_format($this->offset,2).'/'.size_format($this->sum,2);
             $this->update_sub_task($sub_task);
         }
         else
         {
-            $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.'</strong></span><span>'.size_format($this->offset,2).'/'.size_format($this->sum,2).'</span>';
+            $sub_task['last_msg']='Importing sql file:'.$sql_file_name.size_format($this->offset,2).'/'.size_format($this->sum,2);
             $this->update_sub_task($sub_task);
         }
 
@@ -554,11 +554,11 @@ class WPvivid_Restore_DB_2
 
                 if(!empty($sub_task['exec_sql']['current_table']))
                 {
-                    $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$sub_task['exec_sql']['current_table'].' '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
+                    $sub_task['last_msg']='Importing sql file:'.$sql_file_name.' table: '.$sub_task['exec_sql']['current_table'].' '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2);
                 }
                 else
                 {
-                    $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' </strong></span><span>'.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
+                    $sub_task['last_msg']='Importing sql file:'.$sql_file_name.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2);
                 }
                 $read_offset=$sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset']-$current_offset;
 
@@ -2081,7 +2081,7 @@ class WPvivid_Restore_DB_2
             for ($current_row = $start_row; $current_row < $count; $current_row += $page)
             {
                 $this->log->WriteLog('Replacing the row in '.$current_row. ' line.', 'notice');
-                $sub_task['last_msg']='<span><strong>Importing sql file table:</strong></span><span>'.$table_name.' <strong>Replaced row:</strong>'.$current_row.'/'.$count.';</span>';
+                $sub_task['last_msg']='Importing sql file table: '.$table_name.' Replaced row: '.$current_row.'/'.$count.';';
 
                 $this->update_sub_task($sub_task);
                 $query = 'SELECT * FROM `'.$table_name.'` LIMIT '.$current_row.', '.$page;
@@ -2520,7 +2520,7 @@ class WPvivid_Restore_DB_2
             for ($current_row = $start_row; $current_row < $count; $current_row += $page)
             {
                 $this->log->WriteLog('Replacing the row in '.$current_row. ' line.', 'notice');
-                $sub_task['last_msg']='<span><strong>Importing sql file:'.$sql_file_name.' table:</strong></span><span>'.$table_name.' <strong>Replaced row:</strong>'.$current_row.'/'.$count.'; '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2).'</span>';
+                $sub_task['last_msg']='Importing sql file:'.$sql_file_name.' table: '.$table_name.' Replaced row: '.$current_row.'/'.$count.'; '.size_format($sub_task['exec_sql']['sql_files'][$sql_file_name]['sql_offset'],2).'/'.size_format($this->sum,2);
 
                 $this->update_sub_task($sub_task);
                 $query = 'SELECT * FROM `'.$table_name.'` LIMIT '.$current_row.', '.$page;

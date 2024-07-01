@@ -57,7 +57,7 @@ class RTAFAR_RegisterMenu {
 	private static $_instance;
 
 	public function __construct() {
-		 // call WordPress admin menu hook
+		// call WordPress admin menu hook
 		add_action( 'admin_menu', array( $this, 'rtafar_register_menu' ) );
 	}
 
@@ -67,7 +67,7 @@ class RTAFAR_RegisterMenu {
 	 * @return type
 	 */
 	public function init_current_screen() {
-		 $this->current_screen = \get_current_screen();
+		$this->current_screen = \get_current_screen();
 		return $this->current_screen;
 	}
 
@@ -142,7 +142,6 @@ class RTAFAR_RegisterMenu {
 		// init pages
 		$this->pages = new AdminPageBuilder();
 		$rtafr_menu  = $this->rtafr_menus;
-
 	}
 
 	/**
@@ -290,7 +289,6 @@ class RTAFAR_RegisterMenu {
 	 */
 	public function rtafar_load_settings_scripts( $page_id ) {
 		return Scripts_Settings::load_admin_settings_scripts( $page_id, $this->rtafr_menus );
-
 	}
 
 	/**
@@ -317,7 +315,7 @@ class RTAFAR_RegisterMenu {
 
 			add_action(
 				'admin_footer',
-				function() {
+				function () {
 					$redirect_url = Util::cs_get_pro_link( Util::cs_pro_link() . '?utm_source=wp-menu&utm_campaign=gopro&utm_medium=wp-dash' );
 					?>
 					<script type="text/javascript">
@@ -328,7 +326,4 @@ class RTAFAR_RegisterMenu {
 			);
 		}
 	}
-
-
-
 }

@@ -36,9 +36,16 @@ class Enqueue extends Base {
             $config['args']
         );
 
-        // if ( 'script' === $config['type'] && in_array( 'wp-i18n', $config['dependencies'], true ) ) {
-        //     wp_set_script_translations( $handle, 'betterdocs' );
-        // }
+        if ( 'script' === $config['type'] && in_array( 'wp-i18n', $config['dependencies'], true ) ) {
+            $url = isset( $config['url'] ) ? $config['url'] : '';
+            preg_match('~/plugins/([^/]+)~', $url, $matches);
+            $url_portion = isset( $matches[1] ) ? $matches[1] : '';
+            if ( $url_portion == 'betterdocs-pro' ) {
+                wp_set_script_translations( $handle, 'betterdocs-pro' );
+            } else if ( $url_portion == 'betterdocs' ) {
+                wp_set_script_translations( $handle, 'betterdocs' );
+            }
+        }
     }
 
     public function asset_config( $filename, $dependencies = [], $args = null ) {

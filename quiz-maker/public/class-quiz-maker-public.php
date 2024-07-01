@@ -1221,6 +1221,9 @@ class Quiz_Maker_Public
         // Question Explanation text decoration
         $quiz_quest_explanation_text_decoration = (isset($options[ 'quiz_quest_explanation_text_decoration' ]) && $options[ 'quiz_quest_explanation_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_quest_explanation_text_decoration' ] ) ) : 'none';
 
+        // Letter spacing | Question Explanation
+        $quiz_quest_explanation_letter_spacing = (isset($options[ 'quiz_quest_explanation_letter_spacing' ]) && $options[ 'quiz_quest_explanation_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_quest_explanation_letter_spacing' ] ) ) : 0;
+
         // Font size for the right answer | PC
         $right_answers_font_size = (isset($options['right_answers_font_size']) && $options['right_answers_font_size'] != '') ? absint(sanitize_text_field($options['right_answers_font_size'])) : '16';
 
@@ -3392,6 +3395,7 @@ class Quiz_Maker_Public
             #ays-quiz-container-" . $id . " .ays_questtion_explanation * {
                 text-transform:" . $quiz_quest_explanation_text_transform . ";
                 text-decoration: ". $quiz_quest_explanation_text_decoration .";
+                letter-spacing: ". $quiz_quest_explanation_letter_spacing ."px;
             }
 
             #ays-quiz-container-" . $id . " .right_answer_text * {

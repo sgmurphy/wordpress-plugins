@@ -66,7 +66,7 @@ class FormBuilder {
 			}
 
 			$html_fields[] = $input;
-			$i++;
+			++$i;
 		}
 
 		// return html as string
@@ -528,6 +528,4 @@ class FormBuilder {
 		}
 		return '';
 	}
-
 }
-

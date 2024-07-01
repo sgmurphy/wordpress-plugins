@@ -973,7 +973,7 @@ class HTMega_Elementor_Widget_Double_Button extends Widget_Base {
         $button_double_text = $button_one_text.$button_two_text.$button_middle_text;
 
         if( !empty( $button_one_text ) || !empty( $button_two_text ) ){
-            echo sprintf( '<div class="htmega-double-button-area"><div %1$s>%2$s</div></div>', $this->get_render_attribute_string( 'htmega_doublebutton' ), $button_double_text );
+            echo sprintf( '<div class="htmega-double-button-area"><div %1$s>%2$s</div></div>', $this->get_render_attribute_string( 'htmega_doublebutton' ), $button_double_text ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
 

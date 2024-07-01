@@ -391,7 +391,7 @@ class HTMega_Elementor_Widget_Weather extends Widget_Base {
         ));
 
         if( !is_array($weather) && !isset($weather['current']) ){
-            echo $weather;
+            echo $weather; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             return;
         }
 

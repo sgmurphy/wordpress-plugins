@@ -30,8 +30,8 @@ class HTMegaWcsale_Admin_Settings {
 
         add_submenu_page(
             'htmega-addons', 
-            __( 'Sales Notification', 'htmega-addons' ),
-            __( 'Sales Notification', 'htmega-addons' ), 
+            esc_html__( 'Sales Notification', 'htmega-addons' ),
+            esc_html__( 'Sales Notification', 'htmega-addons' ), 
             'manage_options', 
             'htmeganotification', 
             array ( $this, 'plugin_page' ) 
@@ -232,7 +232,7 @@ class HTMegaWcsale_Admin_Settings {
                     <span><i class="dashicons dashicons-warning"></i></span>
                     <p>
                         <?php
-                            echo __('Purchase our','htmega-addons').' <strong><a href="'.esc_url( 'https://wphtmega.com/pricing/' ).'" target="_blank" rel="nofollow">'.__( 'premium version', 'htmega-addons' ).'</a></strong> '.__('to unlock these pro elements!','htmega-addons');
+                            echo esc_html__('Purchase our','htmega-addons').' <strong><a href="'.esc_url( 'https://wphtmega.com/pricing/' ).'" target="_blank" rel="nofollow">'.esc_html__( 'premium version', 'htmega-addons' ).'</a></strong> '.esc_html__('to unlock these pro elements!','htmega-addons');
                         ?>
                     </p>
                 </div>
@@ -258,7 +258,7 @@ class HTMegaWcsale_Admin_Settings {
                 } )( jQuery );
             </script>
         <?php
-        echo ob_get_clean();
+        echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     // Admin Menu Page Render
@@ -275,7 +275,7 @@ class HTMegaWcsale_Admin_Settings {
 
     // Save Options Message
     function save_message() {
-        if( isset($_GET['settings-updated']) ) { ?>
+        if( isset($_GET['settings-updated']) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
             <div class="updated notice is-dismissible"> 
                 <p><strong><?php esc_html_e('Successfully Settings Saved.', 'htmega-addons') ?></strong></p>
             </div>

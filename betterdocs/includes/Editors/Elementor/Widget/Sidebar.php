@@ -762,7 +762,8 @@ class Sidebar extends BaseWidget {
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-sidebar .betterdocs-sidebar-content .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-category-header .betterdocs-category-header-inner .betterdocs-category-title a, {{WRAPPER}} .betterdocs-sidebar .betterdocs-sidebar-content .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-category-header .betterdocs-category-header-inner .betterdocs-category-title:not(a), {{WRAPPER}} .betterdocs-sidebar .betterdocs-sidebar-content .betterdocs-category-list-wrapper .betterdocs-category-list-inner-wrapper .betterdocs-category-header .betterdocs-category-header-inner .betterdocs-category-title:not(a)' => 'color: {{VALUE}};'
-                ]
+                ],
+                'default' => '#3f5876'
             ]
         );
 
@@ -771,7 +772,15 @@ class Sidebar extends BaseWidget {
             [
                 'name'     => 'card_bg_normal_header',
                 'types'    => ['classic', 'gradient'],
-                'selector' => '{{WRAPPER}} .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-single-category-wrapper .betterdocs-category-header, {{WRAPPER}} .betterdocs-category-list-wrapper .betterdocs-category-list-inner-wrapper .betterdocs-single-category-wrapper .betterdocs-single-category-inner .betterdocs-category-header'
+                'selector' => '{{WRAPPER}} .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-single-category-wrapper .betterdocs-category-header, {{WRAPPER}} .betterdocs-category-list-wrapper .betterdocs-category-list-inner-wrapper .betterdocs-single-category-wrapper .betterdocs-single-category-inner .betterdocs-category-header',
+                'fields_options' => [
+                    'background' => [
+                        'default' => 'classic',
+                    ],
+                    'color' => [
+                        'default' => 'rgba(255, 255, 255, 0)',
+                    ]
+                ]
             ]
         );
 
@@ -885,6 +894,14 @@ class Sidebar extends BaseWidget {
                 'selector' => '{{WRAPPER}} .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-single-category-wrapper.active .betterdocs-category-header',
                 'exclude'  => [
                     'image'
+                ],
+                'fields_options' => [
+                    'background' => [
+                        'default' => 'classic',
+                    ],
+                    'color' => [
+                        'default' => '#5a94ff1a',
+                    ]
                 ]
             ]
         );
@@ -948,7 +965,8 @@ class Sidebar extends BaseWidget {
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-sidebar .betterdocs-sidebar-content .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-category-header .betterdocs-category-header-inner .betterdocs-category-items-counts span' => 'color: {{VALUE}};'
-                ]
+                ],
+                'default' => '#ffffff'
             ]
         );
 
@@ -960,6 +978,14 @@ class Sidebar extends BaseWidget {
                 'selector' => '{{WRAPPER}} .betterdocs-sidebar .betterdocs-sidebar-content .betterdocs-category-grid-wrapper .betterdocs-category-grid-inner-wrapper .betterdocs-category-header .betterdocs-category-header-inner .betterdocs-category-items-counts',
                 'exclude'  => [
                     'image'
+                ],
+                'fields_options' => [
+                    'background' => [
+                        'default' => 'classic',
+                    ],
+                    'color' => [
+                        'default' => '#528ffe',
+                    ]
                 ]
             ]
         );
@@ -1419,6 +1445,13 @@ class Sidebar extends BaseWidget {
     }
 
     public function view_params() {
+        /**
+         * Localize This In Order To Know If This Block Is Arriving From Betterdocs Templates Or Not
+         */
+        betterdocs()->assets->localize('betterdocs-category-grid', 'betterdocsCategoryGridConfig', [
+            'is_betterdocs_templates' => betterdocs()->helper->is_templates() ? true : false
+        ]);
+
         $settings = &$this->attributes;
         $default_multiple_kb = (bool) betterdocs()->editor->get( 'elementor' )->multiple_kb_status();
         $kb_slug = isset( $settings['selected_knowledge_base'] ) ? $settings['selected_knowledge_base'] : '';

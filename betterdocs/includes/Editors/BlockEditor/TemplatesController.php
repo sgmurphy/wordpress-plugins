@@ -82,7 +82,7 @@ class TemplatesController extends Base {
                 $template->slug        = $slug;
                 $template->title       = $this->blockTemplate->get_block_template_title( $slug );
                 $template->description = $this->blockTemplate->get_block_template_description( $slug );
-                unset( $template->source );
+                // unset( $template->source ); #creates issue when saving templates for FSE, the issue is randomly when props are set for each blocks, the props does not reflect on the front-end #issue-url:- https://projects.startise.com/fbs-63129
 
                 return $template;
             }

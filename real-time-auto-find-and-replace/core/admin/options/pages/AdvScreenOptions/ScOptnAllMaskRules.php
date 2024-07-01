@@ -91,28 +91,28 @@ class ScOptnAllMaskRules {
 				'id'       => 'overview',
 				'title'    => __( 'Overview', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'amr_overview' ),
+				'callback' => array( __CLASS__, 'amr_overview' ),
 				'priority' => 1,
 			),
 			array(
 				'id'       => 'screen_content',
 				'title'    => __( 'Screen Content', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'amr_screen_content' ),
+				'callback' => array( __CLASS__, 'amr_screen_content' ),
 				'priority' => 2,
 			),
 			array(
 				'id'       => 'available_actions',
 				'title'    => __( 'Available Actions', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'amr_available_actions' ),
+				'callback' => array( __CLASS__, 'amr_available_actions' ),
 				'priority' => 3,
 			),
 			array(
 				'id'       => 'bulk_actions',
 				'title'    => __( 'Bulk Actions', 'real-time-auto-find-and-replace' ),
 				'content'  => '',
-				'callback' => array( __class__, 'amr_bulk_actions' ),
+				'callback' => array( __CLASS__, 'amr_bulk_actions' ),
 				'priority' => 4,
 			),
 		);
@@ -124,7 +124,7 @@ class ScOptnAllMaskRules {
 	 * @return void
 	 */
 	public static function amr_overview() {
-		echo \sprintf(
+		\printf(
 			__( '%1$s This screen provides the  the functionalities to add new rule. You can add real-time rules as well as some specific rules in Database. After installing the pro version, these muted pro features will be activated automatically. %2$s', 'real-time-auto-find-and-replace' ),
 			'<p>',
 			'</p>'
@@ -144,7 +144,7 @@ class ScOptnAllMaskRules {
 			</p>
 			<ul>
 				<li>
-					<?php echo sprintf( __( '%1$s Edit %2$s takes you to the editing screen for that rule. ', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
+					<?php printf( __( '%1$s Edit %2$s takes you to the editing screen for that rule. ', 'real-time-auto-find-and-replace' ), '<strong>', '</strong>' ); ?>
 				</li>
 			</ul>
 		<?php
@@ -200,6 +200,4 @@ class ScOptnAllMaskRules {
 
 		return $html;
 	}
-
-
 }

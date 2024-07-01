@@ -25,24 +25,24 @@ if( class_exists('Hasthemes\HTMega_Builder\HTRP_Recommended_Plugins') ){
     );
 
     $recommendations->add_new_tab(array(
-        'title' => esc_html__( 'Recommended Plugins', 'htmega-addons' ),
+        'title' => __( 'Recommended Plugins', 'htmega-addons' ),
         'active' => true,
         'plugins' => array(
             array(
                 'slug'      => 'woolentor-addons',
                 'location'  => 'woolentor_addons_elementor.php',
-                'name'      => esc_html__( 'ShopLentor – WooCommerce Builder for Elementor & Gutenberg +10 Modules – All in One Solution (formerly WooLentor)
+                'name'      => __( 'ShopLentor – WooCommerce Builder for Elementor & Gutenberg +10 Modules – All in One Solution (formerly WooLentor)
                 ', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'hashbar-wp-notification-bar',
                 'location'  => 'init.php',
-                'name'      => esc_html__( 'Notification Bar for WordPress', 'htmega-addons' )
+                'name'      => __( 'Notification Bar for WordPress', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'insert-headers-and-footers-script',
                 'location'  => 'init.php',
-                'name'      => esc_html__( 'Insert Headers and Footers Code', 'htmega-addons' )
+                'name'      => __( 'Insert Headers and Footers Code', 'htmega-addons' )
             )
             
         )
@@ -56,32 +56,32 @@ if( class_exists('Hasthemes\HTMega_Builder\HTRP_Recommended_Plugins') ){
             array(
                 'slug'      => 'woolentor-addons',
                 'location'  => 'woolentor_addons_elementor.php',
-                'name'      => esc_html__( 'WooLentor – WooCommerce Elementor Addons + Builder', 'htmega-addons' )
+                'name'      => __( 'WooLentor – WooCommerce Elementor Addons + Builder', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'wishsuite',
                 'location'  => 'wishsuite.php',
-                'name'      => esc_html__( 'WishSuite', 'htmega-addons' )
+                'name'      => __( 'WishSuite', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'ever-compare',
                 'location'  => 'ever-compare.php',
-                'name'      => esc_html__( 'EverCompare', 'htmega-addons' )
+                'name'      => __( 'EverCompare', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'quickswish',
                 'location'  => 'quickswish.php',
-                'name'      => esc_html__( 'QuickSwish', 'htmega-addons' )
+                'name'      => __( 'QuickSwish', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'just-tables',
                 'location'  => 'just-tables.php',
-                'name'      => esc_html__( 'JustTables', 'htmega-addons' )
+                'name'      => __( 'JustTables', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'whols',
                 'location'  => 'whols.php',
-                'name'      => esc_html__( 'Whols', 'htmega-addons' )
+                'name'      => __( 'Whols', 'htmega-addons' )
             ),
 
         )
@@ -94,32 +94,32 @@ if( class_exists('Hasthemes\HTMega_Builder\HTRP_Recommended_Plugins') ){
             array(
                 'slug'      => 'wp-plugin-manager',
                 'location'  => 'plugin-main.php',
-                'name'      => esc_html__( 'WP Plugin Manager', 'htmega-addons' )
+                'name'      => __( 'WP Plugin Manager', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'ht-easy-google-analytics',
                 'location'  => 'ht-easy-google-analytics.php',
-                'name'      => esc_html__( 'HT Easy GA4 ( Google Analytics 4 )', 'htmega-addons' )
+                'name'      => __( 'HT Easy GA4 ( Google Analytics 4 )', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'ht-contactform',
                 'location'  => 'contact-form-widget-elementor.php',
-                'name'      => esc_html__( 'HT Contact Form 7', 'htmega-addons' )
+                'name'      => __( 'HT Contact Form 7', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'ht-wpform',
                 'location'  => 'wpform-widget-elementor.php',
-                'name'      => esc_html__( 'HT WPForms', 'htmega-addons' )
+                'name'      => __( 'HT WPForms', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'docus',
                 'location'  => 'docus.php',
-                'name'      => esc_html__( 'Docus', 'htmega-addons' )
+                'name'      => __( 'Docus', 'htmega-addons' )
             ),
             array(
                 'slug'      => 'data-captia',
                 'location'  => 'data-captia.php',
-                'name'      => esc_html__( 'DataCaptia', 'htmega-addons' )
+                'name'      => __( 'DataCaptia', 'htmega-addons' )
             )
 
         )

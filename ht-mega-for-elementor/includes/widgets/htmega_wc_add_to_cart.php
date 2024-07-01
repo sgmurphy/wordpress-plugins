@@ -203,7 +203,7 @@ class HTMega_Elementor_Widget_WC_Add_to_Cart extends Widget_Button {
 
     private function render_form_button( $product ) {
         if ( ! $product && current_user_can( 'manage_options' ) ) {
-            echo  __( 'Please set a valid product', 'htmega-addons' );
+            echo  esc_html__( 'Please set a valid product', 'htmega-addons' );
             return;
         }
 
@@ -229,7 +229,7 @@ class HTMega_Elementor_Widget_WC_Add_to_Cart extends Widget_Button {
 
         $form = ob_get_clean();
         $form = str_replace( 'single_add_to_cart_button', 'single_add_to_cart_button elementor-button', $form );
-        echo $form;
+        echo $form; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
         remove_filter( 'woocommerce_product_single_add_to_cart_text', $text_callback );
         remove_filter( 'woocommerce_get_stock_html', '__return_empty_string' );

@@ -23,7 +23,6 @@ class RTAFAR_EnqueueScript {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'rtrarAppRegisterVars' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'rtrarAppEnqueueScripts' ), 90 );
-
 	}
 
 	/**
@@ -95,8 +94,4 @@ class RTAFAR_EnqueueScript {
 			wp_enqueue_script( 'rtrar.app', CS_RTAFAR_PLUGIN_ASSET_URI . 'js/rtafar.app.min.js', array(), CS_RTAFAR_VERSION, true );
 		}
 	}
-
 }
-
-
-

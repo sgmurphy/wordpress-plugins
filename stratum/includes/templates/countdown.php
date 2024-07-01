@@ -65,7 +65,7 @@ $countdown_options = array(
 	( $show_seconds == 'yes' ? 'data-seconds="true"' : '' ),
 	( $custom_labels == 'yes' ? "data-labels='".json_encode($custom_labels_arr)."'" : '' ),
 	((!$is_editor && !empty( $settings['stratum_expire_actions'] )) ? "data-expire-actions='".json_encode($stratum_expire_actions)."'" : '' ),
-	((!$is_editor && is_array($stratum_expire_actions) && in_array("redirect", $stratum_expire_actions) && $expire_redirect_url['url'] != '') ? "data-expire-url='".esc_url($expire_redirect_url['url'])."'" : '' ),
+	((!$is_editor && is_array($stratum_expire_actions) && in_array("redirect", $stratum_expire_actions) && $expire_redirect_url['url'] != '') ? "data-expire-url='".esc_url( stratum_translate_url( $expire_redirect_url['url'] ) )."'" : '' ),
 	((!$is_editor && is_array($stratum_expire_actions) && in_array("message", $stratum_expire_actions) && $message_after_expire != '') ? "data-expire-text='".wp_kses_post($message_after_expire)."'" : '' )
 );
 

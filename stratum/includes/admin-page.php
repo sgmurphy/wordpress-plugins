@@ -155,6 +155,11 @@ class Admin_Page {
 			<div class="stratum-about-list">
 
 <!-- start markdowntohtml.com -->
+<p>= 1.4.3, Jun 28 2024 =</p>
+<ul>
+<li>Improved compatibility with WPML plugin.</li>
+<li>Minor bugfixes and improvements.</li>
+</ul>
 
 <p>= 1.4.2, Jun 14 2024 =</p>
 <ul>

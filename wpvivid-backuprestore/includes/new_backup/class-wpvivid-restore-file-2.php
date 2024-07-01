@@ -754,5 +754,10 @@ function wpvivid_function_pre_extract_callback_2($p_event, &$p_header)
         return 0;
     }
 
+    if(strpos($p_header['filename'], $content_path.'mu-plugins/wp-stack-cache.php')!==false)
+    {
+        return 0;
+    }
+
     return 1;
 }

@@ -410,7 +410,7 @@ class HTMega_Elementor_Widget_Toggle extends Widget_Base {
                 <div class="htmega-toggle-content-<?php echo esc_attr( $id );?>" style="display: none;">
                     <?php
                         if ( $settings['content_source'] == "elementor" && !empty( $settings['template_id'] )) {
-                            echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] );
+                            echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }else{
                             if( !empty( $settings['custom_content'] ) ){
                                 echo '<div class="htmega_custom_content">'.wp_kses_post( $settings['custom_content'] ).'</div>';

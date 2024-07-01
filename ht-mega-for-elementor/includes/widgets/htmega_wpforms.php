@@ -1170,7 +1170,7 @@ class HTMega_Elementor_Widget_WPforms extends Widget_Base {
         }else{
             $show_form_title = $settings['show_form_title'];
             $show_form_description = $settings['show_form_description'];
-            echo wpforms_display(  esc_attr( $settings['contact_form_list'] ), esc_attr( $show_form_title ),  esc_attr( $show_form_description ) );
+            echo wpforms_display(  esc_attr( $settings['contact_form_list'] ), esc_attr( $show_form_title ),  esc_attr( $show_form_description ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
     }

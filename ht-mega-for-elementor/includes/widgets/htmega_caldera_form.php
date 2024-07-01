@@ -747,7 +747,7 @@ class HTMega_Elementor_Widget_Caldera_Form extends Widget_Base {
         $this->add_render_attribute( 'shortcode', $calderaform_attributes );
 
         if ( !$settings['caldera_form_list'] ) {
-            echo '<div class="htmega-notices"><p>'.__('Please select a Contact Form From Setting!', 'htmega-addons').'</p></div>';
+            echo '<div class="htmega-notices"><p>'.esc_html__('Please select a Contact Form From Setting!', 'htmega-addons').'</p></div>';
         }else{
             echo do_shortcode( sprintf( '[caldera_form %s]', $this->get_render_attribute_string( 'shortcode' ) ) );
         }

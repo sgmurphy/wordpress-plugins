@@ -8,7 +8,7 @@
 <script type="text/template" id="tmpl-htmega-template-library-header-actions">
 	<div id="htmega-template-library-header-sync" class="elementor-templates-modal__header__item">
 		<i class="eicon-sync" aria-hidden="true" title="<?php esc_attr_e( 'Sync Library', 'htmega-addons' ); ?>"></i>
-		<span class="elementor-screen-only"><?php echo __( 'Sync Library', 'htmega-addons' ); ?></span>
+		<span class="elementor-screen-only"><?php echo esc_html__( 'Sync Library', 'htmega-addons' ); ?></span>
 	</div>
 </script>
 
@@ -50,7 +50,7 @@
 				<div class="elementor-loader-box"></div>
 			</div>
 		</div>
-		<div class="elementor-loading-title"><?php echo __( 'Loading', 'htmega-addons' ); ?></div>
+		<div class="elementor-loading-title"><?php echo esc_html__( 'Loading', 'htmega-addons' ); ?></div>
 	</div>
 </script>
 
@@ -61,14 +61,14 @@
 <script type="text/template" id="tmpl-htmega-template-library-insert-button">
 	<a class="elementor-template-library-template-action htmega-template-library-template-insert elementor-button">
 		<i class="eicon-file-download" aria-hidden="true"></i>
-		<span class="elementor-button-title"><?php echo __( 'Insert', 'htmega-addons' ); ?></span>
+		<span class="elementor-button-title"><?php echo esc_html__( 'Insert', 'htmega-addons' ); ?></span>
 	</a>
 </script>
 
 <script type="text/template" id="tmpl-htmega-template-library-get-pro-button">
 	<a class="elementor-template-library-template-action elementor-button elementor-go-pro" href="https://wphtmega.com/pricing/" target="_blank">
 		<i class="eicon-external-link-square" aria-hidden="true"></i>
-		<span class="elementor-button-title"><?php echo __( 'Go Pro', 'htmega-addons' ); ?></span>
+		<span class="elementor-button-title"><?php echo esc_html__( 'Go Pro', 'htmega-addons' ); ?></span>
 	</a>
 </script>
 
@@ -80,7 +80,7 @@
 
 <script type="text/template" id="tmpl-htmega-template-library-header-back">
 	<i class="eicon-" aria-hidden="true"></i>
-	<span><?php echo __( 'Back to Library', 'htmega-addons' ); ?></span>
+	<span><?php echo esc_html__( 'Back to Library', 'htmega-addons' ); ?></span>
 </script>
 
 <script type="text/template" id="tmpl-htmega-template-library-templates">
@@ -145,7 +145,7 @@
 	<div class="elementor-template-library-blank-title"></div>
 	<div class="elementor-template-library-blank-message"></div>
 	<div class="elementor-template-library-blank-footer">
-		<?php echo __( 'Want to learn more about the HT Mega library?', 'htmega-addons' ); ?>
-		<a class="elementor-template-library-blank-footer-link" href=<?php echo esc_url("https://wphtmega.com"); ?> target="_blank"><?php echo __( 'Click here', 'htmega-addons' ); ?></a>
+		<?php echo esc_html__( 'Want to learn more about the HT Mega library?', 'htmega-addons' ); ?>
+		<a class="elementor-template-library-blank-footer-link" href=<?php echo esc_url("https://wphtmega.com"); ?> target="_blank"><?php echo esc_html__( 'Click here', 'htmega-addons' ); ?></a>
 	</div>
 </script>

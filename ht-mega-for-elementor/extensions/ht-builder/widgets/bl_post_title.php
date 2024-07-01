@@ -137,9 +137,9 @@ class Bl_Post_Title_ELement extends Widget_Base {
         $title_tag = htmega_validate_html_tag( $settings['blog_title_html_tag'] );
 
         if( Elementor::instance()->editor->is_edit_mode() ){
-            echo sprintf( '<%1$s class="entry-title">' . __('Blog Title', 'htmega-addons' ). '</%1$s>', $title_tag );
+            echo sprintf( '<%1$s class="entry-title">' . esc_html__('Blog Title', 'htmega-addons' ). '</%1$s>', esc_attr( $title_tag ) );
         }else{
-            echo sprintf( the_title( '<%1$s class="entry-title">', '</%1$s>', false ), $title_tag  );
+            echo sprintf( the_title( '<%1$s class="entry-title">', '</%1$s>', false ), esc_attr( $title_tag ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
     }

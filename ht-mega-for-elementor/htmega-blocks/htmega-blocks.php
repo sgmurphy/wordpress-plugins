@@ -76,7 +76,7 @@ endif;
  *
  */
 function htmegablocks() {
-	if ( ! empty( $_REQUEST['action'] ) && 'elementor' === $_REQUEST['action'] ) {
+	if ( ! empty( $_REQUEST['action'] ) && 'elementor' === $_REQUEST['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return;
 	}elseif( class_exists( 'Classic_Editor' ) ){
 		return;

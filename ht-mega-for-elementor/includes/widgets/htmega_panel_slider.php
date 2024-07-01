@@ -1324,14 +1324,14 @@ class HTMega_Elementor_Widget_Panel_Slider extends Widget_Base {
                                         if( !empty( $sliders['slider_title'] ) ){
                                             
                                             if( $sliders['external_link']['url']  && 'yes' == $settings['linkshow_title'] ){
-                                                echo '<h2><a '.$this->get_render_attribute_string( $url).' >'.esc_html__( $sliders['slider_title'], 'htmega-addons' ).'</a></h2>';
+                                                echo '<h2><a '.$this->get_render_attribute_string( $url).' >'.esc_html( $sliders['slider_title'] ).'</a></h2>';
                                             } else {
-                                                echo '<h2>'.esc_html__( $sliders['slider_title'], 'htmega-addons' ).'</h2>';
+                                                echo '<h2>'.esc_html( $sliders['slider_title'] ).'</h2>';
                                             }
                                             
                                         }
                                         if( !empty( $sliders['slider_sub_title'] ) ){
-                                            echo '<span>'.esc_html__( $sliders['slider_sub_title'], 'htmega-addons' ).'</span>';
+                                            echo '<span>'.esc_html( $sliders['slider_sub_title'] ).'</span>';
                                         }
                                     ?>
                                 </div>

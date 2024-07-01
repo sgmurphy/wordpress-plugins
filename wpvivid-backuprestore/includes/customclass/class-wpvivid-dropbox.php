@@ -818,7 +818,13 @@ class WPvivid_Dropbox extends WPvivid_Remote
     public function finish_add_remote()
     {
         global $wpvivid_plugin;
-        $wpvivid_plugin->ajax_check_security();
+        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
+        $check=current_user_can('manage_options');
+        $check=apply_filters('wpvivid_ajax_check_security',$check);
+        if(!$check)
+        {
+            die();
+        }
         try {
             if (empty($_POST) || !isset($_POST['remote']) || !is_string($_POST['remote'])) {
                 die();

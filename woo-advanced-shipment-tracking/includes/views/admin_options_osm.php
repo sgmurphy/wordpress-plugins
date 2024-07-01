@@ -66,8 +66,8 @@
 						<fieldset>
 							<input class="input-text regular-input color_input" type="text" name="<?php echo esc_html( $data['label_color_field'] ); ?>" id="<?php echo esc_html( $data['label_color_field'] ); ?>" style="" value="<?php esc_html_e( get_ast_settings( 'ast_general_settings', $data['label_color_field'], '#1e73be' ) ); ?>" placeholder="">
 							<select class="select custom_order_color_select" id="<?php echo esc_html( $data['font_color_field'] ); ?>" name="<?php echo esc_html( $data['font_color_field'] ); ?>">		
-								<option value="#fff" <?php ( '#fff' == get_ast_settings( 'ast_general_settings', $data['font_color_field'], '#fff' ) ) ? esc_html_e( 'selected' ) : ''; ?>><?php esc_html_e( 'Light Font', 'woo-advanced-shipment-tracking' ); ?></option>
-								<option value="#000" <?php ( '#000' == get_ast_settings( 'ast_general_settings', $data['font_color_field'], '#fff' ) ) ? esc_html_e( 'selected' ) : ''; ?>><?php esc_html_e( 'Dark Font', 'woo-advanced-shipment-tracking' ); ?></option>
+								<option value="#fff" <?php ( '#fff' == get_ast_settings( 'ast_general_settings', $data['font_color_field'], '#fff' ) ) ? esc_attr( 'selected' ) : ''; ?>><?php esc_html_e( 'Light Font', 'woo-advanced-shipment-tracking' ); ?></option>
+								<option value="#000" <?php ( '#000' == get_ast_settings( 'ast_general_settings', $data['font_color_field'], '#fff' ) ) ? esc_attr( 'selected' ) : ''; ?>><?php esc_html_e( 'Dark Font', 'woo-advanced-shipment-tracking' ); ?></option>
 							</select>							
 						</fieldset>
 					</td>

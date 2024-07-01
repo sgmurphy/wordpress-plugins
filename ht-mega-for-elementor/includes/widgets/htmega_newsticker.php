@@ -969,14 +969,14 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
                 $args['date_query'] = array(
                     array(
                         'before'    => array(
-                            'year'  => date('Y', $order_by_date_before),
-                            'month' =>date('m', $order_by_date_before),
-                            'day'   => date('d', $order_by_date_before),
+                            'year'  => gmdate('Y', $order_by_date_before),
+                            'month' =>gmdate('m', $order_by_date_before),
+                            'day'   => gmdate('d', $order_by_date_before),
                         ),
                         'after'    => array(
-                            'year'  => date('Y', $order_by_date_after),
-                            'month' =>date('m', $order_by_date_after),
-                            'day'   => date('d', $order_by_date_after),
+                            'year'  => gmdate('Y', $order_by_date_after),
+                            'month' =>gmdate('m', $order_by_date_after),
+                            'day'   => gmdate('d', $order_by_date_after),
                         ),
                         'inclusive' => true,
                     ),
@@ -1031,10 +1031,10 @@ class HTMega_Elementor_Widget_Newsticker extends Widget_Base {
                                                 if ( 0 > $settings['title_length'] ) { 
                                                     the_title();
                                                 } else { 
-                                                    echo wp_trim_words( get_the_title(),  absint( $settings['title_length'] ), '' );
+                                                    echo esc_html( wp_trim_words( get_the_title(),  absint( $settings['title_length'] ), '' ) );
                                                 }
                                                 if( $settings['news_ticker_date'] == 'yes' ){
-                                                    echo '<span class="news_date" >'.get_the_time( 'd M' ).'</span>';
+                                                    echo '<span class="news_date" >'. esc_html( get_the_time( 'd M' ) ).'</span>';
                                                 }
                                             ?>
                                         </a>

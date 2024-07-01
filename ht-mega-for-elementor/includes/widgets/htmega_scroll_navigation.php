@@ -578,7 +578,7 @@ class HTMega_Elementor_Widget_Scroll_Navigation extends Widget_Base {
                                     if ( $navigatorcontent['content_source'] == 'custom' && !empty( $navigatorcontent['navigation_content'] ) ) {
                                         echo '<div class="scroll-navigation-content">'.wp_kses_post( $navigatorcontent['navigation_content'] ).'</div>';
                                     } elseif ( $navigatorcontent['content_source'] == "elementor" && !empty( $navigatorcontent['template_id'] )) {
-                                        echo Plugin::instance()->frontend->get_builder_content_for_display( $navigatorcontent['template_id'] );
+                                        echo Plugin::instance()->frontend->get_builder_content_for_display( $navigatorcontent['template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     }
                                 ?>
                             </div>

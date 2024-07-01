@@ -886,7 +886,7 @@ class HTMega_Elementor_Widget_Popover extends Widget_Base {
                         }
                         $button_txt = sprintf( '<a %1$s>%2$s</a>', $this->get_render_attribute_string( 'url' ), $button_txt );
                     }
-                    echo sprintf('<span class="%1$s" data-container=".htmega-popover-container-%6$s" data-toggle="popover" data-placement="%2$s" data-content="%3$s" title="%4$s">%5$s</span>', esc_attr( $active_class ), esc_attr( $settings['popover_dir'] ), htmega_kses_desc( htmlspecialchars( $settings['popover_text'] ) ), htmega_kses_title( htmlspecialchars( $settings['popover_header_text'] ) ),  $button_txt, esc_attr( $id ) );
+                    echo sprintf('<span class="%1$s" data-container=".htmega-popover-container-%6$s" data-toggle="popover" data-placement="%2$s" data-content="%3$s" title="%4$s">%5$s</span>', esc_attr( $active_class ), esc_attr( $settings['popover_dir'] ), htmega_kses_desc( htmlspecialchars( $settings['popover_text'] ) ), htmega_kses_title( htmlspecialchars( $settings['popover_header_text'] ) ),  $button_txt, esc_attr( $id ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 ?>
             </div>
 

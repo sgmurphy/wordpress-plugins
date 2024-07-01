@@ -1870,7 +1870,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
 
         if( isset( $settings['content_list'] ) ){
             foreach( $settings['content_list'] as $content_row ) {
-                $row_id = rand(10, 1000);
+                $row_id = wp_rand(10, 1000);
                 if( $content_row['field_type'] == 'row' ) {
                     $table_tr[] = [
                         'id' => $row_id,
@@ -1918,20 +1918,20 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                 <div class="price-list-text">
                                     <?php 
                                         if( !empty( $pricinglist['list_name'] ) ){
-                                            echo '<span>'.esc_html__( $pricinglist['list_name'],'htmega-addons' ).'</span><span class="separator"></span>';
+                                            echo '<span>'.esc_html( $pricinglist['list_name'] ).'</span><span class="separator"></span>';
                                         }
                                     ?>
                                 </div>
                                 <div class="price-text-right">
                                     <?php
                                         if( !empty( $pricinglist['list_label_price'] ) ){
-                                            echo '<span class="before-price-label">'.esc_html__( $pricinglist['list_label_price'], 'htmega-addons' ).'</span>';
+                                            echo '<span class="before-price-label">'.esc_html( $pricinglist['list_label_price'] ).'</span>';
                                         }
                                         if( !empty( $pricinglist['list_price'] ) ){
-                                            echo '<span class="price">'.esc_html__( $pricinglist['list_price'], 'htmega-addons' ).'</span>';
+                                            echo '<span class="price">'.esc_html( $pricinglist['list_price'] ).'</span>';
                                         }
                                         if( !empty( $pricinglist['list_label_month'] ) ){
-                                            echo '<span class="after-price-label">'.esc_html__( $pricinglist['list_label_month'], 'htmega-addons' ).'</span>';
+                                            echo '<span class="after-price-label">'.esc_html( $pricinglist['list_label_month'] ).'</span>';
                                         }
                                         if( !empty( $pricinglist['list_cart_icon']['value'] ) ){
                                             echo '<span class="basket">'.HTMega_Icon_manager::render_icon( $pricinglist['list_cart_icon'], [ 'aria-hidden' => 'true' ] ).'</span>';
@@ -1969,7 +1969,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                                 <div class="htmega-pricing-table__head-column-cell-area">
                                                     <?php if(!empty($headeritem['column_name'])){ ?>
                                                         <div class="htmega-pricing-table__head-column-cell-text">
-                                                            <?php echo esc_html__($headeritem['column_name'],'htmega-addons'); ?>
+                                                            <?php echo esc_html( $headeritem['column_name'] ); ?>
                                                         </div>
                                                     <?php } ?>
 
@@ -1992,7 +1992,7 @@ class HTMega_Elementor_Widget_Pricing_List_View extends Widget_Base {
                                                 <div class="htmega-pricing-table__head-column-cell-area">
                                                     <?php if(!empty($headeritem['column_name'])){ ?>
                                                         <div class="htmega-pricing-table__head-column-cell-text">
-                                                            <?php echo esc_html__($headeritem['column_name'],'htmega-addons'); ?>
+                                                            <?php echo esc_html( $headeritem['column_name'] ); ?>
                                                         </div>
                                                     <?php } ?>
 

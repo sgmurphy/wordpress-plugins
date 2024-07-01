@@ -88,8 +88,4 @@ class RtafarNotices {
 
 		$notice->info( $message, 'Feedback' );
 	}
-
-
 }
-
-

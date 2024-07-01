@@ -181,6 +181,13 @@ class CategoryGrid extends Block {
             ];
         }
 
+        /**
+         * Add This Attribute When Using Outside Betterdocs Templates Only
+         */
+        if( $default_multiple_kb == 1 && ( ! empty( $kb_slug ) ) && ( ! betterdocs()->helper->is_templates() ) ) {
+            $inner_wrapper_attr['data-mkb-slug'] = $kb_slug;
+        }
+
         return [
             'wrapper_attr'            => $wrapper_attr,
             'inner_wrapper_attr'      => $inner_wrapper_attr,

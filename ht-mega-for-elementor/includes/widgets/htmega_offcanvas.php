@@ -544,7 +544,7 @@ class HTMega_Elementor_Widget_Offcanvas extends Widget_Base {
 
             <div class="offcanvas align-icon-<?php echo esc_attr( $settings['button_icon_pos'] ); ?>">
                 <a href="#" class="canvas-btn site-menu-<?php echo esc_attr( $id ); ?>">
-                    <?php echo $buttontxt; ?>
+                    <?php echo $buttontxt; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 </a>
             </div>
 
@@ -555,7 +555,7 @@ class HTMega_Elementor_Widget_Offcanvas extends Widget_Base {
                     if ( $settings['content_source'] == 'sidebar' && !empty( $settings['sidebars_id'] ) ) {
                         dynamic_sidebar( $settings['sidebars_id'] );
                     } elseif ( $settings['content_source'] == 'elementor' && !empty( $settings['template_id'] )) {
-                        echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] );
+                        echo Plugin::instance()->frontend->get_builder_content_for_display( $settings['template_id'] ) ;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                     }
                 ?>
             </div>

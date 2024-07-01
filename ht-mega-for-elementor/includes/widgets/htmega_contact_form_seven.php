@@ -1049,7 +1049,7 @@ class HTMega_Elementor_Widget_Contact_Form_Seven extends Widget_Base {
                     if( !empty($settings['htmega_contact_form_id']) ){
                         echo do_shortcode( '[contact-form-7  id="'. esc_attr( $settings['htmega_contact_form_id'] ) .'"]' ); 
                     }else{
-                        echo '<div class="form_no_select">' .__('Please Select contact form.','htmega-addons'). '</div>';
+                        echo '<div class="form_no_select">' .esc_html__('Please Select contact form.','htmega-addons'). '</div>';
                     }
                 ?>
             </div>

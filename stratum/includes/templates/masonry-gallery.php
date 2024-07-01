@@ -26,11 +26,15 @@ $options = [
 	<div class="grid-sizer masonry-col-<?php echo esc_attr($gallery_columns['size']); ?>"></div>
 	<?php
     foreach ( $gallery_images as $index => $image ) {
-		$data_img = $this->_get_image_attributes( $image[ 'id' ] );
 
-		$url 	 = wp_get_attachment_image_url( $image[ 'id' ], $image_size );
-		$srcset  = wp_get_attachment_image_srcset( $image[ 'id' ], $image_size );
-		$caption = wp_get_attachment_caption( $image[ 'id' ] );
+		$image_id = $image[ 'id' ];
+		$image_id = stratum_translate_post( $image_id );
+
+		$data_img = $this->_get_image_attributes( $image_id );
+
+		$url 	 = wp_get_attachment_image_url( $image_id, $image_size );
+		$srcset  = wp_get_attachment_image_srcset( $image_id, $image_size );
+		$caption = wp_get_attachment_caption( $image_id );
 		?>
 		<div class="<?php echo esc_attr( $class . '__item' ); ?> masonry-item">
 			<?php
@@ -42,7 +46,7 @@ $options = [
 			<?php } ?>
                 <div class="<?php echo esc_attr( $class . '__image' ); ?>">
                 	<figure>
-                   		<img class="wp-image-<?php echo esc_attr($image[ 'id' ]); ?>" alt="<?php
+                   		<img class="wp-image-<?php echo esc_attr($image_id); ?>" alt="<?php
 							echo esc_attr( $data_img[ 'alt' ] ); ?>" src="<?php echo esc_url($url); ?>" srcset="<?php
 							echo $srcset; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php
 

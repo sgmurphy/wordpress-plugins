@@ -75,15 +75,15 @@
 					$newTab = isset($brand['newTab']) && $brand['newTab'] ? 'target=_blank' : '';
 					$noFollow = isset($brand['noFollow']) && $brand['noFollow'] ? 'rel=nofollow' : '';
 					echo sprintf('<div class="htmega-brand-item"><a %s %s %s>%s</a></div>',
-						$brand_link,
+						$brand_link, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						esc_attr($newTab),
 						esc_attr($noFollow),
-						$brand_image
-					);
+						$brand_image // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					); 
 				}
 			}
 		?>
 	</div>
 <?php
-	echo ob_get_clean();
+	echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

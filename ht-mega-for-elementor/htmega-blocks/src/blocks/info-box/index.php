@@ -69,11 +69,11 @@
 					{$box_shape_svg}
 				</div>";
 
-				echo ($infoBoxItem);
+				echo ($infoBoxItem); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 		}
 	?>
 	</div>
 <?php
-	echo ob_get_clean();
+	echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

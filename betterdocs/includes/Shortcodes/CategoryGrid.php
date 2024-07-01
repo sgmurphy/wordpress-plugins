@@ -165,6 +165,13 @@ class CategoryGrid extends Shortcode {
             'posts_per_page' => $this->attributes['posts_per_page']
         ];
 
+        /**
+         * Add This Attribute When Using Outside Betterdocs Templates Only
+         */
+        if( $this->attributes['multiple_knowledge_base'] && ( !empty( $this->attributes['kb_slug'] ) ) && ( ! betterdocs()->helper->is_templates() ) ) {
+            $inner_wrapper_attr['data-mkb-slug'] = $this->attributes['kb_slug'];
+        }
+
         return [
             'wrapper_attr'           => ['class' => ['betterdocs-category-grid-wrapper']],
             'inner_wrapper_attr'     => $inner_wrapper_attr,

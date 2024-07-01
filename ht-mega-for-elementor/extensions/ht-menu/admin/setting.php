@@ -142,7 +142,7 @@ class HTMegaMenu_Admin_Settings {
 
     // Save Options Message
     function save_message() {
-        if( isset($_GET['settings-updated']) ) { ?>
+        if( isset($_GET['settings-updated']) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
             <div class="updated notice is-dismissible"> 
                 <p><strong><?php esc_html_e('Successfully Settings Saved.', 'htmega-addons') ?></strong></p>
             </div>

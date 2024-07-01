@@ -314,10 +314,15 @@ class WriteWithAI extends Base
             function getBodyContent(htmlString) {
                 var match = htmlString.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
 
-                console.log(match[1].replace(/<p>\s+/g, '<p>'));
-
-                return match ? match[1].replace(/<p>\s+/g, '<p>') : '';
+                // Check if match is null before accessing match[1]
+                if (match) {
+                    console.log(match[1].replace(/<p>\s+/g, '<p>'));
+                    return match[1].replace(/<p>\s+/g, '<p>');
+                } else {
+                    return '';
+                }
             }
+
 
 
             function insertContentToEditor(title, htmlContent, isOverwrite, keywords) {

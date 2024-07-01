@@ -5,7 +5,7 @@ Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
 Tested up to: 6.5
-Stable tag: 2.21.13
+Stable tag: 2.21.14
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,19 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.21.14 =
+
+Improvements:
+
+* Defining SERAPH_ACCEL_SITEROOT_DIR constant.
+* Deinline large fonts.
+* Revolution Slider 6.7 and higher.
+
+Fixes:
+
+* HTML parser: tags that contain digits 0,7,8,9 are truncated.
+* Vulnerability of Cross Site Request Forgery (CSRF) in cancelling processing item.
 
 = 2.21.13 =
 

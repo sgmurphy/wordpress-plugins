@@ -1061,7 +1061,7 @@ class HTMega_Elementor_Widget_QUforms extends Widget_Base {
 
         $settings   = $this->get_settings_for_display();
         if (!$settings['contact_form_list']) {
-            echo '<p>'.__('Please select Contact Form', 'htmega-addons').'</p>';
+            echo '<p>'.esc_html__('Please select Contact Form', 'htmega-addons').'</p>';
         }else{
             $form_attributes = [
                 'id' => sanitize_text_field( $settings['contact_form_list'] ),

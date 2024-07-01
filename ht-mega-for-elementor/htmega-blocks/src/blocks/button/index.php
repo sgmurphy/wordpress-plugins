@@ -17,11 +17,11 @@
 	$newTab = isset($settings['newTab']) && $settings['newTab'] ? 'target=_blank' : '';
 	$noFollow = isset($settings['noFollow']) && $settings['noFollow'] ? 'rel=nofollow' : '';
 	?>
-		<a class="<?php echo esc_attr(trim(implode(' ', $card_classes))); ?>" <?php echo ($link); ?> <?php echo esc_attr($newTab); ?> <?php echo esc_attr($noFollow); ?> >
-			<?php echo ($settings['iconPosition'] === 'left' || $settings['iconPosition'] === '') ? $icon : ''; ?>
+		<a class="<?php echo esc_attr(trim(implode(' ', $card_classes))); ?>" <?php echo ($link); ?> <?php echo esc_attr($newTab); ?> <?php echo esc_attr($noFollow); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> >
+			<?php echo ($settings['iconPosition'] === 'left' || $settings['iconPosition'] === '') ? $icon : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php echo esc_html($settings['label']); ?>
-			<?php echo $settings['iconPosition'] === 'right' ? $icon : ''; ?>
+			<?php echo $settings['iconPosition'] === 'right' ? $icon : '';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</a>
 	<?php
-	echo ob_get_clean();
+	echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

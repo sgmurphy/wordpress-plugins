@@ -692,7 +692,7 @@ class WPvivid_Uploads_Cleaner_Setting
 
     public function setting_tab($tabs)
     {
-        if(current_user_can('administrator'))
+        if(current_user_can('manage_options'))
         {
             $tab['title']='Media Cleaner Settings';
             $tab['slug']='upload_cleaner';

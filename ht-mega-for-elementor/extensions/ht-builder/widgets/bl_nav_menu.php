@@ -79,7 +79,7 @@ class Bl_Nav_Menu_ELement extends Widget_Base {
                         'default' => array_keys( $this->get_available_menus() )[0],
                         'save_default' => true,
                         'separator' => 'after',
-                        'description' => sprintf( __( 'Go to the <a href="%s" target="_blank">Menus Option</a> to manage your menus.', 'htmega-addons' ), admin_url( 'nav-menus.php' ) ),
+                        'description' => sprintf( /* translators: %s: URL to the Menus Option page */ __( 'Go to the <a href="%s" target="_blank">Menus Option</a> to manage your menus.', 'htmega-addons' ), admin_url( 'nav-menus.php' ) ),
                     ]
                 );
             } else {
@@ -87,7 +87,7 @@ class Bl_Nav_Menu_ELement extends Widget_Base {
                     'nav_menu_id',
                     [
                         'type' => Controls_Manager::RAW_HTML,
-                        'raw' => sprintf( __( '<strong>There are no menus in your site.</strong><br>Go to the <a href="%s" target="_blank">Menus Option</a> to create one.', 'htmega-addons' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
+                        'raw' => sprintf( /* translators: %s: URL to the Menus Option page */ __( '<strong>There are no menus in your site.</strong><br>Go to the <a href="%s" target="_blank">Menus Option</a> to create one.', 'htmega-addons' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
                         'separator' => 'after',
                     ]
                 );
@@ -591,11 +591,11 @@ class Bl_Nav_Menu_ELement extends Widget_Base {
         $menu_html = wp_nav_menu( $menu_args );
 
         ?>
-            <div <?php echo $this->get_render_attribute_string( 'menu_area_attr' ); ?> >
+            <div <?php echo $this->get_render_attribute_string( 'menu_area_attr' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped?> >
                 <nav class="htbuilder-nav" id="htbuilder-mobilemenu-<?php echo esc_attr($id); ?>">
                     <?php
                         if( !empty( $menu_html ) ){
-                            echo $menu_html;
+                            echo $menu_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }
                     ?>
                 </nav>
@@ -606,7 +606,7 @@ class Bl_Nav_Menu_ELement extends Widget_Base {
                         <a class="htbuilder-mobile-close" href="#"><i class="fa fa-times"></i></a>
                         <?php
                             if( !empty( $menu_html ) ){
-                                echo $menu_html;
+                                echo $menu_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                             }
                         ?>
                     </div>

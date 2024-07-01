@@ -1924,7 +1924,7 @@ class HTMega_Elementor_Widget_WC_Element_Pages extends Widget_Base {
                 $html = '<div class="woocommerce">' . __( 'Your cart is currently empty.', 'htmega-addons' ) . '</div>';
             }
 
-            echo $html;
+            echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     public function render_plain_content() {

@@ -803,15 +803,15 @@ class HTMega_Elementor_Widget_Blockquote extends Widget_Base {
                             echo '<div class="blockquote_content">'.wp_kses_post( $settings['custom_content'] ).'</div>';
                         } elseif ( $settings['content_source'] == "elementor" && !empty( $settings['template_id'] )) {
                             $template_id = absint( $settings['template_id'] );
-                            echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
+                            echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }
                         if( !empty( $settings['blockquote_by'] ) ){
                             echo '<cite class="quote-by"> '.esc_html( $settings['blockquote_by']).' </cite>';
                         }
                         if( !empty( $settings['blockquote_image'] ) && $settings['blockquote_type'] == 'img' ){
-                            echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'blockquote_imagesize', 'blockquote_image' );
+                            echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'blockquote_imagesize', 'blockquote_image' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }else{
-                            echo sprintf('<span class="blockquote_icon">%1$s</span>', HTMega_Icon_manager::render_icon( $settings['blockquote_icon'], [ 'aria-hidden' => 'true' ] ) );
+                            echo sprintf('<span class="blockquote_icon">%1$s</span>', HTMega_Icon_manager::render_icon( $settings['blockquote_icon'], [ 'aria-hidden' => 'true' ] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         }
                     ?>
                 </blockquote>

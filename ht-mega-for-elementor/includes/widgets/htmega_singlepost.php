@@ -551,7 +551,7 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
                                 if ( has_post_thumbnail() ){
                                     the_post_thumbnail( 'full' ); 
                                 }else{
-                                    echo '<img src="'.HTMEGA_ADDONS_PL_URL.'/assets/images/image-placeholder.png" alt="'.get_the_title().'" />';
+                                    echo '<img src="' . esc_url( HTMEGA_ADDONS_PL_URL . '/assets/images/image-placeholder.png' ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
                                 }
                             ?>
                         </a>
@@ -582,14 +582,14 @@ class HTMega_Elementor_Widget_SinglePost extends Widget_Base {
                                 <h2><a href="<?php the_permalink();?>"><?php the_title(); ?></a></h2>
                             <?php
                             } else { ?>
-                                <h2><a href="<?php the_permalink();?>"><?php echo wp_trim_words( get_the_title(), floatval( $title_length ), '' ); ?></a></h2>
+                                <h2><a href="<?php the_permalink();?>"><?php echo esc_html( wp_trim_words( get_the_title(), floatval( $title_length ), '' ) ) ; ?></a></h2>
                             <?php
                              }
                         ?>
                         <?php endif; if( $settings['show_author'] == 'yes' || $settings['show_date'] == 'yes'):?>
                             <ul class="meta">
                                 <?php if( $settings['show_author'] == 'yes' ):?>
-                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ); ?>"><?php the_author();?></a></li>
+                                    <li><i class="fa fa-user-circle"></i><a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ), get_the_author_meta( 'user_nicename' ) ) ); ?>"><?php the_author();?></a></li>
                                 <?php endif; if($settings['show_date'] == 'yes' ):?>
                                     <li><i class="fa fa-clock-o"></i><?php the_time( 'd F Y' );?></li>
                                 <?php endif; ?>

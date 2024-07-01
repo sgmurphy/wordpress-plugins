@@ -62,7 +62,7 @@ class HTMega_Elementor_Widget_Booked_Calender extends Widget_Base {
                 [
                     'label'   => __( 'Day', 'htmega-addons' ),
                     'type'    => Controls_Manager::SELECT,
-                    'default' => date('d'),
+                    'default' => gmdate('d'),
                     'options' => [
                         '01'     => __( '01', 'htmega-addons' ),
                         '02'     => __( '02', 'htmega-addons' ),
@@ -104,7 +104,7 @@ class HTMega_Elementor_Widget_Booked_Calender extends Widget_Base {
                 [
                     'label'   => __( 'Month', 'htmega-addons' ),
                     'type'    => Controls_Manager::SELECT,
-                    'default' => date('m'),
+                    'default' => gmdate('m'),
                     'options' => [
                         '01' => __('January', 'htmega-addons'),
                         '02' => __('February', 'htmega-addons'),
@@ -127,7 +127,7 @@ class HTMega_Elementor_Widget_Booked_Calender extends Widget_Base {
                 [
                     'label'   => __( 'Year', 'htmega-addons' ),
                     'type'    => Controls_Manager::SELECT,
-                    'default' => date('Y'),
+                    'default' => gmdate('Y'),
                     'options' => [
                         '2018'     => __( '2018', 'htmega-addons' ),
                         '2019'     => __( '2019', 'htmega-addons' ),

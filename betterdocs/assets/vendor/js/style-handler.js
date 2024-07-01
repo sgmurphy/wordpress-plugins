@@ -197,14 +197,14 @@
   //
   const callBackFuncForSubsCribeForEditPost = () => {
     if (isSavingPost() && !isAutosavingPost()) {
-      generateAndSendStyleToBackend();
+      // generateAndSendStyleToBackend();
     }
     callBackFuncOnPreviewChange();
   };
 
   const callBackFuncForSubsCribeForEditSite = () => {
     if (isSavingNonPostEntityChanges()) {
-      generateAndSendStyleToBackend();
+      // generateAndSendStyleToBackend();
     }
     callBackFuncOnPreviewChange();
   };

@@ -331,3 +331,21 @@ function stratum_validate_heading_html_tag( $tag ) {
 
 	return in_array( strtolower( $tag ), $allowed_tags ) ? $tag : 'div';
 }
+
+/** 
+ * Get modulus of an arbitrary precision number.
+ **/ 
+function stratum_bcmod( $x, $y ) {
+
+	$take = 5;
+	$mod = '';
+
+	do {
+		$a = (int)$mod.substr( $x, 0, $take );
+		$x = substr( $x, $take );
+		$mod = $a % $y;
+	}
+	while ( strlen($x) );
+
+	return (int)$mod;
+}

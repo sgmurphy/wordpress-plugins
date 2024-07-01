@@ -1,11 +1,11 @@
 === Twenty20 Image Before-After ===
 Contributors: zayedbaloch, hammal
 Donate link: https://www.paypal.me/zayedbaloch
-Tags: images, Post, plugin, page, before and after slider, before after slider, visual composer, slider, admin, page builder, widgets, sidebar, twentytwenty, shortcode, image, posts, pages, elementor, ux builder, divi
-Requires at least: 3.5
-Tested up to: 6.1
+Tags: images, before and after slider, before after slider, ux builder element
+Requires at least: 5.5
+Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.6.1
+Stable tag: 1.7.0
 License: GPLv2 or later
 
 Need to highlight the differences between two images? Makes it easy with Twenty20 plugin.
@@ -111,6 +111,9 @@ Yes, Twenty20 plugin allow user to add unlimited before-after slider.
 11. UX Builder element.
 
 == Changelog ==
+
+= 1.7.0 =
+* Bug fixes
 
 = 1.6.1 =
 * Bug fixes.

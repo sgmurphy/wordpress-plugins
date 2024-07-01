@@ -4371,8 +4371,29 @@ class WPvivid
         else{
             if(isset($message['status']['start_time']))
             {
+                if($message['status']['str'] == 'completed'){
+                    $last_backup_status='Succeeded';
+                    $span_style='color: #81d742;';
+                }
+                elseif($message['status']['str'] == 'error'){
+                    $last_backup_status='Failed';
+                    $span_style='color: #ff0000;';
+                }
+                elseif($message['status']['str'] == 'cancel'){
+                    $last_backup_status='Failed';
+                    $span_style='color: #ff0000;';
+                }
+                else{
+                    $last_backup_status='Succeeded';
+                    $span_style='color: #81d742;';
+                }
                 ?>
-                <strong><?php esc_html_e('Last Backup: ', 'wpvivid-backuprestore'); ?></strong><?php echo esc_html(gmdate("l, F-d-Y H:i", strtotime($message['status']['start_time']))); ?>
+                <strong><?php esc_html_e('Last Backup: ', 'wpvivid-backuprestore'); ?></strong>
+                <span style="<?php echo esc_attr($span_style); ?>">
+                    <?php
+                    echo esc_html(gmdate("F-d-Y H:i", strtotime($message['status']['start_time'])).' ('.$last_backup_status.')');
+                    ?>
+                </span>
                 <?php
             }
             else
@@ -6573,17 +6594,6 @@ class WPvivid
             return array('result'=>'failed','error'=>$message);
         }
         return $ret;
-    }
-
-    public function ajax_check_security($role='administrator')
-    {
-        check_ajax_referer( 'wpvivid_ajax', 'nonce' );
-        $check=is_admin()&&current_user_can($role);
-        $check=apply_filters('wpvivid_ajax_check_security',$check);
-        if(!$check)
-        {
-            die();
-        }
     }
 
     public function wpvivid_add_backup_list($html, $list_name = 'wpvivid_backup_list', $tour = false)

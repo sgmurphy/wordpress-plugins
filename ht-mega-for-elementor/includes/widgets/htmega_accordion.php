@@ -1443,7 +1443,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                         ?>
                             <li <?php if( !empty($itemthree['accordion_image']['url']) ){ echo 'style="background-image:url('. esc_url( $itemthree['accordion_image']['url'] ).')"'; } ?>>
                                 <div class="heading"><?php echo htmega_kses_title( $itemthree['accordion_title'] ); ?></div>
-                                <div class="bgDescription" style="background: transparent url(<?php echo HTMEGA_ADDONS_PL_URL.'/assets/images/bg/bgDescription.png';?>) repeat-x top left;"></div>
+                                <div class="bgDescription" style="background: transparent url(<?php echo esc_url( HTMEGA_ADDONS_PL_URL.'/assets/images/bg/bgDescription.png' );?>) repeat-x top left;"></div>
                                 <div class="description">
                                     <h2 class="heading-three"><?php echo htmega_kses_title( $itemthree['accordion_title'] ); ?></h2>
                                     <div class="accordion-content">
@@ -1452,7 +1452,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                                                 echo wp_kses_post( $itemthree['accordion_content'] );
                                             } elseif ( $itemthree['content_source'] == "elementor" && !empty( $itemthree['template_id'] ) ) {
                                                 $template_id = absint( $itemthree['template_id'] );
-                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
+                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             }
                                         ?>
                                     </div>
@@ -1481,7 +1481,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                                             if ( $itemthree['content_source'] == 'custom' && !empty( $itemthree['accordion_content'] ) ) {
                                                 echo wp_kses_post( $itemthree['accordion_content'] );
                                             } elseif ( $itemthree['content_source'] == "elementor" && !empty( $itemthree['template_id'] )) {
-                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $itemthree['template_id'] );
+                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $itemthree['template_id'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             }
                                         ?>
                                     </div>
@@ -1517,18 +1517,18 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                                         if( ( $current_item == $i ) && ( $settings['accordion_close_all'] != 'yes' ) ){
                                             printf('<%1$s %2$s data-target="#htmega-collapse%3$s" class="htmega-items-hedding">%4$s %5$s</%1$s>', 
                                                 esc_attr( $title_tag ), 
-                                                $this->get_render_attribute_string( 'accordion_heading' ), 
+                                                $this->get_render_attribute_string( 'accordion_heading' ),
                                                 esc_attr( $j ), 
                                                 htmega_kses_title( $item['accordion_title'] ), 
-                                                $buttonicon
+                                                $buttonicon // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             );
                                         }else{
                                             printf('<%1$s %2$s data-target="#htmega-collapse%3$s" class="htb-collapsed htmega-items-hedding">%4$s %5$s</%1$s>', 
                                                 esc_attr( $title_tag ), 
-                                                $this->get_render_attribute_string( 'accordion_heading' ), 
+                                                $this->get_render_attribute_string( 'accordion_heading' ),
                                                 esc_attr( $j ), 
-                                                htmega_kses_title( $item['accordion_title'] ), 
-                                                $buttonicon 
+                                                htmega_kses_title( $item['accordion_title'] ),  
+                                                $buttonicon  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             );
                                         }
                                     ?>
@@ -1541,7 +1541,7 @@ class HTMega_Elementor_Widget_Accordion extends Widget_Base {
                                                 echo wp_kses_post( $item['accordion_content'] );
                                             } elseif ( $item['content_source'] == "elementor" && !empty( $item['template_id'] )) {
                                                 $template_id = absint( $item['template_id'] );
-                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id );
+                                                echo Plugin::instance()->frontend->get_builder_content_for_display( $template_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             }
                                         ?>
                                     </div>

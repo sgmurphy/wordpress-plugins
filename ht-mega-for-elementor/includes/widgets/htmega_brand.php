@@ -398,9 +398,9 @@ class HTMega_Elementor_Widget_Brand extends Widget_Base {
                             <li>
                                 <?php
                                     if( !empty($brandimage['htmega_brand_link']) ){
-                                        printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ),Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) );
+                                        printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ),Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     }else{
-                                        echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ); 
+                                        echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                     }
                                 ?>
                             </li>
@@ -414,9 +414,9 @@ class HTMega_Elementor_Widget_Brand extends Widget_Base {
                                 <div class="single-partner">
                                     <?php
                                         if( !empty($brandimage['htmega_brand_link']) ){
-                                            printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ),Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) );
+                                            printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ),Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                         }else{
-                                            echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ); 
+                                            echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                         }
                                     ?>
                                 </div>
@@ -429,9 +429,9 @@ class HTMega_Elementor_Widget_Brand extends Widget_Base {
                         <div class="single-partner">
                             <?php
                                 if( !empty($brandimage['htmega_brand_link']) ){
-                                    printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ) ,Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) );
+                                    printf('<a href="%1$s">%2$s</a>', esc_url( $brandimage['htmega_brand_link'] ) ,Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }else{
-                                    echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' ); 
+                                    echo Group_Control_Image_Size::get_attachment_image_html( $brandimage, 'htmega_brand_logo_size', 'htmega_brand_logo' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 }
                             ?>
                         </div>

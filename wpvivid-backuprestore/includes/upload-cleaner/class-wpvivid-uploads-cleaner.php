@@ -2356,6 +2356,17 @@ class WPvivid_Uploads_Cleaner
                 else
                     $uploads_files[$post]=$media;
             }
+
+            //oxygen images
+            $media=$uploads_scanner->get_media_from_oxygen($post);
+
+            if(!empty($media))
+            {
+                if(isset($uploads_files[$post]))
+                    $uploads_files[$post]=array_merge($uploads_files[$post],$media);
+                else
+                    $uploads_files[$post]=$media;
+            }
         }
 
         $start+=$limit;
@@ -2511,6 +2522,17 @@ class WPvivid_Uploads_Cleaner
 
             //fix breakdance page builder
             $media=$uploads_scanner->get_media_from_breakdance($post);
+
+            if(!empty($media))
+            {
+                if(isset($uploads_files[$post]))
+                    $uploads_files[$post]=array_merge($uploads_files[$post],$media);
+                else
+                    $uploads_files[$post]=$media;
+            }
+
+            //oxygen images
+            $media=$uploads_scanner->get_media_from_oxygen($post);
 
             if(!empty($media))
             {

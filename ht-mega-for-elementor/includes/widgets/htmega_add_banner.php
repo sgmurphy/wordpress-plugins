@@ -784,7 +784,7 @@ class HTMega_Elementor_Widget_Add_Banner extends Widget_Base {
                 <div class="banner-thumb">
                     <a <?php echo $this->get_render_attribute_string( 'url' ); ?>>
                         <?php
-                            echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'banner_image_size', 'banner_image' );
+                            echo Group_Control_Image_Size::get_attachment_image_html( $settings, 'banner_image_size', 'banner_image' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                         ?>
                     </a>
                 </div>

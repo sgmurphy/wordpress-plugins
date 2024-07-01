@@ -52,7 +52,7 @@ class Single_Product_Ajax_Add_To_Cart{
                 'error' => true,
                 'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink( $product_id ), $product_id ),
             );
-            echo wp_send_json( $data );
+            echo wp_send_json( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
         wp_send_json_success();
     }
@@ -82,9 +82,9 @@ class Single_Product_Ajax_Add_To_Cart{
                 'error' => true,
                 'product_url' => apply_filters('woocommerce_cart_redirect_after_error', get_permalink( $product_id ), $product_id ),
             );
-            echo wp_send_json( $data );
+            echo wp_send_json( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
-        wp_send_json_success();
+        wp_send_json_success(); 
     }
 
 

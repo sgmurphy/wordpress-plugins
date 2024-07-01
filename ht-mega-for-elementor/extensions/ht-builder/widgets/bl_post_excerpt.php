@@ -111,13 +111,13 @@ class Bl_Post_Excerpt_ELement extends Widget_Base {
         $post = get_post();
         
         if( Elementor::instance()->editor->is_edit_mode() ){
-            echo '<h3>' . __('Post Excerpt', 'htmega-addons' ). '</h3>';
+            echo '<h3>' . esc_html__('Post Excerpt', 'htmega-addons' ). '</h3>';
         }else{
             if ( post_password_required( $post->ID ) ) {
-                echo get_the_password_form( $post->ID );
+                echo get_the_password_form( $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 return;
             }
-            echo apply_filters( 'the_excerpt', get_the_excerpt() );
+            echo apply_filters( 'the_excerpt', get_the_excerpt() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         }
 
     }

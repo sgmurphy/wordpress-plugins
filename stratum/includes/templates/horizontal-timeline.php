@@ -39,7 +39,7 @@ $widget_class = $this->get_render_attribute_string( 'widget' );
 						<?php
                         if ( $layout != 'bottom' ) {
                             if ( $layout == 'chess' ) {
-                                if ( (int)bcmod( strval( $index + 1 ), '2' ) != 0 ) {
+                                if ( (int) stratum_bcmod( strval( $index + 1 ), '2' ) != 0 ) {
                                     echo $this->_generate_card_content( $class, $item, $settings, $title_html_tag, $index); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 } else { ?>
                                     <div class="<?php echo esc_attr( $class . '-item__meta' ); ?>">
@@ -106,7 +106,7 @@ $widget_class = $this->get_render_attribute_string( 'widget' );
 						<?php
                         if ( $layout != 'bottom' ) {
                             if ( $layout == 'chess' ) {
-                                if ( (int)bcmod( strval( $index + 1 ), '2' ) != 0 ) { ?>
+                                if ( (int) stratum_bcmod( strval( $index + 1 ), '2' ) != 0 ) { ?>
                                     <div class="<?php echo esc_attr( $class . '-item__meta' ); ?>">
 										<?php echo esc_html( $item[ 'item_meta' ] ); ?>
 									</div>
