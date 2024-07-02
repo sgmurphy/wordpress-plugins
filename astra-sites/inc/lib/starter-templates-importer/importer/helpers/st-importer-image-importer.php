@@ -37,7 +37,7 @@ if ( ! class_exists( 'ST_Image_Importer' ) ) :
 		 * @var object Class object.
 		 * @access private
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Images IDs
@@ -54,7 +54,7 @@ if ( ! class_exists( 'ST_Image_Importer' ) ) :
 		 * @return object initialized object of class.
 		 */
 		public static function get_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;

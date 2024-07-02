@@ -586,8 +586,8 @@ export default function Style(props) {
             : ""
         }
 
-
-		.${blockId}.eb-advanced-navigation-wrapper .wp-block-navigation__responsive-container.is-menu-open {
+		.${blockId}.eb-advanced-navigation-wrapper .wp-block-navigation__responsive-container.is-menu-open,
+		.${blockId}.eb-advanced-navigation-wrapper .wp-block-navigation:not(.has-background) .wp-block-navigation__responsive-container.is-menu-open {
 			background-color: ${navHamburgerBgColor};
 			${hamburgerPaddingDesktop}
 		}

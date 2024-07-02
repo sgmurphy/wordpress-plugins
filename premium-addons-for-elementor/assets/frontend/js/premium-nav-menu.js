@@ -211,7 +211,7 @@
                     canBeClicked = false;
                     if ($($menuContainer).hasClass('premium-active-menu')) {
 
-                        $scope.find('.premium-mobile-menu-container').slideUp('fast', function () {
+                        $scope.find('.premium-mobile-menu-container').slideUp(150, function () {
 
                             $menuContainer.removeClass('premium-active-menu');
                             $scope.find('.premium-mobile-menu-container').show();

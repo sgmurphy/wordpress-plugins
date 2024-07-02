@@ -145,6 +145,9 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 
 
 	public function end_ob() {
+		if ( isset( $_REQUEST['wcpr_image_upload_nonce'] ) && ! wp_verify_nonce( wc_clean( $_REQUEST['wcpr_image_upload_nonce'] ), 'wcpr_image_upload' ) ) {
+			return;
+		}
 		if ( ! is_product() || ! is_single() ) {
 			return;
 		}
@@ -158,7 +161,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		$agrs3         = array(
 			'post_id'  => $post_id,
 			'count'    => true,
-			'meta_key' => 'rating',
+			'meta_key' => 'rating',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			'status'   => 'approve'
 		);
 		remove_action( 'parse_comment_query', array( $this, 'parse_comment_query' ) );
@@ -173,6 +176,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			$filter .= '<div class="wcpr-overall-rating">';
 			$filter .= '<h2>' . esc_html__( 'Customer reviews', 'woo-photo-reviews' ) . '</h2>';
 			$filter .= '<div class="wcpr-overall-rating-main"><div class="wcpr-overall-rating-left"><span class="wcpr-overall-rating-left-average">' . round( $product->get_average_rating(), 2 ) . '</span>';
+			/* translators: %s: number of review */
 			$filter .= '</div><div class="wcpr-overall-rating-right"><div class="wcpr-overall-rating-right-star">' . wc_get_rating_html( $product->get_average_rating() ) . '</div><div class="wcpr-overall-rating-right-total">' . sprintf( _n( 'Based on %s review', 'Based on %s reviews', $counts3, 'woo-photo-reviews' ), $counts3, 'woo-photo-reviews' ) . '</div></div></div></div>';
 		}
 		if ( 'on' == $this->settings->get_params( 'photo', 'rating_count' ) ) {
@@ -181,7 +185,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			$agrs        = array(
 				'post_id'  => $post_id,
 				'count'    => true,
-				'meta_key' => 'rating',
+				'meta_key' => 'rating',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'status'   => 'approve'
 			);
 			$counts      = get_comments( $agrs );
@@ -211,7 +215,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			$agrs1   = array(
 				'post_id'  => $post_id,
 				'count'    => true,
-				'meta_key' => 'reviews-images',
+				'meta_key' => 'reviews-images',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'status'   => 'approve'
 			);
 			$counts1 = get_comments( $agrs1 );
@@ -220,7 +224,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 				'post_id'    => $post_id,
 				'count'      => true,
 				'status'     => 'approve',
-				'meta_query' => array(
+				'meta_query' => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'relation' => 'AND',
 					array(
 						'key'     => 'rating',
@@ -278,6 +282,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 				), $product_link1 ) ) ) ) . $this->anchor_link . '">' . esc_html__( 'Verified', 'woo-photo-reviews' ) . '(' . $counts2 . ')</a>';
 			$filter .= '<span class="wcpr-filter-button-wrap wcpr-filter-button wcpr-active">';
 			if ( $query_rating > 0 && $query_rating < 6 ) {
+				/* translators: %s: query rating */
 				$filter .= sprintf( _n( '%s star', '%s stars', $query_rating, 'woo-photo-reviews' ), $query_rating );
 				$filter .= '(' . $this->stars_count( $query_rating, $post_id ) . ')';
 			} else {
@@ -300,6 +305,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 						'offset',
 						'cpage'
 					), $filter_rating_url ) ) ) ) . $this->anchor_link . '">';
+				/* translators: %s: star rating */
 				$filter            .= sprintf( _n( '%s star', '%s stars', $i, 'woo-photo-reviews' ), $i );
 				$filter            .= '(' . $this->stars_count( $i, $post_id ) . ')</a></li>';
 			}
@@ -324,7 +330,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		}
 		$v = ob_get_clean();
 		$v = str_replace( '<form', '<form enctype="multipart/form-data"', $v );
-		print( $v );
+		print( $v );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	public function sort_reviews( $comment_args ) {
@@ -342,6 +348,9 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 	}
 
 	public function filter_reviews( $comment_args ) {
+		if ( isset( $_REQUEST['wcpr_image_upload_nonce'] ) && ! wp_verify_nonce( wc_clean( $_REQUEST['wcpr_image_upload_nonce'] ), 'wcpr_image_upload' ) ) {
+			return $comment_args;
+		}
 		$rating = 0;
 		if ( isset( $_GET['rating'] ) ) {
 			switch ( intval(sanitize_text_field($_GET['rating'])) ) {
@@ -359,11 +368,11 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		$image    = isset( $_GET['image'] ) ? sanitize_text_field( $_GET['image'] ) : "";
 		$verified = isset( $_GET['verified'] ) ? sanitize_text_field( $_GET['verified'] ) : "";
 		if ( $rating ) {
-			$comment_args += [ 'meta_key' => 'rating', 'meta_value' => $rating ];
+			$comment_args += [ 'meta_key' => 'rating', 'meta_value' => $rating ];// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value, WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 		} elseif ( $image == 'true' ) {
-			$comment_args += [ 'meta_key' => 'reviews-images' ];
+			$comment_args += [ 'meta_key' => 'reviews-images' ];// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 		} elseif ( $verified == 'true' ) {
-			$comment_args += [ 'meta_key' => 'verified', 'meta_value' => 1 ];
+			$comment_args += [ 'meta_key' => 'verified', 'meta_value' => 1 ];// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value, WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 		}
 
 		return $comment_args;
@@ -455,7 +464,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 							'type'         => 'review',
 							'author_email' => $user_email,
 							'post_id'      => $p,
-							'meta_query'   => array(
+							'meta_query'   => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 								'relation' => 'AND',
 								array(
 									'key'     => 'id_import_reviews_from_ali',
@@ -570,7 +579,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		if ( $this->characters_array === null ) {
 			$this->characters_array = array_merge( range( 0, 9 ), range( 'a', 'z' ) );
 		}
-		$rand = rand( 0, count( $this->characters_array ) - 1 );
+		$rand = wp_rand( 0, count( $this->characters_array ) - 1 );
 
 		return $this->characters_array[ $rand ];
 	}
@@ -601,7 +610,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			$coupon_generate = $this->settings->get_params( 'coupon', 'unique_coupon' );
 			$code            = $this->create_code();
 			$coupon          = new WC_Coupon( $code );
-			$today           = strtotime( date( 'Ymd' ) );
+			$today           = strtotime( date( 'Ymd' ) );// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 			$date_expires    = ( $coupon_generate['expiry_date'] ) ? ( ( $coupon_generate['expiry_date'] + 1 ) * 86400 + $today ) : '';
 			$coupon->set_amount( $coupon_generate['coupon_amount'] );
 			$coupon->set_date_expires( $date_expires );
@@ -719,7 +728,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 				'type'         => 'review',
 				'author_email' => $user_email,
 				'post_id'      => $product_id,
-				'meta_query'   => array(
+				'meta_query'   => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'relation' => 'AND',
 					array(
 						'key'     => 'id_import_reviews_from_ali',
@@ -828,7 +837,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 					'type'         => 'review',
 					'author_email' => $user_email,
 					'post_id'      => $product_id,
-					'meta_query'   => array(
+					'meta_query'   => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						'relation' => 'AND',
 						array(
 							'key'     => 'id_import_reviews_from_ali',
@@ -947,7 +956,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			wp_send_json($result);
 		}
 		if ( isset( $_POST['author'] ) && is_string( $_POST['author'] ) ) {
-			$comment_author = trim( sanitize_text_field(strip_tags( wp_unslash($_POST['author'] ))) );
+			$comment_author = trim( sanitize_text_field(wp_strip_all_tags( wp_unslash($_POST['author'] ))) );
 		}
 		if ( isset( $_POST['email'] ) && is_string( $_POST['email'] ) ) {
 			$comment_author_email = trim( sanitize_text_field(wp_unslash($_POST['email'] )));
@@ -1053,6 +1062,9 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		wp_send_json($result);
 	}
 	public function check_upload_file(){
+		if ( isset( $_REQUEST['wcpr_image_upload_nonce'] ) && ! wp_verify_nonce( wc_clean( $_REQUEST['wcpr_image_upload_nonce'] ), 'wcpr_image_upload' ) ) {
+			return '';
+		}
 		$error='';
 		$tmp_name = villatheme_array_flatten( wc_clean(wp_unslash( $_FILES['wcpr_image_upload']['tmp_name'] ?? array()) ), false );
 		if ( ( ! isset( $_FILES['wcpr_image_upload'] ) || empty( $tmp_name ) ) && 'on' === $this->settings->get_params( 'photo', 'required' ) ) {
@@ -1070,12 +1082,14 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		$errors = array_unique(array_map('intval',villatheme_array_flatten(wc_clean($_FILES['wcpr_image_upload']['error'] ?? array()), false)));
 		/*need more security checks*/
 		if ( ! empty( $errors ) && ! in_array( UPLOAD_ERR_NO_FILE, $errors ) ) {
+			/* translators: %s: error message */
 			return sprintf( esc_html__( 'There was an error uploading files: %s', 'woo-photo-reviews'), implode( ',', $errors ) );
 		}
 		if (empty($names) && 'on' === $this->settings->get_params( 'photo', 'required' )){
 			return esc_html__( 'Photo is required.', 'woo-photo-reviews');
 		}
 		if ( count( $names ) > $max_file_up ) {
+			/* translators: %s: maximum number of files */
 			return sprintf( esc_html__( 'Maximum number of files allowed is: %s.', 'woo-photo-reviews'), $max_file_up );
 		}
 		$upload_allow = $this->settings->get_params('upload_allow');
@@ -1104,6 +1118,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 				break;
 			}
 			if ( $size > ( $maxsize_allowed * 1024 ) ) {
+				/* translators: %s: maxsize allowed */
 				$error = sprintf( esc_html__( 'Max size allowed: %skB.', 'woo-photo-reviews'), $maxsize_allowed );
 				break;
 			}
@@ -1111,6 +1126,9 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		return $error;
 	}
 	public function upload_file($comment_id, $post_id){
+		if ( isset( $_REQUEST['wcpr_image_upload_nonce'] ) && ! wp_verify_nonce( wc_clean( $_REQUEST['wcpr_image_upload_nonce'] ), 'wcpr_image_upload' ) ) {
+			return '';
+		}
 		$img_id = array();
 		$error = false;
 		viwcpr_set_time_limit();
@@ -1133,6 +1151,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 					$_FILES ["upload_file"] = $file;
 					$attachment_id          = media_handle_upload( "upload_file", $post_id );
 					if ( is_wp_error( $attachment_id ) ) {
+						/* translators: %s: error message */
 						wc_add_notice( sprintf( esc_html__( 'Error adding file: %s.', 'woo-photo-reviews'), $attachment_id->get_error_message() ), 'error' );
 						do_action( 'woocommerce_set_cart_cookies', true );
 						$error = true;
@@ -1156,6 +1175,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 					$_FILES ["upload_file"] = $file;
 					$attachment_id          = media_handle_upload( "upload_file", $post_id );
 					if ( is_wp_error( $attachment_id ) ) {
+						/* translators: %s: error message */
 						wc_add_notice( sprintf( esc_html__( 'Error adding file: %s.', 'woo-photo-reviews'), $attachment_id->get_error_message() ), 'error' );
 						do_action( 'woocommerce_set_cart_cookies', true );
 						$error = true;
@@ -1206,8 +1226,8 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 
 	public function add_review_image( $comment_id ) {
 
-		if (isset($_POST['wcpr_image_upload_id'])){
-			$img_id = explode(',', wc_clean(wp_unslash($_POST['wcpr_image_upload_id'])));
+		if (isset($_POST['wcpr_image_upload_id'])){// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$img_id = explode(',', wc_clean(wp_unslash($_POST['wcpr_image_upload_id'])));// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		}else {
 			$post_id = get_comment( $comment_id )->comment_post_ID;
 			$img_id           = $this->upload_file( $comment_id, $post_id );
@@ -1235,8 +1255,8 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			$image    = self::$image;
 			$verified = self::$verified;
 		} else {
-			$image    = isset( $_GET['image'] ) ? sanitize_text_field($_GET['image']) : "";
-			$verified = isset( $_GET['verified'] ) ? sanitize_text_field($_GET['verified']) : "";
+			$image    = isset( $_GET['image'] ) ? sanitize_text_field($_GET['image']) : "";// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$verified = isset( $_GET['verified'] ) ? sanitize_text_field($_GET['verified']) : "";// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 
 
@@ -1274,7 +1294,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 					'compare' => '='
 				);
 			}
-			$vars->query_vars['meta_query'] = $custom;
+			$vars->query_vars['meta_query'] = $custom;// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
 		}
 	}
@@ -1291,14 +1311,14 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 		if ( self::$is_ajax ) {
 			$rating = self::$rating;
 		} else {
-			if ( isset( $_GET['rating'] ) ) {
-				switch ((int) sanitize_text_field($_GET['rating']) ) {
+			if ( isset( $_GET['rating'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				switch ((int) sanitize_text_field($_GET['rating']) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					case 1:
 					case 2:
 					case 3:
 					case 4:
 					case 5:
-						$rating = sanitize_text_field($_GET['rating']);
+						$rating = sanitize_text_field($_GET['rating']);// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						break;
 					default:
 						$rating = 0;
@@ -1324,7 +1344,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 					'value'   => $rating,
 					'compare' => '='
 				);
-				$vars->query_vars['meta_query'] = $custom;
+				$vars->query_vars['meta_query'] = $custom;// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
 			}
 		}
@@ -1334,7 +1354,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Frontend {
 			'post_id'    => $post_id,
 			'count'      => true,
 			'status'     => 'approve',
-			'meta_query' => array(
+			'meta_query' => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'relation' => 'AND',
 				array(
 					'key'     => 'rating',

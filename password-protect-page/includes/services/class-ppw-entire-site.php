@@ -18,7 +18,8 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 			}
 
 			$password = ppw_core_get_setting_entire_site_type_string( PPW_Constants::PASSWORD_ENTIRE_SITE );
-			$hash     = hash_hmac( 'md5', PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $password );
+			//$hash     = hash_hmac( 'md5', PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $password );
+			$hash     = hash_hmac( 'md5', PPW_Constants::COOKIE_EXPIRED_SITEWIDE, $password );
 
 			return $cookie_elements[0] === $hash;
 		}
@@ -30,7 +31,8 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 		 */
 		function parse_cookie_entire_site() {
 			$_cookie     = wp_unslash( $_COOKIE );
-			$cookie_name = PPW_Constants::ENTIRE_SITE_COOKIE_NAME;
+			//$cookie_name = PPW_Constants::ENTIRE_SITE_COOKIE_NAME;
+			$cookie_name = PPW_Constants::COOKIE_EXPIRED_SITEWIDE;
 			if ( empty( $_cookie[ $cookie_name ] ) ) {
 				return false;
 			}
@@ -71,7 +73,7 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 		 */
 		public function entire_site_set_password_to_cookie( $password ) {
 			$expiration     = time() + 7 * DAY_IN_SECONDS;
-			$cookie_expired = ppw_core_get_setting_type_string( PPW_Constants::COOKIE_EXPIRED );
+			$cookie_expired = ppw_core_get_setting_type_string_sitewide( PPW_Constants::COOKIE_EXPIRED_SITEWIDE );
 			if ( ! empty( $cookie_expired ) ) {
 				$time = explode( ' ', $cookie_expired )[0];
 				$unit = ppw_core_get_unit_time( $cookie_expired );
@@ -80,11 +82,13 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 				}
 			}
 
-			$hash       = hash_hmac( 'md5', PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $password );
+			//$hash       = hash_hmac( 'md5', PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $password );
+			$hash       = hash_hmac( 'md5', PPW_Constants::COOKIE_EXPIRED_SITEWIDE, $password );
 			$cookie     = $hash . '|' . $expiration;
 			$expiration = apply_filters( 'ppw_sitewide_cookie_expiration', $expiration, $password );
 			ppw_free_bypass_cache_with_cookie_for_pro_version( $cookie, $expiration );
-			setcookie( PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $cookie, $expiration, COOKIEPATH, COOKIE_DOMAIN );
+			//setcookie( PPW_Constants::ENTIRE_SITE_COOKIE_NAME, $cookie, $expiration, COOKIEPATH, COOKIE_DOMAIN );
+			setcookie( PPW_Constants::COOKIE_EXPIRED_SITEWIDE, $cookie, $expiration, COOKIEPATH, COOKIE_DOMAIN );
 		}
 
 		/**
@@ -113,9 +117,6 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 		 * @return bool
 		 */
 		public function handle_before_update_settings( $data_settings ) {
-			// Clear cache Super Cache plugin
-//			$free_cache = new PPW_Cache_Services();
-//			$free_cache->clear_cache_super_cache();
 
 			if ( array_key_exists( PPW_Constants::IS_PROTECT_ENTIRE_SITE, $data_settings ) && $data_settings[ PPW_Constants::IS_PROTECT_ENTIRE_SITE ] === "true" ) {
 				// Create new password
@@ -128,9 +129,17 @@ if ( ! class_exists( 'PPW_Entire_Site_Services' ) ) {
 					return $this->change_password( $data_settings );
 				}
 
+				if ( array_key_exists( PPW_Constants::COOKIE_EXPIRED_SITEWIDE, $data_settings ) ) {
+					$password_for_website = ppw_core_get_setting_entire_site_type_string(PPW_Constants::PASSWORD_ENTIRE_SITE);
+					$data_settings[PPW_Constants::PASSWORD_ENTIRE_SITE] = $password_for_website;
+					// Update sitewide expiration cookies
+					update_option( PPW_Constants::ENTIRE_SITE_OPTIONS, $data_settings );
+				}
 				// Don't change password
 				return true;
 			}
+
+		
 
 			// Unprotect entire site
 			return delete_option( PPW_Constants::ENTIRE_SITE_OPTIONS );

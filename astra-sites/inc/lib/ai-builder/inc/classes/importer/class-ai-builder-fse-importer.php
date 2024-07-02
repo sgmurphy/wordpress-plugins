@@ -23,7 +23,7 @@ class Ai_Builder_Fse_Importer {
 	 * FSE logo attributes
 	 *
 	 * @since 3.3.0
-	 * @var (array) fse_logo_attributes
+	 * @var array<string, int|string> fse_logo_attributes
 	 */
 	public static $fse_logo_attributes = [];
 
@@ -76,7 +76,7 @@ class Ai_Builder_Fse_Importer {
 					$palette       = isset( $_POST['palette'] ) ? (array) json_decode( stripslashes( $_POST['palette'] ) ) : array();
 					$colors_passed = isset( $palette['colors'] ) ? (array) $palette['colors'] : array();
 				if ( ! empty( $colors_passed ) ) {
-					$colors_array   = Swt\get_theme_custom_styles();
+					$colors_array   = Swt\get_theme_custom_styles(); // @phpstan-ignore-line
 					$colors_content = $colors_array['post_content'];
 					if ( $colors_content && isset( $colors_content['settings']['color']['palette']['theme'] ) ) {
 						$theme_colors = $colors_content['settings']['color']['palette']['theme'];
@@ -91,8 +91,8 @@ class Ai_Builder_Fse_Importer {
 					}
 
 					$update_colors = array(
-						'ID'           => $colors_array['ID'],
-						'post_content' => wp_json_encode( $colors_content ),
+						'ID'           => (int) $colors_array['ID'],
+						'post_content' => (string) wp_json_encode( $colors_content ),
 					);
 
 						// Update the post into the database.
@@ -102,65 +102,63 @@ class Ai_Builder_Fse_Importer {
 				break;
 
 			case 'site-typography' === $param:
-					$typography_passed                              = isset( $_POST['typography'] ) ? (array) json_decode( stripslashes( $_POST['typography'] ) ) : '';
+					$typography_passed                              = isset( $_POST['typography'] ) ? (array) json_decode( stripslashes( $_POST['typography'] ) ) : array();
 					$typography_passed['body-font-family-slug']     = isset( $typography_passed['body-font-family-slug'] ) ? $typography_passed['body-font-family-slug'] : 'inter';
 					$typography_passed['headings-font-family-slug'] = isset( $typography_passed['headings-font-family-slug'] ) ? $typography_passed['headings-font-family-slug'] : 'inter';
-				if ( ! empty( $typography_passed ) ) {
-					if ( is_callable( 'UAGB_FSE_Fonts_Compatibility::get_instance' ) ) {
-						$fse_fonts_comp_instance = new \UAGB_FSE_Fonts_Compatibility();
-						$fse_fonts_comp_instance->get_font_family_for_starter_template( array( ucfirst( $typography_passed['body-font-family'] ), ucfirst( $typography_passed['headings-font-family'] ) ) );
-					}
-					$typography_array   = Swt\get_theme_custom_styles();
+
+				if ( class_exists( 'UAGB_FSE_Fonts_Compatibility' ) && is_callable( 'UAGB_FSE_Fonts_Compatibility::get_instance' ) ) {
+					$fse_fonts_comp_instance = new \UAGB_FSE_Fonts_Compatibility();
+					$fse_fonts_comp_instance->get_font_family_for_starter_template( array( ucfirst( $typography_passed['body-font-family'] ), ucfirst( $typography_passed['headings-font-family'] ) ) );
+				}
+					$typography_array   = Swt\get_theme_custom_styles();  // @phpstan-ignore-line
 					$typography_content = $typography_array['post_content'];
-					if ( $typography_content && isset( $typography_content['styles']['typography'] ) ) {
-						$typography_content['styles']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['typography'] ) ) {
+					$typography_content['styles']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['link']['typography'] ) ) {
-						$typography_content['styles']['elements']['link']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['link']['typography'] ) ) {
+					$typography_content['styles']['elements']['link']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['heading']['typography'] ) ) {
-						$typography_content['styles']['elements']['heading']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['heading']['typography'] ) ) {
+					$typography_content['styles']['elements']['heading']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['button']['typography'] ) ) {
-						$typography_content['styles']['elements']['button']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['button']['typography'] ) ) {
+					$typography_content['styles']['elements']['button']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h1']['typography'] ) ) {
-						$typography_content['styles']['elements']['h1']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h1']['typography'] ) ) {
+					$typography_content['styles']['elements']['h1']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h2']['typography'] ) ) {
-						$typography_content['styles']['elements']['h2']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h2']['typography'] ) ) {
+					$typography_content['styles']['elements']['h2']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h3']['typography'] ) ) {
-						$typography_content['styles']['elements']['h3']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h3']['typography'] ) ) {
+					$typography_content['styles']['elements']['h3']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h4']['typography'] ) ) {
-						$typography_content['styles']['elements']['h4']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h4']['typography'] ) ) {
+					$typography_content['styles']['elements']['h4']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h5']['typography'] ) ) {
-						$typography_content['styles']['elements']['h5']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h5']['typography'] ) ) {
+					$typography_content['styles']['elements']['h5']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
-					if ( $typography_content && isset( $typography_content['styles']['elements']['h6']['typography'] ) ) {
-						$typography_content['styles']['elements']['h6']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
-					}
+				if ( $typography_content && isset( $typography_content['styles']['elements']['h6']['typography'] ) ) {
+					$typography_content['styles']['elements']['h6']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['headings-font-family-slug'];
+				}
 
 					$update_typography = array(
-						'ID'           => $typography_array['ID'],
-						'post_content' => wp_json_encode( $typography_content ),
+						'ID'           => intval( $typography_array['ID'] ),
+						'post_content' => (string) wp_json_encode( $typography_content ),
 					);
 
 						// Update the post into the database.
 					wp_update_post( $update_typography );
-				}
-
 				break;
 		}
 
@@ -185,7 +183,7 @@ class Ai_Builder_Fse_Importer {
 		$fse_posts    = get_posts( $args );
 		$post_content = '';
 
-		if ( isset( $fse_posts[0] ) && isset( $fse_posts[0]->post_content ) ) {
+		if ( isset( $fse_posts[0] ) && ! empty( $fse_posts[0]->post_content ) ) {
 			$post_content = stripslashes( $fse_posts[0]->post_content );
 		}
 
@@ -211,7 +209,7 @@ class Ai_Builder_Fse_Importer {
 			if ( ! empty( $matches_src ) ) {
 				$src_attribute = $matches_src[1]; // The value of the src attribute.
 				$attachment    = wp_prepare_attachment_for_js( absint( self::$fse_logo_attributes['logo'] ) );
-				if ( is_wp_error( $attachment ) ) {
+				if ( ! is_array( $attachment ) ) {
 					return;
 				}
 				$post_content = str_replace( $src_attribute, $attachment['url'], $post_content );
@@ -221,7 +219,7 @@ class Ai_Builder_Fse_Importer {
 			preg_match( $regex_width, $logo_code, $matches_width );
 			if ( ! empty( $matches_width ) ) {
 				$width_attribute = $matches_width[1]; // The value of the width attribute.
-				$post_content    = str_replace( $width_attribute, self::$fse_logo_attributes['logo_width'], $post_content );
+				$post_content    = str_replace( $width_attribute, strval( self::$fse_logo_attributes['logo_width'] ), $post_content );
 			}
 			$update_post = array(
 				'ID'           => $fse_posts[0]->ID,

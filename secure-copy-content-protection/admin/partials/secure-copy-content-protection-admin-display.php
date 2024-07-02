@@ -49,7 +49,7 @@ $sccp_bg_image = isset($data["styles"]["bg_image"]) || !empty($data["styles"]["b
 $bg_image_text = __('Add Image', $this->plugin_name);
 
 // Custom class for tooltip container
-$custom_class = (isset($data["styles"]['ays_sccp_custom_class']) && $data["styles"]['ays_sccp_custom_class'] != "") ? $data["styles"]['ays_sccp_custom_class'] : '';
+$custom_class = (isset($data["styles"]['ays_sccp_custom_class']) && $data["styles"]['ays_sccp_custom_class'] != "") ? sanitize_text_field( $data["styles"]['ays_sccp_custom_class'] ) : '';
 
 $exclude_css_selectors = (isset($data["styles"]['exclude_css_selectors']) && $data["styles"]['exclude_css_selectors'] != "") ? $data["styles"]['exclude_css_selectors'] : '';
 

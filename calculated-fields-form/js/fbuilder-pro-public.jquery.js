@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.17';
+	$.fbuilder['version'] = '5.2.18';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -578,7 +578,7 @@
 				jQuery(document).on('click', '.cff-help-icon', function(evt){evt.stopPropagation(); evt.preventDefault();});
 
 				// Set Captcha Event
-				$(document).on('click', '#fbuilder .captcha img', function(){
+				$(document).on('click', '#fbuilder .captcha img', function(evt){
 					try {
 						var e = $( this ), src = e.attr('src');
 						// Check URL, and replace it if different from website domain
@@ -588,6 +588,9 @@
 						) src = document.location.href.split('?')[0]+'?'+src.split('?')[1];
 						e.attr('src', src.replace(/&\d+$/, '') + '&' + Math.floor(Math.random()*1000));
 					} catch (err) { if('console' in window) console.log(err); }
+					evt.preventDefault();
+					evt.stopPropagation();
+					return false;
                 });
 				$( form_tag ).find( '.captcha img' ).trigger('click');
 
@@ -795,6 +798,9 @@
 						.on( 'blur',  function(){ try{ if(!$(this).is(':file')) $(this).valid(); }catch(e){};} );
 
 					if(!this.autocomplete) form.find('input[name*="fieldname"]:not([autocomplete])').attr('autocomplete', 'new-password');
+
+					// For users that insert the form into a DIV tag or another clickable tag, capture bubbling click and stop propagation.
+					form.parents('a').attr('href', 'javascript:void(0);').removeAttr('target').css('all', 'unset');
                 }
 			});
 

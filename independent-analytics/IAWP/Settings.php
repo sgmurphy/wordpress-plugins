@@ -28,7 +28,7 @@ class Settings
             for ($i = 0; $i < \count($saved); $i++) {
                 $input_defaults[$i] = $saved[$i];
             }
-            echo \IAWPSCOPED\iawp_blade()->run('settings.email-reports', ['is_scheduled' => \wp_next_scheduled('iawp_send_email_report'), 'scheduled_date' => \IAWPSCOPED\iawp()->email_reports->next_email_at_for_humans(), 'date_comparison' => \IAWPSCOPED\iawp()->email_reports->next_event_scheduled_at(), 'interval' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_interval', 'monthly'), 'time' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_time', 9), 'emails' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_email_addresses', []), 'default_colors' => $defaults, 'input_default' => $input_defaults]);
+            echo \IAWPSCOPED\iawp_blade()->run('settings.email-reports', ['is_scheduled' => \wp_next_scheduled('iawp_send_email_report'), 'scheduled_date' => \IAWPSCOPED\iawp()->email_reports->next_email_at_for_humans(), 'interval' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_interval', 'monthly'), 'time' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_time', 9), 'emails' => \IAWPSCOPED\iawp()->get_option('iawp_email_report_email_addresses', []), 'default_colors' => $defaults, 'input_default' => $input_defaults]);
         }
         $ips = \IAWPSCOPED\iawp()->get_option('iawp_blocked_ips', []);
         echo \IAWPSCOPED\iawp_blade()->run('settings.block-ips', ['current_ip' => Request::ip(), 'ip_is_blocked' => Request::is_ip_address_blocked($ips), 'ips' => $ips]);

@@ -80,7 +80,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 		$agrs          = array(
 			'post_id'  => $post_id,
 			'count'    => true,
-			'meta_key' => 'rating',
+			'meta_key' => 'rating',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			'status'   => 'approve'
 		);
 		remove_action( 'parse_comment_query', array( self::$frontend, 'parse_comment_query' ) );
@@ -100,7 +100,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 			$agrs1          = array(
 				'post_id'  => $post_id,
 				'count'    => true,
-				'meta_key' => 'reviews-images',
+				'meta_key' => 'reviews-images',// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'status'   => 'approve'
 			);
 			$count_images   = get_comments( $agrs1 );
@@ -108,7 +108,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 				'post_id'    => $post_id,
 				'count'      => true,
 				'status'     => 'approve',
-				'meta_query' => array(
+				'meta_query' => array(// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'relation' => 'AND',
 					array(
 						'key'     => 'rating',
@@ -124,9 +124,9 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 			$count_verified = get_comments( $agrs2 );
 			remove_action( 'parse_comment_query', array( self::$frontend, 'parse_comment_query1' ) );
 			$counts_review = get_comments( $agrs );
-			$query_image    = isset( $_GET['image'] ) ? sanitize_text_field($_GET['image']) : '';
-			$query_verified = isset( $_GET['verified'] ) ? sanitize_text_field($_GET['verified']) : '';
-			$query_rating   = isset( $_GET['rating'] ) ? sanitize_text_field($_GET['rating']) : '';
+			$query_image    = isset( $_GET['image'] ) ? sanitize_text_field($_GET['image']) : '';// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$query_verified = isset( $_GET['verified'] ) ? sanitize_text_field($_GET['verified']) : '';// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$query_rating   = isset( $_GET['rating'] ) ? sanitize_text_field($_GET['rating']) : '';// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( $query_image ) {
 				$product_link  = add_query_arg( array( 'image' => true ), $product_link );
 				$product_link1 = add_query_arg( array( 'image' => true ), $product_link1 );
@@ -173,7 +173,7 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 		}
 		$suffix = WP_DEBUG ? '' : 'min.';
 		wp_enqueue_style( 'woocommerce-photo-reviews-style', VI_WOO_PHOTO_REVIEWS_CSS . 'style.'.$suffix.'css', array(), VI_WOO_PHOTO_REVIEWS_VERSION );
-		wp_enqueue_script( 'woocommerce-photo-reviews-script', VI_WOO_PHOTO_REVIEWS_JS . 'script.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION );
+		wp_enqueue_script( 'woocommerce-photo-reviews-script', VI_WOO_PHOTO_REVIEWS_JS . 'script.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION, false );
 		wp_localize_script( 'woocommerce-photo-reviews-script', 'woocommerce_photo_reviews_params', array(
 				'ajaxurl'                    => admin_url( 'admin-ajax.php' ),
 				'i18n_required_rating_text'  => esc_attr__( 'Please select a rating', 'woo-photo-reviews' ),
@@ -189,9 +189,12 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 				'enable_photo'               => self::$settings->get_params( 'photo', 'enable' ),
 				'required_image'             => self::$settings->get_params( 'photo', 'required' ),
 				'warning_required_image'     => esc_html__( 'Please upload at least one image for your review!', 'woo-photo-reviews' ),
+				/* translators: %s: max file count */
 				'warning_max_files'          => sprintf( _n( 'You can only upload maximum of %s file', 'You can only upload maximum of %s files', self::$settings->get_params( 'photo', 'maxfiles' ), 'woo-photo-reviews' ), self::$settings->get_params( 'photo', 'maxfiles' ) ),
+				/* translators: %s: file name */
 				'warning_upload_allow'          => sprintf( esc_html__( '\'%s\' is not an allowed file type.', 'woo-photo-reviews' ),'%file_name%'),
-				'warning_max_file_size'          => sprintf( esc_html__( 'The size of \'%s\' is greater than %s kB.',  'woo-photo-reviews' ),'%file_name%', self::$settings->get_params( 'photo', 'maxsize' ) ),
+				/* translators: %s: file name, %s: max file size */
+				'warning_max_file_size'          => sprintf( esc_html__( 'The size of \'%s\' is greater than %s kB.',  'woo-photo-reviews' ),'%file_name%', self::$settings->get_params( 'photo', 'maxsize' ) ),// phpcs:ignore WordPress.WP.I18n.UnorderedPlaceholdersText, WordPress.WP.I18n.MissingTranslatorsComment
 				'comments_container_id'      => apply_filters( 'woocommerce_photo_reviews_comments_wrap', 'comments' ),
 				'nonce'                      => wp_create_nonce( 'woocommerce_photo_reviews_nonce' ),
 				'wc_ajax_url'                => WC_AJAX::get_endpoint( '%%endpoint%%' ),
@@ -199,14 +202,14 @@ class VI_WOO_PHOTO_REVIEWS_Frontend_Single_Page {
 		);
 		if ($this->frontend_style==1){
 			wp_enqueue_style( 'wcpr-masonry-style', VI_WOO_PHOTO_REVIEWS_CSS . 'masonry.'.$suffix.'css', array(), VI_WOO_PHOTO_REVIEWS_VERSION );
-			wp_enqueue_script( 'wcpr-swipebox-js', VI_WOO_PHOTO_REVIEWS_JS . 'jquery.swipebox.js', array( 'jquery' ) );
-			wp_enqueue_style( 'wcpr-swipebox-css', VI_WOO_PHOTO_REVIEWS_CSS . 'swipebox.'.$suffix.'css' );
-			wp_enqueue_script( 'wcpr-masonry-script', VI_WOO_PHOTO_REVIEWS_JS . 'masonry.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION );
+			wp_enqueue_script( 'wcpr-swipebox-js', VI_WOO_PHOTO_REVIEWS_JS . 'jquery.swipebox.js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION, false );
+			wp_enqueue_style( 'wcpr-swipebox-css', VI_WOO_PHOTO_REVIEWS_CSS . 'swipebox.'.$suffix.'css', [], VI_WOO_PHOTO_REVIEWS_VERSION );
+			wp_enqueue_script( 'wcpr-masonry-script', VI_WOO_PHOTO_REVIEWS_JS . 'masonry.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION, false );
 			add_action( 'wp_footer', array( $this, 'quick_view' ) );
 		}else{
 			wp_enqueue_style( 'wcpr-rotate-font-style', VI_WOO_PHOTO_REVIEWS_CSS . 'rotate.min.css', array(), VI_WOO_PHOTO_REVIEWS_VERSION );
 			wp_enqueue_style( 'wcpr-default-display-style', VI_WOO_PHOTO_REVIEWS_CSS . 'default-display-images.'.$suffix.'css', array(), VI_WOO_PHOTO_REVIEWS_VERSION );
-			wp_enqueue_script( 'wcpr-default-display-script', VI_WOO_PHOTO_REVIEWS_JS . 'default-display-images.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION );
+			wp_enqueue_script( 'wcpr-default-display-script', VI_WOO_PHOTO_REVIEWS_JS . 'default-display-images.'.$suffix.'js', array( 'jquery' ), VI_WOO_PHOTO_REVIEWS_VERSION, false );
 			$css_default = ".reviews-images-item{margin-right: 2px;padding: 0;float:left;border-radius: 3px;}.kt-reviews-image-container .kt-wc-reviews-images-wrap-wrap .reviews-images-item .review-images{float: left !important;height: 48px !important;width:auto !important;border-radius: 3px;}";
 			wp_add_inline_style( 'wcpr-default-display-style', $css_default );
 		}

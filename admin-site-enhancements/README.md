@@ -179,6 +179,10 @@ If for whatever reason you need to remove ASE and reset the settings / configura
 
 You can skip step 1 and 2 if you still have access to your wp-admin dashboard.
 
+### Does ASE Work With Multisite?
+
+ASE does not officially support multisite. Please use at your own risk. That said, several users have reported that it works fine on their multisite.
+
 ## Changelog
 
 **Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **71 _point_ releases** (e.g. 1.1.0 ) and **104 _patch_ releases** (e.g. 4.9.1). 

@@ -337,12 +337,28 @@ const reducer = ( state = initialState, action ) => {
 				currentStep: ! state.updateImages ? 6 : 1,
 			};
 		case actionTypes.STORE_SITE_FEATURES:
-			const stepData = { ...state.stepData };
+			const stepData = { ...state.stepData },
+				{ selectedTemplate } = stepData,
+				templateData = state.stepData.templateList.find(
+					( item ) => item.uuid === selectedTemplate
+				);
+
 			return {
 				...state,
 				stepData: {
 					...stepData,
-					siteFeatures: action.payload,
+					siteFeatures: ( action?.payload ?? [] ).map(
+						( feature ) => {
+							const defaultValue =
+								templateData?.features?.[ feature.id ] ===
+								'yes';
+							return {
+								...feature,
+								enabled: defaultValue,
+								compulsory: defaultValue,
+							};
+						}
+					),
 				},
 			};
 		case actionTypes.SET_SITE_FEATURES:

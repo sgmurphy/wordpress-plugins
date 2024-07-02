@@ -51,7 +51,10 @@ class Email_Reports
     public function next_email_at() : DateTime
     {
         $date = $this->interval->next_interval_start();
+        // Set the correct hour for the site timezone
+        $date->setTimezone(Timezone::site_timezone());
         $date->setTime($this->delivery_hour(), 0, 0);
+        $date->setTimezone(Timezone::utc_timezone());
         return $date;
     }
     /**
@@ -75,6 +78,7 @@ class Email_Reports
             return \esc_html__('There is no email scheduled.', 'independent-analytics');
         }
         $date = $this->next_email_at();
+        $date->setTimezone(Timezone::site_timezone());
         $day = $date->format(\get_option('date_format'));
         $time = $date->format(\get_option('time_format'));
         return \sprintf(\__('Next email scheduled for %s at %s.', 'independent-analytics'), '<span>' . $day . '</span>', '<span>' . $time . '</span>');
@@ -173,7 +177,7 @@ class Email_Reports
             } else {
                 continue;
             }
-            $rows = \array_map(function ($row, $index) use($type, $title) {
+            $rows = \array_map(function ($row, $index) use($type) {
                 if ($type == 'referrers') {
                     $edited_title = $row->referrer();
                 } elseif ($type == 'countries') {

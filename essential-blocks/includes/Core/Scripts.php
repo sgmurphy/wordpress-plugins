@@ -408,7 +408,7 @@ class Scripts
         wpdev_essential_blocks()->assets->enqueue( 'blocks-localize', 'js/eb-blocks-localize.js' );
 
         global $pagenow;
-        $editor_type = '';
+        $editor_type = false;
         if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
             $editor_type = 'edit-post';
         } elseif ( $pagenow == 'site-editor.php' || ( $pagenow == 'themes.php' && isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'gutenberg-edit-site' ) ) {
@@ -416,12 +416,13 @@ class Scripts
         } elseif ( $pagenow == 'widgets.php' ) {
             $editor_type = 'edit-widgets';
         }
+
         wpdev_essential_blocks()->assets->localize(
             'blocks-localize',
             'eb_conditional_localize',
-            [
+            $editor_type !== false ? [
                 'editor_type' => $editor_type
-             ]
+             ] : [  ]
         );
 
         $eb_settings = get_option( 'eb_settings', [  ] );

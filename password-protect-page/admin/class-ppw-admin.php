@@ -333,7 +333,7 @@ class PPW_Admin {
 	 */
 	public function partial_protection_submenu() {
 		$setting_page = new PPW_Partial_Protection_Settings();
-		add_submenu_page( PPW_Constants::MENU_NAME, __( 'PPWP › Partial Protection', 'password-protect-page' ), __( 'Partial Protection', 'password-protect-page' ),
+		add_submenu_page( PPW_Constants::MENU_NAME, __( 'PPWP › Partial Protection', PPW_Constants::DOMAIN ), __( 'Partial Protection', PPW_Constants::DOMAIN ),
 			ppw_get_allowed_capability(), PPW_Constants::PCP_PAGE_PREFIX, array(
 				$setting_page,
 				'render_ui'
@@ -1131,7 +1131,7 @@ _end_;
 	public function register_plugins_links( $plugin_meta, $plugin_file ) {
 		if ( PPW_PLUGIN_BASE_NAME === $plugin_file ) {
 			$misc_setting = admin_url( 'admin.php?page=wp_protect_password_options&tab=misc' );
-			$plugin_meta[] = '<a href="' . $misc_setting . '">' . __( 'Restore passwords', 'password-protect-page' ) . '</span>';
+			$plugin_meta[] = '<a href="' . $misc_setting . '">' . __( 'Restore passwords', PPW_Constants::DOMAIN ) . '</span>';
 		}
 
 		return $plugin_meta;
@@ -1195,7 +1195,7 @@ _end_;
 			new PPW_Toggle_Control(
 				$wp_customize,
 				'ppwp_hide_sitewide_password_form_control', array(
-				'label'       => __( 'Disable Password Form', 'password-protect-page' ),
+				'label'       => __( 'Disable Password Form', PPW_Constants::DOMAIN ),
 				'section'     => 'ppwp_pro_form_instructions',
 				'type'        => 'toggle',
 				'settings'    => 'ppwp_hide_sitewide_password_form',
@@ -1208,7 +1208,7 @@ _end_;
 			new PPW_Title_Group_Control(
 				$wp_customize,
 				'ppwp_sitewide_countdown', array(
-				'label'			=> __( 'COUNTDOWN TIMER', 'password-protect-page' ),
+				'label'			=> __( 'COUNTDOWN TIMER', PPW_Constants::DOMAIN ),
 				'section'  		=> 'ppwp_sitewide_countdown',
 				'settings' 		=> 'ppwp_sitewide_countdown',
 				'type'     		=> 'control_title',
@@ -1216,7 +1216,7 @@ _end_;
 		);
 
 		$wp_customize->add_section( 'ppwp_sitewide_countdown', array(
-			'title'    => __( 'Countdown Timer', 'password-protect-page' ),
+			'title'    => __( 'Countdown Timer', PPW_Constants::DOMAIN ),
 			'panel'    => 'ppwp_sitewide',
 			'priority' => 500,
 		) );
@@ -1229,10 +1229,10 @@ _end_;
 			new PPW_Toggle_Control(
 				$wp_customize,
 				'ppwp_sitewide_is_shown_countdown', array(
-				'label'       => __( 'Enable Countdown Timer', 'password-protect-page' ),
+				'label'       => __( 'Enable Countdown Timer', PPW_Constants::DOMAIN ),
 				'section'     => 'ppwp_sitewide_countdown',
 				'type'        => 'toggle',
-				'description'  => __( 'Time zone: '.ppw_get_utc(), 'password-protect-page' ),
+				'description'  => __( 'Time zone: '.ppw_get_utc(), PPW_Constants::DOMAIN ),
 				'settings'    => 'ppwp_sitewide_is_shown_countdown',
 			))
 		);
@@ -1245,7 +1245,7 @@ _end_;
 		// 	new PPW_Toggle_Control(
 		// 		$wp_customize,
 		// 		'ppwp_sitewide_is_show_day', array(
-		// 		'label'       => __( 'Show Day in Countdown', 'password-protect-page' ),
+		// 		'label'       => __( 'Show Day in Countdown', PPW_Constants::DOMAIN ),
 		// 		'section'     => 'ppwp_sitewide_countdown',
 		// 		'type'        => 'toggle',
 		// 		'settings'    => 'ppwp_sitewide_is_show_day',
@@ -1262,7 +1262,7 @@ _end_;
 			new PPW_Datetime_Control(
 				$wp_customize,
 				'ppwp_sitewide_start_time', array(
-				'label'       => __( 'Start Time (Optional)', 'password-protect-page' ),
+				'label'       => __( 'Start Time (Optional)', PPW_Constants::DOMAIN ),
 				'section'     => 'ppwp_sitewide_countdown',
 				'type'        => 'datetime',
 				'settings'    => 'ppwp_sitewide_start_time',
@@ -1280,7 +1280,7 @@ _end_;
 			new PPW_Datetime_Control(
 				$wp_customize,
 				'ppwp_sitewide_end_time', array(
-				'label'       => __( 'End Time', 'password-protect-page' ),
+				'label'       => __( 'End Time', PPW_Constants::DOMAIN ),
 				'section'     => 'ppwp_sitewide_countdown',
 				'type'        => 'datetime',
 				'settings'    => 'ppwp_sitewide_end_time',
@@ -1293,7 +1293,7 @@ _end_;
 			new PPW_Title_Group_Control(
 				$wp_customize,
 				'ppwp_countdown_time_unit', array(
-				'label'			=> __( 'COUNTDOWN TIMER STYLES', 'password-protect-page' ),
+				'label'			=> __( 'COUNTDOWN TIMER STYLES', PPW_Constants::DOMAIN ),
 				'section'  		=> 'ppwp_sitewide_countdown',
 				'settings' 		=> 'ppwp_countdown_time_unit',
 				'type'     		=> 'control_title',
@@ -1301,40 +1301,40 @@ _end_;
 		);
 
 		$wp_customize->add_setting( 'ppwp_countdown_day_text', array(
-			'default' => __( 'Days', 'password-protect-page' ),
+			'default' => __( 'Days', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control( 'ppwp_countdown_day_text', array(
-			'label'    => __( 'Days Label', 'password-protect-page' ),
+			'label'    => __( 'Days Label', PPW_Constants::DOMAIN ),
 			'section'  => 'ppwp_sitewide_countdown',
 			'settings' => 'ppwp_countdown_day_text',
 			'type'     => 'text',
 		) );
 
 		$wp_customize->add_setting( 'ppwp_countdown_hour_text', array(
-			'default' => __( 'Hours ', 'password-protect-page' ),
+			'default' => __( 'Hours ', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control( 'ppwp_countdown_hour_text', array(
-			'label'    => __( 'Hours Label', 'password-protect-page' ),
+			'label'    => __( 'Hours Label', PPW_Constants::DOMAIN ),
 			'section'  => 'ppwp_sitewide_countdown',
 			'settings' => 'ppwp_countdown_hour_text',
 			'type'     => 'text',
 		) );
 
 		$wp_customize->add_setting( 'ppwp_countdown_minute_text', array(
-			'default' => __( 'Minutes', 'password-protect-page' ),
+			'default' => __( 'Minutes', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control( 'ppwp_countdown_minute_text', array(
-			'label'    => __( 'Minutes Label', 'password-protect-page' ),
+			'label'    => __( 'Minutes Label', PPW_Constants::DOMAIN ),
 			'section'  => 'ppwp_sitewide_countdown',
 			'settings' => 'ppwp_countdown_minute_text',
 			'type'     => 'text',
 		) );
 
 		$wp_customize->add_setting( 'ppwp_countdown_second_text', array(
-			'default' => __( 'Seconds', 'password-protect-page' ),
+			'default' => __( 'Seconds', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control( 'ppwp_countdown_second_text', array(
-			'label'    => __( 'Seconds Label', 'password-protect-page' ),
+			'label'    => __( 'Seconds Label', PPW_Constants::DOMAIN ),
 			'section'  => 'ppwp_sitewide_countdown',
 			'settings' => 'ppwp_countdown_second_text',
 			'type'     => 'text',
@@ -1343,7 +1343,7 @@ _end_;
 		/* coutdown font size */
 		$wp_customize->add_setting( 'ppwp_countdown_font_size' );
 		$wp_customize->add_control( 'ppwp_countdown_font_size_control', array(
-			'label'			=> __( 'Font Size', 'password-protect-page' ),
+			'label'			=> __( 'Font Size', PPW_Constants::DOMAIN ),
 			'section'  		=> 'ppwp_sitewide_countdown',
 			'settings' 		=> 'ppwp_countdown_font_size',
 			'description'	=> 'Font size in px',
@@ -1359,7 +1359,7 @@ _end_;
 			new WP_Customize_Color_Control(
 				$wp_customize,
 				'ppwp_countdown_text_color_control', array(
-				'label'    => __( 'Text Color', 'password-protect-page' ),
+				'label'    => __( 'Text Color', PPW_Constants::DOMAIN ),
 				'section'  => 'ppwp_sitewide_countdown',
 				'settings' => 'ppwp_countdown_text_color',
 			) )
@@ -1371,7 +1371,7 @@ _end_;
 			new PPW_Title_Group_Control(
 				$wp_customize,
 				'ppwp_sitewide_above_countdown_text', array(
-				'label'			=> __( 'DESCRIPTION ABOVE TIMER', 'password-protect-page' ),
+				'label'			=> __( 'DESCRIPTION ABOVE TIMER', PPW_Constants::DOMAIN ),
 				'section'  		=> 'ppwp_sitewide_countdown',
 				'settings' 		=> 'ppwp_sitewide_above_countdown_text',
 				'type'     		=> 'control_title',
@@ -1380,14 +1380,14 @@ _end_;
 
 		/* Text above sitewide */
 		$wp_customize->add_setting( 'ppwp_sitewide_above_countdown', array(
-			'default' => __( '', 'password-protect-page' ),
+			'default' => __( '', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control(
 			new PPW_Text_Editor_Custom_Control(
 				$wp_customize,
 				'ppwp_sitewide_above_countdown',
 				array(
-					'label'    => __( 'Description', 'password-protect-page' ),
+					'label'    => __( 'Description', PPW_Constants::DOMAIN ),
 					'section'  => 'ppwp_sitewide_countdown',
 					'settings' => 'ppwp_sitewide_above_countdown',
 					'type'     => 'textarea',
@@ -1398,7 +1398,7 @@ _end_;
 		/* Text below font size */
 		$wp_customize->add_setting( 'ppwp_text_above_font_size' );
 		$wp_customize->add_control( 'ppwp_text_above_font_size_control', array(
-			'label'			=> __( 'Font Size', 'password-protect-page' ),
+			'label'			=> __( 'Font Size', PPW_Constants::DOMAIN ),
 			'section'  		=> 'ppwp_sitewide_countdown',
 			'settings' 		=> 'ppwp_text_above_font_size',
 			'description'	=> 'Font size in px',
@@ -1414,7 +1414,7 @@ _end_;
 			new WP_Customize_Color_Control(
 				$wp_customize,
 				'ppwp_text_above_color_control', array(
-				'label'    => __( 'Text Color', 'password-protect-page' ),
+				'label'    => __( 'Text Color', PPW_Constants::DOMAIN ),
 				'section'  => 'ppwp_sitewide_countdown',
 				'settings' => 'ppwp_text_above_color',
 			) )
@@ -1426,7 +1426,7 @@ _end_;
 			new PPW_Title_Group_Control(
 				$wp_customize,
 				'ppwp_sitewide_below_countdown_text', array(
-				'label'			=> __( 'DESCRIPTION BELOW TIMER', 'password-protect-page' ),
+				'label'			=> __( 'DESCRIPTION BELOW TIMER', PPW_Constants::DOMAIN ),
 				'section'  		=> 'ppwp_sitewide_countdown',
 				'settings' 		=> 'ppwp_sitewide_below_countdown_text',
 				'type'     		=> 'control_title',
@@ -1435,14 +1435,14 @@ _end_;
 
 		/* Text below sitewide */
 		$wp_customize->add_setting( 'ppwp_sitewide_below_countdown', array(
-			'default' => __( '', 'password-protect-page' ),
+			'default' => __( '', PPW_Constants::DOMAIN ),
 		) );
 		$wp_customize->add_control(
 			new PPW_Text_Editor_Custom_Control(
 				$wp_customize,
 				'ppwp_sitewide_below_countdown',
 				array(
-					'label'    => __( 'Description', 'password-protect-page' ),
+					'label'    => __( 'Description', PPW_Constants::DOMAIN ),
 					'section'  => 'ppwp_sitewide_countdown',
 					'settings' => 'ppwp_sitewide_below_countdown',
 					'type'     => 'textarea',
@@ -1453,7 +1453,7 @@ _end_;
 		/* Text below font size */
 		$wp_customize->add_setting( 'ppwp_text_below_font_size' );
 		$wp_customize->add_control( 'ppwp_text_below_font_size_control', array(
-			'label'			=> __( 'Font Size', 'password-protect-page' ),
+			'label'			=> __( 'Font Size', PPW_Constants::DOMAIN ),
 			'section'  		=> 'ppwp_sitewide_countdown',
 			'settings' 		=> 'ppwp_text_below_font_size',
 			'description'	=> 'Font size in px',
@@ -1469,7 +1469,7 @@ _end_;
 			new WP_Customize_Color_Control(
 				$wp_customize,
 				'ppwp_text_below_color_control', array(
-				'label'    => __( 'Text Color', 'password-protect-page' ),
+				'label'    => __( 'Text Color', PPW_Constants::DOMAIN ),
 				'section'  => 'ppwp_sitewide_countdown',
 				'settings' => 'ppwp_text_below_color',
 			) )

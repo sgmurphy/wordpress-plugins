@@ -9,7 +9,13 @@ export default function save({ attributes }) {
         classHook,
         tagName,
         closeAllTabs,
+        isMinHeightAsTitle
     } = attributes;
+
+    const dataAttributes = {
+        'data-min-height': isMinHeightAsTitle,
+        ...(closeAllTabs && { 'data-close-all-tabs': closeAllTabs })
+    };
 
     return (
         <BlockProps.Save attributes={attributes}>
@@ -18,9 +24,7 @@ export default function save({ attributes }) {
             >
                 <div
                     className={`${blockId} eb-advanced-tabs-wrapper ${layout}`}
-                    {...(closeAllTabs
-                        ? { 'data-close-all-tabs': closeAllTabs }
-                        : {})}
+                    {...dataAttributes}
                 >
                     <div className="eb-tabs-nav">
                         <ul
@@ -68,6 +72,6 @@ export default function save({ attributes }) {
                     </div>
                 </div>
             </div>
-        </BlockProps.Save>
+        </BlockProps.Save >
     );
 }

@@ -22,7 +22,7 @@ if ( ! class_exists( 'Ai_Builder_Compatibility' ) ) :
 		 * @var object Class object.
 		 * @since 1.0.11
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Ai_Builder_Compatibility' ) ) :
 		 * @return object initialized object of class.
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;

@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-01 15:16+0000\n"
+"POT-Creation-Date: 2024-07-02 15:57+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -320,7 +320,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:61, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:178, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:154, independent-analytics-production/views/partials/sidebar.blade.php:63
+#: independent-analytics-production/IAWP/Real_Time.php:61, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:178, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:158, independent-analytics-production/views/partials/sidebar.blade.php:63
 msgid "Pages"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Referrer"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:62, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:180, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:157, independent-analytics-production/views/partials/sidebar.blade.php:77
+#: independent-analytics-production/IAWP/Real_Time.php:62, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:180, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:161, independent-analytics-production/views/partials/sidebar.blade.php:77
 msgid "Referrers"
 msgstr ""
 
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:63, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:160
+#: independent-analytics-production/IAWP/Real_Time.php:63, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:164
 msgid "Countries"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "Geographic"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:184, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:163, independent-analytics-production/views/partials/sidebar.blade.php:105
+#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:184, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:167, independent-analytics-production/views/partials/sidebar.blade.php:105
 msgid "Devices"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:186, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:166, independent-analytics-production/views/partials/sidebar.blade.php:120, independent-analytics-production/views/partials/sidebar.blade.php:138
+#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:186, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:170, independent-analytics-production/views/partials/sidebar.blade.php:120, independent-analytics-production/views/partials/sidebar.blade.php:138
 msgid "Campaigns"
 msgstr ""
 
@@ -753,31 +753,31 @@ msgstr ""
 msgid "All Time"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:75
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:78
 msgid "There is no email scheduled."
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:80
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:84
 msgid "Next email scheduled for %s at %s."
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:126
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:130
 msgid "Once a Month"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:137
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:141
 msgid "[Test]"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:139
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:143
 msgid "Analytics Report for"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:172
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:176
 msgid "Exit Pages"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:169
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:173
 msgid "Landing Pages"
 msgstr ""
 
@@ -1341,7 +1341,7 @@ msgstr ""
 msgid "Unblock Role"
 msgstr ""
 
-#: independent-analytics-production/views/settings/block-by-role.blade.php:38, independent-analytics-production/views/settings/block-ips.blade.php:34, independent-analytics-production/views/settings/email-reports.blade.php:106
+#: independent-analytics-production/views/settings/block-by-role.blade.php:38, independent-analytics-production/views/settings/block-ips.blade.php:34, independent-analytics-production/views/settings/email-reports.blade.php:105
 msgid "Input is empty"
 msgstr ""
 
@@ -1361,7 +1361,7 @@ msgstr ""
 msgid "Save Blocked Roles"
 msgstr ""
 
-#: independent-analytics-production/views/settings/block-by-role.blade.php:59, independent-analytics-production/views/settings/block-ips.blade.php:55, independent-analytics-production/views/settings/email-reports.blade.php:127
+#: independent-analytics-production/views/settings/block-by-role.blade.php:59, independent-analytics-production/views/settings/block-ips.blade.php:55, independent-analytics-production/views/settings/email-reports.blade.php:126
 msgid "Unsaved changes"
 msgstr ""
 
@@ -1497,111 +1497,111 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:22
+#: independent-analytics-production/views/settings/email-reports.blade.php:21
 msgid "Delivery Interval"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:24, independent-analytics-production/IAWP/Statistics/Intervals/Monthly.php:14
+#: independent-analytics-production/views/settings/email-reports.blade.php:23, independent-analytics-production/IAWP/Statistics/Intervals/Monthly.php:14
 msgid "Monthly"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:25, independent-analytics-production/IAWP/Statistics/Intervals/Weekly.php:14
+#: independent-analytics-production/views/settings/email-reports.blade.php:24, independent-analytics-production/IAWP/Statistics/Intervals/Weekly.php:14
 msgid "Weekly"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:26, independent-analytics-production/IAWP/Statistics/Intervals/Daily.php:14
+#: independent-analytics-production/views/settings/email-reports.blade.php:25, independent-analytics-production/IAWP/Statistics/Intervals/Daily.php:14
 msgid "Daily"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:28
+#: independent-analytics-production/views/settings/email-reports.blade.php:27
 msgid "The email will be delivered on the 1st of every month."
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:29
+#: independent-analytics-production/views/settings/email-reports.blade.php:28
 msgid "The email will be delivered on the first day of the week (selected in the settings above)."
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:30
+#: independent-analytics-production/views/settings/email-reports.blade.php:29
 msgid "The email will be delivered every day."
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:33
+#: independent-analytics-production/views/settings/email-reports.blade.php:32
 msgid "Delivery Time"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:44
+#: independent-analytics-production/views/settings/email-reports.blade.php:43
 msgid "Customize the colors"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:47
+#: independent-analytics-production/views/settings/email-reports.blade.php:46
 msgid "Header background"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:51
+#: independent-analytics-production/views/settings/email-reports.blade.php:50
 msgid "Header text"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:55
+#: independent-analytics-production/views/settings/email-reports.blade.php:54
 msgid "Sub-header background"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:59
+#: independent-analytics-production/views/settings/email-reports.blade.php:58
 msgid "Sub-header text"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:63
+#: independent-analytics-production/views/settings/email-reports.blade.php:62
 msgid "Bar chart"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:67
+#: independent-analytics-production/views/settings/email-reports.blade.php:66
 msgid "Bar chart accent"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:71
+#: independent-analytics-production/views/settings/email-reports.blade.php:70
 msgid "Borders"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:75
+#: independent-analytics-production/views/settings/email-reports.blade.php:74
 msgid "Metric background"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:79
+#: independent-analytics-production/views/settings/email-reports.blade.php:78
 msgid "Outer background"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:83
+#: independent-analytics-production/views/settings/email-reports.blade.php:82
 msgid "Footer background"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:90
+#: independent-analytics-production/views/settings/email-reports.blade.php:89
 msgid "Add new email addresses"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:94
+#: independent-analytics-production/views/settings/email-reports.blade.php:93
 msgid "Add email"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:103, independent-analytics-production/views/settings/email-reports.blade.php:118
+#: independent-analytics-production/views/settings/email-reports.blade.php:102, independent-analytics-production/views/settings/email-reports.blade.php:117
 msgid "Remove email"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:107
+#: independent-analytics-production/views/settings/email-reports.blade.php:106
 msgid "This email already exists"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:110
+#: independent-analytics-production/views/settings/email-reports.blade.php:109
 msgid "Sending to these addresses"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:124
+#: independent-analytics-production/views/settings/email-reports.blade.php:123
 msgid "Save settings"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:125
+#: independent-analytics-production/views/settings/email-reports.blade.php:124
 msgid "Preview email"
 msgstr ""
 
-#: independent-analytics-production/views/settings/email-reports.blade.php:126
+#: independent-analytics-production/views/settings/email-reports.blade.php:125
 msgid "Send test email"
 msgstr ""
 

@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import Button from '../components/button';
@@ -81,7 +80,6 @@ const BuildDone = () => {
 							<span>
 								{ __( 'Visit Dashboard', 'ai-builder' ) }
 							</span>
-							<ArrowRightIcon className="w-5 h-5" />
 						</Button>
 					</div>
 				</div>

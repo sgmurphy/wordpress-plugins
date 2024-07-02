@@ -25,7 +25,7 @@ foreach ( $my_comments as $v ) {
 	if ( $product ) {
 		$comment_children = $comment->get_children();
 		$rating           = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
-		echo sprintf( '<div id="comment-%s" class="wcpr-grid-item"><div class="wcpr-content">', $comment->comment_ID );
+		echo sprintf( '<div id="comment-%s" class="wcpr-grid-item"><div class="wcpr-content">', esc_attr( $comment->comment_ID ) );
 		do_action( 'woocommerce_photo_reviews_masonry_item_top', $comment, $product );
 		$img_post_ids = get_comment_meta( $v->comment_ID, 'reviews-images', true );
 		if ( is_array( $img_post_ids ) && count( $img_post_ids ) > 0 ) {
@@ -107,7 +107,7 @@ foreach ( $my_comments as $v ) {
                 <div class="wcpr-review-rating">
 		            <?php
 		            if ( $rating > 0 ) {
-			            echo wc_get_rating_html( $rating );
+			            echo wc_get_rating_html( $rating );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		            }
 		            if ( $settings->get_params( 'photo', 'show_review_date' ) ) {
 			            ?>

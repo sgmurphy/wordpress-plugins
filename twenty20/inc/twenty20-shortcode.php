@@ -1,6 +1,6 @@
 <?php
 
-function sanitize_xss_offset( $input ) {
+function twenty20_zb_sanitize_xss_offset( $input ) {
   $output = str_replace( '})});alert(/XSS-offset/)//', '', $input );
   return $output;
 }
@@ -85,14 +85,14 @@ if(!empty($atts['img1']) && !empty($atts['img2'])){
   }
   
   if($atts['before']){
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. sanitize_xss_offset(esc_js($atts['before'])) .'");';
+    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['before'])) .'");';
   }else{
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
+    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
   }
   if($atts['after']){
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. sanitize_xss_offset(esc_js($atts['after'])) .'");';
+    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['after'])) .'");';
   }else{
-    $output .= '$(".' . sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
+    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
   }
   $output .= '});</script></div>';
 }else{

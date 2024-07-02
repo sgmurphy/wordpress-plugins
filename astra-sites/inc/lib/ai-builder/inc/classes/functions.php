@@ -27,7 +27,7 @@ if ( ! function_exists( 'astra_sites_error_log' ) ) :
 				$message = wp_json_encode( $message );
 			}
 
-			if ( apply_filters( 'astra_sites_debug_logs', false ) ) {
+			if ( apply_filters( 'astra_sites_debug_logs', false ) && is_string( $message ) ) {
 				error_log( $message ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- This is for the debug logs while importing. This is conditional and will not be logged in the debug.log file for normal users.
 			}
 		}
@@ -42,7 +42,7 @@ if ( ! function_exists( 'astra_sites_get_suggestion_link' ) ) :
 	 *
 	 * @since 2.6.1
 	 *
-	 * @return suggestion link.
+	 * @return string.
 	 */
 	function astra_sites_get_suggestion_link() {
 
@@ -59,7 +59,7 @@ if ( ! function_exists( 'astra_sites_is_valid_image' ) ) :
 	 * @param string $link  The Image link.
 	 *
 	 * @since 2.6.2
-	 * @return boolean
+	 * @return int|false
 	 */
 	function astra_sites_is_valid_image( $link = '' ) {
 		return preg_match( '/^((https?:\/\/)|(www\.))([a-z0-9-].?)+(:[0-9]+)?\/[\w\-\@]+\.(jpg|png|gif|jpeg|svg)\/?$/i', $link );
@@ -77,7 +77,11 @@ if ( ! function_exists( 'astra_get_site_data' ) ) :
 	 */
 	function astra_get_site_data( $index = '' ) {
 
-		$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
+		$demo_data = array();
+		if ( class_exists( 'STImporter\Importer\ST_Importer_File_System' ) ) {
+			$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
+		}
+
 		if ( ! empty( $demo_data ) && isset( $demo_data[ $index ] ) ) {
 			return $demo_data[ $index ];
 		}
@@ -90,7 +94,7 @@ endif;
  * Get all the posts to be reset.
  *
  * @since 3.0.3
- * @return array
+ * @return array<int, string>
  */
 function astra_sites_get_reset_post_data() {
 	global $wpdb;
@@ -106,7 +110,7 @@ function astra_sites_get_reset_post_data() {
  * Get API params
  *
  * @since 2.7.3
- * @return array
+ * @return array<string, mixed>
  */
 function astra_sites_get_api_params() {
 	return apply_filters(
@@ -125,7 +129,7 @@ function astra_sites_get_api_params() {
  * Check if Import for Astra Site is in progress
  *
  * @since 3.0.21
- * @return array
+ * @return bool
  */
 function astra_sites_has_import_started() {
 	$has_import_started = get_transient( 'astra_sites_import_started' );
@@ -139,6 +143,7 @@ function astra_sites_has_import_started() {
  * Remove the post excerpt
  *
  * @param int $post_id  The post ID.
+ * @return void
  * @since 3.1.0
  */
 function astra_sites_empty_post_excerpt( $post_id = 0 ) {
@@ -167,7 +172,7 @@ function astra_sites_get_wp_forms_url( $id ) {
 		return '';
 	}
 
-	if ( isset( $demo_data['type'] ) ) {
+	if ( is_array( $demo_data ) && isset( $demo_data['type'] ) ) {
 		$type = $demo_data['type'];
 		if ( 'site-pages' === $type && isset( $demo_data['astra-site-wpforms-path'] ) ) {
 			return $demo_data['astra-site-wpforms-path'];
@@ -187,7 +192,7 @@ function astra_sites_get_wp_forms_url( $id ) {
  * @param string $url  The site URL.
  *
  * @since 2.7.1
- * @return string
+ * @return bool
  */
 function astra_sites_is_valid_url( $url = '' ) {
 	if ( empty( $url ) ) {
@@ -209,13 +214,17 @@ function astra_sites_is_valid_url( $url = '' ) {
 
 	$ai_site_url = get_option( 'ast_ai_import_current_url', '' );
 
-	if ( '' !== $ai_site_url ) {
+	if ( is_string( $ai_site_url ) && '' !== $ai_site_url ) {
 		$url           = wp_parse_url( $ai_site_url );
 		$valid_hosts[] = $url ? $url['host'] : '';
 	}
 
-	$api_domain_parse_url = wp_parse_url( ST_Importer_Helper::get_api_domain() );
-	$valid_hosts[]        = $api_domain_parse_url['host'];
+	$api_domain_parse_url = '';
+	if ( class_exists( 'STImporter\Importer\ST_Importer_Helper' ) ) {
+		$api_domain_parse_url = wp_parse_url( ST_Importer_Helper::get_api_domain() );
+	}
+
+	$valid_hosts[] = is_array( $api_domain_parse_url ) && isset( $api_domain_parse_url['host'] ) ? $api_domain_parse_url['host'] : '';
 
 	// Validate host.
 	if ( in_array( $parse_url['host'], $valid_hosts, true ) ) {

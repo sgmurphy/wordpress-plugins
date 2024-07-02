@@ -32,7 +32,7 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 		 * @var object Class Instance.
 		 * @since 1.0.0
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
@@ -41,7 +41,7 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 		 * @return object initialized object of class.
 		 */
 		public static function get_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;
@@ -51,6 +51,8 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 		 * Autoload classes.
 		 *
 		 * @param string $class class name.
+		 *
+		 * @return void
 		 */
 		public function autoload( $class ) {
 			if ( 0 !== strpos( $class, __NAMESPACE__ ) ) {
@@ -60,7 +62,7 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 			$class_to_load = $class;
 
 			$filename = strtolower(
-				preg_replace(
+				(string) preg_replace(
 					[ '/^' . __NAMESPACE__ . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
 					[ '', '$1-$2', '-', DIRECTORY_SEPARATOR ],
 					$class_to_load
@@ -116,13 +118,6 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 				$get_locale = get_user_locale();
 			}
 
-			/**
-			 * Language Locale for plugin
-			 *
-			 * @var $get_locale The locale to use.
-			 * Uses get_user_locale()` in WordPress 4.7 or greater,
-			 * otherwise uses `get_locale()`.
-			 */
 			$locale = apply_filters( 'plugin_locale', $get_locale, 'st-import' );
 			$mofile = sprintf( '%1$s-%2$s.mo', 'st-import', $locale );
 
@@ -152,7 +147,7 @@ if ( ! class_exists( '\STImporter\ST_Importer_Loader' ) ) {
 			define( 'ST_IMPORTER_FILE', __FILE__ );
 			define( 'ST_IMPORTER_DIR', plugin_dir_path( ST_IMPORTER_FILE ) );
 			define( 'ST_IMPORTER_URL', plugins_url( '/', ST_IMPORTER_FILE ) );
-			define( 'ST_IMPORTER_VER', '1.0.17' );
+			define( 'ST_IMPORTER_VER', '1.1.1' );
 		}
 
 		/**

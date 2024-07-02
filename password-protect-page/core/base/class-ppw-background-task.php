@@ -239,7 +239,7 @@ if ( ! class_exists( 'PPW_Pro_Background_Task' ) ) {
 			$schedules[ $this->identifier . '_cron_interval' ] = array(
 				'interval' => MINUTE_IN_SECONDS * $interval,
 				/* translators: %d: interval */
-				'display'  => sprintf( __( 'Every %d minutes', 'password-protect-page' ), $interval ),
+				'display'  => sprintf( __( 'Every %d minutes', PPW_Constants::DOMAIN ), $interval ),
 			);
 
 			return $schedules;

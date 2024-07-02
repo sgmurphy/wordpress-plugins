@@ -330,7 +330,7 @@ class Premium_Templates_Source_Api extends Premium_Templates_Source_Base {
 		$content = isset( $body['content'] ) ? $body['content'] : '';
 		$type    = isset( $body['type'] ) ? $body['type'] : '';
 		$license = isset( $body['license'] ) ? $body['license'] : '';
-        $invalid_license = isset( $body['invalid_key'] ) ? $body['invalid_key'] : '';
+        $invalid_license = isset( $body['invalid_key'] ) ? 'invalid' : '';
 
 		if ( ! empty( $content ) ) {
 			$content = $this->replace_elements_ids( $content );

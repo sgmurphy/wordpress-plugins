@@ -44,13 +44,14 @@ class WordPress extends Integrations {
 		if ( ! $user ) {
 			return $context;
 		}
-		$context['wp_user_id']     = $user->ID;
-		$context['user_login']     = $user->user_login;
-		$context['display_name']   = $user->display_name;
-		$context['user_firstname'] = $user->user_firstname;
-		$context['user_lastname']  = $user->user_lastname;
-		$context['user_email']     = $user->user_email;
-		$context['user_role']      = $user->roles;
+		$context['wp_user_id']      = $user->ID;
+		$context['user_login']      = $user->user_login;
+		$context['display_name']    = $user->display_name;
+		$context['user_firstname']  = $user->user_firstname;
+		$context['user_lastname']   = $user->user_lastname;
+		$context['user_email']      = $user->user_email;
+		$context['user_registered'] = $user->user_registered;
+		$context['user_role']       = $user->roles;
 		return $context;
 	}
 
@@ -61,13 +62,14 @@ class WordPress extends Integrations {
 	 */
 	public static function get_sample_user_context() {
 		return [
-			'wp_user_id'     => '1',
-			'user_login'     => 'john_doe',
-			'display_name'   => 'John Doe',
-			'user_firstname' => 'John',
-			'user_lastname'  => 'Doe',
-			'user_email'     => 'johnd@gmail.com',
-			'user_role'      => 'active',
+			'wp_user_id'      => '1',
+			'user_login'      => 'john_doe',
+			'display_name'    => 'John Doe',
+			'user_firstname'  => 'John',
+			'user_lastname'   => 'Doe',
+			'user_email'      => 'johnd@gmail.com',
+			'user_registered' => '2024-06-18 09:47:58',
+			'user_role'       => 'active',
 		];
 	}
 

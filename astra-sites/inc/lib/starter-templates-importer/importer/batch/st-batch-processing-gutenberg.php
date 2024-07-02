@@ -28,7 +28,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 		 * @access private
 		 * @var object Class object.
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
@@ -38,7 +38,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 		 */
 		public static function get_instance() {
 
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;
@@ -54,11 +54,11 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 		/**
 		 * Allowed tags for the batch update process.
 		 *
-		 * @param  array        $allowedposttags   Array of default allowable HTML tags.
-		 * @param  string|array $context    The context for which to retrieve tags. Allowed values are 'post',
-		 *                                  'strip', 'data', 'entities', or the name of a field filter such as
-		 *                                  'pre_user_description'.
-		 * @return array Array of allowed HTML tags and their allowed attributes.
+		 * @param  array<string, array<string, bool>> $allowedposttags   Array of default allowable HTML tags.
+		 * @param  string|array<int, string>          $context    The context for which to retrieve tags. Allowed values are 'post',
+		 *                                           'strip', 'data', 'entities', or the name of a field filter such as
+		 *                                           'pre_user_description'.
+		 * @return array<string, array<string, bool>> Array of allowed HTML tags and their allowed attributes.
 		 */
 		public function allowed_tags_and_attributes( $allowedposttags, $context ) {
 
@@ -102,7 +102,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 
 			$post_ids = St_Batch_Processing::get_pages( $post_types );
 
-			if ( empty( $post_ids ) && ! is_array( $post_ids ) ) {
+			if ( ! is_array( $post_ids ) ) {
 				return array(
 					'success' => false,
 					'msg'     => __( 'Post ids are empty', 'st-importer', 'astra-sites' ),
@@ -122,7 +122,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 		/**
 		 * Update post meta.
 		 *
-		 * @param  integer $post_id Post ID.
+		 * @param int $post_id Post ID.
 		 * @return void
 		 */
 		public function import_single_post( $post_id = 0 ) {
@@ -211,7 +211,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 		 * @since 2.0.0
 		 *
 		 * @param  string $content Mixed post content.
-		 * @return array           Hotlink image array.
+		 * @return string           Hotlink image array.
 		 */
 		public function get_content( $content = '' ) {
 
@@ -231,7 +231,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 
 			// Extract normal and image links.
 			foreach ( $all_links as $key => $link ) {
-				if ( astra_sites_is_valid_image( $link ) ) {
+				if ( function_exists( 'astra_sites_is_valid_image' ) && astra_sites_is_valid_image( $link ) ) {
 
 					// Get all image links.
 					// Avoid *-150x, *-300x and *-1024x images.
@@ -250,22 +250,25 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 			}
 
 			// Step 1: Download images.
-			if ( ! empty( $image_links ) ) {
+			if ( is_array( $image_links ) && ! empty( $image_links ) ) {
 				foreach ( $image_links as $key => $image_url ) {
 					// Download remote image.
-					$image            = array(
+					$image = array(
 						'url' => $image_url,
 						'id'  => 0,
 					);
-					$downloaded_image = ST_Image_Importer::get_instance()->import( $image );
 
-					// Old and New image mapping links.
-					$link_mapping[ $image_url ] = $downloaded_image['url'];
+					if ( method_exists( ST_Image_Importer::get_instance(), 'import' ) ) {
+						$downloaded_image = ST_Image_Importer::get_instance()->import( $image );
+
+						// Old and New image mapping links.
+						$link_mapping[ $image_url ] = $downloaded_image['url'];
+					}
 				}
 			}
 
 			// Step 2: Replace the demo site URL with live site URL.
-			if ( ! empty( $other_links ) ) {
+			if ( is_array( $other_links ) ) {
 				$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
 				if ( isset( $demo_data['astra-site-url'] ) ) {
 					$site_url = get_site_url();

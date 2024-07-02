@@ -213,7 +213,7 @@ class Secure_Copy_Content_Protection_Actions {
 				"border_style"     		=> isset($data['border_style']) ? $data['border_style'] : "solid",
 				"tooltip_position" 		=> isset($data['tooltip_position']) ? $data['tooltip_position'] : "mouse",
 				"tooltip_padding"  		=> isset($data['ays_tooltip_padding']) ? $data['ays_tooltip_padding'] : "5",
-				"ays_sccp_custom_class" => isset($data['ays_sccp_custom_class']) ? $data['ays_sccp_custom_class'] : "",
+				"ays_sccp_custom_class" => isset($data['ays_sccp_custom_class']) ? sanitize_text_field( $data['ays_sccp_custom_class'] ) : "",
 				"exclude_css_selectors" => isset($data['ays_sccp_exclude_css_selectors']) ? $data['ays_sccp_exclude_css_selectors'] : "",
 				'mailchimp_list'        => $mailchimp_list,
 				'enable_mailchimp'      => $enable_mailchimp,

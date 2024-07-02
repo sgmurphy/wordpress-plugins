@@ -335,6 +335,8 @@ if ( ! class_exists( 'PPW_Constants' ) ) {
 
 		const COOKIE_EXPIRED = 'wpp_password_cookie_expired';
 
+		const COOKIE_EXPIRED_SITEWIDE = 'wpp_password_cookie_expired_sitewide';
+
 		const REMOVE_DATA = 'wpp_remove_data';
 
 		const USE_CUSTOM_FORM_ACTION = 'wpp_use_custom_form_action';

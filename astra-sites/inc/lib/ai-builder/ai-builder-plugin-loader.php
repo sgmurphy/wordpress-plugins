@@ -33,13 +33,13 @@ class Ai_Builder_Plugin_Loader {
 	 * @var object Class Instance.
 	 * @since 1.0.0
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * List of hosting providers.
 	 *
 	 * @access private
-	 * @var array
+	 * @var array<int, string>
 	 * @since 1.0.0
 	 */
 	private $hosting_providers = array(
@@ -55,7 +55,7 @@ class Ai_Builder_Plugin_Loader {
 	 * @return object initialized object of class.
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -65,6 +65,8 @@ class Ai_Builder_Plugin_Loader {
 	 * Autoload classes.
 	 *
 	 * @param string $class class name.
+	 *
+	 * @return void
 	 */
 	public function autoload( $class ) {
 		if ( 0 !== strpos( $class, __NAMESPACE__ ) ) {
@@ -74,7 +76,7 @@ class Ai_Builder_Plugin_Loader {
 		$class_to_load = $class;
 
 		$filename = strtolower(
-			preg_replace(
+			(string) preg_replace(
 				[ '/^' . __NAMESPACE__ . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
 				[ '', '$1-$2', '-', DIRECTORY_SEPARATOR ],
 				$class_to_load
@@ -110,6 +112,8 @@ class Ai_Builder_Plugin_Loader {
 	 * Load plugin files.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function load_plugin() {
 		require_once AI_BUILDER_DIR . 'inc/classes/ai-builder-loader.php';
@@ -118,6 +122,8 @@ class Ai_Builder_Plugin_Loader {
 
 	/**
 	 * Include required constants.
+	 *
+	 * @return void
 	 */
 	public function define_constants() {
 
@@ -132,6 +138,8 @@ class Ai_Builder_Plugin_Loader {
 
 	/**
 	 * Include required classes.
+	 *
+	 * @return void
 	 */
 	public function setup_classes() {
 
@@ -173,13 +181,6 @@ class Ai_Builder_Plugin_Loader {
 			$get_locale = get_user_locale();
 		}
 
-		/**
-		 * Language Locale for plugin
-		 *
-		 * @var $get_locale The locale to use.
-		 * Uses get_user_locale()` in WordPress 4.7 or greater,
-		 * otherwise uses `get_locale()`.
-		 */
 		$locale = apply_filters( 'plugin_locale', $get_locale, 'ai-builder' );
 		$mofile = sprintf( '%1$s-%2$s.mo', 'ai-builder', $locale );
 
@@ -203,6 +204,8 @@ class Ai_Builder_Plugin_Loader {
 	 * Add a theme page.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function add_theme_page() {
 		add_theme_page(
@@ -218,6 +221,8 @@ class Ai_Builder_Plugin_Loader {
 	 * Theme page.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function theme_page() {
 		?>
@@ -230,6 +235,8 @@ class Ai_Builder_Plugin_Loader {
 	 *
 	 * @param string $hook hook.
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public function enqueue_scripts( $hook = '' ) {
 		if ( 'appearance_page_ai-builder' !== $hook ) {
@@ -301,6 +308,8 @@ class Ai_Builder_Plugin_Loader {
 	 *
 	 * @param string $classes classes.
 	 *
+	 * @return string
+	 *
 	 * @since 1.0.0
 	 */
 	public function admin_body_class( $classes ) {
@@ -359,10 +368,10 @@ class Ai_Builder_Plugin_Loader {
 	 * Get localize variable.
 	 *
 	 * @since 1.0.0
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function get_localize_variable() {
-		$theme_status = ST_Importer_Helper::get_instance()->get_theme_status();
+		$theme_status = class_exists( 'STImporter\Importer\ST_Importer_Helper' ) ? ST_Importer_Helper::get_instance()->get_theme_status() : '';
 
 		$plans = Ai_Builder_ZipWP_Api::Instance()->get_zip_plans();
 
@@ -391,6 +400,7 @@ class Ai_Builder_Plugin_Loader {
 			'migrateSvg'         => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
 			'business_details'   => Ai_Builder_ZipWP_Integration::get_business_details(),
 			'skipFeatures'       => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
+			'show_premium_badge' => 'yes' === apply_filters( 'ai_builder_show_premium_badge', 'yes' ),
 		);
 	}
 

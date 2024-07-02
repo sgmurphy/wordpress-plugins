@@ -58,7 +58,7 @@ class Helper {
 	 * Get image placeholder array.
 	 *
 	 * @since 4.0.9
-	 * @return array<string, array<string, string>>
+	 * @return array<int, array<string, string>>
 	 */
 	public static function get_image_placeholders() {
 
@@ -101,7 +101,7 @@ class Helper {
 				'email'      => '',
 			)
 		);
-		return isset( $token_details['zip_token'] ) ? self::decrypt( $token_details['zip_token'] ) : '';
+		return is_array( $token_details ) && isset( $token_details['zip_token'] ) ? self::decrypt( $token_details['zip_token'] ) : '';
 	}
 
 		/**
@@ -126,7 +126,7 @@ class Helper {
 	/**
 	 * Get installed PHP version.
 	 *
-	 * @return float PHP version.
+	 * @return string PHP version.
 	 * @since 3.0.16
 	 */
 	public static function get_php_version() {
@@ -237,9 +237,9 @@ class Helper {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param  array $required_plugins Required Plugins.
-	 * @param  array $options            Site Options.
-	 * @param  array $enabled_extensions Enabled Extensions.
+	 * @param  array<int, array<string, string>> $required_plugins Required Plugins.
+	 * @param  array<string, mixed>              $options            Site Options.
+	 * @param  array<string, mixed>              $enabled_extensions Enabled Extensions.
 	 * @return mixed
 	 */
 	public static function required_plugins( $required_plugins = array(), $options = array(), $enabled_extensions = array() ) {
@@ -264,7 +264,7 @@ class Helper {
 
 		$required_plugins = astra_get_site_data( 'required-plugins' );
 
-		$data = self::get_required_plugins_data( $response, $required_plugins );
+		$data = self::get_required_plugins_data( $response, $required_plugins ); // @phpstan-ignore-line
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success( $data );
@@ -273,14 +273,14 @@ class Helper {
 		}
 	}
 
-		/**
-		 * Retrieves the required plugins data based on the response and required plugin list.
-		 *
-		 * @param array $response            The response containing the plugin data.
-		 * @param array $required_plugins    The list of required plugins.
-		 * @since 3.2.5
-		 * @return array                     The array of required plugins data.
-		 */
+	/**
+	 * Retrieves the required plugins data based on the response and required plugin list.
+	 *
+	 * @param array<string, array<string, mixed>> $response            The response containing the plugin data.
+	 * @param array<int, array<string, string>>   $required_plugins    The list of required plugins.
+	 * @since 3.2.5
+	 * @return array<string, mixed>                     The array of required plugins data.
+	 */
 	public static function get_required_plugins_data( $response, $required_plugins ) {
 
 		$learndash_course_grid = 'https://www.learndash.com/add-on/course-grid/';
@@ -336,12 +336,15 @@ class Helper {
 				 * Is Pro Version Installed?
 				 */
 				$plugin_pro = Helper::pro_plugin_exist( $plugin['init'] );
-				if ( $plugin_pro ) {
+				if ( is_array( $plugin_pro ) ) {
 
 					if ( array_key_exists( $plugin_pro['init'], $plugin_updates ) ) {
 						$update_avilable_plugins[] = $plugin_pro;
 					}
 
+					if ( ! is_array( $response ) ) {
+						$response = array();
+					}
 					// Pro - Active.
 					if ( is_plugin_active( $plugin_pro['init'] ) ) {
 						$response['active'][] = $plugin_pro;
@@ -432,16 +435,16 @@ class Helper {
 		return $data;
 	}
 
-		/**
-		 * After Plugin Activate
-		 *
-		 * @since 2.0.0
-		 *
-		 * @param  string $plugin_init        Plugin Init File.
-		 * @param  array  $options            Site Options.
-		 * @param  array  $enabled_extensions Enabled Extensions.
-		 * @return void
-		 */
+	/**
+	 * After Plugin Activate
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param  string               $plugin_init        Plugin Init File.
+	 * @param  array<string, mixed> $options            Site Options.
+	 * @param  array<string, mixed> $enabled_extensions Enabled Extensions.
+	 * @return void
+	 */
 	public static function after_plugin_activate( $plugin_init = '', $options = array(), $enabled_extensions = array() ) {
 		$data = array(
 			'astra_site_options' => $options,
@@ -456,9 +459,9 @@ class Helper {
 	 *
 	 * @since 2.0.0 Added parameters $init, $options & $enabled_extensions to add the WP CLI support.
 	 * @since 1.0.0
-	 * @param  string $init               Plugin init file.
-	 * @param  array  $options            Site options.
-	 * @param  array  $enabled_extensions Enabled extensions.
+	 * @param  string               $init               Plugin init file.
+	 * @param  array<string, mixed> $options            Site options.
+	 * @param  array<string, mixed> $enabled_extensions Enabled extensions.
 	 * @return void
 	 */
 	public static function required_plugin_activate( $init = '', $options = array(), $enabled_extensions = array() ) {
@@ -504,8 +507,8 @@ class Helper {
 			}
 		}
 
-		$options            = astra_get_site_data( 'astra-site-options-data' );
-		$enabled_extensions = astra_get_site_data( 'astra-enabled-extensions' );
+		$options            = (array) astra_get_site_data( 'astra-site-options-data' );
+		$enabled_extensions = (array) astra_get_site_data( 'astra-enabled-extensions' );
 
 		self::after_plugin_activate( $plugin_init, $options, $enabled_extensions );
 
@@ -523,6 +526,8 @@ class Helper {
 
 	/**
 	 * Backup our existing settings.
+	 *
+	 * @return void
 	 */
 	public static function backup_settings() {
 
@@ -532,6 +537,10 @@ class Helper {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_send_json_error( __( 'User does not have permission!', 'ai-builder', 'astra-sites' ) );
 			}
+		}
+
+		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
 		}
 
 		$log_file_path = ST_Resetter::backup_settings();
@@ -549,7 +558,7 @@ class Helper {
 	 * @since 1.0.14
 	 * @since 1.4.0 The `$options_data` was added.
 	 *
-	 * @param  array $options_data Site Options.
+	 * @param  array<string, mixed> $options_data Site Options.
 	 * @return void
 	 */
 	public static function import_options( $options_data = array() ) {
@@ -564,6 +573,10 @@ class Helper {
 		}
 		if ( empty( $options_data ) ) {
 			$options_data = astra_get_site_data( 'astra-site-options-data' );
+		}
+
+		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) || ! class_exists( 'STImporter\Importer\ST_Option_Importer' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
 		}
 
 		$result = ST_Importer::import_options( $options_data, ST_Option_Importer::site_options() );
@@ -605,6 +618,10 @@ class Helper {
 
 		$data = astra_get_site_data( 'astra-site-widgets-data' );
 
+		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+		}
+
 		$result = ST_Importer::import_widgets( $widgets_data, $data );
 
 		if ( false === $result['status'] ) {
@@ -639,6 +656,10 @@ class Helper {
 			}
 		}
 
+		if ( ! class_exists( 'STImporter\Importer\ST_Importer_File_System' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+		}
+
 		$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
 		// Set permalink structure to use post name.
 		update_option( 'permalink_structure', '/%postname%/' );
@@ -670,6 +691,10 @@ class Helper {
 
 		Ai_Builder_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'astra-settings', array() ) ) );
 
+		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+		}
+
 		ST_Resetter::reset_customizer_data();
 
 		if ( defined( 'WP_CLI' ) ) {
@@ -700,6 +725,10 @@ class Helper {
 
 		Ai_Builder_Importer_Log::add( 'Deleted - Site Options ' . wp_json_encode( $options ) );
 
+		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+		}
+
 		ST_Resetter::reset_site_options( $options );
 
 		if ( defined( 'WP_CLI' ) ) {
@@ -729,6 +758,10 @@ class Helper {
 		// Get all old widget ids.
 		$old_widgets_data = (array) get_option( '_astra_sites_old_widgets_data', array() );
 
+		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+		}
+
 		ST_Resetter::reset_widgets_data( $old_widgets_data );
 
 		if ( defined( 'WP_CLI' ) ) {
@@ -744,7 +777,7 @@ class Helper {
 	 * @since 1.0.14
 	 * @since 1.4.0  The `$customizer_data` was added.
 	 *
-	 * @param  array $customizer_data Customizer Data.
+	 * @param  array<string, mixed> $customizer_data Customizer Data.
 	 * @return void
 	 */
 	public static function import_customizer_settings( $customizer_data = array() ) {
@@ -766,6 +799,10 @@ class Helper {
 			\WP_CLI::line( 'Customizer data is empty!' );
 		} elseif ( wp_doing_ajax() && empty( $customizer_data ) ) {
 			wp_send_json_error( __( 'Customizer data is empty!', 'ai-builder', 'astra-sites' ) );
+		}
+
+		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) ) {
+			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
 		}
 
 		$result = ST_Importer::import_customizer_settings( $customizer_data );

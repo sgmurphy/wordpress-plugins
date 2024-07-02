@@ -53,6 +53,10 @@ class Ai_Builder_ZipWP_Integration {
 
 			$spec_ai_settings = $this->get_setting();
 
+			if ( ! is_array( $spec_ai_settings ) ) {
+				$spec_ai_settings = array();
+			}
+
 			// Update the auth token if needed.
 			if ( isset( $_GET['credit_token'] ) && is_string( $_GET['credit_token'] ) ) {
 				$spec_ai_settings['auth_token'] = $this->encrypt( sanitize_text_field( $_GET['credit_token'] ) );
@@ -78,7 +82,7 @@ class Ai_Builder_ZipWP_Integration {
 	 * Get Saved settings.
 	 *
 	 * @since 4.0.0
-	 * @return string
+	 * @return array<string, string>|mixed
 	 */
 	public static function get_setting() {
 		return get_option(
@@ -115,7 +119,7 @@ class Ai_Builder_ZipWP_Integration {
 	 *
 	 * @since 4.0.0
 	 * @param string $key options name.
-	 * @return array<string,string,string,string,string,string,string,int> | string Array for business details or single detail in a string.
+	 * @return array<string, mixed>|array<int, string>|string|array<string>|array<string,string>
 	 */
 	public static function get_business_details( $key = '' ) {
 		$details = get_option(
@@ -134,6 +138,10 @@ class Ai_Builder_ZipWP_Integration {
 				'social_profiles'      => array(),
 			)
 		);
+
+		if ( ! is_array( $details ) ) {
+			$details = array();
+		}
 
 		$details = array(
 			'business_name'        => ( ! empty( $details['business_name'] ) ) ? $details['business_name'] : '',
@@ -171,7 +179,7 @@ class Ai_Builder_ZipWP_Integration {
 				'email'      => '',
 			)
 		);
-		return isset( $token_details['zip_token'] ) ? self::decrypt( $token_details['zip_token'] ) : '';
+		return is_array( $token_details ) && isset( $token_details['zip_token'] ) ? self::decrypt( $token_details['zip_token'] ) : '';
 	}
 
 	/**
@@ -189,7 +197,7 @@ class Ai_Builder_ZipWP_Integration {
 				'email'      => '',
 			)
 		);
-		return isset( $token_details['auth_token'] ) ? self::decrypt( $token_details['auth_token'] ) : '';
+		return is_array( $token_details ) && isset( $token_details['auth_token'] ) ? self::decrypt( $token_details['auth_token'] ) : '';
 	}
 
 	/**
@@ -207,7 +215,7 @@ class Ai_Builder_ZipWP_Integration {
 				'email'      => '',
 			)
 		);
-		return isset( $token_details['email'] ) ? $token_details['email'] : '';
+		return is_array( $token_details ) && isset( $token_details['email'] ) ? $token_details['email'] : '';
 	}
 
 	/**

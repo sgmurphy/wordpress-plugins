@@ -14,11 +14,11 @@ function twenty20_zb_enqueue_script() {
 }
 add_action( 'wp_enqueue_scripts', 'twenty20_zb_enqueue_script');
 
-function include_media_button_js_file() {
+function twenty20_zb_include_media_button_js_file() {
   wp_enqueue_script('media_button', ZB_T20_URL . '/assets/js/media_button.js', array('jquery'), ZB_T20_VER, true);
   wp_enqueue_style( 'twenty20-admin-style', ZB_T20_URL . '/assets/css/admin.css', array(), ZB_T20_VER );
 }
-add_action('wp_enqueue_media', 'include_media_button_js_file');
+add_action('wp_enqueue_media', 'twenty20_zb_include_media_button_js_file');
 
 function add_twenty20_shortcode_button() {
  echo '<a href="#" id="insert-t20-media" class="button"><span class="wp-media-buttons-icon dashicons dashicons-image-flip-horizontal"></span> Add Twenty20</a>';

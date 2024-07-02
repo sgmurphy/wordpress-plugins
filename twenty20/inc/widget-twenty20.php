@@ -98,19 +98,19 @@ class twenty20_slider_widget extends WP_Widget {
 
   <div class="mac_options_form">
     <p>
-      <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_htmlesc_html_e( 'Title:', 'zb_twenty20' ); ?></label>
+      <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'zb_twenty20' ); ?></label>
       <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
     </p>
 
     <p class="check">
       <label for="<?php echo esc_attr( $this->get_field_id("is_vertical") ); ?>" />
         <input type="checkbox" class="checkbox" id="<?php echo esc_attr( $this->get_field_name("is_vertical") ); ?>" name="<?php echo esc_attr( $this->get_field_name("is_vertical") ); ?>" value="1" <?php checked( 1, isset($instance['is_vertical']), true ); ?> />
-        <strong><label for="<?php echo esc_attr(  $this->get_field_name("is_vertical") ); ?>"><?php esc_htmlesc_html_e( 'Set Vertical direction', 'zb_twenty20'); ?></label></strong>
+        <strong><label for="<?php echo esc_attr(  $this->get_field_name("is_vertical") ); ?>"><?php esc_html_e( 'Set Vertical direction', 'zb_twenty20'); ?></label></strong>
       </label>
     </p>
 
     <p>
-      <label for="<?php echo esc_attr( $this->get_field_id( 't20_widget_before' ) ); ?>"><?php esc_htmlesc_html_e( 'Before:', 'zb_twenty20' ); ?></label>
+      <label for="<?php echo esc_attr( $this->get_field_id( 't20_widget_before' ) ); ?>"><?php esc_html_e( 'Before:', 'zb_twenty20' ); ?></label>
       <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 't20_widget_before' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 't20_widget_before' ) ); ?>" type="text" value="<?php echo esc_attr( $t20_widget_before ); ?>">
     </p>
     <p>

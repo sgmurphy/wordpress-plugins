@@ -310,7 +310,7 @@
   }
 }, {
   "Anaheim": {
-    "variants": ["regular"],
+    "variants": ["regular", "500", "600", "700", "800"],
     "fallback": "sans-serif"
   }
 }, {
@@ -4305,7 +4305,7 @@
   }
 }, {
   "Monda": {
-    "variants": ["regular", "700"],
+    "variants": ["regular", "500", "600", "700"],
     "fallback": "sans-serif"
   }
 }, {
@@ -6104,6 +6104,196 @@
     "fallback": "cursive"
   }
 }, {
+  "Playwrite AU NSW": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite AU QLD": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite AU SA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite AU TAS": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite AU VIC": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite BR": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite CA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite CO": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DE Grund": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DE LA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DE SAS": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite DE VA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite ES": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite ES Deco": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite FR Moderne": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite FR Trad": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite GB J": {
+    "variants": ["100", "200", "300", "regular", "100italic", "200italic", "300italic", "italic"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite GB S": {
+    "variants": ["100", "200", "300", "regular", "100italic", "200italic", "300italic", "italic"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite ID": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite IE": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite IN": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite IS": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite IT Moderna": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite IT Trad": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite MX": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite NG Modern": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite NL": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite NO": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite NZ": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite PL": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite PT": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite RO": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite SK": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite TZ": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite US Modern": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite US Trad": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite VN": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
+  "Playwrite ZA": {
+    "variants": ["100", "200", "300", "regular"],
+    "fallback": "cursive"
+  }
+}, {
   "Plus Jakarta Sans": {
     "variants": ["200", "300", "regular", "500", "600", "700", "800", "200italic", "300italic", "italic", "500italic", "600italic", "700italic", "800italic"],
     "fallback": "sans-serif"
@@ -7642,6 +7832,11 @@
   "Tinos": {
     "variants": ["regular", "italic", "700", "700italic"],
     "fallback": "serif"
+  }
+}, {
+  "Tiny5": {
+    "variants": ["regular"],
+    "fallback": "sans-serif"
   }
 }, {
   "Tiro Bangla": {

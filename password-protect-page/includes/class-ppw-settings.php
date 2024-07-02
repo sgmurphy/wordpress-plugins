@@ -10,14 +10,14 @@ if ( ! class_exists( "PPW_Settings" ) ) {
 		public function render_ui() {
 			$_get        = wp_unslash( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- We no need to handle nonce verification for render UI.
 			$plugin_info = apply_filters( PPW_Constants::HOOK_PLUGIN_INFO, array(
-				'name'    => 'Password Protect WordPress - PPWP',
+				'name'    =>  __('Password Protect WordPress - PPWP'),
 				'version' => PPW_VERSION,
 			) );
 			?>
 			<div class="wrap">
 				<div id="icon-themes" class="icon32"></div>
 				<h2>
-					<?php esc_html_e( $plugin_info['name'], 'password-protect-page' ); ?>
+					<?php esc_html_e( $plugin_info['name'], PPW_Constants::DOMAIN ); ?>
 					<span class="ppwp_version"><?php esc_html_e( $plugin_info['version'] ) ?></span>
 				</h2>
 				<?php

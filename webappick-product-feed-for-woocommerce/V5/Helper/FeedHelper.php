@@ -14,6 +14,7 @@ use CTXFeed\V5\Template\TemplateFactory;
 use CTXFeed\V5\Utility\Cache;
 use CTXFeed\V5\Utility\Config;
 use CTXFeed\V5\Utility\FileSystem;
+use CTXFeed\V5\Utility\Settings;
 use WP_Error;
 
 /**
@@ -1469,27 +1470,31 @@ class FeedHelper {
 		 * @see https://www.php.net/manual/en/function.ssh2-sftp.php
 		 * @see https://www.spiceworks.com/tech/networking/articles/sftp-vs-ftps/
 		 */
-		if ( isset( $feed_info['option_value']['feedrules']['ftpenabled'] ) && $feed_info['option_value']['feedrules']['ftpenabled'] ) {
-			$path = $path . '/' . $file_name; // locale file path to upload.
+		$global_ftp_status= Settings:: get();
+		if ( isset( $global_ftp_status['enable_ftp_upload'] ) && $global_ftp_status['enable_ftp_upload']=='yes' ) {
 
-			if ( isset( $feed_info['option_value']['feedrules']['ftporsftp'] ) & 'ftp' === $feed_info['option_value']['feedrules']['ftporsftp'] ) {
-				/*$ftp         = new FtpClient();
-				$ftp_connect = $ftp->connect( $feed_info['option_value']['feedrules']['ftphost'], false, $feed_info['option_value']['feedrules']['ftpport'] ); // connect to ftp/sftp server
-				$ftp_connect = $ftp_connect->login( $feed_info['option_value']['feedrules']['ftpuser'], $feed_info['option_value']['feedrules']['ftppassword'] ); // login to server
+			if (isset($feed_info['option_value']['feedrules']['ftpenabled']) && $feed_info['option_value']['feedrules']['ftpenabled']) {
+				$path = $path . '/' . $file_name; // locale file path to upload.
 
-				$ftp_connect->putFromPath( $path );*/
+				if (isset($feed_info['option_value']['feedrules']['ftporsftp']) & 'ftp' === $feed_info['option_value']['feedrules']['ftporsftp']) {
+					/*$ftp         = new FtpClient();
+					$ftp_connect = $ftp->connect( $feed_info['option_value']['feedrules']['ftphost'], false, $feed_info['option_value']['feedrules']['ftpport'] ); // connect to ftp/sftp server
+					$ftp_connect = $ftp_connect->login( $feed_info['option_value']['feedrules']['ftpuser'], $feed_info['option_value']['feedrules']['ftppassword'] ); // login to server
 
-				$remote_file = basename( $path );
-				self::uploadFileInFtp( $feed_info['option_value']['feedrules']['ftpuser'], $feed_info['option_value']['feedrules']['ftppassword'], $feed_info['option_value']['feedrules']['ftphost'], $path, $remote_file );
+					$ftp_connect->putFromPath( $path );*/
+
+					$remote_file = basename($path);
+					self::uploadFileInFtp($feed_info['option_value']['feedrules']['ftpuser'], $feed_info['option_value']['feedrules']['ftppassword'], $feed_info['option_value']['feedrules']['ftphost'], $path, $remote_file);
 
 
-			} else {
-				$feed_rules       = $feed_info['option_value']['feedrules'];
-				$is_file_uploaded = self::handle_file_transfer( $path, $file_name, $feed_rules );
-				if ( $is_file_uploaded ) {
-					woo_feed_log_feed_process( $file_name, 'file transfer request success.' );
 				} else {
-					woo_feed_log_feed_process( $file_name, 'Unable to process file transfer request.' );
+					$feed_rules = $feed_info['option_value']['feedrules'];
+					$is_file_uploaded = self::handle_file_transfer($path, $file_name, $feed_rules);
+					if ($is_file_uploaded) {
+						woo_feed_log_feed_process($file_name, 'file transfer request success.');
+					} else {
+						woo_feed_log_feed_process($file_name, 'Unable to process file transfer request.');
+					}
 				}
 			}
 		}

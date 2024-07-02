@@ -138,7 +138,7 @@ class PPW_Public {
 			return ppw_core_render_login_form();
 		}
 
-		return '<p><strong>This page is protected. Please try again or contact the website owner.</strong></p>';
+		return '<p><strong>' . _e('This page is protected. Please try again or contact the website owner.', PPW_Constants::DOMAIN) . '</strong></p>';
 	}
 
 	/**
@@ -382,7 +382,7 @@ class PPW_Public {
 				'type'                             => 'individual',
 				PPW_Constants::CALL_BACK_URL_PARAM => $callback_value,
 			),
-			null
+			''
 		);
 
 		if ( isset( $_get['ppws'] ) ) {

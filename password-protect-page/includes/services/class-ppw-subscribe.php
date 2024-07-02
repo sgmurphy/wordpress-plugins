@@ -36,7 +36,7 @@ if ( ! class_exists( 'PPW_Password_Subscribe' ) ) {
 				);
 			} else if ( $status_code >= 400 ) {
 				return array(
-					'error_message' => __('Invalid email address', 'password-protect-page'),
+					'error_message' => __('Invalid email address', PPW_Constants::DOMAIN),
 				);
 			} else {
 				update_user_meta( get_current_user_id(), PPW_Constants::USER_SUBSCRIBE, true );

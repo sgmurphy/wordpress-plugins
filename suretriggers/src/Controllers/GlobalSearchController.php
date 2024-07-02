@@ -1277,15 +1277,16 @@ class GlobalSearchController {
 		}
 
 		if ( ! empty( $users ) ) {
-			$user                             = $users[0];
-			$pluggable_data                   = [];
-			$pluggable_data['wp_user_id']     = $user->ID;
-			$pluggable_data['user_login']     = $user->user_login;
-			$pluggable_data['display_name']   = $user->display_name;
-			$pluggable_data['user_firstname'] = $user->user_firstname;
-			$pluggable_data['user_lastname']  = $user->user_lastname;
-			$pluggable_data['user_email']     = $user->user_email;
-			$pluggable_data['user_role']      = $user->roles;
+			$user                              = $users[0];
+			$pluggable_data                    = [];
+			$pluggable_data['wp_user_id']      = $user->ID;
+			$pluggable_data['user_login']      = $user->user_login;
+			$pluggable_data['display_name']    = $user->display_name;
+			$pluggable_data['user_firstname']  = $user->user_firstname;
+			$pluggable_data['user_lastname']   = $user->user_lastname;
+			$pluggable_data['user_email']      = $user->user_email;
+			$pluggable_data['user_registered'] = $user->user_registered;
+			$pluggable_data['user_role']       = $user->roles;
 			if ( isset( $args['st_meta_key'] ) ) {
 				$pluggable_data['meta_key']   = $args['st_meta_key'];
 				$pluggable_data['meta_value'] = get_user_meta( $user->ID, $args['st_meta_key'], true );
@@ -1302,13 +1303,14 @@ class GlobalSearchController {
 		} else {
 			$role                      = isset( $args['role'] ) ? $args['role'] : 'subscriber';
 			$context['pluggable_data'] = [
-				'wp_user_id'     => 1,
-				'user_login'     => 'admin',
-				'display_name'   => 'Test User',
-				'user_firstname' => 'Test',
-				'user_lastname'  => 'User',
-				'user_email'     => 'testuser@gmail.com',
-				'user_role'      => [ $role ],
+				'wp_user_id'      => 1,
+				'user_login'      => 'admin',
+				'display_name'    => 'Test User',
+				'user_firstname'  => 'Test',
+				'user_lastname'   => 'User',
+				'user_email'      => 'testuser@gmail.com',
+				'user_registered' => '2024-06-18 09:47:58',
+				'user_role'       => [ $role ],
 			];
 			if ( isset( $args['st_meta_key'] ) ) {
 				$context['pluggable_data']['meta_key']   = $args['st_meta_key'];
@@ -4158,10 +4160,16 @@ class GlobalSearchController {
 			$referral = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}affiliate_wp_referrals WHERE context = 'woocommerce' ORDER BY referral_id DESC LIMIT 1" );
 
 			if ( ! empty( $referral ) ) {
-				$referral                 = affwp_get_referral( $referral->referral_id );
-				$affiliate                = affwp_get_affiliate( $referral->affiliate_id );
-				$affiliate_data           = get_object_vars( $affiliate );
-				$user_data                = WordPress::get_user_context( $affiliate->user_id );
+				$referral       = affwp_get_referral( $referral->referral_id );
+				$affiliate      = affwp_get_affiliate( $referral->affiliate_id );
+				$affiliate_data = get_object_vars( $affiliate );
+				if ( ! empty( $referral ) && function_exists( 'wc_get_order' ) ) {
+					$order_id = $referral->reference;
+					$order    = wc_get_order( $order_id );
+					if ( $order instanceof \WC_Order ) {
+						$user_data = WordPress::get_user_context( $order->get_customer_id() );
+					}
+				}
 				$referral_data            = get_object_vars( $referral );
 				$context['response_type'] = 'live';
 			}
@@ -17378,25 +17386,22 @@ class GlobalSearchController {
 			$post_type = $data['filter']['post_type']['value'];
 		}
 		$results = [];
-		$args    = [
-			'post_type'      => 'post',
-			'posts_per_page' => 1,
-		];
 		if ( 'post_approved' === $term ) {
-			$args['post_status'] = 'published';
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s AND post_status LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare($sql, $post_type, 'publish'), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'post_rejected' === $term ) {
-			$args['post_status'] = 'rejected';
+			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s AND post_status LIKE %s ORDER BY ID DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare($sql, $post_type, 'rejected'), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'post_reviewed' === $term ) {
-			$sql     = "SELECT * FROM {$wpdb->prefix}voxel_timeline vt LEFT JOIN {$wpdb->prefix}postmeta pm
-			ON vt.post_id = pm.post_id
-			WHERE pm.meta_key LIKE '%voxel:review_stats%' AND vt.details IS NOT NULL";
-			$results      = $wpdb->get_results( $sql, ARRAY_A );// @phpcs:ignore
+			$sql     = "SELECT * FROM {$wpdb->prefix}voxel_timeline vt JOIN {$wpdb->prefix}posts p ON vt.post_id = p.ID JOIN {$wpdb->prefix}postmeta pm ON vt.post_id = pm.post_id
+			WHERE pm.meta_key LIKE '%voxel:review_stats%' AND p.post_type LIKE %s AND vt.details IS NOT NULL AND vt.details LIKE %s";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, $post_type, '%rating%' ), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'post_submitted' === $term ) {
 			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY ID DESC LIMIT 1";
-			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+			$results      = $wpdb->get_results( $wpdb->prepare($sql, $post_type), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'post_updated' === $term ) {
 			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY post_modified DESC LIMIT 1";
-			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'profile' ), ARRAY_A );// @phpcs:ignore
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, $post_type ), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'collection_post_submitted' === $term ) {
 			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY ID DESC LIMIT 1";
 			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'collection' ), ARRAY_A );// @phpcs:ignore
@@ -17404,14 +17409,13 @@ class GlobalSearchController {
 			$sql     = "SELECT * FROM {$wpdb->prefix}posts WHERE post_type LIKE %s ORDER BY post_modified DESC LIMIT 1";
 			$results      = $wpdb->get_results( $wpdb->prepare( $sql, 'collection' ), ARRAY_A );// @phpcs:ignore
 		} elseif ( 'new_wall_post_by_user' === $term ) {
-			$sql     = "SELECT vt.* FROM  {$wpdb->prefix}voxel_timeline vt JOIN {$wpdb->prefix}posts p ON vt.post_id = p.ID JOIN  {$wpdb->prefix}postmeta pm ON pm.post_id = p.ID WHERE p.post_type LIKE %s ORDER BY vt.id DESC LIMIT 1";
-			$results      = $wpdb->get_results( $wpdb->prepare( $sql, $post_type ), ARRAY_A );// @phpcs:ignore
+			$sql     = "SELECT vt.* FROM  {$wpdb->prefix}voxel_timeline vt JOIN {$wpdb->prefix}posts p ON vt.post_id = p.ID JOIN  {$wpdb->prefix}postmeta pm ON pm.post_id = p.ID WHERE p.post_type LIKE %s AND vt.details IS NOT NULL AND vt.details NOT LIKE %s ORDER BY vt.id DESC LIMIT 1";
+			$results      = $wpdb->get_results( $wpdb->prepare( $sql, $post_type, '%rating%' ), ARRAY_A );// @phpcs:ignore
 		}
 		if ( 'post_approved' === $term || 'post_rejected' === $term || 'post_submitted' === $term || 'post_updated' === $term ) {
-			$posts = get_posts( $args );
-			if ( ! empty( $posts ) ) {
-				$context['pluggable_data']         = WordPress::get_post_context( $posts[0]->ID );
-				$context['pluggable_data']['post'] = Voxel::get_post_fields( $posts[0]->ID );
+			if ( ! empty( $results ) ) {
+				$context['pluggable_data']         = WordPress::get_post_context( $results[0]['ID'] );
+				$context['pluggable_data']['post'] = Voxel::get_post_fields( $results[0]['ID'] );
 				$context['response_type']          = 'live';
 			} else {
 				$context['pluggable_data'] = [

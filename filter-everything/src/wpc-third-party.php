@@ -464,10 +464,12 @@ function flrt_pll_init(){
 
 function flrt_add_cpt_to_pll( $post_types, $is_settings ) {
     if ( $is_settings ) {
-        unset( $post_types[ FLRT_FILTERS_SET_POST_TYPE ], $post_types[ FLRT_SEO_RULES_POST_TYPE ] );
+        unset( $post_types[ FLRT_FILTERS_SET_POST_TYPE ], $post_types[ FLRT_FILTERS_SET_POST_TYPE ] );
     } else {
         $post_types[ FLRT_FILTERS_SET_POST_TYPE ] = FLRT_FILTERS_SET_POST_TYPE;
-        $post_types[ FLRT_SEO_RULES_POST_TYPE ] = FLRT_SEO_RULES_POST_TYPE;
+        if( defined('FLRT_FILTERS_PRO') && FLRT_FILTERS_PRO ) {
+            $post_types[ FLRT_SEO_RULES_POST_TYPE ] = FLRT_SEO_RULES_POST_TYPE;
+        }
     }
     return $post_types;
 }

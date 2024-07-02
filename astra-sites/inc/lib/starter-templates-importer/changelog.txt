@@ -1,3 +1,12 @@
+v1.1.1 - 28-June-2024
+- Improvement: Updated References to "astra-customizer-json" to Utilize JSON File Data.
+
+v1.1.0 - 25-June-2024
+- Fix: Resolved all PHPStan errors.
+
+v1.0.18 - 07-June-2024
+- Improvement: Using helper function of AI Builder to avoid duplications.
+
 v1.0.17 - 27-May-2024
 - New: Added filter & action to import classic templates options.
 

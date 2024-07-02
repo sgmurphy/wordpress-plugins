@@ -21,7 +21,7 @@ class Ai_Builder_Compatibility_Suretriggers {
 	 * @var object Class object.
 	 * @since 4.0.8
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * Initiator

@@ -13,7 +13,7 @@ class PPW_External_Settings {
 		<div class="wrap">
 			<div id="icon-themes" class="icon32"></div>
 			<h2>
-				<?php echo esc_html__( $head_title . ': Integrations', 'password-protect-page' ); ?>
+				<?php echo esc_html__( $head_title . ': Integrations', PPW_Constants::DOMAIN ); ?>
 			</h2>
 			<?php
 			$activated_tab = isset( $_get['tab'] ) ? $_get['tab'] : 'recaptcha';
@@ -70,7 +70,7 @@ class PPW_External_Settings {
 				}
 				?>
 				<a href="?page=<?php echo esc_html( PPW_Constants::EXTERNAL_SERVICES_PREFIX ); ?>&tab=<?php echo esc_attr( $tab['tab'] ); ?>"
-				   class="nav-tab <?php echo $active_tab === $tab['tab'] ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( $tab['tab_name'], 'password-protect-page' ); ?></a>
+				   class="nav-tab <?php echo $active_tab === $tab['tab'] ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( $tab['tab_name'], PPW_Constants::DOMAIN ); ?></a>
 			<?php } ?>
 		</h2>
 		<?php

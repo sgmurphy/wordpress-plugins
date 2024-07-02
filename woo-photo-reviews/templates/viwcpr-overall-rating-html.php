@@ -16,7 +16,7 @@ if ($overall_rating_enable !=='on' && $rating_count_enable !=='on'){
 		<div class="wcpr-overall-rating">
 			<h2>
 				<?php
-				echo apply_filters( 'woocommerce_photo_reviews_overall_rating_text', esc_html__( 'Customer reviews', 'woo-photo-reviews' ), wc_get_product($product_id) );
+				echo apply_filters( 'woocommerce_photo_reviews_overall_rating_text', esc_html__( 'Customer reviews', 'woo-photo-reviews' ), wc_get_product($product_id) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 ?>
 			</h2>
 			<div class="wcpr-overall-rating-main">
@@ -27,11 +27,12 @@ if ($overall_rating_enable !=='on' && $rating_count_enable !=='on'){
 				</div>
 				<div class="wcpr-overall-rating-right">
 					<div class="wcpr-overall-rating-right-star">
-						<?php echo wc_get_rating_html( $average_rating); ?>
+						<?php echo wc_get_rating_html( $average_rating);// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 					<div class="wcpr-overall-rating-right-total">
 						<?php
-						printf( _n( 'Based on %s review', 'Based on %s reviews', $count_reviews, 'woo-photo-reviews' ), $count_reviews, 'woo-photo-reviews' );
+						/* translators: %s: review count */
+						printf( _n( 'Based on %s review', 'Based on %s reviews', $count_reviews, 'woo-photo-reviews' ), wp_kses_post( $count_reviews ), 'woo-photo-reviews' );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						?>
 					</div>
 				</div>

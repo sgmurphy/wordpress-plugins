@@ -30,6 +30,8 @@ class Ai_Builder_Loader {
 	 * Load all the required files in the importer.
 	 *
 	 * @since  1.0.0
+	 *
+	 * @return void
 	 */
 	private function includes_files() {
 

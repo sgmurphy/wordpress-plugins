@@ -973,7 +973,7 @@ final class FLBuilder {
 			wp_enqueue_script( 'clipboard', $js_url . 'clipboard.min.js', array(), $ver );
 			if ( FLBuilder::is_tour_enabled() ) {
 				wp_enqueue_script( 'bootstrap-tour', $js_url . 'bootstrap-tour-standalone.min.js', array(), $ver );
-				wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array(), $ver );
+				wp_enqueue_script( 'fl-builder-tour', $js_url . 'fl-builder-tour.js', array( 'jquery', 'media-models', 'media-editor', 'media-views' ), $ver );
 			}
 
 			wp_enqueue_script( 'ace', $js_url . 'ace/ace.js', array(), $ver );
@@ -2313,9 +2313,14 @@ final class FLBuilder {
 				continue;
 			}
 
-			$groups = FLBuilderModel::get_nodes( 'column-group', $row );
+			$groups = FLBuilderModel::get_nodes( null, $row );
 
 			foreach ( $groups as $group ) {
+
+				if ( 'module' === $group->type ) {
+					self::render_module_editor_content( $group );
+					continue;
+				}
 
 				$cols = FLBuilderModel::get_nodes( 'column', $group );
 
@@ -2331,21 +2336,8 @@ final class FLBuilder {
 
 						if ( 'module' == $col_child->type ) {
 
-							$module = FLBuilderModel::get_module( $col_child );
+							self::render_module_editor_content( $col_child );
 
-							if ( FLBuilderModel::node_has_visibility_rules( $module ) ) {
-								continue;
-							}
-
-							if ( $module && $module->editor_export ) {
-
-								// Don't crop photos to ensure media library photos are rendered.
-								if ( 'photo' == $module->settings->type ) {
-									$module->settings->crop = false;
-								}
-
-								FLBuilder::render_module_html( $module->settings->type, $module->settings, $module );
-							}
 						} elseif ( 'column-group' == $col_child->type ) {
 
 							$group_cols = FLBuilderModel::get_nodes( 'column', $col_child );
@@ -2356,19 +2348,7 @@ final class FLBuilder {
 
 								foreach ( $modules as $module ) {
 
-									if ( FLBuilderModel::node_has_visibility_rules( $module ) ) {
-										continue;
-									}
-
-									if ( $module->editor_export ) {
-
-										// Don't crop photos to ensure media library photos are rendered.
-										if ( 'photo' == $module->settings->type ) {
-											$module->settings->crop = false;
-										}
-
-										FLBuilder::render_module_html( $module->settings->type, $module->settings, $module );
-									}
+									self::render_module_editor_content( $module );
 								}
 							}
 						}
@@ -2394,6 +2374,41 @@ final class FLBuilder {
 		$content = preg_replace( '/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/', "\n", $content );
 
 		return apply_filters( 'fl_builder_editor_content', $content );
+	}
+
+	/**
+	 * Renders the editor content for a single module.
+	 *
+	 * @param object $node
+	 * @return void
+	 */
+	static public function render_module_editor_content( $node ) {
+		$module = FLBuilderModel::get_module( $node );
+
+		if ( FLBuilderModel::node_has_visibility_rules( $module ) ) {
+			return;
+		}
+
+		if ( $module && $module->editor_export ) {
+
+			// Don't crop photos to ensure media library photos are rendered.
+			if ( 'photo' == $module->settings->type ) {
+				$module->settings->crop = false;
+			}
+
+			self::render_module_html( $module->settings->type, $module->settings, $module );
+
+			// Render container module children.
+			if ( $module->accepts_children() ) {
+				$children = FLBuilderModel::get_nodes( null, $module );
+
+				foreach ( $children as $child ) {
+					if ( 'module' === $child->type ) {
+						self::render_module_editor_content( $child );
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -2927,6 +2942,14 @@ final class FLBuilder {
 		// Style
 		if ( $active ) {
 			$attrs['style'][] = 'width: ' . $col->settings->size . '%;';
+		}
+
+		// bg
+		if ( 'photo' === $col->settings->bg_type ) {
+			$attrs['class'][] = 'fl-col-bg-photo';
+			if ( 'fixed' === $col->settings->bg_attachment ) {
+				$attrs['class'][] = 'fl-col-bg-fixed';
+			}
 		}
 
 		// filter node attrs first to make sure specific node has highest priority

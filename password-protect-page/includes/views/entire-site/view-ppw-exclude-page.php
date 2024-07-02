@@ -9,7 +9,7 @@ $all_page_post = ppw_free_get_all_page_post();
 	<td></td>
 	<td class="ppwp_set_height_for_password_entire_site">
 		<div class="ppwp_wrap_new_password">
-			<span class="feature-input"></span>
+			<!-- <span class="feature-input"></span> -->
 			<span class="ppwp-set-new-password-text">
 				Exclude certain pages, posts and custom post types from site-wide protection. Available in Pro version.
 			</span>

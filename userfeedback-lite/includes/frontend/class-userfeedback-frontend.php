@@ -255,6 +255,7 @@ class UserFeedback_Frontend
 
 		// Sanitize requests answers
 		$request_params = $request->get_json_params();
+
 		if ( ! empty( $request_params['answers'] ) ) {
 			foreach( $request_params['answers'] as $index => $answer ) {
 				// Sanitize answer's value.
@@ -272,11 +273,14 @@ class UserFeedback_Frontend
 				}
 				$request_params['answers'][ $index ]['value'] = $value;
 
-				// Sanitize answer's comments.
-				if ( ! empty( $answer['extra']['comments'] ) ) {
-					$comments = sanitize_text_field( $answer['extra']['comments'] );
-					$request_params['answers'][ $index ]['extra']['comments'] = $comments;
+				// Sanitize answer's extras.
+				if ( ! empty( $answer['extra'] ) ) {
+					foreach ( $answer['extra'] as $key => $extra ) {
+						$extra = sanitize_text_field( $extra );
+						$request_params['answers'][ $index ]['extra'][ $key ] = $extra;
+					}
 				}
+
 			}
 		}
 

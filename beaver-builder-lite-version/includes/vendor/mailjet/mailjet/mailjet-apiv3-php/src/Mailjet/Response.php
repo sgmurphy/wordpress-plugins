@@ -20,6 +20,7 @@ class Response
     private $success;
     private $body;
     private $rawResponse;
+    private $request;
 
     /**
      * Construct a Mailjet response

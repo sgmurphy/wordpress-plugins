@@ -151,7 +151,7 @@ const BusinessContact = () => {
 				<div className="flex justify-between gap-x-8 items-start w-full h-[76px]">
 					<Input
 						className="w-full h-[48px] text-zip-app-heading"
-						type="text"
+						type="email"
 						name="email"
 						id="email"
 						label={ __( 'Email', 'ai-builder' ) }

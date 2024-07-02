@@ -387,7 +387,7 @@ const DescribeBusiness = () => {
 												/>
 											) }
 										</div>
-										<div className="zw-sm-semibold cursor-default mt-[-4px]">
+										<div className="zw-sm-semibold cursor-default">
 											{ descriptionPage } /{ ' ' }
 											{ descriptionList?.length }
 										</div>

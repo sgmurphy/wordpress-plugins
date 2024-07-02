@@ -9,6 +9,7 @@
 namespace STImporter\Importer\Batch;
 
 use STImporter\Importer\ST_Importer_Helper;
+use AiBuilder\Inc\Traits\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,15 +23,15 @@ class ST_Replace_Images {
 	/**
 	 * Member Variable
 	 *
-	 * @var instance
+	 * @var self
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * Image index
 	 *
 	 * @since 4.1.0
-	 * @var array<string,int>
+	 * @var int
 	 */
 	public static $image_index = 0;
 
@@ -52,7 +53,7 @@ class ST_Replace_Images {
 	/**
 	 * Filtered images.
 	 *
-	 * @var array<string, array<string, string>>
+	 * @var array<int, array<string, string>>
 	 */
 	public static $filtered_images = array();
 
@@ -60,9 +61,11 @@ class ST_Replace_Images {
 	 * Initiator
 	 *
 	 * @since 3.1.4
+	 *
+	 * @return self
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -173,7 +176,7 @@ class ST_Replace_Images {
 
 		$image = $this->get_image( self::$image_index );
 
-		if ( empty( $image ) || ! is_array( $image ) || is_bool( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			return;
 		}
 
@@ -221,6 +224,8 @@ class ST_Replace_Images {
 	 * Replace images in customizer.
 	 *
 	 * @since 4.1.0
+	 *
+	 * @return void
 	 */
 	public function replace_in_customizer() {
 
@@ -253,7 +258,7 @@ class ST_Replace_Images {
 	/**
 	 * Update the Social options
 	 *
-	 * @param array $options Social Options.
+	 * @param array<int, string> $options Social Options.
 	 * @since  {{since}}
 	 * @return void
 	 */
@@ -262,71 +267,75 @@ class ST_Replace_Images {
 			$social_profiles = $this->get_business_details( 'social_profiles' );
 			$business_phone  = $this->get_business_details( 'business_phone' );
 			$business_email  = $this->get_business_details( 'business_email' );
-			foreach ( $options as $key => $name ) {
-				$value        = astra_get_option( $name );
-				$items        = isset( $value['items'] ) ? $value['items'] : array();
-				$social_icons = array_map(
-					function( $item ) {
-						return $item['type'];
-					},
-					$social_profiles
-				);
+			if ( is_array( $options ) && is_array( $social_profiles ) ) {
+				foreach ( $options as $key => $name ) {
+					$value        = astra_get_option( $name );
+					$items        = isset( $value['items'] ) ? $value['items'] : array();
+					$social_icons = array_map(
+						function( $item ) {
+							return $item['type'];
+						},
+						$social_profiles
+					);
 
-				$social_icons = array_merge( $social_icons, array( 'phone', 'email' ) );
+					$social_icons = array_merge( $social_icons, array( 'phone', 'email' ) );
 
-				if ( is_array( $items ) && ! empty( $items ) ) {
-					foreach ( $items as $index => &$item ) {
+					if ( is_array( $items ) && ! empty( $items ) ) {
+						foreach ( $items as $index => &$item ) {
 
-						$cached_first_item = isset( $items[0] ) ? $items[0] : [];
+							$cached_first_item = isset( $items[0] ) ? $items[0] : [];
 
-						if ( ! in_array( $item['id'], $social_icons, true ) ) {
-							unset( $items[ $index ] );
-							continue;
-						}
+							if ( ! in_array( $item['id'], $social_icons, true ) ) {
+								unset( $items[ $index ] );
+								continue;
+							}
 
-						if ( $item['enabled'] && false !== strpos( $item['id'], 'phone' ) && '' !== $business_phone ) {
-							$item['url'] = $business_phone;
-						}
-						if ( $item['enabled'] && false !== strpos( $item['id'], 'email' ) && '' !== $business_email ) {
-							$item['url'] = $business_email;
-						}
-						if ( ! empty( $social_profiles ) ) {
-							$id  = $item['id'];
-							$src = array_reduce(
-								$social_profiles,
-								function ( $carry, $element ) use ( $id ) {
-									if ( ! $carry && $element['type'] === $id ) {
-										$carry = $element;
+							if ( $item['enabled'] && false !== strpos( $item['id'], 'phone' ) && '' !== $business_phone ) {
+								$item['url'] = $business_phone;
+							}
+							if ( $item['enabled'] && false !== strpos( $item['id'], 'email' ) && '' !== $business_email ) {
+								$item['url'] = $business_email;
+							}
+							if ( is_array( $social_profiles ) && ! empty( $social_profiles ) ) {
+								$id  = $item['id'];
+								$src = array_reduce(
+									$social_profiles,
+									function ( $carry, $element ) use ( $id ) {
+										if ( ! $carry && $element['type'] === $id ) {
+											$carry = $element;
+										}
+										return $carry;
 									}
-									return $carry;
+								);
+								if ( ! empty( $src ) ) {
+									$item['url'] = $src['url'];
 								}
-							);
-							if ( ! empty( $src ) ) {
-								$item['url'] = $src['url'];
 							}
 						}
-					}
-					$yelp_google = [ 'yelp', 'google' ];
+						$yelp_google = [ 'yelp', 'google' ];
 
-					foreach ( $yelp_google as $yelp_google_item ) {
-						if ( in_array( $yelp_google_item, $social_icons, true ) && ! empty( $cached_first_item ) ) {
-							$new_inner_item          = $cached_first_item;
-							$new_inner_item['id']    = $yelp_google_item;
-							$new_inner_item['icon']  = $yelp_google_item;
-							$new_inner_item['label'] = ucfirst( $yelp_google_item );
-							$link                    = '#';
-							foreach ( $social_profiles as $social_icon ) {
-								if ( $yelp_google_item === $social_icon['type'] ) {
-									$link = $social_icon['url'];
-									break;
+						foreach ( $yelp_google as $yelp_google_item ) {
+							if ( in_array( $yelp_google_item, $social_icons, true ) && ! empty( $cached_first_item ) ) {
+								$new_inner_item          = $cached_first_item;
+								$new_inner_item['id']    = $yelp_google_item;
+								$new_inner_item['icon']  = $yelp_google_item;
+								$new_inner_item['label'] = ucfirst( $yelp_google_item );
+								$link                    = '#';
+								if ( is_array( $social_profiles ) ) {
+									foreach ( $social_profiles as $social_icon ) {
+										if ( $yelp_google_item === $social_icon['type'] ) {
+											$link = $social_icon['url'];
+											break;
+										}
+									}
 								}
+								$new_inner_item['url'] = $link;
+								$items[]               = $new_inner_item;
 							}
-							$new_inner_item['url'] = $link;
-							$items[]               = $new_inner_item;
 						}
+						$value['items'] = array_values( $items );
+						astra_update_option( $name, $value );
 					}
-					$value['items'] = array_values( $items );
-					astra_update_option( $name, $value );
 				}
 			}
 		}
@@ -338,7 +347,7 @@ class ST_Replace_Images {
 	 * All elements placed in Header and Footer builder.
 	 *
 	 * @since  {{since}}
-	 * @return array $options Options.
+	 * @return array<int, string> $options Options.
 	 */
 	public function get_options() {
 		$zones          = array( 'above', 'below', 'primary', 'popup' );
@@ -415,7 +424,7 @@ class ST_Replace_Images {
 		}
 		$image = $this->get_image( self::$image_index );
 
-		if ( empty( $image ) || ! is_array( $image ) || is_bool( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			return $obj;
 		}
 
@@ -427,8 +436,8 @@ class ST_Replace_Images {
 
 		$attachment = wp_prepare_attachment_for_js( absint( $image ) );
 
-		$obj['desktop']['background-image'] = $attachment['url'];
-		$obj['desktop']['background-media'] = $attachment['id'];
+		$obj['desktop']['background-image'] = $attachment['url'] ?? '';
+		$obj['desktop']['background-media'] = $attachment['id'] ?? 0;
 
 		$this->increment_image_index();
 
@@ -559,7 +568,7 @@ class ST_Replace_Images {
 
 		$social_profile = $this->get_business_details( 'social_profiles' );
 
-		if ( empty( $social_profile ) ) {
+		if ( empty( $social_profile ) || ! is_array( $social_profile ) ) {
 			return $block;
 		}
 
@@ -624,12 +633,15 @@ class ST_Replace_Images {
 					$new_inner_block                  = $cached_first_item;
 					$new_inner_block['attrs']['icon'] = $yelp_google_key;
 					$link                             = '#';
-					foreach ( $social_profile as $social_icon ) {
-						if ( $yelp_google_key === $social_icon['type'] ) {
-							$link = $social_icon['url'];
-							break;
+					if ( is_array( $social_profile ) ) {
+						foreach ( $social_profile as $social_icon ) {
+							if ( $yelp_google_key === $social_icon['type'] ) {
+								$link = $social_icon['url'];
+								break;
+							}
 						}
 					}
+
 					$new_inner_block['attrs']['link'] = $link;
 
 					$svg_pattern = '/<svg.*?>.*?<\/svg>/s'; // The 's' modifier allows the dot (.) to match newline characters.
@@ -814,7 +826,7 @@ class ST_Replace_Images {
 		}
 
 		$image = $this->get_image( self::$image_index );
-		if ( empty( $image ) || ! is_array( $image ) || is_bool( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			return $block;
 		}
 
@@ -825,7 +837,7 @@ class ST_Replace_Images {
 		}
 
 		$attachment = wp_prepare_attachment_for_js( absint( $image ) );
-		if ( is_wp_error( $attachment ) || ! is_array( $attachment ) ) {
+		if ( ! is_array( $attachment ) ) {
 			return $block;
 		}
 
@@ -854,7 +866,7 @@ class ST_Replace_Images {
 		}
 
 		$image = $this->get_image( self::$image_index );
-		if ( empty( $image ) || ! is_array( $image ) || is_bool( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			return $block;
 		}
 
@@ -866,7 +878,7 @@ class ST_Replace_Images {
 
 		$attachment = wp_prepare_attachment_for_js( absint( $image ) );
 
-		if ( is_wp_error( $attachment ) || ! is_array( $attachment ) ) {
+		if ( ! is_array( $attachment ) ) {
 			return $block;
 		}
 
@@ -918,7 +930,7 @@ class ST_Replace_Images {
 		}
 
 		$attachment = wp_prepare_attachment_for_js( absint( $image ) );
-		if ( is_wp_error( $attachment ) || ! is_array( $attachment ) ) {
+		if ( ! is_array( $attachment ) ) {
 			return $block;
 		}
 
@@ -998,7 +1010,7 @@ class ST_Replace_Images {
 
 			$new_image = $this->get_image( self::$image_index );
 
-			if ( empty( $new_image ) || ! is_array( $new_image ) || is_bool( $new_image ) ) {
+			if ( empty( $new_image ) || ! is_array( $new_image ) ) {
 				continue;
 			}
 
@@ -1010,7 +1022,7 @@ class ST_Replace_Images {
 
 			$attachment = wp_prepare_attachment_for_js( absint( $new_image ) );
 
-			if ( is_wp_error( $attachment ) || ! is_array( $attachment ) ) {
+			if ( ! is_array( $attachment ) ) {
 				continue;
 			}
 
@@ -1052,7 +1064,7 @@ class ST_Replace_Images {
 	 * Get Image for the specified index
 	 *
 	 * @param int $index Index of the image.
-	 * @return array|boolean Array of images or false.
+	 * @return array<string, string>|boolean Array of images or false.
 	 * @since 4.1.0
 	 */
 	public function get_image( $index = 0 ) {
@@ -1069,42 +1081,18 @@ class ST_Replace_Images {
 	public function set_images() {
 		if ( empty( self::$filtered_images ) ) {
 			$images = $this->get_business_details( 'images' );
-			if ( ! empty( $images ) ) {
+			if ( is_array( $images ) ) {
 				foreach ( $images as $image ) {
 					self::$filtered_images[] = $image;
 				}
 			} else {
-				$placeholder_images      = self::get_image_placeholders();
-				self::$filtered_images[] = $placeholder_images[0];
-				self::$filtered_images[] = $placeholder_images[1];
+				if ( class_exists( 'AiBuilder\Inc\Traits\Helper' ) ) {
+					$placeholder_images      = Helper::get_image_placeholders();
+					self::$filtered_images[] = $placeholder_images[0];
+					self::$filtered_images[] = $placeholder_images[1];
+				}
 			}
 		}
-	}
-
-	/**
-	 * Get image placeholder array.
-	 *
-	 * @since 4.0.9
-	 * @return array<string, array<string, string>>
-	 */
-	public static function get_image_placeholders() {
-
-		return array(
-			array(
-				'auther_name'   => 'Placeholder',
-				'id'            => 'placeholder-landscape',
-				'orientation'   => 'landscape',
-				'optimized_url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-landscape.png',
-				'url'           => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-landscape.png',
-			),
-			array(
-				'auther_name'   => 'Placeholder',
-				'id'            => 'placeholder-portrait',
-				'orientation'   => 'portrait',
-				'optimized_url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-portrait.png',
-				'url'           => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-portrait.png',
-			),
-		);
 	}
 
 	/**
@@ -1116,7 +1104,7 @@ class ST_Replace_Images {
 
 		$this->set_images();
 
-		$new_index = self::$image_index + 1;
+		$new_index = (int) self::$image_index + 1;
 
 		if ( ! isset( self::$filtered_images[ $new_index ] ) ) {
 			$new_index = 0;
@@ -1145,7 +1133,7 @@ class ST_Replace_Images {
 	 *
 	 * @since 4.0.0
 	 * @param string $key options name.
-	 * @return array<string,string,string,string,string,string,string,int> | string Array for business details or single detail in a string.
+	 * @return array<string, mixed>|array<int, string>|string|array<string>|array<string,string>
 	 */
 	public static function get_business_details( $key = '' ) {
 		$details = get_option(

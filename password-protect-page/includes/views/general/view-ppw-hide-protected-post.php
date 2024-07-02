@@ -4,13 +4,13 @@ $link_description = sprintf( '<a target="_blank" rel="noopener" href="%s">Hide y
 // translators: %s: Link to documentation.
 $link_description_rss = sprintf( '<a target="_blank" rel="noopener" href="%s">show protected content in RSS feeds</a>', 'https://passwordprotectwp.com/docs/display-protected-content-rss-feed/?utm_source=user-website&utm_medium=settings-general-tab&utm_campaign=ppwp-free' );
 
-$description = sprintf( esc_html__( '%s from selected views. Learn how to %s.', 'password-protect-page' ), $link_description, $link_description_rss );
+$description = sprintf( esc_html__( '%s from selected views. Learn how to %s.', PPW_Constants::DOMAIN ), $link_description, $link_description_rss );
 ?>
 <tr>
 	<td class="feature-input"><span class="feature-input"></span></td>
 	<td>
 		<p>
-			<label><?php echo esc_html__( 'Protected Content Visibility', 'password-protect-page' ); ?></label>
+			<label><?php echo esc_html__( 'Protected Content Visibility', PPW_Constants::DOMAIN ); ?></label>
 			<?php echo $description; // phpcs:ignore -- could not escape html ?>
 		<p>Switch post types to customize their own visibility. Only Pages & Posts are available on Free version.</p>
 		<select class="ppw_select_custom_post_type_edit" id="ppw_select_custom_post_type_edit">

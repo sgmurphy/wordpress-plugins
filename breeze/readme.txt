@@ -4,7 +4,7 @@ Tags: cache,caching, performance, wp-cache, cdn
 Requires at least: 6.0
 Tested up to: 6.5.2
 Requires PHP: 7.4
-Stable tag: 2.1.9
+Stable tag: 2.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,6 +159,12 @@ Yes. The process of setting up CloudFlare with Breeze is easy. Check out the fol
 Using Gzip, Breeze compresses the request files, further reducing the size of the download files and speeding up the user experience.
 
 == Changelog ==
+
+= 2.1.10 =
+
+* Fix: The warning issue has been resolved during the product update process via WP-CRON.
+* Fix: In some browsers, pushing the back button would take the user to the same URL. The issue has been resolved and the back button will work as expected.
+* Add: The ability to clear the cache for individual WordPress default post types and custom post types has been introduced, offering users enhanced control over their caching strategy.
 
 = 2.1.9 =
 

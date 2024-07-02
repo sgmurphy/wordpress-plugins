@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", (event) => {
     var keySelector = ".eb___animated";
-    waitForElement(keySelector).then((elm) => {
+    ebAnimationwaitForElement(keySelector).then((elm) => {
         var findAnimationClass = document.querySelectorAll(keySelector);
         replaceAnimationClasses(findAnimationClass);
 
@@ -68,7 +68,7 @@ var replaceAnimationClasses = function (selector) {
 };
 
 //
-var waitForElement = function (selector) {
+var ebAnimationwaitForElement = function (selector) {
     return new Promise((resolve) => {
         if (document.querySelector(selector)) {
             return resolve(document.querySelector(selector));

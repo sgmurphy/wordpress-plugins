@@ -651,18 +651,19 @@ class Ays_Pb_Admin {
             wp_die();
         }
 
-        $search = isset($_REQUEST['search']) && $_REQUEST['search'] != '' ? $_REQUEST['search'] : null;
-        $checked = isset($_REQUEST['val']) && $_REQUEST['val'] !='' ? $_REQUEST['val'] : null;
-        $args = array();
-        $arg = '';
+        $search = isset($_REQUEST['search']) && $_REQUEST['search'] != '' ? sanitize_text_field($_REQUEST['search']) : null;
+        $checked = isset($_REQUEST['val']) && $_REQUEST['val'] != '' ? sanitize_text_field($_REQUEST['val']) : null;
+        $args = array(
+            'fields' => array('ID', 'display_name', 'user_email', 'user_login', 'user_nicename')
+        );
 
-        if($search !== null){
-            $arg .= $search;
-            $arg .= '*';
-            $args['search'] = $arg;
+        if ($search !== null) {
+            $args['search'] = '*' . esc_attr($search) . '*';
+            $args['search_columns'] = array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name');
         }
-        
-        $users = get_users( $args ); 
+
+        $user_query = new WP_User_Query($args);
+        $users = $user_query->get_results();
         $response = array(
             'results' => array()
         );

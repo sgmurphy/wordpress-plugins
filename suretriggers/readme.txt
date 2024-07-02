@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.0.50
+Stable tag: 1.0.51
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,10 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.51 - Tuesday, 2nd July 2024 =
+* Improvement: "Voxel" - Enhanced Post related Triggers
+* Improvement: "WordPress" - Added user registration date to user-related data response
 
 = Version 1.0.50 - Monday, 24th June 2024 =
 * Improvement: "myCred" - Added new Actions

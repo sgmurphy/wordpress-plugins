@@ -3796,6 +3796,10 @@
 			$( FLBuilder._contentClass + ' .fl-module[data-accepts]' ).each( function() {
 				if ( ! $( this ).closest( '.fl-builder-shortcode-mask-wrap' ).length ) {
 					$( this ).addClass( 'fl-module-highlight' );
+
+					if ( 0 === parseInt( $( this ).css( 'padding' ) ) ) {
+						$( this ).css( 'padding', '10px' )
+					}
 				}
 			} );
 		},
@@ -3810,6 +3814,7 @@
 		_removeEmptyRowAndColHighlights: function() {
 			$( '.fl-row-highlight' ).removeClass('fl-row-highlight');
 			$( '.fl-col-highlight' ).removeClass('fl-col-highlight');
+			$( '.fl-module-highlight[data-accepts]' ).css('padding', '');
 			$( '.fl-module-highlight' ).removeClass('fl-module-highlight');
 			$( '.fl-sortable-fixed-width' ).css( 'max-width', '' ).removeClass( 'fl-sortable-fixed-width' );
 		},

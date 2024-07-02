@@ -154,7 +154,8 @@ class L_ThePlus_Countdown extends Widget_Base {
 			array(
 				'label'     => esc_html__( 'Launch Date', 'tpebl' ),
 				'type'      => Controls_Manager::DATE_TIME,
-				'default' => gmdate( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
+				'label_block' => false,
+				'default'   => gmdate( 'Y-m-d H:i', strtotime( '+1 month' ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
 				'condition' => array(
 					'CDType' => 'normal',
 				),
@@ -1821,10 +1822,12 @@ class L_ThePlus_Countdown extends Widget_Base {
 		$cd_style       = ! empty( $settings['CDstyle'] ) ? $settings['CDstyle'] : 'style-1';
 
 		$label_on   = ! empty( $settings['show_labels'] ) ? $settings['show_labels'] : '';
-		$day_text   = ! empty( $settings['text_days'] ) ? $settings['text_days'] : 'Days';
-		$hours_text = ! empty( $settings['text_hours'] ) ? $settings['text_hours'] : 'Hours';
-		$min_text   = ! empty( $settings['text_minutes'] ) ? $settings['text_minutes'] : 'Minutes';
-		$sec_text   = ! empty( $settings['text_seconds'] ) ? $settings['text_seconds'] : 'Seconds';
+		$text_days  = ! empty( $settings['text_days'] ) ? esc_html( $settings['text_days'] ) : 'Days';
+		$text_hours = ! empty( $settings['text_hours'] ) ? esc_html( $settings['text_hours'] ) : 'Hours';
+
+		$text_minutes = ! empty( $settings['text_minutes'] ) ? esc_html( $settings['text_minutes'] ) : 'Minutes';
+		$text_seconds = ! empty( $settings['text_seconds'] ) ? esc_html( $settings['text_seconds'] ) : 'Seconds';
+
 		$count_time = ! empty( $settings['counting_timer'] ) ? $settings['counting_timer'] : '08/24/2024 12:00:00';
 
 		$data_attr = '';
@@ -1837,22 +1840,6 @@ class L_ThePlus_Countdown extends Widget_Base {
 			$show_labels = $label_on;
 		} else {
 			$show_labels = 'yes';
-		}
-
-		if ( ! empty( $day_text ) ) {
-			$text_days = $day_text;
-		}
-
-		if ( ! empty( $hours_text ) ) {
-			$text_hours = $hours_text;
-		}
-
-		if ( ! empty( $min_text ) ) {
-			$text_minutes = $min_text;
-		}
-
-		if ( ! empty( $sec_text ) ) {
-			$text_seconds = $sec_text;
 		}
 
 		if ( ! empty( $count_time ) ) {

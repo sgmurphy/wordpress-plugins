@@ -1,5 +1,10 @@
 *** Variation Swatches for WooCommerce ***
 
+2024-07-02 - version 2.1.1
+
+* Fixed - Attribute meta save issue.
+* Added - WooCommerce 9.0+ Compatibility.
+
 2024-06-06 - version 2.1.0
 
 * Fixed - PHPCS Issues.

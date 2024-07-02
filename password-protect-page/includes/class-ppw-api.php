@@ -484,7 +484,7 @@ if ( ! class_exists( 'PPW_API' ) ) {
 
 			$result = array(
 				'isValid' => false,
-				'message' => _x( apply_filters( PPW_Constants::HOOK_RESTRICT_CONTENT_ERROR_MESSAGE, PPW_Constants::DEFAULT_WRONG_PASSWORD_MESSAGE ), PPW_Constants::CONTEXT_PCP_PASSWORD_FORM, 'password-protect-page' ),
+				'message' => _x( apply_filters( PPW_Constants::HOOK_RESTRICT_CONTENT_ERROR_MESSAGE, PPW_Constants::DEFAULT_WRONG_PASSWORD_MESSAGE ), PPW_Constants::CONTEXT_PCP_PASSWORD_FORM, PPW_Constants::DOMAIN ),
 			);
 
 			$is_valid_data = apply_filters( PPW_Constants::HOOK_SHORT_CODE_VALID_POST_DATA, $this->is_valid_data_content_password( $data ) );
@@ -561,7 +561,7 @@ if ( ! class_exists( 'PPW_API' ) ) {
 
 			// Allow custom error message from error_msg shortcode's attribute.
 			if ( isset( $array_values['message'] ) ) {
-				$result['message'] = _x( wp_kses_post( $array_values['message'] ), PPW_Constants::CONTEXT_PCP_PASSWORD_FORM, 'password-protect-page' );
+				$result['message'] = _x( wp_kses_post( $array_values['message'] ), PPW_Constants::CONTEXT_PCP_PASSWORD_FORM, PPW_Constants::DOMAIN );
 			}
 
 			$result = apply_filters( 'ppw_pcp_api_result', $result, $data['pss'], $post );

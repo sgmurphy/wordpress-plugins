@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.3.4
+Stable tag: 4.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,36 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.5 - 02-July-2024
+- New
+    - Design Kit - Added a page preview feature along with other page options.
+    - Design Kit - Introduced error boundaries for better error management.
+- Improvement
+    - Design Kit - Introduced a new "Favorites" tab, separated from Patterns, Pages, and Kits.
+    - Design Kit - Added clickable navigation in the sidebar, allowing users to jump to previous steps.
+    - Design Kit - Disabled live preview and other actions while inserting the kit into a page.
+    - Design Kit - Improved UI/UX for a better user experience.
+    - Design Kit - Enhanced error handling during the import process.
+    - Design Kit - Added an admin notice for missing file permissions.
+    - Design Kit - Removed validation for the mobile field in AI onboarding.
+    - Design Kit - Added a loader while inserting the block.
+    - AI Builder - Added ZipWP new features icon support.
+    - AI Builder - Added a filter to disable the Premium Badge for templates.
+- Fix
+    - Design Kit - Fixed console error causing a blank screen in GT AI onboarding if already prefilled.
+    - Design Kit - Resolved an issue where the Design Library button was not displayed in the Spectra One theme editor when the Gutenberg Plugin was activated.
+    - Design Kit - Fixed a console error that occurred on the screen of the image when AI data was prefilled.
+    - Design Kit - Addressed a blank screen issue when accessing the "Design Library" on Bedrock-powered sites.
+    - Design Kit - Fixed option 'ast-block-templates_data-' not getting deleted after importing the site template.
+    - Design Kit - Prevented adding a block to a new page after Spectra installation.
+    - Design Kit - Fixed shuffling of images when changing the orientation multiple times.
+    - Design Kit - Fixed AI-generated business description response count not working as expected.
+    - Design Kit - Fixed issue with authentication redirection.
+    - AI Builder - Made compulsory features enabled by default and non-clickable.
+    - AI Builder - UI improvements.
+    - AI Builder - Fixed acceptance of incorrect input in the email field.
+    - AI Builder - Ensured the "site creation limit exceeded" popup is displayed correctly.
 
 v4.3.4 - 24-June-2024
 - Chore: AI-Builder - Included build files.

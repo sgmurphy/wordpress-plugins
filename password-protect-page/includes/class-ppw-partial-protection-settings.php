@@ -14,7 +14,7 @@ if ( ! class_exists( 'PPW_Partial_Protection_Settings' ) ) {
 			$head_title = is_pro_active_and_valid_license() ? 'PPWP Pro' : 'PPWP Lite';
 			?>
 			<div class="wrap">
-				<h2><?php echo esc_html__( $head_title . ': Partial Protection', 'password-protect-page' ) ?></h2>
+				<h2><?php echo esc_html__( $head_title . ': Partial Protection', PPW_Constants::DOMAIN ) ?></h2>
 				<?php
 				$default_tab = apply_filters( PPW_Constants::HOOK_PCP_TAB, 'general' );
 				$active_tab  = isset( $_get['tab'] ) ? $_get['tab'] : $default_tab;
@@ -64,7 +64,7 @@ if ( ! class_exists( 'PPW_Partial_Protection_Settings' ) ) {
 
 					?>
 					<a href="<?php echo esc_url( $link ); ?>"
-					   class="nav-tab <?php echo $active_tab === $tab['tab'] ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( $tab['tab_name'], 'password-protect-page' ); ?></a>
+					   class="nav-tab <?php echo $active_tab === $tab['tab'] ? 'nav-tab-active' : ''; ?>"><?php esc_attr_e( $tab['tab_name'], PPW_Constants::DOMAIN ); ?></a>
 				<?php } ?>
 			</h2>
 			<?php

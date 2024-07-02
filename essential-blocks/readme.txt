@@ -4,7 +4,7 @@ Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Te
 Requires at least: 5.8
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 4.7.3
+Stable tag: 4.7.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -226,6 +226,14 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 == Changelog ==
 
+= 4.7.4 - 02/07/2024 =
+- Improved: Advanced Tab | Added option to disable min height for vertical layout
+- Improved: Advanced Tab | Added option for responsive layout switch on vertical layout
+- Fixed: Advanced Tabs | Active tab icon color not working
+- Fixed: Team Member | Images removed on attempt recovery issue
+- Fixed: Removed Edit HTML option for Advanced Tabs and Accordion Block to prevent attempt recovery
+- Fixed: EB Dashboard | Blocks enable/disable reset on plugin update
+
 = 4.7.3 - 24/06/2024 =
 - Improved: Custom CSS Editor better performance
 - Fixed: Dual Button | HTML Tag not working properly
@@ -236,20 +244,6 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 - Fixed: Column Block | responsive not working properly
 - Fixed: Column Block | animation not working properly
 - Fixed: Responsive control not working properly for all blocks
-- Minor bug fixes & improvements
-
-= 4.7.1 - 09/06/2024 =
-- Fixed: Editor JavaScript error in WordPress 6.4 or lower
-- Fixed: Essential Blocks Admin Dashboard page not loading correctly
-
-= 4.7.0 - 05/06/2024 =
-- Added: Global Typography Control
-- Added: Theme font support in Essential Blocks Typography Picker
-- Added: **Save & Insert button** in block default control
-- Improved: Reduce Google font request in Editor
-- Fixed: Google font weight issue
-- Fixed: Global Font reset not working
-- Improved: Security enhancement
 - Minor bug fixes & improvements
 
 [See changelog for all versions](https://essential-blocks.com/changelog).

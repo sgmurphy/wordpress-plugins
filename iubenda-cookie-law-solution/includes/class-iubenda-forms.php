@@ -11,9 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Iubenda_Forms class.
+ * Iubenda Forms Handler.
  *
- * @class Iubenda_Forms
+ * Handles various integrations and functionality for Iubenda forms.
+ *
+ * @package Iubenda
  */
 class Iubenda_Forms {
 
@@ -32,16 +34,29 @@ class Iubenda_Forms {
 	public $statuses = array();
 
 	/**
+	 * Iubenda WooCommerce Form Consent class.
+	 *
+	 * @var WooCommerce_Form_Consent
+	 */
+	public $woocommerce_form_consent;
+
+	/**
 	 * Class constructor.
 	 */
 	public function __construct() {
+		// Initialize WooCommerce Form Consent.
+		$this->woocommerce_form_consent = new WooCommerce_Form_Consent();
+
 		// actions.
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'init', array( $this, 'register_post_status' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
+
 		// Save cons for non ajax forms.
 		add_action( 'wpforms_process_complete', array( $this, 'process_entry_for_wp_forms' ), 10, 2 );
+
+		// Modify WooCommerce checkbox attributes for integration with MailChimp.
 		add_filter( 'mc4wp_integration_woocommerce_checkbox_attributes', array( $this, 'mc4wp_integration_woocommerce_checkbox_attributes' ) );
 	}
 

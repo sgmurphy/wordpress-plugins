@@ -227,10 +227,10 @@ if (!isset($_GET['elementor-preview'])): ?>
     				<?php if($enable_context_menu) : ?>
                     $(document).on('contextmenu', function (e) {
                         let target = $(event.target);
-                        if (!target.is("<?=$exclude_css_selectors?>") && (!target.is("<?=$enable_rclick_img?>") && !target.is("img")) && (!target.is("<?=$enable_rclick_link?>") && !target.is("a")) ) {
-                            let t = e || window.event;
-                            let n = t.target || t.srcElement;
-                            if (n.nodeName !== "A") {
+                        let t = e || window.event;
+                        let n = t.target || t.srcElement;
+                        if (!target.is("<?=$exclude_css_selectors?>") && (!target.is("<?=$enable_rclick_img?>") && !target.is("img")) && (!target.is("<?=$enable_rclick_link?>") && !target.is("a") && n.parentElement.nodeName !== "A") ) {
+                            if (n.nodeName !== "A" ) {
                                 show_tooltip(<?php echo $enable_context_menu_mess?> );
                                 audio_play(<?php echo $right_click_audio?>);
                             }
@@ -272,7 +272,9 @@ if (!isset($_GET['elementor-preview'])): ?>
                     <?php if($enable_rclick_link) : ?>
                     $(document).on('contextmenu', function (e) {
                         let target = $(event.target);
-                        if (target.is("a") || target.is("div.ays_tooltip_class")) {
+                        let t = e || window.event;
+                        let n = t.target || t.srcElement;
+                        if (target.is("a") || n.parentElement.nodeName == "A" || target.is("div.ays_tooltip_class")) {
                             show_tooltip(<?php echo $enable_rclick_link_mess?> );
                             audio_play(<?php echo $enable_rclick_link_audio?>);
                             return false;

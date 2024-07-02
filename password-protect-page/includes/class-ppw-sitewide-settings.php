@@ -15,7 +15,7 @@ if ( ! class_exists( 'PPW_Sitewide_Settings' ) ) {
 			<div class="wrap">
 				<div id="icon-themes" class="icon32"></div>
 				<h2>
-					<?php echo esc_html__( $head_title . ': Sitewide Protection', 'password-protect-page' ); ?>
+					<?php echo esc_html__( $head_title . ': Sitewide Protection', PPW_Constants::DOMAIN ); ?>
 				</h2>
 				<?php
 				$general_tab   = apply_filters( PPW_Constants::HOOK_SITEWIDE_TAB, 'general' );

@@ -153,7 +153,7 @@ class FLBuilderGlobalImportExport {
 				}
 				FLBuilderUtils::update_option( '_fl_builder_styles', $globals, true );
 			}
-
+			FLBuilderModel::delete_asset_cache_for_all_posts();
 			wp_send_json_success();
 		} else {
 			wp_send_json_error();
@@ -167,6 +167,7 @@ class FLBuilderGlobalImportExport {
 		if ( current_user_can( 'manage_options' ) ) {
 			delete_option( '_fl_builder_styles' );
 			delete_option( '_fl_builder_settings' );
+			FLBuilderModel::delete_asset_cache_for_all_posts();
 			foreach ( FLBuilderAdminSettings::registered_settings() as $setting ) {
 				delete_option( $setting );
 			}

@@ -3,7 +3,7 @@
 add_action('ux_builder_setup', 'zb_twenty20_ux_builder_element'); 
 function zb_twenty20_ux_builder_element(){
   add_ux_builder_shortcode( 'twenty20', array(
-    'name' => __( 'Twenty20' ),
+    'name' => __( 'Twenty20', 'zb_twenty20' ),
     'thumbnail' =>  twenty20_ux_builder_thumbnails( 'twenty20' ),
     'template' => twenty20_ux_builder_template( 'twenty20.html' ),
     'allow_in' => array('text_box'),
@@ -13,13 +13,13 @@ function zb_twenty20_ux_builder_element(){
 
       'img1' => array(
         'type' => 'image',
-        'heading' => __('Before Image'),
+        'heading' => __('Before Image', 'zb_twenty20'),
         'default' => ''
       ),
 
       'img2' => array(
         'type' => 'image',
-        'heading' => __('After Image'),
+        'heading' => __('After Image', 'zb_twenty20'),
         'default' => ''
       ),
 
@@ -37,7 +37,7 @@ function zb_twenty20_ux_builder_element(){
 
       'width' => array(
         'type' => 'slider',
-        'heading' => __('Width'),
+        'heading' => __('Width', 'zb_twenty20'),
         'responsive' => true,
         'default' => '100',
         'unit' => '%',

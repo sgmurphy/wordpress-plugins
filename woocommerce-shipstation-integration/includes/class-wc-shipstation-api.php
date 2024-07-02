@@ -24,6 +24,13 @@ class WC_Shipstation_API extends WC_Shipstation_API_Request {
 	private static $authenticated = false;
 
 	/**
+	 * Being used to store $_GET variable from ShipStation API request.
+	 *
+	 * @var array
+	 */
+	protected $request;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

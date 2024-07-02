@@ -67,6 +67,8 @@ class AjaxInit {
 
 	/**
 	 * Register API routes.
+	 *
+	 * @return void
 	 */
 	public function register_all_ajax_events() {
 
@@ -76,7 +78,10 @@ class AjaxInit {
 		);
 
 		foreach ( $controllers as $controller ) {
-			$controller::get_instance()->register_ajax_events();
+
+			if ( class_exists( $controller ) && method_exists( $controller::get_instance(), 'register_ajax_events' ) ) {
+				$controller::get_instance()->register_ajax_events(); // @phpstan-ignore-line
+			}
 		}
 	}
 }

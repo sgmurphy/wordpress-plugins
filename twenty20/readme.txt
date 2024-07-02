@@ -5,31 +5,27 @@ Tags: images, before and after slider, before after slider, ux builder element
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 
 Need to highlight the differences between two images? Makes it easy with Twenty20 plugin.
 
 == Description ==
 
-Twenty20 is the WordPress plugin of TwentyTwenty script that developed by Zurb team.
-
-This sparked a few new ideas on how to do something similar for our own needs. It had to swipe between two images to show "before" and "after". Most of all, it had to be responsive.
-
-[Live Demo](https://zayedbaloch.com/twenty20-image-before-after/ "Twenty20")
+This inspired several new ideas for how to achieve similar functionality for our own needs. The goal was to create a feature that allows users to swipe between two images to display "before" and "after" comparisons. Most importantly, it needed to be responsive.
 
 **Features**
 
-*   Responsive and functional on all devices.
-*   Doesn't require images to work.
-*   Easy and clean user interface
-*   Add before-after on widgets.
-*   Support popular page builders.
-*   Support WP Image alt as image alt and title.
+* Fully responsive and functional across all devices.
+* No coding skills required; easy to use.
+* Clean and intuitive user interface.
+* Ability to add before-and-after comparisons to widgets.
+* Compatible with popular page builders.
+* Utilizes WP Image alt as image alt and title attributes.
+
 
 **Support Page Builders**
 
-*   WP Bakery Visual Composer.
 *   Elementor Page Builder.
 *   UX Builder by UXThemes.
 
@@ -111,6 +107,9 @@ Yes, Twenty20 plugin allow user to add unlimited before-after slider.
 11. UX Builder element.
 
 == Changelog ==
+
+= 1.7.1 =
+* Bug fixes
 
 = 1.7.0 =
 * Bug fixes

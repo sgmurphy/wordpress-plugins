@@ -960,7 +960,7 @@ input:checked + .ays-pb-enable-switch-slider .ays-pb-enable-switch-off {
 .tablenav .actions select {
     float: left;
     margin-right: 6px;
-    max-width: 200px;
+    max-width: 135px;
     max-height: 30px;
 }
 

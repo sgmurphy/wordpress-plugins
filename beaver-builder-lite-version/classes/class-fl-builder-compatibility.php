@@ -61,6 +61,7 @@ final class FLBuilderCompatibility {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'fix_jquery_dialog' ) );
 		add_action( 'wp_tiny_mce_init', array( __CLASS__, 'fix_gf_tinymce' ), 9 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'remove_tour_fix' ) );
+		add_action( 'fl_before_sortable_enqueue', array( __CLASS__, 'fix_classicpress_v2' ) );
 
 		// Filters
 		add_filter( 'fl_builder_is_post_editable', array( __CLASS__, 'bp_pages_support' ), 11, 2 );
@@ -1340,6 +1341,20 @@ final class FLBuilderCompatibility {
 	public static function remove_tour_fix() {
 		if ( ! FLBuilder::is_tour_enabled() ) {
 			remove_filter( 'fl_theme_framework_enqueue', array( 'FLLayout', 'fl_theme_framework_enqueue' ) );
+		}
+	}
+
+	public static function fix_classicpress_v2() {
+		global $wp_scripts;
+		$deps = $wp_scripts->registered['media-views']->deps;
+		foreach ( $deps as $key => $dep ) {
+			if ( 'sortable-js' === $dep ) {
+				unset( $deps[ $key ] );
+				$deps[ $key ] = 'jquery-ui-sortable';
+				ksort( $deps );
+				$wp_scripts->registered['media-views']->deps = $deps;
+				break;
+			}
 		}
 	}
 }

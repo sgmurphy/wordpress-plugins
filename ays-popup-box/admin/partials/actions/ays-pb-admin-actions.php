@@ -1220,6 +1220,7 @@ if ( isset($options['pb_title_text_shadow_z_offset_mobile']) ) {
 
 //Change Create Author
 $change_pb_create_author = (isset($options['create_author']) && $options['create_author'] != '') ? absint( sanitize_text_field( $options['create_author'] ) ) : $user_id;
+$get_current_popup_author_data = get_userdata($change_pb_create_author);
 
 $category_id = ( isset( $popupbox['category_id'] ) && $popupbox['category_id'] != '' ) ? intval( $popupbox['category_id'] ) : 1;
 
@@ -1334,7 +1335,7 @@ if (isset($options['disable_scroll_on_popup_mobile'])) {
 $options['show_scrollbar'] = ( isset( $options['show_scrollbar'] ) && $options['show_scrollbar'] != '' ) ? esc_attr($options['show_scrollbar']) : 'off';
 $ays_pb_show_scrollbar = ( isset( $options['show_scrollbar'] ) && $options['show_scrollbar'] == 'on' ) ? true : false;
 
-$ays_pb_wp_users = get_users(); 
+// $ays_pb_wp_users = get_users();
 
 //Hide on PC
 $options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] != "" ) ? esc_attr($options['hide_on_pc']) : "off";
@@ -3283,20 +3284,16 @@ $ays_users_roles = $wp_roles->roles;
                     <select id="ays_pb_create_author" class="" name="ays_pb_create_author">
                         <option value=""><?php echo __('Select User',"ays-popup-box")?></option>
                         <?php
-                            foreach ($ays_pb_wp_users as $key => $user) :
-                                $pb_user_id = ( isset( $user->ID ) && $user->ID != '') ? absint( sanitize_text_field( $user->ID ) ) : 0;
-                                $pb_user_display_name = ( isset( $user->display_name ) && $user->display_name != '') ? stripslashes(esc_html( $user->display_name )) : '';
-                                $selected = '';
-                                if($pb_user_id == $change_pb_create_author){
-                                    $selected = 'selected';
-                                }
-                        ?>  
+                            $pb_user_id = ( isset($get_current_popup_author_data->ID) && $get_current_popup_author_data->ID != '' ) ? absint( sanitize_text_field($get_current_popup_author_data->ID) ) : 0;
+                            $pb_user_display_name = ( isset($get_current_popup_author_data->display_name) && $get_current_popup_author_data->display_name != '' ) ? stripslashes( esc_html($get_current_popup_author_data->display_name) ) : '';
+                            $selected = '';
+                            if ($pb_user_id == $change_pb_create_author) {
+                                $selected = 'selected';
+                            }
+                        ?>
                             <option value="<?php echo $pb_user_id;?>" <?php echo $selected; ?>>
                                 <?php echo $pb_user_display_name; ?>
                             </option>
-                        <?php
-                            endforeach;
-                        ?>
                     </select>
                     </div>
                 </div> <!-- Change the author of the current popup box -->

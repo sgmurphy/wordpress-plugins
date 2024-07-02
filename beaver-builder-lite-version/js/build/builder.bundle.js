@@ -4774,6 +4774,11 @@ var Item = function Item(_ref) {
   var children = useNodesWithoutSettings(id);
   var hasChildren = 0 < Object.keys(children).length;
 
+  var _getModuleConfig = (0,_utils__WEBPACK_IMPORTED_MODULE_9__.getModuleConfig)(id),
+      accepts = _getModuleConfig.accepts;
+
+  var acceptsChildren = accepts && !!accepts.length;
+
   var _getNode = (0,data__WEBPACK_IMPORTED_MODULE_5__.getNode)(id),
       settings = _getNode.settings;
 
@@ -4798,7 +4803,7 @@ var Item = function Item(_ref) {
       showContent = _useState8[0],
       setShowContent = _useState8[1];
 
-  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()('fl-builder-node-outline-item', (_c2 = {}, _defineProperty(_c2, "fl-builder-node-type-".concat(type), type), _defineProperty(_c2, 'show-drop-before', 'before' === isDraggingOver), _defineProperty(_c2, 'show-drop-after', 'after' === isDraggingOver), _defineProperty(_c2, 'is-dragging-self', id === (draggingItem === null || draggingItem === void 0 ? void 0 : draggingItem.id)), _c2));
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()('fl-builder-node-outline-item', (_c2 = {}, _defineProperty(_c2, "fl-builder-node-type-".concat(type), type), _defineProperty(_c2, 'show-drop-before', 'before' === isDraggingOver), _defineProperty(_c2, 'show-drop-after', 'after' === isDraggingOver), _defineProperty(_c2, 'is-dragging-self', id === (draggingItem === null || draggingItem === void 0 ? void 0 : draggingItem.id)), _defineProperty(_c2, 'has-children', hasChildren), _defineProperty(_c2, 'accepts-children', acceptsChildren), _c2));
 
   var toggleContent = function toggleContent() {
     (0,_storage__WEBPACK_IMPORTED_MODULE_10__.setStorage)(id, !showContent);
@@ -5967,7 +5972,7 @@ var shouldAllowDrop = function shouldAllowDrop(parentType, parentId, dragType, d
   return true;
 };
 var shouldShowEmptyDropArea = function shouldShowEmptyDropArea(type, id, hasChildren, global) {
-  if (hasChildren || global) {
+  if (hasChildren || global && !FLBuilderConfig.userTemplateType) {
     return false;
   } else if ('module' === type) {
     var config = getModuleConfig(id);
@@ -6009,7 +6014,7 @@ var getModuleConfig = function getModuleConfig(id) {
 
   var node = (0,data__WEBPACK_IMPORTED_MODULE_2__.getNode)(id);
   return contentItems.module.filter(function (config) {
-    return node.settings.type === config.slug;
+    return !config.alias && node.settings.type === config.slug;
   }).pop();
 };
 var moduleHasDefinition = function moduleHasDefinition(key) {

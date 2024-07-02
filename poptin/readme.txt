@@ -5,6 +5,7 @@ Requires at least: 3.1
 Tested up to: 6.5
 Stable tag: 1.3.2
 Plugin URI: https://www.poptin.com
+License: GPLv3
 
 🔥 Pop ups & contact forms builder. Get more sales & subscribers with beautiful popups, forms, lightbox popup, notification bar & more templates 😍
 

@@ -11,6 +11,7 @@
 		<?php
 		include PPW_DIR_PATH . 'includes/views/entire-site/view-ppw-set-password.php';
 		include PPW_DIR_PATH . 'includes/views/entire-site/view-ppw-exclude-page.php';
+		include PPW_DIR_PATH . 'includes/views/entire-site/view-ppw-sitewide-expired-cookie.php';
 		?>
 	</table>
 	<?php

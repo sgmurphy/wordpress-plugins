@@ -23,9 +23,9 @@ if ( ! class_exists( 'ST_Importer_File_System' ) ) {
 		 * Instance of this class.
 		 *
 		 * @since 1.0.0
-		 * @var object Class object.
+		 * @var self Class object.
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator of this class.
@@ -34,7 +34,7 @@ if ( ! class_exists( 'ST_Importer_File_System' ) ) {
 		 * @return self initialized object of this class.
 		 */
 		public static function get_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;

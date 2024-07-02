@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 5.2.18 =
+
+* Refines CSS styling for form titles and descriptions.
+* Introduces new form templates.
+* Enhances user interaction by displaying a cursor pointer for radio buttons and checkboxes.
+* Disables the link functionality when a form is embedded within an anchor.
+
 = 5.2.17 =
 
 * Implements the predefined class names col-xs-0, col-sm-0, col-md-0, and col-lg-0 to allow hiding fields on mobiles, tables, desktops, and large screens, respectively.

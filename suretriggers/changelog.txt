@@ -1,3 +1,7 @@
+Version 1.0.51 - Tuesday, 2nd July 2024
+- Improvement: "Voxel" - Enhanced Post related Triggers
+- Improvement: "WordPress" - Added user registration date to user-related data response
+
 Version 1.0.50 - Monday, 24th June 2024
 - Improvement: "myCred" - Added new Actions
 - Improvement: "Voxel" - Added new Triggers and Actions, and enhanced order Triggers response

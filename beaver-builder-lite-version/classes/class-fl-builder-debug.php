@@ -541,6 +541,18 @@ final class FL_Debug {
 		$opts     = array();
 		foreach ( $adv_opts as $key => $opt ) {
 			$option = get_option( "_fl_builder_{$key}", $opt['default'] ) ? 'Enabled' : 'Disabled';
+			if ( 'limithistory_enabled' === $key ) {
+				$result = $wpdb->get_results( $wpdb->prepare( "select count(post_id) as total,post_id as ID from $wpdb->postmeta where meta_key LIKE %s group by post_id", '_fl_builder_history_state_%' ) );
+				if ( ! empty( $result ) ) {
+					$total = count( $result );
+					$all   = 0;
+					foreach ( $result as $post ) {
+						$all += $post->total;
+					}
+					$avg     = $all / $total;
+					$option .= sprintf( "\n%s History states across %s Layouts, Average %s", $all, $total, number_format( $avg ) );
+				}
+			}
 			$opts[] = sprintf( '%s: %s', $opt['label'], $option );
 		}
 		$args = array(

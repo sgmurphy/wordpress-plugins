@@ -374,6 +374,8 @@ ul.fl-builder-node-outline {
     list-style: none;
     margin: 0;
     padding: 0; }
+    ul.fl-builder-node-outline li.accepts-children {
+      padding-bottom: 1px; }
     ul.fl-builder-node-outline li:before, ul.fl-builder-node-outline li:after {
       display: block;
       content: '';
@@ -404,6 +406,7 @@ ul.fl-builder-node-outline {
     ul.fl-builder-node-outline li .fl-builder-node-empty-drop-area {
       padding: 0 10px;
       padding-left: calc( ( var(--level) * var(--fl-builder-outline-inset) ) + 30px);
+      margin-bottom: 1px;
       flex: 0 0 var(--fl-builder-outline-item-size); }
       ul.fl-builder-node-outline li .fl-builder-node-empty-drop-area > .drop-area {
         height: 30px;
@@ -417,7 +420,7 @@ ul.fl-builder-node-outline {
       flex-direction: row;
       align-items: center;
       font-size: 12px;
-      padding: 2px 12px;
+      padding: 0 12px;
       padding-left: calc( var(--level) * var(--fl-builder-outline-inset));
       border-radius: 5px;
       user-select: none;

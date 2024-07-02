@@ -7,12 +7,12 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
 
 	/**
 	 * Class VillaTheme_Support
-	 * 1.1.10
+	 * 1.1.12
 	 */
 	class VillaTheme_Support {
 		protected $plugin_base_name;
 		protected $ads_data;
-		protected $version = '1.1.10';
+		protected $version = '1.1.12';
 		protected $data = [];
 
 		public function __construct( $data ) {
@@ -40,9 +40,7 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
 			/*Add toolbar*/
 			add_action( 'admin_bar_menu', array( $this, 'add_toolbar' ), 100 );
 
-			if ( $this->data['survey_url'] ) {
-				add_action( 'admin_footer', array( $this, 'deactivate_scripts' ) );
-			}
+
 		}
 
 		public function admin_init() {
@@ -296,11 +294,8 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
 			if ( wp_verify_nonce( $_villatheme_nonce, $this->data['slug'] . '_wp_reviewed' ) ) {
 				set_transient( $this->data['slug'] . $this->data['version'] . '_hide_notices', 1, 2592000 );
 				update_option( $this->data['slug'] . '_wp_reviewed', 1 );
-				ob_start();
-				ob_end_clean();
-				// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
-				wp_redirect( $this->data['review'] );
-				die;
+				wp_safe_redirect( $this->data['review'] );
+				exit();
 			}
 		}
 
@@ -548,8 +543,11 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
 		 * Init script
 		 */
 		public function scripts() {
-			wp_enqueue_style( 'villatheme-support', $this->data['css_url'] . 'villatheme-support.min.css', '', $this->version );
-			wp_add_inline_script('admin-bar',"(function ($) {
+			if ( ! wp_style_is( 'villatheme-support' ) ) {
+				wp_enqueue_style( 'villatheme-support', $this->data['css_url'] . 'villatheme-support.min.css', '', $this->version );
+				wp_register_script('villatheme-support', false,['jquery'], $this->version, false);
+				wp_enqueue_script('villatheme-support');
+				wp_add_inline_script( 'villatheme-support', "(function ($) {
                     $(function () {
                         $(document).on('click','#wp-admin-bar-villatheme_hide_toolbar',function(e){
                             if (!confirm('VillaTheme toolbar helps you access all VillaTheme items quickly, do you want to hide it anyway?')){
@@ -559,7 +557,87 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
                             }
                         });
                     });
-                }(jQuery));");
+                }(jQuery));" );
+			}
+			global $pagenow;
+			if ( $this->data['survey_url'] && ('plugins.php' === $pagenow) ) {
+				$support_basic = !wp_style_is('villatheme-support-basic');
+				if ($support_basic) {
+					wp_register_style( 'villatheme-support-basic', false,'', $this->version, false );
+					wp_enqueue_style('villatheme-support-basic');
+					wp_add_inline_style( 'villatheme-support-basic', '.villatheme-deactivate-modal{position: fixed;z-index: 99999;top: 0;right: 0;bottom: 0;left: 0;background: rgba(0, 0, 0, 0.5);display: none}.villatheme-deactivate-modal.modal-active{display: block}.villatheme-deactivate-modal-wrap{width: 50%;position: relative;margin: 10% auto;background: #fff}.villatheme-deactivate-modal-header{border-bottom: 1px solid #eee;padding: 8px 20px}.villatheme-deactivate-modal-header h3{line-height: 150%;margin: 0}.villatheme-deactivate-modal-body{padding: 5px 20px 20px 20px}.villatheme-deactivate-modal-body .input-text,.villatheme-deactivate-modal-body textarea{width: 75%}.villatheme-deactivate-modal-body .reason-input{margin-top: 5px;margin-left: 20px}.villatheme-deactivate-modal-footer{border-top: 1px solid #eee;padding: 12px 20px;text-align: right}' );
+					wp_add_inline_script( 'villatheme-support', "var ViDeactivate = {deactivateLink: '', surveyUrl: ''};
+                    (function ($) {
+                    $(function () {
+                        let modal = $('#villatheme-deactivate-survey-modal');
+                        ViDeactivate.modal = modal;
+
+                        modal.on('click', 'button.villatheme-model-cancel', function (e) {
+                            e.preventDefault();
+                            modal.removeClass('modal-active');
+                        });
+
+                        modal.on('click', 'input[type=\"radio\"]', function () {
+                            $('button.villatheme-deactivate-submit').removeClass('disabled');
+                            var parent = $(this).parents('li:first');
+                            modal.find('.reason-input').remove();
+                            var inputType = parent.data('type'),
+                                inputPlaceholder = parent.data('placeholder'),
+                                reasonInputHtml = '<div class=\"reason-input\">' + (('text' === inputType) ? '<input type=\"text\" class=\"input-text\" size=\"40\" />' : '<textarea rows=\"5\" cols=\"45\"></textarea>') + '</div>';
+
+                            if (inputType !== '') {
+                                parent.append($(reasonInputHtml));
+                                parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
+                            }
+                        });
+
+                        modal.on('click', 'button.villatheme-deactivate-submit', function (e) {
+                            e.preventDefault();
+                            let button = $(this);
+
+                            if (button.hasClass('disabled')) return;
+
+                            let radio = $('input[type=\"radio\"]:checked', modal);
+                            let selected_reason = radio.parents('li:first'),
+                                input = selected_reason.find('textarea, input[type=\"text\"]');
+                            let reason_id = (0 === radio.length) ? '' : radio.val();
+                            let reason_info = (0 !== input.length) ? input.val().trim() : '';
+                            let date = new Date(Date.now()).toLocaleString().split(',')[0];
+
+                            if ((reason_id === 'other' && !reason_info) || !reason_id) {
+                                window.location.href = ViDeactivate.deactivateLink;
+                                return;
+                            }
+
+                            $.ajax({
+                                url: ViDeactivate.surveyUrl+'?date='+date+'&'+reason_id+'=1&reason_info='+reason_info,
+                                type: 'GET',
+                                beforeSend: function () {
+                                    button.addClass('disabled');
+                                    button.text('Processing...');
+                                },
+                                complete: function () {
+                                    window.location.href = ViDeactivate.deactivateLink;
+                                }
+                            });
+
+                        });
+                    });
+                }(jQuery));" );
+				}
+				wp_add_inline_script( 'villatheme-support', "(function ($) {
+                    $(function () {
+                        $(document).on('click', '#the-list a#deactivate-". $this->data['slug'] ."', function (e) {
+                            e.preventDefault();
+                            ViDeactivate.modal.addClass('modal-active');
+                            ViDeactivate.deactivateLink = $(this).attr('href');
+                            ViDeactivate.surveyUrl = '".$this->data['survey_url'] ."';
+                            ViDeactivate.modal.find('a.dont-bother-me').attr('href', ViDeactivate.deactivateLink).css('float', 'left');
+                        });
+                    });
+                }(jQuery));" );
+				add_action( 'admin_footer', array( $this, 'deactivate_scripts' ) );
+			}
 		}
 
 		/**
@@ -575,30 +653,30 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
                         <a class="vi-ui button labeled inverted icon min document" target="_blank"
                            href="<?php echo esc_attr( esc_url( $this->data['docs'] ) ) ?>">
                             <i class="file alternate icon"></i>
-				            <?php echo esc_html( 'Documentation' ) ?>
+							<?php echo esc_html( 'Documentation' ) ?>
                         </a>
                         <a class="vi-ui button inverted labeled review icon mini" target="_blank"
                            href="<?php echo esc_attr( esc_url( $this->data['review'] ) ) ?>">
                             <i class="star icon"></i>
-				            <?php echo esc_html( 'Review') ?>
+							<?php echo esc_html( 'Review') ?>
                         </a>
                         <a class="vi-ui button labeled icon request-support green min" target="_blank"
                            href="<?php echo esc_attr( esc_url( $this->data['support'] ) ) ?>">
                             <i class="users icon"></i>
-				            <?php echo esc_html( 'Request Support' ) ?>
+							<?php echo esc_html( 'Request Support' ) ?>
                         </a>
-			            <?php
-			            if ( get_option( 'villatheme_hide_admin_toolbar' ) ) {
-				            ?>
+						<?php
+						if ( get_option( 'villatheme_hide_admin_toolbar' ) ) {
+							?>
                             <a class="vi-ui button labeled icon blue inverted admin-toolbar mini" target="_self"
                                title="<?php echo esc_attr( 'VillaTheme toolbar helps you access all VillaTheme items quickly' ) ?>"
                                href="<?php echo esc_url( add_query_arg( array( '_villatheme_nonce' => wp_create_nonce( 'villatheme_show_toolbar' ) ) ) ) ?>">
                                 <i class="eye icon"></i>
-					            <?php echo esc_html( 'Show Toolbar' ) ?>
+								<?php echo esc_html( 'Show Toolbar' ) ?>
                             </a>
-				            <?php
-			            }
-			            ?>
+							<?php
+						}
+						?>
                     </div>
                 </div>
                 <div class="villatheme-items">
@@ -808,141 +886,9 @@ if ( ! class_exists( 'VillaTheme_Support' ) ) {
                         </div>
                     </div>
                 </div>
-
-                <style type="text/css">
-                    .villatheme-deactivate-modal {
-                        position: fixed;
-                        z-index: 99999;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                        background: rgba(0, 0, 0, 0.5);
-                        display: none;
-                    }
-
-                    .villatheme-deactivate-modal.modal-active {
-                        display: block;
-                    }
-
-                    .villatheme-deactivate-modal-wrap {
-                        width: 50%;
-                        position: relative;
-                        margin: 10% auto;
-                        background: #fff;
-                    }
-
-                    .villatheme-deactivate-modal-header {
-                        border-bottom: 1px solid #eee;
-                        padding: 8px 20px;
-                    }
-
-                    .villatheme-deactivate-modal-header h3 {
-                        line-height: 150%;
-                        margin: 0;
-                    }
-
-                    .villatheme-deactivate-modal-body {
-                        padding: 5px 20px 20px 20px;
-                    }
-
-                    .villatheme-deactivate-modal-body .input-text,
-                    .villatheme-deactivate-modal-body textarea {
-                        width: 75%;
-                    }
-
-                    .villatheme-deactivate-modal-body .reason-input {
-                        margin-top: 5px;
-                        margin-left: 20px;
-                    }
-
-                    .villatheme-deactivate-modal-footer {
-                        border-top: 1px solid #eee;
-                        padding: 12px 20px;
-                        text-align: right;
-                    }
-                </style>
-
-                <script type="text/javascript">
-                    var ViDeactivate = {deactivateLink: '', surveyUrl: ''};
-
-                    (function ($) {
-                        $(function () {
-                            let modal = $('#villatheme-deactivate-survey-modal');
-                            ViDeactivate.modal = modal;
-
-                            modal.on('click', 'button.villatheme-model-cancel', function (e) {
-                                e.preventDefault();
-                                modal.removeClass('modal-active');
-                            });
-
-                            modal.on('click', 'input[type="radio"]', function () {
-                                $('button.villatheme-deactivate-submit').removeClass('disabled');
-                                var parent = $(this).parents('li:first');
-                                modal.find('.reason-input').remove();
-                                var inputType = parent.data('type'),
-                                    inputPlaceholder = parent.data('placeholder'),
-                                    reasonInputHtml = '<div class="reason-input">' + (('text' === inputType) ? '<input type="text" class="input-text" size="40" />' : '<textarea rows="5" cols="45"></textarea>') + '</div>';
-
-                                if (inputType !== '') {
-                                    parent.append($(reasonInputHtml));
-                                    parent.find('input, textarea').attr('placeholder', inputPlaceholder).focus();
-                                }
-                            });
-
-                            modal.on('click', 'button.villatheme-deactivate-submit', function (e) {
-                                e.preventDefault();
-                                let button = $(this);
-
-                                if (button.hasClass('disabled')) return;
-
-                                let $radio = $('input[type="radio"]:checked', modal);
-                                let $selected_reason = $radio.parents('li:first'),
-                                    $input = $selected_reason.find('textarea, input[type="text"]');
-                                let reason_id = (0 === $radio.length) ? '' : $radio.val();
-                                let reason_info = (0 !== $input.length) ? $input.val().trim() : '';
-                                let date = new Date(Date.now()).toLocaleString().split(',')[0];
-
-                                if ((reason_id === 'other' && !reason_info) || !reason_id) {
-                                    window.location.href = ViDeactivate.deactivateLink;
-                                    return;
-                                }
-
-                                $.ajax({
-                                    url: `${ViDeactivate.surveyUrl}?date=${date}&${reason_id}=1&reason_info=${reason_info}`,
-                                    type: 'GET',
-                                    beforeSend: function () {
-                                        button.addClass('disabled');
-                                        button.text('Processing...');
-                                    },
-                                    complete: function () {
-                                        window.location.href = ViDeactivate.deactivateLink;
-                                    }
-                                });
-
-                            });
-                        });
-                    }(jQuery));
-
-                </script>
 				<?php
 				$modal = true;
 			}
-			?>
-            <script type="text/javascript">
-                (function ($) {
-                    $(function () {
-                        $('#the-list').on('click', 'a#deactivate-<?php echo esc_html( $this->data['slug'] ) ?>', function (e) {
-                            e.preventDefault();
-                            ViDeactivate.modal.addClass('modal-active');
-                            ViDeactivate.deactivateLink = $(this).attr('href');
-                            ViDeactivate.surveyUrl = '<?php echo esc_url( $this->data['survey_url'] )?>';
-                            ViDeactivate.modal.find('a.dont-bother-me').attr('href', ViDeactivate.deactivateLink).css('float', 'left');
-                        });
-                    });
-                }(jQuery));
-            </script>
-			<?php
 		}
 	}
 }
@@ -1006,13 +952,13 @@ if ( ! class_exists( 'VillaTheme_Require_Environment' ) ) {
 					$status              = install_plugin_install_status( $plugin );
 					$require_plugin_name = $plugin['name'] ?? '';
 
-                    if (!empty($plugin['requires_php']) && !is_php_version_compatible( $plugin['requires_php'] )){
-                        continue;
-                    }
+					if (!empty($plugin['requires_php']) && !is_php_version_compatible( $plugin['requires_php'] )){
+						continue;
+					}
 
-                    if (!empty($plugin['requires']) && !is_wp_version_compatible( $plugin['requires'] )){
-                        continue;
-                    }
+					if (!empty($plugin['requires']) && !is_wp_version_compatible( $plugin['requires'] )){
+						continue;
+					}
 
 					switch ( $status['status'] ) {
 
@@ -1028,21 +974,21 @@ if ( ! class_exists( 'VillaTheme_Require_Environment' ) ) {
 						default:
 
 							if ( ! is_plugin_active( $status['file'] ) ) {
-                                $msg = sprintf('%s is installed and activated.', esc_html( $require_plugin_name ));
-                                if (current_user_can( 'activate_plugin', $status['file'] ) ) {
-	                                $activate_url = add_query_arg(
-		                                [
-			                                '_wpnonce' => wp_create_nonce( 'activate-plugin_' . $status['file'] ),
-			                                'action'   => 'activate',
-			                                'plugin'   => $status['file'],
-		                                ],
-		                                self_admin_url( 'plugins.php' )
-	                                );
+								$msg = sprintf('%s is installed and activated.', esc_html( $require_plugin_name ));
+								if (current_user_can( 'activate_plugin', $status['file'] ) ) {
+									$activate_url = add_query_arg(
+										[
+											'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $status['file'] ),
+											'action'   => 'activate',
+											'plugin'   => $status['file'],
+										],
+										self_admin_url( 'plugins.php' )
+									);
 
-	                                $msg .= sprintf( " <br> <a href='%s' target='_blank' class='button button-primary' style='vertical-align: middle; margin-top: 5px;'>Active %s</a>",
-		                                esc_url( $activate_url ),
-		                                esc_html( $require_plugin_name ) );
-                                }
+									$msg .= sprintf( " <br> <a href='%s' target='_blank' class='button button-primary' style='vertical-align: middle; margin-top: 5px;'>Active %s</a>",
+										esc_url( $activate_url ),
+										esc_html( $require_plugin_name ) );
+								}
 								$this->notices[] = $msg;
 
 							}

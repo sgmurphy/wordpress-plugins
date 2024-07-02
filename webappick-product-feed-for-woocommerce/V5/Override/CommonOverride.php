@@ -50,6 +50,21 @@ class CommonOverride {
 //			'woo_feed_insert_feed_data_callback'
 //		), 10, 3 );
 
+		add_action( 'woo_feed_filter_product_description',
+			array( $this, 'remove_enclosure_from_description' ),
+			10, 4 );
+
+		add_action( 'woo_feed_filter_product_short_description',
+			array( $this, 'remove_enclosure_from_description' ),
+			10, 4 );
+
+		add_action( 'woo_feed_filter_product_title',
+			array( $this, 'remove_enclosure_from_title' ),
+			10, 3 );
+		add_action( 'woo_feed_filter_product_parent_title',
+			array( $this, 'remove_enclosure_from_title' ),
+			10, 3 );
+
 
 	}
 
@@ -96,4 +111,44 @@ class CommonOverride {
 
 		return $parsed_rules;
 	}
+
+	/**
+	 * Function to remove single and double quotes from product description if the feed type is CSV.
+	 *
+	 * @param string $description The original product description.
+	 * @param object $product The product object (not used in the function).
+	 * @param object $config The configuration object containing feed information.
+	 * @param object $parent_product The parent product object (not used in the function).
+	 * @return string The sanitized product description without single and double quotes.
+	 */
+	function remove_enclosure_from_description( $description, $product, $config, $parent_product ){
+		if( $config->feed_info['option_value']['feedrules']['feedType'] === 'csv' ){
+
+			if( $config->feed_info['option_value']['feedrules']['enclosure'] === 'single' ){
+				$description = str_replace(["'"], '"', $description);
+			}elseif ( $config->feed_info['option_value']['feedrules']['enclosure'] === 'double' ){
+				$description = str_replace(['"'], "'", $description);
+			}
+
+		}
+
+		return $description;
+	}
+
+	/**
+	 * Function to remove single and double quotes from product title if the feed type is CSV.
+	 *
+	 * @param string $title The original product title.
+	 * @param object $product The product object (not used in the function).
+	 * @param object $config The configuration object containing feed information.
+	 * @return string The sanitized product title without single and double quotes.
+	 */
+	function remove_enclosure_from_title( $title, $product, $config ){
+		if( $config->feed_info['option_value']['feedrules']['feedType'] === 'csv' ){
+			$title = str_replace(["'", '"'], '', $title);
+		}
+
+		return $title;
+	}
+
 }

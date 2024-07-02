@@ -3,8 +3,8 @@ Contributors: gaupoit, rexhoang, ppwp, buildwps, yuryonfolio
 Tags: password protect, password, restrict content, sitewide, password protection
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 6.5.2
-Stable tag: 1.9.1.1
+Tested up to: 6.5.5
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,6 +280,12 @@ Yes, the Pro version enables you to [automatically password protect child pages]
 N/A
 
 == Changelog ==
+
+= 1.9.2 =
+
+* [Improvement] Implemented differentiated cookie expiration times for individual and site-wide forms to enhance user experience and session management.
+* [Improvement] Optimized codebase for improved performance and ensured compliance with WordPress standards.
+* [Bug Fix] Resolved deprecated function and warning errors to maintain compatibility and stability.
 
 = 1.9.1.1 =
 

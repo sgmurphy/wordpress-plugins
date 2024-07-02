@@ -4,7 +4,7 @@ Donate link:
 Tags: testimonial, testimonial slider, testimonial showcase, customer review, star ratings
 Requires at least: 5.6
 Tested up to: 6.5
-Stable tag: 2.3.10
+Stable tag: 2.3.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,7 +161,7 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 
 * [The Post Grid](https://wordpress.org/plugins/the-post-grid/) – Shortcode, Gutenberg Blocks and Elementor Addon for Post Grid.
 
-* [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels. 
+* [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels.
 
 * [Variation Gallery](https://wordpress.org/plugins/woo-product-variation-gallery/) - Woocommerce Variation Gallery plugin allows to add UNLIMITED additional images for each variation of product.
 
@@ -208,6 +208,9 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 06. Styles
 
 == Changelog ==
+
+= 2.3.11 (July 2, 2024) =
+Fixed: Shortcode meta checkbox default save data.
 
 = 2.3.10 (April 17, 2023) =
 Updated: Proper sanitization and escaping for all files.

@@ -18,6 +18,7 @@ final class FLBuilderColor {
 	 */
 	static public function hex_to_rgb( $hex ) {
 
+		$hex = self::hex_or_rgb( $hex );
 		// if $hex is empty or false return basic rgb data.
 		if ( ! $hex || strstr( $hex, 'var(--' ) ) {
 			return array(
@@ -54,6 +55,40 @@ final class FLBuilderColor {
 	 * @return string
 	 */
 	static public function hex_or_rgb( $color ) {
+
+		// ACF colours can be an array
+		// [red] => 62
+		// [green] => 122
+		// [blue] => 81
+		// [alpha] => 1
+		if ( is_array( $color ) && ! empty( $color ) && 4 === count( $color ) ) {
+			$r = '';
+			$g = '';
+			$b = '';
+			$a = '';
+			foreach ( $color as $k => $value ) {
+				switch ( $k ) {
+					case 'red':
+					case 'r':
+						$r = $value;
+						break;
+					case 'green':
+					case 'g':
+						$g = $value;
+						break;
+					case 'blue':
+					case 'b':
+						$b = $value;
+						break;
+					case 'alpha':
+					case 'a':
+						$a = $value;
+						break;
+				}
+			}
+			$color = sprintf( 'rgba(%s, %s, %s, %s)', $r, $g, $b, $a );
+		}
+
 		if ( ! empty( $color ) && ! stristr( $color, 'rgb' ) && ! stristr( $color, 'var' ) && ! stristr( $color, '#' ) ) {
 			$color = '#' . $color;
 		}
@@ -73,7 +108,7 @@ final class FLBuilderColor {
 	 * @return string The adjusted value string.
 	 */
 	static public function adjust_brightness( $value, $steps, $type ) {
-		$is_rgb = strstr( $value, 'rgb' );
+		$is_rgb = is_string( $value ) && strstr( $value, 'rgb' );
 
 		// Get rgb vars.
 		if ( $is_rgb ) {

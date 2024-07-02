@@ -406,19 +406,19 @@ FLBuilderArt::render_shape_layers_css( $row );
 }
 
 /* Full height iPad with portrait orientation. */
-@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait){
+@media all and (width: 768px) and (height: 1024px) and (orientation:portrait){
 	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
 		min-height: 1024px;
 	}
 }
 /* Full height iPad with landscape orientation. */
-@media all and (device-width: 1024px) and (device-height: 768px) and (orientation:landscape){
+@media all and (width: 1024px) and (height: 768px) and (orientation:landscape){
 	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
 		min-height: 768px;
 	}
 }
 /* Full height iPhone 5. You can also target devices with aspect ratio. */
-@media screen and (device-aspect-ratio: 40/71) {
+@media screen and (aspect-ratio: 40/71) {
 	.fl-node-<?php echo $id; ?>.fl-row-full-height > .fl-row-content-wrap {
 		min-height: 500px;
 	}

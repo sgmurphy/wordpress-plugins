@@ -48,6 +48,104 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         <?php
     }
 
+    protected function get_views() {
+        $published_count = $this->published_popup_count();
+        $unpublished_count = $this->unpublished_popup_count();
+        $all_count = $this->all_record_count();
+        $selected_all = "";
+        $selected_off = "";
+        $selected_on = "";
+
+        if (isset($_GET['fstatus'])) {
+            switch($_GET['fstatus']) {
+                case "unpublished":
+                    $selected_off = "style='font-weight:bold;'";
+                    break;
+                case "published":
+                    $selected_on = "style='font-weight:bold;'";
+                    break;
+                default:
+                    $selected_all = "style='font-weight:bold;'";
+                    break;
+            }
+        } else {
+            $selected_all = "style='font-weight:bold;'";
+        }
+
+        $href = "?page=" . esc_attr($_REQUEST['page']);
+
+        if (isset($_GET['filterby']) && absint( sanitize_text_field($_GET['filterby']) ) > 0) {
+            $cat_id = absint( sanitize_text_field($_GET['filterby']) );
+            $href .= '&filterby=' . $cat_id;
+        }
+
+        if (isset($_GET['filterbyAuthor']) && $_GET['filterbyAuthor'] != '') {
+            $ays_pb_author = esc_sql( sanitize_text_field($_GET['filterbyAuthor']) );
+            $href .= '&filterbyAuthor=' . $ays_pb_author;
+        }
+
+        if (isset($_GET['filterbyType']) && $_GET['filterbyType'] != '') {
+            $ays_pb_type = esc_sql( sanitize_text_field($_GET['filterbyType']) );
+            $href .= '&filterbyType=' . $ays_pb_type;
+        }
+
+        $status_links = array(
+            "all" => "<a " . $selected_all . " href='" . $href . "'>" . __('All', "ays-popup-box") . " (" . $all_count . ")</a>",
+            "published" => "<a " . $selected_on . " href='" . $href . "&fstatus=published'>" . __('Published', "ays-popup-box") . " (" . $published_count . ")</a>",
+            "unpublished" => "<a " . $selected_off . " href='" . $href . "&fstatus=unpublished'>" . __('Unpublished', "ays-popup-box") . " (" . $unpublished_count . ")</a>"
+        );
+
+        return $status_links;
+    }
+
+    public static function published_popup_count() {
+        global $wpdb;
+
+        $base_sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE onoffswitch='On'";
+        $sql = self::ays_pb_add_filters_to_sql($base_sql);
+
+        return $wpdb->get_var($sql);
+    }
+
+    public static function unpublished_popup_count() {
+        global $wpdb;
+
+        $base_sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE onoffswitch='Off'";
+        $sql = self::ays_pb_add_filters_to_sql($base_sql);
+
+        return $wpdb->get_var($sql);
+    }
+
+    public static function all_record_count() {
+        global $wpdb;
+
+        $base_sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE 1=1";
+        $sql = self::ays_pb_add_filters_to_sql($base_sql);
+
+        return $wpdb->get_var($sql);
+    }
+
+    protected static function ays_pb_add_filters_to_sql($base_sql) {
+        $sql = $base_sql;
+
+        if (isset($_GET['filterby']) && absint(sanitize_text_field($_GET['filterby'])) > 0) {
+            $cat_id = absint(sanitize_text_field($_GET['filterby']));
+            $sql .= ' AND category_id = ' . $cat_id;
+        }
+
+        if (isset($_GET['filterbyAuthor']) && $_GET['filterbyAuthor'] != '') {
+            $ays_pb_author = esc_sql(sanitize_text_field($_GET['filterbyAuthor']));
+            $sql .= ' AND JSON_EXTRACT(options, "$.create_author") = ' . $ays_pb_author;
+        }
+
+        if (isset($_GET['filterbyType']) && $_GET['filterbyType'] != '') {
+            $ays_pb_type = esc_sql(sanitize_text_field($_GET['filterbyType']));
+            $sql .= ' AND modal_content = "' . $ays_pb_type . '"';
+        }
+
+        return $sql;
+    }
+
     public function display_tablenav( $which ) {
         ?>
         <div class="tablenav <?php echo esc_attr( $which ); ?>">
@@ -92,11 +190,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         sort($categories_select);
 
-        $ays_pb_status = null;
-        if( isset( $_GET['filterbyStatus'] )){
-            $ays_pb_status = ( $_GET['filterbyStatus'] );
-        }
-
         $author_id = null;
         if( isset( $_GET['filterbyAuthor'] )){
             $author_id = absint( intval($_GET['filterbyAuthor']) );
@@ -129,11 +222,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
                     }
                 ?>
             </select>
-            <select name="filterbyStatus-<?php echo esc_attr( $which ); ?>" id="bulk-action-selector-<?php echo esc_attr( $which ); ?>">
-                <option value=""><?php echo __('Select Status',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_status == "On") echo "selected"; ?> value="On"><?php echo __('On',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_status == "Off") echo "selected"; ?> value="Off"><?php echo __('Off',"ays-popup-box")?></option>
-            </select>
             <select name="filterbyAuthor-<?php echo esc_attr( $which ); ?>" id="bulk-action-selector-<?php echo esc_attr( $which ); ?>">
                 <option value=""><?php echo __('Select Author',"ays-popup-box")?></option>
                 <?php
@@ -156,38 +244,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         <a style="" href="?page=<?php echo esc_attr( $_REQUEST['page'] ); ?>" class="button"><?php echo __( "Clear filters", "ays-popup-box" ); ?></a>
         <?php
     }
-
-
-     protected function get_views() {
-        $published_count = $this->published_popup_count();
-        $unpublished_count = $this->unpublished_popup_count();
-        $all_count = $this->all_record_count();
-        $selected_all = "";
-        $selected_off = "";
-        $selected_on = "";
-        if(isset($_GET['fstatus'])){
-            switch($_GET['fstatus']){
-                case "unpublished":
-                    $selected_off = " style='font-weight:bold;' ";
-                    break;
-                case "published":
-                    $selected_on = " style='font-weight:bold;' ";
-                    break;
-                default:
-                    $selected_all = " style='font-weight:bold;' ";
-                    break;
-            }
-        }else{
-            $selected_all = " style='font-weight:bold;' ";
-        }
-        $status_links = array(
-            "all" => "<a ".$selected_all." href='?page=".esc_attr( $_REQUEST['page'] )."'>". __( 'All', "ays-popup-box" )." (".$all_count.")</a>",
-            "published" => "<a ".$selected_on." href='?page=".esc_attr( $_REQUEST['page'] )."&fstatus=published'>". __( 'Published', "ays-popup-box" )." (".$published_count.")</a>",
-            "unpublished"   => "<a ".$selected_off." href='?page=".esc_attr( $_REQUEST['page'] )."&fstatus=unpublished'>". __( 'Unpublished', "ays-popup-box" )." (".$unpublished_count.")</a>"
-        );
-        return $status_links;
-    }
-
 
     /**
      * Retrieve customers data from the database
@@ -213,11 +269,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         if(! empty( $_REQUEST['filterby'] ) && absint( sanitize_text_field( $_REQUEST['filterby'] ) ) > 0){
             $cat_id = absint( sanitize_text_field( $_REQUEST['filterby'] ) );
             $where[] = ' category_id = '.$cat_id.'';
-        }
-
-        if(! empty( $_REQUEST['filterbyStatus'] )){
-            $ays_pb_status = esc_sql( sanitize_text_field( $_REQUEST['filterbyStatus'] ) );
-            $where[] = " onoffswitch = '$ays_pb_status'";
         }
 
         if(! empty( $_REQUEST['filterbyAuthor'] )){
@@ -282,45 +333,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $result = $wpdb->get_var($sql);
 
         return $result;
-    }
-
-    public static function published_popup_count() {
-        global $wpdb;
-
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE onoffswitch='On'";
-
-        if( isset( $_GET['filterby'] ) && absint( sanitize_text_field( $_GET['filterby'] ) ) > 0){
-            $cat_id = absint( sanitize_text_field( $_GET['filterby'] ) );
-            $sql .= ' AND category_id = '.$cat_id.' ';
-        }
-
-        return $wpdb->get_var( $sql );
-    }
-    
-    public static function unpublished_popup_count() {
-        global $wpdb;
-        
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE onoffswitch='Off'";
-
-        if( isset( $_GET['filterby'] ) && absint( sanitize_text_field( $_GET['filterby'] ) ) > 0){
-            $cat_id = absint( sanitize_text_field( $_GET['filterby'] ) );
-            $sql .= ' AND category_id = '.$cat_id.' ';
-        }
-
-        return $wpdb->get_var( $sql );
-    }
-
-    public static function all_record_count() {
-        global $wpdb;
-        $filter = array();
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}ays_pb WHERE 1=1";
-
-        if( isset( $_GET['filterby'] ) && absint( sanitize_text_field( $_GET['filterby'] ) ) > 0){
-            $cat_id = absint( sanitize_text_field( $_GET['filterby'] ) );
-            $sql .= ' AND category_id = '.$cat_id.' ';
-        }
-
-        return $wpdb->get_var( $sql );
     }
 
     public function publish_unpublish_popupbox( $id, $action ) {
@@ -1665,11 +1677,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         if( isset( $_GET['filterby'] ) && absint( sanitize_text_field( $_GET['filterby'] ) ) > 0){
             $cat_id = absint( sanitize_text_field( $_GET['filterby'] ) );
             $filter[] = ' category_id = '.$cat_id.' ';
-        }
-
-        if(! empty( $_REQUEST['filterbyStatus'] )){
-            $ays_pb_status = esc_sql( sanitize_text_field( $_REQUEST['filterbyStatus'] ) );
-            $filter[] = " onoffswitch = '$ays_pb_status'";
         }
 
         if(! empty( $_REQUEST['filterbyAuthor'] )){

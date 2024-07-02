@@ -117,6 +117,8 @@ class Importer extends AjaxBase {
 
 	/**
 	 * Backup our existing settings.
+	 *
+	 * @return void
 	 */
 	public function backup_settings() {
 		Helper::backup_settings();
@@ -124,6 +126,8 @@ class Importer extends AjaxBase {
 
 	/**
 	 * Reset posts in chunks.
+	 *
+	 * @return void
 	 *
 	 * @since 3.0.8
 	 */
@@ -136,7 +140,9 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		ST_Resetter::reset_posts();
+		if ( class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			ST_Resetter::reset_posts();
+		}
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
@@ -177,6 +183,8 @@ class Importer extends AjaxBase {
 	/**
 	 * Reset terms and forms.
 	 *
+	 * @return void
+	 *
 	 * @since 3.0.3
 	 */
 	public function reset_terms_and_forms() {
@@ -188,7 +196,9 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		ST_Resetter::reset_terms_and_forms();
+		if ( class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
+			ST_Resetter::reset_terms_and_forms();
+		}
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_success();
@@ -197,6 +207,8 @@ class Importer extends AjaxBase {
 
 	/**
 	 * Get post IDs to be deleted.
+	 *
+	 * @return void
 	 */
 	public function get_deleted_post_ids() {
 		if ( wp_doing_ajax() ) {
@@ -232,7 +244,7 @@ class Importer extends AjaxBase {
 		$index  = isset( $_POST['index'] ) ? sanitize_text_field( wp_unslash( $_POST['index'] ) ) : '';
 		$images = Ai_Builder_ZipWP_Integration::get_business_details( 'images' );
 
-		if ( empty( $images ) ) {
+		if ( empty( $images ) || ! is_array( $images ) ) {
 			wp_send_json_error(
 				array(
 					'data'   => 'Image not downloaded!',
@@ -243,7 +255,7 @@ class Importer extends AjaxBase {
 
 		$image = $images[ $index ];
 
-		if ( empty( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			wp_send_json_error(
 				array(
 					'data'   => 'Image not downloaded!',
@@ -259,16 +271,25 @@ class Importer extends AjaxBase {
 		);
 
 		Ai_Builder_Importer_Log::add( 'Downloading Image ' . $image['url'] );
-		$id = ST_Importer_Helper::download_image( $prepare_image );
-		Ai_Builder_Importer_Log::add( 'Downloaded Image attachment id: ' . $id );
 
-		wp_send_json_success(
+		if ( class_exists( 'STImporter\Importer\ST_Importer_Helper' ) ) {
+			$id = ST_Importer_Helper::download_image( $prepare_image );
+			Ai_Builder_Importer_Log::add( 'Downloaded Image attachment id: ' . $id );
+
+			wp_send_json_success(
+				array(
+					'data'   => 'Image downloaded successfully!',
+					'status' => true,
+				)
+			);
+		}
+
+		wp_send_json_error(
 			array(
-				'data'   => 'Image downloaded successfully!',
-				'status' => true,
+				'data'   => 'Required function not found!',
+				'status' => false,
 			)
 		);
-
 	}
 
 	/**
@@ -303,22 +324,25 @@ class Importer extends AjaxBase {
 		}
 
 		$settings = astra_get_site_data( 'astra-site-spectra-options' );
+		if ( class_exists( 'STImporter\Importer\ST_Importer' ) ) {
+			$result = ST_Importer::import_spectra_settings( $settings );
 
-		$result = ST_Importer::import_spectra_settings( $settings );
+			if ( false === $result['status'] ) {
+				if ( defined( 'WP_CLI' ) ) {
+					\WP_CLI::line( $result['error'] );
+				} elseif ( wp_doing_ajax() ) {
+					wp_send_json_error( $result['error'] );
+				}
+			}
 
-		if ( false === $result['status'] ) {
 			if ( defined( 'WP_CLI' ) ) {
-				\WP_CLI::line( $result['error'] );
+				\WP_CLI::line( 'Imported Spectra settings from ' . $url );
 			} elseif ( wp_doing_ajax() ) {
-				wp_send_json_error( $result['error'] );
+				wp_send_json_success( $url );
 			}
 		}
 
-		if ( defined( 'WP_CLI' ) ) {
-			\WP_CLI::line( 'Imported Spectra settings from ' . $url );
-		} elseif ( wp_doing_ajax() ) {
-			wp_send_json_success( $url );
-		}
+		wp_send_json_error( __( 'There was an error importing the Spectra settings.', 'ai-builder', 'astra-sites' ) );
 	}
 
 	/**
@@ -333,11 +357,13 @@ class Importer extends AjaxBase {
 			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
 		}
 
-		$id     = isset( $_POST['source_id'] ) ? base64_decode( sanitize_text_field( $_POST['source_id'] ) ) : ''; //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-		$result = ST_Importer::import_surecart_settings( $id );
+		$id = isset( $_POST['source_id'] ) ? base64_decode( sanitize_text_field( $_POST['source_id'] ) ) : ''; //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 
-		if ( ! is_wp_error( $result ) ) {
-			wp_send_json_success( 'success' );
+		if ( class_exists( 'STImporter\Importer\ST_Importer' ) ) {
+			$result = ST_Importer::import_surecart_settings( $id );
+			if ( ! is_wp_error( $result ) ) {
+				wp_send_json_success( 'success' );
+			}
 		}
 
 		wp_send_json_error( __( 'There was an error cloning the surecart store.', 'ai-builder', 'astra-sites' ) );
@@ -384,7 +410,10 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		$status = ST_Batch_Processing_Gutenberg::get_instance()->import();
+		$status = class_exists( 'STImporter\Importer\Batch\ST_Batch_Processing_Gutenberg' ) ? ST_Batch_Processing_Gutenberg::get_instance()->import() : array(
+			'status' => false,
+			'msg'    => __( 'Required function not found', 'ai-builder', 'astra-sites' ),
+		);
 
 		if ( wp_doing_ajax() ) {
 
@@ -413,7 +442,10 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		$status = ST_Batch_Processing_Misc::get_instance()->import();
+		$status = class_exists( 'STImporter\Importer\Batch\ST_Batch_Processing_Misc' ) ? ST_Batch_Processing_Misc::get_instance()->import() : array(
+			'status' => false,
+			'msg'    => __( 'Required function not found', 'ai-builder', 'astra-sites' ),
+		);
 
 		if ( wp_doing_ajax() ) {
 			if ( $status['success'] ) {
@@ -479,7 +511,7 @@ class Importer extends AjaxBase {
 				break;
 
 			case 'site-logo' === $param && function_exists( 'astra_get_option' ):
-					$logo_id     = isset( $_POST['logo'] ) ? sanitize_text_field( $_POST['logo'] ) : '';
+					$logo_id     = isset( $_POST['logo'] ) ? intval( $_POST['logo'] ) : 0;
 					$width_index = 'ast-header-responsive-logo-width';
 					set_theme_mod( 'custom_logo', $logo_id );
 
@@ -524,16 +556,18 @@ class Importer extends AjaxBase {
 
 				break;
 
-			case 'site-colors' === $param && function_exists( 'astra_get_option' ) && method_exists( 'Astra_Global_Palette', 'get_default_color_palette' ):
+			case 'site-colors' === $param && function_exists( 'astra_get_option' ):
 					$palette = isset( $_POST['palette'] ) ? (array) json_decode( stripslashes( $_POST['palette'] ) ) : array();
 					$colors  = isset( $palette['colors'] ) ? (array) $palette['colors'] : array();
 				if ( ! empty( $colors ) ) {
 					$global_palette = astra_get_option( 'global-color-palette' );
 					$color_palettes = get_option( 'astra-color-palettes', \Astra_Global_Palette::get_default_color_palette() );
 
-					foreach ( $colors as $key => $color ) {
-						$global_palette['palette'][ $key ]               = $color;
-						$color_palettes['palettes']['palette_1'][ $key ] = $color;
+					if ( is_array( $color_palettes ) ) {
+						foreach ( $colors as $key => $color ) {
+							$global_palette['palette'][ $key ]               = $color;
+							$color_palettes['palettes']['palette_1'][ $key ] = $color;
+						}
 					}
 
 					update_option( 'astra-color-palettes', $color_palettes );

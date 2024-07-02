@@ -6,11 +6,12 @@ Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
 WC requires at least: 7.0
-WC tested up to: 8.7
-Stable tag: 1.2.11
-License: GPLv2 or later
+WC tested up to: 9.0
+Stable tag: trunk
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Allow you to automatically send email to your customers to request reviews. Customers can include photos in their reviews.
+Let customers attach photos to reviews, enhanced with filterable grids and overall ratings. Auto-send review reminders and coupon emails
 
 == Description ==
 
@@ -364,8 +365,11 @@ Photo Reviews for WooCommerce is an ultimate review plugin for WooCommerce which
 2. Images and rating of comments for admin to moderate
 
 == Changelog ==
+/**1.2.12 - 2024.07.02**/
+– Updated: Compatible with WC 9.0
+
 /**1.2.11 - 2024.04.13**/
-– Updated: Compatible with WP 6.5 and  WC 8.7
+– Updated: Compatible with WP 6.5 and WC 8.7
 – Updated: Update support class
 
 /**1.2.10 - 2023.01.06**/

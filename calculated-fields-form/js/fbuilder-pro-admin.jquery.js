@@ -781,7 +781,7 @@
 						title = '{ Form Title and Description Here }';
 					}
 
-					return cff_sanitize('<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+title+'</'+this.titletag+'><span style="display:block;'+css+'">'+description+'</span></div>');
+					return '<div class="fform '+empty_class+'" id="field"><div class="arrow ui-icon ui-icon-play "></div><'+this.titletag+' style="'+css+'">'+cff_sanitize(title)+'</'+this.titletag+'><span style="display:block;'+css+'">'+cff_sanitize(description)+'</span></div>';
 				},
 
 				showAllSettings:function()

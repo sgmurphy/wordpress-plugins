@@ -32,28 +32,5 @@ class ApiInit {
 	 * @since 0.0.1
 	 */
 	public function __construct() {
-
-		// REST API extensions init.
-		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
-	}
-
-	/**
-	 * Register API routes.
-	 *
-	 * @since 0.0.1
-	 * @return void
-	 */
-	public function register_routes() {
-
-		$controllers = array(
-			// '\Ai_Builder\Inc\Api\Category',
-		);
-
-		foreach ( $controllers as $controller ) {
-
-			$this->controller = $controller::instance();
-
-			$this->controller->register_routes();
-		}
 	}
 }

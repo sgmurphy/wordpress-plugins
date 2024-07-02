@@ -46,10 +46,9 @@ class Auto_Blocking_Script_Appender {
 			?>
 			<script type="text/javascript" class="_iub_cs_skip">
 				var _iub = _iub || {};
-				_iub.csConfiguration = {
-					"siteId": "<?php echo esc_attr( $this->code_extractor->get_site_id() ); ?>",
-					"cookiePolicyId": "<?php echo esc_attr( $this->code_extractor->get_cookie_policy_id() ); ?>",
-				};
+				_iub.csConfiguration = _iub.csConfiguration || {};
+				_iub.csConfiguration.siteId = "<?php echo esc_attr( $this->code_extractor->get_site_id() ); ?>";
+				_iub.csConfiguration.cookiePolicyId = "<?php echo esc_attr( $this->code_extractor->get_cookie_policy_id() ); ?>";
 			</script>
 			<script class="_iub_cs_skip" src="<?php echo esc_url( $this->url() ); ?>"></script>
 			<?php

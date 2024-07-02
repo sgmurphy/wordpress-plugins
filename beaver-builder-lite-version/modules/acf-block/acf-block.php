@@ -140,6 +140,7 @@ class FLACFBlockModule extends FLBuilderModule {
 	 * @return string
 	 */
 	static public function get_block_data( $id, $settings ) {
+		$id = ! $id ? '' : $id;
 		$id = acf_ensure_block_id_prefix( $id );
 
 		$context = array(

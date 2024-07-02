@@ -11,6 +11,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.premium-post-ticker__posts-wrapper.slick-slider[dir="rtl"] .slick-slide {
+  float: right;
+}
+
 .slick-list {
   position: relative;
   overflow: hidden;

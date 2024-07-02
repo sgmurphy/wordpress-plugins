@@ -85,6 +85,11 @@ cff_forms_templates = {
             "description": "Adds X days to a date by excluding specific days of the week.",
             "id": 17
         }, {
+            "title": "Time to Retirement",
+            "category": "Dates Operations",
+            "description": "Calculates time to retirement based on age of bird and retirement age.",
+            "id": 41
+        }, {
             "title": "Ideal Weight Calculator",
             "category": "Health",
             "description": "Uses a simple formula but with a conditional rule (if male or female).",

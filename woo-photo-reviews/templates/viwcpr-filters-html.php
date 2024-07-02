@@ -31,12 +31,13 @@ $rating_wrap_class = array('wcpr-filter-button-wrap wcpr-filter-button wcpr-acti
 		<span class="wcpr-filter-rating-placeholder">
             <?php
             if ( $query_rating > 0 && $query_rating < 6 ) {
-	            echo sprintf( _n( '%s star', '%s stars', $query_rating, 'woo-photo-reviews' ), $query_rating );
+	            /* translators: %s: number star rating */
+	            echo esc_html( sprintf( _n( '%s star', '%s stars', $query_rating, 'woo-photo-reviews' ), esc_html( $query_rating ) ) );
 	            echo sprintf( '(<span class="wcpr-filter-button-count">%s</span>)',
-		            $star_counts[$query_rating] ??  VI_WOO_PHOTO_REVIEWS_Frontend_Frontend::stars_count( $query_rating, $product_id ) );
+		            $star_counts[$query_rating] ??  VI_WOO_PHOTO_REVIEWS_Frontend_Frontend::stars_count( $query_rating, $product_id ) );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             } else {
 	            esc_html_e( 'All stars', 'woo-photo-reviews' );
-	            echo sprintf( '(<span class="wcpr-filter-button-count">%s</span>)',  $count_reviews );
+	            echo sprintf( '(<span class="wcpr-filter-button-count">%s</span>)',  $count_reviews );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             }
             ?>
 		</span>
@@ -51,7 +52,7 @@ $rating_wrap_class = array('wcpr-filter-button-wrap wcpr-filter-button wcpr-acti
                    href="<?php echo esc_url( $all_stars_url ) ?>">
 					<?php
 					esc_html_e( 'All stars', 'woo-photo-reviews' );
-					printf( '(<span class="wcpr-filter-button-count">%s</span>)',  $count_reviews );
+					printf( '(<span class="wcpr-filter-button-count">%s</span>)',  $count_reviews );// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
                 </a>
 				<?php
@@ -60,11 +61,12 @@ $rating_wrap_class = array('wcpr-filter-button-wrap wcpr-filter-button wcpr-acti
 				    $new_star_class[]=( $query_rating && $query_rating == $i ) ?'wcpr-active' : '';
 					$filter_rating_url = $query_rating ?   $product_link :$product_link1;
 					printf( '<li class="wcpr-filter-button-li"><a data-filter_type="%s" class="%s" rel="nofollow" href="%s">%s(<span class="wcpr-filter-button-count">%s</span>)</a></li>',
-						 $i, esc_attr( trim(  implode(' ',$new_star_class) ) ),
-						( ( ( $query_rating && $query_rating == $i ) ? esc_url( remove_query_arg( array( 'rating', 'offset', 'cpage' ), $filter_rating_url ) ) :
+                        esc_attr( $i ), esc_attr( trim(  implode(' ',$new_star_class) ) ),
+						esc_url( ( ( $query_rating && $query_rating == $i ) ? esc_url( remove_query_arg( array( 'rating', 'offset', 'cpage' ), $filter_rating_url ) ) :
                                 add_query_arg( array( 'rating' => $i ), remove_query_arg( array( 'page', 'offset', 'cpage' ), $filter_rating_url ) ) )  . $anchor_link ),
-						sprintf( _n( '%s star', '%s stars', $i, 'woo-photo-reviews' ), $i ),
-						$star_counts[$i] ?? VI_WOO_PHOTO_REVIEWS_Frontend_Frontend::stars_count( $i, $product_id )
+						/* translators: %s: number star rating */
+						esc_html( sprintf( _n( '%s star', '%s stars', $i, 'woo-photo-reviews' ), esc_html( $i ) ) ),
+						$star_counts[$i] ?? VI_WOO_PHOTO_REVIEWS_Frontend_Frontend::stars_count( $i, $product_id )// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					);
 				}
 				?>

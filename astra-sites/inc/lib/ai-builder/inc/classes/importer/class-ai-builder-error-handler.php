@@ -10,6 +10,8 @@ namespace AiBuilder\Inc\Classes\Importer;
 
 use AiBuilder\Inc\Traits\Instance;
 use AiBuilder\Inc\Classes\Ai_Builder_Importer_Log;
+use Throwable;
+use Exception;
 
 define( 'ST_ERROR_FATALS', E_ERROR | E_PARSE | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );
 
@@ -46,6 +48,8 @@ class Ai_Builder_Error_Handler {
 
 	/**
 	 * Start the error handling.
+	 *
+	 * @return void
 	 */
 	public function start_error_handler() {
 		if ( ! interface_exists( 'Throwable' ) ) {
@@ -59,6 +63,8 @@ class Ai_Builder_Error_Handler {
 
 	/**
 	 * Stop and restore the error handlers.
+	 *
+	 * @return void
 	 */
 	public function stop_error_handler() {
 		// Restore the error handlers.
@@ -74,6 +80,8 @@ class Ai_Builder_Error_Handler {
 	 *
 	 * @throws Exception Exception that is catched.
 	 * @param Throwable|Exception $e The error or exception.
+	 *
+	 * @return void
 	 */
 	public function exception_handler( $e ) {
 		if ( is_a( $e, 'Exception' ) ) {
@@ -81,7 +89,6 @@ class Ai_Builder_Error_Handler {
 		} else {
 			$error = 'Uncaught Error';
 		}
-
 		Ai_Builder_Importer_Log::add( 'There was an error on website: ' . $error );
 		Ai_Builder_Importer_Log::add( $e );
 
@@ -108,6 +115,8 @@ class Ai_Builder_Error_Handler {
 
 	/**
 	 * Displays fatal error output for sites running PHP < 7.
+	 *
+	 * @return void
 	 */
 	public function shutdown_handler() {
 		$e = error_get_last();
@@ -123,7 +132,7 @@ class Ai_Builder_Error_Handler {
 		}
 
 		Ai_Builder_Importer_Log::add( 'There was an error on website: ' . $error );
-		Ai_Builder_Importer_Log::add( $e );
+		Ai_Builder_Importer_Log::add( $e['message'] );
 
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(

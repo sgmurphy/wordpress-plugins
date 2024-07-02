@@ -25,7 +25,7 @@ class AjaxErrors {
 	 * Errors
 	 *
 	 * @access private
-	 * @var array Errors strings.
+	 * @var array<string, string> Errors strings.
 	 * @since 1.0.0
 	 */
 	private static $errors = array();

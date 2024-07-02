@@ -106,9 +106,15 @@ const attributes = {
     // cant delete it as we migrate it to imageNewUrl attribute
     imageUrl: {
         source: "attribute",
+        selector: ".avatar",
+        attribute: "src",
+        // default: EssentialBlocksLocalize?.eb_plugins_url + "assets/images/user.jpg",
+    },
+    imageNewClassUrl: {
+        source: "attribute",
         selector: ".eb-team-member-avatar",
         attribute: "src",
-        default: EssentialBlocksLocalize?.eb_plugins_url + "assets/images/user.jpg",
+        // default: EssentialBlocksLocalize?.eb_plugins_url + "assets/images/user.jpg",
     },
     imageNewUrl: {
         type: "string",

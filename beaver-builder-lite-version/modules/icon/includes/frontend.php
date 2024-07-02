@@ -27,7 +27,7 @@ if ( ! empty( $settings->link ) ) {
 			<a href="<?php echo esc_url( do_shortcode( $settings->link ) ); ?>" target="<?php echo esc_attr( $settings->link_target ); ?>"<?php echo $module->get_rel(); ?>>
 			<?php endif; ?>
 		<?php endif; ?>
-		<i class="<?php echo $settings->icon; ?>" aria-hidden="true"></i>
+		<i class="<?php echo esc_attr( $settings->icon ); ?>" aria-hidden="true"></i>
 		<?php if ( isset( $settings->sr_text ) && '' !== $settings->sr_text ) : ?>
 		<span class="sr-only"><?php echo $settings->sr_text; ?></span>
 		<?php endif; ?>

@@ -1,3 +1,36 @@
+<h4>2.8.3.1 - 07/01/2024</h4>
+<p><strong>Hotfix</strong></p>
+<ul>
+	<li>Remove fix that addresses conflict with Yoast SEO when an image has shortcode in alt text as it was creating issues with shortcodes rendering when using Yoast SEO (#3486)</li>
+	<li>Fix fatal error when using notequals to check for a custom field value</li>
+</ul>
+
+<h4>2.8.3 - 06/27/2024</h4>
+
+<strong>Enhancements</strong>
+<ul>
+	<li>Add class for columns with background images (#1658)</li>
+	<li>Debug: Add history counts (#3323)</li>
+	<li>Clear cache when you import BB settings (#3441)</li>
+</ul>
+
+<strong>Bug Fixes</strong>
+<ul>
+	<li>Security: Update libraries for MailJet and MailerLite integrations (#3426)</li>
+	<li>Security: Use sanitize_html_class for icon classes where necessary in Icon, Button, Post, Accordion and Pricing Table modules (#3462)</li>
+	<li>Fix container modules not being read by Relevanssi (#3460)</li>
+	<li>Fix not being able to drag into the Box module when it has no padding (#3435)</li>
+	<li>Fix conflict with Yoast SEO when an image has shortcode in alt text (#3468)</li>
+	<li>Countdown Module: Fix styling of field connection window (#3439)</li>
+	<li>Fix issue with ACF Blocks integration where shortcodes in Post Module were returning no data (#3431)</li>
+	<li>Fix fatal error with ACF Color field set tor return RGBA Array (#3389)</li>
+	<li>Fix integration with ClassicPress 2 (#3405)</li>
+	<li>Outline Panel: Fix dragging into box modules in global rows (#3411)</li>
+	<li>Fix validation errors in CSS (#3194)</li>
+	<li>Fix PHP warning with jsmin when using PHP 7.0 (#3182)</li>
+	<li>Slideshow: Fix boxes transition showing blank/empty image on mobile (#185)</li>
+</ul>
+
 <h4>2.8.2.2 - 06/6/2024</h4>
 <p><strong>Hotfix</strong></p>
 <ul>

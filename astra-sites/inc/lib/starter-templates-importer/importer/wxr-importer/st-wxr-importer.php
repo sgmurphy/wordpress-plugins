@@ -28,7 +28,7 @@ class ST_WXR_Importer {
 	 * @since 1.0.0
 	 * @var object Class object.
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * Initiator of this class.
@@ -37,7 +37,7 @@ class ST_WXR_Importer {
 	 * @return self initialized object of this class.
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -749,7 +749,7 @@ class ST_WXR_Importer {
 
 			'mimes'       => array(
 				'xml'  => 'text/xml',
-				'json' => 'text/plain',
+				'json' => 'application/json',
 			),
 		);
 

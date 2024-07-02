@@ -26,7 +26,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Misc' ) ) :
 		 * @access private
 		 * @var object Class object.
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
@@ -36,7 +36,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Misc' ) ) :
 		 */
 		public static function get_instance() {
 
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;

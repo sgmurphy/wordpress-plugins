@@ -21,7 +21,7 @@ class Ai_Builder_Importer_Log {
 	 * Log File
 	 *
 	 * @since 1.1.0
-	 * @var (Object) Class object
+	 * @var string log_file
 	 */
 	private static $log_file = null;
 
@@ -43,13 +43,17 @@ class Ai_Builder_Importer_Log {
 	 * Check file read/write permissions and process.
 	 *
 	 * @since 1.1.0
-	 * @return null
+	 * @return void
 	 */
 	public function has_file_read_write() {
 
 		$upload_dir = self::log_dir();
 
-		$file_created = self::get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
+		$file_created = false;
+		if ( method_exists( self::get_filesystem(), 'put_contents' ) ) {
+			$file_created = self::get_filesystem()->put_contents( $upload_dir['path'] . 'index.html', '' );
+		}
+
 		if ( ! $file_created ) {
 			add_action( 'admin_notices', array( $this, 'file_permission_notice' ) );
 			return;
@@ -92,13 +96,15 @@ class Ai_Builder_Importer_Log {
 	 * Add log file URL in UI response.
 	 *
 	 * @since 1.1.0
+	 *
+	 * @return array<string, mixed>
 	 */
 	public static function add_log_file_url() {
 
 		$upload_dir   = self::log_dir();
 		$upload_path  = trailingslashit( $upload_dir['url'] );
 		$file_abs_url = get_option( 'ai_builder_recent_import_log_file', self::$log_file );
-		$file_url     = $upload_path . basename( $file_abs_url );
+		$file_url     = $upload_path . basename( (string) $file_abs_url ); // @phpstan-ignore-line
 
 		return array(
 			'abs_url' => $file_abs_url,
@@ -120,8 +126,8 @@ class Ai_Builder_Importer_Log {
 	 * Import Start
 	 *
 	 * @since 1.1.0
-	 * @param  array  $data         Import Data.
-	 * @param  string $demo_api_uri Import site API URL.
+	 * @param  array<string, string> $data         Import Data.
+	 * @param  string                $demo_api_uri Import site API URL.
 	 * @return void
 	 */
 	public function start( $data = array(), $demo_api_uri = '' ) {
@@ -167,7 +173,7 @@ class Ai_Builder_Importer_Log {
 	 *
 	 * @since 1.1.0
 	 * @param  string $dir_name Directory Name.
-	 * @return array    Uploads directory array.
+	 * @return array<string, string>    Uploads directory array.
 	 */
 	public static function log_dir( $dir_name = 'ai-builder' ) {
 
@@ -185,11 +191,13 @@ class Ai_Builder_Importer_Log {
 			// Create the directory.
 			wp_mkdir_p( $dir_info['path'] );
 
-			// Add an index file for security.
-			self::get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
+			if ( method_exists( self::get_filesystem(), 'put_contents' ) ) {
+				// Add an index file for security.
+				self::get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
 
-			// Add an .htaccess for security.
-			self::get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+				// Add an .htaccess for security.
+				self::get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+			}
 		}
 
 		return $dir_info;
@@ -214,6 +222,8 @@ class Ai_Builder_Importer_Log {
 	/**
 	 * Set log file
 	 *
+	 * @return void
+	 *
 	 * @since 1.1.0
 	 */
 	public static function set_log_file() {
@@ -235,6 +245,8 @@ class Ai_Builder_Importer_Log {
 	 *
 	 * @since 1.1.0
 	 * @param string $content content to be saved to the file.
+	 *
+	 * @return void
 	 */
 	public static function add( $content ) {
 
@@ -249,14 +261,17 @@ class Ai_Builder_Importer_Log {
 		}
 
 		$existing_data = '';
-		if ( file_exists( $log_file ) ) {
+		if ( file_exists( (string) $log_file ) && method_exists( self::get_filesystem(), 'get_contents' ) ) { // @phpstan-ignore-line
 			$existing_data = self::get_filesystem()->get_contents( $log_file );
 		}
 
 		// Style separator.
 		$separator = PHP_EOL;
 
-		self::get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
+		if ( method_exists( self::get_filesystem(), 'put_contents' ) ) {
+			self::get_filesystem()->put_contents( $log_file, $existing_data . $separator . $content, FS_CHMOD_FILE );
+		}
+
 	}
 
 	/**
@@ -309,10 +324,10 @@ class Ai_Builder_Importer_Log {
 		$timezone = get_option( 'timezone_string' );
 
 		if ( ! $timezone ) {
-			return get_option( 'gmt_offset' );
+			$timezone = get_option( 'gmt_offset' );
 		}
 
-		return $timezone;
+		return (string) $timezone; // @phpstan-ignore-line
 	}
 
 	/**
@@ -378,7 +393,7 @@ class Ai_Builder_Importer_Log {
 	 * PHP Max Input Vars
 	 *
 	 * @since 1.1.0
-	 * @return string Current PHP Max Input Vars
+	 * @return string|false Current PHP Max Input Vars
 	 */
 	public static function get_php_max_input_vars() {
 		return ini_get( 'max_input_vars' ); // phpcs:disable PHPCompatibility.IniDirectives.NewIniDirectives.max_input_varsFound
@@ -388,7 +403,7 @@ class Ai_Builder_Importer_Log {
 	 * PHP Max Post Size
 	 *
 	 * @since 1.1.0
-	 * @return string Current PHP Max Post Size
+	 * @return string|false Current PHP Max Post Size
 	 */
 	public static function get_php_max_post_size() {
 		return ini_get( 'post_max_size' );
@@ -466,12 +481,15 @@ class Ai_Builder_Importer_Log {
 		$list_files   = list_files( $upload_dir['path'] );
 		$backup_files = array();
 		$log_files    = array();
-		foreach ( $list_files as $key => $file ) {
-			if ( strpos( $file, '.json' ) ) {
-				$backup_files[] = $file;
-			}
-			if ( strpos( $file, '.txt' ) ) {
-				$log_files[] = $file;
+
+		if ( is_array( $list_files ) ) {
+			foreach ( $list_files as $key => $file ) {
+				if ( strpos( $file, '.json' ) ) {
+					$backup_files[] = $file;
+				}
+				if ( strpos( $file, '.txt' ) ) {
+					$log_files[] = $file;
+				}
 			}
 		}
 		?>

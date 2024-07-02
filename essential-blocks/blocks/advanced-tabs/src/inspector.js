@@ -14,6 +14,7 @@ import {
     ButtonGroup,
     TabPanel,
     TextControl,
+    PanelRow
 } from "@wordpress/components";
 
 /**
@@ -74,7 +75,7 @@ import {
     typoPrefixTabTitle,
 } from "./constants/typographyPrefixConstants";
 
-import { HEADING } from "./constants";
+import { HEADING, VERTICALTOHORIZONTAL } from "./constants";
 
 function Inspector(props) {
     const { attributes, setAttributes, clientId, handleTabTitleClick } = props;
@@ -101,6 +102,9 @@ function Inspector(props) {
         showCaret,
         caretColor,
         isFillTitle,
+        isMinHeightAsTitle,
+        enableResponsiveLayout,
+        verticalToHorizontal,
         tagName,
         closeAllTabs
     } = attributes;
@@ -148,18 +152,27 @@ function Inspector(props) {
             setAttributes({ tabTitles: newFeatureList });
         };
 
+        const handleDefaultActive = (id) => {
+            const newTabTitles = tabTitles.map((item) => {
+                if (item.id === id) {
+                    item.isDefault = !item.isDefault;
+                } else {
+                    item.isDefault = false;
+                }
+                return item;
+            });
+
+            setAttributes({ tabTitles: newTabTitles });
+        };
+
         return attributes.tabTitles.map((each, i) => (
             <div key={i}>
                 <ToggleControl
                     label={__("Active Initially", "essential-blocks")}
                     checked={each.isDefault || false}
-                    onChange={(value) =>
-                        onTabChange(
-                            "isDefault",
-                            value.toString(),
-                            i
-                        )
-                    }
+                    onChange={() => {
+                        handleDefaultActive(each.id);
+                    }}
                 />
 
                 <ButtonGroup>
@@ -409,6 +422,70 @@ function Inspector(props) {
                                                         })
                                                     }
                                                 />
+                                            </>
+                                        )}
+
+                                        {layout === "vertical" && (
+                                            <>
+                                                <ToggleControl
+                                                    label={__(
+                                                        "Enable Responsive Layout",
+                                                        "essential-blocks"
+                                                    )}
+                                                    checked={enableResponsiveLayout}
+                                                    onChange={() =>
+                                                        setAttributes({
+                                                            enableResponsiveLayout: !enableResponsiveLayout,
+                                                        })
+                                                    }
+                                                />
+                                                <PanelRow className="eb-instruction"><strong>Note:</strong> Enable this option to switch the layout from vertical to horizontal on responsive devices.</PanelRow>
+                                                {enableResponsiveLayout && (
+                                                    <BaseControl
+                                                        label={__(
+                                                            "Select Devices for Horizontal Layout",
+                                                            "essential-blocks"
+                                                        )}
+                                                        id="eb-advance-heading-alignment"
+                                                    >
+                                                        <ButtonGroup className="eb-advance-heading-alignment eb-verticaltohorizontal-buttongroup">
+                                                            {VERTICALTOHORIZONTAL.map((item, key) => (
+                                                                <Button
+                                                                    key={key}
+                                                                    isPrimary={
+                                                                        verticalToHorizontal ===
+                                                                        item.value
+                                                                    }
+                                                                    isSecondary={
+                                                                        verticalToHorizontal !==
+                                                                        item.value
+                                                                    }
+                                                                    onClick={() =>
+                                                                        setAttributes({
+                                                                            verticalToHorizontal:
+                                                                                item.value,
+                                                                        })
+                                                                    }
+                                                                >
+                                                                    {item.label}
+                                                                </Button>
+                                                            ))}
+                                                        </ButtonGroup>
+                                                    </BaseControl>
+                                                )}
+                                                <ToggleControl
+                                                    label={__(
+                                                        "Minimum Height Based on Tabs Heading Panel",
+                                                        "essential-blocks"
+                                                    )}
+                                                    checked={isMinHeightAsTitle}
+                                                    onChange={() =>
+                                                        setAttributes({
+                                                            isMinHeightAsTitle: !isMinHeightAsTitle,
+                                                        })
+                                                    }
+                                                />
+                                                <PanelRow className="eb-instruction"><strong>Note:</strong> When enabled, the tab content will have a minimum height equal to the height of the heading panel.</PanelRow>
                                             </>
                                         )}
 

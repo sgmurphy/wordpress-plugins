@@ -7,7 +7,6 @@ use Kubio\AssetsDependencyInjector;
 use Kubio\Core\Blocks\BlockBase;
 use Kubio\Core\LodashBasic;
 use Kubio\Core\Registry;
-use Kubio\Core\Utils;
 
 class HeadingBlock extends BlockBase {
 
@@ -131,7 +130,7 @@ class HeadingBlock extends BlockBase {
 		?>
 		<span data-kubio-component="fancy-title"
 			  data-animation-duration="<?php echo esc_attr( $duration ); ?>"
-			  data-type-animation=<?php echo esc_attr( $animation ); ?>
+			  data-type-animation="<?php echo esc_attr( $animation ); ?>"
 		>
 		<span class='ah-headline <?php echo  esc_attr( $animation ); ?>'>
 				<span style="position: relative" class="ah-words-wrapper">

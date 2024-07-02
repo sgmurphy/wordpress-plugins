@@ -26,7 +26,7 @@ if ( ! class_exists( 'Ai_Builder_Compatibility_SureCart' ) ) :
 		 * @var object Class object.
 		 * @since 3.3.0
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
@@ -35,7 +35,7 @@ if ( ! class_exists( 'Ai_Builder_Compatibility_SureCart' ) ) :
 		 * @return object initialized object of class.
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;
@@ -74,12 +74,16 @@ if ( ! class_exists( 'Ai_Builder_Compatibility_SureCart' ) ) :
 			}
 			// Retrieve all pages.
 			$pages = get_pages();
-			foreach ( $pages as $page ) {
-				// Get the page ID.
-				$page_id      = $page->ID;
-				$page_content = $page->post_content;
-				$this->check_page_types_and_update_options( $page_id, $page_content );
+
+			if ( is_array( $pages ) ) {
+				foreach ( $pages as $page ) {
+					// Get the page ID.
+					$page_id      = (string) $page->ID;
+					$page_content = $page->post_content;
+					$this->check_page_types_and_update_options( $page_id, $page_content );
+				}
 			}
+
 		}
 
 		/**

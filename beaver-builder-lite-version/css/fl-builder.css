@@ -2410,6 +2410,7 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 .fl-module > .fl-builder-drop-zone,
 .fl-module-content > .fl-builder-drop-zone {
 	flex-grow: 0 !important;
+	align-self: stretch !important;
 }
 
 /* General Node Highlights */
@@ -2900,6 +2901,12 @@ button.fl-builder-button.fl-builder-bar-title-caret:focus {
 	margin-left: 4px;
 	padding: 2px 4px;
 	vertical-align: top;
+}
+.fl-block-overlay-global .fl-block-overlay-actions > *:hover {
+	background-color: var(--fl-builder-global-accent-color-hover);
+}
+.fl-block-overlay-global .fl-builder-has-submenu > ul.fl-builder-submenu li a:hover {
+	background-color: var(--fl-builder-global-accent-color-hover);
 }
 
 /* Global Row Overlays */
@@ -3866,6 +3873,11 @@ body .fl-builder-settings-tabs > .fl-builder-settings-tabs-more {
 	display:none;
 	margin-left:auto;
 	justify-content: center;
+}
+body .fl-builder-settings-tabs > .fl-builder-settings-tabs-more:hover {
+	background: var(--fl-builder-platter-bg-color);
+	filter: brightness(97%);
+	border: none;
 }
 .fl-builder-settings-tabs-more svg {
 	width:16px;

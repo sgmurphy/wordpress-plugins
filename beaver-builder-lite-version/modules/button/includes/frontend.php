@@ -16,7 +16,7 @@ if ( isset( $settings->id ) && ! empty( $settings->id ) ) {
 		<?php
 		if ( ! empty( $settings->icon ) && ( 'before' == $settings->icon_position || ! isset( $settings->icon_position ) ) ) :
 			?>
-		<i class="fl-button-icon fl-button-icon-before <?php echo $settings->icon; ?>" aria-hidden="true"></i>
+		<i class="fl-button-icon fl-button-icon-before <?php echo esc_attr( $settings->icon ); ?>" aria-hidden="true"></i>
 		<?php endif; ?>
 		<?php if ( ! empty( $settings->text ) ) : ?>
 		<span class="fl-button-text"><?php echo $settings->text; ?></span>
@@ -24,7 +24,7 @@ if ( isset( $settings->id ) && ! empty( $settings->id ) ) {
 		<?php
 		if ( ! empty( $settings->icon ) && 'after' == $settings->icon_position ) :
 			?>
-		<i class="fl-button-icon fl-button-icon-after <?php echo $settings->icon; ?>" aria-hidden="true"></i>
+		<i class="fl-button-icon fl-button-icon-after <?php echo esc_attr( $settings->icon ); ?>" aria-hidden="true"></i>
 		<?php endif; ?>
 	</a>
 </div>

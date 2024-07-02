@@ -380,7 +380,6 @@
             }
 
             var catFilter = $(document).find('select[name="filterby-'+ top_or_bottom +'"]').val();
-            var statusFilter = $(document).find('select[name="filterbyStatus-'+ top_or_bottom +'"]').val();
             var authorFilter = $(document).find('select[name="filterbyAuthor-'+ top_or_bottom +'"]').val();
             var typeFilter = $(document).find('select[name="filterbyType-'+ top_or_bottom +'"]').val();
             var link = location.href;
@@ -389,12 +388,6 @@
                 link = catFilterForListTable(link, {
                     what: 'filterby',
                     value: catFilter
-                });
-            }
-            if (typeof statusFilter != 'undefined') {
-                link = catFilterForListTable(link, {
-                    what: 'filterbyStatus',
-                    value: statusFilter
                 });
             }
             if (typeof authorFilter != 'undefined') {

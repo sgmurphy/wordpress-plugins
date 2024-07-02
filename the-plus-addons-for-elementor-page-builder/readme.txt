@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, elementor addons, elementor templates, widge
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.6.1
+Stable tag: 5.6.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -383,9 +383,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 5.6.2 =
+Fix : Countdown : Security Patch ( Low security )
+Fix : Minor Bug Fixes & performance Improvements
+
 = 5.6.1 =
 Fix : Video : Security Patch ( Low security )
-Fix : Minor Bug Fixes & Performance Improvements
+Fix : Minor Bug Fixes & performance Improvements
 
 = 5.6.0 =
 Add : New Widget : Table

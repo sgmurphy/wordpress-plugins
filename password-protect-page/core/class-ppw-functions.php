@@ -161,6 +161,19 @@ function ppw_core_get_setting_type_string( $name_settings ) {
 }
 
 /**
+ * Get setting type is string for sitewide
+ *
+ * @param string $name_settings The setting name for sitewide.
+ *
+ * @return string
+ */
+function ppw_core_get_setting_type_string_sitewide( $name_settings ) {
+	$setting = ppw_core_get_settings_entire_site( $name_settings );
+
+	return is_string( $setting ) ? $setting : '';
+}
+
+/**
  * Get setting type is array
  *
  * @param $name_settings
@@ -214,9 +227,18 @@ function ppw_core_get_query_param() {
 	$_server     = wp_unslash( $_SERVER );
 	$current_url = esc_url_raw( ( isset( $_server['HTTPS'] ) && 'on' === $_server['HTTPS'] ? 'https' : 'http' ) . "://$_server[HTTP_HOST]$_server[REQUEST_URI]" );
 	$query_str   = parse_url( $current_url, PHP_URL_QUERY );
-	parse_str( $query_str, $query_params );
-
-	return $query_params;
+	//parse_str( $query_str, $query_params );
+	//return $query_params;
+	if(isset($query_str) && !empty($query_str)){
+		parse_str( $query_str, $query_params );
+		if(!empty($query_params)) {
+			return $query_params;
+		} else {
+			return array();
+		}
+	} else {
+		return array();
+	}
 }
 
 /**
@@ -249,14 +271,14 @@ function ppw_core_render_login_form() {
 	 * I18N
 	 *
 	 */
-	$submit_label        = _x( $submit_label, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
-	$password_label      = _x( $password_label, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
-	$place_holder        = _x( $place_holder, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
-	$headline_text       = _x( $headline_text, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
-	$form_message        = _x( $form_message, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
-	$wrong_password_text = _x( $wrong_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
+	$submit_label        = _x( $submit_label, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
+	$password_label      = _x( $password_label, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
+	$place_holder        = _x( $place_holder, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
+	$headline_text       = _x( $headline_text, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
+	$form_message        = _x( $form_message, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
+	$wrong_password_text = _x( $wrong_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
 	// phpcs:enable
-	$show_password_text = _x( $show_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' ); 
+	$show_password_text = _x( $show_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN ); 
 
 	/**
 	 * Fire hooks that can customize the from text.
@@ -282,7 +304,7 @@ function ppw_core_render_login_form() {
 	$show_password_text  = $customized_elements['show_password_label'];
 
 	// We need to wrap the div for input to prevent the <p> tag generated when view HTML source.
-	$show_password      = get_theme_mod( 'ppwp_form_instructions_is_show_password', PPW_Constants::DEFAULT_IS_SHOW_PASSWORD ) ? '<div class="ppw-ppf-show-pwd-btn" ><input id="ppw_' . $post_id . '" onclick="ppwShowPassword(' . $post_id . ')" type="checkbox"/><label for="ppw_' . $post_id . '">' . _x( $show_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' ) . '</label></div>' : '';
+	$show_password      = get_theme_mod( 'ppwp_form_instructions_is_show_password', PPW_Constants::DEFAULT_IS_SHOW_PASSWORD ) ? '<div class="ppw-ppf-show-pwd-btn" ><input id="ppw_' . $post_id . '" onclick="ppwShowPassword(' . $post_id . ')" type="checkbox"/><label for="ppw_' . $post_id . '">' . _x( $show_password_text, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN ) . '</label></div>' : '';
 	/**
 	 * Generate Password Form.
 	 */
@@ -682,7 +704,7 @@ function ppw_core_get_position_hide_post( $post_type ) {
 		$options = array(
 			array(
 				'value' => PPW_Constants::XML_YOAST_SEO_SITEMAPS,
-				'label' => esc_html__( 'XML sitemaps', 'password-protect-page' ),
+				'label' => esc_html__( 'XML sitemaps', PPW_Constants::DOMAIN ),
 			),
 		);
 	}
@@ -692,15 +714,15 @@ function ppw_core_get_position_hide_post( $post_type ) {
 			$page_options = array(
 				array(
 					'value' => PPW_Constants::FRONT_PAGE,
-					'label' => esc_html__( 'Front page', 'password-protect-page' ),
+					'label' => esc_html__( 'Front page', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::EVERYWHERE_PAGE,
-					'label' => esc_html__( 'Everywhere pages are listed', 'password-protect-page' ),
+					'label' => esc_html__( 'Everywhere pages are listed', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::SEARCH_RESULTS,
-					'label' => esc_html__( 'Search results', 'password-protect-page' ),
+					'label' => esc_html__( 'Search results', PPW_Constants::DOMAIN ),
 				),
 			);
 
@@ -709,39 +731,39 @@ function ppw_core_get_position_hide_post( $post_type ) {
 			$post_options = array(
 				array(
 					'value' => PPW_Constants::FRONT_PAGE,
-					'label' => esc_html__( 'Front page', 'password-protect-page' ),
+					'label' => esc_html__( 'Front page', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::CATEGORY_PAGE,
-					'label' => esc_html__( 'Category pages', 'password-protect-page' ),
+					'label' => esc_html__( 'Category pages', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::TAG_PAGE,
-					'label' => esc_html__( 'Tag pages', 'password-protect-page' ),
+					'label' => esc_html__( 'Tag pages', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::AUTHOR_PAGE,
-					'label' => esc_html__( 'Author pages', 'password-protect-page' ),
+					'label' => esc_html__( 'Author pages', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::ARCHIVES_PAGE,
-					'label' => esc_html__( 'Archives', 'password-protect-page' ),
+					'label' => esc_html__( 'Archives', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::NEXT_PREVIOUS,
-					'label' => esc_html__( 'Next & Previous', 'password-protect-page' ),
+					'label' => esc_html__( 'Next & Previous', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::RECENT_POST,
-					'label' => esc_html__( 'Recent posts', 'password-protect-page' ),
+					'label' => esc_html__( 'Recent posts', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::SEARCH_RESULTS,
-					'label' => esc_html__( 'Search results', 'password-protect-page' ),
+					'label' => esc_html__( 'Search results', PPW_Constants::DOMAIN ),
 				),
 				array(
 					'value' => PPW_Constants::FEEDS,
-					'label' => esc_html__( 'RSS', 'password-protect-page' ),
+					'label' => esc_html__( 'RSS', PPW_Constants::DOMAIN ),
 				),
 			);
 
@@ -957,7 +979,7 @@ function ppw_core_ui_hide_protected_content( $ppw_hide, $ppw_options, $ppw_selec
 		$options       .= "<option $post_selected value='$value' >$label</option>";
 	}
 	// translators: %s: Subtitle.
-	$sub_title    = sprintf( esc_html__( 'Exclude the password protected %s from the following views', 'password-protect-page' ), strtolower( $ppw_label ) );
+	$sub_title    = sprintf( esc_html__( 'Exclude the password protected %s from the following views', PPW_Constants::DOMAIN ), strtolower( $ppw_label ) );
 	$ppw_type     = esc_attr( $ppw_type );
 	$checked      = esc_attr( $checked );
 	$html_content = "

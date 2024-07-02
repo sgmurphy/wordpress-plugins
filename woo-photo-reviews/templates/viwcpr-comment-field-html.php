@@ -19,6 +19,7 @@ if ('on' == $settings->get_params( 'photo', 'enable' )){
 				<span class="required">*</span>
 				<?php
 			}
+			/* translators: %s: max file size */
 			printf(esc_html__(' (maxsize: %skB, max files: 2)', 'woo-photo-reviews'), esc_attr($max));
 			?>
 		</label>

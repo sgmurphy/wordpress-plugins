@@ -89,6 +89,17 @@ class WooCommerce_Order
     }
     public static function initialize_order_tracker()
     {
+        // Required for block checkout
+        \add_action('woocommerce_store_api_checkout_order_processed', function ($order) {
+            try {
+                $woocommerce_order = new self($order->get_id());
+                $woocommerce_order->insert();
+            } catch (\Throwable $e) {
+                \error_log('Independent Analytics was unable to track the analytics for a WooCommerce order. Please report this error to Independent Analytics. The error message is below.');
+                \error_log($e->getMessage());
+            }
+        });
+        // Required for shortcode checkout
         \add_action('woocommerce_checkout_order_created', function ($order) {
             try {
                 $woocommerce_order = new self($order->get_id());

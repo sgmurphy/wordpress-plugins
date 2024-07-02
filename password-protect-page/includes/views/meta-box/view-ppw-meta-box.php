@@ -85,7 +85,7 @@ function ppw_free_feature_set_password_in_meta_box( $post ) {
 				       name="post-protection-password"
 				       id="post-protection-password"/>
 				<textarea rows="3" id="ppwp_multiple_password" class="ppwp_multiple_password"
-				          placeholder="<?php echo esc_attr( 'Enter one password per line', 'wp-protect-password' ); ?>"><?php echo esc_html( $password, 'wp-protect-password' ) ?></textarea>
+				          placeholder="<?php echo esc_attr__( 'Enter one password per line', PPW_Constants::DOMAIN ); ?>', '<?php echo esc_html__('PPWP Lite', PPW_Constants::DOMAIN ); ?>"><?php echo esc_html( $password, PPW_Constants::DOMAIN ); ?></textarea>
 			</div>
 			<p class="ppwp-wrap-submit-hide">
 				<input type="hidden" value="<?php echo esc_attr( $post->ID ); ?>" id="id_page_post">

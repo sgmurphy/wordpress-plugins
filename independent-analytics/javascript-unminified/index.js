@@ -6086,6 +6086,7 @@ var _class = /*#__PURE__*/ function(Controller) {
                     scales: {
                         y: {
                             grid: {
+                                color: document.body.classList.contains("iawp-dark-mode") && !this.isPreviewValue ? "#9a95a6" : "#DEDAE6",
                                 borderColor: "#DEDAE6",
                                 tickColor: "#DEDAE6",
                                 display: true,
@@ -6098,7 +6099,7 @@ var _class = /*#__PURE__*/ function(Controller) {
                             beginAtZero: true,
                             suggestedMax: 10,
                             ticks: {
-                                color: document.body.classList.contains("iawp-dark-mode") ? "#ffffff" : "#6D6A73",
+                                color: document.body.classList.contains("iawp-dark-mode") && !this.isPreviewValue ? "#ffffff" : "#6D6A73",
                                 font: {
                                     size: 14,
                                     weight: 400
@@ -6113,6 +6114,7 @@ var _class = /*#__PURE__*/ function(Controller) {
                             position: "right",
                             display: "auto",
                             grid: {
+                                color: document.body.classList.contains("iawp-dark-mode") && !this.isPreviewValue ? "#9a95a6" : "#DEDAE6",
                                 borderColor: "#DEDAE6",
                                 tickColor: "#DEDAE6",
                                 display: true,
@@ -6125,7 +6127,7 @@ var _class = /*#__PURE__*/ function(Controller) {
                             beginAtZero: true,
                             suggestedMax: 10,
                             ticks: {
-                                color: document.body.classList.contains("iawp-dark-mode") ? "#ffffff" : "#6D6A73",
+                                color: document.body.classList.contains("iawp-dark-mode") && !this.isPreviewValue ? "#ffffff" : "#6D6A73",
                                 font: {
                                     size: 14,
                                     weight: 400
@@ -6145,7 +6147,7 @@ var _class = /*#__PURE__*/ function(Controller) {
                                 drawOnChartArea: false
                             },
                             ticks: {
-                                color: document.body.classList.contains("iawp-dark-mode") ? "#ffffff" : "#6D6A73",
+                                color: document.body.classList.contains("iawp-dark-mode") && !this.isPreviewValue ? "#ffffff" : "#6D6A73",
                                 autoSkip: true,
                                 autoSkipPadding: 16,
                                 maxRotation: 0,

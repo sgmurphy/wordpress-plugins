@@ -1,10 +1,10 @@
-=== WordPress Migrate & Clone Free : Migrate Guru ===
+=== WordPress Migration & Clone Free : Migrate Guru ===
 Contributors: migrateguru, backup-by-blogvault 
 Tags: migrate, migration, clone, copy, WordPress migrate
 Plugin URI: https://www.migrateguru.com/
 Donate link: https://www.migrateguru.com/
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.0
 Stable tag: 5.56
 License: GPLv2 or later

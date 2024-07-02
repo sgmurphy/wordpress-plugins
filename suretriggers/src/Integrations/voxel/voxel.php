@@ -810,11 +810,13 @@ class Voxel extends Integrations {
 							break;
 						case 'work-hours':
 							$hours = [];
-							foreach ( $field_value as $work_hour ) {
-								if ( 'hours' === $work_hour['status'] ) {
-									foreach ( $work_hour['days'] as $day ) {
-										foreach ( $work_hour['hours'] as $hour_key => $hour ) {
-											$hours[ $day . '_' . $hour_key ] = $hour['from'] . '-' . $hour['to'];
+							if ( is_array( $field_value ) && ! empty( $field_value ) ) {
+								foreach ( $field_value as $work_hour ) {
+									if ( 'hours' === $work_hour['status'] ) {
+										foreach ( $work_hour['days'] as $day ) {
+											foreach ( $work_hour['hours'] as $hour_key => $hour ) {
+												$hours[ $day . '_' . $hour_key ] = $hour['from'] . '-' . $hour['to'];
+											}
 										}
 									}
 								}

@@ -1703,7 +1703,7 @@ class Premium_Countdown extends Widget_Base {
 		$event = $settings['expiration_type'];
 		$text  = '';
 		if ( 'url' === $event ) {
-			$text = esc_html( $settings['expiration_url'] );
+			$text = esc_url( $settings['expiration_url'] );
 		} elseif ( 'restart' === $event ) {
 
 			if ( $is_edit_mode ) {

@@ -14,7 +14,6 @@ const {
     ImgPlaceholder
 } = window.EBControls;
 
-import classnames from "classnames";
 import Inspector from "./inspector";
 import SocialLinks from "./components/social-links";
 import Style from "./style";
@@ -25,8 +24,6 @@ export default function Edit(props) {
     const {
         attributes,
         setAttributes,
-        className,
-        clientId,
         isSelected,
     } = props;
 
@@ -39,6 +36,7 @@ export default function Edit(props) {
         description,
         showDescs,
         imageUrl,
+        imageNewClassUrl,
         imageNewUrl,
         imageId,
         showSocials,
@@ -58,55 +56,61 @@ export default function Edit(props) {
 
     //
     useEffect(() => {
-        const newProfiles = socialDetails.map((profile) => ({
-            ...profile,
-            isExpanded: false,
-        }));
+        if (socialDetails.length === 0) {
+            const newSclDtails = [
+                {
+                    title: "Facebook",
+                    icon: "fab fa-facebook-f",
+                    color: "#fff",
+                    bgColor: "#A0A8BD",
+                    link: "",
+                    linkOpenNewTab: false,
+                    isExpanded: false,
+                },
+                {
+                    title: "Twitter",
+                    icon: "fab fa-x-twitter",
+                    color: "#fff",
+                    bgColor: "#A0A8BD",
+                    link: "",
+                    linkOpenNewTab: false,
+                    isExpanded: false,
+                },
+                {
+                    title: "LinkedIn",
+                    icon: "fab fa-linkedin-in",
+                    color: "#fff",
+                    bgColor: "#A0A8BD",
+                    link: "",
+                    linkOpenNewTab: false,
+                    isExpanded: false,
+                },
+                {
+                    title: "YouTube",
+                    icon: "fab fa-youtube",
+                    color: "#fff",
+                    bgColor: "#A0A8BD",
+                    link: "",
+                    linkOpenNewTab: false,
+                    isExpanded: false,
+                },
+            ];
 
-        setAttributes({ socialDetails: newProfiles });
+            setAttributes({ socialDetails: newSclDtails });
+        }
+        else {
+            const newProfiles = socialDetails.map((profile) => ({
+                ...profile,
+                isExpanded: false,
+            }));
+            setAttributes({ socialDetails: newProfiles });
+        }
 
-        if (socialDetails.length > 0) return;
-
-        const newSclDtails = [
-            {
-                title: "Facebook",
-                icon: "fab fa-facebook-f",
-                color: "#fff",
-                bgColor: "#A0A8BD",
-                link: "",
-                linkOpenNewTab: false,
-                isExpanded: false,
-            },
-            {
-                title: "Twitter",
-                icon: "fab fa-x-twitter",
-                color: "#fff",
-                bgColor: "#A0A8BD",
-                link: "",
-                linkOpenNewTab: false,
-                isExpanded: false,
-            },
-            {
-                title: "LinkedIn",
-                icon: "fab fa-linkedin-in",
-                color: "#fff",
-                bgColor: "#A0A8BD",
-                link: "",
-                linkOpenNewTab: false,
-                isExpanded: false,
-            },
-            {
-                title: "YouTube",
-                icon: "fab fa-youtube",
-                color: "#fff",
-                bgColor: "#A0A8BD",
-                link: "",
-                linkOpenNewTab: false,
-                isExpanded: false,
-            },
-        ];
-
-        setAttributes({ socialDetails: newSclDtails });
+        //Hanlde Deprecation for ImageURL
+        const imageUrlFromSource = imageUrl || imageNewClassUrl || ImgPlaceholder
+        if (!imageNewUrl) {
+            setAttributes({ imageNewUrl: imageUrlFromSource })
+        }
     }, []);
 
     //

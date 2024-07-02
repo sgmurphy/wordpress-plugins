@@ -16,7 +16,7 @@
  * Plugin Name:       Password Protect WordPress Lite
  * Plugin URI:        https://passwordprotectwp.com?utm_source=user-website&utm_medium=pluginsite_link&utm_campaign=ppwp_lite
  * Description:       Password protect the entire WordPress site, unlimited pages and posts by user roles. This plugin is required for our Pro version to work properly.
- * Version:           1.9.1.1
+ * Version:           1.9.2
  * Author:            BWPS
  * Author URI:        https://passwordprotectwp.com
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.1.2 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PPW_VERSION', '1.9.1.1' );
+define( 'PPW_VERSION', '1.9.2' );
 
 if ( ! defined( 'PPW_DIR_PATH' ) ) {
 	define( 'PPW_DIR_PATH', plugin_dir_path( __FILE__ ) );
@@ -139,7 +139,7 @@ function ppw_free_load_plugin() {
  */
 function ppw_fail_php_version() {
 	/* translators: %s: PHP version */
-	$message      = sprintf( esc_html__( 'Password Protect WordPress requires PHP version %s+, plugin is currently NOT WORKING.', 'password-protect-page' ), '5.6' );
+	$message      = sprintf( esc_html__( 'Password Protect WordPress requires PHP version %s+, plugin is currently NOT WORKING.', PPW_Constants::DOMAIN ), '5.6' );
 	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 	echo wp_kses_post( $html_message );
 }
@@ -149,7 +149,7 @@ function ppw_fail_php_version() {
  */
 function ppw_fail_wp_version() {
 	/* translators: %s: PHP version */
-	$message      = sprintf( esc_html__( 'Password Protect WordPress requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT WORKING.', 'password-protect-page' ), '4.7' );
+	$message      = sprintf( esc_html__( 'Password Protect WordPress requires WordPress version %s+. Because you are using an earlier version, the plugin is currently NOT WORKING.', PPW_Constants::DOMAIN ), '4.7' );
 	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
 	echo wp_kses_post( $html_message );
 }

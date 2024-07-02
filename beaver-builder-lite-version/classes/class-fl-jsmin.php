@@ -285,7 +285,7 @@ class FLJSMin {
 					$last_token = $this->last_char;
 				}
 
-				if ( strpos( $valid_tokens, $last_token ) !== false ) {
+				if ( $last_token && strpos( $valid_tokens, $last_token ) !== false ) {
 					// Regex can appear unquoted after these symbols
 					$this->saveRegex();
 				} elseif ( $this->endsInKeyword() ) {

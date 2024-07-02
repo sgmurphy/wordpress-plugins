@@ -24,9 +24,9 @@ class ST_Widget_Importer {
 	 * Instance of this class.
 	 *
 	 * @since 1.0.0
-	 * @var object Class object.
+	 * @var self Class object.
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * Initiator of this class.
@@ -35,7 +35,7 @@ class ST_Widget_Importer {
 	 * @return self initialized object of this class.
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -49,7 +49,7 @@ class ST_Widget_Importer {
 	 *
 	 * @since 1.0.0
 	 * @global array $wp_registered_widget_updates
-	 * @return array Widget information
+	 * @return array<string, array<string, mixed>> Widget information
 	 */
 	public static function wie_available_widgets() {
 
@@ -80,7 +80,7 @@ class ST_Widget_Importer {
 		 *
 		 * @param object $data JSON widget data from .wie file.
 		 *
-		 * @return array Results array
+		 * @return array<int, array<string, mixed>> Results array
 		 */
 	public static function import_widgets_data( $data ) {
 
@@ -88,7 +88,7 @@ class ST_Widget_Importer {
 
 		// Have valid data?
 		// If no data or could not decode.
-		if ( empty( $data ) || ! is_object( $data ) ) {
+		if ( ! is_object( $data ) ) {
 			wp_die(
 				esc_html__( 'Import data could not be read. Please try a different file.', 'st-importer', 'astra-sites' ),
 				'',
@@ -106,7 +106,10 @@ class ST_Widget_Importer {
 		$available_widgets = self::wie_available_widgets();
 
 		// Get all existing widget instances.
-		$widget_instances = array();
+		$widget_instances    = array();
+		$widget_message_type = '';
+		$widget_message      = '';
+
 		foreach ( $available_widgets as $widget_data ) {
 			$widget_instances[ $widget_data['id_base'] ] = get_option( 'widget_' . $widget_data['id_base'] );
 		}
@@ -153,7 +156,7 @@ class ST_Widget_Importer {
 				$instance_id_number = str_replace( $id_base . '-', '', $widget_instance_id );
 
 				// Does site support this widget?
-				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) {
+				if ( ! $fail && ! isset( $available_widgets[ $id_base ] ) ) { // @phpstan-ignore-line
 					$fail                = true;
 					$widget_message_type = 'error';
 					$widget_message      = esc_html__( 'Site does not support widget', 'st-importer', 'astra-sites' ); // explain why widget not imported.
@@ -162,14 +165,14 @@ class ST_Widget_Importer {
 				// Filter to modify settings object before conversion to array and import.
 				// Leave this filter here for backwards compatibility with manipulating objects (before conversion to array below).
 				// Ideally the newer wie_widget_settings_array below will be used instead of this.
-				$widget = apply_filters( 'wie_widget_settings', $widget ); // object.
+				$widget = (string) apply_filters( 'wie_widget_settings', $widget ); // object.
 
 				// Convert multidimensional objects to multidimensional arrays
 				// Some plugins like Jetpack Widget Visibility store settings as multidimensional arrays
 				// Without this, they are imported as objects and cause fatal error on Widgets page
 				// If this creates problems for plugins that do actually intend settings in objects then may need to consider other approach: https://wordpress.org/support/topic/problem-with-array-of-arrays
 				// It is probably much more likely that arrays are used than objects, however.
-				$widget = json_decode( wp_json_encode( $widget ), true );
+				$widget = json_decode( (string) wp_json_encode( $widget ), true );
 
 				// Filter to modify settings array
 				// This is preferred over the older wie_widget_settings filter above.

@@ -1166,6 +1166,20 @@ class Premium_Modalbox extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'trigger_zindex',
+			array(
+				'label'       => __( 'Trigger Z-Index', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::NUMBER,
+				'condition'   => array(
+					'premium_modal_box_display_on!' => 'pageload',
+				),
+                'selectors' => array(
+					'{{WRAPPER}} .premium-modal-trigger-container' => 'position:relative; z-index: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(

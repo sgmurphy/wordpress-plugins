@@ -58,7 +58,7 @@ class Ai_Builder_ZipWP_Api {
 	 * Get API headers
 	 *
 	 * @since 4.0.0
-	 * @return array
+	 * @return array<string, string>
 	 */
 	public function get_api_headers() {
 		return array(
@@ -555,6 +555,8 @@ class Ai_Builder_ZipWP_Api {
 	/**
 	 * Get the zip plan details
 	 *
+	 * @return \WP_REST_Response
+	 *
 	 * @since 4.0.0
 	 */
 	public function get_zip_plan_details() {
@@ -570,9 +572,11 @@ class Ai_Builder_ZipWP_Api {
 		return $response;
 	}
 
-		/**
-		 * Get ZIP Plans.
-		 */
+	/**
+	 * Get ZIP Plans.
+	 *
+	 * @return array<string, mixed>
+	 */
 	public function get_zip_plans() {
 		$api_endpoint = $this->get_api_domain() . '/plan/current-plan';
 
@@ -601,7 +605,7 @@ class Ai_Builder_ZipWP_Api {
 					);
 				} else {
 					return array(
-						'data'   => 'Failed ' . $response_data,
+						'data'   => $response_data,
 						'status' => false,
 					);
 				}
@@ -622,7 +626,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function create_site( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -660,8 +664,10 @@ class Ai_Builder_ZipWP_Api {
 			$post_data['images'] = Helper::get_image_placeholders();
 		}
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
@@ -680,7 +686,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 201 === $response_code || 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				$site_data = $response_data['site'];
 				update_option( 'zipwp_import_site_details', $site_data );
 				wp_send_json_success(
@@ -718,7 +724,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function prepare_xml( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -732,13 +738,13 @@ class Ai_Builder_ZipWP_Api {
 
 		$api_endpoint = $this->get_api_domain() . '/starter-templates/wxr/';
 
-		$post_data = array(
+		$post_data    = array(
 			'template'      => isset( $request['template'] ) ? sanitize_text_field( $request['template'] ) : '',
 			'business_name' => isset( $request['business_name'] ) ? $request['business_name'] : '',
 		);
-
+		$body         = wp_json_encode( $post_data );
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
@@ -774,32 +780,30 @@ class Ai_Builder_ZipWP_Api {
 					'post_status'    => 'inherit',
 				);
 
-				Ai_builder_Importer_Log::add( wp_json_encode( $attachment ) );
-				Ai_builder_Importer_Log::add( wp_json_encode( $file_path ) );
+				Ai_builder_Importer_Log::add( (string) wp_json_encode( $attachment ) );
+				Ai_builder_Importer_Log::add( (string) wp_json_encode( $file_path ) );
 
 				// Insert the attachment into the media library.
 				$attachment_id = wp_insert_attachment( $attachment, $file_path );
 
-				Ai_builder_Importer_Log::add( wp_json_encode( $attachment_id ) );
+				Ai_builder_Importer_Log::add( (string) wp_json_encode( $attachment_id ) );
 
-				if ( is_wp_error( $attachment_id ) ) {
+				if ( empty( $attachment_id ) ) {
 					wp_send_json_error( __( 'There was an error downloading the XML file.', 'ai-builder', 'astra-sites' ) );
 				} else {
 
 					update_option( 'astra_sites_imported_wxr_id', $attachment_id, 'no' );
 					$attachment_metadata = wp_generate_attachment_metadata( $attachment_id, $file_path );
 					wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
-					$data        = ST_WXR_Importer::get_xml_data( $file_path, $attachment_id );
-					$data['xml'] = $file_path;
-					wp_send_json_success( $data );
-				}
 
-				wp_send_json_success(
-					array(
-						'data'   => $response_body,
-						'status' => true,
-					)
-				);
+					if ( class_exists( 'STImporter\Importer\WXR_Importer\ST_WXR_Importer' ) ) {
+						$data        = ST_WXR_Importer::get_xml_data( $file_path, $attachment_id );
+						$data['xml'] = $file_path;
+						wp_send_json_success( $data );
+					} else {
+						wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+					}
+				}
 			} else {
 				wp_send_json_error(
 					array(
@@ -829,7 +833,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_demo( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -843,13 +847,13 @@ class Ai_Builder_ZipWP_Api {
 
 		$api_endpoint = $this->get_api_domain() . '/starter-templates/export/' . sanitize_text_field( $request['uuid'] );
 
-		$post_data = array(
+		$post_data    = array(
 			'template'      => isset( $request['template'] ) ? sanitize_text_field( $request['template'] ) : '',
 			'business_name' => isset( $request['business_name'] ) ? $request['business_name'] : '',
 		);
-
+		$body         = wp_json_encode( $post_data );
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 1000,
 		);
@@ -868,10 +872,19 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 201 === $response_code || 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_body ) {
-				$exported_data                   = $response_data['data'];
+			if ( is_array( $response_data ) ) {
+				$exported_data = $response_data['data'];
+
+				if ( ! is_array( $exported_data ) ) {
+					$exported_data = array();
+				}
+
 				$exported_data['astra-site-url'] = $exported_data['host'];
-				ST_Importer_File_System::get_instance()->update_demo_data( $exported_data );
+
+				if ( class_exists( 'STImporter\Importer\ST_Importer_File_System' ) ) {
+					ST_Importer_File_System::get_instance()->update_demo_data( $exported_data );
+				}
+
 				set_transient( 'astra_sites_current_import_template_type', 'ai', HOUR_IN_SECONDS );
 				update_option( 'astra_sites_batch_process_complete', 'no' );
 				$host_url = $exported_data['host'] ?? '';
@@ -911,7 +924,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function save_user_details( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -954,8 +967,10 @@ class Ai_Builder_ZipWP_Api {
 		$post_data              = array_merge( $business_details, [ 'email' => $email ] );
 		$post_data['templates'] = [];
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1001,7 +1016,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_description( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1021,8 +1036,10 @@ class Ai_Builder_ZipWP_Api {
 			'business_category' => isset( $request['category'] ) ? sanitize_text_field( $request['category'] ) : '',
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1042,7 +1059,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data['description'] ) {
+			if ( is_array( $response_data ) && $response_data['description'] ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['description'],
@@ -1077,7 +1094,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_images( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1099,8 +1116,10 @@ class Ai_Builder_ZipWP_Api {
 			'engine'      => isset( $request['engine'] ) ? sanitize_text_field( $request['engine'] ) : '',
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1122,7 +1141,7 @@ class Ai_Builder_ZipWP_Api {
 			$response_data = json_decode( $response_body, true );
 			wp_send_json_success(
 				array(
-					'data'   => $response_data['images'],
+					'data'   => is_array( $response_data ) ? $response_data['images'] : '',
 					'status' => true,
 				)
 			);
@@ -1146,7 +1165,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_keywords( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1164,8 +1183,10 @@ class Ai_Builder_ZipWP_Api {
 			'business_desc' => isset( $request['business_description'] ) ? sanitize_text_field( $request['business_description'] ) : '',
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1185,7 +1206,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['keywords'],
@@ -1220,7 +1241,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_template_keywords( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1242,8 +1263,10 @@ class Ai_Builder_ZipWP_Api {
 			'language'               => 'en',
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1263,7 +1286,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['keywords'],
@@ -1298,7 +1321,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_templates( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1317,11 +1340,12 @@ class Ai_Builder_ZipWP_Api {
 		$post_data = array(
 			'business_name' => isset( $request['business_name'] ) ? sanitize_text_field( $request['business_name'] ) : '',
 			'email'         => $this->get_zip_user_email(),
-			'email'         => '',
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1352,7 +1376,7 @@ class Ai_Builder_ZipWP_Api {
 			} else {
 				wp_send_json_error(
 					array(
-						'data'   => 'Failed ' . $response_data,
+						'data'   => $response_data,
 						'status' => false,
 
 					)
@@ -1377,7 +1401,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function get_all_templates( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1401,8 +1425,10 @@ class Ai_Builder_ZipWP_Api {
 			'page'          => $page,
 		);
 
+		$body = wp_json_encode( $post_data );
+
 		$request_args = array(
-			'body'    => wp_json_encode( $post_data ),
+			'body'    => is_string( $body ) ? $body : '',
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
 		);
@@ -1433,7 +1459,7 @@ class Ai_Builder_ZipWP_Api {
 			} else {
 				wp_send_json_error(
 					array(
-						'data'   => 'Failed ' . $response_data,
+						'data'   => $response_data,
 						'status' => false,
 
 					)
@@ -1457,7 +1483,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_categories( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1490,7 +1516,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['categories'],
@@ -1510,7 +1536,7 @@ class Ai_Builder_ZipWP_Api {
 			$response_data = json_decode( $response_body, true );
 			wp_send_json_error(
 				array(
-					'data'   => $response_data['message'],
+					'data'   => is_array( $response_data ) ? $response_data['message'] : '',
 					'status' => false,
 
 				)
@@ -1534,7 +1560,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_site_features( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1567,7 +1593,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['data'],
@@ -1599,7 +1625,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_site_languages( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1632,7 +1658,7 @@ class Ai_Builder_ZipWP_Api {
 		$response_body = wp_remote_retrieve_body( $response );
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				wp_send_json_success(
 					array(
 						'data'   => $response_data['data'],
@@ -1664,7 +1690,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_user_credits( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1698,7 +1724,7 @@ class Ai_Builder_ZipWP_Api {
 
 		if ( 200 === $response_code ) {
 			$response_data = json_decode( $response_body, true );
-			if ( $response_data ) {
+			if ( is_array( $response_data ) ) {
 				$credit_details               = array();
 				$credit_details['used']       = ! empty( $response_data['total_used_credits'] ) ? $response_data['total_used_credits'] : 0;
 				$credit_details['total']      = $response_data['total_credits'];
@@ -1735,7 +1761,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_import_status( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1748,7 +1774,8 @@ class Ai_Builder_ZipWP_Api {
 		}
 
 		$site         = get_option( 'zipwp_import_site_details', array() );
-		$api_endpoint = $this->get_api_domain() . '/sites/import-status/' . $site['uuid'] . '/';
+		$uuid         = is_array( $site ) ? $site['uuid'] : '';
+		$api_endpoint = $this->get_api_domain() . '/sites/import-status/' . $uuid . '/';
 		$request_args = array(
 			'headers' => $this->get_api_headers(),
 			'timeout' => 100,
@@ -1778,7 +1805,7 @@ class Ai_Builder_ZipWP_Api {
 			} else {
 				wp_send_json_error(
 					array(
-						'data'   => 'Failed ' . $response_data,
+						'data'   => $response_data,
 						'status' => false,
 					)
 				);
@@ -1786,7 +1813,7 @@ class Ai_Builder_ZipWP_Api {
 		} else {
 			wp_send_json_error(
 				array(
-					'data'   => 'Failed ' . $response_code,
+					'data'   => $response_code,
 					'status' => false,
 				)
 			);
@@ -1800,7 +1827,7 @@ class Ai_Builder_ZipWP_Api {
 	 * @return mixed
 	 */
 	public function get_migration_status( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1827,7 +1854,7 @@ class Ai_Builder_ZipWP_Api {
 	 */
 	public function search_business_category( $request ) {
 
-		$nonce = $request->get_header( 'X-WP-Nonce' );
+		$nonce = (string) $request->get_header( 'X-WP-Nonce' );
 		// Verify the nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
@@ -1863,7 +1890,7 @@ class Ai_Builder_ZipWP_Api {
 			$response_data = json_decode( $response_body, true );
 			wp_send_json_success(
 				array(
-					'data'   => $response_data['results'],
+					'data'   => is_array( $response_data ) ? $response_data['results'] : '',
 					'status' => true,
 				)
 			);
@@ -1894,7 +1921,7 @@ class Ai_Builder_ZipWP_Api {
 				'email'      => '',
 			)
 		);
-		return isset( $token_details['email'] ) ? $token_details['email'] : '';
+		return is_array( $token_details ) && isset( $token_details['email'] ) ? $token_details['email'] : '';
 	}
 
 }

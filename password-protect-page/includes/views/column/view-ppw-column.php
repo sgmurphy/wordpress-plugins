@@ -13,6 +13,6 @@ $post         = get_post( $post_id );
 <div class="ppw-column">
 	<span id="ppw-badge-protection_<?php echo esc_attr( $post_id ); ?>"
 	      class="ppw-badge-protection <?php echo esc_attr( $color_class ); ?>">
-		<i class="dashicons <?php echo esc_attr( $icon_class ); ?>"></i> <?php echo esc_html( $status, 'password-protect-page' ); ?>
+		<i class="dashicons <?php echo esc_attr( $icon_class ); ?>"></i> <?php echo esc_html( $status, PPW_Constants::DOMAIN ); ?>
 	</span>
 </div>

@@ -6447,11 +6447,13 @@ Y.namespace('FL').SlideshowTransition = Y.Base.create('fl-slideshow-transition',
 	 */
 	_transitionSlicesFadeLast: function(delay)
 	{
-        var itemOut = this.get('itemOut');
+		var itemOut = this.get('itemOut'),
+			width = parseInt(Y.one('body').get('winWidth'), 10),
+			delay = (width > FLBuilderLayoutConfig.breakpoints.medium) ? delay/1000 : 0;
 
         if(itemOut && !itemOut.hasClass('fl-slideshow-image-cropped')) {
 			itemOut.transition({
-                duration: delay/1000 + this.get('duration'),
+                duration: delay + this.get('duration'),
                 opacity: 0
 			});
 		}

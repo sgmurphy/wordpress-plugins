@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.10.5
+ * Version: 3.10.6
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.10.5
+ * @version 3.10.6
  */
 class iubenda {
 // phpcs:enable
@@ -138,7 +138,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.10.5';
+	public $version = '3.10.6';
 
 	/**
 	 * Plugin activation info.
@@ -403,13 +403,13 @@ class iubenda {
 		add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 		add_action( 'upgrader_overwrote_package', array( $this, 'do_upgrade_processes' ) );
 		add_action( 'after_switch_theme', array( $this, 'assign_legal_block_or_widget' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ), - PHP_INT_MAX );
+		add_action( 'wp_head', array( $this, 'enqueue_scripts' ), - PHP_INT_MAX );
 	}
 
 	/**
 	 * Print embed code.
 	 */
-	public function wp_enqueue_scripts() {
+	public function enqueue_scripts() {
 		// Getting embed code.
 		if ( ! $this->is_cs_service_enabled_and_configured() ) {
 			return;
@@ -557,6 +557,7 @@ class iubenda {
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-auto-blocking-script-appender.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-sync-script-appender.php';
 		include_once IUBENDA_PLUGIN_PATH . 'includes/class-radar-dashboard-widget.php';
+		include_once IUBENDA_PLUGIN_PATH . 'integrations/cons/class-woocommerce-form-consent.php';
 	}
 
 	/**

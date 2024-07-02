@@ -2,6 +2,7 @@
 	--fl-builder-accent-color: hsla(194, 100%, 41%, 1);
 	--fl-builder-accent-color-hover: hsla(194, 100%, 37%, 1);
 	--fl-builder-global-accent-color: #ff9600;
+	--fl-builder-global-accent-color-hover: #e58600;
 	--fl-builder-muted-accent-color: #555D66;
 	--fl-builder-font-family: system-ui, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 	--fl-builder-highlight-width: 2px;

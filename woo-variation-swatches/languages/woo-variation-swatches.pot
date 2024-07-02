@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Emran Ahmed <emran.bd.08@gmail.com>\n"
-"POT-Creation-Date: 2024-06-06 10:31+0000\n"
+"POT-Creation-Date: 2024-07-02 13:27+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -726,11 +726,11 @@ msgstr ""
 msgid "Show Attribute taxonomies in large size."
 msgstr ""
 
-#: ../includes/class-woo-variation-swatches-term-meta.php:401
+#: ../includes/class-woo-variation-swatches-term-meta.php:405
 msgid "Upload / Add image"
 msgstr ""
 
-#: ../includes/class-woo-variation-swatches-term-meta.php:407
+#: ../includes/class-woo-variation-swatches-term-meta.php:411
 msgid "Remove image"
 msgstr ""
 
@@ -936,15 +936,15 @@ msgstr ""
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr ""
 
-#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:156, ../includes/getwooplugins/class-getwooplugins-admin-menus.php:184
+#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:145, ../includes/getwooplugins/class-getwooplugins-admin-menus.php:171
 msgid "GetWooPlugins Settings"
 msgstr ""
 
-#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:156
+#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:145
 msgid "GetWooPlugins"
 msgstr ""
 
-#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:184
+#: ../includes/getwooplugins/class-getwooplugins-admin-menus.php:171
 msgid "Home"
 msgstr ""
 
@@ -996,15 +996,20 @@ msgstr ""
 msgid "Reset all"
 msgstr ""
 
-#: ../woo-variation-swatches.php:60
+#: ../woo-variation-swatches.php:65
 msgid "<strong>Variation Swatches for WooCommerce</strong> is an add-on of "
 msgstr ""
 
-#: ../woo-variation-swatches.php:62
+#: ../woo-variation-swatches.php:67
 msgid "WooCommerce"
 msgstr ""
 
 #. translators: %s: Pro Plugin Version
-#: ../woo-variation-swatches.php:128
+#: ../woo-variation-swatches.php:140
 msgid "You are running older version of \"Variation Swatches for WooCommerce - Pro\". Please upgrade to %s or upper and continue."
+msgstr ""
+
+#. translators: %s: Pro Plugin Version
+#: ../woo-variation-swatches.php:158
+msgid "You are running older version of \"Variation Swatches for WooCommerce - Pro\". Please upgrade to %s or upper."
 msgstr ""

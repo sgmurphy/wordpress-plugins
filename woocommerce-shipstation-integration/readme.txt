@@ -1,13 +1,13 @@
 === WooCommerce ShipStation Integration ===
 Contributors: woocommerce, automattic, royho, akeda, mattyza, bor0, woothemes, dwainm, laurendavissmith001
 Tags: shipping, woocommerce, automattic
-Requires at least: 6.3
-Tested up to: 6.5
-WC tested up to: 8.9
-WC requires at least: 8.7
+Requires at least: 6.4
+Tested up to: 6.6
+WC tested up to: 9.0
+WC requires at least: 8.8
 Requires PHP: 7.4
 Requires Plugins: woocommerce
-Stable tag: 4.4.3
+Stable tag: 4.4.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,10 @@ For help setting up and configuring, please refer to our [user guide](https://do
 If you get stuck, you can ask for help in the Plugin Forum.
 
 == Changelog ==
+
+= 4.4.4 - 2024-07-02 =
+* Fix   - Security updates.
+* Tweak - WooCommerce 9.0 and WordPress 6.6 Compatibility.
 
 = 4.4.3 - 2024-05-27 =
 * Tweak - Performance enhancement.

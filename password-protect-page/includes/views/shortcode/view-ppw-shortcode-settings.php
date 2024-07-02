@@ -5,7 +5,7 @@ $html_link         = sprintf(
 );
 $desc              = sprintf(
 // translators: %s: Link to documentation.
-	esc_html__( 'Use the following shortcode to %s. Set as many passwords as you’d like to.', 'password-protect-page' ),
+	esc_html__( 'Use the following shortcode to %s. Set as many passwords as you’d like to.', PPW_Constants::DOMAIN ),
 	$html_link
 );
 $link_shortcode    = sprintf(
@@ -14,7 +14,7 @@ $link_shortcode    = sprintf(
 );
 $message_shortcode = sprintf(
 // translators: %s: Link to documentation.
-	__( '%s instead if you\'re using popular page builders, e.g. Elementor and Beaver Builder.', 'password-protect-page' ),
+	__( '%s instead if you\'re using popular page builders, e.g. Elementor and Beaver Builder.', PPW_Constants::DOMAIN ),
 	$link_shortcode
 );
 $_get = wp_unslash( $_GET ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- We no need to handle nonce verification for render UI.
@@ -29,18 +29,18 @@ if ( ! is_pro_active_and_valid_license() ) {
 	$link_pcp = sprintf(
 		'<a target="_blank" rel="noopener" href="%s">%s</a>',
 		'https://passwordprotectwp.com/docs/manage-shortcode-global-passwords/',
-		__( 'PCP global passwords', 'password-protect-page' )
+		__( 'PCP global passwords', PPW_Constants::DOMAIN )
 	);
 
 	$link_stats_addon = sprintf(
 		'<a target="_blank" rel="noopener" href="%s">%s</a>',
 		'https://passwordprotectwp.com/extensions/password-statistics/',
-		__( 'Statistics addon', 'password-protect-page' )
+		__( 'Statistics addon', PPW_Constants::DOMAIN )
 	);
 
 	$message_shortcode_desc = sprintf(
 		/* translators: %1$s: Statistics link*/
-		__( 'To track Partial Content Protection (PCP) password usage, please get %1$s and use %2$s instead.', 'password-protect-page' ),
+		__( 'To track Partial Content Protection (PCP) password usage, please get %1$s and use %2$s instead.', PPW_Constants::DOMAIN ),
 		$link_stats_addon,
 		$link_pcp
 	);

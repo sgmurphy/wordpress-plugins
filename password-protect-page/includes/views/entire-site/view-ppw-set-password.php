@@ -24,10 +24,10 @@ $is_display           = $is_protected ? '' : 'ppwp-hidden-password';
 	<td>
 		<p>
 			<label><?php echo esc_html__( 'Password Protect Entire Site', PPW_Constants::DOMAIN ) ?></label>
-			<?php echo esc_html__( 'Set passwords to ', 'password-protect-page' ); ?>
+			<?php echo esc_html__( 'Set passwords to ', PPW_Constants::DOMAIN ); ?>
 			<a target="_blank" rel="noopener" href="https://passwordprotectwp.com/docs/password-protect-wordpress-lite/?utm_source=user-website&utm_medium=sitewide-protection-general&utm_campaign=ppwp-free#sitewide">
-				<?php echo esc_html__( 'protect your entire WordPress site', 'password-protect-page' ); ?></a>.
-			<?php echo sprintf('%1$s<a href="%2$s">%3$s</a>', esc_html__('Customize password login form using ', 'password-protect-page' ), admin_url( 'customize.php?autofocus[panel]=ppwp_sitewide' ), __( 'WordPress Customizer', 'password-protect-page' ) ) ?>
+				<?php echo esc_html__( 'protect your entire WordPress site', PPW_Constants::DOMAIN ); ?></a>.
+			<?php echo sprintf('%1$s<a href="%2$s">%3$s</a>', esc_html__('Customize password login form using ', PPW_Constants::DOMAIN ), admin_url( 'customize.php?autofocus[panel]=ppwp_sitewide' ), __( 'WordPress Customizer', PPW_Constants::DOMAIN ) ) ?>
 		</p>
 	</td>
 </tr>

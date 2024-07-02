@@ -41,12 +41,15 @@ export default function Edit(props) {
         layout,
         classHook,
         tagName,
+        isMinHeightAsTitle,
     } = attributes;
 
     const tabWrapRef = useRef(null);
+    const tabHeaderWrapRef = useRef(null);
 
     const [activeTabId, setActiveTabId] = useState(false);
     const [isClickTab, setIsClickTab] = useState(false);
+    const [contentMinHeight, setContentMinHeight] = useState("auto");
 
     const activeDefaultTabId = (
         tabTitles.find((item) => item.isDefault) || { id: "1" }
@@ -131,6 +134,16 @@ export default function Edit(props) {
         }
     }, []);
 
+    //Inline Min Height
+    useEffect(() => {
+        if (layout === 'vertical' && isMinHeightAsTitle && tabHeaderWrapRef.current) {
+            setContentMinHeight(tabHeaderWrapRef.current.offsetHeight + 'px');
+        }
+        else {
+            setContentMinHeight('auto')
+        }
+    }, [attributes])
+
     const { innerBlocks } = useSelect(
         (select) => select("core/block-editor").getBlocksByClientId(clientId)[0]
     );
@@ -171,12 +184,11 @@ export default function Edit(props) {
                     >
                         <div className="eb-tabs-nav">
                             <ul
+                                ref={tabHeaderWrapRef}
                                 className="tabTitles"
                                 data-tabs-ul-id={`${blockId}`}
                             >
                                 {tabTitles.map((item, index) => {
-                                    const itemId = item.id;
-
                                     return (
                                         <li
                                             key={index}
@@ -225,7 +237,15 @@ export default function Edit(props) {
                                 })}
                             </ul>
                         </div>
-                        <div className={`eb-tabs-contents`}>
+                        <div className={`eb-tabs-contents`} >
+                            {/* Min Height Style if content min height equals to Heading */}
+                            <style>
+                                {`
+                                    .eb-tabs-contents .eb-tab-wrapper {
+                                        min-height: ${contentMinHeight};
+                                    }
+                                `}
+                            </style>
                             <InnerBlocks
                                 templateLock="all"
                                 template={times(tabChildCount, (n) => [

@@ -26,7 +26,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 		 * @abstract
 		 */
 		public function get_title() {
-			return __( 'Password Protection (PPWP)', 'password-protect-page' );
+			return __( 'Password Protection (PPWP)', PPW_Constants::DOMAIN );
 		}
 
 		/**
@@ -78,7 +78,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 			$this->start_controls_section(
 				'ppwp_section',
 				array(
-					'label' => __( 'PPWP Shortcode', 'password-protect-page' ),
+					'label' => __( 'PPWP Shortcode', PPW_Constants::DOMAIN ),
 				)
 			);
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_protect_options',
 					'value' => array(
-						'label'     => __( 'Partial Content Protection', 'password-protect-page' ),
+						'label'     => __( 'Partial Content Protection', PPW_Constants::DOMAIN ),
 						'type'      => \Elementor\Controls_Manager::HEADING,
 						'separator' => 'before',
 					),
@@ -94,9 +94,9 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_passwords',
 					'value' => array(
-						'label'       => __( 'Passwords', 'password-protect-page' ),
+						'label'       => __( 'Passwords', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
-						'placeholder' => __( 'Enter your password, e.g. password1 password2', 'password-protect-page' ),
+						'placeholder' => __( 'Enter your password, e.g. password1 password2', PPW_Constants::DOMAIN ),
 						'default'     => 'password1 password2',
 						'description' => 'Multiple passwords are separated by space, case-sensitivity, no more than 100 characters and don’t contain [, ], “, ‘',
 						'label_block' => true,
@@ -105,9 +105,9 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_whitelisted_roles',
 					'value' => array(
-						'label'       => __( 'Whitelisted Roles', 'password-protect-page' ),
+						'label'       => __( 'Whitelisted Roles', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::SELECT2,
-						'placeholder' => __( 'Select whitelisted roles', 'password-protect-page' ),
+						'placeholder' => __( 'Select whitelisted roles', PPW_Constants::DOMAIN ),
 						'multiple'    => true,
 						'options'     => $roles,
 						'description' => 'Select user roles who can access protected area without having to enter passwords',
@@ -117,7 +117,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_protected_content_headline',
 					'value' => array(
-						'label'     => __( 'Protected Content', 'password-protect-page' ),
+						'label'     => __( 'Protected Content', PPW_Constants::DOMAIN ),
 						'type'      => \Elementor\Controls_Manager::HEADING,
 						'separator' => 'before',
 					),
@@ -126,13 +126,13 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 					'key'   => 'ppwp_protected_content',
 					'value' => array(
 						'type'    => \Elementor\Controls_Manager::WYSIWYG,
-						'default' => __( 'This is your protected content.', 'password-protect-page' ),
+						'default' => __( 'This is your protected content.', PPW_Constants::DOMAIN ),
 					),
 				),
 				array(
 					'key'   => 'ppwp_show_content',
 					'value' => array(
-						'label'        => __( 'Show Content', 'password-protect-page' ),
+						'label'        => __( 'Show Content', PPW_Constants::DOMAIN ),
 						'type'         => \Elementor\Controls_Manager::SWITCHER,
 						'default'      => 'no',
 						'label_on'     => __( 'Show', 'essential-addons-elementor' ),
@@ -144,7 +144,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_protect_instruction',
 					'value' => array(
-						'label'     => __( 'Password Form', 'password-protect-page' ),
+						'label'     => __( 'Password Form', PPW_Constants::DOMAIN ),
 						'type'      => \Elementor\Controls_Manager::HEADING,
 						'separator' => 'before',
 					),
@@ -152,7 +152,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_headline',
 					'value' => array(
-						'label'       => __( 'Headline', 'password-protect-page' ),
+						'label'       => __( 'Headline', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => 'Restricted Content',
 						'label_block' => true,
@@ -161,7 +161,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_label',
 					'value' => array(
-						'label'       => __( 'Label', 'password-protect-page' ),
+						'label'       => __( 'Label', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => PPW_Constants::DEFAULT_SHORTCODE_LABEL,
 						'label_block' => true,
@@ -170,7 +170,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_description',
 					'value' => array(
-						'label'       => __( 'Description', 'password-protect-page' ),
+						'label'       => __( 'Description', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::WYSIWYG,
 						'default'     => 'To view this protected content, enter the password below:',
 						'label_block' => true,
@@ -179,7 +179,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_placeholder',
 					'value' => array(
-						'label'       => __( 'Placeholder', 'password-protect-page' ),
+						'label'       => __( 'Placeholder', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => '',
 						'label_block' => true,
@@ -188,7 +188,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_loading',
 					'value' => array(
-						'label'       => __( 'Loading', 'password-protect-page' ),
+						'label'       => __( 'Loading', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => PPW_Constants::DEFAULT_SHORTCODE_LOADING,
 						'label_block' => true,
@@ -197,7 +197,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_button',
 					'value' => array(
-						'label'       => __( 'Button', 'password-protect-page' ),
+						'label'       => __( 'Button', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => 'Enter',
 						'label_block' => true,
@@ -206,7 +206,7 @@ if ( ! class_exists( 'PPW_Shortcode_Widget' ) ) {
 				array(
 					'key'   => 'ppwp_error_msg',
 					'value' => array(
-						'label'       => __( 'Error message', 'password-protect-page' ),
+						'label'       => __( 'Error message', PPW_Constants::DOMAIN ),
 						'type'        => \Elementor\Controls_Manager::TEXT,
 						'default'     => PPW_Constants::DEFAULT_SHORTCODE_ERROR_MSG,
 						'label_block' => true,

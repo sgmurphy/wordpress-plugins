@@ -42,7 +42,7 @@ class PPW_Recaptcha {
 		$message = get_theme_mod( 'ppwp_form_error_recaptcha_message_text', PPW_Constants::DEFAULT_ERROR_RECAPTCHA_MESSAGE );
 		$message = wp_kses_post( $message );
 
-		return _x( $message, PPW_Constants::CONTEXT_PASSWORD_FORM, 'password-protect-page' );
+		return _x( $message, PPW_Constants::CONTEXT_PASSWORD_FORM, PPW_Constants::DOMAIN );
 	}
 
 	/**
@@ -539,7 +539,7 @@ class PPW_Recaptcha {
 	 * @return string
 	 */
 	public function get_sitewide_error_message() {
-		return __( 'Google reCAPTCHA verification failed, please try again later.', 'password-protect-page' );
+		return __( 'Google reCAPTCHA verification failed, please try again later.', PPW_Constants::DOMAIN );
 	}
 
 

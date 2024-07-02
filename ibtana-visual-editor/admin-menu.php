@@ -360,7 +360,7 @@ class Ibtana_Visual_Editor_Menu_Class
 					`<p id="ive_product_metabox_license" class="ive_go_pro_metabox_p">
 					<?php echo esc_html($pro_msg); ?> <strong><?php echo esc_html($plugin_name); ?></strong><br>
 					<a class="ive_go_pro_metabox_a2 button"
-					href="https://www.vwthemes.com/products/woocommerce-product-add-ons/"
+					href="https://www.vwthemes.com/products/woocommerce-product-add-ons"
 					target="_blank">
 					<?php echo esc_html($btn_text); ?>
 					</a>

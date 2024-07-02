@@ -7,6 +7,9 @@ import {
 	CheckIcon,
 	ChatBubbleLeftEllipsisIcon,
 	WrenchIcon,
+	PaintBrushIcon,
+	Squares2X2Icon,
+	QueueListIcon,
 } from '@heroicons/react/24/outline';
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
@@ -29,6 +32,9 @@ const ICON_SET = {
 	funnel: FunnelIcon,
 	'play-circle': PlayCircleIcon,
 	'live-chat': ChatBubbleLeftEllipsisIcon,
+	'page-builder': PaintBrushIcon,
+	form: QueueListIcon,
+	blog: Squares2X2Icon,
 };
 
 const Features = ( { handleClickStartBuilding, isInProgress } ) => {
@@ -67,8 +73,11 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 		setIsFetchingStatus( fetchStatus.error );
 	};
 
-	const handleToggleFeature = ( featureId ) => () => {
-		setSiteFeatures( featureId );
+	const handleToggleFeature = ( feature ) => () => {
+		if ( feature.compulsory && feature.enabled ) {
+			return;
+		}
+		setSiteFeatures( feature.id );
 	};
 
 	useEffect( () => {
@@ -128,7 +137,9 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 									className={ classNames(
 										'inline-flex absolute top-4 right-4 p-[0.1875rem] border border-solid border-zip-app-inactive-icon rounded',
 										feature.enabled &&
-											'border-accent-st bg-accent-st'
+											'border-accent-st bg-accent-st',
+										feature.compulsory &&
+											'border-button-disabled bg-button-disabled'
 									) }
 								>
 									<CheckIcon
@@ -139,9 +150,7 @@ const Features = ( { handleClickStartBuilding, isInProgress } ) => {
 								{ /* Click handler overlay */ }
 								<div
 									className="absolute inset-0 cursor-pointer"
-									onClick={ handleToggleFeature(
-										feature.id
-									) }
+									onClick={ handleToggleFeature( feature ) }
 								/>
 							</div>
 						);

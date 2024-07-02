@@ -1318,8 +1318,15 @@
                     $countDown.remove();
                     $scope.find(".premium-addons__v-hidden").removeClass('premium-addons__v-hidden');
                 } else if ('url' === settings.event && !elementorFrontend.isEditMode()) {
-                    if ('' !== settings.text)
-                        window.location.href = settings.text;
+
+                    if ('' !== settings.text) {
+                        var urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.-]{2,})([\/\w \u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF%.-]*)*\/?$/i;
+
+                        // Test the string against the regular expression
+                        if (urlPattern.test(settings.text))
+                            window.location.href = settings.text;
+                    }
+
                 } else if ('restart' === settings.event) {
 
                     if ('flipping' === settings.style) {
@@ -4250,7 +4257,7 @@
                         accumlativeWidth = 0;
 
                     // clone the items till the width is equal to the viewport width
-                    while (horAlignWidth <= $scope.outerWidth(true) || ( horAlignWidth - $scope.outerWidth(true) <= 400 ) ) {
+                    while (horAlignWidth <= $scope.outerWidth(true) || (horAlignWidth - $scope.outerWidth(true) <= 400)) {
 
                         cloneItems();
                         // recalculate the full width.

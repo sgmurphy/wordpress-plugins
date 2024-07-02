@@ -13,6 +13,8 @@ export default function Save({ attributes }) {
         showCSeparator,
         showSSeparator,
         imageNewUrl,
+        imageUrl,
+        imageNewClassUrl,
         profilesOnly,
         socialInImage,
         icnEffect,
@@ -32,6 +34,9 @@ export default function Save({ attributes }) {
         return
     }
 
+    const imageUrlFromSource = imageUrl || imageNewClassUrl || ImgPlaceholder
+    const image = imageNewUrl ? imageNewUrl : imageUrlFromSource
+
     return (
         <BlockProps.Save attributes={attributes}>
             <div
@@ -49,7 +54,7 @@ export default function Save({ attributes }) {
                                 >
                                     <img
                                         className="eb-team-member-avatar"
-                                        src={imageNewUrl === '' ? ImgPlaceholder : imageNewUrl}
+                                        src={image}
                                         alt={imageAlt ? imageAlt : name}
                                     />
                                 </a>
@@ -58,7 +63,7 @@ export default function Save({ attributes }) {
                             {!avatarURL && (
                                 <img
                                     className="eb-team-member-avatar"
-                                    src={imageNewUrl === '' ? ImgPlaceholder : imageNewUrl}
+                                    src={image}
                                     alt={imageAlt ? imageAlt : name}
                                 />
                             )}

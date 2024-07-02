@@ -74,9 +74,9 @@ class Plugin extends AjaxBase {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param  array $required_plugins Required Plugins.
-	 * @param  array $options            Site Options.
-	 * @param  array $enabled_extensions Enabled Extensions.
+	 * @param  array<int, array<string, string>> $required_plugins Required Plugins.
+	 * @param  array<string, mixed>              $options       Site Options.
+	 * @param  array<string, mixed>              $enabled_extensions Enabled Extensions.
 	 * @return mixed
 	 */
 	public function required_plugins( $required_plugins = array(), $options = array(), $enabled_extensions = array() ) {
@@ -88,9 +88,9 @@ class Plugin extends AjaxBase {
 	 *
 	 * @since 2.0.0 Added parameters $init, $options & $enabled_extensions to add the WP CLI support.
 	 * @since 1.0.0
-	 * @param  string $init               Plugin init file.
-	 * @param  array  $options            Site options.
-	 * @param  array  $enabled_extensions Enabled extensions.
+	 * @param  string               $init               Plugin init file.
+	 * @param  array<string, mixed> $options            Site options.
+	 * @param  array<string, mixed> $enabled_extensions Enabled extensions.
 	 * @return void
 	 */
 	public function required_plugin_activate( $init = '', $options = array(), $enabled_extensions = array() ) {
@@ -108,6 +108,8 @@ class Plugin extends AjaxBase {
 
 	/**
 	 * Set a flag that indicates the import process has started.
+	 *
+	 * @return void
 	 */
 	public function set_start_flag() {
 		if ( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) {
@@ -120,8 +122,14 @@ class Plugin extends AjaxBase {
 		}
 		$uuid          = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
 		$template_type = isset( $_POST['template_type'] ) ? sanitize_text_field( $_POST['template_type'] ) : '';
-		ST_Importer::set_import_process_start_flag( $template_type, $uuid );
-		wp_send_json_success();
+
+		if ( class_exists( 'STImporter\Importer\ST_Importer' ) ) {
+			ST_Importer::set_import_process_start_flag( $template_type, $uuid );
+			wp_send_json_success();
+		} else {
+			wp_send_json_error( __( 'Required function not found', 'ai-builder', 'astra-sites' ) );
+		}
+
 	}
 
 	/**
@@ -147,7 +155,7 @@ class Plugin extends AjaxBase {
 		$index  = isset( $_POST['index'] ) ? sanitize_text_field( wp_unslash( $_POST['index'] ) ) : '';
 		$images = Ai_Builder_ZipWP_Integration::get_business_details( 'images' );
 
-		if ( empty( $images ) ) {
+		if ( empty( $images ) || ! is_array( $images ) ) {
 			wp_send_json_success(
 				array(
 					'data'   => 'No images selected to download!',
@@ -158,7 +166,7 @@ class Plugin extends AjaxBase {
 
 		$image = $images[ $index ];
 
-		if ( empty( $image ) ) {
+		if ( empty( $image ) || ! is_array( $image ) ) {
 			wp_send_json_success(
 				array(
 					'data'   => 'No image to download!',
@@ -173,7 +181,7 @@ class Plugin extends AjaxBase {
 			'description' => isset( $image['description'] ) ? $image['description'] : '',
 		);
 
-		$id = ST_Importer_Helper::download_image( $prepare_image );
+		$id = class_exists( 'STImporter\Importer\ST_Importer_Helper' ) ? ST_Importer_Helper::download_image( $prepare_image ) : 0;
 
 		wp_send_json_success(
 			array(
@@ -203,8 +211,8 @@ class Plugin extends AjaxBase {
 				)
 			);
 		}
-
-		$api_url = add_query_arg( [], trailingslashit( ST_Importer_Helper::get_api_domain() ) . 'wp-json/starter-templates/v2/import-error/' );
+		$api_domain = class_exists( 'STImporter\Importer\ST_Importer_Helper' ) ? ST_Importer_Helper::get_api_domain() : '';
+		$api_url    = add_query_arg( [], trailingslashit( $api_domain ) . 'wp-json/starter-templates/v2/import-error/' );
 
 		if ( ! astra_sites_is_valid_url( $api_url ) ) {
 			wp_send_json_error(
@@ -283,7 +291,7 @@ class Plugin extends AjaxBase {
 	 */
 	public function get_log_file_path() {
 		$log_file = get_option( 'astra_sites_recent_import_log_file', false );
-		if ( ! empty( $log_file ) && isset( $log_file ) ) {
+		if ( ! empty( $log_file ) && is_string( $log_file ) ) {
 			return str_replace( ABSPATH, esc_url( site_url() ) . '/', $log_file );
 		}
 

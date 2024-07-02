@@ -9,6 +9,9 @@
 
 namespace STImporter\Resetter;
 
+use Throwable;
+use Exception;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,18 +27,18 @@ class ST_Resetter {
 	 * Instance of this class.
 	 *
 	 * @since 1.0.0
-	 * @var object Class object.
+	 * @var self Class object.
 	 */
-	private static $instance;
+	private static $instance = null;
 
 	/**
 	 * Initiator of this class.
 	 *
 	 * @since 1.0.0
-	 * @return object initialized object of this class.
+	 * @return self initialized object of this class.
 	 */
 	public static function get_instance() {
-		if ( ! isset( self::$instance ) ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		return self::$instance;
@@ -44,6 +47,8 @@ class ST_Resetter {
 
 	/**
 	 * Backup our existing settings.
+	 *
+	 * @return string
 	 */
 	public static function backup_settings() {
 
@@ -53,9 +58,8 @@ class ST_Resetter {
 		$upload_path  = trailingslashit( $upload_dir['path'] );
 		$log_file     = $upload_path . $file_name;
 		$file_system  = self::get_filesystem();
-
 		// If file system fails? Then take a backup in site option.
-		if ( false === $file_system->put_contents( $log_file, wp_json_encode( $old_settings ), FS_CHMOD_FILE ) ) {
+		if ( method_exists( $file_system, 'put_contents' ) && false === $file_system->put_contents( $log_file, wp_json_encode( $old_settings ), FS_CHMOD_FILE ) ) {
 			update_option( 'astra_sites_' . $file_name, $old_settings, 'no' );
 		}
 
@@ -67,7 +71,7 @@ class ST_Resetter {
 	 *
 	 * @since 1.0.0
 	 * @param  string $dir_name Directory Name.
-	 * @return array    Uploads directory array.
+	 * @return array<string, string>    Uploads directory array.
 	 */
 	public static function log_dir( $dir_name = 'st-importer' ) {
 
@@ -85,11 +89,13 @@ class ST_Resetter {
 			// Create the directory.
 			wp_mkdir_p( $dir_info['path'] );
 
-			// Add an index file for security.
-			self::get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
+			if ( method_exists( self::get_filesystem(), 'put_contents' ) ) {
+				// Add an index file for security.
+				self::get_filesystem()->put_contents( $dir_info['path'] . 'index.html', '' );
 
-			// Add an .htaccess for security.
-			self::get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+				// Add an .htaccess for security.
+				self::get_filesystem()->put_contents( $dir_info['path'] . '.htaccess', 'deny from all' );
+			}
 		}
 
 		return $dir_info;
@@ -116,19 +122,17 @@ class ST_Resetter {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $options option aray.
+	 * @param array<string, mixed> $options option aray.
 	 * @return void
 	 */
 	public static function reset_site_options( $options = array() ) {
 
-		if ( is_array( $options ) && ! empty( $options ) ) {
+		if ( ! is_array( $options ) ) {
 			return;
 		}
 
-		if ( $options ) {
-			foreach ( $options as $option_key => $option_value ) {
-				delete_option( $option_key );
-			}
+		foreach ( $options as $option_key => $option_value ) {
+			delete_option( $option_key );
 		}
 	}
 
@@ -147,7 +151,7 @@ class ST_Resetter {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $old_widgets_data widget data.
+	 * @param array<int, array<string, mixed>> $old_widgets_data widget data.
 	 * @return void
 	 */
 	public static function reset_widgets_data( $old_widgets_data = array() ) {
@@ -190,6 +194,8 @@ class ST_Resetter {
 	 * Reset posts in chunks.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public static function reset_posts() {
 
@@ -229,6 +235,8 @@ class ST_Resetter {
 
 	/**
 	 * Start the error handling.
+	 *
+	 * @return void
 	 */
 	public function start_error_handler() {
 		if ( ! interface_exists( 'Throwable' ) ) {
@@ -242,6 +250,8 @@ class ST_Resetter {
 
 	/**
 	 * Stop and restore the error handlers.
+	 *
+	 * @return void
 	 */
 	public static function stop_error_handler() {
 		// Restore the error handlers.
@@ -251,11 +261,13 @@ class ST_Resetter {
 
 	/**
 	 * Displays fatal error output for sites running PHP < 7.
+	 *
+	 * @return void
 	 */
 	public function shutdown_handler() {
 		$e = error_get_last();
 
-		if ( empty( $e ) || ! ( $e['type'] & ST_ERROR_FATALS ) ) {
+		if ( empty( $e ) || ! ( $e['type'] & ST_ERROR_FATALS ) ) { // @phpstan-ignore-line
 			return;
 		}
 
@@ -286,6 +298,8 @@ class ST_Resetter {
 	 *
 	 * @throws Exception Exception that is catched.
 	 * @param Throwable|Exception $e The error or exception.
+	 *
+	 * @return void
 	 */
 	public function exception_handler( $e ) {
 		if ( is_a( $e, 'Exception' ) ) {
@@ -319,6 +333,8 @@ class ST_Resetter {
 	 * Reset terms and forms.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return void
 	 */
 	public static function reset_terms_and_forms() {
 
@@ -361,7 +377,7 @@ class ST_Resetter {
 	 * Get all the forms to be reset.
 	 *
 	 * @since 1.0.0
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public static function astra_sites_get_reset_form_data() {
 		global $wpdb;
@@ -375,7 +391,7 @@ class ST_Resetter {
 	 * Get all the terms to be reset.
 	 *
 	 * @since 1.0.0
-	 * @return array
+	 * @return array<int, int>
 	 */
 	public static function astra_sites_get_reset_term_data() {
 		global $wpdb;
