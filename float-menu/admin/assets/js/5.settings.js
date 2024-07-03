@@ -15,8 +15,8 @@ jQuery(document).ready(function ($) {
         custom_icon: '[data-field="menu_1-item_custom"]',
         text_icon: '[data-field="menu_1-item_custom_text_check"]',
         enable_tracking: '[data-field="menu_1-enable_tracking"]',
-        item: '.wpie-item',
-        item_remove: '.wpie-item_heading .dashicons-trash',
+        item: '#wpie-items-list .wpie-item',
+        item_remove: '.wpie-item_heading .wpie_icon-trash',
         item_heading: '.wpie-item .wpie-item_heading',
         delete_link: '.wpie-link-delete, .delete a',
     };

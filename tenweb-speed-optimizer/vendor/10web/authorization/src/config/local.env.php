@@ -50,9 +50,19 @@ if(!defined('TENWEB_SIGNUP_MAGIC_LINK_URL')) {
 if(!defined('TENWEB_AI_ASSISTANT')) {
     define('TENWEB_AI_ASSISTANT', 'https://devai-assistant.10web.io/');
 }
+
 if(!defined('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID')) {
     define('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID', 333);
 }
+
+if(!defined('TWM_ENABLE_PAYMENT')) {
+    define('TWM_ENABLE_PAYMENT', true);
+}
+
+if(!defined('TENWEB_WOOCOM_API_URL')) {
+    define('TENWEB_WOOCOM_API_URL', 'https://devwoocom.10web.io/');
+}
+
 global $tenweb_services;
 
 $tenweb_services = array(

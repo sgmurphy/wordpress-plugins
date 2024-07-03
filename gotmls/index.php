@@ -4,11 +4,13 @@ Plugin Name: Anti-Malware Security and Brute-Force Firewall
 Plugin URI: https://gotmls.net/
 Author: Eli Scheetz
 Text Domain: gotmls
-Author URI: https://supersecurehosting.com/
+Author URI: https://anti-malware.ninja/
 Contributors: scheeeli, gotmls
 Donate link: https://gotmls.net/donate/
 Description: This Anti-Virus/Anti-Malware plugin searches for Malware and other Virus like threats and vulnerabilities on your server and helps you remove them. It's always growing and changing to adapt to new threats so let me know if it's not working for you.
-Version: 4.23.67
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html#license-text
+Version: 4.23.68
 Requires PHP: 5.6
 Requires CP: 1.1.1
 */
@@ -25,7 +27,7 @@ else
  *             \__\::/ This program is free software; you can redistribute it
  *     ___     /__/:/ and/or modify it under the terms of the GNU General Public
  *    /__/\   _\__\/ License as published by the Free Software Foundation;
- *    \  \:\ /  /\  either version 2 of the License, or (at your option) any
+ *    \  \:\ /  /\  either version 3 of the License, or (at your option) any
  *  ___\  \:\  /:/ later version.
  * /  /\\  \:\/:/
   /  /:/ \  \::/ This program is distributed in the hope that it will be useful,
@@ -36,9 +38,6 @@ else
   \  \:\/:/ You should have received a copy of the GNU General Public License
  * \  \::/ with this program; if not, write to the Free Software Foundation,    
  *  \__\/ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA        */
-
-load_plugin_textdomain('gotmls', false, basename(GOTMLS_plugin_path).'/languages');
-require_once(GOTMLS_plugin_path.'images/index.php');
 
 function GOTMLS_install() {
 	if (strpos(GOTMLS_get_version("URL"), '&wp=') && version_compare(GOTMLS_wp_version, GOTMLS_require_version, "<"))
@@ -1228,26 +1227,52 @@ function GOTMLS_login_error($elementId, $ERROR, $alert_txt = "") {
 	return $js;
 }
 
-function GOTMLS_login_form($form_id = "", $ops = array()) {
-	$gt = ">"; // This local variable never changes
-	$lt = "<"; // This local variable never changes
-	if (!$form_id || preg_match('/[^\w\-]/', $form_id))
-		$form_id = "loginform";
-	if (!(isset($ops["top"]) && preg_replace('/^-?[0-9]++\w*+$/', $ops["top"])))
-		$ops["top"] = '-200px';
-	if (!(isset($ops["height"]) && preg_replace('/^-?[0-9]++\w*+$/', $ops["height"])))
-		$ops["height"] = '280px';
-	$loading_bits = $form_id.'"'.$gt.$lt.'div style="top: '.$ops["top"].'; position: relative; background-color: #FFF;"'.$gt.$lt.'img style="height: '.$ops["height"];
-	if (defined("GOTMLS_LOGIN_PROTECTION") && preg_match('/^[a-f0-9]{32}$/i', GOTMLS_LOGIN_PROTECTION)) {
-		$ajaxURL = GOTMLS_admin_url("GOTMLS_logintime", GOTMLS_set_nonce($sess = GOTMLS_LOGIN_PROTECTION, GOTMLS_REMOTEADDR)."&GOTMLS_sess=$sess&GOTMLS_form_id=$form_id&GOTMLS_time=");
-		echo $lt.'div style="position: absolute;" id="loading_BRUTEFORCE_'.$loading_bits.';" alt="Loading Brute-Force Protection ..." src="'.GOTMLS_images_path."GOTMLS-Loading.gif\" /$gt{$lt}div id='checking_BRUTEFORCE_$form_id'$gt Checking for JavaScript ... $lt/div$gt$lt/div$gt$lt/div$gt\n$lt".'input type="hidden" name="GOTMLS_sess" id="GOTMLS_sess_id" value="'."$sess\" /$gt$lt".'input type="hidden" id="GOTMLS_offset_id" value="0" name="GOTMLS_time" /'.$gt.$lt.'script type="text/javascript"'."$gt\nfunction GOTMLS_chk_session() {\nvar GOTMLS_login_offset = new Date();\nvar GOTMLS_login_script = document.createElement('script');\nGOTMLS_login_script.src = '$ajaxURL'+GOTMLS_login_offset.getTime();\nif (GOTMLS_field = document.getElementById('GOTMLS_offset_id'))\n\tGOTMLS_field.value = GOTMLS_login_offset.getTime();".GOTMLS_login_error("checking_BRUTEFORCE_$form_id", ' Checking for Session ... ')."\nif (GOTMLS_loading_gif = document.getElementById('loading_BRUTEFORCE_$form_id')) GOTMLS_loading_gif.style.display = 'block';\ndocument.head.appendChild(GOTMLS_login_script);\n}\nGOTMLS_chk_session();\nsetInterval(function (){GOTMLS_chk_session();}, 150000);\n$lt/script$gt\n";
-	} else
-		echo $lt.'!--  Brute-Force Protection is Disabled in the Firewall Options --'.$gt;
+function GOTMLS_print_login_form($ops = array()) {
+	if (!is_array($ops))
+		$ops = array();
+	echo GOTMLS_login_form($ops);
 }
 if (defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
-	add_action("login_form", "GOTMLS_login_form");
+	add_action("login_form", "GOTMLS_print_login_form");
+}
+
+function GOTMLS_login_form($ops = array(), $form_id = "", $shortcode = "") {
+	$gt = ">"; // This local variable never changes
+	$lt = "<"; // This local variable never changes
+	$up = "";
+	foreach (array("form_id" => "loginform", "top" => "-200px", "height" => "280px", "u" => "log", "p" => "pwd") as $field => $default) {
+		if (!(isset($ops["$field"]) && preg_match('/^[\w\-]++$/', $ops["$field"]) && strlen($ops["$field"]) < 50))
+			$ops["$field"] = $default;
+		if (strlen($field == 1))
+			$up .= "&GOTMLS_$field=".rawurlencode($ops["$field"]);
+	}
+	$form_id = $ops["form_id"];
+	$loading_bits = $form_id.'"'.$gt.$lt.'div style="top: '.$ops["top"].'; position: relative; background-color: #FFF;"'.$gt.$lt.'img style="height: '.$ops["height"];
+	if (defined("GOTMLS_LOGIN_PROTECTION") && preg_match('/^[a-f0-9]{32}$/i', GOTMLS_LOGIN_PROTECTION)) {
+		$ajaxURL = GOTMLS_admin_url("GOTMLS_logintime", GOTMLS_set_nonce($sess = GOTMLS_LOGIN_PROTECTION, GOTMLS_REMOTEADDR)."$up&GOTMLS_sess=$sess&GOTMLS_form_id=$form_id&GOTMLS_time=");
+		return "$lt!-- Loading GOTMLS Brute-Force Protection --$gt$lt".'div style="position: absolute;" id="loading_BRUTEFORCE_'.$loading_bits.';" alt="Loading Brute-Force Protection ..." src="'.GOTMLS_images_path."GOTMLS-Loading.gif\" /$gt{$lt}div id='checking_BRUTEFORCE_$form_id'$gt Checking for JavaScript ... $lt/div$gt$lt/div$gt$lt/div$gt\n$lt".'div style="text-align: center;"'.$gt.$lt.'img style="height: 32px; vertical-align: middle;" alt="Brute-Force Protection from GOTMLS. NET" src="'.GOTMLS_images_path."GOTMLS-Loading.gif\" /$gt Brute-Force Protection is Active$lt/div$gt$lt".'input type="hidden" name="GOTMLS_sess" id="GOTMLS_sess_id" value="'."$sess\" /$gt$lt".'input type="hidden" id="GOTMLS_offset_id" value="0" name="GOTMLS_time" /'.$gt.$lt.'script type="text/javascript"'."$gt\nfunction GOTMLS_chk_session() {\nvar GOTMLS_login_offset = new Date();\nvar GOTMLS_login_script = document.createElement('script');\nGOTMLS_login_script.src = '$ajaxURL'+GOTMLS_login_offset.getTime();\nif (GOTMLS_field = document.getElementById('GOTMLS_offset_id'))\n\tGOTMLS_field.value = GOTMLS_login_offset.getTime();".GOTMLS_login_error("checking_BRUTEFORCE_$form_id", ' Checking for Session ... ')."\nif (GOTMLS_loading_gif = document.getElementById('loading_BRUTEFORCE_$form_id')) GOTMLS_loading_gif.style.display = 'block';\ndocument.head.appendChild(GOTMLS_login_script);\n}\nGOTMLS_chk_session();\nsetInterval(function (){GOTMLS_chk_session();}, 150000);\n$lt/script$gt\n";
+	} else
+		return "$lt!-- GOTMLS Brute-Force Protection is Disabled in the Firewall Options --$gt";
 }
 add_shortcode("gotmls-brute-force-protection", "GOTMLS_login_form");
+
+function GOTMLS_woocommerce_login_form($oops = "") {
+	GOTMLS_print_login_form(array("u" => "username", "p" => "password"));
+}
+
+function GOTMLS_ihc_login_form($ops = array()) {
+	$gt = ">"; // This local variable never changes
+	$lt = "<"; // This local variable never changes
+	$return = "$lt!-- ihc_login_form: Indeed Ultimate Membership Pro is not installed --$gt";
+	$form_end = "$lt/form$gt";
+	if (function_exists("ihc_login_form")) {
+		if (strpos($return = ihc_login_form($ops), $form_end))
+			$return = str_replace($form_end, GOTMLS_login_form(array("form_id" => "ihc_login_form")).$form_end, $return);
+		else
+			$return .= "\n$lt!-- ihc_login_form: form_end not found --$gt";
+	}
+	return "\n$lt!-- ihc_login_form: GOTMLS Brute-Force Protection integration with indeed-membership-pro --$gt$return";
+}
 
 function GOTMLS_ajax_logintime() {
 	@header("Content-type: text/javascript");
@@ -1399,7 +1424,6 @@ function GOTMLS_admin_init() {
 				foreach ($files as $file)
 					if (is_dir(GOTMLS_trailingslashit($dir).$file))
 						$dirs[] = GOTMLS_trailingslashit($dir).$file;
-//die($dir.print_r($dirs,1));
 			$GLOBALS["GOTMLS"]["tmp"]["skip_dirs"] = array_merge($dirs, $GLOBALS["GOTMLS"]["tmp"]["skip_dirs"]);
 			$_REQUEST["scan_depth"] = -1;
 		} elseif (!isset($_REQUEST["scan_depth"]))
@@ -1426,7 +1450,7 @@ function GOTMLS_admin_init() {
 	}
 	foreach ($ajax_functions as $ajax_function) {
 		add_action("wp_ajax_GOTMLS_$ajax_function", "GOTMLS_ajax_$ajax_function");
-		add_action("wp_ajax_nopriv_GOTMLS_$ajax_function", substr($ajax_function, 0, 1) == "l"?"GOTMLS_ajax_$ajax_function":"GOTMLS_ajax_nopriv");
+		add_action("wp_ajax_nopriv_GOTMLS_$ajax_function", substr($ajax_function, 0, 3) == "log"?"GOTMLS_ajax_$ajax_function":"GOTMLS_ajax_nopriv");
 	}
 	if (!isset($GLOBALS["GOTMLS"]["tmp"]["settings_array"]["scan_level"]))
 		$GLOBALS["GOTMLS"]["tmp"]["settings_array"]["scan_level"] = count(explode('/', trailingslashit(GOTMLS_siteurl))) - 1;
@@ -1434,80 +1458,87 @@ function GOTMLS_admin_init() {
 add_action("admin_init", "GOTMLS_admin_init");
 
 function GOTMLS_init() {
-    register_post_type(
-        'gotmls_quarantine',
-        array(
-            'labels'           => array(
-                'name'               => _x( 'Quarantine', 'post type general name' ),
-                'singular_name'      => _x( 'Quarantine', 'post type singular name' ),
-                'view_item'          => __( 'View Quarantine Record' ),
-                'all_items'          => __( 'All Quarantine Records' ),
-            ),
-            'public'           => false,
-            'map_meta_cap'     => true,
-            'hierarchical'     => false,
-            'rewrite'          => false,
-            'query_var'        => false,
-            'can_export'       => false,
-            'delete_with_user' => false,
-            'supports'         => array( 'title', 'author', 'editor', 'excerpt', 'custom-fields' ),
-            'capability_type'  => 'customize_gotmls_quarantine',
-            'capabilities'     => array(
-                'create_posts'           => 'customize',
-                'delete_others_posts'    => 'customize',
-                'delete_post'            => 'customize',
-                'delete_posts'           => 'customize',
-                'delete_private_posts'   => 'customize',
-                'delete_published_posts' => 'do_not_allow',
-                'edit_others_posts'      => 'do_not_allow',
-                'edit_post'              => 'do_not_allow',
-                'edit_posts'             => 'do_not_allow',
-                'edit_private_posts'     => 'do_not_allow',
-                'edit_published_posts'   => 'do_not_allow',
-                'publish_posts'          => 'customize',
-                'read'                   => 'do_not_allow',
-                'read_post'              => 'do_not_allow',
-                'read_private_posts'     => 'customize',
-            ),
-        )
-    );
-    register_post_type(
-        'gotmls_results',
-        array(
-            'labels'           => array(
-                'name'               => _x( 'Results', 'post type general name' ),
-                'singular_name'      => _x( 'Result', 'post type singular name' ),
-                'view_item'          => __( 'View Scan Results' ),
-                'all_items'          => __( 'All Scans' ),
-            ),
-            'public'           => false,
-            'map_meta_cap'     => true,
-            'hierarchical'     => true,
-            'rewrite'          => false,
-            'query_var'        => false,
-            'can_export'       => false,
-            'delete_with_user' => false,
-            'supports'         => array( 'title', 'author', 'editor', 'excerpt', 'custom-fields' ),
-            'capability_type'  => 'customize_gotmls_reults',
-            'capabilities'     => array(
-                'create_posts'           => 'customize',
-                'delete_others_posts'    => 'customize',
-                'delete_post'            => 'customize',
-                'delete_posts'           => 'customize',
-                'delete_private_posts'   => 'customize',
-                'delete_published_posts' => 'do_not_allow',
-                'edit_others_posts'      => 'do_not_allow',
-                'edit_post'              => 'do_not_allow',
-                'edit_posts'             => 'do_not_allow',
-                'edit_private_posts'     => 'do_not_allow',
-                'edit_published_posts'   => 'do_not_allow',
-                'publish_posts'          => 'customize',
-                'read'                   => 'do_not_allow',
-                'read_post'              => 'do_not_allow',
-                'read_private_posts'     => 'customize',
-            ),
-        )
-    );
+	load_plugin_textdomain('gotmls', false, basename(GOTMLS_plugin_path).'/languages');
+	if (defined("GOTMLS_SESSION_TIME") && is_numeric(GOTMLS_SESSION_TIME)) {
+		if (function_exists("ihc_login_form"))
+			add_shortcode("ihc-login-form", "GOTMLS_ihc_login_form");
+		if (function_exists("wc_get_template"))
+			add_action("woocommerce_login_form", "GOTMLS_woocommerce_login_form");
+	}
+	register_post_type(
+		'gotmls_quarantine',
+		array(
+			'labels'           => array(
+				'name'               => _x( 'Quarantine', 'post type general name' ),
+				'singular_name'      => _x( 'Quarantine', 'post type singular name' ),
+				'view_item'          => __( 'View Quarantine Record' ),
+				'all_items'          => __( 'All Quarantine Records' ),
+			),
+			'public'           => false,
+			'map_meta_cap'     => true,
+			'hierarchical'     => false,
+			'rewrite'          => false,
+			'query_var'        => false,
+			'can_export'       => false,
+			'delete_with_user' => false,
+			'supports'         => array( 'title', 'author', 'editor', 'excerpt', 'custom-fields' ),
+			'capability_type'  => 'customize_gotmls_quarantine',
+			'capabilities'     => array(
+				'create_posts'           => 'customize',
+				'delete_others_posts'    => 'customize',
+				'delete_post'            => 'customize',
+				'delete_posts'           => 'customize',
+				'delete_private_posts'   => 'customize',
+				'delete_published_posts' => 'do_not_allow',
+				'edit_others_posts'      => 'do_not_allow',
+				'edit_post'              => 'do_not_allow',
+				'edit_posts'             => 'do_not_allow',
+				'edit_private_posts'     => 'do_not_allow',
+				'edit_published_posts'   => 'do_not_allow',
+				'publish_posts'          => 'customize',
+				'read'                   => 'do_not_allow',
+				'read_post'              => 'do_not_allow',
+				'read_private_posts'     => 'customize',
+			),
+		)
+	);
+	register_post_type(
+		'gotmls_results',
+		array(
+			'labels'           => array(
+				'name'               => _x( 'Results', 'post type general name' ),
+				'singular_name'      => _x( 'Result', 'post type singular name' ),
+				'view_item'          => __( 'View Scan Results' ),
+				'all_items'          => __( 'All Scans' ),
+			),
+			'public'           => false,
+			'map_meta_cap'     => true,
+			'hierarchical'     => true,
+			'rewrite'          => false,
+			'query_var'        => false,
+			'can_export'       => false,
+			'delete_with_user' => false,
+			'supports'         => array( 'title', 'author', 'editor', 'excerpt', 'custom-fields' ),
+			'capability_type'  => 'customize_gotmls_reults',
+			'capabilities'     => array(
+				'create_posts'           => 'customize',
+				'delete_others_posts'    => 'customize',
+				'delete_post'            => 'customize',
+				'delete_posts'           => 'customize',
+				'delete_private_posts'   => 'customize',
+				'delete_published_posts' => 'do_not_allow',
+				'edit_others_posts'      => 'do_not_allow',
+				'edit_post'              => 'do_not_allow',
+				'edit_posts'             => 'do_not_allow',
+				'edit_private_posts'     => 'do_not_allow',
+				'edit_published_posts'   => 'do_not_allow',
+				'publish_posts'          => 'customize',
+				'read'                   => 'do_not_allow',
+				'read_post'              => 'do_not_allow',
+				'read_private_posts'     => 'customize',
+			),
+		)
+	);
 }
 add_action("init", "GOTMLS_init");
 

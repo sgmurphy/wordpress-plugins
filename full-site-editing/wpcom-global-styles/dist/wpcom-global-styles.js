@@ -5700,9 +5700,9 @@ const PLAN_BUSINESS_2Y_ONBOARDING_EXPIRE = '2022-07-31T00:00:00+00:00';
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   cw: () => (/* binding */ getPlansListExperiment)
+/* harmony export */   c: () => (/* binding */ getPlansListExperiment)
 /* harmony export */ });
-/* unused harmony exports setPlansListExperiment, setTrailMapExperiment */
+/* unused harmony export setPlansListExperiment */
 const experiments = {};
 const PLANS_LIST_NAMESPACE = 'plans-list';
 const setExperiment = (namespace, experimentName, variation) => {
@@ -5719,9 +5719,6 @@ const setPlansListExperiment = (experimentName, variation) => {
 };
 const getPlansListExperiment = experimentName => {
   return getExperiment(PLANS_LIST_NAMESPACE, experimentName);
-};
-const setTrailMapExperiment = variation => {
-  setExperiment(PLANS_LIST_NAMESPACE, 'wpcom_trail_map_feature_structure_experiment', variation);
 };
 
 /***/ }),
@@ -7821,37 +7818,37 @@ PLANS_LIST[_constants__WEBPACK_IMPORTED_MODULE_6__/* .PLAN_HOSTING_TRIAL_MONTHLY
  * See: p7H4VZ-4S4-p2
  */
 
-const getPlanPersonalTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanPersonalTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Personal is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Personal') :
 // translators: Starter is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Starter');
-const getPlanPremiumTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanPremiumTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Premium is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Premium') :
 // translators: Explorer is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Explorer');
-const getPlanBusinessTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Business') :
 // translators: Creator is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Creator');
-const getPlanEcommerceTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanEcommerceTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Commerce is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Commerce') :
 // translators: Entrepreneur is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Entrepreneur');
-const getPlanBusinessTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Business Trial') :
 // translators: Creator Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Creator Trial');
-const getPlanBusinessTrialTagline = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTrialTagline = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Try all the features of our Business plan.') :
 // translators: Creator is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Try all the features of our Creator plan.');
-const getPlanCommerceTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanCommerceTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Commerce Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Commerce Trial') :
 // translators: Entrepreneur Trial is a plan name

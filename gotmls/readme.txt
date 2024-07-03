@@ -1,14 +1,16 @@
 === Anti-Malware Security and Brute-Force Firewall ===
 Plugin URI: https://gotmls.net/
 Author: Eli Scheetz
-Author URI: http://wordpress.ieonly.com/category/my-plugins/anti-malware/
+Author URI: https://anti-malware.ninja/
 Contributors: gotmls, scheeeli
 Donate link: https://gotmls.net/donate/
-Tags: security, firewall, anti-malware, scanner, automatic, repair, remove, malware, virus, threat, hacked, malicious, infection, timthumb, exploit, block, brute-force, wp-login, patch, antimalware, revslider, Revolution Slider
-Version: 4.23.67
-Stable tag: 4.23.67
+Tags: anti-malware, security, scanner, brute-force, firewall
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html#license-text
+Version: 4.23.68
+Stable tag: 4.23.68
 Requires at least: 3.3
-Tested up to: 6.5.4
+Tested up to: 6.5.5
 
 This Anti-Malware scanner searches for Malware, Viruses, and other security threats and vulnerabilities on your server and it helps you fix them.
 
@@ -97,6 +99,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. The Quarantine showing threats that have been fix already.
 
 == Changelog ==
+
+= 4.23.68 =
+* Updated Brute-Force Login Protection to integrate better with login forms from other plugins like WooCommerce and Ultimate Membership.
+* Fixed static wp_posts table name in whitelist query to use the WPDB dynamic table name.
+* Checked code for compatibility with WordPress 6.5.5 and ClassicPress 2.1.1.
 
 = 4.23.67 =
 * Upgraded Brute-Force Login Protection to integrate the JS check on the login form with the session check.
@@ -473,6 +480,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * First versions available for WordPress (code removed, no longer compatible).
 
 == Upgrade Notice ==
+
+= 4.23.68 =
+Updated Brute-Force Login Protection to integrate better with login forms from other plugins, fixed static wp_posts table name in whitelist query, and checked code for compatibility with WordPress 6.5.5 and ClassicPress 2.1.1.
 
 = 4.23.67 =
 Upgraded Brute-Force Login Protection and the Quick Scan of Core Files, added custom Whitelist, fixed session conflict with REST API, and checked code for compatibility with WordPress 6.5.4 and ClassicPress 2.1.0.

@@ -12,6 +12,21 @@
                 <div class="box">
                     <table>
                         <tr>
+                            <td style="border-bottom:none">2024-06-29</td>
+                            <td style="border-bottom:none"><h3> MalCare WordPress Security Plugin</h3></td>
+                            <td style="border-bottom:none">plugin</td>
+                        </tr>
+                    </table>
+                    <div class="greybox" style="position: relative; top: -10px">
+                        Automatic features not working:<br>
+                        1) Go to 'MalCare → Ozone Layer → Firewall → View All'<br>
+                        2) Find a register whose path contains 'fifu-premium'<br>
+                        3) Click on the 'Add to whitelist' button<br>
+                    </div>
+                </div>
+                <div class="box">
+                    <table>
+                        <tr>
                             <td style="border-bottom:none">2024-06-10</td>
                             <td style="border-bottom:none"><h3>WooCommerce Additional Variation Images</h3></td>
                             <td style="border-bottom:none">plugin</td>
@@ -1490,25 +1505,6 @@
                     <div class="greybox" style="position: relative; top: -10px">
                         Showing external images on "Related Posts":<br>
                         x) there is no local solution. Jetpack Related Posts documentation informs: "we do all the analysis, processing, and serving from our cloud". It means Jetpack would need to adapt its web service to work with the images provided by FIFU. So you may contact Jetpack support, install an alternative plugin for Related Posts, like <a href="https://wordpress.org/plugins/related-posts-thumbnails/">this</a>, or try this <a href="https://wordpress.org/support/topic/featured-image-from-url-with-jetpack-related-posts/">snippet</a> (untested).<br>
-                    </div>
-                </div>
-                <div class="box">
-                    <table>
-                        <tr>
-                            <td style="border-bottom:none">2019-12-12</td>
-                            <td style="border-bottom:none"><h3>PHP</h3></td>
-                            <td style="border-bottom:none">programming language</td>
-                        </tr>
-                    </table>
-                    <div class="greybox" style="position: relative; top: -10px">
-                        Fixing fatal error "Allowed memory size of [...] bytes exhausted (tried to allocate [...] bytes) in /var/www/html/wp-includes/wp-db.php":<br>
-                        1) open /var/www/html/wp-config.php file;<br>
-                        2) add this code before "Happy publishing" line: define('WP_MEMORY_LIMIT', '2048M');<br>
-                    </div>
-                    <div class="greybox" style="position: relative; top: -10px">
-                        Fixing fatal error "Maximum execution time of 30 seconds exceeded in /var/www/html/wp-includes/wp-db.php":<br>
-                        1) open /var/www/html/wp-config.php file;<br>
-                        2) add this code before "Happy publishing" line: set_time_limit(1800);<br>
                     </div>
                 </div>
                 <div class="box">

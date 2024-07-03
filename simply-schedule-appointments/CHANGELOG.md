@@ -1,5 +1,23 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.30 - 2024-06-25
+
+### Fixes
+
+- Fix Booking Flow ShortCode
+- Fix revisions to be consistent with notifications
+- Fix staff meeting url not passed to appointment when user preference
+- Display all team members assigned to appointment
+- Fix twig template customer information summary
+- Hide appointment actions until appointment information is ready
+- Google Calendar is blocking timeslots incorrectly
+- Replace fallback IP to country API with a working API
+
+### Features and Improvements
+
+- Removed standard timezones.
+- Added missing actions to revisions model.
+
 ## SSA-VERSION-PREFIX.6.7.28 - 2024-06-18
 
 ### Fixes

@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 4.5.21 =
+* fixed deprecation warnings for PHP 8.2+
+
 = 4.5.20 =
 * fixed plugin attached if woocommerce is active
 

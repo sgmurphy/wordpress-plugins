@@ -4,12 +4,12 @@ Tags: HTML5 video player, plyr, video, video player, mp4 Player
 Donate link: https://www.buymeacoffee.com/abuhayat
 Requires at least: 5.8
 Tested up to: 6.5.5
-Stable tag: 2.5.27
+Stable tag: 2.5.28
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-HTML5 Video Player plugin plays any video in WordPress. It's simple, accessible, & customizable for all devices. Add/embed video players anywhere!
+HTML5 Video Player plugin plays any video in WordPress. It's simple, accessible, & customizable for all devices. Add video players anywhere!.
 
 == Description ==
 HTML5 Video Player has tons of options that fit your video player needs. 

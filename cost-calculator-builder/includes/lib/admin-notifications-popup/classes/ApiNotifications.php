@@ -49,10 +49,10 @@ class ApiNotifications {
 
 	static function get_notice_data_from_json() {
 		$json_response = wp_remote_get( self::$json_file_path );
-		$json_data     = json_decode( wp_remote_retrieve_body( $json_response ), true );
 
-		if ( ! empty( $json_data ) ) {
-			return $json_data['notices'] ?? array();
+		if ( ! empty( json_decode( wp_remote_retrieve_body( $json_response ) ) ) ) {
+			$notices = json_decode( wp_remote_retrieve_body( $json_response ), true );
+			return $notices['notices'] ?? array();
 		}
 		return array();
 	}

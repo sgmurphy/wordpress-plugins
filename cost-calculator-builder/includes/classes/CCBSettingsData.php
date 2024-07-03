@@ -407,10 +407,11 @@ class CCBSettingsData {
 				'icon'  => 'ccb-icon-sticky-calc',
 			),
 			array(
-				'type'  => 'pro',
-				'title' => __( 'Order Form', 'cost-calculator-builder' ),
-				'slug'  => 'send-form',
-				'icon'  => 'ccb-icon-XMLID_426',
+				'type'         => 'pro',
+				'title'        => __( 'Order Form', 'cost-calculator-builder' ),
+				'slug'         => 'send-form',
+				'icon'         => 'ccb-icon-XMLID_426',
+				'icon-warning' => 'ccb-error-icon',
 			),
 			array(
 				'type'  => 'pro',
@@ -457,10 +458,11 @@ class CCBSettingsData {
 			),
 
 			array(
-				'type'  => 'basic',
-				'title' => __( 'Contact Form', 'cost-calculator-builder' ),
-				'slug'  => 'email',
-				'icon'  => 'ccb-icon-XMLID_426',
+				'type'         => 'basic',
+				'title'        => __( 'Order Form', 'cost-calculator-builder' ),
+				'slug'         => 'email',
+				'icon'         => 'ccb-icon-XMLID_426',
+				'icon-warning' => 'ccb-error-icon',
 			),
 
 			array(

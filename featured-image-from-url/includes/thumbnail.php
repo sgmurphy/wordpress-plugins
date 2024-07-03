@@ -106,9 +106,6 @@ function fifu_add_social_tags() {
         ]);
     }
 
-    if (fifu_is_off('fifu_social_image_only'))
-        include 'html/social.html';
-
     if ($url) {
         if (fifu_is_from_speedup($url))
             $url = fifu_speedup_get_signed_url($url, 1280, 672, null, null, false);
@@ -212,17 +209,15 @@ function fifu_replace($html, $post_id, $post_thumbnail_id, $size, $attr = null) 
     $url = get_post_meta($post_id, 'fifu_image_url', true);
 
     $delimiter = fifu_get_delimiter('src', $html);
-    if (fifu_is_on('fifu_dynamic_alt')) {
+    $alt = get_post_meta($post_id, 'fifu_image_alt', true);
+    if (!$alt && fifu_is_on('fifu_dynamic_alt')) {
         $alt = get_the_title($post_id);
         $custom_alt = 'alt=' . $delimiter . $alt . $delimiter . ' title=' . $delimiter . $alt . $delimiter;
         $html = preg_replace('/alt=[\'\"][^[\'\"]*[\'\"]/', $custom_alt, $html);
         $html = fifu_check_alt_attribute($html, $custom_alt);
     } else {
-        $alt = null;
-        if ($url) {
-            $alt = get_post_meta($post_id, 'fifu_image_alt', true);
-            if ($alt)
-                $html = preg_replace('/alt=[\'\"][^[\'\"]*[\'\"]/', 'alt=' . $delimiter . $alt . $delimiter . ' title=' . $delimiter . $alt . $delimiter, $html);
+        if ($url && $alt) {
+            $html = preg_replace('/alt=[\'\"][^[\'\"]*[\'\"]/', 'alt=' . $delimiter . $alt . $delimiter . ' title=' . $delimiter . $alt . $delimiter, $html);
         }
     }
 
@@ -262,27 +257,53 @@ function fifu_get_html($url, $alt, $width, $height) {
     return sprintf('<!-- Powered by Featured Image from URL plugin --> <img %s alt="%s" title="%s" style="%s" data-large_image="%s" data-large_image_width="%s" data-large_image_height="%s" onerror="%s" width="%s" height="%s">', fifu_lazy_url($url), $alt, $alt, $css, $url, "800", "600", "jQuery(this).hide();", $width, $height);
 }
 
-add_filter('the_content', 'fifu_add_to_content');
-
-function fifu_add_to_content($content) {
-    return is_singular() && has_post_thumbnail() && ((is_singular('post') && fifu_is_on('fifu_content')) || (is_singular('page') && fifu_is_on('fifu_content_page')) || (fifu_is_cpt() && fifu_is_on('fifu_content_cpt'))) ? '<div style="text-align:center">' . get_the_post_thumbnail() . '</div>' . $content : $content;
-}
-
 add_filter('the_content', 'fifu_remove_content_image');
 
 function fifu_remove_content_image($content) {
-    if (fifu_is_on('fifu_pop_first')) {
-        preg_match_all('/<img[^>]*display:none[^>]*>/', $content, $matches);
-        if ($matches && $matches[0]) {
-            $image_url = get_post_meta(get_the_ID(), 'fifu_image_url', true);
-            if ($image_url) {
-                $tag = $matches[0][0];
-                if (strpos($tag, $image_url) !== false) {
-                    $content = str_replace($tag, "", $content);
+    if (fifu_is_off('fifu_pcontent_remove'))
+        return $content;
+
+    $post_types_string = get_option('fifu_pcontent_types');
+    $post_types_array = explode(',', $post_types_string);
+    if ($post_types_string && !is_singular($post_types_array))
+        return $content;
+
+    global $post;
+    $post_id = $post->ID;
+    $att_id = get_post_thumbnail_id($post_id);
+    $att_url = wp_get_attachment_url($att_id);
+
+    if (!empty($att_url)) {
+        $pattern = '/<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]*>/i';
+        preg_match_all($pattern, $content, $matches);
+
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $match) {
+                $content_img_url = html_entity_decode($match);
+                if ($content_img_url == $att_url) {
+                    $content = preg_replace('/<img[^>]+src=[\'"]' . preg_quote($match, '/') . '[\'"][^>]*>/i', '', $content, 1);
+                    return $content;
                 }
             }
         }
     }
+    return $content;
+}
+
+add_filter('the_content', 'fifu_add_to_content');
+
+function fifu_add_to_content($content) {
+    if (fifu_is_off('fifu_pcontent_add'))
+        return $content;
+
+    $post_types_string = get_option('fifu_pcontent_types');
+    $post_types_array = explode(',', $post_types_string);
+    if ($post_types_string && !is_singular($post_types_array))
+        return $content;
+
+    if (has_post_thumbnail())
+        return '<div style="text-align:center">' . get_the_post_thumbnail() . '</div>' . $content;
+
     return $content;
 }
 
@@ -323,7 +344,16 @@ function fifu_optimize_content($content) {
         $newImgItem = str_replace(' src=', ' ' . $css . ' class="lazyload" data-sizes="auto" data-srcset="' . $srcset . '" data-src=', $newImgItem);
         $content = str_replace($imgItem, $newImgItem, $content);
     }
+
+    $content = fifu_remove_source_tags($content);
+
     return $content;
+}
+
+function fifu_remove_source_tags($content) {
+    $pattern = '/<source\b[^>]*>(.*?)<\/source>|<source\b[^>]*\/?>/i';
+    $cleaned_content = preg_replace($pattern, '', $content);
+    return $cleaned_content;
 }
 
 function fifu_should_hide() {

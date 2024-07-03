@@ -46,11 +46,21 @@ if(!defined('TWBB_S3_BUCKET')) {
 if(!defined('TENWEB_SIGNUP_MAGIC_LINK_URL')) {
     define('TENWEB_SIGNUP_MAGIC_LINK_URL', 'https://testcore.10web.io/api/checkout/signup-via-magic-link');
 }
+
 if(!defined('TENWEB_AI_ASSISTANT')) {
     define('TENWEB_AI_ASSISTANT', 'https://testai-assistant.10web.io/');
 }
+
 if(!defined('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID')) {
     define('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID', 332);
+}
+
+if(!defined('TWM_ENABLE_PAYMENT')) {
+    define('TWM_ENABLE_PAYMENT', true);
+}
+
+if(!defined('TENWEB_WOOCOM_API_URL')) {
+    define('TENWEB_WOOCOM_API_URL', 'https://testwoocom.10web.io/');
 }
 
 global $tenweb_services;

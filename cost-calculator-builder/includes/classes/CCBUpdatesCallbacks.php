@@ -70,26 +70,29 @@ class CCBUpdatesCallbacks {
 
 			foreach ( $fields as $key => $field ) {
 				if ( isset( $field['alias'] ) && preg_replace( '/_field_id.*/', '', $field['alias'] ) === 'datePicker' ) {
-					$field['not_allowed_dates'] = array(
-						'all_past' => false,
-						'current'  => false,
-						'period'   => array(
-							array(
-								'start' => null,
-								'end'   => null,
+					if ( empty( $field['not_allowed_dates'] ) ) {
+						$field['not_allowed_dates'] = array(
+							'all_past' => false,
+							'current'  => false,
+							'period'   => array(
+								array(
+									'start' => null,
+									'end'   => null,
+								),
 							),
-						),
-					);
+						);
+					}
 
-					if ( isset( $field['min_date'] ) && $field['min_date'] ) {
-						$field['is_have_unselectable']          = 'true';
-						$field['not_allowed_dates']['all_past'] = 'true';
+					if ( ! empty( $field['min_date'] ) ) {
+						$field['is_have_unselectable']          = true;
+						$field['not_allowed_dates']['all_past'] = true;
 
 						if ( $field['min_date_days'] > 0 ) {
 							$field['not_allowed_dates']['current'] = true;
 							$field['days_from_current']            = $field['min_date_days'] - 1;
 						}
 					}
+
 					$fields[ $key ] = $field;
 				}
 			}
@@ -999,6 +1002,25 @@ class CCBUpdatesCallbacks {
 						$field['not_allowed_dates']['period'] = array(
 							$field['not_allowed_dates']['period'],
 						);
+					}
+
+					$fields[ $key ] = $field;
+				}
+			}
+
+			update_post_meta( $calculator->ID, 'stm-fields', (array) $fields );
+		}
+	}
+
+	public static function ccb_total_field_hidden_calculate() {
+		$calculators = self::get_calculators();
+		foreach ( $calculators as $calculator ) {
+			$fields = get_post_meta( $calculator->ID, 'stm-fields', true );
+
+			foreach ( $fields as $key => $field ) {
+				if ( isset( $field['alias'] ) && preg_replace( '/_field_id.*/', '', $field['alias'] ) === 'total' ) {
+					if ( isset( $field['hidden'] ) && true === $field['hidden'] ) {
+						$field['calculateHidden'] = true;
 					}
 
 					$fields[ $key ] = $field;

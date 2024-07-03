@@ -246,6 +246,7 @@ class Onboarding {
 			'get_payment_mode'                        => Helper::get_payment_mode(),
 			'get_webhook_secret'                      => Helper::get_webhook_secret(),
 			'webhook_url'                             => esc_url( get_home_url() . '/wp-json/cpsw/v1/webhook' ),
+			'get_element'                             => Helper::get_setting( 'cpsw_element_type' ),
 		];
 	}
 

@@ -1238,7 +1238,7 @@ function load_cron_status_failed_popup_wptc(status_code, err_msg, cron_url, ips)
 	if (ips == undefined || !ips) {
 		ips = '52.33.122.174';
 	}
-	ips = '52.33.122.174, 52.27.206.180 and 52.25.129.179';
+	ips = '52.33.122.174, 52.27.206.180, 35.166.193.49 and 52.25.129.179';
 
 	if (err_msg.length > 1000) {
 		err_msg = err_msg.substring(0, 1000);

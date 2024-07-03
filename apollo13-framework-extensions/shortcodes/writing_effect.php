@@ -20,10 +20,10 @@ function a13fe_writing_shortcode($atts, $content)
     $typed_style = '';
     //colors
     if ($color != '') {
-        $typed_style .= 'color:' . $color . ';';
+        $typed_style .= 'color:' . esc_attr($color) . ';';
     }
     if ($bg_color != '') {
-        $typed_style .= 'background-color:' . $bg_color . ';';
+        $typed_style .= 'background-color:' . esc_attr($bg_color) . ';';
     }
     if (!in_array($loop, array('0', '1'))) {
         $loop = 1;

@@ -91,6 +91,7 @@ if ( ! empty( $settings['formFields']['accessEmail'] ) && ! empty( $settings['fo
 if ( ! empty( $settings['formFields']['submitBtnText'] ) ) {
 	$settings['formFields']['submitBtnText'] = apply_filters( 'ccb_contact_form_submit_label', $settings['formFields']['submitBtnText'], $calc_id );
 }
+
 $settings['thankYouPage'] = apply_filters( 'ccb_customize_confirmation_page', $settings['thankYouPage'], $calc_id );
 $preset_key               = get_post_meta( $calc_id, 'ccb_calc_preset_idx', true );
 $preset_key               = empty( $preset_key ) ? 0 : $preset_key;
@@ -113,6 +114,13 @@ if ( ! empty( $fields ) ) {
 }
 
 $geolocation = isset( $general_settings['geolocation'] ) ? $general_settings['geolocation'] : array();
+
+if ( isset( $general_settings['invoice'] ) ) {
+	$settings['invoice'] = array(
+		'showAfterPayment' => $general_settings['invoice']['showAfterPayment'],
+		'emailButton'      => $general_settings['invoice']['emailButton'],
+	);
+}
 
 $data = array(
 	'id'            => $calc_id,

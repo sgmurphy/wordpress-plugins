@@ -242,7 +242,7 @@ class CCBExportImport {
 					'updated_at'      => wp_date( 'Y-m-d H:i:s' ),
 				);
 
-				$conditions      = Condition::get_discount_conditions( $discount['discount_id'] );
+				$conditions      = $discount['conditions'] ?? array();
 				$conditions_data = array();
 
 				if ( ! empty( $conditions ) ) {

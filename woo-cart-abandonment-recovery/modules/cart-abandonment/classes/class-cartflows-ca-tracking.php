@@ -47,6 +47,7 @@ class Cartflows_Ca_Tracking {
 
 			// Add script to track the cart abandonment.
 			add_action( 'woocommerce_after_checkout_form', array( $this, 'cart_abandonment_tracking_script' ) );
+			add_action( 'woocommerce_blocks_enqueue_checkout_block_scripts_after', array( $this, 'cart_abandonment_tracking_script' ) );
 
 			// Store user details from the current checkout page.
 			add_action( 'wp_ajax_cartflows_save_cart_abandonment_data', array( $this, 'save_cart_abandonment_data' ) );
@@ -326,12 +327,19 @@ class Cartflows_Ca_Tracking {
 					$key           = str_replace( 'wcf_', '', $key );
 					$_POST[ $key ] = sanitize_text_field( $value );
 				}
-				$_POST['billing_first_name'] = sanitize_text_field( $other_fields['wcf_first_name'] );
-				$_POST['billing_last_name']  = sanitize_text_field( $other_fields['wcf_last_name'] );
-				$_POST['billing_phone']      = sanitize_text_field( $other_fields['wcf_phone_number'] );
-				$_POST['billing_email']      = sanitize_email( $result->email );
-				$_POST['billing_city']       = sanitize_text_field( $city );
-				$_POST['billing_country']    = sanitize_text_field( $country );
+
+				$page_id = get_the_ID();
+
+				$block_checkout = ! empty( $page_id ) && Cartflows_Ca_Helper::get_instance()->is_block_checkout( $page_id );
+				$prefix         = $block_checkout ? 'billing-' : 'billing_';
+				$email_prefix   = $block_checkout ? '' : 'billing_';
+
+				$_POST[ $prefix . 'first_name' ]  = sanitize_text_field( $other_fields['wcf_first_name'] );
+				$_POST[ $prefix . 'last_name' ]   = sanitize_text_field( $other_fields['wcf_last_name'] );
+				$_POST[ $prefix . 'phone' ]       = sanitize_text_field( $other_fields['wcf_phone_number'] );
+				$_POST[ $email_prefix . 'email' ] = sanitize_email( $result->email );
+				$_POST[ $prefix . 'city' ]        = sanitize_text_field( $city );
+				$_POST[ $prefix . 'country' ]     = sanitize_text_field( $country );
 
 				// Update the Cart Contents. This will be useful when there are product addons fields added in the cart data.
 				$woocommerce->cart->set_cart_contents( $cart_content );
@@ -360,11 +368,28 @@ class Cartflows_Ca_Tracking {
 	 */
 	public function cart_abandonment_tracking_script() {
 
+		global $post;
+
+		$post_id = isset( $post->ID ) ? intval( $post->ID ) : 0;
+
+		/**
+		 * Use the filter to exclude the specific checkout pages from the cart abandonment tracking.
+		 *
+		 * @param WP_Post $post_id The current page's Post ID.
+		 * @return bool The true/false weather to exclude the page or not.
+		 *
+		 * @since 1.3.0
+		 */
+		if ( apply_filters( 'woo_ca_exclude_specific_checkout_page', false, $post_id ) ) {
+			return;
+		}
+
 		$wcf_ca_ignore_users = get_option( 'wcf_ca_ignore_users' );
 		$current_user        = wp_get_current_user();
 		$roles               = $current_user->roles;
 		$role                = array_shift( $roles );
-		if ( ! empty( $wcf_ca_ignore_users ) ) {
+
+		if ( ! empty( $role ) && ( ! empty( $wcf_ca_ignore_users ) && is_array( $wcf_ca_ignore_users ) ) ) {
 			foreach ( $wcf_ca_ignore_users as $user ) {
 				$user = strtolower( $user );
 				$role = preg_replace( '/_/', ' ', $role );
@@ -374,7 +399,6 @@ class Cartflows_Ca_Tracking {
 			}
 		}
 
-		global $post;
 		wp_enqueue_script(
 			'cartflows-cart-abandonment-tracking',
 			CARTFLOWS_CART_ABANDONMENT_TRACKING_URL . 'assets/js/cart-abandonment-tracking.js',
@@ -387,16 +411,16 @@ class Cartflows_Ca_Tracking {
 			'ajaxurl'                   => admin_url( 'admin-ajax.php' ),
 			'_nonce'                    => wp_create_nonce( 'cartflows_save_cart_abandonment_data' ),
 			'_gdpr_nonce'               => wp_create_nonce( 'cartflows_skip_cart_tracking_gdpr' ),
-			'_post_id'                  => get_the_ID(),
+			'_post_id'                  => $post_id,
 			'_show_gdpr_message'        => ( wcf_ca()->utils->is_gdpr_enabled() && ! isset( $_COOKIE['wcf_ca_skip_track_data'] ) ),
 			'_gdpr_message'             => get_option( 'wcf_ca_gdpr_message' ),
 			'_gdpr_nothanks_msg'        => __( 'No Thanks', 'woo-cart-abandonment-recovery' ),
 			'_gdpr_after_no_thanks_msg' => __( 'You won\'t receive further emails from us, thank you!', 'woo-cart-abandonment-recovery' ),
 			'enable_ca_tracking'        => true,
+			'_is_block_based_checkout'  => ! empty( $post_id ) && Cartflows_Ca_Helper::get_instance()->is_block_checkout( $post_id ),
 		);
 
 		wp_localize_script( 'cartflows-cart-abandonment-tracking', 'wcf_ca_vars', $vars );
-
 	}
 
 	/**

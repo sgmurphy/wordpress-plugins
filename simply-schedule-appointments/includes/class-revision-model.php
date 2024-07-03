@@ -748,7 +748,9 @@ class SSA_Revision_Model extends SSA_Db_Model {
 			'staff_capacity_changed' => 'Staff Capacity Changed',
 			'has_max_capacity_changed' => 'Max Capacity Changed',
 			'reminder_sent' => 'Notification Sent',
-			'reminder_not_sent'=>'Notification Not Sent'
+			'reminder_not_sent'=>'Notification Not Sent',
+			'max_booking_notice_changed' => 'Max Booking Notice Changed',
+			'shared_calendar_event_changed' => 'Shared Calendar Event Changed',
 		);
 
 		// Update the array below whenever needed
@@ -901,6 +903,10 @@ class SSA_Revision_Model extends SSA_Db_Model {
 				return '{{ user }} changed the appointment type title from {{ old_field }} to {{ new_field }}';
 			case 'min_booking_notice_changed':
 				return '{{ user }} changed the notice required from {{ old_field }} to {{ new_field }}';
+			case 'max_booking_notice_changed':
+				return '{{ user }} changed how far in advance customers can book an appointment from {{ old_field }} to {{ new_field }}';
+			case 'shared_calendar_event_changed':
+				return '{{ user }} changed the shared event settings for google calendar';
 			case 'buffer_before_changed':
 				return '{{ user }} changed the buffer before from {{ old_field }} to {{ new_field }}';
 			case 'buffer_after_changed':
@@ -951,7 +957,7 @@ class SSA_Revision_Model extends SSA_Db_Model {
 				return '{{ user }} changed the appointment status to {{ action }}';
 		}
 	}
-
+  
 	public function parse_stack_trace_before_insert( $string = '' ) {
 		$pattern = '/#(\d+)\s+(.*)/';
 		preg_match_all( $pattern, $string, $matches, PREG_SET_ORDER );

@@ -4,7 +4,7 @@ Plugin Name: Backup and Staging by WP Time Capsule
 Plugin URI: https://wptimecapsule.com
 Description: Backup and Staging by WP Time Capsule is an incremental automated schedule backup plugin that backups up your website to Dropbox, Google Drive, Amazon S3, Wasabi and Backblaze B2 Cloud on a daily basis.
 Author: Revmakx
-Version: 1.22.19
+Version: 1.22.20
 Author URI: http://www.revmakx.com
 Tested up to: 6.5.5
 /************************************************************

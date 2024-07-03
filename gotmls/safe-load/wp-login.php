@@ -2,13 +2,13 @@
 /**
  * GOTMLS wp-login protection
  * @package GOTMLS
- * @since 4.23.67
+ * @since 4.23.68
 */
 
 require_once(dirname(__FILE__)."/trace.php");
 
 if (!defined("GOTMLS_LOGIN_PROTECTION")) {
-	if (!is_file($bflp_file = dirname(dirname(dirname(dirname(__FILE__))))."/mu-plugins/gotmls_safe-load.php") || (is_array($GOTMLS_mu) && count($GOTMLS_mu) > 1 && ($bflp_contents = file_get_contents($bflp_file)) && (substr($bflp_contents, -1 * strlen($GOTMLS_mu[1])) != $GOTMLS_mu[1])))
+	if (!is_file($bflp_file = dirname(dirname(dirname(__DIR__)))."/mu-plugins/gotmls_safe-load.php") || (is_array($GOTMLS_mu) && count($GOTMLS_mu) > 1 && ($bflp_contents = file_get_contents($bflp_file)) && (substr($bflp_contents, -1 * strlen($GOTMLS_mu[1])) != $GOTMLS_mu[1])))
 		$GOTMLS_mu = GOTMLS_save_contents($bflp_file, implode("\ndefine('GOTMLS_MU_FILE', __FILE__);\n",  $GOTMLS_mu));
 	unset($GOTMLS_mu);
 	if (defined("GOTMLS_SAFELOAD_DIR") && is_file(GOTMLS_SAFELOAD_DIR."session.php")) {
@@ -26,7 +26,7 @@ if (defined("GOTMLS_LOGIN_PROTECTION")) {
 		$GLOBALS["GOTMLS"] = array();
 	if (!isset($GLOBALS["GOTMLS"]["detected_attacks"]))
 		$GLOBALS["GOTMLS"]["detected_attacks"] = '';
-	if ((GOTMLS_REQUEST_METHOD == "POST") && isset($_POST["log"]) && isset($_POST["pwd"]) && !(isset($GOTMLS_LOGIN_KEY) && isset($GOTMLS_logins[$GOTMLS_LOGIN_KEY]["whitelist"]))) {
+	if ((GOTMLS_REQUEST_METHOD == "POST") && ((is_dir(dirname(dirname(__DIR__))."/woocommerce") && isset($_POST["username"]) && isset($_POST["password"])) || (isset($_POST["log"]) && isset($_POST["pwd"]))) && !(isset($GOTMLS_LOGIN_KEY) && isset($GOTMLS_logins[$GOTMLS_LOGIN_KEY]["whitelist"]))) {
 		if (!(isset($_SESSION["GOTMLS_server_time"]["time_START"]) && defined("GOTMLS_SESSION_TIME") && ($_SESSION["GOTMLS_server_time"]["time_START"] != GOTMLS_SESSION_TIME)) && !defined("SESS_FILE"))
 			GOTMLS_define("SESS_FILE", $GOTMLS_LOGIN_KEY = GOTMLS_session_file());
 		if (!(isset($_SESSION["GOTMLS_server_time"]["time_START"]) && defined("GOTMLS_SESSION_TIME") && ($_SESSION["GOTMLS_server_time"]["time_START"] != GOTMLS_SESSION_TIME)))

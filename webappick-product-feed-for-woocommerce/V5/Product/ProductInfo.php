@@ -220,7 +220,7 @@ class ProductInfo {
 			$description = CommonHelper::clean_content( $this->parent_product->get_short_description() );
 		}
 
-		return apply_filters( 'woo_feed_filter_product_short_description', $description, $this->product, $this->config );
+		return apply_filters( 'woo_feed_filter_product_short_description', $description, $this->product, $this->config, $this->parent_product );
 	}
 
 	/**

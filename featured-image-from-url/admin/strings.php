@@ -117,9 +117,6 @@ function fifu_get_strings_settings() {
     $fifu['word']['documentation'] = function () {
         _e("Documentation", FIFU_SLUG);
     };
-    $fifu['word']['tags'] = function () {
-        _e("Tags", FIFU_SLUG);
-    };
     $fifu['word']['pro'] = function () {
         _e("PRO", FIFU_SLUG);
     };
@@ -140,9 +137,6 @@ function fifu_get_strings_settings() {
     };
     $fifu['word']['troubleshooting'] = function () {
         _e("Troubleshooting", FIFU_SLUG);
-    };
-    $fifu['word']['gallery'] = function () {
-        _e("Gallery", FIFU_SLUG);
     };
 
     // where
@@ -300,8 +294,8 @@ function fifu_get_strings_settings() {
     $fifu['title']['default'] = function () {
         _e("Default Featured Image", FIFU_SLUG);
     };
-    $fifu['title']['content'] = function () {
-        _e("Featured Image in Content", FIFU_SLUG);
+    $fifu['title']['pcontent'] = function () {
+        _e("Modify Post Content", FIFU_SLUG);
     };
     $fifu['title']['hide'] = function () {
         _e("Hide Featured Media", FIFU_SLUG);
@@ -408,9 +402,6 @@ function fifu_get_strings_settings() {
     $fifu['title']['category'] = function () {
         _e("Category Images Auto Set", FIFU_SLUG);
     };
-    $fifu['title']['variable'] = function () {
-        _e("Variable Product", FIFU_SLUG);
-    };
     $fifu['title']['order-email'] = function () {
         _e("Add image to order email", FIFU_SLUG);
     };
@@ -483,7 +474,7 @@ function fifu_get_strings_settings() {
         _e("Solve it by activating Performance → CDN + Optimized Thumbnails or FIFU Cloud. Even large images hosted on slow servers should load quickly on your website.", FIFU_SLUG);
     };
     $fifu['support']['duplicated-desc'] = function () {
-        _e("Please check if Featured Image → Featured Image in Content is unduly enabled and disable it. Most themes don't need that feature.", FIFU_SLUG);
+        _e("Please check if 'Featured Image → Modify Post Content → add featured media' is unduly enabled and disable it. Most themes don't need that feature.", FIFU_SLUG);
     };
     $fifu['support']['cdn-desc'] = function () {
         _e("Some themes or plugins may not work with remote images when the sizes are not saved in the database. Solve this by enabling Performance → CDN + Optimized Thumbnails.", FIFU_SLUG);
@@ -512,7 +503,7 @@ function fifu_get_strings_settings() {
         _e("Hi, I'm an EXTERNAL image!", FIFU_SLUG);
     };
     $fifu['start']['url']['not'] = function () {
-        _e("It means I'm NOT in your media library and I'm NOT a plugin file attached either.", FIFU_SLUG);
+        _e("It means I'm NOT in your media library.", FIFU_SLUG);
     };
     $fifu['start']['url']['url'] = function () {
         _e("Don't you believe me? So why don't you check my Internet address (also known as URL)?", FIFU_SLUG);
@@ -892,7 +883,7 @@ function fifu_get_strings_settings() {
         _e("Automatically defines featured media using images found on external web pages. The plugin checks every minute for post types without featured media and accesses the provided web page URLs to retrieve the main image. FIFU looks for the Open Graph tag image (used for sharing on social media). If og:image is not found, it retrieves the largest image available. It can also search for embedded videos and set the first one found as the featured video. Videos take priority over images.", FIFU_SLUG);
     };
     $fifu['finder']['auto'] = function () {
-        _e("set featured media automatically", FIFU_SLUG);
+        _e("auto set featured media using web page address", FIFU_SLUG);
     };
     $fifu['finder']['video'] = function () {
         _e("look for embedded videos", FIFU_SLUG);
@@ -967,9 +958,24 @@ function fifu_get_strings_settings() {
         _e("After adding or removing a post type, you need to restart the feature by disabling and enabling the toggle below.", FIFU_SLUG);
     };
 
-    // content
-    $fifu['content']['desc'] = function () {
-        _e("Some themes don't display the featured image on posts (only on the homepage). If you want to show the featured image on posts, enable this option. The featured image will appear at the beginning of the content, before the text.", FIFU_SLUG);
+    // pcontent
+    $fifu['pcontent']['desc'] = function () {
+        _e("Post content refers to the main body of text within a post. It comes after the post title and doesn't include the featured media (image or video). However, with this feature, you can add the featured media to the top of the content, which may be useful when the theme doesn't render the featured media on single posts. You can also remove media from the content, which is useful when the same media is defined as the featured media, causing unwanted duplication. These changes are dynamic, happening only on page load, so they won't change the database and can be easily undone.", FIFU_SLUG);
+    };
+    $fifu['pcontent']['tab']['modify'] = function () {
+        _e("Modify post content", FIFU_SLUG);
+    };
+    $fifu['pcontent']['tab']['type'] = function () {
+        _e("Post type filter", FIFU_SLUG);
+    };
+    $fifu['pcontent']['option']['add'] = function () {
+        _e("add featured media", FIFU_SLUG);
+    };
+    $fifu['pcontent']['option']['remove'] = function () {
+        _e("remove featured media", FIFU_SLUG);
+    };
+    $fifu['pcontent']['type']['found'] = function () {
+        _e("Apply the feature to specific post types:", FIFU_SLUG);
     };
 
     // hide
@@ -991,7 +997,7 @@ function fifu_get_strings_settings() {
 
     // configuration
     $fifu['html']['desc'] = function () {
-        _e("Set featured images/videos automatically. The plugin reads the HTML of your post and uses the first image/video URL found as the featured media when you click the Publish/Update button. Image URLs must be within \"img\" tags.", FIFU_SLUG);
+        _e("Set featured media automatically. The plugin reads the HTML of your post content and uses the first image or video found as the featured media when the post is created or updated.", FIFU_SLUG);
     };
     $fifu['html']['tab']['auto'] = function () {
         _e("Auto set", FIFU_SLUG);
@@ -999,61 +1005,40 @@ function fifu_get_strings_settings() {
     $fifu['html']['tab']['all'] = function () {
         _e("Run it for all posts", FIFU_SLUG);
     };
-    $fifu['html']['tab']['run'] = function () {
-        _e("Run it now", FIFU_SLUG);
+    $fifu['html']['tab']['source'] = function () {
+        _e("Source filter", FIFU_SLUG);
     };
-    $fifu['html']['tab']['important'] = function () {
-        _e("Important", FIFU_SLUG);
+    $fifu['html']['tab']['type'] = function () {
+        _e("Post type filter", FIFU_SLUG);
     };
-    $fifu['html']['position'] = function () {
-        _e("image/video position", FIFU_SLUG);
+    $fifu['html']['tab']['media'] = function () {
+        _e("Media type filter", FIFU_SLUG);
     };
     $fifu['html']['first'] = function () {
-        _e("use the found image/video as featured image/video", FIFU_SLUG);
-    };
-    $fifu['html']['hide'] = function () {
-        _e("hide the image/video from content", FIFU_SLUG);
-    };
-    $fifu['html']['query'] = function () {
-        _e("remove query strings (anything following the question mark sign \"?\")", FIFU_SLUG);
+        _e("auto set featured media from post content", FIFU_SLUG);
     };
     $fifu['html']['overwrite'] = function () {
-        _e("overwrite the existing featured image/video", FIFU_SLUG);
-    };
-    $fifu['html']['prioritize'] = function () {
-        _e("prioritize video over image (if both exist)", FIFU_SLUG);
-    };
-    $fifu['html']['decode'] = function () {
-        _e("decode HTML entities", FIFU_SLUG);
-    };
-    $fifu['html']['check'] = function () {
-        _e("check the \"don't get URL from post content\" option in the post editor by default", FIFU_SLUG);
+        _e("overwrite the existing featured media", FIFU_SLUG);
     };
     $fifu['html']['skip']['desc'] = function () {
-        _e("skip URLs with", FIFU_SLUG);
+        _e("Skip URLs containing these keywords:", FIFU_SLUG);
     };
-    $fifu['html']['skip']['placeholder'] = function () {
-        _e("example.com,anotherexample,onemore", FIFU_SLUG);
+    $fifu['html']['media']['image'] = function () {
+        _e("Image", FIFU_SLUG);
     };
-    $fifu['html']['cpt']['desc'] = function () {
-        _e("post types", FIFU_SLUG);
+    $fifu['html']['media']['video'] = function () {
+        _e("Video", FIFU_SLUG);
+    };
+    $fifu['html']['media']['all'] = function () {
+        _e("All", FIFU_SLUG);
     };
 
     // all
     $fifu['all']['desc'] = function () {
         _e("Update all your posts applying the above configuration. To repeat the process, enable the toggle again.", FIFU_SLUG);
     };
-    $fifu['all']['important'] = function () {
-        _e("This process can take a while and cannot be undone, so make sure to create a backup.", FIFU_SLUG);
-    };
-    $fifu['all']['requirement'] = function () {
-        _e("For sites with a large number of posts, add the command \"set_time_limit(1800);\" to wp-config.php before \"Happy publishing\" line. This will prevent the process from being terminated before 30 minutes (the default time limit is 30 seconds).", FIFU_SLUG);
-    };
-    $fifu['all']['ignore'] = function () {
-        _e("ignore posts that already have a featured image/video", FIFU_SLUG);
-    };
     $fifu['all']['update'] = function () {
-        _e("update all your posts now", FIFU_SLUG);
+        _e("run it for each post, only once, and right now", FIFU_SLUG);
     };
 
     // metadata
@@ -1327,14 +1312,8 @@ function fifu_get_strings_settings() {
     $fifu['social']['desc'] = function () {
         _e("Utilize meta tags to share your posts along with their featured images on social media platforms.", FIFU_SLUG);
     };
-    $fifu['social']['add'] = function () {
-        _e("Add meta tags", FIFU_SLUG);
-    };
-    $fifu['social']['only'] = function () {
-        _e("Only image tags", FIFU_SLUG);
-    };
     $fifu['social']['tab']['posts'] = function () {
-        _e("Posts", FIFU_SLUG);
+        _e("Meta Tags", FIFU_SLUG);
     };
     $fifu['social']['tab']['home'] = function () {
         _e("Homepage", FIFU_SLUG);
@@ -1364,13 +1343,7 @@ function fifu_get_strings_settings() {
 
     // title
     $fifu['title']['desc'] = function () {
-        _e("Set the title of a featured image with the post title.", FIFU_SLUG);
-    };
-    $fifu['title']['copy'] = function () {
-        _e("Copy the post title to the alt/title field (when clicking the Publish button in the post editor)", FIFU_SLUG);
-    };
-    $fifu['title']['always'] = function () {
-        _e("Always use the post title as the image title (ignores alt/title field)", FIFU_SLUG);
+        _e("Set the post title as the image title when the alt/title field is undefined. This occurs dynamically during page load.", FIFU_SLUG);
     };
 
     // cloak
@@ -1499,7 +1472,7 @@ function fifu_get_strings_settings() {
         _e("To work correctly, some galleries provided by some themes require that the dimensions of the images are saved in the database, which can be impractical due to the slowness of this process. So the plugin offers its own product gallery that does not depend on the dimensions of external images to function properly. You can configure the behavior of this gallery in the \"Featured slider\" tab. To change the aspect ratio, go to \"Featured image → Same Height → Size ratio\".", FIFU_SLUG);
     };
     $fifu['gallery']['toggle'] = function () {
-        _e("Product gallery", FIFU_SLUG);
+        _e("FIFU product gallery", FIFU_SLUG);
     };
     $fifu['gallery']['adaptive'] = function () {
         _e("Adaptive height", FIFU_SLUG);
@@ -1520,14 +1493,6 @@ function fifu_get_strings_settings() {
     // buy
     $fifu['buy']['desc'] = function () {
         _e("This is a faster alternative to the WooCommerce single product page. Clicking on a product image from the shop page will display the main product information in a lightbox. The \"Buy Now\" button adds the product to the cart and redirects to the checkout page.", FIFU_SLUG);
-    };
-
-    // variable
-    $fifu['variable']['desc'] = function () {
-        _e("Add FIFU fields (featured image and image gallery) to product variations.", FIFU_SLUG);
-    };
-    $fifu['variable']['important'] = function () {
-        _e("Variation image gallery requires FIFU Product Gallery.", FIFU_SLUG);
     };
 
     // order email
@@ -1788,9 +1753,6 @@ function fifu_get_strings_meta_box() {
     };
 
     // image
-    $fifu['image']['ignore'] = function () {
-        _e("Don't get URL from post content", FIFU_SLUG);
-    };
     $fifu['image']['screenshot'] = function () {
         _e("Use screenshot", FIFU_SLUG);
     };

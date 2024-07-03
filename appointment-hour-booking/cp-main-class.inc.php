@@ -245,19 +245,33 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
     }
 
 
-    public function update_status( $id, $status ) {
+    public function update_status($id, $status, $indexonly = '-1')
+    {
         global $wpdb;
         $events = $wpdb->get_results( $wpdb->prepare('SELECT * FROM `'.$wpdb->prefix.$this->table_messages.'` WHERE id=%d', $id) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $posted_data = unserialize($events[0]->posted_data);
+        $posted_data = unserialize($events[0]->posted_data);  
+        if (!is_array($posted_data)) // no data to change status
+            return;
         $countapps = count($posted_data["apps"]);
+        $something_changed = false;
         for($k=0; $k<$countapps; $k++)
+            if (($indexonly == '-1' || $indexonly == $k) && (!isset($posted_data["apps"][$k]["cancelled"]) || $posted_data["apps"][$k]["cancelled"] != $status || (!empty($_REQUEST["rs"]) && $_REQUEST["rs"] != '')))
+            {
+                 $posted_data["apps"][$k]["cancelled"] = $status;         
+                 $posted_data["app_status_".($k+1)] = $status;     
+                 if (isset($_REQUEST["rs"]))    
+                 {                     
+                     $posted_data["apps"][$k]["cancelreason"] = sanitize_text_field($_REQUEST["rs"]);         
+                     $posted_data["app_cancelreason_".($k+1)] = $posted_data["apps"][$k]["cancelreason"];  
+                 }
+                 $something_changed = true;            
+            }
+        if ($something_changed)    
         {
-             $posted_data["apps"][$k]["cancelled"] = $status;
-             $posted_data["app_status_".($k+1)] = $status;
+            $posted_data = serialize($posted_data);
+            $wpdb->update ( $wpdb->prefix.$this->table_messages, array( 'posted_data' => $posted_data ), array( 'id' => $id ));        
+            do_action( 'cpappb_update_status', $id, $status ); 
         }
-        $posted_data = serialize($posted_data);
-        $wpdb->update ( $wpdb->prefix.$this->table_messages, array( 'posted_data' => $posted_data ), array( 'id' => $id ));
-        do_action( 'cpappb_update_status', $id, $status );
     }
 
 
@@ -357,7 +371,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
 
         // pre-select time-slots
         $selection = array();
-        $rows = $wpdb->get_results( $wpdb->prepare("SELECT notifyto,posted_data,data,formid FROM ".$wpdb->prefix.$this->table_messages." WHERE notifyto<>%s AND ".$user_query.$calquery."time<=%s ORDER BY time DESC LIMIT 0,".intval($limit), $this->blocked_by_admin_indicator, $to_query) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $rows = $wpdb->get_results( $wpdb->prepare("SELECT notifyto,posted_data,data,formid,id,time FROM ".$wpdb->prefix.$this->table_messages." WHERE notifyto<>%s AND ".$user_query.$calquery."time<=%s ORDER BY time DESC LIMIT 0,".intval($limit), $this->blocked_by_admin_indicator, $to_query) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
         foreach($rows as $item)
         {
@@ -386,7 +400,9 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
                                                      $app["service"],
                                                      $appindex,                       // 8
                                                      $item->formid,                   // 9
-                                                     $app["quant"]              // 10
+                                                     $app["quant"],              // 10
+                                                     $item->time,                   // 11
+                                                     $item->id                   // 12                                                     
                                                     );
                         }
                     }
@@ -449,6 +465,16 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
                     case 'paid':
                         echo esc_html(( (!empty($selection[$i][3]['paid']) && $selection[$i][3]['paid'])?__('Yes','appointment-hour-booking'):'&nbsp;'));
                         break;
+                    case 'options':
+                        if ( is_admin() && $this->check_current_user_access( intval( $selection[$i][9] ) ) )
+                        {
+                            echo '<div style="width:100px; zoom:75%; overflow:none">';                            
+                            ?><div style="clear:both;"><nobr><?php $this->render_status_box('sb'.intval($selection[$i][12]).'_'.intval($selection[$i][8]), $selection[$i][6]); ?><br><input style="float:left" class="button" type="button" name="calups_<?php echo intval($selection[$i][12]); ?>" value="<?php _e('Update Status','appointment-hour-booking'); ?>" onclick="cp_UpsItem(<?php echo intval($selection[$i][12]); ?>,<?php echo intval($selection[$i][8]); ?>);" /></nobr></div><?php
+                            echo '</div>';
+                        }
+                        else
+                            echo "&nbsp;";
+                        break;                         
                     default:
                         if (is_array($selection[$i][3][$fields[$j]]))
                             echo esc_html(implode(",",$selection[$i][3][$fields[$j]]));
@@ -460,11 +486,23 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
             echo '</div>';
             echo '<div class="cpapp_break"></div>';
         }
-
+        $nonce = wp_create_nonce( 'cpappb_actions_booking' );
+?>
+<?php if ( is_admin() && current_user_can('edit_pages') ) { ?>
+<script> 
+ function cp_UpsItem(id,item)
+ {
+     var status = document.getElementById("sb"+id+"_"+item).options[document.getElementById("sb"+id+"_"+item).selectedIndex].value;
+     var reason = "";
+     document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&anonce=<?php echo esc_js($nonce); ?>&cal=<?php echo intval($_GET["cal"]); ?>&list=1&ud='+id+'&status='+status+'&udidx='+(item-1)+'&or=shlist&r='+Math.random();    
+ }
+ </script>
+<?php } 
         $buffered_contents = ob_get_contents();
         ob_end_clean();
         return $buffered_contents;
     }
+    
 
 
     /* output of the booking form */

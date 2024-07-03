@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/xootix
 Tags: woocommerce cart, floating cart, cart popup, woocommerce, slider
 Requires at least: 3.0.1
 Tested up to: 6.5
-Stable tag: 2.5
+Stable tag: 2.5.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -126,6 +126,12 @@ You can use any third party plugin such as Loco Translate for hassle free transl
 6. Change Shipping Pro
 
 == Changelog ==
+
+= 2.5.1 =
+* New - Ajax now supports file uploads
+* Fix - Disable ajax for categories option not working 
+* Fix - Security
+
 
 = 2.5 =
 * New - Option to disable ajax add to cart on categories.

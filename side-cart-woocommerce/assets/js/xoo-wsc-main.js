@@ -337,13 +337,16 @@ jQuery(document).ready(function($){
 
 			var $form = $(e.currentTarget);
 
-			if( $form.closest('.product').hasClass('product-type-external') ) return;
+			if( $form.closest('.product').hasClass('product-type-external') || $form.siblings('.xoo-wsc-disable-atc').length ) return;
 
-			e.preventDefault();
-
-			var $button  		= $form.find( 'button[type="submit"]'),
-				productData 	= $form.serializeArray(),
+			var $button  		= $(e.originalEvent.submitter),
+				formData 		= new FormData($form.get(0)),
+				productData  	= $form.serializeArray(),
 				hasProductId 	= false;
+
+			if( !$button.length ){
+				$button = $form.find( 'button[type="submit"]');
+			}
 
 			//Check for woocommerce custom quantity code 
 			//https://docs.woocommerce.com/document/override-loop-template-and-show-quantities-next-to-add-to-cart-buttons/
@@ -357,40 +360,58 @@ jQuery(document).ready(function($){
 			})
 
 			//If no product id found , look for the form action URL
-			if( !hasProductId ){
+			if( !hasProductId && $form.attr('action') ){
 				var is_url = $form.attr('action').match(/add-to-cart=([0-9]+)/),
 					productID = is_url ? is_url[1] : false; 
 			}
 
-			// if button as name add-to-cart get it and add to form
-	        if( $button.attr('name') && $button.attr('name') == 'add-to-cart' && $button.attr('value') ){
-	            var productID = $button.attr('value');
+			// Add submitted button value
+	        if( $button.attr('name') && $button.attr('value') ){
+	            formData.append( $button.attr('name'), $button.attr('value') );
 	        }
 
 	        if( productID ){
-	        	productData.push({name: 'add-to-cart', value: productID});
+	        	formData.append( 'add-to-cart', productID );
 	        }
 
-	        productData.push({name: 'action', value: 'xoo_wsc_add_to_cart'});
+	        formData.append( 'action', 'xoo_wsc_add_to_cart' );
 
-			this.addToCartAjax( $button, productData );//Ajax add to cart
+	        var doAjaxAddToCart = true;
+
+	        
+        	$.each( xoo_wsc_params.skipAjaxForData, function( key, value ){
+        		if( formData.has(key) && ( !value || formData.get(key) == value ) ){
+        			doAjaxAddToCart = false;
+        			return false;
+        		}
+        	} )
+	        
+
+	        if( doAjaxAddToCart ){
+	        	e.preventDefault();
+	        	this.addToCartAjax( $button, formData );//Ajax add to cart
+	        }
+			
 		}
 
 
-		addToCartAjax( $button, productData ){
+		addToCartAjax( $button, formData ){
 
 			this.block();
 
 			$button.addClass('loading');
 
 			// Trigger event.
-			$( document.body ).trigger( 'adding_to_cart', [ $button, productData ] );
+			$( document.body ).trigger( 'adding_to_cart', [ $button, formData ] );
 
 			$.ajax({
 				url: get_wcurl( 'xoo_wsc_add_to_cart' ),
 				type: 'POST',
 				context: this,
-				data: $.param(productData),
+				cache: false,
+			    contentType: false,
+			    processData: false,
+				data: formData,
 			    success: function(response){
 
 					if(response.fragments){

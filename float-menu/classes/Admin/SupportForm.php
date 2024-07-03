@@ -40,7 +40,7 @@ class SupportForm {
                     <div class="wpie-field">
                         <div class="wpie-field__title"><?php esc_html_e( 'Your Name', 'float-menu' ); ?></div>
                         <label class="wpie-field__label has-icon">
-                            <span class="dashicons dashicons-admin-users"></span>
+                            <span class="wpie-icon wpie_icon-user"></span>
                             <input type="text" name="support[name]" id="support-name" value="">
                         </label>
                     </div>
@@ -48,7 +48,7 @@ class SupportForm {
                     <div class="wpie-field">
                         <div class="wpie-field__title"><?php esc_html_e( 'Contact email', 'float-menu' ); ?></div>
                         <label class="wpie-field__label has-icon">
-                            <span class="dashicons dashicons-email"></span>
+                            <span class="wpie-icon wpie_icon-at-sign"></span>
                             <input type="email" name="support[email]" id="support-email"
                                    value="<?php echo esc_attr( get_option( 'admin_email' ) ); ?>">
                         </label>
@@ -60,7 +60,7 @@ class SupportForm {
                     <div class="wpie-field">
                         <div class="wpie-field__title"><?php esc_html_e( 'Link to the issue', 'float-menu' ); ?></div>
                         <label class="wpie-field__label has-icon">
-                            <span class="dashicons dashicons-admin-links"></span>
+                            <span class="wpie-icon wpie_icon-link"></span>
                             <input type="url" name="support[link]" id="support-link"
                                    value="<?php echo esc_url( get_option( 'home' ) ); ?>">
                         </label>
@@ -68,7 +68,8 @@ class SupportForm {
 
                     <div class="wpie-field" data-field-box="menu_open">
                         <div class="wpie-field__title"><?php esc_html_e( 'Message type', 'float-menu' ); ?></div>
-                        <label class="wpie-field__label">
+                        <label class="wpie-field__label has-icon">
+                            <span class="wpie-icon wpie_icon-check"></span>
                             <select name="support[type]" id="support-type">
                                 <option value="Issue"><?php esc_html_e( 'Issue', 'float-menu' ); ?></option>
                                 <option value="Idea"><?php esc_html_e( 'Idea', 'float-menu' ); ?></option>
@@ -81,7 +82,7 @@ class SupportForm {
                     <div class="wpie-field">
                         <div class="wpie-field__title"><?php esc_html_e( 'Plugin', 'float-menu' ); ?></div>
                         <label class="wpie-field__label has-icon">
-                            <span class="dashicons dashicons-admin-plugins"></span>
+                            <span class="wpie-icon wpie_icon-plug"></span>
                             <input type="text" readonly name="support[plugin]" id="support-plugin"
                                    value="<?php echo esc_attr( $plugin ); ?>">
                         </label>
@@ -90,7 +91,7 @@ class SupportForm {
                     <div class="wpie-field">
                         <div class="wpie-field__title"><?php esc_html_e( 'License Key', 'float-menu' ); ?></div>
                         <label class="wpie-field__label has-icon">
-                            <span>🔑</span>
+                            <span class="wpie-icon wpie_icon-key"></span>
                             <input type="text" readonly name="support[license]" id="support-license"
                                    value="<?php echo esc_attr( $license ); ?>">
                         </label>

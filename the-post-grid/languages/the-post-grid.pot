@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-28 09:38+0000\n"
+"POT-Creation-Date: 2024-07-03 05:15+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,59 +14,59 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/Controllers/AjaxController.php:65
+#: ../app/Controllers/AjaxController.php:71
 msgid "Server Error !!"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:55
+#: ../app/Controllers/AjaxController.php:61
 msgid "Custom Field group"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:110, ../app/Controllers/AjaxController.php:166, ../app/Controllers/Admin/AdminAjaxController.php:1231
+#: ../app/Controllers/AjaxController.php:122, ../app/Controllers/AjaxController.php:178, ../app/Controllers/Admin/AdminAjaxController.php:1235
 msgid "Session Error !!"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:99
+#: ../app/Controllers/AjaxController.php:111
 msgid "Success"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:100, ../app/Helpers/Options.php:697
+#: ../app/Controllers/AjaxController.php:112, ../app/Helpers/Options.php:697
 msgid "Show All"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:135, ../app/Controllers/AjaxController.php:145
+#: ../app/Controllers/AjaxController.php:147, ../app/Controllers/AjaxController.php:157
 msgid "You have no permission to modification."
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:161
+#: ../app/Controllers/AjaxController.php:173
 msgid "Settings successfully updated"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:204, ../app/Controllers/AjaxController.php:237, ../app/Controllers/AjaxController.php:291
+#: ../app/Controllers/AjaxController.php:222, ../app/Controllers/AjaxController.php:262, ../app/Controllers/AjaxController.php:323, ../app/Controllers/AjaxController.php:382
 msgid "Security error"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:201, ../app/Models/Field.php:448
+#: ../app/Controllers/AjaxController.php:219, ../app/Models/Field.php:448
 msgid "No Taxonomy found"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:192, ../app/Helpers/Options.php:601
+#: ../app/Controllers/AjaxController.php:210, ../app/Helpers/Options.php:601
 msgid "Taxonomy"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:282, ../app/Models/Field.php:478
+#: ../app/Controllers/AjaxController.php:314, ../app/Models/Field.php:478
 msgid "Operator"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:338
+#: ../app/Controllers/AjaxController.php:377
 msgid "No shortCode found."
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:325
+#: ../app/Controllers/AjaxController.php:364
 msgid "Select Short code"
 msgstr ""
 
-#: ../app/Controllers/AjaxController.php:327, ../app/Helpers/Options.php:1054, ../app/Helpers/Options.php:1065, ../app/Helpers/Options.php:1088, ../app/Helpers/Options.php:1103, ../app/Helpers/Options.php:1127, ../app/Helpers/Options.php:1170, ../app/Helpers/Options.php:1186, ../app/Helpers/Options.php:1250, ../app/Helpers/Options.php:1306, ../app/Helpers/Options.php:1519, ../app/Widgets/elementor/rtTPGElementorHelper.php:852, ../app/Widgets/elementor/rtTPGElementorHelper.php:884, ../app/Widgets/elementor/rtTPGElementorHelper.php:1096, ../app/Widgets/elementor/rtTPGElementorHelper.php:1439, ../app/Widgets/elementor/rtTPGElementorHelper.php:1461, ../app/Widgets/elementor/rtTPGElementorHelper.php:2333, ../app/Widgets/elementor/rtTPGElementorHelper.php:2352, ../app/Widgets/elementor/rtTPGElementorHelper.php:2445, ../app/Widgets/elementor/rtTPGElementorHelper.php:2490, ../app/Widgets/elementor/rtTPGElementorHelper.php:2515, ../app/Widgets/elementor/rtTPGElementorHelper.php:2529, ../app/Widgets/elementor/rtTPGElementorHelper.php:2693, ../app/Widgets/elementor/rtTPGElementorHelper.php:2752, ../app/Widgets/elementor/rtTPGElementorHelper.php:2878, ../app/Widgets/elementor/rtTPGElementorHelper.php:2969, ../app/Widgets/elementor/rtTPGElementorHelper.php:4011, ../app/Widgets/elementor/rtTPGElementorHelper.php:4408, ../app/Widgets/elementor/rtTPGElementorHelper.php:4424, ../app/Widgets/elementor/rtTPGElementorHelper.php:4565, ../app/Widgets/elementor/rtTPGElementorHelper.php:7462, ../app/Widgets/elementor/rtTPGElementorHelper.php:7516, ../app/Widgets/elementor/rtTPGElementorHelper.php:8494, ../app/Widgets/elementor/widgets/category-block.php:515
+#: ../app/Controllers/AjaxController.php:366, ../app/Helpers/Options.php:1054, ../app/Helpers/Options.php:1065, ../app/Helpers/Options.php:1088, ../app/Helpers/Options.php:1103, ../app/Helpers/Options.php:1127, ../app/Helpers/Options.php:1170, ../app/Helpers/Options.php:1186, ../app/Helpers/Options.php:1250, ../app/Helpers/Options.php:1306, ../app/Helpers/Options.php:1519, ../app/Widgets/elementor/rtTPGElementorHelper.php:852, ../app/Widgets/elementor/rtTPGElementorHelper.php:884, ../app/Widgets/elementor/rtTPGElementorHelper.php:1096, ../app/Widgets/elementor/rtTPGElementorHelper.php:1439, ../app/Widgets/elementor/rtTPGElementorHelper.php:1461, ../app/Widgets/elementor/rtTPGElementorHelper.php:2333, ../app/Widgets/elementor/rtTPGElementorHelper.php:2352, ../app/Widgets/elementor/rtTPGElementorHelper.php:2445, ../app/Widgets/elementor/rtTPGElementorHelper.php:2490, ../app/Widgets/elementor/rtTPGElementorHelper.php:2515, ../app/Widgets/elementor/rtTPGElementorHelper.php:2529, ../app/Widgets/elementor/rtTPGElementorHelper.php:2693, ../app/Widgets/elementor/rtTPGElementorHelper.php:2752, ../app/Widgets/elementor/rtTPGElementorHelper.php:2878, ../app/Widgets/elementor/rtTPGElementorHelper.php:2969, ../app/Widgets/elementor/rtTPGElementorHelper.php:4011, ../app/Widgets/elementor/rtTPGElementorHelper.php:4408, ../app/Widgets/elementor/rtTPGElementorHelper.php:4424, ../app/Widgets/elementor/rtTPGElementorHelper.php:4565, ../app/Widgets/elementor/rtTPGElementorHelper.php:7462, ../app/Widgets/elementor/rtTPGElementorHelper.php:7516, ../app/Widgets/elementor/rtTPGElementorHelper.php:8494, ../app/Widgets/elementor/widgets/category-block.php:515
 msgid "Default"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "The Post Grid"
 msgstr ""
 
-#: ../app/Controllers/BlocksController.php:360, ../app/Controllers/BlocksController.php:471
+#: ../app/Controllers/BlocksController.php:360, ../app/Controllers/BlocksController.php:454, ../app/Controllers/BlocksController.php:474, ../app/Controllers/Admin/AdminAjaxController.php:48, ../app/Controllers/Admin/NoticeController.php:166
 msgid "User permission error"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Data Delete Done"
 msgstr ""
 
-#: ../app/Controllers/BlocksController.php:392, ../app/Controllers/BlocksController.php:491, ../app/Controllers/Api/RttpgV1.php:142
+#: ../app/Controllers/BlocksController.php:392, ../app/Controllers/BlocksController.php:494
 msgid "CSS can not be saved due to permission!!!"
 msgstr ""
 
@@ -102,11 +102,11 @@ msgstr ""
 msgid "Css file has been updated"
 msgstr ""
 
-#: ../app/Controllers/BlocksController.php:458, ../app/Controllers/BlocksController.php:495
+#: ../app/Controllers/BlocksController.php:461, ../app/Controllers/BlocksController.php:498
 msgid "Data not found!!"
 msgstr ""
 
-#: ../app/Controllers/BlocksController.php:493
+#: ../app/Controllers/BlocksController.php:496
 msgid "Data retrieve done"
 msgstr ""
 
@@ -134,43 +134,43 @@ msgstr ""
 msgid "No shortCode found"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:153, ../app/Helpers/Options.php:1735, ../app/Controllers/Admin/AdminAjaxController.php:96, ../app/Widgets/elementor/rtTPGElementorHelper.php:3266, ../app/Widgets/elementor/rtTPGElementorHelper.php:3295, ../app/Widgets/elementor/rtTPGElementorHelper.php:5311
+#: ../app/Controllers/ShortcodeController.php:153, ../app/Helpers/Options.php:1735, ../app/Controllers/Admin/AdminAjaxController.php:100, ../app/Widgets/elementor/rtTPGElementorHelper.php:3266, ../app/Widgets/elementor/rtTPGElementorHelper.php:3295, ../app/Widgets/elementor/rtTPGElementorHelper.php:5311
 msgid "Read More"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:154, ../app/Helpers/Options.php:730, ../app/Helpers/Options.php:736, ../app/Controllers/Admin/AdminAjaxController.php:97
+#: ../app/Controllers/ShortcodeController.php:154, ../app/Helpers/Options.php:730, ../app/Helpers/Options.php:736, ../app/Controllers/Admin/AdminAjaxController.php:101
 msgid "Show all"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:608, ../app/Controllers/Admin/AdminAjaxController.php:592
+#: ../app/Controllers/ShortcodeController.php:608, ../app/Controllers/Admin/AdminAjaxController.php:596
 msgid "All"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:863, ../app/Helpers/Fns.php:854, ../app/Controllers/Admin/AdminAjaxController.php:850, ../app/Widgets/elementor/base.php:549
+#: ../app/Controllers/ShortcodeController.php:863, ../app/Helpers/Fns.php:854, ../app/Controllers/Admin/AdminAjaxController.php:854, ../app/Widgets/elementor/base.php:549
 msgid "Search..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:881, ../app/Helpers/Fns.php:830, ../app/Helpers/Options.php:76, ../app/Controllers/Admin/AdminAjaxController.php:864, ../app/Widgets/elementor/base.php:522, ../app/Widgets/elementor/rtTPGElementorHelper.php:231
+#: ../app/Controllers/ShortcodeController.php:881, ../app/Helpers/Fns.php:830, ../app/Helpers/Options.php:76, ../app/Controllers/Admin/AdminAjaxController.php:868, ../app/Widgets/elementor/base.php:522, ../app/Widgets/elementor/rtTPGElementorHelper.php:231
 msgid "Meta value"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:879, ../app/Controllers/ShortcodeController.php:887, ../app/Controllers/Admin/AdminAjaxController.php:862, ../app/Controllers/Admin/AdminAjaxController.php:870
+#: ../app/Controllers/ShortcodeController.php:879, ../app/Controllers/ShortcodeController.php:887, ../app/Controllers/Admin/AdminAjaxController.php:866, ../app/Controllers/Admin/AdminAjaxController.php:874
 msgid "Sort By None"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:917, ../app/Controllers/Admin/AdminAjaxController.php:898
+#: ../app/Controllers/ShortcodeController.php:917, ../app/Controllers/Admin/AdminAjaxController.php:902
 msgid "Loading ..."
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:919, ../app/Controllers/Admin/AdminAjaxController.php:1157, ../app/Controllers/Blocks/GridHoverLayout.php:188, ../app/Controllers/Blocks/GridLayout.php:184, ../app/Controllers/Blocks/ListLayout.php:168, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:266, ../app/Widgets/elementor/widgets/grid-hover-layout.php:285, ../app/Widgets/elementor/widgets/grid-layout-archive.php:261, ../app/Widgets/elementor/widgets/grid-layout.php:289, ../app/Widgets/elementor/widgets/list-layout-archive.php:260, ../app/Widgets/elementor/widgets/list-layout.php:277, ../app/Widgets/elementor/widgets/slider-layout-archive.php:322, ../app/Widgets/elementor/widgets/slider-layout-archive.php:383, ../app/Widgets/elementor/widgets/slider-layout.php:310, ../app/Widgets/elementor/widgets/slider-layout.php:383
+#: ../app/Controllers/ShortcodeController.php:919, ../app/Controllers/Admin/AdminAjaxController.php:1161, ../app/Controllers/Blocks/GridHoverLayout.php:188, ../app/Controllers/Blocks/GridLayout.php:184, ../app/Controllers/Blocks/ListLayout.php:168, ../app/Widgets/elementor/widgets/grid-hover-layout-archive.php:266, ../app/Widgets/elementor/widgets/grid-hover-layout.php:285, ../app/Widgets/elementor/widgets/grid-layout-archive.php:261, ../app/Widgets/elementor/widgets/grid-layout.php:289, ../app/Widgets/elementor/widgets/list-layout-archive.php:260, ../app/Widgets/elementor/widgets/list-layout.php:277, ../app/Widgets/elementor/widgets/slider-layout-archive.php:322, ../app/Widgets/elementor/widgets/slider-layout-archive.php:383, ../app/Widgets/elementor/widgets/slider-layout.php:310, ../app/Widgets/elementor/widgets/slider-layout.php:383
 msgid "No post found"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1030, ../app/Helpers/Options.php:605, ../app/Controllers/Admin/AdminAjaxController.php:1004
+#: ../app/Controllers/ShortcodeController.php:1030, ../app/Helpers/Options.php:605, ../app/Controllers/Admin/AdminAjaxController.php:1008
 msgid "Search"
 msgstr ""
 
-#: ../app/Controllers/ShortcodeController.php:1231, ../app/Helpers/Fns.php:327, ../app/Controllers/Admin/AdminAjaxController.php:1186, ../app/Widgets/elementor/base.php:589, ../app/Widgets/elementor/rtTPGElementorHelper.php:1661
+#: ../app/Controllers/ShortcodeController.php:1231, ../app/Helpers/Fns.php:327, ../app/Controllers/Admin/AdminAjaxController.php:1190, ../app/Widgets/elementor/base.php:589, ../app/Widgets/elementor/rtTPGElementorHelper.php:1661
 msgid "Load More"
 msgstr ""
 
@@ -1608,11 +1608,11 @@ msgstr ""
 msgid "You have selected only Shortcode Generator method. To use Elementor please enable Elementor or default from "
 msgstr ""
 
-#: ../app/Controllers/Admin/NoticeController.php:261
+#: ../app/Controllers/Admin/NoticeController.php:264
 msgid "Enjoying The Post Grid?"
 msgstr ""
 
-#: ../app/Controllers/Admin/NoticeController.php:262
+#: ../app/Controllers/Admin/NoticeController.php:265
 msgid "Thank you for choosing The Post Grid. If you have found our plugin useful and makes you smile, please consider giving us a 5-star rating on WordPress.org. It will help us to grow."
 msgstr ""
 
@@ -1672,16 +1672,8 @@ msgstr ""
 msgid "The Post Grid Pro"
 msgstr ""
 
-#: ../app/Controllers/Api/GetPostsV1.php:362
+#: ../app/Controllers/Api/GetPostsV1.php:382
 msgid "No posts found"
-msgstr ""
-
-#: ../app/Controllers/Api/RttpgV1.php:151
-msgid "The Post Grid preview css file has been updated."
-msgstr ""
-
-#: ../app/Controllers/Api/RttpgV1.php:156
-msgid "The Post Grid block css file has been updated."
 msgstr ""
 
 #: ../app/Controllers/Hooks/FilterHooks.php:180

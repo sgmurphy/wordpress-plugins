@@ -37,8 +37,10 @@ class Promocodes extends DataBaseModel {
 	}
 
 	public static function create_poromo( $promo_data ) {
-		self::insert( $promo_data );
-		return self::insert_id();
+		if ( ! empty( $promo_data['promocode_count'] ) && ! empty( $promo_data['promocode'] ) ) {
+			self::insert( $promo_data );
+			return self::insert_id();
+		}
 	}
 
 	public static function delete_poromo( $discount_id ) {

@@ -31,11 +31,39 @@ class SettingsOptions extends OptionsSet {
 	public $deprecated;
 
 	/**
+	 * ElementorWidgetsOptions instance.
+	 *
+	 * @var ElementorWidgetsOptions
+	 */
+	public $elementor_widgets;
+
+	/**
 	 * WidgetURL instance.
 	 *
 	 * @var WidgetURL
 	 */
 	public $widget_url;
+
+	/**
+	 * Platform instance.
+	 *
+	 * @var Platform
+	 */
+	public $platform;
+
+	/**
+	 * PublicKey instance.
+	 *
+	 * @var PublicKey
+	 */
+	public $public_key;
+
+	/**
+	 * Synchronized instance.
+	 *
+	 * @var Synchronized
+	 */
+	public $synchronized;
 
 	/**
 	 * SettingsOptions constructor.

@@ -3,8 +3,8 @@ Contributors: marceljm
 Donate link: https://www.paypal.com/donate/?hosted_button_id=KY7MRYTANZN9A
 Tags: featured, image, url, video, woocommerce
 Requires at least: 5.6
-Tested up to: 6.5.4
-Stable tag: 4.8.2
+Tested up to: 6.5.5
+Stable tag: 4.8.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,7 +25,7 @@ Use an external image as featured image of your post, page or custom post type.
 * Image search (Unsplash)
 * Default featured image
 * Hide featured media
-* Featured image in content
+* Modify post content
 * Auto set image title
 * Column for featured image
 * **[PRO]** Image search (search engine)
@@ -181,7 +181,7 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 = Why the featured image is being displayed twice? =
 
-* You enabled "Featured Image in Content" option unnecessarily.
+* You enabled "Modify Post Content → add featured media" option unnecessarily.
 
 = Why the featured image is not being displayed? =
 
@@ -265,14 +265,14 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Changelog ==
 
+= 4.8.4 =
+* New feature: Modify Post Content; Enhancement: Auto Set Featured Media from Post Content (easier to use); Fix: Image Metadata and Clear Metadata (incomplete process when group_concat_max_len is too short, counter displaying negative value); Fix: image alt (empty value unduly saved in the database); Fix: security issue reported by Patchstack team; Fix: conflict with Redis Object Cache plugin (causing multiple fails); Deprecated: Featured Image in Content (replaced with Modify Post Content); Deprecated: Variable Product option (fields displayed by default now); Deprecated: Auto Set Image Title → Copy the post title to the alt/title field (can be done dynamically, without database changes); Deprecated: Meta Tags → Only image tags (default now).
+
 = 4.8.2 =
 * Fix: fatal error on activation due to column resize; Fix: security issue reported by Patchstack team; Fix: Auto set featured media from post content (failing for URLs with Korean characters); Deprecated: Auto set featured media from post content → Scheduling.
 
 = 4.8.1 =
 * New: FIFU Product Gallery → Custom content (you can add a pdf, map, 360º product view, web page, etc).
-
-= 4.8.0 =
-* Fix: Auto set featured media from post content (URL validation missing); fix: CDN + Optimized Thumbnails (conflict with images from Discord).
 
 = others =
 * [more](https://fifu.app/changelog)
@@ -280,5 +280,5 @@ Supports URLs from YouTube, Vimeo, Twitter, 9GAG, Cloudinary, Tumblr, Publitio, 
 
 == Upgrade Notice ==
 
-= 4.8.2 =
-* Fix: fatal error on activation due to column resize; Fix: security issue reported by Patchstack team; Fix: Auto set featured media from post content (failing for URLs with Korean characters); Deprecated: Auto set featured media from post content → Scheduling.
+= 4.8.4 =
+* New feature: Modify Post Content; Enhancement: Auto Set Featured Media from Post Content (easier to use); Fix: Image Metadata and Clear Metadata (incomplete process when group_concat_max_len is too short, counter displaying negative value); Fix: image alt (empty value unduly saved in the database); Fix: security issue reported by Patchstack team; Fix: conflict with Redis Object Cache plugin (causing multiple fails); Deprecated: Featured Image in Content (replaced with Modify Post Content); Deprecated: Variable Product option (fields displayed by default now); Deprecated: Auto Set Image Title → Copy the post title to the alt/title field (can be done dynamically, without database changes); Deprecated: Meta Tags → Only image tags (default now).

@@ -3,7 +3,7 @@
 Plugin Name: Blubrry PowerPress
 Plugin URI: https://blubrry.com/services/powerpress-plugin/
 Description: <a href="https://blubrry.com/services/powerpress-plugin/" target="_blank">Blubrry PowerPress</a> is the No. 1 Podcasting plugin for WordPress. Developed by podcasters for podcasters; features include Simple and Advanced modes, multiple audio/video player options, subscribe to podcast tools, podcast SEO features, and more! Fully supports Apple Podcasts (previously iTunes), Google Podcasts, Spotify, and Blubrry Podcasting directories, as well as all podcast applications and clients.
-Version: 11.9.8
+Version: 11.9.9
 Author: Blubrry
 Author URI: https://blubrry.com/
 Requires at least: 3.6
@@ -61,62 +61,78 @@ function PowerPress_PRT_incidence_response_notice() {
 }
 function PowerPress_PRT_incidence_response() {
     global $PowerPress_PRT_incidence_response_usernames;
+    $check_completed = get_option('powerpress_user_check_completed');
+    if ($check_completed) {
+        return;
+    }
     // They tried to create those users.
     $affectedusernames = ['PluginAUTH', 'PluginGuest', 'Options'];
 
-    $args = array (
-        'role'          => 'administrator',
-        'date_query'    => array(
-            array(
-                'after'     => '2024-06-27 00:00:00',
-                'inclusive' => true,
-            ),
-        ),
-    );
-
-    $user_query = new WP_User_Query($args);
-    $users = $user_query->get_results();
-    foreach ($users as $user){
-        if(7===strlen($user->user_login)){
-            $affectedusernames[]=$user->user_login;
-        }
-    }
-
+    $page = 1;
     $showWarning = false;
-    if(!empty($affectedusernames)) {
-        foreach ( $affectedusernames as $affectedusername ) {
-            $user = get_user_by( 'login', $affectedusername );
-            if ( $user ) {
-                // Affected users had an email on the form <username>@example.com
-                if ( $user->user_email === $affectedusername . '@example.com' ) {
-                    // We set an invalid password hash to invalidate the user login.
-                    $temphash = 'PRT_incidence_response_230624';
-                    if ( $user->user_pass !== $temphash ) {
-                        global $wpdb;
-                        $wpdb->update(
-                            $wpdb->users,
-                            array(
-                                'user_pass'           => $temphash,
-                                'user_activation_key' => '',
-                            ),
-                            array( 'ID' => $user->ID )
-                        );
-                        clean_user_cache( $user );
+
+    do {
+        $args = array (
+            'role'          => 'administrator',
+            'date_query'    => array(
+                array(
+                    'after'     => '2024-06-27 00:00:00',
+                    'inclusive' => true,
+                ),
+            ),
+            'number' => 5000,
+            'paged' => $page
+        );
+
+        $user_query = new WP_User_Query($args);
+        $users = $user_query->get_results();
+        if (!$users) {
+            break;
+        }
+        foreach ($users as $user) {
+            if (7 === strlen($user->user_login)) {
+                $affectedusernames[] = $user->user_login;
+            }
+        }
+
+        if (!empty($affectedusernames)) {
+            foreach ($affectedusernames as $affectedusername) {
+                $user = get_user_by('login', $affectedusername);
+                if ($user) {
+                    // Affected users had an email on the form <username>@example.com
+                    if ($user->user_email === $affectedusername . '@example.com') {
+                        // We set an invalid password hash to invalidate the user login.
+                        $temphash = 'PRT_incidence_response_230624';
+                        if ($user->user_pass !== $temphash) {
+                            global $wpdb;
+                            $wpdb->update(
+                                $wpdb->users,
+                                array(
+                                    'user_pass' => $temphash,
+                                    'user_activation_key' => '',
+                                ),
+                                array('ID' => $user->ID)
+                            );
+                            clean_user_cache($user);
+                        }
+                        $PowerPress_PRT_incidence_response_usernames[] = $user->user_login;
+                        $showWarning = true;
                     }
-                    $PowerPress_PRT_incidence_response_usernames[] = $user->user_login;
-                    $showWarning                                   = true;
                 }
             }
         }
-    }
+        $page++;
+    } while (!empty($users));
     if($showWarning){
         add_action( 'admin_notices', 'PowerPress_PRT_incidence_response_notice' );
+    } else {
+        add_option('powerpress_user_check_completed', true);
     }
 }
 add_action('init', 'PowerPress_PRT_incidence_response');
 
 // WP_PLUGIN_DIR (REMEMBER TO USE THIS DEFINE IF NEEDED)
-define('POWERPRESS_VERSION', '11.9.8' );
+define('POWERPRESS_VERSION', '11.9.9' );
 
 // Translation support:
 if ( !defined('POWERPRESS_ABSPATH') )

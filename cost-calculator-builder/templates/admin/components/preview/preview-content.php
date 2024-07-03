@@ -1,9 +1,6 @@
 <?php
-
-use cBuilder\Classes\CCBSettingsData;
-
 $default_img      = CALC_URL . '/frontend/dist/img/default.png';
-$general_settings = CCBSettingsData::get_calc_global_settings();
+$general_settings = \cBuilder\Classes\CCBSettingsData::get_calc_global_settings();
 $get_date_format  = get_option( 'date_format' );
 ?>
 

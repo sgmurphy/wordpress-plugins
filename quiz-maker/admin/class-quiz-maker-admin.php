@@ -1108,6 +1108,7 @@ class Quiz_Maker_Admin
         // Styles Settings
         $quick_quiz_width                                   = 800;
         $quick_quiz_height                                  = 450;
+        $quick_quiz_border_radius                           = 8;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1190,6 +1191,9 @@ class Quiz_Maker_Admin
 
             // Quiz min-height
             $quick_quiz_height = (isset($_REQUEST['ays_quick_quiz_height']) && $_REQUEST['ays_quick_quiz_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_height'] ) ) : 450;
+
+            // Quiz min-height
+            $quick_quiz_border_radius = (isset($_REQUEST['ays_quick_quiz_border_radius']) && $_REQUEST['ays_quick_quiz_border_radius'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_border_radius'] ) ) : 8;
 
         }
         
@@ -1279,7 +1283,7 @@ class Quiz_Maker_Admin
             'rate_form_title'                           => '',
             'enable_box_shadow'                         => 'on',
             'box_shadow_color'                          => '#c9c9c9',
-            'quiz_border_radius'                        => '8',
+            'quiz_border_radius'                        => $quick_quiz_border_radius,
             'quiz_bg_image'                             => '',
             'enable_border'                             => 'off',
             'quiz_border_width'                         => '1',

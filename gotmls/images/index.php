@@ -137,8 +137,7 @@ function GOTMLS_get_corefile_URL($path, $hash) {
 }
 
 function GOTMLS_Invalid_Nonce($pre = "//Error: ") {
-	return sprintf(__("%s Invalid or expired Nonce Token! %s Refresh and try again?",'gotmls'), $pre, (isset($_REQUEST["GOTMLS_mt"])?(" (".GOTMLS_htmlspecialchars($_REQUEST["GOTMLS_mt"]).((strlen($_REQUEST["GOTMLS_mt"]) == 32)?(isset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["hour"])&&isset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["user"])?($pre=="DEBUG"?GOTMLS_htmlspecialchars(", U:".$GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["user"].", H:".$GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["hour"]."!) "):" !UH!) "):" !found!) "):" !len[".strlen($_REQUEST["GOTMLS_mt"])."]!) ")):" (GOTMLS_mt !set!) ")
-	);
+	return sprintf(__("%s Invalid or expired Nonce Token! %s Refresh and try again?",'gotmls'), $pre, (isset($_REQUEST["GOTMLS_mt"])?(" (".GOTMLS_htmlspecialchars($_REQUEST["GOTMLS_mt"]).((strlen($_REQUEST["GOTMLS_mt"]) == 32)?(isset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["hour"])&&isset($GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["user"])?($pre=="DEBUG"?GOTMLS_htmlspecialchars(", U:".$GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["user"].", H:".$GLOBALS["GOTMLS"]["tmp"]["nonce"][$_REQUEST["GOTMLS_mt"]]["hour"]."!) "):" !UH!) "):" !found!) "):" !len[".strlen($_REQUEST["GOTMLS_mt"])."]!) ")):" (GOTMLS_mt !set!) "));
 }
 
 function GOTMLS_set_nonce($context = "NULL", $uid = 0) {
@@ -236,7 +235,7 @@ function GOTMLS_esc_url($url) {
 
 function GOTMLS_admin_url($action, $url = '') {
 	$return = admin_url("admin-ajax.php?action=$action");
-	foreach (array('eli', 'GOTMLS_debug') as $pass_on)
+	foreach (array('eli', 'oversize', 'GOTMLS_debug') as $pass_on)
 		if (isset($_GET["$pass_on"]))
 			$return .= "&$pass_on=".GOTMLS_esc_url($_GET["$pass_on"]);
 	return ("$return&$url");
@@ -1624,7 +1623,7 @@ function GOTMLS_html_tags($tags, $inner = array()) {
 
 function GOTMLS_write_quarantine($file, $className, $post_status = "private") {
 	global $wpdb;
-	$insert = array("post_author"=>GOTMLS_get_current_user_id(), "post_content"=>GOTMLS_encode($GLOBALS["GOTMLS"]["tmp"]["file_contents"]), "post_mime_type"=>md5($GLOBALS["GOTMLS"]["tmp"]["file_contents"]), "post_name"=>$className, "post_status"=>$post_status, "post_type"=>"GOTMLS_quarantine", "post_content_filtered"=>GOTMLS_encode($GLOBALS["GOTMLS"]["tmp"]["new_contents"]), "guid"=>GOTMLS_Version);//! comment_status post_password post_name to_ping post_parent menu_order";
+	$insert = array("post_author"=>GOTMLS_get_current_user_id(), "post_content"=>GOTMLS_encode($GLOBALS["GOTMLS"]["tmp"]["file_contents"]), "post_mime_type"=>md5($GLOBALS["GOTMLS"]["tmp"]["file_contents"]), "post_name"=>$className, "post_status"=>$post_status, "post_type"=>"GOTMLS_quarantine", "post_content_filtered"=>GOTMLS_encode($GLOBALS["GOTMLS"]["tmp"]["new_contents"]), "guid"=>GOTMLS_Version);
 	if (isset($file["ID"]) && is_numeric($file["ID"])) {
 		$insert["post_modified"] = $file["post_modified"];
 		$insert["post_modified_gmt"] = $file["post_modified_gmt"];
@@ -1821,9 +1820,8 @@ function GOTMLS_check_file($file) {
 	if ($filesize===false)
 		echo GOTMLS_return_threat("errors", "blocked", $file, GOTMLS_error_link(__("Failed to determine file size!",'gotmls'), $file));
 	elseif (GOTMLS_is_whitelisted($MD5O.$filesize, $file))
-	//ELI: test speed and is really skipping? ("scanned"..."potential")
 		echo GOTMLS_return_threat("scanned", "checked", $file, GOTMLS_error_link(__("CORE file was not modified!",'gotmls'), $file, ""));
-	elseif (($filesize==0) || ($filesize>((isset($_GET["eli"])&&is_numeric($_GET["eli"]))?$_GET["eli"]:2934567)))
+	elseif (($filesize==0) || ($filesize>((isset($_REQUEST["oversize"])&&is_numeric($_REQUEST["oversize"]))?$_REQUEST["oversize"]:2934567)))
 		echo GOTMLS_return_threat("skipped", "blocked", $file, GOTMLS_error_link(__("Skipped because of file size!",'gotmls')." ($filesize bytes)", $file, "potential"));
 	elseif (in_array(GOTMLS_get_ext($file), $GLOBALS["GOTMLS"]["tmp"]["skip_ext"]) && !(preg_match('/(shim|social[0-9]*)\.png$/i', $file)))
 		echo GOTMLS_return_threat("skipped", "blocked", $file, GOTMLS_error_link(__("Skipped because of file extention!",'gotmls'), $file, "potential"));
@@ -1877,7 +1875,7 @@ function GOTMLS_scandir($dir) {
 						if (is_file($path)) {
 							$file_ext = GOTMLS_get_ext($file);
 							$filesize = @filesize($path);
-							if ((in_array($file_ext, $GLOBALS["GOTMLS"]["tmp"]["skip_ext"]) && !(preg_match('/social[0-9]*\.png$/i', $file))) || ($filesize==0) || ($filesize>((isset($_GET["eli"])&&is_numeric($_GET["eli"]))?$_GET["eli"]:2934567)))
+							if ((in_array($file_ext, $GLOBALS["GOTMLS"]["tmp"]["skip_ext"]) && !(preg_match('/social[0-9]*\.png$/i', $file))) || ($filesize==0) || ($filesize>((isset($_REQUEST["oversize"])&&is_numeric($_REQUEST["oversize"]))?$_REQUEST["oversize"]:2934567)))
 								echo GOTMLS_return_threat("skipped", "blocked", $path, GOTMLS_error_link(sprintf(__('Skipped because of file size (%1$s bytes) or file extention (%2$s)!','gotmls'), $filesize, $file_ext), $file, "potential"));
 							else
 								echo "/*-->*"."/\nscanfilesArKeys.push('".GOTMLS_encode($dir)."&GOTMLS_only_file=".GOTMLS_encode($file, "D")."');\nscanfilesArNames.push('Re-Checking ".GOTMLS_strip4java($path)."');\n/*<!--*"."/".GOTMLS_return_threat("dirs", "wait", $path);

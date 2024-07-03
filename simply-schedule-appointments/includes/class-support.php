@@ -154,6 +154,13 @@ class SSA_Support {
 			'param' => 'ssa-set-debug-level',
 			'param_default_value' => '10'
 		),
+		array(
+			'callback' => 'ssa_cleanup_excluded_calendars',
+			'title' => 'Clean up excluded calendars for main calendar and staff profiles',
+			'details' => 'Will remove any excluded calendars that are not accessible by SSA. Both from the main calendar and staff profiles.',
+			'param' => 'ssa-cleanup-excluded-calendars',
+			'param_default_value' => '1'
+		),
 	);
 	/**
 	 * Constructor.
@@ -288,6 +295,33 @@ class SSA_Support {
 		';
 	}
 	
+	/**
+	 * 
+	 * 
+	 */
+	public function ssa_cleanup_excluded_calendars () {
+		if ( empty( $_GET['ssa-cleanup-excluded-calendars'] ) ) {
+			return;
+		}
+		
+		if (!current_user_can('ssa_manage_site_settings')) {
+			return;
+		}
+		
+		if ( wp_verify_nonce( $_GET['ssa_nonce'], 'ssa-cleanup-excluded-calendars' ) === false ) {
+			return;
+		}
+		
+		// cleanup main excluded calendars
+		$this->plugin->appointment_type_model->cleanup_main_excluded_calendars();
+
+		$this->plugin->staff_model->cleanup_staff_excluded_calendars();
+
+		
+		wp_redirect( remove_query_arg( 'ssa-cleanup-excluded-calendars' ) );
+		exit;
+	}
+	 
 	/**
 	 * Set the debug level.
 	 * Used to write logs of levels lower than 10.

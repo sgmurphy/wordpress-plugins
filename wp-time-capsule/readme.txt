@@ -4,7 +4,7 @@ Contributors: dark-prince, amritanandh, WPTimeCapsule
 Tags: backup, staging, schedule backup, DB backup, database backup, woocommerce backup, amazon s3 backup, backblaze, backblaze backup, amazon, auto backup, auto updater, auto updates, automatic updates, back up, backup before update, backup files, backup guard, backup mysql, backup plugin, backup posts, backup tool, backup without zip, backupguard, backups, clone, cloning, cloud backup, complete backup, db backup, db migration, dropbox backup, dropbox, duplicate, full backup, google drive backup, google drive, incremental migrate db, light weight backup, migrate, migration, real-time backup, real-time, restore, remote backups, rollback, s3, scheduled backup, screenshots, visual comparision, site backup, storage, synchronize, time, updates manager, updraft, website backup, wordpress backup, wordpress incremental backup, wasabi, wasabi backup, backup wasabi, wasabisys, wptimecapsule, wp backup, wp time capsule, wptc, backblaze, b2, git, simple backup plugin
 Requires at least: 3.9.14
 Tested up to: 6.5.5
-Stable tag: 1.22.19
+Stable tag: 1.22.20
 
 Backup and Staging by WP Time Capsule is an automated incremental backup plugin that backs up your website changes as per your schedule to Dropbox, Google Drive, Amazon S3, Wasabi and Backblaze B2 Cloud.
 
@@ -99,6 +99,10 @@ Installing WP Time Capsule is simple and easy. Install it like any other WordPre
 7. **Cloning** - Use the meta SQL file from your cloud storage to clone/migrate your site to a new location.
 
 == Changelog ==
+= 1.22.20 =
+*Release Date - 03 Jul 2024*
+
+* Improvement : Improved appID check.
 = 1.22.19 =
 *Release Date - 21 Dec 2023*
 

@@ -246,6 +246,17 @@ class Cartflows_Ca_Helper {
 		);
 	}
 
+	/**
+	 * Checks the current page to see if it contains checkout block.
+	 *
+	 * @param int|null $post_id The current post ID.
+	 * @return bool
+	 * @since 1.3.0
+	 */
+	public static function is_block_checkout( $post_id = null ) {
+		return has_block( 'woocommerce/checkout', $post_id );
+	}
+
 }
 
 Cartflows_Ca_Helper::get_instance();

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WordPress.com Editing Toolkit
  * Description: Enhances your page creation workflow within the Block Editor.
- * Version: 4.27418
+ * Version: 4.27610
  * Author: Automattic
  * Author URI: https://automattic.com/wordpress-plugins/
  * License: GPLv2 or later
@@ -42,7 +42,7 @@ namespace A8C\FSE;
  *
  * @var string
  */
-define( 'A8C_ETK_PLUGIN_VERSION', '4.27418' );
+define( 'A8C_ETK_PLUGIN_VERSION', '4.27610' );
 
 // Always include these helper files for dotcom FSE.
 require_once __DIR__ . '/dotcom-fse/helpers.php';
@@ -267,14 +267,6 @@ function load_whats_new() {
 	require_once __DIR__ . '/whats-new/class-whats-new.php';
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\load_whats_new' );
-
-/**
- * Error reporting for wp-admin / Gutenberg.
- */
-function load_error_reporting() {
-	require_once __DIR__ . '/error-reporting/index.php';
-}
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load_error_reporting' );
 
 /**
  * Tags Education

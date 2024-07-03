@@ -14,6 +14,13 @@ $ccb_pages = \cBuilder\Classes\CCBSettingsData::get_general_settings_pages();
 							<span class="ccb-settings-tab-list-item" :class="{active: tab === '<?php echo esc_attr( $ccb_page['slug'] ); ?>'}" @click="tab = '<?php echo esc_attr( $ccb_page['slug'] ); ?>'">
 							<i class="<?php echo esc_attr( $ccb_page['icon'] ); ?>"></i>
 							<span><?php echo esc_html( $ccb_page['title'] ); ?></span>
+							<span class="
+							<?php
+							if ( isset( $ccb_page['icon-warning'] ) ) {
+								echo esc_attr( $ccb_page['icon-warning'] );
+							}
+							?>
+							" v-if="isErrorTab('<?php echo esc_attr( $ccb_page['slug'] ); ?>')"></span>
 						</span>
 						<?php endif; ?>
 					<?php endforeach; ?>

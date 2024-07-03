@@ -50,6 +50,16 @@ All themes compatible are listed above in description.
 
 == Changelog ==
 
+= 1.9.4(04.07.2024) =
+
+Tested with WordPress 6.5
+
+Fixed:
+-XSS for writing effect
+
+
+----------------
+
 = 1.9.3(18.01.2024) =
 
 Tested with WordPress 6.4.2

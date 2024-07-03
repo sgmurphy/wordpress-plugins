@@ -86,6 +86,7 @@ return array(
     'MelhorEnvio\\Services\\ProcessAdditionalTaxService' => $baseDir . '/Services/ProcessAdditionalTaxService.php',
     'MelhorEnvio\\Services\\Products\\BundleService' => $baseDir . '/Services/Products/BundleService.php',
     'MelhorEnvio\\Services\\Products\\CompositeService' => $baseDir . '/Services/Products/CompositeService.php',
+    'MelhorEnvio\\Services\\Products\\InvalidProduct' => $baseDir . '/Services/Products/InvalidProduct.php',
     'MelhorEnvio\\Services\\Products\\ProductsService' => $baseDir . '/Services/Products/ProductsService.php',
     'MelhorEnvio\\Services\\QuotationProductPageService' => $baseDir . '/Services/QuotationProductPageService.php',
     'MelhorEnvio\\Services\\QuotationService' => $baseDir . '/Services/QuotationService.php',
@@ -102,6 +103,5 @@ return array(
     'MelhorEnvio\\Services\\TokenService' => $baseDir . '/Services/TokenService.php',
     'MelhorEnvio\\Services\\TrackingService' => $baseDir . '/Services/TrackingService.php',
     'MelhorEnvio\\Services\\UserWooCommerceDataService' => $baseDir . '/Services/UserWooCommerceDataService.php',
-    'MelhorEnvio\\Services\\WooCommerceBundleProductsService' => $baseDir . '/Services/WooCommerceBundleProductsService.php',
     'MelhorEnvio\\Services\\WooCommerceService' => $baseDir . '/Services/WooCommerceService.php',
 );

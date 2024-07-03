@@ -98,7 +98,7 @@ class STMNotices {
 		$html .= ( ! empty( $plugin_data['notice_desc'] ) ) ? '<h5>' . wp_kses_post( $plugin_data['notice_desc'] ) . '</h5>' : '';
 		$html .= '</div>';
 		$html .= '<p class="notices-right"></p>';
-		$html .= ( ! empty( $plugin_data['notice_btn_one_title'] ) ) ? '<a href="' . esc_url( $plugin_data['notice_btn_one'] ) . '" target="_blank" data-id="'. esc_attr( $notice_id ) .'" class="button btn-first' . esc_attr( $btn_one_class ) . '" ' . esc_attr( $btn_one_attrs ) . '>' . esc_html( $plugin_data['notice_btn_one_title'] ) . '</a>' : '';
+		$html .= ( ! empty( $plugin_data['notice_btn_one_title'] ) ) ? '<a href="' . esc_url( $plugin_data['notice_btn_one'] ) . '" target="_blank" data-id="'. esc_attr( $notice_id ) .'" class="button btn-first notice-show-again" ' . esc_attr( $btn_one_attrs ) . '>' . esc_html( $plugin_data['notice_btn_one_title'] ) . '</a>' : '';
 		$html .= ( ! empty( $plugin_data['notice_btn_two'] ) ) ? '<a href="' . esc_url( $plugin_data['notice_btn_two'] ) . '" class="button btn-second' . esc_attr( $btn_two_class ) . '" ' . esc_attr( $btn_two_attrs ) . '>' . esc_html( $plugin_data['notice_btn_two_title'] ) . '</a>' : '';
 		$html .= ( ! empty( $plugin_data['notice_btn_three'] ) ) ? '<a href="' . esc_url( $plugin_data['notice_btn_three'] ) . '" class="button btn-second' . esc_attr( $btn_three_class ) . '" ' . esc_attr( $btn_three_attrs ) . '>' . esc_html( $plugin_data['notice_btn_three_title'] ) . '</a>' : '';
 		$html .= '</div>';

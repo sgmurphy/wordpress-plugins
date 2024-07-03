@@ -31,7 +31,6 @@ jQuery(function () {
     });
 
     jQuery("#tabs-top").tabs();
-    jQuery("#fifu_input_spinner_nth").spinner({min: 1});
     jQuery("#fifu_input_slider_speed").spinner({min: 0});
     jQuery("#fifu_input_slider_pause").spinner({min: 0});
     jQuery("#fifu_input_auto_set_width").spinner({min: 0});
@@ -45,6 +44,7 @@ jQuery(function () {
     jQuery("#tabsWpAllImport").tabs();
     jQuery("#tabsDefault").tabs();
     jQuery("#tabsHide").tabs();
+    jQuery("#tabsPcontent").tabs();
     jQuery("#tabsShortcode").tabs();
     jQuery("#tabsFifuShortcode").tabs();
     jQuery("#tabsAutoSet").tabs();
@@ -56,7 +56,6 @@ jQuery(function () {
     jQuery("#tabsFinder").tabs();
     jQuery("#tabsVideo").tabs();
     jQuery("#tabsContent").tabs();
-    jQuery("#tabsContentAll").tabs();
     jQuery("#tabsCli").tabs();
     jQuery("#tabsRSS").tabs();
     jQuery("#tabsGallery").tabs();

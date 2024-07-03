@@ -40,7 +40,6 @@ class WOWP_Admin {
             <a href="<?php echo esc_url(WOWP_Plugin::info('pro'));?>" target="_blank">PRO Plugin</a>
             <a href="<?php echo esc_url(WOWP_Plugin::info('support'));?>" target="_blank">Support</a>
             <a href="<?php echo esc_url(WOWP_Plugin::info('rating'));?>" target="_blank" class="wpie-color-orange">Rating</a>
-            <a href="<?php echo esc_url(WOWP_Plugin::info('change'));?>" target="_blank" class="wpie-color-success">What's new?</a>
         </div>
 		<?php
 	}

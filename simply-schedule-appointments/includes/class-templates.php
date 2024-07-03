@@ -569,13 +569,13 @@ class SSA_Templates {
 
 
 	public function cleanup_variables_in_string( $string ) {
+		$string =  $this->strip_mustache_content($string);		
+
 		$string = str_replace(
 			array( '{{', '{{  ', '}}', '  }}', '{%', '{%  ', '%}', '  %}', "\n }}", "\n}}" ),
 			array( '{{ ', '{{ ', ' }}', ' }}', '{% ', '{% ', ' %}', ' %}', ' }}', '}}' ),
 			$string
-		);
-
-		$string = $this->strip_mustache_content($string);
+		);	
 
 		return $string;
 	}
@@ -593,13 +593,13 @@ class SSA_Templates {
 	public function strip_mustache_content($text) {
 		$mustachePattern = '/{{\s*([^}]+)\s*}}/';
 				$mustacheCallback = function ($matches) {
-				return '{{ ' . strip_tags($matches[1]) . ' }}';
+				return '{{' . strip_tags($matches[1]) . '}}';
 		};
 		$text = preg_replace_callback($mustachePattern, $mustacheCallback, $text);
 		
 		$templatePattern = '/{%\s*([^}]+)\s*%}/';
 		$templateCallback = function ($matches) {
-				return '{% ' . strip_tags($matches[1]) . ' %}';
+				return '{%' . strip_tags($matches[1]) . '%}';
 		};
 		$text = preg_replace_callback($templatePattern, $templateCallback, $text);
 		

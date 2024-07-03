@@ -113,6 +113,10 @@ Please go to setting tab YotuWP > General > Video Thumbnail Ratio
 Then select value 'HD - 16:9' then press Save Change and try out it.
 
 == Changelog ==
+= 1.3.14 - Jun 25th, 2024 =
+* Fix security issue
+
+
 = 1.3.13 - Aug 20th, 2023 =
 * Fix security issue
 

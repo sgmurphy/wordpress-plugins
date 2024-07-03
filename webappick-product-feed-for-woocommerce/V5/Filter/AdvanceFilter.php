@@ -39,9 +39,14 @@ class AdvanceFilter {
 			$effectiveOrCount = 0;
 
 			foreach ( $fAttributes as $key => $check ) {
-
 				$flag = false;
+				$conditionName    = ProductHelper::get_attribute_value_by_type( $check, $product, $config );
+				$condition        = $conditions[ $key ];
+				$conditionCompare = stripslashes( $filterCompare[ $key ] );
 
+				if( $conditionName == '' || $conditionName == 0 || $condition == '' || $condition == 0 || $conditionCompare == '' || $conditionCompare == 0 ){
+					continue;
+				}
 				// Backward compatibility for <= v5.2.25
 				$concatOperator = isset( $concatType[ $key ] ) && ! empty( $concatType[ $key ] )
 					? $concatType[ $key ]
@@ -51,9 +56,6 @@ class AdvanceFilter {
 					$totalOr ++;
 				}
 
-				$conditionName    = ProductHelper::get_attribute_value_by_type( $check, $product, $config );
-				$condition        = $conditions[ $key ];
-				$conditionCompare = stripslashes( $filterCompare[ $key ] );
 				// DEBUG HERE
 				// echo "Product Name: ".$product->get_name() .''.$product->get_id();   echo "<br>";
 				// echo "Name: ".$conditionName;   echo "<br>";

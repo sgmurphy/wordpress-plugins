@@ -2,13 +2,19 @@
 
 This repository contains a list of of HTTP user-agents used by robots, crawlers, and spiders as in single JSON file.
 
+* NPM package: <https://www.npmjs.com/package/crawler-user-agents>
+* Go package: <https://pkg.go.dev/github.com/monperrus/crawler-user-agents>
+* PyPi package: <https://pypi.org/project/crawler-user-agents/>
+
+Each `pattern` is a regular expression. It should work out-of-the-box wih your favorite regex library:
+
 ## Install
 
 ### Direct download
 
 Download the [`crawler-user-agents.json` file](https://raw.githubusercontent.com/monperrus/crawler-user-agents/master/crawler-user-agents.json) from this repository directly.
 
-### Npm / Yarn
+### Javascript
 
 crawler-user-agents is deployed on npmjs.com: <https://www.npmjs.com/package/crawler-user-agents>
 
@@ -27,13 +33,54 @@ const crawlers = require('crawler-user-agents');
 console.log(crawlers);
 ```
 
-## Usage
+### Python
 
-Each `pattern` is a regular expression. It should work out-of-the-box wih your favorite regex library:
+Install with `pip install crawler-user-agents`
 
-* JavaScript: `if (RegExp(entry.pattern).test(req.headers['user-agent']) { ... }`
-* PHP: add a slash before and after the pattern: `if (preg_match('/'.$entry['pattern'].'/', $_SERVER['HTTP_USER_AGENT'])): ...`
-* Python: `if re.search(entry['pattern'], ua): ...`
+Then:
+
+```python
+import crawleruseragents
+if crawleruseragents.is_crawler("googlebot/"):
+   # do something
+```
+
+### Go
+
+Go: use [this package](https://pkg.go.dev/github.com/monperrus/crawler-user-agents),
+  it provides global variable `Crawlers` (it is synchronized with `crawler-user-agents.json`),
+  functions `IsCrawler` and `MatchingCrawlers`.
+
+Example of Go program:
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/monperrus/crawler-user-agents"
+)
+
+func main() {
+	userAgent := "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+
+	isCrawler := agents.IsCrawler(userAgent)
+	fmt.Println("isCrawler:", isCrawler)
+
+	indices := agents.MatchingCrawlers(userAgent)
+	fmt.Println("crawlers' indices:", indices)
+	fmt.Println("crawler' URL:", agents.Crawlers[indices[0]].URL)
+}
+```
+
+Output:
+
+```
+isCrawler: true
+crawlers' indices: [237]
+crawler' URL: https://discordapp.com
+```
 
 ## Contributing
 
@@ -66,7 +113,6 @@ There are a few wrapper libraries that use this data to detect bots:
  * [Voight-Kampff](https://github.com/biola/Voight-Kampff) (Ruby)
  * [isbot](https://github.com/Hentioe/isbot) (Ruby)
  * [crawlers](https://github.com/Olical/crawlers) (Clojure)
- * [crawlerflagger](https://godoc.org/go.kelfa.io/kelfa/pkg/crawlerflagger) (Go)
  * [isBot](https://github.com/omrilotan/isbot) (Node.JS)
 
 Other systems for spotting robots, crawlers, and spiders that you may want to consider are:

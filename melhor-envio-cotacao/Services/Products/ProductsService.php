@@ -5,7 +5,6 @@ namespace MelhorEnvio\Services\Products;
 use MelhorEnvio\Helpers\DimensionsHelper;
 use MelhorEnvio\Models\Product;
 use MelhorEnvio\Services\ConfigurationsService;
-use MelhorEnvio\Services\WooCommerceBundleProductsService;
 
 class ProductsService {
 
@@ -88,12 +87,14 @@ class ProductsService {
 	/**
 	 * Function to filter products to api Melhor Envio.
 	 *
-	 * @param array $products
+	 * @param array $data
 	 * @return array
 	 */
 	public function filter( $data ) {
 		$products = array();
 		foreach ( $data as $key => $item ) {
+			/** @var Product $item */
+
 			if ( ! empty( $item->shipping_fee ) && $item->shipping_fee == 'whole' ) {
 				$item->components = [];
 			}
@@ -105,14 +106,8 @@ class ProductsService {
 				continue;
 			}
 
-			if ( $this->isObjectProduct( $item ) ) {
-				$data       = $item->get_data();
-				$product    = $item;
-				$products[$key] = $this->normalize(
-					$product,
-					$product->get_price(),
-					$item['quantity']
-				);
+			if ( ! empty( $item->type ) && $item->type == InvalidProduct::INVALID_TYPE ) {
+				$products[] = $item;
 				continue;
 			}
 
@@ -135,20 +130,6 @@ class ProductsService {
 		}
 
 		return $products;
-	}
-
-	/**
-	 * @param object $product
-	 * @return bool
-	 */
-	private function isObjectProduct( $item ) {
-		return (
-			! is_array( $item ) &&
-			(
-				get_class( $item ) == WooCommerceBundleProductsService::OBJECT_PRODUCT_SIMPLE ||
-				get_class( $item ) == WooCommerceBundleProductsService::OBJECT_WOOCOMMERCE_BUNDLE
-			)
-		);
 	}
 
 	public function getDataByProductCart( $productCart , $items): Product

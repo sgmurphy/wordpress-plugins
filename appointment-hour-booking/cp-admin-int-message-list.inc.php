@@ -54,8 +54,20 @@ else if (isset($_GET['ld']) && $_GET['ld'] != '')
 }
 else if (isset($_GET['ud']) && $_GET['ud'] != '')
 {
-    $this->verify_nonce (sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');
-    $this->update_status(sanitize_text_field($_GET['ud']), sanitize_text_field($_GET['status']));
+    $this->verify_nonce (sanitize_text_field($_GET["anonce"]), 'cpappb_actions_booking');      
+    if (isset($_GET["udidx"]))
+        $this->update_status(sanitize_text_field($_GET['ud']), sanitize_text_field($_GET['status']), intval($_GET["udidx"]));
+    else  
+        $this->update_status(sanitize_text_field($_GET['ud']), sanitize_text_field($_GET['status']));
+    
+    if ( !empty( $_GET["or"] ) && $_GET["or"] == 'shlist')
+    {
+      ?><script type="text/javascript">
+       document.location = 'admin.php?page=<?php echo esc_js($this->menu_parameter); ?>&schedule=1&cal=<?php echo intval($_GET["cal"]); ?>#sb<?php echo intval($_GET["ud"]).'_'.intval($_GET["udidx"]); ?>';
+       </script>
+      <?php
+      exit;
+    }        
     $message = __('Status updated','appointment-hour-booking');
 }
 
@@ -215,21 +227,25 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
 	<tbody id="the-list">
 	 <?php for ($i=($current_page-1)*$records_per_page; $i<$current_page*$records_per_page; $i++) if (isset($events[$i])) {
               $posted_data = unserialize($events[$i]->posted_data);
-              $cancelled = false;
+              $cancelled = 0;
               $status = '';
               for($k=0; $k<count($posted_data["apps"]); $k++)
                   if ($posted_data["apps"][$k]["cancelled"] != '')
                   {
-                      $cancelled = true;
+                      $cancelled++;
                       $status = $posted_data["apps"][$k]["cancelled"];
                   }
+              if ($cancelled && $cancelled != count($posted_data["apps"])) 
+                 $status = '';                    
      ?>
-	  <tr class='<?php if ($cancelled) { ?>cpappb_cancelled <?php } ?><?php if (($i%2)) { ?>alternate <?php } ?>author-self status-draft format-default iedit' valign="top">
+	  <tr class='<?php if ( $cancelled && $cancelled == count( $posted_data["apps"] ) && $status != 'Attended') { ?>cpappb_cancelled <?php } ?><?php if (($i%2)) { ?>alternate <?php } ?>author-self status-draft format-default iedit' valign="top">
         <th><input type="checkbox" name="c<?php echo intval($i-($current_page-1)*$records_per_page); ?>" value="<?php echo intval($events[$i]->id); ?>" /></th>
         <th><?php echo intval($events[$i]->id); ?></th>
 		<td><?php echo esc_html($this->format_date(substr($events[$i]->time,0,16)).date(" H:i",strtotime($events[$i]->time))); ?></td>
 		<td><?php echo esc_html(sanitize_email($events[$i]->notifyto)); ?></td>
 		<td><?php
+            if ( $cancelled && $cancelled != count( $posted_data["apps"] ) ) echo '<div style="color:#ff0000;font-weight:bold;">* '.__('Contains','appointment-hour-booking').' '.$cancelled.' '.__('non-approved or cancelled dates','appointment-hour-booking').'. <a href="?page='.esc_attr($this->menu_parameter).'&cal='.intval($this->item).'&schedule=1">'.__('See details in schedule','appointment-hour-booking').'</a>.</div>';
+          ?><?php
 		        $data = str_replace("\n","<br />",str_replace('<','&lt;',$events[$i]->data));
 		        foreach ($posted_data as $item => $value)
 		            if (strpos($item,"_url") && $value != '')
@@ -245,9 +261,6 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
           <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Toggle Payment','appointment-hour-booking'); ?>" onclick="cp_updateMessageItem(<?php echo intval($events[$i]->id); ?>,<?php echo (!empty($posted_data["paid"]) && $posted_data["paid"]?'0':'1'); ?>);" />
 		  <input class="button" type="button" name="caldelete_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Delete','appointment-hour-booking'); ?>" onclick="cp_deleteMessageItem(<?php echo intval($events[$i]->id); ?>);" />
           <hr />
-          <?php
-           // if ($cancelled) echo '<div style="color:#ff0000;font-weight:bold;">* Contains non-approved or cancelled dates</div>';
-          ?>
           <nobr><?php $this->render_status_box('statusbox'.intval($events[$i]->id), $status); ?><input class="button" type="button" name="calups_<?php echo intval($events[$i]->id); ?>" value="<?php _e('Update Status','appointment-hour-booking'); ?>" onclick="cp_UpsItem(<?php echo intval($events[$i]->id); ?>);" /></nobr>
 		</td>
       </tr>

@@ -507,7 +507,7 @@ class OptimizerAdminBar
                 <p class="two_pro_container_title"><?php esc_html_e('Enable CDN to enjoy the benefits:', 'tenweb-speed-optimizer'); ?></p>
                 <p class="two_pro_option"><?php esc_html_e('30% higher PageSpeed score', 'tenweb-speed-optimizer'); ?></p>
                 <p class="two_pro_option"><?php esc_html_e('50% faster load times', 'tenweb-speed-optimizer'); ?></p>
-                <p class="two_pro_option"><?php esc_html_e('275 chaching locations worlwide', 'tenweb-speed-optimizer'); ?></p>
+                <p class="two_pro_option"><?php esc_html_e('275 caching locations worldwide', 'tenweb-speed-optimizer'); ?></p>
                 <a href="<?php echo esc_url($db_cloudflare_page); ?>" target="_blank" class="two_add_page_button"><?php esc_html_e('Enable', 'tenweb-speed-optimizer'); ?></a>
             </div>
             <?php

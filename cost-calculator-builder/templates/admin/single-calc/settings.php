@@ -56,6 +56,9 @@ $modal_types = array(
 						<span class="ccb-settings-tab-list-item" :class="{active: tab === '<?php echo esc_attr( $ccb_page['slug'] ); ?>'}" @click="tab = '<?php echo esc_attr( $ccb_page['slug'] ); ?>'">
 							<i class="<?php echo esc_attr( $ccb_page['icon'] ); ?>"></i>
 							<span :class="{'ccb-shine-effect': getShineClass('<?php echo esc_attr( $ccb_page['slug'] ); ?>')}"><?php echo esc_html( $ccb_page['title'] ); ?></span>
+							<?php if ( defined( 'CCB_PRO_VERSION' ) && isset( $ccb_page['icon-warning'] ) ) { ?>
+								<span class="<?php echo esc_attr( $ccb_page['icon-warning'] ); ?>" v-if="isErrorTab('<?php echo esc_attr( $ccb_page['slug'] ); ?>')"></span>
+							<?php } ?>
 						</span>
 					<?php endif; ?>
 				<?php endforeach; ?>

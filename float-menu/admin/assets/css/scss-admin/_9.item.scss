@@ -6,12 +6,35 @@
 
   &.is-builder {
     margin-top: 15px;
+    overflow: clip;
 
     > summary {
       padding-inline-start: 1.25rem;
       display: flex;
       justify-content: space-between;
     }
+    .wpie-live-preview {
+      position: relative;
+      margin: -1rem -1.5rem -1.5rem;
+      min-height: 200px;
+    }
+
+    .wpie-item_heading h3 span:last-child{
+      display: block;
+    }
+    .wpie-item_heading h3 span:first-child{
+      display: none;
+    }
+
+    &[open] {
+      .wpie-item_heading h3 span:last-child{
+        display: none;
+      }
+      .wpie-item_heading h3 span:first-child{
+        display: block;
+      }
+    }
+
 
   }
 
@@ -95,13 +118,18 @@
   align-items: center;
   margin-inline: -1.5rem;
 
+  h3 {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
 
-  .dashicons-move {
+  .wpie_icon-chevron-expand-y {
     cursor: move;
     color: var(--wpie-color-blue);
   }
 
-  .dashicons-trash {
+  .wpie_icon-trash {
     color: var(--wpie-color-danger);
     cursor: pointer;
   }
@@ -167,8 +195,8 @@
   }
 
   .wpie-remove {
-    content: '\f335';
-    font-family: dashicons;
+    //content: '\f335';
+    //font-family: dashicons;
     position: absolute;
     transform: translateX(50%);
     right: calc(-2rem);
@@ -184,4 +212,8 @@
   align-items: center;
   padding: 0 10px;
   height: 40px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgb(var(--wpie-rgb-blurple));
+
 }

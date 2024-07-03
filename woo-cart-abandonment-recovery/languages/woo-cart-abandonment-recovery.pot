@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Cart Abandonment Recovery plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Cart Abandonment Recovery 1.2.27\n"
+"Project-Id-Version: WooCommerce Cart Abandonment Recovery 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-cart-abandonment-recovery\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-12T10:05:05+00:00\n"
+"POT-Creation-Date: 2024-07-02T10:13:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woo-cart-abandonment-recovery\n"
@@ -50,7 +50,7 @@ msgid "Yes! Allow it"
 msgstr ""
 
 #: admin/bsf-analytics/class-bsf-analytics.php:259
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:393
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:417
 msgid "No Thanks"
 msgstr ""
 
@@ -352,8 +352,8 @@ msgstr ""
 #: classes/class-cartflows-ca-settings.php:840
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-templates-table.php:88
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-templates-table.php:122
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:120
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:195
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:121
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:196
 msgid "Delete"
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:474
 #: modules/cart-abandonment/classes/class-cartflows-ca-email-schedule.php:333
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:298
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:299
 #: modules/cart-abandonment/includes/cartflows-ca-single-report-details.php:176
 msgid "Name"
 msgstr ""
@@ -435,7 +435,7 @@ msgid "Shipping"
 msgstr ""
 
 #: classes/class-cartflows-ca-tabs.php:496
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:300
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:301
 msgid "Cart Total"
 msgstr ""
 
@@ -712,25 +712,25 @@ msgstr ""
 msgid " Restore Default Templates"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:106
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:107
 msgid "View"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:138
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:199
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:139
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:200
 #: modules/weekly-email-report/templates/email-footer.php:70
 msgid "Unsubscribe"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:299
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:300
 msgid "Email"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:301
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:302
 msgid "Order Status"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:302
+#: modules/cart-abandonment/classes/class-cartflows-ca-order-table.php:303
 msgid "Time"
 msgstr ""
 
@@ -739,48 +739,48 @@ msgstr ""
 msgid "%1$s: %2$d"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:100
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:101
 msgid "This coupon is for abandoned cart email templates."
 msgstr ""
 
 #. translators: %d order id
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:130
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:133
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:131
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:134
 msgid "New Customer Order - Recovered Order ID: %d"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:214
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:852
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:215
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:876
 msgid "This order was abandoned & subsequently recovered."
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:253
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:254
 msgid "You have successfully unsubscribed from our email list."
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:256
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:257
 #: modules/cart-abandonment/includes/cartflows-ca-single-report-details.php:167
 #: modules/weekly-email-report/class-cartflows-ca-admin-report-emails.php:170
 msgid "Unsubscribed"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:351
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:359
 msgid "This checkout page is generated by WooCommerce Cart Abandonment Recovery plugin from test mail."
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:394
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:418
 msgid "You won't receive further emails from us, thank you!"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1041
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1065
 msgid "Do you really want to delete the used and expired coupons created by Cart Abandonment Plugin?"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1042
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1066
 msgid "Do you really want to export orders?"
 msgstr ""
 
-#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1046
+#: modules/cart-abandonment/classes/class-cartflows-ca-tracking.php:1070
 msgid "No such order is found."
 msgstr ""
 

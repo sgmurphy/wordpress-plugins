@@ -47,6 +47,18 @@
 				}
 			}
 		});
+		jQuery(".cr-reviews-grid").on("click", ".image-row-vid, .cr-comment-videoicon", function(t) {
+			if( ! jQuery(this).closest(".image-row").hasClass( "cr-vid-playing" ) ) {
+				jQuery(this).closest(".image-row").addClass( "cr-vid-playing" );
+				jQuery(this).closest(".image-row").find(".image-row-vid").prop( "controls", true );
+				jQuery(this).closest(".image-row").find(".image-row-vid").get(0).play();
+			} else {
+				jQuery(this).closest(".image-row").find(".image-row-vid").get(0).pause();
+				jQuery(this).closest(".image-row").find(".image-row-vid").prop( "controls", false );
+				jQuery(this).closest(".image-row").removeClass( "cr-vid-playing" );
+			}
+			return false;
+		} );
 		//show lightbox when click on images in reviews grid
 		jQuery(".cr-reviews-grid").on("click", ".image-row-img, .image-row-count", function(t) {
 			if(cr_ajax_object.disable_lightbox === '0') {

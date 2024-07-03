@@ -99,8 +99,12 @@ class CCBUpdates {
 		'3.2.7'  => array(
 			'ccb_sync_calc_settings',
 		),
-		'3.2.9' => array(
+		'3.2.9'  => array(
 			'ccb_date_picker_multi_period',
+		),
+		'3.2.15' => array(
+			'ccb_date_picker_multi_period',
+			'ccb_total_field_hidden_calculate',
 		),
 	);
 

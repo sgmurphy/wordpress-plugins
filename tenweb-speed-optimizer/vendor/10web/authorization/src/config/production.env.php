@@ -46,12 +46,23 @@ if(!defined('TWBB_S3_BUCKET')) {
 if(!defined('TENWEB_SIGNUP_MAGIC_LINK_URL')) {
     define('TENWEB_SIGNUP_MAGIC_LINK_URL', 'https://core.10web.io/api/checkout/signup-via-magic-link');
 }
+
 if(!defined('TENWEB_AI_ASSISTANT')) {
     define('TENWEB_AI_ASSISTANT', 'https://ai-assistant.10web.io/');
 }
+
 if(!defined('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID')) {
     define('TENWEB_AI_ASSISTANT_SUBSCRIPTION_ID', 330);
 }
+
+if(!defined('TWM_ENABLE_PAYMENT')) {
+    define('TWM_ENABLE_PAYMENT', true);
+}
+
+if(!defined('TENWEB_WOOCOM_API_URL')) {
+    define('TENWEB_WOOCOM_API_URL', 'https://woocommerce.10web.io/');
+}
+
 global $tenweb_services;
 
 $tenweb_services = array(

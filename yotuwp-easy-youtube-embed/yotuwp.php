@@ -3,7 +3,7 @@
 * Plugin Name: YotuWP - YouTube Gallery
 * Plugin URI: https://www.yotuwp.com/
 * Description: Easy embed YouTube playlist, channel, videos and user videos to posts/pages/widgets
-* Version: 1.3.13
+* Version: 1.3.14
 * Text Domain: yotuwp-easy-youtube-embed
 * Domain Path: /languages
 * Author URI: https://www.yotuwp.com/contact/
@@ -17,7 +17,7 @@ if( !defined( 'YTDS' ) )
 	define( 'YTDS', DIRECTORY_SEPARATOR );
 
 if( !defined( 'YOTUWP_VERSION' ) )
-	define( 'YOTUWP_VERSION', '1.3.13' );
+	define( 'YOTUWP_VERSION', '1.3.14' );
 
 global $yotuwp, $yotuwp_inline_script;
 
@@ -809,6 +809,8 @@ class YotuWP{
 
 	public function template( $template, $data, $settings) {
 		global $yotuwp;
+
+		$template = sanitize_file_name($template);
 
 		$yotuwp->data = array(
 			'data' => $data,

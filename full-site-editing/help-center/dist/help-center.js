@@ -22308,91 +22308,6 @@ function firePageView(title, location, ga4PropertyGtag) {
 
 /***/ }),
 
-/***/ 95575:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   bc: () => (/* binding */ getGoogleAnalyticsDefaultConfig),
-/* harmony export */   cC: () => (/* binding */ fireGoogleAnalyticsEvent),
-/* harmony export */   oD: () => (/* binding */ setupGoogleAnalyticsGtag),
-/* harmony export */   oT: () => (/* binding */ fireGoogleAnalyticsPageView)
-/* harmony export */ });
-/* harmony import */ var _automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98948);
-/* harmony import */ var _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34772);
-/* harmony import */ var _setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84488);
-
-
-
-// Ensure setup has run.
-
-function setupGoogleAnalyticsGtag(params) {
-  _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .setup */ .mj(params);
-}
-
-/**
- * Returns the default configuration for Google Analytics
- * @returns {Object} GA's default config
- */
-function getGoogleAnalyticsDefaultConfig() {
-  const currentUser = (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__/* .getCurrentUser */ .HW)();
-  return {
-    ...(currentUser && {
-      user_id: currentUser.hashedPii.ID
-    }),
-    anonymize_ip: true,
-    transport_type: 'function' === typeof window.navigator.sendBeacon ? 'beacon' : 'xhr',
-    use_amp_client_id: true,
-    custom_map: {
-      dimension3: 'client_id'
-    },
-    linker: {
-      accept_incoming: true
-    }
-  };
-}
-
-/**
- * Fires Google Analytics page view event
- * @param {string} urlPath The path of the current page
- * @param {string} pageTitle The title of the current page
- * @param {boolean} useJetpackGoogleAnalytics send the page view to Jetpack Google Analytics
- * @param {boolean} useAkismetGoogleAnalytics send the page view to Akismet Google Analytics
- */
-function fireGoogleAnalyticsPageView(urlPath, pageTitle, useJetpackGoogleAnalytics = false, useAkismetGoogleAnalytics = false, useA8CForAgenciesGoogleAnalytics = false) {
-  const getGa4PropertyGtag = () => {
-    if (useJetpackGoogleAnalytics) {
-      return _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .Ga4PropertyGtag */ .jv.JETPACK;
-    }
-    if (useAkismetGoogleAnalytics) {
-      return _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .Ga4PropertyGtag */ .jv.AKISMET;
-    }
-    if (useA8CForAgenciesGoogleAnalytics) {
-      return _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .Ga4PropertyGtag */ .jv.A8C_FOR_AGENCIES;
-    }
-    return _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .Ga4PropertyGtag */ .jv.WPCOM;
-  };
-  const ga4PropertyGtag = getGa4PropertyGtag();
-  _google_analytics_4__WEBPACK_IMPORTED_MODULE_2__/* .firePageView */ .HK(pageTitle, urlPath, ga4PropertyGtag);
-}
-
-/**
- * Fires a generic Google Analytics event
- * @param {string} category Is the string that will appear as the event category.
- * @param {string} action Is the string that will appear as the event action in Google Analytics Event reports.
- * @param {string} label Is the string that will appear as the event label.
- * @param {number} value Is a non-negative integer that will appear as the event value.
- */
-function fireGoogleAnalyticsEvent(category, action, label, value) {
-  window.gtag('event', action, {
-    event_category: category,
-    event_label: label,
-    value: value
-  });
-}
-
-/***/ }),
-
 /***/ 84488:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -22668,30 +22583,32 @@ function setupClarityGlobal() {
 /* harmony export */   WI: () => (/* binding */ gaRecordEvent)
 /* harmony export */ });
 /* unused harmony exports gaRecordPageView, makeGoogleAnalyticsTrackingFunction */
-/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2090);
-/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(debug__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95575);
+/* harmony import */ var _automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(98948);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2090);
+/* harmony import */ var debug__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(debug__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(34772);
 /* harmony import */ var _akismet_is_akismet_checkout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(86361);
 /* harmony import */ var _jetpack_is_jetpack_checkout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(25729);
-/* harmony import */ var _jetpack_is_jetpack_cloud__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76516);
-/* harmony import */ var _tracker_buckets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73943);
+/* harmony import */ var _jetpack_is_jetpack_cloud__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(76516);
+/* harmony import */ var _tracker_buckets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73943);
 
 
 
 
 
 
-const gaDebug = debug__WEBPACK_IMPORTED_MODULE_0___default()('calypso:analytics:ga');
+
+const gaDebug = debug__WEBPACK_IMPORTED_MODULE_1___default()('calypso:analytics:ga');
 let initialized = false;
 function initialize() {
   if (!initialized) {
     const params = {
       send_page_view: false,
-      ...(0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_3__/* .getGoogleAnalyticsDefaultConfig */ .bc)()
+      ...getGoogleAnalyticsDefaultConfig()
     };
 
     // We enable custom cross-domain linking for Akismet and Jetpack checkouts + Jetpack Cloud
-    if ((0,_akismet_is_akismet_checkout__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .A)() || (0,_jetpack_is_jetpack_cloud__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A)() || (0,_jetpack_is_jetpack_checkout__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .A)()) {
+    if ((0,_akismet_is_akismet_checkout__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .A)() || (0,_jetpack_is_jetpack_cloud__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .A)() || (0,_jetpack_is_jetpack_checkout__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .A)()) {
       const queryParams = new URLSearchParams(location.search);
       const gl = queryParams.get('_gl');
 
@@ -22703,13 +22620,26 @@ function initialize() {
       }
     }
     gaDebug('parameters:', params);
-    (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_3__/* .setupGoogleAnalyticsGtag */ .oD)(params);
+    calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .setup */ .mj(params);
     initialized = true;
   }
 }
 const gaRecordPageView = makeGoogleAnalyticsTrackingFunction(function recordPageView(urlPath, pageTitle, useJetpackGoogleAnalytics = false, useAkismetGoogleAnalytics = false, useA8CForAgenciesGoogleAnalytics = false) {
   gaDebug('Recording Page View ~ [URL: ' + urlPath + '] [Title: ' + pageTitle + '] [useJetpackGoogleAnalytics: ' + useJetpackGoogleAnalytics + '] [useAksiemtGoogleAnalytics: ' + useAkismetGoogleAnalytics + '] [useA8CForAgenciesGoogleAnalytics: ' + useA8CForAgenciesGoogleAnalytics + ']');
-  (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_3__/* .fireGoogleAnalyticsPageView */ .oT)(urlPath, pageTitle, useJetpackGoogleAnalytics, useAkismetGoogleAnalytics, useA8CForAgenciesGoogleAnalytics);
+  const getGa4PropertyGtag = () => {
+    if (useJetpackGoogleAnalytics) {
+      return calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .Ga4PropertyGtag */ .jv.JETPACK;
+    }
+    if (useAkismetGoogleAnalytics) {
+      return calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .Ga4PropertyGtag */ .jv.AKISMET;
+    }
+    if (useA8CForAgenciesGoogleAnalytics) {
+      return calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .Ga4PropertyGtag */ .jv.A8C_FOR_AGENCIES;
+    }
+    return calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .Ga4PropertyGtag */ .jv.WPCOM;
+  };
+  const ga4PropertyGtag = getGa4PropertyGtag();
+  calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_6__/* .firePageView */ .HK(pageTitle, urlPath, ga4PropertyGtag);
 });
 
 /**
@@ -22733,7 +22663,7 @@ const gaRecordEvent = makeGoogleAnalyticsTrackingFunction(function recordEvent(c
     debugText += ' [Option Value: ' + value + ']';
   }
   gaDebug(debugText);
-  (0,calypso_lib_analytics_ad_tracking__WEBPACK_IMPORTED_MODULE_3__/* .fireGoogleAnalyticsEvent */ .cC)(category, action, label, value);
+  fireGoogleAnalyticsEvent(category, action, label, value);
 });
 
 /**
@@ -22747,13 +22677,50 @@ const gaRecordEvent = makeGoogleAnalyticsTrackingFunction(function recordEvent(c
  */
 function makeGoogleAnalyticsTrackingFunction(func) {
   return function (...args) {
-    if (!(0,_tracker_buckets__WEBPACK_IMPORTED_MODULE_2__/* .mayWeTrackByTracker */ .ct)('ga')) {
+    if (!(0,_tracker_buckets__WEBPACK_IMPORTED_MODULE_3__/* .mayWeTrackByTracker */ .ct)('ga')) {
       gaDebug('[Disallowed] analytics %s( %o )', func.name, args);
       return;
     }
     initialize();
     func(...args);
   };
+}
+
+/**
+ * Returns the default configuration for Google Analytics
+ * @returns {Object} GA's default config
+ */
+function getGoogleAnalyticsDefaultConfig() {
+  const currentUser = (0,_automattic_calypso_analytics__WEBPACK_IMPORTED_MODULE_0__/* .getCurrentUser */ .HW)();
+  return {
+    ...(currentUser && {
+      user_id: currentUser.hashedPii.ID
+    }),
+    anonymize_ip: true,
+    transport_type: 'function' === typeof window.navigator.sendBeacon ? 'beacon' : 'xhr',
+    use_amp_client_id: true,
+    custom_map: {
+      dimension3: 'client_id'
+    },
+    linker: {
+      accept_incoming: true
+    }
+  };
+}
+
+/**
+ * Fires a generic Google Analytics event
+ * @param {string} category Is the string that will appear as the event category.
+ * @param {string} action Is the string that will appear as the event action in Google Analytics Event reports.
+ * @param {string} label Is the string that will appear as the event label.
+ * @param {number} value Is a non-negative integer that will appear as the event value.
+ */
+function fireGoogleAnalyticsEvent(category, action, label, value) {
+  window.gtag('event', action, {
+    event_category: category,
+    event_label: label,
+    value: value
+  });
 }
 
 /***/ }),
@@ -26856,9 +26823,9 @@ const PLAN_BUSINESS_2Y_ONBOARDING_EXPIRE = '2022-07-31T00:00:00+00:00';
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   cw: () => (/* binding */ getPlansListExperiment)
+/* harmony export */   c: () => (/* binding */ getPlansListExperiment)
 /* harmony export */ });
-/* unused harmony exports setPlansListExperiment, setTrailMapExperiment */
+/* unused harmony export setPlansListExperiment */
 const experiments = {};
 const PLANS_LIST_NAMESPACE = 'plans-list';
 const setExperiment = (namespace, experimentName, variation) => {
@@ -26875,9 +26842,6 @@ const setPlansListExperiment = (experimentName, variation) => {
 };
 const getPlansListExperiment = experimentName => {
   return getExperiment(PLANS_LIST_NAMESPACE, experimentName);
-};
-const setTrailMapExperiment = variation => {
-  setExperiment(PLANS_LIST_NAMESPACE, 'wpcom_trail_map_feature_structure_experiment', variation);
 };
 
 /***/ }),
@@ -28979,37 +28943,37 @@ PLANS_LIST[_constants__WEBPACK_IMPORTED_MODULE_6__/* .PLAN_HOSTING_TRIAL_MONTHLY
  * See: p7H4VZ-4S4-p2
  */
 
-const getPlanPersonalTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanPersonalTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Personal is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Personal') :
 // translators: Starter is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Starter');
-const getPlanPremiumTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanPremiumTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Premium is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Premium') :
 // translators: Explorer is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Explorer');
-const getPlanBusinessTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Business') :
 // translators: Creator is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Creator');
-const getPlanEcommerceTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanEcommerceTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Commerce is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Commerce') :
 // translators: Entrepreneur is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Entrepreneur');
-const getPlanBusinessTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Business Trial') :
 // translators: Creator Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Creator Trial');
-const getPlanBusinessTrialTagline = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanBusinessTrialTagline = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Business is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Try all the features of our Business plan.') :
 // translators: Creator is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Try all the features of our Creator plan.');
-const getPlanCommerceTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .cw)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
+const getPlanCommerceTrialTitle = () => (0,_experiments__WEBPACK_IMPORTED_MODULE_0__/* .getPlansListExperiment */ .c)('wpcom_plan_name_change_personal_premium_v1') === 'treatment' ?
 // translators: Commerce Trial is a plan name
 i18n_calypso__WEBPACK_IMPORTED_MODULE_1__/* ["default"].translate */ .Ay.translate('Commerce Trial') :
 // translators: Entrepreneur Trial is a plan name
@@ -34602,13 +34566,15 @@ const ArticleContent = ({
 /* harmony import */ var _automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16706);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51609);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(90564);
-/* harmony import */ var _hooks_use_post_by_key__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36850);
+/* harmony import */ var wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41445);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(90564);
+/* harmony import */ var _hooks_use_post_by_key__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(36850);
 /* harmony import */ var _hooks_use_support_article_alternates_query__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(17999);
-/* harmony import */ var _help_center_article_content__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(96722);
+/* harmony import */ var _help_center_article_content__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(96722);
 /* harmony import */ var _help_center_article_content_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26088);
 
 /* eslint-disable no-restricted-imports */
+
 
 
 
@@ -34622,8 +34588,11 @@ const getPostKey = (blogId, postId) => ({
 });
 const useSupportArticleAlternatePostKey = (blogId, postId) => {
   const locale = (0,_automattic_i18n_utils__WEBPACK_IMPORTED_MODULE_3__/* .useLocale */ .Ym)();
-  const supportArticleAlternates = (0,_hooks_use_support_article_alternates_query__WEBPACK_IMPORTED_MODULE_4__/* .useSupportArticleAlternatesQuery */ .q)(blogId, postId, locale);
-  if (supportArticleAlternates.isInitialLoading) {
+  const supportArticleAlternates = (0,_hooks_use_support_article_alternates_query__WEBPACK_IMPORTED_MODULE_4__/* .useSupportArticleAlternatesQuery */ .q)(blogId, postId, locale, {
+    enabled: (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_5__/* .canAccessWpcomApis */ .IH)()
+  });
+  // Alternates don't work on Atomic.
+  if (supportArticleAlternates.isInitialLoading && (0,wpcom_proxy_request__WEBPACK_IMPORTED_MODULE_5__/* .canAccessWpcomApis */ .IH)()) {
     return null;
   }
   if (!supportArticleAlternates.data) {
@@ -34636,8 +34605,8 @@ const ArticleFetchingContent = ({
   blogId,
   articleUrl
 }) => {
-  const postKey = useSupportArticleAlternatePostKey(+(blogId ?? _constants__WEBPACK_IMPORTED_MODULE_5__/* .SUPPORT_BLOG_ID */ .Dm), postId);
-  const post = (0,_hooks_use_post_by_key__WEBPACK_IMPORTED_MODULE_6__/* .usePostByKey */ .y)(postKey).data;
+  const postKey = useSupportArticleAlternatePostKey(+(blogId ?? _constants__WEBPACK_IMPORTED_MODULE_6__/* .SUPPORT_BLOG_ID */ .Dm), postId);
+  const post = (0,_hooks_use_post_by_key__WEBPACK_IMPORTED_MODULE_7__/* .usePostByKey */ .y)(postKey).data;
   const isLoading = !post?.content || !postKey;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     //If a url includes an anchor, let's scroll this into view!
@@ -34653,7 +34622,7 @@ const ArticleFetchingContent = ({
       }, 0);
     }
   }, [articleUrl, post]);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_article_content__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .A, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help_center_article_content__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .A, {
     content: post?.content,
     title: post?.title,
     link: post?.link,

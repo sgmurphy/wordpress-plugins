@@ -468,7 +468,7 @@ class Wptc_Init{
 
 		global $wpdb;
 
-		if($this->get_option('appID') != $app_id ){
+		if($this->get_option('appID') !== $app_id ){
 			return false;
 		}
 

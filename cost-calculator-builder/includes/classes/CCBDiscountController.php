@@ -2,7 +2,9 @@
 
 namespace cBuilder\Classes;
 
+use cBuilder\Classes\Database\Condition;
 use cBuilder\Classes\Database\Discounts;
+use cBuilder\Classes\Database\Promocodes;
 
 class CCBDiscountController {
 	public static function create() {
@@ -11,6 +13,8 @@ class CCBDiscountController {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
+
+		self::maybe_create();
 
 		$result = array(
 			'success' => false,
@@ -128,6 +132,8 @@ class CCBDiscountController {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
+
+		self::maybe_create();
 
 		$result = array(
 			'success' => false,
@@ -256,6 +262,8 @@ class CCBDiscountController {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
 
+		self::maybe_create();
+
 		$result = array(
 			'success' => false,
 			'message' => 'Something went wrong',
@@ -314,6 +322,8 @@ class CCBDiscountController {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
+
+		self::maybe_create();
 
 		$result = array(
 			'success' => false,
@@ -374,6 +384,8 @@ class CCBDiscountController {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
 
+		self::maybe_create();
+
 		$result = array(
 			'success' => false,
 			'message' => 'Something went wrong',
@@ -400,6 +412,8 @@ class CCBDiscountController {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You are not allowed to run this action', 'cost-calculator-builder' ) );
 		}
+
+		self::maybe_create();
 
 		$result = array(
 			'success' => false,
@@ -444,5 +458,11 @@ class CCBDiscountController {
 			'sort_by'   => $sort_by,
 			'direction' => $direction,
 		);
+	}
+
+	private static function maybe_create() {
+		Discounts::create_table();
+		Promocodes::create_table();
+		Condition::create_table();
 	}
 }

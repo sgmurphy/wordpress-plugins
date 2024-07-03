@@ -1,14 +1,13 @@
 === Ad Invalid Click Protector (AICP) ===
-Contributors: isaumya, acnam
-Author URI: https://acnam.com/
+Contributors: isaumya
+Author URI: https://isaumya.com/
 Plugin URI: https://wordpress.org/plugins/ad-invalid-click-protector/
-Donate link: https://rzp.io/l/m7EhiuU
-Tags: adsense, invalid click, protect adsense account, adsense invalid click, save adsense account, google adsense, isaumya, aicp, aicp wordpress
+Donate link: https://paypal.me/acnamhq
+Tags: adsense, invalid, click, isaumya, aicp
 Requires at least: 4.9
-Requires PHP: 7.0
-Tested up to: 6.2
-
-Stable Tag: 1.2.8
+Requires PHP: 7.4
+Tested up to: 6.5
+Stable Tag: 1.3.0
 
 License: GNU Version 2 or Any Later Version
 
@@ -17,6 +16,8 @@ One plugin to save your AdSense account from Click Bombings and Invalid Click Ac
 == Description ==
 
 Ad Invalid Click Protector a.k.a. AICP plugin will help you to save your Google Ad account from unusual invalid click activities and click bombings. As per the Google Ad terms, Google doesn't take any responsibility towards these invalid click activities or click bombings and always point the finger towards the Ad publisher, giving him/her all the blames. Now it is time to end this problem, once and for all.
+
+**Please Note:** This plugin uses 3rd party systems [ip-api.com](http://ip-api.com/) to get the location details for the server IP. Please check their [Privacy Policy and Terms](https://www.ip-api.com/docs/legal). By default the plugin uses the free version of IP-API service but if you have purchased a premium version then you can enter your API key inside the plugin settings page.
 
 > **Important Note About Touch Screen Support:** This plugin doesn't work on mobile devices such as smartphones and tablets, because this hardware uses a touchscreen instead of a mouse as click input. This design makes the boundary monitoring trick ineffective.
 
@@ -32,7 +33,7 @@ Before start using the plugin, I will highly recommend you to take a look at thi
 
 **For plugin support please post your your feedback and support questions to the [Plugin's Support Forum](https://wordpress.org/support/plugin/ad-invalid-click-protector).**
 
-> It took 300+ hours to code, design, test and to do several bugfix to make this plugin a reality. If you enjoy this plugin and understand the huge effort I put into this, please consider **[donating some amount](https://rzp.io/l/m7EhiuU) (no matter how small)** for keeping alive the development of this plugin. Thank you again for using my plugin. Also if you love using this plugin, I would really appreciate if you take 2 minutes out of your busy schedule to **[share your review](https://wordpress.org/support/plugin/ad-invalid-click-protector/reviews/)** about this plugin.
+> It took 300+ hours to code, design, test and to do several bugfix to make this plugin a reality. If you enjoy this plugin and understand the huge effort I put into this, please consider **[donating some amount](https://paypal.me/acnamhq) (no matter how small)** for keeping alive the development of this plugin. Thank you again for using my plugin. Also if you love using this plugin, I would really appreciate if you take 2 minutes out of your busy schedule to **[share your review](https://wordpress.org/support/plugin/ad-invalid-click-protector/reviews/)** about this plugin.
 
 Features of the plugin include:
 
@@ -127,7 +128,7 @@ Ad Invalid Click Protector plugin is 100% translation ready. Right now it only h
 
 **Support the Plugin**
 
-If you like this plugin please don't forget to write a review and if possible please [Donate some amount](https://rzp.io/l/m7EhiuU) to keep the plugin and it's development alive.
+If you like this plugin please don't forget to write a review and if possible please [Donate some amount](https://paypal.me/acnamhq) to keep the plugin and it's development alive.
 
 == Screenshots ==
 
@@ -224,76 +225,64 @@ This plugin doesn't work on mobile devices such as smartphones and tablets, beca
 
 == Changelog ==
 
-= 1.2.8, March 21, 2023 =
+= 1.3.0, July 2, 2024 =
+* Pushing update that holds proper code without any garbage code added by the hacker who hacked my account to push malware via this plugin.
+* Added escape to many data that is being shown by the plugin to strengthening the code security.
 
+= 1.2.8, March 21, 2023 =
 * Set the WP minimum requirement to v4.9 so that the plugin can be used with ClassicPress
 * Updating the tested up to value of the plugin
 
 = 1.2.7, April 04, 2022 =
-
 * Fixed CSRF & XSS security issues
 
 = 1.2.5.2, April 23, 2021 =
-
 * Fixed Google trademark issues
 
 = 1.2.5.1, August 31, 2020 =
-
 * Updated the Donation Flow inside the plugin settings page
 
 = 1.2.5, June 29, 2020 =
-
 * Added new contributor - [Acnam Infotech](https://acnam.com)
 * Updated the donation link
 * Updated tested up to WP v5.5
 * Added requires PHP to PHP 7.0
 
 = 1.2.4, April 18, 2020 =
-
 * Some minor improvements and bugfixes
 
 = 1.2.3, May 30, 2019 =
-
 * For some users who are using cloudflare on their server facing issue that the user IP is not getting reflected on the plugin. Instead the plugin was showing the server IP as the user IP. This issue is now fixed. Thanks to [@coolph](https://profiles.wordpress.org/coolph/) for providing a testing environment to test and fix this issue.
 
 = 1.2.2, April 6, 2018 =
-
 * Added new demonstration video in YouTube embed.
 
 = 1.2.0 & 1.2.1, December 30, 2016 =
-
 * Reducing dependency on IP-API.com. Now the API call will only be made when you are using country wide ban. Also in the Banned User Details table the Country Name and Country Code has been removed to ensure less dependency on 3rd Party APIs.
 
 = 1.1.0 & 1.1.1, December 23, 2016 =
-
 * Major release.
 * Now AICP supports only iframe based ads like AdSense and not normal affiliate ad codes
 * Fix: In some cases clicking on adsense ads are not being tracked
 * Huge code quality improvement
 
 = 1.0.6, December 15, 2016 =
-
 * Making sure that the welcome notice never shows up once you dismiss it.
 
 = 1.0.5, November 27, 2016 =
-
 * Changed the donation link to the new donation page
 * Fixed some minor bugs
 
 = 1.0.3 & 1.0.4, November 24, 2016 =
-
 * Added support to [IP-API Pro](https://signup.ip-api.com/) for high traffic websites
 * Minor bug fix with uninstallation method
 * Translation update and bugfix
 
 = 1.0.2, November 16, 2016 =
-
 * Minor bug fix in the admin settings page
 
 = 1.0.1, November 16, 2016 =
-
 * Minor fix to some issues with the readme file
 
 = 1.0.0, November 16, 2016 =
-
 * First official stable release!

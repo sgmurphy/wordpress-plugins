@@ -17,7 +17,7 @@
 
 			$( document ).on(
 				'keyup keypress change',
-				'#billing_email, #billing_phone, input.input-text, textarea.input-text, select',
+				'#email, #billing-phone, #billing_email, #billing_phone, #shipping-phone, #shipping_phone,  input.input-text, textarea.input-text, select',
 				this._getCheckoutData
 			);
 
@@ -79,18 +79,25 @@
 		},
 
 		_getCheckoutData() {
-			const wcf_email = jQuery( '#billing_email' ).val();
+			const wcf_email = wcf_ca_vars._is_block_based_checkout
+				? jQuery( '#email' ).val()
+				: jQuery( '#billing_email' ).val();
 
 			if ( typeof wcf_email === 'undefined' ) {
 				return;
 			}
 
-			let wcf_phone = jQuery( '#billing_phone' ).val();
+			let wcf_phone = wcf_ca_vars._is_block_based_checkout
+				? jQuery( '#billing-phone' ).val() ||
+				jQuery( '#shipping-phone' ).val()
+				: jQuery( '#billing_phone' ).val() ||
+				jQuery( '#shipping_phone' ).val();
+
 			const atposition = wcf_email.indexOf( '@' );
 			const dotposition = wcf_email.lastIndexOf( '.' );
 
 			if ( typeof wcf_phone === 'undefined' || wcf_phone === null ) {
-				//If phone number field does not exist on the Checkout form
+				// If phone number field does not exist on the Checkout form
 				wcf_phone = '';
 			}
 
@@ -104,77 +111,82 @@
 				) ||
 				wcf_phone.length >= 1
 			) {
-				//Checking if the email field is valid or phone number is longer than 1 digit
-				//If Email or Phone valid
-				const wcf_name = jQuery( '#billing_first_name' ).val();
-				const wcf_surname = jQuery( '#billing_last_name' ).val();
-				wcf_phone = jQuery( '#billing_phone' ).val();
-				const wcf_country = jQuery( '#billing_country' ).val();
-				const wcf_city = jQuery( '#billing_city' ).val();
+				const fieldIds = {
+					billing_first_name: 'billing-first_name',
+					billing_last_name: 'billing-last_name',
+					billing_city: 'billing-city',
+					billing_company: 'billing-company',
+					billing_country: 'components-form-token-input-2',
+					billing_address_1: 'billing-address_1',
+					billing_address_2: 'billing-address_2',
+					billing_state: 'components-form-token-input-3',
+					billing_postcode: 'billing-postcode',
+					shipping_first_name: 'shipping-first_name',
+					shipping_last_name: 'shipping-last_name',
+					shipping_company: 'shipping-company',
+					shipping_country: 'components-form-token-input-0',
+					shipping_address_1: 'shipping-address_1',
+					shipping_address_2: 'shipping-address_2',
+					shipping_city: 'shipping-city',
+					shipping_state: 'components-form-token-input-1',
+					shipping_postcode: 'shipping-postcode',
+					order_comments: 'checkbox-control-0',
+				};
 
-				//Other fields used for "Remember user input" function
-				const wcf_billing_company = jQuery( '#billing_company' ).val();
-				const wcf_billing_address_1 = jQuery(
-					'#billing_address_1'
-				).val();
-				const wcf_billing_address_2 = jQuery(
-					'#billing_address_2'
-				).val();
-				const wcf_billing_state = jQuery( '#billing_state' ).val();
-				const wcf_billing_postcode = jQuery(
-					'#billing_postcode'
-				).val();
-				const wcf_shipping_first_name = jQuery(
-					'#shipping_first_name'
-				).val();
-				const wcf_shipping_last_name = jQuery(
-					'#shipping_last_name'
-				).val();
-				const wcf_shipping_company = jQuery(
-					'#shipping_company'
-				).val();
-				const wcf_shipping_country = jQuery(
-					'#shipping_country'
-				).val();
-				const wcf_shipping_address_1 = jQuery(
-					'#shipping_address_1'
-				).val();
-				const wcf_shipping_address_2 = jQuery(
-					'#shipping_address_2'
-				).val();
-				const wcf_shipping_city = jQuery( '#shipping_city' ).val();
-				const wcf_shipping_state = jQuery( '#shipping_state' ).val();
-				const wcf_shipping_postcode = jQuery(
-					'#shipping_postcode'
-				).val();
-				const wcf_order_comments = jQuery( '#order_comments' ).val();
+				const fieldMapping = {
+					billing_first_name: 'wcf_name',
+					billing_last_name: 'wcf_surname',
+					billing_city: 'wcf_city',
+					billing_country: 'wcf_country',
+				};
 
 				const data = {
 					action: 'cartflows_save_cart_abandonment_data',
 					wcf_email,
-					wcf_name,
-					wcf_surname,
 					wcf_phone,
-					wcf_country,
-					wcf_city,
-					wcf_billing_company,
-					wcf_billing_address_1,
-					wcf_billing_address_2,
-					wcf_billing_state,
-					wcf_billing_postcode,
-					wcf_shipping_first_name,
-					wcf_shipping_last_name,
-					wcf_shipping_company,
-					wcf_shipping_country,
-					wcf_shipping_address_1,
-					wcf_shipping_address_2,
-					wcf_shipping_city,
-					wcf_shipping_state,
-					wcf_shipping_postcode,
-					wcf_order_comments,
 					security: wcf_ca_vars._nonce,
 					wcf_post_id: wcf_ca_vars._post_id,
 				};
+
+				Object.keys( fieldIds ).forEach( ( defaultKey ) => {
+					const checkoutFieldId = wcf_ca_vars._is_block_based_checkout
+						? fieldIds[ defaultKey ]
+						: defaultKey;
+
+					const fieldElement = jQuery( '#' + checkoutFieldId );
+					const dataKey = fieldMapping[ defaultKey ]
+						? fieldMapping[ defaultKey ]
+						: `wcf_${ defaultKey }`;
+
+					data[ dataKey ] = fieldElement.length
+						? fieldElement.val()
+						: null;
+				} );
+				// Check if the checkbox is checked for using the same address for billing
+				if (
+					$(
+						'.wc-block-checkout__use-address-for-billing input[type="checkbox"]'
+					).prop( 'checked' )
+				) {
+					const billingAndShippingFields = [
+						[ 'wcf_name', 'wcf_shipping_first_name' ],
+						[ 'wcf_surname', 'wcf_shipping_last_name' ],
+						[ 'wcf_billing_state', 'wcf_shipping_state' ],
+						[ 'wcf_billing_address_1', 'wcf_shipping_address_1' ],
+						[ 'wcf_billing_address_2', 'wcf_shipping_address_2' ],
+						[ 'wcf_city', 'wcf_shipping_city' ],
+						[ 'wcf_country', 'wcf_shipping_country' ],
+						[ 'wcf_billing_postcode', 'wcf_shipping_postcode' ],
+					];
+
+					billingAndShippingFields.forEach(
+						( [ billingField, shippingField ] ) => {
+							if ( ! data[ billingField ] ) {
+								data[ billingField ] = data[ shippingField ];
+							}
+						}
+					);
+				}
 
 				timer = setTimeout( function () {
 					if (

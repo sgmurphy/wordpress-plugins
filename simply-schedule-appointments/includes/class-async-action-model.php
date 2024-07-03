@@ -69,10 +69,6 @@ class SSA_Async_Action_Model extends TD_Async_Action_Model {
 			$where .= $wpdb->prepare( ' AND object_id=%d', sanitize_text_field( $args['object_id'] ) );
 		}
 		
-		if( ! empty( $args['action'] ) ) {
-			$where .= $wpdb->prepare( ' AND action=%s', sanitize_text_field( $args['action'] ) );
-		}
-		
 		return $where;
 	}
 	/**

@@ -4,7 +4,7 @@
  * @package GOTMLS
 */
 
-define("GOTMLS_Version", '4.23.67');
+define("GOTMLS_Version", '4.23.68');
 define("GOTMLS_SAFELOAD_DIR", dirname(__FILE__)."/");
 define("GOTMLS_CHMOD_FILE", 0644);
 define("GOTMLS_CHMOD_DIR", 0755);
@@ -113,7 +113,7 @@ function GOTMLS_load_contents($TXT, $default_encoding = "UTF-8") {
 	$encoding = "UTF-8";
 	if (!(isset($GLOBALS["GOTMLS"]["tmp"]["custom_whitelist"]) && is_array($GLOBALS["GOTMLS"]["tmp"]["custom_whitelist"]))) {
 		$GLOBALS["GOTMLS"]["tmp"]["custom_whitelist"] = array();
-		$get_whitelist_SQL = "SELECT CONCAT(`post_mime_type`, 'O', `comment_count`) AS `chksum`, post_title FROM `wp_posts` WHERE `post_type` = 'GOTMLS_quarantine' AND `post_status` = 'pending'";
+		$get_whitelist_SQL = "SELECT CONCAT(`post_mime_type`, 'O', `comment_count`) AS `chksum`, `post_title` FROM `$wpdb->posts` WHERE `post_type` = 'GOTMLS_quarantine' AND `post_status` = 'pending'";
 		if (is_array($get_whitelist_rows = $wpdb->get_results($get_whitelist_SQL, ARRAY_A)))
 			foreach ($get_whitelist_rows as $get_whitelist_row)
 				$GLOBALS["GOTMLS"]["tmp"]["custom_whitelist"][$get_whitelist_row["chksum"]] = GOTMLS_decode($get_whitelist_row["post_title"]);

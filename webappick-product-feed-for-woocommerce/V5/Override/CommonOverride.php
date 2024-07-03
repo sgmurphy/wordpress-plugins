@@ -50,18 +50,18 @@ class CommonOverride {
 //			'woo_feed_insert_feed_data_callback'
 //		), 10, 3 );
 
-		add_action( 'woo_feed_filter_product_description',
+		add_filter( 'woo_feed_filter_product_description',
 			array( $this, 'remove_enclosure_from_description' ),
 			10, 4 );
 
-		add_action( 'woo_feed_filter_product_short_description',
+		add_filter( 'woo_feed_filter_product_short_description',
 			array( $this, 'remove_enclosure_from_description' ),
 			10, 4 );
 
-		add_action( 'woo_feed_filter_product_title',
+		add_filter( 'woo_feed_filter_product_title',
 			array( $this, 'remove_enclosure_from_title' ),
 			10, 3 );
-		add_action( 'woo_feed_filter_product_parent_title',
+		add_filter( 'woo_feed_filter_product_parent_title',
 			array( $this, 'remove_enclosure_from_title' ),
 			10, 3 );
 

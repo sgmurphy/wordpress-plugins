@@ -17,7 +17,7 @@
         });
     }
 
-    $(document).on('click', '[data-type="discard"]', function (e) {
+    $('[data-type="discard"]').on('click', function (e) {
         if($(this).attr('data-key') != 'starter_theme') {
             e.preventDefault();
         }
@@ -151,31 +151,28 @@
         }
     })
 
-    $(document).on('click','.notice-show-again', function (e) {
+    $(document).on('click','.notice-show-again', function () {
         let $this        = $(this);
         let notice_id    = $($this).attr('data-id');
         let status_click = $($this).attr('data-status-click');
 
-        e.preventDefault();
-        if (notice_id.length > 0) {
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'stm_notice_status',
-                    notice_id: notice_id,
-                    notice_status: 'not-show-again',
-                    nonce: stmNotices.nonce,
-                },
-                success: function (response) {
-                    $this.closest('.stm-notice').fadeOut(10).remove();
-                    $('.popup-dash-promo').removeClass('show');
-                    $('body').removeClass('body-scroll-off');
-                }
-            });
-            if (status_click !== 'clicked') {
-                track_notices_clicks( notice_id, 'clicks' )
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'stm_notice_status',
+                notice_id: notice_id,
+                notice_status: 'not-show-again',
+                nonce: stmNotices.nonce,
+            },
+            success: function (response) {
+                $this.closest('.stm-notice').fadeOut(10).remove();
+                $('.popup-dash-promo').removeClass('show');
+                $('body').removeClass('body-scroll-off');
             }
+        });
+        if (status_click !== 'clicked') {
+            track_notices_clicks( notice_id, 'clicks' )
         }
     });
 

@@ -242,6 +242,15 @@
 				<div class="col-6 ccb-p-t-10">
 					<div class="list-header">
 						<div class="ccb-switch">
+							<input type="checkbox" v-model="radioField.calculateHidden"/>
+							<label></label>
+						</div>
+						<h6 class="ccb-heading-5"><?php esc_html_e( 'Calculate hidden by default', 'cost-calculator-builder' ); ?></h6>
+					</div>
+				</div>
+				<div class="col-6 ccb-p-t-10">
+					<div class="list-header">
+						<div class="ccb-switch">
 							<input type="checkbox" v-model="radioField.addToSummary"/>
 							<label></label>
 						</div>

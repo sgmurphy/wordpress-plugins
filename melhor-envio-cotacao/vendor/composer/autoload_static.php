@@ -131,6 +131,7 @@ class ComposerStaticInit86344c9ce8ce3fa0f49736e7e62fe6e5
         'MelhorEnvio\\Services\\ProcessAdditionalTaxService' => __DIR__ . '/../..' . '/Services/ProcessAdditionalTaxService.php',
         'MelhorEnvio\\Services\\Products\\BundleService' => __DIR__ . '/../..' . '/Services/Products/BundleService.php',
         'MelhorEnvio\\Services\\Products\\CompositeService' => __DIR__ . '/../..' . '/Services/Products/CompositeService.php',
+        'MelhorEnvio\\Services\\Products\\InvalidProduct' => __DIR__ . '/../..' . '/Services/Products/InvalidProduct.php',
         'MelhorEnvio\\Services\\Products\\ProductsService' => __DIR__ . '/../..' . '/Services/Products/ProductsService.php',
         'MelhorEnvio\\Services\\QuotationProductPageService' => __DIR__ . '/../..' . '/Services/QuotationProductPageService.php',
         'MelhorEnvio\\Services\\QuotationService' => __DIR__ . '/../..' . '/Services/QuotationService.php',
@@ -147,7 +148,6 @@ class ComposerStaticInit86344c9ce8ce3fa0f49736e7e62fe6e5
         'MelhorEnvio\\Services\\TokenService' => __DIR__ . '/../..' . '/Services/TokenService.php',
         'MelhorEnvio\\Services\\TrackingService' => __DIR__ . '/../..' . '/Services/TrackingService.php',
         'MelhorEnvio\\Services\\UserWooCommerceDataService' => __DIR__ . '/../..' . '/Services/UserWooCommerceDataService.php',
-        'MelhorEnvio\\Services\\WooCommerceBundleProductsService' => __DIR__ . '/../..' . '/Services/WooCommerceBundleProductsService.php',
         'MelhorEnvio\\Services\\WooCommerceService' => __DIR__ . '/../..' . '/Services/WooCommerceService.php',
     );
 

@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, cart abandonment, cart recovery
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.2.27
+Stable tag: 1.3.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -127,6 +127,11 @@ Here are few thoughts behind making it available for free:
 4. General settings for Email, Webhook (Coupon Code), GDPR
 
 == Changelog ==
+
+= Version 1.3.0 - Tuesday, 2nd July 2024 =
+* New: Introduced the support of Cart abandoned tracking for WooCommerce Blocks Checkout.
+* Improvement: Optimized the cart abandonment tracking for speed improvements.
+* Fix: Resolved error warnings when a null value is passed in PHP 8.2 and later versions.
 
 = Version 1.2.27 - Tuesday, 12th March 2024 =
 * Security Fix: Hardened the security of the plugin suggested by WPScan.

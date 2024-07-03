@@ -62,6 +62,8 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 		add_action( 'ssa/resource/after_insert', array( $this, 'invalidate_appointment_type_cache'), 1000 );
 		add_action( 'ssa/resource/after_update', array( $this, 'invalidate_appointment_type_cache'), 1000 );
 		add_action( 'ssa/resource/after_delete', array( $this, 'invalidate_appointment_type_cache'), 1000 );
+		
+		add_action( 'ssa/async/gcal_cleanup', array( $this, 'cleanup_main_excluded_calendars'), 1000 );
 	}
 	
 	/**
@@ -1397,5 +1399,63 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 		$map_appointment_type_ids_to_label_ids[$appointment_type_id] = $label_id;
 
 		return $label_id;
+	}
+	
+	/**
+	 * Cleans up excluded calendars for staff_id 0 / main calendar
+	 */
+	public function cleanup_main_excluded_calendars() {
+		
+		if( ! $this->plugin->settings_installed->is_enabled( 'google_calendar' ) ) {
+			return;
+		}
+		
+		$google_calendar_settings = $this->plugin->google_calendar_settings->get();
+		if( empty( $google_calendar_settings['access_token'] ) ) {
+			return;
+		}
+		
+		$client = $this->plugin->google_calendar_client->client_init()->service_init( 0 );
+		$calendar_list = $client->get_calendar_list();
+		// should never be empty unless something failed
+		if( empty( $calendar_list ) ) {
+			return;
+		}
+		
+		$calendar_list_ids = array_column( $calendar_list, 'id' );
+		$invalid_calendar_ids = array();
+		
+		$all_appointment_types = $this->plugin->appointment_type_model->get_all_appointment_types();
+		foreach( $all_appointment_types as $appointment_type ) {
+			if( empty( $appointment_type['google_calendars_availability'] ) ) {
+				continue;
+			}
+			
+			$excluded_calendars = $appointment_type['google_calendars_availability'];
+			// filter, if not in array $calendar_list remove it
+			$valid_excluded_calendars = array_filter( $excluded_calendars, function (string $calendar_id) use ( $calendar_list_ids, &$invalid_calendar_ids ) { 
+				if( in_array( $calendar_id, $calendar_list_ids ) ) {
+					return true;
+				}
+				$invalid_calendar_ids[] = $calendar_id;
+				return false;
+			} );
+			
+			if( count( $valid_excluded_calendars ) === count( $excluded_calendars ) ) {
+				continue;
+			}
+			
+			$appointment_type['google_calendars_availability'] = $valid_excluded_calendars;
+			
+			$this->plugin->appointment_type_model->update( $appointment_type['id'], $appointment_type );
+		}
+		
+		$invalid_calendar_ids = array_unique( $invalid_calendar_ids );
+		foreach( $invalid_calendar_ids as $invalid_calendar_id ) {
+			$deleted_count = $this->plugin->availability_external_model->bulk_delete( array(
+				'calendar_id_hash' => ssa_int_hash( $invalid_calendar_id ),
+				'service' => 'google',
+			) );
+		}
 	}
 }

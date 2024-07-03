@@ -9,7 +9,7 @@
 <div :style="additionalCss" class="calc-item ccb-field" :class="{rtl: rtlClass('<?php echo esc_attr( $lang ); ?>'), required: requiredActive, [rangeField.additionalStyles]: rangeField.additionalStyles}" :data-id="rangeField.alias" :data-repeater="repeater">
 	<div class="calc-range" :class="['calc_' + rangeField.alias]">
 		<div class="calc-item__title ccb-range-field">
-			<span>
+			<div class="ccb-range-label">
 				{{ rangeField.label }}
 				<span class="ccb-required-mark" v-if="rangeField.required">*</span>
 				<span v-if="rangeField.required" class="calc-required-field">
@@ -19,8 +19,8 @@
 						</span>
 					</div>
 				</span>
-			</span>
-			<span> {{ getFormatedValue }}</span>
+			</div>
+			<div class="ccb-range-value"> {{ getFormatedValue }}</div>
 		</div>
 
 		<div class="calc-item__description before">

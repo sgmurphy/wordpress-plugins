@@ -8,20 +8,30 @@
 
 defined( 'ABSPATH' ) || die();
 
-spl_autoload_register( 'ctx_feed_compatibility_autoloader' );
 
-function ctx_feed_compatibility_autoloader( $class ) {
-	if ( strpos( $class, 'CTXFeed\Compatibility' ) !== false ) {
+if ( ! class_exists( 'CompatibilityLoader' ) ) {
+	class CompatibilityLoader {
+		public function __construct() {
+			spl_autoload_register( [ $this, 'ctx_feed_compatibility_autoloader' ] );
+		}
 
-		$temp_class = str_replace( [ "CTXFeed\\Compatibility\\", "\\" ], [ '', '/' ], $class );
+		public function ctx_feed_compatibility_autoloader( $class ) {
+			if ( strpos( $class, 'CTXFeed\Compatibility' ) !== false ) {
 
-		$file_path = __DIR__ . DIRECTORY_SEPARATOR . $temp_class . '.php';
+				$temp_class = str_replace( [ "CTXFeed\\Compatibility\\", "\\" ], [ '', '/' ], $class );
 
-		$file_path = str_replace( 'WebAppick' . DIRECTORY_SEPARATOR . 'Feed', '', $file_path );
+				$file_path = __DIR__ . DIRECTORY_SEPARATOR . $temp_class . '.php';
 
-		if ( !class_exists($temp_class) && file_exists( $file_path ) ) {
-			require_once $file_path;
+				$file_path = str_replace( 'WebAppick' . DIRECTORY_SEPARATOR . 'Feed', '', $file_path );
+
+				if ( !class_exists($temp_class) && file_exists( $file_path ) ) {
+					require_once $file_path;
+				}
+			}
+
 		}
 	}
-
 }
+
+new CompatibilityLoader();
+

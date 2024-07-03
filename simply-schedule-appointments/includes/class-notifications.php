@@ -205,7 +205,7 @@ class SSA_Notifications {
 		$corresponding_scheduled_actions = $this->plugin->async_action_model->query(
 			array(
 				'object_id' => $appointment_object->id,
-				'action' => 'ssa_fire_appointment_start_date_notifications'
+				'action' => ['ssa_fire_appointment_start_date_notifications', 'ssa_fire_appointment_booked_notifications']
 			)
 		);
 		foreach ( $corresponding_scheduled_actions as $scheduled_action ) {

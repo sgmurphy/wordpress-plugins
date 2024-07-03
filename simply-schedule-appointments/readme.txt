@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.5
-Stable tag:        1.6.7.28
+Stable tag:        1.6.7.30
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,24 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.30 - 2024-06-25 ==
+
+= Fixes =
+
+- Fix Booking Flow ShortCode
+- Fix revisions to be consistent with notifications
+- Fix staff meeting url not passed to appointment when user preference
+- Display all team members assigned to appointment
+- Fix twig template customer information summary
+- Hide appointment actions until appointment information is ready
+- Google Calendar is blocking timeslots incorrectly
+- Replace fallback IP to country API with a working API
+
+= Features and Improvements =
+
+- Removed standard timezones.
+- Added missing actions to revisions model.
+
 == 1.6.7.28 - 2024-06-18 ==
 
 = Fixes =
@@ -284,24 +302,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 - Fixed availability button styles on Old Admin App.
 
 == 1.6.7.22 - 2024-05-28 ==
-
-= Fixes =
-
-- Optimize how checkboxes are spaced when the text wraps
-- Fix date format in upcoming appointments module
-- Remove stuck error notice around Stripe web-hook setup being incorrect
-- Prevent double clicks on buttons where relevant
-- Not able to book after "Uh Oh" error - fix handling on new booking app not working
-
-== 1.6.7.20 - 2024-05-21 ==
-
-= Fixes =
-
-- Fixed: Adjusted team schedule calculation with buffer periods and 'any' option.
-- Validate the access token using the API as a last resort, to confirm that it's not expired
-- Ticket: Team Member 'name' passed as empty string to webhook
-
-== 1.6.7.18 - 2024-05-15 ==
 
 = Fixes =
 

@@ -16,10 +16,15 @@ class OptionsSet {
 	/**
 	 * OptionsSet constructor.
 	 *
-	 * @param Option[]|self[] $options Array of Options.
+	 * @param Array<Option|OptionsSet> $options Array of Options.
+	 * @throws \Exception If property does not exist.
 	 */
 	public function __construct( $options ) {
 		foreach ( $options as $key => $option ) {
+			if ( !property_exists( $this, $key ) ) {
+				throw new \Exception( 'Property ' . $key . ' does not exist in ' . get_class( $this ) );
+			}
+
 			$this->{$key} = $option;
 		}
 	}

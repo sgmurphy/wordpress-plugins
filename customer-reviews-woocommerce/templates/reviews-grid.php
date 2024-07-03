@@ -56,6 +56,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$customer_images_html .= '<div class="image-row-count">';
 				$customer_images_html .= '<img class="image-row-camera" src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'img/camera.svg" loading="lazy" width="40" height="40">';
 				$customer_images_html .= $count_customer_images . '</div></div>';
+			} else {
+				$pics_v = get_comment_meta( $review->comment_ID, 'ivole_review_video' );
+				$pics_v_local = get_comment_meta( $review->comment_ID, 'ivole_review_video2' );
+				$customer_videos = array();
+				foreach( $pics_v as $pic_v ) {
+					if( $pic_v['url'] ) {
+						$customer_videos[] = $pic_v['url'];
+					}
+				}
+				foreach( $pics_v_local as $pic_v ) {
+					$attachmentUrl = wp_get_attachment_url( $pic_v );
+					if( $attachmentUrl ) {
+						$customer_videos[] = $attachmentUrl;
+					}
+				}
+				$count_customer_videos = count( $customer_videos );
+				if ( 0 < $count_customer_videos ) {
+					$customer_images_html = '<div class="image-row">';
+					$customer_images_html .= '<video preload="metadata" class="image-row-vid" src="' . $customer_videos[0] . '"></video>';
+					$customer_images_html .= '<img class="cr-comment-videoicon" src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'img/video.svg" ';
+					$customer_images_html .= 'alt="' . sprintf( __( 'Video #%1$d from %2$s', 'customer-reviews-woocommerce' ), 1, $review->comment_author ) . '">';
+					for( $j=1; $j < $count_customer_videos; $j++ ) {
+						$customer_images_html .= '<video preload="metadata" class="image-row-vid image-row-vid-none" src="' . $customer_videos[$j] . '"></video>';
+					}
+					$customer_images_html .= '<div class="media-row-count">';
+					$customer_images_html .= '<img class="image-row-camera" src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'img/camera.svg" loading="lazy" width="40" height="40">';
+					$customer_images_html .= $count_customer_videos . '</div></div>';
+				}
 			}
 			$author = get_comment_author( $review );
 			?>

@@ -128,6 +128,7 @@ else
   <div class="cpappb_field_5 cpappb_field_header"><?php _e('Email','appointment-hour-booking'); ?></div>
   <div class="cpappb_field_6 cpappb_field_header"><?php _e('Data','appointment-hour-booking'); ?></div>
   <div class="cpappb_field_7 cpappb_field_header"><?php _e('Status','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_8 cpappb_field_header"><?php _e('Options','appointment-hour-booking'); ?></div>
   <div class="cpapp_break"></div>
  </div>
  <div class="cpapp_break"></div>
@@ -135,7 +136,7 @@ else
 
 echo $this->filter_list( array(   // phpcs:ignore WordPress.Security.EscapeOutput
                                'calendar' => ($this->item != 0 ? intval($this->item) : ''),
-                               'fields' => 'DATE,TIME,SERVICE,quantity,paid,email,data,cancelled',
+                               'fields' => 'DATE,TIME,SERVICE,quantity,paid,email,data,cancelled,options',
 	    	                   'from' => esc_html($dfrom),
 	    	                   'to' => esc_html($dto),
                                'paidonly' => esc_html( (!empty($_GET["paid"])?sanitize_text_field($_GET["paid"]):'')),
@@ -214,7 +215,7 @@ echo $this->filter_list( array(   // phpcs:ignore WordPress.Security.EscapeOutpu
  function do_dexapp_print()
  {
       w=window.open();
-      w.document.write("<style>.cpappb_field_header {font-weight: bold;background-color: #dcdcdc;}.cpapp_break { clear: both; }.cpappb_field_0, .cpappb_field_1,.cpappb_field_2, .cpappb_field_3,.cpappb_field_4, .cpappb_field_5,.cpappb_field_6, .cpappb_field_7,.cpappb_field_8, .cpappb_field_9,.cpappb_field_10, .cpappb_field_11{float: left; min-width: 80px;padding-right:11px;border-bottom: 1px dotted #777777;margin-left: 1px;     padding: 5px;margin: 2px;}.cpappb_field_0 {color: #44aa44;font-weight: bold; }.cpappb_field_1 {color: #aaaa44;font-weight: bold; }.cpappb_field_2{width:180px;}.cpappb_field_3{min-width: 20px;width:20px ;max-width:20px;}.cpappb_field_5{width:200px;overflow:hidden;}.cpappb_field_4,.cpappb_field_6{display:none;}.cpnopr{display:none;};table{border:2px solid black;width:100%;}th{border-bottom:2px solid black;text-align:left}td{padding-left:10px;border-bottom:1px solid black;}</style>"+document.getElementById('dex_printable_contents').innerHTML);
+      w.document.write("<style>.cpappb_field_header {font-weight: bold;background-color: #dcdcdc;}.cpapp_break { clear: both; }.cpappb_field_0, .cpappb_field_1,.cpappb_field_2, .cpappb_field_3,.cpappb_field_4, .cpappb_field_5,.cpappb_field_6, .cpappb_field_7,.cpappb_field_8, .cpappb_field_9,.cpappb_field_10, .cpappb_field_11{float: left; min-width: 80px;padding-right:11px;border-bottom: 1px dotted #777777;margin-left: 1px;     padding: 5px;margin: 2px;}.cpappb_field_0 {color: #44aa44;font-weight: bold; }.cpappb_field_1 {color: #aaaa44;font-weight: bold; }.cpappb_field_2{width:180px;}.cpappb_field_3{min-width: 20px;width:20px ;max-width:20px;}.cpappb_field_5{width:200px;overflow:hidden;}.cpappb_field_4,.cpappb_field_6{display:none;}.cpnopr{display:none;};table{border:2px solid black;width:100%;}th{border-bottom:2px solid black;text-align:left}td{padding-left:10px;border-bottom:1px solid black;}.cpappb_field_8 {display:none;}</style>"+document.getElementById('dex_printable_contents').innerHTML);
       w.print();
       w.close();
  }

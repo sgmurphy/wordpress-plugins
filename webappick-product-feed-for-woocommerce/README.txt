@@ -5,7 +5,7 @@ Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, F
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.5.2
+Stable tag: 6.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,7 +156,10 @@ Categories are the essential key to get products into search results. It is best
 
 == Changelog ==
 
-= 6.5.2 (2024-07-01) =
+= 6.5.3 (2024-07-03) =
+* Fixed : Google Review feed breaking issue
+
+= 6.5.2 (2024-07-02) =
 * Fixed : CSV Feed issue
 * Fixed : PHP error for FTP Upload issue
 * Fixed : Output Type selects all value and corrupt feed issue

@@ -24,6 +24,13 @@ class ElementorWidgetsOptions extends OptionsSet {
 	public $contact_button_widget_url;
 
 	/**
+	 * Instance of QualityBadgeWidgetURL class.
+	 *
+	 * @var ContactButtonWidgetURL
+	 */
+	public $quality_badge_widget_url;
+
+	/**
 	 * ElementorWidgetsOptions constructor.
 	 *
 	 * @throws Exception Can be thrown by OptionsSet constructor.
