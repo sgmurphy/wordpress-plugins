@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
 Tested up to: 6.5.5
-Stable tag: 4.5.9
+Stable tag: 4.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,9 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.6.0 =
+* Fixed: Some issues on the popups list table
 
 = 4.5.9 =
 * Fixed: Filters conflict on the popups list table

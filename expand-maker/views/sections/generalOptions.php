@@ -170,6 +170,19 @@ $allowedTag = ReadMoreAdminHelper::getAllowedTags();
                 <input type="text" name="yrm-button-opacity" id="yrm-button-opacity" class="form-control " value="<?php echo esc_attr($savedObj->getOptionValue('yrm-button-opacity')); ?>">
             </div>
         </div>
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="yrm-toggle-sound"><?php _e('Enable toggle sound', YRM_LANG);?></label>
+			</div>
+			<div class="col-md-6">
+				<div class="yrm-switch-wrapper">
+					<label class="yrm-switch">
+						<input type="checkbox" name="yrm-toggle-sound" id="yrm-toggle-sound" class="" <?php echo esc_attr($savedObj->getOptionValue('yrm-toggle-sound', true)); ?>>
+						<span class="yrm-slider yrm-round"></span>
+					</label>
+				</div>
+			</div>
+		</div>
         <!-- Tooltip option start -->
         <div class="row row-static-margin-bottom">
             <div class="col-xs-5">

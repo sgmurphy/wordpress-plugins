@@ -82,7 +82,7 @@ if ( ! class_exists( 'WC_GZD_Install' ) ) :
 					$note->dismiss();
 				}
 
-				delete_transient( '_wc_gzd_activation_redirect' );
+				delete_option( '_wc_gzd_activation_redirect' );
 
 				// What's new redirect
 				wp_safe_redirect( esc_url_raw( admin_url( 'index.php?page=wc-gzd-about&wc-gzd-updated=true' ) ) );
@@ -108,10 +108,10 @@ if ( ! class_exists( 'WC_GZD_Install' ) ) :
 
 				wp_safe_redirect( esc_url_raw( admin_url( 'admin.php?page=wc-gzd-setup' ) ) );
 				exit();
-			} elseif ( get_transient( '_wc_gzd_activation_redirect' ) ) {
+			} elseif ( get_option( '_wc_gzd_activation_redirect' ) ) {
 
 				// Delete the redirect transient
-				delete_transient( '_wc_gzd_activation_redirect' );
+				delete_option( '_wc_gzd_activation_redirect' );
 
 				// Bail if we are waiting to install or update via the interface update/install links
 				if ( 1 === (int) get_option( '_wc_gzd_needs_update' ) ) {
@@ -299,7 +299,7 @@ if ( ! class_exists( 'WC_GZD_Install' ) ) :
 				update_option( '_wc_gzd_setup_wizard_redirect', 1 );
 			} elseif ( ! defined( 'DOING_AJAX' ) ) {
 				// Redirect to welcome screen
-				set_transient( '_wc_gzd_activation_redirect', 1, 60 * 60 );
+				update_option( '_wc_gzd_activation_redirect', 1 );
 			}
 
 			/**
@@ -711,10 +711,20 @@ if ( ! class_exists( 'WC_GZD_Install' ) ) :
 			$current_version = get_option( 'woocommerce_gzd_version', null );
 
 			foreach ( $options as $value ) {
-				if ( isset( $value['default'] ) && isset( $value['id'] ) ) {
+				$value = wp_parse_args(
+					$value,
+					array(
+						'id'           => '',
+						'default'      => null,
+						'skip_install' => false,
+						'autoload'     => true,
+					)
+				);
+
+				if ( $value['default'] && ! empty( $value['id'] ) && ! $value['skip_install'] ) {
 					wp_cache_delete( $value['id'], 'options' );
 
-					$autoload = isset( $value['autoload'] ) ? (bool) $value['autoload'] : true;
+					$autoload = (bool) $value['autoload'];
 
 					/**
 					 * Older versions of Germanized did not include a default field for email

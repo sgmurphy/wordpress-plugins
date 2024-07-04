@@ -327,35 +327,6 @@ jQuery(function ($) {
     }
   });
 
-  // Check if user would like to enable addition of CDATA
-  $('#add_woosea_cdata').on('change', function () {
-    // on change of state
-    var nonce = $('#_wpnonce').val();
-    if (this.checked) {
-      // Checkbox is on
-      jQuery.ajax({
-        method: 'POST',
-        url: ajaxurl,
-        data: {
-          action: 'woosea_add_woosea_cdata',
-          security: nonce,
-          status: 'on',
-        },
-      });
-    } else {
-      // Checkbox is off
-      jQuery.ajax({
-        method: 'POST',
-        url: ajaxurl,
-        data: {
-          action: 'woosea_add_woosea_cdata',
-          security: nonce,
-          status: 'off',
-        },
-      });
-    }
-  });
-
   // Check if user would like to add a Facebook Pixel to their website
   $('#woosea_content_ids').on('change', function () {
     // on change of state
@@ -415,53 +386,6 @@ jQuery(function ($) {
         })
         .done(function (data) {
           $('#facebook_pixel_id').remove();
-        })
-        .fail(function (data) {
-          console.log('Failed AJAX Call :( /// Return Data: ' + data);
-        });
-    }
-  });
-
-  // Check if user would like to enable the Facebook Conversion API
-  $('#add_facebook_capi').on('change', function () {
-    // on change of state
-    var nonce = $('#_wpnonce').val();
-    if (this.checked) {
-      // Checkbox is on
-      jQuery
-        .ajax({
-          method: 'POST',
-          url: ajaxurl,
-          data: {
-            action: 'woosea_add_facebook_capi_setting',
-            security: nonce,
-            status: 'on',
-          },
-        })
-        .done(function (data) {
-          $('#facebook_capi').after(
-            '<tr id="facebook_capi_token"><td colspan="2"><span>Insert your Facebook Conversion API token:</span><br/><br/><input type="hidden" name="nonce_facebook_capi_id" id="nonce_facebook_capi_id" value="' +
-              nonce +
-              '"><input type="textarea" class="textarea-field" id="fb_capi_token" name="fb_capi_token"><br/><br/><input type="button" id="save_facebook_capi_token" value="Save"></td></tr>'
-          );
-        })
-        .fail(function (data) {
-          console.log('Failed AJAX Call :( /// Return Data: ' + data);
-        });
-    } else {
-      // Checkbox is off
-      jQuery
-        .ajax({
-          method: 'POST',
-          url: ajaxurl,
-          data: {
-            action: 'woosea_add_facebook_capi_setting',
-            security: nonce,
-            status: 'off',
-          },
-        })
-        .done(function (data) {
-          $('#facebook_capi_token').remove();
         })
         .fail(function (data) {
           console.log('Failed AJAX Call :( /// Return Data: ' + data);
@@ -887,4 +811,27 @@ jQuery(function ($) {
 
   // Add copy to clipboard functionality for the debug information content box.
   new ClipboardJS('.copy-product-feed-pro-debug-info');
+
+  // Init tooltips and select2
+  $(document.body)
+    .on('init_woosea_tooltips', function () {
+      $('.tips, .help_tip, .woocommerce-help-tip').tipTip({
+        attribute: 'data-tip',
+        fadeIn: 50,
+        fadeOut: 50,
+        delay: 200,
+        keepAlive: true,
+      });
+    })
+    .on('init_woosea_select2', function () {
+      $('.woo-sea-select2').select2({
+        containerCssClass: 'woo-sea-select2-selection',
+      });
+    });
+
+  // Tooltips
+  $(document.body).trigger('init_woosea_tooltips');
+
+  // Select2
+  $(document.body).trigger('init_woosea_select2');
 });

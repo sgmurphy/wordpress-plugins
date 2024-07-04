@@ -1,3 +1,6 @@
+= 10.0.14 - 2024-07-04 =
+* Limit incomplete installation warnings to 1
+
 = 10.0.13 - 2024-05-17 =
 * Update install URLs
 * Added warnings when configuration is not complete

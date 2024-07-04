@@ -159,6 +159,7 @@ Class ReadMoreAdminPost {
 		$options['link-button-new-tab'] = $this->expmSanitizeData('link-button-new-tab', true);
 		$options['yrm-button-opacity'] = $this->expmSanitizeData('yrm-button-opacity');
 		$options['yrm-cursor'] = $this->expmSanitizeData('yrm-cursor');
+		$options['yrm-toggle-sound'] = $this->expmSanitizeData('yrm-toggle-sound', true);
 		$options['enable-tooltip'] = $this->expmSanitizeData('enable-tooltip', true);
 		$options['enable-tooltip-text'] = $this->expmSanitizeData('enable-tooltip-text');
 		$options['yrm-enable-decoration'] = $this->expmSanitizeData('yrm-enable-decoration', true);

@@ -66,7 +66,17 @@ if (! function_exists('blc_get_trending_posts_value')) {
 
 		$post_type = blocksy_get_theme_mod('trending_block_post_type', 'post');
 
-		if ($post_type === 'product' && ! class_exists('WooCommerce')) {
+		
+
+		if (
+			(
+				$post_type === 'product'
+				&&
+				! class_exists('WooCommerce')
+			)
+			||
+			! post_type_exists($post_type)
+		) {
 			$post_type = 'post';
 		}
 

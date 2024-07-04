@@ -14,7 +14,7 @@
 			));
 			foreach( $terms as $term ) :
 			?>			
-			<option value="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></option>
+			<option value="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html__($term->name, 'bafg'); ?></option>
 			<?php
 			endforeach;
 			?>
@@ -54,7 +54,7 @@
 			));
 			foreach( $terms as $term ) :
 			?>
-			<option value="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html($term->name); ?></option>
+			<option value="<?php echo esc_attr($term->term_id); ?>"><?php echo esc_html__($term->name, 'bafg' ); ?></option>
 			<?php
 			endforeach;
 			?>

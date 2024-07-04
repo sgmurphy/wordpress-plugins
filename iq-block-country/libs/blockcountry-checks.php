@@ -52,17 +52,8 @@ function iqblockcountry_retrieve_geoipapi($iqbc_ipaddress)
         if (get_option('blockcountry_geoapilocation') == "US3") {
             $iqbc_url = GEOIPAPIURLUS3;
         }
-        if (get_option('blockcountry_geoapilocation') == "EU2") {
-            $iqbc_url = GEOIPAPIURLEU2;
-        }
         if (get_option('blockcountry_geoapilocation') == "EU3") {
             $iqbc_url = GEOIPAPIURLEU3;
-        }
-        if (get_option('blockcountry_geoapilocation') == "EU4") {
-            $iqbc_url = GEOIPAPIURLEU4;
-        }
-        if (get_option('blockcountry_geoapilocation') == "ASIA") {
-            $iqbc_url = GEOIPAPIURLASIA;
         }
 
         $iqbc_result = wp_remote_post(

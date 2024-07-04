@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Product Feed PRO for WooCommerce
- * Version:     13.3.3
+ * Version:     13.3.4
  * Plugin URI:  https://www.adtribes.io/support/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=woosea_product_feed_pro
  * Description: Configure and maintain your WooCommerce product feeds for Google Shopping, Catalog managers, Remarketing, Bing, Skroutz, Yandex, Comparison shopping websites and over a 100 channels more.
  * Author:      AdTribes.io
- * Plugin URI:  https://wwww.adtribes.io/pro-vs-elite/
+ * Plugin URI:  https://wwww.adtribes.io/pricing/
  * Author URI:  https://www.adtribes.io
  * Developer:   AdTribes.io
  * License:     GPL3
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Define plugin constants.
  */
-define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.3.3' );
+define( 'WOOCOMMERCESEA_PLUGIN_VERSION', '13.3.4' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME', 'woocommerce-product-feed-pro' );
 define( 'WOOCOMMERCESEA_PLUGIN_NAME_SHORT', 'woo-product-feed-pro' );
 
@@ -64,6 +64,11 @@ if ( ! defined( 'WOOCOMMERCESEA_PLUGIN_URL' ) ) {
 // Define the path to the plugin views.
 if ( ! defined( 'WOOCOMMERCESEA_VIEWS_ROOT_PATH' ) ) {
     define( 'WOOCOMMERCESEA_VIEWS_ROOT_PATH', WOOCOMMERCESEA_PATH . 'views/' );
+}
+
+// Define the url to the plugin images.
+if ( ! defined( 'WOOCOMMERCESEA_IMAGES_URL' ) ) {
+    define( 'WOOCOMMERCESEA_IMAGES_URL', WOOCOMMERCESEA_PLUGIN_URL . '/images/' );
 }
 
 // Define the option name for the installed version.

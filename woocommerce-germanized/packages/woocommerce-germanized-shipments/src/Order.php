@@ -7,6 +7,7 @@ use Vendidero\Germanized\Shipments\Admin\Settings;
 use Vendidero\Germanized\Shipments\Packing\Helper;
 use Vendidero\Germanized\Shipments\Packing\ItemList;
 use Vendidero\Germanized\Shipments\Packing\OrderItem;
+use Vendidero\Germanized\Shipments\Packing\PackagingList;
 use Vendidero\Germanized\Shipments\ShippingMethod\MethodHelper;
 use Vendidero\Germanized\Shipments\ShippingMethod\ProviderMethod;
 use Vendidero\Germanized\Shipments\ShippingMethod\ShippingMethod;
@@ -201,6 +202,21 @@ class Order {
 		return apply_filters( 'woocommerce_gzd_shipment_order_return_default_shipping_provider', $default_provider, $this );
 	}
 
+	/**
+	 * @param \WC_Order_Item_Product $item
+	 *
+	 * @return Product|null
+	 */
+	public function get_order_item_product( $order_item ) {
+		$s_product = null;
+
+		if ( is_callable( array( $order_item, 'get_product' ) ) && ( $product = $order_item->get_product() ) ) {
+			$s_product = wc_gzd_shipments_get_product( $product );
+		}
+
+		return apply_filters( 'woocommerce_gzd_shipments_order_item_product', $s_product, $order_item );
+	}
+
 	protected function get_package_data() {
 		if ( is_null( $this->package_data ) ) {
 			$items        = $this->get_available_items_for_shipment();
@@ -230,19 +246,17 @@ class Order {
 
 				$quantity = (int) $item['max_quantity'];
 
-				if ( $product = $order_item->get_product() ) {
-					$s_product = wc_gzd_shipments_get_product( $product );
-
-					$width  = ( empty( $s_product->get_shipping_width() ) ? 0 : wc_format_decimal( $s_product->get_shipping_width() ) ) * $quantity;
-					$length = ( empty( $s_product->get_shipping_length() ) ? 0 : wc_format_decimal( $s_product->get_shipping_length() ) ) * $quantity;
-					$height = ( empty( $s_product->get_shipping_height() ) ? 0 : wc_format_decimal( $s_product->get_shipping_height() ) ) * $quantity;
-					$weight = ( empty( $s_product->get_weight() ) ? 0 : wc_format_decimal( $product->get_weight() ) ) * $quantity;
+				if ( $product = $this->get_order_item_product( $order_item ) ) {
+					$width  = ( empty( $product->get_shipping_width() ) ? 0 : (float) wc_format_decimal( $product->get_shipping_width() ) ) * $quantity;
+					$length = ( empty( $product->get_shipping_length() ) ? 0 : (float) wc_format_decimal( $product->get_shipping_length() ) ) * $quantity;
+					$height = ( empty( $product->get_shipping_height() ) ? 0 : (float) wc_format_decimal( $product->get_shipping_height() ) ) * $quantity;
+					$weight = ( empty( $product->get_weight() ) ? 0 : (float) wc_format_decimal( $product->get_weight() ) ) * $quantity;
 
 					$package_data['weight'] += $weight;
 					$package_data['volume'] += ( $width * $length * $height );
 
-					if ( $product && ! array_key_exists( $product->get_id(), $package_data['products'] ) ) {
-						$package_data['products'][ $product->get_id() ] = $product;
+					if ( ! array_key_exists( $product->get_id(), $package_data['products'] ) ) {
+						$package_data['products'][ $product->get_id() ] = $product->get_product();
 
 						if ( ! empty( $product->get_shipping_class_id() ) ) {
 							$package_data['shipping_classes'][] = $product->get_shipping_class_id();
@@ -494,9 +508,19 @@ class Order {
 	}
 
 	/**
-	 * @return Shipment[] Shipments
+	 * @param array $args
+	 *
+	 * @return Shipment[]|SimpleShipment[]|ReturnShipment[] Shipments
 	 */
-	public function get_shipments() {
+	public function get_shipments( $args = array() ) {
+		$args = wp_parse_args(
+			$args,
+			array(
+				'shipped_only' => false,
+				'type'         => '',
+			)
+		);
+
 		if ( is_null( $this->shipments ) ) {
 			$this->shipments = wc_gzd_get_shipments(
 				array(
@@ -520,41 +544,66 @@ class Order {
 
 		$shipments = (array) $this->shipments;
 
+		if ( ! empty( $args['type'] ) || $args['shipped_only'] ) {
+			foreach ( $shipments as $k => $shipment ) {
+				if ( $args['type'] !== $shipment->get_type() ) {
+					unset( $shipments[ $k ] );
+				}
+				if ( $args['shipped_only'] && ! $shipment->is_shipped() ) {
+					unset( $shipments[ $k ] );
+				}
+			}
+
+			$shipments = array_values( $shipments );
+		}
+
 		return $shipments;
+	}
+
+	public function get_shipment_count( $type = 'simple' ) {
+		return count( $this->get_shipments( array( 'type' => $type ) ) );
+	}
+
+	public function get_shipment_position_number( $shipment ) {
+		$number   = 1;
+		$shipment = is_numeric( $shipment ) ? $this->get_shipment( $shipment ) : $shipment;
+
+		if ( $shipment ) {
+			$shipments = $this->get_shipments( array( 'type' => $shipment->get_type() ) );
+
+			foreach ( $shipments as $k => $loop_shipment ) {
+				if ( $shipment->get_id() === $loop_shipment->get_id() ) {
+					break;
+				}
+				$number++;
+			}
+		}
+
+		return apply_filters( 'woocommerce_gzd_shipment_order_shipment_position_number', $number, $shipment, $this );
 	}
 
 	/**
 	 * @return SimpleShipment[]
 	 */
 	public function get_simple_shipments( $shipped_only = false ) {
-		$simple = array();
-
-		foreach ( $this->get_shipments() as $shipment ) {
-			if ( 'simple' === $shipment->get_type() ) {
-				if ( $shipped_only && ! $shipment->is_shipped() ) {
-					continue;
-				}
-
-				$simple[] = $shipment;
-			}
-		}
-
-		return $simple;
+		return $this->get_shipments(
+			array(
+				'type'         => 'simple',
+				'shipped_only' => $shipped_only,
+			)
+		);
 	}
 
 	/**
 	 * @return ReturnShipment[]
 	 */
-	public function get_return_shipments() {
-		$returns = array();
-
-		foreach ( $this->get_shipments() as $shipment ) {
-			if ( 'return' === $shipment->get_type() ) {
-				$returns[] = $shipment;
-			}
-		}
-
-		return $returns;
+	public function get_return_shipments( $shipped_only = false ) {
+		return $this->get_shipments(
+			array(
+				'type'         => 'return',
+				'shipped_only' => $shipped_only,
+			)
+		);
 	}
 
 	public function add_shipment( &$shipment ) {
@@ -680,8 +729,8 @@ class Order {
 
 		if ( $order_item ) {
 			if ( is_callable( array( $order_item, 'get_product' ) ) ) {
-				if ( $product = $order_item->get_product() ) {
-					$is_non_returnable = wc_gzd_shipments_get_product( $product )->is_non_returnable();
+				if ( $product = $this->get_order_item_product( $order_item ) ) {
+					$is_non_returnable = $product->is_non_returnable();
 				}
 			}
 		}
@@ -757,7 +806,7 @@ class Order {
 
 				$product_group = '';
 
-				if ( $product = $order_item->get_product() ) {
+				if ( $product = $this->get_order_item_product( $order_item ) ) {
 					$product_group = '';
 
 					if ( 'yes' === get_option( 'woocommerce_gzd_shipments_packing_group_by_shipping_class' ) ) {
@@ -807,7 +856,7 @@ class Order {
 				$sku = '';
 
 				if ( is_callable( array( $item, 'get_product' ) ) ) {
-					if ( $product = $item->get_product() ) {
+					if ( $product = $this->get_order_item_product( $item ) ) {
 						$sku = $product->get_sku();
 					}
 				}
@@ -868,13 +917,14 @@ class Order {
 				'shipment_id'              => 0,
 				'delivered_only'           => false,
 				'exclude_current_shipment' => false,
+				'exclude_children'         => true,
 			)
 		);
 
 		$items    = array();
 		$shipment = $args['shipment_id'] ? $this->get_shipment( $args['shipment_id'] ) : false;
 
-		foreach ( $this->get_returnable_items() as $item ) {
+		foreach ( $this->get_returnable_items( $args['exclude_children'] ) as $item ) {
 			$quantity_left = $this->get_item_quantity_left_for_returning( $item->get_order_item_id(), $args );
 
 			if ( $shipment ) {
@@ -987,9 +1037,7 @@ class Order {
 		$items = $this->get_order()->get_items( 'line_item' );
 
 		foreach ( $items as $key => $item ) {
-			$product = is_callable( array( $item, 'get_product' ) ) ? $item->get_product() : false;
-
-			if ( $product ) {
+			if ( $product = $this->get_order_item_product( $item ) ) {
 				if ( $product->is_virtual() || $this->get_shippable_item_quantity( $item ) <= 0 ) {
 					unset( $items[ $key ] );
 				}
@@ -1009,6 +1057,9 @@ class Order {
 		 * @since 3.0.0
 		 * @package Vendidero/Germanized/Shipments
 		 */
+
+		do_action( 'woocommerce_gzd_shipments_order_after_get_items', $this->get_order() );
+
 		return apply_filters( 'woocommerce_gzd_shipment_order_shippable_items', $items, $this->get_order(), $this );
 	}
 
@@ -1017,7 +1068,7 @@ class Order {
 	 *
 	 * @return ShipmentItem[] Shippable items.
 	 */
-	public function get_returnable_items() {
+	public function get_returnable_items( $exclude_children = true ) {
 		$items = array();
 
 		foreach ( $this->get_simple_shipments() as $shipment ) {
@@ -1026,7 +1077,7 @@ class Order {
 			}
 
 			foreach ( $shipment->get_items() as $item ) {
-				if ( $this->order_item_is_non_returnable( $item->get_order_item_id() ) ) {
+				if ( $this->order_item_is_non_returnable( $item->get_order_item_id() ) || ( $exclude_children && $item->get_item_parent_id() > 0 ) ) {
 					continue;
 				}
 
@@ -1108,7 +1159,7 @@ class Order {
 	public function get_returnable_item_count() {
 		$count = 0;
 
-		foreach ( $this->get_returnable_items() as $item ) {
+		foreach ( $this->get_returnable_items( false ) as $item ) {
 			$count += absint( $item->get_quantity() );
 		}
 

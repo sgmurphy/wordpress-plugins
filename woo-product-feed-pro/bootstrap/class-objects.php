@@ -6,6 +6,12 @@
  * @package AdTribes\PFP
  */
 
+use AdTribes\PFP\Classes\WP_Admin;
+use AdTribes\PFP\Classes\Marketing;
+
 defined( 'ABSPATH' ) || exit;
 
-return array();
+return array(
+    new WP_Admin(),
+    new Marketing(),
+);

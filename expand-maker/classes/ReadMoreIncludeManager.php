@@ -226,6 +226,7 @@ class ReadMoreIncludeManager {
 
 		$id = $this->getId();
 		$savedData = $this->getData();
+		$savedData['sound-url'] = YRM_SOUNDS_URL."/click.mp3";
 
 		$dataObj = $this->getDataObj();
 		$type = $savedData['type'];

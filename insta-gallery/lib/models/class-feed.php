@@ -132,6 +132,7 @@ class Feed extends Models_Base {
 			),
 			'carousel'    => array(
 				'slidespv'          => 5,
+				'centered_slides'   => false,
 				'autoplay'          => false,
 				'autoplay_interval' => 3000,
 				'navarrows'         => true,

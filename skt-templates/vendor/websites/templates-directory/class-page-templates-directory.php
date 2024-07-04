@@ -386,6 +386,15 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 				'required_plugins' => array( 'elementor' => array( 'title' => __( 'Elementor Page Builder', 'skt-templates' ) ) ),
 			);
 			$templates_list = array(
+			'skt-roofing-lite-elementor'              => array(
+					'title'       => __( 'SKT Roofing Lite', 'skt-templates' ),
+					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
+					'theme_url'   => esc_url('https://www.sktthemes.org/shop/roofing-services-wordpress-theme/'),						
+					'demo_url'    => esc_url('https://demosktthemes.com/free/skt-roofing/'),
+					'screenshot'  => esc_url('https://demosktthemes.com/free/skt-roofing/skt-roofing.jpg'),
+					'import_file' => esc_url('https://demosktthemes.com/free/skt-roofing/skt-roofing.json'),
+					'keywords'    => __( ' Roofing Lite, roofing, roofing lite, SKT Roofing Lite, roof covering, roof construction, roof material, roof work, rooftop, shelter covering, roof installation, roof assembly, roof system, roof structure'),
+			),			
 			'vet-clinic-lite-elementor'              => array(
 					'title'       => __( 'Vet Clinic Lite', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),

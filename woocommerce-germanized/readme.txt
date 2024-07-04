@@ -2,10 +2,10 @@
 Contributors: vendidero, vdwoocommercesupport
 Tags: woocommerce, germany, germany, deutsch, woo
 Requires at least: 5.4
-Tested up to: 6.5
+Tested up to: 6.6
 WC requires at least: 3.9
-WC tested up to: 8.9
-Stable tag: 3.16.9
+WC tested up to: 9.0
+Stable tag: 3.17.0
 Requires PHP: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ Of course Trusted Shops customers may embed their quality seals or further Trust
 
 = Pro: WooCommerce PDF invoices & packing slips =
 As a Pro User of Germanized you may automatically or manually create PDF Invoices and Packing Slips for your orders. Adjust your document layout by using the built-in visual document editor.
-Either export your documents (CSV, zip) for your tax consultant manually or use our integrations to transmit your documents to your lexoffice or sevDesk account.
+Either export your documents (CSV, zip) for your tax consultant manually or use our integrations to transmit your documents to your lexoffice or sevdesk account.
 Learn more about [PDF Invoices for WooCommerce](https://vendidero.de/woocommerce-germanized/features#accounting "WooCommerce PDF Invoices")
 
 Furthermore you may attach legally relevant pages (e.g. Terms & Conditions) as PDF documents to specific WooCommerce emails instead of using plain text.
@@ -205,6 +205,17 @@ Bug reports may be filed via our [GitHub repository](https://github.com/vendider
 6. Edit pdf documents (Pro)
 
 == Changelog ==
+= 3.17.0 =
+* New: WP 6.6 compatibility
+* Improvement: Woo 9.0 compatibility
+* Improvement: Pickup location modal styles, hidden classes
+* Improvement: Shipments bundle compatibility, parent-child hierarchy
+* Improvement: Preview shipment button in shipment table
+* Improvement: Allow managing label references via options
+* Improvement: Allow choosing a custom value of goods for DHL insurance
+* Improvement: Added custom delivery time classnames to delivery time wrapper
+* Fix: Check attribute type while exporting product data
+
 = 3.16.9 =
 * Fix: Incompatibility with Amazon Pay
 

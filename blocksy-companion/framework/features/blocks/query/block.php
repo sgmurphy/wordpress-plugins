@@ -16,7 +16,7 @@ class Query {
 			}
 
 			$all_post_types = [
-				'post' => __('Posts', 'blocksy')
+				'post' => __('Posts', 'blocksy-companion')
 			];
 
 			$post_types = blocksy_manager()->post_types->get_supported_post_types();

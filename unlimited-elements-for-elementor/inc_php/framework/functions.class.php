@@ -1995,9 +1995,12 @@ class UniteFunctionsUC{
 	 * @param $val
 	 */
 	public static function validateIDsList($val, $fieldName=""){
-
+		
+		if(is_array($val))
+			$val = implode(",", $val);
+		
 		$isValid = self::isValidIDsList($val);
-
+		
 		if($isValid == false)
 			self::throwError("Field <b>$fieldName</b> allow only numbers and comas.");
 
@@ -2051,7 +2054,7 @@ class UniteFunctionsUC{
 
 		if(empty($fieldName))
 			$fieldName = "Field";
-
+		
 		if(self::isAlphaNumeric($val) == false)
 			self::throwError("Field <b>$fieldName</b> allow only english words, numbers and underscore.");
 
@@ -3403,29 +3406,14 @@ class UniteFunctionsUC{
 
 	/**
 	 * get user's ip address
+	 * use the most reliable way
 	 */
 	public static function getUserIp(){
-
-		$keys = array(
-			"HTTP_CLIENT_IP",
-			"HTTP_X_FORWARDED_FOR",
-			"HTTP_X_FORWARDED",
-			"HTTP_X_CLUSTER_CLIENT_IP",
-			"HTTP_FORWARDED_FOR",
-			"HTTP_FORWARDED",
-			"REMOTE_ADDR",
-		);
-
-		foreach($keys as $key){
-			$value = UniteFunctionsUC::getVal($_SERVER, $key);
-
-			if($value && filter_var($value, FILTER_VALIDATE_IP)){
-				return $value;
-			}
-		}
-
-		// fallback to local ip
-		return "127.0.0.1";
+		
+		if(isset($_SERVER["REMOTE_ADDR"]))
+			return($_SERVER["REMOTE_ADDR"]);
+		
+		return("127.0.0.1");
 	}
 
 }

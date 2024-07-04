@@ -9,6 +9,7 @@ namespace Vendidero\Germanized\DHL\ShippingProvider;
 use Vendidero\Germanized\DHL\Package;
 use Vendidero\Germanized\DHL\ParcelLocator;
 use Vendidero\Germanized\DHL\ParcelServices;
+use Vendidero\Germanized\DHL\ShippingProvider\Services\AdditionalInsurance;
 use Vendidero\Germanized\DHL\ShippingProvider\Services\CashOnDelivery;
 use Vendidero\Germanized\DHL\ShippingProvider\Services\ClosestDropPoint;
 use Vendidero\Germanized\DHL\ShippingProvider\Services\DHLRetoure;
@@ -60,6 +61,35 @@ class DHL extends Auto {
 		} else {
 			return '\Vendidero\Germanized\DHL\Label\DHL';
 		}
+	}
+
+	public function get_supported_label_reference_types( $shipment_type = 'simple' ) {
+		$reference_types = array();
+
+		if ( 'simple' === $shipment_type ) {
+			$reference_types = array(
+				'ref_1' => array(
+					'label'      => _x( 'Reference 1', 'dhl', 'woocommerce-germanized' ),
+					'default'    => _x( '#{shipment_number}, order {order_number}', 'dhl', 'woocommerce-germanized' ),
+					'max_length' => 35,
+				),
+				'inlay' => array(
+					'label'      => _x( 'Inlay return reference', 'dhl', 'woocommerce-germanized' ),
+					'default'    => _x( 'Return #{shipment_number}, order {order_number}', 'dhl', 'woocommerce-germanized' ),
+					'max_length' => 35,
+				),
+			);
+		} elseif ( 'return' === $shipment_type ) {
+			$reference_types = array(
+				'ref_1' => array(
+					'label'      => _x( 'Reference 1', 'dhl', 'woocommerce-germanized' ),
+					'default'    => _x( 'Return #{shipment_number}, order {order_number}', 'dhl', 'woocommerce-germanized' ),
+					'max_length' => -1,
+				),
+			);
+		}
+
+		return $reference_types;
 	}
 
 	public function supports_labels( $label_type, $shipment = false ) {
@@ -192,14 +222,7 @@ class DHL extends Auto {
 			)
 		);
 
-		$this->register_service(
-			'AdditionalInsurance',
-			array(
-				'label'       => _x( 'Additional Insurance', 'dhl', 'woocommerce-germanized' ),
-				'description' => _x( 'Add an additional insurance to labels.', 'dhl', 'woocommerce-germanized' ),
-				'products'    => array( 'V01PAK', 'V53WPAK', 'V54EPAK' ),
-			)
-		);
+		$this->register_service( new AdditionalInsurance( $this ) );
 
 		$this->register_service(
 			'BulkyGoods',

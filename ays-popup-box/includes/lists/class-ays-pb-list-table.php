@@ -128,7 +128,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
     protected static function ays_pb_add_filters_to_sql($base_sql) {
         $sql = $base_sql;
 
-        if (isset($_GET['filterby']) && absint(sanitize_text_field($_GET['filterby'])) > 0) {
+        if (isset($_GET['filterby']) && absint( sanitize_text_field($_GET['filterby']) ) > 0) {
             $cat_id = absint(sanitize_text_field($_GET['filterby']));
             $sql .= ' AND category_id = ' . $cat_id;
         }
@@ -144,6 +144,373 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         }
 
         return $sql;
+    }
+
+    /**
+     * Handles data query and filter, sorting, and pagination.
+     */
+    public function prepare_items() {
+        global $wpdb;
+
+        $this->_column_headers = $this->get_column_info();
+
+        /** Process bulk action */
+        $this->process_bulk_action();
+
+        $per_page = $this->get_items_per_page("popupboxes_per_page", 20);
+        $current_page = $this->get_pagenum();
+        $total_items = self::record_count();
+
+        $this->set_pagination_args( array(
+            "total_items" => $total_items, // WE have to calculate the total number of items
+            "per_page" => $per_page // WE have to determine how many items to show on a page
+        ) );
+
+        $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
+        $do_search = $search ? sprintf(" title LIKE '%%%s%%' ", esc_sql( $wpdb->esc_like($search) ) ) : '';
+
+        $this->items = self::get_ays_popupboxes($per_page, $current_page,$do_search);
+    }
+
+    /** Text displayed when no customer data is available */
+    public function no_items() {
+        echo __("There are no popupboxes yet.", "ays-popup-box");
+    }
+
+    /**
+     *  Associative array of columns
+     *
+     * @return array
+     */
+    function get_columns() {
+        $columns = array(
+            "cb" => "<input type='checkbox' />",
+            "title" => __("Title", "ays-popup-box"),
+            "popup_image" => __("Image", "ays-popup-box"),
+            'category_id' => __('Category', "ays-popup-box"),
+            "onoffswitch" => __("Status", "ays-popup-box"),
+            "modal_content" => __("Type", "ays-popup-box"),
+            "view_type" => __("Template", "ays-popup-box"),
+            "create_date" => __("Created", "ays-popup-box"),
+            "views" => __("Views", "ays-popup-box"),
+            "conversions" => __("Conversions", "ays-popup-box"),
+            "id" => __("ID", "ays-popup-box"),
+        );
+
+        return $columns;
+    }
+
+    /**
+     * Columns to make sortable.
+     *
+     * @return array
+     */
+    public function get_sortable_columns() {
+        $sortable_columns = array(
+            "title" => array("title", true),
+            "category_id" => array("category_id", true),
+            "modal_content" => array("modal_content", true),
+            "id" => array("id", true),
+        );
+
+        return $sortable_columns;
+    }
+
+    /**
+     * Render a column when no column specific method exist.
+     *
+     * @param array $item
+     * @param string $column_name
+     *
+     * @return mixed
+     */
+    public function column_default($item, $column_name) {
+        switch ($column_name) {
+            case "title":
+            case "popup_image":
+            case "onoffswitch":
+                return wp_unslash($item[$column_name]);
+                break;
+            case 'category_id':
+            case 'modal_content':
+            case 'view_type':
+            case "shortcode":
+            case "autor":
+            case "create_date":
+            case "views":
+            case "conversions":
+            case "id":
+                return $item[$column_name];
+                break;
+            default:
+                return print_r($item, true); //Show the whole array for troubleshooting purposes
+        }
+    }
+
+    /**
+     * Render the bulk edit checkbox
+     *
+     * @param array $item
+     *
+     * @return string
+     */
+    function column_cb($item) {
+        return sprintf(
+            "<input type='checkbox' name='bulk-delete[]' value='%s' />", $item["id"]
+        );
+    }
+
+    /**
+     * Method for name column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_title($item) {
+        $delete_nonce = wp_create_nonce($this->plugin_name . "-delete-popupbox");
+
+        $popup_name = ( isset($item["popup_name"]) && $item["popup_name"] != "" ) ? stripslashes( sanitize_text_field($item["popup_name"]) ) : stripslashes( sanitize_text_field($item["title"]) );
+
+        $popup_title_length = intval($this->title_length);
+
+        $restitle = Ays_Pb_Admin::ays_pb_restriction_string("word", esc_attr($popup_name), $popup_title_length);
+
+        $title = sprintf("<a href='?page=%s&action=%s&popupbox=%d' title='%s'>%s</a>", esc_attr($_REQUEST["page"]), "edit", absint($item["id"]), esc_attr($popup_name), $restitle);
+
+        $actions = array(
+            "edit" => sprintf( "<a href='?page=%s&action=%s&popupbox=%d'>" . __('Edit', "ays-popup-box") . "</a>", esc_attr($_REQUEST["page"]), "edit", absint($item["id"]) ),
+            'duplicate' => sprintf( "<a href='?page=%s&action=%s&popupbox=%d'>" . __('Duplicate', "ays-popup-box") . '</a>', esc_attr($_REQUEST['page']), 'duplicate', absint($item['id']) ),
+            'delete' => sprintf( "<a class='ays_pb_confirm_del' data-message='%s' href='?page=%s&action=%s&popupbox=%d&_wpnonce=%s'>" . __('Delete', "ays-popup-box") . '</a>', $restitle, esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce )
+        );
+
+        return $title . $this->row_actions($actions);
+    }
+
+    /**
+     * Method for Image column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_popup_image($item) {
+        global $wpdb;
+
+        $popup_image = ( isset($item['bg_image']) && $item['bg_image'] != '' ) ? esc_url($item['bg_image']) : '';
+
+        $image_html = array();
+        $edit_page_url = '';
+
+        if ($popup_image != '') {
+            if ( isset($item['id']) && absint($item['id']) > 0 ) {
+                $edit_page_url = sprintf( 'href="?page=%s&action=%s&popupbox=%d"', esc_attr($_REQUEST['page']), 'edit', absint($item['id']) );
+            }
+
+            $popup_image_url = $popup_image;
+            $this_site_path = trim(get_site_url(), "https:");
+
+            if ( strpos( trim($popup_image_url, "https:"), $this_site_path ) !== false ) {
+                $query = "SELECT * FROM `" . $wpdb->prefix . "posts` WHERE `post_type` = 'attachment' AND `guid` = '" . $popup_image_url . "'";
+                $result_img = $wpdb->get_results($query, "ARRAY_A");
+
+                if (!empty($result_img)) {
+                    $url_img = wp_get_attachment_image_src($result_img[0]['ID'], 'thumbnail');
+
+                    if ($url_img !== false) {
+                        $popup_image_url = $url_img[0];
+                    }
+                }
+            }
+
+            $image_html[] = '<div class="ays-popup-image-list-table-column">';
+                $image_html[] = '<a ' . $edit_page_url . ' class="ays-popup-image-list-table-link-column">';
+                    $image_html[] = '<img src="' . $popup_image_url . '" class="ays-popup-image-list-table-img-column">';
+                $image_html[] = '</a>';
+            $image_html[] = '</div>';
+        }
+
+        $image_html = implode('', $image_html);
+
+        return $image_html;
+    }
+
+    /**
+     * Method for Category column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_category_id($item) {
+        global $wpdb;
+
+        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories WHERE id=" . absint( sanitize_text_field($item["category_id"]) );
+        $category = $wpdb->get_row($sql);
+
+        $category_title = '';
+        if ($category !== null) {
+            $category_title = ( isset($category->title) && $category->title != "" ) ? sanitize_text_field($category->title) : "";
+
+            if ($category_title != "") {
+                $category_title = sprintf('<a href="?page=%s&action=edit&popup_category=%d" target="_blank">%s</a>', esc_attr($_REQUEST['page']) . '-categories', $item["category_id"], $category_title);
+            }
+        }
+
+        return $category_title;
+    }
+
+    /**
+     * Method for Status column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_onoffswitch($item) {
+        $onoffswitch = ( isset($item['onoffswitch']) && $item['onoffswitch'] == 'On' ) ? true : false;
+
+        $nonce = $onoffswitch ? wp_create_nonce($this->plugin_name . "-unpublish-popupbox") : wp_create_nonce($this->plugin_name . "-publish-popupbox");
+
+        $checked = $onoffswitch ? 'checked' : '';
+        $href_value = $onoffswitch ? 'unpublish' : 'publish';
+        $href = sprintf('?page=%s&action=%s&popupbox=%d&_wpnonce=%s', esc_attr($_REQUEST['page']), $href_value, absint($item['id']), $nonce);
+
+        if (isset($_GET['filterby']) && absint( sanitize_text_field($_GET['filterby']) ) > 0) {
+            $cat_id = absint( sanitize_text_field($_GET['filterby']) );
+            $href .= '&filterby=' . $cat_id;
+        }
+
+        if (isset($_GET['filterbyAuthor']) && $_GET['filterbyAuthor'] != '') {
+            $ays_pb_author = esc_sql( sanitize_text_field($_GET['filterbyAuthor']) );
+            $href .= '&filterbyAuthor=' . $ays_pb_author;
+        }
+
+        if (isset($_GET['filterbyType']) && $_GET['filterbyType'] != '') {
+            $ays_pb_type = esc_sql( sanitize_text_field($_GET['filterbyType']) );
+            $href .= '&filterbyType=' . $ays_pb_type;
+        }
+
+        $status_html = array();
+
+        $status_html[] = '<label class="ays-pb-enable-switch ays-pb-enable-switch-list-table">';
+            $status_html[] = '<input type="checkbox" class="ays-pb-onoffswitch-checkbox"' . $checked . '>';
+            $status_html[] = '<a href="' . $href . '" class="ays-pb-enable-switch-slider ays-pb-enable-switch-round"></a>';
+        $status_html[] = '</label>';
+
+        $status_html = implode('', $status_html);
+        return $status_html;
+    }
+
+    /**
+     * Method for Type column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_modal_content($item) {
+        $modal_content = '';
+
+        switch ($item['modal_content']) {
+            case 'custom_html':
+                $modal_content = __('Custom Content', "ays-popup-box");
+                break;
+            case 'shortcode':
+                $modal_content = __('Shortcode', "ays-popup-box");
+                break;
+            case 'video_type':
+                $modal_content = __('Video', "ays-popup-box");
+                break;
+            case 'image_type':
+                $modal_content = __('Image', "ays-popup-box");
+                break;
+            case 'facebook_type':
+                $modal_content = __('Facebook', "ays-popup-box");
+                break;
+            case 'notification_type':
+                $modal_content = __('Notification', "ays-popup-box");
+                break;
+            default:
+                $modal_content = __('Custom Content', "ays-popup-box");
+                break;
+        }
+
+        return $modal_content;
+    }
+
+    /**
+     * Method for Template column
+     *
+     * @param array $item an array of DB data
+     *
+     * @return string
+     */
+    function column_view_type($item) {
+        $view_type = '';
+
+        switch ($item['view_type']) {
+            case 'default':
+                $view_type = __('Default', "ays-popup-box");
+                break;
+            case 'lil':
+                $view_type = __('Red', "ays-popup-box");
+                break;
+            case 'image':
+                $view_type = __('Modern', "ays-popup-box");
+                break;
+            case 'minimal':
+                $view_type = __('Minimal', "ays-popup-box");
+                break;
+            case 'template':
+                $view_type = __('Sale', "ays-popup-box");
+                break;
+            case 'mac':
+                $view_type = __('MacOs window', "ays-popup-box");
+                break;
+            case 'ubuntu':
+                $view_type = __('Ubuntu', "ays-popup-box");
+                break;
+            case 'winXP':
+                $view_type = __('Windows XP', "ays-popup-box");
+                break;
+            case 'win98':
+                $view_type = __('Windows 98', "ays-popup-box");
+                break;
+            case 'cmd':
+                $view_type = __('Command Prompt', "ays-popup-box");
+                break;
+            default:
+                $view_type = __('Default', "ays-popup-box");
+                break;
+        }
+
+        return $view_type;
+    }
+
+    function column_create_date($item) {
+        $options = (isset($item['options']) && $item['options'] != '') ? json_decode($item['options'], true) : array();
+        $date = isset($options['create_date']) && $options['create_date'] != '' ? $options['create_date'] : "0000-00-00 00:00:00";
+
+        $author = array("name" => "Unknown");
+        if ( isset($options['author']) ) {
+            if ( is_array($options['author']) ) {
+                $author = $options['author'];
+            } else {
+                $author = json_decode($options['author'], true);
+            }
+        }
+
+        $text = "";
+        if (Ays_Pb_Admin::validateDate($date)) {
+            $text .= "<p><b>Date:</b> " . $date . "</p>";
+        }
+
+        if ( isset($author['name']) && $author['name'] !== "Unknown" ) {
+            $text .= "<p><b>Author:</b> " . $author['name'] . "</p>";
+        }
+
+        return $text;
     }
 
     public function display_tablenav( $which ) {
@@ -163,15 +530,10 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         <?php
     }
 
-      public function extra_tablenav( $which ){
+    public function extra_tablenav( $which ){
         global $wpdb;
         $titles_sql = "SELECT {$wpdb->prefix}ays_pb_categories.title,{$wpdb->prefix}ays_pb_categories.id FROM {$wpdb->prefix}ays_pb_categories";
         $cat_titles = $wpdb->get_results($titles_sql);
-
-        $users = $wpdb->get_results(
-            "SELECT ID, display_name FROM {$wpdb->users} ORDER BY display_name",
-            ARRAY_A
-        );
 
         $cat_id = null;
         if( isset( $_GET['filterby'] )){
@@ -194,15 +556,31 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         if( isset( $_GET['filterbyAuthor'] )){
             $author_id = absint( intval($_GET['filterbyAuthor']) );
         }
+
         $authors_select = array();
-        foreach($users as $key => $user){
-            $selected = "";
-            if($author_id === intval($user["ID"])){
-                $selected = "selected";
+        $popup_options_sql = "SELECT `options` FROM " . $wpdb->prefix . "ays_pb";
+        $popup_options = $wpdb->get_results($popup_options_sql, "ARRAY_A");
+        foreach ($popup_options as $key => $options_arr) {
+            $options = ( isset($options_arr['options']) && $options_arr['options'] != '' ) ? json_decode($options_arr['options'], 'ARRAY_A') : '';
+
+            $author = array();
+            if ( isset($options['author']) ) {
+                if ( is_array($options['author']) ) {
+                    $author = $options['author'];
+                } else {
+                    $author = json_decode($options['author'], true);
+                }
             }
-            $authors_select[$user["ID"]]['display_name'] = $user["display_name"];
-            $authors_select[$user["ID"]]['selected'] = $selected;
-            $authors_select[$user["ID"]]['id'] = $user["ID"];
+
+            $selected = "";
+            if (!empty($author)) {
+                if($author_id === intval($author["id"])){
+                    $selected = "selected";
+                }
+                $authors_select[$author["id"]]['display_name'] = $author["name"];
+                $authors_select[$author["id"]]['selected'] = $selected;
+                $authors_select[$author["id"]]['id'] = $author["id"];
+            }
         }
 
         sort($authors_select);
@@ -1715,329 +2093,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         return $wpdb->get_var( $sql );
     }
 
-
-    /** Text displayed when no customer data is available */
-    public function no_items() {
-       echo __( "There are no popupboxes yet.", "ays-popup-box" );
-    }
-
-
-    /**
-     * Render a column when no column specific method exist.
-     *
-     * @param array $item
-     * @param string $column_name
-     *
-     * @return mixed
-     */
-    public function column_default( $item, $column_name ) {
-        switch ( $column_name ) {
-            case "title":
-            case "popup_image":
-            case "onoffswitch":
-                return wp_unslash($item[ $column_name ]);
-                break;
-            case 'category_id':
-            case 'modal_content':
-            case 'view_type':
-            case "shortcode":
-            case "autor":
-            case "create_date":
-            case "views":
-            case "conversions":
-            case "id":
-                return $item[ $column_name ];
-                break;
-            default:
-                return print_r( $item, true ); //Show the whole array for troubleshooting purposes
-        }
-    }
-
-    /**
-     * Render the bulk edit checkbox
-     *
-     * @param array $item
-     *
-     * @return string
-     */
-    function column_cb( $item ) {
-        return sprintf(
-            "<input type='checkbox' name='bulk-delete[]' value='%s' />", $item["id"]
-        );
-    }
-
-
-    /**
-     * Method for name column
-     *
-     * @param array $item an array of DB data
-     *
-     * @return string
-     */
-    function column_title( $item ) {
-        $delete_nonce = wp_create_nonce( $this->plugin_name . "-delete-popupbox" );
-        // $unpublish_nonce = wp_create_nonce( $this->plugin_name . "-unpublish-popupbox" );
-        // $publish_nonce = wp_create_nonce( $this->plugin_name . "-publish-popupbox" );
-        
-        // if (isset($item['onoffswitch']) && $item['onoffswitch'] == 'On') {
-        //     $publish_button = 'unpublish';
-        //     $publish_button_val = sprintf( '<a href="?page=%s&action=%s&popupbox=%d&_wpnonce=%s">'. __('Unpublish', "ays-popup-box") .'</a>', esc_attr( $_REQUEST['page'] ), 'unpublish', absint( $item['id'] ), $unpublish_nonce );
-        // }else{
-        //     $publish_button = 'publish';
-        //     $publish_button_val = sprintf( '<a href="?page=%s&action=%s&popupbox=%d&_wpnonce=%s">'. __('Publish', "ays-popup-box") .'</a>', esc_attr( $_REQUEST['page'] ), 'publish', absint( $item['id'] ), $publish_nonce );
-        // }
-        $popup_name = ( isset( $item["popup_name"] ) && $item["popup_name"] != "" ) ? stripslashes( sanitize_text_field ( $item["popup_name"] ) ) : stripslashes( sanitize_text_field ($item["title"]) );
-
-        $popup_title_length = intval( $this->title_length );
-        
-
-        $restitle  = Ays_Pb_Admin::ays_pb_restriction_string("word",esc_attr($popup_name), $popup_title_length);
-
-        $title = sprintf( "<a href='?page=%s&action=%s&popupbox=%d' title='%s'>%s</a>", esc_attr( $_REQUEST["page"] ), "edit", absint( $item["id"] ), esc_attr($popup_name), $restitle);
-
-        $actions = array(
-            "edit" => sprintf( "<a href='?page=%s&action=%s&popupbox=%d'>". __( 'Edit' ) ."</a>", esc_attr( $_REQUEST["page"] ), "edit", absint( $item["id"] ) ),
-            'duplicate' => sprintf( '<a href="?page=%s&action=%s&popupbox=%d">'. __('Duplicate', "ays-popup-box") .'</a>', esc_attr( $_REQUEST['page'] ), 'duplicate', absint( $item['id'] ) ),
-
-            // $publish_button => $publish_button_val,
-
-            'delete' => sprintf( '<a class="ays_pb_confirm_del" data-message="%s" href="?page=%s&action=%s&popupbox=%d&_wpnonce=%s">'. __('Delete', "ays-popup-box") .'</a>', $restitle , esc_attr( $_REQUEST['page'] ), 'delete', absint( $item['id'] ), $delete_nonce )
-        );
-
-        return $title . $this->row_actions( $actions );
-    }
-
-    function column_shortcode( $item ) {
-        return sprintf("<input type='text' onClick='this.setSelectionRange(0, this.value.length)' readonly value='[ays_pb id=%s]' />", $item["id"]);
-    } 
-
-    function column_modal_content( $item ) {
-
-        $modal_content = '';
-        switch ($item['modal_content']) {
-            case 'custom_html':
-                $modal_content = __('Custom Content',"ays-popup-box");
-                break;
-            case 'shortcode':
-                $modal_content = __('Shortcode',"ays-popup-box");
-                break;
-            case 'video_type':
-                $modal_content = __('Video',"ays-popup-box");
-                break;
-            case 'image_type':
-                $modal_content = __('Image',"ays-popup-box");
-                break;
-            case 'facebook_type':
-                $modal_content = __('Facebook',"ays-popup-box");
-                break;
-            case 'notification_type':
-                $modal_content = __('Notification',"ays-popup-box");
-                break;
-            default:
-                $modal_content = __('Custom Content',"ays-popup-box");
-                break;
-        }
-
-        return $modal_content;
-
-    }
-
-    function column_view_type( $item ) {
-
-        $view_type = '';
-        switch ($item['view_type']) {
-            case 'default':
-                $view_type = __('Default',"ays-popup-box");
-                break;
-            case 'lil':
-                $view_type = __('Red',"ays-popup-box");
-                break;
-            case 'image':
-                $view_type = __('Modern',"ays-popup-box");
-                break;
-            case 'minimal':
-                $view_type = __('Minimal',"ays-popup-box");
-                break;
-            case 'template':
-                $view_type = __('Sale',"ays-popup-box");
-                break;
-            case 'mac':
-                $view_type = __('MacOs window',"ays-popup-box");
-                break;
-            case 'ubuntu':
-                $view_type = __('Ubuntu',"ays-popup-box");
-                break;
-            case 'winXP':
-                $view_type = __('Windows XP',"ays-popup-box");
-                break;
-            case 'win98':
-                $view_type = __('Windows 98',"ays-popup-box");
-                break;
-            case 'cmd':
-                $view_type = __('Command Prompt',"ays-popup-box");
-                break;
-            default:
-                $view_type = __('Default',"ays-popup-box");
-                break;
-        }
-
-        return $view_type;
-
-    }
-
-    function column_category_id( $item ) {
-        global $wpdb;
-
-        $sql = "SELECT * FROM {$wpdb->prefix}ays_pb_categories WHERE id=" . absint( sanitize_text_field( $item["category_id"] ) );
-
-        $category = $wpdb->get_row( $sql );
-
-        $category_title = '';
-        if($category !== null){
-            $category_title = $category->title;
-        }else{
-            $category_title = '';
-        }
-
-        if($category !== null){
-
-            $category_title = ( isset( $category->title ) && $category->title != "" ) ? sanitize_text_field( $category->title ) : "";
-
-            if ( $category_title != "" ) {
-                $category_title = sprintf( '<a href="?page=%s&action=edit&popup_category=%d" target="_blank">%s</a>', esc_attr( $_REQUEST['page'] ) . '-categories', $item["category_id"], $category_title);
-            }
-        }else{
-            $category_title = "";
-        }
-        return $category_title;
-    }
-
-    function column_onoffswitch( $item ) {
-        global $wpdb;
-
-        $onoffswitch = ( isset($item['onoffswitch']) && $item['onoffswitch'] == 'On') ? true : false;
-
-        $nonce = $onoffswitch ? wp_create_nonce( $this->plugin_name . "-unpublish-popupbox" ) : wp_create_nonce( $this->plugin_name . "-publish-popupbox" );
-
-        $checked = $onoffswitch ? 'checked' : '';
-        $href_value = $onoffswitch ? 'unpublish' : 'publish';
-        $href = sprintf( '?page=%s&action=%s&popupbox=%d&_wpnonce=%s', esc_attr($_REQUEST['page']), $href_value, absint($item['id']), $nonce );
-
-        $status_html = array();
-
-        $status_html[] = '<label class="ays-pb-enable-switch ays-pb-enable-switch-list-table">';
-            $status_html[] = '<input type="checkbox" class="ays-pb-onoffswitch-checkbox"'. $checked . '>';
-            $status_html[] = '<a href="' . $href . '" class="ays-pb-enable-switch-slider ays-pb-enable-switch-round">';
-            $status_html[] = '</a>';
-        $status_html[] = '</label>';
-
-        $status_html = implode('', $status_html);
-        return $status_html;
-    }
-
-    function column_create_date( $item ) {
-        if ($item['options']) {
-            $options = json_decode($item['options'], true);
-        }
-        $date = isset($options['create_date']) && $options['create_date'] != '' ? $options['create_date'] : "0000-00-00 00:00:00";
-        if(isset($options['author'])){
-            if(is_array($options['author'])){
-                $author = $options['author'];
-            }else{
-                $author = json_decode($options['author'], true);
-            }
-        }else{
-            $author = array("name"=>"Unknown");
-        }
-        $text = "";
-        if(Ays_Pb_Admin::validateDate($date)){
-            $text .= "<p><b>Date:</b> ".$date."</p>";
-        }
-        if( isset( $author['name'] ) && $author['name'] !== "Unknown"){
-            $text .= "<p><b>Author:</b> ".$author['name']."</p>";
-        }
-        return $text;
-    }
-
-    function column_popup_image( $item ) {
-        global $wpdb;
-        
-        $popup_image = (isset( $item['bg_image'] ) && $item['bg_image'] != '') ? esc_url( $item['bg_image'] ) : '';
-
-        $image_html     = array();
-        $edit_page_url  = '';
-
-        if($popup_image != ''){
-
-            if ( isset( $item['id'] ) && absint( $item['id'] ) > 0 ) {
-                $edit_page_url = sprintf( 'href="?page=%s&action=%s&popup=%d"', esc_attr( $_REQUEST['page'] ), 'edit', absint( $item['id'] ) );
-            }
-
-            $popup_image_url = $popup_image;
-            $this_site_path = trim( get_site_url(), "https:" );
-            if( strpos( trim( $popup_image_url, "https:" ), $this_site_path ) !== false ){ 
-                $query = "SELECT * FROM `" . $wpdb->prefix . "posts` WHERE `post_type` = 'attachment' AND `guid` = '" . $popup_image_url . "'";
-                $result_img =  $wpdb->get_results( $query, "ARRAY_A" );
-                if( ! empty( $result_img ) ){
-                    $url_img = wp_get_attachment_image_src( $result_img[0]['ID'], 'thumbnail' );
-                    if( $url_img !== false ){
-                        $popup_image_url = $url_img[0];
-                    }
-                }
-            }
-
-            $image_html[] = '<div class="ays-popup-image-list-table-column">';
-                $image_html[] = '<a '. $edit_page_url .' class="ays-popup-image-list-table-link-column">';
-                    $image_html[] = '<img src="'. $popup_image_url .'" class="ays-popup-image-list-table-img-column">';
-                $image_html[] = '</a>';
-            $image_html[] = '</div>';
-        }
-
-        $image_html = implode('', $image_html);
-
-        return $image_html;
-    }
-
-    /**
-     *  Associative array of columns
-     *
-     * @return array
-     */
-    function get_columns() {
-        $columns = array(
-            "cb"                => "<input type='checkbox' />",
-            "title"             => __( "Title", "ays-popup-box" ),
-            "popup_image"       => __( "Image", "ays-popup-box" ),
-            'category_id'       => __( 'Category', "ays-popup-box" ),
-            "onoffswitch"       => __( "Status", "ays-popup-box" ),
-            "modal_content"     => __("Type", "ays-popup-box" ),
-            "view_type"         => __("Template", "ays-popup-box" ),
-            "create_date"       => __("Created", "ays-popup-box" ),
-            "views"             => __("Views", "ays-popup-box"),
-            "conversions"       => __("Conversions", "ays-popup-box"),
-            "id"                => __( "ID", "ays-popup-box" ),
-        );
-
-        return $columns;
-    }
-
-
-    /**
-     * Columns to make sortable.
-     *
-     * @return array
-     */
-    public function get_sortable_columns() {
-        $sortable_columns = array(
-            "title"         => array( "title", true ),
-            'category_id'   => array( 'category_id', true ),
-            "modal_content" => array( "modal_content", true),
-            "id"            => array( "id", true ),
-        );
-
-        return $sortable_columns;
-    }
-
     /**
      * Returns an associative array containing the bulk action
      *
@@ -2051,33 +2106,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         );
 
         return $actions;
-    }
-
-
-    /**
-     * Handles data query and filter, sorting, and pagination.
-     */
-    public function prepare_items() {
-        global $wpdb;
-
-        $this->_column_headers = $this->get_column_info();
-
-        /** Process bulk action */
-        $this->process_bulk_action();
-
-        $per_page     = $this->get_items_per_page( "popupboxes_per_page", 20 );
-        $current_page = $this->get_pagenum();
-        $total_items  = self::record_count();
-
-        $this->set_pagination_args( array(
-            "total_items" => $total_items, //WE have to calculate the total number of items
-            "per_page"    => $per_page //WE have to determine how many items to show on a page
-        ) );
-
-        $search = ( isset( $_REQUEST['s'] ) ) ? esc_sql( sanitize_text_field( $_REQUEST['s'] ) ) : false;
-        $do_search = ( $search ) ? sprintf(" title LIKE '%%%s%%' ", esc_sql( $wpdb->esc_like( $search ) ) ) : '';
-
-        $this->items = self::get_ays_popupboxes( $per_page, $current_page,$do_search );
     }
 
     public function process_bulk_action() {

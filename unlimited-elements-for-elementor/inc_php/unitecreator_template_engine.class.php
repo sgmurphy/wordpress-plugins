@@ -1503,9 +1503,9 @@ class UniteCreatorTemplateEngineWork{
 				}
 			break;
 			case "get_variable":
-
-				$getVarValue = UniteFunctionsUC::getGetVar($arg1,"",UniteFunctionsUC::SANITIZE_TEXT_FIELD);
-
+				
+				$getVarValue = UniteFunctionsUC::getGetVar($arg1,"",UniteFunctionsUC::SANITIZE_NOTHING);
+				
 				return($getVarValue);
 			break;
 			case "wpp_get_page_views":	//get post views using wordpress popular posts plugin

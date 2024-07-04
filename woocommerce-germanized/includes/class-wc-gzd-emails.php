@@ -448,7 +448,7 @@ class WC_GZD_Emails {
 		}
 
 		if ( isset( $_POST['woocommerce_gzd_email_order_confirmation_text'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			update_option( 'woocommerce_gzd_email_order_confirmation_text', sanitize_textarea_field( wp_unslash( $_POST['woocommerce_gzd_email_order_confirmation_text'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			update_option( 'woocommerce_gzd_email_order_confirmation_text', wp_kses_post( trim( wp_unslash( $_POST['woocommerce_gzd_email_order_confirmation_text'] ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 	}
 
@@ -489,7 +489,11 @@ class WC_GZD_Emails {
 		if ( 'emails/customer-processing-order.php' === $template_name || 'emails/plain/customer-processing-order.php' === $template_name ) {
 			if ( isset( $args['order'] ) && is_a( $args['order'], 'WC_Order' ) ) {
 				$this->current_order_instance = $args['order'];
+
+				// Prevent the original text from showing with a gettext filter
 				add_filter( 'gettext', array( $this, 'replace_processing_email_text' ), 9999, 3 );
+				// Prepend the custom processing text (to allow formatting) to the woocommerce_email_order_details hook before all other output
+				add_action( 'woocommerce_email_order_details', array( $this, 'print_processing_email_text' ), -1000, 1 );
 			}
 		}
 
@@ -511,6 +515,10 @@ class WC_GZD_Emails {
 		}
 	}
 
+	public function print_processing_email_text( $order ) {
+		echo wp_kses_post( wpautop( wptexturize( $this->get_processing_email_text( $order ) ) ) );
+	}
+
 	public function replace_processing_email_text( $translated, $original, $domain ) {
 		if ( 'woocommerce' === $domain ) {
 			$search = array(
@@ -520,11 +528,7 @@ class WC_GZD_Emails {
 			);
 
 			if ( in_array( $original, $search, true ) ) {
-				if ( is_a( $this->current_order_instance, 'WC_Order' ) ) {
-					$order = $this->current_order_instance;
-
-					return $this->get_processing_email_text( $order );
-				}
+				return '';
 			}
 		}
 
@@ -593,7 +597,6 @@ class WC_GZD_Emails {
 		$plain = apply_filters( 'woocommerce_gzd_order_confirmation_email_plain_text', get_option( 'woocommerce_gzd_email_order_confirmation_text' ) );
 
 		if ( ! $plain || '' === $plain ) {
-
 			/**
 			 * Filter the fallback order confirmation email text.
 			 *
@@ -846,6 +849,7 @@ class WC_GZD_Emails {
 			$method               = $order->get_payment_method();
 			$disable_for_gateways = $this->get_gateways_disabling_paid_for_order_mail();
 			$disable_notification = ( in_array( $method, $disable_for_gateways, true ) || $order->get_total() <= 0 ) ? true : false;
+			$is_manual_request    = doing_action( 'woocommerce_order_action_paid_for_order_notification' );
 
 			/**
 			 * Filter to adjust whether to disable the paid for order notification based on order data.
@@ -855,7 +859,7 @@ class WC_GZD_Emails {
 			 *
 			 * @since 3.2.3
 			 */
-			if ( apply_filters( 'woocommerce_gzd_disable_paid_for_order_notification', $disable_notification, $order->get_id() ) ) {
+			if ( apply_filters( 'woocommerce_gzd_disable_paid_for_order_notification', $disable_notification && ! $is_manual_request, $order->get_id() ) ) {
 				$enable_mail = false;
 			}
 		}

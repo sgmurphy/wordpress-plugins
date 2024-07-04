@@ -3,7 +3,7 @@
 Plugin Name: SSH SFTP Updater Support
 Plugin URI: https://wordpress.org/plugins/ssh-sftp-updater-support/
 Description: Update your WordPress blog / plugins via SFTP without libssh2
-Version: 0.8.5
+Version: 0.8.6
 Author: TerraFrost, David Anderson + Team Updraft
 Author URI: https://updraftplus.com/
 */
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) die('No direct access allowed');
 
 define('SSH_SFTP_UPDATER_SUPPORT_MAIN_PATH', plugin_dir_path(__FILE__));
 define('SSH_SFTP_UPDATER_SUPPORT_BASENAME', plugin_basename(__FILE__));
-define('SSH_SFTP_UPDATER_SUPPORT_VERSION', '0.8.5');
+define('SSH_SFTP_UPDATER_SUPPORT_VERSION', '0.8.6');
 define('SSH_SFTP_UPDATER_SUPPORT_URL', plugin_dir_url(__FILE__));
 // see http://adambrown.info/p/wp_hooks/hook/<filter name>
 add_filter('filesystem_method', 'phpseclib_filesystem_method', 10, 2); // since 2.6 - WordPress will ignore the ssh option if the php ssh extension is not loaded

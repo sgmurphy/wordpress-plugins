@@ -1236,6 +1236,9 @@ class Quiz_Maker_Public
         // Right answer text decoration
         $quiz_right_answers_text_decoration = (isset($options[ 'quiz_right_answers_text_decoration' ]) && $options[ 'quiz_right_answers_text_decoration' ] != '') ? stripslashes ( esc_attr( $options[ 'quiz_right_answers_text_decoration' ] ) ) : 'none';
 
+        // Letter spacing | Right answer
+        $quiz_right_answers_letter_spacing = (isset($options[ 'quiz_right_answers_letter_spacing' ]) && $options[ 'quiz_right_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_right_answers_letter_spacing' ] ) ) : 0;
+
         // Font size for the Note text | PC
         $note_text_font_size = (isset($options['note_text_font_size']) && $options['note_text_font_size'] != '') ? absint(esc_attr($options['note_text_font_size'])) : '14';
 
@@ -3401,6 +3404,7 @@ class Quiz_Maker_Public
             #ays-quiz-container-" . $id . " .right_answer_text * {
                 text-transform:" . $quiz_right_answer_text_transform . ";
                 text-decoration: ". $quiz_right_answers_text_decoration .";
+                letter-spacing: ". $quiz_right_answers_letter_spacing ."px;
             }
 
             #ays-quiz-container-" . $id . " .right_answer_text p {

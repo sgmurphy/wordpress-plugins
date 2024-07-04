@@ -41,7 +41,7 @@ function bafg_slider_info($id){
 			$bafg_slider_title = !empty($meta['bafg_slider_title']) ? $meta['bafg_slider_title'] : '';
 			if( trim($bafg_slider_title) != '' ) :
 			?>
-			<h2 class="bafg-slider-title"><?php echo esc_html($bafg_slider_title); ?></h2>
+			<h2 class="bafg-slider-title"><?php echo esc_html__($bafg_slider_title, 'bafg'); ?></h2>
 			<?php
 			endif;
 
@@ -51,7 +51,7 @@ function bafg_slider_info($id){
 			?>
 			<div class="bafg-slider-description">
 				<?php
-				echo esc_html($bafg_slider_description);
+				echo esc_html__($bafg_slider_description, "bafg");
 				?>
 			</div>
 			<?php
@@ -71,7 +71,7 @@ function bafg_slider_info($id){
 				 
 			}
 			?>
-			<a href="<?php echo esc_url($bafg_readmore_link); ?>" class="bafg_slider_readmore_button" <?php if($bafg_readmore_link_target == 'new_tab') echo 'target="_blank"'; ?> ><?php echo esc_html($bafg_readmore_text); ?></a>
+			<a href="<?php echo esc_url($bafg_readmore_link); ?>" class="bafg_slider_readmore_button" <?php if($bafg_readmore_link_target == 'new_tab') echo 'target="_blank"'; ?> ><?php echo esc_html__($bafg_readmore_text, 'bafg'); ?></a>
 			</div>
 
 			<?php endif; ?>

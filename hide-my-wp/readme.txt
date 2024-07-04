@@ -4,25 +4,27 @@ Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.2.02
+Stable tag: 5.2.03
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Hide WP paths, wp-admin, wp-login, wp-content, plugins, themes, authors, XML-RPC, API, etc. Add 8G Firewall Security, Brute Force protection & more.
+Hide common WP paths, wp-login, and wp-admin while protecting against Brute Force attacks, SQL/Script Injections, and more. Add 7G & 8G firewalls against most bot attacks.
 
 == Description ==
 
-**Hide My WP Ghost** is a **WordPress Security plugin**. It gives you the best security solutions with its powerful and easy-to-use features. Without physically changing any directory or file, Hide My WP Ghost can take your website’s security to the next level.
+Level up your WordPress security with Hide My WP Ghost plugin!
 
-Over **100.000 secured websites**, over **8,000,000 brute force attempts blocked** and over **140.000 monthly hacks stopped** and counting.
+**Hide My WP Ghost** is your ultimate **WordPress security** solution. With powerful, easy-to-use features, it boosts your site's security without altering any directories or files.
 
-The plugin **adds filters and security layers** to prevent Scripts and SQL Injections, Brute Force attacks, XML-RPC attacks, XSS, and more.
+Join over 100,000 secured websites with Hide My WP Ghost. The plugin has blocked over 9 million brute force attempts and stopped 140,000 monthly hacks.
 
-It changes and hides the WP common paths, plugins, and themes paths offering the **best protection against hacker bots attacks**.
+Key features include powerful protection against Scripts and SQL Injections, Brute Force attacks, XML-RPC attacks, XSS, and more.
 
-Note! **No file or directory is physically changed**. All the changes are made by server rewrite rules without affecting the SEO or the loading speed.
+Hide My WP Ghost changes and hides WP common paths, admin & login paths, plugin paths, and theme paths, protecting your site from hacker bots.
 
-After the common paths are changed, **all the common paths are hidden from hackers** to protect all the plugins and themes.
+Note: No files or directories are physically altered. All changes are implemented through server rewrite rules, ensuring no impact on SEO or loading speed.
+
+Protect your site today! Hide My WP Ghost hides all common paths from hackers, shielding all your plugins and themes effectively.
 
 [youtube https://www.youtube.com/watch?v=gwRKHQTNkh0]
 YouTube - Why You Must Have <a href="https://hidemywpghost.com/">Hide My WP</a>
@@ -45,7 +47,7 @@ YouTube - Why You Must Have <a href="https://hidemywpghost.com/">Hide My WP</a>
 
 The plugin works with other security plugins like Wordfence, iThemes Security, Sucuri and adds a layer of security to your WordPress website against hacker bots.
 
-Hide My WP Ghost is compatible with all servers, hosting services, and also supports WP Multisite.
+Hide My WP Ghost is compatible with all server types, hosting services, and also supports WP Multisite.
 
 Over 90,000 hacking attacks per minute strike WordPress sites and WordPress hosting around the world, hitting not only large corporate websites packed with sensitive data, but also sites belonging to small businesses, independent entrepreneurs, and individuals running personal blogs.
 
@@ -299,17 +301,22 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.2.03 (04 July 2024) =
+Update - Added the option to hide the new login path on redirects
+Update - Hide login.php path together with wp-login.php path from being redirect to the new login
+Update - File permissions check in Security Check to check htaccess and login paths
+Fixed - Small bugs
+
 = 5.2.02 (19 June 2024) =
 Update - Added more path in Frontend Test to make sure the settings are okay before confirmation
 Update - Firewall message on blocking process when loading on WP initialization
 Update - Compatibility with Wordfence to prevent rewrite rules update on security scan
-Update - language translation and typos
+Update - Language translation and typos fixed
 Update - Disable click and keys to work without jQuery
 Update - Added the option to immediately block a wrong username in Brute Force
 Update - Sub-option layouts
 Fixed - Trim error in cookie when main domain cookie is set
 Fixed - Filter words in 8G Firewall that might be used in article slugs
-Fixed - Small bugs
 
 
 = 5.2.01 (04 June 2024) =

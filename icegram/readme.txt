@@ -3,8 +3,8 @@ Contributors: icegram, storeapps, niravmehta, sandhyam, malayladu, putler, kisha
 Donate link: https://www.icegram.com/
 Tags:  popup, optin, hellobar, lead capture, form
 Requires at least: 3.9
-Tested up to: 6.3.1
-Stable tag: 3.1.22
+Tested up to: 6.5.5
+Stable tag: 3.1.23
 License: GPLv3
 
 The best WordPress popup plugin that lets you create popups and action bars within seconds. Customize exit-intent popup campaigns, action bars, badges, stickies, inline optin, fullscreen overlay, ribbons, sidebar panel and more in no time.
@@ -386,11 +386,17 @@ Contact Us, provide as much detail of the problem as you can. We will try to sol
 
 == Upgrade Notice ==
 
-= 3.1.22 =
+= 3.1.23 =
 
-* Fix: Improved security related to XSS [Thanks to Patchstack team]
+* Update: PHP 8.2 compatibility
+* Update: Compatibility with WordPress 6.5.5
 
 == Changelog ==
+
+**3.1.23 (03.07.2024)**
+
+* Update: PHP 8.2 compatibility
+* Update: Compatibility with WordPress 6.5.5
 
 **3.1.22 (28.02.2024)**
 

@@ -44,6 +44,12 @@ YrmLink.prototype.init = function () {
             if(data['shortcodeurl']) {
                 link = data['shortcodeurl'];
             }
+            var enableClickSound = data['yrm-toggle-sound'];
+
+			if (enableClickSound) {
+				const audio = new Audio(data['sound-url']);
+				audio.play()
+			}
 
             var isConfirmed = true;
 

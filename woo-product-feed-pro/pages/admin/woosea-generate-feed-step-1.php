@@ -272,7 +272,7 @@ function woosea_hierarchical_term_tree( $category, $prev_mapped ) {
                                 <li><strong>9.</strong> <?php esc_html_e( 'Polylang support', 'woo-product-feed-pro' ); ?></li>
                             </ul>
                             <strong>
-                                <a href="https://adtribes.io/pro-vs-elite/?utm_source=pfp&utm_medium=page1&utm_campaign=why-upgrade-box" target="_blank"><?php esc_html_e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
+                                <a href="https://adtribes.io/pricing/?utm_source=pfp&utm_medium=page1&utm_campaign=why-upgrade-box" target="_blank"><?php esc_html_e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
                             </strong>
                         </td>
                     </tr>

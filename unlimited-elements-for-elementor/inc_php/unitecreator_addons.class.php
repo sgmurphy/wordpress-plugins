@@ -77,8 +77,11 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * get items by id's
 	 */
 	private function getAddonsByIDs($addonIDs){
-
+		
 		$strAddons = implode(",", $addonIDs);
+		
+		UniteFunctionsUC::validateIDsList($strAddons,"addons id's");
+		
 		$tableAddons = GlobalsUC::$table_addons;
 		$sql = "select * from {$tableAddons} where id in({$strAddons})";
 		$arrAddons = $this->db->fetchSql($sql);
@@ -744,11 +747,11 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * save items order
 	 */
 	private function saveAddonsOrder($arrAddonIDs){
-
+		
 		//get items assoc
 		$arrAddons = $this->getAddonsByIDs($arrAddonIDs);
 		$arrAddons = UniteFunctionsUC::arrayToAssoc($arrAddons, "id");
-
+		
 		$order = 0;
 		foreach($arrAddonIDs as $addonID){
 			$order++;
@@ -756,10 +759,11 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 			$arrAddon = UniteFunctionsUC::getVal($arrAddons, $addonID);
 			if(!empty($arrAddon) && $arrAddon["ordering"] == $order)
 				continue;
-
+			
 			$arrUpdate = array();
 			$arrUpdate["ordering"] = $order;
 			$this->db->update(GlobalsUC::$table_addons, $arrUpdate, array("id" => $addonID));
+			
 		}
 	}
 
@@ -1102,15 +1106,17 @@ class UniteCreatorAddons extends UniteElementsBaseUC{
 	 * save items order from data
 	 */
 	public function saveOrderFromData($data){
-
+		
 		$addonType = $this->getAddonTypeFromData($data);
 		$isLayout = HelperUC::isLayoutAddonType($addonType);
 
 		$addonsIDs = UniteFunctionsUC::getVal($data, "addons_order");
-
+		
+		UniteFunctionsUC::validateIDsList($addonsIDs,"addons_order");
+		
 		if(empty($addonsIDs))
 			return (false);
-
+		
 		if($isLayout == false)
 			$this->saveAddonsOrder($addonsIDs);
 		else{

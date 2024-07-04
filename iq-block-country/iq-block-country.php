@@ -2,7 +2,7 @@
 /*
 Plugin Name: iQ Block Country
 Plugin URI: https://webence.nl/plugins/iq-block-country-the-wordpress-plugin-that-blocks-countries-for-you/
-Version: 1.2.21
+Version: 1.2.23
 Author: Pascal
 Author URI: https://webence.nl/
 Description: Block visitors from visiting your website and backend website based on which country their IP address is from. The Maxmind GeoIP lite database is used for looking up from which country an ip address is from.
@@ -13,7 +13,7 @@ Domain Path: /lang
 
 /* This script uses GeoLite Country from MaxMind (http://www.maxmind.com) which is available under terms of GPL/LGPL */
 
-/*  Copyright 2010-2023  Pascal  (email: pascal@webence.nl)
+/*  Copyright 2010-2024  Pascal  (email: pascal@webence.nl)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -147,17 +147,14 @@ define("IQBCGEOIP2DBFILE", $iqbc_upload_dir['basedir'] . "/GeoLite2-Country.mmdb
 define("IQBCTRACKINGURL", "https://tracking.webence.nl/iq-block-country-tracking.php");
 define("IQBCBANLISTRETRIEVEURL", "https://eu.adminblock.webence.nl/iq-block-country-retrieve.php");
 define("GEOIPAPIURL", "https://eu.geoip.webence.nl/geoipapi.php");
-define("GEOIPAPIURLEU2", "https://eu2.geoip.webence.nl/geoipapi.php");
 define("GEOIPAPIURLEU3", "https://eu3.geoip.webence.nl/geoipapi.php");
-define("GEOIPAPIURLEU4", "https://eu4.geoip.webence.nl/geoipapi.php");
 define("GEOIPAPIURLUS", "https://us.geoip.webence.nl/geoipapi.php");
 define("GEOIPAPIURLUS2", "https://us2.geoip.webence.nl/geoipapi.php");
 define("GEOIPAPIURLUS3", "https://us3.geoip.webence.nl/geoipapi.php");
-define("GEOIPAPIURLASIA", "https://asia.geoip.webence.nl/geoipapi.php");
 define("GEOIPAPICHECKURL", "https://eu.geoip.webence.nl/geoipapi-keycheck.php");
 define("GEOIPAPICHECKUSAGEURL", "https://eu.geoip.webence.nl/geoipapi-usage.php");
 define("ADMINAPICHECKURL", "https://tracking.webence.nl/adminapi-keycheck.php");
-define("IQVERSION", "1.2.20");
+define("IQVERSION", "1.2.22");
 define("IQDBVERSION", "123");
 define("IQBCPLUGINPATH", plugin_dir_path(__FILE__)); 
 

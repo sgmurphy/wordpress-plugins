@@ -3468,7 +3468,7 @@ msgstr "Dễ dàng xuất cài đặt tùy chỉnh giao diện."
 
 #: static/js/options/CustomizerOptionsManager.js:87
 msgid "Export Options"
-msgstr "Tùy chọn xuất"
+msgstr "Tùy chọn xu��t"
 
 #: static/js/options/CustomizerOptionsManager.js:536
 msgid "Export"
@@ -3887,7 +3887,7 @@ msgstr "Bạn có thể chèn liên kết tới hình ảnh tự lưu trữ ho�
 
 #: framework/premium/extensions/white-label/dashboard-static/js/EditSettings.js:494
 msgid "Gutenberg Options Panel Icon URL"
-msgstr "URL biểu tượng bảng điều khiển tùy ch��n Gutenberg"
+msgstr "URL biểu tượng bảng điều khiển tùy chọn Gutenberg"
 
 #: framework/premium/extensions/white-label/dashboard-static/js/EditSettings.js:485
 msgid "You can insert the link to a self hosted image or upload one. The recommended image size is 18px wide by 18px tall."
@@ -5421,7 +5421,7 @@ msgstr "Trước một số lượng tiêu đề nhất định"
 
 #: framework/premium/features/content-blocks/hooks-manager.php:455
 msgid "After certain number of blocks"
-msgstr "Sau một số lượng khối nhất định"
+msgstr "Sau một số lượng kh���i nhất định"
 
 #: framework/premium/features/content-blocks/hooks-manager.php:432
 msgid "End"

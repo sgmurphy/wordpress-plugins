@@ -72,7 +72,7 @@ class bafg_PROMO_NOTICE {
         if (is_wp_error($response)) {
             // Handle API request error
             $this->responsed = false;
-            $this->error_message = esc_html($response->get_error_message());
+            $this->error_message = esc_html__($response->get_error_message(), 'bafg');
  
         } else {
             // API request successful, handle the response content
@@ -146,7 +146,7 @@ class bafg_PROMO_NOTICE {
                     <img  style="width: 100%;" src="<?php echo esc_attr($image_url) ?>" alt="">
                 </a> 
                 <?php if( isset($this->bafg_promo_option['dasboard_dismiss']) && $this->bafg_promo_option['dasboard_dismiss'] == true): ?>
-                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo esc_html(__('Dismiss this notice.', 'ultimate-addons-cf7' )) ?></span></button>
+                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo esc_html(__('Dismiss this notice.', 'bafg' )) ?></span></button>
                 <?php  endif; ?>
             </div>
             <script>

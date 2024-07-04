@@ -92,17 +92,77 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
 
             <table class="woo-product-feed-pro-table" id="woosea-ajax-table" border="1">
                 <thead>
-                            <tr>
-                                <th></th>
+                    <tr>
+                        <th></th>
                         <th><?php esc_html_e( 'Type', 'woo-product-feed-pro' ); ?></th>
-                                <th><?php esc_html_e( 'IF', 'woo-product-feed-pro' ); ?></th>
-                                <th><?php esc_html_e( 'Condition', 'woo-product-feed-pro' ); ?></th>
-                                <th><?php esc_html_e( 'Value', 'woo-product-feed-pro' ); ?></th>
-                        <th><?php esc_html_e( 'CS', 'woo-product-feed-pro' ); ?></th>
-                                <th><?php esc_html_e( 'Then', 'woo-product-feed-pro' ); ?></th>
-                        <th><?php esc_html_e( 'IS', 'woo-product-feed-pro' ); ?></th>
-                            </tr>
-                    </thead>
+                        <th>
+                            <?php
+                            esc_html_e( 'IF', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Specify the condition under which this filter or rule will be applied. Choose an attribute or condition that will trigger this rule.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                        <th>
+                            <?php
+                            esc_html_e( 'Condition', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Define the specific condition to be met. Options include equals, not equals, greater than, less than, etc., depending on the selected attribute.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                        <th>
+                            <?php
+                            esc_html_e( 'Value', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Enter the value that the condition should match. This value will be compared against the attribute chosen in the IF field.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                        <th>
+                            <?php
+                            esc_html_e( 'CS', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Enable this option if the condition should be case-sensitive. This means that \'Product\' and \'product\' will be treated as different values.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                        <th>
+                            <?php
+                            esc_html_e( 'Then', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Specify the action to be taken if the condition is met. This could be including, excluding, or modifying a product attribute.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                        <th>
+                            <?php
+                            esc_html_e( 'IS', 'woo-product-feed-pro' );
+                            echo wc_help_tip( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                esc_html__(
+                                    'Define the result or value to be applied when the condition is met. This complements the action specified in the THEN field.',
+                                    'woo-product-feed-pro'
+                                )
+                            );
+                            ?>
+                        </th>
+                    </tr>
+                </thead>
       
                 <?php
                 // if(isset($project['rules'])){
@@ -120,7 +180,7 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                         <td><input type="hidden" name="rules[<?php echo "$rule_key"; ?>][rowCount]" value="<?php echo "$rule_key"; ?>"><input type="checkbox" name="record" class="checkbox-field"></td>
                                         <td><i><?php esc_html_e( 'Filter', 'woo-product-feed-pro' ); ?></i></td>
                                 <td>
-                                    <select name="rules[<?php echo "$rule_key"; ?>][attribute]" class="select-field">
+                                    <select name="rules[<?php echo "$rule_key"; ?>][attribute]" class="select-field woo-sea-select2">
                                         <option></option>
                                         <?php
                                         foreach ( $attributes as $k => $v ) {
@@ -134,7 +194,7 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                     </select>
                                 </td>
                                         <td>
-                                    <select name="rules[<?php echo "$rule_key"; ?>][condition]" class="select-field">
+                                    <select name="rules[<?php echo "$rule_key"; ?>][condition]" class="select-field woo-sea-select2">
                                         <?php
                                         if ( isset( $project['rules'][ $rule_key ]['condition'] ) && ( $project['rules'][ $rule_key ]['condition'] == 'contains' ) ) {
                                             print '<option value="contains" selected>contains</option>';
@@ -272,7 +332,7 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                     </select>
                                 </td>
                                         <td>
-                                    <select name="rules2[<?php echo "$rule2_key"; ?>][condition]" class="select-field">
+                                    <select name="rules2[<?php echo "$rule2_key"; ?>][condition]" class="select-field woo-sea-select2">
                                         <?php
                                         if ( isset( $project['rules2'][ $rule2_key ]['condition'] ) && ( $project['rules2'][ $rule2_key ]['condition'] == 'contains' ) ) {
                                             print '<option value="contains" selected>contains</option>';
@@ -384,7 +444,7 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                         ?>
                                     </td>
                                             <td>
-                                        <select name="rules2[<?php echo "$rule2_key"; ?>][than_attribute]" class="select-field" style="width:150px;">
+                                        <select name="rules2[<?php echo "$rule2_key"; ?>][than_attribute]" class="select-field woo-sea-select2" style="width:300px;">
                                             <option></option>
                                             <?php
                                             foreach ( $attributes as $k => $v ) {

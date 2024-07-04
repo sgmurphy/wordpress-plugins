@@ -74,7 +74,7 @@ class bafg_widget extends WP_Widget {
 				if (!empty($bafg_list) && !is_wp_error($bafg_list)) {
 					foreach ($bafg_list as $post) {
 						?>
-						<option value="<?php echo esc_attr($post->ID); ?>" <?php selected($post->ID, $bafg_post_id); ?>><?php echo esc_html($post->post_title); ?></option>
+						<option value="<?php echo esc_attr($post->ID); ?>" <?php selected($post->ID, $bafg_post_id); ?>><?php echo esc_html__($post->post_title, 'bafg' ); ?></option>
 						<?php
 					}
 				}

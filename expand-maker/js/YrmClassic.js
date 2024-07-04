@@ -47,6 +47,12 @@ YrmClassic.prototype.init = function () {
 			position = jQuery('#'+toggleContentId).offset().top;
             var currentStatus = JSON.parse(jQuery("#"+toggleContentId).attr('data-show-status'));
             var triggerArgs = {'id': id, 'currentElement': currentButton};
+			var enableClickSound = data['yrm-toggle-sound'];
+
+			if (enableClickSound) {
+				const audio = new Audio(data['sound-url']);
+				audio.play()
+			}
 
 
             /*if currentStatus == true must be close read more*/

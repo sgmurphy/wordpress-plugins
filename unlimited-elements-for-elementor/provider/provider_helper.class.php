@@ -865,8 +865,8 @@ class HelperProviderUC{
 
 		$capability = "manage_options";
 		if($permission == "editor")
-			$capability = "edit_posts";
-
+			$capability = "edit_pages";
+		
 		$isUserHasPermission = current_user_can($capability);
 
 		return($isUserHasPermission);

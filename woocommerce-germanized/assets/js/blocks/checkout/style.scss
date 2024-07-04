@@ -8,6 +8,13 @@
    }
 
    .is-large {
+     /**
+      * Somehow setting align-self: start unsets the 100 % sidebar height which disables sticky.
+      */
+     .wc-block-checkout__sidebar {
+       align-self: auto;
+     }
+
      .wc-block-components-totals-wrapper {
        &.wc-gzd-hide-total-wrapper {
          display: none;
@@ -19,18 +26,29 @@
      }
 
      .wc-gzd-checkout-submit {
+       margin-top: 1em;
+
        .wc-block-components-totals-wrapper {
          display: none;
+         border-top: none;
 
          &.wc-gzd-show-total-wrapper {
            display: block;
          }
        }
 
+       .wc-block-components-panel__content {
+        .wc-block-components-totals-wrapper {
+          display: block;
+        }
+       }
+
        position: sticky;
        top: 0;
 
        .wc-block-checkout__actions {
+         border-top: none;
+
          .wc-block-checkout__actions_row {
            display: flex;
            flex-wrap: wrap;
@@ -58,6 +76,13 @@
          display: none;
        }
      }
+   }
+
+   /**
+    * Prevent overflows for empty prices with width > 100 % tweak
+    */
+   .wc-block-components-order-summary .wc-block-components-order-summary-item__total-price {
+     min-width: 55px;
    }
 
    .wc-block-components-product-metadata {

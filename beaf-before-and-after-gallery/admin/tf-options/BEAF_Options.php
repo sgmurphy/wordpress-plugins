@@ -326,7 +326,7 @@ if (!class_exists('BEAF_Options')) {
 
 				<?php if (!empty($field['label'])): ?>
 					<label for="<?php echo esc_attr($id) ?>" class="tf-field-label">
-						<?php echo esc_html($field['label']) ?>
+						<?php echo esc_html__($field['label'], "bafg") ?>
 						<?php if ($is_pro): ?>
 							<div class="tf-csf-badge"><span class="tf-pro">
 									<?php esc_attr_e("Pro", "bafg"); ?>

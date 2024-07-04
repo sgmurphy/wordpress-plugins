@@ -62,28 +62,67 @@ class DismissibleNoticeService
         $dismissibleScript = <<<HTML
 <script type="text/javascript">
 window.onload = function() {
+    const successMessage = '[Tidio] Notice has been dismissed successfully.';
+    const errorMessageWithStatus = '[Tidio] Could not dismiss tidio notice. Status: ';
+    const attributeName = 'tidio-dismissible-url';
+    const dataAttributeName = 'data-' + attributeName;
+    const dataAttributeNameWithBrackets = '[' + dataAttributeName + ']';
+    const noticeClass = '.notice';
+
     if (window.jQuery) {
+        console.log("[Tidio] Dismiss script loaded with jQuery.");
+
         jQuery(document).ready(function() {
-            jQuery('[data-tidio-dismissible-url]').click(function(e) {
+            jQuery(dataAttributeNameWithBrackets).click(function(e) {
                 e.preventDefault();
-                const noticeParent = jQuery(this).closest('.notice');
-                
-                jQuery.ajax({ 
-                    url: jQuery(this).data('tidio-dismissible-url'),
+                const noticeParent = jQuery(this).closest(noticeClass);
+
+                noticeParent.fadeOut(200);
+
+                jQuery.ajax({
+                    url: jQuery(this).data(attributeName),
                     type: 'post',
                     success: function() {
-                        noticeParent.fadeOut(200);
+                        console.log(successMessage);
                     },
-                    error: function() {
-                        noticeParent.fadeOut(200);
-                        console.error('Could not dismiss tidio notice');
+                    error: function(e) {
+                        console.error(errorMessageWithStatus, e.status);
                     }
                 });
             });
         });
+    } else {
+        console.log("[Tidio] Dismiss script loaded with pure JS. jQuery couldn't be found.");
+
+        const elements = document.querySelectorAll(dataAttributeNameWithBrackets);
+        elements.forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const noticeParent = element.closest(noticeClass);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', element.getAttribute(dataAttributeName), true);
+
+                noticeParent.style.display = 'none';
+
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        console.log(successMessage);
+                    } else {
+                        console.error(errorMessageWithStatus, xhr.status);
+                    }
+                };
+
+                xhr.onerror = function() {
+                    console.error('[Tidio] Could not dismiss notice due to network error.');
+                };
+
+                xhr.send();
+            });
+        });
     }
-}
-</script>
+}</script>
 HTML;
 
         $scriptWithDismissiblePart = strtr($script . $dismissibleScript, ['{dismiss_url}' => $this->buildDismissibleNoticeHref($noticeName)]);

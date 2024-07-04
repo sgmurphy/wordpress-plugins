@@ -187,9 +187,49 @@ class IRP_AppOptions extends IRP_Options {
                 $result['borderColor']    = $this->getColor( $dt[$n]['borderColor'] );
             }
         }
+        if (isset($result['linkTarget']) && !empty($result['linkTarget']))
+        {
+            if ($result['linkTarget'] !== '_blank')
+            {
+                if ($result['linkTarget'] !== '_self')
+                {
+                    $result['linkTarget'] = '_blank';
+                }
+            }
+        }
+        if (isset($result['linkRel']) && !empty($result['linkRel']))
+        {
+            if ($result['linkRel'] !== 'dofollow')
+            {
+                if ($result['linkRel'] !== 'nofollow')
+                {
+                    $result['linkRel'] = 'nofollow';
+                }
+            }
+        }
         return $result;
     }
     public function setTemplateStyle($value) {
+        if (isset($value['linkTarget']) && !empty($value['linkTarget']))
+        {
+            if ($value['linkTarget'] !== '_blank')
+            {
+                if ($value['linkTarget'] !== '_self')
+                {
+                    $value['linkTarget'] = '_blank';
+                }
+            }
+        }
+        if (isset($value['linkRel']) && !empty($value['linkRel']))
+        {
+            if ($value['linkRel'] !== 'dofollow')
+            {
+                if ($value['linkRel'] !== 'nofollow')
+                {
+                    $value['linkRel'] = 'nofollow';
+                }
+            }
+        }
         $this->setOption('TemplateStyle', $value);
     }
 

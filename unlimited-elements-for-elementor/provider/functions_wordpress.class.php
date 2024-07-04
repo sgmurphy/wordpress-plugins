@@ -2897,11 +2897,14 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	 * update post ordering
 	 */
 	public static function updatePostOrdering($postID, $ordering){
-
+		
+		if(is_numeric($ordering) == false)
+			return(false);
+		
 		$arrUpdate = array(
 			'menu_order' => $ordering,
 		);
-
+		
 		self::updatePost($postID, $arrUpdate);
 	}
 
@@ -2909,7 +2912,7 @@ defined('UNLIMITED_ELEMENTS_INC') or die('Restricted access');
 	 * update post content
 	 */
 	public static function updatePostContent($postID, $content){
-
+		
 		$arrUpdate = array("post_content" => $content);
 		self::updatePost($postID, $arrUpdate);
 	}

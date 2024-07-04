@@ -93,7 +93,7 @@ function woosea_plugin_action_links( $links, $file ) {
         $plugin_links[] = '<a href="https://adtribes.io/support/?utm_source=pfp&utm_medium=pluginpage&utm_campaign=support" target="_blank" rel="noopener noreferrer">Support</a>';
         $plugin_links[] = '<a href="https://adtribes.io/tutorials/?utm_source=pfp&utm_medium=pluginpage&utm_campaign=tutorials" target="_blank" rel="noopener noreferrer">Tutorials</a>';
         $plugin_links[] = '<a href="' . admin_url( 'admin.php?page=woosea_manage_settings' ) . '">Settings</a>';
-        $plugin_links[] = '<a href="https://adtribes.io/pro-vs-elite/?utm_source=pfp&utm_medium=pluginpage&utm_campaign=go elite" target="_blank" style="color:green;" rel="noopener noreferrer"><b>Upgrade To Elite</b></a>';
+        $plugin_links[] = '<a href="https://adtribes.io/pricing/?utm_source=pfp&utm_medium=pluginpage&utm_campaign=goelite" target="_blank" style="color:green;" rel="noopener noreferrer"><b>Upgrade To Elite</b></a>';
 
         // add the links to the list of links already there.
         foreach ( $plugin_links as $link ) {
@@ -749,7 +749,7 @@ function woosea_getelite_notification() {
         'show'      => 'no',
         'timestamp' => date( 'd-m-Y' ),
     );
-    update_option( 'woosea_getelite_notification', $get_elite_notice );
+    update_option( 'woosea_getelite_notification', $get_elite_notice, false );
     wp_send_json_success( __( 'Notification successfully dismissed', 'woo-product-feed-pro' ) );
 }
 add_action( 'wp_ajax_woosea_getelite_notification', 'woosea_getelite_notification' );
@@ -770,7 +770,7 @@ function woosea_getelite_active_notification() {
             'show'      => 'no',
             'timestamp' => date( 'd-m-Y' ),
         );
-        update_option( 'woosea_getelite_active_notification', $get_elite_notice );
+        update_option( 'woosea_getelite_active_notification', $get_elite_notice, false );
     }
 }
 add_action( 'wp_ajax_woosea_getelite_active_notification', 'woosea_getelite_active_notification' );
@@ -798,7 +798,7 @@ function woosea_inject_ajax( $order_id ) {
     $customer_id = $order->get_user_id();
     $total       = $order->get_total();
 
-    update_option( 'last_order_id', $order_id );
+    update_option( 'last_order_id', $order_id, false );
 }
 add_action( 'woocommerce_thankyou', 'woosea_inject_ajax' );
 
@@ -837,7 +837,7 @@ function woosea_ajax() {
         if ( ! is_array( $attributes_dropdown ) ) {
             $attributes_obj      = new WooSEA_Attributes();
             $attributes_dropdown = $attributes_obj->get_product_attributes_dropdown();
-                update_option( 'attributes_dropdown', $attributes_dropdown, 'yes' );
+                update_option( 'attributes_dropdown', $attributes_dropdown, false );
         }
 
         $data = array(
@@ -927,7 +927,7 @@ function woosea_save_adwords_conversion_id() {
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
         $adwords_conversion_id = sanitize_text_field( $_POST['adwords_conversion_id'] );
         $adwords_conversion_id = woosea_sanitize_xss( $adwords_conversion_id );
-        update_option( 'woosea_adwords_conversion_id', $adwords_conversion_id );
+        update_option( 'woosea_adwords_conversion_id', $adwords_conversion_id, false );
     }
 }
 add_action( 'wp_ajax_woosea_save_adwords_conversion_id', 'woosea_save_adwords_conversion_id' );
@@ -960,7 +960,7 @@ function woosea_save_facebook_pixel_id() {
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
         $facebook_pixel_id = sanitize_text_field( $_POST['facebook_pixel_id'] );
         $facebook_pixel_id = woosea_sanitize_xss( $facebook_pixel_id );
-        update_option( 'woosea_facebook_pixel_id', $facebook_pixel_id );
+        update_option( 'woosea_facebook_pixel_id', $facebook_pixel_id, false );
     }
 }
 add_action( 'wp_ajax_woosea_save_facebook_pixel_id', 'woosea_save_facebook_pixel_id' );
@@ -977,7 +977,7 @@ function woosea_save_facebook_capi_token() {
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
         $facebook_capi_token = sanitize_text_field( $_POST['facebook_capi_token'] );
         $facebook_capi_token = woosea_sanitize_xss( $facebook_capi_token );
-        update_option( 'woosea_facebook_capi_token', $facebook_capi_token );
+        update_option( 'woosea_facebook_capi_token', $facebook_capi_token, false );
     }
 }
 add_action( 'wp_ajax_woosea_save_facebook_capi_token', 'woosea_save_facebook_capi_token' );
@@ -1018,7 +1018,7 @@ function woosea_add_mass_cat_mapping() {
             } else {
                 $project_temp['mappings'] = $mappings;
             }
-                    update_option( 'channel_project', $project_temp, 'yes' );
+                    update_option( 'channel_project', $project_temp, false );
         } else {
             // Only update the ones that changed.
             foreach ( $mappings as $categoryId => $catArray ) {
@@ -1062,7 +1062,7 @@ function woosea_add_cat_mapping() {
         $project_temp['mappings'][ $rowCount ]['criteria']        = $criteria;
         $project_temp['mappings'][ $rowCount ]['map_to_category'] = $map_to_category;
 
-                update_option( 'channel_project', $project_temp, 'yes' );
+                update_option( 'channel_project', $project_temp, false );
         $status_mapping = 'true';
         // This is updating an existing product feed.
     } else {
@@ -1959,7 +1959,7 @@ function woosea_project_delete() {
             unset( $feed_config[ $found_key ] );
 
             // Update cron.
-            update_option( 'cron_projects', $feed_config, 'no' );
+            update_option( 'cron_projects', $feed_config, false );
 
             // Remove project file.
             @unlink( $file );
@@ -2002,7 +2002,7 @@ function woosea_project_cancel() {
             }
         }
 
-        update_option( 'cron_projects', $feed_config, 'no' );
+        update_option( 'cron_projects', $feed_config, false );
     }
 }
 add_action( 'wp_ajax_woosea_project_cancel', 'woosea_project_cancel' );
@@ -2105,7 +2105,7 @@ function woosea_project_copy() {
                 $add_project[ $new_key ] = $val;
 
                 array_push( $feed_config, $add_project[ $new_key ] );
-                update_option( 'cron_projects', $feed_config, 'no' );
+                update_option( 'cron_projects', $feed_config, false );
 
                 // Do not start processing, user wants to make changes to the copied project.
                 $copy_status = 'true';
@@ -2200,7 +2200,7 @@ function woosea_project_refresh() {
                 $batch_project = 'batch_project_' . $project_hash;
 
                 if ( ! get_option( $batch_project ) ) {
-                    update_option( $batch_project, $val, 'no' );
+                    update_option( $batch_project, $val, false );
                     $final_creation = woosea_continue_batch( $project_hash );
                 } else {
                     $final_creation = woosea_continue_batch( $project_hash );
@@ -2230,7 +2230,7 @@ function woosea_add_attributes() {
                 $extra_attributes = array(
                     $attribute_value => $attribute_name,
                 );
-                update_option( 'woosea_extra_attributes', $extra_attributes, 'no' );
+                update_option( 'woosea_extra_attributes', $extra_attributes, false );
             }
         } else {
             $extra_attributes = get_option( 'woosea_extra_attributes' );
@@ -2241,12 +2241,12 @@ function woosea_add_attributes() {
                         $attribute_value => $attribute_name,
                     );
                     $extra_attributes = array_merge( $extra_attributes, $add_attribute );
-                    update_option( 'woosea_extra_attributes', $extra_attributes, 'no' );
+                    update_option( 'woosea_extra_attributes', $extra_attributes, false );
                 }
             } elseif ( $active == 'false' ) {
                     // remove from extra attributes array.
                     $extra_attributes = array_diff( $extra_attributes, array( $attribute_value => $attribute_name ) );
-                    update_option( 'woosea_extra_attributes', $extra_attributes, 'no' );
+                    update_option( 'woosea_extra_attributes', $extra_attributes, false );
             }
         }
 
@@ -2293,7 +2293,7 @@ function woosea_project_status() {
         }
 
         // Update cron with new project status.
-        update_option( 'cron_projects', $feed_config, 'no' );
+        update_option( 'cron_projects', $feed_config, false );
     }
 }
 add_action( 'wp_ajax_woosea_project_status', 'woosea_project_status' );
@@ -2309,115 +2309,10 @@ function woosea_review_notification() {
     $allowed_roles = array( 'administrator', 'editor', 'author' );
 
     if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        update_option( 'woosea_review_interaction', 'yes', 'yes' );
+        update_option( 'woosea_review_interaction', 'yes', false );
     }
 }
 add_action( 'wp_ajax_woosea_review_notification', 'woosea_review_notification' );
-
-/**
- * This function enables the setting to fix the.
- * WooCommerce structured data bug.
- */
-function woosea_enable_structured_data() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $status        = sanitize_text_field( $_POST['status'] );
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        if ( $status == 'off' ) {
-            update_option( 'structured_data_fix', 'no', 'yes' );
-        } else {
-            update_option( 'structured_data_fix', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_enable_structured_data', 'woosea_enable_structured_data' );
-
-/**
- * This function enables the setting to remove VAT from structured data prices
- */
-function woosea_structured_vat() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'structured_vat', 'no', 'yes' );
-        } else {
-            update_option( 'structured_vat', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_structured_vat', 'woosea_structured_vat' );
-
-/**
- * This function enables the setting to add Product data manipulation support
- */
-function woosea_add_manipulation() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_manipulation_support', 'no', 'yes' );
-        } else {
-            update_option( 'add_manipulation_support', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_manipulation', 'woosea_add_manipulation' );
-
-/**
- * This function enables the setting to add WPML support.
- */
-function woosea_add_wpml() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_wpml_support', 'no', 'yes' );
-        } else {
-            update_option( 'add_wpml_support', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_wpml', 'woosea_add_wpml' );
-
-/**
- * This function enables the setting to add Aelia support.
- */
-function woosea_add_aelia() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_aelia_support', 'no', 'yes' );
-        } else {
-            update_option( 'add_aelia_support', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_aelia', 'woosea_add_aelia' );
 
 /**
  * This function enables the setting to use Mother main image for all product variations.
@@ -2432,9 +2327,9 @@ function woosea_add_mother_image() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_mother_image', 'no', 'yes' );
+            update_option( 'add_mother_image', 'no' );
         } else {
-            update_option( 'add_mother_image', 'yes', 'yes' );
+            update_option( 'add_mother_image', 'yes' );
         }
     }
 }
@@ -2453,9 +2348,9 @@ function woosea_add_all_shipping() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_all_shipping', 'no', 'yes' );
+            update_option( 'add_all_shipping', 'no' );
         } else {
-            update_option( 'add_all_shipping', 'yes', 'yes' );
+            update_option( 'add_all_shipping', 'yes' );
         }
     }
 }
@@ -2474,9 +2369,9 @@ function woosea_free_shipping() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'free_shipping', 'no', 'yes' );
+            update_option( 'free_shipping', 'no' );
         } else {
-            update_option( 'free_shipping', 'yes', 'yes' );
+            update_option( 'free_shipping', 'yes' );
         }
     }
 }
@@ -2495,9 +2390,9 @@ function woosea_local_pickup_shipping() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'local_pickup_shipping', 'no', 'yes' );
+            update_option( 'local_pickup_shipping', 'no' );
         } else {
-            update_option( 'local_pickup_shipping', 'yes', 'yes' );
+            update_option( 'local_pickup_shipping', 'yes' );
         }
     }
 }
@@ -2516,9 +2411,9 @@ function woosea_remove_free_shipping() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'remove_free_shipping', 'no', 'yes' );
+            update_option( 'remove_free_shipping', 'no' );
         } else {
-            update_option( 'remove_free_shipping', 'yes', 'yes' );
+            update_option( 'remove_free_shipping', 'yes' );
         }
     }
 }
@@ -2537,9 +2432,9 @@ function woosea_add_woosea_logging() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_woosea_logging', 'no', 'yes' );
+            update_option( 'add_woosea_logging', 'no' );
         } else {
-            update_option( 'add_woosea_logging', 'yes', 'yes' );
+            update_option( 'add_woosea_logging', 'yes' );
         }
     }
 }
@@ -2558,34 +2453,13 @@ function woosea_add_woosea_basic() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_woosea_basic', 'no', 'yes' );
+            update_option( 'add_woosea_basic', 'no' );
         } else {
-            update_option( 'add_woosea_basic', 'yes', 'yes' );
+            update_option( 'add_woosea_basic', 'yes' );
         }
     }
 }
 add_action( 'wp_ajax_woosea_add_woosea_basic', 'woosea_add_woosea_basic' );
-
-/**
- * This function enables the setting to add CDATA to title and descriptions.
- */
-function woosea_add_woosea_cdata() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_woosea_cdata', 'no', 'yes' );
-        } else {
-            update_option( 'add_woosea_cdata', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_woosea_cdata', 'woosea_add_woosea_cdata' );
 
 /**
  * This function enables the setting to add the Faceook pixel.
@@ -2600,34 +2474,13 @@ function woosea_add_facebook_pixel_setting() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_facebook_pixel', 'no', 'yes' );
+            update_option( 'add_facebook_pixel', 'no' );
         } else {
-            update_option( 'add_facebook_pixel', 'yes', 'yes' );
+            update_option( 'add_facebook_pixel', 'yes' );
         }
     }
 }
 add_action( 'wp_ajax_woosea_add_facebook_pixel_setting', 'woosea_add_facebook_pixel_setting' );
-
-/**
- * This function enables the setting to enable the Faceook Conversion API (CAPI).
- */
-function woosea_add_facebook_capi_setting() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_facebook_capi', 'no', 'yes' );
-        } else {
-            update_option( 'add_facebook_capi', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_facebook_capi_setting', 'woosea_add_facebook_capi_setting' );
 
 /**
  * This function saves the value that needs to be used in the Facebook pixel content_ids parameter.
@@ -2642,9 +2495,9 @@ function woosea_facebook_content_ids() {
         $content_ids = sanitize_text_field( $_POST['content_ids'] );
 
         if ( $content_ids == 'variable' ) {
-            update_option( 'add_facebook_pixel_content_ids', 'variable', 'yes' );
+            update_option( 'add_facebook_pixel_content_ids', 'variable', false );
         } else {
-            update_option( 'add_facebook_pixel_content_ids', 'variation', 'yes' );
+            update_option( 'add_facebook_pixel_content_ids', 'variation', false );
         }
     }
 }
@@ -2663,9 +2516,9 @@ function woosea_add_remarketing() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_remarketing', 'no', 'yes' );
+            update_option( 'add_remarketing', 'no' );
         } else {
-            update_option( 'add_remarketing', 'yes', 'yes' );
+            update_option( 'add_remarketing', 'yes' );
         }
     }
 }
@@ -2684,34 +2537,13 @@ function woosea_add_batch() {
         $status = sanitize_text_field( $_POST['status'] );
 
         if ( $status == 'off' ) {
-            update_option( 'add_batch', 'no', 'yes' );
+            update_option( 'add_batch', 'no' );
         } else {
-            update_option( 'add_batch', 'yes', 'yes' );
+            update_option( 'add_batch', 'yes' );
         }
     }
 }
 add_action( 'wp_ajax_woosea_add_batch', 'woosea_add_batch' );
-
-/**
- * This function enables the setting to add identifiers GTIN, MPN, EAN, UPC, Brand and Condition.
- */
-function woosea_add_identifiers() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $status = sanitize_text_field( $_POST['status'] );
-
-        if ( $status == 'off' ) {
-            update_option( 'add_unique_identifiers', 'no', 'yes' );
-        } else {
-            update_option( 'add_unique_identifiers', 'yes', 'yes' );
-        }
-    }
-}
-add_action( 'wp_ajax_woosea_add_identifiers', 'woosea_add_identifiers' );
 
 /**
  * This function add the actual fields to the edit product page for single products
@@ -4164,6 +3996,9 @@ function woosea_update_project_history( $project_hash ) {
         return;
     }
 
+    // Filter the amount of history products in the system report.
+    $max_history_products = apply_filters( 'woosea_max_history_products', 10 );
+
     foreach ( $feed_config as $key => $project ) {
         if ( $project['project_hash'] !== $project_hash ) {
             continue;
@@ -4211,10 +4046,15 @@ function woosea_update_project_history( $project_hash ) {
                 } else {
                     $feed_config[ $key ]['history_products'] = $number_run;
                 }
+
+                // Limit the amount of history products.
+                if ( count( $feed_config[ $key ]['history_products'] ) > $max_history_products ) {
+                    $feed_config[ $key ]['history_products'] = array_slice( $feed_config[ $key ]['history_products'], - $max_history_products, null, true );
+                }
             }
         }
 
-        update_option( 'cron_projects', $feed_config );
+        update_option( 'cron_projects', $feed_config, false );
     }
 }
 add_action( 'woosea_update_project_stats', 'woosea_update_project_history', 1, 1 );
@@ -4469,7 +4309,7 @@ function woosea_generate_pages() {
 
         if ( ! get_option( $batch_project ) ) {
             // Batch project hook expects a multidimentional array.
-            update_option( $batch_project, $project_data, 'no' );
+            update_option( $batch_project, $project_data, false );
             $final_creation = woosea_continue_batch( $project_data['project_hash'] );
         } else {
             $final_creation = woosea_continue_batch( $project_data['project_hash'] );
@@ -4504,9 +4344,6 @@ function woosea_generate_pages() {
             break;
         case 8:
             load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-statistics-feed.php' );
-            break;
-        case 9:
-            load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-generate-feed-step-9.php' );
             break;
         case 100:
             load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-manage-feed.php' );
@@ -4616,7 +4453,7 @@ function woosea_create_all_feeds() {
                     $batch_project = 'batch_project_' . $val['project_hash'];
 
                     if ( ! get_option( $batch_project ) ) {
-                        update_option( $batch_project, $val, 'no' );
+                        update_option( $batch_project, $val, false );
                         $start_project = woosea_continue_batch( $val['project_hash'] );
                     } else {
                         $start_project = woosea_continue_batch( $val['project_hash'] );
@@ -4627,7 +4464,7 @@ function woosea_create_all_feeds() {
                     $batch_project = 'batch_project_' . $val['project_hash'];
 
                     if ( ! get_option( $batch_project ) ) {
-                        update_option( $batch_project, $val, 'no' );
+                        update_option( $batch_project, $val, false );
                         $start_project = woosea_continue_batch( $val['project_hash'] );
                     } else {
                         $start_project = woosea_continue_batch( $val['project_hash'] );
@@ -4639,7 +4476,7 @@ function woosea_create_all_feeds() {
                     $batch_project = 'batch_project_' . $val['project_hash'];
 
                     if ( ! get_option( $batch_project ) ) {
-                        update_option( $batch_project, $val, 'no' );
+                        update_option( $batch_project, $val, false );
                         $start_project = woosea_continue_batch( $val['project_hash'] );
                     } else {
                         $start_project = woosea_continue_batch( $val['project_hash'] );
@@ -4652,7 +4489,7 @@ function woosea_create_all_feeds() {
                     $batch_project = 'batch_project_' . $val['project_hash'];
 
                     if ( ! get_option( $batch_project ) ) {
-                        update_option( $batch_project, $val, 'no' );
+                        update_option( $batch_project, $val, false );
                         $start_project = woosea_continue_batch( $val['project_hash'] );
                     } else {
                         $start_project = woosea_continue_batch( $val['project_hash'] );
@@ -4665,7 +4502,7 @@ function woosea_create_all_feeds() {
     }
 
     // set products update flag back to no.
-    update_option( 'woosea_allow_update', 'no' );
+    update_option( 'woosea_allow_update', 'no', false );
 }
 
 /**
@@ -4683,7 +4520,7 @@ function woosea_nr_products( $project_hash, $nr_products ) {
         }
     }
 
-    update_option( 'cron_projects', $feed_config, 'no' );
+    update_option( 'cron_projects', $feed_config, false );
 }
 
 /**
@@ -4715,7 +4552,7 @@ function woosea_last_updated( $project_hash ) {
         }
     }
 
-    update_option( 'cron_projects', $feed_config, 'no' );
+    update_option( 'cron_projects', $feed_config, false );
 
     return $last_updated;
 }
@@ -4785,7 +4622,7 @@ function woosea_before_product_save( $post_id ) {
             );
 
             if ( ! get_option( 'product_changes' ) ) {
-                update_option( 'product_changes', $before, '', 'yes' );
+                update_option( 'product_changes', $before, false );
             }
         }
     }
@@ -4842,13 +4679,13 @@ function woosea_on_product_save( $product_id ) {
                     $diff['product_id'] = $product_id;
                 } else {
                     // Enable the product changed flag.
-                    update_option( 'woosea_allow_update', 'no' );
+                    update_option( 'woosea_allow_update', false );
                 }
 
                 delete_option( 'product_changes' );
             } else {
                 // Enable the product changed flag.
-                update_option( 'woosea_allow_update', 'no' );
+                update_option( 'woosea_allow_update', false );
             }
         }
     }

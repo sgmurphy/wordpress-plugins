@@ -888,6 +888,13 @@ Note : This plugin works with Elementor. Make sure you have [Elementor](https://
 
 == Changelog ==
 
+
+version 1.5.113: 2024-07-04
+
+* Fix: fixed some small security issues found by wordfence
+* Feature: added search fitler to url replace in post widgets filters
+
+
 version 1.5.112: 2024-07-01
 
 Plugin Changes:

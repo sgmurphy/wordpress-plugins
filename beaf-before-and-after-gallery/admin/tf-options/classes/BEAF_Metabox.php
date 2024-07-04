@@ -92,7 +92,7 @@ if ( ! class_exists( 'BEAF_Metabox' ) ) {
 						<a class="tf-tablinks <?php echo $section_count == 0 ? 'active' : ''; ?>"
 							data-tab="<?php echo esc_attr( $key ) ?>">
 							<?php echo ! empty( $section['icon'] ) ? '<span class="tf-sec-icon"><i class="' . esc_attr( $section['icon'] ) . '"></i></span>' : ''; ?>
-							<?php echo esc_html( $section['title'] ); ?>
+							<?php echo esc_html__( $section['title'], "bafg" ); ?>
 						</a>
 						<?php $section_count++; endforeach; ?>
 				</div>

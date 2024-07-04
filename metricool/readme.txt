@@ -1,8 +1,8 @@
 === Metricool ===
 Tags: metricool, analytics, tracking, blog, metrics
 Requires at least: 3.6
-Tested up to: 6.5
-Stable tag: 1.21
+Tested up to: 6.6
+Stable tag: 1.22
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,3 +63,5 @@ You can follow us on Twitter: http://twitter.com/metricool/
 * Tested 6.3
 = 1.21 =
 * Tested 6.5
+= 1.22 =
+* Tested 6.6

@@ -81,6 +81,21 @@ class APIClient
     }
 
     /**
+     * @param string $newVersion
+     * @return bool
+     */
+    public function update($newVersion)
+    {
+        $settings = $this->plugin->getSettings();
+        $this->request('update', [
+            'api_key' => $settings['api_key'],
+            'new_version' => $newVersion,
+        ]);
+
+        return true;
+    }
+
+    /**
      * @param \WP_User $wpUser
      * @return array<string, int|string>
      */
@@ -131,6 +146,15 @@ class APIClient
             'status' => 0,
             'error' => $this->error,
         ];
+    }
+
+    /**
+     * @param $status string
+     * @param $data
+     */
+    public function changePostStatus($status, $data)
+    {
+        return $this->request('post_' . $status, $data);
     }
 
     public function disconnect()

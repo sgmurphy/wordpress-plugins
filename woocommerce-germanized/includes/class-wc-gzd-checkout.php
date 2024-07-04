@@ -133,8 +133,14 @@ class WC_GZD_Checkout {
 		add_action( 'template_redirect', array( $this, 'maybe_remove_shopmark_filters' ) );
 		add_action( 'woocommerce_checkout_update_order_review', array( $this, 'maybe_remove_shopmark_filters' ) );
 
-		// Hide the newly introduced state field for Germany since Woo 6.3
-		add_filter( 'woocommerce_states', array( __CLASS__, 'filter_de_states' ) );
+		/**
+		 * Hide the newly introduced state field for Germany since Woo 6.3.
+		 * Use a filter for the customer object to prevent output in formatted addresses within checkout block.
+		 */
+		add_filter( 'woocommerce_states', array( $this, 'filter_de_states' ) );
+		add_filter( 'woocommerce_get_country_locale', array( $this, 'filter_de_states_locale' ) );
+		add_filter( 'woocommerce_customer_get_billing_state', array( $this, 'filter_de_states_customer' ), 10, 2 );
+		add_filter( 'woocommerce_customer_get_shipping_state', array( $this, 'filter_de_states_customer' ), 10, 2 );
 
 		if ( 'never' !== get_option( 'woocommerce_gzd_checkout_validate_street_number' ) ) {
 			// Maybe force street number during checkout
@@ -285,14 +291,30 @@ class WC_GZD_Checkout {
 		if ( is_a( $checkbox, 'WC_GZD_Legal_Checkbox' ) ) {
 			$checkbox_id = $checkbox->get_id();
 			$value       = $this->get_checkout_value( $checkbox->get_html_name() ) ? self::instance()->get_checkout_value( $checkbox->get_html_name() ) : '';
-			$visible     = ! empty( $this->get_checkout_value( $checkbox->get_html_name() . '-field' ) ) ? true : false;
 
-			if ( $visible && ( ! empty( $value ) || $checkbox->hide_input() ) ) {
+			if ( $this->checkbox_is_visible( $checkbox ) && ( ! empty( $value ) || $checkbox->hide_input() ) ) {
 				$is_checked = true;
 			}
 		}
 
 		return apply_filters( 'woocommerce_gzd_checkout_checkbox_is_checked', $is_checked, $checkbox_id );
+	}
+
+	/**
+	 * @param WC_GZD_Legal_Checkbox|string $checkbox_id
+	 *
+	 * @return boolean
+	 */
+	public function checkbox_is_visible( $checkbox_id ) {
+		$is_visible = false;
+		$checkbox   = is_a( $checkbox_id, 'WC_GZD_Legal_Checkbox' ) ? $checkbox_id : WC_GZD_Legal_Checkbox_Manager::instance()->get_checkbox( $checkbox_id );
+
+		if ( is_a( $checkbox, 'WC_GZD_Legal_Checkbox' ) ) {
+			$checkbox_id = $checkbox->get_id();
+			$is_visible  = ! empty( $this->get_checkout_value( $checkbox->get_html_name() . '-field' ) ) ? true : false;
+		}
+
+		return apply_filters( 'woocommerce_gzd_checkout_checkbox_is_visible', $is_visible, $checkbox_id );
 	}
 
 	/**
@@ -331,7 +353,7 @@ class WC_GZD_Checkout {
 							$_product->set_tax_class( get_option( 'woocommerce_gzd_photovoltaic_systems_zero_tax_class', 'zero-rate' ) );
 						}
 					}
-				} elseif ( apply_filters( 'woocommerce_gzd_photovoltaic_systems_remove_zero_tax_class_for_non_exemptions', ( ! is_cart() ) ) ) {
+				} elseif ( apply_filters( 'woocommerce_gzd_photovoltaic_systems_remove_zero_tax_class_for_non_exemptions', ( is_checkout() || $this->checkbox_is_visible( 'photovoltaic_systems' ) ) ) ) {
 					foreach ( $cart->get_cart() as $cart_item_key => $values ) {
 						$_product = apply_filters( 'woocommerce_cart_item_product', $values['data'], $values, $cart_item_key );
 
@@ -374,12 +396,41 @@ class WC_GZD_Checkout {
 		return false;
 	}
 
-	public static function filter_de_states( $states ) {
-		if ( apply_filters( 'woocommerce_gzd_disable_de_checkout_state_select', ( is_checkout() ) ) && isset( $states['DE'] ) ) {
+	protected function disable_de_state_select() {
+		return apply_filters( 'woocommerce_gzd_disable_de_checkout_state_select', ( is_checkout() || WC_germanized()->is_rest_api_request() ) );
+	}
+
+	/**
+	 * @param string $state
+	 * @param WC_Customer $customer
+	 *
+	 * @return string
+	 */
+	public function filter_de_states_customer( $state, $customer ) {
+		$is_shipping = doing_filter( 'woocommerce_customer_get_shipping_state' ) ? true : false;
+		$country     = $is_shipping && $customer->get_shipping_country() ? $customer->get_shipping_country() : $customer->get_billing_country();
+
+		if ( $this->disable_de_state_select() && 'DE' === $country ) {
+			$state = '';
+		}
+
+		return $state;
+	}
+
+	public function filter_de_states( $states ) {
+		if ( $this->disable_de_state_select() && isset( $states['DE'] ) ) {
 			$states['DE'] = array();
 		}
 
 		return $states;
+	}
+
+	public function filter_de_states_locale( $locale ) {
+		if ( $this->disable_de_state_select() && isset( $locale['DE'], $locale['DE']['state'] ) ) {
+			$locale['DE']['state']['hidden'] = true;
+		}
+
+		return $locale;
 	}
 
 	/**

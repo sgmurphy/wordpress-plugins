@@ -35,7 +35,7 @@ if ( ! class_exists( 'TF_date' ) ) {
 			if ( $range ): ?>
                 <div class="tf-date-range">
                     <div class="tf-date-from">
-                        <label for="" class="tf-field-label"><?php echo esc_html( $args['label_from'] ) ?></label>
+                        <label for="" class="tf-field-label"><?php echo esc_html__( $args['label_from'], 'bafg' ) ?></label>
                         <div class="" style="position:relative;">
                             <input type="text" name="<?php echo esc_attr( $this->field_name() ); ?>[from]" placeholder="<?php echo esc_attr( $placeholder ) ?>" value="<?php echo esc_attr( $value['from'] ); ?>"
                                    class="flatpickr " data-format="<?php echo esc_attr( $format ); ?>" <?php echo esc_attr($this->field_attributes()) ?> data-min-date="<?php echo esc_attr( $minDate ); ?>"/>
@@ -43,7 +43,7 @@ if ( ! class_exists( 'TF_date' ) ) {
                         </div>
                     </div>
                     <div class="tf-date-to">
-                        <label for="" class="tf-field-label"><?php echo esc_html( $args['label_to'] ) ?></label>
+                        <label for="" class="tf-field-label"><?php echo esc_html__( $args['label_to'], 'bafg' ) ?></label>
                         <div class="" style="position:relative;">
                             <input type="text" name="<?php echo esc_attr( $this->field_name() ); ?>[to]" placeholder="<?php echo esc_attr( $placeholder ) ?>" value="<?php echo esc_attr( $value['to'] ); ?>"
                                    class="flatpickr " data-format="<?php echo esc_attr( $format ); ?>" <?php echo esc_attr($this->field_attributes()) ?> data-min-date="<?php echo esc_attr( $minDate ); ?>"/>

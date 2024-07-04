@@ -1,5 +1,5 @@
 === OoohBoi Steroids for Elementor ===
-Contributors: OoohBoi
+Contributors: OoohBoi, elementoraddon
 Tags: page-builder, elementor, add-on, background-overlay, vertical text, ghost elements, overlapping columns
 Donate link: https://www.paypal.me/ooohboi
 Requires at least: 5.0

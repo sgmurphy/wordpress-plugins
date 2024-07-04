@@ -257,25 +257,28 @@ class Math_BigInteger
             }
         }
 
-        if (function_exists('phpinfo') && extension_loaded('openssl') && !defined('MATH_BIGINTEGER_OPENSSL_DISABLE') && !defined('MATH_BIGINTEGER_OPENSSL_ENABLED')) {
-            // some versions of XAMPP have mismatched versions of OpenSSL which causes it not to work
-            ob_start();
-            @phpinfo();
-            $content = ob_get_contents();
-            ob_end_clean();
-
-            preg_match_all('#OpenSSL (Header|Library) Version(.*)#im', $content, $matches);
-
+        if (extension_loaded('openssl') && !defined('MATH_BIGINTEGER_OPENSSL_DISABLE') && !defined('MATH_BIGINTEGER_OPENSSL_ENABLED')) {
             $versions = array();
-            if (!empty($matches[1])) {
-                for ($i = 0; $i < count($matches[1]); $i++) {
-                    $fullVersion = trim(str_replace('=>', '', strip_tags($matches[2][$i])));
 
-                    // Remove letter part in OpenSSL version
-                    if (!preg_match('/(\d+\.\d+\.\d+)/i', $fullVersion, $m)) {
-                        $versions[$matches[1][$i]] = $fullVersion;
-                    } else {
-                        $versions[$matches[1][$i]] = $m[0];
+            if (function_exists('phpinfo')) {
+                // some versions of XAMPP have mismatched versions of OpenSSL which causes it not to work
+                ob_start();
+                @phpinfo();
+                $content = ob_get_contents();
+                ob_end_clean();
+
+                preg_match_all('#OpenSSL (Header|Library) Version(.*)#im', $content, $matches);
+
+                if (!empty($matches[1])) {
+                    for ($i = 0; $i < count($matches[1]); $i++) {
+                        $fullVersion = trim(str_replace('=>', '', strip_tags($matches[2][$i])));
+
+                        // Remove letter part in OpenSSL version
+                        if (!preg_match('/(\d+\.\d+\.\d+)/i', $fullVersion, $m)) {
+                            $versions[$matches[1][$i]] = $fullVersion;
+                        } else {
+                            $versions[$matches[1][$i]] = $m[0];
+                        }
                     }
                 }
             }
@@ -368,7 +371,7 @@ class Math_BigInteger
                         break;
                     case MATH_BIGINTEGER_MODE_BCMATH:
                         // round $len to the nearest 4 (thanks, DavidMJ!)
-                        $len = (strlen($x) + 3) & 0xFFFFFFFC;
+                        $len = (strlen($x) + 3) & ~3;
 
                         $x = str_pad($x, $len, chr(0), STR_PAD_LEFT);
 
@@ -404,7 +407,7 @@ class Math_BigInteger
                     $x = substr($x, 1);
                 }
 
-                $x = preg_replace('#^(?:0x)?([A-Fa-f0-9]*).*#', '$1', $x);
+                $x = preg_replace('#^(?:0x)?([A-Fa-f0-9]*).*#s', '$1', $x);
 
                 $is_negative = false;
                 if ($base < 0 && hexdec($x[0]) >= 8) {
@@ -440,7 +443,7 @@ class Math_BigInteger
                 // (?<!^)(?:-).*: find any -'s that aren't at the beginning and then any characters that follow that
                 // (?<=^|-)0*: find any 0's that are preceded by the start of the string or by a - (ie. octals)
                 // [^-0-9].*: find any non-numeric characters and then any characters that follow that
-                $x = preg_replace('#(?<!^)(?:-).*|(?<=^|-)0*|[^-0-9].*#', '', $x);
+                $x = preg_replace('#(?<!^)(?:-).*|(?<=^|-)0*|[^-0-9].*#s', '', $x);
                 if (!strlen($x) || $x == '-') {
                     $x = '0';
                 }
@@ -482,7 +485,7 @@ class Math_BigInteger
                     $x = substr($x, 1);
                 }
 
-                $x = preg_replace('#^([01]*).*#', '$1', $x);
+                $x = preg_replace('#^([01]*).*#s', '$1', $x);
                 $x = str_pad($x, strlen($x) + (3 * strlen($x)) % 4, 0, STR_PAD_LEFT);
 
                 $str = '0x';
@@ -744,6 +747,33 @@ class Math_BigInteger
         }
 
         return $result;
+    }
+
+    /**
+     * Return the size of a BigInteger in bits
+     *
+     * @return int
+     */
+    function getLength()
+    {
+        if (MATH_BIGINTEGER_MODE != MATH_BIGINTEGER_MODE_INTERNAL) {
+            return strlen($this->toBits());
+        }
+
+        $max = count($this->value) - 1;
+        return $max != -1 ?
+            $max * MATH_BIGINTEGER_BASE + intval(ceil(log($this->value[$max] + 1, 2))) :
+            0;
+    }
+
+    /**
+     * Return the size of a BigInteger in bytes
+     *
+     * @return int
+     */
+    function getLengthInBytes()
+    {
+        return (int) ceil($this->getLength() / 8);
     }
 
     /**
@@ -3283,6 +3313,11 @@ class Math_BigInteger
             $min = $temp;
         }
 
+        $length = $max->getLength();
+        if ($length > 8196) {
+            user_error('Generation of random prime numbers larger than 8196 has been disabled');
+        }
+
         static $one, $two;
         if (!isset($one)) {
             $one = new Math_BigInteger(1);
@@ -3390,7 +3425,14 @@ class Math_BigInteger
      */
     function isPrime($t = false)
     {
-        $length = strlen($this->toBytes());
+        $length = $this->getLength();
+        // OpenSSL limits RSA keys to 16384 bits. The length of an RSA key is equal to the length of the modulo, which is
+        // produced by multiplying the primes p and q by one another. The largest number two 8196 bit primes can produce is
+        // a 16384 bit number so, basically, 8196 bit primes are the largest OpenSSL will generate and if that's the largest
+        // that it'll generate it also stands to reason that that's the largest you'll be able to test primality on
+        if ($length > 8196) {
+            user_error('Primality testing is not supported for numbers larger than 8196 bits');
+        }
 
         if (!$t) {
             // see HAC 4.49 "Note (controlling the error probability)"

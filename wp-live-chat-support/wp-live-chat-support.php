@@ -4,7 +4,7 @@
   Plugin Name: 3CX Live Chat
   Plugin URI: https://www.3cx.com/wp-live-chat/
   Description: Chat and Call with your web visitors for free. Setup your free 3CX account to activate.
-  Version: 10.0.13
+  Version: 10.0.14
   Author: 3CX
   Author URI: https://www.3cx.com/wp-live-chat/
   Domain Path: /languages
@@ -89,18 +89,21 @@ function wplc_admin_notice_error() {
       $message = __( 'Call & message for free with 3CX SMB!', 'wp-live-chat-support' );
       $message .= '&nbsp;<a href="'.admin_url().'admin.php?page=wplc_options">'.__( 'Activate Now', 'wp-live-chat-support' ).'</a>';
       printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+      return;
     }
     if (!$options['callus_url']) {
       $class = 'notice notice-warning';
       $message = __( 'Receive calls from your unique link with 3CX Talk.', 'wp-live-chat-support' );
       $message .= '&nbsp;<a href="'.admin_url().'admin.php?page=wplc_options">'.__( 'Configure', 'wp-live-chat-support' ).'</a>';
       printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+      return;
     }
     if ($options['show_all_pages']==0 && empty($options['include_pages'])) {
       $class = 'notice notice-warning';
       $message = __( 'Free Live Chat with web visitors with 3CX Live Chat!', 'wp-live-chat-support' );
       $message .= '&nbsp;<a href="'.admin_url().'admin.php?page=wplc_options">'.__( 'Enable Live Chat', 'wp-live-chat-support' ).'</a>';
       printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+      return;
     }
   }
 }

@@ -3,8 +3,8 @@ Contributors: DavidAnderson, TerraFrost, pmbaldha
 Donate link: https://sourceforge.net/donate/index.php?group_id=198487
 Tags: ssh, sftp
 Requires at least: 3.1
-Tested up to: 6.5
-Stable tag: 0.8.5
+Tested up to: 6.6
+Stable tag: 0.8.6
 
 "SSH SFTP Updater Support" is the easiest way to keep your WordPress installation up-to-date with SFTP.
 
@@ -38,6 +38,10 @@ a) `define('FS_METHOD', 'ssh2');`
 b) Others as <a href="https://developer.wordpress.org/apis/wp-config-php/#wordpress-upgrade-constants">detailed in the official WP codex</a> or various other articles (Google for things like WordPress updates via SFTP).
 
 == Changelog ==
+
+= 0.8.6 - 2024/Jul/04 =
+
+* TWEAK: Update to latest 1.0.x version of phpseclib
 
 = 0.8.5 - 2022/Dec/08 =
 
@@ -128,4 +132,4 @@ b) Others as <a href="https://developer.wordpress.org/apis/wp-config-php/#wordpr
 * Initial Release
 
 == Upgrade Notice ==
-* 0.8.5 : Update URL reference to current location
+* 0.8.6: Update to the latest phpseclib 1.0.x version

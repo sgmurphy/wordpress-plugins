@@ -3,11 +3,11 @@ Contributors: iqpascal
 Donate link: https://webence.nl/plugins/donate
 Tags: spam, block, country, comments, ban, geo, geo blocking, geo ip, block country, block countries, ban countries, ban country, allow list, block list, security
 Requires at least: 3.5.2
-Tested up to: 6.5.4
-Stable tag: 1.2.21
+Tested up to: 6.5.5
+Stable tag: 1.2.23
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 8.1
+Requires PHP: 7.4
 
 Allow or disallow visitors from certain countries accessing (parts of) your website
 
@@ -69,6 +69,17 @@ If you use the GeoIP API service you send the IP address of your visitor to one 
 
 Disclaimer: No guarantees are made but after some light testing the following caching plugins seem to work: Comet Cache, WP Super Cache
 Plugins that do NOT work: W3 Total Cache, Hyper cache, WPRocket
+
+Warning: Caching & Geo Blocking do not work well together. 
+
+In the best case scenario countries or IP's you want to block get served a page from cache and when visiting non cached pages they get blocked. This is due to the fact when pages are served from cache the iQ Block Country plugin does not get started and can't do it's job.
+
+If the caching plugin however ignores the caching headers you risk the chance that the block message gets cached and everyone gets to see they are blocked even the countries that you did not block. 
+
+If you're fine with blocked countries getting served the page from cache then you're fine using the iQ Block Country plugin. 
+
+If you're not you should disable either the cache or the Geo Blocking. Or search for another solution outside WordPress (for instance by using the Varnish software) where you can GeoBlock at a caching level.
+
 
 == Installation ==
 
@@ -283,6 +294,10 @@ Privacy policy regarding this service specific can be found here: https://webenc
 
 
 == Changelog ==
+
+= 1.2.23 =
+
+* Change: Upgraded the GeoIP Library to the latest version.
 
 = 1.2.21 =
 

@@ -288,6 +288,12 @@ const BusinessTypes = () => {
 		}
 	};
 
+	const debouncedType = useDebounce( watchedKeyword, 500 );
+
+	useEffect( () => {
+		setWebsiteTypeAIStep( watchedKeyword );
+	}, [ debouncedType ] );
+
 	return (
 		<div
 			id="business-types-suggestions"

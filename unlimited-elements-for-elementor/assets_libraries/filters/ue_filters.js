@@ -2606,7 +2606,7 @@ function UEDynamicFilters(){
 
 				//save initial state
 				var isStateEmpty = jQuery.isEmptyObject(history.state);
-
+				
 				var objState = {"ucaction":"change", "ajaxurl":ajaxUrl, "gridid":gridID, selected_terms:arrTerms};
 
 				if(isStateEmpty){
@@ -3350,7 +3350,7 @@ function UEDynamicFilters(){
 
 		if(page){
 			urlAjax += "&ucpage="+page;
-
+			
 			urlReplace = addUrlParam(urlReplace, "ucpage="+page);
 		}
 
@@ -3406,11 +3406,13 @@ function UEDynamicFilters(){
 		//search
 		if(search){
 			search = encodeURIComponent(search);
-
+			
 			//search = escape(search);
 			urlAjax += "&ucs=" + search;
 
 			urlFilterString = addUrlParam(urlFilterString, "ucs=" + search);
+			
+			urlReplace += "&ucs=" + search;
 		}
 
 		//avoid duplicates - exclude, disable the offset
@@ -3432,6 +3434,7 @@ function UEDynamicFilters(){
 			urlAjax += "&ucoffset="+offset;
 
 			urlFilterString = addUrlParam(urlFilterString, "offset=" + offset);
+			
 		}
 
 		//add custom additional attributes

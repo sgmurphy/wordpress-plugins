@@ -200,7 +200,7 @@ function bafg_gallery_cb(){
 * Shortcode copied alert text
 */
 add_action('admin_footer', function(){
-    echo '<div id="bafg_copy">'.esc_html('Shortcode Copied!').'</div>';
+    echo '<div id="bafg_copy">'.esc_html__('Shortcode Copied!', 'bafg').'</div>';
 });
 
 /*

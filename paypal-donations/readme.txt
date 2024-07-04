@@ -3,7 +3,7 @@ Contributors: Tips and Tricks HQ, artstorm
 Donate link: https://www.tipsandtricks-hq.com/paypal-donations-widgets-plugin
 Tags: paypal, donation, donations, shortcode, widget, donate, button, sidebar, paypal donation, payment
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.9.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

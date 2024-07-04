@@ -3,7 +3,7 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.9.24
 License: GPLv2 or later
 

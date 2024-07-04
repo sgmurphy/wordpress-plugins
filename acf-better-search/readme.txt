@@ -3,7 +3,7 @@ Contributors: mateuszgbiorczyk
 Donate link: https://ko-fi.com/gbiorczyk/?utm_source=acf-better-search&utm_medium=readme-donate
 Tags: acf search, advanced custom fields, better search, extended search, search
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
 Stable tag: 4.2.1
 License: GPLv2 or later

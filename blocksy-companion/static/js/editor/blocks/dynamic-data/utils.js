@@ -7,11 +7,11 @@ export const getLabelForProvider = (provider) => {
 			woo: 'WooCommerce',
 			acf: 'ACF',
 			metabox: 'MetaBox',
-			custom: __('Custom', 'blocksy'),
+			custom: __('Custom', 'blocksy-companion'),
 			toolset: 'Toolset',
 			jetengine: 'Jet Engine',
 			pods: 'Pods',
-		}[provider] || __('Unknown', 'blocksy')
+		}[provider] || __('Unknown', 'blocksy-companion')
 	)
 }
 

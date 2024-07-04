@@ -3,7 +3,7 @@ Contributors: domainsupport
 Donate link: https://webd.uk/product/support-us/
 Tags: twentytwentyone, twentytwenty, twentyseventeen, customize, modify
 Requires at least: 4.6
-Tested up to: 6.5.2
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 1.6.1
 License: GPLv2 or later

@@ -1,8 +1,7 @@
 <?php
-$cron_projects            = get_option( 'cron_projects' );
-$add_manipulation_support = get_option( 'add_manipulation_support' );
-$plugin_data              = get_plugin_data( __FILE__ );
-$versions                 = array(
+$cron_projects = get_option( 'cron_projects' );
+$plugin_data   = get_plugin_data( __FILE__ );
+$versions      = array(
     'PHP'                          => (float) phpversion(),
     'Wordpress'                    => get_bloginfo( 'version' ),
     'WooCommerce'                  => WC()->version,
@@ -68,7 +67,7 @@ $nonce = wp_create_nonce( 'woosea_ajax_nonce' );
                 foreach ( $cron_projects as $key => $value ) {
                     $cron_projects[ $key ]['active'] = 'true';
                 }
-                update_option( 'cron_projects', $cron_projects, 'no' );
+                update_option( 'cron_projects', $cron_projects, false );
             } elseif ( array_key_exists( 'force-clean', $_GET ) ) {
                 if ( current_user_can( 'manage_options' ) ) {
                     // Forcefully remove all feed and plugin configurations
@@ -107,7 +106,7 @@ $nonce = wp_create_nonce( 'woosea_ajax_nonce' );
                             <span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Aelia  & Curcy currency switcher support', 'woo-product-feed-pro' ); ?> [<a href="https://adtribes.io/aelia-currency-switcher-feature/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=upgradenoticeaeliasupport" target="_blank"><?php esc_html_e( 'Read more', 'woo-product-feed-pro' ); ?></a>];<br />
                             <span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Polylang support', 'woo-product-feed-pro' ); ?> [<a href="https://adtribes.io/polylang-support-product-feeds/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=upgradenoticepolylangsupport" target="_blank"><?php esc_html_e( 'Read more', 'woo-product-feed-pro' ); ?></a>];<br />
                             <span class="dashicons dashicons-yes"></span><?php esc_html_e( 'Facebook pixel feature', 'woo-product-feed-pro' ); ?> [<a href="https://adtribes.io/facebook-pixel-feature/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=upgradenoticefacebookpixelfeature" target="_blank"><?php esc_html_e( 'Read more', 'woo-product-feed-pro' ); ?></a>];<br /><br />
-                            <a class="button button-pink" href="https://adtribes.io/pro-vs-elite/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=upgradetoelitenoticebutton" target="_blank"><?php esc_html_e( 'Upgrade To Elite', 'woo-product-feed-pro' ); ?></a>
+                            <a class="button button-pink" href="https://adtribes.io/pricing/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=upgradetoelitenoticebutton" target="_blank"><?php esc_html_e( 'Upgrade To Elite', 'woo-product-feed-pro' ); ?></a>
                         </p>
                     </div>
                 <?php
@@ -268,13 +267,6 @@ $nonce = wp_create_nonce( 'woosea_ajax_nonce' );
                                                                     }
                                                                     ?>
 
-                                                                    <?php
-                                                                    if ( ( isset( $add_manipulation_support ) ) && ( $add_manipulation_support == 'yes' ) ) {
-                                                                    ?>
-                                                                        <span class="dashicons dashicons-arrow-right" style="display: inline-block;"></span> <a href="admin.php?page=woo-product-feed-pro&action=edit_project&step=9&project_hash=<?php echo "$val[project_hash]"; ?>&channel_hash=<?php echo "$val[channel_hash]"; ?>"><?php esc_html_e( 'Product data manipulation', 'woo-product-feed-pro' ); ?></a><br />
-                                                                    <?php
-                                                                    }
-                                                                    ?>
                                                                     <span class="dashicons dashicons-arrow-right" style="display: inline-block;"></span> <a href="admin.php?page=woo-product-feed-pro&action=edit_project&step=4&project_hash=<?php echo "$val[project_hash]"; ?>&channel_hash=<?php echo "$val[channel_hash]"; ?>"><?php esc_html_e( 'Feed filters and rules', 'woo-product-feed-pro' ); ?></a><br />
                                                                     <span class="dashicons dashicons-arrow-right" style="display: inline-block;"></span> <a href="admin.php?page=woo-product-feed-pro&action=edit_project&step=5&project_hash=<?php echo "$val[project_hash]"; ?>&channel_hash=<?php echo "$val[channel_hash]"; ?>"><?php esc_html_e( 'Conversion & Google Analytics settings' ); ?></a><br />
                                                                 </td>
@@ -305,7 +297,7 @@ $nonce = wp_create_nonce( 'woosea_ajax_nonce' );
                                 } else {
                                     // Removing this partly configured feed as it results in PHP warnings
                                     unset( $cron_projects[ $key ] );
-                                    update_option( 'cron_projects', $cron_projects, 'no' );
+                                    update_option( 'cron_projects', $cron_projects, false );
                                 }
                             }
                         } else {
@@ -350,7 +342,7 @@ $nonce = wp_create_nonce( 'woosea_ajax_nonce' );
                                     <li><strong>9.</strong> <?php esc_html_e( 'Polylang support', 'woo-product-feed-pro' ); ?></li>
                                 </ul>
                                 <strong>
-                                    <a href="https://adtribes.io/pro-vs-elite/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=why-upgrade-box" target="_blank"><?php esc_html_e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
+                                    <a href="https://adtribes.io/pricing/?utm_source=pfp&utm_medium=manage-feed&utm_campaign=why-upgrade-box" target="_blank"><?php esc_html_e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
                                 </strong>
                             </td>
                         </tr>

@@ -4999,3 +4999,162 @@ height:90px; background:url(https://demosktthemes.com/free/garden-care-lite/wp-c
 }
 
 /* Vet Clinic */
+
+/* SKT Roofing */
+.skt-roofing-services-section-two-img-box .elementor-image-box-img {align-items:center !important; display:flex !important; justify-content: center !important; background:#fff; width:175px !important; height:175px; border-radius:100%; margin:0 auto 35px !important;}
+.skt-roofing-services-section-two-img-box .elementor-image-box-img:hover img{filter: invert(100%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(100%) !important;}
+.skt-roofing-services-section-two-img-box .elementor-image-box-img:hover{background:#ea1826;}
+.skt-roofing-services-section-two-right-col .e-con-inner{margin-left:0px!important;}
+.skt-roofing-services-section-two-button{position:absolute!important; top:40%; right:-154px; rotate:270deg; z-index:2;}
+.skt-roofing-services-section-two-years-of-experidence{position:absolute!important; top:38%; right:-105px; clip-path: polygon(50% 0%, 100% 32%, 100% 100%, 0 100%, 0% 32%);}
+.skt-roofing-services-section-two-right-col .e-con-inner {width:670px !important;}
+
+.skt-roofing-services-section-three-img-box .elementor-image-box-img{background:#ea1826; display:flex!important; justify-content:center; border-radius:100%; width:85px!important; height:60px; align-items:center;}
+.skt-roofing-services-section-three-img-box img{margin-top:10px;}
+.skt-roofing-services-section-three-counter .elementor-counter-number{position:absolute;}
+.skt-roofing-services-section-three-counter .elementor-counter-number-suffix{position:absolute; right:0; top:48px; right:60px; font-size:18px;}
+.skt-roofing-services-section-three-counter .elementor-counter-number-wrapper{align-items:center !important; display:flex !important; justify-content: center !important; background:#fff; width:140px !important; height:140px!important; border:3px solid #ea1826; border-radius:100%; margin:0 auto 20px; }
+.skt-roofing-services-section-three-counter-main-container .e-con-inner{align-items:center!important;}
+.skt-roofing-services-section-three:after{content:''; background-color:#f9f9f9; display: block; height:100%; width:50%; position:absolute; top:0; right:0;}
+
+.skt-roofing-services-section-five-vedio .elementor-custom-embed-play{background:#fff; border-radius:50px; padding-top:24px; padding-left:30px; padding-right:27px; padding-bottom:17px;}
+.skt-roofing-services-section-five-vedio .elementor-custom-embed-play svg{width:15px!important; height:20px!important; opacity:1!important; filter:none !important;}
+
+.skt-roofing-services-section-seven-progress-bar .elementor-progress-percentage{position:absolute; right:0; top:-30px;}
+.skt-roofing-services-section-seven-progress-bar .elementor-title{margin-bottom:15px!important;}
+.skt-roofing-services-section-seven-hut-img img{z-index:2; position: relative;}
+.skt-roofing-services-section-seven-hut-img {position:relative;}
+.skt-roofing-services-section-seven-hut-img :after{content:''; position:absolute; width:94%; height: 100%; background: url(images/shadow.png); background-repeat:no-repeat; background-size:100%; top:-59px; left:0; z-index: 1;}
+
+.skt-roofing-services-section-nine-faq .elementor-tab-title.elementor-active {background:#16253d!important;}
+.skt-roofing-services-section-nine-faq .elementor-accordion-item{margin-bottom:20px;}
+.skt-roofing-services-section-nine-faq .elementor-tab-content {border-radius:0px 0px 10px 10px;}
+.skt-roofing-services-section-nine-faq .elementor-accordion-item{border-radius:10px;}
+.skt-roofing-services-section-nine-faq .elementor-tab-title{border-radius:10px;}
+.skt-roofing-services-section-nine-faq .elementor-tab-content p{margin-bottom:0!important;}
+.skt-roofing-services-section-nine:after{content:''; background-color:#f9f9f9; display:block; height:100%; width:33%; position:absolute; top:0; right:0;}
+.skt-roofing-services-section-nine-faq .elementor-tab-title.elementor-active{border-radius:10px 10px 0px 0px !important;}
+
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-wrapper{align-items: center!important;}
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-img{background:#ea1826; display:flex!important; justify-content:center; border-radius:100%; width:80px!important; height:60px; align-items: center;}
+.skt-roofing-services-section-thirteen-small-hug-img:after{content:""; background:#0b1424; position:absolute; width:114px; height:93px; left:50%; bottom:-56px; z-index:1;}
+.skt-roofing-services-section-thirteen-image-box img{margin-top:10px;}
+.skt-roofing-services-section-thirteen-small-hug-img img{z-index:2; position:relative;}
+.skt-roofing-services-section-thirteen-small-hug-img-col{position:relative!important;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{content:""; background:#324667; position:absolute; width:124px; height:93px; bottom:-56px; z-index:1; right:50%;}
+
+.skt-roofing-services-section-thirteen-man-img-col:after{content:''; background-color:#f7a209; display:block; height:107%; width:40%; position:absolute; left:-999874px; bottom:0%; width:999999px;}
+
+@media screen and (min-width:1700px){
+.skt-roofing-services-section-five-left-inner-col .e-con-inner{margin-right:110px!important;}
+}
+@media screen and (max-width:1440px){
+.skt-roofing-services-section-three-counter .elementor-counter{width:max-content!important;}
+}
+@media screen and (max-width:1440px) and (min-width:1367px){
+.skt-roofing-services-section-three-counter .elementor-counter-number-suffix{top:52px!important; right:95px!important;}
+}
+@media screen and (max-width:1366px) and (min-width:1201px){
+.skt-roofing-services-section-three-counter .elementor-counter-number-suffix{top:52px!important; right:25px!important;}
+.skt-roofing-services-section-three-counter{margin:0px auto;}
+}
+@media screen and (max-width:1200px) and (min-width:1041px){
+.skt-roofing-services-section-six-empty-col{width:10%!important;}
+.skt-roofing-services-section-six-right-col{width:52%!important;}
+.skt-roofing-services-section-six-button a{padding: 20px 85px 20px 85px!important;}
+.skt-roofing-services-section-six .e-con-inner{align-items: center!important;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{width:104px!important; height:99px!important;bottom:-83px!important;}
+.skt-roofing-services-section-thirteen-small-hug-img:after{ width:104px; height:99px; bottom:-83px;}
+.skt-roofing-services-section-two-right-col .e-con-inner {width:auto !important; margin-right:0px !important;}
+
+}
+@media screen and (max-width:1040px) and (min-width:1025px){
+.skt-roofing-services-section-six-empty-col{width:10%!important;}
+.skt-roofing-services-section-six-right-col{width:52%!important;}
+.skt-roofing-services-section-two-years-of-experidence{top:25%!important;}
+.skt-roofing-services-section-six-button a{padding: 20px 85px 20px 85px!important;}
+.skt-roofing-services-section-six .e-con-inner{align-items: center!important;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{width:101px!important; height:103px!important; bottom:-83px!important;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{width:101px!important; height:99px!important; bottom:-83px!important;}
+.skt-roofing-services-section-thirteen-small-hug-img:after{width:101px!important; height:99px!important; bottom:-83px;}
+.skt-roofing-services-section-two-right-col .e-con-inner {width:auto !important; margin-right:0px !important;}
+}
+@media screen and (max-width:1024px) and (min-width:992px){
+.skt-roofing-services-section-seven-hut-img :after{width:98%!important; top:-33px!important;}
+.skt-roofing-services-section-six{--padding-block-end: 282px!important;}
+.skt-roofing-services-section-seven{margin-top:-225px!important;}
+.skt-roofing-services-section-thirteen-man-img-col:after{left:-999899px!important; height:108.5%;}
+.skt-roofing-services-section-two-button{position: unset!important; rotate:unset!important;}
+.skt-roofing-services-section-two-years-of-experidence{right:-66px!important;}
+.skt-roofing-services-section-thirteen:after{width:12%!important;}
+.skt-roofing-services-section-two-button{right: -130px!important;}
+.skt-roofing-services-section-nine:after{width: 28%!important;}
+.skt-roofing-services-section-three:after{width: 52%!important;}
+.skt-roofing-services-section-three-empty-col{display:none!important;}
+.skt-roofing-services-section-three-empty-col-white-bg{width:100px!important;}
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-img{height:54px;}
+.skt-roofing-services-section-thirteen-small-hug-img::after, .skt-roofing-services-section-thirteen-small-hug-img-col::after {bottom:-25px;}
+}
+@media screen and (max-width:991px) and (min-width:768px){
+.skt-roofing-services-section-seven-hut-img :after{width:98%!important; top:-33px!important;}
+.skt-roofing-services-section-thirteen-man-img-col:after{left:-999927px!important;;}
+.skt-roofing-services-section-three:after{width:53.5%!important;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{width:40%!important; bottom:-30px!important;}
+.skt-roofing-services-section-thirteen-small-hug-img:after{width:40%!important; bottom:-30px!important;}
+.skt-roofing-services-section-two-right-col .e-con-inner{align-items: center!important;}
+.skt-roofing-services-section-two-img-box .elementor-image-box-img{width:135px!important; height:135px!important;}
+.skt-roofing-services-section-two-button{position:unset!important; rotate:unset!important;}
+.skt-roofing-services-section-two-years-of-experidence{right:0 !important; left:0; margin:0 auto; bottom:150px; width:60%; top:auto;}
+.skt-roofing-services-section-six .e-con-inner{align-items: center!important;}
+.skt-roofing-services-section-nine:after{width:20%!important;}
+.skt-roofing-services-section-thirteen:after{width:13%!important;}
+
+.skt-roofing-services-section-three-img-box .elementor-image-box-img{height:53px;}
+.skt-roofing-services-tab .elementor-tabs-content-wrapper {width:55% !important; padding-left:50px;}
+.skt-roofing-services-tab .elementor-tabs-wrapper {width:45% !important; padding:50px 20px;}
+.skt-roofing-services-section-thirteen-man-img-col::after {height:111.5%; bottom:0%;}
+.skt-roofing-services-tab .elementor-tab-content img {height:220px;}
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-img{height:50px;}
+}
+
+@media screen and (max-width:1024px){
+.skt-roofing-services-tab .eael-advance-tabs .eael-tabs-nav {padding:40px 25px;}
+.skt-roofing-services-tab-content img {height:auto !important; width:auto;}
+}
+
+@media screen and (max-width:767px){
+.skt-roofing-services-section-five-img-box .elementor-image-box-img{width:unset!important;}
+.skt-roofing-services-section-thirteen-man-img-col:after{width:104.1%; height:110.8%; top:auto; left:-15px; bottom:0;}
+.skt-roofing-services-section-three-counter .elementor-counter-number-suffix{position:absolute; right:0; top:21%; right:17%; font-size:22px;}
+.skt-roofing-services-section-two-button{position:unset!important; rotate:unset!important;}
+.skt-roofing-services-section-nine:after{display: none;}
+.skt-roofing-services-section-three:after{display: none;}
+.skt-roofing-services-section-two-years-of-experidence{right:0; left:0; top:auto; bottom:0px;}
+.skt-roofing-services-section-three-img-box .elementor-image-box-img{margin-bottom:15px!important;}
+.skt-roofing-services-section-nine-faq-man-img-col:after{display:none;}
+.skt-roofing-services-section-thirteen:after{display:none;}
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-img{margin-bottom:15px!important;}
+.skt-roofing-services-section-seven-right-col{background:#F7A209!important;}
+.skt-roofing-services-section-seven-hut-img :after{display:none;}
+.skt-roofing-services-section-two-years-of-experidence{margin-top:40px!important;}
+.skt-roofing-services-section-two-years-of-experidence{width:max-content; margin:0 auto;}
+.skt-roofing-services-section-three-img-box .elementor-image-box-img{width:60px!important;}
+.skt-roofing-services-section-thirteen-image-box .elementor-image-box-img{width:60px!important;}
+.skt-roofing-services-section-two-img-box .elementor-image-box-img{margin-bottom:20px !important;}
+.skt-roofing-services-tab .elementor-tabs-wrapper {width:100% !important; padding:50px 15px;}
+.skt-roofing-services-tab .elementor-tabs-content-wrapper {width:100% !important; padding-left:0px; padding-top:40px;}
+.skt-roofing-services-tab .elementor-tab-title, .skt-roofing-services-tab .elementor-tab-title.elementor-active{padding:25px 30px !important; text-align:left;}
+.skt-roofing-services-section-two-right-col .e-con-inner {width:100% !important;}
+.skt-roofing-services-tab .eael-advance-tabs .eael-tabs-nav {padding:30px 25px;}
+}
+
+@media screen and (max-width:480px) and (min-width:321px){
+.skt-roofing-services-section-thirteen-small-hug-img:after{bottom:-65px!important ;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{bottom:-65px!important ;}
+.skt-roofing-services-section-thirteen-man-img-col:after{width:109%; height:110.7%; top:auto; left:-15px; bottom:0;}
+}
+@media screen and (max-width:320px){
+.skt-roofing-services-section-thirteen-small-hug-img:after{content:""; background:#324667; position:absolute; width:106px; height:83px; left:22px; bottom:-64px; z-index:1;}
+.skt-roofing-services-section-thirteen-small-hug-img-col:after{content:""; background:#0b1424; position:absolute; width:110px; height:83px; bottom:-64px; z-index:1; right:22px;}
+}
+/* SKT Roofing */

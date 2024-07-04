@@ -85,6 +85,14 @@ if ( ! class_exists( 'Icegram_Plugin_Usage_Tracker_V_1_0_1' ) ) {
 		public $allowed_by_default;
 
 		/**
+		 * Text domain
+		 * 
+		 * @var string
+		 */
+
+		protected $text_domain;
+	
+		/**
 		 * Primary class constructor.
 		 *
 		 * @param string  $name Plugin name.

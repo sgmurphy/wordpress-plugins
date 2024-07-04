@@ -220,7 +220,7 @@ function far_options_page() {
 			<h3 class="hndle"><span>Support</span></h3>
 			<div class="inside">
 				<p>Your best bet is to post on the <a href="http://wordpress.org/support/plugin/real-time-find-and-replace">plugin support page</a>.</p>
-				<p>Please consider supporting me by <a href="https://wordpress.org/support/view/real-time-find-and-replace">rating this plugin</a>. Thanks!</p>
+				<p>Please consider supporting me by <a href="https://wordpress.org/plugins/real-time-find-and-replace/#reviews">rating this plugin</a>. Thanks!</p>
 			</div>
 		</div>
 		<div class="postbox" id="far-sbthree">

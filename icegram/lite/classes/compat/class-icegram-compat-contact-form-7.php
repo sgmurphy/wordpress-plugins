@@ -121,9 +121,7 @@ jQuery(function() {
 				  			}
 					  		form.closest('.ig_form_container').attr('id', form.find('input[name=_wpcf7_unit_tag]').val()); //_wpcf7_unit_tag
 			  			}
-						  console.log(_wpcf7, '_wpcf7');
 			  			if(typeof _wpcf7 !== 'undefined'){
-						  console.log('ff_wpcf7');
 							form.wpcf7InitForm();
 			  			}else{
 		

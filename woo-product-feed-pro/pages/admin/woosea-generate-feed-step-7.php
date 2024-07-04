@@ -163,7 +163,7 @@ $attributes = $fields_obj->get_channel_attributes();
                                                                             <input type="checkbox" name="record" class="checkbox-field">
                                     </td>
                                     <td>
-                                        <select name="attributes[<?php echo "$c"; ?>][attribute]" class="select-field">
+                                        <select name="attributes[<?php echo "$c"; ?>][attribute]" class="select-field woo-sea-select2">
                                         <?php
                                             foreach ( $attributes as $key => $value ) {
                                                 echo "<optgroup label='$key'><strong>$key</strong>";
@@ -196,7 +196,7 @@ $attributes = $fields_obj->get_channel_attributes();
                                         ?>
                                     </td>
                                     <td>
-                                        <select name="attributes[<?php echo "$c"; ?>][mapfrom]" class="select-field">
+                                        <select name="attributes[<?php echo "$c"; ?>][mapfrom]" class="select-field woo-sea-select2">
                                         <option></option>
                                         <?php
                                             foreach ( $attribute_dropdown as $drop_key => $drop_value ) {
@@ -223,7 +223,7 @@ $attributes = $fields_obj->get_channel_attributes();
                             }
                         }
                     } else {
-                                                foreach ( $project['attributes'] as $attribute_key => $attribute_array ) {
+                        foreach ( $project['attributes'] as $attribute_key => $attribute_array ) {
                             if ( isset( $project['attributes'][ $attribute_key ]['prefix'] ) ) {
                                 $prefix = $project['attributes'][ $attribute_key ]['prefix'];
                             }
@@ -252,7 +252,7 @@ $attributes = $fields_obj->get_channel_attributes();
                                         echo "<input type=\"text\" name=\"attributes[$attribute_key][mapfrom]\" class=\"input-field-midsmall\" value=\"$attribute_array[mapfrom]\"><input type=\"hidden\" name=\"attributes[$attribute_key][static_value]\" value=\"true\">";
                                     } else {
                                         ?>
-                                        <select name="attributes[<?php echo "$attribute_key"; ?>][mapfrom]" class="select-field">
+                                        <select name="attributes[<?php echo "$attribute_key"; ?>][mapfrom]" class="select-field woo-sea-select2">
                                         <option></option>
                                         <?php
                                             foreach ( $attribute_dropdown as $drop_key => $drop_value ) {

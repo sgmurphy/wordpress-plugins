@@ -284,9 +284,9 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                     <?php
                                     if ( isset( $manage_project ) ) {
                                         // print"<select name=\"countries\" id=\"countries\" class=\"select-field\" disabled>";
-                                        print '<select name="countries" id="countries" class="select-field">';
+                                        print '<select name="countries" id="countries" class="select-field woo-sea-select2">';
                                     } else {
-                                        print '<select name="countries" id="countries" class="select-field">';
+                                        print '<select name="countries" id="countries" class="select-field woo-sea-select2">';
                                     }
                                     ?>
                                     <option><?php esc_html_e( 'Select a country', 'woo-product-feed-pro' ); ?></option>
@@ -320,7 +320,7 @@ if ( array_key_exists( 'project_hash', $_GET ) ) {
                                         $optgroup_marketplace = 0;
                                         $optgroup_shopping    = 0;
 
-                                        print '<select name="channel_hash" id="channel_hash" class="select-field">';
+                                        print '<select name="channel_hash" id="channel_hash" class="select-field woo-sea-select2">';
 
                                         foreach ( $channels as $key => $val ) {
                                             if ( $val['type'] == 'Custom Feed' ) {

@@ -2938,6 +2938,13 @@ if ( ! class_exists( 'Icegram' ) ) {
 					'class'  => true,
 					'points' => true,
 				),
+				'iframe' => array(
+					'class'       => true,
+					'src'         => true,
+					'frameborder' => true,
+					'scrolling'   => true,
+					'style'       => true,
+				)
 			);
 
 			$allowedtags = array_merge_recursive( $context_allowed_tags, $custom_allowed_tags );

@@ -345,6 +345,36 @@ class Ays_Pb_Admin {
         return $listtable_title_length;
     }
 
+    public static function ays_pb_restriction_string($type, $x, $length) {
+        $output = "";
+
+        switch($type) {
+            case "char":
+                if (strlen($x) <= $length) {
+                    $output = $x;
+                } else {
+                    $output = substr($x, 0, $length) . '...';
+                }
+                break;
+            case "word":
+                $res = explode(" ", $x);
+                if (count($res) <= $length) {
+                    $output = implode(" ", $res);
+                } else {
+                    $res = array_slice($res, 0, $length);
+                    $output = implode(" ", $res) . '...';
+                }
+                break;
+        }
+
+        return $output;
+    }
+
+    public static function validateDate($date, $format = 'Y-m-d H:i:s') {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+
     // Code Mirror
     function codemirror_enqueue_scripts($hook) {
         if (false === strpos($hook, $this->plugin_name)) {
@@ -586,11 +616,6 @@ class Ays_Pb_Admin {
         $this->settings_obj = new Ays_PopupBox_Settings_Actions($this->plugin_name);
     }
 
-    public static function validateDate($date, $format = 'Y-m-d H:i:s'){
-        $d = DateTime::createFromFormat($format, $date);
-        return $d && $d->format($format) == $date;
-    }
-
     public function deactivate_plugin_option() {
         error_reporting(0);
 
@@ -693,29 +718,6 @@ class Ays_Pb_Admin {
         ob_end_clean();
         echo json_encode($response);
         wp_die();
-    }
-
-    public static function ays_pb_restriction_string($type, $x, $length){
-        $output = "";
-        switch($type){
-            case "char":                
-                if(strlen($x)<=$length){
-                    $output = $x;
-                } else {
-                    $output = substr($x,0,$length) . '...';
-                }
-                break;
-            case "word":
-                $res = explode(" ", $x);
-                if(count($res)<=$length){
-                    $output = implode(" ",$res);
-                } else {
-                    $res = array_slice($res,0,$length);
-                    $output = implode(" ",$res) . '...';
-                }
-            break;
-        }
-        return $output;
     }
 
     public function get_next_or_prev_row_by_id( $id, $type = "next", $table = "ays_pb" ) {

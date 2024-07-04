@@ -1302,7 +1302,7 @@ class WooSEA_Get_Products {
 				require plugin_dir_path(__FILE__) . '/channels/class-'.$feed_config['fields'].'.php';
 				$channel_class = "WooSEA_".$feed_config['fields'];
 				$channel_attributes = $channel_class::get_channel_attributes();
-				update_option ('channel_attributes', $channel_attributes, 'yes');	
+				update_option ('channel_attributes', $channel_attributes, false);	
 			} else {
 				$channel_attributes = get_option('channel_attributes');
 			}
@@ -2299,7 +2299,7 @@ class WooSEA_Get_Products {
 				require plugin_dir_path(__FILE__) . 'channels/class-'.$feed_config['fields'].'.php';
 				$channel_class = "WooSEA_".$feed_config['fields'];
 				$channel_attributes = $channel_class::get_channel_attributes();
-				update_option ('channel_attributes', $channel_attributes, 'yes');	
+				update_option ('channel_attributes', $channel_attributes, false);	
 			} else {
 				$channel_attributes = get_option('channel_attributes');
 			}
@@ -4077,9 +4077,9 @@ class WooSEA_Get_Products {
 
                                         // Remove size from variations array
                                         if(($size_found == "yes") && ($color_found == "yes")){
-        					update_option('skroutz_apparel', "yes");
-						update_option('skroutz_clr',$clr_attribute,'no');
-						update_option('skroutz_sz',$sz_attribute,'no');
+        					update_option('skroutz_apparel', false);
+						update_option('skroutz_clr',$clr_attribute,false);
+						update_option('skroutz_sz',$sz_attribute,false);
 					}
                                
 					$skroutz_apparal = get_option('skroutz_apparel');
@@ -4809,19 +4809,10 @@ class WooSEA_Get_Products {
 			}
 
 			/**
-			 * Field manipulation
-			 */
-			if (array_key_exists('field_manipulation', $project_config)){
-				if(is_array($product_data)){
-					$product_data = $this->woocommerce_field_manipulation( $project_config['field_manipulation'], $product_data ); 
-				}
-			}			
-
-			/**
 			 * Check if we need to exclude Wholesale products
 			 * WooCommerce Wholesale Prices by Rymera Web Co
 			 */
-                       	if ($this->woosea_is_plugin_active('woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php')){
+			if ($this->woosea_is_plugin_active('woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php')){
 				if(is_array($product_data)){
 					if(isset($project_config['field_manipulation'])){
 						$product_data = $this->woocommerce_wholesale_check( $project_config['field_manipulation'], $product_data );
@@ -5411,7 +5402,7 @@ class WooSEA_Get_Products {
 
 						// Make sure this option is set to no again
 						// Feed should only refresh when product details have changed
-                                        	update_option('woosea_allow_update', 'no');
+                                        	update_option('woosea_allow_update', false);
 
                                                 // Delete processed product array for preventing duplicates
                                                 // $channel_duplicates = "woosea_duplicates_".$project_hash;
@@ -5434,7 +5425,7 @@ class WooSEA_Get_Products {
         						if (! wp_next_scheduled ( 'woosea_create_batch_event', array($feed_config[$key]['project_hash']) ) ) {
 								wp_schedule_single_event( time() + 2, 'woosea_create_batch_event', array($feed_config[$key]['project_hash']) );
 								$batch_project = "batch_project_".$feed_config[$key]['project_hash'];
-								update_option( $batch_project, $val, 'no');
+								update_option( $batch_project, $val, false);
 							}
 						} else {
 							// No batch is needed, already done processing all products
@@ -5465,7 +5456,7 @@ class WooSEA_Get_Products {
 						
                                                 	// Make sure this option is set to no again
                                                 	// Feed should only refresh when product details have changed
-                                                	update_option('woosea_allow_update', 'no');
+                                                	update_option('woosea_allow_update', false);
 
                                                 	// Delete processed product array for preventing duplicates
                                                 	// $channel_duplicates = "woosea_duplicates_".$project_hash;
@@ -5483,7 +5474,7 @@ class WooSEA_Get_Products {
 		 * Only update the cron_project when no new project was created during the batched run otherwise the new project will be overwritten and deleted
 		 */
 		if ($nr_projects == $nr_projects_cron){
-        		update_option( 'cron_projects', $feed_config, 'no');
+        		update_option( 'cron_projects', $feed_config, false);
 		}
 	}
 
@@ -5724,70 +5715,6 @@ class WooSEA_Get_Products {
 			$product_data['categories'] = "";
 		}
 
-		return $product_data;
-	}
-
-	/**
-	 * Execute field manipulations
-	 */
-	private function woocommerce_field_manipulation( $field_manipulation, $product_data ){
-		$aantal_prods = count($product_data);
-		$product_type_data = $product_data['product_type'];
-
-		if($aantal_prods > 0){
-			foreach ($field_manipulation as $manipulation_key => $manipulation_array){
-				foreach ($manipulation_array as $ma_k => $ma_v){
-
-					if($ma_k == "attribute"){
-						$alter_field = $ma_v;
-					} elseif ($ma_k == "rowCount"){
-						$rowCount = $ma_v;
-					} elseif ($ma_k == "product_type"){
-						$product_type = $ma_v;
-					} else {
-						$becomes = $ma_v;
-						$value = "";
-			
-						if($product_type == "variable"){
-							$product_type = "variation";
-						}
-
-						// Field manipulation only for the product_types that were determined
-						if(($product_type == $product_type_data) || ($product_type == "all")){
-							foreach ($becomes as $bk => $bv){
-								foreach ($bv as $bkk => $bvv){
-									if($bkk == "attribute"){
-										if(isset($product_data[$bvv])){
-											// product tags and categories are arrays
-											if(is_array($product_data[$bvv])){
-												foreach($product_data[$bvv] as $ka => $va){
-													$value .= $va." ";
-												}
-											} else {
-												// These are numeric values, user probably want to add those together
-												if($bvv == "price" || $bvv == "shipping_price" || $bvv == "sale_price" || $bvv == "regular_price"){
-													$old_format_price = $product_data[$bvv];
-													$product_data[$bvv] = wc_format_decimal($product_data[$bvv]);
-													settype($product_data[$bvv], "double");
-													settype($value, "double");
-													$value = ($value+$product_data[$bvv]);
-													$product_data[$bvv] = $old_format_price;
-                                                       					                $value = wc_format_decimal($value,2);
-                                                                        				$value = wc_format_localized_price($value);
-												} else {
-													$value .= $product_data[$bvv]." ";
-												}
-											}
-										}
-									}
-								}
-							}
-							$product_data[$alter_field] = $value;
-						}
-					}
-				}
-			}	
-		}		
 		return $product_data;
 	}
 
@@ -6493,7 +6420,7 @@ class WooSEA_Get_Products {
 		}
 
 		// Save Google Shopping analysis results
-		update_option('woosea_gs_analysis_results',$gs_analysis_check,'no');
+		update_option('woosea_gs_analysis_results',$gs_analysis_check,false);
 	}
 
         /**

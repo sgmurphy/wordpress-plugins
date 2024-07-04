@@ -63,7 +63,19 @@
      */
     sanitizeTitle: true
   };
-
+	
+	// Escaping JavaScript function
+	function esc_js(str) {
+		return String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/</g, '\\x3C')
+        .replace(/>/g, '\\x3E')
+        .replace(/&/g, '\\x26')
+        .replace(/`/g, '\\x60');
+	}
+	
   Lightbox.prototype.option = function(options) {
     $.extend(this.options, options);
   };

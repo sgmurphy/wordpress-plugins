@@ -23,7 +23,7 @@ if ( ! class_exists( 'TF_notice' ) ) {
 
                 <div class="tf-field-notice-content <?php echo !empty( $this->field['content']) ? 'has-content' : '' ?>">
 					<?php if ( ! empty( $this->field['title'] ) ): ?>
-                        <h6><?php echo esc_html( $this->field['title'] ); ?></h6>
+                        <h6><?php echo esc_html__( $this->field['title'], 'bafg' ); ?></h6>
 					<?php endif; ?>
 					<?php echo wp_kses_post( $this->field['content'] ); ?>
                 </div>

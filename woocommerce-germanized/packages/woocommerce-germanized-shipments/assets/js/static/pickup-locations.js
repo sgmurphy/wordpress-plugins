@@ -19,8 +19,12 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
 
             var $pickupSelect = self.getPickupLocationSelect();
 
-            if ( $pickupSelect.length > 0 ) {
-                self.pickupLocations = $pickupSelect.data( 'locations' );
+            if ( $pickupSelect.length > 0 && $pickupSelect.attr( 'data-locations' ) ) {
+                try {
+                    self.pickupLocations = JSON.parse( $pickupSelect.attr( 'data-locations' ) );
+                } catch (e) {
+                    self.pickupLocations = {};
+                }
             }
 
             if ( $( '#current_pickup_location' ).length > 0 ) {
@@ -53,9 +57,9 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
                 $pickupSelect = self.getPickupLocationSelect();
 
             if ( $pickupSelect.val() ) {
-                $( '.pickup-location-search-actions' ).find( '.submit-pickup-location' ).show();
+                $( '.pickup-location-search-actions' ).find( '.submit-pickup-location' ).removeClass( 'hidden' ).show();
             } else {
-                $( '.pickup-location-search-actions' ).find( '.submit-pickup-location' ).hide();
+                $( '.pickup-location-search-actions' ).find( '.submit-pickup-location' ).addClass( 'hidden' ).hide();
             }
         },
 
@@ -103,7 +107,7 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
                 $notice = $( '.pickup_location_notice' );
 
             if ( currentCode && currentPickupLocation ) {
-                $current.attr( 'data-current-location', currentPickupLocation );
+                $current.attr( 'data-current-location', JSON.stringify( currentPickupLocation ) );
 
                 self.replaceShippingAddress( currentPickupLocation.address_replacements );
                 self.updateCustomerNumberField( currentPickupLocation );
@@ -112,7 +116,7 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
                 $notice.find( '.currently-shipping-to' ).show();
                 $notice.find( '.choose-pickup-location' ).hide();
 
-                $( '#wc-gzd-shipments-pickup-location-search-form .pickup-location-remove ' ).show();
+                $( '#wc-gzd-shipments-pickup-location-search-form .pickup-location-remove' ).removeClass( 'hidden' ).show();
             } else {
                 $current.attr( 'data-current-location', '' );
                 $current.val( '' );
@@ -123,7 +127,7 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
                 $( '.wc-gzd-shipments-managed-by-pickup-location' ).find( 'input[type=text]' ).val( '' );
                 $( '.wc-gzd-shipments-managed-by-pickup-location' ).find( ':input' ).prop( 'readonly', false );
 
-                $( '#wc-gzd-shipments-pickup-location-search-form .pickup-location-remove ' ).hide();
+                $( '#wc-gzd-shipments-pickup-location-search-form .pickup-location-remove' ).addClass( 'hidden' ).hide();
 
                 $( '.wc-gzd-shipments-managed-by-pickup-location' ).removeClass( 'wc-gzd-shipments-managed-by-pickup-location' );
                 $( '.wc-gzd-shipments-managed-by-pickup-location-notice' ).remove();
@@ -174,7 +178,10 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
                 $pickupSelect = self.getPickupLocationSelect(),
                 current = $pickupSelect.val();
 
-            $pickupSelect.attr('data-locations', self.pickupLocations );
+            try {
+                $pickupSelect.attr('data-locations', JSON.stringify( self.pickupLocations ) );
+            } catch (e) {}
+
             $pickupSelect.find( 'option:not([value=""])' ).remove();
 
             $.each( self.pickupLocations, function( code, pickupLocation ) {
@@ -283,12 +290,14 @@ window.germanized.shipments_pickup_locations = window.germanized.shipments_picku
             } else {
                 var $select = $( '#current_pickup_location' );
 
-                if ( $select.data( 'current-location' ) ) {
-                    var currentLocation = $select.data( 'current-location' );
+                if ( $select.attr( 'data-current-location' ) ) {
+                    try {
+                        var currentLocation = JSON.parse( $select.attr( 'data-current-location' ) );
 
-                    if ( currentLocation.code === locationCode ) {
-                        return currentLocation;
-                    }
+                        if ( currentLocation.code === locationCode ) {
+                            return currentLocation;
+                        }
+                    } catch (e) {}
                 }
             }
 

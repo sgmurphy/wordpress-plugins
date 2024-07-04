@@ -43,10 +43,10 @@ if ( ! class_exists( 'TF_select' ) ) {
 
 			echo '<select name="' . esc_attr($this->field_name()) . '" id="' . esc_attr( $this->field_name() ) . '" data-depend-id="' . esc_attr( $this->field['id'] ) . '' . esc_attr($this->parent_field) . '" class="'. esc_attr($class) .'" ' . esc_attr($this->field_attributes()) .'>';
 			if ( ! empty( $this->field['placeholder'] ) ) {
-				echo '<option value="">' . esc_html( $this->field['placeholder'] ) . '</option>';
+				echo '<option value="">' . esc_html__( $this->field['placeholder'], 'bafg' ) . '</option>';
 			}
 			foreach ( $this->field['options'] as $key => $value ) {
-				echo '<option value="' . esc_attr( $key ) . '" ' . selected( $this->value, $key, false ) . '>' . esc_html( $value ) . '</option>';
+				echo '<option value="' . esc_attr( $key ) . '" ' . selected( $this->value, $key, false ) . '>' . esc_html__( $value, 'bafg' ) . '</option>';
 			}
 			echo '</select>';
 		}

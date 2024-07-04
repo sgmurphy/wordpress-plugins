@@ -297,27 +297,6 @@ if ( isset( $_GET['tab'] ) ) {
                                         </label>
                                     </td>
                                 </tr>
-                                <!--
-                        <tr>
-                            <td>
-                                <span><?php _e( 'Add CDATA to title, description and short description:', 'woo-product-feed-pro' ); ?></span>
-                            </td>
-                            <td>
-                                                        <label class="woo-product-feed-pro-switch">
-                                                            <?php
-                                                            $add_woosea_cdata = get_option( 'add_woosea_cdata' );
-                                                            if ( $add_woosea_cdata == 'yes' ) {
-                                                                print '<input type="checkbox" id="add_woosea_cdata" name="add_woosea_cdata" class="checkbox-field" checked>';
-                                                            } else {
-                                                                print '<input type="checkbox" id="add_woosea_cdata" name="add_woosea_cdata" class="checkbox-field">';
-                                                            }
-                                                            ?>
-                                                            <div class="woo-product-feed-pro-slider round"></div>
-                                                        </label>
-                            </td>
-                        </tr>
-                        -->
-
                                 <tr id="facebook_pixel">
                                     <td>
                                         <span><?php _e( 'Add Facebook Pixel', 'woo-product-feed-pro' ); ?> (<a href="https://adtribes.io/facebook-pixel-feature/" target="_blank"><?php _e( 'Read more about this', 'woo-product-feed-pro' ); ?>)</a></span>
@@ -364,36 +343,6 @@ if ( isset( $_GET['tab'] ) ) {
                                         </select>
                                     </td>
                                 </tr>
-                                <?php
-                                if ( $elite_disable == 'enabled' ) {
-                                ?>
-                                    <tr class="<?php echo "$elite_disable"; ?>" id="facebook_capi">
-                                        <td>
-                                            <span><?php _e( 'Enable Facebook Conversion API:', 'woo-product-feed-pro' ); ?> (<a href="https://adtribes.io/facebook-conversion-api/" target="_blank"><?php _e( 'Read more about this', 'woo-product-feed-pro' ); ?>)</a></span>
-                                        </td>
-                                        <td>
-                                            <label class="woo-product-feed-pro-switch">
-                                                <?php
-                                                $add_facebook_capi = get_option( 'add_facebook_capi' );
-                                                if ( $add_facebook_capi == 'yes' ) {
-                                                    echo "<input type=\"checkbox\" id=\"add_facebook_capi\" name=\"add_facebook_capi\" class=\"checkbox-field\" value=\"$nonce\" checked>";
-                                                } else {
-                                                    echo "<input type=\"checkbox\" id=\"add_facebook_capi\" name=\"add_facebook_capi\" class=\"checkbox-field\" value=\"$nonce\">";
-                                                }
-                                                ?>
-                                                <div class="woo-product-feed-pro-slider round"></div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    if ( $add_facebook_capi == 'yes' ) {
-                                        $facebook_capi_token = get_option( 'woosea_facebook_capi_token' );
-                                        echo "<tr id=\"facebook_capi_token\"><td colspan=\"2\"><span>Insert your Facebook Conversion API token:</span><br/><br/><input type=\"hidden\" name=\"nonce_facebook_capi_id\" id=\"nonce_facebook_capi_id\" value=\"$nonce\"><input type=\"textarea\" class=\"textarea-field\" id=\"fb_capi_token\" name=\"fb_capi_token\" value=\"$facebook_capi_token\"><br/><br/><input type=\"button\" id=\"save_facebook_capi_token\" value=\"Save\"></td></tr>";
-                                    }
-                                    ?>
-                                <?php
-                                }
-                                ?>
                                 <tr id="remarketing">
                                     <td>
                                         <span><?php _e( 'Add Google Dynamic Remarketing Pixel:', 'woo-product-feed-pro' ); ?></span>
@@ -676,7 +625,7 @@ if ( isset( $_GET['tab'] ) ) {
                                     <li><strong>9.</strong> <?php _e( 'Polylang support', 'woo-product-feed-pro' ); ?></li>
                                 </ul>
                                 <strong>
-                                    <a href="https://adtribes.io/pro-vs-elite/?utm_source=pfp&utm_medium=manage-settings&utm_campaign=why-upgrade-box" target="_blank"><?php _e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
+                                    <a href="https://adtribes.io/pricing/?utm_source=pfp&utm_medium=manage-settings&utm_campaign=why-upgrade-box" target="_blank"><?php _e( 'Upgrade to Elite here!', 'woo-product-feed-pro' ); ?></a>
                                 </strong>
                             </td>
                         </tr>

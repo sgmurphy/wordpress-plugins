@@ -60,7 +60,7 @@ class WooSEA_Update_Project {
                 if ( ! empty( $val ) ) {
                     if ( $val['project_hash'] === $project['project_hash'] ) {
                         $cron_projects[ $key ] = $project;
-                        update_option( 'cron_projects', $cron_projects, 'no' );
+                        update_option( 'cron_projects', $cron_projects, false );
                     }
                 }
             }
@@ -98,7 +98,7 @@ class WooSEA_Update_Project {
                     }
                 }
             }
-                    update_option( 'channel_project', $project_fill, '' );
+                    update_option( 'channel_project', $project_fill, false );
         } else {
                     $project_temp = get_option( 'channel_project' );
                         if ( is_array( $project_temp ) ) {
@@ -106,7 +106,7 @@ class WooSEA_Update_Project {
                         } else {
                                 $project_fill = $project_data;
                         }
-                        update_option( 'channel_project', $project_fill, '' );
+                        update_option( 'channel_project', $project_fill, false );
         }
         return $project_fill;
     }
@@ -243,15 +243,6 @@ class WooSEA_Update_Project {
         }
 
         /**
-         * Did all the field manipulations  got removed
-         */
-                if ( ( array_key_exists( 'woosea_page', $project_data ) ) && ( $project_data['woosea_page'] == 'field_manipulation' ) ) {
-            if ( ! array_key_exists( 'field_manipulation', $project_data ) ) {
-                unset( $project_config['field_manipulation'] );
-            }
-        }
-
-        /**
          * Update cron with new project settings
          */
         $add_to_cron = self::add_project_cron( $project_config, $remove_key );
@@ -271,11 +262,11 @@ class WooSEA_Update_Project {
             } else {
                 array_push( $cron_projects, $project_data );
             }
-            update_option( 'cron_projects', $cron_projects );
+            update_option( 'cron_projects', $cron_projects, false );
         } else {
             $cron_projects = array(); // Create a new multidimensional array for the cron projects
             array_push( $cron_projects, $project_data );
-            update_option( 'cron_projects', $cron_projects );
+            update_option( 'cron_projects', $cron_projects, false );
         }
 
         // Clear channel_project option
