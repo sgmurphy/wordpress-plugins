@@ -1,5 +1,5 @@
 <?php 
-if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme  || $activate_theme == 'EarnPress' || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme){	   $title = 'Do you have any questions?';
+if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme  || $activate_theme == 'EarnPress' || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'){	   $title = 'Do you have any questions?';
     $description = 'How can we help your business? Because many people love our free consultation for growing their businesses which gives the user complete freedom to set up a business.';
     $button = 'Contact Us';
 	$ctaimage = 'theme-cta-bg';

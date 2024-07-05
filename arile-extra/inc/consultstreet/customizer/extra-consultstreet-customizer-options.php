@@ -18,7 +18,7 @@ function arileextra_consultstreet_frontpage_sections_settings( $wp_customize ){
 	$activate_theme_data = wp_get_theme(); // getting current theme data
 	$activate_theme = $activate_theme_data->name;
 	
-	if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme || 'BlogWar' == $activate_theme){				
+	if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme || 'BlogWar' == $activate_theme || 'ConsultHub' == $activate_theme){				
 		$ctaimage = 'theme-cta-bg';
 	}
 	if('Beauty Spa Salon' == $activate_theme){				
@@ -280,7 +280,7 @@ function arileextra_consultstreet_customizer_selective_refresh_settings($wp_cust
 	$activate_theme_data = wp_get_theme(); // getting current theme data
 	$activate_theme = $activate_theme_data->name;
 	
-	if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme){				
+	if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme || 'ConsultHub' == $activate_theme){				
 		$stitle = 'Our Services';
 		$sdescription = 'We provide the worlds best consulting related services to growth your business.';
 		$ptitle = 'Our Latest Projects';

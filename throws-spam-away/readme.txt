@@ -1,10 +1,10 @@
-=== Plugin Name ===
+=== Throws SPAM Away ===
 Contributors: tsato
 Donate link: https://gti.co.jp/throws-spam-away
 Tags: comments, spam
 Requires at least: 5.1
-Tested up to: 6.5.3
-Stable tag: 3.5.1.1
+Tested up to: 6.6
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,9 @@ IPアドレスの指定「ブロックリスト」「許可リスト」共に「
 スパム判定を解除されたコメントはスパムデータから削除されます。
 
 -- これまでの変更点について
+・バージョン 3.6
+スパムコメントが保存される際の投稿日時を修正。
+設定項目の保存時に発生するエラーを修正。
 ・バージョン 3.5.1
 コメントに登録したメール、URLを取得できていない不具合を修正。
 ・バージョン 3.5
@@ -417,6 +420,10 @@ e.g.
 == Screenshots ==
 
 == Changelog ==
+= 3.6 =
+スパムコメントが保存される際の投稿日時を修正。
+設定項目の保存時に発生するエラーを修正。
+
 = 3.5.1 =
 コメントに登録したメール、URLを取得できていない不具合を修正。
 

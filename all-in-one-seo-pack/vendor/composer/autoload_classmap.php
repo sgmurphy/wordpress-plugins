@@ -199,6 +199,8 @@ return array(
     'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\Divi' => $baseDir . '/app/Common/Standalone/PageBuilders/Divi.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\Elementor' => $baseDir . '/app/Common/Standalone/PageBuilders/Elementor.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\SeedProd' => $baseDir . '/app/Common/Standalone/PageBuilders/SeedProd.php',
+    'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\SiteOrigin' => $baseDir . '/app/Common/Standalone/PageBuilders/SiteOrigin.php',
+    'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\ThriveArchitect' => $baseDir . '/app/Common/Standalone/PageBuilders/ThriveArchitect.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\WPBakery' => $baseDir . '/app/Common/Standalone/PageBuilders/WPBakery.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\PrimaryTerm' => $baseDir . '/app/Common/Standalone/PrimaryTerm.php',
     'AIOSEO\\Plugin\\Common\\Standalone\\PublishPanel' => $baseDir . '/app/Common/Standalone/PublishPanel.php',

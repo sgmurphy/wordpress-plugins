@@ -255,7 +255,11 @@ $generated_i18n_strings = [
 	__( '%1$s relies on the WordPress Rest API and your site might have it disabled. %2$s.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/page-builders/Modal.vue:34
-	// Translators: 1 - The plugin short name ("AIOSEO").
+	// Reference: /src/vue/standalone/page-builders/avada/components/Sidebar.vue:20
+	// Reference: /src/vue/standalone/page-builders/siteorigin/components/Sidebar.vue:17
+	// Reference: /src/vue/standalone/page-builders/thrive-architect/components/Sidebar.vue:15
+	// Translators: 1 - Plugin short name ("AIOSEO").
+	// Translators: [DUPLICATE] 1 - The plugin short name ("AIOSEO").
 	__( '%1$s Settings', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/monsterinsights/views/Monsterinsights.vue:62
@@ -639,7 +643,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/mixins/Wizard.js:153
 	__( 'Advanced Rich Snippets + Schema Markups', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:30
+	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:31
 	__( 'Advanced SEO', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/components/common/core/add-redirection/Index.vue:83
@@ -668,7 +672,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/blocks/breadcrumbs/index.js:26
 	__( 'AIOSEO - Breadcrumbs', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/blocks/html-sitemap/index.js:41
+	// Reference: /src/vue/standalone/blocks/html-sitemap/index.js:40
 	__( 'AIOSEO - HTML Sitemap', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/blocks/business-info/index.js:42
@@ -677,7 +681,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/blocks/location-categories/index.js:31
 	__( 'AIOSEO Local - Location Categories', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/blocks/locations/index.js:41
+	// Reference: /src/vue/standalone/blocks/locations/index.js:40
 	__( 'AIOSEO Local - Locations', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/blocks/location-map/index.js:43
@@ -1179,7 +1183,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/about/views/GettingStarted.vue:63
 	__( 'Basic Guide to Google Search Console', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:29
+	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:30
 	// Reference: /src/vue/standalone/post-settings/views/General.vue:114
 	// Reference: /src/vue/standalone/post-settings/views/partials/general/PageAnalysis.vue:29
 	// Reference: /src/vue/standalone/seo-preview/views/SeoInspector.vue:83
@@ -1656,7 +1660,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/search-appearance/views/GlobalSettings.vue:92
 	__( 'Configure Local SEO', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:35
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:36
 	__( 'Configure Schema Markup for your content. Search engines use structured data to display rich results in SERPs.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/setup-wizard/views/Success.vue:51
@@ -2214,9 +2218,9 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/local-seo/views/lite/opening-hours/Blur.vue:17
 	__( 'Display Opening Hours', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/blocks/business-info/index.js:251
-	// Reference: /src/vue/standalone/blocks/html-sitemap/index.js:155
-	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:232
+	// Reference: /src/vue/standalone/blocks/business-info/index.js:253
+	// Reference: /src/vue/standalone/blocks/html-sitemap/index.js:154
+	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:234
 	__( 'Display Settings', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/sitemaps/views/HtmlSitemap.vue:98
@@ -2259,6 +2263,7 @@ $generated_i18n_strings = [
 	__( 'Don\'t try to force keywords into sub-headings if they feel unnatural. It will send the wrong message to your readers, possibly driving them away.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/limit-modified-date/App.vue:18
+	// Reference: /src/vue/standalone/page-builders/siteorigin/components/LimitModifiedDate.vue:29
 	__( 'Don\'t update the modified date', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/blocks/table-of-contents/vue/App.vue:43
@@ -2913,7 +2918,7 @@ $generated_i18n_strings = [
 	// Translators: 1 - "Title" or "Description".
 	__( 'Generate New SEO %1$s', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:38
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:39
 	__( 'Generate Schema', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/post-settings/views/lite/partials-ai/Modal.vue:60
@@ -3285,7 +3290,6 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/plugins/constants.js:1535
 	__( 'High School', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/mixins/TruSeoHighlighter.js:61
 	// Reference: /src/vue/standalone/post-settings/views/partials/general/tru-seo/ToggleHighlighter.vue:27
 	__( 'Highlight sections in the Editor', 'all-in-one-seo-pack' ),
 
@@ -4075,7 +4079,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/blocks/business-info/index.js:143
 	// Reference: /src/vue/standalone/blocks/location-categories/index.js:53
 	// Reference: /src/vue/standalone/blocks/location-map/index.js:104
-	// Reference: /src/vue/standalone/blocks/locations/index.js:70
+	// Reference: /src/vue/standalone/blocks/locations/index.js:69
 	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:125
 	__( 'Loading...', 'all-in-one-seo-pack' ),
 
@@ -4480,8 +4484,8 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/blocks/business-info/index.js:169
 	// Reference: /src/vue/standalone/blocks/location-categories/index.js:79
 	// Reference: /src/vue/standalone/blocks/location-map/index.js:130
-	// Reference: /src/vue/standalone/blocks/locations/index.js:175
-	// Reference: /src/vue/standalone/blocks/locations/index.js:96
+	// Reference: /src/vue/standalone/blocks/locations/index.js:174
+	// Reference: /src/vue/standalone/blocks/locations/index.js:95
 	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:151
 	// Translators: 1 - The plural label of the custom post type.
 	__( 'No %1$s found', 'all-in-one-seo-pack' ),
@@ -5039,7 +5043,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/seo-analysis/views/AnalyzeCompetitorSite.vue:45
 	__( 'Perform in-depth SEO Analysis of your competitor\'s website.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:31
+	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:32
 	__( 'Performance', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/search-statistics/views/partials/PostsTable.vue:178
@@ -5121,14 +5125,14 @@ $generated_i18n_strings = [
 	// Reference: /src/app/tru-seo/analyzer/analysis/lengthContent.js:25
 	__( 'Please add some content first.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/blocks/location-map/index.js:266
+	// Reference: /src/vue/standalone/blocks/location-map/index.js:268
 	// Translators: 1 - The title of the location.
 	__( 'Please configure the map for this location: %1$s', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/standalone/blocks/business-info/index.js:155
 	// Reference: /src/vue/standalone/blocks/location-categories/index.js:65
 	// Reference: /src/vue/standalone/blocks/location-map/index.js:116
-	// Reference: /src/vue/standalone/blocks/locations/index.js:82
+	// Reference: /src/vue/standalone/blocks/locations/index.js:81
 	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:137
 	__( 'Please enable multiple locations before using this block.', 'all-in-one-seo-pack' ),
 
@@ -5649,6 +5653,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/standalone/page-builders/divi/limit-modified-date/main.js:13
 	// Reference: /src/vue/standalone/page-builders/elementor/limit-modified-date.js:6
 	// Reference: /src/vue/standalone/page-builders/seedprod/limit-modified-date.js:7
+	// Reference: /src/vue/standalone/page-builders/thrive-architect/limit-modified-date.js:5
 	__( 'Save (Don\'t Modify Date)', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/composables/Wizard.js:7
@@ -5680,7 +5685,7 @@ $generated_i18n_strings = [
 	// Translators: 1 - "PRO".
 	__( 'Schema Generator is a %1$s Feature', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:37
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:38
 	__( 'Schema In Use', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/search-appearance/views/ContentTypes.vue:52
@@ -5792,7 +5797,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/sitemaps/views/AdditionalPages.vue:50
 	__( 'Search URLs', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:32
+	// Reference: /src/vue/components/common/core/SeoSiteAnalysisResults.vue:33
 	// Reference: /src/vue/plugins/constants.js:1416
 	__( 'Security', 'all-in-one-seo-pack' ),
 
@@ -5835,10 +5840,10 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/about/views/GettingStarted.vue:53
 	__( 'See our full documentation', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/blocks/business-info/index.js:278
-	// Reference: /src/vue/standalone/blocks/location-map/index.js:245
-	// Reference: /src/vue/standalone/blocks/locations/index.js:191
-	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:259
+	// Reference: /src/vue/standalone/blocks/business-info/index.js:280
+	// Reference: /src/vue/standalone/blocks/location-map/index.js:247
+	// Reference: /src/vue/standalone/blocks/locations/index.js:190
+	// Reference: /src/vue/standalone/blocks/opening-hours/index.js:261
 	// Translators: 1 - The singular label of the custom post type.
 	__( 'Select a %1$s', 'all-in-one-seo-pack' ),
 
@@ -6053,7 +6058,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/search-appearance/views/partials/eeat/EeatBlur.vue:56
 	// Reference: /src/vue/pages/search-statistics/router/paths.js:58
 	// Reference: /src/vue/pages/settings/views/partials/WebmasterTools/MicrosoftClaritySettings.vue:36
-	// Reference: /src/vue/standalone/blocks/location-map/index.js:217
+	// Reference: /src/vue/standalone/blocks/location-map/index.js:219
 	// Reference: /src/vue/standalone/local-business-seo/views/OpeningHours.vue:34
 	__( 'Settings', 'all-in-one-seo-pack' ),
 
@@ -7051,7 +7056,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/classes/SiteAnalysis.js:371
 	__( 'This is over our recommendation of 50 KB.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:40
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:41
 	__( 'This is the default graph for this post type. All data for this graph will be automatically generated.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/classes/SiteAnalysis.js:374
@@ -7760,7 +7765,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/pages/tools/views/WpCode.vue:34
 	__( 'Using WPCode you can install AIOSEO code snippets with 1-click directly from this page or the WPCode library inside the WordPress admin.', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:39
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:40
 	__( 'Validate Schema', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/pages/search-appearance/views/partials/lite/Schema.vue:45
@@ -8353,7 +8358,7 @@ $generated_i18n_strings = [
 	// Reference: /src/vue/classes/SiteAnalysis.js:413
 	__( 'You have no visible plugins!', 'all-in-one-seo-pack' ),
 
-	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:36
+	// Reference: /src/vue/standalone/post-settings/views/lite/Schema.vue:37
 	__( 'You have not added any schema yet. You can add any schema graphs you like via the Schema Generator below.', 'all-in-one-seo-pack' ),
 
 	// Reference: /src/vue/mixins/License.js:9

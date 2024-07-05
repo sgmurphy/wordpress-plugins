@@ -469,7 +469,7 @@ class EM_Calendar extends EM_Object {
 			// sanitize calendar size
 			if( !empty($args['calendar_size']) ){
 				$allowed_sizes = apply_filters('em_calendar_output_sizes', array('large', 'medium', 'small'));
-				$args['calendar_size'] = in_array($args['calendar_size'], $allowed_sizes) ? $args['calendar_size'] : $default_args['calendar_size']; //large will sort itself out
+				$args['calendar_size'] = in_array($args['calendar_size'], $allowed_sizes) ? $args['calendar_size'] : null;
 			}
 			// generate CSS classes based on $args
 			$calendar_array['css'] = array(
@@ -638,7 +638,7 @@ class EM_Calendar extends EM_Object {
 		$defaults = array( 
 			'recurring' => false, //we don't initially look for recurring events only events and recurrences of recurring events
 			//'full' => 0, //Will display a full calendar with event names
-			'calendar_size' => null,
+			'calendar_size' => get_option('dbem_calendar_size', 'auto'),
 			'long_events' => 0, //Events that last longer than a day
 			'scope' => false,
 			'status' => 1, //approved events only

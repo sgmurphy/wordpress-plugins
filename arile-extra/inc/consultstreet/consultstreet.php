@@ -27,7 +27,7 @@ if ( ! function_exists( 'arileextra_consultstreet_frontpage_sections' ) ) :
 		if('ConsultStreet' == $activate_theme || 'AssentPress' == $activate_theme || 'Beauty Spa Salon' == $activate_theme || 'Decorexo' == $activate_theme || $activate_theme == 'EnvoPress' || $activate_theme == 'MadisonBlog' || $activate_theme == 'Business Stock' || 'BlogWar' == $activate_theme){
 		require arile_extra_plugin_dir . 'inc/consultstreet/front-page/extra-consultstreet-testimonial.php';
 		}
-		if('BrightPress' == $activate_theme || $activate_theme == 'FitnessBase' || $activate_theme == 'Arvada' || $activate_theme == 'EarnPress' || $activate_theme == 'ConsultZone'){
+		if('BrightPress' == $activate_theme || $activate_theme == 'FitnessBase' || $activate_theme == 'Arvada' || $activate_theme == 'EarnPress' || $activate_theme == 'ConsultZone' || $activate_theme == 'ConsultHub'){
 		require arile_extra_plugin_dir . 'inc/consultstreet/front-page/extra-brightpress-testimonial.php';
 		}
 		require arile_extra_plugin_dir . 'inc/consultstreet/front-page/extra-consultstreet-cta.php';		

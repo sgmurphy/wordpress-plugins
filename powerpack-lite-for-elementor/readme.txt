@@ -4,7 +4,8 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.7.22
+Stable tag: 2.7.23
+
 
 
 License: GPLv2 or later
@@ -234,6 +235,13 @@ Not at all! All the widgets and settings are easy to use with drag & drop interf
 
 
 == Changelog ==
+
+= 2.7.23 - July 5, 2024 =
+* 	Enhancement: Added support for Elementor's Element Caching feature
+* 	Enhancement: Added support for Elementor custom breakpoints in all carousel/slider widgets
+* 	Enhancement: Counter - Replaced Odometer JS lib with jQuery Numerator JS lib as used by Elementor
+* 	Enhancement: Counter - Added Underline and Apostrophe separator options
+* 	Enhancement: Performance improvements
 
 = 2.7.22 - June 19, 2024 =
 * 	Enhancement: Posts - Added support for WPML

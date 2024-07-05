@@ -7,7 +7,7 @@ $activate_theme = $activate_theme_data->name;
 ?>
 <?php if($consultstreet_theme_info_disabled == true): ?>
 <!-- Theme info Area -->
-<div class="container <?php if('EnvoPress' == $activate_theme || 'Arvada' == $activate_theme || 'EarnPress' == $activate_theme || 'ConsultZone' == $activate_theme){echo 'vrsn-two';}?>" id="theme-info-area">
+<div class="container <?php if('EnvoPress' == $activate_theme || 'Arvada' == $activate_theme || 'EarnPress' == $activate_theme || 'ConsultZone' == $activate_theme || 'ConsultHub' == $activate_theme){echo 'vrsn-two';}?>" id="theme-info-area">
 	<div class="row theme-info-area">
 				<?php 
 				if ( ! empty( $consultstreet_theme_info_content ) ) {

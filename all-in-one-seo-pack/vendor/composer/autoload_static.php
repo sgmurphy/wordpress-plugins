@@ -224,6 +224,8 @@ class ComposerStaticInit7eb11f5f8ea46ec64cbb126389b52db1
         'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\Divi' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/Divi.php',
         'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\Elementor' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/Elementor.php',
         'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\SeedProd' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/SeedProd.php',
+        'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\SiteOrigin' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/SiteOrigin.php',
+        'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\ThriveArchitect' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/ThriveArchitect.php',
         'AIOSEO\\Plugin\\Common\\Standalone\\PageBuilders\\WPBakery' => __DIR__ . '/../..' . '/app/Common/Standalone/PageBuilders/WPBakery.php',
         'AIOSEO\\Plugin\\Common\\Standalone\\PrimaryTerm' => __DIR__ . '/../..' . '/app/Common/Standalone/PrimaryTerm.php',
         'AIOSEO\\Plugin\\Common\\Standalone\\PublishPanel' => __DIR__ . '/../..' . '/app/Common/Standalone/PublishPanel.php',

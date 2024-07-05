@@ -1,5 +1,5 @@
 <?php
-if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme || 'Arvada' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme){	   $title = 'Our Latest Projects';
+if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || 'EnvoPress' == $activate_theme || 'Arvada' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'Business Stock' == $activate_theme || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'){	   $title = 'Our Latest Projects';
     $description = 'We provide you with a beautiful working place that your work is productive to growth your business.';	
 }
 if('FitnessBase' == $activate_theme){
@@ -69,7 +69,7 @@ if($consultstreet_project_disabled == true): ?>
 							</div>
 				<?php } } else {
                     
-							if('ConsultStreet' == $activate_theme || 'AssentPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme){
+							if('ConsultStreet' == $activate_theme || 'AssentPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'){
 								$project1_image = '1';
 								$project2_image = '2';
 								$project3_image = '3';

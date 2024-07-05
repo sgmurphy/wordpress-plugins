@@ -263,6 +263,23 @@ class PP_Helper {
 	}
 
 	/**
+	 * Check if Elementor experimental feature is active.
+	 *
+	 * @param string $feature Feature slug.
+	 * @return boolean
+	 * @since 2.7.23
+	 */
+	public static function is_feature_active( $feature = '' ) {
+		$is_active = false;
+
+		if ( '' !== $feature && \Elementor\Plugin::$instance->experiments->is_feature_active( $feature ) ) {
+			$is_active = true;
+		}
+
+		return $is_active;
+	}
+
+	/**
 	 * Check if script debug is enabled.
 	 *
 	 * @since 2.1.0

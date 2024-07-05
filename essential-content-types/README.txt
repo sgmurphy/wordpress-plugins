@@ -201,6 +201,10 @@ Not so easy way (via FTP) :
 
 == Changelog ==
 
+= 2.2.5 (Released: July 05, 2024) =
+* Bug Fixed: Localization issue (Reported by itapress)
+* Bug Fixed: Text domain issue (Reported by itapress)
+
 = 2.2.4 (Released: April 10, 2024) =
 * Compatibility check up to version 6.5
 

@@ -115,24 +115,26 @@ do_action('sjb_before_main_content');
          */
         get_simple_job_board_template( 'listing/job-listings-start.php' );
 
-        if ($job_query->have_posts()):
-            global $counter;
-            $counter = 1;
-            while ($job_query->have_posts()): $job_query->the_post();
+            if ($job_query->have_posts()):
+                global $counter;
+                $counter = 1;
+                do_action("display_job_count_on_archive_page",$job_query);
+                
+                while ($job_query->have_posts()): $job_query->the_post();
 
-                /**
-                 * Hook -> sjb_job_listing_view
-                 * 
-                 * @hooked sjb_job_listing_view - 10  
-                 *              
-                 * Display the user defined job listing view:
-                 * 
-                 * - Either job listing grid view or list view.
-                 * 
-                 * @since   2.2.3
-                 */
-                do_action( 'sjb_job_listing_view' );
-            endwhile;
+                    /**
+                     * Hook -> sjb_job_listing_view
+                     * 
+                     * @hooked sjb_job_listing_view - 10  
+                     *              
+                     * Display the user defined job listing view:
+                     * 
+                     * - Either job listing grid view or list view.
+                     * 
+                     * @since   2.2.3
+                     */
+                    do_action( 'sjb_job_listing_view' );
+                endwhile;
 
             /**
              * Template -> Pagination:

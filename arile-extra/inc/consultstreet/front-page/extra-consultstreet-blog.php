@@ -34,7 +34,7 @@ if($consultstreet_blog_disabled == true): ?>
 			{	
 				while(have_posts()):the_post();
 				{ ?>
-				<?php if($activate_theme == 'ConsultStreet' || 'AssentPress' == $activate_theme || $activate_theme == 'Decorexo' || $activate_theme == 'MadisonBlog' || 'BlogWar' == $activate_theme): ?>
+				<?php if($activate_theme == 'ConsultStreet' || 'AssentPress' == $activate_theme || $activate_theme == 'Decorexo' || $activate_theme == 'MadisonBlog' || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'): ?>
 					<div class="col-lg-4 col-md-4 col-sm-12">
 						<article class="post wow animate zoomIn" data-wow-delay=".3s">	
 							<div class="entry-meta">

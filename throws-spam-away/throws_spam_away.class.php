@@ -3,8 +3,8 @@
 /**
  * <p>ThrowsSpamAway</p> Class
  * WordPress's Plugin
- * @author Takeshi Satoh@GTI Inc. 2023
- * @version 3.5.1
+ * @author Takeshi Satoh@GTI Inc. 2024
+ * @version 3.6
  */
 class ThrowsSpamAway
 {
@@ -204,6 +204,7 @@ class ThrowsSpamAway
         //保存するために配列にする
         $set_arr = array(
             'post_id'    => $post_id,
+            'post_date'  => gmdate('Y-m-d H:i:s', current_time('timestamp')), // 'Y-m-d H:i:s
             'ip_address' => $ip_address,
             'error_type' => $error_type,
             'author'     => $author,
@@ -375,7 +376,8 @@ class ThrowsSpamAway
             default:
         }
         // 記録する場合はDB記録
-        if (intval(get_option('tsa_spam_data_save', $df_spam_data_save)) === 1) {
+        $tsa_spam_data_save = intval(get_option('tsa_spam_data_save', $df_spam_data_save));
+        if ($tsa_spam_data_save === 1) {
             $spam_contents               = array();
             $spam_contents['error_type'] = $error_type;
             $spam_contents['author']     = mb_strcut($author, 0, 255);
@@ -804,8 +806,11 @@ class ThrowsSpamAway
 					 ppd >= '" . gmdate('Y-m-d H:i:s', current_time('timestamp') - 60 * $interval_minutes) . "'
 			GROUP BY ip_address LIMIT 1";
             $query            = $wpdb->get_row($this_ip_spam_cnt);
-            $spam_count       = intval($query->spam_count);
-
+            // $query があればスパム投稿回数を取得
+            $spam_count = 0;
+            if ($query && isset( $query->spam_count )) {
+                $spam_count       = intval($query->spam_count);
+            }
             // 最後のスパム投稿から○分超えていなければアウト！！
             $tsa_spam_limit_count = intval(get_option('tsa_spam_limit_count', $df_spam_limit_cnt));
             if ($spam_count > $tsa_spam_limit_count) {
@@ -905,38 +910,38 @@ class ThrowsSpamAway
 
         if (isset($_POST['tsa_nonce'])) {
             check_admin_referer('tsa_action', 'tsa_nonce');
-            $tsa_on_flg                                 = intval($_POST['tsa_on_flg']);
-            $tsa_without_title_str                      = intval($_POST['tsa_without_title_str']);
-            $tsa_japanese_string_min_count              = intval($_POST['tsa_japanese_string_min_count']);
-            $tsa_back_second                            = intval($_POST['tsa_back_second']);
-            $tsa_caution_message                        = wp_kses_post($_POST['tsa_caution_message']);
-            $tsa_caution_msg_point                      = intval($_POST['tsa_caution_msg_point']);
-            $tsa_error_message                          = wp_kses_post($_POST['tsa_error_message']);
-            $tsa_ng_keywords                            = sanitize_text_field($_POST['tsa_ng_keywords']);
-            $tsa_ng_key_error_message                   = wp_kses_post($_POST['tsa_ng_key_error_message']);
-            $tsa_must_keywords                          = sanitize_text_field($_POST['tsa_must_keywords']);
-            $tsa_must_key_error_message                 = wp_kses_post($_POST['tsa_must_key_error_message']);
-            $tsa_tb_on_flg                              = intval($_POST['tsa_tb_on_flg']);
-            $tsa_tb_url_flg = intval($_POST['tsa_tb_url_flg']);
-            $tsa_block_ip_addresses = sanitize_textarea_field($_POST['tsa_block_ip_addresses']);
-            $tsa_ip_block_from_spam_chk_flg = intval($_POST['tsa_ip_block_from_spam_chk_flg']);
-            $tsa_block_ip_address_error_message         = wp_kses_post($_POST['tsa_block_ip_address_error_message']);
-            $tsa_url_count_on_flg                       = intval($_POST['tsa_url_count_on_flg']);
-            $tsa_ok_url_count                           = intval($_POST['tsa_ok_url_count']);
-            $tsa_url_count_over_error_message           = wp_kses_post($_POST['tsa_url_count_over_error_message']);
-            $tsa_spam_data_save                         = intval($_POST['tsa_spam_data_save']);
-            $tsa_spam_limit_flg                         = intval($_POST['tsa_spam_limit_flg']);
-            $tsa_spam_limit_minutes                     = intval($_POST['tsa_spam_limit_minutes']);
-            $tsa_spam_limit_count                       = intval($_POST['tsa_spam_limit_count']);
-            $tsa_spam_limit_over_interval               = intval($_POST['tsa_spam_limit_over_interval']);
-            $tsa_spam_limit_over_interval_error_message = wp_kses_post($_POST['tsa_spam_limit_over_interval_error_message']);
+            $tsa_on_flg = isset($_POST['tsa_on_flg']) ? intval($_POST['tsa_on_flg']) : $df_on_flg;
+            $tsa_without_title_str = isset($_POST['tsa_without_title_str']) ? intval($_POST['tsa_without_title_str']) : $df_without_title_str;
+            $tsa_japanese_string_min_count = isset($_POST['tsa_japanese_string_min_count']) ? intval($_POST['tsa_japanese_string_min_count']) : $df_japanese_string_min_cnt;
+            $tsa_back_second = isset($_POST['tsa_back_second']) ? intval($_POST['tsa_back_second']) : $df_back_second;
+            $tsa_caution_message = isset($_POST['tsa_caution_message']) ? wp_kses_post($_POST['tsa_caution_message']) : $df_caution_msg;
+            $tsa_caution_msg_point = isset($_POST['tsa_caution_msg_point']) ? intval($_POST['tsa_caution_msg_point']) : $df_caution_msg_pnt;
+            $tsa_error_message = isset($_POST['tsa_error_message']) ? wp_kses_post($_POST['tsa_error_message']) : $df_err_msg;
+            $tsa_ng_keywords = isset($_POST['tsa_ng_keywords']) ? sanitize_text_field($_POST['tsa_ng_keywords']) : '';
+            $tsa_ng_key_error_message = isset($_POST['tsa_ng_key_error_message']) ? wp_kses_post($_POST['tsa_ng_key_error_message']) : $df_ng_key_err_msg;
+            $tsa_must_keywords = isset($_POST['tsa_must_keywords']) ? sanitize_text_field($_POST['tsa_must_keywords']) : '';
+            $tsa_must_key_error_message = isset($_POST['tsa_must_key_error_message']) ? wp_kses_post($_POST['tsa_must_key_error_message']) : $df_must_key_err_msg;
+            $tsa_tb_on_flg = isset($_POST['tsa_tb_on_flg']) ? intval($_POST['tsa_tb_on_flg']) : $df_tb_on_flg;
+            $tsa_tb_url_flg = isset($_POST['tsa_tb_url_flg']) ? intval($_POST['tsa_tb_url_flg']) : $df_tb_url_flg;
+            $tsa_block_ip_addresses = isset($_POST['tsa_block_ip_addresses']) ? sanitize_textarea_field($_POST['tsa_block_ip_addresses']) : '';
+            $tsa_ip_block_from_spam_chk_flg = isset($_POST['tsa_ip_block_from_spam_chk_flg']) ? intval($_POST['tsa_ip_block_from_spam_chk_flg']) : $df_ip_block_from_spam_chk_flg;
+            $tsa_block_ip_address_error_message = isset($_POST['tsa_block_ip_address_error_message']) ? wp_kses_post($_POST['tsa_block_ip_address_error_message']) : $df_block_ip_address_err_msg;
+            $tsa_url_count_on_flg = isset($_POST['tsa_url_count_on_flg']) ? intval($_POST['tsa_url_count_on_flg']) : $df_url_cnt_chk_flg;
+            $tsa_ok_url_count = isset($_POST['tsa_ok_url_count']) ? intval($_POST['tsa_ok_url_count']) : $df_ok_url_cnt;
+            $tsa_url_count_over_error_message = isset($_POST['tsa_url_count_over_error_message']) ? wp_kses_post($_POST['tsa_url_count_over_error_message']) : $df_url_cnt_over_err_msg;
+            $tsa_spam_data_save = isset($_POST['tsa_spam_data_save']) ? intval($_POST['tsa_spam_data_save']) : $df_spam_data_save;
+            $tsa_spam_limit_flg = isset($_POST['tsa_spam_limit_flg']) ? intval($_POST['tsa_spam_limit_flg']) : $df_spam_limit_flg;
+            $tsa_spam_limit_minutes = isset($_POST['tsa_spam_limit_minutes']) ? intval($_POST['tsa_spam_limit_minutes']) : $df_spam_limit_minutes;
+            $tsa_spam_limit_count = isset($_POST['tsa_spam_limit_count']) ? intval($_POST['tsa_spam_limit_count']) : $df_spam_limit_cnt;
+            $tsa_spam_limit_over_interval = isset($_POST['tsa_spam_limit_over_interval']) ? intval($_POST['tsa_spam_limit_over_interval']) : $df_spam_limit_over_interval;
+            $tsa_spam_limit_over_interval_error_message = isset($_POST['tsa_spam_limit_over_interval_error_message']) ? wp_kses_post($_POST['tsa_spam_limit_over_interval_error_message']) : $df_spam_limit_over_interval_err_msg;
             $tsa_spam_champuru_flg = isset($_POST['tsa_spam_champuru_flg']) ? intval($_POST['tsa_spam_champuru_flg']) : $df_spam_champuru_flg;
-            $tsa_spam_keep_day_count = intval($_POST['tsa_spam_keep_day_count']);
-            $tsa_spam_data_delete_flg = intval($_POST['tsa_spam_data_delete_flg']);
-            $tsa_white_ip_addresses = sanitize_textarea_field($_POST['tsa_white_ip_addresses']);
-            $tsa_dummy_param_field_flg = intval($_POST['tsa_dummy_param_field_flg']);
-            $tsa_memo = sanitize_textarea_field($_POST['tsa_memo']);
-            $tsa_spam_champuru_by_text = sanitize_text_field($_POST['tsa_spam_champuru_by_text']);
+            $tsa_spam_keep_day_count = isset($_POST['tsa_spam_keep_day_count']) ? intval($_POST['tsa_spam_keep_day_count']) : $lower_spam_keep_day_cnt;
+            $tsa_spam_data_delete_flg = isset($_POST['tsa_spam_data_delete_flg']) ? intval($_POST['tsa_spam_data_delete_flg']) : $df_spam_data_delete_flg;
+            $tsa_white_ip_addresses = isset($_POST['tsa_white_ip_addresses']) ? sanitize_textarea_field($_POST['tsa_white_ip_addresses']) : '';
+            $tsa_dummy_param_field_flg = isset($_POST['tsa_dummy_param_field_flg']) ? intval($_POST['tsa_dummy_param_field_flg']) : $df_dummy_param_field_flg;
+            $tsa_memo = isset($_POST['tsa_memo']) ? sanitize_textarea_field($_POST['tsa_memo']) : '';
+            $tsa_spam_champuru_by_text = isset($_POST['tsa_spam_champuru_by_text']) ? sanitize_text_field($_POST['tsa_spam_champuru_by_text']) : $df_spam_champuru_by_text;
             $tsa_only_whitelist_ip_flg = isset($_POST['tsa_only_whitelist_ip_flg']) ? intval($_POST['tsa_only_whitelist_ip_flg']) : $df_only_whitelist_ip_flg;
             update_option('tsa_on_flg', $tsa_on_flg);
             update_option('tsa_without_title_str', $tsa_without_title_str);
@@ -1694,8 +1699,6 @@ class ThrowsSpamAway
                 }
             }
         }
-        // スパムデータ画面のCSS読み込み
-        wp_enqueue_style('thorows-spam-away-data-styles', plugins_url('/css/tsa_data_styles.css', __FILE__), array(), $tsa_version);
         // 日数
         $gdays = get_option('tsa_spam_keep_day_count', $df_spam_keep_day_cnt);
         // wp_tsa_spam の ip_address カラムに存在するIP_ADDRESS投稿は無視するか
@@ -1706,6 +1709,8 @@ class ThrowsSpamAway
 	GROUP BY ip_address) as D INNER JOIN $this->table_name as E ON D.ip_address = E.ip_address AND D.ppd = E.post_date)
 	ORDER BY post_date DESC"
         );
+        // スパムデータ画面のCSS読み込み
+        wp_enqueue_style('thorows-spam-away-data-styles', plugins_url('/css/tsa_data_styles.css', __FILE__), array(), $tsa_version);
         ?>
         <div class="wrap">
             <?php

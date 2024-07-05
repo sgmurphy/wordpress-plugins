@@ -27,7 +27,8 @@ class Simple_Job_Board_Meta_Box_Application_Status {
 
         $crt_status = get_post_meta( $post->ID, 'sjb_jobapp_status', TRUE) ? get_post_meta($post->ID, 'sjb_jobapp_status', TRUE) : 
             apply_filters('sjb_default_status', 'not_any');
-        
+      
+       
         // Application Statuses
         $app_statuses = apply_filters( 'job_application_statuses', array(
             'not_any'         => __('Not Any', 'simple-job-board'),
@@ -68,8 +69,8 @@ class Simple_Job_Board_Meta_Box_Application_Status {
     public static function sjb_save_jobpost_applicants_meta($post_id) {
 
         $POST_data = filter_input_array(INPUT_POST);       
-
         foreach ( $POST_data as $key => $value ) {
+            
             if (strstr($key, 'sjb_jobapp_status')) {
                 update_post_meta( $post_id, sanitize_key( $key ), sanitize_text_field( $value ) );
             }

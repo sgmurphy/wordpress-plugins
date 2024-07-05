@@ -40,41 +40,39 @@ class Simple_Job_Board_Widgets_Recent_Jobs extends WP_Widget {
      * return   void
      */
     public function form($instance) {
-        $instance = wp_parse_args((array) $instance, array('title' => ''));
-
-        // Widgets Form Default Parameters
-        $title = $instance['title'];
+        $instance = wp_parse_args((array) $instance, array('title' => '', 'showcount' => 5, 'job_category' => 0));
+    
+        $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
         $showcount = isset($instance['showcount']) ? esc_attr($instance['showcount']) : '5';
-        $job_category = isset($instance['job_category']) ? $instance['job_category'] : '0';
-
-        // Job Categories
+        $job_category = isset($instance['job_category']) ? esc_attr($instance['job_category']) : '0';
+    
         $cat_arg = array(
             'type' => 'jobpost',
             'child_of' => 0,
             'taxonomy' => 'jobpost_category',
             'hide_empty' => FALSE,
         );
-
+    
         $categories = get_categories($cat_arg);
         ?>
-
+    
         <!-- Widget Title -->
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"> <?php _e('Title:', 'simple-job-board'); ?>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
             </label>
         </p>
-
+    
         <!-- Job Categories -->
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id('job_category') ); ?>"> <?php _e('Select Category:', 'simple-job-board'); ?>
+            <label for="<?php echo esc_attr($this->get_field_id('job_category')); ?>"> <?php _e('Select Category:', 'simple-job-board'); ?>
                 <select class="widefat" id="<?php echo esc_attr($this->get_field_id('job_category')); ?>" name="<?php echo esc_attr($this->get_field_name('job_category')); ?>">
                     <option value="0"><?php echo __('All', 'simple-job-board'); ?></option>
                     <?php
                     if (isset($categories) && $categories) {
                         foreach ($categories as $category) {
                             ?>
-                            <option <?php selected($job_category, $category->slug); ?> value="<?php echo esc_attr($category->slug); ?>" ><?php echo esc_attr($category->name); ?></option>
+                            <option <?php selected($job_category, $category->slug); ?> value="<?php echo esc_attr($category->slug); ?>"><?php echo esc_html($category->name); ?></option>
                             <?php
                         }
                     }
@@ -82,11 +80,11 @@ class Simple_Job_Board_Widgets_Recent_Jobs extends WP_Widget {
                 </select>
             </label>
         </p>
-
+    
         <!-- Number of Job Posts -->
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id('showcount') ); ?>"> <?php _e('Number of posts to display:', 'simple-job-board'); ?>
-                <input type="text" value="<?php echo esc_attr( $showcount ); ?>" id="<?php echo esc_attr($this->get_field_id('showcount')); ?>" size='2' name="<?php echo esc_attr($this->get_field_name('showcount')); ?>" />
+            <label for="<?php echo esc_attr($this->get_field_id('showcount')); ?>"> <?php _e('Number of posts to display:', 'simple-job-board'); ?>
+                <input type="text" value="<?php echo esc_attr($showcount); ?>" id="<?php echo esc_attr($this->get_field_id('showcount')); ?>" size="2" name="<?php echo esc_attr($this->get_field_name('showcount')); ?>" />
             </label>
         </p>
         <?php
@@ -106,7 +104,7 @@ class Simple_Job_Board_Widgets_Recent_Jobs extends WP_Widget {
 
         // Updated Widget Data
         $instance = $old_instance;
-        $instance['title'] = $new_instance['title'];
+        $instance['title'] = (!empty($new_instance['title'])) ? wp_strip_all_tags($new_instance['title']) : '';
         $instance['showcount'] = $new_instance['showcount'];
         $instance['job_category'] = $new_instance['job_category'];
         return $instance;

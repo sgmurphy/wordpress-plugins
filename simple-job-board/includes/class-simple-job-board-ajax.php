@@ -93,7 +93,6 @@ class Simple_Job_Board_Ajax {
      * @return void
      */
     public function process_applicant_form() {
-        
         check_ajax_referer( 'jobpost_security_nonce', 'wp_nonce' );
         
         /**

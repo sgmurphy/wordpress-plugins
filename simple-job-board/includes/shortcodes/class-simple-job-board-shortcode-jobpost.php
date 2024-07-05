@@ -67,7 +67,6 @@ class Simple_Job_Board_Shortcode_Jobpost {
 
         // Combine User Defined Shortcode Attributes with Known Attributes
         $shortcode_args = shortcode_atts(apply_filters('sjb_output_jobs_defaults', $shortcode_args, $atts), $atts);
-
         // Get paged variable.
         if (get_query_var('paged')) {
             $paged = (int) get_query_var('paged');
@@ -93,10 +92,9 @@ class Simple_Job_Board_Shortcode_Jobpost {
             'jobpost_tag' => (!empty($_GET['selected_tag'])) ? sanitize_text_field($_GET['selected_tag']) : '',
                 ), $atts
         );
-
+        
         // Job Query
         $job_query = new WP_Query($args);
-
         /**
          * Fires before listing jobs on job listing page.
          * 
@@ -141,10 +139,13 @@ class Simple_Job_Board_Shortcode_Jobpost {
         do_action('sjb_job_listing_before');
 
         if ($job_query->have_posts()):
+            
             global $counter, $post_count;
             $counter = 1;
             $post_count = $job_query->post_count;
-
+            do_action("display_job_count_on_shortcode_page",$job_query,$shortcode_args);
+            
+            
             while ($job_query->have_posts()): $job_query->the_post();
                 //Backward Compatibility
                 if ($shortcode_args['layout']) {
@@ -185,6 +186,8 @@ class Simple_Job_Board_Shortcode_Jobpost {
 
         wp_reset_postdata();
 
+        
+
         /**
          * Fires after listing jobs on job listing page.
          * 
@@ -198,7 +201,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
          * - SJB Ending of Job List.
          */
         get_simple_job_board_template('listing/job-listings-end.php');
-
+        do_action('add_faq_section_below_job_listing',$job_query,$shortcode_args,$args);
         /**
          * Template -> Job Listing Wrapper End:
          * 
@@ -206,6 +209,8 @@ class Simple_Job_Board_Shortcode_Jobpost {
          */
         get_simple_job_board_template('listing/listing-wrapper-end.php');
 
+        
+        
         $html = ob_get_clean();
 
         /**

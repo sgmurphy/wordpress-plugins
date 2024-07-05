@@ -11,7 +11,7 @@ $activate_theme = $activate_theme_data->name;
 ?>
 <?php if($consultstreet_site_top_header_disabled == true): ?>
 <!--Header Sidebar-->
-	<header id="site-header" class="site-header <?php if('EnvoPress' == $activate_theme || 'EarnPress' == $activate_theme || 'Business Stock' == $activate_theme){echo 'vrsn-two';}?>">
+	<header id="site-header" class="site-header <?php if('EnvoPress' == $activate_theme || 'EarnPress' == $activate_theme || 'Business Stock' == $activate_theme || 'ConsultHub' == $activate_theme){echo 'vrsn-two';}?>">
 		<div class="<?php echo $consultstreet_top_header_container_size; ?>">
 			<div class="row">
 			<?php if($consultstreet_site_top_header_info_disabled == true): ?>

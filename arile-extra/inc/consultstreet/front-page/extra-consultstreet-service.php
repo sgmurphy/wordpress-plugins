@@ -1,7 +1,7 @@
 <?php 
 $activate_theme_data = wp_get_theme(); // getting current theme data
 $activate_theme = $activate_theme_data->name;
-if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme){				
+if('ConsultStreet' == $activate_theme || 'BrightPress' == $activate_theme || 'AssentPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'){				
 	$title = 'Our Services';
     $description = 'We provide the worlds best consulting related services to growth your business.';	
 }
@@ -30,7 +30,7 @@ $consultstreet_service_content  = get_theme_mod( 'consultstreet_service_content'
 $consultstreet_service_area_disabled = get_theme_mod('consultstreet_service_area_disabled', true); 
 $consultstreet_service_area_title = get_theme_mod('consultstreet_service_area_title', __(''.$title.'','arile-extra'));
 $consultstreet_service_area_des = get_theme_mod('consultstreet_service_area_des', __(''.$description.'','arile-extra'));
-if('ConsultStreet' == $activate_theme || 'FitnessBase' == $activate_theme || 'AssentPress' == $activate_theme || 'Beauty Spa Salon' == $activate_theme || 'Decorexo' == $activate_theme || 'EnvoPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || $activate_theme == 'Business Stock' || 'BlogWar' == $activate_theme){		$text_align = 'center';	
+if('ConsultStreet' == $activate_theme || 'FitnessBase' == $activate_theme || 'AssentPress' == $activate_theme || 'Beauty Spa Salon' == $activate_theme || 'Decorexo' == $activate_theme || 'EnvoPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || $activate_theme == 'Business Stock' || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub' ){		$text_align = 'center';	
 }
 if('BrightPress' == $activate_theme){
     $text_align = 'left';				
@@ -113,7 +113,7 @@ if($consultstreet_service_area_disabled == true): ?>
 			} }
 			else
 			{ 
-		        if('ConsultStreet' == $activate_theme || 'AssentPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme){
+		        if('ConsultStreet' == $activate_theme || 'AssentPress' == $activate_theme || 'EarnPress' == $activate_theme || $activate_theme == 'MadisonBlog' || $activate_theme == 'ConsultZone' || 'BlogWar' == $activate_theme || $activate_theme == 'ConsultHub'){
 					$service1_icon = 'fa-usd';
 					$service2_icon = 'fa-clone';
 					$service3_icon = 'fa-bar-chart';

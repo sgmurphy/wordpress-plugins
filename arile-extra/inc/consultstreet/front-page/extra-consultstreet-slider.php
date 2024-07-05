@@ -21,7 +21,7 @@ if( $consultstreet_main_slider_disabled == true ): ?>
 			<?php } ?>
 			<?php if($title != '' || $img_description!= '' || $readmore_button!=''){ ?>
 				<div class="container theme-slider-content">
-					<div class="<?php if('EarnPress' == $activate_theme || 'Business Stock' == $activate_theme){ echo 'theme-text-center align-center';}else{echo 'theme-text-left';};?>">
+					<div class="<?php if('EarnPress' == $activate_theme || 'Business Stock' == $activate_theme || 'ConsultHub' == $activate_theme){ echo 'theme-text-center align-center';}else{echo 'theme-text-left';};?>">
 					<?php if($title != ''){ ?>
 						<h1 class="title-large"><?php echo wp_kses_post( html_entity_decode( $title ) ); ?></h1>
 				    <?php } ?>
@@ -109,7 +109,13 @@ if( $consultstreet_main_slider_disabled == true ): ?>
 					$image2_slide = 2;
 					$slider1_title = 'WE HELP OUR CLIENTS ACHIEVE GREAT BUSINESS RESULTS';
 					$slider2_title = 'WE BUILD YOUR OWN BUSINESS';	
-				} 		
+				}
+				if('ConsultHub' == $activate_theme){
+					$image1_slide = 19;
+					$image2_slide = 20;
+					$slider1_title = 'The Fastest Way to Achieve Success';
+					$slider2_title = 'Amazing Business Ideas to Achieve Success';
+				} 					
 			
 			?>
 			
@@ -205,6 +211,38 @@ if( $consultstreet_main_slider_disabled == true ): ?>
 			</div>
 			
 			<?php } elseif('Business Stock' == $activate_theme){ ?>
+
+			<div class="item" style="background-image:url(<?php echo arile_extra_plugin_url; ?>/inc/consultstreet/images/theme-slide<?php echo $image1_slide; ?>.jpg);">
+				<div class="container theme-slider-content">
+					<div class="theme-text-center align-center">
+						<h1 class="title-large"><?php echo wp_kses_post( html_entity_decode( $slider1_title  ) ); ?></h1>
+						<p class="description"><?php esc_html_e("We provide world class business services for our clients to grow their businesses, so don't waste your time, contact us and see the results instantly.",'arile-extra'); ?></p>
+						<div class="mt-4 pt-2">
+							<a href="#" class="btn-small btn-default"><?php esc_html_e('Check it out','arile-extra'); ?></a>
+						</div>							
+					</div>
+				</div>
+				<?php if($consultstreet_main_slider_overlay_disable == true) { ?>
+				<div class="overlay"></div>
+				<?php } ?>
+			</div>
+			
+			<div class="item" style="background-image:url(<?php echo arile_extra_plugin_url; ?>/inc/consultstreet/images/theme-slide<?php echo $image2_slide; ?>.jpg);">
+				<div class="container theme-slider-content">
+					<div class="theme-text-center align-center">
+						<h1 class="title-large"><?php echo wp_kses_post( html_entity_decode( $slider2_title  ) ); ?></h1>
+						<p class="description"><?php esc_html_e("We provide world class business services for our clients to grow their businesses, so don't waste your time, contact us and see the results instantly.",'arile-extra'); ?></p>
+						<div class="mt-4 pt-2">
+							<a href="#" class="btn-small btn-default"><?php esc_html_e('Check it out','arile-extra'); ?></a>
+						</div>							
+					</div>
+				</div>
+				<?php if($consultstreet_main_slider_overlay_disable == true) { ?>
+				<div class="overlay"></div>
+				<?php } ?>
+			</div>
+			
+			<?php } elseif('ConsultHub' == $activate_theme){ ?>
 
 			<div class="item" style="background-image:url(<?php echo arile_extra_plugin_url; ?>/inc/consultstreet/images/theme-slide<?php echo $image1_slide; ?>.jpg);">
 				<div class="container theme-slider-content">

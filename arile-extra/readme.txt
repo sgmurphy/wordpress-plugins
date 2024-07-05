@@ -3,7 +3,7 @@ Contributors: ThemeArile
 Tags: projects, widgets, admin, companion, homepage
 Requires at least: 3.3+
 Tested up to: 6.5.3
-Stable tag: 7.0
+Stable tag: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Arile Extra is a companion plugin for ArileWP WordPress theme by ThemeArile.
 This Arile Extra plugin is created for ThemeArile. This plugin provides beautiful additional frontpage sections for ThemeArile. And it will allow you full customizer settings to your front page sections. The plugin options are user-friendly and You can use this plugin for every ThemeArile theme.
 
 == Changelog ==
+
+= 7.1 =
+* Added ConsultHub theme support.
 
 = 7.0 =
 * Added BlogWar theme support.

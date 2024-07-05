@@ -15,7 +15,7 @@
  * Plugin Name:       Simple Job Board
  * Plugin URI:        https://wordpress.org/plugins/simple-job-board/simple-job-board-uri
  * Description:       Powerful & Robust plugin to create a Job Board on your website in simple & elegant way.
- * Version:           2.12.1
+ * Version:           2.12.3
  * Author:            PressTigers
  * Author URI:        http://pressTigers.com
  * License:           GPL-3.0+
@@ -30,7 +30,7 @@ if (!defined('WPINC')) {
 
 // Define Plugin Contant
 if (!defined('SJB_PLUGIN_VERSION')) {
-    define('SJB_PLUGIN_VERSION', '2.12.1');
+    define('SJB_PLUGIN_VERSION', '2.12.3');
 }
 
 // Define Plugin Upload DIR
@@ -79,6 +79,9 @@ function sjb_wp_upe_upgrade_completed( $upgrader_object, $options ) {
    if( $plugin == $our_plugin ) {
 
     update_option( 'sjb_update_ui_notice', 'Versi0n 2.4 is Updated' );
+
+        $sjbrObj = new Simple_Job_Board_Rewrite();
+        $sjbrObj->job_board_rewrite(); 
    }
   }
  }

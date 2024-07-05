@@ -71,13 +71,14 @@ class Simple_Job_Board_Settings_General
 
             <?php
             // Get Custom Post Type & Taxonomies Options
-            $jobpost_slug =  get_option('job_board_jobpost_slug') ? esc_html(get_option('job_board_jobpost_slug')) : esc_html('jobs');
-            $job_archives_name = get_option('job_archives_name') !== false ? esc_html(get_option('job_archives_name')) : esc_html('Job Archives', 'simple-job-board');
-            $category_slug = get_option('job_board_job_category_slug') ? esc_html(get_option('job_board_job_category_slug')) : esc_html('job-category');
-            $job_type_slug = get_option('job_board_job_type_slug') ? esc_html(get_option('job_board_job_type_slug')) : esc_html('job-type');
-            $job_location_slug = get_option('job_board_job_location_slug') ? esc_html(get_option('job_board_job_location_slug')) : esc_html('job-location');
-            $date_format = (  get_option( 'sjb_date_format' ) )? (get_option( 'sjb_date_format' )): 'd-m-y';
-            $set = (  get_option( 'sjb_date_format_text' ) )? get_option( 'sjb_date_format_text' ): '';
+            $jobpost_slug = get_option('job_board_jobpost_slug') ? esc_html(get_option('job_board_jobpost_slug')) : esc_html__('jobs', 'simple-job-board');
+            $job_archives_name = get_option('job_archives_name') !== false ? esc_html(get_option('job_archives_name')) : esc_html__('Job Archives', 'simple-job-board');
+            $category_slug = get_option('job_board_job_category_slug') ? esc_html(get_option('job_board_job_category_slug')) : esc_html__('job-category', 'simple-job-board');
+            $job_type_slug = get_option('job_board_job_type_slug') ? esc_html(get_option('job_board_job_type_slug')) : esc_html__('job-type', 'simple-job-board');
+            $job_location_slug = get_option('job_board_job_location_slug') ? esc_html(get_option('job_board_job_location_slug')) : esc_html__('job-location', 'simple-job-board');
+            $date_format = get_option('sjb_date_format') ? esc_html(get_option('sjb_date_format')) : esc_html__('d-m-y', 'simple-job-board');
+            $set = get_option('sjb_date_format_text') ? esc_html(get_option('sjb_date_format_text')) : '';
+
 
             $d_m_y = '';
             $y_m_d = '';

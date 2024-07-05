@@ -16,7 +16,7 @@
  * Plugin Name:       Essential Content Types
  * Plugin URI:        https://catchplugins.com/plugins/essential-content-types/
  * Description:       Essential Content Types allows you to feature the impressive content through different content/post types on your website just the way you want it. These content/post types are missed by the themes in WordPress Theme Directory as the feature falls more towards the plugins’ territory.
- * Version:           2.2.4
+ * Version:           2.2.5
  * Author:            Catch Plugins
  * Author URI:        https://catchplugins.com
  * License:           GPL-3.0+
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define Version
-define( 'ESSENTIAL_CONTENT_TYPES_VERSION', '2.2.4' );
+define( 'ESSENTIAL_CONTENT_TYPES_VERSION', '2.2.5' );
 
 /**
  * The code that runs during plugin activation.
@@ -228,17 +228,17 @@ add_action( 'wp_head', 'ect_check_archive_title' );
 function ect_modify_archive_title( $title ) {
 	$title_label = '<span class="some-class">%1$s</span>%2$s';
 	$type        = ect_get_archive_post_type();
-	
+
 	if ( ! $type ) {
 		// Bail if type is not from ECT.
 		return;
 	}
-	
+
 	$default_title = array(
-		'ect_service_title'         => esc_html( 'Services', 'essential-content-types' ),
-		'jetpack_testimonial_title' => esc_html( 'Testimonial', 'essential-content-types' ),
-		'jetpack_portfolio_title'   => esc_html( 'Portfolio', 'essential-content-types' ),
-		'featured_content_title'    => esc_html( 'Featured Content', 'essential-content-types' ),
+		'ect_service_title'         => esc_html__( 'Services', 'essential-content-types' ),
+		'jetpack_testimonial_title' => esc_html__( 'Testimonial', 'essential-content-types' ),
+		'jetpack_portfolio_title'   => esc_html__( 'Portfolio', 'essential-content-types' ),
+		'featured_content_title'    => esc_html__( 'Featured Content', 'essential-content-types' ),
 	);
 
 	$archive_title = get_option( $type, $default_title[ $type ] );
@@ -247,7 +247,7 @@ function ect_modify_archive_title( $title ) {
 		return trim(
 			sprintf(
 				$title_label,
-				esc_html_x( 'Archives: ', 'Archive title label.', 'archive-title' ),
+				esc_html_x( 'Archives: ', 'Archive title label.', 'essential-content-types' ),
 				$archive_title
 			)
 		);
@@ -255,7 +255,7 @@ function ect_modify_archive_title( $title ) {
 		return trim(
 			sprintf(
 				$title_label,
-				esc_html_x( 'Archives: ', 'Archive title label.', 'archive-title' ),
+				esc_html_x( 'Archives: ', 'Archive title label.', 'essential-content-types' ),
 				post_type_archive_title( '', false )
 			)
 		);
