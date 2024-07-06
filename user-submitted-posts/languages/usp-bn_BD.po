@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: bn\n"
 
 #: library/plugin-settings.php:590
@@ -25,7 +25,7 @@ msgstr " নথি পত্র"
 
 #: user-submitted-posts.php:1683
 msgid " files required"
-msgstr " ফাইল প্রয়োজন"
+msgstr " প্রয়োজনীয় ফাইল"
 
 #: user-submitted-posts.php:123
 msgid " or higher, and has been deactivated! "
@@ -92,10 +92,10 @@ msgstr "পোস্ট কন্টেন্ট পরে"
 
 #: user-submitted-posts.php:1700
 msgid "An error occurred. Please go back and try again."
-msgstr "একটি ত্রুটি ঘটেছে. ফিরে যান এবং আবার চেষ্টা করুন।"
+msgstr "একটি ত্রুটি ঘটেছে। ফিরে যান এবং আবার চেষ্টা করুন।"
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "এবং"
 
@@ -111,17 +111,9 @@ msgstr "এন্টিস্প্যাম প্রশ্ন"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "যেকোনো আকারের দান আমাকে এই বিনামূল্যের প্লাগইন এবং অন্যান্য দুর্দান্ত ওয়ার্ডপ্রেস সংস্থানগুলি বিকাশ চালিয়ে যেতে সাহায্য করে।"
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "কোড প্রয়োগ করুন"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "নিযুক্ত লেখক"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "চেকআউট এ বিক্রয় শেষ হবে 5/25/24 তারিখে।"
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "স্বয়ংক্রিয়ভাবে ছবি এবং আ
 msgid "Before post content"
 msgstr "কন্টেন্ট পোস্ট করার আগে"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "বই"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "একটি কিনুন কোড সহ একটি বিনামূল্যে পান"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -209,7 +205,7 @@ msgstr "চেকবক্স ত্রুটি"
 
 #: library/plugin-display.php:419
 msgid "Checkbox Name"
-msgstr "চেকবক্সের নাম"
+msgstr "চেকবক্স নাম"
 
 #: library/plugin-display.php:429
 msgid "Checkbox Text"
@@ -348,7 +344,7 @@ msgstr "নিষ্ক্রিয় আবশ্যক"
 msgid "Disable this field"
 msgstr "এই ক্ষেত্রটি নিষ্ক্রিয় করুন"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "খারিজ"
 
@@ -452,7 +448,7 @@ msgstr "খসড়া"
 
 #: user-submitted-posts.php:1742
 msgid "Duplicate post title. Please try again."
-msgstr "ডুপ্লিকেট পোস্ট শিরোনাম. অনুগ্রহপূর্বক আবার চেষ্টা করুন."
+msgstr "ডুপ্লিকেট পোস্ট শিরোনাম. অনুগ্রহপূর্বক আবার চেষ্টা করুন।"
 
 #: library/plugin-settings.php:918
 msgid "Email"
@@ -464,7 +460,7 @@ msgstr "ইমেল &ldquo;থেকে&rdquo; ঠিকানা"
 
 #: library/plugin-display.php:265
 msgid "Email Address for Alerts"
-msgstr "সতর্কতার জন্য ইমেল ঠিকানা"
+msgstr "সতর্কতা জন্য ইমেল ঠিকানা"
 
 #: library/plugin-display.php:283
 msgid "Email Alert Message"
@@ -521,7 +517,7 @@ msgstr "শর্টকোড সক্রিয় করুন"
 
 #: library/plugin-display.php:187
 msgid "Enable shortcodes in widgets. By default, WordPress does not enable shortcodes in widgets. "
-msgstr "উইজেটে শর্টকোড সক্রিয় করুন। ডিফল্টরূপে, ওয়ার্ডপ্রেস উইজেটগুলিতে শর্টকোড সক্রিয় করে না। "
+msgstr "উইজেটগুলিতে শর্টকোডগুলি সক্ষম করুন৷ ডিফল্টরূপে, ওয়ার্ডপ্রেস উইজেটে শর্টকোড সক্রিয় করে না। "
 
 #: library/plugin-display.php:317
 msgid "Enable users to select multiple categories"
@@ -558,7 +554,7 @@ msgstr "আপনার সর্বজনীন কী লিখুন"
 
 #: library/shortcode-login.php:156
 msgid "Enter your username or email to reset your password."
-msgstr "আপনার গোপন শব্দ নতুন করতে সদস্যের নাম আর ইমেইল প্রবেশ করান."
+msgstr "আপনার গোপন শব্দ নতুন করতে সদস্যের নাম আর ইমেইল প্রবেশ করান।"
 
 #: library/plugin-display.php:155
 msgid "Error Message"
@@ -646,6 +642,10 @@ msgstr "ইউএসপি প্রো পান"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "সীমাহীন ফর্মের জন্য ইউএসপি প্রো পান!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "পান&nbsp;প্লাগইন&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "এটি একটি 5-স্টার রেটিং দিন"
@@ -657,10 +657,6 @@ msgstr "WordPress.org-এ USP-কে 5-স্টার রেটিং দিন
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "প্রো যান"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "গো প্রো!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -835,7 +831,7 @@ msgstr "জমা দেওয়া লেখক/নামের জন্য �
 
 #: library/plugin-display.php:590
 msgid "Markup for submitted email address. You may include any of the following variables:"
-msgstr "জমা দেওয়া ইমেল ঠিকানার জন্য মার্কআপ। আপনি নিম্নলিখিত ভেরিয়েবলগুলির মধ্যে যেকোনো একটি অন্তর্ভুক্ত করতে পারেন:"
+msgstr "জমা দেওয়া ইমেল ঠিকানার জন্য মার্কআপ। আপনি নিম্নলিখিত যে কোনো ভেরিয়েবল অন্তর্ভুক্ত করতে পারেন:"
 
 #: library/plugin-display.php:616
 msgid "Markup for submitted URL. You may include any of the following variables:"
@@ -969,6 +965,10 @@ msgstr "বা"
 msgid "or by making a"
 msgstr "অথবা একটি তৈরি করে"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "অথবা কোড সহ 30% ছাড় নিন"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "অথবা, এগিয়ে যেতে এবং ডিফল্ট প্লাগইন বিকল্পগুলি পুনরুদ্ধার করতে: বাক্সটি চেক করুন, আপনার সেটিংস সংরক্ষণ করুন এবং তারপর প্লাগইন নিষ্ক্রিয়/পুনরায় সক্রিয় করুন৷"
@@ -1083,7 +1083,7 @@ msgstr "পোস্ট স্ট্যাটাস"
 
 #: library/plugin-display.php:141
 msgid "Post Status for submitted posts"
-msgstr "জমা দেওয়া পোস্টের জন্য পোস্ট স্ট্যাটাস"
+msgstr "জমা দেওয়া পোস্টের জন্য পোস্টের অবস্থা"
 
 #: views/submission-form.php:56 views/submission-form.php:65
 #: views/submission-form.php:66 views/submission-form-alt.php:71
@@ -1118,9 +1118,9 @@ msgstr "জমা দেওয়া পোস্টের জন্য পো�
 msgid "Private Key"
 msgstr "ব্যক্তিগত কী"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "প্রো ওয়ার্ডপ্রেস প্লাগইন"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "প্রো প্লাগইন বিক্রয়!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "ফর্মে ফিরে যান"
 msgid "Rich Text Editor"
 msgstr "উন্নত টেক্সট এডিটর"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "আমাদের উপর 30% সংরক্ষণ করুন"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "সমস্ত পরিবর্তন সংরক্ষণ করুন"
@@ -1324,7 +1320,7 @@ msgstr "সফলতার !"
 
 #: library/plugin-settings.php:889
 msgid "Success! Thank you for your submission."
-msgstr "সফলতার ! আপনার জমা দেওয়ার জন্য আপনাকে ধন্যবাদ."
+msgstr "সফলতার ! আপনার জমা দেওয়ার জন্য আপনাকে ধন্যবাদ।"
 
 #: library/plugin-display.php:42
 msgid "Support Forum"
@@ -1376,7 +1372,7 @@ msgstr "প্রো সংস্করণ অ্যাক্সেস-কন্
 
 #: library/plugin-settings.php:869
 msgid "There was an error. Please check required fields and try again."
-msgstr "সেখানে একটা ভুল ছিল. অনুগ্রহ করে প্রয়োজনীয় ক্ষেত্র চেক করুন এবং আবার চেষ্টা করুন।"
+msgstr "সেখানে একটা ভুল ছিল। অনুগ্রহ করে প্রয়োজনীয় ক্ষেত্র চেক করুন এবং আবার চেষ্টা করুন।"
 
 #: library/plugin-display.php:188
 msgid "This setting enables any/all shortcodes in widgets (even shortcodes from other plugins)."
@@ -1506,7 +1502,7 @@ msgstr "একক সোজা উদ্ধৃতি ব্যবহার ক�
 
 #: library/plugin-display.php:500
 msgid "Use submitted images as Featured Images. Requires theme support for Featured Images (aka Post Thumbnails)"
-msgstr "ফিচারড ইমেজ হিসেবে জমা দেওয়া ছবি ব্যবহার করুন। বৈশিষ্ট্যযুক্ত চিত্রগুলির জন্য থিম সমর্থন প্রয়োজন (ওরফে পোস্ট থাম্বনেইল)"
+msgstr "ফিচারড ইমেজ হিসেবে জমা দেওয়া ছবি ব্যবহার করুন। বৈশিষ্ট্যযুক্ত চিত্রগুলির জন্য থিম সমর্থন প্রয়োজন (ওরফে পোস্ট থাম্বনেল)"
 
 #: library/plugin-display.php:672 library/plugin-display.php:685
 msgid "Use the shortcode to display the form on any WP Post or Page:"

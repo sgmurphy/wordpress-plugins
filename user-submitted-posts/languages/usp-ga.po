@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: ga\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Tar éis ábhar a phostáil"
 msgid "An error occurred. Please go back and try again."
 msgstr "Tharla earráid. Téigh ar ais agus bain triail eile as."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "agus"
 
@@ -111,17 +111,9 @@ msgstr "Ceist Antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Cabhraíonn síntiús méid ar bith liom leanúint ar aghaidh ag forbairt an bhreiseáin seo saor in aisce agus acmhainní uamhnach WordPress eile."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Cuir cód i bhfeidhm"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Údar Sannta"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "ag seiceáil amach. Críochnaíonn an díol 5/25/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Taispeáin íomhánna agus níos mó go huathoibríoch."
 msgid "Before post content"
 msgstr "Roimh ábhar a phostáil"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "leabhair"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Ceannaigh ceann faigh ceann SAOR IN AISCE le cód"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Díchumasaigh Riachtanach"
 msgid "Disable this field"
 msgstr "Díchumasaigh an réimse seo"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Díbhe"
 
@@ -646,6 +642,10 @@ msgstr "Faigh USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Faigh USP Pro le haghaidh foirmeacha neamhtheoranta!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Faigh&nbsp;breiseáin&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "tabhair rátáil 5 réalta dó"
@@ -657,10 +657,6 @@ msgstr "Tabhair rátáil 5 réalta do USP ag WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Téigh Pro"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Téigh Pro!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -750,7 +746,7 @@ msgstr "Cuir JavaScript san áireamh"
 
 #: library/plugin-display.php:123
 msgid "Include required JavaScript files (recommended)"
-msgstr "Cuir na comhaid JavaScript riachtanacha san áireamh (molta)"
+msgstr "Cuir comhaid JavaScript riachtanacha san áireamh (molta)"
 
 #: library/enqueue-scripts.php:152
 msgid "Incorrect response."
@@ -969,6 +965,10 @@ msgstr "nó"
 msgid "or by making a"
 msgstr "nó trí a"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "nó bain 30% de thalamh le cód"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Nó, chun dul ar aghaidh agus na roghanna breiseán réamhshocraithe a chur ar ais: seiceáil an bosca, sábháil do shocruithe, agus ansin díghníomhachtaigh/athghníomhachtaigh an breiseán."
@@ -1118,9 +1118,9 @@ msgstr "Cineál Poist do phoist a cuireadh isteach"
 msgid "Private Key"
 msgstr "Eochair Phríobháideach"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Forlíontáin wordpress pro"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Díol breiseán Pro!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1208,7 +1208,7 @@ msgstr "Éilíonn WordPress "
 
 #: library/shortcode-misc.php:17
 msgid "Reset form"
-msgstr "Foirm athshocrú"
+msgstr "Foirm athshocraigh"
 
 #: library/plugin-display.php:739
 msgid "Reset Form Button"
@@ -1233,10 +1233,6 @@ msgstr "Fill ar an bhfoirm"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Eagarthóir téacs saibhir"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Sábháil 30% ar ár"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1510,7 +1506,7 @@ msgstr "Úsáid íomhánna curtha isteach mar Íomhánna Réadmhaoine. Teastaío
 
 #: library/plugin-display.php:672 library/plugin-display.php:685
 msgid "Use the shortcode to display the form on any WP Post or Page:"
-msgstr "Bain úsáid as an ngearrchód chun an fhoirm a thaispeáint ar aon phostáil nó leathanach WP:"
+msgstr "Úsáid an gearrchód chun an fhoirm a thaispeáint ar aon phostáil nó leathanach WP:"
 
 #: library/plugin-display.php:226
 msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user is logged in to WordPress)"

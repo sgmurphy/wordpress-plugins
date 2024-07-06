@@ -84,8 +84,8 @@ class SPLC_Logo {
 				'name'                  => __( 'All Logos', 'logo-carousel-free' ),
 				'singular_name'         => __( 'Logo', 'logo-carousel-free' ),
 				'menu_name'             => __( 'Logo Carousel', 'logo-carousel-free' ),
-				'add_new'               => __( 'Add New', 'logo-carousel-free' ),
-				'add_new_item'          => __( 'Add New', 'logo-carousel-free' ),
+				'add_new'               => __( 'Add New Logo', 'logo-carousel-free' ),
+				'add_new_item'          => __( 'Add New Logo', 'logo-carousel-free' ),
 				'edit'                  => __( 'Edit', 'logo-carousel-free' ),
 				'edit_item'             => __( 'Edit', 'logo-carousel-free' ),
 				'new_item'              => __( 'New Logo', 'logo-carousel-free' ),
@@ -97,7 +97,7 @@ class SPLC_Logo {
 				'not_found_in_trash'    => __( 'No Logo Found in Trash', 'logo-carousel-free' ),
 				'parent'                => __( 'Parent Logos', 'logo-carousel-free' ),
 				'featured_image'        => __( 'Logo Image', 'logo-carousel-free' ),
-				'set_featured_image'    => __( 'Set Logo', 'logo-carousel-free' ),
+				'set_featured_image'    => __( 'Upload Logo', 'logo-carousel-free' ),
 				'remove_featured_image' => __( 'Remove logo image', 'logo-carousel-free' ),
 				'use_featured_image'    => __( 'Use as logo image', 'logo-carousel-free' ),
 			),
@@ -107,5 +107,4 @@ class SPLC_Logo {
 
 		register_post_type( 'sp_logo_carousel', $args_post_type );
 	}
-
 }

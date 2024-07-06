@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: tr\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "İçerik gönderildikten sonra"
 msgid "An error occurred. Please go back and try again."
 msgstr "Bir hata oluştu. Lütfen geri dönüp tekrar deneyin."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "Ve"
 
@@ -111,17 +111,9 @@ msgstr "Antispam Sorusu"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Her boyutta bağış, bu ücretsiz eklentiyi ve diğer harika WordPress kaynaklarını geliştirmeye devam etmeme yardımcı oluyor."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Kodu uygula"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Atanan Yazar"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "Kasada. Satış 25.05.24 tarihinde sona eriyor."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Görüntüleri ve daha fazlasını otomatik olarak görüntüleyin."
 msgid "Before post content"
 msgstr "İçerik yayınlamadan önce"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "kitabın"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Bir alana bir tane ÜCRETSİZ kodla alın"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Devre Dışı Bırakma Gerekli"
 msgid "Disable this field"
 msgstr "Bu alanı devre dışı bırak"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Azletmek"
 
@@ -570,7 +566,7 @@ msgstr "Gönderi gönderimi başarısız olursa görüntülenen hata mesajı (te
 
 #: library/plugin-display.php:426
 msgid "Error message displayed if user does not check the box"
-msgstr "Kullanıcı kutuyu işaretlemediğinde görüntülenen hata mesajı"
+msgstr "Kullanıcı kutuyu işaretlemezse görüntülenen hata mesajı"
 
 #: user-submitted-posts.php:1752
 msgid "Error: "
@@ -646,6 +642,10 @@ msgstr "USP Pro'yu edinin"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Sınırsız formlar için USP Pro'yu edinin!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "&nbsp;Eklentileri&nbsp;alın&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "ona 5 yıldız ver"
@@ -657,10 +657,6 @@ msgstr "USP'ye WordPress.org'da 5 yıldız verin"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Profesyonelliğe Geçin"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Profesyonel ol!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -915,7 +911,7 @@ msgstr "Karşılanmayan minimum resim sayısı"
 
 #: library/plugin-display.php:533
 msgid "Minimum width (in pixels) for uploaded images"
-msgstr "Yüklenen görseller için minimum genişlik (piksel cinsinden)"
+msgstr "Yüklenen resimler için minimum genişlik (piksel cinsinden)"
 
 #: library/plugin-display.php:81 library/plugin-display.php:191
 #: library/plugin-display.php:239 library/plugin-display.php:290
@@ -968,6 +964,10 @@ msgstr "veya"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "veya bir yaparak"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "veya kodla %30 indirim kazanın"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1118,9 +1118,9 @@ msgstr "Gönderilen gönderiler için Gönderi Türü"
 msgid "Private Key"
 msgstr "Özel anahtar"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Profesyonel WordPress eklentileri"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Pro Eklenti İndirimi!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1140,7 +1140,7 @@ msgstr "1 onaylanan gönderiden sonra yayınla"
 
 #: library/plugin-settings.php:588
 msgid "Publish immediately"
-msgstr "Hemen yayınla"
+msgstr "Hemen yayınlayın"
 
 #: library/plugin-settings.php:67
 msgid "Rate this plugin&nbsp;&raquo;"
@@ -1233,10 +1233,6 @@ msgstr "Forma dön"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Zengin metin editörü"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Ürünlerimizde %30 tasarruf edin"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1433,7 +1429,7 @@ msgstr "açılı ayraçların çıktısını almak için"
 
 #: library/plugin-display.php:454
 msgid "To prevent spam, enter a question that users must answer before submitting the form"
-msgstr "Spam'ı önlemek için kullanıcıların formu göndermeden önce yanıtlaması gereken bir soru girin"
+msgstr "Spam'i önlemek için kullanıcıların formu göndermeden önce yanıtlaması gereken bir soru girin"
 
 #: user-submitted-posts.php:1810
 msgid "to submit content!"

@@ -39,7 +39,6 @@ if ( ! function_exists( 'splogocarousel_array_search' ) ) {
 		}
 
 		return $results;
-
 	}
 }
 
@@ -55,5 +54,35 @@ if ( ! function_exists( 'splogocarousel_wp_editor_api' ) ) {
 	function splogocarousel_wp_editor_api() {
 		global $wp_version;
 		return version_compare( $wp_version, '4.8', '>=' );
+	}
+}
+
+if ( ! function_exists( 'splogocarousel_title_placeholder' ) ) {
+	/**
+	 * Post type title placeholder
+	 *
+	 * @return string
+	 * @since 4.0.0
+	 */
+	function splogocarousel_title_placeholder( $title ) {
+		$screen = get_current_screen();
+
+		if ( 'sp_logo_carousel' === $screen->post_type ) {
+			$title = __( 'Add Logo Title', 'logo-carousel-free' );
+		}
+		return $title;
+	}
+	add_filter( 'enter_title_here', 'splogocarousel_title_placeholder' );
+}
+
+if ( ! function_exists( 'logocarousel' ) ) {
+	/**
+	 * Shortcode converter function
+	 *
+	 * @param  int $id shortcode id.
+	 * @return void
+	 */
+	function logocarousel( $id ) {
+		echo do_shortcode( '[logocarousel id="' . $id . '"]' );
 	}
 }

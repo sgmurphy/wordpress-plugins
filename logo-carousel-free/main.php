@@ -3,7 +3,7 @@
  * Plugin Name:       Logo Carousel
  * Plugin URI:        https://logocarousel.com/?ref=1
  * Description:       Display and highlight your clients, partners, supporters, and sponsors logos on your WordPress site in a nice logo carousel. Easy Shortcode Generator | Highly Customizable | No Coding Knowledge Required!
- * Version:           3.5.1
+ * Version:           3.5.2
  * Author:            ShapedPlugin LLC
  * Author URI:        https://shapedplugin.com
  * Text Domain:       logo-carousel-free
@@ -48,7 +48,7 @@ if ( ! class_exists( 'SP_Logo_Carousel' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '3.5.1';
+		public $version = '3.5.2';
 
 		/**
 		 * Single instance of the class
@@ -210,6 +210,7 @@ if ( ! class_exists( 'SP_Logo_Carousel' ) ) {
 			if ( 'sp_lc_shortcodes' === $the_current_post_type ) {
 				wp_enqueue_style( 'sp-lc-swiper' );
 				wp_enqueue_style( 'sp-lc-font-awesome' );
+				wp_enqueue_style( 'sp-lc-fontello' );
 				wp_enqueue_style( 'sp-lc-style' );
 				wp_enqueue_script( 'sp-lc-swiper-js' );
 			}
@@ -248,6 +249,7 @@ if ( ! class_exists( 'SP_Logo_Carousel' ) ) {
 			if ( $font_awesome_css ) {
 				wp_register_style( 'sp-lc-font-awesome', SP_LC_URL . 'public/assets/css/font-awesome.min.css', array(), SP_LC_VERSION );
 			}
+			wp_register_style( 'sp-lc-fontello', SP_LC_URL . 'admin/assets/css/fontello.css', array(), SP_LC_VERSION, 'all' );
 			wp_register_style( 'sp-lc-style', SP_LC_URL . 'public/assets/css/style.min.css', array(), SP_LC_VERSION );
 
 			if ( $lcpro_swiper_js ) {

@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: nl\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Na de inhoud van het bericht"
 msgid "An error occurred. Please go back and try again."
 msgstr "Er is een fout opgetreden. Ga alstublieft terug en probeer het opnieuw."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "En"
 
@@ -111,17 +111,9 @@ msgstr "Antispam vraag"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Elke donatie helpt mij om deze gratis plug-in en andere geweldige WordPress-bronnen te blijven ontwikkelen."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Code toepassen"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Toegewezen auteur"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "bij het afrekenen. De verkoop eindigt op 25-05-24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Geef automatisch afbeeldingen weer en meer."
 msgid "Before post content"
 msgstr "Vóór het plaatsen van inhoud"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "boeken"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Koop er één, krijg er één GRATIS met code"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Uitschakelen Vereist"
 msgid "Disable this field"
 msgstr "Schakel dit veld uit"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Afwijzen"
 
@@ -529,7 +525,7 @@ msgstr "Geef gebruikers de mogelijkheid om meerdere categorieën te selecteren"
 
 #: library/plugin-display.php:554
 msgid "Enable users to upload other file types (like PDF, Word, Zip, videos, and more), check out"
-msgstr "Stel gebruikers in staat andere bestandstypen te uploaden (zoals PDF, Word, Zip, video's en meer). Bekijk het eens"
+msgstr "Geef gebruikers de mogelijkheid om andere bestandstypen te uploaden (zoals PDF, Word, Zip, video's en meer)."
 
 #. Description of the plugin
 #: 
@@ -646,6 +642,10 @@ msgstr "Koop USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Ontvang USP Pro voor onbeperkte formulieren!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Ontvang plug-ins&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "geef het een 5-sterrenbeoordeling"
@@ -657,10 +657,6 @@ msgstr "Geef USP een waardering van 5 sterren op WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Ga Pro"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Ga professioneel!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -943,7 +939,7 @@ msgstr "Niet-lege waarde voor verborgen veld"
 
 #: library/plugin-display.php:747
 msgid "Note that the url attribute accepts"
-msgstr "Houd er rekening mee dat het url-attribuut accepteert"
+msgstr "Houd er rekening mee dat het url-kenmerk dit accepteert"
 
 #: library/plugin-display.php:723
 msgid "Notes:"
@@ -968,6 +964,10 @@ msgstr "of"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "of door het maken van een"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "of ontvang 30% korting met de code"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1118,9 +1118,9 @@ msgstr "Berichttype voor ingediende berichten"
 msgid "Private Key"
 msgstr "Prive sleutel"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pro WordPress-plug-ins"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Pro Plugin-uitverkoop!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Keer terug naar het formulier"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Rich Text-editor"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Bespaar 30% op onze"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1514,7 +1510,7 @@ msgstr "Gebruik de shortcode om het formulier op elke WP-post of pagina weer te 
 
 #: library/plugin-display.php:226
 msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user is logged in to WordPress)"
-msgstr "Gebruik de profiel-URL van de gebruiker als de waarde van het URL-veld (geldig wanneer de gebruiker is ingelogd bij WordPress)"
+msgstr "Gebruik de profiel-URL van de gebruiker als de waarde van het URL-veld (geldig wanneer de gebruiker is ingelogd op WordPress)"
 
 #: library/plugin-display.php:221
 msgid "Use the user&rsquo;s registered email as the value of the Email field (valid when the user is logged in to WordPress)"
@@ -1652,7 +1648,7 @@ msgstr "WP-bronnen"
 
 #: library/plugin-display.php:684
 msgid "You also can display a simple form that enables users to log in, register, or reset their password."
-msgstr "U kunt ook een eenvoudig formulier weergeven waarmee gebruikers kunnen inloggen, zich kunnen registreren of hun wachtwoord opnieuw kunnen instellen."
+msgstr "U kunt ook een eenvoudig formulier weergeven waarmee gebruikers kunnen inloggen, registreren of hun wachtwoord opnieuw kunnen instellen."
 
 #: library/plugin-display.php:717
 msgid "You can customize using any of the follwing attributes:"

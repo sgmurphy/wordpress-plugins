@@ -365,7 +365,7 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
             wp_send_json_error($response);
         }
 
-        require_once(ABSPATH . "wp-admin/includes/image.php");
+        $this->includeImageFunctions();
 
         foreach ($files as $file) {
             $error     = false;
@@ -919,23 +919,33 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
     }
 
     public function generateThumbnails() {
+        set_time_limit(-1);
         $attachments = get_posts([
             "post_type"      => "attachment",
-            "posts_per_page" => apply_filters("wpdiscuz_generate_thumbnails_limit", 50),
+            "posts_per_page" => apply_filters("wpdiscuz_generate_thumbnails_limit", -1),
             "fields"         => "ids",
             "meta_query"     => [
-                "relation" => "OR",
+                "relation" => "AND",
                 [
-                    "key"     => "_wp_attachment_metadata",
-                    "compare" => "NOT EXISTS",
+                    "relation" => "OR",
+                    [
+                        "key"     => "_wp_attachment_metadata",
+                        "compare" => "NOT EXISTS",
+                    ],
+                    [
+                        "key"     => '_wp_attachment_metadata',
+                        "value"   => "",
+                        "compare" => "=",
+                    ],
                 ],
                 [
-                    "key"     => '_wp_attachment_metadata',
+                    "key"     => "_wmu_comment_id",
                     "value"   => "",
-                    "compare" => "=",
-                ],
+                    "compare" => "!="
+                ]
             ],
         ]);
+
         foreach ($attachments as $attachId) {
             $fileName = get_post_meta($attachId, "_wp_attached_file", true);
             if (!$fileName) {
@@ -948,10 +958,25 @@ class WpdiscuzHelperUpload implements WpDiscuzConstants {
     }
 
     private function generateAttachmentMetadata($attachId, $fileName) {
+        $this->includeImageFunctions();
         add_filter("intermediate_image_sizes", [&$this, "getThumbnailSizes"]);
         $attachData = wp_generate_attachment_metadata($attachId, $fileName);
         wp_update_attachment_metadata($attachId, $attachData);
         return $attachData;
+    }
+
+    public function includeImageFunctions() {
+        if (!function_exists("get_file_description")) {
+            require_once ABSPATH . "wp-admin/includes/file.php";
+        }
+
+        if (!function_exists("wp_generate_attachment_metadata")) {
+            require_once ABSPATH . "wp-admin/includes/image.php";
+        }
+
+        if (!function_exists("wp_get_additional_image_sizes")) {
+            require_once ABSPATH . "wp-admin/includes/media.php";
+        }
     }
 
     public function wpdiscuzMediaFiler() {

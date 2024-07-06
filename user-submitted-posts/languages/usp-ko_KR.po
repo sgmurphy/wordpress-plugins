@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: ko\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "게시물 내용 이후"
 msgid "An error occurred. Please go back and try again."
 msgstr "에러 발생됨. 돌아가서 다시 시도해 주세요."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "그리고"
 
@@ -111,17 +111,9 @@ msgstr "스팸 방지 질문"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "어떤 규모의 기부라도 이 무료 플러그인과 기타 멋진 WordPress 리소스를 계속 개발하는 데 도움이 됩니다."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "코드 적용"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "할당된 작성자"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "결제 시. 판매는 24년 5월 25일에 종료됩니다."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "이미지 등을 자동으로 표시합니다."
 msgid "Before post content"
 msgstr "내용을 올리기 전"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "서적"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "코드를 사용하여 하나를 구매하고 하나를 무료로 받으세요"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "비활성화 필요"
 msgid "Disable this field"
 msgstr "이 필드를 비활성화합니다."
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "해고하다"
 
@@ -646,6 +642,10 @@ msgstr "USP 프로 받기"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "무제한 양식을 위해 USP Pro를 받으세요!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "플러그인 받기&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "별 5개 평점을 주세요"
@@ -657,10 +657,6 @@ msgstr "WordPress.org에서 USP에게 별 5개 등급을 부여하세요."
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "프로로 전환"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "프로로 가세요!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "또는"
 msgid "or by making a"
 msgstr "아니면"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "또는 코드로 30% 할인을 받으세요"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "또는 기본 플러그인 옵션을 복원하려면 확인란을 선택하고 설정을 저장한 다음 플러그인을 비활성화/재활성화하세요."
@@ -1035,7 +1035,7 @@ msgstr "업로드할 이미지를 선택하세요."
 
 #: library/support-panel.php:58
 msgid "Please show support by purchasing one of my"
-msgstr "내 제품 중 하나를 구입하여 지원해 주세요."
+msgstr "내 제품 중 하나를 구매하여 지원을 보여주세요."
 
 #: library/plugin-settings.php:60 library/plugin-display.php:40
 #: library/plugin-display.php:809
@@ -1118,9 +1118,9 @@ msgstr "제출된 게시물의 게시물 유형"
 msgid "Private Key"
 msgstr "개인 키"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "프로 WordPress 플러그인"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "프로 플러그인 세일!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "양식으로 돌아가기"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "리치 텍스트 편집기"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "30% 할인"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"

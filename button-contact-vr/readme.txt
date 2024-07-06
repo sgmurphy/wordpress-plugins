@@ -1,13 +1,13 @@
 === Button contact VR ===
-Contributors: VirusTran
-Tags: Button contact call, zalo, whatsapp, messenger, popup, showroom
+Contributors: hautrancong16
+Tags: Button contact call, zalo, whatsapp, messenger
 Donate link: paypal.me/virustran
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5.2
 Requires PHP: 5.6
-License: 4.7.1
-Developer: https://github.com/virustran/button-contact-vr/tree/develops
-License URI: http://www.gnu.org/licenses/gpl.html
+License: 4.7.2
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Button contact VR
 
@@ -103,3 +103,6 @@ Tested up to wordpress: 6.2
 
 =4.7.1
 *Tested up to: 6.4
+
+=4.7.2
+*fix type hotline

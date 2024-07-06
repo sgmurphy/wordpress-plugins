@@ -50,8 +50,10 @@ class Dashboard_Notice {
 				'key'        => 'black-friday-2020',
 				'start_date' => '2020-11-24 14:00:00 EST',
 				'end_date'   => '2020-11-30 23:59:00 EST',
-				'title'      => 'Black Friday Deals - 30% OFF the <strong>Product Slider Pro for WooCommerce</strong> until November 30th!',
-				'content'    => 'Use this discount code on checkout page: <strong>BF2020</strong>',
+				/* translators: %1$s: bold tag start %2$s: bold tag end */
+				'title'      => sprintf( __( 'Black Friday Deals - 30%% OFF the %1$sProduct Slider Pro for WooCommerce%2$s until November 30th!', 'woo-product-slider' ), '<strong>', '</strong>' ),
+				/* translators: %1$s: discount code */
+				'content'    => sprintf( __( 'Use this discount code on checkout page: %1$s', 'woo-product-slider' ), '<strong>BF2020</strong>' ),
 				'link'       => 'https://wooproductslider.io/?utm_source=wordpress-wps&utm_medium=get-it-now&utm_campaign=BlackFriday2020',
 			),
 		);
@@ -78,12 +80,15 @@ class Dashboard_Notice {
 		if ( empty( $notice ) ) {
 			return;
 		}
+		$allowed_tags = array(
+			'strong' => array(),
+		);
 
 		?>
 		<div class="notice sp-wps-promotional-notice">
 			<div class="content">
-				<h2><?php echo esc_html( $notice['title'] ); ?></h2>
-				<p><?php echo esc_html( $notice['content'] ); ?></p>
+				<h2><?php echo wp_kses( $notice['title'], $allowed_tags ); ?></h2>
+				<p><?php echo wp_kses( $notice['content'], $allowed_tags ); ?></p>
 				<a href="<?php echo esc_url( $notice['link'] ); ?>" class="button button-primary" target="_blank"><?php echo esc_html__( 'Get it now!', 'woo-product-slider' ); ?></a>
 			</div>
 			<span class="promotional-close-icon notice-dismiss" data-key="<?php echo esc_attr( $notice['key'] ); ?>"></span>

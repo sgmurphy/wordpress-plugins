@@ -2,11 +2,11 @@
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
 Tags: woocommerce product slider, woocommerce product grid, woocommerce product carousel, product table, product gallery
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.5.5
 Requires PHP: 5.6
 WC requires at least: 4.5
-WC tested up to: 8.9.2
-Stable tag: 2.7.2
+WC tested up to: 9.0.2
+Stable tag: 2.7.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -165,6 +165,14 @@ Thanks!
 
 
 == Changelog ==
+
+= 2.7.3 - Jul 06, 2024 =
+* Fix: Some string translation issue.
+* Fix: The style issue found with RTL sites.
+* Improved: The quick view button style in the product slider on the Gutenberg edit page.
+* Update: The language (.pot) file.
+* Tested: WordPress 6.5.5 compatibility.
+* Tested: WooCommerce 9.0.2 compatibility.
 
 = 2.7.2 - Jun 07, 2024 =
 * Tested: WooCommerce 8.9.2 compatibility.

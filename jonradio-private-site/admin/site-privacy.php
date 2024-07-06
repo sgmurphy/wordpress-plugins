@@ -110,7 +110,7 @@ function my_private_site_admin_site_privacy_section_data( $section_options ) {
 		'ELEMENTOR' => 'Theme Fix',
 	);
 
-	$compatibility_desc = "Adjust this setting if My Private Site doesn't properly block access for your theme.";
+	$compatibility_desc = "Switch this setting if My Private Site doesn't properly block access for your theme.";
 
 	$section_options->add_field(
 		array(

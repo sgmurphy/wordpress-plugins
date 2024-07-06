@@ -5,7 +5,7 @@ Tags: embed, video, lazyload, lightbox, rumble
 Requires at least: 6.5
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 10.2.2
+Stable tag: 10.2.3
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -192,6 +192,10 @@ Please read the [official documentation](https://wordpress.org/support/article/m
 
 * [ARVE Pro changelog](https://nextgenthemes.com/plugins/arve-pro/#changelog)
 * [ARVE Random Videos changelog](https://nextgenthemes.com/plugins/arve-random-video/#changelog)
+
+### 2024-07-06 10.2.3 ###
+* Fix: Help toggle in new ARVE Shortcode dialog.
+* Improved: Show message that the ARVE Button in Classic Editor needs WP 6.6 (sorry, to be released 2024-07-16).
 
 ### 2024-06-17 10.2.2 ###
 * Fix: Rare src mismatch errors with YouTube.

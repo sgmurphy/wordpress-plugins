@@ -403,7 +403,8 @@
 }
 
 .splogocarousel-metabox .splogocarousel-field {
-	padding: 20px;
+	padding: 20px 30px;
+	margin: 0 -10px 0 -12px;
 }
 
 .splogocarousel-metabox .splogocarousel-section-title {
@@ -672,6 +673,43 @@
 	top: calc(50% - 7px);
 }
 
+/* title-tip down */
+.splc-live-demo-icon[tooltip]:hover:before {
+	position: absolute;
+	top: 100%;
+	left: -12px;
+	z-index: 99999;
+	content: attr(tooltip);
+	margin-top: 0.5em;
+	margin-left: -6px;
+	padding: 4px;
+	width: 54px;
+	overflow: hidden;
+	word-wrap: break-word;
+	font-size: 11px;
+	text-transform: uppercase;
+	color: #FFF;
+	text-align: center;
+	background-color: #222;
+	box-sizing: border-box;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+}
+
+.splc-live-demo-icon[tooltip]:hover:after {
+	position: absolute;
+	top: 9px;
+	left: 50%;
+	z-index: 99999;
+	content: '';
+	width: 0;
+	height: 0;
+	border: 0.75em dashed transparent;
+	border-bottom: 0.75em solid #222;
+	font-size: inherit;
+	transform: translateX(-50%);
+}
+
 /**
  * 02. Themes
  */
@@ -919,7 +957,7 @@
  */
 .splogocarousel-field {
 	position: relative;
-	padding: 30px;
+	padding: 20px 30px;
 }
 
 .splogocarousel-field p:first-child {
@@ -1666,24 +1704,6 @@
 	transition: all 0.2s;
 }
 
-/* .splogocarousel-field-layout_preset img:before,
-.splogocarousel-field-image_select figure:before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  text-align: center;
-  font-size: 10px;
-  font-family: "Font Awesome 5 Pro", "Font Awesome 5 Free", "FontAwesome";
-  font-weight: 900;
-  content: "\f00c";
-  width: 16px;
-  height: 16px;
-  line-height: 14px;
-  opacity: 0;
-  color: #fff;
-  background-color: #222;
-  transition: opacity 0.2s;
-} */
 .splogocarousel-field-layout_preset .splogocarousel--active figure,
 .splogocarousel-field-image_select .splogocarousel--active img {
 	border-color: #222;
@@ -1762,7 +1782,7 @@
 }
 
 .splogocarousel-field-layout_preset .splogocarousel--image img {
-	max-width: 100%;
+	max-width: 100px;
 }
 
 .splogocarousel-field-layout_preset .splogocarousel--image.splogocarousel--active img {
@@ -1775,6 +1795,52 @@
 	text-align: center;
 	display: block;
 	font-size: 13px;
+}
+
+.splogocarousel-field-layout_preset .splogocarousel-fieldset p, .splogocarousel-field-layout_preset .splogocarousel-fieldset span {
+    font-weight: 500;
+    text-align: center;
+    margin: 0;
+    display: block;
+    font-size: 13px;
+}
+
+/**
+ * 03. 16. Field: Preset Select ( external links )
+ */
+.splogocarousel-field .splogocarousel-fieldset p {
+    text-align: center;
+}
+
+.lcp_layout .splc-image-card {
+    position: relative;
+}
+
+.lcp_layout .splogocarousel--image p a {
+	position: absolute;
+    display: inline-block;
+	opacity: 0;
+}
+
+.lcp_layout .splogocarousel--image p i {
+    font-size: 12px;
+    font-weight: 800;
+    margin-left: 8px;
+}
+
+.splogocarousel--image p a:active,
+.splogocarousel--image p a:focus,
+.splogocarousel--image.sp-lc-pro-only p a:active,
+.splogocarousel--image.sp-lc-pro-only p a:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.splogocarousel--image.sp-lc-pro-only:hover p a,
+.splogocarousel--sibling.splogocarousel--image:hover p a {
+	opacity: 1;
+	pointer-events: painted;
+	transition: all 0.2s linear;
 }
 
 /**
@@ -2124,6 +2190,7 @@
  */
 .splogocarousel-field-tabbed .splogocarousel-tabbed-nav {
 	width: 280px;
+	margin-right: 10px;
 	border-right: 1px solid rgba(221, 221, 221, 1);
 }
 
@@ -2417,8 +2484,6 @@
 .splogocarousel-field-subheading {
 	font-size: 14px;
 	font-weight: bold;
-	padding-top: 17px;
-	padding-bottom: 17px;
 	color: #23282d;
 	background-color: #eaecee;
 	text-transform: uppercase;
@@ -3118,60 +3183,6 @@
 .splogocarousel-nav-menu-icon {
 	margin-right: 5px;
 }
-
-/**
- * 06. Profile
- */
-/* .splogocarousel-profile-options > h2 > .fa {
-  padding-right: 7px;
-}
-.splogocarousel-profile-options > .splogocarousel-field {
-  max-width: 750px;
-  padding: 15px 0;
-  border-top: none !important;
-}
-.splogocarousel-profile-options > .splogocarousel-field > .splogocarousel-title {
-  width: 200px;
-}
-.splogocarousel-profile-options > .splogocarousel-field > .splogocarousel-title h4 {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.3;
-  display: inline-block;
-  vertical-align: middle;
-}
-.splogocarousel-profile-options > .splogocarousel-field > .splogocarousel-fieldset {
-  width: calc(100% - 220px);
-}
-.splogocarousel-profile-options > .splogocarousel-field > .splogocarousel-fieldset > .splogocarousel-help {
-  top: -15px;
-  right: -5px;
-}
-.splogocarousel-profile-options > .splogocarousel-field-heading {
-  font-size: 1.1em;
-}
-.splogocarousel-profile-options > .splogocarousel-field-subheading {
-  font-size: 12px;
-}
-.splogocarousel-profile-options > .splogocarousel-field-subheading,
-.splogocarousel-profile-options > .splogocarousel-field-heading {
-  margin: 10px 0;
-  padding: 15px !important;
-  border: 1px solid #ddd;
-}
-.splogocarousel-profile-options > .splogocarousel-field-submessage {
-  margin: 20px 0;
-}
-.splogocarousel-profile-options > .splogocarousel-field-submessage .splogocarousel-submessage {
-  padding: 10px;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-right-width: 1px;
-  border-right-style: solid;
-}
-.splogocarousel-profile-options > .splogocarousel-field-notice {
-  background-color: transparent;
-} */
 
 /**
  * 09. Modal
@@ -4214,6 +4225,143 @@
 	margin-right: 10px;
 }
 
+/**
+ * Custom tooltip meta field
+ */
+ .lcp_custom_tooltip_meta {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 60px);
+}
+
+.splogocarousel-field-text.lcp_custom_tooltip_meta input {
+    width: 58%;
+}
+
+/**
+ * Logo image button styles
+ */
+.post-type-sp_logo_carousel #remove-post-thumbnail,
+.post-type-sp_logo_carousel #set-post-thumbnail {
+    display: inline-block;
+    max-width: 100%;
+    background: #1a74e4;
+    color: #ffffff;
+    opacity: 1;
+    text-decoration: none;
+    padding: 8px 15px;
+	margin-top: 12px;
+	margin-left: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 4px;
+	-webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.post-type-sp_logo_carousel #set-post-thumbnail img{
+    margin-left: -15px;
+}
+
+.post-type-sp_logo_carousel #set-post-thumbnail-desc {
+    margin-left: 15px;
+}
+
+/**
+ * Remove image button 
+ */
+.post-type-sp_logo_carousel #remove-post-thumbnail {
+	background: #b32d2e;
+}
+
+.post-type-sp_logo_carousel #remove-post-thumbnail:hover {
+    background: #c72324;
+	color: #ffffff;
+}
+
+.post-type-sp_logo_carousel #set-post-thumbnail:has(img) {
+	background: unset;
+}
+
+/* Remove default meta title */
+.post-type-sp_logo_carousel .postbox-header {
+    display: none;
+}
+
+/* Link & Tooltip stype */
+.post-type-sp_logo_carousel #poststuff .inside {
+    margin: 0;
+}
+
+#sp_logo_carousel_link_option .splogocarousel-sections {
+	padding: 1px;
+}
+
+/* Logo link meta */
+.post-type-sp_logo_carousel .splogocarousel-field.lcp_logo_link,
+.post-type-sp_logo_carousel .splogocarousel-field.lcp_logo_link_ref {
+	display: inline-block;
+	float: left;
+	border: 0px
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field.lcp_logo_link {
+    display: flex;
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field.lcp_logo_link_ref .splogocarousel-before-text {
+	float: left;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field-checkbox.lcp_logo_link_ref .splogocarousel-checkbox {
+	pointer-events: none;
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field .splogocarousel-title {
+	position: relative;
+    width: 20%;
+    float: left;
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field .splogocarousel-fieldset {
+    float: right;
+    width: calc( 100% - 22% );
+}
+
+.post-type-sp_logo_carousel .splogocarousel-field-checkbox.lcp_logo_link_ref .splogocarousel-checkbox {
+    margin-top: 4px;
+}
+
+/**
+ * Custom tooltip meta field
+ */
+
+#splogocarousel-section-sp_logo_carousel_link_option_1 .splogocarousel-title {
+	width: 200px;
+}
+
+#splogocarousel-section-sp_logo_carousel_link_option_1 .splogocarousel-fieldset {
+	width: calc( 100% - 200px );
+}
+
+.lcp_custom_tooltip_meta {
+    display: flex;
+    align-items: baseline;
+    width: calc(100% - 60px);
+}
+
+.splogocarousel-field-text.lcp_custom_tooltip_meta input {
+    width: 58%;
+}
+
+/* lcp tools */
+.splogocarousel-field.lcp_import .splogocarousel-fieldset p {
+	text-align: left;
+}
+
 /* Setting page */
 .splogocarousel.lcpro_setting_options .splogocarousel-container {
 	border: 1px solid #cecece;
@@ -4257,6 +4405,7 @@
 	box-shadow: 3px 0 0 0 #1dab87 inset;
 	background-color: #fff;
 	color: #1dab87;
+	margin-right: -1px;
 }
 .lcpro_setting_options .splogocarousel-nav ul li a.splogocarousel-active svg path{
 	fill: #1dab87;
@@ -4584,6 +4733,38 @@
 		border-bottom: none;
 		padding-bottom: 0;
 	}
+
+	#sp_logo_carousel_link_option .lcp_custom_tooltip_meta {
+		display: inline-block;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field {
+		padding: 10px 15px;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field-text input:not([type="checkbox"]) {
+		width: 95%;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field.lcp_logo_link, 
+	#sp_logo_carousel_link_option .splogocarousel-field.lcp_logo_link_ref {
+		display: block;
+		width: 100%;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field.lcp_logo_link_ref .splogocarousel-before-text {
+		padding: 0;
+		margin: 0;
+		margin-right: 10px;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field-checkbox.lcp_logo_link_ref .splogocarousel-checkbox {
+		margin-top: 0;
+	}
+
+	#sp_logo_carousel_link_option .splogocarousel-field .splogocarousel-title {
+		min-width: auto;
+	}
 }
 
 .text-center {
@@ -4641,12 +4822,15 @@
 }
 
 /* Pro only css */
-
 .sp-lc-link-pro--only .splogocarousel--button:nth-child(1),
 .sp-lc-link-pro--only .splogocarousel--button:nth-child(2),
 .sp-lc-pro-only .splogocarousel--button:nth-child(2),
 .sp-lc-pro-only .splogocarousel--button:nth-child(3),
-.splogocarousel-field-layout_preset .splogocarousel--image.sp-lc-pro-only {
+.sp-lc-pro-only .splogocarousel--button:nth-child(4),
+.sp-lc-pro-only .splogocarousel--button:nth-child(5),
+.sp-lc-pro-only .splogocarousel--button:nth-child(6),
+.sp-lc-pro-only .splogocarousel--button:nth-child(7),
+.sp-lc-pro-only .splogocarousel--button:nth-child(8) {
 	pointer-events: none;
 	color: #aaa;
 }
@@ -4655,6 +4839,11 @@
 .sp-lc-link-pro--only .splogocarousel--button:nth-child(2):after,
 .sp-lc-pro-only .splogocarousel--button:nth-child(2):after,
 .sp-lc-pro-only .splogocarousel--button:nth-child(3):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(4):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(5):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(6):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(7):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(8):after,
 .splogocarousel-field-layout_preset .splogocarousel--image.sp-lc-pro-only:after {
 	position: absolute;
 	top: 3px;
@@ -4674,9 +4863,18 @@
 .sp-lc-link-pro--only .splogocarousel--button:nth-child(1):after,
 .sp-lc-link-pro--only .splogocarousel--button:nth-child(2):after,
 .sp-lc-pro-only .splogocarousel--button:nth-child(2):after,
-.sp-lc-pro-only .splogocarousel--button:nth-child(3):after {
+.sp-lc-pro-only .splogocarousel--button:nth-child(3):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(4):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(5):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(6):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(7):after,
+.sp-lc-pro-only .splogocarousel--button:nth-child(8):after {
 	top: 0;
 	right: 0;
+}
+
+.lcp-nav-arrow-type-horizontal.sp-lc-pro-only .splogocarousel--button:not(:last-child)::after {
+    visibility: hidden;
 }
 
 .splogocarousel-field.splogocarousel-field-typography .wp-picker-container .wp-color-result.button,
@@ -4766,6 +4964,8 @@
 	pointer-events: none;
 }
 
+.splogocarousel-field-color_group.lcp_pro_option .splogocarousel-field-color:last-child::after,
+.splogocarousel-field-spacing.lcp_pro_option .splogocarousel--inputs:after,
 .splogocarousel-field.splogocarousel-field-column.pro_only_field .splogocarousel--input:last-child::after {
 	content: "PRO";
 	background-color: #cbd6df;
@@ -4795,6 +4995,12 @@
 .tooltip_only_pro {
 	opacity: .7;
 	pointer-events: none;
+}
+
+/* Pro only */
+.splogocarousel--sibling.splogocarousel--image.sp-lc-pro-only img {
+    opacity: .7;
+    cursor: default;
 }
 
 /* Import export css */
@@ -4974,14 +5180,14 @@ div#splcp_live_preview {
 	gap: 0;
 	box-sizing: border-box;
 	width: 100%;
-	padding-left: 20px;
+	padding-left: 35px;
 	justify-content: flex-start;
 	float: right;
 	width: calc(80% - 12px);
 }
 
 .splogocarousel-field.splogocarousel-field-fieldset.lcp-navigation-and-pagination-style .splogocarousel-fieldset-content {
-	width: calc(75% - 12px);
+	width: calc(75% - 7px);
 }
 
 .splogocarousel-field.splogocarousel-field-fieldset.lcp-navigation-and-pagination-style .lcp_navigation,
@@ -5013,6 +5219,10 @@ div#splcp_live_preview {
 	position: absolute;
 	left: 20px;
 	margin-top: 10px;
+}
+
+.splogocarousel-field.splogocarousel-field-fieldset.lcp-click-action-type .splogocarousel-fieldset-content>.splogocarousel-field.lcp_link_type .splogocarousel-title {
+	left: 30px;
 }
 
 /* .splogocarousel-field.splogocarousel-field-fieldset.lcp-navigation-and-pagination-style .splogocarousel-fieldset-content>.lcp_hide_on_mobile .splogocarousel-title, */

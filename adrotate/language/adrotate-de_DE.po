@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdRotate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 14:24-0600\n"
-"PO-Revision-Date: 2024-04-11 14:29-0600\n"
+"POT-Creation-Date: 2024-07-05 12:53-0600\n"
+"PO-Revision-Date: 2024-07-05 12:53-0600\n"
 "Last-Translator: Arnan de Gans <support@ajdg.solutions>\n"
 "Language-Team: Arnan de Gans from AJdG Solutions <info@adrotateplugin.com>\n"
 "Language: de\n"
@@ -14,427 +14,26 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: adrotate-block.php:92
-msgid "AdRotate - Advertisements"
-msgstr "AdRotate - Anzeigen"
-
-#: adrotate-functions.php:735
-msgid "Advert saved"
-msgstr "Werbeanzeige gespeichert"
-
-#: adrotate-functions.php:739
-msgid "Group saved"
-msgstr "Gruppe gespeichert"
-
-#: adrotate-functions.php:743
-msgid "Banner image saved"
-msgstr "Banner-Bild gespeichert"
-
-#: adrotate-functions.php:747
-msgid "Ad(s) deleted"
-msgstr "Anzeige (n) gelöscht"
-
-#: adrotate-functions.php:751
-msgid "Group deleted"
-msgstr "Gruppe gelöscht"
-
-#: adrotate-functions.php:755
-msgid "Asset(s) deleted"
-msgstr "Assets gelöscht"
-
-#: adrotate-functions.php:759
-msgid ""
-"Something went wrong deleting the file or folder. Make sure your permissions "
-"are in order."
-msgstr ""
-"Beim Löschen der Datei oder des Ordners ist etwas schief gelaufen. Stellen "
-"Sie sicher, dass Ihre Berechtigungen in Ordnung sind."
-
-#: adrotate-functions.php:763
-msgid "Advert(s) statistics reset"
-msgstr "Anzeige(n) Statistik-Reset"
-
-#: adrotate-functions.php:767
-msgid "Advert(s) renewed"
-msgstr "Anzeige(e) erneuert"
-
-#: adrotate-functions.php:771
-msgid "Advert(s) deactivated"
-msgstr "Anzeigen deaktiviert"
-
-#: adrotate-functions.php:775
-msgid "Advert(s) activated"
-msgstr "Anzeige(n) aktiviert"
-
-#: adrotate-functions.php:779
-msgid "Group including the Adverts in it deleted"
-msgstr "Gruppe einschließlich der darin gelöschten Anzeigen"
-
-#: adrotate-functions.php:783
-msgid ""
-"Advert HTML generated and placed in the AdCode field. Configure your advert "
-"below. Do not forget to check all settings and schedule the advert."
-msgstr ""
-"Anzeigen-HTML generiert und im AdCode-Feld platziert. Konfigurieren Sie Ihre "
-"Anzeige unten. Vergessen Sie nicht, alle Einstellungen zu überprüfen und die "
-"Anzeige zu planen."
-
-#: adrotate-functions.php:788
-msgid "Settings saved"
-msgstr "Einstellungen gespeichert"
-
-#: adrotate-functions.php:792
-msgid "Database optimized"
-msgstr "Datenbank optimiert"
-
-#: adrotate-functions.php:796
-msgid "Database repaired"
-msgstr "Datenbank repariert"
-
-#: adrotate-functions.php:800
-msgid "Adverts evaluated and statuses have been corrected where required"
-msgstr ""
-"Anzeigen wurden überprüft und Zustände korrigiert, wo es erforderlich war"
-
-#: adrotate-functions.php:804
-msgid "Cleanup complete"
-msgstr "Bereinigung abgeschlossen"
-
-#: adrotate-functions.php:808
-msgid "Scheduled tasks reset"
-msgstr "Geplante Aufgaben zurücksetzen"
-
-#: adrotate-functions.php:812
-msgid ""
-"If there were any 3rd party plugins interfering with AdRotate they have been "
-"disabled"
-msgstr ""
-"Wenn es irgendwelche 3rd-Party-Plugins gab, die AdRotate stören, wurden sie "
-"deaktiviert"
-
-#: adrotate-functions.php:816
-msgid "Database updated"
-msgstr "Datenbank aktualisiert"
-
-#: adrotate-functions.php:820
-msgid "Database and core settings updated"
-msgstr "Datenbank- und Kerneinstellungen aktualisiert"
-
-#: adrotate-functions.php:820
-msgid "Thanks for updating AdRotate Banner Manager!"
-msgstr "Vielen Dank für die Aktualisierung AdRotate Banner Manager!"
-
-#: adrotate-functions.php:820
-msgid ""
-"If you run into any issues with the new version please send a email through "
-"the support dashboard as soon as possible with any errors or symptoms you "
-"encounter."
-msgstr ""
-"Wenn Sie Probleme mit der neuen Version haben, senden Sie bitte so schnell "
-"wie möglich eine E-Mail über das Support-Dashboard mit Fehlern oder "
-"Symptomen, auf die Sie stoßen."
-
-#: adrotate-functions.php:825
-msgid "Action prohibited"
-msgstr "Aktion nicht zulässig"
-
-#: adrotate-functions.php:829
-msgid ""
-"The advert was saved but has an issue which might prevent it from working "
-"properly. Review the colored advert."
-msgstr ""
-"Die Anzeige wurde zwar gespeichert, aber hat ein Problem, so dass sie "
-"möglicherweise nicht ordnungsgemäß funktionieren könnte. Überprüfen Sie die "
-"farbige Anzeige."
-
-#: adrotate-functions.php:833
-msgid "No data found in selected time period"
-msgstr "Keine Daten im ausgewählten Zeitraum gefunden"
-
-#: adrotate-functions.php:837
-msgid "Database can only be optimized or cleaned once every hour"
-msgstr "Datenbank kann nur einmal pro Stunde optimiert oder gereinigt werden"
-
-#: adrotate-functions.php:841
-msgid "Form can not be (partially) empty!"
-msgstr "Formular kann nicht (teilweise) leer sein!"
-
-#: adrotate-functions.php:845
-msgid "No file uploaded."
-msgstr "Keine Datei hochgeladen."
-
-#: adrotate-functions.php:849
-msgid "No adverts found."
-msgstr "Keine Anzeigen gefunden."
-
-#: adrotate-functions.php:853
-msgid "Wrong file type. No file uploaded."
-msgstr "Falsche Dateityp. Keine Datei hochgeladen."
-
-#: adrotate-functions.php:857
-msgid "No file selected or file is too large."
-msgstr "Keine ausgewählte Datei oder Datei ist zu groß."
-
-#: adrotate-functions.php:861
-msgid "There was an error unzipping the file. Please try again later."
-msgstr ""
-"Beim Entpacken der Datei ist ein Fehler aufgetreten. Versuchen Sie es später "
-"erneut."
-
-#: adrotate-functions.php:865
-msgid ""
-"The advert hash is not usable or is missing required data. Please copy the "
-"hash correctly and try again."
-msgstr ""
-"Der Anzeigenhash ist nicht verwendbar oder enthält keine erforderlichen "
-"Daten. Kopieren Sie den Hash richtig, und versuchen Sie es erneut."
-
-#: adrotate-functions.php:869
-msgid ""
-"The advert hash can not be used on the same site as it originated from or is "
-"not a valid hash for importing."
-msgstr ""
-"Der Anzeigenhash kann nicht auf derselben Website verwendet werden, von der "
-"er stammt, oder es handelt sich nicht um einen gültigen Hash für den Import."
-
-#: adrotate-functions.php:873
-msgid "Unexpected error"
-msgstr "Unerwarteter Fehler"
-
-#: adrotate-manage-publisher.php:846
-msgid "AdRotate Advertiser"
-msgstr "AdRotate Advertiser"
-
-#: adrotate-output.php:645
-msgid "Oh no! Something went wrong!"
-msgstr "Oha! Da ist etwas schief gelaufen!"
-
-#: adrotate-output.php:646
-msgid ""
-"WordPress was unable to verify the authenticity of the url you have clicked. "
-"Verify if the url used is valid or log in via your browser."
-msgstr ""
-"WordPress war nicht in der Lage, die Echtheit der Url, die Sie geklickt "
-"haben, zu prüfen. Überprüfen Sie, ob die verwendete Url gültig ist oder "
-"loggen Sie sich über Ihren Browser ein."
-
-#: adrotate-output.php:647
-msgid ""
-"If you have received the url you want to visit via email, you are being "
-"tricked!"
-msgstr ""
-"Wenn Sie eine URL per E-Mail erhalten, die Sie besuchen sollen, dann werden "
-"Sie betrogen!"
-
-#: adrotate-output.php:648
-msgid "Contact support if the issue persists:"
-msgstr "Kontaktiere den Support, wenn das Problem weiterhin besteht:"
-
-#: adrotate-output.php:660
-msgid ""
-"Error, Advert is not available at this time due to schedule/geolocation "
-"restrictions!"
-msgstr ""
-"Fehler, Anzeige ist derzeit aufgrund von Zeitplan-/Geolocation-"
-"Einschränkungen nicht verfügbar!"
-
-#: adrotate-output.php:665
-msgid ""
-"Either there are no banners, they are disabled or none qualified for this "
-"location!"
-msgstr ""
-"Entweder gibt es keine banner, oder die banner sind deaktiviert oder hier "
-"nicht entsprechend eingestellt!"
-
-#: adrotate-output.php:670
-msgid "Error, no Advert ID set! Check your syntax!"
-msgstr "Fehler, kein Anzeigen-ID-Satz! Überprüfen Sie Ihre Syntax!"
-
-#: adrotate-output.php:676
-msgid "Error, no group ID set! Check your syntax!"
-msgstr "Fehler, keine Gruppen-ID gesetzt! Überprüfen Sie Ihre Syntax!"
-
-#: adrotate-output.php:681
-msgid "Error, group does not exist! Check your syntax!"
-msgstr "Fehler, Gruppe existiert nicht! Überprüfen Sie Ihre Syntax!"
-
-#: adrotate-output.php:687
-msgid ""
-"There was an error locating the database tables for AdRotate. Please "
-"deactivate and re-activate AdRotate from the plugin page!!"
-msgstr ""
-"Es ist ein Fehler in den Datenbanktabellen für AdRotate aufgetreten. Bitte "
-"deaktivieren und reaktivieren Sie AdRotate aus der Plugin-Seite!!"
-
-#: adrotate-output.php:687
-msgid "If this does not solve the issue please seek support on the"
-msgstr ""
-"Wenn dies das Problem nicht löst, suchen Sie bitte Unterstützung auf der"
-
-#: adrotate-output.php:693
-msgid ""
-"There was an error loading the page. Please try again by reloading the page "
-"via the menu on the left."
-msgstr ""
-"Beim Laden der Seite ist ein Fehler aufgetreten. Bitte versuchen Sie es "
-"erneut, indem Sie die Seite über das Menü auf der linken Seite neu laden."
-
-#: adrotate-output.php:693
-msgid "If the issue persists please seek help on the"
-msgstr "Wenn das Problem weiterhin besteht, suchen Sie bitte Hilfe auf der"
-
-#: adrotate-output.php:699
-msgid "An unknown error occured."
-msgstr "Ein unbekannter Fehler ist aufgetreten."
-
-#: adrotate-output.php:719 adrotate-output.php:722 adrotate-output.php:726
-#: dashboard/settings/maintenance.php:16
-msgid "Check adverts"
-msgstr "Anzeigen überprüfen"
-
-#: adrotate-output.php:731
-msgid ""
-"You have enabled caching support but W3 Total Cache is not active on your "
-"site!"
-msgstr ""
-"Sie haben die Caching-Unterstützung aktiviert, aber W3 Total Cache ist auf "
-"Ihrer Website nicht aktiv!"
-
-#: adrotate-output.php:731
-msgid "Disable W3 Total Cache Support"
-msgstr "Deaktivieren von W3 Total Cache Support"
-
-#: adrotate-output.php:734
-msgid ""
-"You have enable caching support but the W3TC_DYNAMIC_SECURITY definition is "
-"not set."
-msgstr ""
-"Sie haben Unterstützung Zwischenspeicherung aktiviert, aber die "
-"W3TC_DYNAMIC_SECURITY Definition ist nicht festgelegt."
-
-#: adrotate-output.php:734
-msgid "How to configure W3 Total Cache"
-msgstr "Konfigurieren von W3 Total Cache"
-
-#: adrotate-output.php:738
-msgid ""
-"You have enable caching support but Borlabs Cache is not active on your site!"
-msgstr ""
-"Sie haben Caching-Unterstützung aktiviert, aber Borlabs Cache ist auf Ihrer "
-"Website nicht aktiv!"
-
-#: adrotate-output.php:738
-msgid "Disable Borlabs Cache Support"
-msgstr "Deaktivieren der Borlabs-Cache-Unterstützung"
-
-#: adrotate-output.php:743
-msgid ""
-"You have enabled Borlabs Cache support but Fragment caching is not enabled!"
-msgstr ""
-"Sie haben die Borlabs Cache-Unterstützung aktiviert, aber die "
-"Fragmentzwischenspeicherung ist nicht aktiviert!"
-
-#: adrotate-output.php:743
-msgid "Enable Fragment Caching"
-msgstr "Aktivieren der Fragmentzwischenspeicherung"
-
-#: adrotate-output.php:750
-msgid "Your AdRotate Banner folder is not writable or does not exist."
-msgstr ""
-"Ihre AdRotate Banner-Ordner ist nicht beschreibbar ist oder nicht vorhanden."
-
-#: adrotate-output.php:750
-msgid "Set up your banner folder"
-msgstr "Einrichten des Bannerordners"
-
-#: adrotate-output.php:753
-msgid ""
-"You have AdRotate Professional installed. Please switch to AdRotate Pro! You "
-"can delete this plugin after AdRotate Pro is activated."
-msgstr ""
-"Sie haben AdRotate Professional installiert. Bitte wechseln Sie zu AdRotate "
-"Pro! Sie können dieses Plugin löschen, nachdem AdRotate Pro aktiviert wurde."
-
-#: adrotate-output.php:753
-msgid "Switch plugins"
-msgstr "Wechseln von Plugins"
-
-#: adrotate-output.php:756
-msgid ""
-"Something is wrong with your installation of AdRotate. Either the plugin is "
-"installed twice or your current installation has the wrong folder name. "
-"Please install the plugin properly!"
-msgstr ""
-"Etwas stimmt nicht mit Ihrer Installation von AdRotate. Entweder wird das "
-"Plugin zweimal installiert oder Ihre aktuelle Installation hat den falschen "
-"Ordnernamen. Bitte installieren Sie das Plugin richtig!"
-
-#: adrotate-output.php:756
-msgid "Installation instructions"
-msgstr "Installationsanweisungen"
-
-#: adrotate-output.php:828
+#: adrotate-admin-functions.php:435
 msgid "your attention:"
 msgstr "Ihre Aufmerksamkeit:"
 
-#: adrotate-output.php:867
-msgid ""
-"Thank you for choosing AdRotate. Everything related to AdRotate Banner "
-"Manager is in this menu. If you need help getting started take a look at the"
-msgstr ""
-"Vielen Dank, dass Sie sich für AdRotate entschieden haben. Alles, was mit "
-"AdRotate Banner Manager zu tun hat, befindet sich in diesem Menü. Wenn Sie "
-"Hilfe bei den ersten Schritten benötigen, werfen Sie einen Blick auf die"
-
-#: adrotate-output.php:867
-msgid "manuals"
-msgstr "Handbücher"
-
-#: adrotate-output.php:867
-msgid "and"
-msgstr "und"
-
-#: adrotate-output.php:867
-msgid "forums"
-msgstr "Forum"
-
-#: adrotate-output.php:867
-msgid "These links are also available on the support page."
-msgstr "Diese Links sind auch auf der Support-Seite verfügbar."
-
-#: adrotate-output.php:868
-msgid "Ad blockers"
-msgstr "Werbeblocker"
-
-#: adrotate-output.php:868
-msgid ""
-"Please whitelist your website in your content blocker so your adverts and "
-"dashboard show up correctly. Take a look at this manual to"
-msgstr ""
-"Bitte setze deine Website in deinen Content-Blocker auf die Whitelist, damit "
-"deine Werbeanzeigen und dein Dashboard korrekt angezeigt werden. Werfen Sie "
-"einen Blick in dieses Handbuch, um"
-
-#: adrotate-output.php:868
-msgid "see how that works"
-msgstr "Sehen Sie, wie das funktioniert"
-
-#: adrotate-output.php:905
+#: adrotate-admin-functions.php:646
 msgid "Get more features with AdRotate Professional"
 msgstr "Mehr Funktionen mit AdRotate Professional"
 
-#: adrotate-output.php:906
+#: adrotate-admin-functions.php:647
 msgid "Starting at &euro; 49.00"
 msgstr "Schon ab € 49.00"
 
-#: adrotate-output.php:906 adrotate-output.php:914
+#: adrotate-admin-functions.php:647 adrotate-admin-functions.php:654
 msgid "Compare Licenses"
 msgstr "Lizenzen vergleichen"
 
-#: adrotate-output.php:914
+#: adrotate-admin-functions.php:654
 msgid ""
 "<strong>AdRotate Professional</strong> has a lot more to offer for even "
 "better advertising management and premium support. Enjoy features like "
@@ -455,31 +54,31 @@ msgstr ""
 "Gutschein <strong>GETADROTATEPRO</strong> an der Kasse verwenden, um 10 "
 "Prozent Rabatt auf jede Lizenz zu erhalten."
 
-#: adrotate-output.php:918
+#: adrotate-admin-functions.php:656
 msgid "Get a Single License"
 msgstr "Holen Sie sich eine Einzellizenz"
 
-#: adrotate-output.php:918
+#: adrotate-admin-functions.php:656
 msgid "One year of updates for one WordPress website."
 msgstr "Ein Jahr Updates für eine WordPress-Website."
 
-#: adrotate-output.php:920
+#: adrotate-admin-functions.php:656
 msgid "Go big with the Multi License"
 msgstr "Gehen Sie groß raus mit der Multi-Lizenz"
 
-#: adrotate-output.php:920
+#: adrotate-admin-functions.php:656
 msgid "One year of updates for up-to five WordPress websites."
 msgstr "Ein Jahr Updates für bis zu fünf WordPress-Websites."
 
-#: adrotate-output.php:931
+#: adrotate-admin-functions.php:666
 msgid "Do you have a question?"
 msgstr "Haben Sie eine Frage?"
 
-#: adrotate-output.php:932
+#: adrotate-admin-functions.php:667
 msgid "Support AdRotate Banner Manager"
 msgstr "Unterstützung von AdRotate Banner Manager"
 
-#: adrotate-output.php:939
+#: adrotate-admin-functions.php:673
 msgid ""
 "If you need help, or have questions about AdRotate, the best and fastest way "
 "to get your answer is via the AdRotate support forum. Usually I answer "
@@ -490,19 +89,19 @@ msgstr ""
 "Normalerweise beantworte ich Fragen noch am selben Tag, oft mit einer Lösung "
 "in der ersten Antwort."
 
-#: adrotate-output.php:941
+#: adrotate-admin-functions.php:673
 msgid "AdRotate Manuals"
 msgstr "AdRotate-Handbücher"
 
-#: adrotate-output.php:941
+#: adrotate-admin-functions.php:673
 msgid "Support Forums"
 msgstr "Support-Foren"
 
-#: adrotate-output.php:941
+#: adrotate-admin-functions.php:673
 msgid "Buy Support Ticket"
 msgstr "Support-Ticket kaufen"
 
-#: adrotate-output.php:945
+#: adrotate-admin-functions.php:675
 msgid ""
 "Arnan needs your help. Please consider writing a review or sharing AdRotate "
 "in Social media if you find the plugin useful. Writing a review and sharing "
@@ -513,83 +112,435 @@ msgstr ""
 "finden. Das Schreiben einer Rezension und das Teilen von AdRotate in den "
 "sozialen Medien kostet Sie nichts, aber es ist sehr hilfreich, dies zu tun."
 
-#: adrotate-output.php:947
+#: adrotate-admin-functions.php:675
 msgid "Write review on WordPress.org"
 msgstr "Schreiben Sie eine Bewertung über WordPress.org"
 
-#: adrotate-output.php:947
+#: adrotate-admin-functions.php:675
 msgid "Write review on ajdg.solutions"
 msgstr "Schreiben Sie eine Bewertung auf ajdg.solutions"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-functions.php:696 adrotate-admin-functions.php:699
+#: adrotate-admin-functions.php:703 dashboard/settings/maintenance.php:18
+msgid "Check adverts"
+msgstr "Anzeigen überprüfen"
+
+#: adrotate-admin-functions.php:708
+msgid ""
+"You have enabled caching support but W3 Total Cache is not active on your "
+"site!"
+msgstr ""
+"Sie haben die Caching-Unterstützung aktiviert, aber W3 Total Cache ist auf "
+"Ihrer Website nicht aktiv!"
+
+#: adrotate-admin-functions.php:708
+msgid "Disable W3 Total Cache Support"
+msgstr "Deaktivieren von W3 Total Cache Support"
+
+#: adrotate-admin-functions.php:711
+msgid ""
+"You have enable caching support but the W3TC_DYNAMIC_SECURITY definition is "
+"not set."
+msgstr ""
+"Sie haben Unterstützung Zwischenspeicherung aktiviert, aber die "
+"W3TC_DYNAMIC_SECURITY Definition ist nicht festgelegt."
+
+#: adrotate-admin-functions.php:711
+msgid "How to configure W3 Total Cache"
+msgstr "Konfigurieren von W3 Total Cache"
+
+#: adrotate-admin-functions.php:715
+msgid ""
+"You have enable caching support but Borlabs Cache is not active on your site!"
+msgstr ""
+"Sie haben Caching-Unterstützung aktiviert, aber Borlabs Cache ist auf Ihrer "
+"Website nicht aktiv!"
+
+#: adrotate-admin-functions.php:715
+msgid "Disable Borlabs Cache Support"
+msgstr "Deaktivieren der Borlabs-Cache-Unterstützung"
+
+#: adrotate-admin-functions.php:720
+msgid ""
+"You have enabled Borlabs Cache support but Fragment caching is not enabled!"
+msgstr ""
+"Sie haben die Borlabs Cache-Unterstützung aktiviert, aber die "
+"Fragmentzwischenspeicherung ist nicht aktiviert!"
+
+#: adrotate-admin-functions.php:720
+msgid "Enable Fragment Caching"
+msgstr "Aktivieren der Fragmentzwischenspeicherung"
+
+#: adrotate-admin-functions.php:727
+msgid "Your AdRotate Banner folder is not writable or does not exist."
+msgstr ""
+"Ihre AdRotate Banner-Ordner ist nicht beschreibbar ist oder nicht vorhanden."
+
+#: adrotate-admin-functions.php:727
+msgid "Set up your banner folder"
+msgstr "Einrichten des Bannerordners"
+
+#: adrotate-admin-functions.php:730
+msgid ""
+"You have AdRotate Professional installed. Please switch to AdRotate Pro! You "
+"can delete this plugin after AdRotate Pro is activated."
+msgstr ""
+"Sie haben AdRotate Professional installiert. Bitte wechseln Sie zu AdRotate "
+"Pro! Sie können dieses Plugin löschen, nachdem AdRotate Pro aktiviert wurde."
+
+#: adrotate-admin-functions.php:730
+msgid "Switch plugins"
+msgstr "Wechseln von Plugins"
+
+#: adrotate-admin-functions.php:733
+msgid ""
+"Something is wrong with your installation of AdRotate. Either the plugin is "
+"installed twice or your current installation has the wrong folder name. "
+"Please install the plugin properly!"
+msgstr ""
+"Etwas stimmt nicht mit Ihrer Installation von AdRotate. Entweder wird das "
+"Plugin zweimal installiert oder Ihre aktuelle Installation hat den falschen "
+"Ordnernamen. Bitte installieren Sie das Plugin richtig!"
+
+#: adrotate-admin-functions.php:733
+msgid "Installation instructions"
+msgstr "Installationsanweisungen"
+
+#: adrotate-admin-functions.php:775
+msgid "Advert saved"
+msgstr "Werbeanzeige gespeichert"
+
+#: adrotate-admin-functions.php:779
+msgid "Group saved"
+msgstr "Gruppe gespeichert"
+
+#: adrotate-admin-functions.php:783
+msgid "Banner image saved"
+msgstr "Banner-Bild gespeichert"
+
+#: adrotate-admin-functions.php:787
+msgid "Ad(s) deleted"
+msgstr "Anzeige (n) gelöscht"
+
+#: adrotate-admin-functions.php:791
+msgid "Group deleted"
+msgstr "Gruppe gelöscht"
+
+#: adrotate-admin-functions.php:795
+msgid "Asset(s) deleted"
+msgstr "Assets gelöscht"
+
+#: adrotate-admin-functions.php:799
+msgid ""
+"Something went wrong deleting the file or folder. Make sure your permissions "
+"are in order."
+msgstr ""
+"Beim Löschen der Datei oder des Ordners ist etwas schief gelaufen. Stellen "
+"Sie sicher, dass Ihre Berechtigungen in Ordnung sind."
+
+#: adrotate-admin-functions.php:803
+msgid "Advert(s) statistics reset"
+msgstr "Anzeige(n) Statistik-Reset"
+
+#: adrotate-admin-functions.php:807
+msgid "Advert(s) renewed"
+msgstr "Anzeige(e) erneuert"
+
+#: adrotate-admin-functions.php:811
+msgid "Advert(s) deactivated"
+msgstr "Anzeigen deaktiviert"
+
+#: adrotate-admin-functions.php:815
+msgid "Advert(s) activated"
+msgstr "Anzeige(n) aktiviert"
+
+#: adrotate-admin-functions.php:819
+msgid "Group including the Adverts in it deleted"
+msgstr "Gruppe einschließlich der darin gelöschten Anzeigen"
+
+#: adrotate-admin-functions.php:823
+msgid ""
+"Advert HTML generated and placed in the AdCode field. Configure your advert "
+"below. Do not forget to check all settings and schedule the advert."
+msgstr ""
+"Anzeigen-HTML generiert und im AdCode-Feld platziert. Konfigurieren Sie Ihre "
+"Anzeige unten. Vergessen Sie nicht, alle Einstellungen zu überprüfen und die "
+"Anzeige zu planen."
+
+#: adrotate-admin-functions.php:828
+msgid "Settings saved"
+msgstr "Einstellungen gespeichert"
+
+#: adrotate-admin-functions.php:832
+msgid "Database optimized"
+msgstr "Datenbank optimiert"
+
+#: adrotate-admin-functions.php:836
+msgid "Database repaired"
+msgstr "Datenbank repariert"
+
+#: adrotate-admin-functions.php:840
+msgid "Adverts evaluated and statuses have been corrected where required"
+msgstr ""
+"Anzeigen wurden überprüft und Zustände korrigiert, wo es erforderlich war"
+
+#: adrotate-admin-functions.php:844
+msgid "Cleanup complete"
+msgstr "Bereinigung abgeschlossen"
+
+#: adrotate-admin-functions.php:848
+msgid "Scheduled tasks reset"
+msgstr "Geplante Aufgaben zurücksetzen"
+
+#: adrotate-admin-functions.php:852
+msgid ""
+"If there were any 3rd party plugins interfering with AdRotate they have been "
+"disabled"
+msgstr ""
+"Wenn es irgendwelche 3rd-Party-Plugins gab, die AdRotate stören, wurden sie "
+"deaktiviert"
+
+#: adrotate-admin-functions.php:856
+msgid "Database updated"
+msgstr "Datenbank aktualisiert"
+
+#: adrotate-admin-functions.php:860
+msgid "Database and core settings updated"
+msgstr "Datenbank- und Kerneinstellungen aktualisiert"
+
+#: adrotate-admin-functions.php:860
+msgid "Thanks for updating AdRotate Banner Manager!"
+msgstr "Vielen Dank für die Aktualisierung AdRotate Banner Manager!"
+
+#: adrotate-admin-functions.php:860
+msgid ""
+"If you run into any issues with the new version please send a email through "
+"the support dashboard as soon as possible with any errors or symptoms you "
+"encounter."
+msgstr ""
+"Wenn Sie Probleme mit der neuen Version haben, senden Sie bitte so schnell "
+"wie möglich eine E-Mail über das Support-Dashboard mit Fehlern oder "
+"Symptomen, auf die Sie stoßen."
+
+#: adrotate-admin-functions.php:865
+msgid "Action prohibited"
+msgstr "Aktion nicht zulässig"
+
+#: adrotate-admin-functions.php:869
+msgid ""
+"The advert was saved but has an issue which might prevent it from working "
+"properly. Review the colored advert."
+msgstr ""
+"Die Anzeige wurde zwar gespeichert, aber hat ein Problem, so dass sie "
+"möglicherweise nicht ordnungsgemäß funktionieren könnte. Überprüfen Sie die "
+"farbige Anzeige."
+
+#: adrotate-admin-functions.php:873
+msgid "No data found in selected time period"
+msgstr "Keine Daten im ausgewählten Zeitraum gefunden"
+
+#: adrotate-admin-functions.php:877
+msgid "Database can only be optimized or cleaned once every hour"
+msgstr "Datenbank kann nur einmal pro Stunde optimiert oder gereinigt werden"
+
+#: adrotate-admin-functions.php:881
+msgid "Form can not be (partially) empty!"
+msgstr "Formular kann nicht (teilweise) leer sein!"
+
+#: adrotate-admin-functions.php:885
+msgid "No file uploaded."
+msgstr "Keine Datei hochgeladen."
+
+#: adrotate-admin-functions.php:889
+msgid "No adverts found."
+msgstr "Keine Anzeigen gefunden."
+
+#: adrotate-admin-functions.php:893
+msgid "Wrong file type. No file uploaded."
+msgstr "Falsche Dateityp. Keine Datei hochgeladen."
+
+#: adrotate-admin-functions.php:897
+msgid "No file selected or file is too large."
+msgstr "Keine ausgewählte Datei oder Datei ist zu groß."
+
+#: adrotate-admin-functions.php:901
+msgid "There was an error unzipping the file. Please try again later."
+msgstr ""
+"Beim Entpacken der Datei ist ein Fehler aufgetreten. Versuchen Sie es später "
+"erneut."
+
+#: adrotate-admin-functions.php:905
+msgid ""
+"The advert hash is not usable or is missing required data. Please copy the "
+"hash correctly and try again."
+msgstr ""
+"Der Anzeigenhash ist nicht verwendbar oder enthält keine erforderlichen "
+"Daten. Kopieren Sie den Hash richtig, und versuchen Sie es erneut."
+
+#: adrotate-admin-functions.php:909
+msgid ""
+"The advert hash can not be used on the same site as it originated from or is "
+"not a valid hash for importing."
+msgstr ""
+"Der Anzeigenhash kann nicht auf derselben Website verwendet werden, von der "
+"er stammt, oder es handelt sich nicht um einen gültigen Hash für den Import."
+
+#: adrotate-admin-functions.php:913
+msgid "Unexpected error"
+msgstr "Unerwarteter Fehler"
+
+#: adrotate-admin-statistics.php:131
 msgid "January"
 msgstr "Januar"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "February"
 msgstr "Februar"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "March"
 msgstr "März"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "April"
 msgstr "April"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "May"
 msgstr "Mai"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "June"
 msgstr "Juni"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "July"
 msgstr "Juli"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "August"
 msgstr "August"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "September"
 msgstr "September"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "October"
 msgstr "Oktober"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "November"
 msgstr "November"
 
-#: adrotate-statistics.php:148
+#: adrotate-admin-statistics.php:131
 msgid "December"
 msgstr "Dezember"
 
-#: adrotate-statistics.php:157
+#: adrotate-admin-statistics.php:140
 msgid "Previous"
 msgstr "Zurück"
 
-#: adrotate-statistics.php:159 dashboard/publisher/statistics-advert.php:66
+#: adrotate-admin-statistics.php:142
+#: dashboard/publisher/statistics-advert.php:66
 #: dashboard/publisher/statistics-group.php:73
 #: dashboard/publisher/statistics-main.php:48
 msgid "This month"
 msgstr "Dieser Monat"
 
-#: adrotate-statistics.php:160
+#: adrotate-admin-statistics.php:143
 msgid "Next"
 msgstr "Nächste"
 
-#: adrotate-statistics.php:214
+#: adrotate-admin-statistics.php:193
 msgid "No data to show!"
 msgstr "Keine Daten vorhanden, um diese zu zeigen!"
 
-#: adrotate-statistics.php:302 adrotate-statistics.php:303
-msgid "Not found"
-msgstr "Nicht gefunden"
+#: adrotate-block.php:92
+msgid "AdRotate - Advertisements"
+msgstr "AdRotate - Anzeigen"
+
+#: adrotate-output.php:634
+msgid "Oh no! Something went wrong!"
+msgstr "Oha! Da ist etwas schief gelaufen!"
+
+#: adrotate-output.php:635
+msgid ""
+"WordPress was unable to verify the authenticity of the url you have clicked. "
+"Verify if the url used is valid or log in via your browser."
+msgstr ""
+"WordPress war nicht in der Lage, die Echtheit der Url, die Sie geklickt "
+"haben, zu prüfen. Überprüfen Sie, ob die verwendete Url gültig ist oder "
+"loggen Sie sich über Ihren Browser ein."
+
+#: adrotate-output.php:636
+msgid ""
+"If you have received the url you want to visit via email, you are being "
+"tricked!"
+msgstr ""
+"Wenn Sie eine URL per E-Mail erhalten, die Sie besuchen sollen, dann werden "
+"Sie betrogen!"
+
+#: adrotate-output.php:637
+msgid "Contact support if the issue persists:"
+msgstr "Kontaktiere den Support, wenn das Problem weiterhin besteht:"
+
+#: adrotate-output.php:649
+msgid ""
+"Error, Advert is not available at this time due to schedule/geolocation "
+"restrictions!"
+msgstr ""
+"Fehler, Anzeige ist derzeit aufgrund von Zeitplan-/Geolocation-"
+"Einschränkungen nicht verfügbar!"
+
+#: adrotate-output.php:654
+msgid ""
+"Either there are no banners, they are disabled or none qualified for this "
+"location!"
+msgstr ""
+"Entweder gibt es keine banner, oder die banner sind deaktiviert oder hier "
+"nicht entsprechend eingestellt!"
+
+#: adrotate-output.php:659
+msgid "Error, no Advert ID set! Check your syntax!"
+msgstr "Fehler, kein Anzeigen-ID-Satz! Überprüfen Sie Ihre Syntax!"
+
+#: adrotate-output.php:665
+msgid "Error, no group ID set! Check your syntax!"
+msgstr "Fehler, keine Gruppen-ID gesetzt! Überprüfen Sie Ihre Syntax!"
+
+#: adrotate-output.php:670
+msgid "Error, group does not exist! Check your syntax!"
+msgstr "Fehler, Gruppe existiert nicht! Überprüfen Sie Ihre Syntax!"
+
+#: adrotate-output.php:676
+msgid ""
+"There was an error locating the database tables for AdRotate. Please "
+"deactivate and re-activate AdRotate from the plugin page!!"
+msgstr ""
+"Es ist ein Fehler in den Datenbanktabellen für AdRotate aufgetreten. Bitte "
+"deaktivieren und reaktivieren Sie AdRotate aus der Plugin-Seite!!"
+
+#: adrotate-output.php:676
+msgid "If this does not solve the issue please seek support on the"
+msgstr ""
+"Wenn dies das Problem nicht löst, suchen Sie bitte Unterstützung auf der"
+
+#: adrotate-output.php:682
+msgid ""
+"There was an error loading the page. Please try again by reloading the page "
+"via the menu on the left."
+msgstr ""
+"Beim Laden der Seite ist ein Fehler aufgetreten. Bitte versuchen Sie es "
+"erneut, indem Sie die Seite über das Menü auf der linken Seite neu laden."
+
+#: adrotate-output.php:682
+msgid "If the issue persists please seek help on the"
+msgstr "Wenn das Problem weiterhin besteht, suchen Sie bitte Hilfe auf der"
+
+#: adrotate-output.php:688
+msgid "An unknown error occured."
+msgstr "Ein unbekannter Fehler ist aufgetreten."
 
 #: adrotate-widget.php:134
 msgid "Title (optional):"
@@ -631,66 +582,66 @@ msgstr "ID:"
 msgid "Fill in the ID of the type you want to display!"
 msgstr "Geben Sie die ID des Typs an, den Sie anzeigen möchten!"
 
-#: adrotate.php:106 adrotate.php:167
+#: adrotate.php:105 adrotate.php:166
 msgid "Manage Adverts"
 msgstr "Anzeigen verwalten"
 
-#: adrotate.php:107 adrotate.php:294 dashboard/publisher/groups-main.php:12
+#: adrotate.php:106 adrotate.php:293 dashboard/publisher/groups-main.php:12
 msgid "Manage Groups"
 msgstr "Gruppen verwalten"
 
-#: adrotate.php:108 adrotate.php:332 dashboard/publisher/schedules-main.php:12
+#: adrotate.php:107 adrotate.php:331 dashboard/publisher/schedules-main.php:12
 msgid "Manage Schedules"
 msgstr "Zeiträume verwalten"
 
-#: adrotate.php:109
+#: adrotate.php:108
 msgid "Manage Media"
 msgstr "Medien verwalten"
 
-#: adrotate.php:110 adrotate.php:512 dashboard/adrotatepro.php:114
-#: dashboard/publisher/adverts-edit.php:178
+#: adrotate.php:109 adrotate.php:503 dashboard/adrotatepro.php:117
+#: dashboard/publisher/adverts-edit.php:184
 #: dashboard/publisher/statistics-main.php:23
 #: dashboard/settings/statistics.php:17
 msgid "Statistics"
 msgstr "Auswertungen"
 
-#: adrotate.php:111 adrotate.php:230 adrotate.php:302
+#: adrotate.php:110 adrotate.php:229 adrotate.php:301
 msgid "Get AdRotate Pro"
 msgstr "AdRotate Pro"
 
-#: adrotate.php:112
+#: adrotate.php:111
 msgid "Support"
 msgstr "Support"
 
-#: adrotate.php:113
+#: adrotate.php:112
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: adrotate.php:123
+#: adrotate.php:122
 msgid "Get AdRotate Professional"
 msgstr "AdRotate Professional kaufen"
 
-#: adrotate.php:227 adrotate.php:300
+#: adrotate.php:226 adrotate.php:299
 msgid "Manage"
 msgstr "Verwalten"
 
-#: adrotate.php:228
+#: adrotate.php:227
 msgid "Advert Generator"
 msgstr "Anzeige generator"
 
-#: adrotate.php:229 dashboard/publisher/adverts-edit.php:108
+#: adrotate.php:228 dashboard/publisher/adverts-edit.php:114
 msgid "New Advert"
 msgstr "Neue Anzeige"
 
-#: adrotate.php:301
+#: adrotate.php:300
 msgid "Add New"
 msgstr "Neu hinzufügen"
 
-#: adrotate.php:369
+#: adrotate.php:368
 msgid "Manage Media and Assets"
 msgstr "Verwalten von Medien und Ressourcen"
 
-#: adrotate.php:373
+#: adrotate.php:372
 msgid ""
 "Upload images to the AdRotate Pro banners folder from here. This is useful "
 "if you have HTML5 adverts containing multiple files."
@@ -699,121 +650,142 @@ msgstr ""
 "Bannerordner hoch. Dies ist nützlich, wenn Sie HTML5-Anzeigen haben, die "
 "mehrere Dateien enthalten."
 
-#: adrotate.php:415
+#: adrotate.php:414
 msgid "Advert Statistics"
 msgstr "Statistiken zur Anzeige"
 
-#: adrotate.php:458
+#: adrotate.php:456
 msgid "AdRotate Support"
 msgstr "AdRotate-Unterstützung"
 
-#: adrotate.php:505
+#: adrotate.php:496
 msgid "AdRotate Settings"
 msgstr "AdRotate Einstellungen"
 
-#: adrotate.php:510 dashboard/publisher/statistics-main.php:28
+#: adrotate.php:501 dashboard/publisher/statistics-main.php:28
 msgid "General"
 msgstr "Allgemein"
 
-#: adrotate.php:511 dashboard/settings/notifications.php:18
+#: adrotate.php:502 dashboard/adrotatepro.php:125
+#: dashboard/settings/notifications.php:18
 msgid "Notifications"
 msgstr "Benachrichtigungen"
 
-#: adrotate.php:513 dashboard/adrotatepro.php:90
+#: adrotate.php:504 dashboard/adrotatepro.php:93
 #: dashboard/publisher/groups-edit.php:205
 msgid "Geo Targeting"
 msgstr "Geo Targeting"
 
-#: adrotate.php:514 dashboard/settings/roles.php:17
+#: adrotate.php:505 dashboard/settings/roles.php:17
 msgid "Access Roles"
 msgstr "Zugriffsrollen"
 
-#: adrotate.php:515 dashboard/settings/misc.php:16
+#: adrotate.php:506 dashboard/settings/misc.php:16
 msgid "Miscellaneous"
 msgstr "Sonstiges"
 
-#: adrotate.php:516 dashboard/settings/maintenance.php:13
+#: adrotate.php:507 dashboard/settings/maintenance.php:15
 msgid "Maintenance"
 msgstr "Wartung"
 
-#: dashboard/adrotatepro.php:47
+#: dashboard/adrotatepro.php:41
+msgid ""
+"All prices are shown in Euros, your bank will convert your currency to Euros "
+"for free."
+msgstr ""
+"Alle Preise sind in Euro angegeben, Ihre Bank rechnet Ihre Währung kostenlos "
+"in Euro um."
+
+#: dashboard/adrotatepro.php:50
 msgid "Mobile campaigns"
 msgstr "Mobile Kampagnen"
 
-#: dashboard/adrotatepro.php:50
+#: dashboard/adrotatepro.php:53
 msgid ""
-"Target your mobile visitors with adverts that fit their screen size. Show "
-"different and correctly sized adverts on smartphones, tablets and computers. "
-"Mix and match as you please. Create as many mobile adverts as you need in "
-"the same group so the right size is always available on any device."
+"Show your campaigns to the right people with Mobile Adverts. You choose "
+"where your ads show up whether that is a Computer, a Phone or a Tablet. You "
+"can also differentiate between iOS and Android devices for maximum effect. "
+"This ensure that your mobile visitors see adverts that fit their screen "
+"size. Show different and correctly sized adverts on smartphones, tablets and "
+"computers. Mix and match as you please. Create as many mobile adverts as you "
+"need in the same group so the right size is always available on any device."
 msgstr ""
-"Sprechen Sie Ihre mobilen Besucher mit Anzeigen an, die zu ihrer "
-"Bildschirmgröße passen. Zeigen Sie Anzeigen in unterschiedlicher und "
-"korrekter Größe auf Smartphones, Tablets und Computern. Kombinieren Sie nach "
-"Belieben. Erstelle so viele mobile Werbeanzeigen, wie du brauchst, in "
-"derselben Gruppe, damit auf jedem Gerät immer die richtige Größe verfügbar "
-"ist."
+"Zeigen Sie Ihre Kampagnen mit Mobile Ads den richtigen Personen. Sie "
+"entscheiden, wo Ihre Anzeigen geschaltet werden, ob es sich um einen "
+"Computer, ein Smartphone oder ein Tablet handelt. Sie können auch zwischen "
+"iOS- und Android-Geräten unterscheiden, um eine maximale Wirkung zu "
+"erzielen. Dadurch wird sichergestellt, dass Ihre mobilen Besucher Anzeigen "
+"sehen, die zu ihrer Bildschirmgröße passen. Zeigen Sie unterschiedliche und "
+"richtig dimensionierte Anzeigen auf Smartphones, Tablets und Computern. "
+"Mischen und kombinieren Sie nach Belieben. Erstellen Sie so viele mobile "
+"Anzeigen, wie Sie benötigen, in derselben Gruppe, damit auf jedem Gerät "
+"immer die richtige Größe verfügbar ist."
 
-#: dashboard/adrotatepro.php:55
+#: dashboard/adrotatepro.php:58
 msgid "Create responsive ads"
 msgstr "Responsive Anzeigen erstellen"
 
-#: dashboard/adrotatepro.php:58
+#: dashboard/adrotatepro.php:61
 msgid ""
 "Create adverts that fit any display, mobile, desktop or tablet. Select up to "
-"4 images in different sizes in the Advert Generator and have adRotate "
-"generate the code for you. Or use ready made adverts. Place the ad as normal "
-"and it will look nice on phones, tablets and computers."
+"4 images in different sizes in the Advert Generator and have AdRotate Pro "
+"generate the code for you. Or if you have correctly sized ads already you "
+"can place them along any other advert as you normally would and they will "
+"look nice on phones, tablets and computers."
 msgstr ""
-"Erstellen Sie Werbeanzeigen, die zu jedem Display, Handy, Desktop oder "
-"Tablet passen. Wählen Sie im Werbeanzeigengenerator bis zu 4 Bilder in "
-"verschiedenen Größen aus und lassen Sie den Code von adRotate für Sie "
-"generieren. Oder verwenden Sie vorgefertigte Anzeigen. Platzieren Sie die "
-"Anzeige wie gewohnt und sie wird auf Telefonen, Tablets und Computern gut "
-"aussehen."
+"Erstellen Sie Anzeigen, die für jedes Display, Mobilgerät, Desktop oder "
+"Tablet geeignet sind. Wählen Sie im Werbegenerator bis zu 4 Bilder in "
+"verschiedenen Größen aus und lassen Sie den Code von AdRotate Pro für Sie "
+"generieren. Oder wenn Sie bereits Anzeigen in der richtigen Größe haben, "
+"können Sie sie wie gewohnt neben jeder anderen Anzeige platzieren und sie "
+"werden auf Telefonen, Tablets und Computern gut aussehen."
 
-#: dashboard/adrotatepro.php:63
+#: dashboard/adrotatepro.php:66
 msgid "Advanced Schedules"
 msgstr "Erweiterte Zeitpläne"
 
-#: dashboard/adrotatepro.php:66
+#: dashboard/adrotatepro.php:69
 msgid ""
 "Schedule your adverts and set up advertising campaigns based on dates and "
 "times you or your advertisers specify. Seasonal adverts, weekly adverts, "
-"specific days in the week. You name it, AdRotate Professional schedules it. "
-"This makes planning your revenue stream very flexible."
+"specific days in the week. Set a limit on impressions or clicks. You can "
+"spread impressions over the duration of the schedule with easy controls, "
+"too. You name it, AdRotate Professional schedules it. This makes planning "
+"your revenue stream very flexible."
 msgstr ""
-"Planen Sie Ihre Werbeanzeigen und richten Sie Werbekampagnen basierend auf "
-"den von Ihnen oder Ihren Werbetreibenden angegebenen Daten und Uhrzeiten "
-"ein. Saisonale Anzeigen, wöchentliche Anzeigen, bestimmte Wochentage. Sie "
+"Planen Sie Ihre Anzeigen und richten Sie Werbekampagnen basierend auf den "
+"von Ihnen oder Ihren Werbetreibenden angegebenen Daten und Uhrzeiten ein. "
+"Saisonale Anzeigen, wöchentliche Anzeigen, bestimmte Wochentage. Legen Sie "
+"ein Limit für Impressionen oder Klicks fest. Sie können Impressionen auch "
+"mit einfachen Steuerelementen über die Dauer des Zeitplans verteilen. Sie "
 "nennen es, AdRotate Professional plant es. Dies macht die Planung Ihrer "
 "Einnahmequelle sehr flexibel."
 
-#: dashboard/adrotatepro.php:71
+#: dashboard/adrotatepro.php:74
 msgid "Satisfy your advertisers"
 msgstr "Stellen Sie Ihre Werbekunden zufrieden"
 
-#: dashboard/adrotatepro.php:74
+#: dashboard/adrotatepro.php:77
 msgid ""
-"Create users and enable them to be advertisers. This lets them log in to "
-"their statistics or even create their own adverts if you enable them. "
-"Created adverts go into a moderation queue for you or your staff to review. "
-"Advertisers have access to their own section on the dashboard where they can "
-"see their adverts performance."
+"Create users and enable them to act as Advertisers. This lets them log in to "
+"their statistics or even create their own adverts if you allow that. Created "
+"or edited adverts go into a moderation queue for you or your staff to "
+"review. Advertisers have access to their own section in the dashboard where "
+"they can see their adverts performance."
 msgstr ""
-"Erstellen Sie Benutzer und ermöglichen Sie ihnen, Werbetreibende zu sein. "
-"Auf diese Weise können sie sich in ihre Statistiken einloggen oder sogar "
-"ihre eigenen Anzeigen erstellen, wenn Sie sie aktivieren. Erstellte "
-"Werbeanzeigen werden in eine Moderationswarteschlange gestellt, damit du "
-"oder deine Mitarbeiter sie überprüfen können. Werbetreibende haben Zugriff "
-"auf einen eigenen Bereich auf dem Dashboard, in dem sie die Leistung ihrer "
-"Anzeigen sehen können."
+"Erstellen Sie Benutzer und ermöglichen Sie ihnen, als Werbetreibende zu "
+"fungieren. Auf diese Weise können sie sich in ihre Statistiken einloggen "
+"oder sogar ihre eigenen Anzeigen erstellen, wenn Sie dies zulassen. "
+"Erstellte oder bearbeitete Anzeigen werden in eine Moderationswarteschlange "
+"gestellt, damit Sie oder Ihre Mitarbeiter sie überprüfen können. "
+"Werbetreibende haben Zugriff auf einen eigenen Bereich im Dashboard, in dem "
+"sie die Leistung ihrer Anzeigen sehen können."
 
-#: dashboard/adrotatepro.php:79
+#: dashboard/adrotatepro.php:82
 msgid "Premium Support"
 msgstr "Premium Support"
 
-#: dashboard/adrotatepro.php:82
+#: dashboard/adrotatepro.php:85
 msgid ""
 "When you activate your AdRotate Professional license you also get access to "
 "Premium Support, easily accessible from your dashboard. No more queueing up "
@@ -828,97 +800,98 @@ msgstr ""
 "Der Ticket-Support hat immer Vorrang vor allem anderen und die Antworten "
 "werden mehrmals am Tag gepostet."
 
-#: dashboard/adrotatepro.php:93
+#: dashboard/adrotatepro.php:96
 msgid ""
-"Go nationwide or global with localized adverts for your various target "
-"audiences. Set up adverts for countries, states and/or cities and sell "
-"impressions per general area. Connect your site to MaxMind GeoIP2, IPStack, "
-"CloudFlare Geo or AdRotate Geo - Your exclusive Geo Targeting service."
+"Go nationwide or global with Geo Targeting. Geo Targeting lets you show "
+"adverts in specific cities, states, countries or DMA Codes. Different "
+"regions calls for different adverts. AdRotate Pro supports various Geo "
+"Targeting services such as; MaxMind GeoIP2, IPStack, CloudFlare Geo and "
+"AdRotate Geo - Your exclusive Geo Targeting service included with any "
+"AdRotate Pro license."
 msgstr ""
-"Werden Sie landesweit oder global mit lokalisierten Anzeigen für Ihre "
-"verschiedenen Zielgruppen. Richten Sie Anzeigen für Länder, Bundesländer und/"
-"oder Städte ein und verkaufen Sie Impressionen pro allgemeinem Gebiet. "
-"Verbinden Sie Ihre Website mit MaxMind GeoIP2, IPStack, CloudFlare Geo oder "
-"AdRotate Geo - Ihrem exklusiven Geo-Targeting-Service."
+"Gehen Sie mit Geo-Targeting landesweit oder global vor. Mit Geo-Targeting "
+"können Sie Anzeigen in bestimmten Städten, Bundesländern, Ländern oder DMA-"
+"Codes schalten. Unterschiedliche Regionen erfordern unterschiedliche "
+"Anzeigen. AdRotate Pro unterstützt verschiedene Geo-Targeting-Dienste wie; "
+"MaxMind GeoIP2, IPStack, CloudFlare Geo und AdRotate Geo - Ihr exklusiver "
+"Geo-Targeting-Service, der in jeder AdRotate Pro-Lizenz enthalten ist."
 
-#: dashboard/adrotatepro.php:98
+#: dashboard/adrotatepro.php:101
 msgid "Advanced Post Injection"
 msgstr "Erweiterte Post-Injektion"
 
-#: dashboard/adrotatepro.php:101
+#: dashboard/adrotatepro.php:104
 msgid ""
 "Do you prefer to publish your adverts without messing with code? Then Post "
-"Injection is for you! With AdRotate Professional you get even more options "
-"to place ads between paragraphs and after every few paragraphs. On top of "
-"that you can also inject ads on WooCommerce or Classic Commerce products and "
-"on bbPress Forums and Topics."
+"Injection, Blocks and Widgets are for you! With AdRotate Pro you get even "
+"more options to place ads between paragraphs and after every few paragraphs "
+"using Post Injection. On top of that you can also place ads on WooCommerce "
+"products and on bbPress Forums and Topics. And of-course, just like in "
+"AdRotate Banner Manager, Gutenberg Blocks and traditional widgets are "
+"available too."
 msgstr ""
-"Ziehen Sie es vor, Ihre Anzeigen zu veröffentlichen, ohne mit Code "
-"herumzuspielen? Dann ist Post Injection genau das Richtige für Sie! Mit "
-"AdRotate Professional erhalten Sie noch mehr Möglichkeiten, Anzeigen "
-"zwischen Absätzen und nach einigen Absätzen zu platzieren. Darüber hinaus "
-"können Sie auch Anzeigen in WooCommerce- oder Classic Commerce-Produkte und "
-"in bbPress-Foren und -Themen einfügen."
+"Ziehen Sie es vor, Ihre Anzeigen zu veröffentlichen, ohne sich mit Code "
+"herumzuschlagen? Dann sind Post Injection, Blocks und Widgets genau das "
+"Richtige für Sie! Mit AdRotate Pro erhalten Sie noch mehr Möglichkeiten, "
+"Anzeigen zwischen den Absätzen und nach allen paar Absätzen mit Post "
+"Injection zu platzieren. Darüber hinaus können Sie auch Anzeigen auf "
+"WooCommerce-Produkten und in bbPress-Foren und -Themen schalten. Und "
+"natürlich sind genau wie im AdRotate Banner Manager auch Gutenberg-Blöcke "
+"und traditionelle Widgets verfügbar."
 
-#: dashboard/adrotatepro.php:106
+#: dashboard/adrotatepro.php:109
 msgid "Avoid adblockers"
 msgstr "Vermeide Adblocker"
 
-#: dashboard/adrotatepro.php:109
+#: dashboard/adrotatepro.php:112
 msgid ""
 "Try and avoid adblockers so your adverts get the exposure you want them to "
-"have. AdRotate Professional offers some easy to use features to avoid "
+"have. AdRotate Pro offers a bunch of easy to use features to avoid "
 "adblockers so your adverts are more likely to be seen. Of-course make sure "
 "you create your adverts smartly so these features reach their full potential!"
 msgstr ""
 "Versuchen Sie, Adblocker zu vermeiden, damit Ihre Anzeigen die gewünschte "
-"Aufmerksamkeit erhalten. AdRotate Professional bietet einige einfach zu "
-"bedienende Funktionen, um Adblocker zu vermeiden, damit Ihre Anzeigen mit "
-"größerer Wahrscheinlichkeit gesehen werden. Stellen Sie natürlich sicher, "
-"dass Sie Ihre Anzeigen intelligent erstellen, damit diese Funktionen ihr "
-"volles Potenzial entfalten!"
+"Aufmerksamkeit erhalten. AdRotate Pro bietet eine Reihe einfach zu "
+"bedienender Funktionen, um Adblocker zu vermeiden, damit Ihre Werbung mit "
+"größerer Wahrscheinlichkeit gesehen wird. Stellen Sie natürlich sicher, dass "
+"Sie Ihre Anzeigen intelligent erstellen, damit diese Funktionen ihr volles "
+"Potenzial entfalten können!"
 
-#: dashboard/adrotatepro.php:117
+#: dashboard/adrotatepro.php:120
 msgid ""
-"Track stats and use the same familiar graphs and dashboards. However, extra "
-"in AdRotate Pro is advanced control over how your adverts show up, based on "
-"gathered stats. Spread your sold impressions out over the schedule period or "
-"limit the amount of clicks and advert may have. Or if you prefer you can "
-"track stats in Matomo or Google Analytics instead."
+"Track stats and use the same familiar graphs and dashboards as AdRotate "
+"Banner Manager offers. Extra in AdRotate Pro is advanced control over how "
+"your adverts show up, based on gathered stats. Schedules have more features "
+"to handle when and how often your campaigns show up. Or if you prefer you "
+"can track stats in Matomo or Google Analytics instead, both universal "
+"tracking and Tag Manager are supported."
 msgstr ""
-"Verfolgen Sie Statistiken und verwenden Sie die gleichen vertrauten "
-"Diagramme und Dashboards. Das Extra in AdRotate Pro ist jedoch die "
-"erweiterte Kontrolle darüber, wie Ihre Anzeigen angezeigt werden, basierend "
-"auf den gesammelten Statistiken. Verteilen Sie Ihre verkauften Impressionen "
-"über den geplanten Zeitraum oder begrenzen Sie die Anzahl der Klicks und "
-"Anzeigen. Oder wenn Sie möchten, können Sie die Statistiken stattdessen in "
-"Matomo oder Google Analytics verfolgen."
+"Verfolgen Sie Statistiken und verwenden Sie die gleichen vertrauten Grafiken "
+"und Dashboards, die AdRotate Banner Manager bietet. Extra in AdRotate Pro "
+"ist eine erweiterte Kontrolle darüber, wie Ihre Anzeigen angezeigt werden, "
+"basierend auf gesammelten Statistiken. Zeitpläne verfügen über mehr "
+"Funktionen, mit denen Sie verwalten können, wann und wie oft Ihre Kampagnen "
+"angezeigt werden. Wenn Sie es vorziehen, können Sie stattdessen Statistiken "
+"in Matomo oder Google Analytics verfolgen, sowohl universelles Tracking als "
+"auch Tag Manager werden unterstützt."
 
-#: dashboard/adrotatepro.php:122
-msgid "Email notifications"
-msgstr "E-Mail-Benachrichtigungen"
-
-#: dashboard/adrotatepro.php:125
+#: dashboard/adrotatepro.php:128
 msgid ""
 "When you enable email notifications in AdRotate Professional you get an "
 "email alert when adverts expire or need your attention. Get notified when "
 "adverts expire, have errors or when advertisers create new adverts. This is "
-"of-course on top of the built-in dashboard notifications and error detection."
+"of-course on top of the built-in dashboard notifications and error "
+"detection. AdRotate Pro detects a lot more errors and faults in adcode and "
+"provides basic advise on how to fix those issues."
 msgstr ""
-"Wenn du E-Mail-Benachrichtigungen in AdRotate Professional aktivierst, "
-"erhältst du eine E-Mail-Benachrichtigung, wenn Werbeanzeigen ablaufen oder "
-"deine Aufmerksamkeit erfordern. Lassen Sie sich benachrichtigen, wenn "
-"Werbeanzeigen ablaufen, Fehler aufweisen oder wenn Werbetreibende neue "
-"Werbeanzeigen erstellen. Dies gilt natürlich zusätzlich zu den integrierten "
-"Dashboard-Benachrichtigungen und der Fehlererkennung."
-
-#: dashboard/adrotatepro.php:131 dashboard/support.php:66
-msgid ""
-"Prices shown in Euros, your bank will convert your local currency to Euros "
-"for free."
-msgstr ""
-"Die Preise werden in Euro angezeigt, Ihre Bank rechnet Ihre Landeswährung "
-"kostenlos in Euro um."
+"Wenn Sie E-Mail-Benachrichtigungen in AdRotate Professional aktivieren, "
+"erhalten Sie eine E-Mail-Benachrichtigung, wenn Anzeigen ablaufen oder Ihre "
+"Aufmerksamkeit erfordern. Lassen Sie sich benachrichtigen, wenn Anzeigen "
+"ablaufen, Fehler aufweisen oder wenn Werbetreibende neue Anzeigen erstellen. "
+"Dies gilt natürlich zusätzlich zu den integrierten Dashboard-"
+"Benachrichtigungen und der Fehlererkennung. AdRotate Pro erkennt viel mehr "
+"Fehler und Störungen in Adcode und gibt grundlegende Ratschläge zur Behebung "
+"dieser Probleme."
 
 #: dashboard/publisher/adverts-disabled.php:15
 msgid "Disabled Adverts"
@@ -949,7 +922,7 @@ msgid "Bulk Actions"
 msgstr "Bulk-Aktionen"
 
 #: dashboard/publisher/adverts-disabled.php:22
-#: dashboard/publisher/adverts-edit.php:186
+#: dashboard/publisher/adverts-edit.php:192
 msgid "Activate"
 msgstr "Aktivieren"
 
@@ -975,7 +948,7 @@ msgid "Go"
 msgstr "Los"
 
 #: dashboard/publisher/adverts-disabled.php:36
-#: dashboard/publisher/adverts-edit.php:263
+#: dashboard/publisher/adverts-edit.php:269
 #: dashboard/publisher/adverts-error.php:40
 #: dashboard/publisher/adverts-main.php:38
 #: dashboard/publisher/groups-edit.php:362
@@ -992,8 +965,8 @@ msgid "Start / End"
 msgstr "Start / Ende"
 
 #: dashboard/publisher/adverts-disabled.php:38
-#: dashboard/publisher/adverts-edit.php:116
-#: dashboard/publisher/adverts-edit.php:264
+#: dashboard/publisher/adverts-edit.php:122
+#: dashboard/publisher/adverts-edit.php:270
 #: dashboard/publisher/adverts-error.php:41
 #: dashboard/publisher/adverts-main.php:40
 #: dashboard/publisher/groups-edit.php:65
@@ -1053,14 +1026,14 @@ msgstr "CTR"
 #: dashboard/publisher/adverts-disabled.php:62
 #: dashboard/publisher/adverts-error.php:57
 #: dashboard/publisher/adverts-main.php:68
-#: dashboard/publisher/groups-main.php:78
+#: dashboard/publisher/groups-main.php:79
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: dashboard/publisher/adverts-disabled.php:62
 #: dashboard/publisher/adverts-error.php:57
 #: dashboard/publisher/adverts-main.php:68
-#: dashboard/publisher/groups-main.php:78
+#: dashboard/publisher/groups-main.php:79
 msgid "Stats"
 msgstr "Statistiken"
 
@@ -1074,19 +1047,19 @@ msgstr "Gruppen:"
 msgid "The AdCode cannot be empty!"
 msgstr "Der AdCode darf nicht leer sein!"
 
-#: dashboard/publisher/adverts-edit.php:53
+#: dashboard/publisher/adverts-edit.php:54
 msgid "You did not use %asset% in your AdCode but did select a file to use!"
 msgstr ""
 "Sie haben %asset% nicht in Ihrem AdCode verwendet, haben aber eine Datei "
 "ausgewählt!"
 
-#: dashboard/publisher/adverts-edit.php:56
+#: dashboard/publisher/adverts-edit.php:58
 msgid "You did use %asset% in your AdCode but did not select a file to use!"
 msgstr ""
 "Sie haben %asset% in Ihrem AdCode verwendet, haben aber keine Datei "
 "ausgewählt!"
 
-#: dashboard/publisher/adverts-edit.php:59
+#: dashboard/publisher/adverts-edit.php:62
 msgid ""
 "There is a problem saving the image. Please re-select your image and re-save "
 "the advert!"
@@ -1094,7 +1067,7 @@ msgstr ""
 "Es gibt ein Problem, das Bild zu speichern. Bitte setzen Sie das Bild zurück "
 "und speichern Sie die Anzeige erneut!"
 
-#: dashboard/publisher/adverts-edit.php:62
+#: dashboard/publisher/adverts-edit.php:66
 msgid ""
 "This kind of advert can not have statistics enabled in AdRotate. Separate "
 "impression counting is available in AdRotate Pro."
@@ -1102,26 +1075,26 @@ msgstr ""
 "Für diese Art von Werbung können statistiken in AdRotate nicht aktiviert "
 "sein. Die Impressionszählung ist in AdRotate Pro verfügbar."
 
-#: dashboard/publisher/adverts-edit.php:67
+#: dashboard/publisher/adverts-edit.php:72
 msgid "This advert is expired and currently not shown on your website!"
 msgstr ""
 "Diese Anzeige ist abgelaufen und wird derzeit nicht auf Ihrer Website "
 "angezeigt!"
 
-#: dashboard/publisher/adverts-edit.php:70
+#: dashboard/publisher/adverts-edit.php:76
 msgid "The advert will expire in less than 2 days!"
 msgstr "Die Anzeige läuft in weniger als 2 Tagen ab!"
 
-#: dashboard/publisher/adverts-edit.php:73
+#: dashboard/publisher/adverts-edit.php:80
 msgid "This advert will expire in less than 7 days!"
 msgstr "Diese Anzeige läuft in weniger als 7 Tage ab!"
 
-#: dashboard/publisher/adverts-edit.php:76
+#: dashboard/publisher/adverts-edit.php:84
 msgid "This advert has been disabled and does not rotate on your site!"
 msgstr ""
 "Diese Anzeige wurde deaktiviert und rotiert nicht mehr auf Ihrer Website!"
 
-#: dashboard/publisher/adverts-edit.php:79
+#: dashboard/publisher/adverts-edit.php:88
 msgid ""
 "AdRotate cannot find an error but the advert is marked erroneous, try re-"
 "saving the ad!"
@@ -1129,63 +1102,57 @@ msgstr ""
 "AdRotate kann keinen Fehler finden, aber die Anzeige ist als fehlerhaft "
 "markiert, versuchen Sie, die Anzeige erneut zu speichern!"
 
-#: dashboard/publisher/adverts-edit.php:83
-msgid "This advert still uses the %image% tag. Please change it to %asset%!"
-msgstr ""
-"Diese Anzeige verwendet weiterhin die %image% taG. Bitte ändern Sie es in "
-"%asset%!"
-
-#: dashboard/publisher/adverts-edit.php:110
+#: dashboard/publisher/adverts-edit.php:116
 msgid "Edit Advert"
 msgstr "Anzeige bearbeiten"
 
-#: dashboard/publisher/adverts-edit.php:125
+#: dashboard/publisher/adverts-edit.php:131
 msgid "AdCode"
 msgstr "AdCode"
 
-#: dashboard/publisher/adverts-edit.php:130
+#: dashboard/publisher/adverts-edit.php:136
 msgid "Basic Examples:"
 msgstr "Basic-Beispiele:"
 
-#: dashboard/publisher/adverts-edit.php:131
+#: dashboard/publisher/adverts-edit.php:137
 msgid "Click any of the examples to use it."
 msgstr "Klicken Sie auf eines der Beispiele, um es zu verwenden."
 
-#: dashboard/publisher/adverts-edit.php:140
+#: dashboard/publisher/adverts-edit.php:146
 msgid "Useful tags"
 msgstr "Nützliche Tags"
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Insert the advert ID Number."
 msgstr "Fügen Sie die Anzeige ID-Nummer ein."
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Use this tag when selecting a image below."
 msgstr "Verwenden Sie dieses Tag, wenn Sie ein Bild unten auswählen."
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Insert the advert name."
 msgstr "Fügen Sie den Anzeige - Namen ein."
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Insert a random string. Useful for DFP/DoubleClick type adverts."
 msgstr ""
 "Fügen Sie eine zufällige Zeichenfolge ein. Nützlich für Anzeigen vom Typ DFP/"
 "DoubleClick."
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Add inside the &lt;a&gt; tag to open the advert in a new window."
 msgstr ""
 "Fügen Sie das &lt;a&gt;-Tag hinzu, um die Anzeige in einem neuen Fenster zu "
 "öffnen."
 
-#: dashboard/publisher/adverts-edit.php:142
+#: dashboard/publisher/adverts-edit.php:148
 msgid "Add inside the &lt;a&gt; tag to tell crawlers to ignore this link."
 msgstr ""
 "Fügen Sie in den <a>tag rel=\"nofollow\" ein, damit Crawler diesen Link "
 "ignorieren."
 
-#: dashboard/publisher/adverts-edit.php:143
+#: dashboard/publisher/adverts-edit.php:149
 msgid ""
 "Place the cursor where you want to add a tag and click to add it to your "
 "AdCode."
@@ -1193,11 +1160,11 @@ msgstr ""
 "Platzieren Sie den Cursor in Ihrem AdCode an der Stelle, wo Sie diese Tags "
 "hinzufügen möchten und klicken Sie dann."
 
-#: dashboard/publisher/adverts-edit.php:148
+#: dashboard/publisher/adverts-edit.php:154
 msgid "Preview"
 msgstr "Vorschau"
 
-#: dashboard/publisher/adverts-edit.php:151
+#: dashboard/publisher/adverts-edit.php:157
 msgid ""
 "Note: While this preview is an accurate one, it might look different then it "
 "does on the website."
@@ -1205,42 +1172,42 @@ msgstr ""
 "Hinweis: Auch wenn die Vorschau korrekt aussieht, könnte es auf der Website "
 "anders aussehen."
 
-#: dashboard/publisher/adverts-edit.php:152
+#: dashboard/publisher/adverts-edit.php:158
 msgid ""
 "This is because of CSS differences. Your themes CSS file is not active here!"
 msgstr ""
 "Dies hat mit Unterschieden hinsichtlich CSS zu tun. Ihre theme-CSS-Datei ist "
 "hier nicht aktiv!"
 
-#: dashboard/publisher/adverts-edit.php:157
+#: dashboard/publisher/adverts-edit.php:163
 msgid "Banner asset"
 msgstr "Banner anzeigen"
 
-#: dashboard/publisher/adverts-edit.php:159
+#: dashboard/publisher/adverts-edit.php:165
 msgid "WordPress media:"
 msgstr "WordPress-Medien:"
 
-#: dashboard/publisher/adverts-edit.php:159
+#: dashboard/publisher/adverts-edit.php:165
 msgid "Select Banner"
 msgstr "Banner wählen"
 
-#: dashboard/publisher/adverts-edit.php:161
+#: dashboard/publisher/adverts-edit.php:167
 msgid "- OR -"
 msgstr "ODER"
 
-#: dashboard/publisher/adverts-edit.php:162
+#: dashboard/publisher/adverts-edit.php:168
 msgid "Banner folder:"
 msgstr "Banner-Ordner:"
 
-#: dashboard/publisher/adverts-edit.php:163
+#: dashboard/publisher/adverts-edit.php:169
 msgid "No image selected"
 msgstr "Kein Bild ausgewählt"
 
-#: dashboard/publisher/adverts-edit.php:173
+#: dashboard/publisher/adverts-edit.php:179
 msgid "Use %asset% in the adcode instead of the file path."
 msgstr "Verwenden Sie %asset% im Adcode statt des Dateipfades."
 
-#: dashboard/publisher/adverts-edit.php:173
+#: dashboard/publisher/adverts-edit.php:179
 msgid ""
 "Use either the text field or the dropdown. If the textfield has content that "
 "field has priority."
@@ -1248,11 +1215,11 @@ msgstr ""
 "Verwenden Sie das Textfeld oder die Dropdown-Liste. Wenndas  Textfeld "
 "gefüllt ist, hat das Feld Priorität."
 
-#: dashboard/publisher/adverts-edit.php:180
+#: dashboard/publisher/adverts-edit.php:186
 msgid "Count clicks and impressions."
 msgstr "Zählen Sie Klicks und Impressionen."
 
-#: dashboard/publisher/adverts-edit.php:181
+#: dashboard/publisher/adverts-edit.php:187
 msgid ""
 "Click counting does not work for Javascript/html5 adverts such as those "
 "provided by Google AdSense/DFP/DoubleClick."
@@ -1260,15 +1227,15 @@ msgstr ""
 "Die Klickzählung funktioniert nicht für Javascript/html5-Anzeigen, wie sie "
 "von Google AdSense/DFP/DoubleClick bereitgestellt werden."
 
-#: dashboard/publisher/adverts-edit.php:189
+#: dashboard/publisher/adverts-edit.php:195
 msgid "Enabled, this ad will be visible"
 msgstr "Aktiviert, wird diese Anzeige sichtbar"
 
-#: dashboard/publisher/adverts-edit.php:190
+#: dashboard/publisher/adverts-edit.php:196
 msgid "Disabled, do not show this advert anywhere"
 msgstr "Deaktiviert, zeigen Sie diese Anzeige nirgendwo an"
 
-#: dashboard/publisher/adverts-edit.php:196
+#: dashboard/publisher/adverts-edit.php:202
 msgid ""
 "Target your audience with Geo Targeting and easily select which devices and "
 "mobile operating systems the advert should show on with AdRotate Pro!"
@@ -1277,17 +1244,17 @@ msgstr ""
 "aus, welche Geräte und mobilen Betriebssysteme die Anzeige mit AdRotate Pro "
 "anzeigen soll!"
 
-#: dashboard/publisher/adverts-edit.php:196
-#: dashboard/publisher/adverts-edit.php:234
+#: dashboard/publisher/adverts-edit.php:202
+#: dashboard/publisher/adverts-edit.php:240
 #: dashboard/publisher/groups-edit.php:227
 msgid "Upgrade now"
 msgstr "Jetzt upgraden"
 
-#: dashboard/publisher/adverts-edit.php:198
+#: dashboard/publisher/adverts-edit.php:204
 msgid "Schedule your advert"
 msgstr "Planen Sie Ihre Anzeige"
 
-#: dashboard/publisher/adverts-edit.php:199
+#: dashboard/publisher/adverts-edit.php:205
 msgid ""
 "Time uses a 24 hour clock. When you're used to the AM/PM system keep this in "
 "mind: If the start or end time is after lunch, add 12 hours. 2PM is 14:00 "
@@ -1298,36 +1265,36 @@ msgstr ""
 "ist, müssen 12 Stunden hinzugefügt werden. 2PM ist 14:00 Uhr. 6AM ist 06:00 "
 "Uhr."
 
-#: dashboard/publisher/adverts-edit.php:203
+#: dashboard/publisher/adverts-edit.php:209
 msgid "Start date"
 msgstr "Startdatum"
 
-#: dashboard/publisher/adverts-edit.php:207
+#: dashboard/publisher/adverts-edit.php:213
 msgid "End date"
 msgstr "Enddatum"
 
-#: dashboard/publisher/adverts-edit.php:213
+#: dashboard/publisher/adverts-edit.php:219
 msgid "Start time"
 msgstr "Startzeit"
 
-#: dashboard/publisher/adverts-edit.php:218
+#: dashboard/publisher/adverts-edit.php:224
 msgid "End time"
 msgstr "Endzeit"
 
-#: dashboard/publisher/adverts-edit.php:226
+#: dashboard/publisher/adverts-edit.php:232
 msgid "Maximum Clicks"
 msgstr "Maximale Klicks"
 
-#: dashboard/publisher/adverts-edit.php:227
-#: dashboard/publisher/adverts-edit.php:229
+#: dashboard/publisher/adverts-edit.php:233
+#: dashboard/publisher/adverts-edit.php:235
 msgid "Leave empty or 0 to skip this."
 msgstr "Leer lassen oder 0, um dies zu überspringen."
 
-#: dashboard/publisher/adverts-edit.php:228
+#: dashboard/publisher/adverts-edit.php:234
 msgid "Maximum Impressions"
 msgstr "Maximale Impressionen"
 
-#: dashboard/publisher/adverts-edit.php:234
+#: dashboard/publisher/adverts-edit.php:240
 msgid ""
 "Plan ahead and create multiple and more advanced schedules for each advert "
 "with AdRotate Pro."
@@ -1335,19 +1302,19 @@ msgstr ""
 "Planen Sie im Voraus und erstellen Sie mehrere und erweiterte Zeitpläne für "
 "jede Anzeige mit AdRotate Pro."
 
-#: dashboard/publisher/adverts-edit.php:236
+#: dashboard/publisher/adverts-edit.php:242
 #: dashboard/publisher/groups-edit.php:157
 #: dashboard/publisher/groups-edit.php:314
 msgid "Usage"
 msgstr "Verwendung"
 
-#: dashboard/publisher/adverts-edit.php:240
+#: dashboard/publisher/adverts-edit.php:246
 #: dashboard/publisher/groups-edit.php:161
 #: dashboard/publisher/groups-edit.php:318
 msgid "Widget"
 msgstr "Widget"
 
-#: dashboard/publisher/adverts-edit.php:241
+#: dashboard/publisher/adverts-edit.php:247
 msgid ""
 "Drag the AdRotate widget to the sidebar where you want to place the advert "
 "and select the advert or the group the advert is in."
@@ -1355,25 +1322,25 @@ msgstr ""
 "Ziehen Sie das AdRotate Widget in die Seitenleiste, wo Sie Ihre Anzeige "
 "platzieren möchten und wählen Sie ein Anzeige oder eine Gruppe mit Anzeigen."
 
-#: dashboard/publisher/adverts-edit.php:244
+#: dashboard/publisher/adverts-edit.php:250
 #: dashboard/publisher/groups-edit.php:165
 #: dashboard/publisher/groups-edit.php:322
 msgid "In a post or page"
 msgstr "In einem Beitrag oder eine Seite"
 
-#: dashboard/publisher/adverts-edit.php:246
+#: dashboard/publisher/adverts-edit.php:252
 #: dashboard/publisher/groups-edit.php:167
 #: dashboard/publisher/groups-edit.php:324
 msgid "Directly in a theme"
 msgstr "Direkt im theme"
 
-#: dashboard/publisher/adverts-edit.php:253
-#: dashboard/publisher/adverts-edit.php:296
+#: dashboard/publisher/adverts-edit.php:259
+#: dashboard/publisher/adverts-edit.php:302
 msgid "Save Advert"
 msgstr "Anzeige speichern"
 
-#: dashboard/publisher/adverts-edit.php:254
-#: dashboard/publisher/adverts-edit.php:297
+#: dashboard/publisher/adverts-edit.php:260
+#: dashboard/publisher/adverts-edit.php:303
 #: dashboard/publisher/adverts-generator.php:148
 #: dashboard/publisher/groups-edit.php:175
 #: dashboard/publisher/groups-edit.php:332
@@ -1381,65 +1348,65 @@ msgstr "Anzeige speichern"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: dashboard/publisher/adverts-edit.php:258
+#: dashboard/publisher/adverts-edit.php:264
 msgid "Select Groups"
 msgstr "Gruppen auswählen"
 
-#: dashboard/publisher/adverts-edit.php:265
+#: dashboard/publisher/adverts-edit.php:271
 #: dashboard/publisher/groups-main.php:34
 #: dashboard/publisher/schedules-main.php:34
 #: dashboard/publisher/statistics-main.php:35
 msgid "Adverts"
 msgstr "Werbung"
 
-#: dashboard/publisher/adverts-edit.php:274
+#: dashboard/publisher/adverts-edit.php:280
 #: dashboard/publisher/groups-main.php:62
 #: dashboard/settings/geotargeting.php:54 dashboard/settings/statistics.php:25
 msgid "Default"
 msgstr "Standard"
 
-#: dashboard/publisher/adverts-edit.php:275
+#: dashboard/publisher/adverts-edit.php:281
 #: dashboard/publisher/groups-main.php:63
 msgid "Dynamic"
 msgstr "Dynamisch"
 
-#: dashboard/publisher/adverts-edit.php:275
+#: dashboard/publisher/adverts-edit.php:281
 #: dashboard/publisher/groups-main.php:63
 msgid "second rotation"
 msgstr "Zweite rotation"
 
-#: dashboard/publisher/adverts-edit.php:276
+#: dashboard/publisher/adverts-edit.php:282
 #: dashboard/publisher/groups-main.php:64
 msgid "Block"
 msgstr "Block"
 
-#: dashboard/publisher/adverts-edit.php:276
+#: dashboard/publisher/adverts-edit.php:282
 #: dashboard/publisher/groups-main.php:64
 msgid "grid"
 msgstr "Raster"
 
-#: dashboard/publisher/adverts-edit.php:277
+#: dashboard/publisher/adverts-edit.php:283
 #: dashboard/publisher/groups-edit.php:234
 #: dashboard/publisher/groups-main.php:65
 msgid "Post Injection"
 msgstr "Post Injection"
 
-#: dashboard/publisher/adverts-edit.php:278
+#: dashboard/publisher/adverts-edit.php:284
 msgid "Geolocation"
 msgstr "Geolokalisierung"
 
-#: dashboard/publisher/adverts-edit.php:285
+#: dashboard/publisher/adverts-edit.php:291
 #: dashboard/publisher/groups-edit.php:74
-#: dashboard/publisher/groups-main.php:78
+#: dashboard/publisher/groups-main.php:79
 msgid "Mode"
 msgstr "Modus"
 
-#: dashboard/publisher/adverts-edit.php:302
+#: dashboard/publisher/adverts-edit.php:308
 #: dashboard/publisher/adverts-generator.php:131
 msgid "Portability"
 msgstr "Portabilität"
 
-#: dashboard/publisher/adverts-edit.php:303
+#: dashboard/publisher/adverts-edit.php:309
 msgid ""
 "This long code is your advert. It includes all settings from above except "
 "the schedule and group selection. You can import this hash into another "
@@ -1456,7 +1423,7 @@ msgstr ""
 "Sie können den Hash in das Feld \"Anzeigenhash\" im Anzeigengenerator eines "
 "anderen AdRotate-Setups einfügen."
 
-#: dashboard/publisher/adverts-edit.php:307
+#: dashboard/publisher/adverts-edit.php:313
 #: dashboard/publisher/adverts-generator.php:137
 msgid "Advert hash"
 msgstr "Advert Hash"
@@ -1527,7 +1494,7 @@ msgstr "Wird bald ablaufen"
 #: dashboard/publisher/adverts-error.php:67
 #: dashboard/publisher/groups-edit.php:421
 #: dashboard/publisher/schedules-main.php:90
-#: dashboard/settings/maintenance.php:30
+#: dashboard/settings/maintenance.php:31
 msgid "Expired"
 msgstr "Abgelaufen"
 
@@ -1885,8 +1852,8 @@ msgstr "Noch heute Upgraden"
 #: dashboard/publisher/groups-edit.php:162
 #: dashboard/publisher/groups-edit.php:319
 msgid ""
-"Drag the AdRotate widget to the sidebar you want it in, select \"Group of "
-"Adverts\" and enter ID"
+"Drag the AdRotate widget to the sidebar you want it in, select 'Group of "
+"Adverts' and enter ID"
 msgstr ""
 "Ziehen Sie das AdRotate Widget in der gewünschten Seitenleiste, wählen Sie "
 "\"Gruppe von Anzeigen\" und geben Sie die ID an"
@@ -2093,9 +2060,17 @@ msgstr "nach dem 18. Absatz"
 msgid "after the 20th paragraph"
 msgstr "nach dem 20. Absatz"
 
+#: dashboard/publisher/groups-edit.php:262
+msgid "Select Categories"
+msgstr "Kategorien auswählen"
+
 #: dashboard/publisher/groups-edit.php:273
 msgid "Page Injection"
 msgstr "Seiten-Injektion"
+
+#: dashboard/publisher/groups-edit.php:302
+msgid "Select Pages"
+msgstr "Seiten auswählen"
 
 #: dashboard/publisher/groups-edit.php:335
 msgid "Wrapper code"
@@ -2154,11 +2129,11 @@ msgstr "Sie sind dabei, eine Gruppe löschen"
 msgid "This action can not be undone!"
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden!"
 
-#: dashboard/publisher/groups-main.php:24 dashboard/settings/maintenance.php:89
+#: dashboard/publisher/groups-main.php:24 dashboard/settings/maintenance.php:20
 msgid "OK to continue, CANCEL to stop."
 msgstr "OK um fortzufahren, CANCEL, um zu stoppen."
 
-#: dashboard/publisher/groups-main.php:92
+#: dashboard/publisher/groups-main.php:93
 msgid "No groups created!"
 msgstr "Keine Gruppen erstellt!"
 
@@ -2215,21 +2190,30 @@ msgstr "Verfügbar Dateien in"
 msgid "Create folder"
 msgstr "Ordner erstellen"
 
-#: dashboard/publisher/media.php:88
+#: dashboard/publisher/media.php:94
 msgid "No files found!"
 msgstr "Es wurden keine Dateien gefunden!"
 
-#: dashboard/publisher/media.php:96
+#: dashboard/publisher/media.php:102
 msgid ""
 "Make sure the banner images are not in use by adverts when you delete them!"
 msgstr ""
 "Stellen Sie sicher, dass die Bannerbilder von Anzeigen nicht aktiv sind, "
 "wenn Sie diese löschen!"
 
-#: dashboard/publisher/media.php:96
+#: dashboard/publisher/media.php:102
 msgid "Deleting a folder deletes everything inside that folder as well!"
 msgstr ""
 "Durch das Löschen eines Ordners wird auch alles in diesem Ordner gelöscht!"
+
+#: dashboard/publisher/media.php:103
+msgid ""
+"Certain files such as html, js and zip can only be uploaded by Editors and "
+"Administrators. This is a security restriction to prevent XSS attacks."
+msgstr ""
+"Bestimmte Dateien wie html, js und zip können nur von Editoren und "
+"Administratoren hochgeladen werden. Dies ist eine Sicherheitseinschränkung, "
+"um XSS-Angriffe zu verhindern."
 
 #: dashboard/publisher/schedules-main.php:13
 msgid ""
@@ -2387,32 +2371,11 @@ msgstr ""
 "Verhindern Sie, dass Anzeigen in Gruppen, die sich im Standard- oder "
 "Blockmodus befinden, mehrmals auf derselben Seite geladen werden."
 
-#: dashboard/settings/general.php:23
-msgid ""
-"If you still notice double adverts from groups placed on a page, start with "
-"carefully looking at your setup to make sure you did not cause this yourself."
-msgstr ""
-"Wenn Sie immer noch doppelte Anzeigen von Gruppen bemerken, die auf einer "
-"Seite platziert sind, beginnen Sie mit einem sorgfältigen Betrachten Ihres "
-"Setups, um sicherzustellen, dass Sie dies nicht selbst verursacht haben."
-
-#: dashboard/settings/general.php:23
-msgid "On some servers $_SESSION is disabled."
-msgstr "Auf einigen Servern ist _SESSION deaktiviert."
-
-#: dashboard/settings/general.php:23
-msgid ""
-"A plugin called \"WP Session Manager\" by Eric Mann may fix this. However, "
-"most people will not need this extra plugin!"
-msgstr ""
-"Ein Plugin namens \"WP Session Manager\" von Eric Mann kann dies beheben. "
-"Jedoch, die meisten Menschen werden dieses zusätzliche Plugin nicht brauchen!"
-
-#: dashboard/settings/general.php:26
+#: dashboard/settings/general.php:25
 msgid "Shortcode in widgets"
 msgstr "Shortcode in Text-widgets"
 
-#: dashboard/settings/general.php:27
+#: dashboard/settings/general.php:26
 msgid ""
 "Try and activate shortcodes in text widgets if your theme does not add "
 "support for it by itself. (This does not always work!)"
@@ -2420,11 +2383,11 @@ msgstr ""
 "Versuchen Sie, Shortcodes in Text-Widgets zu aktivieren, wenn Ihr Design "
 "selbst keine Unterstützung dafür bietet. (Das funktioniert nicht immer!)"
 
-#: dashboard/settings/general.php:30
+#: dashboard/settings/general.php:29
 msgid "Advert live preview"
 msgstr "Live-Vorschau der Werbeanzeige"
 
-#: dashboard/settings/general.php:31
+#: dashboard/settings/general.php:30
 msgid ""
 "Disable live previews for adverts if you have faulty adverts that overflow "
 "their designated area while creating/editing adverts."
@@ -2433,23 +2396,11 @@ msgstr ""
 "Anzeigen haben, die beim Erstellen/Bearbeiten von Anzeigen den dafür "
 "vorgesehenen Bereich überlaufen."
 
-#: dashboard/settings/general.php:34
-msgid "Dynamic mode on mobile"
-msgstr "Dynamischer Modus auf Mobilgeräten"
-
-#: dashboard/settings/general.php:35
-msgid ""
-"Disable dynamic mode in groups for mobile devices if you notice skipping or "
-"jumpy content."
-msgstr ""
-"Deaktivieren Sie den dynamischen Modus in Gruppen für mobile Geräte, wenn "
-"Sie überspringende oder sprunghafte Inhalte bemerken."
-
-#: dashboard/settings/general.php:38
+#: dashboard/settings/general.php:33
 msgid "Load jQuery"
 msgstr "Laden von jQuery"
 
-#: dashboard/settings/general.php:39
+#: dashboard/settings/general.php:34
 msgid ""
 "Load jQuery if your theme does not load it already. jQuery is required for "
 "dynamic groups, statistics and some other features."
@@ -2457,32 +2408,32 @@ msgstr ""
 "Laden Sie jQuery, wenn Ihr Theme es noch nicht lädt. jQuery ist für "
 "dynamische Gruppen, Statistiken und einige andere Funktionen erforderlich."
 
-#: dashboard/settings/general.php:42
+#: dashboard/settings/general.php:37
 msgid "Load scripts in footer?"
 msgstr "Skripte in Fußzeile laden ?"
 
-#: dashboard/settings/general.php:43
+#: dashboard/settings/general.php:38
 msgid "Load all AdRotate Javascripts in the footer of your site."
 msgstr "Laden Sie alle AdRotate Javascripts in die Fußzeile Ihrer Website."
 
-#: dashboard/settings/general.php:46
+#: dashboard/settings/general.php:41
 msgid "Adblock disguise"
 msgstr "Verhindern von Adblock"
 
-#: dashboard/settings/general.php:48
+#: dashboard/settings/general.php:43
 msgid "Leave empty to disable. Use only lowercaps letters. For example:"
 msgstr ""
 "Lassen Sie dies leer, um das zu deaktivieren. Verwenden Sie nur "
 "Kleinbuchstaben. Zum Beispiel:"
 
-#: dashboard/settings/general.php:49
+#: dashboard/settings/general.php:44
 msgid ""
 "Try and avoid adblock plugins in most modern browsers when using shortcodes."
 msgstr ""
 "Um die Funktion von Adblock Plugins zu verhindern, sollten Sie shortcodes "
 "verwenden."
 
-#: dashboard/settings/general.php:49
+#: dashboard/settings/general.php:44
 msgid ""
 "To also apply this feature to widgets, use a text widget with a shortcode "
 "instead of the AdRotate widget."
@@ -2490,7 +2441,7 @@ msgstr ""
 "Um auch dieses Feature auf Widgets anzuwenden, verwenden Sie eine Text-"
 "Widget mit einem shortcode statt AdRotate-Widget."
 
-#: dashboard/settings/general.php:49
+#: dashboard/settings/general.php:44
 msgid ""
 "Avoid the use of obvious keywords or filenames in your adverts or this "
 "feature will have little effect!"
@@ -2498,24 +2449,24 @@ msgstr ""
 "Vermeiden Sie offensichtliche Keywords oder Dateinamen in Ihrer Werbung, "
 "sonst wird dieses Feature nur geringe Auswirkungen haben!"
 
-#: dashboard/settings/general.php:54
+#: dashboard/settings/general.php:49
 msgid "Banner Folder"
 msgstr "Banner-Ordner"
 
-#: dashboard/settings/general.php:55
+#: dashboard/settings/general.php:50
 msgid "Set a folder where your banner images will be stored."
 msgstr ""
 "Legen Sie einen Ordner fest, in dem Ihre Bannerbilder gespeichert werden."
 
-#: dashboard/settings/general.php:58
+#: dashboard/settings/general.php:53
 msgid "Folder name"
 msgstr "Ordnername"
 
-#: dashboard/settings/general.php:60
+#: dashboard/settings/general.php:55
 msgid "(Default: banners)."
 msgstr "(Standard: Banner)."
 
-#: dashboard/settings/general.php:61
+#: dashboard/settings/general.php:56
 msgid ""
 "To try and trick ad blockers you could set the folder to something crazy "
 "like:"
@@ -2523,7 +2474,7 @@ msgstr ""
 "Um Ad-Blocker zu zu irritieren, können Sie den Ordner auf etwas verrücktes "
 "einstellen wie:"
 
-#: dashboard/settings/general.php:62
+#: dashboard/settings/general.php:57
 msgid ""
 "This folder will not be automatically created if it doesn't exist. AdRotate "
 "will show errors when the folder is missing."
@@ -2531,26 +2482,26 @@ msgstr ""
 "Dieser Ordner wird nicht automatisch erstellt, wenn er nicht vorhanden ist. "
 "AdRotate wird einen Fehler anzeigen, wenn der Ordner nicht vorhanden ist."
 
-#: dashboard/settings/general.php:67
+#: dashboard/settings/general.php:62
 msgid "Bot filter"
 msgstr "Bot-filter"
 
-#: dashboard/settings/general.php:68
+#: dashboard/settings/general.php:63
 msgid "The bot filter is used for the AdRotate stats tracker."
 msgstr "Der Bot-Filter wird für den AdRotate Statistik-Tracker verwendet."
 
-#: dashboard/settings/general.php:71
+#: dashboard/settings/general.php:66
 msgid "User-Agent Filter"
 msgstr "Benutzer-Agent-Filter"
 
-#: dashboard/settings/general.php:74
+#: dashboard/settings/general.php:69
 msgid ""
 "A comma separated list of keywords. Filter out bots/crawlers/user-agents."
 msgstr ""
 "Eine kommagetrennte Liste von Schlüsselwörtern. Bots/Crawler/Benutzer-Agents "
 "herausfiltern."
 
-#: dashboard/settings/general.php:75
+#: dashboard/settings/general.php:70
 msgid ""
 "Keep in mind that this might give false positives. The word 'fire' also "
 "matches 'firefox', but not vice-versa. So be careful!"
@@ -2559,7 +2510,7 @@ msgstr ""
 "'Fire' findet auch 'Firefox', aber nicht umgekehrt. Also seien Sie "
 "vorsichtig!"
 
-#: dashboard/settings/general.php:76
+#: dashboard/settings/general.php:71
 msgid ""
 "Only words with alphanumeric characters and [ - _ ] are allowed. All other "
 "characters are stripped out."
@@ -2567,7 +2518,7 @@ msgstr ""
 "Nur Wörter mit alphanumerischen Zeichen und [-_] sind zulässig. Alle anderen "
 "Zeichen werden entfernt."
 
-#: dashboard/settings/general.php:77
+#: dashboard/settings/general.php:72
 msgid ""
 "Additionally to the list specified here, empty User-Agents are blocked as "
 "well."
@@ -2575,17 +2526,17 @@ msgstr ""
 "Zusätzlich zu der hier angegebenen Liste werden leere User-Agents ebenfalls "
 "blockiert."
 
-#: dashboard/settings/general.php:77
+#: dashboard/settings/general.php:72
 msgid "Learn more about"
 msgstr "Mehr über"
 
-#: dashboard/settings/general.php:77
+#: dashboard/settings/general.php:72
 msgid "user-agents"
 msgstr "Benutzer-agents"
 
-#: dashboard/settings/general.php:83 dashboard/settings/misc.php:47
+#: dashboard/settings/general.php:78 dashboard/settings/misc.php:43
 #: dashboard/settings/notifications.php:72 dashboard/settings/roles.php:55
-#: dashboard/settings/statistics.php:89
+#: dashboard/settings/statistics.php:85
 msgid "Update Options"
 msgstr "Einstellungen aktualisieren"
 
@@ -2612,9 +2563,9 @@ msgstr ""
 #: dashboard/settings/geotargeting.php:33
 #: dashboard/settings/geotargeting.php:37
 #: dashboard/settings/geotargeting.php:41
-#: dashboard/settings/geotargeting.php:45 dashboard/settings/statistics.php:33
-#: dashboard/settings/statistics.php:36 dashboard/settings/statistics.php:39
-#: dashboard/settings/statistics.php:42 dashboard/settings/statistics.php:45
+#: dashboard/settings/geotargeting.php:45 dashboard/settings/statistics.php:32
+#: dashboard/settings/statistics.php:35 dashboard/settings/statistics.php:38
+#: dashboard/settings/statistics.php:41
 msgid "Supports:"
 msgstr "Unterstützt:"
 
@@ -2630,7 +2581,7 @@ msgid "Suitable for small to medium sized websites."
 msgstr "Geeignet für kleine bis mittelgroße Websites."
 
 #: dashboard/settings/geotargeting.php:36
-#: dashboard/settings/geotargeting.php:40
+#: dashboard/settings/geotargeting.php:40 dashboard/settings/maintenance.php:58
 msgid "More info"
 msgstr "Mehr Info"
 
@@ -2693,11 +2644,19 @@ msgstr "Benutzer Name / Email"
 msgid "Password/License Key"
 msgstr "Passwort/Lizenzschlüssel"
 
-#: dashboard/settings/maintenance.php:18
-msgid "Check ads for errors"
-msgstr "Anzeigen auf Fehler überprüfen"
+#: dashboard/settings/maintenance.php:20
+msgid "Check all adverts for configuration errors"
+msgstr "Überprüfen Sie alle Anzeigen auf Konfigurationsfehler"
 
-#: dashboard/settings/maintenance.php:21
+#: dashboard/settings/maintenance.php:20
+msgid "You are about to check all adverts for errors."
+msgstr "Sie sind im Begriff, alle Anzeigen auf Fehler zu überprüfen."
+
+#: dashboard/settings/maintenance.php:20
+msgid "This might take a few seconds!"
+msgstr "Dies kann ein paar Sekunden dauern!"
+
+#: dashboard/settings/maintenance.php:22
 msgid ""
 "Apply all evaluation rules to all adverts to see if any error slipped in. "
 "This may take a few seconds."
@@ -2705,71 +2664,89 @@ msgstr ""
 "Wenden Sie alle Bewertungsregeln auf alle Anzeigen an, um zu sehen, ob sich "
 "ein Fehler eingeschlichen hat. Dies kann einige Sekunden dauern."
 
-#: dashboard/settings/maintenance.php:26
+#: dashboard/settings/maintenance.php:27
 msgid "Status and Versions"
 msgstr "Status und Versionen"
 
-#: dashboard/settings/maintenance.php:29
+#: dashboard/settings/maintenance.php:30
 msgid "Current status of adverts"
 msgstr "Aktueller Status der Anzeigen"
 
-#: dashboard/settings/maintenance.php:30
+#: dashboard/settings/maintenance.php:31
 msgid "Normal"
 msgstr "Normal"
 
-#: dashboard/settings/maintenance.php:30
+#: dashboard/settings/maintenance.php:31
 msgid "Error"
 msgstr "Fehler"
 
-#: dashboard/settings/maintenance.php:30
+#: dashboard/settings/maintenance.php:31
 msgid "Expires Soon"
 msgstr "Läuft ab"
 
-#: dashboard/settings/maintenance.php:30
+#: dashboard/settings/maintenance.php:31
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: dashboard/settings/maintenance.php:33
+#: dashboard/settings/maintenance.php:34
 msgid "Banners/assets Folder"
 msgstr "Banner Ordner"
 
-#: dashboard/settings/maintenance.php:37 dashboard/settings/maintenance.php:46
+#: dashboard/settings/maintenance.php:38 dashboard/settings/maintenance.php:47
 msgid "Exists and appears writable"
 msgstr "Existiert und scheint beschreibbar"
 
-#: dashboard/settings/maintenance.php:37 dashboard/settings/maintenance.php:46
+#: dashboard/settings/maintenance.php:38 dashboard/settings/maintenance.php:47
 msgid "Not writable or does not exist"
 msgstr "Nicht beschreibbar oder existiert nicht"
 
-#: dashboard/settings/maintenance.php:42
+#: dashboard/settings/maintenance.php:43
 msgid "Reports Folder"
 msgstr "Ordner \"Reports\""
 
-#: dashboard/settings/maintenance.php:51
-msgid "Advert evaluation"
-msgstr "Anzeige-Auswertung"
-
 #: dashboard/settings/maintenance.php:52
-msgid "Not scheduled! Re-activate the plugin from the plugins page."
-msgstr "Nicht geplant! Reaktivieren Sie das Plugin auf der Plugins Seite."
+msgid "Unfiltered HTML"
+msgstr "Ungefiltertes HTML"
 
-#: dashboard/settings/maintenance.php:53
+#: dashboard/settings/maintenance.php:56
+msgid "Allowed"
+msgstr "Erlaubt"
+
+#: dashboard/settings/maintenance.php:58
+msgid ""
+"Your website's current setup does not allow for unfiltered code to be used "
+"in adverts."
+msgstr ""
+"Die aktuelle Einrichtung Ihrer Website lässt die Verwendung von "
+"ungefiltertem Code in Anzeigen nicht zu."
+
+#: dashboard/settings/maintenance.php:58
+msgid ""
+"This is required for javascript adverts to work. To enable this you need to "
+"set the DISALLOW_UNFILTERED_HTML definition to 'true' in your wp-config.php "
+"file."
+msgstr ""
+"Dies ist erforderlich, damit Javascript-Anzeigen funktionieren. Um dies zu "
+"aktivieren, müssen Sie die DISALLOW_UNFILTERED_HTML-Definition in Ihrer wp-"
+"config.php Datei auf 'true' setzen."
+
+#: dashboard/settings/maintenance.php:64
 msgid "Clean Trackerdata"
 msgstr "Löschen abgelaufener Trackerdaten"
 
-#: dashboard/settings/maintenance.php:54
+#: dashboard/settings/maintenance.php:65
 msgid "Not scheduled!"
 msgstr "Zeitplan deaktiviert!"
 
-#: dashboard/settings/maintenance.php:57
+#: dashboard/settings/maintenance.php:70
 msgid "Background tasks"
 msgstr "Hintergrundaufgaben"
 
-#: dashboard/settings/maintenance.php:59
+#: dashboard/settings/maintenance.php:72
 msgid "Reset background tasks"
 msgstr "Zurücksetzen von Hintergrundaufgaben"
 
-#: dashboard/settings/maintenance.php:62
+#: dashboard/settings/maintenance.php:75
 msgid ""
 "If automated tasks such as expiring adverts does not work reliable or one of "
 "the above schedules is missing use this button to reset the tasks."
@@ -2778,34 +2755,11 @@ msgstr ""
 "funktionieren oder einer der oben genannten Zeitpläne fehlt, verwenden Sie "
 "diese Schaltfläche, um die Aufgaben zurückzusetzen."
 
-#: dashboard/settings/maintenance.php:66
-msgid "Unsupported plugins"
-msgstr "Nicht unterstützte Plugins"
-
-#: dashboard/settings/maintenance.php:68
-msgid "Disable 3rd party plugins"
-msgstr "Deaktivieren von Plugins von Drittanbietern"
-
-#: dashboard/settings/maintenance.php:70
-msgid "One or more unsupported 3rd party plugins detected."
-msgstr ""
-"Ein oder mehrere nicht unterstützte Plugins von Drittanbietern wurden "
-"erkannt."
-
-#: dashboard/settings/maintenance.php:72
-msgid ""
-"These are plugins that alter functions of AdRotate or highjack parts of the "
-"dashboard which may affect security and/or stability."
-msgstr ""
-"Dies sind Plugins, die Funktionen von AdRotate oder Highjack-Teile des "
-"Dashboards ändern, die die Sicherheit und/oder Stabilität beeinträchtigen "
-"können."
-
-#: dashboard/settings/maintenance.php:77
+#: dashboard/settings/maintenance.php:80
 msgid "Internal Versions"
 msgstr "Interne Version"
 
-#: dashboard/settings/maintenance.php:78
+#: dashboard/settings/maintenance.php:81
 msgid ""
 "Unless you experience database issues or a warning shows below, these "
 "numbers are not really relevant for troubleshooting. Support may ask for "
@@ -2816,47 +2770,44 @@ msgstr ""
 "Support wird Sie möglicherweise darum bitten, um Ihren Datenbankstatus zu "
 "überprüfen."
 
-#: dashboard/settings/maintenance.php:81
+#: dashboard/settings/maintenance.php:84
 msgid "AdRotate version"
 msgstr "AdRotate version"
 
-#: dashboard/settings/maintenance.php:82 dashboard/settings/maintenance.php:84
+#: dashboard/settings/maintenance.php:87 dashboard/settings/maintenance.php:97
 msgid "Current:"
 msgstr "Aktuell:"
 
-#: dashboard/settings/maintenance.php:82 dashboard/settings/maintenance.php:84
+#: dashboard/settings/maintenance.php:89 dashboard/settings/maintenance.php:99
 msgid "Should be:"
 msgstr "Sollte sein:"
 
-#: dashboard/settings/maintenance.php:82 dashboard/settings/maintenance.php:84
+#: dashboard/settings/maintenance.php:92 dashboard/settings/maintenance.php:102
 msgid "Previous:"
 msgstr "Vorherige(r):"
 
-#: dashboard/settings/maintenance.php:83
+#: dashboard/settings/maintenance.php:94
 msgid "Database version"
 msgstr "Datenbank Version"
 
-#: dashboard/settings/maintenance.php:87
+#: dashboard/settings/maintenance.php:106
 msgid "Manual upgrade"
 msgstr "Manuelles Upgrade"
 
-#: dashboard/settings/maintenance.php:89
-msgid "YOU ARE ABOUT TO DO A MANUAL UPDATE FOR ADROTATE."
-msgstr "SIE SIND ÜBER EIN MANUELLEs UPDATE FÜR ADROTATE ZU TUN."
+#: dashboard/settings/maintenance.php:108
+msgid "Run updater manually"
+msgstr "Updater manuell ausführen"
 
-#: dashboard/settings/maintenance.php:89
-msgid "Make sure you have a database backup!"
-msgstr "Stellen Sie sicher, dass Sie über eine Datenbanksicherung verfügen!"
-
-#: dashboard/settings/maintenance.php:89
-msgid "This might take a while and may slow down your site during this action!"
+#: dashboard/settings/maintenance.php:111
+msgid ""
+"If the automatic update for some reason doesn't complete. Or you notice that "
+"the above versions are mismatched you can update the database and settings "
+"using this button."
 msgstr ""
-"Dies kann eine Weile dauern und möglicherweise wird Ihre Website während "
-"dieser Aktion langsamer reagieren!"
-
-#: dashboard/settings/maintenance.php:89
-msgid "Run updater"
-msgstr "Updater starten"
+"Wenn das automatische Update aus irgendeinem Grund nicht abgeschlossen wird. "
+"Oder Sie stellen fest, dass die oben genannten Versionen nicht "
+"übereinstimmen, Sie können die Datenbank und die Einstellungen über diese "
+"Schaltfläche aktualisieren."
 
 #: dashboard/settings/misc.php:19
 msgid "Widget alignment"
@@ -2904,8 +2855,8 @@ msgstr ""
 "diese Zeile hinzufügen, sehen Sie sich die folgende Anleitung an;"
 
 #: dashboard/settings/misc.php:29
-msgid "Set up W3 Total Caching"
-msgstr "Richten Sie W3 Total Cache ein"
+msgid "Set up W3 Total Caching."
+msgstr "Richten Sie W3 Total Cache ein."
 
 #: dashboard/settings/misc.php:33
 msgid "W3 Total Caching"
@@ -2926,24 +2877,6 @@ msgid "Check this box if you use Borlabs Caching on your site."
 msgstr ""
 "Aktivieren Sie dieses Kontrollkästchen, wenn Sie Borlabs Caching auf Ihrer "
 "Website verwenden."
-
-#: dashboard/settings/misc.php:42
-msgid ""
-"It may take a while for the ad to start rotating. The caching plugin needs "
-"to refresh the cache. This can take up to a week if not done manually."
-msgstr ""
-"Es kann eine Weile dauern, bis die Rotation der Anzeige beginnt. Das Caching-"
-"Plugin muss zunächst den Cache aktualisieren. Dies kann bis zu einer Woche "
-"dauern, wenn es nicht manuell vorgenommen wird."
-
-#: dashboard/settings/misc.php:42
-msgid ""
-"Caching support only works for [shortcodes] and the AdRotate Widget. If you "
-"use a PHP Snippet you need to wrap your PHP in the exclusion code yourself."
-msgstr ""
-"Caching-Unterstützung funktioniert nur bei Verwendung von [shortcodes] und "
-"dem AdRotate Widget. Wenn Sie ein PHP Snippet verwenden, müssen Sie das "
-"selbst im Ausschlussecode per PHP berücksichtigen."
 
 #: dashboard/settings/notifications.php:19
 msgid "Set up who gets notifications if ads need your attention."
@@ -3073,40 +3006,44 @@ msgstr ""
 "getrennt. Dieses Feld darf nicht leer sein!"
 
 #: dashboard/settings/roles.php:18
-msgid "Who has access to what?"
-msgstr "Wer hat Zugang zu was?"
+msgid ""
+"Who has access to what? Choose the access level wisely and only give "
+"userroles access that you trust."
+msgstr ""
+"Wer hat Zugriff auf was? Wählen Sie die Zugriffsebene mit Bedacht und "
+"gewähren Sie nur Benutzerrollen Zugriff, denen Sie vertrauen."
 
 #: dashboard/settings/roles.php:21
 msgid "Manage/Add/Edit adverts"
 msgstr "Anzeigen verwalten/hinzufügen/bearbeiten"
 
 #: dashboard/settings/roles.php:25
-msgid "Role to see and add/edit ads."
-msgstr "Rolle, um Anzeigen aufzulisten, hinzuzufügen oder zu bearbeiten."
+msgid "Who can add and edit adverts."
+msgstr "Wer kann Anzeigen hinzufügen und bearbeiten?"
 
 #: dashboard/settings/roles.php:29
 msgid "Delete/Reset adverts"
 msgstr "Löschen/Reset der Anzeigen"
 
 #: dashboard/settings/roles.php:33
-msgid "Role to delete ads and reset stats."
-msgstr "Rolle, um Anzeigen zu löschen und die Statistik zurück zu setzen."
+msgid "Who can delete adverts and reset advert stats."
+msgstr "Wer kann Anzeigen löschen und Werbestatistiken zurücksetzen?"
 
 #: dashboard/settings/roles.php:37
 msgid "Manage/Add/Edit groups"
 msgstr "Gruppen verwalten/hinzufügen/bearbeiten"
 
 #: dashboard/settings/roles.php:41
-msgid "Role to see and add/edit groups."
-msgstr "Rolle, um Gruppen aufzulisten, hinzuzufügen oder zu bearbeiten."
+msgid "Who can add and edit groups."
+msgstr "Wer kann Gruppen hinzufügen und bearbeiten?"
 
 #: dashboard/settings/roles.php:45
 msgid "Delete groups"
 msgstr "Gruppen löschen"
 
 #: dashboard/settings/roles.php:49
-msgid "Role to delete groups."
-msgstr "Rolle, um Gruppen zu löschen."
+msgid "Who can delete groups."
+msgstr "Wer kann Gruppen löschen?"
 
 #: dashboard/settings/statistics.php:18
 msgid "Track statistics for your adverts."
@@ -3120,21 +3057,16 @@ msgstr "Wie Statistiken verfolgt werden können"
 msgid "Disabled - Do not track stats"
 msgstr "Ausggeschaltet - Statistik nicht überwachen"
 
-#: dashboard/settings/statistics.php:29
-msgid "Depreciated"
-msgstr "Abschreibung"
-
-#: dashboard/settings/statistics.php:32
+#: dashboard/settings/statistics.php:31
 msgid "Tracks impressions and clicks locally"
 msgstr "Verfolgt Impressionen und Klicks lokal"
 
-#: dashboard/settings/statistics.php:32 dashboard/settings/statistics.php:35
-#: dashboard/settings/statistics.php:38 dashboard/settings/statistics.php:41
-#: dashboard/settings/statistics.php:44
+#: dashboard/settings/statistics.php:31 dashboard/settings/statistics.php:34
+#: dashboard/settings/statistics.php:37 dashboard/settings/statistics.php:40
 msgid "Setup guide"
 msgstr "Einrichtungsanleitung"
 
-#: dashboard/settings/statistics.php:33
+#: dashboard/settings/statistics.php:32
 msgid ""
 "Clicks and Impressions, Click and impression limits, impression spread for "
 "schedules. Javascript/HTML5 adverts will only track impressions."
@@ -3142,7 +3074,7 @@ msgstr ""
 "Klicks und Impressionen, Klick- und Impressionslimits, Abdruck für "
 "Zeitpläne. Javascript/HTML5-Anzeigen verfolgen nur Impressionen."
 
-#: dashboard/settings/statistics.php:35
+#: dashboard/settings/statistics.php:34
 msgid ""
 "Requires my Matomo Tracker plugin installed or the Matomo tracking code in "
 "your sites footer. See the manual for details."
@@ -3151,7 +3083,7 @@ msgstr ""
 "Tracking-Code in der Fußzeile Ihrer Website. Weitere Informationen finden "
 "Sie im Handbuch."
 
-#: dashboard/settings/statistics.php:36 dashboard/settings/statistics.php:45
+#: dashboard/settings/statistics.php:35
 msgid ""
 "Clicks and Impressions via events. Javascript/HTML5 adverts will only track "
 "impressions."
@@ -3159,7 +3091,7 @@ msgstr ""
 "Klicks und Impressionen über Events. Javascript/HTML5-Anzeigen verfolgen nur "
 "Impressionen."
 
-#: dashboard/settings/statistics.php:38
+#: dashboard/settings/statistics.php:37
 msgid ""
 "Requires the Google Global Tag from GA4 installed behind your sites head tag "
 "and a Google Analytics 4 Account!"
@@ -3167,7 +3099,7 @@ msgstr ""
 "Erfordert das Google Global Tag von GA4, das hinter dem Head-Tag Ihrer "
 "Website installiert ist, und ein Google Analytics 4-Konto!"
 
-#: dashboard/settings/statistics.php:39
+#: dashboard/settings/statistics.php:38
 msgid ""
 "Clicks and Impressions via custom events you need to set up. Javascript/"
 "HTML5 adverts will only track impressions."
@@ -3175,7 +3107,7 @@ msgstr ""
 "Klicks und Impressionen über benutzerdefinierte Ereignisse, die Sie "
 "einrichten müssen. Javascript/HTML5-Anzeigen verfolgen nur Impressionen."
 
-#: dashboard/settings/statistics.php:41
+#: dashboard/settings/statistics.php:40
 msgid ""
 "Requires Google Tag Manager installed in your sites head tag and a Google "
 "Analytics 4 Account!"
@@ -3183,7 +3115,7 @@ msgstr ""
 "Erfordert die Installation von Google Tag Manager im Head-Tag Ihrer Website "
 "und ein Google Analytics 4-Konto!"
 
-#: dashboard/settings/statistics.php:42
+#: dashboard/settings/statistics.php:41
 msgid ""
 "Clicks and Impressions via custom events. Javascript/HTML5 adverts will only "
 "track impressions."
@@ -3191,18 +3123,11 @@ msgstr ""
 "Klicks und Impressionen über benutzerdefinierte Events. Javascript/HTML5-"
 "Anzeigen verfolgen nur Impressionen."
 
-#: dashboard/settings/statistics.php:44
-msgid ""
-"Requires Google Global Site Tag tracking code installed in your sites footer!"
-msgstr ""
-"Erfordert den Tracking-Code für globale Website-Tags von Google in der "
-"Fußzeile Ihrer Website!"
-
-#: dashboard/settings/statistics.php:51
+#: dashboard/settings/statistics.php:47
 msgid "AdRotate Statistics"
 msgstr "AdRotate-Statistiken"
 
-#: dashboard/settings/statistics.php:52
+#: dashboard/settings/statistics.php:48
 msgid ""
 "The settings below are for the local tracker and have no effect when using "
 "Google Analytics or Matomo."
@@ -3210,57 +3135,57 @@ msgstr ""
 "Die folgenden Einstellungen gelten für den lokalen Tracker und haben keine "
 "Auswirkungen bei der Verwendung von Google Analytics oder Matomo."
 
-#: dashboard/settings/statistics.php:55
+#: dashboard/settings/statistics.php:51
 msgid "Admin stats"
 msgstr "Admin-Statistiken"
 
-#: dashboard/settings/statistics.php:57
+#: dashboard/settings/statistics.php:53
 msgid "Track statistics from admin users."
 msgstr "Verfolgen Sie Statistiken von Admin-Benutzern."
 
-#: dashboard/settings/statistics.php:61
+#: dashboard/settings/statistics.php:57
 msgid "Logged in impressions"
 msgstr "Impressions"
 
-#: dashboard/settings/statistics.php:63
+#: dashboard/settings/statistics.php:59
 msgid "Track impressions from logged in users."
 msgstr "Track impressions von angemeldeten Nutzern."
 
-#: dashboard/settings/statistics.php:67
+#: dashboard/settings/statistics.php:63
 msgid "Logged in clicks"
 msgstr "Clicks"
 
-#: dashboard/settings/statistics.php:69
+#: dashboard/settings/statistics.php:65
 msgid "Track clicks from logged in users."
 msgstr "Track Klicks von angemeldeten Nutzern."
 
-#: dashboard/settings/statistics.php:73
+#: dashboard/settings/statistics.php:69
 msgid "Impression timer"
 msgstr "Impression-Timer"
 
-#: dashboard/settings/statistics.php:75 dashboard/settings/statistics.php:82
+#: dashboard/settings/statistics.php:71 dashboard/settings/statistics.php:78
 msgid "Seconds."
 msgstr "Sekunden."
 
-#: dashboard/settings/statistics.php:76
+#: dashboard/settings/statistics.php:72
 msgid "Default: 60."
 msgstr "Standard: 60."
 
-#: dashboard/settings/statistics.php:76
+#: dashboard/settings/statistics.php:72
 msgid "This number may not be empty, be lower than 10 or exceed 3600 (1 hour)."
 msgstr ""
 "Diese Zahl darf nicht leer sein, entweder weniger als 10 oder mehr als 3600 "
 "(1 Stunde)."
 
-#: dashboard/settings/statistics.php:80
+#: dashboard/settings/statistics.php:76
 msgid "Click timer"
 msgstr "Klicken Sie auf Zeitgeber"
 
-#: dashboard/settings/statistics.php:83
+#: dashboard/settings/statistics.php:79
 msgid "Default: 86400."
 msgstr "Standard: 86400."
 
-#: dashboard/settings/statistics.php:83
+#: dashboard/settings/statistics.php:79
 msgid ""
 "This number may not be empty, be lower than 60 or exceed 86400 (24 hours)."
 msgstr ""
@@ -3290,7 +3215,7 @@ msgstr "AdRotate Banner Manager Handbücher und Leitfäden"
 
 #: dashboard/support.php:22
 msgid "Take a look at the AdRotate Manuals."
-msgstr "Werfen Sie einen Blick auf die AdRotate-Handbücher"
+msgstr "Werfen Sie einen Blick auf die AdRotate-Handbücher."
 
 #: dashboard/support.php:22
 msgid "Find answers"
@@ -3343,106 +3268,115 @@ msgid "AdRotate Professional"
 msgstr "AdRotate Professional"
 
 #: dashboard/support.php:38
-msgid "Get more features"
-msgstr "Holen Sie sich mehr Funktionen"
+msgid "All the features you need!"
+msgstr "Alle Funktionen, die Sie brauchen!"
 
 #: dashboard/support.php:41
 msgid ""
-"Place any kind of advert, including Adsense Ads, on your WordPress and "
-"ClassicPress website."
+"Turn up your advertising management to 11 with AdRotate Pro and benefit from "
+"the many extra features and premium support."
 msgstr ""
-"Platzieren Sie jede Art von Werbung, einschließlich Adsense-Anzeigen, auf "
-"Ihrer WordPress- und ClassicPress-Website."
+"Erhöhen Sie Ihr Werbemanagement mit AdRotate Pro auf 11 und profitieren Sie "
+"von den vielen Zusatzfunktionen und dem Premium-Support."
 
 #: dashboard/support.php:47
-msgid "WP Maintenance"
-msgstr "WP Maintenance"
-
-#: dashboard/support.php:48
-msgid "Professional service"
-msgstr "Organisationsberatung"
-
-#: dashboard/support.php:51
-msgid ""
-"Get all the latest updates for WordPress and plugins. Maintenance, delete "
-"spam and clean up files."
-msgstr ""
-"Holen Sie sich die neuesten Updates für WordPress und Plugins. Wartung, "
-"Löschen von Spam und Bereinigen von Dateien."
-
-#: dashboard/support.php:57
 msgid "All my plugins"
 msgstr "Alle meine Plugins"
 
-#: dashboard/support.php:58
+#: dashboard/support.php:48
 msgid "WordPress and ClassicPress"
 msgstr "WordPress und ClassicPress"
 
-#: dashboard/support.php:61
+#: dashboard/support.php:51
 msgid ""
-"Plugins for WordPres, ClassicPress, WooCommerce, Classic Commerce and "
-"bbPress."
+"Cool plugins that improve your websites security, deter spammers and fake "
+"accounts and increase your WooCommerce efficacy."
 msgstr ""
-"Plugins für WordPres, ClassicPress, WooCommerce, Classic Commerce und "
-"bbPress."
+"Coole Plugins, die die Sicherheit Ihrer Websites verbessern, Spammer und "
+"gefälschte Konten abschrecken und die Effizienz Ihres WooCommerce erhöhen."
 
-#: dashboard/support.php:74
+#: dashboard/support.php:56
+msgid ""
+"Prices shown in Euros, your bank will convert your local currency to Euros "
+"for free."
+msgstr ""
+"Die Preise werden in Euro angezeigt, Ihre Bank rechnet Ihre Landeswährung "
+"kostenlos in Euro um."
+
+#: dashboard/support.php:64
 msgid "Ticket Support is available in AdRotate Professional"
 msgstr "Ticket-Support ist in AdRotate Professional verfügbar"
 
-#: dashboard/support.php:77
+#: dashboard/support.php:67
 msgid "Premium support always has priority!"
 msgstr "Premium-Support hat immer Priorität!"
 
-#: dashboard/support.php:77
+#: dashboard/support.php:67
 msgid "No queuing up on the forum..."
 msgstr "Kein Anstehen im Forum ..."
 
-#: dashboard/support.php:77
+#: dashboard/support.php:67
 msgid ""
 "Using this form includes all the technical information for a quick solution."
 msgstr ""
 "Die Verwendung dieses Formulars enthält alle technischen Informationen für "
 "eine schnelle Lösung."
 
-#: dashboard/support.php:77
+#: dashboard/support.php:67
 msgid "Available in AdRotate Professional!"
 msgstr "Verfügbar in AdRotate Professional!"
 
-#: dashboard/support.php:79
+#: dashboard/support.php:69
 msgid "Your name:"
 msgstr "Ihr Name:"
 
-#: dashboard/support.php:80
+#: dashboard/support.php:70
 msgid "Your Email Address:"
 msgstr "Ihre E-Mail Adresse:"
 
-#: dashboard/support.php:81
+#: dashboard/support.php:71
 msgid "Subject:"
 msgstr "Betreff:"
 
-#: dashboard/support.php:82
+#: dashboard/support.php:72
 msgid "Problem description / Question:"
 msgstr "Beschreibung des Problems / Frage:"
 
-#: dashboard/support.php:84
+#: dashboard/support.php:74
 msgid "Advert I need help with:"
 msgstr "Anzeige Ich benötige Hilfe bei:"
 
-#: dashboard/support.php:86
+#: dashboard/support.php:76
 msgid "Optionally select an advert"
 msgstr "Optional eine Anzeige auswählen"
 
-#: dashboard/support.php:88
+#: dashboard/support.php:77
+msgid ""
+"Selecting an advert will include the ad settings for Arnan to test on his "
+"website. Does not include group or schedule data."
+msgstr ""
+"Wenn Sie eine Anzeige auswählen, werden die Anzeigeneinstellungen angezeigt, "
+"die Arnan auf seiner Website testen kann. Enthält keine Gruppen- oder "
+"Zeitplandaten."
+
+#: dashboard/support.php:78
 msgid "Please log in to my website and take a look."
 msgstr ""
 "Bitte loggen Sie sich auf meine Website ein und werfen Sie einen Blick."
 
-#: dashboard/support.php:90
+#: dashboard/support.php:78
+msgid ""
+"Checking this option will create a (temporary) account for Arnan to log in "
+"and take a look at your setup."
+msgstr ""
+"Wenn Sie diese Option aktivieren, wird ein (temporäres) Konto erstellt, mit "
+"dem sich Arnan anmelden und einen Blick auf Ihr Setup werfen kann."
+
+#: dashboard/support.php:80
 msgid "When you send this form the following data will be submitted:"
 msgstr "Wenn Sie dieses Formular senden, werden folgenden Daten übermittelt:"
 
-#: dashboard/support.php:91
+#: dashboard/support.php:81
 msgid ""
 "Your name, Account email address, Your website url and some basic WordPress "
 "information will be included with the message."
@@ -3450,15 +3384,15 @@ msgstr ""
 "Ihr Name, Konto-E-Mail-Adresse, Ihre Website-URL und einige grundlegende "
 "WordPress-Informationen werden in die Nachricht aufgenommen."
 
-#: dashboard/support.php:91
+#: dashboard/support.php:81
 msgid "This information is treated as confidential and is mandatory."
 msgstr "Diese Informationen ist vertraulich und obligatorisch."
 
-#: dashboard/support.php:94
+#: dashboard/support.php:84
 msgid "Get Help"
 msgstr "Hilfe erhalten"
 
-#: dashboard/support.php:94
+#: dashboard/support.php:84
 msgid "Premium Support is available in AdRotate Pro!"
 msgstr "Diese Funktion ist verfügbar in AdRotate Pro!"
 
@@ -3505,6 +3439,194 @@ msgstr ""
 "Sie finden die Gruppen-ID unter Gruppen verwalten. Alle speziellen Markup-, "
 "Code- oder Layoutstile können beim Bearbeiten der Gruppe im Gruppenwrapper "
 "angewendet werden."
+
+#~ msgid "Check ads for errors"
+#~ msgstr "Anzeigen auf Fehler überprüfen"
+
+#~ msgid "Advert evaluation"
+#~ msgstr "Anzeige-Auswertung"
+
+#~ msgid "Not scheduled! Re-activate the plugin from the plugins page."
+#~ msgstr "Nicht geplant! Reaktivieren Sie das Plugin auf der Plugins Seite."
+
+#~ msgid "AdRotate Advertiser"
+#~ msgstr "AdRotate Advertiser"
+
+#~ msgid ""
+#~ "Thank you for choosing AdRotate. Everything related to AdRotate Banner "
+#~ "Manager is in this menu. If you need help getting started take a look at "
+#~ "the"
+#~ msgstr ""
+#~ "Vielen Dank, dass Sie sich für AdRotate entschieden haben. Alles, was mit "
+#~ "AdRotate Banner Manager zu tun hat, befindet sich in diesem Menü. Wenn "
+#~ "Sie Hilfe bei den ersten Schritten benötigen, werfen Sie einen Blick auf "
+#~ "die"
+
+#~ msgid "manuals"
+#~ msgstr "Handbücher"
+
+#~ msgid "and"
+#~ msgstr "und"
+
+#~ msgid "forums"
+#~ msgstr "Forum"
+
+#~ msgid "These links are also available on the support page."
+#~ msgstr "Diese Links sind auch auf der Support-Seite verfügbar."
+
+#~ msgid "Ad blockers"
+#~ msgstr "Werbeblocker"
+
+#~ msgid ""
+#~ "Please whitelist your website in your content blocker so your adverts and "
+#~ "dashboard show up correctly. Take a look at this manual to"
+#~ msgstr ""
+#~ "Bitte setze deine Website in deinen Content-Blocker auf die Whitelist, "
+#~ "damit deine Werbeanzeigen und dein Dashboard korrekt angezeigt werden. "
+#~ "Werfen Sie einen Blick in dieses Handbuch, um"
+
+#~ msgid "see how that works"
+#~ msgstr "Sehen Sie, wie das funktioniert"
+
+#~ msgid "Not found"
+#~ msgstr "Nicht gefunden"
+
+#~ msgid "Email notifications"
+#~ msgstr "E-Mail-Benachrichtigungen"
+
+#~ msgid "This advert still uses the %image% tag. Please change it to %asset%!"
+#~ msgstr ""
+#~ "Diese Anzeige verwendet weiterhin die %image% taG. Bitte ändern Sie es in "
+#~ "%asset%!"
+
+#~ msgid ""
+#~ "If you still notice double adverts from groups placed on a page, start "
+#~ "with carefully looking at your setup to make sure you did not cause this "
+#~ "yourself."
+#~ msgstr ""
+#~ "Wenn Sie immer noch doppelte Anzeigen von Gruppen bemerken, die auf einer "
+#~ "Seite platziert sind, beginnen Sie mit einem sorgfältigen Betrachten "
+#~ "Ihres Setups, um sicherzustellen, dass Sie dies nicht selbst verursacht "
+#~ "haben."
+
+#~ msgid "On some servers $_SESSION is disabled."
+#~ msgstr "Auf einigen Servern ist _SESSION deaktiviert."
+
+#~ msgid ""
+#~ "A plugin called \"WP Session Manager\" by Eric Mann may fix this. "
+#~ "However, most people will not need this extra plugin!"
+#~ msgstr ""
+#~ "Ein Plugin namens \"WP Session Manager\" von Eric Mann kann dies beheben. "
+#~ "Jedoch, die meisten Menschen werden dieses zusätzliche Plugin nicht "
+#~ "brauchen!"
+
+#~ msgid "Dynamic mode on mobile"
+#~ msgstr "Dynamischer Modus auf Mobilgeräten"
+
+#~ msgid ""
+#~ "Disable dynamic mode in groups for mobile devices if you notice skipping "
+#~ "or jumpy content."
+#~ msgstr ""
+#~ "Deaktivieren Sie den dynamischen Modus in Gruppen für mobile Geräte, wenn "
+#~ "Sie überspringende oder sprunghafte Inhalte bemerken."
+
+#~ msgid "Unsupported plugins"
+#~ msgstr "Nicht unterstützte Plugins"
+
+#~ msgid "Disable 3rd party plugins"
+#~ msgstr "Deaktivieren von Plugins von Drittanbietern"
+
+#~ msgid "One or more unsupported 3rd party plugins detected."
+#~ msgstr ""
+#~ "Ein oder mehrere nicht unterstützte Plugins von Drittanbietern wurden "
+#~ "erkannt."
+
+#~ msgid ""
+#~ "These are plugins that alter functions of AdRotate or highjack parts of "
+#~ "the dashboard which may affect security and/or stability."
+#~ msgstr ""
+#~ "Dies sind Plugins, die Funktionen von AdRotate oder Highjack-Teile des "
+#~ "Dashboards ändern, die die Sicherheit und/oder Stabilität beeinträchtigen "
+#~ "können."
+
+#~ msgid "YOU ARE ABOUT TO DO A MANUAL UPDATE FOR ADROTATE."
+#~ msgstr "SIE SIND ÜBER EIN MANUELLEs UPDATE FÜR ADROTATE ZU TUN."
+
+#~ msgid "Make sure you have a database backup!"
+#~ msgstr "Stellen Sie sicher, dass Sie über eine Datenbanksicherung verfügen!"
+
+#~ msgid ""
+#~ "This might take a while and may slow down your site during this action!"
+#~ msgstr ""
+#~ "Dies kann eine Weile dauern und möglicherweise wird Ihre Website während "
+#~ "dieser Aktion langsamer reagieren!"
+
+#~ msgid ""
+#~ "It may take a while for the ad to start rotating. The caching plugin "
+#~ "needs to refresh the cache. This can take up to a week if not done "
+#~ "manually."
+#~ msgstr ""
+#~ "Es kann eine Weile dauern, bis die Rotation der Anzeige beginnt. Das "
+#~ "Caching-Plugin muss zunächst den Cache aktualisieren. Dies kann bis zu "
+#~ "einer Woche dauern, wenn es nicht manuell vorgenommen wird."
+
+#~ msgid ""
+#~ "Caching support only works for [shortcodes] and the AdRotate Widget. If "
+#~ "you use a PHP Snippet you need to wrap your PHP in the exclusion code "
+#~ "yourself."
+#~ msgstr ""
+#~ "Caching-Unterstützung funktioniert nur bei Verwendung von [shortcodes] "
+#~ "und dem AdRotate Widget. Wenn Sie ein PHP Snippet verwenden, müssen Sie "
+#~ "das selbst im Ausschlussecode per PHP berücksichtigen."
+
+#~ msgid "Who has access to what?"
+#~ msgstr "Wer hat Zugang zu was?"
+
+#~ msgid "Role to see and add/edit ads."
+#~ msgstr "Rolle, um Anzeigen aufzulisten, hinzuzufügen oder zu bearbeiten."
+
+#~ msgid "Role to delete ads and reset stats."
+#~ msgstr "Rolle, um Anzeigen zu löschen und die Statistik zurück zu setzen."
+
+#~ msgid "Depreciated"
+#~ msgstr "Abschreibung"
+
+#~ msgid ""
+#~ "Requires Google Global Site Tag tracking code installed in your sites "
+#~ "footer!"
+#~ msgstr ""
+#~ "Erfordert den Tracking-Code für globale Website-Tags von Google in der "
+#~ "Fußzeile Ihrer Website!"
+
+#~ msgid "Get more features"
+#~ msgstr "Holen Sie sich mehr Funktionen"
+
+#~ msgid ""
+#~ "Place any kind of advert, including Adsense Ads, on your WordPress and "
+#~ "ClassicPress website."
+#~ msgstr ""
+#~ "Platzieren Sie jede Art von Werbung, einschließlich Adsense-Anzeigen, auf "
+#~ "Ihrer WordPress- und ClassicPress-Website."
+
+#~ msgid "WP Maintenance"
+#~ msgstr "WP Maintenance"
+
+#~ msgid "Professional service"
+#~ msgstr "Organisationsberatung"
+
+#~ msgid ""
+#~ "Get all the latest updates for WordPress and plugins. Maintenance, delete "
+#~ "spam and clean up files."
+#~ msgstr ""
+#~ "Holen Sie sich die neuesten Updates für WordPress und Plugins. Wartung, "
+#~ "Löschen von Spam und Bereinigen von Dateien."
+
+#~ msgid ""
+#~ "Plugins for WordPres, ClassicPress, WooCommerce, Classic Commerce and "
+#~ "bbPress."
+#~ msgstr ""
+#~ "Plugins für WordPres, ClassicPress, WooCommerce, Classic Commerce und "
+#~ "bbPress."
 
 #~ msgid "Export created"
 #~ msgstr "Export erstellt"
@@ -3635,12 +3757,6 @@ msgstr ""
 #~ "Verwenden Sie diese Funktionen, wenn Sie merken, dass Ihre Datenbank "
 #~ "langsam ist, nicht mehr reagiert oder schwerfällig ist."
 
-#~ msgid "You are about to check all adverts for errors."
-#~ msgstr "Sie sind im Begriff, alle Anzeigen auf Fehler zu überprüfen."
-
-#~ msgid "This might take a few seconds!"
-#~ msgstr "Dies kann ein paar Sekunden dauern!"
-
 #~ msgid "Clean-up Database and Files"
 #~ msgstr "Datenbank aufräumen"
 
@@ -3712,9 +3828,6 @@ msgstr ""
 #~ "wahrscheinlich bereits nicht mehr zu reparieren. Eine Reklamation mit der "
 #~ "Behauptung, dass es funktionierte, bevor Sie diese Schaltflächen klicken, "
 #~ "ist auf jeden Fall kein entscheidender Punkt."
-
-#~ msgid "Check all adverts for configuration errors"
-#~ msgstr "Überprüfen Sie alle Anzeigen auf Konfigurationsfehler"
 
 #~ msgid "Clean-up database and old files"
 #~ msgstr "Datenbank aufräumen"
@@ -5743,12 +5856,6 @@ msgstr ""
 #~ msgid "Role to review the full report."
 #~ msgstr "Rolle, um den vollständigen Bericht zu lesen."
 
-#~ msgid "Role to see and add/edit adverts."
-#~ msgstr "Rolle, um Anzeigen zu sehen, hinzufügen oder zu bearbeiten."
-
-#~ msgid "Role to delete adverts and reset stats."
-#~ msgstr "Rolle, um Anzeigen zu löschen und die Statistik zurück zu setzen."
-
 #~ msgid "Manage/Add/Edit schedules"
 #~ msgstr "Zeitpläne verwalten/hinzufügen/bearbeiten"
 
@@ -6156,8 +6263,8 @@ msgstr ""
 
 #, fuzzy
 #~| msgid ""
-#~| "Define the maximum size of the adverts in pixels. Size can be "
-#~| "'auto' (Not recommended). Default: 125/125."
+#~| "Define the maximum size of the adverts in pixels. Size can be 'auto' "
+#~| "(Not recommended). Default: 125/125."
 #~ msgid "Define the maximum size of the adverts in pixels."
 #~ msgstr ""
 #~ "Definieren Sie die maximale Größe der Werbung in Pixel. Die Größe kann "

@@ -53,35 +53,35 @@ class adrotate_widgets extends WP_Widget {
 		if($adrotate_config['widgetalign'] == 'Y') echo '<ul><li>';
 
 		if($adrotate_config['w3caching'] == 'Y') {
-			echo '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
+			echo "<!-- mfunc ".W3TC_DYNAMIC_SECURITY." -->";
 			if($instance['type'] == "single") {
-				echo 'echo adrotate_ad('.$instance['adid'].', true);';
+				echo "echo adrotate_ad(".$instance['adid'].", true);";
 			}
 	
 			if($instance['type'] == "group") {
-				echo 'echo adrotate_group('.$instance['adid'].');';
+				echo "echo adrotate_group(".$instance['adid'].");";
 			}
-			echo '<!-- /mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
-		} else if($adrotate_config['borlabscache'] == "Y" AND function_exists('BorlabsCacheHelper') AND BorlabsCacheHelper()->willFragmentCachingPerform()) {
+			echo "<!-- /mfunc ".W3TC_DYNAMIC_SECURITY." -->";
+		} else if($adrotate_config['borlabscache'] == 'Y' AND function_exists('BorlabsCacheHelper') AND BorlabsCacheHelper()->willFragmentCachingPerform()) {
 			$borlabsphrase = BorlabsCacheHelper()->getFragmentCachingPhrase();
 	
-			echo '<!--[borlabs cache start: '.$borlabsphrase.']-->';
-			if($instance['type'] == "single") {
-				echo 'echo adrotate_ad('.$instance['adid'].', true);';
+			echo "<!--[borlabs cache start: ".$borlabsphrase."]-->";
+			if($instance['type'] == 'single') {
+				echo "echo adrotate_ad(".$instance['adid'].", true);";
 			}
 	
-			if($instance['type'] == "group") {
-				echo 'echo adrotate_group('.$instance['adid'].');';
+			if($instance['type'] == 'group') {
+				echo "echo adrotate_group(".$instance['adid'].");";
 			}
-			echo '<!--[borlabs cache end: '.$borlabsphrase.']-->';
+			echo "<!--[borlabs cache end: ".$borlabsphrase."]-->";
 
 			unset($borlabsphrase);
 		} else {
-			if($instance['type'] == "single") {
+			if($instance['type'] == 'single') {
 				echo adrotate_ad($instance['adid'], true);
 			}
 	
-			if($instance['type'] == "group") {
+			if($instance['type'] == 'group') {
 				echo adrotate_group($instance['adid']);
 			}
 		}

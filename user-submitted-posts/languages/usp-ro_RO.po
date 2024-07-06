@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: ro\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "După postare conținut"
 msgid "An error occurred. Please go back and try again."
 msgstr "A aparut o eroare. Vă rugăm să reveniți și să încercați din nou."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "și"
 
@@ -111,17 +111,9 @@ msgstr "Întrebare antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Donația de orice dimensiune mă ajută să continui să dezvolt acest plugin gratuit și alte resurse WordPress minunate."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Aplica cod"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Autor desemnat"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "la casă. Vânzarea se încheie pe 25/05/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Afișează automat imagini și multe altele."
 msgid "Before post content"
 msgstr "Înainte de a posta conținut"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "cărți"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Cumpărați unul și primiți unul GRATUIT cu cod"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -213,7 +209,7 @@ msgstr "Nume casetă de selectare"
 
 #: library/plugin-display.php:429
 msgid "Checkbox Text"
-msgstr "Text caseta de selectare"
+msgstr "Caseta de selectare Text"
 
 #: library/plugin-display.php:61
 msgid "Choose fields to display on the front-end form."
@@ -329,7 +325,7 @@ msgstr "Dezactivați"
 
 #: library/plugin-display.php:177
 msgid "Disable all required attributes on form fields (useful for troubleshooting error messages)"
-msgstr "Dezactivați toate atributele obligatorii din câmpurile de formular (utilă pentru depanarea mesajelor de eroare)"
+msgstr "Dezactivați toate atributele obligatorii din câmpurile formularului (utilă pentru depanarea mesajelor de eroare)"
 
 #: library/plugin-display.php:180
 msgid "Disable IP Tracking"
@@ -348,7 +344,7 @@ msgstr "Dezactivare Obligatorie"
 msgid "Disable this field"
 msgstr "Dezactivează acest câmp"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Respingeți"
 
@@ -525,7 +521,7 @@ msgstr "Activați codurile scurte în widget-uri. În mod implicit, WordPress nu
 
 #: library/plugin-display.php:317
 msgid "Enable users to select multiple categories"
-msgstr "Permiteți utilizatorilor să selecteze mai multe categorii"
+msgstr "Permite utilizatorilor să selecteze mai multe categorii"
 
 #: library/plugin-display.php:554
 msgid "Enable users to upload other file types (like PDF, Word, Zip, videos, and more), check out"
@@ -646,6 +642,10 @@ msgstr "Obțineți USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Obțineți USP Pro pentru formulare nelimitate!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Obțineți&nbsp;pluginuri&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "acordați-i un rating de 5 stele"
@@ -657,10 +657,6 @@ msgstr "Oferiți USP un rating de 5 stele la WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Du-te pro"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Du-te pro!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "sau"
 msgid "or by making a"
 msgstr "sau prin realizarea unui"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "sau beneficiați de o reducere de 30% cu cod"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Sau, pentru a continua și a restabili opțiunile implicite de plugin: bifați caseta, salvați setările, apoi dezactivați/reactivați pluginul."
@@ -1118,9 +1118,9 @@ msgstr "Tip de postare pentru postările trimise"
 msgid "Private Key"
 msgstr "Cheie privată"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pluginuri pro WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Reducere Pro Plugin!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "Reveniți la formular"
 msgid "Rich Text Editor"
 msgstr "Editor de text îmbogățit"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Economisiți 30% la noi"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "Salvați toate modificările"
@@ -1280,7 +1276,7 @@ msgstr "Inscrie-te!"
 
 #: library/plugin-display.php:327
 msgid "Specify category ID(s) to use for &ldquo;Hidden/Default Category&rdquo; (separate multiple IDs with commas)"
-msgstr "Specificați ID-urile categoriei de utilizat pentru „Categoria ascunsă/implicit” (separați mai multe ID-uri cu virgule)"
+msgstr "Specificați ID-urile categoriei de utilizat pentru „Categoria ascunsă/prestabilită” (separați mai multe ID-uri cu virgule)"
 
 #: library/plugin-display.php:210
 msgid "Specify the user that should be assigned as author for submitted posts"
@@ -1534,7 +1530,7 @@ msgstr "Utilizați acest cod scurt pentru a afișa o listă de postări trimise 
 
 #: library/plugin-display.php:66
 msgid "User Email"
-msgstr "E-mail utilizator"
+msgstr "E-mailul utilizatorului"
 
 #: user-submitted-posts.php:1719
 msgid "User email required"

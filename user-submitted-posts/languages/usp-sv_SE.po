@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: sv\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Efter inläggets innehåll"
 msgid "An error occurred. Please go back and try again."
 msgstr "Ett fel uppstod. Gå tillbaka och försök igen."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "och"
 
@@ -111,17 +111,9 @@ msgstr "Antispam fråga"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Vilken storlek som helst hjälper mig att fortsätta utveckla detta gratis plugin och andra fantastiska WordPress-resurser."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Använd kod"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Tilldelad författare"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "i kassan. Rean slutar 25/5/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Visa bilder och mer automatiskt."
 msgid "Before post content"
 msgstr "Innan inläggets innehåll"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "böcker"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Köp en få en GRATIS med kod"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Inaktivera krävs"
 msgid "Disable this field"
 msgstr "Inaktivera det här fältet"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Avfärda"
 
@@ -590,7 +586,7 @@ msgstr "Filen har inte laddats upp. Kontrollera filen och försök igen."
 
 #: user-submitted-posts.php:1728
 msgid "File type not allowed (please upload images only)"
-msgstr "Filtyp inte tillåten (ladda endast upp bilder)"
+msgstr "Filtyp är inte tillåten (endast ladda upp bilder)"
 
 #: library/plugin-display.php:366 library/plugin-display.php:394
 #: library/plugin-display.php:437
@@ -646,6 +642,10 @@ msgstr "Skaffa USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Skaffa USP Pro för obegränsade formulär!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Hämta&nbsp;plugins&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "ge den ett 5-stjärnigt betyg"
@@ -657,10 +657,6 @@ msgstr "Ge USP ett 5-stjärnigt betyg på WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Go Pro"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Go Pro!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "eller"
 msgid "or by making a"
 msgstr "eller genom att göra en"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "eller få 30% rabatt med kod"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Eller, för att gå vidare och återställa standardalternativen för plugin: markera rutan, spara dina inställningar och avaktivera/återaktivera sedan plugin-programmet."
@@ -1118,9 +1118,9 @@ msgstr "Posttyp för inskickade inlägg"
 msgid "Private Key"
 msgstr "Privat nyckel"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pro WordPress-plugins"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Pro Plugin-rea!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "Återgå till formuläret"
 msgid "Rich Text Editor"
 msgstr "Rich Text Editor"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Spara 30% på vår"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "Spara alla ändringar"
@@ -1312,7 +1308,7 @@ msgstr "Avsändarens namn: "
 
 #: user-submitted-posts.php:648
 msgid "Submitter URL: "
-msgstr "Insändarens URL: "
+msgstr "Avsändarens URL: "
 
 #: library/plugin-display.php:150
 msgid "Success Message"
@@ -1433,7 +1429,7 @@ msgstr "för att mata ut vinkelparenteser"
 
 #: library/plugin-display.php:454
 msgid "To prevent spam, enter a question that users must answer before submitting the form"
-msgstr "För att förhindra spam, skriv in en fråga som användarna måste besvara innan de skickar in formuläret"
+msgstr "För att förhindra spam, skriv in en fråga som användare måste svara på innan de skickar in formuläret"
 
 #: user-submitted-posts.php:1810
 msgid "to submit content!"
@@ -1481,7 +1477,7 @@ msgstr "URL-visning"
 
 #: library/plugin-display.php:614
 msgid "URL Markup"
-msgstr "URL-markering"
+msgstr "URL-uppmärkning"
 
 #: library/plugin-display.php:322
 msgid "Use a hidden field for the post category. This hides the category field and sets its value via the next option."
@@ -1530,7 +1526,7 @@ msgstr "Använd den här kortkoden för att visa ett galleri med uppladdade bild
 
 #: library/plugin-display.php:694
 msgid "Use this shortcode to display a list of submitted posts on any WP Post or Page:"
-msgstr "Använd den här kortkoden för att visa en lista över inskickade inlägg på alla WP-inlägg eller -sidor:"
+msgstr "Använd den här kortkoden för att visa en lista över inskickade inlägg på valfri WP-inlägg eller sida:"
 
 #: library/plugin-display.php:66
 msgid "User Email"

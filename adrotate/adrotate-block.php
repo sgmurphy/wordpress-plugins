@@ -33,17 +33,17 @@ function adrotate_advert_block($attr) {
     if(!isset($attr['advert_id']) OR !is_numeric($attr['advert_id'])) return;
 
 	$output = '';
-	if($adrotate_config['w3caching'] == "Y") {
-		$output .= '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
-		$output .= 'echo adrotate_ad('.$attr['advert_id'].');';
-		$output .= '<!-- /mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
-	} else if($adrotate_config['borlabscache'] == "Y" AND function_exists('BorlabsCacheHelper')) {
+	if($adrotate_config['w3caching'] == 'Y') {
+		$output .= "<!-- mfunc ".W3TC_DYNAMIC_SECURITY." -->";
+		$output .= "echo adrotate_ad(".$attr['advert_id'].");";
+		$output .= "<!-- /mfunc ".W3TC_DYNAMIC_SECURITY." -->";
+	} else if($adrotate_config['borlabscache'] == 'Y' AND function_exists('BorlabsCacheHelper')) {
 		if(BorlabsCacheHelper()->willFragmentCachingPerform()) {
 			$borlabsphrase = BorlabsCacheHelper()->getFragmentCachingPhrase();
 
-			$output .= '<!--[borlabs cache start: '.$borlabsphrase.']--> ';
-			$output .= 'echo adrotate_ad('.$attr['advert_id'].');';
-			$output .= ' <!--[borlabs cache end: '.$borlabsphrase.']-->';
+			$output .= "<!--[borlabs cache start: ".$borlabsphrase."]--> ";
+			$output .= "echo adrotate_ad(".$attr['advert_id'].");";
+			$output .= " <!--[borlabs cache end: ".$borlabsphrase."]-->";
 
 			unset($borlabsphrase);
 		}
@@ -61,16 +61,16 @@ function adrotate_group_block($attr) {
 
 	$output = '';
 	if($adrotate_config['w3caching'] == "Y") {
-		$output .= '<!-- mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
-		$output .= 'echo adrotate_group('.$attr['group_id'].');';
-		$output .= '<!-- /mfunc '.W3TC_DYNAMIC_SECURITY.' -->';
+		$output .= "<!-- mfunc ".W3TC_DYNAMIC_SECURITY." -->";
+		$output .= "echo adrotate_group(".$attr['group_id'].");";
+		$output .= "<!-- /mfunc ".W3TC_DYNAMIC_SECURITY." -->";
 	} else if($adrotate_config['borlabscache'] == "Y" AND function_exists('BorlabsCacheHelper')) {
 		if(BorlabsCacheHelper()->willFragmentCachingPerform()) {
 			$borlabsphrase = BorlabsCacheHelper()->getFragmentCachingPhrase();
 
-			$output .= '<!--[borlabs cache start: '.$borlabsphrase.']--> ';
-			$output .= 'echo adrotate_group('.$attr['group_id'].');';
-			$output .= ' <!--[borlabs cache end: '.$borlabsphrase.']-->';
+			$output .= "<!--[borlabs cache start: ".$borlabsphrase."]--> ";
+			$output .= "echo adrotate_group(".$attr['group_id'].");";
+			$output .= " <!--[borlabs cache end: ".$borlabsphrase."]-->";
 
 			unset($borlabsphrase);
 		}
@@ -89,10 +89,11 @@ function adrotate_group_block($attr) {
 function adrotate_add_block_category($categories, $editor_context) {
 	array_unshift($categories, array(
 		'slug'	=> 'custom-adrotate',
-		'title' => __('AdRotate - Advertisements', 'adrotate-pro'),
+		'title' => __("AdRotate - Advertisements", 'adrotate-pro'),
 		'icon'  => null,
 	));
 
 	return $categories;
 }
 add_filter('block_categories_all', 'adrotate_add_block_category', 10, 2);
+?>

@@ -4,9 +4,9 @@ Plugin Name: AdRotate Banner Manager
 Plugin URI: https://ajdg.solutions/product/adrotate-banner-manager/?mtm_campaign=adrotate&mtm_keyword=plugin_info
 Author: Arnan de Gans
 Author URI: https://www.arnan.me/?mtm_campaign=adrotate&mtm_keyword=plugin_info
-Description: Monetize your website with adverts while keeping things simple. Start making money today!
+Description: Manage all your adverts with all the features you need while keeping things simple.
 Text Domain: adrotate
-Version: 5.12.10
+Version: 5.13
 License: GPLv3
 */
 
@@ -21,17 +21,14 @@ License: GPLv3
 ------------------------------------------------------------------------------------ */
 
 /*--- AdRotate values ---------------------------------------*/
-define("ADROTATE_VERSION", 400);
-define("ADROTATE_DB_VERSION", 73);
+define('ADROTATE_VERSION', 401);
+define('ADROTATE_DB_VERSION', 73);
 $adrotate_path = plugin_dir_path(__FILE__);
 /*-----------------------------------------------------------*/
 
 /*--- Load Files --------------------------------------------*/
-include_once($adrotate_path.'/adrotate-setup.php');
-include_once($adrotate_path.'/adrotate-manage-publisher.php');
 include_once($adrotate_path.'/adrotate-functions.php');
 include_once($adrotate_path.'/adrotate-statistics.php');
-include_once($adrotate_path.'/adrotate-portability.php');
 include_once($adrotate_path.'/adrotate-output.php');
 include_once($adrotate_path.'/adrotate-widget.php');
 /*--- Blocks ------------------------------------------------*/
@@ -50,7 +47,6 @@ $adrotate_db_version = get_option("adrotate_db_version");
 register_activation_hook(__FILE__, 'adrotate_activate');
 register_deactivation_hook(__FILE__, 'adrotate_deactivate');
 register_uninstall_hook(__FILE__, 'adrotate_uninstall');
-add_action('adrotate_evaluate_ads', 'adrotate_evaluate_ads');
 add_action('adrotate_empty_trackerdata', 'adrotate_empty_trackerdata');
 add_action('widgets_init', 'adrotate_widget');
 add_filter('adrotate_apply_photon','adrotate_apply_jetpack_photon');
@@ -59,7 +55,7 @@ add_filter('adrotate_apply_photon','adrotate_apply_jetpack_photon');
 /*--- Front end ---------------------------------------------*/
 if(!is_admin()) {
 	add_action('wp_head', 'adrotate_header');
-	add_action("wp_enqueue_scripts", 'adrotate_scripts');
+	add_action('wp_enqueue_scripts', 'adrotate_scripts');
 	add_shortcode('adrotate', 'adrotate_shortcode');
 	add_filter('the_content', 'adrotate_inject_posts', 12);
 }
@@ -74,25 +70,28 @@ if($adrotate_config['stats'] == 1){
 
 /*--- Back End ----------------------------------------------*/
 if(is_admin()) {
+	include_once($adrotate_path.'/adrotate-setup.php');
+	include_once($adrotate_path.'/adrotate-admin-functions.php');
+	include_once($adrotate_path.'/adrotate-admin-manage.php');
+	include_once($adrotate_path.'/adrotate-admin-statistics.php');
+	include_once($adrotate_path.'/adrotate-admin-portability.php');
+
 	adrotate_check_config();
+	/*--- Dashboard hooks ---------------------------------------*/
 	add_action('admin_menu', 'adrotate_dashboard');
-	add_action("admin_enqueue_scripts", 'adrotate_dashboard_scripts');
-	add_action("admin_print_styles", 'adrotate_dashboard_styles');
+	add_action('admin_enqueue_scripts', 'adrotate_dashboard_scripts');
 	add_action('admin_notices','adrotate_notifications_dashboard');
+	add_action('upgrader_process_complete', 'adrotate_finish_upgrade', 10, 2); // Finish update in the background
 	add_filter('plugin_action_links_' . plugin_basename( __FILE__ ), 'adrotate_action_links');
 	/*--- Internal redirects ------------------------------------*/
 	if(isset($_POST['adrotate_generate_submit'])) add_action('init', 'adrotate_generate_input');
-	if(isset($_POST['adrotate_ad_submit'])) add_action('init', 'adrotate_insert_input');
+	if(isset($_POST['adrotate_advert_submit'])) add_action('init', 'adrotate_insert_advert');
 	if(isset($_POST['adrotate_group_submit'])) add_action('init', 'adrotate_insert_group');
-	if(isset($_POST['adrotate_media_submit'])) add_action('init', 'adrotate_insert_media');
-	if(isset($_POST['adrotate_folder_submit'])) add_action('init', 'adrotate_insert_folder');
+	if(isset($_POST['adrotate_upload_media'])) add_action('init', 'adrotate_insert_media');
+	if(isset($_POST['adrotate_create_folder'])) add_action('init', 'adrotate_insert_folder');
 	if(isset($_POST['adrotate_action_submit'])) add_action('init', 'adrotate_request_action');
-	if(isset($_POST['adrotate_disabled_action_submit'])) add_action('init', 'adrotate_request_action');
-	if(isset($_POST['adrotate_error_action_submit'])) add_action('init', 'adrotate_request_action');
 	if(isset($_POST['adrotate_save_options'])) add_action('init', 'adrotate_options_submit');
-	if(isset($_POST['adrotate_request_submit'])) add_action('init', 'adrotate_mail_message');
-
-	add_action('upgrader_process_complete', 'adrotate_finish_upgrade', 10, 2); // Finish update in the background
+	if(isset($_POST['adrotate_evaluate_all_ads'])) add_action('init', 'adrotate_prepare_evaluate_ads');
 }
 
 /*-------------------------------------------------------------
@@ -103,14 +102,14 @@ function adrotate_dashboard() {
 	$adrotate_page = $adrotate_pro = $adrotate_adverts = $adrotate_groups = $adrotate_settings =  '';
 
 	add_menu_page('AdRotate', 'AdRotate', 'adrotate_ad_manage', 'adrotate', 'adrotate_manage', plugins_url('/images/icon-menu.png', __FILE__), '25.8');
-	$adrotate_adverts = add_submenu_page('adrotate', 'AdRotate · '.__('Manage Adverts', 'adrotate'), __('Manage Adverts', 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_manage');
-	$adrotate_groups = add_submenu_page('adrotate', 'AdRotate · '.__('Manage Groups', 'adrotate'), __('Manage Groups', 'adrotate'), 'adrotate_group_manage', 'adrotate-groups', 'adrotate_manage_group');
-	$adrotate_schedules = add_submenu_page('adrotate', 'AdRotate · '.__('Manage Schedules', 'adrotate'), __('Manage Schedules', 'adrotate'), 'adrotate_ad_manage', 'adrotate-schedules', 'adrotate_manage_schedules');
-	$adrotate_media = add_submenu_page('adrotate', 'AdRotate · '.__('Manage Media', 'adrotate'), __('Manage Media', 'adrotate'), 'adrotate_ad_manage', 'adrotate-media', 'adrotate_manage_media');
-	$adrotate_statistics = add_submenu_page('adrotate', 'AdRotate · '.__('Statistics', 'adrotate'), __('Statistics', 'adrotate'), 'adrotate_ad_manage', 'adrotate-statistics', 'adrotate_statistics');
-	$adrotate_pro = add_submenu_page('adrotate', 'AdRotate · '.__('Get AdRotate Pro', 'adrotate'), __('Get AdRotate Pro', 'adrotate'), 'adrotate_ad_manage', 'adrotate-pro', 'adrotate_pro');
-	$adrotate_support = add_submenu_page('adrotate', 'AdRotate · '.__('Support', 'adrotate'), __('Support', 'adrotate'), 'manage_options', 'adrotate-support', 'adrotate_support');
-	$adrotate_settings = add_submenu_page('adrotate', 'AdRotate · '.__('Settings', 'adrotate'), __('Settings', 'adrotate'), 'manage_options', 'adrotate-settings', 'adrotate_options');
+	$adrotate_adverts = add_submenu_page('adrotate', 'AdRotate · '.__("Manage Adverts", 'adrotate'), __("Manage Adverts", 'adrotate'), 'adrotate_ad_manage', 'adrotate', 'adrotate_manage');
+	$adrotate_groups = add_submenu_page('adrotate', 'AdRotate · '.__("Manage Groups", 'adrotate'), __("Manage Groups", 'adrotate'), 'adrotate_group_manage', 'adrotate-groups', 'adrotate_manage_group');
+	$adrotate_schedules = add_submenu_page('adrotate', 'AdRotate · '.__("Manage Schedules", 'adrotate'), __("Manage Schedules", 'adrotate'), 'adrotate_ad_manage', 'adrotate-schedules', 'adrotate_manage_schedules');
+	$adrotate_media = add_submenu_page('adrotate', 'AdRotate · '.__("Manage Media", 'adrotate'), __("Manage Media", 'adrotate'), 'adrotate_ad_manage', 'adrotate-media', 'adrotate_manage_media');
+	$adrotate_statistics = add_submenu_page('adrotate', 'AdRotate · '.__("Statistics", 'adrotate'), __("Statistics", 'adrotate'), 'adrotate_ad_manage', 'adrotate-statistics', 'adrotate_statistics');
+	$adrotate_pro = add_submenu_page('adrotate', 'AdRotate · '.__("Get AdRotate Pro", 'adrotate'), __("Get AdRotate Pro", 'adrotate'), 'adrotate_ad_manage', 'adrotate-pro', 'adrotate_pro');
+	$adrotate_support = add_submenu_page('adrotate', 'AdRotate · '.__("Support", 'adrotate'), __("Support", 'adrotate'), 'manage_options', 'adrotate-support', 'adrotate_support');
+	$adrotate_settings = add_submenu_page('adrotate', 'AdRotate · '.__("Settings", 'adrotate'), __("Settings", 'adrotate'), 'manage_options', 'adrotate-settings', 'adrotate_options');
 }
 
 /*-------------------------------------------------------------
@@ -120,11 +119,11 @@ function adrotate_dashboard() {
 function adrotate_pro() {
 ?>
 	<div class="wrap">
-		<h1><?php _e('Get AdRotate Professional', 'adrotate'); ?></h1>
+		<h1><?php _e("Get AdRotate Professional", 'adrotate'); ?></h1>
 
 		<br class="clear" />
 
-		<?php include("dashboard/adrotatepro.php"); ?>
+		<?php include('dashboard/adrotatepro.php'); ?>
 
 		<br class="clear" />
 	</div>
@@ -157,14 +156,14 @@ function adrotate_manage() {
 		$month = sanitize_key($_GET['month']);
 		$year = sanitize_key($_GET['year']);
 	} else {
-		$month = date("m");
-		$year = date("Y");
+		$month = date('m');
+		$year = date('Y');
 	}
 	$monthstart = mktime(0, 0, 0, $month, 1, $year);
 	$monthend = mktime(0, 0, 0, $month+1, 0, $year);
 	?>
 	<div class="wrap">
-		<h1><?php _e('Manage Adverts', 'adrotate'); ?></h1>
+		<h1><?php _e("Manage Adverts", 'adrotate'); ?></h1>
 
 		<?php
 		if($status > 0) adrotate_status($status, array('file' => $file));
@@ -224,31 +223,31 @@ function adrotate_manage() {
 
 		<div class="tablenav">
 			<div class="alignleft actions">
-				<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate');?>"><?php _e('Manage', 'adrotate'); ?></a>
-				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate&view=generator');?>"><?php _e('Advert Generator', 'adrotate'); ?></a>
-				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate&view=addnew');?>"><?php _e('New Advert', 'adrotate'); ?></a>
-				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-pro');?>"><?php _e('Get AdRotate Pro', 'adrotate'); ?></a>
+				<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate');?>"><?php _e("Manage", 'adrotate'); ?></a>
+				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate&view=generator');?>"><?php _e("Advert Generator", 'adrotate'); ?></a>
+				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate&view=addnew');?>"><?php _e("New Advert", 'adrotate'); ?></a>
+				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-pro');?>"><?php _e("Get AdRotate Pro", 'adrotate'); ?></a>
 			</div>
 		</div>
 
     	<?php
 
-	    if ($view == "" OR $view == "manage") {
+	    if (empty($view) OR $view == 'manage') {
 			// Show list of errorous ads if any
 			if (count($error) > 0) {
-				include("dashboard/publisher/adverts-error.php");
+				include('dashboard/publisher/adverts-error.php');
 			}
 
-			include("dashboard/publisher/adverts-main.php");
+			include('dashboard/publisher/adverts-main.php');
 
 			// Show disabled ads, if any
 			if (count($disabled) > 0) {
-				include("dashboard/publisher/adverts-disabled.php");
+				include('dashboard/publisher/adverts-disabled.php');
 			}
-		} else if($view == "addnew" OR $view == "edit") {
-			include("dashboard/publisher/adverts-edit.php");
-	   	} else if($view == "generator") {
-			include("dashboard/publisher/adverts-generator.php");
+		} else if($view == 'addnew' OR $view == 'edit') {
+			include('dashboard/publisher/adverts-edit.php');
+	   	} else if($view == 'generator') {
+			include('dashboard/publisher/adverts-generator.php');
 		}
 		?>
 		<br class="clear" />
@@ -278,8 +277,8 @@ function adrotate_manage_group() {
 		$month = sanitize_key($_GET['month']);
 		$year = sanitize_key($_GET['year']);
 	} else {
-		$month = date("m");
-		$year = date("Y");
+		$month = date('m');
+		$year = date('Y');
 	}
 	$monthstart = mktime(0, 0, 0, $month, 1, $year);
 	$monthend = mktime(0, 0, 0, $month+1, 0, $year);
@@ -291,23 +290,23 @@ function adrotate_manage_group() {
 	$in7days 		= $now + 604800;
 	?>
 	<div class="wrap">
-		<h1><?php _e('Manage Groups', 'adrotate'); ?></h1>
+		<h1><?php _e("Manage Groups", 'adrotate'); ?></h1>
 
 		<?php if($status > 0) adrotate_status($status); ?>
 
 		<div class="tablenav">
 			<div class="alignleft actions">
-				<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=manage');?>"><?php _e('Manage', 'adrotate'); ?></a>
-				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=addnew');?>"><?php _e('Add New', 'adrotate'); ?></a>
-				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-pro');?>"><?php _e('Get AdRotate Pro', 'adrotate'); ?></a>
+				<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=manage');?>"><?php _e("Manage", 'adrotate'); ?></a>
+				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-groups&view=addnew');?>"><?php _e("Add New", 'adrotate'); ?></a>
+				&nbsp;|&nbsp;<a class="row-title" href="<?php echo admin_url('/admin.php?page=adrotate-pro');?>"><?php _e("Get AdRotate Pro", 'adrotate'); ?></a>
 			</div>
 		</div>
 
 		<?php
-		if ($view == "" OR $view == "manage") {
-			include("dashboard/publisher/groups-main.php");
-		} else if($view == "addnew" OR $view == "edit") {
-			include("dashboard/publisher/groups-edit.php");
+		if (empty($view) OR $view == 'manage') {
+			include('dashboard/publisher/groups-main.php');
+		} else if($view == 'addnew' OR $view == 'edit') {
+			include('dashboard/publisher/groups-edit.php');
 		}
 		?>
 		<br class="clear" />
@@ -329,10 +328,10 @@ function adrotate_manage_schedules() {
 	$in2days = $now + 172800;
 	?>
 	<div class="wrap">
-		<h1><?php _e('Manage Schedules', 'adrotate'); ?></h1>
+		<h1><?php _e("Manage Schedules", 'adrotate'); ?></h1>
 
     	<?php
-		include("dashboard/publisher/schedules-main.php");
+		include('dashboard/publisher/schedules-main.php');
 		?>
 
 		<br class="clear" />
@@ -366,14 +365,14 @@ function adrotate_manage_media() {
 	?>
 
 	<div class="wrap">
-		<h1><?php _e('Manage Media and Assets', 'adrotate'); ?></h1>
+		<h1><?php _e("Manage Media and Assets", 'adrotate'); ?></h1>
 
 		<?php if($status > 0) adrotate_status($status); ?>
 
-		<p><?php _e('Upload images to the AdRotate Pro banners folder from here. This is useful if you have HTML5 adverts containing multiple files.', 'adrotate'); ?></p>
+		<p><?php _e("Upload images to the AdRotate Pro banners folder from here. This is useful if you have HTML5 adverts containing multiple files.", 'adrotate'); ?></p>
 
 		<?php
-		include("dashboard/publisher/media.php");
+		include('dashboard/publisher/media.php');
 		?>
 
 		<br class="clear" />
@@ -404,31 +403,30 @@ function adrotate_statistics() {
 		$month = sanitize_key($_GET['month']);
 		$year = sanitize_key($_GET['year']);
 	} else {
-		$month = date("m");
-		$year = date("Y");
+		$month = date('m');
+		$year = date('Y');
 	}
 	$monthstart = gmmktime(0, 0, 0, $month, 1, $year);
 	$monthend = gmmktime(0, 0, 0, $month+1, 0, $year);
 	$today = adrotate_date_start('day');
 	?>
 	<div class="wrap">
-		<h2><?php _e('Advert Statistics', 'adrotate'); ?></h2>
+		<h2><?php _e("Advert Statistics", 'adrotate'); ?></h2>
 
-		<?php if($status > 0) adrotate_status($status, array('file' => $file)); ?>
+		<?php 
+		if($status > 0) adrotate_status($status, array('file' => $file));
 
-		<?php
-	    if ($view == "") {
-			include("dashboard/publisher/statistics-main.php");
-		} else if($view == "advert") {
-			include("dashboard/publisher/statistics-advert.php");
-		} else if($view == "group") {
-			include("dashboard/publisher/statistics-group.php");
+	    if(empty($view)) {
+			include('dashboard/publisher/statistics-main.php');
+		} else if($view == 'advert') {
+			include('dashboard/publisher/statistics-advert.php');
+		} else if($view == 'group') {
+			include('dashboard/publisher/statistics-group.php');
 		}
 		?>
 		<br class="clear" />
 
 		<?php adrotate_credits(); ?>
-
 	</div>
 <?php
 }
@@ -455,12 +453,12 @@ function adrotate_support() {
 	?>
 
 	<div class="wrap">
-		<h1><?php _e('AdRotate Support', 'adrotate'); ?></h1>
+		<h1><?php _e("AdRotate Support", 'adrotate'); ?></h1>
 
-		<?php if($status > 0) adrotate_status($status); ?>
+		<?php 
+		if($status > 0) adrotate_status($status);
 
-		<?php
-		include("dashboard/support.php");
+		include('dashboard/support.php');
 		?>
 
 	</div>
@@ -482,38 +480,31 @@ function adrotate_options() {
 	$action = (isset($_GET['action'])) ? sanitize_key($_GET['action']) : '';
 
 	if(isset($_GET['adrotate-nonce']) AND wp_verify_nonce($_GET['adrotate-nonce'], 'nonce')) {
-		if($action == 'check-ads') {
-			adrotate_prepare_evaluate_ads(false);
-			$status = 405;
-		}
-		if($action == 'reset-tasks') {
-			adrotate_check_schedules();
-			$status = 407;
-		}
-		if($action == 'disable-3rdparty') {
-			adrotate_disable_thirdparty();
-			$status = 408;
-		}
 		if($action == 'update-db') {
-			adrotate_check_upgrade();
+			adrotate_finish_upgrade();
 			$status = 409;
+		}
+
+		if($action == 'reset-tasks') {
+			adrotate_check_cron_schedules();
+			$status = 407;
 		}
 	}
 	?>
 
 	<div class="wrap">
-	  	<h1><?php _e('AdRotate Settings', 'adrotate'); ?></h1>
+	  	<h1><?php _e("AdRotate Settings", 'adrotate'); ?></h1>
 
 		<?php if($status > 0) adrotate_status($status); ?>
 
 		<h2 class="nav-tab-wrapper">
-            <a href="?page=adrotate-settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('General', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=notifications" class="nav-tab <?php echo $active_tab == 'notifications' ? 'nav-tab-active' : ''; ?>"><?php _e('Notifications', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=stats" class="nav-tab <?php echo $active_tab == 'stats' ? 'nav-tab-active' : ''; ?>"><?php _e('Statistics', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=geo" class="nav-tab <?php echo $active_tab == 'geo' ? 'nav-tab-active' : ''; ?>"><?php _e('Geo Targeting', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=roles" class="nav-tab <?php echo $active_tab == 'roles' ? 'nav-tab-active' : ''; ?>"><?php _e('Access Roles', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=misc" class="nav-tab <?php echo $active_tab == 'misc' ? 'nav-tab-active' : ''; ?>"><?php _e('Miscellaneous', 'adrotate'); ?></a>
-            <a href="?page=adrotate-settings&tab=maintenance" class="nav-tab <?php echo $active_tab == 'maintenance' ? 'nav-tab-active' : ''; ?>"><?php _e('Maintenance', 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e("General", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=notifications" class="nav-tab <?php echo $active_tab == 'notifications' ? 'nav-tab-active' : ''; ?>"><?php _e("Notifications", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=stats" class="nav-tab <?php echo $active_tab == 'stats' ? 'nav-tab-active' : ''; ?>"><?php _e("Statistics", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=geo" class="nav-tab <?php echo $active_tab == 'geo' ? 'nav-tab-active' : ''; ?>"><?php _e("Geo Targeting", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=roles" class="nav-tab <?php echo $active_tab == 'roles' ? 'nav-tab-active' : ''; ?>"><?php _e("Access Roles", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=misc" class="nav-tab <?php echo $active_tab == 'misc' ? 'nav-tab-active' : ''; ?>"><?php _e("Miscellaneous", 'adrotate'); ?></a>
+            <a href="?page=adrotate-settings&tab=maintenance" class="nav-tab <?php echo $active_tab == 'maintenance' ? 'nav-tab-active' : ''; ?>"><?php _e("Maintenance", 'adrotate'); ?></a>
         </h2>
 
 		<?php
@@ -527,38 +518,27 @@ function adrotate_options() {
 				$crawlers = implode(', ', $adrotate_crawlers);
 			}
 
-			include("dashboard/settings/general.php");
+			include('dashboard/settings/general.php');
 		} elseif($active_tab == 'notifications') {
-			$adrotate_notifications	= get_option("adrotate_notifications");
-			include("dashboard/settings/notifications.php");
+			$adrotate_notifications	= get_option('adrotate_notifications');
+
+			include('dashboard/settings/notifications.php');
 		} elseif($active_tab == 'stats') {
-			include("dashboard/settings/statistics.php");
+			include('dashboard/settings/statistics.php');
 		} elseif($active_tab == 'geo') {
-			include("dashboard/settings/geotargeting.php");
+			include('dashboard/settings/geotargeting.php');
 		} elseif($active_tab == 'roles') {
-			include("dashboard/settings/roles.php");
+			include('dashboard/settings/roles.php');
 		} elseif($active_tab == 'misc') {
-			include("dashboard/settings/misc.php");
+			include('dashboard/settings/misc.php');
 		} elseif($active_tab == 'maintenance') {
 			$adrotate_version = get_option('adrotate_version');
 			$adrotate_db_version = get_option('adrotate_db_version');
 			$advert_status	= get_option("adrotate_advert_status");
 
-			$adevaluate = wp_next_scheduled('adrotate_evaluate_ads');
-			$adschedule = wp_next_scheduled('adrotate_notification');
 			$tracker = wp_next_scheduled('adrotate_empty_trackerdata');
 
-			include("dashboard/settings/maintenance.php");
-		} elseif($active_tab == 'license') {
-			$adrotate_is_networked = adrotate_is_networked();
-			$adrotate_hide_license = get_option('adrotate_hide_license');
-			if($adrotate_is_networked) {
-				$adrotate_activate = get_site_option('adrotate_activate');
-			} else {
-				$adrotate_activate = get_option('adrotate_activate');
-			}
-
-			include("dashboard/settings/license.php");
+			include('dashboard/settings/maintenance.php');
 		}
 		?>
 

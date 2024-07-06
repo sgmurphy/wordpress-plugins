@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: sl\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Po objavi vsebine"
 msgid "An error occurred. Please go back and try again."
 msgstr "Pojavila se je napaka. Vrnite se in poskusite znova."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "in"
 
@@ -111,17 +111,9 @@ msgstr "Vprašanje proti neželeni pošti"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Donacija katere koli velikosti mi pomaga nadaljevati z razvojem tega brezplačnega vtičnika in drugih izjemnih virov WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Uporabi kodo"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Dodeljeni avtor"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "na blagajni. Razprodaja se konča 25.5.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Samodejno prikaži slike in drugo."
 msgid "Before post content"
 msgstr "Pred objavo vsebine"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "knjige"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Kupite enega, prejmete enega BREZPLAČNO s kodo"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Onemogoči Zahtevano"
 msgid "Disable this field"
 msgstr "Onemogoči to polje"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Odpusti"
 
@@ -603,7 +599,7 @@ msgstr "Za več"
 
 #: library/plugin-display.php:36
 msgid "For more features and unlimited forms, check out"
-msgstr "Za več funkcij in neomejene oblike si oglejte"
+msgstr "Za več funkcij in neomejene obrazce si oglejte"
 
 #: library/plugin-display.php:194 library/plugin-display.php:242
 #: library/plugin-display.php:649
@@ -646,6 +642,10 @@ msgstr "Pridobite USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Pridobite USP Pro za neomejeno število obrazcev!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Pridobite&nbsp;vtičnike&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "dajte mu oceno 5 zvezdic"
@@ -657,10 +657,6 @@ msgstr "Dajte USP oceno 5 zvezdic na WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Postani profesionalec"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Postani profesionalec!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "oz"
 msgid "or by making a"
 msgstr "ali tako, da naredite a"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "ali izkoristite 30% popust s kodo"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Če želite nadaljevati in obnoviti privzete možnosti vtičnika: potrdite polje, shranite nastavitve in nato deaktivirajte/znova aktivirajte vtičnik."
@@ -1118,9 +1118,9 @@ msgstr "Vrsta objave za poslane objave"
 msgid "Private Key"
 msgstr "Zasebni ključ"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pro vtičniki za WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Razprodaja vtičnikov Pro!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Vrnitev v obrazec"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Urejevalnik obogatenega besedila"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Prihranite 30 % pri našem"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"

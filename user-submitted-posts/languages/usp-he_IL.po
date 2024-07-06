@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: he\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "לאחר תוכן הפוסט"
 msgid "An error occurred. Please go back and try again."
 msgstr "התרחשה שגיאה. אנא חזור ונסה שוב."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "ו"
 
@@ -111,17 +111,9 @@ msgstr "שאלה נגד ספאם"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "כל תרומה בגודל עוזרת לי להמשיך ולפתח את התוסף החינמי הזה ומשאבי וורדפרס מדהימים אחרים."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "החל קוד"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "מחבר מוקצה"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "בקופה. המבצע מסתיים ב-25.5.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "הצגה אוטומטית של תמונות ועוד."
 msgid "Before post content"
 msgstr "לפני פרסום תוכן"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "ספרים"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "קנה אחד קבל אחד בחינם עם קוד"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -241,7 +237,7 @@ msgstr "הגדר הגדרות כלליות. הערה: הגדרות ברירת ה
 
 #: library/plugin-display.php:495
 msgid "Configure settings for image uploads."
-msgstr "קבע הגדרות להעלאת תמונות."
+msgstr "הגדר הגדרות להעלאת תמונות."
 
 #: library/plugin-display.php:305
 msgid "Configure settings for the Category and Tag fields."
@@ -249,7 +245,7 @@ msgstr "הגדר הגדרות עבור השדות קטגוריה ותג."
 
 #: library/plugin-display.php:204
 msgid "Configure user settings."
-msgstr "הגדר הגדרות משתמש."
+msgstr "הגדר את הגדרות המשתמש."
 
 #: library/shortcode-login.php:180
 msgid "Congratulations, you&rsquo;re logged in."
@@ -348,7 +344,7 @@ msgstr "השבתה נדרש"
 msgid "Disable this field"
 msgstr "השבת את השדה הזה"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "לשחרר"
 
@@ -646,6 +642,10 @@ msgstr "קבל את USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "קבל את USP Pro עבור טפסים ללא הגבלה!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "קבל&nbsp;תוספים&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "לתת לו דירוג 5 כוכבים"
@@ -657,10 +657,6 @@ msgstr "תן ל-USP דירוג של 5 כוכבים ב-WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "להתמקצע"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "להתמקצע!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -823,7 +819,7 @@ msgstr "סימון עבור שדה מותאם אישית 1. תוכל לכלול 
 
 #: library/plugin-display.php:642
 msgid "Markup for Custom Field 2. You may include any of the following variables:"
-msgstr "סימון עבור שדה מותאם אישית 2. אתה יכול לכלול כל אחד מהמשתנים הבאים:"
+msgstr "סימון עבור שדה מותאם אישית 2. תוכל לכלול כל אחד מהמשתנים הבאים:"
 
 #: library/plugin-display.php:576
 msgid "Markup for each submitted image. You may include any of the following variables:"
@@ -859,7 +855,7 @@ msgstr "מספר מקסימלי של תמונות"
 
 #: user-submitted-posts.php:1723
 msgid "Maximum number of images exceeded "
-msgstr "חרגת ממספר התמונות המרבי "
+msgstr "חרג מהמספר המרבי של תמונות "
 
 #: library/plugin-display.php:528
 msgid "Maximum number of images for each submitted post"
@@ -969,6 +965,10 @@ msgstr "אוֹ"
 msgid "or by making a"
 msgstr "או על ידי ביצוע א"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "או קח 30% הנחה עם קוד"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "לחלופין, כדי להמשיך ולשחזר את אפשרויות ברירת המחדל של הפלאגין: סמן את התיבה, שמור את ההגדרות שלך ולאחר מכן השבת/הפעל מחדש את הפלאגין."
@@ -1044,7 +1044,7 @@ msgstr "דף הבית של תוסף"
 
 #: library/support-panel.php:50
 msgid "Plugin Planet: Pro WordPress Plugins"
-msgstr "Plugin Planet: תוספים וורדפרס מקצועיים"
+msgstr "Plugin Planet: תוספים פרו וורדפרס"
 
 #: library/plugin-display.php:55
 msgid "Plugin Settings"
@@ -1118,9 +1118,9 @@ msgstr "סוג פוסט עבור פוסטים שנשלחו"
 msgid "Private Key"
 msgstr "מפתח פרטי"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "תוספים וורדפרס מקצועיים"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "מכירת תוסף פרו!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "חזור לטופס"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "עורך טקסט עשיר"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "חסוך 30% על שלנו"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1481,7 +1477,7 @@ msgstr "תצוגת כתובת אתר"
 
 #: library/plugin-display.php:614
 msgid "URL Markup"
-msgstr "סימון כתובת URL"
+msgstr "סימון כתובת אתר"
 
 #: library/plugin-display.php:322
 msgid "Use a hidden field for the post category. This hides the category field and sets its value via the next option."
@@ -1498,7 +1494,7 @@ msgstr "השתמש בתגיות קיימות"
 #: library/plugin-display.php:355 library/plugin-display.php:383
 #: library/plugin-display.php:421
 msgid "Use only alphanumeric, underscores, and dashes. If unsure, use the default name:"
-msgstr "השתמש רק באלפאנומריים, בקווים תחתונים ובמקפים. אם אינך בטוח, השתמש בשם ברירת המחדל:"
+msgstr "השתמש רק באלפאנומרי, קווים תחתונים ומקפים. אם אינך בטוח, השתמש בשם ברירת המחדל:"
 
 #: library/plugin-display.php:731
 msgid "Use single straight quotes (instead of double quotes) in"
@@ -1620,7 +1616,7 @@ msgstr "אימות"
 
 #: library/shortcode-misc.php:133
 msgid "View full post"
-msgstr "צפה בפוסט המלא"
+msgstr "צפו בפוסט המלא"
 
 #: library/plugin-display.php:677
 msgid "Want more than one form? Create unlimited submission forms, registration forms, contact forms and more with"

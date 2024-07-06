@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: cs\n"
 
 #: library/plugin-settings.php:590
@@ -50,7 +50,7 @@ msgstr "&ndash; dokonalé řešení pro obsah vytvářený uživateli."
 
 #: library/plugin-settings.php:203
 msgid "(Provide your own form template &amp; styles)"
-msgstr "(Zadejte vlastní šablonu formuláře a styly)"
+msgstr "(Zadejte svou vlastní šablonu formuláře a styly)"
 
 #: library/plugin-settings.php:199
 msgid "(Provide your own styles)"
@@ -94,8 +94,8 @@ msgstr "Po obsahu příspěvku"
 msgid "An error occurred. Please go back and try again."
 msgstr "Vyskytla se chyba. Vraťte se prosím zpět a zkuste to znovu."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "a"
 
@@ -111,17 +111,9 @@ msgstr "Antispamová otázka"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Dar jakékoli velikosti mi pomáhá pokračovat ve vývoji tohoto bezplatného pluginu a dalších úžasných zdrojů WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Použít kód"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Přidělený autor"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "u pokladny. Prodej končí 25.5.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Automaticky zobrazujte obrázky a další."
 msgid "Before post content"
 msgstr "Před zveřejněním obsahu"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "knihy"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Kupte si jeden a dostanete jeden ZDARMA s kódem"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -147,7 +143,7 @@ msgstr "podle"
 
 #: library/plugin-display.php:128
 msgid "By default, CSS &amp; JavaScript files are loaded on every page. To load only on specific page(s), enter the URL(s) here. Use commas to separate multiple URLs. Leave blank to load on all pages."
-msgstr "Ve výchozím nastavení CSS &amp; Soubory JavaScript se načítají na každou stránku. Chcete-li načíst pouze konkrétní stránky, zadejte zde adresy URL. K oddělení více adres URL použijte čárky. Chcete-li načíst všechny stránky, ponechte prázdné."
+msgstr "Ve výchozím nastavení CSS &amp; Soubory JavaScript se načítají na každé stránce. Chcete-li načíst pouze konkrétní stránky, zadejte zde adresy URL. K oddělení více adres URL použijte čárky. Chcete-li načíst všechny stránky, ponechte prázdné."
 
 #: library/plugin-display.php:406
 msgid "By default, this displays an &ldquo;Agree to Terms&rdquo; checkbox. Customize as desired."
@@ -341,14 +337,14 @@ msgstr "Zakázat Nahradit autora"
 
 #: library/plugin-display.php:175
 msgid "Disable Required"
-msgstr "Vyžadováno deaktivovat"
+msgstr "Vyžadováno zakázat"
 
 #: library/plugin-settings.php:373 library/plugin-settings.php:414
 #: library/plugin-settings.php:444 library/plugin-settings.php:474
 msgid "Disable this field"
 msgstr "Deaktivujte toto pole"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Zavrhnout"
 
@@ -646,6 +642,10 @@ msgstr "Získejte USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Získejte USP Pro pro neomezené množství formulářů!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Získejte&nbsp;pluginy&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "dejte mu 5hvězdičkové hodnocení"
@@ -657,10 +657,6 @@ msgstr "Dejte USP 5hvězdičkové hodnocení na WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Staň se profesionálem"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Staň se profesionálem!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -859,7 +855,7 @@ msgstr "Maximální počet obrázků"
 
 #: user-submitted-posts.php:1723
 msgid "Maximum number of images exceeded "
-msgstr "Byl překročen maximální počet obrázků "
+msgstr "Překročen maximální počet obrázků "
 
 #: library/plugin-display.php:528
 msgid "Maximum number of images for each submitted post"
@@ -968,6 +964,10 @@ msgstr "nebo"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "nebo vytvořením a"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "nebo získat 30% slevu s kódem"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1118,9 +1118,9 @@ msgstr "Typ příspěvku pro odeslané příspěvky"
 msgid "Private Key"
 msgstr "Soukromý klíč"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pro WordPress pluginy"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Prodej Pro Plugin!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "Návrat do formy"
 msgid "Rich Text Editor"
 msgstr "Rich Text Editor"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Ušetřete 30 % na našem"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "Uložit všechny změny"
@@ -1344,7 +1340,7 @@ msgstr "Text zobrazený vedle zaškrtávacího políčka. Tip: Použijte složen
 
 #: library/support-panel.php:57
 msgid "Thank you for using"
-msgstr "Děkujeme za použití"
+msgstr "Děkujeme, že používáte"
 
 #: library/plugin-display.php:46
 msgid "THANK YOU for your support!"

@@ -2,8 +2,8 @@
 Contributors: shapedplugin, shamimmiashuhagh, rubel_miah, khalilu
 Tags: logo carousel, logo slider, logo gallery, logo showcase, display logo
 Requires at least: 4.7
-Tested up to: 6.5
-Stable tag: 3.5.1
+Tested up to: 6.5.5
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -213,6 +213,13 @@ Thank you!
 
 
 == Changelog ==
+
+= 3.5.2 Jul 06, 2024 =
+* Fix: Some strings translation issue.
+* Fix: The fontello icons conflict issue.
+* Improved: The Plugin backend options have been improved.
+* Updated: The language (.pot) file.
+* Tested: WordPress 6.5.5 compatibility.
 
 = 3.5.1 Mar 28, 2024 =
 * Fix: The warning was found when the plugin was activated via the WP-Cli command.

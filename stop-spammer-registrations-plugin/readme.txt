@@ -1,9 +1,9 @@
 === Anti-Spam: Spam Protection | Block Spam Users, Comments, Forms ===
 
-Contributors: mcitar, bhadaway
+Contributors: mcitar
 Donate link: https://calmestghost.com/donate
 Tags: spam, security, anti-spam, spam protection, no spam
-Tested up to: 6.5
+Tested up to: 6.5.5
 Requires at least: 3.0
 Requires PHP: 5.0
 Stable tag: 2024.7

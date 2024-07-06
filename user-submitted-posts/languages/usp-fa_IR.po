@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: fa\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "پس از ارسال مطالب"
 msgid "An error occurred. Please go back and try again."
 msgstr "خطایی رخ داد. لطفا برگردید و دوباره امتحان کنید."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "و"
 
@@ -111,17 +111,9 @@ msgstr "سوال آنتی اسپم"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "هر اندازه اهدایی به من کمک می کند تا به توسعه این افزونه رایگان و سایر منابع عالی وردپرس ادامه دهم."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "کد را اعمال کنید"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "نویسنده تعیین شده"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "در پرداخت پایان فروش 25/5/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "نمایش خودکار تصاویر و موارد دیگر."
 msgid "Before post content"
 msgstr "قبل از ارسال مطالب"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "کتاب ها"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "یکی بخرید یکی را رایگان با کد دریافت کنید"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "غیر فعال کردن الزامی است"
 msgid "Disable this field"
 msgstr "این فیلد را غیر فعال کنید"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "رد"
 
@@ -646,6 +642,10 @@ msgstr "USP Pro را دریافت کنید"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "USP Pro را برای فرم های نامحدود دریافت کنید!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "دریافت&nbsp;افزونه ها&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "به آن امتیاز 5 ستاره بدهید"
@@ -657,10 +657,6 @@ msgstr "در WordPress.org به USP رتبه 5 ستاره بدهید"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "برو طرفدار"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "برو حرفه ای!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -863,7 +859,7 @@ msgstr "از حداکثر تعداد تصاویر فراتر رفته است "
 
 #: library/plugin-display.php:528
 msgid "Maximum number of images for each submitted post"
-msgstr "حداکثر تعداد عکس برای هر پست ارسالی"
+msgstr "حداکثر تعداد تصویر برای هر پست ارسالی"
 
 #: library/plugin-display.php:543
 msgid "Maximum width (in pixels) for uploaded images"
@@ -969,9 +965,13 @@ msgstr "یا"
 msgid "or by making a"
 msgstr "یا با ساختن الف"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "یا با کد 30 درصد تخفیف بگیرید"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
-msgstr "یا برای ادامه و بازیابی گزینه های پیش فرض افزونه: کادر را علامت بزنید، تنظیمات خود را ذخیره کنید و سپس افزونه را غیرفعال/فعال کنید."
+msgstr "یا، برای ادامه دادن و بازیابی گزینه‌های پیش‌فرض افزونه: کادر را علامت بزنید، تنظیمات خود را ذخیره کنید و سپس افزونه را غیرفعال/فعال کنید."
 
 #: library/plugin-display.php:696
 msgid "Or, use the template tag to display a list of submitted posts anywhere in your theme template:"
@@ -1118,9 +1118,9 @@ msgstr "برای پست های ارسالی تایپ کنید"
 msgid "Private Key"
 msgstr "کلید خصوصی"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "افزونه های حرفه ای وردپرس"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "فروش پلاگین حرفه ای!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1168,7 +1168,7 @@ msgstr "ثبت نام"
 
 #: library/shortcode-login.php:135
 msgid "Register for this site!"
-msgstr "برای این سایت ثبت نام کنید"
+msgstr "ثبت نام در این سایت!"
 
 #: library/plugin-display.php:219
 msgid "Registered Email"
@@ -1233,10 +1233,6 @@ msgstr "بازگشت به فرم"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "ویرایشگر متن توانمند"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "30٪ در ما صرفه جویی کنید"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1604,7 +1600,7 @@ msgstr "USP Pro"
 
 #: library/plugin-display.php:752
 msgid "USP provides three shortcodes to control access and restrict content."
-msgstr "USP سه کد کوتاه برای کنترل دسترسی و محدود کردن محتوا فراهم می کند."
+msgstr "USP سه کد کوتاه برای کنترل دسترسی و محدود کردن محتوا ارائه می دهد."
 
 #: library/plugin-settings.php:339
 msgid "v2 (I&rsquo;m not a robot)"
@@ -1632,7 +1628,7 @@ msgstr "خوش آمدی، "
 
 #: library/plugin-display.php:102
 msgid "With this option, you can copy the plugin&rsquo;s default templates:"
-msgstr "با این گزینه می توانید قالب های پیش فرض افزونه را کپی کنید:"
+msgstr "با این گزینه می توانید الگوهای پیش فرض افزونه را کپی کنید:"
 
 #: user-submitted-posts.php:125
 msgid "WordPress Admin Area"
@@ -1652,7 +1648,7 @@ msgstr "منابع WP"
 
 #: library/plugin-display.php:684
 msgid "You also can display a simple form that enables users to log in, register, or reset their password."
-msgstr "همچنین می توانید یک فرم ساده را نمایش دهید که به کاربران امکان می دهد وارد سیستم شوند، ثبت نام کنند یا رمز عبور خود را بازنشانی کنند."
+msgstr "همچنین می توانید فرم ساده ای را نمایش دهید که به کاربران امکان می دهد وارد سیستم شوند، ثبت نام کنند یا رمز عبور خود را بازنشانی کنند."
 
 #: library/plugin-display.php:717
 msgid "You can customize using any of the follwing attributes:"

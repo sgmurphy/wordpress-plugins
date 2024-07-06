@@ -17,7 +17,7 @@ class Bdp_Admin {
 	function __construct() {
 
 		// Action to register admin menu
-		add_action( 'admin_menu', array($this, 'bdp_register_menu'), 9 );		
+		add_action( 'admin_menu', array($this, 'bdp_register_menu') );		
 
 		// Shortcode Preview
 		add_action( 'current_screen', array($this, 'bdp_generate_preview_screen') );
@@ -50,7 +50,7 @@ class Bdp_Admin {
 		//add_submenu_page( 'bdp-about', __('Getting Started', 'blog-designer-pack'), __('Getting Started', 'blog-designer-pack'), 'manage_options', 'bdp-getting-started', array($this, 'bdp_getting_started_page') );
 	
 		// Shortcode Preview
-		add_submenu_page( null, __('Shortcode Preview - Blog Designer Pack', 'blog-designer-pack'), __('Shortcode Preview', 'blog-designer-pack'), 'manage_options', 'bdp-shortcode-preview', array($this, 'bdp_shortcode_preview_page') );
+		add_submenu_page( '', __('Shortcode Preview - Blog Designer Pack', 'blog-designer-pack'), __('Shortcode Preview', 'blog-designer-pack'), 'manage_options', 'bdp-shortcode-preview', array($this, 'bdp_shortcode_preview_page') );
 	}
 	
 	/**

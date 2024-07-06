@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: pl\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Po opublikowaniu treści"
 msgid "An error occurred. Please go back and try again."
 msgstr "Wystąpił błąd. Wróć i spróbuj ponownie."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "I"
 
@@ -111,17 +111,9 @@ msgstr "Pytanie antyspamowe"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Dowolna darowizna pomaga mi w dalszym rozwijaniu tej bezpłatnej wtyczki i innych niesamowitych zasobów WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Zastosuj kod"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Przypisany autor"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "przy kasie. Sprzedaż kończy się 25.05.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Automatycznie wyświetlaj obrazy i nie tylko."
 msgid "Before post content"
 msgstr "Przed opublikowaniem treści"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "książki"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Kup jeden, drugi otrzymasz GRATIS z kodem"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Wyłącz wymagane"
 msgid "Disable this field"
 msgstr "Wyłącz to pole"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Odrzucać"
 
@@ -529,7 +525,7 @@ msgstr "Pozwól użytkownikom wybierać wiele kategorii"
 
 #: library/plugin-display.php:554
 msgid "Enable users to upload other file types (like PDF, Word, Zip, videos, and more), check out"
-msgstr "Zezwól użytkownikom na przesyłanie innych typów plików (takich jak PDF, Word, Zip, filmy i inne), sprawdź"
+msgstr "Pozwól użytkownikom przesyłać inne typy plików (takie jak PDF, Word, Zip, filmy i inne), sprawdź"
 
 #. Description of the plugin
 #: 
@@ -646,6 +642,10 @@ msgstr "Zdobądź USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Zdobądź USP Pro dla nieograniczonej liczby formularzy!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Pobierz&nbsp;wtyczki&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "przyznaj mu 5 gwiazdek"
@@ -657,10 +657,6 @@ msgstr "Daj USP 5 gwiazdek na WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Bądź profesjonalny"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Bądź profesjonalny!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -863,7 +859,7 @@ msgstr "Przekroczono maksymalną liczbę obrazów "
 
 #: library/plugin-display.php:528
 msgid "Maximum number of images for each submitted post"
-msgstr "Maksymalna liczba obrazów dla każdego przesłanego posta"
+msgstr "Maksymalna liczba obrazów dla każdego przesłanego postu"
 
 #: library/plugin-display.php:543
 msgid "Maximum width (in pixels) for uploaded images"
@@ -968,6 +964,10 @@ msgstr "Lub"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "lub tworząc"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "lub odbierz 30% zniżki z kodem"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1100,7 +1100,7 @@ msgstr "Wymagane tagi postów"
 #: views/submission-form-alt.php:64 views/submission-form-alt.php:65
 #: library/plugin-display.php:68
 msgid "Post Title"
-msgstr "Tytuł postu"
+msgstr "Tytuł posta"
 
 #: user-submitted-posts.php:1712
 msgid "Post title required"
@@ -1118,9 +1118,9 @@ msgstr "Typ postu dla przesłanych postów"
 msgid "Private Key"
 msgstr "Prywatny klucz"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Profesjonalne wtyczki WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Wyprzedaż wtyczek Pro!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "Wróć do formy"
 msgid "Rich Text Editor"
 msgstr "Bogaty edytor tekstu"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Zaoszczędź 30% na naszym"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "Zapisz wszystkie zmiany"
@@ -1340,7 +1336,7 @@ msgstr "Ukierunkowane ładowanie"
 
 #: library/plugin-display.php:431
 msgid "Text displayed next to checkbox. Tip: use curly brackets to output angle brackets, for example:"
-msgstr "Tekst wyświetlany obok pola wyboru. Wskazówka: użyj nawiasów klamrowych do wyprowadzenia nawiasów ostrych, na przykład:"
+msgstr "Tekst wyświetlany obok pola wyboru. Wskazówka: użyj nawiasów klamrowych do wyprowadzenia nawiasów kątowych, na przykład:"
 
 #: library/support-panel.php:57
 msgid "Thank you for using"

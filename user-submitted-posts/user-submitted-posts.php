@@ -9,9 +9,9 @@
 	Donate link: https://monzillamedia.com/donate.html
 	Contributors: specialk
 	Requires at least: 4.6
-	Tested up to: 6.5
-	Stable tag: 20240516
-	Version:    20240516
+	Tested up to: 6.6
+	Stable tag: 20240703
+	Version:    20240703
 	Requires PHP: 5.6.20
 	Text Domain: usp
 	Domain Path: /languages
@@ -38,7 +38,7 @@
 if (!defined('ABSPATH')) die();
 
 if (!defined('USP_WP_VERSION')) define('USP_WP_VERSION', '4.6');
-if (!defined('USP_VERSION'))    define('USP_VERSION', '20240516');
+if (!defined('USP_VERSION'))    define('USP_VERSION', '20240703');
 if (!defined('USP_PLUGIN'))     define('USP_PLUGIN', esc_html__('User Submitted Posts', 'usp'));
 if (!defined('USP_FILE'))       define('USP_FILE', plugin_basename(__FILE__));
 if (!defined('USP_PATH'))       define('USP_PATH', plugin_dir_path(__FILE__));

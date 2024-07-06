@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: ru\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "После публикации контента"
 msgid "An error occurred. Please go back and try again."
 msgstr "Произошла ошибка. Пожалуйста вернитесь и попробуйте снова."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "и"
 
@@ -111,17 +111,9 @@ msgstr "Антиспам Вопрос"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Любое пожертвование поможет мне продолжить разработку этого бесплатного плагина и других замечательных ресурсов WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Применить код"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Назначенный автор"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "при оформлении заказа. Распродажа заканчивается 25.05.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Автоматическое отображение изображени
 msgid "Before post content"
 msgstr "Прежде чем публиковать контент"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "книги"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Купите один, получите один БЕСПЛАТНО с кодом"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Отключить обязательно"
 msgid "Disable this field"
 msgstr "Отключить это поле"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Увольнять"
 
@@ -646,6 +642,10 @@ msgstr "Получите USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Получите USP Pro для неограниченного количества форм!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Получить плагины&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "дайте ему оценку 5 звезд"
@@ -657,10 +657,6 @@ msgstr "Поставьте USP 5-звездочный рейтинг на WordPr
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Станьте профессионалом"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Стань профессионалом!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "или"
 msgid "or by making a"
 msgstr "или сделав"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "или получите скидку 30% по коду"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Или, чтобы продолжить и восстановить параметры плагина по умолчанию: установите флажок, сохраните настройки, а затем деактивируйте/повторно активируйте плагин."
@@ -1118,9 +1118,9 @@ msgstr "Тип сообщения для отправленных сообщен
 msgid "Private Key"
 msgstr "Закрытый ключ"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Профессиональные плагины WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Распродажа профессиональных плагинов!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Вернуться к форме"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Редактор форматированного текста"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Сэкономьте 30% на нашем"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1676,7 +1672,7 @@ msgstr "Ваше имя"
 #: views/submission-form.php:43 views/submission-form.php:44
 #: views/submission-form-alt.php:58 views/submission-form-alt.php:59
 msgid "Your URL"
-msgstr "Ваш URL"
+msgstr "Ваш URL-адрес"
 
 #: library/plugin-settings.php:92
 msgid "★★★★★ rating&nbsp;&raquo;"

@@ -1,27 +1,21 @@
-=== My Private Site - One-Click Password Protection for All Your Site's Content ===
+=== My Private Site ===
 Contributors: dgewirtz
 Donate link: http://zatzlabs.com/lab-notes/
-Tags: registered only, privacy, protected, restricted, password protect
+Tags: login, visibility, private, security, pages
 Requires at least: 4.0
-Tested up to: 6.5
-Stable tag: 3.1.0
+Tested up to: 6.6
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily secure posts, pages, or your entire WordPress site by requiring visitors to login with a single password.
+Create a Private Site visible only to your registered users.
 
 == Description ==
-
 Allows the Administrator to restrict a WordPress-based web site to viewing only by registered users who are logged on.  Any attempt, by anyone not logged, to view any Page, Post or other part of the site will display a WordPress login screen.
 
 Login prompts are provided whenever a non-logged in user ("site visitor") attempts to access any URL controlled by WordPress on the web site.
 
 **Note:** If privacy isn't turned on for your theme, use the Compatibility Mode option on the Site Privacy tab. This is known to apply to Elementor, Oxygen, and Twenty Twenty Two themes.
-
-= New in 3.1: REST API Guardian =
-
-* Turn on or off the My Private Site REST API security features.
-* Block REST API access for logged-out users
 
 = More Features and Settings =
 
@@ -37,6 +31,8 @@ Login prompts are provided whenever a non-logged in user ("site visitor") attemp
 * Remember Me improvements at Login via free companion plugin, jonradio Remember Me, which can be downloaded separately from the WordPress Plugin Repository
 * Overrides WordPress hiding of Network Activated plugins, just for itself; to provide this feature for all plugins, use the free companion plugin, Reveal Network Activated Plugins, which can be downloaded separately from the WordPress Plugin Repository
 * Setting to disable the plugin so that other plugin Settings can be changed when the Site is not set to Private
+* New in 3.1: REST API Guardian. Turn on or off the My Private Site REST API security features. Block REST API access for logged-out users
+
 
 If you allow Self-Registration, where new Users can Register themselves, you will need to select the "Reveal User Registration Page" setting or new Users will be blocked from seeing the WordPress Registration screen (on WordPress Networks, turning off the Reveal User Registration Page setting on the "Main Site" will prevent Registration from all Sites).  For convenience, the WordPress Setting that controls Self-Registration of Users has been added to the Plugin's Settings page.
 
@@ -95,8 +91,10 @@ Whenever you change your WordPress Permalinks (Settings-Permalinks in Admin pane
 
 == Changelog ==
 
-= 3.1.0 =
+= 3.1.1 =
+* Minor UI tweak to provide better clarity for theme option
 
+= 3.1.0 =
 * Added REST API Guardian protection to core plugin
 * Increased size of heading font in dashboard
 * Replaced tags set (login, pages, private, security, visibility, plugin, page, posts, post) with (registered only, privacy, protected, restricted, password protect)

@@ -1,4 +1,4 @@
-﻿=== Hide My WP Ghost - Security Plugin ===
+﻿=== Hide My WP Ghost - Security & Firewall ===
 Contributors: johndarrel
 Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
@@ -8,7 +8,7 @@ Stable tag: 5.2.03
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Hide common WP paths, wp-login, and wp-admin while protecting against Brute Force attacks, SQL/Script Injections, and more. Add 7G & 8G firewalls against most bot attacks.
+Hide WP paths, wp-login, and wp-admin while protecting against Brute Force attacks, SQL/Script Injections, and more. Add 7G & 8G firewalls against most bot attacks.
 
 == Description ==
 

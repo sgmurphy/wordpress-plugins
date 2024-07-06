@@ -93,7 +93,7 @@ img {
 	border-radius: 2px;
 	line-height: 19px;
 	text-decoration: none;
-	margin-left: 15px;
+	margin-right: 15px;
 	display: inline-block;
 }
 
@@ -106,7 +106,6 @@ img {
 .woogs-notice .woogs-notice-text {
 	line-height: 48px;
 	font-size: 14px;
-	margin-left: 12px;
 }
 
 .wqv-notice .notice-dismiss,
@@ -116,12 +115,12 @@ img {
 
 .woogs-demo-button,
 .wqv-demo-button {
+	display: inline-block;
 	color: #2171B1;
 	padding: 9px 15px;
 	border-radius: 2px;
 	line-height: 19px;
 	text-decoration: none;
-	margin-left: 15px;
 	border: 1px solid #2171B1;
 	transition-duration: 200ms;
 	transition-timing-function: linear;
@@ -193,7 +192,7 @@ div#spwps-preview-box {
 	display: none;
 }
 
-#spwps-preview-box #sp-wqv-view-button {
+.wp-admin .wpsf-cart-button #sp-wqv-view-button {
 	background: #1A79BF;
 	color: #ffffff;
 	font-size: 14px;
@@ -211,11 +210,11 @@ div#spwps-preview-box {
 	transition: all 0.2s linear;
 }
 
-#spwps-preview-box #sp-wqv-view-button {
+.wp-admin .wpsf-cart-button #sp-wqv-view-button {
 	margin-right: 5px
 }
 
-#spwps-preview-box a:not(.sp-wqvpro-view-button, .sp-wqv-view-button)+#sp-wqv-view-button {
+.wp-admin .wpsf-cart-button a:not(.sp-wqvpro-view-button, .sp-wqv-view-button)+#sp-wqv-view-button {
 	margin-left: 5px;
 	margin-right: 0px;
 }

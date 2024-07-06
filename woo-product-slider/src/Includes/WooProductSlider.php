@@ -237,7 +237,6 @@ class WooProductSlider {
 				break;
 
 		} // end switch
-
 	}
 
 	/**
@@ -423,11 +422,10 @@ class WooProductSlider {
 					admin_url( 'plugin-install.php' )
 				)
 			);
-			$nonce =  wp_create_nonce( 'woogs-notice' );
+			$nonce     = wp_create_nonce( 'woogs-notice' );
 
-			echo sprintf( '<div class="woogs-notice notice is-dismissible" data-nonce="%7$s"><img src="%1$s"/><div class="woogs-notice-text">To Enable the <strong> Single Product Image Gallery Slider</strong>, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Gallery Slider for WooCommerce</strong></a> and <strong>Boost Sales!</strong><a href="%3$s" rel="noopener" class="woogs-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woo-gallery-slider/product/t-shirt/" target="_blank" class="woogs-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce ); // phpcs:ignore
+			echo sprintf( '<div class="woogs-notice notice is-dismissible" data-nonce="%7$s"><img src="%1$s"/><div class="woogs-notice-text">To Enable the <strong> Single Product Image Gallery Slider</strong>, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Gallery Slider for WooCommerce</strong></a> and <strong>Boost Sales!</strong> &nbsp;&nbsp; <a href="%3$s" rel="noopener" class="woogs-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woo-gallery-slider/product/t-shirt/" target="_blank" class="woogs-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce ); // phpcs:ignore
 		}
-
 	}
 	/**
 	 * Quick View for WooCommerce install admin notice.
@@ -476,10 +474,9 @@ class WooProductSlider {
 				)
 			);
 
-			$nonce =  wp_create_nonce( 'wqv-notice' );
-			echo sprintf( '<div class="wqv-notice notice is-dismissible" data-nonce="%7$s"><img src="%1$s"/><div class="wqv-notice-text">To Allow the Customers to <strong>Have a Quick View of Products</strong>, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Quick View for WooCommerce</strong></a> and <strong>Boost Sales!</strong> <a href="%3$s" rel="noopener" class="wqv-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woocommerce-quick-view/" target="_blank" class="wqv-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce ); // phpcs:ignore
+			$nonce = wp_create_nonce( 'wqv-notice' );
+			echo sprintf( '<div class="wqv-notice notice is-dismissible" data-nonce="%7$s"><img src="%1$s"/><div class="wqv-notice-text">To Allow the Customers to <strong>Have a Quick View of Products</strong>, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Quick View for WooCommerce</strong></a> and <strong>Boost Sales!</strong> &nbsp;&nbsp; <a href="%3$s" rel="noopener" class="wqv-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woocommerce-quick-view/" target="_blank" class="wqv-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce ); // phpcs:ignore
 		}
-
 	}
 
 	/**

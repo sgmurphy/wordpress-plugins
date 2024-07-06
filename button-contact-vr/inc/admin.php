@@ -21,7 +21,7 @@
         <tr valign="top">
             <th scope="row">Hotline</th>
             <td>
-                <input placeholder="0123 456 789" type="text" name="pzf_phone" value="<?php echo get_option('pzf_phone'); ?>" />
+                <input placeholder="0123 456 789" type="tel" name="pzf_phone" value="<?php echo get_option('pzf_phone'); ?>" />
                 <label for="pzf_color_phone">
                     <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone" type="text" value="<?php echo get_option('pzf_color_phone'); ?>" />
                 </label>           
@@ -30,7 +30,7 @@
         <tr valign="top">
             <th scope="row">Hotline 2</th>
             <td>
-                <input placeholder="0123 456 789" type="text" name="pzf_phone2" value="<?php echo get_option('pzf_phone2'); ?>" />
+                <input placeholder="0123 456 789" type="tel" name="pzf_phone2" value="<?php echo get_option('pzf_phone2'); ?>" />
                 <label for="pzf_color_phone">
                     <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone2" type="text" value="<?php echo get_option('pzf_color_phone2'); ?>" />
                 </label>           
@@ -39,7 +39,7 @@
         <tr valign="top">
             <th scope="row">Hotline 3</th>
             <td>
-                <input placeholder="0123 456 789" type="text" name="pzf_phone3" value="<?php echo get_option('pzf_phone3'); ?>" />
+                <input placeholder="0123 456 789" type="tel" name="pzf_phone3" value="<?php echo get_option('pzf_phone3'); ?>" />
                 <label for="pzf_color_phone">
                     <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone3" type="text" value="<?php echo get_option('pzf_color_phone3'); ?>" />
                 </label>           

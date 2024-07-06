@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: no\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Etter innleggets innhold"
 msgid "An error occurred. Please go back and try again."
 msgstr "En feil oppstod. Gå tilbake og prøv igjen."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "og"
 
@@ -111,17 +111,9 @@ msgstr "Spørsmål om antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Enhver størrelsesdonasjon hjelper meg å fortsette å utvikle denne gratis plugin-en og andre fantastiske WordPress-ressurser."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Bruk kode"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Tildelt forfatter"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "i kassen. Salget avsluttes 25.05.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Vis bilder og mer automatisk."
 msgid "Before post content"
 msgstr "Før innlegg innhold"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "bøker"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Kjøp en få en GRATIS med kode"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Deaktiver nødvendig"
 msgid "Disable this field"
 msgstr "Deaktiver dette feltet"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Avskjedige"
 
@@ -538,7 +534,7 @@ msgstr "Gjør det mulig for besøkende å sende inn innlegg og bilder fra hvor s
 
 #: library/plugin-display.php:35
 msgid "enables your visitors to submit posts and upload images from the front-end of your site. "
-msgstr "gjør det mulig for besøkende å sende inn innlegg og laste opp bilder fra front-end av nettstedet ditt. "
+msgstr "gjør det mulig for besøkende å sende inn innlegg og laste opp bilder fra fronten av nettstedet ditt. "
 
 #: library/plugin-display.php:459
 msgid "Enter the *only* correct answer to the challenge question"
@@ -646,6 +642,10 @@ msgstr "Skaff deg USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Få USP Pro for ubegrensede skjemaer!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Få&nbsp;plugins&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "gi den en 5-stjerners vurdering"
@@ -657,10 +657,6 @@ msgstr "Gi USP en 5-stjerners rangering på WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Bli profesjonell"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Bli profesjonell!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -951,7 +947,7 @@ msgstr "Merknader:"
 
 #: library/plugin-display.php:811
 msgid "Obsessive Web Design &amp; Development"
-msgstr "Obsessiv webdesign &amp; Utvikling"
+msgstr "Obsessive Web Design &amp; Utvikling"
 
 #: library/plugin-display.php:162
 msgid "Optional markup/text to include before the submission form (leave blank to disable)"
@@ -968,6 +964,10 @@ msgstr "eller"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "eller ved å lage en"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "eller få 30 % rabatt med kode"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1118,9 +1118,9 @@ msgstr "Posttype for innsendte innlegg"
 msgid "Private Key"
 msgstr "Privat nøkkel"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Pro WordPress-plugins"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Pro Plugin Salg!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Gå tilbake til skjemaet"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Rich Text Editor"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Spar 30% på vår"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"

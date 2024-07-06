@@ -9,9 +9,9 @@ Author URI: https://plugin-planet.com/
 Donate link: https://monzillamedia.com/donate.html
 Contributors: specialk
 Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 20240516
-Version:    20240516
+Tested up to: 6.6
+Stable tag: 20240703
+Version:    20240703
 Requires PHP: 5.6.20
 Text Domain: usp
 Domain Path: /languages
@@ -727,11 +727,11 @@ USP uses the Chosen.js library to enhance the behavior and appearance of the Cat
 * The option "Multiple Categories" is enabled (for Category field)
 * The option "Use Existing Tags" is enabled (for Tag field)
 
-If you want to disable the fancy Chosen script for these fields, you can do so by adding the following code snippet to the plugin setting, "Custom Content":
+If you want to disable the fancy Chosen script for these fields, you can do so by adding the following code snippet to your WordPress site:
 
 `<script>var usp_disable_chosen = true;</script>`
 
-Save changes and done.
+Save changes and done. Also just FYI, here is a guide that explains [how to add custom code to WordPress](https://digwp.com/2022/02/custom-code-wordpress/).
 
 
 **How to change the language for Google reCaptcha?**
@@ -822,12 +822,13 @@ Links, tweets and likes also appreciated. Thanks! :)
 If you like USP, please take a moment to [give a 5-star rating](https://wordpress.org/support/plugin/user-submitted-posts/reviews/?rate=5#new-post). It helps to keep development and support going strong. Thank you!
 
 
-**20240516**
+**20240703**
 
-* Limits which tags can be included in custom settings
-* Fixes bug with automatic custom markup setting
-* Adds filter hook `usp_allowed_tags`
-* Tests on WordPress 6.5
+* Fixes bug with `dismiss_notice_link`
+* Updates plugin settings page
+* Updates all translation files
+* Updates default translation template
+* Tests on WordPress 6.6 (beta)
 
 
 Full changelog @ [https://plugin-planet.com/wp/changelog/user-submitted-posts.txt](https://plugin-planet.com/wp/changelog/user-submitted-posts.txt)

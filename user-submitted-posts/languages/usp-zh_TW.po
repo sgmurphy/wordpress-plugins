@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: zh-Hant\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "發佈內容後"
 msgid "An error occurred. Please go back and try again."
 msgstr "發生錯誤。請返回重試。"
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "和"
 
@@ -111,17 +111,9 @@ msgstr "反垃圾郵件問題"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "任何規模的捐贈都可以幫助我繼續開發這個免費外掛和其他很棒的 WordPress 資源。"
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "申請代碼"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "指定作者"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "結帳時。促銷將於 2024 年 5 月 25 日結束。"
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "自動顯示影像等。"
 msgid "Before post content"
 msgstr "發佈內容之前"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "圖書"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "使用優惠碼買一送一"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -229,7 +225,7 @@ msgstr "配置自訂字段 #1。"
 
 #: library/plugin-display.php:378
 msgid "Configure Custom Field #2."
-msgstr "配置自訂字段 #2。"
+msgstr "配置自訂字段#2。"
 
 #: library/plugin-display.php:252
 msgid "Configure email notifications for new submitted posts."
@@ -348,7 +344,7 @@ msgstr "禁用 必需"
 msgid "Disable this field"
 msgstr "禁用該字段"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "解僱"
 
@@ -646,6 +642,10 @@ msgstr "取得 USP 專業版"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "獲取 USP Pro 無限形式！"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "取得插件&nbsp;”"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "給它 5 星評級"
@@ -657,10 +657,6 @@ msgstr "在 WordPress.org 上給 USP 5 星評級"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "專業版"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "去專業吧！"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -823,7 +819,7 @@ msgstr "自訂欄位的標記 1. 您可以包含以下任何變數："
 
 #: library/plugin-display.php:642
 msgid "Markup for Custom Field 2. You may include any of the following variables:"
-msgstr "自訂欄位 2 的標記。您可以包含以下任何變數："
+msgstr "自訂欄位 2 的標記。"
 
 #: library/plugin-display.php:576
 msgid "Markup for each submitted image. You may include any of the following variables:"
@@ -968,6 +964,10 @@ msgstr "或者"
 #: library/support-panel.php:59
 msgid "or by making a"
 msgstr "或透過製作"
+
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "或使用代碼享 30% 折扣"
 
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
@@ -1118,9 +1118,9 @@ msgstr "已提交帖子的帖子類型"
 msgid "Private Key"
 msgstr "私鑰"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "專業 WordPress 插件"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "專業插件促銷！"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "回傳表格"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "富文本編輯器"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "節省 30%"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"

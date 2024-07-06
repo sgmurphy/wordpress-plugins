@@ -47,7 +47,8 @@ SPF_WPSP::createSection(
 			array(
 				'type'    => 'notice',
 				'class'   => 'replace-layout-pro-notice',
-				'content' => __( 'Want to Redesign or Replace the existing WooCommerce Shop/Archive, Category, Tag, and Search Pages layout with an attractive Woo Product Slider Layout? <a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'content' => sprintf( __( 'Want to Redesign or Replace the existing WooCommerce Shop/Archive, Category, Tag, and Search Pages layout with an attractive Woo Product Slider Layout? %1$sUpgrade To Pro!%2$s', 'woo-product-slider' ), '<a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 			),
 			array(
 				'type'           => 'subheading',

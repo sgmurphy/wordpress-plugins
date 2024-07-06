@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: it\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Dopo aver pubblicato il contenuto"
 msgid "An error occurred. Please go back and try again."
 msgstr "Si è verificato un errore. Per favore torna indietro e riprova."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "E"
 
@@ -111,17 +111,9 @@ msgstr "Domanda antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Qualsiasi donazione mi aiuta a continuare a sviluppare questo plugin gratuito e altre fantastiche risorse WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Applicare il codice"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Autore assegnato"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "alla cassa. La vendita termina il 25/5/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Visualizza automaticamente immagini e altro ancora."
 msgid "Before post content"
 msgstr "Prima di pubblicare contenuti"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "libri"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Acquista uno prendi uno GRATIS con il codice"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Disabilita Obbligatorio"
 msgid "Disable this field"
 msgstr "Disabilita questo campo"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Congedare"
 
@@ -488,7 +484,7 @@ msgstr "Markup e-mail"
 
 #: library/plugin-display.php:294
 msgid "email-alert options"
-msgstr "opzioni di avviso tramite posta elettronica"
+msgstr "opzioni di avviso via e-mail"
 
 #: library/plugin-settings.php:503
 msgid "Enable"
@@ -646,6 +642,10 @@ msgstr "Ottieni USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Ottieni USP Pro per moduli illimitati!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Ottieni&nbsp;plug-in&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "dagli una valutazione di 5 stelle"
@@ -657,10 +657,6 @@ msgstr "Assegna a USP una valutazione a 5 stelle su WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Diventa professionista"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Diventa professionista!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "O"
 msgid "or by making a"
 msgstr "o facendo a"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "oppure ottieni uno sconto del 30% con il codice"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Oppure, per procedere e ripristinare le opzioni predefinite del plug-in: seleziona la casella, salva le impostazioni, quindi disattiva/riattiva il plug-in."
@@ -1118,9 +1118,9 @@ msgstr "Tipo di post per i post inviati"
 msgid "Private Key"
 msgstr "Chiave privata"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Plugin WordPress professionali"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Vendita plugin Pro!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Ritorno alla forma"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Editor di testo ricco"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Risparmia il 30% sul nostro"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1652,7 +1648,7 @@ msgstr "Risorse del WP"
 
 #: library/plugin-display.php:684
 msgid "You also can display a simple form that enables users to log in, register, or reset their password."
-msgstr "È inoltre possibile visualizzare un modulo semplice che consente agli utenti di accedere, registrarsi o reimpostare la propria password."
+msgstr "È inoltre possibile visualizzare un semplice modulo che consente agli utenti di accedere, registrarsi o reimpostare la propria password."
 
 #: library/plugin-display.php:717
 msgid "You can customize using any of the follwing attributes:"

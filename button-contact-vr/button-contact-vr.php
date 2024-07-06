@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Button contact VR
  * Plugin URI: webvocuc.com
- * Description: Button contact call, zalo, whatsapp, messenger, popup form, popup showroom...
+ * Description: Button contact call, zalo, whatsapp, messenger, popup form,...
  * Version: 4.7
  * Author: VirusTran
  * Author URI: virustran

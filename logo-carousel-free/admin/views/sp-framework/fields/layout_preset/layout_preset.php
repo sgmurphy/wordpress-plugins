@@ -71,10 +71,18 @@ if ( ! class_exists( 'SPLC_FREE_Field_layout_preset' ) ) {
 					$active         = ( in_array( $key, $value ) ) ? ' splogocarousel--active' : '';
 					$checked        = ( in_array( $key, $value ) ) ? ' checked' : '';
 					$pro_only_class = isset( $option['pro_only'] ) ? ' sp-lc-pro-only' : '';
+
 					echo '<div class="splogocarousel--sibling splogocarousel--image' . esc_attr( $active ) . esc_attr( $pro_only_class ) . '">';
+					echo '<div class="splc-image-card">';
 					echo '<img src="' . esc_url( $option['image'] ) . '" alt="' . esc_attr( $option['text'] ) . '" />';
 					echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo '<span>' . esc_html( $option['text'] ) . '</span>';
+					if ( isset( $option['option_demo_url'] ) ) {
+						echo '<p>' . esc_html( $option['text'] ) . '<a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="splc-live-demo-icon" target="_blank"><i class="fa fa-external-link"></i></a></p>';
+					}
+					echo '</div>';
+					if ( isset( $option['text'] ) && ! isset( $option['option_demo_url'] ) ) {
+						echo '<p>' . esc_html( $option['text'] ) . '</p>';
+					}
 					echo '</div>';
 				}
 				echo '</div>';

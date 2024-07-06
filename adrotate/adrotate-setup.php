@@ -12,7 +12,6 @@
 /*-------------------------------------------------------------
  Name:      adrotate_activate
  Purpose:   Set up AdRotate on your current blog
- Since:		3.9.8
 -------------------------------------------------------------*/
 function adrotate_activate($network_wide) {
 	if(is_multisite() AND $network_wide) {
@@ -35,64 +34,60 @@ function adrotate_activate($network_wide) {
 /*-------------------------------------------------------------
  Name:      adrotate_activate_setup
  Purpose:   Creates database table if it doesnt exist
- Since:		0.1
 -------------------------------------------------------------*/
 function adrotate_activate_setup() {
 	global $wpdb, $userdata;
 
-	if(version_compare(PHP_VERSION, '5.6.0', '<') == -1) {
+	if(version_compare(PHP_VERSION, '7.4.0', '<')) {
 		deactivate_plugins('/adrotate/adrotate.php');
-		wp_die('AdRotate 5.0 and newer requires PHP 5.6 or higher. Your server reports version '.PHP_VERSION.'. Contact your hosting provider about upgrading your server!<br /><a href="'. get_option('siteurl').'/wp-admin/plugins.php">Back to dashboard</a>.');
+		wp_die('AdRotate 5.12 and newer requires PHP 7.4 or higher. Your server reports version '.PHP_VERSION.'. Contact your hosting provider about upgrading your server!<br /><a href="'. get_option('siteurl').'/wp-admin/plugins.php">Back to dashboard</a>.');
 		return;
 	} else {
 		if(!current_user_can('activate_plugins')) {
 			deactivate_plugins('/adrotate/adrotate.php');
 			wp_die('You do not have appropriate access to activate this plugin! Contact your administrator!<br /><a href="'. get_option('siteurl').'/wp-admin/plugins.php">Back to dashboard</a>.');
-			return;
-		} else {
-			// Set defaults for internal versions
-			add_option('adrotate_db_version', array('current' => ADROTATE_DB_VERSION, 'previous' => ''));
-			add_option('adrotate_version', array('current' => ADROTATE_VERSION, 'previous' => ''));
-
-			// Set default settings and values
-			add_option('adrotate_config', array());
-			add_option('adrotate_notifications', array());
-			add_option('adrotate_crawlers', array());
-			add_option('adrotate_advert_status', array('error' => 0, 'expired' => 0, 'expiressoon' => 0, 'expiresweek' => 0, 'normal' => 0, 'total' => 0));
-			add_option('adrotate_geo_required', 0);
-			add_option('adrotate_geo_requests', 0);
-			add_option('adrotate_dynamic_required', 0);
-			update_option('adrotate_hide_getpro', current_time('timestamp') + (14 * DAY_IN_SECONDS));
-			update_option('adrotate_hide_review', current_time('timestamp'));
-			update_option('adrotate_hide_birthday', current_time('timestamp'));
-
-			adrotate_database_install();
-			adrotate_dummy_data();
-			adrotate_check_config();
-			adrotate_check_schedules();
-			adrotate_disable_thirdparty();
-
-			// Set the capabilities for the administrator
-			$role = get_role('administrator');
-			$role->add_cap("adrotate_ad_manage");
-			$role->add_cap("adrotate_ad_delete");
-			$role->add_cap("adrotate_group_manage");
-			$role->add_cap("adrotate_group_delete");
-
-			// Switch additional roles off
-			remove_role('adrotate_advertiser');
-
-			// Attempt to make the some folders
-			if(!is_dir(WP_CONTENT_DIR.'/banners')) mkdir(WP_CONTENT_DIR.'/banners', 0755);
-			if(!is_dir(WP_CONTENT_DIR.'/reports')) mkdir(WP_CONTENT_DIR.'/reports', 0755);
 		}
+
+		// Set defaults for internal versions
+		add_option('adrotate_db_version', array('current' => ADROTATE_DB_VERSION, 'previous' => ''));
+		add_option('adrotate_version', array('current' => ADROTATE_VERSION, 'previous' => ''));
+
+		// Set default settings and values
+		add_option('adrotate_config', array());
+		add_option('adrotate_notifications', array());
+		add_option('adrotate_crawlers', array());
+		add_option('adrotate_advert_status', array('error' => 0, 'expired' => 0, 'expiressoon' => 0, 'expiresweek' => 0, 'normal' => 0, 'total' => 0));
+		add_option('adrotate_geo_required', 0);
+		add_option('adrotate_geo_requests', 0);
+		add_option('adrotate_dynamic_required', 0);
+		update_option('adrotate_hide_getpro', current_time('timestamp') + (14 * DAY_IN_SECONDS));
+		update_option('adrotate_hide_review', current_time('timestamp'));
+		update_option('adrotate_hide_birthday', current_time('timestamp'));
+
+		adrotate_database_install();
+		adrotate_dummy_data();
+		adrotate_check_config();
+		adrotate_check_cron_schedules();
+
+		// Set the capabilities for the administrator
+		$role = get_role('administrator');
+		$role->add_cap('adrotate_ad_manage');
+		$role->add_cap('adrotate_ad_delete');
+		$role->add_cap('adrotate_group_manage');
+		$role->add_cap('adrotate_group_delete');
+
+		// Switch additional roles off
+		remove_role('adrotate_advertiser');
+
+		// Attempt to make the some folders
+		if(!is_dir(WP_CONTENT_DIR.'/banners')) mkdir(WP_CONTENT_DIR.'/banners', 0755);
+		if(!is_dir(WP_CONTENT_DIR.'/reports')) mkdir(WP_CONTENT_DIR.'/reports', 0755);
 	}
 }
 
 /*-------------------------------------------------------------
  Name:      adrotate_deactivate
  Purpose:   Deactivate script
- Since:		2.0
 -------------------------------------------------------------*/
 function adrotate_deactivate($network_wide) {
 	global $wpdb;
@@ -115,7 +110,6 @@ function adrotate_deactivate($network_wide) {
 /*-------------------------------------------------------------
  Name:      adrotate_deactivate_setup
  Purpose:   Deactivate script
- Since:		2.0
 -------------------------------------------------------------*/
 function adrotate_deactivate_setup() {
 	global $wp_roles;
@@ -126,10 +120,10 @@ function adrotate_deactivate_setup() {
 	// Clean up capabilities from ALL users
 	$editable_roles = apply_filters('editable_roles', $wp_roles->roles);
 	foreach($editable_roles as $role => $details) {
-		$wp_roles->remove_cap($details['name'], "adrotate_ad_manage");
-		$wp_roles->remove_cap($details['name'], "adrotate_ad_delete");
-		$wp_roles->remove_cap($details['name'], "adrotate_group_manage");
-		$wp_roles->remove_cap($details['name'], "adrotate_group_delete");
+		$wp_roles->remove_cap($details['name'], 'adrotate_ad_manage');
+		$wp_roles->remove_cap($details['name'], 'adrotate_ad_delete');
+		$wp_roles->remove_cap($details['name'], 'adrotate_group_manage');
+		$wp_roles->remove_cap($details['name'], 'adrotate_group_delete');
 	}
 
 	// Clear out wp_cron
@@ -140,7 +134,6 @@ function adrotate_deactivate_setup() {
 /*-------------------------------------------------------------
  Name:      adrotate_uninstall
  Purpose:   Initiate uninstallation
- Since:		5.8.1
 -------------------------------------------------------------*/
 function adrotate_uninstall($network_wide) {
     if(is_multisite() AND $network_wide) {
@@ -165,7 +158,6 @@ function adrotate_uninstall($network_wide) {
 /*-------------------------------------------------------------
  Name:      adrotate_uninstall_setup
  Purpose:   Delete the entire AdRotate database and remove the options on uninstall
- Since:		5.8.1
 -------------------------------------------------------------*/
 function adrotate_uninstall_setup() {
 	global $wpdb, $wp_roles;
@@ -173,17 +165,17 @@ function adrotate_uninstall_setup() {
 	// Clean up capabilities from ALL users
 	$editable_roles = apply_filters('editable_roles', $wp_roles->roles);
 	foreach($editable_roles as $role => $details) {
-		$wp_roles->remove_cap($details['name'], "adrotate_ad_manage");
-		$wp_roles->remove_cap($details['name'], "adrotate_ad_delete");
-		$wp_roles->remove_cap($details['name'], "adrotate_group_manage");
-		$wp_roles->remove_cap($details['name'], "adrotate_group_delete");
+		$wp_roles->remove_cap($details['name'], 'adrotate_ad_manage');
+		$wp_roles->remove_cap($details['name'], 'adrotate_ad_delete');
+		$wp_roles->remove_cap($details['name'], 'adrotate_group_manage');
+		$wp_roles->remove_cap($details['name'], 'adrotate_group_delete');
 	}
 
 	// Clear out userroles
 	remove_role('adrotate_advertiser');
 
 	// Clear out wp_cron
-	wp_clear_scheduled_hook('adrotate_evaluate_ads');
+	wp_clear_scheduled_hook('adrotate_evaluate_ads'); // Obsolete in 5.13
 	wp_clear_scheduled_hook('adrotate_empty_trackerdata');
 
 	// Drop MySQL Tables
@@ -212,23 +204,18 @@ function adrotate_uninstall_setup() {
 	delete_option('adrotate_advert_status');
 	delete_option('adrotate_notifications');
 
-	// Cleanup user meta
+	// Clean up user meta
 	$wpdb->query("DELETE FROM `{$wpdb->prefix}usermeta` WHERE `meta_key` = 'adrotate_is_advertiser';");
 	$wpdb->query("DELETE FROM `{$wpdb->prefix}usermeta` WHERE `meta_key` = 'adrotate_notes';");
 	$wpdb->query("DELETE FROM `{$wpdb->prefix}usermeta` WHERE `meta_key` = 'adrotate_permissions';");
 }
 
 /*-------------------------------------------------------------
- Name:      adrotate_check_schedules
+ Name:      adrotate_check_cron_schedules
  Purpose:   Set or reset maintenance schedules for AdRotate
- Since:		3.12.5
 -------------------------------------------------------------*/
-function adrotate_check_schedules() {
+function adrotate_check_cron_schedules() {
 	$firstrun = adrotate_date_start('day');
-	if(!wp_next_scheduled('adrotate_evaluate_ads')) { // Periodically check ads
-		wp_schedule_event($firstrun + 900, 'twicedaily', 'adrotate_evaluate_ads');
-	}
-
 	if(!wp_next_scheduled('adrotate_empty_trackerdata')) { // Periodically clean trackerdata
 		wp_schedule_event($firstrun + 1800, 'twicedaily', 'adrotate_empty_trackerdata');
 	}
@@ -237,7 +224,6 @@ function adrotate_check_schedules() {
 /*-------------------------------------------------------------
  Name:      adrotate_check_config
  Purpose:   Update the options
- Since:		0.1
 -------------------------------------------------------------*/
 function adrotate_check_config() {
 
@@ -279,7 +265,6 @@ function adrotate_check_config() {
 	if(!isset($config['w3caching']) OR ($config['w3caching'] != 'Y' AND $config['w3caching'] != 'N')) $config['w3caching'] = 'N';
 	if(!isset($config['borlabscache']) OR ($config['borlabscache'] != 'Y' AND $config['borlabscache'] != 'N')) $config['borlabscache'] = 'N';
 	if(!isset($config['textwidget_shortcodes']) OR ($config['textwidget_shortcodes'] != 'Y' AND $config['textwidget_shortcodes'] != 'N')) $config['textwidget_shortcodes'] = 'N';
-	if(!isset($config['mobile_dynamic_mode']) OR ($config['mobile_dynamic_mode'] != 'Y' AND $config['mobile_dynamic_mode'] != 'N')) $config['mobile_dynamic_mode'] = 'Y';
 	if(!isset($config['jquery']) OR ($config['jquery'] != 'Y' AND $config['jquery'] != 'N')) $config['jquery'] = 'N';
 	if(!isset($config['jsfooter']) OR ($config['jsfooter'] != 'Y' AND $config['jsfooter'] != 'N')) $config['jsfooter'] = 'Y';
 	update_option('adrotate_config', $config);
@@ -291,14 +276,13 @@ function adrotate_check_config() {
 	if(!isset($notifications['notification_dash_soon']) OR ($notifications['notification_dash_soon'] != 'Y' AND $notifications['notification_dash_soon'] != 'N')) $notifications['notification_dash_soon'] = 'Y';
 	update_option('adrotate_notifications', $notifications);
 
-	if(!is_array($crawlers)) $crawlers = array("008", "bot", "crawler", "spider", "Accoona-AI-Agent", "alexa", "Arachmo", "B-l-i-t-z-B-O-T", "boitho.com-dc", "Cerberian Drtrs","Charlotte", "cosmos", "Covario IDS", "DataparkSearch","FindLinks", "Holmes", "htdig", "ia_archiver", "ichiro", "inktomi", "igdeSpyder", "L.webis", "Larbin", "LinkWalker", "lwp-trivial", "mabontland", "Mnogosearch", "mogimogi", "Morning Paper", "MVAClient", "NetResearchServer", "NewsGator", "NG-Search", "NutchCVS", "Nymesis", "oegp", "Orbiter", "Peew", "Pompos", "PostPost", "PycURL", "Qseero", "Radian6", "SBIder", "ScoutJet", "Scrubby", "SearchSight", "semanticdiscovery", "ShopWiki", "silk", "Snappy", "Sqworm", "StackRambler", "Teoma", "TinEye", "truwoGPS", "updated", "Vagabondo", "Vortex", "voyager", "VYU2", "webcollage", "Websquash.com", "wf84", "WomlpeFactory", "yacy", "Yahoo! Slurp", "Yahoo! Slurp China", "YahooSeeker", "YahooSeeker-Testing", "YandexImages", "Yeti", "yoogliFetchAgent", "Zao", "ZyBorg", "froogle","looksmart", "Firefly", "NationalDirectory", "Ask Jeeves", "TECNOSEEK", "InfoSeek", "Scooter", "appie", "WebBug", "Spade", "rabaz", "TechnoratiSnoop");
+	if(!is_array($crawlers)) $crawlers = array('008', 'bot', 'crawler', 'spider', 'Accoona-AI-Agent', 'alexa', 'Arachmo', 'B-l-i-t-z-B-O-T', 'boitho.com-dc', 'Cerberian Drtrs','Charlotte', 'cosmos', 'Covario IDS', 'DataparkSearch','FindLinks', 'Holmes', 'htdig', 'ia_archiver', 'ichiro', 'inktomi', 'igdeSpyder', 'L.webis', 'Larbin', 'LinkWalker', 'lwp-trivial', 'mabontland', 'Mnogosearch', 'mogimogi', 'Morning Paper', 'MVAClient', 'NetResearchServer', 'NewsGator', 'NG-Search', 'NutchCVS', 'Nymesis', 'oegp', 'Orbiter', 'Peew', 'Pompos', 'PostPost', 'PycURL', 'Qseero', 'Radian6', 'SBIder', 'ScoutJet', 'Scrubby', 'SearchSight', 'semanticdiscovery', 'ShopWiki', 'silk', 'Snappy', 'Sqworm', 'StackRambler', 'Teoma', 'TinEye', 'truwoGPS', 'updated', 'Vagabondo', 'Vortex', 'voyager', 'VYU2', 'webcollage', 'Websquash.com', 'wf84', 'WomlpeFactory', 'yacy', 'Yahoo! Slurp', 'Yahoo! Slurp China', 'YahooSeeker', 'YahooSeeker-Testing', 'YandexImages', 'Yeti', 'yoogliFetchAgent', 'Zao', 'ZyBorg', 'froogle','looksmart', 'Firefly', 'NationalDirectory', 'Ask Jeeves', 'TECNOSEEK', 'InfoSeek', 'Scooter', 'appie', 'WebBug', 'Spade', 'rabaz', 'TechnoratiSnoop');
 	update_option('adrotate_crawlers', $crawlers);
 }
 
 /*-------------------------------------------------------------
  Name:      adrotate_dummy_data
  Purpose:   Install dummy data in empty tables
- Since:		3.11.3
 -------------------------------------------------------------*/
 function adrotate_dummy_data() {
 	global $wpdb, $current_user;
@@ -337,7 +321,6 @@ function adrotate_dummy_data() {
 /*-------------------------------------------------------------
  Name:      adrotate_database_install
  Purpose:   Creates database table if it doesnt exist
- Since:		3.0.3
 -------------------------------------------------------------*/
 function adrotate_database_install() {
 	global $wpdb;
@@ -493,46 +476,33 @@ function adrotate_database_install() {
 
 /*-------------------------------------------------------------
  Name:      adrotate_finish_upgrade
- Purpose:   Finish update in the background
- Since:		5.12.4
+ Purpose:   Finish update in the background (Can also be triggered manually)
 -------------------------------------------------------------*/
 function adrotate_finish_upgrade() {
-	$adrotate_db_version = get_option("adrotate_db_version");
+	// Terminate if PHP is too old
+	if(version_compare(PHP_VERSION, '7.4.0', '<')) {
+		deactivate_plugins('/adrotate/adrotate.php');
+		wp_die("AdRotate 5.12 and newer requires PHP 7.4 or higher. Your server reports version ".PHP_VERSION.". Contact your hosting provider about upgrading your server!<br /><a href=\"". get_option('siteurl')."/wp-admin/plugins.php\">Back to dashboard</a>.");
+	}
+
+	$adrotate_db_version = get_option('adrotate_db_version');
 	if($adrotate_db_version['current'] < ADROTATE_DB_VERSION) {
 		adrotate_database_upgrade();
 	}
 
-	$adrotate_version = get_option("adrotate_version");
+	$adrotate_version = get_option('adrotate_version');
 	if($adrotate_version['current'] < ADROTATE_VERSION) {
 		adrotate_core_upgrade();
 	}
 
 	adrotate_check_config();
-	adrotate_check_schedules();
+	adrotate_check_cron_schedules();
 	adrotate_evaluate_ads();
-}
-
-/*-------------------------------------------------------------
- Name:      adrotate_check_upgrade
- Purpose:   Checks if the plugin needs to upgrade stuff upon activation
- Since:		3.7.3
--------------------------------------------------------------*/
-function adrotate_check_upgrade() {
-	global $wpdb;
-
-	if(version_compare(PHP_VERSION, '5.6.0', '<') == -1) {
-		deactivate_plugins(plugin_basename('adrotate/adrotate.php'));
-		wp_die('AdRotate 5.0 and newer requires PHP 5.6 or higher. Your server reports version '.PHP_VERSION.'. Contact your hosting provider about upgrading your server!<br /><a href="'. get_option('siteurl').'/wp-admin/plugins.php">Back to dashboard</a>.');
-	} else {
-		adrotate_finish_upgrade();
-		adrotate_return('adrotate-settings', 410);
-	}
 }
 
 /*-------------------------------------------------------------
  Name:      adrotate_database_upgrade
  Purpose:   Upgrades AdRotate where required
- Since:		3.0.3
 -------------------------------------------------------------*/
 function adrotate_database_upgrade() {
 	global $wpdb;
@@ -641,13 +611,12 @@ function adrotate_database_upgrade() {
 /*-------------------------------------------------------------
  Name:      adrotate_core_upgrade
  Purpose:   Upgrades AdRotate where required
- Since:		3.5
 -------------------------------------------------------------*/
 function adrotate_core_upgrade() {
 	global $wp_roles, $wpdb;
 
 	$firstrun = date('U') + HOUR_IN_SECONDS;
-	$adrotate_version = get_option("adrotate_version");
+	$adrotate_version = get_option('adrotate_version');
 	$adrotate_config = get_option('adrotate_config');
 
 	// 4.0
@@ -658,7 +627,7 @@ function adrotate_core_upgrade() {
 
 	// 4.1
 	if($adrotate_version['current'] < 389) {
-		adrotate_check_schedules();
+		adrotate_check_cron_schedules();
 	}
 
 	// 4.4
@@ -778,40 +747,18 @@ function adrotate_core_upgrade() {
 		delete_option('adrotate_hide_competition');
 	}
 
+	// 5.13
+	if($adrotate_version['current'] < 401) {
+		wp_clear_scheduled_hook('adrotate_evaluate_ads');
+	}
+
+
 	update_option("adrotate_version", array('current' => ADROTATE_VERSION, 'previous' => $adrotate_version['current']));
-}
-
-/*-------------------------------------------------------------
- Name:      adrotate_disable_thirdparty
- Purpose:   Disable 3rd party plugins that interfere with AdRotate functions or alter its dashboard
- Since:		5.8.14
--------------------------------------------------------------*/
-function adrotate_disable_thirdparty() {
-	require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
-	deactivate_plugins(array('/adrotate-extra-settings/adrotate-extra-settings.php', '/adrotate-email-add-on/adrotate-email-add-on.php', '/ad-builder-for-adrotate/ad-builder-for-adrotate.php', '/extended-adrotate-ad-placements/index.php'));
-}
-
-/*-------------------------------------------------------------
- Name:      adrotate_empty_trackerdata
- Purpose:   Removes old statistics
- Since:		4.0
--------------------------------------------------------------*/
-function adrotate_empty_trackerdata() {
-	global $wpdb;
-
-	$clicks = current_time('timestamp') - DAY_IN_SECONDS;
-	$impressions = current_time('timestamp') - HOUR_IN_SECONDS;
-
-	$wpdb->query("DELETE FROM `{$wpdb->prefix}adrotate_tracker` WHERE `timer` < {$impressions} AND `stat` = 'i';");
-	$wpdb->query("DELETE FROM `{$wpdb->prefix}adrotate_tracker` WHERE `timer` < {$clicks} AND `stat` = 'c';");
-	$wpdb->query("DELETE FROM `{$wpdb->prefix}adrotate_tracker` WHERE `ipaddress`  = 'unknown' OR `ipaddress`  = '';");
 }
 
 /*-------------------------------------------------------------
  Name:      adrotate_add_column
  Purpose:   Check if the column exists in the table
- Since:		3.0.3
 -------------------------------------------------------------*/
 function adrotate_add_column($table_name, $column_name, $attributes) {
 	global $wpdb;
@@ -832,7 +779,6 @@ function adrotate_add_column($table_name, $column_name, $attributes) {
 /*-------------------------------------------------------------
  Name:      adrotate_del_column
  Purpose:   Check if the column exists in the table remove if it does
- Since:		3.8.3.3
 -------------------------------------------------------------*/
 function adrotate_del_column($table_name, $column_name) {
 	global $wpdb;
@@ -855,7 +801,7 @@ function adrotate_update_completed($upgrader_object, $options) {
 	if($options['action'] == 'update' AND $options['type'] == 'plugin' AND isset($options['plugins'])) {
 		foreach($options['plugins'] as $plugin) {
 			if ($plugin == 'adrotate/adrotate.php') {
-				adrotate_check_upgrade();
+				adrotate_finish_upgrade();
 			}
 		}
 	}

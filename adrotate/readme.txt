@@ -1,14 +1,14 @@
 === AdRotate Banner Manager - The only ad manager you'll need ===
 Contributors: adegans
-Donate link: https://ajdg.solutions/go/donate/
+Donate link: https://www.arnan.me/donate.html
 Tags: ads, banner manager, adsense, advert, banners
 Requires at least: 4.9
 Requires PHP: 7.4
-Tested up to: 6.5.2
-Stable tag: 5.12.10
+Tested up to: 6.6
+Stable tag: 5.13
 License: GPLv3
 
-Advertising made easy. Manage your Google AdSense, Media.net, Amazon banners, ads.txt, ad rotation, AdSense header and footer code from 1 dashboard.
+Advertising made easy. Manage all your ads including Google Ads, Amazon banners and many more from your dashboard.
 
 == Description ==
 
@@ -92,7 +92,8 @@ Learn all about [AdRotate Banner Manager](https://ajdg.solutions/product/adrotat
 * Spanish
 * French
 * Italian
-* Other translations available are provided by the community
+* Polish
+* Brazilian Portuguese
 
 == Installation ==
 
@@ -105,6 +106,22 @@ For more detailed instructions check out the [installation steps](https://ajdg.s
 == Changelog ==
 
 For the full changelog check out the [development page](https://ajdg.solutions/support/adrotate-development/?mtm_campaign=adrotate&mtm_kwd=readme).
+
+= AdRotate 5.13 =
+* [new] Upload webp banner images through the media manager
+* [security] Low level users can no longer access the dashboard
+* [security] Low level users can no longer upload html/js/zip files
+* [security] DISALLOW_UNFILTERED_HTML required for Javascript ads
+* [security] DISALLOW_UNFILTERED_HTML required for group wrapper
+* [change] Previews disabled for some Javascript ads
+* [change] Separated most dashboard code from the front-end
+* [change] Updated and merged various functions
+* [update] Enabled/disabled icons now based on generated svg
+* [update] Consistent use of single and double-quotes
+* [i18n] Translations updated
+* [removed] Removed setting to disable dynamic groups
+* [removed] Welcome pointer when first activating the plugin
+* [removed] Lots of unused or outdated code
 
 = AdRotate 5.12.10 =
 * [i18n] Translations updated

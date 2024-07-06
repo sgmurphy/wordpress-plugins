@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, comment form, comment fields
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 7.6.20
+Stable tag: 7.6.21
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -189,10 +189,14 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 Please don't forget delete all caches and purge CDN after the update.
 
+= Comments - wpDiscuz v7.6.21 - 06.07.2024 =
+
+* Fixed: Regenerate comment attachments metadata via WP Cron
+
 = Comments - wpDiscuz v7.6.20 - 22.06.2024 =
 
 * Added: wpDiscuz custom ajax now supports media uploading
-* Added: New hooks (wpdiscuz_user_can_view_fields, wpdiscuz_user_can_view_field) to control custom fields visibility, check out [docs](https://wpdiscuz.com/docs/codex/filters/) for more info
+* Added: New hooks (wpdiscuz_user_can_view_fields, wpdiscuz_user_can_view_field) to control custom fields visibility, check out https://wpdiscuz.com/docs/codex/filters/ "docs" for more info
 * Added: A new option that will allow to control uploaded images thumbnails generation via WP cron job or immediately, default: enabled
 
 = Comments - wpDiscuz v7.6.19 - 08.05.2024 =

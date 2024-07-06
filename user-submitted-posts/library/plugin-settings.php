@@ -1211,14 +1211,12 @@ function usp_admin_notice() {
 			
 			?>
 			
-			<div class="notice notice-success">
+			<div class="notice notice-success notice-custom">
 				<p>
-					<strong><?php esc_html_e('Go Pro!', 'usp'); ?></strong> 
-					<?php esc_html_e('Save 30% on our', 'usp'); ?> 
-					<a target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/"><?php esc_html_e('Pro WordPress plugins', 'usp'); ?></a> 
-					<?php esc_html_e('and', 'usp'); ?> 
-					<a target="_blank" rel="noopener noreferrer" href="https://books.perishablepress.com/"><?php esc_html_e('books', 'usp'); ?></a>. 
-					<?php esc_html_e('Apply code', 'usp'); ?> <code>PLANET24</code> <?php esc_html_e('at checkout. Sale ends 5/25/24.', 'usp'); ?> 
+					<strong><?php esc_html_e('Pro Plugin Sale!', 'usp'); ?></strong> 
+					<?php esc_html_e('Buy one get one FREE with code', 'usp'); ?> <code>BOGO24</code>, 
+					<?php esc_html_e('or take 30% off with code', 'usp'); ?> <code>SUPER24</code> 
+					⭐ <a class="notice-link" target="_blank" rel="noopener noreferrer" href="https://plugin-planet.com/super-summer-sale/"><?php esc_html_e('Get&nbsp;plugins&nbsp;&raquo;', 'usp'); ?></a> 
 					<?php echo usp_dismiss_notice_link(); ?>
 				</p>
 			</div>
@@ -1292,13 +1290,13 @@ function usp_dismiss_notice_link() {
 	
 	$label = esc_html__('Dismiss', 'usp');
 	
-	echo '<a class="usp-dismiss-notice" href="'. esc_url($href) .'">'. esc_html($label) .'</a>';
+	return '<a class="usp-dismiss-notice" href="'. esc_url($href) .'">'. esc_html($label) .'</a>';
 	
 }
 
 function usp_check_date_expired() {
 	
-	$expires = apply_filters('usp_check_date_expired', '2024-05-25');
+	$expires = apply_filters('usp_check_date_expired', '2024-09-22');
 	
 	return (new DateTime() > new DateTime($expires)) ? true : false;
 	

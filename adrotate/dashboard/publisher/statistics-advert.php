@@ -36,53 +36,53 @@ $ctr_last_month = adrotate_ctr($stats_last_month['clicks'], $stats_last_month['i
 $ctr_this_month = adrotate_ctr($stats_this_month['clicks'], $stats_this_month['impressions']);
 $ctr_graph_month = adrotate_ctr($stats_graph_month['clicks'], $stats_graph_month['impressions']);
 ?>
-<h2><?php _e('Statistics for advert', 'adrotate'); ?> '<?php echo stripslashes($banner->title); ?>'</h2>
+<h2><?php _e("Statistics for advert", 'adrotate'); ?> '<?php echo stripslashes($banner->title); ?>'</h2>
 <table class="widefat" style="margin-top: .5em">
 
 	<thead>
   	<tr>
-        <th colspan="3"><center><strong><?php _e('Today', 'adrotate'); ?></strong></center></th>
+        <th colspan="3"><center><strong><?php _e("Today", 'adrotate'); ?></strong></center></th>
         <th>&nbsp;</th>
-		<th colspan="3"><center><strong><?php _e('All time', 'adrotate'); ?></strong></center></th>
+		<th colspan="3"><center><strong><?php _e("All time", 'adrotate'); ?></strong></center></th>
   	</tr>
 	</thead>
 	<tbody>
   	<tr>
-        <td width="16%"><div class="stats_large"><?php _e('Impressions', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_today['impressions']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('Clicks', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_today['clicks']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('CTR', 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_today.' %'; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Impressions", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_today['impressions']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Clicks", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_today['clicks']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("CTR", 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_today.' %'; ?></div></div></td>
 
          <td>&nbsp;</td>
  
-		 <td><div class="stats_large"><?php _e('Impressions', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats['impressions']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('Clicks', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats['clicks']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('CTR', 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr.' %'; ?></div></div></td>
+		 <td><div class="stats_large"><?php _e("Impressions", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats['impressions']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Clicks", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats['clicks']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("CTR", 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr.' %'; ?></div></div></td>
   	</tr>
 	</tbody>
 	<thead>
   	<tr>
-        <th colspan="3"><center><strong><?php _e('Last month', 'adrotate'); ?></strong></center></th>
+        <th colspan="3"><center><strong><?php _e("Last month", 'adrotate'); ?></strong></center></th>
         <th>&nbsp;</th>
-        <th colspan="3"><center><strong><?php _e('This month', 'adrotate'); ?></strong></center></th>
+        <th colspan="3"><center><strong><?php _e("This month", 'adrotate'); ?></strong></center></th>
   	</tr>
 	</thead>
 	<tbody>
   	<tr>
-        <td width="16%"><div class="stats_large"><?php _e('Impressions', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_last_month['impressions']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('Clicks', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_last_month['clicks']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('CTR', 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_last_month.' %'; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Impressions", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_last_month['impressions']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Clicks", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_last_month['clicks']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("CTR", 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_last_month.' %'; ?></div></div></td>
 
         <td>&nbsp;</td>
  
-        <td width="16%"><div class="stats_large"><?php _e('Impressions', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_this_month['impressions']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('Clicks', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_this_month['clicks']; ?></div></div></td>
-        <td width="16%"><div class="stats_large"><?php _e('CTR', 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_this_month.' %'; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Impressions", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_this_month['impressions']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("Clicks", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_this_month['clicks']; ?></div></div></td>
+        <td width="16%"><div class="stats_large"><?php _e("CTR", 'adrotate'); ?><br /><div class="number_large"><?php echo $ctr_this_month.' %'; ?></div></div></td>
   	</tr>
 	<tbody>
 
 </table>
 
-<h2><?php _e('Monthly overview of clicks and impressions', 'adrotate'); ?></h2>
+<h2><?php _e("Monthly overview of clicks and impressions", 'adrotate'); ?></h2>
 <form method="post" action="admin.php?page=adrotate-statistics&view=advert&id=<?php echo $id; ?>">
 <table class="widefat" style="margin-top: .5em">
 	<tbody>
@@ -95,9 +95,9 @@ $ctr_graph_month = adrotate_ctr($stats_graph_month['clicks'], $stats_graph_month
         </th>
 	</tr>
 	<tr>
-        <td width="33%"><div class="stats_large"><?php _e('Impressions', 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_graph_month['impressions']; ?></div></div></td>
-        <td width="33%"><div class="stats_large"><?php _e('Clicks', 'adrotate'); ?><br /><div class="number_large"><?php if($banner->tracker == "Y") { echo $stats_graph_month['clicks']; } else { echo '--'; } ?></div></div></td>
-        <td width="34%"><div class="stats_large"><?php _e('CTR', 'adrotate'); ?><br /><div class="number_large"><?php if($banner->tracker == "Y") { echo $ctr_graph_month.' %'; } else { echo '--'; } ?></div></div></td>
+        <td width="33%"><div class="stats_large"><?php _e("Impressions", 'adrotate'); ?><br /><div class="number_large"><?php echo $stats_graph_month['impressions']; ?></div></div></td>
+        <td width="33%"><div class="stats_large"><?php _e("Clicks", 'adrotate'); ?><br /><div class="number_large"><?php if($banner->tracker == 'Y') { echo $stats_graph_month['clicks']; } else { echo '--'; } ?></div></div></td>
+        <td width="34%"><div class="stats_large"><?php _e("CTR", 'adrotate'); ?><br /><div class="number_large"><?php if($banner->tracker == 'Y') { echo $ctr_graph_month.' %'; } else { echo '--'; } ?></div></div></td>
 	</tr>
 	</tbody>
 
@@ -105,5 +105,5 @@ $ctr_graph_month = adrotate_ctr($stats_graph_month['clicks'], $stats_graph_month
 </form>
 
 <p><center>
-	<em><small><strong><?php _e('Note:', 'adrotate'); ?></strong> <?php _e('All statistics are indicative. They do not nessesarily reflect results counted by other parties.', 'adrotate'); ?></small></em>
+	<em><small><strong><?php _e("Note:", 'adrotate'); ?></strong> <?php _e("All statistics are indicative. They do not nessesarily reflect results counted by other parties.", 'adrotate'); ?></small></em>
 </center></p>

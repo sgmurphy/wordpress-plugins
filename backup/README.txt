@@ -5,9 +5,9 @@ Author: JetBackup
 Donate link: https://www.jetbackup.com/jetbackup-for-wordpress
 Tags: backup, WordPress backup plugin, backup plugin, database backup, migrate, back up
 Requires at least: 6.0
-Tested up to: 6.4.2
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.0.9.11
+Stable tag: 2.0.9.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,182 +15,160 @@ JetBackup is the best backup choice for WordPress. Backup, restore, clone, dupli
 
 == Description ==
 
-JetBackup is the most complete backup and migration choice for WordPress. We offer the easiest way to <strong>backup</strong>, <strong>restore</strong> and <strong>migrate</strong> your WordPress based website or blog. You can backup/migrate your files, database or both.
+JetBackup is the most complete backup and migration choice for WordPress. We offer the easiest way to **backup**, **restore** and **migrate** your WordPress based website or blog. You can backup/migrate your files, database or both.
 
-<p>Download <strong>JetBackup premium versions</strong> here: <a  href="https://www.jetbackup.com/jetbackup-for-wordpress">https://www.jetbackup.com/jetbackup-for-wordpress</a>.</p>
+Download **JetBackup premium versions** here: [https://www.jetbackup.com/jetbackup-for-wordpress](https://www.jetbackup.com/jetbackup-for-wordpress).
 
-<h4>See JetBackup in Action Here!</h4>
+[See JetBackup in Action Here!](https://youtu.be/l7qj4Ff-V9I)
 
-https://youtu.be/Bd-lLd7Bbik
+### Free Features
+- **Unlimited backup** - create as many backups as you want, there is no limit
+- **Backup files, database or both** - you can backup your database or files, or both
+- **Unlimited restore** - restore any backup file whenever needed
+- **Download backup** - download your backup files for migration
+- **Import backup** - upload your backup file to restore it right away
+- **Backup cancellation** - cancel the backup process while it is not finished yet
+- **Manage backups** - delete backups, view backup or restore log
+- **Backup customization** - you choose which folders you want to backup
+- **Live progress** - precise progress of the current backup and restore process
+- **WordPress multisite/network support**
 
-<h4>Free Features</h4>
-<ul>
-<li><b>Unlimited backup</b> - create as many backups as you want, there is no limit</li>
-<li><b>Backup files, database or both</b> - you can backup your database or files, or both</li>
-<li><b>Unlimited restore</b> - restore any backup file whenever needed</li>
-<li><b>Download backup</b> - download your backup files for migration</li>
-<li><b>Import backup</b> - upload your backup file to restore it right away</li>
-<li><b>Backup cancellation</b> - cancel the backup process while it is not finished yet</li>
-<li><b>Manage backups</b> - delete backups, view backup or restore  log</li>
-<li><b>Backup customization</b> - you choose which folders you want to backup</li>
-<li><b>Live progress</b> - precise progress of the current backup and restore process</li>
-<li><b>WordPress multisite/network support</b></li>
-</ul>
+### Premium Features
+- **Website migration** - migrate your website from one hosting/domain to another one
+- **Scheduled backup** - set the frequency and time to perform automatic backup
+- **Multiple scheduled profiles** - schedule your database and files to backup with different frequencies
+- **Upload to FTP/SFTP** -  upload backups to FTP
+- **Import from FTP/SFTP** - import backups from FTP
+- **Upload to Dropbox** - upload backups to Dropbox
+- **Import from Dropbox** - import backups from Dropbox
+- **Upload to Google Drive** - upload backups to Google Drive
+- **Import from Google Drive** - import backups from Google Drive
+- **Upload to Amazon S3** - upload backups to Amazon S3
+- **Import from Amazon S3** - import backups from Amazon S3
+- **Mail notifications** - get notified when a backup or restore gets finished
+- **Customize backup naming** - specify your custom backup prefix
+- **Backup retention** - specify the number of backups you want to keep on your server
+- **Cloud path** - specify a custom cloud path where your backups should be kept
+- **Background mode** - perform backup in low priority mode
+- **Emergency support** - up to 24 hours
 
+### Documentation
+The **documentation** can be found here: [https://www.jetbackup.com/jetbackup-for-wordpress](https://www.jetbackup.com/jetbackup-for-wordpress).
 
-<h4>Premium Features</h4>
-<ul>
-<li><b>Website migration</b> - migrate your website from one hosting/domain to another one</li>
-<li><b>Scheduled backup</b> - set the frequency and time to perform automatic backup</li>
-<li><b>Multiple scheduled profiles</b> - schedule your database and files to backup with different frequencies</li>
-<li><b>Upload to FTP/SFTP</b> -  upload backups to FTP</li>
-<li><b>Import from FTP/SFTP</b> - import backups from FTP</li>
-<li><b>Upload to Dropbox</b> - upload backups to Dropbox</li>
-<li><b>Import from Dropbox</b> - import backups from Dropbox</li>
-<li><b>Upload to Google Drive</b> - upload backups to Google Drive</li>
-<li><b>Import from Google Drive</b> - import backups from Google Drive</li>
-<li><b>Upload to Amazon S3</b> - upload backups to Amazon S3</li>
-<li><b>Import from Amazon S3</b> - import backups from Amazon S3</li>
-<li><b>Mail notifications</b> - get notified when a backup or restore gets finished</li>
-<li><b>Customize backup naming</b> - specify your custom backup prefix</li>
-<li><b>Backup retention</b> - specify the number of backups you want to keep on your server</li>
-<li><b>Cloud path</b> - specify a custom cloud path where your backups should be kept</li>
-<li><b>Background mode</b> - perform backup in low priority mode</li>
-<li><b>Emergency support</b> - up to 24 hours</li>
-</ul>
+### This is how we operate
+- **No extra libraries required**
+- **Support of large websites**
+- **New archive format: faster and smaller than Zip or Tar**
+- **Works in low memory & shared hosting environments**
+- **Serialized data refactoring for proper migration**
 
+### Min. requirements
+- **JetBackup requires** requires - Minimum PHP 7.4, zlib, curl, Minimum WordPress 6
 
-<h4>Documentation</h4>
-The <strong>documentation</strong> can be found here: <a  href="https://www.jetbackup.com/jetbackup-for-wordpress">https://www.jetbackup.com/jetbackup-for-wordpress</a>.
+### Supported Hosting Providers
+- **AWS**
+- **Bluehost**
+- **Justhost**
+- **GoDaddy**
+- **DigitalOcean**
+- **Dreamhost**
+- **InMotion Hosting**
+- **Linode**
+- **Pagely**
+- **Pantheon**
+- **Siteground**
+- **Web Hosting Hub**
+- **1&1**
 
-<h4>This is how we operate</h4>
-<ul>
-<li><b>No extra libraries required</b></li>
-<li><b>Support of large websites</b></li>
-<li><b>New archive format: faster and smaller than Zip or Tar</b></li>
-<li><b>Works in low memory & shared hosting environments</b></li>
-<li><b>Serialized data refactoring for proper migration</b></li>
-</ul>
+And others like: AdroitSSD, Arvixe, BigRock, CDmon, Dinahosting, e4estore.com, Flywheel, GreenGeeks, Hawk Host, HostedSafe, iFastNet, KartHost, Lazylizard.net, Locaweb, Loopia, Media Temple, Midphase, NameCheap, Netorigin, OVH, Pressable, Skywalkr, VHosting Solution, WebFaction, WebHostingPad, WEBTEXTMEDIA, World4You, Hostgator
 
-<h4>Min. requirements</h4>
-<ul>
-<li><strong>JetBackup requires</strong> requires - Minimum PHP 7.4, zlib, curl, Minimum WordPress 6</li>
-</ul>
+More info at [https://www.jetbackup.com/jetbackup-for-wordpress](https://www.jetbackup.com/jetbackup-for-wordpress)
 
-<h4>Supported Hosting Providers</h4>
-<ul>
-<li><b>AWS</b></li>
-<li><b>Bluehost</b></li>
-<li><b>Justhost</b></li>
-<li><b>GoDaddy</b></li>
-<li><b>DigitalOcean</b></li>
-<li><b>Dreamhost</b></li>
-<li><b>InMotion Hosting</b></li>
-<li><b>Linode</b></li>
-<li><b>Pagely</b></li>
-<li><b>Pantheon</b></li>
-<li><b>Siteground</b></li>
-<li><b>Web Hosting Hub</b></li>
-<li><b>1&1</b></li>
-</ul>
-
-<p>And others like: AdroitSSD, Arvixe, BigRock, CDmon, Dinahosting, e4estore.com, Flywheel, GreenGeeks, Hawk Host, HostedSafe, iFastNet, KartHost, Lazylizard.net, Locaweb, Loopia, Media Temple, Midphase, NameCheap, Netorigin, OVH, Pressable, Skywalkr, VHosting Solution, WebFaction, WebHostingPad, WEBTEXTMEDIA, World4You, Hostgator</p>
-
-
-<p>More info at <a href="https://www.jetbackup.com/jetbackup-for-wordpress">https://www.jetbackup.com/jetbackup-for-wordpress</a></p>
-
-<h4>Support</h4>
-<p><a href="https://www.jetbackup.com/jetbackup-for-wordpress/support">https://www.jetbackup.com/jetbackup-for-wordpress/support</a></p>
+### Support
+[https://www.jetbackup.com/jetbackup-for-wordpress/support](https://www.jetbackup.com/jetbackup-for-wordpress/support)
 
 == Installation ==
 
 Installation:
 
-<ul>
-<li>Instruction for <strong>JetBackup free version</strong> find <a href="https://www.jetbackup.com/jetbackup-for-wordpress/doc/install-jetbackup-free">here</a></li>
-<li>Instruction for <strong>JetBackup premium version</strong> find <a  href="https://www.jetbackup.com/jetbackup-for-wordpress/doc/install-jetbackup-pro">here</a></li>
-</ul>
+- Instruction for **JetBackup free version** find [here](https://www.jetbackup.com/jetbackup-for-wordpress/doc/install-jetbackup-free)
+- Instruction for **JetBackup premium version** find [here](https://www.jetbackup.com/jetbackup-for-wordpress/doc/install-jetbackup-pro)
 
 == Frequently Asked Questions ==
 
 = Why is important to backup my website? =
-
 The majority of people value their digital content, but are still not backing it up regularly. More than 50% of adults, personally have and/or know someone who has lost files.
 
 The fact is that, even though today's technology is extraordinarily advanced and dependable, it can still fall subject to failure. So unless you have a routine backup solution, you're at risk of losing all of your data at a moment's notice.
 
 = How often should a backup be created? =
-
 It depends on how often data gets updated on your website. Maybe daily backups are not necessary and maybe monthly backups are not good enough, so the best way is measuring the amount of data that gets changed in your particular case.
 
 = What is included in the basic (free) plan? =
-
 JetBackup gives you the ability to backup or restore your website as many times as you want. You can also download your backups and import them in other websites where JetBackup is installed and running.
 
 = Why should I purchase a JetBackup premium version? =
-
 Although JetBackup gives you the ability to backup and restore your website as many times as you want, your backups will only reside on your server. With our premium plans you can upload your backups to the cloud of your preference, schedule your backups, receive notifications, and many other features.
 
 That's not all, if you are a premium user, you will receive 15-minute response time priority support by our industry leading support team 24/7/365.
 
-<a href="https://www.jetbackup.com/jetbackup-for-wordpress">JetBackup premium versions</a>
+[JetBackup premium versions](https://www.jetbackup.com/jetbackup-for-wordpress)
 
 = What other platforms has JetBackup planned to support? =
-
 We currently support WordPress and Magento platforms, but with the help of our flexible and universal backup technology, multi-platform coverage is just around the corner. Prestashop and Joomla are next.
 
 = What are the minimum requirements for installing JetBackup? =
-
 Your hosting/server must have installed PHP 7.4 or higher with zlib library enabled.
 
 Note: depending on the product you are using, there more be more requirements, that's why we recommend you to check our products section for more details.
 
 = What are the limitations of the backup created by JetBackup? =
-
 Of course there is a limit regarding the size of the archive, but practically it is unreachable. We use our own SGBP archive format which compared to Zip doesn't limit you to 4GB archive/file size or 65k of number of files.
 
 It doesn't matter if you are running 32-bit or 64-bit OS, if it's Linux, Windows or Mac, everything is the same.
 
 = Something is not working, what should I do? =
-
 No software is perfect and we are not the exception. There are tons of different servers and configurations and something may go wrong in one of them.
 
-When you are facing an issue of any kind with any of our products, the first thing to do is <a href="https://www.jetbackup.com/jetbackup-for-wordpress/support">contacting us</a>. We are here to help you, give you tips, advices and even create fixes/patches or features whenever needed.
+When you are facing an issue of any kind with any of our products, the first thing to do is [contacting us](https://www.jetbackup.com/jetbackup-for-wordpress/support). We are here to help you, give you tips, advices and even create fixes/patches or features whenever needed.
 
 = How can I extract an SGBP file? =
-
 SGBP is our own archive format, therefore currently there is no software that can extract it.
 
 = Is it possible to migrate website using JetBackup? =
-
 Although we don't offer a server migration feature on our free version, JetBackup creates an exact snapshot of the current state of your website and whenever you restore it, the exact same state gets restored. So practically, you can migrate your website with just downloading and importing your backup.
 
 == Screenshots ==
 
-1.  Customized Backups
-2.  Advanced Scheduling
-3.  Cloud Destinations
-4.  Smart Migration
-5.  Mail Notifications
-6.  Reliable Restores
+1. Customized Backups
+2. Advanced Scheduling
+3. Cloud Destinations
+4. Smart Migration
+5. Mail Notifications
+6. Reliable Restores
 
 == Changelog ==
 
-= 2.0.9.11 =
+= 2.0.9.14 =
+* Installation of the plugin is now blocked if the PHP version falls below the minimum required.
+* Resolved an issue related to the syntax for exclusions.
+* Updated the method for verifying the settings of alternative binary locations.
+* Enhanced the validation process for tokens used in the web scheduler.
+* The timing for the internal reloader now aligns with the PHP execution time.
+* Addressed compatibility problems with IIS.
+* Prevents the addition of multiple schedules that would conflict with each other's retention periods.
 
+= 2.0.9.11 =
 * Enhanced security by ensuring appropriate permissions are set for the wp-config.php file.
 * Implemented minor CSS adjustments for improved visual consistency and user experience.
 
 = 2.0.9.9 =
-
 * Implemented a randomized hash addition to both the backup folder and file names, enhancing overall security.
 
 = 2.0.9.7 =
-
 * Fixed unexpected behavior in the "Clear Actions" hook that caused settings to be reset.
 
 = 2.0.9.6 =
-
 * Resolved a database restoration failure occurring under specific conditions.
 * Updated the core exclusion list for enhanced performance.
 * Ensured compatibility with WordPress version 6.4.2.
@@ -207,11 +185,10 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Adjusted system behavior to prevent unintended schedule triggers in the free tier.
 
 = 2.0.8.7 =
-
 * Fixed an issue with remote backups cleanup during retention check
 * Added an option to override/disable PHP ini_set memory limit directive
 * Fixed an issue with local backup not being deleted after uploaded to remote destination
-* Fixed an issue with cron job looping if the backup job running time takes less then 60 seconds
+* Fixed an issue with cron job looping if the backup job running time takes less than 60 seconds
 * Display a notice if the local PHP version not equals to PHP CLI
 * Improved handling of the json state file
 * Fixed an issue with BOX Storage provider directory listing
@@ -221,7 +198,6 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Use UTC time zone only across all scheduled tasks
 
 = 2.0.7.5 =
-
 * Add php cli & crontab contents to system info page
 * Fixed some PHP 8.1 & 8.2 warning and notices
 * Prevent DB/Domain migration if plugin is in the free tier (causes issues)
@@ -233,10 +209,9 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Fixed background cron protection inside Windows server environment
 * Improved restore functionality when migrating domains
 * Prevent restoring sg_action table
-* Fixed an issue with scheduling when backup job runs less then a minute
+* Fixed an issue with scheduling when backup job runs less than a minute
 
 = 2.0.6 =
-
 * Fixed some issues with background cron jobs installations
 * Added an option to clear the actions table from the settings page
 * Make sure escapeshellcmd function exists before trying to use it
@@ -245,7 +220,6 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * WordPress 6.3 compatibility check
 
 = 2.0.5.1 =
-
 * Show last lines of the backup log in the GUI
 * Disabled server load limit
 * Fixed compatibility issue with update-checker-plugin causing fatal error in some edge cases
@@ -259,7 +233,6 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Added Extract feature to be able to extract backups instead of restoring.
 
 = 2.0.4 =
-
 * Improvements for 'awake' functionality when backup/restore runs in chunks & reloads
 * Updated plugin update checker to the new library
 * Fix licensing issues when using subdomains & HTTPS
@@ -277,7 +250,6 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Fixed a security issue with the restore procedure
 
 = 2.0.3 =
-
 * Fix a restore issue with db prefix (doesn't change in if different environment)
 * Restore finalize action returns fatal error in some cases
 * DB is not restored if archive name is changed (sgbp)
@@ -309,10 +281,10 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Improvement of backup and restore speed
 
 = 1.6.15 =
-* Removed subsciber popup
+* Removed subscriber popup
 
 = 1.6.14 =
-* Improvement of ‚ÄúReadme‚Äù content
+* Improvement of “Readme” content
 * Improvement of inputs: inputs were sanitized
 * Improvement of escaped variables that were being printed
 * Improvement of files: old versions were removed
@@ -321,7 +293,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 = 1.6.13 =
 * Improvement of FTP/SFTP/FTP SSL: Information is encrypted now in more secure way
 * Bug fixed related to Google Drive connection and backup to cloud
-* Bug fixed related to icons in ‚ÄúWhy upgrade?‚Äù pag
+* Bug fixed related to icons in “Why upgrade?” page
 
 = 1.6.12 =
 * Improvement of libraries: Some javascript and css libraries are updated to be more secure
@@ -367,7 +339,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Improvement of banner for marketing purposes
 
 = 1.6.8.1 =
-* Bug fixed related to scheduled backups that didn‚Äôt run because of the path
+* Bug fixed related to scheduled backups that didn’t run because of the path
 
 = 1.6.8 =
 * Improvement of silent restoration
@@ -408,7 +380,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * New feature: New cloud integration with "Pcloud" is added
 * New feature: New cloud integration with "Box" is added
 * Bug fixed related to System Info and Services tabs
-* Bug fixed related to ‚ÄúMigrate‚Äù button, which became inactive after some activity
+* Bug fixed related to “Migrate” button, which became inactive after some activity
 
 = 1.6.3 =
 * Bug fixed related to reloads were not working if alternate cron was on
@@ -461,7 +433,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 
 = 1.5.1 =
 * Improvement of menu section, video tutorials are added in the admin panel
-* Improvement of ‚ÄúSettings‚Äù section, info signs are added to make everything more understandable
+* Improvement of “Settings” section, info signs are added to make everything more understandable
 * Bug fixed related to dashboard statistics
 * Fixed PHP notices
 
@@ -705,7 +677,7 @@ Now, when pressing on the button only one backup will be implemented.
 = 1.1.58 =
 * External restore detection improved
 * Automatic update checker bug fixed
-* Option added to let custerm show or hide backup statistics
+* Option added to let customer show or hide backup statistics
 * Archive restoration bug fixed
 
 = 1.1.57 =
@@ -738,11 +710,11 @@ Now, when pressing on the button only one backup will be implemented.
 
 = 1.1.52 =
 * External restoration related bugs resolved
-* Migration UI imrpoved
-* Skip JetBackup tables and don‚Äôt run migration on them
-* ‚Äúwp-content‚Äù directory detection related bug resolved
+* Migration UI improved
+* Skip JetBackup tables and don’t run migration on them
+* “wp-content” directory detection related bug resolved
 * OneDrive related problem was resolved
-* New option added in the settings to specify number of raws dumped at once
+* New option added in the settings to specify number of rows dumped at once
 
 = 1.1.51 =
 * Reloading improved
@@ -799,7 +771,7 @@ Now, when pressing on the button only one backup will be implemented.
 * Security bug fixes
 * Cloud destination folder saving issues
 * Proper PHP version validation
-* Fixed bug that reseted db after every update
+* Fixed bug that reset DB after every update
 * Removed restore method from backup log
 
 = 1.1.40 =
@@ -824,13 +796,13 @@ Now, when pressing on the button only one backup will be implemented.
 = 1.1.35 =
 * External restore bug fixes
 * Redirect bug fixed
-* Databes backup reloading bug fixed
+* Database backup reloading bug fixed
 
 = 1.1.33 =
 * Secure and reliable restoration
 * Charset and collate migration
 * LightSpeed web server support
-* Active user won‚Äôt be dropped after restoration
+* Active user won’t be dropped after restoration
 * Plugin update logic was improved
 * The issue was resolved for cloud upload
 * Other security fixes and optimizations
@@ -840,13 +812,13 @@ Now, when pressing on the button only one backup will be implemented.
 
 = 1.1.31 =
 * Code cleanup
-* Reloading implimitation during database backup
+* Reloading implementation during database backup
 
 = 1.1.30 =
 * Code cleanup
 * Mail notification bug fixed
 * Mail notification message improved
-* Reloading implimitation during restore
+* Reloading implementation during restore
 
 = 1.1.29 =
 * Reloading logic changed
@@ -867,7 +839,7 @@ Now, when pressing on the button only one backup will be implemented.
 * Bug fixing
 
 = 1.1.23 =
-* Backward capability
+* Backward compatibility
 
 = 1.1.22 =
 * Minor bug fixed
@@ -1003,88 +975,76 @@ Now, when pressing on the button only one backup will be implemented.
 JetBackup v.1.1.65
 
 == Features ==
-<h4>One Click Backup</h4>
-<p>Perform full or custom backups of your site with just one click. We don't have issues with large files or databases thanks to our own archive format.</p>
+### One Click Backup
+Perform full or custom backups of your site with just one click. We don't have issues with large files or databases thanks to our own archive format.
 
-<h4>Reliable Restore</h4>
-<p>No backup is good if it cannot be restored. Our software has been tested in dozens of different environments and restoration is just as good as backup.</p>
+### Reliable Restore
+No backup is good if it cannot be restored. Our software has been tested in dozens of different environments and restoration is just as good as backup.
 
-<h4>Download/Upload</h4>
-<p>You can download any of your existing backups whenever you want. Also, you are able to import backups by using our wizard or just copying the files to the specified folder.</p>
+### Download/Upload
+You can download any of your existing backups whenever you want. Also, you are able to import backups by using our wizard or just copying the files to the specified folder.
 
-<h4>Upload to Cloud (PRO)</h4>
-<p>We provide an easy and reliable way to secure your irreplaceable documents and media: automatically upload them to any cloud of your choice.</p>
+### Upload to Cloud (PRO)
+We provide an easy and reliable way to secure your irreplaceable documents and media: automatically upload them to any cloud of your choice.
 
-<h4>Automatization (PRO)</h4>
-<p>Schedule your backup tasks to be performed automatically by your server. Your scheduled backups can also be customized and get uploaded to clouds.</p>
+### Automatization (PRO)
+Schedule your backup tasks to be performed automatically by your server. Your scheduled backups can also be customized and get uploaded to clouds.
 
-<h4>Customization (PRO)</h4>
-<p>Any backup task can be fully customized. You choose the files/folders to back up, whether to backup database, clouds to upload to and more.</p>
+### Customization (PRO)
+Any backup task can be fully customized. You choose the files/folders to back up, whether to backup database, clouds to upload to and more.
 
-<h4>Background Mode (PRO)</h4>
-<p>When background mode is active, your backup/restore process will consume less CPU resources and therefore allow them to be used by other processes.</p>
+### Background Mode (PRO)
+When background mode is active, your backup/restore process will consume less CPU resources and therefore allow them to be used by other processes.
 
-<h4>Mail Notifications (PRO)</h4>
-<p>By just entering your e-mail, receive notifications whenever a backup or restore process gets finished. You will be notified on both cases, success or failure.</p>
+### Mail Notifications (PRO)
+By just entering your e-mail, receive notifications whenever a backup or restore process gets finished. You will be notified on both cases, success or failure.
 
 == Documentation ==
-<p><strong>Perform manual backup</strong><br>
-If you want to create a backup manually, follow these steps:</p>
+**Perform manual backup**
+If you want to create a backup manually, follow these steps:
 
-<p>
-1. Click on the green "Perform manual backup" button.<br>
-2. Select "Full backup" if you want to perform a full backup of your website (files and database), otherwise select "Custom backup" to be able to choose what you really want to backup.<br>
-3. (PRO) Select "Upload to cloud" option if you want to upload your backup to any of your already connected clouds. Note: "Background mode" option will give you the possibility to backup in a low priority mode, consuming fewer resources from your system.<br>
-4. Click on the "Backup" button to start the backup.<br>
+1. Click on the green "Perform manual backup" button.
+2. Select "Full backup" if you want to perform a full backup of your website (files and database), otherwise select "Custom backup" to be able to choose what you really want to backup.
+3. (PRO) Select "Upload to cloud" option if you want to upload your backup to any of your already connected clouds. Note: "Background mode" option will give you the possibility to backup in a low priority mode, consuming fewer resources from your system.
+4. Click on the "Backup" button to start the backup.
 5. You will be able to see the progress of each step and cancel the backup if needed.
-</p>
 
-<p><strong>Import backups from local computer</strong><br>
-If you have an SGBP file in your PC and you want to import it into your website, follow these steps:</p>
+**Import backups from local computer**
+If you have an SGBP file in your PC and you want to import it into your website, follow these steps:
 
-<p>
-1. Click on the blue "Import" button.<br>
-2. Browse the file in your local computer. There are 2 things to notice here: a) the maximum upload size will vary depending on the server your website is running on, b) a path is indicated where you can easily upload your file using an FTP client of your preference (the file will be automatically detected).<br>
+1. Click on the blue "Import" button.
+2. Browse the file in your local computer. There are 2 things to notice here: a) the maximum upload size will vary depending on the server your website is running on, b) a path is indicated where you can easily upload your file using an FTP client of your preference (the file will be automatically detected).
 3. Press the "Upload" button and wait for your file to be uploaded.
-</p>
 
-<p><strong>Restore</strong><br>
-Restoring is as easy as backing up. Just follow these instructions:</p>
+**Restore**
+Restoring is as easy as backing up. Just follow these instructions:
 
-<p>
-1. Localize the backup file you want to restore from.<br>
-2. Click on the green restore button.<br>
+1. Localize the backup file you want to restore from.
+2. Click on the green restore button.
 3. After confirmation, the restore progress will start. Note: it is highly recommended that you don't do anything else during the restore progress, because the site is in alteration process and any secondary action can affect its correct restoration.
-</p>
 
-<p><strong>Authorize and connect to Google Drive or Dropbox (PRO)</strong><br>
-If you want to be able to upload backups to cloud, you must authorize first:</p>
+**Authorize and connect to Google Drive or Dropbox (PRO)**
+If you want to be able to upload backups to cloud, you must authorize first:
 
-<p>
-1. Go to the "Cloud" section.<br>
-2. Turn on the switch of the cloud you want to enable.<br>
-3. You will be redirected to the website in question (where you can grant access to your account).<br>
-4. After that, you will be redirected back to your website, where the switch has turned on.<br>
+1. Go to the "Cloud" section.
+2. Turn on the switch of the cloud you want to enable.
+3. You will be redirected to the website in question (where you can grant access to your account).
+4. After that, you will be redirected back to your website, where the switch has turned on.
 5. Starting from now, you will be able to choose this cloud as an upload destination of your backup files. Note: you can change the name of the destination folder at the top of the "Cloud" section.
-</p>
 
-<p><strong>Authorize and connect to FTP (PRO)</strong><br>
-Follow these instructions if you want to be able to upload your backups directly to your FTP server:</p>
+**Authorize and connect to FTP (PRO)**
+Follow these instructions if you want to be able to upload your backups directly to your FTP server:
 
-<p>
-1. Once in the "Cloud" section, turn on the switch next to FTP.<br>
-2. Fill in the required data to be able to connect to your FTP server.<br>
+1. Once in the "Cloud" section, turn on the switch next to FTP.
+2. Fill in the required data to be able to connect to your FTP server.
 3. Click on the "Save" button. A connection attempt will be made, and after success, the popup will close and the switch will turn on.
-</p>
 
-<p><strong>Automatization of backups (PRO)</strong><br>
-If you want to schedule your backups, these are the steps to follow:</p>
+**Automatization of backups (PRO)**
+If you want to schedule your backups, these are the steps to follow:
 
-<p>
-1. Go to the "Schedule" section. Once there, you will see that the switch is turned off.<br>
-2. Turn on the switch next to "Scheduled backup".<br>
-3. Select the frequency and time you desire. The other options are exactly the same as in manual backup popup.<br>
+1. Go to the "Schedule" section. Once there, you will see that the switch is turned off.
+2. Turn on the switch next to "Scheduled backup".
+3. Select the frequency and time you desire. The other options are exactly the same as in manual backup popup.
 4. Hit the "Save" button and you are ready to go. Note: please make sure that cron is enabled and working on your server, otherwise scheduled backups won't work.
-</p>
 
-<p><strong><a href="https://www.jetbackup.com/jetbackup-for-wordpress/doc">Full documentation</a></strong></p>
+[Full documentation](https://www.jetbackup.com/jetbackup-for-wordpress/doc)

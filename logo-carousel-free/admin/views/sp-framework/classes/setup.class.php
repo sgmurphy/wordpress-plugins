@@ -522,7 +522,8 @@ if ( ! class_exists( 'SPLC' ) ) {
 		 * @return void
 		 */
 		public static function add_admin_footer_text() {
-			$default = 'Enjoying <b>Logo Carousel?</b> Please rate us <span class="sp-logo-carousel-footer-text-star">★★★★★</span> on <a href="https://wordpress.org/support/plugin/logo-carousel-free/reviews/?filter=5" target="_blank"> WordPress.org</a>. Your positive feedback will help us grow more. Thank you! 😊';
+			/* translators: %1$s: bold tag start %2$s: bold tag end %3$s: span tag start %4$s: span tag end %5$s: link tag start %6$s: link tag end */
+			$default = sprintf( __( 'Enjoying %1$sLogo Carousel%2$s? Please rate us %3$s★★★★★%4$s on %5$s WordPress.org%6$s. Your positive feedback will help us grow more. Thank you! 😊', 'logo-carousel-free' ), '<b>', '</b>', '<span class="sp-logo-carousel-footer-text-star">', '</span>', '<a href="https://wordpress.org/support/plugin/logo-carousel-free/reviews/?filter=5" target="_blank">', '</a>' );
 			echo wp_kses_post( $default );
 		}
 

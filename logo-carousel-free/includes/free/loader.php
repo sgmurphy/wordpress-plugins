@@ -46,7 +46,7 @@ class SPLC_Free_Loader {
 	 *
 	 * @var array
 	 */
-	protected static $not_show_plugin_list = array( 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp' );
+	protected static $not_show_plugin_list = array( 'logo-carousel-free', 'aitasi-coming-soon', 'latest-posts', 'widget-post-slider', 'easy-lightbox-wp' );
 
 	/**
 	 * Free Loader constructor
@@ -496,7 +496,7 @@ class SPLC_Free_Loader {
 									<span class='sp-logo-carousel-pro sp-logo-carousel-check-icon'></span>
 								</li>
 								<li class='sp-logo-carousel-body'>
-									<span class='sp-logo-carousel-title'>Carousel Modes (Ticker and Center) <i class="sp-logo-carousel-hot">Hot</i> </span>
+									<span class='sp-logo-carousel-title'>Carousel Styles (Ticker and Center) <i class="sp-logo-carousel-hot">Hot</i> </span>
 									<span class='sp-logo-carousel-free sp-logo-carousel-close-icon'></span>
 									<span class='sp-logo-carousel-pro sp-logo-carousel-check-icon'></span>
 								</li>

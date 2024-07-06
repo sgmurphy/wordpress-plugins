@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: es\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Después del contenido de la publicación"
 msgid "An error occurred. Please go back and try again."
 msgstr "Ocurrió un error. Por favor, regrese y vuelva a intentarlo."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "y"
 
@@ -111,17 +111,9 @@ msgstr "Pregunta antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Una donación de cualquier tamaño me ayuda a continuar desarrollando este complemento gratuito y otros increíbles recursos de WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Aplica el código"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Autor asignado"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "en caja. La venta finaliza el 25/05/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Muestra automáticamente imágenes y más."
 msgid "Before post content"
 msgstr "Antes de publicar contenido"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "libros"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Compra uno y llévate otro GRATIS con el código"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Deshabilitar requerido"
 msgid "Disable this field"
 msgstr "Deshabilitar este campo"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Despedir"
 
@@ -646,6 +642,10 @@ msgstr "Obtenga USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "¡Obtenga USP Pro para formularios ilimitados!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Obtener complementos&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "dale una calificación de 5 estrellas"
@@ -657,10 +657,6 @@ msgstr "Otorgue a USP una calificación de 5 estrellas en WordPress.org"
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Hazte profesional"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "¡Vuélvete profesional!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "o"
 msgid "or by making a"
 msgstr "o haciendo un"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "o obtén un 30% de descuento con el código"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "O, para continuar y restaurar las opciones predeterminadas del complemento: marque la casilla, guarde su configuración y luego desactive/reactive el complemento."
@@ -1118,9 +1118,9 @@ msgstr "Tipo de publicación para publicaciones enviadas"
 msgid "Private Key"
 msgstr "Llave privada"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Complementos profesionales de WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "¡Oferta de complementos profesionales!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Volver al formulario"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Editor de texto enriquecido"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Ahorra 30% en nuestro"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"

@@ -1988,7 +1988,7 @@
 		return this.each(function () {
 
 			var $this = $(this),
-				$siblings = $this.find('.splogocarousel--sibling'),
+				$siblings = $this.find('.splogocarousel--sibling:not(.sp-lc-pro-only)'),
 				multiple = $this.data('multiple') || false;
 
 			$siblings.on('click', function () {
@@ -2059,6 +2059,7 @@
 					}
 				},
 			});
+
 			// Event delegation to handle tooltip removal when the cursor leaves the tooltip itself.
 			$('body').on('mouseleave', '.splogocarousel-tooltip', function () {
 				if ($tooltip !== undefined) {
@@ -2585,6 +2586,9 @@
 	$('.lcpro_setting_options .splogocarousel-save').on('click',function (e) {
 		e.preventDefault();
 		$(this).css({ "background-color": "#C5C5C6", "pointer-events": "none" }).val('Changes Saved');
-	})
+	});
+
+	// Add logo image section title.
+	$( '.post-type-sp_logo_carousel #postimagediv' ).prepend( '<div class="splogocarousel-field splogocarousel-field-subheading">Logo Image<div class="clear"></div></div>' );
 
 })(jQuery, window, document);

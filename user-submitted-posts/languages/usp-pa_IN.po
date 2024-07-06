@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: pa\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "ਪੋਸਟ ਸਮੱਗਰੀ ਦੇ ਬਾਅਦ"
 msgid "An error occurred. Please go back and try again."
 msgstr "ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਵਾਪਸ ਜਾਓ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "ਅਤੇ"
 
@@ -111,17 +111,9 @@ msgstr "ਐਂਟੀਸਪੈਮ ਸਵਾਲ"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "ਕੋਈ ਵੀ ਆਕਾਰ ਦਾਨ ਇਸ ਮੁਫਤ ਪਲੱਗਇਨ ਅਤੇ ਹੋਰ ਸ਼ਾਨਦਾਰ ਵਰਡਪਰੈਸ ਸਰੋਤਾਂ ਨੂੰ ਵਿਕਸਤ ਕਰਨਾ ਜਾਰੀ ਰੱਖਣ ਵਿੱਚ ਮੇਰੀ ਮਦਦ ਕਰਦਾ ਹੈ।"
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "ਕੋਡ ਲਾਗੂ ਕਰੋ"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "ਸਪੁਰਦ ਕੀਤਾ ਲੇਖਕ"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "ਚੈੱਕਆਉਟ 'ਤੇ. ਵਿਕਰੀ 5/25/24 ਨੂੰ ਸਮਾਪਤ ਹੁੰਦੀ ਹੈ।"
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "ਆਟੋਮੈਟਿਕਲੀ ਚਿੱਤਰ ਅਤੇ ਹੋਰ ਪ�
 msgid "Before post content"
 msgstr "ਸਮੱਗਰੀ ਪੋਸਟ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "ਕਿਤਾਬਾਂ"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "ਇੱਕ ਖਰੀਦੋ ਇੱਕ ਕੋਡ ਦੇ ਨਾਲ ਇੱਕ ਮੁਫਤ ਪ੍ਰਾਪਤ ਕਰੋ"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -329,7 +325,7 @@ msgstr "ਅਸਮਰੱਥ"
 
 #: library/plugin-display.php:177
 msgid "Disable all required attributes on form fields (useful for troubleshooting error messages)"
-msgstr "ਫਾਰਮ ਖੇਤਰਾਂ 'ਤੇ ਸਾਰੀਆਂ ਲੋੜੀਂਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ (ਗਲਤੀ ਸੁਨੇਹਿਆਂ ਦੇ ਨਿਪਟਾਰੇ ਲਈ ਉਪਯੋਗੀ)"
+msgstr "ਫਾਰਮ ਖੇਤਰਾਂ 'ਤੇ ਸਾਰੇ ਲੋੜੀਂਦੇ ਗੁਣਾਂ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ (ਗਲਤੀ ਸੁਨੇਹਿਆਂ ਦੇ ਨਿਪਟਾਰੇ ਲਈ ਉਪਯੋਗੀ)"
 
 #: library/plugin-display.php:180
 msgid "Disable IP Tracking"
@@ -348,7 +344,7 @@ msgstr "ਅਯੋਗ ਕਰਨ ਦੀ ਲੋੜ ਹੈ"
 msgid "Disable this field"
 msgstr "ਇਸ ਖੇਤਰ ਨੂੰ ਅਸਮਰੱਥ ਬਣਾਓ"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "ਖਾਰਜ ਕਰੋ"
 
@@ -566,7 +562,7 @@ msgstr "ਗਲਤੀ ਸੁਨੇਹਾ"
 
 #: library/plugin-display.php:157
 msgid "Error message displayed if post submission fails (basic markup allowed)"
-msgstr "ਜੇਕਰ ਪੋਸਟ ਸਬਮਿਸ਼ਨ ਫੇਲ ਹੋ ਜਾਂਦੀ ਹੈ ਤਾਂ ਗਲਤੀ ਸੁਨੇਹਾ ਪ੍ਰਦਰਸ਼ਿਤ ਹੁੰਦਾ ਹੈ (ਮੂਲ ਮਾਰਕਅੱਪ ਦੀ ਇਜਾਜ਼ਤ ਹੈ)"
+msgstr "ਜੇਕਰ ਪੋਸਟ ਸਬਮਿਸ਼ਨ ਅਸਫਲ ਹੋ ਜਾਂਦੀ ਹੈ ਤਾਂ ਗਲਤੀ ਸੁਨੇਹਾ ਪ੍ਰਦਰਸ਼ਿਤ ਹੁੰਦਾ ਹੈ (ਮੂਲ ਮਾਰਕਅਪ ਦੀ ਇਜਾਜ਼ਤ ਹੈ)"
 
 #: library/plugin-display.php:426
 msgid "Error message displayed if user does not check the box"
@@ -646,6 +642,10 @@ msgstr "USP ਪ੍ਰੋ ਪ੍ਰਾਪਤ ਕਰੋ"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "ਅਸੀਮਤ ਫਾਰਮਾਂ ਲਈ USP ਪ੍ਰੋ ਪ੍ਰਾਪਤ ਕਰੋ!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "&nbsp;ਪਲੱਗਇਨ&nbsp;&raquo; ਪ੍ਰਾਪਤ ਕਰੋ"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "ਇਸਨੂੰ 5-ਤਾਰਾ ਰੇਟਿੰਗ ਦਿਓ"
@@ -657,10 +657,6 @@ msgstr "WordPress.org 'ਤੇ USP ਨੂੰ 5-ਤਾਰਾ ਰੇਟਿੰਗ �
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "ਜਾਓ ਪ੍ਰੋ"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "ਜਾਓ ਪ੍ਰੋ!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -706,7 +702,7 @@ msgstr "ਮਨੁੱਖੀ ਤਸਦੀਕ: ਇਸ ਖੇਤਰ ਨੂੰ ਖਾ
 
 #: library/plugin-display.php:273
 msgid "If multiple addresses are specified for the previous setting, include an equal number of addresses for this setting (in the same order)."
-msgstr "ਜੇਕਰ ਪਿਛਲੀ ਸੈਟਿੰਗ ਲਈ ਕਈ ਪਤੇ ਦਿੱਤੇ ਗਏ ਹਨ, ਤਾਂ ਇਸ ਸੈਟਿੰਗ ਲਈ ਬਰਾਬਰ ਪਤੇ ਸ਼ਾਮਲ ਕਰੋ (ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ)।"
+msgstr "ਜੇਕਰ ਪਿਛਲੀ ਸੈਟਿੰਗ ਲਈ ਇੱਕ ਤੋਂ ਵੱਧ ਪਤੇ ਦਿੱਤੇ ਗਏ ਹਨ, ਤਾਂ ਇਸ ਸੈਟਿੰਗ ਲਈ ਬਰਾਬਰ ਪਤੇ ਸ਼ਾਮਲ ਕਰੋ (ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ)।"
 
 #: library/plugin-display.php:764
 msgid "If the user is logged in, display the post-submit form; or if the user is not logged in, display the login form:"
@@ -903,7 +899,7 @@ msgstr "ਘੱਟੋ-ਘੱਟ ਚਿੱਤਰ ਚੌੜਾਈ ਪੂਰੀ ਨ�
 
 #: library/plugin-display.php:521
 msgid "Minimum number of images"
-msgstr "ਚਿੱਤਰਾਂ ਦੀ ਘੱਟੋ-ਘੱਟ ਸੰਖਿਆ"
+msgstr "ਚਿੱਤਰਾਂ ਦੀ ਘੱਟੋ-ਘੱਟ ਗਿਣਤੀ"
 
 #: library/plugin-display.php:523
 msgid "Minimum number of images for each submitted post"
@@ -969,9 +965,13 @@ msgstr "ਜਾਂ"
 msgid "or by making a"
 msgstr "ਜਾਂ ਬਣਾ ਕੇ ਏ"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "ਜਾਂ ਕੋਡ ਨਾਲ 30% ਦੀ ਛੋਟ ਲਓ"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
-msgstr "ਜਾਂ, ਅੱਗੇ ਵਧਣ ਅਤੇ ਡਿਫੌਲਟ ਪਲੱਗਇਨ ਵਿਕਲਪਾਂ ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਬਾਕਸ 'ਤੇ ਨਿਸ਼ਾਨ ਲਗਾਓ, ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰੋ, ਅਤੇ ਫਿਰ ਪਲੱਗਇਨ ਨੂੰ ਅਕਿਰਿਆਸ਼ੀਲ/ਮੁੜ ਸਰਗਰਮ ਕਰੋ।"
+msgstr "ਜਾਂ, ਅੱਗੇ ਜਾਣ ਅਤੇ ਡਿਫੌਲਟ ਪਲੱਗਇਨ ਵਿਕਲਪਾਂ ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਲਈ: ਬਾਕਸ 'ਤੇ ਨਿਸ਼ਾਨ ਲਗਾਓ, ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰੋ, ਅਤੇ ਫਿਰ ਪਲੱਗਇਨ ਨੂੰ ਅਕਿਰਿਆਸ਼ੀਲ/ਮੁੜ ਸਰਗਰਮ ਕਰੋ।"
 
 #: library/plugin-display.php:696
 msgid "Or, use the template tag to display a list of submitted posts anywhere in your theme template:"
@@ -1118,9 +1118,9 @@ msgstr "ਸਪੁਰਦ ਕੀਤੀਆਂ ਪੋਸਟਾਂ ਲਈ ਪੋਸ�
 msgid "Private Key"
 msgstr "ਨਿੱਜੀ ਕੁੰਜੀ"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "ਪ੍ਰੋ ਵਰਡਪਰੈਸ ਪਲੱਗਇਨ"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "ਪ੍ਰੋ ਪਲੱਗਇਨ ਵਿਕਰੀ!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "ਫਾਰਮ 'ਤੇ ਵਾਪਸ ਜਾਓ"
 msgid "Rich Text Editor"
 msgstr "ਰਿਚ ਟੈਕਸਟ ਐਡੀਟਰ"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "ਸਾਡੇ 'ਤੇ 30% ਬਚਾਓ"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "ਸਾਰੀਆਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰੋ"
@@ -1324,7 +1320,7 @@ msgstr "ਸਫਲਤਾ!"
 
 #: library/plugin-settings.php:889
 msgid "Success! Thank you for your submission."
-msgstr "ਸਫਲਤਾ! ਤੁਹਾਡੇ ਸਬਮਿਸ਼ਨ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ।"
+msgstr "ਸਫਲਤਾ! ਤੁਹਾਡੀ ਸਬਮਿਸ਼ਨ ਲਈ ਧੰਨਵਾਦ।"
 
 #: library/plugin-display.php:42
 msgid "Support Forum"
@@ -1409,7 +1405,7 @@ msgstr "ਪੇਸ਼ ਕੀਤਾ ਨਾਮ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰ�
 
 #: library/plugin-display.php:471
 msgid "To enable Google reCaptcha, enter your public and private keys."
-msgstr "Google reCaptcha ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਣ ਲਈ, ਆਪਣੀਆਂ ਜਨਤਕ ਅਤੇ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਦਾਖਲ ਕਰੋ।"
+msgstr "Google reCaptcha ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਲਈ, ਆਪਣੀਆਂ ਜਨਤਕ ਅਤੇ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਦਾਖਲ ਕਰੋ।"
 
 #: library/plugin-display.php:747
 msgid "to get the current URL."
@@ -1433,7 +1429,7 @@ msgstr "ਕੋਣ ਬਰੈਕਟਾਂ ਨੂੰ ਆਉਟਪੁੱਟ ਕਰ�
 
 #: library/plugin-display.php:454
 msgid "To prevent spam, enter a question that users must answer before submitting the form"
-msgstr "ਸਪੈਮ ਨੂੰ ਰੋਕਣ ਲਈ, ਇੱਕ ਸਵਾਲ ਦਾਖਲ ਕਰੋ ਜਿਸਦਾ ਜਵਾਬ ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਫਾਰਮ ਜਮ੍ਹਾਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ"
+msgstr "ਸਪੈਮ ਨੂੰ ਰੋਕਣ ਲਈ, ਇੱਕ ਅਜਿਹਾ ਸਵਾਲ ਦਾਖਲ ਕਰੋ ਜਿਸਦਾ ਜਵਾਬ ਫਾਰਮ ਜਮ੍ਹਾਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ"
 
 #: user-submitted-posts.php:1810
 msgid "to submit content!"
@@ -1510,11 +1506,11 @@ msgstr "ਪੇਸ਼ ਕੀਤੀਆਂ ਤਸਵੀਰਾਂ ਨੂੰ ਵਿ�
 
 #: library/plugin-display.php:672 library/plugin-display.php:685
 msgid "Use the shortcode to display the form on any WP Post or Page:"
-msgstr "ਕਿਸੇ ਵੀ WP ਪੋਸਟ ਜਾਂ ਪੰਨੇ 'ਤੇ ਫਾਰਮ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਸ਼ੌਰਟਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ:"
+msgstr "ਕਿਸੇ ਵੀ WP ਪੋਸਟ ਜਾਂ ਪੰਨੇ 'ਤੇ ਫਾਰਮ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਸ਼ੌਰਟਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ:"
 
 #: library/plugin-display.php:226
 msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user is logged in to WordPress)"
-msgstr "ਯੂਜ਼ਰ ਦੇ ਪ੍ਰੋਫਾਈਲ URL ਦੀ ਵਰਤੋਂ URL ਖੇਤਰ ਦੇ ਮੁੱਲ ਦੇ ਤੌਰ 'ਤੇ ਕਰੋ (ਜਦੋਂ ਉਪਭੋਗਤਾ ਵਰਡਪਰੈਸ ਵਿੱਚ ਲੌਗਇਨ ਹੁੰਦਾ ਹੈ ਤਾਂ ਵੈਧ)"
+msgstr "ਉਪਭੋਗਤਾ ਦੇ ਪ੍ਰੋਫਾਈਲ URL ਨੂੰ URL ਖੇਤਰ ਦੇ ਮੁੱਲ ਵਜੋਂ ਵਰਤੋ (ਜਦੋਂ ਉਪਭੋਗਤਾ ਵਰਡਪਰੈਸ ਵਿੱਚ ਲੌਗਇਨ ਹੁੰਦਾ ਹੈ ਤਾਂ ਵੈਧ)"
 
 #: library/plugin-display.php:221
 msgid "Use the user&rsquo;s registered email as the value of the Email field (valid when the user is logged in to WordPress)"
@@ -1526,7 +1522,7 @@ msgstr "ਨਾਮ ਖੇਤਰ ਲਈ ਉਪਭੋਗਤਾ ਦੇ ਰਜਿਸ�
 
 #: library/plugin-display.php:713
 msgid "Use this shortcode to display a gallery of uploaded images for each submitted post:"
-msgstr "ਹਰ ਸਪੁਰਦ ਕੀਤੀ ਪੋਸਟ ਲਈ ਅੱਪਲੋਡ ਕੀਤੀਆਂ ਤਸਵੀਰਾਂ ਦੀ ਗੈਲਰੀ ਦਿਖਾਉਣ ਲਈ ਇਸ ਸ਼ੌਰਟਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ:"
+msgstr "ਹਰੇਕ ਸਪੁਰਦ ਕੀਤੀ ਪੋਸਟ ਲਈ ਅਪਲੋਡ ਕੀਤੀਆਂ ਤਸਵੀਰਾਂ ਦੀ ਗੈਲਰੀ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਇਸ ਸ਼ੌਰਟਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ:"
 
 #: library/plugin-display.php:694
 msgid "Use this shortcode to display a list of submitted posts on any WP Post or Page:"
@@ -1604,7 +1600,7 @@ msgstr "ਯੂਐਸਪੀ ਪ੍ਰੋ"
 
 #: library/plugin-display.php:752
 msgid "USP provides three shortcodes to control access and restrict content."
-msgstr "USP ਪਹੁੰਚ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਅਤੇ ਸਮੱਗਰੀ ਨੂੰ ਪ੍ਰਤਿਬੰਧਿਤ ਕਰਨ ਲਈ ਤਿੰਨ ਸ਼ੌਰਟਕੋਡ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।"
+msgstr "ਯੂਐਸਪੀ ਪਹੁੰਚ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਅਤੇ ਸਮੱਗਰੀ ਨੂੰ ਪ੍ਰਤਿਬੰਧਿਤ ਕਰਨ ਲਈ ਤਿੰਨ ਸ਼ੌਰਟਕੋਡ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ।"
 
 #: library/plugin-settings.php:339
 msgid "v2 (I&rsquo;m not a robot)"

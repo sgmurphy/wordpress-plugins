@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-21 20:54+0000\n"
+"POT-Creation-Date: 2024-07-05 21:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -105,8 +105,8 @@ msgstr ""
 msgid "An error occurred. Please go back and try again."
 msgstr ""
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339 
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727 
+#: library/plugin-display.php:732
 msgid "and"
 msgstr ""
 
@@ -124,16 +124,8 @@ msgid ""
 "awesome WordPress resources."
 msgstr ""
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr ""
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
-msgstr ""
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
 msgstr ""
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
@@ -150,8 +142,12 @@ msgstr ""
 msgid "Before post content"
 msgstr ""
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
+msgstr ""
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
 msgstr ""
 
 #: library/plugin-display.php:809
@@ -374,7 +370,7 @@ msgstr ""
 msgid "Disable this field"
 msgstr ""
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr ""
 
@@ -682,6 +678,10 @@ msgstr ""
 msgid "Get USP Pro for unlimited forms!"
 msgstr ""
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr ""
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr ""
@@ -692,10 +692,6 @@ msgstr ""
 
 #: library/plugin-settings.php:39
 msgid "Go Pro"
-msgstr ""
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
 msgstr ""
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
@@ -1018,6 +1014,10 @@ msgstr ""
 msgid "or by making a"
 msgstr ""
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr ""
+
 #: library/plugin-display.php:790
 msgid ""
 "Or, to go ahead and restore the default plugin options: check the box, save "
@@ -1174,8 +1174,8 @@ msgstr ""
 msgid "Private Key"
 msgstr ""
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
 msgstr ""
 
 #: library/shortcode-login.php:184
@@ -1292,10 +1292,6 @@ msgstr ""
 
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
-msgstr ""
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
 msgstr ""
 
 #: library/plugin-display.php:657

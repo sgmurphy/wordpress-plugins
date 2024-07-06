@@ -215,7 +215,8 @@ SPF_WPSP::createSection(
 			),
 			array(
 				'type'    => 'notice',
-				'content' => __( 'Want to increase your sales by highlighting and filtering specific product types? <a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'content' => sprintf( __( 'Want to increase your sales by highlighting and filtering specific product types? %1$sUpgrade To Pro!%2$s', 'woo-product-slider' ), '<a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 			),
 		),
 	)
@@ -232,7 +233,8 @@ SPF_WPSP::createSection(
 				'type'       => 'image_select',
 				'title'      => __( 'Layout Preset', 'woo-product-slider' ),
 				'subtitle'   => __( 'Choose a layout preset.', 'woo-product-slider' ),
-				'desc'       => __( 'Upgrade your shop with exclusive layouts and design freedom. <a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Get Pro Now!</b></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'desc'       => sprintf( __( 'Upgrade your shop with exclusive layouts and design freedom. %1$sGet Pro Now!%2$s', 'woo-product-slider' ), '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 				'image_name' => true,
 				'options'    => array(
 					'slider'  => array(
@@ -269,7 +271,7 @@ SPF_WPSP::createSection(
 					),
 				),
 				'default'    => 'standard',
-				'title_info' => __( '<div class="spwps-info-label">Carousel Mode</div> <div class="spwps-short-content">This feature allows you to select the most suitable carousel mode between Standard, or Ticker (continuous scrolling).</div>', 'woo-product-slider' ),
+				'title_info' => '<div class="spwps-info-label">' . __( 'Carousel Mode', 'woo-product-slider' ) . '</div> <div class="spwps-short-content">' . __( 'This feature allows you to select the most suitable carousel mode between Standard, or Ticker (continuous scrolling).', 'woo-product-slider' ) . '</div>',
 				'dependency' => array( 'layout_preset', '==', 'slider', true ),
 			),
 			array(
@@ -330,8 +332,10 @@ SPF_WPSP::createSection(
 				'class'      => 'theme_style',
 				'type'       => 'select',
 				'title'      => __( 'Template Style', 'woo-product-slider' ),
-				'subtitle'   => __( 'Select which template style you want to display. See <a href="https://wooproductslider.io/28-pre-made-product-templates/" target="_blank">templates</a> in action!', 'woo-product-slider' ),
-				'desc'       => __( 'To unlock <strong>28+ Pre-made beautiful templates</strong>, <a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'subtitle'   => sprintf( __( 'Select which template style you want to display. See %1$stemplates%2$s in action!', 'woo-product-slider' ), '<a href="https://wooproductslider.io/28-pre-made-product-templates/" target="_blank">', '</a>' ),
+				/* translators: %1$s: bold  tag start %2$s: bold  tag end %3$s: link tag start %4$s: link tag end */
+				'desc'       => sprintf( __( 'To unlock %1$s28+ Pre-made beautiful templates%2$s, %3$sUpgrade To Pro!%4$s', 'woo-product-slider' ), '<strong>', '</strong>', '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 				'options'    => array(
 					'theme_one'   => array(
 						'name' => __( 'Template One', 'woo-product-slider' ),
@@ -381,7 +385,7 @@ SPF_WPSP::createSection(
 
 					),
 				),
-				'title_info' => __( '<div class="spwps-info-label">Product Content Position</div> <div class="spwps-short-content">This feature allows you to select the placement of the product content position.</div><div class="info-button"><a class="spwps-open-live-demo" href="https://wooproductslider.io/5-product-content-positions/" target="_blank">Live Demo</a></div>', 'woo-product-slider' ),
+				'title_info' => '<div class="spwps-info-label">' . __( 'Product Content Position', 'woo-product-slider' ) . '</div> <div class="spwps-short-content">' . __( 'This feature allows you to select the placement of the product content position.', 'woo-product-slider' ) . '</div><div class="info-button"><a class="spwps-open-live-demo" href="https://wooproductslider.io/5-product-content-positions/" target="_blank">' . __( 'Live Demo', 'woo-product-slider' ) . '</a></div>',
 				'default'    => 'bottom',
 				'dependency' => array( 'template_style|layout_preset', '==|!=', 'custom|table', true ),
 			),
@@ -455,7 +459,8 @@ SPF_WPSP::createSection(
 				'type'       => 'radio',
 				'title'      => __( 'Pagination Type', 'woo-product-slider' ),
 				'subtitle'   => __( 'Choose a pagination type.', 'woo-product-slider' ),
-				'desc'       => __( 'To unlock Ajax Number, Load More & Load More on Scroll, <a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'desc'       => sprintf( __( 'To unlock Ajax Number, Load More & Load More on Scroll, %1$sUpgrade To Pro!%2$s', 'woo-product-slider' ), '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 				'options'    => array(
 					'normal'           => __( 'Normal', 'woo-product-slider' ),
 					'ajax_number'      => __( 'Ajax Number (Pro)', 'woo-product-slider' ),
@@ -564,7 +569,8 @@ SPF_WPSP::createSection(
 			),
 			array(
 				'type'    => 'notice',
-				'content' => __( '<a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade to Pro</b></a> to show and customize Ajax Product Search, Category, Description, Badge, Rating, and more.', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'content' => sprintf( __( '%1$sUpgrade To Pro%2$s to show and customize Ajax Product Search, Category, Description, Badge, Rating, and more.', 'woo-product-slider' ), '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 			),
 			array(
 				'type'    => 'subheading',
@@ -847,7 +853,8 @@ SPF_WPSP::createSection(
 			array(
 				'type'       => 'submessage',
 				'style'      => 'info',
-				'content'    => __( 'To Enable Product Brands feature, you must Install and Activate the <a class="thickbox open-plugin-details-modal" href="' . esc_url( $smart_brand_plugin_data['plugin_link'] ) . '">Smart Brands for WooCommerce</a> plugin. <a href="#" class="brand-plugin-install' . $smart_brand_plugin_data['has_plugin'] . '" data-url="' . $smart_brand_plugin_data['activate_plugin_url'] . '" data-nonce="' . wp_create_nonce( 'updates' ) . '" > ' . $smart_brand_plugin_data['button_text'] . ' <i class="fa fa-angle-double-right"></i></a>', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'content'    => sprintf( __( 'To Enable Product Brands feature, you must Install and Activate the %1$sSmart Brands for WooCommerce%2$s plugin.', 'woo-product-slider' ), '<a class="thickbox open-plugin-details-modal" href="' . esc_url( $smart_brand_plugin_data['plugin_link'] ) . '">', '</a>' ) . ' <a href="#" class="brand-plugin-install' . $smart_brand_plugin_data['has_plugin'] . '" data-url="' . $smart_brand_plugin_data['activate_plugin_url'] . '" data-nonce="' . wp_create_nonce( 'updates' ) . '" > ' . $smart_brand_plugin_data['button_text'] . ' <i class="fa fa-angle-double-right"></i></a>',
 				'dependency' => array( 'show_product_brands', '==', 'true', true ),
 			),
 			array(
@@ -867,7 +874,8 @@ SPF_WPSP::createSection(
 			array(
 				'type'       => 'submessage',
 				'style'      => 'info',
-				'content'    => __( 'To Enable Quick view feature, you must Install and Activate the <a class="thickbox open-plugin-details-modal" href="' . esc_url( $quick_view_plugin_data['plugin_link'] ) . '">Quick View for WooCommerce</a> plugin. <a href="#" class="quick-view-install' . $quick_view_plugin_data['has_plugin'] . '" data-url="' . $quick_view_plugin_data['activate_plugin_url'] . '" data-nonce="' . wp_create_nonce( 'updates' ) . '" > ' . $quick_view_plugin_data['button_text'] . ' <i class="fa fa-angle-double-right"></i></a> ', 'woo-product-slider' ),
+				/* translators: %1$s: link tag start %2$s: link tag end */
+				'content'    => sprintf( __( 'To Enable Quick view feature, you must Install and Activate the %1$sQuick View for WooCommerce%2$s plugin.', 'woo-product-slider' ), '<a class="thickbox open-plugin-details-modal" href="' . esc_url( $quick_view_plugin_data['plugin_link'] ) . '">', '</a>' ) . ' <a href="#" class="quick-view-install' . $quick_view_plugin_data['has_plugin'] . '" data-url="' . $quick_view_plugin_data['activate_plugin_url'] . '" data-nonce="' . wp_create_nonce( 'updates' ) . '" > ' . $quick_view_plugin_data['button_text'] . ' <i class="fa fa-angle-double-right"></i></a> ',
 				'dependency' => array( 'quick_view', '==', 'true', true ),
 			),
 
@@ -1101,7 +1109,8 @@ SPF_WPSP::createSection(
 				),
 				array(
 					'type'    => 'notice',
-					'content' => __( 'Want to fine-tune control over product image dimensions, retina, flipping, lightbox, grayscale, and more?  <a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+					/* translators: %1$s: link tag start %2$s: link tag end */
+					'content' => sprintf( __( 'Want to fine-tune control over product image dimensions, retina, flipping, lightbox, grayscale, and more?  %1$sUpgrade To Pro!%2$s', 'woo-product-slider' ), '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 				),
 
 			),
@@ -1164,7 +1173,7 @@ SPF_WPSP::createSection(
 									'min'        => 100,
 									'max'        => 30000,
 									'default'    => 3000,
-									'title_info' => __( '<div class="spwps-info-label">AutoPlay Delay Time</div> <div class="spwps-short-content">Set autoplay delay or interval time. The amount of time to delay between automatically cycling a product item. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'woo-product-slider' ),
+									'title_info' => '<div class="spwps-info-label">' . __( 'AutoPlay Delay Time', 'woo-product-slider' ) . '</div> <div class="spwps-short-content">' . __( 'Set autoplay delay or interval time. The amount of time to delay between automatically cycling a product item. e.g. 1000 milliseconds(ms) = 1 second.', 'woo-product-slider' ) . '</div>',
 									'dependency' => array(
 										'carousel_auto_play|carousel_ticker_mode',
 										'==|==',
@@ -1183,7 +1192,7 @@ SPF_WPSP::createSection(
 									'min'        => 1,
 									'max'        => 20000,
 									'default'    => 600,
-									'title_info' => __( '<div class="spwps-info-label">Carousel Speed</div> <div class="spwps-short-content">Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'woo-product-slider' ),
+									'title_info' => '<div class="spwps-info-label">' . __( 'Carousel Speed', 'woo-product-slider' ) . '</div> <div class="spwps-short-content">' . __( 'Set carousel scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.', 'woo-product-slider' ) . '</div>',
 									'dependency' => array( 'carousel_ticker_mode', '==', 'standard', true ),
 								),
 								array(
@@ -1265,7 +1274,8 @@ SPF_WPSP::createSection(
 								),
 								array(
 									'type'    => 'notice',
-									'content' => __( 'To unlock product Vertical Slider, Slide to Scroll, Fade Slide, and Multi-row Slider, <a  href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'woo-product-slider' ),
+									/* translators: %1$s: tag link start %2$s: link tag end */
+									'content' => sprintf( __( 'To unlock product Vertical Slider, Slide to Scroll, Fade Slide, and Multi-row Slider, %1$sUpgrade To Pro!%2$s', 'woo-product-slider' ), '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 								),
 							),
 						),
@@ -1581,7 +1591,8 @@ SPF_WPSP::createSection(
 			'fields' => array(
 				array(
 					'type'    => 'notice',
-					'content' => __( 'Want to customize everything <b>(Colors and Typography)</b> easily? <a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a> Note: The Slider Section Title, Product Name, Product Price Font size and color fields work.', 'woo-product-slider' ),
+					/* translators: %1$s: bold tag start %2$s: bold tag end %3$s: link tag start %4$s: link tag end */
+					'content' => sprintf( __( 'Want to customize everything %1$s(Colors and Typography)%2$s easily? %3$sUpgrade To Pro!%4$s Note: The Slider Section Title, Product Name, Product Price Font size and color fields work in lite version.', 'woo-product-slider' ), '<b>', '</b>', '<a href="https://wooproductslider.io/pricing/?ref=1" target="_blank"><b>', '</b></a>' ),
 				),
 				array(
 					'id'           => 'slider_title_typography',

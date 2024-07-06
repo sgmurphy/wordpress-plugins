@@ -537,3 +537,32 @@
 	left: 20px !important;
 	right: auto !important;
 }
+
+/*
+** Dashboard notice issue on RTL mode
+*/
+.notice.woogs-notice img, 
+.notice.wqv-notice img {
+    float: right;
+    margin-left: 12px;
+	margin-right: unset;
+}
+.woogs-notice .woogs-activate-btn, 
+.wqv-notice .wqv-activate-btn {
+	margin-left: 15px;
+}
+a.woogs-demo-button, 
+a.wqv-demo-button {
+    display: inline-block;
+}
+
+.woogs-demo-button svg, 
+.wqv-demo-button svg {
+    margin-right: 5px;
+    transform: rotate(180deg);
+}
+
+a.woogs-demo-button:hover svg, 
+a.wqv-demo-button:hover svg {
+    transform: rotate(180deg);
+}

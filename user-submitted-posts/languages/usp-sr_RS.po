@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: sr\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Након садржаја поста"
 msgid "An error occurred. Please go back and try again."
 msgstr "Дошло је до грешке. Вратите се и покушајте поново."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "и"
 
@@ -111,17 +111,9 @@ msgstr "Антиспам питање"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Донација било које величине помаже ми да наставим са развојем овог бесплатног додатка и других сјајних ВордПресс ресурса."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Примени код"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Додељени аутор"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "на одласку. Распродаја се завршава 25.5.24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Аутоматски приказујте слике и још мног�
 msgid "Before post content"
 msgstr "Пре објављивања садржаја"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "књиге"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Купите један, добијете један БЕСПЛАТНО са кодом"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Обавезно онемогућити"
 msgid "Disable this field"
 msgstr "Онемогућите ово поље"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Одбаци"
 
@@ -646,6 +642,10 @@ msgstr "Набавите УСП Про"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Набавите УСП Про за неограничене форме!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Набавите&нбсп;додатке&нбсп;&ракуо;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "дајте му оцену од 5 звездица"
@@ -657,10 +657,6 @@ msgstr "Дајте УСП-у оцену од 5 звездица на ВордП�
 #: library/plugin-settings.php:39
 msgid "Go Pro"
 msgstr "Го Про"
-
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Го Про!"
 
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
@@ -969,6 +965,10 @@ msgstr "или"
 msgid "or by making a"
 msgstr "или израдом а"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "или узмите 30% попуста уз код"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Или, да наставите и вратите подразумеване опције додатка: означите поље, сачувајте подешавања, а затим деактивирајте/реактивирајте додатак."
@@ -1118,9 +1118,9 @@ msgstr "Врста објаве за послате постове"
 msgid "Private Key"
 msgstr "Приватни кључ"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Професионални додаци за ВордПресс"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Професионална распродаја додатака!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1234,10 +1234,6 @@ msgstr "Вратите се у форму"
 msgid "Rich Text Editor"
 msgstr "Уређивач богатог текста"
 
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Уштедите 30% на нашој"
-
 #: library/plugin-display.php:657
 msgid "Save All Changes"
 msgstr "Сачувај све промене"
@@ -1256,7 +1252,7 @@ msgstr "Изаберите категорије које ћете укључит
 
 #: library/plugin-display.php:257
 msgid "Send email alerts for new post submissions"
-msgstr "Пошаљите обавештења е-поштом за нове објаве"
+msgstr "Шаљите обавештења е-поштом за нове објаве"
 
 #: library/plugin-settings.php:29
 msgid "Settings"
@@ -1652,7 +1648,7 @@ msgstr "ВП Ресоурцес"
 
 #: library/plugin-display.php:684
 msgid "You also can display a simple form that enables users to log in, register, or reset their password."
-msgstr "Такође можете приказати једноставан образац који корисницима омогућава да се пријаве, региструју или ресетују своју лозинку."
+msgstr "Такође можете приказати једноставан образац који омогућава корисницима да се пријаве, региструју или ресетују своју лозинку."
 
 #: library/plugin-display.php:717
 msgid "You can customize using any of the follwing attributes:"

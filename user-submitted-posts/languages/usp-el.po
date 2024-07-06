@@ -4,7 +4,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: USP 20240319\n"
+"Project-Id-Version: USP 20240703\n"
 "Language: el\n"
 
 #: library/plugin-settings.php:590
@@ -94,8 +94,8 @@ msgstr "Μετά το περιεχόμενο της ανάρτησης"
 msgid "An error occurred. Please go back and try again."
 msgstr "Παρουσιάστηκε σφάλμα. Επιστρέψτε και δοκιμάστε ξανά."
 
-#: library/plugin-settings.php:1218 library/plugin-display.php:339
-#: library/plugin-display.php:727 library/plugin-display.php:732
+#: library/plugin-display.php:339 library/plugin-display.php:727
+#: library/plugin-display.php:732
 msgid "and"
 msgstr "και"
 
@@ -111,17 +111,9 @@ msgstr "Ερώτηση Antispam"
 msgid "Any size donation helps me to continue developing this free plugin and other awesome WordPress resources."
 msgstr "Η δωρεά οποιουδήποτε μεγέθους με βοηθά να συνεχίσω να αναπτύσσω αυτό το δωρεάν πρόσθετο και άλλους καταπληκτικούς πόρους του WordPress."
 
-#: library/plugin-settings.php:1220
-msgid "Apply code"
-msgstr "Εφαρμογή κωδικού"
-
 #: library/plugin-display.php:207
 msgid "Assigned Author"
 msgstr "Ανατεθειμένος συγγραφέας"
-
-#: library/plugin-settings.php:1220
-msgid "at checkout. Sale ends 5/25/24."
-msgstr "στο ταμείο. Η προσφορά λήγει 25/5/24."
 
 #: library/plugin-display.php:728 library/plugin-display.php:732
 msgid "attributes"
@@ -137,9 +129,13 @@ msgstr "Αυτόματη εμφάνιση εικόνων και πολλά άλ�
 msgid "Before post content"
 msgstr "Πριν δημοσιεύσετε περιεχόμενο"
 
-#: library/support-panel.php:53 library/plugin-settings.php:1219
+#: library/support-panel.php:53
 msgid "books"
 msgstr "βιβλία"
+
+#: library/plugin-settings.php:1217
+msgid "Buy one get one FREE with code"
+msgstr "Αγοράστε ένα πάρτε ένα ΔΩΡΕΑΝ με κωδικό"
 
 #: library/plugin-display.php:809
 msgid "by"
@@ -348,7 +344,7 @@ msgstr "Απαιτείται απενεργοποίηση"
 msgid "Disable this field"
 msgstr "Απενεργοποιήστε αυτό το πεδίο"
 
-#: library/plugin-settings.php:1292
+#: library/plugin-settings.php:1291
 msgid "Dismiss"
 msgstr "Απολύω"
 
@@ -509,7 +505,7 @@ msgstr "Ενεργοποίηση μορφής HTML"
 
 #: library/plugin-display.php:262
 msgid "Enable HTML format for email alert messages"
-msgstr "Ενεργοποιήστε τη μορφή HTML για μηνύματα ειδοποίησης μέσω email"
+msgstr "Ενεργοποίηση μορφής HTML για μηνύματα ειδοποίησης email"
 
 #: library/plugin-display.php:167
 msgid "Enable RTE/Visual Editor for the Post Content field"
@@ -646,6 +642,10 @@ msgstr "Αποκτήστε το USP Pro"
 msgid "Get USP Pro for unlimited forms!"
 msgstr "Αποκτήστε το USP Pro για απεριόριστες φόρμες!"
 
+#: library/plugin-settings.php:1219
+msgid "Get&nbsp;plugins&nbsp;&raquo;"
+msgstr "Λήψη&nbsp;προσθηκών&nbsp;&raquo;"
+
 #: library/plugin-display.php:46
 msgid "give it a 5-star rating"
 msgstr "δώστε του μια βαθμολογία 5 αστέρων"
@@ -658,17 +658,13 @@ msgstr "Δώστε στο USP μια βαθμολογία 5 αστέρων στ�
 msgid "Go Pro"
 msgstr "Γίνε επαγγελματίας"
 
-#: library/plugin-settings.php:1215
-msgid "Go Pro!"
-msgstr "Γίνε επαγγελματίας!"
-
 #: library/plugin-settings.php:461 library/plugin-display.php:469
 msgid "Google reCaptcha"
 msgstr "Google reCaptcha"
 
 #: library/shortcode-login.php:107
 msgid "Have an account?"
-msgstr "Να έχεις ένα λογαριασμό?"
+msgstr "Να έχεις ένα λογαριασμό;"
 
 #: library/plugin-display.php:698
 msgid "Here are some examples showing how to configure this shortcode:"
@@ -775,7 +771,7 @@ msgstr "Μάθετε&nbsp;περισσότερα"
 
 #: library/plugin-display.php:789
 msgid "Leave this option disabled to remember your settings."
-msgstr "Αφήστε αυτή την επιλογή απενεργοποιημένη για να θυμάστε τις ρυθμίσεις σας."
+msgstr "Αφήστε αυτήν την επιλογή απενεργοποιημένη για να θυμάστε τις ρυθμίσεις σας."
 
 #: library/plugin-settings.php:88
 msgid "Like this plugin? Give it a"
@@ -969,6 +965,10 @@ msgstr "ή"
 msgid "or by making a"
 msgstr "ή κάνοντας ένα"
 
+#: library/plugin-settings.php:1218
+msgid "or take 30% off with code"
+msgstr "ή κάντε έκπτωση 30% με κωδικό"
+
 #: library/plugin-display.php:790
 msgid "Or, to go ahead and restore the default plugin options: check the box, save your settings, and then deactivate/reactivate the plugin."
 msgstr "Ή, για να προχωρήσετε και να επαναφέρετε τις προεπιλεγμένες επιλογές προσθήκης: επιλέξτε το πλαίσιο, αποθηκεύστε τις ρυθμίσεις σας και, στη συνέχεια, απενεργοποιήστε/ενεργοποιήστε ξανά την προσθήκη."
@@ -1048,7 +1048,7 @@ msgstr "Plugin Planet: Pro WordPress Plugins"
 
 #: library/plugin-display.php:55
 msgid "Plugin Settings"
-msgstr "Ρυθμίσεις Plugin"
+msgstr "Ρυθμίσεις προσθήκης"
 
 #: library/support-panel.php:54
 msgid "plugins"
@@ -1118,9 +1118,9 @@ msgstr "Τύπος ανάρτησης για υποβληθείσες αναρτ
 msgid "Private Key"
 msgstr "Ιδιωτικό κλειδί"
 
-#: library/plugin-settings.php:1217
-msgid "Pro WordPress plugins"
-msgstr "Προσθήκες Pro WordPress"
+#: library/plugin-settings.php:1216
+msgid "Pro Plugin Sale!"
+msgstr "Έκπτωση Pro Plugin!"
 
 #: library/shortcode-login.php:184
 msgid "Profile"
@@ -1233,10 +1233,6 @@ msgstr "Επιστροφή στη φόρμα"
 #: library/plugin-display.php:165
 msgid "Rich Text Editor"
 msgstr "Επεξεργαστής εμπλουτισμένου κειμένου"
-
-#: library/plugin-settings.php:1216
-msgid "Save 30% on our"
-msgstr "Εξοικονομήστε 30% στο δικό μας"
 
 #: library/plugin-display.php:657
 msgid "Save All Changes"
@@ -1356,7 +1352,7 @@ msgstr "Αυτό θα σας επιτρέψει να προσαρμόσετε τ
 
 #: library/plugin-display.php:773
 msgid "The access shortcodes can be added to any WP Post or Page. So you can display forms and other content conditionally, based on user role and login status."
-msgstr "Οι σύντομοι κωδικοί πρόσβασης μπορούν να προστεθούν σε οποιαδήποτε ανάρτηση ή σελίδα WP. Έτσι, μπορείτε να εμφανίζετε φόρμες και άλλο περιεχόμενο υπό όρους, βάσει του ρόλου χρήστη και της κατάστασης σύνδεσης."
+msgstr "Οι σύντομοι κωδικοί πρόσβασης μπορούν να προστεθούν σε οποιαδήποτε ανάρτηση ή σελίδα WP. Έτσι, μπορείτε να προβάλλετε φόρμες και άλλο περιεχόμενο υπό όρους, βάσει του ρόλου χρήστη και της κατάστασης σύνδεσης."
 
 #: user-submitted-posts.php:1739
 msgid "The file(s) could not be uploaded"
@@ -1441,7 +1437,7 @@ msgstr "για να υποβάλετε περιεχόμενο!"
 
 #: user-submitted-posts.php:126
 msgid "to upgrade WordPress and try again."
-msgstr "για να αναβαθμίσετε το WordPress και προσπαθήστε ξανά."
+msgstr "να αναβαθμίσετε το WordPress και να προσπαθήσετε ξανά."
 
 #: library/plugin-display.php:22
 msgid "Toggle all panels"
@@ -1506,7 +1502,7 @@ msgstr "Χρησιμοποιήστε απλά εισαγωγικά (αντί γ�
 
 #: library/plugin-display.php:500
 msgid "Use submitted images as Featured Images. Requires theme support for Featured Images (aka Post Thumbnails)"
-msgstr "Χρησιμοποιήστε τις υποβληθείσες εικόνες ως Προτεινόμενες εικόνες. Απαιτεί υποστήριξη θέματος για Επιλεγμένες εικόνες (γνωστές και ως μικρογραφίες ανάρτησης)"
+msgstr "Χρησιμοποιήστε τις υποβληθείσες εικόνες ως Προτεινόμενες εικόνες. Απαιτείται υποστήριξη θεμάτων για Επιλεγμένες εικόνες (γνωστή και ως Μικρογραφίες ανάρτησης)"
 
 #: library/plugin-display.php:672 library/plugin-display.php:685
 msgid "Use the shortcode to display the form on any WP Post or Page:"
@@ -1514,7 +1510,7 @@ msgstr "Χρησιμοποιήστε τον σύντομο κωδικό για �
 
 #: library/plugin-display.php:226
 msgid "Use the user&rsquo;s Profile URL as the value of the URL field (valid when the user is logged in to WordPress)"
-msgstr "Χρησιμοποιήστε τη διεύθυνση URL του προφίλ χρήστη ως την τιμή του πεδίου URL (ισχύει όταν ο χρήστης είναι συνδεδεμένος στο WordPress)"
+msgstr "Χρησιμοποιήστε τη διεύθυνση URL του προφίλ του χρήστη ως τιμή του πεδίου URL (ισχύει όταν ο χρήστης είναι συνδεδεμένος στο WordPress)"
 
 #: library/plugin-display.php:221
 msgid "Use the user&rsquo;s registered email as the value of the Email field (valid when the user is logged in to WordPress)"
@@ -1522,7 +1518,7 @@ msgstr "Χρησιμοποιήστε το καταχωρημένο email του 
 
 #: library/plugin-display.php:216
 msgid "Use the user&rsquo;s registered username for the Name field (valid when the user is logged in to WordPress)"
-msgstr "Χρησιμοποιήστε το καταχωρημένο όνομα χρήστη του χρήστη για το πεδίο Όνομα (ισχύει όταν ο χρήστης είναι συνδεδεμένος στο WordPress)"
+msgstr "Χρησιμοποιήστε το εγγεγραμμένο όνομα χρήστη του χρήστη για το πεδίο Όνομα (ισχύει όταν ο χρήστης είναι συνδεδεμένος στο WordPress)"
 
 #: library/plugin-display.php:713
 msgid "Use this shortcode to display a gallery of uploaded images for each submitted post:"
@@ -1644,7 +1640,7 @@ msgstr "Σελίδα WP"
 
 #: library/plugin-settings.php:175
 msgid "WP Post (recommended)"
-msgstr "WP Post (προτείνεται)"
+msgstr "WP Post (συνιστάται)"
 
 #: library/plugin-display.php:800
 msgid "WP Resources"

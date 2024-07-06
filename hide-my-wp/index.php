@@ -7,7 +7,7 @@
   Plugin URI: https://wordpress.org/plugins/hide-my-wp/
   Description: Hide WP paths, wp-admin, wp-login, wp-content, plugins, themes, authors, XML-RPC, API, etc. Add 7G Firewall Security, Brute Force protection & more.
   Version: 5.2.03
-  Author: WPPlugins - WordPress Security Plugins
+  Author: WPPlugins
   Author URI: https://hidemywp.com
   License: GPLv2 or later
   License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html

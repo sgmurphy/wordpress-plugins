@@ -122,7 +122,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			}
 			// wp enqeueu for typography and output css.
 			parent::__construct();
-
 		}
 
 		/**
@@ -155,7 +154,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			}
 
 			return $result;
-
 		}
 
 		/**
@@ -214,7 +212,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			}
 
 			return $classes;
-
 		}
 
 		/**
@@ -228,7 +225,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			if ( ! in_array( $post_type, $this->args['exclude_post_types'] ) ) {
 				add_meta_box( $this->unique, $this->args['title'], array( &$this, 'add_meta_box_content' ), $this->post_type, $this->args['context'], $this->args['priority'], $this->args );
 			}
-
 		}
 
 		/**
@@ -243,7 +239,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			$default = ( isset( $this->args['defaults'][ $field['id'] ] ) ) ? $this->args['defaults'][ $field['id'] ] : $default;
 
 			return $default;
-
 		}
 
 		/**
@@ -275,7 +270,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			$value   = ( isset( $value ) ) ? $value : $default;
 
 			return $value;
-
 		}
 
 		/**
@@ -368,7 +362,7 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 					<p><?php esc_html_e( 'Paste the PHP code into your template file:', 'logo-carousel-free' ); ?></p>
 					<div class="shortcode-wrap">
 					<div class="lc-after-copy-text"><i class="fa fa-check-circle"></i> <?php esc_html_e( 'Shortcode  Copied to Clipboard! ', 'logo-carousel-free' ); ?>  </div>
-						<div class="lc-sc-code selectable">&lt;?php echo do_shortcode('[logocarousel id="<?php echo esc_attr( $post->ID ); ?>"]'); ?&gt;</div>
+						<div class="lc-sc-code selectable">&lt;?php logocarousel( <?php echo esc_attr( $post->ID ); ?> ); ?&gt;</div>
 						</div>
 				</div>
 			</div>
@@ -396,7 +390,7 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 
 					echo '<li><a href="#" data-section="' . esc_attr( $this->unique . '_' . $tab_key ) . '" class="' . esc_attr( $this->unique . '_' . $tab_key ) . '">' . wp_kses_post( $tab_icon . $section['title'] . $tab_error ) . '</a></li>';
 
-					$tab_key++;
+					++$tab_key;
 
 				}
 
@@ -448,7 +442,7 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 
 				echo '</div>';
 
-				$section_key++;
+				++$section_key;
 
 			}
 
@@ -477,7 +471,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			echo '</div>';
 
 			echo '</div>';
-
 		}
 
 		/**
@@ -506,7 +499,7 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 							$this->process_field( $field, $request, $count, $data, $errors );
 						}
 					}
-					$count++;
+					++$count;
 				}
 			}
 
@@ -540,7 +533,6 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 
 			do_action( "splogocarousel_{$this->unique}_saved", $data, $post_id, $this );
 			do_action( "splogocarousel_{$this->unique}_save_after", $data, $post_id, $this );
-
 		}
 
 		/**
@@ -570,7 +562,7 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 							$this->process_field( $field, $request, $count, $data, $errors );
 						}
 					}
-					$count++;
+					++$count;
 				}
 			}
 			echo '<style>';
