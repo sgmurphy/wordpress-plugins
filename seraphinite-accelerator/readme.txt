@@ -5,7 +5,7 @@ Tags: optimize,pagespeed,performance,speed up,cache
 Requires PHP: 7.1
 Requires at least: 4.5
 Tested up to: 6.5
-Stable tag: 2.21.14
+Stable tag: 2.21.15
 License: GPLv2 or later (if another license is not provided)
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Privacy policy: https://www.s-sols.com/privacy-policy
@@ -161,6 +161,19 @@ We kindly ask you to [post reviews](https://wordpress.org/support/plugin/seraphi
 17. Settings - Advanced.
 
 == Changelog ==
+
+= 2.21.15 =
+
+Improvements:
+
+* Revalidate cache if needed.
+* Support for checking original path (mixed case and multi-slash) in exclusions.
+
+Fixes:
+
+* Asynchronous tasks execution: internal: Headers are included in response on some servers.
+* Optimization returns 'noHdrOrBody' status on some sites.
+* PHP notice: CacheUrlProcessor::$cbIsAbort is deprecated.
 
 = 2.21.14 =
 

@@ -166,7 +166,16 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gs-toc',
 		GREENSHIFT_DIR_URL . 'libs/toc/index.js',
 		array(),
-		'1.3',
+		'1.4',
+		true
+	);
+
+	// swiper
+	wp_register_script(
+		'gstablesort',
+		GREENSHIFT_DIR_URL . 'libs/table/sortable.js',
+		array(),
+		'1.0',
 		true
 	);
 
@@ -182,7 +191,7 @@ function gspb_greenShift_register_scripts_blocks(){
 		'gs-swiper-init',
 		GREENSHIFT_DIR_URL . 'libs/swiper/init.js',
 		array(),
-		'8.9.6',
+		'8.9.7',
 		true
 	);
 	wp_localize_script(
@@ -474,25 +483,25 @@ function gspb_greenShift_register_scripts_blocks(){
 		'greenShift-library-editor',
 		GREENSHIFT_DIR_URL . 'build/gspbLibrary.css',
 		'',
-		'8.9.7'
+		'9.0'
 	);
 	wp_register_style(
 		'greenShift-block-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/index.css', // Block editor CSS.
 		array('greenShift-library-editor', 'wp-edit-blocks'),
-		'8.9.7'
+		'9.0'
 	);
 	wp_register_style(
 		'greenShift-stylebook-css', // Handle.
 		GREENSHIFT_DIR_URL . 'build/gspbStylebook.css', // Block editor CSS.
 		array(),
-		'8.9.7'
+		'9.0'
 	);
 	wp_register_style(
 		'greenShift-admin-css', // Handle.
 		GREENSHIFT_DIR_URL . 'templates/admin/style.css', // admin css
 		array(),
-		'8.9.7'
+		'9.0'
 	);
 
 	//Script for ajax reusable loading
@@ -1079,6 +1088,9 @@ function gspb_greenShift_block_script_assets($html, $block)
 		}else if ($blockname === 'greenshift-blocks/element') {
 			if (!empty($block['attrs']['background']['lazy'])) {
 				wp_enqueue_script('greenshift-inview-bg');
+			}
+			if (isset($block['attrs']['tag']) && $block['attrs']['tag'] == 'table' && !empty($block['attrs']['tableAttributes']['table']['sortable'])) {
+				wp_enqueue_script('gstablesort');
 			}
 			if (function_exists('GSPB_make_dynamic_text') && !empty($block['attrs']['dynamictext']['dynamicEnable']) && !empty($block['attrs']['textContent'])) {
 				$html = GSPB_make_dynamic_text($html, $block['attrs'], $block, $block['attrs']['dynamictext'], $block['attrs']['textContent']);
@@ -2463,7 +2475,7 @@ if (!function_exists('gspb_get_all_layouts')) {
 			$apiUrl .= '&tags=' . $tag;
 		}
 
-		$response  = wp_remote_get($apiUrl, $get_args);
+		$response  = wp_safe_remote_get($apiUrl, $get_args);
 		$body      = wp_remote_retrieve_body($response);
 		$headers   = wp_remote_retrieve_headers($response);
 		$request_result = $body;
@@ -2511,13 +2523,13 @@ if (!function_exists('gspb_get_layout')) {
 		}else{
 			$apiUrl   = TEMPLATE_SERVER_URL . '/wp-json/greenshift/v1/layout/' . $id;
 		}
-		$response = wp_remote_get($apiUrl, $get_args);
+		$response = wp_safe_remote_get($apiUrl, $get_args);
 		$request_result = wp_remote_retrieve_body($response);
 		if ($request_result == '') {
 			return false;
 		} else {
 			if($public_assets_url){
-				$public_assets = wp_remote_get($public_assets_url, $get_args);
+				$public_assets = wp_safe_remote_get($public_assets_url, $get_args);
 				$public_assets_result = wp_remote_retrieve_body($public_assets);
 				if ($public_assets_result != '') {
 					$defaults = get_option('gspb_global_settings');
@@ -2668,7 +2680,7 @@ if (!function_exists('gspb_get_categories')) {
 		);
 		$id       = intval($_POST['category_id']);
 		$apiUrl   = TEMPLATE_SERVER_URL . '/wp-json/wp/v2/categories?parent=' . $id;
-		$response = wp_remote_get($apiUrl, $get_args);
+		$response = wp_safe_remote_get($apiUrl, $get_args);
 		$request_result = wp_remote_retrieve_body($response);
 		if ($request_result == '') {
 			return false;
@@ -2711,6 +2723,9 @@ function greenshift_new_add_type_to_script($tag, $handle, $source){
         $tag = '<script id="gsmodelviewerscript" src="'. $source .'" type="module"></script>';
     } 
 	if ('gsmodelinit' === $handle) {
+        $tag = '<script src="'. $source .'" type="module"></script>';
+    } 
+	if ('gs-spline-init' === $handle) {
         $tag = '<script src="'. $source .'" type="module"></script>';
     } 
     return $tag;

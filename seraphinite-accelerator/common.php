@@ -2598,7 +2598,7 @@ function ParseContCachePathArgs( $serverArgs, &$args )
 	return( $path );
 }
 
-function GetContCacheEarlySkipData( &$path = null , &$pathIsDir = null , &$args = null  )
+function GetContCacheEarlySkipData( &$pathOrig = null , &$path = null , &$pathIsDir = null , &$args = null  )
 {
 	global $seraph_accel_g_cacheSkipData;
 
@@ -2617,7 +2617,8 @@ function GetContCacheEarlySkipData( &$path = null , &$pathIsDir = null , &$args 
 		$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => 'xmlrpc' ) );
 	else
 	{
-		$path = CachePathNormalize( ParseContCachePathArgs( $_SERVER, $args ), $pathIsDir );
+		$pathOrig = ParseContCachePathArgs( $_SERVER, $args );
+		$path = CachePathNormalize( $pathOrig, $pathIsDir );
 
 		if( strpos( $path, 'robots.txt' ) !== false )
 			$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => 'robots' ) );
@@ -2642,11 +2643,14 @@ function IsUriByPartsExcluded( $settCache, $path, $args )
 		$args = Net::UrlParseQuery( $args );
 
 	_NormalizeExclPath( $path );
-	return( !!_ContProcGetExclStatus( $settCache, Gen::GetArrField( $settCache, array( 'ctxGrps' ), array() ), null, null, $path, $args ) );
+	return( !!_ContProcGetExclStatus( $settCache, Gen::GetArrField( $settCache, array( 'ctxGrps' ), array() ), null, null, $path, $path, $args ) );
 }
 
-function CheckPathInUriList( $a, $path )
+function CheckPathInUriList( $a, $path, $pathOrig = null )
 {
+	if( $pathOrig === null )
+		$pathOrig = $path;
+
 	foreach( $a as $aa )
 	{
 		_NormalizeExclPath( $aa );
@@ -2658,7 +2662,7 @@ function CheckPathInUriList( $a, $path )
 
 			if( $isRegExp )
 			{
-				if( @preg_match( $e[ 'expr' ], $path, $valFound ) )
+				if( @preg_match( $e[ 'expr' ], $pathOrig, $valFound ) )
 					$valFound = count( $valFound ) > 1 ? $valFound[ 1 ] : $valFound[ 0 ];
 				else
 					$valFound = '';
@@ -2680,7 +2684,7 @@ function CheckPathInUriList( $a, $path )
 	return( null );
 }
 
-function _ContProcGetExclStatus( $settCache, $ctxGrps, $userAgent, $cookies, $path, &$args, $adjustArgs = false )
+function _ContProcGetExclStatus( $settCache, $ctxGrps, $userAgent, $cookies, $path, $pathOrig, &$args, $adjustArgs = false )
 {
 
 	if( !empty( $args ) )
@@ -2719,7 +2723,7 @@ function _ContProcGetExclStatus( $settCache, $ctxGrps, $userAgent, $cookies, $pa
 		}
 	}
 
-	if( $uriExcl = CheckPathInUriList( Gen::GetArrField( $settCache, array( 'urisExcl' ), array() ), $path ) )
+	if( $uriExcl = CheckPathInUriList( Gen::GetArrField( $settCache, array( 'urisExcl' ), array() ), $path, $pathOrig ) )
 		return( 'urisExcl:' . $uriExcl );
 
 	if( $userAgent )
@@ -2760,7 +2764,7 @@ function _ContProcGetExclStatus_KeyValMatch( $expr, $k, $v, $sep = '=' )
 	return( $found );
 }
 
-function ContProcGetExclStatus( $siteId, $settCache, $path, $pathIsDir, &$args, &$varsOut, $adjustArgs = true, $adjustStat = true )
+function ContProcGetExclStatus( $siteId, $settCache, $path, $pathOrig, $pathIsDir, &$args, &$varsOut, $adjustArgs = true, $adjustStat = true )
 {
 	global $seraph_accel_g_contProcGetExclStatus;
 	global $seraph_accel_g_prepContIsUserCtx;
@@ -2782,7 +2786,7 @@ function ContProcGetExclStatus( $siteId, $settCache, $path, $pathIsDir, &$args, 
 
 	if( $pathIsDir )
 		$path .= '/';
-	$seraph_accel_g_contProcGetExclStatus = _ContProcGetExclStatus( $settCache, $ctxGrps, $userAgent, $_COOKIE, $path, $args, $adjustArgs );
+	$seraph_accel_g_contProcGetExclStatus = _ContProcGetExclStatus( $settCache, $ctxGrps, $userAgent, $_COOKIE, $path, $pathOrig, $args, $adjustArgs );
 	if( $seraph_accel_g_contProcGetExclStatus )
 		return( $seraph_accel_g_contProcGetExclStatus );
 
@@ -3106,7 +3110,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -4158,7 +4162,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

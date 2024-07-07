@@ -2,7 +2,7 @@
 Tags: cookie consent, cookie banner, cookie consent banner, gdpr, google consent mode v2
 Requires at least: 4.0
 Donate link: https://www.paypal.me/nikelschubert/6.00EUR
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0.0
 License: GPLv3
 Stable tag: 4.2.0

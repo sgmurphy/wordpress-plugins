@@ -517,9 +517,6 @@ class Meow_WR2X_Core {
 	}
 
 	function replace_with_webp_in_src( $image, $attachment_id, $size, $icon ) {
-		if ( $this->get_option( 'disable_responsive' ) ){
-			return null;
-		}
 		if ( $this->get_option( 'webp_method' ) !== 'Responsive' ) {
 			return $image;
 		}

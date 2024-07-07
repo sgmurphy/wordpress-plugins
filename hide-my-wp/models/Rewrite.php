@@ -2074,19 +2074,15 @@ class HMWP_Models_Rewrite
                             );
 
                             if(HMWP_Classes_Tools::getOption('hmwp_login_url') <> 'login.php'){
-                                $paths = array(
-                                    home_url( 'login.php', 'relative' ),
-                                    site_url( 'login.php', 'relative' ),
-                                );
+                                $paths[] = home_url('login.php', 'relative');
+                                $paths[] = site_url('login.php', 'relative');
                             }
 
                             //if there is a POST on login when it's hidden
                             //allow access on CloudPanel and WP Engine to prevent errors
                             if (!$http_post && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {
-
                                 $paths[] = home_url('login', 'relative');
                                 $paths[] = site_url('login', 'relative');
-
                             }
 
                         } elseif (defined('HMWP_DEFAULT_LOGIN') && //custom login is set in other plugins
@@ -2099,10 +2095,8 @@ class HMWP_Models_Rewrite
                             );
 
                             if(HMWP_DEFAULT_LOGIN <> 'login.php'){
-                                $paths = array(
-                                    home_url( 'login.php', 'relative' ),
-                                    site_url( 'login.php', 'relative' ),
-                                );
+                                $paths[] = home_url('login.php', 'relative');
+                                $paths[] = site_url('login.php', 'relative');
                             }
 
                             if (HMWP_DEFAULT_LOGIN <> 'login' && HMWP_Classes_Tools::getOption('hmwp_hide_login')) {

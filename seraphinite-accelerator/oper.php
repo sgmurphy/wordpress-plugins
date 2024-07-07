@@ -446,148 +446,151 @@ function CacheOp( $op, $priority = 0, $cbIsAborted = true )
 		}
 	}
 
-	if( _CacheDirWalk( $curSiteId, null, null, $ctx, null,
-		function( &$ctx, $isUserCtx, $objFile )
-		{
-			if( $ctx -> isAborted() )
-				return( false );
-
-			if( $ctx -> op != 1 )
+	if( $op != 3 )
+	{
+		if( _CacheDirWalk( $curSiteId, null, null, $ctx, null,
+			function( &$ctx, $isUserCtx, $objFile )
 			{
-				_CacheObjFileOp( $ctx -> lock, $objFile, $ctx -> op );
-				return;
-			}
-
-			{
-				$dscFileTm = @filemtime( $objFile );
-				if( $dscFileTm > 0 )
-				{
-					$dscFileTmAge = $ctx -> tmCur - $dscFileTm;
-					$timeout = $isUserCtx ? $ctx -> timeoutCtx : $ctx -> timeout;
-
-					if( $timeout > 0 && $dscFileTmAge > $timeout )
-					{
-						@unlink( $objFile );
-						return;
-					}
-				}
-			}
-
-			$dsc = CacheReadDsc( $objFile );
-			if( !$dsc )
-			{
-
-				return;
-			}
-
-			if( isset( $dsc[ 'l' ] ) )
-			{
-				unset( $ctx -> lrnsDel[ $dsc[ 'l' ] ] );
-
-				$lrnDsc = Learn_ReadDsc( $ctx -> curViewDir . '/l/' . Learn_Id2File( $dsc[ 'l' ] ) );
-				Learn_KeepNeededData( $ctx -> datasDel, $ctx -> lrnsGlobDel, $lrnDsc, $ctx -> lrnDataPath );
-			}
-
-			_CacheOp_Clear_Dsc_MarkExistedParts( $ctx -> datasDel, $dsc, array( 'html' ) );
-			foreach( Gen::GetArrField( $dsc, array( 'b' ), array() ) as $idSubPart => $dscPart )
-				_CacheOp_Clear_Dsc_MarkExistedParts( $ctx -> datasDel, $dscPart, array( 'html', 'js', 'css' ) );
-		}
-
-		, $op == 2 ? function( &$ctx, $dataType, $dataId, $dataFile )
-		{
-			if( $ctx -> isAborted() )
-				return( false );
-
-			@unlink( $dataFile );
-		} : null
-
-		,
-		null
-
-		,
-		function( &$ctx, $viewId, $viewDir, $begin )
-		{
-			if( $begin )
-			{
-				$ctx -> curViewDir = $viewDir;
-				if( $ctx -> op == 2 )
-					Gen::DelDir( $viewDir . '/l' );
-			}
-
-			if( $ctx -> op != 1 )
-				return;
-
-			if( $begin )
-			{
-				$ctx -> lrnsDel = array();
-
-				if( Gen::DirEnum( $viewDir . '/l', $ctx,
-					function( $path, $item, &$ctx )
-					{
-						if( $ctx -> isAborted() )
-							return( false );
-
-						if( @is_dir( $path . '/' . $item ) )
-							return;
-
-						while( strpos( $item, '.' ) !== false )
-							$item = Gen::GetFileName( $item, true );
-						$ctx -> lrnsDel[ Gen::GetFileName( $path ) . '/' . @hex2bin( $item ) ] = true;
-					}
-				, true ) === false )
-				{
+				if( $ctx -> isAborted() )
 					return( false );
+
+				if( $ctx -> op != 1 )
+				{
+					_CacheObjFileOp( $ctx -> lock, $objFile, $ctx -> op );
+					return;
 				}
-			}
-			else
-			{
-				foreach( $ctx -> lrnsDel as $learnId => $del )
-					Learn_Clear( $viewDir . '/l/' . Learn_Id2File( $learnId ) );
-			}
-		}
 
-		,
-		function( &$ctx, $siteDir, $begin )
-		{
-			if( $begin )
-			{
-				$ctx -> lrnDataPath = $siteDir . '/l';
-				$ctx -> lrnsGlobDel = array();
+				{
+					$dscFileTm = @filemtime( $objFile );
+					if( $dscFileTm > 0 )
+					{
+						$dscFileTmAge = $ctx -> tmCur - $dscFileTm;
+						$timeout = $isUserCtx ? $ctx -> timeoutCtx : $ctx -> timeout;
 
-				if( $ctx -> op == 2 )
-					Gen::DelDir( $ctx -> lrnDataPath );
+						if( $timeout > 0 && $dscFileTmAge > $timeout )
+						{
+							@unlink( $objFile );
+							return;
+						}
+					}
+				}
+
+				$dsc = CacheReadDsc( $objFile );
+				if( !$dsc )
+				{
+
+					return;
+				}
+
+				if( isset( $dsc[ 'l' ] ) )
+				{
+					unset( $ctx -> lrnsDel[ $dsc[ 'l' ] ] );
+
+					$lrnDsc = Learn_ReadDsc( $ctx -> curViewDir . '/l/' . Learn_Id2File( $dsc[ 'l' ] ) );
+					Learn_KeepNeededData( $ctx -> datasDel, $ctx -> lrnsGlobDel, $lrnDsc, $ctx -> lrnDataPath );
+				}
+
+				_CacheOp_Clear_Dsc_MarkExistedParts( $ctx -> datasDel, $dsc, array( 'html' ) );
+				foreach( Gen::GetArrField( $dsc, array( 'b' ), array() ) as $idSubPart => $dscPart )
+					_CacheOp_Clear_Dsc_MarkExistedParts( $ctx -> datasDel, $dscPart, array( 'html', 'js', 'css' ) );
+			}
+
+			, $op == 2 ? function( &$ctx, $dataType, $dataId, $dataFile )
+			{
+				if( $ctx -> isAborted() )
+					return( false );
+
+				@unlink( $dataFile );
+			} : null
+
+			,
+			null
+
+			,
+			function( &$ctx, $viewId, $viewDir, $begin )
+			{
+				if( $begin )
+				{
+					$ctx -> curViewDir = $viewDir;
+					if( $ctx -> op == 2 )
+						Gen::DelDir( $viewDir . '/l' );
+				}
 
 				if( $ctx -> op != 1 )
 					return;
 
-				if( Gen::DirEnum( $ctx -> lrnDataPath, $ctx,
-					function( $path, $item, &$ctx )
-					{
-						if( $ctx -> isAborted() )
-							return( false );
-
-						$path .= '/' . $item;
-						if( !@is_dir( $path ) )
-							$ctx -> lrnsGlobDel[ str_replace( '\\', '/', substr( $path, strlen( $ctx -> lrnDataPath ) + 1 ) ) ] = true;
-					}
-				, true ) === false )
+				if( $begin )
 				{
-					return( false );
+					$ctx -> lrnsDel = array();
+
+					if( Gen::DirEnum( $viewDir . '/l', $ctx,
+						function( $path, $item, &$ctx )
+						{
+							if( $ctx -> isAborted() )
+								return( false );
+
+							if( @is_dir( $path . '/' . $item ) )
+								return;
+
+							while( strpos( $item, '.' ) !== false )
+								$item = Gen::GetFileName( $item, true );
+							$ctx -> lrnsDel[ Gen::GetFileName( $path ) . '/' . @hex2bin( $item ) ] = true;
+						}
+					, true ) === false )
+					{
+						return( false );
+					}
+				}
+				else
+				{
+					foreach( $ctx -> lrnsDel as $learnId => $del )
+						Learn_Clear( $viewDir . '/l/' . Learn_Id2File( $learnId ) );
 				}
 			}
-			else
-			{
-				foreach( $ctx -> lrnsGlobDel as $file => $del )
-					@unlink( $siteDir . '/l/' . $file );
 
-				if( $ctx -> op == 1 )
-					if( Images_ProcessSrcSizeAlternatives_Cache_Cleanup( $siteDir . '/d', $ctx -> tmCur - $ctx -> timeout, array( $ctx, 'isAborted' ) ) === false )
+			,
+			function( &$ctx, $siteDir, $begin )
+			{
+				if( $begin )
+				{
+					$ctx -> lrnDataPath = $siteDir . '/l';
+					$ctx -> lrnsGlobDel = array();
+
+					if( $ctx -> op == 2 )
+						Gen::DelDir( $ctx -> lrnDataPath );
+
+					if( $ctx -> op != 1 )
+						return;
+
+					if( Gen::DirEnum( $ctx -> lrnDataPath, $ctx,
+						function( $path, $item, &$ctx )
+						{
+							if( $ctx -> isAborted() )
+								return( false );
+
+							$path .= '/' . $item;
+							if( !@is_dir( $path ) )
+								$ctx -> lrnsGlobDel[ str_replace( '\\', '/', substr( $path, strlen( $ctx -> lrnDataPath ) + 1 ) ) ] = true;
+						}
+					, true ) === false )
+					{
 						return( false );
+					}
+				}
+				else
+				{
+					foreach( $ctx -> lrnsGlobDel as $file => $del )
+						@unlink( $siteDir . '/l/' . $file );
+
+					if( $ctx -> op == 1 )
+						if( Images_ProcessSrcSizeAlternatives_Cache_Cleanup( $siteDir . '/d', $ctx -> tmCur - $ctx -> timeout, array( $ctx, 'isAborted' ) ) === false )
+							return( false );
+				}
 			}
+		) === false )
+		{
+			return( false );
 		}
-	) === false )
-	{
-		return( false );
 	}
 
 	if( ( $op == 2 || $op == 0 ) && Gen::GetArrField( $sett, array( 'cache', 'srvClr' ), false ) )
@@ -741,6 +744,7 @@ function CacheOpPost( $postId, $del, $priority = 0, $proc = null, $cbIsAborted =
 		switch( $op )
 		{
 		case 0:		$txt .= 'Automatic revalidation'; break;
+		case 3:	$txt .= 'Automatic revalidation if needed'; break;
 		case 2:				$txt .= 'Automatic deleting'; break;
 		}
 
@@ -885,7 +889,7 @@ function CacheOpUrls( $isExpr, $urls, $op, $priority = 0, $cbIsAborted = true, $
 					if( $ctx -> isAborted() )
 						return( false );
 
-					if( $ctx -> op == 10 )
+					if( $ctx -> op == 10 || $ctx -> op == 3 )
 						return;
 
 					if( $ctx -> op == 2 && $ctx -> priority != -480 )
@@ -949,7 +953,7 @@ function CacheOpGetViewsHeaders( $settCache, $viewId = null )
 	$res = array();
 
 	if( $viewId === null || $viewId === 'cmn' )
-		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14' );
+		$res[ 'cmn' ] = array( 'User-Agent' => 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15' );
 
 	if( !(isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )
 		return( $res );
@@ -1445,7 +1449,7 @@ function UpdateClientSessId( $curUserId, $token = null, $expirationNew = null )
 	{
 		$set = false;
 		{
-			$cacheSkipData = GetContCacheEarlySkipData( $path, $pathIsDir, $args );
+			$cacheSkipData = GetContCacheEarlySkipData( $pathOrig, $path, $pathIsDir, $args );
 			if( $cacheSkipData )
 			{
 				if( $cacheSkipData === array( 'skipped', array( 'reason' => 'noCacheSession' ) ) )
@@ -1454,7 +1458,7 @@ function UpdateClientSessId( $curUserId, $token = null, $expirationNew = null )
 			else
 			{
 				$settCache = Gen::GetArrField( Plugin::SettGet(), array( 'cache' ), array() );
-				if( ContProcGetExclStatus( $siteId, $settCache, $path, $pathIsDir, $args, $varsOut, false, !(isset($settCache[ 'enable' ])?$settCache[ 'enable' ]:null) ) == 'noCacheSession' )
+				if( ContProcGetExclStatus( $siteId, $settCache, $path, $pathOrig, $pathIsDir, $args, $varsOut, false, !(isset($settCache[ 'enable' ])?$settCache[ 'enable' ]:null) ) == 'noCacheSession' )
 					$set = true;
 			}
 		}

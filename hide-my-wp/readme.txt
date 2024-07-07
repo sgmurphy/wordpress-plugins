@@ -2,13 +2,13 @@
 Contributors: johndarrel
 Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 5.2.03
+Stable tag: 5.2.04
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Hide WP paths, wp-login, and wp-admin while protecting against Brute Force attacks, SQL/Script Injections, and more. Add 7G & 8G firewalls against most bot attacks.
+Hide WP paths, wp-login, wp-admin and more. Security against Brute Force attacks, SQL/Script Injections. 7G & 8G firewalls against most bot attacks.
 
 == Description ==
 
@@ -301,6 +301,10 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.2.04 (07 July 2024) =
+Fixed - Compatibility with WP 6.6
+Fixed - Security update on wp-login.php and login.php
+
 = 5.2.03 (04 July 2024) =
 Update - Added the option to hide the new login path on redirects
 Update - Hide login.php path together with wp-login.php path from being redirect to the new login

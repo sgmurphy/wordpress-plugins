@@ -40,7 +40,7 @@ function RunOpt( $op = 0, $push = true )
 
 function _AddMenus( $accepted = false )
 {
-	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.21.14', __FILE__ ) );
+	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.21.15', __FILE__ ) );
 	add_submenu_page( 'seraph_accel_manage', esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), 'manage_options', 'seraph_accel_manage',	$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 	add_submenu_page( 'seraph_accel_manage', Wp::GetLocString( 'Settings' ), Wp::GetLocString( 'Settings' ), 'manage_options', 'seraph_accel_settings',										$accepted ? 'seraph_accel\\_SettingsPage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 }
@@ -688,8 +688,9 @@ function _OnCheckUpdateGlob()
 		$txt = '';
 		switch( $op )
 		{
-		case 0:		$txt .= 'Automatic revalidation'; break;
-		case 2:				$txt .= 'Automatic deleting'; break;
+		case 0:			$txt .= 'Automatic revalidation'; break;
+		case 3:		$txt .= 'Automatic revalidation if needed'; break;
+		case 2:					$txt .= 'Automatic deleting'; break;
 		}
 
 		$txt .= ' due to ' . implode( ', ', array_map( function( $v ) { if( $v == 'updTerms' ) return( 'taxonomie(s)' ); return( 'UNK' ); }, array_keys( $seraph_accel_g_globUpdated ) ) ) . ' changed; scope: all';
@@ -759,7 +760,7 @@ function _OnContentTest( $buffer )
 function _ManagePage()
 {
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.21.14' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.21.15' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 
@@ -933,7 +934,8 @@ function _ManagePage()
 
 					echo( Ui::Tag( 'div',
 						Ui::Button( Wp::safe_html_x( 'Delete', 'admin.Manage_Operate', 'seraphinite-accelerator' ), true, null, null, 'button', array( 'class' => array( 'ns-all', 'ns-uri', 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle' ), 'style' => array( 'min-width' => '7em' ), 'onclick' => 'seraph_accel.Manager._int.OnCacheOp(this,2);return false;' ) ) .
-						Ui::Button( Wp::safe_html_x( 'Invalidate', 'admin.Manage_Operate', 'seraphinite-accelerator' ), false, null, null, 'button', array( 'class' => array( 'ns-all', 'ns-uri', 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle' ), 'style' => array( 'min-width' => '7em' ), 'onclick' => 'seraph_accel.Manager._int.OnCacheOp(this,0);return false;' ) ) .
+						Ui::Button( Wp::safe_html_x( 'Revalidate', 'admin.Manage_Operate', 'seraphinite-accelerator' ), false, null, null, 'button', array( 'class' => array( 'ns-all', 'ns-uri', 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle' ), 'style' => array( 'min-width' => '7em' ), 'onclick' => 'seraph_accel.Manager._int.OnCacheOp(this,0);return false;' ) ) .
+						Ui::Button( Wp::safe_html_x( 'CheckRevalidate', 'admin.Manage_Operate', 'seraphinite-accelerator' ), false, null, null, 'button', array( 'class' => array( 'ns-all', 'ns-uri', 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle' ), 'style' => array( 'min-width' => '7em' ), 'onclick' => 'seraph_accel.Manager._int.OnCacheOp(this,3);return false;' ) ) .
 						Ui::Button( Wp::safe_html_x( 'SrvDel', 'admin.Manage_Operate', 'seraphinite-accelerator' ), false, null, null, 'button', array( 'class' => array( 'ns-all', 'ns-uri', 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle' ), 'style' => array( 'min-width' => '7em' ), 'onclick' => 'seraph_accel.Manager._int.OnCacheOp(this,10);return false;' ) ) .
 						Ui::Button( Wp::GetLocString( 'Cancel' ), false, null, null, 'button', array( 'class' => array( 'ctlSpaceAfter', 'ctlSpaceVBefore', 'ctlVaMiddle', 'cancel' ), 'style' => array( 'min-width' => '7em' ), 'disabled' => true, 'onclick' => 'seraph_accel.Manager._int.OnCacheOpCancel(this);return false;' ) ) .
 						Ui::Spinner( false, array( 'class' => 'ctlSpaceAfter ctlSpaceVBefore ctlVaMiddle', 'style' => array( 'display' => 'none' ) ) ) .
@@ -1214,6 +1216,7 @@ function OnAsyncTask_CacheNextScheduledOp( $args )
 				switch( $op )
 				{
 				case 0:		$txt .= 'Scheduled revalidation'; break;
+				case 3:	$txt .= 'Scheduled revalidation if needed'; break;
 				case 2:				$txt .= 'Scheduled deleting'; break;
 				case 10:			$txt .= 'Scheduled server cache clearing'; break;
 				}
@@ -1574,6 +1577,7 @@ function OnAdminApi_CacheOpBegin( $args )
 		switch( $args[ 'op' ] )
 		{
 		case 0:		$txt .= 'Manual revalidation'; break;
+		case 3:	$txt .= 'Manual revalidation if needed'; break;
 		case 2:				$txt .= 'Manual deleting'; break;
 		case 1:			$txt .= 'Manual cleaning up old'; break;
 		case 10:			$txt .= 'Manual deleting of server\'s cache'; break;
@@ -1652,6 +1656,7 @@ function OnAdminApi_LogClear( $args )
 class API
 {
 	const CACHE_OP_REVALIDATE = 0;
+	const CACHE_OP_CHECK_REVALIDATE = 3;
 	const CACHE_OP_CLEAR = 1;
 	const CACHE_OP_DEL = 2;
 	const CACHE_OP_SRVDEL = 10;
@@ -1666,6 +1671,7 @@ class API
 			switch( $args[ 'op' ] )
 			{
 			case 0:		$txt .= 'API revalidation'; break;
+			case 3:	$txt .= 'API revalidation if needed'; break;
 			case 2:				$txt .= 'API deleting'; break;
 			case 1:			$txt .= 'API cleaning up old'; break;
 			case 10:			$txt .= 'API deleting of server\'s cache'; break;

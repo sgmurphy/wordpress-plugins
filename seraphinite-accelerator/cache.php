@@ -84,9 +84,17 @@ function _Process( $sites, $args )
 			return( Gen::E_FAIL );
 		}
 
+		register_shutdown_function(
+			function()
+			{
+				for( $l = ob_get_level(); $l > 0; $l-- )
+					ob_end_flush();
+			}
+		);
+
 	}
 
-	if( !GetContCacheEarlySkipData( $path, $pathIsDir, $args ) )
+	if( !GetContCacheEarlySkipData( $pathOrig, $path, $pathIsDir, $args ) )
 	{
 		$addrSite = GetRequestHost( $_SERVER );
 		$seraph_accel_g_siteId = GetCacheSiteIdAdjustPath( $sites, $addrSite, $siteSubId, $path );
@@ -129,7 +137,7 @@ function _Process( $sites, $args )
 	}
 
 	{
-		$exclStatus = ContProcGetExclStatus( $seraph_accel_g_siteId, $settCache, $path, $pathIsDir, $args, $varsOut, true, $seraph_accel_g_prepPrms === null );
+		$exclStatus = ContProcGetExclStatus( $seraph_accel_g_siteId, $settCache, $path, $pathOrig, $pathIsDir, $args, $varsOut, true, $seraph_accel_g_prepPrms === null );
 		if( $exclStatus )
 		{
 			$seraph_accel_g_cacheSkipData = array( 'skipped', array( 'reason' => $exclStatus ) );
@@ -150,7 +158,7 @@ function _Process( $sites, $args )
 	$seraph_accel_g_ctxCache = new AnyObj();
 
 	$sessId = $userId ? (isset($sessInfo[ 'userSessId' ])?$sessInfo[ 'userSessId' ]:null) : (isset($sessInfo[ 'sessId' ])?$sessInfo[ 'sessId' ]:null);
-	$viewId = GetCacheViewId( $seraph_accel_g_ctxCache, $settCache, $userAgent, $path, $args );
+	$viewId = GetCacheViewId( $seraph_accel_g_ctxCache, $settCache, $userAgent, $path, $pathOrig, $args );
 	$cacheRootPath = GetCacheDir();
 	$siteCacheRootPath = $cacheRootPath . '/s/' . $seraph_accel_g_siteId;
 	$seraph_accel_g_ctxCache -> viewPath = GetCacheViewsDir( $siteCacheRootPath, $siteSubId ) . '/' . $viewId;
@@ -454,7 +462,7 @@ function _ProcessOutHdrTrace( $sett, $bHdr, $bLog, $state, $data = null, $dscFil
 		}
 
 	if( $bHdr )
-		@header( 'X-Seraph-Accel-Cache: 2.21.14;' . $debugInfo );
+		@header( 'X-Seraph-Accel-Cache: 2.21.15;' . $debugInfo );
 
 	if( $bLog )
 	{
@@ -1272,7 +1280,7 @@ function _CbContentFinish( $content )
 	return( $content );
 }
 
-function GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, &$args )
+function GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, $pathOrig, &$args )
 {
 	$ctxCache -> viewStateId = '';
 	$ctxCache -> viewGeoId = '';
@@ -1281,7 +1289,7 @@ function GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, &$args )
 	if( (isset($settCache[ 'normAgent' ])?$settCache[ 'normAgent' ]:null) )
 	{
 		$_SERVER[ 'SERAPH_ACCEL_ORIG_USER_AGENT' ] = (isset($_SERVER[ 'HTTP_USER_AGENT' ])?$_SERVER[ 'HTTP_USER_AGENT' ]:'');
-		$_SERVER[ 'HTTP_USER_AGENT' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.14';
+		$_SERVER[ 'HTTP_USER_AGENT' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.21.15';
 	}
 
 	if( (isset($settCache[ 'views' ])?$settCache[ 'views' ]:null) )
@@ -1301,7 +1309,7 @@ function GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, &$args )
 			if( !(isset($viewsGrp[ 'enable' ])?$viewsGrp[ 'enable' ]:null) )
 				continue;
 
-			if( CheckPathInUriList( Gen::GetArrField( $viewsGrp, array( 'urisExcl' ), array() ), $path ) )
+			if( CheckPathInUriList( Gen::GetArrField( $viewsGrp, array( 'urisExcl' ), array() ), $path, $pathOrig ) )
 				continue;
 
 			AccomulateCookiesState( $ctxCache -> viewStateId, $_COOKIE, Gen::GetArrField( $viewsGrp, array( 'cookies' ), array() ) );
