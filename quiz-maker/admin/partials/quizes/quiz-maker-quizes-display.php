@@ -793,6 +793,22 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </div>
                                     </div>
                                 </div><!-- Border radius -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for='ays_quick_quiz_image_height'>
+                                            <?php echo __('Quiz image height', $this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8 ays_quiz_display_flex_width">
+                                        <div>
+                                            <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_image_height' name='ays_quick_quiz_image_height' value=""/>
+                                        </div>
+                                        <div class="ays_quiz_dropdown_max_width">
+                                            <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                        </div>
+                                    </div>
+                                </div><!-- Quiz image height -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

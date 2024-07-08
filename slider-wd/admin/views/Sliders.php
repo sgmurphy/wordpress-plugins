@@ -92,9 +92,9 @@ class SlidersView_wds extends AdminView_wds {
 							  <strong class="has-media-icon">
 								<a href="<?php echo $edit_url; ?>">
 								  <span class="media-icon image-icon">
-									<img class="preview-image" title="<?php echo $row->name; ?>" src="<?php echo $preview_image; ?>" width="60" height="60" />
+									<img class="preview-image" title="<?php echo esc_html($row->name); ?>" src="<?php echo esc_url($preview_image); ?>" width="60" height="60" />
 								  </span>
-								  <?php echo $row->name; ?>
+								  <?php echo esc_html($row->name); ?>
 								</a>
 								<?php if ( !$row->published ) { ?>
 								  — <span class="post-state"><?php _e('Unpublished', WDS()->prefix); ?></span>
@@ -136,7 +136,7 @@ class SlidersView_wds extends AdminView_wds {
 				<select class="select_icon select_icon_320" style="width:200px" name="select_slider_merge" id="select_slider_merge" style="margin-bottom: 6px;">
 					<option><?php _e('-select-', WDS()->prefix); ?></option>
 					<?php foreach ( $params['rows'] as $row ) { ?>
-					<option value="<?php echo $row->id; ?>"><?php echo $row->name; ?></option>
+					<option value="<?php echo esc_attr($row->id); ?>"><?php echo esc_html($row->name); ?></option>
 					<?php } ?>
 				</select>
 				<input class="button-secondary" type="submit" onclick="spider_set_input_value('task', 'merge');"  value="<?php _e('Merge', WDS()->prefix); ?>" />
@@ -233,7 +233,7 @@ class SlidersView_wds extends AdminView_wds {
       <h2 class="wds_default"><?php echo $page_title; ?></h2>
       <div class="buttons_conteiner">
         <h1 class="wp-heading-inline"><?php _e('Slider Title', WDS()->prefix); ?></h1>
-        <input type="text" id="name" name="name" value="<?php echo $row->name; ?>" size="20" class="wds_requried" data-name="<?php _e('Slider title', WDS()->prefix); ?>" />
+        <input type="text" id="name" name="name" value="<?php echo esc_html($row->name); ?>" size="20" class="wds_requried" data-name="<?php _e('Slider title', WDS()->prefix); ?>" />
         <div class="wds_buttons">
           <button class="button button-primary button-large" onclick="spider_set_input_value('task', 'apply'); if(!wds_spider_ajax_save('sliders_form', event)) return false;">
             <?php echo $save_btn_name; ?>

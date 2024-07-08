@@ -173,8 +173,9 @@ class SwpmFrontRegistration extends SwpmRegistration {
 				do_action( 'swpm_front_end_registration_complete' ); //Keep this action hook for people who are using it (so their implementation doesn't break).
 				do_action( 'swpm_front_end_registration_complete_user_data', $this->member_info );
 
-				//Check if there is after registration redirect
+				//Check if there is after registration redirect (for non-email activation scenario).
 				if ( ! $this->email_activation ) {
+					//This is a non-email activation scenario.
 					$after_rego_url = SwpmSettings::get_instance()->get_value( 'after-rego-redirect-page-url' );
 					$after_rego_url = apply_filters( 'swpm_after_registration_redirect_url', $after_rego_url );
 					if ( ! empty( $after_rego_url ) ) {
@@ -187,10 +188,11 @@ class SwpmFrontRegistration extends SwpmRegistration {
 
 				//Set the registration complete message
 				if ( $this->email_activation ) {
+					//This is an email activation scenario.
 					$email_act_msg  = '<div class="swpm-registration-success-msg">';
 					$email_act_msg .= SwpmUtils::_( 'You need to confirm your email address. Please check your email and follow instructions to complete your registration.' );
 					$email_act_msg .= '</div>';
-									$email_act_msg = apply_filters( 'swpm_registration_email_activation_msg', $email_act_msg );//Can be added to the custom messages addon.
+					$email_act_msg = apply_filters( 'swpm_registration_email_activation_msg', $email_act_msg );//Can be added to the custom messages addon.
 					$message        = array(
 						'succeeded' => true,
 						'message'   => $email_act_msg,
@@ -608,7 +610,12 @@ class SwpmFrontRegistration extends SwpmRegistration {
 		return false;
 	}
 
+	/*
+	 * This function is called when the user clicks on the activation link in the email.
+	 */
 	public function email_activation() {
+		//The email activation link contains the member ID and the activation code.
+
 		$login_page_url = SwpmSettings::get_instance()->get_value( 'login-page-url' );
 
 		// Allow hooks to change the value of login_page_url
@@ -642,33 +649,42 @@ class SwpmFrontRegistration extends SwpmRegistration {
 		}
 		$activation_account_status = apply_filters( 'swpm_activation_feature_override_account_status', 'active' );
 		SwpmMemberUtils::update_account_state( $member_id, $activation_account_status );
-		$this->member_info                   = (array) $member;
+		$this->member_info = (array) $member;
 		$this->member_info['plain_password'] = SwpmUtils::crypt( $act_data['plain_password'], 'd' );
 		$this->send_reg_email();
 
+		//Setup the success message.
 		$msg = '<div class="swpm_temporary_msg" style="font-weight: bold;">' . SwpmUtils::_( 'Success! Your account has been activated successfully.' ) . '</div>';
 
-		// retrieving registered membership level details by the user.
+		// Check and retrieve membership level specific after activation redirect URL data.
 		$membership_level = SwpmUtils::get_membership_level_row_by_id($member->membership_level);
-		$custom_fields = SwpmMembershipLevelCustom::get_instance_by_id($membership_level->id);
-		$after_activation_redirect_page = sanitize_url($custom_fields->get('after_activation_redirect_page'));
+		$level_custom_data = SwpmMembershipLevelCustom::get_instance_by_id($membership_level->id);
+		$after_activation_redirect_page = sanitize_url($level_custom_data->get('after_activation_redirect_page'));
 
 		// Check Whether the membership_level has a dedicated after activation redirect URL.
 		if (!empty($after_activation_redirect_page)){
-			$after_rego_url = $after_activation_redirect_page;
+			//There is a dedicated after activation redirect URL for this membership level.
+			SwpmLog::log_simple_debug( 'There is a dedicated after email activation redirect URL for this membership level. Setting this as the redirect URL: ' . $after_activation_redirect_page, true );
+			$after_email_activation_url = $after_activation_redirect_page;
 		}else{
-			$after_rego_url = SwpmSettings::get_instance()->get_value( 'after-rego-redirect-page-url' );
+			//No dedicated after activation redirect URL for this membership level.
+			//For backwards compatibility - Use the fallback to after registration redirect URL from the settings.
+			$after_email_activation_url = SwpmSettings::get_instance()->get_value( 'after-rego-redirect-page-url' );
 		}
 
-		$after_rego_url = apply_filters( 'swpm_after_registration_redirect_url', $after_rego_url );
-		if ( ! empty( $after_rego_url ) ) {
-			//Yes. Need to redirect to this after registration page
-			SwpmLog::log_simple_debug( 'After registration redirect is configured in settings. Redirecting user to: ' . $after_rego_url, true );
-			SwpmMiscUtils::show_temporary_message_then_redirect( $msg, $after_rego_url );
+		//Trigger hooks to allow other plugins to change the after activation redirect URL.
+		//Keeping this one for backwards compatibility for now.
+		$after_email_activation_url = apply_filters( 'swpm_after_registration_redirect_url', $after_email_activation_url );//TODO - remove later.
+		$after_email_activation_url = apply_filters( 'swpm_after_email_activation_redirect_url', $after_email_activation_url );
+
+		if ( ! empty( $after_email_activation_url ) ) {
+			//Yes. Need to redirect to this after registration confirmation page.
+			SwpmLog::log_simple_debug( 'After email activation redirect is configured. Redirecting the user to: ' . $after_email_activation_url, true );
+			SwpmMiscUtils::show_temporary_message_then_redirect( $msg, $after_email_activation_url );
 			exit( 0 );
 		}
 
-		//show success message and redirect to login page
+		//No redirection has been configured. show success message and redirect to the standard login page.
 		SwpmMiscUtils::show_temporary_message_then_redirect( $msg, $login_page_url );
 		exit( 0 );
 	}
@@ -701,9 +717,9 @@ class SwpmFrontRegistration extends SwpmRegistration {
 
 		delete_option( 'swpm_email_activation_data_usr_' . $member_id );
 
-		$this->member_info                   = (array) $member;
+		$this->member_info = (array) $member;
 		$this->member_info['plain_password'] = SwpmUtils::crypt( $act_data['plain_password'], 'd' );
-		$this->email_activation              = true;
+		$this->email_activation = true;
 		$this->send_reg_email();
 
 		$msg = '<div class="swpm_temporary_msg" style="font-weight: bold;">' . SwpmUtils::_( 'Activation email has been sent. Please check your email and activate your account.' ) . '</div>';

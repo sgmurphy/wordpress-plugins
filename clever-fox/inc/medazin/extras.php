@@ -8,23 +8,23 @@
 		'medazin_get_info_default', wp_json_encode(
 				 array(
 				array(
-					'title'           => esc_html__( 'Stethoscope', 'clever-fox' ),
-					'icon_value'       => 'fa-stethoscope',
+					'title'           => esc_html__( 'Surgery', 'clever-fox' ),
+					'icon_value'       => 'fa-medkit',
 					'id'              => 'customizer_repeater_info_001',					
 				),
 				array(
-					'title'           => esc_html__( 'Thermometer', 'clever-fox' ),
-					'icon_value'       => 'fa-thermometer-quarter',
+					'title'           => esc_html__( 'Gynocology', 'clever-fox' ),
+					'icon_value'       => 'fa-female',
 					'id'              => 'customizer_repeater_info_002',				
 				),
 				array(
-					'title'           => esc_html__( 'Eyedropper', 'clever-fox' ),
-					'icon_value'       => 'fa-eye-dropper',
+					'title'           => esc_html__( 'Optometry', 'clever-fox' ),
+					'icon_value'       => 'fa-eye',
 					'id'              => 'customizer_repeater_info_003',
 				),
 				array(
-					'title'           => esc_html__( 'Transgender', 'clever-fox' ),
-					'icon_value'       => 'fa-transgender-alt',
+					'title'           => esc_html__( 'Orthopedics', 'clever-fox' ),
+					'icon_value'       => 'fa-wheelchair',
 					'id'              => 'customizer_repeater_info_004',
 				),
 				array(
@@ -33,7 +33,7 @@
 					'id'              => 'customizer_repeater_info_005',
 				),
 				array(
-					'title'           => esc_html__( 'Heartbeat', 'clever-fox' ),
+					'title'           => esc_html__( 'Cardiology', 'clever-fox' ),
 					'icon_value'       => 'fa-heartbeat',
 					'id'              => 'customizer_repeater_info_006',
 				),

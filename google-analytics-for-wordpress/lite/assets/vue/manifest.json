@@ -7,13 +7,6 @@
     "file": "css/WelcomeOverlay.css",
     "src": "WelcomeOverlay.css"
   },
-  "_ReportReAuth-799813da.min.js": {
-    "file": "js/chunks/ReportReAuth-799813da.min.js",
-    "imports": [
-      "_vendor-abf23f8e.min.js",
-      "_SettingsInfoTooltip-8ce0e85d.min.js"
-    ]
-  },
   "_SettingsInfoTooltip-8ce0e85d.min.js": {
     "file": "js/chunks/SettingsInfoTooltip-8ce0e85d.min.js",
     "imports": [
@@ -29,14 +22,14 @@
       "_vendor-abf23f8e.min.js"
     ]
   },
-  "_WelcomeOverlay-5c0b57d7.min.js": {
+  "_WelcomeOverlay-4cc28278.min.js": {
     "css": [
       "css/WelcomeOverlay.css"
     ],
-    "file": "js/chunks/WelcomeOverlay-5c0b57d7.min.js",
+    "file": "js/chunks/WelcomeOverlay-4cc28278.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_index-ef6f6492.min.js",
+      "_index-9dee18c5.min.js",
       "_SettingsInfoTooltip-8ce0e85d.min.js",
       "_SlideDownUp-80f4c9d9.min.js"
     ]
@@ -47,6 +40,13 @@
       "_vendor-abf23f8e.min.js"
     ]
   },
+  "_date-intervals-99bc51b5.min.js": {
+    "file": "js/chunks/date-intervals-99bc51b5.min.js",
+    "imports": [
+      "_vendor-abf23f8e.min.js",
+      "_SettingsInfoTooltip-8ce0e85d.min.js"
+    ]
+  },
   "_html2canvas-9e5302fc.min.js": {
     "file": "js/chunks/html2canvas-9e5302fc.min.js",
     "imports": [
@@ -54,13 +54,14 @@
     ],
     "isDynamicEntry": true
   },
-  "_index-d6a6ac70.min.js": {
-    "file": "js/chunks/index-d6a6ac70.min.js",
+  "_index-3b247c04.min.js": {
+    "file": "js/chunks/index-3b247c04.min.js",
     "imports": [
-      "_vendor-abf23f8e.min.js"
+      "_vendor-abf23f8e.min.js",
+      "_index-9dee18c5.min.js"
     ]
   },
-  "_index-e7d3fbef.min.js": {
+  "_index-999d9e4f.min.js": {
     "assets": [
       "img/icon-info.svg",
       "img/mascot.png",
@@ -83,14 +84,14 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index-e7d3fbef.min.js",
+    "file": "js/chunks/index-999d9e4f.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
       "_SlideDownUp-80f4c9d9.min.js"
     ]
   },
-  "_index-ef6f6492.min.js": {
-    "file": "js/chunks/index-ef6f6492.min.js",
+  "_index-9dee18c5.min.js": {
+    "file": "js/chunks/index-9dee18c5.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js"
     ]
@@ -992,9 +993,9 @@
     "file": "js/frontend.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_index-d6a6ac70.min.js",
+      "_index-3b247c04.min.js",
       "_WidgetReportError-60e8a049.min.js",
-      "_index-ef6f6492.min.js"
+      "_index-9dee18c5.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1084,11 +1085,11 @@
     "file": "js/reports.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_index-d6a6ac70.min.js",
+      "_index-3b247c04.min.js",
       "_SettingsInfoTooltip-8ce0e85d.min.js",
-      "_ReportReAuth-799813da.min.js",
-      "_index-e7d3fbef.min.js",
-      "_index-ef6f6492.min.js",
+      "_date-intervals-99bc51b5.min.js",
+      "_index-999d9e4f.min.js",
+      "_index-9dee18c5.min.js",
       "_SlideDownUp-80f4c9d9.min.js"
     ],
     "isEntry": true,
@@ -1233,11 +1234,11 @@
     "file": "js/settings.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_index-ef6f6492.min.js",
+      "_index-9dee18c5.min.js",
       "_SlideDownUp-80f4c9d9.min.js",
-      "_WelcomeOverlay-5c0b57d7.min.js",
+      "_WelcomeOverlay-4cc28278.min.js",
       "_SettingsInfoTooltip-8ce0e85d.min.js",
-      "_index-e7d3fbef.min.js"
+      "_index-999d9e4f.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1332,11 +1333,11 @@
     "file": "js/widget.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_index-d6a6ac70.min.js",
-      "_ReportReAuth-799813da.min.js",
+      "_index-3b247c04.min.js",
+      "_date-intervals-99bc51b5.min.js",
       "_SettingsInfoTooltip-8ce0e85d.min.js",
       "_WidgetReportError-60e8a049.min.js",
-      "_index-ef6f6492.min.js"
+      "_index-9dee18c5.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1384,9 +1385,9 @@
     "file": "js/wizard.min.js",
     "imports": [
       "_vendor-abf23f8e.min.js",
-      "_WelcomeOverlay-5c0b57d7.min.js",
+      "_WelcomeOverlay-4cc28278.min.js",
       "_SettingsInfoTooltip-8ce0e85d.min.js",
-      "_index-ef6f6492.min.js",
+      "_index-9dee18c5.min.js",
       "_SlideDownUp-80f4c9d9.min.js"
     ],
     "isEntry": true,

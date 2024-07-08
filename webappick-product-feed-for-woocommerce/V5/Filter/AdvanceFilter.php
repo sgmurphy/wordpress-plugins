@@ -44,9 +44,9 @@ class AdvanceFilter {
 				$condition        = $conditions[ $key ];
 				$conditionCompare = stripslashes( $filterCompare[ $key ] );
 
-				if( $conditionName == '' || $conditionName == 0 || $condition == '' || $condition == 0 || $conditionCompare == '' || $conditionCompare == 0 ){
+				/*if( $conditionName == '' || $conditionName == 0 || $condition == '' || $condition == 0 || $conditionCompare == '' || $conditionCompare == 0 ){
 					continue;
-				}
+				}*/
 				// Backward compatibility for <= v5.2.25
 				$concatOperator = isset( $concatType[ $key ] ) && ! empty( $concatType[ $key ] )
 					? $concatType[ $key ]

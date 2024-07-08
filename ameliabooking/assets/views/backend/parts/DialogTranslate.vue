@@ -58,7 +58,7 @@
         <!-- Url -->
         <el-row class="am-dialog-translate-description" :gutter="24" type="flex" v-if="type === 'url' && usedLanguages && usedLanguages.indexOf(key) !== -1">
           <el-col :sm="24" style="padding-right: 0">
-            <el-input v-model="oldTranslations[key]" :value="translation">
+            <el-input v-model="oldTranslations[key]" :value="translation" placeholder="https://test.site.com/customer-panel/">
             </el-input>
           </el-col>
         </el-row>
@@ -169,7 +169,7 @@
 
         <el-row class="am-dialog-translate-description" :gutter="24" type="flex" v-if="type === 'url'">
           <el-col :sm="24">
-            <el-input v-model="newTranslations[index].value" :value="translation">
+            <el-input v-model="newTranslations[index].value" :value="translation" placeholder="https://test.site.com/customer-panel/">
             </el-input>
           </el-col>
         </el-row>

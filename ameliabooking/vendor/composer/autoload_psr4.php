@@ -33,7 +33,7 @@ return array(
     'League\\Event\\' => array($vendorDir . '/league/event/src'),
     'AmeliaHttp\\Promise\\' => array($vendorDir . '/php-http/promise/src'),
     'AmeliaHttp\\Message\\MultipartStream\\' => array($vendorDir . '/php-http/multipart-stream-builder/src'),
-    'AmeliaHttp\\Message\\' => array($vendorDir . '/php-http/message-factory/src', $vendorDir . '/php-http/message/src'),
+    'AmeliaHttp\\Message\\' => array($vendorDir . '/php-http/message/src', $vendorDir . '/php-http/message-factory/src'),
     'AmeliaHttp\\Discovery\\' => array($vendorDir . '/php-http/discovery/src'),
     'AmeliaHttp\\Client\\Curl\\' => array($vendorDir . '/php-http/curl-client/src'),
     'AmeliaHttp\\Client\\Common\\' => array($vendorDir . '/php-http/client-common/src'),

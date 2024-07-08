@@ -7,65 +7,59 @@
     "file": "css/ContentIconList.css",
     "src": "ContentIconList.css"
   },
-  "_AboutTestimonialsSlider-9441529c.min.js": {
+  "_AboutTestimonialsSlider-053dff4c.min.js": {
     "css": [
       "css/AboutTestimonialsSlider.css"
     ],
-    "file": "js/chunks/AboutTestimonialsSlider-9441529c.min.js",
+    "file": "js/chunks/AboutTestimonialsSlider-053dff4c.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js",
-      "_ContentIconList-7b51c06c.min.js"
+      "_vendor-824ac949.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js",
+      "_ContentIconList-8af27638.min.js"
     ]
   },
-  "_ContentIconList-7b51c06c.min.js": {
+  "_ContentIconList-8af27638.min.js": {
     "css": [
       "css/ContentIconList.css"
     ],
-    "file": "js/chunks/ContentIconList-7b51c06c.min.js",
+    "file": "js/chunks/ContentIconList-8af27638.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ]
   },
-  "_SettingsInfoTooltip-907f1343.min.js": {
-    "file": "js/chunks/SettingsInfoTooltip-907f1343.min.js",
+  "_SettingsInfoTooltip-a508d459.min.js": {
+    "file": "js/chunks/SettingsInfoTooltip-a508d459.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ]
   },
-  "_WidgetReportError-268adb20.min.js": {
-    "file": "js/chunks/WidgetReportError-268adb20.min.js",
+  "_WidgetReportError-2f9c9309.min.js": {
+    "file": "js/chunks/WidgetReportError-2f9c9309.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ]
   },
-  "_exactmetrics-reports-helper-plugin-defc1052.min.js": {
-    "file": "js/chunks/exactmetrics-reports-helper-plugin-defc1052.min.js",
+  "_exactmetrics-reports-helper-plugin-84f8a3f8.min.js": {
+    "file": "js/chunks/exactmetrics-reports-helper-plugin-84f8a3f8.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js"
+      "_vendor-824ac949.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js"
     ]
   },
-  "_html2canvas-4bbca4ae.min.js": {
-    "file": "js/chunks/html2canvas-4bbca4ae.min.js",
+  "_html2canvas-4557e6a1.min.js": {
+    "file": "js/chunks/html2canvas-4557e6a1.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ],
     "isDynamicEntry": true
   },
-  "_index-1cc0afdd.min.js": {
-    "file": "js/chunks/index-1cc0afdd.min.js",
+  "_index-5b4bd2c1.min.js": {
+    "file": "js/chunks/index-5b4bd2c1.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ]
   },
-  "_index-2cd73f4c.min.js": {
-    "file": "js/chunks/index-2cd73f4c.min.js",
-    "imports": [
-      "_vendor-53c5c5ca.min.js"
-    ]
-  },
-  "_index-e334761e.min.js": {
+  "_index-9b776d4d.min.js": {
     "assets": [
       "img/icon-info.svg",
       "img/logo-ExactMetrics@2x.png",
@@ -88,13 +82,20 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index-e334761e.min.js",
+    "file": "js/chunks/index-9b776d4d.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_ContentIconList-7b51c06c.min.js"
+      "_vendor-824ac949.min.js",
+      "_ContentIconList-8af27638.min.js"
     ]
   },
-  "_vendor-53c5c5ca.min.js": {
+  "_index-ce2af517.min.js": {
+    "file": "js/chunks/index-ce2af517.min.js",
+    "imports": [
+      "_vendor-824ac949.min.js",
+      "_index-5b4bd2c1.min.js"
+    ]
+  },
+  "_vendor-824ac949.min.js": {
     "assets": [
       "img/sucker.png"
     ],
@@ -102,11 +103,11 @@
       "css/vendor.css"
     ],
     "dynamicImports": [
-      "_html2canvas-4bbca4ae.min.js",
+      "_html2canvas-4557e6a1.min.js",
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "js/chunks/vendor-53c5c5ca.min.js"
+    "file": "js/chunks/vendor-824ac949.min.js"
   },
   "index.css": {
     "file": "css/index.css",
@@ -117,9 +118,9 @@
     "src": "node_modules/@caohenghu/vue-colorpicker/src/img/sucker.png"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "js/chunks/index.es-b667ad7a.min.js",
+    "file": "js/chunks/index.es-8f9ddd1a.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js"
+      "_vendor-824ac949.min.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/canvg/lib/index.es.js"
@@ -341,6 +342,10 @@
     "file": "img/ecommerce-funnel-upsell.png",
     "src": "src/assets/img/exactmetrics/ecommerce-funnel-upsell.png"
   },
+  "src/assets/img/exactmetrics/ecommerce-overview-screen.png": {
+    "file": "img/ecommerce-overview-screen.png",
+    "src": "src/assets/img/exactmetrics/ecommerce-overview-screen.png"
+  },
   "src/assets/img/exactmetrics/ecommerce-screen.png": {
     "file": "img/ecommerce-screen.png",
     "src": "src/assets/img/exactmetrics/ecommerce-screen.png"
@@ -417,10 +422,6 @@
     "file": "img/pp-theme-widget-icons.png",
     "src": "src/assets/img/exactmetrics/pp-theme-widget-icons.png"
   },
-  "src/assets/img/exactmetrics/prettylinks-ad-bg.png": {
-    "file": "img/prettylinks-ad-bg.png",
-    "src": "src/assets/img/exactmetrics/prettylinks-ad-bg.png"
-  },
   "src/assets/img/exactmetrics/publishers-screen.png": {
     "file": "img/publishers-screen.png",
     "src": "src/assets/img/exactmetrics/publishers-screen.png"
@@ -465,9 +466,9 @@
     "file": "img/traffic-overview-screen.png",
     "src": "src/assets/img/exactmetrics/traffic-overview-screen.png"
   },
-  "src/assets/img/exactmetrics/traffic-social-upsell.png": {
-    "file": "img/traffic-social-upsell.png",
-    "src": "src/assets/img/exactmetrics/traffic-social-upsell.png"
+  "src/assets/img/exactmetrics/traffic-social-screen.png": {
+    "file": "img/traffic-social-screen.png",
+    "src": "src/assets/img/exactmetrics/traffic-social-screen.png"
   },
   "src/assets/img/exactmetrics/traffic-source-medium-screen.png": {
     "file": "img/traffic-source-medium-screen.png",
@@ -476,6 +477,14 @@
   "src/assets/img/exactmetrics/traffic-technology-screen.png": {
     "file": "img/traffic-technology-screen.png",
     "src": "src/assets/img/exactmetrics/traffic-technology-screen.png"
+  },
+  "src/assets/img/exactmetrics/upsell-background.png": {
+    "file": "img/upsell-background.png",
+    "src": "src/assets/img/exactmetrics/upsell-background.png"
+  },
+  "src/assets/img/exactmetrics/upsell-button-arrow.svg": {
+    "file": "img/upsell-button-arrow.svg",
+    "src": "src/assets/img/exactmetrics/upsell-button-arrow.svg"
   },
   "src/assets/img/exactmetrics/upsell-screen.png": {
     "file": "img/upsell-screen.png",
@@ -965,10 +974,10 @@
     ],
     "file": "js/frontend.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_index-2cd73f4c.min.js",
-      "_WidgetReportError-268adb20.min.js",
-      "_index-1cc0afdd.min.js"
+      "_vendor-824ac949.min.js",
+      "_index-ce2af517.min.js",
+      "_WidgetReportError-2f9c9309.min.js",
+      "_index-5b4bd2c1.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -980,6 +989,7 @@
   "src/modules/reports/reports.js": {
     "assets": [
       "img/flags.png",
+      "img/upsell-button-arrow.svg",
       "img/upsell-screen.png",
       "img/exactmetrics.png",
       "img/one-click-integrations.png",
@@ -991,15 +1001,16 @@
       "img/traffic-technology-screen.png",
       "img/traffic-source-medium-screen.png",
       "img/traffic-campaigns-screen.png",
+      "img/traffic-social-screen.png",
       "img/engagement-pages-screen.png",
+      "img/ecommerce-overview-screen.png",
       "img/ecommerce-coupons-screen.png",
+      "img/ecommerce-funnel-upsell.png",
       "img/real-time-screen.png",
       "img/site-speed-screen.png",
       "img/forms-report-screen.png",
       "img/dimensions-report-screen.png",
       "img/media-report-upsell.png",
-      "img/ecommerce-funnel-upsell.png",
-      "img/traffic-social-upsell.png",
       "img/exception-report-screen.png",
       "img/forms-screen.png",
       "img/optimize-screen.png",
@@ -1049,6 +1060,7 @@
       "img/report-arrow-up-green.png",
       "img/report-arrow-up-red.png",
       "img/reports-upsell-bg.png",
+      "img/upsell-background.png",
       "img/em-pro.png",
       "img/loading-background.jpg"
     ],
@@ -1057,13 +1069,13 @@
     ],
     "file": "js/reports.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_index-2cd73f4c.min.js",
-      "_exactmetrics-reports-helper-plugin-defc1052.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js",
-      "_index-e334761e.min.js",
-      "_ContentIconList-7b51c06c.min.js",
-      "_index-1cc0afdd.min.js"
+      "_vendor-824ac949.min.js",
+      "_index-ce2af517.min.js",
+      "_exactmetrics-reports-helper-plugin-84f8a3f8.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js",
+      "_index-9b776d4d.min.js",
+      "_index-5b4bd2c1.min.js",
+      "_ContentIconList-8af27638.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/reports/reports.js"
@@ -1076,7 +1088,6 @@
     "assets": [
       "img/ecommerce-report.png",
       "img/em-logo-lg.png",
-      "img/prettylinks-ad-bg.png",
       "img/icon-download.png",
       "img/pretty-links-logo-white.svg",
       "img/icon-star.png",
@@ -1181,6 +1192,7 @@
       "img/site-notes-integration-upsell.png",
       "img/icon-plus.svg",
       "img/icon-lock.svg",
+      "img/upsell-button-arrow.svg",
       "img/upsell-screen.png",
       "img/exactmetrics.png",
       "img/one-click-integrations.png",
@@ -1192,15 +1204,16 @@
       "img/traffic-technology-screen.png",
       "img/traffic-source-medium-screen.png",
       "img/traffic-campaigns-screen.png",
+      "img/traffic-social-screen.png",
       "img/engagement-pages-screen.png",
+      "img/ecommerce-overview-screen.png",
       "img/ecommerce-coupons-screen.png",
+      "img/ecommerce-funnel-upsell.png",
       "img/real-time-screen.png",
       "img/site-speed-screen.png",
       "img/forms-report-screen.png",
       "img/dimensions-report-screen.png",
       "img/media-report-upsell.png",
-      "img/ecommerce-funnel-upsell.png",
-      "img/traffic-social-upsell.png",
       "img/exception-report-screen.png",
       "img/forms-screen.png",
       "img/optimize-screen.png",
@@ -1238,12 +1251,12 @@
     ],
     "file": "js/settings.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_index-1cc0afdd.min.js",
-      "_ContentIconList-7b51c06c.min.js",
-      "_AboutTestimonialsSlider-9441529c.min.js",
-      "_index-e334761e.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js"
+      "_vendor-824ac949.min.js",
+      "_index-5b4bd2c1.min.js",
+      "_ContentIconList-8af27638.min.js",
+      "_AboutTestimonialsSlider-053dff4c.min.js",
+      "_index-9b776d4d.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1259,6 +1272,7 @@
       "fonts/icons.ttf",
       "fonts/icons.otf",
       "img/flags.png",
+      "img/upsell-button-arrow.svg",
       "img/upsell-screen.png",
       "img/exactmetrics.png",
       "img/one-click-integrations.png",
@@ -1270,15 +1284,16 @@
       "img/traffic-technology-screen.png",
       "img/traffic-source-medium-screen.png",
       "img/traffic-campaigns-screen.png",
+      "img/traffic-social-screen.png",
       "img/engagement-pages-screen.png",
+      "img/ecommerce-overview-screen.png",
       "img/ecommerce-coupons-screen.png",
+      "img/ecommerce-funnel-upsell.png",
       "img/real-time-screen.png",
       "img/site-speed-screen.png",
       "img/forms-report-screen.png",
       "img/dimensions-report-screen.png",
       "img/media-report-upsell.png",
-      "img/ecommerce-funnel-upsell.png",
-      "img/traffic-social-upsell.png",
       "img/exception-report-screen.png",
       "img/forms-screen.png",
       "img/optimize-screen.png",
@@ -1328,6 +1343,7 @@
       "img/report-arrow-up-green.png",
       "img/report-arrow-up-red.png",
       "img/reports-upsell-bg.png",
+      "img/upsell-background.png",
       "img/em-pro.png",
       "img/loading-background.jpg",
       "img/em-logo.png"
@@ -1337,12 +1353,12 @@
     ],
     "file": "js/widget.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_index-2cd73f4c.min.js",
-      "_exactmetrics-reports-helper-plugin-defc1052.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js",
-      "_WidgetReportError-268adb20.min.js",
-      "_index-1cc0afdd.min.js"
+      "_vendor-824ac949.min.js",
+      "_index-ce2af517.min.js",
+      "_exactmetrics-reports-helper-plugin-84f8a3f8.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js",
+      "_WidgetReportError-2f9c9309.min.js",
+      "_index-5b4bd2c1.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1383,6 +1399,7 @@
       "img/testimonial-image-1.png",
       "img/testimonial-image-2.png",
       "img/testimonial-image-3.jpg",
+      "img/upsell-button-arrow.svg",
       "img/upsell-screen.png",
       "img/exactmetrics.png",
       "img/one-click-integrations.png",
@@ -1394,15 +1411,16 @@
       "img/traffic-technology-screen.png",
       "img/traffic-source-medium-screen.png",
       "img/traffic-campaigns-screen.png",
+      "img/traffic-social-screen.png",
       "img/engagement-pages-screen.png",
+      "img/ecommerce-overview-screen.png",
       "img/ecommerce-coupons-screen.png",
+      "img/ecommerce-funnel-upsell.png",
       "img/real-time-screen.png",
       "img/site-speed-screen.png",
       "img/forms-report-screen.png",
       "img/dimensions-report-screen.png",
       "img/media-report-upsell.png",
-      "img/ecommerce-funnel-upsell.png",
-      "img/traffic-social-upsell.png",
       "img/exception-report-screen.png",
       "img/optimize-screen.png",
       "img/custom-dimensions-screen.png",
@@ -1414,11 +1432,11 @@
     ],
     "file": "js/wizard.min.js",
     "imports": [
-      "_vendor-53c5c5ca.min.js",
-      "_AboutTestimonialsSlider-9441529c.min.js",
-      "_SettingsInfoTooltip-907f1343.min.js",
-      "_index-1cc0afdd.min.js",
-      "_ContentIconList-7b51c06c.min.js"
+      "_vendor-824ac949.min.js",
+      "_AboutTestimonialsSlider-053dff4c.min.js",
+      "_SettingsInfoTooltip-a508d459.min.js",
+      "_index-5b4bd2c1.min.js",
+      "_ContentIconList-8af27638.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/wizard-onboarding/wizard.js"

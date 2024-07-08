@@ -58,7 +58,7 @@
 
 
 		//login_headertitle was deprecated in WordPress 5.2
-			
+
 		if ( version_compare( $GLOBALS['wp_version'], '5.2', '<' ) ) {
 			$login_header_title = apply_filters( 'login_headertitle', $login_header_title );
 		} else {
@@ -200,7 +200,7 @@
 				echo '<script type="text/javascript">' . $options['logincust_other_js'] . '</script>';
 
 			}
-			wp_footer();
+			// wp_footer();
 		?>
 	</body>
 </html>

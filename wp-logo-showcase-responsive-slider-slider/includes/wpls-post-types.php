@@ -38,15 +38,15 @@ function wplss_logo_showcase_post_types() {
 	));
 
 	$args = array(
-		'labels'				=> $labels,
-		'menu_icon'				=> 'dashicons-images-alt2',
-		'capability_type' 		=> 'post',
-		'public' 				=> false,
-		'show_ui' 				=> true,
-		'show_in_menu' 			=> true,
-		'query_var' 			=> false,
-		'hierarchical' 			=> false,
-		'supports' 				=> apply_filters( 'sp_logoshowcase_post_supports', array('title', 'thumbnail') )
+		'labels'			=> $labels,
+		'menu_icon'			=> 'dashicons-images-alt2',
+		'capability_type'	=> 'post',
+		'public'			=> false,
+		'show_ui'			=> true,
+		'show_in_menu'		=> true,
+		'query_var'			=> false,
+		'hierarchical'		=> false,
+		'supports'			=> apply_filters( 'sp_logoshowcase_post_supports', array('title', 'thumbnail') )
 	);
 
 	register_post_type( WPLS_POST_TYPE, apply_filters( 'sp_logoshowcase_post_type_args', $args ) );

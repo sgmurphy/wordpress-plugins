@@ -49,6 +49,16 @@ class Widgets_And_Blocks {
             'location' => WISHSUITE_BLOCKS_PATH,
         ];
 
+        $block_list['wishsuite_counter'] = [
+            'label'  => __('WishSuite Counter','woolentor'),
+            'name'   => 'woolentor/wishsuite-counter',
+            'server_side_render' => true,
+            'type'   => 'common',
+            'active' => true,
+            'is_pro' => false,
+            'location' => WISHSUITE_BLOCKS_PATH,
+        ];
+
         return $block_list;
     }
 

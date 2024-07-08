@@ -169,6 +169,14 @@ class ExactMetrics_Report {
 		$start = ! empty( $args['start'] ) && $this->is_valid_date( $args['start'] ) ? $args['start'] : '';
 		$end   = ! empty( $args['end'] ) && $this->is_valid_date( $args['end'] ) ? $args['end'] : '';
 
+		$compare_start = null;
+		$compare_end   = null;
+
+		if ( isset( $args['compare_start'] ) ) {
+			$compare_start = ! empty( $args['compare_start'] ) && $this->is_valid_date( $args['compare_start'] ) ? $args['compare_start'] : '';
+			$compare_end   = ! empty( $args['compare_end'] ) && $this->is_valid_date( $args['compare_end'] ) ? $args['compare_end'] : '';
+		}
+
 		if ( exactmetrics_is_pro_version() && ! ExactMetrics()->license->license_can( $this->level ) ) {
 			return array(
 				'success' => true,
@@ -215,7 +223,13 @@ class ExactMetrics_Report {
 		$check_cache       = ( $start === $this->default_start_date() && $end === $this->default_end_date() ) || apply_filters( 'exactmetrics_report_use_cache', false, $this->name );
 		$site_auth         = ExactMetrics()->auth->get_viewname();
 		$ms_auth           = is_multisite() && ExactMetrics()->auth->get_network_viewname();
-		$transient         = 'exactmetrics_report_' . $this->name . '_' . $start . '_' . $end;
+
+		if ( $compare_start && $compare_end ) {
+			$transient = 'exactmetrics_report_' . $this->name . '_' . $start . '_' . $end . '_to_' . $compare_start . '_' . $compare_end;
+		} else {
+			$transient = 'exactmetrics_report_' . $this->name . '_' . $start . '_' . $end;
+		}
+
 		$current_timestamp = current_time( 'U' );
 		// Set to same time as MI cache. MI caches same day to 15 and others to 1 day, so there's no point pinging MI before then.
 		$expiration = apply_filters( 'exactmetrics_report_transient_expiration',
@@ -225,10 +239,16 @@ class ExactMetrics_Report {
 		// Default date range, check.
 		if ( $site_auth || $ms_auth ) {
 			// Single site or MS with auth at subsite
-			$option_name = $site_auth ? 'exactmetrics_report_data_' . $this->name : 'exactmetrics_network_report_data_' . $this->name;
-			$p           = $site_auth ? ExactMetrics()->auth->get_viewid() : ExactMetrics()->auth->get_network_viewid();
+			if ( $compare_start && $compare_end ) {
+				$option_name = $site_auth ? 'exactmetrics_report_data_compare_' . $this->name : 'exactmetrics_network_report_data_compare_' . $this->name;
+			} else {
+				$option_name = $site_auth ? 'exactmetrics_report_data_' . $this->name : 'exactmetrics_network_report_data_' . $this->name;
+			}
+
+			$p = $site_auth ? ExactMetrics()->auth->get_viewid() : ExactMetrics()->auth->get_network_viewid();
 
 			$data = array();
+			// If default date range then get cache data from option.
 			if ( $check_cache ) {
 				$data = ! $site_auth && $ms_auth ? get_site_option( $option_name, array() ) : get_option( $option_name, array() );
 			} else {
@@ -250,6 +270,12 @@ class ExactMetrics_Report {
 
 			// Nothing in cache, either not saved before, expired or mismatch. Let's grab from API
 			$api_options = array( 'start' => $start, 'end' => $end );
+
+			if ( $compare_start && $compare_end ) {
+				$api_options['compare_start'] = $compare_start;
+				$api_options['compare_end']   = $compare_end;
+			}
+
 			if ( ! $site_auth && $ms_auth ) {
 				$api_options['network'] = true;
 			}
@@ -333,6 +359,24 @@ class ExactMetrics_Report {
 
 	public function default_end_date() {
 		return date( 'Y-m-d', strtotime( '-1 day' ) );
+	}
+
+	/**
+	 * Default date for compare start.
+	 *
+	 * @return string
+	 */
+	public function default_compare_start_date() {
+		return date( 'Y-m-d', strtotime( '-60 days' ) );
+	}
+
+	/**
+	 * Default date for compare end.
+	 *
+	 * @return string
+	 */
+	public function default_compare_end_date() {
+		return date( 'Y-m-d', strtotime( '-31 day' ) );
 	}
 
 	// Checks to see if date range is valid. Should be 30-yesterday always for lite & any valid date range to today for Pro.

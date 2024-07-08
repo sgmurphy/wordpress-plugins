@@ -202,63 +202,50 @@ export default {
        isValidEmail: true,
        blogPosts: [],
        changelog: {
-         version: '7.6',
+         version: '7.6.2',
          starter: {
            feature: [],
-           improvement: [
-             'Implemented logic so users first see services from the selected category on the back-end',
-             'Added an option to remove Service and Categories pictures',
-             'Added option to insert IPLocate API Key for 1000 API requests/day in case of auto-locate phone country code'
-           ],
-           translations: [
-             'Updated Romanian, Turkish and Spanish translations'
-           ],
+           improvement: [],
+           translations: [],
            bugfix: [
-             'Fixed issue with translating Calendar step on new Customer Panel 2.0',
-             'Fixed issue with appointments when the customer logs in to WP-admin',
-             'Fixed issue with duplicated employee and days off section',
-             'Fixed issue with attendees search when name has two words',
-             'Fixed vulnerability for description fields'
+             'Fixed issue with Events filter on the Finance page',
+             'Fixed issue with creating events and setting start event time after the end time in the employee panel',
+             'Fixed issue with notifications when a customer cancels an appointment',
+             'Fixed issue with extras and persons disappearing when de-selecting date',
+             'Fixed issue with Customer filter on Appointment page',
+             'Fixed issue with event periods editing and the event list form',
+             'Fixed issue with loading the forms when \'Load entities on page load\' is enabled',
+             'Fixed vulnerability issue'
            ],
            other: [
              'Other small bug fixes and stability improvements'
            ]
          },
          basic: {
-           feature: [
-             '<strong>TAX FEATURE</strong> - Now you can automatically calculate and apply taxes to your bookings',
-             'Custom Field Width Customization - Enabled users to customize the width of custom fields, allowing selection between half-width and full-width'
-           ],
-           improvement: [
-             'Added option to preselect location in shortcode for the Event List 2.0 form'
-           ],
+           feature: [],
+           improvement: [],
            translations: [],
            bugfix: [
-             'Fixed issue with payment links when appointments are booked on the back-end',
-             'Fixed issue with a large number of (recurring) events',
-             'Fixed issue with “Paid” amount on backend for WooCommerce payments',
-             'Fixed issue with the appointment_id placeholder in Mollie description/metadata',
-             'Fixed issue with the ‘Limit appointments per employee’ option and rescheduling',
-             'Fixed issue with deposit when deposit amount is equal to service price'
+             'Fixed issue with event price when it is not included in the tax',
+             'Fixed issue with events with the \'Allow the same customer to book more than once\' option disabled and WooCommerce'
            ],
            other: []
          },
          pro: {
-           feature: [
-             'Stripe Connect Integration - Seamless integration with Stripe Connect for easier payment processing'
-           ],
+           feature: [],
            improvement: [],
            translations: [],
-           bugfix: [],
+           bugfix: [
+             'Fixed issue with cart_appointment_details placeholder in notifications',
+             'Fixed issue with booking packages with services with no employees assigned'
+           ],
            other: []
          },
          developer: {
            feature: [],
            improvement: [],
            translations: [],
-           bugfix: [
-             'Fixed issue with get coupon API call'
-           ],
+           bugfix: [],
            other: []
          }
        },

@@ -427,8 +427,8 @@ export default {
           time: null,
           providerId: null,
           locationId: null,
-          persons: 1,
-          extras: [],
+          persons: state.appointments[i].services[state.appointments[i].serviceId].list[payload].persons,
+          extras: state.appointments[i].services[state.appointments[i].serviceId].list[payload].extras,
           duration: null,
           slots: [],
         }

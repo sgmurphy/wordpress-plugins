@@ -180,6 +180,10 @@
       employeeId: {
         type: Number,
         default: 0
+      },
+      mandatoryServicesIds: {
+        type: Array,
+        default: () => ([])
       }
     },
 
@@ -216,17 +220,27 @@
               this.$root.labels.service_provider_remove_fail_all + ' ' + service.name + ' ' + this.$root.labels.service,
               'error'
             )
+          } else if (this.mandatoryServicesIds.length && this.mandatoryServicesIds.includes(service.id) && category.state === false) {
+            this.notify(
+              this.$root.labels.error,
+              this.$root.labels.mandatory_service_remove_fail_all + ' ' + service.name + ' ' + this.$root.labels.service,
+              'error'
+            )
           } else {
             service.state = category.state
             this.changeSelectedPeriodServices(service)
           }
         })
+        this.handleCheckSingleInCategory(category)
       },
 
       changeService (category, service) {
         if (Object.keys(this.futureAppointments).length !== 0 && this.futureAppointments[this.employeeId] !== undefined && this.futureAppointments[this.employeeId].indexOf(service.id) !== -1) {
           service.state = true
           this.notify(this.$root.labels.error, this.$root.labels.service_provider_remove_fail, 'error')
+        } else if (this.mandatoryServicesIds.length && this.mandatoryServicesIds.includes(service.id)) {
+          service.state = true
+          this.notify(this.$root.labels.error, this.$root.labels.mandatory_service_remove_fail, 'error')
         }
 
         this.changeSelectedPeriodServices(service)

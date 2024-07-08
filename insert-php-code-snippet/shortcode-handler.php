@@ -5,6 +5,10 @@ global $wpdb;
 add_shortcode('xyz-ips','xyz_ips_display_content');
 function xyz_ips_display_content($xyz_snippet_name){
     global $wpdb;
+    if (is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ))
+  	{
+          return ''; // Do not execute the shortcode in the admin area
+    }
     if(is_array($xyz_snippet_name)&& isset($xyz_snippet_name['snippet'])){
         $snippet_name = $xyz_snippet_name['snippet'];
         $query = $wpdb->get_results($wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."xyz_ips_short_code WHERE title=%s" ,$snippet_name));
@@ -67,52 +71,36 @@ else{
 $exception_occur=0;
 $exception_msg="";
 
-if(get_option('xyz_ips_auto_exception')==1) {
+      try {
 
-  $str1 = " \r\ntry{";
-  $var="$";
-  $str2 = "\r\n}catch(Exception ".$var."e) {echo 'Caught exception: '.".$var."e->getMessage();".$var."exception_occur=1;".$var."exception_msg=".$var."e->getMessage();}";
 
-  $first_start_tag=strpos($content_to_eval,"<?php");
-  $last_end_tag=strrpos($content_to_eval,"?>");
-  $last_start_tag=strrpos($content_to_eval,"<?php");
-
-  if($first_start_tag>=0) {
-    $new_pos=$first_start_tag+5; //add length of php start tag
-    $content_to_eval=substr_replace( $content_to_eval, $str1, $new_pos, 0 );
-  }
-  if($last_end_tag<$last_start_tag) {
-    $content_to_eval=$content_to_eval.$str2;
-  }
-  else {
-    if($last_end_tag>0) {
-      $new_pos=$last_end_tag+7; //add length of $str1
-      $content_to_eval=substr_replace( $content_to_eval, $str2, $new_pos, 0 );
+          eval($content_to_eval);
+      } catch (Throwable $e) { // For PHP 7 and later
+          $exception_occur = 1;
+          $exception_msg = $e->getMessage();
     }
-    else if($last_end_tag==0) {
-      $content_to_eval=$content_to_eval.$str2;
+      catch (Exception $e) { // For PHP 5
+        $exception_occur = 1;
+        $exception_msg = $e->getMessage();
     }
-  }
-  //echo $content_to_eval;die;
-}
 
 
-                        eval($content_to_eval);
 
                         if($exception_occur==1) {
 
-            							global $post;
-            	            $post_slug = $post->post_name;
+        						//	global $post;
+        	         				 //  $post_slug = $post->post_name;
 
-            							if($post_slug!="xyz-ics-preview-page") {
+        							//if($post_slug!="xyz-ics-preview-page" && !is_customize_preview())
+                      {
 
-            								if(get_option('xyz_ips_exception_email')!="0" && get_option('xyz_ips_exception_email')!="") {
-
+        								if(get_option('xyz_ips_exception_email')!="0" && get_option('xyz_ips_exception_email')!="" && get_option('xyz_ips_auto_exception')==1)
+                        {
             									$email=get_option('xyz_ips_exception_email');
             									$headers= "Content-type: text/html";
             									$subject="Exception Report";
-            									$message="Hi,<br>An exception occured while running one of the snippet.The snippet name is ".$snippet_name;
-            									$message.=".<br>Exception details are given below<br>";
+        									$message="Hi,<br>An exception occurred while running one of the snippet.The snippet name is ".$snippet_name;
+        									$message.=".<br>Exception details are given below : <br>";
             									$message.=$exception_msg;
             									wp_mail($email, $subject, $message,$headers);
             								}

@@ -42,10 +42,10 @@ function wpls_logo_slider( $atts, $content ) {
 
 	// Shortcode Parameter
 	extract(shortcode_atts(array(
-		'limit' 			=> 15,
+		'limit'				=> 15,
 		'design'			=> 'design-1',
 		'cat_id'			=> '',
-		'cat_name' 			=> '',
+		'cat_name'			=> '',
 		'slides_column'		=> 4,
 		'slides_scroll'		=> 1,
 		'dots'				=> 'true',
@@ -72,23 +72,23 @@ function wpls_logo_slider( $atts, $content ) {
 	$shortcode_designs	= wpls_logo_designs();
 	$unique				= wplss_get_unique();
 	$design				= array_key_exists( trim( $design ), $shortcode_designs ) ? $design 	: 'design-1';
-	$limit				= ! empty( $limit ) 				? $limit 					: 15;
-	$cat				= ! empty( $cat_id )				? explode( ',',$cat_id ) 	: '';
-	$cat_name			= ! empty( $cat_name )				? $cat_name 				: '';
-	$slides_scroll		= ! empty( $slides_scroll ) 		? $slides_scroll 			: 1;
-	$dots				= ( $dots == 'false' ) 				? 'false' 					: 'true';
-	$arrows				= ( $arrows == 'false' ) 			? 'false' 					: 'true';
-	$autoplay			= ( $autoplay == 'false' ) 			? 'false' 					: 'true';
-	$autoplay_interval	= ( $autoplay_interval !== '' ) 	? $autoplay_interval 		: 2000;
-	$speed				= ! empty( $speed ) 				? $speed 					: 300;
-	$loop				= ( $loop == 'false' ) 				? 'false'					: 'true';
-	$link_target		= ( $link_target == 'blank' ) 		? '_blank' 					: '_self';
-	$show_title			= ( $show_title == 'true' ) 		? 'true'					: 'false';
-	$order				= ( strtolower($order) == 'asc' ) 	? 'ASC' 					: 'DESC';
-	$orderby			= ! empty($orderby)	 				? $orderby 					: 'date';
-	$hide_border		= ( $hide_border == 'true' ) 		? 'sliderimage_hide_border' : '';
-	$max_height			= ! empty( $max_height ) 			? $max_height 				: 250;
-	$lazyload			= ( $lazyload == 'ondemand' || $lazyload == 'progressive' ) ? $lazyload : '';
+	$limit				= ! empty( $limit )					? $limit					: 15;
+	$cat				= ! empty( $cat_id )				? explode( ',',$cat_id )	: '';
+	$cat_name			= ! empty( $cat_name )				? $cat_name					: '';
+	$slides_scroll		= ! empty( $slides_scroll )			? $slides_scroll			: 1;
+	$dots				= ( $dots == 'false' )				? 'false'					: 'true';
+	$arrows				= ( $arrows == 'false' )			? 'false'					: 'true';
+	$autoplay			= ( $autoplay == 'false' )			? 'false'					: 'true';
+	$autoplay_interval	= ( $autoplay_interval !== '' )		? $autoplay_interval		: 2000;
+	$speed				= ! empty( $speed )					? $speed					: 300;
+	$loop				= ( $loop == 'false' )				? 'false'					: 'true';
+	$link_target		= ( $link_target == 'blank' )		? '_blank'					: '_self';
+	$show_title			= ( $show_title == 'true' )			? 'true'					: 'false';
+	$order				= ( strtolower($order) == 'asc' )	? 'ASC'						: 'DESC';
+	$orderby			= ! empty($orderby)					? $orderby					: 'date';
+	$hide_border		= ( $hide_border == 'true' )		? 'sliderimage_hide_border'	: '';
+	$max_height			= ! empty( $max_height )			? $max_height				: 250;
+	$lazyload			= ( $lazyload == 'ondemand' || $lazyload == 'progressive' )	? $lazyload	: '';
 	$align				= ! empty( $align )					? 'align'.$align			: '';
 	$extra_class		= $extra_class .' '. $align .' '. $className;
 	$extra_class		= wpls_sanitize_html_classes( $extra_class );
@@ -103,16 +103,16 @@ function wpls_logo_slider( $atts, $content ) {
 	}
 
 	// Shortcode file
-	$design_file_path 	= WPLS_DIR . '/templates/' . $design . '.php';
-	$design_file_path 	= file_exists( $design_file_path ) ? $design_file_path : '';
+	$design_file_path	= WPLS_DIR . '/templates/' . $design . '.php';
+	$design_file_path	= file_exists( $design_file_path ) ? $design_file_path : '';
 
 	// WP Query Parameters
 	$query_args = array(
-					'post_type' 		=> WPLS_POST_TYPE,
-					'post_status' 		=> array( 'publish' ),
+					'post_type'			=> WPLS_POST_TYPE,
+					'post_status'		=> array( 'publish' ),
 					'posts_per_page'	=> $limit,
-					'order'          	=> $order,
-					'orderby'        	=> $orderby,
+					'order'				=> $order,
+					'orderby'			=> $orderby,
 				);
 
 	if( $cat != "" ) {
@@ -130,14 +130,14 @@ function wpls_logo_slider( $atts, $content ) {
 	wp_enqueue_script( 'wpls-public-js' );
 
 	// WP Query Parameters
-	$logo_query = new WP_Query($query_args);
-	$post_count = $logo_query->post_count;
+	$logo_query	= new WP_Query($query_args);
+	$post_count	= $logo_query->post_count;
 
 	// Slider configuration and taken care of centermode
-	$slides_column 		= ( ! empty( $slides_column ) && $slides_column <= $post_count ) ? $slides_column : $post_count;
+	$slides_column		= ( ! empty( $slides_column ) && $slides_column <= $post_count ) ? $slides_column : $post_count;
 	$center_mode		= ( $center_mode == 'true' && $slides_column % 2 != 0 && $slides_column != $post_count ) ? 'true' : 'false';
-	$center_mode_cls	= ( $center_mode == 'true' )	? 'wpls-center' : '';
-	$dots_cls			= ( $dots == 'false' )			? 'wpls-dots-false' : '';
+	$center_mode_cls	= ( $center_mode == 'true' )	? 'wpls-center'		: '';
+	$dots_cls			= ( $dots == 'false' )			? 'wpls-dots-false'	: '';
 
 	// Slider configuration
 	$slider_conf = compact( 'slides_column', 'slides_scroll', 'dots', 'arrows', 'autoplay', 'autoplay_interval', 'loop' , 'rtl', 'speed', 'center_mode', 'lazyload' );
@@ -148,20 +148,22 @@ function wpls_logo_slider( $atts, $content ) {
 	if( $logo_query->have_posts() ) {
 
 		if( $cat_name != '' ) { ?>
-		<h2><?php echo wp_kses_post( $cat_name ); ?></h2>
+			<h2><?php echo wp_kses_post( $cat_name ); ?></h2>
 		<?php } ?>
+
 		<style>
 			#wpls-logo-showcase-slider-<?php echo esc_attr( $unique ); ?> .wpls-fix-box,
 			#wpls-logo-showcase-slider-<?php echo esc_attr( $unique ); ?> .wpls-fix-box img.wp-post-image{max-height:<?php echo esc_attr( $max_height ); ?>px; }
 		</style>
+
 		<div class="wpls-wrap wpls-logo-showcase-slider-wrp wpls-logo-clearfix wpls-<?php echo esc_attr( $design.' '.$extra_class ); ?>" data-conf="<?php echo htmlspecialchars(json_encode($slider_conf)); ?>">
 			<div class="wpls-logo-showcase logo_showcase wpls-logo-slider <?php echo esc_attr( $center_mode_cls ); ?> <?php echo esc_attr( $hide_border.' '.$dots_cls ); ?>" id="wpls-logo-showcase-slider-<?php echo esc_attr( $unique ); ?>" >
 				<?php while ( $logo_query->have_posts() ) : $logo_query->the_post();
 
 					$slider_orig_img	= wpls_get_logo_image( $post->ID, $image_size );
-					$logourl 			= get_post_meta( $post->ID, 'wplss_slide_link', true );
-					$feat_image_alt 	= get_post_meta( get_post_thumbnail_id( $post->ID ), '_wp_attachment_image_alt', true );
-					$feat_image 		= $slider_orig_img;
+					$logourl			= get_post_meta( $post->ID, 'wplss_slide_link', true );
+					$feat_image_alt		= get_post_meta( get_post_thumbnail_id( $post->ID ), '_wp_attachment_image_alt', true );
+					$feat_image			= $slider_orig_img;
 
 					if ( $lazyload ) {
 						$feat_image	= WPLS_URL.'assets/images/spacer.gif';

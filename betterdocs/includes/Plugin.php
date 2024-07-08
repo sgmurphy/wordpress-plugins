@@ -9,8 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 use WPDeveloper\BetterDocs\Core\Admin;
 use WPDeveloper\BetterDocs\Core\Query;
 use WPDeveloper\BetterDocs\Core\Roles;
-use WPDeveloper\BetterDocs\Core\WriteWithAI;
-use WPDeveloper\BetterDocs\Dependencies\DI\Container;
 use WPDeveloper\BetterDocs\Utils\Views;
 use WPDeveloper\BetterDocs\Core\BaseAPI;
 use WPDeveloper\BetterDocs\Core\Install;
@@ -19,17 +17,19 @@ use WPDeveloper\BetterDocs\Core\Rewrite;
 use WPDeveloper\BetterDocs\Core\Scripts;
 use WPDeveloper\BetterDocs\Utils\Helper;
 use WPDeveloper\BetterDocs\Core\Settings;
-use WPDeveloper\BetterDocs\Core\KBMigration;
 use WPDeveloper\BetterDocs\Utils\Enqueue;
 use WPDeveloper\BetterDocs\Editors\Editor;
 use WPDeveloper\BetterDocs\Utils\Database;
 use WPDeveloper\BetterDocs\Admin\Analytics;
+use WPDeveloper\BetterDocs\Core\KBMigration;
+use WPDeveloper\BetterDocs\Core\WriteWithAI;
 use WPDeveloper\BetterDocs\Admin\ReportEmail;
 use WPDeveloper\BetterDocs\FrontEnd\FrontEnd;
 use WPDeveloper\BetterDocs\Core\ShortcodeFactory;
 use WPDeveloper\BetterDocs\FrontEnd\TemplateTags;
-use WPDeveloper\BetterDocs\Admin\Customizer\Customizer;
 use WPDeveloper\BetterDocs\Admin\HelpScoutMigration;
+use WPDeveloper\BetterDocs\Dependencies\DI\Container;
+use WPDeveloper\BetterDocs\Admin\Customizer\Customizer;
 use WPDeveloper\BetterDocs\Dependencies\DI\ContainerBuilder;
 use WPDeveloper\BetterDocs\Modules\StyleHandler as ModulesStyleHandler;
 
@@ -117,7 +117,7 @@ final class Plugin {
      * Plugin Version
      * @var string
      */
-    public $version = '3.5.9';
+    public $version = '3.6.1';
 
     /**
      * WriteWithAI Class
@@ -145,12 +145,12 @@ final class Plugin {
 
         $this->initialize();
 
-        add_action( 'init', [ $this, 'init' ], 0 );
+        add_action( 'init', [$this, 'init'], 0 );
 
         /**
          * For admin only
          */
-        add_action( 'admin_init', [ $this, 'admin_init' ], 0 );
+        add_action( 'admin_init', [$this, 'admin_init'], 0 );
 
         /**
          * For AJAX only
@@ -187,7 +187,7 @@ final class Plugin {
     /**
      * Define constant if not already set.
      *
-     * @param string $name Constant name.
+     * @param string      $name Constant name.
      * @param string|bool $value Constant value.
      */
     private function define( $name, $value ) {
@@ -216,30 +216,30 @@ final class Plugin {
         $this->rewrite->init();
         $this->request->init();
 
-        $this->assets    = $this->container->get( Enqueue::class );
-        $this->views     = $this->container->get( Views::class );
-        $this->helper    = $this->container->get( Helper::class );
-        $this->kbmigration    = $this->container->get( KBMigration::class );
-        $this->admin    = $this->container->get( Admin::class );
-        $this->database  = $this->container->get( Database::class );
-        $this->settings  = $this->container->get( Settings::class );
-        $this->analytics = $this->container->get( Analytics::class );
+        $this->assets      = $this->container->get( Enqueue::class );
+        $this->views       = $this->container->get( Views::class );
+        $this->helper      = $this->container->get( Helper::class );
+        $this->kbmigration = $this->container->get( KBMigration::class );
+        $this->admin       = $this->container->get( Admin::class );
+        $this->database    = $this->container->get( Database::class );
+        $this->settings    = $this->container->get( Settings::class );
+        $this->analytics   = $this->container->get( Analytics::class );
 
         $this->template_helper = $this->container->get( TemplateTags::class );
         $this->customizer      = $this->container->get( Customizer::class );
         $this->editor          = $this->container->get( Editor::class );
-        $this->ai_autowrtie          = $this->container->get( WriteWithAI::class );
+        $this->ai_autowrtie    = $this->container->get( WriteWithAI::class );
 
         /**
          * Initialize all editors.
          * Elementor, Gutenberg/BlockEditor
          */
-        add_action( 'init', [ $this->editor, 'init' ] );
+        add_action( 'init', [$this->editor, 'init'] );
 
         /**
          * Initialize API
          */
-        add_action( 'rest_api_init', [ $this, 'api_initialization' ] );
+        add_action( 'rest_api_init', [$this, 'api_initialization'] );
     }
 
     /**
@@ -339,11 +339,11 @@ final class Plugin {
         $this->database->delete_transient( 'betterdocs_maybe_redirect' );
 
         if ( ! is_multisite() ) {
-            $betterdocs_settings = get_option('betterdocs_settings');
-            if ( $betterdocs_settings) {
-                wp_safe_redirect( add_query_arg( [ 'page' => 'betterdocs-settings' ], admin_url( 'admin.php' ) ) );
+            $betterdocs_settings = get_option( 'betterdocs_settings' );
+            if ( $betterdocs_settings ) {
+                wp_safe_redirect( add_query_arg( ['page' => 'betterdocs-settings'], admin_url( 'admin.php' ) ) );
             } else {
-                wp_safe_redirect( add_query_arg( [ 'page' => 'betterdocs-setup' ], admin_url( 'admin.php' ) ) );
+                wp_safe_redirect( add_query_arg( ['page' => 'betterdocs-setup'], admin_url( 'admin.php' ) ) );
             }
         }
     }
@@ -373,7 +373,7 @@ final class Plugin {
 
         if ( ! empty( $_api_classes ) && is_array( $_api_classes ) ) {
             foreach ( $_api_classes as $class ) {
-                if ( $class == '.' || $class == '..' || strpos( $class, '.' ) === 0)  {
+                if ( $class == '.' || $class == '..' || strpos( $class, '.' ) === 0 ) {
                     continue;
                 }
 
@@ -386,5 +386,30 @@ final class Plugin {
                 }
             }
         }
+    }
+
+    public function is_betterdocs_screen( $hook, $admin_check = true ): bool {
+        $screens = [
+            'betterdocs_page_betterdocs-settings',
+            'toplevel_page_betterdocs-admin',
+            'betterdocs_page_betterdocs-analytics',
+            'betterdocs_page_betterdocs-faq',
+            'betterdocs_page_betterdocs-glossaries'
+        ];
+
+        if ( $admin_check ) {
+            if ( in_array( $hook, $screens ) ) {
+                return true;
+            }
+
+            return false;
+        }
+
+        // $common = [
+        //     'edit.php' => get_post_type() == 'docs',
+        //     'edit-tags.php',
+        // ];
+
+        return false;
     }
 }

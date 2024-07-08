@@ -1608,7 +1608,8 @@
         taxes: [],
         coupons: [],
 
-        timer: null
+        timer: null,
+        cancelSource: null
       }
     },
 
@@ -1714,6 +1715,10 @@
         this.paymentsFiltering = true
         this.fetchedFilteredPayments = false
 
+        if (this.cancelSource) {
+          this.cancelSource.cancel('Start new search, stop active search')
+        }
+
         let params = JSON.parse(JSON.stringify(this.paymentsParams))
         let dates = []
 
@@ -1731,8 +1736,10 @@
 
         Object.keys(params).forEach((key) => (!params[key] && params[key] !== 0) && delete params[key])
 
+        this.cancelSource = this.$http.CancelToken.source()
+
         this.$http.get(`${this.$root.getAjaxUrl}/payments`, {
-          params: this.getAppropriateUrlParams(params)
+          params: this.getAppropriateUrlParams(params), cancelToken: this.cancelSource.token
         })
           .then(response => {
             let customersIds = this.options.entities.customers.map(customer => customer.id)
@@ -1759,14 +1766,17 @@
             this.paymentsFilteredCount = response.data.data.filteredCount
             this.paymentsTotalCount = response.data.data.totalCount
 
+            this.cancelSource = null
             this.paymentsFiltering = false
             this.fetchedFilteredPayments = true
           })
           .catch(e => {
             console.log(e.message)
 
-            this.paymentsFiltering = false
-            this.fetchedFilteredPayments = true
+            if (!this.$http.isCancel(e)) {
+              this.paymentsFiltering = false
+              this.fetchedFilteredPayments = true
+            }
           })
       },
 

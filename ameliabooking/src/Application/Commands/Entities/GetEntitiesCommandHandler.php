@@ -293,6 +293,9 @@ class GetEntitiesCommandHandler extends CommandHandler
             if ($currentUser === null || $currentUser->getType() === AbstractUser::USER_ROLE_CUSTOMER) {
                 foreach ($resultData['employees'] as &$employee) {
                     unset(
+                        $employee['googleCalendar'],
+                        $employee['outlookCalendar'],
+                        $employee['stripeConnect'],
                         $employee['birthday'],
                         $employee['email'],
                         $employee['externalId'],

@@ -4,7 +4,7 @@
  * Plugin Name:       BetterDocs
  * Plugin URI:        https://betterdocs.co/
  * Description:       Create stunning Knowledge base for your WordPress website and reduce support pressure with the help of BetterDocs. Get access to amazing templates and create fully customizable KB with AI Write.
- * Version:           3.5.9
+ * Version:           3.6.1
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
@@ -14,6 +14,8 @@
  */
 
 // If this file is called directly, abort.
+use WPDeveloper\BetterDocs\Plugin;
+
 defined( 'ABSPATH' ) || exit;
 
 define( 'BETTERDOCS_PLUGIN_FILE', __FILE__ );
@@ -23,20 +25,20 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 /**
- * Intiate the BetterDocs Plugin
+ * Initiate the BetterDocs Plugin
  *
+ * @return Plugin
  * @since 2.5.0
- * @return \WPDeveloper\BetterDocs\Plugin
  */
-function betterdocs() {
+function betterdocs(): Plugin {
     /**
      * Remove PRO Functionalities if pro is not updated.
      */
-    if( ! function_exists('betterdocs_pro') ){
+    if ( ! function_exists( 'betterdocs_pro' ) ) {
         remove_action( 'betterdocs_init', 'run_betterdocs_pro' );
     }
 
-    return \WPDeveloper\BetterDocs\Plugin::get_instance();
+    return Plugin::get_instance();
 }
 
 /**
@@ -45,8 +47,8 @@ function betterdocs() {
  *
  * Returns the main instance of BetterDocs.
  *
+ * @return Plugin
  * @since  3.0
- * @return \WPDeveloper\BetterDocs\Plugin
  */
 
 betterdocs();

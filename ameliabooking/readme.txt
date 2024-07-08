@@ -1,12 +1,12 @@
 === Booking for Appointments and Events Calendar - Amelia ===
-Contributors: ameliabooking, wpDataTables
+Contributors: ameliabooking, wpDataTables, isidoramarkovic, jelenicdanijela
 Author URI: https://tmsproducts.io/
 Tags: appointments, booking, event booking system, booking system, scheduling
 Donate link: https://wpamelia.com/
 Requires at least: 4.5
 Tested up to: 6.5.2
 Requires PHP: 5.6
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -289,19 +289,28 @@ Installing Amelia Lite WordPress Booking Plugin is as easy as 1-2-3!
 
 
 == Changelog =
+V1.1.9
+* BugFix: Fixed issue with Events filter on the Finance page
+* BugFix: Fixed issue with notifications when a customer cancels an appointment
+* BugFix: Fixed issue with Customer filter on Appointment page
+* BugFix: Fixed issue with event periods editing and the event list form
+* BugFix: Fixed issue with loading the date and time when 'Load entities' is enabled
+* BugFix: Fixed vulnerability issue with Polyfill[.]io script
+* Other small bug fixes and stability improvements
+
 V1.1.8
-*Improvement:  Implemented logic so users first see services from the selected category on the back-end
-*Improvement: Added an option to remove Service and Categories pictures
-*Improvement: Added option to insert IPLocate API Key for 1000 API requests/day in case of auto-locate phone country code
-*BugFix: Fixed issue with appointments when the customer logs in to WP-admin
-*BugFix: Fixed issue with attendees search when name has two words
-*Other small bug fixes and stability improvements
+* Improvement:  Implemented logic so users first see services from the selected category on the back-end
+* Improvement: Added an option to remove Service and Categories pictures
+* Improvement: Added option to insert IPLocate API Key for 1000 API requests/day in case of auto-locate phone country code
+* BugFix: Fixed issue with appointments when the customer logs in to WP-admin
+* BugFix: Fixed issue with attendees search when name has two words
+* Other small bug fixes and stability improvements
 
 V1.1.7
-*Small bug fixes and stability improvements
+* Small bug fixes and stability improvements
 
 V1.1.6
-*Small bug fixes and stability improvements
+* Small bug fixes and stability improvements
 
 V1.1.5
 * Improvement: Added option on Customize page to remove scroll from Catalog 2.0 booking form

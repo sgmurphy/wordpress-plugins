@@ -928,7 +928,6 @@ class EventRepository extends AbstractRepository implements EventRepositoryInter
                 {$providerJoin}
                 {$customerJoin}
                 {$where}
-                GROUP BY e.id
                 ORDER BY ep.periodStart, e.id
                 {$limit}"
             );

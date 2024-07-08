@@ -4,13 +4,13 @@ Plugin Name: Maps Widget for Google Maps
 Plugin URI: https://www.gmapswidget.com/
 Description: Display a single image super-fast loading Google Map in a widget. A larger, full featured map is available in a lightbox. Includes a user-friendly interface and numerous appearance options.
 Author: WebFactory Ltd
-Version: 4.25
+Version: 4.26
 Author URI: https://www.gmapswidget.com/
 Text Domain: google-maps-widget
 Domain Path: lang
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 
   Copyright 2012 - 2024  WebFactory Ltd  (email : gmw@webfactoryltd.com)
 
@@ -239,7 +239,7 @@ class GMW {
 
   // display error message if WP version is too low
   static function notice_min_version_error() {
-    echo '<div class="error"><p>' . sprintf(__('Maps Widget for Google Maps <b>requires WordPress version 4.0</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'google-maps-widget'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
+    self::wp_kses_wf('<div class="error"><p>' . sprintf(__('Maps Widget for Google Maps <b>requires WordPress version 4.0</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'google-maps-widget'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>');
   } // notice_min_version_error
 
 
@@ -529,8 +529,8 @@ class GMW {
   // display error notice if classic widgets are not available
   static function notice_classic_widgets() {
     echo '<div class="error notice" style="max-width: 700px;"><p><b>🔥 IMPORTANT 🔥</b><br><br>Google Maps Widget is NOT compatible with the new widgets edit screen (powered by Gutenberg).
-    <br>Install the official <a href="' . admin_url('plugin-install.php?s=classic%20widgets&tab=search&type=term') . '">Classic Widgets</a> plugin if you want to continue using Google Maps Widget.<br>
-    Or install the <a href="' . admin_url('plugin-install.php?s=map%20block&tab=search&type=tag') . '">free Map Block plugin</a> as the fastest way to add a great map to any post or sidebar.</p></div>';
+    <br>Install the official <a href="' . esc_url(admin_url('plugin-install.php?s=classic%20widgets&tab=search&type=term')) . '">Classic Widgets</a> plugin if you want to continue using Google Maps Widget.<br>
+    Or install the <a href="' . esc_url(admin_url('plugin-install.php?s=map%20block&tab=search&type=tag')) . '">free Map Block plugin</a> as the fastest way to add a great map to any post or sidebar.</p></div>';
   } // notice_classic_widgets
 
 
@@ -542,24 +542,24 @@ class GMW {
     $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'upgrade', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
     $dismiss_url = wp_nonce_url($dismiss_url, 'gmw_dismiss_notice');
     
-    echo '<div id="gmw_activate_notice" class="updated notice"><p>' . __('<b>Maps Widget for Google Maps <span style="color: #d54e21;">PRO</span></b> has more than 50 extra features &amp; options. Our support is super fast &amp; friendly and with the unlimited license you can install GMW on as many sites as you need.</p>', 'google-maps-widget');
+    self::wp_kses_wf('<div id="gmw_activate_notice" class="updated notice"><p>' . __('<b>Maps Widget for Google Maps <span style="color: #d54e21;">PRO</span></b> has more than 50 extra features &amp; options. Our support is super fast &amp; friendly and with the unlimited license you can install GMW on as many sites as you need.</p>', 'google-maps-widget'));
 
     if (current_time('timestamp') - $options['first_install'] < $promo_delta) {
       $delta = $options['first_install_gmt'] + $promo_delta - time();
-      $h = $delta / 3600 % 24;
+      $h = intval($delta / 3600) % 24;
       if ($h) {
         $h .= 'h';
       } else {
         $h = '';
       }
-      $min = $delta / 60 % 60;
+      $min = intval($delta / 60) % 60;
       echo '<p>We\'ve prepared a special <b>20% welcoming discount</b> available only for another <b class="gmw-countdown" data-endtime="' . esc_attr(($options['first_install_gmt'] + $promo_delta)) . '" style="font-weight: bold;">' . esc_attr($h) . ' ' . esc_attr($min) . 'min</b>.</p>';
       echo '<p><a href="' . esc_url($activate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary"><b>Get a lifetime PRO license now for only $39 - LIMITED OFFER!</b></a>';
     } else {
-      echo '<p><a href="' . esc_url($activate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('See what PRO has to offer', 'google-maps-widget') . '</a>';
+      echo '<p><a href="' . esc_url($activate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . esc_html__('See what PRO has to offer', 'google-maps-widget') . '</a>';
     }
 
-    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" class="">' . __('I\'m not interested (remove notice)', 'google-maps-widget') . '</a>';
+    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" class="">' . esc_html__('I\'m not interested (remove notice)', 'google-maps-widget') . '</a>';
     echo '</p></div>';
   } // notice_activate_extra_features
 
@@ -574,7 +574,7 @@ class GMW {
     echo '<div class="updated notice">';
     echo '<p style="font-size: 14px;">We have a <a class="open_promo_dialog" href="' . esc_url($activate_url) . '">special offer</a> only for users like <b>you</b> who\'ve been using Maps Widget for Google Maps for a while: a <b>one time payment</b>, lifetime license for <b>only $39</b>! No nonsense!<br><a class="open_promo_dialog" href="' . esc_url($activate_url) . '">Upgrade now</a> to <span class="gmw-pro-red">PRO</span> &amp; get more than 50 extra options &amp; features.</p><br>';
 
-    echo '<a class="open_promo_dialog button button-primary" href="' . esc_url($activate_url) . '"><b>Grab the limited offer!</b></a>&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" style="margin: 3px 0 0 5px; display: inline-block;">' . __('I\'m not interested (remove notice)', 'google-maps-widget') . '</a>';
+    echo '<a class="open_promo_dialog button button-primary" href="' . esc_url($activate_url) . '"><b>Grab the limited offer!</b></a>&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '" style="margin: 3px 0 0 5px; display: inline-block;">' . esc_html__('I\'m not interested (remove notice)', 'google-maps-widget') . '</a>';
     echo '</p></div>';
   } // notice_olduser
 
@@ -585,10 +585,10 @@ class GMW {
     $dismiss_url = add_query_arg(array('action' => 'gmw_dismiss_notice', 'notice' => 'rate', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php'));
     $dismiss_url = wp_nonce_url($dismiss_url, 'gmw_dismiss_notice');
 
-    echo '<div id="gmw_rate_notice" class="updated notice"><p>' . __('Hi! We saw you\'ve been using <b>Maps Widget for Google Maps</b> for a week and wanted to ask for your help to make the plugin better.<br>We just need a minute of your time to rate the plugin. Thank you!', 'google-maps-widget');
+    echo '<div id="gmw_rate_notice" class="updated notice"><p>' . esc_html__('Hi! We saw you\'ve been using <b>Maps Widget for Google Maps</b> for a week and wanted to ask for your help to make the plugin better.<br>We just need a minute of your time to rate the plugin. Thank you!', 'google-maps-widget');
 
-    echo '<br><a target="_blank" href="' . esc_url($rate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . __('Help make the plugin better by rating it', 'google-maps-widget') . '</a>';
-    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '">' . __('I already rated the plugin', 'google-maps-widget') . '</a>';
+    echo '<br><a target="_blank" href="' . esc_url($rate_url) . '" style="vertical-align: baseline; margin-top: 15px;" class="button-primary">' . esc_html__('Help make the plugin better by rating it', 'google-maps-widget') . '</a>';
+    echo '&nbsp;&nbsp;<a href="' . esc_url($dismiss_url) . '">' . esc_html__('I already rated the plugin', 'google-maps-widget') . '</a>';
     echo '</p></div>';
   } // notice_rate_plugin
 
@@ -979,16 +979,16 @@ class GMW {
     $options = GMW::get_options();
 
     echo '<div class="wrap gmw-options">';
-    echo '<h1><img alt="' . __('Maps Widget for Google Maps', 'google-maps-widget') . '" title="' . __('Maps Widget for Google Maps', 'google-maps-widget') . '" height="55" src="' . esc_url(GMW_PLUGIN_URL) . 'images/gmw-logo.png"> Maps Widget for Google Maps</h1>';
+    echo '<h1><img alt="' . esc_html__('Maps Widget for Google Maps', 'google-maps-widget') . '" title="' . esc_html__('Maps Widget for Google Maps', 'google-maps-widget') . '" height="55" src="' . esc_url(GMW_PLUGIN_URL) . 'images/gmw-logo.png"> Maps Widget for Google Maps</h1>';
 
     echo '<form method="post" action="options.php">';
     settings_fields(GMW::$options);
 
     echo '<div id="gmw-settings-tabs"><ul>';
-    echo '<li><a href="#gmw-settings">' . __('Settings', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-import-pins">' . __('Import pins', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-export">' . __('Export &amp; Import', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-license">' . __('PRO License', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-settings">' . esc_html__('Settings', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-import-pins">' . esc_html__('Import pins', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-export">' . esc_html__('Export &amp; Import', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-license">' . esc_html__('PRO License', 'google-maps-widget') . '</a></li>';
     echo '</ul>';
 
     echo '<div id="gmw-import-pins" style="display: none;">';
@@ -998,19 +998,19 @@ class GMW {
 
     echo '<table class="form-table disabled">';
     echo '<tr>
-          <th scope="row"><label for="widget_id">' . __('Maps Widget for Google Maps', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="widget_id">' . esc_html__('Maps Widget for Google Maps', 'google-maps-widget') . '</label></th>
           <td><select disabled="disabled" name="' . esc_attr(GMW::$options) . '[widget_id]" id="widget_id">';
     echo '<option value="">- select the widget to import pins to -</option>';
     echo '</select><br><span class="description">Choose a widget you want to import pins to. Any existing pins will be overwritten with the new pins. Other widget options will not be altered in any way.</span></td></tr>';
 
     echo '<tr>
-          <th scope="row"><label for="pins_txt">' . __('Pins, copy/paste', 'google-maps-widget') . '</label></th>';
+          <th scope="row"><label for="pins_txt">' . esc_html__('Pins, copy/paste', 'google-maps-widget') . '</label></th>';
     echo '<td><textarea disabled="disabled" style="width: 500px;" rows="3" name="' . esc_attr(GMW::$options) . '[pins_txt]" id="pins_txt">';
     echo '</textarea><br><span class="description">Data has to be formatted in a CSV fashion. One pin per line, individual fields double quoted and separated by a comma. All fields have to be included.<br>
     Please refer to the <a href="https://www.gmapswidget.com/documentation/importing-pins/" target="_blank">detailed documentation article</a> or grab the <a href="https://www.gmapswidget.com/wp-content/uploads/2018/02/sample-pins-import.csv" target="_blank">sample import file and modify it.</span></td></tr>';
 
     echo '<tr>
-          <th scope="row"><label for="pins_file">' . __('Pins, upload file', 'google-maps-widget') . '</label></th>';
+          <th scope="row"><label for="pins_file">' . esc_html__('Pins, upload file', 'google-maps-widget') . '</label></th>';
     echo '<td><input type="file" disabled="disabled" name="pins_file" id="pins_file">';
     echo '<br><span class="description">See rules noted for the field above.</span></td></tr>';
 
@@ -1024,7 +1024,7 @@ class GMW {
     echo '<div id="gmw-settings" style="display: none;">';
     echo '<table class="form-table">';
     echo '<tr>
-          <th scope="row"><label for="api_key">' . __('Google Maps API Key', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="api_key">' . esc_html__('Google Maps API Key', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[api_key]" type="text" id="api_key" value="' . esc_attr($options['api_key']) . '" class="regular-text" placeholder="Google Maps API key" oninput="setCustomValidity(\'\')" oninvalid="this.setCustomValidity(\'Please use Google Developers Console to generate an API key and enter it here. It is completely free.\')">
           <p class="description">New Google Maps usage policy dictates that everyone using the maps should register for a free API key.<br>
           Detailed instruction on how to generate a key in under a minute are available in the <a href="http://www.gmapswidget.com/documentation/generate-google-maps-api-key/" target="_blank">documentation</a>.<br>If you already have a key make sure the following APIs are enabled: Google Maps JavaScript API, Google Static Maps API, Google Maps Embed API &amp; Google Maps Geocoding API.</p></td>
@@ -1040,36 +1040,36 @@ class GMW {
     echo '<h3 class="title disabled"><br>Advanced Settings - available in the PRO version</h3>';
     echo '<table class="form-table disabled">';
     echo '<tr>
-          <th scope="row"><label for="sc_map">' . __('Map Shortcode', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="sc_map">' . esc_html__('Map Shortcode', 'google-maps-widget') . '</label></th>
           <td><input class="regular-text" name="' . esc_attr(GMW::$options) . '[sc_map]" type="text" id="sc_map" value="' . esc_attr($options['sc_map']) . '" disabled="disabled" placeholder="Map shortcode" required="required" oninvalid="this.setCustomValidity(\'Please enter the shortcode you want to use for Maps Widget for Google Maps maps.\')" oninput="setCustomValidity(\'\')">
           <p class="description">If the default shortcode "gmw" is taken by another plugin change it to something else, eg: "gmaps".</p></td>
           </tr>';
     echo '<tr>
-          <th scope="row"><label for="track_ga">' . __('Track with Google Analytics', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="track_ga">' . esc_html__('Track with Google Analytics', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[track_ga]" disabled="disabled" type="checkbox" id="track_ga" value="1"' . checked('1', $options['track_ga'], false) . '>
           <span class="description">Each time the interactive map is opened either in lightbox or as a thumbnail replacement a Google Analytics Event will be tracked.<br>You need to have GA already configured on the site. It is fully compatible with all GA plugins and all GA tracking code versions. Default: unchecked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="include_jquery">' . __('Include jQuery', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="include_jquery">' . esc_html__('Include jQuery', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[include_jquery]" disabled="disabled" type="checkbox" id="include_jquery" value="1"' . checked('1', $options['include_jquery'], false) . '>
           <span class="description">If you\'re experiencing problems with double jQuery include disable this option. Default: checked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="include_gmaps_api">' . __('Include Google Maps API JS', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="include_gmaps_api">' . esc_html__('Include Google Maps API JS', 'google-maps-widget') . '</label></th>
           <td><input disabled="disabled" name="' . esc_attr(GMW::$options) . '[include_gmaps_api]" type="checkbox" id="include_gmaps_api" value="1"' . checked('1', $options['include_gmaps_api'], false) . '>
           <span class="description">If your theme or other plugins already include Google Maps API JS disable this option. Default: checked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="include_lightbox_css">' . __('Include Colorbox &amp; Thumbnail CSS', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="include_lightbox_css">' . esc_html__('Include Colorbox &amp; Thumbnail CSS', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[include_lightbox_css]" disabled="disabled" type="checkbox" id="include_lightbox_css" value="1"' . checked('1', $options['include_lightbox_css'], false) . '>
           <span class="description">If your theme or other plugins already include Colorbox CSS disable this option.<br>Please note that widget (thumbnail map) related CSS will also be removed which will cause minor differences in the way it\'s displayed. Default: checked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="include_lightbox_js">' . __('Include Colorbox JS', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="include_lightbox_js">' . esc_html__('Include Colorbox JS', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[include_lightbox_js]" disabled="disabled" type="checkbox" id="include_lightbox_js" value="1"' . checked('1', $options['include_lightbox_js'], false) . '>
           <span class="description">If your theme or other plugins already include Colorbox JS file disable this option. Default: checked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="disable_tooltips">' . __('Disable Admin Tooltips', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="disable_tooltips">' . esc_html__('Disable Admin Tooltips', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[disable_tooltips]" type="checkbox" disabled="disabled" id="disable_tooltips" value="1"' . checked('1', $options['disable_tooltips'], false) . '>
           <span class="description">All settings in widget edit GUI have tooltips. This setting completely disables them. Default: unchecked.</span></td></tr>';
     echo '<tr>
-          <th scope="row"><label for="disable_sidebar">' . __('Disable Hidden Sidebar', 'google-maps-widget') . '</label></th>
+          <th scope="row"><label for="disable_sidebar">' . esc_html__('Disable Hidden Sidebar', 'google-maps-widget') . '</label></th>
           <td><input name="' . esc_attr(GMW::$options) . '[disable_sidebar]" disabled="disabled" type="checkbox" id="disable_sidebar" value="1"' . checked('1', $options['disable_sidebar'], false) . '>
           <span class="description">Hidden sidebar helps you to build maps that are displayed with shortcodes. If it bothers you in the admin, disable it. Default: unchecked.</span></td></tr>';
     echo '</table>';
@@ -1082,12 +1082,12 @@ class GMW {
     }
     echo '<table class="form-table disabled">';
     echo '<tr>
-          <th scope="row"><span>' . __('Export widgets', 'google-maps-widget') . '</span></th>
+          <th scope="row"><span>' . esc_html__('Export widgets', 'google-maps-widget') . '</span></th>
           <td><a href="#" class="button button-secondary button-disabled">Download export file</a>
           <p class="description">The export file will only contain Maps Widget for Maps Widget for Google Maps. This includes active (in sidebars) widgets and inactive ones as well.</p></td>
           </tr>';
     echo '<tr>
-          <th scope="row"><span>' . __('Import widgets', 'google-maps-widget') . '</span></th>
+          <th scope="row"><span>' . esc_html__('Import widgets', 'google-maps-widget') . '</span></th>
           <td><input type="file" disabled="disabled" name="gmw_widgets_import" id="gmw_widgets_import" accept=".txt">
           <input type="button" disabled="disabled" name="submit-import" id="submit-import" class="button button-secondary button-large" value="Import widgets">';
     echo '<p class="description">Only use TXT export files generated by Maps Widget for Google Maps.<br>
@@ -1101,7 +1101,7 @@ class GMW {
       echo '<p>Your <b class="gmw-pro-red">PRO</b> license is validated.';
       echo '<ol class="normal">
       <li><a href="https://gmapswidget.com/pro-download/" target="_blank">Download</a> the PRO version ZIP file</li>
-      <li>Go to <a href="' . admin_url('plugin-install.php') . '">Plugins - Add New</a> and install the PRO version</li>
+      <li>Go to <a href="' . esc_html(admin_url('plugin-install.php')) . '">Plugins - Add New</a> and install the PRO version</li>
       <li>When prompted, overwrite the free version with the PRO one</li>
       <li>Create some maps ;)</li>
     </ol>';

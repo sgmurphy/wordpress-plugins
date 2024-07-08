@@ -35,11 +35,12 @@ class Settings extends Base {
 
         add_filter( 'betterdocs_settings_tabs', [$this, 'import_export_settings'] );
 
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue'] );
+        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_old'], 99 );
+        add_action( 'admin_enqueue_scripts', [$this, 'enqueue'], 99 );
 
-        if ( isset( $_GET['page'] ) && $_GET['page'] === 'betterdocs-settings' && ! has_action( 'betterdocs_settings_header' ) ) {
-            add_action( 'betterdocs_settings_header', [$this, 'header'] );
-        }
+        // if ( isset( $_GET['page'] ) && $_GET['page'] === 'betterdocs-settings' && ! has_action( 'betterdocs_settings_header' ) ) {
+        //     add_action( 'betterdocs_settings_header', [ $this, 'header' ] );
+        // }
 
         add_action( 'wp_ajax_betterdocs_dark_mode', [$this, 'dark_mode'] );
         add_filter( 'betterdocs_settings_tab_advance', [$this, 'hide_roles_management'], 11, 1 );
@@ -82,10 +83,17 @@ class Settings extends Base {
         }
         wp_enqueue_media();
         wp_enqueue_script( 'betterdocs-admin' );
-        betterdocs()->assets->enqueue( 'betterdocs-settings', 'admin/css/settings.css' );
+        betterdocs()->assets->localize( 'betterdocs-admin', 'betterdocsAdminSettings', GlobalFields::normalize( $this->settings_args() ) );
         betterdocs()->assets->enqueue( 'betterdocs-icons', 'admin/btd-icon/style.css' );
-        betterdocs()->assets->enqueue( 'betterdocs-settings', 'admin/js/settings.js' );
-        betterdocs()->assets->localize( 'betterdocs-settings', 'betterdocsAdminSettings', GlobalFields::normalize( $this->settings_args() ) );
+
+        // betterdocs()->assets->enqueue( 'betterdocs-settings', 'admin/css/settings.css' );
+        // betterdocs()->assets->enqueue( 'betterdocs-settings', 'admin/js/settings.js' );
+    }
+
+    public function enqueue_old( $hook ) {
+        // FREE & Pro Version Compatibility Check
+
+        $this->enqueue( 'betterdocs_page_betterdocs-settings' );
     }
 
     /**
@@ -1545,7 +1553,7 @@ class Settings extends Base {
                                     'default'             => '[betterdocs_category_grid]',
                                     'readOnly'            => true,
                                     'priority'            => 3,
-                                    'description'         => __( '[betterdocs_category_grid post_counter="true" show_icon="true" masonry="true" column="3" posts_per_page="5" nested_subcategory="true" terms="term_ID, term_ID" terms_orderby="" terms_order="" multiple_knowledge_base="" kb_slug="" title_tag="h2" orderby="" order="" ]', 'betterdocs' ),
+                                    'description'         => __( '[betterdocs_category_grid show_count="true" show_icon="true" masonry="true" column="3" posts_per_page="5" nested_subcategory="true" terms="term_ID, term_ID" terms_orderby="" terms_order="" multiple_knowledge_base="" kb_slug="" title_tag="h2" orderby="" order="" ]', 'betterdocs' ),
                                     'descriptionLabel'    => __( 'Example with parameters:', 'betterdocs' ),
                                     'descriptionCopyable' => true
                                 ],

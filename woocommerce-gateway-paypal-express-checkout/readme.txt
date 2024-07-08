@@ -12,7 +12,7 @@ Accept PayPal, Credit Cards and Debit Cards on your WooCommerce store.
 
 == Description ==
 
-⚠️ **Support for PayPal Checkout will discontinue from *1 Mar 2022* and updates to the plugin have stopped as of *1 Sept 2021*. We recommend [switching to PayPal Payments](https://docs.woocommerce.com/document/woocommerce-paypal-payments/paypal-payments-upgrade-guide/).**
+⚠️ **PayPal Checkout will be closed on *July 2024*, support was discontinued on *1 Mar 2022* and updates to the plugin have stopped as of *1 Sept 2021*. We recommend [switching to PayPal Payments](https://docs.woocommerce.com/document/woocommerce-paypal-payments/paypal-payments-upgrade-guide/).**
 
 This is a PayPal Checkout Payment Gateway for WooCommerce.
 

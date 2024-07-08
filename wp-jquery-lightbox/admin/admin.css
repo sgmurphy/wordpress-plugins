@@ -1,9 +1,5 @@
 /* All admin pages */
 
-.toplevel_page_lightpress-settings #wpbody {
-	max-width: 90%;
-}
-
 .toplevel_page_lightpress-settings #wpbody-content > .notice {
     margin-top: 30px;
 }
@@ -25,6 +21,51 @@
     font-size: 13px !important;
 }
 
+.toplevel_page_lightpress-settings .lightpress-header {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 90%;
+	margin-top: 30px;
+}
+
+.toplevel_page_lightpress-settings .lightpress-header .lightpress-logo {
+	margin-top: 0;
+}
+
+.toplevel_page_lightpress-settings .lightpress-header a,
+.toplevel_page_lightpress-settings .lightpress-header a:hover,
+.toplevel_page_lightpress-settings .lightpress-header a:focus,
+.toplevel_page_lightpress-settings .lightpress-header a:visited {
+	font-size: 16px;
+	text-decoration: none;
+	color: #5cbc67;
+}
+
+.toplevel_page_lightpress-settings .sale-banner,
+.lightbox_page_lightpress-pro .sale-banner {
+    background: #5cbc67;
+    padding: 8px 16px;
+    margin: 0 -32px 14px -20px;
+}
+
+.toplevel_page_lightpress-settings .sale-banner p,
+.lightbox_page_lightpress-pro .sale-banner p {
+    margin: 0;
+    color:  white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.toplevel_page_lightpress-settings .sale-banner a,
+.lightbox_page_lightpress-pro .sale-banner a,
+.toplevel_page_lightpress-settings .sale-banner a:hover,
+.lightbox_page_lightpress-pro .sale-banner a:hover,
+.toplevel_page_lightpress-settings .sale-banner a:focus,
+.lightbox_page_lightpress-pro .sale-banner a:focus {
+    color:  white;
+}
+
 /* Settings page */
 
 .toplevel_page_lightpress-settings .efb-review-notice {
@@ -39,6 +80,10 @@
 .lightbox_page_lightpress-pro div.updated {
     margin-top: 20px;
     margin-left: 0;
+}
+
+.toplevel_page_lightpress-settings .settings-section {
+	max-width: 90%;
 }
 
 .toplevel_page_lightpress-settings .general-settings-section {
@@ -159,6 +204,81 @@
     background: #4fa959;
     border-color: #4fa959;
     color: #fff;
+}
+
+/* Modal on settings page */
+
+.toplevel_page_lightpress-settings.modal-open {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.toplevel_page_lightpress-settings #TB_overlay {
+	opacity: .8
+}
+
+.toplevel_page_lightpress-settings #TB_window {
+	top: auto;
+    left: auto;
+	margin-top: -80px !important;
+    margin-left: 0 !important;
+	width: 520px !important;
+	height: 260px !important;
+	max-width: 95%;
+}
+
+.toplevel_page_lightpress-settings #TB_window {
+	transition: all 1s;
+}
+
+
+.toplevel_page_lightpress-settings  #TB_title {
+	border-bottom: none;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent {
+    height: 230px !important;
+	width: 100% !important;
+    justify-content: center;
+    box-sizing: border-box;
+	padding: 0px 40px 12px;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent h2 {
+    margin-bottom: 0;
+	font-size: 24px;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent h3 {
+    margin-top: 10px;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent p {
+    font-size: 16px;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent .hero-section-actions {
+    margin: 24px 0 2px;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent .pro-action-button {
+    padding: 10px 24px;
+    text-transform: none;
+    font-weight: normal;
+}
+
+.toplevel_page_lightpress-settings #TB_ajaxContent .pro-action-button.link-only,
+.toplevel_page_lightpress-settings #TB_ajaxContent .pro-action-button.link-only:hover,
+.toplevel_page_lightpress-settings #TB_ajaxContent .pro-action-button.link-only:focus,
+.toplevel_page_lightpress-settings #TB_ajaxContent .pro-action-button.link-only:visited {
+    background: transparent;
+    color: #4fa959;
+}
+
+.toplevel_page_lightpress-settings .dashicons-arrow-right-alt {
+	margin-left: 6px;
+    margin-right: -4px;
 }
 
 /* Pro Lightbox Promo */

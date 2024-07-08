@@ -1,8 +1,8 @@
 === Insights from Google PageSpeed ===
 Contributors: mattkeys
-Tags: SEO, performance, speed, page speed, search engine optimization, pagespeed, google page speed, pagespeed insights, google pagespeed insights
+Tags: SEO, performance, page speed, pagespeed, pagespeed insights
 Requires at least: 3.6
-Tested up to: 6.0
+Tested up to: 6.5
 Stable tag: 4.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

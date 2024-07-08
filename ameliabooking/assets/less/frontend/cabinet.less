@@ -2721,6 +2721,11 @@
       &:hover, &.selected:hover {
         background-color: darken(@color-bgr, 5%);
       }
+
+      &.disabled {
+        color: fade(@color-text-prime, 10);
+        cursor: not-allowed;
+      }
     }
 
     &.el-popper[x-placement^=top] {

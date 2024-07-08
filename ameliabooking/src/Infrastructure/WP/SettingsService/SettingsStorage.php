@@ -200,14 +200,9 @@ class SettingsStorage implements SettingsStorageInterface
             'zoom'                   => [
                 'enabled' => (
                     $this->getSetting('zoom', 'enabled') &&
-                    $this->getSetting('zoom', 's2sEnabled') ? (
-                        $this->getSetting('zoom', 'accountId') &&
-                        $this->getSetting('zoom', 'clientId') &&
-                        $this->getSetting('zoom', 'clientSecret')
-                    ) : (
-                        $this->getSetting('zoom', 'apiKey') &&
-                        $this->getSetting('zoom', 'apiSecret')
-                    )
+                    $this->getSetting('zoom', 'accountId') &&
+                    $this->getSetting('zoom', 'clientId') &&
+                    $this->getSetting('zoom', 'clientSecret')
                 )
             ],
             'facebookPixel'          => $this->getCategorySettings('facebookPixel'),

@@ -2,7 +2,7 @@
 Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, whatsapp chat, facebook messenger, chat, chat button
 Requires at least: 3.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.2.6
 Plugin URI: https://premio.io/downloads/chaty/
 

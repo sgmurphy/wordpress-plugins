@@ -64,7 +64,7 @@ function kpg_no_rc_img_control_2()  {
 	<p>&nbsp;</p>
 	<form method="post" action="">
 	<input type="hidden" name="action" value="update" />
-	<input type="hidden" name="kpg_nrci_update" value="<?php echo $nonce;?>" />
+	<input type="hidden" name="kpg_nrci_update" value="<?php echo esc_attr($nonce);?>" />
 	<fieldset style="border:thin solid black;padding:6px;width:100%;">
 	<legend> <span style="font-weight:bold;font-size:1.5em">Options</span> </legend>
 	Allow Right Click for Logged Users:

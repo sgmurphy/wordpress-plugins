@@ -2,11 +2,11 @@
 Contributors: wpDataTables, ameliabooking
 Author URI: https://tmsproducts.io
 Plugin URI: https://wpdatatables.com/
-Tags: table, table builder, datatables, csv, chart
+Tags: table, table builder, datatable, csv, chart
 Requires at least: 4.0
-Tested up to: 6.5.4
+Tested up to: 6.5.5
 Requires PHP: 7.4
-Stable tag: 3.4.2.18
+Stable tag: 3.4.2.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,7 @@ Here is the list of the new functionality in those simple tables:
 * Shortcode in cells
 * Border options
 
-[youtube https://www.youtube.com/watch?v=06QF0wNEf94]
+[youtube https://www.youtube.com/watch?v=aldEn2DGuEw]
 
 == Create responsive data table very easy ==
 
@@ -314,6 +314,11 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 12. Google chart settings
 
 == Changelog ==
+
+= 3.4.2.19 =
+* Compatibility with WordPress 6.5.5 approved.
+* Improved some admin pages.
+Other small bug fixes and stability improvements.
 
 = 3.4.2.18 =
 * Compatibility with WordPress 6.5.4 approved.

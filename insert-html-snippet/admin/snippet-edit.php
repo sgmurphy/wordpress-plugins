@@ -136,7 +136,7 @@ $snippetDetails = $snippetDetails[0];
 					       
 			                
 							<input class="button-primary" style="cursor: pointer;"
-							type="button" name="back"   onclick=" window.history.go(-<?php echo $goback;?>);" value="back" >
+							type="button" name="back"   onclick=" window.history.go(-<?php echo $goback;?>);" value="Back" >
 						</td>
 					<td><input class="button-primary" style="cursor: pointer;" type="submit" name="updateSubmit" value="Update"></td>
 					

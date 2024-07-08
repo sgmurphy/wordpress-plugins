@@ -1109,6 +1109,7 @@ class Quiz_Maker_Admin
         $quick_quiz_width                                   = 800;
         $quick_quiz_height                                  = 450;
         $quick_quiz_border_radius                           = 8;
+        $quick_quiz_image_height                            = "";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1195,6 +1196,9 @@ class Quiz_Maker_Admin
             // Quiz min-height
             $quick_quiz_border_radius = (isset($_REQUEST['ays_quick_quiz_border_radius']) && $_REQUEST['ays_quick_quiz_border_radius'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_border_radius'] ) ) : 8;
 
+            // Quiz image height
+            $quick_quiz_image_height = (isset($_REQUEST['ays_quick_quiz_image_height']) && $_REQUEST['ays_quick_quiz_image_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_image_height'] ) ) : '';
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1255,6 +1259,7 @@ class Quiz_Maker_Admin
             'enable_logged_users'                       => 'off',
             'image_width'                               => '',
             'image_height'                              => '',
+            'quiz_image_height'                         => $quick_quiz_image_height,
             'enable_correction'                         => $quick_quiz_enable_correction,
             'enable_questions_counter'                  => $quick_quiz_enable_questions_counter,
             'limit_users'                               => 'off',

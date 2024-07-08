@@ -16,6 +16,7 @@
 
 		/* Pass selected tab */
 		$('.wpls-selected-tab').val(selected_tab);
+
 		return false;
 	});
 

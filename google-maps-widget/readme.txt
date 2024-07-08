@@ -4,8 +4,8 @@ Tags: google maps, map, google map, google maps widget, map widget
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.0
-Tested up to: 6.5
-Stable tag: 4.25
+Tested up to: 6.6
+Stable tag: 4.26
 Requires PHP: 5.2
 
 Are your Google Maps slow? Try Map Widget for Google Maps. You'll have a fast Google Maps widget with a thumbnail & lightbox map in minutes!
@@ -180,6 +180,11 @@ Try <a href="http://www.niftymaps.co">Nifty Maps</a> - a comprehensive Map Build
 7. Thumbnail map - light color scheme
 
 == Changelog ==
+= 4.26 =
+* 2024/07/07
+* minor security fixes
+* WordPress 6.6 and PHP 8.2 compatibility check
+
 = 4.25 =
 * 2023/04/04
 * JavaScript is no longer accepted in the widget footer and header fields

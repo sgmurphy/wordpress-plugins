@@ -11,8 +11,8 @@ if(isset($_GET['page']) && $_GET['page']=='insert-html-snippet-manage' ){
 
 
 function xyz_ihs_menu(){
-	
-	add_menu_page('insert-html-snippet', 'XYZ Html', 'manage_options', 'insert-html-snippet-manage','xyz_ihs_snippets',plugins_url('images/logo.png',XYZ_INSERT_HTML_PLUGIN_FILE));
+
+	add_menu_page('insert-html-snippet', 'Insert Html Snippet', 'manage_options', 'insert-html-snippet-manage','xyz_ihs_snippets',plugins_url('images/logo.png',XYZ_INSERT_HTML_PLUGIN_FILE));
 
 	add_submenu_page('insert-html-snippet-manage', 'HTML Snippets', 'HTML Snippets', 'manage_options', 'insert-html-snippet-manage','xyz_ihs_snippets');
 	add_submenu_page('insert-html-snippet-manage', 'HTML Snippets - Manage settings', 'Settings', 'manage_options', 'insert-html-snippet-settings' ,'xyz_ihs_settings');	

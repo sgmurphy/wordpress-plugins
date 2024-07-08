@@ -4,15 +4,13 @@ namespace WPDeveloper\BetterDocs\Core;
 
 use Exception;
 use PriyoMukul\WPNotice\Notices;
-use PriyoMukul\WPNotice\Utils\CacheBank;
-use PriyoMukul\WPNotice\Utils\NoticeRemover;
-use WPDeveloper\BetterDocs\Admin\Analytics;
-use WPDeveloper\BetterDocs\Dependencies\DI\Container;
 use WPDeveloper\BetterDocs\Utils\Base;
-use WPDeveloper\BetterDocs\Utils\Enqueue;
+use PriyoMukul\WPNotice\Utils\CacheBank;
 use WPDeveloper\BetterDocs\Utils\Helper;
+use WPDeveloper\BetterDocs\Utils\Enqueue;
 use WPDeveloper\BetterDocs\Utils\Insights;
-use WPDeveloper\BetterDocs\Core\KBMigration;
+use PriyoMukul\WPNotice\Utils\NoticeRemover;
+use WPDeveloper\BetterDocs\Dependencies\DI\Container;
 
 class Admin extends Base {
     /**
@@ -66,19 +64,19 @@ class Admin extends Base {
     private $glossaries;
 
     public function __construct( Container $container, PostType $type, Enqueue $assets, Settings $settings, KBMigration $kbmigration ) {
-        $this->container = $container;
-        $this->assets    = $assets;
-        $this->settings  = $settings;
-        $this->kbmigration  = $kbmigration;
-        $this->slug      = 'betterdocs-admin';
+        $this->container   = $container;
+        $this->assets      = $assets;
+        $this->settings    = $settings;
+        $this->kbmigration = $kbmigration;
+        $this->slug        = 'betterdocs-admin';
 
-        add_action( 'init', [ $type, 'register' ], 9 );
+        add_action( 'init', [$type, 'register'], 9 );
 
         $type->init();
         $type->admin_init();
 
         $this->faq_builder = $this->container->get( FAQBuilder::class );
-        $this->glossaries = $this->container->get( Glossaries::class );
+        $this->glossaries  = $this->container->get( Glossaries::class );
 
         if ( ! is_admin() ) {
             return;
@@ -91,47 +89,52 @@ class Admin extends Base {
 
         add_action( 'admin_menu', [$this, 'menus'] );
         add_action( 'admin_menu', [$this, 'reset_submenu'] );
+        add_action( 'admin_head', [$this, 'add_custom_classes_to_menu_items'] );
         add_filter( 'plugin_action_links_' . BETTERDOCS_PLUGIN_BASENAME, [$this, 'insert_plugin_links'] );
 
         // $this->container->get( SetupWizard::class )->init();
 
-        add_action( 'admin_enqueue_scripts', [ $this, 'styles' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-        add_action( 'betterdocs_listing_header', [ $this, 'header' ], 10, 1 );
-        add_action( 'admin_bar_menu', [ $this, 'toolbar_menu' ], 32 );
+        add_action( 'admin_enqueue_scripts', [$this, 'styles'] );
+        add_action( 'admin_enqueue_scripts', [$this, 'scripts'] );
+        //add_action( 'betterdocs_listing_header', [ $this, 'header' ], 10, 1 );
+        add_action( 'admin_bar_menu', [$this, 'toolbar_menu'], 32 );
 
-        add_filter( 'admin_body_class', [ $this, 'body_classes' ] );
-        add_filter( 'parent_file', [ $type, 'highlight_admin_menu' ] );
-        add_filter( 'submenu_file', [ $type, 'highlight_admin_submenu' ], 10, 2 );
-        add_filter( 'betterdocs_admin_menu', [ $this, 'quick_setup_menu' ], 10, 1 );
+        add_filter( 'admin_body_class', [$this, 'body_classes'] );
+        add_filter( 'parent_file', [$type, 'highlight_admin_menu'] );
+        add_filter( 'submenu_file', [$type, 'highlight_admin_submenu'], 10, 2 );
+        add_filter( 'betterdocs_admin_menu', [$this, 'quick_setup_menu'], 10, 1 );
 
         /**
          * Remove Comments Column from List Table.
          */
-        add_filter( 'manage_docs_posts_columns', [ $this, 'set_custom_edit_action_columns' ] );
-        add_filter( 'manage_docs_posts_custom_column', [ $this, 'manage_custom_columns' ], 10, 2 );
+        add_filter( 'manage_docs_posts_columns', [$this, 'set_custom_edit_action_columns'] );
+        add_filter( 'manage_docs_posts_custom_column', [$this, 'manage_custom_columns'], 10, 2 );
 
-        if( $this->settings->get('enable_estimated_reading_time') ) {
+        if ( $this->settings->get( 'enable_estimated_reading_time' ) ) {
             add_action( 'add_meta_boxes', [$this, 'reading_meta_box_'], 10 );
         }
 
         self::$cache_bank = CacheBank::get_instance();
+
+        // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
+        NoticeRemover::get_instance( '1.0.0' );
+
         try {
-            // $this->notices();
-            add_action('admin_init', [$this, 'notices']);
+            add_action( 'admin_init', [$this, 'notices'] );
         } catch ( Exception $e ) {
             unset( $e );
         }
-        // Remove OLD notice from 1.0.0 (if other WPDeveloper plugin has notice)
-        NoticeRemover::get_instance( '1.0.0' );
     }
 
     public function reading_meta_box_() {
-        add_meta_box( 'betterdocs_estimated_time_metabox', __( 'Estimated Reading Time', 'betterdocs' ), [$this, 'render_estimated_time_markup'], 'docs' );
+        add_meta_box( 'betterdocs_estimated_time_metabox', __( 'Estimated Reading Time', 'betterdocs' ), [
+            $this,
+            'render_estimated_time_markup'
+        ], 'docs' );
     }
 
     public function render_estimated_time_markup() {
-        betterdocs()->views->get('admin/metabox/estimated-reading-box');
+        betterdocs()->views->get( 'admin/metabox/estimated-reading-box' );
     }
 
     public function compatibility_notices() {
@@ -143,7 +146,7 @@ class Admin extends Base {
                 return;
             }
 
-            betterdocs()->views->get( 'admin/notices/compatibility', [ 'version' => $plugin_data['Version'] ] );
+            betterdocs()->views->get( 'admin/notices/compatibility', ['version' => $plugin_data['Version']] );
         }
     }
 
@@ -178,7 +181,7 @@ class Admin extends Base {
             'storage_key'    => 'notices',
             'lifetime'       => 3,
             'stylesheet_url' => $this->assets->asset_url( 'admin/css/notices.css' ),
-            'styles' => $this->assets->asset_url( 'admin/css/notices.css' ),
+            'styles'         => $this->assets->asset_url( 'admin/css/notices.css' ),
             'priority'       => 4
         ] );
 
@@ -239,19 +242,7 @@ class Admin extends Base {
         ] );
 
         if ( $this->kbmigration->existing_plugins && ! in_array( $this->kbmigration->existing_plugins[0][0], $this->kbmigration->migrated_plugins ) ) {
-            $migration_message = sprintf(
-                '<p class="migration-message">%s</p><a class="button button-primary betterdocs-migration-notice" href="%s">%s</a>',
-                __(
-                    sprintf(
-                        'Already using %s? Power up your Knowledge Base by migrating all your docs, settings to BetterDocs with just 1 click.',
-                        '<strong>' . esc_html($this->kbmigration->existing_plugins[0][1]) . '</strong>',
-                        '<strong>' . esc_html($this->kbmigration->existing_plugins[0][1]) . '</strong>'
-                    ),
-                    'betterdocs'
-                ),
-                esc_url(admin_url('admin.php?page=betterdocs-settings&tab=tab-migration')),
-                __('Start Migration', 'betterdocs')
-            );
+            $migration_message = sprintf( '<p class="migration-message">%s</p><a class="button button-primary betterdocs-migration-notice" href="%s">%s</a>', __( sprintf( 'Already using %s? Power up your Knowledge Base by migrating all your docs, settings to BetterDocs with just 1 click.', '<strong>' . esc_html( $this->kbmigration->existing_plugins[0][1] ) . '</strong>', '<strong>' . esc_html( $this->kbmigration->existing_plugins[0][1] ) . '</strong>' ), 'betterdocs' ), esc_url( admin_url( 'admin.php?page=betterdocs-settings&tab=tab-migration' ) ), __( 'Start Migration', 'betterdocs' ) );
 
             $_migration_notice = [
                 'thumbnail' => '',
@@ -287,9 +278,10 @@ class Admin extends Base {
          * Opt-In Notice
          */
         if ( $this->insights != null ) {
-            $notices->add( 'opt_in', [ $this->insights, 'notice' ], [
+            $notices->add( 'opt_in', [$this->insights, 'notice'], [
                 'classes'     => 'updated put-dismiss-notice',
-                'start'       => $notices->strtotime( '+20 days' ),
+                'start'       => $notices->time(),
+                // 'start'       => $notices->strtotime( '+20 days' ),
                 'dismissible' => true,
                 'do_action'   => 'wpdeveloper_notice_clicked_for_betterdocs',
                 'display_if'  => ! function_exists( 'betterdocs_pro' )
@@ -299,7 +291,7 @@ class Admin extends Base {
         $b_message            = '<p style="margin-top: 0; margin-bottom: 10px;">Black Friday Sale: Enjoy 40% off & unlock <strong>premium features to streamline customer support</strong> & knowledge base 🎁</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/betterdocs-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
         $_black_friday_notice = [
             'thumbnail' => $this->assets->icon( 'betterdocs-logo.svg', true ),
-            'html'      => $b_message,
+            'html'      => $b_message
         ];
 
         $notices->add( 'black_friday_notice', $_black_friday_notice, [
@@ -313,14 +305,34 @@ class Admin extends Base {
 
         self::$cache_bank->create_account( $notices );
         self::$cache_bank->calculate_deposits( $notices );
+        if ( method_exists( self::$cache_bank, 'clear_notices_in_' ) ) {
+            self::$cache_bank->clear_notices_in_( [
+                'toplevel_page_betterdocs-admin',
+                'betterdocs_page_betterdocs-admin',
+                'betterdocs_page_betterdocs-settings',
+                'betterdocs_page_betterdocs-faq',
+                'betterdocs_page_betterdocs-analytics',
+                'betterdocs_page_betterdocs-glossaries',
+                'edit-doc_category',
+                'edit-doc_tag'
+            ], $notices, true );
+        }
     }
 
     public function body_classes( $classes ) {
-        $saved_settings = get_option( 'betterdocs_settings', false );
-        $dark_mode      = isset( $saved_settings['dark_mode'] ) ? $saved_settings['dark_mode'] : false;
-        $dark_mode      = ! empty( $dark_mode ) ? boolval( $dark_mode ) : false;
+        $saved_settings     = get_option( 'betterdocs_settings', false );
+        $dark_mode          = isset( $saved_settings['dark_mode'] ) ? $saved_settings['dark_mode'] : false;
+        $dark_mode          = ! empty( $dark_mode ) ? boolval( $dark_mode ) : false;
+        $current_screen_id  = get_current_screen() != null ? str_replace( 'toplevel_page_', '', get_current_screen()->id ) : '';
+        $registered_screens = [
+            'betterdocs-settings',
+            'betterdocs-admin',
+            'betterdocs-analytics',
+            'betterdocs-glossaries'
+        ];
+        $classes .= ' betterdocs-admin ';
 
-        if ( $dark_mode === true ) {
+        if ( $dark_mode === true && in_array( $current_screen_id, $registered_screens ) ) {
             $classes .= ' betterdocs-dark-mode ';
         }
 
@@ -341,9 +353,9 @@ class Admin extends Base {
         foreach ( $columns as $key => $value ) {
             if ( $key == 'date' ) {
                 $new_columns['betterdocs_word_count'] = __( 'Word Count', 'betterdocs' ); // put the tags column before it
-                $new_columns['betterdocs_reaction'] = __( 'Reactions', 'betterdocs' );
+                $new_columns['betterdocs_reaction']   = __( 'Reactions', 'betterdocs' );
             }
-            $new_columns[ $key ] = $value;
+            $new_columns[$key] = $value;
         }
 
         return $new_columns;
@@ -354,15 +366,14 @@ class Admin extends Base {
         switch ( $column ) {
             case 'betterdocs_word_count':
                 $content_without_html_tags = trim( strip_tags( get_post_field( 'post_content', $post_id ) ) );
-                preg_match_all('/<[^>]*>|[\p{L}\p{M}]+/u', $content_without_html_tags, $matches );
+                preg_match_all( '/<[^>]*>|[\p{L}\p{M}]+/u', $content_without_html_tags, $matches );
                 $total_words = ! empty( $matches[0] ) ? count( $matches[0] ) : count( [] );
-                $word_count = $total_words;
+                $word_count  = $total_words;
                 echo '<span>' . $word_count . '</span>';
                 break;
-            case 'betterdocs_reaction' :
-                $where = "WHERE post_id='" . esc_sql($post_id) . "'";
-                $analytics = $wpdb->get_results(
-                    "SELECT
+            case 'betterdocs_reaction':
+                $where     = "WHERE post_id='" . esc_sql( $post_id ) . "'";
+                $analytics = $wpdb->get_results( "SELECT
                         sum(impressions) as totalViews,
                         sum(unique_visit) as totalUniqueViews,
                         sum(happy + sad + normal) as totalReactions,
@@ -370,8 +381,7 @@ class Admin extends Base {
                         sum(normal) as totalNormal,
                         sum(sad) as totalSad
                     FROM {$wpdb->prefix}betterdocs_analytics
-                    $where"
-                );
+                    $where" );
 
                 echo '<ul class="reactions-count">
                     <li>
@@ -386,7 +396,7 @@ class Admin extends Base {
                             c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2C-12.9-110.5-12-111.4-10.9-111.4z M-6.6-98.7c-3.4,0-6.4-2.1-7.6-5.3l1.6-0.6
                             c0.9,2.5,3.3,4.2,6,4.2s5.1-1.7,6-4.2L1-104C-0.1-100.8-3.2-98.7-6.6-98.7z" />
                             </svg>
-                            <span>'. ($analytics[0]->totalHappy != NULL ? $analytics[0]->totalHappy : 0) .'</span>
+                            <span>' . ( $analytics[0]->totalHappy != null ? $analytics[0]->totalHappy : 0 ) . '</span>
                         </a>
                     </li>
                     <li>
@@ -397,7 +407,7 @@ class Admin extends Base {
                         c-0.3,0-0.6-0.3-0.6-0.6c0-0.3,0.3-0.6,0.6-0.6h8.3c0.3,0,0.6,0.3,0.6,0.6C14.8,14,14.5,14.3,14.2,14.3z M13.3,9.5
                         c-0.8,0-1.5-0.7-1.5-1.5c0-0.8,0.7-1.5,1.5-1.5c0.8,0,1.5,0.7,1.5,1.5C14.8,8.9,14.1,9.5,13.3,9.5z" />
                             </svg>
-                            <span>'. ($analytics[0]->totalNormal != NULL ? $analytics[0]->totalNormal : 0) .'</span>
+                            <span>' . ( $analytics[0]->totalNormal != null ? $analytics[0]->totalNormal : 0 ) . '</span>
                         </a>
                     </li>
                     <li>
@@ -411,7 +421,7 @@ class Admin extends Base {
                             c-0.9-1-2.2-1.7-3.7-1.7s-2.8,0.6-3.7,1.7C6.2,14.9,6,15,5.9,15h0c-0.6,0-0.8-0.6-0.5-1.1c1.1-1.3,2.8-2.1,4.6-2.1
                             c1.8,0,3.5,0.8,4.6,2.1C15,14.3,14.7,15,14.1,15z" />
                             </svg>
-                            <span>'. ($analytics[0]->totalSad != NULL ? $analytics[0]->totalSad : 0) .'</span>
+                            <span>' . ( $analytics[0]->totalSad != null ? $analytics[0]->totalSad : 0 ) . '</span>
                         </a>
                     </li>
                 </ul>';
@@ -430,18 +440,15 @@ class Admin extends Base {
     public function styles( $hook ) {
         $this->assets->enqueue( 'betterdocs-global', 'admin/css/global.css', [], 'all' );
 
-        if ( ! in_array( $hook, [
-            'toplevel_page_betterdocs-admin',
-            'betterdocs_page_betterdocs-settings',
-            'betterdocs_page_betterdocs-analytics'
-        ] ) ) {
-            return;
-        }
-
         $this->assets->enqueue( 'betterdocs-select2', 'vendor/css/select2.min.css', [], 'all' );
         $this->assets->enqueue( 'betterdocs-daterangepicker', 'vendor/css/daterangepicker.css', [], 'all' );
+        $this->assets->enqueue( 'betterdocs-old', 'admin/css/betterdocs.css', [], 'all' );
+
+        /**
+         * This scripts enqueued for Dashboard App.
+         */
+        $this->assets->enqueue( 'betterdocs', 'admin/css/dashboard.css', ['betterdocs-old'] );
         $this->assets->enqueue( 'betterdocs-icons', 'admin/btd-icon/style.css' );
-        $this->assets->enqueue( 'betterdocs', 'admin/css/betterdocs.css', [], 'all' );
     }
 
     /**
@@ -453,27 +460,7 @@ class Admin extends Base {
      * @since 1.0.0
      */
     public function scripts( $hook ) {
-        $this->assets->register( 'betterdocs-admin', 'admin/js/betterdocs.js', [ 'jquery', 'jquery-ui-sortable' ] );
-
-        $saved_settings = get_option( 'betterdocs_settings', false );
-        $dark_mode      = isset( $saved_settings['dark_mode'] ) ? $saved_settings['dark_mode'] : false;
-        $dark_mode      = ! empty( $dark_mode ) ? boolval( $dark_mode ) : false;
-        $this->assets->localize( 'betterdocs-admin', 'betterdocs_admin', [
-            'ajaxurl'                    => admin_url( 'admin-ajax.php' ),
-            'doc_cat_order_nonce'        => wp_create_nonce( 'doc_cat_order_nonce' ),
-            'knowledge_base_order_nonce' => wp_create_nonce( 'knowledge_base_order_nonce' ),
-            'paged'                      => isset( $_GET['paged'] ) ? absint( wp_unslash( $_GET['paged'] ) ) : 0,
-            'per_page_id'                => "edit_doc_category_per_page",
-            'menu_title'                 => __( 'Switch to BetterDocs UI', 'betterdocs' ),
-            'dark_mode'                  => ! empty( $dark_mode ) ? boolval( $dark_mode ) : false,
-            'text'                       => __( 'Copied!', 'betterdocs' ),
-            'test_report'                => __( 'Test Report!', 'betterdocs' ),
-            'sending'                    => __( 'Sending...', 'betterdocs' ),
-            'generate_data_url'          => get_rest_url( null, '/betterdocs/v1/create-sample-docs' ),
-            'nonce'                      => wp_create_nonce( 'wp_rest' )
-        ] );
-
-        if ( ( $hook === 'edit.php' || $hook === 'toplevel_page_betterdocs-admin' ) && get_post_type() == 'docs' ) {
+        if ( ( $hook === 'edit.php' ) && get_post_type() == 'docs' ) {
             $this->assets->enqueue( 'betterdocs-switcher', 'admin/js/switcher.js', [
                 'jquery'
             ] );
@@ -483,20 +470,80 @@ class Admin extends Base {
                 'site_address'          => get_bloginfo( 'url' ),
                 'betterdocs_pro_plugin' => betterdocs()->is_pro_active()
             ] );
-        }
 
-        if ( ! in_array( $hook, ['term.php', 'edit-tags.php','toplevel_page_betterdocs-admin', 'betterdocs_page_betterdocs-analytics' ] ) ) {
             return;
         }
 
-        wp_enqueue_script('wp-editor'); //enqueued on betterdocs-term pages to show SEO data from Yoast
-        wp_enqueue_script( 'wp-color-picker' );
+        if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
+            return;
+        }
 
-        $this->assets->enqueue( 'betterdocs-select2', 'vendor/js/select2.min.js', [] );
-        $this->assets->enqueue( 'betterdocs-sweetalert', 'vendor/js/sweetalert.min.js', [] );
+        $this->assets->register( 'betterdocs-admin', 'admin/js/dashboard.js' );
+
+        $saved_settings = get_option( 'betterdocs_settings', false );
+        $dark_mode      = $saved_settings['dark_mode'] ?? false;
+        $dark_mode      = ! empty( $dark_mode ) && boolval( $dark_mode );
+        $this->assets->localize( 'betterdocs-admin', 'betterdocs_admin', [
+            'ajaxurl'                    => admin_url( 'admin-ajax.php' ),
+            'doc_cat_order_nonce'        => wp_create_nonce( 'doc_cat_order_nonce' ),
+            'knowledge_base_order_nonce' => wp_create_nonce( 'knowledge_base_order_nonce' ),
+            'paged'                      => isset( $_GET['paged'] ) ? absint( wp_unslash( $_GET['paged'] ) ) : 0,
+            'per_page_id'                => "edit_doc_category_per_page",
+            'menu_title'                 => __( 'Switch to BetterDocs UI', 'betterdocs' ),
+            'dark_mode'                  => $dark_mode,
+            'text'                       => __( 'Copied!', 'betterdocs' ),
+            'test_report'                => __( 'Test Report!', 'betterdocs' ),
+            'sending'                    => __( 'Sending...', 'betterdocs' ),
+            'dir_url'                    => BETTERDOCS_ABSURL,
+            'rest_url'                   => esc_url_raw( rest_url() ),
+            'free_version'               => betterdocs()->version,
+            'generate_data_url'          => get_rest_url( null, '/betterdocs/v1/create-sample-docs' ),
+            'nonce'                      => wp_create_nonce( 'wp_rest' ),
+            'admin_url'                  => admin_url(),
+            'ia_preview'                 => betterdocs()->settings->get( 'ia_enable_preview', false ),
+            'multiple_kb'                => betterdocs()->settings->get( 'multiple_kb' ),
+            'previewMode'                => betterdocs()->settings->get( 'ia_enable_preview', false )
+        ] );
+
         $this->assets->enqueue( 'moment', 'vendor/js/moment.min.js', [] );
-        $this->assets->enqueue( 'betterdocs-daterangepicker', 'vendor/js/daterangepicker.min.js', [] );
         wp_enqueue_script( 'betterdocs-admin' );
+
+        /**
+         * Duplicate Codes Need to Be Removed From Here Onwards
+         */
+
+        //FAQ Builder Related Localization
+        betterdocs()->assets->enqueue( 'betterdocs-admin-faq', 'admin/css/faq.css' );
+        betterdocs()->assets->enqueue( 'betterdocs-admin-faq', 'admin/js/faq.js' );
+
+        // removing emoji support
+        remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+        remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+
+        betterdocs()->assets->localize( 'betterdocs-admin-faq', 'betterdocsFaq', [
+            'dir_url'             => BETTERDOCS_ABSURL,
+            'rest_url'            => esc_url_raw( rest_url() ),
+            'free_version'        => betterdocs()->version,
+            'nonce'               => wp_create_nonce( 'wp_rest' ),
+            'betterdocs_settings' => get_option( 'betterdocs_settings', false )
+        ] );
+
+        //Glossaries Related Localization
+        betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/css/faq.css' );
+
+        betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/js/glossaries.js' );
+
+        // removing emoji support
+        remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+        remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+
+        betterdocs()->assets->localize( 'betterdocs-admin-glossaries', 'betterdocsGlossary', [
+            'dir_url'             => BETTERDOCS_ABSURL,
+            'rest_url'            => esc_url_raw( rest_url() ),
+            'free_version'        => betterdocs()->version,
+            'nonce'               => wp_create_nonce( 'wp_rest' ),
+            'betterdocs_settings' => get_option( 'betterdocs_settings', false )
+        ] );
     }
 
     /**
@@ -511,7 +558,7 @@ class Admin extends Base {
                 'post_type'  => 'docs',
                 'bdocs_view' => 'classic'
             ], 'edit.php' ), __( 'Switch to Classic UI', 'betterdocs' ) ),
-            'add_new_doc' => sprintf( '<a href="%s" class="betterdocs-button betterdocs-button-primary">%s</a>', add_query_arg( [ 'post_type' => 'docs' ], 'post-new.php' ), __( 'Add New Doc', 'betterdocs' ) )
+            'add_new_doc' => sprintf( '<a href="%s" class="betterdocs-button betterdocs-button-primary">%s</a>', add_query_arg( ['post_type' => 'docs'], 'post-new.php' ), __( 'Add New Doc', 'betterdocs' ) )
         ];
 
         $quick_links = apply_filters( 'betterdocs_quick_links', $quick_links );
@@ -528,17 +575,6 @@ class Admin extends Base {
      * @return void
      * @since 1.0.0
      */
-    // public function menus() {
-    //     add_menu_page(
-    //         'BetterDocs',
-    //         'BetterDocs',
-    //         'edit_posts',
-    //         $this->slug,
-    //         [$this, 'output'],
-    //         betterdocs()->assets->icon( 'betterdocs-icon-white.svg', true ),
-    //         5 // Position on the menu (use a unique number)
-    //     );
-    // }
 
     public function menus() {
         $default_args = [
@@ -546,7 +582,7 @@ class Admin extends Base {
             'menu_title' => 'BetterDocs',
             'capability' => 'edit_posts',
             'menu_slug'  => $this->slug,
-            'callback'   => [ $this, 'output' ],
+            'callback'   => [$this, 'output'],
             'icon_url'   => betterdocs()->assets->icon( 'betterdocs-icon-white.svg', true ),
             'position'   => 5
         ];
@@ -562,7 +598,7 @@ class Admin extends Base {
                 $default_args['callback'] = '';
                 $default_args['position'] = $_menu_position;
                 unset( $default_args['icon_url'] );
-                $value = wp_parse_args( $value, array_merge( [ 'parent_slug' => $this->slug ], $default_args ) );
+                $value = wp_parse_args( $value, array_merge( ['parent_slug' => $this->slug], $default_args ) );
             }
 
             $_menu_position++;
@@ -595,8 +631,8 @@ class Admin extends Base {
      * @since 2.5.0
      *
      */
-    private function normalize_menu( $title, $slug, $cap = 'edit_docs', $callback = null ) {
-        return Helper::normalize_menu( $title, $slug, $cap, $callback );
+    private function normalize_menu( $title, $slug, $cap = 'edit_docs', $callback = null, $optional = [] ) {
+        return Helper::normalize_menu( $title, $slug, $cap, $callback, $optional );
     }
 
     /**
@@ -606,60 +642,81 @@ class Admin extends Base {
      * @since 1.0.0
      */
     private function menu_list() {
+        $parent_slug = [];
+
         $betterdocs_admin_pages = [
             'betterdocs' => [
                 'menu_slug'  => $this->slug,
                 'page_title' => 'BetterDocs',
                 'menu_title' => 'BetterDocs',
                 'capability' => 'edit_docs',
-                'callback'   => [ $this, 'output' ],
+                'callback'   => [$this, 'output'],
                 'icon_url'   => betterdocs()->assets->icon( 'betterdocs-icon-white.svg', true ),
                 'position'   => 5
             ],
-            'all_docs'    => $this->normalize_menu( __( 'All Docs', 'betterdocs' ), $this->ui_slug() ),
-            'add_new'     => $this->normalize_menu( __( 'Add New', 'betterdocs' ), 'post-new.php?post_type=docs' ),
-            'categories'  => $this->normalize_menu(
-                __( 'Categories', 'betterdocs' ),
-                'edit-tags.php?taxonomy=doc_category&post_type=docs',
-                'manage_doc_terms'
-            ),
-            'tags'        => $this->normalize_menu(
-                __( 'Tags', 'betterdocs' ),
-                'edit-tags.php?taxonomy=doc_tag&post_type=docs',
-                'manage_doc_terms'
-            ),
-            'settings'    => $this->normalize_menu(
-                __( 'Settings', 'betterdocs' ),
-                'betterdocs-settings',
-                'edit_docs_settings',
-                [$this->container->get( Settings::class ), 'views']
-            ),
-            'analytics'   => $this->normalize_menu(
-                __( 'Analytics', 'betterdocs' ),
-                'betterdocs-analytics',
-                'read_docs_analytics',
-                [$this->container->get( Analytics::class ), 'views']
-            ),
-            'faq'         => $this->normalize_menu(
-                __( 'FAQ Builder', 'betterdocs' ),
-                'betterdocs-faq',
-                'read_docs_analytics',
-                [$this->faq_builder, 'output']
-            ),
+            'all_docs'   => $this->normalize_menu( __( 'All Docs', 'betterdocs' ), $this->ui_slug() ),
+            'add_new'    => $this->normalize_menu( __( 'Add New', 'betterdocs' ), 'post-new.php?post_type=docs' ),
+            'categories' => $this->normalize_menu( __( 'Categories', 'betterdocs' ), 'edit-tags.php?taxonomy=doc_category&post_type=docs', 'manage_doc_terms' ),
+            'tags'       => $this->normalize_menu( __( 'Tags', 'betterdocs' ), 'edit-tags.php?taxonomy=doc_tag&post_type=docs', 'manage_doc_terms' ),
+            'settings'   => $this->normalize_menu( __( 'Settings', 'betterdocs' ), 'betterdocs-settings', 'edit_docs_settings', [
+                $this,
+                'output'
+            ], $parent_slug ),
+            'analytics'  => $this->normalize_menu( __( 'Analytics', 'betterdocs' ), 'betterdocs-analytics', 'read_docs_analytics', [
+                $this,
+                'output'
+            ], $parent_slug ),
+            'faq'        => $this->normalize_menu( __( 'FAQ Builder', 'betterdocs' ), 'betterdocs-faq', 'read_docs_analytics', [
+                $this,
+                'output'
+            ], $parent_slug )
         ];
 
-        $is_enable_glossary = betterdocs()->settings->get('enable_glossaries', false);
-        if( $is_enable_glossary && betterdocs()->is_pro_active() ){
-            $betterdocs_admin_pages['glossaries'] = $this->normalize_menu(
-                __( 'Glossaries', 'betterdocs' ),
-                'betterdocs-glossaries',
-                'read_docs_analytics',
-                [$this->glossaries, 'output']
-            );
+        if ( betterdocs()->settings->get( 'enable_glossaries' ) == true ) {
+            $betterdocs_admin_pages['glossaries'] = $this->normalize_menu( __( 'Glossaries', 'betterdocs' ), 'betterdocs-glossaries', 'read_docs_analytics', [
+                $this,
+                'output'
+            ], $parent_slug );
         }
 
-
         return apply_filters( 'betterdocs_admin_menu', $betterdocs_admin_pages );
+    }
+
+    public function add_custom_classes_to_menu_items() {
+        global $menu, $submenu;
+
+        $menu_items = [
+            'betterdocs'                                           => 'betterdocs',
+            'betterdocs_page_all_docs'                             => 'betterdocs-all-docs',
+            'betterdocs_page_add_new'                              => 'betterdocs-add-new',
+            'edit-tags.php?taxonomy=doc_category&post_type=docs'   => 'betterdocs-categories',
+            'edit-tags.php?taxonomy=doc_tag&post_type=docs'        => 'betterdocs-tags',
+            'betterdocs-settings'                                  => 'betterdocs-settings',
+            'betterdocs-analytics'                                 => 'betterdocs-analytics',
+            'betterdocs-faq'                                       => 'betterdocs-faq',
+            'betterdocs-glossaries'                                => 'betterdocs-glossaries',
+            'edit-tags.php?taxonomy=knowledge_base&post_type=docs' => 'betterdocs-multiplekb'
+        ];
+
+        foreach ( $menu as &$item ) {
+            if ( isset( $menu_items[$item[2]] ) ) {
+                if ( ! isset( $item[4] ) ) {
+                    $item[4] = '';
+                }
+                $item[4] .= '' . $menu_items[$item[2]];
+            }
+        }
+
+        foreach ( $submenu as &$submenu_items ) {
+            foreach ( $submenu_items as &$sub_item ) {
+                if ( isset( $menu_items[$sub_item[2]] ) ) {
+                    if ( ! isset( $sub_item[4] ) ) {
+                        $sub_item[4] = '';
+                    }
+                    $sub_item[4] .= '' . $menu_items[$sub_item[2]];
+                }
+            }
+        }
     }
 
     public function quick_setup_menu( $menus ) {
@@ -692,7 +749,7 @@ class Admin extends Base {
             return;
         }
 
-        $docs_url = '';
+        $docs_url         = '';
         $encyclopedia_url = '';
 
         if ( $this->settings->get( 'builtin_doc_page' ) ) {
@@ -709,7 +766,6 @@ class Admin extends Base {
 
         $encyclopedia_url = home_url( $slug );
 
-
         $admin_bar->add_node( [
             'parent' => 'site-name',
             'id'     => 'view-docs',
@@ -717,9 +773,9 @@ class Admin extends Base {
             'href'   => $docs_url
         ] );
 
-        $is_enable_encyclopedia = betterdocs()->settings->get('enable_encyclopedia');
+        $is_enable_encyclopedia = betterdocs()->settings->get( 'enable_encyclopedia' );
 
-        if( $is_enable_encyclopedia && betterdocs()->is_pro_active() ){
+        if ( $is_enable_encyclopedia && betterdocs()->is_pro_active() ) {
             $admin_bar->add_node( [
                 'parent' => 'site-name',
                 'id'     => 'view-encyclopedia',
@@ -727,8 +783,8 @@ class Admin extends Base {
                 'href'   => $encyclopedia_url
             ] );
         }
-
     }
+
     /**
      * Save last visited admin ui
      *
@@ -736,9 +792,9 @@ class Admin extends Base {
      *
      */
     public function save_admin_page() {
-        if (isset($_GET['post_type']) && $_GET['post_type'] === 'docs' && isset($_GET['bdocs_view']) && $_GET['bdocs_view'] === 'classic') {
+        if ( isset( $_GET['post_type'] ) && $_GET['post_type'] === 'docs' && isset( $_GET['bdocs_view'] ) && $_GET['bdocs_view'] === 'classic' ) {
             update_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', 'classic_ui' );
-        } elseif (isset($_GET['page']) && $_GET['page'] === 'betterdocs-admin') {
+        } elseif ( isset( $_GET['page'] ) && $_GET['page'] === 'betterdocs-admin' ) {
             update_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', 'modern_ui' );
         }
     }
@@ -746,17 +802,17 @@ class Admin extends Base {
     /**
      * Return last visited admin ui slug
      *
-     * @since 3.0.1
      * @return string
+     * @since 3.0.1
      */
     public function ui_slug() {
-        $last_visited = get_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', true);
-        $docs = get_posts( ['post_type'  => 'docs', 'post_status'  => 'any', 'numberposts' => 2] );
+        $last_visited = get_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', true );
+        $docs         = get_posts( ['post_type' => 'docs', 'post_status' => 'any', 'numberposts' => 2] );
 
-        if ($last_visited === 'modern_ui' || count($docs) == 0 ) {
+        if ( $last_visited === 'modern_ui' || count( $docs ) == 0 ) {
             $slug = 'betterdocs-admin';
         } else {
-            $slug = admin_url('edit.php?post_type=docs&bdocs_view=classic');
+            $slug = admin_url( 'edit.php?post_type=docs&bdocs_view=classic' );
         }
 
         return $slug;
@@ -765,22 +821,22 @@ class Admin extends Base {
     /**
      * Resets a duplicate submenu in WordPress if the parent main menu and the first submenu permalink are not the same.
      *
-     * @since 3.0.1
      * @return string
+     * @since 3.0.1
      */
     public function reset_submenu() {
         global $submenu;
 
-        $docs = get_posts( ['post_type'  => 'docs'] );
-        if ( count($docs) == 0 ) {
+        $docs = get_posts( ['post_type' => 'docs'] );
+        if ( count( $docs ) == 0 ) {
             return;
         }
 
-        $last_visited = get_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', true);
+        $last_visited = get_user_meta( get_current_user_id(), 'last_visited_docs_admin_page', true );
 
-        if ($last_visited === 'classic_ui' && isset($submenu['betterdocs-admin']) && in_array("betterdocs-admin", $submenu['betterdocs-admin'][0])) {
-            unset($submenu['betterdocs-admin'][0]);
-            $submenu['betterdocs-admin'] = array_values($submenu['betterdocs-admin']);
+        if ( $last_visited === 'classic_ui' && isset( $submenu['betterdocs-admin'] ) && in_array( "betterdocs-admin", $submenu['betterdocs-admin'][0] ) ) {
+            unset( $submenu['betterdocs-admin'][0] );
+            $submenu['betterdocs-admin'] = array_values( $submenu['betterdocs-admin'] );
         }
     }
 }

@@ -247,7 +247,31 @@ class SwpmMembers extends WP_List_Table {
 		return $this->add();
 	}
 
+    public static function membership_lvl_not_configured_msg_box()
+    {
+        $output = '<div class="swpm-yellow-box">';
+        $output .= '<p>';
+        $output .= __("Each member account must be assigned a membership level. It appears that you don't have any membership levels configured. Please create a membership level first before adding or editing any member records.", 'simple-membership');
+        $output .= '</p>';
+		$output .= '<p>';
+		$output .= __("Read the ", 'simple-membership');
+		$output .= '<a href="https://simple-membership-plugin.com/adding-membership-access-levels-site/" target="_blank">' . __("membership level documentation", 'simple-membership') . '</a>';
+		$output .= __(" to learn how to create a membership level.", 'simple-membership');
+		$output .= '</p>';
+        $output .= '<br />';
+        $output .= '<a href="'. admin_url() . 'admin.php?page=simple_wp_membership_levels&level_action=add" class="button button-primary">';
+        $output .= __('Create a Membership Level', 'simple-membership');
+        $output .= '</a>';
+        $output .= '</div>';
+        return $output;
+    }
+
 	function add() {
+        if(!SwpmMembershipLevelUtils::is_membership_level_configured()){
+            echo self::membership_lvl_not_configured_msg_box();
+            return;
+        }
+
 		$form = apply_filters( 'swpm_admin_registration_form_override', '' );
 		if ( ! empty( $form ) ) {
 			echo $form;
@@ -277,6 +301,11 @@ class SwpmMembers extends WP_List_Table {
 	}
 
 	function edit( $id ) {
+        if(!SwpmMembershipLevelUtils::is_membership_level_configured()){
+            echo self::membership_lvl_not_configured_msg_box();
+            return;
+        }
+
 		global $wpdb;
 		$id     = absint( $id );
 		$query  = "SELECT * FROM {$wpdb->prefix}swpm_members_tbl WHERE member_id = $id";
@@ -453,20 +482,44 @@ class SwpmMembers extends WP_List_Table {
 		if ( ! $member ) {
 			return false;
 		}
+
+		// TODO: Old code, need to remove.
 		// let's check if Stripe subscription needs to be cancelled
-		global $wpdb;
-		$q = $wpdb->prepare(
-			'SELECT *
-		FROM  `' . $wpdb->prefix . 'swpm_payments_tbl`
-		WHERE email =  %s
-		AND (gateway =  "stripe" OR gateway = "stripe-sca-subs")
-		AND subscr_id != ""',
-			array( $member->email )
+		// global $wpdb;
+		// $q = $wpdb->prepare(
+		// 	'SELECT *
+		// FROM  `' . $wpdb->prefix . 'swpm_payments_tbl`
+		// WHERE email =  %s
+		// AND (gateway =  "stripe" OR gateway = "stripe-sca-subs")
+		// AND subscr_id != ""',
+		// 	array( $member->email )
+		// );
+		// $res = $wpdb->get_results( $q, ARRAY_A );
+
+		$meta_query = array(
+			'relation' => 'AND',
+			array(
+				'relation' => 'AND',
+				array(
+					'key'     => 'email',
+					'value'   => $member->email,
+					'compare' => '='
+				),
+				array(
+					'key'     => 'subscr_id',
+					'value'   => '',
+					'compare' => '!='
+				),
+				array(
+					'key'     => 'gateway',
+					'value'   => array('stripe', 'stripe-sca-subs'),
+					'compare' => 'IN'
+				),
+			),
 		);
+		$res = SwpmTransactions::get_all_txn_posts_using_meta_query_with_metadata($meta_query);
 
-		$res = $wpdb->get_results( $q, ARRAY_A );
-
-		if ( ! $res ) {
+		if ( empty($res) ) {
 			return false;
 		}
 
@@ -477,16 +530,25 @@ class SwpmMembers extends WP_List_Table {
 				continue;
 			}
 
-			//let's find the payment button
-			$q        = $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key='subscr_id' AND meta_value=%s", $sub['subscr_id'] );
-			$res_post = $wpdb->get_row( $q );
+            // TODO: Old code, need to remove.
+			// let's find the payment button
+			// $q        = $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key='subscr_id' AND meta_value=%s", $sub['subscr_id'] );
+			// $res_post = $wpdb->get_row( $q );
+			// if ( ! $res_post ) {
+			// 	//no button found
+			// 	continue;
+			// }
+			// $button_id = get_post_meta( $res_post->post_id, 'payment_button_id', true );
 
-			if ( ! $res_post ) {
-				//no button found
-				continue;
-			}
 
-			$button_id = get_post_meta( $res_post->post_id, 'payment_button_id', true );
+			// let's find the payment button.
+
+			$button_id = $sub['payment_button_id'];
+
+            if ( empty($button_id) ) {
+                // payment button id not found.
+                continue;
+            }
 
 			$button = get_post( $button_id );
 

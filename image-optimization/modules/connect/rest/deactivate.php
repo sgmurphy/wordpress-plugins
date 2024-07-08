@@ -3,10 +3,10 @@
 namespace ImageOptimization\Modules\Connect\Rest;
 
 use ImageOptimization\Modules\Connect\Classes\{
+	Data,
 	Route_Base,
-	Service,
+	Service
 };
-
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,6 +33,7 @@ class Deactivate extends Route_Base {
 
 			return $this->respond_success_json();
 		} catch ( Throwable $t ) {
+			Data::ensure_reset_connect();
 			return $this->respond_error_json( [
 				'message' => $t->getMessage(),
 				'code' => 'internal_server_error',

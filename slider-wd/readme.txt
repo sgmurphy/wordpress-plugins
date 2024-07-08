@@ -4,7 +4,7 @@ Tags: responsive slider, slider, slideshow, wordpress slider, image slider, gall
 Requires at least: 3.4
 Tested up to: 5.8
 Requires PHP: 5.2
-Stable tag: 1.2.56
+Stable tag: 1.2.57
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,10 @@ Slider by 10Web is a versatile solution to help you add fast loading, responsive
 
 
 == Changelog ==
+
+
+= 1.2.57 =
+* Fixed: Vulnerability issue reported by Dmitrii Ignatyev from Cleantalk
 
 = 1.2.56 =
 * Fixed: Vulnerability issue.

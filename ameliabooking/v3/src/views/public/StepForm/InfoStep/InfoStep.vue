@@ -458,7 +458,7 @@ function submitForm() {
       store,
       {rules: rules.value},
       'customValidation',
-      'appointment',
+      store.getters['booking/getBookableType'],
       null,
       null
   )
@@ -556,7 +556,7 @@ onMounted(() => {
       store,
       { customFieldsPlaceholders: refCFPlaceholders, couponCode },
       'InitInfoStep',
-      'appointment',
+      store.getters['booking/getBookableType'],
       null,
       null
   )

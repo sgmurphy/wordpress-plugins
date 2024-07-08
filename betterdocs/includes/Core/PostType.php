@@ -842,6 +842,10 @@ class PostType extends Base {
             $submenu_file = 'betterdocs-analytics';
         }
 
+        if ( 'betterdocs_page_betterdocs-glossaries' == $current_screen->id ) {
+            $submenu_file = 'betterdocs-glossaries';
+        }
+
         if ( 'betterdocs_page_betterdocs-setup' == $current_screen->id ) {
             $submenu_file = 'betterdocs-setup';
         }

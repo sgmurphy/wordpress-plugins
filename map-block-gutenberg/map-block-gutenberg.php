@@ -3,7 +3,7 @@
 Plugin Name: Map Block for Google Maps
 Description: Simple, no-nonsense map block powered by Google Maps for Gutenberg editor.
 Author: WebFactory Ltd
-Version: 1.33
+Version: 1.34
 Author URI: https://www.webfactoryltd.com/
 Text Domain: map-block-gutenberg
 
@@ -71,7 +71,7 @@ class wf_map_block
     $key = substr(sanitize_html_class(strip_tags(@$_POST['api_key'])), 0, 64);
     update_option('gmw-map-block-key', $key);
 
-    echo $key;
+    echo esc_html($key);
     die();
   } // save_key
 
@@ -86,7 +86,7 @@ class wf_map_block
   // add links to plugins page
   static function plugin_action_links($links)
   {
-    $gutenberg_link = '<a href="' . admin_url('post-new.php?post_type=page') . '" title="' . __('Create a new page using the Gutenberg editor', 'map-block-gutenberg') . '">' . __('Create with Gutenberg', 'map-block-gutenberg') . '</a>';
+    $gutenberg_link = '<a href="' . esc_url(admin_url('post-new.php?post_type=page')) . '" title="' . esc_html__('Create a new page using the Gutenberg editor', 'map-block-gutenberg') . '">' . esc_html__('Create with Gutenberg', 'map-block-gutenberg') . '</a>';
 
     array_unshift($links, $gutenberg_link);
 
@@ -97,8 +97,8 @@ class wf_map_block
   // add links to plugin's description in plugins table
   static function plugin_meta_links($links, $file)
   {
-    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/map-block-gutenberg" title="' . __('Problems? We are here to help!', 'map-block-gutenberg') . '">' . __('Support', 'map-block-gutenberg') . '</a>';
-    $review_link = '<a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/map-block-gutenberg?filter=5#pages" title="' . __('If you like it, please review the plugin', 'map-block-gutenberg') . '">' . __('Review the plugin', 'map-block-gutenberg') . '</a>';
+    $support_link = '<a target="_blank" href="https://wordpress.org/support/plugin/map-block-gutenberg" title="' . esc_html__('Problems? We are here to help!', 'map-block-gutenberg') . '">' . esc_html__('Support', 'map-block-gutenberg') . '</a>';
+    $review_link = '<a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/map-block-gutenberg?filter=5#pages" title="' . esc_html__('If you like it, please review the plugin', 'map-block-gutenberg') . '">' . esc_html__('Review the plugin', 'map-block-gutenberg') . '</a>';
 
     if ($file == plugin_basename(__FILE__)) {
       $links[] = $support_link;
@@ -164,8 +164,8 @@ class wf_map_block
   static function notice_gutenberg_missing()
   {
     echo '<div class="error"><p>';
-    echo __('Map Block for Google Maps requires the Gutenberg plugin to work. It is after all a block for Gutenberg.', 'map-block-gutenberg') . '<br>';
-    echo sprintf(__('Install the <a href="%s" target="_blank">Gutenberg plugin</a> or update your WordPress core and this notice will go away.', 'map-block-gutenberg'), 'https://wordpress.org/plugins/gutenberg/');
+    echo esc_html__('Map Block for Google Maps requires the Gutenberg plugin to work. It is after all a block for Gutenberg.', 'map-block-gutenberg') . '<br>';
+    echo esc_html__('Install the Gutenberg plugin or update your WordPress core and this notice will go away.', 'map-block-gutenberg');
     echo '</p></div>';
   } // notice_gutenberg_missing
 } // class

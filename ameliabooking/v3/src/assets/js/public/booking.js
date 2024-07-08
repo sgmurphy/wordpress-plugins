@@ -311,7 +311,7 @@ function useAppointmentBookingData (store) {
   useCart(store).forEach((item) => {
     if (item.serviceId && (item.serviceId in item.services)) {
       item.services[item.serviceId].list.forEach((appointment) => {
-        let bookingStart = appointment.date + ' ' + appointment.time
+        let bookingStart = appointment.date ? (appointment.date + ' ' + appointment.time) : null
 
         appointments.push(
           {
@@ -722,7 +722,7 @@ function usePackageCalendarData (store, response) {
   let amountData = useAmount(
       pack,
       store.getters['booking/getCoupon'],
-      settings.payments.taxes.enabled ? Object.assign({}, tax, {excluded: settings.payments.taxes.excluded}) : null,
+      tax && settings.payments.taxes.enabled ? Object.assign({}, tax, {excluded: settings.payments.taxes.excluded}) : null,
       usePackageAmount(pack),
       false
   )
@@ -854,22 +854,18 @@ function useEventCalendarData (store, response) {
 
   runAction(store, response)
 
-  let event = store.getters['eventEntities/getEvent'](store.getters['eventBooking/getSelectedEventId'])
-
-  let tickets = store.getters['tickets/getTicketsData']
-
-  let persons = store.getters['persons/getPersons']
+  let event = response.event
 
   let price = 0
 
   if (event.customPricing) {
-    tickets.forEach(t => {
+    response.booking.ticketsData.forEach(t => {
       if (t.persons) {
         price += event.aggregatedPrice ? t.price * t.persons : t.price
       }
     })
   } else {
-    price = event.aggregatedPrice ? event.price * persons : event.price
+    price = event.aggregatedPrice ? event.price * response.booking.persons : event.price
   }
 
   let tax = useEntityTax(store, store.getters['eventBooking/getSelectedEventId'], 'event')
@@ -965,5 +961,6 @@ export {
   useBookingError,
   useNotify,
   saveStats,
-  useAppointmentBookingData
+  useAppointmentBookingData,
+  usePackageBookingData
 }

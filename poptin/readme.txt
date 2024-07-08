@@ -2,7 +2,7 @@
 Contributors: galdub, tomeraharon, poptin
 Tags: pop ups, popups, exit intent, email pop up, popup
 Requires at least: 3.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.3.2
 Plugin URI: https://www.poptin.com
 License: GPLv3

@@ -28,32 +28,11 @@ class Glossaries extends Base {
         add_action( 'created_glossaries', [$this, 'action_created_betterdocs_glossaries'], 10, 2 );
         add_action( 'rest_api_init', [$this, 'register_api_endpoint'] );
         add_action('rest_glossaries_query', array($this, 'glossaries_orderby_meta'), 10, 2);
-        // Enqueue Scripts
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue'] );
 
     }
 
     public function register_post() {
         register_term_meta( $this->category, 'status', ['show_in_rest' => true, 'single' => true] );
-    }
-
-    public function enqueue( $hook ) {
-        if ( $hook === 'betterdocs_page_betterdocs-glossaries' ) {
-            betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/css/faq.css' );
-
-            betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/js/glossaries.js' );
-
-            // removing emoji support
-            remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-            remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-
-            betterdocs()->assets->localize( 'betterdocs-admin-glossaries', 'betterdocs', [
-                'dir_url'      => BETTERDOCS_ABSURL,
-                'rest_url'     => esc_url_raw( rest_url() ),
-                'free_version' => betterdocs()->version,
-                'nonce'        => wp_create_nonce( 'wp_rest' )
-            ] );
-        }
     }
 
     public function output() {

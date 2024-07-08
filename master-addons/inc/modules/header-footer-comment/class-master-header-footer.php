@@ -19,12 +19,12 @@ if( !class_exists('Master_Header_Footer') ){
 
 		const MINIMUM_PHP_VERSION = '5.6';
 
-	    const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
+	    const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 
 		private static $plugin_name = 'Master Header Footer & Comment Form Builder';
 
 	    public function __construct(){
-			
+
 			$this->jltma_include_files();
 
 	        add_action('admin_footer', [$this, 'jltma_header_footer_modal_view']);
@@ -46,7 +46,7 @@ if( !class_exists('Master_Header_Footer') ){
 			$screen = get_current_screen();
 			if($screen->id == 'edit-master_template'){
 				include_once JLTMA_PLUGIN_PATH . '/inc/view/modal-options.php';
-			}			
+			}
 		}
 
 
@@ -70,4 +70,3 @@ if( !class_exists('Master_Header_Footer') ){
 	    }
 	}
 }
-

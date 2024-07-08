@@ -99,7 +99,7 @@
                     <el-form-item :prop="'periods.' + index + '.startTime'" :rules="rules.startTime">
                       <el-time-select
                         v-model="period.startTime"
-                        :picker-options="getTimeSelectOptionsWithLimits(null, isCabinet ? null : period.endTime)"
+                        :picker-options="getTimeSelectOptionsWithLimits(null, period.endTime)"
                         :popper-class="'am-dropdown-cabinet'"
                         size="large"
                       >
@@ -110,7 +110,7 @@
                     <el-form-item :prop="'periods.' + index + '.endTime'" :rules="rules.endTime">
                       <el-time-select
                         v-model="period.endTime"
-                        :picker-options="getTimeSelectOptionsWithLimits(isCabinet ? null : period.startTime, null)"
+                        :picker-options="getTimeSelectOptionsWithLimits(period.startTime, null)"
                         :popper-class="'am-dropdown-cabinet'"
                         size="large"
                       >

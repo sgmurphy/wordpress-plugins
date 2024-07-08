@@ -2,26 +2,8 @@
   <!-- Form -->
   <el-form :model="settings" ref="settings" label-position="top" @submit.prevent="onSubmit">
 
-    <!-- Enable Server To Server OAuth -->
-    <div class="am-setting-box am-switch-box">
-      <el-row type="flex" align="middle" :gutter="24">
-        <el-col :span="20">
-          {{ $root.labels.zoom_s2s }}
-        </el-col>
-        <el-col :span="4" class="align-right">
-          <el-switch
-            v-model="settings.s2sEnabled"
-            active-text=""
-            inactive-text=""
-          >
-          </el-switch>
-        </el-col>
-      </el-row>
-    </div>
-    <!-- Enable Server To Server OAuth -->
-
     <!-- Account ID -->
-    <el-form-item v-if="settings.s2sEnabled" :label="$root.labels.zoom_account_id + ':'">
+    <el-form-item :label="$root.labels.zoom_account_id + ':'">
       <el-row :gutter="24">
 
         <el-col :span="21">
@@ -46,7 +28,7 @@
     <!-- /Account ID -->
 
     <!-- Client ID -->
-    <el-form-item v-if="settings.s2sEnabled" :label="$root.labels.zoom_client_id + ':'">
+    <el-form-item :label="$root.labels.zoom_client_id + ':'">
       <el-row :gutter="24">
 
         <el-col :span="21">
@@ -71,7 +53,7 @@
     <!-- /Client ID -->
 
     <!-- Client Secret -->
-    <el-form-item v-if="settings.s2sEnabled" :label="$root.labels.zoom_client_secret + ':'">
+    <el-form-item :label="$root.labels.zoom_client_secret + ':'">
       <el-row :gutter="24">
 
         <el-col :span="21">
@@ -94,67 +76,6 @@
       </el-row>
     </el-form-item>
     <!-- /Client Secret -->
-
-    <!-- SSL Alert -->
-    <el-alert
-      v-if="!settings.s2sEnabled"
-      type="warning"
-      show-icon
-      title=""
-      :description="$root.labels.zoom_jwt_warning"
-      :closable="false"
-    />
-    <!-- /SSL Alert -->
-
-    <!-- API Key -->
-    <el-form-item v-if="!settings.s2sEnabled" :label="$root.labels.zoom_api_key + ':'">
-      <el-row :gutter="24">
-
-        <el-col :span="21">
-          <el-input v-model.trim="settings.apiKey" auto-complete="off"></el-input>
-        </el-col>
-
-        <el-col :span="3">
-          <el-tooltip class="am-google-calendar-tooltip" placement="top">
-            <div slot="content" v-html="$root.labels.zoom_credentials_obtain"></div>
-            <el-button
-              class="am-google-calendar-button am-button-icon"
-              type="primary"
-              @click="redirectToDocumentation()"
-            >
-              <img class="svg-amelia" :src="$root.getUrl + 'public/img/question.svg'"/>
-            </el-button>
-          </el-tooltip>
-        </el-col>
-
-      </el-row>
-    </el-form-item>
-    <!-- /API Key -->
-
-    <!-- API Secret -->
-    <el-form-item v-if="!settings.s2sEnabled" :label="$root.labels.zoom_api_secret + ':'">
-      <el-row :gutter="24">
-
-        <el-col :span="21">
-          <el-input v-model.trim="settings.apiSecret" auto-complete="off"></el-input>
-        </el-col>
-
-        <el-col :span="3">
-          <el-tooltip class="am-google-calendar-tooltip" placement="top">
-            <div slot="content" v-html="$root.labels.zoom_credentials_obtain"></div>
-            <el-button
-              class="am-google-calendar-button am-button-icon"
-              type="primary"
-              @click="redirectToDocumentation()"
-            >
-              <img class="svg-amelia" :src="$root.getUrl + 'public/img/question.svg'"/>
-            </el-button>
-          </el-tooltip>
-        </el-col>
-
-      </el-row>
-    </el-form-item>
-    <!-- /API Secret -->
 
     <!-- Meeting Title -->
     <el-form-item label="placeholder">

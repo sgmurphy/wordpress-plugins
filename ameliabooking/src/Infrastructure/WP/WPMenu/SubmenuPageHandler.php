@@ -43,10 +43,6 @@ class SubmenuPageHandler
 
     private function renderOld($page)
     {
-        if ($this->settingsService->getSetting('activation', 'enablePolyfill')) {
-            wp_enqueue_script('amelia_polyfill', 'https://polyfill.io/v2/polyfill.js?features=Intl.~locale.en');
-        }
-
         // Enqueue Scripts
         wp_enqueue_script(
             'amelia_booking_scripts',
@@ -390,7 +386,7 @@ class SubmenuPageHandler
         } else {
             wp_enqueue_script(
                 $scriptId,
-                AMELIA_URL . 'v3/public/assets/admin.adb95b3a.js',
+                AMELIA_URL . 'v3/public/assets/admin.419b32e1.js',
                 [],
                 AMELIA_VERSION,
                 true

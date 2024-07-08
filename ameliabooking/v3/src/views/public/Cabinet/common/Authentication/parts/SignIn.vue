@@ -288,8 +288,8 @@ function useAuthenticate (tokenValue, isUrlToken, checkIfWpUser, changePass) {
     }
 
     if ('token' in response.data.data) {
-      vueCookies.set('ameliaToken', response.data.data.token, amSettings.roles[cabinetType.value + 'Cabinet']['tokenValidTime'])
-      vueCookies.set('ameliaUserEmail', response.data.data.user.email, amSettings.roles[cabinetType.value + 'Cabinet']['tokenValidTime'])
+      vueCookies.set('ameliaToken', response.data.data.token, amSettings.roles[cabinetType.value + 'Cabinet']['tokenValidTime'], null, null, true)
+      vueCookies.set('ameliaUserEmail', response.data.data.user.email, amSettings.roles[cabinetType.value + 'Cabinet']['tokenValidTime'], null, null, true)
 
       store.commit('auth/setToken', response.data.data.token)
     }

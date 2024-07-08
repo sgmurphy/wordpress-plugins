@@ -1,9 +1,9 @@
 === No Right Click Images ===
 Tags: images, image, right click, stealing, protect
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Contributors: WebFactory
-Stable tag: 3.9
+Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ The plugin no longer tries to replace images with a dummy image. This method har
 3. Activate the plugin.
 
 == Changelog ==
+= 4.0 =
+* 2024/07/07
+* minor security fixes
 
 = 3.9 =
 * 2024/03/13

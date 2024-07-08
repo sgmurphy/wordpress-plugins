@@ -2440,7 +2440,7 @@ class JLTMA_Blog extends Widget_Base
 		]);
 
 
-		if ($settings['hover_animation']) {
+		if ( !empty( $settings['hover_animation'])) {
 			$this->add_render_attribute('hover_animations', 'class', ['elementor-animation-' . esc_attr($settings['hover_animation'])]);
 		}
 

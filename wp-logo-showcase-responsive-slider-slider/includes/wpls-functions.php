@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.2.8
  */
 function wplss_get_unique() {
-	
+
 	static $unique = 0;
 	$unique++;
 

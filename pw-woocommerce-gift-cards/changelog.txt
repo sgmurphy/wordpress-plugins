@@ -1,3 +1,6 @@
+= 2.0 =
+* Added Slovak translation files. Compatibility with WordPress 6.6 and WooCommerce 9.1.
+
 = 1.255 =
 * WooCommerce 9.0 compatibility.
 

@@ -8,8 +8,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
-}
-?>
+} ?>
 <div class="wrap wpls-wrap">
 	<style type="text/css">
 		.wpos-pro-box .hndle{background-color:#0073AA; color:#fff;}
@@ -22,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		.button-orange{background: #ff5d52 !important;border-color: #ff5d52 !important; font-weight: 600;}
 	</style>
 
-	<h2><?php esc_html_e( 'How It Works', 'wp-logo-showcase-responsive-slider-slider' ); ?>	</h2>
+	<h2><?php esc_html_e( 'How It Works', 'wp-logo-showcase-responsive-slider-slider' ); ?></h2>
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 
@@ -45,9 +44,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<td>
 											<ul>
 												<li><?php esc_html_e('Step-1. Go to "Logo Showcase --> Add New".', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
-												<li><?php esc_html_e('Step-2. Add Logo title, logo link to redirect(if need) and logo image under featured image section.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
-												<li><?php esc_html_e('Step-3. Display multiple logo showcase, create categories under "Logo Showcase --> category" and create categories.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
-												<li><?php esc_html_e('Step-4. Assign logo showcase post to respective categories and use the category shortcode under "Logo Showcase --> category"', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
+												<li><?php esc_html_e('Step-2. Add logo title, logo link to redirect(if need) and logo image under featured image section.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
+												<li><?php esc_html_e('Step-3. Display multiple logo showcase, create categories under "Logo Showcase --> Logo Category" and create categories.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
+												<li><?php esc_html_e('Step-4. Assign logo showcase post to respective categories and use the category shortcode under "Logo Showcase --> Logo Category"', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 											</ul>
 										</td>
 									</tr>
@@ -70,8 +69,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 										</th>
 										<td>
 											<span class="wpls-shortcode-preview wpos-copy-clipboard">[logoshowcase]</span> – <?php esc_html_e('Logo Showcase Slider Shortcode', 'wp-logo-showcase-responsive-slider-slider'); ?> <br />
-											<span class="wpls-shortcode-preview wpos-copy-clipboard">[logoshowcase center_mode="true" slides_column="3"]</span> – <?php esc_html_e('Logo Showcase Slider with center mode Shortcode', 'wp-logo-showcase-responsive-slider-slider'); ?><br />
-											<span class="wpls-shortcode-preview wpos-copy-clipboard">[logoshowcase limit="-1"]</span> – <?php esc_html_e('Logo Showcase Slider limit -1 to display all logos, by default display only 15 logos.', 'wp-logo-showcase-responsive-slider-slider'); ?>
+											<span class="wpls-shortcode-preview wpos-copy-clipboard">[logoshowcase center_mode="true" slides_column="3"]</span> – <?php esc_html_e('Logo Showcase Slider with Center Mode Shortcode', 'wp-logo-showcase-responsive-slider-slider'); ?><br />
+											<span class="wpls-shortcode-preview wpos-copy-clipboard">[logoshowcase limit="-1"]</span> – <?php esc_html_e('Logo Showcase slider limit -1 to display all logos, by default display only 15 logos.', 'wp-logo-showcase-responsive-slider-slider'); ?>
 										</td>
 									</tr>
 									<tr>
@@ -133,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</h2>
 						</div>
 						<div class="inside">
-							<p><?php echo sprintf( __( 'Enjoyed this plugin? You can help by rate this plugin <a href="%s" target="_blank">5 stars!', 'wp-logo-showcase-responsive-slider-slider'), 'https://wordpress.org/support/plugin/wp-logo-showcase-responsive-slider-slider/reviews/' ); ?></a></p>
+							<p><?php echo esc_html_e( 'Enjoyed this plugin? You can help by rate this plugin', 'wp-logo-showcase-responsive-slider-slider'); ?> <a href="https://wordpress.org/support/plugin/wp-logo-showcase-responsive-slider-slider/reviews/" target="_blank"><?php esc_html_e('5 stars!', 'wp-logo-showcase-responsive-slider-slider'); ?></a></p>
 						</div><!-- .inside -->
 					</div><!-- #general -->
 				</div><!-- .meta-box-sortables -->
@@ -157,8 +156,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<li><?php esc_html_e( 'Display logo with filtration.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 								<li><?php esc_html_e( 'Display logo showcase in slider view', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 								<li><?php esc_html_e( 'Display logo showcase in center mode view', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
-								<li><?php esc_html_e( 'Logo Showcase With Ticker Mode', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
-								<li><?php esc_html_e( '2 Widgets- Slider and Grid view.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
+								<li><?php esc_html_e( 'Logo showcase with ticker mode', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
+								<li><?php esc_html_e( '2 Widgets- slider and grid view.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 								<li><?php esc_html_e( 'Display Logo with title and description', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 								<li><?php esc_html_e( 'Slider RTL support.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>
 								<li><?php esc_html_e( 'Display logo showcase categories wise.', 'wp-logo-showcase-responsive-slider-slider'); ?></li>

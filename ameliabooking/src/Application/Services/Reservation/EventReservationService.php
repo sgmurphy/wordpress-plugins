@@ -176,6 +176,7 @@ class EventReservationService extends AbstractReservationService
             }
             if ($customerBooking->getStatus()->getValue() !== BookingStatus::CANCELED &&
                 !$event->getBookMultipleTimes()->getValue() &&
+                $booking->getCustomerId() &&
                 $booking->getCustomerId()->getValue() === $customerBooking->getCustomerId()->getValue()
             ) {
                 throw new CustomerBookedException(

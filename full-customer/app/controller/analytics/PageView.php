@@ -12,21 +12,8 @@ class PageView
   public string $page = '/';
   public string $queryString = '';
 
-  public function __construct(int $id = 0)
+  public function __construct()
   {
-    if (!$id) :
-      return;
-    endif;
-
-    global $wpdb;
-    $data = $wpdb->get_row("SELECT * FROM " . Database::$table . " WHERE id = '$id'");
-
-    $this->id = (int) $data->id;
-    $this->session = $data->session;
-    $this->createdAt = new DateTimeImmutable($data->createdAt);
-    $this->page = $data->page;
-    $this->referrer = $data->referrer;
-    $this->queryString = $data->queryString;
   }
 
   public function save(): void

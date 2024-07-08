@@ -4,10 +4,6 @@
       <el-row type="flex" align="middle" :gutter="24" style="margin-bottom: 5px;">
         <el-col :span="24">
           {{ label + ':' }}
-          <el-tooltip placement="top" v-if="hasQuill">
-            <div slot="content" v-html="$root.labels.content_mode_tooltip"></div>
-            <i class="el-icon-question am-tooltip-icon"></i>
-          </el-tooltip>
         </el-col>
       </el-row>
       <el-row type="flex" align="middle">
@@ -31,10 +27,6 @@
       <el-row type="flex" align="middle" :gutter="24">
         <el-col :span="12">
           {{ label + ':' }}
-          <el-tooltip placement="top" v-if="hasQuill">
-            <div slot="content" v-html="$root.labels.content_mode_tooltip"></div>
-            <i class="el-icon-question am-tooltip-icon"></i>
-          </el-tooltip>
         </el-col>
 
         <el-col :span="12" class="align-right" v-if="hasQuill">
@@ -45,6 +37,20 @@
         </el-col>
       </el-row>
     </div>
+
+    <el-row>
+      <el-col>
+        <el-alert
+            type="warning"
+            show-icon
+            title=""
+            :description="$root.labels.content_mode_tooltip"
+            :closable="false"
+            style="margin-bottom: 10px"
+        >
+        </el-alert>
+      </el-col>
+    </el-row>
 
     <el-input
       v-if="isTextMode"

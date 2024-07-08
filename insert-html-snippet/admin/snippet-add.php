@@ -118,7 +118,7 @@ wp_nonce_field('ihs-add_');
 					       
 			                
 							<input class="button-primary" style="cursor: pointer;"
-							type="button" name="back" value="back" onclick=" window.history.go(-<?php echo $goback;?>);" >
+							type="button" name="back" value="Back" onclick=" window.history.go(-<?php echo $goback;?>);" >
 						</td>
 						<td>
 							<input class="button-primary" style="cursor: pointer;"

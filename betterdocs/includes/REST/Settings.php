@@ -2,37 +2,48 @@
 
 namespace WPDeveloper\BetterDocs\REST;
 
-use WPDeveloper\BetterDocs\Admin\ReportEmail;
 use WP_Query;
-use WP_User;
 use WP_REST_Request;
-use WPDeveloper\BetterDocs\Core\BaseAPI;
-use WPDeveloper\BetterDocs\Admin\WPExporter;
 use WPDeveloper\BetterDocs\Admin\CSVExporter;
-use WPDeveloper\BetterDocs\Admin\Importer\WPImport;
 use WPDeveloper\BetterDocs\Admin\Importer\Parsers\CSV_Parser;
+use WPDeveloper\BetterDocs\Admin\Importer\WPImport;
+use WPDeveloper\BetterDocs\Admin\ReportEmail;
+use WPDeveloper\BetterDocs\Admin\WPExporter;
+use WPDeveloper\BetterDocs\Core\BaseAPI;
+use WPDeveloper\BetterDocs\Dependencies\DI\DependencyException;
+use WPDeveloper\BetterDocs\Dependencies\DI\NotFoundException;
 
 class Settings extends BaseAPI {
 
-    public function permission_check() {
+    public function permission_check(): bool {
         return current_user_can( 'edit_docs_settings' );
     }
 
     public function register() {
-        $this->get( 'settings', [$this, 'get_settings'] );
-        $this->post( 'settings', [$this, 'save_settings'] );
-        $this->post( 'plugin_insights', [$this, 'plugin_insights'] );
-
-        $this->post( 'reporting-test', [$this, 'test_reporting'] );
-        $this->post( 'export-docs', [$this, 'export_docs'] );
-        $this->post( 'export-settings', [$this, 'export_settings'] );
-        $this->post( 'import-docs', [$this, 'import_docs'] );
-        $this->post( 'import-settings', [$this, 'import_settings'] );
-        $this->post( 'parse-xml', [$this, 'parse_xml'] );
-        $this->post( 'parse-csv', [$this, 'parse_csv'] );
-        $this->post( 'migrate', [$this, 'migrate_plugins'] );
+        $this->get( 'settings', [ $this, 'get_settings' ] );
+        $this->post( 'dark-mode', [ $this, 'dark_mode' ] );
+        $this->post( 'settings', [ $this, 'save_settings' ] );
+        $this->post( 'plugin_insights', [ $this, 'plugin_insights' ] );
         $this->post( 'create-sample-docs', [$this, 'sample_docs'] );
+        $this->post( 'reporting-test', [ $this, 'test_reporting' ] );
+        $this->post( 'export-docs', [ $this, 'export_docs' ] );
+        $this->post( 'export-settings', [ $this, 'export_settings' ] );
+        $this->post( 'import-docs', [ $this, 'import_docs' ] );
+        $this->post( 'import-settings', [ $this, 'import_settings' ] );
+        $this->post( 'parse-xml', [ $this, 'parse_xml' ] );
+        $this->post( 'parse-csv', [ $this, 'parse_csv' ] );
+        $this->post( 'migrate', [ $this, 'migrate_plugins' ] );
         $this->post( 'helpscout-migration', [$this, 'helpscout_migration'] );
+    }
+
+    public function dark_mode( WP_REST_Request $request ): bool {
+        $dark_mode = rest_sanitize_boolean( $request->get_param( 'mode' ) );
+
+        if ( betterdocs()->settings->save( 'dark_mode', $dark_mode ) ) {
+            return true;
+        }
+
+        return false;
     }
 
     public function sample_docs( WP_REST_Request $request ) {
@@ -72,69 +83,74 @@ class Settings extends BaseAPI {
             $args['kb_terms'] = $data['export_kbs'];
         }
 
-        if ($data['file_type'] == 'xml') {
+        if ( $data['file_type'] == 'xml' ) {
             $exporter = new WPExporter( $args );
-        } else if ($data['file_type'] == 'csv') {
+        } else if ( $data['file_type'] == 'csv' ) {
             $exporter = new CSVExporter( $args );
         }
+
+        /**
+         * @var WPExporter|CSVExporter $exporter
+         */
 
         return $exporter->run();
     }
 
-    public function export_settings( WP_REST_Request $request ) {
+    public function export_settings( WP_REST_Request $request ): array {
         $betterdocs_settings = get_option( 'betterdocs_settings' );
         $json_str            = json_encode( $betterdocs_settings, JSON_PRETTY_PRINT );
         $file_name           = 'betterdocs-settings.json';
+
         return [
             'success' => true,
             'data'    => [
                 'filename' => $file_name,
                 'filetype' => 'text/json',
-                'download' => $json_str
+                'download' => $json_str,
             ]
         ];
     }
 
-    public function import_settings( WP_REST_Request $request ) {
+    public function import_settings( WP_REST_Request $request ): array {
         $settings = $request->get_param( 'settings' );
         // Decode the JSON data into a PHP array
         $settings = json_decode( $settings, true );
-        $save     = update_option( 'betterdocs_settings', $settings );
+        $saved    = update_option( 'betterdocs_settings', $settings );
 
-        if ( $save == true ) {
-            return [
-                'status' => 'success'
-            ];
-        } else {
+        if ( ! $saved ) {
             return [
                 'status' => 'failed'
             ];
         }
+
+        return [
+            'status' => 'success'
+        ];
     }
 
-    public function import_docs( WP_REST_Request $request ) {
+    public function import_docs( WP_REST_Request $request ): array {
         $existing_slug = $request->get_param( 'existing_slug' );
         $action        = $request->get_param( 'action' );
 
         $files = $request->get_file_params();
 
-		$file = $files['file']['tmp_name'];
+        $file = $files['file']['tmp_name'];
 
-         $args = [
-			'fetch_attachments' => true,
-            'existing_slug' => $existing_slug,
-            'action' => $action,
-            'file_type' => $files['file']['type']
-		];
+        $args = [
+            'fetch_attachments' => true,
+            'existing_slug'     => $existing_slug,
+            'action'            => $action,
+            'file_type'         => $files['file']['type']
+        ];
 
         $wp_importer = new WPImport( $file, $args );
 
         return $wp_importer->run();
     }
 
-    public function parse_xml( WP_REST_Request $request ) {
-        $data = $request->get_params();
-        $existing_post_slugs = $this->get_existing_slugs($data['posts']);
+    public function parse_xml( WP_REST_Request $request ): array {
+        $data                = $request->get_params();
+        $existing_post_slugs = $this->get_existing_slugs( $data['posts'] );
 
         // Output the array of existing post slugs
         return [
@@ -143,21 +159,24 @@ class Settings extends BaseAPI {
         ];
     }
 
-    public function parse_csv( WP_REST_Request $request ) {
+    public function parse_csv( WP_REST_Request $request ): array {
         $files = $request->get_file_params();
 
-		$file = $files['file']['tmp_name'];
+        $file = $files['file']['tmp_name'];
 
         $parser = new CSV_Parser();
-		$parsed = $parser->parse( $file );
+        $parsed = $parser->parse( $file );
+
+        $existing_post_slugs = [];
 
         if ( isset( $parsed['posts'] ) && is_array( $parsed['posts'] ) ) {
-            $post_names = array_map(function ($post) {
+            $post_names = array_map( function ( $post ) {
                 return $post['post_name'];
-            }, $parsed['posts']);
+            }, $parsed['posts'] );
+
+            $existing_post_slugs = $this->get_existing_slugs( $post_names );
         }
 
-        $existing_post_slugs = $this->get_existing_slugs( $post_names) ;
 
         return [
             'status' => 'success',
@@ -165,7 +184,7 @@ class Settings extends BaseAPI {
         ];
     }
 
-    public function migrate_plugins( WP_REST_Request $request ) {
+    public function migrate_plugins( WP_REST_Request $request ): array {
         betterdocs()->kbmigration->migrate();
 
         return [
@@ -226,31 +245,30 @@ class Settings extends BaseAPI {
             'post_type'      => 'docs', // Change 'post' to your custom post type if applicable
             'post_status'    => 'publish',
             'posts_per_page' => -1, // Retrieve all posts
-            'fields'         => 'ids' // Retrieve only post IDs to reduce memory usage
+            'fields'         => 'ids', // Retrieve only post IDs to reduce memory usage
         ];
 
         // Create a new instance of WP_Query
         $query = new WP_Query( $args );
 
         // Get an array of post slugs from the query
-        $all_post_slugs = array_map(function ($post_id) {
-            return get_post_field('post_name', $post_id);
-        }, $query->posts);
+        $all_post_slugs = array_map( function ( $post_id ) {
+            return get_post_field( 'post_name', $post_id );
+        }, $query->posts );
 
         // Restore original post data
         wp_reset_postdata();
 
         // Find the intersection of the two arrays to get existing post slugs
-        $existing_post_slugs = array_intersect($slugs, $all_post_slugs);
-
-        return $existing_post_slugs;
+        return array_intersect( $slugs, $all_post_slugs );
 
     }
-    public function insights(){
+
+    public function insights(): bool {
         return true;
     }
 
-    public function get_settings() {
+    public function get_settings(): array {
         return betterdocs()->settings->get_all( true );
     }
 
@@ -262,11 +280,15 @@ class Settings extends BaseAPI {
         return $this->error( 'nothing_changed', __( 'There are no changes to be saved.', 'betterdocs' ), 200 );
     }
 
+    /**
+     * @throws NotFoundException
+     * @throws DependencyException
+     */
     public function test_reporting( $request ) {
         return $this->container->get( ReportEmail::class )->test_email_report( $request );
     }
 
-    public function do_wizard_tracking() {
+    public function do_wizard_tracking(): bool {
         $insights = betterdocs()->admin->plugin_insights( true );
         // Get our data
         $insights->schedule_tracking();

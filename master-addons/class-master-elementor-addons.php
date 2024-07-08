@@ -24,7 +24,7 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
 
         const MINIMUM_PHP_VERSION = '7.0';
 
-        const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
+        const MINIMUM_ELEMENTOR_VERSION = '3.5.0';
 
         private $_localize_settings = [];
 
@@ -64,17 +64,9 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
             add_action( 'elementor/init', [$this, 'jltma_add_category_to_editor'] );
             add_action( 'elementor/init', [$this, 'jltma_add_actions_to_elementor'], 0 );
             // Add Elementor Widgets
-            if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ) {
-                add_action( 'elementor/widgets/widgets_registered', [$this, 'jltma_init_widgets'] );
-            } else {
-                add_action( 'elementor/widgets/register', [$this, 'jltma_init_widgets'] );
-            }
+            add_action( 'elementor/widgets/register', [$this, 'jltma_init_widgets'] );
             //Register Controls
-            if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ) {
-                add_action( 'elementor/controls/controls_registered', [$this, 'jltma_register_controls'] );
-            } else {
-                add_action( 'elementor/controls/register', [$this, 'jltma_register_controls'] );
-            }
+            add_action( 'elementor/controls/register', [$this, 'jltma_register_controls'] );
             //Body Class
             add_action( 'body_class', [$this, 'jltma_body_class'] );
             // Override Freemius Filters
@@ -407,11 +399,7 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
                     if ( $control_info['type'] === 'group' ) {
                         $controls_manager->add_group_control( $control_type, new $class_name() );
                     } else {
-                        if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ) {
-                            $controls_manager->register_control( $control_type, new $class_name() );
-                        } else {
-                            $controls_manager->register( new $class_name() );
-                        }
+                        $controls_manager->register( new $class_name() );
                     }
                 }
             }
@@ -443,11 +431,7 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
                                 require_once $widget_file;
                             }
                             $class_name = $widget['class'];
-                            if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ) {
-                                $widget_manager->register_widget_type( new $class_name() );
-                            } else {
-                                $widget_manager->register( new $class_name() );
-                            }
+                            $widget_manager->register( new $class_name() );
                         }
                     }
                 }
@@ -466,11 +450,7 @@ if ( !class_exists( 'Master_Elementor_Addons' ) ) {
                             require_once $widget_file;
                         }
                         $class_name = $widget['class'];
-                        if ( defined( 'ELEMENTOR_VERSION' ) && version_compare( ELEMENTOR_VERSION, '3.5.0', '<' ) ) {
-                            $widget_manager->register_widget_type( new $class_name() );
-                        } else {
-                            $widget_manager->register( new $class_name() );
-                        }
+                        $widget_manager->register( new $class_name() );
                     }
                 }
             }

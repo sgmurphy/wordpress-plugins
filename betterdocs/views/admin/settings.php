@@ -1,4 +1,4 @@
-<div class="betterdocs-settings-wrap">
+<!-- <div class="betterdocs-settings-wrap">
     <?php do_action( 'betterdocs_settings_header', 'settings' );?>
     <div class="betterdocs-left-right-settings">
         <?php do_action( 'betterdocs_before_settings_left' );?>
@@ -12,4 +12,4 @@
         </div>
         <?php do_action( 'betterdocs_after_settings_left' );?>
     </div>
-</div>
+</div> -->

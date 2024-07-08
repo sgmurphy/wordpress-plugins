@@ -2,8 +2,8 @@
 
 namespace WPDeveloper\BetterDocs\Core;
 
-use WP_Query;
 use WP_Error;
+use WP_Query;
 use WPDeveloper\BetterDocs\Utils\Base;
 
 class FAQBuilder extends Base {
@@ -28,27 +28,7 @@ class FAQBuilder extends Base {
         // fires after a new betterdocs_faq_category is created
         add_action( 'created_betterdocs_faq_category', [$this, 'action_created_betterdocs_faq_category'], 10, 2 );
         add_action( 'rest_api_init', [$this, 'register_api_endpoint'] );
-        add_action('rest_betterdocs_faq_category_query', array($this, 'faq_category_orderby_meta'), 10, 2);
-        // Enqueue Scripts
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue'] );
-    }
-
-    public function enqueue( $hook ) {
-        if ( $hook === 'betterdocs_page_betterdocs-faq' ) {
-            betterdocs()->assets->enqueue( 'betterdocs-admin-faq', 'admin/css/faq.css' );
-            betterdocs()->assets->enqueue( 'betterdocs-admin-faq', 'admin/js/faq.js' );
-
-            // removing emoji support
-            remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-            remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-
-            betterdocs()->assets->localize( 'betterdocs-admin-faq', 'betterdocs', [
-                'dir_url'      => BETTERDOCS_ABSURL,
-                'rest_url'     => esc_url_raw( rest_url() ),
-                'free_version' => betterdocs()->version,
-                'nonce'        => wp_create_nonce( 'wp_rest' )
-            ] );
-        }
+        add_action( 'rest_betterdocs_faq_category_query', [ $this, 'faq_category_orderby_meta' ], 10, 2 );
     }
 
     public function output() {
@@ -336,12 +316,12 @@ class FAQBuilder extends Base {
             'methods'             => ['GET'],
             'callback'            => [$this, 'category_search'],
             'permission_callback' => '__return_true',
-            'args'      => array(
-				'title' => array(
-					'type' => 'string',
-					'required' => true
-				),
-            ),
+            'args'                => [
+                'title' => [
+                    'type'     => 'string',
+                    'required' => true
+                ]
+            ]
         ] );
     }
 
@@ -614,42 +594,42 @@ class FAQBuilder extends Base {
 
     public function category_search( $request ) {
 
-		$title = $request['title'];
+        $title = $request['title'];
 
-		// Perform the taxonomy search
-		$taxonomy_args = array(
-			'name__like' => $title,
-			'taxonomy' => 'betterdocs_faq_category',
-			'hide_empty' => false
-		);
+        // Perform the taxonomy search
+        $taxonomy_args = [
+            'name__like' => $title,
+            'taxonomy'   => 'betterdocs_faq_category',
+            'hide_empty' => false
+        ];
 
-		$taxonomies = get_terms($taxonomy_args);
+        $taxonomies = get_terms( $taxonomy_args );
 
-		if (!empty($taxonomies)) {
-			$result = array();
-			foreach ($taxonomies as $taxonomy) {
-				$result[] = array(
-					'id' => $taxonomy->term_id,
-					'count' => $taxonomy->count,
-					'description' => $taxonomy->description,
-					'name' => $taxonomy->name,
-					'slug' => $taxonomy->slug
-					// Add more fields as needed
-				);
-			}
-			// Return the taxonomy data
-			return $result;
-		} else {
-			// Taxonomy not found
-			return new WP_Error('taxonomy_not_found', 'Taxonomy not found.', array('status' => 404));
-		}
-	}
+        if ( ! empty( $taxonomies ) ) {
+            $result = [];
+            foreach ( $taxonomies as $taxonomy ) {
+                $result[] = [
+                    'id'          => $taxonomy->term_id,
+                    'count'       => $taxonomy->count,
+                    'description' => $taxonomy->description,
+                    'name'        => $taxonomy->name,
+                    'slug'        => $taxonomy->slug
+                    // Add more fields as needed
+                ];
+            }
+            // Return the taxonomy data
+            return $result;
+        } else {
+            // Taxonomy not found
+            return new WP_Error( 'taxonomy_not_found', 'Taxonomy not found.', [ 'status' => 404 ] );
+        }
+    }
 
-    public function faq_category_orderby_meta($args, $request) {
-		if ($args['taxonomy'] === 'betterdocs_faq_category') {
-			$args['orderby'] = 'meta_value_num';
-			$args['meta_key'] = 'order';
-		}
-		return $args;
-	}
+    public function faq_category_orderby_meta( $args, $request ) {
+        if ( $args['taxonomy'] === 'betterdocs_faq_category' ) {
+            $args['orderby']  = 'meta_value_num';
+            $args['meta_key'] = 'order';
+        }
+        return $args;
+    }
 }

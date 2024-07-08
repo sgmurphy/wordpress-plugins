@@ -154,25 +154,6 @@
       </div>
       <!-- Stash -->
 
-      <!-- Polyfill -->
-      <div class="am-setting-box am-switch-box">
-        <el-row type="flex" align="middle" :gutter="24">
-          <el-col :span="20">
-            {{ $root.labels.enable_polyfill }}
-          </el-col>
-          <el-col :span="4" class="align-right">
-            <el-switch
-                v-model="settings.enablePolyfill"
-                active-text=""
-                inactive-text=""
-                @change="updateActivationSettings"
-            >
-            </el-switch>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- Polyfill -->
-
       <!-- Hide Unavailable -->
       <div v-if="!$root.licence.isDeveloper && !$root.licence.isLite" class="am-setting-box am-switch-box">
         <el-row type="flex" align="middle" :gutter="24">

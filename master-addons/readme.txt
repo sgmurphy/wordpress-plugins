@@ -2,9 +2,9 @@
 Contributors: jwthemeltd, litonice13, masteraddons
 Tags: elementor, addons, widget, elements, templates
 Requires at least: 4.0
-Tested up to: 6.5.3
-Requires PHP: 5.6
-Stable tag: 2.0.6.2
+Tested up to: 6.5.5
+Requires PHP: 7.0
+Stable tag: 2.0.6.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 

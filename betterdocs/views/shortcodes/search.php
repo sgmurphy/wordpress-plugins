@@ -3,7 +3,7 @@
         <div class="betterdocs-search-heading">
             <?php
                 if (! empty( $heading ) && in_array( $heading_tag, betterdocs()->template_helper::ALLOWED_HTML_TAGS ) ) {
-                    echo '<' . esc_attr( $heading_tag ) . ' class="heading"> ' . esc_html( $heading ) . ' </' . esc_attr( $subheading_tag ) . '>';
+                    echo '<' . esc_attr( $heading_tag ) . ' class="heading"> ' . esc_html( $heading ) . ' </' . esc_attr( $heading_tag ) . '>';
                 } else {
                     echo '<h2 class="heading"> ' . esc_html( $subheading ) . ' </h2>';
                 }

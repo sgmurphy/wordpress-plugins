@@ -2,8 +2,8 @@
 Contributors: pandaboxwp
 Tags: lightbox, photo, image, gallery
 Requires at least: 5.0
-Tested up to: 6.5.4
-Stable tag: 2.2.0
+Tested up to: 6.5.5
+Stable tag: 2.3.1
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -113,6 +113,16 @@ Lastly:
 Still have problems? Post a link and describe what issue you're having, and tell us what of these steps you've already tried.
 
 == Changelog ==
+
+= 2.3.1 (2024-07-08) =
+* Fix JavaScript error
+* Fix license checks
+
+= 2.3.0 (2024-07-08) =
+* Add block editor lightbox panel
+* Add lightbox panel display options
+* Add email opt in modal
+* Add landing page for LightPress Pro
 
 = 2.2.0 (2024-06-20) =
 * Add review requests

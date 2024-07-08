@@ -2,7 +2,7 @@
 Contributors: galdub, tomeraharon, premio
 Tags: folder, folders, replace media, pages folders, media library
 Requires at least: 3.0.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.0.3
 Plugin URI: https://premio.io/downloads/folders/
 

@@ -15,7 +15,7 @@
     <template #default>
       <div class="am-dialog-new-customize__content">
         <div class="am-dialog-new-customize__content-img">
-          <img :src="$root.getUrl + 'public/img/am-update-popup-7-6.png'" :alt="$root.labels.whats_new_heading">
+          <img :src="$root.getUrl + 'public/img/am-update-popup-7-6-2.png'" :alt="$root.labels.whats_new_heading">
         </div>
 <!--        <div class="am-dialog-new-customize__content-heading" v-html=""></div>-->
 <!--        <div class="am-dialog-new-customize__content-description"></div>-->

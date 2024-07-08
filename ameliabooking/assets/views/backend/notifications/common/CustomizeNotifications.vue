@@ -681,6 +681,20 @@
                   </el-col>
                 </el-row>
 
+                <el-row v-if="type === 'email'">
+                  <el-col>
+                    <el-alert
+                        type="warning"
+                        show-icon
+                        title=""
+                        :description="$root.labels.content_mode_tooltip"
+                        :closable="false"
+                        style="margin-bottom: 10px"
+                    >
+                    </el-alert>
+                  </el-col>
+                </el-row>
+
                 <!-- Quill Editor -->
                 <quill-editor
                     ref="notificationContent"
@@ -1681,6 +1695,10 @@
 
         if (['provider_cart'].indexOf(notification.name) !== -1) {
           common.push('employeePlaceholders')
+        }
+
+        if (['provider_cart', 'customer_cart'].indexOf(notification.name) !== -1 && notification.type === 'whatsapp') {
+          common.push('cartPlaceholders')
         }
 
         if (['customer_birthday_greeting', 'customer_account_recovery'].indexOf(notification.name) !== -1) {

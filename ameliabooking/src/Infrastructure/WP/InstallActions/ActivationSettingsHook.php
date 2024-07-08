@@ -441,8 +441,7 @@ This message does not have an option for responding. If you need additional info
             'meetingAgenda'               => '%reservation_description%',
             'pendingAppointmentsMeetings' => false,
             'maxUsersCount'               => 300,
-            's2sEnabled'                  =>
-                !$savedSettings || (!$savedSettings['apiKey'] && !$savedSettings['apiSecret']),
+            's2sEnabled'                  => true,
             'accountId'                   => '',
             'clientId'                    => '',
             'clientSecret'                => '',
@@ -853,7 +852,6 @@ This message does not have an option for responding. If you need additional info
             'showAmeliaSurvey'              => true,
             'stash'                         => false,
             'responseErrorAsConflict'       => $savedSettings ? false : true,
-            'enablePolyfill'                => $savedSettings ? true : false,
             'hideUnavailableFeatures'       => false,
             'disableUrlParams'              => $savedSettings ? false : true,
             'enableThriveItems'             => false,

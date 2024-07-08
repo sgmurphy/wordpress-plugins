@@ -21,12 +21,88 @@ class Feedback extends BaseAPI {
             'feelings' => [
                 'type'              => 'string',
                 'validate_callback' => function ( $param, $request, $key ) {
-                    $allowed_feelings = [ 'happy', 'sad', 'normal' ];
+                    $allowed_feelings = ['happy', 'sad', 'normal'];
                     return in_array( $param, $allowed_feelings );
                 },
                 'required'          => true
             ]
         ] );
+
+        $this->register_field( 'docs', 'word_count', [
+            'get_callback' => [$this, 'get_word_count']
+        ] );
+
+        $this->register_field( 'docs', 'total_views', [
+            'get_callback' => [$this, 'get_total_views']
+        ] );
+
+        $this->register_field( 'docs', 'reactions', [
+            'get_callback' => [$this, 'get_reaction_count']
+        ] );
+
+        $this->register_field( 'docs', 'author_info', [
+            'get_callback' => [$this, 'get_author_info']
+        ] );
+
+        $this->register_field( 'docs', 'doc_category_info', [
+            'get_callback' => [$this, 'get_doc_category_info']
+        ] );
+
+        $this->register_field( 'docs', 'doc_tag_info', [
+            'get_callback' => [$this, 'get_doc_tag_info']
+        ] );
+
+        $this->register_field( 'docs', 'author_list', [
+            'get_callback' => [$this, 'get_author_list']
+        ] );
+    }
+
+    public function get_author_list( $object, $field_name, $request ) {
+        $args = [
+            'fields' => [
+                'ID',
+                'user_login',
+                'display_name'
+            ]
+        ];
+        $users = get_users( $args );
+        return $users;
+    }
+
+    public function analytics_by_post_id( $post_id ) {
+        global $wpdb;
+
+        $where = "WHERE post_id='" . esc_sql( $post_id ) . "'";
+        return $wpdb->get_results(
+            "SELECT
+                sum(impressions) as totalViews,
+                sum(unique_visit) as totalUniqueViews,
+                sum(happy + sad + normal) as totalReactions,
+                sum(happy) as totalHappy,
+                sum(normal) as totalNormal,
+                sum(sad) as totalSad
+            FROM {$wpdb->prefix}betterdocs_analytics
+            $where"
+        );
+    }
+
+    public function get_word_count( $object, $field_name, $request ) {
+        return str_word_count( trim( strip_tags( get_post_field( 'post_content', $object['id'] ) ) ) );
+    }
+
+    public function get_total_views( $object, $field_name, $request ) {
+        $analytics = $this->analytics_by_post_id( $object['id'] );
+        return $analytics[0]->totalViews;
+    }
+
+    public function get_reaction_count( $object, $field_name, $request ) {
+        $analytics = $this->analytics_by_post_id( $object['id'] );
+
+        return [
+            'happy'  => $analytics[0]->totalHappy,
+            'normal' => $analytics[0]->totalNormal,
+            'sad'    => $analytics[0]->totalSad
+        ];
     }
 
     public function save( WP_REST_Request $request ) {
@@ -78,5 +154,34 @@ class Feedback extends BaseAPI {
             }
         }
         return false;
+    }
+
+    public function get_author_info( $object, $field_name, $request ) {
+        $author_id = isset( $object['author'] ) ? $object['author'] : '';
+        if ( ! empty( $author_id ) ) {
+            return [
+                'author_nicename' => get_the_author_meta( 'nicename', $author_id ),
+                'author_url'      => get_author_posts_url( $author_id )
+            ];
+        }
+        return [];
+    }
+
+    public function get_doc_category_info( $object, $field_name, $request ) {
+        $category_term_names = [];
+        $doc_categories      = ! empty( $object['doc_category'] ) ? $object['doc_category'] : [];
+        foreach ( $doc_categories as $doc_category_id ) {
+            array_push( $category_term_names, ['term_name' => get_term( $doc_category_id )->name, 'term_url' => get_term_link( $doc_category_id )] );
+        }
+        return $category_term_names;
+    }
+
+    public function get_doc_tag_info( $object, $field_name, $request ) {
+        $doc_tag_term_names = [];
+        $doc_tags           = ! empty( $object['doc_tag'] ) ? $object['doc_tag'] : [];
+        foreach ( $doc_tags as $tag_id ) {
+            array_push( $doc_tag_term_names, ['term_name' => get_term( $tag_id )->name, 'term_url' => get_term_link( $tag_id )] );
+        }
+        return $doc_tag_term_names;
     }
 }

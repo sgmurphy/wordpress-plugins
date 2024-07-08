@@ -5,7 +5,7 @@ Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 3.5.9
+Stable tag: 3.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,7 +36,7 @@ Let the visitors instantly find the answers they are searching for without havin
 - In-built theme customization option, or use Shortcodes & Elementor widgets, or Gutenberg Blocks to design & customize the entire documentation page
 - Table of Contents or Sticky TOC to provide an absolute user experience
 - In-built advanced live search bar to help visitors get the exact docs solution
-- Advanced List View (FREE) & Grid View feature (PRO)
+- Advanced List View & Drag & Drop Grid View feature
 - Create & manage multiple knowledgebases for all products separately (PRO)
 - Manage roles for your knowledgebase users & give access accordingly
 - Integrated with Analytics to track and evaluate the performance
@@ -70,7 +70,7 @@ https://youtu.be/db4FB2NUD-g?si=NCWRUCxdTdFUx2GW
 
 Design FAQ sections for your Knowledge base easily with the help of BetterDocs FAQ Builder.
 
-## 💬 Full Site Editor (FSE) Compatibility ##
+## ✅ FULL SITE EDITOR (FSE) COMPATIBILITY ##
 
 Design your documentation, single docs, archive pages effortlessly in Gutenberg Editor with the help of BetterDocs' Gutenberg Blocks & Patterns.
 
@@ -110,7 +110,7 @@ Design stunning Docs page and Docs Category archive template with Elementor Them
 
 Migrate your valuable content and back up your knowledge base with just a few clicks with easy import and export feature that seamlessly supports CSV and XML formats.
 
-## 🔄  3RD PARTY MIGRATION SUCH AS HELP SCOUT ##
+## ↪️ 3RD PARTY MIGRATION SUCH AS HELP SCOUT ##
 Seamless migration of knowledge base from any 3rd party plugin solution like Help Scout with a single click to improve customer service capabilities.
 
 
@@ -141,10 +141,10 @@ Include attachments within each document to offer supplementary content and extr
 ## 📚 EMBED RELATED DOCS IN SINGLE DOCUMENTATION ##
 Incorporate relevant documentation into each document to promote supporting content and additional information.
 
-##  📙GLOSSARY (PRO) ##
+## 📙 GLOSSARY (PRO) ##
 Create glossaries for frequently used terms or technical jargon and showcase them as tooltips so readers can easily understand them.
 
-## ENCYCLOPEDIA (PRO) ##
+## 📖 ENCYCLOPEDIA (PRO) ##
 Create an Encyclopedia page to display your glossary or documentation in alphabetical order and help readers easily find what they are looking for.
 
 
@@ -218,6 +218,15 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.6.1 - 08/07/2024 =
+
+- Few minor bug fixes and improvements
+
+= 3.6.0 - 08/07/2024 =
+
+- Revamped: Dashboard UI/UX for Drag & Drop Builder and Advanced List View
+- Few minor bug fixes and improvements
 
 = 3.5.9 - 01/07/2024 =
 

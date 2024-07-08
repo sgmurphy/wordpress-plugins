@@ -3,7 +3,7 @@ Contributors: smp7, wp.insider
 Donate link: https://simple-membership-plugin.com/
 Tags: login, redirection, member, members, membership, login redirection, access, level
 Requires at least: 3.8
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 1.6
 License: GPLv2 or later
 

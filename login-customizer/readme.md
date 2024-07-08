@@ -1,7 +1,7 @@
 # Custom Login Page Customizer #
 **Stable tag:** trunk  
 **Requires at least:** 4.0  
-**Tested up to:** 6.1
+**Tested up to:** 6.6
 **Contributors:** [hardeepasrani](https://profiles.wordpress.org/hardeepasrani), [hiddenpearls](https://profiles.wordpress.org/hiddenpearls)
 **Author URI:** https://loginpress.pro/
 **Tags:** login, customizer, logo, login logo, login customizer, login page,admin, branding, customization, custom login, error, login error, custom login pro  

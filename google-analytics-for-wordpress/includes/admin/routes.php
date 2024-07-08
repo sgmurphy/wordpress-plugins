@@ -1123,6 +1123,12 @@ class MonsterInsights_Rest_Routes {
 			'end'   => $end,
 		);
 
+		// User want to show compare report.
+		if ( isset( $_POST['compare_report'] ) ) {
+			$args['compare_start'] = ! empty( $_POST['compare_start'] ) ? sanitize_text_field( wp_unslash( $_POST['compare_start'] ) ) : $report->default_compare_start_date();
+			$args['compare_end']   = ! empty( $_POST['compare_end'] ) ? sanitize_text_field( wp_unslash( $_POST['compare_end'] ) ) : $report->default_compare_end_date();
+		}
+
 		if ( $isnetwork ) {
 			$args['network'] = true;
 		}

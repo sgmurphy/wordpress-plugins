@@ -1543,7 +1543,7 @@ class JLTMA_Image_Hover_Effects extends Widget_Base
 						);
 						if (in_array($ma_el_main_image_effect, $ma_el_main_image_effect_array)) { ?>
 							<p class="jltma-image-hover-desc">
-								<?php echo htmlspecialchars_decode($settings['ma_el_main_image_desc']); ?>
+								<?php echo wp_kses_post($settings['ma_el_main_image_desc']); ?>
 							</p>
 						<?php } ?>
 
@@ -1553,7 +1553,7 @@ class JLTMA_Image_Hover_Effects extends Widget_Base
 					$ma_el_main_image_effect_array = array("zoe");
 					if (in_array($ma_el_main_image_effect, $ma_el_main_image_effect_array)) { ?>
 						<p class="jltma-image-hover-desc">
-							<?php echo htmlspecialchars_decode($settings['ma_el_main_image_desc']); ?>
+							<?php echo wp_kses_post($settings['ma_el_main_image_desc']); ?>
 						</p>
 					<?php } ?>
 

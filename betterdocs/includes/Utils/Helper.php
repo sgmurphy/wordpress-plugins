@@ -122,7 +122,7 @@ class Helper extends Base {
      *
      * @return array
      */
-    public static function normalize_menu( $title, $slug, $cap = 'edit_docs', $callback = null ) {
+    public static function normalize_menu( $title, $slug, $cap = 'edit_docs', $callback = null, $optional = [] ) {
         $args = [
             'page_title' => $title,
             'menu_title' => $title,
@@ -134,7 +134,7 @@ class Helper extends Base {
             $args['callback'] = $callback;
         }
 
-        return $args;
+        return wp_parse_args( $optional, $args );
     }
 
     /**

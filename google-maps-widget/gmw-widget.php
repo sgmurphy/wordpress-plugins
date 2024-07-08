@@ -206,7 +206,7 @@ class GoogleMapsWidget extends WP_Widget {
       echo '<p>Maps Widget for Google Maps <b class="gmw-pro-red">PRO</b> has been activated!';
       echo '<ol class="normal">
       <li><a href="https://gmapswidget.com/pro-download/" target="_blank">Download</a> the PRO version ZIP file</li>
-      <li>Go to <a href="' . admin_url('plugin-install.php') . '">Plugins - Add New</a> and install the PRO version</li>
+      <li>Go to <a href="' . esc_url(admin_url('plugin-install.php')) . '">Plugins - Add New</a> and install the PRO version</li>
       <li>When prompted, overwrite the free version with the PRO one</li>
       <li>Create some maps ;)</li>
     </ol>';
@@ -224,112 +224,112 @@ class GoogleMapsWidget extends WP_Widget {
     // api key warning
     if (!GMW::get_api_key('test')) {
       echo '<p class="gmw-api-key-error"><b>Important!</b> ';
-      echo 'Please go to <a href="' . admin_url('options-general.php?page=gmw_options') . '" title="Maps Widget for Google Maps settings">settings</a> &amp; follow simple instructions to get a <b>free Google Maps API key</b>. It only takes a minute. Without a key your <b>maps will NOT work</b>. This rule is enforced by Google. Sorry for the inconvenience.</p>';
+      echo 'Please go to <a href="' . esc_url(admin_url('options-general.php?page=gmw_options')) . '" title="Maps Widget for Google Maps settings">settings</a> &amp; follow simple instructions to get a <b>free Google Maps API key</b>. It only takes a minute. Without a key your <b>maps will NOT work</b>. This rule is enforced by Google. Sorry for the inconvenience.</p>';
     }
 
     // widget options markup
     // title & address
-    echo '<p><label for="' . esc_attr($this->get_field_id('title')) . '">' . __('Title', 'google-maps-widget') . ':</label>';
-    echo '<input data-tooltip="Widget title styled as defined in the active theme. HTML tags and shortcodes are not supported. Title is optional." class="widefat" id="' . esc_attr($this->get_field_id('title')) . '" name="' . esc_attr($this->get_field_name('title')) . '" placeholder="' . __('Optional Map title', 'google-maps-widget') . '" type="text" value="' . esc_attr($title) . '">';
+    echo '<p><label for="' . esc_attr($this->get_field_id('title')) . '">' . esc_html__('Title', 'google-maps-widget') . ':</label>';
+    echo '<input data-tooltip="Widget title styled as defined in the active theme. HTML tags and shortcodes are not supported. Title is optional." class="widefat" id="' . esc_attr($this->get_field_id('title')) . '" name="' . esc_attr($this->get_field_name('title')) . '" placeholder="' . esc_html__('Optional Map title', 'google-maps-widget') . '" type="text" value="' . esc_attr($title) . '">';
     echo '</p>';
-    echo '<label for="' . esc_attr($this->get_field_id('address')) . '">' . __('Address', 'google-maps-widget') . ':</label>';
+    echo '<label for="' . esc_attr($this->get_field_id('address')) . '">' . esc_html__('Address', 'google-maps-widget') . ':</label>';
     echo '<div class="input-address-group">';
-    echo '<input name="' . esc_attr($this->get_field_name('address')) . '" type="text" value="' . esc_attr($address) . '" required="required" class="widefat" id="' . esc_attr($this->get_field_id('address')) . '" placeholder="' . __('Address / location to show', 'google-maps-widget') . '" data-tooltip="' . esc_html('Address or location shown on both maps. Coordinates can be used as well. Write them in a numerical fashion, not in degrees, ie: 40.70823, -74.01052.') . '">';
+    echo '<input name="' . esc_attr($this->get_field_name('address')) . '" type="text" value="' . esc_attr($address) . '" required="required" class="widefat" id="' . esc_attr($this->get_field_id('address')) . '" placeholder="' . esc_html__('Address / location to show', 'google-maps-widget') . '" data-tooltip="' . esc_html('Address or location shown on both maps. Coordinates can be used as well. Write them in a numerical fashion, not in degrees, ie: 40.70823, -74.01052.') . '">';
     echo '<a data-target="address" href="#" class="button-secondary gmw-pick-address"><span class="dashicons dashicons-location"></span></a>';
     echo '</div>';
     // end - title & address
 
     // tabs
     echo '<div class="gmw-tabs" id="tab-' . esc_attr($this->id) . '"><ul>';
-    echo '<li><a href="#gmw-thumb">' . __('Thumbnail Map', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-lightbox">' . __('Interactive Map', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-pins">' . __('Pins', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-shortcode">' . __('Shortcode', 'google-maps-widget') . '</a></li>';
-    echo '<li><a href="#gmw-info">' . __('Info &amp; Support', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-thumb">' . esc_html__('Thumbnail Map', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-lightbox">' . esc_html__('Interactive Map', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-pins">' . esc_html__('Pins', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-shortcode">' . esc_html__('Shortcode', 'google-maps-widget') . '</a></li>';
+    echo '<li><a href="#gmw-info">' . esc_html__('Info &amp; Support', 'google-maps-widget') . '</a></li>';
     echo '</ul>';
 
     // thumb tab
     echo '<div id="gmw-thumb">';
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_width')) . '">' . __('Map Size', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_width')) . '">' . esc_html__('Map Size', 'google-maps-widget') . ':</label>';
     echo '<input data-title="Map Width" data-tooltip="Map width in pixels; from 50 to 640. The size limit is imposed by Google. Image may be resized by the theme if the sidebar is narrower." min="50" max="640" step="1" class="small-text" id="' . esc_attr($this->get_field_id('thumb_width')) . '" name="' . esc_attr($this->get_field_name('thumb_width')) . '" type="number" value="' . esc_attr($thumb_width) . '" required="required"> x ';
     echo '<input data-title="Map Height" data-tooltip="Map height in pixels; from 50 to 640. The size limit is imposed by Google." min="50" max="640" step="1" class="small-text" id="' . esc_attr($this->get_field_id('thumb_height')) . '" name="' . esc_attr($this->get_field_name('thumb_height')) . '" type="number" value="' . esc_attr($thumb_height) . '" required="required">';
     echo ' px</p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_type')) . '">' . __('Map Type', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_type')) . '">' . esc_html__('Map Type', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Controls the map layers shown. Roadmap is the most popular, hybrid combines road and satellite while terrain shows physical relief map image, displaying terrain and vegetation.<br>Custom Static Image displays an image of your choosing in order to <b>save money</b> on Google Maps API calls. When clicked it opens the lightbox map." id="' . esc_attr($this->get_field_id('thumb_type')) . '" name="' . esc_attr($this->get_field_name('thumb_type')) . '">';
     GMW::create_select_options($thumb_map_types, $thumb_type);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_color_scheme')) . '">' . __('Color Scheme', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_color_scheme')) . '">' . esc_html__('Color Scheme', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Changes the overall appearance of the map. Please note that most visitors are acustomed to the Refreshed color scheme." class="gmw_thumb_color_scheme" id="' . esc_attr($this->get_field_id('thumb_color_scheme')) . '" name="' . esc_attr($this->get_field_name('thumb_color_scheme')) . '">';
     GMW::create_select_options($thumb_color_schemes, $thumb_color_scheme);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_zoom')) . '">' . __('Zoom Level', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_zoom')) . '">' . esc_html__('Zoom Level', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Zoom varies from the lowest level, in which the entire world can be seen, to highest, which shows streets and individual buildings. Building outlines, where available, appear on the map around zoom level 17. This value differs from area to area." class="gmw_thumb_zoom" id="' . esc_attr($this->get_field_id('thumb_zoom')) . '" name="' . esc_attr($this->get_field_name('thumb_zoom')) . '">';
     GMW::create_select_options($zoom_levels_thumb, $thumb_zoom);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_type')) . '">' . __('Pin Type', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_type')) . '">' . esc_html__('Pin Type', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Predefined pin can be adjusted in terms of color, size and one letter label.
           Custom pin can be any custom image stored on a publically available server (HTTPS is not supported)." class="gmw_thumb_pin_type" id="' . esc_attr($this->get_field_id('thumb_pin_type')) . '" name="' . esc_attr($this->get_field_name('thumb_pin_type')) . '">';
     GMW::create_select_options($thumb_pin_types, $thumb_pin_type);
     echo '</select></p>';
 
-    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_color')) . '">' . __('Pin Color', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_color')) . '">' . esc_html__('Pin Color', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Choose one of the predefined pin colors, or upgrade to <b class=\'gmw-pro-red\'>PRO</b> to have an unlimited choice of colors." id="' . esc_attr($this->get_field_id('thumb_pin_color')) . '" name="' . esc_attr($this->get_field_name('thumb_pin_color')) . '">';
     GMW::create_select_options($thumb_pin_colors, $thumb_pin_color);
     echo '</select>';
     echo '</p>';
 
-    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_size')) . '">' . __('Pin Size', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_size')) . '">' . esc_html__('Pin Size', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="All sizes besides the large one are quite small." id="' . esc_attr($this->get_field_id('thumb_pin_size')) . '" name="' . esc_attr($this->get_field_name('thumb_pin_size')) . '">';
     GMW::create_select_options($thumb_pin_sizes, $thumb_pin_size);
     echo '</select></p>';
 
-    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_label')) . '">' . __('Pin Label', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_predefined"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_label')) . '">' . esc_html__('Pin Label', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Due to pin\'s size, only single-letter labels are available." id="' . esc_attr($this->get_field_id('thumb_pin_label')) . '" name="' . esc_attr($this->get_field_name('thumb_pin_label')) . '">';
     GMW::create_select_options($pin_labels, $thumb_pin_label);
     echo '</select></p>';
 
-    echo '<p class="gmw_thumb_pin_type_custom"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_img')) . '">' . __('Pin Image URL', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_pin_type_custom"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_pin_img')) . '">' . esc_html__('Pin Image URL', 'google-maps-widget') . ':</label>';
     echo '<input data-tooltip="Enter the full URL to the image, starting with http://. Image has to be publicly accessible and with size up to 64x64px. Https and localhosts are *not* supported." placeholder="http://" type="url" class="regular-text" id="' . esc_attr($this->get_field_id('thumb_pin_img')) . '" name="' . esc_attr($this->get_field_name('thumb_pin_img')) . '" value="' . esc_attr($thumb_pin_img) . '">';
     echo '</p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_link_type')) . '">' . __('Link To', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_link_type')) . '">' . esc_html__('Link To', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Choose what happens when the map is clicked. Clicks are tracked in Google Analytics if that option is enabled in settings (PRO only). Please configure interactive map\'s settings in its tab." class="gmw_thumb_link_type" id="' . esc_attr($this->get_field_id('thumb_link_type')) . '" name="' . esc_attr($this->get_field_name('thumb_link_type')) . '">';
     GMW::create_select_options($thumb_link_types, $thumb_link_type);
     echo '</select></p>';
 
-    echo '<p class="gmw_thumb_link_section"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_link')) . '">' . __('Custom URL', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_thumb_link_section"><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_link')) . '">' . esc_html__('Custom URL', 'google-maps-widget') . ':</label>';
     echo '<input data-tooltip="Make sure the URL starts with http:// if it leads to a different site." placeholder="http://" class="regular-text" id="' . esc_attr($this->get_field_id('thumb_link')) . '" name="' . esc_attr($this->get_field_name('thumb_link')) . '" type="url" value="' . esc_attr($thumb_link) . '">';
     echo '</p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_format')) . '">' . __('Image Format', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_format')) . '">' . esc_html__('Image Format', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Jpg and jpg-baseline typically provide the smallest image size, though they do so through _lossy_ compression which may degrade the image. Gif, png8 and png32 provide lossless compression." id="' . esc_attr($this->get_field_id('thumb_format')) . '" name="' . esc_attr($this->get_field_name('thumb_format')) . '">';
     GMW::create_select_options($thumb_formats, $thumb_format);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_lang')) . '">' . __('Map Language', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_lang')) . '">' . esc_html__('Map Language', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Not all map labels and texts have translations. Everything is controlled by Google at their discretion. If you choose the auto-detect mode language will be detected from the users browser settings." id="' . esc_attr($this->get_field_id('thumb_lang')) . '" name="' . esc_attr($this->get_field_name('thumb_lang')) . '">';
     GMW::create_select_options($thumb_langs, $thumb_lang);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_hide_title')) . '">' . __('Hide Widget Title', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_hide_title')) . '">' . esc_html__('Hide Widget Title', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="You can define a title for easier widgets management in admin but hide it with this option when the widget is displayed on site." id="' . esc_attr($this->get_field_id('thumb_hide_title')) . '" name="' . esc_attr($this->get_field_name('thumb_hide_title')) . '">';
     GMW::create_select_options($hide_titles, $thumb_hide_title);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_powered_by')) . '">' . __('Show Appreciation', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('thumb_powered_by')) . '">' . esc_html__('Show Appreciation', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Please help others learn about GMW by placing a tiny link below the map. Thank you very much!" id="' . esc_attr($this->get_field_id('thumb_powered_by')) . '" name="' . esc_attr($this->get_field_name('thumb_powered_by')) . '">';
     GMW::create_select_options($thumb_powered_bys, $thumb_powered_by);
     echo '</select></p>';
 
-    echo '<p><label for="' . esc_attr($this->get_field_id('thumb_header')) . '">' . __('Text Above Map', 'google-maps-widget') . ':</label>';
+    echo '<p><label for="' . esc_attr($this->get_field_id('thumb_header')) . '">' . esc_html__('Text Above Map', 'google-maps-widget') . ':</label>';
     echo '<textarea placeholder="Any text; HTML and shortcodes are fully supported." data-tooltip="Text that appears above the map. HTML tags and shortcodes are fully supported.
           If you choose to have the thumb replaced by an interactive map (PRO only) this text will be replaced by the interactive header text.
           Use the _{address}_ variable to display the map\'s address." class="widefat" rows="1" cols="20" id="' . esc_attr($this->get_field_id('thumb_header')) . '" name="' . esc_attr($this->get_field_name('thumb_header')) . '">'. esc_textarea($thumb_header) . '</textarea></p>';
-    echo '<p><label for="' . esc_attr($this->get_field_id('thumb_footer')) . '">' . __('Text Below Map', 'google-maps-widget') . ':</label>';
+    echo '<p><label for="' . esc_attr($this->get_field_id('thumb_footer')) . '">' . esc_html__('Text Below Map', 'google-maps-widget') . ':</label>';
     echo '<textarea placeholder="Any text; HTML and shortcodes are fully supported." data-tooltip="Text that appears below the map. HTML tags and shortcodes are fully supported.
           If you choose to have the thumb replaced by an interactive map (PRO only) this text will be replaced by the interactive footer text.
           Use the _{address}_ variable to display the map\'s address." class="widefat" rows="1" cols="20" id="' . esc_attr($this->get_field_id('thumb_footer')) . '" name="' . esc_attr($this->get_field_name('thumb_footer')) . '">'. esc_textarea($thumb_footer) . '</textarea></p>';
@@ -338,7 +338,7 @@ class GoogleMapsWidget extends WP_Widget {
 
     // lightbox tab
     echo '<div id="gmw-lightbox">';
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_fullscreen')) . '">' . __('Lightbox Size', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_fullscreen')) . '">' . esc_html__('Lightbox Size', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Choose from a custom size or the fullscreen, border-to-border option for the lightbox map." class="gmw_lightbox_fullscreen" id="' . esc_attr($this->get_field_id('lightbox_fullscreen')) . '" name="' . esc_attr($this->get_field_name('lightbox_fullscreen')) . '">';
     GMW::create_select_options($lightbox_sizes, $lightbox_fullscreen);
     echo '</select>';
@@ -346,7 +346,7 @@ class GoogleMapsWidget extends WP_Widget {
     echo '<input data-title="Map Width" data-tooltip="Interactive map width in pixels; from 50 to 2000. If needed, map will be resized to accomodate for smaller screens." class="small-text fullscreen_fix" min="50" max="2000" step="1" id="' . esc_attr($this->get_field_id('lightbox_width')) . '" type="number" name="' . esc_attr($this->get_field_name('lightbox_width')) . '" value="' . esc_attr($lightbox_width) . '" required="required"> x ';
     echo '<input data-title="Map Height" data-tooltip="Interactive map height in pixels; from 50 to 2000. If needed, map will be resized to accomodate for smaller screens." class="small-text" id="' . esc_attr($this->get_field_id('lightbox_height')) . '" name="' . esc_attr($this->get_field_name('lightbox_height')) . '" type="number" step="1" min="50" max="2000" value="' . esc_attr($lightbox_height) . '" required="required"> px</span></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_mode')) . '">' . __('Map Mode', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_mode')) . '">' . esc_html__('Map Mode', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Place mode displays a map pin at a defined place or address.
           Directions mode displays the path between a start address defined below, and destination defined in the map\'s address.
           Search mode displays results for a search across the area around the map\'s address.
@@ -355,47 +355,47 @@ class GoogleMapsWidget extends WP_Widget {
     GMW::create_select_options($lightbox_modes, $lightbox_mode);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_map_type')) . '">' . __('Map Type', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_map_type')) . '">' . esc_html__('Map Type', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Controls the map layers shown." id="' . esc_attr($this->get_field_id('lightbox_map_type')) . '" name="' . esc_attr($this->get_field_name('lightbox_map_type')) . '">';
     GMW::create_select_options($lightbox_map_types, $lightbox_map_type);
     echo '</select></p>';
 
-    echo '<p class="gmw_multiple_pins_feature"><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_clustering')) . '">' . __('Pins Clustering', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_multiple_pins_feature"><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_clustering')) . '">' . esc_html__('Pins Clustering', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Clustering enables pins grouping depending on their distances on the current view. It declutters the map when multiple pins are displayed. See it on <a href=\'https://www.gmapswidget.com/#examples\' target=\'_blank\'>Starbucks locations example</a>." id="' . esc_attr($this->get_field_id('lightbox_clustering')) . '" name="' . esc_attr($this->get_field_name('lightbox_clustering')) . '">';
     GMW::create_select_options($lightbox_clustering_options, $lightbox_clustering);
     echo '</select></p>';
 
-    echo '<p class="gmw_multiple_pins_feature"><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_filtering')) . '">' . __('Pins Filtering', 'google-maps-widget') . ':</label>';
+    echo '<p class="gmw_multiple_pins_feature"><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_filtering')) . '">' . esc_html__('Pins Filtering', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Filtering gives users the ability to show/hide pins based on group name(s) set for each pin. Additional GUI is displayed in the upper right corner of the map. See it in action on <a href=\'https://www.gmapswidget.com/#examples\' target=\'_blank\'>Restaurants in Manhattan</a>." id="' . esc_attr($this->get_field_id('lightbox_filtering')) . '" name="' . esc_attr($this->get_field_name('lightbox_filtering')) . '">';
     GMW::create_select_options($lightbox_filtering_options, $lightbox_filtering);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_zoom')) . '">' . __('Zoom Level', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_zoom')) . '">' . esc_html__('Zoom Level', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Zoom varies from the lowest level, in which the entire world can be seen, to highest, which shows streets and individual buildings. Building outlines, where available, appear on the map around zoom level 17. This value differs from area to area." id="' . esc_attr($this->get_field_id('lightbox_zoom')) . '" name="' . esc_attr($this->get_field_name('lightbox_zoom')) . '">';
     GMW::create_select_options($zoom_levels_lightbox, $lightbox_zoom);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_skin')) . '">' . __('Lightbox Skin', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_skin')) . '">' . esc_html__('Lightbox Skin', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Controls the overall appearance of the lightbox, not the map itself. Adjust according to your site\'s design." class="gmw_lightbox_skin" id="' . esc_attr($this->get_field_id('lightbox_skin')) . '" name="' . esc_attr($this->get_field_name('lightbox_skin')) . '">';
     GMW::create_select_options($lightbox_skins, $lightbox_skin);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_feature')) . '">' . __('Lightbox Features', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_feature')) . '">' . esc_html__('Lightbox Features', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Title is taken from the widget title field. Not all skins have a title, and the ones that do have it in different places, so please test your maps.
-          Other 3 options control the way users close the lightbox. Enable at least one of them." class="gmw-select2" data-placeholder="' . __('Click to choose features', 'google-maps-widget') . '" multiple="multiple" id="' . esc_attr($this->get_field_id('lightbox_feature')) . '" name="' . esc_attr($this->get_field_name('lightbox_feature')) . '[]">';
+          Other 3 options control the way users close the lightbox. Enable at least one of them." class="gmw-select2" data-placeholder="' . esc_html__('Click to choose features', 'google-maps-widget') . '" multiple="multiple" id="' . esc_attr($this->get_field_id('lightbox_feature')) . '" name="' . esc_attr($this->get_field_name('lightbox_feature')) . '[]">';
     GMW::create_select_options($lightbox_features, $lightbox_feature);
     echo '</select></p>';
 
-    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_lang')) . '">' . __('Map Language', 'google-maps-widget') . ':</label>';
+    echo '<p><label class="gmw-label" for="' . esc_attr($this->get_field_id('lightbox_lang')) . '">' . esc_html__('Map Language', 'google-maps-widget') . ':</label>';
     echo '<select data-tooltip="Not all map labels and texts have translations. Everything is controlled by Google at their discretion. If you choose the auto-detect mode language will be detected from the users browser settings." id="' . esc_attr($this->get_field_id('lightbox_lang')) . '" name="' . esc_attr($this->get_field_name('lightbox_lang')) . '">';
     GMW::create_select_options($lightbox_langs, $lightbox_lang);
     echo '</select></p>';
 
-    echo '<p><label for="' . esc_attr($this->get_field_id('lightbox_header')) . '">' . __('Text Above Map', 'google-maps-widget') . ':</label>';
+    echo '<p><label for="' . esc_attr($this->get_field_id('lightbox_header')) . '">' . esc_html__('Text Above Map', 'google-maps-widget') . ':</label>';
     echo '<textarea placeholder="Any text; HTML and shortcodes are fully supported." data-tooltip="Text that appears above the interactive map. HTML tags and shortcodes are fully supported.
          Use the _{address}_ variable to display the map\'s address." class="widefat" rows="1" cols="20" id="' . esc_attr($this->get_field_id('lightbox_header')) . '" name="' . esc_attr($this->get_field_name('lightbox_header')) . '">'. esc_textarea($lightbox_header) . '</textarea></p>';
 
-    echo '<p><label for="' . esc_attr($this->get_field_id('lightbox_footer')) . '">' . __('Text Below Map', 'google-maps-widget') . ':</label>';
+    echo '<p><label for="' . esc_attr($this->get_field_id('lightbox_footer')) . '">' . esc_html__('Text Below Map', 'google-maps-widget') . ':</label>';
     echo '<textarea placeholder="Any text; HTML and shortcodes are fully supported." data-tooltip="Text that appears below the interactive map. HTML tags and shortcodes are fully supported.
          Use the _{address}_ variable to display the map\'s address." class="widefat" rows="1" cols="20" id="' . esc_attr($this->get_field_id('lightbox_footer')) . '" name="' . esc_attr($this->get_field_name('lightbox_footer')) . '">'. esc_textarea($lightbox_footer) . '</textarea></p>';
 
@@ -428,21 +428,21 @@ class GoogleMapsWidget extends WP_Widget {
 
     // info tab
     echo '<div id="gmw-info">';
-    echo '<h4>' . __('Support', 'google-maps-widget') . '</h4>';
+    echo '<h4>' . esc_html__('Support', 'google-maps-widget') . '</h4>';
     echo '<p>If you have any problems, questions or would like a new feature added post it on the <a href="https://wordpress.org/support/plugin/google-maps-widget" target="_blank">official support forum</a>. It\'s the only place to get support. Since it\'s free and community powered please be patient.<br>';
     echo 'If you <a href="#" class="open_promo_dialog">upgrade</a> to <span class="gmw-pro-red">PRO</span> you will get instant access to premium, prioritised support via email.</p>';
 
-    echo '<h4>' . __('Activate <span class="gmw-pro-red">PRO</span> features', 'google-maps-widget') . '</h4>';
+    echo '<h4>' . esc_html__('Activate <span class="gmw-pro-red">PRO</span> features', 'google-maps-widget') . '</h4>';
     echo '<p><span class="gmw-pro-red">PRO</span> features give you access to priority support and more than 50 extra options &amp; features including shortcode support, additional map types, more map skins and a host of other additional features.';
     echo ' <a class="open_promo_dialog" href="#">Activate PRO features NOW</a>';
     echo '</p>';
-    echo '<h4>' . __('Rate the plugin &amp; spread the word', 'google-maps-widget') . '</h4>';
+    echo '<h4>' . esc_html__('Rate the plugin &amp; spread the word', 'google-maps-widget') . '</h4>';
     echo '<p>It won\'t take you more than a minute, but it will help us immensely. So please - <a href="https://wordpress.org/support/view/plugin-reviews/google-maps-widget" target="_blank">rate the plugin</a>. Or spread the word by <a href="https://twitter.com/intent/tweet?via=WebFactoryLtd&amp;text=' . esc_attr(urlencode('I\'m using the #free Maps Widget for Google Maps for #wordpress. You can grab it too at http://goo.gl/2qcbbf')) . '" target="_blank">tweeting about it</a>. Thank you!</p>';
     echo '</div>';
     // end - info tab
     echo '</div><p></p>'; // tabs
 
-    echo '<p class="widget_footer_info">' . __('Upgrade to Maps Widget for Google Maps <span class="gmw-pro-red">PRO</span> to get more than 50 extra options &amp; features available immeditely. <a class="open_promo_dialog" href="#">Upgrade now</a>.', 'google-maps-widget') . '</p>';
+    GMW::wp_kses_wf('<p class="widget_footer_info">' . __('Upgrade to Maps Widget for Google Maps <span class="gmw-pro-red">PRO</span> to get more than 50 extra options &amp; features available immeditely. <a class="open_promo_dialog" href="#">Upgrade now</a>.', 'google-maps-widget') . '</p>');
   } // form
 
 
@@ -597,7 +597,7 @@ class GoogleMapsWidget extends WP_Widget {
     }
 
     // build map image source
-    $map_src .= '?' . http_build_query($map_params, null, '&amp;') . $style;
+    $map_src .= '?' . http_build_query($map_params, "", '&amp;') . $style;
     $map_src = apply_filters('gmw_thumb_map_src', $map_src, $instance);
     $widget_content .= '<img width="' . $instance['thumb_width'] . '" height="' . $instance['thumb_height'] . '" alt="' . $map_alt . '" title="' . $map_alt . '" src="' . $map_src . '">';
 

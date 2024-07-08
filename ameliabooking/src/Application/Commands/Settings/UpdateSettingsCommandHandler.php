@@ -349,9 +349,6 @@ class UpdateSettingsCommandHandler extends CommandHandler
             isset($settingsFields['activation']['stash']) ? [
                 'stash' => $settingsFields['activation']['stash']
             ] : [],
-            isset($settingsFields['activation']['enablePolyfill']) ? [
-                'enablePolyfill' => $settingsFields['activation']['enablePolyfill']
-            ] : [],
             isset($settingsFields['activation']['showAmeliaPromoCustomizePopup']) ? [
                 'showAmeliaPromoCustomizePopup' => $settingsFields['activation']['showAmeliaPromoCustomizePopup']
             ] : [],

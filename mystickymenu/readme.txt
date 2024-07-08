@@ -2,7 +2,7 @@
 Contributors: tomeraharon, galdub, premio
 Tags:notification bar, floating bar, sticky menu, sticky header, sticky bar
 Requires at least: 3.5.1
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.7.1
 License: GPLv2 or later
 

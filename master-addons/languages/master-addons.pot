@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-02 12:21+0000\n"
+"POT-Creation-Date: 2024-07-08 03:56+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Ribbon Thickness"
 msgstr ""
 
-#: ../addons/ma-advanced-image/ma-advanced-image.php:247, ../addons/ma-data-table/ma-data-table.php:526, ../addons/ma-image-comparison/ma-image-comparison.php:177, ../addons/ma-image-filter-gallery/ma-image-filter-gallery.php:369, ../addons/ma-image-scroll/ma-image-scroll.php:128, ../addons/ma-wc-product-carousel/ma-wc-product-carousel.php:237, ../addons/ma-wc-product-table/ma-wc-product-table.php:330, ../class-master-elementor-addons.php:769, ../inc/traits/swiper-controls.php:39, ../inc/modules/mega-menu/inc/view/modal-body.php:15, ../premium/modules/tooltips/tooltips.php:62
+#: ../addons/ma-advanced-image/ma-advanced-image.php:247, ../addons/ma-data-table/ma-data-table.php:526, ../addons/ma-image-comparison/ma-image-comparison.php:177, ../addons/ma-image-filter-gallery/ma-image-filter-gallery.php:369, ../addons/ma-image-scroll/ma-image-scroll.php:128, ../addons/ma-wc-product-carousel/ma-wc-product-carousel.php:237, ../addons/ma-wc-product-table/ma-wc-product-table.php:330, ../class-master-elementor-addons.php:749, ../inc/traits/swiper-controls.php:39, ../inc/modules/mega-menu/inc/view/modal-body.php:15, ../premium/modules/tooltips/tooltips.php:62
 msgid "Settings"
 msgstr ""
 
@@ -949,7 +949,7 @@ msgstr ""
 msgid "First Heading"
 msgstr ""
 
-#: ../addons/ma-animated-headlines/ma-animated-headlines.php:128, ../class-master-elementor-addons.php:348, ../inc/admin/dashboard-settings.php:99, ../inc/admin/dashboard-settings.php:117, ../inc/classes/white-label.php:110, ../inc/classes/white-label.php:135, ../inc/classes/Notifications/Ask_For_Rating.php:25, ../inc/classes/Notifications/Subscribe.php:99, ../inc/classes/Notifications/What_We_Collect.php:69, ../inc/classes/Notifications/What_We_Collect.php:95, ../inc/templates/classes/config.php:29, ../inc/templates/editor/template-modal-header-logo.php:11
+#: ../addons/ma-animated-headlines/ma-animated-headlines.php:128, ../class-master-elementor-addons.php:340, ../inc/admin/dashboard-settings.php:99, ../inc/admin/dashboard-settings.php:117, ../inc/classes/white-label.php:110, ../inc/classes/white-label.php:135, ../inc/classes/Notifications/Ask_For_Rating.php:25, ../inc/classes/Notifications/Subscribe.php:99, ../inc/classes/Notifications/What_We_Collect.php:69, ../inc/classes/Notifications/What_We_Collect.php:95, ../inc/templates/classes/config.php:29, ../inc/templates/editor/template-modal-header-logo.php:11
 msgid "Master Addons"
 msgstr ""
 
@@ -4437,7 +4437,7 @@ msgstr ""
 msgid "Fancybox"
 msgstr ""
 
-#: ../addons/ma-image-carousel/ma-image-carousel.php:152, ../addons/ma-image-hover-effects/ma-image-hover-effects.php:586, ../class-master-elementor-addons.php:952
+#: ../addons/ma-image-carousel/ma-image-carousel.php:152, ../addons/ma-image-hover-effects/ma-image-hover-effects.php:586, ../class-master-elementor-addons.php:932
 msgid "Elementor"
 msgstr ""
 
@@ -9178,42 +9178,42 @@ msgstr ""
 msgid "WP Forms"
 msgstr ""
 
-#: ../class-master-elementor-addons.php:128
+#: ../class-master-elementor-addons.php:120
 msgid "Support"
 msgstr ""
 
 #. translators: 1: strong start tag, 2: strong end tag.
-#: ../class-master-elementor-addons.php:931
+#: ../class-master-elementor-addons.php:911
 msgid "<b>Master Addons</b> requires %1$s\"Elementor\"%2$s plugin to be installed and activated. Please install Elementor to continue."
 msgstr ""
 
-#: ../class-master-elementor-addons.php:932
+#: ../class-master-elementor-addons.php:912
 msgid "Install Elementor"
 msgstr ""
 
-#: ../class-master-elementor-addons.php:923
+#: ../class-master-elementor-addons.php:903
 msgid "<b>Master Addons</b> requires <strong>Elementor</strong> plugin to be active. Please activate Elementor to continue."
 msgstr ""
 
-#: ../class-master-elementor-addons.php:924
+#: ../class-master-elementor-addons.php:904
 msgid "Activate Elementor"
 msgstr ""
 
 #. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
-#: ../class-master-elementor-addons.php:950
+#: ../class-master-elementor-addons.php:930
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater. "
 msgstr ""
 
-#: ../class-master-elementor-addons.php:951, ../class-master-elementor-addons.php:967, ../inc/admin/dashboard-settings.php:116
+#: ../class-master-elementor-addons.php:931, ../class-master-elementor-addons.php:947, ../inc/admin/dashboard-settings.php:116
 msgid "Master Addons for Elementor"
 msgstr ""
 
 #. translators: 1: Plugin name 2: PHP 3: Required PHP version
-#: ../class-master-elementor-addons.php:966
+#: ../class-master-elementor-addons.php:946
 msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
 msgstr ""
 
-#: ../class-master-elementor-addons.php:968, ../premium/addons/ma-source-code/ma-source-code.php:443
+#: ../class-master-elementor-addons.php:948, ../premium/addons/ma-source-code/ma-source-code.php:443
 msgid "PHP"
 msgstr ""
 

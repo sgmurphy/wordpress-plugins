@@ -1,6 +1,7 @@
 import { event as gtEvent } from "vue-gtag";
 import { event as fpEvent } from "./facebookPixel";
 import { useCartItem } from "./cart";
+import {useAppointmentBookingData, usePackageBookingData} from "./booking";
 
 function trackAmeliaData (data, marketing, type, action) {
   Object.keys(marketing).forEach((analytics) => {
@@ -178,6 +179,8 @@ function useAction (store, additionalData, action, type, successCallback, errorC
       }
 
       data.booking = store.getters['booking/getBooking']
+
+      data.appointments = useAppointmentBookingData(store)
     }
 
       break
@@ -188,6 +191,8 @@ function useAction (store, additionalData, action, type, successCallback, errorC
       ) : null
 
       data.booking = store.getters['booking/getBooking']
+      //data.appointments = usePackageBookingData(store)
+
       break
 
     case ('event'):

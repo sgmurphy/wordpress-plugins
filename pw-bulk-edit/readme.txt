@@ -3,9 +3,9 @@ Contributors: pimwick
 Donate link: https://paypal.me/pimwick
 Tags: woocommerce, bulk edit, products, prices, batch
 Requires at least: 4.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.125
+Stable tag: 2.126
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,6 +83,9 @@ You're in control of your WooCommerce product catalog with the power of PW WooCo
 
 == Changelog ==
 
+= 2.126 =
+* Compatibility with WordPress 6.6 and WooCommerce 9.1. Added requirement for WooCommerce plugin to be installed.
+
 = 2.125 =
 * Compatibility for WooCommerce v9.0
 
@@ -110,16 +113,13 @@ You're in control of your WooCommerce product catalog with the power of PW WooCo
 = 2.117 =
 * Sanitize the product columns to prevent issues when using the pwbe_product_columns hook in custom functions.php files.
 
-= 2.116 =
-* Confirmed compatibility with WooCommerce 7.8
-
 = Previous versions =
 * See changelog.txt
 
 == Upgrade Notice ==
 
-= 2.125 =
-* Compatibility for WooCommerce v9.0
+= 2.126 =
+* Compatibility with WordPress 6.6 and WooCommerce 9.1. Added requirement for WooCommerce plugin to be installed.
 
 == Frequently Asked Questions ==
 

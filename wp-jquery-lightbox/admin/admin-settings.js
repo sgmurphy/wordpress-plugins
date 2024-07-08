@@ -97,7 +97,7 @@ wp.domReady( function () {
 			<p>The brilliant new LightPress Pro Lightbox with more options and better performance. This is a Pro Feature.</p>
 			<a class="pro-action-button" href="https://lightpress.io/pro-lightbox" target="_blank">Learn More</a>
 			<a class="pro-action-button" href="https://lightpress.io/pro-lightbox" target="_blank">See Demos</a>
-			<p style="font-style:italic;font-size:16px;'">See prices and buy directly from your WordPress dashboard <a href="${lightpress.proAdminUrl}">here</a>!</p>
+			<p style="font-style:italic;font-size:16px;'">See prices and buy directly from your WordPress dashboard <a href="${lightpress.proLandingUrl}">here</a>!</p>
 		`;
 		document.querySelector( '.active-lightbox-heading' ).after( promoSection );
 	}
@@ -105,25 +105,30 @@ wp.domReady( function () {
 
 (function($) {
 	$( document ).ready( function() {
-		var container = $('.lightpress-review-notice');
-		if ( container.length ) {
-			container.find( '.lightpress-review-actions a' ).click(function() {
-				container.remove();
-				var rateAction = $( this ).attr( 'data-rate-action' );
-				$.post(
-					ajaxurl,
-					{
-						action: 'lightpress-review-action',
-						rate_action: rateAction,
-						_n: container.find( 'ul:first' ).attr( 'data-nonce' )
-					},
-					function( result ) {}
-				);
+		window.onload = () => {
+			if ( '1' === lightpress.openModal ) {
+				const button = document.querySelector( '#lightpress-open-modal' );
+				button.click();
+			}
+		};
 
-				if ( 'do-rate' !== rateAction ) {
-					return false;
+		$( '.lightpress-optin-actions a' ).click( function() {
+			const optinAction = $( this ).attr( 'data-optin-action' );
+			const nonce = $( '.lightpress-optin-actions' ).attr( 'data-nonce' );
+			const closeButton = $( '#TB_closeWindowButton' );
+			$.post(
+				ajaxurl,
+				{
+					action: 'lightpress-optin-action',
+					optin_action: optinAction,
+					_n: nonce
+				},
+				function( result ) {
+					console.log( result );
 				}
-			});
-		}
+			);
+			closeButton.click();
+		});
+
 	});
 })( jQuery );

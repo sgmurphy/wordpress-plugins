@@ -572,6 +572,7 @@
               :categorized-service-list="editCategorizedServiceList"
               :future-appointments="futureAppointments"
               :employee-id="employee.id"
+              :mandatory-services-ids="employee.mandatoryServicesIds"
             />
           </el-tab-pane>
 

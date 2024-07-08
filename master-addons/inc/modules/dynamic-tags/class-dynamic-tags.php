@@ -10,11 +10,7 @@ class JLTMA_Extension_Dynamic_Tags
 
 	public function __construct()
 	{
-		if (defined('ELEMENTOR_VERSION') && version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
-			add_action('elementor/dynamic_tags/register_tags', [$this, 'jltma_register_dynamic_tags']);
-		}else{
-			add_action('elementor/dynamic_tags/register', [$this, 'jltma_register_dynamic_tags']);
-		}
+		add_action('elementor/dynamic_tags/register', [$this, 'jltma_register_dynamic_tags']);
 	}
 
 	/**
@@ -246,11 +242,7 @@ class JLTMA_Extension_Dynamic_Tags
 					$class_name = __NAMESPACE__ . '\\' . $tags_info['class'];
 				}
 
-				if (defined('ELEMENTOR_VERSION') && version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
-					$dynamic_tags->register_tag($class_name);
-				}else{
-					$dynamic_tags->register(new $class_name);
-				}
+				$dynamic_tags->register(new $class_name);
 			}
 		}
 	}

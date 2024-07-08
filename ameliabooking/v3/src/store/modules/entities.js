@@ -150,6 +150,10 @@ function setEntities ({ commit, rootState }, entities, types, licence, showHidde
   }
 
   types.forEach(ent => {
+    if (!(ent in entities)) {
+      entities[ent] = []
+    }
+
     if (ent === 'categories') {
       entities[ent].forEach((category, categoryIndex) => {
         if (settings.activation.stash) {

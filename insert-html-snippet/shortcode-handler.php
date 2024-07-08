@@ -8,7 +8,10 @@ add_shortcode('xyz-ihs','xyz_ihs_display_content');
 
 function xyz_ihs_display_content($xyz_snippet_name){
 	global $wpdb;
-	
+	if (is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ))
+	{
+				return ''; // Do not execute the shortcode in the admin area
+	}
 	if(is_array($xyz_snippet_name)&& isset($xyz_snippet_name['snippet'])){
 	   
 		$snippet_name = $xyz_snippet_name['snippet'];

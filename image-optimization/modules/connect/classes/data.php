@@ -245,7 +245,7 @@ class Data {
 									SELECT option_name
 									FROM $wpdb->options
 									WHERE option_name = %s
-								  	AND option_value = %s 
+								  	AND option_value = %s
 									AND %s = %s
 								) LIMIT 1",
 				$option_name,
@@ -276,6 +276,25 @@ class Data {
 		$owner_id = (int) self::get_connect_mode_data( self::OPTION_OWNER_USER_ID, false );
 
 		return get_current_user_id() === $owner_id;
+	}
+
+	public static function ensure_reset_connect() {
+		if ( Config::CONNECT_MODE === 'site' ) {
+			self::delete_option( self::ACCESS_TOKEN );
+			self::delete_option( self::REFRESH_TOKEN );
+			self::delete_option( self::TOKEN_ID );
+			self::delete_option( self::SUBSCRIPTION_ID );
+			self::delete_option( self::OPTION_OWNER_USER_ID );
+			delete_transient( 'image_optimizer_status_check ');
+		} else {
+			$user_id = get_current_user_id();
+			self::delete_user_data( $user_id, self::ACCESS_TOKEN );
+			self::delete_user_data( $user_id, self::REFRESH_TOKEN );
+			self::delete_user_data( $user_id, self::TOKEN_ID );
+			self::delete_user_data( $user_id, self::SUBSCRIPTION_ID );
+			self::delete_user_data( $user_id, self::OPTION_OWNER_USER_ID );
+			delete_transient( 'image_optimizer_status_check' );
+		}
 	}
 
 	/**

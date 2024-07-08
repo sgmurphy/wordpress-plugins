@@ -200,6 +200,10 @@ export default {
       setEmployeeBadgesData(payload.entities.employees, rootState.settings.roles.providerBadges.badges)
 
       payload.types.forEach(ent => {
+        if (!(ent in payload.entities)) {
+          payload.entities[ent] = []
+        }
+
         commit(
           `set${ent.charAt(0).toUpperCase()}${ent.slice(1)}`,
           ent === 'customFields' ? payload.entities['customFields'].sort(function(a, b) {

@@ -1,13 +1,15 @@
 === WordPress Hide Posts ===
 Contributors: martin7ba
 Donate link: https://www.martincv.com/whp-donate
-Tags: hide posts, hide, show, visibility, hide products, rss feed, rest api
+Tags: hide posts, hide, show, visibility, hide products
 Requires at least: 5.0
 Tested up to: 6.5.5
 Requires PHP: 7.3
 Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+Allows you to hide any posts on the home page, category page, search page, tags page, authors page, RSS Feed, REST API, Post Navigation and more.
 
 == Description ==
 
