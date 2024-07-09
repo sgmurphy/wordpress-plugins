@@ -86,9 +86,8 @@
 
 /* Tooltip styles start */
 .yrm-tooltip {
-	position: relative;
-	display: inline-block;
-	width: 100%;
+	display: inline;
+	vertical-align: top;
 }
 
 .yrm-tooltip .yrm-tooltiptext {

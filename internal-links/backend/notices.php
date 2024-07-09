@@ -45,6 +45,12 @@ class Notices
      */
     public static function dismiss_admin_warning_litespeed()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-general-nonce')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         Options::setOption(self::ILJ_DISMISS_ADMIN_WARNING_LITESPEED, true);
         wp_die();
     }

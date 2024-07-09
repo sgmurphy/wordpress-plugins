@@ -3,7 +3,7 @@ Plugin Name: JetBackup - WP Backup, Migrate & Restore
 Contributors: JetBackup, JetBackup Support
 Author: JetBackup
 Donate link: https://www.jetbackup.com/jetbackup-for-wordpress
-Tags: backup, WordPress backup plugin, backup plugin, database backup, migrate, back up
+Tags: backup, WordPress backup plugin, backup plugin, database backup, migrate
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4

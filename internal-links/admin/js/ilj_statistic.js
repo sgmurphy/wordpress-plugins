@@ -95,8 +95,6 @@ function iljCreateModal(title, content) {
 /******/ 
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
 /*!***************************************!*\
   !*** ./src/admin/js/ilj_statistic.js ***!
   \***************************************/
@@ -195,29 +193,17 @@ __webpack_require__.r(__webpack_exports__);
    * Initializing the statistics
    */
   $(document).ready(function () {
-    /**
-     * Get all available types in the statistic table
-     */
-    var get_available_types = function ($table) {
-      var types = {};
-      $table.dataTable().api().rows().every(function (index) {
-        var row = $table.dataTable().api().row(index);
-        var data = row.data();
-        var $inner = $(data[2].display);
-        var type_main = $inner.attr('data-type');
-        var type_sub = $inner.text();
-        if (types[type_main] === undefined) {
-          types[type_main] = [];
-        }
-        types[type_main].push(type_sub);
-      });
-      $.each(types, function (property, value) {
-        types[property] = types[property].filter(function (x, i, a) {
-          return a.indexOf(x) == i;
-        });
-      });
-      return types;
-    };
+    var selected_types = ilj_link_statistic_filter_types.reduce(function (acc, e) {
+      if (undefined === acc[e.main_type]) {
+        acc[e.main_type] = new Set();
+      }
+      acc[e.main_type].add(e.sub_type);
+      return acc;
+    }, {});
+    var all_types = {};
+    Object.keys(selected_types).forEach(function (key, index) {
+      all_types[key] = Array.from(new Set(selected_types[key]));
+    });
 
     /**
      * Returns the translated label for a parent type (post, term, custom)
@@ -241,47 +227,37 @@ __webpack_require__.r(__webpack_exports__);
      * Get the complete type filter node
      * @returns {jQuery}
      */
-    var get_type_filter = function ($table) {
-      var available_types = get_available_types($table);
-      var $wrapper = $('<div/>').addClass('ilj-type-filter-wrapper');
-      var $container = $('<ul/>');
+    var get_type_filter = function () {
+      var $wrapper = $('<div id="ilj-type-filter-wrapper" class="ilj-type-filter-wrapper"/>');
+      var $container = $('<ul id="ilj-link-statistics-filter" />');
       var $dropdown_link = $('<a/>').addClass('ilj-type-filter-dropdown').text(ilj_statistic_translation.filter_type).on('click', function () {
         $wrapper.toggleClass('show');
       });
       $wrapper.append($dropdown_link, $container);
-      $container.activeTypes = [];
-      $container.activeTypes.remove = function (target) {
-        var index = this.indexOf(target);
-        if (index > -1) {
-          this.splice(index, 1);
-        }
-      };
-      $.each(available_types, function (index, element) {
-        var label = get_main_type_label(index);
+      $.each(all_types, function (main_type, element) {
+        var label = get_main_type_label(main_type);
         var $elem = $('<li/>').html($('<span/>').text(label));
         var $sub_container = $('<ul/>');
         $container.append($elem);
         if (element.length) {
           $elem.append($sub_container);
         }
-        $.each(element, function (subindex, subelement) {
+        $.each(element, function (subindex, sub_type) {
           var $sub_elem_toggle = $('<input/>').attr({
-            type: 'checkbox',
-            checked: 'checked'
+            type: 'checkbox'
           }).on('change', function () {
-            var type = index + ';' + subelement;
             if (true === $(this).prop('checked')) {
-              $container.activeTypes.push(type);
+              selected_types[main_type].add(sub_type);
             } else {
-              $container.activeTypes.remove(type);
+              selected_types[main_type].delete(sub_type);
             }
-            var type_column = $table.dataTable().api().column('th.type');
-            var type_search = $container.activeTypes.length ? $container.activeTypes.join('|') : null;
-            type_column.search(type_search, true, false).draw();
+            jQuery('.ilj-statistic-table-links').dataTable().api().ajax.reload();
           });
-          var $sub_elem_inner = $('<label/>').html($('<span/>').text(subelement).attr('data-type', index));
+          if (selected_types[main_type].has(sub_type)) {
+            $sub_elem_toggle.attr('checked', true);
+          }
+          var $sub_elem_inner = $('<label/>').html($('<span/>').text(sub_type).attr('data-type', main_type));
           var $sub_elem = $('<li/>').addClass('type').html($sub_elem_inner);
-          $container.activeTypes.push(index + ';' + subelement);
           $sub_elem_inner.prepend($sub_elem_toggle);
           $sub_container.append($sub_elem);
         });
@@ -327,74 +303,154 @@ __webpack_require__.r(__webpack_exports__);
         parentElement.appendChild(table);
       }
     }
-    function load_statistics_chunk(start_count) {
-      jQuery.ajax({
-        type: 'POST',
-        url: ajaxurl,
-        // WordPress AJAX URL
-        data: {
-          action: 'load_statistics_chunk',
-          nonce: ilj_dashboard.nonce,
-          start_count: start_count,
-          chunk_size: chunk_size
-        },
-        success: function (response) {
-          // Append the HTML chunk to your table
-          if ('null' != response) {
-            link_statistics_table_data += response;
-          }
+    render_link_statistics_table();
 
-          // Update the start_count for the next chunk
-          start_count += chunk_size;
-          // If there's more data, load the next chunk
-          if ('null' != response) {
-            load_statistics_chunk(start_count);
-          } else {
-            render_link_statistics_table();
-          }
-        },
-        error: function (error) {
-          console.log('Error loading statistics: ', error);
-        }
+    /**
+     * Helper function to get
+     * @param {string} element_name The html element name
+     * @param {string} content The html content, optional.
+     * @param {object} attributes
+     * @returns {string}
+     */
+    function ilj_create_element_with_attributes(element_name, content, attributes) {
+      const element = document.createElement(element_name);
+      if (content) {
+        element.innerText = content;
+      }
+      Object.entries(attributes).forEach(function ([key, value]) {
+        element.setAttribute(key, value);
       });
+      const result = element.outerHTML;
+      // Remove the element once we get the result.
+      element.remove();
+      return result;
     }
     function render_link_statistics_table() {
       create_link_statistics_table();
       var $table = jQuery('.ilj-statistic-table-links');
       jQuery('.ilj-statistic-table-links tbody').append(link_statistics_table_data);
       $tabnav.show();
-      $('#statistic-links').html($table);
-
+      $('#statistic-links').append($table);
       /**
        * Render the statistics table
        */
-      $table.DataTable({
+      var dataTable = $table.DataTable({
         stateSave: false,
+        serverSide: true,
+        processing: true,
+        searchDelay: 800,
+        ajax: {
+          beforeSend: function () {
+            $('#link-statistics-loader').show();
+          },
+          url: ajaxurl,
+          type: 'POST',
+          data: {
+            action: 'load_link_statistics',
+            nonce: ilj_dashboard.nonce,
+            main_types: function () {
+              return Object.keys(selected_types);
+            },
+            sub_types: function () {
+              var sub_types = Object.values(selected_types).reduce(function (acc, element) {
+                return acc.concat(Array.from(element));
+              }, []);
+              return Array.from(new Set(sub_types));
+            }
+          }
+        },
         columnDefs: [{
-          orderable: false,
-          targets: 5
-        }, {
+          className: 'asset-title',
           responsivePriority: 1,
-          targets: 0
+          targets: 0,
+          data: null,
+          render: function (data, type, row) {
+            // Use a regular expression to replace HTML tags with an empty string
+            var cleanTitle = row.title.replace(/<\/?[^>]+(>|$)/g, "");
+            return cleanTitle;
+          }
         }, {
+          targets: 1,
+          data: null,
+          render: function (data, type, row) {
+            return row.keywords_count;
+          }
+        }, {
+          className: 'type',
           responsivePriority: 2,
-          targets: 3
+          data: null,
+          targets: 2,
+          render: function (data, type, row) {
+            var content_type = row.sub_type ? row.sub_type : row.main_type;
+            return ilj_create_element_with_attributes('span', content_type, {
+              "data-type": row.main_type
+            });
+          }
         }, {
           responsivePriority: 3,
-          targets: 4
+          data: null,
+          targets: 3,
+          render: function (data, type, row) {
+            if (0 === parseInt(row.incoming_links)) {
+              return "-";
+            }
+            return ilj_create_element_with_attributes('a', row.incoming_links, {
+              "data-type": row.main_type,
+              title: ilj_statistic_translation.show_incoming_links,
+              class: 'tip ilj-statistic-detail',
+              "data-id": row.id,
+              "data-direction": 'to'
+            });
+          }
         }, {
           responsivePriority: 4,
-          targets: 5
+          data: null,
+          targets: 4,
+          render: function (data, type, row) {
+            if (0 === parseInt(row.outgoing_links)) {
+              return "-";
+            }
+            return ilj_create_element_with_attributes('a', row.outgoing_links, {
+              "data-type": row.main_type,
+              title: ilj_statistic_translation.show_outgoing_links,
+              class: 'tip ilj-statistic-detail',
+              "data-id": row.id,
+              "data-direction": 'from'
+            });
+          }
+        }, {
+          responsivePriority: 5,
+          data: null,
+          targets: 5,
+          orderable: false,
+          render: function (data, type, row) {
+            return `<a href="${row.edit_link}" class="tip"><span class="dashicons dashicons-edit"></span></a> <a class="tip"  target="_blank" rel="noopener" href="${row.permalink}"><span class="dashicons dashicons-external"></span></a>`;
+          }
         }],
         language: dataTables_language,
         stateLoaded: function (settings, data) {
           $table.find('.tip').iljtipso(tipsoConfig);
         },
-        initComplete: function () {
-          var type_filter = get_type_filter($table);
-          $('#statistic-links .dataTables_wrapper .dataTables_filter').append(type_filter);
+        drawCallback: function (settings) {
+          const existing_filter = document.getElementById('ilj-type-filter-wrapper');
+          if (existing_filter) {
+            existing_filter.parentNode.removeChild(existing_filter);
+          }
+          $('#statistic-links .dataTables_wrapper .dataTables_filter').append(get_type_filter());
+          $('#link-statistics-loader').hide();
         },
         responsive: true
+      });
+
+      // Unbind the default search input event handler
+      $('.dataTables_filter input', $table.closest('.dataTables_wrapper')).off();
+
+      // Custom search trigger on Enter key
+      $('.dataTables_filter input', $table.closest('.dataTables_wrapper')).on('keyup', function (e) {
+        if (e.keyCode === 13) {
+          // Enter key
+          dataTable.search(this.value).draw();
+        }
       });
       $table.find('.tip').iljtipso(tipsoConfig);
 
@@ -418,6 +474,7 @@ __webpack_require__.r(__webpack_exports__);
         }
         var data = {
           'action': 'ilj_render_link_detail_statistic',
+          'nonce': ilj_dashboard.nonce,
           'id': id,
           'type': type,
           'direction': direction
@@ -535,6 +592,7 @@ __webpack_require__.r(__webpack_exports__);
         var link_count = $(this).text();
         var data = {
           'action': 'ilj_render_anchor_detail_statistic',
+          'nonce': ilj_dashboard.nonce,
           'anchor': anchor
         };
         $.ajax({
@@ -548,8 +606,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    // Initial call to load the first chunk of data for link statistics table
-    load_statistics_chunk(0);
     // Initial call to load the first chunk of data for anchor statistics table
     load_anchor_statistics_chunk(0);
   });
@@ -558,11 +614,9 @@ __webpack_require__.r(__webpack_exports__);
    * Hide type filter if open
    */
   $(document).on('mouseup', function (e) {
-    var $wrapper = $('.ilj-type-filter-wrapper');
+    var $wrapper = $('#ilj-type-filter-wrapper');
     if (!$wrapper.is(e.target) && $wrapper.has(e.target).length === 0) {
       $wrapper.removeClass('show');
     }
   });
 })(jQuery);
-})();
-

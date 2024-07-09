@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use AiBuilder\Inc\Traits\Helper;
+
 /**
  * Replace Images
  */
@@ -1099,7 +1101,7 @@ class Astra_Sites_Replace_Images {
 					self::$filtered_images[] = $image;
 				}
 			} else {
-				$placeholder_images = Astra_Sites_ZipWP_Helper::get_image_placeholders();
+				$placeholder_images = Helper::get_image_placeholders();
 				self::$filtered_images[] = $placeholder_images[0];
 				self::$filtered_images[] = $placeholder_images[1];
 			}

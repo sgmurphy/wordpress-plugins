@@ -4,10 +4,10 @@
   Plugin URI: https://underconstructionpage.com/
   Description: Put your site behind a great looking under construction, coming soon, maintenance mode or landing page.
   Author: WebFactory Ltd
-  Version: 4.00
+  Version: 4.01
   Requires at least: 4.0
   Requires PHP: 5.2
-  Tested up to: 6.5
+  Tested up to: 6.6
   Author URI: https://www.webfactoryltd.com/
   Text Domain: under-construction-page
 
@@ -147,7 +147,7 @@ class UCP
     // display error message if WP version is too low
     static function notice_min_wp_version()
     {
-        echo '<div class="error"><p>' . sprintf(__('UnderConstruction plugin <b>requires WordPress version 4.0</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'under-construction-page'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>';
+        self::wp_kses_wf('<div class="error"><p>' . sprintf(__('UnderConstruction plugin <b>requires WordPress version 4.0</b> or higher to function properly. You are using WordPress version %s. Please <a href="%s">update it</a>.', 'under-construction-page'), get_bloginfo('version'), admin_url('update-core.php')) . '</p></div>');
     } // notice_min_wp_version_error
 
 
@@ -785,7 +785,7 @@ class UCP
             !self::is_construction_mode_enabled(false)
         )
             // keeping everything inline due to minimal CSS
-            echo '<div style="background-color: #333; line-height: 140%; font-size: 14px; position: fixed; display: block; top: 50px; z-index: 99999; color: #fefefe; padding: 20px 35px 20px 20px; width: 100%; max-width:400px; border: thin solid #fefefe; left: -1px;"><a style="color: #ea1919;font-weight: 900;text-decoration: none;position: absolute;top: 12px;right: 10px;font-size: 40px;background: #000;padding: 5px 4px 4px 4px;border: 3px solid #ea1919;border-radius: 20px; height: 35px;" href="' . esc_url($dismiss_url) . '" alt="Dismiss notice" onclick="window.location.href = \'' . esc_url($dismiss_url) . '\'; return false;" title="Dismiss notice">×</a>' . __('<b>Under Construction Mode is enabled</b> but you are whitelisted so you see the normal site.', 'under-construction-page') . '<br><a href="' . esc_url(get_home_url()) . '/?ucp_preview" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Preview UnderConstructionPage', 'under-construction-page') . '</a><br><a href="' . esc_url(admin_url('options-general.php?page=ucp')) . '" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Configure UnderConstructionPage', 'under-construction-page') . '</a></div>';
+            echo '<div style="background-color: #333; line-height: 140%; font-size: 14px; position: fixed; display: block; top: 50px; z-index: 99999; color: #fefefe; padding: 20px 35px 20px 20px; width: 100%; max-width:400px; border: thin solid #fefefe; left: -1px;"><a style="color: #ea1919;font-weight: 900;text-decoration: none;position: absolute;top: 12px;right: 10px;font-size: 40px;background: #000;padding: 5px 4px 4px 4px;border: 3px solid #ea1919;border-radius: 20px; height: 35px;" href="' . esc_url($dismiss_url) . '" alt="Dismiss notice" onclick="window.location.href = \'' . esc_url($dismiss_url) . '\'; return false;" title="Dismiss notice">×</a>' . esc_html__('<b>Under Construction Mode is enabled</b> but you are whitelisted so you see the normal site.', 'under-construction-page') . '<br><a href="' . esc_url(get_home_url()) . '/?ucp_preview" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Preview UnderConstructionPage', 'under-construction-page') . '</a><br><a href="' . esc_url(admin_url('options-general.php?page=ucp')) . '" style="text-decoration: underline; color: #fefefe;">' . esc_attr__('Configure UnderConstructionPage', 'under-construction-page') . '</a></div>';
     } // whitelisted_notification
 
 
@@ -810,7 +810,7 @@ class UCP
             echo '<p class="center">Thank you for purchasing UnderConstructionPage PRO! <b>Your license has been verified and activated.</b><br>To start using the PRO version, please follow these steps:</p>';
             echo '<ol>';
             echo '<li><a href="https://underconstructionpage.com/pro-download/" target="_blank">Download</a> the latest version of the PRO plugin.</li>';
-            echo '<li>Go to <a href="' . admin_url('plugin-install.php') . '">Plugins - Add New - Upload Plugin</a> and upload the ZIP you just downloaded.</li>';
+            echo '<li>Go to <a href="' . esc_url(admin_url('plugin-install.php')) . '">Plugins - Add New - Upload Plugin</a> and upload the ZIP you just downloaded.</li>';
             echo '<li>If asked to replace (overwrite) the free version - confirm it.</li>';
             echo '<li>Activate the plugin.</li>';
             echo '<li>That\'s it, no more steps.</li>';
@@ -1453,7 +1453,7 @@ class UCP
       <label for="status" class="toggle"><span class="toggle_handler"></span></label>
     </div>';
 
-        echo '<p class="description">' . __('By enabling construction mode users will not be able to access the site\'s content. They will only see the under construction page. To configure exceptions set <a class="change_tab" data-tab="3" href="#whitelisted-roles">whitelisted user roles</a>.', 'under-construction-page') . '</p>';
+        self::wp_kses_wf('<p class="description">' . __('By enabling construction mode users will not be able to access the site\'s content. They will only see the under construction page. To configure exceptions set <a class="change_tab" data-tab="3" href="#whitelisted-roles">whitelisted user roles</a>.', 'under-construction-page') . '</p>');
         echo '</td></tr>';
 
         echo '<tr valign="top">
@@ -1464,7 +1464,7 @@ class UCP
       <label for="search_engines" class="toggle"><span class="toggle_handler"></span></label>
     </div>';
 
-        echo '<p class="description">' . __('While performing maintenance or having any temporary content displayed, it is favorable for SEO to prevent search engines from indexing the temporaray site. This is a <a href="#" class="open-ucp-upsell" data-pro-ad="search_engines_text">PRO feature</a>.', 'under-construction-page') . '</p>';
+        self::wp_kses_wf('<p class="description">' . __('While performing maintenance or having any temporary content displayed, it is favorable for SEO to prevent search engines from indexing the temporaray site. This is a <a href="#" class="open-ucp-upsell" data-pro-ad="search_engines_text">PRO feature</a>.', 'under-construction-page') . '</p>');
         echo '</td></tr>';
 
         echo '<tr valign="top">
@@ -1570,7 +1570,7 @@ class UCP
             echo '<div class="toggle-wrapper">
       <input type="checkbox" id="smush_support" type="checkbox" value="1" class="skip-save open-smush-install">
       <label for="smush_support" class="toggle"><span class="toggle_handler"></span></label></div>';
-            echo '<p class="description">The easiest way to speed up any site is to <b>compress images</b>. On an average page you can easily save a few megabytes. Doing it manually in Photoshop is a pain! That\'s why there are free plugins like <a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550') . '" class="thickbox open-plugin-details-modal smush-thickbox" id="smush-install-link">Smush</a> that specialize in compressing images. <a href="' . admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550') . '" class="thickbox open-plugin-details-modal smush-thickbox">Install the free Smush plugin</a>. It has no limit on the amount of images you can compress, seamlessly integrates with WordPress, and is compatible with all plugins &amp; themes. And best of all - <b>it\'s used by over a million users just like you</b>.</p>';
+            echo '<p class="description">The easiest way to speed up any site is to <b>compress images</b>. On an average page you can easily save a few megabytes. Doing it manually in Photoshop is a pain! That\'s why there are free plugins like <a href="' . esc_url(admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550')) . '" class="thickbox open-plugin-details-modal smush-thickbox" id="smush-install-link">Smush</a> that specialize in compressing images. <a href="' . esc_url(admin_url('plugin-install.php?fix-install-button=1&tab=plugin-information&plugin=wp-smushit&TB_iframe=true&width=600&height=550')) . '" class="thickbox open-plugin-details-modal smush-thickbox">Install the free Smush plugin</a>. It has no limit on the amount of images you can compress, seamlessly integrates with WordPress, and is compatible with all plugins &amp; themes. And best of all - <b>it\'s used by over a million users just like you</b>.</p>';
         }
         echo '</td>';
         echo '</tr>';
@@ -1931,7 +1931,7 @@ class UCP
         foreach ($roles as $tmp_role) {
             echo  '<input name="' . esc_attr(UCP_OPTIONS_KEY) . '[whitelisted_roles][]" id="roles-' . esc_attr($tmp_role['val']) . '" ' . esc_attr(self::checked($tmp_role['val'], $options['whitelisted_roles'], false)) . ' value="' . esc_attr($tmp_role['val']) . '" type="checkbox" /> <label for="roles-' . esc_attr($tmp_role['val']) . '">' . esc_attr($tmp_role['label']) . '</label><br />';
         }
-        echo '<p class="description">' . __('Selected user roles will <b>not</b> be affected by the under construction mode and will always see the "normal" site. Default: administrator.', 'under-construction-page') . '</p>';
+        self::wp_kses_wf('<p class="description">' . __('Selected user roles will <b>not</b> be affected by the under construction mode and will always see the "normal" site. Default: administrator.', 'under-construction-page') . '</p>');
         echo '</td></tr>';
 
         echo '<tr valign="top">
@@ -1939,7 +1939,7 @@ class UCP
     <td><select id="whitelisted_users" class="select2" style="width: 50%; max-width: 300px;" name="' . esc_attr(UCP_OPTIONS_KEY) . '[whitelisted_users][]" multiple>';
         self::create_select_options($users, $options['whitelisted_users'], true);
 
-        echo '</select><p class="description">' . __('Selected users (when logged in) will <b>not</b> be affected by the under construction mode and will always see the "normal" site.', 'under-construction-page') . '</p>';
+        self::wp_kses_wf('</select><p class="description">' . __('Selected users (when logged in) will <b>not</b> be affected by the under construction mode and will always see the "normal" site.', 'under-construction-page') . '</p>');
         echo '</td></tr>';
 
         echo '<tr>';
@@ -2025,7 +2025,7 @@ class UCP
         echo '<div id="support-hero"><p>Our average response time is 1.5h! <b>85% of tickets are resolved within 1 hour!</b> No ticket is left unanswered. If something is not working, don\'t think twice;</p><p><a class="button button-primary" href="https://wordpress.org/support/plugin/under-construction-page/#new-post" target="_blank">OPEN A SUPPORT TICKET NOW</a></p></div>';
 
         echo '<p class="description">Our support agents need this info to provide faster &amp; better support. Please include the following data in your message;</p>';
-        echo '<p>WordPress version: <code>' . get_bloginfo('version') . '</code><br>';
+        echo '<p>WordPress version: <code>' . esc_html(get_bloginfo('version')) . '</code><br>';
         echo 'UCP Version: <code>' . esc_attr(self::$version) . '</code><br>';
         echo 'PHP Version: <code>' . esc_attr(PHP_VERSION) . '</code><br>';
         echo 'Site URL: <code>' . esc_url(get_bloginfo('url')) . '</code><br>';
@@ -2419,7 +2419,7 @@ class UCP
 		</style>';
 
         echo '<div style="margin: 20px; color:#444;">';
-        echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=weglot&tab=search&type=term') . '">install the plugin manually via Plugins page</a><br><br>';
+        echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=weglot&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
         echo 'Starting ...<br><br>';
 
         wp_cache_flush();
@@ -2446,7 +2446,7 @@ class UCP
                 echo '<br>If you are not redirected in a few seconds - <a href="options-general.php?page=ucp" target="_parent">click here</a>.';
             }
         } else {
-            echo 'Could not install Weglot. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=weglot&tab=search&type=term') . '">download and install manually</a>.';
+            echo 'Could not install Weglot. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=weglot&tab=search&type=term')) . '">download and install manually</a>.';
         }
 
         echo '</div>';
@@ -2480,7 +2480,7 @@ class UCP
 		</style>';
 
         echo '<div style="margin: 20px; color:#444;">';
-        echo 'If things are not done in a minute <a target="_parent" href="' . admin_url('plugin-install.php?s=force%20ssl%20webfactory&tab=search&type=term') . '">install the plugin manually via Plugins page</a><br><br>';
+        echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=force%20ssl%20webfactory&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
         echo 'Starting ...<br><br>';
 
         wp_cache_flush();
@@ -2507,7 +2507,7 @@ class UCP
                 echo '<br>If you are not redirected in a few seconds - <a href="options-general.php?page=ucp" target="_parent">click here</a>.';
             }
         } else {
-            echo 'Could not install WP Force SSL. You\'ll have to <a target="_parent" href="' . admin_url('plugin-install.php?s=force%20ssl%20webfactory&tab=search&type=term') . '">download and install manually</a>.';
+            echo 'Could not install WP Force SSL. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=force%20ssl%20webfactory&tab=search&type=term')) . '">download and install manually</a>.';
         }
 
         echo '</div>';

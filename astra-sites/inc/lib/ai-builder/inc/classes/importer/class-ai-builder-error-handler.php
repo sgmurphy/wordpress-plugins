@@ -95,7 +95,7 @@ class Ai_Builder_Error_Handler {
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error on your website.', 'ai-builder', 'astra-sites' ),
+					'message' => __( 'There was an error on your website.', 'astra-sites' ),
 					'stack'   => array(
 						'error-message' => sprintf(
 							'%s: %s',
@@ -137,7 +137,7 @@ class Ai_Builder_Error_Handler {
 		if ( wp_doing_ajax() ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'There was an error your website.', 'ai-builder', 'astra-sites' ),
+					'message' => __( 'There was an error your website.', 'astra-sites' ),
 					'stack'   => array(
 						'error-message' => $error,
 						'error'         => $e,

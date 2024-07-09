@@ -79,7 +79,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return new \WP_Error(
 				'gt_rest_cannot_access',
-				__( 'Sorry, you are not allowed to do that.', 'ai-builder', 'astra-sites' ),
+				__( 'Sorry, you are not allowed to do that.', 'astra-sites' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -537,7 +537,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -631,7 +631,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -729,7 +729,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -789,7 +789,7 @@ class Ai_Builder_ZipWP_Api {
 				Ai_builder_Importer_Log::add( (string) wp_json_encode( $attachment_id ) );
 
 				if ( empty( $attachment_id ) ) {
-					wp_send_json_error( __( 'There was an error downloading the XML file.', 'ai-builder', 'astra-sites' ) );
+					wp_send_json_error( __( 'There was an error downloading the XML file.', 'astra-sites' ) );
 				} else {
 
 					update_option( 'astra_sites_imported_wxr_id', $attachment_id, 'no' );
@@ -801,7 +801,7 @@ class Ai_Builder_ZipWP_Api {
 						$data['xml'] = $file_path;
 						wp_send_json_success( $data );
 					} else {
-						wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+						wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 					}
 				}
 			} else {
@@ -838,7 +838,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -929,7 +929,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -941,18 +941,18 @@ class Ai_Builder_ZipWP_Api {
 		$api_endpoint = $this->get_api_domain() . '/sites/generate-user-cache/';
 
 		$business_details = array(
-			'business_description' => isset( $request['business_description'] ) ? sanitize_text_field( $request['business_description'] ) : '',
-			'business_name'        => isset( $request['business_name'] ) ? sanitize_text_field( $request['business_name'] ) : '',
-			'business_email'       => isset( $request['business_email'] ) ? sanitize_text_field( $request['business_email'] ) : '',
-			'business_address'     => isset( $request['business_address'] ) ? sanitize_text_field( $request['business_address'] ) : '',
-			'business_phone'       => isset( $request['business_phone'] ) ? sanitize_text_field( $request['business_phone'] ) : '',
-			'business_category'    => isset( $request['business_category'] ) ? sanitize_text_field( $request['business_category'] ) : '',
-			'category_name'        => isset( $request['business_category'] ) ? sanitize_text_field( $request['business_category'] ) : '',
-			'image_keyword'        => isset( $request['keywords'] ) ? $request['keywords'] : [],
-			'images'               => isset( $request['images'] ) ? $request['images'] : [],
-			'social_profiles'      => isset( $request['social_profiles'] ) ? $request['social_profiles'] : [],
-			'language'             => isset( $request['site_language'] ) ? sanitize_text_field( $request['site_language'] ) : 'en',
-			'templates'            => get_option( 'zipwp_selection_templates', array() ),
+			'business_description'   => isset( $request['business_description'] ) ? sanitize_text_field( $request['business_description'] ) : '',
+			'business_name'          => isset( $request['business_name'] ) ? sanitize_text_field( $request['business_name'] ) : '',
+			'business_email'         => isset( $request['business_email'] ) ? sanitize_text_field( $request['business_email'] ) : '',
+			'business_address'       => isset( $request['business_address'] ) ? sanitize_text_field( $request['business_address'] ) : '',
+			'business_phone'         => isset( $request['business_phone'] ) ? sanitize_text_field( $request['business_phone'] ) : '',
+			'business_category'      => isset( $request['business_category'] ) ? sanitize_text_field( $request['business_category'] ) : '',
+			'business_category_name' => isset( $request['business_category'] ) ? sanitize_text_field( $request['business_category'] ) : '',
+			'image_keyword'          => isset( $request['keywords'] ) ? $request['keywords'] : [],
+			'images'                 => isset( $request['images'] ) ? $request['images'] : [],
+			'social_profiles'        => isset( $request['social_profiles'] ) ? $request['social_profiles'] : [],
+			'language'               => isset( $request['site_language'] ) ? sanitize_text_field( $request['site_language'] ) : 'en',
+			'templates'              => get_option( 'zipwp_selection_templates', array() ),
 		);
 
 		update_option(
@@ -1021,7 +1021,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1099,7 +1099,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1170,7 +1170,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1246,7 +1246,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1326,7 +1326,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1406,7 +1406,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1488,7 +1488,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1565,7 +1565,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1630,7 +1630,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1695,7 +1695,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1766,7 +1766,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1832,7 +1832,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -1859,7 +1859,7 @@ class Ai_Builder_ZipWP_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'ai-builder', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)

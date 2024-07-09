@@ -200,7 +200,7 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You do not have permission to perform this action.', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You do not have permission to perform this action.', 'astra-sites' ) );
 			}
 		}
 		$wp_upload_path = wp_upload_dir();
@@ -220,7 +220,7 @@ class Helper {
 
 		if ( defined( 'WP_CLI' ) ) {
 			if ( ! $permissions['is_readable'] || ! $permissions['is_writable'] || ! $permissions['is_wp_filesystem'] ) {
-				\WP_CLI::error( esc_html__( 'Please contact the hosting service provider to help you update the permissions so that you can successfully import a complete template.', 'ai-builder', 'astra-sites' ) );
+				\WP_CLI::error( esc_html__( 'Please contact the hosting service provider to help you update the permissions so that you can successfully import a complete template.', 'astra-sites' ) );
 			}
 		} else {
 			wp_send_json_success(
@@ -250,7 +250,7 @@ class Helper {
 			if ( ! current_user_can( 'edit_posts' ) ) {
 				wp_send_json_error(
 					array(
-						'error' => __( 'Permission Denied!', 'ai-builder', 'astra-sites' ),
+						'error' => __( 'Permission Denied!', 'astra-sites' ),
 					)
 				);
 			}
@@ -413,7 +413,7 @@ class Helper {
 		if (
 			( ! defined( 'WP_CLI' ) && wp_doing_ajax() ) &&
 			( ( ! current_user_can( 'install_plugins' ) && ! empty( $response['notinstalled'] ) ) || ( ! current_user_can( 'activate_plugins' ) && ! empty( $response['inactive'] ) ) ) ) {
-			$message               = __( 'Insufficient Permission. Please contact your Super Admin to allow the install required plugin permissions.', 'ai-builder', 'astra-sites' );
+			$message               = __( 'Insufficient Permission. Please contact your Super Admin to allow the install required plugin permissions.', 'astra-sites' );
 			$required_plugins_list = array_merge( $response['notinstalled'], $response['inactive'] );
 			$markup                = $message;
 			$markup               .= '<ul>';
@@ -473,7 +473,7 @@ class Helper {
 				wp_send_json_error(
 					array(
 						'success' => false,
-						'message' => __( 'Error: You don\'t have the required permissions to install plugins.', 'ai-builder', 'astra-sites' ),
+						'message' => __( 'Error: You don\'t have the required permissions to install plugins.', 'astra-sites' ),
 					)
 				);
 			}
@@ -518,7 +518,7 @@ class Helper {
 			wp_send_json_success(
 				array(
 					'success' => true,
-					'message' => __( 'Plugin Activated', 'ai-builder', 'astra-sites' ),
+					'message' => __( 'Plugin Activated', 'astra-sites' ),
 				)
 			);
 		}
@@ -535,12 +535,12 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'User does not have permission!', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'User does not have permission!', 'astra-sites' ) );
 			}
 		}
 
 		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		$log_file_path = ST_Resetter::backup_settings();
@@ -568,7 +568,7 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 		if ( empty( $options_data ) ) {
@@ -576,7 +576,7 @@ class Helper {
 		}
 
 		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) || ! class_exists( 'STImporter\Importer\ST_Option_Importer' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		$result = ST_Importer::import_options( $options_data, ST_Option_Importer::site_options() );
@@ -592,7 +592,7 @@ class Helper {
 		if ( defined( 'WP_CLI' ) ) {
 			\WP_CLI::line( 'Site options Imported!' );
 		} elseif ( wp_doing_ajax() ) {
-			wp_send_json_success( __( 'Site options Imported!', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_success( __( 'Site options Imported!', 'astra-sites' ) );
 		}
 	}
 
@@ -612,14 +612,14 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		$data = astra_get_site_data( 'astra-site-widgets-data' );
 
 		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		$result = ST_Importer::import_widgets( $widgets_data, $data );
@@ -652,12 +652,12 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		if ( ! class_exists( 'STImporter\Importer\ST_Importer_File_System' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		$demo_data = ST_Importer_File_System::get_instance()->get_demo_content();
@@ -685,14 +685,14 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		Ai_Builder_Importer_Log::add( 'Deleted customizer Settings ' . wp_json_encode( get_option( 'astra-settings', array() ) ) );
 
 		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		ST_Resetter::reset_customizer_data();
@@ -717,7 +717,7 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
@@ -726,7 +726,7 @@ class Helper {
 		Ai_Builder_Importer_Log::add( 'Deleted - Site Options ' . wp_json_encode( $options ) );
 
 		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		ST_Resetter::reset_site_options( $options );
@@ -751,7 +751,7 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
@@ -759,7 +759,7 @@ class Helper {
 		$old_widgets_data = (array) get_option( '_astra_sites_old_widgets_data', array() );
 
 		if ( ! class_exists( 'STImporter\Resetter\ST_Resetter' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		ST_Resetter::reset_widgets_data( $old_widgets_data );
@@ -767,7 +767,7 @@ class Helper {
 		if ( defined( 'WP_CLI' ) ) {
 			\WP_CLI::line( 'Deleted Widgets!' );
 		} elseif ( wp_doing_ajax() ) {
-			wp_send_json_success( __( 'Deleted Widgets!', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_success( __( 'Deleted Widgets!', 'astra-sites' ) );
 		}
 	}
 
@@ -787,7 +787,7 @@ class Helper {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
@@ -798,11 +798,11 @@ class Helper {
 		if ( defined( 'WP_CLI' ) && empty( $customizer_data ) ) {
 			\WP_CLI::line( 'Customizer data is empty!' );
 		} elseif ( wp_doing_ajax() && empty( $customizer_data ) ) {
-			wp_send_json_error( __( 'Customizer data is empty!', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Customizer data is empty!', 'astra-sites' ) );
 		}
 
 		if ( ! class_exists( 'STImporter\Importer\ST_Importer' ) ) {
-			wp_send_json_error( __( 'Required class not found.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required class not found.', 'astra-sites' ) );
 		}
 
 		$result = ST_Importer::import_customizer_settings( $customizer_data );

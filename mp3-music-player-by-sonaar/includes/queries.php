@@ -91,6 +91,10 @@
             'from_rss' => 'RSS Feed',
             'from_text_file' => 'CSV File'
         );
+        if(function_exists( 'run_sonaar_music_generator' )){
+            //this function is unique to the sonaar-music-generate plugin
+            $options['from_user_meta'] = 'From User Meta';
+        }
         if(function_exists( 'run_sonaar_music_pro' ) &&  get_site_option('SRMP3_ecommerce') == '1'){
             $options['from_favorites'] = 'User Favorites';
             $options['recently_played'] = 'User Recently Played Tracks';

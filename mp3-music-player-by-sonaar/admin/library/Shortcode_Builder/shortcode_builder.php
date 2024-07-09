@@ -331,6 +331,7 @@ class SRMP3_ShortcodeBuilder {
             'show_tracks_count',
             'show_skip_bt',
             'show_shuffle_bt',
+            'show_repeat_bt',
             'show_speed_bt',
             'show_volume_bt',
             
@@ -440,6 +441,7 @@ class SRMP3_ShortcodeBuilder {
             unset($_POST['show_tracks_count']);
             unset($_POST['show_skip_bt']);
             unset($_POST['show_shuffle_bt']);
+            unset($_POST['show_repeat_bt']);
             unset($_POST['show_speed_bt']);
             unset($_POST['show_volume_bt']);
             unset($_POST['hide_progressbar']);
@@ -996,6 +998,7 @@ class SRMP3_ShortcodeBuilder {
                             strpos($key, 'hide_track_number') !== false ||
                             strpos($key, 'show_skip_bt') !== false ||
                             strpos($key, 'show_shuffle_bt') !== false ||
+                            strpos($key, 'show_repeat_bt') !== false ||
                             strpos($key, 'show_speed_bt') !== false ||
                             strpos($key, 'show_volume_bt') !== false ||
                             strpos($key, 'show_track_publish_date') !== false
@@ -2271,6 +2274,36 @@ class SRMP3_ShortcodeBuilder {
             'attributes'  => array(
                 'data-conditional-id'    => 'show_mini_player',
                 'data-conditional-value' => 'true', 
+            ),
+            'classes_cb'    => array('Sonaar_Music_Admin', 'pro_feature_class_cb'),
+            'plan_required' => 'starter',
+            'before'        => array('Sonaar_Music_Admin', 'promo_ad_text_cb'),
+        ) );
+        $shortcode_options->add_field( array(
+            'name'          => esc_html__('Show Repeat Button', 'sonaar-music'),
+            'id'            => 'show_repeat_bt',
+            'type'          => 'select',
+            'options'       => array(
+                'default'   => esc_html__('Default', 'sonaar-music'),
+                'true'      => esc_html__('Yes', 'sonaar-music'),
+                'false'     => esc_html__('No', 'sonaar-music'),
+            ),
+            'default'       => 'default',
+            'attributes'  => array(
+                'data-conditional' => wp_json_encode(array(
+                    'logic' => 'AND', 
+                    'conditions' => array(
+                        array(
+                            'id'    => 'show_mini_player',
+                            'value' => 'true'
+                        ),
+                        array(
+                            'id'    => 'notrackskip',
+                            'value' => 'false'
+                        ),
+                    
+                    ),
+                )),
             ),
             'classes_cb'    => array('Sonaar_Music_Admin', 'pro_feature_class_cb'),
             'plan_required' => 'starter',

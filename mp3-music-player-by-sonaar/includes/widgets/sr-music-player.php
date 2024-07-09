@@ -5889,6 +5889,23 @@ class SR_Audio_Player extends Widget_Base {
 				]
 			);
 			$this->add_control(
+				'show_repeat_bt',
+				[
+					'label' 		=> esc_html__( 'Show Repeat button', 'sonaar-music' ),
+					'type' 			=> Controls_Manager::SELECT,
+					'options' 		=> [
+						'default' 	=> esc_html__( $this->get_srmp3_option_label('player_show_repeat_bt', 'srmp3_settings_widget_player') ),
+						'true' 		=> esc_html__( 'Yes', 'sonaar-music' ),
+						'false' 	=> esc_html__( 'No', 'sonaar-music' ),
+					],
+					'default' 		=> 'default',
+					'condition' 					=> [
+						'player_layout!' 	=> 'skin_button',
+						'no_track_skip!' 	=> 'yes',
+					],
+				]
+			);
+			$this->add_control(
 				'show_shuffle_bt_skin_button',
 				[
 					'label' 		=> esc_html__( 'Show Shuffle button', 'sonaar-music' ),
@@ -5897,6 +5914,19 @@ class SR_Audio_Player extends Widget_Base {
 					'default' 		=> '',
 					'condition' 					=> [
 						'player_layout' 	=> 'skin_button',
+					],
+				]
+			);
+			$this->add_control(
+				'show_repeat_bt_skin_button',
+				[
+					'label' 		=> esc_html__( 'Show Repeat button', 'sonaar-music' ),
+					'type' 							=> Controls_Manager::SWITCHER,
+					'return_value' 	=> 'yes',
+					'default' 		=> '',
+					'condition' 					=> [
+						'player_layout' 	=> 'skin_button',
+						'no_track_skip!' 	=> 'yes',
 					],
 				]
 			);
@@ -11544,6 +11574,10 @@ class SR_Audio_Player extends Widget_Base {
 				$shortcode .= 'show_shuffle_bt="true" ';
 			}
 
+			if (isset($settings['show_repeat_bt_skin_button']) && $settings['show_repeat_bt_skin_button'] == 'yes' ){
+				$shortcode .= 'show_repeat_bt="true" ';
+			}
+
 		}else{
 
 			if (isset($settings['show_skip_bt'])){
@@ -11558,8 +11592,8 @@ class SR_Audio_Player extends Widget_Base {
 				$shortcode .= 'show_volume_bt="'. $settings['show_volume_bt'] .'" ';
 			}
 
-			if (isset($settings['show_shuffle_bt'])){
-				$shortcode .= 'show_shuffle_bt="'. $settings['show_shuffle_bt'] .'" ';
+			if (isset($settings['show_repeat_bt'])){
+				$shortcode .= 'show_repeat_bt="'. $settings['show_repeat_bt'] .'" ';
 			}
 			
 		}
@@ -11601,7 +11635,9 @@ class SR_Audio_Player extends Widget_Base {
 		if ( $settings['playlist_source'] == 'from_rss' &&  isset($settings['rss_feed']) && $settings['rss_feed'] !== '') {
 			$shortcode .= 'import_file="' . $settings['rss_feed'] . '" ';
 		}
-
+		if ( $settings['playlist_source'] == 'from_user_meta'){
+			$shortcode .= 'feed=from_smg ';
+		}
 		if ( $settings['playlist_source'] == 'from_elementor' && !$settings['playlist_list']) {	
 				
 			$shortcode .= 'feed=1 ';
@@ -12197,7 +12233,11 @@ class SR_Audio_Player extends Widget_Base {
 				//error_log('Failed to retrieve post type object for: ' . $post_type);
 				continue; // Skip to the next iteration
 			}
-
+			
+			if (!defined('SR_PLAYLIST_CPT')) {
+				define('SR_PLAYLIST_CPT', 'sr_playlist');
+			}
+			
 			if($post_type == SR_PLAYLIST_CPT){
 				$groups[] = array(
 					'label'  => __( 'Tracks', 'sonaar-music' ),

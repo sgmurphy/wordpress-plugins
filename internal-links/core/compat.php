@@ -5,6 +5,7 @@ namespace ILJ\Core;
 use ILJ\Backend\MenuPage\Tools;
 use ILJ\Core\IndexStrategy\PolylangStrategy;
 use ILJ\Core\IndexStrategy\WPMLStrategy;
+use ILJ\Core\Links\Text_To_Link_Converter_Factory;
 use ILJ\Core\Options\CustomFieldsToLinkPost;
 use ILJ\Core\Options\CustomFieldsToLinkTerm;
 use ILJ\Core\Options\Whitelist;

@@ -9,6 +9,8 @@ use ILJ\Backend\Editor;
 use ILJ\Backend\MenuPage\Tools;
 use ILJ\Backend\RatingNotifier;
 use ILJ\Backend\Environment;
+use ILJ\Cache\Transient_Cache;
+use ILJ\Core\Options\Link_Preview_Switch;
 use ILJ\Core\Options\Limit_Incoming_Links;
 use ILJ\Core\Options\Max_Incoming_Links;
 use ILJ\Core\Options\MultipleKeywords;
@@ -25,7 +27,6 @@ use ILJ\Enumeration\TagExclusion;
 use ILJ\Helper\BatchBuilding;
 use ILJ\Helper\BatchInfo as HelperBatchInfo;
 use ILJ\Helper\Blacklist;
-use ILJ\Helper\ContentTransient;
 use ILJ\Helper\CustomMetaData;
 use ILJ\Helper\IndexAsset;
 use ILJ\Helper\LinkBuilding;
@@ -220,10 +221,10 @@ class App
         add_action('wp_ajax_ilj_render_anchor_detail_statistic', array('\ILJ\Helper\Ajax', 'renderAnchorDetailStatisticAction'));
         add_action('wp_ajax_ilj_render_anchors_statistic', array('\ILJ\Helper\Ajax', 'renderAnchorsStatistic'));
         add_action('wp_ajax_ilj_rebuild_index', array('\ILJ\Helper\Ajax', 'indexRebuildAction'));
+        add_action('wp_ajax_load_link_statistics', array('\ILJ\Helper\Ajax', 'load_link_statistics'));
         add_action('wp_ajax_ilj_cancel_schedules', array('\ILJ\Helper\Ajax', 'cancel_all_schedules'));
         add_action('wp_ajax_ilj_clear_all_transient', array('\ILJ\Helper\Ajax', 'clear_all_transient'));
         add_action('wp_ajax_ilj_clear_single_transient', array('\ILJ\Helper\Ajax', 'clear_single_transient'));
-        add_action('wp_ajax_load_statistics_chunk', array('\ILJ\Helper\Ajax', 'load_statistics_chunk_callback'));
         add_action('wp_ajax_load_anchor_statistics_chunk', array('\ILJ\Helper\Ajax', 'load_anchor_statistics_chunk_callback'));
         add_action('updated_option', array('ILJ\Helper\Options', 'updateOptionIndexRebuild'), 10, 3);
         add_action('wp_ajax_ilj_dismiss_admin_warning_litespeed', array('\ILJ\Backend\Notices', 'dismiss_admin_warning_litespeed'));
@@ -261,7 +262,7 @@ class App
             \ILJ\Helper\Loader::enqueue_style('ilj_admin_menu_bar_style', ILJ_URL . 'admin/css/ilj_admin_menu_bar.css', array(), ILJ_VERSION);
             \ILJ\Helper\Loader::register_script('ilj_admin_menu_bar_script', ILJ_URL . 'admin/js/ilj_admin_menu_bar.js', array('jquery'), ILJ_VERSION);
             \ILJ\Helper\Loader::enqueue_script('ilj_admin_menu_bar_script');
-            wp_localize_script('ilj_admin_menu_bar_script', 'ilj_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+            wp_localize_script('ilj_admin_menu_bar_script', 'ilj_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('ilj-general-nonce')));
         }
     }
     /**
@@ -320,10 +321,10 @@ class App
     protected function addPostIndexTrigger()
     {
         add_action('post_updated', function ($post_id) {
-            ContentTransient::delete_transient($post_id, 'post');
+            Transient_Cache::delete_cache_for_content($post_id, 'post');
         }, 20, 1);
         add_action('delete_post', function ($post_id) {
-            ContentTransient::delete_transient($post_id, 'post');
+            Transient_Cache::delete_cache_for_content($post_id, 'post');
         }, 10, 1);
         add_action(Editor::ILJ_ACTION_AFTER_KEYWORDS_UPDATE, function ($id, $type, $status) {
             Statistic::count_all_configured_keywords();
@@ -469,7 +470,7 @@ class App
      */
     public function registerFilter()
     {
-        add_filter('the_content', array(new LinkBuilding(), 'linkContent'), 99);
+        add_filter('the_content', array(new LinkBuilding(), 'linkContent'), PHP_INT_MAX);
         add_filter('ilj_get_the_content', array(new LinkBuilding(), 'linkContent'), 99, 1);
         add_filter('ilj_get_the_content_term', array(new LinkBuilding(), 'link_term'), 99, 2);
         $tag_exclusions = Options::getOption(\ILJ\Core\Options\NoLinkTags::getKey());

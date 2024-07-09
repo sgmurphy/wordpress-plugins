@@ -130,7 +130,7 @@ class ST_WXR_Importer {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				wp_send_json_error(
 					array(
-						'error' => __( 'Permission Denied!', 'st-importer', 'astra-sites' ),
+						'error' => __( 'Permission Denied!', 'astra-sites' ),
 					)
 				);
 			}
@@ -802,7 +802,7 @@ class ST_WXR_Importer {
 			),
 			'url'     => $url,
 			'strings' => array(
-				'complete' => __( 'Import complete!', 'st-importer', 'astra-sites' ),
+				'complete' => __( 'Import complete!', 'astra-sites' ),
 			),
 		);
 	}

@@ -2,6 +2,12 @@
 
 namespace ILJ\Helper;
 
+/**
+ * The below line sets the `ticks` directive  to prevent timeout occurring on the frontend.
+ * This is set for the complete file, @see https://www.php.net/manual/en/control-structures.declare.php
+ * This is needed for {@link Timeout_Monitor_Layer} to work.
+ */
+declare (ticks=1000);
 use ILJ\Core\Options;
 use ILJ\Enumeration\TagExclusion;
 use ILJ\Type\Ruleset;

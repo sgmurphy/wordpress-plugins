@@ -439,6 +439,10 @@ class Admin extends Base {
      */
     public function styles( $hook ) {
         $this->assets->enqueue( 'betterdocs-global', 'admin/css/global.css', [], 'all' );
+        
+        if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
+            return;
+        }
 
         $this->assets->enqueue( 'betterdocs-select2', 'vendor/css/select2.min.css', [], 'all' );
         $this->assets->enqueue( 'betterdocs-daterangepicker', 'vendor/css/daterangepicker.css', [], 'all' );

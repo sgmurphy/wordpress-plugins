@@ -1,6 +1,6 @@
 // External dependencies.
 import React from 'react';
-import Tooltip from '../../steps/onboarding-ai/components/tooltip';
+import Tooltip from '../tooltip';
 import { __ } from '@wordpress/i18n';
 
 // Internal dependencies.

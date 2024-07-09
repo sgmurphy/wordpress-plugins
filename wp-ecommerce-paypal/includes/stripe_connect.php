@@ -351,10 +351,6 @@ function wpecpp_open_stripe_checkout_in_new_tab() {
                     sessionId: '<?php echo sanitize_text_field($_GET['si']); ?>'
                 });
             } catch (error) {
-                let rf = '<?php echo sanitize_text_field($_GET['rf']); ?>';
-                rf += rf.indexOf('?') !== -1 ? '&' : '?';
-                rf += 'wpecpp_stripe_success=0';
-                window.location.href = rf;
             }
         </script>
         <?php

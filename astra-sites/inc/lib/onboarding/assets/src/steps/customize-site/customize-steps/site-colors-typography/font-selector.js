@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Tooltip } from '@brainstormforce/starter-templates-components';
 import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
 import { Button, PreviousStepLink } from '../../../../../src/components';
 import ICONS from '../../../../../icons';
 import { useStateValue } from '../../../../../src/store/store';
@@ -9,12 +8,9 @@ import {
 	saveTypography,
 	setColorPalettes,
 	setSiteLogo,
-	setSiteTitle,
 } from '../../../../../src/steps/import-site/import-utils';
-import LoadingSpinner from '../../../onboarding-ai/components/loading-spinner';
-import { STORE_KEY } from '../../../onboarding-ai/store';
-import { removeLocalStorageItem } from '../../../onboarding-ai/helpers';
-import { initialState } from '../../../onboarding-ai/store/reducer';
+import LoadingSpinner from '../../../../components/loading-spinner';
+import { removeLocalStorageItem } from '../../../../utils/functions';
 
 const List = ( { className, options, onSelect, selected, type } ) => {
 	const handleKeyPress = ( e, id ) => {
@@ -158,7 +154,6 @@ export const getFontName = ( fontName, inheritFont ) => {
 };
 
 const FontSelector = ( { options, onSelect, selected } ) => {
-	const { setWebsiteOnboardingAIDetails } = useDispatch( STORE_KEY );
 	const [
 		{
 			currentCustomizeIndex,
@@ -169,11 +164,6 @@ const FontSelector = ( { options, onSelect, selected } ) => {
 		},
 		dispatch,
 	] = useStateValue();
-
-	const { businessName } = useSelect( ( select ) => {
-		const { getAIStepData } = select( STORE_KEY );
-		return getAIStepData();
-	} );
 
 	const [ isSaving, setIsSaving ] = useState( false );
 
@@ -195,11 +185,9 @@ const FontSelector = ( { options, onSelect, selected } ) => {
 		setIsSaving( true );
 		await setSiteLogo( siteLogo );
 		await setColorPalettes( JSON.stringify( activePalette ) );
-		await setSiteTitle( businessName );
 		await saveTypography( typography );
 
 		removeLocalStorageItem( 'ai-onboarding-details' );
-		setWebsiteOnboardingAIDetails( initialState.onboardingAI );
 
 		localStorage.removeItem( 'starter-templates-iframe-preview-data' );
 

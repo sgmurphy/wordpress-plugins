@@ -3,8 +3,8 @@ Contributors: qodeinteractive
 Tags: gutenberg block, blocks, patterns, wireframes, gutenberg templates
 Requires at least: 5.8
 Tested up to: 6.5
-Requires PHP: 7.0
-Stable tag: 1.3
+Requires PHP: 7.2
+Stable tag: 1.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -260,6 +260,15 @@ From wordpress.org
 3. Activate Qi Blocks from your Plugins page.
 4. Enjoy :)
 
+= Looking for more? =
+Feel free to try out some of our other products:
+
+<a href="https://wordpress.org/themes/qi/">Qi Theme</a>
+<a href="https://wordpress.org/plugins/qi-addons-for-elementor/">Qi Addons for Elementor</a>
+<a href="https://wordpress.org/plugins/qode-wishlist-for-woocommerce/">QODE Wishlist for WooCommerce</a>
+<a href="https://wordpress.org/plugins/qode-quick-view-for-woocommerce/">QODE Quick View for WooCommerce</a>
+<a href="https://wordpress.org/plugins/qode-variation-swatches-for-woocommerce/">QODE Variation Swatches for WooCommerce</a>
+
 == Screenshots ==
 
 1. Welcome Page.
@@ -276,6 +285,9 @@ From wordpress.org
 12.	Device Frame Slider Block.
 
 == Changelog ==
+
+= 1.3.1 - 09-07-2024 =
+- Fixed potential Cross Site Scripting (XSS) vulnerability for Search block
 
 = 1.3 - 04-06-2024 =
 - Improved WordPress coding standards

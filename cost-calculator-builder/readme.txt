@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.5
-Stable tag: 3.2.15
+Stable tag: 3.2.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,15 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.16 =
+- Enhancement: Added a tooltip for long text and long ID in Conditions (Pro).
+- Enhancement: Product names in WooCheckout are shortened with the addition of a tooltip  (Pro).
+- Enhancement: On the Confirmation page, the page name is shortened with the addition of a tooltip (Pro).
+- Enhancement: The calculator name was shortened with the addition of a tooltip in the Calculator field in WooProduct  (Pro).
+- Enhancement: In WooProduct, the Product category is shortened without adding a tooltip (Pro).
+- Fix: When you change the color in the Color picker, the color settings menu in Appearance is shown incorrectly.
+- Fix: In the items in the Settings tab, the styles in the "Add a measuring unit" setting do not work.
 
 = 3.2.15 =
 - Enhancement: Added a setting to calculate the values of the hidden fields by default.

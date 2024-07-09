@@ -1238,10 +1238,12 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				}
 
 				if ( ( str_contains( $name, '</a>' ) ) && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-					return '<a href="' . esc_url( get_permalink( $parent_id ) ) . '">' . get_the_title( $parent_id ) . '</a> &rarr; ' . apply_filters( 'woosb_item_product_name', $name, $item_product );
+					$_name = '<a href="' . esc_url( get_permalink( $parent_id ) ) . '">' . get_the_title( $parent_id ) . '</a> &rarr; ' . apply_filters( 'woosb_item_product_name', $name, $item_product );
+				} else {
+					$_name = get_the_title( $parent_id ) . ' &rarr; ' . esc_html( wp_strip_all_tags( apply_filters( 'woosb_item_product_name', $name, $item_product ) ) );
 				}
 
-				return get_the_title( $parent_id ) . ' &rarr; ' . esc_html( wp_strip_all_tags( apply_filters( 'woosb_item_product_name', $name, $item_product ) ) );
+				return apply_filters( 'woosb_cart_item_name', $_name, $name, $item );
 			}
 
 			return $name;
@@ -1645,13 +1647,17 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 					// set price
 					if ( isset( $cart_item['woosb_fixed_price'] ) && $cart_item['woosb_fixed_price'] ) {
 						$cart_item['data']->set_price( 0 );
-					} elseif ( ! empty( $cart_item['woosb_discount'] ) ) {
+					} else {
 						$_product = wc_get_product( ! empty( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : $cart_item['product_id'] );
 						$_price   = (float) WPCleverWoosb_Helper()->get_price( $_product );
-						$_price   *= ( 100 - (float) $cart_item['woosb_discount'] ) / 100;
-						$_price   = WPCleverWoosb_Helper()->round_price( $_price );
-						$_price   = apply_filters( 'woosb_item_price_add_to_cart', $_price, $cart_item );
-						$_price   = apply_filters( 'woosb_item_price_before_set', $_price, $cart_item );
+
+						if ( ! empty( $cart_item['woosb_discount'] ) ) {
+							$_price *= ( 100 - (float) $cart_item['woosb_discount'] ) / 100;
+						}
+
+						$_price = WPCleverWoosb_Helper()->round_price( $_price );
+						$_price = apply_filters( 'woosb_item_price_add_to_cart', $_price, $cart_item );
+						$_price = apply_filters( 'woosb_item_price_before_set', $_price, $cart_item );
 						$cart_item['data']->set_price( $_price );
 					}
 				}
@@ -1714,17 +1720,19 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 
 		function cart_item_price( $price, $cart_item ) {
 			if ( isset( $cart_item['woosb_ids'], $cart_item['woosb_price'], $cart_item['woosb_fixed_price'] ) && ! $cart_item['woosb_fixed_price'] ) {
-				$price = wc_price( $cart_item['woosb_price'] );
+				return apply_filters( 'woosb_cart_item_price', wc_price( $cart_item['woosb_price'] ), $price, $cart_item );
 			}
 
 			if ( isset( $cart_item['woosb_parent_id'], $cart_item['woosb_fixed_price'] ) && $cart_item['woosb_fixed_price'] ) {
 				$_product = wc_get_product( $cart_item['product_id'] );
 
 				if ( WC()->cart->display_prices_including_tax() ) {
-					$price = wc_price( wc_get_price_including_tax( $_product ) );
+					$_price = wc_price( wc_get_price_including_tax( $_product ) );
 				} else {
-					$price = wc_price( wc_get_price_excluding_tax( $_product ) );
+					$_price = wc_price( wc_get_price_excluding_tax( $_product ) );
 				}
+
+				return apply_filters( 'woosb_cart_item_price', $_price, $price, $cart_item );
 			}
 
 			return $price;
@@ -1732,25 +1740,29 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 
 		function cart_item_subtotal( $subtotal, $cart_item = null ) {
 			if ( isset( $cart_item['woosb_ids'], $cart_item['woosb_price'], $cart_item['woosb_fixed_price'] ) && ! $cart_item['woosb_fixed_price'] ) {
-				$subtotal = wc_price( $cart_item['woosb_price'] * $cart_item['quantity'] );
+				$_subtotal = wc_price( $cart_item['woosb_price'] * $cart_item['quantity'] );
 
 				if ( wc_tax_enabled() && WC()->cart->display_prices_including_tax() && ! wc_prices_include_tax() ) {
-					$subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+					$_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 				}
+
+				return apply_filters( 'woosb_cart_item_subtotal', $_subtotal, $subtotal, $cart_item );
 			}
 
 			if ( isset( $cart_item['woosb_parent_id'], $cart_item['woosb_fixed_price'] ) && $cart_item['woosb_fixed_price'] ) {
 				$_product = wc_get_product( $cart_item['product_id'] );
 
 				if ( WC()->cart->display_prices_including_tax() ) {
-					$subtotal = wc_price( wc_get_price_including_tax( $_product, [ 'qty' => $cart_item['quantity'] ] ) );
+					$_subtotal = wc_price( wc_get_price_including_tax( $_product, [ 'qty' => $cart_item['quantity'] ] ) );
 				} else {
-					$subtotal = wc_price( wc_get_price_excluding_tax( $_product, [ 'qty' => $cart_item['quantity'] ] ) );
+					$_subtotal = wc_price( wc_get_price_excluding_tax( $_product, [ 'qty' => $cart_item['quantity'] ] ) );
 				}
 
 				if ( wc_tax_enabled() && WC()->cart->display_prices_including_tax() && ! wc_prices_include_tax() ) {
-					$subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+					$_subtotal .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 				}
+
+				return apply_filters( 'woosb_cart_item_subtotal', $_subtotal, $subtotal, $cart_item );
 			}
 
 			return $subtotal;
@@ -2026,7 +2038,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 
 		function formatted_line_subtotal( $subtotal, $order_item ) {
 			if ( isset( $order_item['_woosb_ids'], $order_item['_woosb_price'] ) ) {
-				return wc_price( $order_item['_woosb_price'] * $order_item['quantity'] );
+				return apply_filters( 'woosb_order_item_subtotal', wc_price( $order_item['_woosb_price'] * $order_item['quantity'] ), $subtotal, $order_item );
 			}
 
 			return $subtotal;

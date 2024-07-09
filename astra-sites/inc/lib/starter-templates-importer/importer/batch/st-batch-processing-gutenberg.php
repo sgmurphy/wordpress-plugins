@@ -105,7 +105,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 			if ( ! is_array( $post_ids ) ) {
 				return array(
 					'success' => false,
-					'msg'     => __( 'Post ids are empty', 'st-importer', 'astra-sites' ),
+					'msg'     => __( 'Post ids are empty', 'astra-sites' ),
 				);
 			}
 
@@ -115,7 +115,7 @@ if ( ! class_exists( 'ST_Batch_Processing_Gutenberg' ) ) :
 
 			return array(
 				'success' => true,
-				'msg'     => __( 'Gutenberg batch completed.', 'st-importer', 'astra-sites' ),
+				'msg'     => __( 'Gutenberg batch completed.', 'astra-sites' ),
 			);
 		}
 

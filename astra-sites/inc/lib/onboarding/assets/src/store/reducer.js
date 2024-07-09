@@ -42,7 +42,7 @@ export const initialState = {
 	selectedMegaMenu: '',
 	siteSearchTerm: getURLParmsValue( window.location.search, 's' ) || '',
 	userSubscribed: false,
-	showSidebar: true,
+	showSidebar: window && window?.innerWidth < 1024 ? false : true,
 	tryAgainCount: 0,
 	pluginInstallationAttempts: 0,
 	confettiDone: false,
@@ -114,6 +114,11 @@ export const initialState = {
 
 	// Sync Library.
 	bgSyncInProgress: !! astraSitesVars.bgSyncInProgress,
+
+	// Limit exceed modal for AI-Builder.
+	limitExceedModal: {
+		open: false,
+	},
 };
 
 const reducer = ( state = initialState, { type, ...rest } ) => {

@@ -46,11 +46,11 @@ if ( ! class_exists( 'Ast_Block_Templates_Notices' ) ) :
 		 */
 		public function file_permission_notice() {
 			
-			$notice = __( 'File Permissions Needed - Importing patterns, pages, and templates from Design Library requires proper file permissions. For guidance on resolving this issue and ensuring smooth importing processes, please refer to the accompanying documentation.', 'ast-block-templates' );
+			$notice = __( 'File Permissions Needed - Importing patterns, pages, and templates from Design Library requires proper file permissions. For guidance on resolving this issue and ensuring smooth importing processes, please refer to the accompanying documentation.', 'astra-sites' );
 			?>
 			<div class="notice notice-error ast-block-templates-must-notices ast-block-templates-file-permission-issue">
 				<p><?php echo esc_html( $notice ); ?></p>
-				<p><?php echo esc_html( __( 'Doc: ', 'ast-block-templates' ) ); ?><a href="https://wpastra.com/docs/could-not-store-files-in-wp-content-folder/" target="__blank"><?php echo esc_html( __( 'Resolve file permission issue', 'ast-block-templates' ) ); ?></a></p>
+				<p><?php echo esc_html( __( 'Doc: ', 'astra-sites' ) ); ?><a href="https://wpastra.com/docs/could-not-store-files-in-wp-content-folder/" target="__blank"><?php echo esc_html( __( 'Resolve file permission issue', 'astra-sites' ) ); ?></a></p>
 			</div>
 			<?php
 		}

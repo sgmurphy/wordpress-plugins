@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'carmoreira/interactive-geo-maps',
-        'pretty_version' => '1.6.16.x-dev',
-        'version' => '1.6.16.9999999-dev',
-        'reference' => 'b900d6820178021c0cc2fec757d1115ae8fce1d3',
+        'pretty_version' => '1.6.18.1',
+        'version' => '1.6.18.1',
+        'reference' => '532764bd2e3f85283ce39d7b0349df448e152369',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../build',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'carmoreira/interactive-geo-maps' => array(
-            'pretty_version' => '1.6.16.x-dev',
-            'version' => '1.6.16.9999999-dev',
-            'reference' => 'b900d6820178021c0cc2fec757d1115ae8fce1d3',
+            'pretty_version' => '1.6.18.1',
+            'version' => '1.6.18.1',
+            'reference' => '532764bd2e3f85283ce39d7b0349df448e152369',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../build',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.6.2',
-            'version' => '2.6.2.0',
-            'reference' => 'ea3a288e52ff74c755b3c1eb857f41c5a2d899e5',
+            'pretty_version' => '2.7.2',
+            'version' => '2.7.2.0',
+            'reference' => 'eeac5f905746822207729ed0d944c4434ee165ff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),

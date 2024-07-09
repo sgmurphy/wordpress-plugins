@@ -324,6 +324,16 @@ class Helper {
 	public static function yaymail_is_date( $value ) {
 		$is_date = false;
 
+		//if a string contains any numbers
+		if (is_string($value) && !preg_match('~[0-9]+~', $value)) {
+			return false;
+	  	}
+
+		// Check if the value is a decimal number (e.g., "9.30" or "9,30")
+		if (preg_match('/^-?\d+(\.\d+|,\d+)$/', $value)) {
+			return false;
+		}
+
 		if ( ! $value || self::yaymail_is_time( $value ) || self::yaymail_is_time_range( $value ) ) {
 			return $is_date;
 		}

@@ -5,9 +5,9 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.1.0
-Stable tag: 2.24.3
+Stable tag: 2.24.4
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -129,6 +129,15 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 
 == Changelog ==
 
+= 2.24.4 - 10/July/2024 =
+
+* SECURITY: Fixed Cross Site Request Forgery for "ilj_rebuild_index" and "ilj_render_batch_info".
+* FEATURE: Implement pagination for link statistics.
+* FEATURE: Link Preview for generated links.
+* FIX: Resolve timeout issue with `the_content` hook when handling large content.
+* TWEAK: Show premium options in ILJ editor for the free version.
+* TWEAK: UI/UX changes in settings page.
+
 = 2.24.3 - 15/May/2024 =
 * FEATURE: Custom fields now have support for wildcard field names.
 * FEATURE: Keywords editor for posts and terms.
@@ -244,5 +253,5 @@ Release Date: December 2nd, 2022
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
 
 == Upgrade Notice ==
-* 2.24.3: Various features like custom field name wildcard support and keyword editor. Various tweaks and fixes. See changelog for full details. A recommended update for all.
+* 2.24.4: A security release that contains cross-site request forgery issue fixes. Various features, like link preview and improved pagination for link statistics. Various tweaks and fixes. See changelog for full details. A recommended update for all.
 

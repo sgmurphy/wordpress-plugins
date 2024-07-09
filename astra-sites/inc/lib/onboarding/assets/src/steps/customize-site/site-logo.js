@@ -7,7 +7,7 @@ import { MediaUpload } from '@wordpress/media-utils';
 import { useStateValue } from '../../store/store';
 import { getDataUri, sendPostMessage } from '../../utils/functions';
 import { initialState } from '../../store/reducer';
-import ToggleSwitch from '../onboarding-ai/components/toggle-switch';
+import ToggleSwitch from '../../components/toggle-switch';
 
 const SiteLogo = () => {
 	const replaceMediaUpload = () => MediaUpload;

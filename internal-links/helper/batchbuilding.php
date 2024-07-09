@@ -5,6 +5,7 @@ namespace ILJ\Helper;
 use ActionScheduler;
 use ActionScheduler_Store;
 use ILJ\Backend\User;
+use ILJ\Cache\Transient_Cache;
 use ILJ\Core\IndexBuilder;
 use ILJ\Core\ActionSchedulerConfig;
 use ILJ\Core\Options;
@@ -17,7 +18,6 @@ use ILJ\Enumeration\LinkType;
 use ILJ\Core\Options\SchedulerBatchSize as SchedulerBatchSize;
 use ILJ\Database\Linkindex;
 use ILJ\Helper\Stopwatch;
-use ILJ\Helper\ContentTransient;
 /**
  * Batch Building helper
  *
@@ -170,7 +170,7 @@ class BatchBuilding
             $starting_type = $this->getStartingBuildType();
             $this->ilj_set_individual_index_rebuild_incoming(array('id' => $data['id'], 'offset' => 0, 'start_time' => $stopwatch->get_start_time(), 'type' => $data['type'], 'build_type' => $starting_type, 'link_type' => $data['link_type']));
             // Delete all transient after building the link index from link type incoming, as links could be generated everywhere, thus needing to flush all the transient. Unlike building the outgoing links which is clear that we only need to clear that specific post/page.
-            ContentTransient::delete_all_ilj_transient();
+            Transient_Cache::delete_all();
         }
     }
     /**
@@ -420,7 +420,7 @@ class BatchBuilding
             as_unschedule_all_actions(IndexBuilder::ILJ_INDIVIDUAL_INDEX_REBUILD_INCOMING);
             LinkindexTemp::flush();
         }
-        ContentTransient::delete_all_ilj_transient();
+        Transient_Cache::delete_all();
         $batch_build_info = new BatchInfo();
         $batch_build_info->setBatchCounter(0);
         $batch_build_info->resetBatchedFinished();

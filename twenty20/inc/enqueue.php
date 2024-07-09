@@ -3,20 +3,20 @@
 function twenty20_zb_enqueue_script() {
 
   // Twenty20 Style
-  wp_enqueue_style( 'twenty20-style', ZB_T20_URL . '/assets/css/twenty20.css', array(), ZB_T20_VER );
+  wp_enqueue_style( 'twenty20', ZB_T20_URL . '/assets/css/twenty20.css', array(), ZB_T20_VER );
 
   // Twenty20 Script
-  wp_enqueue_script( 'twenty20-style', ZB_T20_URL . '/assets/js/jquery.twenty20.js', array( 'jquery' ), ZB_T20_VER, true );
+  wp_enqueue_script( 'twenty20', ZB_T20_URL . '/assets/js/jquery.twenty20.js', array( 'jquery' ), ZB_T20_VER, true );
 
   // Twenty20 Event Move Script
-  wp_enqueue_script( 'twenty20-eventmove-style', ZB_T20_URL . '/assets/js/jquery.event.move.js', array( 'jquery' ), ZB_T20_VER, true );
+  wp_enqueue_script( 'twenty20-eventmove', ZB_T20_URL . '/assets/js/jquery.event.move.js', array( 'jquery' ), ZB_T20_VER, true );
 
 }
 add_action( 'wp_enqueue_scripts', 'twenty20_zb_enqueue_script');
 
 function twenty20_zb_include_media_button_js_file() {
   wp_enqueue_script('media_button', ZB_T20_URL . '/assets/js/media_button.js', array('jquery'), ZB_T20_VER, true);
-  wp_enqueue_style( 'twenty20-admin-style', ZB_T20_URL . '/assets/css/admin.css', array(), ZB_T20_VER );
+  wp_enqueue_style( 'twenty20-admin', ZB_T20_URL . '/assets/css/admin.css', array(), ZB_T20_VER );
 }
 add_action('wp_enqueue_media', 'twenty20_zb_include_media_button_js_file');
 

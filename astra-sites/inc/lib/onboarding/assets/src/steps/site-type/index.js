@@ -5,20 +5,18 @@ import {
 	RectangleStackIcon,
 } from '@heroicons/react/24/outline';
 import { __ } from '@wordpress/i18n';
-import { useDispatch } from '@wordpress/data';
 import { removeQueryArgs } from '@wordpress/url';
 import { Button, DefaultStep, PreviousStepLink } from '../../components/index';
 import { useStateValue } from '../../store/store';
-import { STORE_KEY } from '../onboarding-ai/store';
-import LimitExceedModal from '../onboarding-ai/components/limit-exceeded-modal';
+import LimitExceedModal from '../../components/limit-exceeded-modal';
 import { WandIcon } from '../ui/icons';
 import './style.scss';
-import { removeLocalStorageItem } from '../onboarding-ai/helpers';
+import { removeLocalStorageItem } from '../../utils/functions';
 const { showClassicTemplates } = astraSitesVars;
 
 const SiteType = () => {
-	const [ { builder, currentIndex }, dispatch ] = useStateValue();
-	const { setLimitExceedModal } = useDispatch( STORE_KEY );
+	const [ { builder, currentIndex, limitExceedModal }, dispatch ] =
+		useStateValue();
 
 	const zipPlans = astraSitesVars?.zip_plans;
 	const sitesRemaining = zipPlans?.plan_data?.remaining;
@@ -65,8 +63,12 @@ const SiteType = () => {
 				( typeof allSitesRemainingCount === 'number' &&
 					allSitesRemainingCount <= 0 )
 			) {
-				setLimitExceedModal( {
-					open: true,
+				dispatch( {
+					type: 'set',
+					limitExceedModal: {
+						...limitExceedModal,
+						open: true,
+					},
 				} );
 			} else {
 				dispatch( {
@@ -84,8 +86,12 @@ const SiteType = () => {
 			( typeof allSitesRemainingCount === 'number' &&
 				allSitesRemainingCount <= 0 )
 		) {
-			setLimitExceedModal( {
-				open: true,
+			dispatch( {
+				type: 'set',
+				limitExceedModal: {
+					...limitExceedModal,
+					open: true,
+				},
 			} );
 			return;
 		}
@@ -195,7 +201,7 @@ const SiteType = () => {
 													builder === 'ai-builder'
 														? 'gutenberg'
 														: builder,
-												currentIndex: 2,
+												currentIndex: 1,
 											} );
 											removeLocalStorageItem(
 												'st-scroll-position'

@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Team Updraft <support@internallinkjuicer.com>\n"
 "Last-Translator: Team Updraft <support@internallinkjuicer.com>\n"
-"POT-Creation-Date: 2024-05-24 12:21+0000\n"
+"POT-Creation-Date: 2024-07-08 22:12+0000\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/internal-links\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Delete this term cache"
 msgstr ""
 
-#: src/backend/adminmenu.php:53, src/backend/adminmenu.php:54, src/backend/editor.php:48, src/backend/editor.php:59, src/backend/editor.php:503
+#: src/backend/adminmenu.php:53, src/backend/adminmenu.php:54, src/backend/editor.php:48, src/backend/editor.php:59, src/backend/editor.php:506
 msgid "Internal Links"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "Add Keyword"
 msgstr ""
 
-#: src/backend/editor.php:411, src/backend/menupage/dashboard.php:360
+#: src/backend/editor.php:411, src/backend/menupage/dashboard.php:367
 msgid "Keyword"
 msgstr ""
 
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Insert gaps between keywords"
 msgstr ""
 
-#: src/backend/editor.php:429, src/backend/menupage/dashboard.php:80
+#: src/backend/editor.php:429, src/backend/menupage/dashboard.php:84
 msgid "Configured keywords"
 msgstr ""
 
@@ -233,7 +233,15 @@ msgstr ""
 msgid "Cache cleared."
 msgstr ""
 
-#: src/backend/editor.php:469, src/helper/options.php:38, src/backend/menupage/tools.php:156
+#: src/backend/editor.php:450
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: src/backend/editor.php:452, src/backend/menupage/settings.php:110
+msgid "This is a PRO Feature."
+msgstr ""
+
+#: src/backend/editor.php:472, src/helper/options.php:38, src/backend/menupage/tools.php:156
 msgid "This feature is part of the Pro version"
 msgstr ""
 
@@ -285,67 +293,67 @@ msgstr ""
 msgid "Hide this information forever"
 msgstr ""
 
-#: src/core/app.php:385
+#: src/core/app.php:391
 msgid "Activate custom fields"
 msgstr ""
 
-#: src/core/app.php:386
+#: src/core/app.php:392
 msgid "Maximize compatibility with builders, themes and plugins enabling linking from <strong>custom fields</strong>."
 msgstr ""
 
-#: src/core/compat.php:348, src/core/compat.php:361
+#: src/core/compat.php:349, src/core/compat.php:362
 msgid "Yoast focus keywords"
 msgstr ""
 
-#: src/core/compat.php:437, src/core/compat.php:450
+#: src/core/compat.php:438, src/core/compat.php:451
 msgid "RankMath focus keywords"
 msgstr ""
 
-#: src/core/compat.php:687
+#: src/core/compat.php:688
 msgid "You can select the fields created by ACF for posts here"
 msgstr ""
 
-#: src/core/compat.php:697
+#: src/core/compat.php:698
 msgid "You can select the fields created by ACF for terms here"
 msgstr ""
 
-#: src/core/compat.php:708
+#: src/core/compat.php:709
 msgid "Full power of ACF"
 msgstr ""
 
-#: src/core/compat.php:708
+#: src/core/compat.php:709
 msgid "Configure custom fields from ACF and enable automatic linking in your custom created content."
 msgstr ""
 
-#: src/core/options.php:371
+#: src/core/options.php:373
 msgid "General settings section"
 msgstr ""
 
-#: src/core/options.php:372
+#: src/core/options.php:374
 msgid "All settings related to the use of the plugin."
 msgstr ""
 
-#: src/core/options.php:375
+#: src/core/options.php:377
 msgid "Content settings section"
 msgstr ""
 
-#: src/core/options.php:376
+#: src/core/options.php:378
 msgid "Configure how the plugin should behave regarding the internal linking."
 msgstr ""
 
-#: src/core/options.php:379
+#: src/core/options.php:381
 msgid "Links settings section"
 msgstr ""
 
-#: src/core/options.php:380
+#: src/core/options.php:382
 msgid "Setting options for the output of the generated links."
 msgstr ""
 
-#: src/core/options.php:383
+#: src/core/options.php:385
 msgid "Actions section"
 msgstr ""
 
-#: src/core/options.php:384
+#: src/core/options.php:386
 msgid "Different action buttons related to the use of the plugin"
 msgstr ""
 
@@ -413,99 +421,99 @@ msgstr ""
 msgid "Sourcecode"
 msgstr ""
 
-#: src/helper/ajax.php:115
+#: src/helper/ajax.php:129
 msgid "Index rebuild successfully scheduled."
 msgstr ""
 
-#: src/helper/ajax.php:120
+#: src/helper/ajax.php:134
 msgid "There has been an error in initiating the index rebuild."
 msgstr ""
 
-#: src/helper/ajax.php:215, src/backend/menupage/dashboard.php:341
+#: src/helper/ajax.php:235, src/backend/menupage/dashboard.php:311, src/backend/menupage/dashboard.php:348
 msgid "Edit"
 msgstr ""
 
-#: src/helper/ajax.php:216, src/backend/menupage/dashboard.php:342
+#: src/helper/ajax.php:236, src/backend/menupage/dashboard.php:312, src/backend/menupage/dashboard.php:349
 msgid "Open"
 msgstr ""
 
-#: src/helper/ajax.php:218
+#: src/helper/ajax.php:238, src/backend/menupage/dashboard.php:309
 msgid "Show incoming links"
 msgstr ""
 
-#: src/helper/ajax.php:219
+#: src/helper/ajax.php:239, src/backend/menupage/dashboard.php:310
 msgid "Show outgoing links"
 msgstr ""
 
-#: src/helper/ajax.php:254
+#: src/helper/ajax.php:274
 msgid "Show usage"
 msgstr ""
 
-#: src/helper/ajax.php:288, src/helper/ajax.php:367
+#: src/helper/ajax.php:311, src/helper/ajax.php:393
 msgid "Source"
 msgstr ""
 
-#: src/helper/ajax.php:286, src/helper/ajax.php:367, src/posttypes/customlinks.php:285
+#: src/helper/ajax.php:309, src/helper/ajax.php:393, src/posttypes/customlinks.php:285
 msgid "Target"
 msgstr ""
 
-#: src/helper/ajax.php:291, src/helper/export.php:33, src/backend/menupage/dashboard.php:81
+#: src/helper/ajax.php:314, src/helper/export.php:33, src/backend/menupage/dashboard.php:85
 msgid "Type"
 msgstr ""
 
-#: src/helper/ajax.php:291, src/backend/menupage/dashboard.php:73, src/backend/menupage/dashboard.php:286
+#: src/helper/ajax.php:314, src/backend/menupage/dashboard.php:77, src/backend/menupage/dashboard.php:289
 msgid "Anchor text"
 msgstr ""
 
-#: src/helper/ajax.php:335
+#: src/helper/ajax.php:358
 msgid "With the free basic version you can view the first 3 links in the detail view."
 msgstr ""
 
-#: src/helper/ajax.php:336, src/helper/ajax.php:393
+#: src/helper/ajax.php:359, src/helper/ajax.php:419
 msgid "Upgrade to Pro and view all"
 msgstr ""
 
-#: src/helper/ajax.php:367
+#: src/helper/ajax.php:393
 msgid "Source type"
 msgstr ""
 
-#: src/helper/ajax.php:367
+#: src/helper/ajax.php:393
 msgid "Target type"
 msgstr ""
 
-#: src/helper/ajax.php:392
+#: src/helper/ajax.php:418
 msgid "The detail view for anchor texts is part of the Pro version."
 msgstr ""
 
-#: src/helper/ajax.php:476
+#: src/helper/ajax.php:514
 msgid "Your web host does not allow file uploads."
 msgstr ""
 
-#: src/helper/ajax.php:476
+#: src/helper/ajax.php:514
 msgid "Please fix the problem and try again."
 msgstr ""
 
-#: src/helper/ajax.php:524
+#: src/helper/ajax.php:562
 msgid "Timeout."
 msgstr ""
 
-#: src/helper/ajax.php:524
+#: src/helper/ajax.php:562
 msgid "Please try to upload again"
 msgstr ""
 
-#: src/helper/ajax.php:541
+#: src/helper/ajax.php:579
 msgid "Nothing to import or no data for import found."
 msgstr ""
 
-#: src/helper/ajax.php:613
+#: src/helper/ajax.php:657
 msgid "The Caches were cleared."
 msgstr ""
 
-#: src/helper/ajax.php:660
+#: src/helper/ajax.php:734
 msgid "The cache for the %s has been cleared."
 msgstr ""
 
-#: src/helper/ajax.php:660
+#: src/helper/ajax.php:734
 msgid "The cache for the term has been cleared."
 msgstr ""
 
@@ -525,7 +533,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: src/helper/batchinfo.php:153, src/backend/menupage/dashboard.php:232
+#: src/helper/batchinfo.php:153, src/backend/menupage/dashboard.php:235
 msgid "at"
 msgstr ""
 
@@ -537,7 +545,7 @@ msgstr ""
 msgid "Keywords (ILJ)"
 msgstr ""
 
-#: src/helper/export.php:33, src/backend/menupage/dashboard.php:79, src/backend/menupage/keywords-editor/table.php:115, src/backend/menupage/keywords-editor/table.php:216
+#: src/helper/export.php:33, src/backend/menupage/dashboard.php:83, src/backend/menupage/keywords-editor/table.php:115, src/backend/menupage/keywords-editor/table.php:216
 msgid "Title"
 msgstr ""
 
@@ -565,7 +573,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: src/posttypes/customlinks.php:173, src/posttypes/customlinks.php:183, src/posttypes/customlinks.php:187, src/backend/menupage/customlinks.php:20, src/backend/menupage/dashboard.php:305, src/backend/menupage/keywords-editor/table.php:178
+#: src/posttypes/customlinks.php:173, src/posttypes/customlinks.php:183, src/posttypes/customlinks.php:187, src/backend/menupage/customlinks.php:20, src/backend/menupage/dashboard.php:308, src/backend/menupage/keywords-editor/table.php:178
 msgid "Custom Links"
 msgstr ""
 
@@ -669,215 +677,215 @@ msgstr ""
 msgid "The link to the custom URL gets opened in a new tab."
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:34, src/backend/menupage/dashboard.php:109
+#: src/backend/menupage/dashboard.php:36, src/backend/menupage/dashboard.php:113
 msgid "Dashboard"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:74
+#: src/backend/menupage/dashboard.php:78
 msgid "Character count"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:75
+#: src/backend/menupage/dashboard.php:79
 msgid "Word count"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:76
+#: src/backend/menupage/dashboard.php:80
 msgid "Frequency"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:82
+#: src/backend/menupage/dashboard.php:86
 msgid "Incoming links"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:83
+#: src/backend/menupage/dashboard.php:87
 msgid "Outgoing links"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:84, src/backend/menupage/dashboard.php:321
+#: src/backend/menupage/dashboard.php:88, src/backend/menupage/dashboard.php:328
 msgid "Action"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:113
+#: src/backend/menupage/dashboard.php:117
 msgid "Installed version"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:118
+#: src/backend/menupage/dashboard.php:122
 msgid "Plugin related"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:124
+#: src/backend/menupage/dashboard.php:128
 msgid "Linkindex info"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:131
+#: src/backend/menupage/dashboard.php:135
 msgid "Statistics"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:161
+#: src/backend/menupage/dashboard.php:165
 msgid "Docs & how to"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:161
+#: src/backend/menupage/dashboard.php:165
 msgid "Learn how to use the plugin"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:165
+#: src/backend/menupage/dashboard.php:169
 msgid "Interactive tour"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:165
+#: src/backend/menupage/dashboard.php:169
 msgid "A quick guided tutorial"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:169
+#: src/backend/menupage/dashboard.php:173
 msgid "Request support"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:169
+#: src/backend/menupage/dashboard.php:173
 msgid "Get help through our forum"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:189
+#: src/backend/menupage/dashboard.php:192
 msgid "Link statistics"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:190
+#: src/backend/menupage/dashboard.php:193
 msgid "Anchor text statistics"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:214
+#: src/backend/menupage/dashboard.php:217
 msgid "Rebuild index"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:220
+#: src/backend/menupage/dashboard.php:223
 msgid "Index has no entries yet"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:221
+#: src/backend/menupage/dashboard.php:224
 msgid "Start to set some keywords to your posts"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:221
+#: src/backend/menupage/dashboard.php:224
 msgid "learn how it works"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:223
+#: src/backend/menupage/dashboard.php:226
 msgid "Build index"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:230
+#: src/backend/menupage/dashboard.php:233
 msgid "Amount of links in the index"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:231
+#: src/backend/menupage/dashboard.php:234
 msgid "Amount of configured keywords"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:232
+#: src/backend/menupage/dashboard.php:235
 msgid "Last built"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:233
+#: src/backend/menupage/dashboard.php:236
 msgid "Current index status"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:244
+#: src/backend/menupage/dashboard.php:247
 msgid "Restart index build"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:284
+#: src/backend/menupage/dashboard.php:287
 msgid "Incoming links to"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:285
+#: src/backend/menupage/dashboard.php:288
 msgid "Outgoing links from"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:287
+#: src/backend/menupage/dashboard.php:290
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:288
+#: src/backend/menupage/dashboard.php:291
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:289
+#: src/backend/menupage/dashboard.php:292
 msgid "First"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:290
+#: src/backend/menupage/dashboard.php:293
 msgid "Last"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:291
+#: src/backend/menupage/dashboard.php:294
 msgid "Next"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:292
+#: src/backend/menupage/dashboard.php:295
 msgid "Previous"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:293
+#: src/backend/menupage/dashboard.php:296
 msgid "No data available in table"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:294
+#: src/backend/menupage/dashboard.php:297
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:295
+#: src/backend/menupage/dashboard.php:298
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:296
+#: src/backend/menupage/dashboard.php:299
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:297
+#: src/backend/menupage/dashboard.php:300
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:298
+#: src/backend/menupage/dashboard.php:301
 msgid "Loading..."
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:299
+#: src/backend/menupage/dashboard.php:302
 msgid "Processing..."
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:300
+#: src/backend/menupage/dashboard.php:303
 msgid "Search:"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:301
+#: src/backend/menupage/dashboard.php:304
 msgid "No matching records found"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:302
+#: src/backend/menupage/dashboard.php:305
 msgid "Filter type"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:303
+#: src/backend/menupage/dashboard.php:306
 msgid "Posts and Pages"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:304
+#: src/backend/menupage/dashboard.php:307
 msgid "Taxonomies"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:321
+#: src/backend/menupage/dashboard.php:328
 msgid "Page"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:321, src/backend/menupage/dashboard.php:360
+#: src/backend/menupage/dashboard.php:328, src/backend/menupage/dashboard.php:367
 msgid "Count"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:464
+#: src/backend/menupage/dashboard.php:471
 msgid "Note: This will override all pending index builds"
 msgstr ""
 
-#: src/backend/menupage/dashboard.php:462
+#: src/backend/menupage/dashboard.php:469
 msgid "Note: For the case your index build gets stuck, you can restart the index build here"
 msgstr ""
 
@@ -889,7 +897,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: src/backend/menupage/settings.php:41, src/backend/menupage/settings.php:149
+#: src/backend/menupage/settings.php:41, src/backend/menupage/settings.php:155
 msgid "Settings"
 msgstr ""
 
@@ -937,27 +945,27 @@ msgstr ""
 msgid "This will cancel all pending link building schedules - are you sure you want to do this?"
 msgstr ""
 
-#: src/backend/menupage/settings.php:165, src/backend/menupage/tools.php:148
+#: src/backend/menupage/settings.php:171, src/backend/menupage/tools.php:148
 msgid "Upgrade to Pro now - unlock all features"
 msgstr ""
 
-#: src/backend/menupage/settings.php:185
+#: src/backend/menupage/settings.php:191
 msgid "Save changes"
 msgstr ""
 
-#: src/backend/menupage/settings.php:203
+#: src/backend/menupage/settings.php:209
 msgid "Reset all keywords"
 msgstr ""
 
-#: src/backend/menupage/settings.php:204
+#: src/backend/menupage/settings.php:210
 msgid "This will delete all existing keywords in your site - are you sure you want to do this?"
 msgstr ""
 
-#: src/backend/menupage/settings.php:209
+#: src/backend/menupage/settings.php:215
 msgid "Reset options"
 msgstr ""
 
-#: src/backend/menupage/settings.php:210
+#: src/backend/menupage/settings.php:216
 msgid "You are going to overwrite the existing settings in this section with the defaults."
 msgstr ""
 
@@ -1287,6 +1295,26 @@ msgstr ""
 
 #: src/core/options/limittaxonomylist.php:68
 msgid "Articles within these hierarchical taxonomies link only to articles who have the same category term."
+msgstr ""
+
+#: src/core/options/link-preview-switch.php:38
+msgid "Link Preview"
+msgstr ""
+
+#: src/core/options/link-preview-switch.php:47
+msgid "Enabling this allows users to see post/term previews for generated links."
+msgstr ""
+
+#: src/core/options/link-preview-template.php:45
+msgid "Template for the Link Preview"
+msgstr ""
+
+#: src/core/options/link-preview-template.php:54
+msgid "Customize the template for rendering the link preview content."
+msgstr ""
+
+#: src/core/options/link-preview-template.php:77
+msgid "Reset to Default"
 msgstr ""
 
 #: src/core/options/linkoutputcustom.php:66

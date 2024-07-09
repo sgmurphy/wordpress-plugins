@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use AiBuilder\Inc\Traits\Helper;
+
 if ( ! class_exists( 'Astra_Sites' ) ) :
 
 	/**
@@ -165,7 +167,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_filter( 'status_header', array( $this, 'status_header' ), 10, 4 );
 			add_filter( 'wp_php_error_message', array( $this, 'php_error_message' ), 10, 2 );
 			add_filter( 'wp_import_post_data_processed', array( $this, 'wp_slash_after_xml_import' ), 99, 2 );
-			
+
 			add_filter( 'ast_block_templates_authorization_url_param', array( $this, 'add_auth_url_param' ) );
 			add_action( 'admin_head', array( $this, 'add_custom_admin_css' ) );
 			add_filter( 'zip_ai_modules', array( $this, 'enable_zip_ai_copilot' ), 20, 1 );
@@ -179,21 +181,21 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		public function xml_reader_notice() {
 			$plugin_name = defined( 'ASTRA_PRO_SITES_NAME' ) ? 'Premium Starter Templates' : 'Starter Templates';
 			?>
-			<div class="error">	
+			<div class="error">
 			<p>
 			<?php
-			/* Translators: %s Plugin Name. */ 
+			/* Translators: %s Plugin Name. */
 			echo esc_html( sprintf( __( '%s: XMLReader extension is missing! To import templates, please get in touch with your hosting provider to enable this extension.', 'astra-sites' ), $plugin_name ) );
 			?>
 			</p>
 			</div>
 			<?php
 		}
-		
+
 		/**
 		 * Set reset data
 		 * Note: This function can be deleted after a few releases since we are performing the delete operation in chunks.
-		 * 
+		 *
 		 * @return array<string, array>
 		 */
 		public function get_reset_data() {
@@ -252,9 +254,9 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			return $modules;
 		}
 
-		/** 
+		/**
 		 *  Set adding AI icon to WordPress menu.
-		 * 
+		 *
 		 * @return void
 		 */
 		public function add_custom_admin_css() {
@@ -267,7 +269,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					margin-left: 5px;
 					height: 18px;
 					width: 18px;
-				}	
+				}
 				a[href="themes.php?page=ai-builder"] {
 					display: none !important;
 				}
@@ -618,11 +620,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( 'inactive' === $flexbox_container ) {
 				// Delete the option to clear the cache.
 				delete_option( 'elementor_experiment-container' );
-				
+
 				// Update the option to 'active' to activate the flexbox container.
 				update_option( 'elementor_experiment-container', 'active' );
 			}
-			
+
 			$import      = new \Elementor\TemplateLibrary\Astra_Sites_Elementor_Pages();
 			$import_data = $import->import( $post_id, $meta );
 
@@ -1413,7 +1415,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * Get the API URL.
 		 *
 		 * @since  1.0.0
-		 * 
+		 *
 		 * @return string
 		 */
 		public static function get_api_domain() {
@@ -1440,7 +1442,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 * Getter for $api_url
 		 *
 		 * @since  1.0.0
-		 * 
+		 *
 		 * @return string
 		 */
 		public function get_api_url() {
@@ -1586,7 +1588,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			}
 			$default_page_builder = ( 'installed-and-active' === $spectra_theme ) ? 'fse' : $saved_page_builder;
 			$default_page_builder = ( $enable_block_builder && empty( $default_page_builder ) ) ? 'gutenberg' : $default_page_builder;
-			
+
 			$remove_parameters = array( 'credit_token', 'token', 'email', 'ast_action', 'nonce' );
 			$credit_request_params = array(
 				'success_url' => isset( $_SERVER['REQUEST_URI'] ) ? urlencode( $this->remove_query_params( network_home_url() . $_SERVER['REQUEST_URI'], $remove_parameters ) . '&ast_action=credits' ) : '', // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -1594,7 +1596,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 			$credit_purchase_url = defined( 'ZIP_AI_CREDIT_TOPUP_URL' ) ? ZIP_AI_CREDIT_TOPUP_URL : 'https://app.zipwp.com/credits-pricing';
 			$credit_purchase_url = add_query_arg( $credit_request_params, $credit_purchase_url );
-			
+
 			if ( is_callable( '\SureCart\Models\ApiToken::get()' ) ) {
 				$surecart_store_exist = \SureCart\Models\ApiToken::get();
 			}
@@ -1703,7 +1705,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 					'zip_token_exists' => Astra_Sites_ZipWP_Helper::get_token() !== '' ? true : false,
 					'zip_plans' => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
 					'dashboard_url' => admin_url(),
-					'placeholder_images' => Astra_Sites_ZipWP_Helper::get_image_placeholders(),
+					'placeholder_images' => Helper::get_image_placeholders(),
 					'get_more_credits_url' => $credit_purchase_url,
 					'dismiss_ai_notice' => Astra_Sites_Page::get_instance()->get_setting( 'dismiss_ai_promotion' ),
 					'showClassicTemplates' => apply_filters( 'astra_sites_show_classic_templates', true ),
@@ -1721,7 +1723,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @return mixed
 		 */
-		public function get_page_palette_colors() { 
+		public function get_page_palette_colors() {
 			$default_palette_color = array(
 				'#046bd2',
 				'#045cb4',
@@ -1799,7 +1801,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 		 *
 		 * @return mixed
 		 */
-		public function get_block_palette_colors() { 
+		public function get_block_palette_colors() {
 			$default_palette_color = array(
 				'#046bd2',
 				'#045cb4',
@@ -2171,11 +2173,11 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-importer.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-wp-cli.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-ast-block-templates.php';
-			require_once ASTRA_SITES_DIR . 'inc/lib/whats-new/class-astra-sites-whats-new.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-zip-ai.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/class-astra-sites-zipwp-images.php';
 			require_once ASTRA_SITES_DIR . 'inc/lib/onboarding/class-onboarding.php';
 			require_once ASTRA_SITES_DIR . 'inc/classes/class-astra-sites-file-system.php';
+			require_once ASTRA_SITES_DIR . 'inc/lib/nps-survey/nps-survey.php';
 		}
 
 		/**
@@ -2223,7 +2225,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			if ( ! empty( $features ) ) {
 				$required_plugins = $this->get_feature_plugin_list( $features, $required_plugins );
 			}
-			
+
 			if ( ! empty( $required_plugins ) ) {
 				$php_version = Astra_Sites_Onboarding_Setup::get_instance()->get_php_version();
 				foreach ( $required_plugins as $key => $plugin ) {
@@ -2688,7 +2690,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 
 		/**
 		 * Remove query parameters from the URL.
-		 * 
+		 *
 		 * @param  String   $url URL.
 		 * @param  String[] $params Query parameters.
 		 *

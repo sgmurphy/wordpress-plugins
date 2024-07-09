@@ -38,9 +38,9 @@ class AjaxErrors {
 	public function __construct() {
 
 		self::$errors = array(
-			'permission' => __( 'Sorry, you are not allowed to do this operation.', 'ai-builder', 'astra-sites' ),
-			'nonce'      => __( 'Nonce validation failed', 'ai-builder', 'astra-sites' ),
-			'default'    => __( 'Sorry, something went wrong.', 'ai-builder', 'astra-sites' ),
+			'permission' => __( 'Sorry, you are not allowed to do this operation.', 'astra-sites' ),
+			'nonce'      => __( 'Nonce validation failed', 'astra-sites' ),
+			'default'    => __( 'Sorry, something went wrong.', 'astra-sites' ),
 		);
 	}
 

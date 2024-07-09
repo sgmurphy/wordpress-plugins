@@ -101,7 +101,7 @@ class ST_Replace_Images {
 		} else {
 			$customizer_replacement = array(
 				'success' => false,
-				'msg'     => __( 'Astra functions not available', 'st-importer', 'astra-sites' ),
+				'msg'     => __( 'Astra functions not available', 'astra-sites' ),
 			);
 		}
 
@@ -130,7 +130,7 @@ class ST_Replace_Images {
 
 		return array(
 			'success' => true,
-			'msg'     => __( 'Image Replacement completed.', 'st-importer', 'astra-sites' ),
+			'msg'     => __( 'Image Replacement completed.', 'astra-sites' ),
 		);
 
 	}
@@ -149,7 +149,7 @@ class ST_Replace_Images {
 		if ( empty( $posts ) ) {
 			return array(
 				'success' => true,
-				'msg'     => __( 'Posts are empty. Nothing to process.', 'st-importer', 'astra-sites' ),
+				'msg'     => __( 'Posts are empty. Nothing to process.', 'astra-sites' ),
 			);
 		}
 
@@ -162,7 +162,7 @@ class ST_Replace_Images {
 		}
 		return array(
 			'success' => true,
-			'msg'     => __( 'Posts are replaced', 'st-importer', 'astra-sites' ),
+			'msg'     => __( 'Posts are replaced', 'astra-sites' ),
 		);
 	}
 
@@ -457,7 +457,7 @@ class ST_Replace_Images {
 		if ( empty( $pages ) ) {
 			return array(
 				'success' => false,
-				'msg'     => __( 'Pages are empty', 'st-importer', 'astra-sites' ),
+				'msg'     => __( 'Pages are empty', 'astra-sites' ),
 			);
 		}
 
@@ -484,7 +484,7 @@ class ST_Replace_Images {
 
 		return array(
 			'success' => true,
-			'msg'     => __( 'Pages are replaced', 'st-importer', 'astra-sites' ),
+			'msg'     => __( 'Pages are replaced', 'astra-sites' ),
 		);
 	}
 

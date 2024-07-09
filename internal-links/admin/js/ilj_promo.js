@@ -24,7 +24,8 @@ jQuery(document).ready(function () {
         url: ajaxurl,
         type: "POST",
         data: {
-          'action': 'ilj_hide_promo'
+          'action': 'ilj_hide_promo',
+          'nonce': ilj_ajax_object.nonce
         }
       });
     });

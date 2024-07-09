@@ -19,21 +19,21 @@ class Discounts extends DataBaseModel {
 		$primary_key = self::$primary_key;
 
 		$sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
-            {$primary_key} INT UNSIGNED NOT NULL AUTO_INCREMENT,
-            title TEXT,
-            calc_id INT UNSIGNED NOT NULL,
-            is_promo TINYINT(1) DEFAULT 0,
-            view_type ENUM('show_with_title', 'show_without_title') NOT NULL,
-            period ENUM('period', 'single_day', 'permanently') NOT NULL,
-            period_start_date DATE,
-            period_end_date DATE,
-            single_date DATE,
-            discount_status ENUM('active', 'upcoming', 'ended') NOT NULL DEFAULT 'upcoming',
-            created_at TIMESTAMP NOT NULL,
+			{$primary_key} INT UNSIGNED NOT NULL AUTO_INCREMENT,
+			title TEXT,
+			calc_id INT UNSIGNED NOT NULL,
+			is_promo TINYINT(1) DEFAULT 0,
+			view_type ENUM('show_with_title', 'show_without_title') NOT NULL,
+			period ENUM('period', 'single_day', 'permanently') NOT NULL,
+			period_start_date DATE,
+			period_end_date DATE,
+			single_date DATE,
+			discount_status ENUM('active', 'upcoming', 'ended') NOT NULL DEFAULT 'upcoming',
+			created_at TIMESTAMP NOT NULL,
 			updated_at TIMESTAMP NOT NULL,
-            PRIMARY KEY ({$primary_key}),
-            INDEX `idx_calc_id` (`calc_id`),
-            INDEX `idx_created_at` (`created_at`)
+			PRIMARY KEY ({$primary_key}),
+			INDEX `idx_calc_id` (`calc_id`),
+			INDEX `idx_created_at` (`created_at`)
 		) {$wpdb->get_charset_collate()};";
 
 		maybe_create_table( $table_name, $sql );
@@ -122,22 +122,22 @@ class Discounts extends DataBaseModel {
 
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.title as title,
-                    %1$s.is_promo as is_promo,
-                    %1$s.view_type as view_type,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %1$s.discount_status as discount_status,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id in (%3$s) AND %1$s.discount_id in (%4$s)
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.title as title,
+					%1$s.is_promo as is_promo,
+					%1$s.view_type as view_type,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%1$s.discount_status as discount_status,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id in (%3$s) AND %1$s.discount_id in (%4$s)
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id,
@@ -199,9 +199,9 @@ class Discounts extends DataBaseModel {
 		global $wpdb;
 		$sql = sprintf(
 			'SELECT COUNT(%1$s.discount_id)
-                    FROM %1$s
-                    WHERE %1$s.calc_id in (%2$s)
-                    ',
+					FROM %1$s
+					WHERE %1$s.calc_id in (%2$s)
+					',
 			self::_table(),
 			$params['calc_id']
 		);
@@ -224,24 +224,24 @@ class Discounts extends DataBaseModel {
 
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.title as title,
-                    %1$s.is_promo as is_promo,
-                    %1$s.view_type as view_type,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %1$s.discount_status as discount_status,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id in (%3$s)
-                    %4$s
-                    ORDER BY %1$s.%5$s %6$s LIMIT %7$s OFFSET %8$s
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.title as title,
+					%1$s.is_promo as is_promo,
+					%1$s.view_type as view_type,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%1$s.discount_status as discount_status,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id in (%3$s)
+					%4$s
+					ORDER BY %1$s.%5$s %6$s LIMIT %7$s OFFSET %8$s
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id,
@@ -267,24 +267,26 @@ class Discounts extends DataBaseModel {
 	public static function get_all_calc_discounts( $calc_id ) {
 		global $wpdb;
 
+		$calc_id = self::validate_calc_id( $calc_id );
+
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.title as title,
-                    %1$s.is_promo as is_promo,
-                    %1$s.view_type as view_type,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %1$s.discount_status as discount_status,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id in (%3$s)
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.title as title,
+					%1$s.is_promo as is_promo,
+					%1$s.view_type as view_type,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%1$s.discount_status as discount_status,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id in (%3$s)
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id
@@ -307,26 +309,28 @@ class Discounts extends DataBaseModel {
 			return array();
 		}
 
+		$calc_id = self::validate_calc_id( $calc_id );
+
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.title as title,
-                    %1$s.is_promo as is_promo,
-                    %1$s.view_type as view_type,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %1$s.discount_status as discount_status,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id = %3$s 
-                    AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
-                    ORDER BY %1$s.discount_id ASC
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.title as title,
+					%1$s.is_promo as is_promo,
+					%1$s.view_type as view_type,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%1$s.discount_status as discount_status,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id = %3$s 
+					AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
+					ORDER BY %1$s.discount_id ASC
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id
@@ -349,26 +353,28 @@ class Discounts extends DataBaseModel {
 			return false;
 		}
 
+		$calc_id = self::validate_calc_id( $calc_id );
+
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.title as title,
-                    %1$s.is_promo as is_promo,
-                    %1$s.view_type as view_type,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %1$s.discount_status as discount_status,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id = %3$s AND %1$s.is_promo IS NOT NULL
-                    AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
-                    ORDER BY %1$s.discount_id ASC
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.title as title,
+					%1$s.is_promo as is_promo,
+					%1$s.view_type as view_type,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%1$s.discount_status as discount_status,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id = %3$s AND %1$s.is_promo IS NOT NULL
+					AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
+					ORDER BY %1$s.discount_id ASC
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id
@@ -381,6 +387,9 @@ class Discounts extends DataBaseModel {
 	public static function get_promocodes_by_promocode( $calc_id, $promocodes ) {
 		global $wpdb;
 
+		$calc_id    = self::validate_calc_id( $calc_id );
+		$promocodes = self::validate_promocodes( $calc_id, $promocodes );
+
 		$quotedPromocodes = array_map(
 			function( $value ) {
 				return "'$value'";
@@ -390,22 +399,22 @@ class Discounts extends DataBaseModel {
 
 		$sql = sprintf(
 			'SELECT %1$s.*,
-                    %1$s.discount_id as discount_id,
-                    %1$s.period as period,
-                    %1$s.period_start_date as period_start_date,
-                    %1$s.period_end_date as period_end_date,
-                    %1$s.single_date as single_date,
-                    %2$s.promocode_id as promocode_id,
-                    %2$s.promocode_count as promocode_count,
-                    %2$s.promocode as promocode,
-                    %2$s.promocode_used as promocode_used
-                    FROM %1$s
-                    LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
-                    WHERE %1$s.calc_id = %3$s 
-                    AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
-                    AND %2$s.promocode IN (%4$s)
-                    ORDER BY %1$s.discount_id ASC
-                    ',
+					%1$s.discount_id as discount_id,
+					%1$s.period as period,
+					%1$s.period_start_date as period_start_date,
+					%1$s.period_end_date as period_end_date,
+					%1$s.single_date as single_date,
+					%2$s.promocode_id as promocode_id,
+					%2$s.promocode_count as promocode_count,
+					%2$s.promocode as promocode,
+					%2$s.promocode_used as promocode_used
+					FROM %1$s
+					LEFT JOIN %2$s ON %1$s.discount_id = %2$s.discount_id
+					WHERE %1$s.calc_id = %3$s 
+					AND ( (%1$s.period_start_date IS NOT NULL AND CURDATE() BETWEEN %1$s.period_start_date AND %1$s.period_end_date) OR (%1$s.single_date IS NOT NULL AND %1$s.single_date = CURDATE()) OR (%1$s.period = "permanently"))
+					AND %2$s.promocode IN (%4$s)
+					ORDER BY %1$s.discount_id ASC
+					',
 			self::_table(),
 			Promocodes::_table(),
 			$calc_id,
@@ -451,5 +460,36 @@ class Discounts extends DataBaseModel {
 		}
 
 		return $discounts;
+	}
+
+	public static function validate_calc_id( $calc_id ) {
+		if ( is_int( intval( $calc_id ) ) ) {
+			return intval( $calc_id );
+		}
+		return 0;
+	}
+
+	public static function validate_promocodes( $calc_id, $promocodes ) {
+		$discounts           = self::get_all_calc_discounts( $calc_id );
+		$existing_promocodes = array();
+		$result              = array();
+
+		foreach ( $discounts as $discount ) {
+			if ( ! empty( $discount['promocode'] ) ) {
+				$existing_promocodes[] = $discount['promocode'];
+			}
+		}
+
+		foreach ( $promocodes as $promocode ) {
+			if ( in_array( $promocode, $existing_promocodes, true ) ) {
+				$result[] = $promocode;
+			}
+		}
+
+		if ( empty( $result ) ) {
+			$result[] = '';
+		}
+
+		return $result;
 	}
 }

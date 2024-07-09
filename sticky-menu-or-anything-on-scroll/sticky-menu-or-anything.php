@@ -5,9 +5,9 @@ Plugin URI: https://wpsticky.com/
 Description: Pick any element on the page, and it will stick when it reaches the top of the page when you scroll down. Handy for navigation menus, but can be used for any element on the page.
 Author: WebFactory Ltd
 Author URI: https://www.webfactoryltd.com/
-Version: 2.32
+Version: 2.33
 Requires at least: 3.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.2
 Text Domain: sticky-menu-or-anything-on-scroll
 
@@ -215,7 +215,7 @@ if (!function_exists('sticky_anything_config_page')) {
 	?>
 
 	<div id="sticky-anything-settings-general" class="wrap">
-		<h2 style="margin-bottom: 12px;"><img class="header-logo" src="<?php echo plugin_dir_url(__FILE__); ?>assets/img/wp-sticky-pro.png" alt="<?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?>" title="<?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?>"><?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?></h2>
+		<h2 style="margin-bottom: 12px;"><img class="header-logo" src="<?php echo esc_url(plugin_dir_url(__FILE__) . 'assets/img/wp-sticky-pro.png'); ?>" alt="<?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?>" title="<?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?>"><?php esc_html_e('Sticky Menu (or Anything!) on Scroll','sticky-menu-or-anything-on-scroll'); ?></h2>
 
     <p><?php esc_html_e('Pick any element on the page, and it will stick when it reaches the top of the page when you scroll down. Great for headers and navigation menus, but can be used for any page element.','sticky-menu-or-anything-on-scroll'); ?><br><br></p>
 <?php
@@ -258,7 +258,7 @@ if (!function_exists('sticky_anything_config_page')) {
 
 				if ( isset( $_GET['message'] )) {
 					if ($_GET['message'] == '1') {
-						echo '<div id="message" class="fade updated"><p><strong>'.__('Settings Updated.','sticky-menu-or-anything-on-scroll').'</strong></p></div>';
+						echo '<div id="message" class="fade updated"><p><strong>'.esc_html__('Settings Updated.','sticky-menu-or-anything-on-scroll').'</strong></p></div>';
 					}
 				}
 
@@ -295,31 +295,31 @@ if (!function_exists('sticky_anything_config_page')) {
 
 				// IF THERE ARE ERRORS, SHOW THEM
 				if ( $warnings == true ) {
-					echo '<div id="message" class="error"><p><strong>'.__('Please review the current settings:','sticky-menu-or-anything-on-scroll').'</strong></p>';
+					echo '<div id="message" class="error"><p><strong>'.esc_html__('Please review the current settings:','sticky-menu-or-anything-on-scroll').'</strong></p>';
 					echo '<ul style="list-style-type:disc; margin:0 0 20px 24px;">';
 
 					if ($sticky_anything_options['sa_element'] == '') {
-						echo '<li>'.__('<b>Sticky Element</b> is a required field. If you do not want anything sticky, consider disabling the plugin.','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('<b>Sticky Element</b> is a required field. If you do not want anything sticky, consider disabling the plugin.','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					if ( (!is_numeric($sticky_anything_options['sa_topspace'])) && ($sticky_anything_options['sa_topspace'] != '')) {
-						echo '<li>'.__('<b>Top Position</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('<b>Top Position</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					if ( (!is_numeric($sticky_anything_options['sa_minscreenwidth'])) && ($sticky_anything_options['sa_minscreenwidth'] != '')) {
-						echo '<li>'.__('<b>Minimum Screen Width</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('<b>Minimum Screen Width</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					if ( (!is_numeric($sticky_anything_options['sa_maxscreenwidth'])) && ($sticky_anything_options['sa_maxscreenwidth'] != '')) {
-						echo '<li>'.__('<b>Maximum Screen Width</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('<b>Maximum Screen Width</b> has to be a number (do not include "px" or "pixels", or any other characters).','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					if ( ($sticky_anything_options['sa_minscreenwidth'] != '') && ($sticky_anything_options['sa_maxscreenwidth'] != '') && ( ($sticky_anything_options['sa_minscreenwidth']) >= ($sticky_anything_options['sa_maxscreenwidth']) ) ) {
-						echo '<li>'.__('MAXIMUM screen width has to have a larger value than the MINIMUM screen width.','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('MAXIMUM screen width has to have a larger value than the MINIMUM screen width.','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					if ((!is_numeric($sticky_anything_options['sa_zindex'])) && ($sticky_anything_options['sa_zindex'] != '')) {
-						echo '<li>'.__('<b>Z-Index</b> has to be a number (do not include any other characters).','sticky-menu-or-anything-on-scroll').'</li>';
+						sticky_wp_kses_wf('<li>'.__('<b>Z-Index</b> has to be a number (do not include any other characters).','sticky-menu-or-anything-on-scroll').'</li>');
 					}
 
 					echo '</ul></div>';

@@ -5,7 +5,7 @@ Donate link: https://sonaar.io
 Requires at least: 4.7
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 5.5
+Stable tag: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -339,6 +339,19 @@ Yes, with the pro version, you can click on the 'Add to Favorite' icon to store 
 10. Shortcode Builder: Create, Import and Customize audio players using shortcodes in real-time
 
 == Changelog ==
+= 5.6 =
+New: Add Repeat Control Buttons in the widget players. You can enable it site-wide from WP-Admin > MP3 Player > Widget/Sticky Player > Display Repeat Button. Additionally, you can enable it for individual widget instances.
+New: Azuracast radio support to display whats currently playing
+Tweak: Shuffle Icon design
+Tweak: Added title attribute for player controls. You can translate them in MP3 Player > Settings > Widget Player
+Tweak: New action hook srmp3_pre_get_playlist for get_playlist function
+Fix: Issue with Elementor DB Update cause a fatal error in some case
+Fix: Track color titles in shortcode builder in darkmode.
+Fix: Duplicate search value with single quote, with the Right Single Quotation Mark Hexo code. Eg : Search for "O'Brien" and "O’Brien"
+Fix: Compatibility issue with Icecast Player Plugin.
+Fix: Sticky Player download button: redirection issue when condition is not Met
+Fix: Security patch related with XSS in some case
+
 = 5.5 =
 - New: Dark mode for the admin settings and shortcode builder
 - New: Shortcode Builder. Add option to set a preview background color in the builder

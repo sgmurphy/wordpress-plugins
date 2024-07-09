@@ -75,11 +75,11 @@ if ( ! class_exists( 'Astra_Sites_Onboarding_Setup' ) ) :
 		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'customize' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 
 		if ( ! class_exists( 'XMLReader' ) ) {
-			wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'The XMLReader library is not available. This library is required to import the content for the website.', 'astra-sites' ) );
 		}
 
 		$wxr_url = astra_get_site_data( 'astra-site-wxr-path' );

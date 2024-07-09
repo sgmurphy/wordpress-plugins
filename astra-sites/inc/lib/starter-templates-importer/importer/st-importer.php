@@ -57,7 +57,7 @@ class ST_Importer {
 		if ( empty( $uuid ) && 'ai' === $template_type ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'uuid is empty.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'uuid is empty.', 'astra-sites' ),
 			);
 		}
 
@@ -69,7 +69,7 @@ class ST_Importer {
 
 		return array(
 			'status' => true,
-			'error'  => __( 'Import process start flof set successfully.', 'st-importer', 'astra-sites' ),
+			'error'  => __( 'Import process start flof set successfully.', 'astra-sites' ),
 		);
 	}
 
@@ -86,14 +86,14 @@ class ST_Importer {
 		if ( ! is_callable( 'UAGB_Admin_Helper::get_instance' ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Can\'t import Spectra Settings. Spectra Plugin is not activated.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Can\'t import Spectra Settings. Spectra Plugin is not activated.', 'astra-sites' ),
 			);
 		}
 
 		if ( empty( $settings ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Spectra settings are empty.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Spectra settings are empty.', 'astra-sites' ),
 			);
 		}
 
@@ -101,7 +101,7 @@ class ST_Importer {
 
 		return array(
 			'status'  => true,
-			'message' => __( 'Spectra settings imported successfully.', 'st-importer', 'astra-sites' ),
+			'message' => __( 'Spectra settings imported successfully.', 'astra-sites' ),
 		);
 
 	}
@@ -121,14 +121,14 @@ class ST_Importer {
 		if ( empty( $id ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Id is empty.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Id is empty.', 'astra-sites' ),
 			);
 		}
 
 		if ( ! is_callable( 'SureCart\Models\ProvisionalAccount::create' ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'SureCart\Models\ProvisionalAccount::create function is not callable.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'SureCart\Models\ProvisionalAccount::create function is not callable.', 'astra-sites' ),
 			);
 		}
 
@@ -163,7 +163,7 @@ class ST_Importer {
 		if ( empty( $customizer_data ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Customizer data is empty.', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Customizer data is empty.', 'astra-sites' ),
 			);
 		}
 
@@ -181,7 +181,7 @@ class ST_Importer {
 
 		return array(
 			'status'  => true,
-			'message' => __( 'Customizer data imported successfully.', 'st-importer', 'astra-sites' ),
+			'message' => __( 'Customizer data imported successfully.', 'astra-sites' ),
 		);
 
 	}
@@ -200,7 +200,7 @@ class ST_Importer {
 			return array(
 				'status' => false,
 				/* Translators: %s is WXR URL. */
-				'error'  => sprintf( __( 'Invalid WXR Request URL - %s', 'st-importer', 'astra-sites' ), $wxr_url ),
+				'error'  => sprintf( __( 'Invalid WXR Request URL - %s', 'astra-sites' ), $wxr_url ),
 			);
 		}
 
@@ -225,7 +225,7 @@ class ST_Importer {
 			if ( ! is_int( $post_id ) ) {
 				return array(
 					'status' => false,
-					'error'  => __( 'There was an error downloading the XML file.', 'st-importer', 'astra-sites' ),
+					'error'  => __( 'There was an error downloading the XML file.', 'astra-sites' ),
 				);
 			} else {
 				update_option( 'astra_sites_imported_wxr_id', $post_id, 'no' );
@@ -261,7 +261,7 @@ class ST_Importer {
 		if ( empty( $options ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Site options are empty!', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Site options are empty!', 'astra-sites' ),
 			);
 		}
 
@@ -311,7 +311,7 @@ class ST_Importer {
 
 			return array(
 				'status'  => true,
-				'message' => __( 'Options imported successfully.', 'st-importer', 'astra-sites' ),
+				'message' => __( 'Options imported successfully.', 'astra-sites' ),
 			);
 		} catch ( \Exception $e ) {
 			return array(
@@ -344,7 +344,7 @@ class ST_Importer {
 		if ( ! is_object( $widgets_data ) ) {
 			return array(
 				'status' => false,
-				'error'  => __( 'Widget data is empty!', 'st-importer', 'astra-sites' ),
+				'error'  => __( 'Widget data is empty!', 'astra-sites' ),
 			);
 		}
 
@@ -353,7 +353,7 @@ class ST_Importer {
 		update_option( '_astra_sites_old_widgets_data', $sidebars_widgets, 'no' );
 		return array(
 			'status'  => true,
-			'message' => __( 'Widgets imported successfully.', 'st-importer', 'astra-sites' ),
+			'message' => __( 'Widgets imported successfully.', 'astra-sites' ),
 		);
 
 	}

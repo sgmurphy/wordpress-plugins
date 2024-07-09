@@ -188,6 +188,20 @@ final class Content
         return '';
     }
     /**
+     * Return the permalink
+     *
+     * @return string
+     */
+    public function get_permalink()
+    {
+        if ('post' === $this->get_type()) {
+            return get_permalink($this->get_id());
+        } elseif ('term' === $this->get_type()) {
+            return get_term_link($this->get_id());
+        }
+        return '';
+    }
+    /**
      * Return the entity type based on the content type ( it can be post type or taxonomy )
      *
      * @return string

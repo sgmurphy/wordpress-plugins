@@ -15,7 +15,7 @@ class ReadMoreInstall
 			`button-width` varchar(255) NOT NULL,
 			`button-height` varchar(255) NOT NULL,
 			`animation-duration` varchar(255) NOT NULL,
-			`options` text NOT NULL,
+			`options` LONGTEXT NOT NULL,
 			PRIMARY KEY (id)
 		)"." ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
@@ -23,7 +23,7 @@ class ReadMoreInstall
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`post_id` int(11) NOT NULL,
 			`button_id` int(11) NOT NULL,
-			`options` text NOT NULL,
+			`options` LONGTEXT NOT NULL,
 			PRIMARY KEY (id)
 		)"." ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 		

@@ -923,9 +923,9 @@ if ( ! class_exists( 'Qi_Blocks_Search_Block' ) ) {
 
 			if ( $attributes['showWidgetTitle'] && ! empty( $attributes['widgetTitle'] ) ) {
 				$html .= '<div class="qodef-m-search-title-holder">';
-				$html .= '<' . esc_attr( $attributes['widgetTitleTag'] ) . ' class="qodef-m-search-title">';
+				$html .= '<' . qi_blocks_escape_title_tag( $attributes['widgetTitleTag'] ) . ' class="qodef-m-search-title">';
 				$html .= wp_kses_post( $attributes['widgetTitle'] );
-				$html .= '</' . esc_attr( $attributes['widgetTitleTag'] ) . '>';
+				$html .= '</' . qi_blocks_escape_title_tag( $attributes['widgetTitleTag'] ) . '>';
 				$html .= '</div>';
 			}
 

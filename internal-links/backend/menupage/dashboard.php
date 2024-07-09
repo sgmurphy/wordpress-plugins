@@ -16,6 +16,8 @@ use ILJ\Backend\MenuPage\Includes\SidebarTrait;
 use ILJ\Backend\MenuPage\Includes\HeadlineTrait;
 use ILJ\Core\IndexBuilder;
 use ILJ\Helper\BatchInfo as HelperBatchInfo;
+use ILJ\Statistics\Link;
+use ILJ\Helper\ScriptHandler;
 use RankMath\Helper;
 use ILJ\Helper\Stopwatch;
 /**
@@ -47,9 +49,10 @@ class Dashboard extends AbstractMenuPage
         add_action('admin_enqueue_scripts', function () {
             $screen = get_current_screen();
             if ($screen->base === $this->page_hook) {
-                \ILJ\Helper\Loader::register_script(self::ILJ_STATISTIC_HANDLE, ILJ_URL . 'admin/js/ilj_statistic.js', array(), ILJ_VERSION);
+                \ILJ\Helper\Loader::register_script(self::ILJ_STATISTIC_HANDLE, ILJ_URL . 'admin/js/ilj_statistic.js', array('wp-polyfill'), ILJ_VERSION);
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'ilj_statistic_translation', Dashboard::getTranslation());
-                \ILJ\Helper\Loader::enqueue_script(self::ILJ_STATISTIC_HANDLE);
+                wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'ilj_link_statistic_filter_types', Link::get_types());
+                wp_enqueue_script(self::ILJ_STATISTIC_HANDLE);
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'headerLabels', array(__('Anchor text', 'internal-links'), __('Character count', 'internal-links'), __('Word count', 'internal-links'), __('Frequency', 'internal-links')));
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'header_titles', array(__('Title', 'internal-links'), __('Configured keywords', 'internal-links'), __('Type', 'internal-links'), __('Incoming links', 'internal-links'), __('Outgoing links', 'internal-links'), __('Action', 'internal-links')));
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'ilj_dashboard', array('nonce' => wp_create_nonce('ilj-dashboard')));
@@ -127,7 +130,7 @@ class Dashboard extends AbstractMenuPage
         $output .= '<a data-target="statistic-anchors" class="nav-tab">' . __('Anchor text statistics', 'internal-links') . '</a>';
         $output .= '</h2>';
         $output .= '<div id="statistic-links" class="tab-content active">';
-        $output .= '<div class="spinner is-active"></div>';
+        $output .= '<div class="ilj-overlay" id="link-statistics-loader"><div class="spinner is-active" id="link-statistics-spinner"></div></div>';
         $output .= '</div>';
         $output .= '<div id="statistic-anchors" class="tab-content">';
         $output .= '<div class="spinner is-active"></div>';
@@ -164,7 +167,7 @@ class Dashboard extends AbstractMenuPage
             $output .= '<li class="ilj-row"><div class="col-4"><strong>' . __('Last built', 'internal-links') . '</strong>:</div><div class="col-6" id="ilj-last-built">' . $date->format(get_option('date_format')) . ' ' . __('at', 'internal-links') . ' ' . $date->format(get_option('time_format')) . '</div><div class="clear"></div></li>';
             $output .= '<li class="ilj-row"><div class="col-4"><strong>' . __('Current index status', 'internal-links') . '</strong>:</div><div class="col-6" id="ilj-index-status">' . __($this->getCurrentIndexStatus(), 'internal-links') . '</div><div class="clear"></div></li>';
         }
-        $output .= '<li class="ilj-row"><div class="col-4" style="display:flex">' . (('' != $first_build_message) ? $first_build_message : '') . '</div><div class="col-6">' . '<a class="button ilj-index-rebuild ' . $this->disableRebuildButton() . ' " title="' . $this->rebuildButtonTooltip() . '" href="#" >' . $build_button_text . '</a> ' . ' <a class="button ilj-index-restart-rebuild ' . $this->disableRebuildButton("restart") . ' " title="' . $this->rebuildButtonTooltip("restart") . '" href="#" >' . __('Restart index build', 'internal-links') . '</a>' . ' <br> <div class="ilj-index-rebuild-message"><p id="ilj-index-rebuild-message"><p><div class="clear"></div></p></div></div><div class="clear"></div></li>';
+        $output .= '<li class="ilj-row"><div class="col-4" style="display:flex">' . (('' != $first_build_message) ? $first_build_message : '') . '</div><div class="col-6">' . '<a class="button ilj-index-rebuild ' . $this->disableRebuildButton() . ' " title="' . $this->rebuildButtonTooltip() . '" href="#" >' . $build_button_text . '</a> ' . ' <a class="button ilj-index-restart-rebuild ' . $this->disableRebuildButton('restart') . ' " title="' . $this->rebuildButtonTooltip('restart') . '" href="#" >' . __('Restart index build', 'internal-links') . '</a>' . ' <br> <div class="ilj-index-rebuild-message"><p id="ilj-index-rebuild-message"><p><div class="clear"></div></p></div></div><div class="clear"></div></li>';
         $output .= '</ul>';
         return $output;
     }
@@ -198,7 +201,7 @@ class Dashboard extends AbstractMenuPage
      */
     public static function getTranslation()
     {
-        $translation = array('incoming_links' => __('Incoming links to', 'internal-links'), 'outgoing_links' => __('Outgoing links from', 'internal-links'), 'anchor_text' => __('Anchor text', 'internal-links'), 'datatables_aria_sortAscending' => __(': activate to sort column ascending', 'internal-links'), 'datatables_aria_sortDescending' => __(': activate to sort column descending', 'internal-links'), 'datatables_paginate_first' => __('First', 'internal-links'), 'datatables_paginate_last' => __('Last', 'internal-links'), 'datatables_paginate_next' => __('Next', 'internal-links'), 'datatables_paginate_previous' => __('Previous', 'internal-links'), 'datatables_empty_table' => __('No data available in table', 'internal-links'), 'datatables_info' => __('Showing _START_ to _END_ of _TOTAL_ entries', 'internal-links'), 'datatables_info_empty' => __('Showing 0 to 0 of 0 entries', 'internal-links'), 'datatables_info_filtered' => __('(filtered from _MAX_ total entries)', 'internal-links'), 'datatables_length_menu' => __('Show _MENU_ entries', 'internal-links'), 'datatables_loading_records' => __('Loading...', 'internal-links'), 'datatables_processing' => __('Processing...', 'internal-links'), 'datatables_search' => __('Search:', 'internal-links'), 'datatables_zero_records' => __('No matching records found', 'internal-links'), 'filter_type' => __('Filter type', 'internal-links'), 'filter_section_posts_pages' => __('Posts and Pages', 'internal-links'), 'filter_section_taxonomies' => __('Taxonomies', 'internal-links'), 'filter_section_custom_links' => __('Custom Links', 'internal-links'));
+        $translation = array('incoming_links' => __('Incoming links to', 'internal-links'), 'outgoing_links' => __('Outgoing links from', 'internal-links'), 'anchor_text' => __('Anchor text', 'internal-links'), 'datatables_aria_sortAscending' => __(': activate to sort column ascending', 'internal-links'), 'datatables_aria_sortDescending' => __(': activate to sort column descending', 'internal-links'), 'datatables_paginate_first' => __('First', 'internal-links'), 'datatables_paginate_last' => __('Last', 'internal-links'), 'datatables_paginate_next' => __('Next', 'internal-links'), 'datatables_paginate_previous' => __('Previous', 'internal-links'), 'datatables_empty_table' => __('No data available in table', 'internal-links'), 'datatables_info' => __('Showing _START_ to _END_ of _TOTAL_ entries', 'internal-links'), 'datatables_info_empty' => __('Showing 0 to 0 of 0 entries', 'internal-links'), 'datatables_info_filtered' => __('(filtered from _MAX_ total entries)', 'internal-links'), 'datatables_length_menu' => __('Show _MENU_ entries', 'internal-links'), 'datatables_loading_records' => __('Loading...', 'internal-links'), 'datatables_processing' => __('Processing...', 'internal-links'), 'datatables_search' => __('Search:', 'internal-links'), 'datatables_zero_records' => __('No matching records found', 'internal-links'), 'filter_type' => __('Filter type', 'internal-links'), 'filter_section_posts_pages' => __('Posts and Pages', 'internal-links'), 'filter_section_taxonomies' => __('Taxonomies', 'internal-links'), 'filter_section_custom_links' => __('Custom Links', 'internal-links'), 'show_incoming_links' => __('Show incoming links', 'internal-links'), 'show_outgoing_links' => __('Show outgoing links', 'internal-links'), 'edit' => __('Edit', 'internal-links'), 'open' => __('Open', 'internal-links'));
         return $translation;
     }
     /**

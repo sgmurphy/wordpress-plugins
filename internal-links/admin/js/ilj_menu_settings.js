@@ -2,7 +2,7 @@ var __webpack_exports__ = {};
 /*!*******************************************!*\
   !*** ./src/admin/js/ilj_menu_settings.js ***!
   \*******************************************/
-function ilj_dynamicSelect(id, action, searchResults) {
+function ilj_dynamicSelect(id, action, searchResults, nonceName) {
   jQuery(id).ilj_select2({
     width: '50%',
     minimumInputLength: 3,
@@ -21,6 +21,7 @@ function ilj_dynamicSelect(id, action, searchResults) {
       data: function (params) {
         return {
           action: action,
+          nonce: ilj_menu_settings_obj[nonceName],
           search: params.term,
           per_page: searchResults,
           page: params.page || 1
@@ -95,8 +96,8 @@ function ilj_menu_settings_toggle_fields(toggle, inverse_fields, attribute) {
     });
   }
 }
-jQuery(function ($) {
-  $('#ilj_settings_field_editor_role, #ilj_settings_field_index_generation, #ilj_settings_field_whitelist, #ilj_settings_field_taxonomy_whitelist,#ilj_settings_field_limit_taxonomy_list, #ilj_settings_field_keyword_order, #ilj_settings_field_no_link_tags').ilj_select2({
+jQuery(document).ready(function () {
+  jQuery('#ilj_settings_field_editor_role, #ilj_settings_field_index_generation, #ilj_settings_field_whitelist, #ilj_settings_field_taxonomy_whitelist, #ilj_settings_field_limit_taxonomy_list, #ilj_settings_field_keyword_order, #ilj_settings_field_no_link_tags, #ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').ilj_select2({
     minimumResultsForSearch: 10,
     width: '50%'
   });
@@ -112,7 +113,7 @@ jQuery(function ($) {
    *
    * To accomplish this behaviour we use the insertTag() option of select2 to dynamically add tags.
    */
-  $('#ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').ilj_select2({
+  jQuery('#ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').ilj_select2({
     minimumResultsForSearch: 10,
     width: '50%',
     tags: true,
@@ -150,7 +151,7 @@ jQuery(function ($) {
    * When the user clicks on any one of the dynamically added option, we have to add them to select2 options
    * and make it selected.
    */
-  $('#ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').on('select2:select', function (e) {
+  jQuery('#ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').on('select2:select', function (e) {
     if (e.params.data.newOption) {
       var data = e.params.data;
       // Create a DOM Option and pre-select by default
@@ -164,8 +165,15 @@ jQuery(function ($) {
    * Toggle max incoming links field by limit incoming links toggle.
    */
   ilj_menu_settings_inverse_fields(jQuery('#ilj_settings_field_limit_incoming_links'), jQuery('#ilj_settings_field_max_incoming_links'));
-  ilj_dynamicSelect('#ilj_settings_field_blacklist', 'ilj_search_posts', 20);
-  ilj_dynamicSelect('#ilj_settings_field_term_blacklist', 'ilj_search_terms', 20);
+  ilj_dynamicSelect('#ilj_settings_field_blacklist', 'ilj_search_posts', 20, 'nonce_ilj_search_posts');
+  ilj_dynamicSelect('#ilj_settings_field_term_blacklist', 'ilj_search_terms', 20, 'nonce_ilj_search_terms');
+
+  /**
+   * Toggle Link preview template based on link preview toggle.
+   */
+  var link_preview_toggle_selector = jQuery('#ilj_settings_field_link_preview_switch');
+  ilj_menu_settings_inverse_fields(link_preview_toggle_selector, jQuery('#ilj_settings_field_link_preview_template'));
+  ilj_menu_settings_inverse_fields(link_preview_toggle_selector, jQuery('#ilj_settings_field_link_preview_template_reset_to_default'), 'disabled');
 
   /**
    * Toggle "links_per_page" and "links_per_target" depending on multiple keyword state
@@ -240,6 +248,10 @@ jQuery(function ($) {
     size: 'small'
   };
   jQuery('.tip').iljtipso(tipsoConfig);
+  jQuery('.pro-title, .pro-setting').attr('title', ilj_menu_settings_translation.pro_feature_title);
+  jQuery('.pro-title, .pro-setting').on('click', function () {
+    window.open(ilj_menu_settings_translation.upgrade_to_pro_link, '_blank');
+  });
   jQuery(document).on('click', '.button.ilj-cancel-schedules', function (e) {
     e.preventDefault();
     var user_confirmed = confirm(ilj_menu_settings_translation.confirm_cancel_message);
@@ -251,7 +263,8 @@ jQuery(function ($) {
     }
     jQuery(this).after(jQuery('<span id="ilj-cancel-schedule-spinner" class="spinner is-active" style="float:none"></span>'));
     var data = {
-      'action': 'ilj_cancel_schedules'
+      'action': 'ilj_cancel_schedules',
+      'nonce': ilj_menu_settings_obj.nonce
     };
     jQuery.ajax({
       url: ajaxurl,

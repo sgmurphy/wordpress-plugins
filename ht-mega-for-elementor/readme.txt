@@ -3,7 +3,7 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 2.5.7
+Stable tag: 2.5.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -526,6 +526,12 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 
 == Changelog ==
+
+= Version 2.5.8 - Date: 2024-07-09 =
+* Fixed: Button default padding issue in Button Widget.
+* Fixed: Image missing issue in Admin dashboard.
+* Fixed: Sanitizing and Escaping issues.
+* Fixed: A few minor issues.
 
 = Version 2.5.7 - Date: 2024-07-01 =
 * Updated: WordPress Discourage functions.

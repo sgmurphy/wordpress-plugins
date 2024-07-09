@@ -89,7 +89,7 @@ class Zipwp_Images_Api {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return new \WP_Error(
 				'gt_rest_cannot_access',
-				__( 'Sorry, you are not allowed to do that.', 'zipwp-images', 'astra-sites' ),
+				__( 'Sorry, you are not allowed to do that.', 'astra-sites' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -166,7 +166,7 @@ class Zipwp_Images_Api {
 		if ( ! wp_verify_nonce( sanitize_text_field( (string) $nonce ), 'wp_rest' ) ) {
 			wp_send_json_error(
 				array(
-					'data'   => __( 'Nonce verification failed.', 'zipwp-images', 'astra-sites' ),
+					'data'   => __( 'Nonce verification failed.', 'astra-sites' ),
 					'status' => false,
 
 				)
@@ -260,7 +260,7 @@ class Zipwp_Images_Api {
 		check_ajax_referer( 'zipwp-images', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'upload_files' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'zipwp-images', 'astra-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 
 		$url      = isset( $_POST['url'] ) ? sanitize_url( $_POST['url'] ) : false; // phpcs:ignore -- We need to remove this ignore once the WPCS has released this issue fix - https://github.com/WordPress/WordPress-Coding-Standards/issues/2189.
@@ -268,11 +268,11 @@ class Zipwp_Images_Api {
 		$photo_id = isset( $_POST['id'] ) ? absint( sanitize_key( $_POST['id'] ) ) : 0;
 
 		if ( 0 === $photo_id ) {
-			wp_send_json_error( __( 'Need to send photo ID', 'zipwp-images', 'astra-sites' ) );
+			wp_send_json_error( __( 'Need to send photo ID', 'astra-sites' ) );
 		}
 
 		if ( false === $url ) {
-			wp_send_json_error( __( 'Need to send URL of the image to be downloaded', 'zipwp-images', 'astra-sites' ) );
+			wp_send_json_error( __( 'Need to send URL of the image to be downloaded', 'astra-sites' ) );
 		}
 
 		$image  = '';
@@ -282,7 +282,7 @@ class Zipwp_Images_Api {
 		$image = $this->create_image_from_url( $url, $name, (string) $photo_id );
 
 		if ( empty( $image ) ) {
-			wp_send_json_error( __( 'Could not download the image.', 'zipwp-images', 'astra-sites' ) );
+			wp_send_json_error( __( 'Could not download the image.', 'astra-sites' ) );
 		}
 
 		$image                    = intval( $image );

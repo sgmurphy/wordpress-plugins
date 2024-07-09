@@ -117,7 +117,7 @@ class Plugin extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 		$uuid          = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
@@ -127,7 +127,7 @@ class Plugin extends AjaxBase {
 			ST_Importer::set_import_process_start_flag( $template_type, $uuid );
 			wp_send_json_success();
 		} else {
-			wp_send_json_error( __( 'Required function not found', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Required function not found', 'astra-sites' ) );
 		}
 
 	}
@@ -218,7 +218,7 @@ class Plugin extends AjaxBase {
 			wp_send_json_error(
 				array(
 					/* Translators: %s is URL. */
-					'message' => sprintf( __( 'Invalid URL - %s', 'ai-builder', 'astra-sites' ), $api_url ),
+					'message' => sprintf( __( 'Invalid URL - %s', 'astra-sites' ), $api_url ),
 					'code'    => 'Error',
 				)
 			);
@@ -310,7 +310,7 @@ class Plugin extends AjaxBase {
 		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'customize' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 
 		Ai_Builder_Error_Handler::Instance()->start_error_handler();
@@ -322,7 +322,7 @@ class Plugin extends AjaxBase {
 		wp_send_json_success(
 			array(
 				'success' => true,
-				'message' => __( 'Theme Activated', 'ai-builder', 'astra-sites' ),
+				'message' => __( 'Theme Activated', 'astra-sites' ),
 			)
 		);
 	}
@@ -339,19 +339,19 @@ class Plugin extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		if ( ! wp_doing_ajax() ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 
 		$language = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : 'en_US';
 		$result   = $this->set_language( $language );
 
 		if ( ! $result ) {
-			wp_send_json_error( __( 'Failed to set the site language.', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'Failed to set the site language.', 'astra-sites' ) );
 		}
 
 		wp_send_json_success();

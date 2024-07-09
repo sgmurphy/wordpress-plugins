@@ -83,7 +83,7 @@ const ClassicPreview = () => {
 					) }
 				</p>
 			</div>
-			<div className="st-preview-section px-6 mb-5 w-full">
+			<div className="st-preview-section px-6 mb-5 w-full space-y-5">
 				<SiteLogo />
 				{ templateResponse ? (
 					<>
@@ -91,7 +91,7 @@ const ClassicPreview = () => {
 						{ builder !== 'beaver-builder' && <ColorPalettes /> }
 					</>
 				) : (
-					<div className="space-y-5 mt-5">
+					<div className="space-y-5">
 						<div
 							data-placeholder
 							className="relative animate-pulse overflow-hidden bg-gray-300 h-[50px] w-full rounded-md"

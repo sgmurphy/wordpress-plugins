@@ -77,15 +77,15 @@ class Ai_Builder_Importer_Log {
 		$plugin_name = ASTRA_SITES_NAME;
 
 		/* translators: %1$s refers to the plugin name */
-		$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'ai-builder', 'astra-sites' ), $plugin_name );
+		$notice = sprintf( __( 'Required File Permissions to import the templates from %s are missing.', 'astra-sites' ), $plugin_name );
 		?>
 		<div class="notice notice-error ai-builder-must-notices ai-builder-file-permission-issue">
 			<p><?php echo esc_html( $notice ); ?></p>
 			<?php if ( defined( 'FS_METHOD' ) ) { ?>
-				<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'ai-builder', 'astra-sites' ); ?></p>
+				<p><?php esc_html_e( 'This is usually due to inconsistent file permissions.', 'astra-sites' ); ?></p>
 				<p><code><?php echo esc_html( $upload_dir['path'] ); ?></code></p>
 			<?php } else { ?>
-				<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'ai-builder', 'astra-sites' ); ?></p>
+				<p><?php esc_html_e( 'You can easily update permissions by adding the following code into the wp-config.php file.', 'astra-sites' ); ?></p>
 				<p><code>define( 'FS_METHOD', 'direct' );</code></p>
 			<?php } ?>
 		</div>
@@ -282,10 +282,10 @@ class Ai_Builder_Importer_Log {
 	 */
 	public static function get_debug_mode() {
 		if ( WP_DEBUG ) {
-			return __( 'Enabled', 'ai-builder', 'astra-sites' );
+			return __( 'Enabled', 'astra-sites' );
 		}
 
-		return __( 'Disabled', 'ai-builder', 'astra-sites' );
+		return __( 'Disabled', 'astra-sites' );
 	}
 
 	/**
@@ -303,7 +303,7 @@ class Ai_Builder_Importer_Log {
 		if ( $memory_limit_in_bytes_current < $memory_limit_in_bytes_required ) {
 			return sprintf(
 				/* translators: %1$s Memory Limit, %2$s Recommended memory limit. */
-				_x( 'Current memory limit %1$s. We recommend setting memory to at least %2$s.', 'Recommended Memory Limit', 'ai-builder', 'astra-sites' ),
+				_x( 'Current memory limit %1$s. We recommend setting memory to at least %2$s.', 'Recommended Memory Limit', 'astra-sites' ),
 				WP_MEMORY_LIMIT,
 				$required_memory
 			);
@@ -370,10 +370,10 @@ class Ai_Builder_Importer_Log {
 	public static function get_xmlreader_status() {
 
 		if ( class_exists( 'XMLReader' ) ) {
-			return __( 'Yes', 'ai-builder', 'astra-sites' );
+			return __( 'Yes', 'astra-sites' );
 		}
 
-		return __( 'No', 'ai-builder', 'astra-sites' );
+		return __( 'No', 'astra-sites' );
 	}
 
 	/**
@@ -384,7 +384,7 @@ class Ai_Builder_Importer_Log {
 	 */
 	public static function get_php_version() {
 		if ( version_compare( PHP_VERSION, '5.4', '<' ) ) {
-			return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'ai-builder', 'astra-sites' );
+			return _x( 'We recommend to use php 5.4 or higher', 'PHP Version', 'astra-sites' );
 		}
 		return PHP_VERSION;
 	}
@@ -427,10 +427,10 @@ class Ai_Builder_Importer_Log {
 	 */
 	public static function get_php_extension_gd() {
 		if ( extension_loaded( 'gd' ) ) {
-			return __( 'Yes', 'ai-builder', 'astra-sites' );
+			return __( 'Yes', 'astra-sites' );
 		}
 
-		return __( 'No', 'ai-builder', 'astra-sites' );
+		return __( 'No', 'astra-sites' );
 	}
 
 	/**
@@ -445,7 +445,7 @@ class Ai_Builder_Importer_Log {
 		$events = array();
 
 		if ( empty( $crons ) ) {
-			esc_html_e( 'You currently have no scheduled cron events.', 'ai-builder', 'astra-sites' );
+			esc_html_e( 'You currently have no scheduled cron events.', 'astra-sites' );
 		}
 
 		foreach ( $crons as $time => $cron ) {

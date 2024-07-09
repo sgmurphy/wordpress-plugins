@@ -1,12 +1,12 @@
 === Login by Auth0 ===
-Tags: authentication, security, multi-factor, single sign-on, social, passwordless, mfa, 2fa, sso, oauth2, openid, saml
-Tested up to: 6.4.2
-Requires at least: 6.4.2
+Tags: authentication, security, multi-factor, single sign-on, passwordless
+Tested up to: 6.5.5
+Requires at least: 6.5.5
 Requires PHP: 7.4
 License: MIT
 License URI: https://github.com/auth0/wp-auth0/blob/4.x/LICENSE
-Stable tag: 4.6.0
-Contributors: auth0, auth0josh, evansims
+Stable tag: 4.6.1
+Contributors: auth0, evansims
 
 Login by Auth0 provides improved username/password login, Passwordless login, Social login and Single Sign On for all your sites.
 
@@ -15,15 +15,23 @@ Login by Auth0 provides improved username/password login, Passwordless login, So
 This plugin replaces standard WordPress login forms with one powered by [Auth0](https://auth0.com) that enables:
 
 - **Universal authentication**
-    - Over 30 social login providers
-    - Enterprise connections (ADFS, Active Directory / LDAP, SAML, Office 365, Google Apps and more)
-    - Connect your own database
-    - Passwordless connections (using email or SMS)
+  - Over 30 social login providers
+  - Enterprise connections (ADFS, Active Directory / LDAP, SAML, Office 365, Google Apps and more)
+  - Connect your own database
+  - Passwordless connections (using email or SMS)
 - **Ultra secure**
-    - Multifactor authentication
-    - Password policies
-    - Email validation
-    - Mitigate brute force attacks
+  - Multifactor authentication
+  - Password policies
+  - Email validation
+  - Mitigate brute force attacks
+
+== Changelog ==
+
+= 4.6.1 =
+
+- Changed: Tested against WordPress 6.5.5 w/ PHP 8.3.
+- Changed: Improved translated string handling.
+- Fixed: Resolved issue with `?wle` parameter handling.
 
 == Installation ==
 
@@ -103,10 +111,10 @@ Yes, this plugin will override the default WooCommerce login forms with the Auth
 
 All is not lost!
 
-* If you're setting up the plugin for the first time or having issues with users logging in, please review our [troubleshooting](https://auth0.com/docs/cms/wordpress/troubleshoot) and [configuration](https://auth0.com/docs/cms/wordpress/configuration) documentation.
-* If you found a bug in the plugin code, please [submit an issue](https://github.com/auth0/wp-auth0/issues) or [create a pull request](https://github.com/auth0/wp-auth0/pulls) on GitHub.
-* If you have questions about how to use Auth0 or the plugin, please [post on our community site](https://community.auth0.com/) or create a [support forum request here](https://wordpress.org/support/plugin/auth0).
-* You can see additional documentation and answers on our [support site](https://support.auth0.com/). Customers on a paid Auth0 plan can [submit a trouble ticket](https://support.auth0.com/tickets) for a fast response.
+- If you're setting up the plugin for the first time or having issues with users logging in, please review our [troubleshooting](https://auth0.com/docs/cms/wordpress/troubleshoot) and [configuration](https://auth0.com/docs/cms/wordpress/configuration) documentation.
+- If you found a bug in the plugin code, please [submit an issue](https://github.com/auth0/wp-auth0/issues) or [create a pull request](https://github.com/auth0/wp-auth0/pulls) on GitHub.
+- If you have questions about how to use Auth0 or the plugin, please [post on our community site](https://community.auth0.com/) or create a [support forum request here](https://wordpress.org/support/plugin/auth0).
+- You can see additional documentation and answers on our [support site](https://support.auth0.com/). Customers on a paid Auth0 plan can [submit a trouble ticket](https://support.auth0.com/tickets) for a fast response.
 
 == Changelog ==
 

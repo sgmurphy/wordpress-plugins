@@ -60,9 +60,8 @@ class Options
     public static function render_disabler(OptionInterface $option)
     {
         $result = $option->isPro() ? ' class="pro-setting" disabled ' : '';
-        // Below output doesn't need to be escaped.
         echo $result;
-        //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Below output doesn't need to be escaped.
     }
     /**
      * Renders the form field

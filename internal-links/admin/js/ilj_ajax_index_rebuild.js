@@ -12,7 +12,8 @@ jQuery(document).ready(function () {
     }
     jQuery(this).after(jQuery('<span id="ilj-index-rebuild-spinner" class="spinner is-active" style="float:none"></span>'));
     var data = {
-      'action': 'ilj_rebuild_index'
+      'action': 'ilj_rebuild_index',
+      'nonce': ilj_dashboard.nonce
     };
     jQuery.ajax({
       url: ajaxurl,
@@ -51,7 +52,8 @@ jQuery(document).ready(function () {
       jQuery(this).before(jQuery('<span id="ilj-index-rebuild-spinner" class="spinner is-active" style="float:none"></span>'));
     }
     var data = {
-      'action': 'ilj_rebuild_index'
+      'action': 'ilj_rebuild_index',
+      'nonce': ilj_dashboard.nonce
     };
     jQuery.ajax({
       url: ajaxurl,

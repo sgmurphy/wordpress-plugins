@@ -71,6 +71,7 @@ class Sonaar_Music_Widget extends WP_Widget{
             $this->shortcodeParams = wp_parse_args( (array) $instance, self::$widget_defaults );
             $this->sr_playlist_cpt =  (defined( 'SR_PLAYLIST_CPT' )) ? SR_PLAYLIST_CPT : 'sr_playlist';
             $widget_id = (isset($this->shortcodeParams['id']))? $this->shortcodeParams['id']: $args["widget_id"];
+            $widget_id = sanitize_key($widget_id);
             $elementor_widget = (bool)( isset( $this->shortcodeParams['elementor'] ) )? true: false; //Return true if the widget is set in the elementor editor 
             $args['before_title'] = "<span class='heading-t3'></span>".$args['before_title'];
             $args['before_title'] = str_replace('h2','h3',$args['before_title']);
@@ -462,7 +463,7 @@ class Sonaar_Music_Widget extends WP_Widget{
 
             $showControlOnHover = ( isset( $this->shortcodeParams['show_control_on_hover'] ) && $this->shortcodeParams['show_control_on_hover'] == 'true' ) ?  true : false ;
             
-            $hasMetaData = ($this->getOptionValue('show_shuffle_bt') || $this->getOptionValue('show_speed_bt') || $this->getOptionValue('show_volume_bt') || $this->getOptionValue('show_skip_bt'));
+            $hasMetaData = ($this->getOptionValue('show_repeat_bt') || $this->getOptionValue('show_shuffle_bt') || $this->getOptionValue('show_speed_bt') || $this->getOptionValue('show_volume_bt') || $this->getOptionValue('show_skip_bt'));
 
 
             $hasFavoriteCta = (Sonaar_Music::get_option('force_cta_favorite', 'srmp3_settings_favorites') == "true" || (isset( $this->shortcodeParams['force_cta_favorite']) && $this->shortcodeParams['force_cta_favorite'] == 'true'))? true : false;
@@ -1414,36 +1415,39 @@ class Sonaar_Music_Widget extends WP_Widget{
         $widgetPart_control .= '<div class="control">';
         if ( $this->getOptionValue('show_skip_bt') ){
             $widgetPart_control .=
-            '<div class="sr_skipBackward sricon-15s" aria-label="Rewind 15 seconds"></div>';
+            '<div class="sr_skipBackward sricon-15s" aria-label="Rewind 15 seconds" title="' . esc_html(Sonaar_Music::get_option('tooltip_rwd_btn', 'srmp3_settings_widget_player')) .'"></div>';
         }
         $prev_play_next_Controls = '';
         if(count($playlist['tracks']) > 1 ){
             $prev_play_next_Controls .= 
-            '<div class="previous sricon-back" style="opacity:0;" aria-label="Previous Track"></div>';
+            '<div class="previous sricon-back" style="opacity:0;" aria-label="Previous Track" title="' . esc_html(Sonaar_Music::get_option('tooltip_prev_btn', 'srmp3_settings_widget_player')) .'"></div>';
         }
             $prev_play_next_Controls .=
-            '<div class="play" style="opacity:0;" aria-label="Play">
+            '<div class="play" style="opacity:0;" aria-label="Play" title="' . esc_html(Sonaar_Music::get_option('tooltip_play_btn', 'srmp3_settings_widget_player')) .'">
                 <i class="sricon-play"></i>
             </div>';
         if(count($playlist['tracks']) > 1 ){
             $prev_play_next_Controls .=
-            '<div class="next sricon-forward" style="opacity:0;" aria-label="Next Track"></div>';
+            '<div class="next sricon-forward" style="opacity:0;" aria-label="Next Track" title="' . esc_html(Sonaar_Music::get_option('tooltip_next_btn', 'srmp3_settings_widget_player')) .'"></div>';
         };
         $widgetPart_control .= $prev_play_next_Controls;
        
         if ( $this->getOptionValue('show_skip_bt') ){
-                $widgetPart_control .= 
-                '<div class="sr_skipForward sricon-30s" aria-label="Forward 30 seconds"></div>';
-            }
-            $widgetPart_control .= ( $playerWidgetTemplate == 'skin_float_tracklist' )?'</div><div class="control">':'';
-            if ( $this->getOptionValue('show_shuffle_bt') ){
-                $widgetPart_control .= '<div class="sr_shuffle sricon-shuffle" aria-label="Shuffle Track"></div>';
-            }
+            $widgetPart_control .= 
+            '<div class="sr_skipForward sricon-30s" aria-label="Forward 30 seconds" title="' . esc_html(Sonaar_Music::get_option('tooltip_fwrd_btn', 'srmp3_settings_widget_player')) .'"></div>';
+        }
+        $widgetPart_control .= ( $playerWidgetTemplate == 'skin_float_tracklist' )?'</div><div class="control">':'';
+        if ( $this->getOptionValue('show_shuffle_bt') ){
+            $widgetPart_control .= '<div class="sr_shuffle sricon-shuffle" aria-label="Shuffle Track" title="' . esc_html(Sonaar_Music::get_option('tooltip_shuffle_btn', 'srmp3_settings_widget_player')) .'"></div>';
+        }
+        if ( $this->getOptionValue('show_repeat_bt') && !$notrackskip){
+            $widgetPart_control .= '<div class="srp_repeat sricon-repeat " aria-label="Repeat" data-repeat-status="playlist" title="' . esc_html(Sonaar_Music::get_option('tooltip_repeat_track_btn', 'srmp3_settings_widget_player')) .'"></div>';
+        }
         if ( $this->getOptionValue('show_speed_bt') ){
-                $widgetPart_control .= '<div class="sr_speedRate" aria-label="Speed Rate"><div>1X</div></div>';
+                $widgetPart_control .= '<div class="sr_speedRate" aria-label="Speed Rate" title="' . esc_html(Sonaar_Music::get_option('tooltip_speed_btn', 'srmp3_settings_widget_player')) .'"><div>1X</div></div>';
         }
         if ( $this->getOptionValue('show_volume_bt') ){
-                $widgetPart_control .= '<div class="volume" aria-label="Volume">
+                $widgetPart_control .= '<div class="volume" aria-label="Volume" title="' . esc_html(Sonaar_Music::get_option('tooltip_volume_btn', 'srmp3_settings_widget_player')) .'">
                 <div class="sricon-volume">
                     <div class="slider-container">
                     <div class="slide"></div>
@@ -1844,9 +1848,9 @@ class Sonaar_Music_Widget extends WP_Widget{
         
         
         
-        
-        
-        $output .= '<div class="iron-audioplayer ' . esc_attr($ironAudioClass) . '" id="'. esc_attr( $widget_id ) .'-' . bin2hex(random_bytes(5)) . '" data-id="' . esc_attr($widget_id) .'" data-track-sw-cursor="' . esc_attr($hasTracklistCursor) .'" data-lazyload="'. esc_attr( $lazy_load) .'" data-albums="'. esc_attr( $albums) .'" data-category="'. esc_attr($termsToFetch) .'"data-url-playlist="' . esc_url( $json_file ) . '" data-sticky-player="'. esc_attr($sticky_player) . '" data-shuffle="'. esc_attr($shuffle) . '" data-playlist_title="'. esc_html($playlist_title) . '" data-scrollbar="'. esc_attr($scrollbar) . '" data-wave-color="'. esc_attr($wave_color) .'" data-wave-progress-color="'. esc_attr($wave_progress_color) . '" data-spectro="'. esc_attr($spectro) .'" data-no-wave="'. esc_attr($hide_timeline) . '" data-hide-progressbar="'. esc_attr($hide_progressbar) . '" data-progress-bar-style="'. esc_attr($progress_bar_style) . '"data-feedurl="'. esc_attr($feedurl) .'" data-notrackskip="'. esc_attr($notrackskip) .'" data-no-loop-tracklist="'. esc_attr($noLoopTracklist) .'" data-playertemplate ="'. esc_attr($playerWidgetTemplate) .'" data-hide-artwork ="'. esc_attr($hide_artwork) .'" data-speedrate="1" '. $widgetData .' data-tracks-per-page="'. esc_attr($tracks_per_page).'" data-pagination_scroll_offset="'. esc_attr($pagination_scroll_offset).'"' . $total_items . $total_pages .' data-adaptive-colors="'. esc_attr($adaptiveColors) .'" data-adaptive-colors-freeze="'. esc_attr($adaptiveColorsFreeze) .'"' . $player_datas . ' style="opacity:0;">';
+       
+
+        $output .= '<div class="iron-audioplayer ' . esc_attr($ironAudioClass) . '" id="'. esc_attr( $widget_id ) .'-' . bin2hex(random_bytes(5)) . '" data-id="' . esc_attr($widget_id) .'" data-track-sw-cursor="' . esc_attr($hasTracklistCursor) .'" data-lazyload="'. esc_attr( $lazy_load) .'" data-albums="'. esc_attr( $albums) .'" data-category="'. esc_attr($termsToFetch) .'" data-url-playlist="' . esc_url( $json_file ) . '" data-sticky-player="'. esc_attr($sticky_player) . '" data-shuffle="'. esc_attr($shuffle) . '" data-playlist_title="'. esc_html($playlist_title) . '" data-scrollbar="'. esc_attr($scrollbar) . '" data-wave-color="'. esc_attr($wave_color) .'" data-wave-progress-color="'. esc_attr($wave_progress_color) . '" data-spectro="'. esc_attr($spectro) .'" data-no-wave="'. esc_attr($hide_timeline) . '" data-hide-progressbar="'. esc_attr($hide_progressbar) . '" data-progress-bar-style="'. esc_attr($progress_bar_style) . '"data-feedurl="'. esc_attr($feedurl) .'" data-notrackskip="'. esc_attr($notrackskip) .'" data-no-loop-tracklist="'. esc_attr($noLoopTracklist) .'" data-playertemplate ="'. esc_attr($playerWidgetTemplate) .'" data-hide-artwork ="'. esc_attr($hide_artwork) .'" data-speedrate="1" '. $widgetData .' data-tracks-per-page="'. esc_attr($tracks_per_page).'" data-pagination_scroll_offset="'. esc_attr($pagination_scroll_offset).'"' . $total_items . $total_pages .' data-adaptive-colors="'. esc_attr($adaptiveColors) .'" data-adaptive-colors-freeze="'. esc_attr($adaptiveColorsFreeze) .'"' . $player_datas . ' style="opacity:0;">';
         $output .= ($slider)? $widgetPart_slider : '';// Slider
         if($playerWidgetTemplate == 'skin_boxed_tracklist'){ // Boxed skin
             $output .= ($widgetPart_cat_description == '')?'<div class="srp_player_boxed srp_player_grid">':'<div class="srp_player_boxed"><div class="srp_player_grid">';
@@ -1916,6 +1920,22 @@ class Sonaar_Music_Widget extends WP_Widget{
         
         echo $output;
         echo $args['after_widget'];
+    }
+    private function explodeSearchValue($search){
+        $search_values = explode(',', $search);
+        $new_search_values = array();
+        foreach ($search_values as $value) { 
+            $new_search_values[] = $value;
+            if (strpos($value, "\'") !== false) { 
+                $value = str_replace("\'", "'", $value); //Duplicate search value with escaped single quote, without the escaped "\". Eq : Search for "O\'Brien" and "O'Brien"
+                $new_search_values[] = $value;
+            }
+            if (strpos($value, "'") !== false) { 
+                $value = str_replace("'", "&#8217;", $value); //Duplicate search value with single quote, with the Right Single Quotation Mark Hexo code. Eq : Search for "O'Brien" and "O’Brien". Audio file Metadata from the medialibrary are saved with the Right Single Quotation Mark Hexo code.
+                $new_search_values[] = $value;
+            }
+        }
+        return $new_search_values;
     }
     private function getQueryOrder($player){
        
@@ -2109,7 +2129,7 @@ class Sonaar_Music_Widget extends WP_Widget{
        // look for the tracklist in the meta
        if (!empty($search)) {
             $search_query = array('relation' => 'OR');
-            $search_values = explode(',', $search);
+            $search_values = $this->explodeSearchValue($search);
             foreach ($search_values as $value) {
                 $search_query[] = array(
                     'key'     => 'srmp3_search_data',
@@ -3532,9 +3552,15 @@ class Sonaar_Music_Widget extends WP_Widget{
         $playlist = array();
         $tracks = array();
         $albums = '';
-        
         $favoriteList = false;
         $userHistoryList = false;
+        $feed_desc = false;
+        $feed_id = false;
+        // Collect all the parameters into an associative array for easier handling with third party
+        $params = compact('album_ids', 'category', 'posts_not_in', 'category_not_in', 'title', 'feed_title', 'feed', 'feed_img', 'feed_desc', 'feed_id', 'el_widget_id', 'artwork', 'posts_per_pages', 'all_category', 'single_playlist', 'reverse_tracklist', 'audio_meta_field', 'repeater_meta_field', 'player', 'track_desc_postcontent', 'import_file', 'rss_items', 'rss_item_title', 'isPlayer_Favorite', 'isPlayer_recentlyPlayed');
+        do_action_ref_array('srmp3_pre_get_playlist', array(&$params));
+        extract($params);
+
         if(function_exists( 'run_sonaar_music_pro' ) &&  get_site_option('SRMP3_ecommerce') == '1'){
             $favoriteList = $this->loadUserPlaylists_fromCookies('Favorites');
             $userHistoryList = $this->loadUserPlaylists_fromCookies('RecentlyPlayed');
@@ -3827,6 +3853,7 @@ class Sonaar_Music_Widget extends WP_Widget{
             $feed = $this->checkACF($feed, $albums);
             $feed_title = $this->checkACF($feed_title, $albums);
             $feed_img = $this->checkACF($feed_img, $albums);
+            $feed_desc = $this->checkACF($feed_desc, $albums);
             $artwork = $this->checkACF($artwork, $albums, false); 
 
             $thealbum = array();
@@ -3838,7 +3865,12 @@ class Sonaar_Music_Widget extends WP_Widget{
             if ($feed_img !== null) {
                 $feed_img_ar = explode('||', $feed_img);
             }
-
+            if ($feed_desc !== null) {
+                $feed_desc_ar = explode('||', $feed_desc);
+            }
+            if ($feed_id !== null) {
+                $feed_id_ar = explode('||', $feed_id);
+            }
             $thealbum = [$feed_ar];
             
             foreach($thealbum as $a) {
@@ -3846,6 +3878,8 @@ class Sonaar_Music_Widget extends WP_Widget{
                 $num = 1;
                 for($i = 0 ; $i < count($feed_ar) ; $i++) {
                     $track_title = ( isset( $feed_title_ar[$i] )) ? $feed_title_ar[$i] : false;
+                    $track_desc = ( isset( $feed_desc_ar[$i] )) ? $feed_desc_ar[$i] : ''; // from smg
+                    $track_postid = ( isset( $feed_id_ar[$i] )) ? $feed_id_ar[$i] : ''; // from smg
                     if ( isset($feed_img_ar[$i]) ){
                         $thumb_url = $feed_img_ar[$i];
                     }else{
@@ -3861,10 +3895,11 @@ class Sonaar_Music_Widget extends WP_Widget{
                     $track_title = apply_filters('srmp3_track_title', $track_title, null, $audioSrc);
 
                     $album_tracks[$i] = array();
-                    $album_tracks[$i]["id"] = '';
+                    $album_tracks[$i]["id"] = $track_postid;
                     $album_tracks[$i]["mp3"] = $audioSrc;
                     $album_tracks[$i]["loading"] = $showLoading;
                     $album_tracks[$i]["track_title"] = ( $track_title )? $track_title : pathinfo($audioSrc, PATHINFO_FILENAME);
+                    $album_tracks[$i]["description"] = $track_desc;
                     $album_tracks[$i]["track_artist"] = ( isset( $track_artist ) && $track_artist != '' )? $track_artist : '';
                     $album_tracks[$i]["length"] = false;
                     $album_tracks[$i]["peak_allow_frontend"] = 'name';

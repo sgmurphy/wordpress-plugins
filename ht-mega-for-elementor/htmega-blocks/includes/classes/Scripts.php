@@ -45,6 +45,9 @@ class Scripts
 	public function block_assets()
 	{
 
+		if ( ! has_blocks( get_queried_object_id() ) ) {
+			return;
+		}
 		wp_enqueue_style('dashicons');
 		wp_enqueue_style(
 			'htmega-block-common-style',

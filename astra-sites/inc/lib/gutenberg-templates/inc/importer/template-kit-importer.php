@@ -40,7 +40,7 @@ class Template_Kit_Importer {
 	public function template_importer() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 		// Verify Nonce.
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -53,7 +53,7 @@ class Template_Kit_Importer {
 			wp_send_json_error(
 				array(
 					/* Translators: %s is API URL. */
-					'message' => sprintf( __( 'Invalid Request URL - %s', 'ast-block-templates' ), $api_uri ),
+					'message' => sprintf( __( 'Invalid Request URL - %s', 'astra-sites' ), $api_uri ),
 					'code'    => 'Error',
 				)
 			);

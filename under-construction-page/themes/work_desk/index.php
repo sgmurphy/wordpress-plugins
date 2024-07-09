@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
     </div>
     <div id="desk" style="background-image: url([theme-url]work_desk.png);" alt="Work Desk" title="Work Desk">&nbsp;</div>
     [footer]
-    <script src="<?php echo includes_url('js/jquery/jquery.min.js'); ?>" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="<?php echo esc_url(includes_url('js/jquery/jquery.min.js')); ?>" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
     jQuery(function($) {
       $(window).on('resize', function() {

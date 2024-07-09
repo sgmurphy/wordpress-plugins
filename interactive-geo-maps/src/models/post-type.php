@@ -142,7 +142,7 @@ function igmaps_model() {
 					'updated_plural'     => __( '%s Maps updated.', 'interactive-geo-maps' ),
 					'locked_singular'    => __( 'Map not updated, somebody is editing it.', 'interactive-geo-maps' ),
 					'locked_plural'      => __( '%s Map not updated, somebody is editing them.', 'interactive-geo-maps' ),
-					'deleted_singular'   => __( 'Map permanetly deleted.', 'interactive-geo-maps' ),
+					'deleted_singular'   => __( 'Map permanently deleted.', 'interactive-geo-maps' ),
 					'deleted_plural'     => __( '%s Map permanently deleted.', 'interactive-geo-maps' ),
 					'trashed_singular'   => __( 'Map moved to the trash.', 'interactive-geo-maps' ),
 					'trashed_plural'     => __( '%s Maps moved to the trash.', 'interactive-geo-maps' ),
@@ -171,7 +171,7 @@ function igmaps_model() {
 		],
 		'settings' => [
 			'interactive-maps' => [
-				'title'         => __( 'Global Settings', 'interactive-geo-maps' ),
+				'title'         => __( 'MapGeo Global Settings', 'interactive-geo-maps' ),
 				'menu_title'    => __( 'Settings', 'interactive-geo-maps' ),
 				'footer_text'   => '', // we filter this later to add the current version number
 				'show_bar_menu' => false,
@@ -216,7 +216,7 @@ function igmaps_model() {
 							'saveImage' => [
 								'type'       => 'switcher',
 								'title'      => __( 'Save Image Preview', 'interactive-geo-maps' ),
-								'desc'    => __( 'On rare ocasions the image preview saving process might cause errors on your server.<br>In that case you could disable the option to save the image preview of the map.', 'interactive-geo-maps' ),
+								'desc'    => __( 'On rare occasions the image preview saving process might cause errors on your server.<br>In that case you could disable the option to save the image preview of the map.', 'interactive-geo-maps' ),
 								'default'    => true,
 							],
 							'otherFieldsHeader'  => [

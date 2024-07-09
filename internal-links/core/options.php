@@ -6,6 +6,8 @@ use ILJ\Backend\Notices;
 use ILJ\Core\Options\AbstractOption;
 use ILJ\Core\Options\Case_Sensitive_Mode_Switch;
 use ILJ\Core\Options\IndexGeneration;
+use ILJ\Core\Options\Link_Preview_Switch;
+use ILJ\Core\Options\Link_Preview_Template;
 use ILJ\Core\Options\LinkOutputCustom;
 use ILJ\Core\Options\LinkOutputInternal;
 use ILJ\Core\Options\OptionInterface;
@@ -66,7 +68,7 @@ class Options
     }
     public function __construct()
     {
-        $this->sections = array(self::ILJ_OPTION_SECTION_GENERAL => array('options' => array(new Options\KeepSettings(), new Options\HideStatusBar(), new Options\SchedulerBatchSize(), new Options\EditorRole(), new Options\IndexGeneration())), self::ILJ_OPTION_SECTION_CONTENT => array('options' => array(new Options\Whitelist(), new Options\TaxonomyWhitelist(), new Options\Blacklist(), new Options\BlacklistChildPages(), new Options\TermBlacklist(), new Options\KeywordOrder(), new Options\LinksPerPage(), new Options\LinksPerParagraphSwitch(), new Options\LinksPerParagraph(), new Options\LinksPerTarget(), new Options\Limit_Incoming_Links(), new Options\Max_Incoming_Links(), new Options\MultipleKeywords(), new Case_Sensitive_Mode_Switch(), new Options\NoLinkTags(), new Options\RespectExistingLinks(), new Options\LimitTaxonomyList(), new Options\CustomFieldsToLinkPost(), new Options\CustomFieldsToLinkTerm())), self::ILJ_OPTION_SECTION_LINKS => array('options' => array(new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom())), self::ILJ_OPTION_SECTION_ACTIONS => array('actions' => array(new Options\CancelAllILJSchedules()), 'options' => array()));
+        $this->sections = array(self::ILJ_OPTION_SECTION_GENERAL => array('options' => array(new Options\KeepSettings(), new Options\HideStatusBar(), new Options\SchedulerBatchSize(), new Options\EditorRole(), new Options\IndexGeneration())), self::ILJ_OPTION_SECTION_CONTENT => array('options' => array(new Options\Whitelist(), new Options\TaxonomyWhitelist(), new Options\Blacklist(), new Options\BlacklistChildPages(), new Options\TermBlacklist(), new Options\KeywordOrder(), new Options\LinksPerPage(), new Options\LinksPerParagraphSwitch(), new Options\LinksPerParagraph(), new Options\LinksPerTarget(), new Options\Limit_Incoming_Links(), new Options\Max_Incoming_Links(), new Options\MultipleKeywords(), new Case_Sensitive_Mode_Switch(), new Options\NoLinkTags(), new Options\RespectExistingLinks(), new Options\LimitTaxonomyList(), new Options\CustomFieldsToLinkPost(), new Options\CustomFieldsToLinkTerm())), self::ILJ_OPTION_SECTION_LINKS => array('options' => array(new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom(), new Link_Preview_Switch(), new Link_Preview_Template())), self::ILJ_OPTION_SECTION_ACTIONS => array('actions' => array(new Options\CancelAllILJSchedules()), 'options' => array()));
         return $this;
     }
     public static function init()

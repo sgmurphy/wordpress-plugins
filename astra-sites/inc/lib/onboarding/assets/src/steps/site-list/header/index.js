@@ -8,9 +8,9 @@ import PageBuilder from '../page-builder-filter';
 import ExitToDashboard from '../../../components/exist-to-dashboard';
 import MyFavorite from './my-favorite';
 import SyncLibrary from './sync-library';
-import useWhatsNewRSS from '@WhatsNew/useWhatsNewRSS';
+import useWhatsNewRSS from 'whats-new-rss';
 import { __ } from '@wordpress/i18n';
-import Tooltip from './../../onboarding-ai/components/tooltip';
+import Tooltip from '../../../components/tooltip/tooltip';
 
 const SiteListHeader = () => {
 	// Initialize our library hook.

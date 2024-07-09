@@ -41,6 +41,7 @@ function wpa_add_honeypot_field(){
 	    'form.ast-commentform',        // Astra Comment Form with class
 	    'form#fl-comment-form',        // Beaver Builder Theme Form with ID
 	    'form.comment-form',           // WP COMMENT with class
+	    '.review-form form',           // LearnPress Review
 	    'form#edd-reviews-form'        // EDD REVIEWS with ID
 	];
 	jQuery(commentFormSelectors.join(', ')).append(wpa_hidden_field);

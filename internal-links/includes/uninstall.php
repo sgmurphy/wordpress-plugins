@@ -1,11 +1,11 @@
 <?php
 
+use ILJ\Cache\Transient_Cache;
 use ILJ\Core\Options;
 use ILJ\Database\Linkindex;
 use ILJ\Database\LinkindexTemp;
 use ILJ\Database\Postmeta;
 use ILJ\Database\Usermeta;
-use ILJ\Helper\ContentTransient;
 /**
  * Responsible for removing database stuff on plugin uninstall
  *
@@ -14,7 +14,7 @@ use ILJ\Helper\ContentTransient;
 function ilj_remove_db_data()
 {
     // Delete all ilj transients
-    ContentTransient::delete_all_ilj_transient();
+    Transient_Cache::delete_all();
     $keep_settings = Options::getOption(\ILJ\Core\Options\KeepSettings::getKey());
     if ($keep_settings) {
         return;

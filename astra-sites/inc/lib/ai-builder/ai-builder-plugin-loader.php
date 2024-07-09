@@ -209,8 +209,8 @@ class Ai_Builder_Plugin_Loader {
 	 */
 	public function add_theme_page() {
 		add_theme_page(
-			__( 'AI Builder', 'ai-builder', 'astra-sites' ),
-			__( 'AI Builder', 'ai-builder', 'astra-sites' ),
+			__( 'AI Builder', 'astra-sites' ),
+			__( 'AI Builder', 'astra-sites' ),
 			'manage_options',
 			'ai-builder',
 			[ $this, 'theme_page' ]
@@ -389,10 +389,10 @@ class Ai_Builder_Plugin_Loader {
 			'firstImportStatus'  => get_option( 'astra_sites_import_complete', false ),
 			'analytics'          => get_site_option( 'bsf_analytics_optin', false ),
 			'siteUrl'            => site_url(),
-			'installed'          => __( 'Installed! Activating..', 'ai-builder', 'astra-sites' ),
-			'activating'         => __( 'Activating...', 'ai-builder', 'astra-sites' ),
-			'activated'          => __( 'Activated!', 'ai-builder', 'astra-sites' ),
-			'installing'         => __( 'Installing...', 'ai-builder', 'astra-sites' ),
+			'installed'          => __( 'Installed! Activating..', 'astra-sites' ),
+			'activating'         => __( 'Activating...', 'astra-sites' ),
+			'activated'          => __( 'Activated!', 'astra-sites' ),
+			'installing'         => __( 'Installing...', 'astra-sites' ),
 			'logoUrlDark'        => apply_filters( 'st_ai_onboarding_logo_dark', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/st-logo-dark.svg' ),
 			'logoUrlLight'       => apply_filters( 'st_ai_onboarding_logo_light', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
 			'zip_plans'          => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),

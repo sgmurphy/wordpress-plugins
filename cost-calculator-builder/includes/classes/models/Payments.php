@@ -83,19 +83,16 @@ class Payments extends DataBaseModel {
 		$paymentType = ( $data['type'] && in_array( $data['type'], self::$typeList, true ) )
 			? $data['type'] : self::$defaultType;
 
-		$exist = self::payment_by_order_id_exist( $order_id );
-		if ( empty( $exist ) ) {
-			$payment_data = array(
-				'order_id'   => $order_id,
-				'type'       => $paymentType,
-				'currency'   => ! isset( $data['currency'] ) ? '$' : $data['currency'],
-				'status'     => self::$defaultStatus,
-				'total'      => $data['total'],
-				'created_at' => wp_date( 'Y-m-d H:i:s' ),
-				'updated_at' => wp_date( 'Y-m-d H:i:s' ),
-			);
-			self::insert( $payment_data );
-		}
+		$payment_data = array(
+			'order_id'   => $order_id,
+			'type'       => $paymentType,
+			'currency'   => ! isset( $data['currency'] ) ? '$' : $data['currency'],
+			'status'     => self::$defaultStatus,
+			'total'      => $data['total'],
+			'created_at' => wp_date( 'Y-m-d H:i:s' ),
+			'updated_at' => wp_date( 'Y-m-d H:i:s' ),
+		);
+		self::insert( $payment_data );
 
 		return $order_id;
 	}

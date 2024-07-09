@@ -1,7 +1,7 @@
 import { Skeleton } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { classNames } from '../../steps/onboarding-ai/helpers';
+import { classNames } from '../../utils/functions';
 
 const SiteSkeleton = ( { className } ) => {
 	return (

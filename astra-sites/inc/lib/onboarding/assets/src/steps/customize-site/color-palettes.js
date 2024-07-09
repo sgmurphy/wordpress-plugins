@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from 'react';
-import { ArrowPathIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { classNames } from '../onboarding-ai/utils/helpers';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import {
 	LIGHT_PALETTES,
 	DARK_PALETTES,
@@ -10,8 +9,10 @@ import {
 	sendPostMessage as dispatchPostMessage,
 	getDefaultColorPalette,
 	getColorScheme,
+	classNames,
 } from '../../utils/functions';
-import DropdownList from '../onboarding-ai/components/dropdown-list';
+import { TilesIcon } from '../ui/icons';
+import { __ } from '@wordpress/i18n';
 
 const ColorPalettes = () => {
 	const [ { activePalette: selectedPalette, templateResponse }, dispatch ] =
@@ -22,7 +23,7 @@ const ColorPalettes = () => {
 		dispatchPostMessage( data, 'astra-starter-templates-preview' );
 	};
 
-	const handleChange = ( palette ) => {
+	const handleChange = ( palette ) => () => {
 		sendPostMessage( {
 			param: 'colorPalette',
 			data: palette,
@@ -87,119 +88,70 @@ const ColorPalettes = () => {
 	};
 
 	return (
-		<DropdownList
-			value={ selectedPalette }
-			onChange={ handleChange }
-			by="slug"
-		>
-			{ ( { open } ) => (
-				<>
-					<div className="flex items-center justify-between !mt-5">
-						<DropdownList.Label className=" text-sm font-normal">
-							Color Palette
-						</DropdownList.Label>
-						<button
-							key="reset-to-default-colors"
-							className={ classNames(
-								'inline-flex p-px items-center justify-center text-zip-app-inactive-icon border-0 bg-transparent focus:outline-none transition-colors duration-200 ease-in-out',
-								selectedPalette?.slug !== 'default' &&
-									'text-zip-dark-theme-content-background cursor-pointer'
-							) }
-							{ ...( selectedPalette?.slug !== 'default' && {
-								onClick: handleReset,
-							} ) }
-						>
-							<ArrowPathIcon
-								className="w-[0.875rem] h-[0.875rem]"
-								strokeWidth={ 2 }
-							/>
-						</button>
-					</div>
-					<div className="relative mt-1 bg-background-primary">
-						<DropdownList.Button className="text-sm font-normal bg-transparent border border-solid border-border-tertiary">
-							<div className="flex justify-start items-center gap-3">
-								<div className="w-[30px] h-5">
-									<span
-										className="inline-block w-[20px] h-full"
-										style={ {
-											background:
-												selectedPalette?.colors?.[ 1 ],
-										} }
-									/>
-									<span
-										className="inline-block w-[10px] h-full"
-										style={ {
-											background:
-												selectedPalette?.colors?.[ 0 ],
-										} }
-									/>
-								</div>
-								<span className="block truncate">
-									{ selectedPalette?.title }
-								</span>
-							</div>
-							<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-								<ChevronDownIcon
-									className="h-5 w-5 text-gray-400"
-									aria-hidden="true"
+		<div className="space-y-2">
+			<div className="flex items-center justify-between">
+				<p className="text-zip-app-heading text-sm">
+					<span className="font-semibold">
+						{ __( 'Color Palette', 'astra-sites' ) }:{ ' ' }
+					</span>
+					<span>{ selectedPalette?.title }</span>
+				</p>
+				<button
+					key="reset-to-default-colors"
+					className={ classNames(
+						'inline-flex p-px items-center justify-center text-button-disabled border-0 bg-transparent focus:outline-none transition-colors duration-200 ease-in-out',
+						selectedPalette?.slug !== 'default' &&
+							'text-zip-app-inactive-icon cursor-pointer'
+					) }
+					{ ...( selectedPalette?.slug !== 'default' && {
+						onClick: handleReset,
+					} ) }
+				>
+					<ArrowPathIcon
+						className="w-[0.875rem] h-[0.875rem]"
+						strokeWidth={ 2 }
+					/>
+				</button>
+			</div>
+			<div className="grid grid-cols-5 gap-3 auto-rows-[36px]">
+				{ colorScheme.map( ( colorPalette ) => (
+					<div
+						key={ colorPalette.slug }
+						className={ classNames(
+							'flex justify-center items-center gap-3 text-body-text rounded-md border border-solid border-button-disabled h-9 w-full cursor-pointer',
+							selectedPalette?.slug === colorPalette.slug &&
+								'outline-1 outline outline-offset-2 outline-accent-st-secondary'
+						) }
+						onClick={ handleChange( colorPalette ) }
+					>
+						{ !! colorPalette?.colors?.length && (
+							<div
+								className="w-full h-full flex items-center justify-center gap-1 rounded-md"
+								style={ {
+									background: colorPalette?.colors?.[ 5 ],
+								} }
+							>
+								<span
+									className="inline-block w-[14px] h-[14px] rounded-full shrink-0"
+									style={ {
+										background: colorPalette?.colors?.[ 0 ],
+									} }
 								/>
-							</span>
-						</DropdownList.Button>
-						<DropdownList.Options
-							open={ open }
-							className="!space-y-2"
-						>
-							{ colorScheme.map( ( colorPalette ) => (
-								<DropdownList.Option
-									key={ colorPalette.slug }
-									value={ colorPalette }
-									className={ ( { active, selected } ) =>
-										classNames(
-											'flex justify-start items-center gap-3 text-body-text',
-											selected && 'bg-zip-app-light-bg',
-											active && 'bg-zip-app-light-bg'
-										)
-									}
-								>
-									{ ( { selected } ) => (
-										<>
-											<div className="w-[30px] h-5">
-												<span
-													className="inline-block w-[20px] h-full"
-													style={ {
-														background:
-															colorPalette
-																?.colors?.[ 1 ],
-													} }
-												/>
-												<span
-													className="inline-block w-[10px] h-full"
-													style={ {
-														background:
-															colorPalette
-																?.colors?.[ 0 ],
-													} }
-												/>
-											</div>
-											<span
-												className={ classNames(
-													selected
-														? 'font-semibold'
-														: 'font-normal',
-													'block truncate'
-												) }
-											>
-												{ colorPalette?.title }
-											</span>
-										</>
-									) }
-								</DropdownList.Option>
-							) ) }
-						</DropdownList.Options>
+								<span
+									className="inline-block w-[14px] h-[14px] rounded-full shrink-0"
+									style={ {
+										background: colorPalette?.colors?.[ 1 ],
+									} }
+								/>
+							</div>
+						) }
+						{ ! colorPalette?.colors?.length && (
+							<TilesIcon className="!shrink-0 w-full h-full rounded-md" />
+						) }
 					</div>
-				</>
-			) }
-		</DropdownList>
+				) ) }
+			</div>
+		</div>
 	);
 };
 

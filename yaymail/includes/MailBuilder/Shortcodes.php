@@ -1396,7 +1396,14 @@ class Shortcodes {
 								}
 								
 								$date_timestamp = strtotime( str_replace( '/', '-', $value ) );
-								$date_format                = date_i18n( wc_date_format(), $date_timestamp );
+								$has_time = (strpos($value, ':') !== false);
+
+								if (!$has_time) {
+									$date_format                = date_i18n( wc_date_format() , $date_timestamp );
+								} else {
+									$date_format                = date_i18n( wc_date_format() .' '.get_option('time_format'), $date_timestamp );
+								}
+				
 								$shortcode[ $nameShorcode ] = $date_format;
 
 								if ( 'UTC' != $default_timezon ) {

@@ -14,12 +14,12 @@
 }
 @media screen and ( max-width: 1366px ) {
 	.step-customizer {
-		--sidebar-width: 25%;
+		--sidebar-width: 342px;
 	}
 }
 @media screen and ( min-width: 1367px ) {
 	.step-customizer {
-		--sidebar-width: 20%;
+		--sidebar-width: 342px;
 	}
 }
 
@@ -90,7 +90,7 @@ body * {
 .st-link,
 a {
 	cursor: pointer;
-	text-decoration: underline;
+	text-decoration: none;
 	color: var( --st-color-accent );
 
 	&:hover {
@@ -105,8 +105,12 @@ a {
 	height: calc( 100vh - 60px );
 }
 
-.step-col-right {
+.hide-sidebar .step-col-right {
 	width: 100%;
+}
+
+.step-col-right {
+	width: calc( 100% - var( --sidebar-width ) );
 	padding: 0 2%;
 	margin-left: var( --sidebar-width );
 	transition: all 350ms linear;
@@ -999,17 +1003,17 @@ body.step-import-site-done {
 }
 .zw-tooltip {
 	text-align: left;
-	background: var( --stc-color-heading );
+	background: var( --st-tooltip-background );
 	color: #fff;
-	border-radius: 2px;
+	border-radius: 6px;
 }
 
 .zw-tooltip > .tippy-content {
 	box-shadow: 0px 4px 8px -2px rgb( 9 30 66 / 25% ), 0px 0px 1px rgb( 9 30 66 / 31% );
 	padding: 6px 12px;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 400;
-	line-height: 1rem;
+	line-height: 1.25rem;
 	a {
 		color: #fff;
 	}

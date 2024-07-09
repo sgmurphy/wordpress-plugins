@@ -33,7 +33,7 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 		if (
 			!! scrollPosition &&
 			scrollPosition > 100 &&
-			currentIndex === 2 &&
+			currentIndex === 1 &&
 			contentArea.classList.length === 1
 		) {
 			contentArea.scrollTo( 0, scrollPosition );
@@ -60,14 +60,14 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 				>
 					<div
 						className={ `content-wrapper
-					${ currentIndex === 3 ? 'flex flex-col items-start h-full' : '' }
+					${ currentIndex === 2 ? 'flex flex-col items-start h-full' : '' }
 					` }
 					>
 						{ content && content }
 						{ controls && (
 							<div
 								className={ `step-controls
-							${ currentIndex === 3 ? 'flex flex-col items-start h-full w-full' : '' }
+							${ currentIndex === 2 ? 'flex flex-col items-start h-full w-full' : '' }
 							` }
 								/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
 								tabIndex="1"

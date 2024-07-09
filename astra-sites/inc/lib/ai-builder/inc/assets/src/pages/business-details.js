@@ -63,6 +63,7 @@ const BusinessDetails = () => {
 	const {
 		register,
 		formState: { errors },
+		reset,
 		setFocus,
 		watch,
 	} = useForm( { defaultValues: { businessName } } );
@@ -71,6 +72,12 @@ const BusinessDetails = () => {
 	useEffect( () => {
 		setFocus( 'businessName' );
 	}, [ setFocus ] );
+
+	useEffect( () => {
+		if ( ! businessName ) {
+			reset( { businessName: '' } );
+		}
+	}, [ businessName ] );
 
 	return (
 		<div className="w-full max-w-container flex flex-col gap-8">

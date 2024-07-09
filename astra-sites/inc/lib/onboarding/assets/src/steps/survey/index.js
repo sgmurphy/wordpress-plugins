@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Tooltip from '../onboarding-ai/components/tooltip';
-import { __ } from '@wordpress/i18n';
+import Tooltip from '../../components/tooltip/tooltip';
+import { __, sprintf } from '@wordpress/i18n';
 import { PreviousStepLink, DefaultStep } from '../../components/index';
 import ICONS from '../../../icons';
+import { renderToString } from 'react-dom/server';
 import { useStateValue } from '../../store/store';
 import { checkRequiredPlugins } from '../../steps/import-site/import-utils';
 import SurveyForm from './survey';
@@ -45,7 +46,27 @@ const Survey = () => {
 			} );
 		} );
 	}
+	const terms = (
+		<a
+			className="st-link"
+			href="https://store.brainstormforce.com/terms-and-conditions/"
+			target="_blank"
+			rel="noreferrer"
+		>
+			Terms
+		</a>
+	);
 
+	const privacyPolicy = (
+		<a
+			className="st-link"
+			href="https://store.brainstormforce.com/privacy-policy/"
+			target="_blank"
+			rel="noreferrer"
+		>
+			Privacy Policy
+		</a>
+	);
 	const manualPluginInstallation = () => {
 		return (
 			<form className="install-plugins-form" onSubmit={ recheckPlugins }>
@@ -254,7 +275,6 @@ const Survey = () => {
 	const surveyForm = () => {
 		return (
 			<form className="survey-form" onSubmit={ handleSurveyFormSubmit }>
-				<h1>{ __( 'Okay, just one last step…', 'astra-sites' ) }</h1>
 				{ astraSitesVars.subscribed !== 'yes' && (
 					<SurveyForm updateFormDetails={ updateFormDetails } />
 				) }
@@ -266,28 +286,20 @@ const Survey = () => {
 					{ __( 'Submit & Build My Website', 'astra-sites' ) }
 					{ ICONS.arrowRight }
 				</button>
-				<p className="subscription-agreement-text text-center mt-4">
-					By clicking { `"Submit & Build My Website"` }, you agree to
-					our{ ' ' }
-					<a
-						className="st-link"
-						href="https://store.brainstormforce.com/terms-and-conditions/"
-						target="_blank"
-						rel="noreferrer"
-					>
-						Terms
-					</a>{ ' ' }
-					and{ ' ' }
-					<a
-						className="st-link"
-						href="https://store.brainstormforce.com/privacy-policy/"
-						target="_blank"
-						rel="noreferrer"
-					>
-						Privacy Policy
-					</a>
-					.
-				</p>
+				<p
+					className="!text-zip-app-inactive-icon subscription-agreement-text text-center mt-4"
+					dangerouslySetInnerHTML={ {
+						__html: sprintf(
+							// translators: %s: support link
+							__(
+								'By continuing you agree to our %1$s and %2$s.',
+								'astra-sites'
+							),
+							renderToString( terms ),
+							renderToString( privacyPolicy )
+						),
+					} }
+				></p>
 			</form>
 		);
 	};
@@ -562,6 +574,11 @@ const Survey = () => {
 		<DefaultStep
 			content={
 				<>
+					<div className="mb-4">
+						<h1 className="mb-4 text-3xl font-bold text-zip-app-heading">
+							{ __( 'Okay, just one last step…', 'astra-sites' ) }
+						</h1>
+					</div>
 					<div className="survey-container">
 						{ ' ' }
 						{ defaultStepContent }{ ' ' }

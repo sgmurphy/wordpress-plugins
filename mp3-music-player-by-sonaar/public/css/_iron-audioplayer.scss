@@ -251,6 +251,7 @@ article div.iron-audioplayer ol li {
     .play {
       opacity: 1 !important;
       cursor: pointer;
+      background:unset;
     }
 
     .previous {
@@ -2014,12 +2015,12 @@ a.tracklist-item-title:hover {
 
 /* '' */
 .sricon-shuffle:before { 
-  content: '\e82c'; 
+  content: '\e83d'; 
 } 
 
 /* '' */
 .sricon-shuffle-a:before {
-  content: '\e82d'; 
+  content: '\e83d'; 
 } 
 
 /* '' */

@@ -1,8 +1,33 @@
 <?php 
 if ( ! defined( 'ABSPATH' ) ) exit; 
-$currentStats = json_decode(get_option('wpa_stats'), true);  
+
+$wpae_nonce = '&_wpnonce='.wp_create_nonce( 'wpae_action_nonce' ); 
+
+if ( isset( $_GET['action'] ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'wpae_action_nonce' ) ) {    
+    switch ($_GET['action']) {
+        case 'resetstats':
+                if (function_exists('wpae_reset_stats')){
+                    wpae_reset_stats();
+                    $actionReturn = array('status' => 'ok','body'=>'Stats Reset' );
+                }
+            break;
+    }
+}
+$currentStats = json_decode(get_option('wpa_stats'), true); 
 ?>
+
+<?php if (isset($actionReturn)):?>
+    <div class="updated <?php echo $actionReturn['status']; ?>" id="message"><p><?php echo $actionReturn['body']; ?></p></div>
+<?php endif; ?>
+
 <br/>
+
+<?php if (function_exists('wpae_reset_stats')){ ?>
+    <div class="wpae_bulk_actions">
+        <a href="admin.php?page=wp-armour&tab=stats&action=resetstats<?php echo $wpae_nonce ?>" onclick="return confirm('Are you sure? This action is irreversible.')">Reset Stats</a>
+    </div>
+<?php } ?>
+
 <table class="wp-list-table widefat fixed bookmarks">
     <?php
     /*
@@ -40,54 +65,3 @@ $currentStats = json_decode(get_option('wpa_stats'), true);
     </tbody>
 </table><br/>
 <br/>
-<?php /*
-<table class="wp-list-table widefat fixed bookmarks">
-    <thead>
-    <tr>
-    	<th colspan="2"><strong>Visualization </strong></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    	<td colspan="2">
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-                  google.charts.load('current', {'packages':['bar']});
-                  google.charts.setOnLoadCallback(drawChart);
-
-                  function drawChart() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['Source', 'Today', 'This Week','This Month', 'All Time'],
-                      <?php foreach ($currentStats as $source=>$statData): ?>
-                        [
-                            '<?php echo ucfirst($source); ?>',
-                            <?php echo wpa_check_date($todayDate,'today')?$statData['today']['count']:'0'; ?>,
-                            <?php echo wpa_check_date($weekDate,'week')?$statData['week']['count']:'0'; ?>,
-                            <?php echo wpa_check_date($monthDate,'month')?$statData['month']['count']:'0'; ?>,
-                            <?php echo $statData['all_time']; ?>
-                        ],
-                      <?php endforeach;?>
-                    ]);
-
-                    var options = {
-                      chart: {
-                        title: 'Spam blocked by WP Armour',
-                        hAxis: {title: 'Source',  titleTextStyle: {color: 'red'}},
-
-                      },
-                      colors:['#bedcf5','#75b5e9','#2c8ddd','#19609b']
-                    };
-
-                    var chart = new google.charts.Bar(document.getElementById('wpae_chart_div'));
-
-                    chart.draw(data, google.charts.Bar.convertOptions(options));
-                  }
-                </script>
-
-                <div id="wpae_chart_div" style="width:100%; height:400px; margin-top:15px; margin-bottom:10px;">
-                </div>
-
-        </td>
-    </tr>
-    </tbody>
-</table><br/>*/ ?>

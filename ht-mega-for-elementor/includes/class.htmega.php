@@ -376,7 +376,7 @@ final class HTMega_Addons_Elementor {
             require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
 
         } else {
-            if ( htmega_get_option( 'megamenubuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
+            if ( htmega_get_option( 'themebuilder', 'htmega_advance_element_tabs', 'off' ) === 'on' && empty ( htmega_get_module_option( 'htmega_themebuilder_module_settings') ) ){
                 require_once( HTMEGA_ADDONS_PL_PATH . 'extensions/ht-builder/init.php' );
             }
         }

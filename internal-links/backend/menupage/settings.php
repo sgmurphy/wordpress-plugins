@@ -61,7 +61,8 @@ class Settings extends AbstractMenuPage
         \ILJ\Helper\Loader::register_script('ilj_select2', ILJ_URL . 'admin/js/select2.js', array(), ILJ_VERSION);
         wp_localize_script('ilj_select2', 'ilj_select2_translation', array('error_loading' => __('The results could not be loaded.', 'internal-links'), 'input_too_short' => __('Minimum characters to start search', 'internal-links'), 'loading_more' => __('Loading more results…', 'internal-links'), 'no_results' => __('No results found', 'internal-links'), 'searching' => __('Searching…', 'internal-links'), 'custom_field_starts_with' => Regex_Custom_Field::get_starts_with_label_template(), 'custom_field_ends_with' => Regex_Custom_Field::get_ends_with_label_template(), 'custom_field_has' => Regex_Custom_Field::get_contains_label_template(), 'success_message' => __('Success', 'internal-links')));
         \ILJ\Helper\Loader::register_script('ilj_menu_settings', ILJ_URL . 'admin/js/ilj_menu_settings.js', array(), ILJ_VERSION);
-        wp_localize_script('ilj_menu_settings', 'ilj_menu_settings_translation', array('success_message' => __('Success', 'internal-links'), 'confirm_cancel_message' => __('This will cancel all pending link building schedules - are you sure you want to do this?', 'internal-links')));
+        wp_localize_script('ilj_menu_settings', 'ilj_menu_settings_translation', array('success_message' => __('Success', 'internal-links'), 'confirm_cancel_message' => __('This will cancel all pending link building schedules - are you sure you want to do this?', 'internal-links'), 'upgrade_to_pro_link' => get_admin_url(null, 'admin.php?billing_cycle=annual&trial=true&page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing'), 'pro_feature_title' => __('This is a PRO Feature.', 'internal-links')));
+        wp_localize_script('ilj_menu_settings', 'ilj_menu_settings_obj', array('nonce' => wp_create_nonce('ilj-cancel-all-schedule-action'), 'nonce_ilj_search_posts' => wp_create_nonce('ilj-search-posts-action'), 'nonce_ilj_search_terms' => wp_create_nonce('ilj-search-terms-action')));
         $this->addAssets(array('tipso' => ILJ_URL . 'admin/js/tipso.js', 'ilj_menu_settings' => ILJ_URL . 'admin/js/ilj_menu_settings.js', 'ilj_select2' => ILJ_URL . 'admin/js/select2.js', 'ilj_promo' => ILJ_URL . 'admin/js/ilj_promo.js'), array('tipso' => ILJ_URL . 'admin/css/tipso.css', 'ilj_menu_settings' => ILJ_URL . 'admin/css/ilj_menu_settings.css', 'ilj_ui' => ILJ_URL . 'admin/css/ilj_ui.css', 'ilj_grid' => ILJ_URL . 'admin/css/ilj_grid.css', 'ilj_select2' => ILJ_URL . 'admin/css/select2.css'));
     }
     /**
@@ -104,7 +105,7 @@ class Settings extends AbstractMenuPage
         }
         ?>
 			<a href="<?php 
-        echo esc_url(get_admin_url(null, 'admin.php?page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing'));
+        echo esc_url(get_admin_url(null, 'admin.php?billing_cycle=annual&trial=true&page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing'));
         ?>"
 			   class="ilj-upgrade">
 			   <?php 

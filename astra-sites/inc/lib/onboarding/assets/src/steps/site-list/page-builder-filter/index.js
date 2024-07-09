@@ -6,7 +6,6 @@ import { initialState } from '../../../store/reducer';
 const { imageDir, isElementorDisabled, isBeaverBuilderDisabled } =
 	starterTemplates;
 
-import { useDispatch } from '@wordpress/data';
 import Tippy from '@tippyjs/react/headless';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
@@ -18,9 +17,10 @@ const sitesRemaining = zipPlans?.plan_data?.remaining;
 const aiSitesRemainingCount = sitesRemaining?.ai_sites_count;
 const allSitesRemainingCount = sitesRemaining?.all_sites_count;
 const PageBuilder = ( { placement = 'bottom-end' } ) => {
-	const [ { builder, currentIndex, dismissAINotice }, dispatch ] =
-		useStateValue();
-	const { setLimitExceedModal } = useDispatch( 'ast-block-templates' );
+	const [
+		{ builder, currentIndex, dismissAINotice, limitExceedModal },
+		dispatch,
+	] = useStateValue();
 	const [ show, setShow ] = useState(
 		dismissAINotice === 'true' ? false : true
 	);
@@ -113,8 +113,12 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 			( typeof allSitesRemainingCount === 'number' &&
 				allSitesRemainingCount <= 0 )
 		) {
-			setLimitExceedModal( {
-				open: true,
+			dispatch( {
+				type: 'set',
+				limitExceedModal: {
+					...limitExceedModal,
+					open: true,
+				},
 			} );
 			return;
 		}
@@ -137,7 +141,7 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 		<Tippy
 			visible={ show }
 			render={ ( attrs ) =>
-				currentIndex === 2 && (
+				currentIndex === 1 && (
 					<motion.div
 						className="flex flex-col items-start gap-5 max-w-[320px] h-auto bg-white rounded-lg shadow-xl p-4"
 						{ ...attrs }
@@ -202,9 +206,15 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 					onClick={ ( event, option ) => {
 						if ( 'ai-builder' === option.id ) {
 							if ( isLimitReached ) {
-								setLimitExceedModal( {
-									open: true,
+								dispatch( {
+									type: 'set',
+									limitExceedModal: {
+										...limitExceedModal,
+										open: true,
+									},
+									currentIndex: 0,
 								} );
+								return;
 							}
 							return ( window.location = `${ astraSitesVars.adminURL }themes.php?page=ai-builder` );
 						}
@@ -217,7 +227,7 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 							siteType: '',
 							siteOrder: 'popular',
 							onMyFavorite: false,
-							currentIndex: 2,
+							currentIndex: 1,
 						} );
 
 						const pageBuilderOptionId =

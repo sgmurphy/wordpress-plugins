@@ -330,6 +330,7 @@ __webpack_require__.r(__webpack_exports__);
       var show_volume_bt = '';
       var show_speed_bt = '';
       var show_shuffle_bt = '';
+      var show_repeat_bt = '';
       var show_skip_bt = '';
       var post_link = '';
       var cta_track_show_label = '';
@@ -629,6 +630,7 @@ __webpack_require__.r(__webpack_exports__);
         show_meta_duration = attributes.show_meta_duration;
         show_tracks_count = attributes.show_tracks_count;
         show_shuffle_bt = attributes.show_shuffle_bt;
+        show_repeat_bt = attributes.show_repeat_bt;
         show_speed_bt = attributes.show_speed_bt;
         show_volume_bt = attributes.show_volume_bt;
       }
@@ -1516,6 +1518,7 @@ __webpack_require__.r(__webpack_exports__);
             hide_player_subheading: true,
             show_skip_bt: 'false',
             show_shuffle_bt: 'false',
+            show_repeat_bt: 'false',
             show_speed_bt: 'false',
             show_volume_bt: 'false',
             show_publish_date: 'false',
@@ -4215,6 +4218,18 @@ __webpack_require__.r(__webpack_exports__);
           setIronAudioplayers();
           style_load = false;
         }
+      }), !notrackskip && createElement(SelectControl, {
+        label: __('Show Repeat button', 'sonaar-music'),
+        options: trueFalseDefault,
+        value: show_repeat_bt,
+        onChange: function onChange(show_repeat_bt) {
+          setAttributes({
+            show_repeat_bt: show_repeat_bt
+          });
+          ironAudioplayersLoaded = false;
+          setIronAudioplayers();
+          style_load = false;
+        }
       }), createElement(SelectControl, {
         label: __('Show Speed Lecture button (0.5x, 1x, 2x)', 'sonaar-music'),
         options: trueFalseDefault,
@@ -4294,6 +4309,7 @@ __webpack_require__.r(__webpack_exports__);
           soundwave_show: soundwave_show,
           show_skip_bt: show_skip_bt,
           show_shuffle_bt: show_shuffle_bt,
+          show_repeat_bt: show_repeat_bt,
           show_speed_bt: show_speed_bt,
           show_volume_bt: show_volume_bt,
           post_link: post_link,

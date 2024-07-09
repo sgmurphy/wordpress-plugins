@@ -50,12 +50,46 @@ class Breadcrumbs extends BaseWidget {
         );
 
         $this->add_control(
+            'active_link_color',
+            [
+                'label'     => __( 'Active Text Color', 'betterdocs' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .betterdocs-breadcrumb .betterdocs-breadcrumb-item.current span' => 'color: {{VALUE}}'
+                ]
+            ]
+        );
+
+        $this->add_control(
+            'active_link_color_hover',
+            [
+                'label'     => __( 'Active Text Hover Color', 'betterdocs' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .betterdocs-breadcrumb .betterdocs-breadcrumb-item.current span:hover' => 'color: {{VALUE}}'
+                ]
+            ]
+        );
+
+
+        $this->add_control(
             'link_color',
             [
                 'label'     => __( 'Text Color', 'betterdocs' ),
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .betterdocs-breadcrumb .betterdocs-breadcrumb-item > a' => 'color: {{VALUE}}'
+                ]
+            ]
+        );
+
+        $this->add_control(
+            'link_color_hover',
+            [
+                'label'     => __( 'Text Color Hover', 'betterdocs' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .betterdocs-breadcrumb .betterdocs-breadcrumb-item > a:hover' => 'color: {{VALUE}}'
                 ]
             ]
         );

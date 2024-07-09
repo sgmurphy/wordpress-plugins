@@ -3,9 +3,8 @@
 namespace ILJ\Helper;
 
 use ILJ\Backend\Editor;
-use ILJ\Core\LinkBuilder;
+use ILJ\Core\Links\Text_To_Link_Converter_Factory;
 use ILJ\Database\Linkindex;
-use ILJ\Type\Ruleset;
 /**
  * Toolset for LinkBuilding
  *
@@ -59,7 +58,7 @@ class LinkBuilding
      * @param  int    $id
      * @param  string $type
      * @param  string $build_type
-     * @return void
+     * @return string
      */
     public static function link_something($data, $id, $type, $build_type = null)
     {
@@ -69,8 +68,8 @@ class LinkBuilding
         if (self::excludeLinkBuilderFilter()) {
             return $data;
         }
-        $link_builder = new LinkBuilder($id, $type, $build_type);
-        return $link_builder->linkContent($data);
+        $link_builder = Text_To_Link_Converter_Factory::create($id, $type, $build_type);
+        return $link_builder->link_content($data);
     }
     /**
      * Applies the linkbuilder to a term

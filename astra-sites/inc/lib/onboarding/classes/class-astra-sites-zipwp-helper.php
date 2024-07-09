@@ -141,32 +141,6 @@ class Astra_Sites_ZipWP_Helper {
 	}
 
 	/**
-	 * Get image placeholder array.
-	 *
-	 * @since 4.0.9
-	 * @return array<string, array<string, string>>
-	 */
-	public static function get_image_placeholders() {
-
-		return array(
-				array(
-					"auther_name"=> 'Placeholder',
-					"id"=> "placeholder-landscape",
-					"orientation"=> 'landscape',
-					'optimized_url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-landscape.png',
-					'url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-landscape.png'
-				),
-				array(
-					"auther_name"=> 'Placeholder',
-					"id"=> "placeholder-portrait",
-					"orientation"=> 'portrait',
-					'optimized_url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-portrait.png',
-					'url' => 'https://websitedemos.net/wp-content/uploads/2024/02/placeholder-portrait.png'
-				),
-			);
-	}
-
-		/**
 	 * Download image from URL.
 	 *
 	 * @param array $image Image data.

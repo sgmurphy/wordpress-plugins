@@ -1417,6 +1417,18 @@ class Sonaar_Music_Admin {
                     ),
                 ) );
                 $widget_player_options->add_field( array(
+                    'name'          => esc_html__('Display Repeat Button', 'sonaar-music'),
+                    'id'            => 'player_show_repeat_bt',
+                    'type'          => 'switch',
+                    'default'       => 0,
+                    'after'         => 'srmp3_add_tooltip_to_label',
+                    'tooltip'       => array(
+                        'title'     => esc_html__('Default Repeat Button', 'sonaar-music'),
+                        'text'      => esc_html__('Allow the ability to repeat the track/tracklist within the Player.', 'sonaar-music'),
+                        'pro'       => true,
+                    ),
+                ) );
+                $widget_player_options->add_field( array(
                     'name'          => esc_html__('Display Date in the Player', 'sonaar-music'),
                     'id'            => 'player_show_publish_date',
                     'type'          => 'switch',
@@ -2004,6 +2016,91 @@ class Sonaar_Music_Admin {
                     'pro'       => true,
                 ),
             ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('View Tracklist Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_tracklist_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'View Tracklist', 'sonaar-music' ) ),
+                'default'       => esc_html__('View Tracklist', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Rewind 15 seconds Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_rwd_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Rewind 15 seconds', 'sonaar-music' ) ),
+                'default'       => esc_html__('Rewind 15 seconds', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Previous Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_prev_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Previous', 'sonaar-music' ) ),
+                'default'       => esc_html__('Previous', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Play Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_play_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Play/Pause', 'sonaar-music' ) ),
+                'default'       => esc_html__('Play/Pause', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Next Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_next_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Next', 'sonaar-music' ) ),
+                'default'       => esc_html__('Next ', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Forward 30 seconds Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_fwrd_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Forward 30 seconds', 'sonaar-music' ) ),
+                'default'       => esc_html__('Forward 30 seconds', 'sonaar-music'),
+            ) );            
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Speed Rates Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_speed_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Speed Rates', 'sonaar-music' ) ),
+                'default'       => esc_html__('Speed Rates', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Shuffle Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_shuffle_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Shuffle', 'sonaar-music' ) ),
+                'default'       =>esc_html__('Shuffle ', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Repeat Button Tooltip: Enable Repeat', 'sonaar-music'),
+                'id'            => 'tooltip_repeat_playlist_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Enable Repeat', 'sonaar-music' ) ),
+                'default'       => esc_html__('Enable Repeat', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Repeat Button Tooltip: Enable Repeat Track', 'sonaar-music'),
+                'id'            => 'tooltip_repeat_track_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Enable Repeat Track', 'sonaar-music' ) ),
+                'default'       => esc_html__('Enable Repeat Track', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Repeat Button Tooltip: Disable Repeat', 'sonaar-music'),
+                'id'            => 'tooltip_repeat_disable_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Disable Repeat', 'sonaar-music' ) ),
+                'default'       => esc_html__('Disable Repeat', 'sonaar-music'),
+            ) );
+            $widget_player_options->add_field( array(
+                'name'          => esc_html__('Volume Button Tooltip', 'sonaar-music'),
+                'id'            => 'tooltip_volume_btn',
+                'type'          => 'text_small',
+                'attributes'    => array( 'placeholder' => esc_html__( 'Volume', 'sonaar-music' ) ),
+                'default'       => esc_html__('Volume', 'sonaar-music'),
+            ) );
+        
                 if ( !function_exists('run_sonaar_music_pro')){
                     $widget_player_options->add_field( array(
                         'classes'       => 'srmp3-pro-feature',
@@ -2342,6 +2439,18 @@ class Sonaar_Music_Admin {
                             'title'     => esc_html__('', 'sonaar-music'),
                             'text'      => esc_html__('Allow the ability to shuffle the tracks randomly within the Playlist.', 'sonaar-music'),
                             'image'     => 'shuffle.svg',
+                            'pro'       => true,
+                        ),
+                    ) );
+                    $sticky_player_options->add_field( array(
+                        'name'          => esc_html__('Display Repeat button', 'sonaar-music'),
+                        'id'            => 'sticky_show_repeat_bt',
+                        'type'          => 'switch',
+                        'default'       => 0,
+                        'after'         => 'srmp3_add_tooltip_to_label',
+                        'tooltip'       => array(
+                            'title'     => esc_html__('Default Repeat Button', 'sonaar-music'),
+                            'text'      => esc_html__('Allow the ability to repeat the track/tracklist within the Player.', 'sonaar-music'),
                             'pro'       => true,
                         ),
                     ) );

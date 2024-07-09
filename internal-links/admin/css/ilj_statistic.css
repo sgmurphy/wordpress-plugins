@@ -421,3 +421,22 @@ table[class^="ilj-statistic-table"] td.type span[data-type="custom"],.ilj-type-f
 .ilj-index-rebuild .hidden {
     display: none
 }
+
+#statistic-links {
+    position: relative
+}
+
+.ilj-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: none;
+    z-index: 2147483647
+}
+
+#link-statistics-spinner {
+    top: 50%
+}

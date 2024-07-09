@@ -13,7 +13,7 @@ import {
 	WrenchIcon,
 	ArrowLongRightIcon,
 } from '@heroicons/react/24/outline';
-import { classNames } from '../onboarding-ai/helpers';
+import { classNames } from '../../utils/functions';
 import { checkRequiredPlugins } from '../import-site/import-utils';
 
 const ICON_SET = {

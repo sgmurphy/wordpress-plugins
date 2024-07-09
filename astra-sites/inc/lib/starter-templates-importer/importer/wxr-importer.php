@@ -235,7 +235,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$status = $reader->open( $file );
 
 			if ( ! $status ) {
-				return new WP_Error( 'wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'st-importer', 'astra-sites' ) );
+				return new WP_Error( 'wxr_importer.cannot_parse', __( 'Could not open the file for parsing', 'astra-sites' ) );
 			}
 
 			return $reader;
@@ -273,7 +273,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 							$this->logger->warning(
 								sprintf(
 									/* translators: %1$s is WXR version, %2$s is max supported WXR version. */
-									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'st-importer', 'astra-sites' ),
+									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'astra-sites' ),
 									$this->version,
 									self::MAX_WXR_VERSION
 								)
@@ -392,7 +392,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 							$this->logger->warning(
 								sprintf(
 									/* translators: %1$s is WXR version, %2$s is max supported WXR version. */
-									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'st-importer', 'astra-sites' ),
+									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'astra-sites' ),
 									$this->version,
 									self::MAX_WXR_VERSION
 								)
@@ -468,7 +468,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 							$this->logger->warning(
 								sprintf(
 									/* translators: %1$s is WXR version, %2$s is max supported WXR version. */
-									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'st-importer', 'astra-sites' ),
+									__( 'This WXR file (version %1$s) is newer than the importer (version %2$s) and may not be supported. Please consider updating.', 'astra-sites' ),
 									$this->version,
 									self::MAX_WXR_VERSION
 								)
@@ -619,7 +619,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		 */
 		protected function import_start( $file ) {
 			if ( ! is_file( $file ) ) {
-				return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'st-importer', 'astra-sites' ) );
+				return new WP_Error( 'wxr_importer.file_missing', __( 'The file does not exist, please try again.', 'astra-sites' ) );
 			}
 
 			// Suspend bunches of stuff in WP core.
@@ -679,7 +679,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 		public function set_user_mapping( $mapping ) {
 			foreach ( $mapping as $map ) {
 				if ( empty( $map['old_slug'] ) || empty( $map['old_id'] ) || empty( $map['new_id'] ) ) {
-					$this->logger->warning( __( 'Invalid author mapping', 'st-importer', 'astra-sites' ) );
+					$this->logger->warning( __( 'Invalid author mapping', 'astra-sites' ) );
 					$this->logger->debug( var_export( $map, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export -- 3rd party library.
 					continue;
 				}
@@ -780,7 +780,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 							// Bail now.
 							return new WP_Error(
 								'wxr_importer.post.cannot_import_draft',
-								__( 'Cannot import auto-draft posts', 'st-importer', 'astra-sites' ),
+								__( 'Cannot import auto-draft posts', 'astra-sites' ),
 								$data
 							);
 						}
@@ -880,7 +880,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->warning(
 					sprintf(
 						/* translators: %1$s is the import message, %2$s is post type. */
-						__( 'Failed to import "%1$s": Invalid post type %2$s', 'st-importer', 'astra-sites' ),
+						__( 'Failed to import "%1$s": Invalid post type %2$s', 'astra-sites' ),
 						$data['post_title'],
 						$data['post_type']
 					)
@@ -892,7 +892,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			if ( $post_exists ) {
 				$message = sprintf(
 					/* translators: %1$s single post type, %2$s is post title. */
-					__( '%1$s "%2$s" already exists.', 'st-importer', 'astra-sites' ),
+					__( '%1$s "%2$s" already exists.', 'astra-sites' ),
 					$post_type_object->labels->singular_name,
 					$data['post_title']
 				);
@@ -990,7 +990,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					$this->logger->notice(
 						sprintf(
 							/* translators: %s is post title */
-							__( 'Skipping attachment "%s", fetching attachments disabled', 'st-importer', 'astra-sites' ),
+							__( 'Skipping attachment "%s", fetching attachments disabled', 'astra-sites' ),
 							$data['post_title']
 						)
 					);
@@ -1014,7 +1014,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->error(
 					sprintf(
 						/* translators: %1$s is the post title, %2$s is post type. */
-						__( 'Failed to import "%1$s" (%2$s)', 'st-importer', 'astra-sites' ),
+						__( 'Failed to import "%1$s" (%2$s)', 'astra-sites' ),
 						$data['post_title'],
 						$post_type_object->labels->singular_name
 					)
@@ -1049,7 +1049,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->logger->info(
 				sprintf(
 					/* translators: %1$s is the post title, %2$s is post type. */
-					__( 'Imported "%1$s" (%2$s)', 'st-importer', 'astra-sites' ),
+					__( 'Imported "%1$s" (%2$s)', 'astra-sites' ),
 					$data['post_title'],
 					$post_type_object->labels->singular_name
 				)
@@ -1057,7 +1057,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->logger->debug(
 				sprintf(
 					/* translators: %1$s is the original post id, %2$s is old post id. */
-					__( 'Post %1$d remapped to %2$d', 'st-importer', 'astra-sites' ),
+					__( 'Post %1$d remapped to %2$d', 'astra-sites' ),
 					$original_id,
 					$post_id
 				)
@@ -1208,7 +1208,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 			$info = wp_check_filetype( $upload['file'] );
 			if ( ! $info ) {
-				return new WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'st-importer', 'astra-sites' ) );
+				return new WP_Error( 'attachment_processing_error', __( 'Invalid file type', 'astra-sites' ) );
 			}
 
 			$post['post_mime_type'] = $info['type'];
@@ -1713,7 +1713,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->error(
 					sprintf(
 						/* translators: %s user login name  */
-						__( 'Failed to import user "%s"', 'st-importer', 'astra-sites' ),
+						__( 'Failed to import user "%s"', 'astra-sites' ),
 						$userdata['user_login']
 					)
 				);
@@ -1737,14 +1737,14 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->logger->info(
 				sprintf(
 					/* translators: %s user login name  */
-					__( 'Imported user "%s"', 'st-importer', 'astra-sites' ),
+					__( 'Imported user "%s"', 'astra-sites' ),
 					$userdata['user_login']
 				)
 			);
 			$this->logger->debug(
 				sprintf(
 					/* translators: %1$s original user Id, %2$s old user Id.  */
-					__( 'User %1$d remapped to %2$d', 'st-importer', 'astra-sites' ),
+					__( 'User %1$d remapped to %2$d', 'astra-sites' ),
 					$original_id,
 					$user_id
 				)
@@ -1909,7 +1909,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->warning(
 					sprintf(
 						/* translators: %1$s is the taxonomy, %2$s is taxonomy name. */
-						__( 'Failed to import %1$s %2$s', 'st-importer', 'astra-sites' ),
+						__( 'Failed to import %1$s %2$s', 'astra-sites' ),
 						$data['taxonomy'],
 						$data['name']
 					)
@@ -1936,7 +1936,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->logger->info(
 				sprintf(
 					/* translators: %1$s is the taxonomy name, %2$s is taxonomy. */
-					__( 'Imported "%1$s" (%2$s)', 'st-importer', 'astra-sites' ),
+					__( 'Imported "%1$s" (%2$s)', 'astra-sites' ),
 					$data['name'],
 					$data['taxonomy']
 				)
@@ -1944,7 +1944,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 			$this->logger->debug(
 				sprintf(
 					/* translators: %1$s is term original id, %2$s is term id. */
-					__( 'Term %1$d remapped to %2$d', 'st-importer', 'astra-sites' ),
+					__( 'Term %1$d remapped to %2$d', 'astra-sites' ),
 					$original_id,
 					$term_id
 				)
@@ -2002,7 +2002,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					'import_file_error',
 					sprintf(
 						/* translators: %1$s is error code, %2$s is error code header, %3$s is url. */
-						__( 'Remote server returned %1$d %2$s for %3$s', 'st-importer', 'astra-sites' ),
+						__( 'Remote server returned %1$d %2$s for %3$s', 'astra-sites' ),
 						$code,
 						get_status_header_desc( $code ),
 						$url
@@ -2015,19 +2015,19 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 
 			if ( isset( $headers['content-length'] ) && $filesize !== (int) $headers['content-length'] ) {
 				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
-				return new WP_Error( 'import_file_error', __( 'Remote file is incorrect size', 'st-importer', 'astra-sites' ) );
+				return new WP_Error( 'import_file_error', __( 'Remote file is incorrect size', 'astra-sites' ) );
 			}
 
 			if ( 0 === $filesize ) {
 				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
-				return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'st-importer', 'astra-sites' ) );
+				return new WP_Error( 'import_file_error', __( 'Zero size file downloaded', 'astra-sites' ) );
 			}
 
 			$max_size = (int) $this->max_attachment_size();
 			if ( ! empty( $max_size ) && $filesize > $max_size ) {
 				unlink( $upload['file'] ); //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink -- 3rd party library.
 				/* translators: %s max file size. */
-				$message = sprintf( __( 'Remote file is too large, limit is %s', 'st-importer', 'astra-sites' ), size_format( $max_size ) );
+				$message = sprintf( __( 'Remote file is too large, limit is %s', 'astra-sites' ), size_format( $max_size ) );
 				return new WP_Error( 'import_file_error', $message );
 			}
 
@@ -2060,7 +2060,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						// Note: title intentionally not used to skip extra processing.
 						// for when debug logging is off.
 						/* translators: %d is post id. */
-						__( 'Running post-processing for post %d', 'st-importer', 'astra-sites' ),
+						__( 'Running post-processing for post %d', 'astra-sites' ),
 						$post_id
 					)
 				);
@@ -2076,7 +2076,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->warning(
 							sprintf(
 								/* translators: %1$s is post title, %2$s is post id. */
-								__( 'Could not find the post parent for "%1$s" (post #%2$d)', 'st-importer', 'astra-sites' ),
+								__( 'Could not find the post parent for "%1$s" (post #%2$d)', 'astra-sites' ),
 								get_the_title( $post_id ),
 								$post_id
 							)
@@ -2084,7 +2084,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->debug(
 							sprintf(
 								/* translators: %1$d is post id, %2$d is parent post id. */
-								__( 'Post %1$d was imported with parent %2$d, but could not be found', 'st-importer', 'astra-sites' ),
+								__( 'Post %1$d was imported with parent %2$d, but could not be found', 'astra-sites' ),
 								$post_id,
 								$parent_id
 							)
@@ -2101,7 +2101,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->warning(
 							sprintf(
 								/* translators: %1$s is the post title, %2$s is post id. */
-								__( 'Could not find the author for "%1$s" (post #%2$d)', 'st-importer', 'astra-sites' ),
+								__( 'Could not find the author for "%1$s" (post #%2$d)', 'astra-sites' ),
 								get_the_title( $post_id ),
 								$post_id
 							)
@@ -2109,7 +2109,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->debug(
 							sprintf(
 								/* translators: %1$d is post id, %2$s is author slug. */
-								__( 'Post %1$d was imported with author "%2$s", but could not be found', 'st-importer', 'astra-sites' ),
+								__( 'Post %1$d was imported with author "%2$s", but could not be found', 'astra-sites' ),
 								$post_id,
 								$author_slug
 							)
@@ -2138,7 +2138,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					$this->logger->debug(
 						sprintf(
 							/* translators: %d is post id. */
-							__( 'Post %d was marked for post-processing, but none was required.', 'st-importer', 'astra-sites' ),
+							__( 'Post %d was marked for post-processing, but none was required.', 'astra-sites' ),
 							$post_id
 						)
 					);
@@ -2155,7 +2155,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					$this->logger->warning(
 						sprintf(
 							/* translators: %1$s is the post title, %2$s is post id. */
-							__( 'Could not update "%1$s" (post #%2$d) with mapped data', 'st-importer', 'astra-sites' ),
+							__( 'Could not update "%1$s" (post #%2$d) with mapped data', 'astra-sites' ),
 							get_the_title( $post_id ),
 							$post_id
 						)
@@ -2209,7 +2209,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->warning(
 					sprintf(
 						/* translators: %1$s is the post title, %2$s is post id. */
-						__( 'Could not find the menu object for "%1$s" (post #%2$d)', 'st-importer', 'astra-sites' ),
+						__( 'Could not find the menu object for "%1$s" (post #%2$d)', 'astra-sites' ),
 						get_the_title( $post_id ),
 						$post_id
 					)
@@ -2217,7 +2217,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 				$this->logger->debug(
 					sprintf(
 						/* translators: %1$s is post id, %2$s is post object id, %3$s is menu type. */
-						__( 'Post %1$d was imported with object "%2$d" of type "%3$s", but could not be found', 'st-importer', 'astra-sites' ),
+						__( 'Post %1$d was imported with object "%2$d" of type "%3$s", but could not be found', 'astra-sites' ),
 						$post_id,
 						$menu_object_id,
 						$menu_item_type
@@ -2248,14 +2248,14 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->warning(
 							sprintf(
 								/* translators: %d is comment id. */
-								__( 'Could not find the comment parent for comment #%d', 'st-importer', 'astra-sites' ),
+								__( 'Could not find the comment parent for comment #%d', 'astra-sites' ),
 								$comment_id
 							)
 						);
 						$this->logger->debug(
 							sprintf(
 								/* translators: %1$s is comment id, %2$s is parent comment id. */
-								__( 'Comment %1$d was imported with parent %2$d, but could not be found', 'st-importer', 'astra-sites' ),
+								__( 'Comment %1$d was imported with parent %2$d, but could not be found', 'astra-sites' ),
 								$comment_id,
 								$parent_id
 							)
@@ -2272,14 +2272,14 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 						$this->logger->warning(
 							sprintf(
 								/* translators: %d is comment id. */
-								__( 'Could not find the author for comment #%d', 'st-importer', 'astra-sites' ),
+								__( 'Could not find the author for comment #%d', 'astra-sites' ),
 								$comment_id
 							)
 						);
 						$this->logger->debug(
 							sprintf(
 								/* translators: %1$d is comment id, %2$d is author id. */
-								__( 'Comment %1$d was imported with author %2$d, but could not be found', 'st-importer', 'astra-sites' ),
+								__( 'Comment %1$d was imported with author %2$d, but could not be found', 'astra-sites' ),
 								$comment_id,
 								$author_id
 							)
@@ -2299,7 +2299,7 @@ if ( ! class_exists( 'WXR_Importer' ) && class_exists( 'WP_Importer' ) ) :
 					$this->logger->warning(
 						sprintf(
 							/* translators: %d is comment id. */
-							__( 'Could not update comment #%d with mapped data', 'st-importer', 'astra-sites' ),
+							__( 'Could not update comment #%d with mapped data', 'astra-sites' ),
 							$comment_id
 						)
 					);

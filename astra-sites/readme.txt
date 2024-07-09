@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.3.6
+Stable tag: 4.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,25 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.7 - 09-July-2024
+- New:
+    - Added NPS Survey.
+- Improvements:
+    - Updated "What's New" library.
+    - Enhanced sidebar for classic editor to align with AI Builder.
+    - Updated pre-import screen for classic templates.
+    - Standardized text-domain to "astra-aites" for all libraries.
+    - Refreshed font pairs.
+    - Removed duplicate code.
+- Fix:
+    - Upload logo and selected color pallete was not getting imported for FSE.
+    - Design Kit - Business category now pre-fills correctly during onboarding.
+    - AI Builder - Business name now resets after clicking "Start Over."
+    - AI Builder - "Resume Session" popup no longer appears after site creation.
+    - AI Builder - Business type now pre-fills correctly when site is created from ZipWP platform.
+    - AI Builder - Hover color for accent color is now a CSS variable.
+    - AI Builder - Correct icon now appears for the Contact Form feature.
 
 v4.3.6 - 04-July-2024
 - Fix: AI Builder - Resolved an issue preventing users from continuing to the next step if the business type input was entered manually.

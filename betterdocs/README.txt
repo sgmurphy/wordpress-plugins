@@ -219,6 +219,11 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 3.6.2 - 09/07/2024 =
+- Improved: Added active and active hover color options for the Elementor widget "Docs Breadcrumb".
+- Improved: BetterDocs Admin Dashboard scripts loading only on BetterDocs admin pages
+- Few minor bug fixes and improvements
+
 = 3.6.1 - 08/07/2024 =
 
 - Few minor bug fixes and improvements

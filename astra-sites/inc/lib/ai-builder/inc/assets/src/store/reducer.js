@@ -99,7 +99,7 @@ updatedInitialValue = {
 	...updatedInitialValue,
 	stepData: {
 		tokenExists: aiBuilderVars?.zip_token_exists || '',
-		businessType: aiStepValues?.business_category || '',
+		businessType: aiStepValues?.business_category_name || '',
 		siteLanguage: aiStepValues?.language || 'en',
 		businessName: aiStepValues?.business_name || '',
 		businessDetails: aiStepValues?.business_description || '',

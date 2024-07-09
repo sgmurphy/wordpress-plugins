@@ -4,9 +4,9 @@ Donate link: https://wpplugin.org/donate/
 Tags: PayPal, gateway, paypal button, ecommerce, shop
 Author URI: https://wpplugin.org
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.4
-Stable tag: 1.9
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,10 @@ Yes, there is no limit to the amount of PayPal Buy Now buttons you can put on on
 4. PayPal Settings page
 
 == Changelog ==
+
+= 1.9.1 =
+* 7/8/24
+* Fix - Security bug fix.
 
 = 1.9 =
 * 2/25/24

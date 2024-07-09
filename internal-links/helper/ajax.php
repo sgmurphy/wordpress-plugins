@@ -7,6 +7,7 @@ use ILJ\Backend\BatchInfo;
 use ILJ\Backend\Environment;
 use ILJ\Backend\MenuPage\Tools;
 use ILJ\Backend\User;
+use ILJ\Cache\Transient_Cache;
 use ILJ\Core\IndexBuilder;
 use ILJ\Core\Options as CoreOptions;
 use ILJ\Data\Content;
@@ -15,6 +16,7 @@ use ILJ\Enumeration\Content_Type;
 use ILJ\Helper\IndexAsset;
 use ILJ\Database\Linkindex;
 use ILJ\Helper\BatchInfo as HelperBatchInfo;
+use ILJ\Statistics\Link;
 use ILJ\Type\KeywordList;
 /**
  * Ajax toolset
@@ -39,6 +41,12 @@ class Ajax
      */
     public static function searchPostsAction()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-search-posts-action')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         if (!isset($_POST['search']) && !isset($_POST['per_page']) && !isset($_POST['page'])) {
             wp_die();
         }
@@ -72,6 +80,12 @@ class Ajax
      */
     public static function indexRebuildAction()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-dashboard')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         try {
             do_action(IndexBuilder::ILJ_INITIATE_BATCH_REBUILD);
             $response = array('status' => 'success', 'message' => sprintf('<p class="message">' . __('Index rebuild successfully scheduled.', 'internal-links') . '</p>'));
@@ -152,6 +166,9 @@ class Ajax
      */
     public static function renderLinkDetailStatisticAction()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-dashboard') || !current_user_can('manage_options')) {
+            die;
+        }
         if (!isset($_POST['id']) || !isset($_POST['type']) || !isset($_POST['direction'])) {
             wp_die();
         }
@@ -214,6 +231,9 @@ class Ajax
      */
     public static function renderAnchorDetailStatisticAction()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-dashboard') || !current_user_can('manage_options')) {
+            die;
+        }
         if (!isset($_POST['anchor'])) {
             wp_die();
         }
@@ -235,6 +255,12 @@ class Ajax
      */
     public static function ratingNotificationAdd()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-general-nonce')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         if (!isset($_POST['days'])) {
             wp_die();
         }
@@ -257,6 +283,12 @@ class Ajax
      */
     public static function hidePromo()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-general-nonce')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         User::update('hide_promo', true);
         wp_die();
     }
@@ -355,6 +387,12 @@ class Ajax
      */
     public static function renderBatchInfo()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-general-nonce')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $batch_build_info = new HelperBatchInfo();
         $info = $batch_build_info->getBatchInfo();
         wp_send_json($info);
@@ -370,7 +408,7 @@ class Ajax
         if (!check_admin_referer('ilj_clear_all_transient') || !current_user_can('manage_options')) {
             return;
         }
-        ContentTransient::delete_all_ilj_transient();
+        Transient_Cache::delete_all();
         \ILJ\ilj_fs()->add_sticky_admin_message(__('The Caches were cleared.', 'internal-links'), 'ilj_clear_all_transient_notice');
         wp_safe_redirect(wp_get_referer());
         die;
@@ -380,20 +418,33 @@ class Ajax
      *
      * @since 2.23.4
      *
-     * @return void
+     * @return array
      */
-    public static function load_statistics_chunk_callback()
+    public static function load_link_statistics()
     {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-dashboard')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-dashboard') || !current_user_can('manage_options')) {
             die;
         }
-        if (!current_user_can('manage_options')) {
-            return;
+        $table_columns = array('title', 'keywords_count', 'type', 'incoming_links', 'outgoing_links');
+        $sort_by = 'title';
+        if (isset($_REQUEST['order'][0]['column'])) {
+            $sort_column_index = intval($_REQUEST['order'][0]['column']);
+            if ($sort_column_index < count($table_columns)) {
+                $sort_by = $table_columns[$sort_column_index];
+            }
         }
-        $start_count = intval($_POST['start_count']);
-        $chunk_size = intval($_POST['chunk_size']);
-        $html_chunk = Ajax::render_links_statistic_action($start_count, $chunk_size);
-        echo json_encode($html_chunk);
+        $sort_direction = 'ASC';
+        if (isset($_REQUEST['order'][0]['dir']) && 'desc' === $_REQUEST['order'][0]['dir']) {
+            $sort_direction = 'DESC';
+        }
+        $link_statistics = new Link(array('sort_by' => $sort_by, 'sort_direction' => $sort_direction, 'limit' => intval($_REQUEST['length']), 'offset' => intval($_REQUEST['start']), 'search' => (isset($_REQUEST['search']['value']) && is_string($_REQUEST['search']['value'])) ? $_REQUEST['search']['value'] : '', 'main_types' => (isset($_REQUEST['main_types']) && !empty($_REQUEST['main_types']) && is_string($_REQUEST['main_types'])) ? explode(',', $_REQUEST['main_types']) : array(), 'sub_types' => (isset($_REQUEST['sub_types']) && !empty($_REQUEST['sub_types']) && is_string($_REQUEST['sub_types'])) ? explode(',', $_REQUEST['sub_types']) : array()));
+        $total = $link_statistics->get_total();
+        /**
+         * `recordsTotal`, `recordsFiltered` are standard property names for pagination in data tables
+         *
+         * @see https://datatables.net/examples/data_sources/server_side
+         */
+        echo json_encode(array('recordsTotal' => $total, 'recordsFiltered' => $link_statistics->get_filtered_results_count(), 'data' => $link_statistics->get_statistics(), 'draw' => isset($_REQUEST['draw']) ? intval($_REQUEST['draw']) : 0));
         die;
     }
     /**
@@ -411,7 +462,7 @@ class Ajax
         if (!$id || !in_array($type, array('post', 'term'), true)) {
             return;
         }
-        ContentTransient::delete_transient(intval($id), $type);
+        Transient_Cache::delete_cache_for_content(intval($id), $type);
         /* Dont print notice because the ui using this flag will have inbuilt feedback instead of printing the notice */
         if (!isset($_REQUEST['ilj_skip_notice'])) {
             $message = ('post' === $type) ? sprintf(__('The cache for the %s has been cleared.', 'internal-links'), get_post_type($id)) : __('The cache for the term has been cleared.', 'internal-links');
@@ -450,6 +501,12 @@ class Ajax
      */
     public static function cancel_all_schedules()
     {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-cancel-all-schedule-action')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         Cleanup::clean_scheduled_actions();
         HelperBatchInfo::reset_batch_info();
         wp_send_json_success(null, 200);

@@ -8,7 +8,7 @@ Author: WPMU DEV
 Requires at least: 5.5
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 3.10.8
+Stable tag: 3.10.9
 
 SEO checker, content analysis & SEO optimizer. Rank higher on search engines with 301 redirects, XML sitemaps & one-click setup.
 
@@ -148,6 +148,10 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Use OpenGraph and Twitter Cards to optimize social sharing.
 
 == Changelog ==
+
+= 3.10.9 ( 2024-07-09 ) =
+
+- Enhance: Security improvements.
 
 = 3.10.8 ( 2024-06-03 ) =
 

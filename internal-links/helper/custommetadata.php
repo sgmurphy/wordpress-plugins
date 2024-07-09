@@ -4,6 +4,7 @@ namespace ILJ\Helper;
 
 use ILJ\Backend\Editor;
 use ILJ\Core\LinkBuilder;
+use ILJ\Core\Links\Text_To_Link_Converter_Factory;
 use ILJ\Core\Options;
 use ILJ\Posttypes\CustomLinks;
 /**

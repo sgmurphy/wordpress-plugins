@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('jquery-ui-dialog'), 'version' => 'fac6f22fe4aafebab2d6');
+<?php return array('dependencies' => array('jquery-ui-dialog'), 'version' => '2638a3081861079edf1d');

@@ -4793,7 +4793,8 @@ article div.iron-audioplayer ol li {
     line-height: initial; }
     .iron-audioplayer .control .play {
       opacity: 1 !important;
-      cursor: pointer; }
+      cursor: pointer;
+      background: unset; }
     .iron-audioplayer .control .previous {
       opacity: 1 !important;
       width: 16px;
@@ -6014,11 +6015,11 @@ a.tracklist-item-title:hover {
 
 /* '' */
 .sricon-shuffle:before {
-  content: '\e82c'; }
+  content: '\e83d'; }
 
 /* '' */
 .sricon-shuffle-a:before {
-  content: '\e82d'; }
+  content: '\e83d'; }
 
 /* '' */
 .sricon-volume:before {

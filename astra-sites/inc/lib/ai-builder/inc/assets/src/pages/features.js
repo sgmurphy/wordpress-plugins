@@ -33,7 +33,7 @@ const ICON_SET = {
 	'play-circle': PlayCircleIcon,
 	'live-chat': ChatBubbleLeftEllipsisIcon,
 	'page-builder': PaintBrushIcon,
-	form: QueueListIcon,
+	'contact-form': QueueListIcon,
 	blog: Squares2X2Icon,
 };
 

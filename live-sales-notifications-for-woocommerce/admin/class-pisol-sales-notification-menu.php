@@ -55,11 +55,11 @@ class Pi_Sales_Menu{
         }
         ?>
         <div id="bootstrap-wrapper" class="pisol-setting-wrapper pisol-container-wrapper">
-        <div class="container mt-2">
-            <div class="row">
+        <div class="pisol-container mt-2">
+            <div class="pisol-row">
                     <div class="col-12">
                         <div class='bg-dark'>
-                        <div class="row">
+                        <div class="pisol-row">
                             <div class="col-12 col-sm-2 py-2">
                                     <a href="https://www.piwebsolution.com/" target="_blank"><img class="img-fluid ml-2" src="<?php echo plugin_dir_url( __FILE__ ); ?>img/pi-web-solution.png"></a>
                             </div>
@@ -71,10 +71,10 @@ class Pi_Sales_Menu{
                         </div>
                     </div>
             </div>
-            <div class="row">
+            <div class="pisol-row">
                 <div class="col-12">
                 <div class="bg-light border pl-3 pr-3 pb-3 pt-0">
-                    <div class="row">
+                    <div class="pisol-row">
                         <div class="col-12 col-md-2 px-0 border-right">
                                 <?php do_action($this->plugin_name.'_tab'); ?>
                                 <a class=" pi-side-menu bg-secondary " href="https://www.piwebsolution.com/documentation-for-live-sales-notifications-for-woocommerce-plugin/" target="_blank">

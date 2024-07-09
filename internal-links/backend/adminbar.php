@@ -38,7 +38,7 @@ class AdminBar
                 </a>'));
         $admin_bar->add_node($args);
         // Disable in version 2.23.5 due to conflicts with other plugins
-        // self::add_cache_menu_items($admin_bar);
+        self::add_cache_menu_items($admin_bar);
         $args = array('parent' => 'ilj', 'id' => 'ilj-status', 'title' => '<div class="ilj-build-title"><strong>Status:</strong> <span  id="ilj_batch_status">' . HelperBatchInfo::translateBatchStatus($status) . '</span></div>', 'meta' => array('html' => '
 				<hr class="ilj-build-seperate" />
                 <div class="ilj-build-info">

@@ -133,6 +133,7 @@ class Sonaar_Block {
 		$show_publish_date = ( isset( $attributes['show_publish_date'] ) && $attributes['show_publish_date'] ) ? $attributes['show_publish_date'] : 'default';
 		$show_skip_bt = ( isset( $attributes['show_skip_bt'] ) && $attributes['show_skip_bt'] ) ? $attributes['show_skip_bt'] : 'default';
 		$show_shuffle_bt = ( isset( $attributes['show_shuffle_bt'] ) && $attributes['show_shuffle_bt'] ) ? $attributes['show_shuffle_bt'] : 'default';
+		$show_repeat_bt = ( isset( $attributes['show_repeat_bt'] ) && $attributes['show_repeat_bt'] ) ? $attributes['show_repeat_bt'] : 'default';
 		$show_speed_bt = ( isset( $attributes['show_speed_bt'] ) && $attributes['show_speed_bt'] ) ? $attributes['show_speed_bt'] : 'default';
 		$show_volume_bt = ( isset( $attributes['show_volume_bt'] ) && $attributes['show_volume_bt'] ) ? $attributes['show_volume_bt'] : 'default';
         $playlist_show_album_market = ( isset( $attributes['playlist_show_album_market'] ) && $attributes['playlist_show_album_market'] ) ? true : false;
@@ -501,6 +502,10 @@ class Sonaar_Block {
 
 		if( $show_shuffle_bt && function_exists( 'run_sonaar_music_pro' ) ) {
 			$shortcode .= 'show_shuffle_bt="'.$show_shuffle_bt.'" ';
+		}
+
+		if( $show_repeat_bt && function_exists( 'run_sonaar_music_pro' ) ) {
+			$shortcode .= 'show_repeat_bt="'.$show_repeat_bt.'" ';
 		}
 
 		if( $show_skip_bt && function_exists( 'run_sonaar_music_pro' ) ) {
@@ -1058,6 +1063,10 @@ class Sonaar_Block {
 				'default' => 'default',
 			),
 			'show_shuffle_bt' => array(
+				'type' => 'string',
+				'default' => 'default',
+			),
+			'show_repeat_bt' => array(
 				'type' => 'string',
 				'default' => 'default',
 			),

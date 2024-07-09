@@ -168,8 +168,8 @@ if ( ! function_exists( 'qi_blocks_get_comment_form_args' ) ) {
 
 		$args = array(
 			'title_reply_to'       => esc_attr__( 'Reply to %s', 'qi-blocks' ),
-			'title_reply_before'   => '<' . esc_attr( $attributes['titleTag'] ) . ' id="reply-title" class="comment-reply-title">',
-			'title_reply_after'    => '</' . esc_attr( $attributes['titleTag'] ) . '>',
+			'title_reply_before'   => '<' . qi_blocks_escape_title_tag( $attributes['titleTag'] ) . ' id="reply-title" class="comment-reply-title">',
+			'title_reply_after'    => '</' . qi_blocks_escape_title_tag( $attributes['titleTag'] ) . '>',
 			'comment_field' => sprintf(
 				'<p class="comment-form-comment">%s %s</p>',
 				'<label for="comment">' . esc_html__( 'Comment', 'qi-blocks' ) . '</label>',

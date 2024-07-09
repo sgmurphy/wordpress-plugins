@@ -3,9 +3,9 @@ Contributors: zayedbaloch, hammal
 Donate link: https://www.paypal.me/zayedbaloch
 Tags: images, before and after slider, before after slider, ux builder element
 Requires at least: 5.5
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 
 Need to highlight the differences between two images? Makes it easy with Twenty20 plugin.
@@ -108,6 +108,9 @@ Yes, Twenty20 plugin allow user to add unlimited before-after slider.
 
 == Changelog ==
 
+= 1.7.2 =
+* Improve script
+
 = 1.7.1 =
 * Bug fixes
 
@@ -168,60 +171,3 @@ Yes, Twenty20 plugin allow user to add unlimited before-after slider.
 
 = 1.0 =
 * First Release
-
-== Upgrade Notice ==
-
-= 1.6.1 =
-* Bug fixes.
-
-= 1.6.0 =
-* Security fixes, and passed in WordPress review.
-
-= 1.5.9 =
-* Security fixes
-
-= 1.5.8 =
-* Fix: Minor jQuery fix
-
-= 1.5.7 =
-* Fix: WP 5.6 Uncaught TypeError (Thanks to @negru13)
-
-= 1.5.6 =
-* Fix: Jetpack’s lazy load images issue
-
-= 1.5.5 =
-* Fix: Widget mouse over.
-
-= 1.5.4 =
-* Added: Integrated with WP Image alt.
-
-= 1.5.3 =
-* Fixed cation overlay issue.
-
-= 1.5.2 =
-* Fixed Before and After shortcode insert issue
-
-= 1.5.1 =
-* Fixed loading issue
-
-= 1.5 =
-* NEW: Add Elementor Page builder support.
-* NEW: Add UX Builder by UXThemes support.
-* Minor CSS fixes
-
-= 1.4 =
-* NEW: 'Move slider on mouse over'.
-
-= 1.3 =
-* NEW: Image Before and After caption.
-* Fixed arrow shadow css.
-* Widget updated.
-
-= 1.2 =
-* Fixed alignment bug
-
-= 1.1 =
-* Fixed width issue
-
-= 1.0 =
-* First Release.

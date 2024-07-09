@@ -441,7 +441,7 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
 			$schedules[ $this->identifier . '_cron_interval' ] = array(
 				'interval' => MINUTE_IN_SECONDS * $interval,
 				/* translators: %d are the minutes. */
-				'display'  => sprintf( __( 'Every %d Minutes', 'st-importer', 'astra-sites' ), $interval ),
+				'display'  => sprintf( __( 'Every %d Minutes', 'astra-sites' ), $interval ),
 			);
 
 			return $schedules;

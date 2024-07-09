@@ -5,9 +5,9 @@ Author: mainwp
 Author URI: https://mainwp.com
 Plugin URI: https://mainwp.com
 Requires at least: 6.2
-Tested up to: 6.5.4
+Tested up to: 6.5.5
 Requires PHP: 7.4
-Stable tag: 5.1
+Stable tag: 5.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -142,6 +142,18 @@ Yes, we have a quick FAQ with many more questions and answers [here](https://mai
 10. Dashboard Insights
 
 == Changelog ==
+
+= 5.1.1 - 7-9-2024 =
+
+* Fixed: Inaccurate information for the WordPress SEO extension in the available_extensions array.
+* Fixed: Typo in the Tools page
+* Updated: Background color for selected table rows for a consistent design.
+* Updated: Quick Setup Wizard will now start automatically when the Dashboard plugin is activated for the first time.
+* Updated: Removed header element push to bottom feature.
+* Updated: Button margins in the header element for a more polished look.
+* Updated: REST API menu item color in both WP Admin and Minimalistic themes for a consistent design.
+
+[See Video Changelog](https://youtu.be/J_PB881HiPg)
 
 = 5.1 - 6-18-2024 =
 

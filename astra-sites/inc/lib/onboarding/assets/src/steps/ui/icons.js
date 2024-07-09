@@ -1,4 +1,4 @@
-import { classNames } from '../onboarding-ai/helpers';
+import { classNames } from '../../utils/functions';
 
 export const WandIcon = ( { className } ) => (
 	<svg
@@ -16,6 +16,172 @@ export const WandIcon = ( { className } ) => (
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
+	</svg>
+);
+
+export const SirenColorfulIcon = ( { className } ) => (
+	<svg
+		className={ className }
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M7 12C7 10.6739 7.52678 9.40215 8.46447 8.46447C9.40215 7.52678 10.6739 7 12 7C13.3261 7 14.5979 7.52678 15.5355 8.46447C16.4732 9.40215 17 10.6739 17 12V18H7V12Z"
+			stroke="url(#paint0_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M5 20C5 19.4696 5.21071 18.9609 5.58579 18.5858C5.96086 18.2107 6.46957 18 7 18H17C17.5304 18 18.0391 18.2107 18.4142 18.5858C18.7893 18.9609 19 19.4696 19 20V22H5V20Z"
+			stroke="url(#paint1_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M21 12H22"
+			stroke="url(#paint2_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M18.5 4.5L18 5"
+			stroke="url(#paint3_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M2 12H3"
+			stroke="url(#paint4_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 2V3"
+			stroke="url(#paint5_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M4.92896 4.929L5.63596 5.636"
+			stroke="url(#paint6_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 12V18"
+			stroke="url(#paint7_linear_1547_11043)"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<defs>
+			<linearGradient
+				id="paint0_linear_1547_11043"
+				x1="7"
+				y1="12.5"
+				x2="17"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint1_linear_1547_11043"
+				x1="5"
+				y1="20"
+				x2="19"
+				y2="20"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint2_linear_1547_11043"
+				x1="21"
+				y1="12.5"
+				x2="22"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint3_linear_1547_11043"
+				x1="18"
+				y1="4.75"
+				x2="18.5"
+				y2="4.75"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint4_linear_1547_11043"
+				x1="2"
+				y1="12.5"
+				x2="3"
+				y2="12.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint5_linear_1547_11043"
+				x1="12"
+				y1="2.5"
+				x2="13"
+				y2="2.5"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint6_linear_1547_11043"
+				x1="4.92896"
+				y1="5.2825"
+				x2="5.63596"
+				y2="5.2825"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+			<linearGradient
+				id="paint7_linear_1547_11043"
+				x1="12"
+				y1="15"
+				x2="13"
+				y2="15"
+				gradientUnits="userSpaceOnUse"
+			>
+				<stop stopColor="#B809A7" />
+				<stop offset="0.46875" stopColor="#E90B76" />
+				<stop offset="1" stopColor="#FC8536" />
+			</linearGradient>
+		</defs>
 	</svg>
 );
 
@@ -1066,6 +1232,46 @@ export const FrameUI = ( { className } ) => (
 				<stop offset="0.46875" stopColor="#E90B76" />
 				<stop offset="1" stopColor="#FC8536" />
 			</linearGradient>
+		</defs>
+	</svg>
+);
+
+export const TilesIcon = ( { className } ) => (
+	<svg
+		className={ className }
+		width="52"
+		height="36"
+		viewBox="0 0 52 36"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<g clipPath="url(#clip0_27794_45971)">
+			<rect width="8" height="8" fill="#333E52" />
+			<rect x="32" width="8" height="8" fill="#333E52" />
+			<rect x="16" width="8" height="8" fill="#333E52" />
+			<rect x="48" width="8" height="8" fill="#333E52" />
+			<rect y="16" width="8" height="8" fill="#333E52" />
+			<rect x="32" y="16" width="8" height="8" fill="#333E52" />
+			<rect x="16" y="16" width="8" height="8" fill="#333E52" />
+			<rect x="48" y="16" width="8" height="8" fill="#333E52" />
+			<rect x="8" y="8" width="8" height="8" fill="#333E52" />
+			<rect x="8" y="24" width="8" height="8" fill="#333E52" />
+			<rect x="24" y="8" width="8" height="8" fill="#333E52" />
+			<rect x="40" y="8" width="8" height="8" fill="#333E52" />
+			<rect x="24" y="24" width="8" height="8" fill="#333E52" />
+			<rect x="40" y="24" width="8" height="8" fill="#333E52" />
+			<rect y="32" width="8" height="8" fill="#333E52" />
+			<rect x="32" y="32" width="8" height="8" fill="#333E52" />
+			<rect x="16" y="32" width="8" height="8" fill="#333E52" />
+			<rect x="48" y="32" width="8" height="8" fill="#333E52" />
+		</g>
+		<defs>
+			<clipPath id="clip0_27794_45971">
+				<path
+					d="M0 2C0 0.895431 0.895431 0 2 0H70C71.1046 0 72 0.895431 72 2V42C72 43.1046 71.1046 44 70 44H2C0.895431 44 0 43.1046 0 42V2Z"
+					fill="white"
+				/>
+			</clipPath>
 		</defs>
 	</svg>
 );

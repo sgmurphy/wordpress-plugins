@@ -587,7 +587,7 @@
 	overflow-y: scroll;
 }
 
-#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 	width: 100%;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -596,30 +596,30 @@
 }
 
 @media (min-width: 576px) {
-	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 		max-width: 540px;
 	}
 }
 
 @media (min-width: 768px) {
-	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 		max-width: 720px;
 	}
 }
 
 @media (min-width: 992px) {
-	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 		max-width: 960px;
 	}
 }
 
 @media (min-width: 1200px) {
-	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 		max-width: 1140px;
 	}
 }
 
-#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container-fluid {
+#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container-fluid, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container-fluid {
 	width: 100%;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -627,7 +627,7 @@
 	margin-left: auto;
 }
 
-#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .row {
+#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .row, #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-row {
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-wrap: wrap;
@@ -11105,7 +11105,7 @@
 		min-width: 992px !important;
 	}
 
-	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+	#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container , #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 		min-width: 992px !important;
 	}
 
@@ -11168,7 +11168,7 @@
 	background: rgba(255, 0, 0, 0.4);
 }
 
-#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container {
+#bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .container , #bootstrap-wrapper.pisol-setting-wrapper.pisol-container-wrapper .pisol-container {
 	min-width: 100%;
 }
 

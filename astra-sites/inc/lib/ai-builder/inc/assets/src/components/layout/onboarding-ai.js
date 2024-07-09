@@ -19,6 +19,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useNavigateSteps, steps, useValidateStep } from '../../router';
 import { Toaster } from 'react-hot-toast';
 import ErrorBoundary from '../../pages/error-boundary';
+import useEffectAfterMount from '../../hooks/use-effect-after-mount';
 
 const { logoUrlDark } = aiBuilderVars;
 
@@ -56,7 +57,7 @@ const OnboardingAI = () => {
 		} );
 	}, [ currentStep, aiOnboardingDetails ] );
 
-	useEffect( () => {
+	useEffectAfterMount( () => {
 		if (
 			! aiOnboardingDetails?.stepData?.businessType ||
 			'' === aiOnboardingDetails?.stepData?.businessType

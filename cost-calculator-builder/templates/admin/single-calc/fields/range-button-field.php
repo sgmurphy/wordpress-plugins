@@ -218,7 +218,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row-currency" :class="{'disabled': !rangeField.fieldCurrency}">
+				<div class="row row-currency" :class="{'disabled': !rangeField.fieldCurrency}">
 				<div class="col-4">
 					<div class="ccb-input-wrapper">
 						<span class="ccb-input-label"><?php esc_html_e( 'Unit Symbol', 'cost-calculator-builder' ); ?></span>

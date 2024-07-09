@@ -11,7 +11,7 @@ ob_start();
 <div class="htmega-admin-main-tab-pane-inner">
         <!-- Banner Start -->
         <div class="htmega-admin-banner">
-            <img src="<?php echo esc_url( HTMEGAOPT_URL . '/assets/images/info-icon/dashboard-welcome.png' ); ?>" alt="<?php echo esc_attr__('Welcome To HT Mega','htmega-addons');?>">
+            <img src="<?php echo esc_url( HTMEGAOPT_URL . '/assets/images/dashboard-welcome.png' ); ?>" alt="<?php echo esc_attr__('Welcome To HT Mega','htmega-addons');?>">
         </div>
         <!-- Banner End -->
 

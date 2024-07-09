@@ -1,6 +1,14 @@
 jQuery(document).ready(function ($) {
     
-
+    function safeDecodeURIComponent(uri) {
+        try {
+            return decodeURIComponent(uri);
+        } catch (e) {
+            // Handle the error (e.g., log it or return null)
+            console.error("Invalid URI component:", e);
+            return null;
+        }
+    }
 
 
 
@@ -38,8 +46,30 @@ jQuery(document).ready(function ($) {
             var topLevelMenuURL = topLevelMenuSettingDecodedAndParsed[key][2];
             var topLevelIcon = topLevelMenuSettingDecodedAndParsed[key][6];
             var topLevelClasses = topLevelMenuSettingDecodedAndParsed[key][4];
-            var topLevelThirdValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
-            var topLevelFifthValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+
+
+            // var topLevelThirdValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
+
+            // var topLevelFifthValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+
+            var check = safeDecodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
+
+            if( check !== null ){
+                var topLevelThirdValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
+            } else {
+                var topLevelThirdValue = topLevelMenuSettingDecodedAndParsed[key][3];    
+            }
+
+            var check = safeDecodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+
+            if( check !== null ){
+                var topLevelFifthValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+            } else {
+                var topLevelFifthValue = topLevelMenuSettingDecodedAndParsed[key][5];
+            }
+
+
+
             var topLevelMenuCapability = topLevelMenuSettingDecodedAndParsed[key][1];
 
             //only do something if the top level menu has a label
@@ -74,7 +104,16 @@ jQuery(document).ready(function ($) {
                         var subLevelMenuLabel = removeNotificationsFromLabels(subLevelObject[key][0]);
                         var subLevelMenuURL = subLevelObject[key][2];
                         var subLevelMenuCapability = subLevelObject[key][1];
-                        var subLevelMenuThirdValue = decodeURIComponent(subLevelObject[key][3]);
+
+                        var check = safeDecodeURIComponent(subLevelObject[key][3]);
+
+                        if( check !== null ){
+                            var subLevelMenuThirdValue = decodeURIComponent(subLevelObject[key][3]);
+                        } else {
+                            var subLevelMenuThirdValue = subLevelObject[key][3];    
+                        }
+
+                        
 
                         //lets output the sub menu items using our above variables
                         packagedAdminMenuManager += '<li class="menu-item"><div><span data="dashicons-admin-generic" class="menu-item-icon dashicons-before dashicons-admin-generic"></span><input readonly="readonly" type="text" data="'+topLevelMenuURL+'['+subLevelMenuURL+']" class="menu-label" value="'+subLevelMenuLabel+'"><i class="fa fa-pencil-square-o edit-menu-item" title="Edit menu label" aria-hidden="true"></i><input readonly="readonly" type="text" data="'+subLevelMenuURL+'" class="menu-url restricted-advanced-functionality" style="margin-left:20px;" value="'+subLevelMenuURL+'"><i class="restricted-advanced-functionality fa fa-link edit-menu-item-link" title="Edit menu link" aria-hidden="true"></i><input readonly="readonly" type="text" data="menu-top" class="menu-classes restricted-advanced-functionality" style="margin-left:20px;" value="menu-top"><i class="restricted-advanced-functionality fa fa-code edit-menu-item-classes" title="Edit menu classes" aria-hidden="true"></i>'+adminCampailitiesSelect(subLevelMenuCapability)+'<input readonly="readonly" type="text" data="" class="menu-third-value" style="margin-left:20px;" value="'+subLevelMenuThirdValue+'"><input readonly="readonly" type="text" data="" class="menu-fifth-value" style="margin-left:20px;" value=""><i class="fa fa-eye-slash remove-menu-item" title="Hide menu item" aria-hidden="true"></i></div></li>';    
@@ -184,8 +223,26 @@ jQuery(document).ready(function ($) {
                 var topLevelMenuURL = topLevelMenuSettingDecodedAndParsed[key][2];
                 var topLevelIcon = topLevelMenuSettingDecodedAndParsed[key][6];
                 var topLevelClasses = topLevelMenuSettingDecodedAndParsed[key][4];
-                var topLevelThirdValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
-                var topLevelFifthValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+
+                var check = safeDecodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
+
+                if( check !== null ){
+                    var topLevelThirdValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][3]);
+                } else {
+                    var topLevelThirdValue = topLevelMenuSettingDecodedAndParsed[key][3];    
+                }
+
+                var check = safeDecodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+
+                if( check !== null ){
+                    var topLevelFifthValue = decodeURIComponent(topLevelMenuSettingDecodedAndParsed[key][5]);
+                } else {
+                    var topLevelFifthValue = topLevelMenuSettingDecodedAndParsed[key][5];
+                }
+
+                
+
+
                 var topLevelMenuCapability = topLevelMenuSettingDecodedAndParsed[key][1];
 
 
@@ -220,7 +277,14 @@ jQuery(document).ready(function ($) {
                         var subLevelMenuLabel = removeNotificationsFromLabels(subLevelObject[key][0]);
                         var subLevelMenuURL = subLevelObject[key][2];
                         var subLevelMenuCapability = subLevelObject[key][1];
-                        var subLevelMenuThirdValue = decodeURIComponent(subLevelObject[key][3]);
+                        
+                        var check = safeDecodeURIComponent(subLevelObject[key][3]);
+
+                        if( check !== null ){
+                            var subLevelMenuThirdValue = decodeURIComponent(subLevelObject[key][3]);
+                        } else {
+                            var subLevelMenuThirdValue = subLevelObject[key][3];    
+                        }
 
                         //lets output the sub menu items using our above variables
                         packagedAdminMenuManager += '<li class="menu-item"><div><span data="dashicons-admin-generic" class="menu-item-icon dashicons-before dashicons-admin-generic"></span><input readonly="readonly" type="text" data="'+topLevelMenuURL+'['+subLevelMenuURL+']" class="menu-label" value="'+subLevelMenuLabel+'"><i class="fa fa-pencil-square-o edit-menu-item" title="Edit menu label" aria-hidden="true"></i><input readonly="readonly" type="text" data="'+subLevelMenuURL+'" class="menu-url restricted-advanced-functionality" style="margin-left:20px;" value="'+subLevelMenuURL+'"><i class="restricted-advanced-functionality fa fa-link edit-menu-item-link" title="Edit menu link" aria-hidden="true"></i><input readonly="readonly" type="text" data="menu-top" class="menu-classes restricted-advanced-functionality" style="margin-left:20px;" value="menu-top"><i class="restricted-advanced-functionality fa fa-code edit-menu-item-classes" title="Edit menu classes" aria-hidden="true"></i>'+adminCampailitiesSelect(subLevelMenuCapability)+'<input readonly="readonly" type="text" data="" class="menu-third-value" style="margin-left:20px;" value="'+subLevelMenuThirdValue+'"><input readonly="readonly" type="text" data="" class="menu-fifth-value" style="margin-left:20px;" value=""><i class="fa fa-eye-slash remove-menu-item" title="Hide menu item" aria-hidden="true"></i></div></li>';    

@@ -1,7 +1,6 @@
 import { memo, useEffect, useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { ArrowPathIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { classNames } from '../onboarding-ai/helpers';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { FONTS } from './customize-steps/site-colors-typography/other-fonts';
 import { getFontName } from '../customize-site/customize-steps/site-colors-typography/font-selector';
 import { useStateValue } from '../../store/store';
@@ -9,11 +8,12 @@ import {
 	getDefaultTypography,
 	getHeadingFonts,
 	sendPostMessage as dispatchPostMessage,
+	classNames,
 } from '../../utils/functions';
-import DropdownList from '../onboarding-ai/components/dropdown-list';
 
 const FontSelector = () => {
-	const [ { typography, templateResponse }, dispatch ] = useStateValue();
+	const [ { typography: activeTypography, templateResponse }, dispatch ] =
+		useStateValue();
 	const [ fonts, setFonts ] = useState(
 		FONTS.map( ( font, index ) => ( { ...font, id: index } ) )
 	);
@@ -131,7 +131,7 @@ const FontSelector = () => {
 		dispatchPostMessage( data, 'astra-starter-templates-preview' );
 	};
 
-	const handleChange = ( selectedTypography ) => {
+	const handleChange = ( selectedTypography ) => () => {
 		const newTypography = headingFonts
 			? { ...selectedTypography, ...headingFonts }
 			: selectedTypography;
@@ -160,107 +160,78 @@ const FontSelector = () => {
 	};
 
 	const selectedHeadingFont =
-			getFontName( typography?.[ 'headings-font-family' ] ) || '',
+			getFontName( activeTypography?.[ 'headings-font-family' ] ) || '',
 		selectedBodyFont =
-			getFontName( typography?.[ 'body-font-family' ] ) || '';
+			getFontName( activeTypography?.[ 'body-font-family' ] ) || '';
 	return (
-		<DropdownList value={ typography } onChange={ handleChange } by="id">
-			{ ( { open } ) => (
-				<>
-					<div className="flex items-center justify-between !mt-5">
-						<DropdownList.Label className=" text-sm font-normal">
-							{ __( 'Font Pair', 'astra-sites' ) }
-						</DropdownList.Label>
-						<button
-							key="reset-to-default-fonts"
+		<div className="space-y-2">
+			<div className="flex items-center justify-between">
+				<p className="text-zip-app-heading text-sm w-full truncate">
+					<span className="font-semibold">
+						{ __( 'Font Pair', 'astra-sites' ) }:
+					</span>
+					<span className="font-normal">
+						{ ' ' }
+						{ selectedHeadingFont } & { selectedBodyFont }{ ' ' }
+					</span>
+				</p>
+				<button
+					key="reset-to-default-fonts"
+					className={ classNames(
+						'inline-flex p-px items-center justify-center text-button-disabled border-0 bg-transparent focus:outline-none transition-colors duration-200 ease-in-out cursor-default',
+						! activeTypography?.default &&
+							'text-zip-app-inactive-icon cursor-pointer'
+					) }
+					{ ...( ! activeTypography?.default && {
+						onClick: handleReset,
+					} ) }
+				>
+					<ArrowPathIcon
+						className="w-[0.875rem] h-[0.875rem]"
+						strokeWidth={ 2 }
+					/>
+				</button>
+			</div>
+			<div className="grid grid-cols-5 gap-3 auto-rows-[36px]">
+				{ fonts.map( ( font ) => {
+					const bodyFont =
+						getFontName( font[ 'body-font-family' ] ) || '';
+					const headingFont =
+						getFontName(
+							font[ 'headings-font-family' ],
+							bodyFont
+						) || '';
+					return (
+						<div
+							key={ font.id }
 							className={ classNames(
-								'inline-flex p-px items-center justify-center text-zip-app-inactive-icon border-0 bg-transparent focus:outline-none transition-colors duration-200 ease-in-out',
-								! typography?.default &&
-									'text-zip-dark-theme-content-background cursor-pointer'
+								'flex justify-center items-center text-body-text font-normal px-2 py-1 border border-solid border-button-disabled rounded-md bg-st-background-secondary hover:bg-white transition duration-150 ease-in-out cursor-pointer w-full h-9',
+								activeTypography?.id === font.id &&
+									'outline-1 outline outline-offset-2 outline-accent-st-secondary bg-white'
 							) }
-							{ ...( ! typography?.default && {
-								onClick: handleReset,
-							} ) }
+							onClick={ handleChange( font ) }
 						>
-							<ArrowPathIcon
-								className="w-[0.875rem] h-[0.875rem]"
-								strokeWidth={ 2 }
-							/>
-						</button>
-					</div>
-					<div className="relative mt-1 bg-background-primary">
-						<DropdownList.Button className="text-sm font-normal bg-transparent border border-solid border-border-tertiary">
-							<div className="flex justify-start items-center gap-1">
-								<span className="inline-block h-full truncate">
-									{ selectedHeadingFont }
-								</span>
-								<span className="text-zip-app-inactive-icon">
-									/
-								</span>
-								<span className="inline-block h-full truncate">
-									{ selectedBodyFont }
-								</span>
-							</div>
-							<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-								<ChevronDownIcon
-									className="h-5 w-5 text-gray-400"
-									aria-hidden="true"
-								/>
+							<span
+								className="truncate text-xl font-normal"
+								style={ {
+									fontFamily: headingFont,
+								} }
+							>
+								A
 							</span>
-						</DropdownList.Button>
-						<DropdownList.Options
-							open={ open }
-							className="!space-y-2"
-						>
-							{ fonts.map( ( font ) => {
-								const bodyFont =
-									getFontName( font[ 'body-font-family' ] ) ||
-									'';
-								const headingFont =
-									getFontName(
-										font[ 'headings-font-family' ],
-										bodyFont
-									) || '';
-								return (
-									<DropdownList.Option
-										key={ font.id }
-										value={ font }
-										className={ ( { active, selected } ) =>
-											classNames(
-												'flex justify-start items-center gap-1 text-body-text text-base',
-												selected &&
-													'bg-zip-app-light-bg',
-												active && 'bg-zip-app-light-bg'
-											)
-										}
-									>
-										<span
-											className="truncate"
-											style={ {
-												fontFamily: headingFont,
-											} }
-										>
-											{ headingFont }
-										</span>
-										<span className="text-zip-app-inactive-icon">
-											/
-										</span>
-										<span
-											className="truncate"
-											style={ {
-												fontFamily: bodyFont,
-											} }
-										>
-											{ bodyFont }
-										</span>
-									</DropdownList.Option>
-								);
-							} ) }
-						</DropdownList.Options>
-					</div>
-				</>
-			) }
-		</DropdownList>
+							<span
+								className="truncate text-sm font-normal"
+								style={ {
+									fontFamily: bodyFont,
+								} }
+							>
+								g
+							</span>
+						</div>
+					);
+				} ) }
+			</div>
+		</div>
 	);
 };
 

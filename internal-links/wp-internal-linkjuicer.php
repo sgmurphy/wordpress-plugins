@@ -4,13 +4,13 @@
 /**
  * Internal Link Juicer
  *
- * @version 2.24.3
+ * @version 2.24.4
  * @package ILJ
  *
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.24.3
+ * Version: 2.24.4
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: Internal Link Juicer
  * Author URI: https://www.internallinkjuicer.com
@@ -45,7 +45,7 @@ if (!function_exists('add_filter')) {
     exit;
 }
 if (!defined('ILJ_VERSION')) {
-    define('ILJ_VERSION', '2.24.3');
+    define('ILJ_VERSION', '2.24.4');
 }
 if (!defined('ILJ_FILE')) {
     define('ILJ_FILE', __FILE__);
@@ -67,7 +67,7 @@ if (function_exists('\ILJ\ilj_fs')) {
     {
         global $ilj_fs;
         if (!isset($ilj_fs)) {
-            include_once dirname(__FILE__) . '/freemius/start.php';
+            require_once ILJ_PATH . '/vendor/freemius/wordpress-sdk/start.php';
             $first_path = 'admin.php?page=internal_link_juicer-tour';
             if (is_plugin_active_for_network(ILJ_NAME)) {
                 $first_path = '';

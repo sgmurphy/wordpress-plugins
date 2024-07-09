@@ -9,7 +9,7 @@ const SurveyForm = ( { updateFormDetails } ) => {
 
 	return (
 		<>
-			<p className="label-text row-label">
+			<p className="label-text row-label !mb-2">
 				{ __( 'Tell us a little bit about yourself', 'astra-sites' ) }
 			</p>
 			<div className="survey-fields-wrap">

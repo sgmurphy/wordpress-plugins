@@ -4,7 +4,7 @@ Donate link: https://www.patreon.com/wp_armour
 Tags: anti spam, spam protection, comment spam , contact form spam, akismet
 Requires at least: 3.0
 Tested up to: 6.5
-Stable tag: 2.2.01
+Stable tag: 2.2.02
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,8 +49,12 @@ This plugins block spam submissions using honeypot anti spam technic. No Captcha
 * Strong Testimonials (<a href="https://wordpress.org/plugins/strong-testimonials/">wordpress.org/plugins/strong-testimonials</a>)
 * Formcraft Form (<a href="https://formcraft-wp.com/">formcraft-wp.com</a>)
 * Forminator Form (<a href="https://wordpress.org/plugins/forminator/">wordpress.org/plugins/forminator</a>)
-* WS Form ( Lite & Pro )
+* WS Form (<a href="https://wordpress.org/plugins/ws-form/">wordpress.org/plugins/ws-form</a>)
 * YITH Easy Login & Register Popup for WooCommerce
+* UsersWP (<a href="https://wordpress.org/plugins/userswp/">wordpress.org/plugins/userswp</a>)
+* Youzify (<a href="https://youzify.com/">youzify.com/</a>)
+* MailPoet (<a href="https://wordpress.org/plugins/mailpoet/">wordpress.org/plugins/mailpoet</a>)
+* Brevo - SendInBlue (<a href="https://wordpress.org/plugins/mailin/">wordpress.org/plugins/mailin</a>)
 * JetForm Builder (<a href="https://jetformbuilder.com/">jetformbuilder.com</a>)
 * HTMLform plugin (<a href="https://www.htmlformsplugin.com">htmlformsplugin.com</a>)
 * Avia Enfold Theme (<a href="https://kriesi.at/themes/enfold">kriesi.at/themes/enfold</a>)
@@ -136,6 +140,10 @@ With WP Armour - Honeypot Anti Spam plugin it is No. But if you want you can use
 1. Screenshot #11. Anti Spam for Fluent Forms
 
 == Changelog ==
+
+= = 2.2.02 =
+
+* All integrations disbale/enable option added in Extended version.
 
 = = 2.2.01 =
 

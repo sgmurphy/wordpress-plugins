@@ -325,7 +325,7 @@ class Assets {
 				array_push( $async_urls, $url_path . $version . '/geodata/lang/' . strtoupper( $options['amcharts_locale'] ) . '.js' );
 			}
 
-			// buil proper dependencies
+			// build proper dependencies
 			foreach ( $this->core->script_localize_data as $mapsdata => $mapdata ) {
 				if ( ! isset( $mapdata['urls'] ) ) {
 					continue;
@@ -407,7 +407,7 @@ class Assets {
 				$this->modify_script_tag( $this->core->name . '_amcharts_lang' );
 			}
 
-			// buil proper dependencies
+			// build proper dependencies
 			foreach ( $this->core->script_localize_data as $key => $mapdata ) {
 				if ( ! isset( $mapdata['urls'] ) ) {
 					continue;

@@ -3885,7 +3885,7 @@ padding-bottom:10px !important; transition: 0.3s;}
 .coachpress-video .elementor-custom-embed-play {width: 89px;height: 89px;border-radius: 100%;background: #7d6a91;z-index: 5;}
 .coachpress-video .elementor-custom-embed-play i { line-height:50px;}
 .coachpress-video .elementor-custom-embed-image-overlay img { border-radius:30px;}
-.coachpress-logo-relll .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction .swiper-container-horizontal>.coachpress-asfeatured-btn { position:relative;}
+.coachpress-logo-relll .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction .swiper-horizontal>.coachpress-asfeatured-btn { position:relative;}
 .coachpress-asfeatured-btn::before {content: '';background: #7d6a91;width: 14px;height: 14px;position: absolute;top: -80px;  left: 50%;transform:translate(-50%, -50%); border-radius:100% !important;}
 .coachpress-asfeatured-btn::after {content: '';background: #7d6a91;width: 2px;height: 114%;position: absolute;top: -39px;  left: 50%;transform:translate(-50%, -50%);}
 .coachpress-logo-relll { position:relative;}
@@ -3913,7 +3913,7 @@ padding-bottom:10px !important; transition: 0.3s;}
 .coachpress-beamazing::before {width: 100% !important; left:0 !important;}
 .coachpress-find-my-tribe::before {width: 100% !important; right:0 !important;}
 .coachpress-coachimgouter.coachpress-coachimg .elementor-widget-container img { width:100% !important; height:auto !important;}
-.coachpress-logo-relll .swiper-container-horizontal > .swiper-pagination-bullets{bottom: -20px !important;}
+.coachpress-logo-relll .swiper-horizontal > .swiper-pagination-bullets{bottom: -20px !important;}
 .coachpress-services .services-box-content-area{width:100% !important;}
 }
 /* Coachpress */

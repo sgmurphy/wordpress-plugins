@@ -508,7 +508,7 @@ function my_admin_bar_menu( $wp_admin_bar ) {
 		array(
 			'parent' => 'ccb-admin-menu',
 			'id'     => 'ccb-admin-menu-items-settings',
-			'title'  => __( 'Settings', 'cost-calculator-builder' ),
+			'title'  => __( 'Global Settings', 'cost-calculator-builder' ),
 			'href'   => get_admin_url( null, 'admin.php?page=cost_calculator_builder&tab=settings' ),
 			'meta'   => array(
 				'class' => 'ccb-admin-menu-item',

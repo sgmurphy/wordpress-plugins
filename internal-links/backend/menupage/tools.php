@@ -81,7 +81,7 @@ class Tools extends AbstractMenuPage
         ?>
 			<div>
 				<a href="<?php 
-        echo esc_url(get_admin_url(null, 'admin.php?page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing'));
+        echo esc_url(get_admin_url(null, 'admin.php?billing_cycle=annual&trial=true&page=' . AdminMenu::ILJ_MENUPAGE_SLUG . '-pricing'));
         ?>"
 					class="ilj-upgrade tools">
 					&rsaquo; <?php 

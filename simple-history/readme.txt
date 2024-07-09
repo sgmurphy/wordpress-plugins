@@ -4,10 +4,9 @@ Contributors: eskapism
 Donate link: https://www.paypal.me/eskapism
 Tags: history, audit log, event log, user tracking, activity
 Tested up to: 6.5
-Stable tag: 4.15.1
+Stable tag: 4.16.0
 
-Easily track and view the changes made on your WordPress site, providing a comprehensive audit trail of user activities.
-See who created a page, uploaded an attachment or approved a comment, and more.
+Track changes and user activities on your WordPress site. See who created a page, uploaded an attachment, and more, for a complete audit trail.
 
 ## Description
 
@@ -89,6 +88,9 @@ Is your plugin missing? No problem – plugin authors can add support for Simple
 - [AJAX Login and Registration modal popup + inline form](https://wordpress.org/plugins/ajax-login-and-registration-modal-popup/)
 - [Loginpetze](https://wordpress.org/plugins/loginpetze/)
 - [Authorizer](https://wordpress.org/plugins/authorizer/)
+- [Ad Inserter](https://wordpress.org/plugins/ad-inserter/)
+- [FV Player Pro](https://foliovision.com/player/features/sharing/video-downloading-with-simple-history#integration-with-simple-history)
+- [Login Me Now](https://wordpress.org/plugins/login-me-now/)
 
 ### What users say 💬
 
@@ -176,10 +178,10 @@ If you like this plugin please consider donating to support the development. The
 - [Become a GitHub sponsor](https://github.com/sponsors/bonny).
 - [Add-ons that you can buy to support the development](https://simple-history.com/add-ons/) (and get some extra features!).
 
-**Notworthy sponsors**
+**Noteworthy sponsors**
 
-- [TextTV.nu](https://texttv.nu) - Sveriges bästa text-tv på webben
-- [Brottsplatskartan.se](https://brottsplatskartan.se) - Sveriges största brottsplatskarta
+- [TextTV.nu](https://texttv.nu) - Swedish teletext on the web
+- [Brottsplatskartan.se](https://brottsplatskartan.se) - Swedish police reports on a map
 
 ## Frequently Asked Questions
 
@@ -240,6 +242,16 @@ This can be modified using the filter [`simple_history/db_purge_days_interval`](
 
 Yes, Simple History allows you to filter the history by user names, making it easy to monitor individual activities.
 
+= Is this plugin GDRP compliant? =
+
+Since GDRP is such a complex topic and since [WordPress plugins are not allowed to imply that they provide legal compliance](https://make.wordpress.org/plugins/2018/04/12/legal-compliance-added-to-guidelines/) we can not simply just say that the plugin is GDPR compliant.
+
+GDPR is very much about how you use the data and how you inform your users about what data you collect and how you use it. No site is the same and the usage together with the plugin can be very different from site to site. So you should always make sure that you are compliant with GDPR when using the plugin.
+
+That said, the plugin does not use Google Fonts, does not set cookies, uses no local storage, and by default the ip addresses are anonymized. The plugin is however a plugin that logs events and that can contain personal data, so you should always make sure that you are compliant with GDPR when using the plugin.
+
+Read more at the [FAQ on the plugin website](https://simple-history.com/docs/faq-frequently-asked-questions/#is-the-plugin-GDPR-complient).
+
 ## Screenshots
 
 1. The log view + it also shows the filter function in use - the log only shows event that
@@ -260,6 +272,54 @@ Yes, Simple History allows you to filter the history by user names, making it ea
    A simple way to see any uncommon activity, for example an increased number of logins or similar.
 
 ## Changelog
+
+### 4.16.0
+
+This release contains many new features and improvements. Especially updates made on the settings screen has gonne through a major overhaul and is now much more user friendly and informative.
+[View the release post for screenshots and more information](https://simple-history.com/2024/simple-history-4-16-0/?utm_source=wpadmin).
+
+🌟 Remember that you can [sponsor this project to keep it free and open source](https://simple-history.com/sponsor/).
+And if you need more features you can buy [add-ons that also get you some extra features](https://simple-history.com/add-ons/). 🌟
+
+**Added**
+
+- Debug page additions
+  - Display detected db engine to debug page. Can be useful for debugging since Simple History supports MySQL, MariaDB, and SQLite.
+  - Table size and number of rows for SQLite databases are shown on the debug page (they were already shown for MySQL and MariaDB).
+  - Display [Must Use Plugins](https://developer.wordpress.org/advanced-administration/plugins/mu-plugins/) on the debug page.
+- Throw exception if [log query](https://simple-history.com/docs/query-api/) has any db errors instead of just dying silently. This should help with debugging since the message often is visible in the log. [#438](https://github.com/bonny/WordPress-Simple-History/issues/438)
+- Plugin update failures are now logged, with error message added to context. This can happen when a plugin can't remove it's folder. [#345](https://github.com/bonny/WordPress-Simple-History/issues/345)
+- Support for the ANSI_QUOTES mode in MySQL/MariaDB. [#334](https://github.com/bonny/WordPress-Simple-History/issues/334)
+- RSS feed support for filtering by loglevels ( e.g.,`?loglevels=warning,notice`). See https://simple-history.com/docs/feeds/ for all available filters. [#443](https://github.com/bonny/WordPress-Simple-History/issues/443)
+- Log when an admin user changes the way WordPress handles auto updates of core, from "automatic updates for all new versions of WordPress" to "automatic updates for maintenance and security releases only", or vice versa. [#449](https://github.com/bonny/WordPress-Simple-History/issues/449)
+- Add Update URI plugin header, if available, to context for plugin installs or updates. This field was added in [WordPress 5.8](https://make.wordpress.org/core/2021/06/29/introducing-update-uri-plugin-header-in-wordpress-5-8/) so it was really time to add it now :) [#451](https://github.com/bonny/WordPress-Simple-History/issues/451)
+- Add link to the Simple History site history below the "All updates have been completed" message that is shown when plugins or themes are updated. [#453](https://github.com/bonny/WordPress-Simple-History/issues/453)
+- Add title, alternative text, caption, description, and slug to modified attachments. [#310](https://github.com/bonny/WordPress-Simple-History/issues/310)
+- Add a link next to number or failed login attempts. If the [extended settings add-on](https://simple-history.com/add-ons/extended-settings/) is installed the link goes to the settings page for that add-on. If that add-on is not installed the link goes to the website of the add-on.
+
+**Changed**
+
+- Changes to settings screens and logging of their options have gotten a major overhaul and is now much more user friendly and informative:
+
+  - Only built in WordPress options are logged. Previously other options could "sneak in" when they was added using a filter or similar on the same screen.
+  - When updating the site language option (the options `WPLANG`), set "en_US" as the language when the option is empty. Previously it was set to an empty string which what a bit confusing.
+  - "Week Starts On" now displays the new and previous weekday as human readable text instead of a number.
+  - Use wording "Updated setting..." instead of "Updated option..." in the log when a setting is updated because it's more user friendly to say "setting" instead of "option", since that's the wordings used in the WordPress UI.
+  - Include the name of the settings page in the main log message for each setting updated and also include a link to the settings page.
+  - Use "On" or "Off" when display the changed values for settings that can be toggled on or off. Previously "1" or "0" was used.
+  - Setting "For each post in a feed, include..." now displays "Full text" or "Excerpt", instead of "1" or "0".
+  - The "blog_public" settings is now shown as "Discourage search engines from indexing this site" setting was changed.
+
+- Don't log the uploading and deletion of the ZIP archive when installing a plugin or theme from a ZIP file. [#301](https://github.com/bonny/WordPress-Simple-History/issues/301)
+- Update testing framework wp-browser to 3.5.
+- Misc refactoring and code cleanup.
+
+**Fixed**
+
+- Fix a possible strpos()-warning in the ACF logger. [#440](https://github.com/bonny/WordPress-Simple-History/issues/440)
+- Ensure Post via email SMTP password is not exposed in the log.
+
+Pssst! Did you know that you can [sponsor this project](https://github.com/sponsors/bonny) to keep it free and open source? 🌟
 
 ### 4.15.1 (April 2024)
 

@@ -233,7 +233,7 @@
 
 .ilj-select2-container--default.ilj-select2-container--disabled .ilj-select2-selection--single {
     background-color: #eee;
-    cursor: not-allowed;
+    cursor: pointer;
     border: 1px solid #aaa !important;
 }
 
@@ -323,7 +323,7 @@
 
 .ilj-select2-container--default.ilj-select2-container--disabled .ilj-select2-selection--multiple {
     background-color: #eee;
-    cursor: not-allowed;
+    cursor: pointer;
     border: 1px solid #aaa !important;
 }
 

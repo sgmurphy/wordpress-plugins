@@ -136,7 +136,7 @@ class Importer extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
@@ -192,7 +192,7 @@ class Importer extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
@@ -215,7 +215,7 @@ class Importer extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 		wp_send_json_success( astra_sites_get_reset_post_data() );
@@ -318,7 +318,7 @@ class Importer extends AjaxBase {
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_send_json_error(
 				array(
-					'error' => __( 'Permission Denied!', 'ai-builder', 'astra-sites' ),
+					'error' => __( 'Permission Denied!', 'astra-sites' ),
 				)
 			);
 		}
@@ -342,7 +342,7 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		wp_send_json_error( __( 'There was an error importing the Spectra settings.', 'ai-builder', 'astra-sites' ) );
+		wp_send_json_error( __( 'There was an error importing the Spectra settings.', 'astra-sites' ) );
 	}
 
 	/**
@@ -354,7 +354,7 @@ class Importer extends AjaxBase {
 	public function import_surecart_settings() {
 		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 		}
 
 		$id = isset( $_POST['source_id'] ) ? base64_decode( sanitize_text_field( $_POST['source_id'] ) ) : ''; //phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
@@ -366,7 +366,7 @@ class Importer extends AjaxBase {
 			}
 		}
 
-		wp_send_json_error( __( 'There was an error cloning the surecart store.', 'ai-builder', 'astra-sites' ) );
+		wp_send_json_error( __( 'There was an error cloning the surecart store.', 'astra-sites' ) );
 	}
 
 	/**
@@ -406,13 +406,13 @@ class Importer extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		$status = class_exists( 'STImporter\Importer\Batch\ST_Batch_Processing_Gutenberg' ) ? ST_Batch_Processing_Gutenberg::get_instance()->import() : array(
 			'status' => false,
-			'msg'    => __( 'Required function not found', 'ai-builder', 'astra-sites' ),
+			'msg'    => __( 'Required function not found', 'astra-sites' ),
 		);
 
 		if ( wp_doing_ajax() ) {
@@ -438,13 +438,13 @@ class Importer extends AjaxBase {
 			check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 			if ( ! current_user_can( 'customize' ) ) {
-				wp_send_json_error( __( 'You are not allowed to perform this action', 'ai-builder', 'astra-sites' ) );
+				wp_send_json_error( __( 'You are not allowed to perform this action', 'astra-sites' ) );
 			}
 		}
 
 		$status = class_exists( 'STImporter\Importer\Batch\ST_Batch_Processing_Misc' ) ? ST_Batch_Processing_Misc::get_instance()->import() : array(
 			'status' => false,
-			'msg'    => __( 'Required function not found', 'ai-builder', 'astra-sites' ),
+			'msg'    => __( 'Required function not found', 'astra-sites' ),
 		);
 
 		if ( wp_doing_ajax() ) {
@@ -474,20 +474,20 @@ class Importer extends AjaxBase {
 	 */
 	public function set_site_data() {
 
-		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
-			Ai_Builder_Fse_Importer::set_fse_site_data();
-			return;
-		}
-
 		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error(
 				array(
 					'success' => false,
-					'message' => __( 'You are not authorized to perform this action.', 'ai-builder', 'astra-sites' ),
+					'message' => __( 'You are not authorized to perform this action.', 'astra-sites' ),
 				)
 			);
+		}
+
+		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
+			Ai_Builder_Fse_Importer::set_fse_site_data();
+			return;
 		}
 
 		$param = isset( $_POST['param'] ) ? sanitize_text_field( $_POST['param'] ) : '';
@@ -495,7 +495,7 @@ class Importer extends AjaxBase {
 		if ( empty( $param ) ) {
 			wp_send_json_error(
 				array(
-					'error' => __( 'Received empty parameters.', 'ai-builder', 'astra-sites' ),
+					'error' => __( 'Received empty parameters.', 'astra-sites' ),
 				)
 			);
 		}

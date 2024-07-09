@@ -8,7 +8,7 @@ Tags: PayPal payment, PayPal, button, payment, online payments, pay now, buy now
 Author: Scott Paterson
 Author URI: https://wpplugin.org
 License: GPL2
-Version: 1.9
+Version: 1.9.1
 */
 
 /*  Copyright 2014-2024 Scott Paterson
@@ -28,7 +28,7 @@ Version: 1.9
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'WPECPP_FREE_VERSION_NUM', '1.9' );
+define( 'WPECPP_FREE_VERSION_NUM', '1.9.1' );
 
 define( 'WPECPP_FREE_STRIPE_CONNECT_ENDPOINT', 'https://wpplugin.org/stripe-wpecpp/connect.php' );
 define( 'WPECPP_FREE_PPCP_API', 'https://wpplugin.org/ppcp-wpecpp/' );

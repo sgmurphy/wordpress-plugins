@@ -35,9 +35,8 @@ class Export
         }
         $headline = vsprintf(implode(self::ILJ_EXPORT_FIELD_SEPARATOR, $headline_format), $titles);
         if (!$verbose) {
-            // Ignored since the data is printed to csv file.
             echo $headline;
-            //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ignored since the data is printed to csv file.
         }
         return $headline;
     }
@@ -74,9 +73,8 @@ class Export
             $csv_curr = "\r\n";
             $csv_curr .= vsprintf(implode(self::ILJ_EXPORT_FIELD_SEPARATOR, $row_format), $row_data);
             if (!$verbose) {
-                // Ignored since the data is printed to csv file.
                 echo $csv_curr;
-                //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ignored since the data is printed to csv file.
             }
             $csv .= $csv_curr;
         }

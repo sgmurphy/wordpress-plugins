@@ -168,8 +168,10 @@ const SiteList = () => {
 				body: formData,
 			} );
 			const jsonData = await response.json();
-
-			if ( jsonData.data === 'updated' ) {
+			if (
+				jsonData.data === 'updated' &&
+				Object.keys( storedState.allSitesData ).length !== 0
+			) {
 				dispatch( {
 					type: 'set',
 					bgSyncInProgress: false,

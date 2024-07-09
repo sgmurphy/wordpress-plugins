@@ -2,6 +2,8 @@
 
 namespace ILJ\Core;
 
+use ILJ\Core\Links\Text_To_Link_Converter_Interface;
+use ILJ\Core\Links\Timeout_Monitor_Layer;
 use ILJ\Core\Options;
 use ILJ\Helper\Encoding;
 use ILJ\Type\Ruleset;
@@ -10,9 +12,26 @@ use ILJ\Helper\Replacement;
 use ILJ\Backend\Editor;
 use ILJ\Database\LinkindexIndividualTemp;
 use ILJ\Database\LinkindexTemp;
-use ILJ\Helper\ContentTransient;
 use ILJ\Helper\IndexAsset;
 use ILJ\Helper\LinkBuilding;
+/**
+ * The below line sets the `ticks` directive  to prevent timeout occurring on the frontend.
+ * This is set for the complete file, @see https://www.php.net/manual/en/control-structures.declare.php
+ * This is needed for {@link Timeout_Monitor_Layer} to work, You might wonder why I didn't set this
+ * on {@link Timeout_Monitor_Layer}. The reason for this is that the ticks won't be propagated to code in other files.
+ * For example,
+ *
+ * `declare(ticks=1000) {
+ *   $a = 20;
+ *   $foo = new Foo()
+ *   $foo->bar();
+ * }`
+ *
+ * You might expect all statements inside bar() method would be tickable, but it won't behave like that.
+ * You would need to set the ticks directive on the top of Foo.php in order to get
+ * the same behavior.
+ */
+declare (ticks=1000);
 /**
  * The main LinkBuilder class
  *
@@ -21,7 +40,7 @@ use ILJ\Helper\LinkBuilding;
  * @package ILJ\Core
  * @since   1.0.0
  */
-class LinkBuilder
+class LinkBuilder implements Text_To_Link_Converter_Interface
 {
     /**
      * ID (post id / term id)
@@ -165,18 +184,25 @@ class LinkBuilder
         }
     }
     /**
+     * Return the linked content.
+     *
+     * @param string $content
+     * @return string
+     */
+    public function link_content(string $content): string
+    {
+        return $this->linkContent($content);
+    }
+    /**
      * Applies the link rules to a given piece of content
      *
+     * @deprecated
      * @since  1.0.0
      * @param  string $content The content of the post, where the rules get applied
      * @return string
      */
     public function linkContent($content)
     {
-        // Disable in version 2.23.5 due to conflicts with other plugins
-        // if (false != ($filtered_content = ContentTransient::get_transient($this->id, $this->type))) {
-        // return $filtered_content;
-        // }
         if (!LinkBuilding::is_filter_needed($this->id, $this->type)) {
             return $content;
         }
@@ -186,10 +212,6 @@ class LinkBuilder
             $this->maskLinkRules();
             $this->applyReplaceRules();
         }
-        // Disable in version 2.23.5 due to conflicts with other plugins
-        // if (false === ($filtered_content = ContentTransient::get_transient($this->id, $this->type))) {
-        // ContentTransient::set_transient($this->id, $this->type, $this->content);
-        // }
         return $this->content;
     }
     /**
@@ -324,6 +346,7 @@ class LinkBuilder
     {
         $template = $this->getLinkTemplate();
         $nofollow = (bool) Options::getOption(\ILJ\Core\Options\InternalNofollow::getKey());
+        $link_attrs = array();
         if ('post' == $link_rule->type) {
             if (get_post_status($link_rule->value) != 'publish') {
                 return false;

@@ -1,10 +1,10 @@
 === MapGeo - Interactive Geo Maps ===
-Contributors: carlosmoreirapt, pcarvalho, freemius
+Contributors: carlosmoreirapt, pcarvalho
 Tags: map, interactive map, world map, travel map, us map
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.6.16
+Stable tag: 1.6.18
 Donate link: https://interactivegeomaps.com
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,7 @@ Create your first interactive map in minutes! Use it to display your visited cou
 
 [Features Examples](https://interactivegeomaps.com/features/) | [Go Pro](https://interactivegeomaps.com/pricing/)
 
-The plugin generates interactive, responsive, touch-enabled SVG maps which are embeded directly into your HTML5 pages and compatible with all modern browsers and devices.
+The plugin generates interactive, responsive, touch-enabled SVG maps which are embedded directly into your HTML5 pages and compatible with all modern browsers and devices.
 
 = Privacy Information & External Services =
 This plugin will build the maps using the [amcharts visualization library](https://www.amcharts.com/javascript-charts/) which provides hundreds of different maps. The plugin loads some files from their CDN to build the map and display it on your page. You won't need to have a amcharts account for the maps to work. More information about their [amcharts Privacy Policy](https://www.amcharts.com/privacy-policy/).
@@ -98,6 +98,14 @@ You can visit this [article on how to use the plugin together with WP Rocket](ht
 10. Administration 04
 
 == Changelog ==
+
+= 1.6.18 =
+Small code improvements and bug fixes.
+Freemius SDK update to v.2.7.2
+
+= 1.6.17 =
+Fix external search dropdown grouped label properties always showing region ids.
+Update title of the settings page header.
 
 = 1.6.16 =
 Small code improvements and bug fixes.
@@ -141,7 +149,7 @@ Add space to separate elements
 Selectable Lat. and Long. values with tripple click
 
 = 1.6.7 =
-New Feature: add ?image paramater to single map pages to return image
+New Feature: add ?image parameter to single map pages to return image
 Fix error that displayed on existing free maps when going Pro
 Fix localization issues
 Correct issues with clustered markers in drilldown and live filter
@@ -260,7 +268,7 @@ Freemius SDK update
 
 = 1.5.7 =
 Bug fixes in mobile map height
-Improvements in region names to code convertion
+Improvements in region names to code conversion
 Freemius Library Update - v2.4.5
 PHP 8.1 compatibility improvements
 Grouping regions fixes
@@ -309,7 +317,7 @@ Codestar Framework Update
 New JS public methods added
 
 = 1.4.12 =
-[Pro] Google Spreadsheets feature added as old JSON method is now depracated
+[Pro] Google Spreadsheets feature added as old JSON method is now deprecated
 [Pro] Prepare plugin for Post Types & Meta Fields Addon
 
 = 1.4.11 =
@@ -339,7 +347,7 @@ New Maps: Côte d'Ivoire (Ivory Coast), Uganda and Province map of Italy
 Option to overwrite meta in shortcode parameter
 [Pro] Bug fix on external list shortcode html
 [Pro] Bug fix on drilldown for Canada and Mexico regions
-[Pro] Reponsive auto region labels
+[Pro] Responsive auto region labels
 [Pro] Lightbox on mobile bug fix
 [Pro] Action to display page content below & scroll (beta)
 [Pro] Rotate icon markers option
@@ -386,7 +394,7 @@ Option to overwrite meta in shortcode parameter
 * [Pro] Dropdown option for Live Filter
 * [Pro] External Dropdown search bug fix
 * [Pro] Custom actions bug on overlay maps fixed
-* [Pro] Actions fixed to accept cyrillic charactes
+* [Pro] Actions fixed to accept cyrillic characters
 
 = 1.4.1 =
 * [Pro] External custom legend option
@@ -513,7 +521,7 @@ Option to overwrite meta in shortcode parameter
 = 1.1.7 =
 * [Pro] Improved fullscreen behaviour
 * [Pro] Option to have external/bigger zoom controls on mobile
-* [Pro] Option to set custom toolip Template for each series of data
+* [Pro] Option to set custom tooltip Template for each series of data
 * [Pro] Option load specific amcharts version and setup locale
 
 = 1.1.6 =
@@ -534,7 +542,7 @@ Option to overwrite meta in shortcode parameter
 * [Pro] Option to display live filter of overlay maps
 * [Pro] Labels improvements and bug fixes
 * [Pro] Bug fix for click action not being triggered in some markers
-* [Pro] Bug fix for Legend not hilighting markers
+* [Pro] Bug fix for Legend not highting markers
 
 = 1.1.3 =
 * [Pro] Option to add label below round markers and icon markers automatically

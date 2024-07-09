@@ -12,7 +12,8 @@ var __webpack_exports__ = {};
   });
   $.fn.updateLinkIndexStatus = function (timer) {
     var data = {
-      action: "ilj_render_batch_info"
+      action: "ilj_render_batch_info",
+      nonce: ilj_ajax_object.nonce
     };
     $old_progress_value = parseFloat($("#ilj_batch_progress").text());
     $.ajax({

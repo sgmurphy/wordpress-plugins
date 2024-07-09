@@ -3,7 +3,7 @@
  * Plugin Name: Payment Gateway Based Fees and Discounts for WooCommerce
  * Plugin URI: https://www.tychesoftwares.com/store/premium-plugins/payment-gateway-based-fees-and-discounts-for-woocommerce-plugin/
  * Description: Set payment gateways fees and discounts in WooCommerce.
- * Version: 2.12.2
+ * Version: 2.13.0
  * Author: Tyche Softwares
  * Author URI: https://www.tychesoftwares.com/
  * Text Domain: checkout-fees-for-woocommerce
@@ -11,6 +11,7 @@
  * Copyright: � 2021 Tyche Softwares
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Requires Plugins: woocommerce
  * WC tested up to: 8.7.0
  *
  * @package checkout-fees-for-woocommerce
@@ -58,7 +59,7 @@ if ( ! class_exists( 'Alg_Woocommerce_Checkout_Fees' ) ) :
 		 * @var   string
 		 * @since 2.1.0
 		 */
-		public $version = '2.12.2';
+		public $version = '2.13.0';
 
 		/**
 		 * The single instance of the class.
@@ -210,10 +211,14 @@ if ( ! class_exists( 'Alg_Woocommerce_Checkout_Fees' ) ) :
 		 * Remove query string to the admin url.
 		 */
 		public static function ts_reset_tracking_setting() {
-			if ( isset( $_GET ['ts_action'] ) && 'reset_tracking' === $_GET ['ts_action'] ) { // phpcs:ignore
-				Tyche_Plugin_Tracking::reset_tracker_setting( 'pgbf_lite' );
-				$ts_url = remove_query_arg( 'ts_action' );
-				wp_safe_redirect( $ts_url );
+			$nonce = isset( $_GET ['nonce'] ) ? $_GET['nonce'] : '';//phpcs:ignore
+			if ( is_user_logged_in() && current_user_can( 'manage_options' ) && wp_verify_nonce( $nonce, 'ts_nonce_action' ) ) {
+				if ( isset( $_GET ['ts_action'] ) && 'reset_tracking' === $_GET ['ts_action'] ) {
+					Tyche_Plugin_Tracking::reset_tracker_setting( 'pgbf_lite' );
+					$ts_url = remove_query_arg( 'ts_action' );
+					$ts_url = remove_query_arg( 'nonce' );
+					wp_safe_redirect( $ts_url );
+				}
 			}
 		}
 

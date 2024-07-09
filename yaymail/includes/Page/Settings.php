@@ -148,8 +148,7 @@ class Settings {
 		$capabilities = array();
 		$args         = array(
 			'labels'              => $labels,
-			'public'              => true,
-			'publicly_queryable'  => true,
+			'public'              => false,
 			'show_ui'             => false,
 			'query_var'           => true,
 			'rewrite'             => true,
@@ -302,7 +301,8 @@ class Settings {
 			$this->emails          = apply_filters( 'YaymailCreateWCFMWooFMTemplates', $this->emails );
 			$settingEnableDisables = apply_filters( 'YaymailCreateSelectWCFMWooFMTemplates', $settingEnableDisables );
 
-			$this->emails = apply_filters( 'YaymailCreateGermanMarketTemplates', $this->emails );
+			$this->emails          = apply_filters( 'YaymailCreateGermanMarketTemplates', $this->emails );
+			$settingEnableDisables = apply_filters( 'YaymailCreateSelectGermanMarketTemplates', $settingEnableDisables );
 
 			$this->emails          = apply_filters( 'YaymailCreateListYWCESTemplates', $this->emails );
 			$settingEnableDisables = apply_filters( 'YaymailCreateSelectYWCESTemplates', $settingEnableDisables );

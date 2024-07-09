@@ -3,14 +3,14 @@
 * Plugin Name: Simple Author Box
 * Plugin URI: https://wpauthorbox.com/
 * Description: Adds a responsive author box with social icons on any post.
-* Version: 2.53
+* Version: 2.54
 * Author: WebFactory Ltd
 * Author URI: https://www.webfactoryltd.com/
 * Requires: 4.6
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 * Requires PHP: 5.6
-* Tested up to: 6.5
+* Tested up to: 6.6
 
 *
 * Copyright 2014-2017 Tiguan				office@tiguandesign.com

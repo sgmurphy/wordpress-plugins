@@ -61,46 +61,49 @@ function twenty20_shortcode_init( $atts) {
     $yesHover = '';
   }
 
-if(!empty($atts['img1']) && !empty($atts['img2'])){
-  $img1_alt = get_post_meta($atts['img1'], '_wp_attachment_image_alt', true);
-  $img2_alt = get_post_meta($atts['img2'], '_wp_attachment_image_alt', true);
+  $script = "";
+  if(!empty($atts['img1']) && !empty($atts['img2'])){
+    $img1_alt = get_post_meta($atts['img1'], '_wp_attachment_image_alt', true);
+    $img2_alt = get_post_meta($atts['img2'], '_wp_attachment_image_alt', true);
 
 
- $img1_alt_attr = $img1_alt ? ' alt="' . esc_attr($img1_alt) . '" title="' . esc_attr($img1_alt) . '"' : '';
-    $img2_alt_attr = $img2_alt ? ' alt="' . esc_attr($img2_alt) . '" title="' . esc_attr($img2_alt) . '"' : '';
+   $img1_alt_attr = $img1_alt ? ' alt="' . esc_attr($img1_alt) . '" title="' . esc_attr($img1_alt) . '"' : '';
+      $img2_alt_attr = $img2_alt ? ' alt="' . esc_attr($img2_alt) . '" title="' . esc_attr($img2_alt) . '"' : '';
 
 
-  $output = '<div id="'.esc_attr($t20ID).'" class="twenty20" style="'. esc_attr($atts['width'] . $isLeft . $isRight) . '">';
-  $output .= '<div class="twentytwenty-container '. esc_attr( $t20ID . ' ' . $yesHover ) .'"' . esc_attr( $isVertical ) . '>';
-  $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img1'] ) ) .'"'.$img1_alt.' />';
-  $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img2'] ) ) .'"'.$img2_alt.' />';
-  $output .= '</div>';
-  $output .= '<script>jQuery( document ).ready(function( $ ) {';
-  if($atts['direction'] == "vertical"){
-    $direc = "[data-orientation='vertical']";
-    $output .= '$(".twentytwenty-container.'.esc_js($t20ID). $direc . '").twentytwenty({default_offset_pct: ' . esc_js($atts['offset'] . $isHover) . $data_vertical . '});';
+    $output = '<div id="'.esc_attr($t20ID).'" class="twenty20" style="'. esc_attr($atts['width'] . $isLeft . $isRight) . '">';
+    $output .= '<div class="twentytwenty-container '. esc_attr( $t20ID . ' ' . $yesHover ) .'"' . esc_attr( $isVertical ) . '>';
+    $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img1'] ) ) .'"'.$img1_alt.' />';
+    $output .= '<img class="skip-lazy" src="'. esc_url( wp_get_attachment_url( $atts['img2'] ) ) .'"'.$img2_alt.' />';
+    $output .= '</div></div>';
+    $script .= '<script>jQuery( document ).ready(function( $ ) {';
+    if($atts['direction'] == "vertical"){
+      $direc = "[data-orientation='vertical']";
+      $script .= '$(".twentytwenty-container.'.esc_js($t20ID). $direc . '").twentytwenty({default_offset_pct: ' . esc_js($atts['offset'] . $isHover) . $data_vertical . '});';
+    }else{
+      $direc = "[data-orientation!='vertical']";
+      $script .= '$(".twentytwenty-container.'.esc_js($t20ID).$direc.'").twentytwenty({default_offset_pct: '. esc_js($atts['offset'] . $isHover) .'});';
+    }
+    
+    if($atts['before']){
+      $script .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['before'])) .'");';
+    }else{
+      $script .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
+    }
+    if($atts['after']){
+      $script .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['after'])) .'");';
+    }else{
+      $script .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
+    }
+    $script .= '});</script>';
+    
   }else{
-    $direc = "[data-orientation!='vertical']";
-    $output .= '$(".twentytwenty-container.'.esc_js($t20ID).$direc.'").twentytwenty({default_offset_pct: '. esc_js($atts['offset'] . $isHover) .'});';
+    $output = '<div class="twenty20" style="color: red;">Twenty20 need two images.</div>';
   }
-  
-  if($atts['before']){
-    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-before-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['before'])) .'");';
-  }else{
-    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
-  }
-  if($atts['after']){
-    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-after-label").html("'. twenty20_zb_sanitize_xss_offset(esc_js($atts['after'])) .'");';
-  }else{
-    $output .= '$(".' . twenty20_zb_sanitize_xss_offset( esc_js($t20ID) ) . ' .twentytwenty-overlay").hide();';
-  }
-  $output .= '});</script></div>';
-}else{
-  $output = '<div class="twenty20" style="color: red;">Twenty20 need two images.</div>';
-}
 
-  $i++;
-
-  return $output;
+    $i++;
+    // Add the JavaScript initialization to the footer
+    add_action('wp_footer', function() use ($script) { echo $script; }, 20);
+    return $output;
 }
 add_shortcode( 'twenty20', 'twenty20_shortcode_init' );

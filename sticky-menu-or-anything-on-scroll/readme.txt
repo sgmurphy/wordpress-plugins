@@ -3,8 +3,8 @@ Contributors: WebFactory
 Tags: sticky header, sticky menu, sticky, sticky widget, floating menu
 Plugin URI: https://wpsticky.com/
 Requires at least: 3.6
-Tested up to: 6.5
-Stable tag: 2.32
+Tested up to: 6.6
+Stable tag: 2.33
 Requires PHP: 5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -139,6 +139,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.33 =
+* 2024-07-08
+* minor security fixes
 
 = 2.32 =
 * 2022-11-20

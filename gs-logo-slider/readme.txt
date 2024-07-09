@@ -1,7 +1,7 @@
 === Logo Slider - Logo Showcase, Logo Carousel, Logo Gallery and Client Logo Presentation ===
 Contributors: gsplugins, itszaman, samdani, itsariful, devshakhawat
 Donate link: https://www.paypal.com/donate/?hosted_button_id=K7K8YF4U3SCNQ
-Tags: Logo Slider, wordpress logo slider, logo carousel, logo carousel slider, logo wordpress plugin, client logo
+Tags: Logo Slider, logo carousel, logo carousel slider, logo wordpress plugin, client logo
 Requires at least: 4.3
 Tested up to: 6.5
 Requires PHP: 5.6
@@ -13,57 +13,113 @@ Logo Slider is The Best Responsive Plugin for Logo Showcase, Logo Carousel and d
 
 == Description ==
 
-Logo Slider - The best easy-to-use WordPress plugin to Show off your clients, partners, or sponsors on your website with a sleek and professional slider. You can customize it to match your brand and style. Start today and make your website look even better!
+**GS Logo Slider** is a WordPress plugin that simplifies showcasing your partners, clients, brands, and sponsors. It allows you to create a logo slideshow quickly and easily. Featuring logos of respected companies on your website builds trust and credibility, while also boosting brand awareness for your partners, leading to stronger collaborations.
+
+The plugin is user-friendly, creating a dedicated logo post type and offering a user-friendly Shortcode generator for easy embedding. Its responsive design ensures that responsive sliders look great on all devices, and the lightweight plugin keeps your site running smoothly. Focus on what matters with GS Logo Slider.
 
 🎬 [Live Demo](https://logo.gsplugins.com) ⬆️ [Upgrade to PRO](https://www.gsplugins.com/product/gs-logo-slider) 📚 [Documentation](https://docs.gsplugins.com/gs-logo-slider) 🙋‍♂️ [Support](https://www.gsplugins.com/contact)
 
 https://www.youtube.com/playlist?list=PLLrT2alOaYX7BYElWvN_juWXo7yYAcjoh
 
-### Plugin Features - Logo Slider
+### Why are logo sliders useful for businesses?
+Logo sliders help businesses show their partners and clients, building trust and credibility. They save space on the website while highlighting important relationships. Not only it boosts brand recognition but can lead to more collaborations as well.
 
-* Gutenberg Block available.
-* Logo Shortcode Ready.
-* Very lightweight.
-* Custom post type for Logo posting.
-* No need for any settings.
-* Work with all WordPress themes.
-* Easy to use.
-* Developer friendly & easy to customize.
-* Powered by bxSlider.
-* Its easy-to-use interface allows you to manage, edit, create, and delete Logo with no new knowledge
+### What Sets GS Logo Slider Apart?
+* **Responsive Across All Screen Sizes**: This responsive logo slider effortlessly adjusts to any screen dimension, maintaining a polished look on desktops, tablets, and smartphones. Your logo display holds its visual appeal on all devices.
+* **Comprehensive Documentation**: The plugin includes thorough documentation that assists users with installation, configuration, and advanced customization options. It enables even those with limited technical skills to utilize it effectively.
+* **Regular Updates**: GS Logo Slider receives frequent updates to integrate the latest advanced features and security improvements. This ensures the plugin stays reliable and compatible with the newest WordPress versions.
+* **High Performance**: Engineered for speed and efficiency, GS Logo Slider delivers rapid loading times and smooth functionality. Its high performance enhances user experience and minimizes bounce rates.
 
-[Pro Features](https://www.gsplugins.com/product/gs-logo-slider)
+### Plugin Features - Logo Carousel
 
-* Added Grid View, List View, Table View, Filter View, Live Filter View, Full Width Slider, Center Mode, Variable Width Slider, Vertical Center Slider, Vertical Ticker Up, Vertical Ticker Down, 2 Rows Slider.
-* Added Tooltip Option.
-* Multiple sliders on the same page from different categories.
-* 24 different themes.
-* Drag & drop reorder / custom order as your need.
-* GS Logo Widget available.
-* Advance settings panel with all necessary options.
-* Multiple sliders can be shown from different categories.
-* Slider sliding speed, autoplay pause, navigation, pagination, color settings.
-* Logos moving direction ***Right to Left*** (default) or ***Left to Right*** for Slider & Ticker Theme.
-* Display horizontally or vertically.
-* Control sliding speed.
-* Enable/disable infinite loop.
-* Slide in ticker mode (similar to news scroll).
-* Logo grayscale feature.
-* Image size control.
-* Stop on hover control.
-* Display Logo including/excluding Title.
-* Specify the target to load the Links
-* Number of logos to move on transition.
-* Tons of shortcode parameters
-* Category wise Logos
-* Easy and user-friendly setup.
-* Priority Email Support.
-* Free Installation ( If needed ).
-* Free updates for one Year.
-* Auto update notification.
-* Auto update from dashboard.
-* Well documentation and support.
-* And many more.
+GS Logo Slider is a powerful plugin with a rich array of functionalities. Here's its huge features list:
+
+* **Gutenberg Block Available**: Seamlessly integrate logos with the block editor.
+* **Logo Shortcode Ready**: Easily insert logos using Shortcodes.
+* **Lightweight and Plug-and-Play**: Simple installation with no configuration or extra code required.
+* **Custom Post Type for Logo Posting**: Dedicated post type for managing logos.
+* **Compatibility**: Works with all WordPress themes.
+* **User-Friendly**: It has an easy-to-use user interface for managing, editing, creating, and deleting logos without new knowledge.
+* **Developer Friendly**: Simple to customize and extend its functionalities using Hooks.
+* **Multiple Views Added**: Grid View, List View, Table View, Filter View, Live Filter View, Full Width Slider, Center Mode, Variable Width Slider, Vertical Center Slider, Vertical Ticker Up, Vertical Ticker Down, and 2 Rows Slider.
+* **Tooltip Option**: Add informative tooltip descriptions to logos.
+* **Multiple Sliders on Same Page**: Display sliders from different categories on the same page.
+* **24 Different Themes**: Choose from a variety of pre-designed themes.
+* **Drag & Drop Reorder**: Easily reorder logos as needed.
+* **Advanced Settings Panel**: Comprehensive slider settings panel with all necessary options.
+* **Slider Customization**: There are customizable options such as adjusting slider carousel speed, slider autoplay pause, navigation, pagination, drag-and-drop feature, and color settings.
+* **Directional Control**: Logos can move Right to Left (default) or Left to Right for Slider & Ticker Theme.
+* **Display Options**: Display logos horizontally or vertically.
+* **Infinite Loop**: Enable or disable infinite loop.
+* **Ticker Mode**: Slide in ticker mode, similar to a news scroll.
+* **Grayscale Feature**: Option to display logos in grayscale.
+* **Image Size Control**: Adjust the size of logo images.
+* **Hover Control**: Stop sliding on hover.
+* **Title Display**: Display logos with or without titles.
+* **Link Target Specification**: Specify the target for logo links.
+* **Transition Control**: Set the number of logos to move during transition effects.
+* **Shortcode Parameters**: tons of Shortcode parameters for customization.
+* **Category-wise Logos**: Display logos based on categories.
+* **Priority Email Support**: Get assistance via priority email support.
+* **Free Installation Help**: Free installation service if needed.
+* **Free Updates for One Year**: Enjoy free updates for a year.
+* **Auto Update**: Receive notifications for updates and easily update the plugin from your dashboard.
+* **Well-Documented**: Comprehensive documentation and support.
+
+The plugin is advanced, feature-rich and is designed to provide a powerful, user-friendly, and customizable solution for displaying logos on your WordPress site.
+
+### Available Fields While Adding a Logo
+Adding logos using this responsive carousel slider is very simple. There are only four fields to enter data into. They’re as follows:
+
+* **Company Name**: Write the name of the brand of the logo that you’re going to enter here. 
+* **Logo**: Upload the brand logo image here.
+* **Company URL**: Enter the website’s URL here.
+* **Logo Categories**: Add new categories for the logo or choose from existing categories (if any).
+
+### General Settings
+Go to **GS Logos > Logo Shortcode**. Here, you can either create a new Shortcode or edit the existing ones. Once inside, you’ll see the **General Settings** page.
+
+* **Name of the Shortcode**: Decide on a unique name for your Shortcode.
+* **Style & Theming**: Choose a style or theme for your Shortcode.
+* **Image Size**: Select the image size for the logos from options such as medium, large and custom.
+* **Sliding Speed**: Control the slider speed.
+* **Autoplay**: Turn auto sliding of the logos on or off.
+* **Autoplay Delay**: Set how long to delay the auto sliding.
+* **Pause on hover**: Specify if autoplay should cease when the user hovers on a logo.
+* **Infinite Loop**: Specify whether clicking the next button on the last slide logo will loop back to the first slide, and clicking the previous button on the first slide will loop to the last slide.
+* **Reverse Direction**: Set logo sliding direction from right to left (default is left to right)
+* **Slider Navs**: Activate/deactivate logo sliding buttons.
+* **Navs Position**: Determine the position of the navigation arrows. Options for setting arrow icons are bottom nav, inside/outside the slider component.
+* **Slider Dots**: Show or hide the dots under the slider. They make the navigation of the logos easier. 
+* **Logo Title**: Opt to display logos with titles or without.
+* **Logo Category**: Select whether logos should be shown with accompanying titles.
+* **Secondary Image**: Show different images when hovering on the logos.
+* **Tooltip**: Decide whether to show tooltips when hovering on images or not.
+
+### Style Settings
+Go to **GS Logos > Logo Shortcode**. In the *second tab* you’ll see the **Style Settings** Page. 
+
+* **Logo style**: Select whether logos will show in color or in grayscale.
+* **Adjustable Spacing**: Set the margin between logos in pixel values.
+* **Desktop Logos**: Set the number of logos to show on desktop screens.
+* **Tablet Logos**: Choose how many logos to display on tablet screens.
+* **Mobile Logos**: Configure the list of logos visible on mobile screens.
+* **Clickable Logos**: Set whether clicking on a logo opens its link on a new page or in the current page. 
+
+### Query Settings
+Go to GS **Logos > Logo Shortcode**. In the *third tab*, after the General Settings and the Style Settings tab, you’ll see the **Query Settings** tab.
+
+* **Logos**: Set the number of logos you want to show. Default value is -1, and it means all the logos will be shown.
+* **Order**: Specify the order in which you want your logos to show. The criteria for ordering can be set from the **Order By** field. 
+* **Order By**: Choose whether to order your logos by name, id, date of adding or you can select a custom order of your choice. Also, you can randomize the logo sequence on every page refresh. 
+* **Categories**: Select a specific logo category to display logos from that category. You can select multiple categories here. 
+
+### Preferences
+Go to **GS Logos > Logo Shortcode**. On the top right navigation bar, click on **Preferences**. You’ll see the following fields:
+
+* **Disable Lazy Load**: Disable or enable lazy loading of the logo images.
+* **Anchor Tag rel**: Choose the value for the Anchor tag's *rel* attribute to enhance security and SEO. By default, the value is set to **dofollow**.
+* **Custom CSS**: Easily add your own custom CSS to the WordPress logo slider plugin for complete control over the appearance and styling of your logo displays.
 
 ### Page Builder Support
 * Gutenberg
@@ -71,6 +127,10 @@ https://www.youtube.com/playlist?list=PLLrT2alOaYX7BYElWvN_juWXo7yYAcjoh
 * WPBakery
 * Divi Builders
 * Genesis Framework
+* Beaver Builder
+* Oxygen Builder
+* UX Builder – Flatsome
+* TagDiv – Newspaper
 
 ### Shortcode Usage
 
@@ -186,59 +246,59 @@ Install it as a regular WordPress plugin. Here are different ways to install the
 
 == Frequently Asked Questions ==
 
-= How do I add new Logo? =
-Logo post type will show below POSTS. To add a new logo, go to GS Logos > Add New, then add Logo company name at Title, Add logo Image & URL with http:// then Finally Publish.
+= How do I add a new logo? =
+To add a new Logo –
+Go to **GS Logos > Add New**
+- Add the company name in the Title input box.
+- Upload logo image.
+- Write the company's website URL with *http://* or *https://*. Keep it blank if no website is available.
+- Logo Categories (optional) : You can categorize your logos by creating your own category or selecting one from the existing ones.
+- Finally, publish it.
+
+You can check out the [documentation](https://docs.gsplugins.com/gs-logo-slider/manage-the-logos/add-new-logo/) page for an in-depth guide on how to add a new logo using it.
 
 = What will be the logo image dimension? =
-Default image size set to 200px X 200px.
+200 pixels X 200 pixels is the default dimension but from the *General Settings* tab, you can choose other image sizes.
 
 = How to use shortcodes inside page templates? =
-WordPress has a great function, do_shortcode(), that will allow you to use shortcodes inside your theme files. For example, to output Logos in a Theme file, you would do this: 
+The capabilities of WordPress are amazing, and one of its finest features is do_shortcode(), which allows you to utilize shortcodes in your theme files. To output Logos in a Theme file, for example, use this code:
 `
-<?php echo do_shortcode( '[gslogo id=1]' ); ?>
-<?php echo do_shortcode('[gs_logo theme="slider1"]'); ?>
+<?php echo do_shortcode('[gslogo id=1]'); ?>
 `
+
 = How many logos can I add? =
-You can add unlimited logos in pro version. At lite version maximum 20 logos are allowed to display. You can add as many as needed and categorize them. Unlimited number of logos will not slow down your page speed.
-
-= How can I add a new logo to the plugin? =
-If you know how to add a post or a page in WordPress, you can add a Logo in the plugin. We have split this into 4 simple steps as you can see below :
-
-- Company Name (1) : This is self explanatory. Just add the name of the company of Logo.
-- Logo (2) : Add a logo of representing company
-- Company URL (3) : Add Company's website address with http:// Keep it blank if no website available.
-- Logo Categories (4) : You can categorize your logos by creating your own category.
-- You can check [Add New Logo section &raquo;](https://docs.gsplugins.com/gs-logo-slider/manage-the-logos/add-new-logo) for visual explanation.
+GS Logo Slider’s Pro version allows you to add unlimited logos. In the free version, up to 20 logos can be presented at once. You can add as many logos as necessary and sort them into categories. The number of logos on your page will not have an impact on your page loading speed.
 
 = Is there any shortcode of the plugin? =
-Yes, there are shortcodes available for the plugin. The default shortcode is : 
+Yes, there are shortcodes available for the plugin. The default shortcode is:
 `
 [gslogo id=#]
 `
+
+First, install the plugin on your WordPress website. Then add the Shortcode where you wish to showcase the slider.
+
 You can add the shortcode to display logos anywhere at your site.
-* Check more [Shortcode Attributes & Usage &raquo;](https://docs.gsplugins.com/gs-logo-slider/shortcode-usage) Here.
 
-= How can I use the shortcode of the WordPress plugin? =
-First, install the plugin on your WordPress website. Then add the shortcode [gslogo id=#] where you wish to showcase the slider.
+Check [Shortcode Attributes & Usage](https://docs.gsplugins.com/gs-logo-slider/shortcode-usage) docs for a detailed guide.
 
-= Can I use an external link in the logo of my client's website on the plugin? =
-Yes, you can. Add Company's website address with http:// at **Company URL** field. Logo will automatically link with the company website.
-You can set an external link to open a new tab / same window.
+= Can I use an external link in the logo of my client’s website on the plugin? =
+Yes, you can. Add the company's website address by starting it with **https://** in the company URL field. Logo will automatically link with the URL.
+You can set the link to open in a *new tab* / *same window*.
 
-= What are the versions of WordPress where I can use this client logo slider plugin? =
-You can use the plugin in all WordPress versions but recommended minimum WordPress Version: 4.5 or higher. We regularly update and release new versions to make it compatible with the latest WordPress. ***GS Logo Sliders*** Gutenberg Block is available.
+= What version of WordPress do I need to use this plugin? =
+Minimum WordPress Version: 5.8 or higher is required for using the plugin. We regularly update the plugin to make it compatible with the latest WordPress versions. 
 
-= What are the formats I can use in the WP plugin? =
-You can use JPG, JPEG, PNG, GIF, and other image formats.
+= What image formats can I use for the logos? =
+For the logos, you can use JPG, JPEG, PNG, GIF and other image formats.
 
 = Can I get a custom-developed plugin for my website? =
-Yes, In case of any personal or business need, you can [Contact Us](https://www.gsplugins.com/contact) for custom development support. We are here to help you as soon as possible.
+Yes, we do provide custom development services. In case of a personal or a business need, you can [contact us](https://www.gsplugins.com/contact) for custom support. 
 
-= Why is the plugin better than the others WordPress plugins? =
-Surely it is. If you check existing users' reviews, you may get an idea about the features & flexibilities then you will get a real comparison among the top plugins.
+= What makes our plugin stand out from other WordPress plugins? =
+Our plugin is user-friendly, feature-rich, and optimized for performance, ensuring your website runs smoothly. We offer robust support, regular updates, and extensive customization options. Plus, our positive user feedback highlights its reliability and effectiveness.
 
-= What is the dimension I will use for the plugin? =
-Recommended dimension 200px X 200px. 
+= Is there any Page Builder Support available for the GS Logo Slider? =
+Yes, Page Builder Support is there for the GS Logo Slider. Gutenberg, Elementor, WPBakery, Divi Builders, Oxygen Builder, UX Builder – Flatsome and TagDiv – Newspaper are all currently working properly. We have a plan to add support for additional builders in future updates.
 
 == Screenshots ==
 1. Default Color.

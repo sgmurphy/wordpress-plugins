@@ -40,6 +40,18 @@
     box-sizing: border-box;
 }
 
+#ilj_linkdefinition .ilj-upgrade-to-pro-button {
+    position: relative;
+    padding: 10px 5px;
+    background-color: #F49617;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
 #ilj_linkdefinition .input-gui input[type="text"],
 #ilj_linkdefinition .input-gui input[type="number"] {
     height: 28px;
@@ -287,7 +299,7 @@ form:not([action="post.php"]) #ilj_linkdefinition h2 {
 .pro-title {
     color: #aaa;
     text-shadow: 2px 2px #fff;
-    cursor: not-allowed;
+    cursor: pointer;
     position: relative;
     padding-left: 25px;
 }
@@ -299,7 +311,6 @@ form:not([action="post.php"]) #ilj_linkdefinition h2 {
 }
 
 .pro-setting {
-    opacity: .65;
     cursor: not-allowed;
 }
 

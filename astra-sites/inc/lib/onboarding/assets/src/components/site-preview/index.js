@@ -1,16 +1,18 @@
-import React, { memo, useEffect, useState } from 'react';
-import { sendPostMessage } from '../../utils/functions';
+import React, { memo, useEffect, useRef, useState } from 'react';
+import { sendPostMessage, classNames } from '../../utils/functions';
 import { useStateValue } from '../../store/store';
 import { prependHTTPS } from '../../utils/prepend-https';
 import { stripSlashes } from '../../utils/strip-slashes';
 import { addTrailingSlash } from '../../utils/add-trailing-slash';
 import SiteSkeleton from './site-skeleton';
-import { classNames } from '../../steps/onboarding-ai/helpers';
 
 const SitePreview = () => {
-	const [ { templateResponse, siteLogo } ] = useStateValue();
+	const [ { templateResponse, showSidebar, siteLogo }, dispatch ] =
+		useStateValue();
 	const [ previewUrl, setPreviewUrl ] = useState( '' );
 	const [ loading, setLoading ] = useState( true );
+
+	const previewContainer = useRef( null );
 
 	useEffect( () => {
 		const url = templateResponse
@@ -35,9 +37,66 @@ const SitePreview = () => {
 		} );
 	}, [ loading ] );
 
+	const updateScaling = () => {
+		const container = previewContainer.current;
+		if ( ! container ) {
+			return;
+		}
+
+		const iframe = container.children[ 1 ];
+		const containerWidth = container.clientWidth;
+		const containerHeight = container.clientHeight - 44;
+		const iframeWidth = iframe.clientWidth;
+		const scaleX = containerWidth / iframeWidth;
+		const scaleValue = scaleX;
+
+		// Set the scale for both width and height
+		iframe.style.transform = `scale(${ scaleValue })`;
+		iframe.style.transformOrigin = 'top left';
+		iframe.style.height = `${ containerHeight / scaleValue }px`;
+	};
+
 	const handleIframeLoading = () => {
+		updateScaling();
 		setLoading( false );
 	};
+
+	useEffect( () => {
+		const intervalId = setInterval( updateScaling, 125 );
+		setTimeout( () => {
+			clearInterval( intervalId );
+		}, 500 );
+		return () => {
+			clearInterval( intervalId );
+		};
+	}, [ showSidebar ] );
+
+	const handleResize = () => {
+		// Collapse the sidebar when it's a mobile view.
+		if ( showSidebar ) {
+			if ( window.innerWidth < 1024 ) {
+				dispatch( {
+					type: 'set',
+					showSidebar: false,
+				} );
+			} else {
+				dispatch( {
+					type: 'set',
+					showSidebar: true,
+				} );
+			}
+		}
+		updateScaling();
+	};
+
+	// Update scaling on window resize.
+	useEffect( () => {
+		handleResize();
+		window.addEventListener( 'resize', handleResize );
+		return () => {
+			window.removeEventListener( 'resize', handleResize );
+		};
+	}, [] );
 
 	const renderBrowserFrame = () => (
 		<div
@@ -59,16 +118,22 @@ const SitePreview = () => {
 			{ loading ? <SiteSkeleton /> : null }
 			{ previewUrl !== '' && (
 				<div className="w-full h-full p-8">
-					<div className="h-full relative overflow-hidden shadow-template-preview w-full mx-0">
+					<div
+						ref={ previewContainer }
+						className="h-full relative overflow-hidden shadow-template-preview w-full mx-auto"
+					>
 						{ renderBrowserFrame() }
-						<iframe
-							id="astra-starter-templates-preview"
-							title="Website Preview"
-							height="100%"
-							width="100%"
-							src={ previewUrl }
-							onLoad={ handleIframeLoading }
-						/>
+						<div className="w-[1700px] h-full">
+							<iframe
+								id="astra-starter-templates-preview"
+								className="w-[1700px] h-full"
+								title="Website Preview"
+								height="100%"
+								width="100%"
+								src={ previewUrl }
+								onLoad={ handleIframeLoading }
+							/>
+						</div>
 					</div>
 				</div>
 			) }

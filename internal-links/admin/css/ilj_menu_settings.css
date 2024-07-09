@@ -9,7 +9,7 @@
 }
 
 .ilj-menu-settings input:disabled {
-    cursor: not-allowed;
+    cursor: pointer;
     opacity: 0.7;
 }
 
@@ -133,24 +133,28 @@
 .ilj-menu-settings .ilj-upgrade {
     float: right;
     margin-right: 0.5em;
-    padding: 5px 10px;
+    padding: 5px 20px;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.71428571;
     white-space: nowrap;
     text-decoration: none;
+    background-color: #F49617;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .ilj-menu-settings .ilj-upgrade.tools {
     float: left;
-    padding: 0;
     margin-bottom: 10px;
 }
 
 .ilj-menu-settings .pro-title {
     color: #aaa;
     text-shadow: 2px 2px #fff;
-    cursor: not-allowed;
+    cursor: pointer;
     position: relative;
     padding-left: 25px;
 }
@@ -164,26 +168,47 @@
 .ilj-menu-settings .inactive {
     color: #aaa;
     text-shadow: 2px 2px #fff;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 .ilj-menu-settings .pro-setting {
     opacity: 0.65;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 .ilj-menu-settings .pro-setting input[type="checkbox"] {
     border: 1px solid black;
 }
 
-.ilj-menu-settings #ilj-cancel-schedule-feedback {
+#ilj-link-preview-template-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 50%;
+}
+
+#ilj-link-preview-template-container a[class="button"] {
+    margin-left: auto;
+}
+
+#ilj-link-preview-template-container textarea {
+    height: 100px;
+    width: 100%;
+}
+
+#ilj_settings_field_link_preview_template_reset_to_default {
+    width: fit-content;
+    margin-left: auto;
+}
+
+#ilj-cancel-schedule-feedback {
     display: inline-block;
     margin: 0px;
     padding: 0px 30px;
     color: green;
 }
 
-.ilj-menu-settings #ilj-cancel-schedule-feedback p {
+#ilj-cancel-schedule-feedback p {
     margin: 0.3em 0;
     padding: 0px;
 }

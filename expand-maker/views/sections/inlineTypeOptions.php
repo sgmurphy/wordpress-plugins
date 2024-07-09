@@ -3,7 +3,9 @@ $allowedTag = ReadMoreAdminHelper::getAllowedTags();
 ?>
 <div class="row">
 	<div class="col-xs-5">
-		<label class="control-label" for="addButtonOfTheNext"><?php _e('Add Button To The Next Of The Text', YRM_LANG);?>:</label>
+		<label class="control-label" for="addButtonOfTheNext"><?php _e('Add Button To The Next Of The Text', YRM_LANG);?>:
+			<?php echo yrm_info('If this option is enabled, the button will be next to the text: NOTE (You need to use inside one P tag)'); ?>
+		</label>
 	</div>
 	<div class="col-xs-4">
 		<div class="yrm-switch-wrapper">
