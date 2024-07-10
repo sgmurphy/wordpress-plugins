@@ -8,6 +8,7 @@ use SiteGround_Optimizer\Helper\Update_Queue_Trait;
  */
 class Supercacher_Comments {
 	use Update_Queue_Trait;
+
 	/**
 	 * Purge comment post cache.
 	 *
@@ -19,6 +20,11 @@ class Supercacher_Comments {
 		// Get the comment data.
 		$commentdata = get_comment( $comment_id, OBJECT );
 
+		// Check if the value is null.
+		if ( ! isset( $commentdata ) ) {
+			return;
+		}
+
 		// Check if the comment moderation is turned on or if the comment is marked as spam and what the current hook is.
 		if (
 			'wp_insert_comment' === current_action() &&
@@ -27,7 +33,7 @@ class Supercacher_Comments {
 			return;
 		}
 
-		// Purge the rest api cache.
+		// Purge the rest API cache.
 		$this->update_queue(
 			array(
 				get_rest_url(),

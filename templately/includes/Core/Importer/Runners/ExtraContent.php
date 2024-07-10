@@ -78,8 +78,9 @@ class ExtraContent extends BaseRunner {
 
 				foreach ( $form_list as $form ) {
 					try {
-						if(isset(self::$imported_form[ $plugin_name ][ $form['form_id'] ])){
-							$result[$json_id][ $plugin_name ][ $form['id'] ] = self::$imported_form[ $plugin_name ][ $form['form_id'] ];
+						$form_id = isset( $form['identifier'] ) ? $form['settings'][$form['identifier']] : $form['settings']['form_list'];
+						if(isset(self::$imported_form[ $plugin_name ][ $form_id ])){
+							$result[$json_id][ $plugin_name ][ $form['id'] ] = self::$imported_form[ $plugin_name ][ $form_id ];
 							continue;
 						}
 
@@ -87,8 +88,8 @@ class ExtraContent extends BaseRunner {
 						$import = new Form( $plugin_name, $file_path, $form );
 						$data = $import->run();
 
-						self::$imported_form[ $plugin_name ][ $form['form_id'] ] = $data;
-						$result[$json_id][ $plugin_name ][ $form['id'] ]    = $data;
+						self::$imported_form[ $plugin_name ][ $form_id ] = (string) $data;
+						$result[$json_id][ $plugin_name ][ $form['id'] ] = (string) $data;
 					} catch ( Exception $e ) {
 						continue;
 					}

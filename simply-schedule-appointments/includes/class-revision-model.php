@@ -368,7 +368,12 @@ class SSA_Revision_Model extends SSA_Db_Model {
 	public function filter_where_conditions( $where, $args ) {
 		global $wpdb;
 		if ( ! empty( $args['appointment_id'] ) ) {
-			$where .=  $wpdb->prepare( ' AND appointment_id=%d', sanitize_text_field( $args['appointment_id'] ) );
+			if( is_array( $args['appointment_id'] ) ) {
+				$appointment_ids = implode( ',', array_map('intval', $args['appointment_id'] ) );
+			} else {
+				$appointment_ids = intval( $args['appointment_id'] );
+			}
+			$where .= " AND `appointment_id` IN( $appointment_ids ) ";
 		}
 
 		if ( ! empty( $args['appointment_type_id'] ) ) {

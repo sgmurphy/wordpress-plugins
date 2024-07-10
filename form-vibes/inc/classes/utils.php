@@ -1186,7 +1186,7 @@ class Utils {
 		$global_settings = Utils::get_global_settings();
 		$is_pro          = false;
 		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		if ( file_exists( WPV_FV__PATH . 'inc/pro/bootstrap.php' ) ) {
+		if ( file_exists( WPV_FV__PATH . 'inc/pro/bootstrap.php' ) && wpv_fv()->can_use_premium_code__premium_only() && Utils::key_exists( 'is_pro', $global_settings ) && $global_settings['is_pro'] == 1 ) {
 			$is_pro = true;
 		}
 

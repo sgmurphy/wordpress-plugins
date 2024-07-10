@@ -2,8 +2,8 @@
 Contributors: spwebguy
 Tags: team, teams, meet the team, shortcode, responsive, members, staff, people
 Requires at least: 3.6
-Tested up to: 6.5
-Stable tag: 5.3.3
+Tested up to: 6.6
+Stable tag: 5.3.4
 License: GPL2
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -94,6 +94,9 @@ Find help on [our support platform](https://wpdarko.com/support) for this plugin
 6. Finding the shortcode (admin view)
 
 == Changelog ==
+= 5.3.4 =
+* Fix vulnerability
+
 = 5.3.3 =
 * Updated X's icon (Twitter)
 

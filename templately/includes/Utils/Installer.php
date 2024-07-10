@@ -35,7 +35,7 @@ class Installer extends Base {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-		$response = [ 'success' => false ];
+		$response = [ 'success' => false, 'message' => '' ];
 
 		$_plugins     = Helper::get_plugins();
 		$is_installed = isset( $_plugins[ $plugin['plugin_file'] ] );
@@ -55,6 +55,12 @@ class Installer extends Base {
 		}
 
 		if ( ! $is_installed ) {
+			if(!Helper::current_user_can( 'install_plugins' )){
+				$response['code']    = 'invalid_requirements';
+				$response['message'] = __( 'Sorry, you do not have permission to install a plugin.', 'templately' );
+				return $response;
+			}
+
 			/**
 			 * @var array|object $api
 			 */
@@ -114,6 +120,12 @@ class Installer extends Base {
 
 			$install_status        = install_plugin_install_status( $api );
 			$plugin['plugin_file'] = $install_status['file'];
+		}
+
+		if ( !Helper::current_user_can( 'activate_plugins' ) && is_plugin_inactive( $file ) ) {
+			$response['code']    = 'invalid_requirements';
+			$response['message'] = __( 'Sorry, you do not have permission to activate a plugin.', 'templately' );
+			return $response;
 		}
 
 		$activate_status = $this->activate_plugin( $plugin['plugin_file'] );
@@ -223,7 +235,7 @@ class Installer extends Base {
 			return true;
 		}
 
-		if ( current_user_can( 'activate_plugin', $file ) && is_plugin_inactive( $file ) ) {
+		if ( Helper::current_user_can( 'activate_plugins' ) && is_plugin_inactive( $file ) ) {
 			$result = activate_plugin( $file );
 			if ( is_wp_error( $result ) ) {
 				return $result;
@@ -241,7 +253,7 @@ class Installer extends Base {
 			return true;
 		}
 
-		if (current_user_can('switch_themes')) {
+		if (Helper::current_user_can('switch_themes')) {
 			// Activate the theme
 			switch_theme($theme_slug);
 

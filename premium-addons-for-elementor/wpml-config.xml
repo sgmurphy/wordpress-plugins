@@ -29,6 +29,7 @@
         <widget name="premium-counter">
             <fields>
                 <field name="Counter: Title Text" editor_type="LINE">premium_counter_title</field>
+                <field name="Counter: Description Text" editor_type="AREA">premium_counter_desc</field>
                 <field name="Counter: Thousands Separator" editor_type="LINE">premium_counter_t_separator</field>
                 <field name="Counter: Prefix" editor_type="LINE">premium_counter_preffix</field>
                 <field name="Counter: Suffix" editor_type="LINE">premium_counter_suffix</field>
@@ -74,12 +75,13 @@
 
         <widget name="premium-addon-fancy-text">
             <fields>
-                <field name="Fancy Text: Prefix" editor_type="LINE">premium_fancy_prefix_text</field>
-                <field name="Fancy Text: Suffix" editor_type="LINE">premium_fancy_suffix_text</field>
-                <field name="Fancy Text: Cusror Text" editor_type="LINE">premium_fancy_text_cursor_text</field>
+                <field name="Animated Text: Prefix" editor_type="LINE">premium_fancy_prefix_text</field>
+                <field name="Animated Text: Highlighted Text" editor_type="LINE">text</field>
+                <field name="Animated Text: Suffix" editor_type="LINE">premium_fancy_suffix_text</field>
+                <field name="Animated Text: Cusror Text" editor_type="LINE">premium_fancy_text_cursor_text</field>
             </fields>
             <fields-in-item items_of="premium_fancy_text_strings">
-                <field name="Fancy Text: String" editor_type="LINE">premium_text_strings_text_field</field>
+                <field name="Animated Text: String" editor_type="LINE">premium_text_strings_text_field</field>
             </fields-in-item>
         </widget>
 
@@ -205,10 +207,18 @@
         <widget name="premium-addon-testimonials">
             <fields>
                 <field name="Testimonial: Name" editor_type="LINE">premium_testimonial_person_name</field>
-                <field name="Testimonial: Separator" editor_type="LINE">separator_text</field>
-                <field name="Testimonial: Company Name" editor_type="LINE">premium_testimonial_company_name</field>
-                <field name="Testimonial: Company Link" editor_type="LINK">premium_testimonial_company_link>url</field>
+                <field name="Testimonial: Job Name" editor_type="LINE">premium_testimonial_company_name</field>
+                <field name="Testimonial: Link" editor_type="LINK">premium_testimonial_company_link>url</field>
                 <field name="Testimonial: Content" editor_type="AREA">premium_testimonial_content</field>
+                <field name="Testimonial: Heading" editor_type="LINE">heading</field>
+                <fields-in-item items_of="multiple_testimonials">
+                    <field name="Testimonial: Heading" editor_type="LINE">heading</field>
+                    <field name="Testimonial: Name" editor_type="LINE">person_name</field>
+                    <field name="Testimonial: Job Name" editor_type="LINE">company_name</field>
+                    <field name="Testimonial: Link" editor_type="LINK">link>url</field>
+                    <field name="Testimonial: Content" editor_type="AREA">content</field>
+                </fields-in-item>
+
             </fields>
         </widget>
 
@@ -297,13 +307,14 @@
                 <field name="Item: Title" editor_type="LINE">media_title</field>
                 <field name="Item: Description" editor_type="LINE">media_desc</field>
                 <field name="Item: Link" editor_type="LINK">media_wheel_custom_link>url</field>
+                <field name="Item: Video Link" editor_type="LINK">media_wheel_video_self>url</field>
             </fields-in-item>
         </widget>
 
         <widget name="premium-mobile-menu">
             <fields-in-item items_of="menu_items">
                 <field name="Item: Title" editor_type="LINE">menu_item_text</field>
-                <field name="Item: Link" editor_type="LINK">link>url</field>
+                <field name="Item: Custom Link" editor_type="LINK" key_of="link">url</field>
             </fields-in-item>
         </widget>
 

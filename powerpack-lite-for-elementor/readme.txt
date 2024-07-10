@@ -4,7 +4,8 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.7.23
+Stable tag: 2.7.24
+
 
 
 
@@ -235,6 +236,12 @@ Not at all! All the widgets and settings are easy to use with drag & drop interf
 
 
 == Changelog ==
+
+= 2.7.24 - July 10, 2024 =
+* 	Enhancement: Logo Carousel - Added option to set width, height and object fit properties for logos
+* 	Fixed: Business Hours - Closed Text field was not WPML translatable
+* 	Fixed: Image Comparison - Labels were not showing
+* 	Fixed: Info Grid & Carousel - Coverflow effect was not showing correct number of slides
 
 = 2.7.23 - July 5, 2024 =
 * 	Enhancement: Added support for Elementor's Element Caching feature

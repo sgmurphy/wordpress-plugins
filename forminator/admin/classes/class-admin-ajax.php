@@ -1945,7 +1945,9 @@ class Forminator_Admin_AJAX {
 			$template_vars['test_secret'] = $test_secret;
 			$template_vars['live_key']    = $live_key;
 			$template_vars['live_secret'] = $live_secret;
-
+			if ( ( ! empty( $test_secret ) && 'sk_' === substr( $test_secret, 0, 3 ) ) || ( ! empty( $live_secret ) && 'sk_' === substr( $live_secret, 0, 3 ) ) ) {
+				$template_vars['has_deprecated_secret_key'] = true;
+			}
 			if ( ! empty( $is_connect_request ) ) {
 				if ( empty( $test_key ) ) {
 					throw new Forminator_Gateway_Exception(
@@ -2183,6 +2185,7 @@ class Forminator_Admin_AJAX {
 		$allowed_options = array(
 			'forminator_skip_pro_notice',
 			'forminator_cf7_notice_dismissed',
+			'forminator_stripe_rak_notice_dismissed',
 			'forminator_stripe_notice_dismissed',
 			'forminator_rating_success',
 			'forminator_rating_dismissed',

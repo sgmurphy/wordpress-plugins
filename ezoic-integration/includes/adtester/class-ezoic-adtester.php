@@ -120,6 +120,8 @@ class Ezoic_AdTester extends Ezoic_Feature
 				$this->config->placeholders[ $ad->id ] = $new_placeholder;
 
 				$is_new = true;
+			} else if ($this->config->placeholders[ $ad->id ]->is_video_placeholder != $ad->isVideoPlaceholder) {
+				$this->config->placeholders[ $ad->id ]->is_video_placeholder = $ad->isVideoPlaceholder;
 			}
 
 			// Add default configuration

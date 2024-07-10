@@ -167,9 +167,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         ) );
 
         $search = isset($_REQUEST['s']) ? esc_sql( sanitize_text_field($_REQUEST['s']) ) : false;
-        $do_search = $search ? sprintf(" title LIKE '%%%s%%' ", esc_sql( $wpdb->esc_like($search) ) ) : '';
+        $do_search = $search ? sprintf(" title LIKE '%%%s%%' ", esc_sql($wpdb->esc_like($search)) ) : '';
 
-        $this->items = self::get_ays_popupboxes($per_page, $current_page,$do_search);
+        $this->items = self::get_ays_popupboxes($per_page, $current_page, $do_search);
     }
 
     /** Text displayed when no customer data is available */
@@ -513,6 +513,103 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         return $text;
     }
 
+    public function process_bulk_action() {
+        //Detect when a bulk action is being triggered...
+        $message = "deleted";
+        if ( "delete" === $this->current_action() ) {
+            // In our file that handles the request, verify the nonce.
+            $nonce = esc_attr($_REQUEST["_wpnonce"]);
+
+            if ( !wp_verify_nonce($nonce, $this->plugin_name . "-delete-popupbox") ) {
+                die( "Go get a life script kiddies" );
+            } else {
+                self::delete_popupboxes( absint($_GET["popupbox"]) );
+
+                $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
+                wp_redirect($url);
+                exit();
+            }
+        }
+
+        // If the delete bulk action is triggered
+        if ( (isset($_POST["action"]) && $_POST["action"] == "bulk-delete") || (isset($_POST["action2"]) && $_POST["action2"] == "bulk-delete") ) {
+            $delete_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+
+            // loop over the array of record IDs and delete them
+            foreach ($delete_ids as $id) {
+                self::delete_popupboxes($id);
+            }
+
+            $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
+            wp_redirect($url);
+            exit();
+        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-published') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published') ) {
+            $published_ids = ( isset($_POST['bulk-delete']) && !empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+            $message = 'published';
+
+            // loop over the array of record IDs and publish them
+            foreach ($published_ids as $id) {
+                self::publish_unpublish_popupbox($id, 'published');
+            }
+
+            $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
+            wp_redirect($url);
+        } elseif ( (isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished') || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished') ) {
+            $unpublished_ids = ( isset($_POST['bulk-delete']) && ! empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
+            $message = 'unpublished';
+
+            // loop over the array of record IDs and mark as read them
+            foreach ($unpublished_ids as $id) {
+                self::publish_unpublish_popupbox($id , 'unpublish');
+            }
+
+            $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
+            wp_redirect($url);
+        }
+    }
+
+    /**
+     * Delete a customer record.
+     *
+     * @param int $id customer ID
+     */
+    public static function delete_popupboxes($id) {
+        global $wpdb;
+
+        $wpdb->delete(
+            "{$wpdb->prefix}ays_pb",
+            array("id" => $id),
+            array("%d")
+        );
+    }
+
+    public function publish_unpublish_popupbox($id, $action) {
+        global $wpdb;
+        $pb_table = $wpdb->prefix . "ays_pb";
+
+        if ($id == null) {
+            return false;
+        }
+
+        if ($action == 'unpublish') {
+            $onoffswitch = 'Off';
+            $message = 'unpublished';
+        } else {
+            $onoffswitch = 'On';
+            $message = 'published';
+        }
+
+        $wpdb->update(
+            $pb_table,
+            array(
+                "onoffswitch" => $onoffswitch
+            ),
+            array("id" => $id),
+            array("%s"),
+            array("%d")
+        );
+    }
+
     public function display_tablenav( $which ) {
         ?>
         <div class="tablenav <?php echo esc_attr( $which ); ?>">
@@ -711,35 +808,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $result = $wpdb->get_var($sql);
 
         return $result;
-    }
-
-    public function publish_unpublish_popupbox( $id, $action ) {
-        global $wpdb;
-        $pb_table = $wpdb->prefix."ays_pb";
-       
-        if ($id == null) {
-            return false;
-        }
-        if ($action == 'unpublish') {
-            $onoffswitch = 'Off';
-            $message = 'unpublished';
-        }else{
-            $onoffswitch = 'On';
-            $message = 'published';
-        }
-
-        $pb_result = $wpdb->update(
-                $pb_table,
-                array(
-                    "onoffswitch" => $onoffswitch
-                ),
-                array( "id" => $id ),
-                array( "%s" ),
-                array( "%d" )
-            );
-
-        $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")) ) . "&status=" . $message . "&type=success";
-        wp_redirect( $url );
     }
 
     public function duplicate_popupbox( $id ){
@@ -1370,6 +1438,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 text color
         $notification_button_1_text_color = (isset($data['ays_pb_notification_button_1_text_color']) && $data['ays_pb_notification_button_1_text_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_color']) ) : '#FFFFFF';
 
+        // Notification type | Button 1 text hover color
+        $notification_button_1_text_hover_color = (isset($data['ays_pb_notification_button_1_text_hover_color']) && $data['ays_pb_notification_button_1_text_hover_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_hover_color']) ) : '#FFFFFF';
+
         // Notification type | Button 1 font size
         $notification_button_1_font_size = (isset($data['ays_pb_notification_button_1_font_size']) && $data['ays_pb_notification_button_1_font_size'] != '') ? absint( intval($data['ays_pb_notification_button_1_font_size']) ) : 15;
 
@@ -1708,6 +1779,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_bg_color' => $notification_button_1_bg_color,
             'notification_button_1_bg_hover_color' => $notification_button_1_bg_hover_color,
             'notification_button_1_text_color' => $notification_button_1_text_color,
+            'notification_button_1_text_hover_color' => $notification_button_1_text_hover_color,
             'notification_button_1_font_size' => $notification_button_1_font_size,
             'notification_button_1_border_radius' => $notification_button_1_border_radius,
             'notification_button_1_border_width' => $notification_button_1_border_width,
@@ -2027,21 +2099,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
     }
 
     /**
-     * Delete a customer record.
-     *
-     * @param int $id customer ID
-     */
-    public static function delete_popupboxes( $id ) {
-        global $wpdb;
-        $wpdb->delete(
-            "{$wpdb->prefix}ays_pb",
-            array("id" => $id),
-            array("%d")
-        );
-    }
-
-
-    /**
      * Returns the count of records in the database.
      *
      * @return null|string
@@ -2106,83 +2163,5 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         );
 
         return $actions;
-    }
-
-    public function process_bulk_action() {
-        //Detect when a bulk action is being triggered...
-        $message = "deleted";
-        if ( "delete" === $this->current_action() ) {
-
-            // In our file that handles the request, verify the nonce.
-            $nonce = esc_attr( $_REQUEST["_wpnonce"] );
-
-            if ( ! wp_verify_nonce( $nonce, $this->plugin_name . "-delete-popupbox" ) ) {
-                die( "Go get a life script kiddies" );
-            }
-            else {
-                self::delete_popupboxes( absint( $_GET["popupbox"] ) );
-
-                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-                // add_query_arg() return the current url
-
-                $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")  ) ) . "&status=" . $message . "&type=success";
-                wp_redirect( $url );
-                exit();
-            }
-
-        }
-
-        // If the delete bulk action is triggered
-        if ( ( isset( $_POST["action"] ) && $_POST["action"] == "bulk-delete" )
-            || ( isset( $_POST["action2"] ) && $_POST["action2"] == "bulk-delete" )
-        ) {
-
-            $delete_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and delete them
-            foreach ( $delete_ids as $id ) {
-                self::delete_popupboxes( $id );
-
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-
-            $url = esc_url_raw( remove_query_arg(array("action", "popupbox", "_wpnonce")  ) ) . "&status=" . $message . "&type=success";
-            wp_redirect( $url );
-            exit();
-        }elseif ((isset($_POST['action']) && $_POST['action'] == 'bulk-published')
-                  || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-published')
-        ) {
-
-            $published_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and mark as read them
-
-            foreach ( $published_ids as $id ) {
-                self::publish_unpublish_popupbox( $id , 'published' );
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-            $url = esc_url_raw( remove_query_arg(array('action', 'question', '_wpnonce')  ) ) . '&status=published';
-            wp_redirect( $url );
-        } elseif ((isset($_POST['action']) && $_POST['action'] == 'bulk-unpublished')
-                  || (isset($_POST['action2']) && $_POST['action2'] == 'bulk-unpublished')
-        ) {
-
-            $unpublished_ids = ( isset( $_POST['bulk-delete'] ) && ! empty( $_POST['bulk-delete'] ) ) ? esc_sql( $_POST['bulk-delete'] ) : array();
-
-            // loop over the array of record IDs and mark as read them
-
-            foreach ( $unpublished_ids as $id ) {
-                self::publish_unpublish_popupbox( $id , 'unpublish' );
-            }
-
-            // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-            // add_query_arg() return the current url
-            $url = esc_url_raw( remove_query_arg(array('action', 'question', '_wpnonce')  ) ) . '&status=unpublished';
-            wp_redirect( $url );
-        }
     }
 }

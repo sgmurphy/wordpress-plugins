@@ -98,7 +98,6 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         //ajax
         add_action('wp_ajax_woof_turbo_mode_update_file', array($this, 'ajax_create_data_search_files'));
         add_action('wp_ajax_nopriv_woof_turbo_mode_update_file', array($this, 'ajax_create_data_search_files'));
-
     }
 
     public function create_data_search_files_when_init() {
@@ -109,36 +108,37 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         $txt = "<div class='woof_turbo_mode_overlay'></div>" . $txt;
         return $txt;
     }
-	public function get_schedules(){
-		return apply_filters('woof_turbo_mode_schedules',
-				array(
-					'daily' => array( 
-						'value' => DAY_IN_SECONDS,
-						'name' => esc_html__('daily', 'woocommerce-products-filter')
-						),
-					'weekly' => array( 
-						'value' => WEEK_IN_SECONDS,
-						'name' => esc_html__('weekly', 'woocommerce-products-filter')
-						),
-					'twicemonthly' => array( 
-						'value' => WEEK_IN_SECONDS * 2,
-						'name' => esc_html__('twicemonthly', 'woocommerce-products-filter')
-						),
-					'month' => array( 
-						'value' => WEEK_IN_SECONDS * 4,
-						'name' => esc_html__('monthly', 'woocommerce-products-filter')
-						),
-					'min1' => array( 
-						'value' => MINUTE_IN_SECONDS,
-						'name' => esc_html__('min1', 'woocommerce-products-filter')
-						),
-					'no' => array( 
-						'value' => -1,
-						'name' => esc_html__('without update', 'woocommerce-products-filter')
-						)
-				)
-		);		
-	}
+
+    public function get_schedules() {
+        return apply_filters('woof_turbo_mode_schedules',
+                array(
+                    'daily' => array(
+                        'value' => DAY_IN_SECONDS,
+                        'name' => esc_html__('daily', 'woocommerce-products-filter')
+                    ),
+                    'weekly' => array(
+                        'value' => WEEK_IN_SECONDS,
+                        'name' => esc_html__('weekly', 'woocommerce-products-filter')
+                    ),
+                    'twicemonthly' => array(
+                        'value' => WEEK_IN_SECONDS * 2,
+                        'name' => esc_html__('twicemonthly', 'woocommerce-products-filter')
+                    ),
+                    'month' => array(
+                        'value' => WEEK_IN_SECONDS * 4,
+                        'name' => esc_html__('monthly', 'woocommerce-products-filter')
+                    ),
+                    'min1' => array(
+                        'value' => MINUTE_IN_SECONDS,
+                        'name' => esc_html__('min1', 'woocommerce-products-filter')
+                    ),
+                    'no' => array(
+                        'value' => -1,
+                        'name' => esc_html__('without update', 'woocommerce-products-filter')
+                    )
+                )
+        );
+    }
 
     public function wp_footer() {
 
@@ -180,6 +180,7 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
             'hide_count' => isset($this->woof_settings['hide_terms_count_txt']) ? $this->woof_settings['hide_terms_count_txt'] : 0,
             'hide_empty_term' => get_option('woof_hide_dynamic_empty_pos_turbo_mode', 0),
             'dynamic_recount' => $dynamic_recount,
+            'file_error_nitice' => esc_html__("Oh no! It looks like the filter can't open the search file. Please try generating a new file in Advanced -> Turbo mode -> [Update now!].", 'woocommerce-products-filter')
         );
 
         wp_localize_script('woof_turbo_mode', 'woof_tm_data', $text_data);
@@ -203,7 +204,7 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         ?>
         var woof_turbo_creating = "<?php esc_html_e('Creating', 'woocommerce-products-filter') ?>";
         var woof_turbo_products = "<?php esc_html_e('Products and Variants', 'woocommerce-products-filter') ?>";
-		var woof_turbo_nonce = "<?php echo esc_attr(wp_create_nonce( 'woof_turbo_nonce' )); ?>";		
+        var woof_turbo_nonce = "<?php echo esc_attr(wp_create_nonce('woof_turbo_nonce')); ?>";		
         <?php
         $txt_js = ob_get_clean();
         wp_enqueue_script('woof_turbo_mode_admin_', $this->get_ext_link() . 'js/admin.js', array(), WOOF_VERSION);
@@ -214,15 +215,17 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         $data = array();
 
         $data['woof_settings'] = $this->woof_settings;
-		$data['schedules'] = $this->get_schedules();
+        $data['schedules'] = $this->get_schedules();
         woof()->render_html_e($this->get_ext_path() . 'views/tabs_content.php', $data);
     }
-	public function ajax_create_data_search_files() {
+
+    public function ajax_create_data_search_files() {
         if (!isset($_REQUEST['turbo_nonce']) || !wp_verify_nonce($_REQUEST['turbo_nonce'], 'woof_turbo_nonce')) {
             die('0');
-        }	
-		$this->create_data_search_files();
-	}
+        }
+        $this->create_data_search_files();
+    }
+
     public function create_data_search_files() {
 
         $tax_query = array();
@@ -284,11 +287,11 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
             $start = -1;
         }
         $result = array(
-					'total' => $start,
-					'turbo_nonce' => wp_create_nonce('woof_turbo_nonce')
-				);
+            'total' => $start,
+            'turbo_nonce' => wp_create_nonce('woof_turbo_nonce')
+        );
 
-		exit(json_encode($result));
+        exit(json_encode($result));
     }
 
     public function push_products_data($product_ids, $id) {
@@ -641,7 +644,7 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         if (empty($key)) {
             $key = 'weekly';
         }
-		$schedules = $this->get_schedules();
+        $schedules = $this->get_schedules();
         if (isset($schedules[$key])) {
             return $schedules[$key]['value'];
         }
@@ -728,7 +731,6 @@ final class WOOF_EXT_TURBO_MODE extends WOOF_EXT {
         }
         return $id;
     }
-
 }
 
 WOOF_EXT::$includes['applications']['turbo_mode'] = new WOOF_EXT_TURBO_MODE();

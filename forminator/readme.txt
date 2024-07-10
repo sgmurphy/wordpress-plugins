@@ -1,13 +1,13 @@
 === Forminator - Contact Form, Payment Form & Custom Form Builder ===
 Plugin Name: Forminator - Contact Form, Payment Form & Custom Form Builder
-Version: 1.32.0
+Version: 1.33.0
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
 Tags: forms, contact form, wordpress form plugin, payment form, custom form, form builder, paypal form wordpress, form maker, quiz, quiz builder, order form, stripe payments, paypal payments, stripe form, paypal form
 Requires at least: 5.2
 Tested up to: 6.5
-Stable tag: 1.32.0
+Stable tag: 1.33.0
 Requires PHP: 7.4
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -222,6 +222,16 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 9. Allow simple drag and drop multi-file uploads for users.
 
 == Changelog ==
+
+= 1.33.0 ( 2024-07-10 ) =
+
+ - Enhancement: Stripe integration with new RAK Keys
+ - Fix: Border appears around the pagination form when clicking on any unfilled area or rating field
+ - Fix: Prefixes are not allowed in the Pakistani phone field
+ - Fix: Clicking the last dot of the pagination indicator skips required fields
+ - Fix: Custom required alert message does not appear in the Rating field
+ - Fix: Select field displays the first option instead of placeholder text
+ - Fix: When switching from Update Existing Template to New Template, the template name disappears from the selection.
 
 = 1.32.0 ( 2024-07-02 ) =
 

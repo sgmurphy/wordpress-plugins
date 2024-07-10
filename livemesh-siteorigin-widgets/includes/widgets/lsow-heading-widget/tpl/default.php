@@ -7,7 +7,7 @@ $settings = apply_filters('lsow_heading_' . $this->id . '_settings', $settings);
 
 list($animate_class, $animation_attr) = lsow_get_animation_atts($settings['animation']);
 
-$output = '<div class="lsow-heading lsow-' . $settings['style'] . ' lsow-align' . $settings['align'] . ' ' . $animate_class . '" ' . $animation_attr . '>';
+$output = '<div class="lsow-heading lsow-' . esc_attr($settings['style']) . ' lsow-align' . esc_attr($settings['align']) . ' ' . esc_attr($animate_class) . '" ' . esc_attr($animation_attr) . '>';
 
 if ($settings['style'] == 'style2' && !empty($settings['subtitle'])):
 

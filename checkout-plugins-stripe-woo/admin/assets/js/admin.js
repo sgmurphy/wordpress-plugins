@@ -337,4 +337,49 @@
 
 		$( 'body.cpsw_payment_element table.form-table tbody' ).append( overlayElement );
 	} );
+
+	$( document ).ready( function() {
+		const labelElement = document.querySelector( 'label[for="woocommerce_cpsw_stripe_element_enabled"]' );
+
+		if ( labelElement ) {
+			const parentThElement = labelElement.closest( 'th' );
+			if ( parentThElement ) {
+				// Removing padding of the hidden 'enabled' setting field of stripe options.
+				// Remove the padding of the parent <th> element
+				parentThElement.style.padding = '0';
+
+				const forminpElement = parentThElement.nextElementSibling;
+				if ( forminpElement && forminpElement.classList.contains( 'forminp' ) ) {
+					// Remove the padding of the <th> element with class 'forminp'
+					forminpElement.style.padding = '0';
+				}
+			}
+		}
+	} );
+	$( document ).ready( function() {
+		$( '.cpsw-dismissible-notice .notice-dismiss' ).on( 'click', function( event ) {
+			const $notice = $( this ).closest( '.cpsw-dismissible-notice' );
+			const noticeId = $notice.attr( 'id' );
+			event.preventDefault();
+
+			$.ajax( {
+				url: cpsw_ajax_object.ajax_url,
+				type: 'POST',
+				data: {
+					action: 'dismiss_cpsw_notice',
+					_security: cpsw_ajax_object.admin_nonce,
+					notice_id: noticeId,
+				},
+				success() {
+					$notice.fadeOut( 'slow', function() {
+						$notice.remove();
+					} );
+				},
+				error( jqXHR, textStatus, errorThrown ) {
+					// eslint-disable-next-line no-console
+					console.error( 'Error dismissing notice:', textStatus, errorThrown );
+				},
+			} );
+		} );
+	} );
 }( jQuery ) );

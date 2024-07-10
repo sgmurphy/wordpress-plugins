@@ -7,19 +7,19 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  *
  * Plugin Name:       Phlox Portfolio
  * Plugin URI:        http://phlox.pro/
  * Description:       Showcase your projects beautifully in Phlox theme
- * Version:           2.3.2
+ * Version:           2.3.3
  * Author:            averta
  * Author URI:        http://averta.net
  * License:           GPL2
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       auxin-portfolio
  * Domain Path:       /languages
- * Tested up to: 	  6.4.1
+ * Tested up to: 	  6.5.5
  */
 
 // If this file is called directly, abort.

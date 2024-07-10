@@ -106,6 +106,7 @@ $sccp_message_vars = array(
     '%%user_id%%'                       => __("User's ID", $this->plugin_name),
     '%%admin_email%%'                   => __("Admin Email", $this->plugin_name),
     '%%current_user_ip%%'               => __("User's IP address", $this->plugin_name),    
+    '%%current_date%%'                  => __("Current Date", $this->plugin_name),    
 );
 
 $sccp_message_vars_html = $this->ays_sccp_generate_message_vars_html( $sccp_message_vars );
@@ -990,7 +991,7 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                             <div class="col-sm-3">
                                 <label for="sccp_enable_ctrlk"><?= __("Disable CTRL-K", $this->plugin_name); ?></label>
                                 <a class="ays_help" data-toggle="tooltip"
-                                   title="<?= __('Does not allow the user to move to the address bar and perform a Google search.', $this->plugin_name) ?>">
+                                   title="<?= __('Does not allow the user to move to the address bar and perform a google search.', $this->plugin_name) ?>">
                                     <i class="ays_fa ays_fa_info_circle"></i>
                                 </a>
                             </div>
@@ -1192,7 +1193,7 @@ $loader_iamge = "<span class='ays_display_none ays_sccp_loader_box'><img src='".
                     <?php  if (isset($data["options"]["printscreen"]) && $data["options"]["printscreen"] == 'checked') { ?>
                         <div class="copy_protection_container form-group row">
                             <div class="col-sm-3">
-                                <label for="sccp_enable_printscreen"><?= __("Disable Print Screen (Only in PC)", $this->plugin_name); ?></label>
+                                <label for="sccp_enable_printscreen"><?= __("Disable Print Screen (PC only)", $this->plugin_name); ?></label>
                                 <a class="ays_help" data-toggle="tooltip"
                                    title="<?= __('Not allowed to print screen', $this->plugin_name) ?>">
                                     <i class="ays_fa ays_fa_info_circle"></i>

@@ -226,7 +226,6 @@ class Premium_Image_Separator extends Widget_Base {
 			'premium_image_separator_image',
 			array(
 				'label'       => __( 'Image', 'premium-addons-for-elementor' ),
-				'description' => __( 'Choose the separator image', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::MEDIA,
 				'dynamic'     => array( 'active' => true ),
 				'default'     => array(
@@ -972,6 +971,11 @@ class Premium_Image_Separator extends Widget_Base {
 		}
 
 		if ( 'image' === $type ) {
+
+            $image_id = apply_filters( 'wpml_object_id', $settings['premium_image_separator_image']['id'], 'attachment' );
+
+            $image_url = wp_get_attachment_image_url( $image_id, 'full' );
+
 			$alt = esc_attr( Control_Media::get_image_alt( $settings['premium_image_separator_image'] ) );
 		} elseif ( 'animation' === $type ) {
 			$this->add_render_attribute(
@@ -1021,7 +1025,7 @@ class Premium_Image_Separator extends Widget_Base {
 
 	<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'container' ) ); ?>>
 		<?php if ( 'image' === $type ) : ?>
-			<img src="<?php echo esc_attr( $settings['premium_image_separator_image']['url'] ); ?>" alt="<?php echo esc_attr( $alt ); ?>">
+			<img src="<?php echo esc_attr( $image_url ); ?>" alt="<?php echo esc_attr( $alt ); ?>">
 			<?php
 		elseif ( 'icon' === $type ) :
 			if ( 'yes' !== $settings['draw_svg'] ) :

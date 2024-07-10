@@ -37,7 +37,14 @@ else{
 	$form_list = vsz_cf7_get_the_form_list();
 	$url = '';
 	$fid = '';
+	
+	$nonce = wp_create_nonce('vsz-cf7-action-nonce');
 
+	if(!wp_verify_nonce( $nonce, 'vsz-cf7-action-nonce')){
+		echo esc_html('You have no permission to access this page');
+		return;
+	}
+	
 	//Get selected form Id value
 	if(isset($_GET['cf7_id']) && !empty($_GET['cf7_id'])){
 		$edit = false;
@@ -68,8 +75,8 @@ else{
 	//Get table name for data entry
 	$data_entry_table_name = sanitize_text_field(VSZ_CF7_DATA_ENTRY_TABLE_NAME);
 
-	$sql = "SELECT `cf7_id` FROM `{$data_entry_table_name}` GROUP BY `cf7_id`";
-	$data = $wpdb->get_results($sql,ARRAY_N);
+	$sql = $wpdb->get_results("SELECT `cf7_id` FROM {$wpdb->prefix}cf7_vdata_entry GROUP BY `cf7_id`",ARRAY_N);
+	$data = $sql;
 	$arr_form_id = array();
 	if(!empty($data)){
 		foreach($data as $arrVal){
@@ -121,7 +128,7 @@ else{
 		?>
 		<div class="wrap our-class">
 			<form class="vsz-cf7-listing row" action="<?php print esc_url($url);?>" method="post" id="cf7d-admin-action-frm" >
-				<input type="hidden" name="_wpnonce" value="<?php echo esc_html(wp_create_nonce('vsz-cf7-action-nonce')); ?>">
+				<input type="hidden" name="_wpnonce" value="<?php echo esc_html($nonce); ?>">
 				<?php
 				//Display setting screen button
 				do_action('vsz_cf7_display_settings_btn', $fid);
@@ -169,14 +176,12 @@ else{
 			$e_date = false;
 		}
 
-
-
 		//Check search field value empty or not
 		if(isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && empty($_POST['start_date']) && empty($_POST['end_date'])){
 
-			$query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%".'%s'."%%' GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search, $offset, $items_per_page);
-
-			$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND `value` LIKE '%%".'%s'."%%' GROUP BY `data_id`", $fid, $search ));
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
+			
+			$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `value` LIKE %s GROUP BY `data_id`", $fid, '%' . $wpdb->esc_like($search) . '%' ));
 		}
 		//Check search field value empty and date filter active or not
 		else if(isset($_POST['search_cf7_value']) && empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && !empty($_POST['start_date']) && !empty($_POST['end_date']) && $s_date !== false && $e_date !== false){
@@ -188,12 +193,12 @@ else{
 			$end_date =  date_format($e_date,"Y-m-d");
 			$query_end_date = $end_date." 23:59:59";
 
-			$query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $query_end_date, $offset, $items_per_page);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY %s", $fid, $fid, $start_date, $query_end_date, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
 
 			//Get total entries information
-			$total_query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $query_end_date );
+			$total_query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY %s ) temp_table) GROUP BY `data_id` ORDER BY %s", $fid, $fid, $start_date, $query_end_date, $cf7d_entry_order_by, $cf7d_entry_order_by ));
 
-			$arr_total = $wpdb->get_results($total_query);
+			$arr_total = $total_query;
 		}
 		//Check search field value not empty and date filter active or not
 		else if(isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value']) && isset($_POST['start_date']) && isset($_POST['end_date']) && !empty($_POST['start_date']) && !empty($_POST['end_date']) && $s_date !== false && $e_date !== false){
@@ -206,9 +211,9 @@ else{
 			$end_date =  date_format($e_date,"Y-m-d").' 23:59:59';
 
 			//Get date filter related entries information
-			$date_query = $wpdb->prepare("SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date, $end_date);
+			$date_query = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between '".'%s'."' and '".'%s'."' GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date, $end_date));
 
-			$rs_date = $wpdb->get_results($date_query);
+			$rs_date = $date_query;
 			//Get all entries and setup a string
 			$data_ids = '';
 			if(!empty($rs_date)){
@@ -219,12 +224,12 @@ else{
 			}
 
 			//get all entrise information
-			$query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%".'%s'."%%' AND data_id IN ({$data_ids}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search, $offset, $items_per_page);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
 
 			//Get total entries information
-			$total_query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%".'%s'."%%' AND data_id IN ({$data_ids}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search);
+			$total_query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s ) temp_table) GROUP BY `data_id` ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
-			$arr_total = $wpdb->get_results($total_query);
+			$arr_total = $total_query;
 
 		}
 		//Call when any filter not active on Listing screen
@@ -234,8 +239,8 @@ else{
 				$order = esc_sql(sanitize_text_field($_GET['order']));
 				$orderby = esc_sql(sanitize_text_field($_GET['orderby']));
 
-				$qry = $wpdb->prepare("SELECT `data_id` FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND `name` = '{$orderby}' AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY `value` {$order},{$cf7d_entry_order_by}", $fid, $fid, $offset, $items_per_page);
-				$idVals = $wpdb->get_results ( $qry );
+				$qry = $wpdb->get_results ($wpdb->prepare("SELECT `data_id` FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `name` = %s AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY `value` %s, %s", $fid, $orderby, $fid, $cf7d_entry_order_by, $offset, $items_per_page, $order,  $cf7d_entry_order_by));
+				$idVals =  $qry;
 
 				$id_val = array();
 				if(!empty($idVals)){
@@ -249,24 +254,25 @@ else{
 					$id_val_str = implode(',',$id_val);
 				}
 
-				$query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY FIELD(`data_id`, {$id_val_str} )", $fid, $fid, $offset, $items_per_page);
+				$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY FIELD(`data_id`, %s )", $fid, $fid, $cf7d_entry_order_by, $offset, $items_per_page, $id_val_str));
 
 			}
 			else{
-				$query = $wpdb->prepare("SELECT * FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$data_entry_table_name}` WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $offset, $items_per_page);
+				$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s LIMIT %d,%d ) temp_table) ORDER BY %s", $fid, $fid, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
 			}
 
 			//Get total entries information
 			if(!empty($search)){
-				$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND `value` LIKE '%%".'%s'."%%' GROUP BY `data_id`", $fid, $search));
+				$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `value` LIKE %s GROUP BY `data_id`", $fid, '%' . $wpdb->esc_like($search) . '%'));
 			}else{
-				$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d GROUP BY `data_id`", $fid));
+				$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d GROUP BY `data_id`", $fid));
 			}
 		}
 
-
+		
+	
 		//Execute query here
-		$data = $wpdb->get_results($query);
+		$data = $query;
 
 		//Get entry wise all fields information
 		$data_sorted = vsz_cf7_sortdata($data);
@@ -314,7 +320,9 @@ else{
 								//Get all bulk action values
 								echo vsz_cf7_arr_to_option($entry_actions);
 							?></select>
-							<input id="doaction" name="btn_apply" class="button action" value="<?php _e('Apply',VSZ_CF7_TEXT_DOMAIN); ?>" title="<?php _e('Apply',VSZ_CF7_TEXT_DOMAIN); ?>" type="submit" /><?php
+							<input id="doaction" name="btn_apply" class="button action" value="<?php _e('Apply',VSZ_CF7_TEXT_DOMAIN); ?>" title="<?php _e('Apply',VSZ_CF7_TEXT_DOMAIN); ?>" type="submit" />
+							
+							<?php
 							//Display Export button option values
 							do_action('vsz_cf7_after_bulkaction_btn', $fid);
 							?><div class="tablenav-pages">
@@ -435,7 +443,14 @@ else{
 
 				<input type="hidden" name="cpage" value="<?php echo intval($page);?>" id="cpage">
 				<input type="hidden" name="totalPage" value="<?php print ceil($total / $items_per_page);?>" id="totalPage">
+				<?php $list_nonce = wp_create_nonce( 'vsz-cf7-form-list-nonce' ); ?>
+				<input type="hidden" name="vsz_cf7_form_list_nonce"  value="<?php esc_html_e($list_nonce); ?>" />
+				
 			</form>
+
+			
+
+
 			<script>
 				//Setup pagination related functionality when click on page link then form submitted
 				jQuery(".pagination-links a").on('click',function(){

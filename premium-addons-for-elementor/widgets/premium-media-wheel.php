@@ -2571,7 +2571,7 @@ class Premium_Media_Wheel extends Widget_Base {
 
 			if ( $item['media_wheel_img'] ) {
 
-				$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'elementor_library', true );
+				$image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'attachment', true );
 
 				$image_by_id = get_post( $image_id );
 
@@ -2606,10 +2606,14 @@ class Premium_Media_Wheel extends Widget_Base {
 						<?php
 						if ( 'image' === $media_type ) {
 
+                            $image_id = apply_filters( 'wpml_object_id', $item['media_wheel_img']['id'], 'attachment' );
+
+                            $image_url = wp_get_attachment_image_url( $image_id, 'full' );
+
 							$this->add_render_attribute(
 								'wheel_img' . $index,
 								array(
-									'src'   => esc_url( $item['media_wheel_img']['url'] ),
+									'src'   => esc_url( $image_url ),
 									'alt'   => esc_attr( Control_Media::get_image_alt( $item['media_wheel_img'] ) ),
 									'class' => 'premium-adv-carousel__item-img ' . $hover_effect,
 								)

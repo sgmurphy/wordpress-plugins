@@ -1069,7 +1069,17 @@ class WPImport extends WP_Importer {
 			return $updated_url;
 		}
 
-		$upload = $this->fetch_remote_file( $url, $post );
+		$upload_dir = wp_upload_dir( $post['upload_date'] );
+		if ( ! ( $upload_dir && false === $upload_dir['error'] ) ) {
+			return new WP_Error( 'upload_dir_error', $upload_dir['error'] );
+		}
+
+		// Move the file to the uploads dir.
+		$file_name = basename( parse_url( $url, PHP_URL_PATH ) );
+		$file_name = wp_unique_filename( $upload_dir['path'], $file_name );
+		$dest_file = $upload_dir['path'] . "/$file_name";
+		$upload    = $this->fetch_remote_file( $url, $dest_file, $upload_dir );
+
 		if ( is_wp_error( $upload ) ) {
 			return $upload;
 		}
@@ -1081,6 +1091,7 @@ class WPImport extends WP_Importer {
 			return new WP_Error( 'attachment_processing_error', esc_html__( 'Invalid file type', 'elementor' ) );
 		}
 
+		$this->url_remap[ $post['guid'] ] = $upload['url']; // r13735, really needed?
 		$post['guid'] = $upload['url'];
 
 		// As per wp-admin/includes/upload.php.
@@ -1094,7 +1105,7 @@ class WPImport extends WP_Importer {
 		// error_log('Metadata: ' . print_r($metadata, true));
 
 		// For gutenberg pages
-		$metadata = $this->import_sizes($sizes, $metadata, $upload, $post_id);
+		$metadata = $this->import_sizes($sizes, $metadata, $upload, $upload_dir, $post_id);
 
 		// error_log('Metadata: ' . print_r($metadata, true));
 		wp_update_attachment_metadata( $post_id, $metadata );
@@ -1119,33 +1130,6 @@ class WPImport extends WP_Importer {
 		return $parts['dirname'] . '/' . $name;
 	}
 
-	private function import_size($remote_url, $destination_path) {
-		// Include the file for the download_url function
-		if(!function_exists('download_url')) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-		}
-
-		// Download file to temp dir
-		$temp_file = download_url($remote_url);
-
-		// Check for download errors
-		if(is_wp_error($temp_file)) {
-			return $temp_file;
-		}
-
-		// Move temp file to destination path
-		$result = copy($temp_file, $destination_path);
-
-		// Remove temp file
-		@unlink($temp_file);
-
-		if (!$result) {
-			return false;
-		}
-
-		return true;
-	}
-
 	/**
 	 * Attempt to download a remote file attachment
 	 *
@@ -1154,13 +1138,9 @@ class WPImport extends WP_Importer {
 	 *
 	 * @return array|WP_Error Local file location details on success, WP_Error otherwise
 	 */
-	private function fetch_remote_file( $url, $post ) {
-		// Extract the file name from the URL.
-		$file_name = basename( parse_url( $url, PHP_URL_PATH ) );
-
-		if ( ! $file_name ) {
-			$file_name = md5( $url );
-		}
+	private function fetch_remote_file( $url, $new_file, $uploads ) {
+		// Extract the file name from the new_file.
+		$file_name = basename( $new_file );
 
 		// Include the file for the download_url function
 		if(!function_exists('wp_tempnam')) {
@@ -1173,14 +1153,21 @@ class WPImport extends WP_Importer {
 		}
 
 		// Fetch the remote URL and write it to the placeholder file.
-		$remote_response = wp_safe_remote_get( $url, [
-			'timeout'  => 300,
-			'stream'   => true,
-			'filename' => $tmp_file_name,
-			'headers'  => [
-				'Accept-Encoding' => 'identity',
-			]
-		] );
+		$attempt         = 0;
+		$retry_count     = 3;
+		$remote_response = null;
+		do {
+			$remote_response = wp_safe_remote_get( $url, [
+				'timeout'  => 300,
+				'stream'   => true,
+				'filename' => $tmp_file_name,
+				'headers'  => [
+					'Accept-Encoding' => 'identity',
+				]
+			] );
+			$attempt++;
+		} while (is_wp_error( $remote_response ) && $attempt < $retry_count);
+
 
 		if ( is_wp_error( $remote_response ) ) {
 			@unlink( $tmp_file_name );
@@ -1262,14 +1249,6 @@ class WPImport extends WP_Importer {
 			return new WP_Error( 'import_file_error', esc_html__( 'Sorry, this file type is not permitted for security reasons.', 'elementor' ) );
 		}
 
-		$uploads = wp_upload_dir( $post['upload_date'] );
-		if ( ! ( $uploads && false === $uploads['error'] ) ) {
-			return new WP_Error( 'upload_dir_error', $uploads['error'] );
-		}
-
-		// Move the file to the uploads dir.
-		$file_name     = wp_unique_filename( $uploads['path'], $file_name );
-		$new_file      = $uploads['path'] . "/$file_name";
 		$move_new_file = copy( $tmp_file_name, $new_file );
 
 		if ( ! $move_new_file ) {
@@ -1292,7 +1271,6 @@ class WPImport extends WP_Importer {
 
 		// Keep track of the old and new urls so we can substitute them later.
 		$this->url_remap[ $url ]          = $upload['url'];
-		$this->url_remap[ $post['guid'] ] = $upload['url']; // r13735, really needed?
 		// Keep track of the destination if the remote url is redirected somewhere else.
 		if ( isset( $headers['x-final-location'] ) && $headers['x-final-location'] !== $url ) {
 			$this->url_remap[ $headers['x-final-location'] ] = $upload['url'];
@@ -1379,7 +1357,7 @@ class WPImport extends WP_Importer {
         );
     }
 
-    public function import_sizes($sizes, $metadata, $upload, $post_id) {
+    public function import_sizes($sizes, $metadata, $upload, $upload_dir, $post_id) {
         if (!empty($sizes)) {
 			do_action( 'templately_import.finalize_gutenberg_attachment', $post_id );
 
@@ -1389,7 +1367,7 @@ class WPImport extends WP_Importer {
             foreach ($size_dimensions as $size_dimension => $__url) {
                 if (!$this->size_exists_in_metadata($size_dimension, $metadata)) {
                     $unique_destination_file = $this->create_unique_destination_file($upload['file'], $size_dimension);
-                    $missing_size = $this->import_size($__url, $unique_destination_file);
+                    $missing_size = $this->fetch_remote_file($__url, $unique_destination_file, $upload_dir);
 
                     if($missing_size && !is_wp_error($missing_size)) {
                         $metadata['sizes'][$size_dimension] = $this->create_size_array($unique_destination_file, $size_dimension);

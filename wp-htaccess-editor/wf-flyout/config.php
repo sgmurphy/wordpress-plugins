@@ -12,6 +12,7 @@ $config['menu_accent_color'] = '#dd3036';
 $config['custom_css'] = '#wf-flyout .wff-menu-item .dashicons.dashicons-universal-access { font-size: 30px; padding: 0px 10px 0px 0; } #wf-flyout .ucp-icon .wff-icon img { max-width: 70%; } #wf-flyout .ucp-icon .wff-icon { line-height: 57px; } #wf-flyout .wp301-icon .wff-icon img { max-width: 66%; } #wf-flyout .wp301-icon .wff-icon { line-height: 57px; }';
 
 $config['menu_items'] = array(
+  array('href' => '#', 'data' => 'data-pro-feature="flyout"', 'label' => 'Get WP .htaccess Editor PRO with a special discount', 'icon' => 'htaccess-editor.png', 'class' => 'htaccess-icon open-pro-dialog'),
   array('href' => 'https://wpforcessl.com/?ref=wff-htaccess', 'label' => 'Fix all SSL problems &amp; monitor site in real-time', 'icon' => 'wp-ssl.png', 'class' => 'wpfssl-icon'),
   array('href' => 'https://wp301redirects.com/?ref=wff-htaccess&coupon=50off', 'label' => 'Fix most common SEO issues on WordPress that everbody ignores', 'icon' => '301-logo.png', 'class' => 'wp301-icon'),
   array('href' => 'https://wpreset.com/?ref=wff-wp-htaccess', 'target' => '_blank', 'label' => 'Get WP Reset PRO with 50% off', 'icon' => 'wp-reset.png'),

@@ -1333,7 +1333,7 @@ $elements = array(
 		'elements' => array(
 			array(
 				'key'  => 'premium-templates',
-				'demo' => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/premium-templates-for-elementor/', 'settings-page', 'wp-dash', 'dashboard' ),
+				'demo' => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/premium-elementor-templates-library/', 'settings-page', 'wp-dash', 'dashboard' ),
 			),
 			array(
 				'key'  => 'premium-equal-height',

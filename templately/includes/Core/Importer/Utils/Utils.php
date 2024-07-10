@@ -135,4 +135,61 @@ class Utils extends Base {
 			}
 		}
 	}
+
+	public static function upload_logo($url) {
+		if(empty($url)) {
+			return ['error' => __('URL is empty', 'templately')];
+		}
+
+		// Validate URL and ensure scheme is present
+		if ( ! wp_http_validate_url( $url ) || !parse_url( $url, PHP_URL_SCHEME ) ) {
+			return ['error' => __('Invalid URL', 'templately')];
+		}
+
+		// Download image and get MIME type
+		$temp_file = download_url( $url );
+		if ( is_wp_error( $temp_file ) ) {
+			return ['error' => __('Failed to download image', 'templately')];
+		}
+
+		// Validate image type using wp_get_image_mime
+		$mime_type = wp_get_image_mime( $temp_file );
+		if ( ! $mime_type || !in_array( $mime_type, get_allowed_mime_types() ) ) {
+			unlink( $temp_file );
+			return ['error' => __('Invalid image type', 'templately')];
+		}
+
+		$file_info = wp_check_filetype_and_ext( $temp_file, basename( $url ), get_allowed_mime_types() );
+		if ( ! $file_info['ext'] || $file_info['type'] !== $mime_type ) {
+			unlink( $temp_file );
+			return ['error' => __('File type and extension check failed', 'templately')];
+		}
+
+		// Prepare the file for sideloading
+		$file = array(
+			'name'     => basename($url),
+			'type'     => $mime_type,
+			'tmp_name' => $temp_file,
+			'error'    => 0,
+			'size'     => filesize($temp_file),
+		);
+
+		// Load the WordPress media handler
+		require_once(ABSPATH . 'wp-admin/includes/media.php');
+		require_once(ABSPATH . 'wp-admin/includes/file.php');
+		require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+		// Handle the sideload
+		$id = media_handle_sideload($file, 0);
+
+		if (is_wp_error($id)) {
+			@unlink($file['tmp_name']);
+			return ['error' => __('Failed to sideload image', 'templately')];
+		}
+
+		return [
+			'id'  => $id,
+			'url' => esc_url_raw(wp_get_attachment_url($id)),
+		];
+	}
 }

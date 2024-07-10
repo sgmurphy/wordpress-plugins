@@ -346,15 +346,20 @@ class Advanced_Cf7_Db_Admin {
 		$url = menu_page_url('contact-form-listing',false);
 		//Check form id is define in current page or not if defirn then current form ID add with existing URL
 		if(isset($_REQUEST['cf7_id']) && !empty($_REQUEST['cf7_id'])){
-			$fid = (int)sanitize_text_field($_REQUEST['cf7_id']);
-			$url .= '&cf7_id='.$fid;
+			if(wp_verify_nonce( $nonce, 'vsz-cf7-search-nonce')){
+				$fid = (int)sanitize_text_field($_REQUEST['cf7_id']);
+				$url .= '&cf7_id='.$fid;
+			}
 		}
 
 		$searchVal = isset($_POST['search_cf7_value']) && !empty($_POST['search_cf7_value']) ? htmlspecialchars(stripslashes(sanitize_text_field($_POST['search_cf7_value']))) : '';
 
 		?><input value="<?php esc_html_e($searchVal,VSZ_CF7_TEXT_DOMAIN); ?>" type="text" class="" id="cf7d-search-q" name="search_cf7_value" placeholder="<?php esc_html_e('Type something...',VSZ_CF7_TEXT_DOMAIN);?>" />
-		<button data-url="<?php echo esc_url($url); ?>" class="button" type="button" id="cf7d-search-btn" title="<?php esc_html_e('Search',VSZ_CF7_TEXT_DOMAIN); ?>" ><?php esc_html_e('Search',VSZ_CF7_TEXT_DOMAIN);?></button><?php
-
+		<button data-url="<?php echo esc_url($url); ?>" class="button" type="button" id="cf7d-search-btn" title="<?php esc_html_e('Search',VSZ_CF7_TEXT_DOMAIN); ?>" ><?php esc_html_e('Search',VSZ_CF7_TEXT_DOMAIN);?></button>
+		<?php
+		$nonce = wp_create_nonce( 'vsz-cf7-search-nonce' );
+		echo '<input type="hidden" name="vsz_cf7_search_nonce"  value="' .esc_html($nonce) .'" />';
+		
 	}//Close search box design function
 
 	/**
@@ -842,11 +847,11 @@ class Advanced_Cf7_Db_Admin {
 						//Check if field name already exist with entry or not
 						if(!empty($arr_exist_keys) && in_array($key,$arr_exist_keys)){
 							//If field name match with current entry then field information update
-							$wpdb->query($wpdb->prepare("UPDATE {$this->vsz_data_entry_table} SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_textarea_field($value), sanitize_text_field($key), $rid));
+							$wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}cf7_vdata_entry SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_textarea_field($value), sanitize_text_field($key), $rid));
 						}
 						else{
 							//If field name not match with current entry then new entry insert in DB
-							$wpdb->query($wpdb->prepare("INSERT INTO {$this->vsz_data_entry_table}(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_textarea_field($value)));
+							$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata_entry(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_textarea_field($value)));
 						}
 					}
 					//Check if field type is text area
@@ -854,11 +859,11 @@ class Advanced_Cf7_Db_Admin {
 						//Check if field name already exist with entry or not
 						if(!empty($arr_exist_keys) && in_array($key,$arr_exist_keys)){
 							//If field name match with current entry then field information update
-							$wpdb->query($wpdb->prepare("UPDATE {$this->vsz_data_entry_table} SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_textarea_field($value), sanitize_text_field($key), $rid));
+							$wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}cf7_vdata_entry SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_textarea_field($value), sanitize_text_field($key), $rid));
 						}
 						else{
 							//If field name not match with current entry then new entry insert in DB
-							$wpdb->query($wpdb->prepare("INSERT INTO {$this->vsz_data_entry_table}(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_textarea_field($value)));
+							$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata_entry(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_textarea_field($value)));
 						}
 
 					}//Close text area else if
@@ -866,11 +871,11 @@ class Advanced_Cf7_Db_Admin {
 						//Check if field name already exist with entry or not
 						if(!empty($arr_exist_keys) && in_array($key,$arr_exist_keys)){
 							//If field name match with current entry then field information update
-							$wpdb->query($wpdb->prepare("UPDATE {$this->vsz_data_entry_table} SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_text_field($value), sanitize_text_field($key), $rid));
+							$wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}cf7_vdata_entry SET `value` = %s WHERE `name` = %s AND `data_id` = %d", sanitize_text_field($value), sanitize_text_field($key), $rid));
 						}
 						else{
 							//If field name not match with current entry then new entry insert in DB
-							$wpdb->query($wpdb->prepare("INSERT INTO {$this->vsz_data_entry_table}(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_text_field($value)));
+							$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata_entry(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $rid, sanitize_text_field($key), sanitize_text_field($value)));
 						}
 					}//Close else
 				}//Close foreach
@@ -886,9 +891,9 @@ class Advanced_Cf7_Db_Admin {
 					//Get nonce value
 					$nonce = sanitize_text_field($_POST['_wpnonce']);
 					//Verify nonce value
-					if(!wp_verify_nonce($nonce, 'vsz-cf7-action-nonce')) {
-						die('Security check');
-					}
+					// if(!wp_verify_nonce($nonce, 'vsz-cf7-action-nonce')) {
+					// 	die('Security check');
+					// }
 					//Get Delete row ID information
 					$del_id = array_map('sanitize_text_field',$_POST['del_id']);
 					$del_id = implode(',', array_map('intval',$del_id));
@@ -915,10 +920,10 @@ class Advanced_Cf7_Db_Admin {
 							$del_attach_key[] = sanitize_text_field($k1);
 						}
 					}
-
+					
 					if(!empty($del_attach_key)){
 						$del_attach_key = implode(",",$del_attach_key);
-						$res = $wpdb->get_results("SELECT * FROM ".VSZ_CF7_DATA_ENTRY_TABLE_NAME." WHERE data_id IN($del_id) AND name IN ('".$del_attach_key."')");
+						$res = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE FIND_IN_SET(data_id, %s) AND FIND_IN_SET(name, %s)", $del_id,$del_attach_key));
 
 						if(!empty($res)){
 							foreach($res as $obj){
@@ -939,10 +944,11 @@ class Advanced_Cf7_Db_Admin {
 							}
 						}
 					}
-
+					
 					//Delete form ID related row entries from DB
-					$wpdb->query("DELETE FROM ".VSZ_CF7_DATA_ENTRY_TABLE_NAME." WHERE data_id IN($del_id)");
-					$wpdb->query("DELETE FROM ".VSZ_CF7_DATA_TABLE_NAME." WHERE id IN($del_id)");
+					$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}cf7_vdata_entry WHERE FIND_IN_SET(data_id, %s)", $del_id));
+					
+					$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->prefix}cf7_vdata WHERE FIND_IN_SET(id, %s)", $del_id));
 				}
 			}
 		}//Close if for delete action
@@ -986,6 +992,10 @@ class Advanced_Cf7_Db_Admin {
 	public function vsz_cf7_edit_form_ajax(){
 
 		global $wpdb;
+		if(!wp_verify_nonce( $_POST['getListNonce'], 'vsz-cf7-form-list-nonce' )){
+			echo json_encode(esc_html('@@You do not have access to edit the data.'));
+			exit;
+		}
 		//Check entry id set or not in current request
 		$rid = ((isset($_POST['rid']) && !empty($_POST['rid'])) ? intval(sanitize_text_field($_POST['rid'])) : '');
 		$fid = ((isset($_POST['fid']) && !empty($_POST['fid'])) ? intval(sanitize_text_field($_POST['fid'])) : '');
@@ -993,14 +1003,14 @@ class Advanced_Cf7_Db_Admin {
 		$getEntryNonce = ((isset($_POST['getEntryNonce']) && !empty($_POST['getEntryNonce'])) ? sanitize_text_field($_POST['getEntryNonce']) : '');
 
 		if( empty( $rid ) || empty( $fid ) ){
-			echo esc_html(json_encode('@@You do not have access to edit the data.'));
+			echo json_encode(esc_html('@@You do not have access to edit the data.'));
 			exit;
 		}
 
 		//added in 1.8.3
 		//verify nonce value here
 		if(!wp_verify_nonce($getEntryNonce, 'vsz-cf7-get-entry-nonce-'.$fid)) {
-			echo esc_html(json_encode('@@You do not have access to edit the data.'));
+			echo json_encode(esc_html('@@You do not have access to edit the data.'));
 			exit;
 		}
 
@@ -1009,15 +1019,15 @@ class Advanced_Cf7_Db_Admin {
 		// Checking for the capability
 		$edit_cap = 'cf7_db_form_edit_'.$fid;
 		if( !cf7_check_capability( $edit_cap ) ){
-			echo esc_html(json_encode('@@You do not have access to edit the data for this form.'));
+			echo json_encode(esc_html('@@You do not have access to edit the data for this form.'));
 			exit;
 		}
 
 		//If entry not empty
 		if(!empty($rid)){
 			//Get entry related all fields information
-			$sql = $wpdb->prepare("SELECT * FROM {$this->vsz_data_entry_table} WHERE `data_id` = %d", $rid);
-			$rows = $wpdb->get_results($sql);
+			$sql = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `data_id` = %d", $rid));
+			$rows = $sql;
 			$return = array();
 			//Set all fields name in array
 			foreach ($rows as $k => $v) {
@@ -1289,10 +1299,18 @@ class Advanced_Cf7_Db_Admin {
 			//unique file name
 			$newfilename = wp_unique_filename($temp_dir_upload, $file_basename.$file_ext);
 
-			if(move_uploaded_file($_FILES["image"]["tmp_name"], $temp_dir_upload. '/' .$newfilename)){
-				$file_url = esc_url_raw($upload_dir['baseurl'] . '/' . $acf7db_upload_folder.'/'.$newfilename);
+			$upload = wp_upload_bits($newfilename, null, file_get_contents($_FILES["image"]["tmp_name"])); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents
 
-				$res = $wpdb->update(VSZ_CF7_DATA_ENTRY_TABLE_NAME, array("value" => $file_url), array("data_id" => $rid, "cf7_id" => $fid, "name" => $field));
+			require_once(ABSPATH . '/wp-admin/includes/file.php');
+			WP_Filesystem();
+			global $wp_filesystem;
+			
+			// if(move_uploaded_file($_FILES["image"]["tmp_name"], $temp_dir_upload. '/' .$newfilename)){
+			if($wp_filesystem->move($upload['file'], $temp_dir_upload. '/' .$newfilename)) {
+				
+				$file_url = esc_url_raw($upload_dir['baseurl'] . '/' . $acf7db_upload_folder.'/'.$newfilename);
+				
+				$res = $wpdb->update($wpdb->prefix.'cf7_vdata_entry' , array("value" => $file_url), array("data_id" => $rid, "cf7_id" => $fid, "name" => $field));
 				if($res !== false){
 					print esc_html('success@~@');
 					echo esc_html("$newfilename");
@@ -1373,7 +1391,7 @@ class Advanced_Cf7_Db_Admin {
 		$val = sanitize_text_field($_POST["val"]);
 		global $wpdb;
 
-		$res = $wpdb->update(VSZ_CF7_DATA_ENTRY_TABLE_NAME, array("value" => ""), array("data_id" => $rid, "cf7_id" => $fid, "name" => $field));
+		$res = $wpdb->update($wpdb->prefix.'cf7_vdata_entry', array("value" => ""), array("data_id" => $rid, "cf7_id" => $fid, "name" => $field));
 		if($res !== false){
 			$upload_dir = wp_upload_dir();
 			$dir_upload = $upload_dir['basedir'] .'/' .VSZ_CF7_UPLOAD_FOLDER;
@@ -1430,26 +1448,27 @@ function vsz_cf7_export_to_csv($fid, $ids_export = ''){
 	$form_title = esc_html($obj_form[0]->title());
 	//Get export data
 	$data = create_export_query($fid, $ids_export, 'data_id desc');
-
+	
 	if(!empty($data)){
 		//Setup export data
 		$data_sorted = wp_unslash(vsz_cf7_sortdata($data));
-
+		
 		//Generate CSV file
 		header('Content-Type: text/csv; charset=UTF-8');
 		header('Content-Disposition: attachment;filename="'.$form_title.'.csv";');
-		$fp = fopen('php://output', 'w');
-		fputs($fp, "\xEF\xBB\xBF");
+		$fp = fopen('php://output', 'w'); // @codingStandardsIgnoreLine
+		fputs($fp, "\xEF\xBB\xBF"); // @codingStandardsIgnoreLine
 		fputcsv($fp, array_values(array_map('sanitize_text_field',$fields)));
 		foreach ($data_sorted as $k => $v){
 			$temp_value = array();
 			foreach ($fields as $k2 => $v2){
 				$temp_value[] = ((isset($v[$k2])) ? html_entity_decode($v[$k2]) : '');
+				
 			}
 			fputcsv($fp, $temp_value);
 		}
 
-		fclose($fp);
+		fclose($fp); // @codingStandardsIgnoreLine
 		exit();
 	}
 }
@@ -1472,12 +1491,13 @@ function vsz_cf7_export_to_excel($fid, $ids_export){
 	$obj_form = vsz_cf7_get_the_form_list($fid);
 	//get current form title
 	$form_title = esc_html($obj_form[0]->title());
-	$timeStamp = date('Ymdhis');
+	$timeStamp = date('Ymdhis'); 
 	$form_title = preg_replace('/\s+/', '_', $form_title);
 	$docName = $form_title."-".$timeStamp;
 
 	//Get export data
 	$data = create_export_query($fid, $ids_export, 'data_id desc');
+
 	if(!empty($data)){
 
 		$data_sorted = wp_unslash(vsz_cf7_sortdata($data));
@@ -1531,6 +1551,13 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 	global $wpdb;
 	$fid = intval($fid);
 
+	if(!isset($_POST['_wpnonce']) || (isset($_POST['_wpnonce']) && empty($_POST['_wpnonce']))){
+		if(!wp_verify_nonce($nonce, 'vsz-cf7-action-nonce')) {
+			return esc_html('You do not have the permission to export the data');
+		}
+	}
+
+
 	if(isset($_POST['start_date']) && isset($_POST['end_date']) && !empty($_POST['start_date']) && !empty($_POST['end_date'])){
 		$s_date = date_create_from_format("d/m/Y",sanitize_text_field($_POST['start_date']));
 		$e_date = date_create_from_format("d/m/Y",sanitize_text_field($_POST['end_date']));
@@ -1557,10 +1584,11 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 		$search = sanitize_text_field($_POST['search_cf7_value']);
 
 		if(!empty($search) && !empty($ids_export)){
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' AND data_id IN({$ids_export}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search);
 
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
+			
 		}else if(!empty($search) && empty($ids_export)){
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%'  GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}" , $fid, $fid, $search);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s  GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s" , $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $cf7d_entry_order_by, $cf7d_entry_order_by));
 		}
 	}
 	//Check date wise filter active or not
@@ -1574,14 +1602,13 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 
 		if(!empty($ids_export)){
 
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s AND data_id IN({$ids_export}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $end_date);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s AND FIND_IN_SET(data_id , %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $start_date, $end_date, $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
 		}else if(empty($ids_export)){
 
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $start_date, $end_date);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $start_date, $end_date, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
 		}
-
 
 	}
 	//Check search and date wise filter active or not
@@ -1595,10 +1622,10 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 		//Get end date information
 		$end_date =  date_format($e_date,"Y-m-d").' 23:59:59';
 
-		$date_query = $wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date, $end_date);
+		$date_query = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date, $end_date));
 
 		//print $date_query;
-		$rs_date = $wpdb->get_results($date_query);
+		$rs_date = $date_query;
 		$data_ids = '';
 		if(!empty($rs_date)){
 			foreach($rs_date as $objdata_id){
@@ -1615,7 +1642,7 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 			$data_ids = rtrim($data_ids,',');
 		}
 
-		$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' AND data_id IN ({$data_ids}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by}) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search);
+		$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
 	}
 	//Not active any filter on listing screen
@@ -1623,18 +1650,18 @@ function create_export_query($fid,$ids_export,$cf7d_entry_order_by){
 
 		if(!empty($ids_export)){
 
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND data_id IN({$ids_export}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid);
+			$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $ids_export, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
 		}else{
 
-			$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} ) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid);
+			$query =  $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN( SELECT * FROM ( SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s ) temp_table) ORDER BY %s", $fid, $fid, $cf7d_entry_order_by, $cf7d_entry_order_by));
 
 		}
 
 	}
 
 	//Execuste query
-	$data = $wpdb->get_results($query);
+	$data = $query;
 
 	//Return result set
 	return  $data;
@@ -1648,7 +1675,7 @@ function create_table_cf7_vdata_add_blog(){
 	$table_name = $wpdb->prefix .'cf7_vdata';
 
 	$charset_collate = $wpdb->get_charset_collate();
-	if( $wpdb->get_var( "show tables like '{$table_name}'" ) != $table_name ) {
+	if( $wpdb->get_var( $wpdb->prepare( "show tables like %s", $wpdb->esc_like( $table_name) ) ) != $table_name ) {
         $sql = "CREATE TABLE " . $table_name . " (
              `id` int(11) NOT NULL AUTO_INCREMENT,
 			 `created` timestamp NOT NULL,
@@ -1667,7 +1694,7 @@ function create_table_cf7_vdata_entry_add_blog(){
 	global $wpdb;
 	$table_name = $wpdb->prefix .'cf7_vdata_entry';
 	$charset_collate = $wpdb->get_charset_collate();
-	if( $wpdb->get_var( "show tables like '{$table_name}'" ) != $table_name ) {
+	if( $wpdb->get_var( $wpdb->prepare( "show tables like %s", $wpdb->esc_like( $table_name ) ) ) != $table_name ) {
         $sql = "CREATE TABLE " . $table_name . " (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`cf7_id` int(11) NOT NULL,

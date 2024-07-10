@@ -3,8 +3,8 @@ Tags:              login url, login, wp admin, wp login, custom login
 Contributors:      wpexpertsio
 Author: wpexpertsio
 Requires at least: 4.5
-Tested up to:      6.3
-Stable tag:        1.1.8
+Tested up to:      6.5.5
+Stable tag:        1.1.9
 License:           GPL-2.0+
 
 
@@ -88,9 +88,12 @@ No, Buddyboss has its own wp-admin redirect functions.
 No, BuddyPress has its own wp-admin redirect functions.
 
 == Changelog ==
+= 1.1.9 =
+* Fixed: url breaking when forgetting the password.
 
 = 1.1.8 =
-* Fixed: compatibility issues with WPForms, WordFence 
+* Fixed: compatibility issues with WPForms, WordFence
+
 = 1.1.7 =
 * Fixed: Redirection to wp-admin when trying to access admin pages directly.
 

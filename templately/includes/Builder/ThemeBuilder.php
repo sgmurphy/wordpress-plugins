@@ -57,6 +57,7 @@ class ThemeBuilder extends Base {
 
 		add_filter( 'elementor/document/config', [$this, 'elementor_document_config'], 10, 2 );
 		add_filter( 'elementor/documents/get/post_id', [$this, 'elementor_documents_get_post_id'] );
+		add_action( 'elementor/widgets/register', [ $this, 'register_elements' ] );
 
 		add_filter( 'the_content', [$this, 'filter_content'], 10 ,1);
 
@@ -86,6 +87,13 @@ class ThemeBuilder extends Base {
 		self::$templates_manager  = new TemplateManager( $this );
 		self::$conditions_manager = new ConditionManager( $this );
 		self::$source             = new Source( $this );
+		register_rest_field('templately_library','templately_type', [
+			'get_callback'     => [ $this, 'get_rest_template_type' ],
+		]);
+	}
+
+	public function get_rest_template_type() {
+		return get_post_meta( get_the_ID(), '_templately_template_type', true );
 	}
 
 	public function create_template() {
@@ -203,6 +211,13 @@ class ThemeBuilder extends Base {
 		}
 
 		return $value;
+	}
+
+	public function register_elements( $widgets_manager ) {
+		$widgets_manager->register( new \Templately\Builder\Widgets\Post_Title() );
+		$widgets_manager->register( new \Templately\Builder\Widgets\Post_Content() );
+		$widgets_manager->register( new \Templately\Builder\Widgets\Featured_Image() );
+		$widgets_manager->register( new \Templately\Builder\Widgets\Site_Logo() );
 	}
 
 	public function filter_content( $content ) {

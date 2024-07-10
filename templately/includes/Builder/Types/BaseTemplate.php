@@ -6,6 +6,7 @@ use Elementor\Core\Base\Document;
 use Elementor\Plugin;
 use Exception;
 use Templately\Builder\Source;
+use Templately\Utils\Helper;
 use WP_Error;
 use WP_Post;
 
@@ -181,6 +182,26 @@ abstract class BaseTemplate {
 		}
 	}
 
+	public function has_logo($template_content){
+		if ( $this->is_elementor_template() ) {
+			$usage = get_post_meta($this->get_main_id(), '_elementor_controls_usage', true);
+			if(is_array($usage) && array_key_exists('tl-site-logo', $usage)){
+				return true;
+			}
+		}
+		else{
+			if(!empty($template_content["content"])){
+				$blocks = parse_blocks( $template_content["content"] );
+				$block = Helper::get_block_by_name($blocks, 'essential-blocks/advanced-image');
+				if(!empty($block['attrs']['imgSource']) && 'site-logo' === $block['attrs']['imgSource']){
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	protected function update_conditions( array $conditions = [] ) {
 		if ( empty( $conditions ) || ! is_array( $conditions ) ) {
 			return;
@@ -190,7 +211,7 @@ abstract class BaseTemplate {
 	}
 
 	public function get_edit_url() {
-		if ( $this->is_elementor_template() ) {
+		if ( $this->is_elementor_template() && class_exists('Elementor\Plugin') ) {
 			return $this->platform_data->get_edit_url();
 		}
 

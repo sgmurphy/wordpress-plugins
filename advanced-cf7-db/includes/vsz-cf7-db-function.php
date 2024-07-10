@@ -51,7 +51,7 @@ function vsz_cf7_before_send_email($contact_form){
 
 	//Insert current form submission time in database
 	$time = date('Y-m-d H:i:s');
-    $wpdb->query($wpdb->prepare("INSERT INTO {$data_table_name}(`created`) VALUES (%s)", $time));
+    $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata(`created`) VALUES (%s)", $time));
     //Get last inserted id
 	$data_id = $wpdb->insert_id;
 
@@ -74,7 +74,7 @@ function vsz_cf7_before_send_email($contact_form){
 				//It is prevent JS injection
 				$v = sanitize_textarea_field($v);
 				//$v = htmlspecialchars($v);
-				$wpdb->query($wpdb->prepare("INSERT INTO {$data_entry_table_name}(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $cf7_id, $data_id, $k, $v));
+				$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata_entry(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $cf7_id, $data_id, $k, $v));
 			}
 		}
 		//exit;
@@ -158,7 +158,11 @@ if (!function_exists('vsz_cf7_modify_form_before_insert_in_cf7_vdata_entry')) {
 
     			if(!empty($val)){
     				//Get file name
-	    			$file_name = basename($val);
+	    			// $file = basename($val);
+					$file = pathinfo($val, PATHINFO_FILENAME);
+					$ext = pathinfo($val, PATHINFO_EXTENSION);
+					$file_name = $file . date("Ymdh") . '.' . $ext;
+					
 					//Create unique file name
 	    			$file_name = wp_unique_filename($dir_upload, $file_name);
 					//Setup filoe path
@@ -247,8 +251,8 @@ function vsz_cf7_get_db_fields($fid, $filter = true){
 	$fid = (int)$fid;
 	$data_entry_table_name = sanitize_text_field(VSZ_CF7_DATA_ENTRY_TABLE_NAME);
 
-    $sql = $wpdb->prepare("SELECT `name` FROM `{$data_entry_table_name}` WHERE cf7_id = %d GROUP BY `name`", $fid);
-    $data = $wpdb->get_results($sql);
+    $sql =  $wpdb->get_results($wpdb->prepare("SELECT `name` FROM {$wpdb->prefix}cf7_vdata_entry WHERE cf7_id = %d GROUP BY `name`", $fid));
+    $data =$sql;
 
 	//Set each field value in array
     $fields = array();
@@ -303,8 +307,8 @@ function get_entry_related_fields_info($fid,$entryId){
 		$entryId = intval($entryId);
 		$data_entry_table_name = sanitize_text_field(VSZ_CF7_DATA_ENTRY_TABLE_NAME);
 
-		$sql = $wpdb->prepare("SELECT `name` FROM `{$data_entry_table_name}` WHERE `cf7_id` = %d AND `data_id` = %d GROUP BY `name`", $fid, $entryId);
-		$data = $wpdb->get_results($sql);
+		$sql = $wpdb->get_results($wpdb->prepare("SELECT `name` FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `data_id` = %d GROUP BY `name`", $fid, $entryId));
+		$data = $sql;
 		if(!empty($data)){
 			foreach ($data as $k => $v) {
 				$fields[$v->name] = htmlspecialchars_decode($v->name);
@@ -316,8 +320,16 @@ function get_entry_related_fields_info($fid,$entryId){
 
 //Check current action
 function vsz_cf7_current_action(){
+	
+	//Verify nonce value
+	if (isset($_POST['vsz_cf7_form_list_nonce']) && !empty($_POST['vsz_cf7_form_list_nonce'])) {
+		if(!wp_verify_nonce($_POST['vsz_cf7_form_list_nonce'], 'vsz-cf7-form-list-nonce')) {
+			die('Security check');
+		}
+	}
 
 	$current_action = false;
+	
 	if (isset($_POST['action']) && -1 != $_POST['action'] && isset($_POST['btn_apply'])) {
         $current_action = sanitize_text_field($_POST['action']);
         return (string) apply_filters('vsz_cf7_get_current_action', $current_action);

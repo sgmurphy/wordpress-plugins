@@ -1297,7 +1297,7 @@ $options = array(
 
                     <h3><?php esc_html_e("Quick introduction", 'woocommerce-currency-switcher') ?></h3>
 
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/wUoM9EHjnYs" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/NBEdOjuKDtk" frameborder="0" allowfullscreen></iframe>
 
                     <hr />
 

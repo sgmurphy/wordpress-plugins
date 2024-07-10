@@ -80,7 +80,7 @@ function create_table_cf7_vdata(){
 	$table_name = $wpdb->prefix .'cf7_vdata';
 
 	$charset_collate = $wpdb->get_charset_collate();
-	if( $wpdb->get_var( "show tables like '{$table_name}'" ) != $table_name ) {
+	if( $wpdb->get_var( $wpdb->prepare( "show tables like %s" , $wpdb->esc_like(  $table_name ) ) ) != $table_name ) {
         $sql = "CREATE TABLE " . $table_name . " (
              `id` int(11) NOT NULL AUTO_INCREMENT,
 			 `created` timestamp NOT NULL,
@@ -99,7 +99,7 @@ function create_table_cf7_vdata_entry(){
 	global $wpdb;
 	$table_name = $wpdb->prefix .'cf7_vdata_entry';
 	$charset_collate = $wpdb->get_charset_collate();
-	if( $wpdb->get_var( "show tables like '{$table_name}'" ) != $table_name ) {
+	if( $wpdb->get_var( $wpdb->prepare("show tables like %s", $wpdb->esc_like(  $table_name ) ) ) != $table_name ) {
         $sql = "CREATE TABLE " . $table_name . " (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`cf7_id` int(11) NOT NULL,

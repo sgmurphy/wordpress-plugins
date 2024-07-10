@@ -4,8 +4,8 @@ Plugin URI: https://livemeshwp.com/siteorigin-widgets
 Contributors: livemesh, freemius
 Tags: widget, siteorigin, siteorigin widgets bundle, siteorigin page builder, siteorigin widgets, grid, gallery, video background, portfolio, carousel, shortcode, tabs, admin, plugin, page
 Requires at least: 5.8
-Tested up to: 6.4
-Stable Tag: 3.8.1
+Tested up to: 6.6
+Stable Tag: 3.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,7 +81,6 @@ You can view the change log for the Premium version of the plugin at <a href="ht
 
 1. Install and activate the <strong>required plugin</strong> <a href="https://wordpress.org/plugins/so-widgets-bundle/" rel="nofollow">SiteOrigin Widgets Bundle</a>.
 2. Unzip the downloaded livemesh-so-widgets.zip file and upload to the `/wp-content/plugins/` directory or install the Livemesh SiteOrigin Widgets plugin from WordPress repository. Activate the plugin through the 'Plugins' menu in WordPress.
-
 3. Enable all the widgets you need from Plugins &gt; SiteOrigin Widgets.
 4. If you need page builder functions, install and activate the <strong>optional plugin</strong> <a href="https://wordpress.org/plugins/siteorigin-panels/" rel="nofollow">Page Builder by SiteOrigin</a>.
 5. For Portfolio widget, install and activate the <strong>optional plugin</strong> <a href="https://wordpress.org/plugins/portfolio-post-type/" title="Portfolio Post Type">Portfolio Post Type plugin</a>. The Portfolio widget is built using custom post type registered by this plugin.
@@ -125,7 +124,8 @@ Pls install and activate the <a href="https://wordpress.org/plugins/portfolio-po
 
 == Changelog ==
 
-
+= 3.8.3 =
+* Added - Escaping the data output for accordion, button, carousel, clients, heading, hero image, odometers, tabs, testimonials slider, testimonials widgets for enhanced validation of user input.
 
 = 3.8.1 =
 * Freemius SDK update to 2.6.2

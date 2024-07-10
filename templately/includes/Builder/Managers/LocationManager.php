@@ -305,38 +305,40 @@ class LocationManager {
 		// 	$locations = $this->filter_page_template_locations( $locations );
 		// }
 
-		$current_post_id = get_the_ID();
+		if(class_exists('Elementor\Core\Files\CSS\Post')){
+			$current_post_id = get_the_ID();
 
-		/** @var Post_CSS[] $css_files */
-		$css_files = [];
+			/** @var Post_CSS[] $css_files */
+			$css_files = [];
 
-		foreach ( $locations as $location => $settings ) {
-			$templates_for_location = $this->builder::$conditions_manager->get_templates_by_location( $location );
+			foreach ( $locations as $location => $settings ) {
+				$templates_for_location = $this->builder::$conditions_manager->get_templates_by_location( $location );
 
-			foreach ( $templates_for_location as $document ) {
-				$post_id = $document->get_main_id();
-				// Don't enqueue current post here (let the  preview/frontend components to handle it)
-				if ( $current_post_id !== $post_id ) {
-					$css_file = new Post_CSS( $post_id );
-					$css_files[] = $css_file;
+				foreach ( $templates_for_location as $document ) {
+					$post_id = $document->get_main_id();
+					// Don't enqueue current post here (let the  preview/frontend components to handle it)
+					if ( $current_post_id !== $post_id ) {
+						$css_file = new Post_CSS( $post_id );
+						$css_files[] = $css_file;
+					}
 				}
 			}
-		}
 
-		if ( ! empty( $css_files ) ) {
-			// Enqueue the frontend styles manually also for pages that don't built with Elementor.
-			// Plugin::elementor()->frontend->enqueue_styles();
+			if ( ! empty( $css_files ) ) {
+				// Enqueue the frontend styles manually also for pages that don't built with Elementor.
+				// Plugin::elementor()->frontend->enqueue_styles();
 
-			// Enqueue after the frontend styles to override them.
-			foreach ( $css_files as $css_file ) {
-				$css_file->enqueue();
-			}
+				// Enqueue after the frontend styles to override them.
+				foreach ( $css_files as $css_file ) {
+					$css_file->enqueue();
+				}
 
-			if(class_exists('ElementorPro\Plugin')){
-				/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */
-				$theme_builder    = Plugin::instance()->modules_manager->get_modules( 'theme-builder' );
-				$location_manager = $theme_builder->get_locations_manager();
-				remove_action( 'wp_enqueue_scripts', [ $location_manager, 'enqueue_styles' ] );
+				if(class_exists('ElementorPro\Plugin')){
+					/** @var \ElementorPro\Modules\ThemeBuilder\Module $theme_builder */
+					$theme_builder    = Plugin::instance()->modules_manager->get_modules( 'theme-builder' );
+					$location_manager = $theme_builder->get_locations_manager();
+					remove_action( 'wp_enqueue_scripts', [ $location_manager, 'enqueue_styles' ] );
+				}
 			}
 		}
 	}

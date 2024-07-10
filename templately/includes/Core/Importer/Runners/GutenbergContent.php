@@ -41,6 +41,43 @@ class GutenbergContent extends BaseRunner {
 		$contents = $this->manifest['content'];
 		$path     = $this->dir_path . 'content' . DIRECTORY_SEPARATOR;
 
+		if(isset($this->manifest['has_settings']) && $this->manifest['has_settings']){
+			$file     = $this->dir_path . "settings.json";
+			$settings = Utils::read_json_file( $file );
+
+			if(!empty($data['color'])){
+				if (isset($settings['global_colors'])) {
+					foreach ($settings['global_colors'] as $key => $color) {
+						$settings['global_colors'][$key]['color'] = $data['color'][$color['var']] ?? $color['color'];
+					}
+				}
+
+				if (isset($settings['custom_colors'])) {
+					foreach ($settings['custom_colors'] as $key => $color) {
+						$settings['custom_colors'][$key]['color'] = $data['color'][$color['var']] ?? $color['color'];
+					}
+				}
+			}
+			if(!empty($data['logo']['id'])){
+				$site_logo_id = $data['logo']['id'];
+				$settings['site_logo'] = $site_logo_id;
+				Utils::update_option( 'site_logo', $site_logo_id );
+			}
+			else if(!empty($data['logo']) && empty(get_option('site_logo'))){
+				// demo logo
+				$site_logo = Utils::upload_logo($data['logo']);
+				if(!empty($site_logo['id'])){
+					$settings['site_logo'] = $site_logo['id'];
+					Utils::update_option( 'site_logo', $site_logo['id'] );
+				}
+			}
+
+			$settings = array_map('json_encode', $settings);
+
+			// Save the settings to the 'eb_global_styles' option
+			Utils::update_option('eb_global_styles', $settings);
+		}
+
 		$processed = 0;
 		$total     = array_reduce($contents, function($carry, $item) {
 			return $carry + count($item);

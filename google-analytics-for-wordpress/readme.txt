@@ -8,7 +8,7 @@ Stable tag: 8.28.0
 Requires PHP: 7.2
 License: GPL v3
 
-The best free Google Analytics plugin for WordPress. See how visitors find and use your website, so you can grow your business.
+The best free Google Analytics plugin for WordPress. See how visitors find and use your website so you can grow your business with powerful analytics.
 
 == Description ==
 

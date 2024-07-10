@@ -3,6 +3,7 @@
 namespace Templately\Core\Importer\Utils;
 
 use Templately\Builder\Types\BaseTemplate;
+use Templately\Utils\Helper;
 
 class ElementorHelper extends ImportHelper {
 	protected $content;
@@ -37,7 +38,7 @@ class ElementorHelper extends ImportHelper {
 	 *
 	 * @return ElementorHelper
 	 */
-	public function prepare( $template_json, $template_settings, $extra_content = [] ) {
+	public function prepare( $template_json, $template_settings, $extra_content = [], $request_params = []) {
 
 		$extraContent = $extra_content;
 		$_data        = [];
@@ -78,7 +79,7 @@ class ElementorHelper extends ImportHelper {
 		}
 
 		// $content = $template_json;
-		$this->json_prepare( $template_json['content'], $_data );
+		$this->json_prepare( $template_json['content'], $_data, $request_params );
 		$this->post_id                    = $this->map_post_ids[ $template_settings['post_id'] ];
 		$this->content                    = $template_json;
 		$this->content['import_settings'] = $template_settings;
@@ -90,15 +91,20 @@ class ElementorHelper extends ImportHelper {
 		/**
 		 * @var BaseTemplate $template
 		 */
-		$template = templately()->theme_builder::$templates_manager->get( $this->post_id );
-		$this->sse_log('update', 'Updating prepared data, just a moment...', 1, 'eventLog');
-		$template->import( $this->content );
+		if(!empty($this->post_id)){
+			$template = templately()->theme_builder::$templates_manager->get( $this->post_id );
+			$this->sse_log('update', 'Updating prepared data, just a moment...', 1, 'eventLog');
+			$template->import( $this->content );
+		}
+		else{
+			Helper::log(__("Templately Error code: T001", "templately"));
+		}
 
 		$this->nav_menus = [];
 		$this->content   = [];
 	}
 
-	private function json_prepare( &$elements, $data ) {
+	private function json_prepare( &$elements, $data, $request_params = []) {
 		foreach ( $elements as &$element ) {
 			if ( ! empty( $data ) ) {
 				foreach ( $data as $id => $settings ) {
@@ -123,8 +129,20 @@ class ElementorHelper extends ImportHelper {
 			}
 
 			if ( ! empty( $element['elements'] ) ) {
-				$this->json_prepare( $element['elements'], $data );
+				$this->json_prepare( $element['elements'], $data, $request_params );
 			}
+			else if(!empty($request_params['logo']) && isset($request_params['logo_size']) && $request_params['logo_size'] && $element['elType'] === "widget" && $element['widgetType'] === "tl-site-logo"){
+				$element['settings']['width'] = [
+					'size' => $request_params['logo_size'],
+					'unit' => 'px'
+				];
+				$element['settings']['max-width'] = [
+					'size' => '100',
+					'unit' => '%'
+				];
+				$this->sse_log('prepare', 'Site Logo', 1, 'eventLog');
+			}
+
 			$this->sse_log('prepare', 'Preparing output for finalize, just a moment...', 1, 'eventLog');
 		}
 	}
@@ -137,12 +155,12 @@ class ElementorHelper extends ImportHelper {
 
 		switch ( $element['widgetType'] ) {
 			case 'eael-simple-menu':
-				if (isset($element['settings']['eael_simple_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ])) {
+				if(!empty($element['settings']['eael_simple_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ])){
 					$element['settings']['eael_simple_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_simple_menu_menu'] ];
 				}
 				break;
 			case 'eael-advanced-menu':
-				if (isset($element['settings']['eael_advanced_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ])) {
+				if(!empty($element['settings']['eael_advanced_menu_menu']) && isset($this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ])){
 					$element['settings']['eael_advanced_menu_menu'] = $this->map_term_ids[ $element['settings']['eael_advanced_menu_menu'] ];
 				}
 				break;

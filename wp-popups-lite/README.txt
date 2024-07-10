@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags:  wp popups,popups,wp popup,popup builder,popup maker
 Requires at least: 3.6
 Tested up to: 6.3
-Stable tag: 2.2.0.1
+Stable tag: 2.2.0.2
 Requires PHP: 5.7
 Text Domain: wp-popups-lite
 License: GPLv2 or later
@@ -122,6 +122,13 @@ Yes you can attach to any of this events . id = Popup id
  jQuery(document).on('wppopups.form_submitted',function(e,id){ ... });`
 
 == Changelog ==
+= 2.2.0.2 =
+* New positions
+* Fix for video elements
+* Fix for popups to display instantaneous not showing randomly
+* Fix php 8 compatibility errors
+* Fixed vulnerability where site PATH can be disclosed to be used later by a malicius user (ty stealthcopter - Wordfence)
+
 = 2.2.0.1 =
 * Hotfix for closing button with Gutemberg
 * Hotfix for missing Gutemberg styles in the editor

@@ -3,8 +3,8 @@ Tags: htaccess, htaccess editor, htaccess file, htaccess file editor, file edito
 Contributors: WebFactory
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.5
-Stable tag: 1.71
+Tested up to: 6.6
+Stable tag: 1.72
 Playground: true
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -53,16 +53,6 @@ Or if needed, upload manually;
 3. Open WordPress admin - Plugins and click "Activate" next to "WP Htaccess Editor"
 4. Open plugin's admin page located under the Settings menu
 
-== Frequently Asked Questions ==
-
-= How to disable this plugin? =
-
-Just use standard Plugin overview page in WordPress admin section and deactivate it or rename plugin folder /wp-content/plugins/wp-htaccess-editor over FTP access.
-
-= How can I report security bugs? =
-
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/wp-htaccess-editor)
-
 
 == Screenshots ==
 
@@ -71,6 +61,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+= v1.72 =
+* 2024/07/10
+* Minor security fixes
+* Introduction of PRO
 
 = v1.71 =
 * 2022/11/21
@@ -171,3 +165,7 @@ Head over to our <a href="https://wordpress.org/support/plugin/wp-htaccess-edito
 = Do you support WP-CLI? =
 
 Not yet, but we plan to.
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/wp-htaccess-editor)

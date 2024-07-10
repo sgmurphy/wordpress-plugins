@@ -62,7 +62,7 @@ class Finalizer extends BaseRunner {
 			return;
 		}
 		foreach ( $templates as $id => $template ) {
-			if ( ! isset( $template['data'] ) && !isset( $template['__attachments']) ) {
+			if ( ! isset( $template['data'] ) && !isset( $template['__attachments']) && !isset($template['has_logo']) ) {
 				continue;
 			}
 
@@ -129,7 +129,8 @@ class Finalizer extends BaseRunner {
 				}
 				$path          .= "{$old_template_id}.json";
 				$template_json = Utils::read_json_file( $path );
-				$this->json->prepare( $template_json, $template_settings, $this->extra_content['form'][ $old_template_id ] ?? [] )->update();
+				$params = $this->origin->get_request_params();
+				$this->json->prepare( $template_json, $template_settings, $this->extra_content['form'][ $old_template_id ] ?? [], $params )->update();
 
 				// Broadcast Log
 				$this->processed_items += 1;

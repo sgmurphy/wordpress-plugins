@@ -167,6 +167,15 @@ First check the questions mentioned in the FAQ tab inside the plugin settings pa
 
 == Changelog ==
 
+#####   Version 4.7.11 (2024-07-10)
+
+- Fixed an issue where the SpinupWP provider detection function wasn't working properly.
+- Removed module preload for instant.page script as it breaks WordPress 6.5 Interactivity API
+- Migrated to the new Page Rules
+
+
+
+
 #####   Version 4.7.10 (2024-04-17)
 
 - Updated internal dependencies

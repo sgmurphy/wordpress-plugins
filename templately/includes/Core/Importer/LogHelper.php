@@ -51,7 +51,7 @@ trait LogHelper {
 
 			flush();
 		}
-		else if($data['action'] === 'complete' || $data['action'] === 'error'){
+		else if($data['action'] === 'complete' || $data['action'] === 'downloadComplete' || $data['action'] === 'error'){
 			wp_send_json( $data );
 		}
 	}
@@ -66,7 +66,7 @@ trait LogHelper {
 		if ( defined('TEMPLATELY_EVENT_LOG') && TEMPLATELY_EVENT_LOG === true ) {
 			if ( is_array( $log ) || is_object( $log ) ) {
 				error_log( print_r( $log, true ) );
-			} else {
+			} else if($log) {
 				error_log( $log );
 			}
 		}

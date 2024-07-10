@@ -964,6 +964,7 @@ class Secure_Copy_Content_Protection_Public {
 	        $user_email 	 		= '';
 	        $user_wordpress_roles   = '';
 	        $user_id = get_current_user_id();
+	        $current_date = date_i18n( 'M d, Y', current_time('timestamp') );
 	        if($user_id != 0){
 	            $usermeta  = get_user_meta( $user_id );	            
 	        	
@@ -1008,7 +1009,8 @@ class Secure_Copy_Content_Protection_Public {
                 'user_wordpress_roles' 	=> $user_wordpress_roles,
                 'current_user_ip'       => $current_user_ip,
                 'admin_email'       	=> $super_admin_email,
-                'user_id'              	=> $user_id
+                'user_id'              	=> $user_id,
+                'current_date'          => $current_date,
             );
 
 			$notf_text = $this->sccp_replace_message_variables($notf_text, $message_data);

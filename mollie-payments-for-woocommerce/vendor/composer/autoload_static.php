@@ -297,6 +297,7 @@ class ComposerStaticInit99dd93462bdd098a3d12154b8e71b543
         'Mollie\\WooCommerce\\PaymentMethods\\Paysafecard' => __DIR__ . '/../..' . '/src/PaymentMethods/Paysafecard.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Przelewy24' => __DIR__ . '/../..' . '/src/PaymentMethods/Przelewy24.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Sofort' => __DIR__ . '/../..' . '/src/PaymentMethods/Sofort.php',
+        'Mollie\\WooCommerce\\PaymentMethods\\Trustly' => __DIR__ . '/../..' . '/src/PaymentMethods/Trustly.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Twint' => __DIR__ . '/../..' . '/src/PaymentMethods/Twint.php',
         'Mollie\\WooCommerce\\PaymentMethods\\Voucher' => __DIR__ . '/../..' . '/src/PaymentMethods/Voucher.php',
         'Mollie\\WooCommerce\\Payment\\MollieObject' => __DIR__ . '/../..' . '/src/Payment/MollieObject.php',

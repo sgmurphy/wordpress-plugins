@@ -1561,6 +1561,7 @@ function gspb_greenShift_editor_assets()
 			'row_padding_disable' => $row_padding_disable,
 			'default_unit' => $default_unit,
 			'local_wp_fonts' => $local_wp_fonts,
+			'nonce' => wp_create_nonce('gspb_nonce'),
 		)
 	);
 
@@ -2499,10 +2500,28 @@ if (!function_exists('gspb_get_all_layouts')) {
 	}
 }
 
+function gspb_isIncludedDomain($url, $included_domains) {
+    $parsed_url = parse_url($url);
+    if (!isset($parsed_url['host'])) {
+        return false; // Not a valid URL
+    }
+    
+    $host = $parsed_url['host'];
+
+    foreach ($included_domains as $domain) {
+        if (substr($host, -strlen($domain)) === $domain) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 if (!function_exists('gspb_get_layout')) {
 	function gspb_get_layout()
 	{
 		if(!current_user_can('manage_options')) return false;
+		check_ajax_referer('gspb_nonce', 'security');
 		$get_args = array(
 			'timeout'   => 200,
 			'sslverify' => false,
@@ -2515,6 +2534,13 @@ if (!function_exists('gspb_get_layout')) {
 			}else{
 				$apiUrl   = esc_url($_POST['download_url']);
 			}
+			$included_domains = ["wpsoul.net", "greenshiftwp.com", "wpsoul.com"];
+			if (gspb_isIncludedDomain($apiUrl, $included_domains)) {
+				// It's fine, we get link from trusted domains
+			} else {
+				return '';
+			}
+
 			$urlarray = explode('/wp-json', $apiUrl);
 			if(is_array($urlarray) && !empty($urlarray[0]) && !empty($_POST['download_assets']) && $_POST['download_assets'] == 'yes'){
 				$siteUrl = $urlarray[0];
@@ -2729,4 +2755,12 @@ function greenshift_new_add_type_to_script($tag, $handle, $source){
         $tag = '<script src="'. $source .'" type="module"></script>';
     } 
     return $tag;
+}
+
+add_filter( 'wp_default_autoload_value', 'gspb_large_value_autoload', 10, 2 );
+function gspb_large_value_autoload( $autoload, $option ) {
+    if ( 'gspb_global_settings' === $option ) {
+        return true;
+    }
+    return $autoload;
 }

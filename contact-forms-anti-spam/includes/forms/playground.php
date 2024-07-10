@@ -59,7 +59,7 @@ function maspik_handle_playground_form() {
          $tel_spam = checkTelForSpam($tel);  
          $tel_spam_reason = $tel_spam['reason'];      
          $tel_spam_valid = $tel_spam['valid'];   
-         $tel_spam = $tel_spam_valid ? "" : "SPAM - Phone number $tel not feet the given format ($tel_spam_reason)";
+         $tel_spam = $tel_spam_valid ? "" : $tel_spam_reason;
     }
     if($content){
         $checkTextareaForSpam = checkTextareaForSpam($content);

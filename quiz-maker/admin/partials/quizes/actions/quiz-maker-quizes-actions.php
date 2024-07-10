@@ -249,6 +249,7 @@ $options = array(
     'quiz_bg_img_during_the_quiz'               => "off",
     'quiz_quest_explanation_letter_spacing'     => 0,
     'quiz_right_answers_letter_spacing'         => 0,
+    'quiz_wrong_answers_letter_spacing'         => 0,
 );
 
 $quiz_intervals_default = array(
@@ -373,42 +374,42 @@ if ( isset( $id ) && !is_null( $id ) ) {
 $wp_general_settings_url = admin_url( 'options-general.php' );
 
 $quiz_message_vars = array(
-    "%%user_name%%"                             => __("User Name", $this->plugin_name),
-    "%%user_email%%"                            => __("User Email", $this->plugin_name),
-    "%%user_phone%%"                            => __("User Phone", $this->plugin_name),
-    "%%quiz_name%%"                             => __("Quiz Title", $this->plugin_name),
-    "%%score%%"                                 => __("Score", $this->plugin_name),
-    "%%current_date%%"                          => __("Current Date", $this->plugin_name),
-    "%%results_by_cats%%"                       => __("Results by question categories", $this->plugin_name),
-    "%%avg_score%%"                             => __("Average score", $this->plugin_name),
-    "%%avg_rate%%"                              => __("Average Rate", $this->plugin_name),
-    "%%user_pass_time%%"                        => __("User passed time", $this->plugin_name),
-    "%%quiz_time%%"                             => __("Quiz time", $this->plugin_name),
-    "%%avg_score_by_category%%"                 => __("Average score by the question category", $this->plugin_name),
-    "%%user_corrects_count%%"                   => __("Correct answers count", $this->plugin_name),
-    "%%wrong_answers_count%%"                   => __("Wrong answers count (skipped questions are included)", $this->plugin_name),
-    "%%only_wrong_answers_count%%"              => __("Only wrong answers count", $this->plugin_name),
-    "%%skipped_questions_count%%"               => __("Unanswered questions count", $this->plugin_name),
-    "%%score_by_answered_questions%%"           => __("Score by answered questions", $this->plugin_name),
-    "%%user_first_name%%"                       => __("User's First Name", $this->plugin_name),
-    "%%user_last_name%%"                        => __("User's Last Name", $this->plugin_name),
-    "%%user_nickname%%"                         => __("User's Nick Name", $this->plugin_name),
-    "%%user_display_name%%"                     => __("User's Display Name", $this->plugin_name),
-    "%%user_wordpress_email%%"                  => __("User's WordPress profile email", $this->plugin_name),
-    "%%user_wordpress_roles%%"                  => __("User's WordPress Roles", $this->plugin_name),
-    "%%questions_count%%"                       => __("Questions count", $this->plugin_name),
-    "%%quiz_creation_date%%"                    => __("Quiz creation date", $this->plugin_name),
-    "%%current_quiz_author%%"                   => __("Quiz Author", $this->plugin_name),
-    "%%current_quiz_page_link%%"                => __("Quiz page link", $this->plugin_name),
-    "%%current_user_ip%%"                       => __("User's IP Address", $this->plugin_name),
-    "%%current_quiz_author_email%%"             => __("Quiz Author Email", $this->plugin_name),
-    "%%current_quiz_author_nickname%%"          => __("Quiz Author Nickname", $this->plugin_name),
-    "%%admin_email%%"                           => __("Admin Email", $this->plugin_name),
-    "%%home_page_url%%"                         => __("Home page URL", $this->plugin_name),
-    "%%quiz_id%%"                               => __("Quiz ID", $this->plugin_name),
-    "%%user_id%%"                               => __("User ID", $this->plugin_name),
-    "%%result_id%%"                             => __("User result ID", $this->plugin_name),
-    "%%current_quiz_question_categories_count%%"=> __("Question cateogries count", $this->plugin_name),
+    "%%user_name%%"                                 => __("User Name", $this->plugin_name),
+    "%%user_email%%"                                => __("User Email", $this->plugin_name),
+    "%%user_phone%%"                                => __("User Phone", $this->plugin_name),
+    "%%quiz_name%%"                                 => __("Quiz Title", $this->plugin_name),
+    "%%score%%"                                     => __("Score", $this->plugin_name),
+    "%%current_date%%"                              => __("Current Date", $this->plugin_name),
+    "%%results_by_cats%%"                           => __("Results by question categories", $this->plugin_name),
+    "%%avg_score%%"                                 => __("Average score", $this->plugin_name),
+    "%%avg_rate%%"                                  => __("Average Rate", $this->plugin_name),
+    "%%user_pass_time%%"                            => __("User passed time", $this->plugin_name),
+    "%%quiz_time%%"                                 => __("Quiz time", $this->plugin_name),
+    "%%avg_score_by_category%%"                     => __("Average score by the question category", $this->plugin_name),
+    "%%user_corrects_count%%"                       => __("Correct answers count", $this->plugin_name),
+    "%%wrong_answers_count%%"                       => __("Wrong answers count (skipped questions are included)", $this->plugin_name),
+    "%%only_wrong_answers_count%%"                  => __("Only wrong answers count", $this->plugin_name),
+    "%%skipped_questions_count%%"                   => __("Unanswered questions count", $this->plugin_name),
+    "%%score_by_answered_questions%%"               => __("Score by answered questions", $this->plugin_name),
+    "%%user_first_name%%"                           => __("User's First Name", $this->plugin_name),
+    "%%user_last_name%%"                            => __("User's Last Name", $this->plugin_name),
+    "%%user_nickname%%"                             => __("User's Nick Name", $this->plugin_name),
+    "%%user_display_name%%"                         => __("User's Display Name", $this->plugin_name),
+    "%%user_wordpress_email%%"                      => __("User's WordPress profile email", $this->plugin_name),
+    "%%user_wordpress_roles%%"                      => __("User's WordPress Roles", $this->plugin_name),
+    "%%questions_count%%"                           => __("Questions count", $this->plugin_name),
+    "%%quiz_creation_date%%"                        => __("Quiz creation date", $this->plugin_name),
+    "%%current_quiz_author%%"                       => __("Quiz Author", $this->plugin_name),
+    "%%current_quiz_page_link%%"                    => __("Quiz page link", $this->plugin_name),
+    "%%current_user_ip%%"                           => __("User's IP Address", $this->plugin_name),
+    "%%current_quiz_author_email%%"                 => __("Quiz Author Email", $this->plugin_name),
+    "%%current_quiz_author_nickname%%"              => __("Quiz Author Nickname", $this->plugin_name),
+    "%%admin_email%%"                               => __("Admin Email", $this->plugin_name),
+    "%%home_page_url%%"                             => __("Home page URL", $this->plugin_name),
+    "%%quiz_id%%"                                   => __("Quiz ID", $this->plugin_name),
+    "%%user_id%%"                                   => __("User ID", $this->plugin_name),
+    "%%result_id%%"                                 => __("User result ID", $this->plugin_name),
+    "%%current_quiz_question_categories_count%%"    => __("Question cateogries count", $this->plugin_name),
 );
 
 $quiz_message_vars_timer = array(
@@ -1327,6 +1328,9 @@ $quiz_quest_explanation_letter_spacing = (isset($options[ 'quiz_quest_explanatio
 
 // Letter spacing | Right answer
 $quiz_right_answers_letter_spacing = (isset($options[ 'quiz_right_answers_letter_spacing' ]) && $options[ 'quiz_right_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_right_answers_letter_spacing' ] ) ) : 0;
+
+// Letter spacing | Wrong answer
+$quiz_wrong_answers_letter_spacing = (isset($options[ 'quiz_wrong_answers_letter_spacing' ]) && $options[ 'quiz_wrong_answers_letter_spacing' ] != '') ? stripslashes ( absint( $options[ 'quiz_wrong_answers_letter_spacing' ] ) ) : 0;
 
 ?>
 <style id="ays_live_custom_css"></style>
@@ -3626,6 +3630,25 @@ $quiz_right_answers_letter_spacing = (isset($options[ 'quiz_right_answers_letter
                                     </select>
                                 </div>
                             </div><!-- Wrong answer text decoration -->
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <label for="ays_quiz_wrong_answers_letter_spacing">
+                                        <?php echo __('Letter spacing',$this->plugin_name)?>
+                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the space between the letters of the wrong answer text in pixels. Note: The default value for this option is 0.',$this->plugin_name); ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </label>
+                                </div>
+                                <div class="col-sm-7 ays_divider_left ays_quiz_display_flex_width">
+                                    <div>
+                                        <input type="number" class="ays-text-input ays-text-input-short" id="ays_quiz_wrong_answers_letter_spacing" name="ays_quiz_wrong_answers_letter_spacing" value="<?php echo $quiz_wrong_answers_letter_spacing; ?>"/>
+                                    </div>
+                                    <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: flex-start;">
+                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                    </div>
+                                </div>
+                            </div><!-- Letter spacing -->
                         </div>
                         <hr/>
                         <div class="col-lg-5 col-sm-12 ays_divider_left" style="position:relative;"></div>

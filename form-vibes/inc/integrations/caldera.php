@@ -18,6 +18,7 @@ use function GuzzleHttp\Promise\all;
 class Caldera extends Base {
 
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object

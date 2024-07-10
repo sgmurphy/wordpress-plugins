@@ -12,6 +12,7 @@ use FormVibes\Integrations\Base;
  */
 class NinjaForms extends Base {
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance
@@ -60,6 +61,7 @@ class NinjaForms extends Base {
 	 * @since 1.4.4
 	 * @return void
 	 */
+	
 	public function __construct() {
 		$this->plugin_name = 'Ninja-Forms';
 
@@ -101,8 +103,11 @@ class NinjaForms extends Base {
 	 * @return string|mixed
 	 */
 	public function ninja_forms_after_submission( $data ) {
-
+		// echo '<pre>';  print_r($data); echo '</pre>';
+		// die('daf');
 		$form_id   = $data['form_id'];
+		// echo '<pre>';  print_r($form_id); echo '</pre>';
+		// die('daf');
 		$form_name = $data['settings']['title'];
 		// check if user wants to store/save the entry to db.
 		$save_entry = true;

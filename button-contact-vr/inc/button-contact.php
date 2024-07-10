@@ -72,7 +72,7 @@ final class PZF {
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
 							<?php if(get_option('pzf_link_showroom')){ ?>
-								<a href="<?php echo wp_kses(get_option('pzf_link_showroom')); ?>" <?php echo get_option('pzf_link_newtab_showroom')?'target="_blank"':''; ?>>	
+								<a href="<?php echo get_option('pzf_link_showroom'); ?>" <?php echo get_option('pzf_link_newtab_showroom')?'target="_blank"':''; ?>>	
 									<img alt="Showroom" src="<?php echo PZF_URL.'img/showroom'.get_option('pzf_icon_showroom').'.png'; ?>" />
 								</a>
 							<?php }else{ ?>
@@ -92,7 +92,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_linkggmap')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_linkggmap'); ?>">				
 								<img alt="google map" src="<?php echo PZF_URL.'img/showroom4.png'; ?>" />
 							</a>
 						</div>
@@ -109,7 +109,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="<?php echo wp_kses(get_option('pzf_contact_link')); ?>">				
+							<a href="<?php echo get_option('pzf_contact_link'); ?>">				
 								<img alt="Liên hệ" src="<?php echo PZF_URL.'img/contact.png'; ?>" />
 							</a>
 						</div>
@@ -143,7 +143,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_linkfanpage')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_linkfanpage'); ?>">				
 								<img alt="Fanpage" src="<?php echo PZF_URL.'img/Facebook.png'; ?>" />
 							</a>
 						</div>
@@ -160,7 +160,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_tiktok')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_tiktok'); ?>">				
 								<img alt="tiktok" src="<?php echo PZF_URL.'img/tiktok.png'; ?>" />
 							</a>
 						</div>
@@ -177,7 +177,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_telegram')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_telegram'); ?>">				
 								<img alt="telegram" src="<?php echo PZF_URL.'img/telegram.png'; ?>" />
 							</a>
 						</div>
@@ -194,7 +194,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_instagram')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_instagram'); ?>">				
 								<img  alt="Instagram" src="<?php echo PZF_URL.'img/instagram.png'; ?>" />
 							</a>
 						</div>
@@ -211,7 +211,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo wp_kses(get_option('pzf_youtube')); ?>">				
+							<a target="_blank" href="<?php echo get_option('pzf_youtube'); ?>">				
 								<img alt="youtube" src="<?php echo PZF_URL.'img/youtube.png'; ?>" />
 							</a>
 						</div>
@@ -271,7 +271,7 @@ final class PZF {
 					<?php 
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar-n">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',wp_kses(get_option('pzf_phone'))); ?>">
+							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone')); ?>">
 								<span class="text-phone"><?php echo get_option('pzf_phone'); ?></span>
 							</a>
 						</div>

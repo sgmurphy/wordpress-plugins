@@ -10,6 +10,22 @@
             layout = '',
             computedStyle = getComputedStyle($scope[0]);
 
+        function escapeHTML(str) {
+            var map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;',
+            };
+
+            return str.replace(/[&<>"']/g, function (m) { return map[m]; });
+        }
+
+        if (settings.separator) {
+            settings.separator = escapeHTML(settings.separator);
+        }
+
         var currentDate = new Date().getTime(),
             untilDate = new Date(until).getTime();
 

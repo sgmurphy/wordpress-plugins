@@ -33,7 +33,6 @@
                     startDelay: settings.startDelay,
                     backDelay: settings.backDelay,
                     showCursor: settings.showCursor,
-                    cursorChar: settings.cursorChar,
                     loop: settings.loop
                 });
 

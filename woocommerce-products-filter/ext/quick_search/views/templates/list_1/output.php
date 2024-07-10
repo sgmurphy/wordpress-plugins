@@ -10,10 +10,9 @@ $structure = WOOF_EXT_QUICK_TEXT::parse_template_structure($template_structure);
                 <th class="<?php echo esc_attr($item['class']) ?>"><?php esc_html_e($item['title']) ?>
                     <?php
                     if ($item['key'] == 'price') {
-                       // echo WOOF_EXT_QUICK_TEXT::show_sort_html_by_price();
-						WOOF_EXT_QUICK_TEXT::show_sort_html_by_price_e();
+                        echo WOOF_EXT_QUICK_TEXT::show_sort_html_by_price();
                     } elseif ($item['key'] == 'title') {
-                        WOOF_EXT_QUICK_TEXT::show_sort_html_by_title_e();
+                        echo WOOF_EXT_QUICK_TEXT::show_sort_html_by_title();
                     }
                     ?>
                 </th> 

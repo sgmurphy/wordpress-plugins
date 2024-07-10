@@ -15,12 +15,14 @@ use FormVibes\Classes\Utils;
 
 class BeaverBuilder extends Base {
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object
 	 *
 	 */
 	private static $instance = null;
+	
 	/**
 	 * The forms.
 	 * @var array

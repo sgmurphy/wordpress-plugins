@@ -149,6 +149,7 @@ class Admin_Controller {
 		add_action( 'wp_ajax_cpsw_create_webhook', [ $this, 'create_webhook_action' ] );
 		add_action( 'wp_ajax_cpsw_js_errors', [ $this, 'js_errors' ] );
 		add_action( 'wp_ajax_nopriv_cpsw_js_errors', [ $this, 'js_errors' ] );
+		add_action( 'wp_ajax_dismiss_cpsw_notice', [ $this, 'dismiss_payment_element_notice' ] );
 
 		add_action( 'woocommerce_settings_save_cpsw_api_settings', [ $this, 'check_connection_on_updates' ] );
 		add_filter( 'woocommerce_save_settings_checkout_cpsw_express_checkout', [ $this, 'cpsw_express_checkout_option_updates' ] );
@@ -226,8 +227,10 @@ class Admin_Controller {
 	 */
 	public function initialise_warnings() {
 		// If Stripe checkout is not enabled.
-		if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
-			add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
+		if ( Helper::is_cpsw_settings_page() ) {
+			if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+				add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
+			}
 		}
 
 		// If keys are not set bail.
@@ -262,21 +265,7 @@ class Admin_Controller {
 	 * @since 0.0.1
 	 */
 	public function enqueue_scripts() {
-		$version               = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : CPSW_VERSION;
-		$allow_scripts_methods = apply_filters(
-			'cpsw_allow_admin_scripts_methods',
-			[
-				'cpsw_stripe',
-				'cpsw_alipay',
-				'cpsw_ideal',
-				'cpsw_klarna',
-				'cpsw_sepa',
-				'cpsw_bancontact',
-				'cpsw_p24',
-				'cpsw_wechat',
-				'cpsw_stripe_element',
-			]
-		);
+		$version = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : CPSW_VERSION;
 
 		if ( false !== get_transient( 'cpsw_stripe_sepa_client_secret' ) ) {
 			wp_register_script( 'cpsw-stripe-elements-external', 'https://js.stripe.com/v3/', [], $version, true );
@@ -302,7 +291,7 @@ class Admin_Controller {
 		}
 
 		// Admin enqueue scripts using $_GET to determine scope, nonce verification not required.
-		if ( isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && isset( $_GET['tab'] ) && ( 'cpsw_api_settings' === $_GET['tab'] || isset( $_GET['section'] ) && ( in_array( sanitize_text_field( $_GET['section'] ), $allow_scripts_methods, true ) ) ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( Helper::is_cpsw_settings_page() ) {    
 			wp_register_style( 'cpsw-admin-style', plugins_url( 'assets/css/admin.css', __FILE__ ), [], $version, 'all' );
 			wp_enqueue_style( 'cpsw-admin-style' );
 
@@ -337,7 +326,7 @@ class Admin_Controller {
 						'store_currency'                 => get_woocommerce_currency(),
 						'not_applicable_settings_notice' => sprintf(
 							/* translators: HTML Markup - Link to the documentation. The placeholders %1$s and %2$s are for HTML tags. */
-							esc_html__( 'These settings are not applicable for payment element. To know more %1$sclick here%2$s.', 'checkout-plugins-stripe-woo' ),
+							esc_html__( 'These settings are not applicable for Payment Element. To know more %1$sclick here%2$s.', 'checkout-plugins-stripe-woo' ),
 							'<a href="https://checkoutplugins.com/docs/smarter-way-to-display-payment-methods/" target="_blank">',
 							'</a>'
 						),
@@ -389,6 +378,12 @@ class Admin_Controller {
 				)
 			);
 		}
+
+		// Admin enqueue scripts using $_GET to determine scope, nonce verification not required.
+		if ( isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && isset( $_GET['tab'] ) && ( 'checkout' === $_GET['tab'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_register_style( 'cpsw-checkout-style', plugins_url( 'assets/css/payments-tab.css', __FILE__ ), [], $version, 'all' );
+			wp_enqueue_style( 'cpsw-checkout-style' );
+		}   
 	}
 
 	/**
@@ -446,11 +441,15 @@ class Admin_Controller {
 	 * @return void
 	 */
 	public function stripe_checkout_notice() {
+		$notice_id = 'payment_element_notice';
+		if ( 'no' === get_option( 'cpsw_show_' . $notice_id . '_notice' ) ) {
+			return;
+		}
 
 		$setting_url = esc_url( admin_url( 'admin.php?page=wc-settings&tab=cpsw_api_settings' ) );
 		$message     = sprintf(
 				// Translators: %1$s, %2$s are placeholders for HTML tags.
-			__( 'Experience the convenience of the new Stripe options. Head to your%1$s settings %2$s and choose Payment element option under Element to give it a try.', 'checkout-plugins-stripe-woo' ),
+			__( 'Experience the convenience of the new Stripe options. Head to your%1$s settings %2$s and choose Payment Element option under Element to give it a try.', 'checkout-plugins-stripe-woo' ),
 			'<a href="' . $setting_url . '" class="cpsw-notice-link">',
 			'</a>'
 		);
@@ -461,7 +460,7 @@ class Admin_Controller {
 			'</a>'
 		);
 
-		$output              = '<div class="cpsw-notice cpsw-dismissible-notice notice notice-info is-dismissible">';
+		$output              = '<div id="' . $notice_id . '" class="cpsw-notice cpsw-dismissible-notice notice notice-info is-dismissible">';
 			$output         .= '<div class="cpsw-notice-container">';
 				$output     .= '<div class="cpsw-notice-message">';
 					$output .= '<h3 class="cpsw-notice-heading" style="font-size:15px;">' . __( 'Discover a smarter way to display payment methods!', 'checkout-plugins-stripe-woo' ) . '</h3>';
@@ -472,6 +471,33 @@ class Admin_Controller {
 		$output             .= '</div>';
 
 		echo wp_kses_post( $output );
+	}
+
+	/**
+	 * Ajax callback function triggered when a notice is dismissed.
+	 *
+	 * @since 1.9.1
+	 *
+	 * @return void
+	 */
+	public function dismiss_payment_element_notice() {
+		if ( ! is_admin() ) {
+			return;
+		}
+	
+		if ( ! isset( $_POST['_security'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['_security'] ), 'cpsw_admin_nonce' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid Nonce', 'checkout-plugins-stripe-woo' ) ] );
+			return;
+		}
+
+		// Get the notice ID.
+		$notice_id = isset( $_POST['notice_id'] ) ? sanitize_key( $_POST['notice_id'] ) : '';
+
+		// Update an option to mark notice as dismissed.
+		update_option( 'cpsw_show_' . $notice_id . '_notice', 'no' );
+
+		// Success response.
+		wp_send_json_success( null, 200 );
 	}
 
 	/**
@@ -924,8 +950,8 @@ class Admin_Controller {
 				<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> </label>
 			</th>
 			<td class="form-wc form-wc-<?php echo esc_attr( $value['class'] ); ?>">
-				<fieldset>
-					<div class="cpsw_express_checkout_preview_wrapper">
+				<div class="cpsw_express_checkout_preview_wrapper_section">
+					<fieldset class="cpsw_express_checkout_preview_wrapper">
 						<div class="cpsw_express_checkout_preview"></div>
 						<div id="cpsw-payment-request-custom-button" class="cpsw-payment-request-custom-button-admin">
 							<button lang="auto" id="cpsw-payment-request-custom-button-preview-render" class="cpsw-payment-request-custom-button-render cpsw_express_checkout_button cpsw-express-checkout-button large" role="button" type="submit" style="height: 40px;">
@@ -943,8 +969,12 @@ class Admin_Controller {
 								</div>
 							</button>
 						</div>
-					</div>
-				</fieldset>
+						<div  id="cpsw-default-button">
+							<button lang="auto" id="cpsw-payment-request-default-button-preview-render" class=" cpsw_express_checkout_button cpsw-express-checkout-button large" role="button" type="submit" style="border: unset;">
+							</button>
+						</div>
+					</fieldset>
+				</div>
 				<?php if ( ! empty( $value['desc'] ) ) { ?>
 				<fieldset class="cpsw_express_checkout_preview_description">
 					<div class="notice inline notice-warning cpsw_inline_notice" style="margin: 5px 0 -10px;padding:10px 20px;">
@@ -1265,12 +1295,12 @@ class Admin_Controller {
 				'name'     => __( 'Element', 'checkout-plugins-stripe-woo' ),
 				'type'     => 'select',
 				'options'  => [
-					'payment' => __( 'Payment element', 'checkout-plugins-stripe-woo' ),
-					'card'    => __( 'Card element', 'checkout-plugins-stripe-woo' ),
+					'payment' => __( 'Payment Element', 'checkout-plugins-stripe-woo' ),
+					'card'    => __( 'Card Element', 'checkout-plugins-stripe-woo' ),
 				],
-				'desc'     => __( 'Payment element is recommended for better accessibility', 'checkout-plugins-stripe-woo' ),
+				'desc'     => __( 'Payment Element is recommended for better accessibility', 'checkout-plugins-stripe-woo' ),
 				'id'       => 'cpsw_element_type',
-				'default'  => 'card',
+				'default'  => Helper::default_element_type(),
 				'desc_tip' => true,
 			],
 			'webhook_url'         => [
@@ -2253,6 +2283,7 @@ class Admin_Controller {
 							'custom'  => __( 'Custom', 'checkout-plugins-stripe-woo' ),
 							'classic' => __( 'Classic', 'checkout-plugins-stripe-woo' ),
 						],
+						'default'  => 'classic',
 						'desc_tip' => true,
 					],
 					'checkout_button_position'    => [
@@ -2266,6 +2297,7 @@ class Admin_Controller {
 							'above-checkout' => __( 'Above checkout form', 'checkout-plugins-stripe-woo' ),
 							'above-billing'  => __( 'Above billing details', 'checkout-plugins-stripe-woo' ),
 						],
+						'default'  => 'above-billing',
 						'desc_tip' => true,
 					],
 					'title'                       => [
@@ -2291,7 +2323,7 @@ class Admin_Controller {
 						'type'     => 'number',
 						'class'    => 'cpsw_checkout_options',
 						'id'       => 'cpsw_express_checkout_button_width',
-						'desc'     => __( 'Select width for button (in px). Default width 100%', 'checkout-plugins-stripe-woo' ),
+						'desc'     => __( 'Select width for button (in px). Minimum width is 120px. Leave empty for 100% width.', 'checkout-plugins-stripe-woo' ),
 						'value'    => $values['express_checkout_button_width'],
 						'desc_tip' => true,
 					],
@@ -2300,7 +2332,7 @@ class Admin_Controller {
 						'type'     => 'select',
 						'class'    => 'cpsw_checkout_options',
 						'id'       => 'cpsw_express_checkout_button_alignment',
-						'desc'     => __( 'This setting will align title, tagline and button based on selection on Checkout page.', 'checkout-plugins-stripe-woo' ),
+						'desc'     => __( 'This setting will align title, tagline and button based on selection on Checkout page. This is only applicable for custom layout.', 'checkout-plugins-stripe-woo' ),
 						'value'    => $values['express_checkout_button_alignment'],
 						'options'  => [
 							'left'   => __( 'Left', 'checkout-plugins-stripe-woo' ),

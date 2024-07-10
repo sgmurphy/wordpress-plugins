@@ -4,34 +4,31 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 if ( !class_exists( 'LSOW_Setup' ) ) {
-    class LSOW_Setup
-    {
-        public function __construct()
-        {
-            add_filter( 'siteorigin_widgets_widget_folders', array( $this, 'add_widgets_collection' ) );
-            add_filter( 'siteorigin_widgets_field_class_prefixes', array( $this, 'custom_fields_class_prefixes' ) );
-            add_filter( 'siteorigin_widgets_field_class_paths', array( $this, 'custom_fields_class_paths' ) );
-            add_filter( 'siteorigin_panels_widget_dialog_tabs', array( $this, 'add_widget_tabs' ), 20 );
-            add_filter( 'siteorigin_panels_widgets', array( $this, 'add_bundle_groups' ), 11 );
-            add_filter( 'siteorigin_panels_row_style_fields', array( $this, 'row_style_fields' ) );
+    class LSOW_Setup {
+        public function __construct() {
+            add_filter( 'siteorigin_widgets_widget_folders', array($this, 'add_widgets_collection') );
+            add_filter( 'siteorigin_widgets_field_class_prefixes', array($this, 'custom_fields_class_prefixes') );
+            add_filter( 'siteorigin_widgets_field_class_paths', array($this, 'custom_fields_class_paths') );
+            add_filter( 'siteorigin_panels_widget_dialog_tabs', array($this, 'add_widget_tabs'), 20 );
+            add_filter( 'siteorigin_panels_widgets', array($this, 'add_bundle_groups'), 11 );
+            add_filter( 'siteorigin_panels_row_style_fields', array($this, 'row_style_fields') );
             add_filter(
                 'siteorigin_panels_row_style_attributes',
-                array( $this, 'row_style_attributes' ),
+                array($this, 'row_style_attributes'),
                 10,
                 2
             );
             // Main filter to add any custom CSS.
             add_filter(
                 'siteorigin_panels_css_object',
-                array( $this, 'filter_css_object' ),
+                array($this, 'filter_css_object'),
                 10,
                 3
             );
-            add_filter( 'siteorigin_widgets_default_active', array( $this, 'activate_plugin_widgets' ) );
+            add_filter( 'siteorigin_widgets_default_active', array($this, 'activate_plugin_widgets') );
         }
-        
-        function row_style_fields( $fields )
-        {
+
+        function row_style_fields( $fields ) {
             $fields['top_padding'] = array(
                 'name'        => __( 'Top Padding (Deprecated)', 'livemesh-so-widgets' ),
                 'type'        => 'measurement',
@@ -85,31 +82,25 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
             );
             return $fields;
         }
-        
-        function row_style_attributes( $attributes, $args )
-        {
-            
-            if ( !empty($args['lsow_dark_bg']) ) {
-                if ( empty($attributes['class']) ) {
+
+        function row_style_attributes( $attributes, $args ) {
+            if ( !empty( $args['lsow_dark_bg'] ) ) {
+                if ( empty( $attributes['class'] ) ) {
                     $attributes['class'] = array();
                 }
                 $attributes['class'][] = 'lsow-dark-bg';
             }
-            
-            
-            if ( !empty($args['top_padding']) || !empty($args['bottom_padding']) || !empty($args['tablet_top_padding']) || !empty($args['tablet_bottom_padding']) || !empty($args['mobile_top_padding']) || !empty($args['mobile_bottom_padding']) ) {
-                if ( empty($attributes['class']) ) {
+            if ( !empty( $args['top_padding'] ) || !empty( $args['bottom_padding'] ) || !empty( $args['tablet_top_padding'] ) || !empty( $args['tablet_bottom_padding'] ) || !empty( $args['mobile_top_padding'] ) || !empty( $args['mobile_bottom_padding'] ) ) {
+                if ( empty( $attributes['class'] ) ) {
                     $attributes['class'] = array();
                 }
                 $attributes['class'][] = 'lsow-row';
                 // force creation of a row wrapper so that the styles can be applied.
             }
-            
             return $attributes;
         }
-        
-        function filter_css_object( $css, $panels_data, $post_id )
-        {
+
+        function filter_css_object( $css, $panels_data, $post_id ) {
             foreach ( $panels_data['grids'] as $gi => $grid ) {
                 $grid_id = intval( $gi );
                 $top_padding = ( isset( $grid['style']['top_padding'] ) ? $grid['style']['top_padding'] : null );
@@ -121,8 +112,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-top' => $top_padding,
-                    ),
+                            'padding-top' => $top_padding,
+                        ),
                         1920
                     );
                 }
@@ -132,8 +123,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-bottom' => $bottom_padding,
-                    ),
+                            'padding-bottom' => $bottom_padding,
+                        ),
                         1920
                     );
                 }
@@ -146,8 +137,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-top' => $top_padding,
-                    ),
+                            'padding-top' => $top_padding,
+                        ),
                         960
                     );
                 }
@@ -157,8 +148,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-bottom' => $bottom_padding,
-                    ),
+                            'padding-bottom' => $bottom_padding,
+                        ),
                         960
                     );
                 }
@@ -171,8 +162,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-top' => $top_padding,
-                    ),
+                            'padding-top' => $top_padding,
+                        ),
                         478
                     );
                 }
@@ -182,58 +173,52 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
                         $grid_id,
                         ' .lsow-row',
                         array(
-                        'padding-bottom' => $bottom_padding,
-                    ),
+                            'padding-bottom' => $bottom_padding,
+                        ),
                         478
                     );
                 }
             }
             return $css;
         }
-        
-        function add_widgets_collection( $folders )
-        {
+
+        function add_widgets_collection( $folders ) {
             $folders[] = LSOW_PLUGIN_DIR . 'includes/widgets/';
             return $folders;
         }
-        
+
         // Placing all widgets under the 'SiteOrigin Widgets' Tab
-        function add_widget_tabs( $tabs )
-        {
+        function add_widget_tabs( $tabs ) {
             $tabs[] = array(
                 'title'  => __( 'Livemesh SiteOrigin Widgets', 'livemesh-so-widgets' ),
                 'filter' => array(
-                'groups' => array( 'lsow-widgets' ),
-            ),
+                    'groups' => array('lsow-widgets'),
+                ),
             );
             return $tabs;
         }
-        
+
         // Adding group for all Widgets
-        function add_bundle_groups( $widgets )
-        {
+        function add_bundle_groups( $widgets ) {
             foreach ( $widgets as $class => &$widget ) {
                 if ( preg_match( '/LSOW_(.*)_Widget/', $class, $matches ) ) {
-                    $widget['groups'] = array( 'lsow-widgets' );
+                    $widget['groups'] = array('lsow-widgets');
                 }
             }
             return $widgets;
         }
-        
-        function custom_fields_class_prefixes( $class_prefixes )
-        {
+
+        function custom_fields_class_prefixes( $class_prefixes ) {
             $class_prefixes[] = 'LSOW_Custom_Field_';
             return $class_prefixes;
         }
-        
-        function custom_fields_class_paths( $class_paths )
-        {
+
+        function custom_fields_class_paths( $class_paths ) {
             $class_paths[] = LSOW_PLUGIN_DIR . 'includes/fields/';
             return $class_paths;
         }
-        
-        function activate_plugin_widgets( $default_widgets )
-        {
+
+        function activate_plugin_widgets( $default_widgets ) {
             $auto_activate = lsow_get_option( 'lsow_autoload_widgets', false );
             if ( !$auto_activate ) {
                 return $default_widgets;
@@ -261,7 +246,8 @@ if ( !class_exists( 'LSOW_Setup' ) ) {
             );
             return wp_parse_args( $plugin_widgets, $default_widgets );
         }
-    
+
     }
+
 }
 new LSOW_Setup();

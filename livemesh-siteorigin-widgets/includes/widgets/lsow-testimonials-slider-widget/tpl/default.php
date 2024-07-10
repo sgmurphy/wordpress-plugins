@@ -22,7 +22,7 @@ $slider_options = [
 
 $slider_options = apply_filters('lsow_testimonials_slider_options', $slider_options, $settings);
 
-$output = '<div class="lsow-testimonials-slider lsow-flexslider lsow-container" data-settings=\'' . wp_json_encode($slider_options) . '\'>';
+$output = '<div class="lsow-testimonials-slider lsow-flexslider lsow-container" data-settings=\'' . esc_attr(wp_json_encode($slider_options)) . '\'>';
 
 $output .= '<div class="lsow-slides">';
 

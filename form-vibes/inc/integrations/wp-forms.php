@@ -13,6 +13,7 @@ use FormVibes\Integrations\Base;
 
 class WpForms extends Base {
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance
@@ -61,6 +62,8 @@ class WpForms extends Base {
 	 * @since 1.4.4
 	 * @return void
 	 */
+ 
+
 	public function __construct() {
 		$this->plugin_name = 'wp-forms';
 

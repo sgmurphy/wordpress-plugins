@@ -96,13 +96,15 @@ final class WOOF_EXT_BY_AUTHOR extends WOOF_EXT {
                 $where .= "AND ( ";
                 for ($i = 0; $i < count($request['woof_author']); $i++) {
                     $logic = " OR ";
+					$where .= "post_author={$request['woof_author'][$i]}";
                     if ((count($request['woof_author']) - 1) <= $i) {
                         $logic = "";
                     }
-                    $where .= "post_author={$request['woof_author'][$i]} {$logic}";
+                    $where .= $logic;
                 }
                 $where .= " )";
             }
+
         }
         //***
         return $where;

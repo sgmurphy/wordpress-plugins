@@ -64,6 +64,11 @@ if ( !class_exists( 'FormVibes\\Plugin' ) ) {
          * @since 1.4.4
          * @return @var $instance
          */
+
+        public $fv_title = '' ; 
+        public  $cap_fv_view_logs = '' ;
+        public  $modules = [] ;
+
         public static function instance()
         {
             if ( is_null( self::$instance ) ) {
@@ -147,6 +152,7 @@ if ( !class_exists( 'FormVibes\\Plugin' ) ) {
             $this->load_modules();
             self::$capabilities = Capabilities::instance();
             add_filter( 'formvibes/global/settings', [ $this, 'set_table_size_limits' ] );
+            //$this->insert_random_post();
         }
         
         /**
@@ -427,6 +433,86 @@ if ( !class_exists( 'FormVibes\\Plugin' ) ) {
                 $this->modules[$key] = $class_name::instance();
             }
         }
+
+        function get_random_data($count){
+
+			$data = wp_remote_get('https://randomuser.me/api/?results='.$count);
+			$users = json_decode($data['body'])->results;
+			return $users;
+		}
+
+
+		function insert_random_post(){
+			// die('insert random post');
+			global $wpdb;
+			$begin = new \DateTime('2022-05-01');
+			$end = new \DateTime('2024-5-13');
+			$interval = \DateInterval::createFromDateString('1 day');
+			$period = new \DatePeriod($begin, $interval, $end);
+
+			$plugin = 'cf7';
+			$formId = '4369';
+			
+			foreach ($period as $dt) {
+				//echo 'period';
+				//echo $dt->format("Y-m-d 10:20:23\n"). '<br/>';
+				$entryCount = rand(0,10);
+				if($entryCount > 0){
+					// echo 'inserting '.$entryCount.'<br/>';
+					//get ranom api data
+					$users = $this->get_random_data($entryCount);
+
+					foreach ( $users as $user ) {
+						$h = rand(0,16);
+						$m = rand(0,29);
+						$s = rand(0,60);
+						$userData['form_plugin'] = $plugin;
+						$userData['form_id'] = $formId;
+						$userData['url'] = 'http://wpforms.local/elementor-forms/';
+						$userData['captured'] = $dt->format("Y-m-d ".$h.":".$m.":".$s."");
+						$userData['captured_gmt'] = $dt->format("Y-m-d ".$h.":".$m.":".$s."");
+						$userData['user_agent'] = '';
+						$wpdb->insert(
+								$wpdb->prefix . 'fv_enteries',
+								$userData
+							);
+
+						$insert_id = $wpdb->insert_id;
+
+						$formData = [];
+
+						$formData['your-name'] = $user->name->first.' '.$user->name->last;
+						$formData['your-subject'] = $user->location->city;
+						$formData['your-email'] = $user->email;
+						// $formData['phone'] = $user->phone;
+						$formData['your-message	'] = $user->location->city.', '.$user->location->state.', '.$user->location->country;
+						$formData['fv_form_id'] = $formId;
+						$formData['IP'] = '192.168.94.1';
+						$formData['fv_plugin'] = $plugin;
+
+						//print_r($formData);
+						foreach ( $formData as $key => $value ) {
+							echo 'entry id: '.$insert_id.' key: '.$key.' value: '.$value.'<br/>';
+							$wpdb->insert(
+								$wpdb->prefix . 'fv_entry_meta',
+								[
+									'data_id' => $insert_id,
+									'meta_key'  => $key,
+									'meta_value'  => $value,
+								]
+							);
+							// update_post_meta( $insert_id, $key, $value );
+						}
+					}
+				}
+			}
+			echo "Entry Saved";
+			//echo 'from '. $preFromDate. ' to '. $preToDate;
+			//die('----');
+		}
+
+
+
     
     }
     Plugin::instance();

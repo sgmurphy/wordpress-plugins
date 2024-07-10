@@ -32,7 +32,14 @@ else{
 	$form_list = vsz_cf7_get_the_form_list();
 	$url = '';
 	$fid = '';
+	//Define nonce values here
+	$entry_nonce = wp_create_nonce('import-cf7-save-entry-nonce');
 
+	if(!wp_verify_nonce($entry_nonce, 'import-cf7-save-entry-nonce' )){
+		echo esc_html('You have no permission to access this page');
+		return;
+	}
+	
 	//Get selected form Id value
 	if(isset($_GET['import_cf7_id']) && !empty($_GET['import_cf7_id'])){
 
@@ -52,8 +59,7 @@ else{
 	$msg = '';
 	/************* Save CSV file related key names ******************/
 
-	//Define nonce values here
-	$entry_nonce = wp_create_nonce('import-cf7-save-entry-nonce');
+
 
 	$arr_form_match_key = '';
 	//Get form related option values

@@ -11,7 +11,7 @@ $carousel_settings = $settings['carousel_settings'];
 
 if (!empty($settings['elements'])) :
 
-    $output = '<div id="lsow-carousel-' . $this->id . '" class="lsow-carousel lsow-container" data-settings=\'' . wp_json_encode($carousel_settings) . '\'>';
+    $output = '<div id="lsow-carousel-' . esc_attr($this->id) . '" class="lsow-carousel lsow-container" data-settings=\'' . esc_attr(wp_json_encode($carousel_settings)) . '\'>';
 
     foreach ($settings['elements'] as $element) :
 

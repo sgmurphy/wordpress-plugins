@@ -2,8 +2,8 @@
 Contributors: vsourz1td
 Tags: contact form 7 db, contact form db, advanced cf7 db, contact form 7 database, contact form db, contact form 7, save form data, save contact form, save cf7, database, cf7db, save-contact-form, Save-Forms-Data, import-cf7, export-contact-data, view-cf7-entry
 Requires at least: 4.0
-Tested up to: 6.5.3
-Stable tag: 2.0.2
+Tested up to: 6.5.5
+Stable tag: 2.0.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -192,6 +192,14 @@ return $contact_form_ids;
 
 
 == Changelog ==
+
+= 2.0.4 =
+* We have upgraded with Security patches
+* Minor bug fixing when changing language 
+
+= 2.0.3 =
+* We have upgraded with Security patches
+* Minor bug fixing when changing language 
 
 = 2.0.2 =
 * Compatible with latest version wordpress 6.5.3

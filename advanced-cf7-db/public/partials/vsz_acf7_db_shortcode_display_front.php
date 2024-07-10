@@ -32,6 +32,13 @@ $search = str_replace('"', '\\&quot;', $search);
 $search = addslashes(addslashes(sanitize_text_field($search)));
 
 $formArr = explode(",", $formIds);
+$nonce = wp_create_nonce('vsz-cf7-front-nonce');
+
+if(!wp_verify_nonce( $nonce, 'vsz-cf7-front-nonce')){
+	echo esc_html('You have no permission to access this page');
+	return;
+}
+
 
 foreach($formArr as $key=>$val){
 	
@@ -186,7 +193,7 @@ if(!empty($formArr)){
 				//Add filter for ordering in entry
 				$cf7d_entry_order_by = (string) apply_filters('vsz_cf7_entry_order_by', '`data_id` DESC');
 				$cf7d_entry_order_by = sanitize_sql_orderby($cf7d_entry_order_by);
-
+				
 				$items_per_page = (int)apply_filters('vsz_cf7_entry_per_page', (!empty($posts_per_page) ? $posts_per_page : 20));
 
 				$page = isset($_POST['cpage']) && !empty($_POST['cpage']) ? abs((int)sanitize_text_field($_POST['cpage'])) : 1;
@@ -212,8 +219,8 @@ if(!empty($formArr)){
 
 					if($start_date_str && $end_date_str){
 						//Setup date parameter value in query
-						$date_query = $wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date_str, $end_date_str);
-						$rs_date = $wpdb->get_results($date_query);
+						$date_query = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `name` = 'submit_time' AND value between %s and %s GROUP BY `data_id` ORDER BY `data_id` DESC", $fid, $start_date_str, $end_date_str));
+						$rs_date = $date_query;
 
 						if(!empty($rs_date)){
 							foreach($rs_date as $objdata_id){
@@ -231,37 +238,36 @@ if(!empty($formArr)){
 						}
 					}
 				}
-
+				
 				$query = "";
 				$arr_total = array();
 				if(!empty($search) && !empty($start_date) && !empty($end_date) && !empty($data_ids)){
-
-					$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' AND data_id IN ({$data_ids}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search, $offset, $items_per_page);
-
-					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' AND data_id IN ({$data_ids}) GROUP BY `data_id`", $fid, $search));
+					
+					$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s LIMIT %d,%d) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
+					
+					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `value` LIKE %s AND FIND_IN_SET(data_id, %s) GROUP BY `data_id`", $fid, '%' . $wpdb->esc_like($search) . '%', $data_ids));
 
 				}else if(!empty($search) && empty($start_date) && empty($end_date)){
-
-					$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $search, $offset, $items_per_page);
-
-					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE `cf7_id` = %d AND `value` LIKE '%%"."%s"."%%' GROUP BY `data_id`", $fid, $search));
+					
+					$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND `value` LIKE %s GROUP BY `data_id` ORDER BY %s LIMIT %d,%d) temp_table) ORDER BY %s", $fid, $fid, '%' . $wpdb->esc_like($search) . '%', $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
+					
+					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND `value` LIKE %s GROUP BY `data_id`", $fid, '%' . $wpdb->esc_like($search) . '%'));
 
 				}else if(empty($search) && !empty($start_date) && !empty($end_date) && !empty($data_ids)){
+					
+					$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d AND FIND_IN_SET(data_id, %s) GROUP BY `data_id` ORDER BY %s LIMIT %d,%d) temp_table) ORDER BY %s", $fid, $fid, $data_ids, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
 
-					$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d AND data_id IN ({$data_ids}) GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $offset, $items_per_page);
-
-					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN ({$data_ids}) GROUP BY `data_id`", $fid));
+					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND FIND_IN_SET(data_id, %s) GROUP BY `data_id`", $fid, $data_ids));
 
 				}else if(empty($search) && empty($start_date) && empty($end_date)){
 
-					$query = $wpdb->prepare("SELECT * FROM `{$table_name}` WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM `{$table_name}` WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY {$cf7d_entry_order_by} LIMIT %d,%d) temp_table) ORDER BY {$cf7d_entry_order_by}", $fid, $fid, $offset, $items_per_page);
+					$query = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d AND data_id IN(SELECT * FROM (SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE 1 = 1 AND `cf7_id` = %d GROUP BY `data_id` ORDER BY %s LIMIT %d,%d) temp_table) ORDER BY %s", $fid, $fid, $cf7d_entry_order_by, $offset, $items_per_page, $cf7d_entry_order_by));
 
-					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM `{$table_name}` WHERE `cf7_id` = %d  GROUP BY `data_id`", $fid));
+					$arr_total = $wpdb->get_results($wpdb->prepare("SELECT data_id FROM {$wpdb->prefix}cf7_vdata_entry WHERE `cf7_id` = %d  GROUP BY `data_id`", $fid));
 
 				}
-
 				//Execute query here
-				$data = $wpdb->get_results($query);
+				$data = $query;
 
 				//Get entry wise all fields information
 				$data_sorted = vsz_cf7_sortdata($data);

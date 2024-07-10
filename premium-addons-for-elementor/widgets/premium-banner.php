@@ -1423,14 +1423,9 @@ class Premium_Banner extends Widget_Base {
 
 		if ( ! empty( $settings['premium_banner_image']['url'] ) ) {
 
-			$this->add_render_attribute(
-				'image',
-				array(
-					'src'   => esc_url( $settings['premium_banner_image']['url'] ),
-					'alt'   => Control_Media::get_image_alt( $settings['premium_banner_image'] ),
-					'title' => Control_Media::get_image_title( $settings['premium_banner_image'] ),
-				)
-			);
+            $image_id = apply_filters( 'wpml_object_id', $settings['premium_banner_image']['id'], 'attachment' );
+
+            $settings['premium_banner_image']['id'] = $image_id;
 
 			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'premium_banner_image' );
 

@@ -21,7 +21,7 @@ if ($settings['style'] == 'style1'):
 
 endif;
 
-$output = '<div class="lsow-team-members lsow-' . $settings['style'] . ' ' . $container_style . '">';
+$output = '<div class="lsow-team-members lsow-' . esc_attr($settings['style']) . ' ' . $container_style . '">';
 
 foreach ($settings['team_members'] as $team_member):
 

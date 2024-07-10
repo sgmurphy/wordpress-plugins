@@ -77,7 +77,7 @@ function maspik_validate_formidable_tel($errors, $posted_field, $posted_value, $
     $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
 
   	if(!$valid){
-        efas_add_to_log($type = "tel","Phone number $field_value not feet the given format ($reason)", $_POST, "Formidable");
+        efas_add_to_log($type = "tel", $reason, $_POST, "Formidable");
         $errors[ 'field'. $posted_field->id ] = cfas_get_error_text($message);  
     } 
 

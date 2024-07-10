@@ -7,7 +7,7 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  */
 
 function auxin_get_recent_portfolios_tiles_carousel_master_array( $master_array ) {

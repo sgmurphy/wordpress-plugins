@@ -160,7 +160,7 @@
             // Events bindings
             $(window).resize( function (){
                 WPPopups.checkPopupSize($popup);
-                WPPopups.centerPopup($popup, true);
+                WPPopups.centerPopup($popup);
             });
             $popup.find('input').on('change', function (){
                 WPPopups.checkPopupSize($popup);
@@ -448,13 +448,18 @@
                 $bg	 	= $('#spu-bg-' + $id);
 
             // don't do anything if box is undergoing an animation or already visible
-            if( $popup.is( ":animated" ) || $popup.is( ":visible" ) ) {
+            if(  $popup.is( ":visible" ) ) {
                 return false;
             }
 
             // don't do anything if popup has any cookie created
             if( !force && WPPopups.hasCookies($popup) ) {
                 return false;
+            }
+            // if has gf, make it visible to properly center
+            const gf =  $popup.find('.gform_wrapper');
+            if( gf ) {
+                gf.show();
             }
             // Hook before the popup it's shown
             window.wp.hooks.doAction( 'wppopups_before_show_popup', $popup );
@@ -703,15 +708,23 @@
             var iframe = $('.spu-box iframe');
             if (iframe && iframe.length) {
                 iframe.each(function () {
-                    const iframeSrc = $(this).attr('src');
-                    if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {
-                        // do nothing
-                    } else {
-                        $(this).attr('spusrc', iframeSrc);
-                        $(this).attr('src', 'https://#');
-                    }
-
+                    WPPopups.initSources($(this));
                 });
+            }
+            var video = $('.spu-box video');
+            if (video && video.length) {
+                video.each(function () {
+                    WPPopups.initSources($(this));
+                });
+            }
+        },
+        initSources: function (el){
+            const iframeSrc = el.attr('src');
+            if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {
+                // do nothing
+            } else {
+                el.attr('spusrc', iframeSrc);
+                el.attr('src', 'https://#');
             }
         },
         /**
@@ -724,27 +737,35 @@
             const iframe = popup.find('iframe');
             if( iframe && iframe.length ){
                 iframe.each(function () {
-                	if( show ) {
-                        if( $(this).attr('spusrc') ) {
-                            $(this).attr('src', $(this).attr('spusrc'));
-                            $(this).css("width", "");
-                            $(this).css("height", "");
-                        }
-					} else {
-
-                        const iframeSrc = $(this).attr('src');
-                        if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {
-                            // do nothing
-                        } else {
-                            // destroy videos so they stop playing
-                            $(this).attr('src','https://#');
-                        }
-
-					}
-
+                    WPPopups.toggleSource($(this), show);
+                });
+            }
+            const video = popup.find('video');
+            if( video && video.length ){
+                video.each(function () {
+                    WPPopups.toggleSource($(this), show);
                 });
             }
 		},
+        toggleSource: function (el,show) {
+            if( show ) {
+                if( el.attr('spusrc') ) {
+                    el.attr('src', el.attr('spusrc'));
+                    el.css("width", "");
+                    el.css("height", "");
+                }
+            } else {
+
+                const iframeSrc = el.attr('src');
+                if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {
+                    // do nothing
+                } else {
+                    // destroy videos so they stop playing
+                    el.attr('src','https://#');
+                }
+
+            }
+        },
         /**
 		 * remove paddings and margins from first and last items inside popups
 		 * so it looks even with the given padding

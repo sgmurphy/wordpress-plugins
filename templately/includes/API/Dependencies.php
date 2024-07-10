@@ -18,17 +18,19 @@ class Dependencies extends API {
 
 	public function permission_check( WP_REST_Request $request ) {
 		$this->request = $request;
-		$_route = $request->get_route();
+		// $_route = $request->get_route();
 
-		if( $_route === '/templately/v1/dependencies/install' && ! current_user_can( 'install_plugins' ) ) {
-			return $this->error('invalid_permission', __( 'Sorry, you do not have permission to install a plugin.', 'templately' ), 'dependencies/install', 403 );
-		}
+		// if( $_route === '/templately/v1/dependencies/install' && ! Helper::current_user_can( 'install_plugins' ) ) {
+		// 	return Helper::error('invalid_permission', __( 'Sorry, you do not have permission to install a plugin.', 'templately' ), 'dependencies/install', 403 );
+		// }
 
 		return true;
 	}
 
 	public function register_routes() {
 		$this->get( $this->endpoint, [ $this, 'get_dependencies' ] );
+		$this->get( $this->endpoint  . '/plugins', [ $this, 'get_plugins' ] );
+		$this->get( $this->endpoint  . '/themes', [ $this, 'get_themes' ] );
 		$this->post( $this->endpoint . '/check', [$this, 'check_dependencies'] );
 		$this->post( $this->endpoint . '/install', [$this, 'install_dependencies'] );
 	}
@@ -131,6 +133,110 @@ class Dependencies extends API {
 				400
 			);
 		}
-		return Installer::get_instance()->install( $requirements );
+		$installed = Installer::get_instance()->install( $requirements );
+		if(empty($installed['success'])){
+			return $this->error($installed['code'], $installed['message'], 'dependencies/install', 403 );
+		}
+		return $installed;
 	}
+
+	public function get_plugins() {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		$plugins = array();
+
+		foreach ( get_plugins() as $file => $data ) {
+			// if ( is_wp_error( $this->check_read_permission( $file ) ) ) {
+			// 	continue;
+			// }
+
+			$data = array(
+				'plugin'       => substr( $file, 0, - 4 ),
+				'status'       => $this->get_plugin_status( $file ),
+				'name'         => $data['Name'],
+				'plugin_uri'   => $data['PluginURI'],
+				'author'       => $data['Author'],
+				'author_uri'   => $data['AuthorURI'],
+				'description'  => array(
+					'raw'      => $data['Description'],
+					'rendered' => $data['Description'],
+				),
+				'version'      => $data['Version'],
+				'network_only' => $data['Network'],
+				'requires_wp'  => $data['RequiresWP'],
+				'requires_php' => $data['RequiresPHP'],
+				'textdomain'   => $data['TextDomain'],
+			);
+
+			$plugins[] = $data;
+		}
+
+		return new \WP_REST_Response( $plugins );
+	}
+
+	public function get_themes() {
+		$themes = array();
+
+		$active_themes = wp_get_themes();
+		$current_theme = wp_get_theme();
+
+		foreach ( $active_themes as $theme_name => $theme ) {
+			$data = array(
+				'status'     => $theme->get_stylesheet() === $current_theme->get_stylesheet() ? 'active' : 'inactive',
+				'template'   => $theme->get_template(),
+				'stylesheet' => $theme->get_stylesheet(),
+			);
+
+
+			$plain_field_mappings = array(
+				'requires_php' => 'RequiresPHP',
+				'requires_wp'  => 'RequiresWP',
+				'textdomain'   => 'TextDomain',
+				'version'      => 'Version',
+			);
+
+			foreach ( $plain_field_mappings as $field => $header ) {
+				$data[ $field ] = $theme->get( $header );
+			}
+
+			$rich_field_mappings = array(
+				'author'      => 'Author',
+				'author_uri'  => 'AuthorURI',
+				'description' => 'Description',
+				'name'        => 'Name',
+				'tags'        => 'Tags',
+				'theme_uri'   => 'ThemeURI',
+			);
+
+			foreach ( $rich_field_mappings as $field => $header ) {
+				$data[ $field ]['raw'] = $theme->display( $header, false, true );
+				$data[ $field ]['rendered'] = $theme->display( $header );
+			}
+
+			$themes[] = $data;
+		}
+
+		return new \WP_REST_Response( $themes );
+	}
+
+	/**
+	 * Get's the activation status for a plugin.
+	 *
+	 * @since 5.5.0
+	 *
+	 * @param string $plugin The plugin file to check.
+	 * @return string Either 'active' or 'inactive'.
+	 */
+	protected function get_plugin_status( $plugin ) {
+		if ( is_plugin_active_for_network( $plugin ) ) {
+			return 'active';
+		}
+
+		if ( is_plugin_active( $plugin ) ) {
+			return 'active';
+		}
+
+		return 'inactive';
+	}
+
 }

@@ -24,8 +24,6 @@ if(!current_user_can('upload_files') ){
 }
 
 
-
-
 //Verify nonce values
 $nonceEntryCheck = sanitize_text_field($_POST['wp_entry_nonce']);
 if(!wp_verify_nonce( $nonceEntryCheck, 'import-cf7-save-entry-nonce')){
@@ -59,7 +57,6 @@ if(isset($_POST['sheet_date_format']) && !empty($_POST['sheet_date_format'])){
 }
 
 // Start Importing sheet over here
-
 if(isset($_POST['submit']) && isset($_FILES['importFormList']) && !empty($_FILES['importFormList']['name']) && empty( $vsz_cf7_csv_upload_error->errors )){
 
 	//////////////////////////////////// SAVE FILE ////////////////////////////////////////
@@ -74,12 +71,23 @@ if(isset($_POST['submit']) && isset($_FILES['importFormList']) && !empty($_FILES
 	if(in_array($file_ext,$allowed_file_types)){
 		//upload new file in '/csv/' directory
 		$newfilename = "import-cf7-form-list-". date('Ymdhis') . $file_ext;
-		//move new import csv file in upload folder
-		if(move_uploaded_file($_FILES["importFormList"]["tmp_name"], dirname(dirname(__FILE__))."/csv/".$newfilename)){
+		
+		// 2.0.4 update start
+		$upload = wp_upload_bits($newfilename, null, file_get_contents($_FILES["importFormList"]["tmp_name"])); // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.WP.AlternativeFunctions.file_system_read_file_get_contents
+		
+		require_once(ABSPATH . '/wp-admin/includes/file.php');
+		WP_Filesystem();
+		global $wp_filesystem;
+
+		//if(move_uploaded_file($_FILES["importFormList"]["tmp_name"], dirname(dirname(__FILE__))."/csv/".$newfilename)){
+		if($wp_filesystem->move($upload['file'], dirname(dirname(__FILE__))."/csv/".$newfilename)) {
+			// 2.0.4 update end
+
 			//Get moved file path
 			$csv_file =  dirname(dirname(__FILE__))."/csv/".$newfilename;
 			//Check file is exist or not and open in read mode
-			if (($handle = fopen($csv_file, "r")) !== FALSE){
+
+			if (($handle = fopen($csv_file, "r")) !== FALSE){ // @codingStandardsIgnoreLine.
 
 				//Get Header details from CSV sheet
 				$arrHeader = fgetcsv($handle);
@@ -203,7 +211,7 @@ if(isset($_POST['submit']) && isset($_FILES['importFormList']) && !empty($_FILES
 
 								//Insert current form submission time in database
 								$time = date('Y-m-d H:i:s');
-								$wpdb->query($wpdb->prepare("INSERT INTO {$data_table_name}(`created`) VALUES (%s)", $time));
+								$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata(`created`) VALUES (%s)", $time));
 								//Get last inserted id
 								$data_id = (int)$wpdb->insert_id;
 
@@ -226,7 +234,7 @@ if(isset($_POST['submit']) && isset($_FILES['importFormList']) && !empty($_FILES
 											//It is prevent JS injection
 											$v = sanitize_textarea_field($v);
 											//$v = htmlspecialchars($v);
-											$wpdb->query($wpdb->prepare("INSERT INTO {$data_entry_table_name}(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $data_id, $k, $v));
+											$wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}cf7_vdata_entry(`cf7_id`, `data_id`, `name`, `value`) VALUES (%d,%d,%s,%s)", $fid, $data_id, $k, $v));
 										}
 									}//Close foreach
 									$new_csv[] = 'success';
@@ -282,7 +290,7 @@ if(is_wp_error($vsz_cf7_csv_upload_error)){
 if(count($error_csv) >= 1){
 
 	$error_file_name = "upload_error".date("Y-m-d H:i:s:u").".csv";
-	$myfile = fopen(dirname(dirname(__FILE__))."/csv/".$error_file_name, 'w') or
+	$myfile = fopen(dirname(dirname(__FILE__))."/csv/".$error_file_name, 'w') or // @codingStandardsIgnoreLine
 		die("<div class='notice error is-dismissible'><p>Unable to open file!</p></div>");
 
 	array_unshift($error_csv,$header);
@@ -290,7 +298,7 @@ if(count($error_csv) >= 1){
 	foreach ($error_csv as $fields){
 		fputcsv($myfile, $fields,',');
 	}
-	fclose($myfile);
+	fclose($myfile); // @codingStandardsIgnoreLine
 
 	$fileNamePath = plugin_dir_url(dirname( __FILE__)).'csv/'.$error_file_name;
 

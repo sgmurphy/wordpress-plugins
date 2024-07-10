@@ -226,7 +226,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("Every good developer should turn on debugging before getting started on a new plugin or theme. In fact, the WordPress Codex 'highly recommends' that developers use WP_DEBUG. <br /><br />Unfortunately, many developers forget the debug mode, even when the website is live. Showing debug logs in the frontend will let hackers know a lot about your WordPress website.", 'hide-my-wp'),
                 'solution' => __("Disable WP_DEBUG for live websites in wp-config.php <code>define('WP_DEBUG', false);</code>", 'hide-my-wp'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixConfig('WP_DEBUG',false);",
             ),
             'checkDBDebug' => array(
                 'name' => esc_html__('DB Debug Mode', 'hide-my-wp'),
@@ -244,7 +244,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("Every good developer should turn on debugging before getting started on a new plugin or theme. In fact, the WordPress Codex 'highly recommends' that developers use SCRIPT_DEBUG. Unfortunately, many developers forget the debug mode even when the website is live. Showing debug logs in the frontend will let hackers know a lot about your WordPress website.", 'hide-my-wp'),
                 'solution' => __("Disable SCRIPT_DEBUG for live websites in wp-config.php <code>define('SCRIPT_DEBUG', false);</code>", 'hide-my-wp'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixConfig('SCRIPT_DEBUG',false);",
             ),
             'checkDisplayErrors' => array(
                 'name' => esc_html__('display_errors PHP directive', 'hide-my-wp'),
@@ -422,7 +422,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __( "The most common way to hack a website is by accessing the domain and adding harmful queries in order to reveal information from files and database.<br /> These attacks are made on any website, WordPress or not, and if a call succeeds … it will probably be too late to save the website.", 'hide-my-wp' ),
                 'solution' => sprintf( esc_html__( "Activate the firewall and select the firewall strength that works for your website %s %s > Change Paths > Firewall & Headers %s", 'hide-my-wp' ), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=firewall').'" >',  HMWP_Classes_Tools::getOption('hmwp_plugin_menu') , '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_sqlinjection',1);",
             ),
             'checkVersionDisplayed' => array(
                 'name' => esc_html__("Versions in Source Code", 'hide-my-wp'),
@@ -431,7 +431,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("WordPress, plugins and themes add their version info to the source code, so anyone can see it. <br /><br />Hackers can easily find a website with vulnerable version plugins or themes, and target these with Zero-Day Exploits.", 'hide-my-wp'),
                 'solution' => sprintf(esc_html__("Switch on %s %s > Tweaks > %s %s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_tweaks#tab=hide').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'),  esc_html__('Hide Versions from Images, CSS and JS', 'hide-my-wp'), '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_hide_version',1);",
             ),
             'checkRegisterGlobals' => array(
                 'name' => esc_html__("PHP register_globals is on", 'hide-my-wp'),
@@ -472,7 +472,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("The plugins and themes file editor is a very convenient tool because it enables you to make quick changes without the need to use FTP. <br /><br />Unfortunately, it's also a security issue because it not only shows the PHP source code, it also enables attackers to inject malicious code into your site if they manage to gain access to admin.", 'hide-my-wp'),
                 'solution' => __("Disable DISALLOW_FILE_EDIT for live websites in wp-config.php <code>define('DISALLOW_FILE_EDIT', true);</code>", 'hide-my-wp'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixConfig('DISALLOW_FILE_EDIT',true);",
             ),
             'checkUploadsBrowsable' => array(
                 'name' => sprintf(esc_html__("Folder %s is browsable", 'hide-my-wp'), HMWP_Classes_Tools::$default['hmwp_upload_url']),
@@ -490,7 +490,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => esc_html__("If you're not using Windows Live Writer there's really no valid reason to have its link in the page header, because this tells the whole world you're using WordPress.", 'hide-my-wp'),
                 'solution' => sprintf(esc_html__("Switch on %s %s > Tweaks > Hide WLW Manifest scripts%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_tweaks#tab=hide').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_disable_manifest',1);",
             ),
             'checkXmlrpc' => array(
                 'name' => esc_html__("XML-RPC access is on", 'hide-my-wp'),
@@ -499,7 +499,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("WordPress XML-RPC is a specification that aims to standardize communications between different systems. It uses HTTP as the transport mechanism and XML as encoding mechanism to enable a wide range of data to be transmitted. <br /><br />The two biggest assets of the API are its extendibility and its security. XML-RPC authenticates using basic authentication. It sends the username and password with each request, which is a big no-no in security circles.", 'hide-my-wp'),
                 'solution' => sprintf(esc_html__("Switch on %s %s > Change Paths > Disable XML-RPC access%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=api').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_disable_xmlrpc',1);",
             ),
             'checkRDS' => array(
                 'name' => esc_html__("RDS is visible", 'hide-my-wp'),
@@ -508,7 +508,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("If you're not using any Really Simple Discovery services such as pingbacks, there's no need to advertise that endpoint (link) in the header. Please note that for most sites this is not a security issue because they \"want to be discovered\", but if you want to hide the fact that you're using WP, this is the way to go.", 'hide-my-wp'),
                 'solution' => sprintf(esc_html__("Switch on %s %s > Change Paths > Hide RSD Endpoint%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=api').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_hide_rsd',1);",
             ),
 //            'checkMysqlPermissions' => array(
 //                'name' => esc_html__("MySql Grant All Permissions", 'hide-my-wp'),
@@ -525,7 +525,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 'warning' => false,
                 'message' => __("Usernames (unlike passwords) are not secret. By knowing someone's username, you can't log in to their account. You also need the password. <br /><br />However, by knowing the username, you are one step closer to logging in using the username to brute-force the password, or to gain access in a similar way. <br /><br />That's why it's advisable to keep the list of usernames private, at least to some degree. By default, by accessing siteurl.com/?author={id} and looping through IDs from 1 you can get a list of usernames, because WP will redirect you to siteurl.com/author/user/ if the ID exists in the system.", 'hide-my-wp'),
                 'solution' => sprintf(esc_html__("Switch on %s %s > Change Paths > Hide Author ID URL%s", 'hide-my-wp'), '<a href="'.HMWP_Classes_Tools::getSettingsUrl('hmwp_permalinks#tab=author').'" >', HMWP_Classes_Tools::getOption('hmwp_plugin_menu'), '</a>'),
-                'javascript' => "pro",
+                'javascript' => "jQuery(this).hmwp_fixSettings('hmwp_hide_authors',1);",
             ),
             'checkBlogDescription' => array(
                 'name' => esc_html__("Default WordPress Tagline", 'hide-my-wp'),
@@ -669,7 +669,15 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                     $message = array();
                     $message[] = esc_html__('Great! The new paths are loading correctly.', 'hide-my-wp');
                     if(HMWP_Classes_Tools::getOption('prevent_slow_loading')){
-                        $message[] = '<a href="' . esc_url(HMWP_Classes_Tools::getSettingsUrl('hmwp_advanced#tab=rollback', true) ) . '" target="_blank" style="word-break: break-word;line-height: 35px;font-weight: 700;">' . sprintf(esc_html__("You can now turn off '%s' option.", 'hide-my-wp'), __('Prevent Broken Website Layout', 'hide-my-wp')) . '</a>';
+                        $message[] =  '<form id="hmwp_fixsettings_form" method="POST">
+                                         '.wp_nonce_field('hmwp_fixsettings', 'hmwp_nonce', false, false).'
+                                         <input type="hidden" name="action" value="hmwp_fixsettings"/>
+                                         
+                                         <div class="col-sm-12 p-0 my-2 switch switch-xxs" style="font-size: 0.9rem;">
+                                            <input type="checkbox" id="prevent_slow_loading" name="prevent_slow_loading" onChange="jQuery(this).hmwp_fixSettings(\'prevent_slow_loading\',0);" class="switch" '. (HMWP_Classes_Tools::getOption('prevent_slow_loading') ? 'checked="checked"' : '') .' value="1"/>
+                                            <label for="prevent_slow_loading">'.sprintf(esc_html__("You can now turn off '%s' option.", 'hide-my-wp'), __('Prevent Broken Website Layout', 'hide-my-wp')).'</label>
+                                         </div>
+                                       </form>';
                     }
                     wp_send_json_success(join('<br />', $message));
                 }else{
@@ -677,10 +685,93 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
                 }
 
             case 'hmwp_fixsettings':
+
+
+                $name = HMWP_Classes_Tools::getValue('name');
+                $value = HMWP_Classes_Tools::getValue('value');
+
+                if (HMWP_Classes_Tools::getIsset('name') && HMWP_Classes_Tools::getIsset('value') ) {
+
+                    if (in_array($name, array_keys(HMWP_Classes_Tools::$options)) ) {
+                        HMWP_Classes_Tools::saveOptions($name, $value);
+                        //call it in case of rule change
+                        HMWP_Classes_ObjController::getClass('HMWP_Models_Settings')->saveRules();
+
+                        if (HMWP_Classes_Tools::isIIS() && HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->isConfigWritable() ) {
+                            //Flush the changes for IIS server
+                            HMWP_Classes_ObjController::getClass('HMWP_Models_Rewrite')->flushChanges();
+                        }
+
+                        $message = esc_html__('Saved! You can run the test again.', 'hide-my-wp');
+                        if (HMWP_Classes_Tools::isNginx() || HMWP_Classes_Tools::isCloudPanel() ) {
+                            $message .= '<br />' . esc_html__("Don't forget to reload the Nginx service.", 'hide-my-wp') . ' ' . '<strong><a href="'.HMWP_Classes_Tools::getOption('hmwp_plugin_website').'/how-to-setup-hide-my-wp-on-nginx-server/" target="_blank" style="color: red">' . esc_html__("Learn How", 'hide-my-wp') . '</a></strong>';
+                        }
+
+                        if(HMWP_Classes_Tools::isAjax()) {
+                            wp_send_json_success($message);
+                        }
+
+                        break;
+                    }
+                }
+                //refresh the security scan
+                $this->doSecurityCheck();
+
+                if(HMWP_Classes_Tools::isAjax()) {
+                    wp_send_json_error(esc_html__('Could not fix it. You need to change it manually.', 'hide-my-wp'));
+                }
+                break;
+
             case 'hmwp_fixconfig':
 
-                wp_send_json_error(esc_html__('Could not fix it. You need to change it manually.', 'hide-my-wp'));
+                $name = HMWP_Classes_Tools::getValue('name');
+                $value = HMWP_Classes_Tools::getValue('value', null);
+
+                if (!in_array($name, array('WP_DEBUG', 'SCRIPT_DEBUG', 'DISALLOW_FILE_EDIT')) || !in_array($value, array('true', 'false')) ) {
+
+                    if(HMWP_Classes_Tools::isAjax()) {
+                        wp_send_json_error(esc_html__('Could not fix it. You need to change it manually.', 'hide-my-wp'));
+                    }
                     break;
+                }
+
+                if ($name && isset($value) ) {
+                    if ($config_file = HMWP_Classes_Tools::getConfigFile() ) {
+
+                        /** @var HMWP_Models_Rules $rulesModel */
+                        $rulesModel = HMWP_Classes_ObjController::getClass('HMWP_Models_Rules');
+
+                        $wp_filesystem = HMWP_Classes_ObjController::initFilesystem();
+                        if( !$rulesModel->isConfigWritable($config_file)){
+                            $current_permission = $wp_filesystem->getchmod($config_file);
+                            $wp_filesystem->chmod($config_file, 0644);
+                        }
+
+                        if( $rulesModel->isConfigWritable($config_file)){
+                            $find = "define\s?\(\s?'$name'";
+                            $replace = "define('$name',$value);" . PHP_EOL;
+                            if ($rulesModel->findReplace($find, $replace, $config_file) ) {
+
+                                if(isset($current_permission)){
+                                    $wp_filesystem->chmod($config_file, octdec($current_permission));
+                                }
+
+                                if(HMWP_Classes_Tools::isAjax()) {
+                                    wp_send_json_success(esc_html__('Saved! You can run the test again.', 'hide-my-wp'));
+                                }
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                //refresh the security scan
+                $this->doSecurityCheck();
+
+                if(HMWP_Classes_Tools::isAjax()) {
+                    wp_send_json_error(esc_html__('Could not fix it. You need to change it manually.', 'hide-my-wp'));
+                }
+                break;
 
             case 'hmwp_securityexclude':
                 $name = HMWP_Classes_Tools::getValue('name');
@@ -859,7 +950,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
             if ($wp_lastversion ) {
                 return array(
                     'value' => $wp_version,
-                    'valid' => version_compare($wp_version, $wp_lastversion, '=='),
+                    'valid' => version_compare($wp_version, $wp_lastversion, '>='),
                     'version' => $wp_lastversion,
                 );
             }

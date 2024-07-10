@@ -8,7 +8,7 @@
  * Author URI: https://livemeshwp.com/siteorigin-widgets
  * License: GPL3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
- * Version: 3.8.1
+ * Version: 3.8.3
  * Text Domain: livemesh-so-widgets
  * Domain Path: languages
  *
@@ -32,9 +32,8 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
 // Ensure the free version is deactivated if premium is running
-
 if ( !function_exists( 'lsow_fs' ) ) {
-    define( 'LSOW_VERSION', '3.8.1' );
+    define( 'LSOW_VERSION', '3.8.3' );
     // Plugin Folder Path
     define( 'LSOW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
     define( 'LSOW_PLUGIN_SLUG', dirname( plugin_basename( __FILE__ ) ) );
@@ -53,10 +52,8 @@ if ( !function_exists( 'lsow_fs' ) ) {
     // Plugin Help Page URL
     define( 'LSOW_PLUGIN_HELP_URL', admin_url() . 'admin.php?page=livemesh_so_widgets_documentation' );
     // Create a helper function for easy SDK access.
-    function lsow_fs()
-    {
-        global  $lsow_fs ;
-        
+    function lsow_fs() {
+        global $lsow_fs;
         if ( !isset( $lsow_fs ) ) {
             // Include Freemius SDK.
             require_once dirname( __FILE__ ) . '/freemius/start.php';
@@ -69,33 +66,31 @@ if ( !function_exists( 'lsow_fs' ) ) {
                 'has_addons'     => false,
                 'has_paid_plans' => true,
                 'menu'           => array(
-                'slug'    => 'livemesh_so_widgets',
-                'support' => false,
-            ),
+                    'slug'    => 'livemesh_so_widgets',
+                    'support' => false,
+                ),
                 'is_live'        => true,
             ) );
         }
-        
         return $lsow_fs;
     }
-    
+
     // Init Freemius.
     lsow_fs();
     // Signal that SDK was initiated.
     do_action( 'lsow_fs_loaded' );
-    function lsow_fs_add_licensing_helper()
-    {
+    function lsow_fs_add_licensing_helper() {
         ?>
         <script type="text/javascript">
             (function () {
                 window.lsow_fs = {can_use_premium_code: <?php 
-        echo  json_encode( lsow_fs()->can_use_premium_code() ) ;
+        echo json_encode( lsow_fs()->can_use_premium_code() );
         ?>};
             })();
         </script>
         <?php 
     }
-    
+
     add_action( 'wp_head', 'lsow_fs_add_licensing_helper' );
     require_once dirname( __FILE__ ) . '/plugin.php';
 }

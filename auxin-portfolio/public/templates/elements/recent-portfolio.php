@@ -176,7 +176,7 @@ function auxin_recent_portfolio( $args= array() ) {
     $isoxin_attrs .= ' data-reveal-transition-duration="'. esc_attr( $reveal_transition_duration ).'" data-reveal-between-delay="'.esc_attr( $reveal_between_delay ).'"';
     $isoxin_attrs .= ' data-hide-transition-duration="'. esc_attr( $hide_transition_duration ).'" data-hide-between-delay="'.esc_attr( $hide_between_delay ).'"';
 
-    $ajaxAttrs     = ' data-num="'. $num .'" data-order="'. $order .'" data-orderby="'. $order_by .'" data-taxonomy="'. $filter_by .'" data-n="'. wp_create_nonce( 'aux_ajax_filterable_portfolio' ) .'"';
+    $ajaxAttrs     = ' data-num="'. esc_attr( $num ) .'" data-order="'. esc_attr( $order ) .'" data-orderby="'. esc_attr( $order_by ) .'" data-taxonomy="'. esc_attr( $filter_by ) .'" data-n="'. wp_create_nonce( 'aux_ajax_filterable_portfolio' ) .'"';
     $isoxin_attrs .= $ajaxAttrs;
 
     $wrapper_classes .= $show_lightbox ? ' aux-lightbox-gallery' : '';

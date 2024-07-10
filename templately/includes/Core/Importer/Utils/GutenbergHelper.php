@@ -31,7 +31,7 @@ class GutenbergHelper extends ImportHelper {
 	 *
 	 * @return GutenbergHelper
 	 */
-	public function prepare( $template_json, $template_settings, $extra_content = [] ) {
+	public function prepare( $template_json, $template_settings, $extra_content = [], $request_params = [] ) {
 		$this->template_settings = $template_settings;
 		$this->post_id           = $this->map_post_ids[ $template_settings['post_id'] ];
 		$this->wp_importer       = new WPImport( null, ['fetch_attachments' => true] );
@@ -48,7 +48,7 @@ class GutenbergHelper extends ImportHelper {
 				return strlen( $b ) - strlen( $a );
 			} );
 		}
-		$this->replace( $parsed_blocks );
+		$this->replace( $parsed_blocks, $request_params );
 		$this->content = wp_slash( serialize_blocks( $parsed_blocks ) );
 
 		return $this;
@@ -78,7 +78,7 @@ class GutenbergHelper extends ImportHelper {
 		}
 	}
 
-	private function replace( &$blocks ) {
+	private function replace( &$blocks, $request_params = [] ) {
 		foreach ( $blocks as &$block ) {
 			$this->sse_log('prepare', 'Preparing output for finalize, just a moment...', 1, 'eventLog');
 			if ( $block['blockName'] === 'core/navigation' ) {
@@ -105,7 +105,25 @@ class GutenbergHelper extends ImportHelper {
 			}
 
 			if ( ! empty( $block['innerBlocks'] ) ) {
-				$this->replace( $block['innerBlocks'] );
+				$this->replace( $block['innerBlocks'], $request_params );
+			}
+			else if(!empty($request_params['logo']) && isset($request_params['logo_size']) && $request_params['logo_size'] && $block['blockName'] === "essential-blocks/advanced-image" && $block["attrs"]["imgSource"] === "site-logo"){
+				$block["attrs"]["widthRange"]    = $request_params['logo_size'];
+				unset($block["attrs"]["widthUnit"]);
+				if (isset($block['attrs']['blockMeta']['desktop']) && is_string($block['attrs']['blockMeta']['desktop'])) {
+					$meta = $block['attrs']['blockMeta']['desktop'];
+					$regex = '/\.image-wrapper\s*{\s*width:\s*(\d+)px;/';
+
+					if (preg_match($regex, $meta, $matches)) {
+						$replaced = preg_replace($regex, '.image-wrapper { width:' . $request_params['logo_size'] . 'px;', $meta);
+
+						if ($replaced) {
+							$block['attrs']['blockMeta']['desktop'] = $replaced;
+						}
+					}
+				}
+
+				$this->sse_log('prepare', 'Updated Site Logo', 1, 'eventLog');
 			}
 		}
 	}

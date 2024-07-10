@@ -1,11 +1,11 @@
-=== Templately – Gutenberg & Elementor Template Library: 5000+ Free & Pro Ready Templates & Cloud! ===
+=== Templately – Elementor & Gutenberg Template Library: 5000+ Free & Pro Ready Templates & Cloud! ===
 Contributors: templately, wpdevteam, re_enter_rupok, Asif2BD, priyomukul, rahat89, alimuzzamanalim
 Donate link: https://templately.com
 Tags: templates, elementor template, Gutenberg template, landing page, WoCommerce Templates
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.2
-Stable tag: 3.0.9
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,12 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 3.1.0 – 10-07-2024 =
+Added: Global color control for FSI
+Added: Live logo adding control for FSI
+Fixed: Template import issues in Multisite.
+Few minor bug fixes & improvements
+
 = 3.0.9 – 13-06-2024 =
 Improved: Added Name (32 chars max) and Password (64 chars max) validation.
 Improved: Plugin dependency in single template import.

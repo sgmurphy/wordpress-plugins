@@ -127,7 +127,7 @@ $(document).ready(function (){
       } else {
         $(this).show();
       }
-      $(this).html($.parseHTML($(this).text())); 
+      $(this).html(encodeHTML($(this).text())); 
     });
 
     /* Triggers single input update. */
@@ -344,11 +344,18 @@ $(document).ready(function (){
       var handleTitle = $(this).find('.dmb_handle_title'),
       firstname = $(this).find('.dmb_firstname_of_member').val(),
       lastname = $(this).find('.dmb_lastname_of_member').val();
-      handleTitle.html(firstname + ' ' + lastname);
+      handleTitle.html($.parseHTML(firstname + ' ' + lastname));
 
     }
 
   });
+
+  function encodeHTML(dirtyString) {
+    var container = document.createElement('div');
+    var text = document.createTextNode(dirtyString);
+    container.appendChild(text);
+    return container.innerHTML; // innerHTML will be a xss safe string
+  }
 
 
   /* Updates handle bar title. */
@@ -359,20 +366,23 @@ $(document).ready(function (){
     /* Makes current title. */
     var firstnameField = firstnameField,
     lastname = firstnameField.closest('.dmb_main').find('.dmb_lastname_of_member').val() || '';
+    firstname = firstnameField.val() || '';
     handleTitle = firstnameField.closest('.dmb_main').find('.dmb_handle_title');
     cloneCopyText = '';
     (wasCloned) ? cloneCopyText = ' copy' : cloneCopyText = '';
+    title = firstname + ' ' + lastname + cloneCopyText;
+
     
     /* Updates handle title. */
     (firstnameField.val() != '')
-      ? handleTitle.html(firstnameField.val() + ' ' + lastname + cloneCopyText)
+      ? handleTitle.html(encodeHTML(title))
       : handleTitle.html(objectL10n.untitled + cloneCopyText);
 
   }
 
 
   /* Watches member firstname/lastname and updates handle. */
-  $('body').on('keyup', '.dmb_firstname_of_member', function(e) { updateHandleTitle($(this)); });
+  $('body').on('keyup', '.dmb_firstname_of_member', function(e) { updateHandleTitle($(this)) });
   $('body').on('keyup', '.dmb_lastname_of_member', function(e) {
     firstnameField = $(this).closest('.dmb_main').find('.dmb_firstname_of_member');
     updateHandleTitle(firstnameField);
@@ -404,27 +414,27 @@ $(document).ready(function (){
           /* Gets row fields. */
           var fields = {};
       
-          fields.firstname = $(this).find(".dmb_firstname_of_member").val();
-          fields.lastname = $(this).find(".dmb_lastname_of_member").val();
-          fields.job = $(this).find(".dmb_job_of_member").val();
+          fields.firstname = encodeHTML($(this).find(".dmb_firstname_of_member").val());
+          fields.lastname = encodeHTML($(this).find(".dmb_lastname_of_member").val());
+          fields.job = encodeHTML($(this).find(".dmb_job_of_member").val());
 
           if ($('#acf-fallback-bio').length ) {
-            fields.bio = $.trim($(this).find('.dmb_description_of_member_fb').text()) || '';
+            fields.bio = encodeHTML($.trim($(this).find('.dmb_description_of_member_fb').text()) || '');
           } else {
-            fields.bio = $.trim($(this).find('.dmb_description_of_member').html()) || '';
+            fields.bio = encodeHTML($.trim($(this).find('.dmb_description_of_member').html()) || '');
           }
 
           fields.scl_type1 = $(this).find(".dmb_scl_type1_of_member").find(":selected").val();
-          fields.scl_title1 = $(this).find(".dmb_scl_title1_of_member").val();
-          fields.scl_url1 = $(this).find(".dmb_scl_url1_of_member").val();
+          fields.scl_title1 = encodeHTML($(this).find(".dmb_scl_title1_of_member").val());
+          fields.scl_url1 = encodeHTML($(this).find(".dmb_scl_url1_of_member").val());
           fields.scl_type2 = $(this).find(".dmb_scl_type2_of_member").find(":selected").val();
-          fields.scl_title2 = $(this).find(".dmb_scl_title2_of_member").val();
-          fields.scl_url2 = $(this).find(".dmb_scl_url2_of_member").val();
+          fields.scl_title2 = encodeHTML($(this).find(".dmb_scl_title2_of_member").val());
+          fields.scl_url2 = encodeHTML($(this).find(".dmb_scl_url2_of_member").val());
           fields.scl_type3 = $(this).find(".dmb_scl_type3_of_member").find(":selected").val();
-          fields.scl_title3 = $(this).find(".dmb_scl_title3_of_member").val();
-          fields.scl_url3 = $(this).find(".dmb_scl_url3_of_member").val();
+          fields.scl_title3 = encodeHTML($(this).find(".dmb_scl_title3_of_member").val());
+          fields.scl_url3 = encodeHTML($(this).find(".dmb_scl_url3_of_member").val());
           fields.photoUrl = $(this).find(".dmb_img").attr('src');
-          fields.photoLinkUrl = $(this).find(".dmb_photo_url_of_member").val();
+          fields.photoLinkUrl = encodeHTML($(this).find(".dmb_photo_url_of_member").val());
 
           /* Creates team container. */
           if(i%2 == 0) {
@@ -562,7 +572,7 @@ $(document).ready(function (){
       (!dmb_ue_content) ? lastEditedBio.hide() : lastEditedBio.show();
 
       /* Adds bio content if there is. */
-      lastEditedBio.html($.parseHTML(dmb_ue_content));
+      lastEditedBio.html(encodeHTML(dmb_ue_content));
 
       /* Closes and empties UE. */
       $('#dmb_unique_editor').fadeOut(100);

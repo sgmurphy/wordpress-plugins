@@ -50,9 +50,67 @@ class ElementorContent extends BaseRunner {
 		 */
 
 		$kits_manager = Plugin::$instance->kits_manager;
-		$active_kit   = $kits_manager->get_active_id();
 
-		$kit = $kits_manager->get_kit( $active_kit );
+		$active_kit = $kits_manager->get_active_id();
+		$kit        = $kits_manager->get_kit( $active_kit );
+		$old_logo   = $kit->get_settings('site_logo');
+
+		if(isset($this->manifest['has_settings']) && $this->manifest['has_settings']){
+			// backing up the active kit id before updating the new one
+			if(!get_option("__templately_el_active_kit")){
+				add_option("__templately_el_active_kit", $active_kit, '', 'no');
+			}
+
+			$file     = $this->dir_path . "settings.json";
+			$settings = Utils::read_json_file( $file );
+
+			if(!empty($data['color'])){
+				if (!empty($settings['system_colors'])) {
+					foreach ($settings['system_colors'] as $key => $color) {
+						$settings['system_colors'][$key]['color'] = $data['color'][$color['_id']] ?? $color['color'];
+					}
+				}
+				if (!empty($settings['custom_colors'])) {
+					foreach ($settings['custom_colors'] as $key => $color) {
+						$settings['custom_colors'][$key]['color'] = $data['color'][$color['_id']] ?? $color['color'];
+					}
+				}
+			}
+
+			if (!empty($data['logo']['id'])) {
+				$settings['site_logo'] = $data['logo'];
+			} elseif (!empty($data['logo'])) {
+				// If there's no old logo id, try to upload a new logo
+				if (empty($old_logo['id'])) {
+					$site_logo = Utils::upload_logo($data['logo']);
+
+					// If the upload was successful, use the new logo, otherwise use the old one
+					$settings['site_logo'] = !empty($site_logo['id']) ? $site_logo : $old_logo;
+				} else {
+					// If there's an old logo id, use the old logo
+					$settings['site_logo'] = $old_logo;
+				}
+			}
+
+
+			$kit_id = $kits_manager->create_new_kit( $this->manifest['name'], $settings, true );
+
+			$kit    = $kits_manager->get_kit( $kit_id );
+
+			// $kit->update_settings( ['site_logo' => $settings['site_logo']] );
+
+			// Create an array with the post ID and the new title
+			$post_data = array(
+				'ID'         => $kit_id,
+				'post_title' => $this->manifest['name'] . " Kit",
+			);
+			// Update the post
+			wp_update_post( $post_data );
+
+		}
+
+		$active_kit = $kits_manager->get_active_id();
+		$kit        = $kits_manager->get_kit( $active_kit );
 
 		if ( ! $kit->get_id() ) {
 			$kit = $kits_manager->create_default();

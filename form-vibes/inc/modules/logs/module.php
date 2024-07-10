@@ -91,6 +91,10 @@ class Module {
 
 		$entry_count_result = $wpdb->get_var( $entry_count_query );
 		foreach ( $entry_result as $key => $value ) {
+			if( empty( $value['user_id'] ) ) {
+				$entry_result[ $key ]['user'] = 'Guest';
+				continue;
+			}
 			$user_meta                    = get_user_meta( $value['user_id'] );
 			$entry_result[ $key ]['user'] = $user_meta['first_name'][0] . ' ' . $user_meta['last_name'][0];
 		}

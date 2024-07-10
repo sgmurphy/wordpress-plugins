@@ -4,10 +4,11 @@ Tags: Button contact call, zalo, whatsapp, messenger
 Donate link: paypal.me/virustran
 Requires at least: 5.0
 Tested up to: 6.5.2
-Requires PHP: 5.6
-License: 4.7.2
+Requires PHP: 7.4
+Tested up to: 6.5
+Stable tag: 5.9.6
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Button contact VR
 
@@ -104,5 +105,9 @@ Tested up to wordpress: 6.2
 =4.7.1
 *Tested up to: 6.4
 
-=4.7.2
+= 4.7.2
 *fix type hotline
+
+= 4.7.3
+* Release Date - 10/07/2024.
+*fix fix design

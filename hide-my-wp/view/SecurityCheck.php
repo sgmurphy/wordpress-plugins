@@ -133,8 +133,12 @@ if (HMWP_Classes_Tools::getOption('hmwp_security_alert')) {
                                                 </div>
                                                 <button class="btn btn-default rounded-0 px-3 float-right m-1" type="button" onclick="jQuery('#hmwp_securitydetail<?php echo esc_attr($index) ?>').modal('show');" ><?php echo esc_html__('Info', 'hide-my-wp') ?></button>
 												<?php
-												if (!$row['valid'] && isset($row['javascript']) && $row['javascript'] <> '' ){
-													?> <button type="button" class="btn btn-warning mx-0 my-1 rounded-0 float-right  m-1" onclick="jQuery('#hmwp_ghost_mode_modal').modal('show')"><?php echo esc_html__('PRO', 'hide-my-wp') ?></button> <?php
+												if (!$row['valid'] && isset($row['javascript'])){
+                                                    if($row['javascript'] <> 'pro'){
+                                                        ?> <button type="button" id="fix<?php echo esc_attr($index) ?>" class="btn btn-success mx-0 my-1 rounded-0 float-right  m-1" onclick="<?php echo esc_attr($row['javascript']) ?>"><?php echo esc_html__('Fix it', 'hide-my-wp') ?></button> <?php
+                                                    }else{
+                                                        ?> <button type="button" class="btn btn-warning mx-0 my-1 rounded-0 float-right  m-1" onclick="jQuery('#hmwp_ghost_mode_modal').modal('show')"><?php echo esc_html__('PRO', 'hide-my-wp') ?></button> <?php
+                                                    }
 												}
 												?>
                                             </td>
@@ -155,6 +159,14 @@ if (HMWP_Classes_Tools::getOption('hmwp_security_alert')) {
 
 							<?php } ?>
                         </div>
+                        <form id="hmwp_fixsettings_form" method="POST">
+                            <?php wp_nonce_field('hmwp_fixsettings', 'hmwp_nonce')?>
+                            <input type="hidden" name="action" value="hmwp_fixsettings"/>
+                        </form>
+                        <form id="hmwp_fixconfig_form" method="POST">
+                            <?php wp_nonce_field('hmwp_fixconfig', 'hmwp_nonce')?>
+                            <input type="hidden" name="action" value="hmwp_fixconfig"/>
+                        </form>
                         <div class="col-sm-12 text-right">
                             <form id="hmwp_resetexclude" method="POST">
 								<?php wp_nonce_field('hmwp_resetexclude', 'hmwp_nonce') ?>

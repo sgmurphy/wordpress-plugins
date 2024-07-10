@@ -9,7 +9,7 @@
  * Plugin Name:       Advanced CF7 DB
  * Plugin URI:        https://wordpress.org/plugins/advanced-cf7-db/
  * Description:       Save all contact form 7 submitted data to the database, View, Export, ordering, Change field labels, Import data using CSV very easily.
- * Version:           2.0.2
+ * Version:           2.0.4
  * Author:            Vsourz Digital
  * Author URI:        https://www.vsourz.com
  * License:           GPL-2.0+
@@ -80,7 +80,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 global $vsz_cf7db_current_version;
-$vsz_cf7db_current_version = '2.0.2';
+$vsz_cf7db_current_version = '2.0.4';
 /**
  * Defining all the table names and setting their prefix here
  */
@@ -116,7 +116,7 @@ if( file_exists(dirname(__FILE__).'/includes/libraries/excel/xlsx/PHP_XLSXWriter
 	define('VSZ_CF7_PHPXLSXWRITER_CHECK', false );
 }
 
-
+require_once(ABSPATH . 'wp-admin/includes/file.php');
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-advanced-cf7-db-activator.php
@@ -208,18 +208,16 @@ add_action('init', 'vsz_create_index_file');
 
 function vsz_create_index_file()
 {
+
 	$upload_dir = wp_upload_dir();
 	$acf7db_upload_folder = VSZ_CF7_UPLOAD_FOLDER;
 	$acf7db_upload_dir = $upload_dir['basedir'].'/'.$acf7db_upload_folder;
 
 	if ( file_exists( $acf7db_upload_dir ) ) {
-
-	    $index_file = $acf7db_upload_dir."/index.html";
-
-	    if ( !file_exists( realpath($index_file) ) ) {
-
-	    	fopen($index_file, "w");
-	    }
-
+		$index_file = $acf7db_upload_dir."/index.html";
+		if ( !file_exists( realpath($index_file) ) ) {
+			fopen($index_file, "w"); // @codingStandardsIgnoreLine
+		}
 	}
+
 }

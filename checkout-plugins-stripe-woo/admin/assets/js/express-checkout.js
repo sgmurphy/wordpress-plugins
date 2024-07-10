@@ -20,6 +20,8 @@
 			generateDefaultButtonDemo();
 			return;
 		}
+		// Hide preview of default button.
+		$( '#cpsw-default-button' ).hide();
 
 		try {
 			const data = {
@@ -50,6 +52,7 @@
 				} );
 
 				if ( $( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).length > 0 ) {
+					$( '#cpsw-payment-request-custom-button' ).show();
 					$( '.cpsw-payment-request-custom-button-admin' ).show();
 					$( '.cpsw_button_preview_label' ).css( { display: 'block' } );
 					$( '.cpsw_preview_notice' ).css( { display: 'block' } );
@@ -68,7 +71,7 @@
 						prButton.css( 'width', '112px' );
 						prButton.css( 'min-width', '112px' );
 					} else {
-						prButton.css( 'min-width', buttonWidth );
+						prButton.css( 'width', buttonWidth );
 					}
 
 					$( '.cpsw_express_checkout_preview_wrapper' ).css( { textAlign: expressButtonAlignment } );
@@ -118,6 +121,8 @@
 	 * Generate Default Button Demo
 	 */
 	function generateDefaultButtonDemo() {
+		// Hide preview of custom button.
+		$( '#cpsw-payment-request-custom-button' ).hide();
 		const options = {
 			mode: 'payment',
 			amount: 1099,
@@ -138,12 +143,13 @@
 		// Set up Stripe.js and Elements to use in checkout form
 		const elements = stripe.elements( options );
 
+		// Make default button preview div visible before mounting.
+		$( '#cpsw-default-button' ).show();
 		// Create and mount the Express Checkout Element
 		const expressCheckoutElement = elements.create( 'expressCheckout', elementOptions );
-		expressCheckoutElement.mount( '#cpsw-payment-request-custom-button-preview-render' );
+		expressCheckoutElement.mount( '#cpsw-payment-request-default-button-preview-render' );
 
 		if ( $( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).length > 0 ) {
-			$( '.cpsw-payment-request-custom-button-admin' ).show();
 			$( '.cpsw_button_preview_label' ).css( { display: 'block' } );
 			$( '.cpsw_preview_notice' ).css( { display: 'block' } );
 			$( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).fadeIn();
@@ -174,7 +180,7 @@
 		removeCheckoutPreviewElement();
 		const checkoutTitle = $( '#cpsw_express_checkout_title' ).val();
 		const checkoutTagline = $( '#cpsw_express_checkout_tagline' ).val();
-		$( '.cpsw_express_checkout_preview_wrapper' ).prepend( '<h3 class="cpsw_preview_title">' + checkoutTitle + '</h3><p class="cpsw_preview_tagline"> ' + checkoutTagline + '</p>' );
+		$( '.cpsw_express_checkout_preview_wrapper' ).prepend( '<legend class="cpsw_preview_title">' + checkoutTitle + '</legend><p class="cpsw_preview_tagline"> ' + checkoutTagline + '</p>' );
 		$( '.cpsw_express_checkout_preview_wrapper' ).after( '<p class="cpsw_preview_notice" style="display:block">' + messages.checkout_note + '</p>' );
 
 		$( '.cpsw_express_checkout_preview_wrapper' ).css( { textAlign: $( '#cpsw_express_checkout_button_alignment' ).val() } );
@@ -244,8 +250,10 @@
 		const checkoutPageLayout = $( '#cpsw_express_checkout_checkout_page_layout' ).val();
 
 		if ( checkoutPageLayout === 'classic' ) {
-			$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).hide();
-			$( '.cpsw_express_checkout_preview_wrapper' ).addClass( 'cpsw-classic' );
+			$( document ).ready( function() {
+				$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).hide();
+				$( '.cpsw_express_checkout_preview_wrapper' ).addClass( 'cpsw-classic' );
+			} );
 		} else {
 			$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).show();
 			$( '.cpsw_express_checkout_preview_wrapper' ).removeClass( 'cpsw-classic' );
@@ -279,7 +287,7 @@
 		} );
 
 		if ( $( document ).width() > 1200 ) {
-			const buttonPreview = $( '.cpsw_express_checkout_preview_wrapper' ).parents( 'fieldset' );
+			const buttonPreview = $( '.cpsw_express_checkout_preview_wrapper' ).parents( '.cpsw_express_checkout_preview_wrapper_section' );
 			buttonPreview.parents( 'tr' ).hide();
 			$( '.submit' ).after( '<div class="cpsw_floating_preview"><span class="cpsw_button_preview_label">Button preview</div>' );
 			$( '.cpsw_floating_preview' ).append( buttonPreview );
@@ -370,7 +378,6 @@
 			$( '#cpsw_express_checkout_button_theme' ).closest( 'tr' ),
 			$( '#cpsw_express_checkout_button_layout' ).closest( 'tr' ),
 			$( '#cpsw_express_checkout_button_width' ).closest( 'tr' ),
-			$( '#cpsw_express_checkout_button_alignment' ).closest( 'tr' ),
 		];
 
 		// Hide toggleInputs if buttonType is default

@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,12 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+
+= 1.9.1 - WEDNESDAY, 10th July 2024 =
+* Improvement: Default values for few express checkout settings fields updated.
+* Improvement: Improved the conditions to display the separator on checkout page. Now you can hide the separator text by keeping the field empty.
+* Fix: Corrected Express checkout button alignment and width issue on checkout page.
+* Fix: Addressed the issue where the admin notice for Payment Elements was not getting dismissed.
 
 = 1.9.0 - WEDNESDAY, 3rd July 2024 =
 * New: Introduced the "[Payment Element](https://checkoutplugins.com/docs/smarter-way-to-display-payment-methods/)," a smarter way to display payment methods on the checkout page.

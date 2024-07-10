@@ -162,7 +162,10 @@ class Insights {
 
         if ( $this->show_notice ) {
             // tracking notice
+            // Notices in admin pages except in MetaSlider admin pages - See MetaSliderPlugin->filter_admin_notices()
             add_action( 'admin_notices', array( $this, 'admin_notice' ) );
+            // @since 3.90.1 - Notices in MetaSlider admin pages
+            add_action( 'metaslider_admin_notices', array( $this, 'admin_notice' ) );
         }
 
         add_action( 'admin_init', array( $this, 'handle_optin_optout' ) );

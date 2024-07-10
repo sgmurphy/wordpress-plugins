@@ -269,6 +269,33 @@ function episode_box_top($EnclosureURL, $FeedSlug, $ExtraData, $GeneralSettings,
 
                 <h3 style="margin-top: 0;">Transcription (optional)</h3>
 
+                <?php
+                $GeneralSettings = get_option('powerpress_general', array());
+                if($GeneralSettings['blubrry_hosting']){
+                    require_once(POWERPRESS_ABSPATH .'/powerpressadmin-auth.class.php');
+                    $auth = new PowerPressAuth();
+
+                    $accessToken = powerpress_getAccessToken();
+                    $req_url = sprintf('/2/show/addons/?addon=transcript_plan&keyword=%s', urlencode($GeneralSettings['blubrry_program_keyword']));
+                    $results = $auth->api($accessToken, $req_url);
+
+                    $showAddonMessage = false;
+                    if(!empty($results) && !isset($results['error'])){
+                        if($results['transcript_plan'] === 'FREE'){
+                            $showAddonMessage = true;
+                        }
+                    }
+
+                    if($showAddonMessage){ ?>
+                        <div style="font-weight: bold; background-color: #FFFEF3; border-left: 4px solid #FFCA28; display: flex;">
+                            <p style="font-size: 14px; margin: 8px;">
+                                Free transcripts until July 31, 2024! Generate yours here.
+                                <a target="_blank" href="https://blubrry.com/podcast-insider/2024/07/01/unlock-the-power-of-podcast-transcripts-with-blubrrys-one-month-free-trial/">Learn more</a>
+                            </p>
+                        </div>
+                    <?php }
+                } ?>
+
                 <p style="font-size: 14px;" class="pp-ep-box-text">
                     <input id="powerpress_transcript_none_<?php echo $FeedSlug ?>" title="<?php echo esc_attr(__("No transcript","powerpress")); ?>"
                         class="media-details-radio"

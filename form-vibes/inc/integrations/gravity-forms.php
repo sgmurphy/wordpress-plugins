@@ -15,6 +15,7 @@ use GFAPI;
  */
 class GravityForms extends Base {
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance

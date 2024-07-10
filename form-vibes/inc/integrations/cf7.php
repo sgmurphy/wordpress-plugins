@@ -15,7 +15,7 @@ use FormVibes\Classes\Settings;
  */
 class Cf7 extends Base {
 
-
+	private $plugin_name = ''; 
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance
@@ -58,6 +58,8 @@ class Cf7 extends Base {
 	 * @since 1.4.4
 	 * @return void
 	 */
+
+	
 	public function __construct() {
 		$this->plugin_name = 'cf7';
 

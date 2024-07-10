@@ -180,6 +180,7 @@ jQuery(document).ready(function($) {
 		var fid = parseInt(jQuery('#cf7_id').val());
 		//added in 1.8.3
 		var getEntryNonce = jQuery(this).data('nonce');
+		var getListNonce = jQuery('input[name="vsz_cf7_form_list_nonce"]').val();
 
 		var arr_field_type = jQuery.parseJSON(jQuery('form#cf7d-modal-form-edit-value input[name="arr_field_type"]').val());
 		var arr_option = ['radio','checkbox','select'];
@@ -219,15 +220,17 @@ jQuery(document).ready(function($) {
             url: ajaxurl + '?action=vsz_cf7_edit_form_value',
             type: 'POST',
             data: {
-            	 	'rid': rid,
-            	 	'fid': fid,
+					'rid': rid,
+					'fid': fid,
 					//added in 1.8.3
-            	 	'getEntryNonce': getEntryNonce
-        		  },
+					'getEntryNonce': getEntryNonce,
+					'getListNonce': getListNonce
+				},
         })
         .done(function(data) {
             //Decode json data here
 			var json = jQuery.parseJSON(data);
+			console.log(json);
             if(json.indexOf != undefined && json.indexOf('@@') != -1){
             	alert('You do not have the access to edit the data.');
             	document.getElementById('overlayLoader').style.display = "none";

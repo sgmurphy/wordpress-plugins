@@ -61,6 +61,9 @@
 .spu-box.spu-position-top-right{
     top: 0; right: 0; bottom: auto; left: auto;
 }
+.spu-box.spu-position-top-center{
+    top: 0; right: auto; bottom: auto; left: auto;
+}
 
 .spu-box.spu-position-bottom-left{
     bottom: 0; left: 0; top: auto; right: auto;
@@ -68,6 +71,9 @@
 
 .spu-box.spu-position-bottom-right{
     bottom: 0; right: 0; top: auto; left: auto;
+}
+.spu-box.spu-position-bottom-center{
+    top: auto; right: auto; bottom: 0; left: auto;
 }
 
 .spu-box.spu-position-top-bar,

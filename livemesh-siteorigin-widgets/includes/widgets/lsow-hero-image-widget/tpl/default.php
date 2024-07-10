@@ -10,12 +10,11 @@ if ($settings['background']['bg_type'] == 'youtube') {
         . 'quality:\'' . esc_attr($settings['background']['youtube_video']['quality']) . '\','
         . 'ratio:\'' . esc_attr($settings['background']['youtube_video']['ratio']) . '\'}"';
 }
-
 ?>
 
-<?php if( !empty( $instance['title'] ) ) echo $args['before_title'] . esc_html($instance['title']) . $args['after_title'] ?>
+<?php if (!empty($instance['title'])) echo $args['before_title'] . esc_html($instance['title']) . $args['after_title'] ?>
 
-<div class="lsow-hero-header lsow-section-bg-<?php echo $settings['background']['bg_type']; ?>" <?php echo $youtube_markup; ?>>
+<div class="lsow-hero-header lsow-section-bg-<?php echo esc_attr($settings['background']['bg_type']); ?>" <?php echo $youtube_markup; ?>>
 
     <?php if ($settings['background']['bg_type'] == 'youtube'): ?>
 
@@ -29,14 +28,14 @@ if ($settings['background']['bg_type'] == 'youtube') {
 
             <div class="lsow-html5-video-bg">
 
-                <video poster="<?php echo wp_get_attachment_url($settings['background']['bg_image']['image']); ?>" preload="auto"
+                <video poster="<?php echo esc_url(wp_get_attachment_url($settings['background']['bg_image']['image'])); ?>" preload="auto"
                        autoplay loop muted>
 
-                    <source src="<?php echo wp_get_attachment_url($settings['background']['html5_videos']['mp4_file']); ?>"
+                    <source src="<?php echo esc_url(wp_get_attachment_url($settings['background']['html5_videos']['mp4_file'])); ?>"
                             type="video/mp4">
-                    <source src="<?php echo wp_get_attachment_url($settings['background']['html5_videos']['ogg_file']); ?>"
+                    <source src="<?php echo esc_url(wp_get_attachment_url($settings['background']['html5_videos']['ogg_file'])); ?>"
                             type="video/ogg">
-                    <source src="<?php echo wp_get_attachment_url($settings['background']['html5_videos']['webm_file']); ?>"
+                    <source src="<?php echo esc_url(wp_get_attachment_url($settings['background']['html5_videos']['webm_file'])); ?>"
                             type="video/webm">
 
                 </video>
@@ -52,12 +51,12 @@ if ($settings['background']['bg_type'] == 'youtube') {
                 <?php if ($settings['background']['bg_type'] == 'parallax'): ?>
 
                     <div class="lsow-parallax-bg"
-                         style="background-image: url(<?php echo $attachment[0]; ?>);"></div>
+                         style="background-image: url(<?php echo esc_url($attachment[0]); ?>);"></div>
 
                 <?php elseif ($settings['background']['bg_type'] == 'cover' || $settings['background']['bg_type'] == 'youtube'): ?>
 
                     <div class="lsow-image-bg"
-                         style="background-image: url(<?php echo $attachment[0]; ?>);"></div>
+                         style="background-image: url(<?php echo esc_url($attachment[0]); ?>);"></div>
 
                 <?php endif; ?>
 
@@ -77,16 +76,12 @@ if ($settings['background']['bg_type'] == 'youtube') {
         list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
         $overlay_opacity = $overlay['overlay_opacity'] / 100;
 
-        $bg_color = empty($overlay['overlay_color']) ? "" : "background-color: rgba(" . "$r, $g, $b, $overlay_opacity);";
+        $bg_color = empty($overlay['overlay_color']) ? "" : "background-color: rgba(" . esc_attr($r) . ", " . esc_attr($g) . ", " . esc_attr($b) . ", " . esc_attr($overlay_opacity) . ");";
         ?>
 
-        <div class="lsow-overlay" style="<?php echo($bg_color); ?>"></div>
+        <div class="lsow-overlay" style="<?php echo esc_attr($bg_color); ?>"></div>
 
-    <?php
-
-    endif;
-
-    ?>
+    <?php endif; ?>
 
     <div class="lsow-header-content">
 
@@ -94,15 +89,15 @@ if ($settings['background']['bg_type'] == 'youtube') {
 
             <div class="lsow-standard-header">
 
-                <?php echo empty($settings['standard_header']['subheading']) ? '' : '<div class="lsow-subheading">' . htmlspecialchars_decode($settings['standard_header']['subheading']) . '</div>'; ?>
+                <?php echo empty($settings['standard_header']['subheading']) ? '' : '<div class="lsow-subheading">' . htmlspecialchars_decode(esc_html($settings['standard_header']['subheading'])) . '</div>'; ?>
 
-                <?php echo empty($settings['standard_header']['heading']) ? '' : '<h3 class="lsow-heading">' . $settings['standard_header']['heading'] . '</h3>'; ?>
+                <?php echo empty($settings['standard_header']['heading']) ? '' : '<h3 class="lsow-heading">' . wp_kses_post($settings['standard_header']['heading']) . '</h3>'; ?>
 
                 <?php if (!empty($settings['standard_header']['button_url'])) : ?>
 
                     <a class="lsow-button lsow-trans"
                        href="<?php echo sow_esc_url($settings['standard_header']['button_url']); ?>"
-                        <?php echo (empty($settings['standard_header']['new_window'])) ? '' : 'target="_blank"'; ?>><?php echo $settings['standard_header']['button_text']; ?></a>
+                        <?php echo (empty($settings['standard_header']['new_window'])) ? '' : 'target="_blank"'; ?>><?php echo esc_html($settings['standard_header']['button_text']); ?></a>
 
                 <?php endif; ?>
 
@@ -112,18 +107,17 @@ if ($settings['background']['bg_type'] == 'youtube') {
 
             <div class="lsow-custom-header">
 
-                <?php echo do_shortcode($settings['custom_header']['custom']); ?>
+                <?php echo do_shortcode(wp_kses_post($settings['custom_header']['custom'])); ?>
 
             </div>
 
         <?php endif; ?>
 
-
     </div>
 
     <?php if (!empty($settings['pointer_down_url'])): ?>
 
-        <a href="<?php echo $settings['pointer_down_url']; ?>" class="icon-angle-down lsow-pointer-down"></a>
+        <a href="<?php echo sow_esc_url($settings['pointer_down_url']); ?>" class="icon-angle-down lsow-pointer-down"></a>
 
     <?php endif; ?>
 

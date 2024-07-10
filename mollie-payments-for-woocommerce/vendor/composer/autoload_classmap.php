@@ -248,6 +248,7 @@ return array(
     'Mollie\\WooCommerce\\PaymentMethods\\Paysafecard' => $baseDir . '/src/PaymentMethods/Paysafecard.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Przelewy24' => $baseDir . '/src/PaymentMethods/Przelewy24.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Sofort' => $baseDir . '/src/PaymentMethods/Sofort.php',
+    'Mollie\\WooCommerce\\PaymentMethods\\Trustly' => $baseDir . '/src/PaymentMethods/Trustly.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Twint' => $baseDir . '/src/PaymentMethods/Twint.php',
     'Mollie\\WooCommerce\\PaymentMethods\\Voucher' => $baseDir . '/src/PaymentMethods/Voucher.php',
     'Mollie\\WooCommerce\\Payment\\MollieObject' => $baseDir . '/src/Payment/MollieObject.php',

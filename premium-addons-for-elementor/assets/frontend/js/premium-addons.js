@@ -1006,7 +1006,6 @@
                         startDelay: settings.startDelay,
                         backDelay: settings.backDelay,
                         showCursor: settings.showCursor,
-                        cursorChar: settings.cursorChar,
                         loop: settings.loop
                     });
 
@@ -1218,6 +1217,22 @@
                 until = 'evergreen' === timerType ? settings.until.date.replace(/ /g, "T") : settings.until,
                 layout = '',
                 computedStyle = getComputedStyle($scope[0]);
+
+            function escapeHTML(str) {
+                var map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;',
+                };
+
+                return str.replace(/[&<>"']/g, function (m) { return map[m]; });
+            }
+
+            if (settings.separator) {
+                settings.separator = escapeHTML(settings.separator);
+            }
 
             var currentDate = new Date().getTime(),
                 untilDate = new Date(until).getTime();
@@ -3917,7 +3932,7 @@
 
                 if ("masonry" === settings.layout && !settings.carousel) {
 
-                    $pinsWrapper.imagesLoaded(function () {
+                    $pinsWrapper.imagesLoaded(function () { }).done(function () {
                         $pinsWrapper.isotope(getIsoTopeSettings());
                     });
                 }

@@ -8,6 +8,7 @@ namespace FormVibes\Classes;
 
 class FV_Query {
 
+	private $plugin = '';
 	/**
 	 * Entry table name
 	 * @var $entry_table_name
@@ -103,8 +104,7 @@ class FV_Query {
 			$entry_query_str             = $this->prepare_query( $query_arr );
 			$total_entry_count_query_str = $this->prepare_total_entry_count_query( $query_arr );
 			$entry_data                  = $wpdb->get_results( $entry_query_str, ARRAY_A );
-			$entry_count                 = $wpdb->get_var( $total_entry_count_query_str );
-
+			$entry_count                 = $wpdb->get_var( $total_entry_count_query_str );			
 			if ( count( $entry_data ) > 0 ) {
 				$data_ids = [];
 				$entries  = [];
@@ -115,8 +115,8 @@ class FV_Query {
 
 				$entry_meta_query = $this->prepare_entry_meta_query( $data_ids );
 				$entry_meta_data  = $wpdb->get_results( $entry_meta_query, ARRAY_A );
-
 				foreach ( $entry_meta_data as $meta ) {
+					
 					$entries[ $meta[ $this->join_key ] ][ $meta[ $meta_key_key ] ] = $meta[ $meta_value_key ];
 
 					if ( $meta[ $meta_key_key ] === 'fv-notes' ) {
@@ -177,7 +177,10 @@ class FV_Query {
 	 * @return string
 	 */
 	private function prepare_total_entry_count_query( $query_arr ) {
-		return "SELECT COUNT(distinct(e1.{$this->join_key})) FROM {$this->entry_table_name} as entry " . implode( ' ', $this->prepare_joins( $query_arr ) ) . implode( ' AND ', $this->prepare_where( $query_arr ) );
+		$sql = "SELECT COUNT(distinct(e1.{$this->join_key})) FROM {$this->entry_table_name} as entry ";
+		$sql .= $this->prepare_joins( $query_arr );
+		$sql .= $this->prepare_where( $query_arr );	
+		return $sql;
 	}
 
 	/**
@@ -185,10 +188,11 @@ class FV_Query {
 	 *
 	 * @access private
 	 * @param array $data_ids The data ids.
-	 * @since 1.4.4
+	 * @since 1.4.42
 	 * @return string
 	 */
 	private function prepare_entry_meta_query( $data_ids ) {
+		global $wpdb;
 		$fields = [
 			'meta_key',
 			'meta_value',
@@ -204,71 +208,97 @@ class FV_Query {
 		}
 
 		$fields = implode( ',', $fields );
-		$q[]    = "SELECT {$fields} FROM {$this->entry_meta_table_name} where {$this->join_key} IN (" . implode( ',', $data_ids ) . ')';
+		$q    =  "SELECT {$fields} FROM {$this->entry_meta_table_name} where {$this->join_key} IN (" . implode( ',', $data_ids ) . ')' ;
 		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( $this->plugin != 'caldera' ) {
-			$q[] = "AND meta_key != 'fv_form_id' AND meta_key != 'fv_plugin'";
+			$q .= $wpdb->prepare( " AND meta_key NOT IN ('%s', '%s') ", 'fv_form_id', 'fv_plugin' );
 		}
 
-		return implode( ' ', $q );
+		return $q;
 	}
 
+
+	private function fv_get_limit_string($query_arr) {
+		global $wpdb;
+	
+		$limit = 20; // Default limit
+		$offset = 0; // Default offset
+	
+		// Check if 'limit' exists and is not empty, then sanitize and validate it
+		if (Utils::key_exists('limit', $query_arr) && $query_arr['limit'] !== '') {
+			$limit = absint($query_arr['limit']); // Ensure limit is an absolute integer
+			$current_page = isset($query_arr['current_page']) ? absint($query_arr['current_page']) : 1; // Ensure current_page is an absolute integer
+	
+			if ($current_page > 1) {
+				// Calculate the offset
+				$offset = ($current_page - 1) * $limit;
+			}
+		}
+	
+		// Use prepared statements to safely insert the limit and offset values
+		if ($offset > 0) {
+			$limit_query = $wpdb->prepare(" LIMIT %d, %d", $offset, $limit);
+		} else {
+			$limit_query = $wpdb->prepare(" LIMIT %d", $limit);
+		}
+	
+		return $limit_query;
+	}
+	
+
+	private function fv_get_order_by_string($query_arr) {
+		global $wpdb;
+	
+		$order_by = 'desc';
+	
+		if (Utils::key_exists('order_by', $query_arr) && !empty($query_arr['order_by'])) {
+			// Sanitize and validate order by value
+			$order_by_value = sanitize_text_field($query_arr['order_by']);
+			if (in_array(strtolower($order_by_value), ['asc', 'desc'], true)) {
+				$order_by = $order_by_value;
+			}
+		}
+	
+		// Use the validated order_by value
+		$entry_query_arr = $wpdb->prepare(" ORDER BY {$this->entry_table_alias}.{$this->submission_date_key} %1s", $order_by);
+		// echo $entry_query_arr;
+		// die('dfadf');
+		return $entry_query_arr;
+	}
 	/**
 	 * Prepare final query
 	 *
 	 * @access private
 	 * @param array $query_arr The query array.
 	 * @since 1.4.4
+	 * 
 	 * @return string
 	 */
-	private function prepare_query( $query_arr ) {
+	// update query for new structure prepare_querys after 1.14.10
+	
+
+	private function get_query_cols($cols){
+		return implode( ', ' . $this->entry_table_alias . '.', $cols );
+	}
+
+	public function prepare_query($query_arr){
+		global $wpdb;
 		$cols = $this->get_entry_table_query_cols( $query_arr );
-		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( $this->plugin == 'caldera' ) {
 			$cols                      = [ 'datestamp', 'id', 'form_id', 'user_id', 'status' ];
 			$this->submission_date_key = 'datestamp';
 		}
-
 		$cols[0] = $this->entry_table_alias . '.' . $cols[0];
-
-		$entry_query_arr[] = ' SELECT distinct ' . implode( ', ' . $this->entry_table_alias . '.', $cols ) . " FROM {$this->entry_table_name} as {$this->entry_table_alias} ";
-
-		// joins
-		$joins[] = implode( ' ', $this->prepare_joins( $query_arr ) );
-
-		// merge joins into entry array
-		$entry_query_arr = array_merge( $entry_query_arr, $joins );
-
-		// add where query into entry query array
-		$entry_query_arr[] = implode( ' AND ', $this->prepare_where( $query_arr ) );
-
-		// order by
-		if ( Utils::key_exists( 'order_by', $query_arr ) && $query_arr['order_by'] !== '' ) {
-			$entry_query_arr[] = " order by {$this->entry_table_alias}.{$this->submission_date_key} {$query_arr['order_by']} ";
-		} else {
-			$entry_query_arr[] = " order by {$this->entry_table_alias}.{$this->submission_date_key} desc ";
-		}
-
-		// limit
-		if ( Utils::key_exists( 'limit', $query_arr ) && $query_arr['limit'] !== '' ) {
-			$limit        = $query_arr['limit'];
-			$current_page = $query_arr['current_page'];
-
-			if ( $current_page > 1 ) {
-				// offset
-				$offset            = ( $current_page - 1 ) * $limit;
-				$entry_query_arr[] = " LIMIT {$offset},{$limit}";
-			} else {
-				$entry_query_arr[] = " LIMIT {$limit} ";
-			}
-		} else {
-			$entry_query_arr[] = ' LIMIT 20 ';
-		}
-
-		$entry_query_arr = apply_filters( 'fv_entry_query_arr', $entry_query_arr );
-
-		// prepare query from array
-		return implode( ' ', $entry_query_arr );
+		$prpare_statement_query = $wpdb->prepare("SELECT DISTINCT %1s FROM %2s AS %3s ", 
+			$this->get_query_cols($cols),
+			$this->entry_table_name,
+			$this->entry_table_alias
+		);
+		$prpare_statement_query .= $this->prepare_joins($query_arr); 
+		$prpare_statement_query .= $this->prepare_where($query_arr);
+		$prpare_statement_query .= $this->fv_get_order_by_string($query_arr);
+		$prpare_statement_query .= $this->fv_get_limit_string($query_arr);
+		return $prpare_statement_query;
 	}
 
 	/**
@@ -279,21 +309,27 @@ class FV_Query {
 	 * @since 1.4.4
 	 * @return string
 	 */
-	private function prepare_entry_query( $query_arr ) {
-		$query_arr = $query_arr['entry_query'];
-		$relation  = $query_arr['relation'];
-		unset( $query_arr['relation'] );
+
+	private function prepare_entry_query( $query_arr ){
+		global $wpdb;
+
+		$entry_query_arr = $query_arr['entry_query'];
+		$relation = sanitize_text_field($entry_query_arr['relation']);
+		unset($entry_query_arr['relation']);
+
 		$vars = [];
-
-		foreach ( $query_arr as $key => $values ) {
-			$column  = $values['column'];
-			$compare = $values['compare'];
-			$value   = trim( $values['value'] );
-
-			$vars[] = " {$this->entry_table_alias}.{$column} {$compare} '{$value}' ";
+		foreach ($entry_query_arr as $values) {
+			$column = sanitize_text_field($values['column']);
+			$compare = sanitize_text_field($values['compare']);
+			$value = trim($values['value']);
+			
+			// Prepare each condition and add to the $vars array
+			if (in_array($compare, ['=', '!=', 'LIKE', 'NOT LIKE'])) {
+				$vars[] = $wpdb->prepare(" {$this->entry_table_alias}.{$column} {$compare} %s", $value);
+			}
 		}
 
-		return implode( " {$relation} ", $vars );
+		return implode(" {$relation} ", $vars);
 	}
 
 	/**
@@ -304,17 +340,16 @@ class FV_Query {
 	 * @since 1.4.4
 	 * @return string
 	 */
-	private function prepare_meta_query( $query_arr ) {
-		$entry_fields   = Utils::get_entry_table_fields();
+	public function prepare_meta_query( $query_arr){
+		global $wpdb;
+		$entry_fields = Utils::get_entry_table_fields();
 		$meta_query_arr = (array) $query_arr['meta_query'];
-		$relation       = $meta_query_arr['relation'];
+		$relation       = sanitize_text_field($meta_query_arr['relation']);
 		unset( $meta_query_arr['relation'] );
 		$vars = [];
-
 		if ( count( $meta_query_arr ) <= 0 ) {
 			return '';
 		}
-
 		$meta_key_key   = 'meta_key';
 		$meta_value_key = 'meta_value';
 		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
@@ -322,42 +357,54 @@ class FV_Query {
 			$meta_key_key   = 'slug';
 			$meta_value_key = 'value';
 		}
-
 		foreach ( $meta_query_arr as $key => $values ) {
 			$values      = (array) $values;
 			$table_alias = 'e';
-			$meta_key    = $values['meta_key'];
+			$meta_key    = sanitize_text_field($values['meta_key']);
 			$meta_value  = trim( $values['meta_value'] );
-			$compare     = $values['compare'];
-			// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+			$compare     = sanitize_text_field($values['compare']);
+			//echo '<pre>';  print_r($values); echo '</pre>';
 			if ( 'OR' == $relation ) {
 				$key = 0;
 			}
-
 			if ( in_array( $values['meta_key'], $entry_fields, true ) ) {
 				$table_alias = 'entry';
 			}
 
-			if ( $table_alias === 'e' ) {
-				$value = $this->check_like_operator( $compare, $meta_value );
-				$k     = $key + 1;
-				if ( empty( $meta_value ) ) {
-					$vars[] = " ( e{$k}.{$meta_key_key} = '{$meta_key}' AND e{$k}.{$meta_value_key} LIKE '%%' or e{$k}.{$meta_key_key} = '' )";
+			$k = $key + 1;
+
+			if ($compare === 'LIKE' || $compare === 'NOT LIKE') {
+				$meta_value = '%' . $wpdb->esc_like($meta_value) . '%';
+			}
+
+			if ($table_alias === 'e') {
+				if (empty($meta_value)) {
+					$vars[] = $wpdb->prepare(
+						" ( e{$k}.{$meta_key_key} = %s AND e{$k}.{$meta_value_key} LIKE '%%' OR e{$k}.{$meta_key_key} = '' )",
+						$meta_key
+					);
 				} else {
-					$vars[] = " ( e{$k}.{$meta_key_key} = '{$meta_key}' AND e{$k}.{$meta_value_key} {$compare} {$value} )";
+					$vars[] = $wpdb->prepare(
+						" ( e{$k}.{$meta_key_key} = %s AND e{$k}.{$meta_value_key} {$compare} %s )",
+						$meta_key, $meta_value
+					);
 				}
 			} else {
-				$value = $this->check_like_operator( $compare, $meta_value );
-				if ( empty( $meta_value ) ) {
-					$vars[] = " ( entry.{$meta_key} is null or entry.{$meta_key} = '' )";
+				if (empty($meta_value)) {
+					$vars[] = " ( entry.{$meta_key} IS NULL OR entry.{$meta_key} = '' )";
 				} else {
-					$vars[] = " ( entry.{$meta_key} {$compare} {$value}  )";
+					$vars[] = $wpdb->prepare(
+						" ( entry.{$meta_key} {$compare} %s )",
+						$meta_value
+					);
 				}
 			}
 		}
-
-		return implode( " {$relation} ", $vars );
+		return implode(" {$relation} ", $vars);
 	}
+
+	
+	
 
 	/**
 	 * Add appropriate operator to meta value
@@ -383,27 +430,36 @@ class FV_Query {
 	 * @since 1.4.4
 	 * @return string
 	 */
-	private function prepare_joins( $query_arr ) {
 
-		$joins[]                 = " INNER JOIN {$this->entry_meta_table_name} as e1 ON ({$this->entry_table_alias}.id = e1.{$this->join_key}) ";
+	 private function prepare_joins($query_arr) {
+		global $wpdb;
+	
+		// Initial join condition
+		$joins[] = "INNER JOIN {$this->entry_meta_table_name} as e1 ON ({$this->entry_table_alias}.id = e1.{$this->join_key})";
+	
 		$query_arr['meta_query'] = (array) $query_arr['meta_query'];
-
-		if ( Utils::key_exists( 'meta_query', $query_arr ) && $query_arr['meta_query'] !== '' && count( $query_arr['meta_query'] ) > 0 ) {
+	
+		if (Utils::key_exists('meta_query', $query_arr) && $query_arr['meta_query'] !== '' && count($query_arr['meta_query']) > 0) {
 			$meta_query_arr = (array) $query_arr['meta_query'];
-			$condition      = 'data_id';
-			$relation       = $meta_query_arr['relation'];
-			unset( $meta_query_arr['relation'] );
-
-			if ( $relation !== 'OR' && count( $meta_query_arr ) > 0 ) {
-				$joins = [];
-				foreach ( $meta_query_arr as $key => $values ) {
-					$joins[] = 'INNER JOIN ' . $this->entry_meta_table_name . ' as e' . ( $key + 1 ) . ' ON (entry.id = e' . ( $key + 1 ) . '.' . $condition . ' ) ';
+			$condition = 'data_id';
+			$relation = sanitize_text_field($meta_query_arr['relation']);
+			unset($meta_query_arr['relation']);
+	
+			if ($relation !== 'OR' && count($meta_query_arr) > 0) {
+				$joins = []; // Reset joins if relation is not OR
+				foreach ($meta_query_arr as $key => $values) {
+					$key = absint($key + 1); // Sanitize key to be used in table alias
+					$joins[] = $wpdb->prepare("INNER JOIN {$this->entry_meta_table_name} as e$key ON (entry.id = e$key.%1s)", $condition);
 				}
 			}
 		}
-
-		return apply_filters( 'fv_entry_query_joins', $joins );
+		
+		$joins = apply_filters('fv_entry_query_joins', $joins);
+		return implode(' ', $joins);
 	}
+	
+
+	
 
 	/**
 	 * Get entry table columns
@@ -434,78 +490,101 @@ class FV_Query {
 	 * @since 1.4.4
 	 * @return array
 	 */
-	private function prepare_where( $query_arr ) {
-		if ( is_array( $query_arr['plugin'] ) ) {
-			$query_arr['plugin'] = '';
+	private function prepare_where($query_arr) {		
+		global $wpdb;
+	
+		// Ensure default empty values for sanitized inputs
+		$plugin = '';
+		$form_id = 0;
+	
+		// Sanitize inputs
+		if (isset($query_arr['plugin'])) {
+			if (is_array($query_arr['plugin'])) {
+				$plugin = '';
+			} else {
+				$plugin = sanitize_text_field($query_arr['plugin']);
+			}
 		}
-
-		if ( is_array( $query_arr['form_id'] ) ) {
-			$query_arr['form_id'] = '';
+	
+		if (isset($query_arr['form_id'])) {
+			if (is_array($query_arr['form_id'])) {
+				$form_id = 0;
+			} else {
+				$form_id = sanitize_text_field($query_arr['form_id']);
+			}
 		}
-
-		$fv_export_selected_rows = isset( $query_arr['fv_export_selected_rows'] ) ? $query_arr['fv_export_selected_rows'] : false;
-		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		if ( $this->plugin == 'caldera' ) {
+	
+		$where = [];
+		
+		if ($this->plugin == 'caldera') {
 			$where[] = 'WHERE 1=1';
 		} else {
-			// form and plugin
-			$where[] = " WHERE {$this->entry_table_alias}.form_plugin = '{$query_arr['plugin']}' AND {$this->entry_table_alias}.form_id = '{$query_arr['form_id']}' ";
+			$where[] = $wpdb->prepare(
+				" WHERE {$this->entry_table_alias}.form_plugin = %s AND {$this->entry_table_alias}.form_id = %s ",
+				$plugin, $form_id
+			);
 		}
-
-		if ( is_array( $fv_export_selected_rows ) && count( $fv_export_selected_rows ) > 0 ) {
-			$where[] = " {$this->entry_table_alias}.id IN (" . implode( ',', $fv_export_selected_rows ) . ') ';
+	
+		if (isset($query_arr['fv_export_selected_rows']) && is_array($query_arr['fv_export_selected_rows']) && count($query_arr['fv_export_selected_rows']) > 0) {
+			$fv_export_selected_rows = array_map('absint', $query_arr['fv_export_selected_rows']);
+			$where[] = "{$this->entry_table_alias}.id IN (" . implode(',', $fv_export_selected_rows) . ')';
 		}
-
+	
 		// entry query query
-		if ( Utils::key_exists( 'entry_query', $query_arr ) && count( $query_arr['entry_query'] ) > 0 ) {
-			$where[] = ' ( ' . $this->prepare_entry_query( $query_arr ) . ' ) ';
+		if (isset($query_arr['entry_query']) && is_array($query_arr['entry_query']) && count($query_arr['entry_query']) > 0) {
+			
+			$where[] = ' ( ' . $this->prepare_entry_query($query_arr) . ' ) ';
 		}
-
-		$query_arr['meta_query'] = (array) $query_arr['meta_query'];
-
+	
+		$query_arr['meta_query'] = (array)$query_arr['meta_query'];
+	
 		// meta query
-		if ( Utils::key_exists( 'meta_query', $query_arr ) && $query_arr['meta_query'] !== '' && count( $query_arr['meta_query'] ) > 0 ) {
-			$meta_query = $this->prepare_meta_query( $query_arr );
-			if ( $meta_query !== '' ) {
-				$where[] = ' ( ' . $this->prepare_meta_query( $query_arr ) . ' ) ';
+		if (isset($query_arr['meta_query']) && $query_arr['meta_query'] !== '' && count($query_arr['meta_query']) > 0) {
+			$meta_query = $this->prepare_meta_query($query_arr);
+			if ($meta_query !== '') {
+				$where[] = ' ( ' . $meta_query . ' ) ';
 			}
 		}
-
+	
 		// status
-		if ( Utils::key_exists( 'status', $query_arr ) && count( $query_arr['status'] ) > 0 ) {
-			// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-			if ( in_array( 'unread', $query_arr['status'] ) ) {
+		if (isset($query_arr['status']) && is_array($query_arr['status']) && count($query_arr['status']) > 0) {
+			if (in_array('unread', $query_arr['status'])) {
 				$query_arr['status'][] = 'undefined';
 			}
-			$where[] = "  fv_status IN ('" . implode( "', '", $query_arr['status'] ) . "') ";
+			$status_sanitized = array_map('sanitize_text_field', $query_arr['status']);
+			$where[] = " fv_status IN ('" . implode("', '", $status_sanitized) . "') ";
 		}
-
+	
 		$query_type = 'This_Year';
-		$from_date  = '';
-		$to_date    = '';
-		if ( Utils::key_exists( 'query_type', $query_arr ) ) {
-			$query_type = $query_arr['query_type'];
+		$from_date = '';
+		$to_date = '';
+	
+		if (isset($query_arr['query_type'])) {
+			$query_type = sanitize_text_field($query_arr['query_type']);
 		} else {
 			$query_type = '';
 		}
-
-		if ( Utils::key_exists( 'from_date', $query_arr ) && Utils::key_exists( 'to_date', $query_arr ) && $query_arr['from_date'] !== '' && $query_arr['to_date'] !== '' ) {
-			$from_date = $query_arr['from_date'];
-			$to_date   = $query_arr['to_date'];
+	
+		if (isset($query_arr['from_date']) && isset($query_arr['to_date']) && $query_arr['from_date'] !== '' && $query_arr['to_date'] !== '') {
+			$from_date = sanitize_text_field($query_arr['from_date']);
+			$to_date = sanitize_text_field($query_arr['to_date']);
 		}
-
-		if ( $query_type !== '' && $query_type !== 'Custom' ) {
-			$dates     = CarbonUtils::get_preset_date_range( $query_type );
-			$from_date = $dates['from_date']->format( 'Y-m-d' );
-			$to_date   = $dates['to_date']->format( 'Y-m-d' );
+	
+		if ($query_type !== '' && $query_type !== 'Custom') {
+			$dates = CarbonUtils::get_preset_date_range($query_type);
+			$from_date = $dates['from_date']->format('Y-m-d');
+			$to_date = $dates['to_date']->format('Y-m-d');
 		}
-
+	
 		// date
-		$where[] = "  DATE_FORMAT({$this->entry_table_alias}.{$this->submission_date_key},GET_FORMAT(DATE,'JIS')) >= '" . $from_date . "' ";
-		$where[] = "  DATE_FORMAT({$this->entry_table_alias}.{$this->submission_date_key},GET_FORMAT(DATE,'JIS')) <= '" . $to_date . "' ";
+		$where[] = $wpdb->prepare(" DATE_FORMAT({$this->entry_table_alias}.{$this->submission_date_key}, GET_FORMAT(DATE, 'JIS')) >= %s ", $from_date);
+		$where[] = $wpdb->prepare(" DATE_FORMAT({$this->entry_table_alias}.{$this->submission_date_key}, GET_FORMAT(DATE, 'JIS')) <= %s ", $to_date);
+		
+		$where = apply_filters('fv_entry_query_where', $where);
+		return implode(' AND ', $where);
 
-		return apply_filters( 'fv_entry_query_where', $where );
 	}
+	
 
 	/**
 	 * Get default query parameters

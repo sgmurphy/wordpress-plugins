@@ -3,9 +3,9 @@ Contributors: w3eden, codename065, shahriar0822, shimo16ab, shafayat-alam
 Donate link:
 Tags: download manager, document management, file manager, digital store, ecommerce, document management plugin,  download monitor, download counter, password protection, download protection
 Requires at least: 5.3
-Tested up to: 6.5
+Tested up to: 6.6
 License: GPLv3
-Stable tag: 3.2.96
+Stable tag: 3.2.97
 
 
 This File Management & Digital Store plugin will help you to control file downloads & sell digital products from your WP site.
@@ -201,6 +201,9 @@ By using this plugin, you acknowledge and agree to the terms and policies of the
 19. More features
 
 == Changelog ==
+
+= 3.2.97 - 2024.07.08 =
+* Compatibility update for WorPress 6.6
 
 = 3.2.96 - 2024.06.10 =
 * Fixed an issue with email template editor

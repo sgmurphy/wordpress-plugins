@@ -143,6 +143,7 @@ class Admin extends Base {
 			set_url_scheme( '//fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap' )
 		);
 
+		wp_enqueue_media();
 		templately()->assets->enqueue( 'templately', 'js/templately.js', $script_dependencies, true );
 		templately()->assets->enqueue( 'templately', 'css/templately.css', ['templately-dmsans'] );
 

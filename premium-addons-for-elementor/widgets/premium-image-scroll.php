@@ -929,14 +929,9 @@ class Premium_Image_Scroll extends Widget_Base {
 		$image_html = '';
 		if ( ! empty( $settings['image']['url'] ) ) {
 
-			$this->add_render_attribute(
-				'image',
-				array(
-					'src'   => $settings['image']['url'],
-					'alt'   => Control_Media::get_image_alt( $settings['image'] ),
-					'title' => Control_Media::get_image_title( $settings['image'] ),
-				)
-			);
+            $image_id = apply_filters( 'wpml_object_id', $settings['image']['id'], 'attachment' );
+
+            $settings['image']['id'] = $image_id;
 
 			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'image' );
 

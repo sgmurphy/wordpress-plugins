@@ -11,7 +11,7 @@ namespace Auxin\Plugin\Portfolio\Elementor;
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

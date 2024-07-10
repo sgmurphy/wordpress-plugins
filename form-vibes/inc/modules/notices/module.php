@@ -122,8 +122,6 @@ class Module {
 
 		$this->fv_review_box();
 		$this->fv_pro_purchase();
-		//add_action( 'admin_notices', [ $this, 'update_pro_from_05' ] );
-		//add_action( 'admin_notices', [ $this, 'show_disable_free_notice' ] );
 		add_action( 'admin_notices', [ $this, 'fv_table_notice' ] );
 	}
 

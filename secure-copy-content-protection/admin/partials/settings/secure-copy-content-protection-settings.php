@@ -287,14 +287,14 @@ $sccp_sub_bg_image_position = (isset($subscribe["sub_bg_image_position"]) && $su
                         <fieldset>
                             <legend>
                                 <img class="ays_integration_logo" src="<?php echo SCCP_ADMIN_URL; ?>/images/integrations/mailchimp_logo.png" alt="">
-                                <h5><?php echo __('MailChimp',$this->plugin_name)?></h5>
+                                <h5><?php echo __('Mailchimp',$this->plugin_name)?></h5>
                             </legend>
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <div class="form-group row" aria-describedby="aaa">
                                         <div class="col-sm-3">
                                             <label for="ays_mailchimp_username">
-                                                <?php echo __('MailChimp Username',$this->plugin_name)?>
+                                                <?php echo __('Mailchimp Username',$this->plugin_name)?>
                                             </label>
                                         </div>
                                         <div class="col-sm-9">
@@ -310,7 +310,7 @@ $sccp_sub_bg_image_position = (isset($subscribe["sub_bg_image_position"]) && $su
                                     <div class="form-group row" aria-describedby="aaa">
                                         <div class="col-sm-3">
                                             <label for="ays_mailchimp_api_key">
-                                                <?php echo __('MailChimp API Key',$this->plugin_name)?>
+                                                <?php echo __('Mailchimp API Key',$this->plugin_name)?>
                                             </label>
                                         </div>
                                         <div class="col-sm-9">
@@ -418,13 +418,22 @@ $sccp_sub_bg_image_position = (isset($subscribe["sub_bg_image_position"]) && $su
                                 </p>
                                 <p class="vmessage">
                                     <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_date%%" />
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_attr( __( "It will show the current date.", $this->plugin_name) ); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
                                         <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%current_user_ip%%" />
                                     </strong>
                                     <span> - </span>
                                     <span style="font-size:18px;">
                                         <?php echo esc_attr( __( "Shows the current user's IP no matter whether they are a logged-in user or a guest. Please note, that this message variable will return empty, if 'Do not store IP addresses' is ticked from General Settings>General>Users IP addresses.", $this->plugin_name) ); ?>
                                     </span>
-                                </p>                                
+                                </p>
                             </div>
                         </div>
                     </div>

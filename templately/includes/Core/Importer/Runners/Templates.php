@@ -49,11 +49,9 @@ class Templates extends BaseRunner {
 				$results['succeed'][ $id ]   = $import;
 				$results['template_types'][] = $template_settings['type'];
 
-				if ( $template_settings['type'] === 'archive' ) {
+				if ( $template_settings['type'] === 'archive' || $template_settings['type'] === 'product_archive' || $template_settings['type'] === 'course_archive' ) {
 					$page_id = $this->create_archive_page( $template_settings, $this->manifest['platform'] );
-
 					if ( $page_id ) {
-						// $results['succeed'][ $id ]        = $page_id;
 						$_extra_pages['archive_settings'] = [
 							'old_id'     => $id,
 							'page_id'    => $page_id,
@@ -115,6 +113,10 @@ class Templates extends BaseRunner {
 		$template_content['import_settings'] = $template_settings;
 		$template->import( $template_content );
 
+		if($template->has_logo($template_content)){
+			$this->manifest['templates'][$id]['has_logo'] = true;
+		}
+
 		return $template->get_main_id();
 	}
 
@@ -141,8 +143,13 @@ class Templates extends BaseRunner {
 				return false;
 			}
 
-			Utils::update_option( 'page_for_posts', $archive_page );
+			if($type === 'archive'){
+				Utils::update_option( 'page_for_posts', $archive_page );
+			}
 
+			if($type === 'product_archive'){
+				Utils::update_option( 'woocommerce_shop_page_id', $archive_page );
+			}
 			return $archive_page;
 		} catch ( \Exception $e ) {
 			return false;

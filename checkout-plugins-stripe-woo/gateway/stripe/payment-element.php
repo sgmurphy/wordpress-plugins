@@ -150,15 +150,14 @@ class Payment_Element extends Abstract_Payment_Gateway {
 			[
 				'enabled'              => [
 					'label'   => ' ',
-					'type'    => 'checkbox',
-					'title'   => __( 'Enable', 'checkout-plugins-stripe-woo' ),
-					'default' => 'no',
+					'type'    => 'hidden',
+					'default' => 'yes',
 				],
 				'title'                => [
 					'title'       => __( 'Title', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'text',
 					'description' => __( 'Title for this payment method', 'checkout-plugins-stripe-woo' ),
-					'default'     => __( 'Stripe', 'checkout-plugins-stripe-woo' ),
+					'default'     => __( 'Flexible Payment Options', 'checkout-plugins-stripe-woo' ),
 					'desc_tip'    => true,
 				],
 				'description'          => [
@@ -195,8 +194,8 @@ class Payment_Element extends Abstract_Payment_Gateway {
 					'title'       => __( 'Order Button Label', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'text',
 					'description' => __( 'Customize label for Order button', 'checkout-plugins-stripe-woo' ),
-					'default'     => __( 'Pay via Stripe', 'checkout-plugins-stripe-woo' ),
 					'desc_tip'    => true,
+					'placeholder' => 'Place order',
 				],
 				'layout'               => [
 					'type'        => 'select',

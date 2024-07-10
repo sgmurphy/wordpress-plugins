@@ -13,9 +13,12 @@ class PP_Elements_WPML {
 			'integration-class' => 'WPML_PP_Advanced_Accordion',
 		];
 		$widgets[ 'pp-business-hours' ]       = [
-			'conditions' => [ 'widgetType' => 'pp-business-hours' ],
-			'fields'     => [],
-			'integration-class' => 'WPML_PP_Business_Hours'
+			'conditions'        => [ 'widgetType' => 'pp-business-hours' ],
+			'fields'            => [],
+			'integration-class' => [
+				'WPML_PP_Business_Hours',
+				'WPML_PP_Business_Hours_Custom',
+			],
 		];
 		$widgets['pp-buttons']              = [
 			'conditions'        => [ 'widgetType' => 'pp-buttons' ],
@@ -295,7 +298,7 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Info Box - Link', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 				[
 					'field'       => 'button_text',
@@ -346,7 +349,7 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Info Table - Link', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 				[
 					'field'       => 'button_text',
@@ -367,7 +370,7 @@ class PP_Elements_WPML {
 				'insta_profile_url' => [
 					'field'       => 'url',
 					'type'        => __( 'Instafeed - Instagram Profile URL', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 				[
 					'field'       => 'load_more_button_text',
@@ -392,7 +395,7 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Link Effects - Link', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 			],
 		];
@@ -517,7 +520,7 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Pricing Table - Link', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 				[
 					'field'       => 'table_additional_info',
@@ -553,7 +556,7 @@ class PP_Elements_WPML {
 				'link' => [
 					'field'       => 'url',
 					'type'        => __( 'Promo Box - link', 'powerpack' ),
-					'editor_type' => 'LINE'
+					'editor_type' => 'LINK'
 				],
 			],
 		];
@@ -654,7 +657,7 @@ class PP_Elements_WPML {
 				[
 					'field'       => 'url',
 					'type'        => __( 'Twitter Grid - Collection URL', 'powerpack' ),
-					'editor_type' => 'LINK',
+					'editor_type' => 'LINE',
 				],
 				[
 					'field'       => 'tweet_limit',

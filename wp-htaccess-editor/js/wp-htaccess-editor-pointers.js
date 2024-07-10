@@ -1,7 +1,7 @@
 /*
- * WP Htaccess Editor
+ * WP .htaccess Editor
  * Backend GUI pointers
- * (c) WebFactory Ltd, 2017 - 2022
+ * (c) WebFactory Ltd, 2017 - 2024
  */
 
 jQuery(document).ready(function ($) {
@@ -15,7 +15,7 @@ jQuery(document).ready(function ($) {
     }
     $(pointer.target)
       .pointer({
-        content: '<h3>WP Htaccess Editor</h3><p>' + pointer.content + '</p>',
+        content: '<h3>WP .htaccess Editor</h3><p>' + pointer.content + '</p>',
         pointerWidth: 380,
         position: {
           edge: pointer.edge,

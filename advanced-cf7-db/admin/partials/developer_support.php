@@ -26,23 +26,6 @@ else{
 	wp_enqueue_style('vsz-cf7-db-admin-css');
 	wp_enqueue_style('jquery-datetimepicker-css');
 	wp_enqueue_script('jquery-ui-sortable');
-	
-	//wp_enqueue_script('wp_enqueue_style');
-	
-	//Get all existing contact form list
-	$form_list = vsz_cf7_get_the_form_list();
-
-	//Get all form names which entry store in DB
-	global $wpdb;
-	$sql = "SELECT `cf7_id` FROM `".VSZ_CF7_DATA_ENTRY_TABLE_NAME."` GROUP BY `cf7_id`";
-	$data = $wpdb->get_results($sql,ARRAY_N);
-	$arr_form_id = array();
-	if(!empty($data)){
-		foreach($data as $arrVal){
-			$arr_form_id[] = (int)$arrVal[0];
-		}
-	}
-
 
 	?>
 	<div class="wrap">

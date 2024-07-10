@@ -219,7 +219,7 @@ final class Stripe_Element extends AbstractPaymentMethodType {
 	 * @return string Title / label string
 	 */
 	private function get_title() {
-		return isset( $this->settings['title'] ) ? $this->settings['title'] : __( 'Stripe checkout', 'checkout-plugins-stripe-woo' );
+		return isset( $this->settings['title'] ) ? $this->settings['title'] : __( 'Flexible Payment Options', 'checkout-plugins-stripe-woo' );
 	}
 
 }

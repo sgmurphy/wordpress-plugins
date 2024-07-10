@@ -52,10 +52,10 @@ class Submission_Listener
         // MailOptin
         \add_action('mailoptin_track_conversions', function ($lead_data) {
             try {
-                if (!\class_exists('IAWPSCOPED\\MailOptin\\Core\\Repositories\\OptinCampaignsRepository')) {
+                if (!\class_exists('\\MailOptin\\Core\\Repositories\\OptinCampaignsRepository')) {
                     return;
                 }
-                $form_title = \IAWPSCOPED\MailOptin\Core\Repositories\OptinCampaignsRepository::get_optin_campaign_name($lead_data['optin_campaign_id']);
+                $form_title = \MailOptin\Core\Repositories\OptinCampaignsRepository::get_optin_campaign_name($lead_data['optin_campaign_id']);
                 if (\is_null($form_title)) {
                     return;
                 }
@@ -106,10 +106,10 @@ class Submission_Listener
         // Formidable Forms
         \add_action('frm_after_create_entry', function ($entry_id, $form_id) {
             try {
-                if (!\class_exists('IAWPSCOPED\\FrmForm')) {
+                if (!\class_exists('\\FrmForm')) {
                     return;
                 }
-                $form = \IAWPSCOPED\FrmForm::getOne($form_id);
+                $form = \FrmForm::getOne($form_id);
                 $submission = new \IAWP\Form_Submissions\Submission(10, \intval($form_id), Security::string($form->name));
                 $submission->record_submission();
             } catch (\Throwable $e) {

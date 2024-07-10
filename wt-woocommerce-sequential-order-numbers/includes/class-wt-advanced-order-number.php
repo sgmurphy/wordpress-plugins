@@ -16,7 +16,7 @@ class Wt_Advanced_Order_Number {
         if (defined('WT_SEQUENCIAL_ORDNUMBER_VERSION')) {
             $this->version = WT_SEQUENCIAL_ORDNUMBER_VERSION;
         } else {
-            $this->version = '1.6.3';
+            $this->version = '1.6.4';
         }
         $this->plugin_name = 'wt-advanced-order-number';
         $this->plugin_base_name = WT_SEQUENCIAL_ORDNUMBER_BASE_NAME;
@@ -74,10 +74,29 @@ class Wt_Advanced_Order_Number {
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
         $this->loader->add_action('admin_footer', $plugin_admin, 'add_settings_page_popup');
         if ( 'yes' === get_option( 'wt_custom_order_number_search', 'yes' ) ) {
-            $this->loader->add_filter('woocommerce_shop_order_search_fields', $plugin_admin, 'custom_ordernumber_search_field');
-
-            // ensure that admin order table search by order number works.
-            $this->loader->add_filter('woocommerce_order_table_search_query_meta_keys', $plugin_admin, 'custom_ordernumber_search_field');
+            
+            if ( ! function_exists( 'get_plugins' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+            $plugin_folder = get_plugins( '/woocommerce' );
+            $plugin_file = 'woocommerce.php';
+    
+            if ( isset( $plugin_folder[ $plugin_file ]['Version'] ) ) {
+                $wc_version = $plugin_folder[ $plugin_file ]['Version'];
+          
+            }else{
+                $wc_version = 0;
+            }
+            if(version_compare($wc_version, '8.9.0', '<')){
+                $this->loader->add_filter( 'woocommerce_shop_order_search_fields', $plugin_admin, 'custom_ordernumber_search_field' );   
+                // ensure that admin order table search by order number works.
+                $this->loader->add_filter( 'woocommerce_order_table_search_query_meta_keys', $plugin_admin, 'custom_ordernumber_search_field' );
+            }else{
+                //add order number as a search option in woocommerce orders page.
+                add_filter( 'woocommerce_hpos_admin_search_filters',  array( $this, 'wt_sequential_order_page_add_order_number_as_search_option' ) );
+                // Add order number on seach query on woocomerce order page.
+                add_filter( 'woocommerce_hpos_generate_where_for_search_filter', array( $this, 'wt_sequential_generate_where_for_search_filter_add_order_number' ), 10, 4 );
+            }
         }
 
         add_action('plugins_loaded', array($this, 'setup_sequential_number'));    
@@ -128,9 +147,6 @@ class Wt_Advanced_Order_Number {
      */
 
     public function setup_sequential_number() {
-
-        //add order number as a search option in order listing page .
-        add_action('woocommerce_order_list_table_prepare_items_query_args', array($this, 'wt_order_list_table_prepare_items_query_args'));
 
         //add_action('wp_insert_post', array($this, 'set_sequential_number'), 10, 2);
         //add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'set_sequential_number' ), 10, 1 );
@@ -799,24 +815,48 @@ class Wt_Advanced_Order_Number {
     }
 
     /**
-	* 	@since 1.6.3
-	*	Alter query parameters for adding order number as a serch option in order listing page.
+	* 	@since 1.6.4
+	*   Include order number in the search query if the order number is selected as a search filter on the order listing page.
     *
-    *   @param array $query Arguments to be passed to `wc_get_orders()`.
+    *   @param array $options Serach options.
     *
 	*	@return array
 	*/
-    public function wt_order_list_table_prepare_items_query_args($query){
-        if((isset($query['search_filter']) && $query['search_filter'] === 'order_number') && (isset($query['s']) && ! empty( $query['s']))){
-            $query['meta_query'][] = array(
-                'key'   => '_order_number',
-                'value' => sanitize_text_field( $query['s']),
-                'compare' => 'LIKE',         
-            );
-            unset($query['search_filter']);
-            unset($query['s']);
+    public function wt_sequential_order_page_add_order_number_as_search_option($options){
+        $new_options =array();
+        foreach($options as $option => $option_value){
+            if($option === 'all'){
+                $new_options['order_number'] = __( 'Order Number', 'wt-woocommerce-sequential-order-numbers' );
+            }
+            $new_options [$option] = $option_value;
         }
-        return $query;
+        return $new_options;
     }
 
+
+    /**
+	* 	@since 1.6.4
+	*   Alter query parameters for adding order number as a serch option in order listing page.
+    *
+    *   @param string $where WHERE clause to add to the search query.
+    *   @param string $search_term The search term.
+	*   @param string $search_filter Name of the search filter. Use this to bail early if this is not the filter you are looking for.
+    *   @param OrdersTableQuery $query The order query object.
+    *
+	*	@return string 
+	*/
+    public function wt_sequential_generate_where_for_search_filter_add_order_number ($where, $search_term, $filter, $query) {
+        global $wpdb;
+        if ('order_number' === $filter || 'order_id' === $filter) {  // If serch value is  not a numeric include order number in search query for all and order id search options. 
+            $order_table = $query->get_table_name('orders');
+    
+            $order_meta_table = $query->get_table_name('meta');
+    
+            $where = $wpdb->prepare("`$order_table`.id in (SELECT order_id FROM `$order_meta_table` WHERE meta_key = %s AND meta_value LIKE %s)",
+            '_order_number',
+            '%' . $wpdb->esc_like($search_term) . '%');
+        }
+    
+        return $where;
+    }
 }

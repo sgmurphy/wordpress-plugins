@@ -100,6 +100,9 @@ if ( defined( 'ABSPATH' ) && ! class_exists( 'Change_WP_Admin_Login' ) ) {
 			add_filter( 'wp_redirect', array( $this, 'wp_redirect' ), 10, 2 );
 
 			add_filter( 'site_option_welcome_email', array( $this, 'welcome_email' ) );
+			add_action( 'admin_notices', array( $this, 'new_beta_notice' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'close_beta_notice' ) );
+			add_action( 'wp_ajax_change_wp_admin_login_dismiss_beta_notice', array( $this, 'close_beta_notice_ajax' ) );
 
 			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 		}
@@ -391,6 +394,9 @@ if ( defined( 'ABSPATH' ) && ! class_exists( 'Change_WP_Admin_Login' ) ) {
 				$args = explode( '?', $url );
 				if ( isset( $args[1] ) ) {
 					wp_parse_str( $args[1], $args );
+
+					$args = $this->sanitize_nested_args( $args );
+
 					$url = add_query_arg( $args, $this->new_login_url( $scheme ) );
 				} else {
 					$url = $this->new_login_url( $scheme );
@@ -420,8 +426,62 @@ if ( defined( 'ABSPATH' ) && ! class_exists( 'Change_WP_Admin_Login' ) ) {
 			return $url;
 		}
 
+		private function sanitize_nested_args( $args ) {
+			foreach ( $args as $key => $value ) {
+				if ( is_array( $value ) ) {
+					$args[ $key ] = $this->sanitize_nested_args( $value );
+				} else {
+					$args[ $key ] = rawurlencode( $value );
+				}
+			}
+			return $args;
+		}
+
 		public function welcome_email( $value ) {
 			return $value = str_replace( 'wp-login.php', trailingslashit( get_site_option( 'rwl_page', 'login' ) ), $value );
+		}
+
+		public function new_beta_notice() {
+			$beta_notice_closed = get_option( 'rwl_beta_notice_closed' );
+			if ( 'closed' !== $beta_notice_closed ) {
+				echo '<div class="notice is-dismissible notice-info change-wp-admin-login-dismiss">
+					<p>
+						<h2>Good News! 😃</h2>
+						We have rebranded the <b style="font-weight: 700;">Change WP Admin Login</b> plugin as <b style="font-weight: 700;">AIO Login</b> with many new exciting features, such as:
+					
+						<ul style="list-style-type:disc; padding: 0 15px;">
+							<li>Limit login attempts.</li>
+							<li>Google reCAPTCHA.</li>
+							<li>WP login page customization and more.</li>									
+						</ul> 
+					
+					👉 <b style="font-weight: 700;"><a href="https://wp.org/support/topic/good-news-explore-new-exciting-features-with-the-rebrand/">Try out the Beta version of AIO Login now!</a></b> The full version is coming soon.
+					</p>
+				</div>';
+			}
+		}
+
+		public function close_beta_notice() {
+			wp_add_inline_script(
+				'jquery',
+				'( function( $ ) {
+					$( document ).on( "click", ".change-wp-admin-login-dismiss .notice-dismiss", function( e ) {
+						e.preventDefault();
+						$.post( ajaxurl, {
+							action: "change_wp_admin_login_dismiss_beta_notice"
+						}, function( response ) {
+							console.log( response  );
+						 } );
+					} );
+				} )( jQuery );'
+			);
+		}
+
+		public function close_beta_notice_ajax() {
+			update_option(
+				'rwl_beta_notice_closed',
+				'closed'
+			);
 		}
 
 		public function forbidden_slugs() {

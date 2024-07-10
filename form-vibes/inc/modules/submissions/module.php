@@ -121,11 +121,11 @@ class Module {
 		}
 
 		$params = (array) json_decode( stripslashes( sanitize_text_field( $_POST['params'] ) ) );
-		
+
 		$fv_query          = new FV_Query( $params );
 		$result            = $fv_query->get_result();
 		$result['columns'] = [];
-		
+
 		if ( count( array_keys( $result['data'] ) ) > 0 || true ) {
 			$columns_obj                = new FV_Columns( $params );
 			$cols                       = $columns_obj->get_columns();

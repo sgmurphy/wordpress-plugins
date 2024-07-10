@@ -7,7 +7,7 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  */
 
 
@@ -20,7 +20,7 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
  */
 function auxin_define_portfolio_theme_options( $fields_sections_list ){
 

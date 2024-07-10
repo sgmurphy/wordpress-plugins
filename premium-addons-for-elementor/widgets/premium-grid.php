@@ -2755,7 +2755,7 @@ class Premium_Grid extends Widget_Base {
 
 				$key = 'gallery_item_' . $index;
 
-				$image_id = apply_filters( 'wpml_object_id', $image['premium_gallery_img']['id'], 'elementor_library', true );
+				$image_id = apply_filters( 'wpml_object_id', $image['premium_gallery_img']['id'], 'attachment', true );
 
 				// Check for Image ID, but not for the default Elementor placeholder.
 				if ( false === strpos( $image['premium_gallery_img']['url'], 'placeholder.png' ) && ! $image['premium_gallery_video'] && ! $image_id && empty( $image['premium_gallery_img']['url'] ) ) {
@@ -2978,8 +2978,9 @@ class Premium_Grid extends Widget_Base {
 
 		$settings = $this->get_settings();
 
-		$image_src = $item['premium_gallery_img']['url'];
-		$image_id  = attachment_url_to_postid( $image_src );
+		$image_id = apply_filters( 'wpml_object_id', $item['premium_gallery_img']['id'], 'attachment', true );
+
+		$image_src = $image_url = wp_get_attachment_image_url( $image_id, 'full' );
 
 		$is_video = $item['premium_gallery_video'];
 

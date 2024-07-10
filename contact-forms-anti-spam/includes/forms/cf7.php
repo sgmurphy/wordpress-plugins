@@ -106,14 +106,17 @@ function efas_cf7_tel_validation_filter($result,$tag){
   	$checkTelForSpam = checkTelForSpam($field_value);
  	$reason = isset($checkTelForSpam['reason']) ? $checkTelForSpam['reason'] : 0 ;      
  	$valid = isset($checkTelForSpam['valid']) ? $checkTelForSpam['valid'] : "yes" ;   
-    $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
+    $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;
+   // $condition = isset($checkTelForSpam['condition']) ? $checkTelForSpam['condition'] : 0 ;
+
+  
 
   	if(!$valid){
         $post_entrys = array_filter($_POST, function($key) {
             return strpos($key, '_wpcf7') === false;
             }, ARRAY_FILTER_USE_KEY);
-        $error_message = cfas_get_error_text($message);  
-        efas_add_to_log($type = "tel","Telephone number $field_value not feet the given format ", $post_entrys, "Contact from 7");
+        $error_message = cfas_get_error_text($message); 
+        efas_add_to_log($type = "tel", $reason , $post_entrys, "Contact from 7");
         $result['valid'] = false;
         $result->invalidate( $tag, $error_message );
     } 

@@ -1,12 +1,12 @@
 <?php
 /*
-  Plugin Name: WP Htaccess Editor
+  Plugin Name: WP .htaccess Editor
   Plugin URI: https://wphtaccess.com/
   Description: Safe and easy way to edit the .htaccess file directly from WP admin without using FTP.
-  Version: 1.71
+  Version: 1.72
   Requires at least: 4.0
   Requires PHP: 5.2
-  Tested up to: 6.5
+  Tested up to: 6.6
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-htaccess-editor
@@ -32,7 +32,7 @@
 
 // include only file
 if (!defined('ABSPATH')) {
-    wp_die(__('Do not open this file directly.', 'wp-htaccess-editor'));
+    wp_die(esc_html__('Do not open this file directly.', 'wp-htaccess-editor'));
 }
 
 
@@ -80,6 +80,7 @@ class WP_Htaccess_Editor
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         add_action('wp_ajax_wp_htaccess_editor_dismiss_notice', array($this, 'ajax_dismiss_notice'));
         add_action('wp_ajax_wp_htaccess_editor_do_action', array($this, 'ajax_do_action'));
+        add_action('admin_action_wp_htaccess_editor_install_wp301', array($this, 'install_wp301'));
 
         add_filter('plugin_action_links_' . $this->plugin_basename, array($this, 'plugin_action_links'));
         add_filter('plugin_row_meta', array($this, 'plugin_meta_links'), 10, 2);
@@ -178,7 +179,7 @@ class WP_Htaccess_Editor
             return $text_org;
         }
 
-        $text = '<i><a target="_blank" href="' . $this->generate_web_link('admin_footer') . '">WP Htaccess Editor</a> v' . $this->version . ' by <a href="https://www.webfactoryltd.com/" title="' . __('Visit our site to get more great plugins', 'wp-htaccess-editor') . '" target="_blank">WebFactory Ltd</a>.';
+        $text = '<i><a target="_blank" href="' . $this->generate_web_link('admin_footer') . '">WP .htaccess Editor</a> v' . $this->version . ' by <a href="https://www.webfactoryltd.com/" title="' . __('Visit our site to get more great plugins', 'wp-htaccess-editor') . '" target="_blank">WebFactory Ltd</a>.';
         $text .= ' Please <a target="_blank" href="https://wordpress.org/support/plugin/wp-htaccess-editor/reviews/#new-post" title="' . __('Rate the plugin', 'wp-htaccess-editor') . '">' . __('Rate the plugin ★★★★★', 'wp-htaccess-editor') . '</a>.</i> ';
 
         return $text;
@@ -399,7 +400,7 @@ class WP_Htaccess_Editor
      */
     function admin_menu()
     {
-        add_options_page(__('WP Htaccess Editor', 'wp-htaccess-editor'), __('WP Htaccess Editor', 'wp-htaccess-editor'), 'administrator', 'wp-htaccess-editor', array($this, 'plugin_page'));
+        add_options_page(__('WP .htaccess Editor', 'wp-htaccess-editor'), __('WP .htaccess Editor', 'wp-htaccess-editor'), 'administrator', 'wp-htaccess-editor', array($this, 'plugin_page'));
     } // admin_menu
 
 
@@ -424,7 +425,7 @@ class WP_Htaccess_Editor
             $page = '/';
         }
 
-        $parts = array_merge(array('utm_source' => 'wp-htaccess-free', 'utm_medium' => 'plugin', 'utm_content' => $placement, 'utm_campaign' => 'wp-htaccess-free-v' . $this->version), $params);
+        $parts = array_merge(array('utm_source' => 'wp-htaccess-free'), $params);
 
         if (!empty($anchor)) {
             $anchor = '#' . trim($anchor, '#');
@@ -495,11 +496,11 @@ class WP_Htaccess_Editor
         $meta = $this->get_meta();
 
         // TODO: reformat & prepare for translation
-        $pointers['welcome'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for using the <b style="font-weight: 700;">WP Htaccess Editor</b> plugin.<br>Open <a href="' . admin_url('options-general.php?page=wp-htaccess-editor') . '">Settings - WP Htaccess Editor</a> to access the editor and start editing the <i>.htaccess</i> file.');
+        $pointers['welcome'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'Thank you for using the <b style="font-weight: 700;">WP .htaccess Editor</b> plugin.<br>Open <a href="' . admin_url('options-general.php?page=wp-htaccess-editor') . '">Settings - WP .htaccess Editor</a> to access the editor and start editing the <i>.htaccess</i> file.');
 
         if (true === version_compare($meta['first_version'], '1.60', '<')) {
             // TODO: reformat & prepare for translation
-            $pointers['menu-relocation'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'We\'ve moved the <b style="font-weight: 700;">WP Htaccess Editor</b> plugin from Tools to the Settings menu. Sorry for the inconvenience. <br>To edit htaccess open <a href="' . admin_url('options-general.php?page=wp-htaccess-editor') . '">Settings - WP Htaccess Editor</a>.');
+            $pointers['menu-relocation'] = array('target' => '#menu-settings', 'edge' => 'left', 'align' => 'right', 'content' => 'We\'ve moved the <b style="font-weight: 700;">WP .htaccess Editor</b> plugin from Tools to the Settings menu. Sorry for the inconvenience. <br>To edit htaccess open <a href="' . admin_url('options-general.php?page=wp-htaccess-editor') . '">Settings - WP .htaccess Editor</a>.');
         }
 
         return $pointers;
@@ -546,7 +547,7 @@ class WP_Htaccess_Editor
         $js_localize = array(
             'undocumented_error' => __('An undocumented error has occurred. Please refresh the page and try again.', 'wp-htaccess-editor'),
             'documented_error' => __('An error has occurred.', 'wp-htaccess-editor'),
-            'plugin_name' => __('WP Htaccess Editor', 'wp-htaccess-editor'),
+            'plugin_name' => __('WP .htaccess Editor', 'wp-htaccess-editor'),
             'home_url' => get_home_url(),
             'settings_url' => admin_url('options-general.php?page=wp-htaccess-editor'),
             'loading_icon_url' => $this->plugin_url . 'img/loading-icon.png',
@@ -565,12 +566,14 @@ class WP_Htaccess_Editor
             'site_error' => __('There is an error in the .htaccess file and your site is probably no longer accessible.<br><br>DO NOT panic or reload this page. Close this message. First, try the "Restore Last Backup" button. If it doesn\'t work read instruction on this very page on how to restore the site.', 'wp-htaccess-editor'),
             'nonce_dismiss_notice' => wp_create_nonce('wp-htaccess-editor_dismiss_notice'),
             'nonce_do_action' => wp_create_nonce('wp-htaccess-editor_do_action'),
-            'cm_settings' => $editor_settings
+            'cm_settings' => $editor_settings,
+            'wp301_install_url' => add_query_arg(array('action' => 'wp_htaccess_editor_install_wp301', '_wpnonce' => wp_create_nonce('install_wp301'), 'rnd' => rand()), admin_url('admin.php')),
         );
 
         wp_enqueue_style('wp-codemirror');
         wp_enqueue_style('wp-htaccess-editor', $this->plugin_url . 'css/wp-htaccess-editor.css', array(), $this->version);
         wp_enqueue_style('wp-htaccess-editor-sweetalert2', $this->plugin_url . 'css/sweetalert2.min.css', array(), $this->version);
+        wp_enqueue_style('wp-jquery-ui-dialog');
 
         wp_enqueue_script('jquery-ui-tabs');
         wp_enqueue_script('wp-htaccess-editor-sweetalert2', $this->plugin_url . 'js/sweetalert2.min.js', array('jquery'), $this->version, true);
@@ -578,6 +581,7 @@ class WP_Htaccess_Editor
         wp_enqueue_script('wp-htaccess-editor', $this->plugin_url . 'js/wp-htaccess-editor.js', array('jquery'), $this->version, true);
         wp_enqueue_script('wp-htaccess-cm-resize', $this->plugin_url . 'js/cm-resize.min.js', array('jquery'), $this->version, true);
         wp_localize_script('wp-htaccess-editor', 'wp_htaccess_editor', $js_localize);
+        wp_enqueue_script('jquery-ui-dialog');
 
         // fix for aggressive plugins that include their CSS files on all pages
         wp_dequeue_style('uiStyleSheet');
@@ -756,7 +760,7 @@ class WP_Htaccess_Editor
         @clearstatcache();
         $secure_path = $this->get_backup_folder() . '.htaccess';
         $secure_text = trim('
-# WP Htaccess Editor - secure backups
+# WP .htaccess Editor - secure backups
 <files *.*>
   order allow,deny
   deny from all
@@ -825,19 +829,21 @@ class WP_Htaccess_Editor
 
         // double check for admin priv
         if (!current_user_can('administrator')) {
-            wp_die(__('Sorry, you are not allowed to access this page.', 'wp-htaccess-editor'));
+            wp_die(esc_html__('Sorry, you are not allowed to access this page.', 'wp-htaccess-editor'));
         }
 
         settings_errors();
         echo '<div class="wrap">';
-        echo '<h1><img src="' . esc_url($this->plugin_url) . 'img/wp-htaccess-editor-logo.png" alt="' . esc_html__('WP Htaccess Editor', 'wp-htaccess-editor') . '" title="' . __('WP Htaccess Editor', 'wp-htaccess-editor') . '"></h1>';
-        echo '<form id="wp-htaccess-editor-form" action="' . admin_url('options-general.php?page=wp-htaccess-editor') . '" method="post" autocomplete="off">';
+
+        echo '<div id="wphe_tabs_wrapper">';
+        echo '<h1><img src="' . esc_url($this->plugin_url) . 'img/wp-htaccess-editor-logo.png" alt="' . esc_html__('WP .htaccess Editor', 'wp-htaccess-editor') . '" title="' . esc_html__('WP .htaccess Editor', 'wp-htaccess-editor') . '"></h1>';
+        echo '<form id="wp-htaccess-editor-form" action="' . esc_url(admin_url('options-general.php?page=wp-htaccess-editor')) . '" method="post" autocomplete="off">';
 
         // TODO: properly mark for translation
         if (false === $this->is_htaccess_readable()) {
             echo '<div class="card notice-wrapper notice-error">';
-            echo '<h2>' . __('.htaccess file does not exist!', 'wp-htaccess-editor') . '</h2>';
-            echo '<p>We couldn\'t locate your .htaccess file on the default location <code>' . esc_attr($this->get_htaccess_path()) . '</code>. We\'ll attempt to create the file when you make the first save with the editor.<br>We recommend opening <a href="' . admin_url('options-permalink.php') . '">Settings - Permalinks</a> and setting a URL structure other than plain which will create the default WP .htaccess file.</p>';
+            echo '<h2>' . esc_html__('.htaccess file does not exist!', 'wp-htaccess-editor') . '</h2>';
+            echo '<p>We couldn\'t locate your .htaccess file on the default location <code>' . esc_attr($this->get_htaccess_path()) . '</code>. We\'ll attempt to create the file when you make the first save with the editor.<br>We recommend opening <a href="' . esc_url(admin_url('options-permalink.php')) . '">Settings - Permalinks</a> and setting a URL structure other than plain which will create the default WP .htaccess file.</p>';
             echo '</div>';
             $notice_shown = true;
         }
@@ -845,7 +851,7 @@ class WP_Htaccess_Editor
         // TODO: properly mark for translation
         if (false === $this->is_htaccess_writable() && false === $notice_shown) {
             echo '<div class="card notice-wrapper notice-error">';
-            echo '<h2>' . __('.htaccess file is not writable!', 'wp-htaccess-editor') . '</h2>';
+            echo '<h2>' . esc_html__('.htaccess file is not writable!', 'wp-htaccess-editor') . '</h2>';
             echo '<p>Your .htaccess file located in <code>' . esc_attr($this->get_htaccess_path()) . '</code> can\'t be edited by WordPress or this plugin. You can only edit it via FTP.<br>If you want to edit it via WordPress check the file permissions and set them to 644.</p>';
             echo '</div>';
             $notice_shown = true;
@@ -853,17 +859,17 @@ class WP_Htaccess_Editor
 
         // TODO: properly mark for translation
         echo '<div class="card" id="card-description">';
-        echo '<a class="toggle-card" href="#" title="' . __('Collapse / expand box', 'wp-htaccess-editor') . '"><span class="dashicons dashicons-arrow-up-alt2"></span></a>';
-        echo '<h2>' . __('Please read carefully before proceeding', 'wp-htaccess-editor') . '</h2>';
-        echo '<p>There is nothing wrong with editing the .htaccess file. However, <b>in case you make a mistake while editing it, there is a possibility you\'ll need FTP access to restore your site to a working state</b>. That\'s why this plugin makes automatic backups, and we have described in detail how to recover from such incidents in the paragraphs below.<br>';
+        echo '<a class="toggle-card" href="#" title="' . esc_html__('Collapse / expand box', 'wp-htaccess-editor') . '"><span class="dashicons dashicons-arrow-up-alt2"></span></a>';
+        echo '<h2>' . esc_html__('Please read carefully before proceeding', 'wp-htaccess-editor') . '</h2>';
+        echo '<p>There is nothing wrong with editing the .htaccess file. However, <b>in case you make a mistake while editing it, there is a possibility you\'ll need FTP access to restore your site to a working state</b>. That\'s why this plugin makes an automatic backup (only a single backup is kept, of the last version), and we have described in detail how to recover from such incidents in the paragraphs below.<br>';
 
         echo 'For more details about .htaccess syntax and examples, please visit the <a href="http://httpd.apache.org/docs/current/howto/htaccess.html" target="_blank">official Apache Tutorial</a>.</p>';
 
         echo '<b>How to restore the site in case of error 500 or white screen caused by .htaccess</b>';
-        echo '<p>Do not panic. No data is lost, and your site will be up again in minutes. FTP to your site or open the server\'s control panel such as cPanel to locate the .htaccess file in <code>' . esc_attr($this->get_htaccess_path()) . '</code>. Once you find the file there are several options to restore the site;<ol><li>Edit the file and fix the error(s) you made, or</li><li>Delete the file. Obviously, any custom rules in it will be gone, and in order for permalinks to work again you have to visit <a href="' . admin_url('options-permalink.php') . '">WP Admin - Options - Permalinks</a> and click "Save Changes". This will rebuild the default .htaccess file, or</li><li>Third (and preferred) way of fixing is to restore the file from the backup which you\'ll find in the <code>' . esc_attr($this->get_backup_folder())  . '</code> folder. The folder will probably contain multiple backup files. Locate the latest one by looking at the timestamp in the filename. Once located copy the file to <code>' . esc_attr($this->get_htaccess_path(true)) . '</code> and rename it to .htaccess.</li></ol>';
+        echo '<p>Do not panic. No data is lost, and your site will be up again in minutes. FTP to your site or open the server\'s control panel such as cPanel to locate the .htaccess file in <code>' . esc_attr($this->get_htaccess_path()) . '</code>. Once you find the file there are several options to restore the site;<ol><li>Edit the file and fix the error(s) you made, or</li><li>Delete the file. Obviously, any custom rules in it will be gone, and in order for permalinks to work again you have to visit <a href="' . esc_url(admin_url('options-permalink.php')) . '">WP Admin - Options - Permalinks</a> and click "Save Changes". This will rebuild the default .htaccess file, or</li><li>Third (and preferred) way of fixing is to restore the file from the backup which you\'ll find in the <code>' . esc_attr($this->get_backup_folder())  . '</code> folder. The folder will probably contain multiple backup files. Locate the latest one by looking at the timestamp in the filename. Once located copy the file to <code>' . esc_attr($this->get_htaccess_path(true)) . '</code> and rename it to .htaccess.</li></ol>';
 
         echo '<b>How to restore .htaccess in case of a non-white-screen error</b>';
-        echo '<p>Click the "Restore Last Saved Backup" button below the editor and .htaccess will be restored to the version before the last save. Please note that this method only works if the error in the file is logical, not syntactical. For instance, if you banned the wrong IP you can undo. But if you misspelled "RewriteCond" you have to use the method above as the only way to recover is via FTP or cPanel.</p>';
+        echo '<p>Click the "Restore Last Saved Backup" button below the editor and .htaccess will be restored to the version before the last save. If you need multiple backups (complete save history) <a href="#" data-feature="instructions-backup" class="open-upsell">upgrade to the PRO version</a>. Please note that this method only works if the error in the file is logical, not syntactical. For instance, if you banned the wrong IP you can undo. But if you misspelled "RewriteCond" you have to use the method above as the only way to recover is via FTP or cPanel.</p>';
 
         echo '<b>Support</b>';
         echo '<p>For additional support and questions, please visit the <a href="https://wordpress.org/support/plugin/wp-htaccess-editor" target="_blank">official support forum</a>.</p>';
@@ -882,15 +888,36 @@ class WP_Htaccess_Editor
             }
 
             echo '<div id="wphe-rating-notice" class="card notice-wrapper" style="' . esc_attr($show_rate_notice) . '">';
-            echo '<h2>' . __('Please help us keep the plugin free &amp; up-to-date', 'wp-htaccess-editor') . '</h2>';
-            echo '<p>' . __('If you use &amp; enjoy WP Htaccess Editor, <b>please rate it on WordPress.org</b>. It only takes a second and helps us keep the plugin free and maintained. Thank you!', 'wp-htaccess-editor') . '</p>';
-            echo '<p><a class="button-primary button" title="' . __('Rate WP Htaccess Editor', 'wp-htaccess-editor') . '" target="_blank" href="https://wordpress.org/support/plugin/wp-htaccess-editor/reviews/#new-post">' . __('Help keep the plugin free - rate it!', 'wp-htaccess-editor') . '</a>  <a href="#" class="wphe-dismiss-notice dismiss-notice-rate" data-notice="rate">' . __('I\'ve already rated it', 'wp-htaccess-editor') . '</a></p>';
+            echo '<h2>' . esc_html__('Please help us keep the plugin free &amp; up-to-date', 'wp-htaccess-editor') . '</h2>';
+            $this->wp_kses_wf('<p>' . __('If you use &amp; enjoy WP .htaccess Editor, <b>please rate it on WordPress.org</b>. It only takes a second and helps us keep the plugin free and maintained. Thank you!', 'wp-htaccess-editor') . '</p>');
+            echo '<p><a class="button-primary button" title="' . esc_html__('Rate WP .htaccess Editor', 'wp-htaccess-editor') . '" target="_blank" href="https://wordpress.org/support/plugin/wp-htaccess-editor/reviews/#new-post">' . esc_html__('Help keep the plugin free - rate it!', 'wp-htaccess-editor') . '</a>  <a href="#" class="wphe-dismiss-notice dismiss-notice-rate" data-notice="rate">' . esc_html__('I\'ve already rated it', 'wp-htaccess-editor') . '</a></p>';
             echo '</div>';
         }
 
+         // TODO: properly mark for translation
+         echo '<div class="card" id="card-scripts">';
+         echo '<a class="toggle-card" href="#" title="' . esc_html__('Collapse / expand box', 'wp-htaccess-editor') . '"><span class="dashicons dashicons-arrow-up-alt2"></span></a>';
+         echo '<h2>' . esc_html__('.htaccess snippets with options', 'wp-htaccess-editor') . '<a class="pro-label open-upsell" data-feature="snippets">PRO</a></h2>';
+         echo '<p>Tired of constantly googling for .htccess snipets and <b>never knowing if they\'ll work</b> or not? We had the same problem! That\'s why we made a collection of over 30 most-used .htaccess snippets. And made a GUI to edit them so you never have to touch a single line of code. Snippets include:</p>';
+
+         echo '<ul class="plain-list">';
+         echo '<li>Redirect to www or non-www</li>
+               <li>8G Firewall - blocks bad bots, automated attacks, spam, and many other types of threats</li>
+               <li>PHP settings such as memory_limit, upload_max_filesize</li>
+               <li>Force HTTPS/SSL</li>
+               <li>Custom Error Pages</li>
+               <li>IP Whitelist/Blacklist</li>
+               <li>File Protection</li>
+               <li>CORS (Cross-origin resource sharing)</li>
+               <li>Caching rules on a file-type basis</li>';
+         echo '</ul>';
+
+         echo '<p><a href="#" class="open-upsell" data-feature="snippets-footer">Upgrade to PRO</a> to get snippets and edit .htaccess faster &amp; safer!</p>';
+         echo '</div>';
+
         echo '<div id="htaccess-editor-wrap">';
         if (false == $this->get_dismissed_notices('editor-warning')) {
-            echo '<div id="enable-editor-notice" class="notice-wrapper"><h3><strong>Please be careful when editing the .htaccess file!</strong><br>This plugin makes automatic backups every time you make a change. Detailed instructions on how to restore backups are available in the box above.</h3><br><a href="#" data-notice="editor-warning" class="wphe-dismiss-notice button button-secondary">I understand. Enable the editor.</a></div>';
+            echo '<div id="enable-editor-notice" class="notice-wrapper"><h3><strong>Please be careful when editing the .htaccess file!</strong><br>This plugin makes an automatic backup every time you make a change. Detailed instructions on how to restore backups are available in the box above.</h3><br><a href="#" data-notice="editor-warning" class="wphe-dismiss-notice button button-secondary">I understand. Enable the editor.</a></div>';
         }
         echo '<textarea cols="70" rows="20" name="newcontent" id="newcontent" aria-describedby="editor-keyboard-trap-help-1 editor-keyboard-trap-help-2 editor-keyboard-trap-help-3 editor-keyboard-trap-help-4">' . esc_textarea($htaccess_content) . '</textarea>';
         echo '</div>';
@@ -899,9 +926,126 @@ class WP_Htaccess_Editor
         echo '<a id="wphe_save_htaccess" href="#" class="button button-primary"> Save Changes</a>';
         echo '<a id="wphe_test_htaccess" href="#" class="button button-secondary">Test Before Saving</a>';
         echo '<a id="wphe_restore_htaccess" href="#" class="button button-secondary">Restore Last Backup</a>';
+        echo '<a href="#" class="button button-secondary open-upsell" data-feature="button-backups">View all Backups <em class="pro-label">PRO</em></a>';
         echo '</p>';
 
         echo '</form>';
+
+        echo '</div>';
+
+        echo '<div id="wphe_tabs_sidebar">';
+        echo '<div class="sidebar-box pro-ad-box">
+            <p class="text-center"><a href="#" data-pro-feature="sidebar-logo" class="open-pro-dialog">
+            <img src="' . esc_url($this->plugin_url . '/img/wp-htaccess-editor-logo.png') . '" alt="htaccess Editor PRO" title="htaccess Editor PRO"></a><br>PRO version is here! Grab the launch discount.<br><b>All prices are LIFETIME!</b></p>
+            <br />Edit .htaccess faster &amp; safer;
+            <ul class="plain-list">
+                <li>Unlimited backup/restore points</li>
+                <li>Over 30 snippets</li>
+                <li>Snippet GUI editor so you don\'t mess with any code</li>
+                <li>Premium support</li>
+                <li>White-label &amp; rebranding for agencies</li>
+            </ul>
+
+            <p class="text-center"><a href="#" class="open-pro-dialog button button-buy" data-pro-feature="sidebar-button">Get a LIFETIME license for only $49</a></p>
+            </div>';
+
+        if (!defined('EPS_REDIRECT_VERSION') && !defined('WF301_PLUGIN_FILE')) {
+            echo '<div class="sidebar-box pro-ad-box box-301">
+            <h3 class="textcenter"><b>Problems with redirects?<br>Moving content around or changing posts\' URL?<br>Old URLs giving you problems?<br><br><u>Improve your SEO &amp; manage all redirects in one place!</u></b></h3>
+
+            <p class="text-center"><a href="#" class="install-wp301">
+            <img src="' . esc_url($this->plugin_url . '/img/wp-301-logo.png') . '" alt="WP 301 Redirects" title="WP 301 Redirects"></a></p>
+
+            <p class="text-center"><a href="#" class="button button-buy install-wp301">Install and activate the <u>free</u> WP 301 Redirects plugin</a></p>
+
+            <p><a href="https://wordpress.org/plugins/eps-301-redirects/" target="_blank">WP 301 Redirects</a> is a free WP plugin maintained by the same team as this htaccess Editor plugin. It has <b>+250,000 users, 5-star rating</b>, and is hosted on the official WP repository.</p>
+            </div>';
+        }
+
+        echo '<div class="sidebar-box" style="margin-top: 35px;">
+            <p>Please <a href="https://wordpress.org/support/plugin/wp-htaccess-editor/reviews/#new-post" target="_blank">rate the plugin ★★★★★</a> to <b>keep it up-to-date &amp; maintained</b>. It only takes a second to rate. Thank you! 👋</p>
+            </div>';
+        echo '</div>';
+        echo '</form>';
+
+        echo ' <div id="wphe-pro-dialog" style="display: none;" title="htaccess Editor PRO is here!"><span class="ui-helper-hidden-accessible"><input type="text"/></span>
+
+        <div class="center logo"><a href="https://wpwphe.com/?ref=wphe-free-pricing-table" target="_blank"><img src="' . esc_url($this->plugin_url . '/img/wp-htaccess-editor-logo.png') . '" alt="htaccess Editor PRO" title="htaccess Editor PRO"></a><br>
+
+        <span>Limited PRO Launch Discount - <b>all prices are LIFETIME</b>! Pay once &amp; use forever!</span>
+        </div>
+
+        <table id="wphe-pro-table">
+        <tr>
+        <td class="center">Lifetime Personal License</td>
+        <td class="center">Lifetime Team License</td>
+        <td class="center">Lifetime Agency License</td>
+        </tr>
+
+        <tr class="prices">
+        <td class="center"><del>$99</del><br><span>$49</span> <b>/lifetime</b></td>
+        <td class="center"><del>$149</del><br><span>$59</span> <b>/lifetime</b></td>
+        <td class="center"><del>$199</del><br><span>$99</span> <b>/lifetime</b></td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-yes"></span><b>1 Site License</b>  ($49 per site)</td>
+        <td><span class="dashicons dashicons-yes"></span><b>5 Sites License</b>  ($11 per site)</td>
+        <td><span class="dashicons dashicons-yes"></span><b>100 Sites License</b>  ($1 per site)</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-yes"></span>All Plugin Features</td>
+        <td><span class="dashicons dashicons-yes"></span>All Plugin Features</td>
+        <td><span class="dashicons dashicons-yes"></span>All Plugin Features</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-yes"></span>Lifetime Updates &amp; Support</td>
+        <td><span class="dashicons dashicons-yes"></span>Lifetime Updates &amp; Support</td>
+        <td><span class="dashicons dashicons-yes"></span>Lifetime Updates &amp; Support</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-yes"></span>Unlimited Backup Points</td>
+        <td><span class="dashicons dashicons-yes"></span>Unlimited Backup Points</td>
+        <td><span class="dashicons dashicons-yes"></span>Unlimited Backup Points</td>
+        </tr>
+
+         <tr>
+        <td><span class="dashicons dashicons-yes"></span>30+ Configurable Snippets</td>
+        <td><span class="dashicons dashicons-yes"></span>30+ Configurable Snippets</td>
+        <td><span class="dashicons dashicons-yes"></span>30+ Configurable Snippets</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-yes"></span>Dashboard</td>
+        <td><span class="dashicons dashicons-yes"></span>Dashboard</td>
+        <td><span class="dashicons dashicons-yes"></span>Dashboard</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-no"></span>White-label Mode</td>
+        <td><span class="dashicons dashicons-yes"></span>White-label Mode</td>
+        <td><span class="dashicons dashicons-yes"></span>White-label Mode</td>
+        </tr>
+
+        <tr>
+        <td><span class="dashicons dashicons-no"></span>Full Plugin Rebranding</td>
+        <td><span class="dashicons dashicons-no"></span>Full Plugin Rebranding</td>
+        <td><span class="dashicons dashicons-yes"></span>Full Plugin Rebranding</td>
+        </tr>
+
+        <tr>
+        <td><a class="button button-buy" data-href-org="https://wphtaccess.com/buy/?product=personal-ltd-launch&ref=pricing-table" href="https://wphtaccess.com/buy/?product=personal-ltd-launch&ref=pricing-table" target="_blank">Lifetime License<br>$49 -&gt; BUY NOW</a></td>
+        <td><a class="button button-buy" data-href-org="https://wphtaccess.com/buy/?product=team-ltd-launch&ref=pricing-table" href="https://wphtaccess.com/buy/?product=team-ltd-launch&ref=pricing-table" target="_blank">Lifetime License<br>$59 -&gt; BUY NOW</a></td>
+        <td><a class="button button-buy" data-href-org="https://wphtaccess.com/buy/?product=agency-ltd-launch&ref=pricing-table" href="https://wphtaccess.com/buy/?product=agency-ltd-launch&ref=pricing-table" target="_blank">Lifetime License<br>$99 -&gt; BUY NOW</a></td>
+        </tr>
+
+        </table>
+
+        <div class="center footer"><b>100% No-Risk Money Back Guarantee!</b> If you don\'t like the plugin over the next 7 days, we\'ll happily refund 100% of your money. No questions asked! Created &amp; sold by <a href="https://www.webfactoryltd.com/" target="_blank">WebFactory Ltd</a>; payments processed by <a href="https://paddle.com/" target="_blank">Paddle</a>.</div>
+      </div>';
         echo '</div>'; // wrap
     } // plugin_page
 
@@ -1255,6 +1399,79 @@ class WP_Htaccess_Editor
             return $styles;
         });
     }
+
+    function is_plugin_installed($slug)
+    {
+        if (!function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        $all_plugins = get_plugins();
+
+        if (!empty($all_plugins[$slug])) {
+            return true;
+        } else {
+            return false;
+        }
+    } // is_plugin_installed
+
+    function install_wp301()
+    {
+        check_ajax_referer('install_wp301');
+
+        if (false === current_user_can('manage_options')) {
+            wp_die('Sorry, you have to be an admin to run this action.');
+        }
+
+        $plugin_slug = 'eps-301-redirects/eps-301-redirects.php';
+        $plugin_zip = 'https://downloads.wordpress.org/plugin/eps-301-redirects.latest-stable.zip';
+
+        @include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        @include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        @include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        @include_once ABSPATH . 'wp-admin/includes/file.php';
+        @include_once ABSPATH . 'wp-admin/includes/misc.php';
+        echo '<style>
+		body{
+			font-family: sans-serif;
+			font-size: 14px;
+			line-height: 1.5;
+			color: #444;
+		}
+		</style>';
+
+        echo '<div style="margin: 20px; color:#444;">';
+        echo 'If things are not done in a minute <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">install the plugin manually via Plugins page</a><br><br>';
+        echo 'Starting ...<br><br>';
+
+        wp_cache_flush();
+        $upgrader = new Plugin_Upgrader();
+        echo 'Check if WP 301 Redirects is already installed ... <br />';
+        if ($this->is_plugin_installed($plugin_slug)) {
+            echo 'WP 301 Redirects is already installed! <br /><br />Making sure it\'s the latest version.<br />';
+            $upgrader->upgrade($plugin_slug);
+            $installed = true;
+        } else {
+            echo 'Installing WP 301 Redirects.<br />';
+            $installed = $upgrader->install($plugin_zip);
+        }
+        wp_cache_flush();
+
+        if (!is_wp_error($installed) && $installed) {
+            echo 'Activating WP 301 Redirects.<br />';
+            $activate = activate_plugin($plugin_slug);
+
+            if (is_null($activate)) {
+                echo 'WP 301 Redirects Activated.<br />';
+
+                echo '<script>setTimeout(function() { top.location = "' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '"; }, 1000);</script>';
+                echo '<br>If you are not redirected in a few seconds - <a href="' . esc_url(admin_url('options-general.php?page=eps_redirects')) . '" target="_parent">click here</a>.';
+            }
+        } else {
+            echo 'Could not install WP 301 Redirects. You\'ll have to <a target="_parent" href="' . esc_url(admin_url('plugin-install.php?s=301%20redirects%20webfactory&tab=search&type=term')) . '">download and install manually</a>.';
+        }
+
+        echo '</div>';
+    } // install_wp301
 
 
     /**

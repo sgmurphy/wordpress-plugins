@@ -1,79 +1,89 @@
-=== Maspik - Spam Blacklist ===
+=== Maspik - Advanced Spam Protection ===
 Contributors: yonifre
 Donate link: paypal.me/yonifre
-Tags: spam , Blacklist, Validation, CAPTCHA, Anti spam, 
-Requires at least: 4.3
+Tags: spam, blacklist, antispam, contact form, security
 Tested up to: 6.5
-Stable tag: 1.0.5
+Requires PHP: 7.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Say goodbye to annoying spam - with Maspik you'll make unwanted messages a rarity and spam a thing of the past!
+Maspik makes unwanted messages a rarity and spam a thing of the past!
 
 == Description ==
 
+## Say Goodbye to Spam with Maspik! ##
 Maspik uses a highly efficient "blacklist" method that surpasses traditional CAPTCHA services like Google's in both efficiency and accuracy, with a success rate of over 95%.
 
-Maspik gives you the power to define what is considered spam by either adding phrases to your blacklist or using the list provided in the MASPIK API (PRO). With fast and precise blocking of spam submissions, setup takes as little as 2 minutes.
+With Maspik, you have the power to define what is considered spam by adding phrases to your blacklist. Fast and precise blocking of spam submissions takes as little as 2 minutes to set up.
 
-<h3>How it works:</h3>
-Maspik allows you to specify words, email addresses, phone formats, IP addresses and more. If they contain links, originate from certain countries or are in specified languages, Maspik flags them as spam and keeps them out of your inbox.
+## How It Works ##
 
-Say goodbye to annoying spam - with Maspik you'll make unwanted messages a rarity and spam a thing of the past!
+Maspik allows you to specify words, email addresses, phone formats, IP addresses, and more. If submissions contain links, originate from certain countries, or are in specified languages, Maspik flags them as spam and keeps them out of your inbox.
 
-<h3>Main Features:</h3>
-<ul>
-<li>Blacklisting by field type:</li>
-<li>- Text fields (often used as Name/Subject)</li>
-<li>- Email fields (supports regex/ wildcard pattern)</li>
-<li>- Text area fields</li>
-<li>- phone number verification with regex/wildcard format</li>
-<li>Controlling the maximum number of characters in Text fields</li>
-<li>Controlling the maximum number of characters in Text Area fields</li>
-<li>Limit the number of links allowed in the text area (ideally 1)</li>
-<li>Block specific IP addresses</li>
-<li>Block spam submissions in WordPress comments and subscription forms</li>
-<li>Access the spam log to review blocked submissions</li>
-<li>Block Elementor form submissions without source URLs</li>
-<li>Integration with Proxycheck.io API</li>
-<li>Integration with AbuseIPDB.com API</li>
+## Features ##
 
-</ul>
+* **Blacklisting by Field Type:**
+  * Text fields (Name/Subject)
+  * Email fields (supports regex/wildcard patterns)
+  * Text area fields
+  * Phone number verification with regex/wildcard format
+* **Character Control:**
+  * Maximum number of characters in text fields
+  * Maximum number of characters in text area fields
+* **Link Limitation:**
+  * Limit the number of links allowed in text areas (ideally 1)
+* **Blocking:**
+  * Specific IP addresses
+  * Spam submissions in WordPress comments and subscription forms
+* **Spam Log:**
+  * Review blocked submissions
+* **Elementor Form Blocking:**
+  * Block submissions without source URLs
+* **API Integrations:**
+  * Proxycheck.io
+  * AbuseIPDB.com
 
-<h3>Supported forms:</h3>
-Maspik integrates seamlessly with a wide range of popular contact forms, ensuring compatibility across different site settings:
+## Supported Forms ##
 
-<ul>
-<li>Elementor forms</li>
-<li>Contact form 7</li>
-<li>Formidable forms</li>
-<li>Forminator forms</li>
-<li>Fluentforms</li>
-<li>Bricksbuilder forms</li>
-<li>Wpforms (Maspik Pro license required)</li>
-<li>Gravityforms (Maspik Pro license required)</li>
-<li>Wordpress comments</li>
-<li>Wordpress registration form</li>
-<li>Woocommerce registration form (Maspik Pro license required)</li>
-<li>Woocommerce review (Maspik Pro license required)</li>
-</ul>
+Maspik integrates seamlessly with a wide range of popular contact forms:
 
-<h3>Pro Version Features:</h3>
-The Pro version of the Maspik plugin offers advanced functionality:
-<ul>
-<li>Integration with the Maspik Spam API</li>
-<li>Create your own SPAM API on the WpMaspik web site and use it in all of your web sites. </li>
-<li>Support for Gravity Forms, WPForms, WooCommerce registration and WooCommerce reviews.</li>
-<li>Import/Export Settings.</li>
-<li>Blocking based on the presence or absence of characters from specific languages (e.g. block submissions if Russian/Chinese/Arabic/English...  are found in the content).</li>
-<li>Blocking or allowing submissions from specific countries only (e.g. block submissions if the country of origin is USA/China/Russia...).</li>
+* Elementor forms
+* Contact Form 7
+* NinjaForms
+* Formidable forms
+* Forminator forms
+* Fluentforms
+* Bricksbuilder forms
+* WPForms*
+* GravityForms*
+* WordPress comments
+* WordPress registration form
+* WooCommerce registration form*
+* WooCommerce review* 
+(*) Pro license required
 
-</ul>
+## We offer also a Pro version! ##
+
+### Pro Version Features ###
+
+The Pro version offers advanced functionality:
+
+* Integration with the Maspik Spam API
+* Create and use your own SPAM API across multiple websites
+* Import/Export Settings
+* Blocking based on specific languages (e.g. block Russian/Chinese/Arabic content)
+* Country-specific blocking or allowing submissions (e.g. block USA/China/Russia)
+
+##Important Note##
+
+Be cautious when selecting words to blacklist as each website has different needs. For example, if you're a digital marketing agency and blacklist the word "SEO," you may lose some valid leads.
+
+The plugin is GDPR compliant.
+
+For more information, visit our website: [WpMaspik.com](https://wpmaspik.com/?readme-file)
 
 
-<h4>Maspik Pro license And API Site: <a href="https://wpmaspik.com/?readme-file">WpMaspik.com</a></h4>
-
-Note: Be careful when selecting words to blacklist as each website has different needs. For example, if you're a digital marketing agency and blacklist the word "SEO," you may lose some valid leads.
 
 == Installation ==
 
@@ -88,6 +98,7 @@ Maspik currently supports:
 <ul>
 <li>Elementor forms</li>
 <li>Contact form 7</li>
+<li>NinjaForms</li>
 <li>Formidable forms</li>
 <li>Forminator forms</li>
 <li>Fluentforms</li>
@@ -121,6 +132,18 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.0.1 - 10/07/2024 =
+* Bug fix - removed disable comments option as it is not stable on some aviroment. 
+
+= 2.0.0 - 10/07/2024 =
+* Major Update - New user experience with a fresh & clear design.
+* Code Upgrade - 80% of the plugin code has been revamped.
+* Database Enhancement - Plugin settings are now saved in a separate table.
+* New Feature - Added support for NinjaForms.
+* New Feature - Added the ability to limit the number of characters in various fields.
+* Spam Log Upgrade - Improved spam log functionality (note: previous spam log content will be deleted).
+* Enhancement - Import/Export option become a free option (Not pro).
 
 = 1.0.5 -  15/05/2024 =
 * Bug fix - Fix Woocommerce spam check
@@ -403,5 +426,5 @@ First release
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Bug fixed - become more stable.
+= 2.0.0 =
+Major Update - New user experience with a fresh & clear design. (note: previous spam log content will be deleted)

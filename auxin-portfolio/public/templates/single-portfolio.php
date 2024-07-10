@@ -7,7 +7,7 @@
  * @license    LICENSE.txt
  * @author     averta
  * @link       http://averta.net/phlox/
- * @copyright  (c) 2010-2023 averta
+ * @copyright  (c) 2010-2024 averta
 */
 global $post;
 $is_pass_protected = post_password_required();

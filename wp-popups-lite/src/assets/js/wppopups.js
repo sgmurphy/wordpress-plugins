@@ -165,7 +165,7 @@
 
       $(window).resize(function () {
         WPPopups.checkPopupSize($popup);
-        WPPopups.centerPopup($popup, true);
+        WPPopups.centerPopup($popup);
       });
       $popup.find('input').on('change', function () {
         WPPopups.checkPopupSize($popup);
@@ -449,13 +449,20 @@
           $id = $popup.data('id'),
           $bg = $('#spu-bg-' + $id); // don't do anything if box is undergoing an animation or already visible
 
-      if ($popup.is(":animated") || $popup.is(":visible")) {
+      if ($popup.is(":visible")) {
         return false;
       } // don't do anything if popup has any cookie created
 
 
       if (!force && WPPopups.hasCookies($popup)) {
         return false;
+      } // if has gf, make it visible to properly center
+
+
+      var gf = $popup.find('.gform_wrapper');
+
+      if (gf) {
+        gf.show();
       } // Hook before the popup it's shown
 
 
@@ -708,14 +715,25 @@
 
       if (iframe && iframe.length) {
         iframe.each(function () {
-          var iframeSrc = $(this).attr('src');
-
-          if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {// do nothing
-          } else {
-            $(this).attr('spusrc', iframeSrc);
-            $(this).attr('src', 'https://#');
-          }
+          WPPopups.initSources($(this));
         });
+      }
+
+      var video = $('.spu-box video');
+
+      if (video && video.length) {
+        video.each(function () {
+          WPPopups.initSources($(this));
+        });
+      }
+    },
+    initSources: function initSources(el) {
+      var iframeSrc = el.attr('src');
+
+      if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {// do nothing
+      } else {
+        el.attr('spusrc', iframeSrc);
+        el.attr('src', 'https://#');
       }
     },
 
@@ -729,22 +747,33 @@
 
       if (iframe && iframe.length) {
         iframe.each(function () {
-          if (show) {
-            if ($(this).attr('spusrc')) {
-              $(this).attr('src', $(this).attr('spusrc'));
-              $(this).css("width", "");
-              $(this).css("height", "");
-            }
-          } else {
-            var iframeSrc = $(this).attr('src');
-
-            if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {// do nothing
-            } else {
-              // destroy videos so they stop playing
-              $(this).attr('src', 'https://#');
-            }
-          }
+          WPPopups.toggleSource($(this), show);
         });
+      }
+
+      var video = popup.find('video');
+
+      if (video && video.length) {
+        video.each(function () {
+          WPPopups.toggleSource($(this), show);
+        });
+      }
+    },
+    toggleSource: function toggleSource(el, show) {
+      if (show) {
+        if (el.attr('spusrc')) {
+          el.attr('src', el.attr('spusrc'));
+          el.css("width", "");
+          el.css("height", "");
+        }
+      } else {
+        var iframeSrc = el.attr('src');
+
+        if (iframeSrc && iframeSrc.indexOf('recaptcha') !== -1) {// do nothing
+        } else {
+          // destroy videos so they stop playing
+          el.attr('src', 'https://#');
+        }
       }
     },
 

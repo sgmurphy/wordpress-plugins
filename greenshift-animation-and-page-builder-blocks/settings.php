@@ -1438,6 +1438,8 @@ if (!function_exists('greenshift_save_file_localy')) {
 
 		$ext = ($ext) ? $ext : null;
 
+		if($ext == 'svg') return false;
+
 		if (empty($newfilename)) {
 			$newfilename = preg_replace('/[^a-zA-Z0-9\-]/', '', $newfilename);
 			$newfilename = strtolower($newfilename);

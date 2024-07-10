@@ -259,6 +259,9 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
      */
     public function render_metaslider_page()
     {
+        // @since 3.90.1
+        do_action('metaslider_admin_notices');
+
         $listtable = new MetaSlider_Admin_Table();
         $listtable->prepare_items();
         if (isset($_REQUEST['post_status'])) {
@@ -285,6 +288,9 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
      */
     public function render_metaslider_start_page()
     {
+        // @since 3.90.1
+        do_action('metaslider_admin_notices');
+
         include METASLIDER_PATH . "admin/views/pages/parts/toolbar.php";
         include METASLIDER_PATH . "admin/views/pages/start.php";
     }
@@ -295,6 +301,9 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
      */
     public function render_metaslider_settings_page()
     {
+        // @since 3.90.1
+        do_action('metaslider_admin_notices');
+
         include METASLIDER_PATH . "admin/views/pages/settings.php";
     }
 
@@ -303,6 +312,9 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
      */
     public function render_upgrade_metaslider_page()
     {
+        // @since 3.90.1
+        do_action('metaslider_admin_notices');
+
         include METASLIDER_PATH . "admin/views/pages/parts/toolbar.php";
         include METASLIDER_PATH . "admin/views/pages/upgrade.php";
     }

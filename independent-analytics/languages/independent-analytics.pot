@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-02 15:57+0000\n"
+"POT-Creation-Date: 2024-07-10 16:00+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -320,7 +320,7 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:61, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:178, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:158, independent-analytics-production/views/partials/sidebar.blade.php:63
+#: independent-analytics-production/IAWP/Real_Time.php:61, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:178, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:156, independent-analytics-production/views/partials/sidebar.blade.php:63
 msgid "Pages"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "Referrer"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:62, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:180, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:161, independent-analytics-production/views/partials/sidebar.blade.php:77
+#: independent-analytics-production/IAWP/Real_Time.php:62, independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:180, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:159, independent-analytics-production/views/partials/sidebar.blade.php:77
 msgid "Referrers"
 msgstr ""
 
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Real_Time.php:63, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:164
+#: independent-analytics-production/IAWP/Real_Time.php:63, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:162
 msgid "Countries"
 msgstr ""
 
@@ -352,11 +352,11 @@ msgstr ""
 msgid "Geographic"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:184, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:167, independent-analytics-production/views/partials/sidebar.blade.php:105
+#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:184, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:165, independent-analytics-production/views/partials/sidebar.blade.php:105
 msgid "Devices"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:186, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:170, independent-analytics-production/views/partials/sidebar.blade.php:120, independent-analytics-production/views/partials/sidebar.blade.php:138
+#: independent-analytics-production/IAWP/Report_Finder.php:13, independent-analytics-production/IAWP/Report_Finder.php:186, independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:168, independent-analytics-production/views/partials/sidebar.blade.php:120, independent-analytics-production/views/partials/sidebar.blade.php:138
 msgid "Campaigns"
 msgstr ""
 
@@ -753,31 +753,31 @@ msgstr ""
 msgid "All Time"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:78
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:68
 msgid "There is no email scheduled."
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:84
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:73
 msgid "Next email scheduled for %s at %s."
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:130
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:132
 msgid "Once a Month"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:141
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:139
 msgid "[Test]"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:143
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:141
 msgid "Analytics Report for"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:176
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:174
 msgid "Exit Pages"
 msgstr ""
 
-#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:173
+#: independent-analytics-production/IAWP/Email_Reports/Email_Reports.php:171
 msgid "Landing Pages"
 msgstr ""
 

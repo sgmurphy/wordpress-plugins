@@ -14,7 +14,7 @@ foreach ($settings['testimonials'] as $testimonial) :
 
     list($animate_class, $animation_attr) = lsow_get_animation_atts($testimonial['animation']);
 
-    $child_output = '<div class="lsow-grid-item lsow-testimonial ' . $animate_class . '" ' . $animation_attr . '>';
+    $child_output = '<div class="lsow-grid-item lsow-testimonial ' . esc_attr($animate_class) . '" ' . esc_attr($animation_attr) . '>';
 
     $child_output .= '<div class="lsow-testimonial-text">';
 

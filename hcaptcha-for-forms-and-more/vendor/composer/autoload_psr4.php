@@ -9,6 +9,6 @@ return array(
     'MatthiasMullie\\PathConverter\\' => array($vendorDir . '/matthiasmullie/path-converter/src'),
     'MatthiasMullie\\Minify\\' => array($vendorDir . '/matthiasmullie/minify/src'),
     'KAGG\\Settings\\Abstracts\\' => array($baseDir . '/src/php/Settings/Abstracts'),
-    'HCaptcha\\Scoper\\' => array($baseDir . '/.php-scoper'),
+    'HCaptcha\\Scoper\\' => array($baseDir . '/.php-scoper/src'),
     'HCaptcha\\' => array($baseDir . '/src/php'),
 );

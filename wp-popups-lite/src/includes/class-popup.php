@@ -19,6 +19,7 @@ class WPPopups_Popup {
 	public $post_modified;
 	public $post_modified_gtm;
 	public $childs;
+	public $need_ajax;
 
 	/**
 	 * WPPopups_Popup constructor.

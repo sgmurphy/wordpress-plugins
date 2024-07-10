@@ -5,7 +5,7 @@
  * Description: Beginner friendly WordPress popup builder plugin.
  * Author:      timersys
  * Author URI:  https://timersys.com
- * Version:     2.2
+ * Version:     2.2.0.2
  * Text Domain: wp-popups-lite
  * Domain Path: languages
  *
@@ -145,7 +145,7 @@ if ( class_exists( 'WPPopups' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '2.2.0.1';
+		public $version = '2.2.0.2';
 
 		/**
 		 * The Popup handler instance.

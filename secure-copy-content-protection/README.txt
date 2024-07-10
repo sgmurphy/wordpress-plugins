@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/secure-copy-content-protection
 Tags: content copy protection, content protection, copy protection, copyright, disable right click
 Requires at least: 4.0
 Tested up to: 6.5.5
-Stable tag: 4.1.4
+Stable tag: 4.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,7 +86,7 @@ What function does the plugin have? By choosing post type you will have a functi
 == SEO ==
 
 * From the point of view of SEO, it is worth saying goodbye to copy and paste. The plugin will ensure the copyright sign. Your copyright text will be in **safe from content theft**. It will disable all kinds of copy paste from your site. By installing this plugin you will start to say "stop copy" from your content. In another word, it is called anti-copy paste.
-* We know that Google doesn't like a copy. It wants unique and no copy text. And for example, if your domain is a new one and the ones who have an old domain copy from you, because of them you may appear on the blacklist of Google. To avoid such situation install the plugin and will have a **copyright intellectual property**. Consequently, this will bring the right google page rank for your site.
+* We know that Google doesn't like a copy. It wants unique and no copy text. And for example, if your domain is a new one and the ones who have an old domain copy from you, because of them you may appear on the blacklist of Google. To avoid such situation install the plugin and will have a **copyright intellectual property**. Consequently, this will bring the right Google page rank for your site.
 
 How disable right click on a website?  You just need to install a plugin.
 
@@ -94,7 +94,7 @@ How disable right click on a website?  You just need to install a plugin.
 
 * In the part of protection here comes a watermark, but nowadays modern thieves can easily erase it. That is why you should turn off no right click and drag and drop and again you will have a copy-protected text and image.
 * We approve that it is trustworthy. For instance, if the client sees the same content in another site he may think that the plagiarism is yours. But it is a big infringement of copyright which you can protect. Here again, comes for the help the plugin which will avoid theft of copyright. Use copyright symbols in the plugin and there will not be an outflow of information.
-* The next vital question is: Can a website be copyrighted and the answer will be No. You will not meet any infringement with the plugin. There is a law of international copyright ant plugin will be like a confirmation of that law.
+* The next vital question is: Can a website be copyrighted and the answer will be No. You will not meet any infringement with the plugin. There is a law of international copyright and plugin will be like a confirmation of that law.
 * The plugin can help to protect your personal files. Such as personal information. For instance, if you are a blogger, journalist or you work in the sphere of film, sport and in any field that wants personal information protection in that case the plugin is just for you. You just disable copy shortcut keys, disable inspect elements and your personal information will not be in hands of thieves. Which is really very disgusting. So that is why you just install the plugin in a few seconds and will have a copyrighted blog.
 
 So the main reason why to choose the plugin. It is easy to use, easy to install and ensures your fire protection. To protect your personal information and avoid any kinds of plagiarism or web scraping, just install the plugin. And it is vital to repeat that you will get a copyright infringement protection. And this plugin will be the patent for your personal information. If there exists the law of infringement protection then without any doubt this plugin is the confirmation of that law.
@@ -261,6 +261,10 @@ Sure, you can! You can add your preferred CSS selector(s) and they will not be p
 
 
 == Changelog ==
+
+= 4.1.5 =
+* Added: Current Date message variable on the general settings
+* Improved: Some changes on the admin dashboard
 
 = 4.1.4 =
 * Fixed: Disable right-click for links and Tooltip conflict

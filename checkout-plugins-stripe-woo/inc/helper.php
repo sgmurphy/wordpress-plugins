@@ -99,9 +99,9 @@ class Helper {
 					'express_checkout_button_width'       => '',
 					'express_checkout_button_alignment'   => 'left',
 					'express_checkout_separator_cart'     => __( 'OR', 'checkout-plugins-stripe-woo' ),
-					'express_checkout_separator_checkout' => __( 'OR', 'checkout-plugins-stripe-woo' ),
-					'express_checkout_checkout_page_position' => 'above-checkout',
-					'express_checkout_checkout_page_layout' => 'custom',
+					'express_checkout_separator_checkout' => '',
+					'express_checkout_checkout_page_position' => 'above-billing',
+					'express_checkout_checkout_page_layout' => 'classic',
 					'express_checkout_button_type'        => 'custom',
 				],
 				'woocommerce_cpsw_alipay_settings'         => [
@@ -160,7 +160,8 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function get_global_setting( $key ) {
-		$db_data = get_option( $key );
+		$db_data                                    = get_option( $key );
+		self::$global_defaults['cpsw_element_type'] = self::default_element_type();
 		return $db_data ? $db_data : self::$global_defaults[ $key ];
 	}
 
@@ -755,4 +756,72 @@ class Helper {
 		return $gateways;
 	}
 
+	/**
+	 * Default value for cpsw_element_type based on condition.
+	 *
+	 * @since 1.9.1
+	 * @return string
+	 */
+	public static function default_element_type() {
+		$all_gateways = [
+			'cpsw_stripe',
+			'cpsw_alipay',
+			'cpsw_ideal',
+			'cpsw_klarna',
+			'cpsw_sepa',
+			'cpsw_bancontact',
+			'cpsw_p24',
+			'cpsw_wechat',
+		];
+
+		foreach ( $all_gateways as $payment_method ) {
+			$enabled = self::get_setting( 'enabled', $payment_method );
+			if ( 'yes' === $enabled ) {
+				return 'card';
+			}
+		}
+
+		return 'payment';
+	}
+
+	/**
+	 * Checks if the current page is a CPSW settings page for a specific payment method.
+	 * 
+	 * @since 1.9.1
+	 * @return bool
+	 */
+	public static function is_cpsw_settings_page() {
+		$allowed_sections = apply_filters(
+			'cpsw_allow_admin_scripts_methods',
+			array(
+				'cpsw_stripe',
+				'cpsw_alipay',
+				'cpsw_ideal',
+				'cpsw_klarna',
+				'cpsw_sepa',
+				'cpsw_bancontact',
+				'cpsw_p24',
+				'cpsw_wechat',
+				'cpsw_stripe_element',
+			)
+		);
+	
+		if ( ! is_admin() ) {
+			return false;
+		}
+	
+		if ( ! isset( $_GET['page'] ) || 'wc-settings' !== $_GET['page'] || ! isset( $_GET['tab'] ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false; // Basic checks for settings page.
+		}
+	
+		if ( 'cpsw_api_settings' === $_GET['tab'] ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return true; // Matches the "cpsw_api_settings" tab.
+		}
+	
+		if ( isset( $_GET['section'] ) && in_array( sanitize_text_field( $_GET['section'] ), $allowed_sections, true ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return true; // Matches a section starting with "cpsw_" and in the allowed list.
+		}
+	
+		return false;
+	}
 }

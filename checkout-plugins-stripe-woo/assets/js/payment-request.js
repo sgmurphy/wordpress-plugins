@@ -185,6 +185,7 @@
 						buttonIconWidth = '26px';
 					}
 					$( '.cpsw-express-checkout-button-icon' ).css( 'width', buttonIconWidth );
+					$( '.cpsw-express-checkout-button-icon' ).css( 'max-width', buttonIconWidth );
 					$( '.cpsw-express-checkout-button-icon' ).addClass( 'cpsw-express-checkout-button-icon-top' );
 				}
 			} );
@@ -622,16 +623,23 @@
 			const wcCheckoutButton = $( '.place-order #place_order' );
 			const cpswExpressCheckoutButtonWrap = $( '.cpsw-payment-request-custom-button-render' );
 			const cpswExpressCheckoutButton = $( '#cpsw-payment-request-custom-button' );
+			const cpswExpressCheckoutButtonWidth = style.checkout_button_width ? style.checkout_button_width + 'px' : '100%';
+
 			if ( $( '.place-order #place_order' ).outerHeight() > 30 ) {
 				cpswExpressCheckoutButtonWrap.css( 'height', $( '.place-order #place_order' ).outerHeight() + 'px' );
 			}
 			cpswExpressCheckoutButtonWrap.css( 'font-size', $( '.place-order #place_order' ).css( 'font-size' ) );
 
-			if ( $( '.cpsw-payment-request-button-wrapper' ).width() < style.checkout_button_width ) {
+			if ( style.checkout_button_width && style.checkout_button_width < 120 ) {
+				cpswExpressCheckoutButtonWrap.css( 'width', '120px' );
+			} else {
+				if ( $( '.cpsw-payment-request-button-wrapper' ).width() < style.checkout_button_width ) {
+					cpswExpressCheckoutButton.css( 'width', '100%' );
+				} else {
+					cpswExpressCheckoutButtonWrap.css( 'width', cpswExpressCheckoutButtonWidth );
+				}
+				cpswExpressCheckoutButtonWrap.css( 'max-width', '100%' );
 				cpswExpressCheckoutButton.css( 'width', '100%' );
-				cpswExpressCheckoutButton.css( 'min-width', '100px' );
-				cpswExpressCheckoutButtonWrap.css( 'width', '100%' );
-				cpswExpressCheckoutButtonWrap.css( 'min-width', '100px' );
 			}
 
 			cpswStyleExpressCheckoutButton( cpswExpressCheckoutButtonWrap, wcCheckoutButton );

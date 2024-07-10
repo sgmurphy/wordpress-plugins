@@ -5,7 +5,7 @@ Donate link: https://independentwp.com
 Requires at least: 5.9
 Tested up to: 6.5.2
 Requires PHP: 7.3.33
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -193,6 +193,11 @@ We use best practice techniques to filter out bot visits as efficiently as possi
 6. See the device types, browsers, and OSes your visitors are using
 
 == Changelog ==
+
+= 2.6.3 - July 10th, 2024 =
+
+* **Fix:** Email report heading wasn't considering timezones
+* **Fix:** Formidable Forms and MailOptin submissions going untracked
 
 = 2.6.2 - July 2nd, 2024 =
 

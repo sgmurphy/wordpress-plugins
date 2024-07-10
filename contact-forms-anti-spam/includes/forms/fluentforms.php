@@ -85,7 +85,7 @@ function maspik_validate_fluentforms_tel($errorMessage, $field, $formData, $fiel
     $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
 
   	if(!$valid){
-        efas_add_to_log($type = "tel","Phone number $field_value not feet the given format ($reason)", $formData, "Fluent Forms");
+        efas_add_to_log($type = "tel",$reason , $formData, "Fluent Forms");
         $errorMessage = cfas_get_error_text($message);  
     } 
 

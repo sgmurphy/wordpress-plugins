@@ -15,7 +15,7 @@ else
 
 $id = 'id="' . $this->id . '"';
 
-$output = '<div ' . $id . ' class="lsow-services lsow-' . $settings['style'] . ' lsow-grid-container ' . lsow_get_grid_classes($settings) . '">';
+$output = '<div ' . $id . ' class="lsow-services lsow-' . esc_attr($settings['style']) . ' lsow-grid-container ' . lsow_get_grid_classes($settings) . '">';
 
 foreach ($settings['services'] as $service):
 

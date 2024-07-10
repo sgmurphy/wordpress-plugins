@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 3.1.0 – 10-07-2024 =
+Added: Global color control for FSI
+Added: Live logo adding control for FSI
+Fixed: Template import issues in Multisite.
+Few minor bug fixes & improvements
+
 = 3.0.9 – 13-06-2024 =
 Improved: Added Name (32 chars max) and Password (64 chars max) validation.
 Improved: Plugin dependency in single template import.

@@ -1,9 +1,9 @@
 === Mollie Payments for WooCommerce ===
 Contributors: daanvm, danielhuesken, davdebcom, dinamiko, syde, l.vangunst, ndijkstra, robin-mollie, wido, carmen222, inpsyde-maticluznar
-Tags: mollie, payments, payment gateway, woocommerce, credit card, apple pay, ideal, bancontact, klarna, sofort, giropay, woocommerce subscriptions 
+Tags: mollie, payments, payment gateway, woocommerce, credit card, apple pay, ideal, bancontact, klarna, sofort, woocommerce subscriptions 
 Requires at least: 3.8
 Tested up to: 6.5
-Stable tag: 7.5.5
+Stable tag: 7.6.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -39,7 +39,6 @@ European and local payment methods:
 * Bancomat Pay (Italy)
 * Blik (Poland)
 * Przelewy24 (Poland)
-* Giropay (Germany)
 * EPS (Austria)
 * SOFORT Banking (EU)
 * Belfius (Belgium)
@@ -220,6 +219,14 @@ Automatic updates should work like a charm; as always though, ensure you backup 
 
 
 == Changelog ==
+
+= 7.6.0 - 10-07-2024 =
+
+* Added - Trustly payment method
+* Deprecated - Giropay payment method ([Giropay Depreciation FAQ](https://help.mollie.com/hc/en-gb/articles/19745480480786-Giropay-Depreciation-FAQ))
+* Fixed - Mollie hooks into unrelated orders
+* Fixed - Notices and type errors after 7.5.5 update
+* Fixed - Rounding issues with products including tax
 
 = 7.5.5 - 18-06-2024 =
 

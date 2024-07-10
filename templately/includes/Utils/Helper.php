@@ -201,4 +201,83 @@ class Helper extends Base {
 		return (!defined('TEMPLATELY_IGNORE_FLUSH_ALL') || !TEMPLATELY_IGNORE_FLUSH_ALL) && strpos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') === false;
 	}
 
+	public static function get_block_by_name($blocks, $search) {
+		$queue = $blocks;
+
+		while (!empty($queue)) {
+			$current_block = array_shift($queue);
+
+			if($search === $current_block['blockName']){
+				return $current_block;
+			}
+
+			if (isset($current_block['innerBlocks'])) {
+				// Add nested blocks to the end of the queue for processing
+				$queue = array_merge($queue, $current_block['innerBlocks']);
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Only checks if user can install/activate plugins
+	 *
+	 * @param [type] $cap
+	 * @param [type] ...$args
+	 * @return void
+	 */
+	public static function current_user_can($cap, ...$args) {
+		$user = wp_get_current_user();
+
+		// Multisite super admin has all caps by definition, Unless specifically denied.
+		if ( is_multisite() && is_super_admin( $user->ID ) ) {
+			return true;
+		}
+
+		$caps = map_meta_cap( $cap, $user->ID, ...$args );
+
+		switch ($cap) {
+			case 'install_plugins':
+			case 'upload_plugins':
+				$caps = ['install_plugins'];
+				break;
+			case 'install_themes':
+			case 'upload_themes':
+				$caps = ['install_themes'];
+				break;
+			case 'activate_plugins':
+			case 'deactivate_plugins':
+			case 'activate_plugin':
+			case 'deactivate_plugin':
+				$caps = ['activate_plugins'];
+				break;
+			default:
+				break;
+		}
+
+		// Maintain BC for the argument passed to the "user_has_cap" filter.
+		$args = array_merge( array( $cap, $user->ID ), $args );
+
+		/**
+		 * See WP_User::has_cap() for description.
+		 */
+		$capabilities = apply_filters( 'user_has_cap', $user->allcaps, $caps, $args, $user );
+
+		// Everyone is allowed to exist.
+		$capabilities['exist'] = true;
+
+		// Nobody is allowed to do things they are not allowed to do.
+		unset( $capabilities['do_not_allow'] );
+
+		// Must have ALL requested caps.
+		foreach ( (array) $caps as $cap ) {
+			if ( empty( $capabilities[ $cap ] ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }

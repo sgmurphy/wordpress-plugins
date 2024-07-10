@@ -107,7 +107,7 @@ add_action( 'elementor_pro/forms/validation/tel', function( $field, $record, $aj
     $message = isset($checkTelForSpam['message']) ? $checkTelForSpam['message'] : 0 ;  
     
     if(!$valid){
-      efas_add_to_log($type = "tel","Phone number '$field_value' not feet the given format ($reason)",$_POST['form_fields']);
+      efas_add_to_log($type = "tel",$reason ,$_POST['form_fields']);
       $ajax_handler->add_error( $field['id'], cfas_get_error_text( $message) );
     }
     

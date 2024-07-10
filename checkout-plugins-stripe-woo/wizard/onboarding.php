@@ -342,6 +342,9 @@ class Onboarding {
 			wp_send_json_success( [ 'message' => 'no gateway selected' ] );
 		}
 
+		// Update element type before activating any gateway to ensure backward compatibility.
+		update_option( 'cpsw_element_type', Helper::default_element_type() );
+
 		$gateways = WC()->payment_gateways->payment_gateways();
 
 		$response = [];

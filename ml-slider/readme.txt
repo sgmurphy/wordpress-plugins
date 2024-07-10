@@ -1,14 +1,14 @@
 === Slider, Gallery, and Carousel by MetaSlider - Responsive WordPress Image Slideshows ===
 Contributors: andergmartins, htmgarcia, publishpress, stevejburge, rochdesigns
-Tags: slideshow, slider, image slider, carousel slider, gallery, wordpress slider
+Tags: slideshow, slider, image slider, carousel, gallery, flex slider, wordpress slider, nivoslider, rotating banner, image sliders, slide show, responsive slideshow, seo slideshow, unsplash, post sliders, video sliders, YouTube sliders, Vimeo sliders, HTML sliders, external URL sliders, layer sliders, best WordPress slider, best slider, best slideshow, best carousel, easy slider, easy slideshow, flex slider, woocommerce slider, woocommerce slideshow, video slider, video captions, video subtitles
 Requires at least: 5.0
-Stable tag: 3.90.0
+Stable tag: 3.90.1
 Requires PHP: 7.0
-Tested up to: 6.5.4
+Tested up to: 6.5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The best slider, gallery, carousel plugin for WordPress. Build your image slider, video slider, post slider, or WooCommerce product slider.
+The best slider, gallery, and carousel plugin for WordPress. Responsive and easy-to-use sliders with images, videos, posts, products, and layers.
 
 == Description ==
 
@@ -319,6 +319,13 @@ Yes, you can build Elementor slides and Beaver Builder slideshows. You can creat
 
 The format is based on [Keep a Changelog recommendations](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+= [3.90.1] - 09 July, 2024 =
+
+* FIXED: Filtering notices can cause fatal errors bug, #1152;
+* FIXED: Open in new window doesn't work in TinyMCE, #1159;
+* CHANGED: Italian, Spanish and French translation updates, #1154;
+* REMOVED: Duplicate Instances, #1157;
 
 = [3.90.0] - 13 June, 2024 =
 

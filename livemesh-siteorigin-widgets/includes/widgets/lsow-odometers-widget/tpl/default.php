@@ -13,8 +13,8 @@ $output = '<div class="lsow-odometers lsow-grid-container ' . lsow_get_grid_clas
 
 foreach ($settings['odometers'] as $odometer):
 
-    $prefix = (!empty ($odometer['prefix'])) ? '<span class="prefix">' . $odometer['prefix'] . '</span>' : '';
-    $suffix = (!empty ($odometer['suffix'])) ? '<span class="suffix">' . $odometer['suffix'] . '</span>' : '';
+    $prefix = (!empty($odometer['prefix'])) ? '<span class="prefix">' . esc_html($odometer['prefix']) . '</span>' : '';
+    $suffix = (!empty($odometer['suffix'])) ? '<span class="suffix">' . esc_html($odometer['suffix']) . '</span>' : '';
 
     $child_output = '<div class="lsow-grid-item lsow-odometer">';
 
@@ -26,7 +26,7 @@ foreach ($settings['odometers'] as $odometer):
 
     $child_output .= '</div><!-- .lsow-number -->';
 
-    $child_output .= (!empty ($odometer['suffix'])) ? '<span class="lsow-suffix">' . $odometer['suffix'] . '</span>' : '';
+    $child_output .= (!empty($odometer['suffix'])) ? '<span class="lsow-suffix">' . esc_html($odometer['suffix']) . '</span>' : '';
 
     $icon_type = esc_html($odometer['icon_type']);
 

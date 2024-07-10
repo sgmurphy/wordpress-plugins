@@ -1,6 +1,6 @@
 /**
- * WP Htaccess Editor
- * (c) WebFactory Ltd, 2018-2022
+ * WP .htaccess Editor
+ * (c) WebFactory Ltd, 2018-2024
  */
 
 body,
@@ -168,4 +168,330 @@ p {
     -webkit-transform: rotate(-360deg);
     transform: rotate(-360deg);
   }
+}
+
+#wphe_tabs_wrapper {
+  width: 740px;
+  position: relative;
+  padding: 0px;
+  zoom: 1;
+  margin: 20px auto;
+  border: 0px !important;
+  float: left;
+  margin-right: 20px;
+} /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+
+#wphe_tabs_sidebar {
+  max-width: calc(35% - 40px);
+  float: left;
+  position: sticky;
+  padding-top: 40px;
+}
+
+.sidebar-box {
+  box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+  background: white;
+  padding: 15px;
+  font-size: 14px;
+  max-width: 450px;
+}
+
+.sidebar-box.pro-ad-box {
+  border: 2px solid #4665a5;
+}
+
+.sidebar-box.pro-ad-box.box-301 {
+  border: 2px solid #ff6246;
+  margin-top: 25px;
+}
+
+a.button.button-buy {
+  padding: 11px 40px;
+  color: white;
+  background: #4665a5;
+  font-weight: 600;
+  border: none;
+  line-height: 1.5;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.box-301 a.button.button-buy {
+  background: #ff6246;
+}
+
+.box-301 h3 b {
+  font-weight: 500;
+}
+
+a.button.button-buy:hover,
+a.button.button-buy:active,
+a.button.button-buy:focus {
+  box-shadow: 0px 0px 10px 0px rgb(50 138 210 / 52%);
+  background: #4665a5;
+  color: white;
+  border: none;
+}
+
+.box-301 a.button.button-buy:hover,
+.box-301 a.button.button-buy:active,
+.box-301 a.button.button-buy:focus {
+  box-shadow: 0px 0px 10px 0px rgb(65 73 80 / 52%);
+  background: #ff6246;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.plain-list {
+  margin-top: 5px;
+  list-style-type: circle;
+  list-style-position: inside;
+}
+
+.plain-list li {
+  text-indent: -18px;
+  padding-left: 23px;
+  line-height: 23px;
+  margin: 0;
+}
+
+.pro-ad-box p b {
+  border-bottom: 3px solid #4665a5;
+}
+
+.pro-ad-box img {
+  max-height: 50px;
+  padding: 0 0 10px 0;
+}
+
+.pro-ad-box.box-301 img {
+  max-height: 100%;
+  max-width: 90%;
+  padding: 10px 0;
+}
+
+.pro-label {
+  display: inline-block;
+  line-height: 1;
+  color: white;
+  background: #364a5e;
+  padding: 3px 6px;
+  font-size: 12px;
+  vertical-align: text-top;
+  margin-left: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.pro-label:hover {
+  color: white;
+  transform: scale(1.2);
+}
+.pro-label:active,
+.pro-label:focus {
+  color: white;
+}
+
+.button-disabled {
+  background-color: #ccc;
+}
+
+/* pro dialog */
+.ui-dialog-titlebar {
+  display: none;
+}
+
+.wphe-pro-dialog .logo img {
+  max-height: 55px;
+}
+
+.wphe-pro-dialog .logo {
+  text-align: center;
+  background: #f8f8f8;
+  margin: -16px -16px 0 -16px;
+  padding: 15px;
+}
+
+.wphe-pro-dialog .footer {
+  text-align: center;
+  background: #f8f8f8;
+  margin: 0 -16px -16px -16px;
+  padding: 15px;
+}
+
+.wphe-pro-dialog .logo span {
+  display: block;
+  font-size: 18px;
+  margin: 10px;
+}
+
+.wphe-pro-dialog .logo span b {
+  border-bottom: 3px solid #4665a5;
+}
+
+#wphe-pro-table {
+  width: 100%;
+  margin: 10px auto 10px auto;
+  border-collapse: collapse;
+}
+
+#wphe-pro-table td {
+  padding: 4px 10px 4px 34px;
+  border: none;
+  font-size: 14px;
+}
+
+#wphe-pro-table tr:last-child td {
+  text-align: center;
+}
+
+#wphe-pro-table td:nth-child(2) {
+  background-color: rgb(23 117 167 / 8%);
+}
+
+#wphe-pro-table .dashicons-yes {
+  color: #4665a5;
+}
+
+#wphe-pro-table .dashicons {
+  padding-right: 8px;
+  margin-left: -27px;
+}
+
+.center {
+  text-align: center;
+}
+
+.prices del {
+  color: #00000099;
+}
+
+.prices span {
+  font-weight: 700;
+  font-size: 40px;
+  color: #4665a5;
+  line-height: 1;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+#wphe-pro-table tr:first-child td {
+  color: #000;
+  font-size: 18px;
+  font-weight: 800 !important;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.pro-ad-box p b {
+  border-bottom: 3px solid #4665a5;
+}
+
+.pro-ad-box.box-301 p b {
+  border-bottom: 3px solid #ff6246;
+}
+
+#wphe-pro-table tr:last-child td {
+  padding: 20px 0 20px 0;
+  vertical-align: top;
+}
+
+#wphe-pro-table tr:last-child td span {
+  display: block;
+  padding: 0 0 5px 0;
+}
+
+#wphe-features {
+  width: 100%;
+  padding: 20px 0 0 0;
+}
+
+#wphe-features td {
+  padding: 10px 20px;
+}
+
+.wp-dialog.ui-widget-content {
+  background: #fff !important;
+}
+
+#wphe-pro-dialog {
+  overflow: hidden;
+}
+
+.pro-feature {
+  vertical-align: super;
+  color: #4665a5;
+  font-weight: 600;
+  font-size: 12px;
+  margin-left: 4px;
+  text-decoration: none;
+}
+
+.pro-feature:hover {
+  color: #4665a5;
+  text-decoration: underline;
+}
+
+.wphe-field-number {
+  width: 80px;
+}
+
+option.pro-option {
+  color: #e14d43;
+}
+
+.captcha-box-wrapper .pro-label {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.notice-box-info {
+  padding: 10px 10px 10px 20px;
+  border: thin solid #4665a5;
+  border-left-width: 5px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notice-box-error p,
+.notice-box-info p {
+  font-size: 14px;
+}
+
+.ui-tabs-tab .open-upsell {
+  background: #4665a5;
+}
+
+.ui-tabs-tab .open-upsell:hover {
+  background: #1f957b;
+}
+
+.ui-tabs-tab a.open-upsell {
+  color: #fff !important;
+}
+
+.ui-tabs-tab a.open-upsell:hover {
+  color: #fff !important;
+}
+
+.open-upsell-block .toggle-wrapper input:checked + .toggle .toggle_handler {
+  background: #cccccc;
+}
+
+p.submit a.open-upsell.button {
+  padding: 3px 12px;
+}
+
+.htaccess-icon .wff-icon {
+  line-height: 55px !important;
+}
+
+.htaccess-icon .wff-icon img {
+  max-width: 70% !important;
 }

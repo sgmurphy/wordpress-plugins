@@ -32,37 +32,38 @@ Logo sliders help businesses show their partners and clients, building trust and
 
 ### Plugin Features - Logo Carousel
 
-GS Logo Slider is a powerful plugin with a rich array of functionalities. Here's its huge features list:
+*GS Logo Slider* is a powerful plugin with a rich array of functionalities. Here's its huge features list:
 
+* **Versatile Layouts**: Choose from a variety of layouts including Grid, List, Table, Filter, Live Filter, Full Width Slider, Center Mode, Variable Width Slider, Vertical Center Slider, Vertical Ticker Up, Vertical Ticker Down, and 2 Rows Slider.
+* **24 Different Themes**: Choose from a variety of pre-designed themes.
+* **Image Size Control**: Select logo image sizes from Thumbnail, Medium, Large, or other registered sources.
+* **Template Override**: Override default templates for a personalized touch.
+* **Drag & Drop Reorder**: Easily reorder logos as needed.
 * **Gutenberg Block Available**: Seamlessly integrate logos with the block editor.
 * **Logo Shortcode Ready**: Easily insert logos using Shortcodes.
+* **Tooltip Option**: Add informative tooltip descriptions to logos.
+* **Multiple Sliders on Same Page**: Display sliders from different categories on the same page.
+* **Advanced Settings Panel**: Comprehensive slider settings panel with all necessary options.
+* **Slider Customization**: There are customizable options such as adjusting slider carousel speed, slider autoplay pause, navigation, pagination, drag-and-drop feature, and color settings.
+* **Directional Control**: Logos can move **Right to Left** (default) or **Left to Right** for *Slider* & *Ticker* Theme.
+* **Display Options**: Display logos horizontally or vertically.
+* **Infinite Loop**: Enable or disable infinite loop.
+* **Ticker Mode**: Slide in ticker mode, similar to a news scroll.
+* **Grayscale Feature**: Option to display logos in grayscale.
+* **Hover Control**: Stop sliding on hover.
+* **Title Display**: Display logos with or without titles.
+* **Link Target Specification**: Specify the target for logo links to open in a new tab or same window.
+* **Transition Control**: Set the number of logos to move during transition effects.
+* **Shortcode Parameters**: tons of Shortcode parameters for customization.
+* **Category-wise Logos**: Display logos based on categories.
 * **Lightweight and Plug-and-Play**: Simple installation with no configuration or extra code required.
 * **Custom Post Type for Logo Posting**: Dedicated post type for managing logos.
 * **Compatibility**: Works with all WordPress themes.
 * **User-Friendly**: It has an easy-to-use user interface for managing, editing, creating, and deleting logos without new knowledge.
 * **Developer Friendly**: Simple to customize and extend its functionalities using Hooks.
-* **Multiple Views Added**: Grid View, List View, Table View, Filter View, Live Filter View, Full Width Slider, Center Mode, Variable Width Slider, Vertical Center Slider, Vertical Ticker Up, Vertical Ticker Down, and 2 Rows Slider.
-* **Tooltip Option**: Add informative tooltip descriptions to logos.
-* **Multiple Sliders on Same Page**: Display sliders from different categories on the same page.
-* **24 Different Themes**: Choose from a variety of pre-designed themes.
-* **Drag & Drop Reorder**: Easily reorder logos as needed.
-* **Advanced Settings Panel**: Comprehensive slider settings panel with all necessary options.
-* **Slider Customization**: There are customizable options such as adjusting slider carousel speed, slider autoplay pause, navigation, pagination, drag-and-drop feature, and color settings.
-* **Directional Control**: Logos can move Right to Left (default) or Left to Right for Slider & Ticker Theme.
-* **Display Options**: Display logos horizontally or vertically.
-* **Infinite Loop**: Enable or disable infinite loop.
-* **Ticker Mode**: Slide in ticker mode, similar to a news scroll.
-* **Grayscale Feature**: Option to display logos in grayscale.
-* **Image Size Control**: Adjust the size of logo images.
-* **Hover Control**: Stop sliding on hover.
-* **Title Display**: Display logos with or without titles.
-* **Link Target Specification**: Specify the target for logo links.
-* **Transition Control**: Set the number of logos to move during transition effects.
-* **Shortcode Parameters**: tons of Shortcode parameters for customization.
-* **Category-wise Logos**: Display logos based on categories.
 * **Priority Email Support**: Get assistance via priority email support.
 * **Free Installation Help**: Free installation service if needed.
-* **Free Updates for One Year**: Enjoy free updates for a year.
+* **Continuous Updates**: Stay updated with new features and improvements.
 * **Auto Update**: Receive notifications for updates and easily update the plugin from your dashboard.
 * **Well-Documented**: Comprehensive documentation and support.
 

@@ -3057,30 +3057,30 @@ img.ivole-verified-badge-ext-icon {
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
-}
-
-.cr-reviews-grid .cr-review-card .image-row .media-row-count {
-	cursor: auto;
+	gap: 5px;
 }
 
 .cr-reviews-grid .cr-review-card .image-row.cr-vid-playing .media-row-count {
 	display: none;
 }
 
-.cr-reviews-grid .cr-review-card .image-row .image-row-camera {
-	width: 45px;
-	height: 40px;
-	border-style: none;
-	border-radius: 0;
-	display: inline;
-	vertical-align: middle;
-	padding: 0 5px 0 0;
-}
 .cr-reviews-grid .cr-review-card .top-row {
 	display: flex;
 	padding: 16px 0 16px 0;
 	border-bottom: solid 2px #F4F4F4;
 	margin: 0 15px 0 15px;
+}
+.pswp .cr-video-wrapper {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
 }
 .cr-reviews-slider .cr-review-card .top-row {
 	display: flex;

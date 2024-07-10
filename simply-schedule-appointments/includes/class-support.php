@@ -161,6 +161,13 @@ class SSA_Support {
 			'param' => 'ssa-cleanup-excluded-calendars',
 			'param_default_value' => '1'
 		),
+		array(
+			'callback' => 'ssa_remove_all_appointments',
+			'title' => 'Removes all appointments and their associated data',
+			'details' => 'Will totally remove all appointments and their associated data from the database. This cannot be undone!',
+			'param' => 'ssa-remove-all-appointments',
+			'param_default_value' => '1'
+		),
 	);
 	/**
 	 * Constructor.
@@ -296,7 +303,57 @@ class SSA_Support {
 	}
 	
 	/**
+	 * Remove all appointments and their associated data. Keeping SSA settings and appointment types intact.
 	 * 
+	 * @return void
+	 */
+	public function ssa_remove_all_appointments () {
+		if ( empty( $_GET['ssa-remove-all-appointments'] ) ) {
+			return;
+		}
+		
+		if (!current_user_can('ssa_manage_site_settings')) {
+			return;
+		}
+		
+		if ( wp_verify_nonce( $_GET['ssa_nonce'], 'ssa-remove-all-appointments' ) === false ) {
+			return;
+		}
+		
+		$appointments_to_delete = $this->plugin->appointment_model->query( array(
+			'number' => -1,
+		) );
+		
+		$appointments_to_delete_ids = wp_list_pluck( $appointments_to_delete, 'id' );
+		
+		$revisions_to_delete = $this->plugin->revision_model->query( array(
+			'number' => -1,
+			'appointment_id' => $appointments_to_delete_ids,
+		) );
+		
+		$revisions_to_delete_ids = wp_list_pluck( $revisions_to_delete, 'id' );
+		
+		$revision_meta_to_delete = $this->plugin->revision_meta_model->query( array(
+			'number' => -1,
+			'revision_id' => $revisions_to_delete_ids,
+		) );
+		
+		// remove all appointment async actions
+		$this->plugin->async_action_model->bulk_delete( array(
+			'number' => -1,
+			'object_type' => 'appointment',
+		) );
+		
+		$this->plugin->revision_meta_model->bulk_delete( wp_list_pluck( $revision_meta_to_delete, 'id' ) );
+		$this->plugin->revision_model->bulk_delete( wp_list_pluck( $revisions_to_delete, 'id' ) );
+		$this->plugin->resource_appointment_model->truncate();
+		$this->plugin->payment_model->truncate();
+		$this->plugin->appointment_meta_model->truncate();
+		$this->plugin->appointment_model->truncate();
+	}
+	
+	/**
+	 * Removes GCAL excluded calendars that the user removed their subscription to. Both from the main calendar and staff profiles.
 	 * 
 	 */
 	public function ssa_cleanup_excluded_calendars () {

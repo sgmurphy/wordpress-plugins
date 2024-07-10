@@ -207,7 +207,7 @@ class Premium_Fancytext extends Widget_Base {
 		$this->add_control(
 			'premium_fancy_text_strings',
 			array(
-				'label'       => __( 'Fancy Text', 'premium-addons-for-elementor' ),
+				'label'       => __( 'Animated Text', 'premium-addons-for-elementor' ),
 				'type'        => Controls_Manager::REPEATER,
 				'default'     => array(
 					array(
@@ -528,20 +528,20 @@ class Premium_Fancytext extends Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'premium_fancy_text_cursor_text',
-			array(
-				'label'     => __( 'Cursor Mark', 'premium-addons-for-elementor' ),
-				'type'      => Controls_Manager::TEXT,
-				'dynamic'   => array( 'active' => true ),
-				'default'   => '|',
-				'condition' => array(
-					'style'                          => 'switch',
-					'premium_fancy_text_effect'      => 'typing',
-					'premium_fancy_text_show_cursor' => 'yes',
-				),
-			)
-		);
+		// $this->add_control(
+		// 	'premium_fancy_text_cursor_text',
+		// 	array(
+		// 		'label'     => __( 'Cursor Mark', 'premium-addons-for-elementor' ),
+		// 		'type'      => Controls_Manager::TEXT,
+		// 		'dynamic'   => array( 'active' => true ),
+		// 		'default'   => '|',
+		// 		'condition' => array(
+		// 			'style'                          => 'switch',
+		// 			'premium_fancy_text_effect'      => 'typing',
+		// 			'premium_fancy_text_show_cursor' => 'yes',
+		// 		),
+		// 	)
+		// );
 
 		$this->add_control(
 			'premium_slide_up_speed',
@@ -963,7 +963,7 @@ class Premium_Fancytext extends Widget_Base {
 		$this->start_controls_section(
 			'premium_fancy_cursor_text_style_tab',
 			array(
-				'label'     => __( 'Cursor Text', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Cursor', 'premium-addons-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'style'                           => 'switch',
@@ -1152,7 +1152,7 @@ class Premium_Fancytext extends Widget_Base {
 
 				$show_cursor = ( ! empty( $settings['premium_fancy_text_show_cursor'] ) ) ? true : false;
 
-				$cursor_text = addslashes( $settings['premium_fancy_text_cursor_text'] );
+				// $cursor_text = addslashes( $settings['premium_fancy_text_cursor_text'] );
 
 				$loop = ! empty( $settings['premium_fancy_text_type_loop'] ) ? true : false;
 
@@ -1164,7 +1164,7 @@ class Premium_Fancytext extends Widget_Base {
 					}
 				}
 
-				$cursor_text    = html_entity_decode( $cursor_text );
+				// $cursor_text    = html_entity_decode( $cursor_text );
 				$atext_settings = array(
 					'effect'     => $effect,
 					'strings'    => $strings,
@@ -1173,7 +1173,6 @@ class Premium_Fancytext extends Widget_Base {
 					'startDelay' => $settings['premium_fancy_text_start_delay'],
 					'backDelay'  => $settings['premium_fancy_text_back_delay'],
 					'showCursor' => $show_cursor,
-					'cursorChar' => wp_kses_post( $cursor_text ),
 					'loop'       => $loop,
 				);
 

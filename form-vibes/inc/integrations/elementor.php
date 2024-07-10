@@ -14,7 +14,7 @@ use Exception;
  */
 class Elementor extends Base {
 
-
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance
@@ -41,6 +41,8 @@ class Elementor extends Base {
 	 * @since 1.4.4
 	 * @return @var $instance
 	 */
+
+	 
 	public static function instance() {
 		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
@@ -81,12 +83,13 @@ class Elementor extends Base {
 			$wpdb->query( 'START TRANSACTION' );
 
 			// getting entry id from fv meta table
-			$elementor_data_id_query = "SELECT meta_value from ${entry_meta_table_name} WHERE meta_key = 'elementor_id'";
+			//$elementor_data_id_query = "SELECT meta_value from ${entry_meta_table_name} WHERE meta_key = 'elementor_id'";
+			$elementor_data_id_query = "SELECT meta_value FROM {$entry_meta_table_name} WHERE meta_key = 'elementor_id'";
 
 			// get all elementor entry table data
 			// TODO:: add batch(offset) size to query
 			$elementor_entry_table_data = $wpdb->get_results(
-				"SELECT * from ${elementor_entry_table_name} WHERE id NOT IN (${elementor_data_id_query})"
+				"SELECT * from {$elementor_entry_table_name} WHERE id NOT IN ({$elementor_data_id_query})"
 			);
 
 			foreach ( $elementor_entry_table_data as $row ) {
@@ -111,7 +114,7 @@ class Elementor extends Base {
 
 				// getting data from elementor meta table
 				$elementor_entry_meta_table_data = $wpdb->get_results(
-					$wpdb->prepare( "SELECT * from ${elementor_entry_meta_table_name} WHERE submission_id = %s", $row->id )
+					$wpdb->prepare( "SELECT * from {$elementor_entry_meta_table_name} WHERE submission_id = %s", $row->id )
 				);
 
 				foreach ( $elementor_entry_meta_table_data as $meta_data ) {
@@ -227,7 +230,7 @@ class Elementor extends Base {
 		$data['posted_data']       = $posted_data;
 
 		$this->field_processor( $record );
-
+		
 		self::$submission_id = $this->insert_entries( $data );
 	}
 

@@ -4,11 +4,9 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-function lsow_get_terms( $taxonomy )
-{
-    global  $wpdb ;
+function lsow_get_terms(  $taxonomy  ) {
+    global $wpdb;
     $term_coll = array();
-    
     if ( taxonomy_exists( $taxonomy ) ) {
         $terms = get_terms( $taxonomy );
         // Get all terms of a taxonomy
@@ -26,7 +24,6 @@ function lsow_get_terms( $taxonomy )
             }
         }
     }
-    
     return $term_coll;
 }
 
@@ -35,9 +32,8 @@ function lsow_entry_terms_list(
     $separator = ', ',
     $before = ' ',
     $after = ' '
-)
-{
-    global  $post ;
+) {
+    global $post;
     $output = '<span class="lsow-' . $taxonomy . '-list">';
     $output .= get_the_term_list(
         $post->ID,
@@ -50,12 +46,10 @@ function lsow_entry_terms_list(
     return $output;
 }
 
-function lsow_get_chosen_terms( $query_args )
-{
+function lsow_get_chosen_terms(  $query_args  ) {
     $chosen_terms = array();
     $taxonomies = array();
-    
-    if ( !empty($query_args) && !empty($query_args['tax_query']) ) {
+    if ( !empty( $query_args ) && !empty( $query_args['tax_query'] ) ) {
         $term_queries = $query_args['tax_query'];
         foreach ( $term_queries as $terms_query ) {
             if ( !is_array( $terms_query ) ) {
@@ -64,13 +58,12 @@ function lsow_get_chosen_terms( $query_args )
             $field = $terms_query['field'];
             $taxonomy = $terms_query['taxonomy'];
             $terms = $terms_query['terms'];
-            if ( empty($taxonomy) || empty($terms) ) {
+            if ( empty( $taxonomy ) || empty( $terms ) ) {
                 continue;
             }
             if ( !in_array( $taxonomy, $taxonomies ) ) {
                 $taxonomies[] = $taxonomy;
             }
-            
             if ( is_array( $terms ) ) {
                 foreach ( $terms as $term ) {
                     $chosen_terms[] = get_term_by( $field, $term, $taxonomy );
@@ -78,44 +71,36 @@ function lsow_get_chosen_terms( $query_args )
             } else {
                 $chosen_terms[] = get_term_by( $field, $terms, $taxonomy );
             }
-        
         }
     }
-    
     // Remove duplicates
     $taxonomies = array_unique( $taxonomies );
-    $return = array( $chosen_terms, $taxonomies );
+    $return = array($chosen_terms, $taxonomies);
     return apply_filters( 'lsow_chosen_taxonomy_terms', $return, $query_args );
 }
 
-function lsow_get_taxonomy_info( $taxonomy )
-{
+function lsow_get_taxonomy_info(  $taxonomy  ) {
     $output = '';
     $terms = get_the_terms( get_the_ID(), $taxonomy );
-    
-    if ( !empty($terms) && !is_wp_error( $terms ) ) {
+    if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
         $output .= '<span class="lsow-terms">';
         $term_count = 0;
         foreach ( $terms as $term ) {
             $term_link = get_term_link( $term->slug, $taxonomy );
-            
-            if ( !empty($term_link) && !is_wp_error( $term_link ) ) {
+            if ( !empty( $term_link ) && !is_wp_error( $term_link ) ) {
                 if ( $term_count != 0 ) {
                     $output .= ', ';
                 }
                 $output .= '<a href="' . get_term_link( $term->slug, $taxonomy ) . '">' . $term->name . '</a>';
                 $term_count = $term_count + 1;
             }
-        
         }
         $output .= '</span>';
     }
-    
     return apply_filters( 'lsow_taxonomy_info', $output, $taxonomy );
 }
 
-function lsow_get_info_for_taxonomies( $taxonomies )
-{
+function lsow_get_info_for_taxonomies(  $taxonomies  ) {
     $output = '';
     foreach ( $taxonomies as $taxonomy ) {
         $output .= lsow_get_taxonomy_info( $taxonomy );
@@ -124,8 +109,7 @@ function lsow_get_info_for_taxonomies( $taxonomies )
 }
 
 // get all registered taxonomies
-function lsow_get_taxonomies_map()
-{
+function lsow_get_taxonomies_map() {
     $map = array();
     $taxonomies = lsow_get_all_taxonomies();
     foreach ( $taxonomies as $taxonomy ) {
@@ -134,8 +118,7 @@ function lsow_get_taxonomies_map()
     return apply_filters( 'lsow_taxonomies_map', $map );
 }
 
-function lsow_get_all_taxonomies()
-{
+function lsow_get_all_taxonomies() {
     $taxonomies = get_taxonomies( array(
         'public'   => true,
         '_builtin' => false,
@@ -147,9 +130,8 @@ function lsow_get_all_taxonomies()
     return $taxonomies;
 }
 
-function lsow_entry_published( $format = null )
-{
-    if ( empty($format) ) {
+function lsow_entry_published(  $format = null  ) {
+    if ( empty( $format ) ) {
         $format = get_option( 'date_format' );
     }
     $published = '<span class="published"><abbr title="' . sprintf( get_the_time( esc_html__( 'l, F, Y, g:i a', 'livemesh-so-widgets' ) ) ) . '">' . sprintf( get_the_time( $format ) ) . '</abbr></span>';
@@ -158,15 +140,13 @@ function lsow_entry_published( $format = null )
     return apply_filters( 'lsow_entry_published_link', $link, $format );
 }
 
-function lsow_entry_author()
-{
+function lsow_entry_author() {
     $author = '<span class="author vcard">' . esc_html__( 'By ', 'livemesh-so-widgets' ) . '<a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( get_the_author_meta( 'display_name' ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a></span>';
     return apply_filters( 'lsow_entry_author', $author );
 }
 
 /* Return the css class name to help achieve the number of columns specified for mobile resolution */
-function lsow_get_grid_classes( $settings, $columns_field = 'per_line' )
-{
+function lsow_get_grid_classes(  $settings, $columns_field = 'per_line'  ) {
     $grid_classes = ' lsow-grid-desktop-';
     $grid_classes .= $settings[$columns_field];
     $grid_classes .= ' lsow-grid-tablet-';
@@ -184,18 +164,15 @@ function lsow_get_grid_classes( $settings, $columns_field = 'per_line' )
 /*
 * Converting string to boolean is a big one in PHP
 */
-function lsow_to_boolean( $value )
-{
+function lsow_to_boolean(  $value  ) {
     if ( !isset( $value ) ) {
         return false;
     }
-    
     if ( $value == 'true' || $value == '1' ) {
         $value = true;
     } elseif ( $value == 'false' || $value == '0' ) {
         $value = false;
     }
-    
     return (bool) $value;
     // Make sure you do not touch the value if the value is not a string
 }
@@ -206,8 +183,7 @@ function lsow_to_boolean( $value )
  * @percent float $percent Decimal ( 0.2 = lighten by 20%(), -0.4 = darken by 40%() )
  * @return str Lightened/Darkend colour as hexadecimal (with hash);
  */
-function lsow_color_luminance( $hex, $percent )
-{
+function lsow_color_luminance(  $hex, $percent  ) {
     // validate hex string
     $hex = preg_replace( '/[^0-9a-f]/i', '', $hex );
     $new_hex = '#';
@@ -215,7 +191,7 @@ function lsow_color_luminance( $hex, $percent )
         $hex = $hex[0] + $hex[0] + $hex[1] + $hex[1] + $hex[2] + $hex[2];
     }
     // convert to decimal and change luminosity
-    for ( $i = 0 ;  $i < 3 ;  $i++ ) {
+    for ($i = 0; $i < 3; $i++) {
         $dec = hexdec( substr( $hex, $i * 2, 2 ) );
         $dec = min( max( 0, $dec + $dec * $percent ), 255 );
         $new_hex .= str_pad(
@@ -228,16 +204,13 @@ function lsow_color_luminance( $hex, $percent )
     return $new_hex;
 }
 
-function lsow_get_option( $option_name, $default = null )
-{
+function lsow_get_option(  $option_name, $default = null  ) {
     $settings = get_option( 'lsow_settings' );
-    
-    if ( !empty($settings) && isset( $settings[$option_name] ) ) {
+    if ( !empty( $settings ) && isset( $settings[$option_name] ) ) {
         $option_value = $settings[$option_name];
     } else {
         $option_value = $default;
     }
-    
     return apply_filters(
         'lsow_get_option',
         $option_value,
@@ -246,10 +219,9 @@ function lsow_get_option( $option_name, $default = null )
     );
 }
 
-function lsow_update_option( $option_name, $option_value )
-{
+function lsow_update_option(  $option_name, $option_value  ) {
     $settings = get_option( 'lsow_settings' );
-    if ( empty($settings) ) {
+    if ( empty( $settings ) ) {
         $settings = array();
     }
     $settings[$option_name] = $option_value;
@@ -260,10 +232,9 @@ function lsow_update_option( $option_name, $option_value )
  * Update multiple options in one go
  * @param array $setting_data An collection of settings key value pairs;
  */
-function lsow_update_options( $setting_data )
-{
+function lsow_update_options(  $setting_data  ) {
     $settings = get_option( 'lsow_settings' );
-    if ( empty($settings) ) {
+    if ( empty( $settings ) ) {
         $settings = array();
     }
     foreach ( $setting_data as $setting => $value ) {
@@ -278,9 +249,8 @@ function lsow_update_options( $setting_data )
  * Get system info
  *
  */
-function lsow_get_sysinfo()
-{
-    global  $wpdb ;
+function lsow_get_sysinfo() {
+    global $wpdb;
     // Get theme info
     $theme_data = wp_get_theme();
     $theme = $theme_data->Name . ' ' . $theme_data->Version;
@@ -304,14 +274,12 @@ function lsow_get_sysinfo()
     $return .= 'Active Theme:             ' . $theme . "\n";
     $return .= 'Show On Front:            ' . get_option( 'show_on_front' ) . "\n";
     // Only show page specs if frontpage is set to 'page'
-    
     if ( get_option( 'show_on_front' ) == 'page' ) {
         $front_page_id = get_option( 'page_on_front' );
         $blog_page_id = get_option( 'page_for_posts' );
         $return .= 'Page On Front:            ' . (( $front_page_id != 0 ? get_the_title( $front_page_id ) . ' (#' . $front_page_id . ')' : 'Unset' )) . "\n";
         $return .= 'Page For Posts:           ' . (( $blog_page_id != 0 ? get_the_title( $blog_page_id ) . ' (#' . $blog_page_id . ')' : 'Unset' )) . "\n";
     }
-    
     $return .= 'ABSPATH:                  ' . ABSPATH . "\n";
     $return .= 'WP_DEBUG:                 ' . (( defined( 'WP_DEBUG' ) ? ( WP_DEBUG ? 'Enabled' : 'Disabled' ) : 'Not set' )) . "\n";
     $return .= 'Memory Limit:             ' . WP_MEMORY_LIMIT . "\n";
@@ -338,7 +306,6 @@ function lsow_get_sysinfo()
         $update = ( array_key_exists( $plugin_path, $updates ) ? ' (needs update - ' . $updates[$plugin_path]->update->new_version . ')' : '' );
         $return .= $plugin['Name'] . ': ' . $plugin['Version'] . $update . "\n";
     }
-    
     if ( is_multisite() ) {
         // WordPress Multisite active plugins
         $return .= "\n" . '-- Network Active Plugins' . "\n\n";
@@ -354,7 +321,6 @@ function lsow_get_sysinfo()
             $return .= $plugin['Name'] . ': ' . $plugin['Version'] . $update . "\n";
         }
     }
-    
     // Server configuration (really just versioning)
     $return .= "\n" . '-- Webserver Configuration' . "\n\n";
     $return .= 'PHP Version:              ' . PHP_VERSION . "\n";
@@ -381,15 +347,12 @@ function lsow_get_sysinfo()
 }
 
 /** Isotope filtering support for Portfolio pages **/
-function lsow_get_taxonomy_terms_filter( $taxonomies, $chosen_terms = array() )
-{
+function lsow_get_taxonomy_terms_filter(  $taxonomies, $chosen_terms = array()  ) {
     $output = '';
     $terms = array();
-    
-    if ( empty($chosen_terms) ) {
+    if ( empty( $chosen_terms ) ) {
         foreach ( $taxonomies as $taxonomy ) {
-            global  $wp_version ;
-            
+            global $wp_version;
             if ( version_compare( $wp_version, '4.5', '>=' ) ) {
                 $taxonomy_terms = get_terms( array(
                     'taxonomy' => $taxonomy,
@@ -397,17 +360,14 @@ function lsow_get_taxonomy_terms_filter( $taxonomies, $chosen_terms = array() )
             } else {
                 $taxonomy_terms = get_terms( $taxonomy );
             }
-            
-            if ( !empty($taxonomy_terms) && !is_wp_error( $taxonomy_terms ) ) {
+            if ( !empty( $taxonomy_terms ) && !is_wp_error( $taxonomy_terms ) ) {
                 $terms = array_merge( $terms, $taxonomy_terms );
             }
         }
     } else {
         $terms = $chosen_terms;
     }
-    
-    
-    if ( !empty($terms) ) {
+    if ( !empty( $terms ) ) {
         $output .= '<div class="lsow-taxonomy-filter">';
         $output .= '<div class="lsow-filter-item segment-0 lsow-active"><a data-value="*" href="#">' . esc_html__( 'All', 'livemesh-so-widgets' ) . '</a></div>';
         $segment_count = 1;
@@ -417,7 +377,6 @@ function lsow_get_taxonomy_terms_filter( $taxonomies, $chosen_terms = array() )
         }
         $output .= '</div>';
     }
-    
     return apply_filters(
         'lsow_taxonomy_terms_filter',
         $output,
@@ -426,11 +385,9 @@ function lsow_get_taxonomy_terms_filter( $taxonomies, $chosen_terms = array() )
     );
 }
 
-function lsow_get_animation_atts( $animation )
-{
+function lsow_get_animation_atts(  $animation  ) {
     $animate_class = "";
     $animation_attr = "";
-    
     if ( $animation != "none" ) {
         $animate_class = ' lsow-animate-on-scroll';
         if ( in_array( $animation, array(
@@ -471,13 +428,11 @@ function lsow_get_animation_atts( $animation )
         }
         $animation_attr = ' data-animation="' . esc_attr( $animation ) . '"';
     }
-    
-    $return = array( $animate_class, $animation_attr );
+    $return = array($animate_class, $animation_attr);
     return apply_filters( 'lsow_animation_attributes', $return, $animation );
 }
 
-function lsow_get_animation_options()
-{
+function lsow_get_animation_options() {
     return apply_filters( 'lsow_animation_options', array(
         'none'        => __( 'None', 'livemesh-so-widgets' ),
         'fadeIn'      => __( 'Fade In', 'livemesh-so-widgets' ),
@@ -486,40 +441,33 @@ function lsow_get_animation_options()
     ) );
 }
 
-function lsow_get_legacy_template_part( $template_name, $settings )
-{
+function lsow_get_legacy_template_part(  $template_name, $settings  ) {
     // Allow the user to place the templates in a different folder
     $templates_folder = apply_filters( 'lsow_templates_folder', 'siteorigin-widgets' );
     $template = locate_template( $templates_folder . '/' . $template_name . '.php' );
     /* If template is found */
-    
     if ( '' !== $template ) {
         ob_start();
         include $template;
         return ob_get_clean();
     }
-    
     return null;
 }
 
-function lsow_get_module_template_part( $template_name, $module )
-{
+function lsow_get_module_template_part(  $template_name, $module  ) {
     // Allow the user to place the templates in a different folder
     $templates_folder = apply_filters( 'lsow_templates_folder', 'siteorigin-widgets/modules' );
     $template = locate_template( $templates_folder . '/' . $template_name . '.php' );
     /* If template is found */
-    
     if ( '' !== $template ) {
         ob_start();
         include $template;
         return ob_get_clean();
     }
-    
     return null;
 }
 
-function lsow_get_template_part( $template_name, $args = null, $return = false )
-{
+function lsow_get_template_part(  $template_name, $args = null, $return = false  ) {
     $template_file = $template_name . '.php';
     $default_folder = LSOW_PLUGIN_DIR . 'templates/';
     // Allow the user to place the templates in a different folder than the default livemesh-siteorigin-widgets/ folder
@@ -544,8 +492,7 @@ function lsow_get_template_part( $template_name, $args = null, $return = false )
     return null;
 }
 
-function lsow_disable_lazy_load_classes()
-{
+function lsow_disable_lazy_load_classes() {
     // no-lazyload - wp-smushit
     // data-no-lazy="1" - wprocket, rocket-lazy-load
     // skip-lazy - jetpack, SG Optimizer using filter in functions.php

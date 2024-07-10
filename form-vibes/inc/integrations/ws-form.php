@@ -15,7 +15,7 @@ use WS_Form_Form;
 
 class WsForm extends Base {
 
-
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance

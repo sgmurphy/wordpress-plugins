@@ -148,6 +148,7 @@ class Minifier {
 		foreach ( $scripts->to_do as $handle ) {
 			// Skip scripts.
 			if (
+				! isset( $wp_scripts->registered[ $handle ]->src ) || // if not null.
 				stripos( $wp_scripts->registered[ $handle ]->src, '.min.js' ) !== false || // If the file is minified already.
 				false === $wp_scripts->registered[ $handle ]->src || // If the source is empty.
 				in_array( $handle, $excluded_scripts ) || // If the file is ignored.

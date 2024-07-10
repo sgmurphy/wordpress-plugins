@@ -201,8 +201,8 @@ class Card_Payments extends Abstract_Payment_Gateway {
 					'title'       => __( 'Order Button Label', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'text',
 					'description' => __( 'Customize label for Order button', 'checkout-plugins-stripe-woo' ),
-					'default'     => __( 'Pay via Stripe', 'checkout-plugins-stripe-woo' ),
 					'desc_tip'    => true,
+					'placeholder' => 'Place order',
 				],
 			]
 		);

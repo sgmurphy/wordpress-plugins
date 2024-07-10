@@ -251,6 +251,7 @@ class Js_Combinator extends Abstract_Combinator {
 		'snaptr',
 		'function awbMapInit',
 		'loginform .user-pass-wrap\').attr(\'id\', \'lable_password_input', //Admin Custom Login Plugin.
+		'wcBlocksMiddlewareConfig' // exclude nonce generator var, script handle - wc-blocks-middleware
 	);
 
 	/**

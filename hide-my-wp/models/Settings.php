@@ -277,7 +277,6 @@ class HMWP_Models_Settings
 			return;
 		}
 
-
 		//INSERT SEURITY RULES
 		if (!HMWP_Classes_Tools::isIIS()) {
 			//For Nginx and Apache the rules can be inserted separately

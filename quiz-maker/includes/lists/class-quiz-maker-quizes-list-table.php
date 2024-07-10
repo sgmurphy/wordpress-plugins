@@ -921,6 +921,9 @@ class Quizes_List_Table extends WP_List_Table{
 
             // Letter spacing | Right answer
             $quiz_right_answers_letter_spacing = (isset($_REQUEST['ays_quiz_right_answers_letter_spacing']) && $_REQUEST['ays_quiz_right_answers_letter_spacing'] != '') ? stripslashes( absint( $_REQUEST['ays_quiz_right_answers_letter_spacing'] ) ) : 0;
+
+            // Letter spacing | Wrong answer
+            $quiz_wrong_answers_letter_spacing = (isset($_REQUEST['ays_quiz_wrong_answers_letter_spacing']) && $_REQUEST['ays_quiz_wrong_answers_letter_spacing'] != '') ? stripslashes( absint( $_REQUEST['ays_quiz_wrong_answers_letter_spacing'] ) ) : 0;
             
 
             $options = array(
@@ -1159,6 +1162,7 @@ class Quizes_List_Table extends WP_List_Table{
                 'quiz_bg_img_during_the_quiz'                       => $quiz_bg_img_during_the_quiz,
                 'quiz_quest_explanation_letter_spacing'             => $quiz_quest_explanation_letter_spacing,
                 'quiz_right_answers_letter_spacing'                 => $quiz_right_answers_letter_spacing,
+                'quiz_wrong_answers_letter_spacing'                 => $quiz_wrong_answers_letter_spacing,
             );
 
             $options['required_fields'] = !isset($_POST['ays_required_field']) ? null : array_map( 'sanitize_text_field', $_POST['ays_required_field'] );

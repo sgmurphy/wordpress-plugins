@@ -13,12 +13,14 @@ use FormVibes\Integrations\Base;
 
 class Bricks extends Base {
 
+	private $plugin_name = '';
 	/**
 	 * The instance of the class.
 	 * @var null|object $instance
 	 *
 	 */
 	private static $instance = null;
+	
 	/**
 	 * The forms.
 	 * @var array
@@ -117,16 +119,7 @@ class Bricks extends Base {
 	 */
 	public function form_submit($response, $form) {
 		
-		if ( ! check_ajax_referer( 'bricks-form-nonce', 'nonce', false ) ) {
-			wp_send_json_error(
-				[
-					'action'  => '',
-					'code'    => 'invalid_nonce', // special code for invalid nonce (@since 1.9.6)
-					'type'    => 'error',
-					'message' => esc_html__( 'Invalid form token.', 'bricks' ),
-				]
-			);
-		}
+		\Bricks\Ajax::verify_nonce('bricks-nonce-form');
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$form_settings = \Bricks\Helpers::get_element_settings( $_POST['postId'], $_POST['formId'] );

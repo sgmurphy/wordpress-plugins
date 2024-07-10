@@ -1,10 +1,10 @@
 === Form Vibes - Database Manager for Forms ===
-Contributors: wpvibes, anandau14, satishprajapati
+Contributors: wpvibes, anandau14, hardiksharma
 Tags: elementor form db, contact form 7 db, contact form db, contact form 7, elementor db manager, elementor forms, cf7 db, elementor, save contact form, cf7
 Requires at least: 5.0
-Requires PHP: 7.0
-Tested up to: 6.3
-Stable tag: 1.4.10
+Requires PHP: 7.4
+Tested up to: 6.5
+Stable tag: 1.4.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,10 +104,6 @@ You can view form entries from the main WordPress dashboard just by clicking on 
 = Can I export the form entries into CSV? =
 Yes, it's pretty simple; just click on the Quick Export option on the Form Vibes toolbar to download the submissions.
 
-= How can I report security bugs? =
-
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/form-vibes)
-
 == Screenshots ==
 
 1. **View Contact Form Submission**
@@ -118,11 +114,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 1.4.11 =
+* Fixed: Issue with Bricks Form not saving data in some cases.
+* Fixed: Added Compatibility with PHP 8.2 and above
+
 = 1.4.10 = 
-* Fixed compatiblity issue with Bricks Builder form
+* Fixed compatibility issue with Bricks Builder form
 
 = 1.4.9 = 
-* Removed Freemius SDK Integration
+* Updated Freemius SDK
 
 = 1.4.8 = 
 * Fixed: Bricks Builder Form google recaptcha issue.
