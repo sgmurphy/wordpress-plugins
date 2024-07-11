@@ -17,4 +17,5 @@ class Scheme extends SingleEntity {
 	public $contact_role_color         = '';
 	public $contact_name_color         = '';
 	public $contact_availability_color = '';
+	public $box_message_word_break     = 'break-all';
 }

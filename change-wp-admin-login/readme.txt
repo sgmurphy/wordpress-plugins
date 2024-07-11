@@ -47,6 +47,19 @@ Step 2: Add redirect URL
 
 **Have a problem?** Please write a message in the [WordPress Support Forum](https://wordpress.org/support/plugin/change-wp-admin-login/)
 
+**ATTENTION! 🚨**
+
+We have rebranded the **Change WP Admin Login plugin** as **AIO Login** with many new exciting features, such as:
+
+- Limit login attempts 
+- Google reCAPTCHA,
+- WP login page customization and more.
+
+👉 [Try out the Beta version of AIO Login now!](https://downloads.wordpress.org/plugin/change-wp-admin-login.2.0.0-beta.3.zip) The full version is coming soon.
+Don’t forget to provide your valuable feedback so we can improve.
+
+👉 [Click here](https://wordpress.org/support/topic/good-news-explore-new-exciting-features-with-the-rebrand/) to submit your suggestions.
+
 == Installation ==
 
 1. Go to Plugins, and click on "Add New".

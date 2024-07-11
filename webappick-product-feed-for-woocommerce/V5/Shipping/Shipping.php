@@ -9,12 +9,15 @@
 
 namespace CTXFeed\V5\Shipping;
 
+use CTXFeed\Compatibility\WOOMULTI_CURRENCYCompatibility;
 use CTXFeed\V5\Utility\Cache;
 use CTXFeed\V5\Utility\Settings;
 use WC_Shipping_Flat_Rate;
 use WC_Shipping_Rate;
 use WC_Shipping_Zones;
 use WC_Tax;
+
+
 
 /**
  * Class representing the shipping.
@@ -266,6 +269,13 @@ class Shipping {
 		}
 
 		// add product to cart
+		if ( is_plugin_active( 'woocommerce-multi-currency/woocommerce-multi-currency.php' ) ) {
+			$curccy = new WOOMULTI_CURRENCYCompatibility();
+			$curccy->switch_currency($this->config);
+		}
+
+		do_action('woo_feed_filter_shipping_currency',$this->config);
+
 		$woocommerce->cart->add_to_cart( $id, 1 );
 
 		// Read cart and get shipping costs

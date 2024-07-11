@@ -75,10 +75,10 @@ class Admin
         add_submenu_page('Buttonizer', __('I need support', 'buttonizer-multifunctional-button'),  __('I need support', 'buttonizer-multifunctional-button'), 'read', 'admin.php?page=Buttonizer#/support');
 
         // Add community link
-        add_submenu_page('Buttonizer', __('Community', 'buttonizer-multifunctional-button'),  __('Community', 'buttonizer-multifunctional-button'), 'read', 'https://community.buttonizer.pro/?referral=buttonizer-plugin-menu');
+        add_submenu_page('Buttonizer', __('Community', 'buttonizer-multifunctional-button'),  __('Community', 'buttonizer-multifunctional-button'), 'read', 'https://r.buttonizer.io/support/community?referral=buttonizer-plugin-menu');
 
         // Add knowledge base link
-        add_submenu_page('Buttonizer', __('Knowledge base', 'buttonizer-multifunctional-button'),  __('Knowledge base', 'buttonizer-multifunctional-button'), 'read', 'https://community.buttonizer.pro/knowledgebase?referral=buttonizer-plugin-menu');
+        add_submenu_page('Buttonizer', __('Knowledge base', 'buttonizer-multifunctional-button'),  __('Knowledge base', 'buttonizer-multifunctional-button'), 'read', 'https://r.buttonizer.io/support/knowledgebase?referral=buttonizer-plugin-menu');
     }
 
     public function adminAssets()
@@ -273,7 +273,7 @@ class Admin
             'id' => 'buttonizer_knowledgebase',
             'parent' => 'buttonizer',
             'title' => __('Knowledge base', 'buttonizer-multifunctional-button'),
-            'href' => "https://community.buttonizer.pro/knowledgebase",
+            'href' => "https://r.buttonizer.io/support/knowledgebase",
             'meta' => [
                 "target" => "_blank",
                 "title" => __('Find out everything you need to know about Buttonizer', 'buttonizer-multifunctional-button')

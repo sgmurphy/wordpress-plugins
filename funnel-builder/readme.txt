@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,13 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.3 (Jul 11, 2024) =
+* Improved: Checkout - Compatibility with WooPayment Currency Switcher module. (#6364)
+* Improved: Handle some edge cases where conversions entries are duplicate in database table. (#6397)
+* Improved: Checkout - Compatibility with  WooCommerce Price Based on Country updated. (#6378)
+* Fixed: Checkout - PHP notice in checkout third party fields compatibility. (#6107)
+* Fixed: Dashboard widget was not working fine for users with no capability to 'manage_options'. (#6391)
 
 = 3.4.2 (Jun 27, 2024) =
 * Improved: Funnel Step next url code improved to handle few edge cases when multiple steps are draft. (#6357)

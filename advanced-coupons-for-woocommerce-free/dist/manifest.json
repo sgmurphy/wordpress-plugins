@@ -1,15 +1,15 @@
 {
-  "_NoticesPlugin-legacy.76325dd6.js": {
-    "file": "common/NoticesPlugin-legacy.76325dd6.js"
+  "_NoticesPlugin-legacy.6df8da26.js": {
+    "file": "common/NoticesPlugin-legacy.6df8da26.js"
   },
-  "_NoticesPlugin.58041a5d.js": {
-    "file": "common/NoticesPlugin.58041a5d.js"
+  "_NoticesPlugin.4b31c3cc.js": {
+    "file": "common/NoticesPlugin.4b31c3cc.js"
   },
-  "_antd-legacy.b2c32979.js": {
-    "file": "common/antd-legacy.b2c32979.js",
+  "_antd-legacy.98ebdf5c.js": {
+    "file": "common/antd-legacy.98ebdf5c.js",
     "imports": [
-      "_reactLib-legacy.62abbb4d.js",
-      "_redux-legacy.19be1f85.js"
+      "_reactLib-legacy.5e0011e8.js",
+      "_redux-legacy.fe567b93.js"
     ]
   },
   "_antd.bea37c17.js": {
@@ -19,12 +19,12 @@
       "_redux.cb701b1a.js"
     ]
   },
-  "_antdIcons-legacy.dfec541b.js": {
-    "file": "common/antdIcons-legacy.dfec541b.js",
+  "_antdIcons-legacy.258203da.js": {
+    "file": "common/antdIcons-legacy.258203da.js",
     "imports": [
-      "_antd-legacy.b2c32979.js",
-      "_redux-legacy.19be1f85.js",
-      "_reactLib-legacy.62abbb4d.js"
+      "_antd-legacy.98ebdf5c.js",
+      "_redux-legacy.fe567b93.js",
+      "_reactLib-legacy.5e0011e8.js"
     ]
   },
   "_antdIcons.cd7a8ba8.js": {
@@ -38,16 +38,16 @@
   "_index-legacy.1e4d52e6.js": {
     "file": "common/index-legacy.1e4d52e6.js"
   },
-  "_reactLib-legacy.62abbb4d.js": {
-    "file": "common/reactLib-legacy.62abbb4d.js"
+  "_reactLib-legacy.5e0011e8.js": {
+    "file": "common/reactLib-legacy.5e0011e8.js"
   },
   "_reactLib.deb836f9.js": {
     "file": "common/reactLib.deb836f9.js"
   },
-  "_redux-legacy.19be1f85.js": {
-    "file": "common/redux-legacy.19be1f85.js",
+  "_redux-legacy.fe567b93.js": {
+    "file": "common/redux-legacy.fe567b93.js",
     "imports": [
-      "_reactLib-legacy.62abbb4d.js"
+      "_reactLib-legacy.5e0011e8.js"
     ]
   },
   "_redux.cb701b1a.js": {
@@ -61,25 +61,25 @@
     "src": "index.css"
   },
   "packages/acfwf-admin-app/index-legacy.tsx": {
-    "file": "packages/acfwf-admin-app/index-legacy.9caee69f.js",
+    "file": "packages/acfwf-admin-app/index-legacy.f1b3fe90.js",
     "imports": [
-      "_reactLib-legacy.62abbb4d.js",
-      "_redux-legacy.19be1f85.js",
-      "_antd-legacy.b2c32979.js",
-      "_antdIcons-legacy.dfec541b.js"
+      "_reactLib-legacy.5e0011e8.js",
+      "_redux-legacy.fe567b93.js",
+      "_antd-legacy.98ebdf5c.js",
+      "_antdIcons-legacy.258203da.js"
     ],
     "isEntry": true,
     "src": "packages/acfwf-admin-app/index-legacy.tsx"
   },
   "packages/acfwf-admin-app/index.css": {
-    "file": "assets/index-20d05f40.css",
+    "file": "assets/index-c6f98a02.css",
     "src": "packages/acfwf-admin-app/index.css"
   },
   "packages/acfwf-admin-app/index.tsx": {
     "css": [
-      "assets/index-20d05f40.css"
+      "assets/index-c6f98a02.css"
     ],
-    "file": "packages/acfwf-admin-app/index.804e5984.js",
+    "file": "packages/acfwf-admin-app/index.676730d7.js",
     "imports": [
       "_reactLib.deb836f9.js",
       "_redux.cb701b1a.js",
@@ -100,7 +100,7 @@
     "src": "packages/acfwf-admin/index.ts"
   },
   "packages/acfwf-blocks/index-legacy.tsx": {
-    "file": "packages/acfwf-blocks/index-legacy.717cf40f.js",
+    "file": "packages/acfwf-blocks/index-legacy.a5ca1bf6.js",
     "isEntry": true,
     "src": "packages/acfwf-blocks/index-legacy.tsx"
   },
@@ -117,9 +117,9 @@
     "src": "packages/acfwf-blocks/index.tsx"
   },
   "packages/acfwf-cart-block/index-legacy.tsx": {
-    "file": "packages/acfwf-cart-block/index-legacy.77b4cd07.js",
+    "file": "packages/acfwf-cart-block/index-legacy.4aff6c75.js",
     "imports": [
-      "_NoticesPlugin-legacy.76325dd6.js",
+      "_NoticesPlugin-legacy.6df8da26.js",
       "_index-legacy.1e4d52e6.js"
     ],
     "isEntry": true,
@@ -129,17 +129,17 @@
     "css": [
       "assets/index-467dde24.css"
     ],
-    "file": "packages/acfwf-cart-block/index.b3e0b0c9.js",
+    "file": "packages/acfwf-cart-block/index.102a92e6.js",
     "imports": [
-      "_NoticesPlugin.58041a5d.js"
+      "_NoticesPlugin.4b31c3cc.js"
     ],
     "isEntry": true,
     "src": "packages/acfwf-cart-block/index.tsx"
   },
   "packages/acfwf-checkout-block/index-legacy.tsx": {
-    "file": "packages/acfwf-checkout-block/index-legacy.0d75ceac.js",
+    "file": "packages/acfwf-checkout-block/index-legacy.cb57298c.js",
     "imports": [
-      "_NoticesPlugin-legacy.76325dd6.js",
+      "_NoticesPlugin-legacy.6df8da26.js",
       "_index-legacy.1e4d52e6.js"
     ],
     "isEntry": true,
@@ -154,15 +154,15 @@
       "assets/index-2a7d8588.css",
       "assets/index-467dde24.css"
     ],
-    "file": "packages/acfwf-checkout-block/index.06bc1450.js",
+    "file": "packages/acfwf-checkout-block/index.ced4042f.js",
     "imports": [
-      "_NoticesPlugin.58041a5d.js"
+      "_NoticesPlugin.4b31c3cc.js"
     ],
     "isEntry": true,
     "src": "packages/acfwf-checkout-block/index.tsx"
   },
   "packages/acfwf-checkout/index-legacy.ts": {
-    "file": "packages/acfwf-checkout/index-legacy.a7ee0192.js",
+    "file": "packages/acfwf-checkout/index-legacy.dedaff06.js",
     "imports": [
       "_index-legacy.1e4d52e6.js"
     ],
@@ -178,12 +178,12 @@
       "assets/index-cc433ba4.css",
       "assets/index-467dde24.css"
     ],
-    "file": "packages/acfwf-checkout/index.69baf8a9.js",
+    "file": "packages/acfwf-checkout/index.181748aa.js",
     "isEntry": true,
     "src": "packages/acfwf-checkout/index.ts"
   },
   "packages/acfwf-edit-advanced-coupon/index-legacy.ts": {
-    "file": "packages/acfwf-edit-advanced-coupon/index-legacy.e13e1a6d.js",
+    "file": "packages/acfwf-edit-advanced-coupon/index-legacy.a3b09f39.js",
     "isEntry": true,
     "src": "packages/acfwf-edit-advanced-coupon/index-legacy.ts"
   },
@@ -200,7 +200,7 @@
     "src": "packages/acfwf-edit-advanced-coupon/index.ts"
   },
   "packages/acfwf-edit-order/index-legacy.ts": {
-    "file": "packages/acfwf-edit-order/index-legacy.af46cfdb.js",
+    "file": "packages/acfwf-edit-order/index-legacy.81f1c78f.js",
     "isEntry": true,
     "src": "packages/acfwf-edit-order/index-legacy.ts"
   },
@@ -210,28 +210,28 @@
     "src": "packages/acfwf-edit-order/index.ts"
   },
   "packages/acfwf-notices/index-legacy.ts": {
-    "file": "packages/acfwf-notices/index-legacy.54a7e0a2.js",
+    "file": "packages/acfwf-notices/index-legacy.aa1b3d7a.js",
     "isEntry": true,
     "src": "packages/acfwf-notices/index-legacy.ts"
   },
   "packages/acfwf-notices/index.css": {
-    "file": "assets/index-48379c56.css",
+    "file": "assets/index-4e36428e.css",
     "src": "packages/acfwf-notices/index.css"
   },
   "packages/acfwf-notices/index.ts": {
     "css": [
-      "assets/index-48379c56.css"
+      "assets/index-4e36428e.css"
     ],
-    "file": "packages/acfwf-notices/index.1b1a811f.js",
+    "file": "packages/acfwf-notices/index.5ccc6e79.js",
     "isEntry": true,
     "src": "packages/acfwf-notices/index.ts"
   },
   "packages/acfwf-store-credits-frontend/index-legacy.tsx": {
-    "file": "packages/acfwf-store-credits-frontend/index-legacy.693472ac.js",
+    "file": "packages/acfwf-store-credits-frontend/index-legacy.79516b0d.js",
     "imports": [
-      "_reactLib-legacy.62abbb4d.js",
-      "_antd-legacy.b2c32979.js",
-      "_redux-legacy.19be1f85.js"
+      "_reactLib-legacy.5e0011e8.js",
+      "_antd-legacy.98ebdf5c.js",
+      "_redux-legacy.fe567b93.js"
     ],
     "isEntry": true,
     "src": "packages/acfwf-store-credits-frontend/index-legacy.tsx"
@@ -254,7 +254,7 @@
     "src": "packages/acfwf-store-credits-frontend/index.tsx"
   },
   "packages/acfwf-wc-admin/index-legacy.tsx": {
-    "file": "packages/acfwf-wc-admin/index-legacy.9a755f6f.js",
+    "file": "packages/acfwf-wc-admin/index-legacy.f503be11.js",
     "isEntry": true,
     "src": "packages/acfwf-wc-admin/index-legacy.tsx"
   },
@@ -271,7 +271,7 @@
     "src": "packages/acfwf-wc-admin/index.tsx"
   },
   "vite/legacy-polyfills-legacy": {
-    "file": "polyfills-legacy.003edfc1.js",
+    "file": "polyfills-legacy.89123247.js",
     "isEntry": true,
     "src": "vite/legacy-polyfills-legacy"
   }

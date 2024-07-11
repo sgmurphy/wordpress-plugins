@@ -2,9 +2,9 @@
 Contributors: brianhogg
 Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
 Tags: shortcode, event, the events calendar, events, calendar
-Requires at least: 5.8.6
+Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ Add shortcode and block functionality to The Events Calendar Plugin, so you can 
 
 **Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode and Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by Modern Tribe.
 
-This plugin adds a shortcode and a WordPress block for use with The Events Calendar WordPress Plugin (by StellarWP, formerly Modern Tribe).
+This plugin adds a shortcode, a WordPress block, and an Elementor block for use with The Events Calendar WordPress Plugin (by StellarWP, formerly Modern Tribe).
 
 Display a list of your events by either adding a block in the new editor, or adding a shortcode to any post, page, or widget.
 
@@ -144,6 +144,8 @@ Here’s the [full list of shortcode and block options](https://eventcalendarnew
 With [The Events Calendar Shortcode & Block Pro](https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options&utm_content=description) you also get the following options:
 
 * design - Shows improved design by default. Set to 'standard' for the regular one, 'compact' for a more compact listing, 'calendar' for a monthly calendar view, 'columns' to show a horizontal/columns/photo view, or 'grouped' to group events by day
+* filter bar - Allow the user to filter the events shown (ie. by category, state/province, country, venue, etc)
+* pagination - Allow the user to view additional pages of events
 * days - Specify how many days in the future, for example `[ecs-list-events days="1"]` for one day or `[ecs-list-events days="7"]` for one week
 * tag - Filter by one or more tags.  Use commas when you want to filter by multiple tags.
 * id - Show a single event, useful for displaying details of the event on a blog post or page
@@ -158,7 +160,6 @@ With [The Events Calendar Shortcode & Block Pro](https://eventcalendarnewsletter
 * timeonly - To show just the start time of the event. `[ecs-list-events timeonly='true']`
 * offset - Skip a certain number of events from the beginning, useful for using multiple shortcodes on the same page (with ads in between) or splitting into columns
 * custom design - Create one or more of your own templates for use with the shortcode
-* filter bar - Allow the user to filter the events shown (ie. by category, state/province, country, venue, etc)
 * hiderecurring - To only show the first instance of a recurring event, set to 'true'
 
 [Get The Events Calendar Shortcode & Block Pro](https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options-bottom&utm_content=description)
@@ -207,6 +208,9 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 4. Many settings you can use in the shortcode to change what details appear in the events listing
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+* Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
 
 = 2.8.5 =
 * Fixing the Order and Order By options not saving in the block
@@ -274,6 +278,9 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 Adds link to full documentation
 
 == Changelog ==
+
+= 3.0.0 =
+* Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
 
 = 2.8.5 =
 * Fixing the Order and Order By options not saving in the block

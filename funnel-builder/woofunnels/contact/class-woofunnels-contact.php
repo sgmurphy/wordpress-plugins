@@ -381,7 +381,16 @@ class WooFunnels_Contact {
 	 * @param $meta_value
 	 */
 	public function set_meta( $meta_key, $meta_value ) {
-		$this->meta->{$meta_key} = empty( $meta_value ) ? $this->meta->{$meta_key} : $meta_value;
+		$this->meta->{$meta_key} = $meta_value;
+	}
+
+	/**
+	 * @param $meta_key
+	 */
+	public function unset_meta( $meta_key ) {
+		if ( isset( $this->meta ) && isset( $this->meta->{$meta_key} ) ) {
+			unset( $this->meta->{$meta_key} );
+		}
 	}
 
 	public function get_primary_properties() {

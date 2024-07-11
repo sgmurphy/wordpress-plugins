@@ -27,11 +27,11 @@ registerCouponSummaryPlugin();
  * */
 const BOGODummyUpdateCart = () => {
   const { dummyUpdateCart } = acfwfObj.wc;
-  const { hasBOGOCoupon } = acfwfObj.utils;
+  const { debounce, hasBOGOCoupon } = acfwfObj.utils;
   if (hasBOGOCoupon()) {
-    setTimeout(() => {
+    debounce(() => {
       dummyUpdateCart();
-    }, 750);
+    }, 750)();
   }
 };
 

@@ -7,6 +7,7 @@ use ACFWF\Helpers\Plugin_Constants;
 use ACFWF\Abstracts\Base_Model;
 use ACFWF\Interfaces\Model_Interface;
 use ACFWF\Models\Objects\Advanced_Coupon;
+use ACFWF\Models\Coupon_Templates;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -515,6 +516,11 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
             return ACFW_COUPON_TEMPLATES_SERVER_BASE;
         }
 
+        $custom_base = get_option( Coupon_Templates::COUPON_TEMPLATES_SERVER_BASE );
+        if ( $custom_base ) {
+            return $custom_base;
+        }
+
         return 'https://plugin.advancedcouponsplugin.com';
     }
 
@@ -753,11 +759,6 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
      * @inherit ACFWF\Interfaces\Model_Interface
      */
     public function run() {
-        // BETA FEATURE: Coupon Templates.
-        if ( ! defined( 'ACFW_COUPON_TEMPLATES' ) ) {
-            return;
-        }
-
         add_action( 'rest_api_init', array( $this, 'register_routes' ) );
     }
 }

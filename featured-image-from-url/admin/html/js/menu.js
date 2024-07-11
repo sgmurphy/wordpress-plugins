@@ -51,13 +51,11 @@ jQuery(function () {
     jQuery("#tabsTags").tabs();
     jQuery("#tabsScreenshot").tabs();
     jQuery("#tabsIsbn").tabs();
-    jQuery("#tabsMeta").tabs();
     jQuery("#tabsCustomfield").tabs();
     jQuery("#tabsFinder").tabs();
     jQuery("#tabsVideo").tabs();
     jQuery("#tabsContent").tabs();
     jQuery("#tabsCli").tabs();
-    jQuery("#tabsRSS").tabs();
     jQuery("#tabsGallery").tabs();
 
     // show settings

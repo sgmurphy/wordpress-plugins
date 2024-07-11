@@ -3,8 +3,8 @@ Contributors: Buttonizer, freemius
 Buy plugin: https://buttonizer.io
 Tags: Conversion, action button, call, marketing, Social Sharing
 Requires at least: 4.7
-Tested up to: 6.5
-Stable tag: 3.4.4
+Tested up to: 6.6
+Stable tag: 3.4.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ Button builder. WhatsApp Chat, Facebook Messenger, Telegram, Call, SMS, Email & 
 
 == Description ==
 
-[Features](https://buttonizer.pro/features/) | [Knowledge base](https://r.buttonizer.io/support/knowledgebase) | [Community](https://r.buttonizer.io/support/community)
+[Features](https://buttonizer.io/features/) | [Knowledge base](https://r.buttonizer.io/support/knowledgebase) | [Community](https://r.buttonizer.io/support/community)
 
 From WhatsApp Chat, Facebook Messenger, Floating contactform, WhatsApp widgets (New: WhatsApp Business), Click to Chat, Call, Email etc. Buttonizer is the most versatile <strong>Smart Floating Action (Sticky) Button plugin</strong> for WordPress.
 
@@ -259,6 +259,15 @@ Languages can have a different direction of writing and reading? While languages
 
 
 == Changelog ==
+
+= 3.4.5 =
+Release date: July 11, 2024
+
+**Changelog:**
+- We added an information dialog to our GDPR-setting
+- We updated multiple links to our new primary domain, buttonizer.io
+
+If you experience bugs, problems or you just have some feedback, let us know on our [Buttonizer community](https://community.buttonizer.pro/)!
 
 = 3.4.4 =
 Release date: May 15, 2024

@@ -44,13 +44,14 @@ class Plugin_Constants {
     // Plugin configuration constants.
     const TOKEN               = 'acfwf';
     const INSTALLED_VERSION   = 'acfwf_installed_version';
-    const VERSION             = '4.6.1.1';
+    const VERSION             = '4.6.2';
     const TEXT_DOMAIN         = 'advanced-coupons-for-woocommerce-free';
     const THEME_TEMPLATE_PATH = 'advanced-coupons-for-woocommerce-free';
     const META_PREFIX         = '_acfw_';
     const PREMIUM_PLUGIN      = 'advanced-coupons-for-woocommerce/advanced-coupons-for-woocommerce.php';
     const LOYALTY_PLUGIN      = 'loyalty-program-for-woocommerce/loyalty-program-for-woocommerce.php';
     const GIFT_CARDS_PLUGIN   = 'advanced-gift-cards-for-woocommerce/advanced-gift-cards-for-woocommerce.php';
+    const INSTALLATION_DATE   = 'acfwf_plugin_installation_date';
 
     // License.
     const LICENSE_ACTIVATION_URL       = 'https://advancedcouponsplugin.com/wp-admin/admin-ajax.php?action=slmw_activate_license';
@@ -109,9 +110,11 @@ class Plugin_Constants {
     const STORE_CREDITS_HIDE_CHECKOUT_ZERO_BALANCE = 'acfw_store_credits_hide_checkout_zero_balance';
     const STORE_CREDIT_APPLY_TYPE                  = 'acfw_store_credit_apply_type';
     const STORE_CREDIT_EXPIRY                      = 'acfw_store_credit_expiry';
+    const STORE_CREDIT_MIN_ORDER_TOTAL_ALLOWED     = 'acfw_store_credit_minimal_order_total_allowed';
     const REFUND_ORDER_STORE_CREDIT_ENTRY          = 'acfw_refund_order_store_credit_entry_id';
     const REFUND_STORE_CREDIT_DISCOUNT_ENTRY       = 'acfw_refund_store_credit_discount_entry_id';
     const DISPLAY_STORE_CREDITS_REDEEM_FORM        = 'acfw_display_store_credits_redeem_form';
+    const AUTO_DISPLAY_STORE_CREDITS_REDEEM_FORM   = 'acfw_auto_display_store_credits_redeem_form';
 
     // Settings Constants.
 
@@ -204,6 +207,10 @@ class Plugin_Constants {
     const UNCANNY_AUTOMATOR_PLUGIN = 'uncanny-automator/uncanny-automator.php';
     const FUNNEL_BUILDER_PLUGIN    = 'funnel-builder/funnel-builder.php';
     const FUNNELKIT_STRIPE         = 'funnelkit-stripe-woo-payment-gateway/funnelkit-stripe-woo-payment-gateway.php';
+    const SPEED_OPTIMIZER_PLUGIN   = 'sg-cachepress/sg-cachepress.php';
+
+    // Notifications.
+    const NOTIFICATIONS_SCHEDULE_HOOK = 'acfwf_fetch_notifications';
 
     // Others.
     const DISPLAY_DATE_FORMAT = 'F j, Y g:i a';

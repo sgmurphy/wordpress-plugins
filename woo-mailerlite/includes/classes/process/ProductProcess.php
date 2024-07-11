@@ -169,6 +169,8 @@ class ProductProcess extends Singleton
         $productPrice = floatval($product->get_price('edit'));
         $productImage = $this->productImage($product);
         $productURL = $product->get_permalink();
+        $productDescription = $product->get_description();
+        $productShortDescription = $product->get_short_description();
 
         $categories = get_the_terms($productID, 'product_cat');
 
@@ -199,7 +201,9 @@ class ProductProcess extends Singleton
             $exclude_automation,
             $productURL,
             $productImage,
-            []
+            [],
+            $productDescription,
+            $productShortDescription
         );
 
         if ($result !== false && ($mailerliteClient->responseCode() == 201 || $mailerliteClient->responseCode() == 200)) {

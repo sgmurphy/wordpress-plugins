@@ -2,9 +2,9 @@
 
 Contributors: yithemes
 Tags: badges, badge, woocommerce, products, yith
-Requires at least: 6.3
-Tested up to: 6.5
-Stable tag: 3.7.0
+Requires at least: 6.4
+Tested up to: 6.6
+Stable tag: 3.9.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,9 @@ YITH WooCommerce Badge Management will add:
 
 * a new submenu called "Badge Management" under "YITH" menu, where you are able to manage badges and configure all the plugin settings.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/yith-woocommerce-badges-management)
+
 == Screenshots ==
 
 1. Frontend: Shop page
@@ -85,6 +88,12 @@ YITH WooCommerce Badge Management will add:
 8. Admin: General settings
 
 == Changelog ==
+
+= 3.9.0 – Released on 11 July 2024 =
+
+* New: support for WordPress 6.6
+* New: support for WooCommerce 9.1
+* Update: YITH plugin framework
 
 = 3.8.0 - Released on 25 June 2024 =
 

@@ -36,8 +36,12 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
 
 
 			}
-			add_action( 'wp_before_admin_bar_render', [ $this, 'custom_add_fk_stripe_menu' ] );
-			add_action( 'admin_footer', [ $this, 'admin_print_script' ] );
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				add_action( 'wp_before_admin_bar_render', [ $this, 'custom_add_fk_stripe_menu' ] );
+				add_action( 'admin_footer', [ $this, 'admin_print_script' ] );
+			}
+
 		}
 
 		public static function get_instance() {
@@ -148,6 +152,69 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
                     list-style: disc;
                     margin-bottom: 0;
                 }
+
+
+                /**
+                * RTL
+                */
+                body.rtl .fk-stripe-tooltip .wp-pointer-content {
+                    padding: 0 0 12px;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content h3:before {
+                    height: 20px;
+                    width: 20px;
+                    font-size: 14px;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content h3 {
+                    font-size: 13px;
+                    line-height: 20px;
+                    font-weight: 500;
+                    margin: 0;
+                    padding: 8px 42px 8px 12px; /* Swapped left and right padding */
+                    height: 36px;
+                    box-sizing: border-box;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content p {
+                    padding: 12px 12px 0;
+                    margin: 0;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-arrow {
+                    right: 50%; /* Changed left to right */
+                    transform: translateX(50%); /* Adjusted translate direction */
+                    top: 1px;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content ul {
+                    padding-right: 32px; /* Swapped left and right padding */
+                    margin: 6px 0 0;
+                    padding-left: 12px; /* Adjusted right padding */
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content p,
+                body.rtl .fk-stripe-tooltip .wp-pointer-content li {
+                    font-size: 12px;
+                    line-height: 20px;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-content li {
+                    list-style: disc;
+                    margin-bottom: 0;
+                }
+
+                body.rtl .fk-stripe-tooltip .wp-pointer-buttons {
+
+                    right: auto;
+                    left: 12px;
+                }
+
+                /**
+				* RTL
+			    */
+
 
                 .fk-stripe-tooltip .wp-pointer-buttons {
                     position: absolute;
@@ -276,8 +343,6 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
 			wp_enqueue_style( 'wp-pointer' );
 
 
-
-
 			?>
             <script>
                 jQuery(document).ready(function ($) {
@@ -293,36 +358,31 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
   <?php if( $get_stripe_state['status'] === 'not_connected' && isset( $get_stripe_state['link'] ) ) { ?>
     <a href="<?php echo esc_url( $get_stripe_state['link'] ); ?>" class="button button-primary"><?php echo esc_html__( 'Connect', 'funnel-builder' ); ?></a>
   <?php } else if( $get_stripe_state['status'] === 'not_activated' ) { ?>
-    <button class="button button-primary is-stripe is-activate"><span><?php echo esc_html__( 'Activate', 'funnel-builder' ); ?></span></button>
+    <button class="button button-primary is-stripe is-activate"><span><?php echo esc_html__( 'Activate' ); ?></span></button>
   <?php } else { ?>
-    <button class="button button-primary is-stripe is-activate"><span><?php echo esc_html__( 'Install', 'funnel-builder' ); ?></span></button>
+    <button class="button button-primary is-stripe is-activate"><span><?php echo esc_html__( 'Install' ); ?></span></button>
   <?php } ?>
 `;
+
 
                     $('#wp-admin-bar-funnelkit-stripe-menu').pointer({
                         "content": wffnStripeToolBarHTML,
                         "buttons": function (event, t) {
-                            var button = $('<a class="close" href="#"></a>').text(wp.i18n.__('Dismiss Forever'));
+                            var redirectUrl = '<?php echo( admin_url( 'admin-ajax.php?action=wffn_dismiss_notice&nkey=stripe-menu-button&nonce=' . wp_create_nonce( 'wp_wffn_dismiss_notice' ) . '&redirect=' . basename( $_SERVER['REQUEST_URI'] ) ) ); //phpcs:ignore ?>';
+                            var button = $('<a class="close" href="' + redirectUrl + '" onclick="window.location.href=\'' + redirectUrl + '\'"></a>').text(wp.i18n.__('Dismiss Forever'));
 
                             return button.on('click.pointer', function (e) {
                                 e.preventDefault();
                                 jQuery('#wp-admin-bar-funnelkit-stripe-menu').remove();
-                                apiService('funnelkit-app/user-preference', 'POST', JSON.stringify({
-                                    action: 'notice_close',
-                                    key: 'stripe-menu-button',
-                                    user_id: <?php echo esc_html(get_current_user_id()); ?>,
-                                })).then((res) => {
-                                }).catch((e) => console.log(e));
+                                window.location.href = redirectUrl;
                                 t.element.pointer('close');
                             });
                         },
-                        "position":
-                            {"edge": "top", "align": "center"},
-                        "pointerClass":
-                            "fk-stripe-tooltip",
-
+                        "position": {"edge": "top", "align": "center"},
+                        "pointerClass": "fk-stripe-tooltip",
                         "pointerWidth": 310,
                     }).pointer('open');
+
 
                     //Api call function
                     const apiService = (path = "", method = "GET", data) => {
@@ -377,7 +437,6 @@ if ( ! class_exists( 'WFFN_Stripe_Admin_Controller' ) ) {
                     });
 
                     addClickEvent();
-
 
 
                 });

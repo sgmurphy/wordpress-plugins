@@ -17,27 +17,32 @@
 .acfw-admin-notice.notice-error {
   border-left-color: #d63638;
 }
-.acfw-admin-notice p {
-  max-width: 1000px;
-}
 .acfw-admin-notice p:after {
   content: '';
   display: table;
   clear: both;
 }
-.acfw-admin-notice .heading img {
+.acfw-admin-notice .heading-container {
+  display: flex;
+  margin-top: 8px;
+}
+.acfw-admin-notice .image-container img {
   float: left;
   margin-right: 15px;
-  max-width: 195px;
+  max-width: 150px;
 }
 .acfw-admin-notice .heading span {
-  float: left;
   display: block;
-  margin-top: 8px;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
   color: #035E6B;
+  margin-top: 6px;
+}
+.acfw-admin-notice .description-content p {
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 .acfw-settings-notice {
   display: none;
@@ -47,11 +52,11 @@
 }
 .acfw-admin-notice .action-wrap .action-button {
   display: inline-block;
-  padding: 8px 23px;
+  padding: 6px 23px;
   margin-right: 10px;
   background: #C6CD2E;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   text-decoration: none;
   color: #000000;
 }
@@ -71,22 +76,16 @@
 .acfw-admin-notice .action-wrap .plugin-detected {
   color: #00556b;
 }
-
-.acfw-admin-notice.acfw-upgrade-notice p {
-  font-size: 16px;
-  margin: .5em 0;
-  padding: 2px;
-}
 .acfw-admin-notice.acfw-upgrade-notice p a.action-button {
   font-family: "Lato", 'Lato', Helvetica, Arial, Sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   color: #fff;
   background-color: #f7941d;
   border-style: solid;
   border-width: 1px 1px 1px 1px;
   border-color: #A85E06;
-  padding: 10px 20px;
+  padding: 6px 20px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   text-decoration: none;

@@ -1,5 +1,6 @@
 // Global variables.
 declare var jQuery: any;
+declare var acfwfCheckout: any;
 
 const $ = jQuery;
 
@@ -10,6 +11,11 @@ const $ = jQuery;
  */
 export default function accordionEvents() {
   $('.acfw-checkout-ui-block').on('click', '.acfw-accordion > h3', toggleAccordionContent);
+
+  // Expand accordion by default if auto_display_store_credits_redeem_form set to 'yes'
+  if ('yes' === acfwfCheckout.auto_display_store_credits_redeem_form) {
+    $('.acfw-checkout-ui-block .acfw-accordion.acfw-store-credits-checkout-ui > h3').click();
+  }
 }
 
 /**

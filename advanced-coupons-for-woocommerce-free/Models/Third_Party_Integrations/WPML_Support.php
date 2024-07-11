@@ -130,10 +130,10 @@ class WPML_Support implements Model_Interface {
      */
     private function _is_wpml_admin_translation_pages() {
         $screens = array(
-			'wpml-package-management',
-			'wpml-string-translation/menu/string-translation.php',
-			'wpml-translation-management/menu/main.php',
-		);
+            'wpml-package-management',
+            'wpml-string-translation/menu/string-translation.php',
+            'wpml-translation-management/menu/main.php',
+        );
 
         return is_admin() && isset( $_GET['page'] ) && in_array( $_GET['page'], $screens, true ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     }
@@ -151,10 +151,10 @@ class WPML_Support implements Model_Interface {
 
         $query = new \WP_Query(
             array(
-				'post_type'      => 'shop_coupon',
-				'posts_per_page' => -1,
-				'post_status'    => 'publish',
-				'fields'         => 'ids',
+                'post_type'      => 'shop_coupon',
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'fields'         => 'ids',
             )
         );
 
@@ -299,9 +299,9 @@ class WPML_Support implements Model_Interface {
      */
     public function apply_translation_coupon_field( $value, $meta, $coupon ) {
         $package = array(
-			'kind' => 'Coupon',
-			'name' => $coupon instanceof Advanced_Coupon ? $coupon->get_id() : $coupon,
-		);
+            'kind' => 'Coupon',
+            'name' => $coupon instanceof Advanced_Coupon ? $coupon->get_id() : $coupon,
+        );
 
         $test = apply_filters( 'wpml_translate_string', $value, Plugin_Constants::META_PREFIX . $meta, $package );
         return $test;
@@ -327,54 +327,54 @@ class WPML_Support implements Model_Interface {
         $translate = apply_filters(
             'acfw_wpml_translate_setting_options',
             array(
-				array(
-					'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_MESSAGE ),
-					'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_MESSAGE,
-					'label' => __( 'BOGO Deals: Global notice message', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'AREA',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_BTN_TEXT ),
-					'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_BTN_TEXT,
-					'label' => __( 'BOGO Deals: Global notice button text', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'LINE',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_BTN_URL ),
-					'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_BTN_URL,
-					'label' => __( 'BOGO Deals: Global notice button URL', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'LINE',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::ROLE_RESTRICTIONS_ERROR_MESSAGE ),
-					'name'  => Plugin_Constants::ROLE_RESTRICTIONS_ERROR_MESSAGE,
-					'label' => __( 'Role Restrictions: Invalid user role error message (global)', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'AREA',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::CUSTOM_SUCCESS_MESSAGE_GLOBAL ),
-					'name'  => Plugin_Constants::CUSTOM_SUCCESS_MESSAGE_GLOBAL,
-					'label' => __( 'URL Coupons: Custom success message', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'AREA',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::CUSTOM_DISABLE_MESSAGE ),
-					'name'  => Plugin_Constants::CUSTOM_DISABLE_MESSAGE,
-					'label' => __( 'URL Coupons: Custom disable message', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'AREA',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::AFTER_APPLY_COUPON_REDIRECT_URL_GLOBAL ),
-					'name'  => Plugin_Constants::AFTER_APPLY_COUPON_REDIRECT_URL_GLOBAL,
-					'label' => __( 'URL Coupons: Redirect to URL after applying coupon', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'LINE',
-				),
-				array(
-					'value' => get_option( Plugin_Constants::INVALID_COUPON_REDIRECT_URL ),
-					'name'  => Plugin_Constants::INVALID_COUPON_REDIRECT_URL,
-					'label' => __( 'URL Coupons: Redirect to URL if invalid coupon is visited', 'advanced-coupons-for-woocommerce-free' ),
-					'type'  => 'LINE',
-				),
+                array(
+                    'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_MESSAGE ),
+                    'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_MESSAGE,
+                    'label' => __( 'BOGO Deals: Global notice message', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'AREA',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_BTN_TEXT ),
+                    'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_BTN_TEXT,
+                    'label' => __( 'BOGO Deals: Global notice button text', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'LINE',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::BOGO_DEALS_NOTICE_BTN_URL ),
+                    'name'  => Plugin_Constants::BOGO_DEALS_NOTICE_BTN_URL,
+                    'label' => __( 'BOGO Deals: Global notice button URL', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'LINE',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::ROLE_RESTRICTIONS_ERROR_MESSAGE ),
+                    'name'  => Plugin_Constants::ROLE_RESTRICTIONS_ERROR_MESSAGE,
+                    'label' => __( 'Role Restrictions: Invalid user role error message (global)', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'AREA',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::CUSTOM_SUCCESS_MESSAGE_GLOBAL ),
+                    'name'  => Plugin_Constants::CUSTOM_SUCCESS_MESSAGE_GLOBAL,
+                    'label' => __( 'URL Coupons: Custom success message', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'AREA',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::CUSTOM_DISABLE_MESSAGE ),
+                    'name'  => Plugin_Constants::CUSTOM_DISABLE_MESSAGE,
+                    'label' => __( 'URL Coupons: Custom disable message', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'AREA',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::AFTER_APPLY_COUPON_REDIRECT_URL_GLOBAL ),
+                    'name'  => Plugin_Constants::AFTER_APPLY_COUPON_REDIRECT_URL_GLOBAL,
+                    'label' => __( 'URL Coupons: Redirect to URL after applying coupon', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'LINE',
+                ),
+                array(
+                    'value' => get_option( Plugin_Constants::INVALID_COUPON_REDIRECT_URL ),
+                    'name'  => Plugin_Constants::INVALID_COUPON_REDIRECT_URL,
+                    'label' => __( 'URL Coupons: Redirect to URL if invalid coupon is visited', 'advanced-coupons-for-woocommerce-free' ),
+                    'type'  => 'LINE',
+                ),
             )
         );
 
@@ -398,10 +398,10 @@ class WPML_Support implements Model_Interface {
      */
     public function apply_translation_setting_strings( $value, $option ) {
         $package = array(
-			'kind'  => 'ACFW Settings',
-			'name'  => 'acfw_settings',
-			'title' => 'ACFW Settings',
-		);
+            'kind'  => 'ACFW Settings',
+            'name'  => 'acfw_settings',
+            'title' => 'ACFW Settings',
+        );
 
         return apply_filters( 'wpml_translate_string', $value, $option, $package );
     }
@@ -525,6 +525,11 @@ class WPML_Support implements Model_Interface {
      * @return float Converted amount.
      */
     public function convert_amount_to_user_selected_currency( $amount, $is_reverse = false, $settings = array() ) {
+        // Check if amount is null before doing the conversion.
+        if ( null === $amount ) {
+            return $amount;
+        }
+
         $multi_currency = $this->_get_multi_currency();
 
         if ( ! $multi_currency ) {
@@ -760,5 +765,4 @@ class WPML_Support implements Model_Interface {
         // priority is set to 110 so it runs after the WPML strings translation is loaded.
         add_action( 'wpml_loaded', array( $this, 'wpml_loaded' ), 110 );
     }
-
 }

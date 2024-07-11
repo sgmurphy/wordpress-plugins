@@ -260,6 +260,7 @@ class WFACP_Plugin_Compatibilities {
 			'fields/class-woocommerce-zoom-meeting.php'             => ( function_exists( 'woocommerce_to_zoom_checkout_fields' ) || function_exists( 'woocommerce_to_zoom_meetings_checkout_fields' ) ),
 			'fields/class-yth-delivery-date-shipping-manager.php'   => function_exists( 'yith_delivery_date_init_plugin' ),
 			'fields/class-yth-wc-eu-vat.php'                        => function_exists( 'yith_ywev_premium_init' ),
+			'template-found/class-price-based-on-countries.php'     => class_exists( 'WC_Product_Price_Based_Country' ),
 		];
 		self::add_files( $files );
 	}
@@ -304,7 +305,6 @@ class WFACP_Plugin_Compatibilities {
 			'template-found/class-points-and-rewards-for-wc.php'                      => class_exists( 'Points_Rewards_For_WooCommerce_Public' ),
 			'template-found/class-post-smartship.php'                                 => function_exists( 'wb_prinetti_requirements' ),
 			'template-found/class-ppcp-credit-card.php'                               => class_exists( 'WooCommerce\PayPalCommerce\WcGateway\Gateway\CreditCardGateway' ),
-			'template-found/class-price-based-on-countries.php'                       => class_exists( 'WC_Product_Price_Based_Country' ),
 			'template-found/class-pys.php'                                            => class_exists( 'PixelYourSite\EventsManager' ),
 			'template-found/class-rey-core.php'                                       => defined( 'REY_THEME_DIR' ),
 			'template-found/class-sendcloud-shipping.php'                             => function_exists( 'sendcloudshipping_add_service_point_to_checkout' ),

@@ -296,7 +296,7 @@ class Frontend extends Base_Model implements Model_Interface {
             // NOTE: this will only be false when $discount value is 0.
             if ( (bool) $total_discount ) {
                 // get BOGO Buys price.
-                $price['buy'] = $this->_helper_functions->get_price( $cart_item['data'], array( 'get_price_ignore_always_use_regular_price' => true ) ); // ignore always use regular price option, because BOGO Buys should always use the sale price if present.
+                $price['buy'] = $this->_helper_functions->get_price( $cart_item['data'], array( 'ignore_always_use_regular_price' => true ) ); // ignore always use regular price option, because BOGO Buys should always use the sale price if present.
 
                 // Calculate new_price, to get total price of the item.
                 // new_price is the average price of the item after discount.
@@ -304,6 +304,11 @@ class Frontend extends Base_Model implements Model_Interface {
                 $total_bogo_buy     = $price['buy'] * $total_bogo_buy_qty;
                 $total_bogo_get     = ( $price['regular'] * $total_discount_qty ) - $total_discount;
                 $new_price          = ( $total_bogo_buy + $total_bogo_get ) / $cart_item['quantity'];
+
+                // Change displayed price when setting tax is set to yes and tax display cart is excl.
+                if ( \wc_tax_enabled() && 'yes' === get_option( 'woocommerce_prices_include_tax' ) && 'excl' === get_option( 'woocommerce_tax_display_cart' ) ) {
+                    $price['buy'] = (float) wc_get_price_excluding_tax( $cart_item['data'] );
+                }
                 $cart_item['data']->set_price( apply_filters( 'acfw_bogo_get_item_new_price', $new_price, $cart_item ) );
 
                 // add details to $this->_price_display property price differences on cart table.
@@ -629,8 +634,14 @@ class Frontend extends Base_Model implements Model_Interface {
             $data              = isset( $this->_price_display[ $deal['key'] ] ) ? $this->_price_display[ $deal['key'] ] : array();
             $discounted_prices = isset( $data['discounted_prices'] ) ? $data['discounted_prices'] : array();
 
+            $price = $data['price']['regular'];
+            // Change displayed price when setting tax is set to yes and tax display cart is excl.
+            if ( \wc_tax_enabled() && 'yes' === get_option( 'woocommerce_prices_include_tax' ) && 'excl' === get_option( 'woocommerce_tax_display_cart' ) ) {
+                $price = $data['price']['buy'];
+            }
+
             // calculate total discount value for matched deal item, by looping on all applied discount prices.
-            $amount = \ACFWF()->Helper_Functions->calculate_discount_by_type( $deal['discount_type'], $deal['discount'], $data['price']['regular'] );
+            $amount = \ACFWF()->Helper_Functions->calculate_discount_by_type( $deal['discount_type'], $deal['discount'], $price );
             $total  = $amount * $deal['quantity'];
 
             /**

@@ -135,12 +135,7 @@ function PluginsInstallStep() {
 					</h1>
 					<p className="text-center overflow-hidden max-w-2xl mb-10 mx-auto text-lg font-normal text-slate-500 block">
 						{ __(
-							'Since CartFlows uses WooCommerce, we will install it for you with Cart Abandonment Recovery',
-							'cartflows'
-						) }
-						<br />
-						{ __(
-							'to recover the abandoned orders.',
+							'Since CartFlows uses WooCommerce, we will install it for you with Cart Abandonment Recovery to recover the abandoned orders.',
 							'cartflows'
 						) }
 					</p>

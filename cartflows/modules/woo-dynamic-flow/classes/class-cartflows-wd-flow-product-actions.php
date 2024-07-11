@@ -43,16 +43,27 @@ class Cartflows_Wd_Flow_Product_Actions {
 	/**
 	 * Redirect to flow step.
 	 *
-	 * @param string $redirect_url Flow URL.
-	 * @param object $product Product.
+	 * @param string     $redirect_url Flow URL.
+	 * @param WC_Product $product Product.
 	 */
 	public function redirect_to_next_flow_step( $redirect_url, $product ) {
 
 		if ( $product ) {
 
-			$flow_id = $product->get_meta( 'cartflows_redirect_flow_id' );
+			$flow_id = intval( $product->get_meta( 'cartflows_redirect_flow_id' ) );
 
 			if ( ! empty( $flow_id ) ) {
+
+				$funnel_status = get_post_status( intval( $flow_id ) );
+
+				// Return the default redirect URL if flow is deleted permanently or not published.
+				if ( false === $funnel_status || 'publish' !== $funnel_status ) {
+					if ( false === $funnel_status ) {
+						$product->delete_meta_data( 'cartflows_redirect_flow_id' ); // Delete the selected flow ID option from the product meta.
+					}
+					return $redirect_url;
+				}
+
 				$steps        = get_post_meta( $flow_id, 'wcf-steps', true );
 				$next_step_id = false;
 

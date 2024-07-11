@@ -10,10 +10,11 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 			/** WordPress REST API Authentication */
 			self::check_wp_rest_api_authentication();
 
-			/**
-			 * wp rocket cache
-			 */
+			/** WP rocket cache */
 			self::check_wp_rocket();
+
+			/** WP fastest cache */
+			self::check_wp_fastest_cache();
 		}
 
 		/**
@@ -105,22 +106,17 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 
 
 		/**
-		 * For litespeed cache
-		 * https://wordpress.org/plugins/litespeed-cache/
+		 * For WP rocket cache
+		 * https://wp-rocket.me/
 		 *
 		 * @return void
 		 */
 		public static function check_wp_rocket() {
-			if ( ! defined( 'WP_ROCKET_VERSION' ) ) {
-				return;
-			}
-
-			if ( ! function_exists( 'get_rocket_option' ) ) {
+			if ( ! defined( 'WP_ROCKET_VERSION' ) || ! function_exists( 'get_rocket_option' ) || ! function_exists( 'update_rocket_option' ) || ! function_exists( 'rocket_generate_config_file' ) ) {
 				return;
 			}
 
 			$exc_endpoints = (array) get_rocket_option( 'cache_reject_uri', [] );
-
 			$exc_endpoints = self::make_array( $exc_endpoints );
 
 			if ( defined( 'BWFAN_API_NAMESPACE' ) ) {
@@ -130,14 +126,98 @@ if ( ! class_exists( 'BWF_JSON_Cache' ) ) {
 			$exc_endpoints[] = "/wp-json/woofunnels/*";
 			$exc_endpoints[] = "/wp-json/funnelkit-automations/*";
 			$exc_endpoints   = self::maybe_clear_fb_endpoints( $exc_endpoints, 'wp_rocket' );
+			$exc_endpoints   = self::unique( $exc_endpoints );
 
-			// Update the "Never cache the following pages" option.
-			$exc_endpoints = self::unique( $exc_endpoints );
+			/** Update the "Never cache the following pages" option */
 			update_rocket_option( 'cache_reject_uri', $exc_endpoints );
 
-			// Update config file.
+			/** Update config file */
 			rocket_generate_config_file();
+		}
 
+		/**
+		 * For WP fastest cache
+		 * https://wordpress.org/plugins/wp-fastest-cache/
+		 *
+		 * @return void
+		 */
+		public static function check_wp_fastest_cache() {
+			if ( ! class_exists( 'WpFastestCache' ) ) {
+				return;
+			}
+			$existing_data  = get_option( 'WpFastestCacheExclude' );
+			$existing_rules = self::make_array( $existing_data );
+
+			$new_rules_array = [
+				[
+					"prefix"  => "contain",
+					"content" => "bwfan-action",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "bwfan-track-id",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "bwfan-link-trigger",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "bwfan-track-action",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/woofunnels/",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/autonami/",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/funnelkit-automations",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/funnelkit-app",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/woofunnel_customer/",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/autonami-app",
+					"type"    => "page"
+				],
+				[
+					"prefix"  => "contain",
+					"content" => "wp-json/autonami-webhook",
+					"type"    => "page"
+				]
+			];
+
+			$new_rules = array_filter( $new_rules_array, function ( $new_rule ) use ( $existing_rules ) {
+				return ! in_array( $new_rule, $existing_rules, true );
+			} );
+
+			if ( empty( $new_rules ) ) {
+				return;
+			}
+
+			$updated_array = array_merge( $existing_rules, $new_rules );
+			$updated_json  = wp_json_encode( $updated_array );
+
+			update_option( 'WpFastestCacheExclude', $updated_json );
 		}
 
 		/**

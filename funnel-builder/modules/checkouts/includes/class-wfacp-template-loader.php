@@ -454,38 +454,36 @@ final class WFACP_Template_loader {
 	}
 
 	public function locate_template( $slug, $template_type = 'pre_built', $data = false ) {
+		$template_data = false;
 		if ( $template_type === 'pre_built' || empty( $template_type ) ) {
-			$path = $this->get_template_path_by_template( $slug, $template_type );
+			$path = $this->get_template_path_by_template( $slug );
 
 			//handle_customizer
-			return array(
+			$template_data = array(
 				'path' => WFACP_BUILDER_DIR . '/customizer/templates/' . $path . '/template.php',
 				'slug' => $slug,
 			);
-		}
-
-		if ( $template_type === 'elementor' ) {
-			return array(
+		} else if ( $template_type === 'embed_forms' ) {
+			//handle_customizer
+			$template_data = array(
+				'path' => WFACP_BUILDER_DIR . '/customizer/templates/embed_forms_1/template.php',
+				'slug' => $slug,
+			);
+		} else if ( $template_type === 'elementor' ) {
+			$template_data = array(
 				'path' => WFACP_BUILDER_DIR . '/elementor/template/template.php',
 				'slug' => $slug,
 			);
-		}
-		if ( $template_type === 'divi' ) {
-			return array(
+		} else if ( $template_type === 'divi' ) {
+			$template_data = array(
 				'path' => WFACP_BUILDER_DIR . '/divi/template/template.php',
 				'slug' => $slug,
 			);
 		} else if ( $template_type === 'gutenberg' ) {
-			return array(
+			$template_data = array(
 				'path'          => WFACP_BUILDER_DIR . '/gutenberg/template/template.php',
 				'slug'          => 'gutenberg',
 				'name'          => 'gutenberg',
-				'template_type' => $template_type,
-			);
-		} else if ( $template_type === 'embed_forms' ) {
-			return array(
-				'path'          => WFACP_BUILDER_DIR . '/customizer/templates/embed_forms_1/template.php',
-				'slug'          => $slug,
 				'template_type' => $template_type,
 			);
 		}
@@ -499,7 +497,7 @@ final class WFACP_Template_loader {
 		}
 
 
-		return false;
+		return apply_filters( 'wfacp_locate_template', $template_data, $this );
 	}
 
 	public function get_template_path_by_template( $slug ) {

@@ -3,7 +3,7 @@ Contributors: back2nature
 Donate link: https://dev.back2nature.jp/en/donations/
 Tags: page,tag,category,add
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 0.9.0
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

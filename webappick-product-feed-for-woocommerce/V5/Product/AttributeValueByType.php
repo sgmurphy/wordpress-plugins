@@ -410,6 +410,7 @@ class AttributeValueByType {
 	 * @return mixed|void
 	 */
 	protected function apply_filters_to_attribute_value( $output, $merchant_attribute = '' ) {
+
 		$product_attribute = $this->attribute;
 		/**
 		 * Filter attribute value
@@ -457,14 +458,12 @@ class AttributeValueByType {
 		 */
 
 		$merchant_attribute = ( $merchant_attribute === null ? '' : $merchant_attribute );
-
+		$merchant_attribute = str_replace( [ ' ', 'g:' ], '', $merchant_attribute );
 		// TODO:: Google Certification Attribute.
 		if (
 			$this->config->feed_info['option_value']['feedrules']['provider'] === 'google'
 			&& $merchant_attribute === 'certification'
 		) {
-			$merchant_attribute = str_replace( array( ' ', 'g:' ), '', $merchant_attribute );
-
 			if ( $this->config->feed_info['option_value']['feedrules']['feedType'] === 'xml' ) {
 
 				$output = array(

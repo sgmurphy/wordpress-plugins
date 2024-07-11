@@ -1,6 +1,6 @@
 // #region [Imports] ===================================================================================================
 
-import { ISingleNotice } from "../../types/notices";
+import { ISingleNotice } from '../../types/notices';
 
 // #endregion [Imports]
 
@@ -20,14 +20,19 @@ export interface IDismissAdminNoticeData {
   slug: string;
 }
 
+export interface IReadAdminNoticeData {
+  slug: string;
+}
+
 // #endregion [Action Payloads]
 
 // #region [Action Types] ==============================================================================================
 
 export enum EAdminNoticesActionTypes {
-  READ_ADMIN_NOTICES = "READ_ADMIN_NOTICES",
-  SET_ADMIN_NOTICES = "SET_ADMIN_NOTICES",
-  DISMISS_ADMIN_NOTICE = "DISMISS_ADMIN_NOTICE",
+  READ_ADMIN_NOTICES = 'READ_ADMIN_NOTICES',
+  SET_ADMIN_NOTICES = 'SET_ADMIN_NOTICES',
+  DISMISS_ADMIN_NOTICE = 'DISMISS_ADMIN_NOTICE',
+  READ_ADMIN_NOTICE = 'READ_ADMIN_NOTICE',
 }
 
 // #endregion [Action Types]
@@ -45,6 +50,10 @@ export const AdminNoticesActions = {
   }),
   dismissAdminNotice: (payload: IDismissAdminNoticeData) => ({
     type: EAdminNoticesActionTypes.DISMISS_ADMIN_NOTICE,
+    payload,
+  }),
+  readAdminNotice: (payload: IReadAdminNoticeData) => ({
+    type: EAdminNoticesActionTypes.READ_ADMIN_NOTICE,
     payload,
   }),
 };

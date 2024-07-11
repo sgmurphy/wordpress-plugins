@@ -934,6 +934,7 @@ function powerpressplayer_link_pinw($content, $media_url, $ExtraData = array() )
 	$is_pdf = (strtolower( substr($media_url, -3) ) == 'pdf' );
 	
 	$player_links = '';
+    $media_url = htmlspecialchars($media_url);
 	switch( $GeneralSettings['player_function'] )
 	{
 		case 1: // Play on page and new window

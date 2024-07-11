@@ -1485,8 +1485,7 @@ class Upsell extends Base_Model implements Model_Interface, Initializable_Interf
                 'type'                => 'success',
                 'heading'             => '',
                 'content'             => array(
-                    __( 'We hope you’ve been enjoying the free version of Advanced Coupons. Did you know there is a Premium add-on?', 'advanced-coupons-for-woocommerce-free' ),
-                    __( 'It adds even more advanced features to your coupon so you can market your store better.', 'advanced-coupons-for-woocommerce-free' ),
+                    __( 'We hope you’ve been enjoying the free version of Advanced Coupons. Did you know there is a Premium add-on? It adds even more advanced features to your coupon so you can market your store better.', 'advanced-coupons-for-woocommerce-free' ),
                 ),
                 'actions'             => array(
                     $primary_action,

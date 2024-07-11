@@ -191,6 +191,13 @@ class Checkout extends Base_Model implements Model_Interface, Initializable_Inte
 
         $amount = min( $amount, $cart_total );
 
+        // minimum order total allowed after store credit deduction.
+        $min_order_total_allowed = get_option( Plugin_Constants::STORE_CREDIT_MIN_ORDER_TOTAL_ALLOWED, 0 );
+        if ( ( $cart_total - $amount ) < $min_order_total_allowed ) {
+            // overwrite the applied store credits amount.
+            $amount = $amount - $min_order_total_allowed;
+        }
+
         /**
          * NOTE: When currency switcher is active, the amounts saved in session will always be in the user based currency.
          */

@@ -36,6 +36,8 @@ class CartIntegration {
             .wc-ppcp-minicart-ppcp {
                 display: block;
                 margin-top: 10px;
+                padding-left: 16px;
+                padding-right: 16px;
             }
         </style>
 		<?php

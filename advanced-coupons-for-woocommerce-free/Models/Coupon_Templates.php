@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.6.0
  */
 class Coupon_Templates extends Base_Model implements Model_Interface {
+
+    const ENABLE_COUPON_TEMPLATES          = 'acfw_enable_coupon_templates';
+    const ENABLE_COUPON_TEMPLATES_REVIEWER = 'acfw_enable_coupon_templates_reviewer';
+    const COUPON_TEMPLATES_SERVER_BASE     = 'acfwp_coupon_templates_server_base';
+
     /*
     |--------------------------------------------------------------------------
     | Class Methods
@@ -123,7 +128,7 @@ class Coupon_Templates extends Base_Model implements Model_Interface {
                 'template_not_found'      => __( 'The selected template doesn’t exist.', 'advanced-coupons-for-woocommerce-free' ),
                 'no_templates_found'      => __( 'No templates found.', 'advanced-coupons-for-woocommerce-free' ),
             ),
-            'enable_review_tab' => defined( 'ACFW_COUPON_TEMPLATES_REVIEWER' ) && ACFW_COUPON_TEMPLATES_REVIEWER,
+            'enable_review_tab' => ( defined( 'ACFW_COUPON_TEMPLATES_REVIEWER' ) && ACFW_COUPON_TEMPLATES_REVIEWER ) || 'yes' === get_option( self::ENABLE_COUPON_TEMPLATES_REVIEWER ),
         );
 
         return $data;
@@ -143,17 +148,13 @@ class Coupon_Templates extends Base_Model implements Model_Interface {
      * @inherit ACFWF\Interfaces\Model_Interface
      */
     public function run() {
-        // BETA FEATURE: Coupon Templates.
-        if ( ! defined( 'ACFW_COUPON_TEMPLATES' ) ) {
-            return;
-        }
+        add_filter( 'acfw_modules_settings', array( $this, 'coupon_templates_module_setting' ) );
 
         if ( ! $this->_helper_functions->is_module( Plugin_Constants::COUPON_TEMPLATES_MODULE ) ) {
             return;
         }
 
         add_filter( 'acfw_admin_app_pages', array( $this, 'register_coupon_templates_app_page' ), 99 );
-        add_filter( 'acfw_modules_settings', array( $this, 'coupon_templates_module_setting' ) );
         add_filter( 'acfwf_admin_app_localized', array( $this, 'register_coupon_templates_localized_data' ) );
     }
 }

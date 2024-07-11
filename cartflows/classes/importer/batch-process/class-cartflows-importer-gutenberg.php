@@ -72,10 +72,7 @@ if ( ! class_exists( 'CartFlows_Importer_Gutenberg' ) ) :
 
 				// Update hotlink images.
 				$content = CartFlows_Importer::get_instance()->get_content( $content );
-
-				// Fix for gutenberg invalid html due & -> &amp -> \u0026amp.
-				$content = str_replace( '&amp;', "\u0026amp;", $content );
-
+				
 				// Update post content.
 				wp_update_post(
 					array(

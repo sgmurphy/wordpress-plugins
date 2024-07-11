@@ -4,13 +4,13 @@
  * Plugin Name: Advanced Coupons for WooCommerce Free
  * Plugin URI: https://advancedcouponsplugin.com
  * Description: Advanced Coupons for WooCommerce (Free Version) gives WooCommerce store owners extra coupon features so they can market their stores better.
- * Version: 4.6.1.1
+ * Version: 4.6.2
  * Author: Rymera Web Co
  * Author URI: https://rymera.com.au
  * Requires at least: 5.2
- * Tested up to: 6.5.3
+ * Tested up to: 6.5.5
  * WC requires at least: 4.0
- * WC tested up to: 8.8.2
+ * WC tested up to: 9.0.2
  *
  * Text Domain: advanced-coupons-for-woocommerce-free
  * Domain Path: /languages/
@@ -67,6 +67,8 @@ use ACFWF\Models\Upsell;
 // Third party integrations.
 use ACFWF\Models\URL_Coupons;
 use ACFWF\Models\WC_Admin_Notes;
+use ACFWF\Models\Notifications;
+use ACFWF\Models\Third_Party_Integrations\Speed_Optimizer;
 
 /**
  * Register plugin autoloader.
@@ -439,6 +441,7 @@ class ACFWF extends Abstract_Main_Plugin_Class { // phpcs:ignore
         $emails                  = Emails::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         $plugin_installer        = Plugin_Installer::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         $checkout                = Checkout::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
+        $notifications           = Notifications::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         ACFWF\Models\WC_Blocks::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         ACFWF\Models\Coupon_Templates::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
 
@@ -455,10 +458,11 @@ class ACFWF extends Abstract_Main_Plugin_Class { // phpcs:ignore
         $funnelkit        = FunnelKit::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         $wc_payments      = ACFWF\Models\Third_Party_Integrations\WC_Payments::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
         $funnelkit_stripe = FunnelKit_Stripe::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
+        $speed_optimizer  = Speed_Optimizer::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions );
 
         // boostrap args.
-        $initiables     = array( $cart_conditions, $admin_app, $edit_coupon, $bogo_admin, $notices, $upsell, $admin_notes, $help_links, $editor_blocks, $store_credits_admin, $store_credits_checkout, $store_credits_myaccount, $usage, $emails, $plugin_installer, $checkout, $funnelkit, $wc_payments );
-        $activatables   = array( $edit_coupon, $bogo_admin, $notices, $admin_notes, $store_credits_admin, $store_credits_calculate, $usage, $funnelkit_stripe );
+        $initiables     = array( $cart_conditions, $admin_app, $edit_coupon, $bogo_admin, $notices, $upsell, $admin_notes, $help_links, $editor_blocks, $store_credits_admin, $store_credits_checkout, $store_credits_myaccount, $usage, $emails, $plugin_installer, $checkout, $funnelkit, $wc_payments, $notifications );
+        $activatables   = array( $edit_coupon, $bogo_admin, $notices, $admin_notes, $store_credits_admin, $store_credits_calculate, $usage, $funnelkit_stripe, $notifications );
         $deactivatables = array( $admin_app );
 
         Bootstrap::get_instance( $this, $this->Plugin_Constants, $this->Helper_Functions, $activatables, $initiables, $deactivatables );

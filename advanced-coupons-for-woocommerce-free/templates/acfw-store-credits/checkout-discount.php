@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <td>
         <span class="balance-value">
             <strong><?php echo wc_price( $amount ); ?></strong>
+            <a class="acfw-remove-store-credits" href="javascript:void(0)"><?php echo esc_html__( '[Remove]', 'advanced-coupons-for-woocommerce-free' ); ?></a>
         </span>
     </td>
 </tr>

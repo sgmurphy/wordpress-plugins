@@ -2,12 +2,25 @@
 
     <!-- show alt field, image and link if URL was already provided -->
 
-    <input id="fifu_input_alt" 
-           type="text" 
-           name="fifu_input_alt" 
-           placeholder="<?php $fifu['common']['alt']() ?>"
-           value="<?php echo $alt; ?>" 
-           style="<?php echo $width, $show_alt ?>;font-size:13px;" />
+    <table id="fifu_table_alt" style="width:100%;position:relative;<?php echo $show_alt ?>">
+        <tr>
+            <td style="width:100%;padding:unset !important;">
+                <input id="fifu_input_alt" 
+                       type="text" 
+                       name="fifu_input_alt" 
+                       placeholder="<?php $fifu['common']['alt']() ?>"
+                       value="<?php echo $alt; ?>" 
+                       style="<?php echo $width ?>;font-size:13px;" />
+            </td>
+            <td style="padding:unset !important;">
+                <span id="fifu_help_alt" 
+                      class="dashicons dashicons-editor-help" 
+                      style="font-size:20px;cursor:help;"
+                      title="<?php $fifu['alt']['help']() ?>">
+                </span>
+            </td>
+        </tr>
+    </table>
 
     <div id="fifu_image"
          style="<?php echo $height, $show_image ?>

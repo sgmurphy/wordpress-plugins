@@ -109,7 +109,7 @@ add_filter('frm_validate_field_entry', 'maspik_validate_formidable_textarea', 10
 // maspik_add_text_to_mail_components
 add_filter('frm_email_message', 'maspik_add_text_to_mail_formidable', 10, 2);
 function maspik_add_text_to_mail_formidable($message, $atts) {
-  $add_country_to_emails = get_option( 'add_country_to_emails' );
+  $add_country_to_emails = maspik_get_settings("add_country_to_emails", '', 'old')  == "yes";
   if($message && $add_country_to_emails){
      $countryName = maspik_add_country_to_submissions($linebreak = "");
      $message = $message.$countryName;

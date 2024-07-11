@@ -1,73 +1,52 @@
-=== Icegram Engage - WordPress Lead Generation, Popup Builder, CTA, Optins and Email List Building ===
+=== Icegram Engage – Ultimate WP Popup Builder, Lead Generation, Optins, and CTA ===
 Contributors: icegram, storeapps, niravmehta, sandhyam, malayladu, putler, kishanranawat, asmipatel
 Donate link: https://www.icegram.com/
 Tags:  popup, optin, hellobar, lead capture, form
 Requires at least: 3.9
 Tested up to: 6.5.5
-Stable tag: 3.1.23
+Stable tag: 3.1.24
 License: GPLv3
 
-The best WordPress popup plugin that lets you create popups and action bars within seconds. Customize exit-intent popup campaigns, action bars, badges, stickies, inline optin, fullscreen overlay, ribbons, sidebar panel and more in no time.
+Create high-converting popups and optins for lead capture, convert subscribers, and boost sales with the most value-driven WordPress popup builder.
 
 == Description ==
 
-### High-converting popups and opt-ins for lead capture, convert email newsletter subscribers and drive more sales - the most-value driven WordPress popup builder plugin.
+### High-converting popups and optins for lead capture, converting newsletter subscribers, and boosting sales with the most value-driven WordPress popup builder plugin.
 
-THE BEST WORDPRESS LEAD GENERATION AND EMAIL LIST BUILDING PLUGIN
-
-
-[Icegram Engage](https://www.icegram.com/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) is your perfect conversion toolkit for transforming website visitors into loyal subscribers and customers. This powerful WordPress lead capture plugin offers a wide range of popups, floating bars, slide-ins, exit triggers, e-commerce popups and other marketing tools to engage your audience effectively.
-
-With advanced targeting options, split testing, call to action and high-converting mobile-responsive templates, Icegram Engage makes it easy to communicate with your visitors and convert them into valuable customers.
-
-Do all this and more without knowing a single line of code.
+**THE BEST WORDPRESS LEAD GENERATION AND EMAIL LIST BUILDING PLUGIN**
 
 
-[youtube https://youtu.be/PVzg7BpYkSo]
+[Icegram Engage](https://www.icegram.com/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) is your ultimate toolkit for transforming website visitors into loyal subscribers and customers. 
+
+This powerful plugin offers advanced targeting options (a wide range of popups, floating hello bars, slide-ins, optins, exit triggers, forms, and more), split testing, call-to-action elements, and high-converting templates—all without having to write a single line of code.
 
 ★★★★★
-> <strong> 👉 Best Popup plugin ever come across! </strong><br />
->I really love this plugin. It's one of the best popup plugins I have ever used. I have tried other prominent plugins, but none has provided such top-notch performance. I use this plugin on almost all of my websites. It's definitely worth buying compared to other high-priced plugins with fewer functionalities.
+> **👉 Best Popup plugin ever come across!**
+>I really love this plugin. It’s one of the best popup plugins I have ever used. I have tried other prominent plugins, but none has provided such top-notch performance. I use this plugin on almost all of my websites. It’s definitely worth buying compared to other high-priced plugins with fewer functionalities.
  - [liltrucks](https://wordpress.org/support/topic/great-pop-up-tool-2/)
 
-★★★★★
-> <strong> 👉 Great plugin for lead generation </strong><br />
->We’ve been using Icegram Engage as well as the compatible Email and Newsletter plugin from Icegram for blog subscription and lead generation forms. It’s easy to set up and it does what it’s supposed to do. Thank you!
- - [IrinaT](https://wordpress.org/support/topic/great-plugin-for-lead-generation/)
-
-★★★★★
-> <strong> 👉 Great even for a novice! </strong><br />
->An easy-to-use plugin that even a novice can figure out. Very pleased with the various features this plugin offers. - [JConstantin99](https://wordpress.org/support/topic/great-even-for-a-novice/)
-
-
-### TRANSFORM YOUR WEBSITE INTO A LEAD GENERATION MACHINE WITH ICEGRAM ENGAGE
-
-Icegram Engage gives you access to many optin popups, CTA plugins, and lead conversion tools to boost your revenue and email list. Create any type of popup - email opt-ins, full-screen overlays, sticky notices, slide-ins, hello bars or header/footer bars and get more email subscribers.  
-
-Lead generation campaigns and popups for every need
+**Turn your website into a conversion machine**
 
 -   **Convince and Convert** visitors to leads with crafted marketing templates
-    
--   **Direct website visitors** with header/footer bars
-    
+
+-   **Drive website visitors** with header/footer bars
+
 -   **Communicate with customers** through support pages/landing pages
-    
--   **Attract audience with CTA** or Call-to-Action elements
-    
+
+-   **Attract your audience** with CTA or Call-to-Action elements
+
 -   **Reduce bounce rate** with relevant resources/lead magnets
-    
+
 -   **Retain customers** with interactive mini-games & coupon codes
-    
+
 -   **Grab attention** with sticky notes & hello bars
-    
+
 -   **Create urgency and FOMO** with countdown timers.
 
-The ultimate WordPress popup builder plugin:
-
-Icegram Engage popup maker provides these mobile-responsive opt-ins, so you don’t need to worry about user expereince.
+Icegram Engage's popup maker offers mobile-responsive optins, ensuring a seamless user experience:
 
 - Lightbox popups
-- Email opt-in popups
+- Email optin popups
 - Lead gen popups
 - Video popups
 - Exit-Intent popups
@@ -76,16 +55,23 @@ Icegram Engage popup maker provides these mobile-responsive opt-ins, so you don�
 - Click-Triggered popups
 - Full-Screen overlay popups
 - Slide-In popups
-- Ecommerce popups
+- eCommerce popups
 - Entry popups
 
-Coupled with smart targeting rules and personalization, you can show the right messages to the right people at the right time in the right place.
+Boost your revenue and email lists with **smart targeting and personalization.** Deliver the right messages to the right audience at the right time.
 
-## Beyond popups, Icegram Engage has other lead capture message styles
+[youtube https://youtu.be/PVzg7BpYkSo]
+
+
+★★★★★
+>**👉 Great even for a novice!**
+>An easy-to-use plugin that even a novice can figure out. Very pleased with the various features this plugin offers. - [JConstantin99](https://wordpress.org/support/topic/great-even-for-a-novice/)
+
+**Beyond popups, Icegram Engage has other lead capture message styles**
 
 - Action bars / Header-Footer bars / Hello bars
 - Toast Notifications
-- Slide-ins/Messengers
+- Slide-ins / Messengers
 - Full-Screen Popus / Overlays / Welcome Mats
 - Inline Blocks
 - Tabs
@@ -95,22 +81,20 @@ Coupled with smart targeting rules and personalization, you can show the right m
 - Stickies
 - Badges
 
-It seamlessly integrates with all popular email marketing platforms, offers in-depth analytics, and provides excellent support. Plus, it's available for free, making it a must-have tool for boosting website conversions.
+Seamlessly integrate with popular email platforms, leverage in-depth analytics, and enjoy excellent support—**all for free.**
 
-Drive leads for your brand affordably with Icegram Engage. Build your newsletter list and improve the return rate of loyal visitors with this CTA plugin. Acquire high-quality leads without spending a dime.
+Drive brand leads affordably with Icegram Engage. Build your newsletter list and increase visitor returns with this CTA plugin, acquiring high-quality leads at no cost.
 
 ★★★★★
-> <strong> 👉 Wonderful plugin: My Game Changer from 2020! </strong><br />
->I discovered Icegram plugins at the start of 2020. I have tried many related plugins.
-I ended up buying two of Icegram’s plugins.
-Very impressed. - [oneirishrover](https://wordpress.org/support/topic/wonderful-plugin-568/)
+>**👉 Great plugin for lead generation**
+>We’ve been using Icegram Engage as well as the compatible Email and Newsletter plugin from Icegram for blog subscription and lead generation forms. It’s easy to set up and it does what it’s supposed to do. Thank you!
+ - [IrinaT](https://wordpress.org/support/topic/great-plugin-for-lead-generation/)
 
-Learn how to install the Icegram Engage plugin and get started - [Installation Guide](https://www.icegram.com/documentation/how-to-install-icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
+Learn how to install the Icegram Engage plugin and get started – [Installation Guide](https://www.icegram.com/documentation/how-to-install-icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
 
-View all documentation to harness the power of optins - [Knowledge Base](https://www.icegram.com/knowledgebase_category/icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
+View all documentation to harness the power of optins – [Knowledge Base](https://www.icegram.com/knowledgebase_category/icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
 
-## WHAT MAKES ICEGRAM ENGAGE A BETTER WORDPRESS LEAD GENERATION & CTA PLUGIN THAN IT’S COMPETITORS?
-
+**WHAT MAKES ICEGRAM ENGAGE A BETTER WORDPRESS LEAD GENERATION & CTA PLUGIN THAN ITS COMPETITORS?**
 Icegram Engage is a responsive lead capture plugin with growth-focused features and no bloats.
 
 ### 1. Seamless integration with top email marketing platforms
@@ -128,6 +112,12 @@ With Icegram Engage, you're not limited by the number of lead acquisition campai
 ### 5. Precise targeting and display rules
 Reach your audience with pinpoint accuracy. Target specific pages and device users, and schedule campaigns with unmatched precision.
 
+★★★★★
+>**👉 Wonderful plugin: My Game Changer from 2020!**
+>I discovered Icegram plugins at the start of 2020. I have tried many related plugins.
+I ended up buying two of Icegram’s plugins.
+Very impressed. - [oneirishrover](https://wordpress.org/support/topic/wonderful-plugin-568/)
+
 ### 6. 50+ High-converting templates
 Take your business to the next level with our premium collection of 50+ high-converting opt-in popups. Skyrocket your lead generation efforts without breaking the bank. Explore all templates and demos in our [Template Gallery](https://www.icegram.com/demos/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo).
 
@@ -142,6 +132,10 @@ Keep your website running smoothly by using the "Lazy Load" option to load Icegr
 
 ### 10. Smart retargeting for better user experience
 Personalize campaigns based on visitor sessions, days, or even years. Engage your audience with CTA buttons and trigger retargeting for better user experiences.
+
+★★★★★
+>**👉 5+ Years of Outstanding Performance!**
+>Five years of phenomenal results, satisfaction and counting! Icegram Engage has never let me down. It’s an incredible popup plugin & still the best! - [Markarayner](https://wordpress.org/support/topic/working-for-5-years/)
 
 ### 11. Use shortcodes for easy campaign display
 Effortlessly display messages, campaigns, CTAs, and popups on any page or blog post using our handy shortcodes.
@@ -158,73 +152,59 @@ With Icegram Engage, you can effortlessly create unlimited popups and captivatin
 ### 15. WPML plugin compatibility
 Icegram Engage seamlessly integrates with the latest WPML plugin, allowing you to provide regional language content to your audience.
 
-Unlock the full potential of your WordPress website with Icegram Engage. Download now and experience the future of popup marketing!
+Unlock your WordPress website's full potential with Icegram Engage. Download now and explore the future of popup marketing!
 
-Explore Icegram Engage’s official [features](https://www.icegram.com/engage/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) page for detailed info.
-
-★★★★★
-> <strong> 👉 5X More Engagement than Optinmonster </strong><br />
->When COVID-19 hit, Icegram Engage became our go-to weapon. It's not just about surviving; it's about thriving, and Engage has made that possible. This incredible tool has taken our member outreach to unprecedented heights, all while keeping things incredibly user-friendly. Explored all the popup plugins out there & this is the best WordPress popup plugin I have ever used..Plus it is easy to use and the free themes are fun to help fit our messages as we need them. Wave goodbye to the competition, including Optinmonster – Icegram Engage is the unbeatable choice! - [mimdoc](https://wordpress.org/support/topic/great-tool-to-get-attention/)
+Explore Icegram Engage’s [official features](https://www.icegram.com/engage/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) page for detailed info.
 
 ★★★★★
-> <strong> 👉 5+ Years of Outstanding Performance! </strong><br />
->Five years of phenomenal results, satisfaction and counting! Icegram Engage has never let me down. It's an incredible popup plugin & still the best! - [Markarayner](https://wordpress.org/support/topic/working-for-5-years/)
+>**👉 5X More Engagement than Optinmonster**
+>When COVID-19 hit, Icegram Engage became our go-to weapon. It’s not just about surviving; it’s about thriving, and Engage has made that possible. This incredible tool has taken our member outreach to unprecedented heights, all while keeping things incredibly user-friendly. Explored all the popup plugins out there & this is the best WordPress popup plugin I have ever used..Plus it is easy to use and the free themes are fun to help fit our messages as we need them. Wave goodbye to the competition, including Optinmonster – Icegram Engage is the unbeatable choice! - [mimdoc](https://wordpress.org/support/topic/great-tool-to-get-attention/)
 
-
-## ICEGRAM ENGAGE IS BEST SUITED FOR
+### BEST SUITED FOR
 
 -   Bloggers
 
 -   Freelancers with little or no money
 
--   Small businesses 
+-   Small businesses 
 
 -   Business consultants
 
 -   Store owners
 
--   E-commerce websites 
+-   eCommerce websites 
 
 -   WooCommerce users
 
 -   Developers
 
--   Journlalists
+-   Journalists
 
 -   Educational institutions / coaches
 
 -   NGOs / Non-profits
 
--   Affiliate mareketers
+-   Affiliate marketers
 
 -   Marketing agencies
 
 
-<strong>  And, this is how Icegram Engage caters to them all </strong>
+### How Icegram Engage caters to them all?
 
--   Lead optin for bloggers
-
+-   Lead optin and forms for bloggers
 -   Business messages for entrepreneurs
-
 -   Call back for business consultants
-
 -   Retaining coupons for store owners
-
 -   Action bars for journalist websites
-
 -   Review modules for health sectors
-
 -   Advanced blocks for developers
-
 -   Non-intrusive popups for agencies
-
 -   Lead magnets for fitness gurus
-
 -   CTAs for affiliate marketers
 
-Some of the major use cases are narrated here -- Icegram Engage [Use Case](https://www.icegram.com/demos/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) [best pop-up examples included]
+Want to know how you can use Icegram Engage to boost your profits? Read this - [Icegram Engage Use Cases](https://www.icegram.com/demos/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) [best pop-up examples included]
 
-## THE FREE PLUGIN IS GOOD. BUT ICEGRAM ENGAGE PREMIUM IS EXCEPTIONAL!
+### THE FREE PLUGIN IS GOOD. BUT ICEGRAM ENGAGE PREMIUM IS EXCEPTIONAL!
 
 While the free version of our plugin provides valuable features, [Icegram Engage Premium](https://www.icegram.com/engage/pricing/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) takes your experience to the next level, offering an array of enhanced functionalities and capabilities.
 
@@ -247,41 +227,41 @@ While the free version of our plugin provides valuable features, [Icegram Engage
 -   Fullscreen popups and interstitial messages for better conversion and leads
 
 
-WHY 20K+ PEOPLE TRUST ICEGRAM ENGAGE
+**WHY 20K+ PEOPLE TRUST ICEGRAM ENGAGE**
 
-1\. Automates smart email marketing campaigns
+1. Automates smart email marketing campaigns
 
-2\. Robust support & growth-focused templates
+2. Robust support & growth-focused templates
 
-3\. No design or development skills required
+3. No design or development skills required
 
-4\. Dedicated product documentation & tutorials
+4. Dedicated product documentation & tutorials
 
-5\. Secure plugin code & non-intrusive lead capturing
+5. Secure plugin code & non-intrusive lead capturing
 
-6\. Focuses on user experience & GDPR compliant
+6. Focuses on user experience & GDPR compliant
 
-7\. Works with the latest WP version & any theme
+7. Works with the latest WP version & any theme
 
 Upgrade to Icegram Engage [Pro or Max](https://www.icegram.com/engage/pricing/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) for even greater results.
 
-#Get Started Today
+##Get Started Today
 
 With Icegram Engage, you can double your conversions within minutes, even with our free plan. Say goodbye to high bounce rates and hello to more subscribers, increased traffic to your landing pages, higher sales, and reduced abandonment rates.
 [Premium Icegram Plugin](https://www.icegram.com/engage/pricing/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) | [Marketing Blog](https://www.icegram.com/blog/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) | [Support Help Desk](https://www.icegram.com/contact/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
 
-Icegram Engage Champions: Real-life User Testimonials
+**Icegram Engage Champions: Real-life User Testimonials**
 
 ★★★★★
-> <strong> Best plugin for lead generation: A Clear Winner! </strong><br />
+>**Best plugin for lead generation: A Clear Winner!**
 >We’ve been using Icegram Engage as well as the compatible Email and Newsletter plugin from Icegram for blog subscription and lead generation forms. It’s easy to set up and it does what it’s supposed to do. Thank you! - [IrinaT](https://wordpress.org/support/topic/great-plugin-for-lead-generation/)
 
 ★★★★★
-> <strong> 100% Reliable Plugin for Success! </strong><br />
+>**100% Reliable Plugin for Success!**
 >Icegram's reliability is unmatched, making it 3 times better than other popup plugins. I've had zero issues & ensures your success without a hitch. Support is top-notch.- [katzw](https://wordpress.org/support/topic/always-reliable-16/)
 
 ★★★★★
-> <strong> Icegram with 5-Star Features: Unbeatable Choice for News Notices!</strong><br />
+>**Icegram with 5-Star Features: Unbeatable Choice for News Notices!**
 >We needed a simple to use plugin that would allow us to publish a news bulletin popup, and Icegram exceeded expectations. Plus, it's versatile for campaigns and scheduled notices. Impressive!- [malcstewart](https://wordpress.org/support/topic/great-for-handling-news-notices/)
 
 Check more reviews about the Icegram Engage WordPress popup plugin - [Ratings & Testimonials](https://www.icegram.com/customers/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo)
@@ -290,13 +270,13 @@ Check more reviews about the Icegram Engage WordPress popup plugin - [Ratings & 
 
 Discover why Icegram Engage stands out as the top choice in the world of WordPress popup plugins. Here's the detailed one-to-one review:
 
-👉 [Optin Monster vs Icegram Engage – Complete Feature Analysis](https://www.icegram.com/optinmonster-vs-icegram-comparison/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) </strong>
+👉 [Optin Monster vs Icegram Engage – Complete Feature Analysis](https://www.icegram.com/optinmonster-vs-icegram-comparison/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) 
 
-👉 [Ninja Popups vs Icegram Engage – Plugin Faceoff](https://www.icegram.com/ninja-popups-vs-icegram-the-better-popup-and-why/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) </strong>
+👉 [Ninja Popups vs Icegram Engage – Plugin Faceoff](https://www.icegram.com/ninja-popups-vs-icegram-the-better-popup-and-why/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) 
 
-👉 [Hellobar vs Icegram Engage – Comparative Analysis](https://www.icegram.com/hello-bar-vs-icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) </strong>
+👉 [Hellobar vs Icegram Engage – Comparative Analysis](https://www.icegram.com/hello-bar-vs-icegram/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) 
 
-👉 [Sumo Me vs Icegram Engage – Full Review](https://www.icegram.com/sumo-me-vs-icegram-comparison/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) </strong>
+👉 [Sumo Me vs Icegram Engage – Full Review](https://www.icegram.com/sumo-me-vs-icegram-comparison/?utm_source=repo&utm_medium=wpreadme&utm_campaign=icegram_engage_repo) 
 
 
 ### Icegram Engage's Successful Journey:
@@ -386,12 +366,15 @@ Contact Us, provide as much detail of the problem as you can. We will try to sol
 
 == Upgrade Notice ==
 
-= 3.1.23 =
+= 3.1.24 =
 
-* Update: PHP 8.2 compatibility
-* Update: Compatibility with WordPress 6.5.5
+* Fix: Small bug fix
 
 == Changelog ==
+
+**3.1.24 (11.07.2024)**
+
+* Fix: Small bug fix
 
 **3.1.23 (03.07.2024)**
 

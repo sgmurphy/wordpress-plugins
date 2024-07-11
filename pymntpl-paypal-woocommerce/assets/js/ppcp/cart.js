@@ -50,6 +50,10 @@ class Cart extends Event {
         return this.data?.needsShipping;
     }
 
+    isEmpty() {
+        return this.data?.isEmpty;
+    }
+
     async refreshData(data = null) {
         if (data) {
             this.data = {...this.data, ...data};

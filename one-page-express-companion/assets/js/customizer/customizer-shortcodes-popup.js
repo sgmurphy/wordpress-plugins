@@ -31,6 +31,7 @@
                 if (control.getParse) {
                     control.value = control.getParse(control.value);
                 }
+                control.value = $('<div/>').html(control.value).text();
                 controls.push(control);
             }
         }

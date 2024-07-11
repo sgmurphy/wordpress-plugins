@@ -249,6 +249,12 @@ class Bootstrap extends Base_Model implements Model_Interface {
         $wp_rewrite->flush_rules();
 
         update_option( 'acfwf_activation_code_triggered', 'yes' );
+
+        // Store the current date as the installation date.
+        if ( false === get_option( Plugin_Constants::INSTALLATION_DATE ) ) {
+            $now = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
+            update_option( Plugin_Constants::INSTALLATION_DATE, $now->format( 'Y-m-d H:i:s' ) );
+        }
     }
 
     /**

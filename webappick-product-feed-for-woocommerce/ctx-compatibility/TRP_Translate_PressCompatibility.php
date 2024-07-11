@@ -7,6 +7,8 @@
 
 namespace CTXFeed\Compatibility;
 
+use TRP_Translate_Press;
+
 /**
  * Class TranslatePress
  *
@@ -320,14 +322,27 @@ class TRP_Translate_PressCompatibility {
 	 * @return string
 	 */
 	public function get_tp_translate_url( $output, $product, $config ) { // phpcs:ignore
-		$feed_language = $config->get_feed_language();
-
+		/*$feed_language = $config->get_feed_language();
 		// If the url should be modified then modify the url.
 		if ( $this->should_modify_url( $feed_language ) ) {
 			$output = $this->get_modified_url( $output, $feed_language );
 		}
+		return $output; */
+		$link = $output;
+		$feed_language = $config->feedLanguage;
+		$settings = get_option( 'trp_settings', false );
+		if( is_array( $settings ) && isset( $settings['url-slugs'] ) && is_array( $settings['url-slugs'] ) ){
+			$url_slug = $settings['url-slugs'][ $feed_language ];
+			$trp           = TRP_Translate_Press::get_trp_instance();
+			$url_converter = $trp->get_component( 'url_converter' );
+			$link          = $url_converter->get_url_for_language( $feed_language, $link );
+			if ( $settings['default-language'] != $feed_language ) {
+				$link = str_replace( home_url() . '/', home_url() . '/' . $url_slug . '/', $link );
+			}
+		}
+		$link = $this->add_utm_tracker( $link, $config );
 
-		return $output;
+		return $link;
 	}
 
 	/**
@@ -402,6 +417,22 @@ class TRP_Translate_PressCompatibility {
 		$result = array_filter( array_map( 'trim', $lines ) );
 
 		return $result;
+	}
+
+	public function add_utm_tracker( $url, $config ) {
+		$utm = $config->campaign_parameters;
+		if ( ! empty( $utm['utm_source'] ) && ! empty( $utm['utm_medium'] ) && ! empty( $utm['utm_campaign'] ) ) {
+			$utm = [
+				'utm_source'   => str_replace( ' ', '+', $utm['utm_source'] ),
+				'utm_medium'   => str_replace( ' ', '+', $utm['utm_medium'] ),
+				'utm_campaign' => str_replace( ' ', '+', $utm['utm_campaign'] ),
+				'utm_term'     => str_replace( ' ', '+', $utm['utm_term'] ),
+				'utm_content'  => str_replace( ' ', '+', $utm['utm_content'] ),
+			];
+			$url = add_query_arg( array_filter( $utm ), $url );
+		}
+
+		return $url;
 	}
 
 }

@@ -90,11 +90,6 @@ class Advanced_Coupon extends \WC_Coupon {
         $this->_constants        = \ACFWF()->Plugin_Constants;
         $this->_helper_functions = \ACFWF()->Helper_Functions;
 
-        // check if code has a valid equivalent ID.
-        if ( is_string( $code ) && ACFWF()->Store_Credits_Checkout->get_store_credit_coupon_code() !== $code ) {
-            $code = wc_get_coupon_id_by_code( $code );
-        }
-
         // make sure that the provided parameter is valid.
         if ( is_a( $code, 'WC_Coupon' ) || is_string( $code ) || is_int( $code ) ) {
             // construct parent object and set the code.

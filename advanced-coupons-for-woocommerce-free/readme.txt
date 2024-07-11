@@ -2,8 +2,8 @@
 Contributors: jkohlbach, RymeraWebCo, Rymera01, smub
 Tags: woocommerce coupons, bogo coupons, store credit, url coupons, bogo
 Requires at least: 5.2
-Tested up to: 6.5.3
-Stable tag: 4.6.1.1
+Tested up to: 6.5.5
+Stable tag: 4.6.2
 Requires PHP: 5.6
 License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -367,6 +367,20 @@ Thanks,
 Josh Kohlbach (CEO of Rymera Web Co)
 
 == Changelog ==
+
+= 4.6.2 =
+- Bug Fix: Always use regular price doesn't work for BOGO coupon 
+- Bug Fix: BOGO adjusted price doesn't respect the tax setting
+- Bug Fix: Cart block: multiple cart requests with dummy update cart even when the coupon is not BOGO
+- Bug Fix: Fatal error happens when applying the acfw_filter_amount filter on a currency value that's possibly null
+- Bug Fix: Frontend JS are not enqueued properly when siteground speed optimizer combine JS feature is enabled
+- Feature: Set a minimum order total allowed after store credit deduction
+- Feature: Coupon Templates (create coupons via templates)
+- Improvement: Add customer filtering on store credits dashboard
+- Improvement: Add a remove button on applied store credit in the checkout page
+- Improvement: Ensure that all of promo banners are dismissed properly
+- Improvement: Option to always show store credits
+- Improvement: Tweak review notice to be smaller
 
 = 4.6.1.1 =
 - Bug Fix: BOGO discount summary showing error when auto apply option is active

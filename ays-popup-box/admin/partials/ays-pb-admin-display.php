@@ -81,7 +81,7 @@ $youtube_icon_svg = "<span><img src='" . AYS_PB_ADMIN_URL . "/images/icons/youtu
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/_VEAGGzKe_g" loading="lazy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="ays_pb_small_hint_text_video">
-                <?php echo __( 'Please note that this video will disappear once you created 4 popups.', 'ays-popup-box' ); ?>
+                <?php echo __( 'Please note that this video will disappear once you created 4 popups.', "ays-popup-box" ); ?>
             </div>
             <div class="ays-pb-create-pb-youtube-video-button-box">
                 <?php echo sprintf( '<a href="?page=%s&action=%s" class="ays-pb-add-new-button-video ays-pb-add-new-button-new-design"> %s '. __( "Add New", "ays-popup-box" ) .'</a>', esc_attr( $_REQUEST['page'] ), 'add', $plus_icon_svg );?>

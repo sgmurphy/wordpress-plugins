@@ -159,6 +159,11 @@ class Woocs implements Model_Interface {
     public function convert_amount_to_user_selected_currency( $amount, $is_reverse = false ) {
         global $WOOCS;
 
+        // Check if amount is null before doing the conversion.
+        if ( null === $amount ) {
+            return $amount;
+        }
+
         if ( $WOOCS->default_currency === $WOOCS->current_currency ) {
             return $amount;
         }

@@ -99,10 +99,11 @@ function mesmerize_companion_latest_news( $attrs ) {
 
 	$recentPosts = new WP_Query();
 
+    $posts       = intval( $atts['posts'] );
 	$cols        = intval( $atts['columns'] );
 	$tablet_cols = intval( $atts['tablet_columns'] );
 
-	$post_numbers = ( $atts['posts'] ) ? $atts['posts'] : 12 / $cols;
+	$post_numbers = ( $posts ) ? $posts : 12 / $cols;
 
 	add_filter( 'excerpt_length', 'mesmerize_companion_latest_news_excerpt_length' );
 	add_filter( 'excerpt_more', 'mesmerize_companion_latest_excerpt_more' );

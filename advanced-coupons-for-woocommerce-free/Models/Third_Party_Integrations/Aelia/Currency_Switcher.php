@@ -98,6 +98,11 @@ class Currency_Switcher extends Base_Model implements Model_Interface {
      * @return float Converted amount.
      */
     public function convert_amount_to_user_selected_currency( $amount, $is_reverse = false, $settings = array() ) {
+        // Check if amount is null before doing the conversion.
+        if ( null === $amount ) {
+            return $amount;
+        }
+
         $user_currency = isset( $settings['user_currency'] ) ? $settings['user_currency'] : $this->aelia_obj()->get_selected_currency();
         $site_currency = isset( $settings['site_currency'] ) ? $settings['site_currency'] : $this->aelia_obj()->base_currency();
 
@@ -264,5 +269,4 @@ class Currency_Switcher extends Base_Model implements Model_Interface {
         add_filter( 'acfw_query_report_get_discount', array( $this, 'query_report_get_discount' ), 10, 2 );
         add_filter( 'acfw_query_report_get_discount_tax', array( $this, 'query_report_get_discount_tax' ), 10, 2 );
     }
-
 }

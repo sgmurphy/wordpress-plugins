@@ -480,7 +480,7 @@ class AdminMenu {
 				'currentFlowSteps'                  => $current_flow_steps,
 				// Delete this code after 3 major update. Added in 1.10.4.
 				'license_status'                    => \_is_cartflows_pro_license_activated(),
-				'license_popup_url'                 => admin_url( 'plugins.php?cartflows-license-popup' ),
+				'license_popup_url'                 => admin_url( 'admin.php?page=cartflows&settings=1&license=1' ),
 				'store_checkout_show_product_tab'   => \Cartflows_Helper::display_product_tab_in_store_checkout(),
 				'cf_domain_url'                     => CARTFLOWS_DOMAIN_URL,
 				'cf_upgrade_to_pro_url'             => \Cartflows_Helper::get_upgrade_to_pro_link(),

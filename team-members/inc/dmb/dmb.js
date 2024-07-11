@@ -53,7 +53,7 @@ $(document).ready(function (){
     lastname = member.find('.dmb_lastname_of_member').val() || '',
     job = member.find('.dmb_job_of_member').val() || '';
 
-    if ($('#acf-fallback-bio').length ) {
+    if ($('#acf-fallback-bio').length) {
       description = $.trim(member.find('.dmb_description_of_member_fb').text()) || '';
     } else {
       description = $.trim(member.find('.dmb_description_of_member').html()) || '';
@@ -84,7 +84,7 @@ $(document).ready(function (){
       firstname + ']--[' + 
       lastname + ']--[' + 
       job + ']--[' +
-      description + ']--[' +
+      $("<div/>").html(description).text() + ']--[' +
       sclType1 + ']--[' +
       sclTitle1 + ']--[' +
       sclUrl1 + ']--[' +
@@ -127,7 +127,7 @@ $(document).ready(function (){
       } else {
         $(this).show();
       }
-      $(this).html(encodeHTML($(this).text())); 
+      $(this).html($(this).text()); 
     });
 
     /* Triggers single input update. */
@@ -354,6 +354,7 @@ $(document).ready(function (){
     var container = document.createElement('div');
     var text = document.createTextNode(dirtyString);
     container.appendChild(text);
+    return dirtyString;
     return container.innerHTML; // innerHTML will be a xss safe string
   }
 
@@ -419,9 +420,10 @@ $(document).ready(function (){
           fields.job = encodeHTML($(this).find(".dmb_job_of_member").val());
 
           if ($('#acf-fallback-bio').length ) {
-            fields.bio = encodeHTML($.trim($(this).find('.dmb_description_of_member_fb').text()) || '');
+            fields.bio = $.trim($(this).find('.dmb_description_of_member_fb').text()) || '';
+            
           } else {
-            fields.bio = encodeHTML($.trim($(this).find('.dmb_description_of_member').html()) || '');
+            fields.bio = $.trim($(this).find('.dmb_description_of_member').html()) || '';
           }
 
           fields.scl_type1 = $(this).find(".dmb_scl_type1_of_member").find(":selected").val();
@@ -545,7 +547,7 @@ $(document).ready(function (){
     $('.dmb_edit_description_of_member').click(function(){
 
       lastEditedBio = $(this).parent().find('.dmb_description_of_member');
-      var currentContent = lastEditedBio.html();
+      var currentContent = lastEditedBio.text();
       if ($("#wp-dmb_editor-wrap").hasClass("tmce-active")){
         tinymce.activeEditor.setContent(currentContent);
       } else {
@@ -572,7 +574,7 @@ $(document).ready(function (){
       (!dmb_ue_content) ? lastEditedBio.hide() : lastEditedBio.show();
 
       /* Adds bio content if there is. */
-      lastEditedBio.html(encodeHTML(dmb_ue_content));
+      lastEditedBio.text(dmb_ue_content);
 
       /* Closes and empties UE. */
       $('#dmb_unique_editor').fadeOut(100);

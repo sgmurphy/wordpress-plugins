@@ -68,7 +68,8 @@ export default function () {
 
   // Get the settings from the integration interface.
   const { caret_img_src, store_credits } = getSetting(config.integration);
-  const { button_text, redeem_nonce, hide_store_credits_on_zero_balance } = store_credits;
+  const { button_text, redeem_nonce, hide_store_credits_on_zero_balance, auto_display_store_credits_redeem_form } =
+    store_credits;
   const { balance_text: balance_text_detail, instructions, placeholder } = store_credits.labels;
   const { toggle_text } = store_credits.labels;
 
@@ -89,7 +90,11 @@ export default function () {
   // Return the component.
   return (
     <div className="acfwf-components acfw-checkout-ui-block">
-      <Accordion title={toggle_text} caret_img_src={caret_img_src}>
+      <Accordion
+        title={toggle_text}
+        caret_img_src={caret_img_src}
+        auto_display_store_credits_redeem_form={auto_display_store_credits_redeem_form}
+      >
         <div>
           <p className="acfw-store-credit-user-balance">
             <div

@@ -146,14 +146,14 @@ class Maspik {
       }
         
       // Disable Comments
-      if( maspik_get_settings( "disable_comments" ) && 0 ) { 
+      if( maspik_get_settings("disable_comments", '', 'old') == "yes"  ) { 
           require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/disable-comments.php';
       }
 
 	  
       
       // If agree to shere Non sensitive information 
-      if( get_option( "shere_data" ) ) { 
+      if( maspik_get_settings("shere_data", '', 'old') == "yes"  ) { 
           require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/statistics-data.php';
       }
 

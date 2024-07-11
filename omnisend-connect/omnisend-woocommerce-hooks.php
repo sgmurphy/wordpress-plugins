@@ -342,6 +342,7 @@ function omnisend_update_contact_status( $order_id ) {
 		$order = wc_get_order( $order_id );
 		$order->add_meta_data( 'marketing_opt_in_consent', 'checkout', true );
 		$order->save();
+		$status_date = gmdate( DATE_ATOM, $order->get_date_created()->getTimestamp() ?? time() );
 
 		$identifiers = array();
 
@@ -353,7 +354,7 @@ function omnisend_update_contact_status( $order_id ) {
 				'channels' => array(
 					'email' => array(
 						'status'     => 'subscribed',
-						'statusDate' => gmdate( DATE_ATOM, time() ),
+						'statusDate' => $status_date,
 					),
 				),
 			);
@@ -368,7 +369,7 @@ function omnisend_update_contact_status( $order_id ) {
 				'channels' => array(
 					'sms' => array(
 						'status'     => 'nonSubscribed',
-						'statusDate' => gmdate( DATE_ATOM, time() ),
+						'statusDate' => $status_date,
 					),
 				),
 			);

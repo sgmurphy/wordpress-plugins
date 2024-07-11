@@ -206,8 +206,7 @@ class Notices implements Model_Interface, Initializable_Interface, Activatable_I
             'type'           => 'success',
             'heading'        => __( 'IMPORTANT INFORMATION', 'advanced-coupons-for-woocommerce-free' ),
             'content'        => array(
-                __( 'Thank you for choosing Advanced Coupons for WooCommerce – the free Advanced Coupons plugin gives WooCommerce store owners extra features on their WooCommerce coupons so they can market their stores better.', 'advanced-coupons-for-woocommerce-free' ),
-                __( 'Would you like to find out how to drive it?', 'advanced-coupons-for-woocommerce-free' ),
+                __( 'Thank you for choosing Advanced Coupons for WooCommerce – the free Advanced Coupons plugin gives WooCommerce store owners extra features on their WooCommerce coupons so they can market their stores better. Would you like to find out how to drive it?', 'advanced-coupons-for-woocommerce-free' ),
             ),
             'actions'        => array(
                 array(
@@ -254,8 +253,7 @@ class Notices implements Model_Interface, Initializable_Interface, Activatable_I
             'type'           => 'success',
             'heading'        => __( 'FREE PLUGIN AVAILABLE', 'advanced-coupons-for-woocommerce-free' ),
             'content'        => array(
-                __( "Hey store owner! Do you sell to wholesale customers? Did you know that Advanced Coupons has a sister plugin called <strong>Wholesale Suite</strong> which lets you add wholesale pricing to your existing WooCommerce products? Best of all, it's free! You can add basic wholesale pricing to your store and have your wholesale customers make their orders online.", 'advanced-coupons-for-woocommerce-free' ),
-                sprintf( '<strong>%s</strong>', __( 'Click here to install WooCommerce Wholesale Prices', 'advanced-coupons-for-woocommerce-free' ) ),
+                __( "Hey store owner! Do you sell to wholesale customers? Did you know that Advanced Coupons has a sister plugin called <strong>Wholesale Suite</strong> which lets you add wholesale pricing to your existing WooCommerce products? Best of all, it's free! You can add basic wholesale pricing to your store and have your wholesale customers make their orders online. ", 'advanced-coupons-for-woocommerce-free' ) . sprintf( '<strong>%s</strong>', __( 'Click here to install WooCommerce Wholesale Prices', 'advanced-coupons-for-woocommerce-free' ) ),
             ),
             'actions'        => array(
                 array(
@@ -284,7 +282,6 @@ class Notices implements Model_Interface, Initializable_Interface, Activatable_I
             'heading'        => '',
             'content'        => array(
                 __( "Hey, I noticed you have been using <strong>Advanced Coupons</strong> for some time - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?", 'advanced-coupons-for-woocommerce-free' ),
-                sprintf( '<strong>%s</strong>', __( '~ Josh Kohlbach <br/>CEO of Advanced Coupons', 'advanced-coupons-for-woocommerce-free' ) ),
             ),
             'actions'        => array(
                 array(

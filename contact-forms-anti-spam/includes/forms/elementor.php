@@ -134,7 +134,7 @@ add_action( 'elementor_pro/forms/validation/textarea', function( $field, $record
 }, 10, 3 );
 
 add_filter( 'elementor_pro/forms/wp_mail_message', function( $content ) {
-  $add_country_to_emails = get_option( 'add_country_to_emails' );
+  $add_country_to_emails = maspik_get_settings("add_country_to_emails", '', 'old')  == "yes";
   if( $content && $add_country_to_emails ){
     $countryName = maspik_add_country_to_submissions($linebreak = "<br>");
      return $content.$countryName;

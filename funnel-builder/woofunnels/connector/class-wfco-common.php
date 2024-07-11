@@ -9,7 +9,6 @@ class WFCO_Common {
 	public static $saved_data = false;
 
 	public static function init() {
-		add_action( 'wp_loaded', array( __CLASS__, 'get_connectors_data' ) );
 		add_filter( 'bwf_add_db_table_schema', [ __CLASS__, 'create_db_tables' ], 10, 2 );
 	}
 

@@ -168,6 +168,9 @@ If you need some assistance, you can post an issue in the Support tab, or send u
 4. You can access your settings by clicking on “Settings” at the top right of the screen.
 
 == Changelog ==
+= 4.0.24 =
+* Added new product_viewed track event that will fire each time products are viewed on the store by users. This can be used within Brevo automation for email campaigns
+
 = 4.0.23 =
 * Improvements to tracking guest checkouts
 

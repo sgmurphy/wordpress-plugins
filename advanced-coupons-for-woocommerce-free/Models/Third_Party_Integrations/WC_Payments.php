@@ -83,6 +83,11 @@ class WC_Payments extends Base_Model implements Model_Interface, Initializable_I
      * @return float Converted amount.
      */
     public function convert_amount_to_user_selected_currency( $amount, $is_reverse = false ) {
+        // Check if amount is null before doing the conversion.
+        if ( null === $amount ) {
+            return $amount;
+        }
+
         if ( $this->_multicurrency->get_default_currency() === $this->_multicurrency->get_selected_currency() ) {
             return $amount;
         }

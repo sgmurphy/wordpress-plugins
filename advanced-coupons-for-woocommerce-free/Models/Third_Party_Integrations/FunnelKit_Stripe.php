@@ -171,6 +171,10 @@ class FunnelKit_Stripe extends Base_Model implements Model_Interface, Activatabl
      * @access public
      */
     public function show_funnelkit_stripe_promote_notice() {
+        if ( get_option( Plugin_Constants::SHOW_FUNNELKIT_STRIPE_PROMOTE_NOTICE ) === 'dismissed' ) {
+            return;
+        }
+
         update_option( Plugin_Constants::SHOW_FUNNELKIT_STRIPE_PROMOTE_NOTICE, 'yes' );
     }
 

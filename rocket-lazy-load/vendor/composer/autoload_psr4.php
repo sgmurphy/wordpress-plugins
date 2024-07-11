@@ -6,6 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RocketLazyload\\' => array($vendorDir . '/wp-media/rocket-lazyload-common/src'),
     'RocketLazyLoadPlugin\\' => array($baseDir . '/src'),
 );

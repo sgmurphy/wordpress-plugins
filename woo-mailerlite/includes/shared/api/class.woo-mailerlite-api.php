@@ -798,11 +798,13 @@ class MailerLiteAPI
      * @param       $url
      * @param       $image
      * @param       $categories
+     * @param       $description
+     * @param       $shortDescription
      *
      * @return      mixed
      * @since       1.6.0
      */
-    public function syncProduct($shop_id, $product_id, $name, $price, $exclude_automation, $url, $image, $categories)
+    public function syncProduct($shop_id, $product_id, $name, $price, $exclude_automation, $url, $image, $categories, $description, $shortDescription)
     {
 
         $parameters = [
@@ -811,11 +813,19 @@ class MailerLiteAPI
             'price'                    => $price,
             'exclude_from_automations' => $exclude_automation,
             'url'                      => $url,
-            'categories'               => $categories
+            'categories'               => $categories,
         ];
 
         if ( ! empty($image)) {
             $parameters['image'] = (string)$image;
+        }
+
+        if (!empty($description)) {
+            $parameters['description'] = $description;
+        }
+
+        if (!empty($shortDescription)) {
+            $parameters['short_description'] = $shortDescription;
         }
 
         $response = $this->client->remote_post('/ecommerce/shops/' . $shop_id . '/products?with_resource_id',

@@ -1449,4 +1449,143 @@ class Helper_Functions {
         $unique     = array_unique( $serialized );
         return array_values( array_intersect_key( $input, $unique ) );
     }
+
+    /**
+     * Get the number of days since the installation of the plugin.
+     *
+     * @since 4.6.2
+     * @access public
+     *
+     * @return int The number of days since installation.
+     */
+    public function get_days_since_install() {
+        // Get the installation date from the options table.
+        $installation_date = get_option( Plugin_Constants::INSTALLATION_DATE );
+
+        if ( ! $installation_date ) {
+            return 0; // Return 0 if installation date is not set.
+        }
+
+        // Calculate the difference between installation date and current date.
+        $current_date      = new \WC_DateTime( 'now', new \DateTimeZone( $this->get_site_current_timezone() ) );
+        $installation_date = new \WC_DateTime( $installation_date, new \DateTimeZone( $this->get_site_current_timezone() ) );
+        $interval          = $current_date->diff( $installation_date );
+
+        // Return the difference in days.
+        return $interval->days;
+    }
+
+    /**
+     * Get the count of coupons created.
+     *
+     * @since 4.6.2
+     * @access public
+     *
+     * @return int The count of coupons created.
+     */
+    public function get_coupons_created_count() {
+        $args = array(
+            'post_type'      => 'shop_coupon',
+            'no_found_rows'  => true, // optimize for count retrieval.
+            'fields'         => 'ids', // only retrieve post IDs.
+            'posts_per_page' => -1, // get all coupons.
+        );
+
+        $query = new \WP_Query( $args );
+
+        return count( $query->posts );
+    }
+
+    /**
+     * Get the count of orders that used coupons.
+     *
+     * @since 4.6.2
+     * @access public
+     *
+     * @return int The count of orders that used coupons.
+     */
+    public function get_coupon_orders_processed_count() {
+        $args = array(
+            'type'   => 'shop_order', // Target shop orders.
+            'return' => 'objects', // Retrieve WC_Order objects.
+            'status' => array( 'wc-completed', 'wc-processing' ), // Desired order statuses.
+        );
+
+        $query             = new \WC_Order_Query( $args );
+        $orders            = $query->get_orders();
+        $order_with_coupon = 0;
+
+        // No args available to get order with coupon applied only in WC_Order_Query.
+        // So we need to loop ther orders, and check if order have coupon code applied.
+        if ( ! empty( $orders ) ) {
+            foreach ( $orders as $order ) {
+                if ( count( $order->get_coupon_codes() ) > 0 ) {
+                    ++$order_with_coupon;
+                }
+            }
+        }
+
+        return $order_with_coupon;
+    }
+
+    /**
+     * Get WC Admin Note object.
+     *
+     * @since 4.6.2
+     * @access private
+     *
+     * @param mixed $data Note data, object or ID.
+     * @return object Admin note.
+     */
+    public function wc_admin_note( $data = '' ) {
+
+        if ( version_compare( WC()->version, '4.8.0', '>=' ) ) {
+            return new \Automattic\WooCommerce\Admin\Notes\Note( $data );
+        }
+
+        return new \Automattic\WooCommerce\Admin\Notes\WC_Admin_Note( $data );
+    }
+
+    /**
+     * Get the relative time from a given date and time.
+     *
+     * Converts a given datetime to a relative time string such as "1 year ago", "3 months ago", "5 days ago", etc.,
+     * based on the site's current timezone.
+     *
+     * @since 4.6.2
+     * @access public
+     *
+     * @param string $date_time The datetime string to convert.
+     * @return string The relative time string.
+     */
+    public function get_relative_time( $date_time ) {
+        $timezone = new \DateTimeZone( $this->get_site_current_timezone() );
+        $date     = new \DateTime( $date_time, new \DateTimeZone( $this->get_site_current_timezone() ) );
+        $date->setTimezone( $timezone );
+        $now  = new \DateTime( 'now', $timezone );
+        $diff = $now->diff( $date );
+
+        if ( $diff->y > 0 ) {
+            // Translators: %d is the number of years.
+            return sprintf( _n( '%d year ago', '%d years ago', $diff->y, 'advanced-coupons-for-woocommerce-free' ), $diff->y );
+        }
+        if ( $diff->m > 0 ) {
+            // Translators: %d is the number of months.
+            return sprintf( _n( '%d month ago', '%d months ago', $diff->m, 'advanced-coupons-for-woocommerce-free' ), $diff->m );
+        }
+        if ( $diff->d > 0 ) {
+            // Translators: %d is the number of days.
+            return sprintf( _n( '%d day ago', '%d days ago', $diff->d, 'advanced-coupons-for-woocommerce-free' ), $diff->d );
+        }
+        if ( $diff->h > 0 ) {
+            // Translators: %d is the number of hours.
+            return sprintf( _n( '%d hour ago', '%d hours ago', $diff->h, 'advanced-coupons-for-woocommerce-free' ), $diff->h );
+        }
+        if ( $diff->i > 0 ) {
+            // Translators: %d is the number of minutes.
+            return sprintf( _n( '%d minute ago', '%d minutes ago', $diff->i, 'advanced-coupons-for-woocommerce-free' ), $diff->i );
+        }
+        // Translators: This refers to a very short time interval (less than a minute).
+        return __( 'just now', 'advanced-coupons-for-woocommerce-free' );
+    }
 }

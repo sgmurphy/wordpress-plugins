@@ -79,6 +79,22 @@ class woocommerce_wpmlCompatibility {
 	public function wcml_currency_convert( $price, $product, $config, $with_tax, $price_type ) {//phpcs:ignore
 
 		$original_price = $price;
+//		if ( class_exists( 'SitePress', false ) ) {
+//			// WPML restore Language.
+//			$request_uri = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '' ;
+//			if( $request_uri !== '' ){
+//				$parsed_url = parse_url( $request_uri );
+//				$query = $parsed_url['query'];
+//				parse_str($query, $params);
+//				$admin_lang = isset( $params['lang'] ) ? $params['lang'] : null;
+//				global $sitepress;
+//				$default_language = $sitepress->get_default_language();
+//				if( $default_language !== $admin_lang ){
+//					return $original_price;
+//				}
+//			}
+//		}
+
 		$currency       = $config->get_feed_currency(); //phpcs:ignore
 		// Use WPML's function to convert the price
 		$converted_price = apply_filters( 'wcml_raw_price_amount', $price, $currency );

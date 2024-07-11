@@ -178,7 +178,7 @@ function dmb_tmm_team_display()
             </div>
 
             <div class="dmb_field dmb_description_of_member">
-                <?php echo wp_kses_post($member['_tmm_desc']); ?>
+                <?php echo htmlentities($member['_tmm_desc']); ?>
             </div>
 
             <?php } else { ?>
@@ -188,7 +188,7 @@ function dmb_tmm_team_display()
             </div>
 
             <div class="dmb_field dmb_description_of_member_fb" style="display:none !important;">
-                <?php echo wp_kses_post($member['_tmm_desc']); ?>
+                <?php echo htmlentities($member['_tmm_desc']); ?>
             </div>
             <textarea id="acf-fallback-bio"><?php echo wp_kses_post($member['_tmm_desc']); ?></textarea>
 

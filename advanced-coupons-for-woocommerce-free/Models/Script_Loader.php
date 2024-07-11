@@ -424,9 +424,12 @@ class Script_Loader extends Base_Model implements Model_Interface {
         wp_register_style( 'jquery-webui-popover', $this->_constants->JS_ROOT_URL . 'lib/webui-popover/jquery.webui-popover.min.css', array(), Plugin_Constants::VERSION, 'all' );
         wp_register_script( 'jquery-webui-popover', $this->_constants->JS_ROOT_URL . 'lib/webui-popover/jquery.webui-popover.min.js', array( 'jquery' ), Plugin_Constants::VERSION, true );
 
+        // If we are on the Speed Optimizer page, we should load all JavaScript scripts to register excluded JS combines.
+        $force_load = apply_filters( 'acfw_force_load_frontend_js', false );
+
         // Load regular checkout package.
         $is_cart_checkout_block = $this->_helper_functions->is_current_page_using_cart_checkout_block();
-        if ( is_checkout() && ! $is_cart_checkout_block ) {
+        if ( ( is_checkout() && ! $is_cart_checkout_block ) || $force_load ) {
             $checkout_vite = new Vite_App(
                 'acfwf-checkout',
                 'packages/acfwf-checkout/index.ts',
@@ -442,17 +445,18 @@ class Script_Loader extends Base_Model implements Model_Interface {
                     'thousand_separator' => wc_get_price_thousand_separator(),
                     'redeem_nonce'       => wp_create_nonce( 'acfwf_redeem_store_credits_checkout' ),
                     'enter_valid_price'  => __( 'Please enter a valid price', 'advanced-coupons-for-woocommerce-free' ),
+                    'auto_display_store_credits_redeem_form' => get_option( Plugin_Constants::AUTO_DISPLAY_STORE_CREDITS_REDEEM_FORM, 'no' ),
                 )
             );
         }
 
-        if ( is_account_page() ) {
+        if ( is_account_page() || $force_load ) {
             wp_enqueue_style( 'acfwf-my-account', $this->_constants->CSS_ROOT_URL . 'acfw-my-account.css', array(), Plugin_Constants::VERSION, 'all' );
         }
 
         $is_store_credits_endpoint = isset( $wp_query->query_vars[ apply_filters( 'acfw_store_credits_endpoint', Plugin_Constants::STORE_CREDITS_ENDPOINT ) ] );
 
-        if ( $is_store_credits_endpoint && is_account_page() && ! is_admin() ) {
+        if ( ( $is_store_credits_endpoint && is_account_page() && ! is_admin() ) || $force_load ) {
             wp_enqueue_script( 'acfw-axios', $this->_constants->JS_ROOT_URL . '/lib/axios/axios.min.js', array(), Plugin_Constants::VERSION, true );
             $sc_frontend_vite = new Vite_App(
                 'acfwf-store-credits-frontend',

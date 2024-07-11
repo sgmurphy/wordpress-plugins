@@ -9,5 +9,5 @@ import { store } from '../library/StoreAPI';
  * */
 export const hasBOGOCoupon = () => {
   const BOGOCoupons = store.getCartData().coupons.filter((coupon: any) => coupon.discount_type === 'acfw_bogo');
-  return !!BOGOCoupons;
+  return !!BOGOCoupons.length;
 };

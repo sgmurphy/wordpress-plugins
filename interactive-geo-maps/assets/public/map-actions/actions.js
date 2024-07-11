@@ -356,9 +356,7 @@ iMapsActions.lightboxAction = function (id, data, type) {
     opts.closeOnOutsideClick = false;
   }
 
-  if (!iMapsActions.lightbox) {
-    iMapsActions.lightbox = GLightbox(opts);
-  }
+  iMapsActions.lightbox = GLightbox(opts);
 
   // add custom close button
   iMapsActions.lightbox.on('open', function () {

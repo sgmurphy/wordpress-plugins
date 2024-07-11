@@ -39,7 +39,27 @@ class WOOMULTI_CURRENCYCompatibility
 		add_filter('woo_feed_filter_product_regular_price_with_tax', array($this, 'get_converted_price'), 10, 5);
 		add_filter('woo_feed_filter_product_price_with_tax', array($this, 'get_converted_price'), 10, 5);
 		add_filter('woo_feed_filter_product_sale_price_with_tax', array($this, 'get_converted_price'), 10, 5);
+
+		add_action('woo_feed_filter_shipping_currency',array($this,'shipping_currency_switch'),10,1);
 	}
+
+	/**
+	 * Switch currency before shipping
+	 *
+	 * @param \CTXFeed\V5\Utility\Config $config feed config array.
+	 */
+	public function shipping_currency_switch( $config ) {
+		$data             = \WOOMULTI_CURRENCY_Data::get_ins();
+		$default_currency = $data->get_default_currency();
+
+		if ( $default_currency !== $config->get_feed_currency() ) {
+			$data->set_current_currency( $config->get_feed_currency() );
+		} else {
+			$data->set_current_currency( $default_currency );
+		}
+	}
+
+	/**
 
 	/**
 	 * Switch currency before feed generation
@@ -113,7 +133,7 @@ class WOOMULTI_CURRENCYCompatibility
 
 			if (
 				isset($wmc_currency_params['enable_fixed_price'])
-				&& $wmc_currency_params['enable_fixed_price'] === 1
+				&& $wmc_currency_params['enable_fixed_price'] == 1
 			) {
 				$price = $this->get_curreny_fixed_price($price, $product, $config, $regular_price, $sale_price, $price_type);
 
@@ -149,6 +169,8 @@ class WOOMULTI_CURRENCYCompatibility
 			$price = $regular_price[$config->get_feed_currency()];
 		} elseif ($price_type === 'sale_price' && !empty($sale_price)) {
 			$price = $sale_price[$config->get_feed_currency()];
+		} elseif ($price_type === 'regular_price' && !empty($regular_price)) {
+			$price = $regular_price[$config->get_feed_currency()];
 		}
 
 		return $price;

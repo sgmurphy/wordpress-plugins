@@ -4,16 +4,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 exit;}
 ?><div class="<?php echo esc_attr( $notice_class ); ?> acfw-admin-notice notice-<?php echo esc_attr( $notice['type'] ); ?> is-dismissable" data-notice="<?php echo esc_attr( $notice['slug'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'acfw_dismiss_notice_' . $notice['slug'] ) ); ?>">
 
-    <p class="<?php echo $notice['heading'] ? 'heading' : ''; ?>">
-        <img src="<?php echo esc_attr( $notice['logo_img'] ); ?>">
-        <?php if ( $notice['heading'] ) : ?>
-            <span><?php echo esc_html( $notice['heading'] ); ?></span>
-        <?php endif; ?>
-    </p>
+    <div class="heading-container">
+        <div class="image-container">
+            <img src="<?php echo esc_attr( $notice['logo_img'] ); ?>">
+        </div>
+        
+        <div class="heading">
+            <?php if ( $notice['heading'] ) : ?>
+                <span><?php echo esc_html( $notice['heading'] ); ?></span>
+            <?php endif; ?>
+        </div>
+    </div>
 
-    <?php foreach ( $notice['content'] as $paragraph ) : ?>
-        <p><?php echo wp_kses_post( $paragraph ); ?></p>
-    <?php endforeach; ?>
+    <div class="description-content">
+        <?php foreach ( $notice['content'] as $paragraph ) : ?>
+            <p><?php echo wp_kses_post( $paragraph ); ?></p>
+        <?php endforeach; ?>
+    </div>
 
     <p class="action-wrap">
         <?php foreach ( $notice['actions'] as $notice_action ) : ?>

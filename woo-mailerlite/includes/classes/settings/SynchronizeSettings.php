@@ -64,6 +64,8 @@ class SynchronizeSettings extends Singleton
                     $productName = $product->get_name() ?: 'Untitled product';
                     $productPrice = floatval($product->get_price('edit'));
                     $productImage = ProductProcess::getInstance()->productImage($product);
+                    $productDescription = $product->get_description();
+                    $productShortDescription = $product->get_short_description();
 
                     $productURL = $product->get_permalink();
 
@@ -88,7 +90,7 @@ class SynchronizeSettings extends Singleton
                         'price' => $productPrice,
                         'url' => $productURL,
                         'exclude_from_automations' => $exclude_automation,
-                        'categories' => $productCategories
+                        'categories' => $productCategories,
                     ];
                     if (!is_string($productURL)) {
                         MailerLiteSettings::getInstance()->completeProductTracking((string)$productID);
@@ -99,6 +101,13 @@ class SynchronizeSettings extends Singleton
                         $syncProduct['image'] = (string)$productImage;
                     }
 
+                    if (!empty($productDescription)) {
+                        $syncProduct['description'] = $productDescription;
+                    }
+
+                    if (!empty($productShortDescription)) {
+                        $syncProduct['short_description'] = $productShortDescription;
+                    }
 
                     $syncProducts[] = $syncProduct;
                 }

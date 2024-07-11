@@ -4,12 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-#[AllowDynamicProperties] 
-
-  class WFACP_Compatibility_With_WooCommerce_Payments {
+#[AllowDynamicProperties]
+class WFACP_Compatibility_With_WooCommerce_Payments {
 	public function __construct() {
 		add_action( 'wfacp_internal_css', [ $this, 'enqueue_scripts' ] );
 		add_action( 'wfacp_outside_header', [ $this, 'detect_woo_payment' ] );
+		add_filter( 'wfacp_product_switcher_price_data', [ $this, 'wfacp_product_switcher_price_data' ], 10, 2 );
 	}
 
 	/*
@@ -61,6 +61,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
 	}
+
+	/**
+	 * @param $price_data
+	 * @param $pro WC_Product;
+	 *
+	 * @return mixed
+	 */
+	public function wfacp_product_switcher_price_data( $price_data, $pro ) {
+
+		$price_data['regular_org'] = $pro->get_regular_price();
+		$price_data['price']       = $pro->get_price();
+
+		return $price_data;
+	}
+
 }
 
 WFACP_Plugin_Compatibilities::register( new WFACP_Compatibility_With_WooCommerce_Payments(), 'woocommerce_checkout' );

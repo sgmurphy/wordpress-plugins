@@ -148,10 +148,10 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
         $data = wp_parse_args(
             $data,
             array(
-				'acfwf_version'       => Plugin_Constants::VERSION,
-				'acfwp_version'       => '',
-				'lpfw_version'        => '',
-				'agc_version'         => '',
+                'acfwf_version'       => Plugin_Constants::VERSION,
+                'acfwp_version'       => '',
+                'lpfw_version'        => '',
+                'agc_version'         => '',
                 'acfwp'               => (int) $this->_helper_functions->is_plugin_active( Plugin_Constants::PREMIUM_PLUGIN ),
                 'lpfw'                => (int) $this->_helper_functions->is_plugin_active( Plugin_Constants::LOYALTY_PLUGIN ),
                 'agc'                 => (int) $this->_helper_functions->is_plugin_active( Plugin_Constants::GIFT_CARDS_PLUGIN ),
@@ -369,8 +369,8 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
                 return $c;
             },
             array(
-				'coupons_sent_existing_customers' => 0,
-				'coupons_sent_new_customers'      => 0,
+                'coupons_sent_existing_customers' => 0,
+                'coupons_sent_new_customers'      => 0,
             )
         );
 
@@ -456,13 +456,13 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
         $response = wp_remote_post(
             'https://usg.rymeraplugins.com/v1/acfwf-checkin/',
             array(
-				'method'      => 'POST',
-				'timeout'     => 5,
-				'redirection' => 5,
-				'httpversion' => '1.1',
-				'blocking'    => false,
-				'body'        => $this->_get_data(),
-				'user-agent'  => 'ACFWF/' . Plugin_Constants::VERSION . '; ' . get_bloginfo( 'url' ),
+                'method'      => 'POST',
+                'timeout'     => 5,
+                'redirection' => 5,
+                'httpversion' => '1.1',
+                'blocking'    => false,
+                'body'        => $this->_get_data(),
+                'user-agent'  => 'ACFWF/' . Plugin_Constants::VERSION . '; ' . get_bloginfo( 'url' ),
             )
         );
 
@@ -555,10 +555,9 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
                 'type'           => 'success',
                 'heading'        => __( 'USAGE TRACKING PERMISSION', 'advanced-coupons-for-woocommerce-free' ),
                 'content'        => array(
-                    __( 'Allow Advanced Coupon to track plugin usage? Opt-in to let us track usage data so we know with which WordPress configurations, themes and plugins we should test with.', 'advanced-coupons-for-woocommerce-free' ),
                     sprintf(
                         /* Translators: %s: Link to allow usage documentation. */
-                        __( 'Complete documentation on usage tracking is available <a href="%s">here</a>.', 'advanced-coupons-for-woocommerce-free' ),
+                        __( 'Allow Advanced Coupon to track plugin usage? Opt-in to let us track usage data so we know with which WordPress configurations, themes and plugins we should test with. Complete documentation on usage tracking is available <a href="%s">here</a>.', 'advanced-coupons-for-woocommerce-free' ),
                         'https://advancedcouponsplugin.com/knowledgebase/usage-tracking/?utm_source=acfwf&utm_medium=kb&utm_campaign=allowusagenotice'
                     ),
                 ),

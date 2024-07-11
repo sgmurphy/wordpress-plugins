@@ -54,6 +54,8 @@ if ( ! class_exists( 'Cartflows_Astra_Compatibility' ) ) :
 
 			// Update Astra's admin top level menu position.
 			add_filter( 'astra_menu_priority', array( $this, 'update_admin_menu_position' ), 10, 1 );
+			add_filter( 'astra_addon_enable_modern_checkout', array( $this, 'override_order_review_checkout' ) );
+
 
 		}
 
@@ -213,7 +215,24 @@ if ( ! class_exists( 'Cartflows_Astra_Compatibility' ) ) :
 
 			wp_enqueue_style( 'wcf-checkout-astra-compatibility', CARTFLOWS_URL . 'compatibilities/themes/astra/css/astra-compatibility.css', '', CARTFLOWS_VER );
 		}
+
+		/**
+		 * Overrides Astra's actions for the CartFlows checkout page.
+		 *
+		 * @param bool $bool Determines whether to override Astra's actions. If true, actions are overridden.
+		 * @return bool Returns the passed boolean parameter.
+		 *
+		 * @since x.x.x
+		 */
+		public function override_order_review_checkout( $bool ) {
+			if ( _is_wcf_checkout_type() ) {
+				$bool = false;
+			}
+			return $bool;
+		}
 	}
+
+
 	/**
 	 * Kicking this off by calling 'get_instance()' method
 	 */

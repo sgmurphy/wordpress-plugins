@@ -1157,16 +1157,7 @@ class DropDownOptions {
 				}
 			} elseif ( is_plugin_active( 'woocommerce-currency-switcher/index.php' ) || class_exists( 'WOOCS' ) ) {
 				global $WOOCS;
-//				$get_currencies = $WOOCS->get_currencies();
-//				if ( ! empty( $get_currencies ) ) {
-//					$currencies = [];
-//					foreach ( $get_currencies as $key => $currency ) {
-//						$currencies[ $key ] = $key;
-//					}
-//					$options = $currencies;
-//				}
-
-				$get_currencies = get_option('woocs', array());
+				$get_currencies = $WOOCS->get_currencies();
 				if ( ! empty( $get_currencies ) ) {
 					$currencies = [];
 					foreach ( $get_currencies as $key => $currency ) {
@@ -1174,6 +1165,15 @@ class DropDownOptions {
 					}
 					$options = $currencies;
 				}
+
+				/*$get_currencies = get_option('woocs', array());
+				if ( ! empty( $get_currencies ) ) {
+					$currencies = [];
+					foreach ( $get_currencies as $key => $currency ) {
+						$currencies[ $key ] = $key;
+					}
+					$options = $currencies;
+				}*/
 
 			} elseif ( is_plugin_active( 'currency-switcher-woocommerce/currency-switcher-woocommerce.php' ) ) {
 

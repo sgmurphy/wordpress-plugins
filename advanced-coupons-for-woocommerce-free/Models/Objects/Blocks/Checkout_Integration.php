@@ -106,16 +106,17 @@ class Checkout_Integration extends Base_Model implements IntegrationInterface {
         // Return data.
         return array(
             'store_credits' => array(
-                'apply_type'                         => $store_credit_apply_type,
-                'labels'                             => \ACFWF()->Checkout->get_store_credits_redeem_form_labels(),
-                'button_text'                        => __( 'Apply', 'advanced-coupons-for-woocommerce-free' ),
-                'pay_with_store_credits_text'        => __( 'Pay with Store Credits', 'advanced-coupons-for-woocommerce-free' ),
-                'notice_store_credits_text'          => __( 'The total of your order changed, please click here to <a class="acfw-reapply-sc-discount" href="#">reapply the store credit discount</a>.', 'advanced-coupons-for-woocommerce-free' ),
-                'redeem_nonce'                       => wp_create_nonce( 'acfwf_redeem_store_credits_checkout' ),
-                'hide_store_credits_on_zero_balance' => get_option( Plugin_Constants::STORE_CREDITS_HIDE_CHECKOUT_ZERO_BALANCE, 'no' ),
-                'display_store_credits_redeem_form'  => get_option( Plugin_Constants::DISPLAY_STORE_CREDITS_REDEEM_FORM, 'yes' ), // Display store credits redeem form.
-                'store_credits_module'               => \ACFWF()->Helper_Functions->is_module( Plugin_Constants::STORE_CREDITS_MODULE ), // Check if store credits module is enabled.
-                'is_allow_store_credits'             => \ACFWF()->Store_Credits_Checkout->is_allow_store_credits(), // Check if store credits is allowed.
+                'apply_type'                             => $store_credit_apply_type,
+                'labels'                                 => \ACFWF()->Checkout->get_store_credits_redeem_form_labels(),
+                'button_text'                            => __( 'Apply', 'advanced-coupons-for-woocommerce-free' ),
+                'pay_with_store_credits_text'            => __( 'Pay with Store Credits', 'advanced-coupons-for-woocommerce-free' ),
+                'notice_store_credits_text'              => __( 'The total of your order changed, please click here to <a class="acfw-reapply-sc-discount" href="#">reapply the store credit discount</a>.', 'advanced-coupons-for-woocommerce-free' ),
+                'redeem_nonce'                           => wp_create_nonce( 'acfwf_redeem_store_credits_checkout' ),
+                'hide_store_credits_on_zero_balance'     => get_option( Plugin_Constants::STORE_CREDITS_HIDE_CHECKOUT_ZERO_BALANCE, 'no' ),
+                'display_store_credits_redeem_form'      => get_option( Plugin_Constants::DISPLAY_STORE_CREDITS_REDEEM_FORM, 'yes' ), // Display store credits redeem form.
+                'store_credits_module'                   => \ACFWF()->Helper_Functions->is_module( Plugin_Constants::STORE_CREDITS_MODULE ), // Check if store credits module is enabled.
+                'is_allow_store_credits'                 => \ACFWF()->Store_Credits_Checkout->is_allow_store_credits(), // Check if store credits is allowed.
+                'auto_display_store_credits_redeem_form' => get_option( Plugin_Constants::AUTO_DISPLAY_STORE_CREDITS_REDEEM_FORM, 'no' ), // Check if store credits should always be shown.
             ),
             'caret_img_src' => $this->_constants->IMAGES_ROOT_URL . 'caret.svg',
         );

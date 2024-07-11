@@ -11,7 +11,7 @@ class MiniCartGateway extends BaseGateway {
     }
 
     initialize() {
-        this.cart.on('fragmentsChanged', super.initialize.bind(this));
+        this.cart.on('fragmentsChanged', this.onFragmentsChanged.bind(this));
         $(document.body).on('wc_ppcp_on_destroy', this.createButton.bind(this));
         super.initialize();
     }
@@ -51,6 +51,12 @@ class MiniCartGateway extends BaseGateway {
         return this.cart.createOrder({payment_method: this.id}).then(orderId => {
             return orderId;
         });
+    }
+
+    onFragmentsChanged() {
+        if (!this.cart.isEmpty()) {
+            super.initialize();
+        }
     }
 }
 

@@ -112,39 +112,35 @@ if ( ! defined( 'WPINC' ) ) {
 
         }
 
-        function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manual_switch = ""){
-            toggle_ready_check($dbrow_name); //make db row if there's none yet
+function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manual_switch = ""){
+    toggle_ready_check($dbrow_name); //make db row if there's none yet
 
-            if($type == "form-toggle"){
-                $checked = maspik_get_settings($dbrow_name, 'form-toggle') == 1 ? 'checked': "";
-            }
-            elseif($type == "yes-no"){
-                $checked = maspik_get_settings($dbrow_name) == 'yes' ? 'checked': "";
-                
-            }elseif($type == "other_options"){
-                $checked = maspik_get_settings($dbrow_name,'' , 'old') == 'yes' ? 'checked': "";
-            }else{
-                $checked = maspik_get_settings($dbrow_name, 'toggle');
-            }
+    if($type == "form-toggle"){
+        $checked = maspik_get_settings($dbrow_name, 'form-toggle') == 1 ? 'checked': "";
+    }
+    elseif($type == "yes-no"){
+        $checked = maspik_get_settings($dbrow_name) == 'yes' ? 'checked': "";
 
-            
+    } elseif($type == "other_options"){
+        $checked = maspik_get_settings($dbrow_name, '', 'old') == 'yes' ? 'checked': "";
+    } else {
+        $checked = maspik_get_settings($dbrow_name, 'toggle');
+    }
 
-            if($manual_switch === 0){
-                $checked = "";
-            }elseif($manual_switch === 1 && maspik_get_settings($dbrow_name) == ""){
-                $checked = "checked";
-            }
-            
+    if($manual_switch === 0){
+        $checked = "";
+    } elseif($manual_switch === 1 && maspik_get_settings($dbrow_name) == ""){
+        $checked = "checked";
+    }
 
+    $toggle= " <label class='maspik-toggle' >
+                <input type='checkbox' id=". esc_attr($id) ." name='". esc_attr($name) . "' " . esc_attr($checked) . " class='". esc_attr($class) ."'> 
+                <span class='maspik-toggle-slider'></span>
+                </label>";
 
+    return $toggle;
+}
 
-            $toggle= " <label class='maspik-toggle' >
-                        <input type='checkbox' id=". esc_attr($id) ." name='". esc_attr($name) . "' " . esc_attr($checked) . " class='". esc_attr($class) ."'> 
-                        <span class='maspik-toggle-slider'></span>
-                        </label>";
-
-            return $toggle;
-        }
 
         function maspik_save_button_show($label = "Save", $add_class = "", $name = "maspik-save-btn" ){
 

@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.5
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,11 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.9 - Thursday, 11th July 2024 =
+* Fix: The redirect from product page was showing 404 page if the selected flow is deleted or trashed.
+* Fix: Fixed the character encoding issue while importing the ready-made flow and step templates.
+* Fix: Resolved the conflict on checkout fields with CartFlows and FluentCRM plugin.
 
 = Version 2.0.8 - Thursday, 16th May 2024 =
 * Fix: A blank question mark was getting added in the URL of next-step button.

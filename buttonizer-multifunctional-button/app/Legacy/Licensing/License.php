@@ -1,16 +1,16 @@
 <?php
 
-/* 
+/*
 * SOFTWARE LICENSE INFORMATION
-* 
+*
 * Copyright (c) 2017 Buttonizer, all rights reserved.
-* 
+*
 * This file is part of Buttonizer
-* 
+*
 * For detailed information regarding to the licensing of
 * this software, please review the license.txt or visit:
-* https://buttonizer.pro/license/
-* 
+* https://buttonizer.io/license/
+*
 *************************************************************************************
 
    ===========================================================================
@@ -23,25 +23,25 @@
 
    If you want to get a free license, you are here on the wrong place. Please
    buy your license here:
-   /wp-admin/admin.php?page=Buttonizer-pricing
+   https://app.buttonizer.io/pricing/
 
-   Questons? www.buttonizer.pro
+   Questons? www.buttonizer.io
 
    Have you also checked our knowledge base or community?
 
-   Buttonizer Community: https://community.buttonizer.pro
+   Buttonizer Community: https://r.buttonizer.io/support/community
 
-   Buttonizer Knowledge base: https://community.buttonizer.pro/knowledgebase
+   Buttonizer Knowledge base: https://r.buttonizer.io/support/knowledgebase
 
-   Buttonizer support: https://community.buttonizer.pro/tickets
+   Buttonizer support: https://r.buttonizer.io/support/tickets
 
    ===========================================================================
 
    For more information about the licensing and terms of conditions:
-   
-   Terms and conditions:   https://buttonizer.pro/terms-conditions/
 
-   License:                https://buttonizer.pro/license/
+   Terms and conditions:   https://buttonizer.io/terms-conditions/
+
+   License:                https://buttonizer.io/license/
 
    ===========================================================================
 */
@@ -52,7 +52,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 // Hi. We see what you're doing here
 // Please leave this file intact as it is
 // and read what is, and what is NOT allowed:
-// https://buttonizer.pro/terms-conditions/
+// https://buttonizer.io/terms-conditions/
 class License {
     private $oButtonizer = 'null';
 

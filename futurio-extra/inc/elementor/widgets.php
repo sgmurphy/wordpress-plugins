@@ -92,6 +92,12 @@ final class Futurio_Elementor_Extension {
 		], FUTURIO_EXTRA_CURRENT_VERSION, true
 		);
 	}
+	
+	public function editor_scripts() {
+		wp_register_script( 'editor-preview', FUTURIO_EXTRA_PLUGIN_URL . 'inc/elementor/widgets/js/preview.min.js', [ 'elementor-editor' ], ELEMENTOR_VERSION, true );
+
+		wp_enqueue_script( 'editor-preview' );
+	}
 
 	/**
 	 * Enqueue widgets scripts in preview mode, as later calls in widgets render will not work,
@@ -152,6 +158,8 @@ final class Futurio_Elementor_Extension {
 		add_action( 'elementor/preview/enqueue_scripts', [ $this, 'widget_scripts_preview' ] );
 
 		add_action( 'elementor/elements/categories_registered', [ $this, 'add_elementor_widget_categories' ] );
+		
+		add_action( 'elementor/editor/after_enqueue_scripts', [$this, 'editor_scripts' ] );
 	}
 
 }

@@ -1,4 +1,7 @@
 *** Changelog ***
+2024-07-10 - version 1.2.7
+* Update - CDN link
+
 2024-06-04 - version 1.2.6
 * Add - additional MAM parameters
 * Add - separate pixel base code partner name for Wordpress users

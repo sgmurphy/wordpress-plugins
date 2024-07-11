@@ -93,11 +93,20 @@ function fifu_replace_attachment_image_src($image, $att_id, $size) {
     if (isset($FIFU_SESSION['cdn-new-old']) && isset($image[0]) && isset($FIFU_SESSION['cdn-new-old'][$image[0]]))
         $prev_url = $FIFU_SESSION['cdn-new-old'][$image[0]];
 
+    if (!isset($FIFU_SESSION['att_img_src']))
+        $FIFU_SESSION['att_img_src'] = array();
+
     $image[0] = fifu_process_url($image[0], $att_id);
 
     $original_url = fifu_main_image_url(get_queried_object_id(), true);
-    if (fifu_should_hide() && ($original_url == $image[0] || ($prev_url && $prev_url == $original_url)))
-        return null;
+    if (fifu_should_hide() && ($original_url == $image[0] || ($prev_url && $prev_url == $original_url))) {
+        if (!in_array($original_url, $FIFU_SESSION['att_img_src'])) {
+            $FIFU_SESSION['att_img_src'][] = $original_url;
+            return null;
+        }
+    }
+
+    $FIFU_SESSION['att_img_src'][] = $original_url;
 
     if (fifu_is_from_speedup($image[0]))
         $image = fifu_speedup_get_url($image, $size, $att_id);
@@ -253,20 +262,11 @@ function fifu_callback($buffer) {
 
             // speed up (doesn't work with ajax calls)
             if (fifu_is_from_speedup($url)) {
-                if (fifu_is_off('fifu_lazy')) {
-                    $newImgItem = str_replace('<img ', '<img srcset="' . fifu_speedup_get_set($url) . '" ', $newImgItem);
-                    $newImgItem = str_replace('<img ', '<img sizes="(max-width:' . $theme_width . 'px) 100vw, ' . $theme_width . 'px" ', $newImgItem);
-                } else {
-                    // remove srcset
-                    $newImgItem = preg_replace('/ srcset=.[^\'\"]+[\'\"]/', '', $newImgItem);
-
-                    $srcset = $FIFU_SESSION['fifu-cloud'][$url];
-                    $srcset = $srcset ? $srcset : fifu_speedup_get_set($url);
-
-                    $newImgItem = str_replace('<img ', '<img data-srcset="' . $srcset . '" ', $newImgItem);
-                    $newImgItem = str_replace('<img ', '<img data-sizes="auto" ', $newImgItem);
-                }
+                $newImgItem = str_replace('<img ', '<img srcset="' . fifu_speedup_get_set($url) . '" ', $newImgItem);
+                $newImgItem = str_replace('<img ', '<img sizes="(max-width:' . $theme_width . 'px) 100vw, ' . $theme_width . 'px" ', $newImgItem);
             }
+
+            $newImgItem = str_replace('<img ', '<img loading="lazy" ', $newImgItem);
 
             $buffer = str_replace($imgItem, fifu_replace($newImgItem, $post_id, null, null, null), $buffer);
         }
@@ -302,27 +302,6 @@ function fifu_callback($buffer) {
 
             $post_id = $data['post_id'];
             $newImgItem = str_replace('>', ' ' . 'post-id="' . $post_id . '">', $newImgItem);
-        }
-
-        if (fifu_is_on('fifu_lazy')) {
-            // lazy load for background-image
-            $class = 'lazyload ';
-
-            // add class
-            $newImgItem = str_replace('class=' . $mainDelimiter, 'class=' . $mainDelimiter . $class, $newImgItem);
-
-            // add status
-            $newImgItem = str_replace('<img ', '<img fifu-replaced="1" ', $newImgItem);
-
-            if (fifu_is_from_speedup($url))
-                $attr = 'data-bgset=' . $mainDelimiter . fifu_speedup_get_set($url) . $mainDelimiter . ' data-sizes=' . $mainDelimiter . 'auto' . $mainDelimiter;
-            else
-                $attr = 'data-bg=' . $mainDelimiter . $url . $mainDelimiter;
-            $newImgItem = str_replace('>', ' ' . $attr . '>', $newImgItem);
-
-            // remove background-image
-            $pattern = '/background-image.*url\(' . $subDelimiter . '.*' . $subDelimiter . '\)/';
-            $newImgItem = preg_replace($pattern, '', $newImgItem);
         }
 
         if ($newImgItem != $imgItem)

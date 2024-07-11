@@ -159,7 +159,7 @@ add_filter('wpcf7_validate_textarea*', 'efas_cf7_textarea_validation_filter', 10
 
 // maspik_add_text_to_mail_components
 function maspik_add_text_to_mail_components( $components, $number ) {
-  $add_country_to_emails = get_option( 'add_country_to_emails' );
+  $add_country_to_emails = maspik_get_settings("add_country_to_emails", '', 'old')  == "yes";
   if($components && $add_country_to_emails){
      $countryName = maspik_add_country_to_submissions($linebreak = "");
 	 $body = $components['body'];

@@ -677,6 +677,13 @@ class ACFW_Settings extends \WC_Settings_Page {
             ),
 
             array(
+                'title' => __( 'Auto-display Store Credits Redemption Form', 'advanced-coupons-for-woocommerce-free' ),
+                'type'  => 'checkbox',
+                'desc'  => __( 'Automatically display the form for redeeming store credits on the checkout page upon page load. This eliminates the need for the customer to click on the label to make the form visible.', 'advanced-coupons-for-woocommerce-free' ),
+                'id'    => Plugin_Constants::AUTO_DISPLAY_STORE_CREDITS_REDEEM_FORM,
+            ),
+
+            array(
                 'title'    => __( 'Store credit apply type', 'advanced-coupons-for-woocommerce-free' ),
                 'type'     => 'radio',
                 'desc_tip' => __( 'Lets you choose how Store Credit is applied on the checkout based on your local tax regulations. By default most countries are fine to apply Store Credit as a discount before taxes and shipping, but some countries may require you do apply it similar to a payment after taxes and shipping.', 'advanced-coupons-for-woocommerce-free' ),
@@ -695,6 +702,14 @@ class ACFW_Settings extends \WC_Settings_Page {
                 'id'       => Plugin_Constants::STORE_CREDIT_EXPIRY,
                 'options'  => $expiry_options,
                 'default'  => 'noexpiry',
+            ),
+
+            array(
+                'title'    => __( 'Minimum order total allowed', 'advanced-coupons-for-woocommerce-free' ),
+                'type'     => 'price',
+                'desc_tip' => __( 'This setting determines the minimum order total that must remain after applying store credit. It effectively limits the amount of store credit a user can use by ensuring that the order total never falls below this set minimum.', 'advanced-coupons-for-woocommerce-free' ),
+                'id'       => Plugin_Constants::STORE_CREDIT_MIN_ORDER_TOTAL_ALLOWED,
+                'default'  => 0,
             ),
 
         );

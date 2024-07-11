@@ -2,6 +2,7 @@ export interface ISingleNotice {
   slug: string;
   id: string;
   is_dismissable: boolean;
+  is_in_app_notifications: boolean;
   type: string;
   nonce: string;
   content: string[];

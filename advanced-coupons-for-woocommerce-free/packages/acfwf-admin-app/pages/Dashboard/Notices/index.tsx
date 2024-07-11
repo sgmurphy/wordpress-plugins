@@ -1,24 +1,24 @@
 // #region [Imports] ===================================================================================================
 
 // Libraries
-import { useEffect, useState, useRef } from "react";
-import { bindActionCreators } from "redux"; 
-import { connect } from "react-redux";
-import { Button, Divider } from "antd";
-import { isNull } from "lodash";
+import { useEffect, useState, useRef } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Button, Divider } from 'antd';
+import { isNull } from 'lodash';
 
 // Components
-import SingleNotice from "./SingleNotice";
+import SingleNotice from './SingleNotice';
 
 // Actions
-import { AdminNoticesActions } from "../../../store/actions/adminNotices";
+import { AdminNoticesActions } from '../../../store/actions/adminNotices';
 
 // Types
-import { IStore } from "../../../types/store";
-import { ISingleNotice } from "../../../types/notices";
+import { IStore } from '../../../types/store';
+import { ISingleNotice } from '../../../types/notices';
 
 // SCSS
-import "./index.scss";
+import './index.scss';
 
 // #endregion [Imports]
 
@@ -28,7 +28,7 @@ declare var acfwAdminApp: any;
 declare var jQuery: any;
 declare var ajaxurl: any;
 
-const { dismissAdminNotice } = AdminNoticesActions;
+const { dismissAdminNotice, readAdminNotice } = AdminNoticesActions;
 
 // #endregion [Variables]
 
@@ -36,6 +36,7 @@ const { dismissAdminNotice } = AdminNoticesActions;
 
 interface IActions {
   dismissAdminNotice: typeof dismissAdminNotice;
+  readAdminNotice: typeof readAdminNotice;
 }
 
 interface IProps {
@@ -48,27 +49,36 @@ interface IProps {
 // #region [Component] =================================================================================================
 
 const Notices = (props: IProps) => {
-  const {notices, actions} = props;
+  const { notices, actions } = props;
   const [displayCount, setDisplayCount] = useState(1);
   const [listHeight, setListHeight] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const { 
-    dashboard_page: {
-      labels
-    }
+  const {
+    dashboard_page: { labels },
   } = acfwAdminApp;
 
   const handleDismiss = (noticeSlug: string, nonce: string, response: string = 'yes') => {
-    actions.dismissAdminNotice({slug: noticeSlug});
+    actions.dismissAdminNotice({ slug: noticeSlug });
 
     jQuery.ajax({
-      method: "post",
-        url: ajaxurl,
-        data: {action: 'acfw_dismiss_admin_notice', notice: noticeSlug, nonce: nonce, response: response},
-        dataType: "json"
+      method: 'post',
+      url: ajaxurl,
+      data: { action: 'acfw_dismiss_admin_notice', notice: noticeSlug, nonce: nonce, response: response },
+      dataType: 'json',
     });
-  }
+  };
+
+  const handleRead = (noticeSlug: string, nonce: string) => {
+    actions.readAdminNotice({ slug: noticeSlug });
+
+    jQuery.ajax({
+      method: 'post',
+      url: ajaxurl,
+      data: { action: 'acfw_read_admin_notice', notice: noticeSlug, nonce: nonce },
+      dataType: 'json',
+    });
+  };
 
   useEffect(() => {
     if (notices.length && !isNull(listRef)) {
@@ -84,21 +94,23 @@ const Notices = (props: IProps) => {
   return (
     <div className="dashboard-notices">
       <h2>{labels.notices}</h2>
-      <div className={`list-overflow`} style={{height: 0 < listHeight ? listHeight + 5 : 'auto'}}>
+      <div className={`list-overflow`} style={{ height: 0 < listHeight ? listHeight + 5 : 'auto' }}>
         <div className="notices-list" ref={listRef}>
-          {notices.slice(0, displayCount).map((notice) => <SingleNotice key={notice.slug} notice={notice} onDismiss={handleDismiss} />)}
+          {notices.slice(0, displayCount).map((notice) => (
+            <SingleNotice key={notice.slug} notice={notice} onRead={handleRead} onDismiss={handleDismiss} />
+          ))}
         </div>
       </div>
       {1 < notices.length && (
         <Divider>
-          <Button 
+          <Button
             className="toggle-view-all"
             size="small"
             type="primary"
             onClick={() => setDisplayCount(1 >= displayCount ? notices.length : 1)}
             ghost
           >
-            {1 >= displayCount ?labels.view_all : labels.hide}
+            {1 >= displayCount ? labels.view_all : labels.hide}
           </Button>
         </Divider>
       )}
@@ -106,10 +118,10 @@ const Notices = (props: IProps) => {
   );
 };
 
-const mapStateToProps = (store: IStore) => ({notices: store.adminNotices});
+const mapStateToProps = (store: IStore) => ({ notices: store.adminNotices });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  actions: bindActionCreators({dismissAdminNotice}, dispatch)
+  actions: bindActionCreators({ dismissAdminNotice, readAdminNotice }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notices);

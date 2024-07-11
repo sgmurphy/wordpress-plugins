@@ -17,8 +17,7 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
 
 		public function __construct() {
 
-				 $this->widget_register();
-
+			$this->widget_register();
 
 		}
 
@@ -38,7 +37,10 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
 
 			$widget_key = 'funnelkit_widget';
 
-			add_meta_box( $widget_key, esc_html__( 'FunnelKit', 'funnel-builder' ), array( $this, 'widget_content' ), 'dashboard', 'normal', 'high' );
+			if ( WFFN_Core()->role->user_access( 'funnel', 'read' ) ) {
+				add_meta_box( $widget_key, esc_html__( 'FunnelKit', 'funnel-builder' ), array( $this, 'widget_content' ), 'dashboard', 'normal', 'high' );
+
+			}
 		}
 
 		public function widget_content() {
@@ -90,7 +92,7 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
                         </div>
                         <div class="bwf-tiles-value-wrap"><span class="bwf-tiles-value">{{data.overall.total_orders}}</span></div>
                     </a>
-                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : ''  ?>" class="bwf-tiles-item">
+                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : '' ?>" class="bwf-tiles-item">
                         <div class="bwf-tiles-header">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="28" height="28" rx="14" fill="#F1F2F9"/>
@@ -101,7 +103,7 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
 
                         <div class="bwf-tiles-value-wrap"><span class="bwf-tiles-value">{{data.formatMoney(data.overall.revenue)}}</span></div>
                     </a>
-                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : ''  ?>" class="bwf-tiles-item">
+                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : '' ?>" class="bwf-tiles-item">
                         <div class="bwf-tiles-header">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="28" height="28" rx="14" fill="#F1F2F9"/>
@@ -125,7 +127,7 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
                         </div>
                         <div class="bwf-tiles-value-wrap"><span class="bwf-tiles-value">{{data.formatMoney(data.overall.bump_revenue)}}</span></div>
                     </a>
-                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : ''  ?>" class="bwf-tiles-item">
+                    <a href="<?php echo esc_url( site_url() ) ?>/wp-admin/admin.php?page=bwf<?php echo $app_state !== 'lite' ? '&path=/analytics' : '' ?>" class="bwf-tiles-item">
                         <div class="bwf-tiles-header">
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="28" height="28" rx="14" fill="#F1F2F9"/>
@@ -235,7 +237,7 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
                             <rect width="44" height="44" rx="8" fill="#6C63FF"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M20.3748 17.5516C20.3748 16.6088 21.1811 16.2462 22.5165 16.2462C24.4315 16.2462 26.8504 16.8022 28.7654 17.7934V12.1121C26.674 11.3143 24.6079 11 22.5165 11C17.4016 11 14 13.5626 14 17.8418C14 24.5143 23.5748 23.4505 23.5748 26.3275C23.5748 27.4396 22.5669 27.8022 21.1559 27.8022C19.0646 27.8022 16.3937 26.9802 14.2772 25.8681V31.622C16.6205 32.589 18.989 33 21.1559 33C26.3969 33 30 30.5099 30 26.1824C29.9748 18.978 20.3748 20.2593 20.3748 17.5516Z" fill="white"/>
                         </svg>
-                        <span><span class="bwf-widget-action-box-title"> <?php echo esc_html__( 'Get FunneKit Stripe', 'funnel-builder' ); ?></span><br><span class="bwf-widget-action-box-subtitle"><?php echo esc_html__( 'Installs from WordPress.org', 'funnel-builder' ); ?></span></span>
+                        <span><span class="bwf-widget-action-box-title"> <?php echo esc_html__( 'Get FunnelKit Stripe', 'funnel-builder' ); ?></span><br><span class="bwf-widget-action-box-subtitle"><?php echo esc_html__( 'Installs from WordPress.org', 'funnel-builder' ); ?></span></span>
                         <span class="bwf-widget-action-box-r"><button class="bwf-button is-stripe is-activate"><span><?php echo esc_html__( 'Install', 'funnel-builder' ); ?></span></button> <span data-type="1" class="bwf-widget-action-box-remove"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_676_13273)"><path d="M2.76782 2.87703L2.8178 2.81914C3.00103 2.6359 3.28777 2.61924 3.48983 2.76917L3.54771 2.81914L7.99996 7.27115L12.4522 2.81914C12.6538 2.61758 12.9806 2.61758 13.1821 2.81914C13.3837 3.0207 13.3837 3.3475 13.1821 3.54906L8.73011 8.0013L13.1821 12.4535C13.3654 12.6368 13.382 12.9235 13.2321 13.1256L13.1821 13.1835C12.9989 13.3667 12.7121 13.3834 12.5101 13.2334L12.4522 13.1835L7.99996 8.73145L3.54771 13.1835C3.34615 13.385 3.01936 13.385 2.8178 13.1835C2.61624 12.9819 2.61624 12.6551 2.8178 12.4535L7.26981 8.0013L2.8178 3.54906C2.63456 3.36582 2.6179 3.07908 2.76782 2.87703L2.8178 2.81914L2.76782 2.87703Z" fill="#82838E"/></g><defs><clipPath id="clip0_676_13273"><rect width="16" height="16" fill="white"/></clipPath></defs></svg></span></span>
                     </div>
                     <div class="bwf-widget-action-box" id="bwf-d-automations" data-index="2" style="display:none;">
@@ -487,30 +489,30 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
                         apiService("funnelkit-app/funnel-analytics/dashboard/overview?overall=", 'GET').then((res) => {
                             var firstResponse = res;
                             var template = wp.template('wffn-container-template');
-                                // Define data to be passed to the template
-                                var data = {
-                                    'overall': firstResponse.data,
-                                    formatMoney: function (amt) {
-                                        if ('yes' === fkwidget.is_wc) {
-                                            return window.accounting.formatMoney(
-                                                amt, {
-                                                    symbol: window.wffn_dashboard_params_accounting.currency_format_symbol,
-                                                    decimal: window.wffn_dashboard_params_accounting.currency_format_decimal_sep,
-                                                    thousand: window.wffn_dashboard_params_accounting.currency_format_thousand_sep,
-                                                    precision: window.wffn_dashboard_params_accounting.currency_format_num_decimals,
-                                                    format: window.wffn_dashboard_params_accounting.currency_format
-                                                }
-                                            )
-                                        } else {
-                                            return '$0.00';
-                                        }
-
+                            // Define data to be passed to the template
+                            var data = {
+                                'overall': firstResponse.data,
+                                formatMoney: function (amt) {
+                                    if ('yes' === fkwidget.is_wc) {
+                                        return window.accounting.formatMoney(
+                                            amt, {
+                                                symbol: window.wffn_dashboard_params_accounting.currency_format_symbol,
+                                                decimal: window.wffn_dashboard_params_accounting.currency_format_decimal_sep,
+                                                thousand: window.wffn_dashboard_params_accounting.currency_format_thousand_sep,
+                                                precision: window.wffn_dashboard_params_accounting.currency_format_num_decimals,
+                                                format: window.wffn_dashboard_params_accounting.currency_format
+                                            }
+                                        )
+                                    } else {
+                                        return '$0.00';
                                     }
-                                };
+
+                                }
+                            };
 
 
-                                // Append the rendered HTML to a container element
-                                document.getElementById('bwf-widget-analytics-container').innerHTML = template(data);
+                            // Append the rendered HTML to a container element
+                            document.getElementById('bwf-widget-analytics-container').innerHTML = template(data);
 
                         }).catch((e) => {
                             console.log(e);
@@ -552,9 +554,11 @@ if ( ! class_exists( 'WFFN_Admin_Dashboard_Widget' ) ) {
                 .bwf-tiles-item:hover .bwf-tiles-header, .bwf-tiles-item:focus .bwf-tiles-header {
                     color: #353030;
                 }
+
                 .bwf-tiles-item:hover .bwf-tiles-value-wrap, .bwf-tiles-item:focus .bwf-tiles-value-wrap {
                     color: #0073aa;
                 }
+
                 .bwf-tiles-item:focus {
                     box-shadow: none;
                 }

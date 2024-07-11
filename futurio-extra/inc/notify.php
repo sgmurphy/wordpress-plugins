@@ -23,7 +23,7 @@ function futurio_extra_requirements() {
 
 function futurio_extra_admin_notices() {
 	
-	if(defined('FUTURIO_PRO_CURRENT_VERSION') && version_compare(FUTURIO_PRO_CURRENT_VERSION, '2.5.2', '<')  )	{add_action('admin_notices',  'futurio_extra_notice_update_pro' );}
+	if(defined('FUTURIO_PRO_CURRENT_VERSION') && version_compare(FUTURIO_PRO_CURRENT_VERSION, '2.5.3', '<')  )	{add_action('admin_notices',  'futurio_extra_notice_update_pro' );}
 
     $futurio_extra_errors = futurio_extra_requirements();
 

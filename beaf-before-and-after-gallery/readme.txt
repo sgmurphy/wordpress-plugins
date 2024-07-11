@@ -4,7 +4,7 @@ Donate link:
 Tags: before after, before after elementor, before after slider, before after gallery, before after image
 Requires at least: 4.0
 Tested up to: 6.5
-Stable tag: 4.5.13
+Stable tag: 4.5.14
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -345,6 +345,11 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 24. Before After Video Slider
 
 == Changelog ==
+
+= 4.5.14 – 11/07/2024 =
+
+- Improvement: System stability improved
+- Fixed: Notice banner issue 
 
 = 4.5.13 – 04/07/2024 =
 

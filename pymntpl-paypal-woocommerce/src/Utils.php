@@ -121,7 +121,8 @@ class Utils {
 	public static function get_cart_data( $cart ) {
 		return [
 			'total'         => NumberUtil::round( $cart->total, 2 ),
-			'needsShipping' => $cart->needs_shipping()
+			'needsShipping' => $cart->needs_shipping(),
+			'isEmpty'       => $cart->is_empty()
 		];
 	}
 

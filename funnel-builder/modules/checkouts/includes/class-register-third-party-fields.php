@@ -332,7 +332,7 @@ class WFACP_Class_Register_Third_Party_Fields {
 	 * Add Default AeroCheckout class on the field when class not exists
 	 */
 	public function add_default_wfacp_styling( $args, $key ) {
-
+		$other_address_fields = WFACP_Common::get_aero_registered_checkout_fields();
 		if ( isset( $args['class'] ) && is_array( $args['class'] ) && ! in_array( 'wfacp-col-full', $args['class'] ) ) {
 			$args['class'] = array_merge( [ 'wfacp-form-control-wrapper', 'wfacp-col-full' ], $args['class'] );
 			if ( false !== strpos( $args['type'], 'hidden' ) ) {
@@ -366,7 +366,7 @@ class WFACP_Class_Register_Third_Party_Fields {
 			$args['placeholder'] = $args['label'];
 		}
 
-		if ( isset( $args['type'] ) && 'select' === $args['type'] && count( $this->wc_fields_under_billing ) > 0 && array_key_exists( $key, $this->wc_fields_under_billing ) ) {
+		if ( ! in_array( $key, $other_address_fields ) && isset( $args['type'] ) && 'select' === $args['type'] && count( $this->wc_fields_under_billing ) > 0 && array_key_exists( $key, $this->wc_fields_under_billing ) && isset($this->wc_fields_under_billing[ $key ]['options']) ) {
 			$args['options'] = $this->wc_fields_under_billing[ $key ]['options'];
 
 		}

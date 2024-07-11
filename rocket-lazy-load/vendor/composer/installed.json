@@ -1,57 +1,5 @@
 {
-    "packages": [
-        {
-            "name": "wp-media/rocket-lazyload-common",
-            "version": "v2.5.12",
-            "version_normalized": "2.5.12.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "09bdc9a550b8bd1197c155a98e17c45adcb190af"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/09bdc9a550b8bd1197c155a98e17c45adcb190af",
-                "reference": "09bdc9a550b8bd1197c155a98e17c45adcb190af",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "brain/monkey": "^2.0",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-                "doctrine/instantiator": "1.0.*",
-                "myclabs/deep-copy": "1.6.*",
-                "phpcompatibility/phpcompatibility-wp": "^2.0",
-                "phpdocumentor/reflection-docblock": "^3.3",
-                "phpunit/php-token-stream": "^1.4",
-                "phpunit/phpunit": "^5.7",
-                "symfony/yaml": "2.8.*",
-                "wp-coding-standards/wpcs": "^2.0.0"
-            },
-            "time": "2020-07-10T18:41:12+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "RocketLazyload\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "WP Media",
-                    "email": "contact@wp-media.me"
-                }
-            ],
-            "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "install-path": "../wp-media/rocket-lazyload-common"
-        }
-    ],
+    "packages": [],
     "dev": false,
     "dev-package-names": []
 }

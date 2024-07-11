@@ -619,11 +619,13 @@ class MailerLiteClassicAPI
      * @param       $url
      * @param       $image
      * @param       $categories
+     * @param       $description
+     * @param       $shortDescription
      *
      * @return      bool
      * @since       1.6.0
      */
-    public function syncProduct($shop_id, $product_id, $name, $price, $exclude_automation, $url, $image, $categories)
+    public function syncProduct($shop_id, $product_id, $name, $price, $exclude_automation, $url, $image, $categories, $description, $shortDescription)
     {
 
         return true;

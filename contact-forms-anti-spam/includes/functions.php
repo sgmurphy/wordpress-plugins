@@ -87,52 +87,50 @@ if (!defined('ABSPATH')) exit;
 
 //Get data from DB
 
-    function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
-        global $wpdb;
-        if($table_var=='old'){
-            $table = $wpdb->prefix . 'options'; // old table
-        }else{
-            $table = maspik_get_dbtable();
-        }
-
-       
+function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
+    global $wpdb;
+    if($table_var == 'old'){
+        $table = $wpdb->prefix . 'options'; // old table
+        $setting_label = 'option_name';
+        $setting_value = 'option_value';
+    } else {
+        $table = maspik_get_dbtable();
         $setting_label = maspik_get_dblabel();
         $setting_value = maspik_get_dbvalue();
+    }
 
-        $results = $wpdb->get_results(
-            $wpdb->prepare("SELECT * FROM $table WHERE $setting_label = %s", $data_name)
-            );
+    $results = $wpdb->get_results(
+        $wpdb->prepare("SELECT * FROM $table WHERE $setting_label = %s", $data_name)
+    );
 
-        // Check if there are any results
-        if ($results) {
-            $data = ''; // clean variable
-            if($type == "toggle"){// data for toggles
-                foreach ($results as $result) {
-                        $data = $result->$setting_value  == 1 ? 'checked' : '';
-                }
-            }elseif($type == "form-toggle"){// data for toggles
-                foreach ($results as $result) {
-                        if (!$result->$setting_value){
-                            $data = 1;
-                        }else{
-                            $data = $result->$setting_value  == 'yes' ? 1 : 0;
-                        }
-                        
-                }
-            }elseif($type == "select"){// just return raw for select
-                $data = $results;
-                
-            }else{// for everything else
-                foreach ($results as $result) {
-                    $data .= $result->$setting_value; 
+    // Check if there are any results
+    if ($results) {
+        $data = ''; // clean variable
+        if($type == "toggle"){// data for toggles
+            foreach ($results as $result) {
+                $data = $result->$setting_value  == 1 ? 'checked' : '';
+            }
+        } elseif($type == "form-toggle"){// data for toggles
+            foreach ($results as $result) {
+                if (!$result->$setting_value){
+                    $data = 1;
+                } else {
+                    $data = $result->$setting_value  == 'yes' ? 1 : 0;
                 }
             }
-        } else { $data = " --- "; }
-    
-        
-        return $data;
-
+        } elseif($type == "select"){// just return raw for select
+            $data = $results;
+        } else {// for everything else
+            foreach ($results as $result) {
+                $data .= $result->$setting_value; 
+            }
+        }
+    } else { 
+        $data = " --- "; 
     }
+    
+    return $data;
+}
 //Get data from DB - END
 
 // New table management functions
@@ -1311,13 +1309,17 @@ function old_cfas_get_error_text($field = "error_message") {
 
 
 function get_maspik_footer(){
-    ?> <footer class="maspik-footer" style="background: #FFBBA6;padding: 20px;text-align: center;margin-top: 30px;border-radius: 20px;">
-    <h3><?php _e('DO YOU LIKE MASPIK?', 'contact-forms-anti-spam'); ?></h3>
-    <?php echo __('Please, ', 'contact-forms-anti-spam') . '<a href="https://wordpress.org/support/plugin/contact-forms-anti-spam/reviews/#new-post" target="_blank">' . __('Give us 5 stars', 'contact-forms-anti-spam') . '</a>.'; ?>
-    <p><?php _e('Need support? Do you have ideas on how to improve MASPIK?', 'contact-forms-anti-spam'); ?><br>
-    <?php echo __('We would love to hear from you at', 'contact-forms-anti-spam') . ' <a href="mailto:hello@wpmaspik.com" target="_blank">hello@wpmaspik.com</a>'; ?></p>
-</footer>
-<?php
+    ?> 
+    <footer class="maspik-footer" style="background: #FFBBA6;padding: 20px;text-align: center;margin-top: 30px;border-radius: 20px;">
+        <h3><?php _e('DO YOU LIKE MASPIK?', 'contact-forms-anti-spam'); ?></h3>
+        <?php echo __('Please, ', 'contact-forms-anti-spam') . '<a href="https://wordpress.org/support/plugin/contact-forms-anti-spam/reviews/#new-post" target="_blank">' . __('Give us 5 stars', 'contact-forms-anti-spam') . '</a>.'; ?>
+        <h3><?php _e('Join Our Facebook Community!', 'contact-forms-anti-spam'); ?></h3>
+        <p><?php echo __('Ask questions, share spam examples, get ideas on how to block them, share feedback, and suggest new features. Join us at ', 'contact-forms-anti-spam') . '<a href="https://www.facebook.com/groups/maspik" target="_blank">' . __('WP Maspik Community - Stopping Spam Together', 'contact-forms-anti-spam') . '</a>.'; ?></p>
+        <p><?php _e('Need support? Do you have ideas on how to improve MASPIK?', 'contact-forms-anti-spam'); ?><br>
+        <?php echo __('We would love to hear from you at', 'contact-forms-anti-spam') . ' <a href="mailto:hello@wpmaspik.com" target="_blank">hello@wpmaspik.com</a>'; ?></p>
+
+    </footer>
+    <?php
 }
 
 add_filter( 'admin_body_class', 'cfas_admin_classes' );
@@ -1655,7 +1657,7 @@ function checkTelForSpam($field_value) {
 function validateTextField($field_value) {  
     // Convert the field value to lowercase.
     $field_value = strtolower($field_value);
-  	$text_blacklist = maspik_get_settings( 'text_blacklist' ) ? efas_makeArray(maspik_get_settings('text_blacklist') ) : array('eric jones');
+  	$text_blacklist = maspik_get_settings( 'text_blacklist' ) ? efas_makeArray(maspik_get_settings('text_blacklist') ) : array();
 	$spam = false;
   	if ( efas_get_spam_api() ){
     	$text_blacklist_json =  efas_get_spam_api();

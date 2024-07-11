@@ -447,7 +447,11 @@ class Cartflows_Checkout_Fields {
 					if ( is_array( $value ) && isset( $fieldset[ $type . '_' . $key ] ) ) {
 						if ( isset( $value['required'] ) ) {
 							$fieldset[ $type . '_' . $key ]['required'] = $value['required'];
+							
 						}
+						if ( ! empty( $country ) && 'state' === $key ) {
+							$fieldset[ $type . '_' . $key ]['country'] = $country;
+						}                   
 					}
 				}
 			}
@@ -616,7 +620,7 @@ class Cartflows_Checkout_Fields {
 						}
 
 						// Remove screen-reader-text class from labels.
-						if ( isset( $fields[ $type ][ $key ]['label_class'] ) ) {
+						if ( ! empty( $fields[ $type ][ $key ]['label_class'] ) && is_array( $fields[ $type ][ $key ]['label_class'] ) ) {
 							$fields[ $type ][ $key ]['label_class'] = array_diff( $fields[ $type ][ $key ]['label_class'], array( 'screen-reader-text' ) );
 						}
 

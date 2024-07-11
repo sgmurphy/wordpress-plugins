@@ -1,9 +1,9 @@
 === Page-list ===
 Contributors: webvitaly
 Donate link: http://web-profile.net/donate/
-Tags: page, page-list, pagelist, sitemap, subpages, siblings
+Tags: page-list, pagelist, sitemap, subpages, siblings
 Requires at least: 3.0
-Tested up to: 6.2
+Tested up to: 6.5
 Stable tag: 5.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html

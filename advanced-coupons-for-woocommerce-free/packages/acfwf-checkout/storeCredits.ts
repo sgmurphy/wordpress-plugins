@@ -7,6 +7,7 @@ const $ = jQuery;
 
 export default function storeCreditEvents() {
   $(document.body).on('click', '.acfw-redeem-store-credit-form-field .button', applyStoreCredits);
+  $(document.body).on('click', '.acfw-remove-store-credits', removeStoreCredits);
 }
 
 export function applyStoreCredits() {
@@ -61,4 +62,18 @@ function validatePrice(value: number | string) {
   }
 
   return parseFloat(value) === parseFloat(newvalue);
+}
+
+/**
+ * Trigger remove store credits
+ *
+ * @since 4.6.2
+ */
+function removeStoreCredits() {
+  // get store credit input component
+  const $input = $('.acfw-redeem-store-credit-form-field input');
+  // clear store credit input value, the default value will be 0
+  $input.val('');
+
+  applyStoreCredits();
 }

@@ -71,6 +71,10 @@ function mesmerize_prepare_menus_after_ocdi( $data ) {
 				$newURL = str_replace( "http://{$demoURLBase}", $blogURL, $newURL );
 				$newURL = str_replace( $demoURLBase, $blogURL, $newURL );
 
+                $menuItemClasses = '';
+                if(is_array($menuItem->classes)) {
+                    $menuItemClasses = implode(' ', $menuItem->classes);
+                }
 				wp_update_nav_menu_item(
 					$term->term_id,
 					$menuItem->ID,
@@ -85,7 +89,7 @@ function mesmerize_prepare_menus_after_ocdi( $data ) {
 						'menu-item-description' => $menuItem->post_content,
 						'menu-item-attr-title'  => $menuItem->post_excerpt,
 						'menu-item-target'      => $menuItem->target,
-						'menu-item-classes'     => $menuItem->classes,
+						'menu-item-classes'     =>$menuItemClasses,
 						'menu-item-xfn'         => $menuItem->xfn,
 						'menu-item-status'      => $menuItem->post_status,
 					)
