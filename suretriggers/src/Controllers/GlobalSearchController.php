@@ -133,12 +133,19 @@ class GlobalSearchController {
 	 * @since 1.0.0
 	 */
 	public function search_ld_course( $data ) {
+
+		$page   = $data['page'];
+		$limit  = Utilities::get_search_page_limit();
+		$offset = $limit * ( $page - 1 );
+
 		$courses = get_posts(
 			[
 
-				'post_type'   => 'product',
-				'meta_key'    => '_related_course',
-				'post_status' => 'publish',
+				'post_type'      => 'product',
+				'meta_key'       => '_related_course',
+				'post_status'    => 'publish',
+				'posts_per_page' => $limit,
+				'offset'         => $offset,
 			]
 		);
 		$options = [];
@@ -149,9 +156,20 @@ class GlobalSearchController {
 			];
 		}
 
+		$all_courses = get_posts(
+			[
+				'post_type'      => 'product',
+				'meta_key'       => '_related_course',
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
+			]
+		);
+		$posts_count = count( $all_courses );
+
 		return [
 			'options' => $options,
-			'hasMore' => false,
+			'hasMore' => $posts_count > $limit && $posts_count > $offset,
 		];
 	}
 
@@ -165,13 +183,20 @@ class GlobalSearchController {
 	 * @return array
 	 */
 	public function search_achievements( $data ) {
+
+		$page   = $data['page'];
+		$limit  = Utilities::get_search_page_limit();
+		$offset = $limit * ( $page - 1 );
+
 		$post = get_post( $data['dynamic'] );
 		$slug = $post->post_name;
 
 		$achievements = get_posts(
 			[
-				'post_type'   => $slug,
-				'post_status' => 'publish',
+				'post_type'      => $slug,
+				'post_status'    => 'publish',
+				'posts_per_page' => $limit,
+				'offset'         => $offset,
 			]
 		);
 		$options      = [];
@@ -182,9 +207,11 @@ class GlobalSearchController {
 			];
 		}
 
+		$count = wp_count_posts( $slug )->publish;
+
 		return [
 			'options' => $options,
-			'hasMore' => false,
+			'hasMore' => $count > $limit && $count > $offset,
 		];
 	}
 
@@ -2979,16 +3006,22 @@ class GlobalSearchController {
 	 *
 	 * @param array $data Search Params.
 	 *
-	 * @return array[]
+	 * @return array
 	 */
 	public function search_givewp_forms( $data ) {
 
+		$page   = $data['page'];
+		$limit  = Utilities::get_search_page_limit();
+		$offset = $limit * ( $page - 1 );
+
 		$posts = get_posts(
 			[
-				'post_type'   => 'give_forms',
-				'orderby'     => 'title',
-				'order'       => 'ASC',
-				'post_status' => 'publish',
+				'post_type'      => 'give_forms',
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'post_status'    => 'publish',
+				'posts_per_page' => $limit,
+				'offset'         => $offset,
 			]
 		);
 
@@ -3002,9 +3035,11 @@ class GlobalSearchController {
 			}
 		}
 
+		$count = wp_count_posts( 'give_forms' )->publish;
+
 		return [
 			'options' => $options,
-			'hasMore' => false,
+			'hasMore' => $count > $limit && $count > $offset,
 		];
 	}
 
@@ -3584,16 +3619,22 @@ class GlobalSearchController {
 	 *
 	 * @param array $data Search Params.
 	 *
-	 * @return array[]
+	 * @return array
 	 */
 	public function search_event_calendar_rsvp_event( $data ) {
 
+		$page   = $data['page'];
+		$limit  = Utilities::get_search_page_limit();
+		$offset = $limit * ( $page - 1 );
+
 		$posts = get_posts(
 			[
-				'post_type'   => 'tribe_events',
-				'orderby'     => 'title',
-				'order'       => 'ASC',
-				'post_status' => 'publish',
+				'post_type'      => 'tribe_events',
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'post_status'    => 'publish',
+				'posts_per_page' => $limit,
+				'offset'         => $offset,
 			]
 		);
 
@@ -3612,10 +3653,11 @@ class GlobalSearchController {
 				}
 			}
 		}
+		$count = wp_count_posts( 'tribe_events' )->publish;
 
 		return [
 			'options' => $options,
-			'hasMore' => false,
+			'hasMore' => $count > $limit && $count > $offset,
 		];
 	}
 

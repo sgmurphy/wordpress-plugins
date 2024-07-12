@@ -730,7 +730,7 @@ if ( ! class_exists( 'WWP_Dashboard' ) ) {
             );
 
             foreach ( $wws_plugins_license_drm as $plugin_key => $plugin_data ) {
-                if ( WWP_Helper_Functions::check_wws_plugin_min_version( $plugin_key, $plugin_data['version'] ) ) {
+                if ( WWP_Helper_Functions::check_wws_plugin_min_version( strtolower( $plugin_key ), $plugin_data['version'] ) ) {
                     $license_status      = array_key_exists( $plugin_key, $license_data ) ? $license_data[ $plugin_key ]['license_status'] : $license_status = 'invalid';
                     $license_status_i18n = WWP_Helper_Functions::get_license_status_i18n( $license_status );
 

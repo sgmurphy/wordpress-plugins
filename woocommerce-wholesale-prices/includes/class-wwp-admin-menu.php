@@ -58,14 +58,39 @@ if ( ! class_exists( 'WWP_Admin_Menu' ) ) {
         }
 
         /**
-         * Register Wholesale Top Tevel Menu
+         * Register Wholesale Top Level Menu
          *
          * @since 2.0
          * @access public
          */
         public function register_page() {
-            // Only admin and shop manager can see the top level menu.
-            if ( current_user_can( 'administrator' ) || current_user_can( 'shop_manager' ) ) { // phpcs:ignore
+            // Admin has access by default.
+            $default_roles = array( 'administrator' );
+            $saved_roles   = (array) get_option( 'wwp_roles_allowed_dashboard_access', array() );
+
+            // Shop manager has access if not disallowed by the admin.
+            if ( empty( $saved_roles ) ) {
+                $default_roles[] = 'shop_manager';
+            }
+
+            /**
+             * Filter to allow other roles to access the wholesale dashboard.
+             * By default, only admin and shop manager can see the top level menu.
+             *
+             * @since 2.2.0
+             *
+             * @param array $allowed_roles Array of roles allowed to access the wholesale dashboard.
+             * @param array $default_roles Default roles allowed to access the wholesale dashboard.
+             * @return array
+             */
+            $allowed_roles = apply_filters(
+                'wwp_roles_allowed_dashboard_access',
+                array_merge( $default_roles, $saved_roles ),
+            );
+
+            $user = wp_get_current_user();
+
+            if ( ! empty( array_intersect( (array) $user->roles, $allowed_roles ) ) ) {
                 global $wc_wholesale_prices;
 
                 $wws_icon        = WWP_IMAGES_URL . 'wholesale-suite-icon.svg';

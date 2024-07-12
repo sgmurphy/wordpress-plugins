@@ -161,7 +161,7 @@ class DropDown extends RestController {
 		} else if ( method_exists( $this->dropdown, $method ) ) {
 			$this->response['data'] = $this->dropdown::$method( '', false );
 		} else {
-			return $this->error( __( 'Method Does not exist !', 'woo-feed' ) );
+			return $this->error( esc_attr_e( 'Method Does not exist !', 'woo-feed' ) );
 		}
 
 		$response = $this->success( $this->response['data'] );

@@ -79,13 +79,13 @@ final class Component_Registry {
 		}
 
 		if ( empty( $data ) ) {
-			throw new InvalidArgumentException( __( 'You must supply valid layout data to register a layout.', 'genesis-blocks' ) );
+			throw new InvalidArgumentException( esc_html__( 'You must supply valid layout data to register a layout.', 'genesis-blocks' ) );
 		}
 
 		foreach ( self::$required_data_keys as $required_key ) {
 			if ( ! array_key_exists( $required_key, $data ) || empty( $data[ $required_key ] ) ) {
 				/* translators: %s: The missing key that is required to register a component. */
-				throw new InvalidArgumentException( sprintf( esc_html__( 'You must supply a %s to register a layout.', 'genesis-blocks' ), $required_key ) );
+				throw new InvalidArgumentException( sprintf( esc_html__( 'You must supply a %s to register a layout.', 'genesis-blocks' ), esc_html( $required_key ) ) );
 			}
 		}
 
@@ -93,7 +93,7 @@ final class Component_Registry {
 			case 'layout':
 				if ( ! empty( self::$layouts[ $data['key'] ] ) ) {
 					/* translators: %s: The component's unique key. */
-					throw new InvalidArgumentException( sprintf( esc_html__( 'The %s layout is already registered.', 'genesis-blocks' ), $data['key'] ) );
+					throw new InvalidArgumentException( sprintf( esc_html__( 'The %s layout is already registered.', 'genesis-blocks' ), esc_html( $data['key'] ) ) );
 				}
 				self::$layouts[ $data['key'] ] = $data;
 				break;
@@ -101,7 +101,7 @@ final class Component_Registry {
 			case 'section':
 				if ( ! empty( self::$sections[ $data['key'] ] ) ) {
 					/* translators: %s: The component's unique key. */
-					throw new InvalidArgumentException( sprintf( esc_html__( 'The %s section is already registered.', 'genesis-blocks' ), $data['key'] ) );
+					throw new InvalidArgumentException( sprintf( esc_html__( 'The %s section is already registered.', 'genesis-blocks' ), esc_html( $data['key'] ) ) );
 				}
 				self::$sections[ $data['key'] ] = $data;
 				break;
@@ -139,7 +139,7 @@ final class Component_Registry {
 			case 'layout':
 				if ( empty( self::$layouts[ $key ] ) ) {
 					/* translators: The requested components unique key. */
-					throw new Exception( sprintf( esc_html__( 'The %s layout is not registered.', 'genesis-blocks' ), $key ) );
+					throw new Exception( sprintf( esc_html__( 'The %s layout is not registered.', 'genesis-blocks' ), esc_html( $key ) ) );
 				}
 				unset( self::$layouts[ $key ] );
 				break;
@@ -147,7 +147,7 @@ final class Component_Registry {
 			case 'section':
 				if ( empty( self::$sections[ $key ] ) ) {
 					/* translators: The requested components unique key. */
-					throw new Exception( sprintf( esc_html__( 'The %s section is not registered.', 'genesis-blocks' ), $key ) );
+					throw new Exception( sprintf( esc_html__( 'The %s section is not registered.', 'genesis-blocks' ), esc_html( $key ) ) );
 				}
 				unset( self::$sections[ $key ] );
 				break;
@@ -176,14 +176,14 @@ final class Component_Registry {
 			case 'layout':
 				if ( empty( self::$layouts[ $key ] ) ) {
 					/* translators: The requested components unique key. */
-					throw new Exception( sprintf( esc_html__( 'The %s layout is not registered.', 'genesis-blocks' ), $key ) );
+					throw new Exception( sprintf( esc_html__( 'The %s layout is not registered.', 'genesis-blocks' ), esc_html( $key ) ) );
 				}
 				return self::render_sections_in_layout( self::$layouts[ $key ] );
 
 			case 'section':
 				if ( empty( self::$sections[ $key ] ) ) {
 					/* translators: The requested components unique key. */
-					throw new Exception( sprintf( esc_html__( 'The %s section is not registered.', 'genesis-blocks' ), $key ) );
+					throw new Exception( sprintf( esc_html__( 'The %s section is not registered.', 'genesis-blocks' ), esc_html( $key ) ) );
 				}
 				return self::$sections[ $key ];
 

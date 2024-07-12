@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<option <?php echo ( '0' == $feedRules['ftpenabled'] ) ? 'selected="selected" ' : ''; ?>value="0"><?php esc_html_e( 'Disabled', 'woo-feed' ); ?></option>
 					<option <?php echo ( '1' == $feedRules['ftpenabled'] ) ? 'selected="selected" ' : ''; ?>value="1"><?php esc_html_e( 'Enabled', 'woo-feed' ); ?></option>
 				</select>
-                <div class="google-merchant-message webappick-info"><?php _e( 'For Google SFTP/FTP upload, first you need to create a feed on your Google Merchant Center.', 'woo-feed' ); ?></div>
+                <div class="google-merchant-message webappick-info"><?php esc_html_e( 'For Google SFTP/FTP upload, first you need to create a feed on your Google Merchant Center.', 'woo-feed' ); ?></div>
 			</td>
 		</tr>
 		<tr>

@@ -3,7 +3,7 @@ Contributors: theeventscalendar, aguseo, borkweb, bordoni, brianjessee, GeoffBel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4BSPTNFFY6AL6
 Tags: widget, image, ad, banner, sidebar
 Requires at least: 3.5
-Tested up to: 6.2.2
+Tested up to: 6.6
 Stable tag: 4.4.9
 
 A simple image widget that uses the native WordPress media manager to add image widgets to your site.
@@ -78,6 +78,13 @@ Though we do not have a demo available, we do have [screenshots available here](
 = How can I add lightbox, slider, or random image capabilities?  =
 
 These features are part of our Image Widget Plus plugin. You can learn more about [Image Widget Plus](https://evnt.is/19mh) on our website.
+
+= Found a security vulnerability? =
+
+Make sure you are reporting in a safe and responsible way. We take security very seriously. If you discover a security issue, please bring it to our attention right away! Below you will find all the methods to report security vulnerabilities:
+
+* [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/image-widget)
+* Reach out directly to us on `security [at] stellarwp.com`.
 
 = Where do I go to file a bug or ask a question? =
 

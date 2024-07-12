@@ -119,7 +119,7 @@ final class Woo_Feed_Message {
                     <div class="woo-feed-top-header">
                         <?php if ( defined('WOO_FEED_PRO_VERSION') ) { ?>
                             <div class="woo-feed-logo-wrapper">
-                                <img src="<?php echo WOO_FEED_PRO_ADMIN_URL; ?>images/woo-feed-icon.svg" alt="Woo Feed Pro">
+                                <img src="<?php echo esc_url(WOO_FEED_PRO_ADMIN_URL); ?>images/woo-feed-icon.svg" alt="Woo Feed Pro">
                                 <h1 class="woo-feed-logo-label"><?php esc_html_e('CTX Feed', 'woo-feed'); ?></h1>
                             </div>
                         <?php }else { ?>

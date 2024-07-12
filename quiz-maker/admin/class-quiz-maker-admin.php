@@ -1110,6 +1110,7 @@ class Quiz_Maker_Admin
         $quick_quiz_height                                  = 450;
         $quick_quiz_border_radius                           = 8;
         $quick_quiz_image_height                            = "";
+        $quick_quiz_progress_bar_style                      = "third";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1199,6 +1200,9 @@ class Quiz_Maker_Admin
             // Quiz image height
             $quick_quiz_image_height = (isset($_REQUEST['ays_quick_quiz_image_height']) && $_REQUEST['ays_quick_quiz_image_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_image_height'] ) ) : '';
 
+            // Progress bar style
+            $quick_quiz_progress_bar_style = (isset($_REQUEST['ays_quick_quiz_progress_bar_style']) && $_REQUEST['ays_quick_quiz_progress_bar_style'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_progress_bar_style'] ) ) : 'third';
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1245,23 +1249,23 @@ class Quiz_Maker_Admin
 
 
         $default_options = array(
-            'quiz_theme'                                => 'classic_light',
-            'color'                                     => '#5d6cf9',
-            'bg_color'                                  => '#fff',
-            'text_color'                                => '#000000',
-            'height'                                    => $quick_quiz_height,
-            'width'                                     => $quick_quiz_width,
-            'timer'                                     => 100,
-            'information_form'                          => 'disable',
-            'form_name'                                 => '',
-            'form_email'                                => '',
-            'form_phone'                                => '',
-            'enable_logged_users'                       => 'off',
-            'image_width'                               => '',
-            'image_height'                              => '',
-            'quiz_image_height'                         => $quick_quiz_image_height,
-            'enable_correction'                         => $quick_quiz_enable_correction,
-            'enable_questions_counter'                  => $quick_quiz_enable_questions_counter,
+            'quiz_theme'                                    => 'classic_light',
+            'color'                                         => '#5d6cf9',
+            'bg_color'                                      => '#fff',
+            'text_color'                                    => '#000000',
+            'height'                                        => $quick_quiz_height,
+            'width'                                         => $quick_quiz_width,
+            'timer'                                         => 100,
+            'information_form'                              => 'disable',
+            'form_name'                                     => '',
+            'form_email'                                    => '',
+            'form_phone'                                    => '',
+            'enable_logged_users'                           => 'off',
+            'image_width'                                   => '',
+            'image_height'                                  => '',
+            'quiz_image_height'                             => $quick_quiz_image_height,
+            'enable_correction'                             => $quick_quiz_enable_correction,
+            'enable_questions_counter'                      => $quick_quiz_enable_questions_counter,
             'limit_users'                               => 'off',
             'limitation_message'                        => '',
             'redirect_url'                              => '',
@@ -1318,7 +1322,7 @@ class Quiz_Maker_Admin
             'redirect_after_submit'                     => 'off',
             'submit_redirect_url'                       => '',
             'submit_redirect_delay'                     => '',
-            'progress_bar_style'                        => 'third',
+            'progress_bar_style'                        => $quick_quiz_progress_bar_style,
             'enable_exit_button'                        => 'off',
             'exit_redirect_url'                         => '',
             'image_sizing'                              => 'cover',

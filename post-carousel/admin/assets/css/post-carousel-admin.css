@@ -289,7 +289,8 @@ span.pcp-shortcode-selectable::after {
 #spf-section-sp_pcp_view_options_2 .spf-field.spf-field-select.post_meta_date_format,
 #spf-section-sp_pcp_view_options_2 .spf-field.spf-field-select.post_meta_author_avatar,
 #spf-section-sp_pcp_view_options_2 .spf-field.spf-field-icon.select_meta_icon{
-	display: none;
+	opacity: .7;
+	pointer-events: none;
 }
 
 #adminmenu #menu-posts-sp_post_carousel li:nth-child(8) a {

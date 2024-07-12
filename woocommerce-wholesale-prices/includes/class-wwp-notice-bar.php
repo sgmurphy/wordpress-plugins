@@ -90,7 +90,7 @@ if ( ! class_exists( 'WWP_Notice_Bar' ) ) {
          *
          * This will show the WWP notice bar lite in WC Settings page or Wholesale Suite page just bellow headers page title. We will only show this if there are no other premium plugins (WWPP, WWLC, WWOF ) are activated or installed, only WWP.
          *
-         * We can set the $allowed_pages where this will be shown, the default value is 'wwp-settings' and 'wholesale-suite' by a filter e.g. apply_filters('wwp_noticebar_lite_allowed_pages', array('wholesale-suite', 'help-page', 'about-page', 'upgrade-to-premium-page', 'wws-license-settings').
+         * We can set the $allowed_pages where this will be shown, the default value is 'wwp-settings' and 'wholesale-suite' by a filter e.g. apply_filters('wwp_noticebar_lite_allowed_pages', array('wholesale-suite', 'wws-help-page', 'wws-about-page', 'upgrade-to-premium-page', 'wws-license-settings').
          * We can also set the $upgrade_link, using a filter 'wwp_noticebar_lite_upgrade_link'
          *
          * @since 2.1.2
@@ -147,7 +147,7 @@ if ( ! class_exists( 'WWP_Notice_Bar' ) ) {
          */
         public function noticebar_lite_has_allowed_pages() {
 
-            $allowed_pages = apply_filters( 'wwp_noticebar_lite_allowed_pages', array( 'wholesale-suite', 'help-page', 'about-page' ) );
+            $allowed_pages = apply_filters( 'wwp_noticebar_lite_allowed_pages', array( 'wholesale-suite', 'wws-help-page', 'wws-about-page' ) );
             if ( isset( $_GET['page'] ) && in_array( $_GET['page'], $allowed_pages, true ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 return true;
             } else {

@@ -4,7 +4,7 @@ Plugin Name: Backup and Staging by WP Time Capsule
 Plugin URI: https://wptimecapsule.com
 Description: Backup and Staging by WP Time Capsule is an incremental automated schedule backup plugin that backups up your website to Dropbox, Google Drive, Amazon S3, Wasabi and Backblaze B2 Cloud on a daily basis.
 Author: Revmakx
-Version: 1.22.20
+Version: 1.22.21
 Author URI: http://www.revmakx.com
 Tested up to: 6.5.5
 /************************************************************
@@ -1474,6 +1474,10 @@ function check_wptc_update() {
 		WPTC_Base_Factory::get('Wptc_App_Functions')->plugin_upgrades('1.22.8');
 	}
 
+	if (version_compare('1.22.21', $installed_wptc_version) > 0) {
+		WPTC_Base_Factory::get('Wptc_App_Functions')->plugin_upgrades('1.22.21');
+	}
+
 	//Send data to server
 	if (version_compare(WPTC_VERSION, $installed_wptc_version) > 0) {
 		add_action( 'plugins_loaded',  'wptc_send_upgrade_info_to_server' );
@@ -2771,6 +2775,11 @@ function signup_wptc_server_wptc() {
 		$config->set_option('wptc_server_connected', true);
 		$config->set_option('signup', 'done');
 		$config->set_option('appID', $resarr->appID);
+		if(!empty($resarr->wptc_hash)){
+			$config->set_option('wptc_hash', $resarr->wptc_hash);
+			$config->set_option('use_wptc_hash', true);
+			$config->set_option('tried_wptc_hash_refresh_atleast_once', true);
+		}
 
 		init_auto_backup_settings_wptc($config);
 		$set = push_settings_wptc_server($resarr->appID, 'signup');
@@ -2994,6 +3003,43 @@ function stop_wptc_server() {
 			'email' => $email_encoded,
 		);
 		$push_result = do_cron_call_wptc('stop-service', $post_arr);
+	}
+}
+
+function refresh_wptc_server_hash() {
+	$config = WPTC_Factory::get('config');
+	if ($config->get_option('wptc_server_connected')) {
+		wptc_log('','-------trying----refresh_wptc_server_hash----------------');
+
+		$app_id = $config->get_option('appID');
+
+		$email = trim($config->get_option('main_account_email', true));
+		$email_encoded = base64_encode($email);
+
+		$post_arr = array(
+			'app_id' => $app_id,
+			'email' => $email_encoded,
+		);
+		$result = do_cron_call_wptc('prepare-hash', $post_arr);
+
+		$config->set_option('tried_wptc_hash_refresh_atleast_once', true);
+
+		if(!empty($result)){
+			$resarr = json_decode($result);
+		}
+	
+		wptc_log($resarr, "--------resarr-node reply--------");
+	
+		if (!empty($resarr) && $resarr->status == 'success') {
+			if(!empty($resarr->wptc_hash)){
+				$config->set_option('wptc_hash', $resarr->wptc_hash);
+				$config->set_option('use_wptc_hash', true);
+			}
+		} else {
+			wptc_log('', "--------refresh wptc hash failed--------");
+	
+			return false;
+		}
 	}
 }
 

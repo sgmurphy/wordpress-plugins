@@ -86,6 +86,7 @@ class Smart_Post_Show_Public {
 		if ( $found_shortcode_id ) {
 			wp_enqueue_style( 'font-awesome' );
 			wp_enqueue_style( 'pcp_swiper' );
+			wp_enqueue_style( 'pcp_fonttello_icon' );
 			wp_enqueue_style( 'pcp-style' );
 			$dynamic_style = self::load_dynamic_style( $found_shortcode_id );
 			wp_add_inline_style( 'pcp-style', $dynamic_style['dynamic_css'] );
@@ -145,6 +146,8 @@ class Smart_Post_Show_Public {
 		if ( $pcp_settings['pcp_swiper_css'] ) {
 			wp_register_style( 'pcp_swiper', SP_PC_URL . 'public/assets/css/swiper-bundle' . $this->suffix . '.css', array(), SP_PC_VERSION, 'all' );
 		}
+		wp_register_style( 'pcp_fonttello_icon', SP_PC_URL . 'admin/assets/css/fontello' . $this->suffix . '.css', array(), SP_PC_VERSION, 'all' );
+
 		wp_register_style( 'pcp-style', SP_PC_URL . 'public/assets/css/style' . $this->suffix . '.css', array(), SP_PC_VERSION, 'all' );
 
 		/**

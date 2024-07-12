@@ -114,5 +114,5 @@ $tab_name = '';
         }
         ?>
     </ul>
-    <div id="tabName"><?php echo $tab_name; ?></div>
+    <div id="tabName"><?php echo esc_attr($tab_name); ?></div>
 </div>

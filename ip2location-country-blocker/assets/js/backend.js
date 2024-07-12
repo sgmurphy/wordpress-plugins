@@ -83,7 +83,6 @@ jQuery(document).ready(function($){
 		}
 	});
 
-
 	function refresh_backend_settings(){
 		if($('#enable_backend').length == 0)
 			return;

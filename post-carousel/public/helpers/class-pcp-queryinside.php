@@ -49,7 +49,7 @@ class SP_PC_QueryInside {
 			$layout_preset        = isset( $layout['pcp_layout_preset'] ) ? $layout['pcp_layout_preset'] : '';
 			$sticky_post_position = 'top_list' === $pcp_sticky_post ? 0 : 1;
 
-		if ( 'carousel_layout' === $layout_preset ) {
+		if ( 'carousel_layout' === $layout_preset || 'slider_layout' === $layout_preset ) {
 			$post_per_page = ( $post_limit > 0 ) ? $post_limit : 999999;
 			$args          = array(
 				'post_type'           => $pcp_post_type,

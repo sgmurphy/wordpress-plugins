@@ -49,7 +49,7 @@ class Shortcode_Widget extends \Elementor\Widget_Base {
 	 * @return string Widget icon.
 	 */
 	public function get_icon() {
-		return 'sps-icon-icon';
+		return 'sps-icon-icon-3';
 	}
 
 	/**

@@ -126,7 +126,41 @@ class HMWP_Controllers_Brute extends HMWP_Classes_FrontController
         $hmwp_bruteforce = true;
 
         if (HMWP_Classes_Tools::getOption('brute_use_math')) {
-            return $this->model->brute_math_form();
+            $script = '
+                <script>
+                function reCaptchaSubmit(e) {
+                    var form = this;
+                    e.preventDefault();
+    
+                    var brute_num = document.getElementsByName("brute_num")[0];
+                    if(typeof brute_num !== "undefined"){
+                        var input = document.createElement("input");
+                        input.type = "hidden";
+                        input.name = "brute_num" ;
+                        input.value = brute_num.value ;
+                        form.appendChild(input);
+                    }
+                    
+                    var brute_ck = document.getElementsByName("brute_ck")[0];
+                    if(typeof brute_ck !== "undefined"){
+                        var input = document.createElement("input");
+                        input.type = "hidden";
+                        input.name = "brute_ck" ;
+                        input.value = brute_ck.value ;
+                        form.appendChild(input);
+                    }
+                    
+                    form.submit();
+                }
+    
+                if(document.getElementsByTagName("form").length > 0) {
+                    var x = document.getElementsByTagName("form");
+                    for (var i = 0; i < x.length; i++) {
+                        x[i].addEventListener("submit", reCaptchaSubmit);
+                    }
+                }
+            </script>';
+            return $this->model->brute_math_form() . $script;
         }elseif (HMWP_Classes_Tools::getOption('brute_use_captcha')) {
             return $this->model->brute_recaptcha_head() . $this->model->brute_recaptcha_form();
         }elseif (HMWP_Classes_Tools::getOption('brute_use_captcha_v3')) {

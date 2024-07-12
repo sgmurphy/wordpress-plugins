@@ -368,7 +368,7 @@ if ( ! class_exists( 'WooFeedWebAppickAPI' ) ) {
 							<button type="submit" name="woo_feed_review_notice_btn_given" value="given" class="button button-primary woo-feed-btn-bg-gradient-blue"><?php esc_html_e( 'Review Here', 'woo-feed' ); ?></button>
 						</p>
 
-						<button type="submit" class="woo-feed-review-btn-dismiss" name="woo_feed_review_notice_submit"><span><?php _e( 'Dismiss', 'woo-feed' ); ?></span></button>
+						<button type="submit" class="woo-feed-review-btn-dismiss" name="woo_feed_review_notice_submit"><span><?php esc_html_e( 'Dismiss', 'woo-feed' ); ?></span></button>
 					</form>
 				</div>
 				<?php

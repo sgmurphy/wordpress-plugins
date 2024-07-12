@@ -116,6 +116,13 @@ function suretrigger_button( $atts, $content = null ) {
 		<input type="hidden" name="st_cookie_duration" value="<?php echo esc_attr( $atts['cookie_duration'] ); ?>"/>
 		<input type="hidden" name="st_user_id" value="<?php echo esc_attr( $user_id ); ?>"/>
 		<?php
+		global $post;
+		if ( ! empty( $post ) && is_object( $post ) && isset( $post->ID ) && isset( $post->post_title ) ) {
+			?>
+			<input type="hidden" name="st_button_post_id" value="<?php echo esc_attr( $post->ID ); ?>"/>
+			<input type="hidden" name="st_button_post_title" value="<?php echo esc_attr( $post->post_title ); ?>"/>
+			<?php
+		}
 		$cookie_name = 'st_trigger_button_clicked_' . esc_attr( (string) $atts['id'] );
 		if ( isset( $_COOKIE[ $cookie_name ] ) && 'yes_' . $user_id == $_COOKIE[ $cookie_name ] ) {
 			?>
@@ -223,7 +230,15 @@ function suretrigger_trigger_button_action() {
 			$st_trigger_id = sanitize_text_field( $_POST['st_trigger_id'] );
 
 			if ( isset( $_POST['st_cookie_duration'] ) || isset( $_POST['st_click'] ) ) {
-				do_action( 'st_trigger_button_action', $st_trigger_id, $user_id, sanitize_text_field( $_POST['st_cookie_duration'] ), $_POST['st_click'] );
+				if ( isset( $_POST['st_button_post_id'] ) || isset( $_POST['st_button_post_title'] ) ) {
+					$post_data = [
+						'parent_post_id'    => sanitize_text_field( $_POST['st_button_post_id'] ),
+						'parent_post_title' => sanitize_text_field( $_POST['st_button_post_title'] ),
+					];
+				} else {
+					$post_data = [];
+				}
+				do_action( 'st_trigger_button_action', $st_trigger_id, $user_id, sanitize_text_field( $_POST['st_cookie_duration'] ), $_POST['st_click'], $post_data );
 			}
 			
 			if ( isset( $_POST['st_login_url'] ) && ! empty( $_POST['st_login_url'] ) ) {

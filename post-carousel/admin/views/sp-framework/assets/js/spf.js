@@ -522,9 +522,11 @@
 					$content = $title.next()
 
 				if ($icon.hasClass('fa-angle-right')) {
-					$icon.removeClass('fa-angle-right').addClass('fa-angle-down')
+					$icon.removeClass('fa-angle-right').addClass('fa-angle-down');
+					$title.toggleClass('expanded')
 				} else {
-					$icon.removeClass('fa-angle-down').addClass('fa-angle-right')
+					$icon.removeClass('fa-angle-down').addClass('fa-angle-right');
+					$title.toggleClass('expanded')
 				}
 
 				if (!$content.data('opened')) {
@@ -639,6 +641,41 @@
 	}
 
 	//
+	// Field: tabbed
+	//
+	$.fn.spf_field_tabbed = function () {
+		return this.each(function () {
+			var $this = $(this),
+				$links = $this.find('.spf-tabbed-nav a'),
+				$sections = $this.find('.spf-tabbed-section');
+
+			$links.on('click', function (e) {
+				e.preventDefault();
+
+				var $link = $(this),
+					index = $link.index(),
+					$section = $sections.eq(index);
+
+				// Store the active tab index in a cookie
+				SP_PC.helper.set_cookie('activeTabIndex', index);
+
+				$link.addClass('spf-tabbed-active').siblings().removeClass('spf-tabbed-active');
+				$section.spf_reload_script();
+				$section.removeClass('hidden').siblings().addClass('hidden');
+			});
+			// Check if there's a stored active tab index in the cookie
+			var activeTabIndex = SP_PC.helper.get_cookie('activeTabIndex');
+			// Check if the cookie exists
+			if (activeTabIndex !== null) {
+				$links.eq(activeTabIndex).trigger('click');
+			} else {
+				$links.first().trigger('click');
+			}
+
+		});
+	};
+
+	//
 	// Field: fieldset
 	//
 	$.fn.spf_field_fieldset = function () {
@@ -708,8 +745,8 @@
 				animate: false,
 				heightStyle: 'content',
 				icons: {
-					header: 'spf-cloneable-header-icon fa fa-angle-right',
-					activeHeader: 'spf-cloneable-header-icon fa fa-angle-down'
+					header: 'spf-cloneable-header-icon',
+					activeHeader: 'spf-cloneable-header-icon'
 				},
 				activate: function (event, ui) {
 					var $panel = ui.newPanel
@@ -717,16 +754,19 @@
 
 					if ($panel.length && !$panel.data('opened')) {
 						var $fields = $panel.children()
-						var $first = $fields
-							.first()
-							.find('select')
-							.first()
+						var $first = $fields.first().find('select').first()
 						var $title = $header.find('.spf-cloneable-value')
-
+						var $title_value = $first.children("option").filter(":selected").text();
+						if ($title_value == 'Select Taxonomy') {
+							$title_value = 'Taxonomy';
+						}
+						$title.text($title_value);
 						$first.on('change', function (event) {
-							//$title.text( $first.children("option").filter(":selected").text() );
-							$title.text($first.val())
-						})
+							$title.text($first.val());
+							if ($title.text($first.val())) {
+								$title.text($first.children("option").filter(":selected").text());
+							}
+						});
 
 						$panel.spf_reload_script()
 						$panel.data('opened', true)
@@ -2170,33 +2210,82 @@
 	//
 	// Help Tooltip
 	//
+	// $.fn.spf_help = function () {
+	// 	return this.each(function () {
+	// 		var $this = $(this),
+	// 			$tooltip,
+	// 			offset_left
+
+	// 		$this.on({
+	// 			mouseenter: function () {
+	// 				$tooltip = $('<div class="spf-tooltip"></div>')
+	// 					.html($this.find('.spf-help-text').html())
+	// 					.appendTo('body')
+	// 				offset_left = SP_PC.vars.is_rtl
+	// 					? $this.offset().left - $tooltip.outerWidth()
+	// 					: $this.offset().left + 24
+
+	// 				$tooltip.css({
+	// 					top: $this.offset().top - ($tooltip.outerHeight() / 2 - 14),
+	// 					left: offset_left
+	// 				})
+	// 			},
+	// 			mouseleave: function () {
+	// 				if ($tooltip !== undefined) {
+	// 					$tooltip.remove()
+	// 				}
+	// 			}
+	// 		})
+	// 	})
+	// }
+	//
+	// Help Tooltip
+	//
 	$.fn.spf_help = function () {
 		return this.each(function () {
-			var $this = $(this),
-				$tooltip,
-				offset_left
-
+			var $this = $(this);
+			var $tooltip;
+			var $class = '';
 			$this.on({
 				mouseenter: function () {
-					$tooltip = $('<div class="spf-tooltip"></div>')
+					// this class add with the support tooltip.
+					if ($this.find('.spf-support').length > 0) {
+						$class = 'support-tooltip';
+					}
+					$tooltip = $('<div class="spf-tooltip ' + $class + '"></div>')
 						.html($this.find('.spf-help-text').html())
-						.appendTo('body')
-					offset_left = SP_PC.vars.is_rtl
-						? $this.offset().left - $tooltip.outerWidth()
-						: $this.offset().left + 24
+						.appendTo('body');
 
+					var offset_left = SP_PC.vars.is_rtl
+						? $this.offset().left - $tooltip.outerWidth()
+						: $this.offset().left + 24;
+					var $top = $this.offset().top - ($tooltip.outerHeight() / 2 - 14);
+					// this block used for support tooltip.
+					if ($this.find('.spf-support').length > 0) {
+						$top = $this.offset().top + 42;
+						offset_left = $this.offset().left - 231;
+					}
 					$tooltip.css({
-						top: $this.offset().top - ($tooltip.outerHeight() / 2 - 14),
-						left: offset_left
-					})
+						top: $top,
+						left: offset_left,
+					});
 				},
 				mouseleave: function () {
 					if ($tooltip !== undefined) {
-						$tooltip.remove()
+						// Check if the cursor is still over the tooltip
+						if (!$tooltip.is(':hover')) {
+							$tooltip.remove();
+						}
 					}
+				},
+			});
+			// Event delegation to handle tooltip removal when the cursor leaves the tooltip itself.
+			$('body').on('mouseleave', '.spf-tooltip', function () {
+				if ($tooltip !== undefined) {
+					$tooltip.remove();
 				}
-			})
-		})
+			});
+		});
 	}
 
 	//
@@ -2280,6 +2369,8 @@
 				$this.children('.spf-field-spinner').spf_field_spinner()
 				$this.children('.spf-field-switcher').spf_field_switcher()
 				$this.children('.spf-field-typography').spf_field_typography()
+				$this.children('.spf-field-tabbed').spf_field_tabbed();
+
 
 				// Field colors
 				$this
@@ -2337,6 +2428,8 @@
 				$this
 					.children('.spf-field')
 					.find('.spf-help')
+					.spf_help()
+				$('.pcp-admin-header').find('.spf-support-area')
 					.spf_help()
 
 				if (settings.dependency) {
@@ -2484,9 +2577,9 @@
 	// Post Meta fields 5th to last.
 	// Post content type with limit.
 
-	$('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').css({ "pointer-events": "none", "borderColor": "#bebebe" });
-	$('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').find('h4.spf-accordion-title, .spf--sortable-helper').css({ "backgroundColor": "#f0f0f0", "color": "#777", "marginLeft": "0", "paddingRight": "0" });
-	$('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').find('.spf--sortable-helper .fa').css("color", "#777");
+	// $('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').css({ "pointer-events": "none", "borderColor": "#bebebe" });
+	// $('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').find('h4.spf-accordion-title, .spf--sortable-helper').css({ "backgroundColor": "#f0f0f0", "color": "#777", "marginLeft": "0", "paddingRight": "0" });
+	// $('.post_content_sorter .spf--sortable-item:has(div.pcp-pro-only)').find('.spf--sortable-helper .fa').css("color", "#777");
 
 
 
@@ -2524,16 +2617,16 @@
 				pcp_display.show();
 				preview_box.html(response);
 				$.getScript(previewJS, function () {
-				_this.html('<i class="fa fa-eye-slash" aria-hidden="true"></i> Hide Preview');
-				$(document).on('change', '#sp_pcp_view_options', function (e) {
-					e.preventDefault();
-					_this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
-				});
-				$(document).on('change', '#spf-section-sp_pcp_layouts_1', function (e) {
-					e.preventDefault();
-					_this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
-				});
-				$("html, body").animate({ scrollTop: pcp_display.offset().top - 50 }, "slow");
+					_this.html('<i class="fa fa-eye-slash" aria-hidden="true"></i> Hide Preview');
+					$(document).on('change', '#sp_pcp_view_options', function (e) {
+						e.preventDefault();
+						_this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
+					});
+					$(document).on('change', '#spf-section-sp_pcp_layouts_1', function (e) {
+						e.preventDefault();
+						_this.html('<i class="fa fa-refresh" aria-hidden="true"></i> Update Preview');
+					});
+					$("html, body").animate({ scrollTop: pcp_display.offset().top - 50 }, "slow");
 				})
 			}
 		})
@@ -2595,13 +2688,13 @@
 		});
 	});
 	// smart-post-show import.
-	$('.pcp_import button.import').on('click',function (event) {
+	$('.pcp_import button.import').on('click', function (event) {
 		event.preventDefault();
 		var $this = $(this),
-		this_text = $this.text(),
-		pcp_shortcodes = $('#import').prop('files')[0];
+			this_text = $this.text(),
+			pcp_shortcodes = $('#import').prop('files')[0];
 		if ($('#import').val() != '') {
-			$this.prop('disabled',true).css( 'opacity', '0.7' );
+			$this.prop('disabled', true).css('opacity', '0.7');
 			var $im_nonce = $('#spf_options_noncesp_post_carousel_tools').val();
 			var reader = new FileReader();
 			reader.readAsText(pcp_shortcodes);
@@ -2620,13 +2713,13 @@
 						setTimeout(function () {
 							$('.spf-form-result.spf-form-success').hide().text('');
 							$('#import').val('');
-							$this.prop('disabled',false).css( 'opacity', '1' );
+							$this.prop('disabled', false).css('opacity', '1');
 							window.location.replace($('#pcp_shortcode_link_redirect').attr('href'));
 						}, 2000);
 					},
-					error: function(error){
+					error: function (error) {
 						$('#import').val('');
-						$this.prop('disabled',false).css( 'opacity', '1' );
+						$this.prop('disabled', false).css('opacity', '1');
 					}
 				});
 			}
@@ -2647,5 +2740,30 @@
 		e.preventDefault();
 		$(this).css({ "background-color": "#C5C5C6", "pointer-events": "none" }).val('Changes Saved');
 	})
+	// Function to update icon type
+	function updateNavPosition(selector, regex, type) {
+		var str = "";
+		$(selector + ' option:selected').each(function () {
+			str = $(this).val();
+		});
+		var src = $(selector + ' .spf-fieldset img').attr('src');
+		var result = src.match(regex);
+		if (result && result[1]) {
+			src = src.replace(result[1], str);
+			$(selector + ' .spf-fieldset img').attr('src', src);
+		}
+		if (type.includes(str)) {
+			$(selector + ' .pcp-pro-notice').hide();
+		} else {
+			var noticeText = "This is a <a href='https://smartpostshow.com/pricing/' target='_blank'>Pro Feature!</a>";
+			$(selector + ' .pcp-pro-notice').html(noticeText).show();
+		}
+	}
+	$('.pcp_carousel_nav_position').on('change', function () {
+		updateNavPosition(".pcp_carousel_nav_position", /nav-position\/(.+)\.svg/, 'top_right');
+	});
+	if ($('.pcp_carousel_nav_position').length > 0) {
+		updateNavPosition(".pcp_carousel_nav_position", /nav-position\/(.+)\.svg/, 'top_right');
+	}
 
 })(jQuery, window, document)

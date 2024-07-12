@@ -24,8 +24,8 @@ class SPS_CustomCSS {
 		SP_PC::createSection(
 			$prefix,
 			array(
-				'title'  => __( 'Custom CSS & JS', 'post-carousel' ),
-				'icon'   => 'fa fa-css3',
+				'title'  => __( 'Additional CSS & JS', 'post-carousel' ),
+				'icon'   => 'fa fa-file-code-o',
 				'fields' => array(
 					array(
 						'id'       => 'pcp_custom_css',

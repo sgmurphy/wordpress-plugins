@@ -91,7 +91,10 @@ if ( ! class_exists( 'WWP_Wholesale_Price_Grouped_Product' ) ) {
 
                 foreach ( $product->get_children() as $child_id ) {
 
-                    $child_price           = get_post_meta( $child_id, '_price', true );
+                    // Get child product object.
+                    $child_product = wc_get_product( $child_id );
+
+                    $child_price           = $child_product->get_meta( '_price', true );
                     $price_arr             = WWP_Wholesale_Prices::get_product_wholesale_price_on_shop_v3( $child_id, $user_wholesale_role );
                     $child_wholesale_price = $price_arr['wholesale_price_raw'];
 
@@ -222,7 +225,7 @@ if ( ! class_exists( 'WWP_Wholesale_Price_Grouped_Product' ) ) {
                     )
                 );
 
-                $grouped_products = get_post_meta( $product_id, '_children', true );
+                $grouped_products = $product->get_meta( '_children', true );
 
                 if ( ! empty( $grouped_products ) ) {
 
@@ -271,7 +274,6 @@ if ( ! class_exists( 'WWP_Wholesale_Price_Grouped_Product' ) ) {
                 add_action( 'save_post', array( $this, 'insert_have_wholesale_price_meta' ), 10, 1 );
             }
         }
-
-    }
+}
 
 }

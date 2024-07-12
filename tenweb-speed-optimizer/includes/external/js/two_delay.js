@@ -176,18 +176,31 @@ function two_connect_script(i, scripts_list=null) {
         two_connect_script(i, scripts_list);
 
     } else {
+        let elementor_frontend_js = null;
         document.querySelectorAll(".loaded_two_worker_js").forEach((elem) => {
-            let data_src = elem.dataset.src;
-            if(elem.dataset.blob_exclude === "1"){
-                delete elem.dataset.blob_exclude;
-                delete elem.dataset.src;
-                delete elem.dataset.two_delay_id;
-                delete elem.dataset.two_delay_src;
-            }
-            if (data_src){
-                elem.setAttribute("src",data_src);
+            let id = elem.getAttribute("id");
+            /*We load this JS last so that the all the elementor widgets' js files have already been loaded*/
+            if(id != 'elementor-frontend-js') {
+                two_load_delayed_js(elem);
+            }else{
+                elementor_frontend_js = elem;
             }
         });
+        if(elementor_frontend_js !== null){
+            two_load_delayed_js(elementor_frontend_js);
+        }
+    }
+}
+function two_load_delayed_js(elem){
+    let data_src = elem.dataset.src;
+    if(elem.dataset.blob_exclude === "1"){
+        delete elem.dataset.blob_exclude;
+        delete elem.dataset.src;
+        delete elem.dataset.two_delay_id;
+        delete elem.dataset.two_delay_src;
+    }
+    if (data_src){
+        elem.setAttribute("src",data_src);
     }
 }
 

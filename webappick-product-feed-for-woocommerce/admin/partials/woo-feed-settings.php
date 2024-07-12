@@ -111,7 +111,7 @@ $settings = woo_feed_get_options( 'all' );
 					</td>
 				</tr>
                 <tr>
-                    <td><label for="overridden_structured_data"><?php _e( 'WooCommerce Default Schema Override ', 'woo-feed' ); ?></label></td>
+                    <td><label for="overridden_structured_data"><?php esc_html_e( 'WooCommerce Default Schema Override ', 'woo-feed' ); ?></label></td>
                     <td>
                         <label for="overridden_structured_data">
                             <select name="overridden_structured_data" id="overridden_structured_data">

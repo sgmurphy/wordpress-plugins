@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.3
+Stable tag: 3.4.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,9 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.4 (Jul 12, 2024) =
+* Fixed: Checkout - Product Selection Settings are showing locked for the FunnelKit Basic users. (#6429)
 
 = 3.4.3 (Jul 11, 2024) =
 * Improved: Checkout - Compatibility with WooPayment Currency Switcher module. (#6364)

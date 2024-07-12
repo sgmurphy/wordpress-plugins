@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.0.51
+Stable tag: 1.0.52
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,12 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.52 - Friday, 12th July 2024 =
+* Improvement: "GiveWP" - Fixed pagination issue in form listing
+* Improvement: "WooCommerce" - Added new "Get Order Details by Order ID" Action
+* Improvement: "JetFormBuilder" - Enhanced the "Form Submitted" Trigger response for JSON-type form field values
+* Improvement: "Trigger Button" - Enhanced the "Button Clicked" Trigger response to include the parent post id and title
 
 = Version 1.0.51 - Tuesday, 2nd July 2024 =
 * Improvement: "Voxel" - Enhanced Post related Triggers

@@ -175,7 +175,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
              * There is a logic change introduced on 2.3 series where they only send variation data (or variation meta)
              * That is built in to woocommerce, so all custom variation meta added to a variable product don't get passed along
              */
-            $variable_product_meta = get_post_meta( $variation->ID );
+            $product_variation_object = wc_get_product( $variation->ID );
 
             if ( WWP_ACS_Integration_Helper::aelia_currency_switcher_active() ) {
                 ?>
@@ -187,7 +187,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                         <p style="margin:0; padding:0; line-height: 16px; font-style: italic; font-size: 13px;">
                             <?php
                                 /* translators: %1$s: HTML tag (<br/>), %2$s: HTML tag (<b>), %3$s: HTML tag (</b>) */
-                                echo sprintf( esc_html__( 'Wholesale prices are set per role and currency.%1$s%1$s%2$sNote:%3$s Wholesale price must be set for the base currency to enable wholesale pricing for that role. The base currency will be used for conversion to other currencies that have no wholesale price explicitly set (Auto).', 'woocommerce-wholesale-prices' ), '<br/>', '<b>', '</b>' );
+                                printf( esc_html__( 'Wholesale prices are set per role and currency.%1$s%1$s%2$sNote:%3$s Wholesale price must be set for the base currency to enable wholesale pricing for that role. The base currency will be used for conversion to other currencies that have no wholesale price explicitly set (Auto).', 'woocommerce-wholesale-prices' ), '<br/>', '<b>', '</b>' );
                             ?>
                         </p>
                     </header>
@@ -206,7 +206,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
 
                                 <?php
                                 // Get base currency wholesale price.
-                                $wholesale_price = isset( $variable_product_meta[ $role_key . '_wholesale_price' ][0] ) ? $variable_product_meta[ $role_key . '_wholesale_price' ][0] : '';
+                                $wholesale_price = $product_variation_object->get_meta( $role_key . '_wholesale_price', true );
 
                                 // Get base currency currency symbol.
                                 $currency_symbol = get_woocommerce_currency_symbol( $base_currency );
@@ -247,9 +247,8 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                                     }
                                     // Base currency already processed above.
 
-                                    $currency_symbol = get_woocommerce_currency_symbol( $currency_code );
-
-                                    $wholesale_price_for_specific_currency = isset( $variable_product_meta[ $role_key . '_' . $currency_code . '_wholesale_price' ][0] ) ? $variable_product_meta[ $role_key . '_' . $currency_code . '_wholesale_price' ][0] : '';
+                                    $currency_symbol                       = get_woocommerce_currency_symbol( $currency_code );
+                                    $wholesale_price_for_specific_currency = $product_variation_object->get_meta( $role_key . '_' . $currency_code . '_wholesale_price', true );
 
                                     $field_id    = $role_key . '_' . $currency_code . '_wholesale_prices[' . $loop . ']';
                                     $field_label = $woocommerce_currencies[ $currency_code ] . ' (' . $currency_symbol . ')';
@@ -322,10 +321,10 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                         /* translators: %1$s: Wholesale role name, %2$s: HTML tag (<br/>) */
                         $field_desc_percentage = sprintf( __( 'Wholesale price for %1$s customers %2$s Note: Prices are shown up to 6 decimal places but may be calculated and stored at higher precision.', 'woocommerce-wholesale-prices' ), str_replace( array( 'Customer', 'Customers' ), '', $role['roleName'] ), '<br/>' );
 
-                        $wholesale_price = isset( $variable_product_meta[ $role_key . '_wholesale_price' ][0] ) ? $variable_product_meta[ $role_key . '_wholesale_price' ][0] : '';
+                        $wholesale_price = $product_variation_object->get_meta( $role_key . '_wholesale_price', true );
 
                         // Percentage Discount.
-                        $wholesale_percentage_discount = get_post_meta( $variation->ID, $role_key . '_wholesale_percentage_discount', true );
+                        $wholesale_percentage_discount = $product_variation_object->get_meta( $role_key . '_wholesale_percentage_discount', true );
 
                         if ( metadata_exists( 'post', $variation->ID, $role_key . '_wholesale_percentage_discount' ) ) {
                             $discount_type = 'percentage';
@@ -440,15 +439,23 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                 $wholesale_roles = $this->_wwp_wholesale_roles->getAllRegisteredWholesaleRoles();
             }
 
+            /*
+             * The logic here is that we also check those variations that are not currently listed on the current page
+             * WC 2.4.x series introduce variations pagination, now if we don't check those other variations that are not listed
+             * currently coz they are on a different page, what will happen is we will only add on the $role_key . '_variations_with_wholesale_price'
+             * meta the variations that are currently listed on the current page.
+             */
+            $main_variable_product = wc_get_product( $post_id );
+
             if ( ( ! is_null( $variation_ids ) && ! is_null( $variation_wholesale_prices ) ) || ( isset( $_POST['variable_post_id'] ) && $_POST['variable_post_id'] ) ) {
 
                 /**
-                 * We delete this meta in the beginning coz we are using add_post_meta, not update_post_meta below
+                 * We delete this meta in the beginning coz we are using add_meta_data, not update_meta_data below
                  * If we don't delete this, the values will be stacked with the old values
                  * Note: per role
                  */
                 foreach ( $wholesale_roles as $role_key => $role ) {
-                    delete_post_meta( $post_id, $role_key . '_variations_with_wholesale_price' );
+                    $main_variable_product->delete_meta_data( $role_key . '_variations_with_wholesale_price' );
                 }
 
                 $variable_post_id = ! is_null( $variation_ids ) ? $variation_ids : $_POST['variable_post_id'];
@@ -531,14 +538,6 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                     }
                 }
 
-                /*
-                 * The logic here is that we also check those variations that are not currently listed on the current page
-                 * WC 2.4.x series introduce variations pagination, now if we don't check those other variations that are not listed
-                 * currently coz they are on a different page, what will happen is we will only add on the $role_key . '_variations_with_wholesale_price'
-                 * meta the variations that are currently listed on the current page.
-                 */
-                $main_variable_product = wc_get_product( $post_id );
-
                 // Get other variations that are not currently displayed coz they are on another page.
                 $other_page_variations = array_diff( $main_variable_product->get_children(), $variable_post_id );
 
@@ -554,13 +553,13 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                              * is set for the base currency to conclude that this variation have a wholesale price. Which the
                              * code below is already doing.
                              */
-
-                            $wholesale_price = get_post_meta( $variation_id, $role_key . '_wholesale_price', true );
+                            $variation_product = wc_get_product( $variation_id );
+                            $wholesale_price   = $variation_product->get_meta( $role_key . '_wholesale_price', true );
 
                             if ( is_numeric( $wholesale_price ) && $wholesale_price > 0 ) {
 
-                                add_post_meta( $post_id, $role_key . '_variations_with_wholesale_price', $variation_id );
-                                update_post_meta( $post_id, $role_key . '_have_wholesale_price', 'yes' );
+                                $main_variable_product->add_meta_data( $role_key . '_variations_with_wholesale_price', $variation_id );
+                                $main_variable_product->update_meta_data( $role_key . '_have_wholesale_price', 'yes' );
 
                             }
                         }
@@ -569,26 +568,39 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
             }
 
             /**
-             * Mark parent variable product if having wholesale price or not
-             * We need to move this out here coz there will be instances that on variable product save, WooCommerce won't pass variations data if
-             * variations tab on single variable product admin page is not opened. Therefore have wholesale price meta of parent variable product
-             * wont have proper value (  )
+             * Check if the parent variable product has wholesale price or not.
+             * If it has, then set the meta '_have_wholesale_price' to 'yes'.
+             * If not, then set the meta '_have_wholesale_price' to 'no'.
              */
-            foreach ( $wholesale_roles as $role_key => $role ) {
+            $main_variable_children = $main_variable_product->get_children();
+            if ( ! empty( $main_variable_children ) ) {
 
-                $post_meta = get_post_meta( $post_id, $role_key . '_variations_with_wholesale_price' );
+                $wholesale_child_prices = array();
+                foreach ( $main_variable_children as $main_variable_child ) {
+                    foreach ( $wholesale_roles as $role_key => $role ) {
+                        $child_product         = wc_get_product( $main_variable_child );
+                        $child_wholesale_price = $child_product->get_meta( $role_key . '_wholesale_price' );
 
-                // WWPP-147 : Delete the meta that is set when setting discount on per product category level.
-                delete_post_meta( $post_id, $role_key . '_have_wholesale_price_set_by_product_cat' );
+                        // WWPP-147 : Delete the meta that is set when setting discount on per product category level.
+                        $main_variable_product->delete_meta_data( $role_key . '_have_wholesale_price_set_by_product_cat' );
 
-                if ( ! empty( $post_meta ) ) {
-                    update_post_meta( $post_id, $role_key . '_have_wholesale_price', 'yes' );
+                        if ( is_numeric( $child_wholesale_price ) && $child_wholesale_price > 0 ) {
+                            $wholesale_child_prices[ $role_key ] = $child_wholesale_price;
+                            do_action( 'wwp_set_have_wholesale_price_meta_prod_cat_wholesale_discount', $post_id, $role_key );
+                        }
+                    }
+                }
+
+                if ( ! empty( $wholesale_child_prices ) ) {
+                    $main_variable_product->update_meta_data( $role_key . '_have_wholesale_price', 'yes' );
                 } else {
-                    update_post_meta( $post_id, $role_key . '_have_wholesale_price', 'no' );
-                    do_action( 'wwp_set_have_wholesale_price_meta_prod_cat_wholesale_discount', $post_id, $role_key );
+                    $main_variable_product->update_meta_data( $role_key . '_have_wholesale_price', 'no' );
                 }
             }
             // phpcs:enable WordPress.Security.NonceVerification.Missing
+
+            // Save the parent variable product.
+            $main_variable_product->save();
         }
 
         /**
@@ -613,6 +625,12 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
          */
         private function _save_variable_product_wholesale_price( $variable_id, $variation_id, $role_key, $wholesale_price, $wholesale_price_key, $thousand_sep, $decimal_sep, $discount_type, $percentage_discount, $aelia_currency_switcher_active = false, $is_base_currency = false, $currency_code = null ) {
             // phpcs:disable WordPress.Security.NonceVerification.Missing
+
+            // Get the parent variable product.
+            $variable_product = wc_get_product( $variable_id );
+
+            // Get the current variation product.
+            $variation_product = wc_get_product( $variation_id );
 
             /**
              * Sanitize and properly format wholesale price.
@@ -668,23 +686,27 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                  */
                 if ( $is_base_currency ) {
                     if ( is_numeric( $wholesale_price ) && $wholesale_price > 0 ) {
-                        add_post_meta( $variable_id, $role_key . '_variations_with_wholesale_price', $variation_id );
+                        $variable_product->add_meta_data( $role_key . '_variations_with_wholesale_price', $variation_id );
                     }
                 }
             } elseif ( is_numeric( $wholesale_price ) && $wholesale_price > 0 ) {
-                add_post_meta( $variable_id, $role_key . '_variations_with_wholesale_price', $variation_id );
+                $variable_product->add_meta_data( $role_key . '_variations_with_wholesale_price', $variation_id );
             }
 
             $wholesale_price = wc_clean( apply_filters( 'wwp_before_save_variation_product_wholesale_price', $wholesale_price, $role_key, $variation_id, $variable_id, $aelia_currency_switcher_active, $is_base_currency, $currency_code ) );
 
-            update_post_meta( $variation_id, $wholesale_price_key, $wholesale_price );
+            $variation_product->update_meta_data( $wholesale_price_key, $wholesale_price );
 
             if ( 'percentage' === $discount_type ) {
-                update_post_meta( $variation_id, $role_key . '_wholesale_percentage_discount', $percentage_discount );
+                $variation_product->update_meta_data( $role_key . '_wholesale_percentage_discount', $percentage_discount );
             } else {
-                delete_post_meta( $variation_id, $role_key . '_wholesale_percentage_discount' );
+                $variation_product->delete_meta_data( $role_key . '_wholesale_percentage_discount' );
             }
             // phpcs:enable WordPress.Security.NonceVerification.Missing
+
+            // Save the current variation product.
+            $variable_product->save();
+            $variation_product->save();
         }
 
         /**
@@ -702,6 +724,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
             if ( $product instanceof WC_Product && $product->is_type( 'variation' ) ) {
 
                 $variable_id                = $product->get_parent_id();
+                $variable_product           = wc_get_product( $variable_id );
                 $registered_wholesale_roles = $this->_wwp_wholesale_roles->getAllRegisteredWholesaleRoles();
 
                 if ( $registered_wholesale_roles ) {
@@ -709,20 +732,24 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Variable_Product' ) ) {
                     foreach ( $registered_wholesale_roles as $role_key => $role ) {
 
                         // Remove trace to variation with wholesale price since it will be deleted.
-                        delete_post_meta( $variable_id, $role_key . '_variations_with_wholesale_price', $variation_id );
+                        $variable_product->delete_meta_data( $role_key . '_variations_with_wholesale_price', $variation_id );
 
                         // Remove trace to variation whith percentage wholesale discount, since it will be deleted.
-                        delete_post_meta( $variable_id, $role_key . '_variations_with_percentage_discount', $variation_id );
+                        $variable_product->delete_meta_data( $role_key . '_variations_with_percentage_discount', $variation_id );
 
                         // Remove variation percentage discount.
-                        delete_post_meta( $variation_id, $role_key . '_wholesale_percentage_discount' );
+                        $product->delete_meta_data( $role_key . '_wholesale_percentage_discount' );
 
                         // Update _have_wholesale_price meta.
-                        $wholesale_variations = get_post_meta( $variable_id, $role_key . '_variations_with_wholesale_price' );
-                        update_post_meta( $variable_id, $role_key . '_have_wholesale_price', empty( $wholesale_variations ) ? 'no' : 'yes' );
+                        $wholesale_variations = WWP_Helper_Functions::get_formatted_meta_data( $variable_product, $role_key . '_variations_with_wholesale_price' );
+                        $variable_product->update_meta_data( $role_key . '_have_wholesale_price', empty( $wholesale_variations ) ? 'no' : 'yes' );
 
                     }
                 }
+
+                // Save the product.
+                $product->save();
+                $variable_product->save();
             }
         }
 

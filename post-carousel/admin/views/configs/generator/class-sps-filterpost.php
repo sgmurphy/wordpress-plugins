@@ -25,14 +25,14 @@ class SPS_FilterPost {
 			$prefix,
 			array(
 				'title'  => __( 'Filter content', 'post-carousel' ),
-				'icon'   => 'fa fa-filter',
+				'icon'   => 'sps-icon-filter',
 				'fields' => array(
 					array(
 						'id'            => 'pcp_select_post_type',
 						'type'          => 'select',
 						'title'         => __( 'Post Type(s)', 'post-carousel' ),
 						'subtitle'      => __( 'Select post type(s).', 'post-carousel' ),
-						'desc'          => __( 'To filter custom post type (product, portfolio, event...), <a href="https://smartpostshow.com/" target="_blank"><strong>Upgrade To Pro!</strong></a>', 'post-carousel' ),
+						'desc'          => __( 'To filter custom post type (product, portfolio, event...), <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><strong>Upgrade To Pro!</strong></a>', 'post-carousel' ),
 						'options'       => array(
 							'post'               => __( 'Posts', 'post-carousel' ),
 							'page'               => __( 'Pages', 'post-carousel' ),
@@ -136,10 +136,10 @@ class SPS_FilterPost {
 						'id'       => 'pcp_advanced_filter',
 						'type'     => 'checkbox',
 						'class'    => 'spf_column_2 pcp_advanced_filter',
-						'title'    => __( 'Filter by', 'post-carousel' ),
+						'title'    => __( 'Filter By', 'post-carousel' ),
 						'subtitle' => __( 'Check the option(s) to filter by.', 'post-carousel' ),
 						'options'  => array(
-							'taxonomy'     => __( 'Taxonomy', 'post-carousel' ),
+							'taxonomy'     => __( 'Taxonomy (Categories, Tags...)', 'post-carousel' ),
 							'author'       => __( 'Author', 'post-carousel' ),
 							'sortby'       => __( 'Sort By', 'post-carousel' ),
 							'custom_field' => __( 'Custom Fields (Pro)', 'post-carousel' ),
@@ -151,10 +151,10 @@ class SPS_FilterPost {
 					array(
 						'id'         => 'pcp_filter_by_taxonomy',
 						'type'       => 'accordion',
-						'class'      => 'padding-t-0 pcp-opened-accordion',
+						'class'      => 'padding-t-0 pcp-opened-accordion filter_by_style',
 						'accordions' => array(
 							array(
-								'title'  => __( 'Taxonomy', 'post-carousel' ),
+								'title'  => __( 'Taxonomy (Categories, Tags...)', 'post-carousel' ),
 								'icon'   => 'fa fa-folder-open',
 								'fields' => array(
 									// The Group Fields.
@@ -167,7 +167,7 @@ class SPS_FilterPost {
 											array(
 												'id'      => 'pcp_select_taxonomy',
 												'type'    => 'select',
-												'title'   => __( 'Select Taxonomy', 'post-carousel' ),
+												'title'   => __( 'Taxonomy Type', 'post-carousel' ),
 												'class'   => 'sp_pcp_post_taxonomy',
 												'options' => 'taxonomy',
 												'query_args' => array(
@@ -191,6 +191,7 @@ class SPS_FilterPost {
 												'empty_message' => __( 'No terms found.', 'post-carousel' ),
 												'placeholder' => __( 'Select Term(s)', 'post-carousel' ),
 												'chosen'   => true,
+												'dependency' => array( 'pcp_select_taxonomy', '!=', '' ),
 											),
 											array(
 												'id'      => 'pcp_taxonomy_term_operator',
@@ -203,12 +204,131 @@ class SPS_FilterPost {
 												),
 												'default' => 'IN',
 												'help'    => __( 'IN - Show posts which associate with one or more terms<br>AND - Show posts which match all terms<br>NOT IN - Show posts which don\'t match the terms', 'post-carousel' ),
+												'dependency' => array( 'pcp_select_taxonomy', '!=', '' ),
 											),
 											array(
 												'id'    => 'add_filter_post',
-												'class' => 'pcp_disabled',
+												// 'class' => 'pcp_disabled',
 												'type'  => 'checkbox',
 												'title' => __( 'Add to Ajax Live Filters (Pro)', 'post-carousel' ),
+												'dependency' => array( 'pcp_select_taxonomy', '!=', '' ),
+											),
+											array(
+												'type'    => 'subheading',
+												'content' => __( 'Ajax Live Filters (Frontend)', 'post-carousel' ),
+												'dependency' => array( 'add_filter_post', '==', 'true' ),
+											),
+											array(
+												'id'       => 'ajax_filter_options',
+												'type'     => 'fieldset',
+												'only_pro' => true,
+												'title'    => __( 'Ajax Live Filters (Frontend)', 'post-carousel' ),
+												'class'    => 'ajax-live-filters',
+												'dependency' => array( 'add_filter_post', '==', 'true' ),
+												'fields'   => array(
+													array(
+														'type' => 'notice',
+														'class'    => 'taxonomy-ajax-filter-notice',
+														'content' => __( 'To allow visitors to Filter, Search, and Sort on the front end,', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a>',
+													),
+													array(
+														'id'       => 'ajax_filter_style',
+														'class'    => 'hide-active-sign',
+														'type'     => 'layout_preset',
+														'only_pro' => true,
+														'title'    => __( 'Filter Type', 'post-carousel' ),
+														'title_help' => __( 'Select a type for live filter.', 'post-carousel' ),
+														'options'  => array(
+															'fl_dropdown'  => array(
+																'image' => SP_PC_URL . 'admin/img/filter-type/dropdown.svg',
+																'text'  => __( 'Dropdown', 'post-carousel' ),
+															),
+															'fl_radio'  => array(
+																'image' => SP_PC_URL . 'admin/img/filter-type/radio.svg',
+																'text'  => __( 'Radio', 'post-carousel' ),
+															),
+															'fl_checkbox'  => array(
+																'image' => SP_PC_URL . 'admin/img/filter-type/check.svg',
+																'text'  => __( 'Checkbox', 'post-carousel' ),
+															),
+															'fl_btn'  => array(
+																'image' => SP_PC_URL . 'admin/img/filter-type/button.svg',
+																'text'  => __( 'Button', 'post-carousel' ),
+															),
+														),
+														'default'  => 'fl_btn',
+													),
+													array(
+														'id'   => 'ajax_hide_empty',
+														'type' => 'checkbox',
+														'only_pro' => true,
+														'title' => __( 'Hide Empty Term(s)', 'post-carousel' ),
+														'title_help' => __( 'Check to hide empty terms.', 'post-carousel' ),
+													),
+													array(
+														'id' => 'ajax_show_count',
+														'title' => __( 'Post Counter', 'post-carousel' ),
+														'title_help' => __( 'Check to show post count.', 'post-carousel' ),
+														'type' => 'switcher',
+														'default'  => false,
+														'only_pro' => true,
+														'text_on'  => __( 'Show', 'post-carousel' ),
+														'text_off' => __( 'Hide', 'post-carousel' ),
+														'text_width' => 80,
+													),
+													array(
+														'id'       => 'pcp_filter_btn_color',
+														'type'     => 'color_group',
+														'title'    => __( 'Filter Button Color', 'post-carousel' ),
+														'only_pro' => true,
+														'options'  => array(
+															'text_color'        => __( 'Text Color', 'post-carousel' ),
+															'text_acolor'       => __( 'Text Hover', 'post-carousel' ),
+															// 'border_color'      => __( 'Border Color', 'post-carousel' ),
+															// 'border_acolor'     => __( 'Border Hover', 'post-carousel' ),
+															'background'        => __( 'Background', 'post-carousel' ),
+															'active_background' => __( 'Active/Hover BG', 'post-carousel' ),
+														),
+														'default'  => array(
+															'text_color'        => '#5e5e5e',
+															'text_acolor'       => '#ffffff',
+															// 'border_color'      => '#bbbbbb',
+															// 'border_acolor'     => '#e1624b',
+															'background'        => '#ffffff',
+															'active_background' => '#e1624b',
+														),
+														'dependency' => array( 'ajax_filter_style', '==', 'fl_btn' ),
+													),
+													array(
+														'id'      => 'pcp_ajax_filter_btn_border',
+														'type'    => 'border',
+														'title'   => __( 'Border', 'post-carousel' ),
+														'only_pro' => true,
+														'all'     => true,
+														'hover_color' => true,
+														'border_radius'      => true,
+														'default' => array(
+															'all' => '1',
+															'style' => 'solid',
+															'color' => '#bbbbbb',
+															'hover_color' => '#e1624b',
+															'border_radius' => '2',
+														),
+														'dependency' => array( 'ajax_filter_style', 'any', 'fl_btn,fl_dropdown' ),
+													),
+													array(
+														'id'       => 'pcp_live_filter_align',
+														'type'     => 'button_set',
+														'only_pro' => true,
+														'title'    => __( 'Alignment', 'post-carousel' ),
+														'options' => array(
+															'left' => '<i class="fa fa-align-left" title="Left"></i>',
+															'center' => '<i class="fa fa-align-center" title="Center"></i>',
+															'right' => '<i class="fa fa-align-right" title="Right"></i>',
+														),
+														'default'  => 'center',
+													),
+												),
 											),
 
 										),
@@ -234,7 +354,7 @@ class SPS_FilterPost {
 					array(
 						'id'         => 'pcp_filter_by_author',
 						'type'       => 'accordion',
-						'class'      => 'padding-t-0 pcp-opened-accordion',
+						'class'      => 'padding-t-0 pcp-opened-accordion filter_by_style',
 						'accordions' => array(
 							array(
 								'title'  => 'Author',
@@ -260,7 +380,7 @@ class SPS_FilterPost {
 					array(
 						'id'         => 'pcp_filter_by_order',
 						'type'       => 'accordion',
-						'class'      => 'padding-t-0 pcp-opened-accordion',
+						'class'      => 'padding-t-0 pcp-opened-accordion filter_by_style',
 						'accordions' => array(
 							array(
 								'title'  => 'Sort By',
@@ -304,7 +424,7 @@ class SPS_FilterPost {
 					array(
 						'id'         => 'pcp_filter_by_status',
 						'type'       => 'accordion',
-						'class'      => 'padding-t-0 pcp-opened-accordion',
+						'class'      => 'padding-t-0 pcp-opened-accordion filter_by_style',
 						'accordions' => array(
 							array(
 								'title'  => __( 'Status', 'post-carousel' ),
@@ -326,7 +446,7 @@ class SPS_FilterPost {
 					array(
 						'id'         => 'pcp_filter_by_keyword',
 						'type'       => 'accordion',
-						'class'      => 'padding-t-0 pcp-opened-accordion',
+						'class'      => 'padding-t-0 pcp-opened-accordion filter_by_style',
 						'accordions' => array(
 							array(
 								'title'  => __( 'Keyword', 'post-carousel' ),
@@ -343,6 +463,12 @@ class SPS_FilterPost {
 							),
 						),
 						'dependency' => array( 'pcp_advanced_filter', 'not-any', 'taxonomy,author,custom_field,sortby,date,status' ),
+					),
+					array(
+						'type'       => 'subheading',
+						'class'      => 'pcp_padding_for_filter',
+						'content'    => ' ',
+						'dependency' => array( 'pcp_advanced_filter', 'any', 'taxonomy,author,custom_field,sortby,date,status,keyword' ),
 					),
 				),
 			)

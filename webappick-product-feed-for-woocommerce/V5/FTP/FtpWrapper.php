@@ -86,7 +86,7 @@ class FtpWrapper
             return @call_user_func_array($function, $arguments);
         }
 
-        throw new FtpException("{$function} is not a valid FTP function");
+        throw new FtpException("{".esc_attr($function)." } is not a valid FTP function");
     }
 
     /**

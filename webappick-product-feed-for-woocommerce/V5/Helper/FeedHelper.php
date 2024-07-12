@@ -1868,7 +1868,7 @@ class FeedHelper {
 		ftp_pasv( $conn_id, true );
 
 		if ( ! file_exists( $localFilePath ) ) {
-			throw new FtpException( "Local file not found: $localFilePath" );
+			throw new FtpException( "Local file not found: ".esc_attr($localFilePath)."." );
 		}
 		$content = file_get_contents( $localFilePath );
 		$tmp     = fopen( tempnam( sys_get_temp_dir(), $localFilePath ), "w+" );
@@ -1881,7 +1881,7 @@ class FeedHelper {
 			return true;
 		} else {
 			throw new FtpException(
-				'Unable to put the remote file from the local file "' . $localFilePath . '"'
+				'Unable to put the remote file from the local file "' . esc_attr($localFilePath) . '"'
 			);
 		}
 

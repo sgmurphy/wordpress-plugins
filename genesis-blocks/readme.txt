@@ -1,10 +1,10 @@
 === Genesis Blocks ===
 Contributors: dreamwhisper, johnstonphilip, marksabbath, mikeday, mindctrl, modernnerd, ryankienstra, studiopress, wpengine
 Donate link: https://studiopress.com
-Tags: Blocks, editor, gutenberg, gutenberg blocks, page builder, block enabled, page building, block, WP Engine
+Tags: block, blocks, editor, gutenberg, gutenberg blocks
 Requires at least: 6.1
 Tested up to: 6.5
-Stable tag: 3.1.3
+Stable tag: 3.1.5
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -103,6 +103,12 @@ Yes, you will need to have WordPress 5.3 or later installed to take advantage of
 3. Some of the many blocks included in Genesis Blocks
 
 == Changelog ==
+
+= 3.1.5 =
+* Fixed: Escape exception output as prompted by Plugin Check. 
+
+= 3.1.4 =
+* Fixed: Security improvement for the sharing block.
 
 = 3.1.3 =
 * Fixed: Minor security vulnerability.

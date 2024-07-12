@@ -1,16 +1,17 @@
 <?php
 /**
  * Plugin Name:          WooCommerce Wholesale Prices
+ * Requires Plugins:     woocommerce
  * Plugin URI:           https://wholesalesuiteplugin.com
  * Description:          WooCommerce Extension to Provide Wholesale Prices Functionality
  * Author:               Rymera Web Co
- * Version:              2.1.12
+ * Version:              2.2.0
  * Author URI:           http://rymera.com.au/
  * Text Domain:          woocommerce-wholesale-prices
  * Requires at least:    5.2
- * Tested up to:         6.4.3
+ * Tested up to:         6.5.5
  * WC requires at least: 4.0
- * WC tested up to:      8.5.2
+ * WC tested up to:      9.0.2
  */
 
 // This file is the main plugin boot loader.

@@ -120,13 +120,12 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
         /**
          * Verify nonce if its the same as we created, if not then we return
          */
-        if ( isset( $_POST['nonce'] ) && ! wp_verify_nonce( $_POST['nonce'], 'wwp_nonce' ) ) {
+        if ( empty( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wwp_nonce' ) ) {
             return;
         }
 
         $product_id                 = $_POST['data']['product_id'];
         $product_object             = wc_get_product( $product_id );
-        $wholesale_role_options     = array();
         $wholesale_roles            = $wc_wholesale_prices->wwp_wholesale_roles->getAllRegisteredWholesaleRoles();
         $wholesale_price_title_text = trim( apply_filters( 'wwp_filter_wholesale_price_title_text', __( 'Wholesale Price:', 'woocommerce-wholesale-prices' ) ) );
         $html_result                = '';
@@ -249,7 +248,7 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
         $wholesale_price_options         = $is_wwpp_active ? get_option( 'wwp_non_wholesale_wholesale_role_select2', array() ) : array_keys( $this->_wwp_wholesale_roles->getAllRegisteredWholesaleRoles() );
         $show_in_product                 = get_option( 'wwp_non_wholesale_show_in_products' );
         $show_in_shop                    = get_option( 'wwp_non_wholesale_show_in_shop' );
-        $variable_parent_id              = $product->get_type( 'variation' ) ? $product->get_parent_id() : 0;
+        $variable_parent_object          = $product->get_type( 'variation' ) ? wc_get_product( $product->get_parent_id() ) : null;
         $show_wholesale_prices           = get_option( 'wwp_prices_settings_show_wholesale_prices_to_non_wholesale' );
 
         $message = apply_filters( 'wwp_display_non_wholesale_replacement_message', empty( $replacement_text ) ? __( 'See wholesale prices', 'woocommerce-wholesale-prices' ) : $replacement_text );
@@ -261,9 +260,9 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
 
                 foreach ( $wholesale_price_options as $wholesale_role ) {
 
-                    $wholesale_price                 = get_post_meta( $product_id, $wholesale_role . '_wholesale_price', true );
-                    $have_wholesale_price            = get_post_meta( $product_id, $wholesale_role . '_have_wholesale_price', true );
-                    $variations_with_wholesale_price = get_post_meta( $product_id, $wholesale_role . '_variations_with_wholesale_price' );
+                    $wholesale_price                 = $product->get_meta( $wholesale_role . '_wholesale_price', true );
+                    $have_wholesale_price            = $product->get_meta( $wholesale_role . '_have_wholesale_price', true );
+                    $variations_with_wholesale_price = WWP_Helper_Functions::get_formatted_meta_data( $product, $wholesale_role . '_variations_with_wholesale_price' );
 
                     // Discount is set in product level.
                     if ( $wholesale_price > 0 || ! empty( $variations_with_wholesale_price ) ) {
@@ -273,10 +272,14 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
 
                     if ( $is_wwpp_active ) {
 
-                        $ignore_cat_level                        = get_post_meta( $product_id, 'wwpp_ignore_cat_level_wholesale_discount', true );
-                        $ignore_role_level                       = get_post_meta( $product_id, 'wwpp_ignore_role_level_wholesale_discount', true );
-                        $have_wholesale_price_cat_level          = get_post_meta( $product_id, $wholesale_role . '_have_wholesale_price_set_by_product_cat', true );
-                        $variable_have_wholesale_price_cat_level = get_post_meta( $variable_parent_id, $wholesale_role . '_have_wholesale_price_set_by_product_cat', true );
+                        $ignore_cat_level               = $product->get_meta( 'wwpp_ignore_cat_level_wholesale_discount', true );
+                        $ignore_role_level              = $product->get_meta( 'wwpp_ignore_role_level_wholesale_discount', true );
+                        $have_wholesale_price_cat_level = $product->get_meta( $wholesale_role . '_have_wholesale_price_set_by_product_cat', true );
+
+                        $variable_have_wholesale_price_cat_level = false;
+                        if ( ! empty( $variable_parent_object ) && is_a( $variable_parent_object, 'WC_Product' ) ) {
+                            $variable_have_wholesale_price_cat_level = $variable_parent_object->get_meta( $wholesale_role . '_have_wholesale_price_set_by_product_cat', true );
+                        }
 
                         // Category wholesale price and ignore category level should not be set.
                         if ( ( 'yes' === $have_wholesale_price || 'yes' === $have_wholesale_price_cat_level || $variable_have_wholesale_price_cat_level ) && 'yes' !== $ignore_cat_level ) {
@@ -430,5 +433,4 @@ class WWP_Wholesale_Prices_For_Non_Wholesale_Customers {
         // Display "See wholesale prices" text in v2 and old form.
         add_filter( 'woocommerce_get_price_html', array( $this, 'show_wholesale_price_in_wwof' ), 9999, 2 );
     }
-
 }

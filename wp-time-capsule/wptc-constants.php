@@ -75,7 +75,7 @@ class WPTC_Constants{
 	}
 
 	public function versions(){
-		$this->define( 'WPTC_VERSION', '1.22.20' );
+		$this->define( 'WPTC_VERSION', '1.22.21' );
 		$this->define( 'WPTC_DATABASE_VERSION', '17.0' );
 	}
 

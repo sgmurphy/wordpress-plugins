@@ -23,11 +23,11 @@ class Ezoic_AdTester_Placeholder {
 	 * Calculates the correct embed code to inject into the page
 	 */
 	public function embed_code( $inserter_version = -1 ) {
-		$class = "";
+		$dataAttr = "";
 		if ($this->is_video_placeholder) {
-			$class = 'class="ezoic-ad-video-placeholder"';
+			$dataAttr = 'data-ezhumixplayerlocation="true"';
 		}
-		return sprintf(self::EMBED_CODE_TEMPLATE, $this->name, $this->position_type, $this->position_id, $class, $inserter_version, $this->name, $this->position_type);
+		return sprintf(self::EMBED_CODE_TEMPLATE, $this->name, $this->position_type, $this->position_id, $dataAttr, $inserter_version, $this->name, $this->position_type);
 	}
 
 	public static function from_pubad( $ad ) {

@@ -16,13 +16,15 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Utility function that determines if a plugin is active or not.
          *
-         * @since 1.3.0
+         * @param string $plugin_basename Plugin base name. Ex. woocommerce/woocommerce.php.
+         *
+         * @since  1.3.0
          * @access public
          *
-         * @param string $plugin_basename Plugin base name. Ex. woocommerce/woocommerce.php.
          * @return boolean True if active, false otherwise.
          */
         public static function is_plugin_active( $plugin_basename ) {
+
             // Makes sure the plugin is defined before trying to use it.
             if ( ! function_exists( 'is_plugin_active' ) ) {
                 include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -34,13 +36,15 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get Admin Note instance. WC Admin v1.7 they changed the class from WC_Admin_Note to Note.
          *
-         * @since 1.13
+         * @param string $note_id Note ID.
+         *
+         * @since  1.13
          * @access public
          *
-         * @param string $note_id Note ID.
          * @return string
          */
         public static function wc_admin_note_instance( $note_id = null ) {
+
             if ( class_exists( '\Automattic\WooCommerce\Admin\Notes\Note' ) ) {
                 return new \Automattic\WooCommerce\Admin\Notes\Note( $note_id );
             } else {
@@ -51,12 +55,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * WWPP is active.
          *
-         * @since 1.12
+         * @since  1.12
          * @access public
          *
          * @return boolean True if active, false otherwise.
          */
         public static function is_wwpp_active() {
+
             global $wc_wholesale_prices_premium;
 
             return self::is_plugin_active( 'woocommerce-wholesale-prices-premium/woocommerce-wholesale-prices-premium.bootstrap.php' ) && $wc_wholesale_prices_premium;
@@ -75,7 +80,7 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
 
             global $wc_wholesale_order_form;
 
-			//phpcs:disable PEAR.Functions.FunctionCallSignature.Indent
+            //phpcs:disable PEAR.Functions.FunctionCallSignature.Indent
             return self::is_plugin_active(
                     'woocommerce-wholesale-order-form/woocommerce-wholesale-order-form.bootstrap.php'
                 ) && ( $wc_wholesale_order_form || defined( 'WWOF_PLUGIN_FILE' ) );
@@ -85,35 +90,51 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * WWLC is active.
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          * @return boolean True if active, false otherwise.
          */
         public static function is_wwlc_active() {
+
             global $wc_wholesale_lead_capture;
+
             return self::is_plugin_active( 'woocommerce-wholesale-lead-capture/woocommerce-wholesale-lead-capture.bootstrap.php' ) && $wc_wholesale_lead_capture;
+        }
+
+        /**
+         * Check if WPAY is active.
+         *
+         * @since 2.2.0
+         * @return bool
+         */
+        public static function is_wpay_active() {
+
+            return self::is_plugin_active( 'woocommerce-wholesale-payments/woocommerce-wholesale-payments.php' ) || defined( 'WPAY_PLUGIN_FILE' );
         }
 
         /**
          * ACFWF is active.
          *
-         * @since 2.1.1
+         * @since  2.1.1
          * @access public
          * @return boolean True if active, false otherwise.
          */
         public static function is_acfwf_active() {
+
             global $ACFWF;
+
             return self::is_plugin_active( 'advanced-coupons-for-woocommerce-free/advanced-coupons-for-woocommerce-free.php' ) && $ACFWF;
         }
 
         /**
          * Check if WC version is 4.3 and up or rc versions.
          *
-         * @since 1.11.10
+         * @since  1.11.10
          * @access public
          * @return boolean True if active, false otherwise.
          */
         public static function is_wc_four_point_three_and_up() {
+
             $wc_data = self::get_woocommerce_data();
 
             if (
@@ -130,11 +151,12 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check if WC Admin is active
          *
-         * @since 1.11.7
+         * @since  1.11.7
          * @access public
          * @return boolean True if active, false otherwise.
          */
         public static function is_wc_admin_active() {
+
             if ( class_exists( '\Automattic\WooCommerce\Admin\Composer\Package' ) && defined( 'WC_ADMIN_APP' ) && WC_ADMIN_APP ) {
                 return \Automattic\WooCommerce\Admin\Composer\Package::is_package_active();
             } elseif ( self::is_plugin_active( 'woocommerce-admin/woocommerce-admin.php' ) ) {
@@ -152,6 +174,7 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * @return bool
          */
         public static function is_acfwf_installed() {
+
             $plugin_file = 'advanced-coupons-for-woocommerce-free/advanced-coupons-for-woocommerce-free.php';
             $acfwf_file  = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
 
@@ -161,12 +184,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check if WWP is installed
          *
-         * @since 1.11.5
+         * @since  1.11.5
          * @access public
          *
          * @return bool
          */
         public static function is_wwp_installed() {
+
             $plugin_file = 'woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php';
             $wwp_file    = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
 
@@ -176,12 +200,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check if WWPP is installed
          *
-         * @since 1.11.5
+         * @since  1.11.5
          * @access public
          *
          * @return bool
          */
         public static function is_wwpp_installed() {
+
             $plugin_file = 'woocommerce-wholesale-prices-premium/woocommerce-wholesale-prices-premium.bootstrap.php';
             $wwpp_file   = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
 
@@ -191,12 +216,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check if WWOF is installed
          *
-         * @since 1.11.5
+         * @since  1.11.5
          * @access public
          *
          * @return bool
          */
         public static function is_wwof_installed() {
+
             $plugin_file = 'woocommerce-wholesale-order-form/woocommerce-wholesale-order-form.bootstrap.php';
             $wwof_file   = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
 
@@ -206,12 +232,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check if WWLC is installed
          *
-         * @since 1.11.5
+         * @since  1.11.5
          * @access public
          *
          * @return bool
          */
         public static function is_wwlc_installed() {
+
             $plugin_file = 'woocommerce-wholesale-lead-capture/woocommerce-wholesale-lead-capture.bootstrap.php';
             $wwlc_file   = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
 
@@ -219,27 +246,46 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         }
 
         /**
+         * Check if WPAY is installed
+         *
+         * @version 2.2.0
+         * @since   2.2.0 - Added
+         *
+         * @return bool
+         */
+        public static function is_wpay_installed() {
+
+            $plugin_file = 'woocommerce-wholesale-payments/woocommerce-wholesale-payments.php';
+            $wpay_file   = trailingslashit( WP_PLUGIN_DIR ) . plugin_basename( $plugin_file );
+
+            return file_exists( $wpay_file );
+        }
+
+        /**
          * Get data about the current woocommerce installation.
          *
-         * @since 1.3.1
+         * @since  1.3.1
          * @access public
          *
          * @return array Array of data about the current woocommerce installation.
          */
         public static function get_woocommerce_data() {
+
             return self::get_plugin_data( 'woocommerce/woocommerce.php' );
         }
 
         /**
          * Get plugin data.
          *
-         * @since 1.4.0
+         * @param string $plugin_basename Plugin basename.
+         *
+         * @since  1.4.0
          * @access public
          *
-         * @param string $plugin_basename Plugin basename.
          * @return array Array of data about the current woocommerce installation.
          */
         public static function get_plugin_data( $plugin_basename ) {
+
             if ( ! function_exists( 'get_plugin_data' ) ) {
                 require_once ABSPATH . '/wp-admin/includes/plugin.php';
             }
@@ -257,22 +303,27 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * This is similar to woocommerce_wp_select function of WooCommerce.
          * Modified the position of tooltip, this is essential for the variation products where the tooltip should be next to the label, not the text field.
          *
-         * @since 2.1.0
-         * @access public
-         *
          * @param array $field Data about the field to render.
+         *
+         * @since  2.1.0
+         * @access public
          */
         public static function woocommerce_wp_select( $field ) {
+
             global $thepostid, $post;
 
             $thepostid = empty( $thepostid ) ? $post->ID : $thepostid;
-            $field     = wp_parse_args(
+
+            // Get product object.
+            $product = wc_get_product( $thepostid );
+
+            $field = wp_parse_args(
                 $field,
                 array(
                     'class'             => 'select short',
                     'style'             => '',
                     'wrapper_class'     => '',
-                    'value'             => get_post_meta( $thepostid, $field['id'], true ),
+                    'value'             => $product->get_meta( $field['id'], true ),
                     'name'              => $field['id'],
                     'desc_tip'          => false,
                     'custom_attributes' => array(),
@@ -326,20 +377,25 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * Only difference is the position of the tooltip.
          * This is essential for wholesale prices field on variation products where the tooltip should be next to the label, not the text field.
          *
-         * @since 1.3.0
-         * @access public
-         *
          * @param array $field Field data.
+         *
+         * @since  1.3.0
+         * @access public
          */
         public static function wwp_woocommerce_wp_text_input( $field ) {
+
             global $thepostid, $post;
 
-            $thepostid              = empty( $thepostid ) ? $post->ID : $thepostid;
+            $thepostid = empty( $thepostid ) ? $post->ID : $thepostid;
+
+            // Get product object.
+            $product = wc_get_product( $thepostid );
+
             $field['placeholder']   = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
             $field['class']         = isset( $field['class'] ) ? $field['class'] : 'short';
             $field['style']         = isset( $field['style'] ) ? $field['style'] : '';
             $field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-            $field['value']         = isset( $field['value'] ) ? $field['value'] : get_post_meta( $thepostid, $field['id'], true );
+            $field['value']         = isset( $field['value'] ) ? $field['value'] : $product->get_meta( $field['id'], true );
             $field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
             $field['type']          = isset( $field['type'] ) ? $field['type'] : 'text';
             $data_type              = empty( $field['data_type'] ) ? '' : $field['data_type'];
@@ -347,19 +403,23 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
             switch ( $data_type ) {
                 case 'price':
                     $field['class'] .= ' wc_input_price';
-                    $field['value']  = wc_format_localized_price( $field['value'] );
+
+                    $field['value'] = wc_format_localized_price( $field['value'] );
                     break;
                 case 'decimal':
                     $field['class'] .= ' wc_input_decimal';
-                    $field['value']  = wc_format_localized_decimal( $field['value'] );
+
+                    $field['value'] = wc_format_localized_decimal( $field['value'] );
                     break;
                 case 'stock':
                     $field['class'] .= ' wc_input_stock';
-                    $field['value']  = wc_stock_amount( $field['value'] );
+
+                    $field['value'] = wc_stock_amount( $field['value'] );
                     break;
                 case 'url':
                     $field['class'] .= ' wc_input_url';
-                    $field['value']  = esc_url( $field['value'] );
+
+                    $field['value'] = esc_url( $field['value'] );
                     break;
 
                 default:
@@ -397,16 +457,18 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * Return formatted price.
          * WPML compatible.
          *
-         * @since 1.4.0
-         * @since 1.6.0 Bug fix. Default currency wholesale price have no currency symbol. WWP-143
-         * @since 1.11.3 Bug fix. Removed is_admin() condition. For some reason WPML is hacking it to return true always. This is causing pricing conversion issue with custom page like WWOF.
-         * @access public
-         *
          * @param float $price Raw price.
          * @param array $args  Additional arguments.
+         *
+         * @since  1.11.3 Bug fix. Removed is_admin() condition. For some reason WPML is hacking it to return true always. This is causing pricing conversion issue with custom page like WWOF.
+         * @access public
+         *
+         * @since  1.4.0
+         * @since  1.6.0 Bug fix. Default currency wholesale price have no currency symbol. WWP-143
          * @return string Formatted price.
          */
         public static function wwp_formatted_price( $price, $args = array() ) {
+
             if ( self::is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' ) ) {
 
                 global $woocommerce_wpml;
@@ -434,13 +496,15 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * Return price.
          * WPML compatible. Converts price accordingly.
          *
-         * @since 1.4.0
+         * @param float $price Raw price.
+         *
+         * @since  1.4.0
          * @access public
          *
-         * @param float $price Raw price.
          * @return float Processed price.
          */
         public static function wwp_wpml_price( $price ) {
+
             if ( self::is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' ) ) {
 
                 global $woocommerce_wpml;
@@ -462,48 +526,55 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get product price including tax. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
-         * @access public
-         *
          * @param WC_Product $product Product object.
          * @param array      $args    Array of arguments data.
+         *
+         * @since  1.3.1
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @access public
+         *
          * @return float Product price with tax.
          */
         public static function wwp_get_price_including_tax( $product, $args ) {
+
             return wc_get_price_including_tax( $product, $args );
         }
 
         /**
          * Get product price excluding tax. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
-         * @access public
-         *
          * @param WC_Product $product Product object.
          * @param array      $args    Array of arguments data.
+         *
+         * @since  1.3.1
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @access public
+         *
          * @return float Product price with no tax.
          */
         public static function wwp_get_price_excluding_tax( $product, $args ) {
+
             return wc_get_price_excluding_tax( $product, $args );
         }
 
         /**
          * Get product id. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @param WC_Product $product Product object.
+         *
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
          * @access public
          *
-         * @param WC_Product $product Product object.
+         * @since  1.3.1
          * @return int Product id.
          */
         public static function wwp_get_product_id( $product ) {
+
             if ( is_a( $product, 'WC_Product' ) ) {
                 return $product->get_id();
             } else {
                 error_log( 'WWP Error: wwp_get_product_id helper functions expect parameter $product of type WC_Product.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
                 return 0;
             }
         }
@@ -511,18 +582,21 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get variation parent variable product id. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @param WC_Product_Variation $variation Variation object.
+         *
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
          * @access public
          *
-         * @param WC_Product_Variation $variation Variation object.
+         * @since  1.3.1
          * @return int Variable product id.
          */
         public static function wwp_get_parent_variable_id( $variation ) {
+
             if ( self::wwp_get_product_type( $variation ) === 'variation' ) {
                 return $variation->get_parent_id();
             } else {
                 error_log( 'WWP Error: wwp_get_parent_variable_id helper function expect parameter $variation as a product variation.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
                 return 0;
             }
         }
@@ -530,18 +604,21 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get product type. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @param WC_Product $product Product type.
+         *
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
          * @access public
          *
-         * @param WC_Product $product Product type.
+         * @since  1.3.1
          * @return string Product type.
          */
         public static function wwp_get_product_type( $product ) {
+
             if ( is_a( $product, 'WC_Product' ) ) {
                 return $product->get_type();
             } else {
                 error_log( 'WWP Error: wwp_get_product_type helper functions expect parameter $product of type WC_Product.' ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+
                 return 0;
             }
         }
@@ -549,31 +626,36 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get product display price. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
-         * @access public
-         *
          * @param WC_Product $product Product object.
          * @param array      $args    Array of additional data.
+         *
+         * @since  1.3.1
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @access public
+         *
          * @return float Product display price.
          */
         public static function wwp_get_product_display_price( $product, $args = array() ) {
+
             return wc_get_price_to_display( $product, $args );
         }
 
         /**
          * Match a variation to a given set of attributes using a WP_Query. WC 2.7.
          *
-         * @since 1.3.1
-         * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
-         * @access public
-         *
          * @param WC_Product_Variable $variable         Variable product.
          * @param array               $match_attributes Attributes to match with.
+         *
+         * @since  1.3.1
+         * @since  2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @access public
+         *
          * @return int Matched variation id.
          */
         public static function wwp_get_matching_variation( $variable, $match_attributes = array() ) {
+
             $data_store = WC_Data_Store::load( 'product' );
+
             return $data_store->find_matching_product_variation( $variable, $match_attributes );
         }
 
@@ -583,10 +665,11 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * So what happens is every time we call 'get_available_variations', we fire the 'woocommerce_get_price_html' filter, then our callbacks gets triggered.
          * In short we are executing our callbacks unnecessarily.
          *
-         * @since 1.5.0
+         * @param boolean $return Boolean flag to determine to either show variation price or not.
+         *
+         * @since  1.5.0
          * @access public
          *
-         * @param boolean $return Boolean flag to determine to either show variation price or not.
          * @return boolean Hard boolean false.
          */
         public static function wwp_hide_woocommerce_show_variation_price( $return ) { // phpcs:ignore
@@ -597,16 +680,30 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * Efficient way of getting all variations of a variable product.
          * Please see 'wwp_hide_woocommerce_show_variation_price' above.
          *
-         * @since 1.5.0
+         * @param WC_Product_Variable $variable_product Variable product object.
+         *
+         * @since  1.5.0
          * @access public
          *
-         * @param WC_Product_Variable $variable_product Variable product object.
          * @return array Array of variable product variations.
          */
         public static function wwp_get_variable_product_variations( $variable_product ) {
-            add_filter( 'woocommerce_show_variation_price', array( 'WWP_Helper_Functions', 'wwp_hide_woocommerce_show_variation_price' ) );
+
+            add_filter(
+                'woocommerce_show_variation_price',
+                array(
+                    'WWP_Helper_Functions',
+                    'wwp_hide_woocommerce_show_variation_price',
+                )
+            );
             $variations = $variable_product->get_available_variations();
-            remove_filter( 'woocommerce_show_variation_price', array( 'WWP_Helper_Functions', 'wwp_hide_woocommerce_show_variation_price' ) );
+            remove_filter(
+                'woocommerce_show_variation_price',
+                array(
+                    'WWP_Helper_Functions',
+                    'wwp_hide_woocommerce_show_variation_price',
+                )
+            );
 
             return $variations;
         }
@@ -614,14 +711,16 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check validity of a save post action.
          *
-         * @since 1.6.0
-         * @access public
-         *
          * @param int    $post_id   Id of the coupon post.
          * @param string $post_type Post type to check.
+         *
+         * @since  1.6.0
+         * @access public
+         *
          * @return bool True if valid save post action, False otherwise.
          */
         public static function check_if_valid_save_post_action( $post_id, $post_type ) {
+
             if ( get_post_type() !== $post_type ||
                 empty( $_POST ) || // phpcs:ignore WordPress.Security.NonceVerification.Missing
                 wp_is_post_autosave( $post_id ) ||
@@ -637,18 +736,20 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Log deprecated function error to the debug.log file.
          *
-         * @since 1.10.0
-         * @access public
+         * @param array  $trace         debug_backtrace() output.
+         * @param string $function_name Name of depecrated function.
+         * @param string $version       Version when the function is set as depecrated since.
+         * @param string $replacement   Name of function to be replaced.
          *
-         * @param array  $trace            debug_backtrace() output.
-         * @param string $function_name    Name of depecrated function.
-         * @param string $version          Version when the function is set as depecrated since.
-         * @param string $replacement      Name of function to be replaced.
+         * @since  1.10.0
+         * @access public
          */
         public static function deprecated_function( $trace, $function_name, $version, $replacement = null ) {
+
             $caller = array_shift( $trace );
 
-            $log_string  = "The <em>{$function_name}</em> function is deprecated since version <em>{$version}</em>.";
+            $log_string = "The <em>{$function_name}</em> function is deprecated since version <em>{$version}</em>.";
+
             $log_string .= $replacement ? " Replace with <em>{$replacement}</em>." : '';
             $log_string .= ' Trace: <strong>' . $caller['file'] . '</strong> on line <strong>' . $caller['line'] . '</strong>';
 
@@ -658,27 +759,31 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Convenience function to fetch WWP version
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
          * @return string WWP version
          */
         public static function get_wwp_version() {
+
             global $wc_wholesale_prices;
+
             return $wc_wholesale_prices::VERSION;
         }
 
         /**
          * Convenience function to fetch WWPP version
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
          * @return string WWPP version
          */
         public static function get_wwpp_version() {
+
             if ( self::is_wwpp_active() ) {
                 global $wc_wholesale_prices_premium;
+
                 return $wc_wholesale_prices_premium::VERSION;
             } else {
                 return '';
@@ -714,14 +819,16 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Convenience function to fetch WWLC version
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
          * @return string WWLC version
          */
         public static function get_wwlc_version() {
+
             if ( self::is_wwlc_active() ) {
                 global $wc_wholesale_lead_capture;
+
                 return $wc_wholesale_lead_capture::VERSION;
             } else {
                 return '';
@@ -731,25 +838,28 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check to see if any paid plugin by Wholesale Suite is active
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
-         * @return bool If a paid plugin (WWPP, WWOF, or WWLC) is active or not
+         * @return bool If a paid plugin (WWPP, WWOF, WWLC, or WPAY) is active or not
          */
         public static function has_paid_plugin_active() {
-            return ( self::is_wwpp_active() || self::is_wwof_active() || self::is_wwlc_active() );
+
+            return ( self::is_wwpp_active() || self::is_wwof_active() || self::is_wwlc_active() || self::is_wpay_active() );
         }
 
         /**
          * Check to see if the given URL looks like a dev site
          *
-         * @since 1.14
+         * @param string $url URL to check.
+         *
+         * @since  1.14
          * @access public
          *
-         * @param string $url URL to check.
          * @return bool If it appears to be a dev site
          */
         public static function is_dev_url( $url = '' ) {
+
             $is_local_url = false;
 
             // Check if testing constant is set.
@@ -808,12 +918,13 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Retrieve all premium plugin license data if present
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
          * @return array Array containing license data (if present, otherwise this will be empty)
          */
         public static function get_license_data() {
+
             $license_data = array();
 
             if ( self::is_wwpp_active() ) {
@@ -840,31 +951,39 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
                 $license_data['wwlc_license_key']   = $wwlc_license_key;
             }
 
+            if ( self::is_wpay_active() ) {
+                $license_data['wpay_license_key']   = is_multisite() ? get_site_option( 'wpay_license_key', null ) : get_option( 'wpay_license_key', null );
+                $license_data['wpay_license_email'] = is_multisite() ? get_site_option( 'wpay_license_email', null ) : get_option( 'wpay_license_email', null );
+            }
+
             return $license_data;
         }
 
         /**
          * Helper function to fetch the current WooCommerce version and return it
          *
-         * @since 1.14
+         * @since  1.14
          * @access public
          *
          * @return string WooCommerce version as reported by WooCommerce
          */
         public static function get_current_woocommerce_version() {
+
             $woocommerce_data = self::get_woocommerce_data();
+
             return isset( $woocommerce_data['Version'] ) ? $woocommerce_data['Version'] : '';
         }
 
         /**
          * Load React Scripts.
          *
-         * @since 2.0
-         * @access public
-         *
          * @param array $args Arguments.
+         *
+         * @since  2.0
+         * @access public
          */
         public static function load_react_scripts( $args ) {
+
             global $wc_wholesale_prices;
 
             if ( isset( $args['dir_name'] ) ) {
@@ -916,10 +1035,11 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
          * Check if current WWP is v2.0.
          * Thi is used in other WWS Plugis.
          *
-         * @since 2.0
+         * @since  2.0
          * @access public
          */
         public static function is_wwp_v2() {
+
             if ( self::is_plugin_active( 'woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php' ) ) {
 
                 if ( ! function_exists( 'get_plugin_data' ) ) {
@@ -939,13 +1059,14 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Check the min version of WWS Premium Plugins.
          *
-         * @since 2.0
-         * @access public
-         *
-         * @param string $plugin Plugin name.
+         * @param string $plugin  Plugin name.
          * @param string $version Plugin version.
+         *
+         * @since  2.0
+         * @access public
          */
         public static function check_wws_plugin_min_version( $plugin, $version ) {
+
             if ( ! function_exists( 'get_plugin_data' ) ) {
                 require_once ABSPATH . '/wp-admin/includes/plugin.php';
             }
@@ -993,13 +1114,15 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get WWS license data.
          *
-         * @since 2.1.10.2
+         * @param string $software_key The software key to get license data.
+         *
+         * @since  2.1.10.2
          * @access public
          *
-         * @param string $software_key The software key to get license data.
          * @return array
          */
         public static function get_wws_license_data( $software_key = '' ) {
+
             $license_data = is_multisite() ? (array) get_site_option( WWS_LICENSE_DATA, array() ) : (array) get_option( WWS_LICENSE_DATA, array() );
 
             if ( ! empty( $software_key && array_key_exists( $software_key, $license_data ) ) ) {
@@ -1012,13 +1135,15 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
         /**
          * Get license status i18n.
          *
-         * @since 2.1.10.2
+         * @param string $status The license status to get i18n.
+         *
+         * @since  2.1.10.2
          * @access public
          *
-         * @param string $status The license status to get i18n.
          * @return string
          */
         public static function get_license_status_i18n( $status ) {
+
             switch ( $status ) {
                 case 'active':
                     return __( 'Active', 'woocommerce-wholesale-prices' );
@@ -1029,6 +1154,74 @@ if ( ! class_exists( 'WWP_Helper_Functions' ) ) {
                 case 'expired':
                     return __( 'Expired', 'woocommerce-wholesale-prices' );
             }
+        }
+
+        /**
+         * Get formatted meta data.
+         *
+         * @param WC_Product $product  Product object.
+         * @param string     $meta_key Meta key.
+         *
+         * @since  2.2.0
+         * @access public
+         *
+         * @return array Formatted meta data.
+         */
+        public static function get_formatted_meta_data( $product, $meta_key ) {
+
+            $meta_datas          = $product->get_meta( $meta_key, false );
+            $formatted_meta_data = array();
+            if ( ! empty( $meta_datas ) ) {
+                foreach ( $meta_datas as $meta ) {
+                    $formatted_meta_data[] = $meta->value;
+                }
+            }
+
+            return $formatted_meta_data;
+        }
+
+        /**
+         * Checks if the page has a WooCommerce cart block.
+         *
+         * @since 2.2.0
+         * @return bool
+         */
+        public static function has_wc_cart_block() {
+
+            return has_block( 'woocommerce/cart' );
+        }
+
+        /**
+         * Checks if the page has a WooCommerce checkout block.
+         *
+         * @since 2.2.0
+         * @return bool
+         */
+        public static function has_wc_checkout_block() {
+
+            return has_block( 'woocommerce/checkout' );
+        }
+
+        /**
+         * Check if a submenu slug exists.
+         *
+         * @param string $parent_slug Parent slug.
+         * @param string $submenu_slug Submenu slug.
+         *
+         * @since 2.2.0
+         * @return bool
+         */
+        public static function is_submenu_slug_exists( $parent_slug, $submenu_slug ) {
+            global $submenu;
+            if ( ! isset( $submenu[ $parent_slug ] ) ) {
+                return false;
+            }
+            foreach ( $submenu[ $parent_slug ] as $submenu_item ) {
+                if ( $submenu_slug === $submenu_item[2] ) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

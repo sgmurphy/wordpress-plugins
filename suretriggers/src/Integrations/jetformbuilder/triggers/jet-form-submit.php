@@ -109,7 +109,11 @@ if ( ! class_exists( 'JetFormSubmit' ) ) :
 					if ( substr( $field_key, 0, 2 ) === '__' ) {
 						continue;
 					}
-					$form_fields[ $field_key ] = $field_value;
+					if ( is_string( $field_value ) && json_decode( $field_value ) !== null ) {
+						$form_fields[ $field_key ] = json_decode( $field_value, true );
+					} else {
+						$form_fields[ $field_key ] = $field_value;
+					}
 				}
 			}
 

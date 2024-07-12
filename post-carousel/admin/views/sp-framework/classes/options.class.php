@@ -686,7 +686,7 @@ if ( ! class_exists( 'SP_PC_Options' ) ) {
 			$class         = ( $this->args['class'] ) ? ' ' . $this->args['class'] : '';
 
 			if ( 'pcp_replace_layout' === $menu_slug ) {
-				echo '<div class="wrap pcp_replace_layout_notice"><p class="spf-text-desc">To unlock the Replace Layout on The Default Blog, WooCommerce Shop, Category, Tag, Taxonomy, Search, Author, Date... Pages, and Post Types, <a target="__blank" href="https://smartpostshow.com/"><b>Upgrade To Pro</b></a></p></div>';
+				echo '<div class="wrap pcp_replace_layout_notice"><p class="spf-text-desc">To unlock the Replace Layout on The Default Blog, WooCommerce Shop, Category, Tag, Taxonomy, Search, Author, Date... Pages, and Post Types, <a target="__blank" href="https://smartpostshow.com/pricing/?ref=1"><b>Upgrade To Pro</b></a></p></div>';
 			}
 
 			echo '<div class="spf spf-options' . esc_attr( $theme ) . esc_attr( $class ) . esc_attr( $wrapper_class ) . '" data-slug="' . esc_attr( $this->args['menu_slug'] ) . '" data-unique="' . esc_attr( $this->unique ) . '">';

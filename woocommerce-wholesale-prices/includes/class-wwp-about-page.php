@@ -83,7 +83,7 @@ if ( ! class_exists( 'WWP_About_Page' ) ) {
                 __( 'About', 'woocommerce-wholesale-prices' ),
                 __( 'About', 'woocommerce-wholesale-prices' ),
                 'manage_woocommerce', // phpcs:ignore
-                'about-page',
+                'wws-about-page',
                 array( $this, 'view_about_page' ),
                 9
             );

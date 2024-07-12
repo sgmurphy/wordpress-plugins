@@ -26,42 +26,48 @@ $accessibility_next_slide_text        = isset( $pcp_settings['next_slide_message
 $accessibility_first_slide_text       = isset( $pcp_settings['first_slide_message'] ) ? $pcp_settings['first_slide_message'] : '';
 $accessibility_last_slide_text        = isset( $pcp_settings['last_slide_message'] ) ? $pcp_settings['last_slide_message'] : '';
 $accessibility_pagination_bullet_text = isset( $pcp_settings['pagination_bullet_message'] ) ? $pcp_settings['pagination_bullet_message'] : '';
+if ( 'slider_layout' === $layout_preset ) {
+	$number_of_columns = array(
+		'lg_desktop'       => '1',
+		'desktop'          => '1',
+		'tablet'           => '1',
+		'mobile_landscape' => '1',
+		'mobile'           => '1',
+	);
+}
 if ( $pcp_settings['pcp_swiper_js'] ) {
 	wp_enqueue_script( 'pcp_swiper' );
 }
 // Navigation.
-$_navigation = isset( $view_options['pcp_navigation'] ) ? $view_options['pcp_navigation'] : '';
-switch ( $_navigation ) {
-	case 'show':
-		$navigation        = 'true';
-		$navigation_mobile = 'true';
-		break;
-	case 'hide':
-		$navigation        = 'false';
-		$navigation_mobile = 'false';
-		break;
-	case 'hide_on_mobile':
-		$navigation        = 'true';
-		$navigation_mobile = 'false';
-		break;
+$_navigation_data      = isset( $view_options['pcp_navigation_data'] ) ? $view_options['pcp_navigation_data'] : array();
+$_navigation           = isset( $_navigation_data['pcp_navigation'] ) ? $_navigation_data['pcp_navigation'] : true;
+$_navigation_on_mobile = isset( $_navigation_data['nev_hide_on_mobile'] ) ? $_navigation_data['nev_hide_on_mobile'] : false;
+if ( $_navigation ) {
+	$navigation        = 'true';
+	$navigation_mobile = 'true';
+} elseif ( $_navigation && $_navigation_on_mobile ) {
+	$navigation        = 'true';
+	$navigation_mobile = 'false';
+} else {
+	$navigation        = 'false';
+	$navigation_mobile = 'false';
 }
 
 // Pagination Settings.
-$_pagination = isset( $view_options['pcp_pagination'] ) ? $view_options['pcp_pagination'] : '';
-switch ( $_pagination ) {
-	case 'show':
-		$pagination        = 'true';
-		$pagination_mobile = 'true';
-		break;
-	case 'hide':
-		$pagination        = 'false';
-		$pagination_mobile = 'false';
-		break;
-	case 'hide_on_mobile':
-		$pagination        = 'true';
-		$pagination_mobile = 'false';
-		break;
+$_pagination_data      = isset( $view_options['carousel_pagination_group'] ) ? $view_options['carousel_pagination_group'] : array();
+$_pagination           = isset( $_pagination_data['pcp_pagination'] ) ? $_pagination_data['pcp_pagination'] : true;
+$_pagination_on_mobile = isset( $_pagination_data['pagination_hide_on_mobile'] ) ? $_pagination_data['pagination_hide_on_mobile'] : false;
+if ( $_pagination ) {
+	$pagination        = 'true';
+	$pagination_mobile = 'true';
+} elseif ( $_pagination && $_pagination_on_mobile ) {
+	$pagination        = 'true';
+	$pagination_mobile = 'false';
+} else {
+	$pagination        = 'false';
+	$pagination_mobile = 'false';
 }
+
 $pcp_accessibility  = ( isset( $view_options['pcp_accessibility'] ) && ( $view_options['pcp_accessibility'] ) ) ? 'true' : 'false';
 $touch_swipe        = ( isset( $view_options['touch_swipe'] ) && ( $view_options['touch_swipe'] ) ) ? 'true' : 'false';
 $slider_draggable   = ( isset( $view_options['slider_draggable'] ) && ( $view_options['slider_draggable'] ) ) ? 'true' : 'false';
@@ -71,7 +77,7 @@ $slider_mouse_wheel = ( isset( $view_options['slider_mouse_wheel'] ) && ( $view_
 
 ?>
 <!-- Markup Starts -->
-<div id="pcp_wrapper-<?php echo esc_html( $shortcode_id ); ?>" class="<?php self::pcp_wrapper_classes( $layout_preset, $shortcode_id ); ?> standard" data-sid="<?php echo esc_html( $shortcode_id ); ?>">
+<div id="pcp_wrapper-<?php echo esc_html( $shortcode_id ); ?>" class="<?php self::pcp_wrapper_classes( $layout_preset, $shortcode_id ); ?> standard sp-<?php echo esc_attr( $layout_preset ); ?>" data-sid="<?php echo esc_html( $shortcode_id ); ?>">
 <?php if ( $show_preloader ) { ?>
 <div id="pcp-preloader" class="pcp-preloader"></div>
 	<?php
@@ -82,7 +88,7 @@ if ( $view_options['section_title'] ) {
 	do_action( 'pcp_after_section_title' );
 }
 ?>
-	<div id="sp-pcp-id-<?php echo esc_html( $shortcode_id ); ?>" class="swiper-container sp-pcp-carousel top_right" dir="<?php echo esc_html( $carousel_direction ); ?>" data-carousel='{ "speed":<?php echo esc_html( $carousel_speed ); ?>, "items":<?php echo esc_html( $number_of_columns['lg_desktop'] ); ?>, "spaceBetween":<?php echo esc_html( $margin_between_post ); ?>, "navigation":<?php echo esc_html( $navigation ); ?>, "pagination": <?php echo esc_html( $pagination ); ?>, "autoplay": <?php echo esc_html( $carousel_autoplay ); ?>, "autoplay_speed": <?php echo esc_html( $autoplay_speed ); ?>, "loop": <?php echo esc_html( $infinite_loop ); ?>, "autoHeight": <?php echo esc_html( $carousel_auto_height ); ?>, "lazy":  <?php echo esc_html( $lazy_load ); ?>, "simulateTouch": <?php echo esc_html( $slider_draggable ); ?>, "freeMode": <?php echo esc_html( $free_mode ); ?>, "slider_mouse_wheel": <?php echo esc_html( $slider_mouse_wheel ); ?>,"allowTouchMove": <?php echo esc_html( $touch_swipe ); ?>, "slidesPerView": {"lg_desktop": <?php echo esc_html( $number_of_columns['lg_desktop'] ); ?>, "desktop": <?php echo esc_html( $number_of_columns['desktop'] ); ?>, "tablet": <?php echo esc_html( $number_of_columns['tablet'] ); ?>, "mobile_landscape": <?php echo esc_html( $number_of_columns['mobile_landscape'] ); ?>, "mobile": <?php echo esc_html( $number_of_columns['mobile'] ); ?>}, "navigation_mobile": <?php echo esc_html( $navigation_mobile ); ?>, "pagination_mobile": <?php echo esc_html( $pagination_mobile ); ?>, "stop_onHover": <?php echo esc_html( $pause_hover ); ?>, "enabled": <?php echo esc_html( $is_carousel_accessibility ); ?>, "prevSlideMessage": "<?php echo esc_html( $accessibility_prev_slide_text ); ?>", "nextSlideMessage": "<?php echo esc_html( $accessibility_next_slide_text ); ?>", "firstSlideMessage": "<?php echo esc_html( $accessibility_first_slide_text ); ?>", "lastSlideMessage": "<?php echo esc_html( $accessibility_last_slide_text ); ?>", "keyboard": "<?php echo esc_html( $pcp_accessibility ); ?>", "paginationBulletMessage": "<?php echo esc_html( $accessibility_pagination_bullet_text ); ?>" }'>
+	<div id="sp-pcp-id-<?php echo esc_html( $shortcode_id ); ?>" class="swiper-container sp-pcp-carousel top_right" dir="<?php echo esc_html( $carousel_direction ); ?>" data-carousel='{ "speed":<?php echo esc_html( $carousel_speed ); ?>, "items":<?php echo esc_html( $number_of_columns['lg_desktop'] ); ?>, "spaceBetween":<?php echo esc_html( $margin_between_post['left-right'] ); ?>, "navigation":<?php echo esc_html( $navigation ); ?>, "pagination": <?php echo esc_html( $pagination ); ?>, "autoplay": <?php echo esc_html( $carousel_autoplay ); ?>, "autoplay_speed": <?php echo esc_html( $autoplay_speed ); ?>, "loop": <?php echo esc_html( $infinite_loop ); ?>, "autoHeight": <?php echo esc_html( $carousel_auto_height ); ?>, "lazy":  <?php echo esc_html( $lazy_load ); ?>, "simulateTouch": <?php echo esc_html( $slider_draggable ); ?>, "freeMode": <?php echo esc_html( $free_mode ); ?>, "slider_mouse_wheel": <?php echo esc_html( $slider_mouse_wheel ); ?>,"allowTouchMove": <?php echo esc_html( $touch_swipe ); ?>, "slidesPerView": {"lg_desktop": <?php echo esc_html( $number_of_columns['lg_desktop'] ); ?>, "desktop": <?php echo esc_html( $number_of_columns['desktop'] ); ?>, "tablet": <?php echo esc_html( $number_of_columns['tablet'] ); ?>, "mobile_landscape": <?php echo esc_html( $number_of_columns['mobile_landscape'] ); ?>, "mobile": <?php echo esc_html( $number_of_columns['mobile'] ); ?>}, "navigation_mobile": <?php echo esc_html( $navigation_mobile ); ?>, "pagination_mobile": <?php echo esc_html( $pagination_mobile ); ?>, "stop_onHover": <?php echo esc_html( $pause_hover ); ?>, "enabled": <?php echo esc_html( $is_carousel_accessibility ); ?>, "prevSlideMessage": "<?php echo esc_html( $accessibility_prev_slide_text ); ?>", "nextSlideMessage": "<?php echo esc_html( $accessibility_next_slide_text ); ?>", "firstSlideMessage": "<?php echo esc_html( $accessibility_first_slide_text ); ?>", "lastSlideMessage": "<?php echo esc_html( $accessibility_last_slide_text ); ?>", "keyboard": "<?php echo esc_html( $pcp_accessibility ); ?>", "paginationBulletMessage": "<?php echo esc_html( $accessibility_pagination_bullet_text ); ?>" }'>
 			<div class="swiper-wrapper">
 				<?php self::pcp_get_posts( $view_options, $layout_preset, $post_content_sorter, $pcp_query, $shortcode_id ); ?>
 			</div>

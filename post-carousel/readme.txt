@@ -4,8 +4,8 @@ Tags: post slider, news carousel, post grid, latest post slider, post timeline
 Requires at least: 4.7
 Tested up to: 6.5
 WC requires at least: 5.0
-WC tested up to: 8.9.2
-Stable tag: 2.4.29
+WC tested up to: 9.1.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,25 @@ Thank you!
 
 
 == Changelog ==
+
+= 3.0.0 - Jul 11, 2024 =
+* New: The Slider Layout feature.
+* New: The List Layout feature.
+* New: The Vertical Gap between items option.
+* New: Image Border and  Border-Radius option
+* New: The Border option of the Read More button.
+* New: The Border option for gird or list pagination.
+* New: Border option for slider or carousel navigation.
+* New: Border-Radius option for slider or carousel navigation.
+* Improved: Plugin UI and UX improved.
+* Improved: The backed options have been enhanced.
+* Improved: The options of Display Settings were reorganized by the Nested Tab.
+* Improved: The options of Carousel Settings were reorganized by the Nested Tab.
+* Improved: The Hide on Mobile option is separated for carousel navigation and pagination options.
+* Updated: The language(.pot) file.
+* Fix: The 'SPS_Help' class conflicts with other plugin
+* Tested: WordPress 6.5.5 compatibility.
+* Tested: WooCommerce 9.1.0 compatibility.
 
 = 2.4.29 - Jun 06, 2024 =
 * Tested: WooCommerce 8.9.2 compatibility.

@@ -10,7 +10,7 @@
  * Plugin Name:       Smart Post Show
  * Plugin URI:        https://smartpostshow.com/
  * Description:       Filter and display posts, pages, taxonomy (categories, tags, & post formats), in beautiful layouts (carousel, grid) easily without coding! Highly customizable and developer-friendly with free active support.
- * Version:           2.4.29
+ * Version:           3.0.0
  * Author:            ShapedPlugin LLC
  * Author URI:        https://shapedplugin.com/
  * License:           GPL-2.0+
@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Start at version 2.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SMART_POST_SHOW_VERSION', '2.4.29' );
+define( 'SMART_POST_SHOW_VERSION', '3.0.0' );
 define( 'SMART_POST_SHOW_BASENAME', plugin_basename( __FILE__ ) );
 
 /**

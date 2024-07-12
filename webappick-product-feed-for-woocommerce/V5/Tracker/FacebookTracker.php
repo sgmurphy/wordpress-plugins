@@ -72,7 +72,7 @@ class FacebookTracker implements TrackerInterface {
                 s.parentNode.insertBefore(t, s);
             }(window, document, 'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '<?php echo $this->trackingId; ?>');
+            fbq('init', '<?php echo esc_attr($this->trackingId); ?>');
 			<?php
 			
 			// Always trigger PageView Event.

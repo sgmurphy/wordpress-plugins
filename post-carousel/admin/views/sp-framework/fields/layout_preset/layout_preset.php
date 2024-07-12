@@ -60,12 +60,19 @@ if ( ! class_exists( 'SP_PC_Field_layout_preset' ) ) {
 					$extra              = ( $args['multiple'] ) ? '[]' : '';
 					$active             = ( in_array( $key, $value ) ) ? ' spf--active' : '';
 					$checked            = ( in_array( $key, $value ) ) ? ' checked' : '';
+					$pro_only           = isset( $option['pro_only'] ) ? ' disabled' : '';
 					$pcp_pro_only_class = isset( $option['pro_only'] ) ? ' pcp-pro-only' : '';
 
 					echo '<div class="spf--sibling spf--image' . esc_attr( $active . $pcp_pro_only_class ) . '">';
 					echo '<img src="' . esc_url( $option['image'] ) . '" alt="' . esc_attr( $option['text'] ) . '" />';
-					echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . wp_kses_post( $this->field_attributes() ) . esc_attr( $checked ) . '/>';
-					echo '<span class="sp-carousel-type">' . esc_html( $option['text'] ) . '</span>';
+					echo '<input ' . esc_attr( $pro_only ) . ' type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . wp_kses_post( $this->field_attributes() ) . esc_attr( $checked ) . '/>';
+					if ( isset( $option['option_demo_url'] ) ) {
+						echo '<span class="sp-carousel-type">' . esc_html( $option['text'] ) . '<a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="sps-live-demo-icon" target="_blank"><i class="sps-icon-external_link"></i></a></span>';
+					}
+					if ( isset( $option['text'] ) && ! isset( $option['option_demo_url'] ) ) {
+						echo '<span class="sp-carousel-type">' . esc_html( $option['text'] ) . '</span>';
+					}
+					// echo '<span class="sp-carousel-type">' . esc_html( $option['text'] ) . '</span>';
 					echo '</div>';
 
 				}

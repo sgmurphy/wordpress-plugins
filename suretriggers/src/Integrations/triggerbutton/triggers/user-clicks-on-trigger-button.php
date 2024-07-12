@@ -69,7 +69,7 @@ if ( ! class_exists( 'UserClicksOnTriggerButton' ) ) :
 				'common_action' => 'st_trigger_button_action',
 				'function'      => [ $this, 'trigger_listener' ],
 				'priority'      => 10,
-				'accepted_args' => 4,
+				'accepted_args' => 5,
 			];
 
 			return $triggers;
@@ -83,11 +83,12 @@ if ( ! class_exists( 'UserClicksOnTriggerButton' ) ) :
 		 * @param int    $user_id User id.
 		 * @param int    $cookie_duration Cookie Duration.
 		 * @param bool   $setcookie Set Cookie.
+		 * @param array  $parent_post_data Button Parent Post Data.
 		 * @since 1.0.0
 		 *
 		 * @return void
 		 */
-		public function trigger_listener( $st_trigger_id, $user_id, $cookie_duration, $setcookie ) {
+		public function trigger_listener( $st_trigger_id, $user_id, $cookie_duration, $setcookie, $parent_post_data ) {
 			$context           = WordPress::get_user_context( $user_id );
 			$all_meta_for_user = get_user_meta( $user_id );
 
@@ -103,6 +104,10 @@ if ( ! class_exists( 'UserClicksOnTriggerButton' ) ) :
 
 			$context['before_click_response'] = $before_button_click_response;
 			$context['after_click_response']  = $after_button_click_response;
+
+			if ( ! empty( $parent_post_data ) ) {
+				$context = array_merge( $context, $parent_post_data );
+			}
 			
 			$automation = AutomationController::sure_trigger_handle_trigger(
 				[

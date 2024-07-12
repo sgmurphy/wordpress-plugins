@@ -214,12 +214,7 @@ class Smart_Post_Show {
 		// Post save and update messages.
 		$this->loader->add_filter( 'post_updated_messages', $plugin_admin, 'sppcp_update', 10, 1 );
 		// Help Page.
-		SPS_Help::instance();
-		// $help_menu = new SPS_Help();
-		// $this->loader->add_action( 'admin_menu', $help_menu, 'help_page_menu', 20 );
-		// Premium Page.
-		// $premium_menu = new SPS_Premium();
-		// $this->loader->add_action( 'admin_menu', $premium_menu, 'premium_page_menu', 25 );
+		SPS_Recommended::instance();
 
 		$import_export = new Smart_Post_Show_Import_Export( SP_PC_PLUGIN_NAME, SP_PC_VERSION );
 

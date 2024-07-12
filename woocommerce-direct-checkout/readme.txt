@@ -5,7 +5,7 @@ Tags: woocommerce, woocommerce ajax, woocommerce ajax cart, add to cart, woocomm
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.5
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 4.0
@@ -22,6 +22,8 @@ WooCommerce direct checkout is a helpful tool to simplify the checkout process. 
 == Presentation ==
 
 WooCommerce Direct Checkout  is a plugin to allow the steps reduction inside Woocommerce checkout process. You are able to simplify the checkout process by skipping the shopping cart page. The “Add to cart” button is added in each product to redirect customers to the checkout page. This can encourage buyers to shop more and quickly. You will increase your sales reducing cart abandonment.
+
+[youtube https://youtu.be/RH7WJEZYLOU]
 
 = Highlights =
 * Simplify check out process.
@@ -65,7 +67,7 @@ The premium version of WooCommerce Direct Checkot allows to include a quick purc
 
 == Changelog ==
 
-= 3.3.5 =
+= 3.3.6 =
 * WooCommerce compatibility
 
 = 3.3.4 =

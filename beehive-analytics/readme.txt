@@ -7,7 +7,7 @@ Author URI: https://wpmudev.com/
 Author: WPMU DEV
 Contributors: WPMUDEV
 Requires at least: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
 Stable tag: 3.4.12
 License: GPLv2

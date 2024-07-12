@@ -64,7 +64,7 @@ if ( ! class_exists( 'SP_PC_Field_group' ) ) {
 				echo '<div class="spf-cloneable-item spf-cloneable-hidden">';
 
 				echo '<div class="spf-cloneable-helper">';
-				echo '<i class="spf-cloneable-sort fa fa-arrows"></i>';
+				echo '<i class="spf-cloneable-sort fa-solid fa-angle-down"></i>';
 				echo '<i class="spf-cloneable-clone fa fa-clone"></i>';
 				echo '<i class="spf-cloneable-remove spf-confirm fa fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?', 'post-carousel' ) . '"></i>';
 				echo '</div>';

@@ -22,8 +22,9 @@
     // Load data for the first time
     woosw_load_data();
 
-    if ($('.woosw-custom-menu-item').length) {
-      // load the count when having a custom menu item
+    if ($('.woosw-custom-menu-item').length || woosw_vars.reload_count ===
+        'yes') {
+      // reload the count
       woosw_load_count();
     }
 

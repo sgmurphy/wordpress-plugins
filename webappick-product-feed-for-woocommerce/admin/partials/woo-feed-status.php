@@ -47,7 +47,7 @@
 			<br/>
 			<br/>
 			<a href="#" class="button button-large button-primary right woo-feed-btn-bg-gradient-blue"
-			   id="woo-feed-debug-log-download"><?php echo __( 'Download', 'woo-feed' ); ?></a>
+			   id="woo-feed-debug-log-download"><?php echo esc_html_e( 'Download', 'woo-feed' ); ?></a>
 		<?php else : ?>
 			<br><br>
 			<div class="woo-feed-status-table-wrapper succ">

@@ -201,7 +201,18 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                         $value = $param['value'];
                     }
 
-                    $options[ $param['key'] ] = $value;
+                    $final_value = $value;
+
+                    if ( ! is_array( $value ) ) {
+                        // Validate if value is true or false.
+                        if ( 'true' === trim( $value ) ) {
+                            $final_value = 'yes';
+                        } elseif ( 'false' === trim( $value ) ) {
+                            $final_value = 'no';
+                        }
+                    }
+
+                    $options[ $param['key'] ] = $final_value;
                 }
 
                 if ( ! empty( $options['action'] ) ) {
@@ -304,6 +315,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
          * Get default tabs.
          *
          * @since  2.0
+         * @since 2.2.0 - Added admin roles tab and control
          * @access private
          *
          * @return array
@@ -397,6 +409,18 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                 'show_addon_upgrade' => true,
             );
 
+            $settings['wholesale_prices']['child']['admin_roles'] = array(
+                'sort'     => 4,
+                'key'      => 'admin_roles',
+                'label'    => __( 'Admin Roles', 'woocommerce-wholesale-prices' ),
+                'sections' => array(
+                    'admin_roles_options' => array(
+                        'label' => __( 'Admin Roles', 'woocommerce-wholesale-prices' ),
+                        'desc'  => __( 'Manage the roles that can access the Wholesale dashboard and settings.', 'woocommerce-wholesale-prices' ),
+                    ),
+                ),
+            );
+
             // Help tab.
             $help_options_dec = sprintf(
             // translators: %1$s link to premium add-on, %2$s </a> tag.
@@ -409,7 +433,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
             );
 
             $settings['wholesale_prices']['child']['help'] = array(
-                'sort'     => 4,
+                'sort'     => 5,
                 'key'      => 'help',
                 'label'    => __( 'Help', 'woocommerce-wholesale-prices' ),
                 'sections' => array(
@@ -422,7 +446,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
 
             // License tab.
             $settings['wholesale_prices']['child']['license'] = array(
-                'sort'     => 5,
+                'sort'     => 6,
                 'key'      => 'license',
                 'label'    => __( 'License', 'woocommerce-wholesale-prices' ),
                 'link'     => admin_url( 'admin.php?page=wws-license-settings' ),
@@ -431,7 +455,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
 
             // Upgrade tab.
             $settings['wholesale_prices']['child']['upgrade'] = array(
-                'sort'            => 6,
+                'sort'            => 7,
                 'key'             => 'upgrade',
                 'label'           => __( 'Upgrade To Premium', 'woocommerce-wholesale-prices' ),
                 'sections'        => array(
@@ -473,7 +497,10 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
             // Tax tab.
             $controls['wholesale_prices']['tax'] = $this->tax_tab_controls();
 
-            // Tax tab.
+            // Roles tab.
+            $controls['wholesale_prices']['admin_roles'] = $this->admin_roles_tab_controls();
+
+            // Help tab.
             $controls['wholesale_prices']['help'] = $this->help_tab_controls();
 
             // Upgrade tab.
@@ -631,12 +658,11 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
             $wwp_wwlc_is_active = WWP_Helper_Functions::is_wwlc_active();
 
             $prices_settings_show_wholesale_prices_to_non_wholesale = get_option( 'wwp_prices_settings_show_wholesale_prices_to_non_wholesale' );
-            $dependencies_display                                   = 'no' === $prices_settings_show_wholesale_prices_to_non_wholesale ? true : false;
+            $dependencies_display                                   = 'no' === $prices_settings_show_wholesale_prices_to_non_wholesale;
             $wwp_non_wholesale_show_in_shop                         = get_option( 'wwp_non_wholesale_show_in_shop' );
             $wwp_non_wholesale_show_in_products                     = get_option( 'wwp_non_wholesale_show_in_products' );
             $wwp_non_wholesale_show_in_wwof                         = get_option( 'wwp_non_wholesale_show_in_wwof' );
             $wwp_see_wholesale_prices_replacement_text              = get_option( 'wwp_see_wholesale_prices_replacement_text' );
-            $wwp_non_wholesale_wholesale_role_select2               = get_option( 'wwp_non_wholesale_wholesale_role_select2' );
             $wwp_price_settings_register_text                       = get_option( 'wwp_price_settings_register_text' );
             $wwp_price_settings_register_text                       = ( $wwp_wwlc_is_active ) ? $wwp_price_settings_register_text : __( 'Click here to register as a wholesale customer', 'woocommerce-wholesale-prices' );
 
@@ -703,7 +729,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
                     'input_label' => __( 'Wholesale Order Form', 'woocommerce-wholesale-prices' ),
                     'description' => $wwof_description,
                     'multiple'    => false,
-                    'disabled'    => ( $wwp_wwof_is_active ) ? false : true,
+                    'disabled'    => ! $wwp_wwof_is_active,
                     'default'     => $wwp_non_wholesale_show_in_wwof,
                     'hide'        => $dependencies_display,
                     'condition'   => array(
@@ -846,6 +872,46 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
             $tax_controls = apply_filters( 'wwp_admin_setting_default_tax_controls', $tax_controls );
 
             return $tax_controls;
+        }
+
+        /**
+         * Roles tab controls.
+         *
+         * @return array
+         * @since   2.2.0 - Added.
+         */
+        public function admin_roles_tab_controls() {
+            $registered_roles = $this->get_registered_roles();
+
+            /**
+             * Administrator and Shop manager allowed by default.
+             */
+            $allowed_roles = get_option( 'wwp_roles_allowed_dashboard_access', array( 'administrator', 'shop_manager' ) );
+
+            // Roles Options - Section.
+            $roles_controls['admin_roles_options'] = array(
+                array(
+                    'type'        => 'select',
+                    'label'       => __( 'Allowed roles', 'woocommerce-wholesale-prices' ),
+                    'id'          => 'wwp_roles_allowed_dashboard_access',
+                    'multiple'    => true,
+                    'options'     => $registered_roles,
+                    'default'     => $allowed_roles,
+                    'description' => __( 'Select the user roles allowed to access the Wholesale admin dashboard. Administrator and Shop manager are allowed by default.', 'woocommerce-wholesale-prices' ),
+                ),
+            );
+
+            /**
+             * Filter to modify the roles controls.
+             *
+             * @since 2.2.0
+             *
+             * @param array $roles_controls Roles controls.
+             * @return array
+             */
+            $roles_controls = apply_filters( 'wwp_admin_setting_default_admin_roles_controls', $roles_controls );
+
+            return $roles_controls;
         }
 
         /**
@@ -1254,6 +1320,35 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
         }
 
         /**
+         * Get allowed admin roles.
+         *
+         * @since  2.2.0
+         * @access public
+         * @return array
+         */
+        public function get_registered_roles() {
+            $registered_user_roles = wp_roles()->roles;
+
+            $registered_roles = array();
+
+            foreach ( $registered_user_roles as $roleKey => $role ) {
+                if ( 'administrator' === $roleKey ) {
+                    continue;
+                }
+                $registered_roles[ $roleKey ] = $role['name'];
+            }
+
+            /**
+             * Filter to modify the registered roles.
+             *
+             * @param array $registered_roles Registered roles.
+             * @since 2.2.0
+             * @return array
+             */
+            return apply_filters( 'wwp_allowed_admin_roles', array_filter( $registered_roles ) );
+        }
+
+        /**
          * Group save custom action.
          *
          * @param array $options Options.
@@ -1438,7 +1533,7 @@ if ( ! class_exists( 'WWP_Admin_Settings' ) ) {
          * @access public
          */
         public function wwp_new_settings_notice_hide() {
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_POST['nonce'], 'wwp_new_settings_notice_nonce' ) ) {
+            if ( ! wp_doing_ajax() || ! wp_verify_nonce( $_POST['nonce'], 'wwp_new_settings_notice_nonce' ) ) {
                 // Security check failure.
                 return;
             }

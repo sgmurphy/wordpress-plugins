@@ -72,7 +72,16 @@ class Wptc_Upgrade_Common{
 			case '1.22.8':
 				$this->upgrade_1_22_8();
 				break;
+			case '1.22.21':
+				$this->upgrade_1_22_21();
+				break;
 		}
+	}
+
+	private function upgrade_1_22_21(){
+		wptc_log('','-----------running upgrade_1_22_21----------------');
+
+		refresh_wptc_server_hash();
 	}
 
 	private function upgrade_1_15_5(){

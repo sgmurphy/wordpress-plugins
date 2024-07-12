@@ -83,16 +83,18 @@ if ( ! class_exists( 'WWP_Advanced_Coupons_Page' ) ) {
                 ( WWP_Helper_Functions::is_acfwf_installed() && ! WWP_Helper_Functions::is_acfwf_active() )
             ) {
 
-                add_submenu_page(
-                    'woocommerce-marketing',
-                    __( 'Advanced Coupons', 'woocommerce-wholesale-prices' ),
-                    __( 'Advanced Coupons', 'woocommerce-wholesale-prices' ),
-                    'manage_woocommerce',
-                    'advanced-coupons-page',
-                    array( $this, 'view_advanced_coupons_page' ),
-                    99
-                );
-
+                // Check if Advanced Coupons page is already registered.
+                if ( ! WWP_Helper_Functions::is_submenu_slug_exists( 'woocommerce-marketing', 'advanced-coupons-marketing' ) ) {
+                    add_submenu_page(
+                        'woocommerce-marketing',
+                        __( 'Advanced Coupons', 'woocommerce-wholesale-prices' ),
+                        __( 'Advanced Coupons', 'woocommerce-wholesale-prices' ),
+                        'manage_woocommerce',
+                        'advanced-coupons-marketing',
+                        array( $this, 'view_advanced_coupons_page' ),
+                        100
+                    );
+                }
             }
         }
 
@@ -106,8 +108,8 @@ if ( ! class_exists( 'WWP_Advanced_Coupons_Page' ) ) {
             if ( function_exists( 'wc_admin_connect_page' ) ) {
                 wc_admin_connect_page(
                     array(
-                        'id'        => 'wwp-advanced-coupons-page',
-                        'screen_id' => 'wholesale_page_advanced-coupons-page',
+                        'id'        => 'wwp-advanced-coupons-marketing',
+                        'screen_id' => 'wholesale_page_advanced-coupons-marketing',
                         'title'     => __( 'Advanced Coupons', 'woocommerce-wholesale-prices' ),
                     )
                 );

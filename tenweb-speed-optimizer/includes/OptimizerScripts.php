@@ -986,7 +986,15 @@ class OptimizerScripts extends OptimizerBase
 
                 if (window.two_page_loaded) {
                     console.log("dispatching events");' .
-                    $dispatchEvents . '}
+                    $dispatchEvents . '
+                }
+                else {
+                    console.log("waiting for page to load");
+                    window.addEventListener("load", function() {
+                        console.log("dispatching events");
+                        document.dispatchEvent(new Event("DOMContentLoaded"));
+                    });
+                }
                 '),
                 'inline' => true,
                 'uid' => 'two_dispatchEvent_script',

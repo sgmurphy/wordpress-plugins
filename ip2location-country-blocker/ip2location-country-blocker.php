@@ -4,7 +4,7 @@
  * Plugin Name: IP2Location Country Blocker
  * Plugin URI: https://ip2location.com/resources/wordpress-ip2location-country-blocker
  * Description: Block visitors from accessing your website or admin area by their country.
- * Version: 2.34.8
+ * Version: 2.35.0
  * Author: IP2Location
  * Author URI: https://www.ip2location.com
  * Text Domain: ip2location-country-blocker.
@@ -27,11 +27,13 @@ register_activation_hook(__FILE__, [$ip2location_country_blocker, 'set_defaults'
 
 add_action('init', [$ip2location_country_blocker, 'check_block'], 1);
 add_action('admin_enqueue_scripts', [$ip2location_country_blocker, 'plugin_enqueues']);
+add_action('admin_init', [$ip2location_country_blocker, 'admin_init']);
 add_action('admin_notices', [$ip2location_country_blocker, 'show_notice']);
 add_action('wp_ajax_ip2location_country_blocker_update_ip2location_database', [$ip2location_country_blocker, 'update_ip2location_database']);
 add_action('wp_ajax_ip2location_country_blocker_update_ip2proxy_database', [$ip2location_country_blocker, 'update_ip2proxy_database']);
 add_action('wp_ajax_ip2location_country_blocker_validate_token', [$ip2location_country_blocker, 'validate_token']);
 add_action('wp_ajax_ip2location_country_blocker_validate_api_key', [$ip2location_country_blocker, 'validate_api_key']);
+add_action('wp_ajax_ip2location_country_blocker_restore', [$ip2location_country_blocker, 'restore']);
 add_action('wp_footer', [$ip2location_country_blocker, 'footer']);
 add_action('wp_ajax_ip2location_country_blocker_submit_feedback', [$ip2location_country_blocker, 'submit_feedback']);
 add_action('admin_footer_text', [$ip2location_country_blocker, 'admin_footer_text']);
@@ -94,6 +96,26 @@ class IP2LocationCountryBlocker
 		$this->debug_log = 'debug_' . hash('sha256', get_option('ip2location_country_blocker_private_key') . get_site_url() . get_option('admin_email')) . '.log';
 
 		add_action('admin_menu', [$this, 'add_admin_menu']);
+	}
+
+	public function admin_init()
+	{
+		if (isset($_POST['action']) && $_POST['action'] == 'download_backup') {
+			$results = $GLOBALS['wpdb']->get_results("SELECT option_name, option_value FROM {$GLOBALS['wpdb']->prefix}options WHERE option_name LIKE 'ip2location_country_blocker_%'", OBJECT);
+
+			if ($results) {
+				$options = [];
+
+				foreach ($results as $result) {
+					$options[$result->option_name] = $result->option_value;
+				}
+
+				ob_end_flush();
+				header('Content-type: application/json');
+				header('Content-Disposition: attachment; filename="ip2location_country_blocker.json"');
+				exit(json_encode($options));
+			}
+		}
 	}
 
 	public function frontend_page()
@@ -1441,8 +1463,18 @@ class IP2LocationCountryBlocker
 		<div class="wrap">
 			<h1>' . __('Settings', 'ip2location-country-blocker') . '</h1>
 
-			' . $settings_status . '
+			' . $settings_status;
 
+		if (get_option('ip2location_country_blocker_session_message')) {
+			echo '
+			<div class="updated">
+				<p>' . get_option('ip2location_country_blocker_session_message') . '</p>
+			</div>';
+
+			update_option('ip2location_country_blocker_session_message', '');
+		}
+
+		echo '
 			<form action="' . get_admin_url() . 'admin.php?page=ip2location-country-blocker-settings" method="post" novalidate="novalidate">
 				' . wp_nonce_field('settings') . '
 				<table class="form-table">
@@ -1454,7 +1486,7 @@ class IP2LocationCountryBlocker
 							<select name="lookup_mode" id="lookup_mode"' . (($disabled) ? ' disabled' : '') . '>
 								<option value="bin"' . (($lookup_mode == 'bin') ? ' selected' : '') . '> ' . __('Local BIN Database', 'ip2location-country-blocker') . '</option>
 								<option value="ws"' . (($lookup_mode == 'ws') ? ' selected' : '') . '> ' . __('API Web Service', 'ip2location-country-blocker') . '</option>
-							<select>
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -1744,12 +1776,38 @@ class IP2LocationCountryBlocker
 							</label>
 						</td>
 					</tr>
+					<tr>
+						<th scope="row">
+							<label>' . __('Backup', 'ip2location-country-blocker') . '</label>
+						</th>
+						<td>
+							<button id="btn_download_backup" type="button" class="button button-secondary">' . __('Download Backup', 'ip2location-country-blocker') . '</button>
+							<p class="description">
+								' . __('Download all settings to restore your configuration on new installation.', 'ip2location-country-blocker') . '
+							</p>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label>' . __('Restore', 'ip2location-country-blocker') . '</label>
+						</th>
+						<td>
+							<div id="file-restore"></div>
+							<p class="description">
+								' . __('Restore settings from previous installation.', 'ip2location-country-blocker') . '
+							</p>
+							<input type="hidden" id="restore_nonce" value="' . wp_create_nonce('restore') . '">
+						</td>
+					</tr>
 				</table>
-
 				<p class="submit">
 					<input type="submit" name="submit" id="submit" class="button button-primary" value="' . __('Save Changes', 'ip2location-country-blocker') . '" />
 				</p>
 			</form>
+
+			<form id="form_download_backup" method="post">
+				<input type="hidden" name="action" value="download_backup">
+			</from>
 
 			<div class="clear"></div>
 		</div>
@@ -2745,6 +2803,48 @@ class IP2LocationCountryBlocker
 		}
 	}
 
+	public function restore()
+	{
+		header('Content-Type: application/json');
+
+		if (!current_user_can('administrator')) {
+			exit(json_encode([
+				'status'  => 'ERROR',
+				'message' => __('Permission denied.', 'ip2location-country-blocker'),
+			]));
+		}
+
+		check_admin_referer('restore', '__nonce');
+
+		if (!isset($_FILES['file-restore'])) {
+			exit(json_encode([
+				'status'  => 'ERROR',
+				'message' => __('No file is uploaded.', 'ip2location-country-blocker'),
+			]));
+		}
+
+		$file = tempnam(sys_get_temp_dir(), 'restore');
+
+		move_uploaded_file($_FILES['file-restore']['tmp_name'], $file);
+
+		if (($rows = json_decode(file_get_contents($file))) === null) {
+			exit(json_encode([
+				'status'  => 'ERROR',
+				'message' => __('Invalid file format.', 'ip2location-country-blocker'),
+			]));
+		}
+
+		foreach ($rows as $key => $value) {
+			update_option($key, $value);
+		}
+
+		update_option('ip2location_country_blocker_session_message', 'Restore completed.');
+
+		exit(json_encode([
+			'status' => 'OK',
+		]));
+	}
+
 	// Add notice in plugin page.
 	public function show_notice()
 	{
@@ -2809,6 +2909,12 @@ class IP2LocationCountryBlocker
 				break;
 
 			case 'country-blocker_page_ip2location-country-blocker-settings':
+				wp_register_script('iplcb-jquery-upload-file-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-file-upload/4.0.11/jquery.uploadfile.min.js', null, null, true);
+				wp_enqueue_script('iplcb-jquery-upload-file-js');
+
+				wp_register_style('iplcb-jquery-upload-file-css', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-file-upload/4.0.11/uploadfile.min.css');
+				wp_enqueue_style('iplcb-jquery-upload-file-css');
+
 				wp_enqueue_script('iplcb-settings-js', plugins_url('/assets/js/settings.js', __FILE__), ['jquery'], null, true);
 				break;
 		}

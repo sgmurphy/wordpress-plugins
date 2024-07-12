@@ -271,9 +271,9 @@ if ( ! function_exists( 'woo_feed_black_friday_notice' ) ) {
             </script>
             <a  target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/?utm_source=BFCM_banner&utm_medium=BFCM_Banner_Free_to_pro&utm_campaign=BFCM23&utm_id=1"
                 class="notice woo-feed-ctx-startup-notice is-dismissible"
-                style="background: url(<?php echo WOO_FEED_PLUGIN_URL . 'admin/images/ctx-feed-black-friday-banner-2023.png'; ?>) no-repeat top center;">
+                style="background: url(<?php echo esc_url(WOO_FEED_PLUGIN_URL) . 'admin/images/ctx-feed-black-friday-banner-2023.png'; ?>) no-repeat top center;">
                 <input type="hidden" id="woo_feed_to_ctx_feed_nonce"
-                       value="<?php echo wp_create_nonce( 'woo-feed-to-ctx-feed-notice' ); ?>">
+                       value="<?php echo esc_attr(wp_create_nonce( 'woo-feed-to-ctx-feed-notice' )); ?>">
             </a>
 			<?php
 			$image = ob_get_contents();
@@ -333,9 +333,9 @@ if ( ! function_exists( 'woo_feed_halloween_notice' ) ) {
 			</script>
 			<a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/?utm_source=HW_Banner_1b&utm_medium=HW_Banner_Free_to_pro&utm_campaign=HWbanner23&utm_id=1"
 			   class="notice woo-feed-ctx-halloween-notice is-dismissible"
-			   style="background: url(<?php echo WOO_FEED_PLUGIN_URL . 'admin/images/woo_feed_halloween_notice.png'; ?>) no-repeat top center;">
+			   style="background: url(<?php echo esc_url(WOO_FEED_PLUGIN_URL) . 'admin/images/woo_feed_halloween_notice.png'; ?>) no-repeat top center;">
 				<input type="hidden" id="woo_feed_to_ctx_feed_halloween_nonce"
-					   value="<?php echo wp_create_nonce( 'woo-feed-to-ctx-feed-halloween-nonce' ); ?>">
+					   value="<?php echo esc_attr(wp_create_nonce( 'woo-feed-to-ctx-feed-halloween-nonce' )); ?>">
 			</a>
 			<?php
 			$image = ob_get_contents();
@@ -375,9 +375,9 @@ if ( ! function_exists( 'woo_feed_halloween_notice_2' ) ) {
             </script>
             <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/?utm_source=HW_Banner_2w&utm_medium=HW_Banner_Free_to_pro&utm_campaign=HWbanner23&utm_id=1"
                class="notice woo-feed-ctx-halloween-notice is-dismissible"
-               style="background: url(<?php echo WOO_FEED_PLUGIN_URL . 'admin/images/woo_feed_halloween_notice_2.png'; ?>) no-repeat top center;">
+               style="background: url(<?php echo esc_url(WOO_FEED_PLUGIN_URL) . 'admin/images/woo_feed_halloween_notice_2.png'; ?>) no-repeat top center;">
                 <input type="hidden" id="woo_feed_to_ctx_feed_halloween_nonce"
-                       value="<?php echo wp_create_nonce( 'woo-feed-to-ctx-feed-halloween-nonce' ); ?>">
+                       value="<?php echo esc_attr(wp_create_nonce( 'woo-feed-to-ctx-feed-halloween-nonce' )); ?>">
             </a>
 			<?php
 			$image = ob_get_contents();
@@ -417,9 +417,9 @@ if ( ! function_exists( 'woo_feed_christmas_notice' ) ) {
 			</script>
 			<a  target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/?utm_source=Christmass_23&utm_medium=Free_to_Pro&utm_campaign=Christmass23&utm_id=23"
 				class="notice woo-feed-ctx-startup-notice is-dismissible"
-				style="background: url(<?php echo WOO_FEED_PLUGIN_URL . 'admin/images/christmas-web-banner-2023.png'; ?>) no-repeat top center;">
+				style="background: url(<?php echo esc_url(WOO_FEED_PLUGIN_URL) . 'admin/images/christmas-web-banner-2023.png'; ?>) no-repeat top center;">
 				<input type="hidden" id="woo_feed_to_ctx_feed_nonce"
-					   value="<?php echo wp_create_nonce( 'woo-feed-to-ctx-feed-notice' ); ?>">
+					   value="<?php echo esc_attr(wp_create_nonce( 'woo-feed-to-ctx-feed-notice' )); ?>">
 			</a>
 			<?php
 			$image = ob_get_contents();
@@ -472,7 +472,7 @@ if ( ! function_exists( 'woo_feed_progress_bar' ) ) {
 		<?php
 		$progress_bar .= ob_get_clean();
 
-		echo $progress_bar;
+		echo esc_html($progress_bar);
 
 	}
 }
@@ -1147,7 +1147,7 @@ if ( ! function_exists( 'woo_feed_merchant_info_metabox' ) ) {
 				if ( isset( $feed_options['url'] ) && ! empty( $feed_options['url'] ) ) {
 					echo sprintf(
 						'<a href="%1$s" title="%2$s" aria-label="%2$s" target="_blank"><span class="dashicons dashicons-external" aria-hidden="true"></span> %3$s</a>',
-						$feed_options['url'],
+						esc_url($feed_options['url']),
 						esc_html__( 'View', 'woo-feed' ),
 						esc_html__( 'Open Feed File', 'woo-feed' )
 					);
@@ -3262,13 +3262,13 @@ if ( ! function_exists( 'woo_feed_render_categories' ) ) {
 								name="cmapping[<?php echo esc_attr( $cat->term_id ); ?>]"
 								placeholder="<?php echo esc_attr( $par . $cat->name ); ?>"
 								data-cat_id="<?php echo esc_attr( $cat->term_id ); ?>"
-								value="<?php echo $previous_mapping_value; ?>"
+								value="<?php echo esc_html($previous_mapping_value); ?>"
 						>
 						<span
 							<?php echo ( $newOrGoogleFacebook ) ? '' : 'style=" display: none;" '; ?>class="wf_default wf_attributes">
-							<select name="gcl-cmapping[<?php echo $cat->term_id; ?>]"
+							<select name="gcl-cmapping[<?php echo esc_attr($cat->term_id); ?>]"
 									class="selectize selectize-google-category woo-feed-mapping-select"
-									data-selected="<?php echo $previous_mapping_value; ?>"
+									data-selected="<?php echo esc_attr($previous_mapping_value); ?>"
 									data-placeholder="<?php esc_attr_e( 'Select A Category', 'woo-feed' ); ?>">
 								<option value="<?php echo esc_attr( $previous_listing_mapping_value ); ?>" selected>
 									<?php echo esc_attr( $previous_listing_mapping_value ); ?>
@@ -3285,12 +3285,12 @@ if ( ! function_exists( 'woo_feed_render_categories' ) ) {
 					}
 					$termchildren = ! empty( get_term_children( $cat->term_id, 'product_cat' ) ) || $cat->parent;
 					?>
-					<td class="<?php echo $termchildren ? 'group-' . $woo_map_term_id : ''; ?>">
+					<td class="<?php echo esc_attr($termchildren) ? 'group-' . esc_attr($woo_map_term_id) : ''; ?>">
 						<?php
 						$childrencat = ! empty( get_term_children( $cat->term_id, 'product_cat' ) );
 						if ( $childrencat ) {
-							$title = __( 'Copy this category to subcategories', 'woo-feed' );
-							echo '<span class="dashicons dashicons-arrow-down-alt" title=" ' . $title . '" id="cat-map-' . $cat->term_id . '"></span>';
+							$title = esc_html_e( 'Copy this category to subcategories', 'woo-feed' );
+							echo '<span class="dashicons dashicons-arrow-down-alt" title=" ' . esc_attr($title) . '" id="cat-map-' . esc_attr($cat->term_id) . '"></span>';
 						}
 						?>
 					</td>

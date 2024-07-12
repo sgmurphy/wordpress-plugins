@@ -2,10 +2,10 @@
 Contributors: hautrancong16
 Tags: Button contact call, zalo, whatsapp, messenger
 Donate link: paypal.me/virustran
-Requires at least: 5.0
+Requires at least: 4.7
 Tested up to: 6.5.2
-Requires PHP: 7.4
-Tested up to: 6.5
+Requires PHP: 5.6
+Tested up to: 6.5.5
 Stable tag: 5.9.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -109,5 +109,5 @@ Tested up to wordpress: 6.2
 *fix type hotline
 
 = 4.7.3
-* Release Date - 10/07/2024.
-*fix fix design
+* Release Date - 12/07/2024.
+* add link messenger

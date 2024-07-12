@@ -249,7 +249,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
          * @access public
          */
         public function wwp_hide_acfwf_install_notice() {
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_POST['nonce'], 'wwp_hide_acfwf_install_notice_nonce' ) ) {
+            if ( ! wp_doing_ajax() || ! wp_verify_nonce( $_POST['nonce'], 'wwp_hide_acfwf_install_notice_nonce' ) ) {
                 // Security check failure.
                 return;
             }
@@ -311,7 +311,7 @@ if ( ! class_exists( 'WWP_Marketing' ) ) {
          */
         public function ajax_request_review_response() {
 
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_POST['nonce'], 'wwp_request_review_nonce' ) ) {
+            if ( ! wp_doing_ajax() || ! wp_verify_nonce( $_POST['nonce'], 'wwp_request_review_nonce' ) ) {
                 $response = array(
 					'status'    => 'fail',
 					'error_msg' => __( 'Security check failure', 'woocommerce-wholesale-prices' ),

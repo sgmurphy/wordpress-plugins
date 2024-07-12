@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * The framework column fields file.
  *
@@ -64,6 +64,7 @@ if ( ! class_exists( 'SP_PC_Field_column' ) ) {
 					'mobile'                       => true,
 					'min'                          => '1',
 					'unit'                         => false,
+					'decimal'                      => false,
 					'all'                          => false,
 					'units'                        => array( 'px', '%', 'em' ),
 				)
@@ -89,14 +90,16 @@ if ( ! class_exists( 'SP_PC_Field_column' ) ) {
 
 			echo '<div class="spf--inputs">';
 
-			$min = ( isset( $args['min'] ) ) ? ' min="' . $args['min'] . '"' : '';
+			$min     = ( isset( $args['min'] ) ) ? ' min="' . $args['min'] . '"' : '';
+			$decimal = ( isset( $args['decimal'] ) && $args['decimal'] ) ? ' step="any"' : '';
+
 			if ( ! empty( $args['all'] ) ) {
 
 				$placeholder = ( ! empty( $args['all_placeholder'] ) ) ? ' placeholder="' . $args['all_placeholder'] . '"' : '';
 
 				echo '<div class="spf--input">';
 				echo ( ! empty( $args['all_icon'] ) ) ? '<span class="spf--label spf--icon">' . wp_kses_post( $args['all_icon'] ) . '</span>' : '';
-				echo '<input type="number" name="' . esc_attr( $this->field_name( '[all]' ) ) . '" value="' . esc_attr( $value['all'] ) . '"' . wp_kses_post( $placeholder ) . wp_kses_post( $min ) . ' class="spf-number" required/>';
+				echo '<input type="number" name="' . esc_attr( $this->field_name( '[all]' ) ) . '" value="' . esc_attr( $value['all'] ) . '"' . wp_kses_post( $placeholder ) . wp_kses_post( $min . $decimal ) . ' class="spf-number" required/>';
 				echo ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? '<span class="spf--label spf--unit">' . esc_html( $args['units'][0] ) . '</span>' : '';
 				echo '</div>';
 

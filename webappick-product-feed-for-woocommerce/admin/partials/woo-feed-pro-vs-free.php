@@ -162,7 +162,7 @@ ob_start(); ?>
             <div class="wapk-feed-buy-now-wrapper">
                 <div class="wapk-feed-buy-now-product-container">
                     <div class="wapk-feed-buy-now-thumbnail">
-                        <img src="<?php echo WOO_FEED_FREE_ADMIN_URL; ?>images/woo-feed-icon.svg" alt="CTX Feed Pro" />
+                        <img src="<?php echo esc_url(WOO_FEED_FREE_ADMIN_URL); ?>images/woo-feed-icon.svg" alt="CTX Feed Pro" />
                     </div>
                     <div class="wapk-feed-buy-now-title">
                         <div class="wapk-feed-buy-now-product-name"><?php esc_attr_e('CTX Feed Pro', 'woo-feed');?></div>
@@ -194,7 +194,7 @@ ob_start(); ?>
 			</div>
 			<div class="wapk-cta-content">
 				<h2><?php esc_html_e( "Still need help?", "woo-feed" ); ?></h2>
-				<p><?php _e( "Have we not answered your question?<br>Don't worry, you can contact us for more information...", "woo-feed") ?></p>
+				<p><?php esc_html_e( "Have we not answered your question?<br>Don't worry, you can contact us for more information...", "woo-feed") ?></p>
 			</div>
 			<div class="wapk-cta-action">
 				<a href="https://wordpress.org/support/plugin/webappick-product-feed-for-woocommerce/#new-topic-0" class="wapk-button wapk-button-primary woo-feed-btn-bg-gradient-blue" target="_blank"><?php esc_html_e( 'Get Support', 'woo-feed' ); ?></a>

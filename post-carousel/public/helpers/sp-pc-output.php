@@ -27,8 +27,10 @@ class SP_PC_Output {
 	 */
 	public static function pcp_post_responsive_columns( $layout, $columns ) {
 		$pcp_post_columns = '';
-		if ( 'carousel_layout' === $layout ) {
+		if ( 'carousel_layout' === $layout || 'slider_layout' === $layout ) {
 			$pcp_post_columns .= ' swiper-slide swiper-lazy';
+		} elseif ( 'list_layout' === $layout ) {
+			$pcp_post_columns = 'sp-pcp-col-xs-1';
 		} else {
 			$pcp_post_columns .= " sp-pcp-col-xs-$columns[mobile] sp-pcp-col-sm-$columns[mobile_landscape] sp-pcp-col-md-$columns[tablet] sp-pcp-col-lg-$columns[desktop] sp-pcp-col-xl-$columns[lg_desktop]";
 		}
@@ -44,6 +46,7 @@ class SP_PC_Output {
 		$wrapper_class = "sp-pcp-section sp-pcp-container pcp-wrapper-{$shortcode_id}";
 		switch ( $layout_preset ) {
 			case 'carousel_layout':
+			case 'slider_layout':
 				$wrapper_class .= ' pcp-carousel-wrapper';
 				break;
 		}
@@ -61,13 +64,29 @@ class SP_PC_Output {
 	public static function pcp_post_loop( $options, $layout, $sorter, $scode_id ) {
 		global $post;
 		$number_of_columns = SP_PC_Functions::pcp_metabox_value( 'pcp_number_of_columns', $options );
+		$item_class        = 'slider_layout' === $layout ? 'sp-overlay overlay-content-position-middle' : 'left-thumb';
 		?>
 		<div class="<?php echo esc_attr( self::pcp_post_responsive_columns( $layout, $number_of_columns ) ); ?>">
+			<?php if ( 'slider_layout' === $layout || 'list_layout' === $layout ) { ?>
+				<div class="sp-pcp-post <?php echo esc_attr( $item_class ); ?> pcp-item-<?php echo esc_attr( $post->ID ); ?>" data-id="<?php echo esc_attr( $post->ID ); ?>">
+				<?php
+					SP_PC_HTML::pcp_post_thumb_html( $sorter, $scode_id, $post, $options, $layout );
+				?>
+				<div class="sp-pcp-post-details">
+					<div class="sp-pcp-post-details-content">
+					<?php
+					SP_PC_HTML::pcp_post_content_without_thumb( $sorter, $layout, $post, $options );
+					?>
+					</div>
+				</div>
+			</div>
+			<?php } else { ?>
 			<div class="sp-pcp-post pcp-item-<?php echo esc_attr( $post->ID ); ?>" data-id="<?php echo esc_attr( $post->ID ); ?>">
 				<?php
 					SP_PC_HTML::pcp_post_content_with_thumb( $sorter, $layout, $scode_id, $post, $options );
 				?>
 			</div>
+			<?php } ?>
 		</div>
 		<?php
 	}
@@ -108,7 +127,10 @@ class SP_PC_Output {
 		$pcp_settings         = get_option( 'sp_post_carousel_settings' );
 		$post_content_sorter  = isset( $view_options['post_content_sorter'] ) ? $view_options['post_content_sorter'] : '';
 		$pcp_content_position = isset( $view_options['post_content_orientation'] ) ? $view_options['post_content_orientation'] : '';
-		$margin_between_post  = isset( $view_options['margin_between_post']['all'] ) ? $view_options['margin_between_post']['all'] : '';
+		$margin_between_post  = isset( $view_options['margin_between_post']['left-right'] ) ? $view_options['margin_between_post'] : array(
+			'top-bottom' => 20,
+			'left-right' => 20,
+		);
 		$show_preloader       = isset( $view_options['show_preloader'] ) ? $view_options['show_preloader'] : 0;
 		$query_args           = SP_PC_QueryInside::get_filtered_content( $view_options, $shortcode_id, $layout );
 		$pcp_query            = new WP_Query( $query_args );
@@ -122,10 +144,12 @@ class SP_PC_Output {
 			wp_add_inline_script( 'pcp_script', $pcp_custom_js );
 		}
 
-		if ( 'carousel_layout' === $layout_preset ) {
+		if ( 'carousel_layout' === $layout_preset || 'slider_layout' === $layout_preset ) {
 			require SP_PC_TEMPLATE_PATH . '/carousel.php';
 		} elseif ( 'grid_layout' === $layout_preset ) {
 			require SP_PC_TEMPLATE_PATH . '/grid.php';
+		} elseif ( 'list_layout' === $layout_preset ) {
+			require SP_PC_TEMPLATE_PATH . '/list.php';
 		}
 	}
 }

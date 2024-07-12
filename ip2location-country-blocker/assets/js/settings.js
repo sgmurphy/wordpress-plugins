@@ -181,7 +181,7 @@ jQuery(document).ready(function ($) {
 					$btn.prop('disabled', false);
 				}
 			}
-		).always(function () {});
+		).always(function () { });
 	});
 
 	$('#btn-to-db-step-1').on('click', function (e) {
@@ -233,4 +233,32 @@ jQuery(document).ready(function ($) {
 			$btn.prop('disabled', false);
 		});
 	});
+
+	$('#btn_download_backup').on('click', function (e) {
+		e.preventDefault();
+
+		$('#form_download_backup').submit();
+	});
+
+	$('#file-restore').uploadFile({
+		url: ajaxurl,
+		formData: {
+			action: 'ip2location_country_blocker_restore',
+			__nonce: $('#restore_nonce').val(),
+		},
+		multiple: false,
+		dragDrop: true,
+		maxFileCount: 1,
+		fileName: 'file-restore',
+		acceptFiles:'.json',
+		onSuccess:function(files, data, xhr, pd) {
+			if (data.status != 'OK') {
+				alert(data.message);
+				return;
+			}
+
+			window.location.href = window.location.href;
+		},
+	});
+
 });

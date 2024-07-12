@@ -504,9 +504,16 @@ if ( ! class_exists( 'SP_PC' ) ) {
 
 				echo '<div class="spf-field spf-field-' . esc_attr( $field_type ) . esc_attr( $is_pseudo ) . esc_attr( $class ) . esc_attr( $hidden ) . '"' . wp_kses_post( $depend ) . '>';
 
+				// if ( ! empty( $field['title'] ) ) {
+				// $subtitle = ( ! empty( $field['subtitle'] ) ) ? '<p class="spf-text-subtitle">' . $field['subtitle'] . '</p>' : '';
+				// echo '<div class="spf-title"><h4>' . esc_html( $field['title'] ) . '</h4>' . wp_kses_post( $subtitle ) . '</div>';
+				// }
 				if ( ! empty( $field['title'] ) ) {
-					$subtitle = ( ! empty( $field['subtitle'] ) ) ? '<p class="spf-text-subtitle">' . $field['subtitle'] . '</p>' : '';
-					echo '<div class="spf-title"><h4>' . esc_html( $field['title'] ) . '</h4>' . wp_kses_post( $subtitle ) . '</div>';
+					$subtitle   = ( ! empty( $field['subtitle'] ) ) ? '<p class="spf-text-subtitle">' . $field['subtitle'] . '</p>' : '';
+					$title_info = ( ! empty( $field['title_info'] ) ) ? '<span class="spf-help title-info"><div class="spf-help-text">' . wp_kses_post( $field['title_info'] ) . '</div><span class="tooltip-icon"><img src="' . SP_PC_URL . '/admin/assets/img/info.svg"></span></span>' : '';
+
+					echo '<div class="spf-title"><h4>' . wp_kses_post( $field['title'] . $title_info ) . '</h4>' . wp_kses_post( $subtitle ) . '</div>';
+
 				}
 
 				echo ( ! empty( $field['title'] ) ) ? '<div class="spf-fieldset">' : '';

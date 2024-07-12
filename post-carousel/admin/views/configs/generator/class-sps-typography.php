@@ -25,12 +25,13 @@ class SPS_Typography {
 			$prefix,
 			array(
 				'title'           => __( 'Typography', 'post-carousel' ),
-				'icon'            => 'fa fa-font',
+				'icon'            => 'sps-icon-typography',
 				'enqueue_webfont' => true,
 				'fields'          => array(
 					array(
-						'content' => __( 'To unlock the following typography (950+ Google Fonts) options, <a href="https://smartpostshow.com/" target="_blank"><strong>Upgrade To Pro!</strong></a> P.S. Note: The color fields work in the lite version.', 'post-carousel' ),
 						'type'    => 'notice',
+						'class'   => 'taxonomy-ajax-filter-notice',
+						'content' => __( 'Want to easily customize everything (Typography, Colors, Margin)?', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a> P.S. Note: The color fields work in the lite version.',
 					),
 					array(
 						'id'         => 'section_title_typography',
@@ -55,6 +56,29 @@ class SPS_Typography {
 							'unit'               => 'px',
 						),
 						'dependency' => array( 'section_title', '==', 'true', 'all' ),
+					),
+					array(
+						'id'              => 'section_title_margin',
+						'type'            => 'spacing',
+						'title'           => __( 'Section Title Margin', 'post-carousel' ),
+						'subtitle'        => __( 'Set margin for the section title.', 'post-carousel' ),
+						'all_icon'        => '<i class="fa fa-long-arrow-down"></i>',
+						'units'           => array(
+							'px',
+						),
+						'all_placeholder' => 'margin',
+						'default'         => array(
+							'top'    => '0',
+							'right'  => '0',
+							'bottom' => '30',
+							'left'   => '0',
+						),
+						'dependency'      => array(
+							'section_title',
+							'==',
+							'true',
+							true,
+						),
 					),
 					array(
 						'id'          => 'post_title_typography',

@@ -1,10 +1,10 @@
 === Accordion FAQ - Compatible With All Page Builder (Elementor, Gutenberg) ===
 Contributors: wpshopmart
 Donate link: https://www.wpshopmart.com
-Tags: Accordion, accordions, accordion plugin, FAQ, collapse, accordion plugin jquery, accordions plugin wordpress, accordions shortcode, accordion shortcode, accordions Widget, accordion Widget, jQuery accordions, Responsive accordion, Responsive accordions, collapsable content,  collapsible, display, expand, expandable, expandable content, hidden, hide, javascript, jquery, toggle, css accordion, css3 , bootstrap, bootstrap accordion, bootstrap collapse, wordpress accordion, widget, shortcode, responsive, plugin, wordpress accordion plugin  
+Tags: Accordion,  FAQ, collapse, responsive accordion, frequently asked questions 
 Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 2.4.8
+Tested up to: 6.6
+Stable tag: 2.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,10 @@ We love your feedback please submit your review here [pluign review](https://wor
 11. accordion styles 2
 
 == Changelog ==
+
+= 2.4.9 =
+* Compatible with WordPress 6.6
+
 
 = 2.4.8 =
 * Compatible with WordPress 6.5

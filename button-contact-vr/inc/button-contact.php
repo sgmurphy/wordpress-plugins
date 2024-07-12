@@ -151,6 +151,24 @@ final class PZF {
 					</div>
 				<!-- end fanpage -->
 				<?php }; ?>
+				
+
+				<?php
+				if(get_option('pzf_linkmessenger')){
+				?>
+				<!-- messenger -->
+				<div id="messenger-vr" class="button-contact">
+					<div class="phone-vr">
+						<div class="phone-vr-circle-fill"></div>
+						<div class="phone-vr-img-circle">
+							<a target="_blank" href="<?php echo get_option('pzf_linkmessenger'); ?>">				
+								<img alt="messenger" src="<?php echo PZF_URL.'img/messenger.png'; ?>" />
+							</a>
+						</div>
+					</div>
+					</div>
+				<!-- end messenger -->
+				<?php }; ?>
 
 				<?php
 				if(get_option('pzf_tiktok')){
@@ -287,7 +305,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',wp_kses(get_option('pzf_phone2'))); ?>">				
+							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone2')); ?>">				
 								<img  alt="phone" src="<?php echo PZF_URL.'img/phone.png'; ?>" />
 							</a>
 						</div>
@@ -296,7 +314,7 @@ final class PZF {
 					<?php 
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar2 phone-bar-n">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',wp_kses(get_option('pzf_phone2'))); ?>">
+							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone2')); ?>">
 								<span class="text-phone"><?php echo get_option('pzf_phone2'); ?></span>
 							</a>
 						</div>
@@ -312,7 +330,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',wp_kses(get_option('pzf_phone3'))); ?>">				
+							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone3')); ?>">				
 								<img alt="Phone" src="<?php echo PZF_URL.'img/phone.png'; ?>" />
 							</a>
 						</div>
@@ -321,7 +339,7 @@ final class PZF {
 					<?php 
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar3 phone-bar-n">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',wp_kses(get_option('pzf_phone3'))); ?>">
+							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone3')); ?>">
 								<span class="text-phone"><?php echo get_option('pzf_phone3'); ?></span>
 							</a>
 						</div>

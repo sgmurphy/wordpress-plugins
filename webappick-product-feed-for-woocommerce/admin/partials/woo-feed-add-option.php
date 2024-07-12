@@ -13,7 +13,7 @@ $options         = DropDownOptions::get_options('',true);
 			<tr>
 				<td style="width: 130px;max-width: 130px;"><label for="wpfp_option"><b><?php esc_html_e( 'Option Name', 'woo-feed' ); ?> <span class="requiredIn">*</span></b></label></td>
 				<td>
-					<select name="wpfp_option" id="wpfp_option" class="selectize generalInput" style="width: 100%;" placeholder="<?php esc_attr_e( 'Search Option Name', 'woo-feed' ); ?>" required><?php echo $options; ?></select>
+					<select name="wpfp_option" id="wpfp_option" class="selectize generalInput" style="width: 100%;" placeholder="<?php esc_attr_e( 'Search Option Name', 'woo-feed' ); ?>" required><?php echo esc_attr($options); ?></select>
 				</td>
 			</tr>
 			<tr>

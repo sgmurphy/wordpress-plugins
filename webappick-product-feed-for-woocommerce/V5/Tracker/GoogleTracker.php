@@ -58,7 +58,7 @@ class GoogleTracker implements TrackerInterface {
 		?>
 
         <!-- Global site tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $this->trackingId; ?>"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr($this->trackingId); ?>"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
 
@@ -67,7 +67,7 @@ class GoogleTracker implements TrackerInterface {
             }
 
             gtag('js', new Date());
-            gtag('config', '<?php echo $this->trackingId; ?>');
+            gtag('config', '<?php echo esc_attr($this->trackingId); ?>');
 			
 			<?php
 			// Always trigger PageView Event.

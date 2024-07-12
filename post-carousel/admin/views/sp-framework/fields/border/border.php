@@ -42,7 +42,7 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 					'left_icon'          => '<i class="fa fa-long-arrow-left"></i>',
 					'bottom_icon'        => '<i class="fa fa-long-arrow-down"></i>',
 					'right_icon'         => '<i class="fa fa-long-arrow-right"></i>',
-					'all_icon'           => '<i class="fa fa-arrows"></i>',
+					'all_icon'           => '<i class="sps-icon-border"></i>',
 					'top_placeholder'    => esc_html__( 'top', 'post-carousel' ),
 					'right_placeholder'  => esc_html__( 'right', 'post-carousel' ),
 					'bottom_placeholder' => esc_html__( 'bottom', 'post-carousel' ),
@@ -57,18 +57,23 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 					'style'              => true,
 					'unit'               => 'px',
 					'min'                => '0',
+					'hover_color'        => false,
+					'border_radius'      => false,
+					'show_units'         => false,
 				)
 			);
 
 			$default_value = array(
-				'top'    => '',
-				'right'  => '',
-				'bottom' => '',
-				'left'   => '',
-				'color'  => '',
-				'style'  => 'solid',
-				'all'    => '',
-				'min'    => '',
+				'top'           => '',
+				'right'         => '',
+				'bottom'        => '',
+				'left'          => '',
+				'color'         => '',
+				'hover_color'   => '',
+				'border_radius' => '',
+				'style'         => 'solid',
+				'all'           => '',
+				'min'           => '',
 			);
 
 			$border_props = array(
@@ -96,10 +101,13 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 
 				$placeholder = ( ! empty( $args['all_placeholder'] ) ) ? ' placeholder="' . $args['all_placeholder'] . '"' : '';
 
+				echo '<div class="spf--border">';
+				echo '<div class="spf--title">' . esc_html__( 'Width', 'post-carousel' ) . '</div>';
 				echo '<div class="spf--input">';
 				echo ( ! empty( $args['all_icon'] ) ) ? '<span class="spf--label spf--icon">' . wp_kses_post( $args['all_icon'] ) . '</span>' : '';
 				echo '<input type="number" name="' . esc_attr( $this->field_name( '[all]' ) ) . '" value="' . esc_attr( $value['all'] ) . '"' . wp_kses_post( $placeholder ) . wp_kses_post( $min ) . ' class="spf-input-number spf--is-unit" />';
 				echo ( ! empty( $args['unit'] ) ) ? '<span class="spf--label spf--unit">' . esc_html( $args['unit'] ) . '</span>' : '';
+				echo '</div>';
 				echo '</div>';
 
 			} else {
@@ -128,6 +136,8 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 			}
 
 			if ( ! empty( $args['style'] ) ) {
+				echo '<div class="spf--border">';
+				echo '<div class="spf--title">' . esc_html__( 'Style', 'post-carousel' ) . '</div>';
 				echo '<div class="spf--input">';
 				echo '<select name="' . esc_attr( $this->field_name( '[style]' ) ) . '">';
 				foreach ( $border_props as $border_prop_key => $border_prop_value ) {
@@ -136,15 +146,51 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 				}
 				echo '</select>';
 				echo '</div>';
+				echo '</div>';
 			}
 			echo '</div>';
 			if ( ! empty( $args['color'] ) ) {
 				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . $default_value['color'] . '"' : '';
 				echo '<div class="spf--color">';
 				echo '<div class="spf-field-color">';
+				echo '<div class="spf--title">' . esc_html__( 'Color', 'post-carousel' ) . '</div>';
 				echo '<input type="text" name="' . esc_attr( $this->field_name( '[color]' ) ) . '" value="' . esc_attr( $value['color'] ) . '" class="spf-color"' . wp_kses_post( $default_color_attr ) . ' />';
 				echo '</div>';
 				echo '</div>';
+			}
+			if ( ! empty( $args['hover_color'] ) ) {
+				$default_color_attr = ( ! empty( $default_value['hover_color'] ) ) ? ' data-default-color="' . esc_attr( $default_value['hover_color'] ) . '"' : '';
+				echo '<div class="spf--color">';
+				echo '<div class="spf-field-color">';
+				echo '<div class="spf--title">' . esc_html__( 'Hover Color', 'post-carousel' ) . '</div>';
+				echo '<input type="text" name="' . esc_attr( $this->field_name( '[hover_color]' ) ) . '" value="' . esc_attr( $value['hover_color'] ) . '" class="spf-color"' . wp_kses_post( $default_color_attr ) . ' />';
+				echo '</div>';
+				echo '</div>';
+			}
+
+			if ( ! empty( $args['border_radius'] ) ) {
+
+				$placeholder = ( ! empty( $args['all_placeholder'] ) ) ? $args['all_placeholder'] : '';
+				echo '<div class="spf--color border-radius">';
+				echo '<div class="spf--title">' . esc_html__( 'Radius', 'post-carousel' ) . '</div>';
+				echo '<div class="spf--input">';
+				echo ( ! empty( $args['all_icon'] ) ) ? '<span class="spf--label spf--icon"><i class="sps-icon-radius-01"></i></span>' : '';
+				echo '<input type="number" name="' . esc_attr( $this->field_name( '[border_radius]' ) ) . '" value="' . esc_attr( $value['border_radius'] ) . '" placeholder="' . esc_attr( $placeholder ) . '" class="spf-input-number spf--is-unit" step="any" />';
+				if ( $args['show_units'] && ( $args['units'] ) > 1 ) {
+					echo '<div class="spf--input spf--border-select">';
+					echo '<select name="' . esc_attr( $this->field_name( '[unit]' ) ) . '">';
+					foreach ( $args['units'] as $unit ) {
+						$selected = ( $value['unit'] === $unit ) ? ' selected' : '';
+						echo '<option value="' . esc_attr( $unit ) . '"' . esc_attr( $selected ) . '>' . esc_attr( $unit ) . '</option>';
+					}
+					echo '</select>';
+					echo '</div>';
+				} else {
+					echo ( ! empty( $args['unit'] ) ) ? '<span class="spf--label spf--unit">' . esc_attr( $args['unit'] ) . '</span>' : '';
+
+				}
+				echo '</div></div>';
+
 			}
 
 			echo '<div class="clear"></div>';
@@ -152,54 +198,5 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 			echo wp_kses_post( $this->field_after() );
 
 		}
-
-		/**
-		 * Output method.
-		 *
-		 * @return mixed
-		 */
-		public function output() {
-
-			$output    = '';
-			$unit      = ( ! empty( $this->value['unit'] ) ) ? $this->value['unit'] : 'px';
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$element   = ( is_array( $this->field['output'] ) ) ? join( ',', $this->field['output'] ) : $this->field['output'];
-
-			// properties.
-			$top    = ( isset( $this->value['top'] ) && $this->value['top'] ) ? $this->value['top'] : '';
-			$right  = ( isset( $this->value['right'] ) && $this->value['right'] ) ? $this->value['right'] : '';
-			$bottom = ( isset( $this->value['bottom'] ) && $this->value['bottom'] ) ? $this->value['bottom'] : '';
-			$left   = ( isset( $this->value['left'] ) && $this->value['left'] ) ? $this->value['left'] : '';
-			$style  = ( isset( $this->value['style'] ) && $this->value['style'] ) ? $this->value['style'] : '';
-			$color  = ( isset( $this->value['color'] ) && $this->value['color'] ) ? $this->value['color'] : '';
-			$all    = ( isset( $this->value['all'] ) && $this->value['all'] ) ? $this->value['all'] : '';
-
-			if ( ! empty( $this->field['all'] ) && ( $all || $color ) ) {
-
-				$output  = $element . '{';
-				$output .= ( '' !== $all ) ? 'border-width:' . $all . $unit . $important . ';' : '';
-				$output .= ( '' !== $color ) ? 'border-color:' . $color . $important . ';' : '';
-				$output .= ( '' !== $style ) ? 'border-style:' . $style . $important . ';' : '';
-				$output .= '}';
-
-			} elseif ( '' !== $top || '' !== $right || '' !== $bottom || '' !== $left || '' !== $color ) {
-
-				$output  = $element . '{';
-				$output .= ( '' !== $top ) ? 'border-top-width:' . $top . $unit . $important . ';' : '';
-				$output .= ( '' !== $right ) ? 'border-right-width:' . $right . $unit . $important . ';' : '';
-				$output .= ( '' !== $bottom ) ? 'border-bottom-width:' . $bottom . $unit . $important . ';' : '';
-				$output .= ( '' !== $left ) ? 'border-left-width:' . $left . $unit . $important . ';' : '';
-				$output .= ( '' !== $color ) ? 'border-color:' . $color . $important . ';' : '';
-				$output .= ( '' !== $style ) ? 'border-style:' . $style . $important . ';' : '';
-				$output .= '}';
-
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-
-		}
-
 	}
 }

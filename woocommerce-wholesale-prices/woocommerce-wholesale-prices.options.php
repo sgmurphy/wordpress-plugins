@@ -42,3 +42,10 @@ define( 'WWP_OPTIONS_REGISTERED_CUSTOM_ROLES', 'wwp_options_registered_custom_ro
 if ( ! defined( 'WWS_LICENSE_DATA' ) ) {
     define( 'WWS_LICENSE_DATA', 'wws_license_data' );
 }
+
+if ( ! defined( 'WWP_ENABLE_SUBRESOURCE_INTEGRITY_CHECK' ) ) {
+    /**
+     * Disable subresource integrity check by default.
+     */
+    define( 'WWP_ENABLE_SUBRESOURCE_INTEGRITY_CHECK', false );
+}

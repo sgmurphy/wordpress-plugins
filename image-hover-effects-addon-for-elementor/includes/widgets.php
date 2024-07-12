@@ -476,7 +476,12 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 		$eihe_tag = $this->validate_html_tag($settings['eihe_tag']);
 
 		if(!empty($settings['eihe_link']['url'])) {
-			$this->add_link_attributes('eihe_link', $settings['eihe_link']);
+			$this->add_link_attributes('eihe_link',[
+				'url' => $settings['eihe_link']['url'],
+				'is_external' => $settings['eihe_link']['is_external'],
+				'nofollow' => $settings['eihe_link']['nofollow'],
+				'custom_attributes' => $settings['eihe_link']['custom_attributes']
+			]);
 		?>
 			<a <?php echo $this->get_render_attribute_string( 'eihe_link' ); ?>>
 		<?php
@@ -526,7 +531,7 @@ class Elementor_Image_Hover_Effects_EIHE extends Widget_Base {
 		}
 
 		if (settings.eihe_link.url != '') {
-			view.addRenderAttribute('eihe_link', settings.eihe_link);
+			view.addRenderAttribute('eihe_link', { 'url': settings.eihe_link.url });
 		#>
 			<a {{{ view.getRenderAttributeString( 'eihe_link' ) }}}>
 		<#

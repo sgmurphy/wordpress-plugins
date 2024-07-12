@@ -24,25 +24,17 @@ class SPS_ScriptsAndStyles {
 		SP_PC::createSection(
 			$prefix,
 			array(
-				'title'  => __( 'Scripts & Styles', 'post-carousel' ),
-				'icon'   => 'fa fa-file-code-o',
+				'title'  => __( 'Control Assets', 'post-carousel' ),
+				'icon'   => 'fa fa-tasks',
 				'fields' => array(
-					array(
-						'type'    => 'subheading',
-						'content' => __( 'Enqueue or Dequeue JS', 'post-carousel' ),
-					),
 					array(
 						'id'         => 'pcp_swiper_js',
 						'type'       => 'switcher',
 						'title'      => __( 'Swiper JS', 'post-carousel' ),
 						'text_on'    => __( 'Enqueued', 'post-carousel' ),
 						'text_off'   => __( 'Dequeued', 'post-carousel' ),
-						'text_width' => 95,
+						'text_width' => 110,
 						'default'    => true,
-					),
-					array(
-						'type'    => 'subheading',
-						'content' => __( 'Enqueue or Dequeue CSS', 'post-carousel' ),
 					),
 					array(
 						'id'         => 'pcp_swiper_css',
@@ -50,7 +42,7 @@ class SPS_ScriptsAndStyles {
 						'title'      => __( 'Swiper CSS', 'post-carousel' ),
 						'text_on'    => __( 'Enqueued', 'post-carousel' ),
 						'text_off'   => __( 'Dequeued', 'post-carousel' ),
-						'text_width' => 95,
+						'text_width' => 110,
 						'default'    => true,
 					),
 					array(
@@ -59,7 +51,7 @@ class SPS_ScriptsAndStyles {
 						'title'      => __( 'Font Awesome CSS', 'post-carousel' ),
 						'text_on'    => __( 'Enqueued', 'post-carousel' ),
 						'text_off'   => __( 'Dequeued', 'post-carousel' ),
-						'text_width' => 95,
+						'text_width' => 110,
 						'default'    => true,
 					),
 				),

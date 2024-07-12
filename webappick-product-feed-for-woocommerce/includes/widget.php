@@ -77,7 +77,7 @@ if ( ! function_exists('webappick_dashboard_widget_render') ) {
                                     <div>
                                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                     </div>
-                                    <span><?php echo $value; ?></span>
+                                    <span><?php echo esc_attr($value); ?></span>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -89,7 +89,7 @@ if ( ! function_exists('webappick_dashboard_widget_render') ) {
                                     <div>
                                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                     </div>
-                                    <span><?php echo $value; ?></span>
+                                    <span><?php echo esc_attr($value); ?></span>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -108,8 +108,8 @@ if ( ! function_exists('webappick_dashboard_widget_render') ) {
             // For each post.
             foreach ( $posts as $post ) {
                 $fordate = date( 'M j, Y', strtotime( $post->modified ) ); ?>
-                <p class="webappick-feeds"> <a style="text-decoration: none;" href="<?php echo esc_url( $post->link ); ?>" target=_balnk><?php echo esc_html( $post->title->rendered ); ?></a> - <?php echo $fordate;?></p>
-                <span><?php echo wp_trim_words( $post->content->rendered, 35, '...'); ?></span>
+                <p class="webappick-feeds"> <a style="text-decoration: none;" href="<?php echo esc_url( $post->link ); ?>" target=_balnk><?php echo esc_html( $post->title->rendered ); ?></a> - <?php echo esc_html($fordate);?></p>
+                <span><?php echo esc_html(wp_trim_words( $post->content->rendered, 35, '...')); ?></span>
                 <?php
             }
             ?>

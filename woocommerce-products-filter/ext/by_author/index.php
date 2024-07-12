@@ -76,7 +76,7 @@ final class WOOF_EXT_BY_AUTHOR extends WOOF_EXT {
 
     public function woof_post_author_filter($where = '', $query = null) {
 
-        global $wp_query;
+        global $wp_query,$wpdb;
         
         $request = woof()->get_request_data();
 
@@ -96,7 +96,7 @@ final class WOOF_EXT_BY_AUTHOR extends WOOF_EXT {
                 $where .= "AND ( ";
                 for ($i = 0; $i < count($request['woof_author']); $i++) {
                     $logic = " OR ";
-					$where .= "post_author={$request['woof_author'][$i]}";
+					$where .= $wpdb->prepare("post_author=%d", $request['woof_author'][$i]);
                     if ((count($request['woof_author']) - 1) <= $i) {
                         $logic = "";
                     }

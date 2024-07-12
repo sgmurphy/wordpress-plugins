@@ -809,6 +809,22 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </div>
                                     </div>
                                 </div><!-- Quiz image height -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_progress_bar_style">
+                                            <?php echo __('Progress bar style',$this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select id="ays_quick_quiz_progress_bar_style" name="ays_quick_quiz_progress_bar_style" class="ays-text-input ays-text-input-short">
+                                            <option value="first"><?php echo __( 'Rounded', $this->plugin_name); ?></option>
+                                            <option value="second"><?php echo __( 'Rectangle', $this->plugin_name); ?></option>
+                                            <option selected value="third"><?php echo __( 'With stripes', $this->plugin_name); ?></option>
+                                            <option value="fourth"><?php echo __( 'With stripes and animation', $this->plugin_name); ?></option>
+                                        </select>
+                                    </div>
+                                </div><!-- Progress bar style -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

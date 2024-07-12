@@ -62,53 +62,51 @@
      * @since 2.1.1 
      * - Added validation of discount value (percent), the percent or discount value should not be greater than  100 and should not be less than zero.
      * - Added wc_error_tip if the discount input field is greater than 100, and if the discount input field is less than 0
+     * @since 2.2.0
+     * - Refactored variation discount coulcation to a separate function
      */
     $('body').on('keyup', '.wholesale_discount', function(e){
+
         $variable_product_variations = ($product_type === 'simple') ? {length:0} : $('#variable_product_options_inner .woocommerce_variations');
 
-        var discount                        = $(this).val(),
-            role                            = $(this).data('wholesale_role'),
-            variation_loop_index_id         = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '',
-            regular_price_id                = $variable_product_variations.length > 0 ? 'variable_regular_price_' + variation_loop_index_id :      '_regular_price',
-            price                           = getProductRegularPrice(regular_price_id),
-            wholesale_price_field_id        = $variable_product_variations.length > 0 ? role + '_wholesale_prices\\[' + variation_loop_index_id + '\\]' : role + '_wholesale_price',
-            el_wholesale_price_field        = $('#' + wholesale_price_field_id);
+        const $discount_element = $(this);        
+        
+        var role                            = $(this).data('wholesale_role'),
+            variation_loop_index_id         = $variable_product_variations.length > 0 ? $(this).data('loop_id') : '';
 
-
-        discount = (discount !== "" && $options.decimal_sep !== '.') ? discount.toString().replace($options.decimal_sep,'.') : discount;
-
-        if( parseFloat(discount) > 100 ){
-            
-            $( document.body ).triggerHandler( 'wc_add_error_tip', [ $(this), 'i18n_discount_greater_than_100_percent_error' ] );
-        }else if(parseFloat(discount) == 100){
-
-            $( document.body ).triggerHandler( 'wc_remove_error_tip', [ $(this), 'i18n_discount_greater_than_100_percent_error' ] );
-
-            $( document.body ).triggerHandler( 'wc_remove_error_tip', [ $(this), 'i18n_discount_less_than_0_percent_error' ] );
-
-            el_wholesale_price_field.val(0);
-
-        }else if(parseFloat(discount) < 0){
-
-            $( document.body ).triggerHandler( 'wc_add_error_tip', [ $(this), 'i18n_discount_less_than_0_percent_error' ] );
-
-        }else if(parseFloat(discount) > 0){
-
-            $( document.body ).triggerHandler( 'wc_remove_error_tip', [ $(this), 'i18n_discount_greater_than_100_percent_error' ] );
-
-            $( document.body ).triggerHandler( 'wc_remove_error_tip', [ $(this), 'i18n_discount_less_than_0_percent_error' ] );
-
-            var discounted_price = calculateDiscountedPrice(price, discount);
-            discounted_price = removeTrailingZeros(discounted_price);
-
-            el_wholesale_price_field.val(discounted_price);
-        }else{
-            $( document.body ).triggerHandler( 'wc_remove_error_tip', [ $(this), 'i18n_discount_less_than_0_percent_error' ] );
-
-            el_wholesale_price_field.val('');
-        }
+        processVariationWholesalePrice(
+          $discount_element,
+          variation_loop_index_id,
+          role
+        );
         
     });
+
+
+    /**
+     * Handle the keyup event on the variation regular price fields to calculate the wholesale price every time the regular price is changed.
+     *
+     * @since 2.2.0
+     */
+    $("body").on(
+      "keyup",
+      ".woocommerce_variation .wc_input_price",
+      function (e) {
+        const variationIndex = $(this).attr("id").split("_").pop();
+
+        $wholesale_roles.forEach((role) => {
+          const $discount_element = $(
+            `#${role}_wholesale_percentage_discount\\[${variationIndex}\\]`
+          );
+
+          processVariationWholesalePrice(
+            $discount_element,
+            variationIndex,
+            role
+          );
+        });
+      }
+    );
 
     /**
      * Calculate the percentage wholesale price every time the value is change and if you loss focus in the discount field input or if encounters an error on decimal separator or if the discount input field is greater than 100 or if the discount input field is less than 0.
@@ -378,7 +376,7 @@
                 }
             }
         });
-    }
+    }    
 
     /**
      * Get Percentage Wholesale Price By Regular Price
@@ -546,6 +544,87 @@
             processSimpleProducts();
         }
 
+    }
+
+    /**
+     * Process the variation wholesale price based on the regular price and discount percentage
+     *
+     * @param DOMElemnt $discount_element The product discount element.
+     * @param String variation_loop_index_id The variation loop index id.
+     * @param String role The wholesale customer role.
+     */
+    function processVariationWholesalePrice(
+      $discount_element,
+      variation_loop_index_id,
+      role
+    ) {
+      $variable_product_variations =
+        $product_type === "simple"
+          ? { length: 0 }
+          : $("#variable_product_options_inner .woocommerce_variations");
+
+      var discount = $discount_element.val(),
+        regular_price_id =
+          $variable_product_variations.length > 0
+            ? "variable_regular_price_" + variation_loop_index_id
+            : "_regular_price",
+        price = getProductRegularPrice(regular_price_id),
+        wholesale_price_field_id =
+          $variable_product_variations.length > 0
+            ? role + "_wholesale_prices\\[" + variation_loop_index_id + "\\]"
+            : role + "_wholesale_price",
+        el_wholesale_price_field = $("#" + wholesale_price_field_id);
+
+      discount =
+        discount !== "" && $options.decimal_sep !== "."
+          ? discount.toString().replace($options.decimal_sep, ".")
+          : discount;
+
+      if (parseFloat(discount) > 100) {
+        $(document.body).triggerHandler("wc_add_error_tip", [
+          $discount_element,
+          "i18n_discount_greater_than_100_percent_error",
+        ]);
+      } else if (parseFloat(discount) == 100) {
+        $(document.body).triggerHandler("wc_remove_error_tip", [
+          $discount_element,
+          "i18n_discount_greater_than_100_percent_error",
+        ]);
+
+        $(document.body).triggerHandler("wc_remove_error_tip", [
+          $discount_element,
+          "i18n_discount_less_than_0_percent_error",
+        ]);
+
+        el_wholesale_price_field.val(0);
+      } else if (parseFloat(discount) < 0) {
+        $(document.body).triggerHandler("wc_add_error_tip", [
+          $discount_element,
+          "i18n_discount_less_than_0_percent_error",
+        ]);
+      } else if (parseFloat(discount) > 0) {
+        $(document.body).triggerHandler("wc_remove_error_tip", [
+          $discount_element,
+          "i18n_discount_greater_than_100_percent_error",
+        ]);
+
+        $(document.body).triggerHandler("wc_remove_error_tip", [
+          $discount_element,
+          "i18n_discount_less_than_0_percent_error",
+        ]);
+
+        var discounted_price = calculateDiscountedPrice(price, discount);
+        discounted_price = removeTrailingZeros(discounted_price);
+
+        el_wholesale_price_field.val(discounted_price);
+      } else {
+        $(document.body).triggerHandler("wc_remove_error_tip", [
+          $discount_element,
+          "i18n_discount_less_than_0_percent_error",
+        ]);
+
+        el_wholesale_price_field.val("");
+      }
     }
 
 

@@ -109,7 +109,7 @@ class WP_Auth0_Routes
 			$wp->send_headers();
 		}
 
-		echo esc_js($output);
+		echo str_replace('&quot;', '"', $output);
 		exit;
 	}
 

@@ -1732,12 +1732,8 @@ class HMWP_Models_Rewrite
                     if (strpos($redirect, '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) !== false) {
 
                         if($url){
-                            //if no hide default wp-admin, prevent new login redirect
-                            if(!HMWP_Classes_Tools::getOption('hmwp_hide_admin') && strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin_url')) !== false){
-                                return $redirect;
-                            }
-                            //if no hide new admin, prevent new login redirect
-                            if(!HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') && strpos($url, HMWP_Classes_Tools::getOption('hmwp_admin_url')) !== false){
+                            //redirected from admin, then pass
+                            if(strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin_url')) !== false || strpos($url, HMWP_Classes_Tools::getOption('hmwp_admin_url')) !== false){
                                 return $redirect;
                             }
                         }
@@ -1978,7 +1974,7 @@ class HMWP_Models_Rewrite
                     //Hide Admin URL when changed
                     if (HMWP_Classes_Tools::getDefault('hmwp_admin_url') <> HMWP_Classes_Tools::getOption('hmwp_admin_url')) {
 
-                        if (HMWP_Classes_Tools::getOption('hmwp_hide_newadmin')) {
+                        if ( !HMWP_Classes_Tools::isMultisites() && HMWP_Classes_Tools::getOption('hmwp_hide_newadmin') ) {
                             if (strpos($url . '/', '/' . HMWP_Classes_Tools::getOption('hmwp_admin_url') . '/') !== false && HMWP_Classes_Tools::getOption('hmwp_hide_admin')) {
                                 if (strpos($url . '/', '/' . HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url') . '/') === false) {
                                     $this->getNotFound($url);

@@ -207,7 +207,7 @@ class AttributesMapping extends RestController {
 		$body        = (array) json_decode( $body );
 		$option_name = $body['option_name'];
 
-		$response = $this->unique_option_name( $option_name, AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX, false );
+		$response = $this->unique_option_name( sanitize_text_field( $option_name ), AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX, false );
 
 		return $this->success( $response );
 	}
@@ -240,7 +240,7 @@ class AttributesMapping extends RestController {
 			return rest_ensure_response( $this->response );
 		}
 
-		return $this->error( sprintf( __( 'No attribute found with name: %s', 'woo-feed' ), $name ) );
+		return $this->error( sprintf( esc_attr_e( 'No attribute found with name: %s', 'woo-feed' ), esc_attr($name) ) );
 	}
 
 	/**
@@ -284,7 +284,7 @@ class AttributesMapping extends RestController {
 			return $this->success( self::$attr_lists );
 		}
 
-		return $this->error( sprintf( __( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX . '" does\'nt match.', 'woo-feed' ), $feed_name ) );
+		return $this->error( sprintf( esc_attr_e( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX . '" does\'nt match.', 'woo-feed' ), esc_attr($feed_name) ) );
 	}
 
 	/**

@@ -107,7 +107,8 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
          * @param int $product_id     ID of the product to duplicate.
          */
         public function wwp_duplicate_meta( $duplicate_id, $product_id ) {
-
+            // Get product object.
+            $product  = wc_get_product( $product_id );
             $wwp_meta = apply_filters( 'wwp_duplicate_meta', array() );
 
             if ( empty( $wwp_meta ) ) {
@@ -115,9 +116,11 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
             }
 
         	foreach ( $wwp_meta as $meta ) {
-                $value = get_post_meta( $product_id, $meta, true );
+                $value = $product->get_meta( $meta, true );
         		if ( $value ) {
-        			update_post_meta( $duplicate_id, $meta, $value );
+                    $duplicate_product = wc_get_product( $duplicate_id );
+                    $duplicate_product->update_meta_data( $meta, $value );
+                    $duplicate_product->save();
                 }
         	}
         }
@@ -133,7 +136,8 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
          * @param int   $product_id         ID of the product to duplicate.
          */
         public function wwp_duplicate_role_based_meta( $wholesale_roles, $duplicate_id, $product_id ) {
-
+            // Get product object.
+            $product        = wc_get_product( $product_id );
             $wholesale_meta = apply_filters(
                 'wwp_duplicate_role_based_meta',
                 array(
@@ -147,9 +151,11 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
                 foreach ( $wholesale_roles as $key => $role_data ) {
 
             		foreach ( $wholesale_meta as $meta ) {
-                        $value = get_post_meta( $product_id, $key . $meta, true );
+                        $value = $product->get_meta( $key . $meta, true );
             			if ( $value ) {
-            				update_post_meta( $duplicate_id, $key . $meta, $value );
+                            $duplicate_product = wc_get_product( $duplicate_id );
+                            $duplicate_product->update_meta_data( $key . $meta, $value );
+                            $duplicate_product->save();
                         }
                     }
             	}
@@ -179,10 +185,14 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
 
             if ( ! empty( $product_children ) ) {
 
+                // Get product object.
+                $duplicate_product = wc_get_product( $duplicate_id );
+
                 foreach ( $product_children as $product_variation_id ) {
 
-            		$product_variation      = wc_get_product( $product_variation_id );
-            		$duplicate_variation_id = WWP_Helper_Functions::wwp_get_matching_variation( $duplicate, $product_variation->get_variation_attributes() );
+            		$product_variation           = wc_get_product( $product_variation_id );
+            		$duplicate_variation_id      = WWP_Helper_Functions::wwp_get_matching_variation( $duplicate, $product_variation->get_variation_attributes() );
+                    $duplicate_variation_product = wc_get_product( $duplicate_variation_id );
 
                     // duplicate general meta data.
                     $this->wwp_duplicate_meta( $duplicate_variation_id, $product_variation_id );
@@ -192,15 +202,18 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
 
                     // create _variations_with_wholesale_price meta on the variable product.
                     foreach ( $wholesale_roles as $key => $role_data ) {
-
-                        if ( get_post_meta( $duplicate_variation_id, $key . '_wholesale_price', true ) ) {
-                            add_post_meta( $duplicate_id, $key . '_variations_with_wholesale_price', $duplicate_variation_id );
+                        $duplicate_key_price = $duplicate_variation_product->get_meta( $key . '_wholesale_price', true );
+                        if ( $duplicate_key_price ) {
+                            $duplicate_product->add_meta_data( $key . '_variations_with_wholesale_price', $duplicate_variation_id );
                         }
                     }
 
                     // action hook to support WWPP and third party plugins.
                     do_action( 'wwp_duplicate_variation', $duplicate_variation_id, $product_variation_id );
             	}
+
+                // save the _variations_with_wholesale_price meta on the variable product.
+                $duplicate_product->save();
             }
 
             // action hook to support WWPP and third party plugins.
@@ -218,6 +231,5 @@ if ( ! class_exists( 'WWP_Duplicate_Product' ) ) {
             // Save wholesale data on product duplicate.
             add_action( 'woocommerce_product_duplicate', array( $this, 'wwp_run_product_duplicate' ), 10, 2 );
         }
-
-    }
+}
 }

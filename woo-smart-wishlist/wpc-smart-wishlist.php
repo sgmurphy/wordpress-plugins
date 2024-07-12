@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Wishlist for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Wishlist is a simple but powerful tool that can help your customer save products for buy later.
-Version: 4.8.7
+Version: 4.8.8
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-wishlist
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.9
+WC tested up to: 9.1
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.7' );
+! defined( 'WOOSW_VERSION' ) && define( 'WOOSW_VERSION', '4.8.8' );
 ! defined( 'WOOSW_LITE' ) && define( 'WOOSW_LITE', __FILE__ );
 ! defined( 'WOOSW_FILE' ) && define( 'WOOSW_FILE', __FILE__ );
 ! defined( 'WOOSW_URI' ) && define( 'WOOSW_URI', plugin_dir_url( __FILE__ ) );
@@ -941,6 +941,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 
 								$disable_unauthenticated = self::get_setting( 'disable_unauthenticated', 'no' );
 								$auto_remove             = self::get_setting( 'auto_remove', 'no' );
+								$reload_count            = self::get_setting( 'reload_count', 'no' );
 								$enable_multiple         = self::get_setting( 'enable_multiple', 'no' );
 								$button_type             = self::get_setting( 'button_type', 'button' );
 								$button_icon             = self::get_setting( 'button_icon', 'no' );
@@ -989,6 +990,16 @@ if ( ! function_exists( 'woosw_init' ) ) {
                                                         <option value="no" <?php selected( $auto_remove, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
                                                     </select> </label>
                                                 <span class="description"><?php esc_html_e( 'Auto remove product from the wishlist after adding to the cart.', 'woo-smart-wishlist' ); ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><?php esc_html_e( 'Reload the count', 'woo-smart-wishlist' ); ?></th>
+                                            <td>
+                                                <label> <select name="woosw_settings[reload_count]">
+                                                        <option value="yes" <?php selected( $reload_count, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-wishlist' ); ?></option>
+                                                        <option value="no" <?php selected( $reload_count, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-wishlist' ); ?></option>
+                                                    </select> </label>
+                                                <span class="description"><?php esc_html_e( 'Reload the count when opening the page?', 'woo-smart-wishlist' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -1833,6 +1844,7 @@ if ( ! function_exists( 'woosw_init' ) ) {
 							'ajax_url'            => admin_url( 'admin-ajax.php' ),
 							'nonce'               => wp_create_nonce( 'woosw-security' ),
 							'menu_action'         => self::get_setting( 'menu_action', 'open_page' ),
+							'reload_count'        => self::get_setting( 'reload_count', 'no' ),
 							'perfect_scrollbar'   => self::get_setting( 'perfect_scrollbar', 'yes' ),
 							'wishlist_url'        => self::get_url(),
 							'button_action'       => self::get_setting( 'button_action', 'list' ),

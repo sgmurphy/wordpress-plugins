@@ -144,20 +144,20 @@ class MerchantConfig extends RestController {
 			$feedName = $request->get_param( 'feed' );
 			// True if feed name is missing
 			if ( ! $feedName ) {
-				return $this->error( __( 'Feed file name missing!', 'woo-feed' ) );
+				return $this->error( esc_attr_e( 'Feed file name missing!', 'woo-feed' ) );
 			}
 
 			$feedName = FeedHelper::get_feed_option_name( $feedName );
-			$feedInfo = get_option( 'wf_config' . $feedName, false );
+			$feedInfo = get_option( 'wf_config' . sanitize_text_field($feedName), false );
 
 			if ( $feedInfo ) {
 				return $this->success( $feedInfo );
 			} else {
-				return $this->error( sprintf( __( 'No configuration found with this feed name: %s', 'woo-feed' ), $feedName ) );
+				return $this->error( sprintf( esc_attr_e( 'No configuration found with this feed name: %s', 'woo-feed' ), esc_attr($feedName) ) );
 			}
 		}
 
-		return $this->error( __( 'Type must be either edit/add.', 'woo-feed' ) );
+		return $this->error( esc_attr_e( 'Type must be either edit/add.', 'woo-feed' ) );
 	}
 
 	/**
@@ -172,12 +172,13 @@ class MerchantConfig extends RestController {
 		// Save option name.
 		foreach ( $body as $option_name => $value ) {
 			$value = (array) $value;
-			update_option( $option_name, maybe_serialize( $value ) );
+			$sanitized_value = array_map('sanitize_text_field', $value);
+			update_option(sanitize_text_field($option_name), maybe_serialize( $sanitized_value ) );
 			array_push( $option_names, $option_name );
 		}
 		// Get option name.
 		foreach ( $option_names as $option_name ) {
-			$data[ $option_name ] = maybe_unserialize( get_option( $option_name, false ) );
+			$data[ $option_name ] = maybe_unserialize( get_option( sanitize_text_field($option_name), false ) );
 		}
 
 		return $this->success( $data );

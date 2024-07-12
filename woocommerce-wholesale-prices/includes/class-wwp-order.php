@@ -118,12 +118,13 @@ if ( ! class_exists( 'WWP_Order' ) ) {
          * @since 1.3.1
          * @since 2.0.2 Add support to add order item meta using item object when the item ID is not available.
          * @since 2.1.5 Remove legacy code related to pre-WC 3.0.
+         * @since 2.2.0 Refactor $order->save since it is saved by WooCommerce
          * @access public
          *
-         * @param Object $item          Order item object.
-         * @param string $cart_item_key Cart item unique hash key.
-         * @param array  $values        Cart item data.
-         * @param Object $order         Order object.
+         * @param WC_Order_Item $item          Order item object.
+         * @param string        $cart_item_key Cart item unique hash key.
+         * @param array         $values        Cart item data.
+         * @param WC_Order      $order         Order object.
          */
         public function add_order_item_meta( $item, $cart_item_key, $values, $order ) {
             $user_wholesale_role = $this->_wwp_wholesale_roles->getUserWholesaleRole();
@@ -131,20 +132,12 @@ if ( ! class_exists( 'WWP_Order' ) ) {
             if ( isset( $values['wwp_data'] ) && ! empty( $values['wwp_data'] ) && isset( $values['wwp_data']['wholesale_role'] ) &&
                 ! empty( $user_wholesale_role ) && $user_wholesale_role[0] === $values['wwp_data']['wholesale_role']
             ) {
-                $is_updated = false;
-
                 if ( isset( $values['wwp_data']['wholesale_priced'] ) ) {
                     $item->update_meta_data( '_wwp_wholesale_priced', $values['wwp_data']['wholesale_priced'] );
-                    $is_updated = true;
                 }
 
                 if ( isset( $values['wwp_data']['wholesale_role'] ) ) {
                     $item->update_meta_data( '_wwp_wholesale_role', $values['wwp_data']['wholesale_role'] );
-                    $is_updated = true;
-                }
-
-                if ( true === $is_updated ) {
-                    $item->save();
                 }
             }
 

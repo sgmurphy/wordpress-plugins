@@ -270,11 +270,11 @@ function genesis_blocks_render_sharing( $attributes ) {
 			<ul class="gb-share-list">%1$s</ul>
 		</div>',
 		$share_url,
-		isset( $attributes['shareButtonStyle'] ) ? $attributes['shareButtonStyle'] : null,
-		isset( $attributes['shareButtonShape'] ) ? $attributes['shareButtonShape'] : null,
-		isset( $attributes['shareButtonSize'] ) ? $attributes['shareButtonSize'] : null,
-		isset( $attributes['shareButtonColor'] ) ? $attributes['shareButtonColor'] : null,
-		isset( $attributes['shareAlignment'] ) ? 'gb-align-' . $attributes['shareAlignment'] : null
+		isset( $attributes['shareButtonStyle'] ) ? esc_attr( $attributes['shareButtonStyle'] ) : null,
+		isset( $attributes['shareButtonShape'] ) ? esc_attr( $attributes['shareButtonShape'] ) : null,
+		isset( $attributes['shareButtonSize'] ) ? esc_attr( $attributes['shareButtonSize'] ) : null,
+		isset( $attributes['shareButtonColor'] ) ? esc_attr( $attributes['shareButtonColor'] ) : null,
+		isset( $attributes['shareAlignment'] ) ? 'gb-align-' . esc_attr( $attributes['shareAlignment'] ) : null
 	);
 
 	return $block_content;

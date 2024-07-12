@@ -423,115 +423,13 @@ if ( ! class_exists( 'WWP_Bootstrap' ) ) {
          * @access public
          */
         public function wwp_getting_started_notice_hide() {
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_POST['nonce'], 'wwp_getting_started_nonce' ) ) {
+            if ( ! wp_doing_ajax() || ! wp_verify_nonce( $_POST['nonce'], 'wwp_getting_started_nonce' ) ) {
                 // Security check failure.
                 return;
             }
 
             update_option( 'wwp_admin_notice_getting_started_show', 'no' );
             wp_send_json( array( 'status' => 'success' ) );
-        }
-
-        /**
-         * Cart and checkout blocks incompatibility notice.
-         *
-         * @since 2.1.10
-         * @access public
-         */
-        public function cart_checkout_blocks_incompatibility_notice() {
-            $wc_data = WWP_Helper_Functions::get_woocommerce_data();
-
-            if ( version_compare( $wc_data['Version'], '8.3', '>=' ) ) {
-
-                $wc_cart_page     = get_post( wc_get_page_id( 'cart' ) );
-                $wc_checkout_page = get_post( wc_get_page_id( 'checkout' ) );
-
-                // If the cart/checkout blocks are used on the cart/checkout pages, show the notice.
-                if ( current_user_can( 'manage_woocommerce' ) &&
-                    get_option( WWP_SHOW_CART_CHECKOUT_BLOCKS_INCOMPATIBILITY_NOTICE ) !== 'no'
-                    && ( has_block( 'woocommerce/checkout', $wc_checkout_page ) || has_block( 'woocommerce/cart', $wc_cart_page ) )
-                ) {
-                    ?>
-                    <div id="wwp-cart-checkout-blocks-incompatibility-notice" class="notice notice-error" style="position: relative;">
-                        <h3 style="margin-bottom: 8px;">
-                            <span class="dashicons dashicons-warning"></span>
-                            <?php esc_html_e( 'We noticed that you\'re using the new Cart/Checkout experience in WooCommerce.', 'woocommerce-wholesale-prices' ); ?>
-                        </h3>
-                        <p style="font-size: 16px; margin-bottom: 16px;">
-                            <?php esc_html_e( 'Full compatibility is in the works with Wholesale Suite. We suggest switching to the Classic Cart/Checkout experience in the meantime, it\'s well tested and 100% compatible with our plugin and others as well.', 'woocommerce-wholesale-prices' ); ?>
-                        </p>
-                        <a style="display: inline-block; margin-bottom: 16px;" id="wwp-cart-checkout-blocks-switch-to-classic-button" class="button button-primary" href="#">
-                            <span class="spinner" style="display: none;"></span><?php esc_html_e( 'Switch to classic cart/checkout', 'woocommerce-wholesale-prices' ); ?>
-                        </a>
-                        <button type="button" class="notice-dismiss">
-                            <span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'woocommerce-wholesale-prices' ); ?></span>
-                        </button>
-                    </div>
-                    <?php
-                }
-            }
-        }
-
-        /**
-         * Hide cart and checkout blocks incompatibility notice on close.
-         * Attached to wp_ajax_wwp_hide_cart_checkout_blocks_incompatibility_notice
-         *
-         * @since 2.1.10
-         * @access public
-         */
-        public function ajax_hide_cart_checkout_blocks_incompatibility_notice() {
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_REQUEST['nonce'], 'wwp_hide_cart_checkout_blocks_incompatibility_notice_nonce' ) ) {
-                wp_send_json(
-                    array(
-                        'status'  => 'error',
-                        'message' => __( 'Security check failed.', 'woocommerce-wholesale-prices' ),
-                    )
-                );
-            } else {
-                update_option( WWP_SHOW_CART_CHECKOUT_BLOCKS_INCOMPATIBILITY_NOTICE, 'no' );
-                wp_send_json( array( 'status' => 'success' ) );
-            }
-        }
-
-        /**
-         * Switch to classic cart/checkout.
-         * Attached to wp_ajax_wwp_switch_to_classic_cart_checkout
-         *
-         * @since 2.1.10
-         * @access public
-         */
-        public function ajax_wwp_switch_to_classic_cart_checkout() {
-            if ( ! defined( 'DOING_AJAX' ) && ! wp_verify_nonce( $_REQUEST['nonce'], 'wwp_switch_to_classic_cart_checkout_nonce' ) ) {
-                wp_send_json(
-                    array(
-                        'status'  => 'error',
-                        'message' => __( 'Security check failed.', 'woocommerce-wholesale-prices' ),
-                    )
-                );
-            } else {
-                $wc_cart_page     = get_post( wc_get_page_id( 'cart' ) );
-                $wc_checkout_page = get_post( wc_get_page_id( 'checkout' ) );
-
-                if ( has_block( 'woocommerce/checkout', $wc_checkout_page ) ) {
-                    wp_update_post(
-                        array(
-                            'ID'           => $wc_checkout_page->ID,
-                            'post_content' => '<!-- wp:woocommerce/classic-shortcode {"shortcode":"checkout"} /-->',
-                        )
-                    );
-                }
-
-                if ( has_block( 'woocommerce/cart', $wc_cart_page ) ) {
-                    wp_update_post(
-                        array(
-                            'ID'           => $wc_cart_page->ID,
-                            'post_content' => '<!-- wp:woocommerce/classic-shortcode {"shortcode":"cart"} /-->',
-                        )
-                    );
-                }
-
-                wp_send_json( array( 'status' => 'success' ) );
-            }
         }
 
         /**
@@ -559,15 +457,6 @@ if ( ! class_exists( 'WWP_Bootstrap' ) ) {
             // Getting Started notice.
             add_action( 'admin_notices', array( $this, 'getting_started_notice' ), 10 );
             add_action( 'wp_ajax_wwp_getting_started_notice_hide', array( $this, 'wwp_getting_started_notice_hide' ) );
-
-            // Add notice for cart and checkout blocks incompatibility.
-            add_action( 'admin_notices', array( $this, 'cart_checkout_blocks_incompatibility_notice' ), 10 );
-
-            // Ajax Hide notice for cart and checkout blocks incompatibility.
-            add_action( 'wp_ajax_wwp_hide_cart_checkout_blocks_incompatibility_notice', array( $this, 'ajax_hide_cart_checkout_blocks_incompatibility_notice' ), 10 );
-
-            // Ajax switch to classic cart/checkout.
-            add_action( 'wp_ajax_wwp_switch_to_classic_cart_checkout', array( $this, 'ajax_wwp_switch_to_classic_cart_checkout' ), 10 );
         }
     }
 }

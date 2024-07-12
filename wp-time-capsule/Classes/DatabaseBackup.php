@@ -361,6 +361,7 @@ class WPTC_DatabaseBackup {
 							|| stripos($row['option_name'], '_site_transient_timeout_itsec_') !== false 
 							|| stripos($row['option_name'], '_site_transient_itsec_ipcheck_') !== false 
 							|| stripos($row['option_name'], '_transient_dirsize_cache') !== false 
+							|| stripos($row['option_name'], 'wp_collect_spectra_blocks_count_batch') !== false 
 							|| stripos($row['option_name'], '_transient_tribe_views_v2_cache_') !== false ){
 							$data_out = '';
 						}

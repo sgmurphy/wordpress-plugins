@@ -29,6 +29,7 @@ class Smart_Post_Show_Updates {
 	private static $updates = array(
 		'2.2.0'  => 'updates/update-2.2.0.php',
 		'2.4.13' => 'updates/update-2.4.13.php',
+		'3.0.0'  => 'updates/update-3.0.0.php',
 	);
 
 	/**

@@ -24,15 +24,15 @@ class SPS_Advanced {
 		SP_PC::createSection(
 			$prefix,
 			array(
-				'title'  => __( 'Advanced Settings', 'post-carousel' ),
-				'icon'   => 'fa fa-cogs',
+				'title'  => __( 'Advanced', 'post-carousel' ),
+				'icon'   => 'fa fa-wrench',
 				'fields' => array(
 					array(
-						'id'       => 'pcp_delete_all_data',
-						'type'     => 'checkbox',
-						'title'    => __( 'Clean-up Data on Deletion', 'post-carousel' ),
-						'help' => __( 'Delete all Smart Post Show data from the database on plugin uninstalling and deletion.', 'post-carousel' ),
-						'default'  => false,
+						'id'         => 'pcp_delete_all_data',
+						'type'       => 'checkbox',
+						'title'      => __( 'Clean-up Data on Deletion', 'post-carousel' ),
+						'title_info' => __( 'Delete all Smart Post Show data from the database on plugin uninstalling and deletion.', 'post-carousel' ),
+						'default'    => false,
 					),
 				),
 			)

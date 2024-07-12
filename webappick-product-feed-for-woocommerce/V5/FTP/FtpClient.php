@@ -273,7 +273,7 @@ class FtpClient implements Countable
     public function nlist($directory = '.', $recursive = false, $filter = 'sort')
     {
         if (!$this->isDir($directory)) {
-            throw new FtpException('"'.$directory.'" is not a directory');
+            throw new FtpException('"'.esc_attr($directory).'" is not a directory');
         }
 
         $files = $this->ftp->nlist($directory);
@@ -619,7 +619,7 @@ class FtpClient implements Countable
             return $this;
         }
 
-        throw new FtpException('Unable to put the file "'.$remote_file.'"');
+        throw new FtpException('Unable to put the file "'.esc_attr($remote_file).'"');
     }
 
     /**
@@ -640,7 +640,7 @@ class FtpClient implements Countable
         }
 
         throw new FtpException(
-            'Unable to put the remote file from the local file "'.$local_file.'"'
+            'Unable to put the remote file from the local file "'.esc_attr($local_file).'"'
         );
     }
 
@@ -703,7 +703,7 @@ class FtpClient implements Countable
     {
         if ($source_directory != ".") {
             if ($this->ftp->chdir($source_directory) == false) {
-                throw new FtpException("Unable to change directory: ".$source_directory);
+                throw new FtpException("Unable to change directory: ".esc_attr($source_directory));
             }
 
             if (!(is_dir($target_directory))) {
@@ -743,7 +743,7 @@ class FtpClient implements Countable
     public function rawlist($directory = '.', $recursive = false)
     {
         if (!$this->isDir($directory)) {
-            throw new FtpException('"'.$directory.'" is not a directory.');
+            throw new FtpException('"'.esc_attr($directory).'" is not a directory.');
         }
 
         if (strpos($directory, " ") > 0) {
@@ -931,7 +931,7 @@ class FtpClient implements Countable
     {
         if (!is_string($permission)) {
             throw new FtpException('The "$permission" argument must be a string, "'
-            .gettype($permission).'" given.');
+            .esc_attr(gettype($permission)).'" given.');
         }
 
         if (empty($permission[0])) {

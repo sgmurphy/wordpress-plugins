@@ -166,6 +166,9 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
         // Only show wholesale products request.
         $only_return_wholesale_products = ! empty( $request['return_wholesale_products'] ) ? filter_var( $request['return_wholesale_products'], FILTER_VALIDATE_BOOLEAN ) : false;
 
+        // Check if wholesale price is set at the category level.
+        $wholesale_price_set_by_category = 'yes' === get_post_meta( $request['product_id'], $wholesale_role . '_have_wholesale_price_set_by_product_cat', true );
+
         if ( ( $only_return_wholesale_products || apply_filters( 'wwp_only_show_wholesale_products_to_wholesale_users', false, $request ) ) && apply_filters( 'wwp_general_discount_is_set', false, $request ) === false ) {
 
             $meta_query = array(
@@ -183,6 +186,15 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
                 ),
             );
 
+            if ( $wholesale_price_set_by_category && 'product_variation' === $post_type ) {
+                $meta_query[] = array(
+                    'relation' => 'OR',
+                    array(
+                        'key'     => $wholesale_role . '_wholesale_price',
+                        'compare' => 'EXISTS',
+                    ),
+                );
+            }
         }
 
         return apply_filters( 'wwp_rest_wholesale_' . $post_type . '_meta_query', $meta_query, $wholesale_role, $args_copy, $request );
@@ -232,9 +244,14 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
         // Add wholesale data. Add also WWPP meta data.
         $response->data['wholesale_data'] = $this->get_wwp_meta_data( $product, $request );
 
-        // Only show categories if 'show_categories=true' is provided in the api request else hide by default.
+        // Only show categories if 'show_categories = true' is provided in the api request else hide by default.
         if ( ! isset( $request['show_categories'] ) || ( isset( $request['show_categories'] ) && filter_var( $request['show_categories'], FILTER_VALIDATE_BOOLEAN ) === false ) ) {
             unset( $response->data['categories'] );
+        }
+
+        // Only show meta data if 'show_meta_data   = true' is provided in the api request else hide by default.
+        if ( ! isset( $request['show_meta_data'] ) || ( isset( $request['show_meta_data'] ) && filter_var( $request['show_meta_data'], FILTER_VALIDATE_BOOLEAN ) === false ) ) {
+            unset( $response->data['meta_data'] );
         }
 
         // Remove links in response.
@@ -263,7 +280,8 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
         $product_id = $product->get_id();
 
         $meta_data = array(
-            'wholesale_price' => array(),
+            'wholesale_price'      => array(),
+            'wholesale_sale_price' => array(),
         );
 
         // Get formatted Wholesale Price.
@@ -273,7 +291,7 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
 
             $wwp_wholesale_prices_instance = new WWP_Wholesale_Prices( array() );
 
-            // Return price html, we don't use wholesale_price_html_filter() because the price is already altered by WWP.
+            // Return price html, we don't use wholesale_price_html_filter() because the price is already altered by WWP .
             $meta_data['price_html'] = $product->get_price_html();
 
             /**
@@ -282,18 +300,24 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
              * This is because the wwof v2 API removing the wholesale price_html filter for variations.
              */
             if ( 'variation' === $product->get_type() && version_compare( WWP_Helper_Functions::get_wwof_version(), '2.1', '<=' ) ) {
-                $wholesale_role                = sanitize_text_field( $request['wholesale_role'] );
-                $meta_data['price_html'] = $wwp_wholesale_prices_instance->wholesale_price_html_filter($product->get_price_html(), $product, array($wholesale_role));
+                $wholesale_role          = sanitize_text_field( $request['wholesale_role'] );
+                $meta_data['price_html'] = $wwp_wholesale_prices_instance->wholesale_price_html_filter( $product->get_price_html(), $product, array( $wholesale_role ) );
             }
-
         }
 
         foreach ( $this->registered_wholesale_roles as $role => $data ) {
 
-            $wholesale_price = get_post_meta( $product_id, $role . '_wholesale_price', true );
+            $wholesale_price = $product->get_meta( $role . '_wholesale_price', true );
 
             if ( ! empty( $wholesale_price ) ) {
                 $meta_data['wholesale_price'] = array_merge( $meta_data['wholesale_price'], array( $role => $wholesale_price ) );
+            }
+
+            // Get wholesale sale price.
+            $wholesale_sale_price = $product->get_meta( $role . '_wholesale_sale_price', true );
+
+            if ( ! empty( $wholesale_sale_price ) ) {
+                $meta_data['wholesale_sale_price'] = array_merge( $meta_data['wholesale_sale_price'], array( $role => $wholesale_sale_price ) );
             }
         }
 
@@ -338,6 +362,9 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
         // The product id.
         $product_id = $product->get_id();
 
+        // Get product object.
+        $product_obj = wc_get_product( $product_id );
+
         // Product types to check.
         $product_types = apply_filters( 'wwp_create_update_product_types', array( 'simple', 'variation', 'bundle', 'composite' ) );
 
@@ -352,16 +379,40 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
                     // Validate if wholesale role exist.
                     if ( is_numeric( $price ) && array_key_exists( $role, $this->registered_wholesale_roles ) ) {
 
-                        update_post_meta( $product_id, $role . '_wholesale_price', $price );
-                        update_post_meta( $product_id, $role . '_have_wholesale_price', 'yes' );
+                        $product_obj->update_meta_data( $role . '_wholesale_price', $price );
+                        $product_obj->update_meta_data( $role . '_have_wholesale_price', 'yes' );
 
                     }
 
                     // If user updates the wholesale and if its empty still do update the meta.
                     if ( ! $create_product && empty( $price ) ) {
-                        update_post_meta( $product_id, $role . '_wholesale_price', $price );
+                        $product_obj->update_meta_data( $role . '_wholesale_price', $price );
                     }
                 }
+
+                // Set sale price if available.
+                // Multiple wholesale price is set.
+                if ( isset( $wholesale_sale_price ) && is_array( $wholesale_sale_price ) ) {
+
+                    foreach ( $wholesale_sale_price as $role => $sale_price ) {
+
+                        // Validate if wholesale role exist.
+                        if ( is_numeric( $sale_price ) && array_key_exists( $role, $this->registered_wholesale_roles ) ) {
+
+                            $product_obj->update_meta_data( $role . '_wholesale_sale_price', $sale_price );
+                            $product_obj->update_meta_data( $role . '_have_wholesale_sale_price', 'yes' );
+
+                        }
+
+                        // If user updates the wholesale and if its empty still do update the meta.
+                        if ( ! $create_product && empty( $sale_price ) ) {
+                            $product_obj->update_meta_data( $role . '_wholesale_sale_price', $sale_price );
+                        }
+                    }
+                }
+
+                // save product.
+                $product_obj->save();
             }
         }
 
@@ -499,7 +550,7 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
 
             $product              = wc_get_product( $request['id'] );
             $wholesale_data       = WWP_Wholesale_Prices::get_product_wholesale_price_on_shop_v3( $request['id'], array( $wholesale_role ) );
-            $wholesale_variations = get_post_meta( $request['id'], $wholesale_role . '_variations_with_wholesale_price' );
+            $wholesale_variations = WWP_Helper_Functions::get_formatted_meta_data( $product, $wholesale_role . '_variations_with_wholesale_price' );
 
             // If not variable type and wholesale price is empty return error.
             // If variable type and no wholesale variation then return error.
@@ -809,5 +860,4 @@ class WWP_REST_Wholesale_Products_V1_Controller extends WC_REST_Products_Control
 
         return apply_filters( "wwp_rest_wholesale_{$post_type}_properties", $properties, $request );
     }
-
 }

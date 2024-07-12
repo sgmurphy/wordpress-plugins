@@ -82,7 +82,7 @@ if ( ! class_exists( 'WWP_Help_Page' ) ) {
                 __( 'Help', 'woocommerce-wholesale-prices' ),
                 __( 'Help', 'woocommerce-wholesale-prices' ),
                 'manage_woocommerce',
-                'help-page',
+                'wws-help-page',
                 array( $this, 'view_help_page' ),
                 10
             );

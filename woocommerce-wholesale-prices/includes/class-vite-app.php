@@ -323,7 +323,7 @@ if ( ! class_exists( 'Vite_App' ) ) {
              * the production build script to load properly. If it doesn't exist, then
              * we write to error log file if WP_DEBUG is true.
              */
-            $manifest_path = WWP_PLUGIN_PATH . 'dist/manifest.json';
+            $manifest_path = WWP_PLUGIN_PATH . 'dist/.vite/manifest.json';
             if ( file_exists( $manifest_path ) ) {
                 //phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
                 $this->manifest = json_decode( file_get_contents( $manifest_path ), true );

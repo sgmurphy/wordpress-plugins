@@ -1,6 +1,6 @@
 <?php
 /**
- *  Carousel view
+ *  Grid view
  *
  * @package    Smart_Post_Show
  * @subpackage Smart_Post_Show/public/template

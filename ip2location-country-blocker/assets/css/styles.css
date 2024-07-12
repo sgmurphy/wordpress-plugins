@@ -33,6 +33,13 @@
 .iplcb-panel {border: 1px solid #888;border-radius:4px;padding:15px;background-color:#fefefe}
 .dashicons.spin {animation: dashicons-spin 1s infinite; animation-timing-function: linear}
 
+.ajax-file-upload {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    box-shadow: none !important;
+}
+
 @keyframes dashicons-spin {
     0% {transform: rotate(0deg)}
     100% {transform: rotate(360deg)}

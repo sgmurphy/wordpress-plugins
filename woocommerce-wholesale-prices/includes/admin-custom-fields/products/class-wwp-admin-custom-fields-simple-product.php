@@ -259,6 +259,10 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
          * @param int    $post_id Product Id.
          */
         public function add_wholesale_price_fields_data_to_product_listing_column( $column, $post_id ) {
+
+            // Get product object.
+            $product = wc_get_product( $post_id );
+
             $all_wholesale_roles   = $this->_wwp_wholesale_roles->getAllRegisteredWholesaleRoles();
             $allowed_product_types = apply_filters( 'wwp_quick_edit_allowed_product_types', array( 'simple', 'external' ), 'wholesale_price_fields' );
 
@@ -298,7 +302,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                                     }
                                     ?>
 
-                                    <div id="<?php echo esc_attr( $wholesale_price_key ); ?>" data-currency_code="<?php echo esc_attr( $currency_code ); ?>" data-wholesalePriceKeyWithCurrency="<?php echo esc_attr( $wholesale_price_key_with_currency_code ); ?>" class="whole_price"><?php echo esc_html( wc_format_localized_price( get_post_meta( $post_id, $wholesale_price_key, true ) ) ); ?></div>
+                                    <div id="<?php echo esc_attr( $wholesale_price_key ); ?>" data-currency_code="<?php echo esc_attr( $currency_code ); ?>" data-wholesalePriceKeyWithCurrency="<?php echo esc_attr( $wholesale_price_key_with_currency_code ); ?>" class="whole_price"><?php echo esc_html( wc_format_localized_price( $product->get_meta( $wholesale_price_key, true ) ) ); ?></div>
 
                                 <?php
                                 }
@@ -308,7 +312,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
 
                         <?php foreach ( $all_wholesale_roles as $roleKey => $role ) { ?>
 
-                            <div id="<?php echo esc_attr( $roleKey ); ?>_wholesale_price" class="whole_price"><?php echo esc_attr( wc_format_localized_price( get_post_meta( $post_id, $roleKey . '_wholesale_price', true ) ) ); ?></div>
+                            <div id="<?php echo esc_attr( $roleKey ); ?>_wholesale_price" class="whole_price"><?php echo esc_attr( wc_format_localized_price( $product->get_meta( $roleKey . '_wholesale_price', true ) ) ); ?></div>
 
                         <?php
                         }
@@ -368,6 +372,9 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
         public function add_wholesale_price_fields( $product_type = 'simple' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
             global $post, $WOOCS, $woocommerce_wpml;
 
+            // Get product object.
+            $product = wc_get_product( $post->ID );
+
             $all_wholesale_roles = $this->_wwp_wholesale_roles->getAllRegisteredWholesaleRoles();
 
             if ( WWP_ACS_Integration_Helper::aelia_currency_switcher_active() ) {
@@ -384,7 +391,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                         <p style="margin:0; padding:0 12px; line-height: 16px; font-style: italic; font-size: 13px;">
                             <?php
                                 /* translators: %1$s: HTML tag (<br/>), %2$s: HTML tag (<b>), %3$s: HTML tag (</b>) */
-                                echo sprintf( esc_html__( 'Wholesale prices are set per role and currency.%1$s%1$s%2$sNote:%3$s Wholesale price must be set for the base currency to enable wholesale pricing for that role. The base currency will be used for conversion to other currencies that have no wholesale price explicitly set (Auto).', 'woocommerce-wholesale-prices' ), '<br/>', '<b>', '</b>' );
+                                printf( esc_html__( 'Wholesale prices are set per role and currency.%1$s%1$s%2$sNote:%3$s Wholesale price must be set for the base currency to enable wholesale pricing for that role. The base currency will be used for conversion to other currencies that have no wholesale price explicitly set (Auto).', 'woocommerce-wholesale-prices' ), '<br/>', '<b>', '</b>' );
                             ?>
                         </p>
                     </header>
@@ -400,7 +407,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                                 $currency_symbol = $role['currency_symbol'];
                             }
 
-                            $wholesale_price = get_post_meta( $post->ID, $role_key . '_wholesale_price', true ); // Get base currency wholesale price.
+                            $wholesale_price = $product->get_meta( $role_key . '_wholesale_price', true ); // Get base currency wholesale price.
                             $field_id        = $role_key . '_wholesale_price';
                             $field_label     = $wc_currencies[ $base_currency ] . ' (' . $currency_symbol . ') <em><b>' . __( 'Base Currency', 'woocommerce-wholesale-prices' ) . '</b></em>';
                             /* translators: %1$s: Wholesale role name,%2$s: currency name and symbol */
@@ -435,7 +442,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
 
                                     $currency_symbol = get_woocommerce_currency_symbol( $currency_code );
 
-                                    $wholesale_price_for_specific_currency = get_post_meta( $post->ID, $role_key . '_' . $currency_code . '_wholesale_price', true );
+                                    $wholesale_price_for_specific_currency = $product->get_meta( $role_key . '_' . $currency_code . '_wholesale_price', true );
                                     $field_id                              = $role_key . '_' . $currency_code . '_wholesale_price';
                                     $field_label                           = $wc_currencies[ $currency_code ] . ' (' . $currency_symbol . ')';
                                     /* translators: %1$s: Wholesale role name,%2$s: currency name and symbol */
@@ -490,7 +497,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                             $currency_symbol = $role['currency_symbol'];
                         }
 
-                        $wholesale_price = get_post_meta( $post->ID, $role_key . '_wholesale_price', true );
+                        $wholesale_price = $product->get_meta( $role_key . '_wholesale_price', true );
                         $field_id        = $role_key . '_wholesale_price';
 
                         /* translators: %1$s: currency symbol */
@@ -504,7 +511,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                         $field_desc_percentage = sprintf( __( 'Wholesale price for %1$s customers %2$s Note: Prices are shown up to 6 decimal places but may be calculated and stored at higher precision.', 'woocommerce-wholesale-prices' ), str_replace( array( 'Customer', 'Customers' ), '', $role['roleName'] ), '<br/>' );
 
                         // Percentage Discount.
-                        $wholesale_percentage_discount = get_post_meta( $post->ID, $role_key . '_wholesale_percentage_discount', true );
+                        $wholesale_percentage_discount = $product->get_meta( $role_key . '_wholesale_percentage_discount', true );
 
                         $discount_type = metadata_exists( 'post', $post->ID, $role_key . '_wholesale_percentage_discount' ) ? 'percentage' : 'fixed';
 
@@ -667,6 +674,9 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
          * @param mixed   $currency_code                  String of current currency code or null.
          */
         private function _save_wholesale_price_fields( $product_type, $post_id, $role_key, $wholesale_price_key, $has_wholesale_price_key, $thousand_sep, $decimal_sep, $aelia_currency_switcher_active = false, $is_base_currency = false, $currency_code = null ) {
+            // Get the product object.
+            $product = wc_get_product( $post_id );
+
             // phpcs:disable WordPress.Security.NonceVerification.Missing -- nonce already checked before the function called
             $has_wholesale_discount_key = $role_key . '_wholesale_discount_type';
 
@@ -699,7 +709,7 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
 
             $wholesale_price = wc_clean( apply_filters( 'wwp_before_save_' . $product_type . '_product_wholesale_price', $wholesale_price, $role_key, $post_id, $aelia_currency_switcher_active, $is_base_currency, $currency_code ) );
 
-            update_post_meta( $post_id, $wholesale_price_key, $wholesale_price );
+            $product->update_meta_data( $wholesale_price_key, $wholesale_price );
 
             if ( 'percentage' === $wholesale_discount_type ) {
                 $wholesale_discount = trim( esc_attr( $_POST[ $role_key . '_wholesale_percentage_discount' ] ) );
@@ -719,13 +729,13 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                     }
                 }
 
-                update_post_meta( $post_id, $role_key . '_wholesale_percentage_discount', trim( esc_attr( $wholesale_discount ) ) );
+                $product->update_meta_data( $role_key . '_wholesale_percentage_discount', trim( esc_attr( $wholesale_discount ) ) );
             } else {
-                delete_post_meta( $post_id, $role_key . '_wholesale_percentage_discount' );
+                $product->delete_meta_data( $role_key . '_wholesale_percentage_discount' );
             }
 
             // WWPP-147 : Delete the meta that is set when setting discount on per product category level.
-            delete_post_meta( $post_id, $role_key . '_have_wholesale_price_set_by_product_cat' );
+            $product->delete_meta_data( $role_key . '_have_wholesale_price_set_by_product_cat' );
 
             // Mark current simple product if having wholesale price or not.
             if ( is_numeric( $wholesale_price ) && $wholesale_price > 0 ) {
@@ -736,16 +746,19 @@ if ( ! class_exists( 'WWP_Admin_Custom_Fields_Simple_Product' ) ) {
                     // Coz if wholesale price is not set for base currency, then even if user set wholesale pricing for other currencies
                     // then it will not matter. The product is still considered to not having wholesale price.
                     if ( $is_base_currency ) {
-                        update_post_meta( $post_id, $has_wholesale_price_key, 'yes' );
+                        $product->update_meta_data( $has_wholesale_price_key, 'yes' );
                     }
                 } else {
-                    update_post_meta( $post_id, $has_wholesale_price_key, 'yes' );
+                    $product->update_meta_data( $has_wholesale_price_key, 'yes' );
                 }
             } else {
-                update_post_meta( $post_id, $has_wholesale_price_key, 'no' );
+                $product->update_meta_data( $has_wholesale_price_key, 'no' );
                 do_action( 'wwp_set_have_wholesale_price_meta_prod_cat_wholesale_discount', $post_id, $role_key );
             }
             // phpcs:enable WordPress.Security.NonceVerification.Missing
+
+            // Save the product.
+            $product->save();
         }
 
         /**

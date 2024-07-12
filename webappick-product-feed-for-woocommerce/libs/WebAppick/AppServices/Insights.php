@@ -465,7 +465,7 @@ class Insights {
 			$notice .= ' (<a class="' . $this->client->getSlug() . '-insights-data-we-collect" href="#">' . esc_html__( 'what we collect', 'woo-feed' ) . '</a>)';
 			$notice .= '<p class="description" style="display:none;">' . implode( ', ', $this->data_we_collect() ) . '. ' . esc_html__( 'No sensitive data is tracked.', 'woo-feed' ) . '</p>';
 			echo '<div class="updated"><p>';
-			echo $notice; // phpcs:ignore xss ok
+			echo esc_html($notice); // phpcs:ignore xss ok
 			echo '</p><p class="submit">';
 			echo '&nbsp;<a href="' . esc_url( $this->get_opt_out_url() ) . '" class="button button-secondary">' . esc_html__( 'No thanks', 'woo-feed' ) . '</a>';
 			echo '&nbsp;<a href="' . esc_url( $this->get_opt_in_url() ) . '" class="button button-primary">' . esc_html__( 'Allow', 'woo-feed' ) . '</a>';

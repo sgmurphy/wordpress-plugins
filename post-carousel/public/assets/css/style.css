@@ -358,192 +358,152 @@ html[dir="rtl"] .sp-pcp-post {
 .sp-pcp-row {
 	display: flex;
 	flex-wrap: wrap;
-	margin-right: -10px;
-	margin-left: -10px;
 }
 
 .sp-pcp-row [class*="sp-pcp-col-"] {
-	/* position: relative; */
 	width: 100%;
-	padding-right: 10px;
-	padding-left: 10px;
-	padding-bottom: 20px;
 }
 
 @media (min-width: 1200px) {
 	.sp-pcp-row .sp-pcp-col-xl-1 {
-		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-2 {
-		flex: 0 0 50%;
 		max-width: 50%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-3 {
-		flex: 0 0 33.22222222%;
 		max-width: 33.22222222%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-4 {
-		flex: 0 0 25%;
 		max-width: 25%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-5 {
-		flex: 0 0 20%;
 		max-width: 20%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-6 {
-		flex: 0 0 16.66666666666667%;
 		max-width: 16.66666666666667%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-7 {
-		flex: 0 0 14.28571428%;
 		max-width: 14.28571428%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xl-8 {
-		flex: 0 0 12.5%;
 		max-width: 12.5%;
 	}
 }
 
 @media (max-width: 1200px) {
 	.sp-pcp-row .sp-pcp-col-lg-1 {
-		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-2 {
-		flex: 0 0 50%;
 		max-width: 50%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-3 {
-		flex: 0 0 33.22222222%;
 		max-width: 33.22222222%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-4 {
-		flex: 0 0 25%;
 		max-width: 25%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-5 {
-		flex: 0 0 20%;
 		max-width: 20%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-6 {
-		flex: 0 0 16.66666666666667%;
 		max-width: 16.66666666666667%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-7 {
-		flex: 0 0 14.28571428%;
 		max-width: 14.28571428%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-lg-8 {
-		flex: 0 0 12.5%;
 		max-width: 12.5%;
 	}
 }
 
 @media (max-width: 992px) {
 	.sp-pcp-row .sp-pcp-col-md-1 {
-		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-2 {
-		flex: 0 0 50%;
 		max-width: 50%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-2-5 {
-		flex: 0 0 75%;
 		max-width: 75%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-3 {
-		flex: 0 0 33.333%;
 		max-width: 33.333%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-4 {
-		flex: 0 0 25%;
 		max-width: 25%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-5 {
-		flex: 0 0 20%;
 		max-width: 20%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-6 {
-		flex: 0 0 16.66666666666667%;
 		max-width: 16.66666666666667%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-7 {
-		flex: 0 0 14.28571428%;
 		max-width: 14.28571428%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-md-8 {
-		flex: 0 0 12.5%;
 		max-width: 12.5%;
 	}
 }
 
 @media (max-width: 768px) {
 	.sp-pcp-row .sp-pcp-col-sm-1 {
-		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-2 {
-		flex: 0 0 50%;
 		max-width: 50%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-2-5 {
-		flex: 0 0 75%;
 		max-width: 75%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-3 {
-		flex: 0 0 33.333%;
 		max-width: 33.333%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-4 {
-		flex: 0 0 25%;
 		max-width: 25%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-5 {
-		flex: 0 0 20%;
 		max-width: 20%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-6 {
-		flex: 0 0 16.66666666666667%;
 		max-width: 16.66666666666667%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-7 {
-		flex: 0 0 14.28571428%;
 		max-width: 14.28571428%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-sm-8 {
-		flex: 0 0 12.5%;
 		max-width: 12.5%;
 	}
 }
@@ -554,42 +514,34 @@ html[dir="rtl"] .sp-pcp-post {
 
 @media (max-width: 420px) {
 	.sp-pcp-row .sp-pcp-col-xs-1 {
-		flex: 0 0 100%;
 		max-width: 100%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-2 {
-		flex: 0 0 50%;
 		max-width: 50%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-3 {
-		flex: 0 0 33.22222222%;
 		max-width: 33.22222222%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-4 {
-		flex: 0 0 25%;
 		max-width: 25%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-5 {
-		flex: 0 0 20%;
 		max-width: 20%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-6 {
-		flex: 0 0 16.66666666666667%;
 		max-width: 16.66666666666667%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-7 {
-		flex: 0 0 14.28571428%;
 		max-width: 14.28571428%;
 	}
 
 	.sp-pcp-row .sp-pcp-col-xs-8 {
-		flex: 0 0 12.5%;
 		max-width: 12.5%;
 	}
 
@@ -670,16 +622,17 @@ html[dir="rtl"] .sp-pcp-post {
 	stroke: #e1624b;
 }
 
-.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized,.swiper-container-initialized) .swiper-wrapper {
+.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized, .swiper-container-initialized) .swiper-wrapper {
 	display: flex;
 	width: unset;
 }
 
 @media screen and (min-width: 992px) {
-	.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized,.swiper-container-initialized) .swiper-wrapper {
+	.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized, .swiper-container-initialized) .swiper-wrapper {
 		margin-left: -20px;
 	}
-	.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized,.swiper-container-initialized) .swiper-wrapper>.swiper-slide {
+
+	.pcp-carousel-wrapper.standard .sp-pcp-carousel:not(.swiper-initialized, .swiper-container-initialized) .swiper-wrapper>.swiper-slide {
 		width: 25%;
 		min-width: 25%;
 		padding-left: 20px;
@@ -705,6 +658,7 @@ html[dir="rtl"] .sp-pcp-post {
 	height: 100%;
 	visibility: visible;
 }
+
 .block-editor-page a.sp_sps_block_edit_button,
 a.sp_sps_block_edit_button {
 	display: inline-block;
@@ -714,7 +668,79 @@ a.sp_sps_block_edit_button {
 }
 
 /* Fix the issue of not showing carousel with Elementor Pro v3.14.1 */
-.elementor-default .sp-pcp-section .swiper-container:not(.swiper-container-initialized) .swiper-wrapper, 
+.elementor-default .sp-pcp-section .swiper-container:not(.swiper-container-initialized) .swiper-wrapper,
 .elementor-default .sp-pcp-section .swiper:not(.swiper-initialized) .swiper-wrapper {
-    overflow: initial;
+	overflow: initial;
+}
+
+/* Slider layout */
+.sp-slider_layout .sp-pcp-post.sp-overlay {
+	position: relative;
+	overflow: hidden;
+}
+
+.sp-slider_layout .sp-pcp-post .sp-pcp-post-thumb-area {
+	position: relative;
+	text-align: center;
+}
+
+.sp-slider_layout .sp-pcp-post .pcp-post-thumb-wrapper {
+	margin: 0px;
+}
+
+.sp-slider_layout .sp-pcp-post .pcp-post-thumb-wrapper {
+	overflow: hidden;
+	display: block;
+}
+
+.sp-slider_layout .sp-pcp-post .sp-pcp-post-details {
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.sp-slider_layout .sp-pcp-post .sp-pcp-post-details {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.sp-slider_layout .sp-pcp-post-details-content {
+	width: 100%;
+	text-align: center;
+	padding: 0 15px
+}
+
+.sp-slider_layout .sp-pcp-post .sp-pcp-post-details-content .sp-pcp-post-meta {
+	text-align: center;
+}
+
+.sp-slider_layout .sp-pcp-post .sp-pcp-post-details {
+	position: absolute;
+	/* height: 100%;
+	width: 100%; */
+	bottom: 0;
+	left: 0;
+	top: 0;
+	right: 0;
+}
+
+.sps-list-layout .sp-pcp-post.left-thumb {
+	-ms-flex-align: start;
+	-webkit-box-align: start;
+	align-items: flex-start;
+	flex-direction: unset;
+	gap: 20px;
+}
+
+.sps-list-layout .sp-pcp-post.left-thumb .sp-pcp-post-details {
+	max-width: calc(60% - 20px);
+}
+
+.sps-list-layout .sp-pcp-post.left-thumb .pcp-post-thumb-wrapper {
+	order: unset;
+	/* flex: 0 0 40%; */
+	margin: 0;
+	max-width: 40%;
+	flex-shrink: 0;
 }

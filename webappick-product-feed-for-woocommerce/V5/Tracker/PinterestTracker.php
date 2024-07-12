@@ -75,12 +75,12 @@ class PinterestTracker implements TrackerInterface {
                     r.parentNode.insertBefore(t, r);
                 }
             }("https://s.pinimg.com/ct/core.js");
-            pintrk('load', <?php echo $this->trackingId; ?>, {em: <?php echo $email; ?>});
+            pintrk('load', <?php echo esc_attr($this->trackingId); ?>, {em: <?php echo esc_attr($email); ?>});
             pintrk('page');
         </script>
         <noscript>
             <img height="1" width="1" style="display:none;" alt=""
-                 src="https://ct.pinterest.com/v3/?event=init&tid=<?php echo $this->trackingId; ?>&pd[em]=<?php echo hash( 'sha256', $email ); ?>&noscript=1"/>
+                 src="https://ct.pinterest.com/v3/?event=init&tid=<?php echo esc_attr($this->trackingId); ?>&pd[em]=<?php echo esc_attr(hash( 'sha256', $email )); ?>&noscript=1"/>
         </noscript>
         <!-- end Pinterest Tag -->
 		<?php
@@ -139,7 +139,7 @@ class PinterestTracker implements TrackerInterface {
         </script>
         <noscript>
             <img height="1" width="1" style="display:none;" alt=""
-                 src="<?php echo $url; ?>"/>
+                 src="<?php echo esc_url($url); ?>"/>
         </noscript>
 		<?php
 	}
@@ -172,7 +172,7 @@ class PinterestTracker implements TrackerInterface {
                 </script>
                 <noscript>
                     <img height="1" width="1" style="display:none;" alt=""
-                         src="<?php echo $url; ?>"/>
+                         src="<?php echo esc_url($url); ?>"/>
                 </noscript>
 				<?php
 			}
@@ -196,7 +196,7 @@ class PinterestTracker implements TrackerInterface {
                 </script>
                 <noscript>
                     <img height="1" width="1" style="display:none;" alt=""
-                         src="<?php echo $url; ?>"/>
+                         src="<?php echo esc_url($url); ?>"/>
                 </noscript>
 				<?php
 			}
@@ -223,7 +223,7 @@ class PinterestTracker implements TrackerInterface {
                 </script>
                 <noscript>
                     <img height="1" width="1" style="display:none;" alt=""
-                         src="<?php echo $url; ?>"/>
+                         src="<?php echo esc_url($url); ?>"/>
                 </noscript>
 				<?php
 			}
@@ -254,9 +254,9 @@ class PinterestTracker implements TrackerInterface {
                     </script>
                     <noscript>
                         <img height="1" width="1" style="display:none;" alt=""
-                             src="<?php echo $url; ?>"/>
+                             src="<?php echo esc_url($url); ?>"/>
                         <img height="1" width="1" style="display:none;" alt=""
-                             src="https://ct.pinterest.com/v3/?tid=<?php echo $this->trackingId; ?>&event=signup&noscript=1"/>
+                             src="https://ct.pinterest.com/v3/?tid=<?php echo esc_attr($this->trackingId); ?>&event=signup&noscript=1"/>
                     </noscript>
 					<?php
 				}

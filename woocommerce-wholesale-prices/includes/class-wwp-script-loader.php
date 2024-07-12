@@ -324,21 +324,6 @@ if ( ! class_exists( 'WWP_Script_Loader' ) ) {
                 );
             }
 
-            $wc_data = WWP_Helper_Functions::get_woocommerce_data();
-
-            // Install ACFWF notice. Notice shows up on every page in the backend unless the message is dismissed.
-            if ( get_option( WWP_SHOW_CART_CHECKOUT_BLOCKS_INCOMPATIBILITY_NOTICE ) !== 'no' && version_compare( $wc_data['Version'], '8.3', '>=' ) ) {
-                wp_enqueue_script( 'wwp_cart_checkout_blocks_incompatibility_notice_js', WWP_JS_URL . 'backend/wwp-cart-checkout-blocks-incompatibility-notice.js', array( 'jquery' ), $this->_wwp_current_version, true );
-                wp_localize_script(
-                    'wwp_cart_checkout_blocks_incompatibility_notice_js',
-                    'wwp_cart_checkout_blocks_incompatibility_notice_js_params',
-                    array(
-                        'hide_notice_nonce'       => wp_create_nonce( 'wwp_hide_cart_checkout_blocks_incompatibility_notice_nonce' ),
-                        'switch_to_classic_nonce' => wp_create_nonce( 'wwp_switch_to_classic_cart_checkout_nonce' ),
-                    )
-                );
-            }
-
             // New Settings notice. Notice shows up on every page in the backend unless the message is dismissed.
             if ( 'yes' !== get_option( 'wwp_admin_notice_new_settings_hide' ) ) {
                 wp_enqueue_script( 'wwp_new_settings_notice_js', WWP_JS_URL . 'backend/wwp-new-settings-notice.js', array( 'jquery' ), $this->_wwp_current_version, true );
@@ -428,22 +413,35 @@ if ( ! class_exists( 'WWP_Script_Loader' ) ) {
             /**
              * Help Page
              */
-            if ( strpos( $screen->id, 'help-page' ) !== false ) {
+            if ( strpos( $screen->id, 'wws-help-page' ) !== false ) {
                 wp_enqueue_style( 'wwp_help_page_css', WWP_CSS_URL . 'wwp-help-page.css', array(), $this->_wwp_current_version, 'all' );
             }
 
             /***********************************************************************************************************
              * About Page
              */
-            if ( strpos( $screen->id, 'about-page' ) !== false ) {
+            if ( strpos( $screen->id, 'wws-about-page' ) !== false ) {
                 wp_enqueue_style( 'wwp_about_page_css', WWP_CSS_URL . 'wwp-about-page.css', array(), $this->_wwp_current_version, 'all' );
+            }
+
+            /**
+             * Wholesale Payments Education page.
+             */
+            if ( strpos( $screen->id, 'wholesale-payments' ) !== false ) {
+                wp_enqueue_style(
+                    'wwp_wholesale_payments_css',
+                    WWP_CSS_URL . 'wwp-wholesale-payments-page.css',
+                    array(),
+                    $this->_wwp_current_version,
+                    'all'
+                );
             }
 
             /**
              * Advanced Coupons Page
              */
             // Load script if ACFW is not present. Test if Advanced Coupon plugin is not installed or if it is, check if it's not active.
-            if ( strpos( $screen->id, 'marketing_page_advanced-coupons-page' ) !== false &&
+            if ( strpos( $screen->id, 'marketing_page_advanced-coupons-marketing' ) !== false &&
                 (
                     ! WWP_Helper_Functions::is_acfwf_installed() ||
                     ( WWP_Helper_Functions::is_acfwf_installed() && ! WWP_Helper_Functions::is_acfwf_active() )

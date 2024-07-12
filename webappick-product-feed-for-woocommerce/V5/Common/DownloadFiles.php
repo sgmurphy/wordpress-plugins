@@ -45,13 +45,13 @@ class DownloadFiles {
 			);
 
 			if ( ! file_exists( $log_file_path ) ) {
-				exit( wp_redirect( add_query_arg( 'wpf_notice_code', 'log_file_not_found', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) );
+				exit( esc_url(wp_redirect( add_query_arg( 'wpf_notice_code', 'log_file_not_found', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) ));
 			}
 
 			$fileDownload = new FileDownload( fopen( $log_file_path, 'rb' ) );
 			$fileDownload->sendDownload( $file_name );
 		} else {
-			exit( wp_redirect( add_query_arg( 'wpf_notice_code', 'log_file_not_found', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) );
+			exit( esc_url(wp_redirect( add_query_arg( 'wpf_notice_code', 'log_file_not_found', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) ));
 		}
 	}
 
@@ -70,14 +70,14 @@ class DownloadFiles {
 			$config = Factory::get_feed_info( $feed_name );
 
 			if ( ! file_exists( $config->get_feed_path() ) ) {
-				exit( wp_redirect( add_query_arg( 'wpf_notice_code', 'feed_download_failed', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) );
+				exit( esc_url(wp_redirect( add_query_arg( 'wpf_notice_code', 'feed_download_failed', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) ));
 			}
 
 			$fileData     = fopen( $config->get_feed_path(), 'rb' );
 			$fileDownload = new FileDownload( $fileData );
 			$fileDownload->sendDownload( $config->get_feed_file_name() );
 		} else {
-			exit( wp_redirect( add_query_arg( 'wpf_notice_code', 'feed_download_failed', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) );
+			exit( esc_url(wp_redirect( add_query_arg( 'wpf_notice_code', 'feed_download_failed', admin_url( 'admin.php?page=webappick-manage-feeds' ) ) ) ));
 		}
 	}
 

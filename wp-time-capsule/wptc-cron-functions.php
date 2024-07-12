@@ -439,9 +439,6 @@ class Wptc_Init{
 			return false;
 		}
 
-		if (empty($post_data['authorization'])) {
-			return false;
-		}
 
 		if (!isset($post_data['source']) && $post_data['source'] != 'WPTC') {
 			return false;
@@ -462,17 +459,39 @@ class Wptc_Init{
 
 		$app_id = wptc_decode_auth_token($post_data['authorization'], 'appId');
 
-		if (empty($app_id)) {
+		if (empty($app_id) || strlen($app_id) <= 7 ) {
 			return false;
 		}
 
-		global $wpdb;
+		$u_key = $post_data['u_key'];
+		$use_wptc_hash = $this->get_option('use_wptc_hash');
+		if( !empty($use_wptc_hash) && function_exists('hash_hmac') ){
 
-		if($this->get_option('appID') !== $app_id ){
+			return $this->wptc_hash_check($app_id, $u_key);
+		}
+
+		if($this->get_option('appID') === $app_id ){
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public function wptc_hash_check( $app_id, $u_key ) {
+		$old_hash = $this->get_option('wptc_hash');
+
+		wptc_log($old_hash, '----wptc_hash_check----');
+
+		if(empty($old_hash) || strlen($old_hash) < 10){
 			return false;
 		}
 
-		return true;
+		$message = $app_id . $u_key;
+		$key = $app_id;
+		$new_hash = hash_hmac('sha256', $message, $key);
+
+		return hash_equals($new_hash, $old_hash);
 	}
 
 	public function set_plugin_priority() {

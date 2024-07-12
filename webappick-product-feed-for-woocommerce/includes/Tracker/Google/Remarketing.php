@@ -79,7 +79,7 @@ class Remarketing extends Base{
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '<?php echo $this->id; ?>');
+            gtag('config', '<?php echo esc_attr($this->id); ?>');
 
             <?php
                 /**

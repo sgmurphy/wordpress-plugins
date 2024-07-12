@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/woocommerce-direct-checkout',
-        'pretty_version' => 'v3.3.5',
-        'version' => '3.3.5.0',
-        'reference' => 'fb5faeeba1a23946163d8371cde6c4190bcb0acc',
+        'pretty_version' => 'v3.3.6',
+        'version' => '3.3.6.0',
+        'reference' => '4dbde74893c4b17cd6c6473ed41fb81b1ded7a73',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.1.12',
-            'version' => '2.1.12.0',
-            'reference' => '229b447156dfdc8c3fcc84443feeb0ee36258b0f',
+            'pretty_version' => 'v2.1.13',
+            'version' => '2.1.13.0',
+            'reference' => 'be2738e899ca46648999a6e1a7744b4da5001533',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/woocommerce-direct-checkout' => array(
-            'pretty_version' => 'v3.3.5',
-            'version' => '3.3.5.0',
-            'reference' => 'fb5faeeba1a23946163d8371cde6c4190bcb0acc',
+            'pretty_version' => 'v3.3.6',
+            'version' => '3.3.6.0',
+            'reference' => '4dbde74893c4b17cd6c6473ed41fb81b1ded7a73',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

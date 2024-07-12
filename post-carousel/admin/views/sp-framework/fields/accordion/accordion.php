@@ -47,7 +47,7 @@ if ( ! class_exists( 'SP_PC_Field_accordion' ) ) {
 
 				echo '<div class="spf-accordion-item">';
 
-				$icon = ( ! empty( $accordion['icon'] ) ) ? 'spf--icon ' . $accordion['icon'] : 'spf-accordion-icon fa fa-angle-right';
+				$icon = ( ! empty( $accordion['icon'] ) ) ? 'spf--icon ' . $accordion['icon'] : 'spf-accordion-icon';
 
 				echo '<h4 class="spf-accordion-title">';
 				echo '<i class="' . esc_attr( $icon ) . '"></i>';

@@ -94,7 +94,7 @@ class Pixel extends Base {
 				s.parentNode.insertBefore(t, s)
 			}(window, document, 'script',
 				'https://connect.facebook.net/en_US/fbevents.js');
-			fbq('init', '<?php echo $this->id; ?>');
+			fbq('init', '<?php echo esc_attr($this->id); ?>');
 			<?php
 			/**
 			 * Action after pixel has been initialized in a page on page header. Every event should be fired in this hook

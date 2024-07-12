@@ -1,4 +1,5 @@
 <?php
+
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 // Exit if accessed directly.
@@ -20,7 +21,7 @@ class WWP_Usage {
     /**
      * Property that holds the single main instance of WWP_Usage.
      *
-     * @since 1.14
+     * @since  1.14
      * @access private
      * @var WWP_Usage
      */
@@ -35,10 +36,10 @@ class WWP_Usage {
     /**
      * WWP_Usage constructor.
      *
-     * @since 1.14
-     * @access public
-     *
      * @param array $dependencies Array of instance objects of all dependencies of WWP_Usage model.
+     *
+     * @since  1.14
+     * @access public
      */
     public function __construct( $dependencies = array() ) {
         // Nothing to see here yet.
@@ -47,13 +48,15 @@ class WWP_Usage {
     /**
      * Ensure that only one instance of WWP_Usage is loaded or can be loaded (Singleton Pattern).
      *
-     * @since 1.14
+     * @param array $dependencies Array of instance objects of all dependencies of WWP_Usage model.
+     *
+     * @since  1.14
      * @access public
      *
-     * @param array $dependencies Array of instance objects of all dependencies of WWP_Usage model.
      * @return WWP_Usage
      */
     public static function instance( $dependencies = array() ) {
+
         if ( ! self::$_instance instanceof self ) {
             self::$_instance = new self( $dependencies );
         }
@@ -64,10 +67,11 @@ class WWP_Usage {
     /**
      * Gather the tracking data together
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     private function get_data() {
+
         $data = array();
 
         // Merge plugin specific data.
@@ -98,20 +102,23 @@ class WWP_Usage {
     /**
      * Fetch plugin specific data and compile them together into an array
      *
-     * @since 2.1.7
+     * @since  2.1.7
      * @access private
      * @return array All plugin specific data.
      */
     private function _fetch_plugin_version_data() {
+
         $data = array();
 
         $data['wwp_version']  = WWP_Helper_Functions::get_wwp_version();
         $data['wwpp_version'] = WWP_Helper_Functions::get_wwpp_version();
         $data['wwof_version'] = WWP_Helper_Functions::get_wwof_version();
         $data['wwlc_version'] = WWP_Helper_Functions::get_wwlc_version();
+        $data['wpay_version'] = WWP_Helper_Functions::get_wwlc_version();
         $data['wwpp']         = (int) WWP_Helper_Functions::is_wwpp_active();
         $data['wwof']         = (int) WWP_Helper_Functions::is_wwof_active();
         $data['wwlc']         = (int) WWP_Helper_Functions::is_wwlc_active();
+        $data['wpay']         = (int) WWP_Helper_Functions::is_wpay_active();
 
         return $data;
     }
@@ -119,11 +126,13 @@ class WWP_Usage {
     /**
      * Fetch license data and compile them together into an array
      *
-     * @since 2.1.7
+     * @since  2.1.7
+     * @since  2.2.0 Added WPAY license data.
      * @access private
      * @return array All license data.
      */
     private function _fetch_license_data() {
+
         $data     = array();
         $licenses = WWP_Helper_Functions::get_license_data();
 
@@ -132,7 +141,8 @@ class WWP_Usage {
         $data['wwof_license_email'] = isset( $licenses ) && isset( $licenses['wwof_license_email'] ) ? $licenses['wwof_license_email'] : '';
         $data['wwof_license_key']   = isset( $licenses ) && isset( $licenses['wwof_license_key'] ) ? $licenses['wwof_license_key'] : '';
         $data['wwlc_license_email'] = isset( $licenses ) && isset( $licenses['wwlc_license_email'] ) ? $licenses['wwlc_license_email'] : '';
-        $data['wwlc_license_key']   = isset( $licenses ) && isset( $licenses['wwlc_license_key'] ) ? $licenses['wwlc_license_key'] : '';
+        $data['wpay_license_key']   = isset( $licenses ) && isset( $licenses['wpay_license_key'] ) ? $licenses['wpay_license_key'] : '';
+        $data['wpay_license_email'] = isset( $licenses ) && isset( $licenses['wpay_license_email'] ) ? $licenses['wpay_license_email'] : '';
 
         return $data;
     }
@@ -140,12 +150,14 @@ class WWP_Usage {
     /**
      * Fetch all WWS settings (across Premium plugins too if installed) and compile them together into an array
      *
-     * @since 1.14
-     * @since 2.1.7 Make this function private.
+     * @since  1.14
+     * @since  2.1.7 Make this function private.
+     * @since  2.2.0 Added WPAY settings.
      * @access private
-     * @return array All settings from WWP, WWPP, WWOF, WWLC plugins
+     * @return array All settings from WWP, WWPP, WWOF, WWLC, WPAY plugins
      */
     private function _fetch_all_wws_settings() {
+
         global $wpdb;
         $settings = array();
 
@@ -157,17 +169,32 @@ class WWP_Usage {
                 WHERE option_name like %s
                     OR option_name like %s
                     OR option_name like %s
+                    OR option_name like %s
                     OR option_name like %s",
                 'wwp_%',
                 'wwpp_%',
                 'wwof_%',
-                'wwlc_%'
+                'wwlc_%',
+                'wpay_%'
             ),
             ARRAY_A
         );
 
+        // WPAY.
+        $wpay_settings_whitelist = array(
+            'wpay_api_mode',
+            'wpay_installed_version',
+            'wpay_license_activated',
+            'wpay_license_notice_dismissed',
+            'wpay_payment_method_name',
+        );
         foreach ( $result as $option ) {
             if ( isset( $option ) && isset( $option['option_name'] ) && isset( $option['option_value'] ) ) {
+                // if option_name starts with wpay and not included in whitelist, continue.
+                if ( strpos( $option['option_name'], 'wpay_' ) === 0 && ! in_array( $option['option_name'], $wpay_settings_whitelist, true ) ) {
+                    continue;
+                }
+
                 $settings[ $option['option_name'] ] = $option['option_value'];
             }
         }
@@ -187,6 +214,78 @@ class WWP_Usage {
         unset( $settings['wwlc_security_recaptcha_secret_key'] );
         unset( $settings['wwlc_security_recaptcha_site_key'] );
 
+        if ( WWP_Helper_Functions::is_wpay_active() ) {
+            $plans_query = \RymeraWebCo\WPay\Helpers\Payment_Plans::get_payment_plans(
+                array(
+                    'posts_per_page' => -1,
+                )
+            );
+
+            $percentage_count            = 0;
+            $fixed_count                 = 0;
+            $mixed_count                 = 0;
+            $enabled_plan_count          = 0;
+            $disabled_plan_count         = 0;
+            $enabled_restrictions_count  = 0;
+            $disabled_restrictions_count = 0;
+            $restricted_to_roles_count   = 0;
+            $restricted_to_users_count   = 0;
+            foreach ( $plans_query->posts as $plan ) {
+
+                /***************************************************************************
+                 * Check for plan types
+                 ***************************************************************************
+                 *
+                 * We gather data for plans that have mixed 'fixed' + 'percentage' types.
+                 * We also count the number of plans that have only 'fixed' and 'percentage'
+                 * types.
+                 */
+                $plan_types = array_column( array_column( $plan->breakdown, 'due' ), 'type' );
+                $plan_types = array_flip( $plan_types );
+                if ( count( $plan_types ) > 1 ) {
+                    ++$mixed_count;
+                } elseif ( isset( $plan_types['percentage'] ) ) {
+                    ++$percentage_count;
+                } elseif ( isset( $plan_types['fixed'] ) ) {
+                    ++$fixed_count;
+                }
+
+                /***************************************************************************
+                 * Check for enabled/disabled plans
+                 ***************************************************************************
+                 *
+                 * We count the number of enabled and disabled plans.
+                 */
+                if ( 'yes' === $plan->enabled ) {
+                    ++$enabled_plan_count;
+                } else {
+                    ++$disabled_plan_count;
+                }
+
+                if ( 'yes' === $plan->apply_restrictions ) {
+                    ++$enabled_restrictions_count;
+                    if ( ! empty( $plan->wholesale_roles ) ) {
+                        ++$restricted_to_roles_count;
+                    }
+                    if ( ! empty( $plan->allowed_users ) ) {
+                        ++$restricted_to_users_count;
+                    }
+                } else {
+                    ++$disabled_restrictions_count;
+                }
+            }
+
+            $settings['wpay_plan_percentage_count']       = $percentage_count;
+            $settings['wpay_plan_fixed_count']            = $fixed_count;
+            $settings['wpay_plan_mixed_count']            = $mixed_count;
+            $settings['wpay_enabled_plan_count']          = $enabled_plan_count;
+            $settings['wpay_disabled_plan_count']         = $disabled_plan_count;
+            $settings['wpay_enabled_restrictions_count']  = $enabled_restrictions_count;
+            $settings['wpay_disabled_restrictions_count'] = $disabled_restrictions_count;
+            $settings['wpay_restricted_to_roles_count']   = $restricted_to_roles_count;
+            $settings['wpay_restricted_to_users_count']   = $restricted_to_users_count;
+        }
+
         // Return the settings as an array.
         return $settings;
     }
@@ -194,11 +293,12 @@ class WWP_Usage {
     /**
      * Fetch environment settings data and compile them together into an array
      *
-     * @since 2.1.7
+     * @since  2.1.7
      * @access private
      * @return array All environment settings data.
      */
     private function _fetch_environment_settings_data() {
+
         $data = array();
 
         // Get current theme info.
@@ -239,11 +339,12 @@ class WWP_Usage {
     /**
      * Fetch all plugin data and compile them together into an array
      *
-     * @since 2.1.7
+     * @since  2.1.7
      * @access private
      * @return array All plugin data.
      */
     private function _fetch_plugin_data() {
+
         // This site's active plugins list.
         $active_plugins = get_option( 'active_plugins', array() );
 
@@ -259,11 +360,12 @@ class WWP_Usage {
     /**
      * Fetch effectiveness data and compile them together into an array
      *
-     * @since 2.1.7
+     * @since  2.1.7
      * @access private
      * @return array All effectiveness data.
      */
     private function _fetch_effectiveness_data() {
+
         $data = array();
 
         // Set the start date to 12:00:01 Monday last week.
@@ -297,10 +399,24 @@ class WWP_Usage {
         // Get the total number of orders.
         $total_orders = count( $orders );
 
+        // Get the total number of orders using WPAY payment method with generated Stripe invoice.
+        $wpay_order_count = 0;
+
+        // Get the revenue total that used WPAY payment method.
+        $revenue_total_wpay = 0;
+
         // Get the revenue total.
         $revenue_total = 0;
         foreach ( $orders as $order ) {
-            $revenue_total += $order->get_total();
+            $order_total = $order->get_total();
+
+            $revenue_total += $order_total;
+
+            // Get WPAY additional data.
+            if ( $order->get_payment_method() === 'wc_wholesale_payments' && $order->get_meta( '_wpay_stripe_invoice_id' ) ) {
+                ++$wpay_order_count;
+                $revenue_total_wpay += $order_total;
+            }
         }
 
         // Get the total number of user registrations for wholesale.
@@ -333,17 +449,23 @@ class WWP_Usage {
         $data['wholesale_order_revenue'] = $revenue_total;
         $data['wholesale_new_leads']     = $total_registrations;
 
+        // WPAY additional data.
+        $data['wpay_order_count']   = $wpay_order_count;
+        $data['wpay_order_revenue'] = $revenue_total_wpay;
+
         return $data;
     }
 
     /**
      * Handle a custom 'wholesale_order' query var to get orders with the 'wwp_wholesale_role' meta.
      *
-     * @param array $query - Args for WP_Query.
+     * @param array $query      - Args for WP_Query.
      * @param array $query_vars - Query vars from WC_Order_Query.
+     *
      * @return array modified $query
      */
     public function handle_custom_order_query_var( $query, $query_vars ) {
+
         if ( ! empty( $query_vars['wholesale_order'] ) && true === $query_vars['wholesale_order'] ) {
             // Adjust meta query to get orders where 'wwp_wholesale_role' exists (indicating its a wholesale order).
             $query['meta_query'][] = array(
@@ -358,14 +480,16 @@ class WWP_Usage {
     /**
      * Send the checkin
      *
-     * @since 1.14
-     * @access public
-     *
      * @param BOOL $override            Flag to override if tracking is allowed or not.
      * @param BOOL $ignore_last_checkin Flag to ignore that last checkin time check.
+     *
+     * @since  1.14
+     * @access public
+     *
      * @return BOOL  Whether the checkin was sent successfully
      */
     public function send_checkin( $override = false, $ignore_last_checkin = false ) {
+
         // Don't track anything from our domains.
         $home_url = trailingslashit( home_url() );
         if ( strpos( $home_url, 'wholesalesuiteplugin.com' ) !== false ) {
@@ -383,8 +507,15 @@ class WWP_Usage {
             return false;
         }
 
+        $checkin_url = 'https://usg.rymeraplugins.com/v1/wwp-checkin/';
+        if ( defined( 'WP_ENVIRONMENT_TYPE' ) && 'local' === WP_ENVIRONMENT_TYPE &&
+            defined( 'RYMERA_LOCAL_USAGE_TRACKING_URL' ) &&
+            wc_is_valid_url( RYMERA_LOCAL_USAGE_TRACKING_URL ) ) {
+            $checkin_url = RYMERA_LOCAL_USAGE_TRACKING_URL;
+        }
+
         wp_remote_post(
-            'https://usg.rymeraplugins.com/v1/wwp-checkin/',
+            $checkin_url,
             array(
                 'method'      => 'POST',
                 'timeout'     => 5,
@@ -398,17 +529,19 @@ class WWP_Usage {
 
         // If we have completed successfully, recheck in 1 week.
         update_option( 'wwp_usage_tracking_last_checkin', time() );
+
         return true;
     }
 
     /**
      * Check if tracking is allowed on this site
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      * @return BOOL whether this site can be tracked or not
      */
     private function tracking_allowed() {
+
         $allow_usage = get_option( 'wwp_anonymous_data', false );
 
         return ( false !== $allow_usage && 'no' !== $allow_usage ) || WWP_Helper_Functions::has_paid_plugin_active();
@@ -417,10 +550,11 @@ class WWP_Usage {
     /**
      * Schedule when we should send tracking data
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     public function schedule_send() {
+
         if ( ! wp_next_scheduled( 'wwp_usage_tracking_cron' ) ) {
             $tracking             = array();
             $tracking['day']      = wp_rand( 0, 6 );
@@ -439,12 +573,14 @@ class WWP_Usage {
     }
 
     /**
-     * Check if the admin notice was opted in to tracking and if so, send the data and schedule the cron for future sends
+     * Check if the admin notice was opted in to tracking and if so, send the data and schedule the cron for future
+     * sends
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     public function check_for_optin() {
+
         if ( ! ( ! empty( $_REQUEST['wwp_action'] ) && 'opt_into_tracking' === $_REQUEST['wwp_action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
             return;
         }
@@ -455,6 +591,7 @@ class WWP_Usage {
 
         if ( WWP_Helper_Functions::has_paid_plugin_active() ) {
             update_option( 'wwp_anonymous_data', 'yes' );
+
             return;
         }
 
@@ -466,10 +603,11 @@ class WWP_Usage {
     /**
      * Check for optout via the admin notice and handle appropriately
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     public function check_for_optout() {
+
         if ( ! ( ! empty( $_REQUEST['wwp_action'] ) && 'opt_out_of_tracking' === $_REQUEST['wwp_action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
             return;
         }
@@ -489,27 +627,30 @@ class WWP_Usage {
     /**
      * Add the cron schedule
      *
-     * @since 1.14
-     * @access public
-     *
      * @param array $schedules The schedules array from the filter.
+     *
+     * @since  1.14
+     * @access public
      */
     public function add_schedules( $schedules = array() ) {
+
         // Adds once weekly to the existing schedules.
         $schedules['weekly'] = array(
             'interval' => 604800,
             'display'  => __( 'Once Weekly', 'woocommerce-wholesale-prices' ),
         );
+
         return $schedules;
     }
 
     /**
      * Set up the usage tracking notice for admin users. Only shows once so as not to annoy them.
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     public function wwp_admin_setup_usage_tracking_notice() {
+
         if ( current_user_can( 'administrator' ) ) { // phpcs:ignore
             if ( ! is_network_admin() ) {
 
@@ -521,13 +662,15 @@ class WWP_Usage {
 
                             if ( WWP_Helper_Functions::has_paid_plugin_active() ) {
                                 update_option( 'wwp_anonymous_data', 1 );
+
                                 return;
                             }
 
                             $optin_url  = add_query_arg( 'wwp_action', 'opt_into_tracking' );
                             $optout_url = add_query_arg( 'wwp_action', 'opt_out_of_tracking' );
 
-                            $output  = '<div class="updated">';
+                            $output = '<div class="updated">';
+
                             $output .= '<p style="font-weight:700;">' . __( 'Wholesale Suite Usage Tracking Permission', 'woocommerce-wholesale-prices' ) . '</p>';
                             $output .= '<p>';
                             $output .= __( 'Allow Wholesale Suite to track plugin usage? Opt-in to let us track usage data so we know with which WordPress configurations, themes and plugins we should test with.', 'woocommerce-wholesale-prices' );
@@ -550,10 +693,11 @@ class WWP_Usage {
     /**
      * Execute model.
      *
-     * @since 1.14
+     * @since  1.14
      * @access public
      */
     public function run() {
+
         // Schedule sending.
         add_action( 'init', array( $this, 'schedule_send' ) );
         add_filter( 'cron_schedules', array( $this, 'add_schedules' ) );
@@ -566,6 +710,14 @@ class WWP_Usage {
         add_action( 'admin_head', array( $this, 'check_for_optout' ) );
 
         // Custom query filter for orders.
-        add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'handle_custom_order_query_var' ), 10, 2 );
+        add_filter(
+            'woocommerce_order_data_store_cpt_get_orders_query',
+            array(
+                $this,
+                'handle_custom_order_query_var',
+            ),
+            10,
+            2
+        );
     }
 }

@@ -153,9 +153,9 @@ class Notice {
 		// Print the notice.
 		printf(
 			'<div id="%1$s" class="%2$s">%3$s</div>',
-			'pressmodo-notice-' . esc_attr( $this->id ), // The ID.
-			esc_attr( $this->get_classes() ), // The classes.
-			$html // The HTML.
+			'pressmodo-notice-' .  esc_attr($this->id) , // The ID.
+			esc_attr($this->get_classes()) , // The classes.
+			wp_kses_post($html) // The HTML.
 		);
 	}
 

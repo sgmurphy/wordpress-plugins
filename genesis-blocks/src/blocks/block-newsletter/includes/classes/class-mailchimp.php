@@ -46,7 +46,7 @@ final class Mailchimp implements Provider_Interface {
 		try {
 			$this->mailchimp = new MC( $api_key );
 		} catch ( \Exception $exception ) {
-			throw new Mailchimp_API_Error_Exception( $exception->getMessage() );
+			throw new Mailchimp_API_Error_Exception( esc_html( $exception->getMessage() ) );
 		}
 	}
 
@@ -103,7 +103,7 @@ final class Mailchimp implements Provider_Interface {
 			throw new Mailchimp_API_Error_Exception(
 				/* translators: %s The error message returns from the Mailchimp API. */
 				esc_html( sprintf( __( 'There was an error subscribing your email address. Please try again. Error: %s', 'genesis-blocks' ), $this->mailchimp->getLastError() ) ),
-				$response['status']
+				esc_html( $response['status'] )
 			);
 		}
 

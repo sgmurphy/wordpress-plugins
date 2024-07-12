@@ -150,7 +150,7 @@ if (!class_exists('WooFeedDocs')) {
 						</div>
 						<div class="wapk-cta-content">
 							<h2><?php esc_html_e('Still need help?', 'woo-feed'); ?></h2>
-							<p><?php _e("Have we not answered your question?<br>Don't worry, you can contact us for more information...", "woo-feed") ?></p>
+							<p><?php esc_html_e("Have we not answered your question?<br>Don't worry, you can contact us for more information...", "woo-feed") ?></p>
 						</div>
 						<div class="wapk-cta-action">
 							<a href="https://webappick.com/my-account/contact-support/" class="wapk-button wapk-button-primary wapk-button-hero woo-feed-btn-bg-gradient-blue" rel="noopener" target="_blank"><?php esc_html_e('Get Support', 'woo-feed'); ?></a>

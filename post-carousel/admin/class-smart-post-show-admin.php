@@ -134,6 +134,7 @@ class Smart_Post_Show_Admin {
 		if ( 'sp_post_carousel' === $the_current_post_type ) {
 			wp_enqueue_style( 'font-awesome' );
 			wp_enqueue_style( 'pcp_swiper' );
+			wp_enqueue_style( 'pcp_fonttello_icon' );
 			wp_enqueue_style( 'pcp-style' );
 		}
 		wp_enqueue_style( 'sp-' . SP_PC_PLUGIN_NAME, SP_PC_URL . 'admin/assets/css/post-carousel-admin' . $this->suffix . '.css', array(), SP_PC_VERSION, 'all' );

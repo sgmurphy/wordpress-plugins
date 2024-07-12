@@ -119,6 +119,7 @@ class Smart_Post_Show_Free_Element_Shortcode_Addons {
 		 */
 		wp_enqueue_style( 'font-awesome' );
 		wp_enqueue_style( 'pcp_swiper' );
+		wp_enqueue_style( 'pcp_fonttello_icon' );
 		wp_enqueue_style( 'pcp-style' );
 	}
 

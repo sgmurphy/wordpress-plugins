@@ -357,7 +357,7 @@ class Woo_Feed_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No items found.', 'woo-feed' );
+		esc_html_e( 'No items found.', 'woo-feed' );
 	}
 
 	/**
@@ -440,7 +440,7 @@ class Woo_Feed_List_Table {
 		foreach ( $views as $class => $view ) {
 			$views[ $class ] = "\t<li class='$class'>$view";
 		}
-		echo implode( " |</li>\n", $views ) . "</li>\n";
+		echo implode( " |</li>\n", esc_html($views )) . "</li>\n";
 		echo '</ul>';
 	}
 
@@ -492,14 +492,14 @@ class Woo_Feed_List_Table {
 			return;
 		}
 
-		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . __( 'Select bulk action', 'woo-feed' ) . '</label>';
+		echo '<label for="bulk-action-selector-' . esc_attr( $which ) . '" class="screen-reader-text">' . esc_html_e( 'Select bulk action', 'woo-feed' ) . '</label>';
 		echo '<select name="action' . esc_attr( $two ) . '" id="bulk-action-selector-' . esc_attr( $which ) . "\">\n";
-		echo '<option value="-1">' . __( 'Bulk Actions', 'woo-feed' ) . "</option>\n";
+		echo '<option value="-1">' . esc_html_e( 'Bulk Actions', 'woo-feed' ) . "</option>\n";
 
 		foreach ( $this->_actions as $name => $title ) {
 			$class = 'edit' === $name ? ' class="hide-if-no-js"' : '';
 
-			echo "\t" . '<option value="' . esc_attr( $name ) . '" ' . esc_attr( $class ) . '>' . $title . "</option>\n";
+			echo "\t" . '<option value="' . esc_attr( $name ) . '" ' . esc_attr( $class ) . '>' . esc_attr($title) . "</option>\n";
 		}
 
 		echo "</select>\n";
@@ -626,9 +626,9 @@ class Woo_Feed_List_Table {
 
 		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 		?>
-		<label for="filter-by-date" class="screen-reader-text"><?php _e( 'Filter by date', 'woo-feed' ); ?></label>
+		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'woo-feed' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option<?php selected( $m, 0 ); ?> value="0"><?php _e( 'All dates', 'woo-feed' ); ?></option>
+			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'woo-feed' ); ?></option>
 		<?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year ) {
@@ -643,7 +643,7 @@ class Woo_Feed_List_Table {
 				selected( $m, $year . $month, false ),
 				esc_attr( $arc_row->year . $month ),
 				/* translators: 1: month name, 2: 4-digit year */
-				sprintf( __( '%1$s %2$d', 'woo-feed' ), $wp_locale->get_month( $month ), $year )
+				sprintf( esc_attr_e( '%1$s %2$d', 'woo-feed' ), esc_attr($wp_locale->get_month( $month )), esc_attr($year ))
 			);
 		}
 		?>
@@ -670,10 +670,10 @@ class Woo_Feed_List_Table {
 				$classes[] = 'current';
 			}
 			printf(
-				"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
+				"<a href='%s' class='%s' id='view-switch-".esc_attr($mode)."'><span class='screen-reader-text'>%s</span></a>\n",
 				esc_url( add_query_arg( 'mode', $mode ) ),
-				implode( ' ', $classes ),
-				$title
+				implode( ' ', esc_attr($classes) ),
+				esc_attr($title)
 			);
 		}
 		?>
@@ -704,7 +704,7 @@ class Woo_Feed_List_Table {
 		if ( ! $approved_comments && ! $pending_comments ) {
 			printf(
 				'<span aria-hidden="true">—</span><span class="screen-reader-text">%s</span>',
-				__( 'No comments', 'woo-feed' )
+				esc_attr_e( 'No comments', 'woo-feed' )
 			);
 			// Approved comments have different display depending on some conditions.
 		} elseif ( $approved_comments ) {
@@ -719,14 +719,14 @@ class Woo_Feed_List_Table {
 						admin_url( 'edit-comments.php' )
 					)
 				),
-				$approved_comments_number,
-				$pending_comments ? $approved_phrase : $approved_only_phrase
+				esc_attr($approved_comments_number),
+				esc_attr($pending_comments) ? esc_attr($approved_phrase) : esc_attr($approved_only_phrase)
 			);
 		} else {
 			printf(
 				'<span class="post-com-count post-com-count-no-comments"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
-				$approved_comments_number,
-				$pending_comments ? __( 'No approved comments', 'woo-feed' ) : __( 'No comments', 'woo-feed' )
+				esc_attr($approved_comments_number),
+				esc_attr($pending_comments) ? esc_html(_e( 'No approved comments', 'woo-feed' )) : esc_html(_e( 'No comments', 'woo-feed' ))
 			);
 		}
 
@@ -742,14 +742,14 @@ class Woo_Feed_List_Table {
 						admin_url( 'edit-comments.php' )
 					)
 				),
-				$pending_comments_number,
-				$pending_phrase
+				esc_attr($pending_comments_number),
+				esc_attr($pending_phrase)
 			);
 		} else {
 			printf(
 				'<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
-				$pending_comments_number,
-				$approved_comments ? __( 'No pending comments', 'woo-feed' ) : __( 'No comments', 'woo-feed' )
+                esc_attr($pending_comments_number),
+                esc_attr($approved_comments) ? esc_html(_e( 'No pending comments', 'woo-feed' )) : esc_html(_e( 'No comments', 'woo-feed' ))
 			);
 		}
 	}
@@ -929,7 +929,7 @@ class Woo_Feed_List_Table {
 		}
 		$this->_pagination = "<div class='tablenav-pages{$page_class}'>$output</div>";
 
-		echo $this->_pagination;
+		echo esc_html($this->_pagination);
 	}
 
 	/**
@@ -1187,7 +1187,8 @@ class Woo_Feed_List_Table {
 				$class = "class='" . join( ' ', $class ) . "'";
 			}
 
-			echo "<$tag $scope $id $class>$column_display_name</$tag>";
+			echo "< ".esc_attr($tag)." ".esc_attr($scope)." ".esc_attr($id)." ".esc_attr($class>$column_display_name)."</".esc_attr($tag).">";
+
 		}
 	}
 
@@ -1200,11 +1201,10 @@ class Woo_Feed_List_Table {
 	public function display() {
 		$singular = $this->_args['singular'];
 
-		$this->display_tablenav( 'top' );
+		esc_attr($this->display_tablenav( 'top' ));
 
-		// $this->screen->render_screen_reader_content( 'heading_list' );
 		?>
-<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+<table class="wp-list-table <?php echo implode( ' ', esc_attr($this->get_table_classes() )); ?>">
 	<thead>
 	<tr>
 		<?php $this->print_column_headers(); ?>
@@ -1214,7 +1214,7 @@ class Woo_Feed_List_Table {
 	<tbody id="the-list"
 		<?php
 		if ( $singular ) {
-			echo " data-wp-lists='list:$singular'";
+			echo " data-wp-lists='list:".esc_attr($singular)."";
 		}
 		?>
 		>
@@ -1293,7 +1293,7 @@ class Woo_Feed_List_Table {
 		if ( $this->has_items() ) {
 			$this->display_rows();
 		} else {
-			echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+			echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr($this->get_column_count()) . '">';
 			$this->no_items();
 			echo '</td></tr>';
 		}
@@ -1369,25 +1369,25 @@ class Woo_Feed_List_Table {
 
 			if ( 'cb' === $column_name ) {
 				echo '<th scope="row" class="check-column">';
-				echo $this->column_cb( $item );
+				echo esc_attr($this->column_cb( $item ));
 				echo '</th>';
 			} elseif ( method_exists( $this, '_column_' . $column_name ) ) {
-				echo call_user_func(
+				echo esc_attr(call_user_func(
 					array( $this, '_column_' . $column_name ),
 					$item,
 					$classes,
 					$data,
 					$primary
-				);
+				));
 			} elseif ( method_exists( $this, 'column_' . $column_name ) ) {
-				echo "<td $attributes>";
-				echo call_user_func( array( $this, 'column_' . $column_name ), $item );
-				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo "<td ".esc_attr($attributes).">";
+				echo esc_attr(call_user_func( array( $this, 'column_' . $column_name ), $item ));
+				echo esc_attr($this->handle_row_actions( $item, $column_name, $primary ));
 				echo '</td>';
 			} else {
-				echo "<td $attributes>";
-				echo $this->column_default( $item, $column_name );
-				echo $this->handle_row_actions( $item, $column_name, $primary );
+				echo "<td ".esc_attr($attributes).">";
+				echo esc_attr($this->column_default( $item, $column_name ));
+				echo esc_attr($this->handle_row_actions( $item, $column_name, $primary ));
 				echo '</td>';
 			}
 		}
@@ -1405,7 +1405,7 @@ class Woo_Feed_List_Table {
 	 * @return string The row actions HTML, or an empty string if the current column is the primary column.
 	 */
 	protected function handle_row_actions( $item, $column_name, $primary ) {
-		return $column_name === $primary ? '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', 'woo-feed' ) . '</span></button>' : '';
+		return $column_name === $primary ? '<button type="button" class="toggle-row"><span class="screen-reader-text">' . esc_html_e( 'Show more details', 'woo-feed' ) . '</span></button>' : '';
 	}
 
 	/**

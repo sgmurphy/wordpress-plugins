@@ -23,6 +23,7 @@ require_once 'includes/class-wwp-lead-capture.php';
 require_once 'includes/class-wwp-order-form.php';
 require_once 'includes/class-wwp-usage.php';
 require_once 'includes/class-wwp-about-page.php';
+require_once 'includes/class-wwp-wholesale-payments-page.php';
 require_once 'includes/class-wwp-help-page.php';
 require_once 'includes/class-wwp-advanced-coupons-page.php';
 require_once 'includes/class-wwp-upgrade-to-premium.php';
@@ -97,6 +98,7 @@ class WooCommerceWholeSalePrices {
     public $wwp_dashboard;
     public $wwp_settings;
     public $wwp_about_page;
+    public $wwp_wholesale_payments_page;
     public $wwp_help_page;
     public $wwp_advanced_coupons_page;
     public $wwp_upgrade_to_premium_page;
@@ -105,7 +107,7 @@ class WooCommerceWholeSalePrices {
     public $wwp_wpml_compatibility;
     // phpcs:enable
 
-    const VERSION = '2.1.12';
+    const VERSION = '2.2.0';
 
     /**
      * Class Methods
@@ -167,6 +169,7 @@ class WooCommerceWholeSalePrices {
         $this->wwp_dashboard                            = WWP_Dashboard::instance( array( 'WWP_Wholesale_Roles' => $this->wwp_wholesale_roles ) );
         $this->wwp_settings                             = WWP_Admin_Settings::instance( array( 'WWP_Wholesale_Roles' => $this->wwp_wholesale_roles ) );
         $this->wwp_about_page                           = WWP_About_Page::instance();
+        $this->wwp_wholesale_payments_page              = WWP_Wholesale_Payments_Page::instance();
         $this->wwp_help_page                            = WWP_Help_Page::instance();
         $this->wwp_advanced_coupons_page                = WWP_Advanced_Coupons_Page::instance();
         $this->wwp_upgrade_to_premium_page              = WWP_Upgrade_To_Premium_Page::instance();
@@ -254,7 +257,7 @@ class WooCommerceWholeSalePrices {
      */
     public function declare_cart_checkout_blocks_incompatibility() {
         if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', 'woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php', false );
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', 'woocommerce-wholesale-prices/woocommerce-wholesale-prices.bootstrap.php', true );
         }
     }
 
@@ -306,6 +309,7 @@ class WooCommerceWholeSalePrices {
         $this->wwp_dashboard->run();
         $this->wwp_settings->run();
         $this->wwp_about_page->run();
+        $this->wwp_wholesale_payments_page->run();
         $this->wwp_help_page->run();
         $this->wwp_advanced_coupons_page->run();
         $this->wwp_upgrade_to_premium_page->run();

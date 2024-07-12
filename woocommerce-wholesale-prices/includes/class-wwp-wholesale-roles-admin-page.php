@@ -118,7 +118,7 @@ if ( ! class_exists( 'WWP_Wholesale_Roles_Admin_Page' ) ) {
          */
         public function edit_wholesale_role( $role = null ) {
 
-            if ( ! defined( 'DOING_AJAX' ) ||
+            if ( ! wp_doing_ajax() ||
                 ! wp_verify_nonce( $_POST['nonce'], 'wwp_role_edit_nonce' )
                 || ! current_user_can( 'manage_woocommerce' ) ) {
                 // Security check failure.

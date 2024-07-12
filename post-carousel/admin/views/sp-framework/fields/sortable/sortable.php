@@ -66,7 +66,7 @@ if ( ! class_exists( 'SP_PC_Field_sortable' ) ) {
 
 				echo '<div class="spf--sortable-item">';
 
-				echo '<div class="spf--sortable-content">';
+				echo '<div class="spf--sortable-content spf--sortable-helper">';
 
 				$field_default = ( isset( $this->field['default'][ $key ] ) ) ? $this->field['default'][ $key ] : '';
 				$field_value   = ( isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : $field_default;
@@ -76,7 +76,7 @@ if ( ! class_exists( 'SP_PC_Field_sortable' ) ) {
 
 				echo '</div>';
 
-				echo '<div class="spf--sortable-helper"><i class="fa fa-arrows"></i></div>';
+				// echo '<div class="spf--sortable-helper"><i class="fa fa-arrows"></i></div>';
 
 				echo '</div>';
 

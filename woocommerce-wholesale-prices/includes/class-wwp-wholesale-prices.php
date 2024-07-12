@@ -1,5 +1,7 @@
 <?php
 // Exit if accessed directly.
+use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
@@ -18,16 +20,23 @@ class WWP_Wholesale_Prices {
     /**
      * Property that holds the single main instance of WWP_Wholesale_Prices.
      *
-     * @since 1.3.0
+     * @since  1.3.0
      * @access private
      * @var WWP_Wholesale_Prices
      */
     private static $_instance;
 
     /**
+     * Set of notices that have been printed.
+     *
+     * @var array
+     */
+    private static $printed_notices = array();
+
+    /**
      * Model that houses the logic of retrieving information relating to wholesale role/s of a user.
      *
-     * @since 1.5.0
+     * @since  1.5.0
      * @access private
      * @var WWP_Wholesale_Roles
      */
@@ -42,12 +51,13 @@ class WWP_Wholesale_Prices {
     /**
      * WWP_Wholesale_Prices constructor.
      *
-     * @since 1.3.0
-     * @access public
-     *
      * @param array $dependencies Array of instance objects of all dependencies of WWP_Wholesale_Prices model.
+     *
+     * @since  1.3.0
+     * @access public
      */
     public function __construct( $dependencies = array() ) {
+
         if ( isset( $dependencies['WWP_Wholesale_Roles'] ) ) {
             $this->_wwp_wholesale_roles = $dependencies['WWP_Wholesale_Roles'];
         }
@@ -56,15 +66,17 @@ class WWP_Wholesale_Prices {
     /**
      * Ensure that only one instance of WWP_Wholesale_Prices is loaded or can be loaded (Singleton Pattern).
      *
-     * @since 1.3.0
+     * @param array ...$dependencies Array of instance objects of all dependencies of WWP_Wholesale_Prices model.
+     *
+     * @since  1.3.0
      * @access public
      *
-     * @param array $dependencies Array of instance objects of all dependencies of WWP_Wholesale_Prices model.
      * @return WWP_Wholesale_Prices
      */
-    public static function instance( $dependencies ) {
+    public static function instance( ...$dependencies ) {
+
         if ( ! self::$_instance instanceof self ) {
-            self::$_instance = new self( $dependencies );
+            self::$_instance = new self( ...$dependencies );
         }
 
         return self::$_instance;
@@ -73,11 +85,10 @@ class WWP_Wholesale_Prices {
     /**
      * Ensure that only one instance of WWP_Wholesale_Prices is loaded or can be loaded (Singleton Pattern).
      *
-     * @since 1.3.0
-     * @access public
-     * @deprecated: Will be remove on future versions
-     *
+     * @since     1.3.0
+     * @access    public
      * @return WWP_Wholesale_Prices
+     * @deprecated: Will be remove on future versions
      */
     public static function getInstance() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
         if ( ! self::$_instance instanceof self ) {
@@ -91,11 +102,12 @@ class WWP_Wholesale_Prices {
      * Return product wholesale price for a given wholesale user role.
      * Still being used on WWOF 1.7.8
      *
-     * @deprecated: Will be remove on future versions
-     * @since 1.0.0
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
+     *
+     * @since     1.0.0
      * @return string
+     * @deprecated: Will be removed in future versions
      */
     public static function getUserProductWholesalePrice( $product_id, $user_wholesale_role ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
         return self::getProductWholesalePrice( $product_id, $user_wholesale_role );
@@ -107,21 +119,25 @@ class WWP_Wholesale_Prices {
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
      * @param int   $quantity            Quantity of product.
-     * @deprecated To be removed for future versions.
      *
+     * @since      1.0.0
      * @return string
-     * @since 1.0.0
+     * @deprecated To be removed for future versions.
      */
     public static function getProductWholesalePrice( $product_id, $user_wholesale_role, $quantity = 1 ) {
+
         if ( empty( $user_wholesale_role ) ) {
 
             return '';
 
         } else {
 
+            // Get product object.
+            $product = wc_get_product( $product_id );
+
             if ( WWP_ACS_Integration_Helper::aelia_currency_switcher_active() ) {
 
-                $wholesale_price            = get_post_meta( $product_id, $user_wholesale_role[0] . '_wholesale_price', true );
+                $wholesale_price            = $product->get_meta( $user_wholesale_role[0] . '_wholesale_price', true );
                 $baseCurrencyWholesalePrice = $wholesale_price;
 
                 if ( $baseCurrencyWholesalePrice ) {
@@ -133,7 +149,7 @@ class WWP_Wholesale_Prices {
                         $wholesale_price = $baseCurrencyWholesalePrice;
                     } else { // Base Currency.
 
-                        $wholesale_price = get_post_meta( $product_id, $user_wholesale_role[0] . '_' . $activeCurrency . '_wholesale_price', true );
+                        $wholesale_price = $product->get_meta( $user_wholesale_role[0] . '_' . $activeCurrency . '_wholesale_price', true );
 
                         if ( ! $wholesale_price ) {
 
@@ -157,7 +173,7 @@ class WWP_Wholesale_Prices {
                 // Base currency not set. Ignore the rest of the wholesale price set on other currencies.
 
             } else {
-                $wholesale_price = get_post_meta( $product_id, $user_wholesale_role[0] . '_wholesale_price', true );
+                $wholesale_price = $product->get_meta( $user_wholesale_role[0] . '_wholesale_price', true );
             }
 
             return apply_filters( 'wwp_filter_wholesale_price', $wholesale_price, $product_id, $user_wholesale_role, $quantity );
@@ -168,57 +184,63 @@ class WWP_Wholesale_Prices {
     /**
      * Get product raw wholesale price. Without being passed through any filter.
      *
-     * @since 1.5.0
-     * @since 1.6.3 Removed $quantity variable from the list of variables being passed to 'wwp_filter_' . $activeCurrency . '_wholesale_price' filter.
-     * @access public
-     *
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
+     *
+     * @since  1.5.0
+     * @since  1.6.3 Removed $quantity variable from the list of variables being passed to 'wwp_filter_' .
+     *         $activeCurrency . '_wholesale_price' filter.
+     * @access public
+     *
      * @return string Filtered wholesale price.
      */
     public static function get_product_raw_wholesale_price( $product_id, $user_wholesale_role ) {
+
+        // Get product object.
+        $product = wc_get_product( $product_id );
+
         if ( empty( $user_wholesale_role ) ) {
             $wholesale_price = '';
         } elseif ( WWP_ACS_Integration_Helper::aelia_currency_switcher_active() ) {
 
-                $wholesale_price            = get_post_meta( $product_id, $user_wholesale_role[0] . '_wholesale_price', true );
-                $baseCurrencyWholesalePrice = $wholesale_price;
+            $wholesale_price            = $product->get_meta( $user_wholesale_role[0] . '_wholesale_price', true );
+            $baseCurrencyWholesalePrice = $wholesale_price;
 
-                if ( $baseCurrencyWholesalePrice ) {
+            if ( $baseCurrencyWholesalePrice ) {
 
-                    $activeCurrency = get_woocommerce_currency();
-                    $baseCurrency   = WWP_ACS_Integration_Helper::get_product_base_currency( $product_id );
+                $activeCurrency = get_woocommerce_currency();
+                $baseCurrency   = WWP_ACS_Integration_Helper::get_product_base_currency( $product_id );
 
-                    if ( $activeCurrency === $baseCurrency ) {
-                        $wholesale_price = $baseCurrencyWholesalePrice;
-                    } else { // Base Currency.
+                if ( $activeCurrency === $baseCurrency ) {
+                    $wholesale_price = $baseCurrencyWholesalePrice;
+                } else { // Base Currency.
 
-                        $wholesale_price = get_post_meta( $product_id, $user_wholesale_role[0] . '_' . $activeCurrency . '_wholesale_price', true );
+                    $wholesale_price = $product->get_meta( $user_wholesale_role[0] . '_' . $activeCurrency . '_wholesale_price', true );
 
-                        if ( ! $wholesale_price ) {
+                    if ( ! $wholesale_price ) {
 
-                            /**
-                             * This specific currency has no explicit wholesale price (Auto). Therefore will need to convert the wholesale price
-                             * set on the base currency to this specific currency.
-                             *
-                             * This is why it is very important users set the wholesale price for the base currency if they want wholesale pricing
-                             * to work properly with aelia currency switcher plugin integration.
-                             */
-                            $wholesale_price = WWP_ACS_Integration_Helper::convert( $baseCurrencyWholesalePrice, $activeCurrency, $baseCurrency );
+                        /**
+                         * This specific currency has no explicit wholesale price (Auto). Therefore will need to convert the wholesale price
+                         * set on the base currency to this specific currency.
+                         *
+                         * This is why it is very important users set the wholesale price for the base currency if they want wholesale pricing
+                         * to work properly with aelia currency switcher plugin integration.
+                         */
+                        $wholesale_price = WWP_ACS_Integration_Helper::convert( $baseCurrencyWholesalePrice, $activeCurrency, $baseCurrency );
 
-                        }
                     }
-
-                    $wholesale_price = apply_filters( 'wwp_filter_' . $activeCurrency . '_wholesale_price', $wholesale_price, $product_id, $user_wholesale_role );
-
-                } else {
-                    $wholesale_price = '';
                 }
-                // Base currency not set. Ignore the rest of the wholesale price set on other currencies.
+
+                $wholesale_price = apply_filters( 'wwp_filter_' . $activeCurrency . '_wholesale_price', $wholesale_price, $product_id, $user_wholesale_role );
 
             } else {
-                $wholesale_price = get_post_meta( $product_id, $user_wholesale_role[0] . '_wholesale_price', true );
+                $wholesale_price = '';
             }
+            // Base currency not set. Ignore the rest of the wholesale price set on other currencies.
+
+        } else {
+            $wholesale_price = $product->get_meta( $user_wholesale_role[0] . '_wholesale_price', true );
+        }
 
         return $wholesale_price;
     }
@@ -228,16 +250,19 @@ class WWP_Wholesale_Prices {
      * With 'wwp_filter_wholesale_price_shop' filter already applied.
      * Replaces getProductWholesalePrice.
      *
-     * @since 1.5.0
-     * @since 1.6.0 Deprecated.
-     * @access public
-     *
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
+     *
+     * @since  1.5.0
+     * @since  1.6.0 Deprecated.
+     * @access public
+     *
      * @return string Filtered wholesale price.
      */
     public static function get_product_wholesale_price_on_shop( $product_id, $user_wholesale_role ) {
+
         $price_arr = self::get_product_wholesale_price_on_shop_v3( $product_id, $user_wholesale_role );
+
         return $price_arr['wholesale_price'];
     }
 
@@ -245,16 +270,18 @@ class WWP_Wholesale_Prices {
      * Replacement for 'get_product_wholesale_price_on_shop'.
      * Returns an array containing wholesale price both passed through and not passed through taxing.
      *
-     * @since 1.6.0
-     * @since 1.6.3 Add 'wwp_filter_wholesale_price_shop_v2' filter.
-     * @since 1.10  Deprecated.
-     * @access public
-     *
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
+     *
+     * @since  1.10  Deprecated.
+     * @access public
+     *
+     * @since  1.6.0
+     * @since  1.6.3 Add 'wwp_filter_wholesale_price_shop_v2' filter.
      * @return array Array of wholesale price data.
      */
     public static function get_product_wholesale_price_on_shop_v2( $product_id, $user_wholesale_role ) {
+
         WWP_Helper_Functions::deprecated_function( debug_backtrace(), 'WWP_Wholesale_Prices::get_product_wholesale_price_on_shop_v2()', '1.10', 'WWP_Wholesale_Prices::get_product_wholesale_price_on_shop_v3()' ); // phpcs:ignore
 
         $price_arr = array();
@@ -266,8 +293,8 @@ class WWP_Wholesale_Prices {
             $result = apply_filters(
                 'wwp_filter_wholesale_price_shop',
                 array(
-					'source'          => 'per_product_level',
-					'wholesale_price' => $per_product_level_wholesale_price,
+                    'source'          => 'per_product_level',
+                    'wholesale_price' => $per_product_level_wholesale_price,
                 ),
                 $product_id,
                 $user_wholesale_role,
@@ -292,22 +319,26 @@ class WWP_Wholesale_Prices {
 
     /**
      * Replacement for get_product_wholesale_price_on_shop_v2.
-     * Returns an array containing of the raw wholesale price, wholesale price for display, and wholesale price without tax.
+     * Returns an array containing of the raw wholesale price, wholesale price for display, and wholesale price without
+     * tax.
      * - wholesale_price             = the price used in display after all calculation. dependent on all settings.
      * - raw_wholesale_price         = the raw amount value inputted on the wholesale price field.
      * - wholesale_price_with_no_tax = the wholesale price deducted of the calculated tax.
      *
-     * @since 1.9
-     * @since 1.12 "WooCommerce Currency Switcher" plugin support. Wrap wholesale_price_raw with "woocommerce_product_get_price" filter
-     *              so that the wholesale prices is properly converted to selected currency.
-     * @since 2.0.2 Add filter to be used for caching wholesale price data. Feature is available in premium.
-     * @access public
-     *
      * @param int   $product_id          Product id.
      * @param array $user_wholesale_role Array of user wholesale roles.
+     *
+     * @since  2.0.2 Add filter to be used for caching wholesale price data. Feature is available in premium.
+     * @access public
+     *
+     * @since  1.9
+     * @since  1.12 "WooCommerce Currency Switcher" plugin support. Wrap wholesale_price_raw with
+     *         "woocommerce_product_get_price" filter so that the wholesale prices is properly converted to selected
+     *         currency.
      * @return array Array of wholesale price data.
      */
     public static function get_product_wholesale_price_on_shop_v3( $product_id, $user_wholesale_role ) {
+
         $price_arr  = array();
         $user_id    = apply_filters( 'wwp_wholesale_price_current_user_id', get_current_user_id() );
         $product    = wc_get_product( $product_id );
@@ -326,8 +357,8 @@ class WWP_Wholesale_Prices {
                 $result = apply_filters(
                     'wwp_filter_wholesale_price_shop',
                     array(
-						'source'          => 'per_product_level',
-						'wholesale_price' => $per_product_level_wholesale_price,
+                        'source'          => 'per_product_level',
+                        'wholesale_price' => $per_product_level_wholesale_price,
                     ),
                     $product_id,
                     $user_wholesale_role,
@@ -363,8 +394,8 @@ class WWP_Wholesale_Prices {
                 $price_arr['wholesale_price_with_no_tax'] = WWP_Helper_Functions::wwp_get_price_excluding_tax(
                     $product,
                     array(
-						'qty'   => 1,
-						'price' => $price_arr['wholesale_price_raw'],
+                        'qty'   => 1,
+                        'price' => $price_arr['wholesale_price_raw'],
                     )
                 );
             } else {
@@ -374,8 +405,8 @@ class WWP_Wholesale_Prices {
             $price_arr['wholesale_price_with_tax'] = WWP_Helper_Functions::wwp_get_price_including_tax(
                 $product,
                 array(
-					'qty'   => 1,
-					'price' => $price_arr['wholesale_price_raw'],
+                    'qty'   => 1,
+                    'price' => $price_arr['wholesale_price_raw'],
                 )
             );
 
@@ -396,19 +427,27 @@ class WWP_Wholesale_Prices {
      * No need to do it tho, coz we hooking on 'before_calculate_totals' hook so after our wholesale price computation,
      * WC will take care of passing it through taxing options.
      *
-     * @since 1.5.0
-     * @since 1.6.0 Refactor codebase.
-     * @since 1.12 Compatibility with "WooCommerce Currency Switcher by PluginUs.NET. Woo Multi Currency and Woo Multi Pay" plugin
-     *
-     * @access public
-     *
      * @param int     $product_id          Product id.
      * @param array   $user_wholesale_role Array of user wholesale roles.
      * @param array   $cart_item           Cart item data.
-     * @param WC_Cart $cart_object       WC_Cart object.
+     * @param WC_Cart $cart_object         WC_Cart object.
+     *
+     * @since  1.6.0 Refactor codebase.
+     * @since  1.12 Compatibility with "WooCommerce Currency Switcher by PluginUs.NET. Woo Multi Currency and Woo Multi
+     *         Pay" plugin
+     *
+     * @access public
+     *
+     * @since  1.5.0
      * @return string Filtered wholesale price.
      */
-    public static function get_product_wholesale_price_on_cart( $product_id, $user_wholesale_role, $cart_item, $cart_object ) {
+    public static function get_product_wholesale_price_on_cart(
+        $product_id,
+        $user_wholesale_role,
+        $cart_item,
+        $cart_object
+    ) {
+
         $wholesale_price = self::get_product_raw_wholesale_price( $product_id, $user_wholesale_role );
 
         global $WOOCS;
@@ -420,8 +459,8 @@ class WWP_Wholesale_Prices {
         $result = apply_filters(
             'wwp_filter_wholesale_price_cart',
             array(
-				'source'          => 'per_product_level',
-				'wholesale_price' => $wholesale_price,
+                'source'          => 'per_product_level',
+                'wholesale_price' => $wholesale_price,
             ),
             $product_id,
             $user_wholesale_role,
@@ -439,21 +478,31 @@ class WWP_Wholesale_Prices {
     /**
      * Get wholesale price suffix.
      *
-     * @since 1.6.0
-     * @since 1.7.0  When '{price_including_tax}', '{price_excluding_tax}' tags are used in the 'Price display suffix' dont return any computation since it will just use the regular price instead of wholesale price.
-     * @since 1.11.5 We now support '{price_including_tax}', '{price_excluding_tax}' tags in our wholesale prices.
-     * @since 1.16.1 Add filter to return value of $price_base
-     * @since 2.1.5  Fix wholesale price suffix always display default wholesale role (wholesale_customer) price
-     * @access public
-     *
      * @param WC_Product $product                     WC_Product object.
      * @param array      $user_wholesale_role         User wholesale role.
      * @param string     $wholesale_price             Wholesale price.
-     * @param boolean    $return_wholesale_price_only Whether to return wholesale price markup only, used on product cpt listing.
+     * @param boolean    $return_wholesale_price_only Whether to return wholesale price markup only, used on product
+     *                                                cpt listing.
      * @param array      $extra_args                  Extra arguments.
+     *
+     * @since  1.6.0
+     * @since  1.7.0  When '{price_including_tax}', '{price_excluding_tax}' tags are used in the 'Price display suffix'
+     *         dont return any computation since it will just use the regular price instead of wholesale price.
+     * @since  1.11.5 We now support '{price_including_tax}', '{price_excluding_tax}' tags in our wholesale prices.
+     * @since  1.16.1 Add filter to return value of $price_base
+     * @since  2.1.5  Fix wholesale price suffix always display default wholesale role (wholesale_customer) price
+     * @access public
+     *
      * @return string Wholesale price suffix.
      */
-    public static function get_wholesale_price_suffix( $product, $user_wholesale_role, $wholesale_price, $return_wholesale_price_only = false, $extra_args = array() ) {
+    public static function get_wholesale_price_suffix(
+        $product,
+        $user_wholesale_role,
+        $wholesale_price,
+        $return_wholesale_price_only = false,
+        $extra_args = array()
+    ) {
+
         $wc_price_suffix = apply_filters( 'wwp_wholesale_price_suffix', get_option( 'woocommerce_price_display_suffix' ) );
 
         if ( ! empty( $user_wholesale_role ) ) {
@@ -471,8 +520,8 @@ class WWP_Wholesale_Prices {
                     WWP_Helper_Functions::wwp_get_price_including_tax(
                         $product,
                         array(
-							'qty'   => 1,
-							'price' => $base_price,
+                            'qty'   => 1,
+                            'price' => $base_price,
                         )
                     )
                 );
@@ -486,8 +535,8 @@ class WWP_Wholesale_Prices {
                     WWP_Helper_Functions::wwp_get_price_excluding_tax(
                         $product,
                         array(
-							'qty'   => 1,
-							'price' => $base_price,
+                            'qty'   => 1,
+                            'price' => $base_price,
                         )
                     )
                 );
@@ -507,19 +556,22 @@ class WWP_Wholesale_Prices {
     /**
      * Filter callback that alters the product price, it embeds the wholesale price of a product for a wholesale user.
      *
-     * @since 1.0.0
-     * @since 1.2.8 Now if empty $price then don't bother creating wholesale html price.
-     * @since 1.5.0 Refactor codebase.
-     * @since 1.6.0 Refactor codebase.
-     * @access public
-     *
      * @param string     $price                       Product price in html.
      * @param WC_Product $product                     WC_Product instance.
      * @param array      $user_wholesale_role         User's wholesale role.
-     * @param boolean    $return_wholesale_price_only Whether to only return the wholesale price markup. Used for products cpt listing.
+     * @param boolean    $return_wholesale_price_only Whether to only return the wholesale price markup. Used for
+     *                                                products cpt listing.
+     *
+     * @since  1.0.0
+     * @since  1.2.8 Now if empty $price then don't bother creating wholesale html price.
+     * @since  1.5.0 Refactor codebase.
+     * @since  1.6.0 Refactor codebase.
+     * @access public
+     *
      * @return string Product price with wholesale applied if necessary.
      */
     public function wholesale_price_html_filter( $price, $product, $user_wholesale_role = null, $return_wholesale_price_only = false ) {
+
         if ( is_null( $user_wholesale_role ) ) {
             // If get price html is called from rest api request, then get wholesale role from request.
             // The wholesale role verification is done in the rest api request.
@@ -538,7 +590,14 @@ class WWP_Wholesale_Prices {
             $source                     = '';
             $extra_args                 = array();
 
-            if ( in_array( WWP_Helper_Functions::wwp_get_product_type( $product ), array( 'simple', 'variation' ), true ) ) {
+            if ( in_array(
+                WWP_Helper_Functions::wwp_get_product_type( $product ),
+                array(
+                    'simple',
+                    'variation',
+                ),
+                true
+            ) ) {
 
                 $price_arr           = self::get_product_wholesale_price_on_shop_v3( WWP_Helper_Functions::wwp_get_product_id( $product ), $user_wholesale_role );
                 $raw_wholesale_price = $price_arr['wholesale_price'];
@@ -618,11 +677,11 @@ class WWP_Wholesale_Prices {
                             $product,
                             $user_wholesale_role,
                             array(
-								'min_price' => $min_price,
-								'min_wholesale_price_without_taxing' => $min_wholesale_price_without_taxing,
-								'max_price' => $max_price,
-								'max_wholesale_price_without_taxing' => $max_wholesale_price_without_taxing,
-								'some_variations_have_wholesale_price' => $some_variations_have_wholesale_price,
+                                'min_price' => $min_price,
+                                'min_wholesale_price_without_taxing' => $min_wholesale_price_without_taxing,
+                                'max_price' => $max_price,
+                                'max_wholesale_price_without_taxing' => $max_wholesale_price_without_taxing,
+                                'some_variations_have_wholesale_price' => $some_variations_have_wholesale_price,
                             )
                         );
 
@@ -667,16 +726,16 @@ class WWP_Wholesale_Prices {
                 $return_value = apply_filters(
                     'wwp_filter_variable_product_wholesale_price_range',
                     array(
-						'wholesale_price'             => $wholesale_price,
-						'price'                       => $price,
-						'product'                     => $product,
-						'user_wholesale_role'         => $user_wholesale_role,
-						'min_price'                   => $min_price,
-						'min_wholesale_price_without_taxing' => $min_wholesale_price_without_taxing,
-						'max_price'                   => $max_price,
-						'max_wholesale_price_without_taxing' => $max_wholesale_price_without_taxing,
-						'wholesale_price_title_text'  => $wholesale_price_title_text,
-						'return_wholesale_price_only' => $return_wholesale_price_only,
+                        'wholesale_price'             => $wholesale_price,
+                        'price'                       => $price,
+                        'product'                     => $product,
+                        'user_wholesale_role'         => $user_wholesale_role,
+                        'min_price'                   => $min_price,
+                        'min_wholesale_price_without_taxing' => $min_wholesale_price_without_taxing,
+                        'max_price'                   => $max_price,
+                        'max_wholesale_price_without_taxing' => $max_wholesale_price_without_taxing,
+                        'wholesale_price_title_text'  => $wholesale_price_title_text,
+                        'return_wholesale_price_only' => $return_wholesale_price_only,
                     )
                 );
 
@@ -718,14 +777,14 @@ class WWP_Wholesale_Prices {
                 /**
                  * Filter wholesale price html.
                  *
-                 * @param string     $wholesale_price_html        The Wholesale price markup.
-                 * @param string     $price                       Original product price.
-                 * @param WC_Product $product                     Product object.
-                 * @param array      $user_wholesale_role         Array of user wholesale roles.
-                 * @param string     $wholesale_price_title_text  Wholesale price title text.
-                 * @param int|string $raw_wholesale_price         Unformatted wholesale price. Only available for simple & variation products.
-                 * @param string     $source                      Source of the wholesale price being applied.
-                 * @param string     $wholesale_price             Formatted wholesale price.
+                 * @param string     $wholesale_price_html       The Wholesale price markup.
+                 * @param string     $price                      Original product price.
+                 * @param WC_Product $product                    Product object.
+                 * @param array      $user_wholesale_role        Array of user wholesale roles.
+                 * @param string     $wholesale_price_title_text Wholesale price title text.
+                 * @param int|string $raw_wholesale_price        Unformatted wholesale price. Only available for simple & variation products.
+                 * @param string     $source                     Source of the wholesale price being applied.
+                 * @param string     $wholesale_price            Formatted wholesale price.
                  */
                 return apply_filters( 'wwp_filter_wholesale_price_html', $wholesale_price_html, $price, $product, $user_wholesale_role, $wholesale_price_title_text, $raw_wholesale_price, $source, $wholesale_price );
 
@@ -738,15 +797,19 @@ class WWP_Wholesale_Prices {
     /**
      * Apply product wholesale price upon adding to cart.
      *
-     * @since 1.0.0
-     * @since 1.2.3 Add filter hook 'wwp_filter_get_custom_product_type_wholesale_price' for which extensions can attach and add support for custom product types.
-     * @since 1.4.0 Add filter hook 'wwp_wholesale_requirements_not_passed' for which extensions can attach and do something whenever wholesale requirement is not meet.
-     * @since 1.5.0 Rewrote the code for speed and efficiency.
+     * @param WC_Cart $cart_object The woocommerce cart object.
+     *
+     * @since  1.2.3 Add filter hook 'wwp_filter_get_custom_product_type_wholesale_price' for which extensions can
+     *         attach and add support for custom product types.
+     * @since  1.4.0 Add filter hook 'wwp_wholesale_requirements_not_passed' for which extensions can attach and do
+     *         something whenever wholesale requirement is not meet.
+     * @since  1.5.0 Rewrote the code for speed and efficiency.
      * @access public
      *
-     * @param WC_Cart $cart_object The woocommerce cart object.
+     * @since  1.0.0
      */
     public function apply_product_wholesale_price_to_cart( $cart_object ) {
+
         $user_wholesale_role = $this->_wwp_wholesale_roles->getUserWholesaleRole();
 
         if ( empty( $user_wholesale_role ) ) {
@@ -772,7 +835,14 @@ class WWP_Wholesale_Prices {
             $wwp_data[ $cart_item_key ] = array();
             $wholesale_price            = '';
 
-            if ( in_array( WWP_Helper_Functions::wwp_get_product_type( $cart_item['data'] ), array( 'simple', 'variation' ), true ) ) {
+            if ( in_array(
+                WWP_Helper_Functions::wwp_get_product_type( $cart_item['data'] ),
+                array(
+                    'simple',
+                    'variation',
+                ),
+                true
+            ) ) {
                 $wholesale_price = self::get_product_wholesale_price_on_cart( WWP_Helper_Functions::wwp_get_product_id( $cart_item['data'] ), $user_wholesale_role, $cart_item, $cart_object );
             } else {
                 $wholesale_price = apply_filters( 'wwp_filter_get_custom_product_type_wholesale_price', $wholesale_price, $cart_item, $user_wholesale_role, $cart_object );
@@ -784,8 +854,8 @@ class WWP_Wholesale_Prices {
                     $wp = wc_get_price_excluding_tax(
                         $cart_item['data'],
                         array(
-							'qty'   => 1,
-							'price' => $wholesale_price,
+                            'qty'   => 1,
+                            'price' => $wholesale_price,
                         )
                     );
                 } else {
@@ -798,10 +868,10 @@ class WWP_Wholesale_Prices {
 
                     $cart_items_price_cache[ $cart_item_key ] = $cart_item['data']->get_price();
                     $cart_item['data']->set_price( WWP_Helper_Functions::wwp_wpml_price( $wholesale_price ) );
-                    $wwp_data[ $cart_item_key ]  = array(
-						'wholesale_priced' => 'yes',
-						'wholesale_role'   => $user_wholesale_role[0],
-					);
+                    $wwp_data[ $cart_item_key ] = array(
+                        'wholesale_priced' => 'yes',
+                        'wholesale_role'   => $user_wholesale_role[0],
+                    );
 
                 } else {
 
@@ -809,17 +879,17 @@ class WWP_Wholesale_Prices {
                         $per_product_requirement_notices[] = $apply_product_level_wholesale_price;
                     }
 
-                    $wwp_data[ $cart_item_key ]  = array(
-						'wholesale_priced' => 'no',
-						'wholesale_role'   => $user_wholesale_role[0],
-					);
+                    $wwp_data[ $cart_item_key ] = array(
+                        'wholesale_priced' => 'no',
+                        'wholesale_role'   => $user_wholesale_role[0],
+                    );
 
                 }
             } else {
                 $wwp_data[ $cart_item_key ] = array(
-					'wholesale_priced' => 'no',
-					'wholesale_role'   => $user_wholesale_role[0],
-				);
+                    'wholesale_priced' => 'no',
+                    'wholesale_role'   => $user_wholesale_role[0],
+                );
             }
 
             if ( apply_filters( 'wwp_include_cart_item_on_cart_totals_computation', true, $cart_item, $user_wholesale_role ) ) {
@@ -830,8 +900,8 @@ class WWP_Wholesale_Prices {
                         $wp = wc_get_price_excluding_tax(
                             $cart_item['data'],
                             array(
-								'qty'   => 1,
-								'price' => $wholesale_price,
+                                'qty'   => 1,
+                                'price' => $wholesale_price,
                             )
                         );
                     } else {
@@ -871,14 +941,16 @@ class WWP_Wholesale_Prices {
                 }
             }
 
-            if ( ( is_cart() || is_checkout() ) && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+            if ( ( is_cart() || is_checkout() || WWP_Helper_Functions::has_wc_cart_block() || WWP_Helper_Functions::has_wc_checkout_block() ) &&
+                ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
                 $this->printWCNotice( $apply_wholesale_price_cart_level );
             }
         }
 
         if ( ! empty( $per_product_requirement_notices ) ) {
             foreach ( $per_product_requirement_notices as $notice ) {
-                if ( ( is_cart() || is_checkout() ) && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+                if ( ( is_cart() || is_checkout() || WWP_Helper_Functions::has_wc_cart_block() || WWP_Helper_Functions::has_wc_checkout_block() ) &&
+                    ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
                     $this->printWCNotice( $per_product_requirement_notices );
                 }
             }
@@ -892,6 +964,8 @@ class WWP_Wholesale_Prices {
             }
         }
         $cart_object->set_cart_contents( $cart_contents );
+
+        return true;
     }
 
     /**
@@ -899,10 +973,11 @@ class WWP_Wholesale_Prices {
      * We need to do this on loading widget cart to properly sync the cart item prices.
      * If we don't do this, the cart item line price will not be sync with what's on the cart.
      *
-     * @since 1.5.0
+     * @since  1.5.0
      * @access public
      */
     public function recalculate_cart_totals() {
+
         WC()->cart->calculate_totals();
     }
 
@@ -911,18 +986,24 @@ class WWP_Wholesale_Prices {
      * We will handle tax application to wholesale prices only on WWP if WWPP is not present.
      * If WWPP is present lets allow WWPP to handle this instead.
      * This is only applied on shop page, we dont need to do this on cart/checkout prices.
-     * WC will take care of that coz we are hooking to 'before_calculate_totals' so after we apply wholesale pricing on cart/checkout page,
-     * WC will then apply taxing above it.
-     *
-     * @since 1.5.0
-     * @access public
+     * WC will take care of that coz we are hooking to 'before_calculate_totals' so after we apply wholesale pricing on
+     * cart/checkout page, WC will then apply taxing above it.
      *
      * @param float $wholesale_price     Wholesale price.
      * @param int   $product_id          Product Id.
      * @param array $user_wholesale_role User wholesale roles.
+     *
+     * @since  1.5.0
+     * @access public
+     *
      * @return float Modified wholesale price.
      */
-    public function apply_taxing_to_wholesale_prices_on_shop_page( $wholesale_price, $product_id, $user_wholesale_role ) {
+    public function apply_taxing_to_wholesale_prices_on_shop_page(
+        $wholesale_price,
+        $product_id,
+        $user_wholesale_role
+    ) {
+
         if ( ! WWP_Helper_Functions::is_plugin_active( 'woocommerce-wholesale-prices-premium/woocommerce-wholesale-prices-premium.bootstrap.php' ) && ! empty( $wholesale_price ) && ! empty( $user_wholesale_role ) && get_option( 'woocommerce_calc_taxes', false ) === 'yes' ) {
 
             $product                      = wc_get_product( $product_id );
@@ -932,16 +1013,16 @@ class WWP_Wholesale_Prices {
                 $wholesale_price = WWP_Helper_Functions::wwp_get_price_including_tax(
                     $product,
                     array(
-						'qty'   => 1,
-						'price' => $wholesale_price,
+                        'qty'   => 1,
+                        'price' => $wholesale_price,
                     )
                 );
             } else {
                 $wholesale_price = WWP_Helper_Functions::wwp_get_price_excluding_tax(
                     $product,
                     array(
-						'qty'   => 1,
-						'price' => $wholesale_price,
+                        'qty'   => 1,
+                        'price' => $wholesale_price,
                     )
                 );
             }
@@ -953,24 +1034,28 @@ class WWP_Wholesale_Prices {
     /**
      * Print WP Notices.
      *
-     * @since 1.0.7
-     * @access public
-     *
      * @param string|array $notices WWP/P related notices.
+     *
+     * @since  1.0.7
+     * @access public
      */
     public function printWCNotice( $notices ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
-        if ( is_array( $notices ) && array_key_exists( 'message', $notices ) && array_key_exists( 'type', $notices ) ) {
+        if ( is_array( $notices ) && array_key_exists( 'message', $notices ) && array_key_exists( 'type', $notices )
+            && ! in_array( $notices['message'], self::$printed_notices, true ) ) {
             // Pre Version 1.2.0 of wwpp where it sends back single dimension array of notice.
 
             wc_print_notice( $notices['message'], $notices['type'] );
+            self::$printed_notices[] = $notices['message'];
 
-        } elseif ( is_array( $notices ) ) {
+        } elseif ( is_array( $notices ) && ! array_key_exists( 'message', $notices ) && ! array_key_exists( 'type', $notices ) ) {
             // Version 1.2.0 of wwpp where it sends back multiple notice via multi dimensional arrays.
 
             foreach ( $notices as $notice ) {
 
-                if ( array_key_exists( 'message', $notice ) && array_key_exists( 'type', $notice ) ) {
+                if ( array_key_exists( 'message', $notice ) && array_key_exists( 'type', $notice )
+                    && ! in_array( $notice['message'], self::$printed_notices, true ) ) {
                     wc_print_notice( $notice['message'], $notice['type'] );
+                    self::$printed_notices[] = $notice['message'];
                 }
             }
         }
@@ -979,15 +1064,17 @@ class WWP_Wholesale_Prices {
     /**
      * Fix issue regarding meta role key being lowercased after product import.
      * Issue 1: Addressed the issue with aelia currency wholesale price not detecting after import. WWP-160
-     * Issue 2: Addressed the issue with uppercase wholesale role key not detected the wholesale price after import. WWPP-657
-     * Reason for that is WC tends to lowercase the meta keys while the currency is in uppercase or role has uppercase letter so wp won't detect the meta properly.
-     * ex 1: instead of 'wholesale_customer_USD_wholesale_price' wc imports the key as wholesale_customer_usd_wholesale_price.
+     * Issue 2: Addressed the issue with uppercase wholesale role key not detected the wholesale price after import.
+     * WWPP-657 Reason for that is WC tends to lowercase the meta keys while the currency is in uppercase or role has
+     * uppercase letter so wp won't detect the meta properly. ex 1: instead of 'wholesale_customer_USD_wholesale_price'
+     * wc imports the key as wholesale_customer_usd_wholesale_price.
      *
-     * @since 1.8
+     * @param array  $data     WC Product Data.
+     * @param object $importer WC_Product_CSV_Importer Object.
+     *
+     * @since  1.8
      * @access public
      *
-     * @param array  $data       WC Product Data.
-     * @param object $importer   WC_Product_CSV_Importer Object.
      * @return array
      */
     public function update_meta_data_with_proper_meta_keys( $data, $importer ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
@@ -1037,14 +1124,15 @@ class WWP_Wholesale_Prices {
     /**
      * Add the wholesale price to the variation data on the single product page form.
      *
-     * @since 1.9
-     * @access public
-     *
      * @param array                $data      Variation data.
      * @param WC_Product_Variable  $variable  Parent variable product object.
      * @param WC_Product_Variation $variation Variation product object.
+     *
+     * @since  1.9
+     * @access public
      */
     public function add_wholesale_price_to_variation_data( $data, $variable, $variation ) {
+
         $user_wholesale_role = $this->_wwp_wholesale_roles->getUserWholesaleRole();
 
         if ( ! empty( $user_wholesale_role ) ) {
@@ -1062,6 +1150,10 @@ class WWP_Wholesale_Prices {
             if ( isset( $price_arr['wholesale_price_with_no_tax'] ) && $price_arr['wholesale_price_with_no_tax'] ) {
                 $data['wholesale_price_with_no_tax'] = (float) $price_arr['wholesale_price_with_no_tax'];
             }
+
+            if ( isset( $price_arr['wholesale_price_with_tax'] ) && $price_arr['wholesale_price_with_tax'] ) {
+                $data['wholesale_price_with_tax'] = (float) $price_arr['wholesale_price_with_tax'];
+            }
         }
 
         return $data;
@@ -1071,13 +1163,15 @@ class WWP_Wholesale_Prices {
      * Set coupons availability to wholesale users.
      * Used to show/hide original product price.
      *
-     * @since 1.11
+     * @param boolean $enabled Coupons available flag.
+     *
+     * @since  1.11
      * @access public
      *
-     * @param boolean $enabled Coupons available flag.
      * @return bool Filtered coupons available flag.
      */
     public function toggle_availability_of_coupons_to_wholesale_users( $enabled ) {
+
         $user_wholesale_role = $this->_wwp_wholesale_roles->getUserWholesaleRole();
         $user_wholesale_role = ( is_array( $user_wholesale_role ) && ! empty( $user_wholesale_role ) ) ? $user_wholesale_role[0] : '';
 
@@ -1089,15 +1183,16 @@ class WWP_Wholesale_Prices {
     }
 
     /**
-     * There's a bug on wwpp where wholesale users can still avail coupons even if 'Disable Coupons For Wholesale Users' option is enabled.
-     * They can do this by applying coupon to cart first before logging in as wholesale user.
-     * Therefore when wholesale user visits cart/checkout pages, we check if 'Disable Coupons For Wholesale Users' is enabled.
-     * If so then we remove coupons to the cart.
+     * There's a bug on wwpp where wholesale users can still avail coupons even if 'Disable Coupons For Wholesale
+     * Users' option is enabled. They can do this by applying coupon to cart first before logging in as wholesale user.
+     * Therefore when wholesale user visits cart/checkout pages, we check if 'Disable Coupons For Wholesale Users' is
+     * enabled. If so then we remove coupons to the cart.
      *
-     * @since 1.11
+     * @since  1.11
      * @access public
      */
     public function remove_coupons_for_wholesale_users_when_necessary() {
+
         $user_wholesale_role = $this->_wwp_wholesale_roles->getUserWholesaleRole();
         $user_wholesale_role = ( is_array( $user_wholesale_role ) && ! empty( $user_wholesale_role ) ) ? $user_wholesale_role[0] : '';
 
@@ -1114,6 +1209,7 @@ class WWP_Wholesale_Prices {
      * @param float      $price               Original price.
      * @param WC_Product $product             Product object.
      * @param array      $user_wholesale_role User wholesale role.
+     *
      * @return string Filtered crossed out original price html.
      */
     public function filter_product_original_price_visibility( $original_price, $wholesale_price, $price, $product, $user_wholesale_role ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
@@ -1127,23 +1223,25 @@ class WWP_Wholesale_Prices {
     /**
      * Filter the text for the wholesale price title.
      *
+     * @param string $title_text Wholesale price title text.
+     *
      * @since 1.11
      * @return mixed
-     *
-     * @param string $title_text Wholesale price title text.
      */
     public function filter_wholesale_price_title_text( $title_text ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
         $setting_title_text = esc_attr( trim( get_option( 'wwpp_settings_wholesale_price_title_text' ) ) );
+
         return $setting_title_text;
     }
 
     /**
      * Handles hiding Price and Add to Cart button when "Hide Price and Add to Cart button" option is enabled.
      *
-     * @since 1.13
+     * @since  1.13
      * @access public
      */
     public function hide_price_and_add_to_cart_button() {
+
         $hide_price_and_add_to_cart_button = apply_filters( 'wwp_hide_price_and_add_to_cart_button', ! is_user_logged_in() && get_option( 'wwp_hide_price_add_to_cart' ) === 'yes' ? true : false );
 
         if ( $hide_price_and_add_to_cart_button ) {
@@ -1186,11 +1284,12 @@ class WWP_Wholesale_Prices {
     /**
      * Remove Prices if Hide price and add to cart button is enabled
      *
-     * @since 1.16.1
-     * @access public
-     *
      * @param string $prices  The price html.
      * @param object $product The product object.
+     *
+     * @since  1.16.1
+     * @access public
+     *
      * @return boolean
      */
     public function remove_product_prices( $prices, $product ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
@@ -1198,13 +1297,16 @@ class WWP_Wholesale_Prices {
     }
 
     /**
-     * Handles displaying replacement message for Price and Add to Cart button when "Hide Price and Add to Cart button" option is enabled.
+     * Handles displaying replacement message for Price and Add to Cart button when "Hide Price and Add to Cart button"
+     * option is enabled.
      *
-     * @since 1.13
-     * @since 2.1.5 Separate logic on how to get the price and add to cart replacement message so the function is reusable
+     * @since  1.13
+     * @since  2.1.5 Separate logic on how to get the price and add to cart replacement message so the function is
+     *         reusable
      * @access public
      */
     public function display_replacement_message() {
+
         $hide_price_and_add_to_cart_button = apply_filters( 'wwp_hide_price_and_add_to_cart_button', ! is_user_logged_in() && get_option( 'wwp_hide_price_add_to_cart' ) === 'yes' ? true : false );
 
         if ( $hide_price_and_add_to_cart_button ) {
@@ -1215,10 +1317,11 @@ class WWP_Wholesale_Prices {
     /**
      * Get the replacement message for price and add to cart when "Hide Price and Add to Cart button" option is enabled.
      *
-     * @since 2.1.5
+     * @since  2.1.5
      * @access public
      */
     public function get_price_and_add_to_cart_replacement_message() {
+
         $message = get_option( 'wwp_price_and_add_to_cart_replacement_message' );
 
         if ( empty( $message ) ) {
@@ -1233,9 +1336,11 @@ class WWP_Wholesale_Prices {
     /**
      * Clear Product Transient on Tax Settings Save
      *
-     * This will clear product transient when there is a change in WC Tax settings to properly apply the price tax, and will only run if wwpp is not activated.
+     * This will clear product transient when there is a change in WC Tax settings to properly apply the price tax, and
+     * will only run if wwpp is not activated.
      *
-     * - The problem is that when the Tax Settings in WC > Tax options, specially on "Prices entered with tax" options has been change. The products price tax are not properly applied.
+     * - The problem is that when the Tax Settings in WC > Tax options, specially on "Prices entered with tax" options
+     * has been change. The products price tax are not properly applied.
      *
      * @since 2.1.2
      */
@@ -1250,13 +1355,14 @@ class WWP_Wholesale_Prices {
     }
 
     /**
-     * Handles hide Add to Cart button in WooCommerce Product Blocks when "Hide Price and Add to Cart button" option is enabled.
+     * Handles hide Add to Cart button in WooCommerce Product Blocks when "Hide Price and Add to Cart button" option is
+     * enabled.
      *
      * @param string     $html    Product grid item HTML.
      * @param object     $data    Product data passed to the template.
      * @param WC_Product $product Product object.
      *
-     * @since 2.1.5
+     * @since  2.1.5
      * @access public
      */
     public function hide_add_to_cart_button_wc_blocks( $html, $data, $product ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
@@ -1283,49 +1389,261 @@ class WWP_Wholesale_Prices {
     }
 
     /**
+     * Customize the product price on the cart.
+     *
+     * @param string $price     The price of the product.
+     * @param array  $cart_item The cart item details.
+     *
+     * @return string
+     */
+    public function filter_product_price( $price, $cart_item ) {
+
+        if ( ! empty( $cart_item['wwp_data']['wholesale_priced'] ) && 'yes' === $cart_item['wwp_data']['wholesale_priced'] &&
+            method_exists( $cart_item['data'], 'get_regular_price' ) ) {
+            /**
+             * Get the product object from the cart item.
+             *
+             * @var WC_Product $product
+             */
+            [
+                'data' => $product,
+            ] = $cart_item;
+
+            $original_price = '';
+            if ( get_option( 'wwpp_settings_hide_original_price', 'no' ) === 'no' ) {
+                $original_price = wc_price( $product->get_regular_price() );
+                $original_price = sprintf( '<del class="original-computed-price">%s</del><br>', $original_price );
+            }
+            $price = sprintf(
+                '%1$s<span class="wholesale_price_container"><span class="wholesale_price_title">%2$s</span>%3$s</span>',
+                $original_price,
+                esc_html__( 'Wholesale Price: ', 'woocommerce-wholesale-prices' ),
+                $price
+            );
+        }
+
+        return $price;
+    }
+
+    /**
+     * Register the wholesale prices data to the cart item block.
+     *
+     * @return void
+     */
+    public function wc_cart_item_block_wwp_data() {
+
+        woocommerce_store_api_register_endpoint_data(
+            array(
+                'endpoint'        => CartItemSchema::IDENTIFIER,
+                'namespace'       => 'rymera_wwp',
+                'data_callback'   => array( $this, 'get_cart_block_item_wwp_data' ),
+                'schema_callback' => array( $this, 'get_cart_block_item_wwp_schema' ),
+                'schema_type'     => ARRAY_A,
+            )
+        );
+    }
+
+    /**
+     * Adds wholesale prices data to the cart item block.
+     *
+     * @param array $cart_item Cart item.
+     *
+     * @since 2.2.0
+     * @return array
+     */
+    public function get_cart_block_item_wwp_data( $cart_item ) {
+
+        return array(
+            'wwp_data' => $cart_item['wwp_data'] ?? null,
+        );
+    }
+
+    /**
+     * Returns the schema for the wholesale prices data in the cart item block.
+     *
+     * @since 2.2.0
+     * @return array[]
+     */
+    public function get_cart_block_item_wwp_schema() {
+
+        return array(
+            'wwp_data' => array(
+                'description' => __( 'Wholesale Prices data.', 'woocommerce-wholesale-prices' ),
+                'type'        => 'array',
+                'readonly'    => true,
+            ),
+        );
+    }
+
+    /**
+     * Customize cart block price HTML markup
+     *
+     * @since 2.2.0
+     * @return void
+     */
+    public function wc_cart_block_price_html() {
+
+        if ( ( ( is_cart() && has_block( 'woocommerce/cart' ) ) || has_block( 'woocommerce/cart' ) ) ||
+            ( ( is_checkout() && has_block( 'woocommerce/checkout' ) ) || has_block( 'woocommerce/checkout' ) ) ) {
+            $script = <<<JS
+document.addEventListener('DOMContentLoaded', function() {
+    const { registerCheckoutFilters } = window.wc.blocksCheckout
+    
+    const isCartContext = (args) => args?.context === 'cart'
+    const isCheckoutContext = (args) => args?.context === 'summary'
+    const isWholesalePriced = (args) => args?.cartItem?.extensions?.rymera_wwp?.wwp_data?.wholesale_priced === 'yes'
+
+    // Adjust cart item price of the cart line items.
+    registerCheckoutFilters( 'rymera-wwp', {
+        cartItemClass: ( value, extensions, args ) => {
+          /***************************************************************************
+           * Check context and if the product is wholesale priced.
+           ***************************************************************************
+           *
+           * We will only adjust the cart item price if the context is 'cart' and the
+           * product is wholesale priced.
+           *
+           * Note: for some reason, Javascript optional chaining (obj?.prop) does not
+           * work inside here hence we separated the checks into another function.
+           */
+          if ( (isCartContext(args) || isCheckoutContext(args)) && isWholesalePriced(args) ) {
+            value = value ? value + ' wwp-wholesale-priced' : 'wwp-wholesale-priced'
+          }
+    
+          return value
+        }
+    } )
+})
+JS;
+
+            wp_add_inline_script( 'wc-cart-block-frontend', $script, 'before' );
+            wp_add_inline_script( 'wc-checkout-block-frontend', $script, 'before' );
+
+            if ( get_option( 'wwpp_settings_hide_original_price', null ) === 'yes' ) {
+                $css = <<<CSS
+.wwp-wholesale-priced .price del.wc-block-components-product-price__regular {
+  display: none;
+}
+.wwp-wholesale-priced .price ins.wc-block-components-product-price__value {
+  margin-left: 0;
+}
+CSS;
+                wp_add_inline_style( 'woocommerce-inline', $css );
+            }
+        }
+    }
+
+    /**
      * Execute model.
      *
-     * @since 1.5.0
+     * @since  1.5.0
      * @access public
      */
     public function run() {
+
         // Apply wholesale price to archive and single product pages
         // On WC 3.x series, includes variation products.
         add_filter( 'woocommerce_get_price_html', array( $this, 'wholesale_price_html_filter' ), 10, 2 );
 
         // Apply wholesale price upon adding product to cart.
-        add_action( 'woocommerce_before_calculate_totals', array( $this, 'apply_product_wholesale_price_to_cart' ), 10, 1 );
+        add_action(
+            'woocommerce_before_calculate_totals',
+            array(
+                $this,
+                'apply_product_wholesale_price_to_cart',
+            ),
+            10,
+            1
+        );
 
         // We need to recalculate cart on loading widget cart to properly sync the cart item prices.
         add_action( 'woocommerce_before_mini_cart', array( $this, 'recalculate_cart_totals' ) );
 
         // Apply taxing to wholesale price on shop pages.
-        add_filter( 'wwp_pass_wholesale_price_through_taxing', array( $this, 'apply_taxing_to_wholesale_prices_on_shop_page' ), 10, 3 );
+        add_filter(
+            'wwp_pass_wholesale_price_through_taxing',
+            array(
+                $this,
+                'apply_taxing_to_wholesale_prices_on_shop_page',
+            ),
+            10,
+            3
+        );
 
         // Product Import. Wholesale Prices + Aelia Currency plugin compatibility. Also fix issue with wholesale role with uppercase letter.
-        add_filter( 'woocommerce_product_importer_parsed_data', array( $this, 'update_meta_data_with_proper_meta_keys' ), 10, 2 );
+        add_filter(
+            'woocommerce_product_importer_parsed_data',
+            array(
+                $this,
+                'update_meta_data_with_proper_meta_keys',
+            ),
+            10,
+            2
+        );
 
         // Add the wholesale price to the variation data on the single product page form.
         add_filter( 'woocommerce_available_variation', array( $this, 'add_wholesale_price_to_variation_data' ), 10, 3 );
 
         // Disable Coupons For Wholesale Users Option.
-        add_filter( 'woocommerce_coupons_enabled', array( $this, 'toggle_availability_of_coupons_to_wholesale_users' ), 10, 1 );
+        add_filter(
+            'woocommerce_coupons_enabled',
+            array(
+                $this,
+                'toggle_availability_of_coupons_to_wholesale_users',
+            ),
+            10,
+            1
+        );
         add_action( 'woocommerce_before_cart', array( $this, 'remove_coupons_for_wholesale_users_when_necessary' ) );
-        add_action( 'woocommerce_before_checkout_form', array( $this, 'remove_coupons_for_wholesale_users_when_necessary' ) );
+        add_action(
+            'woocommerce_before_checkout_form',
+            array(
+                $this,
+                'remove_coupons_for_wholesale_users_when_necessary',
+            )
+        );
 
         // Filter the product price to hide the original price for wholesale users.
         add_filter( 'wwp_product_original_price', array( $this, 'filter_product_original_price_visibility' ), 10, 5 );
 
         // Custom Wholesale Price Text.
-        add_filter( 'wwp_filter_wholesale_price_title_text', array( $this, 'filter_wholesale_price_title_text' ), 10, 1 );
+        add_filter(
+            'wwp_filter_wholesale_price_title_text',
+            array(
+                $this,
+                'filter_wholesale_price_title_text',
+            ),
+            10,
+            1
+        );
 
         // Hide Price and Add to Cart button feature.
         add_filter( 'init', array( $this, 'hide_price_and_add_to_cart_button' ) );
         add_action( 'woocommerce_single_product_summary', array( $this, 'display_replacement_message' ), 10 );
         add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_replacement_message' ), 10 );
-        add_filter( 'woocommerce_blocks_product_grid_item_html', array( $this, 'hide_add_to_cart_button_wc_blocks' ), 10, 3 );
+        add_filter(
+            'woocommerce_blocks_product_grid_item_html',
+            array(
+                $this,
+                'hide_add_to_cart_button_wc_blocks',
+            ),
+            10,
+            3
+        );
 
         // Clear Product Transients on tax settings save.
-        add_action( 'woocommerce_settings_save_tax', array( $this, 'clear_product_transient_on_tax_settings_save' ), 10 );
+        add_action(
+            'woocommerce_settings_save_tax',
+            array(
+                $this,
+                'clear_product_transient_on_tax_settings_save',
+            ),
+            10
+        );
+
+        add_filter( 'woocommerce_cart_item_price', array( $this, 'filter_product_price' ), 100, 2 );
+
+        add_action( 'wp_enqueue_scripts', array( $this, 'wc_cart_block_price_html' ), 20 );
+        add_action( 'woocommerce_blocks_loaded', array( $this, 'wc_cart_item_block_wwp_data' ) );
     }
 }

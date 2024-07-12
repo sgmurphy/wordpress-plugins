@@ -50,8 +50,8 @@ class Widget {
 			$date = date( 'M j, Y', strtotime( $post->modified ) ); ?>
             <p class="webappick-feeds"><a style="text-decoration: none;" href="<?php echo esc_url( $post->link ); ?>"
                                           target=_balnk><?php echo esc_html( $post->title->rendered ); ?></a>
-                - <?php echo $date; ?></p>
-            <span><?php echo wp_trim_words( $post->content->rendered, 35, '...' ); ?></span>
+                - <?php echo esc_attr($date); ?></p>
+            <span><?php echo esc_attr(wp_trim_words( $post->content->rendered, 35, '...' )); ?></span>
 			<?php
 		}
 		?>

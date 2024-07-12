@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * The framework select fields file.
  *
@@ -7,10 +7,10 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die; 
+	die;
 } // Cannot access directly.
 
-if ( ! class_exists( 'SP_PC_Field_select' ) ) {	
+if ( ! class_exists( 'SP_PC_Field_select' ) ) {
 	/**
 	 * SP_PC_Field_select
 	 */
@@ -110,20 +110,28 @@ if ( ! class_exists( 'SP_PC_Field_select' ) ) {
 							)
 						);
 					}
+					$selected_value = '';
 					foreach ( $options as $option_key => $option ) {
 						if ( is_array( $option ) && ! empty( $option ) ) {
 							echo '<optgroup label="' . esc_attr( $option_key ) . '">';
 							foreach ( $option as $sub_key => $sub_value ) {
-										$selected = ( in_array( $sub_key, $this->value ) ) ? ' selected' : '';
-										echo '<option value="' . esc_attr( $sub_key ) . '" ' . esc_attr( $selected ) . '>' . wp_kses_post( $sub_value ) . '</option>';
+								$selected = ( in_array( $sub_key, $this->value ) ) ? ' selected' : '';
+								echo '<option value="' . esc_attr( $sub_key ) . '" ' . esc_attr( $selected ) . '>' . wp_kses_post( $sub_value ) . '</option>';
 							}
 							echo '</optgroup>';
 						} else {
 							$selected = ( in_array( $option_key, $this->value ) ) ? ' selected' : '';
+							if ( in_array( $option_key, $this->value ) ) {
+								$selected_value = $option_key;
+							}
 							echo '<option value="' . esc_attr( $option_key ) . '" ' . esc_attr( $selected ) . '>' . wp_kses_post( $option ) . '</option>';
 						}
 					}
 					echo '</select>';
+					if ( isset( $args['preview'] ) && $args['preview'] ) {
+						echo '<img src="' . esc_url( SP_PC_URL ) . '/admin/views/sp-framework/assets/img/nav-position/' . esc_attr( $selected_value ) . '.svg " class="icon_preview">';
+						echo '<div class="pcp-pro-notice"></div>';
+					}
 				} else {
 					echo ( esc_html( ! empty( $this->field['empty_message'] ) ) ) ? esc_html( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'post-carousel' );
 				}

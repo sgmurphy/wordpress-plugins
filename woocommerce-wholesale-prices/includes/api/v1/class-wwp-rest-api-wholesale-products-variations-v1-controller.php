@@ -98,10 +98,10 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Product_Variations_V1_Controller' ) ) {
          * @access public
          *
          * @param WP_REST_Response $response The response object.
-         * @param WP_Post          $object   Post object.
+         * @param WP_Post          $prod_object   Post object.
          * @param WP_REST_Request  $request  Request object.
          */
-        public function filter_product_object( $response, $object, $request ) {
+        public function filter_product_object( $response, $prod_object, $request ) {
             if ( isset( $request['fields'] ) && ! empty( $request['fields'] ) ) {
                 $data    = $response->get_data();
                 $newdata = array();
@@ -147,33 +147,33 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Product_Variations_V1_Controller' ) ) {
 
                 $variable_id  = intval( $request['product_id'] );
                 $variation_id = $response->data['id'];
+                $product      = wc_get_product( $variable_id );
 
                 // Variation is Deleted.
                 if ( 'DELETE' === $method ) {
 
                     $wholesale_roles = $this->registered_wholesale_roles;
-                    $product         = wc_get_product( $variable_id );
                     $variations      = $product->get_available_variations();
 
                     if ( $wholesale_roles ) {
 
                         foreach ( $wholesale_roles as $role => $data ) {
 
-                            delete_post_meta( $variable_id, $role . '_variations_with_wholesale_price', $variation_id );
+                            $product->delete_meta_data( $role . '_variations_with_wholesale_price', $variation_id );
 
                             $price_arr = $wc_wholesale_prices->wwp_wholesale_prices->get_product_wholesale_price_on_shop_v3( $variable_id, array( $role ) );
 
                             if ( ! empty( $price_arr['wholesale_price'] ) ) {
-                                update_post_meta( $variable_id, $role . '_have_wholesale_price', 'yes' );
+                                $product->update_meta_data( $role . '_have_wholesale_price', 'yes' );
                             } else {
-                                delete_post_meta( $variable_id, $role . '_have_wholesale_price' );
+                                $product->delete_meta_data( $role . '_have_wholesale_price' );
                             }
                         }
                     }
 
                     // If all variations are removed then set stock status to outofstock.
                     if ( empty( $variations ) ) {
-                        update_post_meta( $variable_id, '_stock_status', 'outofstock' );
+                        $product->update_meta_data( '_stock_status', 'outofstock' );
                     }
                 }
 
@@ -190,12 +190,15 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Product_Variations_V1_Controller' ) ) {
 
                         foreach ( $wholesale_role_dicounts as $role => $discount ) {
 
-                            update_post_meta( $variable_id, $role . '_have_wholesale_price', 'yes' );
-                            add_post_meta( $variable_id, $role . '_variations_with_wholesale_price', $variation_id );
+                            $product->update_meta_data( $role . '_have_wholesale_price', 'yes' );
+                            $product->add_meta_data( $role . '_variations_with_wholesale_price', $variation_id );
 
                         }
                     }
                 }
+
+                // Save the product.
+                $product->save();
             }
         }
 
@@ -440,7 +443,6 @@ if ( ! class_exists( 'WWP_REST_Wholesale_Product_Variations_V1_Controller' ) ) {
         public function get_fields_for_response( $request ) {
             return $this->wwp_rest_wholesale_products_v1_controller->get_fields_for_response( $request, $this->post_type );
         }
-
-    }
+}
 
 }

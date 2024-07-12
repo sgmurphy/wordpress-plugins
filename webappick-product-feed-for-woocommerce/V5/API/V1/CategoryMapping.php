@@ -186,7 +186,7 @@ class CategoryMapping extends RestController {
 
 		}
 
-		return $this->error( sprintf( __( 'No attribute found with name: %s', 'woo-feed' ), $name ) );
+		return $this->error( sprintf( esc_attr_e( 'No attribute found with name: %s', 'woo-feed' ), esc_attr($name) ) );
 	}
 
 	/**

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/woo-ajax-add-to-cart',
-        'pretty_version' => 'v2.3.7',
-        'version' => '2.3.7.0',
-        'reference' => '37464588e6acccbf4e8a6352ce98fad43aa186ff',
+        'pretty_version' => 'v2.3.8',
+        'version' => '2.3.8.0',
+        'reference' => '9875bb0889929de40b30d6f82ca192b5197aa2da',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.1.12',
-            'version' => '2.1.12.0',
-            'reference' => '229b447156dfdc8c3fcc84443feeb0ee36258b0f',
+            'pretty_version' => 'v2.1.13',
+            'version' => '2.1.13.0',
+            'reference' => 'be2738e899ca46648999a6e1a7744b4da5001533',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'quadlayers/woo-ajax-add-to-cart' => array(
-            'pretty_version' => 'v2.3.7',
-            'version' => '2.3.7.0',
-            'reference' => '37464588e6acccbf4e8a6352ce98fad43aa186ff',
+            'pretty_version' => 'v2.3.8',
+            'version' => '2.3.8.0',
+            'reference' => '9875bb0889929de40b30d6f82ca192b5197aa2da',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -185,14 +185,14 @@ class RestController extends WP_REST_Controller {
 	 * Cloning is forbidden.
 	 */
 	final public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woo-feed' ), WOO_FEED_FREE_VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_attr_e( 'Cloning is forbidden.', 'woo-feed' ), esc_attr(WOO_FEED_FREE_VERSION) );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	final public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woo-feed' ), WOO_FEED_FREE_VERSION );
+		_doing_it_wrong( __FUNCTION__, esc_attr_e( 'Unserializing instances of this class is forbidden.', 'woo-feed' ), esc_attr(WOO_FEED_FREE_VERSION) );
 	}
 
 
@@ -387,7 +387,7 @@ class RestController extends WP_REST_Controller {
 
 	public function unique_option_name( $option_name, $prefix, $add_prefix = false ) {
 		$option_name = preg_replace( "/[^A-Za-z0-9_]/", '', $option_name );
-		if ( false !== get_option( $prefix . $option_name, false ) ) {
+		if ( false !== get_option( sanitize_text_field($prefix) . sanitize_text_field($option_name), false ) ) {
 			$option = CommonHelper::unique_option_name( $option_name, $prefix );
 		} else {
 			$option = $add_prefix ? $prefix . $option_name : $option_name;
