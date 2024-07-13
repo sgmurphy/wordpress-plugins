@@ -290,4 +290,16 @@ class MPSUM_Utils {
 		if (isset($item->plugin) && 'a-fake-plugin/a-fake-plugin.php' === $item->plugin) return true;
 		return false;
 	}
+
+	/**
+	 * Allow and force file modifications for automatic updating
+	 *
+	 * @param boolean $file_mod_allowed Whether file modifications are allowed
+	 * @param string  $context          The usage context
+	 * @return boolean True if the context is automatic updater, false if file modification isn't allowed
+	 */
+	public static function allow_file_modifications_for_automatic_updating($file_mod_allowed, $context) {
+		if ('automatic_updater' === $context) return true;
+		return $file_mod_allowed;
+	}
 }

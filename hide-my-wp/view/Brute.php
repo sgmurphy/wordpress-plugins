@@ -301,6 +301,14 @@
                                     <?php echo esc_html__('Manage whitelist & blacklist IP addresses', 'hide-my-wp'); ?>
                                 </a>
                             </div>
+
+                            <div class="col-sm-12 text-center border-top pt-4 my-4">
+                                <h5><?php echo sprintf(esc_html__('Use the %s shortcode to integrate it with other login forms.', 'hide-my-wp'), '<span style="color:darkred">[hmwp_bruteforce]</span>'); ?></h5>
+
+                                <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/integrating-brute-force-protection-in-elementor-login-forms/') ?>" target="_blank">
+                                    <?php echo esc_html__('Learn how to use the shortcode', 'hide-my-wp'); ?>
+                                </a>
+                            </div>
                         </div>
 
                     </div>

@@ -26,8 +26,8 @@ function efas_validation_process ( $record, $ajax_handler ) {
 
   $NeedPageurl =  get_option( 'NeedPageurl' ) ;   
   
-  if ( efas_get_spam_api('block_empty_source') ){
-    $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('block_empty_source')[0];
+  if ( efas_get_spam_api('NeedPageurl') ){
+    $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('block_empty_source',"bool");
   }
 
 

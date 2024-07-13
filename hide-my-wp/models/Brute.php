@@ -559,12 +559,21 @@ class HMWP_Models_Brute
         $sum = $num1 + $num2;
         $ans = sha1($salt . $sum);
         ?>
-        <div class="humanity" style="margin: 5px 0 20px;">
+        <div class="humanity">
             <strong><?php echo esc_html__('Prove your humanity:', 'hide-my-wp') ?> </strong>
             <?php echo esc_attr($num1) ?> &nbsp; + &nbsp; <?php echo esc_attr($num2) ?> &nbsp; = &nbsp;
             <input type="input" name="brute_num" value="" size="2"/>
             <input type="hidden" name="brute_ck" value="<?php echo esc_attr($ans); ?>" id="brute_ck"/>
         </div>
+        <style>
+            div.humanity{
+                margin: 5px 0 20px;
+                clear: both;
+            }
+            input[name=brute_num]{
+                max-width: 60px;
+            }
+        </style>
         <?php
     }
 

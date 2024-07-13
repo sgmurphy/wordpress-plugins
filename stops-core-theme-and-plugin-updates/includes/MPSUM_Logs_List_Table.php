@@ -435,7 +435,7 @@ class MPSUM_Logs_List_Table extends MPSUM_List_Table {
 						<input type="text" id="export_date_end" name="export_date_end" />
 						<strong><label for="export_date_start" style="display:block;"><?php esc_html_e('End', 'stops-core-theme-and-plugin-updates');?></label></strong>
 					</div>
-					<div class="mpsum-notice mpsum-regular mpsum-clear"><?php esc_html_e('The date range is optional. If left blank, the last 1000 log entries will be exported.', 'stops-core-theme-and-plugin-updates'); ?></div>
+					<div class="mpsum-notice mpsum-regular mpsum-clear"><?php echo esc_html__('The date range is optional.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('If left blank, the last 1000 log entries will be exported.', 'stops-core-theme-and-plugin-updates'); ?></div>
 					<div class="export-button">
 						<input type="hidden" id="export-ajax-url" value="<?php echo esc_url(add_query_arg(array('action' => 'eum_export_logs', 'nonce' => wp_create_nonce('eum_export_logs'), 'action_type' => 'all'), admin_url('admin-ajax.php')));?>" />
 						<a href="#" id="eum-export-go" class="button-primary thickbox open-plugin-details-modal" name="<?php esc_html_e('Export logs', 'stops-core-theme-and-plugin-updates');?>"><?php esc_html_e('Go', 'stops-core-theme-and-plugin-updates'); ?></a>&nbsp;<a href="#" class="button-secondary export-cancel"><?php esc_html_e('Cancel', 'stops-core-theme-and-plugin-updates'); ?></a>

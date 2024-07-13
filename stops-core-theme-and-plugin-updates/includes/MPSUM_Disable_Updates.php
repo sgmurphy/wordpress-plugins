@@ -64,7 +64,7 @@ class MPSUM_Disable_Updates {
 			return;
 		} else {
 			add_filter('automatic_updater_disabled', '__return_false', PHP_INT_MAX - 10);
-			add_filter('file_mod_allowed', array($this, 'allow_file_modifications_for_automatic_updating'), PHP_INT_MAX - 10, 2);
+			add_filter('file_mod_allowed', array('MPSUM_Utils', 'allow_file_modifications_for_automatic_updating'), PHP_INT_MAX - 10, 2);
 		}
 
 		// Enable or disable version control protection
@@ -87,7 +87,7 @@ class MPSUM_Disable_Updates {
 			// Core Minor Updates
 			add_filter('allow_minor_auto_core_updates', array($this, 'core_should_update_to_new_version'), PHP_INT_MAX - 10);
 
-			// Core Global Updates - a hook for making final decision as to whether core updating is allowed after examing other core-related hooks, also ensuring that no other filters will override our value
+			// Core Global Updates - a hook for making final decision as to whether core updating is allowed after examining other core-related hooks, also ensuring that no other filters will override our value
 			add_filter('auto_update_core', array($this, 'is_core_updating_allowed'), PHP_INT_MAX - 10);
 			if (!isset($core_options['core_updates']) || 'on' == $core_options['core_updates']) $this->is_core_updating_allowed = false; // on means manually update
 
@@ -390,18 +390,6 @@ class MPSUM_Disable_Updates {
 		}
 		
 		return $this->is_core_updating_allowed;
-	}
-
-	/**
-	 * Allow and force file modifications for automatic updating
-	 *
-	 * @param boolean $file_mod_allowed Whether file modifications are allowed
-	 * @param string  $context          The usage context
-	 * @return boolean True if the context is automatic updater, false if file modification isn't allowed
-	 */
-	public function allow_file_modifications_for_automatic_updating($file_mod_allowed, $context) {
-		if ('automatic_updater' === $context) return true;
-		return $file_mod_allowed;
 	}
 
 	/**

@@ -7,7 +7,7 @@ $options = MPSUM_Updates_Manager::get_options('core');
 
 // Show a notice if all updates are disabled
 if (isset($options['all_updates']) && 'off' == $options['all_updates']) {
-	printf('<div class="mpsum-error mpsum-bold">%s</div>', esc_html__('All updates are disabled. Please re-enable all updates for force updates to work.'));
+	printf('<div class="mpsum-error mpsum-bold">%s</div>', esc_html__('All updates are disabled.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('Please re-enable all updates for force updates to work.', 'stops-core-theme-and-plugin-updates'));
 }
 
 // Show a notice if automatic updates are off
@@ -22,7 +22,24 @@ if (isset($options['delay_updates']) && $options['delay_updates'] > 0) {
 
 // Begin output
 printf('<h3>%s</h3>', esc_html__('Force automatic updates', 'stops-core-theme-and-plugin-updates'));
-printf('<div class="mpsum-notice mpsum-regular">%s</div>', esc_html__('Force updates will request automatic updates of your plugins, core, themes, and translations immediately. This is useful for debugging and checking that automatic updates are working as intended. By default, WordPress checks for updates every 12 hours. Running force updates will, if successful, cause updates to happen immediately.', 'stops-core-theme-and-plugin-updates'));
+printf('<div class="mpsum-notice mpsum-regular">%s</div>', esc_html__('Force updates will request automatic updates of your plugins, core, themes, and translations immediately.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('This is useful for debugging and checking that automatic updates are working as intended.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('By default, WordPress checks for updates every 12 hours.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('Running force updates will, if successful, cause updates to happen immediately.', 'stops-core-theme-and-plugin-updates'));
+$updates = array();
+if (current_user_can('update_core')) $updates[] = __('core', 'stops-core-theme-and-plugin-updates');
+if (current_user_can('update_plugins')) $updates[] = __('plugin', 'stops-core-theme-and-plugin-updates');
+if (current_user_can('update_themes')) $updates[] = __('theme', 'stops-core-theme-and-plugin-updates');
+if (current_user_can('update_themes') || current_user_can('update_plugins')) $updates[] = __('translation', 'stops-core-theme-and-plugin-updates');
+if (!$updates) {
+	printf('<div class="mpsum-error mpsum-regular">%s</div>', esc_html__("You don't have sufficient user capabilities to force automatic updates.", 'stops-core-theme-and-plugin-updates'));
+} else {
+	$allowed_entities = '';
+	$delimiter = '';
+	foreach ($updates as $i => $update) {
+		$allowed_entities .= $delimiter.($allowed_entities ? ' ' : '').$update;
+		$delimiter = ',';
+		if ($allowed_entities && count($updates)-1 == $i+1) $delimiter = ' '.__('and', 'stops-core-theme-and-plugin-updates');
+	}
+	if (count($updates) < 4) printf('<div class="mpsum-error mpsum-regular">%s</div>', sprintf(esc_html__("You can only force %s automatic updates due to insufficient user capabilities you have for the website.", 'stops-core-theme-and-plugin-updates'), '<strong>'.$allowed_entities.'</strong>'));
+}
 $utils = MPSUM_Utils::get_instance();
 $updraftplus = $utils->is_installed('updraftplus');
 if (true === $updraftplus['installed'] && true === $updraftplus['active']) {

@@ -50,7 +50,7 @@ class Easy_Updates_Manager_Notices extends Updraft_Notices_1_2 {
 			),
 			'updraftcentral' => array(
 				'prefix' => '',
-				'title' => __('Save time and money. Manage multiple WordPress sites from one location.', 'stops-core-theme-and-plugin-updates'),
+				'title' => __('Save time and money.', 'stops-core-theme-and-plugin-updates').' '.__('Manage multiple WordPress sites from one location.', 'stops-core-theme-and-plugin-updates'),
 				'text' => __('UpdraftCentral is a highly efficient way to take backups, update and manage multiple WP sites from one location.', 'stops-core-theme-and-plugin-updates'),
 				'image' => 'notices/updraft_logo.png',
 				'button_link' => 'https://updraftcentral.com/',
@@ -161,7 +161,7 @@ class Easy_Updates_Manager_Notices extends Updraft_Notices_1_2 {
 			'collection' => array(
 				'prefix' => '',
 				'title' => __('The Updraft plugin collection sale', 'stops-core-theme-and-plugin-updates'),
-				'text' => __('Get 20% off any of our plugins. But hurry - offer ends 30th September, use this discount code:', 'stops-core-theme-and-plugin-updates').' ',
+				'text' => __('Get 20% off any of our plugins.', 'stops-core-theme-and-plugin-updates').' '.__('But hurry - offer ends 30th September, use this discount code:', 'stops-core-theme-and-plugin-updates').' ',
 				'image' => 'notices/eum_logo.png',
 				'button_link' => 'https://teamupdraft.com',
 				'campaign' => 'collection',

@@ -19,7 +19,7 @@ class MPSUM_UpdraftCentral {
 	/**
 	 * Register our class
 	 *
-	 * @param string $command_classes Passing over an arrya of command classes.
+	 * @param string $command_classes Passing over an array of command classes.
 	 * @return array An array of command classes
 	 */
 	public function updraftcentral_remotecontrol_command_classes($command_classes) {

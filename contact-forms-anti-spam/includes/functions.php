@@ -605,10 +605,15 @@ function efas_getRealIpAddr() {
 
 
 // Make Array
-function efas_makeArray($string) {
+function efas_makeArray($string,$type="") {
     if (!$string || is_array($string)) {
         return is_array($string) ? $string : [];
     }
+    if ($type = "select") {
+        $array  = explode("\n", str_replace("\r", "", $string));
+        return  array_filter($array); //removes all null values
+    }
+
     $string = strtolower($string);
     return explode("\n", str_replace("\r", "", $string));
 }
@@ -634,28 +639,44 @@ function maspik_is_field_value_equal_to_string($string, $field_value) {
     return $string === $field_value ? true : false;
 }
 
-function efas_get_spam_api($field = "text_field") {
+function efas_get_spam_api($field = "text_field",$type = "array") {
     $spamapi_option = get_option('spamapi');
    
     if (!is_array($spamapi_option) || !cfes_is_supporting() || !isset($spamapi_option[$field])) {
         return false;
     }
 
-    //$api_field = $spamapi_option[$field];
+    $api_field = $spamapi_option[$field];
 
-    $api_field = "";
+    //$api_field = "";
 
-    if (!is_array($api_field)) {
-        if ($field === "AllowedOrBlockCountries") {
-            // Keep the field value if it's for AllowedOrBlockCountries
-            $api_field = $spamapi_option[$field];
-        } else {
-            // Convert non-array fields to an array using efas_makeArray 
-            $api_field = efas_makeArray($spamapi_option[$field]);
-        }
+    if ($type != "array") {
+            // Keep the field value if it's not an array
+            $api_field = is_array($spamapi_option[$field]) ? $spamapi_option[$field][0] :$spamapi_option[$field] ;
+    } else {
+        // Convert non-array fields to an array using efas_makeArray 
+        $api_field = efas_makeArray($spamapi_option[$field],$type);
+        // Remove empty values from Array
+        $api_field = array_filter($api_field, function($value) {
+            return !empty($value);
+        });
     }
 
     return $api_field ? $api_field : false;
+}
+
+function maspik_is_contain_api($array) {
+    $spamapi_option = get_option('spamapi');
+    if ( !is_array($spamapi_option) ||  !cfes_is_supporting() || !is_array($array) ) {
+        return false;
+    }
+    // Check if any of the fields in the array are set in the spam API option
+    foreach ($array as $field) {
+        if (!empty($spamapi_option[$field])) {
+            return true; // Found a match, return early
+        }
+    }
+    return false; // No matches found
 }
 
 function maspik_detect_language_in_string($langs, $string) {
@@ -1282,31 +1303,39 @@ function maspik_toggle_match($data){
 }
 
 
-function cfas_get_error_text($field = "error_message") {
-
+/*
+// old //
+ function cfas_get_error_text($field = "error_message") {
     
+    $textAPI = efas_get_spam_api('error_message') ? efas_get_spam_api('error_message') : false;
+    if( efas_get_spam_api( "custom_error_message_$field") ){
+        $textAPI = efas_get_spam_api("custom_error_message_$field") ? efas_get_spam_api("custom_error_message_$field") : $textAPI ;
+    }
+
     if( maspik_check_table( "custom_error_message_$field") && maspik_get_settings( maspik_toggle_match($field))  == 1 ){
         if(maspik_get_settings( "custom_error_message_$field") != ""){
-            $text =  maspik_get_settings( "custom_error_message_$field" );
+            $text =  maspik_get_settings( "custom_error_message_$field") ? maspik_get_settings( "custom_error_message_$field" ) : $textAPI;
         }else{
-            $text = maspik_get_settings( "error_message" ) ? maspik_get_settings( "error_message" ) : __('This looks like spam. Try to rephrase, or contact us in an alternative way.', 'contact-forms-anti-spam');
+            $text = maspik_get_settings( "error_message" ) ? maspik_get_settings( "error_message" ) : $textAPI;
         }
     }else{
-        $text = maspik_get_settings( "error_message" ) ? maspik_get_settings( "error_message" ) : __('This looks like spam. Try to rephrase, or contact us in an alternative way.', 'contact-forms-anti-spam');
+            $text = maspik_get_settings( "error_message" ) ? maspik_get_settings( "error_message" ) : $textAPI;
     }
+    $text = $text ? $text : __('This looks like spam. Try to rephrase, or contact us in an alternative way.', 'contact-forms-anti-spam');
+    return  sanitize_text_field($text) : 
+}*/
+
+function cfas_get_error_text($field = "error_message") {
+    $default_text = __('This looks like spam. Try to rephrase, or contact us in an alternative way.', 'contact-forms-anti-spam');
+     $textAPI = efas_get_spam_api("custom_error_message_$field",$type = "text") ? efas_get_spam_api("custom_error_message_$field",$type = "text") : efas_get_spam_api('error_message',$type = "text");
+    if (maspik_check_table("custom_error_message_$field") && maspik_get_settings(maspik_toggle_match($field)) == 1) {
+        $text = maspik_get_settings("custom_error_message_$field") ? maspik_get_settings("custom_error_message_$field") : $textAPI;
+    } else {
+        $text = maspik_get_settings("error_message") ? maspik_get_settings("error_message") : $textAPI;
+    }
+    $text = $text ? $text : $default_text;
     return sanitize_text_field($text);
 }
-
-/*
-
-function old_cfas_get_error_text($field = "error_message") {
-    $text = maspik_get_settings( "error_message" ) ? maspik_get_settings( "error_message" ) : __('This looks like spam. Try to rephrase, or contact us in an alternative way.', 'contact-forms-anti-spam');
-    return sanitize_text_field($text);
-}
-
-*/
-
-
 
 function get_maspik_footer(){
     ?> 
@@ -1690,19 +1719,18 @@ function validateTextField($field_value) {
     }
 
     // Get the maximum character limit from the spam API or options
-    $MaxCharacters = isset(efas_get_spam_api('MaxCharactersInTextField')[0]) ? efas_get_spam_api('MaxCharactersInTextField')[0] : false;
+    $MaxCharacters = efas_get_spam_api('MaxCharactersInTextField') ? efas_get_spam_api('MaxCharactersInTextField',$type = "number") : false;
     if ( (empty($MaxCharacters) || $MaxCharacters < 3 ) || maspik_get_settings('MaxCharactersInTextField') >= 30) {
         $MaxCharacters = maspik_get_settings('MaxCharactersInTextField');
         $MinCharacters = maspik_get_settings('MinCharactersInTextField');
     }
-
     if(maspik_get_settings('text_custom_message_toggle')== 1){
         $message = 'MaxCharactersInTextField';
     }else{
         $message = '';
     }
     // Check if the maximum character limit is valid
-    if(maspik_get_settings(maspik_toggle_match('MaxCharactersInTextField')) == 1){
+    if(maspik_get_settings(maspik_toggle_match('MaxCharactersInTextField')) == 1  || maspik_is_contain_api(['MaxCharactersInTextField', 'MinCharactersInTextField'])){
         if (is_numeric($MaxCharacters) && $MaxCharacters > 3) {
             $CountCharacters = mb_strlen($field_value); // Use mb_strlen for multibyte characters
             if ($CountCharacters > $MaxCharacters ) {
@@ -1754,7 +1782,6 @@ function checkTextareaForSpam($field_value) {
         
 
         $lang_need_array = $data = maspik_get_settings('lang_needed','select' );
-
         foreach($lang_need_array as $value){
             $cleanval = trim($value -> $opt_value);
             if(!empty($cleanval)){
@@ -1782,11 +1809,13 @@ function checkTextareaForSpam($field_value) {
 
         // Check for forbidden language
 
-        $lang_x_array = $data = maspik_get_settings('lang_forbidden','select' );
+        $lang_x_array = maspik_get_settings('lang_forbidden', 'select' );
+        $lang_forbidden = array(); // Initialize as an empty array
+
         foreach($lang_x_array as $value){
-            $cleanval = trim($value -> $opt_value);
+            $cleanval = trim($value->$opt_value);
             if(!empty($cleanval)){
-                $lang_forbidden = explode(" ", $value -> $opt_value);
+                $lang_forbidden = explode(" ", $value->$opt_value);
             }
         }
 
@@ -1794,19 +1823,27 @@ function checkTextareaForSpam($field_value) {
             $blacklist_json = efas_get_spam_api('lang_forbidden');
             $lang_forbidden = array_merge($lang_forbidden, $blacklist_json);
         }
-        if( !empty($forbidden_lang) ){
+        // Remove empty values from blacklist_json after merging
+        $lang_forbidden = array_filter($lang_forbidden, function($value) {
+            return !empty($value);
+        });
 
-            $forbidden_lang = maspik_detect_language_in_string($lang_forbidden, $field_value);
+        if( !empty($lang_forbidden) ){
+            $detected_forbidden_lang = maspik_detect_language_in_string($lang_forbidden, $field_value);
 
-            if ($lang_forbidden && !empty($forbidden_lang)) {
-                return array('spam' => "Forbidden language '$forbidden_lang' exists", 'message' => "lang_forbidden");
+            if (!empty($detected_forbidden_lang)) {
+                return array('spam' => "Forbidden language '$detected_forbidden_lang' exists", 'message' => "lang_forbidden");
             }
         }
             
     }
     
-    // Check for maximum number of links
     $max_links = maspik_get_settings('contain_links');
+    if (efas_get_spam_api('contain_links',$type = "bool")) {
+        $max_links_api = efas_get_spam_api('contain_links',$type = "bool") ? efas_get_spam_api('contain_links',$type = "bool") : false;
+        $max_links = $max_links ? $max_links : $max_links_api;
+    }
+    // Check for maximum number of links
     if ($max_links >= 0) {
         $reg_exUrl = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
         $num_links = preg_match_all($reg_exUrl, $field_value);
@@ -1816,8 +1853,8 @@ function checkTextareaForSpam($field_value) {
     }
     
     // Get the maximum character limit from the spam API or options
-    if(is_array(efas_get_spam_api('MaxCharactersInTextAreaField'))){
-        $MaxCharacters = efas_get_spam_api('MaxCharactersInTextAreaField')[0];
+    if(is_array(efas_get_spam_api('MaxCharactersInTextAreaField',$type = "number"))){
+        $MaxCharacters = efas_get_spam_api('MaxCharactersInTextAreaField',$type = "number");
     }
 
     if ( (empty($MaxCharacters) || $MaxCharacters < 3 ) || maspik_get_settings('MaxCharactersInTextAreaField') >= 30) {
@@ -1834,7 +1871,7 @@ function checkTextareaForSpam($field_value) {
 
 
     // Check if the maximum character limit is valid
-    if(maspik_get_settings(maspik_toggle_match('MaxCharactersInTextAreaField')) == 1){
+    if (maspik_get_settings(maspik_toggle_match('MaxCharactersInTextAreaField')) == 1 || maspik_is_contain_api(['MaxCharactersInTextAreaField', 'MinCharactersInTextAreaField'])) {
         if (is_numeric($MaxCharacters) && $MaxCharacters > 3) {
             $CountCharacters = mb_strlen($field_value); // Use mb_strlen for multibyte characters
             if ($CountCharacters > $MaxCharacters) {
@@ -1851,62 +1888,6 @@ function checkTextareaForSpam($field_value) {
     // No spam found in this field
     return false;
 }
-
-
-//*  spampixel  *//
-// Add admin-ajax endpoint -  spampixel
-add_action('wp_ajax_cfas_pixel_submit', 'cfas_pixel_submit');
-add_action('wp_ajax_nopriv_cfas_pixel_submit', 'cfas_pixel_submit');
-function cfas_pixel_submit() {
-	set_transient('maspik_allow_' . efas_getRealIpAddr(), '1', 'DAY_IN_SECONDS');//DAY_IN_SECONDS
-	wp_die();
-}
-
-
-//add spampixel HTML if CF7 
-function add_Maspik_human_verification_to_footer() {
-  if (!get_option('Maspik_human_verification') ) {
-        return;
-  }
-  if(  efas_if_plugin_is_affective("Contact form 7") || efas_if_plugin_is_affective("Elementor pro")  ){
-    ?>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            // Function to add the maspik-captcha div to a form
-            function addMaspikCaptcha(formElements) {
-                formElements.forEach(form => {
-                    const maspikCaptchaDiv = document.createElement('div');
-                    maspikCaptchaDiv.className = 'maspik-captcha';
-
-                    // Append maspik-captcha div inside the form element
-                    form.appendChild(maspikCaptchaDiv);
-                });
-            }
-            // Add maspik-captcha div inside "wpcf7-form" elements OR elementor-form
-            addMaspikCaptcha(document.querySelectorAll('.wpcf7-form'));
-            addMaspikCaptcha(document.querySelectorAll('.elementor-form'));
-
-            // Create a <style> element
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .maspik-captcha {
-                    width: 1px;
-                    height: 1px;
-                }
-                form:focus-within .maspik-captcha {
-                    background-image: url('<?php echo admin_url('admin-ajax.php') ?>?action=cfas_pixel_submit');
-                }
-            `;
-            // Append the style to the document head
-            document.head.appendChild(style);
-        });
-    </script>
-    <?php
-    }
-}
-// Disable because not stable yet 
-//add_action('wp_footer', 'add_Maspik_human_verification_to_footer');
-
 
 function Maspik_admin_notice() {
     // Check if the user has 'manage_options' capability

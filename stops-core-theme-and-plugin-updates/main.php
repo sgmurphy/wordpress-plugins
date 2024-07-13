@@ -5,7 +5,7 @@ Plugin Name: Easy Updates Manager
 Plugin URI: https://easyupdatesmanager.com
 Description: Manage and disable WordPress updates, including core, plugin, theme, and automatic updates - Works with Multisite and has built-in logging features.
 Author: Easy Updates Manager Team
-Version: 9.0.17
+Version: 9.0.18
 Update URI: https://wordpress.org/plugins/stops-core-theme-and-plugin-updates/
 Author URI: https://easyupdatesmanager.com
 Contributors: kidsguide, ronalfy
@@ -18,7 +18,7 @@ Network: true
 
 if (!defined('ABSPATH')) die('No direct access allowed');
 
-if (!defined('EASY_UPDATES_MANAGER_VERSION')) define('EASY_UPDATES_MANAGER_VERSION', '9.0.17');
+if (!defined('EASY_UPDATES_MANAGER_VERSION')) define('EASY_UPDATES_MANAGER_VERSION', '9.0.18');
 
 if (!defined('EASY_UPDATES_MANAGER_MAIN_PATH')) define('EASY_UPDATES_MANAGER_MAIN_PATH', plugin_dir_path(__FILE__));
 if (!defined('EASY_UPDATES_MANAGER_URL')) define('EASY_UPDATES_MANAGER_URL', plugin_dir_url(__FILE__));
@@ -963,7 +963,7 @@ if (!class_exists('MPSUM_Updates_Manager')) {
 		 * Includes Template
 		 *
 		 * @param string  $path                   template path
-		 * @param boolean $return_instead_of_echo If It is true, This function returns template string intead of printing otherwise template will be printed
+		 * @param boolean $return_instead_of_echo If It is true, This function returns template string instead of printing otherwise template will be printed
 		 * @param array   $extract_these          Extract variables which needs to pass template
 		 * @return string|void If $return_instead_of_echo parameter is true, It returns template string otherwise returns nothing
 		 */

@@ -112,7 +112,7 @@ if ( ! defined( 'WPINC' ) ) {
 
         }
 
-function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manual_switch = ""){
+function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manual_switch = "", $api_array = false){
     toggle_ready_check($dbrow_name); //make db row if there's none yet
 
     if($type == "form-toggle"){
@@ -125,6 +125,7 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
         $checked = maspik_get_settings($dbrow_name, '', 'old') == 'yes' ? 'checked': "";
     } else {
         $checked = maspik_get_settings($dbrow_name, 'toggle');
+        $checked = maspik_is_contain_api($api_array) ? 'checked' : $checked ;
     }
 
     if($manual_switch === 0){
@@ -286,6 +287,7 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
     //Maspik API
         function maspik_spam_api_list($name, $array = ""){
             $api = efas_get_spam_api($name);
+            //echo print_r(efas_get_spam_api($name,$type = "select")); // yoni
  
             $apitext = '';
 

@@ -8,7 +8,7 @@ There are many ways that you can contribute to Easy Updates Manager.
 -	Translations
 
 ## Coding
-Coding is not easy. A good start to contibuting with code is to create a pull request through GitHub.
+Coding is not easy. A good start to contributing with code is to create a pull request through GitHub.
 
 If you plan on doing this then please make sure that you use the most recent branch of Easy Updates Manager to make your changes on, and most importantly use the most recent version of WordPress to test your changes on.
 

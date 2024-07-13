@@ -4,7 +4,7 @@ Donate link: paypal.me/yonifre
 Tags: spam, blacklist, antispam, contact form, security
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -132,6 +132,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.0.3 - 12/07/2024 =
+* Improvement - Improve Dashboard(Maspik API) - add more fields in WpMaspik site for Pro users  
+* Bug fix - Fix languages chack   
+* Bug fix - Fix toggel option for some condition 
 
 = 2.0.2 - 11/07/2024 =
 * Bug fix - fixed some toggel options (Allow usage tracking, Disable comments, Add country name to emails) that weren't stable on some aviroment. 

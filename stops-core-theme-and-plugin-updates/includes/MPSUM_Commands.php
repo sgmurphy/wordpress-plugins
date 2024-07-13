@@ -273,9 +273,6 @@ class MPSUM_Commands {
 	 * @return string Confirmation message of forced updates
 	 */
 	public function force_updates() {
-		if (!$this->user_can_update()) {
-			return __('User has insufficient capability to do updates', 'stops-core-theme-and-plugin-updates');
-		}
 		return $this->admin_ajax->force_updates();
 	}
 

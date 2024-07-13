@@ -14,7 +14,7 @@
   */
 class MPSUM_Disable_Updates_All {
 	/**
-	 * Constrcutor
+	 * Constructor
 	 */
 	public function __construct() {
 		add_action('admin_init', array( $this, 'admin_init' ));

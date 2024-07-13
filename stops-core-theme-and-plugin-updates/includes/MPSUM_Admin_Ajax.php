@@ -800,7 +800,7 @@ class MPSUM_Admin_Ajax {
 			}
 		}
 		if (empty($html)) {
-			wp_send_json(array('message' => '<div class="mpsum-error mpsum-bold">' . __('This plugin is not installed on any sites. Consider removing it.', 'stops-core-theme-and-plugin-updates') . '</div>'));
+			wp_send_json(array('message' => '<div class="mpsum-error mpsum-bold">' . __('This plugin is not installed on any sites.', 'stops-core-theme-and-plugin-updates').' '.__('Consider removing it.', 'stops-core-theme-and-plugin-updates') . '</div>'));
 		} else {
 			$html_ul = '<ul>';
 			$html_ul .= $html;
@@ -811,7 +811,7 @@ class MPSUM_Admin_Ajax {
 	}
 
 	/**
-	 * Checks what sites a plugin is isntalled for on multisite
+	 * Checks what sites a plugin is installed for on multisite
 	 *
 	 * @param array $data An array with the filename of the plugin
 	 */
@@ -864,7 +864,7 @@ class MPSUM_Admin_Ajax {
 		}
 		restore_current_blog();
 		if (empty($html)) {
-			wp_send_json(array('message' => '<div class="mpsum-error mpsum-bold">' . __('This theme is not active on any sites. Consider removing it.', 'stops-core-theme-and-plugin-updates') . '</div>'));
+			wp_send_json(array('message' => '<div class="mpsum-error mpsum-bold">' . __('This theme is not active on any sites.', 'stops-core-theme-and-plugin-updates').' '.__('Consider removing it.', 'stops-core-theme-and-plugin-updates') . '</div>'));
 		} else {
 			$html_ul = '<ul>';
 			$html_ul .= $html;
@@ -897,7 +897,7 @@ class MPSUM_Admin_Ajax {
 		$options = MPSUM_Updates_Manager::get_options('core', true);
 		$options['enable_admin_bar'] = 'on';
 		MPSUM_Updates_Manager::update_options($options, 'core');
-		wp_send_json(array('message' => __('The admin bar has been enabled. Please refresh to see the admin bar menu.', 'stops-core-theme-and-plugin-updates')));
+		wp_send_json(array('message' => __('The admin bar has been enabled.', 'stops-core-theme-and-plugin-updates').' '.__('Please refresh to see the admin bar menu.', 'stops-core-theme-and-plugin-updates')));
 	}
 
 	/**
@@ -968,12 +968,44 @@ class MPSUM_Admin_Ajax {
 	}
 
 	/**
+	 * Check whether the current user is allowed to update items (the WP Core, a plugin or theme)
+	 *
+	 * @param boolean $update Whether the item has automatic updates enabled
+	 * @param object  $item   Object holding the asset to be updated
+	 * @return boolean True if the current user is allowed to update the item, false otherwise
+	 */
+	public function current_user_can_update($update, $item) {
+		if (isset($item->plugin)) {
+			return current_user_can('update_plugins');
+		} elseif (isset($item->theme)) {
+			return current_user_can('update_themes');
+		} elseif (!empty($item->response) && in_array($item->response, array('autoupdate', 'upgrade', 'latest'))) {
+			return current_user_can('update_core');
+		} elseif (!empty($item->type) && in_array($item->type, array('core', 'plugin', 'theme'))) {
+			if ('core' === $item->type) {
+				return current_user_can('update_core');
+			} elseif ('plugin' === $item->type) {
+				return current_user_can('update_plugins');
+			} elseif ('theme' === $item->type) {
+				return current_user_can('update_themes');
+			}
+		}
+		return $update;
+	}
+
+	/**
 	 * Forces update to take place immediately
 	 *
 	 * @return mixed|string Returns update initialized message, if successful.
 	 */
 	public function force_updates() {
-		if (!$this->user_can_update()) return;
+		add_filter('automatic_updater_disabled', '__return_false', PHP_INT_MAX);
+		add_filter('file_mod_allowed', array('MPSUM_Utils', 'allow_file_modifications_for_automatic_updating'), PHP_INT_MAX, 2);
+		add_filter('auto_update_core', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		add_filter('auto_update_plugin', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		add_filter('auto_update_theme', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		add_filter('auto_update_translation', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		add_filter('async_update_translation', '__return_true', PHP_INT_MAX);
 		$ran_immediately = false;
 		delete_site_transient('MPSUM_PLUGINS');
 		delete_site_transient('MPSUM_THEMES');
@@ -985,7 +1017,7 @@ class MPSUM_Admin_Ajax {
 			$constants[] = 'WP_AUTO_UPDATE_CORE';
 		}
 		if (!empty($constants)) {
-			error_log(sprintf("The constant(s) %s is/are currently active, but Easy Updates Manager has overriden it/them so that it/they won't take any effect during forced updates. It is recommended to unset them to remove ambiguity.", implode(', ', $constants)));
+			error_log(sprintf("The constant(s) %s is/are currently active, but Easy Updates Manager has overridden it/them so that it/they won't take any effect during forced updates. It is recommended to unset them to remove ambiguity.", implode(', ', $constants)));
 		}
 		if (function_exists('wp_maybe_auto_update')) {
 			// Constant to show that a Force Update is in effect. Since 9.0.1.
@@ -993,7 +1025,7 @@ class MPSUM_Admin_Ajax {
 				define('EUM_DOING_FORCE_UPDATES', true);
 			}
 
-			// Disable auto-backups from occuring with UpdraftPlus Premium as it causes a fatal error when running Force Updates. Since 9.0.1.
+			// Disable auto-backups from occurring with UpdraftPlus Premium as it causes a fatal error when running Force Updates. Since 9.0.1.
 			add_filter('updraftplus_boot_backup', '__return_false', 10, 1);
 
 			/**
@@ -1038,6 +1070,13 @@ class MPSUM_Admin_Ajax {
 			'ran_immediately' => $ran_immediately,
 			'update_data' => $this->wp_get_update_data()
 		);
+		remove_filter('automatic_updater_disabled', '__return_false', PHP_INT_MAX);
+		remove_filter('file_mod_allowed', array('MPSUM_Utils', 'allow_file_modifications_for_automatic_updating'), PHP_INT_MAX, 2);
+		remove_filter('auto_update_core', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		remove_filter('auto_update_plugin', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		remove_filter('auto_update_theme', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		remove_filter('auto_update_translation', array($this, 'current_user_can_update'), PHP_INT_MAX, 2);
+		remove_filter('async_update_translation', '__return_true', PHP_INT_MAX);
 		return $result;
 	}
 

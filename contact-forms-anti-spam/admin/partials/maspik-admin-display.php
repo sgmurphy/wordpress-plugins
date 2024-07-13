@@ -595,8 +595,7 @@ $spamcounter = maspik_spam_count();
                         <div class="maspik-limit-char-wrap">
                             <div class="maspik-limit-char-head togglewrap">
                                 <?php
-                                            
-                                    echo maspik_toggle_button('text_limit_toggle', 'text_limit_toggle', 'text_limit_toggle', 'maspik-toggle-text-limit togglebutton');
+                                    echo maspik_toggle_button('text_limit_toggle', 'text_limit_toggle', 'text_limit_toggle', 'maspik-toggle-text-limit togglebutton',"","",['MinCharactersInTextField','MaxCharactersInTextField','custom_error_message_MaxCharactersInTextField']);
                                             
                                     echo "<h4> Limit Characters </h4>";
 
@@ -622,7 +621,7 @@ $spamcounter = maspik_spam_count();
 
                                 <div class="maspik-custom-msg-wrap">
                                     <div class="maspik-txt-custom-msg-head togglewrap">
-                                        <?php echo maspik_toggle_button('text_custom_message_toggle', 'text_custom_message_toggle', 'text_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                        <?php echo maspik_toggle_button('text_custom_message_toggle', 'text_custom_message_toggle', 'text_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",['custom_error_message_MaxCharactersInTextField']); ?>
                                             
                                         <h4> <?php _e('Character limit custom validation error message', 'contact-forms-anti-spam'); ?> </h4>
                                     </div>
@@ -724,7 +723,7 @@ $spamcounter = maspik_spam_count();
                         <div class="maspik-limit-char-head togglewrap">
                                 <?php
                                             
-                                    echo maspik_toggle_button('textarea_link_limit_toggle', 'textarea_link_limit_toggle', 'textarea_link_limit_toggle', 'maspik-toggle-text-limit togglebutton');
+                                    echo maspik_toggle_button('textarea_link_limit_toggle', 'textarea_link_limit_toggle', 'textarea_link_limit_toggle', 'maspik-toggle-text-limit togglebutton',"","",['contain_links']);
                                             
                                     echo "<h4> Limit Links </h4>";
 
@@ -742,7 +741,7 @@ $spamcounter = maspik_spam_count();
                             <div class="maspik-limit-char-head togglewrap">
                                 <?php
                                             
-                                    echo maspik_toggle_button('textarea_limit_toggle', 'textarea_limit_toggle', 'textarea_limit_toggle', 'maspik-toggle-textarea-limit togglebutton');
+                                    echo maspik_toggle_button('textarea_limit_toggle', 'textarea_limit_toggle', 'textarea_limit_toggle', 'maspik-toggle-textarea-limit togglebutton',"","",['MinCharactersInTextAreaField','MaxCharactersInTextAreaField']);
                                             
                                     echo "<h4> Limit Characters </h4>";
 
@@ -767,7 +766,7 @@ $spamcounter = maspik_spam_count();
 
                                 <div class="maspik-custom-msg-wrap">
                                     <div class="maspik-txt-custom-msg-head togglewrap">
-                                        <?php echo maspik_toggle_button('textarea_custom_message_toggle', 'textarea_custom_message_toggle', 'textarea_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                        <?php echo maspik_toggle_button('textarea_custom_message_toggle', 'textarea_custom_message_toggle', 'textarea_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",['custom_error_message_MaxCharactersInTextField']); ?>
                                             
                                         <h4> <?php _e('Character limit custom validation error message', 'contact-forms-anti-spam'); ?> </h4>
                                     </div>
@@ -826,7 +825,7 @@ $spamcounter = maspik_spam_count();
                             <div class="maspik-limit-char-head togglewrap">
                                 <?php
                                             
-                                    echo maspik_toggle_button('tel_limit_toggle', 'tel_limit_toggle', 'tel_limit_toggle', 'maspik-toggle-tel-limit togglebutton');
+                                    echo maspik_toggle_button('tel_limit_toggle', 'tel_limit_toggle', 'tel_limit_toggle', 'maspik-toggle-tel-limit togglebutton',"","",['MinCharactersInPhoneField',"MaxCharactersInPhoneField","custom_error_message_MaxCharactersInPhoneField"]);
                                             
                                     _e("<h4> Limit Characters </h4>",'contact-forms-anti-spam' );
 
@@ -852,7 +851,7 @@ $spamcounter = maspik_spam_count();
 
                                 <div class="maspik-custom-msg-wrap">
                                     <div class="maspik-txt-custom-msg-head togglewrap">
-                                        <?php echo maspik_toggle_button('phone_limit_custom_message_toggle', 'phone_limit_custom_message_toggle', 'phone_limit_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); 
+                                        <?php echo maspik_toggle_button('phone_limit_custom_message_toggle', 'phone_limit_custom_message_toggle', 'phone_limit_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",["custom_error_message_MaxCharactersInPhoneField"]); 
                                     
                                     _e('<h4> Character limit custom validation error message </h4>' , "contact-forms-anti-spam");
                                     ?>
@@ -875,7 +874,7 @@ $spamcounter = maspik_spam_count();
 
                         <div class="maspik-custom-msg-wrap">
                             <div class="maspik-txt-custom-msg-head togglewrap">
-                                <?php echo maspik_toggle_button('phone_custom_message_toggle', 'phone_custom_message_toggle', 'phone_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                <?php echo maspik_toggle_button('phone_custom_message_toggle', 'phone_custom_message_toggle', 'phone_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",['custom_error_message_tel_formats']); ?>
                                     
                                 <h4> Custom validation error message </h4>
                             </div>
@@ -929,7 +928,7 @@ $spamcounter = maspik_spam_count();
                                     
                         <div class="maspik-custom-msg-wrap">
                             <div class="maspik-txt-custom-msg-head togglewrap">
-                                <?php echo maspik_toggle_button('lang_need_custom_message_toggle', 'lang_need_custom_message_toggle', 'lang_need_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                <?php echo maspik_toggle_button('lang_need_custom_message_toggle', 'lang_need_custom_message_toggle', 'lang_need_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",['custom_error_message_lang_needed']); ?>
                                     
                                 <h4> <?php _e('Custom validation error message', 'contact-forms-anti-spam'); ?> </h4>
                             </div>
@@ -969,7 +968,7 @@ $spamcounter = maspik_spam_count();
                                     
                         <div class="maspik-custom-msg-wrap">
                             <div class="maspik-txt-custom-msg-head togglewrap">
-                                <?php echo maspik_toggle_button('lang_forbidden_custom_message_toggle', 'lang_forbidden_custom_message_toggle', 'lang_forbidden_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                <?php echo maspik_toggle_button('lang_forbidden_custom_message_toggle', 'lang_forbidden_custom_message_toggle', 'lang_forbidden_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",['custom_error_message_lang_forbidden']); ?>
                                     
                                 <h4> <?php _e('Custom validation error message', 'contact-forms-anti-spam'); ?> </h4>
                             </div>
@@ -1030,7 +1029,7 @@ $spamcounter = maspik_spam_count();
                                     
                         <div class="maspik-custom-msg-wrap">
                             <div class="maspik-txt-custom-msg-head togglewrap">
-                                <?php echo maspik_toggle_button('country_custom_message_toggle', 'country_custom_message_toggle', 'country_custom_message_toggle', 'maspik-toggle-custom-message togglebutton'); ?>
+                                <?php echo maspik_toggle_button('country_custom_message_toggle', 'country_custom_message_toggle', 'country_custom_message_toggle', 'maspik-toggle-custom-message togglebutton',"","",["custom_error_message_country_blacklist"]); ?>
                                     
                                 <h4> <?php _e('Custom validation error message', 'contact-forms-anti-spam'); ?> </h4>
                             </div>
@@ -1141,7 +1140,7 @@ $spamcounter = maspik_spam_count();
                     <div class="maspik-accordion-content-wrap hide-form-title">
 
                         <div class="maspik-txt-custom-msg-head togglewrap maspik-block-inquiry-wrap">
-                            <?php echo maspik_toggle_button('NeedPageurl', 'NeedPageurl', 'NeedPageurl', 'maspik-needpageurl togglebutton'); ?>
+                            <?php echo maspik_toggle_button('NeedPageurl', 'NeedPageurl', 'NeedPageurl', 'maspik-needpageurl togglebutton',"","",['NeedPageurl']); ?>
                                 <div>
                                     <h4> <?php _e('Maspik Spam trap (Recommended option!)', 'contact-forms-anti-spam'); ?> </h4>
                                     <span><?php _e('In this option we block bots from sending spam automatically, its mostly succeed to catch about 30% of the spam', 'contact-forms-anti-spam'); ?></span>
@@ -1167,6 +1166,10 @@ $spamcounter = maspik_spam_count();
 
                         </div> <!-- end of maspik-ip-wrap  -->
                         <span class="maspik-subtext"><?php _e('You can also filter entire CIDR range such as 134.209.0.0/16', 'contact-forms-anti-spam'); ?></span>
+                        
+                        <!---- Language section divider S---------->
+                        <div class = 'maspik-simple-divider'></div>
+                        <!---- Language section divider E---------->
 
                         <div class="maspik-accordion-subtitle-wrap add-space-top short-tooltip">
                             <h3 class="maspik-accordion-subtitle"><?php _e('Default validation error message', 'contact-forms-anti-spam'); ?></h3>
@@ -1174,10 +1177,6 @@ $spamcounter = maspik_spam_count();
                                 maspik_tooltip("This is the error message that the user/spammer will receive.");
                             ?>
                         </div> <!--end of maspik-accordion-subtitle-wrap-->
-                        
-                        <!---- Language section divider S---------->
-                        <div class = 'maspik-simple-divider'></div>
-                        <!---- Language section divider E---------->
 
                         <div class="maspik-general-custom-msg-wrap maspik-main-list-wrap maspik-textfield-list">
 
@@ -1186,7 +1185,7 @@ $spamcounter = maspik_spam_count();
                             ?>  
 
                         </div> <!-- end of maspik-general-custom-msg-wrap  -->
-
+                        <?php maspik_spam_api_list('error_message'); ?>
 
                         <!---- Language section divider S---------->
                         <div class = 'maspik-simple-divider'></div>
@@ -1212,7 +1211,7 @@ $spamcounter = maspik_spam_count();
                         <span class="maspik-subtext"><?php _e('For more infromation', 'contact-forms-anti-spam'); ?> <a target = "_blank" href="https://www.abuseipdb.com/?Maspik-plugin">
                         <?php _e('AbuseIPDB', 'contact-forms-anti-spam'); ?></a></span>
                         <span class="maspik-subtext"><?php _e('Leave blank to disable', 'contact-forms-anti-spam'); ?>.</span>
-
+                               <?php maspik_spam_api_list('abuseipdb_api');?>
                         <div class="maspik-accordion-subtitle-wrap short-tooltip add-space-top">
                             <h3 class="maspik-accordion-subtitle"><?php _e('Proxycheck.io API', 'contact-forms-anti-spam'); ?></h3>
                             <?php 
@@ -1234,8 +1233,8 @@ $spamcounter = maspik_spam_count();
                         <?php _e('ProxyCheck', 'contact-forms-anti-spam'); ?></a></span>
 
                         <span class="maspik-subtext"><?php _e('Leave blank to disable.', 'contact-forms-anti-spam'); ?></span>
-
-                                    
+                           
+                        <?php maspik_spam_api_list('proxycheck_io_api');?>          
                     
                         <?php 
                             maspik_save_button_show() ?>

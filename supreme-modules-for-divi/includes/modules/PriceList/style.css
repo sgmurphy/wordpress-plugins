@@ -1,7 +1,6 @@
 .dsm_pricelist_child>div,
 .dsm_pricelist_item_wrapper,
-.dsm-pricelist-header,
-.dsm-pricelist-description {
+.dsm-pricelist-header{
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

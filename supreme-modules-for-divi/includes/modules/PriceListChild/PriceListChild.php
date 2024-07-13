@@ -91,6 +91,12 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 					),
 				),
 			),
+			'margin_padding'  => array(
+				'css' => array(
+					'main'      => '%%order_class%%',
+					'important' => 'all',
+				),
+			),
 			'button'          => false,
 			'filters'         => array(
 				'child_filters_target' => array(
@@ -111,6 +117,24 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 		$et_accent_color = et_builder_accent_color();
 
 		return array(
+			'module_id'       => array(
+				'label'           => esc_html__( 'CSS ID', 'dsm-supreme-modules-for-divi' ),
+				'type'            => 'text',
+				'option_category' => 'configuration',
+				'description'     => esc_html__( "Assign a unique CSS ID to the element which can be used to assign custom CSS styles from within your child theme or from within Divi's custom CSS inputs.", 'dsm-supreme-modules-for-divi' ),
+				'tab_slug'        => 'custom_css',
+				'toggle_slug'     => 'classes',
+				'option_class'    => 'et_pb_custom_css_regular',
+			),
+			'module_class'    => array(
+				'label'           => esc_html__( 'CSS Class', 'dsm-supreme-modules-for-divi' ),
+				'type'            => 'text',
+				'option_category' => 'configuration',
+				'description'     => esc_html__( "Assign any number of CSS Classes to the element, separated by spaces, which can be used to assign custom CSS styles from within your child theme or from within Divi's custom CSS inputs.", 'dsm-supreme-modules-for-divi' ),
+				'tab_slug'        => 'custom_css',
+				'toggle_slug'     => 'classes',
+				'option_class'    => 'et_pb_custom_css_regular',
+			),
 			'admin_title'     => array(
 				'label'       => esc_html__( 'Admin Label', 'dsm-supreme-modules-for-divi' ),
 				'type'        => 'text',
@@ -126,6 +150,8 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 				'default'          => '$8',
 				'default_on_front' => '$8',
 				'dynamic_content'  => 'text',
+				'mobile_options'   => true,
+
 			),
 			'title'           => array(
 				'label'            => esc_html__( 'Title', 'dsm-supreme-modules-for-divi' ),
@@ -135,6 +161,8 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 				'toggle_slug'      => 'main_content',
 				'default_on_front' => 'The title of the first pricing item',
 				'dynamic_content'  => 'text',
+				'mobile_options'   => true,
+
 			),
 			'image'           => array(
 				'label'              => esc_html__( 'Image', 'dsm-supreme-modules-for-divi' ),
@@ -165,6 +193,8 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 				'description'     => esc_html__( 'Content entered here will appear inside the module.', 'dsm-supreme-modules-for-divi' ),
 				'toggle_slug'     => 'main_content',
 				'dynamic_content' => 'text',
+				'mobile_options'  => true,
+
 			),
 			'image_max_width' => array(
 				'label'            => esc_html__( 'Image Width', 'dsm-supreme-modules-for-divi' ),
@@ -226,6 +256,7 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 	}
 
 	public function render( $attrs, $content, $render_slug ) {
+		$multi_view                  = et_pb_multi_view_options( $this );
 		$title                       = $this->props['title'];
 		$price                       = $this->props['price'];
 		$image                       = $this->props['image'];
@@ -290,11 +321,39 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 		}
 
 		if ( '' !== $title ) {
-			$title = sprintf( '<div class="dsm-pricelist-title et_pb_module_header">%1$s</div>', $title );
+			$title = $multi_view->render_element(
+				array(
+					'tag'     => 'div',
+					'content' => '{{title}}',
+					'attrs'   => array(
+						'class' => 'dsm-pricelist-title et_pb_module_header',
+					),
+				)
+			);
 		}
 
 		if ( '' !== $price ) {
-			$price = sprintf( '<div class="dsm-pricelist-price">%1$s</div>', $price );
+			$price = $multi_view->render_element(
+				array(
+					'tag'     => 'div',
+					'content' => '{{price}}',
+					'attrs'   => array(
+						'class' => 'dsm-pricelist-price',
+					),
+				)
+			);
+		}
+
+		if ( '' !== $this->content ) {
+			$content = $multi_view->render_element(
+				array(
+					'tag'     => 'div',
+					'content' => '{{content}}',
+					'attrs'   => array(
+						'class' => 'dsm-pricelist-description',
+					),
+				)
+			);
 		}
 
 		$image = ( '' !== trim( $image ) ) ? sprintf(
@@ -323,7 +382,11 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 		$video_background          = $this->video_background();
 		$parallax_image_background = $this->get_parallax_image_background();
 
-		// Render module content
+		$this->module_id( true );
+
+		// Module classnames.
+		$this->remove_classname( 'et_pb_module' );
+		// Render module content.
 		return sprintf(
 			'%7$s
 			%6$s
@@ -340,10 +403,7 @@ class DSM_PriceList_Child extends ET_Builder_Module {
 			$title,
 			$price,
 			$image,
-			'' !== $this->content ? sprintf(
-				'<div class="dsm-pricelist-description">%1$s</div>',
-				et_core_sanitized_previously( $this->content )
-			) : '',
+			'' !== $this->content ? $content : '',
 			$this->get_text_orientation_classname(),
 			$video_background,
 			$parallax_image_background

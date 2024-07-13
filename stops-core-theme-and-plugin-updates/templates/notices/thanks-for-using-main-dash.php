@@ -20,7 +20,7 @@
 			<?php echo htmlspecialchars(__('Super-charge and secure your WordPress site with our other top plugins:', 'stops-core-theme-and-plugin-updates')); ?>
 		</p>
 		<p>
-			<?php printf(__('%s simplifies backups and restoration. It is the world’s highest ranking and most popular scheduled backup plugin, with over a million currently-active installs.', 'stops-core-theme-and-plugin-updates'), '<strong>'.$easy_updates_manager->easy_updates_manager_url('https://updraftplus.com/', 'UpdraftPlus', '', '', true).'</strong>'); ?>
+			<?php printf(__('%s simplifies backups and restoration.', 'stops-core-theme-and-plugin-updates').' '.__('It is the world’s highest ranking and most popular scheduled backup plugin, with over a million currently-active installs.', 'stops-core-theme-and-plugin-updates'), '<strong>'.$easy_updates_manager->easy_updates_manager_url('https://updraftplus.com/', 'UpdraftPlus', '', '', true).'</strong>'); ?>
 		</p>
 
 		<p>

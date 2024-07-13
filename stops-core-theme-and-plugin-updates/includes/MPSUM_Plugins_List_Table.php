@@ -665,7 +665,7 @@ class MPSUM_Plugins_List_Table extends MPSUM_List_Table {
 						if (is_plugin_active($plugin_file)) {
 							printf('<div class="mpsum-success mpsum-bold">%s</div>', esc_html__('This plugin is active for your site.', 'stops-core-theme-and-plugin-updates'));
 						} else {
-							printf('<div class="mpsum-error mpsum-bold">%s</div>', esc_html__('This plugin is inactive for your site. Consider removing it.', 'stops-core-theme-and-plugin-updates'));
+							printf('<div class="mpsum-error mpsum-bold">%s</div>', esc_html__('This plugin is inactive for your site.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('Consider removing it.', 'stops-core-theme-and-plugin-updates'));
 						}
 					}
 

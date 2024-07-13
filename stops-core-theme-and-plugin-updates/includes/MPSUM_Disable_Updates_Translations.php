@@ -7,7 +7,7 @@
  */
 
 /**
- * Disable tranlastion updates
+ * Disable translations updates
  * Credit - From https://wordpress.org/plugins/disable-wordpress-updates/
  */
 class MPSUM_Disable_Updates_Translations {

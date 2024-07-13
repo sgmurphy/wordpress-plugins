@@ -941,8 +941,13 @@ h3.maspik-protag.maspik-not-pro{
   .maspik-accordion-item .maspik-select-list .maspik-form-api-list, .maspik-accordion-item .maspik-select-list .maspik-main-list-wrap, .maspik-accordion-item {
     width:100%;
   }
-
-
+.maspik-accordion-item.maspik-accordion-general-field .maspik-numbox-wrap .limit-api-wrap {
+    min-width: 70px !important;
+}
+.maspik-api-text-wrap {
+    max-width: 100%;
+    overflow: scroll;
+}
   .maspik-accordion-subtitle-wrap h3{
     margin:0;
   }

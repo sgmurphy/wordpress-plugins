@@ -25,7 +25,7 @@ class MPSUM_Disable_Updates_Themes {
 		add_filter('pre_transient_update_themes', array($this, 'last_checked_now'), 10, 2);
 
 		/*
-		 * 3.0 - Commented it out to allow tranlsations - Ronald Huereca
+		 * 3.0 - Commented it out to allow translations - Ronald Huereca
 		 */
 		add_filter('pre_site_transient_update_themes', array($this, 'last_checked_now'), 10, 2);
 		

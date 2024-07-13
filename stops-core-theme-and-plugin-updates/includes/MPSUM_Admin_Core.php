@@ -254,7 +254,7 @@ class MPSUM_Admin_Core {
 					<p><input type="radio" name="options[automatic_plugin_updates]" value="off" id="automatic_plugin_off" <?php checked('off', $options['automatic_plugin_updates']); ?> />&nbsp;<label for="automatic_plugin_off"><?php esc_html_e('Disabled', 'stops-core-theme-and-plugin-updates'); ?></label></p>
 					<p><input type="radio" name="options[automatic_plugin_updates]" value="default" id="automatic_plugin_default" <?php checked('default', $options['automatic_plugin_updates']); ?> />&nbsp;<label for="automatic_plugin_default"><?php esc_html_e('Default', 'stops-core-theme-and-plugin-updates'); ?></label></p>
 					<p><input type="radio" name="options[automatic_plugin_updates]" value="individual" id="automatic_plugin_individual" <?php checked('individual', $options['automatic_plugin_updates']); ?> />&nbsp;<label for="automatic_plugin_individual"><?php esc_html_e('Select individually', 'stops-core-theme-and-plugin-updates'); ?></label></p>
-					<p class="description"><?php esc_html_e('Automatically update your plugins. Select always on, always off, the WordPress default, or select plugins individually.', 'stops-core-theme-and-plugin-updates'); ?></p>
+					<p class="description"><?php echo esc_html__('Automatically update your plugins.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('Select always on, always off, the WordPress default, or select plugins individually.', 'stops-core-theme-and-plugin-updates'); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -264,7 +264,7 @@ class MPSUM_Admin_Core {
 					<p><input type="radio" name="options[automatic_theme_updates]" value="off" id="automatic_theme_off" <?php checked('off', $options['automatic_theme_updates']); ?> />&nbsp;<label for="automatic_theme_off"><?php esc_html_e('Disabled', 'stops-core-theme-and-plugin-updates'); ?></label></p>
 					<p><input type="radio" name="options[automatic_theme_updates]" value="default" id="automatic_theme_default" <?php checked('default', $options['automatic_theme_updates']); ?> />&nbsp;<label for="automatic_theme_default"><?php esc_html_e('Default', 'stops-core-theme-and-plugin-updates'); ?></label></p>
 					<p><input type="radio" name="options[automatic_theme_updates]" value="individual" id="automatic_theme_individual" <?php checked('individual', $options['automatic_theme_updates']); ?> />&nbsp;<label for="automatic_theme_individual"><?php esc_html_e('Select individually', 'stops-core-theme-and-plugin-updates'); ?></label></p>
-					<p class="description"><?php esc_html_e('Automatically update your themes. Select always on, always off, the WordPress default, or select themes individually.', 'stops-core-theme-and-plugin-updates'); ?></p>
+					<p class="description"><?php echo esc_html__('Automatically update your themes.', 'stops-core-theme-and-plugin-updates').' '.esc_html__('Select always on, always off, the WordPress default, or select themes individually.', 'stops-core-theme-and-plugin-updates'); ?></p>
 				</td>
 			</tr>
 			<tr>

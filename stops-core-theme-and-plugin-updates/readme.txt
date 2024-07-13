@@ -4,8 +4,8 @@ Tags: updates manager, easy updates manager, disable updates manager, disable up
 Requires at least: 5.1
 Requires PHP: 5.6
 Donate link: https://easyupdatesmanager.com
-Tested up to: 6.5
-Stable tag: 9.0.17
+Tested up to: 6.6
+Stable tag: 9.0.18
 License: GPLv2 or later
 
 Manage all your WordPress updates, including individual updates, automatic updates, logs, and loads more. This also works very well with WordPress Multisite.
@@ -52,7 +52,7 @@ Premium features include:
 <li>Check plugins: runs a check of plugins that have been removed from the WordPress Plugin Directory</li>
 <li>Webhook: integrates with third-party services to run automatic updates via cron or even Zapier</li>
 <li>Export logs: exports logs for printing, or downloads a CSV or JSON file for a date range</li>
-<li>Version control protection: prevent updates from occuring to plugins and themes under version control</li>
+<li>Version control protection: prevent updates from occurring to plugins and themes under version control</li>
 </ul>
 
 > For more information on Easy Updates Manager Premium, <a href="https://easyupdatesmanager.com">check out our website at easyupdatesmanager.com</a>.
@@ -125,6 +125,16 @@ Since third-party providers use custom update mechanisms, we cannot always guara
 For additional information and FAQs for Easy Updates Manager <a href="https://easyupdatesmanager.com">check out our website</a>.
 
 == Changelog ==
+
+= 9.0.18 - 2024-07-10 =
+
+* TWEAK: Allow auto-updates event from other plugins to take place only if it's in the same exact schedule with the auto-updates scheduling feature
+* TWEAK: Auto-updates should always run at the actual time the user has set it to be and prevent auto-updates event that runs outside the auto-updates scheduling feature
+* TWEAK: Fixed spelling errors in the repo
+* TWEAK: Force automatic updates can now be performed without the user being given full update capabilities. Prior to this, in order to successfully force the automatic updates the user had to have core, plugin and theme capabilities  
+* TWEAK: Force automatic updates should be independent and should not depend on the user-defined settings which can lead to the auto-updates itself being failed
+* TWEAK: Split multiple sentences into separate translation calls. 
+* TWEAK: Update the composer package yahnis-elsts/plugin-update-checker for PHP 8.2 compatibility
 
 = 9.0.17 - 2023-08-09 =
 
@@ -222,9 +232,9 @@ For additional information and FAQs for Easy Updates Manager <a href="https://ea
 * TWEAK: extend white labelling to include safemode warning notices, webhook responses and WP 5.5's new "automatic upgrades" user-interface additions
 * TWEAK: Removed MetaSlider notice in the notices collection
 * TWEAK: An install was seen in which an interaction with some other component caused excessive logging
-* TWEAK: Updating wording to be constant througout EUM.
+* TWEAK: Updating wording to be constant throughout EUM.
 * TWEAK: Manual core update showing correct to and from versions.
-* TWEAK: Updating wording to be constant througout EUM.
+* TWEAK: Updating wording to be constant throughout EUM.
 * FIX: Auto-updates will trigger on managed hosts that disable version checking.
 
 = 9.0.6 - 2020-08-10 =
@@ -272,7 +282,7 @@ For additional information and FAQs for Easy Updates Manager <a href="https://ea
 * FEATURE: (Premium) Version controlled assets now show in the EUM plugins and themes tabs. 
 * FIX: Delayed updates were delaying automatic updates to WordPress core when no delay was requested
 * TWEAK: Divi theme can now be auto-upgraded.
-* TWEAK: Bump required WP version from 4.6 to 4.7. We've not introduced anything to make it incompatible so it will likely stil work; but this is the support requirement.
+* TWEAK: Bump required WP version from 4.6 to 4.7. We've not introduced anything to make it incompatible so it will likely still work; but this is the support requirement.
 
 = 8.1.1 - 2019-10-23 =
 
@@ -415,4 +425,4 @@ For past changelogs, <a href="https://easyupdatesmanager.com/blog/">please visit
 
 == Upgrade Notice ==
 
-* 9.0.17: Various tweaks and fixes. Version numbers in the updates notification email. Unmaintained plugins checker improvements. See changelog for full details. A recommended update for all.
+* 9.0.18: Various tweaks and fixes. Force auto-updates can now be done with less capabilities and is not subject to any features or control of other features. See changelog for full details. A recommended update for all.
