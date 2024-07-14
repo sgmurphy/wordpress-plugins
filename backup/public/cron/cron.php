@@ -19,7 +19,7 @@ if ($isWeb) {
 	$key = SGConfig::get('SG_BACKUP_CURRENT_KEY', true);
 	$token = $_GET['token'] ?? null;
 
-	if ($key != $token) die(1);
+	if ($key != $token || !$token) die(1);
 }
 
 require_once (CRON_SG_ROOT . '/com/lib/BackupGuard/Core/Cron.php');

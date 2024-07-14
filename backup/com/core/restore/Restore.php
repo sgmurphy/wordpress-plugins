@@ -368,9 +368,12 @@ class Restore
 	public function setDatabaseBackupAvailable()
 	{
 		$SGBackup = new SGBackup();
+		$this->_databaseBackupAvailable = null;
+		if ($this->getDatabaseBackupPath()) $this->_databaseBackupAvailable = file_exists($this->getDatabaseBackupPath()) ? $this->getDatabaseBackupPath() : null;
 
-		$this->_databaseBackupAvailable = file_exists($this->getDatabaseBackupPath()) ? $this->getDatabaseBackupPath() : null;
-		if (!$this->_databaseBackupAvailable) $this->_databaseBackupAvailable = file_exists($this->getDatabaseBackupOldPath()) ? $this->getDatabaseBackupOldPath() : null;
+		if (!$this->_databaseBackupAvailable) {
+			if($this->getDatabaseBackupOldPath()) $this->_databaseBackupAvailable = file_exists($this->getDatabaseBackupOldPath()) ? $this->getDatabaseBackupOldPath() : null;
+		}
 		if (!$this->_databaseBackupAvailable) $this->_databaseBackupAvailable = $SGBackup->scanBackupsFolderForSqlFile($this->getRestorePath());
 		if (!$this->_databaseBackupAvailable) $this->_databaseBackupAvailable = $SGBackup->scanBackupsFolderForSqlFile(SG_BACKUP_OLD_DIRECTORY . $this->getBackupName() . '/');
 	}
@@ -774,7 +777,13 @@ class Restore
 					$stateFile->save(true);
 
 					$this->log('Before importDB');
-					$this->importDB($this->getDatabaseBackupAvailable(), $task);
+
+					if ($this->getDatabaseBackupAvailable()) {
+						$this->importDB($this->getDatabaseBackupAvailable(), $task);
+					} else {
+						$this->log('No DB File found, skipping DB Import');
+					}
+
 					$this->log('After importDB');
 
 					$stateFile->setStatus(SGBGStateFile::STATUS_IMOPRTED);
@@ -789,9 +798,9 @@ class Restore
 				$this->log('Inside Migration, checking license');
 				$this->log('License backupGuardGetCapabilities: ' . backupGuardGetCapabilities());
 
-				if (backupGuardGetCapabilities() == BACKUP_GUARD_CAPABILITIES_FREE) {
+				if (backupGuardGetCapabilities() == BACKUP_GUARD_CAPABILITIES_FREE || backupGuardGetCapabilities() == BACKUP_GUARD_CAPABILITIES_SILVER) {
 
-					$this->log('Free license found, not entering migration');
+					$this->log('Free/Solo license found, not entering migration');
 
 				} else {
 

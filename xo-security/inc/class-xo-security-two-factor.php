@@ -106,7 +106,7 @@ class XO_Security_Two_Factor {
 		}
 
 		$issuer     = get_bloginfo( 'name', 'display' );
-		$totp_title = $issuer . ':' . $user->user_login;
+		$totp_title = $issuer . ': ' . $user->user_login;
 		$totp_url   = add_query_arg(
 			array(
 				'secret' => rawurlencode( $secret_key ),

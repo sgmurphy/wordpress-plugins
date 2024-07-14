@@ -1,3 +1,6 @@
+= 3.4.8 (2024-07-14) =
+* Fixed: PHP Error with WooCommerce Stripe 8.5+.
+
 = 3.4.7 (2024-06-27) =
 * Added: Tested up WooCommerce 9.0+.
 * Added: Update compatibility with "Google Product Feed by Ademti Software".

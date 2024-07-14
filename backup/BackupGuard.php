@@ -17,6 +17,11 @@ include_once(SG_LIB_PATH . 'BackupGuard/Core/Log.php');
 include_once(SG_LIB_PATH . 'BackupGuard/Core/Timing.php');
 
 
+function backupguard_genkey () {
+	$_key = SGConfig::get('SG_BACKUP_CURRENT_KEY', true) ?? null;
+	if (!$_key) SGConfig::set('SG_BACKUP_CURRENT_KEY', md5(microtime(true)), true);
+}
+
 // The code that runs during plugin activation.
 function activate_backup_guard()
 {
@@ -24,6 +29,7 @@ function activate_backup_guard()
 	try {
 		prepareBackupDir();
 		checkMinimumRequirements();
+		backupguard_genkey();
 	} catch (SGException $exp) {
 		die($exp->getMessage());
 	}
@@ -865,6 +871,7 @@ function backup_guard_init()
 	}
 
 	backupGuardSymlinksCleanup(SG_SYMLINK_PATH);
+	backupguard_genkey();
 }
 
 add_action(SG_SCHEDULE_ACTION, 'backup_guard_schedule_action', 10, 1);
@@ -923,8 +930,9 @@ function backup_guard_add_dashboard_widgets()
 add_action('plugins_loaded', 'backupGuardloadTextDomain');
 function backupGuardloadTextDomain()
 {
-	$backupGuardLangDir = plugin_dir_path(__FILE__) . 'languages/';
+	$backupGuardLangDir = plugin_dir_path(__FILE__) . 'languages' . DIRECTORY_SEPARATOR;
 	$backupGuardLangDir = apply_filters('backupguardLanguagesDirectory', $backupGuardLangDir);
+	$LangDirRelative = 'wp-content' . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR . BACKUP_GUARD_TEXTDOMAIN . DIRECTORY_SEPARATOR . 'languages';
 
 	$locale = apply_filters('bg_plugin_locale', get_locale(), BACKUP_GUARD_TEXTDOMAIN);
 	$mofile = sprintf('%1$s-%2$s.mo', BACKUP_GUARD_TEXTDOMAIN, $locale);
@@ -936,7 +944,7 @@ function backupGuardloadTextDomain()
 		load_textdomain(BACKUP_GUARD_TEXTDOMAIN, $mofileLocal);
 	} else {
 		// Load the default language files
-		load_plugin_textdomain(BACKUP_GUARD_TEXTDOMAIN, false, $backupGuardLangDir);
+		load_plugin_textdomain(BACKUP_GUARD_TEXTDOMAIN, false, $LangDirRelative);
 	}
 }
 

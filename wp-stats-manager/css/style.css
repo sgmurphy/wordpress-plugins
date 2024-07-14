@@ -41,56 +41,6 @@ div#wsm_dayStatBox table td, div#wsm_dayStatBox table th {
     vertical-align: text-bottom;
     padding: 0 !important;
 }
-table.wsmTableStriped td, .wsmTableContainer table td, table.wsmTableStriped th, .wsmTableContainer table th {
-    border: 1px solid #cccccc;
-}
-.wsmCounters {
-    margin-bottom: 5px;
-}
-.wsmTableContainer table {
-    border: 1px solid #cccccc;
-}
-div#wsm_dayStatBox table tr td:first-child {
-    width: 33.333%;
-}
-ul.wsmUL.wsmGenStats li {
-    border-bottom: 1px solid #cccccc;
-    border-top: 1px solid #cccccc;
-}
-ul.wsmUL.wsmGenStats li:first-child {
-    border-left: 1px solid #cccccc;
-}
-ul.wsmUL.wsmGenStats li:last-child {
-    border-right: 1px solid #cccccc;
-}
-ul.wsmUL.wsmGenStats li {
-    text-align: left !important;
-}
-ul.wsmUL.wsmLast2months {
-    border-top: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-    display: flex;
-}
-ul.wsmUL.wsmLast2months li:first-child {
-    border-left: 1px solid #cccccc;    
-}
-ul.wsmUL.wsmLast2months li:last-child {
-    border-right: 1px solid #cccccc;    
-}
-
-.wsmForecast ul {
-    border: 1px solid #cccccc;
-}
-
-.jqplot-table-legend-swatch {
-    border-bottom-width: 5px;
-    border-top-width: 5px;
-    height: 0;
-    width: 0;
-    border-left-width: 6px;
-    border-right-width: 6px;
-    border-style: solid;
-}
 
 td.jqplot-table-legend.jqplot-table-legend-swatch {
     margin: 3px 4px;    
@@ -203,6 +153,59 @@ div#post-2661 .entry-content > div:nth-child(3) table td:last-child {
     width: 45%;
     padding: 0 10px;
     text-align: right;
+}
+
+table.wsmTableStriped td, .wsmTableContainer table td, table.wsmTableStriped th, .wsmTableContainer table th {
+    border: 1px solid #cccccc;
+}
+.wsmCounters {
+    margin-bottom: 5px;
+}
+.wsmTableContainer table {
+    border: 1px solid #cccccc;
+}
+div#wsm_dayStatBox table tr td:first-child {
+    width: 33.333%;
+}
+ul.wsmUL.wsmGenStats li {
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+}
+ul.wsmUL.wsmGenStats li:first-child {
+    border-left: 1px solid #cccccc;
+}
+ul.wsmUL.wsmGenStats li:last-child {
+    border-right: 1px solid #cccccc;
+}
+
+ul.wsmUL.wsmLast2months li:first-child {
+    border-left: 1px solid #cccccc;    
+}
+ul.wsmUL.wsmLast2months li:last-child {
+    border-right: 1px solid #cccccc;    
+}
+
+.wsmForecast ul {
+    border: 1px solid #cccccc;
+}
+
+.jqplot-table-legend-swatch {
+    border-bottom-width: 5px;
+    border-top-width: 5px;
+    height: 0;
+    width: 0;
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-style: solid;
+}
+
+ul.wsmUL.wsmGenStats li {
+    text-align: left !important;
+}
+ul.wsmUL.wsmLast2months {
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    display: flex;
 }
 .stats_submenu{
     display:none;

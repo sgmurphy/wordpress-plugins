@@ -192,7 +192,12 @@ if ( ! class_exists( 'WCPBC_Stripe_UPE' ) ) :
 			$enabled_payment_methods = $main_gateway->get_upe_enabled_payment_method_ids();
 
 			foreach ( $enabled_payment_methods as $payment_method_id ) {
-				$payment_method = $main_gateway->payment_methods[ $payment_method_id ];
+
+				$payment_method = isset( $main_gateway->payment_methods[ $payment_method_id ] ) ? $main_gateway->payment_methods[ $payment_method_id ] : null;
+
+				if ( is_null( $payment_method ) ) {
+					continue;
+				}
 
 				$settings[ $payment_method_id ] = [
 					'isReusable'          => $payment_method->is_reusable(),

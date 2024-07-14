@@ -16,7 +16,7 @@ define('SG_LOG_PATH', SG_CORE_PATH . 'log/');
 define('SG_STORAGE_PATH', SG_CORE_PATH . 'storage/');
 define('SG_EXCEPTION_PATH', SG_CORE_PATH . 'exception/');
 define('SG_BACKUP_PATH', SG_CORE_PATH . 'backup/');
-define('SG_RESTORE_PATH', SG_CORE_PATH . 'restore/');
+if(!defined('SG_RESTORE_PATH')) define('SG_RESTORE_PATH', SG_CORE_PATH . 'restore/'); // this is double defined during restore
 define('SG_LIB_PATH', SG_APP_PATH . 'lib/');
 define('SG_MAIL_PATH', SG_CORE_PATH . 'mail/');
 define('SG_NOTICE_PATH', SG_CORE_PATH . 'notice/');
@@ -250,4 +250,4 @@ define('JBWP_LICENSE_KEY_STATUS_EXPIRED', 'expired');
 
 define('JBWP_RELOAD_SCHEDULE_ACTION', 'jet_backup_reload_schedule_action');
 
-define('JBWP_CRON_RELOAD_INTERVAL', 23); //seconds
+define('JBWP_CRON_RELOAD_INTERVAL', 50); //seconds

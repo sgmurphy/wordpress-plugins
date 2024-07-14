@@ -5,7 +5,7 @@ Tags: media, uploads, import, ftp, server
 Requires at least: 5.3
 Tested up to: 6.5.5
 Requires PHP: 7.1
-Stable tag: 1.4.4
+Stable tag: 1.4.5
 License: GPLv2+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,10 @@ Please first try to turn on debugging in Settings -> Media Sync and check [Netwo
 
 
 == Changelog ==
+
+= 1.4.5 =
+* Fix DOM IDs when scanning directories or files with special non-latin characters
+* Bring back promo banner without remote fetch
 
 = 1.4.4 =
 * Decode `post_title` and `guid` in attachment data

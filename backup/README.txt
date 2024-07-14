@@ -7,7 +7,7 @@ Tags: backup, WordPress backup plugin, backup plugin, database backup, migrate
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.0.9.14
+Stable tag: 2.0.9.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -149,6 +149,9 @@ Although we don't offer a server migration feature on our free version, JetBacku
 
 == Changelog ==
 
+= 2.0.9.15 =
+* Fixed issues related to file restoration for improved stability
+
 = 2.0.9.14 =
 * Installation of the plugin is now blocked if the PHP version falls below the minimum required.
 * Resolved an issue related to the syntax for exclusions.
@@ -284,7 +287,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Removed subscriber popup
 
 = 1.6.14 =
-* Improvement of “Readme” content
+* Improvement of ‚ÄúReadme‚Äù content
 * Improvement of inputs: inputs were sanitized
 * Improvement of escaped variables that were being printed
 * Improvement of files: old versions were removed
@@ -293,7 +296,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 = 1.6.13 =
 * Improvement of FTP/SFTP/FTP SSL: Information is encrypted now in more secure way
 * Bug fixed related to Google Drive connection and backup to cloud
-* Bug fixed related to icons in “Why upgrade?” page
+* Bug fixed related to icons in ‚ÄúWhy upgrade?‚Äù page
 
 = 1.6.12 =
 * Improvement of libraries: Some javascript and css libraries are updated to be more secure
@@ -339,7 +342,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * Improvement of banner for marketing purposes
 
 = 1.6.8.1 =
-* Bug fixed related to scheduled backups that didn’t run because of the path
+* Bug fixed related to scheduled backups that didn‚Äôt run because of the path
 
 = 1.6.8 =
 * Improvement of silent restoration
@@ -380,7 +383,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 * New feature: New cloud integration with "Pcloud" is added
 * New feature: New cloud integration with "Box" is added
 * Bug fixed related to System Info and Services tabs
-* Bug fixed related to “Migrate” button, which became inactive after some activity
+* Bug fixed related to ‚ÄúMigrate‚Äù button, which became inactive after some activity
 
 = 1.6.3 =
 * Bug fixed related to reloads were not working if alternate cron was on
@@ -433,7 +436,7 @@ Although we don't offer a server migration feature on our free version, JetBacku
 
 = 1.5.1 =
 * Improvement of menu section, video tutorials are added in the admin panel
-* Improvement of “Settings” section, info signs are added to make everything more understandable
+* Improvement of ‚ÄúSettings‚Äù section, info signs are added to make everything more understandable
 * Bug fixed related to dashboard statistics
 * Fixed PHP notices
 
@@ -711,8 +714,8 @@ Now, when pressing on the button only one backup will be implemented.
 = 1.1.52 =
 * External restoration related bugs resolved
 * Migration UI improved
-* Skip JetBackup tables and don’t run migration on them
-* “wp-content” directory detection related bug resolved
+* Skip JetBackup tables and don‚Äôt run migration on them
+* ‚Äúwp-content‚Äù directory detection related bug resolved
 * OneDrive related problem was resolved
 * New option added in the settings to specify number of rows dumped at once
 
@@ -802,7 +805,7 @@ Now, when pressing on the button only one backup will be implemented.
 * Secure and reliable restoration
 * Charset and collate migration
 * LightSpeed web server support
-* Active user won’t be dropped after restoration
+* Active user won‚Äôt be dropped after restoration
 * Plugin update logic was improved
 * The issue was resolved for cloud upload
 * Other security fixes and optimizations

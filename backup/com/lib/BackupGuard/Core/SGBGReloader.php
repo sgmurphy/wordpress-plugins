@@ -44,7 +44,7 @@ class SGBGReloader
 
 	public function shouldReload()
     {
-        return (time() - $this->getLastReloadTs() >= $this->getInterval());
+		return (time() - $this->getLastReloadTs() >= $this->getInterval());
 	}
 
 	protected function getCurrentUrl()
@@ -75,14 +75,6 @@ class SGBGReloader
 			}
 
 		}
-
-
-
-
-
-
-
-
 
 }
 

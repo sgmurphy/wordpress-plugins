@@ -13,7 +13,7 @@ if (backupGuardIsAjax() && count($_POST)) {
         if ($backupName && file_exists(SG_BACKUP_DIRECTORY . $backupName)) throw new SGExceptionForbidden($backupName . " backup already exists");
 
 		SGConfig::set('SG_RUNNING_ACTION', 0, true);
-        SGConfig::set('SG_BACKUP_CURRENT_KEY', md5(microtime(true)), true);
+        //SGConfig::set('SG_BACKUP_CURRENT_KEY', md5(microtime(true)), true);
 
 		die('{"success":1}');
 

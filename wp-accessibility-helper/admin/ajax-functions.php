@@ -273,6 +273,10 @@ function save_contrast_variations() {
 	$response = array();
 	$alldata  = isset( $_POST['alldata'] ) ? array_map( 'wah_sanitize_array', (array) wp_unslash( $_POST['alldata'] ) ) : array();
 
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( 'You do not have permission to edit this post.' );
+	}
+
 	if ( count( $alldata ) >= 5 ) {
 		$response['status']  = 'error';
 		$response['message'] = __( 'Maximum 4 variations. Need more variations? Go PRO!' );
@@ -292,6 +296,11 @@ function save_contrast_variations() {
 function save_empty_contrast_variations() {
 	$response = array();
 	$alldata  = '';
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( 'You do not have permission to edit this post.' );
+	}
+
 	update_option( 'wah_contrast_variations', $alldata );
 	$response['status']  = 'ok';
 	$response['message'] = __( 'Removed!', 'wp-accessibility-helper' );

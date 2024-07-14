@@ -356,19 +356,6 @@ $pluginCapabilities        = backupGuardGetCapabilities();
                         </div>
                     </div>
 
-					<div class="form-group">
-						<label class="col-md-4 sg-control-label">
-							<?php _backupGuardT('Backup file name') ?><span
-									class="dashicons dashicons-editor-help sgbg-info-icon"></span>
-							<span class="infoSelectRepeat samefontStyle sgbg-info-text"><?php _backupGuardT('Name your backups or leave to the default prefixes') ?></span>
-						</label>
-						<div class="col-md-5 text-left">
-							<input id="backup-file-name" name="backup-file-name" type="text"
-									class="form-control input-md sg-backup-input"
-									value="<?php echo $backupFileNamePrefix ?>">
-						</div>
-					</div>
-
                     <div class="form-group">
                         <label class="col-md-4 sg-control-label">
 							<?php _backupGuardT('PHP CLI Binary location') ?><span

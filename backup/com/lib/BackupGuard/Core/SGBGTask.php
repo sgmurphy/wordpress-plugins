@@ -7,10 +7,10 @@ if (!defined('WPINC')) die ('Direct access is not allowed');
 @ updated 26/01/2021
 */
 
-require_once(__DIR__.'/SGBGStateFile.php');
-require_once(__DIR__ . '/SGBGOffsetFile.php');
-require_once(__DIR__.'/SGBGReloader.php');
-require_once(__DIR__ . '/SGBLock.php');
+require_once(__DIR__. DIRECTORY_SEPARATOR . 'SGBGStateFile.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'SGBGOffsetFile.php');
+require_once(__DIR__. DIRECTORY_SEPARATOR . 'SGBGReloader.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'SGBLock.php');
 
 class SGBGTask
 {
@@ -43,7 +43,7 @@ class SGBGTask
 		$file = new SGBGOffsetFile($offsetFile);
 		$lines = $file->read_file(2);
 		if (!isset($lines[0]) || ((int)$lines[0] == 0)) {
-			$file->add_offset( 0 . "\n" );
+			$file->add_offset( 0 . PHP_EOL );
 		}
 
 		$this->setOffsetFile($file);
@@ -61,8 +61,13 @@ class SGBGTask
 
 	private function prepareReloader()
 	{
+		$_max_execution_time = ini_get('max_execution_time') ?? 60;
+		if ($_max_execution_time <= 0) $_max_execution_time = 60;
+		$_ttl = $_max_execution_time - 20;
+		if ($_ttl < 20) $_ttl = 20;
+
 		$reloader = SGBGReloader::getInstance();
-		$reloader->setInterval(23);
+		$reloader->setInterval($_ttl);
 		$reloader->setLastReloadTs((int)$this->getStateFile()->getData('last_reload_ts'));
 	}
 
@@ -114,9 +119,13 @@ class SGBGTask
 		usleep(500);
 
 		if ($reloader->shouldReload()) {
+
 			$stateFile = $this->getStateFile();
 			$stateFile->setStatus(SGBGStateFile::STATUS_RESUME);
 			$stateFile->setData('last_reload_ts', time());
+			$stateFile->save(true);
+
+			usleep(100);
 
 			$exitCallable();
 

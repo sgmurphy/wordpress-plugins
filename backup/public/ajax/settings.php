@@ -156,97 +156,24 @@ if (backupGuardIsAjax() && count($_POST)) {
     }
 
     if (isset($_POST['sg-paths-to-exclude'])) {
-        SGConfig::set('SG_PATHS_TO_EXCLUDE', sanitize_text_field($_POST['sg-paths-to-exclude']));
+
+		$_paths = sanitize_text_field($_POST['sg-paths-to-exclude']);
+		$_paths = rtrim($_paths, ',');
+        SGConfig::set('SG_PATHS_TO_EXCLUDE', $_paths);
+
     } else {
         SGConfig::set('SG_PATHS_TO_EXCLUDE', '');
     }
 
     if (isset($_POST['sg-tables-to-exclude'])) {
-        SGConfig::set('SG_TABLES_TO_EXCLUDE', sanitize_text_field($_POST['sg-tables-to-exclude']));
+
+		$_tables = sanitize_text_field($_POST['sg-tables-to-exclude']);
+		$_tables = rtrim($_tables, ',');
+
+		SGConfig::set('SG_TABLES_TO_EXCLUDE', $_tables);
     } else {
         SGConfig::set('SG_TABLES_TO_EXCLUDE', '');
     }
-
-	/*
-	$secureBackupLocation = null;
-	if (isset($_POST['secure-backup-location'])) {
-
-		$homepath = function_exists('get_home_path') ? get_home_path() : ABSPATH;
-		$public_dir = basename($homepath);
-		$secure_dir = dirname($homepath ,1);
-		$secureBackupLocation = sanitize_text_field($_POST['secure-backup-location']);
-
-
-
-		if (strncmp($homepath, $secureBackupLocation, strlen($homepath)) == 0) {
-
-			$error['error'] = _backupGuardT("Error - Secure backup folder has be outside of your public folder ({$public_dir})!", true);
-			die(json_encode($error));
-
-		}
-
-		if (!is_dir($secureBackupLocation)) {
-
-
-			if (!mkdir($secureBackupLocation)) {
-
-				$error['error'] = _backupGuardT("Error - Could not create secure backup folder", true);
-				die(json_encode($error));
-
-			}
-
-		}
-
-
-		if (!is_writable($secureBackupLocation)) {
-
-			$error['error'] = _backupGuardT("Error - secure backup folder is not writeable", true);
-			die(json_encode($error));
-
-		}
-
-		$secureBackupLocation = realpath($secureBackupLocation);
-
-		if (SG_BACKUP_DIRECTORY != $secureBackupLocation) {
-
-			$old_backup = realpath(SG_BACKUP_DIRECTORY);
-			$old_backup_folder = basename($old_backup);
-
-			if ($old_backup_folder == SG_BACKUP_FOLDER_NAME) {
-
-				if (is_dir($old_backup)) {
-
-					if (!rename($old_backup, $secureBackupLocation)) {
-						$error['error'] = _backupGuardT("Error while trying to move {$old_backup} into {$secureBackupLocation}", true);
-						die(json_encode($error));
-					}
-
-				}
-
-
-			}
-
-		}
-
-		$alternate_backup_folder = SGConfig::get('SG_SECURE_BACKUP_FOLDER') ? SGConfig::get('SG_SECURE_BACKUP_FOLDER') : null;
-
-		if ($alternate_backup_folder && $alternate_backup_folder != $secureBackupLocation) {
-
-			if (is_dir($secureBackupLocation)) {
-
-				if (!rename($alternate_backup_folder, $secureBackupLocation)) {
-					$error['error'] = _backupGuardT("Error while trying to move {$alternate_backup_folder} into {$secureBackupLocation}", true);
-					die(json_encode($error));
-				}
-
-			}
-
-		}
-
-		SGConfig::set('SG_SECURE_BACKUP_FOLDER', $secureBackupLocation . DIRECTORY_SEPARATOR );
-
-	}
-	*/
 
 	if (isset($_POST['php-cli-location']))  {
 
@@ -267,7 +194,7 @@ if (backupGuardIsAjax() && count($_POST)) {
 			$phpcli = sanitize_text_field ($phpcli);
 			$phpcli = escapeshellcmd($phpcli);
 
-			if (!file_exists($phpcli)) {
+			if (!is_executable($phpcli)) {
 
 				$error['error'] = _backupGuardT("Error - Provided PHP Path {$phpcli} doesn't exist or not accessible", true);
 				die(json_encode($error));

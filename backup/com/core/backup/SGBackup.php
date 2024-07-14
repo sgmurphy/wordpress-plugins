@@ -7,17 +7,17 @@ require_once(SG_LIB_PATH . 'SGCharsetHandler.php');
 @include_once(SG_LIB_PATH . 'SGMigrate.php');
 require_once(SG_BACKUP_PATH . 'SGBackupStorage.php');
 @include_once(SG_BACKUP_PATH . 'SGBackupMailNotification.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGArchive.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGLog.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGTask.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGStateFile.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGOffsetFile.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGArchiveHelper.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGDirectoryTreeFile.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBLock.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/SGBGStateJson.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/Log.php');
-require_once(SG_LIB_PATH . 'BackupGuard/Core/RemoteCleanup.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGArchive.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGLog.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGTask.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGStateFile.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGOffsetFile.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGArchiveHelper.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGDirectoryTreeFile.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBLock.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'SGBGStateJson.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'Log.php');
+require_once(SG_LIB_PATH . 'BackupGuard'.DIRECTORY_SEPARATOR.'Core'.DIRECTORY_SEPARATOR.'RemoteCleanup.php');
 
 class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 {
@@ -113,7 +113,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	public function setTreeFile()
 	{
 		clearstatcache();
-		$this->_treeFile = new SGBGDirectoryTreeFile(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_TREE_FILES);
+		$this->_treeFile = new SGBGDirectoryTreeFile(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_FILES);
 
 		if (!empty($this->_options['SG_BACKUP_FILE_PATHS'])) {
 			$addPaths = $this->_options['SG_BACKUP_FILE_PATHS'];
@@ -140,7 +140,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	}
 
 	public function setLogFile($logFilePath)
-    {
+	{
 		$this->_logFile = $logFilePath;
 	}
 
@@ -148,7 +148,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 
 	public function log($logData, $forceWrite = false)
-    {
+	{
 		$Log = new Log($this->getLogFile());
 		$Log->write($logData);
 	}
@@ -177,7 +177,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	public function setArchive($task, $logEnabled)
 	{
-		$this->_archive = new SGBGArchive(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '.sgbp');
+		$this->_archive = new SGBGArchive(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '.sgbp');
 		$this->_archive->setDelegate($this);
 		$this->_archive->setTask($task);
 		$this->_archive->setLogEnabled($logEnabled);
@@ -301,7 +301,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	public function verify_pid()
 	{
-		$pid_file = SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_PROCESS_ID_FILE;
+		$pid_file = SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_PROCESS_ID_FILE;
 		if (!file_exists($pid_file)) return;
 
 		$pid = file_get_contents($pid_file);
@@ -315,7 +315,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	public function set_process_id()
 	{
 		$this->processID = md5(time());
-		file_put_contents(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_PROCESS_ID_FILE, $this->processID);
+		file_put_contents(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_PROCESS_ID_FILE, $this->processID);
 		return $this->processID;
 	}
 
@@ -371,7 +371,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		$this->_fileName = $action['name'];
 		$this->_actionId = $action['id'];
 
-		$db_lock = SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_DB_LOCK;
+		$db_lock = SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_DB_LOCK;
 		file_put_contents($db_lock, 1);
 
 		$this->resetBackupProgress();
@@ -441,10 +441,10 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 			$options = json_decode($action['options'], 1);
 			$this->setOptions($options);
-			$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '_backup.log');
+			$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '_backup.log');
 			$this->setBackupPaths();
 
-			$task->prepare(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_STATE_FILE_NAME);
+			$task->prepare(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_STATE_FILE_NAME);
 			$this->setStateFile($task->getStateFile());
 			$this->setFilesCount($this->getStateFile()->getCount());
 			$this->set_process_id();
@@ -463,7 +463,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 					$this->getTreeFile()->getCache()->setCacheMode(SGBGCache::CACHE_MODE_TIMEOUT | SGBGCache::CACHE_MODE_SIZE);
 					$this->getTreeFile()->getCache()->setCacheTimeout($this->_cacheTimeOut);
 					$this->getTreeFile()->getCache()->setCacheSize($this->cacheSize);
-					$this->getTreeFile()->setRootPath(rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/') . '/');
+					$this->getTreeFile()->setRootPath(rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
 					if ($this->_databaseBackupAvailable) $this->getTreeFile()->addDontExclude($this->_databaseBackupPath);
 					$this->getTreeFile()->save($this);
 					//$this->setFilesCount();
@@ -478,7 +478,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 					$this->log('Number of files to backup ' . $this->getFilesCount(), true);
 					$this->log('Start backup ' . $treeLines .  ' files ', true);
 
-					$task->prepareOffsetFile(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_OFFSET_ALL_POS_FILE);
+					$task->prepareOffsetFile(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_OFFSET_ALL_POS_FILE);
 					$this->setOffsetFile($task->getOffsetFile());
 
 					$this->setArchive($task, $logEnabled);
@@ -511,13 +511,13 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			if (SGBoot::isFeatureAvailable('NOTIFICATIONS')) {
 				//Writing backup status to report file
 
-				@file_put_contents(dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME, 'Backup failed' . "\n", FILE_APPEND);
-				@file_put_contents(dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME, 'Error captured - ' . $e->getMessage(), FILE_APPEND);
+				@file_put_contents(dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Backup failed' . "\n", FILE_APPEND);
+				@file_put_contents(dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Error captured - ' . $e->getMessage(), FILE_APPEND);
 
 				SGBackupMailNotification::sendBackupNotification(
 					SG_ACTION_STATUS_ERROR,
 					array(
-						'flowFilePath' => dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME,
+						'flowFilePath' => dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 						'archiveName' => $this->_fileName
 					)
 				);
@@ -577,9 +577,9 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	{
 		$this->clearCache();
 		$this->prepareBackupFolder(SG_BACKUP_DIRECTORY . $this->_fileName);
-		$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '_backup.log');
+		$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '_backup.log');
 
-		if (file_exists(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_ACTION_ID_FILE)) return;
+		if (file_exists(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_ACTION_ID_FILE)) return;
 
 		//start logging
 		$this->log('Start backup', true);
@@ -610,7 +610,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	{
 		$this->clearCache();
 		$fileOffsetItem = $this->getLastOffset();
-		//$_current_file_count = SG_BACKUP_DIRECTORY . $this->_fileName . '/' . SG_BACKUP_TREE_FILE_COUNT;
+		//$_current_file_count = SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_FILE_COUNT;
 		//$TreeLines = file_exists($_current_file_count) ? (int) file_get_contents($_current_file_count) : 0;
 
 		$this->log('Treelines ' . $TreeLines, true);
@@ -625,7 +625,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			$relativePath = $this->pathWithoutRootDirectory($file);
 
 
-			if (substr($file, -1) != '/') {
+			if (substr($file, -1) != DIRECTORY_SEPARATOR) {
 
 				$this->getArchive()->addFileFromPath($relativePath, $file, $i);
 
@@ -662,13 +662,13 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		$report = $this->didFindWarnings() ? 'completed with warnings' : 'completed';
 
 		//Writing backup status to report file
-		file_put_contents(dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME, 'Backup: ' . $report . "\n", FILE_APPEND);
+		file_put_contents(dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Backup: ' . $report . "\n", FILE_APPEND);
 
 		if (SGBoot::isFeatureAvailable('NOTIFICATIONS') && !count($this->_pendingStorageUploads)) {
 			SGBackupMailNotification::sendBackupNotification(
 				$action,
 				array(
-					'flowFilePath' => dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME,
+					'flowFilePath' => dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 					'archiveName' => $this->_fileName
 				)
 			);
@@ -691,7 +691,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function pathWithoutRootDirectory($path)
 	{
-		return substr($path, strlen(rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/') . '/'));
+		return substr($path, strlen(rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR));
 	}
 
 	/**
@@ -730,7 +730,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			)
 		);
 		$dump->setDelegate($this);
-		$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '_backup.log');
+		$this->setLogFile(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '_backup.log');
 		$dump->start($this->_databaseBackupPath, $task);
 
 		$this->log('End backup database', true);
@@ -739,7 +739,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function prepareBackupReport()
 	{
-		file_put_contents(dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME, 'Report for: ' . SG_SITE_URL . "\n", FILE_APPEND);
+		file_put_contents(dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Report for: ' . SG_SITE_URL . "\n", FILE_APPEND);
 	}
 
 	private function shouldDeleteBackupAfterUpload()
@@ -757,7 +757,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			while (count($this->_pendingStorageUploads) > 0) {
 
 				$task = new SGBGTask();
-				$task->prepare(SG_BACKUP_DIRECTORY . $this->_fileName . '/state_upload.json');
+				$task->prepare(SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . 'state_upload.json');
 
 				if (!empty($task->getStateFile()->getPendingStorageUploads())) {
 					$this->_pendingStorageUploads = $task->getStateFile()->getPendingStorageUploads();
@@ -816,7 +816,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			SGBackupMailNotification::sendBackupNotification(
 				SG_ACTION_STATUS_FINISHED,
 				array(
-					'flowFilePath' => dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME,
+					'flowFilePath' => dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 					'archiveName' => $this->_fileName
 				)
 			);
@@ -829,9 +829,9 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		if ($this->shouldDeleteBackupAfterUpload() && $isDeleteLocalBackupFeatureAvailable && $status == SG_ACTION_STATUS_FINISHED) {
 
 			$this->log('Inside shouldDeleteBackupAfterUpload if', true);
-			$this->log('File to be deleted: ' . SG_BACKUP_DIRECTORY . backupGuardRemoveSlashes($this->_fileName) . '/' . backupGuardRemoveSlashes($this->_fileName) . '.' . SGBP_EXT  , true);
+			$this->log('File to be deleted: ' . SG_BACKUP_DIRECTORY . backupGuardRemoveSlashes($this->_fileName) . DIRECTORY_SEPARATOR . backupGuardRemoveSlashes($this->_fileName) . '.' . SGBP_EXT  , true);
 
-			if (unlink(SG_BACKUP_DIRECTORY . backupGuardRemoveSlashes($this->_fileName) . '/' . backupGuardRemoveSlashes($this->_fileName) . '.' . SGBP_EXT)) {
+			if (unlink(SG_BACKUP_DIRECTORY . backupGuardRemoveSlashes($this->_fileName) . DIRECTORY_SEPARATOR . backupGuardRemoveSlashes($this->_fileName) . '.' . SGBP_EXT)) {
 
 				$this->log('Local file removed successfully', true);
 
@@ -852,7 +852,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function clear()
 	{
-		@unlink(dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME);
+		@unlink(dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME);
 		SGConfig::set("SG_CUSTOM_BACKUP_NAME", '');
 	}
 
@@ -897,7 +897,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function prepareBackupLogFile($backupPath)
 	{
-		$file = $backupPath . '/' . $this->_fileName . '_backup.log';
+		$file = $backupPath . DIRECTORY_SEPARATOR . $this->_fileName . '_backup.log';
 		$this->_backupLogPath = $file;
 
 		$isUpload = $this->getIsUploadStorage();
@@ -925,8 +925,8 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function setBackupPaths()
 	{
-		$this->_filesBackupPath = SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '.sgbp';
-		$this->_databaseBackupPath = SG_BACKUP_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '.sql';
+		$this->_filesBackupPath = SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '.sgbp';
+		$this->_databaseBackupPath = SG_BACKUP_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '.sql';
 	}
 
 	private function prepareUploadToStorages($options)
@@ -949,11 +949,11 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 		if (SGBoot::isFeatureAvailable('NOTIFICATIONS')) {
 			//Writing backup status to report file
-			file_put_contents($dir . '/' . SG_REPORT_FILE_NAME, 'Backup: canceled', FILE_APPEND);
+			file_put_contents($dir . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Backup: canceled', FILE_APPEND);
 			SGBackupMailNotification::sendBackupNotification(
 				SG_ACTION_STATUS_CANCELLED,
 				array(
-					'flowFilePath' => dirname($this->_filesBackupPath) . '/' . SG_REPORT_FILE_NAME,
+					'flowFilePath' => dirname($this->_filesBackupPath) . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 					'archiveName' => $this->_fileName
 				)
 			);
@@ -984,7 +984,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			$this->clearCache();
 			$backupName = backupGuardRemoveSlashes($backupName);
 			$task = new SGBGTask();
-			$task->prepare(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_RESTORE_STATE_FILE_NAME);
+			$task->prepare(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_RESTORE_STATE_FILE_NAME);
 			$stateFile = $task->getStateFile();
 			$this->setStateFile($stateFile);
 			$this->_fileName = $backupName;
@@ -1013,9 +1013,9 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 				$stateFile->save(true);
 			} else if ($stateFile->getStatus() == SGBGStateFile::STATUS_RESUME) {
 				$restorePath = SG_BACKUP_DIRECTORY . $this->_fileName;
-				$this->_filesBackupPath = $restorePath . '/' . $this->_fileName . '.sgbp';
-				$this->_databaseBackupPath = $restorePath . '/' . $this->_fileName . '.sql';
-				$this->_databaseBackupOldPath = SG_BACKUP_OLD_DIRECTORY . $this->_fileName . '/' . $this->_fileName . '.sql';
+				$this->_filesBackupPath = $restorePath . DIRECTORY_SEPARATOR . $this->_fileName . '.sgbp';
+				$this->_databaseBackupPath = $restorePath . DIRECTORY_SEPARATOR . $this->_fileName . '.sql';
+				$this->_databaseBackupOldPath = SG_BACKUP_OLD_DIRECTORY . $this->_fileName . DIRECTORY_SEPARATOR . $this->_fileName . '.sql';
 				$this->prepareRestoreLogFile($restorePath, true);
 				$this->_actionId = $stateFile->getActionId();
 				$this->_actionStartTs = $stateFile->getStartTs();
@@ -1160,7 +1160,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		}
 
 		if ($actionType == SG_ACTION_TYPE_RESTORE) {
-			$archivePath = SG_BACKUP_DIRECTORY . $fileName . '/' . $fileName . '.sgbp';
+			$archivePath = SG_BACKUP_DIRECTORY . $fileName . DIRECTORY_SEPARATOR . $fileName . '.sgbp';
 			$archiveSizeInBytes = backupGuardRealFilesize($archivePath);
 			$confs['archiveSize'] = convertToReadableSize($archiveSizeInBytes);
 			$content .= 'Archive Size: ' . $confs['archiveSize'] . ' (' . $archiveSizeInBytes . ' bytes)' . PHP_EOL;
@@ -1197,7 +1197,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		}
 
 		$lastInsertId = $sgdb->lastInsertId();
-		file_put_contents( SG_BACKUP_DIRECTORY . $name . '/' . SG_BACKUP_ACTION_ID_FILE, $lastInsertId );
+		file_put_contents( SG_BACKUP_DIRECTORY . $name . DIRECTORY_SEPARATOR . SG_BACKUP_ACTION_ID_FILE, $lastInsertId );
 
 		return $lastInsertId;
 	}
@@ -1263,7 +1263,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		$name = $actionData[0]['name'] ?? null;
 		if (!$name) return false;
 
-		$state_backup = SG_BACKUP_DIRECTORY . $name . '/' . SG_STATE_FILE_NAME;
+		$state_backup = SG_BACKUP_DIRECTORY . $name . DIRECTORY_SEPARATOR . SG_STATE_FILE_NAME;
 		$task->prepare($state_backup);
 		$stateFile = $task->getStateFile();
 		$stateFile->setData('db_status', $status);
@@ -1327,18 +1327,18 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		$res = $sgdb->query('SELECT * FROM ' . SG_ACTION_TABLE_NAME . ' WHERE id=%d', array($actionId));
 		if (!isset($res[0])) return false;
 
-        $_tree_done = SG_BACKUP_DIRECTORY . $res[0]['name'] . '/' . SG_BACKUP_TREE_GENERATOR_DONE;
-        $_current_file_count = SG_BACKUP_DIRECTORY . $res[0]['name'] . '/' . SG_BACKUP_TREE_FILE_COUNT;
-        $filesCount = file_exists($_current_file_count) && filesize($_current_file_count) ? (int) file_get_contents($_current_file_count) : 0;
-        $_backup_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . '/' . $res[0]['name'].'_backup.log';
-        $_restore_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . '/' . $res[0]['name'].'_restore.log';
-        $_extract_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . '/' . $res[0]['name'].'_extract.log';
+		$_tree_done = SG_BACKUP_DIRECTORY . $res[0]['name'] . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_GENERATOR_DONE;
+		$_current_file_count = SG_BACKUP_DIRECTORY . $res[0]['name'] . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_FILE_COUNT;
+		$filesCount = file_exists($_current_file_count) && filesize($_current_file_count) ? (int) file_get_contents($_current_file_count) : 0;
+		$_backup_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . DIRECTORY_SEPARATOR . $res[0]['name'].'_backup.log';
+		$_restore_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . DIRECTORY_SEPARATOR . $res[0]['name'].'_restore.log';
+		$_extract_log = SG_BACKUP_DIRECTORY . $res[0]['name'] . DIRECTORY_SEPARATOR . $res[0]['name'].'_extract.log';
 
-        $res[0]['tree_procesing'] = true;
+		$res[0]['tree_procesing'] = true;
 		$res[0]['tree_files'] = $filesCount;
 		$res[0]['log_lines'] = SGBackup::getLines($_backup_log);
 		if (file_exists($_restore_log)) $res[0]['restore_lines'] = SGBackup::getLines($_restore_log);
-        if (file_exists($_extract_log)) $res[0]['restore_lines'] = SGBackup::getLines($_extract_log);
+		if (file_exists($_extract_log)) $res[0]['restore_lines'] = SGBackup::getLines($_extract_log);
 
 		if (file_exists($_tree_done) && filesize($_tree_done)) $res[0]['tree_procesing'] = false;
 
@@ -1438,7 +1438,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 		$backupLogPostfix = "_backup.log";
 		$restoreLogPostfix = "_restore.log";
-        $extractLogPostfix = "_extract.log";
+		$extractLogPostfix = "_extract.log";
 
 		foreach ($files as $file) {
 			$fileInfo = self::getBackupFileInfo($file);
@@ -1447,21 +1447,21 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 				@mkdir($path . $fileInfo['filename'], 0777);
 
 				if (file_exists($path . $fileInfo['filename'])) {
-					rename($path . $file, $path . $fileInfo['filename'] . '/' . $file);
-					file_put_contents($path . $fileInfo['filename'] . '/imported.flag', 1);
+					rename($path . $file, $path . $fileInfo['filename'] . DIRECTORY_SEPARATOR . $file);
+					file_put_contents($path . $fileInfo['filename'] . DIRECTORY_SEPARATOR . 'imported.flag', 1);
 				}
 
 				if (file_exists($path . $fileInfo['filename'] . $backupLogPostfix)) {
-					rename($path . $fileInfo['filename'] . $backupLogPostfix, $path . $fileInfo['filename'] . '/' . $fileInfo['filename'] . $backupLogPostfix);
+					rename($path . $fileInfo['filename'] . $backupLogPostfix, $path . $fileInfo['filename'] . DIRECTORY_SEPARATOR . $fileInfo['filename'] . $backupLogPostfix);
 				}
 
 				if (file_exists($path . $fileInfo['filename'] . $restoreLogPostfix)) {
-					rename($path . $fileInfo['filename'] . $restoreLogPostfix, $path . $fileInfo['filename'] . '/' . $fileInfo['filename'] . $restoreLogPostfix);
+					rename($path . $fileInfo['filename'] . $restoreLogPostfix, $path . $fileInfo['filename'] . DIRECTORY_SEPARATOR . $fileInfo['filename'] . $restoreLogPostfix);
 				}
 
-                if (file_exists($path . $fileInfo['filename'] . $extractLogPostfix)) {
-                    rename($path . $fileInfo['filename'] . $extractLogPostfix, $path . $fileInfo['filename'] . '/' . $fileInfo['filename'] . $extractLogPostfix);
-                }
+				if (file_exists($path . $fileInfo['filename'] . $extractLogPostfix)) {
+					rename($path . $fileInfo['filename'] . $extractLogPostfix, $path . $fileInfo['filename'] . DIRECTORY_SEPARATOR . $fileInfo['filename'] . $extractLogPostfix);
+				}
 			}
 		}
 	}
@@ -1507,15 +1507,15 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 				$id = $allBackups[$entry]['id'] ?? null;
 
 				$db_options = $allBackups[$entry]['options'] ?? null;
-				$json_options = file_exists($path . $entry . '/state.json') ? json_decode(file_get_contents($path . $entry . '/state.json')) : null;
-				$imported = file_exists($path . $entry . '/imported.flag');
+				$json_options = file_exists($path . $entry . DIRECTORY_SEPARATOR . 'state.json') ? json_decode(file_get_contents($path . $entry . DIRECTORY_SEPARATOR . 'state.json')) : null;
+				$imported = file_exists($path . $entry . DIRECTORY_SEPARATOR . 'imported.flag');
 
 				$backup = array();
 				$backup['name'] = $entry;
-				$backup['files'] = file_exists($path . $entry . '/' . $entry . '.sgbp') ? 1 : 0;
-				$backup['backup_log'] = file_exists($path . $entry . '/' . $entry . '_backup.log') ? 1 : 0;
-				$backup['restore_log'] = file_exists($path . $entry . '/' . $entry . '_restore.log') ? 1 : 0;
-                $backup['extarct_log'] = file_exists($path . $entry . '/' . $entry . '_extarct.log') ? 1 : 0;
+				$backup['files'] = file_exists($path . $entry . DIRECTORY_SEPARATOR . $entry . '.sgbp') ? 1 : 0;
+				$backup['backup_log'] = file_exists($path . $entry . DIRECTORY_SEPARATOR . $entry . '_backup.log') ? 1 : 0;
+				$backup['restore_log'] = file_exists($path . $entry . DIRECTORY_SEPARATOR . $entry . '_restore.log') ? 1 : 0;
+				$backup['extarct_log'] = file_exists($path . $entry . DIRECTORY_SEPARATOR . $entry . '_extarct.log') ? 1 : 0;
 				$backup['options'] = $db_options;
 				if (!$db_options) $backup['options'] = $json_options;
 
@@ -1542,15 +1542,15 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 				if ($backup['status'] == SG_ACTION_STATUS_IN_PROGRESS_FILES || $backup['status'] == SG_ACTION_STATUS_IN_PROGRESS_DB) $backup['active'] = 1;
 
 				$size = '';
-				//$file = backupGuardRemoveSlashes($path . $entry . '/' . $entry . '.sgbp');
-				if ($backup['files']) $size = number_format(backupGuardRealFilesize($path . $entry . '/' . $entry . '.sgbp') / 1000.0 / 1000.0, 2, '.', '') . ' MB';
+				//$file = backupGuardRemoveSlashes($path . $entry . DIRECTORY_SEPARATOR . $entry . '.sgbp');
+				if ($backup['files']) $size = number_format(backupGuardRealFilesize($path . $entry . DIRECTORY_SEPARATOR . $entry . '.sgbp') / 1000.0 / 1000.0, 2, '.', '') . ' MB';
 				$backup['size'] = $size;
 				//$backup['size'] = jb_convert_size(filesize($file));
 				if (!$json_options && !$status) $backup['status'] = SG_ACTION_STATUS_NULL;
 
 				if ($imported) $backup['status'] = SG_ACTION_STATUS_IMPORTED;
 
-				$modifiedTime = filemtime($path . $entry . '/.');
+				$modifiedTime = filemtime($path . $entry . DIRECTORY_SEPARATOR . '.');
 				$date = backupGuardConvertDateTimezone(@date('Y-m-d H:i', $modifiedTime));
 				$backup['date'] = $date;
 				$backup['modifiedTime'] = $modifiedTime;
@@ -1636,7 +1636,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 	public static function upload($filesUploadSgbp)
 	{
 		$filename = str_replace('.sgbp', '', $filesUploadSgbp['name']);
-		$backupDirectory = $filename . '/';
+		$backupDirectory = $filename . DIRECTORY_SEPARATOR;
 		$uploadPath = SG_BACKUP_DIRECTORY . $backupDirectory;
 		$filename = $uploadPath . $filename;
 
@@ -1658,7 +1658,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	public static function download($filename, $type)
 	{
-		$backupDirectory = SG_BACKUP_DIRECTORY . $filename . '/';
+		$backupDirectory = SG_BACKUP_DIRECTORY . $filename . DIRECTORY_SEPARATOR;
 		$downloadMode = SGConfig::get('SG_DOWNLOAD_MODE');
 
 		switch ($type) {
@@ -1744,7 +1744,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	public function shouldExtractFile($filePath)
 	{
-		if ($this->_restoreMode == SG_RESTORE_MODE_DB && !strpos($filePath, '/' . SG_BACKUP_DEFAULT_FOLDER_NAME . '/') && !strpos($filePath, '/' . SG_BACKUP_OLD_FOLDER_NAME . '/')) {
+		if ($this->_restoreMode == SG_RESTORE_MODE_DB && !strpos($filePath, DIRECTORY_SEPARATOR . SG_BACKUP_DEFAULT_FOLDER_NAME . DIRECTORY_SEPARATOR) && !strpos($filePath, DIRECTORY_SEPARATOR . SG_BACKUP_OLD_FOLDER_NAME . DIRECTORY_SEPARATOR)) {
 			return false;
 		} else if ($this->_restoreMode == SG_RESTORE_MODE_FILES && ($filePath == $this->_databaseBackupPath || $filePath == $this->_databaseBackupOldPath)) {
 			return false;
@@ -2003,7 +2003,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 		}
 
 		$backupPath = SG_BACKUP_DIRECTORY . $backupName;
-		$filesBackupPath = $backupPath . '/' . $backupName . '.sgbp';
+		$filesBackupPath = $backupPath . DIRECTORY_SEPARATOR . $backupName . '.sgbp';
 
 		if (!is_readable($filesBackupPath)) {
 			SGBackup::changeActionStatus($this->_actionId, SG_ACTION_STATUS_ERROR);
@@ -2051,7 +2051,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			$this->log('Upload to ' . $storageName . ' end', true);
 
 			//Writing upload status to report file
-			file_put_contents($backupPath . '/' . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ": completed\n", FILE_APPEND);
+			file_put_contents($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ": completed\n", FILE_APPEND);
 			$this->log('Total duration: ' . backupGuardFormattedDuration($actionStartTs, time()), true);
 
 			SGBackup::changeActionStatus($this->_actionId, SG_ACTION_STATUS_FINISHED);
@@ -2061,14 +2061,14 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 				SGBackup::changeActionStatus($this->_actionId, SG_ACTION_STATUS_CANCELLED);
 				//Writing upload status to report file
 
-				file_put_contents($backupPath . '/' . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ': canceled' . "\n", FILE_APPEND);
-				file_put_contents($backupPath . '/' . SG_REPORT_FILE_NAME, 'Extra details - ' . $exception->getMessage(), FILE_APPEND);
+				file_put_contents($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ': canceled' . "\n", FILE_APPEND);
+				file_put_contents($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Extra details - ' . $exception->getMessage(), FILE_APPEND);
 
 
 				SGBackupMailNotification::sendBackupNotification(
 					SG_ACTION_STATUS_CANCELLED,
 					array(
-						'flowFilePath' => $backupPath . '/' . SG_REPORT_FILE_NAME,
+						'flowFilePath' => $backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 						'archiveName' => $backupName
 					)
 				);
@@ -2081,13 +2081,13 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 				if (SGBoot::isFeatureAvailable('NOTIFICATIONS')) {
 					//Writing upload status to report file
-					file_put_contents($backupPath . '/' . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ': failed' . "\n", FILE_APPEND);
-					file_put_contents($backupPath . '/' . SG_REPORT_FILE_NAME, 'Extra details - ' . $exception->getMessage(), FILE_APPEND);
+					file_put_contents($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Uploaded to ' . $storageName . ': failed' . "\n", FILE_APPEND);
+					file_put_contents($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME, 'Extra details - ' . $exception->getMessage(), FILE_APPEND);
 
 					SGBackupMailNotification::sendBackupNotification(
 						SG_ACTION_STATUS_ERROR,
 						array(
-							'flowFilePath' => $backupPath . '/' . SG_REPORT_FILE_NAME,
+							'flowFilePath' => $backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME,
 							'archiveName' => $backupName
 						)
 					);
@@ -2099,7 +2099,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 			$this->deleteBackupFromStorage($storageId, $backupName);
 
 			//delete report file in case of error
-			@unlink($backupPath . '/' . SG_REPORT_FILE_NAME);
+			@unlink($backupPath . DIRECTORY_SEPARATOR . SG_REPORT_FILE_NAME);
 		}
 	}
 
@@ -2108,7 +2108,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 		try {
 
-			$uploadFolder = trim(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'), '/');
+			$uploadFolder = trim(SGConfig::get('SG_STORAGE_BACKUPS_FOLDER_NAME'), DIRECTORY_SEPARATOR);
 			$storage = $this->storageObjectById($storageId);
 			$path = "/" . $uploadFolder . "/" . $backupName;
 			if (strpos($backupName, '.sgbp') === false) $path = "/" . $uploadFolder . "/" . $backupName . ".sgbp";
@@ -2229,7 +2229,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function extractArchive($filePath, $task)
 	{
-		$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/') . '/';
+		$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 		$restorePath = $rootDirectory;
 
 		$archive = new SGBGArchive($filePath);
@@ -2249,7 +2249,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function backupExtractArchive($filePath, $task)
 	{
-		$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/') . '/';
+		$rootDirectory = rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 		$restorePath = $rootDirectory . 'test/';
 
 		$archive = new SGBGArchive($filePath);
@@ -2318,7 +2318,7 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	private function replaceInvalidCharacters($str)
 	{
-		return $str;//preg_replace('/\x00/', '', $str);;
+		return $str;
 	}
 
 	private function updateDBProgress()
@@ -2458,18 +2458,18 @@ class SGBackup implements ISGArchiveDelegate, SGIMysqldumpDelegate
 
 	public function cleanUpRestoreState($backupName)
 	{
-		if (file_exists(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_RESTORE_STATE_FILE_NAME)) {
-			unlink(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_RESTORE_STATE_FILE_NAME);
+		if (file_exists(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_RESTORE_STATE_FILE_NAME)) {
+			unlink(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_RESTORE_STATE_FILE_NAME);
 		}
 	}
 
-    public function cleanUpExtractState($backupName)
-    {
-        if (file_exists(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_EXTRACT_STATE_FILE_NAME)) {
-            unlink(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_EXTRACT_STATE_FILE_NAME);
-        }
-        if (file_exists(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_BACKUP_ACTION_ID_FILE)) {
-            unlink(SG_BACKUP_DIRECTORY . $backupName . '/' . SG_BACKUP_ACTION_ID_FILE);
-        }
-    }
+	public function cleanUpExtractState($backupName)
+	{
+		if (file_exists(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_EXTRACT_STATE_FILE_NAME)) {
+			unlink(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_EXTRACT_STATE_FILE_NAME);
+		}
+		if (file_exists(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_BACKUP_ACTION_ID_FILE)) {
+			unlink(SG_BACKUP_DIRECTORY . $backupName . DIRECTORY_SEPARATOR . SG_BACKUP_ACTION_ID_FILE);
+		}
+	}
 }

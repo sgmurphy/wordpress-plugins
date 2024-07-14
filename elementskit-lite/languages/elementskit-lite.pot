@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the ElementsKit Lite package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ElementsKit Lite 3.2.0\n"
+"Project-Id-Version: ElementsKit Lite 3.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/elementskit-lite\n"
-"POT-Creation-Date: 2024-06-09 09:26:51+00:00\n"
+"POT-Creation-Date: 2024-07-14 03:34:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -283,7 +283,7 @@ msgid "You choose your website as per your need."
 msgstr ""
 
 #: libs/framework/views/onboard-steps/step-01.php:36
-#: widgets/client-logo/client-logo.php:929
+#: widgets/client-logo/client-logo.php:920
 #: widgets/fluent-forms/fluent-forms.php:2317 widgets/heading/heading.php:351
 #: widgets/icon-box/icon-box.php:477 widgets/ninja-forms/ninja-forms.php:601
 #: widgets/wp-forms/wp-forms.php:423
@@ -699,6 +699,8 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:813
 #: widgets/category-list/category-list.php:290
 #: widgets/category-list/category-list.php:351
+#: widgets/client-logo/client-logo.php:1066
+#: widgets/client-logo/client-logo.php:1101
 #: widgets/contact-form7/contact-form7.php:93
 #: widgets/contact-form7/contact-form7.php:135
 #: widgets/contact-form7/contact-form7.php:484
@@ -1002,12 +1004,12 @@ msgstr ""
 msgid "Loading"
 msgstr ""
 
-#: modules/controls/widget-area-utils.php:28
-#: modules/controls/widget-area-utils.php:102
+#: modules/controls/widget-area-utils.php:32
+#: modules/controls/widget-area-utils.php:106
 msgid "Click on the Edit Content button to edit/add the content."
 msgstr ""
 
-#: modules/controls/widget-area-utils.php:59
+#: modules/controls/widget-area-utils.php:63
 msgid "Edit Content"
 msgstr ""
 
@@ -1123,7 +1125,7 @@ msgid "ElementsKit Icon Pack"
 msgstr ""
 
 #: modules/header-footer/cpt-api.php:89 modules/header-footer/cpt-hooks.php:55
-#: widgets/client-logo/client-logo.php:1297
+#: widgets/client-logo/client-logo.php:1300
 #: widgets/fluent-forms/fluent-forms.php:1692
 #: widgets/fluent-forms/fluent-forms.php:1891 widgets/nav-menu/nav-menu.php:570
 #: widgets/nav-menu/nav-menu.php:840 widgets/post-tab/post-tab.php:279
@@ -1445,8 +1447,8 @@ msgstr ""
 
 #: modules/megamenu/views/options-menu-item.php:132
 #: widgets/category-list/category-list.php:54
-#: widgets/client-logo/client-logo.php:928
-#: widgets/client-logo/client-logo.php:1144
+#: widgets/client-logo/client-logo.php:919
+#: widgets/client-logo/client-logo.php:1147
 #: widgets/fluent-forms/fluent-forms.php:431 widgets/funfact/funfact.php:122
 #: widgets/image-accordion/image-accordion.php:299
 #: widgets/nav-menu/nav-menu.php:111 widgets/page-list/page-list.php:255
@@ -2246,8 +2248,10 @@ msgstr ""
 #: widgets/client-logo/client-logo.php:528
 #: widgets/client-logo/client-logo.php:549
 #: widgets/client-logo/client-logo.php:562
-#: widgets/client-logo/client-logo.php:1288
-#: widgets/client-logo/client-logo.php:1307
+#: widgets/client-logo/client-logo.php:1079
+#: widgets/client-logo/client-logo.php:1113
+#: widgets/client-logo/client-logo.php:1291
+#: widgets/client-logo/client-logo.php:1310
 #: widgets/contact-form7/contact-form7.php:312
 #: widgets/contact-form7/contact-form7.php:365
 #: widgets/contact-form7/contact-form7.php:418
@@ -2400,7 +2404,7 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:846
 #: widgets/client-logo/client-logo.php:682
 #: widgets/client-logo/client-logo.php:709
-#: widgets/client-logo/client-logo.php:899
+#: widgets/client-logo/client-logo.php:890
 #: widgets/contact-form7/contact-form7.php:336
 #: widgets/contact-form7/contact-form7.php:389
 #: widgets/contact-form7/contact-form7.php:442
@@ -2496,7 +2500,7 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:607
 #: widgets/category-list/category-list.php:318
 #: widgets/client-logo/client-logo.php:577
-#: widgets/client-logo/client-logo.php:907
+#: widgets/client-logo/client-logo.php:898
 #: widgets/contact-form7/contact-form7.php:322
 #: widgets/contact-form7/contact-form7.php:375
 #: widgets/contact-form7/contact-form7.php:428
@@ -2634,7 +2638,7 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:619
 #: widgets/client-logo/client-logo.php:461
 #: widgets/client-logo/client-logo.php:648
-#: widgets/client-logo/client-logo.php:878
+#: widgets/client-logo/client-logo.php:869
 #: widgets/contact-form7/contact-form7.php:158
 #: widgets/contact-form7/contact-form7.php:282
 #: widgets/contact-form7/contact-form7.php:617
@@ -2730,9 +2734,9 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:173
 #: widgets/caldera-forms/caldera-forms.php:656
 #: widgets/category-list/category-list.php:243
-#: widgets/client-logo/client-logo.php:1229
-#: widgets/client-logo/client-logo.php:1316
-#: widgets/client-logo/client-logo.php:1405
+#: widgets/client-logo/client-logo.php:1232
+#: widgets/client-logo/client-logo.php:1319
+#: widgets/client-logo/client-logo.php:1408
 #: widgets/contact-form7/contact-form7.php:170
 #: widgets/contact-form7/contact-form7.php:654
 #: widgets/countdown-timer/countdown-timer.php:238
@@ -2993,7 +2997,6 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:468
 #: widgets/caldera-forms/caldera-forms.php:478
 #: widgets/caldera-forms/caldera-forms.php:599
-#: widgets/client-logo/client-logo.php:870
 #: widgets/contact-form7/contact-form7.php:85
 #: widgets/contact-form7/contact-form7.php:127
 #: widgets/contact-form7/contact-form7.php:466
@@ -3081,8 +3084,8 @@ msgstr ""
 #: widgets/client-logo/client-logo.php:520
 #: widgets/client-logo/client-logo.php:665
 #: widgets/client-logo/client-logo.php:722
-#: widgets/client-logo/client-logo.php:1056
-#: widgets/client-logo/client-logo.php:1479
+#: widgets/client-logo/client-logo.php:1059
+#: widgets/client-logo/client-logo.php:1482
 #: widgets/contact-form7/contact-form7.php:304
 #: widgets/contact-form7/contact-form7.php:747
 #: widgets/dual-button/dual-button.php:427
@@ -3148,8 +3151,8 @@ msgstr ""
 #: widgets/client-logo/client-logo.php:541
 #: widgets/client-logo/client-logo.php:692
 #: widgets/client-logo/client-logo.php:758
-#: widgets/client-logo/client-logo.php:1091
-#: widgets/client-logo/client-logo.php:1498
+#: widgets/client-logo/client-logo.php:1094
+#: widgets/client-logo/client-logo.php:1501
 #: widgets/contact-form7/contact-form7.php:357
 #: widgets/contact-form7/contact-form7.php:804
 #: widgets/dual-button/dual-button.php:568
@@ -3567,7 +3570,7 @@ msgid "Image Width"
 msgstr ""
 
 #: widgets/blog-posts/blog-posts.php:996
-#: widgets/client-logo/client-logo.php:1275
+#: widgets/client-logo/client-logo.php:1278
 #: widgets/header-offcanvas/header-offcanvas.php:509
 #: widgets/header-offcanvas/header-offcanvas.php:695
 #: widgets/header-search/header-search.php:193
@@ -3637,8 +3640,8 @@ msgstr ""
 #: widgets/caldera-forms/caldera-forms.php:257
 #: widgets/caldera-forms/caldera-forms.php:686
 #: widgets/category-list/category-list.php:261
-#: widgets/client-logo/client-logo.php:1252
-#: widgets/client-logo/client-logo.php:1342
+#: widgets/client-logo/client-logo.php:1255
+#: widgets/client-logo/client-logo.php:1345
 #: widgets/contact-form7/contact-form7.php:198
 #: widgets/contact-form7/contact-form7.php:255
 #: widgets/contact-form7/contact-form7.php:684
@@ -3736,8 +3739,8 @@ msgstr ""
 #: widgets/blog-posts/blog-posts.php:2063
 #: widgets/blog-posts/blog-posts.php:2388
 #: widgets/blog-posts/blog-posts.php:2407
-#: widgets/client-logo/client-logo.php:1487
-#: widgets/client-logo/client-logo.php:1506
+#: widgets/client-logo/client-logo.php:1490
+#: widgets/client-logo/client-logo.php:1509
 #: widgets/fluent-forms/fluent-forms.php:1266
 #: widgets/testimonial/testimonial.php:1410
 #: widgets/testimonial/testimonial.php:1430
@@ -3755,17 +3758,17 @@ msgid "Show Highlight  Border"
 msgstr ""
 
 #: widgets/blog-posts/blog-posts.php:2265
-#: widgets/client-logo/client-logo.php:1381
+#: widgets/client-logo/client-logo.php:1384
 msgid "Hight"
 msgstr ""
 
 #: widgets/blog-posts/blog-posts.php:2319
-#: widgets/client-logo/client-logo.php:1429
+#: widgets/client-logo/client-logo.php:1432
 msgid "Top Bottom Position"
 msgstr ""
 
 #: widgets/blog-posts/blog-posts.php:2347
-#: widgets/client-logo/client-logo.php:1453
+#: widgets/client-logo/client-logo.php:1456
 msgid "Left Right Position"
 msgstr ""
 
@@ -4101,7 +4104,7 @@ msgid "Solid"
 msgstr ""
 
 #: widgets/category-list/category-list.php:202
-#: widgets/client-logo/client-logo.php:1146 widgets/heading/heading.php:347
+#: widgets/client-logo/client-logo.php:1149 widgets/heading/heading.php:347
 #: widgets/image-box/image-box.php:775 widgets/page-list/page-list.php:458
 #: widgets/post-list/post-list.php:651 widgets/pricing/pricing.php:1911
 #: widgets/tablepress/tablepress.php:227 widgets/tablepress/tablepress.php:354
@@ -4110,7 +4113,7 @@ msgid "Dotted"
 msgstr ""
 
 #: widgets/category-list/category-list.php:203
-#: widgets/client-logo/client-logo.php:1145 widgets/image-box/image-box.php:776
+#: widgets/client-logo/client-logo.php:1148 widgets/image-box/image-box.php:776
 #: widgets/page-list/page-list.php:459 widgets/post-list/post-list.php:652
 #: widgets/pricing/pricing.php:1912 widgets/tablepress/tablepress.php:228
 #: widgets/tablepress/tablepress.php:355 widgets/tablepress/tablepress.php:438
@@ -4186,7 +4189,6 @@ msgid "Link"
 msgstr ""
 
 #: widgets/client-logo/client-logo.php:143
-#: widgets/dual-button/dual-button.php:177
 #: widgets/dual-button/dual-button.php:306
 #: widgets/header-info/header-info.php:81 widgets/icon-box/icon-box.php:307
 #: widgets/image-accordion/image-accordion.php:253
@@ -4219,7 +4221,7 @@ msgid "Title #5"
 msgstr ""
 
 #: widgets/client-logo/client-logo.php:193
-#: widgets/client-logo/client-logo.php:1155
+#: widgets/client-logo/client-logo.php:1158
 #: widgets/testimonial/testimonial.php:482
 msgid "Spacing Left Right"
 msgstr ""
@@ -4353,27 +4355,27 @@ msgstr ""
 msgid "Inside"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:926
+#: widgets/client-logo/client-logo.php:917
 msgid "Arrow Position"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:940
+#: widgets/client-logo/client-logo.php:931
 msgid "Left Arrow Position"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:948
+#: widgets/client-logo/client-logo.php:939
 msgid "Left Arrow Position (X)"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:972
+#: widgets/client-logo/client-logo.php:966
 msgid "Left Arrow Position (Y)"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:996
+#: widgets/client-logo/client-logo.php:993
 msgid "Right Arrow Position"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1005
+#: widgets/client-logo/client-logo.php:1002
 msgid "Right Arrow Position (X)"
 msgstr ""
 
@@ -4381,41 +4383,27 @@ msgstr ""
 msgid "Right Arrow Position (Y)"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1063
-#: widgets/client-logo/client-logo.php:1098
-#: widgets/image-comparison/image-comparison.php:466
-#: widgets/image-comparison/image-comparison.php:482
-#: widgets/image-comparison/image-comparison.php:523
-#: widgets/image-comparison/image-comparison.php:539
-msgid "Arrow Color"
-msgstr ""
-
-#: widgets/client-logo/client-logo.php:1076
-#: widgets/client-logo/client-logo.php:1110
-msgid "Arrow Background"
-msgstr ""
-
-#: widgets/client-logo/client-logo.php:1129
+#: widgets/client-logo/client-logo.php:1132
 msgid "Dots"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1140
+#: widgets/client-logo/client-logo.php:1143
 msgid "Dot Style"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1147
+#: widgets/client-logo/client-logo.php:1150
 msgid "Paginate"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1191
+#: widgets/client-logo/client-logo.php:1194
 msgid "Spacing Top To Bottom"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1215
+#: widgets/client-logo/client-logo.php:1218
 msgid "Dot Color"
 msgstr ""
 
-#: widgets/client-logo/client-logo.php:1371 widgets/heading/heading.php:326
+#: widgets/client-logo/client-logo.php:1374 widgets/heading/heading.php:326
 #: widgets/heading/heading.php:1131
 msgid "Separator"
 msgstr ""
@@ -5912,6 +5900,13 @@ msgstr ""
 msgid "Control Width"
 msgstr ""
 
+#: widgets/image-comparison/image-comparison.php:466
+#: widgets/image-comparison/image-comparison.php:482
+#: widgets/image-comparison/image-comparison.php:523
+#: widgets/image-comparison/image-comparison.php:539
+msgid "Arrow Color"
+msgstr ""
+
 #: widgets/image-comparison/image-comparison.php:592
 msgid "Handle Divider"
 msgstr ""
@@ -5959,10 +5954,6 @@ msgstr ""
 
 #: widgets/lottie/lottie.php:77 widgets/lottie/lottie.php:95
 msgid "ready to use."
-msgstr ""
-
-#: widgets/lottie/lottie.php:101
-msgid "https://example.com/file.json"
 msgstr ""
 
 #: widgets/lottie/lottie.php:134

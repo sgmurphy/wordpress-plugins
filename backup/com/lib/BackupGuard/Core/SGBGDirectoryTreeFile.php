@@ -162,9 +162,9 @@ class SGBGDirectoryTreeFile extends SGBGCacheableFile
 
 		if (empty($this->getRootPath())) return;
 
-		$_current_file_count = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . '/' . SG_BACKUP_TREE_FILE_COUNT;
-		$_dir_offset = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . '/' . SG_BACKUP_DIR_OFFSET;
-		$_tree_done = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . '/' . SG_BACKUP_TREE_GENERATOR_DONE;
+		$_current_file_count = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_FILE_COUNT;
+		$_dir_offset = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . DIRECTORY_SEPARATOR . SG_BACKUP_DIR_OFFSET;
+		$_tree_done = SG_BACKUP_DIRECTORY . $backupInstance->GetBackupFolderName() . DIRECTORY_SEPARATOR . SG_BACKUP_TREE_GENERATOR_DONE;
 
 		$this->open('a');
 
@@ -184,7 +184,7 @@ class SGBGDirectoryTreeFile extends SGBGCacheableFile
 			if ($this->shouldExcludeFile($info->getPathname())) continue;
 			if (!$this->shouldAddFile($info->getPathname())) continue;
 
-			$slash =  $info->isDir() ? '/' : '';
+			$slash =  $info->isDir() ? DIRECTORY_SEPARATOR : '';
 			if ($info->isDir() && !SGBGArchiveHelper::is_dir_empty($info)) continue;
 
 			$this->write($info->getPathname().$slash."\n");
@@ -219,7 +219,7 @@ class SGBGDirectoryTreeFile extends SGBGCacheableFile
 
 	private function pathWithoutRootDirectory($path)
 	{
-		return substr($path, strlen( rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), '/') . '/'));
+		return substr($path, strlen( rtrim(SGConfig::get('SG_APP_ROOT_DIRECTORY'), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR));
 	}
 
 	private function shouldExcludeFile($path)
@@ -233,7 +233,7 @@ class SGBGDirectoryTreeFile extends SGBGCacheableFile
 		//check if file/directory must be excluded
 		foreach ($this->getExcludedFilePaths() as $exPath) {
 			$exPath = trim($exPath);
-			$exPath = trim($exPath, '/');
+			$exPath = trim($exPath, DIRECTORY_SEPARATOR);
 			if (strpos($file, $exPath) === 0) {
 				return true;
 			}
@@ -253,7 +253,7 @@ class SGBGDirectoryTreeFile extends SGBGCacheableFile
 		//check if file/directory must be excluded
 		foreach ($this->getAddedFilePaths() as $addPath) {
 			$addPath = trim($addPath);
-			$addPath = trim($addPath, '/');
+			$addPath = trim($addPath, DIRECTORY_SEPARATOR);
 			if (strpos($file, $addPath) === 0) {
 				return true;
 			}

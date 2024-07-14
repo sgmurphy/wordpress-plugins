@@ -32,7 +32,7 @@ $systeminfo = '<a href = "' . $system_info_admin_url . '"> system info page </a>
 <div id="sg-backup-page-content-schedule" class="sg-backup-page-content <?php echo $contentClassName; ?>">
     <div class="sg-schedule-container">
         <fieldset>
-            <div><h1 class="sg-backup-page-title"><?php _backupGuardT('Schedules') ?></h1></div>
+            <div><h1 class="sg-backup-page-title"><?php _backupGuardT('Schedule') ?></h1></div>
 
             <div style="text-align: left; width: 100%;">
                 <p style="font-size: 14px;"><?php _backupGuardT('Scheduling your backups depends on our ability to execute cron jobs (scheduled tasks).') ?></p>
@@ -52,11 +52,13 @@ $systeminfo = '<a href = "' . $system_info_admin_url . '"> system info page </a>
             <p>&nbsp;</p>
             </div>
 
+			<?php if (empty($allSchedules)) : ?>
             <button class="pull-left btn btn-success sg-backup-action-buttons" data-toggle="modal"
                     data-modal-name="create-schedule" data-remote="modalCreateSchedule">
                 <span class="sg-backup-cross sg-backup-buttons-content"></span>
                 <span class="sg-backup-buttons-text sg-backup-buttons-content"><?php _backupGuardT('Create schedule') ?></span>
             </button>
+			<?php endif; ?>
             <div class="clearfix"></div>
             <br/>
             <table class="table table-striped sg-schedule paginated sg-backup-table">
@@ -139,6 +141,10 @@ $systeminfo = '<a href = "' . $system_info_admin_url . '"> system info page </a>
                 <ul class="pagination"></ul>
             </div>
         </fieldset>
+
+        <p style="font-size: 14px;"><?php _backupGuardT('* Only one online schedule can be active at a time. To create a new schedule, please delete the current one.') ?></p>
+
+
         <hr />
         <p style="text-align: center;"> <strong> <?php _backupGuardT('Wordpress Timezone :') ?></strong> <?php echo $timezone ?> | <strong><?php _backupGuardT('Server Current Time: '); ?> </strong> <?php echo $Timing->printTime(0, 0, time(), true ) ?> | <strong><?php _backupGuardT('UTC Current Time: '); ?> </strong> <?php echo $Timing->printTime(0, 0, null, false ) ?> |<strong> <?php _backupGuardT('Cron last run :') ?> </strong> <?php echo $cron_display ?>
         <hr />

@@ -863,15 +863,6 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
 			]
         );
 
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            [
-                'name' => 'ekit_client_logo_arrow_icon_typography',
-                'label' => esc_html__( 'Typography', 'elementskit-lite' ),
-                'selector' => '{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button i',
-            ]
-        );
-
         $this->add_responsive_control(
 			'ekit_client_logo_arrow_padding',
 			[
@@ -963,6 +954,9 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button.swiper-button-prev' => 'left: {{SIZE}}{{UNIT}};',
 				],
+				'condition' => [
+						"ekit_client_logo_position_popover_toggle!" => '',
+				],
 			]
         );
 
@@ -986,6 +980,9 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
 
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button.swiper-button-prev' => 'top: {{SIZE}}{{UNIT}};',
+				],
+				'condition' => [
+						"ekit_client_logo_position_popover_toggle!" => '',
 				],
 			]
         );
@@ -1019,6 +1016,9 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button.swiper-button-next' => 'right: {{SIZE}}{{UNIT}};',
 				],
+				'condition' => [
+						"ekit_client_logo_position_popover_toggle!" => '',
+				],
 			]
         );
 
@@ -1042,6 +1042,9 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button.swiper-button-next' => 'top: {{SIZE}}{{UNIT}};',
 				],
+				'condition' => [
+						"ekit_client_logo_position_popover_toggle!" => '',
+				],
 			]
         );
 
@@ -1060,7 +1063,7 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
         $this->add_control(
 			'ekit_client_logo_arrow_color',
 			[
-				'label' => esc_html__( 'Arrow Color', 'elementskit-lite' ),
+				'label' => esc_html__( 'Color', 'elementskit-lite' ),
 				'type' => Controls_Manager::COLOR,
 				'default' => '#101010',
 				'selectors' => [
@@ -1073,7 +1076,7 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
         $this->add_control(
 			'ekit_client_logo_arrow_background',
 			[
-				'label' => esc_html__( 'Arrow Background', 'elementskit-lite' ),
+				'label' => esc_html__( 'Background', 'elementskit-lite' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button' => 'background: {{VALUE}}',
@@ -1095,7 +1098,7 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
         $this->add_control(
 			'ekit_client_logo_arrow_hv_color',
 			[
-				'label' => esc_html__( 'Arrow Color', 'elementskit-lite' ),
+				'label' => esc_html__( 'Color', 'elementskit-lite' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button:hover' => 'color: {{VALUE}}',
@@ -1107,7 +1110,7 @@ class ElementsKit_Widget_Client_Logo extends Widget_Base {
         $this->add_control(
 			'ekit_client_logo_arrow_hover_background',
 			[
-				'label' => esc_html__( 'Arrow Background', 'elementskit-lite' ),
+				'label' => esc_html__( 'Background', 'elementskit-lite' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .elementskit-clients-slider .swiper-navigation-button:hover' => 'background: {{VALUE}}',

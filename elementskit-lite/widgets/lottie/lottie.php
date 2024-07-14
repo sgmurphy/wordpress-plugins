@@ -98,7 +98,7 @@ class ElementsKit_Widget_Lottie extends Widget_Base {
 					'dynamic'       => [
 						'active' => true,
 					],
-                    'placeholder'   => esc_html__( 'https://example.com/file.json', 'elementskit-lite' ),
+                    'placeholder'   => esc_html( 'https://example.com/file.json'),
                     'show_external' => false,
                     'condition'     => [
                         'ekit_lottie_type'  => 'url'
