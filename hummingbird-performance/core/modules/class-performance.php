@@ -401,4 +401,152 @@ class Performance extends Module {
 		return implode( ' ', $metrics );
 	}
 
+	/**
+	 * Get audits for MP.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return array
+	 */
+	public static function get_audits_for_mp() {
+		$audits = array(
+			'opportunities' => array(
+				'mobile'  => self::get_audits_from_performance_test( 'mobile', 'opportunities' ),
+				'desktop' => self::get_audits_from_performance_test( 'desktop', 'opportunities' ),
+			),
+			'diagnostics'   => array(
+				'mobile'  => self::get_audits_from_performance_test( 'mobile', 'diagnostics' ),
+				'desktop' => self::get_audits_from_performance_test( 'desktop', 'diagnostics' ),
+			),
+			'passed'        => array(
+				'mobile'  => self::get_audits_from_performance_test( 'mobile', 'passed' ),
+				'desktop' => self::get_audits_from_performance_test( 'desktop', 'passed' ),
+			),
+		);
+
+		return $audits;
+	}
+
+	/**
+	 * Get audits from the performance test.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $device     Device type.
+	 * @param string $audit_type Audit type.
+	 *
+	 * @return string
+	 */
+	public static function get_audits_from_performance_test( $device = 'desktop', $audit_type = 'opportunities' ) {
+		$last_report = self::get_last_report();
+		$get_audits  = isset( $last_report->data->$device->audits->$audit_type ) ? $last_report->data->$device->audits->$audit_type : array();
+
+		$performance_audit = array();
+		if ( ! empty( $get_audits ) ) {
+			foreach ( $get_audits as $key => $value ) {
+				$performance_audit[] = $value->title;
+			}
+		}
+
+		return ! empty( $performance_audit ) ? implode( ',', $performance_audit ) : 'na';
+	}
+
+	/** Get performance report error message if any.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param object $report Performance report.
+	 *
+	 * @return bool
+	 */
+	public static function get_performance_report_error( $report ) {
+		$error_details = '';
+		// Is that a report with errors?
+		if ( is_wp_error( $report ) ) {
+			$error_details = $report->get_error_data();
+		} elseif ( $report && is_null( $report->data->desktop->metrics ) ) {
+			$error_details = "The performance test didn't return any results";
+		}
+
+		return $error_details;
+	}
+
+	/**
+	 * Get LCP submetrics for MP.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return array
+	 */
+	public static function get_lcp_submetrics_for_mp() {
+		$lcp_submetrics = array(
+			'lcp_ttfb'         => array(
+				'mobile'  => self::get_lcp_submetrics( 'mobile', 'TTFB' ),
+				'desktop' => self::get_lcp_submetrics( 'desktop', 'TTFB' ),
+			),
+			'lcp_load_delay'   => array(
+				'mobile'  => self::get_lcp_submetrics( 'mobile', 'Load Delay' ),
+				'desktop' => self::get_lcp_submetrics( 'desktop', 'Load Delay' ),
+			),
+			'lcp_render_delay' => array(
+				'mobile'  => self::get_lcp_submetrics( 'mobile', 'Render Delay' ),
+				'desktop' => self::get_lcp_submetrics( 'desktop', 'Render Delay' ),
+			),
+			'lcp_load_time'    => array(
+				'mobile'  => self::get_lcp_submetrics( 'mobile', 'Load Time' ),
+				'desktop' => self::get_lcp_submetrics( 'desktop', 'Load Time' ),
+			),
+			'lcp_element'      => array(
+				'mobile'  => self::get_lcp_submetrics( 'mobile', 'passed', true ),
+				'desktop' => self::get_lcp_submetrics( 'desktop', 'passed', true ),
+			),
+		);
+
+		return $lcp_submetrics;
+	}
+
+	/**
+	 * Get the LCP submetrics.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $device      Device type.
+	 * @param string $phase       Phase.
+	 * @param bool   $lcp_element LCP element.
+	 *
+	 * @return string
+	 */
+	public static function get_lcp_submetrics( $device = 'desktop', $phase = 'TTFB', $lcp_element = false ) {
+		$report      = self::get_last_report();
+		$lcp         = 'largest-contentful-paint-element';
+		$submetrics  = '';
+		$lcp_snippet = '';
+
+		if ( ! empty( $report->data->$device->audits->opportunities->$lcp->details->items[1]->items ) ) {
+			$submetrics  = $report->data->$device->audits->opportunities->$lcp->details->items[1]->items;
+			$lcp_snippet = $report->data->$device->audits->opportunities->$lcp->details->items[0]->items[0]->node;
+		} elseif ( ! empty( $report->data->$device->audits->diagnostics->$lcp->details->items[1]->items ) ) {
+			$submetrics  = $report->data->$device->audits->diagnostics->$lcp->details->items[1]->items;
+			$lcp_snippet = $report->data->$device->audits->diagnostics->$lcp->details->items[0]->items[0]->node;
+		} elseif ( ! empty( $report->data->$device->audits->passed->$lcp->details->items[1]->items ) ) {
+			$submetrics  = $report->data->$device->audits->passed->$lcp->details->items[1]->items;
+			$lcp_snippet = $report->data->$device->audits->passed->$lcp->details->items[0]->items[0]->node;
+		}
+
+		if ( true === $lcp_element ) {
+			return ! empty( $lcp_snippet->nodeLabel ) && ! empty( $lcp_snippet->snippet ) ? $lcp_snippet->nodeLabel . $lcp_snippet->snippet : 'na';
+		}
+
+		if ( empty( $submetrics ) ) {
+			return 'na';
+		}
+
+		foreach ( $submetrics as $submetric ) {
+			if ( $phase === $submetric->phase ) {
+				return $submetric->timing;
+			}
+		}
+
+		return 'na';
+	}
 }

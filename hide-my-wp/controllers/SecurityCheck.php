@@ -1762,7 +1762,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
         if (!$found = strpos($this->html, site_url('wp-login.php')) ) {
             if(!HMWP_Classes_Tools::getOption('hmwp_bruteforce')) {
                 //If the custom login path is visible in the source code and Brute force is not activated
-                $found = strpos($this->html, site_url(HMWP_Classes_Tools::getOption('hmwp_login_url')));
+                $found = strpos($this->html, site_url('/'.HMWP_Classes_Tools::getOption('hmwp_login_url').'/'));
             }
         }
 
@@ -1787,7 +1787,7 @@ class HMWP_Controllers_SecurityCheck extends HMWP_Classes_FrontController
             }
         }
 
-        $found = strpos($this->html, site_url(HMWP_Classes_Tools::getOption('hmwp_admin_url')));
+        $found = strpos($this->html, site_url('/'.HMWP_Classes_Tools::getOption('hmwp_admin_url').'/'));
 
         if(HMWP_Classes_Tools::getDefault('hmwp_admin-ajax_url') == HMWP_Classes_Tools::getOption('hmwp_admin-ajax_url')){
             return array(

@@ -23,7 +23,7 @@ class ConditionManager {
 	 * @var ThemeBuilder
 	 */
 	private $builder;
-	
+
 	private $location_cache = [];
 
 	public function __construct( $builder ) {
@@ -244,6 +244,11 @@ class ConditionManager {
 				}
 
 				if ( $is_passed ) {
+					// Get the post ID in the current language
+					if($template_id_locale = apply_filters( 'wpml_object_id', $template_id )){
+						$template_id = $template_id_locale;
+					}
+
 					$post_status = get_post_status( $template_id );
 
 					if ( $post_status !== 'publish' ) {

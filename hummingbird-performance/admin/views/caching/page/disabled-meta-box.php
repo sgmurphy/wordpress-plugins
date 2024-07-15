@@ -4,7 +4,9 @@
  *
  * @package Hummingbird
  *
- * @var string $activate_url  Activation URL.
+ * @var string $activate_url          Activation URL.
+ * @var bool   $is_fast_cgi_supported FastCGI support.
+ * @var bool   $is_homepage_preload   Homepage preload status.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 	</p>
 
-	<a href="<?php echo esc_url( $activate_url ); ?>" class="sui-button sui-button-blue" type="button" onclick="wphbMixPanel.enableFeature( 'Page Caching' )">
+	<a href="<?php echo esc_url( $activate_url ); ?>" class="sui-button sui-button-blue" type="button" onclick="wphbMixPanel.trackPageCachingSettings( 'activate', '<?php echo $is_fast_cgi_supported ? 'hosting_static_cache' : 'Page Caching'; ?>', 'caching_settings', 'na', '<?php echo esc_attr( $is_homepage_preload ); ?>' )">
 		<?php esc_html_e( 'Activate', 'wphb' ); ?>
 	</a>
 </div>

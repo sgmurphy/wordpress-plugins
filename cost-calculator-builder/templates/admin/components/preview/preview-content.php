@@ -1,6 +1,8 @@
 <?php
+$calc_id          = $_GET['id'] ?? '';
 $default_img      = CALC_URL . '/frontend/dist/img/default.png';
 $general_settings = \cBuilder\Classes\CCBSettingsData::get_calc_global_settings();
+$settings         = \cBuilder\Classes\CCBSettingsData::get_calc_single_settings( $calc_id );
 $get_date_format  = get_option( 'date_format' );
 ?>
 
@@ -199,7 +201,7 @@ $get_date_format  = get_option( 'date_format' );
 						<div class="calc-subtotal-list">
 							<?php if ( ccb_pro_active() ) : ?>
 								<cost-pro-features inline-template :settings="content.settings">
-									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'admin/pro-features', array( 'settings' => array(), 'general_settings' => array(), 'invoice' => $general_settings['invoice'] ?? array() ) ); // phpcs:ignore ?>
+									<?php echo \cBuilder\Classes\CCBProTemplate::load( 'admin/pro-features', array( 'settings' => $settings, 'general_settings' => $general_settings, 'invoice' => $general_settings['invoice'] ?? array() ) ); // phpcs:ignore ?>
 								</cost-pro-features>
 							<?php endif; ?>
 						</div>

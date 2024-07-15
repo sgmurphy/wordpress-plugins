@@ -61,16 +61,16 @@ else
 ?>
 
 
-<h1><?php _e('Schedule','appointment-hour-booking'); ?> - <?php if ($this->item != 0) echo esc_html($myform[0]->form_name); else echo 'All forms'; ?></h1>
+<h1><?php esc_html_e('Schedule','appointment-hour-booking'); ?> - <?php if ($this->item != 0) echo esc_html($myform[0]->form_name); else echo 'All forms'; ?></h1>
 
 <div class="ahb-buttons-container">
 
     <?php if (!isset($_GET["calendarview"])) { ?>
-     <input type="button" value="<?php _e('Change to Schedule Calendar View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1&calendarview=1';" />
+     <input type="button" value="<?php esc_html_e('Change to Schedule Calendar View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1&calendarview=1';" />
     <?php } else { ?>
-     <input type="button" value="<?php _e('Change to Schedule List View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1';" />
+     <input type="button" value="<?php esc_html_e('Change to Schedule List View','appointment-hour-booking'); ?>" class="button button-primary" onclick="document.location='?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&schedule=1';" />
     <?php } ?>
-	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php _e('Return to the calendars list','appointment-hour-booking'); ?></a>
+	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php esc_html_e('Return to the calendars list','appointment-hour-booking'); ?></a>
 	<div class="clear"></div>
 </div>
 
@@ -82,15 +82,15 @@ else
         <input type="hidden" name="page" value="<?php echo esc_attr($this->menu_parameter); ?>" />
         <input type="hidden" name="cal" value="<?php echo intval($this->item); ?>" />
         <input type="hidden" name="schedule" value="1" />
-		<nobr><label><?php _e('From','appointment-hour-booking'); ?>:</label> <input autocomplete="off" type="text" id="dfrom" name="dfrom" value="<?php echo esc_attr($dfrom_formatted); ?>" >&nbsp;&nbsp;</nobr>
-		<nobr><label><?php _e('To','appointment-hour-booking'); ?>:</label> <input autocomplete="off" type="text" id="dto" name="dto" value="<?php echo esc_attr($dto_formatted); ?>" >&nbsp;&nbsp;</nobr>
-        <nobr><?php _e('Paid Status','appointment-hour-booking'); ?>: <select id="paid" name="paid">
-         <option value=""><?php _e('All','appointment-hour-booking'); ?></option>
-         <option value="1" <?php if (!empty($_GET["paid"])) echo ' selected'; ?>><?php _e('Paid only','appointment-hour-booking'); ?></option>
+		<nobr><label><?php esc_html_e('From','appointment-hour-booking'); ?>:</label> <input autocomplete="off" type="text" id="dfrom" name="dfrom" value="<?php echo esc_attr($dfrom_formatted); ?>" >&nbsp;&nbsp;</nobr>
+		<nobr><label><?php esc_html_e('To','appointment-hour-booking'); ?>:</label> <input autocomplete="off" type="text" id="dto" name="dto" value="<?php echo esc_attr($dto_formatted); ?>" >&nbsp;&nbsp;</nobr>
+        <nobr><?php esc_html_e('Paid Status','appointment-hour-booking'); ?>: <select id="paid" name="paid">
+         <option value=""><?php esc_html_e('All','appointment-hour-booking'); ?></option>
+         <option value="1" <?php if (!empty($_GET["paid"])) echo ' selected'; ?>><?php esc_html_e('Paid only','appointment-hour-booking'); ?></option>
       </select></nobr>
-        <nobr><?php _e('Booking Status','appointment-hour-booking'); ?>: <?php $this->render_status_box('status', (!isset($_GET["status"])?'all':sanitize_text_field($_GET["status"])), true); ?></nobr>
-		<nobr><label><?php _e('Item','appointment-hour-booking'); ?>:</label> <select id="cal" name="cal">
-          <?php if ($current_user_access) { ?> <option value="0">[<?php _e('All Items','appointment-hour-booking'); ?>]</option><?php } ?>
+        <nobr><?php esc_html_e('Booking Status','appointment-hour-booking'); ?>: <?php $this->render_status_box('status', (!isset($_GET["status"])?'all':sanitize_text_field($_GET["status"])), true); ?></nobr>
+		<nobr><label><?php esc_html_e('Item','appointment-hour-booking'); ?>:</label> <select id="cal" name="cal">
+          <?php if ($current_user_access) { ?> <option value="0">[<?php esc_html_e('All Items','appointment-hour-booking'); ?>]</option><?php } ?>
    <?php
     $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.$this->table_items );  // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
     $saved_id = $this->item;
@@ -105,8 +105,8 @@ else
     </select></nobr>
        <div style="float:right;margin-top:3px;">
 		<nobr>
-            <input type="submit" name="ds" value="<?php _e('Filter','appointment-hour-booking'); ?>" class="button-primary button" style="">
-			<input type="submit" name="<?php echo esc_attr($this->prefix); ?>_csv2" value="<?php _e('Export to CSV','appointment-hour-booking'); ?>" class="button" style="margin-left:10px;">
+            <input type="submit" name="ds" value="<?php esc_html_e('Filter','appointment-hour-booking'); ?>" class="button-primary button" style="">
+			<input type="submit" name="<?php echo esc_attr($this->prefix); ?>_csv2" value="<?php esc_html_e('Export to CSV','appointment-hour-booking'); ?>" class="button" style="margin-left:10px;">
 		</nobr>
        </div>
       </form>
@@ -120,15 +120,15 @@ else
 <div id="dex_printable_contents">
 
  <div class="cpapp_no_wrap">
-  <div class="cpappb_field_0 cpappb_field_header"><?php _e('Date','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_1 cpappb_field_header"><?php _e('Slot','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_2 cpappb_field_header"><?php _e('Service','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_3 cpappb_field_header"><?php _e('Qty','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_4 cpappb_field_header"><?php _e('Paid','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_5 cpappb_field_header"><?php _e('Email','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_6 cpappb_field_header"><?php _e('Data','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_7 cpappb_field_header"><?php _e('Status','appointment-hour-booking'); ?></div>
-  <div class="cpappb_field_8 cpappb_field_header"><?php _e('Options','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_0 cpappb_field_header"><?php esc_html_e('Date','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_1 cpappb_field_header"><?php esc_html_e('Slot','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_2 cpappb_field_header"><?php esc_html_e('Service','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_3 cpappb_field_header"><?php esc_html_e('Qty','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_4 cpappb_field_header"><?php esc_html_e('Paid','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_5 cpappb_field_header"><?php esc_html_e('Email','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_6 cpappb_field_header"><?php esc_html_e('Data','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_7 cpappb_field_header"><?php esc_html_e('Status','appointment-hour-booking'); ?></div>
+  <div class="cpappb_field_8 cpappb_field_header"><?php esc_html_e('Options','appointment-hour-booking'); ?></div>
   <div class="cpapp_break"></div>
  </div>
  <div class="cpapp_break"></div>
@@ -148,8 +148,8 @@ echo $this->filter_list( array(   // phpcs:ignore WordPress.Security.EscapeOutpu
 
 
 <div class="ahb-buttons-container">
-    <input type="button" value="<?php _e('Print','appointment-hour-booking'); ?>" class="button button-primary" onclick="do_dexapp_print();" />
-	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php _e('Return to the calendars list','appointment-hour-booking'); ?></a>
+    <input type="button" value="<?php esc_html_e('Print','appointment-hour-booking'); ?>" class="button button-primary" onclick="do_dexapp_print();" />
+	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php esc_html_e('Return to the calendars list','appointment-hour-booking'); ?></a>
 	<div class="clear"></div>
 </div>
 
@@ -158,7 +158,7 @@ echo $this->filter_list( array(   // phpcs:ignore WordPress.Security.EscapeOutpu
 
 <div id="cpabc_printable_contents">
 
-<p><?php _e('The purpose of this page is to <strong>display the bookings/schedule in a calendar view</strong>. You can add bookings from the public booking form or','appointment-hour-booking'); ?> <a href="?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&addbk=1"><?php _e('add bookings from the dashboard','appointment-hour-booking'); ?></a> <?php _e('and the bookings will appear in this calendar.<br />For CSV export, print and filter options switch to the "<strong>List View</strong>" with the button above this text.','appointment-hour-booking'); ?> </p>
+<p><?php _e('The purpose of this page is to <strong>display the bookings/schedule in a calendar view</strong>. You can add bookings from the public booking form or','appointment-hour-booking'); ?> <a href="?page=<?php echo esc_attr($this->menu_parameter); ?>&cal=<?php echo intval($this->item); ?>&addbk=1"><?php esc_html_e('add bookings from the dashboard','appointment-hour-booking'); ?></a> <?php _e('and the bookings will appear in this calendar.<br />For CSV export, print and filter options switch to the "<strong>List View</strong>" with the button above this text.','appointment-hour-booking'); ?> </p>
 <div class="clearer"></div>
 
             <script type="text/javascript">

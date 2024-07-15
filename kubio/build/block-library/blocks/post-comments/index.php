@@ -56,7 +56,7 @@ class PostCommentsBlock extends BlockBase {
 		if ( comments_open( get_the_ID() ) ) {
 			comments_template();
 		} else {
-			return sprintf( '<p class="comments-disabled">%s</p>', $atts['disabled'] );
+			return sprintf( '<p class="comments-disabled">%s</p>', esc_attr($atts['disabled']) );
 		}
 		$content = ob_get_clean();
 
@@ -81,11 +81,11 @@ class PostCommentsBlock extends BlockBase {
 			self::CONTAINER => array(
 				'innerHTML' => $this->getPostComments(
 					array(
-						'none'        => $this->getAttribute( 'noCommentsTitle' ),
-						'one'         => $this->getAttribute( 'oneCommentTitle' ),
-						'multiple'    => $this->getAttribute( 'multipleComments' ),
-						'disabled'    => $this->getAttribute( 'commentsDisabled' ),
-						'avatar_size' => $this->getAttribute( 'avatarSize' ),
+						'none'        => wp_kses_post($this->getAttribute( 'noCommentsTitle' )),
+						'one'         => wp_kses_post($this->getAttribute( 'oneCommentTitle' )),
+						'multiple'    => wp_kses_post($this->getAttribute( 'multipleComments' )),
+						'disabled'    => wp_kses_post($this->getAttribute( 'commentsDisabled' )),
+						'avatar_size' => wp_kses_post($this->getAttribute( 'avatarSize' )),
 						'html5'       => true,
 					)
 				),

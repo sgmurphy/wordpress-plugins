@@ -5,6 +5,7 @@
 
 	const WPHBGlobal = {
 		init() {
+			this.registerUpsellClick();
 			this.registerClearAllCache();
 			this.registerClearNetworkCache();
 			this.registerClearCacheFromNotice();
@@ -52,6 +53,32 @@
 			btn.addEventListener( 'click', () =>
 				this.post( 'wphb_global_clear_cache' )
 			);
+		},
+
+		/**
+		 * Track upsell menu click.
+		 *
+		 * @since 3.9.0
+		 */
+		registerUpsellClick() {
+			const upsellSubmenuLink = document.querySelector( '#toplevel_page_wphb a[href^="https://wpmudev.com"]' );
+
+			if ( ! upsellSubmenuLink ) {
+				return;
+			}
+
+			if ( ! wphb.mixpanel.enabled ) {
+				return;
+			}
+
+			if ( ! wphbGlobal.is_hb_page ) {
+				require( './mixpanel' );
+				window.wphbMixPanel.init();
+			}
+
+			upsellSubmenuLink.addEventListener( 'click', () => {
+				window.wphbMixPanel.trackProUpsell( 'pro_upsell', 'cta_clicked' );
+			});	
 		},
 
 		/**

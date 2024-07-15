@@ -5,11 +5,11 @@ Plugin URI: https://webheadcoder.com/clear-cache-for-me/
 Description: Purges all cache on WPEngine, W3 Total Cache, WP Super Cache, WP Fastest Cache when updating widgets, menus, settings.  Forces a browser to reload a theme's CSS and JS files.
 Author: Webhead LLC
 Author URI: https://webheadcoder.com 
-Version: 2.1.1
+Version: 2.2
 */
 
 
-define( 'CCFM_VERSION', '2.1.1' );
+define( 'CCFM_VERSION', '2.2' );
 define( 'CCFM_PLUGIN', __FILE__ );
 
 require_once( 'caching-plugins.php' );
@@ -20,25 +20,7 @@ require_once( 'options-page.php' );
 function ccfm_plugins_loaded() {
     load_plugin_textdomain( 'ccfm', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
-    $old_permissions = get_option( 'ccfm_permission' );
-    if ( !empty( $old_permissions ) ) {
-        // migrate it to the new options
-        $options = get_option( 'ccfm_options', array() );
-        $options['btn_cap'] = $old_permissions;
-        update_option( 'ccfm_options', $options );
-        delete_option( 'ccfm_permission' );
-    }
-
-    $old_infotext = get_option( 'ccfm_infotext' );
-    if ( !empty( $old_infotext ) ) {
-        // migrate it to the new options
-        $options = get_option( 'ccfm_options', array() );
-        $options['btn_instructions'] = $old_infotext;
-        update_option( 'ccfm_options', $options );
-        delete_option( 'ccfm_infotext' );
-    }
-
-    if ( apply_filters( 'ccfm_clear_cache_on_wp_activity', is_user_logged_in() ) ) {
+    if ( apply_filters( 'ccfm_clear_cache_on_wp_activity', true ) ) {
         add_action( 'activated_plugin', 'ccfm_clear_cache_for_wp_activity' );
         add_action( 'deactivated_plugin', 'ccfm_clear_cache_for_wp_activity' );
         add_action( 'upgrader_process_complete', 'ccfm_clear_cache_for_wp_activity' );
@@ -91,6 +73,7 @@ function ccfm_admin_init() {
 
         //detect WooThemes settings changes
         add_action( 'update_option_woo_options', 'ccfm_clear_cache_for_woo_options' );
+
 
         if ( class_exists( 'ACF' ) ) {
             add_action( 'save_post', 'ccfm_acf_update_fields', 10, 2 );

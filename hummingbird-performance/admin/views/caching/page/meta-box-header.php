@@ -4,8 +4,10 @@
  *
  * @package Hummingbird
  *
- * @var string $title       Module title.
- * @var bool   $has_fastcgi Has FastCGI enabled.
+ * @var string $title                 Module title.
+ * @var bool   $has_fastcgi           Has FastCGI enabled.
+ * @var bool   $is_fast_cgi_supported Is FastCGI supported.
+ * @var bool   $is_subsite            Is subsite.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,32 +17,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <h3  class="sui-box-title"><?php echo esc_html( $title ); ?></h3>
 <div class="sui-actions-right">
-	<?php if ( $has_fastcgi && ( ( is_multisite() && is_network_admin() ) || ! is_multisite() ) ) : ?>
-		<button type="button" class="sui-button sui-button-ghost" id="wphb-disable-fastcgi" aria-live="polite">
-			<!-- Default State Content -->
-			<span class="sui-button-text-default">
-				<span class="sui-icon-power-on-off" aria-hidden="true"></span>
-				<?php esc_html_e( 'Deactivate', 'wphb' ); ?>
+	<?php if ( $is_fast_cgi_supported && ! $is_subsite ) { ?>
+		<?php
+			$tooltip_message = $has_fastcgi ? __( 'Use site level cache instead of server level cache. Use this if you’re facing issues with Static Server Cache.', 'wphb' ) : __( 'Switch to Static Server Cache to support up to 10 times more concurrent visitors.', 'wphb' );
+			$method_name     = $has_fastcgi ? 'local_page_cache' : 'hosting_static_cache';
+		?>
+		<span class="sui-tooltip sui-tooltip-constrained sui-tooltip-bottom" id="wphb_switch_cache_info" data-tooltip="<?php echo esc_html( $tooltip_message ); ?>">
+			<span class="sui-icon-info" aria-hidden="true"></span>
+		</span>
+		<a class="sui-actions-right sui-sm" style="margin-right: 10px;" href="javascript:void(0);"
+			id="wphb-switch-page-cache-method" data-method="<?php echo esc_attr( $method_name ); ?>"
+			aria-hidden="true"
+			>
+			<span class="sui-description" style="margin: 0 0 0 5px;">
+				<?php
+					$method_title = $has_fastcgi ? __( 'Local Page Cache', 'wphb' ) : __( 'Static Server Cache', 'wphb' );
+					$style_attr   = $has_fastcgi ? 'font-weight:700; color:#888888' : 'font-weight:700; color:#17A8E3';
+					printf(
+						/* translators: Switch Page cache method link */
+						esc_html__( 'Switch to %s method', 'wphb' ),
+						'<span style="' . esc_attr( $style_attr ) . '">' . esc_html( $method_title ) . '</span>'
+					);
+				?>
 			</span>
-
 			<!-- Loading State Content -->
-			<span class="sui-button-text-onload">
+			<span class="sui-button-text-onload" style="display: none;">
 				<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
-				<?php esc_html_e( 'Deactivating', 'wphb' ); ?>
+				<?php esc_html_e( 'Switching', 'wphb' ); ?>
 			</span>
-		</button>
-	<?php endif; ?>
-
-	<button type="button" class="sui-button sui-button-ghost sui-tooltip sui-tooltip-top-right" id="wphb-clear-cache" data-module="page_cache" data-tooltip="<?php esc_attr_e( 'Clear all locally cached static pages', 'wphb' ); ?>" aria-live="polite">
-		<!-- Default State Content -->
-		<span class="sui-button-text-default">
-			<?php esc_html_e( 'Clear cache', 'wphb' ); ?>
-		</span>
-
-		<!-- Loading State Content -->
-		<span class="sui-button-text-onload">
-			<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
-			<?php esc_html_e( 'Clearing cache', 'wphb' ); ?>
-		</span>
-	</button>
+		</a>
+	<?php } ?>
 </div>

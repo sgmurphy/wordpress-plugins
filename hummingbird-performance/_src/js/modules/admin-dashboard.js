@@ -42,6 +42,10 @@ import Fetcher from '../utils/fetcher';
 				} );
 			} );
 
+			$( '#wphb-switch-page-cache-method' ).on( 'click', function( e ) {
+				WPHB_Admin.caching.switchCacheMethod( e );
+			} );
+
 			// Critical CSS checkbox update status.
 			const dashboardCritical = $( '#critical_css_toggle' );
 			dashboardCritical.on( 'change', function() {
@@ -94,9 +98,26 @@ import Fetcher from '../utils/fetcher';
 		 * @param {Object} element Target button that was clicked.
 		 */
 		 hideUpgradeSummary: ( element ) => {
-			window.SUI.closeModal();
+			const switchCache = element.getAttribute( 'data-switch-to-fastcgi' );
+			if ( 'switch' !== switchCache ) {
+				window.SUI.closeModal();
+			}
+
 			Fetcher.common.call( 'wphb_hide_upgrade_summary' ).then( () => {
-				if ( element.hasAttribute( 'href' ) ) {
+				if ( 'switch' === switchCache ) {
+					element.classList.add( 'sui-button', 'sui-button-onload-text' );
+					Fetcher.caching.switchCacheMethod( 'hosting_static_cache' ).then( ( response ) => {
+						if ( 'undefined' !== typeof response && 'error' !== response.isFastCGIActivated ) {
+							window.location.href = wphb.links.cachingPageURL;
+						} else {
+							window.SUI.closeModal();
+							const errorMessage = 'undefined' !== typeof response && 'error' === response.isFastCGIActivated ? response.fastCGIResponse : getString( 'errorSettingsUpdate' );
+							WPHB_Admin.notices.show( errorMessage, 'error' );
+						}
+					} );
+				}
+
+				if ( element.hasAttribute( 'href' ) && element.href.indexOf( 'wpmudev.com' ) === -1 ) {
 					window.location.href = element.href;
 				}
 			} );

@@ -16,6 +16,14 @@ class Dependencies extends API {
 	private $endpoint = 'dependencies';
 	public $query = 'dependencies{ id, name, icon, plugin_file, plugin_original_slug, is_pro, link }';
 
+	public function __construct() {
+		parent::__construct();
+
+		if(!empty($_GET['disable_redirect'])) {
+			add_filter('wp_redirect', '__return_false', 999);
+		}
+	}
+
 	public function permission_check( WP_REST_Request $request ) {
 		$this->request = $request;
 		// $_route = $request->get_route();

@@ -6,28 +6,28 @@ use Codexpert\Plugin\Base;
 use Codexpert\Plugin\Settings as Settings_API;
 
 class Regenerate_Thumbnails extends Base {
-    public $slug;
+	public $slug;
 	public $version;
 	public $id = 'regenerate-thumbnails';
 
 	/**
 	 * Constructor
 	 */
-    public function __construct() {
-        $this->plugin	= get_plugin_data( THUMBPRESS );
-        $this->slug		= $this->plugin['TextDomain'];
-        $this->version	= $this->plugin['Version'];
+	public function __construct() {
+		$this->plugin	= get_plugin_data( THUMBPRESS );
+		$this->slug		= $this->plugin['TextDomain'];
+		$this->version	= $this->plugin['Version'];
 
-        $this->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
-        $this->action( 'plugins_loaded', 'init_menu', 11 );
-        $this->action( 'wp_ajax_image_sizes-regen-thumbs', 'regen_thumbs' );
-        $this->priv( 'thumbpress_schedule_regenerate-thumbs', 'schedule_regenerate' );
+		$this->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
+		$this->action( 'plugins_loaded', 'init_menu', 11 );
+		$this->action( 'wp_ajax_image_sizes-regen-thumbs', 'regen_thumbs' );
+		$this->priv( 'thumbpress_schedule_regenerate-thumbs', 'schedule_regenerate' );
 		$this->action( 'thumbpress_regenerate_all_image', 'regenerate_all_image' );
-    }
+	}
 
-    public function enqueue_scripts() {
-        wp_enqueue_script( "regenerate-thumbnails-js", plugins_url( 'js/admin.js', __FILE__), [ 'jquery' ], $this->version, true );
-    }
+	public function enqueue_scripts() {
+		wp_enqueue_script( "regenerate-thumbnails-js", plugins_url( 'js/admin.js', __FILE__), [ 'jquery' ], $this->version, true );
+	}
 
 	public function init_menu() {
 		$modules_settings = [
@@ -77,6 +77,8 @@ class Regenerate_Thumbnails extends Base {
 
 		$images 			= $wpdb->get_results( $wpdb->prepare( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%'  LIMIT %d OFFSET %d", $limit, $offset ) );
 		$offsets 			= $offset + count( $images );
+		
+		require_once ABSPATH . 'wp-admin/includes/image.php';
 
 		$has_image 			= false;
 		if ( count( $images ) > 0 ) {
@@ -148,6 +150,7 @@ class Regenerate_Thumbnails extends Base {
 		wp_send_json( $response );
 	}
 	public function schedule_regenerate() {
+		
 		$response = [
 			'status'	=> 0,
 			'message'	=> __( 'Failed', 'image-sizes' ),
@@ -158,9 +161,25 @@ class Regenerate_Thumbnails extends Base {
 			wp_send_json_error( $response );
 		}
 
-		$action_id = as_schedule_single_action( wp_date( 'U' ) + 5, 'thumbpress_regenerate_all_image' );
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		global $wpdb;
+
+		delete_option( 'thumbpress_regenerate_progress' );
+		
+		 if ( isset( $_POST['limit'] ) ) {
+			$limit_value = intval( $_POST['limit'] );
+			update_option( 'thumbpress_regenerate_limit', $limit_value );
+		}
+		$offset 	= 0;
+		$action_id 	= as_schedule_single_action( wp_date( 'U' ) + 10, 'thumbpress_regenerate_all_image',  ['offset' => $offset] );
 
 		thumbpress_add_schedule_log( $this->id, $action_id );
+
+	
+		$images 		= $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'attachment' AND post_mime_type LIKE 'image/%' " ) );
+		$total_images 	= count( $images );
+		
+		update_option( 'thumbpress_regenerate_total_image', $total_images );
 
 		if( ! $action_id ) {
 			$response['message'] = __( 'Failed to schedule image regeneration', 'image-sizes' );
@@ -175,9 +194,22 @@ class Regenerate_Thumbnails extends Base {
 
 	}
 
-	public function regenerate_all_image() {
+	public function regenerate_all_image( $offset ) {
+		require_once ABSPATH . 'wp-admin/includes/image.php';
 		global $wpdb;
-		$images = $wpdb->get_results( $wpdb->prepare( "SELECT `ID` FROM `$wpdb->posts` WHERE `post_type` = 'attachment' AND `post_mime_type` LIKE 'image/%' " ) );
+
+		$limit 				= get_option( 'thumbpress_regenerate_limit', 500 );
+		$total_attachments 	= get_option( 'thumbpress_regenerate_total_image' );
+		$images 			= $wpdb->prepare( "
+			SELECT ID
+			FROM {$wpdb->posts}
+			WHERE post_type = 'attachment'
+			AND post_mime_type LIKE 'image%'
+			LIMIT %d OFFSET %d
+		", $limit, $offset );
+		$images 			= $wpdb->get_results( $images );
+		$action_id 			= thumbpress_get_last_action_status_by_module_name( 'regenerate-thumbnails', 'action_id' );
+
 		if ( count( $images ) > 0 ) {
 			foreach ( $images as $image ) {
 				$image_id 		= $image->ID;
@@ -185,7 +217,7 @@ class Regenerate_Thumbnails extends Base {
 				$file_info 		= pathinfo( $main_img );
 				$extension 		= strtolower( $file_info['extension'] );
 				$main_img 		= str_replace( "-scaled.{$extension}", ".{$extension}", $main_img );
-	
+
 				// remove old thumbnails first
 				$old_metadata 	= wp_get_attachment_metadata( $image_id );
 				$thumb_dir 		= dirname( $main_img ) . DIRECTORY_SEPARATOR;
@@ -203,20 +235,30 @@ class Regenerate_Thumbnails extends Base {
 					wp_delete_file( $thumb_dir . $file_info['basename'] );
 					$thumbs_deleted++;
 				}
-	
+
 				// generate new thumbnails
 				if ( false !== $main_img && file_exists( $main_img ) ) {
 					$new_thumbs = wp_generate_attachment_metadata( $image_id, $main_img );
+
 					
 					wp_update_attachment_metadata( $image_id, $new_thumbs );
 
 					$updated_metadata 	= wp_get_attachment_metadata( $image_id );
 					$file_path 			= $updated_metadata['file'];
-	
+
 					update_post_meta( $image_id, '_wp_attached_file', $file_path );
 
 					$thumbs_created += count( $new_thumbs['sizes'] );
 				}
+			}
+			$count 		= $offset + count( $images );
+			$progress 	= ( $count / $total_attachments ) * 100;
+			update_option( 'thumbpress_regenerate_progress', $progress );
+		
+			if ( $count < $total_attachments ) {
+				$new_offset = $offset + $limit;
+				$action_id 	= as_schedule_single_action( wp_date('U') + 10, 'thumbpress_regenerate_all_image', ['offset' => $new_offset] );
+				thumbpress_add_schedule_log( $this->id, $action_id );
 			}
 		}
 	}

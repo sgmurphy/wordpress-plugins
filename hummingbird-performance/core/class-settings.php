@@ -94,6 +94,8 @@ class Settings {
 				'font_optimization'                  => false,
 				'preload_fonts'                      => '',
 				'font_swap'                          => false,
+				'font_display_value'                 => 'swap',
+				'preload_fonts_mode'                 => 'automatic',
 				'log'                                => false,
 				'file_path'                          => '',
 				// Only for multisites. Toggles minification in a subsite
@@ -172,10 +174,10 @@ class Settings {
 					'varnish' => false,
 					'opcache' => false,
 				),
-				'preload'      => false,
+				'preload'      => true,
 				'preload_type' => array(
 					'home_page' => true,
-					'on_clear'  => true,
+					'on_clear'  => false,
 				),
 			),
 			'caching'     => array(
@@ -287,7 +289,7 @@ class Settings {
 
 		$options = array(
 			'caching'     => array( 'expiry_css', 'expiry_javascript', 'expiry_media', 'expiry_images' ),
-			'minify'      => array( 'minify_blog', 'view', 'type', 'do_assets', 'block', 'dont_minify', 'dont_combine', 'position', 'defer', 'inline', 'nocdn', 'fonts', 'preload', 'async', 'ao_completed_time', 'delay_js', 'delay_js_exclusions', 'delay_js_exclusion_list', 'delay_js_timeout', 'critical_css', 'critical_css_type', 'critical_css_remove_type', 'critical_css_mode', 'critical_page_types', 'critical_skipped_custom_post_types', 'font_optimization', 'preload_fonts', 'font_swap' ),
+			'minify'      => array( 'minify_blog', 'view', 'type', 'do_assets', 'block', 'dont_minify', 'dont_combine', 'position', 'defer', 'inline', 'nocdn', 'fonts', 'preload', 'async', 'ao_completed_time', 'delay_js', 'delay_js_exclusions', 'delay_js_exclusion_list', 'delay_js_timeout', 'critical_css', 'critical_css_type', 'critical_css_remove_type', 'critical_css_mode', 'critical_page_types', 'critical_skipped_custom_post_types', 'font_optimization', 'preload_fonts', 'font_swap', 'font_display_value', 'preload_fonts_mode' ),
 			'page_cache'  => array( 'cache_blog' ),
 			'performance' => array( 'dismissed', 'reports' ),
 			'advanced'    => array( 'query_string', 'emoji', 'post_revisions', 'prefetch', 'preconnect', 'cart_fragments' ),

@@ -7,6 +7,7 @@ include_once('wp-event-manager-form-submit-organizer.php');
 class WP_Event_Manager_Form_Edit_Organizer extends WP_Event_Manager_Form_Submit_Organizer {
 
 	public $form_name           = 'edit-organizer';
+	public $organizer_id;
 
 	/** @var WP_Event_Manager_Form_Edit_Organizer The single instance of the class */
 
@@ -70,7 +71,9 @@ class WP_Event_Manager_Form_Edit_Organizer extends WP_Event_Manager_Form_Submit_
 					} elseif('event_description' === $key) {
 						$this->fields[ $group_key ][ $key ]['value'] = wp_kses_post($organizer->post_content);
 					} elseif('organizer_logo' === $key) {
-						$this->fields[ $group_key ][ $key ]['value'] = has_post_thumbnail($organizer->ID) ? get_post_thumbnail_id($organizer->ID) : esc_url(get_post_meta($organizer->ID, '_' . $key, true));
+						/*$this->fields[ $group_key ][ $key ]['value'] = has_post_thumbnail($organizer->ID) ? get_post_thumbnail_id($organizer->ID) : esc_url(get_post_meta($organizer->ID, '_' . $key, true));*/
+						$this->fields[ $group_key ][ $key ]['value'] = get_post_meta($organizer->ID, '_' . $key, true);
+						
 					} elseif(!empty($field['taxonomy'])) {
 						$this->fields[ $group_key ][ $key ]['value'] = wp_get_object_terms($organizer->ID, esc_attr($field['taxonomy']), array('fields' => 'ids'));
 					} else {

@@ -52,7 +52,6 @@ export default class Wizard extends React.Component {
 			scanning: false,
 			skip: {
 				advCacheFile: false,
-				fastCGI: false
 			}
 		};
 
@@ -74,8 +73,7 @@ export default class Wizard extends React.Component {
 			// We need to save our state, so we don't show extra stuff on next step.
 			this.setState( {
 				skip: {
-					advCacheFile: ! this.props.issues.advCacheFile,
-					fastCGI: ! this.props.issues.fastCGI
+					advCacheFile: ! this.props.issues.advCacheFile
 				}
 			} );
 
@@ -165,7 +163,7 @@ export default class Wizard extends React.Component {
 		let name = this.state.steps[ this.props.step ].replace( /\s+/g, '-' ).toLowerCase();
 
 		if ( 1 === this.props.step && this.props.showConflicts ) {
-			name = ! this.props.issues.advCacheFile && ! this.props.issues.fastCGI ? 'success' : 'failed';
+			name = ! this.props.issues.advCacheFile ? 'success' : 'failed';
 			title = __( 'Plugin Conflict', 'wphb' );
 		} else if ( 6 === this.props.step ) {
 			name = 'success';
@@ -268,64 +266,6 @@ export default class Wizard extends React.Component {
 	}
 
 	/**
-	 * FastCGI content.
-	 *
-	 * @return {JSX.Element} Content block.
-	 */
-	getFastCGIContent() {
-		if ( ! this.props.showConflicts || this.state.skip.fastCGI ) {
-			return null;
-		}
-
-		let title = __( 'Static Server Cache cache is disabled', 'wphb' );
-		let icon = 'check-tick sui-success';
-		let description = __( 'Static Server Cache cache is disabled and Hummingbird is set as a main page caching tool.', 'wphb' );
-
-		if ( this.props.issues.fastCGI ) {
-			title = __( 'Static Server Cache is active on your server', 'wphb' );
-			icon = 'warning-alert sui-warning';
-			description = __( 'Hummingbird has detected that you have Static Server Cache active on your server. We recommend to use only one page caching tool. If you disable the Static Server Cache, Hummingbird will be set as primary caching tool, if you continue without disabling, Static Server Cache will be set as the main caching tool, but you still will be able to clear cache on page/post update using Hummingbird.', 'wphb' );
-		}
-
-		return (
-			<Box
-				boxClass={ classNames( { open: this.state.skip.advCacheFile } ) }
-				icon={ icon }
-				title={ title }
-				headerActions={
-					<div className="sui-actions-right">
-						<Button
-							onClick={ this.toggleContent }
-							type="button"
-							classes="sui-button-icon"
-							icon="sui-icon-chevron-up" />
-					</div>
-				}
-				content={ <p className="sui-description">{ description }</p> }
-				footerActions={
-					<React.Fragment>
-						<Button
-							onClick={ this.props.reCheckRequirements }
-							type="button"
-							classes={ [ 'sui-button', 'sui-button-ghost' ] }
-							icon="sui-icon-update"
-							text={ __( 'Re-check status', 'wphb' ) } />
-
-						{ this.props.issues.fastCGI &&
-							<div className="sui-actions-right">
-								<p className="sui-description">
-									<Button
-										onClick={ this.props.disableFastCGI }
-										text={ __( 'Disable Static Server Cache ', 'wphb' ) } />
-								</p>
-							</div> }
-					</React.Fragment>
-				}
-			/>
-		);
-	}
-
-	/**
 	 * Toggle module buttons.
 	 *
 	 * @return {JSX.Element} Buttons.
@@ -342,20 +282,36 @@ export default class Wizard extends React.Component {
 
 		const id = [ 'aoEnable', 'uptimeEnable', 'cacheEnable' ];
 
+		let tabEnabledChecked = this.props.settings[ id[ this.props.step - 2 ] ];
+		let tabDisabledChecked = ! this.props.settings[ id[ this.props.step - 2 ] ];
+		if ( this.props.step === 4 && this.props.settings.isFastCGISupported ) {
+			tabEnabledChecked = this.props.settings[ id[ this.props.step - 2 ] ] && ! this.props.settings.fastCGI;
+			tabDisabledChecked = ! this.props.settings[ id[ this.props.step - 2 ] ] && ! this.props.settings.fastCGI;
+		}
+
 		const sideTabs = [
 			{
-				title: __( 'Enable', 'wphb' ),
-				checked: this.props.settings[ id[ this.props.step - 2 ] ],
+				title: this.props.step === 4 ? __( 'Local Page Cache', 'wphb' ) : __( 'Enable', 'wphb' ),
+				checked: tabEnabledChecked,
 				id: 'enable',
 				onClick: () => this.props.toggleModule( 'enable', id[ this.props.step - 2 ] )
 			},
 			{
 				title: __( 'Disable', 'wphb' ),
-				checked: ! this.props.settings[ id[ this.props.step - 2 ] ],
+				checked: tabDisabledChecked,
 				id: 'disable',
 				onClick: () => this.props.toggleModule( 'disable', id[ this.props.step - 2 ] )
 			},
 		];
+
+		if ( this.props.step === 4 && this.props.settings.isFastCGISupported ) {
+			sideTabs.unshift({
+				title: __( 'Static Server Cache', 'wphb' ),
+				checked: this.props.settings.isFastCGISupported && this.props.settings.fastCGI,
+				id: 'ssc',
+				onClick: () => this.props.toggleModule( 'enable', 'fastCGI' )
+			});
+		}
 
 		return <Tabs sideTabs="true" menu={ sideTabs } />;
 	}
@@ -413,8 +369,35 @@ export default class Wizard extends React.Component {
 	 * @return {JSX.Element} Tab content.
 	 */
 	cacheSettings() {
-		if ( ! this.props.settings.cacheEnable ) {
+		if ( ! this.props.settings.cacheEnable && ! this.props.settings.fastCGI ) {
 			return null;
+		}
+
+		if ( this.props.settings.isFastCGISupported && this.props.settings.fastCGI ) {
+			return (
+				<div className="sui-border-frame">
+					<SettingsRow
+						classes="sui-flushed"
+						content={
+							<Toggle
+								id="clearCacheButton"
+								onChange={ this.props.updateSettings }
+								text={ __( 'Show clear cache button in admin bar', 'wphb' ) }
+								checked={ this.props.settings.clearCacheButton }
+								description={ __( 'Add a shortcut to Hummingbird settings in the top WordPress Admin bar. Clicking the Clear Cache button in the WordPress Admin Bar will clear all active cache types.', 'wphb' ) } />
+						} />
+					<SettingsRow
+						classes="sui-flushed"
+						content={
+							<Toggle
+								id="clearOnComment"
+								onChange={ this.props.updateSettings }
+								text={ __( 'Clear cache on comment post', 'wphb' ) }
+								checked={ this.props.settings.clearOnComment }
+								description={ __( 'The page cache will be cleared after each comment made on a post.', 'wphb' ) } />
+						} />
+				</div>
+			);
 		}
 
 		return (
@@ -550,19 +533,24 @@ export default class Wizard extends React.Component {
 							<td><Tag type="blue sui-tag-sm" value={ __( 'Enabled', 'wphb' ) } /></td>
 						</tr> }
 
-					{ this.props.settings.cacheEnable && this.props.issues.fastCGI &&
+					{ this.props.settings.fastCGI &&
 						<tr>
 							<td className="sui-table-item-title">{ __( 'Page Caching', 'wphb' ) }</td>
 							<td>
-								{ __( 'Static Server Cache', 'wphb' ) }
+								{ __( 'Static Server Cache', 'wphb' ) }<br />
+								{ __( 'Show clear cache button in admin bar', 'wphb' ) }
 							</td>
 							<td>
 								<Tag type="blue sui-tag-sm" value={ __( 'Enabled', 'wphb' ) } />
+								{ this.props.settings.clearCacheButton &&
+									<Tag type="blue sui-tag-sm" value={ __( 'Enabled', 'wphb' ) } /> }
+								{ ! this.props.settings.clearCacheButton &&
+									<Tag type="grey sui-tag-sm" value={ __( 'Disabled', 'wphb' ) } /> }
 							</td>
 						</tr>
 					}
 
-					{ this.props.settings.cacheEnable && ! this.props.issues.fastCGI &&
+					{ this.props.settings.cacheEnable && ! this.props.settings.fastCGI &&
 						<tr>
 							<td className="sui-table-item-title">{ __( 'Page Caching', 'wphb' ) }</td>
 							<td>
@@ -636,7 +624,7 @@ export default class Wizard extends React.Component {
 			description = __( 'Get started by activating all our features with recommended default settings, then fine-tune them to suit your specific needs. Alternately you can skip this process if you’d prefer to start customizing.', 'wphb' );
 			if ( this.props.showConflicts ) {
 				description = __( 'Any issue reported here may cause issues while we set up the plugin.', 'wphb' );
-				if ( ! this.props.issues.advCacheFile && ! this.props.issues.fastCGI ) {
+				if ( ! this.props.issues.advCacheFile ) {
 					description = __( 'There are no more potential issues. You can proceed with the setup.', 'wphb' );
 				}
 			}
@@ -659,29 +647,29 @@ export default class Wizard extends React.Component {
 				</p>
 
 				{ 1 === this.props.step && ! this.props.showConflicts &&
-					<div className="sui-border-frame">
+					<div className="sui-border-frame wphb-getting-started-setup">
 						<Toggle
 							id="tracking"
 							onChange={ this.props.updateSettings }
-							text={ __( 'Enable usage tracking and help make Hummingbird better', 'wphb' ) }
+							text={ createInterpolateElement(
+								__( "Help us Optimize your site for better Performance<span>Recommended</span>", 'wphb' ),
+								{
+									span: <span className="sui-tag sui-tag-sm" />
+								}
+							) }
 							checked={ this.props.settings.tracking }
 							description={
 								createInterpolateElement(
-									__( "Help make Hummingbird better by letting our team learn how you're using the plugin. Note: Usage tracking is completely anonymous. We are only tracking what features you are/aren't using to make our feature decision more informed. You can read about what data will be collected <a>here</a>.", 'wphb' ),
+									__( "Help us improve Hummingbird, minimize errors, and enhance the user experience by sharing anonymous, and non-sensitive usage data. You can change this option in the settings anytime. See <a>more</a> info about the data we collect.", 'wphb' ),
 									{
 										a: <a href={getLink('tracking')} target="_blank"/>
 									}
 								) } />
-						<div className="with-love">
-							<Icon classes="sui-icon-heart" />
-							<small>{ __( 'Thank you for helping us to improve the plugin.', 'wphb' ) }</small>
-						</div>
 					</div> }
 
 				{ 1 === this.props.step && this.props.showConflicts &&
 					<div className="wphb-progress-wrapper">
 						{ this.getCompatPluginsContent() }
-						{ this.getFastCGIContent() }
 					</div> }
 
 				{ this.toggleButtons() }
@@ -723,7 +711,7 @@ export default class Wizard extends React.Component {
 							type="button"
 							classes={ [ 'sui-button', 'sui-button-blue' ] }
 							text={ __( 'Get started', 'wphb' ) } /> }
-					{ 1 === this.props.step && this.props.showConflicts && ( this.props.issues.advCacheFile || this.props.issues.fastCGI ) &&
+					{ 1 === this.props.step && this.props.showConflicts && this.props.issues.advCacheFile &&
 						<Tooltip
 							classes="sui-tooltip-constrained sui-tooltip-top-right-mobile"
 							text={ __( 'We advise to check the recommendations before proceeding.', 'wphb' ) }>
@@ -734,7 +722,7 @@ export default class Wizard extends React.Component {
 								classes={ [ 'sui-button', 'sui-button-ghost' ] }
 								text={ __( 'Continue anyway', 'wphb' ) } />
 						</Tooltip> }
-					{ ( 1 !== this.props.step || ( this.props.showConflicts && ! this.props.issues.advCacheFile && ! this.props.issues.fastCGI ) ) && 6 > this.props.step &&
+					{ ( 1 !== this.props.step || ( this.props.showConflicts && ! this.props.issues.advCacheFile ) ) && 6 > this.props.step &&
 						<Button
 							onClick={ this.continueToNextStep }
 							disabled={ this.state.scanning }

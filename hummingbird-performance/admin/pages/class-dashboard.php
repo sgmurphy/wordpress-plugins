@@ -13,6 +13,7 @@ use Hummingbird\Core\Modules\Advanced;
 use Hummingbird\Core\Modules\Performance;
 use Hummingbird\Core\Modules\Uptime;
 use Hummingbird\Core\Utils;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 use stdClass;
 use WP_Error;
 
@@ -357,7 +358,7 @@ class Dashboard extends Page {
 			$footer = $module->is_active() ? array( $this, 'dashboard_page_caching_module_metabox_footer' ) : null;
 			$this->add_meta_box(
 				'dashboard-caching-page-module',
-				__( 'Page Caching', 'wphb' ),
+				Utils::get_cache_page_title(),
 				array( $this, 'dashboard_page_caching_module_metabox' ),
 				null,
 				$footer,
@@ -771,13 +772,16 @@ class Dashboard extends Page {
 		);
 		$activate_url = wp_nonce_url( $activate_url, 'wphb-caching-actions' );
 
-		$is_active = Utils::get_module( 'page_cache' )->is_active();
+		$is_active             = Utils::get_module( 'page_cache' )->is_active();
+		$has_fastcgi           = Utils::get_api()->hosting->has_fast_cgi_header();
+		$is_fast_cgi_supported = Fast_CGI::is_fast_cgi_supported();
+		$is_homepage_preload   = Utils::is_homepage_preload_enabled() ? 'enabled' : 'disabled';
 
 		if ( 'blog-admins' === $is_active ) {
 			$is_active = true;
 		}
 
-		$this->view( 'dashboard/caching/page-caching-module-meta-box', compact( 'is_active', 'activate_url' ) );
+		$this->view( 'dashboard/caching/page-caching-module-meta-box', compact( 'is_active', 'activate_url', 'has_fastcgi', 'is_fast_cgi_supported', 'is_homepage_preload' ) );
 	}
 
 	/**
@@ -787,7 +791,13 @@ class Dashboard extends Page {
 	 */
 	public function dashboard_page_caching_module_metabox_footer() {
 		$url = Utils::get_admin_menu_url( 'caching' ) . '&view=main';
-		$this->view( 'dashboard/caching/page-caching-module-meta-box-footer', compact( 'url' ) );
+		$this->view(
+			'dashboard/caching/page-caching-module-meta-box-footer',
+			array(
+				'url'                   => $url,
+				'is_fast_cgi_supported' => Fast_CGI::is_fast_cgi_supported(),
+			)
+		);
 	}
 
 	/**

@@ -77,7 +77,7 @@ class ImageGalleryBlock extends BlockBase {
 		$local_style_class = $this->getLocalIdClass( 'container' );
 
 		foreach ( $columns_per_media as $key => $value ) {
-			$nr_columns_per_media = $value;
+			$nr_columns_per_media = esc_attr($value);
 
 			$style .= $columns_media_sizes[ $key ];
 
@@ -166,9 +166,9 @@ class ImageGalleryItemBlock extends BlockBase {
 				'className' => $link_classname,
 			),
 			self::IMAGE           => array(
-				'src'       => $src,
-				'alt'       => $alt,
-				'className' => array( 'wp-image-' . $id ),
+				'src'       => esc_url($src),
+				'alt'       => esc_attr($alt),
+				'className' => array( esc_attr('wp-image-' . $id) ),
 			),
 			self::IMAGE_OVERLAY   => array(),
 			self::CAPTION         => array(

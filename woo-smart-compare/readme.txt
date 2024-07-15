@@ -4,8 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, compare, comparison
 Requires at least: 4.0
 Tested up to: 6.5
-Version: 6.2.6
-Stable tag: 6.2.6
+Version: 6.2.7
+Stable tag: 6.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,6 +85,9 @@ Example:
 `echo do_shortcode('[woosc id="99"]');`
 
 == Changelog ==
+
+= 6.2.7 =
+* Added: Option to reload the count
 
 = 6.2.6 =
 * Fixed: Minor CSS/JS issue in the backend

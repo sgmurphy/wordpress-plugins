@@ -290,7 +290,7 @@ class Site_Logo extends Widget_Base {
 	public function get_site_logo() {
 		$custom_logo_id = get_theme_mod( 'custom_logo' );
 
-		if ( $custom_logo_id ) {
+		if ( $custom_logo_id && wp_get_attachment_image_src( $custom_logo_id, 'full' ) ) {
 			$url = wp_get_attachment_image_src( $custom_logo_id, 'full' )[0];
 		}
 

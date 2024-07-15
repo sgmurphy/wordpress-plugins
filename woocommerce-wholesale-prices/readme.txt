@@ -1,18 +1,18 @@
 === Wholesale Suite – WooCommerce Wholesale Prices, B2B, Catalog Mode, Order Form, Wholesale User Roles, Dynamic Pricing & More ===
-Contributors: jkohlbach, RymeraWebCo, Rymera01, smub
+Contributors: jkohlbach, RymeraWebCo, smub
 Donate link:
-Tags: woocommerce wholesale, wholesale plugin, wholesale prices, wholesale pricing, b2b, user roles, catalog mode, private store, dynamic pricing
+Tags: woocommerce wholesale, b2b, wholesale pricing, catalog mode, dynamic pricing
 Requires at least: 4.2
 Tested up to: 6.4.3
 Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WooCommerce wholesale plugin for serving wholesale & B2B customers. Adds wholesale pricing, user roles & more.
+WooCommerce wholesale plugin for serving wholesale & B2B customers. Adds wholesale pricing, user roles, dynamic pricing & more.
 
 == DESCRIPTION ==
 
-**🏆 #1 WooCommerce wholesale plugin for adding wholesale prices & managing B2B customers.** Trusted by 25k+ store owners with 400+ reviews.
+**🏆 #1 WooCommerce wholesale plugin for adding wholesale prices & managing B2B customers.** Trusted by 25k+ store owners with 500+ reviews.
 
 Adding ***WooCommerce Wholesale Prices*** gives WooCommerce store owners the ability to supply specific users with wholesale pricing for their products. It's the perfect wholesale plugin for WooCommerce B2B.
 

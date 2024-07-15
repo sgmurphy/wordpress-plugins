@@ -103,8 +103,10 @@ class CCBUpdates {
 			'ccb_date_picker_multi_period',
 		),
 		'3.2.15' => array(
-			'ccb_date_picker_multi_period',
 			'ccb_total_field_hidden_calculate',
+		),
+		'3.2.17' => array(
+			'ccb_add_summary_view_to_image_checkbox_field',
 		),
 	);
 
@@ -158,8 +160,15 @@ class CCBUpdates {
 
 		$updates = self::get_updates();
 
-		if ( current_user_can( 'manage_options' ) && 'calc-run-calc-updates' === $_POST['action'] && ! empty( $_POST['access'] ) ) {
-			foreach ( $updates as $version => $callback_arr ) {
+		$data = $_POST;
+		if ( empty( $_POST ) ) {
+			$request_body = file_get_contents( 'php://input' );
+			$request_data = json_decode( $request_body, true );
+			$data         = apply_filters( 'stm_ccb_sanitize_array', $request_data );
+		}
+
+		if ( current_user_can( 'manage_options' ) && 'calc-run-calc-updates' === $data['action'] && ! empty( $data['access'] ) ) {
+			foreach ( $updates as $callback_arr ) {
 				foreach ( $callback_arr as $callback ) {
 					call_user_func( array( '\\cBuilder\\Classes\\CCBUpdatesCallbacks', $callback ) );
 				}

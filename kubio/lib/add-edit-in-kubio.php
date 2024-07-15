@@ -151,12 +151,8 @@ function kubio_post_edit_add_button() {
 				?>
 			 <style>
 					a.components-button.edit-in-kubio.is-primary {
-						margin-left: auto;
+					
 						margin-right: 30px;
-					}
-
-					.edit-post-header-toolbar {
-						width: 100%;
 					}
 				</style>
 				<?php

@@ -99,7 +99,7 @@
 				</div>
 			</div>
 			<div class="row ccb-p-t-15">
-				<div class="col-12 ccb-select-box">
+				<div class="col-6 ccb-select-box">
 					<span class="ccb-select-label"><?php esc_html_e( 'Default Value(s)', 'cost-calculator-builder' ); ?></span>
 					<div class="ccb-multi-select" tabindex="100" @click.prevent="multiselectShow(event)">
 						<i :class="['ccb-icon-Path-3485 ccb-select-arrow', {'ccb-arrow-up': multiselectOpened}]"></i>
@@ -124,6 +124,19 @@
 								{{ option.optionText }}
 							</li>
 						</ul>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="ccb-select-box">
+						<span class="ccb-select-label"><?php esc_html_e( 'Type of Label in Total', 'cost-calculator-builder' ); ?></span>
+						<div class="ccb-select-wrapper">
+							<i class="ccb-icon-Path-3485 ccb-select-arrow"></i>
+							<select class="ccb-select big" v-model="toggleField.summary_view">
+								<option value="show_value" selected><?php esc_html_e( 'Show Value', 'cost-calculator-builder-pro' ); ?></option>
+								<option value="show_label_not_calculable"><?php esc_html_e( 'Label Only (No Calculation)', 'cost-calculator-builder' ); ?></option>
+								<option value="show_label_calculable"><?php esc_html_e( 'Label Only (Calculate Value)', 'cost-calculator-builder' ); ?></option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>

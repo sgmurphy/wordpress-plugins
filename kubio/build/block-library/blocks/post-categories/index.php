@@ -22,7 +22,7 @@ class PostCategoriesBlock extends BlockBase {
 			),
 			self::PLACEHOLDER => array(
 				'shouldRender' => empty( $post_tags ) ? true : false,
-				'innerHTML'    => $this->getAttribute( 'placeholder' ),
+				'innerHTML'    => wp_kses_post($this->getAttribute( 'placeholder' )),
 			),
 		);
 
@@ -48,7 +48,7 @@ class PostCategoriesBlock extends BlockBase {
 
 			$output = trim( $output );
 
-			return $output;
+			return wp_kses_post($output);
 		}
 	}
 }

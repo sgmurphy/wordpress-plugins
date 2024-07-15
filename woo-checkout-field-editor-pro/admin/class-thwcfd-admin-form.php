@@ -316,7 +316,7 @@ abstract class THWCFD_Admin_Form {
 		if($tooltip){
 			?>
 			<td class="tip" style="width: 26px; padding:0px;">
-				<a href="javascript:void(0)" title="<?php echo $tooltip; ?>" class="thwcfd_tooltip"><img src="<?php echo THWCFD_ASSETS_URL_ADMIN; ?>/css/help.png" title=""/></a>
+				<a href="javascript:void(0)" title="<?php echo $tooltip; ?>" class="thwcfd_tooltip"><img src="<?php echo THWCFD_ASSETS_URL_ADMIN; ?>/images/help.png" title=""/></a>
 			</td>
 			<?php
 		}else{

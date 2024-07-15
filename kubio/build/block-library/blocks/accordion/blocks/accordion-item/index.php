@@ -34,7 +34,7 @@ class AccordionItemBlock extends BlockBase {
 		return array(
 
 			self::TITLE       => array(
-				'href'                 => sprintf( '#%s', $slug ),
+				'href'                 => esc_url(sprintf( '#%s', $slug )),
 				'data-open-by-default' => $openByDefault ? 'true' : 'false',
 			),
 			self::ICON_NORMAL => array(

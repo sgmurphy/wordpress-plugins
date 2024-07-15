@@ -294,7 +294,7 @@ class ManageFeeds extends RestController {
 				return $this->success( $current_feed );
 			}
 		}
-
+        /* translators: %s: error message */
 		return $this->error( sprintf( __( 'Not found with: %s ', 'woo-feed' ), $feed_name ) );
 	}
 
@@ -404,19 +404,23 @@ class ManageFeeds extends RestController {
 		switch ( $body['type'] ) {
 			case 'feed':
 				$data    = DownloadFiles::rest_download_feed( $body['rest_download_feed'] );
-				$message = sprintf( __( 'Downloaded feed:  %s file', 'woo-feed' ), $body['feed_name'] );
+                /* translators: %s: message */
+                $message = sprintf( __( 'Downloaded feed:  %s file', 'woo-feed' ), $body['feed_name'] );
 				break;
 			case 'config':
 				$data    = DownloadFiles::rest_download_config( $body['feed'] );
-				$message = sprintf( __( 'Downloaded feed config:  %s file', 'woo-feed' ), $body['feed_name'] );
+                /* translators: %s: message */
+                $message = sprintf( __( 'Downloaded feed config:  %s file', 'woo-feed' ), $body['feed_name'] );
 				break;
 			case 'log':
 				$data    = DownloadFiles::rest_download_log( $body['feed'] );
-				$message = sprintf( __( 'Downloaded feed log:  %s file', 'woo-feed' ), $body['feed_name'] );
+                /* translators: %s: message */
+                $message = sprintf( __( 'Downloaded feed log:  %s file', 'woo-feed' ), $body['feed_name'] );
 				break;
 			default:
 				$data    = DownloadFiles::rest_download_feed( $body['feed'] );
-				$message = sprintf( __( 'Downloaded feed:  %s file', 'woo-feed' ), $body['feed_name'] );
+                /* translators: %s: message */
+                $message = sprintf( __( 'Downloaded feed:  %s file', 'woo-feed' ), $body['feed_name'] );
 
 		}
 

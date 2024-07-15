@@ -140,14 +140,15 @@ class PageTitleBlock extends BlockBase {
 			);
 		}
 
-		return $content ? $content : $final_title;
+		$result = $content ? $content : $final_title;
+		return wp_kses_post($result);
 	}
 
 
 	public function mapPropsToElements() {
-		$headingType = $this->getProp( 'level' ) ?
+		$headingType = esc_attr($this->getProp( 'level' ) ?
 			$this->getProp( 'level' ) :
-			$this->getAttribute( 'tag' );
+			$this->getAttribute( 'tag' ));
 
 		return array(
 			self::CONTAINER => array(

@@ -5,7 +5,7 @@ Tags: rss aggregator, news aggregator, autoblogging, feed to post, rss import
 Requires at least: 4.0 or higher
 Tested up to: 6.5
 Requires PHP: 5.4
-Stable tag: 4.23.11
+Stable tag: 4.23.12
 License: GPLv3
 
 The #1 WordPress RSS aggregator to quickly import RSS feeds, build a news aggregator, and for easy autoblogging.
@@ -306,6 +306,10 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 
 
 == Changelog ==
+
+= 4.23.12 (2024-07-15) =
+**Fixed**
+- Fixed a security vulnerability that allows subscribers to pause feed sources (CVE-2024-6621).
 
 = 4.23.11 (2024-05-28) =
 **Fixed**
@@ -660,4 +664,3 @@ Our complete Knowledge Base with FAQs can be found [here](https://kb.wprssaggreg
 - Thumbnails imported by Excerpts & Thumbnails were not shown in templates.
 - Some databases would report the following error during logging: "Column 'date' cannot be null".
 - Unserializing the options for the system info triggered PHP notices.
-

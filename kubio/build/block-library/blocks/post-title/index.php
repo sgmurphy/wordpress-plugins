@@ -28,16 +28,16 @@ class PostTitleBlock extends BlockBase {
 	}
 
 	public function mapPropsToElements() {
-		$headingType = $this->getAttribute( 'headingType' );
+		$headingType = esc_attr($this->getAttribute( 'headingType' ));
 		$post_id     = Arr::get( $this->block_context, 'postId', null );
 		$title       = get_the_title( $post_id );
 		return array(
 			self::CONTAINER => array(
-				'innerHTML' => $title !== '' ? $title : __( '(Post Title)', 'kubio' ),
+				'innerHTML' => $title !== '' ? wp_kses_post($title) : __( '(Post Title)', 'kubio' ),
 				'tag'       => $headingType,
 			),
 			self::LINK      => array(
-				'href' => get_the_permalink( $post_id ),
+				'href' => esc_url(get_the_permalink( $post_id )),
 			),
 		);
 

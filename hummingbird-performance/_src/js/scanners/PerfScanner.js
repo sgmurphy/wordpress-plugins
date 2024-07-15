@@ -118,7 +118,29 @@ class PerfScanner extends Scanner {
 			tbt_mobile: this.retrieveValueFromObject( response.hbPerformanceMetric, 'tbt_mobile' ),
 			ttfb_desktop: this.retrieveValueFromObject( response.hbPerformanceMetric, 'ttfb_desktop' ),
 			ttfb_mobile: this.retrieveValueFromObject( response.hbPerformanceMetric, 'ttfb_mobile' ),
+			lcp_ttfb_desktop: response.getLCPSubmetrics.lcp_ttfb.desktop,
+			lcp_ttfb_mobile: response.getLCPSubmetrics.lcp_ttfb.desktop,
+			lcp_load_delay_desktop: response.getLCPSubmetrics.lcp_load_delay.desktop,
+			lcp_load_delay_mobile: response.getLCPSubmetrics.lcp_load_delay.mobile,
+			lcp_render_delay_desktop: response.getLCPSubmetrics.lcp_render_delay.desktop,
+			lcp_render_delay_mobile: response.getLCPSubmetrics.lcp_render_delay.mobile,
+			lcp_load_time_desktop: response.getLCPSubmetrics.lcp_load_time.desktop,
+			lcp_load_time_mobile: response.getLCPSubmetrics.lcp_load_time.mobile,
+			lcp_element_desktop: response.getLCPSubmetrics.lcp_element.desktop,
+			lcp_element_mobile: response.getLCPSubmetrics.lcp_element.mobile,
+			audits_opportunities_desktop: response.getAudits.opportunities.desktop,
+			audits_opportunities_mobile: response.getAudits.opportunities.mobile,
+			audits_diagnostics_desktop: response.getAudits.diagnostics.desktop,
+			audits_diagnostics_mobile: response.getAudits.diagnostics.mobile,
+			audits_passed_desktop: response.getAudits.passed.desktop,
+			audits_passed_mobile: response.getAudits.passed.mobile,
 		} );
+
+		if ( '' !== response.hasError ) {
+			window.wphbMixPanel.track( 'performance_test_error', {
+				'Error Message': response.hasError,
+			} );
+		}
 
 		// Give a second for the report to be saved to the db.
 		window.setTimeout( function() {

@@ -60,6 +60,12 @@ class Minify extends Service {
 			'domain' => $this->request->get_this_site(),
 		);
 
+		$timeout = apply_filters( 'wphb_api_request_timeout', false );
+
+		if ( ! empty( $timeout ) ) {
+			$this->request->set_timeout( $timeout );
+		}
+
 		$args['path'] = '';
 		if ( is_multisite() && ! is_subdomain_install() ) {
 			$blog_details = get_blog_details( get_current_blog_id() );

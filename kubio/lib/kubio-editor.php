@@ -552,6 +552,8 @@ add_filter( 'block_editor_settings_all', 'kubio_block_editor_general_settings', 
 
 function kubio_load_gutenberg_assets() {
 
+	kubio_fix_template_and_parts_default_editor();
+
 	AssetsDependencyInjector::injectKubioScriptDependencies( 'swiper' );
 	AssetsDependencyInjector::injectKubioFrontendStyleDependencies( 'swiper' );
 
@@ -574,6 +576,41 @@ function kubio_load_gutenberg_assets() {
 	);
 
 	wp_add_inline_style( 'kubio-block-library', kubio_get_shapes_css() );
+}
+
+//https://mantis.iconvert.pro/view.php?id=54771
+function kubio_fix_template_and_parts_default_editor() {
+
+	global $post;
+
+	if ( ! $post ) {
+		return;
+	}
+	if ( ! in_array( $post->post_type, array( 'wp_template', 'wp_template_part' ) ) ) {
+		return;
+	}
+	$preload_paths = array(
+
+		'/wp/v2/themes?context=edit&status=active',
+
+	);
+
+	$preload_data = array_reduce(
+		$preload_paths,
+		'rest_preload_api_request',
+		array()
+	);
+	$theme_data   = Arr::get( $preload_data, $preload_paths[0] . '.body.0' );
+	if ( ! $theme_data ) {
+		return;
+	}
+	//Very dirty method of fixing the bug(https://mantis.iconvert.pro/view.php?id=54771). But could not find any other method. The normal preload did not seem to fix the issue.
+	wp_add_inline_script(
+		'wp-core-data',
+		sprintf( 'wp.data.select("core").getCurrentTheme = () => { return %s }', wp_json_encode( $theme_data ) ),
+		'after'
+	);
+
 }
 
 function kubio_get_post_types() {

@@ -59,8 +59,24 @@ class CCBOrderController {
 	public static function create() {
 		check_ajax_referer( 'ccb_add_order', 'nonce' );
 
+		$data = null;
+		if ( ! empty( $_POST['data'] ) ) {
+			$data = ccb_convert_from_btoa( $_POST['data'] );
+
+			if ( ! ccb_is_convert_correct( $data ) ) {
+				wp_send_json(
+					array(
+						'status'  => 'error',
+						'success' => false,
+						'message' => 'Invalid data',
+					)
+				);
+			}
+		}
+
 		/**  sanitize POST data  */
-		$data = CCBCleanHelper::cleanData( (array) json_decode( stripslashes( $_POST['data'] ) ) );
+		$data = CCBCleanHelper::cleanData( (array) json_decode( stripslashes( $data ) ) );
+
 		self::validate( $data );
 
 		/**
@@ -201,8 +217,8 @@ class CCBOrderController {
 
 			do_action( 'ccb_after_create_order', $order_data, $payment_data );
 			$meta_data = array(
-				'converted' => $data['converted'] ?? array(),
-				'totals'    => isset( $data['totals'] ) ? wp_json_encode( $data['totals'] ) : array(),
+				'converted'   => $data['converted'] ?? array(),
+				'totals'      => isset( $data['totals'] ) ? wp_json_encode( $data['totals'] ) : array(),
 				'otherTotals' => isset( $data['otherTotals'] ) ? wp_json_encode( $data['otherTotals'] ) : array(),
 			);
 
@@ -222,9 +238,24 @@ class CCBOrderController {
 	public static function update() {
 		check_ajax_referer( 'ccb_update_order', 'nonce' );
 
-		if ( ! empty( $_POST['ids'] ) ) {
-			$ids    = sanitize_text_field( $_POST['ids'] );
-			$status = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : null;
+		$data = null;
+		if ( isset( $_POST['data'] ) ) {
+			$data = ccb_convert_from_btoa( $_POST['data'], true );
+		}
+
+		if ( ! empty( $_POST['data'] ) && empty( $data ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'error',
+					'success' => false,
+					'message' => 'Invalid data',
+				)
+			);
+		}
+
+		if ( ! empty( $data['ids'] ) ) {
+			$ids    = sanitize_text_field( $data['ids'] );
+			$status = ! empty( $data['status'] ) ? sanitize_text_field( $data['status'] ) : null;
 
 			$ids  = explode( ',', $ids );
 			$d    = implode( ',', array_fill( 0, count( $ids ), '%d' ) );

@@ -129,6 +129,7 @@ abstract class API extends Base {
 		$this->request = $request;
 		$this->api_key = $this->utils('options')->get( 'api_key' );
 
+
 		if ( ! empty( $this->api_key ) ) {
 			return true;
 		}

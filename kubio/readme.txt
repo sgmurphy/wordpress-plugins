@@ -3,9 +3,9 @@
 Contributors: ExtendThemes
 Tags: page builder, landing page, website builder, blocks, gutenberg
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 2.2.5
+Stable tag: 2.3.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -153,6 +153,8 @@ You’ll find a growing online documentation for Kubio builder [here](https://ku
 == Screenshots ==
 
 == Changelog ==
+= 2.3.0 and 2.3.0-pro = 
+- Added support for WordPress 6.6
 
 = 2.2.4 and 2.2.4-pro =
 - Fixed an issue where the delete key was removing the block instead of deleting the text

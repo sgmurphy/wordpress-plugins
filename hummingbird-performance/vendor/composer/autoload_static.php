@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit900c40d209661264ceb028efb0ad674d
+class ComposerStaticInita5c51a7fc1eef4283dae42416bf141bc
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -52,6 +52,7 @@ class ComposerStaticInit900c40d209661264ceb028efb0ad674d
         'Hummingbird\\Admin\\Pages\\React\\Gzip' => __DIR__ . '/../..' . '/admin/pages/react/class-gzip.php',
         'Hummingbird\\Admin\\Pages\\React\\Setup' => __DIR__ . '/../..' . '/admin/pages/react/class-setup.php',
         'Hummingbird\\Admin\\Pages\\React\\Tutorials' => __DIR__ . '/../..' . '/admin/pages/react/class-tutorials.php',
+        'Hummingbird\\Admin\\Pages\\Services' => __DIR__ . '/../..' . '/admin/pages/class-services.php',
         'Hummingbird\\Admin\\Pages\\Settings' => __DIR__ . '/../..' . '/admin/pages/class-settings.php',
         'Hummingbird\\Admin\\Pages\\Upgrade' => __DIR__ . '/../..' . '/admin/pages/class-upgrade.php',
         'Hummingbird\\Admin\\Pages\\Uptime' => __DIR__ . '/../..' . '/admin/pages/class-uptime.php',
@@ -79,6 +80,7 @@ class ComposerStaticInit900c40d209661264ceb028efb0ad674d
         'Hummingbird\\Core\\Integration\\Builders' => __DIR__ . '/../..' . '/core/integration/class-builders.php',
         'Hummingbird\\Core\\Integration\\Defender' => __DIR__ . '/../..' . '/core/integration/class-defender.php',
         'Hummingbird\\Core\\Integration\\Divi' => __DIR__ . '/../..' . '/core/integration/class-divi.php',
+        'Hummingbird\\Core\\Integration\\Google_Site_Kit' => __DIR__ . '/../..' . '/core/integration/class-google-site-kit.php',
         'Hummingbird\\Core\\Integration\\Gutenberg' => __DIR__ . '/../..' . '/core/integration/class-gutenberg.php',
         'Hummingbird\\Core\\Integration\\Opcache' => __DIR__ . '/../..' . '/core/integration/class-opcache.php',
         'Hummingbird\\Core\\Integration\\OxygenBuilder' => __DIR__ . '/../..' . '/core/integration/class-oxygenbuilder.php',
@@ -86,6 +88,7 @@ class ComposerStaticInit900c40d209661264ceb028efb0ad674d
         'Hummingbird\\Core\\Integration\\WPH' => __DIR__ . '/../..' . '/core/integration/class-wph.php',
         'Hummingbird\\Core\\Integration\\WPMUDev' => __DIR__ . '/../..' . '/core/integration/class-wpmudev.php',
         'Hummingbird\\Core\\Integration\\Weglot' => __DIR__ . '/../..' . '/core/integration/class-weglot.php',
+        'Hummingbird\\Core\\Integration\\WooCommerce' => __DIR__ . '/../..' . '/core/integration/class-woocommerce.php',
         'Hummingbird\\Core\\Integration\\Wpengine' => __DIR__ . '/../..' . '/core/integration/class-wpengine.php',
         'Hummingbird\\Core\\Logger' => __DIR__ . '/../..' . '/core/class-logger.php',
         'Hummingbird\\Core\\Module' => __DIR__ . '/../..' . '/core/class-module.php',
@@ -94,6 +97,7 @@ class ComposerStaticInit900c40d209661264ceb028efb0ad674d
         'Hummingbird\\Core\\Modules\\Caching' => __DIR__ . '/../..' . '/core/modules/class-caching.php',
         'Hummingbird\\Core\\Modules\\Caching\\Async_Request' => __DIR__ . '/../..' . '/core/modules/caching/class-async-request.php',
         'Hummingbird\\Core\\Modules\\Caching\\Background_Process' => __DIR__ . '/../..' . '/core/modules/caching/class-background-process.php',
+        'Hummingbird\\Core\\Modules\\Caching\\Fast_CGI' => __DIR__ . '/../..' . '/core/modules/caching/class-fast-cgi.php',
         'Hummingbird\\Core\\Modules\\Caching\\Preload' => __DIR__ . '/../..' . '/core/modules/caching/class-preload.php',
         'Hummingbird\\Core\\Modules\\Cloudflare' => __DIR__ . '/../..' . '/core/modules/class-cloudflare.php',
         'Hummingbird\\Core\\Modules\\Critical_Css' => __DIR__ . '/../..' . '/core/modules/class-critical-css.php',
@@ -403,9 +407,9 @@ class ComposerStaticInit900c40d209661264ceb028efb0ad674d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit900c40d209661264ceb028efb0ad674d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit900c40d209661264ceb028efb0ad674d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit900c40d209661264ceb028efb0ad674d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita5c51a7fc1eef4283dae42416bf141bc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita5c51a7fc1eef4283dae42416bf141bc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInita5c51a7fc1eef4283dae42416bf141bc::$classMap;
 
         }, null, ClassLoader::class);
     }

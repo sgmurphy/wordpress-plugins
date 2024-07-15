@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Compare for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: Smart products compare for WooCommerce.
-Version: 6.2.6
+Version: 6.2.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-compare
@@ -12,12 +12,12 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.5
 WC requires at least: 3.0
-WC tested up to: 8.9
+WC tested up to: 9.1
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.6' );
+! defined( 'WOOSC_VERSION' ) && define( 'WOOSC_VERSION', '6.2.7' );
 ! defined( 'WOOSC_LITE' ) && define( 'WOOSC_LITE', __FILE__ );
 ! defined( 'WOOSC_FILE' ) && define( 'WOOSC_FILE', __FILE__ );
 ! defined( 'WOOSC_URI' ) && define( 'WOOSC_URI', plugin_dir_url( __FILE__ ) );
@@ -295,6 +295,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 							'page_url'           => self::get_page_url(),
 							'open_button'        => esc_attr( self::get_setting( 'open_button', '' ) ),
 							'hide_empty_row'     => apply_filters( 'woosc_hide_empty_row', 'yes' ),
+							'reload_count'       => self::get_setting( 'reload_count', 'no' ),
 							'variations'         => self::get_setting( 'variations', 'yes' ),
 							'open_button_action' => self::get_setting( 'open_button_action', 'open_popup' ),
 							'menu_action'        => self::get_setting( 'menu_action', 'open_popup' ),
@@ -434,6 +435,7 @@ if ( ! function_exists( 'woosc_init' ) ) {
 								$adding                  = self::get_setting( 'adding', 'prepend' );
 								$hide_checkout           = self::get_setting( 'hide_checkout', 'yes' );
 								$hide_empty              = self::get_setting( 'hide_empty', 'no' );
+								$reload_count            = self::get_setting( 'reload_count', 'no' );
 								$variations              = self::get_setting( 'variations', 'yes' );
 								$button_type             = self::get_setting( 'button_type', 'button' );
 								$button_icon             = self::get_setting( 'button_icon', 'no' );
@@ -541,6 +543,16 @@ if ( ! function_exists( 'woosc_init' ) ) {
 													'option_none_value' => '',
 												] ); ?>
                                                 <span class="description"><?php printf( /* translators: shortcode */ esc_html__( 'Add shortcode %s to display the comparison table on this page.', 'woo-smart-compare' ), '<code>[woosc_list]</code>' ); ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><?php esc_html_e( 'Reload the count', 'woo-smart-compare' ); ?></th>
+                                            <td>
+                                                <label> <select name="woosc_settings[reload_count]">
+                                                        <option value="yes" <?php selected( $reload_count, 'yes' ); ?>><?php esc_html_e( 'Yes', 'woo-smart-compare' ); ?></option>
+                                                        <option value="no" <?php selected( $reload_count, 'no' ); ?>><?php esc_html_e( 'No', 'woo-smart-compare' ); ?></option>
+                                                    </select> </label>
+                                                <span class="description"><?php esc_html_e( 'Reload the count when opening the page?', 'woo-smart-compare' ); ?></span>
                                             </td>
                                         </tr>
                                         <tr class="heading">
@@ -2268,6 +2280,10 @@ if ( ! function_exists( 'woosc_init' ) ) {
 
 					if ( isset( $_REQUEST['get_data'] ) && ( sanitize_key( $_REQUEST['get_data'] ) === 'sidebar' ) ) {
 						$data['sidebar'] = self::get_sidebar();
+					}
+
+					if ( isset( $_REQUEST['get_data'] ) && ( sanitize_key( $_REQUEST['get_data'] ) === 'count' ) ) {
+						$data['count'] = self::get_count();
 					}
 
 					wp_send_json( $data );

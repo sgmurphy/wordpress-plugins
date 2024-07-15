@@ -489,10 +489,12 @@
 						success: function (response) {
 							if (response && typeof response.status !== 'undefined' && response.status == "SUCCESS") {
 								let successMessageHTML = '<span style="color:green">' + response.message + '</span>';
-								$('#es-send-test').parent().find('.helper').html(successMessageHTML);
+								//$('#es-send-test').parent().find('.helper').html(successMessageHTML);
+								$('#es-send-test').closest('td').find('.helper').html(successMessageHTML);	
 							} else {
 								let errorMessageHTML = '<span style="color:#e66060"><strong>' + ig_es_js_data.i18n_data.sending_error_text + '</strong>: ' + ( Array.isArray( response.message ) ? response.message.join() : response.message ) + '</span>';
-								$('#es-send-test').parent().find('.helper').html(errorMessageHTML);
+								//$('#es-send-test').parent().find('.helper').html(errorMessageHTML);
+								$('#es-send-test').closest('td').find('.helper').html(errorMessageHTML);	
 							}
 
 							$('#es-send-test').next('#spinner-image').hide();

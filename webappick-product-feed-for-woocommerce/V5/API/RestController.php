@@ -8,7 +8,6 @@ use CTXFeed\V5\API\V1\DropDown;
 use CTXFeed\V5\API\V1\DynamicAttributes;
 use CTXFeed\V5\API\V1\MakeFeed;
 use CTXFeed\V5\API\V1\ManageFeeds;
-use CTXFeed\V5\API\V1\MerchantConfig;
 use CTXFeed\V5\API\V1\MerchantInfo;
 use CTXFeed\V5\API\V1\ProductCategories;
 use CTXFeed\V5\API\V1\Products;
@@ -161,7 +160,6 @@ class RestController extends WP_REST_Controller {
 					DropDown::instance(),
 					DynamicAttributes::instance(),
 					ManageFeeds::instance(),
-					MerchantConfig::instance(),
 					MerchantInfo::instance(),
 					ProductCategories::instance(),
 					Products::instance(),

@@ -16,7 +16,7 @@ class Wt_Advanced_Order_Number {
         if (defined('WT_SEQUENCIAL_ORDNUMBER_VERSION')) {
             $this->version = WT_SEQUENCIAL_ORDNUMBER_VERSION;
         } else {
-            $this->version = '1.6.4';
+            $this->version = '1.6.5';
         }
         $this->plugin_name = 'wt-advanced-order-number';
         $this->plugin_base_name = WT_SEQUENCIAL_ORDNUMBER_BASE_NAME;
@@ -75,28 +75,15 @@ class Wt_Advanced_Order_Number {
         $this->loader->add_action('admin_footer', $plugin_admin, 'add_settings_page_popup');
         if ( 'yes' === get_option( 'wt_custom_order_number_search', 'yes' ) ) {
             
-            if ( ! function_exists( 'get_plugins' ) ) {
-                require_once ABSPATH . 'wp-admin/includes/plugin.php';
-            }
-            $plugin_folder = get_plugins( '/woocommerce' );
-            $plugin_file = 'woocommerce.php';
-    
-            if ( isset( $plugin_folder[ $plugin_file ]['Version'] ) ) {
-                $wc_version = $plugin_folder[ $plugin_file ]['Version'];
-          
-            }else{
-                $wc_version = 0;
-            }
-            if(version_compare($wc_version, '8.9.0', '<')){
                 $this->loader->add_filter( 'woocommerce_shop_order_search_fields', $plugin_admin, 'custom_ordernumber_search_field' );   
                 // ensure that admin order table search by order number works.
                 $this->loader->add_filter( 'woocommerce_order_table_search_query_meta_keys', $plugin_admin, 'custom_ordernumber_search_field' );
-            }else{
+
                 //add order number as a search option in woocommerce orders page.
                 add_filter( 'woocommerce_hpos_admin_search_filters',  array( $this, 'wt_sequential_order_page_add_order_number_as_search_option' ) );
                 // Add order number on seach query on woocomerce order page.
                 add_filter( 'woocommerce_hpos_generate_where_for_search_filter', array( $this, 'wt_sequential_generate_where_for_search_filter_add_order_number' ), 10, 4 );
-            }
+
         }
 
         add_action('plugins_loaded', array($this, 'setup_sequential_number'));    

@@ -185,8 +185,8 @@ class CategoryMapping extends RestController {
 			return $this->success( $this->response['data'] );
 
 		}
-
-		return $this->error( sprintf( esc_attr_e( 'No attribute found with name: %s', 'woo-feed' ), esc_attr($name) ) );
+        /* translators: %s: message */
+		return $this->error( sprintf( __( 'No attribute found with name: %s', 'woo-feed' ), $name ) );
 	}
 
 	/**
@@ -242,7 +242,7 @@ class CategoryMapping extends RestController {
 
 			return $this->success( $item );
 		}
-
+        /* translators: %s: message */
 		return $this->error( sprintf( __( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_CATEGORY_MAPPING_PREFIX . '" does\'nt match.', 'woo-feed' ), $feed_name ) );
 	}
 

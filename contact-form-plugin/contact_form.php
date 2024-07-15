@@ -6,7 +6,7 @@ Description: Simple contact form plugin any WordPress website must have.
 Author: BestWebSoft
 Text Domain: contact-form-plugin
 Domain Path: /languages
-Version: 4.2.9
+Version: 4.3.1
 Author URI: https://bestwebsoft.com/
 License: GPLv2 or later
  */
@@ -1097,7 +1097,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 									$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_name'] . '</div>';
 								}
 								$content .= '<div class="cntctfrm_input cntctfrm_input_name">
-									<input ' . apply_filters( 'cntctfrm_readonly', 'namecontact' ) . ' class="text" type="text" size="40" pattern="^[\p{L}\p{M}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' .esc_html( $name ) . '" name="cntctfrm_contact_name" id="cntctfrm_contact_name' . $form_countid . '" />';
+									<input ' . apply_filters( 'cntctfrm_readonly', 'namecontact' ) . ' class="text" type="text" size="40" pattern="^([\p{L}\p{M}]{2,}(\s)*(\p{L}+\p{M}*-*){1,})|([\p{L}\p{M}]{3,})" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" value="' .esc_html( $name ) . '" name="cntctfrm_contact_name" id="cntctfrm_contact_name' . $form_countid . '" />';
 								$content .= '</div>';
 								$content .= '</div>';
 							}
@@ -1153,7 +1153,7 @@ if ( ! function_exists( 'cntctfrm_display_form' ) ) {
 								$content .= '<div class="cntctfrm_error_text">' . $cntctfrm_error_message['error_subject'] . '</div>';
 							}
 							$content .= '<div class="cntctfrm_input cntctfrm_input_subject">
-								<input ' . apply_filters( 'cntctfrm_readonly', 'subject' ) . ' pattern="^[\p{M}\p{L}]{3,}(\s\p{M}*\p{L}+)*" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" class="text" type="text" size="40" value="' . esc_html( $subject ) . '" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject' . $form_countid . '" />';
+								<input ' . apply_filters( 'cntctfrm_readonly', 'subject' ) . ' pattern="^([\p{M}\p{L}]{1,}(\s\p{M}*\p{L}+-*)*){3,}" title="' . __( 'Please enter only letters at least 3 characters, words seperated by spaces', 'contact-form-plugin' ) . '" class="text" type="text" size="40" value="' . esc_html( $subject ) . '" name="cntctfrm_contact_subject" id="cntctfrm_contact_subject' . $form_countid . '" />';
 							$content .= '</div>';
 							$content .= '</div>';
 							break;
@@ -1721,6 +1721,16 @@ if ( ! function_exists( 'cntctfrm_check_form' ) ) {
 			unset( $cntctfrm_error_message['error_attachment'] );
 		}
 		$cntctfrm_error_message = apply_filters( 'cntctfrm_check_fields', $cntctfrm_error_message );
+
+		/* Check for Limit Attempts */
+		if ( has_filter( 'cntctfrm_check' ) ) {
+			$cntctfrm_limit_check = apply_filters( 'cntctfrm_check', $cntctfrm_error_message );
+
+			if ( $cntctfrm_limit_check ) {
+				return $cntctfrm_limit_check;
+			}
+		}
+
 		if ( 1 === count( $cntctfrm_error_message ) ) {
 			if ( has_filter( 'sbscrbr_cntctfrm_checkbox_check' ) ) {
 				$cntctfrm_sbscrbr_check = apply_filters(
@@ -1734,15 +1744,6 @@ if ( ! function_exists( 'cntctfrm_check_form' ) ) {
 				if ( isset( $cntctfrm_sbscrbr_check['response'] ) && 'error' === $cntctfrm_sbscrbr_check['response']['type'] ) {
 					$cntctfrm_error_message['error_sbscrbr'] = $cntctfrm_sbscrbr_check['response'];
 					return $cntctfrm_result;
-				}
-			}
-
-			/* Check for Limit Attempts */
-			if ( has_filter( 'cntctfrm_check' ) ) {
-				$cntctfrm_limit_check = apply_filters( 'cntctfrm_check', $cntctfrm_error_message );
-
-				if ( $cntctfrm_limit_check ) {
-					return $cntctfrm_limit_check;
 				}
 			}
 

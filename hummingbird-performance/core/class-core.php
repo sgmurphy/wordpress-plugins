@@ -94,6 +94,8 @@ class Core {
 		new Integration\Defender();
 		new Integration\Avada();
 		new Integration\OxygenBuilder();
+		new Integration\Google_Site_Kit();
+		new Integration\WooCommerce();
 	}
 
 	/**
@@ -261,6 +263,8 @@ class Core {
 			true
 		);
 
+		$is_hb_page = is_admin() && preg_match( '/^(toplevel|hummingbird)(-pro)*_page_wphb/', get_current_screen()->id );
+
 		wp_localize_script(
 			'wphb-global',
 			'wphbGlobal',
@@ -268,8 +272,14 @@ class Core {
 				'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 				'nonce'      => wp_create_nonce( 'wphb-fetch' ),
 				'minify_url' => admin_url( 'admin.php?page=wphb-minification' ),
+				'is_hb_page' => $is_hb_page,
 			)
 		);
+
+		global $pagenow;
+		if ( is_admin() && ! $is_hb_page && 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {
+			wp_localize_script( 'wphb-global', 'wphb', Utils::get_tracking_data() );
+		}
 	}
 
 	/**

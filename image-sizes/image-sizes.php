@@ -5,7 +5,7 @@
  * Plugin URI: https://thumbpress.co
  * Author: ThumbPress
  * Author URI: https://thumbpress.co
- * Version: 5.3
+ * Version: 5.4
  * Requires at least: 5.0
  * Requires PHP: 7.0
  * Text Domain: image-sizes
@@ -23,6 +23,7 @@
  */
 
 namespace Codexpert\ThumbPress;
+
 use Codexpert\Plugin\Notice;
 use Pluggable\Marketing\Survey;
 use Pluggable\Marketing\Feature;
@@ -156,6 +157,7 @@ final class Plugin {
 			$admin = new App\Admin( $this->plugin );
 			$admin->activate( 'check_action_scheduler_tables' );
 			$admin->action( 'admin_footer', 'modal' );
+			$admin->action( 'admin_footer', 'popup_for_feedback' );
 			$admin->action( 'admin_footer', 'upgrade' );
 			$admin->action( 'plugins_loaded', 'i18n' );
 			$admin->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
@@ -164,13 +166,6 @@ final class Plugin {
 			$admin->action( 'admin_footer_text', 'footer_text' );
 			$admin->action( 'admin_notices', 'admin_notices' );
 			$admin->action( 'cx-settings-after-fields', 'show_new_button' );
-			
-			/**
-			 * The setup wizard
-			 */
-			$wizard = new App\Wizard( $this->plugin );
-			$wizard->action( 'plugins_loaded', 'render' );
-			$wizard->filter( "plugin_action_links_{$this->plugin['basename']}", 'action_links' );
 
 			/**
 			 * Settings related hooks
@@ -239,6 +234,7 @@ final class Plugin {
 		 */
 		$ajax = new App\AJAX( $this->plugin );
 		$ajax->priv( 'image_sizes-notice-dismiss', 'dismiss_notice' );
+		$ajax->priv( 'handle_unhappy_survey', 'unhappy_servay' );
 		// $ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
 		$ajax->priv( 'image_sizes-dismiss', 'image_sizes_dismiss' );
 

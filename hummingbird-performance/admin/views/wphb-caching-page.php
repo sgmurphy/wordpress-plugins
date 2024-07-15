@@ -5,6 +5,8 @@
  * @package Hummingbird
  */
 
+use Hummingbird\Core\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,7 +26,8 @@ $forms = array( 'page_cache', 'rss', 'settings' );
 	<?php endif; ?>
 
 	<?php if ( in_array( $this->get_current_tab(), $forms, true ) ) : ?>
-		<form id="<?php echo esc_attr( $this->get_current_tab() ); ?>-form" method="post">
+		<?php $form_name = 'page_cache' === $this->get_current_tab() && Utils::get_api()->hosting->has_fast_cgi_header() ? 'fastcgi' : $this->get_current_tab(); ?>
+		<form id="<?php echo esc_attr( $form_name ); ?>-form" method="post">
 			<?php $this->do_meta_boxes( $this->get_current_tab() ); ?>
 		</form>
 	<?php else : ?>

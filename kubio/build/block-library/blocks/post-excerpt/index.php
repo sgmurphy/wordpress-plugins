@@ -73,7 +73,7 @@ class PostExcerptBlock extends BlockBase {
 
 		return array(
 			self::TEXT => array(
-				'innerHTML' => $content,
+				'innerHTML' => wp_kses_post($content),
 				'tag'       => 'p',
 			),
 		);

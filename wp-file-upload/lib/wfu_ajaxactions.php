@@ -573,8 +573,20 @@ function wfu_ajax_action_callback() {
  */
 function wfu_ajax_action_save_shortcode() {
 	$is_admin = current_user_can( 'manage_options' );
-	$can_open_composer = ( WFU_VAR("WFU_SHORTCODECOMPOSER_NOADMIN") == "true" && ( current_user_can( 'edit_pages' ) || current_user_can( 'edit_posts' ) ) );
-	if ( !$is_admin && !$can_open_composer ) die();
+	//$can_open_composer = ( WFU_VAR("WFU_SHORTCODECOMPOSER_NOADMIN") == "true" && ( current_user_can( 'edit_pages' ) || current_user_can( 'edit_posts' ) ) );
+	if ( !$is_admin /*&& !$can_open_composer*/ ) die();
+	wfu_ajax_action_save_shortcode_after_user_check();
+}
+
+/**
+ * Execute Saving of Shortcode After User Check
+ *
+ * This function executes saving of a shortcode after the initial check of the
+ * user has been completed.
+ *
+ * @since 4.24.8
+ */
+function wfu_ajax_action_save_shortcode_after_user_check() {
 	if ( !isset($_POST['shortcode']) || !isset($_POST['shortcode_original']) || !isset($_POST['post_id']) || !isset($_POST['post_hash']) || !isset($_POST['shortcode_position']) || !isset($_POST['shortcode_tag']) || !isset($_POST['widget_id']) || !isset($_POST['nonce']) ) die();
 	
 	check_ajax_referer( 'wfu-admin-composer', 'nonce' );

@@ -736,7 +736,9 @@ function ccb_pro_features_page_tab( $tabs ) {
 	}
 	return $tabs;
 }
+
 add_filter( 'install_plugins_tabs', 'ccb_pro_features_page_tab' );
+
 function ccb_pro_features_page_redirect( $tabs ) {
 	if ( ! isset( $_GET['tab'] ) || 'ccb_pro_features' !== $_GET['tab'] ) {
 		return;
@@ -746,3 +748,17 @@ function ccb_pro_features_page_redirect( $tabs ) {
 }
 
 add_action( 'load-plugin-install.php', 'ccb_pro_features_page_redirect' );
+
+function ccb_convert_from_btoa( $data, $convert_into_array = false ) {
+	$jsonString = base64_decode( $data ); // phpcs:ignore
+	if ( $convert_into_array ) {
+		$jsonString = json_decode( $jsonString, true );
+	}
+
+	return $jsonString;
+}
+
+function ccb_is_convert_correct( $jsonString = '' ) {
+	$data = json_decode( $jsonString, true );
+	return ! empty( $data );
+}

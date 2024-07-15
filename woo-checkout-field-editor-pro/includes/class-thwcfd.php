@@ -66,7 +66,6 @@ class THWCFD {
 		add_action('admin_enqueue_scripts', array($plugin_admin, 'enqueue_styles_and_scripts'));
 		add_action('admin_menu', array($plugin_admin, 'admin_menu'));
 		add_action('admin_head', array($plugin_admin,'review_banner_custom_css'));
-		add_action('admin_footer', array($plugin_admin,'review_banner_custom_js'),20);
         add_action('admin_footer', array($plugin_admin,'quick_links'),10);
         add_action('admin_footer', array($plugin_admin,'thwcfd_display_discount_announcement'),10);
 		add_filter('woocommerce_screen_ids', array($plugin_admin, 'add_screen_id'));
@@ -82,7 +81,6 @@ class THWCFD {
 
 		$general_settings = new THWCFD_Admin_Settings_General();
 		add_action('after_setup_theme', array($general_settings, 'define_admin_hooks'));
-		add_action('wp_ajax_hide_thwcfd_admin_notice', array($this, 'hide_thwcfd_admin_notice'));
 	}
 
 	private function define_public_hooks() {
@@ -121,20 +119,6 @@ class THWCFD {
 		return $this->version;
 	}
 
-	public function hide_thwcfd_admin_notice(){
-		check_ajax_referer('thwcfd_notice_security', 'thwcfd_review_nonce');
-
-		$capability = THWCFD_Utils::wcfd_capability();
-		
-		if(!current_user_can($capability)){
-			wp_die(-1);
-		}
-
-		$now = time();
-		update_user_meta( get_current_user_id(), 'thwcfd_review_skipped', true );
-		update_user_meta( get_current_user_id(), 'thwcfd_review_skipped_time', $now );
-	}
-
 	public function thwcfd_deactivation_form(){
 		$is_snooze_time = get_user_meta( get_current_user_id(), 'thwcfd_deactivation_snooze', true );
         $now = time();
@@ -152,7 +136,7 @@ class THWCFD {
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="model-header">
-                                <img class="th-logo" src="<?php echo esc_url(THWCFD_URL .'admin/assets/css/themehigh.svg'); ?>" alt="themehigh-logo">
+                                <img class="th-logo" src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/min-logo.svg'); ?>" alt="themehigh-logo">
                                 <span><?php echo __('Quick Feedback', 'woo-checkout-field-editor-pro'); ?></span>
                             </div>
 

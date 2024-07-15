@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 3.1.1 – 15-07-2024 =
+Added: WordPress 6.6 compatibility.
+Fixed: WPML compatibility issue.
+Few minor bug fixes & improvements
+
 = 3.1.0 – 10-07-2024 =
 Added: Global color control for FSI
 Added: Live logo adding control for FSI

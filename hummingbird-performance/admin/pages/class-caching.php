@@ -17,6 +17,7 @@ use Hummingbird\Core\Modules\Cloudflare;
 use Hummingbird\Core\Modules\Page_Cache;
 use Hummingbird\Core\Settings;
 use Hummingbird\Core\Utils;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -77,14 +78,27 @@ class Caching extends Page {
 		 * PAGE CACHE META BOXES
 		 */
 		if ( Utils::get_api()->hosting->has_fast_cgi_header() ) {
-			$this->add_meta_box(
-				'caching/page/fast-cgi',
-				__( 'Page Caching', 'wphb' ),
-				null,
-				array( $this, 'page_caching_metabox_header' ),
-				null,
-				'page_cache'
-			);
+			if ( ( is_multisite() && is_network_admin() ) || ! is_multisite() ) {
+				$this->add_meta_box(
+					'caching/page/fast-cgi',
+					__( 'Page Caching', 'wphb' ),
+					array( $this, 'page_caching_fast_cgi_metabox' ),
+					array( $this, 'page_caching_metabox_header' ),
+					function () {
+						Fast_CGI::is_fast_cgi_supported() ? $this->view( 'caching/meta-box-footer', array() ) : null;
+					},
+					'page_cache'
+				);
+			} else {
+				$this->add_meta_box(
+					'caching/page/fastcgi-subsite',
+					__( 'Page Caching', 'wphb' ),
+					null,
+					array( $this, 'page_caching_metabox_header' ),
+					null,
+					'page_cache'
+				);
+			}
 		} elseif ( Utils::get_module( 'page_cache' )->is_active() ) {
 			$footer = ( is_multisite() && is_network_admin() ) || ! is_multisite();
 			$this->add_meta_box(
@@ -320,7 +334,7 @@ class Caching extends Page {
 
 		// Remove modules that are not used on subsites in a network.
 		if ( is_multisite() && ! is_network_admin() ) {
-			if ( ! Settings::get_setting( 'enabled', 'page_cache' ) ) {
+			if ( ! Settings::get_setting( 'enabled', 'page_cache' ) && ! Fast_CGI::is_fast_cgi_enabled() ) {
 				unset( $this->tabs['page_cache'] );
 			}
 
@@ -451,7 +465,7 @@ class Caching extends Page {
 
 		$module = Utils::get_module( $tab );
 
-		if ( $module->is_active() && ( ! isset( $module->error ) || ! is_wp_error( $module->error ) ) ) {
+		if ( ( $module->is_active() && ( ! isset( $module->error ) || ! is_wp_error( $module->error ) ) ) || ( 'page_cache' === $tab && Fast_CGI::is_fast_cgi_enabled() ) ) {
 			echo '<span class="sui-icon-check-tick sui-success" aria-hidden="true"></span>';
 		} elseif ( isset( $module->error ) && is_wp_error( $module->error ) ) {
 			echo '<span class="sui-icon-warning-alert sui-warning" aria-hidden="true"></span>';
@@ -481,6 +495,8 @@ class Caching extends Page {
 				'rss'             => Settings::get_setting( 'duration', 'rss' ),
 				'preload_running' => $preloader->is_process_running(),
 				'preload_active'  => Settings::get_setting( 'preload', 'page_cache' ),
+				'options'         => Utils::get_module( 'page_cache' )->get_options(),
+				'has_fastcgi'     => Utils::get_api()->hosting->has_fast_cgi_header(),
 			)
 		);
 	}
@@ -499,7 +515,7 @@ class Caching extends Page {
 		$this->view(
 			'caching/page/disabled-meta-box',
 			array(
-				'activate_url' => wp_nonce_url(
+				'activate_url'          => wp_nonce_url(
 					add_query_arg(
 						array(
 							'action' => 'enable',
@@ -508,6 +524,23 @@ class Caching extends Page {
 					),
 					'wphb-caching-actions'
 				),
+				'is_fast_cgi_supported' => Fast_CGI::is_fast_cgi_supported(),
+				'is_homepage_preload'   => Utils::is_homepage_preload_enabled() ? 'enabled' : 'disabled',
+			)
+		);
+	}
+
+	/**
+	 * Page caching fastCGI meta box.
+	 */
+	public function page_caching_fast_cgi_metabox() {
+		$this->view(
+			'caching/page/fast-cgi-meta-box',
+			array(
+				'fast_cgi_settings'     => Fast_CGI::wphb_fast_cgi_data( true ),
+				'is_fast_cgi_supported' => Fast_CGI::is_fast_cgi_supported(),
+				'options'               => Utils::get_module( 'page_cache' )->get_options(),
+				'settings'              => Utils::get_module( 'page_cache' )->get_settings(),
 			)
 		);
 	}
@@ -598,8 +631,10 @@ class Caching extends Page {
 	 */
 	public function page_caching_metabox_header() {
 		$args = array(
-			'title'       => __( 'Page Caching', 'wphb' ),
-			'has_fastcgi' => Utils::get_api()->hosting->has_fast_cgi_header(),
+			'title'                 => Utils::get_cache_page_title(),
+			'has_fastcgi'           => Utils::get_api()->hosting->has_fast_cgi_header(),
+			'is_fast_cgi_supported' => Fast_CGI::is_fast_cgi_supported(),
+			'is_subsite'            => Utils::is_subsite(),
 		);
 
 		$this->view( 'caching/page/meta-box-header', $args );
@@ -761,4 +796,42 @@ class Caching extends Page {
 		$this->view( 'caching/settings/meta-box', compact( 'detection' ) );
 	}
 
+	/**
+	 * Overwrites parent class render_header method.
+	 */
+	public function render_header() {
+		add_action( 'wphb_sui_header_sui_actions_right', array( $this, 'add_header_actions' ) );
+
+		parent::render_header();
+	}
+
+	/**
+	 * Add clear cache button to the header.
+	 *
+	 * @since 3.9.0
+	 */
+	public function add_header_actions() {
+		if ( ! Utils::get_api()->hosting->has_fast_cgi_header() && ! Utils::get_module( 'page_cache' )->is_active() ) {
+			return;
+		}
+
+		$view_tab = sanitize_text_field( filter_input( INPUT_GET, 'view', FILTER_UNSAFE_RAW ) );
+		if ( ! empty( $view_tab ) && 'page_cache' !== $view_tab ) {
+			return;
+		}
+		?>
+		<button type="button" class="sui-button sui-tooltip sui-tooltip-bottom-right sui-tooltip-constrained" id="wphb-clear-cache" data-module="page_cache" data-tooltip="<?php esc_attr_e( 'Clear all page cache', 'wphb' ); ?>" aria-live="polite">
+			<!-- Default State Content -->
+			<span class="sui-button-text-default">
+				<?php esc_html_e( 'Clear cache', 'wphb' ); ?>
+			</span>
+
+			<!-- Loading State Content -->
+			<span class="sui-button-text-onload">
+				<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
+				<?php esc_html_e( 'Clearing cache', 'wphb' ); ?>
+			</span>
+		</button>
+		<?php
+	}
 }

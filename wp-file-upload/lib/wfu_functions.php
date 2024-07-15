@@ -2186,13 +2186,29 @@ function wfu_upload_plugin_full_path( $params ) {
 	else $start_folder = WP_CONTENT_DIR.'/';
 	if ($path) {
 		if ( $path == ".." || substr($path, 0, 3) == "../" ) {
-			$start_folder = wfu_abspath();
+			//$start_folder = wfu_abspath();
 			$path = substr($path, 2, strlen($path) - 2);
 		}
-		//remove additional parent folder symbols (..) in path so that the path does not go outside the $start_folder
+		// remove additional parent folder symbols (..) in path so that the path
+		// does not go outside the $start_folder
 		$path =  str_replace('..', '', $path);
 		if ( substr($path, 0, 1) == "/" ) $path = substr($path, 1, strlen($path) - 1);
 		if ( substr($path, -1, 1) == "/" ) $path = substr($path, 0, strlen($path) - 1);
+		/**
+		 * Customize Upload Path.
+		 *
+		 * This filter allows to customize the upload path, after it has been
+		 * processed. It is noted that after version 4.24.8 the plugin does not
+		 * allow to upload files outside /wp-content folder, in order to avoid
+		 * directory traversals. This filter enables to change this behaviour on
+		 * occasions where it is necessary.
+		 *
+		 * @since 4.24.8
+		 *
+		 * @param string $path The processed upload path.
+		 * @param array $params The plugin shortcode params.
+		 */
+		$path = apply_filters("_wfu_after_processing_uploadpath", $path, $params);
 		$full_upload_path = $start_folder;
 		if ( $path != "" ) $full_upload_path .= $path.'/';
 	}

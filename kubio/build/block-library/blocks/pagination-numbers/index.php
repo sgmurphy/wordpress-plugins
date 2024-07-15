@@ -24,9 +24,9 @@ class PaginationNumbersBlock extends BlockBase {
 		return paginate_links(
 			array(
 				'prev_next' => false,
-				'total'     => $pages_data['total'],
-				'current'   => $pages_data['current'],
-				'show_all'  => $this->getAttribute( 'show_all', false ),
+				'total'     => esc_attr($pages_data['total']),
+				'current'   => esc_attr($pages_data['current']),
+				'show_all'  => esc_attr($this->getAttribute( 'show_all', false )),
 			)
 		);
 	}

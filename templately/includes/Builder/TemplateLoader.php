@@ -108,11 +108,13 @@ class TemplateLoader {
 
 		if( $post_type === 'templately_library' ){
 			$template                                = templately()->theme_builder->get_template( $document->get_main_id() );
-			$attributes['data-elementor-type']       = 'templately-' . $template->get_type();
-			$attributes['data-elementor-id']         = $template->get_main_id();
-			$attributes['data-elementor-post-type']  = 'templately_library';
-			$attributes['data-elementor-title']      = $template->get_title();
-			$attributes['class']                    .= ' ' . implode( ' ', get_post_class() );
+			if($template){
+				$attributes['data-elementor-type']       = 'templately-' . $template->get_type();
+				$attributes['data-elementor-id']         = $template->get_main_id();
+				$attributes['data-elementor-post-type']  = 'templately_library';
+				$attributes['data-elementor-title']      = $template->get_title();
+				$attributes['class']                    .= ' ' . implode( ' ', get_post_class() );
+			}
 		}
 
 		return $attributes;

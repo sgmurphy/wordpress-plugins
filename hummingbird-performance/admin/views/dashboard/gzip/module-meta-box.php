@@ -26,7 +26,7 @@ if ( true === $use_cdn || 'br' === $compression_type ) {
 				<p>
 					<?php
 					printf( /* translators: %1$s - opening <a> tag, %2$s - closing </a> tag */
-						esc_html__( 'Brotli Compression is active and working well via CDN, for enhanced performance in supported browsers. For browsers that don’t support Brotli, we’ll automatically use GZip instead. %1$sCheck browser support here%2$s.', 'wphb' ),
+						esc_html__( 'Brotli Compression is active and working well via CDN/Hosting, for enhanced performance in supported browsers. For browsers that don’t support Brotli, we’ll automatically use GZip instead. %1$sCheck browser support here%2$s.', 'wphb' ),
 						'<a href="' . esc_url( 'https://caniuse.com/brotli' ) . '" onclick="wphbMixPanel.track(' . "'check_brotli_support'" . ')" target="_blank">',
 						'</a>'
 					)

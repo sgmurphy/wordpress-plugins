@@ -1,6 +1,6 @@
 <!--  -->
 <div class="wfu-releasenotes-container">
-	<span><strong>Version 4.24.7</strong> is a regular update that introduces a new upload form user field, <strong>Country List</strong>. When added on the form the user must choose a country from the dropdown menu. The field can be customized to show the country, the country code and also the country's phone prefix. When <strong>Material UI</strong> theme is active, the field can also be customized to show the country flag next to each country.<br /><br />
+	<span><strong>Version 4.24.8</strong> is a regular update that fixes some security issues related to XSS, CSRF and directory traversal attacks.<br /><br />
 	Please note that since Version 4.24.0 the <strong>Professional</strong> version of the plugin introduces some significant changes, such as <strong>licensing</strong> and <strong>external extensions</strong>.
 	<br /><br />
 	For more details about this version's changes please visit the <strong>Release Notes</strong> of the plugin's </span>

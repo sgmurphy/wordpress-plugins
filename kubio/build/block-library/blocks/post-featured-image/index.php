@@ -7,7 +7,6 @@ use Kubio\Core\LodashBasic;
 use Kubio\Core\Registry;
 use Kubio\Core\Styles\FlexAlign;
 use Kubio\Core\Utils;
-use Kubio\Core\Utils as GeneralUtils;
 
 class PostFeaturedImageBlock extends Blockbase {
 
@@ -106,7 +105,7 @@ class PostFeaturedImageBlock extends Blockbase {
 			),
 			self::IMAGE     => array_merge(
 				array(
-					'src' => $imageUrl,
+					'src' => $imageUrl ? esc_url( $imageUrl ) : $imageUrl,
 				),
 				$imageAttributes
 			),

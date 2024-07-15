@@ -17,6 +17,7 @@ use Hummingbird\Core\Modules\Performance;
 use Hummingbird\Core\Settings;
 use Hummingbird\Core\Utils;
 use Hummingbird\WP_Hummingbird;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -92,6 +93,8 @@ class AJAX {
 
 		// Save page caching settings.
 		add_action( 'wp_ajax_wphb_page_cache_save_settings', array( $this, 'page_cache_save_settings' ) );
+		// Save page caching settings.
+		add_action( 'wp_ajax_wphb_fast_cgi_save_settings', array( $this, 'fast_cgi_save_settings' ) );
 		// Gutenberg clear cache for post.
 		add_action( 'wp_ajax_wphb_gutenberg_clear_post_cache', array( $this, 'gutenberg_clear_post_cache' ) );
 		// Cancel cache preload.
@@ -100,6 +103,8 @@ class AJAX {
 		add_action( 'wp_ajax_wphb_remove_advanced_cache', array( $this, 'remove_advanced_cache' ) );
 		// Disable FastCGI cache.
 		add_action( 'wp_ajax_wphb_disable_fast_cgi', array( $this, 'disable_fast_cgi' ) );
+		// Switch Cache method.
+		add_action( 'wp_ajax_wphb_switch_cache_method', array( $this, 'switch_cache_method' ) );
 
 		/* RSS CACHING */
 
@@ -537,6 +542,9 @@ class AJAX {
 						'HBSmushFeatures'     => Utils::get_active_features(),
 						'hbPerformanceMetric' => Utils::get_performance_metric_for_mp(),
 						'aoStatus'            => Utils::is_ao_processing() ? 'incomplete' : 'complete',
+						'getLCPSubmetrics'    => Performance::get_lcp_submetrics_for_mp(),
+						'getAudits'           => Performance::get_audits_for_mp(),
+						'hasError'            => 'we’re over 1 minute - timeout',
 					)
 				);
 			}
@@ -588,6 +596,9 @@ class AJAX {
 					'HBSmushFeatures'     => Utils::get_active_features(),
 					'hbPerformanceMetric' => Utils::get_performance_metric_for_mp(),
 					'aoStatus'            => Utils::is_ao_processing() ? 'incomplete' : 'complete',
+					'getLCPSubmetrics'    => Performance::get_lcp_submetrics_for_mp(),
+					'getAudits'           => Performance::get_audits_for_mp(),
+					'hasError'            => Performance::get_performance_report_error( $report ),
 				)
 			);
 		}
@@ -656,7 +667,7 @@ class AJAX {
 
 		$reload = false;
 
-		$current_fast_cgi = get_site_transient( 'wphb-fast-cgi-enabled' );
+		$current_fast_cgi = Fast_CGI::is_fast_cgi_enabled();
 		$status           = Utils::get_module( $module )->clear_cache();
 
 		// Make sure we reload the page if the FastCGI status has changed.
@@ -668,6 +679,97 @@ class AJAX {
 			array(
 				'success' => $status,
 				'reload'  => $reload,
+			)
+		);
+	}
+
+	/**
+	 * Save fastCGI settings.
+	 *
+	 * @since 3.9.0
+	 */
+	public function fast_cgi_save_settings() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( Utils::get_admin_capability() ) || ! isset( $_POST['data'] ) ) { // Input var okay.
+			die();
+		}
+
+		// Get the data from ajax.
+		parse_str( wp_unslash( $_POST['data'] ), $data ); // Input var ok.
+
+		if ( isset( $data['query_params'] ) && ! empty( $data['query_params'] ) ) {
+			$data['query_params'] = preg_split( '/[\r\n\t]+/', $data['query_params'] );
+		} else {
+			$data['query_params'] = '';
+		}
+
+		if ( isset( $data['bypass_urls'] ) && ! empty( $data['bypass_urls'] ) ) {
+			$data['bypass_urls'] = preg_split( '/[\r\n\t]+/', $data['bypass_urls'] );
+		} else {
+			$data['bypass_urls'] = '';
+		}
+
+		$data['ttl'] = trim( $data['ttl'] );
+		$preload     = isset( $data['preload'] ) && isset( $data['preload']['enabled'] ) ? (bool) $data['preload']['enabled'] : false;
+
+		$existing_settings = Fast_CGI::wphb_fast_cgi_data();
+		$settings_modified = array();
+
+		if ( ! empty( $existing_settings ) ) {
+			if ( $data['ttl'] !== trim( $existing_settings->ttl ) ) {
+				$settings_modified[] = 'cache_lifetime';
+			}
+
+			if ( $data['bypass_urls'] !== $existing_settings->bypass_urls ) {
+				$settings_modified[] = 'exclude_url';
+			}
+
+			if ( $data['query_params'] !== $existing_settings->query_params ) {
+				$settings_modified[] = 'cache_query_param';
+			}
+		}
+
+		$error_message = '';
+		if ( ! empty( $data ) && ! empty( $settings_modified ) ) {
+			$response      = Utils::get_api()->hosting->wphb_update_fast_cgi_settings( $data );
+			$error_message = is_wp_error( $response ) ? $response->get_error_message() : '';
+		}
+
+		$module    = Utils::get_module( 'page_cache' );
+		$options   = $module->get_options();
+		$preload   = isset( $data['preload'] ) && isset( $data['preload']['enabled'] ) ? true : false;
+		$home_page = isset( $data['preload_type']['home_page'] ) ? $data['preload_type']['home_page'] : false;
+		$on_clear  = isset( $data['preload_type']['on_clear'] ) ? $data['preload_type']['on_clear'] : false;
+		if ( $preload !== $options['preload'] ) {
+			$settings_modified[] = 'preload_caching';
+		} elseif ( ! empty( $preload ) && ( wp_validate_boolean( $home_page ) !== wp_validate_boolean( $options['preload_type']['home_page'] ) || wp_validate_boolean( $on_clear ) !== wp_validate_boolean( $options['preload_type']['on_clear'] ) ) ) {
+			$settings_modified[] = 'preload_caching';
+		}
+
+		// Cache preload.
+		$options['preload'] = $preload;
+		if ( $options['preload'] ) {
+			$options['preload_type']['home_page'] = isset( $data['preload_type']['home_page'] ) && $data['preload_type']['home_page'];
+			$options['preload_type']['on_clear']  = isset( $data['preload_type']['on_clear'] ) && $data['preload_type']['on_clear'];
+		}
+
+		$module->update_options( $options );
+		$settings                              = $module->get_settings();
+		$settings['settings']['comment_clear'] = isset( $data['settings']['comment_clear'] ) && $data['settings']['comment_clear'];
+		$module->save_settings( $settings );
+
+		if ( ! empty( $settings_modified ) ) {
+			Utils::get_module( 'page_cache' )->clear_cache();
+		}
+
+		wp_send_json_success(
+			array(
+				'success'          => true,
+				'fastCGIResponse'  => $error_message,
+				'settingsModified' => ! empty( $settings_modified ) ? implode( ',', $settings_modified ) : '',
+				'cacheLifetime'    => ! empty( $data['ttl'] ) ? $data['ttl'] / 60 : $data['ttl'],
+				'preloadHomepage'  => isset( $options['preload_type'] ) && $options['preload_type']['home_page'] ? 'enabled' : 'disabled',
 			)
 		);
 	}
@@ -745,8 +847,10 @@ class AJAX {
 		$settings['exclude']['user_agents'] = $user_agents;
 		$settings['exclude']['cookies']     = $cookies;
 
-		$module  = Utils::get_module( 'page_cache' );
-		$options = $module->get_options();
+		$module            = Utils::get_module( 'page_cache' );
+		$options           = $module->get_options();
+		$existing_settings = $module->get_settings();
+		$existing_options  = $options;
 
 		if ( isset( $data['settings']['admins_disable_caching'] ) && 1 === absint( $data['settings']['admins_disable_caching'] ) ) {
 			$options['enabled'] = 'blog-admins';
@@ -763,7 +867,7 @@ class AJAX {
 		}
 
 		// Cache preload.
-		$options['preload'] = isset( $data['preload'] ) && isset( $data['preload']['enabled'] ) ? (bool) $data['preload']['enabled'] : $defaults['page_cache']['preload'];
+		$options['preload'] = isset( $data['preload'] ) && isset( $data['preload']['enabled'] ) ? (bool) $data['preload']['enabled'] : false;
 		if ( $options['preload'] ) {
 			$options['preload_type']['home_page'] = isset( $data['preload_type']['home_page'] ) && $data['preload_type']['home_page'];
 			$options['preload_type']['on_clear']  = isset( $data['preload_type']['on_clear'] ) && $data['preload_type']['on_clear'];
@@ -778,12 +882,80 @@ class AJAX {
 		}
 		$settings['clear_interval']['interval'] = $interval;
 
+		$settings_modified = array();
+		if ( ! empty( $existing_settings ) ) {
+			$preload   = isset( $data['preload'] ) && isset( $data['preload']['enabled'] ) ? true : false;
+			$home_page = isset( $data['preload_type']['home_page'] ) ? $data['preload_type']['home_page'] : false;
+			$on_clear  = isset( $data['preload_type']['on_clear'] ) ? $data['preload_type']['on_clear'] : false;
+			if ( $preload !== $existing_options['preload'] ) {
+				$settings_modified[] = 'preload_caching';
+			} elseif ( ! empty( $preload ) && ( wp_validate_boolean( $home_page ) !== wp_validate_boolean( $existing_options['preload_type']['home_page'] ) || wp_validate_boolean( $on_clear ) !== wp_validate_boolean( $existing_options['preload_type']['on_clear'] ) ) ) {
+				$settings_modified[] = 'preload_caching';
+			}
+
+			$cache_identifier = isset( $data['settings']['cache_identifier'] ) ? $data['settings']['cache_identifier'] : false;
+			if ( wp_validate_boolean( $cache_identifier ) !== wp_validate_boolean( $existing_settings['settings']['cache_identifier'] ) ) {
+				$settings_modified[] = 'identify_cached_pages';
+			}
+
+			$debug_log = isset( $data['settings']['debug_log'] ) ? $data['settings']['debug_log'] : false;
+			if ( wp_validate_boolean( $debug_log ) !== wp_validate_boolean( $existing_settings['settings']['debug_log'] ) ) {
+				$settings_modified[] = 'debug_log';
+			}
+
+			$comment_clear = isset( $data['settings']['comment_clear'] ) ? $data['settings']['comment_clear'] : false;
+			if ( wp_validate_boolean( $comment_clear ) !== wp_validate_boolean( $existing_settings['settings']['comment_clear'] ) ) {
+				$settings_modified[] = 'purge_on_comment';
+			}
+
+			if ( $page_types !== $existing_settings['page_types'] ) {
+				$settings_modified[] = 'hb_page_types';
+			}
+
+			$clear_interval = isset( $data['clear_interval']['enabled'] ) ? $data['clear_interval']['enabled'] : false;
+			if ( $clear_interval !== $existing_settings['clear_interval']['enabled'] ) {
+				$settings_modified[] = 'hb_cache_interval';
+			} elseif ( ! empty( $clear_interval ) && ( $data['clear_interval']['period'] !== $existing_settings['clear_interval']['period'] || $interval !== $existing_settings['clear_interval']['interval'] ) ) {
+				$settings_modified[] = 'hb_cache_interval';
+			}
+
+			$varnish = isset( $data['integrations']['varnish'] ) ? $data['integrations']['varnish'] : false;
+			if ( wp_validate_boolean( $varnish ) !== wp_validate_boolean( $existing_options['integrations']['varnish'] ) ) {
+				$settings_modified[] = 'hb_integration_varnish';
+			}
+
+			$opcache = isset( $data['integrations']['opcache'] ) ? $data['integrations']['opcache'] : false;
+			if ( wp_validate_boolean( $opcache ) !== wp_validate_boolean( $existing_options['integrations']['opcache'] ) ) {
+				$settings_modified[] = 'hb_integration_opcache';
+			}
+
+			if ( $url_strings !== $existing_settings['exclude']['url_strings'] || $user_agents !== $existing_settings['exclude']['user_agents'] || $cookies !== $existing_settings['exclude']['cookies'] ) {
+				$settings_modified[] = 'hb_exclusions';
+			}
+
+			if ( $url_strings !== $existing_settings['exclude']['url_strings'] ) {
+				$settings_modified[] = 'hb_settings_url_queries';
+			}
+
+			$clear_update = isset( $data['settings']['clear_update'] ) ? $data['settings']['clear_update'] : false;
+			if ( wp_validate_boolean( $clear_update ) !== wp_validate_boolean( $existing_settings['settings']['clear_update'] ) ) {
+				$settings_modified[] = 'hb_settings_full_purge';
+			}
+
+			$mobile = isset( $data['settings']['mobile'] ) ? $data['settings']['mobile'] : false;
+			if ( wp_validate_boolean( $mobile ) !== wp_validate_boolean( $existing_settings['settings']['mobile'] ) ) {
+				$settings_modified[] = 'hb_settings_mobile';
+			}
+		}
+
 		$module->update_options( $options );
 		$module->save_settings( $settings );
 
 		wp_send_json_success(
 			array(
-				'success' => true,
+				'success'          => true,
+				'settingsModified' => ! empty( $settings_modified ) ? implode( ',', $settings_modified ) : 'na',
+				'preloadHomepage'  => isset( $options['preload_type'] ) && $options['preload_type']['home_page'] ? 'enabled' : 'disabled',
 			)
 		);
 	}
@@ -860,9 +1032,77 @@ class AJAX {
 			die();
 		}
 
-		Utils::get_api()->hosting->disable_fast_cgi();
+		$response      = Utils::get_api()->hosting->toggle_fast_cgi( false );
+		$error_message = is_wp_error( $response ) ? $response->get_error_message() : '';
+		// Get page cache module.
+		$page_cache = Utils::get_module( 'page_cache' );
+		$options    = $page_cache->get_options();
+		// Disable page cache.
+		$page_cache->disable();
 
-		wp_send_json_success();
+		wp_send_json_success(
+			array(
+				'fastCGIResponse' => $error_message,
+				'preloadHomepage' => isset( $options['preload_type'] ) && $options['preload_type']['home_page'] ? 'enabled' : 'disabled',
+			)
+		);
+	}
+
+	/**
+	 * Switch cache method.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return void
+	 */
+	public function switch_cache_method() {
+		check_ajax_referer( 'wphb-fetch', 'nonce' );
+
+		if ( ! current_user_can( Utils::get_admin_capability() ) ) {
+			die();
+		}
+
+		$method                = sanitize_text_field( wp_unslash( $_POST['method'] ) ); // Input var ok.
+		$is_fast_cgi_activated = null;
+		$error_message         = '';
+		$module                = Utils::get_module( 'page_cache' );
+
+		$activate_hosting_static_cache = null;
+		if ( 'hosting_static_cache' === $method ) {
+			$activate_hosting_static_cache = true;
+		} elseif ( 'local_page_cache' === $method ) {
+			$activate_hosting_static_cache = false;
+		}
+
+		if ( ! is_null( $activate_hosting_static_cache ) ) {
+			$response = Utils::get_api()->hosting->toggle_fast_cgi( $activate_hosting_static_cache );
+			if ( $activate_hosting_static_cache && isset( $response->is_active ) ) {
+				Fast_CGI::update_fast_cgi_status( $response->is_active );
+			}
+
+			$error_message         = is_wp_error( $response ) ? $response->get_error_message() : '';
+			$is_fast_cgi_activated = ! empty( $error_message ) ? 'error' : $activate_hosting_static_cache;
+
+			if ( 'hosting_static_cache' === $method ) {
+				$module->disable();
+			} elseif ( 'local_page_cache' === $method ) {
+				$module->toggle_service( true, true );
+			}
+		}
+
+		$options = $module->get_options();
+
+		// Clear cache is required at this point because we are changing the cache method.
+		$module->clear_cache();
+
+		wp_send_json_success(
+			array(
+				'isFastCGIActivated' => $is_fast_cgi_activated,
+				'fastCGIResponse'    => $error_message,
+				'method'             => $method,
+				'preloadHomepage'    => isset( $options['preload_type'] ) && $options['preload_type']['home_page'] ? 'enabled' : 'disabled',
+			)
+		);
 	}
 
 	/**
@@ -1351,14 +1591,20 @@ class AJAX {
 
 		// Preload fonts.
 		$prev_font_optimization = Settings::get_setting( 'font_optimization', 'minify' );
-		$prev_font_swap = Settings::get_setting( 'font_swap', 'minify' );
+		$prev_font_swap         = Settings::get_setting( 'font_swap', 'minify' );
 		$font_optimization      = ! empty( $form['font_optimization'] );
 		$preload_fonts          = $form['preload_fonts'];
 		$preload_fonts          = html_entity_decode( $preload_fonts );
 		$font_swap              = ! empty( $form['font_swap'] );
+		$font_display_value     = $form['font_display_value'];
+		$preload_fonts_mode     = $form['preload_fonts_mode'];
 		Settings::update_setting( 'font_optimization', $font_optimization, 'minify' );
 		Settings::update_setting( 'preload_fonts', $preload_fonts, 'minify' );
 		Settings::update_setting( 'font_swap', $font_swap, 'minify' );
+		Settings::update_setting( 'font_display_value', $font_display_value, 'minify' );
+		if ( Utils::is_member() ) {
+			Settings::update_setting( 'preload_fonts_mode', $preload_fonts_mode, 'minify' );
+		}
 
 		// Track font value to MP.
 		$font_optimization_update_type = $prev_font_optimization !== $font_optimization ? ( ! empty( $font_optimization ) ? 'activate' : 'deactivate' ) : '';

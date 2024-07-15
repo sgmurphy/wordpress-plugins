@@ -115,7 +115,7 @@ function wfu_view_log($page = 1, $only_table_rows = false, $located_rec = -1) {
 					$userdata_dateto = strtotime($userdata->date_to);
 					$filerec_datefrom = strtotime($filerec->date_from);
 					if ( $filerec_datefrom >= $userdata_datefrom && ( $userdata_dateto == $time0 || $filerec_datefrom < $userdata_dateto ) )
-						$remarks .= "\n\t\t\t\t\t\t\t".'<option>'.$userdata->property.': '.$userdata->propvalue.'</option>';
+						$remarks .= "\n\t\t\t\t\t\t\t".'<option>'.esc_attr($userdata->property).': '.esc_attr($userdata->propvalue).'</option>';
 				}
 			}
 			if ( $remarks != '' ) {

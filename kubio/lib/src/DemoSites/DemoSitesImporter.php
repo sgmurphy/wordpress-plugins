@@ -230,7 +230,13 @@ class DemoSitesImporter {
 
 	private function loadKDSFile( $kds ) {
 		if ( $kds ) {
-			list( $wxr_file, $extra_options ) = DemoSitesHelpers::extractImporterFilesFromSource( $kds );
+			$result = DemoSitesHelpers::extractImporterFilesFromSource( $kds );
+
+			if ( is_wp_error( $result ) ) {
+				DemoSitesHelpers::sendAjaxError( $result->get_error_message() );
+			}
+
+			list( $wxr_file, $extra_options ) = $result;
 
 			if ( is_wp_error( $wxr_file ) ) {
 				DemoSitesHelpers::logErrorAndSendAjaxResponse(

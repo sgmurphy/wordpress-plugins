@@ -1058,7 +1058,7 @@ function event_manager_dropdown_selection($args = '') {
 			'exclude'         => $query['exclude'],
 			'hierarchical'    => $query['hierarchical']
 		));
-
+ 
 		set_transient($categories_hash, $categories, DAY_IN_SECONDS * 30);
 	}
 
@@ -1068,11 +1068,11 @@ function event_manager_dropdown_selection($args = '') {
 	$id = $query['id'] ? $query['id'] : $query['name'];
 
 	if($taxonomy === 'event_listing_type'):
-		$placeholder = __('Choose an event type', 'wp-event-manager');
-		$multiple_text = __('Choose event types', 'wp-event-manager');
+		$placeholder = isset($placeholder) ? $placeholder : __('Choose an event type', 'wp-event-manager');
+		$multiple_text = isset($multiple_text) ? $multiple_text :__('Choose event types', 'wp-event-manager');
 	endif;
 
-	$output = "<select name='" . esc_attr($name) . "[]' id='" . esc_attr($id) . "' class='" . esc_attr($class) . "' " . ($multiple ? "multiple='multiple'" : '') . " data-placeholder='" . esc_attr($placeholder) . "' data-no_results_text='" . esc_attr($no_results_text) . "' data-multiple_text='" . esc_attr($placeholder) . "'>\n";
+	$output = "<select name='" . esc_attr($name) . "[]' id='" . esc_attr($id) . "' class='" . esc_attr($class) . "' " . ($multiple ? "multiple='multiple'" : '') . " data-placeholder='" . esc_attr($placeholder) . "' data-no_results_text='" . esc_attr($no_results_text) . "' data-multiple_text='" . esc_attr($multiple_text) . "'>\n";
 
 	if($show_option_all) {
 		$output .= '<option value="">' . $show_option_all . '</option>';
@@ -1953,7 +1953,7 @@ if ( !function_exists( 'get_event_by_user_id' ) ) {
  */
 function wpem_get_all_countries() {
 	return apply_filters('wpem_all_countries', array (
-		'' => 'Select Country',
+		'' => __('Select Country', 'wp-event-manager'),
 		'AF' => 'Afghanistan',
 		'AX' => 'Aland Islands',
 		'AL' => 'Albania',

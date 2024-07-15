@@ -2,57 +2,92 @@
 	<img src="<?php echo esc_url( plugins_url( 'vendor/codexpert/plugin/src/assets/img/checked.png', THUMBPRESS ) ); ?>">
 </div>
 <div>
-	<div class="convert_images" id="convert_images">
-	<div class="image_sizes-detect">
+	<div class="thumbpress-actions-wrapper">
+	<div class="thumbpress-actions-left">
 		<div id="info-icon" class="info-icon">
 			<img class="info-img" src="<?php echo esc_url( plugins_url( 'modules/convert-images/img/info.png', THUMBPRESS ) ); ?>">
 			<p><?php echo esc_html__( "Alert! Please note that all the images on your website will be converted to WebP format and you cannot undo this action later. Do not take this action unless you're sure about it. If you want to convert a specific image, you can do it from media library." ); ?></p>
 		</div>
-		<div class="image_sizes-detect-panel">
-			<h3>
-				<?php _e( 'Convert All Existing Images on Your Website', 'image-sizes' ); ?>
-			</h3>
-			<button id="thumbpress-convert-all" class="image-sizes-detect-button button button-hero button-primary" type="button"><?php echo esc_html__( 'Convert All', 'image-sizes' ); ?></button>
+		<label for="thumbpress-convert-limit">
+			<?php _e( 'Number of images to process per request:', 'image-sizes' ) ?>
+		</label>
+		<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="thumbpress-convert-limit" name="regen-thumbs-limit" value="10" placeholder="<?php _e( 'Images/request. Default is 50', 'image-sizes' ) ?>" required="">
+		<div class="thumbpress-buttons-wrapper">
+			<button id="thumbpress-convert-now" class="thumbpress-action-now" type="button">
+				<?php echo esc_html__( 'Convert Now', 'image-sizes' ); ?>
+			</button>
+			<button id="thumbpress-convert-background" class="thumbpress-action-background" type="button">
+				<?php echo esc_html__( 'Convert in Background', 'image-sizes' ); ?>
+			</button>
 		</div>
 	</div>
-
-	<?php
-	$status = thumbpress_get_last_action_status_by_module_name( 'convert-images' );
-
-	$title 	= $text = '';
-
-	switch ( $status ) {
-		case 'pending':
-			$title 			= __( 'PROCESSING...', 'image-sizes' );
-			$text 			= __( 'Your images are being converted to WebP format. Please wait.', 'image-sizes' );
-			$status_class 	= 'processing';
-			break;
-		case 'failed':
-			$title 			= __( 'FAILED', 'image-sizes' );
-			$text 			= __( 'Image conversion to WebP was unsuccessful. Please try again.', 'image-sizes' );
-			$status_class 	= 'failed';
-			break;
-		case 'complete':
-			$title 			= __( 'COMPLETED', 'image-sizes' );
-			$text 			= __( 'Your images have been successfully converted to WebP.', 'image-sizes' );
-			$status_class 	= 'complete';
-			break;
-		default:
-			$status_class 	= 'hidden';
-			break;
-	}
-	?>
-	<div id="processing-convert">
-		<div id="select-for-convert">
-			<img src="<?php echo esc_url( plugins_url( 'modules/convert-images/img/convart-icon.png', THUMBPRESS ) ); ?>">
+	<div class="thumbpress-actions-right">
+		<div class="thumbpress-progress-panel-wrapper" style="display: none;">
+			<div id="thumbpress-message"></div>
 		</div>
-		<?php if ( $title ): ?>
-			<h2 class="image_sizes-status <?php echo $status_class; ?>">
-				<?php echo esc_html( $title ); ?>
-			</h2>
-		<?php endif; ?>
-		<p class="image_sizes-desc">
-			<?php echo esc_html( $text ); ?>
-		</p>
+		<?php
+		$status 	= thumbpress_get_last_action_status_by_module_name('convert-images');
+		$progress 	= get_option("thumbpress_convert_progress");
+		$title 		= $text = $status_class = $progress_bar = '';
+
+		switch ( $status ) {
+			case 'pending':
+			$title         = __('PROCESSING...', 'thumbpress-pro');
+			$text          = __('Your images are being converted to WebP format. Please wait.', 'thumbpress-pro');
+			$status_class  = 'processing';
+			$progress_bar  = "<div class='progress'>
+			<div class='bar' style='width: " . intval( $progress ) . "%;'>
+			<p class='percent'>" . intval( $progress ) . "%</p>
+			</div>
+			</div>";
+			break;
+			case 'failed':
+			$title         = __('FAILED', 'thumbpress-pro');
+			$text          = __('Image conversion to WebP was unsuccessful. Please try again.', 'thumbpress-pro');
+			$status_class  = 'failed';
+			break;
+			case 'in-progress':
+			$title         = __('PROCESSING...', 'image-sizes');
+			$text          = __('Your images are being converted to WebP format. Please wait.', 'image-sizes');
+			$status_class  = 'in-progress';
+			$progress_bar  = "<div class='progress'>
+			<div class='bar' style='width: " . intval( $progress ) . "%;'>
+			<p class='percent'>" . intval( $progress ) . "%</p>
+			</div>
+			</div>";
+			break;
+			case 'complete':
+			$title         = __('COMPLETED', 'thumbpress-pro');
+			$text          = __('Your images have been successfully converted to WebP.', 'thumbpress-pro');
+			$status_class  = 'complete';
+			$progress_bar  = "<div class='progress'>
+			<div class='bar' style='width: " . intval( $progress ) . "%;'>
+			<p class='percent'>" . intval( $progress ) . "%</p>
+			</div>
+			</div>";
+			break;
+			default:
+			$status_class  = 'hidden';
+			break;
+		}
+
+		?>
+		<div id="processing-convert">
+			<div id="select-for-convert">
+				<img src="<?php echo esc_url( plugins_url('modules/convert-images/img/convart-icon.png', THUMBPRESS ) ); ?>">
+			</div>
+			<?php if ( $title ): ?>
+				<h2 class="image_sizes-status <?php echo $status_class; ?>">
+					<?php echo esc_html( $title ); ?>
+				</h2>
+				<?php if ( isset( $progress_bar ) ): ?>
+					<?php echo $progress_bar; ?>
+				<?php endif; ?>
+			<?php endif; ?>
+			<p class="image_sizes-desc">
+				<?php echo esc_html( $text ); ?>
+			</p>
+		</div>
+	</div>
 	</div>
 </div>

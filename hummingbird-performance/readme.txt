@@ -1,24 +1,28 @@
-=== Hummingbird - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript ===
-Plugin Name: Hummingbird - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript
-Version: 3.8.1
+=== Hummingbird Performance - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript | CDN ===
+Plugin Name: Hummingbird Performance - Cache & Page Speed Optimization for Core Web Vitals | Critical CSS | Minify CSS | Defer CSS Javascript | CDN
+Version: 3.9.1
 Author: WPMU DEV
 Author URI: https://wpmudev.com/
 Contributors: WPMUDEV
-Tags: cache, critical css, javascript delay, minify css, defer css javascript, page cache, wordpress speed optimization, page speed, wordpress cache plugin, wordpress performance optimization, lazy load, performance optimization, seo, pagespeed, wp cache, delay javascript, brotli compression, generate critical css
+Tags: cache, critical css, performance, delay javascript, minify css, defer css javascript, page cache, wordpress speed optimization, page speed, wordpress cache plugin, wordpress performance optimization, lazy load, performance optimization, seo, pagespeed, wp cache, delay javascript, brotli compression, generate critical css
 Requires at least: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.8.1
+Stable tag: 3.9.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
-Optimize site speed with best WP cache plugin. Cache, minify CSS & minify JavaScript, defer critical CSS & JS, smush & lazy load images.
+The best WP Caching Plugin - Boost PageSpeed Performance, Cache, Minify CSS & JavaScript, Optimize Critical CSS, Defer CSS & JS, Smush & Lazy Load images.
 
 == Description ==
 
 **Hummingbird makes your website faster and optimizes site performance by adding new ways to boost Google PageSpeed Insights with fine-tuned controls over file compression, deferring CSS and JavaScript styles and scripts, minify for CSS and JS, Lazy Load integration, and world-class caching.**
 
 Hummingbird is brought to you by the WordPress speed specialists that created [Smush](https://wordpress.org/plugins/wp-smushit/) image optimization, now active on more than +1 million websites. Get the complete speed boost with Hummingbird and Smush.
+
+**Enjoy top-tier performance and PageSpeed optimization from the start with [Hummingbird Pro](https://wpmudev.com/project/wp-hummingbird/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme-above-the-fold&utm_content=wp_hummingbird_pro ).**
+
+Level up immediately with exclusive Pro features like Delay JavaScript Execution, Critical CSS Generation, Brotli file compression, and 123-point global asset CDN with unlimited bandwidth. [Learn more about Pro](https://wpmudev.com/project/wp-hummingbird/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=hummingbird-readme-above-the-fold&utm_content=wp_hummingbird_pro).
 
 ### If PageSpeed Insights is making these speed recommendations Hummingbird can help:
 
@@ -203,6 +207,21 @@ We take plugin security incredibly seriously; if you have a bug or vulnerability
 4. Use suggestions to make improvements and speed up your site.
 
 == Changelog ==
+
+= 3.9.1 ( 2024-07-15 ) =
+- Fix: Whitelabel fixes
+- Improvement: General code improvements
+
+= 3.9.0 ( 2024-07-09 ) =
+- Improvement: Better integration with WPMU Dev hosting’s Static Server Cache
+- Improvement: Option to switch Font Swapping modes to fine tune performance
+- Improvement: Option to switch Font Preloading modes to fine tune performance
+- Improvement: Preload Caching is now enabled by default for Homepage when Page Caching is active
+- Improvement: Woo cart and checkout pages are excluded from optimization to prevent broken functionality
+- Improvement: Faster Critical CSS processing
+- Improvement: WP 6.6 compatibility
+- Fix: Google Site Kit compatibility with Asset Optimization
+- Fix: Relative URLs are now handled without errors when generating Critical CSS
 
 = 3.8.1 ( 2024-05-02 ) =
 - Fix: Font optimization causes issue with RSS feeds

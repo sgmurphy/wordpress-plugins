@@ -94,13 +94,13 @@ function get_freemius_info() {
 $freemius_info = get_freemius_info();
 
 
-$deadline      = new DateTime( '10th May 2024' );
-$is_promotion  = time() < $deadline->format( 'U' );
+$deadline     = new DateTime( '10th May 2024' );
+$is_promotion = time() < $deadline->format( 'U' );
 
 if ( $is_promotion ) {
-	$freemius_info['plan']['licenses_5000']->annual_price   = 299;
-	$freemius_info['plan']['licenses_5']->annual_price      = 119;
-	$freemius_info['plan']['licenses_1']->annual_price      = 49;
+	$freemius_info['plan']['licenses_5000']->annual_price = 299;
+	$freemius_info['plan']['licenses_5']->annual_price    = 119;
+	$freemius_info['plan']['licenses_1']->annual_price    = 49;
 
 	$freemius_info['plan']['licenses_5000']->lifetime_price = 799;
 	$freemius_info['plan']['licenses_5']->lifetime_price    = 329;
@@ -108,7 +108,7 @@ if ( $is_promotion ) {
 }
 
 $current_url  = $_SERVER['REQUEST_URI'];
-$query_string = parse_url( $current_url, PHP_URL_QUERY );
+$query_string = wp_parse_url( $current_url, PHP_URL_QUERY );
 parse_str( $query_string, $params_array );
 
 $pro_features_utm = '';
@@ -140,11 +140,6 @@ if ( array_key_exists( 'from', $params_array ) && ! empty( $params_array['from']
 					<?php endif; ?>
 				</p>
 			</div>
-			<?php if ( false ) : ?>
-				<div class="stm-discount">
-					<a href="https://stylemixthemes.com/cost-calculator-plugin/pricing/?utm_source=wpadmin&utm_medium=newyear&utm_campaign=cost-calculator" target="_blank"></a>
-				</div>
-			<?php endif; ?>
 
 			<?php if ( isset( $freemius_info['plan'] ) ) : ?>
 				<h2 class="pricing-section ccb-heading-1 ccb-bold" style="position: relative; left: -5px"><?php esc_html_e( 'Choose the pricing plan for your business', 'cost-calculator-builder' ); ?></h2>
@@ -268,6 +263,7 @@ if ( array_key_exists( 'from', $params_array ) && ! empty( $params_array['from']
 				</ul>
 			<?php endif; ?>
 		</div>
+		<?php require_once CALC_PATH . '/templates/admin/pages/go-pro-feature.php'; ?>
 		<div class="container">
 			<div class="stm_last_video_info">
 				<div class="ccb-gopro-video-guide">
@@ -384,6 +380,23 @@ if ( array_key_exists( 'from', $params_array ) && ! empty( $params_array['from']
 				$(this).next().find('span').text($this.attr('data-price-old-' + typePrice));
 			})
 
+		});
+
+		$('.ccb-upgrade-accordion-item:first-child .ccb-upgrade-accordion-header').addClass('open');
+		$('.ccb-upgrade-accordion-item:first-child .ccb-upgrade-accordion-content').slideDown(200).addClass('show');
+		$('.ccb-upgrade-accordion-item:first-child .ccb-icon-Path-3514').addClass('rotate');
+
+		$('.ccb-upgrade-accordion-header').click(function () {
+			const content = $(this).next('.ccb-upgrade-accordion-content');
+			$('.ccb-upgrade-accordion-content').not(content).slideUp(200).removeClass('show');
+
+			$('.ccb-upgrade-accordion-header').not($(this)).removeClass('open');
+
+			content.slideToggle(200).toggleClass('show');
+			const $icon = $(this).find('.ccb-icon-Path-3514');
+			$('.ccb-icon-Path-3514').not($icon).removeClass('rotate');
+			$icon.toggleClass('rotate');
+			$(this).toggleClass('open');
 		});
 
 	});

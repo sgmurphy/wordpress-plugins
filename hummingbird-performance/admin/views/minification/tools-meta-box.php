@@ -14,6 +14,7 @@
  * @var bool   $font_optimization              Font Optimization.
  * @var string $preload_fonts                  Preload Fonts.
  * @var bool   $font_swap                      Font swap
+ * @var string $font_display_value             Font display.
  * @var string $critical_css                   Critical CSS.
  * @var string $critical_css_mode              Critical CSS Mode.
  * @var string $critical_css_type              Critical CSS type.
@@ -24,6 +25,7 @@
  * @var bool   $blog_is_frontpage              If blog is front page.
  * @var array  $custom_post_types              Custom post types.
  * @var array  $settings                       Settings data.
+ * @var string $preload_fonts_mode             Preload Fonts Mode.
  */
 
 use Hummingbird\Core\Utils;
@@ -423,39 +425,144 @@ script id"><?php echo esc_html( $delay_js_excludes ); ?></textarea>
 					<?php esc_html_e( 'Swap Web Fonts', 'wphb' ); ?>
 				</span>
 				<span class="sui-description sui-toggle-description">
-					<?php esc_html_e( 'Ensure text visibility for web fonts, by applying a similar fallback font that visitors will temporarily see until the primary font loads.', 'wphb' ); ?>
+					<?php esc_html_e( 'Apply a similar fallback font that visitors will temporarily see until the primary font loads.', 'wphb' ); ?>
 				</span>
 			</label>
+			<?php
+			$font_display_settings_classes = array( 'sui-description', 'sui-toggle-description' );
+
+			if ( ! $font_swap ) {
+				$font_display_settings_classes[] = 'sui-hidden';
+			}
+			?>
+			<div class="<?php echo esc_attr( implode( ' ', $font_display_settings_classes ) ); ?>" id="font_display_settings">
+				<div id="font_swap_method">
+					<span class="sui-list-label" style="margin-bottom: 10px;">
+						<strong><?php esc_html_e( 'Choose Method', 'wphb' ); ?></strong>
+					</span>
+					<div class="sui-form-field" role="radiogroup">
+						<label for="swap" class="sui-radio">
+							<input type="radio" name="font_display_value" id="swap" value="swap" <?php checked( $font_display_value, 'swap' ); ?> aria-labelledby="radio-label-default-one">
+							<span aria-hidden="true"></span>
+							<span id="radio-label-default-one"><?php esc_html_e( 'Safe', 'wphb' ); ?></span>
+						</label>
+						<label for="optional" class="sui-radio">
+							<input type="radio" name="font_display_value" id="optional" value="optional" <?php checked( $font_display_value, 'optional' ); ?> aria-labelledby="radio-label-default-two">
+							<span aria-hidden="true"></span>
+							<span id="radio-label-default-two"><?php esc_html_e( 'Performant', 'wphb' ); ?></span>
+						</label>
+						<div class="sui-notice sui-notice-grey">
+							<div class="sui-notice-content">
+								<div class="sui-notice-message">
+									<span class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></span>
+									<div class="font_display_safe_helper <?php echo ( 'swap' === $font_display_value ? '' : ' sui-hidden' ); ?>" style="margin-bottom: 5px;">
+										<?php
+										printf( /* translators: %1$s - Opening <strong> tag, %2$s - Closing </strong> tag, %3$s - New line, %4$s - Opening <span> tag, %4$s - Closing </span> tag */
+											esc_html__( 'Immediately render text with local fonts and swap out the font-face with the web fonts once they are loaded. %1$sRecommended for most sites.%2$s %3$s(Uses %4$sfont-display: swap%5$s attribute)%6$s', 'wphb' ),
+											'<strong>',
+											'</strong>',
+											'<p style="margin-top: 5px;">',
+											'<span style="color: #1ABC9C;">',
+											'</span>',
+											'</p>',
+										);
+										?>
+									</div>
+									<div class="font_display_performant_helper <?php echo ( 'optional' === $font_display_value ? '' : ' sui-hidden' ); ?>">
+										<?php
+										printf( /* translators: %1$s - Opening <strong> tag, %2$s - Closing </strong> tag, %3$s - New line, %4$s - Opening <span> tag, %4$s - Closing </span> tag */
+											esc_html__( 'Wait 100ms for the web fonts to load before rendering text, and fall back to local fonts if it takes any longer. %1$s Use this if you’re facing CLS issues with fonts. May cause unstyled text.%2$s %3$s(Uses %4$sfont-display: optional%5$s attribute)%6$s', 'wphb' ),
+											'<strong>',
+											'</strong>',
+											'<p style="margin-top: 5px;">',
+											'<span style="color: #1ABC9C;">',
+											'</span>',
+											'</p>',
+										);
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="sui-form-field">
-			<label for="font_optimization" class="sui-toggle">
-				<input type="checkbox" name="font_optimization" id="font_optimization" aria-labelledby="font_optimization-label" <?php checked( $font_optimization ); ?>>
+		<label for="font_optimization" class="sui-toggle">
+				<input type="checkbox" data-value="<?php echo esc_attr( $font_optimization ); ?>" name="font_optimization" id="font_optimization" aria-labelledby="font_optimization-label" <?php checked( $font_optimization ); ?>>
 				<span class="sui-toggle-slider" aria-hidden="true"></span>
 				<span id="font_optimization-label" class="sui-toggle-label">
 					<?php esc_html_e( 'Preload Fonts', 'wphb' ); ?>
 				</span>
-				<?php
-				$font_optimization_classes = array( 'sui-description', 'sui-toggle-description' );
-
-				if ( ! $font_optimization ) {
-					$font_optimization_classes[] = 'sui-hidden';
-				}
-				?>
 				<span class="sui-description">
 					<?php esc_html_e( 'Instruct browsers to preload fonts that are critical to your site\'s user experience (e.g., content users are likely to interact with first).', 'wphb' ); ?>
 				</span>
-				<span class="<?php echo esc_attr( implode( ' ', $font_optimization_classes ) ); ?>" id="font_optimization_preload_box">
-					<label class="sui-label" for="preload_fonts">
-						<?php esc_html_e( 'Enter the URLs of the font files you wish to preload (one per line).', 'wphb' ); ?>
-					</label>
-					<textarea class="sui-form-control" id="preload_fonts" name="preload_fonts" placeholder="/wp-content/themes/your-theme/assets/fonts/font-file.otf"><?php echo esc_html( $preload_fonts ); ?></textarea>
-					<?php
-					printf(
-						esc_html__( 'The domain component of the URL will be removed automatically if included. Accepted font extensions: otf, ttf, svg, woff, and woff2.', 'wphb' )
-					);
-					?>
-				</span>
 			</label>
+			<?php
+			$font_optimization_classes = array( 'sui-description', 'sui-toggle-description' );
+			if ( ! $font_optimization ) {
+				$font_optimization_classes[] = 'sui-hidden';
+			}
+
+			$font_preload_notice_class = $font_swap && 'optional' === $font_display_value ? '' : 'sui-hidden';
+			?>
+			<div class="<?php echo esc_attr( implode( ' ', $font_optimization_classes ) ); ?>" id="font_optimization_preload_box">
+				<div id="font_preload_method">
+					<span class="sui-list-label" style="margin-bottom: 10px;">
+						<strong><?php esc_html_e( 'Choose Method', 'wphb' ); ?></strong>
+					</span>
+					<div class="sui-form-field" role="radiogroup">
+						<label for="automatic" class="sui-radio">
+							<input <?php echo ! Utils::is_member() ? esc_attr( 'disabled' ) : ''; ?> type="radio" name="preload_fonts_mode" id="automatic" value="automatic" <?php checked( $preload_fonts_mode, 'automatic' ); ?> aria-labelledby="radio-label-default-one">
+							<span aria-hidden="true"></span>
+							<span id="radio-label-default-one"><?php esc_html_e( 'Automatic (Needs Critical CSS)', 'wphb' ); ?></span>
+							<?php if ( ! Utils::is_member() ) { ?>
+								<span class="sui-tag sui-tag-pro"><?php esc_html_e( 'Pro', 'wphb' ); ?></span>
+							<?php } ?>
+						</label>
+						<label for="manual" class="sui-radio">
+							<input type="radio" name="preload_fonts_mode" id="manual" value="manual" <?php checked( $preload_fonts_mode, 'manual' ); ?> aria-labelledby="radio-label-default-two">
+							<span aria-hidden="true"></span>
+							<span id="radio-label-default-two"><?php esc_html_e( 'Manual Only', 'wphb' ); ?></span>
+						</label>
+						<div class="sui-notice sui-notice-grey">
+							<div class="sui-notice-content">
+								<div class="sui-notice-message">
+									<span class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></span>
+									<p class="preload_fonts_mode_automatic_helper <?php echo ( 'automatic' === $preload_fonts_mode ? '' : ' sui-hidden' ); ?>">
+										<?php
+										printf( /* translators: %1$s - Opening <bold> tag, %2$s - Closing </bold> tag */
+											esc_html__( 'Fetches critical fonts from the generated Critical CSS and preloads them in addition to the ones specified manually. %1$sMay cause performance regressions if your site uses a large number of fonts.%2$s', 'wphb' ),
+											'<strong>',
+											'</strong>'
+										);
+										?>
+									</p>
+									<p class="preload_fonts_mode_manuel_helper <?php echo ( 'manual' === $preload_fonts_mode ? '' : ' sui-hidden' ); ?>">
+										<?php
+										printf( /* translators: %1$s - Opening <bold> tag, %2$s - Closing </bold> tag */
+											esc_html__( 'Only preloads the fonts which are specified manually in the given field. %1$sMore suitable for sites with a large number of fonts.%2$s', 'wphb' ),
+											'<strong>',
+											'</strong>'
+										);
+										?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<label class="sui-label" for="preload_fonts">
+					<?php esc_html_e( 'Enter the URLs of the font files you wish to preload (one per line).', 'wphb' ); ?>
+				</label>
+				<textarea class="sui-form-control" id="preload_fonts" name="preload_fonts" placeholder="/wp-content/themes/your-theme/assets/fonts/font-file.otf"><?php echo esc_html( $preload_fonts ); ?></textarea>
+				<?php
+				printf(
+					esc_html__( 'The domain component of the URL will be removed automatically if included. Accepted font extensions: otf, ttf, svg, woff, and woff2.', 'wphb' )
+				);
+				?>
+			</div>
 		</div>
 	</div>
 </div>

@@ -35,6 +35,7 @@ class CopyrightBlock extends BlockBase {
 		//TODO the href will need changing to the kubio website when will have one
 		$default = '&copy; {year} {site-name}. Built using WordPress and <a target="_blank" href="https://kubiobuilder.com" rel="noreferrer">Kubio</a>';
 		$msg     = $content ? $content : $default;
+		$msg 	 = wp_kses_post($msg);
 		$msg     = str_replace( '{year}', date( 'Y' ), $msg );
 		$msg     = str_replace( '{site-name}', get_bloginfo( 'name' ), $msg );
 		$msg     = sprintf( '<p>%s</p>', $msg );

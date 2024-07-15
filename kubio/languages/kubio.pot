@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Kubio 2.2.4\n"
+"Project-Id-Version: Kubio 2.3.0\n"
 "Report-Msgid-Bugs-To: support@kubiobuilder.com\n"
 "Last-Translator: Kubio <support@kubiobuilder.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-11T13:29:02+03:00\n"
+"POT-Creation-Date: 2024-07-12T08:49:25+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: kubio\n"
@@ -187,7 +187,7 @@ msgstr ""
 #: admin-area/src/admin-pages/forms.js:96
 #: block-library/src/menu/components/menu-provider/menu-placeholder.js:135
 #: controls/src/components/placeholders/index.js:87
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:466
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:474
 #: editor/src/components/navigation-sidebar/navigation-panel/menus/template-parts.js:75
 #: editor/src/components/navigation-sidebar/navigation-panel/menus/templates.js:98
 msgid "Loading…"
@@ -269,8 +269,9 @@ msgstr ""
 #: advanced-panel/src/available-styles.js:33
 #: advanced-panel/src/available-styles.js:38
 #: advanced-panel/src/available-styles.js:43
-#: block-editor/src/components/block-inspector/index.js:141
-#: block-editor/src/components/block-inspector/index.js:306
+#: block-editor/src/components/block-inspector/index.js:147
+#: block-editor/src/components/block-inspector/index.js:312
+#: block-editor/src/components/global-styles/typography-panel.js:152
 #: block-library/src/flip-box/inspector/style/states-panel.js:49
 #: block-library/src/post-comments-form/inspector/style/post-comments-form-style.js:146
 #: controls/src/style-controls/typography-container-control/typography-container-popup/index.js:9
@@ -303,6 +304,8 @@ msgid "Border and Shadows"
 msgstr ""
 
 #: advanced-panel/src/available-styles.js:60
+#: block-editor/src/components/global-styles/border-panel.js:261
+#: block-editor/src/components/global-styles/border-panel.js:277
 #: block-library/src/counter/inspector/style/counter.js:74
 #: block-library/src/counter/inspector/style/counter.js:83
 #: block-library/src/image/edit/config.js:41
@@ -327,9 +330,9 @@ msgid "Box shadow"
 msgstr ""
 
 #: advanced-panel/src/available-styles.js:69
-#: block-editor/src/components/block-inspector/index.js:319
-#: block-editor/src/components/global-styles/color-panel.js:529
-#: block-editor/src/components/global-styles/color-panel.js:677
+#: block-editor/src/components/block-inspector/index.js:325
+#: block-editor/src/components/global-styles/color-panel.js:553
+#: block-editor/src/components/global-styles/color-panel.js:703
 #: block-library/src/accordion/inspector/style/content.js:24
 #: block-library/src/accordion/inspector/style/titles.js:43
 #: block-library/src/button/inspector/style/button-style.js:48
@@ -574,7 +577,6 @@ msgid "No URL set"
 msgstr ""
 
 #: ai/src/components/wizard/steps/contact-info-step.js:601
-#: block-editor/src/components/media-placeholder/index.js:56
 #: block-library/src/image/edit/image-editor.js:380
 msgid "Apply"
 msgstr ""
@@ -782,7 +784,7 @@ msgid "Team"
 msgstr ""
 
 #: ai/src/components/wizard/steps/page-types-and-descriptions.js:29
-#: block-library/src/image-gallery/blocks/gallery/component.js:75
+#: block-library/src/image-gallery/blocks/gallery/component.js:85
 #: block-library/src/image-gallery/blocks/gallery/elements.js:11
 msgid "Gallery"
 msgstr ""
@@ -984,6 +986,10 @@ msgstr ""
 msgid "After Conversion"
 msgstr ""
 
+#: block-editor/src/components/block-draggable/draggable-chip.js:19
+msgid "Pattern"
+msgstr ""
+
 #. translators: %d: Number of blocks.
 #: block-editor/src/components/block-draggable/draggable-chip.js:37
 msgid "%d block"
@@ -999,7 +1005,8 @@ msgstr ""
 msgid "Toggle full height"
 msgstr ""
 
-#: block-editor/src/components/block-inspector/index.js:61
+#: block-editor/src/components/block-inspector/index.js:62
+#: block-editor/src/components/global-styles/dimensions-panel.js:489
 #: block-library/src/accordion/blocks/accordion/elements.js:31
 #: block-library/src/accordion/inspector/style/content.js:22
 #: block-library/src/post-comments/elements.js:142
@@ -1018,14 +1025,14 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: block-editor/src/components/block-inspector/index.js:135
-#: block-editor/src/components/block-inspector/index.js:301
-#: block-editor/src/components/global-styles/color-panel.js:125
+#: block-editor/src/components/block-inspector/index.js:141
+#: block-editor/src/components/block-inspector/index.js:307
+#: block-editor/src/components/global-styles/color-panel.js:561
 #: block-library/src/counter/inspector/style/counter.js:51
 #: block-library/src/divider/inspector/style/line.js:50
 #: block-library/src/heading/inspector/style/effects/highlighted.js:35
 #: block-library/src/image-gallery/config.js:96
-#: block-library/src/image-gallery/inspector/style/image.js:66
+#: block-library/src/image-gallery/inspector/style/image.js:69
 #: block-library/src/image/inspector/style/effect-options/frame-options.js:70
 #: block-library/src/post-comments/inspector/style/post-comments-style.js:187
 #: block-library/src/pricing/inspector/style/pricing-controls.js:38
@@ -1044,19 +1051,20 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: block-editor/src/components/block-inspector/index.js:146
-#: block-editor/src/components/block-inspector/index.js:310
+#: block-editor/src/components/block-inspector/index.js:152
+#: block-editor/src/components/block-inspector/index.js:316
+#: block-editor/src/components/global-styles/dimensions-panel.js:192
 #: wp-global-styles/src/global-style/dimensions-panel.js:141
 msgid "Dimensions"
 msgstr ""
 
-#: block-editor/src/components/block-inspector/index.js:175
+#: block-editor/src/components/block-inspector/index.js:181
 #: inspectors/src/advanced/inspector.js:28
 #: inspectors/src/style/inspector.js:30
 msgid "No block selected."
 msgstr ""
 
-#: block-editor/src/components/block-inspector/index.js:283
+#: block-editor/src/components/block-inspector/index.js:289
 msgid "Styles"
 msgstr ""
 
@@ -1065,8 +1073,26 @@ msgid "This block has encountered an error and cannot be previewed."
 msgstr ""
 
 #. translators: %s: Type of block (i.e. Text, Image etc)
-#: block-editor/src/components/block-list/use-block-props/index.js:107
+#: block-editor/src/components/block-list/use-block-props/index.js:111
 msgid "Block: %s"
+msgstr ""
+
+#: block-editor/src/components/block-mover/button.js:47
+#: block-editor/src/components/block-mover/button.js:55
+msgid "Move right"
+msgstr ""
+
+#: block-editor/src/components/block-mover/button.js:48
+#: block-editor/src/components/block-mover/button.js:54
+msgid "Move left"
+msgstr ""
+
+#: block-editor/src/components/block-mover/button.js:50
+msgid "Move up"
+msgstr ""
+
+#: block-editor/src/components/block-mover/button.js:57
+msgid "Move down"
 msgstr ""
 
 #: block-editor/src/components/block-patterns-list/index.js:138
@@ -1090,9 +1116,8 @@ msgid "This will permanently delete the custom section."
 msgstr ""
 
 #: block-editor/src/components/block-patterns-list/remove-section-popover.js:65
+#: block-editor/src/components/block-removal-warning-modal/index.js:81
 #: block-editor/src/components/inserter/classic-theme-create-template-modal/modal-content.js:176
-#: block-editor/src/components/media-placeholder/index.js:409
-#: block-editor/src/components/media-placeholder/index.js:413
 #: block-library/src/header/inspector/content/template-part-properties.js:117
 #: block-library/src/image/edit/image-editor.js:383
 #: controls/src/components/wizard/index.js:150
@@ -1104,13 +1129,30 @@ msgid "Cancel"
 msgstr ""
 
 #: block-editor/src/components/block-patterns-list/remove-section-popover.js:68
+#: block-editor/src/components/block-removal-warning-modal/index.js:84
 #: block-editor/src/components/block-settings-menu/block-settings-dropdown.js:421
 #: block-library/src/common/filters/right-click-menu/config.js:44
 #: block-library/src/header/inspector/content/template-part-properties.js:124
 #: block-library/src/multiple-images/blocks/multiple-images/toolbar.js:57
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:207
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:252
 #: editor/src/components/navigation-sidebar/navigation-panel/modals/delete-page-modal.js:62
 msgid "Delete"
+msgstr ""
+
+#: block-editor/src/components/block-removal-warning-modal/index.js:53
+msgid "Deleting this block will stop your post or page content from displaying on this template. It is not recommended."
+msgid_plural "Deleting these blocks will stop your post or page content from displaying on this template. It is not recommended."
+msgstr[0] ""
+msgstr[1] ""
+
+#: block-editor/src/components/block-removal-warning-modal/index.js:59
+msgid "Deleting this block could break patterns on your site that have content linked to it. Are you sure you want to delete it?"
+msgid_plural "Deleting these blocks could break patterns on your site that have content linked to them. Are you sure you want to delete them?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: block-editor/src/components/block-removal-warning-modal/index.js:74
+msgid "Be careful!"
 msgstr ""
 
 #: block-editor/src/components/block-settings-menu/block-convert-button.js:12
@@ -1135,7 +1177,7 @@ msgstr ""
 #: block-editor/src/components/block-settings-menu/block-settings-dropdown.js:347
 #: block-library/src/common/filters/right-click-menu/config.js:25
 #: block-library/src/multiple-images/blocks/multiple-images/toolbar.js:37
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:194
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:239
 msgid "Duplicate"
 msgstr ""
 
@@ -1156,7 +1198,7 @@ msgid "Paste styles"
 msgstr ""
 
 #: block-editor/src/components/block-styles/index.js:70
-#: block-editor/src/components/global-styles/color-panel.js:562
+#: block-editor/src/components/global-styles/color-panel.js:586
 #: block-library/src/logo/inspector/content/logo-properties.js:63
 #: block-library/src/menu/dropdown-menu/styles.js:10
 #: block-library/src/pricing-table/blocks/pricing-table-item/metadata.js:10
@@ -1252,16 +1294,140 @@ msgctxt "Ungrouping blocks from within a grouping block back into individual blo
 msgid "Ungroup"
 msgstr ""
 
+#: block-editor/src/components/global-styles/background-panel.js:104
+msgid "Image covers the space evenly."
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:107
+msgid "Image is contained without distortion."
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:109
+msgid "Image has a fixed width."
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:150
+msgid "Add background image"
+msgstr ""
+
+#. translators: %s: file name
+#: block-editor/src/components/global-styles/background-panel.js:184
+msgid "Background image: %s"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:187
+msgid "No background image selected"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:247
+msgid "Only images can be used as a background image."
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:319
+#: block-editor/src/components/global-styles/background-panel.js:644
+#: controls/src/style-controls/background-control/index.js:710
+#: AI/SDApi/KubioImagePrompts.php:15
+msgid "Background image"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:354
+#: editor/src/components/sidebar/sections-list/handled-block-item/index.js:180
+#: editor/src/components/sidebar/sections-list/unhandled-block-item.js:71
+msgid "Remove"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:364
+msgid "Reset "
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:370
+msgid "Drop to upload"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:525
+#: block-editor/src/components/global-styles/background-panel.js:540
+#: block-editor/src/components/global-styles/typography-panel.js:410
+#: block-library/src/slider/blocks/slider-dots/inspector/style/dot-style.js:17
+#: controls/src/style-controls/background-control/index.js:804
+#: controls/src/style-controls/typography-control/index.js:133
+#: editor/src/components/ai/filters/image-controls-ai-options/image-editor/generate/sidebar-generate.js:150
+#: editor/src/components/sidebar/areas/general-settings/global-typography.js:242
+#: editor/src/components/sidebar/areas/general-settings/global-typography.js:297
+msgid "Size"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:533
+#: block-library/src/flip-box/blocks/flipbox-hover/inspector/content/layout.js:66
+#: controls/src/style-controls/background-control/index.js:732
+#: controls/src/style-controls/background-control/index.js:961
+#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:13
+msgid "Position"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:551
+msgctxt "Size option for background image control"
+msgid "Cover"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:560
+msgctxt "Size option for background image control"
+msgid "Contain"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:569
+msgctxt "Size option for background image control"
+msgid "Tile"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:581
+msgid "Background image width"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:587
+#: block-library/src/subscribe-form/config.js:88
+#: block-library/src/tab/config.js:46
+#: block-library/src/video/config.js:88
+#: controls/src/style-controls/background-control/constants.js:81
+#: controls/src/style-controls/utils/height.js:5
+msgid "Auto"
+msgstr ""
+
+#: block-editor/src/components/global-styles/background-panel.js:592
+#: controls/src/style-controls/background-control/constants.js:76
+#: controls/src/style-controls/background-control/index.js:793
+msgid "Repeat"
+msgstr ""
+
+#: block-editor/src/components/global-styles/border-panel.js:284
+#: controls/src/style-controls/borders-control/index.js:71
+#: wp-global-styles/src/global-style/border-panel.js:186
+msgid "Radius"
+msgstr ""
+
+#: block-editor/src/components/global-styles/border-panel.js:299
+#: block-editor/src/components/global-styles/border-panel.js:307
+#: block-editor/src/components/global-styles/effects-panel.js:132
+#: block-editor/src/components/global-styles/effects-panel.js:192
+#: block-editor/src/components/global-styles/effects-panel.js:212
+msgid "Shadow"
+msgstr ""
+
+#: block-editor/src/components/global-styles/color-panel.js:133
+#: wp-global-styles/src/global-style/screen-colors.js:108
+#: wp-global-styles/src/global-style/screen-typography.js:82
+msgid "Elements"
+msgstr ""
+
 #. translators: %s is the type of color property, e.g., "background"
-#: block-editor/src/components/global-styles/color-panel.js:235
+#: block-editor/src/components/global-styles/color-panel.js:246
 msgid "Color %s styles"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:438
+#: block-editor/src/components/global-styles/color-panel.js:462
 msgid "Captions"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:443
+#: block-editor/src/components/global-styles/color-panel.js:467
 #: block-library/src/button/elements.js:11
 #: block-library/src/button/index.js:15
 #: block-library/src/hero/blocks/down-arrow/config.js:5
@@ -1272,57 +1438,57 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:448
+#: block-editor/src/components/global-styles/color-panel.js:472
 #: block-library/src/heading/index.js:12
 #: block-library/src/heading/variations.js:16
 msgid "Heading"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:453
+#: block-editor/src/components/global-styles/color-panel.js:477
 #: block-library/src/heading/config.js:14
 #: block-library/src/page-title/config.js:4
 #: block-library/src/post-title/config.js:4
 msgid "H1"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:458
+#: block-editor/src/components/global-styles/color-panel.js:482
 #: block-library/src/heading/config.js:15
 #: block-library/src/page-title/config.js:5
 #: block-library/src/post-title/config.js:5
 msgid "H2"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:463
+#: block-editor/src/components/global-styles/color-panel.js:487
 #: block-library/src/heading/config.js:16
 #: block-library/src/page-title/config.js:6
 #: block-library/src/post-title/config.js:6
 msgid "H3"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:468
+#: block-editor/src/components/global-styles/color-panel.js:492
 #: block-library/src/heading/config.js:17
 #: block-library/src/page-title/config.js:7
 #: block-library/src/post-title/config.js:7
 msgid "H4"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:473
+#: block-editor/src/components/global-styles/color-panel.js:497
 #: block-library/src/heading/config.js:18
 #: block-library/src/page-title/config.js:8
 #: block-library/src/post-title/config.js:8
 msgid "H5"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:478
+#: block-editor/src/components/global-styles/color-panel.js:502
 #: block-library/src/heading/config.js:19
 #: block-library/src/page-title/config.js:9
 #: block-library/src/post-title/config.js:9
 msgid "H6"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:512
-#: block-editor/src/components/global-styles/color-panel.js:520
-#: block-editor/src/components/global-styles/color-panel.js:669
+#: block-editor/src/components/global-styles/color-panel.js:536
+#: block-editor/src/components/global-styles/color-panel.js:544
+#: block-editor/src/components/global-styles/color-panel.js:695
 #: block-library/src/copyright/inspector/style/text.js:20
 #: block-library/src/heading/elements.js:9
 #: block-library/src/heading/inspector/style/text.js:15
@@ -1345,19 +1511,8 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:537
-#: block-library/src/divider/config.js:9
-#: block-library/src/icon-list/config.js:34
-#: block-library/src/menu/inspector/style/main-menu-buttons.js:30
-#: block-library/src/menu/inspector/style/sub-menu-buttons.js:33
-#: controls/src/components/border-control/utils.js:102
-#: controls/src/components/box-control/utils.js:126
-#: wp-global-styles/src/global-style/screen-color-palette.js:42
-msgid "Solid"
-msgstr ""
-
-#: block-editor/src/components/global-styles/color-panel.js:544
-#: block-editor/src/components/global-styles/color-panel.js:685
+#: block-editor/src/components/global-styles/color-panel.js:568
+#: block-editor/src/components/global-styles/color-panel.js:711
 #: controls/src/components/gradient-control-with-presets/index.js:295
 #: controls/src/style-controls/background-control/constants.js:22
 #: controls/src/style-controls/background-control/index.js:114
@@ -1367,7 +1522,7 @@ msgstr ""
 msgid "Gradient"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:554
+#: block-editor/src/components/global-styles/color-panel.js:578
 #: block-library/src/link/elements.js:32
 #: block-library/src/link/index.js:14
 #: block-library/src/link/toolbar/link-toolbar.js:44
@@ -1383,7 +1538,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: block-editor/src/components/global-styles/color-panel.js:569
+#: block-editor/src/components/global-styles/color-panel.js:593
 #: block-library/src/accordion/config.js:10
 #: block-library/src/button/inspector/style/button-style.js:29
 #: block-library/src/common/form-block/config.js:8
@@ -1405,6 +1560,173 @@ msgstr ""
 #: third-party-blocks/src/core/widgets/search/style/widget-button.js:28
 #: third-party-blocks/src/core/widgets/search/style/widget-input.js:27
 msgid "Hover"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:472
+msgid "Set the width of the main content area."
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:478
+msgid "Content size"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:507
+msgid "Wide size"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:517
+msgid "Wide"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:535
+#: block-editor/src/components/global-styles/dimensions-panel.js:549
+#: block-editor/src/components/global-styles/dimensions-panel.js:562
+#: block-library/src/accordion/inspector/style/content.js:43
+#: block-library/src/accordion/inspector/style/titles.js:75
+#: block-library/src/contact-form/inspector/style/fields.js:73
+#: block-library/src/contact-form/inspector/style/form-container.js:20
+#: block-library/src/contact-form/inspector/style/notices.js:69
+#: block-library/src/contact-form/inspector/style/submit-button.js:83
+#: block-library/src/contact-form/inspector/style/validation-errors.js:47
+#: block-library/src/counter/inspector/style/counter.js:66
+#: block-library/src/logo/inspector/style/logo.js:90
+#: block-library/src/post-comments-form/inspector/style/post-comments-form-style.js:154
+#: block-library/src/post-comments/inspector/style/post-comments-style.js:167
+#: block-library/src/slider/blocks/slider-item/inspector/style/background-style.js:43
+#: block-library/src/subscribe-form/inspector/style/container.js:20
+#: block-library/src/subscribe-form/inspector/style/email-field.js:72
+#: block-library/src/subscribe-form/inspector/style/notices.js:50
+#: block-library/src/subscribe-form/inspector/style/submit-button.js:85
+#: block-library/src/tab/inspector/style/content.js:34
+#: block-library/src/tab/inspector/style/tab-items.js:116
+#: controls/src/style-controls/spacing-controls/spacing-control.js:14
+#: editor/src/components/sidebar/areas/general-settings/global-form/fields.js:94
+#: editor/src/components/sidebar/areas/general-settings/global-form/form-submit.js:99
+#: woocommerce-styles/src/woocommerce-sale-badge.js:50
+#: wp-global-styles/src/global-style/dimensions-panel.js:145
+#: wp-global-styles/src/global-style/dimensions-panel.js:152
+msgid "Padding"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:575
+#: block-editor/src/components/global-styles/dimensions-panel.js:590
+#: block-editor/src/components/global-styles/dimensions-panel.js:604
+#: block-library/src/contact-form/inspector/style/fields.js:82
+#: block-library/src/contact-form/inspector/style/notices.js:77
+#: block-library/src/contact-form/inspector/style/validation-errors.js:54
+#: block-library/src/query/blocks/loop/style/index.js:60
+#: block-library/src/slider/blocks/slider-item/inspector/style/background-style.js:51
+#: block-library/src/subscribe-form/inspector/style/email-field.js:81
+#: controls/src/style-controls/spacing-controls/spacing-control.js:23
+#: editor/src/components/sidebar/areas/general-settings/global-form/fields.js:103
+#: editor/src/components/sidebar/areas/general-settings/global-form/form-submit.js:108
+#: wp-global-styles/src/global-style/dimensions-panel.js:163
+#: wp-global-styles/src/global-style/dimensions-panel.js:170
+msgid "Margin"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:617
+#: block-editor/src/components/global-styles/dimensions-panel.js:630
+#: block-editor/src/components/global-styles/dimensions-panel.js:641
+#: block-editor/src/components/global-styles/dimensions-panel.js:651
+#: wp-global-styles/src/global-style/dimensions-panel.js:181
+#: wp-global-styles/src/global-style/dimensions-panel.js:186
+msgid "Block spacing"
+msgstr ""
+
+#: block-editor/src/components/global-styles/dimensions-panel.js:677
+#: block-editor/src/components/global-styles/dimensions-panel.js:685
+#: block-library/src/slider/blocks/slider/inspector/content/slider-options.js:69
+msgid "Minimum height"
+msgstr ""
+
+#: block-editor/src/components/global-styles/effects-panel.js:63
+#: block-library/src/heading/inspector/style/effects.js:14
+#: editor/src/components/sidebar/areas/general-settings/effects-area.js:40
+#: editor/src/components/sidebar/areas/general-settings/effects-area.js:91
+msgid "Effects"
+msgstr ""
+
+#: block-editor/src/components/global-styles/filters-panel.js:89
+msgctxt "Name for applying graphical effects"
+msgid "Filters"
+msgstr ""
+
+#: block-editor/src/components/global-styles/filters-panel.js:116
+#: block-editor/src/components/global-styles/filters-panel.js:188
+#: block-editor/src/components/global-styles/filters-panel.js:209
+#: block-editor/src/components/global-styles/filters-panel.js:217
+#: wp-global-styles/src/global-style/gradients-palette-panel.js:85
+msgid "Duotone"
+msgstr ""
+
+#: block-editor/src/components/global-styles/filters-panel.js:219
+msgid "Create a two-tone color effect without losing your original image."
+msgstr ""
+
+#: block-editor/src/components/global-styles/image-settings-panel.js:58
+msgctxt "Image settings"
+msgid "Settings"
+msgstr ""
+
+#: block-editor/src/components/global-styles/image-settings-panel.js:73
+#: block-editor/src/components/global-styles/image-settings-panel.js:79
+msgid "Expand on click"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:87
+#: editor/src/components/sidebar/areas/general-settings/global-typography.js:226
+#: format-library/src/custom/font-family-weight/inline.js:226
+msgid "Font weight"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:90
+msgid "Font style"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:92
+msgid "Appearance"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:393
+#: format-library/src/custom/font-family-weight/index.js:10
+msgid "Font"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:452
+#: controls/src/style-controls/typography-control/index.js:168
+msgid "Line height"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:470
+#: controls/src/style-controls/typography-control/index.js:181
+msgid "Letter spacing"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:487
+#: block-editor/src/components/global-styles/typography-panel.js:494
+#: block-library/src/row/index.js:13
+#: block-library/src/row/variations/index.js:45
+msgid "Columns"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:508
+#: controls/src/style-controls/typography-control/index.js:159
+#: editor/src/components/sidebar/areas/general-settings/global-typography.js:130
+#: editor/src/components/sidebar/areas/general-settings/global-typography.js:327
+msgid "Decoration"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:525
+msgid "Orientation"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:541
+msgid "Letter case"
+msgstr ""
+
+#: block-editor/src/components/global-styles/typography-panel.js:559
+msgid "Text alignment"
 msgstr ""
 
 #: block-editor/src/components/inserter/block-gutentag-sections-tab.js:188
@@ -1685,253 +2007,19 @@ msgstr ""
 msgid "Move the selected block(s) down."
 msgstr ""
 
-#: block-editor/src/components/media-placeholder/index.js:48
-#: controls/src/components/url-input/url-input-wordpress.js:482
-msgid "URL"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:49
-msgid "Paste or type URL"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:97
-msgid "Insert from URL"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:316
-msgid "To edit this block, you need permission to upload media."
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:332
-msgid "Upload a media file or pick one from your media library."
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:338
-msgid "Upload an audio file, pick one from your media library, or add one with a URL."
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:343
-msgid "Upload an image file, pick one from your media library, or add one with a URL."
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:348
-msgid "Upload a video file, pick one from your media library, or add one with a URL."
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:356
-#: full-site-editing/default-template-types.php:74
-msgid "Media"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:359
-#: editor/src/components/block-editor/inserter-media-categories.js:162
-msgid "Audio"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:361
-#: block-library/src/hero/inspector/content/controls/hero-layout/config.js:57
-#: block-library/src/image-gallery/blocks/gallery/elements.js:33
-#: block-library/src/image-gallery/blocks/image/elements.js:19
-#: block-library/src/image-gallery/blocks/image/index.js:9
-#: block-library/src/image-gallery/inspector/style/image.js:34
-#: block-library/src/image/elements.js:20
-#: block-library/src/image/index.js:10
-#: block-library/src/image/inspector/content/image-properties.js:47
-#: block-library/src/image/inspector/style/image.js:27
-#: block-library/src/logo/elements.js:38
-#: controls/src/style-controls/background-control/constants.js:17
-#: src/Core/CustomizerImporter.php:277
-msgid "Image"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:363
-#: block-library/src/hero/inspector/content/controls/hero-layout/config.js:58
-#: block-library/src/video/config.js:13
-#: block-library/src/video/elements.js:25
-#: block-library/src/video/index.js:19
-#: block-library/src/video/inspector/content/video-options.js:117
-#: block-library/src/video/inspector/style/video.js:9
-#: controls/src/style-controls/background-control/constants.js:27
-#: controls/src/style-controls/background-control/index.js:947
-msgid "Video"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:443
-#: block-editor/src/components/media-replace-flow/index.js:211
-msgid "Use featured image"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:459
-msgid "Media Library"
-msgstr ""
-
-#: block-editor/src/components/media-placeholder/index.js:500
-#: block-editor/src/components/media-placeholder/index.js:529
-#: block-editor/src/components/media-replace-flow/index.js:193
-#: block-library/src/common/filters/with-save-block-preset/save-preset-modal/screenshot-control.js:47
-msgid "Upload"
-msgstr ""
-
-#: block-editor/src/components/media-replace-flow/index.js:54
-#: block-library/src/common/filters/with-save-block-preset/save-preset-modal/screenshot-control.js:46
-#: block-library/src/multiple-images/blocks/multiple-images/toolbar.js:47
-msgid "Replace"
-msgstr ""
-
-#: block-editor/src/components/media-replace-flow/index.js:98
-msgid "The media file has been replaced"
-msgstr ""
-
-#: block-editor/src/components/media-replace-flow/index.js:175
-#: controls/src/components/focal-point-media-picker.js:16
-#: controls/src/components/media-picker.js:22
-msgid "Open Media Library"
-msgstr ""
-
-#: block-editor/src/components/media-replace-flow/index.js:228
-msgid "Current media URL:"
-msgstr ""
-
-#: block-editor/src/components/skip-to-selected-block/index.js:26
-msgid "Skip to the selected block"
-msgstr ""
-
-#: block-editor/src/components/use-paste-styles/index.js:144
-msgid "Unable to paste styles. This feature is only available on secure (https) sites in supporting browsers."
-msgstr ""
-
-#: block-editor/src/components/use-paste-styles/index.js:157
-msgid "Unable to paste styles. Please allow browser clipboard permissions before continuing."
-msgstr ""
-
-#: block-editor/src/components/use-paste-styles/index.js:171
-msgid "Unable to paste styles. Block styles couldn't be found within the copied content."
-msgstr ""
-
-#. Translators: Name of the block being pasted, e.g. "Paragraph".
-#: block-editor/src/components/use-paste-styles/index.js:208
-msgid "Pasted styles to %s."
-msgstr ""
-
-#. Translators: The number of the blocks.
-#: block-editor/src/components/use-paste-styles/index.js:217
-msgid "Pasted styles to %d blocks."
-msgstr ""
-
-#: block-editor/src/hooks/layout.js:218
-#: block-library/src/column/inspector/content/layout.js:31
-#: block-library/src/query-layout/inspector/content/controls/query-layout-control/index.js:24
-#: block-library/src/row/inspector/content/layout.js:26
-#: block-library/src/search-form/inspector/content/index.js:20
-#: editor/src/components/sidebar/advanced-block-inspector/index.js:43
-#: editor/src/components/sidebar/areas/page-settings/query-layout/index.js:19
-#: wp-global-styles/src/global-style/context-menu.js:41
-#: wp-global-styles/src/global-style/screen-layout.js:22
-#: kubio-block-library.php:36
-msgid "Layout"
-msgstr ""
-
-#: block-editor/src/hooks/layout.js:224
-msgid "Inner blocks use content width"
-msgstr ""
-
-#: block-editor/src/hooks/layout.js:247
-msgid "Nested blocks use content width with options for full and wide widths."
-msgstr ""
-
-#: block-editor/src/hooks/layout.js:251
-msgid "Nested blocks will fill the width of this container. Toggle to constrain."
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:64
-msgid "Flex"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:230
-msgid "Align items top"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:234
-msgid "Align items center"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:238
-msgid "Align items bottom"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:244
-msgid "Vertical alignment"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:299
-msgid "Justify items left"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:304
-msgid "Justify items center"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:309
-msgid "Justify items right"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:316
-#: block-library/src/pagination-numbers/inspector/style/style.js:76
-#: block-library/src/post-meta/inspector/style/post-meta.js:76
-msgid "Space between items"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:322
-msgid "Stretch items"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:329
-msgid "Justification"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:353
-msgid "Allow to wrap to multiple lines"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:375
-msgid "Orientation"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:407
-#: block-library/src/icon-list/config.js:27
-#: block-library/src/tab/config.js:11
-#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:17
-#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:17
-msgid "Horizontal"
-msgstr ""
-
-#: block-editor/src/layouts/flex.js:412
-#: block-library/src/icon-list/config.js:22
-#: block-library/src/subscribe-form/config.js:13
-#: block-library/src/tab/config.js:12
-#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:9
-#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:13
-#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:23
-msgid "Vertical"
-msgstr ""
-
-#: block-editor/src/layouts/flow.js:16
-msgid "Flow"
-msgstr ""
-
-#: block-editor/src/store/actions.js:1436
+#: block-editor/src/store/actions.js:1497
 msgid "You are currently in navigation mode. Navigate blocks using the Tab key and Arrow keys. Use Left and Right Arrow keys to move between nesting levels. To exit navigation mode and edit the selected block, press Enter."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1443
+#: block-editor/src/store/actions.js:1504
 msgid "You are currently in edit mode. To return to the navigation mode, press Escape."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1449
+#: block-editor/src/store/actions.js:1510
 msgid "You are currently in zoom-out mode."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1465
+#: block-editor/src/store/actions.js:1526
 msgid "Use the Tab key and Arrow keys to choose new block location. Use Left and Right Arrow keys to move between nesting levels. Once location is selected press Enter or Space to move the block."
 msgstr ""
 
@@ -2168,7 +2256,7 @@ msgstr ""
 #: block-library/src/row/variations/section-header.js:19
 #: block-library/src/tab/inspector/content/tab-item-properties.js:15
 #: editor/src/components/entities-saved-states/index.js:20
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:329
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:330
 #: editor/src/components/navigation-sidebar/navigation-panel/modals/duplicate-page-modal.js:83
 msgid "Title"
 msgstr ""
@@ -2353,33 +2441,6 @@ msgstr ""
 #: controls/src/style-controls/align/horizontal-align-base.js:13
 #: third-party-blocks/src/core/widgets/widget-box-style/index.js:46
 msgid "Horizontal align"
-msgstr ""
-
-#: block-library/src/accordion/inspector/style/content.js:43
-#: block-library/src/accordion/inspector/style/titles.js:75
-#: block-library/src/contact-form/inspector/style/fields.js:73
-#: block-library/src/contact-form/inspector/style/form-container.js:20
-#: block-library/src/contact-form/inspector/style/notices.js:69
-#: block-library/src/contact-form/inspector/style/submit-button.js:83
-#: block-library/src/contact-form/inspector/style/validation-errors.js:47
-#: block-library/src/counter/inspector/style/counter.js:66
-#: block-library/src/logo/inspector/style/logo.js:90
-#: block-library/src/post-comments-form/inspector/style/post-comments-form-style.js:154
-#: block-library/src/post-comments/inspector/style/post-comments-style.js:167
-#: block-library/src/slider/blocks/slider-item/inspector/style/background-style.js:43
-#: block-library/src/subscribe-form/inspector/style/container.js:20
-#: block-library/src/subscribe-form/inspector/style/email-field.js:72
-#: block-library/src/subscribe-form/inspector/style/notices.js:50
-#: block-library/src/subscribe-form/inspector/style/submit-button.js:85
-#: block-library/src/tab/inspector/style/content.js:34
-#: block-library/src/tab/inspector/style/tab-items.js:116
-#: controls/src/style-controls/spacing-controls/spacing-control.js:14
-#: editor/src/components/sidebar/areas/general-settings/global-form/fields.js:94
-#: editor/src/components/sidebar/areas/general-settings/global-form/form-submit.js:99
-#: woocommerce-styles/src/woocommerce-sale-badge.js:50
-#: wp-global-styles/src/global-style/dimensions-panel.js:145
-#: wp-global-styles/src/global-style/dimensions-panel.js:152
-msgid "Padding"
 msgstr ""
 
 #: block-library/src/accordion/inspector/style/content.js:50
@@ -2842,13 +2903,25 @@ msgstr ""
 msgid "Column"
 msgstr ""
 
+#: block-library/src/column/inspector/content/layout.js:31
+#: block-library/src/query-layout/inspector/content/controls/query-layout-control/index.js:25
+#: block-library/src/row/inspector/content/layout.js:26
+#: block-library/src/search-form/inspector/content/index.js:20
+#: editor/src/components/sidebar/advanced-block-inspector/index.js:43
+#: editor/src/components/sidebar/areas/page-settings/query-layout/index.js:19
+#: wp-global-styles/src/global-style/context-menu.js:41
+#: wp-global-styles/src/global-style/screen-layout.js:22
+#: kubio-block-library.php:36
+msgid "Layout"
+msgstr ""
+
 #: block-library/src/column/inspector/content/layout.js:35
 msgid "Column width"
 msgstr ""
 
 #: block-library/src/column/inspector/content/layout.js:42
 #: block-library/src/row/inspector/content/layout.js:37
-#: block-library/src/row/toolbar/equal-columns-toggle.js:61
+#: block-library/src/row/toolbar/equal-columns-toggle.js:74
 msgid "Columns per row"
 msgstr ""
 
@@ -3020,6 +3093,15 @@ msgstr ""
 msgid "Block screenshot"
 msgstr ""
 
+#: block-library/src/common/filters/with-save-block-preset/save-preset-modal/screenshot-control.js:46
+#: block-library/src/multiple-images/blocks/multiple-images/toolbar.js:47
+msgid "Replace"
+msgstr ""
+
+#: block-library/src/common/filters/with-save-block-preset/save-preset-modal/screenshot-control.js:47
+msgid "Upload"
+msgstr ""
+
 #: block-library/src/common/filters/with-save-block-preset/save-preset-modal/update-modal-content.js:200
 msgid "Update preset"
 msgstr ""
@@ -3110,29 +3192,29 @@ msgid "Default based on area (%s)"
 msgstr ""
 
 #. translators: %s - block title
-#: block-library/src/common/template-part/edit/index.js:208
+#: block-library/src/common/template-part/edit/index.js:227
 msgid "Kubio %s block"
 msgstr ""
 
-#: block-library/src/common/template-part/edit/index.js:210
+#: block-library/src/common/template-part/edit/index.js:229
 msgid "A Kubio template part content can be edited inside the Kubio Page Builder"
 msgstr ""
 
-#: block-library/src/common/template-part/edit/index.js:223
+#: block-library/src/common/template-part/edit/index.js:243
 #: add-edit-in-kubio.php:78
-#: add-edit-in-kubio.php:167
-#: add-edit-in-kubio.php:325
+#: add-edit-in-kubio.php:163
+#: add-edit-in-kubio.php:321
 #: filters/default-editor-overlay.php:147
-#: kubio-editor.php:923
+#: kubio-editor.php:960
 msgid "Edit with Kubio"
 msgstr ""
 
 #. translators: %s: Template part slug
-#: block-library/src/common/template-part/edit/index.js:241
+#: block-library/src/common/template-part/edit/index.js:264
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr ""
 
-#: block-library/src/common/template-part/edit/index.js:258
+#: block-library/src/common/template-part/edit/index.js:281
 #: block-library/src/post-content/component.js:179
 msgid "Block cannot be rendered inside itself."
 msgstr ""
@@ -3313,20 +3395,6 @@ msgstr ""
 #: third-party-blocks/src/core/widgets/search/style/widget-button.js:46
 #: third-party-blocks/src/core/widgets/search/style/widget-input.js:44
 msgid "Background color"
-msgstr ""
-
-#: block-library/src/contact-form/inspector/style/fields.js:82
-#: block-library/src/contact-form/inspector/style/notices.js:77
-#: block-library/src/contact-form/inspector/style/validation-errors.js:54
-#: block-library/src/query/blocks/loop/style/index.js:60
-#: block-library/src/slider/blocks/slider-item/inspector/style/background-style.js:51
-#: block-library/src/subscribe-form/inspector/style/email-field.js:81
-#: controls/src/style-controls/spacing-controls/spacing-control.js:23
-#: editor/src/components/sidebar/areas/general-settings/global-form/fields.js:103
-#: editor/src/components/sidebar/areas/general-settings/global-form/form-submit.js:108
-#: wp-global-styles/src/global-style/dimensions-panel.js:163
-#: wp-global-styles/src/global-style/dimensions-panel.js:170
-msgid "Margin"
 msgstr ""
 
 #: block-library/src/contact-form/inspector/style/notices.js:44
@@ -3574,6 +3642,16 @@ msgstr ""
 
 #: block-library/src/counter/variations-filter.js:3
 msgid "Show off various stats on your website using animated Counter block for Gutenberg."
+msgstr ""
+
+#: block-library/src/divider/config.js:9
+#: block-library/src/icon-list/config.js:34
+#: block-library/src/menu/inspector/style/main-menu-buttons.js:30
+#: block-library/src/menu/inspector/style/sub-menu-buttons.js:33
+#: controls/src/components/border-control/utils.js:102
+#: controls/src/components/box-control/utils.js:126
+#: wp-global-styles/src/global-style/screen-color-palette.js:42
+msgid "Solid"
 msgstr ""
 
 #: block-library/src/divider/config.js:10
@@ -4077,13 +4155,6 @@ msgstr ""
 msgid "Hover Properties"
 msgstr ""
 
-#: block-library/src/flip-box/blocks/flipbox-hover/inspector/content/layout.js:66
-#: controls/src/style-controls/background-control/index.js:732
-#: controls/src/style-controls/background-control/index.js:961
-#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:13
-msgid "Position"
-msgstr ""
-
 #: block-library/src/flip-box/blocks/flipbox-hover/inspector/content/layout.js:72
 msgid "Hover state height"
 msgstr ""
@@ -4231,7 +4302,7 @@ msgid "Effect Direction"
 msgstr ""
 
 #: block-library/src/flip-box/inspector/content/effects-settings.js:39
-#: block-library/src/image-gallery/inspector/style/image.js:74
+#: block-library/src/image-gallery/inspector/style/image.js:77
 msgid "Effect duration"
 msgstr ""
 
@@ -4450,12 +4521,6 @@ msgstr ""
 msgid "Heading align"
 msgstr ""
 
-#: block-library/src/heading/inspector/style/effects.js:14
-#: editor/src/components/sidebar/areas/general-settings/effects-area.js:40
-#: editor/src/components/sidebar/areas/general-settings/effects-area.js:91
-msgid "Effects"
-msgstr ""
-
 #: block-library/src/heading/inspector/style/effects.js:16
 msgid "Effect Type"
 msgstr ""
@@ -4579,6 +4644,32 @@ msgstr ""
 
 #: block-library/src/hero/index.js:48
 msgid "If you’ve accidentally removed your hero, you can re-add a hero to your page with this block. The hero block has 5 available layouts."
+msgstr ""
+
+#: block-library/src/hero/inspector/content/controls/hero-layout/config.js:57
+#: block-library/src/image-gallery/blocks/gallery/elements.js:33
+#: block-library/src/image-gallery/blocks/image/elements.js:19
+#: block-library/src/image-gallery/blocks/image/index.js:9
+#: block-library/src/image-gallery/inspector/style/image.js:34
+#: block-library/src/image/elements.js:20
+#: block-library/src/image/index.js:10
+#: block-library/src/image/inspector/content/image-properties.js:47
+#: block-library/src/image/inspector/style/image.js:27
+#: block-library/src/logo/elements.js:38
+#: controls/src/style-controls/background-control/constants.js:17
+#: src/Core/CustomizerImporter.php:277
+msgid "Image"
+msgstr ""
+
+#: block-library/src/hero/inspector/content/controls/hero-layout/config.js:58
+#: block-library/src/video/config.js:13
+#: block-library/src/video/elements.js:25
+#: block-library/src/video/index.js:19
+#: block-library/src/video/inspector/content/video-options.js:117
+#: block-library/src/video/inspector/style/video.js:9
+#: controls/src/style-controls/background-control/constants.js:27
+#: controls/src/style-controls/background-control/index.js:947
+msgid "Video"
 msgstr ""
 
 #: block-library/src/hero/inspector/content/controls/hero-layout/config.js:60
@@ -4744,6 +4835,22 @@ msgstr ""
 msgid "Create beautiful lists of items and their icons. Style their spacing, borders, shadows, color, and typography."
 msgstr ""
 
+#: block-library/src/icon-list/config.js:22
+#: block-library/src/subscribe-form/config.js:13
+#: block-library/src/tab/config.js:12
+#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:9
+#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:13
+#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:23
+msgid "Vertical"
+msgstr ""
+
+#: block-library/src/icon-list/config.js:27
+#: block-library/src/tab/config.js:11
+#: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:17
+#: controls/src/style-controls/text-shadow/text-shadow-custom/index.js:17
+msgid "Horizontal"
+msgstr ""
+
 #: block-library/src/icon-list/config.js:38
 #: block-library/src/menu/inspector/style/main-menu-buttons.js:34
 #: block-library/src/menu/inspector/style/sub-menu-buttons.js:37
@@ -4892,7 +4999,7 @@ msgstr ""
 msgid "Add attractive icons to web pages. 100+ free icons are available from the most popular libraries out there. Fully customizable."
 msgstr ""
 
-#: block-library/src/image-gallery/blocks/gallery/component.js:76
+#: block-library/src/image-gallery/blocks/gallery/component.js:86
 msgid "Drag images, upload new ones or select files from your library."
 msgstr ""
 
@@ -5054,7 +5161,7 @@ msgstr ""
 msgid "Show hover effect"
 msgstr ""
 
-#: block-library/src/image-gallery/inspector/style/image.js:55
+#: block-library/src/image-gallery/inspector/style/image.js:58
 msgid "Hover effect types"
 msgstr ""
 
@@ -6103,6 +6210,11 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
+#: block-library/src/pagination-numbers/inspector/style/style.js:76
+#: block-library/src/post-meta/inspector/style/post-meta.js:76
+msgid "Space between items"
+msgstr ""
+
 #: block-library/src/post-author-avatar/index.js:9
 msgid "Author Avatar"
 msgstr ""
@@ -6995,7 +7107,7 @@ msgstr ""
 #: block-library/src/query/blocks/loop/edit.js:186
 #: block-library/src/query/blocks/loop/index.js:27
 #: block-library/src/query/inspector/content.js:370
-#: src/Core/Blocks/Query/QueryLoopBase.php:50
+#: src/Core/Blocks/Query/QueryLoopBase.php:49
 msgid "No {post_title} found!"
 msgstr ""
 
@@ -7134,11 +7246,6 @@ msgstr ""
 msgid "Add a catchy “Read more” call to action to your blog articles on the blog listing page."
 msgstr ""
 
-#: block-library/src/row/index.js:13
-#: block-library/src/row/variations/index.js:45
-msgid "Columns"
-msgstr ""
-
 #: block-library/src/row/index.js:16
 msgid "columns"
 msgstr ""
@@ -7214,17 +7321,17 @@ msgstr ""
 msgid "Add row of columns after"
 msgstr ""
 
-#: block-library/src/row/toolbar/equal-columns-toggle.js:69
-#: block-library/src/section/components/section-options/menu-items.js:115
-msgid "Items per row"
-msgstr ""
-
 #. translators: number of items per row
-#: block-library/src/row/toolbar/equal-columns-toggle.js:75
+#: block-library/src/row/toolbar/equal-columns-toggle.js:44
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
+
+#: block-library/src/row/toolbar/equal-columns-toggle.js:82
+#: block-library/src/section/components/section-options/menu-items.js:115
+msgid "Items per row"
+msgstr ""
 
 #: block-library/src/row/variations/index.js:46
 msgid "Add a new row to the canvas. Make adjustments to its columns, spacing, typography, background, and more."
@@ -7451,15 +7558,6 @@ msgstr ""
 msgid "Horizontal position"
 msgstr ""
 
-#: block-library/src/slider/blocks/slider-dots/inspector/style/dot-style.js:17
-#: controls/src/style-controls/background-control/index.js:804
-#: controls/src/style-controls/typography-control/index.js:133
-#: editor/src/components/ai/filters/image-controls-ai-options/image-editor/generate/sidebar-generate.js:150
-#: editor/src/components/sidebar/areas/general-settings/global-typography.js:242
-#: editor/src/components/sidebar/areas/general-settings/global-typography.js:297
-msgid "Size"
-msgstr ""
-
 #: block-library/src/slider/blocks/slider-item/inspector/content/alignment-properties.js:22
 msgid "Alignment"
 msgstr ""
@@ -7589,10 +7687,6 @@ msgstr ""
 
 #: block-library/src/slider/blocks/slider/inspector/content/slider-options.js:60
 msgid "Slider height"
-msgstr ""
-
-#: block-library/src/slider/blocks/slider/inspector/content/slider-options.js:69
-msgid "Minimum height"
 msgstr ""
 
 #: block-library/src/slider/blocks/slider/inspector/content/slider-options.js:88
@@ -7764,14 +7858,6 @@ msgstr ""
 
 #: block-library/src/subscribe-form/config.js:17
 msgid "Inline"
-msgstr ""
-
-#: block-library/src/subscribe-form/config.js:88
-#: block-library/src/tab/config.js:46
-#: block-library/src/video/config.js:88
-#: controls/src/style-controls/background-control/constants.js:81
-#: controls/src/style-controls/utils/height.js:5
-msgid "Auto"
 msgstr ""
 
 #: block-library/src/subscribe-form/config.js:135
@@ -8339,6 +8425,11 @@ msgstr ""
 msgid "Custom size"
 msgstr ""
 
+#: controls/src/components/focal-point-media-picker.js:16
+#: controls/src/components/media-picker.js:22
+msgid "Open Media Library"
+msgstr ""
+
 #: controls/src/components/focal-point-media-picker/focal-point-media-picker.js:23
 #: controls/src/components/media-picker/media-picker.js:36
 msgid "Change background image"
@@ -8459,15 +8550,15 @@ msgstr ""
 msgid "No, thanks"
 msgstr ""
 
-#: controls/src/components/link-control/link-control.js:42
+#: controls/src/components/link-control/link-control.js:41
 msgid "Open link in"
 msgstr ""
 
-#: controls/src/components/link-control/link-control.js:49
+#: controls/src/components/link-control/link-control.js:48
 msgid "Media type"
 msgstr ""
 
-#: controls/src/components/link-control/link-control.js:56
+#: controls/src/components/link-control/link-control.js:55
 msgid "Add nofollow"
 msgstr ""
 
@@ -8669,6 +8760,10 @@ msgstr ""
 
 #: controls/src/components/url-input/url-input-wordpress.js:448
 msgid "Paste URL or type to search"
+msgstr ""
+
+#: controls/src/components/url-input/url-input-wordpress.js:482
+msgid "URL"
 msgstr ""
 
 #. translators: 1: current page number 2: total number of pages
@@ -8937,11 +9032,6 @@ msgstr ""
 msgid "No Repeat"
 msgstr ""
 
-#: controls/src/style-controls/background-control/constants.js:76
-#: controls/src/style-controls/background-control/index.js:793
-msgid "Repeat"
-msgstr ""
-
 #: controls/src/style-controls/background-control/constants.js:77
 msgid "Repeat X"
 msgstr ""
@@ -9051,11 +9141,6 @@ msgstr ""
 msgid "Background type"
 msgstr ""
 
-#: controls/src/style-controls/background-control/index.js:710
-#: AI/SDApi/KubioImagePrompts.php:15
-msgid "Background image"
-msgstr ""
-
 #: controls/src/style-controls/background-control/index.js:779
 #: controls/src/style-controls/background-control/index.js:1082
 msgid "Attachment"
@@ -9111,11 +9196,6 @@ msgstr ""
 
 #: controls/src/style-controls/background-control/index.js:1202
 msgid "The button can be configured only for the normal state."
-msgstr ""
-
-#: controls/src/style-controls/borders-control/index.js:71
-#: wp-global-styles/src/global-style/border-panel.js:186
-msgid "Radius"
 msgstr ""
 
 #: controls/src/style-controls/box-shadow/box-shadow-custom/index.js:10
@@ -9366,20 +9446,6 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: controls/src/style-controls/typography-control/index.js:159
-#: editor/src/components/sidebar/areas/general-settings/global-typography.js:130
-#: editor/src/components/sidebar/areas/general-settings/global-typography.js:327
-msgid "Decoration"
-msgstr ""
-
-#: controls/src/style-controls/typography-control/index.js:168
-msgid "Line height"
-msgstr ""
-
-#: controls/src/style-controls/typography-control/index.js:181
-msgid "Letter spacing"
-msgstr ""
-
 #: controls/src/style-controls/typography-control/typography-advanced/index.js:32
 msgid "Different style"
 msgstr ""
@@ -9505,7 +9571,7 @@ msgid "Unnamed section"
 msgstr ""
 
 #: core/src/utils/fetch-link-suggestions.js:104
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:129
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:156
 msgid "(no title)"
 msgstr ""
 
@@ -10160,8 +10226,8 @@ msgid "New Page"
 msgstr ""
 
 #: editor/src/components/ai/new-page.js:60
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:316
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:361
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:315
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:362
 msgid "Add page"
 msgstr ""
 
@@ -10376,7 +10442,7 @@ msgstr ""
 msgid "Already bought"
 msgstr ""
 
-#: editor/src/components/block-editor/iframe.js:507
+#: editor/src/components/block-editor/iframe.js:508
 msgid "Editor canvas"
 msgstr ""
 
@@ -10418,6 +10484,10 @@ msgstr ""
 
 #: editor/src/components/block-editor/inserter-media-categories.js:152
 msgid "Search videos"
+msgstr ""
+
+#: editor/src/components/block-editor/inserter-media-categories.js:162
+msgid "Audio"
 msgstr ""
 
 #: editor/src/components/block-editor/inserter-media-categories.js:163
@@ -10560,7 +10630,7 @@ msgid "Editing: %s"
 msgstr ""
 
 #: editor/src/components/header/index.js:336
-#: editor/src/components/sidebar/sections-list/handled-block-item/index.js:197
+#: editor/src/components/sidebar/sections-list/handled-block-item/index.js:198
 #: editor/src/components/sidebar/sections-list/index.js:342
 #: editor/src/components/sidebar/sections-list/unhandled-block-item.js:80
 msgid "Settings"
@@ -10637,7 +10707,7 @@ msgid "Disconnect from Kubio Cloud"
 msgstr ""
 
 #: editor/src/components/header/more-menu/index.js:300
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:177
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:222
 msgid "More tools & options"
 msgstr ""
 
@@ -11025,13 +11095,16 @@ msgstr ""
 msgid "Sidebars"
 msgstr ""
 
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:134
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:167
 msgid "Homepage"
 msgstr ""
 
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:139
-#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:146
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:181
 msgid "Posts page"
+msgstr ""
+
+#: editor/src/components/navigation-sidebar/navigation-panel/content-navigation-item.js:191
+msgid "Shop page"
 msgstr ""
 
 #: editor/src/components/navigation-sidebar/navigation-panel/content-navigation.js:43
@@ -11046,13 +11119,13 @@ msgstr ""
 msgid "Site Content"
 msgstr ""
 
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:344
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:345
 #: full-site-editing/templates.php:46
 msgid "Template"
 msgstr ""
 
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:429
-#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:440
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:432
+#: editor/src/components/navigation-sidebar/navigation-panel/menus/content-area.js:444
 msgid "All Posts"
 msgstr ""
 
@@ -11261,11 +11334,6 @@ msgstr ""
 msgid "Letter Spacing"
 msgstr ""
 
-#: editor/src/components/sidebar/areas/general-settings/global-typography.js:226
-#: format-library/src/custom/font-family-weight/inline.js:226
-msgid "Font weight"
-msgstr ""
-
 #: editor/src/components/sidebar/areas/general-settings/global-typography.js:290
 msgid "Font Weight"
 msgstr ""
@@ -11453,11 +11521,6 @@ msgstr ""
 msgid "Create new Menu"
 msgstr ""
 
-#: editor/src/components/sidebar/sections-list/handled-block-item/index.js:179
-#: editor/src/components/sidebar/sections-list/unhandled-block-item.js:71
-msgid "Remove"
-msgstr ""
-
 #: editor/src/components/sidebar/sections-list/handled-block-item/menu-toggle-icon.js:118
 msgid "Remove from menu"
 msgstr ""
@@ -11541,10 +11604,6 @@ msgstr ""
 
 #: editor/src/components/template-part-converter/convert-to-template-part.js:36
 msgid "Make template part"
-msgstr ""
-
-#: format-library/src/custom/font-family-weight/index.js:10
-msgid "Font"
 msgstr ""
 
 #: format-library/src/custom/font-family-weight/inline.js:202
@@ -11809,37 +11868,28 @@ msgstr ""
 msgid "Colors"
 msgstr ""
 
-#: wp-global-styles/src/global-style/dimensions-panel.js:181
-#: wp-global-styles/src/global-style/dimensions-panel.js:186
-msgid "Block spacing"
-msgstr ""
-
 #: wp-global-styles/src/global-style/gradients-palette-panel.js:78
 msgid "Custom gradients are empty! Add some gradients to create your own palette."
-msgstr ""
-
-#: wp-global-styles/src/global-style/gradients-palette-panel.js:85
-msgid "Duotone"
 msgstr ""
 
 #: wp-global-styles/src/global-style/header.js:34
 msgid "Navigate to the previous view"
 msgstr ""
 
-#: wp-global-styles/src/global-style/hooks.js:215
-#: wp-global-styles/src/global-style/hooks.js:263
+#: wp-global-styles/src/global-style/hooks.js:218
+#: wp-global-styles/src/global-style/hooks.js:266
 msgctxt "Indicates this palette comes from the theme."
 msgid "Theme"
 msgstr ""
 
-#: wp-global-styles/src/global-style/hooks.js:229
-#: wp-global-styles/src/global-style/hooks.js:277
+#: wp-global-styles/src/global-style/hooks.js:232
+#: wp-global-styles/src/global-style/hooks.js:280
 msgctxt "Indicates this palette comes from WordPress."
 msgid "Default"
 msgstr ""
 
-#: wp-global-styles/src/global-style/hooks.js:239
-#: wp-global-styles/src/global-style/hooks.js:287
+#: wp-global-styles/src/global-style/hooks.js:242
+#: wp-global-styles/src/global-style/hooks.js:290
 msgctxt "Indicates this palette is created by the user."
 msgid "Custom"
 msgstr ""
@@ -11878,11 +11928,6 @@ msgstr ""
 
 #: wp-global-styles/src/global-style/screen-colors.js:97
 msgid "Manage palettes and the default color of different global elements on the site."
-msgstr ""
-
-#: wp-global-styles/src/global-style/screen-colors.js:108
-#: wp-global-styles/src/global-style/screen-typography.js:82
-msgid "Elements"
 msgstr ""
 
 #: wp-global-styles/src/global-style/screen-link-color.js:48
@@ -11960,7 +12005,7 @@ msgid "Starter Sites"
 msgstr ""
 
 #: admin-pages/main-page/demo-sites.php:13
-#: kubio-editor.php:1166
+#: kubio-editor.php:1203
 msgid "You need a higher level of permission."
 msgstr ""
 
@@ -12458,6 +12503,10 @@ msgstr ""
 msgid "Archive template used to display a list of posts with a given tag."
 msgstr ""
 
+#: full-site-editing/default-template-types.php:74
+msgid "Media"
+msgstr ""
+
 #: full-site-editing/default-template-types.php:75
 msgid "Template used to display individual media items or attachments."
 msgstr ""
@@ -12772,57 +12821,57 @@ msgstr ""
 msgid "Inner Headers"
 msgstr ""
 
-#: kubio-editor.php:907
-#: kubio-editor.php:911
-#: kubio-editor.php:922
+#: kubio-editor.php:944
+#: kubio-editor.php:948
+#: kubio-editor.php:959
 msgid "Kubio"
 msgstr ""
 
-#: kubio-editor.php:950
+#: kubio-editor.php:987
 #: src/Core/EditInKubioCustomizerPanel.php:86
 msgid "Open Kubio Editor"
 msgstr ""
 
-#: kubio-editor.php:1026
+#: kubio-editor.php:1063
 msgid "What to show on the front page"
 msgstr ""
 
-#: kubio-editor.php:1038
+#: kubio-editor.php:1075
 msgid "The ID of the page that should be displayed on the front page"
 msgstr ""
 
-#: kubio-editor.php:1052
+#: kubio-editor.php:1089
 msgid "The ID of the page that displays the posts"
 msgstr ""
 
-#: kubio-editor.php:1069
+#: kubio-editor.php:1106
 msgid "Site icon."
 msgstr ""
 
-#: kubio-editor.php:1086
+#: kubio-editor.php:1123
 msgctxt "Template name"
 msgid "Full Width"
 msgstr ""
 
-#: kubio-editor.php:1087
-#: kubio-editor.php:1094
+#: kubio-editor.php:1124
+#: kubio-editor.php:1131
 msgid "Recommended Kubio template to display individual pages. This template works best with the Kubio provided blocks and predesigned sections."
 msgstr ""
 
-#: kubio-editor.php:1093
+#: kubio-editor.php:1130
 msgctxt "Template name"
 msgid "Kubio Full Width"
 msgstr ""
 
-#: kubio-editor.php:1167
+#: kubio-editor.php:1204
 msgid "Sorry, you are not allowed to customize this site."
 msgstr ""
 
-#: kubio-editor.php:1185
+#: kubio-editor.php:1222
 msgid "Kubio Section"
 msgstr ""
 
-#: kubio-editor.php:1227
+#: kubio-editor.php:1264
 msgid "Kubio Favorites"
 msgstr ""
 
@@ -13070,26 +13119,26 @@ msgstr ""
 msgid "Kubio Demo Import - "
 msgstr ""
 
-#: src/DemoSites/DemoSitesHelpers.php:96
+#: src/DemoSites/DemoSitesHelpers.php:101
 msgid "Missing URL for downloading a file!"
 msgstr ""
 
-#: src/DemoSites/DemoSitesHelpers.php:106
+#: src/DemoSites/DemoSitesHelpers.php:111
 msgid "Invalid URL for downloading a file!"
 msgstr ""
 
 #. translators: %1$s and %3$s - strong HTML tags, %2$s - file URL, %4$s - br HTML tag, %5$s - error code, %6$s - error message.
-#: src/DemoSites/DemoSitesHelpers.php:120
+#: src/DemoSites/DemoSitesHelpers.php:130
 msgid "An error occurred while fetching file from: %1$s%2$s%3$s!%4$sReason: %5$s - %6$s."
 msgstr ""
 
 #. translators: %1$s - br HTML tag, %2$s - file path
-#: src/DemoSites/DemoSitesHelpers.php:221
+#: src/DemoSites/DemoSitesHelpers.php:231
 msgid "An error occurred while writing file to your server! Tried to write a file to: %1$s%2$s."
 msgstr ""
 
 #. translators: %1$s and %2$s - strong HTML tags, %3$s - HTML link to a doc page.
-#: src/DemoSites/DemoSitesHelpers.php:243
+#: src/DemoSites/DemoSitesHelpers.php:253
 msgid "This WordPress site does not have %1$sdirect%2$s write file access. This plugin needs it in order to save the demo import files to the upload directory of your site. You can change this setting with these instructions: %3$s."
 msgstr ""
 
@@ -13101,40 +13150,40 @@ msgstr ""
 msgid "No import files specified!"
 msgstr ""
 
-#: src/DemoSites/DemoSitesImporter.php:239
-#: src/DemoSites/DemoSitesImporter.php:249
-#: src/DemoSites/DemoSitesImporter.php:259
+#: src/DemoSites/DemoSitesImporter.php:245
+#: src/DemoSites/DemoSitesImporter.php:255
+#: src/DemoSites/DemoSitesImporter.php:265
 msgid "Downloaded files"
 msgstr ""
 
-#: src/DemoSites/DemoSitesImporter.php:247
+#: src/DemoSites/DemoSitesImporter.php:253
 msgid "Import file undefined"
 msgstr ""
 
 #. translators: %s - the name of the selected import.
-#: src/DemoSites/DemoSitesImporter.php:255
+#: src/DemoSites/DemoSitesImporter.php:261
 msgid "The import files for: %s were successfully downloaded!"
 msgstr ""
 
-#: src/DemoSites/DemoSitesImporter.php:273
+#: src/DemoSites/DemoSitesImporter.php:279
 msgid "Manual kds import!"
 msgstr ""
 
-#: src/DemoSites/DemoSitesImporter.php:275
+#: src/DemoSites/DemoSitesImporter.php:281
 msgid "Manual import"
 msgstr ""
 
-#: src/DemoSites/DemoSitesImporter.php:315
+#: src/DemoSites/DemoSitesImporter.php:321
 msgid "Importer action not found"
 msgstr ""
 
 #. translators: %s - menu item name e.g. "Home", "Contact"
-#: src/DemoSites/DemoSitesImporter.php:435
+#: src/DemoSites/DemoSitesImporter.php:441
 msgid "Old %s"
 msgstr ""
 
 #. translators: %s - menu item name e.g. "Home", "Contact"
-#: src/DemoSites/DemoSitesImporter.php:435
+#: src/DemoSites/DemoSitesImporter.php:441
 msgid "Old"
 msgstr ""
 

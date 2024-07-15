@@ -90,6 +90,11 @@ class DemoSitesHelpers {
 
 
 	public static function extractImporterFilesFromSource( $source ) {
+
+		if ( strpos( $source, 's3.us-west-2.amazonaws.com/static-assets.kubiobuilder.com' ) !== false ) {
+			$source = str_replace( 's3.us-west-2.amazonaws.com/static-assets.kubiobuilder.com', 'static-assets.kubiobuilder.com', $source );
+		}
+
 		if ( empty( $source ) ) {
 			return new \WP_Error(
 				'missing_url',
@@ -107,7 +112,12 @@ class DemoSitesHelpers {
 				);
 			}
 			// Get file content from the server.
-			$response = wp_remote_get( $source );
+			$response = wp_remote_get(
+				$source,
+				array(
+					'timeout' => 30,
+				)
+			);
 
 			// Test if the get request was not successful.
 			if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {

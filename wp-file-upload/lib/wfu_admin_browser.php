@@ -37,7 +37,8 @@ function wfu_browse_files($basedir_code, $page = -1, $only_table_rows = false) {
 	
 	if ( !current_user_can( 'manage_options' ) ) return;
 
-	//first decode basedir_code
+	//first sanitize and decode basedir_code
+	$basedir_code = strip_tags($basedir_code);
 	$basedir = wfu_get_filepath_from_safe($basedir_code);
 	//clean session array holding dir and file paths if it is too big
 	if ( WFU_USVAR_exists('wfu_filepath_safe_storage') && count(WFU_USVAR('wfu_filepath_safe_storage')) > WFU_VAR("WFU_PHP_ARRAY_MAXLEN") ) WFU_USVAR_store('wfu_filepath_safe_storage', array());
@@ -331,7 +332,7 @@ function wfu_browse_files($basedir_code, $page = -1, $only_table_rows = false) {
 			$echo_str .= wfu_add_pagination_header("\n\t\t\t", "adminbrowser", $page, $pages, $adminbrowser_nonce);
 		}
 		$echo_str .= "\n\t\t\t".'<input id="wfu_adminbrowser_action_url" type="hidden" value="'.$siteurl.'/wp-admin/options-general.php?page=wordpress_file_upload" />';
-		$echo_str .= "\n\t\t\t".'<input id="wfu_adminbrowser_code" type="hidden" value="'.$basedir_code.'" />';
+		$echo_str .= "\n\t\t\t".'<input id="wfu_adminbrowser_code" type="hidden" value="'.esc_attr($basedir_code).'" />';
 		$echo_str .= "\n\t\t\t".'<input id="wfu_adminbrowser_referer" type="hidden" value="'.$referer_code.'" />';
 		$echo_str .= "\n\t\t\t".'<input id="wfu_download_file_nonce" type="hidden" value="'.wp_create_nonce('wfu_download_file_invoker').'" />';
 		$echo_str .= "\n\t\t\t".'<input id="wfu_include_file_nonce" type="hidden" value="'.wp_create_nonce('wfu_include_file').'" />';
@@ -478,7 +479,7 @@ function wfu_browse_files($basedir_code, $page = -1, $only_table_rows = false) {
 			if ( is_array($file['filedata']->userdata) && count($file['filedata']->userdata) > 0 ) {
 				$echo_str .= "\n\t\t\t\t\t\t".'<select multiple="multiple" style="width:100%; height:40px; background:none; font-size:small;">';
 				foreach ( $file['filedata']->userdata as $userdata )
-					$echo_str .= "\n\t\t\t\t\t\t\t".'<option>'.$userdata->property.': '.$userdata->propvalue.'</option>';
+					$echo_str .= "\n\t\t\t\t\t\t\t".'<option>'.esc_attr($userdata->property).': '.esc_attr($userdata->propvalue).'</option>';
 				$echo_str .= "\n\t\t\t\t\t\t".'</select>';
 			}
 		}
@@ -1515,13 +1516,13 @@ function wfu_file_details($file_code, $errorstatus, $invoker = '') {
 		foreach ( $filerec->userdata as $userdata ) {
 			$echo_str .= "\n\t\t\t\t\t".'<tr>';
 			$echo_str .= "\n\t\t\t\t\t\t".'<th scope="row">';
-			$echo_str .= "\n\t\t\t\t\t\t\t".'<label>'.$userdata->property.'</label>';
+			$echo_str .= "\n\t\t\t\t\t\t\t".'<label>'.esc_attr($userdata->property).'</label>';
 			$echo_str .= "\n\t\t\t\t\t\t".'</th>';
 			$echo_str .= "\n\t\t\t\t\t\t".'<td>';
 //			$echo_str .= "\n\t\t\t\t\t\t\t".'<input id="wfu_filedetails_userdata_value_'.$userdata->propkey.'" name="wfu_filedetails_userdata" type="text"'.( $is_admin ? '' : ' readonly="readonly"' ).' value="'.$userdata->propvalue.'" />';
-			$echo_str .= "\n\t\t\t\t\t\t\t".'<textarea id="wfu_filedetails_userdata_value_'.$userdata->propkey.'" name="wfu_filedetails_userdata" '.( ($is_admin && $admin_can_edit) ? '' : ' readonly="readonly"' ).' value="'.$userdata->propvalue.'">'.$userdata->propvalue.'</textarea>';
-			$echo_str .= "\n\t\t\t\t\t\t\t".'<input id="wfu_filedetails_userdata_default_'.$userdata->propkey.'" type="hidden" value="'.$userdata->propvalue.'" />';
-			$echo_str .= "\n\t\t\t\t\t\t\t".'<input id="wfu_filedetails_userdata_'.$userdata->propkey.'" name="wfu_filedetails_userdata_'.$userdata->propkey.'" type="hidden" value="'.$userdata->propvalue.'" />';
+			$echo_str .= "\n\t\t\t\t\t\t\t".'<textarea id="wfu_filedetails_userdata_value_'.$userdata->propkey.'" name="wfu_filedetails_userdata" '.( ($is_admin && $admin_can_edit) ? '' : ' readonly="readonly"' ).' value="'.esc_attr($userdata->propvalue).'">'.esc_attr($userdata->propvalue).'</textarea>';
+			$echo_str .= "\n\t\t\t\t\t\t\t".'<input id="wfu_filedetails_userdata_default_'.$userdata->propkey.'" type="hidden" value="'.esc_attr($userdata->propvalue).'" />';
+			$echo_str .= "\n\t\t\t\t\t\t\t".'<input id="wfu_filedetails_userdata_'.$userdata->propkey.'" name="wfu_filedetails_userdata_'.$userdata->propkey.'" type="hidden" value="'.esc_attr($userdata->propvalue).'" />';
 			$echo_str .= "\n\t\t\t\t\t\t".'</td>';
 			$echo_str .= "\n\t\t\t\t\t".'</tr>';
 		}

@@ -1,10 +1,10 @@
 === Sequential Order Number for WooCommerce ===
 Contributors: webtoffee
-Version: 1.6.4
+Version: 1.6.5
 Tags: woocommerce custom order number, woocommerce sequential order number, custom order number, sequential number, sequential order numbers for woocommerce
 Requires at least: 3.0.1
-Tested up to: 6.5.5
-Stable tag: 1.6.4
+Tested up to: 6.6
+Stable tag: 1.6.5
 Requires PHP: 5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,7 @@ When you activate the sequential order number plugin, if you have no orders in y
 * Supports WooCommerce custom order numbers
 * Compatible with HPOS
 * Tested OK with PHP 8.2
-* Tested OK with WooCommerce 9.0.2
+* Tested OK with WooCommerce 9.1.2
 
 
 >**Note:** If you like to make any of your other plugins (invoice/payment/shipment) compatible with the Sequential Order Numbers for WooCommerce, please make the below tweak.
@@ -148,6 +148,11 @@ Yes. It's possible to add order date prefix.
 
 
 == Changelog ==
+
+= 1.6.5 15-07-2024 =
+* [Compatibility] - Tested OK with WooCommerce 9.1.2.
+* [Compatibility] - Tested OK with WordPress 6.6.
+* [Fix] - Improved order search using order number on WooCommerce orders listing page.
 
 = 1.6.4 10-07-2024 =
 * [Compatibility] - Tested OK with WooCommerce 9.0.2.
@@ -448,7 +453,7 @@ Yes. It's possible to add order date prefix.
 
 == Upgrade Notice ==
 
-= 1.6.4 =
-* [Compatibility] - Tested OK with WooCommerce 9.0.2.
-* [Compatibility] - Tested OK with WordPress 6.5.5.
-* [Enhancement] - Improved order search using order number on WooCommerce orders listing page.
+= 1.6.5 =
+* [Compatibility] - Tested OK with WooCommerce 9.1.2.
+* [Compatibility] - Tested OK with WordPress 6.6.
+* [Fix] - Improved order search using order number on WooCommerce orders listing page.

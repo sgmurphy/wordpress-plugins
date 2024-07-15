@@ -352,8 +352,8 @@ class VideoBlock extends BlockBase {
 			' <source src="%s" type="video/mp4" />' .
 			'</video>',
 			$poster_url,
-			$attributes,
-			$url
+			esc_attr($attributes),
+			esc_url($url)
 		);
 	}
 }

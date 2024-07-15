@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {die;
 .wt_seq_widget_column_1{padding-top:18px;}
 .wt_seq_widget_title_wrapper .wf_widget_column_2{align:top;}
 .wt_seq_widget_column_2{font-size: 15px;text-align: top;padding-left:10px; width:100%;height:100px;}
-.wt_seq_widget_column_3{;text-align:left;vertical-align: text-top;position: relative;height:170px;}
+.wt_seq_widget_column_3{text-align:left;vertical-align: text-top;position: relative;height:170px;}
 .wt_seq_installed_button{padding-left:10px;}
 .wt_seq_free_button{padding-left:10px;}
 .wt_seq_free_btn_a{text-decoration: none;}
@@ -245,7 +245,16 @@ $plugins=array(
             'basic_url' => 'https://wordpress.org/plugins/wt-woocommerce-sequential-order-numbers/',
             'pro_plugin' => 'wt-woocommerce-sequential-order-numbers-pro/wt-advanced-order-number-pro.php',
             'basic_plugin' => 'wt-woocommerce-sequential-order-numbers/wt-advanced-order-number.php',
-        )
+        ),
+        'backup_and_migration_plugin' => array(
+            'title' => __('WordPress Backup and Migration', 'wt-woocommerce-sequential-order-numbers'),
+            'description' => __('A complete WordPress backup and migration plugin to easily back up and migrate your WordPress website and database. This fast and flexible backup solution makes creating and restoring backups easy.', 'wt-woocommerce-sequential-order-numbers'),
+            'image_url' => 'WordPress-backup-and-migration-plugin.png',
+            'premium_url' => '',
+            'basic_url' => 'https://wordpress.org/plugins/wp-migration-duplicator/',
+            'pro_plugin' => '',
+            'basic_plugin' => 'wp-migration-duplicator/wp-migration-duplicator.php',
+        ),
     );
 
     foreach ($plugins as $key => $value)

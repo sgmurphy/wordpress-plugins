@@ -73,6 +73,22 @@ function Fetcher() {
 			},
 
 			/**
+			 * Save fastCGI settings method.
+			 *
+			 * @since 3.9.0
+			 * @param {string} data   Serialized form data.
+			 */
+			saveFastCGISettings: ( data ) => {
+				return request(
+					actionPrefix + 'fast_cgi_save_settings',
+					{ data },
+					'POST'
+				).then( ( response ) => {
+					return response;
+				} );
+			},
+
+			/**
 			 * Clear cache for selected module.
 			 *
 			 * @since 1.9.0
@@ -157,6 +173,19 @@ function Fetcher() {
 			 */
 			disableFastCGI() {
 				return request( actionPrefix + 'disable_fast_cgi', {}, 'POST' )
+					.then( ( response ) => {
+						return response;
+					} );
+			},
+			
+			/**
+			 * Switch cache method.
+			 *
+			 * @since 3.9.0
+			 * @param {string} method
+			 */
+			switchCacheMethod( method ) {
+				return request( actionPrefix + 'switch_cache_method', { method }, 'POST' )
 					.then( ( response ) => {
 						return response;
 					} );

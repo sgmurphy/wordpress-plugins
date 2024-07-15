@@ -94,20 +94,20 @@ class LogoBlock extends BlockBase {
 
 		if ( $this->imageShowData[ $computed['layout_type'] ]['showImage'] ) {
 			$map[ self::IMAGE ] = array(
-				'alt' => $this->getAttribute( 'alt', '' ),
-				'src' => $image_src,
+				'alt' => esc_attr($this->getAttribute( 'alt', '' )),
+				'src' => esc_url($image_src),
 			);
 		}
 
 		if ( $this->imageShowData[ $computed['layout_type'] ]['showImage'] ) {
 			$map[ self::ALTERNATE_IMAGE ] = array(
-				'alt' => $this->getAttribute( 'alt', '' ),
-				'src' => $alternate_image_src,
+				'alt' => esc_attr($this->getAttribute( 'alt', '' )),
+				'src' => esc_url($alternate_image_src),
 			);
 		}
 
 		$map[ self::TEXT ] = array(
-			'innerHTML' => $text,
+			'innerHTML' => wp_kses_post($text),
 		);
 		return $map;
 

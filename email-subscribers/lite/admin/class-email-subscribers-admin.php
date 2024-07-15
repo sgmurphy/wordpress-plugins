@@ -64,7 +64,6 @@ class Email_Subscribers_Admin {
 		add_action( 'admin_menu', array( $this, 'email_subscribers_admin_menu' ) );
 		add_action( 'wp_ajax_es_klawoo_subscribe', array( $this, 'klawoo_subscribe' ) );
 		add_action( 'admin_footer', array( $this, 'remove_submenu' ) );
-		add_action( 'admin_init', array( $this, 'es_save_onboarding_skip' ) );
 
 		// Ajax handler for campaign status toggle.
 		add_action( 'wp_ajax_ig_es_toggle_campaign_status', array( $this, 'toggle_campaign_status' ) );
@@ -774,28 +773,6 @@ class Email_Subscribers_Admin {
 		$es_dashboard->show();
 	}
 
-	// save skip signup option
-	public function es_save_onboarding_skip() {
-
-		$es_skip     = ig_es_get_request_data( 'es_skip' );
-		$option_name = ig_es_get_request_data( 'option_name' );
-
-		if ( '1' == $es_skip && ! empty( $option_name ) ) {
-			/**
-			 * If user logged in then only save option.
-			 */
-			$can_access_settings = ES_Common::ig_es_can_access( 'settings' );
-			if ( $can_access_settings ) {
-				update_option( 'ig_es_ob_skip_' . $option_name, 'yes' );
-			}
-
-			$referer = wp_get_referer();
-
-			wp_safe_redirect( $referer );
-			exit();
-		}
-	}
-
 	public function count_contacts_by_list() {
 
 		check_ajax_referer( 'ig-es-admin-ajax-nonce', 'security' );
@@ -1421,6 +1398,11 @@ class Email_Subscribers_Admin {
 
 	public function maybe_apply_bulk_actions_on_all_contacts() {
 
+		$can_access_audience  = ES_Common::ig_es_can_access( 'audience' );
+		if ( ! ( $can_access_audience ) ) {
+			return 0;
+		}
+
 		$page = ig_es_get_request_data( 'page' );
 		if ( 'es_subscribers' !== $page ) {
 			return;
@@ -1431,7 +1413,6 @@ class Email_Subscribers_Admin {
 			return;
 		}
 
-		
 		$completed = false;
 		$errortype = false;
 		

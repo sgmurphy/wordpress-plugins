@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.5.5
-Stable tag: 3.2.16
+Stable tag: 3.2.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,17 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.17 =
+- Enhancement: Added key features when clicking Upgrade in the calculator.
+- Enhancement: Added "Type of label in total" setting in Checkbox and Toggle.
+- Enhancement: When selecting only one option in Checkbox and Toggle, the value is only displayed in Total but not in Composition.
+- Enhancement: Added the ability to select the year in the Date picker element (Pro).
+- Enhancement: Added "Type of label in total" setting in Image Checkbox (Pro).
+- Enhancement: The address selected in Geolocation is now pulled into Webhook (Pro).
+- Enhancement: When selecting only one option in Image Checkbox, the value is displayed only in Total but not in Composition (Pro).
+- Fix: Default value is not applied in Dropdown and Radio items if the number is hundredth.
+- Fix: The old label remains after changing the value in Default Value(s) in Toggle and Checkbox elements.
 
 = 3.2.16 =
 - Enhancement: Added a tooltip for long text and long ID in Conditions (Pro).

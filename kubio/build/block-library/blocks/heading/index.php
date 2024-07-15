@@ -17,7 +17,7 @@ class HeadingBlock extends BlockBase {
 
 		$headingType = $this->getProp( 'level', $this->getAttribute( 'headerType', 2 ) );
 
-		$tagName   = "h$headingType";
+		$tagName   = esc_attr("h$headingType");
 		$fancyHtml = $this->getFancyHtml();
 		return array(
 			self::TEXT => array(

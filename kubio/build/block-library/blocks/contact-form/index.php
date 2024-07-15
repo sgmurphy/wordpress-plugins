@@ -24,7 +24,7 @@ class ContactFormBlock extends BlockBase {
 
 	public function getShortcodeAttributes() {
 		return array(
-			'shortcode'           => $this->getAttribute( 'shortcode' ),
+			'shortcode'           => wp_kses_post( $this->getAttribute( 'shortcode' ) ),
 			'use_shortcode_style' => $this->getAttribute( 'useShortcodeStyle' ) ? 1 : 0,
 
 			'decode_data'         => 0,
@@ -53,11 +53,11 @@ class ContactFormBlock extends BlockBase {
 			self::FORM_CONTAINER => array(
 				'innerHTML'         => $content,
 				'className'         => $containerClasses,
-				'useShortcodeStyle' => $useShortcodeStyle,
+				'useShortcodeStyle' => esc_attr( $useShortcodeStyle ),
 
 			),
 			self::FORM_WRAPPER   => array(
-				'useShortcodeStyle' => $useShortcodeStyle,
+				'useShortcodeStyle' => esc_attr( $useShortcodeStyle ),
 			),
 			self::PLACEHOLDER    => array(
 				'innerHTML' => $placeholder,

@@ -1512,8 +1512,11 @@ class HMWP_Models_Rewrite
 
 		//Hook the login page and check if the user is already logged in
 	    if(HMWP_Classes_Tools::getOption('hmwp_logged_users_redirect')) {
-			$this->dashboard_redirect();
-	    }
+            //if there is a reCaptcha test, don't redirect
+            if(!HMWP_Classes_Tools::getIsset('nordt')){
+                $this->dashboard_redirect();
+            }
+        }
 
         do_action('hmwp_login_init');
     }
@@ -1732,8 +1735,16 @@ class HMWP_Models_Rewrite
                     if (strpos($redirect, '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) !== false) {
 
                         if($url){
-                            //redirected from admin, then pass
-                            if(strpos($url, HMWP_Classes_Tools::getDefault('hmwp_admin_url')) !== false || strpos($url, HMWP_Classes_Tools::getOption('hmwp_admin_url')) !== false){
+                            $url = rawurldecode( $url );
+
+                            //redirected from admin, login, lost password, register, disconnect, then pass
+                            if(strpos($url, '/' . HMWP_Classes_Tools::getDefault('hmwp_admin_url')) !== false ||
+                                strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_admin_url')) !== false ||
+                                strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_login_url')) !== false ||
+                                (HMWP_Classes_Tools::getOption('hmwp_lostpassword_url') &&  strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_lostpassword_url')) !== false) ||
+                                (HMWP_Classes_Tools::getOption('hmwp_register_url') &&  strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_register_url')) !== false) ||
+                                (HMWP_Classes_Tools::getOption('hmwp_logout_url') &&  strpos($url, '/' . HMWP_Classes_Tools::getOption('hmwp_logout_url')) !== false)
+                            ){
                                 return $redirect;
                             }
                         }

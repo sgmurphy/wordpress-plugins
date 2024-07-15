@@ -3,7 +3,11 @@
  * WP_Event_Manager_Form_Submit_Venue class.
  */
 class WP_Event_Manager_Form_Submit_Venue extends WP_Event_Manager_Form {
+	
 	public    $form_name = 'submit-venue';
+	public    $steps;
+	public    $resume_edit;
+	public    $fields;
 	protected $venue_id;
 	protected $preview_venue;
 	/** @var 
@@ -451,7 +455,14 @@ class WP_Event_Manager_Form_Submit_Venue extends WP_Event_Manager_Form {
 			}
 			foreach($maybe_attach as $attachment_url) {
 				if(!in_array($attachment_url, $attachment_urls) && !is_numeric($attachment_url)) {
-					$this->create_attachment($attachment_url);
+					
+					$attachment_id = $this->create_attachment($attachment_url);
+
+					if ( empty( $attachment_id ) ) {
+						delete_post_thumbnail( $this->venue_id );
+					} else {
+						set_post_thumbnail( $this->venue_id, $attachment_id );
+					}
 				}
 			}
 		}

@@ -12,6 +12,11 @@
     woosc_hide_similarities();
     woosc_highlight_differences();
 
+    if (woosc_vars.reload_count === 'yes') {
+      // reload the count
+      woosc_load_data('count');
+    }
+
     if (woosc_vars.open_bar === 'yes') {
       woosc_load_data('bar');
       woosc_open_bar();
@@ -807,6 +812,16 @@
         }
 
         $(document.body).trigger('woosc_sidebar_loaded');
+      }
+
+      if (get_data === 'count') {
+        // load count
+        if (response.count != null) {
+          var count = parseInt(response.count);
+
+          woosc_change_count(count);
+          $(document.body).trigger('woosc_count_loaded', [count]);
+        }
       }
     });
   }

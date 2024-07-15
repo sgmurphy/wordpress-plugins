@@ -123,14 +123,14 @@ class Admin extends Base {
 			];
 		}
 
-		$script_dependencies = [];
+		$script_dependencies = ['regenerator-runtime'];
 		$_localize_handle    = 'templately';
 		$_current_screen     = 'templately';
 
 		if ( $hook === 'elementor' || $hook === 'gutenberg' ) {
-			$_current_screen     = $hook;
-			$_localize_handle    = 'templately-' . $hook;
-			$script_dependencies = [$_localize_handle];
+			$_current_screen       = $hook;
+			$_localize_handle      = 'templately-' . $hook;
+			$script_dependencies[] = $_localize_handle;
 		}
 
 		if ( $hook === 'toplevel_page_templately' || $hook == 'edit.php' ) {

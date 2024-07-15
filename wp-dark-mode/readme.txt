@@ -2,9 +2,9 @@
 Contributors: wppool, wpdarkmode, azizultex, iamjafran
 Tags: dark, dark mode, night mode, dark theme, accessibility
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.0.7
+Stable tag: 5.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -154,7 +154,10 @@ Yes, You can toggle the dark mode/ light mode by keyboard shortcut `(Ctrl + Alt 
 6. Backend Dark Mode
 7. Dark Mode color presets
 
-== Changelog ==
+== Changelog == 
+
+= 5.0.8 – 15 JUL 2024 =
+* **Fix:** Conflicts with common CSS libraries like Bootstrap etc. 
 
 = 5.0.7 – 01 JUL 2024 =
 * **Improvement:** Improved compatibility with Virtue theme; Fixed full-width theme support.

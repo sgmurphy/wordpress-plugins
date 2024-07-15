@@ -11,6 +11,7 @@ namespace Hummingbird\Admin\Pages\React;
 use Hummingbird\Admin\Page;
 use Hummingbird\Core\Settings;
 use Hummingbird\Core\Utils;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -55,11 +56,12 @@ class Setup extends Page {
 		$run_url = wp_nonce_url( $run_url, 'wphb-run-performance-test' );
 		$run_url = str_replace( '&amp;', '&', $run_url );
 
-		$args = array(
-			'isMember'       => Utils::is_member(),
-			'isNetworkAdmin' => is_network_admin(),
-			'hasUptime'      => Utils::get_module( 'uptime' )->has_access(),
-			'links'          => array(
+		$args     = array(
+			'isMember'           => Utils::is_member(),
+			'isNetworkAdmin'     => is_network_admin(),
+			'hasUptime'          => Utils::get_module( 'uptime' )->has_access(),
+			'isFastCGISupported' => Fast_CGI::is_fast_cgi_supported(),
+			'links'              => array(
 				'configs'    => Utils::get_admin_menu_url( 'settings' ) . '&view=configs',
 				'wphbDirUrl' => WPHB_DIR_URL,
 				'plugins'    => network_admin_url( 'plugins.php' ),
@@ -69,9 +71,9 @@ class Setup extends Page {
 				'tracking'   => Utils::get_link( 'tracking', 'onboarding' ),
 				'runPerf'    => $run_url,
 			),
-			'hasWoo'         => class_exists( 'woocommerce' ),
-			'minifySteps'    => Utils::get_module( 'minify' )->scanner->get_scan_steps(),
-			'nonces'         => array(
+			'hasWoo'             => class_exists( 'woocommerce' ),
+			'minifySteps'        => Utils::get_module( 'minify' )->scanner->get_scan_steps(),
+			'nonces'             => array(
 				'HBFetchNonce' => wp_create_nonce( 'wphb-fetch' ),
 			),
 		);
@@ -85,5 +87,4 @@ class Setup extends Page {
 			'before'
 		);
 	}
-
 }

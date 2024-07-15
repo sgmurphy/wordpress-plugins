@@ -13,7 +13,7 @@ class LoopBlock extends QueryLoopBase {
 		$js_props = Utils::useJSComponentProps(
 			'masonry',
 			array(
-				'enabled'        => $this->getAttribute( 'masonry', false ),
+				'enabled'        => esc_attr( $this->getAttribute( 'masonry', false ) ),
 				'targetSelector' => '.' . $this->elementClass( QueryLoopBase::INNER ),
 			)
 		);

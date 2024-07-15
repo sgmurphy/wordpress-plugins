@@ -34,7 +34,7 @@ class IconListItemBlock extends BlockBase {
 				'name' => $iconName,
 			),
 			self::TEXT        => array(
-				'innerHTML' => $text,
+				'innerHTML' => wp_kses_post($text),
 			),
 			self::TEXTWRAPPER => array(),
 		);

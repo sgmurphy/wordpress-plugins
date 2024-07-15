@@ -31,7 +31,7 @@ class PostAuthorNameBlock extends BlockBase {
 		return array(
 			self::TEXT => array_merge(
 				array(
-					'innerHTML' => $authorData->display_name,
+					'innerHTML' => wp_kses_post($authorData->display_name),
 				)
 			),
 		);

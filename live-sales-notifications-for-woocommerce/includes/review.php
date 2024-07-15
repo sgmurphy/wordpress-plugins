@@ -1,6 +1,6 @@
 <?php
 /*
-v1.0.1
+v1.0.6
 */
 if(!class_exists('pisol_sales_notification_review')){
 class pisol_sales_notification_review{

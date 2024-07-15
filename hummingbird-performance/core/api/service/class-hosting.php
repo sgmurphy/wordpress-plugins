@@ -11,8 +11,10 @@ namespace Hummingbird\Core\Api\Service;
 
 use Hummingbird\Core\Api\Exception;
 use Hummingbird\Core\Api\Request\WPMUDEV;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 use WP_Error;
 use WPMUDEV_Dashboard;
+use stdClass;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -73,26 +75,73 @@ class Hosting extends Service {
 	}
 
 	/**
-	 * Disable FastCGI.
+	 * Enable/Disable FastCGI.
+	 *
+	 * @param bool $action Whether to enable or disable fastCGI.
 	 *
 	 * @return array|mixed|object|WP_Error
 	 */
-	public function disable_fast_cgi() {
+	public function toggle_fast_cgi( $action ) {
 		$site_id = $this->get_site_id();
-
 		if ( ! $site_id ) {
 			return false;
 		}
 
-		delete_site_transient( 'wphb-fast-cgi-enabled' );
+		if ( false === $action ) {
+			Fast_CGI::clear_fast_cgi_status();
+		}
 
-		$this->request->add_post_argument( 'is_active', false );
+		$this->request->add_post_argument( 'is_active', $action );
+
 		return $this->request->put(
 			'sites/' . $site_id . '/modules/hosting/static-cache',
 			array(
 				'domain' => $this->request->get_this_site(),
 			)
 		);
+	}
+
+	/**
+	 * Update FastCGI settings.
+	 *
+	 * @param array $data An array of fastCGI data.
+	 *
+	 * @return array|mixed|object|WP_Error
+	 */
+	public function wphb_update_fast_cgi_settings( $data ) {
+		if ( empty( $data ) || ! is_array( $data ) ) {
+			return false;
+		}
+
+		$site_id = $this->get_site_id();
+
+		if ( ! $site_id ) {
+			return false;
+		}
+
+		foreach ( $data as $key => $value ) {
+			if ( ! in_array( $key, Fast_CGI::get_fast_cgi_settings_field(), true ) ) {
+				continue;
+			}
+
+			$this->request->add_post_argument( $key, $value );
+		}
+
+		$response = $this->request->put(
+			'sites/' . $site_id . '/modules/hosting/static-cache',
+			array(
+				'domain' => $this->request->get_this_site(),
+			)
+		);
+
+		if ( ! is_wp_error( $response ) && ! empty( $response ) ) {
+			$hosting               = Fast_CGI::get_hosting_detail();
+			$hosting               = isset( $hosting->static_cache ) ? $hosting : new stdClass();
+			$hosting->static_cache = $response;
+			Fast_CGI::update_hosting_detail_transient( $hosting );
+		}
+
+		return $response;
 	}
 
 	/**
@@ -103,7 +152,7 @@ class Hosting extends Service {
 	 *
 	 * @return false|int
 	 */
-	private function get_site_id() {
+	public function get_site_id() {
 		// Only check on WPMU DEV hosting.
 		if ( ! isset( $_SERVER['WPMUDEV_HOSTED'] ) ) {
 			return false;
@@ -133,7 +182,7 @@ class Hosting extends Service {
 		if ( $site_id ) {
 			$hosting = $this->get_info( $site_id );
 			if ( is_object( $hosting ) && property_exists( $hosting, 'static_cache' ) ) {
-				set_site_transient( 'wphb-fast-cgi-enabled', $hosting->static_cache->is_active, DAY_IN_SECONDS );
+				Fast_CGI::update_fast_cgi_status( $hosting->static_cache->is_active );
 				return $hosting->static_cache->is_active;
 			}
 		}
@@ -146,17 +195,21 @@ class Hosting extends Service {
 	 *
 	 * @since 3.4.0
 	 *
+	 * @param bool $refresh_data Whether to refresh the data or not.
+	 *
 	 * @return bool
 	 */
-	public function has_fast_cgi_header() {
+	public function has_fast_cgi_header( $refresh_data = false ) {
+		static $already_fetched = false;
+
 		// Only check on WPMU DEV hosting.
 		if ( ! isset( $_SERVER['WPMUDEV_HOSTED'] ) ) {
 			return false;
 		}
 
-		$fast_cgi_enabled = get_site_transient( 'wphb-fast-cgi-enabled' );
+		$fast_cgi_enabled = Fast_CGI::is_fast_cgi_enabled();
 
-		if ( $fast_cgi_enabled ) {
+		if ( ! $refresh_data && ( $fast_cgi_enabled || $already_fetched ) ) {
 			return $fast_cgi_enabled;
 		}
 
@@ -167,16 +220,17 @@ class Hosting extends Service {
 			)
 		);
 
+		$already_fetched = true;
+
 		if ( ! is_wp_error( $head ) ) {
 			$headers = wp_remote_retrieve_headers( $head );
 			if ( isset( $headers['x-cache'] ) ) {
-				set_site_transient( 'wphb-fast-cgi-enabled', true, DAY_IN_SECONDS );
+				Fast_CGI::update_fast_cgi_status( true );
 				return true;
 			}
 		}
 
-		set_site_transient( 'wphb-fast-cgi-enabled', false, DAY_IN_SECONDS );
+		Fast_CGI::update_fast_cgi_status( false );
 		return false;
 	}
-
 }

@@ -118,8 +118,15 @@ add_filter( 'kubio/template/is_importing_kubio_template', 'kubio_third_party_the
 
 
 function kubio_retrieve_template_source( $object ) {
-	$post_id = is_object( $object ) ? $object->wp_id : $object['wp_id'];
-	$source  = get_post_meta( $post_id, '_kubio_template_source', true );
+	if ( is_object( $object ) ) {
+		$post_id = $object->wp_id;
+	} elseif ( isset( $object['wp_id'] ) ) {
+		$post_id = $object['wp_id'];
+	} elseif ( isset( $object['id'] ) ) {
+		$post_id = $object['id'];
+	}
+
+	$source = get_post_meta( $post_id, '_kubio_template_source', true );
 	if ( $source === false ) {
 		$source = 'custom';
 	}

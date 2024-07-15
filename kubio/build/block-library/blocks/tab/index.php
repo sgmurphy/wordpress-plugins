@@ -95,7 +95,7 @@ class TabItemBlock extends BlockBase {
 		return array(
 			self::OUTER => array(),
 			self::INNER => array(
-				'id'        => $slug,
+				'id'        => esc_attr($slug),
 				'className' => $isFirst ? 'h-tabs-content-active' : '',
 			),
 		);
@@ -170,14 +170,14 @@ class TabNavigationItemBlock extends BlockBase {
 		$link       = sprintf( '#%s', LodashBasic::get( $this->block_context, 'slug' ) );
 		return array(
 			self::LINK => array(
-				'href'      => $link,
+				'href'      => esc_url($link),
 				'className' => $arrayIndex === 0 ? 'h-tabs-navigation-active-item h-custom-active-state' : '',
 			),
 			self::ICON => array(
 				'name' => $iconName,
 			),
 			self::TEXT => array(
-				'innerHTML' => $title,
+				'innerHTML' => wp_kses_post($title),
 			),
 		);
 	}

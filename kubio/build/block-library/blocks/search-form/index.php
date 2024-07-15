@@ -34,22 +34,22 @@ class SearchForm extends BlockBase {
 		return array(
 			self::FORM       => array(
 				'className' => array( 'd-flex', 'search-form' ),
-				'action'    => home_url(),
+				'action'    => esc_url(home_url()),
 				'role'      => 'search',
 				'method'    => 'GET',
 			),
 			self::BUTTON     => $button,
 			self::INPUT      => array(
 				'className'   => array( 'search-input' ),
-				'placeholder' => $inputPlaceholder,
-				'value'       => get_search_query(),
+				'placeholder' => esc_attr($inputPlaceholder),
+				'value'       => esc_attr(get_search_query()),
 				'name'        => 's',
 			),
 			self::ICON       => array(
 				'name' => $iconButton,
 			),
 			self::BUTTONTEXT => array(
-				'innerHTML' => $buttonText,
+				'innerHTML' => wp_kses_post($buttonText),
 			),
 		);
 	}

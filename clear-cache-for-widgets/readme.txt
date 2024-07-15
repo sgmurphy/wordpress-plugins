@@ -3,8 +3,8 @@ Contributors: webheadllc
 Donate link: https://webheadcoder.com/donate-clear-cache-for-me
 Tags: wpengine, cache, clear, purge, js, css, widget
 Requires at least: 3.8
-Tested up to: 6.4
-Stable tag: 2.1.1
+Tested up to: 6.5
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,7 @@ Clears all cache for following actions (requires a caching system above to be ac
 * When Settings from a settings page is saved.  This includes settings from WordPress core, Yoast SEO, and most other plugins using the Settings API.
 * When WordPress is updated.
 * When plugins are updated, activated, and deactivated.
+* When WordPress, plugins, and themes are automaticallly updated.
 
 [See the plugin's homepage for more details](https://webheadcoder.com/clear-cache-for-me/).
 
@@ -65,6 +66,9 @@ Note:  Since some caching systems run in the `shutdown` hook, this plugin also r
 1. The button on the dashboard.  
 
 == Changelog ==
+
+= 2.2 =
+Added cache clearing when automatic updates complete.  
 
 = 2.1.1 = 
 Fixed "Edit with Elementor" in toolbar not working.  

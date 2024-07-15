@@ -33,6 +33,16 @@
             }
         }
     }
+
+    #wphb-switch-page-cache-method.sui-button-onload-text,
+    #wphb-switch-page-cache-method-summary-box.sui-button-onload-text {
+        .sui-description {
+            display: none !important;
+        }
+        .sui-button-text-onload {
+            display: block !important;
+        }
+    }
 }
 
 /**
@@ -47,6 +57,9 @@
         overflow: visible !important;
 
         .sui-icon-loader.sui-loading { top: 0; }
+        .sui-icon-check-tick.sui-success {
+            top: 2px;
+        }
     }
 }
 

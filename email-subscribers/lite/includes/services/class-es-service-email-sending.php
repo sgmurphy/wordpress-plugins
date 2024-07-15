@@ -776,11 +776,14 @@ class ES_Service_Email_Sending extends ES_Services {
 		$data = array(
 			'admin_email'   => $admin_email,
 		);
+		$ess_data = get_option( 'ig_es_ess_data', array() );
+		$api_key  = $ess_data['api_key'];
 		$options = array(
 			'method'  => 'POST',
 			'body'    => json_encode($data),
 			'headers' => array(
 				'Content-Type'  => 'application/json',
+				'Authorization' => 'Bearer ' . $api_key,// Keep it like bearer when we send email
 			),
 		);
 
@@ -934,6 +937,53 @@ class ES_Service_Email_Sending extends ES_Services {
 		<?php
 		$message_html = ob_get_clean();
 		return $message_html;
+	}
+
+	public function send_used_limit_data_to_ess() {
+		$response = array(
+			'status' => 'error',
+		);
+
+		$ess_option_exists = get_option( 'ig_es_ess_opted_for_sending_service', '' ) !== '';
+		if ( ! $ess_option_exists ) {
+			return;
+		}
+
+		$ess_data = get_option( 'ig_es_ess_data', array() );
+		$current_month = ig_es_get_current_month();
+		$allocated_limit = ! empty( $ess_data['allocated_limit'] ) ? (int) $ess_data['allocated_limit'] : 0;
+		if ( $allocated_limit !== 3000 ) {
+			return;
+		}
+		$used_limit      = ! empty( $ess_data['used_limit'][$current_month] ) ? $ess_data['used_limit'][$current_month] : 0;
+		$api_key  = $ess_data['api_key'];
+
+		$data = array(
+			'used_limit'   => (int) $used_limit,
+		);
+
+		$options = array(
+			'timeout' => 50,
+			'method'  => 'POST',
+			'body'    => json_encode($data),
+			'headers' => array(
+				'Authorization' => 'Bearer ' . $api_key,// Keep it like bearer when we send email
+				'Content-Type'  => 'application/json',
+			),
+		);
+
+		$api_url = 'https://api.igeml.com/accounts/update/';
+
+		$response = wp_remote_post( $api_url, $options );
+
+		if ( ! is_wp_error( $response ) ) {
+			$response_body = wp_remote_retrieve_body( $response );
+			$response_data = ( array ) json_decode( $response_body );
+			if ( 'success' === $response_data['status'] ) {
+				$ess_data['plan'] = $this->get_plan();
+				update_option( 'ig_es_ess_data', $ess_data );
+			}
+		}
 	}
 }
 

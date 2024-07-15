@@ -3,8 +3,8 @@ Contributors: pluggable, codexpert, thumbpressco, mukto90
 Donate link: https://thumbpress.co/?utm_source=free-plugins&utm_medium=readme&utm_campaign=image-sizes
 Tags: compress images, disable thumbnails, image editor, optimize images, regenerate thumbnails
 Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 5.3
+Tested up to: 6.6
+Stable tag: 5.4
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -163,7 +163,13 @@ Please post on our support forum here https://wordpress.org/support/plugin/image
 
 == Changelog ==
 
-= 2024-05-31 – v5.3 =
+= 2024-07-15 – v5.4 =
+- [imp] integrated Action Scheduler into convert to WebP module
+- [imp] integrated Action Scheduler into some other modules
+- [imp] improved background process of regenerate thumbnails module
+- [imp] improved design issues of some modules
+
+= 2024-06-09 – v5.3 =
 - [fix] fixed disable thumbnails drag-n-drop not working issue
 - [fix] fixed module interconnecting links not working issue
 - [imp] moved overview page contents to advanced features page

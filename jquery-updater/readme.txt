@@ -4,7 +4,7 @@ Donate link: http://www.ramoonus.nl/donate/
 Tags: jquery, update, jquery ui, javascript, jq
 Requires at least: 6.0
 Tested up to: 6.6
-Stable tag: 3.7.1.1
+Stable tag: 3.7.1.2
 Requires PHP: 5.6
 
 This plugin updates jQuery to the latest stable version on your website.
@@ -53,10 +53,16 @@ Please clear the server and browser cache after upgrading/disabling this plugin.
 
 == Changelog ==
 = 3.7.1.1 =
+* Updated [jQuery Migrate 3.5.0](https://github.com/jquery/jquery-migrate/releases/tag/3.5.0)
+* Compatible with WP 6.6
+
+= 3.7.1.1 =
 * Updated [jQuery Migrate 3.4.1](https://github.com/jquery/jquery-migrate/releases/tag/3.4.1), as requested by wtrojanowski 
+* Compatible with WP 6.5
 
 = 3.7.1 =
 * Updated to [jQuery 3.7.1](https://blog.jquery.com/2023/08/28/jquery-3-7-1-released-reliable-table-row-dimensions/)
+* Compatible with WP 6.4
 
 = 3.7.0 =
 * Updated to [jQuery 3.7.0](https://blog.jquery.com/2023/05/11/jquery-3-7-0-released-staying-in-order/)

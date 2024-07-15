@@ -261,9 +261,10 @@ class Woo_Feed_Notices {
 						);
 					}
 
-					$wf_v5_notices->add( $key, __( $this->get_woo_feed_notices_message( $key, 'title' ), 'woo_feed' ), __( $this->get_woo_feed_notices_message( $key, 'message' ), 'woo_feed' ), $options );
+                    $wf_v5_notices->add( $key,  $this->get_woo_feed_notices_message( $key, 'title' ),  $this->get_woo_feed_notices_message( $key, 'message' ), $options );
 
-					if ( isset( $_GET['page'] ) && preg_match( '/^webappick\W+/', $_GET['page'] ) ) {
+
+                    if ( isset( $_GET['page'] ) && preg_match( '/^webappick\W+/', $_GET['page'] ) ) {
 						$wf_v5_notices->boot();
 					}
 

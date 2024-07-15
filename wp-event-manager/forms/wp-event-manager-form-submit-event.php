@@ -5,6 +5,9 @@
 class WP_Event_Manager_Form_Submit_Event extends WP_Event_Manager_Form {
     
 	public    $form_name = 'submit-event';
+	public    $resume_edit;
+	public    $steps;
+	public    $fields;
 	protected $event_id;
 	protected $preview_event;
 	/** @var WP_Event_Manager_Form_Submit_Event The single instance of the class */
@@ -749,7 +752,7 @@ class WP_Event_Manager_Form_Submit_Event extends WP_Event_Manager_Form {
 				}
 			}
 			$event_slug[]            	= sanitize_title($post_title);
-			$event_slugs				= implode( '-', $event_slug ) ;
+			$event_slugs				= $event_slug[1];
 			$event_data['post_name'] 	= apply_filters('submit_event_form_save_slug_data', $event_slugs);
 		}
 		if ( $status ) {

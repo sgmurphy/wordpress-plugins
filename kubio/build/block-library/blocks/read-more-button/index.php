@@ -13,7 +13,7 @@ class ReadMorebuttonBlock extends ButtonBlock {
 
 		$post_id                          = Arr::get( $this->block_context, 'postId', 0 );
 		$current_map[ ButtonBlock::LINK ] = array(
-			'href'          => get_permalink( $post_id ),
+			'href'          => esc_url(get_permalink( $post_id )),
 			'typeOpenLink'  => 'sameWindow',
 			'noFollow'      => false,
 			'lightboxMedia' => '',

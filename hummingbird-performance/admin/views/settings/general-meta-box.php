@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<p class="sui-description">
 									<?php
 									printf( /* translators: %1$s - opening <strong> tag, %2$s - closing </strong> tag */
-										esc_html__( 'When this option is selected, clicking the Clear Cache button in the WordPress Admin Bar will clear all active cache types, such as %1$sPage Cache, Asset Optimization Cache, Redis Cache%2$s, and %1$sCloudflare Cache%2$s.', 'wphb' ),
+										esc_html__( 'When this option is selected, clicking the Clear Cache button in the WordPress Admin Bar will clear all active cache types, such as %1$sPage Cache, Asset Optimization Cache%2$s, and %1$sCloudflare Cache%2$s.', 'wphb' ),
 										'<strong>',
 										'</strong>'
 									)

@@ -516,7 +516,7 @@ class THWCFD_Public_Checkout {
 					}else{
 						$value =  isset($posted[$name]) ? sanitize_text_field($posted[$name]) : '';						
 					}
-					if($value){
+					if($value || (($value !== '') && ($value == 0) && apply_filters( 'thwcfe_accept_value_zero',false))){
 						// $result = update_post_meta($order_id, $name, $value);
 						$order->update_meta_data( $name, $value );
 					}
@@ -559,7 +559,7 @@ class THWCFD_Public_Checkout {
 				// $value = get_post_meta( $order_id, $key, true );
 				$value = $order->get_meta( $key, true );
 				
-				if($value){
+				if($value || (($value !== '') && ($value == 0) && apply_filters( 'thwcfe_accept_value_zero',false))){
 					$label = isset($field['label']) && $field['label'] ? $field['label'] : $key;
 					//$label = esc_attr($label);
 					$value = THWCFD_Utils::get_option_text($field, $value);
@@ -598,7 +598,7 @@ class THWCFD_Public_Checkout {
 					// $value = get_post_meta( $order_id, $key, true );
 					$value = $order->get_meta( $key, true );
 
-					if($value){
+					if($value || (($value !== '') && ($value == 0) && apply_filters( 'thwcfe_accept_value_zero',false))){
 						$label = isset($field['label']) && $field['label'] ? $field['label'] : $key;
 						//$label = esc_attr($label);
 						$label = wp_kses_post(__($label, 'woo-checkout-field-editor-pro'));

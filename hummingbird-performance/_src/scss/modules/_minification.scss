@@ -277,3 +277,31 @@
 #critical_css_file_exclude .sui-table .sui-box-body .sui-label + .wphb-dash-table-row {
     border-top: 0 !important;
 }
+
+#font_display_settings, #font_optimization_preload_box {
+    .sui-notice.sui-notice-grey {
+        .sui-notice-content {
+            box-shadow: none;
+            margin: 0 0 0 -18px;
+            padding-top: 12px;
+            padding-bottom: 0px;
+        }
+    }
+    #font_preload_method,
+    #font_swap_method {
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: inset 1px 0 0 0 #e6e6e6, inset 0 0 0 1px #e6e6e6;
+    }
+}
+
+#font_optimization_preload_box,
+#font_display_settings {
+    margin-left: 44px;
+    .sui-notice.sui-notice-grey .sui-notice-message {
+        strong, p, .font_display_safe_helper, .font_display_performant_helper {
+            color: #666;
+        }
+    }
+}

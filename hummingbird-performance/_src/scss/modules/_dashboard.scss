@@ -310,3 +310,22 @@
 #wphb-box-dashboard-caching-browser .sui-upsell-row .sui-upsell-notice {
     padding-left: 0px;
 }
+
+#wphb-box-dashboard-caching-page-module {
+    .sui-box-footer {
+        align-items: flex-start;
+
+        .sui-actions-right {
+            flex-direction: column;
+            align-items: flex-end;
+
+            .sui-description {
+                margin: 3px 10px 0 0;
+
+                .sui-icon-open-new-window {
+                    margin-left: 4px;
+                }
+            }
+        }
+    }
+}

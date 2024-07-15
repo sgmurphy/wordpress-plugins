@@ -3,7 +3,7 @@ Contributors: nickboss
 Donate link: http://www.iptanus.com/support/wordpress-file-upload
 Tags: file, upload, ajax, form, page, post, sidebar, responsive, widget, webcam, ftp
 Requires at least: 2.9.2
-Tested up to: 6.5.2
+Tested up to: 6.5.5
 Stable tag: "trunk"
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,13 @@ There is an option in plugin's settings in Dashboard to relax the CSS rules, so 
 8. A screenshot of the file browser.
 
 == Changelog ==
+
+= 4.24.8 =
+* verified compatibility with Wordpress version 6.5.5
+* escaped userdata values in File Browser, File Details page and View Log, in order to avoid XSS attacks
+* removed the ability to upload files outside /wp-content folder, in order to avoid directory traversal attacks
+* removed the ability to edit the shortcode for authors and contributors, in order to avoid CSRF attacks
+* stripped tags and escaped dir query param in File Browser in order to avoid reflected XSS attacks
 
 = 4.24.7 =
 * verified compatibility with Wordpress version 6.5.2
@@ -1026,6 +1033,9 @@ Added the option to allow anyone to upload files, by setting the attribute uploa
 Initial version.
 
 == Upgrade Notice ==
+
+= 4.24.8 =
+Regular update to fix some security issues.
 
 = 4.24.7 =
 Regular update to fix some bugs and introduce some new features.

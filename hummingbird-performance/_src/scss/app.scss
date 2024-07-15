@@ -263,3 +263,11 @@ $sui-font-path: '~@wpmudev/shared-ui/dist/fonts/';
         }
     }
 }
+#wphb-switch-page-cache-method-summary-box.sui-button-onload-text {
+    .sui-description {
+        display: none !important;
+    }
+    .sui-button-text-onload {
+        display: block !important;
+    }
+}

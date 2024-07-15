@@ -89,7 +89,7 @@ class THWCFD_Admin {
 	
 	public function output_settings(){
 		echo '<div class="wrap">';
-		echo '<h2></h2>';
+		echo '<h2>'. __('Checkout Form', 'woo-checkout-field-editor-pro') .'</h2>';
 
 		$tab = $this->get_current_tab();
 
@@ -112,7 +112,6 @@ class THWCFD_Admin {
 	}
 
 	public function wcfd_notice_actions(){
-
 		if( !(isset($_GET['thwcfd_remind']) || isset($_GET['thwcfd_dissmis']) || isset($_GET['thwcfd_reviewed'])) ) {
 			return;
 		}
@@ -146,7 +145,6 @@ class THWCFD_Admin {
 	}
 
 	public function output_review_request_link(){
-
 		if(!apply_filters('thwcfd_show_dismissable_admin_notice', true)){
 			return;
 		}
@@ -155,9 +153,9 @@ class THWCFD_Admin {
             return;
         }
 		$current_screen = get_current_screen();
-		// if($current_screen->id !== 'woocommerce_page_checkout_form_designer'){
-		// 	return;
-		// }
+		if($current_screen->id !== 'woocommerce_page_checkout_form_designer'){
+			return;
+		}
 
 		$thwcfd_reviewed = get_user_meta( get_current_user_id(), 'thwcfd_reviewed', true );
 		if($thwcfd_reviewed){
@@ -188,154 +186,298 @@ class THWCFD_Admin {
 
 		$thwcfd_since = get_option('thwcfd_since');
 		if(!$thwcfd_since){
-			$now = time();
-			update_option('thwcfd_since', $now, 'no' );
+			update_option('thwcfd_since', $now, 'no');
 		}
 		$thwcfd_since = $thwcfd_since ? $thwcfd_since : $now;
 		$render_time = apply_filters('thwcfd_show_review_banner_render_time' , 7 * DAY_IN_SECONDS);
 		$render_time = $thwcfd_since + $render_time;
-		if($now > $render_time ){
-			$this->render_review_request_notice();
+		if($now < $render_time ){
+			return;
 		}
-		
+
+		$this->render_review_request_notice();
+
 	}
 
 	public function review_banner_custom_css(){
 
 		?>
         <style>
-        	.thwvsf-review-wrapper {
-                padding: 15px 28px 26px 10px !important;
-                margin-top: 35px;
-            }
+			.thwcfd-custom-background {
+			    background: linear-gradient(92.22deg, #6E55FF 39.76%, #845DE2 101.58%);
+			}
 
-            #thwcfd_review_request_notice{
-                margin-bottom: 20px;
-            }
-            .thwcfd-review-wrapper {
-			    padding: 15px 28px 26px 10px !important;
-			    margin-top: 35px;
+			.notice.thpladmin-notice.thwcfd-review-wrapper {
+			    padding: 0;
+			    border: 1px solid transparent;
+			    background-color: transparent;
+			    box-shadow: none;
 			}
-			.thwcfd-review-image {
-			    float: left;
+
+			.thpladmin-notice {
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			    margin-top: 3rem;
 			}
-			.thwcfd-review-content {
-			    padding-right: 180px;
+
+			.thwcfd-content {
+			    display: flex;
+			    align-items: center;
+			    position: relative;
+			    border-radius: 1rem;
+			    gap: 1rem;
+			    padding: 1.5rem 1rem;
+			    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+			    width: 100%;
+			    color: white;
 			}
-			.thwcfd-review-content p {
-			    padding-bottom: 14px;
-    			line-height: 1.4;
+
+			.thwcfd-text-content {
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+				margin-top: -10px;
 			}
-			.thwcfd-notice-action{ 
-			    padding: 8px 18px 8px 18px;
-                background: #fff;
-                color: #007cba;
-                border-radius: 5px;
-                border: 1px solid #007cba;
+
+			.thwcfd-hi-img,
+			.thwcfd-rating-img {
+			    width: 1.2rem; 
+			    height: 1.2rem;
+			    margin-left: 0.2rem;
 			}
-			.thwcfd-notice-action.thwcfd-yes {
-			    background-color: #2271b1;
-			    color: #fff;
+
+			.thwcfd-smile-img {
+			    width: 1.2rem;
+			    height: 1.2rem;
+			    margin-top: -0.1rem;
 			}
-			.thwcfd-notice-action:hover:not(.thwcfd-yes) {
-			    background-color: #f2f5f6;
-			}
-			.thwcfd-notice-action.thwcfd-yes:hover {
-			    opacity: .9;
-			}
-			.thwcfd-notice-action .dashicons{
-			    display: none;
-			}
-			.thwcfd-themehigh-logo {
+
+			.thwcfd-line-img {
 			    position: absolute;
-			    right: 20px;
-			    top: calc(50% - 13px);
+			    top: 1rem;
+			    left: 0;
+			    right: 0;
 			}
-			.thwcfd-notice-action {
-			    background-repeat: no-repeat;
-                padding-left: 40px;
-                background-position: 18px 8px;
-                cursor: pointer;
+
+			.thwcfd-rating-img {
+			    width: 1.2rem;
+			    height: 1.2rem;
+			    margin-top: -0.2rem;
 			}
-			.thwcfd-yes{
-			    background-image: url(<?php echo THWCFD_URL; ?>admin/assets/css/tick.svg);
+
+			.thwcfd-main-content-wrapper h1 {
+			    color: white;
+			    font-weight: 700;
+			    font-size: 16px;
 			}
-			.thwcfd-remind{
-			    background-image: url(<?php echo THWCFD_URL; ?>admin/assets/css/reminder.svg);
+
+			.thwcfd-themehigh-logo {
+			    width: 4rem;
+			    height: 4rem;
+				margin-left: 40px;
 			}
-			.thwcfd-dismiss{
-			    background-image: url(<?php echo THWCFD_URL; ?>admin/assets/css/close.svg);
+
+			.thwcfd-greeting-container {
+			    display: flex;
+			    flex-direction: column;
+			    align-items: start;
 			}
-			.thwcfd-done{
-			    background-image: url(<?php echo THWCFD_URL; ?>admin/assets/css/done.svg);
+
+			.thwcfd-greeting-container h1 {
+			    color: white;
+			    font-weight: bold;
+			    font-size: 16px;
+			    line-height: 12px;
+			}
+
+			.thwcfd-vertical-divider {
+			    min-height: 3rem;
+			    width: 0.125rem;
+			    background-color: white;
+			    opacity: 0.4;
+			}
+
+			.thwcfd-sub-content-wrapper {
+			    display: flex;
+			    justify-content: center;
+			    flex-direction: column;
+			    align-items: start;
+			}
+
+			.thwcfd-buttons {
+			    display: grid;
+			    grid-template-columns: repeat(2, 1fr);
+			    color: white;
+			    gap: 0.5rem;
+			    margin-top: 1.25rem;
+			}
+
+			.thwcfd-buttons a {
+			    padding: 0.3rem 0.8rem;
+			    border-radius: 0.375rem;
+			    font-size: 13px;
+			    background-color: #6A43E5;
+			    text-decoration: none;
+			    color: white;
+			    text-align: center;
+			}
+
+			.thwcfd-buttons a:hover {
+			    background: #5327E0;
+			    box-shadow: 0px 0px 0.9px 0px #00000040;
+			    cursor: pointer;
+			}
+
+			.thwcfd-buttons a:first-child {
+			    color: black; 
+			    background-color: white;
+			    cursor: pointer;
+			}
+
+			.thwcfd-buttons a:first-child:hover {
+			    color: #7759F4;
+			    box-shadow: 0px 0px 6.5px 0px #00000040;
+			}
+
+			.thwcfd-banner {
+			    position: absolute;
+			    top: 0;
+			    right: 8.5rem;
+			    background-color: white;
+			    border-bottom-right-radius: 14px; 
+			    border-bottom-left-radius: 14px; 
+				padding: 2px 10px;
+			}
+
+			.thwcfd-banner h1 {
+			    font-size: 12px;
+			    font-weight: 500;
+				margin-top: -5px;
+			}
+
+			.thwcfd-banner span {
+			    font-weight: bold;
+			}
+
+			.thwcfd-close a {
+			    position: absolute;
+			    top: 1rem;
+			    right: 2rem;
+			    cursor: pointer;
+			}
+
+			/* lg */
+			@media (min-width: 1024px) {
+			    .thwcfd-content {
+			        gap: 2rem;
+			        padding: 2.5rem;
+			    }
+
+			    .thwcfd-themehigh-logo {
+			        width: 4rem;
+			        height: 4rem;
+			    }
+
+			    .thwcfd-sub-content-wrapper {
+			        flex-direction: row;
+			        justify-content: start;
+			    }
+
+			    .thwcfd-buttons {
+			        grid-template-columns: repeat(4, 1fr);
+			        gap: 1rem;
+			    }
+			}
+
+			/* md */
+			@media (min-width: 768px) {
+			    .thwcfd-content {
+			        padding: 1.5rem;
+			        gap: 2rem;
+			    }
+			}
+
+			/* xl */
+			@media (min-width: 1920px) and (max-width: 2560px) {
+			    .thwcfd-greeting-container h1 {
+					color: white;
+					font-weight: bold;
+					font-size: 17px;
+					line-height: 12px;
+				}
+
+				.thwcfd-main-content-wrapper h1 {
+					color: white;
+					font-weight: 700;
+					font-size: 17px;
+				}
+
+				.thwcfd-banner h1 {
+			    	font-size: 16px;
+			    	font-weight: 500;
+					margin-top: -5px;
+				}
 			}
         </style>
     <?php    
 	}
 
-	public function review_banner_custom_js(){
-		?>
-		<script type="text/javascript">
-        	(function($, window, document) { 
-        		$( document ).on( 'click', '.thpladmin-notice .notice-dismiss', function() {
-        			var wrapper = $(this).closest('div.thpladmin-notice');
-					var nonce = wrapper.data("nonce");
-					var data = {
-						thwcfd_review_nonce: nonce,
-						action: 'hide_thwcfd_admin_notice',
-					};
-					$.post( ajaxurl, data, function() {
-
-					});
-				});
-			}(window.jQuery, window, document));
-        </script>
-        <?php
-	}
-
 	private function render_review_request_notice(){
-		$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'general_settings';
-		$current_section = isset( $_GET['section'] ) ? sanitize_key( $_GET['section'] ) : '';
-
-		
 		$remind_url = add_query_arg(array('thwcfd_remind' => true, 'thwcfd_review_nonce' => wp_create_nonce( 'thwcfd_notice_security')));
 		$dismiss_url = add_query_arg(array('thwcfd_dissmis' => true, 'thwcfd_review_nonce' => wp_create_nonce( 'thwcfd_notice_security')));
 		$reviewed_url= add_query_arg(array('thwcfd_reviewed' => true, 'thwcfd_review_nonce' => wp_create_nonce( 'thwcfd_notice_security')));
 		?>
-
-		<div class="notice notice-info thpladmin-notice is-dismissible thwcfd-review-wrapper" data-nonce="<?php echo wp_create_nonce( 'thwcfd_notice_security'); ?>">
-			<div class="thwcfd-review-image">
-				<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/css/review-left.png'); ?>" alt="themehigh">
-			</div>
-			<div class="thwcfd-review-content">
-				<h3><?php _e('We heard you!', 'woo-checkout-field-editor-pro'); ?></h3>
-				<p><?php _e('The free version of the WooCommerce Checkout Field Editor plugin is now loaded with more field types. We would love to know how you feel about the improvements we made just for you. Help us to serve you and others best by simply leaving a genuine review.', 'woo-checkout-field-editor-pro'); ?></p>
-				<div class="action-row">
-			        <a class="thwcfd-notice-action thwcfd-yes" onclick="window.open('https://wordpress.org/support/plugin/woo-checkout-field-editor-pro/reviews/?rate=5#new-post', '_blank')" style="margin-right:16px; text-decoration: none">
-			        	<?php _e("Yes, today", 'woo-checkout-field-editor-pro'); ?>
-			        </a>
-
-			        <a class="thwcfd-notice-action thwcfd-done" href="<?php echo esc_url($reviewed_url); ?>" style="margin-right:16px; text-decoration: none">
-			        	<?php _e('Already, Did', 'woo-checkout-field-editor-pro'); ?>
-			        </a>
-
-			        <a class="thwcfd-notice-action thwcfd-remind" href="<?php echo esc_url($remind_url); ?>" style="margin-right:16px; text-decoration: none">
-			        	<?php _e('Maybe later', 'woo-checkout-field-editor-pro'); ?>
-			        </a>
-
-			        <a class="thwcfd-notice-action thwcfd-dismiss" href="<?php echo esc_url($dismiss_url); ?>" style="margin-right:16px; text-decoration: none">
-			        	<?php _e("Nah, Never", 'woo-checkout-field-editor-pro'); ?>
-			        </a>
-				</div>
-			</div>
-			<div class="thwcfd-themehigh-logo">
-				<span class="logo" style="float: right">
-            		<a target="_blank" href="https://www.themehigh.com">
-                		<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/css/logo.svg'); ?>" style="height:19px;margin-top:4px;" alt="themehigh"/>
-                	</a>
-                </span>
-			</div>
-	    </div>
+		<div class="notice notice-info thpladmin-notice thwcfd-review-wrapper "  data-nonce="<?php echo wp_create_nonce( 'thwcfd_notice_security'); ?>">
+      	   <div class="thwcfd-custom-background thwcfd-content">
+       		<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/logo.svg'); ?>" alt="Themehigh Logo" class="thwcfd-themehigh-logo" />
+        	<div class="thwcfd-greeting-container">
+          		<div class="thwcfd-text-content">
+            		<h1>Hey</h1>
+            		<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/review-notice/hi.png'); ?>" alt="Hi" class="thwcfd-hi-img" />
+          		</div>
+          		<h1>There!</h1>
+        	</div>
+        	<div class="thwcfd-vertical-divider"></div>
+        	<div class="thwcfd-main-content-wrapper">
+          		<h1>Redefining your checkout pages with our plugin?</h1>
+          		<div class="thwcfd-sub-content-wrapper">
+            		<div class="thwcfd-text-content">
+              			<p>We'd love to hear from you!</p>
+              			<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/review-notice/smile.png'); ?>" alt="Smile" class="thwcfd-smile-img" />
+            		</div>
+            		<div class="thwcfd-text-content" style="margin-left: 4px;">
+              			<p>Give us a quick <span style="position: relative;">review
+              				<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/review-notice/line.svg'); ?>" alt="Underline" class="thwcfd-line-img" />
+							</span>
+						</p>
+						<img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/review-notice/star.png'); ?>" alt="Star Rating" class="thwcfd-rating-img" />
+            		</div>
+          		</div>
+        	</div>
+        	<div class="thwcfd-buttons action-row">
+				<a class="thwcfd-notice-action thwcfd-yes" onclick="window.open('https://wordpress.org/support/plugin/woo-checkout-field-editor-pro/reviews/?rate=5#new-post', '_blank')">
+          			Yes, Today
+				</a>
+				<a class="thwcfd-notice-action thwcfd-remind" href="<?php echo esc_url($remind_url); ?>" >
+					Maybe Later
+				</a>
+				<a class="thwcfd-notice-action thwcfd-dismiss" href="<?php echo esc_url($dismiss_url); ?>" >
+					No, Never
+				</a>
+				<a class="thwcfd-notice-action thwcfd-done" href="<?php echo esc_url($reviewed_url); ?>">
+					Already Did
+				</a>
+        	</div>
+        	<div class="thwcfd-banner">
+          		<h1>Checkout field editor by <span>themehigh</span></h1>
+        	</div>
+        	<div class="thwcfd-close">
+          		<a href="<?php echo $dismiss_url; ?>"><img src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/close.png'); ?>" alt="Close" /></a>
+        	</div>
+			
+      	   </div>
+    	</div>
 
 		<?php
 	}
@@ -391,7 +533,7 @@ class THWCFD_Admin {
 				<div id="thwcfd-discount-popup-wrapper" class="thwcfd-discount-popup-wrapper">
 					<div class="thwcfd-pro-offer">
 						<div class="thwcfd-discount-popup-close">
-							<a id="thwcfd-discount-close-btn" class="thwcfd-discount-close-btn" href="<?php echo esc_url($dismiss_url); ?>"><img class="close-btn-img-popup" src="<?php echo esc_url(THWCFD_URL .'admin/assets/css/close-popup.svg'); ?>"></a>
+							<a id="thwcfd-discount-close-btn" class="thwcfd-discount-close-btn" href="<?php echo esc_url($dismiss_url); ?>"><img class="close-btn-img-popup" src="<?php echo esc_url(THWCFD_URL .'admin/assets/images/close.png'); ?>"></a>
 						</div>
 						<div class="thwcfd-discount-desc">
 							<p class="thwcfd-discount-desc-first">Exclusive offer for you.</p>

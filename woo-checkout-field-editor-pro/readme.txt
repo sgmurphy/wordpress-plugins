@@ -3,9 +3,9 @@ Contributors: ThemeHigh
 Donate link: https://themehigh.com/
 Tags: checkout field editor, woocommerce checkout field editor, checkout manager, woocommerce checkout manager, checkout field customizer, checkout form editor, checkout form customizer, checkout, WooCommerce checkout, checkout form designer, woocommerce checkout fields, woocommerce checkout addons
 Requires at least: 4.9
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ WooCommerce Checkout Field Editor (Checkout Manager) Plugin lets you add 20 diff
 
 It  enables you to edit the default checkout fields of your WooCommerce platform, add new custom fields in the three sections (namely Billing, Shipping and Additional), edit, hide, or delete the default fields, change labels, rearrange checkout fields, validate the checkout fields, add custom css classes etc.
 
-[Try the Demo](https://flydemos.com/wcfe/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=try_demo) | [Documents](https://www.themehigh.com/docs/docs-category/checkout-field-editor-for-woocommerce/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=help_docs) | [Pro Version](https://www.themehigh.com/product/woocommerce-checkout-field-editor-pro/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=wcfe_upgrade_link) | [Join Community](http://www.facebook.com/groups/themehigh/) | [Reddit] (https://www.reddit.com/r/themehigh/)
+[Try the Demo](https://flydemos.com/wcfe/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=try_demo) | [Documents](https://www.themehigh.com/docs/docs-category/checkout-field-editor-for-woocommerce/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=help_docs) | [Pro Version](https://www.themehigh.com/product/woocommerce-checkout-field-editor-pro/?utm_source=wcfe_free&utm_medium=readme&utm_campaign=wcfe_upgrade_link) | [Join Community](http://www.facebook.com/groups/themehigh/) | [Reddit](https://www.reddit.com/r/themehigh/)
 --------------------------------------------
 https://www.youtube.com/watch?v=_iKMe5lGIIM
 --------------------------------------------
@@ -285,6 +285,10 @@ Yes. There is a button 'reset to default fields' to go back to the WooCommerce d
 9. Locale override settings
 
 == Changelog ==
+= 2.0.3 =
+* Added WooCommerce 9.1 compatibility.
+* Added WordPress 6.6 compatibility.
+
 = 2.0.2 =
 * Added WooCommerce 8.9 compatibility.
 * Added WordPress 6.5 compatibility.

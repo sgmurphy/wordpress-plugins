@@ -3,7 +3,7 @@
  * Plugin Name:  Super Page Cache for Cloudflare
  * Plugin URI:   https://wordpress.org/plugins/wp-cloudflare-page-cache/
  * Description:  Speed up your website by enabling page caching on a Cloudflare free plans.
- * Version:      4.7.11
+ * Version:      4.7.12
  * Author:       Optimole
  * Author URI:   https://optimole.com/
  * License:      GPLv2 or later
@@ -45,7 +45,7 @@ if( !class_exists('SW_CLOUDFLARE_PAGECACHE') ) {
 
         private $config   = false;
         private $modules  = array();
-        private $version  = '4.7.11';
+        private $version  = '4.7.12';
 
         // Sorting Tool: https://onlinestringtools.com/sort-strings
         // Duplicate Finder: https://www.mynikko.com/tools/tool_duplicateremover.html
@@ -1078,6 +1078,16 @@ if( !class_exists('SW_CLOUDFLARE_PAGECACHE') ) {
             return $this->modules;
         }
 
+        /**
+         * Get the modules.
+         *
+         * Legacy function to preserve backward compatibility for old `advanced-cache.php` files.
+         *
+         * @return array
+         */
+        function get_objects() {
+            return $this->get_modules();
+        }
 
         function add_plugin_action_links( $links ) {
 

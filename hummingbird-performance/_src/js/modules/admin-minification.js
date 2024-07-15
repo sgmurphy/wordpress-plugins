@@ -98,11 +98,39 @@ import MinifyScanner from '../scanners/MinifyScanner';
 				window.WPHB_Admin.minification.criticalCSSSwitchMode( 'critical_css' );
 			} );
 
+			// Font display radio update status.
+			$( 'input[type=radio][name=font_display_value]' ).on(
+				'change',
+				function() {
+					const fontDisplayValue = $(this).val();
+					$( '.font_display_safe_helper' ).toggle( fontDisplayValue === 'swap' );
+					$( '.font_display_performant_helper' ).toggle( fontDisplayValue === 'optional' );
+				}
+			);
+
+			// Font swap checkbox update status.
+			$( 'input[type=checkbox][name=font_swap]' ).on(
+				'change',
+				function() {
+					$( '#font_display_settings' ).toggleClass( 'sui-hidden' );
+				}
+			);
+
 			// Font optimization checkbox update status.
 			$( 'input[type=checkbox][name=font_optimization]' ).on(
 				'change',
 				function() {
 					$( '#font_optimization_preload_box' ).toggleClass( 'sui-hidden' );
+				}
+			);
+
+			// Preload fonts mode option changed.
+			$( 'input[type=radio][name=preload_fonts_mode]' ).on(
+				'change',
+				function() {
+					const fontDisplayValue = $(this).val();
+					$( '.preload_fonts_mode_automatic_helper' ).toggle( fontDisplayValue === 'automatic' );
+					$( '.preload_fonts_mode_manuel_helper' ).toggle( fontDisplayValue === 'manual' );
 				}
 			);
 
@@ -366,8 +394,10 @@ import MinifyScanner from '../scanners/MinifyScanner';
 						WPHB_Admin.minification.hbToggleElement( criticalDisplayError, 'none' );
 					} else if ( 'ERROR' === response.criticalStatusForQueue.result ) {
 						window.SUI.closeNotice( 'wphb-ajax-update-notice' );
-						window.wphbMixPanel.track( 'error_encountered', {
-							critical_css_error: response.errorCode
+						const errorMessage = response.criticalStatusForQueue.error_message;
+						window.wphbMixPanel.track( 'critical_css_error', {
+							'Error Type': response.errorCode,
+							'Error Message': errorMessage.length > 256 ? errorMessage.substring( 0, 256 ) + '...' : errorMessage
 						} );
 						WPHB_Admin.minification.hbToggleElement( criticalDisplayError, 'block' );
 						document.getElementById( 'critical_error_message_tag' ).innerHTML = response.criticalErrorMessage;

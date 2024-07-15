@@ -49,8 +49,8 @@ class ImageBlock extends BlockContainerBase {
 
 		$map[ self::OUTER ]       = array( 'className' => $outer_classes );
 		$map[ self::IMAGE ]       = array(
-			'alt'       => $this->getAttribute( 'alt', '' ),
-			'src'       => $src,
+			'alt'       => esc_attr($this->getAttribute( 'alt', '' )),
+			'src'       => esc_attr($src),
 			'className' => $image_classes,
 		);
 		$map[ self::FRAME_IMAGE ] = array(
@@ -58,7 +58,7 @@ class ImageBlock extends BlockContainerBase {
 				$frame_hide_classes
 			),
 		);
-		$map[ self::CAPTION ]     = array( 'innerHTML' => $this->getBlockInnerHtml() );
+		$map[ self::CAPTION ]     = array( 'innerHTML' => wp_kses_post($this->getBlockInnerHtml()) );
 
 		$type = $this->getAttribute( 'link.typeOpenLink' );
 

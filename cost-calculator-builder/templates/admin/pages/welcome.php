@@ -123,7 +123,7 @@
 		</div>
 		<div id="WelcomeModal" class="welcome-modal-overlay">
 			<div class="welcome-modal-content">
-				<iframe width="854" height="480" src="https://www.youtube.com/embed/XZKJE1CcYxo?si=MAIbmo6WSvScWDHz"></iframe>
+				<iframe id="WelcomeVideo" width="854" height="480" src="https://www.youtube.com/embed/XZKJE1CcYxo?si=MAIbmo6WSvScWDHz" allow="autoplay"></iframe>
 			</div>
 		</div>
 	</div>

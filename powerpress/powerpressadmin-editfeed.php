@@ -970,7 +970,8 @@ if( isset($Languages[ $rss_language ]) )
             'film',
             'audiobook',
             'newsletter',
-            'blog'
+            'blog',
+            'course'
         ];
 
         foreach ($options as $option) {

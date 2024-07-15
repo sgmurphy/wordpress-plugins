@@ -56,11 +56,13 @@ jQuery(function ($) {
 	$(document).on("click", "#image_sizes-schedule-regen-thumbs", function(e) {
 		thumbpress_modal(true);
 
+		var limit = $('#image-sizes_regenerate-thumbs-limit').val();
 		$.ajax({
 			url: THUMBPRESS.ajaxurl,
 			data: {
 				'action' 	: 'thumbpress_schedule_regenerate-thumbs',
-				'_wpnonce'	: THUMBPRESS.nonce
+				'_wpnonce'	: THUMBPRESS.nonce,
+				'limit'		: limit,
 			},
 			type: 'POST',
 			dataType: 'json',

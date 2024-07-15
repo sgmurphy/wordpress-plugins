@@ -47,7 +47,7 @@ class LinkBlock extends BlockBase {
 			),
 
 			self::TEXT => array(
-				'innerHTML' => $text,
+				'innerHTML' => wp_kses_post($text),
 			),
 		);
 	}

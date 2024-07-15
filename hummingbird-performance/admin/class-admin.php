@@ -73,6 +73,7 @@ class Admin {
 	public function __construct() {
 		$this->admin_notices = Notices::get_instance();
 
+		add_action( 'admin_init', array( $this, 'wphb_refresh_fast_cgi_status' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
 		add_action( 'network_admin_menu', array( $this, 'add_network_menu_pages' ) );
 		add_filter( 'submenu_file', array( $this, 'remove_submenu_item' ) );
@@ -246,6 +247,10 @@ class Admin {
 			$this->pages['wphb-upgrade'] = new Pages\Upgrade( 'wphb-upgrade', __( 'Hummingbird Pro', 'wphb' ), __( 'Hummingbird Pro', 'wphb' ), 'wphb' );
 		}
 
+		if ( $this->wphb_should_add_service_submenu() && ! is_multisite() ) {
+			$this->pages['wphb-services'] = new Pages\Services( 'wphb-services', __( 'Expert Services', 'wphb' ), __( 'Expert Services', 'wphb' ) . $this->get_new_tag_html(), 'wphb' );
+		}
+
 		$this->pages['wphb-setup'] = new Pages\React\Setup( 'wphb-setup', __( 'Setup Wizard', 'wphb' ), null, 'wphb' );
 	}
 
@@ -258,6 +263,13 @@ class Admin {
 		}
 
 		return '<span class="wphb-critical-status-menu"><style>.wphb-critical-status-menu{margin-left:8px;margin-top:6px;position:absolute;vertical-align:middle;width:8px;height:8px;border-radius:50%}.wphb-critical-status-menu,.wphb-critical-status-menu::after,.wphb-critical-status-menu::before{background:#1abc9c}.wphb-critical-status-menu::before{content:"";animation:1.5s infinite wphb-critical-animation}.wphb-critical-status-menu::after{content:"";animation:1.5s -.4s infinite wphb-critical-animation}.wphb-critical-status-menu::after,.wphb-critical-status-menu::before{left:0;top:50%;margin-left:-1px;margin-top:-5px;position:absolute;vertical-align:middle;width:10px;height:10px;border-radius:50%}@keyframes wphb-critical-animation{0%{transform:scale(1);-webkit-transform:scale(1);opacity:1}100%{transform:scale(2);-webkit-transform:scale(2);opacity:0}}@-webkit-keyframes wphb-critical-animation{0%{transform:scale(1);-webkit-transform:scale(1);opacity:1}100%{transform:scale(2);-webkit-transform:scale(2);opacity:0}}</style></span>';
+	}
+
+	/**
+	 * Returns new tag html.
+	 */
+	public function get_new_tag_html() {
+		return '<span style="margin-left: 10px;padding: 2px 6px;border-radius: 9px;background-color: #1abc9c;color: #FFF;font-size: 8px;letter-spacing: -0.25px;text-transform: uppercase;vertical-align: middle;">' . esc_html__( 'NEW', 'wphb' ) . '</span>';
 	}
 
 	/**
@@ -304,6 +316,10 @@ class Admin {
 
 		if ( ! Utils::is_member() ) {
 			$this->pages['wphb-upgrade'] = new Pages\Upgrade( 'wphb-upgrade', __( 'Hummingbird Pro', 'wphb' ), __( 'Hummingbird Pro', 'wphb' ), 'wphb' );
+		}
+
+		if ( $this->wphb_should_add_service_submenu() ) {
+			$this->pages['wphb-services'] = new Pages\Services( 'wphb-services', __( 'Expert Services', 'wphb' ), __( 'Expert Services', 'wphb' ) . $this->get_new_tag_html(), 'wphb' );
 		}
 
 		$this->pages['wphb-setup'] = new Pages\React\Setup( 'wphb-setup', __( 'Setup Wizard', 'wphb' ), null, 'wphb' );
@@ -467,7 +483,7 @@ class Admin {
 			#toplevel_page_wphb ul.wp-submenu li:last-child a[href^="https://wpmudev.com"] {
 				background-color: #8d00b1 !important;
 				color: #fff !important;
-				font-weight: 600 !important;
+				font-weight: 400 !important;
 			}
 		</style>';
 
@@ -476,5 +492,26 @@ class Admin {
 					jQuery(\'#toplevel_page_wphb ul.wp-submenu li:last-child a[href^="https://wpmudev.com"]\').attr("target", "_blank");
 				});
 			</script>';
+	}
+
+	/**
+	 * Determine if the "Expert Services" submenu should be added to the Hummingbird menu.
+	 *
+	 * @return bool
+	 */
+	public function wphb_should_add_service_submenu() {
+		return Utils::is_member() && ! Utils::is_whitelabel_enabled();
+	}
+
+	/**
+	 * Refresh fastCGI status.
+	 */
+	public function wphb_refresh_fast_cgi_status() {
+		$current_page = $this->get_current_page_slug();
+		if ( 'wphb-caching' !== $current_page ) {
+			return;
+		}
+
+		Utils::get_api()->hosting->has_fast_cgi_header( true );
 	}
 }

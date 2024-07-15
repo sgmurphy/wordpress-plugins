@@ -239,8 +239,8 @@ class AttributesMapping extends RestController {
 			$this->response['extra'] = $attribute_preview_values;
 			return rest_ensure_response( $this->response );
 		}
-
-		return $this->error( sprintf( esc_attr_e( 'No attribute found with name: %s', 'woo-feed' ), esc_attr($name) ) );
+        /* translators: %s: message */
+		return $this->error( sprintf( __( 'No attribute found with name: %s', 'woo-feed' ), $name) );
 	}
 
 	/**
@@ -283,8 +283,8 @@ class AttributesMapping extends RestController {
 		if ( count( self::$attr_lists ) && isset( self::$attr_lists[ AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX . $feed_name ] ) ) {
 			return $this->success( self::$attr_lists );
 		}
-
-		return $this->error( sprintf( esc_attr_e( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX . '" does\'nt match.', 'woo-feed' ), esc_attr($feed_name) ) );
+        /* translators: %s: message */
+		return $this->error( sprintf( __( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_ATTRIBUTE_MAPPING_PREFIX . '" does\'nt match.', 'woo-feed' ), $feed_name ) );
 	}
 
 	/**

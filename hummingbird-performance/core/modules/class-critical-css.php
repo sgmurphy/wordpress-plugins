@@ -337,6 +337,10 @@ class Critical_Css extends Module {
 			return false;
 		}
 
+		if ( ! apply_filters( 'wphb_should_add_critical_css', true ) ) {
+			return false;
+		}
+
 		if ( ( defined( 'WPHBDONOTOPTIMIZE' ) && WPHBDONOTOPTIMIZE ) || Utils::is_amp() || Utils::wphb_is_page_builder() || is_preview() || is_customize_preview() ) {
 			return false;
 		}

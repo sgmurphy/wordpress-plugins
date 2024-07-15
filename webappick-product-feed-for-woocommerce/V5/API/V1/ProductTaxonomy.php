@@ -161,6 +161,7 @@ class ProductTaxonomy extends RestController {
 		if ( $response ) {
 			$this->success( $response );
 		} else {
+            /* translators: %s: message */
 			$this->error( sprintf( __( 'No data found with this url:  %s', 'woo-feed' ), $url ) );
 		}
 
@@ -191,6 +192,7 @@ class ProductTaxonomy extends RestController {
 			fclose( $fp );//phpcs:ignore
 			$this->success( $url );
 		} else {
+            /* translators: %s: message */
 			$this->error( sprintf( __( 'No data found with this url:  %s', 'woo-feed' ), $url ) );
 		}
 

@@ -20,6 +20,7 @@ use Hummingbird\Core\Module;
 use Hummingbird\Core\Modules\Caching\Preload;
 use Hummingbird\Core\Settings;
 use Hummingbird\Core\Utils;
+use Hummingbird\Core\Modules\Caching\Fast_CGI;
 use stdClass;
 use WP_Error;
 use WP_Post;
@@ -140,10 +141,7 @@ class Page_Cache extends Module {
 	 */
 	public function init() {
 		add_filter( 'wp_hummingbird_is_active_module_page_cache', array( $this, 'module_status' ) );
-
-		if ( ! is_admin() && ! $this->is_active() ) {
-			ob_start( array( $this, 'if_disable_cache_request' ) );
-		}
+		add_action( 'template_redirect', array( $this, 'wphb_maybe_start_buffer' ), 2 );
 	}
 
 	/**
@@ -168,9 +166,15 @@ class Page_Cache extends Module {
 	 *
 	 * @used-by \Hummingbird\Admin\Pages\Caching::trigger_load_action()
 	 * @used-by \Hummingbird\Core\Api\Hub::action_enable()
+	 *
+	 * @param bool $page_cache Enable page cache only.
 	 */
-	public function enable() {
-		$this->toggle_service( true, true );
+	public function enable( $page_cache = false ) {
+		if ( Fast_CGI::is_fast_cgi_supported() && ! Utils::is_subsite() && ! $page_cache ) {
+			Utils::get_api()->hosting->toggle_fast_cgi( true );
+		} else {
+			$this->toggle_service( true, true );
+		}
 	}
 
 	/**
@@ -283,7 +287,7 @@ class Page_Cache extends Module {
 			return;
 		}
 
-		if ( get_transient( 'wphb-fast-cgi-enabled' ) ) {
+		if ( Fast_CGI::is_fast_cgi_enabled() ) {
 			$this->error = new WP_Error(
 				'fast-cgi-cache-active',
 				__( 'Hummingbird has halted page caching to prevent any issues with FastCGI cache', 'wphb' )
@@ -1271,11 +1275,15 @@ class Page_Cache extends Module {
 	 */
 	public function cache_request( $buffer ) {
 		global $wphb_cache_file, $wphb_cache_config, $wphb_meta_file;
-		$buffer = (string) apply_filters( 'wphb_buffer', $buffer );
 		// We need this to be able to counter generating pages right after clearing AO settings, queue initiated on page load.
 		if ( get_transient( 'wphb-processing' ) ) {
 			// Exit early.
 			self::log_msg( 'Page not cached. Asset optimization processing in progress. Sending buffer to user.' );
+			return $buffer;
+		}
+
+		if ( Fast_CGI::is_fast_cgi_enabled() ) {
+			self::log_msg( 'Page not cached. Static server cache is enabled.' );
 			return $buffer;
 		}
 
@@ -1611,7 +1619,6 @@ class Page_Cache extends Module {
 
 		// Remove notice for clearing page cache.
 		delete_option( 'wphb-notice-cache-cleaned-show' );
-		delete_site_transient( 'wphb-fast-cgi-enabled' );
 
 		/**
 		 * Function is_network_admin() does not work in ajax, so this is a hack.
@@ -1640,13 +1647,13 @@ class Page_Cache extends Module {
 
 			$options = $this->get_options();
 
+			do_action( 'wphb_clear_cache_url' ); // Clear integrations cache.
 			if ( isset( $options['preload'] ) && $options['preload'] && isset( $options['preload_type'] ) && isset( $options['preload_type']['home_page'] ) && $options['preload_type']['home_page'] ) {
 				$preload = new Preload();
 				$preload->preload_home_page();
 			}
 
 			do_action( 'wphb_cache_directory_cleared' );
-			do_action( 'wphb_clear_cache_url' ); // Clear integrations cache.
 
 			return $status;
 		}
@@ -2042,7 +2049,7 @@ class Page_Cache extends Module {
 		if ( is_multisite() ) {
 			// We need to use this `define` for calls from Hub.
 			$is_network_admin = defined( 'WPHB_IS_NETWORK_ADMIN' ) && WPHB_IS_NETWORK_ADMIN;
-			if ( $network && ( is_network_admin() || $is_network_admin ) ) {
+			if ( $network && ( is_network_admin() || Utils::is_ajax_network_admin() || $is_network_admin ) ) {
 				// Updating for the whole network.
 				$options['enabled']    = $value;
 				$options['cache_blog'] = $value;
@@ -2112,6 +2119,10 @@ class Page_Cache extends Module {
 	 */
 	public function module_status() {
 		$options = Settings::get_settings( 'page_cache' );
+
+		if ( Fast_CGI::is_fast_cgi_enabled() ) {
+			return true;
+		}
 
 		if ( false === $options['enabled'] ) {
 			return false;
@@ -2212,15 +2223,32 @@ class Page_Cache extends Module {
 	}
 
 	/**
-	 * Parse the buffer in the case of cache disable. Used in callback for ob_start in init_caching().
+	 * Maybe start the buffer process.
 	 *
-	 * @since   3.3.4
-	 * @used-by Page_Cache::if_disable_cache_request()
-	 * @param   string $buffer  Page buffer.
+	 * This method is responsible for starting the buffer process.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @return void
+	 */
+	public function wphb_maybe_start_buffer() {
+		ob_start( array( $this, 'wphb_maybe_process_buffer' ) );
+	}
+
+	/**
+	 * Maybe process the output buffer.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $buffer Buffer content.
 	 *
 	 * @return string
 	 */
-	public function if_disable_cache_request( $buffer ) {
+	public function wphb_maybe_process_buffer( $buffer ) {
+		if ( is_admin() ) {
+			return $buffer;
+		}
+
 		$buffer = (string) apply_filters( 'wphb_buffer', $buffer );
 
 		return $buffer;

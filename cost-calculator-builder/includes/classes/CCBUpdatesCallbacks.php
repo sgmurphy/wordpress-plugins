@@ -900,7 +900,6 @@ class CCBUpdatesCallbacks {
 
 			update_option( 'ccb_general_settings', apply_filters( 'calc_update_options', $general_settings ) );
 		}
-
 	}
 
 	/**
@@ -968,6 +967,27 @@ class CCBUpdatesCallbacks {
 		\cBuilder\Classes\Database\Discounts::create_table();
 		\cBuilder\Classes\Database\Promocodes::create_table();
 		\cBuilder\Classes\Database\Condition::create_table();
+	}
+
+	public static function ccb_add_summary_view_to_image_checkbox_field() {
+		$calculators = self::get_calculators();
+
+		foreach ( $calculators as $calculator ) {
+			$fields        = get_post_meta( $calculator->ID, 'stm-fields', true );
+			$change_fields = array( 'checkbox_with_img' );
+
+			foreach ( $fields as $key => $field ) {
+				if ( isset( $field['alias'] ) ) {
+					$field_name = preg_replace( '/_field_id.*/', '', $field['alias'] );
+					if ( in_array( $field_name, $change_fields, true ) && ! isset( $field['summary_view'] ) ) {
+						$field['summary_view'] = 'show_value';
+					}
+				}
+				$fields[ $key ] = $field;
+			}
+
+			update_post_meta( $calculator->ID, 'stm-fields', (array) $fields );
+		}
 	}
 
 	public static function ccb_add_summary_display() {

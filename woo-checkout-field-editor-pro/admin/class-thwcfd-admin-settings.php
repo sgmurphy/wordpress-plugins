@@ -103,7 +103,7 @@ abstract class THWCFD_Admin_Settings{
 		$tooltip_html = '';
 		
 		if($tooltip){
-			// $icon = THWCFD_ASSETS_URL_ADMIN.'/css/help.png';
+			// $icon = THWCFD_ASSETS_URL_ADMIN.'/images/help.png';
 			// $tooltip_html = '<a href="javascript:void(0)" title="'. $tooltip .'" class="thpladmin_tooltip"><img src="'. $icon .'" alt="" title=""/></a>';
 		}
 		?>

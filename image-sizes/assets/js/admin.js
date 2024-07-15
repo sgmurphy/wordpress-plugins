@@ -7,22 +7,88 @@ let thumbpress_modal = ( show = true ) => {
 	}
 }
 
-	jQuery(function ($) {	
+jQuery(function ($) {	
 
-	$('.image-sizes-notice').on('click', function(e){
+	$('.image-sizes-notice, .image-sizes-response ').on('click', function(e){
 		e.preventDefault();
-			$('#image-sizes-hide-banner').hide();
 
+		var targetScreen = $(this).data('target');
+		var noticeDivId = targetScreen === 'dashboard' ? '#image-sizes-hide-banner-dashboard' :
+					  targetScreen === 'toplevel_page_thumbpress' ? '#image-sizes-hide-banner-toplevel' :
+					  '#image-sizes-after-aweek';
+
+		$(noticeDivId).hide();
+		
 		$.ajax({
 			url: THUMBPRESS.ajaxurl,
 			data: {
 				action: "image_sizes-notice-dismiss",
 				_wpnonce: THUMBPRESS.nonce,
+				screen: targetScreen,
 			},
-			type: "POST"			
+			type: "POST",
+			success: function(response) {
+				console.log(response);
+			}		
 		});
 	});
-	
+
+	//for replace notice new content with buttons
+	$('.image-sizes-response').on('click', function(e) {
+		e.preventDefault();
+		$('#image-sizes-after-aweek').hide('slow');
+		updateContent($(this).data('response'));
+	});
+
+	function updateContent(response) {
+		var contentDiv = $('#image-sizes-after-aweek .contents');
+		var contentHtml = '';
+
+		if (response === 'positive') {
+			window.open('https://wordpress.org/support/plugin/image-sizes/reviews/?filter=5#new-post', '_blank');
+		} else if (response === 'negative') {
+            $('#feedback-modal').show();
+        }
+		contentDiv.html(contentHtml);
+	}
+
+
+	$(document).on('click', '.close-button, .plugin-dsm-close', function() {
+		$('#feedback-modal').hide();
+	});
+
+	$(document).on('click', '#feedback-modal .plugin-unhappy-reason input[type="checkbox"]', function() {
+		var isChecked 	= $(this).is(':checked');
+		var label 		= $(this).siblings('label');
+		if (isChecked) {
+			label.addClass('active');
+		} else {
+			label.removeClass('active');
+		}
+
+		$('#feedback-modal .plugin-dsm-reason-details-input').slideDown();
+	});
+
+
+	$('.plugin-unhappy-survey-form').on('submit', function(e) {
+		e.preventDefault();
+		var formData = $(this).serialize();
+		console.log(formData);
+		$.ajax({
+			url: THUMBPRESS.ajaxurl,
+			type: 'POST',
+			data: formData,
+			dataType: 'json',
+			success: function(response) {
+				console.log(response);
+				$('#feedback-modal').hide();
+			},
+			error: function(error) {
+				console.error(error);
+			}
+		});
+	});
+
 
 	$('.thumbpress-delete').click(function(e){
 		if(!confirm(THUMBPRESS.confirm)) {
@@ -114,30 +180,30 @@ let thumbpress_modal = ( show = true ) => {
 		$(filter).show();
 	});
 
-	    // activate or deactivate all modules
-    $(".thumb-module-all-active").click(function (e) {
-        if (!$(".thumb-toggle-all-wrap input").is(":checked")) {
-            $('.thumb-settings-modules-container input[type="checkbox"]').each(
-                function () {
-                    if (!$(this).prop("disabled")) {
-                        $(this).prop("checked", true);
-                    }
-                }
-            );
-        } else {
-            $('.thumb-settings-modules-container input[type="checkbox"]').each(
-                function () {
-                    if (!$(this).prop("disabled")) {
-                        $(this).prop("checked", false);
-                    }
-                }
-            );
-        }
-    });
+		// activate or deactivate all modules
+	$(".thumb-module-all-active").click(function (e) {
+		if (!$(".thumb-toggle-all-wrap input").is(":checked")) {
+			$('.thumb-settings-modules-container input[type="checkbox"]').each(
+				function () {
+					if (!$(this).prop("disabled")) {
+						$(this).prop("checked", true);
+					}
+				}
+			);
+		} else {
+			$('.thumb-settings-modules-container input[type="checkbox"]').each(
+				function () {
+					if (!$(this).prop("disabled")) {
+						$(this).prop("checked", false);
+					}
+				}
+			);
+		}
+	});
 
-    $.each(THUMBPRESS, function(index, pointer) {
+	$.each(THUMBPRESS, function(index, pointer) {
 
-    	if ( index != 'is_welcome' ) return;  
+		if ( index != 'is_welcome' ) return;  
 
 		if(pointer?.target) {
 			$(pointer.target).pointer({
@@ -217,33 +283,33 @@ let thumbpress_modal = ( show = true ) => {
 
 		// Add click event listener to each element
 		document.querySelectorAll('.tp-live-chat').forEach(function(element) {
-		    element.addEventListener('click', function(e) {
-		    	e.preventDefault();
-		        Intercom('show');
-		    });
+			element.addEventListener('click', function(e) {
+				e.preventDefault();
+				Intercom('show');
+			});
 		});
 	});
 
 	$(document).on('click', '.image_sizes-notice_ahref', function (e) {
-	    e.preventDefault();
-	    var redirecturl = $('a[class=image_sizes-notice_ahref]').attr('href');
+		e.preventDefault();
+		var redirecturl = $('a[class=image_sizes-notice_ahref]').attr('href');
 
-	    $.ajax({
-	        url: THUMBPRESS.ajaxurl,
-	        type: "POST",
-	        data: {
-	            action: "image_sizes-pointer-dismiss",
-	            _wpnonce: THUMBPRESS.nonce,
-	        },
-	        success: function (res) {
-	            $('.image-sizes-pointer').hide();
-	            console.log(res);
-	            window.location.href = redirecturl;
-	        },
-	        error: function (err) {
-	            console.log(err);
-	        },
-	    });
+		$.ajax({
+			url: THUMBPRESS.ajaxurl,
+			type: "POST",
+			data: {
+				action: "image_sizes-pointer-dismiss",
+				_wpnonce: THUMBPRESS.nonce,
+			},
+			success: function (res) {
+				$('.image-sizes-pointer').hide();
+				console.log(res);
+				window.location.href = redirecturl;
+			},
+			error: function (err) {
+				console.log(err);
+			},
+		});
 	});
 
 });

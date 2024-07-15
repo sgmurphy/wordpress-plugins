@@ -1111,6 +1111,7 @@ class Quiz_Maker_Admin
         $quick_quiz_border_radius                           = 8;
         $quick_quiz_image_height                            = "";
         $quick_quiz_progress_bar_style                      = "third";
+        $quick_quiz_progress_live_bar_style                 = "default";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1203,6 +1204,9 @@ class Quiz_Maker_Admin
             // Progress bar style
             $quick_quiz_progress_bar_style = (isset($_REQUEST['ays_quick_quiz_progress_bar_style']) && $_REQUEST['ays_quick_quiz_progress_bar_style'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_progress_bar_style'] ) ) : 'third';
 
+            // Progress bar style
+            $quick_quiz_progress_live_bar_style = (isset($_REQUEST['ays_quick_quiz_progress_live_bar_style']) && $_REQUEST['ays_quick_quiz_progress_live_bar_style'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_progress_live_bar_style'] ) ) : 'default';
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1266,27 +1270,27 @@ class Quiz_Maker_Admin
             'quiz_image_height'                             => $quick_quiz_image_height,
             'enable_correction'                             => $quick_quiz_enable_correction,
             'enable_questions_counter'                      => $quick_quiz_enable_questions_counter,
-            'limit_users'                               => 'off',
-            'limitation_message'                        => '',
-            'redirect_url'                              => '',
-            'redirection_delay'                         => '',
-            'enable_progress_bar'                       => $quick_quiz_enable_progress_bar,
-            'randomize_questions'                       => $quick_quiz_enable_randomize_questions,
-            'randomize_answers'                         => $quick_quiz_enable_randomize_answers,
-            'enable_questions_result'                   => 'on',
-            'enable_average_statistical'                => $quick_quiz_enable_average_statistical,
-            'enable_next_button'                        => $quick_quiz_enable_next_button,
-            'enable_previous_button'                    => $quick_quiz_enable_previous_button,
-            'custom_css'                                => '',
-            'enable_restriction_pass'                   => 'off',
-            'restriction_pass_message'                  => '',
-            'user_role'                                 => '',
-            'result_text'                               => '',
-            'enable_result'                             => 'off',
-            'enable_timer'                              => 'off',
-            'enable_pass_count'                         => $quick_quiz_enable_pass_count,
-            'enable_quiz_rate'                          => 'off',
-            'enable_rate_avg'                           => $quick_quiz_enable_rate_avg,
+            'limit_users'                                   => 'off',
+            'limitation_message'                            => '',
+            'redirect_url'                                  => '',
+            'redirection_delay'                             => '',
+            'enable_progress_bar'                           => $quick_quiz_enable_progress_bar,
+            'randomize_questions'                           => $quick_quiz_enable_randomize_questions,
+            'randomize_answers'                             => $quick_quiz_enable_randomize_answers,
+            'enable_questions_result'                       => 'on',
+            'enable_average_statistical'                    => $quick_quiz_enable_average_statistical,
+            'enable_next_button'                            => $quick_quiz_enable_next_button,
+            'enable_previous_button'                        => $quick_quiz_enable_previous_button,
+            'custom_css'                                    => '',
+            'enable_restriction_pass'                       => 'off',
+            'restriction_pass_message'                      => '',
+            'user_role'                                     => '',
+            'result_text'                                   => '',
+            'enable_result'                                 => 'off',
+            'enable_timer'                                  => 'off',
+            'enable_pass_count'                             => $quick_quiz_enable_pass_count,
+            'enable_quiz_rate'                              => 'off',
+            'enable_rate_avg'                               => $quick_quiz_enable_rate_avg,
             'enable_rate_comments'                      => 'off',
             'hide_score'                                => $quick_quiz_hide_score,
             'rate_form_title'                           => '',
@@ -1323,6 +1327,7 @@ class Quiz_Maker_Admin
             'submit_redirect_url'                       => '',
             'submit_redirect_delay'                     => '',
             'progress_bar_style'                        => $quick_quiz_progress_bar_style,
+            'progress_live_bar_style'                   => $quick_quiz_progress_live_bar_style,
             'enable_exit_button'                        => 'off',
             'exit_redirect_url'                         => '',
             'image_sizing'                              => 'cover',

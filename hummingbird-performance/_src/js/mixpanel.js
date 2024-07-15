@@ -174,6 +174,46 @@ const MixPanel = require( 'mixpanel-browser' );
 			}
 		},
 
+		/**
+		 * Track Page Caching event.
+		 *
+		 * @param {string} updateType       Update type.
+		 * @param {string} method           Method.
+		 * @param {string} location         Location.
+		 * @param {string} settingsModified Modified Settings.
+		 * @param {string} preloadHomepage  Settings default.
+		 */
+		trackPageCachingSettings( updateType, method, location, settingsModified, preloadHomepage ) {
+			const feature = 'local_page_cache' === method ? 'Page Caching' : method;
+			if ( 'activate' === updateType ) {
+				this.enableFeature( feature );
+			}
+
+			if ( 'deactivate' === updateType ) {
+				this.disableFeature( feature );
+			}
+
+			this.track( 'page_caching_updated', {
+				'update_type': updateType,
+				'Method': method,
+				'Location': location,
+				'modified_settings': settingsModified,
+				'preload_homepage': preloadHomepage,
+			} );
+		},
+
+		/**
+		 * Track PRO Upsell event.
+		 *
+		 * @param {string} eventName Event name.
+		 * @param {string} action    Action.
+		 */
+		trackProUpsell( eventName, action ) {	
+			this.track( eventName, {
+				'Location': 'submenu',
+				'User Action': action,
+			} );
+		},
 
 		/**
 		 * Track feature disable.

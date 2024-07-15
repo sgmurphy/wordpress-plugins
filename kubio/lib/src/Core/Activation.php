@@ -26,7 +26,7 @@ class Activation {
 					$url = add_query_arg(
 						array(
 							'page'                  => 'kubio-get-started',
-							'kubio-activation-hash' => $hash
+							'kubio-activation-hash' => $hash,
 						),
 						admin_url( 'admin.php' )
 					);
@@ -220,11 +220,11 @@ class Activation {
 			}
 
 			if ( $this->activeWithFrontpage() ) {
-				if (Flags::get( 'start_source', false ) == 'notice-homepage') {
+				if ( Flags::get( 'start_source', false ) == 'notice-homepage' ) {
 					$url = add_query_arg(
 						array(
-							'page' => 'kubio-get-started',
-							'kubio-designed-imported' => intval(!!Flags::get('import_design', false))
+							'page'                    => 'kubio-get-started',
+							'kubio-designed-imported' => intval( ! ! Flags::get( 'import_design', false ) ),
 						),
 						admin_url( 'admin.php' )
 					);
@@ -237,7 +237,6 @@ class Activation {
 				}
 				exit();
 			}
-
 
 			$is_unmodified_supported_theme = kubio_theme_has_kubio_block_support() && ! CustomizerImporter::themeHasModifiedOptions();
 			if ( get_option( 'fresh_site' ) || $is_unmodified_supported_theme ) {

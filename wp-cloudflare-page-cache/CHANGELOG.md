@@ -1,3 +1,7 @@
+#####   Version 4.7.12 (2024-07-15)
+
+- Fixed fatal error when calling get_objects() method
+
 #####   Version 4.7.11 (2024-07-10)
 
 - Fixed an issue where the SpinupWP provider detection function wasn't working properly.

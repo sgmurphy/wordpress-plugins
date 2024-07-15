@@ -1,8 +1,14 @@
 <?php
+/**
+ * Helper functions for user permissions.
+ *
+ * @package WP_Defender\Traits
+ */
 
 namespace WP_Defender\Traits;
 
 trait Permission {
+
 
 	/**
 	 * Check if the current user have permission for execute an action.

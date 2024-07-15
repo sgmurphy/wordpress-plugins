@@ -62,7 +62,7 @@ class Utils {
 
 		if ( $mergedLinkObject ) {
 			if ( $mergedLinkObject['value'] ) {
-				$linkAttributes['href'] = $mergedLinkObject['value'];
+				$linkAttributes['href'] = esc_url( $mergedLinkObject['value'] );
 			}
 			$linkType = LodashBasic::get( $mergedLinkObject, 'typeOpenLink', '' );
 			if ( $linkType === 'newWindow' ) {
@@ -74,7 +74,7 @@ class Utils {
 				if ( $lightboxType === '' ) {
 					$lightboxType = null;
 				}
-				$linkAttributes['data-default-type'] = $lightboxType;
+				$linkAttributes['data-default-type'] = esc_attr( $lightboxType );
 				$linkAttributes['data-fancybox']     = rand() . '';
 			}
 			if ( $mergedLinkObject['noFollow'] ) {
@@ -438,7 +438,7 @@ class Utils {
 		$args = array(
 			'kubio_version' => KUBIO_VERSION,
 			'kubio_build'   => KUBIO_BUILD_NUMBER,
-			'activated_on'   => Flags::get( 'kubio_activation_time', '' )
+			'activated_on'  => Flags::get( 'kubio_activation_time', '' ),
 		);
 
 		$is_skip_cache_flag_on = defined( 'KUBIO_SKIP_CLOUD_CACHE' ) && KUBIO_SKIP_CLOUD_CACHE;

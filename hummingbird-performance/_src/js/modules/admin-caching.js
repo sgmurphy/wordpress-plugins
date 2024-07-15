@@ -17,6 +17,7 @@ import CacheScanner from '../scanners/CacheScanner';
 			const self = this,
 				hash = window.location.hash,
 				pageCachingForm = $( 'form[id="page_cache-form"]' ),
+				fastCGICachingForm = $( 'form[id="fastcgi-form"]' ),
 				rssForm = $( 'form[id="rss-form"]' ),
 				settingsForm = $( 'form[id="settings-form"]' );
 
@@ -44,10 +45,35 @@ import CacheScanner from '../scanners/CacheScanner';
 				self.saveSettings( 'page_cache', pageCachingForm );
 			} );
 
+			// Save fastCGI caching settings.
+			fastCGICachingForm.on( 'submit', ( e ) => {
+				e.preventDefault();
+				const button = fastCGICachingForm.find( 'button.sui-button.sui-button-blue' );
+				button.addClass( 'sui-button-onload-text' );
+
+				Fetcher.caching
+					.saveFastCGISettings( fastCGICachingForm.serialize() )
+					.then( ( response ) => {
+						button.removeClass( 'sui-button-onload-text' );
+						if ( 'undefined' !== typeof response && '' === response.fastCGIResponse ) {
+							wphbMixPanel.trackPageCachingSettings( 'modified', 'hosting_static_cache', 'caching_settings', response.settingsModified, response.preloadHomepage );
+							window.location.search += '&updated=true';
+						} else {
+							const errorMessage = 'undefined' !== typeof response && '' !== response.fastCGIResponse ? response.fastCGIResponse : getString( 'errorSettingsUpdate' );
+							WPHB_Admin.notices.show( errorMessage, 'error' );
+						}
+					} );
+			} );
+
 			// Clear page|gravatar cache.
 			$( '#wphb-clear-cache' ).on( 'click', ( e ) => {
 				e.preventDefault();
 				self.clearCache( e.target );
+			} );
+
+			// Switch the cache method.
+			$( '#wphb-switch-page-cache-method' ).on( 'click', ( e ) => {
+				self.switchCacheMethod( e );
 			} );
 
 			/**
@@ -58,7 +84,16 @@ import CacheScanner from '../scanners/CacheScanner';
 			$( '#wphb-disable-fastcgi' ).on( 'click', ( e ) => {
 				e.preventDefault();
 				e.target.classList.add( 'sui-button-onload-text' );
-				Fetcher.caching.disableFastCGI().then( () => window.location.reload() );
+				Fetcher.caching.disableFastCGI().then( ( response ) => {
+					if ( 'undefined' !== typeof response && '' === response.fastCGIResponse ) {
+						wphbMixPanel.trackPageCachingSettings( 'deactivate', 'hosting_static_cache', 'caching_settings', 'na', response.preloadHomepage );
+						window.location.reload();
+					} else {
+						e.target.classList.remove( 'sui-button-onload-text' );
+						const errorMessage = 'undefined' !== typeof response && '' !== response.fastCGIResponse ? response.fastCGIResponse : getString( 'errorSettingsUpdate' );
+						WPHB_Admin.notices.show( errorMessage, 'error' );
+					}
+				} )
 			} );
 
 			/**
@@ -301,6 +336,43 @@ import CacheScanner from '../scanners/CacheScanner';
 		},
 
 		/**
+		 * Switch cache method.
+		 *
+		 * @since 3.9.0
+		 *
+		 * @param {Object} e Target element.
+		 */
+		switchCacheMethod: ( e ) => {
+			e.preventDefault();
+			const currentElement = e.currentTarget;
+			const method = currentElement.dataset.method;
+			const location = currentElement.dataset.location;
+			currentElement.classList.add( 'sui-button', 'sui-button-onload-text' );
+			currentElement.classList.remove( 'sui-tooltip' );
+			const switchInfo = document.getElementById( 'wphb_switch_cache_info' );
+			if ( switchInfo ) {
+				switchInfo.style.display = 'none';
+			}
+
+			Fetcher.caching.switchCacheMethod( method ).then( ( response ) => {
+				if ( 'undefined' !== typeof response && 'error' !== response.isFastCGIActivated ) {
+					wphbMixPanel.trackPageCachingSettings( 'switch_method', method, location ? location : 'caching_settings', 'na', response.preloadHomepage );
+
+					if ( 'dash_widget' === location && wphb.links.cachingPageURL ) {
+						window.location.href = wphb.links.cachingPageURL;
+					} else {
+						window.location.reload();
+					}
+				} else {
+					currentElement.classList.remove( 'sui-button' );
+					currentElement.classList.remove( 'sui-button-onload-text' );
+					const errorMessage = 'undefined' !== typeof response && 'error' === response.isFastCGIActivated ? response.fastCGIResponse : getString( 'errorSettingsUpdate' );
+					WPHB_Admin.notices.show( errorMessage, 'error' );
+				}
+			} )
+		},
+
+		/**
 		 * Process form submit from page caching, rss and settings forms.
 		 *
 		 * @since 1.9.0
@@ -319,6 +391,7 @@ import CacheScanner from '../scanners/CacheScanner';
 
 					if ( 'undefined' !== typeof response && response.success ) {
 						if ( 'page_cache' === module ) {
+							wphbMixPanel.trackPageCachingSettings( 'modified', 'local_page_cache', 'caching_settings', response.settingsModified, response.preloadHomepage );
 							window.location.search += '&updated=true';
 						} else {
 							WPHB_Admin.notices.show();

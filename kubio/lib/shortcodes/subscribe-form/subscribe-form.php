@@ -108,5 +108,5 @@ function kubio_newsletter_shortcode( $attrs ) {
 		//$attrs['agree_terms_label'] = Utils::shortcodeDecode( $attrs['agree_terms_label'] );
 	}
 	Utils::kubioCacheSet( 'kubio_newsletter_attrs', $attrs );
-	return do_shortcode( $attrs['shortcode'] );
+	return do_shortcode( wp_kses_post($attrs['shortcode']) );
 }

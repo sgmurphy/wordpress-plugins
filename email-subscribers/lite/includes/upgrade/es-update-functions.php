@@ -2286,3 +2286,26 @@ function ig_es_update_5725_db_version() {
 }
 /* --------------------- ES 5.7.25(End)--------------------------- */
 
+/* --------------------- ES 5.7.27(Start)--------------------------- */
+
+/**
+ * Mark onboarding as completed in versions for which onboarding wasn't present
+ */
+
+function ig_es_maybe_send_ess_used_limit() {
+	// Ensure reqiest is sent at random time and not all at once at ESS end
+	$ess = ES_Service_Email_Sending::get_instance();
+	$ess->send_used_limit_data_to_ess();
+}
+
+
+ /**
+ * Update DB version
+ *
+ * @since 5.7.27
+ */
+function ig_es_update_5727_db_version() {
+	ES_Install::update_db_version( '5.7.27' );
+}
+/* --------------------- ES 5.7.27(End)--------------------------- */
+

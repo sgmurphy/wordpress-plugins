@@ -3,9 +3,9 @@ Contributors: templately, wpdevteam, re_enter_rupok, Asif2BD, priyomukul, rahat8
 Donate link: https://templately.com
 Tags: templates, elementor template, Gutenberg template, landing page, WoCommerce Templates
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,11 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 
 == Changelog ==
+= 3.1.1 – 15-07-2024 =
+Added: WordPress 6.6 compatibility.
+Fixed: WPML compatibility issue.
+Few minor bug fixes & improvements
+
 = 3.1.0 – 10-07-2024 =
 Added: Global color control for FSI
 Added: Live logo adding control for FSI

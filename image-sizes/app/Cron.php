@@ -52,7 +52,7 @@ class Cron extends Base {
 		    wp_schedule_event( time(), 'daily', 'codexpert-daily' );
 		}
 
-		update_option( "{$this->slug}_install_time", time() );
+		update_option( "{$this->slug}_install_time", date_i18n( 'U' ) );
 	}
 
 	/**

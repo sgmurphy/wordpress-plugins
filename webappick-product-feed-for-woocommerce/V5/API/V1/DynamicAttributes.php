@@ -214,8 +214,8 @@ class DynamicAttributes extends RestController {
 
 			return $this->success( self::$attr_lists );
 		}
-
-		return $this->error( sprintf( esc_attr_e( 'No attribute found with name: %s', 'woo-feed' ), esc_attr($name) ) );
+        /* translators: %s: message */
+		return $this->error( sprintf( __( 'No attribute found with name: %s', 'woo-feed' ), $name ) );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class DynamicAttributes extends RestController {
 			return $this->success( $item );
 		}
 
-		return $this->error( sprintf( esc_attr_e( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_DYNAMIC_ATTRIBUTE_PREFIX . '" does\'nt match.', 'woo-feed' ), esc_attr($feed_name) ) );
+		return $this->error( sprintf( __( 'Not found with: %s or prefix: "' . AttributeValueByType::PRODUCT_DYNAMIC_ATTRIBUTE_PREFIX . '" does\'nt match.', 'woo-feed' ), $feed_name ) );
 	}
 
 	/**

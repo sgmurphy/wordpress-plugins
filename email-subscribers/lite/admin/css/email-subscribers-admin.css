@@ -3000,6 +3000,10 @@ top: 50%;}
     display: inline-block;
 }
 
+#wp-es-campaign-body-editor-container .quicktags-toolbar{
+	display: flex;
+}
+
 body.icegram-express_page_es_campaigns #wpcontent {
     padding-left: 0;
 }
