@@ -4737,8 +4737,6 @@ class Admin {
 
 			//wp_die('$path: '.$_GET['mt_preview_path']);
 
-
-
 			// if the preview URL is 1, we should use the site_url with the path
 			// this is used on the live demo
 			if (intval($url) === 1){
@@ -6688,14 +6686,6 @@ class Admin {
 					       value="<?php esc_attr_e('Upload design pack', 'microthemer'); ?>" title="<?php esc_attr_e('Upload a new design pack', 'microthemer'); ?>" />
 				</form>
 			</li>
-			<!--<li>
-						<a class="tvr-button" target="_blank" title="Submit one of your design packs for sale/downlaod on themeover.com"
-							href="https://themeover.com/sell-micro-themes/submit-micro-theme/">Submit To Marketplace</a>
-					</li>
-					<li>
-						<a class="tvr-button" target="_blank" title="Browse Themeover's marketplace of design packs for various WordPress themes and plugins"
-							href="http://themeover.com/theme-packs/">Browse Marketplace</a>
-					</li>-->
 		</ul>
 		<?php
 	}
@@ -7677,6 +7667,9 @@ class Admin {
 
 		// get_the_title( get_option('page_on_front') )
         $isBlockTheme = wp_is_block_theme();
+		$siteEditorBaseUrl = $isBlockTheme
+			? $this->root_rel(get_admin_url(null, 'site-editor.php'), false, true)
+			: '';
 		$permalink_structure = get_option('permalink_structure');
 		$users_can_register = get_option('users_can_register');
 		$common_config = array(
@@ -7692,6 +7685,7 @@ class Admin {
 		$urls = array();
 		$formatted_urls = array();
 		$urlTypes = array(
+
 			'global' => esc_html__('Global', 'microthemer'),
 			'home' => esc_html__('Home page', 'microthemer'),
 			'page' => esc_html__('Recently edited pages', 'microthemer'),
@@ -7700,9 +7694,10 @@ class Admin {
 			'has' => esc_html__('Has attribute', 'microthemer'),
 			'wordpress' => esc_html__('WordPress', 'microthemer'),
 			'custom_posts' => esc_html__('Custom posts', 'microthemer'),
-			'general' => esc_html__('General', 'microthemer'),
+			'create' => esc_html__('Create new', 'microthemer'),
 		);
 		$custom_post_types = $this->get_custom_post_types();
+
 
 		foreach ($urlTypes as $key => $category){
 
@@ -7728,7 +7723,7 @@ class Admin {
 			}
 
 			// general / wordpress
-			elseif ($key === 'global' || $key === 'home' || $key === 'types' || $key === 'has' || $key === 'general' || $key === 'wordpress'){
+			elseif ($key === 'global' || $key === 'home' || $key === 'types' || $key === 'has' || $key === 'create' || $key === 'wordpress'){
 
 				$custom_links = array();
 
@@ -7928,31 +7923,36 @@ class Admin {
 						$allLoginLabel.= esc_html__(' and Registration', 'microthemer');
 					}
 
+                    // todo maybe add search / archive / author / category etc
+					/*$custom_links[] = array(
+						'label' => esc_html__('Search page', 'microthemer'),
+						'value' => '/?s=test',
+					);*/
+
 					if ($isBlockTheme){
-						$baseUrl = $this->root_rel(get_admin_url(null, 'site-editor.php'), false, true);
 						$custom_links[] = array(
 							'label' => esc_html__('Site Editor', 'microthemer'),
-							'value' => $baseUrl,
+							'value' => $siteEditorBaseUrl,
 						);
 						$custom_links[] = array(
 							'label' => esc_html__('Site Editor - Navigation', 'microthemer'),
-							'value' => $baseUrl . "?path=%2Fnavigation",
+							'value' => $siteEditorBaseUrl . "?path=%2Fnavigation",
 						);
-						$custom_links[] = array(
+						/*$custom_links[] = array(
 							'label' => esc_html__('Site Editor - Styles', 'microthemer'),
-							'value' => $baseUrl . "?path=%2Fwp_global_styles",
-						);
+							'value' => $siteEditorBaseUrl . "?path=%2Fwp_global_styles",
+						);*/
 						$custom_links[] = array(
 							'label' => esc_html__('Site Editor - Pages', 'microthemer'),
-							'value' => $baseUrl . "?path=%2Fpage",
+							'value' => $siteEditorBaseUrl . "?path=%2Fpage",
 						);
 						$custom_links[] = array(
 							'label' => esc_html__('Site Editor - Templates', 'microthemer'),
-							'value' => $baseUrl . "?path=%2Fwp_template",
+							'value' => $siteEditorBaseUrl . "?path=%2Fwp_template",
 						);
 						$custom_links[] = array(
 							'label' => esc_html__('Site Editor - Patterns', 'microthemer'),
-							'value' => $baseUrl . "?path=%2Fpatterns",
+							'value' => $siteEditorBaseUrl . "?path=%2Fpatterns",
 						);
 
 						// markw@perfectbee.com
@@ -7997,19 +7997,21 @@ class Admin {
 				}
 
 				// General types of page - finish later
-				/*elseif ($key === 'general'){
+				elseif ($key === 'create'){
 
-							$custom_links = array(
-								array(
-									'label' => esc_html__('Home page', 'microthemer'),
-									'value' => '/',
-								),
-								array(
-									'label' => esc_html__('Search page', 'microthemer'),
-									'value' => '/?s=test',
-								)
-							);
-						}*/
+                    $newPostUrl = $this->root_rel(admin_url('post-new.php'), false, true);
+
+                    $custom_links[] = array(
+	                    'label' => esc_html__('Post', 'microthemer'),
+	                    'value' => $newPostUrl . '?post_type=page',
+                    );
+
+					$custom_links[] = array(
+						'label' => esc_html__('Page', 'microthemer'),
+						'value' => $newPostUrl,
+					);
+
+                }
 
 				// add the category and merge with urls array
 				foreach ($custom_links as $j => $custom_links_array){

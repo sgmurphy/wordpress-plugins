@@ -1130,22 +1130,25 @@ class FifuDb {
         );
     }
 
-    function ensure_group_concat_max_len($min_length = 65535) {
-        $current_group_concat_max_len = $this->wpdb->get_var("SHOW VARIABLES LIKE 'group_concat_max_len'");
-        $current_group_concat_max_len_value = $this->wpdb->get_var("SELECT @@session.group_concat_max_len");
-        if (intval($current_group_concat_max_len_value) < $min_length)
-            $this->wpdb->query("SET SESSION group_concat_max_len = {$min_length}");
-    }
-
     function prepare_meta_in($post_ids_str) {
-        $this->ensure_group_concat_max_len();
+        $this->wpdb->query("SET SESSION group_concat_max_len = 1048576;"); // because GROUP_CONCAT is limited to 1024 characters
 
         // post (cpt)
+        // Create a temporary table with an AUTO_INCREMENT column to generate row numbers
         $this->wpdb->query("
-            INSERT INTO {$this->fifu_meta_in} (post_ids, type)
-            SELECT GROUP_CONCAT(DISTINCT a.post_id ORDER BY a.post_id SEPARATOR ','), 'post'
+            CREATE TEMPORARY TABLE temp_post_in (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                post_id INT
+            ) ENGINE=MEMORY;
+        ");
+
+        // Insert distinct post_ids into the temporary table, applying the necessary conditions
+        $this->wpdb->query("
+            INSERT INTO temp_post_in (post_id)
+            SELECT DISTINCT a.post_id
             FROM {$this->postmeta} AS a
-            WHERE a.meta_key IN ('fifu_image_url')
+            WHERE
+            a.meta_key IN ('fifu_image_url')
             AND a.meta_value IS NOT NULL
             AND a.meta_value <> ''
             AND NOT EXISTS (
@@ -1155,8 +1158,21 @@ class FifuDb {
                 AND b.meta_key = '_thumbnail_id'
                 AND b.meta_value <> 0
             )
-            GROUP BY FLOOR(a.post_id / 5000)"
-        );
+            ORDER BY a.post_id;
+        ");
+
+        // Insert into the final table from the temporary table and group by row number
+        $this->wpdb->query("
+            INSERT INTO {$this->fifu_meta_in} (post_ids, type)
+            SELECT GROUP_CONCAT(post_id ORDER BY post_id SEPARATOR ','), 'post'
+            FROM temp_post_in
+            GROUP BY FLOOR((id - 1) / 5000);
+        ");
+
+        // Drop the temporary table
+        $this->wpdb->query("
+            DROP TEMPORARY TABLE temp_post_in;
+        ");
 
         $last_insert_id = $this->wpdb->insert_id;
         if ($last_insert_id) {
@@ -1164,11 +1180,21 @@ class FifuDb {
         }
 
         // term (woocommerce category)
+        // Create a temporary table with an AUTO_INCREMENT column to generate row numbers
         $this->wpdb->query("
-            INSERT INTO {$this->fifu_meta_in} (post_ids, type)
-            SELECT GROUP_CONCAT(DISTINCT a.term_id ORDER BY a.term_id SEPARATOR ','), 'term'
+            CREATE TEMPORARY TABLE temp_term_in (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                term_id INT
+            ) ENGINE=MEMORY;
+        ");
+
+        // Insert distinct term_ids into the temporary table, applying the necessary conditions
+        $this->wpdb->query("
+            INSERT INTO temp_term_in (term_id)
+            SELECT DISTINCT a.term_id
             FROM {$this->termmeta} AS a
-            WHERE a.meta_key IN ('fifu_image_url')
+            WHERE
+            a.meta_key IN ('fifu_image_url')
             AND a.meta_value IS NOT NULL
             AND a.meta_value <> ''
             AND NOT EXISTS (
@@ -1180,8 +1206,21 @@ class FifuDb {
                     OR b.meta_key IN ('fifu_metadataterm_sent')
                 )
             )
-            GROUP BY FLOOR(a.term_id / 5000)"
-        );
+            ORDER BY a.term_id;
+        ");
+
+        // Insert into the final table from the temporary table and group by row number
+        $this->wpdb->query("
+            INSERT INTO {$this->fifu_meta_in} (post_ids, type)
+            SELECT GROUP_CONCAT(term_id ORDER BY term_id SEPARATOR ','), 'term'
+            FROM temp_term_in
+            GROUP BY FLOOR((id - 1) / 5000);
+        ");
+
+        // Drop the temporary table
+        $this->wpdb->query("
+            DROP TEMPORARY TABLE temp_term_in;
+        ");
 
         $prev_insert_id = $last_insert_id;
         $last_insert_id = $this->wpdb->insert_id;
@@ -1191,7 +1230,7 @@ class FifuDb {
     }
 
     function prepare_meta_out() {
-        $this->ensure_group_concat_max_len();
+        $this->wpdb->query("SET SESSION group_concat_max_len = 1048576;"); // because GROUP_CONCAT is limited to 1024 characters
 
         $this->wpdb->query("
             INSERT INTO {$this->fifu_meta_out} (post_ids, type)
@@ -1206,14 +1245,37 @@ class FifuDb {
             $this->log_meta_out($last_insert_id);
         }
 
+        // Create a temporary table with an AUTO_INCREMENT column to generate row numbers
         $this->wpdb->query("
-            INSERT INTO {$this->fifu_meta_out} (post_ids, type)
-            SELECT GROUP_CONCAT(DISTINCT term_id ORDER BY term_id SEPARATOR ','), 'term'
-            FROM {$this->termmeta} 
-            WHERE meta_key IN ('fifu_image_url')
+            CREATE TEMPORARY TABLE temp_term_out (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                term_id INT
+            ) ENGINE=MEMORY;
+        ");
+
+        // Insert distinct term_ids into the temporary table, applying the necessary conditions
+        $this->wpdb->query("
+            INSERT INTO temp_term_out (term_id)
+            SELECT DISTINCT term_id
+            FROM {$this->termmeta}
+            WHERE
+            meta_key IN ('fifu_image_url')
             AND meta_value IS NOT NULL
             AND meta_value <> ''
-            GROUP BY FLOOR(term_id / 5000)
+            ORDER BY term_id;
+        ");
+
+        // Insert into the final table from the temporary table and group by row number
+        $this->wpdb->query("
+            INSERT INTO {$this->fifu_meta_out} (post_ids, type)
+            SELECT GROUP_CONCAT(term_id ORDER BY term_id SEPARATOR ','), 'term'
+            FROM temp_term_out
+            GROUP BY FLOOR((id - 1) / 5000);
+        ");
+
+        // Drop the temporary table
+        $this->wpdb->query("
+            DROP TEMPORARY TABLE temp_term_out;
         ");
 
         $prev_insert_id = $last_insert_id;
@@ -2006,4 +2068,3 @@ function fifu_db_get_meta_out_first() {
     $db = new FifuDb();
     return $db->get_meta_out_first();
 }
-

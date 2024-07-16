@@ -22,7 +22,7 @@ This testimonial slider plugin is full customizable and allows you to generate s
 
 You also get to customize the testimonials fields, style, color, and general appearance. With this WordPress testimonial plugin, you can control whether the profile images on the testimonials you display are square or rounded. The Testimonial Slider and Showcase Pro allow you to customize the image size. It also lets you order testimonials by date, title, or id.
 
-[youtube https://www.youtube.com/watch?v=Aik0cfidl4A]
+[https://www.youtube.com/watch?v=g7x9k15SMLM]
 
 Here are the features that make this testimonial slider plugin so endearing:
 
@@ -60,45 +60,35 @@ here is how you go about it.
 1. Generate the shortcode for the entire testimonial. Here is how you do it:
 
     * **Step1: Layout**
-        1. You first choose the layout type from the three options available.
-        1. You can then choose the layout style. The free version allows you to choose from 2 layout style options, while the pro provides an extra 9.
-        1. You then get to edit other settings, including the number of desktop view columns, tab columns, and mobile columns.
-        1. Next, you can switch pagination on or off.
-        1. Choose the image thumbnail size.
-        1. Edit the text that goes on the read more button.
-        1. Choose whether you want to see circular or normal image display.
-        1. Select the limit on the number of characters for the testimonials
-        1. You then choose whether you want to go with the Bootstrap default margin or not at all.
-        1. The PRO plugin allows you to then choose between going with the masonry grid or even grid.
-        1. With the PRO plugin, toggle the detail page link on or off.
-        1. The PRO plugin lets you choose the default preview image.
+        You first choose the layout type from the three options available. You can then choose the layout style. The free version allows you to choose from 2 layout style options, while the pro provides an extra 9.You then get to edit other settings, including the number of desktop view columns, tab columns, and mobile columns.
 
     * **Step 2: Filtering**
-        1. You choose the only comma-separated values that should be included.
-        1. Choose the list of post IDs that you want to exclude, while still using commas to separate the values.
-        1. Select the limit on the number of posts to display. If you set to empty, you’ll showcase all your found posts.
-        1. With the PRO plugin, you then select the categories you want to filter. Leaving the space blank will showcase all your categories.
-        1. The PRO plugin lets you select the tags you want to use in the filters.
-
-        1. The ‘Taxonomy Relation’ feature in the PRO plugin lets you choose more than one taxonomy-like tag, category, category and tag, or tag and tool.
-        1. Choose the ordering criteria, for instance ordering by date.
-        1. Select whether you want the ordering to be descending or ascending.
+        You choose the only comma-separated values that should be included. Choose the list of post IDs that you want to exclude, while still using commas to separate the values. Select the limit on the number of posts to display. If you set to empty, you’ll showcase all your found posts.
+        
+        With the PRO plugin, you then select the categories you want to filter. Leaving the space blank will showcase all your categories. The PRO plugin lets you select the tags you want to use in the filters.
 
     * **Step 3: Fields selection**
-        1. When checking the field that you want to display, you check the fields that you want to display. Your options include, author, author image, testimonial, read more, designation, company, location, rating, video, social media, and social share.
-        1. If you have the PRO version of the plugin, you can choose the social share item sources you want to display. The checkboxes include Facebook, LinkedIn, Twitter, Pinterest, and Email.
+        When checking the field that you want to display, you check the fields that you want to display. Your options include, author, author image, testimonial, read more, designation, company, location, rating, video, social media, and social share.
+
+        If you have the PRO version of the plugin, you can choose the social share item sources you want to display. The checkboxes include Facebook, LinkedIn, Twitter, Pinterest, and Email.
 
     * **Step 4: Styling**
-        1. Choose the parent class you want for adding the custom CSS.
-        1. Select the color schemes you want for the primary, container background, and item background.
-        1. Choose colors you want for your button background, hover background, hover background, text, hover text, and border.
-        1. Select the number of pixels you want for the gutter or padding gap.
-        1. Choose the overlay style, including the overlay color, overlay opacity, and overlay top padding.
-        1. Select the image border style width, color, and style.
-        1. Select the style for writing the author’s name, author’s bio, rating, and social, all of which let you set the color, font size, weight, and alignment.
-        1. Choose the overall testimonial style, including color, font size, font style, weight, and alignment.
+        Choose the parent class you want for adding the custom CSS. Select the color schemes you want for the primary, container background, and item background. Choose colors you want for your button background, hover background, hover background, text, hover text, and border. Choose the overlay style, including the overlay color, overlay opacity, and overlay top padding.        
 
 3.Now, use the shortcode in the page or post you want it to go using Gutenberg or Elementor addon. Alternatively, just copy the shortcode and paste it on the page or post.
+
+== 🏆 How to use Testimonial Slider Elementor Addon ==
+
+We introduce Elementor Addon for Testimonial Slider so now you can easily use in Elementor addon.
+
+[https://www.youtube.com/watch?v=kK_0-5RSoQg]
+
+== 🏆 How to Enable Front End Submission ==
+
+From front end user can submit testimonial 
+
+[https://www.youtube.com/watch?v=3Gd0cHI2uUc]
+
 
 == 🏆 Available Testimonial Fields ==
 
@@ -112,6 +102,7 @@ The following are the fields that this plugin allows you to have on your testimo
 * The user rating
 * Video [Pro]
 * Social [Pro]
+* Front End Submission [Pro]
 
 == 🏆 Features of the Pro Version of the Testimonial Slider and Showcase ==
 

@@ -71,7 +71,7 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
             </div>
             <h1 class="wp-heading-inline">
                 <?php
-                    echo __( esc_html(get_admin_page_title()), "ays-popup-box" );
+                    echo esc_html(get_admin_page_title());
                 ?>
             </h1>
             <?php
@@ -576,7 +576,7 @@ $categories_title_length = (isset($options['categories_title_length']) && intval
                                     </strong>
                                     <span> - </span>
                                     <span style="font-size:18px;">
-                                        <?php echo __( "It will show the current date upon opening a popup.", $this->plugin_name); ?>
+                                        <?php echo __( "It will show the current date upon opening a popup.", "ays-popup-box"); ?>
                                     </span>
                                 </p>
                             </div>

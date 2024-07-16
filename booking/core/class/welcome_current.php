@@ -4,9 +4,160 @@
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
+function wpbc_welcome_section_10_2( $obj ){
+
+	$section_param_arr = array( 'version_num' => '10.2', 'show_expand' => false );
+
+	$obj->expand_section_start( $section_param_arr );
+
+
+	//$obj->asset_path = 'http://beta/assets/';	// TODO: 2024-06-01 comment this
+
+
+	// <editor-fold     defaultstate="collapsed"                        desc=" = F R E E = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = F R E E =
+	// -----------------------------------------------------------------------------------------------------------------
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Explore Advanced Configurable Booking Confirmation, Enhanced Booking Form Typography, and more...' ); ?></h2>
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'New: Customizable Booking Confirmation Section' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Customizable Confirmation Section! Now you can configure what to display in the "Confirmation Window" after a booking is created. Enable or disable content and configure it with a list of shortcodes that will be shown in the "Personal Information" and "Booking Details" sections of the Booking Confirmation window.' ); ?></li>
+				</ul>
+				<img src="<?php echo $obj->section_img_url( '10.2/wp_booking_calendar__booking_confirmation_setup_04.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Enhanced Typography for Booking Forms' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Typography for Booking Forms! The typography for booking form elements has been updated to provide a cleaner interface and to prevent CSS conflicts with themes.' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.2/wp-booking-calendar_typography-01.png' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Enhanced of Time Slots Bookings' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing the "Use Selected Times for Each Booking Date" Option! This feature is available when \'Multiple Days\' selection mode is activated. It allows you to use the **selected times as booked time slots for each selected date**. If not enabled, the selected times will be used as the start time for the first date and the end time for the last date, with all middle dates being fully booked. Enable this option on the Settings > General page in the "Calendar" section. (10.1.5.4)' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing the \'Partially Booked\' Calendar Legend Item! You can now configure this item in the calendar legend. Enable and customize it on the Settings > General page in the "Calendar" section under the \'Show legend below calendar\' option. (10.1.5.5)' ); ?></li>
+				</ul>
+			</div>
+			<div class="wpbc_wn_col">
+				<img src="<?php echo $obj->section_img_url( '10.2/wp_booking_calendar__booking_times_in_several_days_01.gif' ); ?>" style="margin:10px 0;width:98%;" />
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+	?><div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'New Shortcode' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Introducing the [only_dates] Shortcode for Email Templates! This shortcode allows you to insert only booking dates without times in your email templates. (10.1.5.6)' ); ?></li>
+				</ul>
+			</div>
+		</div>
+		<hr class="wpbc_hr_dots"><?php // ---------------------------------------------------------------------- ?>
+	</div>
+	<?php
+
+
+	// </editor-fold>
+
+
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = P A I D =
+	// -----------------------------------------------------------------------------------------------------------------
+
+	// <editor-fold     defaultstate="collapsed"                        desc="  = M I X E D = "  >
+	// -----------------------------------------------------------------------------------------------------------------
+	//  = M I X E D =
+	// -----------------------------------------------------------------------------------------------------------------
+	?>
+	<div class="wpbc_wn_container">
+		<div class="wpbc_wn_section">
+			<h2><?php echo wpbc_replace_to_strong_symbols( 'Additional Improvements in Free and Pro versions' ); ?></h2>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<ul>
+					<?php // Free ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added compatibility for WordPress 6.6' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added Thin Scroll Bar to Popovers! In the Calendar Overview and Timeline, a thin scroll bar is now included in popovers to handle long booking details or details for multiple bookings.' ); ?></li>
+				</ul>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Improvements in Pro Versions' ); ?></h3>
+				<ul>
+					<?php // Pro ?>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Form Times Templates! We\'ve improved the form times templates for a better user experience.  *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated the View of the "Back to Super Admin" Button! When a super booking admin user simulates a login as a "Regular User," the button\'s appearance has been enhanced for clarity. (10.1.5.2) *(MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Enhanced Spinners for Cost and Date Hints! The spinners in the booking form for cost and date hints have been updated for a smoother and more intuitive user experience. *(Business Medium/Large, MultiUser)*' ); ?></li>
+				</ul>
+
+				<div style="clear:both;height:20px;"></div>
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Translations' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Korean Translation! The translation has been updated and is now 96% complete, courtesy of modelaid.' ); ?></li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Under Hood Changes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Updated Bootstrap Icons to the latest 1.11.3 Version for enhanced visual appeal and consistency.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Removed Deprecated BS Glyph Font for a cleaner and more modern design.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Removed Deprecated wpbc_vars.js for improved performance and maintainability.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; The option \'Using BootStrap CSS for the form fields\' has been deprecated and moved to the Settings General page in the "Advanced" section for better organization.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added support for the WP Rocket plugin by excluding it from JavaScript Delay execution, ensuring smoother performance.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '**Pro Versions:**' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added a new hook \'wpbc_visitor_action__booking_trash\' for when visitors cancel their own booking. Example usage:: function your_cust_func_wpbc_visitor_action__booking_trash ( $booking_id, $resource_id ) { /* Your code here */ } add_action( \'wpbc_visitor_action__booking_trash\', \'your_cust_func_wpbc_visitor_action__booking_trash\', 100, 2 );  (10.2.0.3)' ); ?></li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="wpbc_wn_section">
+			<div class="wpbc_wn_col">
+				<h3><?php echo wpbc_replace_to_strong_symbols( 'Bug Fixes' ); ?></h3>
+				<ul>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Adjusted the height of booking form fields to ensure compatibility with certain themes.' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '**Pro Versions:**' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved the issue of search results not displaying on a separate page when custom search filter options are used in the search form. (10.2.0.2) *(Personal, Business Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Added the ability to uncheck the exclusive checkbox in group checkbox options for greater flexibility. (10.1.5.1) *(Personal, Business Small/Medium/Large, MultiUser)*' ); ?></li>
+					<li><?php echo wpbc_replace_to_strong_symbols( '&bull; Resolved the issue of popovers not displaying in the timeline on the front-end during initial page loading when a cache plugin is activated. (10.2.0.4)' ); ?></li>
+				</ul>
+			</div>
+		</div>
+
+	</div><?php
+	// </editor-fold>
+
+
+	$obj->expand_section_end( $section_param_arr );
+}
+
+
 function wpbc_welcome_section_10_1( $obj ){
 
-	$section_param_arr = array( 'version_num' => '10.1', 'show_expand' => false );
+	$section_param_arr = array( 'version_num' => '10.1', 'show_expand' => ! false );
 
 	$obj->expand_section_start( $section_param_arr );
 

@@ -404,6 +404,15 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'import_file' => esc_url('https://demosktthemes.com/free/vet-clinic-lite/vet-clinic-lite.json'),
 					'keywords'    => __( ' veterinary, animals center, animal care, cats clinic, clinic medic, dogs kennel, animal hospital, lab, medicine, pet adoption, pet grooming, pets care, vet clinic, veterinary doctor, zoo, pet stores, vet shop, cat training classes, animal care shelters, breeders, pet hotels, vet clinic lite'),
 			),
+			'skt-yogi-lite-elementor'              => array(
+					'title'       => __( 'SKT Yogi Lite', 'skt-templates' ),
+					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
+					'theme_url'   => esc_url('https://www.sktthemes.org/shop/yogi-yoga-wordpress-theme/'),						
+					'demo_url'    => esc_url('https://demosktthemes.com/free/yogi/'),
+					'screenshot'  => esc_url('https://demosktthemes.com/free/yogi/free-yogi.jpg'),
+					'import_file' => esc_url('https://demosktthemes.com/free/yogi/free-yogi.json'),
+					'keywords'    => __( ' fitness, trainer, gym, crossfit, health, strength, abs, six pack, wellness, meditation, reiki, mental, physical, bodybuilding, kickboxing, sports, running, kungfu, karate, taekwondo, yoga, Yogi, yogi, SKT yogi, skt yogi, yogi lite, yoga' ),
+			),
 			'ad-agency-lite-elementor'              => array(
 					'title'       => __( 'Ad Agency Lite', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
@@ -1841,15 +1850,6 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'screenshot'  => esc_url('https://demosktthemes.com/free/bistro/free-bistro.jpg'),
 					'import_file' => esc_url('https://demosktthemes.com/free/bistro/free-bistro.json'),
 					'keywords'    => __( ' restaurant, bistro, eatery, food, joint, street café, café, coffee, burger, fast food, junk food, noodle, chinese, chef, cook, kitchen, cuisine, cooking, baking, bread, cake, chocolate, nourishment, diet, dishes, waiter, eatables, meal, Bistro' ),
-				),
-				'yogi-lite-elementor'              => array(
-					'title'       => __( 'Yogi', 'skt-templates' ),
-					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
-					'theme_url'   => esc_url('https://www.sktthemes.org/shop/yogi-lite/'),						
-					'demo_url'    => esc_url('https://demosktthemes.com/free/yogi/'),
-					'screenshot'  => esc_url('https://demosktthemes.com/free/yogi/free-yogi.jpg'),
-					'import_file' => esc_url('https://demosktthemes.com/free/yogi/free-yogi.json'),
-					'keywords'    => __( ' fitness, trainer, gym, crossfit, health, strength, abs, six pack, wellness, meditation, reiki, mental, physical, bodybuilding, kickboxing, sports, running, kungfu, karate, taekwondo, yoga, Yogi' ),
 				),
 				'free-design-agency-elementor'              => array(
 					'title'       => __( 'Design Agency', 'skt-templates' ),

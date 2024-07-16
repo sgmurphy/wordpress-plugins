@@ -141,6 +141,7 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_action( 'astra_notice_before_markup', array( $this, 'notice_assets' ) );
 			add_action( 'load-index.php', array( $this, 'admin_dashboard_notices' ) );
 			add_action( 'admin_notices', array( $this, 'check_filesystem_access_notice' ) );
+			add_filter( 'ai_builder_textdomain', array( $this, 'updat_ai_builder_textdomain' ), 10, 1 );
 
 			// AJAX.
 			$this->ajax = array(
@@ -171,6 +172,17 @@ if ( ! class_exists( 'Astra_Sites' ) ) :
 			add_filter( 'ast_block_templates_authorization_url_param', array( $this, 'add_auth_url_param' ) );
 			add_action( 'admin_head', array( $this, 'add_custom_admin_css' ) );
 			add_filter( 'zip_ai_modules', array( $this, 'enable_zip_ai_copilot' ), 20, 1 );
+		}
+
+		/**
+		 * Set ai builder textdomain.
+		 * 
+		 * @param string $textdomain Textdomain.
+		 * @return string
+		 * @since  4.3.8
+		 */
+		public function updat_ai_builder_textdomain( $textdomain ) {
+			return 'astra-sites';
 		}
 
 		/**

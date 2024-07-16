@@ -7,7 +7,7 @@ Requires at least: 6.1
 Requires PHP: 7.2.5
 Tested up to: 6.5
 License: GPLv2 or later
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 
 PublishPress Future can make scheduled changes to your content. You can unpublish posts, move posts to a new status, update the categories, and more.
 
@@ -26,7 +26,7 @@ Here's an overview of what you can do with PublishPress Future:
 
 > <strong>Upgrade to PublishPress Future Pro</strong><br />
 > This plugin is the free version of the PublishPress Future plugin. The Pro version comes with all the features you need to schedule changes to your WordPress content. <a href="https://publishpress.com/future"  title="PublishPress Future Pro">Click here to purchase the best plugin for scheduling WordPress content updates!</a>
- 
+
 ## Options for Future Actions on Posts
 
 With PublishPress Future, you can configure actions that will happen automatically to your content. Here are the changes you can choose for your posts:
@@ -172,6 +172,23 @@ Yes, the PublishPress Future plugin allows you to schedule automatic changes to 
 == Changelog ==
 
 The full changelog can be found on [GitHub](https://github.com/publishpress/PublishPress-Future/blob/main/CHANGELOG.md).
+
+## [3.4.2] - 15 Jul, 2024
+
+### Added
+
+- Add the current date and time to date preview in the date/time offset setting field, #840
+
+### Fixed
+
+- Optimized the date/time offset validation requests in the Post Types settings, #840
+- Fix error message in the date/time offset setting field, #841
+- Fix user capabilities check in the block editor, #727
+- Update ES, FR, and IT translations, #859
+
+### Changed
+
+- Change the text in the promo screen for the Actions Workflow feature, #867
 
 ## [3.4.1] - 02 Jul, 2024
 

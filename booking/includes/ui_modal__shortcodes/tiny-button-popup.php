@@ -25,7 +25,7 @@ class WPBC_TinyMCE_Buttons {
         
         $this->settings = array(
                                   'tiny_prefix'         => 'wpbc_tiny'
-                                , 'tiny_icon_url'       => WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
+                                , 'tiny_icon_url'       => ''//WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
                                 , 'tiny_js_plugin'      => WPBC_PLUGIN_URL . '/js/wpbc_tinymce_btn.js'
                                 , 'tiny_js_function'    => 'wpbc_init_tinymce_buttons'                     // This function NAME exist inside of this JS file: ['tiny_js_plugin']
                                 , 'tiny_btn_row'        => 1
@@ -34,7 +34,7 @@ class WPBC_TinyMCE_Buttons {
                                                           'booking_insert' => array(
                                                                                       'hint'  => __('Insert booking calendar' ,'booking')
                                                                                     , 'title' => __('Booking calendar' ,'booking')
-                                                                                    , 'img'   => WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
+                                                                                    , 'img'   => ''//WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
                                                                                     , 'class' => 'bookig_buttons'
                                                                                     , 'js_func_name_click'    => 'wpbc_tiny_btn_click'
                                                                                     , 'bookmark'              => 'booking'
@@ -305,7 +305,7 @@ if (
     new WPBC_TinyMCE_Buttons( 
                             array(
                                       'tiny_prefix'     => 'wpbc_tiny'
-                                    , 'tiny_icon_url'   => WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
+                                    , 'tiny_icon_url'   => ''//WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
                                     , 'tiny_js_plugin'  => WPBC_PLUGIN_URL . '/js/wpbc_tinymce_btn.js'
                                     , 'tiny_js_function' => 'wpbc_init_tinymce_buttons'                     // This function NAME exist inside of this file: ['tiny_js_plugin']
                                     , 'tiny_btn_row'    => 1
@@ -314,7 +314,7 @@ if (
                                                                 'booking_insert' => array(
                                                                                               'hint'  => __('Insert WP Booking Calendar' ,'booking')
                                                                                             , 'title' => __('Booking calendar' ,'booking')
-                                                                                            , 'img'   => WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
+                                                                                            , 'img'   => ''//WPBC_PLUGIN_URL . '/assets/img/bc_black-16x16.png'
                                                                                             , 'class' => 'bookig_buttons'
                                                                                             , 'js_func_name_click'    => 'wpbc_tiny_btn_click'
                                                                                             , 'bookmark'              => 'booking'

@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
+import { STEPS } from '../steps/util';
 
 export const whiteLabelEnabled = () => {
 	return astraSitesVars.isWhiteLabeled ? true : false;
@@ -269,4 +270,14 @@ export const debounce = ( func, wait, immediate ) => {
 			func( ...args );
 		}
 	};
+};
+
+/**
+ * Get step index from step name.
+ *
+ * @param {string} name
+ * @return {number} index
+ */
+export const getStepIndex = ( name = '' ) => {
+	return STEPS.findIndex( ( step ) => step.name === name );
 };

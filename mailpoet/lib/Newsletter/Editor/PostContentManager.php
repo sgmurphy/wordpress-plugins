@@ -135,7 +135,7 @@ class PostContentManager {
     );
 
     // remove other shortcodes
-    $content = preg_replace('/\[[^\[\]]*\]/', '', $content);
+    $content = $this->wp->stripShortcodes($content);
 
     return $content;
   }

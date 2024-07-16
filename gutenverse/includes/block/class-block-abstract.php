@@ -65,6 +65,26 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Get element ID.
+	 *
+	 * @return string
+	 */
+	protected function get_element_id() {
+		$element_id = isset( $this->attributes['elementId'] ) ? $this->attributes['elementId'] : '';
+		return esc_attr( $element_id );
+	}
+
+	/**
+	 * Get element custom classes.
+	 *
+	 * @return string
+	 */
+	protected function get_custom_classes() {
+		$custom_classes = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		return esc_attr( $custom_classes );
+	}
+
+	/**
 	 * Return empty content element
 	 *
 	 * @return mixed

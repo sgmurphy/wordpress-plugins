@@ -29,6 +29,8 @@ class Activation extends \Social_Pug {
 
 	public const OPTION_LICENSE_STATUS_DATE = 'mv_grow_license_status_date';
 
+	public const OPTION_LICENSE_TIER = 'mv_grow_license_tier';
+
 	/** @var null  */
 	private static $instance = null;
 
@@ -52,7 +54,7 @@ class Activation extends \Social_Pug {
 			if ( $request_result instanceof WP_Error ) {
 				throw new RuntimeException( $request_result->get_error_message() );
 			} else {
-				throw new RuntimeException( 'An unknown error occurred while making a marketplace API request.' );
+				throw new RuntimeException( 'An unknown error occurred while calling the Hubbub license API.' );
 			}
 		}
 
@@ -62,7 +64,7 @@ class Activation extends \Social_Pug {
 
 		$result = json_decode( $requests_response->get_data(), true );
 		if ( ! is_array( $result ) ) {
-			throw new RuntimeException( 'Unexpected format of marketplace API response.' );
+			throw new RuntimeException( 'Unexpected format returned from the Hubbub license API.' );
 		}
 
 		return $result;
@@ -93,7 +95,7 @@ class Activation extends \Social_Pug {
 				add_settings_error(
 					'mv_grow_license',
 					'mv_grow_license_request_error',
-					__( 'An error was encountered while verifying the license.', 'mediavine' )
+					__( 'An error was encountered while verifying the license key.', 'mediavine' )
 				);
 				$this->set_license_status( null );
 				return;
@@ -124,7 +126,7 @@ class Activation extends \Social_Pug {
 						add_settings_error(
 							'mv_grow_license',
 							'mv_grow_license_request_error',
-							__( 'An error occurred while trying to activate this website for the Hubbub Pro License you entered.', 'mediavine' )
+							__( 'An error occurred while trying to activate this website for the Hubbub license key you entered.', 'mediavine' )
 						);
 						return;
 					}
@@ -133,6 +135,7 @@ class Activation extends \Social_Pug {
 						update_option('hubbub_temp_site_activated_message', $response['error'] );
 					} else {
 						$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+						$this->set_license_tier( $response['price_id'], $response['customer_email'] ); // Sets the license tier hash
 						if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
 							set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
 						endif;
@@ -144,6 +147,7 @@ class Activation extends \Social_Pug {
 					return;
 				case 'valid':
 					$this->set_license_status( self::LICENSE_STATUS_VALID );
+					$this->set_license_tier( $response['price_id'], $response['customer_email'] ); // Sets the license tier hash
 					if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
 						set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
 					endif;
@@ -154,7 +158,7 @@ class Activation extends \Social_Pug {
 			add_settings_error(
 				'mv_grow_license',
 				'mv_grow_license_invalid',
-				__( 'The Hubbub Pro license could not be validated.', 'mediavine' )
+				__( 'The Hubbub license key could not be validated.', 'mediavine' )
 			);
 
 		endif;
@@ -298,6 +302,55 @@ class Activation extends \Social_Pug {
 	}
 
 	/**
+	 * Get the license tier
+	 * 
+	 * @return string|false
+	 */
+	public function get_license_tier() {
+
+		$license_tier = get_option( self::OPTION_LICENSE_TIER );
+
+		if ( empty( $license_tier ) ) return false;
+
+		$pid = substr( $license_tier, 11, 1 );
+		$pid .= ( substr( $license_tier, 4, 1 ) == 'H' ) ? '' : substr( $license_tier, 4, 1 );
+
+		switch ( true ) {
+			case ( $pid >= 15 && $pid <= 20 ):
+				$tier = 'pro+';
+				break;
+			case ( $pid >= 21 && $pid <= 25 ):
+				$tier = 'priority';
+				break;
+			default:
+				$tier = 'pro';
+				break;
+		}
+
+		return $tier;
+	}
+
+	/**
+	 * Set the addon license tier as a hash.
+	 *
+	 * @param string|null $price_id The ID of the price in EDD returned from API. Null to delete.
+	 * @param string|null $customer_email The email address of the customer as returned from the EDD API
+	 */
+	private function set_license_tier( ?string $price_id, ?string $customer_email ) : void {
+		if ( null === $price_id ) {
+			delete_option( self::OPTION_LICENSE_TIER );
+			return;
+		}
+
+		if ( empty( $customer_email ) ) return;
+
+		$license_tier = substr_replace( hash( 'md5', $price_id . '#' . $customer_email ) , substr( $price_id, 0, 1 ), 10, 0 );
+		$license_tier = substr_replace( $license_tier, ( strlen($price_id) > 1 ) ? substr( $price_id, 1, 1 ) : 'H', 4, 0 );
+
+		update_option( self::OPTION_LICENSE_TIER, $license_tier );
+	}
+
+	/**
 	 * Set the addon license status.
 	 *
 	 * @param string|null $license_status Updated license status. Must be one of the LICENSE_STATUS_* constants. Null to delete.
@@ -381,13 +434,14 @@ class Activation extends \Social_Pug {
 					add_settings_error(
 						'mv_grow_license',
 						'mv_grow_license_request_error',
-						__( 'An error occurred while trying to activate this website for the Hubbub Pro License you entered.', 'mediavine' )
+						__( 'An error occurred while trying to activate this website for the Hubbub license key you entered.', 'mediavine' )
 					);
 					return;
 				}
 
 				if ( ! isset( $activation_response['error'] ) ) {
 					$this->set_license_status( self::LICENSE_STATUS_VALID ); // Sets license to active
+					$this->set_license_tier( $response['price_id'], $response['customer_email'] ); // Sets the license tier hash
 					set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // Shows woohoo message
 				}
 				
@@ -397,7 +451,7 @@ class Activation extends \Social_Pug {
 				return;
 			case 'valid':
 				$this->set_license_status( self::LICENSE_STATUS_VALID );
-
+				$this->set_license_tier( $response['price_id'], $response['customer_email'] ); // Sets the license tier hash
 				if ( $previous_license_status != 'valid' ) : // If the license was anything except valid
 					set_transient( 'hubbub_license_activated_on_this_website', true, 60 ); // shows woohoo message
 				endif;

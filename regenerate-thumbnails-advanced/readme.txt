@@ -1,9 +1,9 @@
 === reGenerate Thumbnails Advanced ===
 Contributors: ShortPixel
 Donate link: https://www.paypal.me/resizeImage
-Tags: regenerate, regenerate thumbnails wordpress, regenerate thumbnails, regenerate thumbnails woocommerce, wordpress regenerate thumbnails, wordpress thumbnails, force regenerate thumbnails
+Tags: regenerate thumbnails wordpress, regenerate thumbnails, regenerate thumbnails woocommerce, wordpress thumbnails, force regenerate thumbnails
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 2.5.0
 License: GPLv2 or later

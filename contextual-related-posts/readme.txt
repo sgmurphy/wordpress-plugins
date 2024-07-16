@@ -4,7 +4,7 @@ Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
 Stable tag: 3.5.2
 Requires at least: 6.2
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
 License: GPLv2 or later
 

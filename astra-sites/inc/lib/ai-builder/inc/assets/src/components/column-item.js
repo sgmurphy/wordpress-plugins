@@ -156,7 +156,7 @@ export const ColumnItem = ( { template, position } ) => {
 						/>
 					</div>
 					{ template.is_premium &&
-						'yes' === aiBuilderVars?.show_premium_badge && (
+						aiBuilderVars?.show_premium_badge && (
 							<div
 								className="absolute top-4 right-5 text-xs font-semibold text-white flex items-center
                         justify-center rounded-3xl bg-gradient-1 py-1 pr-3 pl-2 pointer-events-none gap-1"

@@ -3,8 +3,8 @@ Contributors: 2winfactor, wpcrafter
 Donate link: https://prestoplayer.com
 Tags: video, audio, youtube, vimeo, lms, elementor, learndash, beaver builder, lifterlms
 Requires at least: 6.3
-Tested up to: 6.5
-Stable tag: 3.0.1
+Tested up to: 6.6
+Stable tag: 3.0.2
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -149,6 +149,10 @@ It is also important to point out that BunnyNet has a $1 per month minimum.
 
 
 == Changelog ==
+
+= 3.0.2 =
+* Change: Synced media hub items now edit inline instead of navigating to separate edit page.
+* Fix: WordPress 6.6 compatibility.
 
 = 3.0.1 =
 * New: Setting for changing the default Media Hub sync behavior for new blocks.

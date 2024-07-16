@@ -335,6 +335,38 @@ function wpbc_get_times_in_form( $booking_form_data, $booking_type ){
 
 
 	/**
+	 * Get Only Dates array   from  Dates Dimes string with  comma seperated values
+	 *
+	 * @param $dates_ymd_his_csv        -> '2023-10-09 12:00:01, 2023-10-09 20:00:02'
+	 *
+	 * @return array|string[]           -> '2023-10-09, 2023-10-09'
+	 *
+	 *
+	 * Usually it called like in this Example:
+	 *                                          $dates_ymd_his_csv = wpbc_db__get_sql_dates__in_booking__as_str( $booking_id_str );                 // '100' | '10,7' - booking ID
+	 *                                          $dates_only_arr    = wpbc_get_only_dates__from_dates_ymd_his_csv__as_arr( $dates_ymd_his_csv );     // -> '2023-10-09, 2023-10-09'
+	 */
+	function wpbc_get_only_dates__from_dates_ymd_his_csv__as_arr( $dates_ymd_his_csv ){
+
+
+        //FixIn: 10.1.5.6
+		$dates_only_arr = wpbc_get_dates_arr__from_dates_comma_separated( array(
+																				'dates_separator' => ', ',                  //  ', '
+																				'dates'           => $dates_ymd_his_csv,    	// '2023-04-04 12:03:00, 2023-04-07 2024-06-30:00'
+																			) );
+		// Get Only Dates
+		$dates_only_arr =  array_map(	function ( $date_sql_ymd_his ) {
+											$date_sql_ymd_his = trim( $date_sql_ymd_his );
+											$date_sql_ymd_his = substr( $date_sql_ymd_his, 0, 10 );
+											return $date_sql_ymd_his;
+										}
+										, $dates_only_arr
+									);
+		$dates_only_arr = array_unique( $dates_only_arr );
+		return $dates_only_arr;
+	}
+
+	/**
 		 * Get Time in 24 hours (military) format,  from  possible AM/PM format
 	 *
 	 * @param string $time_str  - '01:20 PM'

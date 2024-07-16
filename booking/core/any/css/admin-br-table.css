@@ -40,11 +40,11 @@
     background: #b5d4ef;
     border-color: #ccc !important;
 }
-.wpbc_resources_table th a span.glyphicon {    
-    font-size: 0.8em;
-    font-weight: 400;
-    padding-left: 2px;
-}
+/*.wpbc_resources_table th a span.glyphicon {    */
+/*    font-size: 0.8em;*/
+/*    font-weight: 400;*/
+/*    padding-left: 2px;*/
+/*}*/
 
 .wpdevelop.wpbc_resources_table .table > thead > tr > th, 
 .wpdevelop.wpbc_resources_table .table > tbody > tr > th, 

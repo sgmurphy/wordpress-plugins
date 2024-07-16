@@ -10,6 +10,15 @@
 	--smb-panels--glue--box-shadow: none;
 	--smb-panels--glue--border-color: var(--wp--preset--color--sm-lighter-gray);
 
+	> .#{ $_prefix }c-row {
+		> .#{ $_prefix }c-row__col {
+			background-color: transparent !important;
+			background-image: none !important;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+
 	&__item {
 		--smb-panel--background-color: var(--smb-panels--item-background-color);
 		--smb-panel--background-image: initial;
@@ -20,6 +29,7 @@
 		display: block;
 		background-color: var(--smb-panel--background-color);
 		background-image: var(--smb-panel--background-image);
+		padding: 0;
     color: var(--smb-panel--color);
 		text-decoration: none;
 		box-shadow: var(--smb-panels--item-box-shadow);

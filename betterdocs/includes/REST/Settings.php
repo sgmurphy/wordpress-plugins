@@ -34,6 +34,12 @@ class Settings extends BaseAPI {
         $this->post( 'parse-csv', [ $this, 'parse_csv' ] );
         $this->post( 'migrate', [ $this, 'migrate_plugins' ] );
         $this->post( 'helpscout-migration', [$this, 'helpscout_migration'] );
+        $this->post( 'dashboard-mode', [$this, 'dashboard_mode'] );
+    }
+
+    public function dashboard_mode( WP_REST_Request $request ) {
+        $mode = $request->get_param( 'dashboard_mode' );
+        return update_option('dashboard_mode', $mode);
     }
 
     public function dark_mode( WP_REST_Request $request ): bool {

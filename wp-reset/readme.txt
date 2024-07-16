@@ -3,7 +3,7 @@ Tags: wordpress reset, reset database, reset wordpress, reset, advanced wordpres
 Contributors: WebFactory
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.03
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

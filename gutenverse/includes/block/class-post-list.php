@@ -132,7 +132,7 @@ class Post_List extends Post_Abstract {
 				$date      = esc_attr( $this->format_date( $post ) );
 
 				if ( $date_icon ) {
-					$meta_date = '<i aria-hidden="true" class="' . $date_icon . '"></i> ' . $date;
+					$meta_date = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> ' . $date;
 				}
 
 				$meta_date = '<span class="meta-date">' . $meta_date . '</span>';
@@ -143,7 +143,7 @@ class Post_List extends Post_Abstract {
 				$category      = get_category( $this->get_primary_category( $post->ID ) );
 
 				if ( $category_icon && isset( $category->name ) ) {
-					$meta_category = '<i aria-hidden="true" class="' . $category_icon . '"></i> ' . $category->name;
+					$meta_category = '<i aria-hidden="true" class="' . esc_attr( $category_icon ) . '"></i> ' . $category->name;
 				}
 
 				$meta_category = '<span class="meta-category">' . $meta_category . '</span>';
@@ -178,13 +178,11 @@ class Post_List extends Post_Abstract {
 
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
-			} else {
-				if ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
+			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
 					$icon = $this->attributes['icon'];
 
-					if ( $icon ) {
-						$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
-					}
+				if ( $icon ) {
+					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i></span>';
 				}
 			}
 
@@ -215,11 +213,11 @@ class Post_List extends Post_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$element_id      = $this->attributes['elementId'];
-		$layout          = $this->attributes['layout'];
+		$element_id      = $this->get_element_id();
+		$layout          = esc_attr( $this->attributes['layout'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
 	}

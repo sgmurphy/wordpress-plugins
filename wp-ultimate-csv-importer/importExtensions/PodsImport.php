@@ -131,6 +131,7 @@ class PodsImport {
 				$pick_objtype = $podsFields["PODS"][$custom_key]['pick_objecttype'];
 				$termitem = [];
 				$item = [];
+				$exploded_rel_items =array();
 				//$exploded_rel_items = explode(',', $custom_value);
 				if (strpos($custom_value, ',') !== false) {
 					$exploded_rel_items = explode(',', $custom_value);
@@ -159,10 +160,13 @@ class PodsImport {
 				else{
 					foreach($exploded_rel_items as $items){
 						$items = trim($items);
-						$ids = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts where post_title = %s and post_status=%s",$items,'publish') );
-						foreach($ids as $id){
-							$item[]=$id->ID;
+						if(!empty($items)){
+							$ids = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->prefix}posts where post_title = %s and post_status=%s",$items,'publish') );
+							foreach($ids as $id){
+								$item[]=$id->ID;
+							}
 						}
+						
 					}
 				}
 			

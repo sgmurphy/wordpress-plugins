@@ -19,6 +19,10 @@ function dpsp_output_front_end_sticky_bar() {
 		return;
 	}
 
+	if ( doing_action( 'before_feast_layout' ) || doing_action( 'genesis_header' ) || doing_action( 'genesis_after_header' ) || doing_action( 'genesis_footer' ) || doing_action( 'genesis_sidebar' ) || doing_action( 'kadence_before_sidebar' ) || doing_action( 'kadence_before_footer' ) || doing_action('kadence_dynamic_sidebar_content') || doing_action('kadence_after_header') ) {
+        return $content;
+    }
+
 	$tool_container = \Mediavine\Grow\Tools\Toolkit::get_instance();
 	$tool_instance  = $tool_container->get( 'sticky_bar' );
 	if ( $tool_instance->has_rendered() ) {
@@ -79,6 +83,10 @@ function dpsp_output_front_end_sticky_bar_content_markup( $content ) {
 	if ( ! is_main_query() ) {
 		return $content;
 	}
+
+	if ( doing_action( 'before_feast_layout' ) || doing_action( 'genesis_header' ) || doing_action( 'genesis_after_header' ) || doing_action( 'genesis_footer' ) || doing_action( 'genesis_sidebar' ) || doing_action( 'kadence_before_sidebar' ) || doing_action( 'kadence_before_footer' ) || doing_action('kadence_dynamic_sidebar_content') || doing_action('kadence_after_header') ) {
+        return $content;
+    }
 
 	/**
 	 * Return the content if the output for this callback isn't permitted by filters

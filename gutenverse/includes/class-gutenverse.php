@@ -182,7 +182,8 @@ class Gutenverse {
 		add_action( 'init', array( $this, 'register_menu_position' ) );
 		add_action( 'init', array( $this, 'import_mechanism' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-		add_action( 'activated_plugin', array( $this, 'redirect_to_dashboard' ) );
+		add_action( 'activated_plugin', array( $this, 'set_transient_to_redirect_when_activated' ) );
+		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
 		add_action( 'customize_register', '__return_true' );
 
@@ -230,12 +231,26 @@ class Gutenverse {
 
 	/**
 	 * Redirect page after plugin is actived
-	 *
-	 * @param string $plugin .
 	 */
-	public function redirect_to_dashboard( $plugin ) {
-		if ( GUTENVERSE_PATH === $plugin && wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) ) ) {
-			exit;
+	public function set_transient_to_redirect_when_activated( $plugin ) {
+		if ( GUTENVERSE_PATH === $plugin ) {
+			set_transient( 'gutenverse_redirect', 1, 30 );
+		}
+	}
+
+	/**
+	 * Redirect page after plugin is actived
+	 */
+	public function redirect_to_dashboard() {
+		if ( get_transient( 'gutenverse_redirect' ) ) {
+			global $pagenow;
+			if ( 'plugins.php' === $pagenow || 'plugin-install.php' === $pagenow ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
+				delete_transient( 'gutenverse_redirect' );
+				exit;
+			} else {
+				delete_transient( 'gutenverse_redirect' );
+			}
 		}
 	}
 

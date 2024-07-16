@@ -311,7 +311,7 @@ class WPBC_Page_Settings__bresources extends WPBC_Page_Structure {
                     <tr>
                         <th class="check-column"><input type="checkbox" value="" id="br-select-all" name="resource_id_all"></th>
 	                    <th class="wpbc_hide_mobile" style="width:5em;"><a href="javascript:void(0);">ID <span class="wpbc_icn_swap_vert" aria-hidden="true"></span></a></th>
-	                    <th style=""><a href="javascript:void(0);"><?php _e( 'Resource Name', 'booking' ); ?> <span aria-hidden="true" class="glyphicon wpbc_icn_vertical_align_top"></span></a></th>
+	                    <th style=""><a href="javascript:void(0);"><?php _e( 'Resource Name', 'booking' ); ?> <span aria-hidden="true" class=" wpbc_icn_vertical_align_top"></span></a></th>
 	                    <th class="wpbc_hide_mobile" style="text-align:center;"><?php _e( 'Shortcode for page', 'booking' ); ?></th>
 	                    <th class="" style="text-align:center;"><?php _e( 'Actions', 'booking' ); ?></th>
                     </tr>

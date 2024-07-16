@@ -1,0 +1,67 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "social-pug/save-this",
+	"version": "0.1.0",
+	"title": "Hubbub Pro: Save This",
+	"category": "widgets",
+	"description": "Add a form to allow visitors to save the current post or page.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string"
+		},
+		"message": {
+			"type": "string"
+		},
+		"buttontext": {
+			"type": "string",
+			"default": "Save"
+		},
+		"buttoncolor": {
+			"type": "string"
+		},
+		"afterForm": {
+			"type": "string"
+		},
+		"showImage": {
+			"type": "boolean",
+			"default": false
+		},
+		"imageId": {
+			"type": "number"
+		},
+		"imageURL": {
+			"type": "string"
+		},
+		"imageAlt": {
+			"type": "string",
+			"selector": "img",
+			"attribute": "alt",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"ariaLabel": true,
+		"color": {
+			"background": true,
+			"text": true,
+			"heading": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"html": false
+	},
+	"textdomain": "social-pug",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

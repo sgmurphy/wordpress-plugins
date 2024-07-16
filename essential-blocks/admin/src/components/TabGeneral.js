@@ -277,27 +277,27 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.8.0", "essential-blocks")}
+                                    {__("Version: 4.8.1", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("11/07/2024", "essential-blocks")}
+                                        {__("16/07/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Translation compatibility with WPML",
+                                            "Fixed: Slider || URL not working",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Advanced Tabs | Tab Sorting and Deletion not working properly",
+                                            "Fixed: Popup || Add 'VH' unit in height control",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Minor bug fixes & improvements",
+                                            "Fixed: Custom CSS editor not working in RTL",
                                             "essential-blocks"
                                         )}
                                     </li>

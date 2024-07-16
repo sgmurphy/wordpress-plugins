@@ -274,6 +274,7 @@ function wpbc_front_end__show_message( message, params = {} ){
 																						   }
 																}
 														);
+		wpbc_highlight_error_on_form_field( jq_node );
 		return notice_message_id;
 	}
 
@@ -327,6 +328,41 @@ function wpbc_front_end__show_message( message, params = {} ){
 		return notice_message_id;
 	}
 
+	/**
+	 * Highlight Error in specific field
+	 *
+	 * @param jq_node					string or jQuery element,  where scroll  to
+	 */
+	function wpbc_highlight_error_on_form_field( jq_node ){
+
+		if ( !jQuery( jq_node ).length ){
+			return;
+		}
+		if ( ! jQuery( jq_node ).is( ':input' ) ){
+			// Situation with  checkboxes or radio  buttons
+			var jq_node_arr = jQuery( jq_node ).find( ':input' );
+			if ( !jq_node_arr.length ){
+				return
+			}
+			jq_node = jq_node_arr.get( 0 );
+		}
+		var params = {};
+		params[ 'delay' ] = 10000;
+
+		if ( !jQuery( jq_node ).hasClass( 'wpbc_form_field_error' ) ){
+
+			jQuery( jq_node ).addClass( 'wpbc_form_field_error' )
+
+			if ( parseInt( params[ 'delay' ] ) > 0 ){
+				var closed_timer = setTimeout( function (){
+															 jQuery( jq_node ).removeClass( 'wpbc_form_field_error' );
+														  }
+											   , parseInt( params[ 'delay' ] )
+									);
+
+			}
+		}
+	}
 
 /**
  * Scroll to specific element

@@ -72,10 +72,6 @@
       "type": "boolean",
       "default": false
     },
-    "padding": {
-      "type": "object",
-      "default": {}
-    },
     "backgroundHorizontalPosition": {
       "type": "number",
       "default": 0
@@ -197,7 +193,11 @@
     ],
     "anchor": true,
     "spacing": {
-      "margin": true
+      "margin": true,
+      "padding": [
+        "top",
+        "bottom"
+      ]
     },
     "layout": {
       "allowSwitching": false,

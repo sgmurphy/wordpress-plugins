@@ -137,6 +137,8 @@ class Frontend_Data extends Asset_Loader {
 			$general['show_count'][ $tool_slug ] = filter_var( $show_count, FILTER_VALIDATE_BOOLEAN );
 		}
 
+		$general['license_last4'] = substr( get_option( 'mv_grow_license'), -4 );
+
 		$data['general'] = $general;
 
 		$data = $this->with_current_post( $data );

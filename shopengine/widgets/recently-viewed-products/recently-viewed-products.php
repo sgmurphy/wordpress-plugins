@@ -105,7 +105,7 @@ class Shopengine_Recently_Viewed_Products extends \ShopEngine\Base\Widget {
 				'return_value'  => 'yes',
 				'default'       => (isset( $default['show_tag']) ? esc_attr($default['show_tag']) : 'yes'),
 				'selectors'	    => [
-					'{{WRAPPER}} .shopengine-single-product-item .badge.tag' => 'display: inline-block;'
+					'{{WRAPPER}} .shopengine-widget .shopengine-recently-viewed-products .shopengine-single-product-item .product-thumb .product-tag-sale-badge .badge.tag' => 'display: inline-block;'
 				]
 			]
 		);
@@ -128,6 +128,9 @@ class Shopengine_Recently_Viewed_Products extends \ShopEngine\Base\Widget {
 						'title'	=> esc_html__( 'Custom', 'shopengine' ),
 						'icon' 	=> 'eicon-settings',
 					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .__' => 'position: {{VALUE}};',
 				],
 				'default'	=> 'top-right',
 				'toggle' 	=> false,
@@ -226,16 +229,9 @@ class Shopengine_Recently_Viewed_Products extends \ShopEngine\Base\Widget {
 				],
 				'default' 	=> 'horizontal',
 				'toggle' 	=> false,
-				'conditions' => [
-					'relation'	=> 'or',
-					'terms' => [
-						[
-							'name' => 'show_sale',
-							'operator'	=> '===',
-							'value' 	=> 'yes'
-						],
-					]
-				]
+				'condition' => [
+					'show_sale' => 'yes',
+				],
 			]
 		);
 

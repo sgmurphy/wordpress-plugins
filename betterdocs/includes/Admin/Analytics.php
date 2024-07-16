@@ -24,7 +24,7 @@ class Analytics extends Base {
     }
 
     public function enqueue( $hook ) {
-        if ( $hook !== 'betterdocs_page_betterdocs-analytics' ) {
+        if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
             return;
         }
 

@@ -107,6 +107,9 @@ $chk_ord           = ( isset( $usces_opt_order['chk_ord'] ) ) ? $usces_opt_order
 $applyform         = usces_get_apply_addressform( $this->options['system']['addressform'] );
 $settlement_backup = ( isset( $this->options['system']['settlement_backup'] ) ) ? $this->options['system']['settlement_backup'] : 0;
 $settlement_notice = get_option( 'usces_settlement_notice' );
+
+$order_list_delete_link = ( isset( $this->options['system']['order_list_delete_link'] ) ) ? $this->options['system']['order_list_delete_link'] : 0;
+
 ?>
 <script type="text/javascript">
 jQuery(function($){
@@ -592,7 +595,11 @@ $list_header = '<th scope="col"><input name="allcheck" type="checkbox" value="" 
 foreach ( (array) $arr_header as $value ) {
 	$list_header .= '<th scope="col">' . $value . '</th>';
 }
-$list_header .= '<th scope="col">&nbsp;</th>';
+
+if ( $order_list_delete_link ) {
+	$list_header .= '<th scope="col">&nbsp;</th>';
+}
+
 ?>
 	<tr>
 		<?php echo apply_filters( 'usces_filter_order_list_header', $list_header, $arr_header ); // phpcs:ignore ?>
@@ -681,7 +688,11 @@ foreach ( (array) $rows as $data ) :
 			$list_detail .= '<td>' . esc_html( $value ) . '</td>';
 		}
 	}
-	$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_orderlist&order_action=delete&order_id=' . $data['ID'] . '&wc_nonce=' . wp_create_nonce( 'order_list' ) . '" onclick="return deleteconfirm(\'' . $data['ID'] . '\');"><span style="color:#FF0000; font-size:9px;">' . __( 'Delete', 'usces' ) . '</span></a></td>';
+
+	if ( $order_list_delete_link ) {
+		$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_orderlist&order_action=delete&order_id=' . $data['ID'] . '&wc_nonce=' . wp_create_nonce( 'order_list' ) . '" onclick="return deleteconfirm(\'' . $data['ID'] . '\');"><span style="color:#FF0000; font-size:9px;">' . __( 'Delete', 'usces' ) . '</span></a></td>';
+	}
+
 	if ( defined( 'WCEX_AUTO_DELIVERY' ) && version_compare( WCEX_AUTO_DELIVERY_VERSION, '1.4.0', '>=' ) ) {
 		$trclass = ( ! empty( $data['reg_parent_id'] ) ) ? ' class="regular_parent_order"' : '';
 	} else {

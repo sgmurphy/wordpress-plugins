@@ -4,7 +4,7 @@ Tags: social share, social sharing, social media, social network, social buttons
 Requires at least: 5.3
 Tested up to: 6.5
 Requires PHP: 7.1
-Stable tag: 1.34.1
+Stable tag: 1.34.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,7 +62,7 @@ We currently support Facebook, Twitter, Pinterest and LinkedIn as social sharing
 
 = Can I customize the social information that is being shared on social media? =
 
-Hubbub Lite will use the post's title and featured image to populate what is being shared on social platforms. Hubbub Pro gives publishers full control of the exact text and images that are shared. Please [visit our website](https://morehubbub.com) and check out Hubbub Pro.
+Hubbub Lite will use the post's title and featured image to populate what is being shared on social platforms. Hubbub Pro gives publishers full control of the exact text and images that are shared. Please [visit our website](https://morehubbub.com/) and check out Hubbub Pro.
 
 = Will your social sharing plugin slow down my website? =
 
@@ -86,6 +86,16 @@ Hubbub Pro has additional add-ons for migrating data from a few popular alternat
 
 == Changelog ==
 This changelog is for Hubbub Lite. Here is [the changelog for Hubbub Pro](https://morehubbub.com/changelog/).
+
+= 1.34.3 =
+* July 16, 2024
+* Improvement: Better compatibility with the Feast plugin.
+* New Admin Notice: [Save This](https://morehubbub.com/save-this/) launches! A brand-new website growth tool has been added to Hubbub Pro. Learn more at [https://morehubbub.com/save-this/](https://morehubbub.com/save-this/)
+
+= 1.34.2 =
+* May 28, 2024
+* Fix: Several links to support docs in the header of each Hubbub settings page.
+* Other updates and improvements.
 
 = 1.34.1 = 
 * May 14, 2024

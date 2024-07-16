@@ -101,7 +101,7 @@ class Get extends Base {
 	 * @param boolean $hide_reels Property to hide item if is a reel.
 	 * @return array
 	 */
-	protected function set_items_data( $items, $hide_items_with_copyright, $hide_reels ) {
+	protected function get_items_data( $items, $hide_items_with_copyright, $hide_reels ) {
 
 		$filter_items = Helpers::array_reduce(
 			$items,
@@ -143,7 +143,7 @@ class Get extends Base {
 						'tags'              => isset( $tags ) ? $tags[0] : '',
 						'comments_count'    => isset( $item['comments_count'] ) ? $item['comments_count'] : '',
 						'likes_count'       => isset( $item['like_count'] ) ? $item['like_count'] : '',
-						'children'          => isset( $item['children']['data'] ) ? $this->set_items_data(
+						'children'          => isset( $item['children']['data'] ) ? $this->get_items_data(
 							$item['children']['data'],
 							$hide_items_with_copyright,
 							$hide_reels
@@ -172,10 +172,10 @@ class Get extends Base {
 	public function response_to_data( $response = null, $hide_items_with_copyright = null, $hide_reels = null ) {
 
 		if ( isset( $response['data'], $response['paging'] ) ) {
-			$feed_items_data = $this->set_items_data( $response['data'], $hide_items_with_copyright, $hide_reels );
+			$items_data = $this->get_items_data( $response['data'], $hide_items_with_copyright, $hide_reels );
 
 			$response = array(
-				'data'   => $feed_items_data,
+				'data'   => $items_data,
 				'paging' => array(
 					'prev' => isset( $response['paging']['previous'] ) ? $response['paging']['cursors']['before'] : '',
 					'next' => isset( $response['paging']['next'] ) ? $response['paging']['cursors']['after'] : '',

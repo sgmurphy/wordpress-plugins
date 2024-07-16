@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-25T14:07:14+00:00\n"
+"POT-Creation-Date: 2024-07-15T19:52:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -1231,7 +1231,7 @@ msgstr ""
 #: bumps/modules/Conditions.js:80
 #: coupons/modules/Restrictions.js:66
 #: customers/EditCustomer.js:119
-#: settings/advanced/AdvancedSettings.js:413
+#: settings/advanced/AdvancedSettings.js:417
 #: settings/export/ExportSettings.js:23
 #: upsell-funnels/modules/Conditions.js:139
 msgid "Customers"
@@ -5331,7 +5331,7 @@ msgid "Payout Groups"
 msgstr ""
 
 #: src/WordPress/Admin/Menus/AdminMenuPageService.php:211
-#: settings/advanced/AdvancedSettings.js:359
+#: settings/advanced/AdvancedSettings.js:363
 msgid "Customer Area"
 msgstr ""
 
@@ -5539,7 +5539,7 @@ msgid "Order Confirmation"
 msgstr ""
 
 #: src/WordPress/Pages/PageService.php:132
-#: settings/advanced/AdvancedSettings.js:323
+#: settings/advanced/AdvancedSettings.js:327
 msgid "Shop Page"
 msgstr ""
 
@@ -6051,12 +6051,12 @@ msgid "This can slightly increase page load speed, but may require you to enable
 msgstr ""
 
 #: admin/advanced.php:52
-#: settings/advanced/AdvancedSettings.js:370
+#: settings/advanced/AdvancedSettings.js:374
 msgid "Legacy Features"
 msgstr ""
 
 #: admin/advanced.php:53
-#: settings/advanced/AdvancedSettings.js:371
+#: settings/advanced/AdvancedSettings.js:375
 msgid "Opt-in to some legacy features of the plugin."
 msgstr ""
 
@@ -6065,31 +6065,31 @@ msgid "Use the Stripe Card Element"
 msgstr ""
 
 #: admin/advanced.php:57
-#: settings/advanced/AdvancedSettings.js:389
+#: settings/advanced/AdvancedSettings.js:393
 msgid "Use Stripe's Card Element instead of the Payment Element in all forms."
 msgstr ""
 
 #: admin/advanced.php:63
 #: admin/plugin.php:106
-#: settings/advanced/AdvancedSettings.js:448
+#: settings/advanced/AdvancedSettings.js:452
 msgid "Uninstall"
 msgstr ""
 
 #: admin/advanced.php:64
 #: admin/plugin.php:107
-#: settings/advanced/AdvancedSettings.js:449
+#: settings/advanced/AdvancedSettings.js:453
 msgid "Change your plugin uninstall settings."
 msgstr ""
 
 #: admin/advanced.php:67
 #: admin/plugin.php:110
-#: settings/advanced/AdvancedSettings.js:464
+#: settings/advanced/AdvancedSettings.js:468
 msgid "Remove Plugin Data"
 msgstr ""
 
 #: admin/advanced.php:68
 #: admin/plugin.php:111
-#: settings/advanced/AdvancedSettings.js:466
+#: settings/advanced/AdvancedSettings.js:470
 msgid "Completely remove all plugin data when deleted. This cannot be undone."
 msgstr ""
 
@@ -11763,80 +11763,80 @@ msgstr ""
 msgid "register a new site and choose v3."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:291
+#: settings/advanced/AdvancedSettings.js:292
 msgid "Stripe Fraud Monitoring"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:293
+#: settings/advanced/AdvancedSettings.js:297
 msgid "This will load stripe.js on every page to help with Fraud monitoring."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:304
+#: settings/advanced/AdvancedSettings.js:308
 msgid "Strong Password Validation"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:306
+#: settings/advanced/AdvancedSettings.js:310
 msgid "This ensures all the password fields have a stronger validation for user password input i.e. at least 6 characters and one special character."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:315
+#: settings/advanced/AdvancedSettings.js:319
 msgid "Admin Appearance"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:316
+#: settings/advanced/AdvancedSettings.js:320
 msgid "Change some admin UI options."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:325
+#: settings/advanced/AdvancedSettings.js:329
 msgid "Show a link to edit the shop page in the menu."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:335
+#: settings/advanced/AdvancedSettings.js:339
 msgid "Cart Page"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:337
+#: settings/advanced/AdvancedSettings.js:341
 msgid "Show a link to edit the cart in the menu."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:347
+#: settings/advanced/AdvancedSettings.js:351
 msgid "Checkout Page"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:349
+#: settings/advanced/AdvancedSettings.js:353
 msgid "Show a link to edit the checkout page in the menu."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:361
+#: settings/advanced/AdvancedSettings.js:365
 msgid "Show a link to edit the customer area in the menu."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:387
+#: settings/advanced/AdvancedSettings.js:391
 msgid "Use The Stripe Card Element"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:398
+#: settings/advanced/AdvancedSettings.js:402
 msgid "Syncing"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:399
+#: settings/advanced/AdvancedSettings.js:403
 msgid "Manually sync your WordPress install with SureCart."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:414
+#: settings/advanced/AdvancedSettings.js:418
 msgid "Match all SureCart customers with WordPress users. This is helpful if you have migrated from another eCommerce platform."
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:422
+#: settings/advanced/AdvancedSettings.js:426
 msgid "Sync Customers"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:429
-#: settings/advanced/AdvancedSettings.js:443
+#: settings/advanced/AdvancedSettings.js:433
+#: settings/advanced/AdvancedSettings.js:447
 msgid "Clear Test Data"
 msgstr ""
 
-#: settings/advanced/AdvancedSettings.js:430
+#: settings/advanced/AdvancedSettings.js:434
 msgid "Clear out all of your test data with one-click."
 msgstr ""
 

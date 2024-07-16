@@ -9,7 +9,7 @@
   Text Domain: wp-force-ssl
   Requires at least: 4.6
   Requires PHP: 5.2
-  Tested up to: 6.5
+  Tested up to: 6.6
 
   Copyright 2019 - 2024  WebFactory Ltd  (email: support@webfactoryltd.com)
 

@@ -413,6 +413,17 @@ console.groupEnd();
 		}
 
 		/**
+		 * Disable 'This' button
+		 *
+		 * @param _this
+		 */
+		function wpbc_booking_form__this_button__disable( _this ){
+
+			// Disable Send button
+			jQuery( _this ).prop( "disabled", true );
+		}
+
+		/**
 		 * Show booking form  Spin Loader
 		 * @param resource_id
 		 */
@@ -479,18 +490,74 @@ console.groupEnd();
 	// <editor-fold     defaultstate="collapsed"                        desc="  ==  Mini Spin Loader  ==  "  >
 
 		/**
+		 *
+		 * @param parent_html_id
+		 */
+
+		/**
+		 * Show micro Spin Loader
+		 *
+		 * @param id						ID of Loader,  for later  hide it by  using 		wpbc__spin_loader__micro__hide( id ) OR wpbc__spin_loader__mini__hide( id )
+		 * @param jq_node_where_insert		such as '#estimate_booking_night_cost_hint10'   OR  '.estimate_booking_night_cost_hint10'
+		 */
+		function wpbc__spin_loader__micro__show__inside( id , jq_node_where_insert ){
+
+				wpbc__spin_loader__mini__show( id, {
+					'color'  : '#444',
+					'show_here': {
+						'where'  : 'inside',
+						'jq_node': jq_node_where_insert
+					},
+					'style'    : 'position: relative;display: inline-flex;flex-flow: column nowrap;justify-content: center;align-items: center;margin: 7px 12px;',
+					'class'    : 'wpbc_one_spin_loader_micro'
+				} );
+		}
+
+		/**
+		 * Remove spinner
+		 * @param id
+		 */
+		function wpbc__spin_loader__micro__hide( id ){
+		    wpbc__spin_loader__mini__hide( id );
+		}
+
+
+		/**
 		 * Show mini Spin Loader
 		 * @param parent_html_id
 		 */
-		function wpbc__spin_loader__mini__show( parent_html_id , color = '#0071ce' ){
+		function wpbc__spin_loader__mini__show( parent_html_id , params = {} ){
 
-			if ( ('undefined' !== typeof (color)) && ('' != color) ){
-				color = 'border-color:' + color + ';';
+			var params_default = {
+									'color'    : '#0071ce',
+									'show_here': {
+										'jq_node': '',					// any jQuery node definition
+										'where'  : 'after'				// 'inside' | 'before' | 'after' | 'right' | 'left'
+									},
+									'style'    : 'position: relative;min-height: 2.8rem;',
+									'class'    : 'wpbc_one_spin_loader_mini 0wpbc_spins_loader_mini'
+								};
+			for ( var p_key in params ){
+				params_default[ p_key ] = params[ p_key ];
 			}
+			params = params_default;
+
+			if ( ('undefined' !== typeof (params['color'])) && ('' != params['color']) ){
+				params['color'] = 'border-color:' + params['color'] + ';';
+			}
+
+			var spinner_html = '<div id="wpbc_mini_spin_loader' + parent_html_id + '" class="wpbc_booking_form_spin_loader" style="' + params[ 'style' ] + '"><div class="wpbc_spins_loader_wrapper"><div class="' + params[ 'class' ] + '" style="' + params[ 'color' ] + '"></div></div></div>';
+
+			if ( '' == params[ 'show_here' ][ 'jq_node' ] ){
+				params[ 'show_here' ][ 'jq_node' ] = '#' + parent_html_id;
+			}
+
 			// Show Spin Loader
-			jQuery( '#' + parent_html_id ).after(
-				'<div id="wpbc_mini_spin_loader' + parent_html_id + '" class="wpbc_booking_form_spin_loader" style="position: relative;min-height: 2.8rem;"><div class="wpbc_spins_loader_wrapper"><div class="wpbc_one_spin_loader_mini 0wpbc_spins_loader_mini" style="'+color+'"></div></div></div>'
-			);
+			if ( 'after' == params[ 'show_here' ][ 'where' ] ){
+				jQuery( params[ 'show_here' ][ 'jq_node' ] ).after( spinner_html );
+			} else {
+				jQuery( params[ 'show_here' ][ 'jq_node' ] ).html( spinner_html );
+			}
 		}
 
 		/**
@@ -552,11 +619,17 @@ function wpbc_show_thank_you_message_after_booking( response_data ){
 	confirm_content += `  <div class="wpbc_after_booking_thank_you_section">`;
 	confirm_content += `    <div class="wpbc_ty__message ${ty_message_hide}">${response_data[ 'ajx_confirmation' ][ 'ty_message' ]}</div>`;
     confirm_content += `    <div class="wpbc_ty__container">`;
-    confirm_content += `      <div class="wpbc_ty__header">${response_data['ajx_confirmation']['ty_message_booking_id']}</div>`;
+	if ( '' !== response_data[ 'ajx_confirmation' ][ 'ty_message_booking_id' ] ){
+		confirm_content += `      <div class="wpbc_ty__header">${response_data[ 'ajx_confirmation' ][ 'ty_message_booking_id' ]}</div>`;
+	}
     confirm_content += `      <div class="wpbc_ty__content">`;
 	confirm_content += `        <div class="wpbc_ty__content_text wpbc_ty__payment_description ${ty_payment_payment_description_hide}">${response_data[ 'ajx_confirmation' ][ 'ty_payment_payment_description' ].replace( /\\n/g, '' )}</div>`;
-    confirm_content += `      	<div class="wpbc_ty__content_text wpbc_cols_2">${response_data['ajx_confirmation']['ty_customer_details']}</div>`;
-    confirm_content += `      	<div class="wpbc_ty__content_text wpbc_cols_2">${response_data['ajx_confirmation']['ty_booking_details']}</div>`;
+	if ( '' !== response_data[ 'ajx_confirmation' ][ 'ty_customer_details' ] ){
+		confirm_content += `      	<div class="wpbc_ty__content_text wpbc_cols_2">${response_data['ajx_confirmation']['ty_customer_details']}</div>`;
+	}
+	if ( '' !== response_data[ 'ajx_confirmation' ][ 'ty_booking_details' ] ){
+		confirm_content += `      	<div class="wpbc_ty__content_text wpbc_cols_2">${response_data['ajx_confirmation']['ty_booking_details']}</div>`;
+	}
 	confirm_content += `        <div class="wpbc_ty__content_text wpbc_ty__content_costs ${ty_booking_costs_hide}">${response_data[ 'ajx_confirmation' ][ 'ty_booking_costs' ]}</div>`;
 	confirm_content += `        <div class="wpbc_ty__content_text wpbc_ty__content_gateways ${ty_payment_gateways_hide}">${response_data[ 'ajx_confirmation' ][ 'ty_payment_gateways' ].replace( /\\n/g, '' ).replace( /ajax_script/gi, 'script' )}</div>`;
     confirm_content += `      </div>`;

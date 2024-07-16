@@ -17,12 +17,17 @@ import {
   Flex,
 } from "@wordpress/components";
 import { store as coreStore, useEntityBlockEditor } from "@wordpress/core-data";
-import { useSelect } from "@wordpress/data";
+import { useSelect, useDispatch, select } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 import ProvidersPlaceholder from "../../shared/ProvidersPlaceholder/ProvidersPlaceholder";
-import { Icon, symbolFilled } from "@wordpress/icons";
+import { Icon, symbolFilled, edit } from "@wordpress/icons";
+import { useState } from "@wordpress/element";
+import EditContext from "./context";
+import { useEffect } from "@wordpress/element";
 
-export default ({ attributes, context, clientId }) => {
+export default ({ attributes, context, clientId, isSelected }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const { selectBlock } = useDispatch(blockEditorStore);
   const { id: idAttribute } = attributes;
   const id = context["presto-player/playlist-media-id"] || idAttribute;
   const blockProps = useBlockProps();
@@ -51,31 +56,60 @@ export default ({ attributes, context, clientId }) => {
     templateLock: "all",
   });
 
-  const { media, canEdit, onNavigateToEntityRecord, isMissing, hasResolved } =
-    useSelect(
-      (select) => {
-        const queryArgs = ["postType", "pp_video_block", id];
-        const hasResolved = select(coreStore).hasFinishedResolution(
+  const { media, canEdit, isMissing, hasResolved } = useSelect(
+    (select) => {
+      const queryArgs = ["postType", "pp_video_block", id];
+      const hasResolved = select(coreStore).hasFinishedResolution(
+        "getEntityRecord",
+        queryArgs
+      );
+      const media = select(coreStore).getEntityRecord(...queryArgs);
+      const canEdit = select(coreStore).canUserEditEntityRecord(...queryArgs);
+      return {
+        media,
+        canEdit,
+        isMissing: hasResolved && !media && id,
+        hasResolved,
+        isResolving: select(coreStore).isResolving(
           "getEntityRecord",
           queryArgs
-        );
-        const media = select(coreStore).getEntityRecord(...queryArgs);
-        const canEdit = select(coreStore).canUserEditEntityRecord(...queryArgs);
-        const { getSettings } = select(blockEditorStore);
-        return {
-          media,
-          canEdit,
-          isMissing: hasResolved && !media && id,
-          hasResolved,
-          onNavigateToEntityRecord: getSettings().onNavigateToEntityRecord,
-          isResolving: select(coreStore).isResolving(
-            "getEntityRecord",
-            queryArgs
-          ),
-        };
-      },
-      [id, clientId]
-    );
+        ),
+      };
+    },
+    [id, clientId]
+  );
+
+  // we can edit the original if there is a block src,
+  // the user can edit, and there is a src or provider_video_id.
+  const canEditOriginal =
+    !!hasSrc &&
+    !!canEdit &&
+    !!(media?.details?.src || media?.details?.provider_video_id);
+
+  // set the selection based on if editing or not.
+  useEffect(() => {
+    // we need setimeout to ensure the block is selected after it is rendered.
+    // this is because we swap between preview and regular inner blocks.
+    setTimeout(() => {
+      const blocks = select(blockEditorStore).getBlocks(clientId);
+      const innerBlockClientId = blocks?.[0]?.innerBlocks?.[0]?.clientId;
+      if (innerBlockClientId && isEditing && canEditOriginal) {
+        selectBlock(innerBlockClientId);
+      } else {
+        selectBlock(clientId);
+      }
+    });
+  }, [isEditing]);
+
+  // make sure innermost block is always selected when this block is selected.
+  // if we are not in edit mode, it won't have any inner blocks anyway.
+  useEffect(() => {
+    const blocks = select(blockEditorStore).getBlocks(clientId);
+    const innerBlockClientId = blocks?.[0]?.innerBlocks?.[0]?.clientId;
+    if (innerBlockClientId) {
+      selectBlock(innerBlockClientId);
+    }
+  }, [isSelected]);
 
   if (!hasResolved) {
     return (
@@ -115,28 +149,21 @@ export default ({ attributes, context, clientId }) => {
     return <ProvidersPlaceholder clientId={clientId} />;
   }
 
-  // we can edit the original if there is a block src,
-  // the user can edit, and there is a src or provider_video_id.
-  const editOriginal =
-    !!hasSrc &&
-    !!canEdit &&
-    !!(media?.details?.src || media?.details?.provider_video_id);
+  if (!canEditOriginal || isEditing) {
+    return (
+      <EditContext.Provider value={{ isEditing, setIsEditing }}>
+        <div {...innerBlocksProps} />
+      </EditContext.Provider>
+    );
+  }
 
   return (
     <>
-      {editOriginal && (
+      {canEditOriginal && (
         <>
           <BlockControls>
             <Toolbar>
-              <Button
-                icon="edit"
-                onClick={() =>
-                  onNavigateToEntityRecord({
-                    postId: id,
-                    postType: "pp_video_block",
-                  })
-                }
-              >
+              <Button icon={edit} onClick={() => setIsEditing(true)}>
                 {__("Edit Original", "presto-player")}
               </Button>
             </Toolbar>
@@ -161,27 +188,19 @@ export default ({ attributes, context, clientId }) => {
               ></BaseControl>
 
               <Button
-                icon="edit"
-                onClick={() =>
-                  onNavigateToEntityRecord({
-                    postId: id,
-                    postType: "pp_video_block",
-                  })
-                }
+                icon={edit}
+                onClick={() => setIsEditing(true)}
                 variant="secondary"
               >
                 {__("Edit Original", "presto-player")}
               </Button>
             </PanelBody>
           </InspectorControls>
+
+          <div {...blockProps}>
+            <div {...blockPreviewProps} />
+          </div>
         </>
-      )}
-      {editOriginal ? (
-        <div {...blockProps}>
-          <div {...blockPreviewProps} />
-        </div>
-      ) : (
-        <div {...innerBlocksProps} />
       )}
     </>
   );

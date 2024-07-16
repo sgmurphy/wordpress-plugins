@@ -43,6 +43,8 @@ $csv_encode_type            = ( isset( $this->options['system']['csv_encode_type
 $csv_category_format        = ( isset( $this->options['system']['csv_category_format'] ) ) ? $this->options['system']['csv_category_format'] : 0;
 $settlement_backup          = ( isset( $this->options['system']['settlement_backup'] ) ) ? $this->options['system']['settlement_backup'] : 0;
 $settlement_notice          = ( isset( $this->options['system']['settlement_notice'] ) ) ? $this->options['system']['settlement_notice'] : 0;
+$order_list_delete_link     = ( isset( $this->options['system']['order_list_delete_link'] ) ) ? $this->options['system']['order_list_delete_link'] : 0;
+$member_list_delete_link    = ( isset( $this->options['system']['member_list_delete_link'] ) ) ? $this->options['system']['member_list_delete_link'] : 0;
 ?>
 <script type="text/javascript">
 jQuery(function($){
@@ -553,6 +555,36 @@ jQuery(document).ready(function($) {
 		<td width="10"><input name="settlement_notice" id="settlement_notice_1" type="radio" value="1"<?php checked( $settlement_notice, 1 ); ?>/></td><td width="100"><label for="settlement_notice_1"><?php esc_html_e( 'Display', 'usces' ); ?></label></td>
 	</tr>
 </table>
+<hr />
+<table class="form_table">
+	<tr height="30">
+		<th class="system_th" rowspan="2"><a style="cursor:pointer;" onclick="toggleVisibility('ex_order_list_delete_link');"><?php esc_html_e( 'Delete link in the order list', 'usces' ); ?></a></th>
+		<td width="10"><input name="order_list_delete_link" id="order_list_delete_link_0" type="radio" value="0"<?php checked( $order_list_delete_link, 0 ); ?>/></td><td width="100"><label for="order_list_delete_link_0"><?php esc_html_e( 'Do not display', 'usces' ); ?></label></td>
+		<td rowspan="2"><div id="ex_order_list_delete_link" class="explanation">
+		<?php
+		esc_html_e( 'Show/hide the "Delete" link in the order list', 'usces' );
+		?>
+		</div></td>
+	</tr>
+	<tr height="30">
+		<td width="10"><input name="order_list_delete_link" id="order_list_delete_link_1" type="radio" value="1"<?php checked( $order_list_delete_link, 1 ); ?>/></td><td width="100"><label for="order_list_delete_link_1"><?php esc_html_e( 'Display', 'usces' ); ?></label></td>
+	</tr>
+</table>
+<table class="form_table">
+	<tr height="30">
+		<th class="system_th" rowspan="2"><a style="cursor:pointer;" onclick="toggleVisibility('ex_member_list_delete_link');"><?php esc_html_e( 'Delete link in the member list', 'usces' ); ?></a></th>
+		<td width="10"><input name="member_list_delete_link" id="member_list_delete_link_0" type="radio" value="0"<?php checked( $member_list_delete_link, 0 ); ?>/></td><td width="100"><label for="member_list_delete_link_0"><?php esc_html_e( 'Do not display', 'usces' ); ?></label></td>
+		<td rowspan="2"><div id="ex_member_list_delete_link" class="explanation">
+		<?php
+		esc_html_e( 'Show/hide the "Delete" link in the member list', 'usces' );
+		?>
+		</div></td>
+	</tr>
+	<tr height="30">
+		<td width="10"><input name="member_list_delete_link" id="member_list_delete_link_1" type="radio" value="1"<?php checked( $member_list_delete_link, 1 ); ?>/></td><td width="100"><label for="member_list_delete_link_1"><?php esc_html_e( 'Display', 'usces' ); ?></label></td>
+	</tr>
+</table>
+
 </div>
 </div><!--postbox-->
 <input name="usces_system_option_update" type="submit" class="button button-primary" value="<?php esc_attr_e( 'change decision', 'usces' ); ?>" />

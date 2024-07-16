@@ -773,6 +773,14 @@ trait AdminInitTrait {
 				wp_die();
 			}
 
+			// Auto-save mode
+			if (isset($_GET['auto_save_mode'])) {
+				$pref_array = array();
+				$pref_array['auto_save_mode'] = intval($_GET['auto_save_mode']);
+				$this->savePreferences($pref_array);
+				wp_die();
+			}
+
 			// Auto-publish mode
 			if (isset($_GET['auto_publish_mode'])) {
 				$pref_array = array();

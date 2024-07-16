@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.19
+Stable tag: 5.2.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -452,6 +452,12 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.20 =
+
+* Identifies fields with col-... or column... class names assigned with a top-right icon.
+* Improves the admin appearance of data-table control.
+* Adds new form templates for storage requirements and booking.
+
 = 5.2.19 =
 
 * Enhances the CSS edition.
@@ -486,9 +492,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Moves the Customize Form Design CSS editor to the Advanced Settings tab in the form settings.
 * Implements new forms template.
 * Modifies the data sources fields (Developer and Platinum plugin versions).
-
-= 5.2.14 =
-
-* Include the internationalization WordPress function in some missed texts.
-* Fixes a warning message handling the form height.
-* Modifies the form importing module (Professional, Developer, and Platinum plugin versions).

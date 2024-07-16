@@ -592,7 +592,7 @@ $section_nav_bar = '<div class="cff-navigation-sections-menu">
 						</tr>
 
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Paypal product name', 'calculated-fields-form' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Product name', 'calculated-fields-form' ); ?></th>
 							<td><input type="text" name="paypal_product_name" class="width75" value="<?php echo esc_attr( $form_obj->get_option( 'paypal_product_name', CP_CALCULATEDFIELDSF_DEFAULT_PRODUCT_NAME ) ); ?>" /></td>
 						</tr>
 

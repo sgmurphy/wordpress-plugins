@@ -2,7 +2,7 @@
 Contributors: WebFactory
 Tags: ssl, force ssl, https, ssl certificate, mixed content
 Requires at least: 4.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.2
 Stable Tag: 1.67
 License: GPLv2 or later

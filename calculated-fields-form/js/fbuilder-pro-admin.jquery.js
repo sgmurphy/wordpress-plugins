@@ -1511,6 +1511,17 @@
 				});
 			},
 
+			showColumnIcon:function()
+			{
+				let output = '';
+				if ( 'csslayout' in this ) {
+					if ( /\b((col\-(lg|md|sm|xs)\-\d+)|(column\d+))\b/i.test( this.csslayout) ) {
+						return '<div class="sticker" title="Has column classes applied"><i class="sticker-x"></i></div>';
+					}
+				}
+				return output;
+			},
+
 			showSpecialData:function()
 			{
 				if(typeof this.showSpecialDataInstance != 'undefined')

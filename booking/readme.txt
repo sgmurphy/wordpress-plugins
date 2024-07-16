@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 10.1.3
+Stable tag: 10.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -224,37 +224,39 @@ Administrators can manage all reservations from the modern and easy-to-use admin
 = Support Languages (local) =
 
 - English
-- Hungarian 96.84% [ 2234 / 2307 ], fuzzy 56, not translated 17
-- French (France) 95.34% [ 2191 / 2298 ], fuzzy 78, not translated 29
-- Dutch 95.32% [ 2199 / 2307 ], fuzzy 79, not translated 29
-- German 95.19% [ 2196 / 2307 ], fuzzy 80, not translated 31
-- Spanish (Spain) 84.51% [ 1942 / 2298 ], fuzzy 159, not translated 197
-- Greek 80.29% [ 1845 / 2298 ], fuzzy 298, not translated 155
-- Turkish 79.24% [ 1821 / 2298 ], fuzzy 316, not translated 161
-- Portuguese (Brazil) 78.15% [ 1803 / 2307 ], fuzzy 333, not translated 171
-- Italian 77.02% [ 1770 / 2298 ], fuzzy 202, not translated 326
-- Romanian 71.5% [ 1643 / 2298 ], fuzzy 426, not translated 229
-- Arabic 71.19% [ 1636 / 2298 ], fuzzy 432, not translated 230
-- Finnish 71.11% [ 1634 / 2298 ], fuzzy 438, not translated 226
-- Spanish (Mexico) 70.97% [ 1631 / 2298 ], fuzzy 442, not translated 225
-- Swedish 70.5% [ 1620 / 2298 ], fuzzy 442, not translated 236
-- Norwegian (Bokmål) 70.1% [ 1611 / 2298 ], fuzzy 453, not translated 234
-- Polish 70.02% [ 1609 / 2298 ], fuzzy 449, not translated 240
-- Slovenian 69.15% [ 1589 / 2298 ], fuzzy 463, not translated 246
-- Danish 65.71% [ 1510 / 2298 ], fuzzy 513, not translated 275
-- Bulgarian 65.67% [ 1509 / 2298 ], fuzzy 508, not translated 281
-- Chinese (Taiwan) 64.14% [ 1474 / 2298 ], fuzzy 559, not translated 265
-- Russian 62.72% [ 1447 / 2307 ], fuzzy 559, not translated 301
-- Portuguese (Portugal) 62.36% [ 1433 / 2298 ], fuzzy 561, not translated 304
-- Galician 62.27% [ 1431 / 2298 ], fuzzy 568, not translated 299
-- Thai 62.18% [ 1429 / 2298 ], fuzzy 559, not translated 310
-- Hebrew 60.23% [ 1384 / 2298 ], fuzzy 565, not translated 349
-- Chinese (China) 59.66% [ 1371 / 2298 ], fuzzy 570, not translated 357
-- Ukrainian 59.47% [ 1372 / 2307 ], fuzzy 583, not translated 352
-- Croatian 51.26% [ 1178 / 2298 ], fuzzy 554, not translated 566
-- Slovak 51.22% [ 1177 / 2298 ], fuzzy 557, not translated 564
-- Czech 51.17% [ 1176 / 2298 ], fuzzy 554, not translated 568
-- Catalan 51.04% [ 1173 / 2298 ], fuzzy 558, not translated 567
+- Dutch 99.74% [ 2320 / 2326 ], fuzzy 4, not translated 2
+- French (France) 97.07% [ 2249 / 2317 ], fuzzy 60, not translated 8
+- Hungarian 96.95% [ 2255 / 2326 ], fuzzy 50, not translated 21
+- Korean 96.78% [ 2251 / 2326 ], fuzzy 48, not translated 27
+- German 96.35% [ 2241 / 2326 ], fuzzy 83, not translated 2
+- Spanish (Spain) 87.48% [ 2027 / 2317 ], fuzzy 123, not translated 167
+- Turkish 83.64% [ 1938 / 2317 ], fuzzy 241, not translated 138
+- Greek 83.21% [ 1928 / 2317 ], fuzzy 244, not translated 145
+- Danish 82.95% [ 1922 / 2317 ], fuzzy 258, not translated 137
+- Portuguese (Brazil) 82.89% [ 1928 / 2326 ], fuzzy 247, not translated 151
+- Italian 80.75% [ 1871 / 2317 ], fuzzy 154, not translated 292
+- Spanish (Mexico) 77.13% [ 1787 / 2317 ], fuzzy 338, not translated 192
+- Romanian 76.13% [ 1764 / 2317 ], fuzzy 346, not translated 207
+- Swedish 75.66% [ 1753 / 2317 ], fuzzy 360, not translated 204
+- Finnish 75.44% [ 1748 / 2317 ], fuzzy 364, not translated 205
+- Polish 74.97% [ 1737 / 2317 ], fuzzy 361, not translated 219
+- Norwegian (Bokmål) 74.49% [ 1726 / 2317 ], fuzzy 375, not translated 216
+- Arabic 73.5% [ 1703 / 2317 ], fuzzy 393, not translated 221
+- Russian 72.44% [ 1685 / 2326 ], fuzzy 635, not translated 6
+- Slovenian 72.42% [ 1678 / 2317 ], fuzzy 406, not translated 233
+- Chinese (Taiwan) 70.09% [ 1624 / 2317 ], fuzzy 458, not translated 235
+- Bulgarian 69.79% [ 1617 / 2317 ], fuzzy 435, not translated 265
+- Portuguese (Portugal) 68.19% [ 1580 / 2317 ], fuzzy 458, not translated 279
+- Chinese (China) 67.41% [ 1562 / 2317 ], fuzzy 445, not translated 310
+- Thai 65.6% [ 1520 / 2317 ], fuzzy 501, not translated 296
+- Hebrew 65.26% [ 1512 / 2317 ], fuzzy 489, not translated 316
+- Ukrainian 64.96% [ 1511 / 2326 ], fuzzy 492, not translated 323
+- Japanese 63.93% [ 1487 / 2326 ], fuzzy 24, not translated 815
+- Galician 63.79% [ 1478 / 2317 ], fuzzy 544, not translated 295
+- Slovak 59.26% [ 1373 / 2317 ], fuzzy 476, not translated 468
+- Catalan 57.92% [ 1342 / 2317 ], fuzzy 497, not translated 478
+- Croatian 57.53% [ 1333 / 2317 ], fuzzy 499, not translated 485
+- Czech 50.76% [ 1176 / 2317 ], fuzzy 562, not translated 579
 
 Please recheck the status of each translation, before using plugin.
 We open for your help in new translations or correcting existing ones. You can translate to new language or update exist one, using this [tutorial of translation](https://wpbookingcalendar.com/faq/make-translation-of-wp-plugin/)
@@ -286,6 +288,36 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 
 == Changelog ==
+= 10.2 =
+- Changes in **all** versions:
+	* **New** New: Added a configurable Confirmation section. You can now decide what to show in the "Confirmation Window" after a booking is created. Enable or disable content and configure it with shortcodes to display information in the "Personal Information" and "Booking Details" sections of the Booking Confirmation window.
+	* **Support** WordPress 6.6
+	* **New** Updated typography for booking form elements. This enhancement provides a cleaner interface and helps prevent CSS conflicts with themes.
+	* **New** Added the option "**Use Selected Times for Each Booking Date**", which can be enabled if the '**Multiple Days**' selection mode is activated. This feature is useful for using the selected times as booked time slots on each selected date. Otherwise, the selected times will serve as the start time for the first date and the end time for the last date, with all middle dates fully booked. Enable this option on the Settings > General page in the "Calendar" section. (10.1.5.4)
+	* **New** Added the **'Partially Booked' calendar legend item**. Configure this feature on the Settings > General page in the "Calendar" section under the 'Show legend below calendar' option. (10.1.5.5)
+	* **New** Added the **[only_dates] shortcode** for email templates. This shortcode inserts only booking dates without times. (10.1.5.6)
+	* **Improvement** Added a thin scroll bar to popovers in the Calendar Overview and Timeline when displaying long booking details or details for multiple bookings. (10.1.5.3)
+	* **Translation**. Added Korean translation, now 96% complete thanks to modelaid.
+	* **Under hood**: Updated Bootstrap icons to the latest 1.11.3 version.
+	* **Under hood**: Removed the deprecated BS Glyph font.
+	* **Under hood**: Removed the deprecated wpbc_vars.js script, including the script ID 'wpbc-global-vars'.
+	* **Under hood**: The option 'Using BootStrap CSS for the form fields' is now deprecated and has been relocated to the Settings  General page in the "Advanced" section.
+	* **Under hood**: Added support for the WP Rocket plugin by adding an exclusion from JavaScript Delay execution for improved compatibility and performance.
+	* **Fix** Resolved an issue with the height of booking form fields in some themes. (10.1.5.7)
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+	* **Improvement**  Improved form times templates for enhanced usability and functionality. *(Personal, Business Small/Medium/Large, MultiUser)*
+	* **Improvement**  Updated the view of the "Back to Super Admin" button when a super booking admin user simulates a login as a "Regular User." (10.1.5.2) *(MultiUser)*
+	* **Improvement**  Updated the spinners for cost and date hints in the booking form to improve user experience and clarity. *(Business Medium/Large, MultiUser)*
+	* **Under hood**: Introduced a new hook 'wpbc_visitor_action__booking_trash' that triggers when visitors cancel their own booking. Example usage: function your_cust_func_wpbc_visitor_action__booking_trash ( $booking_id, $resource_id ) { /* Your code here */ } add_action( 'wpbc_visitor_action__booking_trash', 'your_cust_func_wpbc_visitor_action__booking_trash', 100, 2 );  (10.2.0.3)
+	* **Fix** Resolved functionality to allow the unchecking of exclusive checkboxes in group checkbox options. (10.1.5.1) *(Personal, Business Small/Medium/Large, MultiUser)*
+	* **Fix** Fixed the issue where search results would not display on a separate page if custom search filter options were used in the search form. (10.2.0.2) *(Personal, Business Large, MultiUser)*
+	* **Fix** Fixed the issue where popovers were not showing in the timeline on the front-end during initial page loading with an active cache plugin. (10.2.0.4)
+
+= 10.1.4 =
+- Changes in **all** versions:
+	* **Fix** CAPTCHA showing
+	* **Fix** Resolve conflict issue with popover in timelines at some themes,  which  added html P tags into  the inlin  JavaScript code and then generate error such  as this: "expected expression, got '<'" (10.1.4.1)
+
 = 10.1.3 =
 - Changes in **all** versions:
 	* **Improvement** Resolve cache issues with most of cache plugins, such as Jetpack Boost, WP-Optimize, WP Super Cache, WP Fastest Cache, W3 Total Cache, and more. (10.1.3.1)
@@ -447,6 +479,9 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 For more information, see the [full release notes](https://wpbookingcalendar.com/changelog/).
 
 == Upgrade Notice ==
+= 10.2 =
+Explore Advanced Configurable Booking Confirmation, Enhanced Booking Form Typography, and more...
+
 = 10.1 =
 Explore enhanced simple booking form setup, with Preview option. Updated UI on the Calendar Overview and Settings pages. Completely new Search Availability Engine to search for available Dates and Times (NEW) based on unavailable dates, and other criteria in Business Large or higher version. And much more.
 

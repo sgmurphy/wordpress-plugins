@@ -144,12 +144,12 @@ class Ays_Pb_Admin {
         );
 
         $color_picker_strings = array(
-            'clear' => __( 'Clear', $this->plugin_name ),
-            'clearAriaLabel' => __( 'Clear color', $this->plugin_name ),
-            'defaultString' => __( 'Default', $this->plugin_name ),
-            'defaultAriaLabel' => __( 'Select default color', $this->plugin_name ),
-            'pick' => __( 'Select Color', $this->plugin_name ),
-            'defaultLabel' => __( 'Color value', $this->plugin_name ),
+            'clear' => __( 'Clear', "ays-popup-box" ),
+            'clearAriaLabel' => __( 'Clear color', "ays-popup-box" ),
+            'defaultString' => __( 'Default', "ays-popup-box" ),
+            'defaultAriaLabel' => __( 'Select default color', "ays-popup-box" ),
+            'pick' => __( 'Select Color', "ays-popup-box" ),
+            'defaultLabel' => __( 'Color value', "ays-popup-box" ),
         );
 
         // Extended scripts

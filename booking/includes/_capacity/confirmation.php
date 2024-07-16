@@ -94,35 +94,74 @@ function wpbc_booking_confirmation( $params_arr ){
 	// == Confirmation data ==          / TY - Thank you /
 	// =================================================================================================================
 
-	$confirmation['ty_message'] = stripslashes( esc_js( wpbc_lang( get_bk_option( 'booking_title_after_reservation' ) ) ) );   // 'Thank you for booking!'
-	$confirmation['ty_message_booking_id'] = sprintf( __( 'Your booking id: %s', 'booking' ), "<strong>{$params_arr['booking_id']}</strong>" );
+	$replace_arr = wpbc__get_replace_shortcodes__email_new_visitor( $params_arr['booking_id'], $params_arr['resource_id'], $params_arr['form_data'] );
 
-	// -- Customer details --
-	$plain_form_data_show = wpbc_get__booking_form_data__show( $params_arr['form_data'], $params_arr['resource_id'], array( 'unknown_shortcodes_replace_by' => ' ... ' ) );
-
-	$confirmation['ty_customer_details']  = '<div class="wpbc_ty__section_header">' . __( 'Personal information', 'booking' ) . '</div>';
-	$confirmation['ty_customer_details'] .= $plain_form_data_show;
-
-	// -- Booking details --
-	$confirmation['ty_booking_details']  = '<div class="wpbc_ty__section_header">' . __( 'Booking details', 'booking' ) . '</div>';
-	$confirmation['ty_booking_details'] .= '<h4  class="wpbc_ty__section_text_resource">' . wpbc_get_resource_title( $params_arr['resource_id'] ) . '</h4>';
-
-	// -- Dates text --
-	$confirmation['ty_booking_details'] .= '<div class="wpbc_ty__section_text_dates">'
-                                            . wpbc_get_redable_dates( $params_arr['dates_ymd_arr']  )
-	                                     . '</div>';
-	// -- Times text --
+	$replace_arr['readable_dates'] = '<div class="wpbc_ty__section_text_dates">'. wpbc_get_redable_dates( $params_arr['dates_ymd_arr']  ) . '</div>';
+	$replace_arr['readable_times'] = '';
 	if (
-		   ( wpbc_transform__24_hours_his__in__seconds( $params_arr['times_his_arr'][0] ) > 0 )
-		&& ( wpbc_transform__24_hours_his__in__seconds( $params_arr['times_his_arr'][0] ) < 86400 )
+			( wpbc_transform__24_hours_his__in__seconds( $params_arr['times_his_arr'][0] ) > 0 )
+		 && ( wpbc_transform__24_hours_his__in__seconds( $params_arr['times_his_arr'][0] ) < 86400 )
 	) {
-		$confirmation['ty_booking_details'] .= '<div class="wpbc_ty__section_text_times">'
-                                            . wpbc_get_redable_times( $params_arr['dates_ymd_arr']
-																	, $params_arr['times_his_arr']
-                                              )
-	                                     . '</div>';
+		// -- Times text --
+		$replace_arr['readable_times'] = '<div class="wpbc_ty__section_text_times">' . wpbc_get_redable_times( $params_arr['dates_ymd_arr'], $params_arr['times_his_arr'] ) . '</div>';
 	}
+
+	//  Top - Thank you
+	$title_after_reservation = html_entity_decode( esc_js(  wpbc_lang( get_bk_option( 'booking_title_after_reservation' ) ) ) );
+	$title_after_reservation = wpbc_replace_booking_shortcodes( $title_after_reservation, $replace_arr, ' --- ' );
+	$title_after_reservation = stripslashes( $title_after_reservation );
+	$confirmation['ty_message'] = $title_after_reservation;                                                             // 'Thank you for booking!'
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// Booking ID
+	// -----------------------------------------------------------------------------------------------------------------
+	$confirmation['ty_message_booking_id'] = '';
+	if ( 'Off' !== get_bk_option( 'booking_confirmation_header_enabled' ) ) {
+		$confirmation['ty_message_booking_id'] .= ( false !== get_bk_option( 'booking_confirmation_header' ) )
+															? html_entity_decode( esc_js(  wpbc_lang( get_bk_option( 'booking_confirmation_header' ) ) ) )
+															: sprintf( __( 'Your booking id: %s', 'booking' ), '<strong>[booking_id]</strong>' );
+	}
+	$confirmation['ty_message_booking_id'] = wpbc_replace_booking_shortcodes( $confirmation['ty_message_booking_id'], $replace_arr, ' --- ' );
+	$confirmation['ty_message_booking_id'] = stripslashes( $confirmation['ty_message_booking_id'] );
+			//$confirmation['ty_message_booking_id'] = str_replace( '[booking_id]', $params_arr['booking_id'], $confirmation['ty_message_booking_id'] );
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// -- Customer details --
+	// -----------------------------------------------------------------------------------------------------------------
+			//$plain_form_data_show = wpbc_get__booking_form_data__show( $params_arr['form_data'], $params_arr['resource_id'], array( 'unknown_shortcodes_replace_by' => ' ... ' ) );
+
+	$confirmation['ty_customer_details'] = '';
+	if ( 'Off' !== get_bk_option( 'booking_confirmation__personal_info__header_enabled' ) ) {
+		// Title
+		$section_title = html_entity_decode( esc_js(  wpbc_lang( get_bk_option( 'booking_confirmation__personal_info__title' ) ) ) );
+		$confirmation['ty_customer_details'] .= '<div class="wpbc_ty__section_header">' . $section_title . '</div>';
+
+		// Content
+		$confirmation['ty_customer_details'] .= html_entity_decode( esc_js(  wpbc_lang( get_bk_option( 'booking_confirmation__personal_info__content' ) ) ) );
+		$confirmation['ty_customer_details'] = str_replace( array( "\\n", "\n" ), '<br>', $confirmation['ty_customer_details'] );
+		$confirmation['ty_customer_details'] = wpbc_replace_booking_shortcodes( $confirmation['ty_customer_details'], $replace_arr, ' --- ' );
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+	// -- Booking details --
+	// -----------------------------------------------------------------------------------------------------------------
+	$confirmation['ty_booking_details'] = '';
+	if ( 'Off' !== get_bk_option( 'booking_confirmation__booking_details__header_enabled' ) ) {
+		// Title
+		$section_title = html_entity_decode( esc_js(  wpbc_lang( get_bk_option( 'booking_confirmation__booking_details__title' ) ) ) );
+		$confirmation['ty_booking_details'] .= '<div class="wpbc_ty__section_header">' . $section_title . '</div>';
+
+		// Content
+		$confirmation['ty_booking_details'] .= html_entity_decode( esc_js( wpbc_lang( get_bk_option( 'booking_confirmation__booking_details__content' ) ) ) );
+		$confirmation['ty_booking_details'] = str_replace( array( "\\n", "\n" ), '<br>', $confirmation['ty_booking_details'] );
+		$confirmation['ty_booking_details'] = wpbc_replace_booking_shortcodes( $confirmation['ty_booking_details'], $replace_arr, ' --- ' );
+	}
+
+
+
+	// -----------------------------------------------------------------------------------------------------------------
 	// -- Costs text --
+	// -----------------------------------------------------------------------------------------------------------------
 	$confirmation['ty_booking_costs'] = '';
 	$confirmation['payment_cost'] = '';
 

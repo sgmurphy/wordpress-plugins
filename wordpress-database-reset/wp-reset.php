@@ -4,7 +4,7 @@
   Plugin URI: https://wordpress.org/plugins/wordpress-database-reset/
   Description: Reset all or some WP database tables back to their original state.
   Version: 3.24
-  Tested up to: 6.5
+  Tested up to: 6.6
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   License: GNU General Public License

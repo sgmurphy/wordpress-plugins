@@ -9,6 +9,9 @@
  * 
  * @modified 2023-11-11
  */
+:root {
+    --wpbc_form-button-light-size-height: 43px;
+}
 .booking_form * ,
 .bk_calendar_frame *{
   /*! -webkit-box-sizing: border-box; */
@@ -204,7 +207,16 @@ form.booking_form {
     width:auto;
     vertical-align: middle;
 }
-/* Checkbox, Radio */
+
+.booking_form .wpdev-checkbox .wpdev-list-item,
+.booking_form .wpdev-radio .wpdev-list-item {
+    margin-right: 0.5em;
+}
+div.wpbc_container.wpbc_form .booking_form .wpdev-radio .wpdev-list-item input,
+div.wpbc_container.wpbc_form .booking_form .wpdev-checkbox .wpdev-list-item input{
+    margin-top: 3px;
+}
+/* Checkbox, Radio *
 .booking_form .wpdev-checkbox .wpdev-list-item,
 .booking_form .wpdev-radio    .wpdev-list-item{
     padding: 0 0.5em 0 0;
@@ -222,11 +234,12 @@ form.booking_form {
     padding: 0;
     vertical-align: middle;
 }
-/* Inline element in a row  2023-11-17   //FixIn: 9.8.8.1  */
+*/
+/* Inline element in a row  2023-11-17   //FixIn: 9.8.8.1  *
 .wpbc_container_booking_form .wpbc__field .wpbc_row_inline  .wpdev-list-item input[type="radio"]{
     vertical-align: baseline;
 }
-
+*/
 /* FixIn: 9.6.2.5 */
 .booking_form input[type="text"]:focus,
 .booking_form input[type="password"]:focus,
@@ -251,13 +264,14 @@ form.booking_form {
     outline: none;
     border-color: #567cb8;
 }
+/*
 .booking_form label.wpdev-list-item-label,
 .booking_form label.wpdev-list-item-label:hover {
     display: inline;
     cursor: pointer;
     vertical-align: middle;
     font-weight: 400;
-}
+}*/
 /* Disabled option in selectbox */
 .booking_form_div select option.booked,
 .booking_form_div select option:disabled{
@@ -341,6 +355,15 @@ form.booking_form {
     margin: 0;
 }
 
+.booking_form_div hr {
+    margin: 6px 0 12px;
+    border: none;
+    color: transparent;
+    background: #eee;
+    height: 1.2px;
+    box-shadow: none;
+}
+
 /* Widget container */
 .widget_wpdev_booking {
     width:100%;
@@ -358,8 +381,13 @@ form.booking_form {
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
-    width: auto;
+    /*width: auto;*/
     margin: 0.25em 0;
+
+    max-width: Min(30em, 100%);
+    max-width: 100%;
+    width: 340px;
+    min-width: Min(8em, 100%);
 }
 @media (max-width: 782px) {
     .wpdev-form-control-wrap {
@@ -372,12 +400,20 @@ form.booking_form {
     }
 }
 /* Wrap  of options in checkboxes / radio  buttons*/
+.wpdev-form-control-wrap .wpdev-radio,
+.wpdev-form-control-wrap .wpdev-checkbox {
+    line-height:100%;
+}
 .wpdev-form-control-wrap .wpdev-list-item {
     display: inline-flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
     height: auto;
+    line-height:100%;
+
+    align-items: first baseline;
+    line-height: 1.5;
 }
     /* For checkboxes Aligning correctly. */
     .wpbc_wrap_checkbox.wpdev-form-control-wrap .wpdev-list-item {
@@ -395,11 +431,23 @@ form.booking_form {
 .wpdev-form-control-wrap .wpdev-list-item > * {
     margin: auto;
 }
+.wpdev-form-control-wrap .wpdev-list-item label.wpdev-list-item-label{
+    margin-top: 0;
+    align-self: center;
+}
+div.wpbc_container.wpbc_form .wpdev-form-control-wrap .wpdev-list-item input[type="checkbox"],
+div.wpbc_container.wpbc_form .wpdev-form-control-wrap .wpdev-list-item input[type="radio"]{
+    margin-top: 3px;
+    margin-right: 0.5em;
+}
+
+/*
 .wpdev-form-control-wrap.wpbc_wrap_checkbox .wpdev-list-item > *,
 .wpdev-form-control-wrap.wpbc_wrap_checkbox .wpdev-list-item > *:hover {
     margin: auto;
     display: inline-block;
 }
+ */
 /* = Old Messages =================================================================================================== */
 /* Under calendar */
 .widget_wpdev_booking .booking_form .wpdev-help-message.wpdev-element-message {
@@ -691,7 +739,8 @@ form.booking_form {
     animation-play-state: paused !important;
 }
 .wpbc_icn_autorenew::before,
-.wpbc_spin {
+.wpbc_spin,
+.wpbc_spin:before {
   -webkit-animation: spin 2s infinite linear;
   -moz-animation: spin 2s infinite linear;
   -o-animation: spin 2s infinite linear;
@@ -978,6 +1027,7 @@ form.booking_form {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
+        align-items: flex-start;
         width:100%;
     }
     .wpbc_container_booking_form .wpbc__field:not(.wpbc__cal) {
@@ -986,7 +1036,7 @@ form.booking_form {
         flex-flow: row wrap;
         justify-content: flex-start;
         align-items: flex-start;
-        align-content: flex-start;
+        align-content: normal;
         padding: 0 3% 0 0;
         margin: 0.7em 0;
     }
@@ -1025,7 +1075,7 @@ form.booking_form {
     .wpbc_container_booking_form .wpbc__field label,
     .wpbc_container_booking_form .wpbc__field label:hover {
         flex: 0 1 auto;
-        margin-right: 2em;
+        /*margin-right: 2em;*/
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
@@ -1033,6 +1083,10 @@ form.booking_form {
     }
     .wpbc_container_booking_form .wpbc__field .wpdev-form-control-wrap {
         width: 100%;
+    }
+    .wpbc_container_booking_form .wpbc__field .wpdev-form-control-wrap.wpbc_wrap_radio,
+    .wpbc_container_booking_form .wpbc__field .wpdev-form-control-wrap.wpbc_wrap_checkbox  {
+        align-self: center;
     }
     .wpbc_container_booking_form .wpbc__field .form-group .controls select,
     .wpbc_container_booking_form .wpbc__field select,
@@ -1103,32 +1157,67 @@ form.booking_form {
 .wpbc_container_booking_form p{
     padding: 0.25em 0;
 }
-/* == W i d t h == */
-.wpbc_container_booking_form select,
-.wpbc_container_booking_form input[type="text"],
-.wpbc_container_booking_form textarea{
-    max-width: 100%;
-    max-width: Min(30em, 100%);
-    width: 340px;
-}
+    /* == W i d t h == */
+    .wpbc_container_booking_form select,
+    .wpbc_container_booking_form input[type="text"],
+    .wpbc_container_booking_form textarea{
+        max-width: 100%;
+        max-width: Min(30em, 100%);
+        width: 340px;
+        min-width: Min(8em, 100%);
+    }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* ==  Booking Form Simple  ==   New Layout                                                                           */
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* Admin  panel  at  WP Booking Calendar > Settings > Booking Form page */
+.wpbc_center_preview .bk_calendar_frame,
+.wpbc_center_preview .wpbc__form__div .bk_calendar_frame *{
+    font-size: 14px;
+}
 .wpbc_center_preview ,
 .wpbc_center_preview .wpbc__form__div *{
     font-size:16px;
 }
 /* WP Booking Calendar > Add Booking page */
-#wpbc-new-admin-page .booking_form_div div:not(.bk_calendar_frame )  {
+    #wpbc-new-admin-page .booking_form_div p,
+    #wpbc-new-admin-page .booking_form_div span,
+    #wpbc-new-admin-page .booking_form_div i,
+    #wpbc-new-admin-page .booking_form_div div:not(.bk_calendar_frame ){
+
+        font-size:15px;
+    }
+    #wpbc-new-admin-page .wpbc_container.wpbc_form input.wpbc_button_light {
+        font-size: 1.15em;
+        line-height: 100%;
+        min-height: var(--wpbc_form-button-light-size-height);
+    }
+    #wpbc-new-admin-page .booking_form_div div.bk_calendar_frame div   {
+        font-size:13px;
+    }
+    #wpbc-new-admin-page .datepick-inline .datepick-days-cell div.date-content-bottom,
+    #wpbc-new-admin-page .datepick-inline .datepick-days-cell div.date-content-top{
+        font-size: 0.7em;
+    }
+
+.booking_form_div .wpbc_times_selector div,
+.booking_form_div div:not(.bk_calendar_frame )  {
     font-size:15px;
 }
+.booking_form_div div.bk_calendar_frame div   {
+    font-size:13px;
+}
+.datepick-inline .datepick-days-cell div.date-content-bottom,
+.datepick-inline .datepick-days-cell div.date-content-top{
+    font-size: 0.7em;
+}
+
 .wpbc_booking_form_simple .wpbc__form__div{
     width:100%;
 }
 .wpbc_container_booking_form  .wpbc_booking_form_simple .wpbc__field label{
     flex: 1 1 100%;
+    line-height: 2.5;
 }
 /* Warning message for required field */
 .wpbc_booking_form_simple .wpbc_front_end__message_container_right {
@@ -1180,32 +1269,33 @@ form.booking_form {
 }
 /* == H e i g h t == */
 .resource_selection_div select,
-.wpbc_container.wpbc_container_booking_form select,
+.wpbc_container.wpbc_container_booking_form select/*,
 .wpbc_container.wpbc_container_booking_form input[type="text"],
-.wpbc_container.wpbc_container_booking_form textarea {
+.wpbc_container.wpbc_container_booking_form textarea */{
     height:auto;
     font-size: 1rem;
     line-height: 2.4em;
     padding: 0 0.5em;
 }
-.resource_selection_div select,
+.resource_selection_div select/*,
 .wpbc_container.wpbc_container_booking_form select{
     height: 2.4em;
 }
 .wpbc_container.wpbc_container_booking_form select[multiple],
-.wpbc_container.wpbc_container_booking_form select[size]{
+.wpbc_container.wpbc_container_booking_form select[size]*/{
     min-height: 2.4em;
     height: auto;
 }
-.resource_selection_div select option,
-.wpbc_container.wpbc_container_booking_form select option{
+.resource_selection_div select option/*,
+.wpbc_container.wpbc_container_booking_form select option*/{
     line-height: 2.4em;
     padding: 0.5em 0.5em;
     outline: none;
 }
+/*
 .wpbc_container.wpbc_container_booking_form textarea{
     height:9.7em;
-}
+}*/
 .wpbc_container.wpbc_container_booking_form textarea[rows*="0"],
 .wpbc_container.wpbc_container_booking_form textarea[rows*="1"],
 .wpbc_container.wpbc_container_booking_form textarea[rows*="2"],
@@ -1218,6 +1308,11 @@ form.booking_form {
 .wpbc_container.wpbc_container_booking_form textarea[rows*="9"]{
    height: auto;
 }
+
+
+
+
+
 /* //FixIn: 10.0.0.25 */
 /* ================================================================================================================== */
 /* == THANK_YOU - SECTION ==                                                                                          */
@@ -1331,6 +1426,7 @@ form.booking_form {
 .wpbc_after_booking_thank_you_section .wpbc_ty__container .wpbc_ty__content .wpbc_ty__content_text .wpbc_ty__section_header{
     font-size: 18px;
     line-height: 2em;
+    margin-bottom:1.2em;
 }
 /* H4 header in section  */
 .wpbc_after_booking_thank_you_section .wpbc_ty__container .wpbc_ty__content .wpbc_ty__content_text h4{
@@ -1352,21 +1448,18 @@ form.booking_form {
 }
 
     /* Discount coupon code in cost hint - align vertically  with  smaller font */
-    span[class^='booking_hint'], span[class*=' booking_hint']{
+    .coupon_description_wrapper{
+        font-size: 0.7em;
+        font-weight: 400;
+        margin-left: 0.8em;
         display: inline-flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        align-items: center;
-        vertical-align: baseline;
+          flex-flow: row wrap;
+          justify-content: flex-start;
+          align-items: center;
     }
-        .coupon_description_wrapper{
-            font-size: 0.7em;
-            font-weight: 400;
-            margin-left: 0.8em;
-        }
-        .wpbc_after_booking_thank_you_section .coupon_description_wrapper {
-            font-size: 1em;
-        }
+    .wpbc_after_booking_thank_you_section .coupon_description_wrapper {
+        font-size: 1em;
+    }
 
 /* Gateways Section ***************************************************************************************************/
 .wpbc_after_booking_thank_you_section .wpbc_ty__container .wpbc_ty__content .wpbc_ty__content_text.wpbc_ty__content_gateways{
@@ -1433,17 +1526,24 @@ form.booking_form {
 /* ================================================================================================================== */
 /* == Buttons ==                                                                                                      */
 /* ================================================================================================================== */
+.wpbc_container.wpbc_form input.wpbc_button_light,
+.wpbc_container.wpbc_form input.wpbc_button_light:focus,
+.wpbc_container.wpbc_form input.wpbc_button_light:hover,
 .wpbc_container .wpbc_button_light,
-.wpbc_container.wpbc_container_booking_form .wpbc_button_light {
+.wpbc_container .wpbc_button_light:focus,
+.wpbc_container .wpbc_button_light:hover,
+.wpbc_container.wpbc_container_booking_form .wpbc_button_light,
+.wpbc_container.wpbc_container_booking_form .wpbc_button_light:focus,
+.wpbc_container.wpbc_container_booking_form .wpbc_button_light:hover{
     border: 2px solid #eee;
     box-shadow: 0 5px 10px #eee;
     background: #f9f9f9;
     color: #777;
 
-    border-radius: 0.375rem;
-    padding: 0.575rem 2.25rem;
-    font-size: clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.208), 1.125rem);
-    line-height: 1.2;
+    border-radius: 0.375em;
+    padding: 0em 2.2em;
+    font-size: clamp(1em, 1em + ((1vw - 0.2em) * 0.208), 1.125em);
+    line-height: calc( var(--wpbc_form-button-light-size-height) - 2px );
 
     text-decoration: none;
     cursor: pointer;
@@ -1454,20 +1554,15 @@ form.booking_form {
     justify-content: center;
     align-items: center;
     margin: 0;
+    height: var(--wpbc_form-button-light-size-height);
+    box-sizing: border-box;
 }
+.wpbc_container.wpbc_form input.wpbc_button_light:focus,
+.wpbc_container.wpbc_form input.wpbc_button_light:hover,
 .wpbc_container .wpbc_button_light:focus,
 .wpbc_container.wpbc_container_booking_form .wpbc_button_light:focus,
 .wpbc_container .wpbc_button_light:hover,
-.wpbc_container.wpbc_container_booking_form .wpbc_button_light:hover
-{
-    border-radius: 0.375rem;
-    padding: 0.575rem 2.25rem;
-    font-size: clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.208), 1.125rem);
-    line-height: 1.2;
-
-    text-decoration: none;
-    cursor: pointer;
-
+.wpbc_container.wpbc_container_booking_form .wpbc_button_light:hover {
     border: 2px solid rgb(77, 145, 205);
     box-shadow: 0 5px 10px #f0f0f8;
     background: rgb(255 255 255);
@@ -1481,9 +1576,6 @@ form.booking_form {
     padding-right: 130px;
     border: 2px solid rgb(77, 77, 77);
     color: #fff;
-    /*text-indent:-9999px;*/
-    /*background: 50% 50% / 80px auto no-repeat url("../inc/assets/stripe.svg"), #000;*/
-    /*min-width: 175px;*/
 }
 .wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:focus,
 .wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:hover
@@ -1622,27 +1714,27 @@ form.booking_form {
     box-shadow: 0 0px 3px #3b3b3b;
 }
 /* Payment Buttons ----------------------------------------------------------- */
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light {
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light {
   box-shadow: 0 1px 5px #424242;
   border: 2px solid #525252;
-  background: #4d4d4d;
+  background-color: #4d4d4d;
   color: #fff;
 }
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light:focus,
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light:hover
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light:focus,
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light:hover
 {
   box-shadow: 0 1px 5px #424242;
   border: 2px solid #5f5f5f;
-  background: #5c5c5c;
+  background-color: #5c5c5c;
   color: #fff;
 }
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_paypal_yellow:focus,
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_paypal_yellow:hover
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_paypal_yellow:focus,
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_paypal_yellow:hover
 {
     box-shadow: 0 5px 10px #424242;
 }
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:focus,
-.wpbc_theme_dark_1.wpbc_container .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:hover
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:focus,
+.wpbc_theme_dark_1.wpbc_container.wpbc_form .wpbc_button_light.wpbc_button_gw.wpbc_button_gw_stripe:hover
 {
     background-color:#4d4d4d;
     border-color:#4d4d4d;

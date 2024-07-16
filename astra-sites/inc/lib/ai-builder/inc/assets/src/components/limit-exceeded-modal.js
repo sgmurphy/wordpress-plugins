@@ -18,30 +18,10 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 		};
 	} );
 
-	const planName = (
-		<span className="zw-base-semibold text-app-heading capitalize">
-			{ aiBuilderVars?.zip_plans?.active_plan?.slug }
-		</span>
-	);
-
-	const teamName = (
-		<span className="zw-base-semibold text-app-heading">
-			{ aiBuilderVars?.zip_plans?.team?.name }
-		</span>
-	);
-
 	const teamPlanInfo = (
 		<span
 			dangerouslySetInnerHTML={ {
-				__html: sprintf(
-					/* translators: %1$s: team name, %2$s: plan name */
-					__(
-						'Your current active organization is %1$s, which is on the %2$s plan.',
-						'ai-builder'
-					),
-					renderToString( teamName ),
-					renderToString( planName )
-				),
+				__html: aiBuilderVars?.filtered_data?.main_content,
 			} }
 		/>
 	);
@@ -82,24 +62,10 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 					) }
 				`
 						: `
-				${ sprintf(
-					/* translators: %s: plan name */
-					__(
-						'You have reached the maximum number of sites allowed to be created on %s plan.',
-						'ai-builder'
-					),
-					renderToString( planName )
-				) }
 				<br />
 				<br />
-				${ sprintf(
-					/* translators: %s: team name */
-					__(
-						'Please upgrade the plan for %s in order to create more sites.',
-						'ai-builder'
-					),
-					renderToString( teamName )
-				) }
+				 ${ aiBuilderVars?.filtered_data?.secondary_content }
+          		<br />
 				`,
 			} }
 		/>
@@ -146,12 +112,12 @@ const LimitExceedModal = ( { onOpenChange, openTarget = '_blank' } ) => {
 							return;
 						}
 						window.open(
-							'https://app.zipwp.com/founders-deal',
+							aiBuilderVars?.filtered_data?.cta_redirection_url,
 							openTarget
 						);
 					} }
 				>
-					{ __( 'Unlock Full Power', 'ai-builder' ) }
+					{ aiBuilderVars?.filtered_data?.cta_text }
 				</Button>
 			</div>
 		</Modal>

@@ -199,7 +199,7 @@ JS;
         //		error_log('get_current_screen: ' . get_current_screen()->id);
         //		error_log('pmw_edit_order_scripts');
         // Only output the remaining scripts on PMW settings page
-        if ( 'shop_order' !== get_current_screen()->id ) {
+        if ( !Helpers::is_edit_order_page() ) {
             return;
         }
         return;

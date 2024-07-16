@@ -3143,6 +3143,14 @@ $propertyOptions['filter']['url_function'] = array(
 );
 
 
+// todo Support background filter, by cloning filter functions
+// - issue: need to be in same group, but then convert to other property - search "css_functions" code
+/*foreach ($propertyOptions['filter'] as $filterKey => $filterData){
+	$propertyOptions['filter']['backdrop_' . $filterKey] = $filterData;
+}
+$propertyOptions['filter']['backdrop_blur_function']['sub_label'] = esc_attr__('Backdrop Filter', 'microthemer');
+$propertyOptions['filter']['backdrop_blur_function']['sub_slug'] = 'backdrop_filter';*/
+
 
 // dimensions
 // ------------------------------------------------------------

@@ -1574,14 +1574,23 @@ function usces_the_itemImageCaption( $number = 0, $post = '', $out = '' ) {
 		$name = $product['itemName'];
 
 		if ( 0 === (int) $number ) {
-			$pictid    = $usces->get_mainpictid( $code );
-			$attach_ob = get_post( $pictid );
+			$pictid = $usces->get_mainpictid( $code );
+			if ( $pictid ) {
+				$attach_ob = get_post( $pictid );
+				$excerpt   = $attach_ob->post_excerpt;
+			} else {
+				$excerpt = '';
+			}
 		} else {
-			$pictids   = $usces->get_pictids( $code );
-			$ind       = $number - 1;
-			$attach_ob = get_post( $pictids[ $ind ] );
+			$pictids = $usces->get_pictids( $code );
+			$ind     = $number - 1;
+			if ( isset( $pictids[ $ind ] ) ) {
+				$attach_ob = get_post( $pictids[ $ind ] );
+				$excerpt   = $attach_ob->post_excerpt;
+			} else {
+				$excerpt = '';
+			}
 		}
-		$excerpt = $attach_ob->post_excerpt;
 	}
 
 	if ( 'return' === $out ) {
@@ -1605,8 +1614,8 @@ function usces_the_itemImageDescription( $number = 0, $post = '', $out = '' ) {
 	$ptitle = $number;
 	if ( $ptitle && 0 === (int) $number ) {
 
-		$picposts = new WP_Query( array( 'post_type' => 'attachment', 'name' => $ptitle ) );
-		$excerpt  = ( $picposts->have_posts() ) ? $picposts[0]->post_content : '';
+		$picposts    = new WP_Query( array( 'post_type' => 'attachment', 'name' => $ptitle ) );
+		$description = ( $picposts->have_posts() ) ? $picposts[0]->post_content : '';
 
 	} else {
 
@@ -1623,20 +1632,29 @@ function usces_the_itemImageDescription( $number = 0, $post = '', $out = '' ) {
 		$name = $product['itemName'];
 
 		if ( 0 === (int) $number ) {
-			$pictid    = $usces->get_mainpictid( $code );
-			$attach_ob = get_post( $pictid );
+			$pictid = $usces->get_mainpictid( $code );
+			if ( $pictid ) {
+				$attach_ob   = get_post( $pictid );
+				$description = ( isset( $attach_ob->post_content ) ) ? $attach_ob->post_content : '';
+			} else {
+				$description = '';
+			}
 		} else {
-			$pictids   = $usces->get_pictids( $code );
-			$ind       = $number - 1;
-			$attach_ob = get_post( $pictids[ $ind ] );
+			$pictids = $usces->get_pictids( $code );
+			$ind     = $number - 1;
+			if ( isset( $pictids[ $ind ] ) ) {
+				$attach_ob   = get_post( $pictids[ $ind ] );
+				$description = ( isset( $attach_ob->post_content ) ) ? $attach_ob->post_content : '';
+			} else {
+				$description = '';
+			}
 		}
-		$excerpt = ( isset( $attach_ob->post_content ) ) ? $attach_ob->post_content : '';
 	}
 
 	if ( 'return' === $out ) {
-		return $excerpt;
+		return $description;
 	} else {
-		echo esc_html( $excerpt );
+		echo esc_html( $description );
 	}
 }
 

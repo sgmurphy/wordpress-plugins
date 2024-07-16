@@ -21,7 +21,7 @@
     </div> 
     <h1 class="wp-heading-inline">
         <?php
-            echo __( esc_html(get_admin_page_title()), "ays-popup-box" );
+            echo esc_html(get_admin_page_title());
         ?>
     </h1>
     <div class="ays-pb-add-new-button-box">

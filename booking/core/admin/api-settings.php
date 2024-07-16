@@ -152,8 +152,24 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         ////////////////////////////////////////////////////////////////////////                                
         
         $this->fields = apply_filters( 'wpbc_settings_calendar_range_days_selection', $this->fields, $default_options_values );      // Range days
-        $this->fields = apply_filters( 'wpbc_settings_calendar_recurrent_time_slots', $this->fields, $default_options_values );      // Recurent Times        
-        $this->fields = apply_filters( 'wpbc_settings_calendar_check_in_out_times',   $this->fields, $default_options_values );      // Check In/Out Times
+
+	    //FixIn: 10.1.5.4
+	    //$this->fields = apply_filters( 'wpbc_settings_calendar_recurrent_time_slots', $this->fields, $default_options_values );      // Recurent Times
+		/**
+		 * Recurrent time  - Settings ( Calendar ) page
+		 */
+        $this->fields['hr_calendar_before_recurrent_time'] = array( 'type' => 'hr', 'group' => 'calendar' , 'tr_class'    => 'wpbc_recurrent_check_in_out_time_slots');
+	    $this->fields['booking_recurrent_time'] = array(
+	                            'type'          => 'checkbox'
+	                            , 'default'     => $default_options_values['booking_recurrent_time']   //'Off'
+	                            , 'title'       => __('Use selected times for each booking date' ,'booking')  //__('Use time selections as recurrent time slots' ,'booking')
+	                            , 'label'       => __('Enable this option if you want to use the selected times as booked time slots on each selected date. Otherwise, the selected times will be used as the check-in time for the first date and check-out time for the last date of the reservation.' ,'booking')
+	                            //, 'description' => ''
+	                            , 'group'       => 'calendar'
+	                            , 'tr_class'    => 'wpbc_recurrent_check_in_out_time_slots'
+	        );
+
+	    $this->fields = apply_filters( 'wpbc_settings_calendar_check_in_out_times',   $this->fields, $default_options_values );      // Check In/Out Times
 
         // </editor-fold>
 
@@ -313,7 +329,9 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                                         </td>
                                                     </tr>'
                         );
-        if ( class_exists('wpdev_bk_biz_s') ) {
+
+		//FixIn: 10.1.5.5       if ( class_exists('wpdev_bk_biz_s') ) {
+
         // Partially booked item
         $this->fields['booking_legend_is_show_item_partially_prefix'] = array(
                                 'type'          => 'pure_html'
@@ -354,7 +372,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                                         </td>
                                                     </tr>'
                         );
-        }
+        //}
 
 
 		// Unavailable Legend Item      //FixIn: 9.9.0.5
@@ -676,15 +694,6 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'group'       => 'form'
             );
 
-        $this->fields['booking_form_is_using_bs_css'] = array(
-                                'type'          => 'checkbox'
-                                , 'default'     => $default_options_values['booking_form_is_using_bs_css']         // 'On'            
-                                , 'title'       => __('Use CSS BootStrap' ,'booking')
-                                , 'label'       => __('Using BootStrap CSS for the form fields' ,'booking')
-                                , 'description' => ''
-                                , 'description_tag' => 'p'    
-                                , 'group'       => 'form'
-            );
 
 		//FixIn: 10.0.0.31
 	    if ( class_exists( 'wpdev_bk_biz_m' ) ){
@@ -724,7 +733,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 	    // <editor-fold     defaultstate="collapsed"                        desc=" B o o k i n g    C o n f i r m a t i o n "  >
 
         $field_options = array(
-                                    'message'  => array( 'title' => __('Show booking confirmation message' ,'booking'), 'attr' => array( 'id' => 'type_of_thank_you_message_message' ) )
+                                    'message'  => array( 'title' => __('Show booking confirmation at same page' ,'booking'), 'attr' => array( 'id' => 'type_of_thank_you_message_message' ) )
                                   , 'page'     => array( 'title' => __('Redirect to thank you page' ,'booking'), 'attr' => array( 'id' => 'type_of_thank_you_message_page' ) )
                             );
 	    $description_text = '';
@@ -738,20 +747,6 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                     , 'group'       => 'booking_confirmation'
                             );
 
-        $this->fields['booking_title_after_reservation'] = array(   
-                                'type'          => 'textarea'
-                                , 'default'     => $default_options_values['booking_title_after_reservation']
-                                , 'placeholder' =>  ( ! class_exists( 'wpdev_bk_biz_s' ) )
-															? __( 'Your booking is received. We will confirm it soon. Many thanks!', 'booking' )
-															: __( 'Your booking is received. Please proceed with payment to confirm it. Many thanks!', 'booking' )
-                                , 'title'       => __('Message title' ,'booking')
-                                , 'description' => sprintf(__('Type title of message %safter booking has done by user%s' ,'booking'),'<b>','</b>')
-                                ,'description_tag' => 'p'
-                                , 'css'         => 'width:100%'
-                                , 'rows' => 2
-                                , 'group'       => 'booking_confirmation'
-                                , 'tr_class'    => 'wpbc_calendar_thank_you_message wpbc_calendar_thank_you wpbc_sub_settings_grayed'
-                        );
 //        $this->fields['booking_title_after_reservation_time'] = array(
 //                                'type'          => 'text'
 //                                , 'default'     => $default_options_values['booking_title_after_reservation_time']         //'7000'
@@ -776,7 +771,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 //                                , 'tr_class'          => 'wpbc_calendar_thank_you_message wpbc_calendar_thank_you wpbc_sub_settings_grayed'
 //                                , 'description_tag'   => 'span'
 //                        );
-        
+
         //  URL of "Thank you page"
         $this->fields['booking_thank_you_page_URL_prefix'] = array(   
                                 'type'          => 'pure_html'
@@ -810,6 +805,283 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                         );        
         // </editor-fold>
 
+//FixIn:10.2.0.1
+
+	    // <editor-fold     defaultstate="collapsed"                        desc=" ==  B o o k i n g    C o n f i r m a t i o n         -       CONFIG  == "  >
+
+		// -------------------------------------------------------------------------------------------------------------
+		// Message title
+	    // -------------------------------------------------------------------------------------------------------------
+        $this->fields['booking_title_after_reservation'] = array(
+                                'type'          => 'text'
+                                , 'default'     => $default_options_values['booking_title_after_reservation']
+                                , 'placeholder' =>  ( ! class_exists( 'wpdev_bk_biz_s' ) )
+															? __( 'Your booking is received. We will confirm it soon. Many thanks!', 'booking' )
+															: __( 'Your booking is received. Please proceed with payment to confirm it. Many thanks!', 'booking' )
+                                , 'title'       => __( 'Message title', 'booking' )
+                                , 'description' => ''//sprintf(__('Type title of message %safter booking has done by user%s' ,'booking'),'<b>','</b>')
+                                ,'description_tag' => 'p'
+                                , 'css'         => 'width:100%'
+                                , 'rows' => 2
+                                , 'group'       => 'booking_confirmation'
+                                , 'tr_class'    => '  '
+                        );
+		// -------------------------------------------------------------------------------------------------------------
+		// Header
+	    // -------------------------------------------------------------------------------------------------------------
+        $this->fields['booking_confirmation_header_prefix'] = array(
+                                'type'          => 'pure_html'
+                                , 'group'       => 'booking_confirmation'
+                                , 'html'        => '<tr valign="top" class="wpbc_tr_set_gen_booking_confirmation_header">
+                                                        <th scope="row">'.
+                                                            WPBC_Settings_API::label_static( 'set_gen_booking_confirmation_header'
+                                                                , array(   'title'=> __('Header' ,'booking'), 'label_css' => '' ) )
+                                                        .'</th>
+                                                        <td><fieldset style="display:flex;flex-flow: row wrap;justify-content: flex-start;align-items: center;">'
+                        );
+        $this->fields['booking_confirmation_header_enabled'] = array(
+                                  'type'        => 'checkbox'
+                                , 'default'     => $default_options_values['booking_confirmation_header_enabled']
+                                , 'is_new_line' => false
+                                , 'group'       => 'booking_confirmation'
+                                , 'only_field'  => true
+	                            , 'css'         => 'flex:0 0 auto;margin-right:10px;'
+                                , 'label'       => __('Enable', 'booking')
+                        );
+
+        $this->fields['booking_confirmation_header'] = array(
+                                  'type'        => 'text'
+                                , 'default'     => $default_options_values['booking_confirmation_header']
+                                , 'placeholder' => sprintf( __( 'Your booking id: %s', 'booking' ), '<strong>[booking_id]</strong>' )
+                                , 'css'         => 'flex:1 1 auto;'
+                                , 'group'       => 'booking_confirmation'
+	                            , 'class'       => 'wpbc_booking_confirmation_header__field'
+                                , 'only_field'  => true
+                        );
+	    $this->fields['booking_confirmation_header_sufix'] = array( 'type' => 'pure_html', 'group' => 'booking_confirmation', 'html' => '</fieldset> </td> </tr>' );
+		// </editor-fold>
+
+
+		//$is_use_code_mirror =((function_exists( 'wpbc_codemirror') ) && ( is_user_logged_in() && 'false' !== (wp_get_current_user()->syntax_highlighting))) ? true : false; //FixIn: 8.4.7.18  it does not work ?
+		$is_use_code_mirror = true;
+
+	    // <editor-fold     defaultstate="collapsed"                        desc=" ==  B o o k i n g    C o n f i r m a t i o n         -       == Personal Information == "  >
+		// -------------------------------------------------------------------------------------------------------------
+		// == Personal Information ==
+	    // -------------------------------------------------------------------------------------------------------------
+        $this->fields['booking_confirmation__personal_info__prefix'] = array(
+                                'type'          => 'pure_html'
+                                , 'group'       => 'booking_confirmation_left'
+                                , 'html'        => '<tr valign="top" class="wpbc_tr_set_gen_booking_confirmation__personal_info__header_enabled">
+                                                        <td colspan="2" style="padding-bottom: 0;" ><fieldset style="display: flex;flex-flow: row wrap;justify-content: flex-start;align-items: center;">'
+                        );
+
+        $this->fields['booking_confirmation__personal_info__header_enabled'] = array(
+                                      'type'        => 'checkbox'
+                                    , 'default'     => $default_options_values['booking_confirmation__personal_info__header_enabled']
+	                                , 'is_new_line' => false
+	                                , 'only_field'  => true
+                                    , 'label'       => __( 'Enable', 'booking' )
+                                    , 'css'         => 'flex:0 0 auto;margin-right:5px;'
+                                    , 'group'       => 'booking_confirmation_left'
+                                );
+        $this->fields['booking_confirmation__personal_info__title'] = array(
+                                      'type'        => 'text'
+                                    , 'default'     => $default_options_values['booking_confirmation__personal_info__title']
+                                    , 'placeholder' => __( 'Example', 'booking' ) . ": '" . __( 'Personal information', 'booking' ) . "'"
+                                    , 'title'       => ''
+                                    , 'description' => ''
+                                    , 'css'         => 'flex: 1 1 100px;font-size: 16px;line-height: 34px;font-weight: 600;width:auto;'
+                                    , 'group'       => 'booking_confirmation_left'
+                                    , 'class'    => 'wpbc_booking_confirmation__personal_info__field'
+                                    , 'tr_class'    => ''
+									, 'only_field'  => true
+                            );
+		$this->fields['booking_confirmation__personal_info__sufix'] = array( 'type' => 'pure_html', 'group' => 'booking_confirmation_left',
+																			 'html' => '<p style="text-align: right;font-size:12px;width:100%;">'
+												. sprintf(__('Enter %stitle%s for this section of Booking Confirmation' ,'booking'),'<b>','</b>')
+																			           . '.</p>' . '</fieldset> </td> </tr>' );
+
+		$wpbc_metabox_id = 'confirmation_left_cont__promote_upgrade';
+
+	    $this->fields['booking_confirmation__personal_info__content_before'] = array(
+												'type'  => 'pure_html',
+												'group' => 'booking_confirmation_left',
+												'html'  => '<tr class="'.$wpbc_metabox_id.'_close_content wpbc_booking_confirmation__personal_info__fields '
+												             //. ( ( ! class_exists( 'wpdev_bk_personal' ) ) ? 'wpbc_blur' : '' )
+                                                             .'"><td colspan="2" style="padding-top:0;">'
+															   . '<div style="margin: 0 0 10px;font-weight: 600;font-size: 14px;">'
+															   . '<label class="wpbc-form-email-content" for="booking_confirmation__personal_info__content">' .
+																   __( 'Content', 'booking' )
+															   . '</label></div>'
+											);
+        $this->fields['booking_confirmation__personal_info__content'] = array(
+                                      'type'        => ( $is_use_code_mirror ? 'textarea' : 'wp_textarea' )				//FixIn: 8.4.7.18
+                                    , 'default'     => $default_options_values['booking_confirmation__personal_info__content']
+	                                                   // '[content]'
+                                    //, 'placeholder' => '[content]'
+                                    , 'title'       => __('Content', 'booking')
+                                    //, 'description' => __('Example', 'booking') . ': ' . '[content]'
+                                    , 'description_tag' => ''
+                                    , 'css'         => 'width:100%;height:70px;'
+                                    , 'group'       => 'booking_confirmation_left'
+                                    , 'tr_class'    => ''//(  class_exists('wpdev_bk_personal') ) ? 'wpbc_blur' : ''
+                                    , 'rows'        => 2
+                                    , 'show_in_2_cols' => true
+									, 'only_field'  => true
+                            );
+		$this->fields['booking_confirmation__personal_info__content_after'] = array( 'type'  => 'pure_html', 'group' => 'booking_confirmation_left', 'html'  => '</td></tr>' );
+
+		/*
+		if (  ! class_exists( 'wpdev_bk_personal' ) ) {
+			ob_start();
+			$is_panel_visible = wpbc_is_dismissed( $wpbc_metabox_id . '_close', array(
+													'title' => '<i class="menu_icon icon-1x wpbc_icn_close"></i> ',
+													'hint'  => __( 'Dismiss', 'booking' ),
+													'class' => 'wpbc_panel_get_started_dismiss',
+													'css'   => 'background: #fff;border-radius: 7px;',
+													'dismiss_css_class' => '.' . $wpbc_metabox_id . '_close_content'
+												));
+			if ( ! $is_panel_visible ) {
+				?><script type="text/javascript"> jQuery('#<?php echo $wpbc_metabox_id; ?>_close,.<?php echo $wpbc_metabox_id; ?>_close_content').hide(); </script><?php
+			}
+			$dismiss_button_content = ob_get_clean();
+
+			if (  $is_panel_visible ){
+
+			    $this->fields['booking_confirmation_left__promote_upgrade'] = array(
+	                                'type'          => 'pure_html'
+	                                , 'group'       => 'booking_confirmation_left'
+			                        , 'html' => '<tr id="'.$wpbc_metabox_id.'_close" class="wpbc_booking_confirmation__personal_info__fields"><td colspan="2">													
+										            <div class="wpbc_widget_content" style="transform: translate(0) translateY(-9em);">									        		
+														<div class="ui_container    ui_container_toolbar		ui_container_small" style="background: #fff;position: relative;">
+															<div class="ui_group    ui_group__upgrade">
+																<div style="transform: translate(0%) translateY(-2.75em);position: relative;z-index:9;width: 85.6%;">'.$dismiss_button_content.'</div>
+																<div class="wpbc_upgrade_note wpbc_upgrade_theme_green">
+																	<div>This <a target="_blank" href="https://wpbookingcalendar.com/features/#personal">feature</a> 
+																		 is available in the <strong>Pro</strong> versions. 
+																		<a target="_blank" href="https://wpbookingcalendar.com/prices/#bk_news_section">Upgrade to Pro</a>.																
+																	</div>
+																</div>
+															</div>														
+														</div>
+													</div>
+										    </td> </tr>'
+	                        );
+			}
+		}
+		*/
+		// </editor-fold>
+
+
+	    // <editor-fold     defaultstate="collapsed"                        desc=" ==  B o o k i n g    C o n f i r m a t i o n         -       == Booking details == "  >
+		// -------------------------------------------------------------------------------------------------------------
+		// == Booking details ==
+	    // -------------------------------------------------------------------------------------------------------------
+        $this->fields['booking_confirmation__booking_details__prefix'] = array(
+                                'type'          => 'pure_html'
+                                , 'group'       => 'booking_confirmation_right'
+                                , 'html'        => '<tr valign="top" class="wpbc_tr_set_gen_booking_confirmation__booking_details__header_enabled">
+                                                        <td colspan="2" style="padding-bottom: 0;" ><fieldset style="display: flex;flex-flow: row wrap;justify-content: flex-start;align-items: center;">'
+                        );
+
+        $this->fields['booking_confirmation__booking_details__header_enabled'] = array(
+                                      'type'        => 'checkbox'
+                                    , 'default'     => $default_options_values['booking_confirmation__booking_details__header_enabled']
+	                                , 'is_new_line' => false
+	                                , 'only_field'  => true
+                                    , 'label'       => __( 'Enable', 'booking' )
+                                    , 'css'         => 'flex:0 0 auto;margin-right:5px;'
+                                    , 'group'       => 'booking_confirmation_right'
+                                );
+        $this->fields['booking_confirmation__booking_details__title'] = array(
+                                      'type'        => 'text'
+                                    , 'default'     => $default_options_values['booking_confirmation__booking_details__title']
+        							, 'placeholder' => __( 'Example', 'booking' ) . ": '" . __( 'Booking details', 'booking' ) . "'"
+                                    , 'title'       => ''
+                                    , 'description' => ''
+                                    , 'css'         => 'flex: 1 1 100px;font-size: 16px;line-height: 34px;font-weight: 600;;width:auto;'
+                                    , 'group'       => 'booking_confirmation_right'
+	                                , 'class' => 'wpbc_booking_confirmation__booking_details__field'
+                                    , 'tr_class'    => ''
+									, 'only_field'  => true
+                            );
+		$this->fields['booking_confirmation__booking_details__sufix'] = array( 'type' => 'pure_html', 'group' => 'booking_confirmation_right',
+																			 'html' => '<p style="text-align: right;font-size:12px;width:100%;">'
+												. sprintf(__('Enter %stitle%s for this section of Booking Confirmation' ,'booking'),'<b>','</b>')
+																			           . '.</p>' . '</fieldset> </td> </tr>' );
+	    $this->fields['booking_confirmation__booking_details__content_before'] = array(
+												'type'  => 'pure_html',
+												'group' => 'booking_confirmation_right',
+												'html'  => '<tr class="wpbc_booking_confirmation__booking_details__fields"><td colspan="2" style="padding-top:0;">'
+															   . '<div style="margin: 0 0 10px;font-weight: 600;font-size: 14px;">'
+															   . '<label class="wpbc-form-email-content" for="booking_confirmation__booking_details__content">' .
+																   __( 'Content', 'booking' )
+															   . '</label></div>'
+											);
+        $this->fields['booking_confirmation__booking_details__content'] = array(
+                                      'type'        => ( $is_use_code_mirror ? 'textarea' : 'wp_textarea' )				//FixIn: 8.4.7.18
+                                    , 'default'     => $default_options_values['booking_confirmation__booking_details__content']
+													//    ( ( class_exists( 'wpdev_bk_personal' ) ) ? '<h4 class="wpbc_ty__section_text_resource">[resource_title]</h4>' : '' )
+													//  . '<div class="wpbc_ty__section_text_dates">' . __( 'Dates', 'booking' ) . ': <strong>[dates]</strong></div>'
+													//  . '<div class="wpbc_ty__section_text_times">' . __( 'Time', 'booking' ) . ': <strong>[times]</strong></div>'
+                                    //, 'placeholder' => '[content]'
+                                    , 'title'       => __('Content', 'booking')
+                                    //, 'description' => __('Example', 'booking') . ': ' . '[content]'
+                                    , 'description_tag' => ''
+                                    , 'css'         => 'width:100%;height:70px;'
+                                    , 'group'       => 'booking_confirmation_right'
+                                    , 'tr_class'    => ''
+                                    , 'rows'        => 10
+                                    , 'show_in_2_cols' => true
+									, 'only_field'  => true
+                            );
+		$this->fields['booking_confirmation__booking_details__content_after'] = array( 'type'  => 'pure_html', 'group' => 'booking_confirmation_right', 'html'  => '</td></tr>' );
+
+		// </editor-fold>
+
+
+		// <editor-fold     defaultstate="collapsed"                        desc=" ==  B o o k i n g    C o n f i r m a t i o n         -        == Help Shortcodes == "  >
+		        ////////////////////////////////////////////////////////////////////
+        // Help
+        ////////////////////////////////////////////////////////////////////
+
+        $this->fields['booking_confirmation_help_shortcodes'] = array(
+                                      'type' => 'help'
+                                    , 'value' => array()
+                                    , 'cols' => 2
+                                    , 'group' => 'booking_confirmation_help'
+									, 'css' => 'margin:10px 0 0; padding: 0 5px 0 0 !important;overflow: auto;border:none;max-height: 445px;'
+									, 'only_field'  => true
+                            );
+
+        $skip_shortcodes = array(
+                                'denyreason'
+                              , 'moderatelink'
+                              , 'paymentreason'
+                              , 'visitorbookingediturl'
+		 					  , 'visitorbookingslisting'
+                              , 'visitorbookingcancelurl'
+                              , 'visitorbookingpayurl'
+                          );
+        $email_example = '';
+
+        $help_fields = wpbc_get_email_help_shortcodes( $skip_shortcodes, $email_example );
+	    if ( class_exists( 'wpdev_bk_personal' ) ) {
+		    array_shift( $help_fields );
+		    array_shift( $help_fields );
+	    }
+		$icn = '<a 	href="https://wpbookingcalendar.com/faq/#available_shortcodes" 
+					class="tooltip_top wpbc-bi-question-circle wpbc_help_tooltip_icon_left" 				 
+					data-original-title="%2$s"></a> %1$s';
+		$this->fields['booking_confirmation_help_shortcodes']['value'][] = sprintf( $icn, '<code>[readable_dates]</code>', sprintf( __('%s - dates in readable format' ,'booking'), '[readable_dates]' ) );
+		$this->fields['booking_confirmation_help_shortcodes']['value'][] = sprintf( $icn, '<code>[readable_times]</code>', sprintf( __('%s - time in readable format' ,'booking'), '[readable_times]' ) );
+
+        foreach ( $help_fields as $help_fields_key => $help_fields_value ) {
+            $this->fields['booking_confirmation_help_shortcodes']['value'][] = $help_fields_value;
+        }
+
+	    // </editor-fold>
 
         // <editor-fold     defaultstate="collapsed"                        desc=" Booking Admin Panel "  >
 
@@ -1248,8 +1520,18 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
                                 , 'group'       => 'advanced'
                                 , 'tr_class'    => 'wpbc_advanced_js_loading_settings wpbc_is_load_js_css_on_specific_pages wpbc_sub_settings_grayed'//  hidden_items'
                                 , 'is_demo_safe' => wpbc_is_this_demo()
-                        );        
-		
+                        );
+
+        $this->fields['booking_form_is_using_bs_css'] = array(
+                                'type'          => 'checkbox'
+                                , 'default'     => $default_options_values['booking_form_is_using_bs_css']         // 'On'
+                                , 'title'       => __('Use CSS BootStrap' ,'booking')
+                                , 'label'       => __('Using BootStrap CSS for the form fields' ,'booking'). ' <sup style="color:#bd8212;"><strong> '.__('Deprecated','booking').'</strong></sup>'
+                                , 'description' => ''
+                                , 'description_tag' => 'p'
+                                , 'group'       => 'advanced'
+            );
+
 		//$this->fields['hr_booking_is_show_system_debug_log'] = array( 'type' => 'hr', 'group' => 'advanced', 'tr_class' => 'wpbc_advanced_js_loading_settings' ); // wpbc_sub_settings_grayed hidden_items' );
 		//FixIn: 7.2.1.15
         $this->fields[ 'booking_is_show_system_debug_log' ] = array(   
@@ -1891,6 +2173,147 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
         
 						} ); ";
 
+
+		// =============================================================================================================        //FixIn: 10.1.5.4
+		// 'Dates selection' - some options hide or show
+	    // =============================================================================================================
+
+	    // Initial Hiding some Sections in settings
+	    $js_script .= " function wpbc_check_showing_range_days_selection_sections() {        
+	                                                                                                    // Single selected
+	                        if ( jQuery('#type_of_day_selections_single').is(':checked') ) {
+	                            jQuery('.wpbc_recurrent_check_in_out_time_slots').addClass('hidden_items');                            // Hide Reccurent, Check in/out Sections
+	                            
+	                            jQuery('#set_gen_booking_last_checkout_day_available').prop('checked', false);                        // Uncheck  Recurrent
+	                            
+	                            jQuery('#set_gen_booking_recurrent_time').prop('checked', false);                                     // Uncheck  Reccurent
+	                            jQuery('#set_gen_booking_range_selection_time_is_active').prop('checked', false);                     //      and Check In/Out
+	
+	                            jQuery('.wpbc_range_days_selection').addClass('hidden_items');                                         // Hide Range section
+	                        }                                                                           // Multiple selected
+	                        if ( jQuery('#type_of_day_selections_multiple').is(':checked') ) {
+	                            jQuery('.wpbc_recurrent_check_in_out_time_slots').removeClass('hidden_items');                         // Show Reccurent, Check in/out Sections
+	
+	                            jQuery('.wpbc_range_days_selection').addClass('hidden_items');                                         // Hide Range section
+	                        }                                                       
+	                                                                                                    // Range selected
+	                        if ( jQuery('#type_of_day_selections_range').is(':checked') ) {
+	                            
+	                            jQuery('.wpbc_recurrent_check_in_out_time_slots').removeClass('hidden_items');                         // Show Reccurent, Check in/out Sections
+	                        
+	                            jQuery('.wpbc_range_days_selection').removeClass('hidden_items');                                      // Show Range section
+	                            jQuery('.wpbc_tr_set_gen_booking_range_start_day_week fieldset').removeClass('hidden_items'); 
+	                            jQuery('.wpbc_tr_set_gen_booking_range_start_day_dynamic_week fieldset').removeClass('hidden_items'); 
+	                            
+	                                                                                                    // Fixed selected
+	                            if ( jQuery('#range_selection_type_fixed').is(':checked') ) {
+	                                jQuery('.wpbc_range_dynamic_selection').addClass('hidden_items');
+	                                                                                                    // Any Week Days selected
+	                                if ( jQuery('#range_fixed_start_day_any_day').is(':checked') ) {   
+	                                    jQuery('.wpbc_tr_set_gen_booking_range_start_day_week fieldset').addClass('hidden_items'); 
+	                                }
+	                            }
+	                                                                                                    // Dynamic selected
+	                            if ( jQuery('#range_selection_type_dynamic').is(':checked') ) {
+	                                jQuery('.wpbc_range_fixed_selection').addClass('hidden_items'); 
+	                                                                                                    // Any Week Days selected
+	                                if ( jQuery('#range_dynamic_start_day_any_day').is(':checked') ) {   
+	                                    jQuery('.wpbc_tr_set_gen_booking_range_start_day_dynamic_week fieldset').addClass('hidden_items'); 
+	                                }
+	                            }                            
+	                        }
+	                        
+	                        if ( jQuery('#set_gen_booking_range_selection_time_is_active').is(':checked') ) { // Check In/Out selected
+	                            jQuery('.wpbc_check_in_out_time_slots').removeClass('hidden_items');                      // Show Check In/Out times                         
+	                        } else {
+	                            jQuery('.wpbc_check_in_out_time_slots').addClass('hidden_items');                         // Hide Check In/Out times                         
+	                        }
+	                    } 
+	                    wpbc_check_showing_range_days_selection_sections();         // Run first  time to  init                
+	                    ";
+
+	    // Hiding or showing section based on User Clicks in settings
+	    $list_of_id_to_hook = array(
+	                                  '#type_of_day_selections_single'
+	                                , '#type_of_day_selections_multiple'
+	                                , '#type_of_day_selections_range'
+	                                , '#range_selection_type_fixed'
+	                                , '#range_selection_type_dynamic'
+	                                , '#range_fixed_start_day_specific_day'
+	                                , '#range_fixed_start_day_any_day'
+	                                , '#range_dynamic_start_day_specific_day'
+	                                , '#range_dynamic_start_day_any_day'
+	                               );
+	    $list_of_id_to_hook = implode( ',', $list_of_id_to_hook );
+
+		// Click on "Days Selections", "Type of range", "Start Week days" checkboxes or radioboxes, show/hide sections.
+	    $js_script .= " jQuery('{$list_of_id_to_hook}').on( 'change', function(){            
+	                            wpbc_check_showing_range_days_selection_sections();
+	                        } ); ";
+
+		// Click on "Recurrent Time" - then Uncheck "Check In/Out" and hide show sections.
+	    $js_script .= " jQuery('#set_gen_booking_recurrent_time').on( 'change', function(){    
+	                            if ( this.checked ) { 
+	                                jQuery('#set_gen_booking_range_selection_time_is_active').prop('checked', false);
+	                            }
+	                            wpbc_check_showing_range_days_selection_sections();
+	                        } ); ";
+
+		// Click on "Check In/Out" - then Uncheck "Recurrent Time" and hide show sections.
+	    $js_script .= " jQuery('#set_gen_booking_range_selection_time_is_active').on( 'change', function(){    
+	                            if ( this.checked ) { 
+	                                jQuery('#set_gen_booking_recurrent_time').prop('checked', false);
+	                                jQuery('#set_gen_booking_last_checkout_day_available').prop('checked', false);                        // Uncheck  Reccurent
+	                            }
+	                            wpbc_check_showing_range_days_selection_sections();
+	                        } ); ";
+
+		// Confirmation  Section  configuration
+        $js_script .= " 
+                        if ( ! jQuery('#set_gen_booking_confirmation__personal_info__header_enabled').is(':checked') ) {  
+                            jQuery('.wpbc_booking_confirmation__personal_info__field').addClass('wpbc_field_disabled'); 
+                            jQuery('.wpbc_booking_confirmation__personal_info__fields').addClass('hidden_items'); 
+                        }
+                      ";
+        $js_script .= " jQuery('#set_gen_booking_confirmation__personal_info__header_enabled').on( 'change', function(){    
+                                if ( ! this.checked ) { 
+                                    jQuery('.wpbc_booking_confirmation__personal_info__field').addClass('wpbc_field_disabled');
+                                    jQuery('.wpbc_booking_confirmation__personal_info__fields').addClass('hidden_items');
+                                } else {
+                                    jQuery('.wpbc_booking_confirmation__personal_info__field').removeClass('wpbc_field_disabled');
+                                    jQuery('.wpbc_booking_confirmation__personal_info__fields').removeClass('hidden_items');
+                                }
+                            } ); ";
+        $js_script .= " 
+                        if ( ! jQuery('#set_gen_booking_confirmation__booking_details__header_enabled').is(':checked') ) {
+                            jQuery('.wpbc_booking_confirmation__booking_details__field').addClass('wpbc_field_disabled');   
+                            jQuery('.wpbc_booking_confirmation__booking_details__fields').addClass('hidden_items');                             
+                        }
+                      ";
+        $js_script .= " jQuery('#set_gen_booking_confirmation__booking_details__header_enabled').on( 'change', function(){    
+                                if ( ! this.checked ) { 
+                                    jQuery('.wpbc_booking_confirmation__booking_details__field').addClass('wpbc_field_disabled');
+                                    jQuery('.wpbc_booking_confirmation__booking_details__fields').addClass('hidden_items');
+                                } else {
+                                    jQuery('.wpbc_booking_confirmation__booking_details__field').removeClass('wpbc_field_disabled');
+                                    jQuery('.wpbc_booking_confirmation__booking_details__fields').removeClass('hidden_items');
+                                }
+                            } ); ";
+
+        $js_script .= " 
+                        if ( ! jQuery('#set_gen_booking_confirmation_header_enabled').is(':checked') ) {   
+                            jQuery('.wpbc_booking_confirmation_header__field').addClass('wpbc_field_disabled'); 
+                        }
+                      ";
+        $js_script .= " jQuery('#set_gen_booking_confirmation_header_enabled').on( 'change', function(){    
+                                if ( ! this.checked ) { 
+                                    jQuery('.wpbc_booking_confirmation_header__field').addClass('wpbc_field_disabled');
+                                } else {
+                                    jQuery('.wpbc_booking_confirmation_header__field').removeClass('wpbc_field_disabled');
+                                }
+                            } ); ";
+
+
         // Enqueue JS to  the footer of the page
         wpbc_enqueue_js( $js_script );
     }
@@ -1923,3 +2346,34 @@ function wpbc_settings_validate_fields_before_saving__all( $validated_fields ) {
     return $validated_fields;
 }
 add_filter( 'wpbc_settings_validate_fields_before_saving', 'wpbc_settings_validate_fields_before_saving__all', 10, 1 );   // Hook for validated fields.
+
+
+/**
+ * Load Code mirror highlighter for Booking Confirmation  at the  WP Booking Calendar > Settings General page in "Booking Confirmation" section
+ *
+ * @param $page_name
+ *
+ * @return false|void
+ */
+function wpbc_hook_settings_page_footer__define_code_mirror( $page_name ) {
+
+	if ( 'general_settings' != $page_name ) {
+		return false;
+	}
+
+	$is_use_code_mirror = (  ( function_exists( 'wpbc_codemirror') ) && ( is_user_logged_in() && 'false' !== (wp_get_current_user()->syntax_highlighting) ) ) ? true : false;		//FixIn: 8.4.7.18
+
+	if ( $is_use_code_mirror ) {
+
+		wpbc_codemirror()->set_codemirror( array(
+			'textarea_id' => '#set_gen_booking_confirmation__personal_info__content'
+			 , 'preview_id'   => '#wpbc_add_form_html_preview'
+		) );
+		wpbc_codemirror()->set_codemirror( array(
+			'textarea_id' => '#set_gen_booking_confirmation__booking_details__content'
+			// , 'preview_id'   => '#wpbc_add_form_html_preview'
+		) );
+
+	}
+}
+ //add_action( 'wpbc_hook_settings_page_footer', 'wpbc_hook_settings_page_footer__define_code_mirror' );

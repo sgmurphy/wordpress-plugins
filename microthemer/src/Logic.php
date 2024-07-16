@@ -1148,13 +1148,15 @@ function has_template($source = null, $id = null, $label = null){
 		return !empty($cache[$id]) ? $cache[$id] : false;
 	}
 
-	// maybe populate template_ids
+	// gather template_ids
 	switch ($source) {
 
 		case 'bricks':
-			if ( \Bricks\Helpers::render_with_bricks($post->ID) ) {
-				foreach (\Bricks\Database::$active_templates as $content_type => $template_id){
-					Logic::getBricksTemplateIds($template_id, $template_ids, $content_type);
+			if ($post && method_exists('\Bricks\Helpers', 'render_with_bricks')){
+				if ( \Bricks\Helpers::render_with_bricks($post->ID) ) {
+					foreach (\Bricks\Database::$active_templates as $content_type => $template_id){
+						Logic::getBricksTemplateIds($template_id, $template_ids, $content_type);
+					}
 				}
 			}
 			break;
@@ -1166,14 +1168,10 @@ function has_template($source = null, $id = null, $label = null){
 			$returnType = 'blocksOnly';
 			Logic::getGutenbergTemplateIds($source, $id,$template_ids);
 			break;
-
-		case 'elementor': // todo
-			break;
 	}
 
-	// cache the template analysis for the source
+	// cache template analysis for the source
 	Logic::$cache[$source]['template_ids'] = $template_ids;
-
 
 	return !empty($template_ids[$id]) ? $returnType : false;
 }

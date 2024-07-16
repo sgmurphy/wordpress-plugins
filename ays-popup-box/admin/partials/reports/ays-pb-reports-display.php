@@ -4,7 +4,7 @@
 <div class="wrap ays_results_table">
     <h1 class="wp-heading-inline">
         <?php
-            echo __( esc_html(get_admin_page_title()), "ays-popup-box" );
+            echo esc_html(get_admin_page_title());
         ?>
     </h1>
     <div style="display: flex;justify-content: center; align-items: center;">

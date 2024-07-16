@@ -2088,7 +2088,7 @@ final class WFACP_admin {
                         wp.data.subscribe(function () {
                             setTimeout(function () {
                                 if (!document.getElementById('wfacp-switch-mode')) {
-                                    var toolbalEl = editorEl.querySelector('.edit-post-header__toolbar .edit-post-header-toolbar');
+                                    var toolbalEl = editorEl.querySelector('.editor-header__toolbar .edit-post-header-toolbar') ?? editorEl.querySelector('.edit-post-header__toolbar .edit-post-header-toolbar');
                                     if (toolbalEl instanceof HTMLElement) {
                                         toolbalEl.insertAdjacentHTML('beforeend', linkWrapper);
                                         setTimeout(() => {

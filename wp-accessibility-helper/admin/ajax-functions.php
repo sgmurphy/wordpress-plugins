@@ -7,7 +7,6 @@
 
 add_action( 'wp_ajax_wah_update_attachment_title', 'wah_update_attachment_title' );
 add_action( 'wp_ajax_update_attachment_alt', 'update_attachment_alt' );
-add_action( 'wp_ajax_wah_update_image_alt', 'wah_update_image_alt' );
 add_action( 'wp_ajax_wah_update_widgets_order', 'wah_update_widgets_order' );
 add_action( 'wp_ajax_add_new_contrast_item', 'add_new_contrast_item' );
 add_action( 'wp_ajax_remove_contrast_item', 'remove_contrast_item' );
@@ -90,39 +89,6 @@ function wah_get_attachment_id_by_src( $image_url ) {
 	if ( $attachment ) {
 		return $attachment[0];
 	}
-}
-/**
- * Update image alt - front scanner
- */
-function wah_update_image_alt() {
-
-	$response          = array();
-	$attachment_source = isset( $_POST['target_src'] ) ? sanitize_text_field( $_POST['target_src'] ) : '';
-	$wah_alt_input     = isset( $_POST['wah_alt_input'] ) ? sanitize_text_field( wp_unslash( $_POST['wah_alt_input'] ) ) : '';
-
-	if ( ! current_user_can( 'manage_options' ) ) {
-		$response['atid']    = -1;
-		$response['status']  = 'error';
-		$response['message'] = __( 'Access denied', 'wp-accessibility-helper' );
-		wp_send_json( $response );
-	}
-
-	if ( $attachment_source ) {
-
-		$attachment_id = wah_get_attachment_id( $attachment_source );
-
-		if ( $attachment_id && $wah_alt_input ) {
-			$response['atid']    = $attachment_id;
-			$response['status']  = 'ok';
-			$response['message'] = __( 'Image alt detected.', 'wp-accessibility-helper' );
-		} else {
-			$response['atid']    = -1;
-			$response['status']  = 'error';
-			$response['message'] = __( 'It look likes, this image is not on your server...', 'wp-accessibility-helper' );
-		}
-	}
-
-	wp_send_json( $response );
 }
 /**
  * Sanitation for an array

@@ -120,7 +120,7 @@ class Admin extends Base {
         NoticeRemover::get_instance( '1.0.0' );
 
         try {
-            add_action( 'admin_init', [$this, 'notices'] );
+            $this->notices();
         } catch ( Exception $e ) {
             unset( $e );
         }
@@ -242,7 +242,21 @@ class Admin extends Base {
         ] );
 
         if ( $this->kbmigration->existing_plugins && ! in_array( $this->kbmigration->existing_plugins[0][0], $this->kbmigration->migrated_plugins ) ) {
-            $migration_message = sprintf( '<p class="migration-message">%s</p><a class="button button-primary betterdocs-migration-notice" href="%s">%s</a>', __( sprintf( 'Already using %s? Power up your Knowledge Base by migrating all your docs, settings to BetterDocs with just 1 click.', '<strong>' . esc_html( $this->kbmigration->existing_plugins[0][1] ) . '</strong>', '<strong>' . esc_html( $this->kbmigration->existing_plugins[0][1] ) . '</strong>' ), 'betterdocs' ), esc_url( admin_url( 'admin.php?page=betterdocs-settings&tab=tab-migration' ) ), __( 'Start Migration', 'betterdocs' ) );
+            $plugin_name = '<strong>' . esc_html( $this->kbmigration->existing_plugins[0][1] ) . '</strong>';
+
+            $message = sprintf(
+                'Already using %s? Power up your Knowledge Base by migrating all your docs, settings to BetterDocs with just 1 click.',
+                $plugin_name
+            );
+
+            $translated_message = __( $message, 'betterdocs' );
+
+            $migration_message = sprintf(
+                '<p class="migration-message">%s</p><a class="button button-primary betterdocs-migration-notice" href="%s">%s</a>',
+                $translated_message,
+                esc_url( admin_url( 'admin.php?page=betterdocs-settings&tab=tab-migration' ) ),
+                __( 'Start Migration', 'betterdocs' )
+            );
 
             $_migration_notice = [
                 'thumbnail' => '',
@@ -439,7 +453,7 @@ class Admin extends Base {
      */
     public function styles( $hook ) {
         $this->assets->enqueue( 'betterdocs-global', 'admin/css/global.css', [], 'all' );
-        
+
         if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
             return;
         }
@@ -472,7 +486,8 @@ class Admin extends Base {
             $this->assets->localize( 'betterdocs-switcher', 'betterdocsSwitcher', [
                 'menu_title'            => __( 'Switch to BetterDocs UI', 'betterdocs' ),
                 'site_address'          => get_bloginfo( 'url' ),
-                'betterdocs_pro_plugin' => betterdocs()->is_pro_active()
+                'betterdocs_pro_plugin' => betterdocs()->is_pro_active(),
+                'betterdocs_pro_version' => betterdocs()->pro_version()
             ] );
 
             return;
@@ -506,7 +521,11 @@ class Admin extends Base {
             'admin_url'                  => admin_url(),
             'ia_preview'                 => betterdocs()->settings->get( 'ia_enable_preview', false ),
             'multiple_kb'                => betterdocs()->settings->get( 'multiple_kb' ),
-            'previewMode'                => betterdocs()->settings->get( 'ia_enable_preview', false )
+            'previewMode'                => betterdocs()->settings->get( 'ia_enable_preview', false ),
+            'dashboard_mode'             => get_option('dashboard_mode'),
+            'betterdocs_pro_plugin'      => betterdocs()->is_pro_active(),
+            'betterdocs_pro_version'     => betterdocs()->pro_version(),
+            'analytics_older'            => version_compare( betterdocs()->pro_version(), '3.3.4', '<=' )
         ] );
 
         $this->assets->enqueue( 'moment', 'vendor/js/moment.min.js', [] );
@@ -618,9 +637,19 @@ class Admin extends Base {
      * @since 1.0.0
      */
     public function output() {
-        betterdocs()->views->get( 'admin/main', [
-            'admin_ui' => 'dnd'
-        ] );
+        if ( betterdocs()->is_pro_active()
+            && version_compare( betterdocs()->pro_version(), '3.3.4', '<=' )
+            && get_current_screen()->id == 'betterdocs_page_betterdocs-analytics' ) {
+            betterdocs_pro()->views->get( 'admin/analytics-pro' );
+        } else {
+            betterdocs()->views->get( 'admin/main', [
+                'admin_ui' => 'dnd'
+            ] );
+        }
+
+        // betterdocs()->views->get( 'admin/main', [
+        //     'admin_ui' => 'dnd'
+        // ] );
     }
 
     /**
@@ -676,7 +705,7 @@ class Admin extends Base {
             ], $parent_slug )
         ];
 
-        if ( betterdocs()->settings->get( 'enable_glossaries' ) == true ) {
+        if ( betterdocs()->is_pro_active() && betterdocs()->settings->get( 'enable_glossaries' ) == true ) {
             $betterdocs_admin_pages['glossaries'] = $this->normalize_menu( __( 'Glossaries', 'betterdocs' ), 'betterdocs-glossaries', 'read_docs_analytics', [
                 $this,
                 'output'

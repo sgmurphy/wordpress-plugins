@@ -241,10 +241,6 @@
       "type": "boolean",
       "default": false
     },
-    "padding": {
-      "type": "object",
-      "default": {}
-    },
     "topDividerType": {
       "type": "string",
       "default": "tilt"
@@ -322,7 +318,11 @@
     ],
     "anchor": true,
     "spacing": {
-      "margin": true
+      "margin": true,
+      "padding": [
+        "top",
+        "bottom"
+      ]
     },
     "layout": {
       "allowSwitching": false,

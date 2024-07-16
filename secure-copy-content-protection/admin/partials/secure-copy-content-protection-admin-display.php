@@ -107,6 +107,7 @@ $sccp_message_vars = array(
     '%%admin_email%%'                   => __("Admin Email", $this->plugin_name),
     '%%current_user_ip%%'               => __("User's IP address", $this->plugin_name),    
     '%%current_date%%'                  => __("Current Date", $this->plugin_name),    
+    '%%current_page_title%%'            => __("Current Page Title", $this->plugin_name),    
 );
 
 $sccp_message_vars_html = $this->ays_sccp_generate_message_vars_html( $sccp_message_vars );

@@ -372,20 +372,24 @@
     border: 2px solid #555;
     font-size: 12px;
 	max-width: 299px;
+	/* FixIn: 10.1.5.3 */
+	max-height: 425px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-gutter: unset;
 }
 hr.wpbc_tl_popover_booking_separator {
 	margin-bottom:0;
 }
 .wpbc-listing-collumn.field-system-info {
-    font-size: 10px;
-    font-style: italic;
-    line-height: 1.2em;
-    text-align: left;
-    text-shadow: 0 -1px 0 #eee;
-    white-space: nowrap;
-    padding: 2em 5px 0;
-    text-align: right;
-    color: #777;
+	font-size: 9px;
+	font-style: normal;
+	line-height: 1.2em;
+	text-shadow: none;
+	white-space: nowrap;
+	padding: 2px 0 0 5px;
+	text-align: right;
+	color: #777;
 }
 /**   P o p o v e r     T i t l e   **/
 .flex_timeline_frame .popover .popover-title {

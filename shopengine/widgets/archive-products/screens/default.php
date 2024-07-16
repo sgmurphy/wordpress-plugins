@@ -3,11 +3,12 @@
  * This template will overwrite the WooCommerce file: woocommerce/archive-product.php.
  */
 defined('ABSPATH') || exit;
-
 \ShopEngine\Widgets\Widget_Helper::instance()->wc_template_part_filter_by_match('woocommerce/content-product.php', 'templates/content-product.php');
 \ShopEngine\Widgets\Widget_Helper::instance()->wc_template_filter();
 \ShopEngine\Compatibility\Conflicts\Theme_Hooks::instance()->theme_conflicts__archive_products_widget_during_render();
 
+// Extract settings passed from screen method
+extract($settings_to_pass);
 $wrap_extra_class = sprintf('%1$s%2$s', 'shopengine-grid', ($shopengine_is_hover_details !== 'yes' && $shopengine_group_btns !== 'yes') ? ' shopengine-hover-disable' : '');
 
 $editor_mode = ( \Elementor\Plugin::$instance->editor->is_edit_mode() || is_preview() ) ;
@@ -38,7 +39,28 @@ $editor_mode = ( \Elementor\Plugin::$instance->editor->is_edit_mode() || is_prev
 	 <?php remove_filter('loop_shop_columns', '__return_false'); ?>
 	<?php endif;
 ?>
+	<?php
+	function custom_shopengine_product_title($header_size) {
+		global $product;
+		if ($product) {
+			shopengine_content_render(
+				sprintf(
+				'<%1$s class="woocommerce-loop-product__title">%2$s</%1$s>',
+				esc_attr($header_size),
+				esc_html(get_the_title($product->get_id()))
+			) );
 
+		}
+	}
+
+	// Remove the default WooCommerce title hook and add the custom title function
+	remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
+	add_action('woocommerce_shop_loop_item_title', function() use ($settings_to_pass) {
+		$header_size = isset($settings_to_pass['shopengine_archive_product_title_header_size']) ? $settings_to_pass['shopengine_archive_product_title_header_size'] : 'h1';
+		custom_shopengine_product_title($header_size);
+	}, 10);
+
+	?>
 <div data-pagination="<?php echo esc_attr($shopengine_pagination_style) ?>"
      class="shopengine-archive-products <?php echo esc_attr($wrap_extra_class); ?>">
 	<?php

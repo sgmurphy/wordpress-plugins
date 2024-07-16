@@ -107,90 +107,7 @@ class ContentViews_Block_Common {
 					__( 'post', 'content-views-query-and-display-post-page' ),
 				],
 			),
-			'data'		 => array(
-				'has_pro' => get_option( 'pt_cv_version_pro' ),
-				'require_version' => self::get_require_version(),
-				'license_key'  => self::get_site_license(),
-				'api_link'	   => CVB_API_URL,
-				'upgrade_link' => 'https://www.contentviewspro.com/pricing/',
-				'upgrade_text' => __( "Upgrade Now", "content-views-query-and-display-post-page" ),
-				'button_text'  => __( "Content Views Library", "content-views-query-and-display-post-page" ),
-				'confirm_text' => __( "Press OK/Enter to finish importing", "content-views-query-and-display-post-page" ),
-				'hide_button'  => PT_CV_Functions::get_option_value( 'hide_toolbar_button' ),
-				'layout_img' => plugins_url( 'assets/layouts/', __FILE__ ),
-				'pre_layouts'	 => self::layout_variants(),
-				'request_method' => self::set_request_method(),
-				'woo_pick' => self::woo_pick_options(),
-				'post_types' => PT_CV_Values::post_types(),
-				'taxonomies' => PT_CV_Values::taxonomy_list(),
-				'taxorelation' => PT_CV_Values::taxonomy_relation(),
-				'taxooperator' => self::taxo_operators(),
-				'terms'		 => self::terms_list(),
-				'post_types_vs_taxonomies' => PT_CV_Values::post_types_vs_taxonomies(),
-				'authors'	 => PT_CV_Values::user_list(),
-				'author_current' => false,
-				'sticky_options' => false,
-				'manual_excerpt_options' => false,
-				'html_excerpt_options' => false,
-				'date_options'	 => self::get_date_options(),
-				'orderby'	 => self::get_orderby_options(),
-				'orderby_pro'				 => self::pro_sortby(),
-				'orders'	 => PT_CV_Values::orders(),
-				'title_tags' => PT_CV_Values::title_tag(),
-				'content_show'	 => array_merge( PT_CV_Values::content_show() ),
-				'thumb_positions' => PT_CV_Values::thumbnail_position(),
-				'img_sizes'		 => PT_CV_Values::field_thumbnail_sizes(),
-				'img_sub'		 => self::img_sub_options(),
-				'paging_types'	 => PT_CV_Values::pagination_types(),
-				'paging_styles'	 => PT_CV_Values::pagination_styles(),
-				'fields'		 => ContentViews_Block::get_fields(),
-				'fields_sort'				 => self::fields_sortable(),
-				'fields_sort_pro'			 => self::pro_fields_sortable(),
-				'style_options'	 => ContentViews_Block::style_options(),
-				'field_toggles'	 => ContentViews_Block::field_toggles(),
-				'target_options' => PT_CV_Values::open_in(),
-				'nopost_options' => PT_CV_Values::nopost_options(),
-				'border_styles'				 => array(
-					'none'	 => __( 'None', 'content-views-query-and-display-post-page' ),
-					'solid'	 => __( 'Solid', 'content-views-query-and-display-post-page' ),
-					'dotted' => __( 'Dotted', 'content-views-query-and-display-post-page' ),
-					'dashed' => __( 'Dashed', 'content-views-query-and-display-post-page' ),
-					'double' => __( 'Double', 'content-views-query-and-display-post-page' ),
-					'groove' => __( 'Groove', 'content-views-query-and-display-post-page' ),
-					'ridge'	 => __( 'Ridge', 'content-views-query-and-display-post-page' ),
-					'inset'	 => __( 'Inset', 'content-views-query-and-display-post-page' ),
-					'outset' => __( 'Outset', 'content-views-query-and-display-post-page' ),
-				),
-				'heading_styles'			 => self::headingtext_styles(),
-				'thumb_effects'				 => self::thumbnail_effects(),
-				'overlaytypes'				 => self::ovl_types(),
-				'ovlposi'					 => self::ovl_positions(),
-				'onewidth'					 => ContentViews_Block_OneBig2::one_width(),
-				'top_meta'					 => self::topmeta_options(),
-				'taxo_positions'			 => self::topmeta_positions(),
-				'meta_fields'				 => self::meta_list(),
-				'meta_separator'			 => array(
-					''			 => __( 'None', 'content-views-query-and-display-post-page' ),
-					'&#183;'	 => '·',
-					'/'			 => '/',
-					'//'		 => '//',
-					'-'			 => '-',
-					'&#8210;'	 => '—',
-					'|'			 => '|',
-				),
-				'date_format'				 => [
-					''				 => __( 'Default' ),
-					'g:i a'			 => __( '12:50 am' ),
-					'Y/m/d'			 => __( '2010/11/06' ),
-					'Y-m-d'			 => __( '2010-11-06' ),
-					'F j, Y'		 => __( 'November 6, 2010' ),
-					'F j, Y g:i a'	 => __( 'November 6, 2010 12:50 am' ),
-					'l, F jS, Y'	 => __( 'Saturday, November 6th, 2010' ),
-					'custom'	 => __( 'Custom Format', 'content-views-query-and-display-post-page' )
-				],
-				// prevent error in JS, override in Pro
-				'lf_settings' => [],
-			),
+			'data'		 => self::get_data(),
 		);
 
 		// for preview iframe
@@ -207,6 +124,94 @@ class ContentViews_Block_Common {
 		);
 
 		PT_CV_Html::frontend_styles();
+	}
+
+	// Array of data
+	public static function get_data() {
+		return array(
+			'has_pro'					 => get_option( 'pt_cv_version_pro' ),
+			'require_version'			 => self::get_require_version(),
+			'license_key'				 => self::get_site_license(),
+			'api_link'					 => CVB_API_URL,
+			'upgrade_link'				 => 'https://www.contentviewspro.com/pricing/',
+			'upgrade_text'				 => __( "Upgrade Now", "content-views-query-and-display-post-page" ),
+			'button_text'				 => __( "Content Views Library", "content-views-query-and-display-post-page" ),
+			'confirm_text'				 => __( "Press OK/Enter to finish importing", "content-views-query-and-display-post-page" ),
+			'hide_button'				 => PT_CV_Functions::get_option_value( 'hide_toolbar_button' ),
+			'layout_img'				 => plugins_url( 'assets/layouts/', __FILE__ ),
+			'pre_layouts'				 => self::layout_variants(),
+			'request_method'			 => self::set_request_method(),
+			'woo_pick'					 => self::woo_pick_options(),
+			'post_types'				 => PT_CV_Values::post_types(),
+			'taxonomies'				 => PT_CV_Values::taxonomy_list(),
+			'taxorelation'				 => PT_CV_Values::taxonomy_relation(),
+			'taxooperator'				 => self::taxo_operators(),
+			'terms'						 => self::terms_list(),
+			'post_types_vs_taxonomies'	 => PT_CV_Values::post_types_vs_taxonomies(),
+			'authors'					 => PT_CV_Values::user_list(),
+			'author_current'			 => false,
+			'sticky_options'			 => false,
+			'manual_excerpt_options'	 => false,
+			'html_excerpt_options'		 => false,
+			'date_options'				 => self::get_date_options(),
+			'orderby'					 => self::get_orderby_options(),
+			'orderby_pro'				 => self::pro_sortby(),
+			'orders'					 => PT_CV_Values::orders(),
+			'title_tags'				 => PT_CV_Values::title_tag(),
+			'content_show'				 => array_merge( PT_CV_Values::content_show() ),
+			'thumb_positions'			 => PT_CV_Values::thumbnail_position(),
+			'img_sizes'					 => PT_CV_Values::field_thumbnail_sizes(),
+			'img_sub'					 => self::img_sub_options(),
+			'paging_types'				 => PT_CV_Values::pagination_types(),
+			'paging_styles'				 => PT_CV_Values::pagination_styles(),
+			'fields'					 => ContentViews_Block::get_fields(),
+			'fields_sort'				 => self::fields_sortable(),
+			'fields_sort_pro'			 => self::pro_fields_sortable(),
+			'style_options'				 => ContentViews_Block::style_options(),
+			'field_toggles'				 => ContentViews_Block::field_toggles(),
+			'target_options'			 => PT_CV_Values::open_in(),
+			'nopost_options'			 => PT_CV_Values::nopost_options(),
+			'border_styles'				 => array(
+				'none'	 => __( 'None', 'content-views-query-and-display-post-page' ),
+				'solid'	 => __( 'Solid', 'content-views-query-and-display-post-page' ),
+				'dotted' => __( 'Dotted', 'content-views-query-and-display-post-page' ),
+				'dashed' => __( 'Dashed', 'content-views-query-and-display-post-page' ),
+				'double' => __( 'Double', 'content-views-query-and-display-post-page' ),
+				'groove' => __( 'Groove', 'content-views-query-and-display-post-page' ),
+				'ridge'	 => __( 'Ridge', 'content-views-query-and-display-post-page' ),
+				'inset'	 => __( 'Inset', 'content-views-query-and-display-post-page' ),
+				'outset' => __( 'Outset', 'content-views-query-and-display-post-page' ),
+			),
+			'heading_styles'			 => self::headingtext_styles(),
+			'thumb_effects'				 => self::thumbnail_effects(),
+			'overlaytypes'				 => self::ovl_types(),
+			'ovlposi'					 => self::ovl_positions(),
+			'onewidth'					 => ContentViews_Block_OneBig2::one_width(),
+			'top_meta'					 => self::topmeta_options(),
+			'taxo_positions'			 => self::topmeta_positions(),
+			'meta_fields'				 => self::meta_list(),
+			'meta_separator'			 => array(
+				''			 => __( 'None', 'content-views-query-and-display-post-page' ),
+				'&#183;'	 => '·',
+				'/'			 => '/',
+				'//'		 => '//',
+				'-'			 => '-',
+				'&#8210;'	 => '—',
+				'|'			 => '|',
+			),
+			'date_format'				 => [
+				''				 => __( 'Default' ),
+				'g:i a'			 => __( '12:50 am' ),
+				'Y/m/d'			 => __( '2010/11/06' ),
+				'Y-m-d'			 => __( '2010-11-06' ),
+				'F j, Y'		 => __( 'November 6, 2010' ),
+				'F j, Y g:i a'	 => __( 'November 6, 2010 12:50 am' ),
+				'l, F jS, Y'	 => __( 'Saturday, November 6th, 2010' ),
+				'custom'		 => __( 'Custom Format', 'content-views-query-and-display-post-page' )
+			],
+			// prevent error in JS, override in Pro
+			'lf_settings'				 => [],
+		);
 	}
 
 	function enqueue_for_blocklib_page() {
@@ -579,11 +584,20 @@ class ContentViews_Block_Common {
 				";
 		}
 
+
+		if ( !empty( $atts[ 'alignment' ] ) ) {
+			$view_css .= $view_selector . ' {text-align: ' . esc_attr( $atts[ 'alignment' ] ) . '}';
+			if ( $atts[ 'alignment' ] === 'center' ) {
+				$view_css .= $view_selector . ' .' . PT_CV_PREFIX . 'thumb-wrapper' . ' {margin-left: auto; margin-right: auto;}';
+			}
+		}
+
+
 		if ( $atts[ 'viewType' ] === 'overlaygrid' || $atts[ 'viewType' ] === 'blockgrid' || $atts[ 'viewType' ] === 'onebig' ) {
 			if ( !empty( $atts[ 'overlayType' ] ) ) {
 				$value		 = ($atts[ 'overlayType' ] === 'simple') ? $atts[ 'overlayColor' ] : $atts[ 'overlayGradient' ];
 				$opa		 = $atts[ 'overlayOpacity' ];
-				$view_css	 .= "$view_selector ." . PT_CV_PREFIX . "thumb-wrapper::before {background: $value; opacity: $opa}";
+				$view_css	 .= "$view_selector ." . PT_CV_PREFIX . "thumb-wrapper::before {background: $value; opacity: $opa;}";
 			}
 			if ( !empty( $atts[ 'overlayPosition' ] ) ) {
 				$posi		 = [ 'top' => 'flex-start', 'middle' => 'center', 'bottom' => 'flex-end' ];

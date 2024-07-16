@@ -132,7 +132,14 @@ class TaxonomiesImport {
 						if(isset($_display_type)){
 							add_term_meta($termID , 'display_type' , $_display_type);
 						}
-
+						if(isset($_image)){
+							$imageid = $media_instance->media_handling($_image , $termID ,$data_array ,'','','',$header_array ,$value_array);
+							//$imageid = $media_instance->image_meta_table_entry('', $termID, 'thumbnail_id', $_image, $hash_key, 'term', 'term',$templatekey);
+							
+							if($importType == 'product_cat'){
+								add_term_meta($termID , 'thumbnail_id' , $imageid); 
+							}
+						}
 
 						if(isset($parent_term_id)){
 							$update = $wpdb->get_results("UPDATE $terms_table SET `parent` = $parent_term_id WHERE `term_id` = $termID ");

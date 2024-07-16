@@ -23,10 +23,10 @@ class Post_Featured_Image extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$element_id      = esc_html( $this->attributes['elementId'] );
+		$element_id      = $this->get_element_id();
 		$post_link       = ! empty( $this->attributes['postLink'] ) ? $this->attributes['postLink'] : false;
 		$placeholder_img = ! empty( $this->attributes['placeholderImg'] ) ? $this->attributes['placeholderImg'] : false;
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$post_url        = get_post_permalink( $post_id );

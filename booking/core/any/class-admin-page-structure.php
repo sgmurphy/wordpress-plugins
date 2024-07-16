@@ -221,6 +221,9 @@ if ( 1 ) {
 				?></h1><?php
 			?></div><?php
 	  	?></div><?php
+
+		do_action( 'wpbc_after_wpbc_page_top__header_tabs', $page_tag, $active_page_tab, $active_page_subtab  );                 // Fires Before showing settings Content page
+
 } else {
 	    ?><div id="<?php echo $page_tag; ?>-admin-page-top"
 			   class="wrap wpbc_page_top wpbc_page_tab__<?php echo esc_attr( $active_page_tab ); ?> wpbc_page_subtab__<?php echo esc_attr( $active_page_subtab ); ?>" >

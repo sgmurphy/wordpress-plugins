@@ -180,16 +180,10 @@ const useBuildSiteController = () => {
 			nextStep();
 		} else {
 			// Handle error.
-			const message = response?.data?.data;
-			if (
-				typeof message === 'string' &&
-				( message.includes( 'maximum limit' ) ||
-					message.includes( 'Usage limit' ) )
-			) {
-				setLimitExceedModal( {
-					open: true,
-				} );
-			}
+			setLimitExceedModal( {
+				open: true,
+			} );
+
 			setIsInProgress( false );
 		}
 	};

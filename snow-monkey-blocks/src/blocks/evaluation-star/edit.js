@@ -3,8 +3,9 @@ import classnames from 'classnames';
 import {
 	InspectorControls,
 	RichText,
-	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
 	useBlockProps,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 } from '@wordpress/block-editor';
 
 import {
@@ -27,6 +28,7 @@ export default function ( {
 	setAttributes,
 	className,
 	isSelected,
+	clientId,
 } ) {
 	const {
 		evaluationValue,
@@ -87,10 +89,8 @@ export default function ( {
 
 	return (
 		<>
-			<InspectorControls group="styles">
-				<PanelColorGradientSettings
-					title={ __( 'Color', 'snow-monkey-blocks' ) }
-					initialOpen={ false }
+			<InspectorControls group="color">
+				<ColorGradientSettingsDropdown
 					settings={ [
 						{
 							colorValue: iconColor,
@@ -98,6 +98,9 @@ export default function ( {
 								setAttributes( {
 									iconColor: value,
 								} ),
+							resetAllFilter: () => ( {
+								iconColor: metadata.iconColor,
+							} ),
 							label: __( 'Icon color', 'snow-monkey-blocks' ),
 						},
 						{
@@ -106,11 +109,16 @@ export default function ( {
 								setAttributes( {
 									numericColor: value,
 								} ),
+							resetAllFilter: () => ( {
+								numericColor: metadata.numericColor,
+							} ),
 							label: __( 'Numeric color', 'snow-monkey-blocks' ),
 						},
 					] }
 					__experimentalIsRenderedInSidebar
-				></PanelColorGradientSettings>
+					{ ...useMultipleOriginColorsAndGradients() }
+					panelId={ clientId }
+				/>
 			</InspectorControls>
 
 			<InspectorControls>

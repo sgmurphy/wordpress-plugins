@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-06-24 17:06+0200\n"
-"PO-Revision-Date: 2024-06-24 17:06+0200\n"
+"POT-Creation-Date: 2024-07-14 23:07+0200\n"
+"PO-Revision-Date: 2024-07-14 23:07+0200\n"
 "Last-Translator: CodePeople\n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -463,7 +463,7 @@ msgid ""
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:595
-msgid "Paypal product name"
+msgid "Product name"
 msgstr ""
 
 #: inc/cpcff_admin_int.inc.php:600
@@ -1071,11 +1071,11 @@ msgstr ""
 msgid "Click to expand"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:760
+#: inc/cpcff_auxiliary.inc.php:762
 msgid "Paid"
 msgstr ""
 
-#: inc/cpcff_auxiliary.inc.php:760
+#: inc/cpcff_auxiliary.inc.php:762
 msgid "Not Paid"
 msgstr ""
 

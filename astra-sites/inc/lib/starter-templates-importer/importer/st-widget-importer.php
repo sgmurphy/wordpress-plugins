@@ -165,7 +165,7 @@ class ST_Widget_Importer {
 				// Filter to modify settings object before conversion to array and import.
 				// Leave this filter here for backwards compatibility with manipulating objects (before conversion to array below).
 				// Ideally the newer wie_widget_settings_array below will be used instead of this.
-				$widget = (string) apply_filters( 'wie_widget_settings', $widget ); // object.
+				$widget = apply_filters( 'wie_widget_settings', $widget ); // object.
 
 				// Convert multidimensional objects to multidimensional arrays
 				// Some plugins like Jetpack Widget Visibility store settings as multidimensional arrays

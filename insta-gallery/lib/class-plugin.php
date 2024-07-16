@@ -24,8 +24,8 @@ final class Plugin {
 		/**
 		 * Load plugin classes.ß
 		 */
-		Backend::instance();
 		Frontend::instance();
+		Backend::instance();
 		Gutenberg::instance();
 
 		do_action( 'qligg_init' );

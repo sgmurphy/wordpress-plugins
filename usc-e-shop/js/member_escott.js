@@ -26,30 +26,34 @@ jQuery(document).ready( function($) {
 	}
 });
 jQuery( function($) {
+
+	const isNumberString = n => typeof n === 'string' && n !== '' && !isNaN(n);
+
 	memberEScott = {
 		getToken: function() {
 			if( $("#register").val() != undefined ) {
 				var check = true;
-				if( "" == $("#cardno").val() ) {
+				if( !isNumberString($("#cardno").val()) ) {
 					check = false;
 				}
 				if( undefined == $("#expyy").get(0) || undefined == $("#expmm").get(0) ) {
 					check = false;
-				} else if( "" == $("#expyy option:selected").val() || "" == $("#expmm option:selected").val() ) {
+				} else if( !isNumberString($("#expyy option:selected").val()) || !isNumberString($("#expmm option:selected").val()) ) {
 					check = false;
 				}
 				if( $("#seccd").val() != undefined ) {
-					if( "" == $("#seccd").val() ) {
+					if( !isNumberString($("#seccd").val()) ) {
 						check = false;
 					}
-				}
-				if( "" == $("#cardname").val() ) {
-					check = false;
 				}
 				if( !check ) {
 					alert(uscesL10n.escott_token_error_message);
 					return false;
 				}
+			}
+			if( !isValidInput($("#cardname").val()) ) {
+				alert(uscesL10n.escott_token_error_message);
+				return false;
 			}
 
 			var cardno = $("#cardno").val();
@@ -75,6 +79,12 @@ jQuery( function($) {
 	$(document).on( "click", "#card-update", function(e) {
 		if( $("#token").val() != undefined ) {
 			if( "" == $("#cardno").val() ) {
+				if( 'on' == escott_params.sec3d_activate ) {
+					if( !isValidInput($("#cardname").val()) ) {
+						alert(uscesL10n.escott_token_error_message);
+						return false;
+					}
+				}
 				$("#member-card-info").submit();
 			} else {
 				memberEScott.getToken();
@@ -131,4 +141,18 @@ function setToken(token,card) {
 		document.getElementById("billingname").value = document.getElementById("cardname").value;
 		document.getElementById("member-card-info").submit();
 	}
+}
+
+function isValidInput(str) {
+	let len = str.length;
+	if( 0 === len ) {
+		return false;
+	}
+	for( let i = 0; i < len; i++ ) {
+		let char = str.charAt(i);
+		if( !( char >= 'A' && char <= 'Z' ) && !( char >= 'a' && char <= 'z' ) && char !== ' ' ) {
+			return false;
+		}
+	}
+	return true;
 }

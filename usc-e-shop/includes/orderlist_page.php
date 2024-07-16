@@ -35,6 +35,9 @@ $management_status = apply_filters( 'usces_filter_management_status', get_option
 $usces_country     = $usces_settings['country'];
 $pref              = array();
 $target_market     = $this->options['system']['target_market'];
+
+$order_list_delete_link = ( isset( $this->options['system']['order_list_delete_link'] ) ) ? $this->options['system']['order_list_delete_link'] : 0;
+
 foreach ( (array) $target_market as $country ) {
 	$prefs       = get_usces_states( $country );
 	$prefs_count = count( $prefs );
@@ -340,7 +343,10 @@ if ( ( isset( $arr_search['product_column'] ) && in_array( $arr_search['product_
 	$list_header .= '<th scope="col">' . __( 'option value', 'usces' ) . '</th>';
 }
 
-$list_header .= '<th scope="col">&nbsp;</th>';
+if ( $order_list_delete_link ) {
+	$list_header .= '<th scope="col">&nbsp;</th>';
+}
+
 ?>
 	<thead>
 	<tr>
@@ -597,7 +603,10 @@ foreach ( (array) $rows as $data ) :
 		$list_detail .= apply_filters( 'usces_filter_orderlist_detail_value', $detail, $value, $key, $data['ID'] );
 	}
 
-	$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_orderlist&order_action=delete&order_id=' . $data['ID'] . '&wc_nonce=' . wp_create_nonce( 'order_list' ) . '" onclick="return deleteconfirm(\'' . $data['ID'] . '\' );"><span style="color:#FF0000; font-size:9px;">' . __( 'Delete', 'usces' ) . '</span></a></td>';
+	if ( $order_list_delete_link ) {
+		$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_orderlist&order_action=delete&order_id=' . $data['ID'] . '&wc_nonce=' . wp_create_nonce( 'order_list' ) . '" onclick="return deleteconfirm(\'' . $data['ID'] . '\' );"><span style="color:#FF0000; font-size:9px;">' . __( 'Delete', 'usces' ) . '</span></a></td>';
+	}
+
 	if ( defined( 'WCEX_AUTO_DELIVERY' ) && version_compare( WCEX_AUTO_DELIVERY_VERSION, '1.4.0', '>=' ) ) {
 		$trclass = ( ! empty( $data['reg_parent_id'] ) ) ? ' class="regular_parent_order"' : '';
 	} else {

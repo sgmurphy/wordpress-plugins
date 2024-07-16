@@ -73,7 +73,7 @@ class Menu
         wp_enqueue_script(
             'surecart/settings/admin',
             trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/settings.js',
-            array_merge(['wp-codemirror'], $assets['dependencies']),
+            array_merge(['wp-codemirror', 'regenerator-runtime'], $assets['dependencies']),
             $assets['version'],
             true
         );
@@ -115,7 +115,7 @@ class Menu
         wp_enqueue_script(
             'surecart/analytics/admin',
             trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/analytics.js',
-            array_merge(['hls.js', 'presto-components', 'media'], $assets['dependencies']),
+            array_merge(['hls.js', 'presto-components', 'media', 'regenerator-runtime'], $assets['dependencies']),
             $assets['version'],
             true
         );

@@ -62,6 +62,7 @@ $this->preferences['wizard_expanded'] ? $ui_class.= ' wizard_expanded' : false;
 $this->preferences['code_manual_resize'] ? $ui_class.= ' code_manual_resize' : false;
 $this->preferences['show_extra_actions'] ? $ui_class.= ' show_extra_actions' : false;
 $this->preferences['specificity_preference'] ? $ui_class.= ' specificity_preference' : false;
+$this->preferences['auto_save_mode'] ? $ui_class.= ' auto_save_mode' : false;
 $this->preferences['auto_publish_mode'] ? $ui_class.= ' auto_publish_mode' : false;
 $this->preferences['sticky_styles_toolbar'] ? $ui_class.= ' sticky_styles_toolbar' : false;
 $this->preferences['dock_folders_left'] ? $ui_class.= ' dock_folders_left' : false;
@@ -585,16 +586,16 @@ require_once('common-inline-assets.php');
                             </div>
                         </div>
 
+                        <?php
+                            echo $this->icon('save', array(
+                                'class' => 'mt-save-action',
+                                'title' => esc_attr__('Save settings', 'microthemer')
+                            ));
+                        ?>
+
                         <div id="mt-publish-action" class="mt-publish-action">
                             <?php
                             esc_html_e('Publish', 'microthemer');
-
-                            /*if ($this->preferences['num_unpublished_saves'] < 1){
-	                            esc_html_e('Published', 'microthemer');
-                            } else {
-	                            esc_html_e('Publish', 'microthemer');
-                            }*/
-
                             ?>
                         </div>
 
@@ -2291,7 +2292,7 @@ require_once('common-inline-assets.php');
 
         <!-- Google Fonts -->
 		<?php echo $this->start_dialog('google-fonts', esc_html__('Google Fonts Library', 'microthemer')); ?>
-        <iframe id="google_fonts_iframe" class="microthemer-iframe" frameborder="0" name="google_fonts_iframe"
+        <iframe id="google_fonts_iframe" class="microthemer-iframe" name="google_fonts_iframe"
                 rel="<?php echo 'admin.php?page='.$this->fontspage; ?>"
                 src="about:blank"
                 loading="lazy"

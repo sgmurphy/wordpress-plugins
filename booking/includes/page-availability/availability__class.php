@@ -43,18 +43,18 @@ class WPBC_AJX__Availability {
 
 				wp_enqueue_script(    'wpbc-ajx_availability_page'
 									, trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/availability_page.js'         /* wpbc_plugin_url( '/_out/js/codemirror.js' ) */
-									, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );                     //FixIn: 9.8.1
+									, array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );                     //FixIn: 9.8.1
 
 				wp_enqueue_script( 'wpbc-general_ui_js_css'
 					, wpbc_plugin_url( '/includes/_general_ui_js_css/_out/wpbc_main_ui_funcs.js' )
-					, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );										//FixIn: 9.8.1
+					, array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );										//FixIn: 9.8.1
 
-				wp_enqueue_script( 'wpbc_all',         wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                 	array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );          //FixIn: 9.8.6.1
+				wp_enqueue_script( 'wpbc_all',         wpbc_plugin_url( '/_dist/all/_out/wpbc_all.js' ),                 	array( 'jquery' ), WP_BK_VERSION_NUM );          //FixIn: 9.8.6.1
 				wp_enqueue_script( 'wpbc-main-client', wpbc_plugin_url( '/js/client.js' ),     array( 'wpbc-datepick' ),    WP_BK_VERSION_NUM );
 				wp_enqueue_script( 'wpbc-times',       wpbc_plugin_url( '/js/wpbc_times.js' ), array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );
 				/**
 				 *
-				 * wp_localize_script( 'wpbc-global-vars', 'wpbc_live_request_obj'
+				 * wp_localize_script( 'wpbc_all', 'wpbc_live_request_obj'
 				 * , array(
 				 * 'ajx_booking'  => '',
 				 * 'reminders' => ''

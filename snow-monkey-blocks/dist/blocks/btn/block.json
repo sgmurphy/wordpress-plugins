@@ -1,6 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
+  "version": "21.0.0",
   "textdomain": "snow-monkey-blocks",
   "name": "snow-monkey-blocks/btn",
   "title": "Button",
@@ -60,6 +61,11 @@
       "center",
       "right"
     ],
+    "spacing": {
+      "__experimentalSkipSerialization": true,
+      "margin": false,
+      "padding": true
+    },
     "snowmonkeyeditor": {
       "blockPresets": {
         "ignore": [
@@ -69,6 +75,11 @@
           "linkDestination"
         ]
       }
+    }
+  },
+  "selectors": {
+    "spacing": {
+      "padding": ".smb-btn"
     }
   },
   "example": {

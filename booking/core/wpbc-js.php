@@ -22,7 +22,7 @@ class WPBC_JS extends WPBC_JS_CSS {
         $this->add( array(
                             'handle' => 'wpbc-datepick',
                             'src' => wpbc_plugin_url( '/js/datepick/jquery.datepick.js'), 
-                            'deps' => array( 'wpbc-global-vars' ),
+                            'deps' => array( 'wpbc_all' ),
                             'version' => '1.1',
                             'where_to_load' => array( 'admin', 'client' ),                //Usage: array( 'admin', 'client' )
                             'condition' => false    
@@ -144,17 +144,6 @@ class WPBC_JS extends WPBC_JS_CSS {
 /** Define JavaScript Varibales */
 function wpbc_js_load_vars( $where_to_load ) {
     
-    ////////////////////////////////////////////////////////////////////////////
-    // JavaScripts Variables               
-    ////////////////////////////////////////////////////////////////////////////
-
-    wp_enqueue_script( 'wpbc-global-vars', wpbc_plugin_url( '/js/wpbc_vars.js' ), array( 'jquery' ), WP_BK_VERSION_NUM );        // Blank JS File
-
-//    wp_localize_script( 'wpbc-global-vars' ,
-//	                    'wpbc_js_global', array(
-//					                            'wpdev_bk_plugin_url' => plugins_url( '', WPBC_FILE )
-//                                            )
-//                    );
 
 }
 
@@ -197,14 +186,14 @@ function wpbc_js_load_files( $where_to_load ) {
      * In popper.js  edit global.Popper  to global.wpbc_Popper
      * In tippy-bundle.umd.js  edit global.Popper  to global.wpbc_Popper   and      global.tippy   to  global.wpbc_tippy
      */
-	wp_enqueue_script( 'wpbc-popper', wpbc_plugin_url( '/assets/libs/popper/popper.js' ),                   array( 'wpbc-global-vars' ),    WP_BK_VERSION_NUM );            //FixIn: 9.0.1.1
+	wp_enqueue_script( 'wpbc-popper', wpbc_plugin_url( '/assets/libs/popper/popper.js' ),                   array( 'wpbc_all' ),    WP_BK_VERSION_NUM );            //FixIn: 9.0.1.1
 	wp_enqueue_script( 'wpbc-tipcy',  wpbc_plugin_url( '/assets/libs/tippy.js/dist/tippy-bundle.umd.js' ),  array( 'wpbc-popper' )  ,       WP_BK_VERSION_NUM );            //FixIn: 9.8.1
 
 	if ( $where_to_load != 'client' ) {
 		wp_enqueue_script( 'wpbc-modal', wpbc_plugin_url( '/assets/libs/ui/_out/dropdown_modal.js' ),       array( 'jquery' ),          WP_BK_VERSION_NUM );               //FixIn: 9.8.1
 	}
 
-    wp_enqueue_script( 'wpbc-datepick', wpbc_plugin_url( '/js/datepick/jquery.datepick.wpbc.9.0.js'),       array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );               //FixIn: 9.8.1
+    wp_enqueue_script( 'wpbc-datepick', wpbc_plugin_url( '/js/datepick/jquery.datepick.wpbc.9.0.js'),       array( 'wpbc_all' ), WP_BK_VERSION_NUM );               //FixIn: 9.8.1
     $calendar_localization_url = wpbc_get_calendar_localization_url();                                                  // Localization
 	if ( ! empty( $calendar_localization_url ) ) {
 		wp_enqueue_script( 'wpbc-datepick-localize', $calendar_localization_url,                            array( 'wpbc-datepick' ),   WP_BK_VERSION_NUM );                 //FixIn: 9.8.1
@@ -222,12 +211,12 @@ function wpbc_js_load_files( $where_to_load ) {
 
     if ( $where_to_load == 'admin' ) {
 		wp_enqueue_script( 'wpbc-js-print',      wpbc_plugin_url( '/assets/libs/wpbc_js_print/wpbc_js_print.js' ),  array( 'jquery' )  ,         WP_BK_VERSION_NUM );           //FixIn: 9.8.1            //FixIn: 9.2.1.6   //FixIn: 9.1.2.13
-        wp_enqueue_script( 'wpbc-admin-main',    wpbc_plugin_url( '/js/admin.js'),                                  array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );           // Admin
+        wp_enqueue_script( 'wpbc-admin-main',    wpbc_plugin_url( '/js/admin.js'),                                  array( 'wpbc_all' ), WP_BK_VERSION_NUM );           // Admin
 	    if ( wpbc_can_i_load_on_this_page__shortcode_config() ) {
 			wp_enqueue_script( 'wpbc_shortcode_popup', wpbc_plugin_url( '/includes/ui_modal__shortcodes/_out/wpbc_shortcode_popup.js' ), array( 'jquery' ), WP_BK_VERSION_NUM ); //FixIn: 9.8.6.1
 	    }
-        wp_enqueue_script( 'wpbc-admin-support', wpbc_plugin_url( '/core/any/js/admin-support.js'),                 array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );
-        wp_enqueue_script( 'wpbc-chosen',        wpbc_plugin_url( '/assets/libs/chosen/chosen.jquery.min.js'),      array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM );           // Chosen Library
+        wp_enqueue_script( 'wpbc-admin-support', wpbc_plugin_url( '/core/any/js/admin-support.js'),                 array( 'wpbc_all' ), WP_BK_VERSION_NUM );
+        wp_enqueue_script( 'wpbc-chosen',        wpbc_plugin_url( '/assets/libs/chosen/chosen.jquery.min.js'),      array( 'wpbc_all' ), WP_BK_VERSION_NUM );           // Chosen Library
     }
 }
 

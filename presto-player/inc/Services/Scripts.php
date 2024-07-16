@@ -236,7 +236,7 @@ class Scripts
         wp_enqueue_script(
             'surecart/blocks/admin',
             trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/blocks.js',
-            array_merge(['presto-components', 'hls.js'], $assets['dependencies']),
+            array_merge(['presto-components', 'hls.js', 'regenerator-runtime'], $assets['dependencies']),
             $assets['version'],
             true
         );

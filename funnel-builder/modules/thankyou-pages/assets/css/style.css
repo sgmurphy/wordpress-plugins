@@ -555,6 +555,11 @@ body .wfty_wrap .wfty_order_details table tfoot tr:last-child th,body .wfty_wrap
     font-size: 13px
 }
 
+.wfty_box .wfty_pro_list_cont + div:not(.wfty_pro_list_cont) {
+    clear: both;
+    margin-top: 10px;
+}
+
 .wffn_order_details_table .wfty_wrap .wfty_subscription table tr td.subscription-actions a {
     padding: 5px 10px;
     display: inline;

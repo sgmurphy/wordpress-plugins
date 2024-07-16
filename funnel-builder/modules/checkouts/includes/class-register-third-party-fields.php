@@ -96,10 +96,6 @@ class WFACP_Class_Register_Third_Party_Fields {
 
 	public function add_wrapper() {
 
-		if ( true !== apply_filters( 'wfacp_add_billing_shipping_wrapper', true ) ) {
-		}
-
-
 		/**
 		 * Add default Hook for billing wrapper
 		 */
@@ -361,12 +357,12 @@ class WFACP_Class_Register_Third_Party_Fields {
 			}
 		}
 
+		if ( ! isset( $args['is_wfacp_field'] ) && 'select' !== $args['type'] && ( isset( $args['placeholder'] ) && empty( $args['placeholder'] ) ) && isset( $args['label'] ) ) {
 
-		if ( 'select' !== $args['type'] && ( isset( $args['placeholder'] ) || empty( $args['placeholder'] ) ) && isset( $args['label'] ) ) {
 			$args['placeholder'] = $args['label'];
 		}
 
-		if ( ! in_array( $key, $other_address_fields ) && isset( $args['type'] ) && 'select' === $args['type'] && count( $this->wc_fields_under_billing ) > 0 && array_key_exists( $key, $this->wc_fields_under_billing ) && isset($this->wc_fields_under_billing[ $key ]['options']) ) {
+		if ( ! in_array( $key, $other_address_fields ) && isset( $args['type'] ) && 'select' === $args['type'] && count( $this->wc_fields_under_billing ) > 0 && array_key_exists( $key, $this->wc_fields_under_billing ) && isset( $this->wc_fields_under_billing[ $key ]['options'] ) ) {
 			$args['options'] = $this->wc_fields_under_billing[ $key ]['options'];
 
 		}

@@ -16,26 +16,7 @@ class User_Profile extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body(), true );
-
-		if ( ! isset( $body['feedSettings'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed settings not found.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-		$feed = $body['feedSettings'];
-
-		if ( ! isset( $feed['account_id'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed account id not found.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-
-		$account_id = trim( $feed['account_id'] );
+		$account_id = $request->get_param( 'account_id' );
 
 		// Get cache data and return it if exists.
 		// Set prefix to cache.
@@ -51,8 +32,7 @@ class User_Profile extends Base {
 			return $response['response'];
 		}
 
-		$models_account = new Models_Account();
-		$account        = $models_account->get_account( $account_id );
+		$account = ( new Models_Account() )->get_account( $account_id );
 
 		// Check if exist an access_token and access_token_type related to id setted by param, if it is not return error.
 		if ( ! isset( $account['access_token'], $account['access_token_type'] ) ) {
@@ -67,11 +47,10 @@ class User_Profile extends Base {
 		$access_token = $account['access_token'];
 
 		// Query to Api_Fetch_Personal_User_Profile if access_token_type is 'PERSONAL'.
-		if ( $account['access_token_type'] == 'PERSONAL' ) {
-			$personal_user_profile = new Api_Fetch_Personal_User_Profile();
+		if ( 'PERSONAL' === $account['access_token_type'] ) {
 
 			// Get user profile data.
-			$response = $personal_user_profile->get_data( $access_token );
+			$response = ( new Api_Fetch_Personal_User_Profile() )->get_data( $access_token );
 
 			// Check if response is an error and return it.
 			if ( isset( $response['message'] ) && isset( $response['code'] ) ) {
@@ -96,11 +75,8 @@ class User_Profile extends Base {
 			return $this->handle_response( $response );
 		}
 		// Query to Api_Fetch_Business_User_Profile.
-
-		$business_user_profile = new Api_Fetch_Business_User_Profile();
-
 		// Get user profile data.
-		$response = $business_user_profile->get_data( $access_token, $account_id );
+		$response = ( new Api_Fetch_Business_User_Profile() )->get_data( $access_token, $account_id );
 
 		// Check if response is an error and return it.
 		if ( isset( $response['message'], $response['code'] ) ) {
@@ -116,11 +92,21 @@ class User_Profile extends Base {
 	}
 
 	public static function get_rest_args() {
-		return array();
+		return array(
+			'account_id' => array(
+				'required'          => true,
+				'sanitize_callback' => function ( $account_id ) {
+					return sanitize_text_field( $account_id );
+				},
+				'validate_callback' => function ( $account_id ) {
+					return is_numeric( $account_id );
+				},
+			),
+		);
 	}
 
 	public static function get_rest_method() {
-		return \WP_REST_Server::CREATABLE;
+		return \WP_REST_Server::READABLE;
 	}
 
 	public function get_rest_permission() {

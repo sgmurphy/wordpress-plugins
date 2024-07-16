@@ -8,7 +8,7 @@ Author URI: https://www.webfactoryltd.com/
 Plugin URI: https://wp301redirects.com/
 Text Domain: eps-301-redirects
 Requires at least: 3.6
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.2
 
   Copyright 2015 - 2024  WebFactory Ltd  (email: 301redirects@webfactoryltd.com)

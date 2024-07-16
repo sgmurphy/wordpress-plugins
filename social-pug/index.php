@@ -2,8 +2,8 @@
 /**
  * Plugin Name:         Hubbub Lite
  * Plugin URI:          https://morehubbub.com/
- * Description:         Add customizable social sharing buttons to your posts, pages and custom post types.
- * Version:             1.34.1
+ * Description:         Add customizable website growth tools such as social sharing buttons, follow buttons, and the new Save This mailing list signup form.
+ * Version:             1.34.3
 
  * Requires at least:   5.3
  * Requires PHP:        7.1

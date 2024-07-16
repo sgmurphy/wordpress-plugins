@@ -105,20 +105,30 @@ $cvsetting_haspro = get_option( 'pt_cv_version_pro' );
 
 	<div class="cv-admin-content">		
 		<div class="cv-admin-grid-left">
-			<div class="cv-admin-section" id="block-intro-video">
-				<h3>Blocks Introduction</h3>
-				<p>We added 15+ advanced post blocks to the Block Editor to help you display posts, pages, custom post types stunningly with endless customization options.</p>
-				<div class="cv-admin-video">
-					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/4Mj55xrPtV8?controls=1&modestbranding=1&rel=0&cc_load_policy=1&start=17" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				</div>
-			</div>
 			<div class="cv-admin-section">
-				<h3>View Shortcode Introduction</h3>
+				<h3>Shortcode Introduction</h3>
 				<p>We built a powerful shortcode feature to help you display content in the Classic editor and page builder easily. Simply create shortcodes, then insert shortcodes to where you want.</p>
 				<div class="cv-admin-video">
 					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/QgQLjB0DQ8s?controls=1&modestbranding=1&rel=0&cc_load_policy=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				</div>
 			</div>
+
+			<div class="cv-admin-section" id="block-intro-video">
+				<h3>Blocks Introduction</h3>
+				<p>We added 16 advanced post blocks to the Block Editor to help you display posts, pages, custom post types, media files stunningly with endless customization options.</p>
+				<div class="cv-admin-video">
+					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/4Mj55xrPtV8?controls=1&modestbranding=1&rel=0&cc_load_policy=1&start=17" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+			</div>
+
+			<div class="cv-admin-section">
+				<h3>Elementor Widgets Introduction</h3>
+				<p>Enhance your Elementor experience with advanced 16 widgets to show your posts, pages, custom post types, media files in stunning layouts (grid, list, slider, timeline, and many more).</p>
+				<div class="cv-admin-video">
+					<iframe width="100%" height="100%" src="https://www.youtube.com/embed/xaKZM9T794c?controls=1&modestbranding=1&rel=0&cc_load_policy=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				</div>
+			</div>
+
 		</div>
 		<div class="cv-admin-grid-right">
 			<div class="cv-admin-section features-list">

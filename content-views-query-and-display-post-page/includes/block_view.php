@@ -365,6 +365,11 @@ if ( !class_exists( 'PT_CV_BlockToView' ) ) {
 			if ( $block_attributes ) {
 				$args	 .= ContentViews_Block_Common::view_styles( $block_attributes );
 				$args	 .= ContentViews_Block_Common::generate_styles( $block_attributes );
+
+				if ( cv_is_damaged_style() ) {
+					$args = str_replace( ';', "!important;", $args );
+				}
+
 			}
 
 			return $args;

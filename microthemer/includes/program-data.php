@@ -697,6 +697,7 @@ $this->default_preferences = array(
 	"minify_js" => 1,
 	"mt_dark_mode" => 0, // dark theme
 	"draft_mode" => 1, // need to have draft_mode_conversion when upgrading people - on by default
+	"auto_save_mode" => 1, // Allow Auto-save to be configurable
 	"auto_publish_mode" => 0, // maybe don't launch beta with this, but add if requested
 	"color_as_hex" => 0,
 	"admin_bar_preview" => 1, // because WP jumps out of iframe now
@@ -1335,6 +1336,14 @@ $this->menu = array(
 			),
 
 
+			'auto_save_mode' => array(
+				'name' => esc_html__('Auto-save', 'microthemer'),
+				'title' => esc_attr__("Automatically save style changes as you make them (recommended)", 'microthemer'),
+				'toggle' => $this->preferences['auto_save_mode'],
+				'class' => 'auto-save-mode',
+				'data-pos' => esc_attr__('Enable Auto-save', 'microthemer'),
+				'data-neg' => esc_attr__('Disable Auto-save', 'microthemer'),
+			),
 
 			'auto_publish_mode' => array(
 				//'new_set' => 1,
@@ -1342,8 +1351,8 @@ $this->menu = array(
 				'title' => esc_attr__("Automatically publish changes rather than saving as draft first", 'microthemer'),
 				'toggle' => $this->preferences['auto_publish_mode'],
 				'class' => 'auto-publish-mode',
-				'data-pos' => esc_attr__('Enable Auto-publish mode', 'microthemer'),
-				'data-neg' => esc_attr__('Disable Auto-publish mode', 'microthemer'),
+				'data-pos' => esc_attr__('Enable Auto-publish', 'microthemer'),
+				'data-neg' => esc_attr__('Disable Auto-publish', 'microthemer'),
 			),
 
 		)

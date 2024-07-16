@@ -2,9 +2,9 @@
 Contributors: wpdevteam, re_enter_rupok, asif2bd, rahat89, priyomukul, jamilbd07, fencermonir, sumaiyasiddika
 Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Templates, Page Builder
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 4.8.0
+Stable tag: 4.8.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -225,6 +225,11 @@ Yes, you can effortlessly display your WooCommerce products on your store websit
 If you found the recent version of Essential Blocks isn’t working or conflicting with other plugins, then you can use earlier versions of the plugin.
 
 == Changelog ==
+
+= 4.8.1 - 11/07/2024 =
+- Fixed: Slider || URL not working
+- Fixed: Popup || Add 'VH' unit in height control
+- Fixed: Custom CSS editor not working in RTL
 
 = 4.8.0 - 11/07/2024 =
 - Added: Translation compatibility with WPML

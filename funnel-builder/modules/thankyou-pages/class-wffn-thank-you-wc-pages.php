@@ -994,7 +994,7 @@ if ( ! class_exists( 'WFFN_Thank_You_WC_Pages' ) ) {
 			}
 
 			$output = "
-		body.$primary_body_class .wfty_wrap * {
+		body.$primary_body_class .wfty_wrap *:not(.wfty_box.wfty_order_details .woocommerce-message a) {
 			color: {$text_color};
 			font-family: {$text_font_family};
 			font-size: {$text_font_size}px;

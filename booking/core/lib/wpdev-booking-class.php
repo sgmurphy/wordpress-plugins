@@ -483,7 +483,7 @@ class wpdev_booking {
 		$booking_form_theme           = get_bk_option( 'booking_form_theme');
 
 		$return_form = '<div id="' . $my_random_id . '" '
-		                 . ' class="wpbc_container wpbc_container_booking_form '
+		                 . ' class="wpbc_container wpbc_form wpbc_container_booking_form '
 		                    . ( ( wpbc_is_this_demo() == 'On' ) ? 'wpbc_demo_site ' : '' )
 		                    . esc_attr( $booking_form_theme ) . ' '
 		                    . ( ( $booking_form_is_using_bs_css == 'On' ) ? 'wpdevelop ' : '' )

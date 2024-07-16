@@ -23,6 +23,8 @@ return array(
     'b742bda3bf8e0cddc6187fa4d7e06bb7' => $baseDir . '/inc/admin/submenu-page-settings.php',
     '344e0684ca1b31aaa50b711661cd8d32' => $baseDir . '/inc/admin/submenu-page-toolkit.php',
     '3ee61dbad4e298df5529cd6f8b8ca059' => $baseDir . '/inc/admin/feedback-form/functions-ajax.php',
+    'bcfa68972d295f3c0c6b7b8a1d09a013' => $baseDir . '/inc/functions-block-save-this.php',
+    '480908e334d9d9e98d075c91089fa49c' => $baseDir . '/inc/functions-block-save-this-send-email-ajax.php',
     '1f621d75f14fbfce1d9dcfdb67c3d96f' => $baseDir . '/inc/admin/feedback-form/functions.php',
     '9ebc4eaf476fceeb92bde431a11a30a7' => $baseDir . '/inc/autoloader-pro.php',
     'ae30935460c9cc115e4ea1f66c2a7956' => $baseDir . '/inc/tools/share-floating-sidebar/functions-frontend.php',

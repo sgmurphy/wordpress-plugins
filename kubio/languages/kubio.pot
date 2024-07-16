@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Kubio 2.3.0\n"
+"Project-Id-Version: Kubio 2.3.1\n"
 "Report-Msgid-Bugs-To: support@kubiobuilder.com\n"
 "Last-Translator: Kubio <support@kubiobuilder.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-12T08:49:25+03:00\n"
+"POT-Creation-Date: 2024-07-16T11:07:16+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: kubio\n"
@@ -271,7 +271,7 @@ msgstr ""
 #: advanced-panel/src/available-styles.js:43
 #: block-editor/src/components/block-inspector/index.js:147
 #: block-editor/src/components/block-inspector/index.js:312
-#: block-editor/src/components/global-styles/typography-panel.js:152
+#: block-editor/src/components/global-styles/typography-panel.js:153
 #: block-library/src/flip-box/inspector/style/states-panel.js:49
 #: block-library/src/post-comments-form/inspector/style/post-comments-form-style.js:146
 #: controls/src/style-controls/typography-container-control/typography-container-popup/index.js:9
@@ -1346,7 +1346,7 @@ msgstr ""
 
 #: block-editor/src/components/global-styles/background-panel.js:525
 #: block-editor/src/components/global-styles/background-panel.js:540
-#: block-editor/src/components/global-styles/typography-panel.js:410
+#: block-editor/src/components/global-styles/typography-panel.js:411
 #: block-library/src/slider/blocks/slider-dots/inspector/style/dot-style.js:17
 #: controls/src/style-controls/background-control/index.js:804
 #: controls/src/style-controls/typography-control/index.js:133
@@ -1688,44 +1688,44 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:393
+#: block-editor/src/components/global-styles/typography-panel.js:394
 #: format-library/src/custom/font-family-weight/index.js:10
 msgid "Font"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:452
+#: block-editor/src/components/global-styles/typography-panel.js:453
 #: controls/src/style-controls/typography-control/index.js:168
 msgid "Line height"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:470
+#: block-editor/src/components/global-styles/typography-panel.js:471
 #: controls/src/style-controls/typography-control/index.js:181
 msgid "Letter spacing"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:487
-#: block-editor/src/components/global-styles/typography-panel.js:494
+#: block-editor/src/components/global-styles/typography-panel.js:488
+#: block-editor/src/components/global-styles/typography-panel.js:495
 #: block-library/src/row/index.js:13
 #: block-library/src/row/variations/index.js:45
 msgid "Columns"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:508
+#: block-editor/src/components/global-styles/typography-panel.js:509
 #: controls/src/style-controls/typography-control/index.js:159
 #: editor/src/components/sidebar/areas/general-settings/global-typography.js:130
 #: editor/src/components/sidebar/areas/general-settings/global-typography.js:327
 msgid "Decoration"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:525
+#: block-editor/src/components/global-styles/typography-panel.js:526
 msgid "Orientation"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:541
+#: block-editor/src/components/global-styles/typography-panel.js:542
 msgid "Letter case"
 msgstr ""
 
-#: block-editor/src/components/global-styles/typography-panel.js:559
+#: block-editor/src/components/global-styles/typography-panel.js:560
 msgid "Text alignment"
 msgstr ""
 
@@ -2007,19 +2007,19 @@ msgstr ""
 msgid "Move the selected block(s) down."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1497
+#: block-editor/src/store/actions.js:1713
 msgid "You are currently in navigation mode. Navigate blocks using the Tab key and Arrow keys. Use Left and Right Arrow keys to move between nesting levels. To exit navigation mode and edit the selected block, press Enter."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1504
+#: block-editor/src/store/actions.js:1720
 msgid "You are currently in edit mode. To return to the navigation mode, press Escape."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1510
+#: block-editor/src/store/actions.js:1726
 msgid "You are currently in zoom-out mode."
 msgstr ""
 
-#: block-editor/src/store/actions.js:1526
+#: block-editor/src/store/actions.js:1742
 msgid "Use the Tab key and Arrow keys to choose new block location. Use Left and Right Arrow keys to move between nesting levels. Once location is selected press Enter or Space to move the block."
 msgstr ""
 

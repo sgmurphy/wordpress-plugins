@@ -346,7 +346,9 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 			if ( ContentViews_Block::is_block() ) {
 				$args[] = 'iscvblock';
 
-				if ( ContentViews_Block::is_hybrid() ) {
+				if ( ContentViews_Elementor_Init::is_widget() ) {
+					$args[] = 'iscvelementor';
+				} else if ( ContentViews_Block::is_hybrid() ) {
 					$args[] = 'iscvhybrid';
 				} else {
 					$args[] = 'iscvreal';
@@ -547,7 +549,7 @@ if ( !class_exists( 'PT_CV_Hooks' ) ) {
 				$attributes[ 'zigzag' ] = 'yes';
 			}
 
-			if ( $attributes[ 'viewType' ] === 'scrollable' ) {
+			if ( $attributes[ 'viewType' ] === 'scrollable' && !ContentViews_Elementor_Init::is_widget( $attributes ) ) {
 				$columns						 = (array) $attributes[ 'columns' ];
 				$rows							 = $attributes[ 'rowNum' ];
 				$attributes[ 'postsPerPage' ]	 = (int) $columns[ 'md' ] * (int) $rows * (int) $attributes[ 'slideNum' ];

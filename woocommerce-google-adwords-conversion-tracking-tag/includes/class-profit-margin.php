@@ -128,7 +128,7 @@ class Profit_Margin {
 	private static function get_cog_from_order_item( $order_item ) {
 
 		$meta_keys = [
-			self::get_custom_cog_meta_key(),
+			self::get_custom_cog_product_meta_key(),
 			'_wc_cog_item_cost',
 			'_alg_wc_cog_item_cost',
 		];
@@ -161,12 +161,12 @@ class Profit_Margin {
 		 */
 
 		// WooCommerce Cost of Goods (SkyVerge)
-		if (self::is_skyverge_cog_method_get_cost_available()) {
+		if (class_exists('WC_COG_Product') && method_exists('WC_COG_Product', 'get_cost')) {
 			return floatval(\WC_COG_Product::get_cost($product));
 		}
 
 		// Cost of Goods for WooCommerce (WPFactory)
-		if (self::is_wpfactory_cog_method_get_product_cost_available()) {
+		if (class_exists('Alg_WC_Cost_of_Goods_Products') && method_exists('Alg_WC_Cost_of_Goods_Products', 'get_product_cost')) {
 			return floatval(( new \Alg_WC_Cost_of_Goods_Products() )->get_product_cost($product->get_id()));
 		}
 
@@ -175,7 +175,7 @@ class Profit_Margin {
 		 */
 
 		$meta_keys = [
-			self::get_custom_cog_meta_key(),    // Custom COG meta key
+			self::get_custom_cog_product_meta_key(),    // Custom COG meta key
 			'_wc_cog_cost',                     // WooCommerce Cost of Goods (SkyVerge)
 			'_alg_wc_cog_cost',                 // Cost of Goods for WooCommerce (WPFactory)
 		];
@@ -228,8 +228,13 @@ class Profit_Margin {
 	 * @return mixed
 	 * @since 1.30.6
 	 */
-	public static function get_custom_cog_meta_key() {
-		return apply_filters('pmw_custom_cogs_meta_key', null);
+	public static function get_custom_cog_product_meta_key() {
+
+		$meta_key = null;
+
+		$meta_key = apply_filters_deprecated('pmw_custom_cogs_meta_key', [ $meta_key ], '1.43.5', 'pmw_custom_cogs_product_meta_key');
+
+		return apply_filters('pmw_custom_cogs_product_meta_key', $meta_key);
 	}
 
 	/**

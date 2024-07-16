@@ -21,7 +21,8 @@ class Social_Share_Vk extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content() {
-		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$this->attributes['text']}</div>" : '';
+		$text       = esc_html( $this->attributes['text'] );
+		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$text}</div>" : '';
 
 		return "<div class='gutenverse-share-icon'>
 				<i class='fab fa-vk'></i>
@@ -34,7 +35,7 @@ class Social_Share_Vk extends Block_Abstract {
 	public function render_gutenberg() {
 		$content = $this->render_content();
 
-		return "<div class='gutenverse-share-vk gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-vk gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a href='#'>
 				{$content}
 			</a>
@@ -47,10 +48,10 @@ class Social_Share_Vk extends Block_Abstract {
 	public function render_frontend() {
 		$post_id          = get_the_ID();
 		$encoded_post_url = gutenverse_encode_url( $post_id );
-		$share_url        = 'http://vk.com/share.php?url=' . $encoded_post_url;
+		$share_url        = esc_url( 'http://vk.com/share.php?url=' . $encoded_post_url );
 		$content          = $this->render_content();
 
-		return "<div class='gutenverse-share-vk gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-vk gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a target='_blank' href='{$share_url}'>
 				{$content}
 			</a>

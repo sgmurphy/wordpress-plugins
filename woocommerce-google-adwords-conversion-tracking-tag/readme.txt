@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.5
 Requires PHP: 7.3
-Stable tag: 1.43.4
+Stable tag: 1.43.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -207,9 +207,9 @@ The Pixel Manager is ready for the new WooCommerce [High Performance Orders Stor
 
 = Plugin compatibility =
 
-The plugin works fine with 99.99% of all plugins. We test the Pixel Manager very thoroughly and continuously. In case of problems with third party plugins we usually find a fix or a workaround.
+Our plugin is designed to work seamlessly with 99.99% of all other plugins. In the rare event of a conflict with a third-party plugin, we typically identify a fix or workaround quickly.
 
-The Pixel Manager is compatible with the following third-party plugins:
+To illustrate its broad compatibility, here are a few examples of third-party plugins that work well with the Pixel Manager:
 
 * Async Javascript
 * Automptimize
@@ -239,6 +239,8 @@ The Pixel Manager is compatible with the following third-party plugins:
 * WP Super Cache
 * YITH WooCommerce Brands
 * YITH WooCommerce Wishlist
+
+Rest assured, this is just a small sample, and the Pixel Manager should integrate smoothly with almost all other plugins you may use.
 
 = Will the Pixel Manager slow down my site? =
 
@@ -293,6 +295,13 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.43.5  =
+*Release date - 16.07.2024*
+
+* Tweak: Updated vendor packages.
+* Tweak: Improved logic to detect orders overview page and order edit pages.
+* Tweak: Renamed the pmw_custom_cogs_meta_key filter to pmw_custom_cogs_product_meta_key.
 
 = 1.43.4  =
 *Release date - 26.06.2024*

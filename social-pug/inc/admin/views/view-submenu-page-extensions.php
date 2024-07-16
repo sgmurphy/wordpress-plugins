@@ -2,7 +2,7 @@
 
 	<h1 class="dpsp-page-title"><?php esc_html_e( 'All Social Share Tools in One Plugin', 'social-pug' ); ?></h1>
 
-	<p><?php _e( 'Upgrade to <a href="https://morehubbub.com/?utm_source=plugin&amp;utm_medium=upgrade-to-hubbub-pro&amp;utm_campaign=social-pug" target="_blank">Hubbub Pro</a> to gain immediate access to more social networks and tools.', 'social-pug' ); // @codingStandardsIgnoreLine - no user-entered content that needs escaping ?></p>
+	<p><?php _e( 'Upgrade <a href="https://morehubbub.com/?utm_source=plugin&amp;utm_medium=upgrade-to-hubbub-pro&amp;utm_campaign=social-pug" target="_blank">Hubbub to Pro, Pro+, or Priority</a> to gain immediate access to more social networks, more customization options, and valuable tools.', 'social-pug' ); // @codingStandardsIgnoreLine - no user-entered content that needs escaping ?></p>
 
 	<div class="dpsp-row dpsp-m-padding">
 	<?php
@@ -13,6 +13,13 @@
 			'img'  => 'assets/dist/extension-networks.png?' . MV_GROW_VERSION,
 			'desc' => __( 'Take advantage of all the social networks available.', 'social-pug' ),
 			'url'  => 'https://morehubbub.com/?utm_source=plugin-extensions&amp;utm_medium=social-networks-pack&amp;utm_campaign=social-pug#social-share-buttons',
+		];
+
+		$tools['email_save_this'] = [
+			'name' => __( 'Save This', 'social-pug' ),
+			'img'  => 'assets/dist/tool-email-save-this.png?' . MV_GROW_VERSION,
+			'desc' => __( 'Add a form for users to save pages via email and add to your mailing list. (Pro+, Priority)', 'social-pug' ),
+			'url'  => 'https://morehubbub.com/?utm_source=plugin-extensions&amp;utm_medium=email-save-this&amp;utm_campaign=social-pug',
 		];
 
 		$tools['share_mobile'] = [
@@ -77,6 +84,8 @@
 	?>
 	</div><!-- End of Share Tools -->
 
+	<p>Made with ❤️ and ☕ by <a href="https://www.nerdpress.net/" title="NerdPress - WordPress support that feels like family">NerdPress</a>.</p>
+	<p>⭐ Love Hubbub? Please <a href="https://wordpress.org/support/plugin/social-pug/reviews/?filter=5#new-post" title="Rate Hubbub on WordPress.org">rate Hubbub 5-stars on WordPress.org</a>. Thank you!</p>
 
 	<?php
 	/*

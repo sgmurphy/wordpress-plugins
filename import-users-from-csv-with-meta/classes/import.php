@@ -195,11 +195,11 @@ class ACUI_Import{
                 require_once ABSPATH . 'wp-admin/includes/file.php';
             }
 
-            $is_google_sheet_export_csv = strpos( $path_to_file, 'docs.google.com/spreadsheets' ) && strpos( $path_to_file, 'output=csv' );
+            $is_google_sheet_export_csv = ( strpos( $path_to_file, 'docs.google.com/spreadsheets' ) && strpos( $path_to_file, 'output=csv' ) ) || ( strpos( $path_to_file, 'drive.google.com' ) && strpos( $path_to_file, 'export=download' ) );
 
             if( pathinfo( $path_to_file, PATHINFO_EXTENSION ) != 'csv' && !$is_google_sheet_export_csv ){
                 echo "<p>" . __( 'Error, the file is not a CSV', 'import-users-from-csv-with-meta' ) . "</p>";
-                return;
+                return false;
             }
 
             $path_to_file = download_url( $path_to_file );
@@ -215,6 +215,7 @@ class ACUI_Import{
 
     function manage_file_upload( $path_to_file ){
         $path_to_file = wp_normalize_path( $path_to_file );
+        var_dump( $path_to_file );
         $path_to_file = $this->try_download_file( $path_to_file );
         
         if( validate_file( $path_to_file ) !== 0 ){
@@ -222,7 +223,7 @@ class ACUI_Import{
             echo sprintf( __( 'Reload or try <a href="%s">a new import here</a>', 'import-users-from-csv-with-meta' ), get_admin_url( null, 'tools.php?page=acui&tab=homepage' ) );
             return false;
         } 
-        elseif( !file_exists ( $path_to_file ) ){
+        elseif( empty( $path_to_file ) || !file_exists ( $path_to_file ) ){
             echo "<p>" . __( 'Error, we cannot find the file', 'import-users-from-csv-with-meta' ) . ": $path_to_file</p>";
             echo sprintf( __( 'Reload or try <a href="%s">a new import here</a>', 'import-users-from-csv-with-meta' ), get_admin_url( null, 'tools.php?page=acui&tab=homepage' ) );
             return false;

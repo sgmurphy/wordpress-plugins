@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.3.7
+Stable tag: 4.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,13 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.3.8 - 16-July-2024
+- New: AI Builder - Added script translation with a filter to update the text domain for script translation.
+- Improvement: ZipAI - Added WordPress 6.6 compatibility.
+- Improvement: Hardcoded index are made dynamic.
+- Fix: AI Builder - Premium badge was not showing for Premium templates.
+- Fix: Footer widgets was not getting imported for AI & Classic templates.
 
 v4.3.7 - 09-July-2024
 - New:

@@ -978,7 +978,9 @@ trait SettingsTrait {
 
 		$existingLabelUpdated = false;
 		$adjusted_expr = trim($adjusted_logic['expr']);
-		$adjusted_label = trim($adjusted_logic['label']) ?: $adjusted_expr;
+		$adjusted_label = !empty($adjusted_logic['label'])
+			? trim($adjusted_logic['label'])
+			: $adjusted_expr;
 		$recent_logic = array();
 		$max = 8; // let there be lots
 

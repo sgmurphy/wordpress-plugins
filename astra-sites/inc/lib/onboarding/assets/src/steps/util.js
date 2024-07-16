@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Import all steps.
 import SiteList from './site-list';
 import SiteListHeader from './site-list/header';
@@ -11,28 +9,34 @@ import FeaturesStep from './features';
 
 export const STEPS = [
 	{
+		name: 'page-builder',
 		header: <SiteListHeader />,
 		content: <SiteType />,
 		class: 'step-page-builder',
 	},
 	{
+		name: 'site-list',
 		header: <SiteListHeader />,
 		content: <SiteList />,
 		class: 'step-site-list',
 	},
 	{
+		name: 'customizer',
 		content: <CustomizeSite />,
 		class: 'step-customizer',
 	},
 	{
+		name: 'features',
 		content: <FeaturesStep />,
 		class: 'step-feature',
 	},
 	{
+		name: 'survey',
 		content: <Survey />,
 		class: 'step-survey',
 	},
 	{
+		name: 'import-site',
 		title: 'We are buiding your website...',
 		content: <ImportSite />,
 		class: 'step-import-site',

@@ -267,23 +267,16 @@ function form_submit_send( bk_type, formdata, captcha_chalange, user_captcha ,wp
     var id_additional;
     var id_additional_str;
     var id_additional_arr;
-    if (document.getElementById('additional_calendars' + bk_type) != null ) {
+    if ( document.getElementById( 'additional_calendars' + bk_type ) != null ){
 
-        id_additional_str = document.getElementById('additional_calendars' + bk_type).value; //Loop have to be here based on , sign
+        id_additional_str = document.getElementById('additional_calendars' + bk_type).value;                            //Loop have to be here based on , sign
         id_additional_arr = id_additional_str.split(',');
 
-
-        //TODO: remove this spinner and add the new !!!
-        //FixIn: 8.5.2.26
         if ( ! jQuery( '#booking_form_div' + bk_type ).is( ':visible' ) ) {
-            jQuery( '#booking_form_div' + bk_type ).after(
-                '<div class="wpbc_submit_spinner" style="height:20px;width:100%;text-align:center;margin:15px auto;"><img style="vertical-align:middle;box-shadow:none;width:14px;" src="'+_wpbc.get_other_param( 'url_plugin' )+'/assets/img/ajax-loader.gif"></div>'
-            );
+            wpbc_booking_form__spin_loader__show( bk_type );                                                            // Show Spinner
         }
 
-
-
-        for (var ia=0;ia<id_additional_arr.length;ia++) {
+        for ( var ia = 0; ia < id_additional_arr.length; ia++ ){
             formdata_additional_arr = formdata;
             formdata_additional = '';
             id_additional = id_additional_arr[ia];

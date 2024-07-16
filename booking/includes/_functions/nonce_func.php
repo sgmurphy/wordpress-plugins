@@ -148,3 +148,51 @@ function wpbc_exclude_for_wp_optimize( $excluded_filter_arr ) {
 	return $excluded_filter_arr;
 }
 add_filter( 'wp-optimize-minify-default-exclusions', 'wpbc_exclude_for_wp_optimize', 10, 1 );
+
+
+/**
+ * Exclude JS scripts from Delay JS  in the WP Rocket plugin
+ *
+ * @param $exclusions
+ *
+ * @return mixed
+ */
+function wpbc_exclude_from_delay_for_wp_rocket( $exclusions ) {
+
+	$plugin_path = wpbc_make_link_relative( WPBC_PLUGIN_URL );
+
+	// Exclude jQuery
+	$exclusions[] = '/jquery(-migrate)?-?([0-9.]+)?(.min|.slim|.slim.min)?.js(\?(.*))?( |\'|"|>)';
+
+	// Exclude plugin  JS files
+	$exclusions[] = $plugin_path . '/(.*)';
+
+	/*
+		$exclusions[] = '/wp-content/plugins/booking(.*)/_dist/all/_out/wpbc_all.js';
+		$exclusions[] = '/wp-content/plugins/booking(.*)/js/datepick/jquery.datepick.wpbc.9.0.js';
+		$exclusions[] = '/wp-content/plugins/booking(.*)/js/wpbc_time-selector.js';
+		$exclusions[] = '/wp-content/plugins/booking(.*)/assets/libs/tippy.js';
+		$exclusions[] = '/wp-content/plugins/booking(.*)/assets/libs/popper/popper.js';
+		$exclusions[] = '/wp-content/plugins/booking(.*)/inc/js/biz_m.js';
+	*/
+
+	// Exclude  some important plugin  JS vars
+	$exclusions[] = 'wpbc_init__head';
+	$exclusions[] = 'wpbc_url_ajax';
+	$exclusions[] = 'booking_max_monthes_in_calendar';
+	$exclusions[] = 'wpbc_define_tippy_popover';
+	$exclusions[] = 'flex_tl_table_loading';
+
+	$exclusions[] = '(.*)_wpbc.(.*)';
+	$exclusions[] = 'moveOptionalElementsToGarbage';
+	$exclusions[] = ' wpbc_(.*)';
+
+
+	// Old way to  exclude all
+	//	$exclusions[] = '/wp-content/plugins/booking(.*)/(.*)';
+	//	$exclusions[] = '(.*)wpbc(.*)';
+
+	return $exclusions;
+
+}
+add_filter( 'rocket_delay_js_exclusions',   'wpbc_exclude_from_delay_for_wp_rocket' );

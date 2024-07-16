@@ -6,6 +6,7 @@ import {
 	RichText,
 	useBlockProps,
 	useInnerBlocksProps,
+	__experimentalGetColorClassesAndStyles as getColorClassesAndStyles,
 } from '@wordpress/block-editor';
 
 import {
@@ -51,6 +52,7 @@ export default function ( { attributes, setAttributes, className, clientId } ) {
 		moveBlocksUp,
 		moveBlocksDown,
 		updateBlockAttributes,
+		selectBlock,
 	} = useDispatch( 'core/block-editor' );
 
 	const { getBlockOrder, getBlock } = useSelect( ( select ) => {
@@ -349,8 +351,14 @@ export default function ( { attributes, setAttributes, className, clientId } ) {
 						const targetClientId =
 							getBlockOrder( clientId )[ index ];
 
-						const onClickTab = () => {
+						const onClickTab = ( e ) => {
 							setCurrentTabPanelId( tab.tabPanelId );
+
+							if (
+								e.target.classList.contains( 'smb-tabs__tab' )
+							) {
+								selectBlock( targetClientId );
+							}
 						};
 
 						const onChangeTitle = ( value ) => {
@@ -401,6 +409,8 @@ export default function ( { attributes, setAttributes, className, clientId } ) {
 								tabs[ index + 1 ].tabPanelId
 							);
 						};
+
+						const colorProps = getColorClassesAndStyles( tab );
 
 						return (
 							<div
@@ -478,7 +488,11 @@ export default function ( { attributes, setAttributes, className, clientId } ) {
 								) }
 
 								<button
-									className="smb-tabs__tab"
+									className={ classnames(
+										'smb-tabs__tab',
+										colorProps?.className
+									) }
+									style={ colorProps?.style }
 									role="tab"
 									aria-controls={ tab.tabPanelId }
 									aria-selected={

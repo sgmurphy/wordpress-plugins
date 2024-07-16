@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { WandIcon } from '../../ui/icons';
 import { Button } from '../../../components/index';
+import { getStepIndex } from '../../../utils/functions';
 
 const zipPlans = astraSitesVars?.zip_plans;
 const sitesRemaining = zipPlans?.plan_data?.remaining;
@@ -141,7 +142,7 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 		<Tippy
 			visible={ show }
 			render={ ( attrs ) =>
-				currentIndex === 1 && (
+				currentIndex === getStepIndex( 'site-list' ) && (
 					<motion.div
 						className="flex flex-col items-start gap-5 max-w-[320px] h-auto bg-white rounded-lg shadow-xl p-4"
 						{ ...attrs }

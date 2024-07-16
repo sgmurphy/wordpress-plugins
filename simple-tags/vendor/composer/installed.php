@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'taxopress/simple-tags',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'f3a0430b210c5f507da5791e7873fc7754cfbd4f',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'taxopress/simple-tags' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'f3a0430b210c5f507da5791e7873fc7754cfbd4f',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

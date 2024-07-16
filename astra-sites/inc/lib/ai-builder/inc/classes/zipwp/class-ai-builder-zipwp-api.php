@@ -684,32 +684,25 @@ class Ai_Builder_ZipWP_Api {
 		}
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
-		if ( 201 === $response_code || 200 === $response_code ) {
-			$response_data = json_decode( $response_body, true );
-			if ( is_array( $response_data ) ) {
-				$site_data = $response_data['site'];
-				update_option( 'zipwp_import_site_details', $site_data );
-				wp_send_json_success(
-					array(
-						'data'   => $response_data,
-						'status' => true,
-					)
-				);
-			} else {
-				wp_send_json_error(
-					array(
-						'data'   => 'Failed ' . $response_data,
-						'status' => false,
+		$response_data = json_decode( $response_body, true );
 
-					)
-				);
-			}
+		if ( 201 === $response_code || 200 === $response_code ) {
+
+			$site_data = is_array( $response_data ) ? $response_data['site'] : array();
+
+			update_option( 'zipwp_import_site_details', $site_data );
+
+			wp_send_json_success(
+				array(
+					'http_status_code' => $response_code,
+					'data'             => $response_data,
+				)
+			);
 		} else {
 			wp_send_json_error(
 				array(
-					'data'   => 'Failed - ' . $response_body,
-					'status' => false,
-
+					'http_status_code' => $response_code,
+					'data'             => $response_data,
 				)
 			);
 		}

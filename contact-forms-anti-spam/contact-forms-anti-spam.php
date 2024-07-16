@@ -4,7 +4,7 @@
  * Plugin Name:       Maspik - Advanced Spam Protection
  * Plugin URI:        https://wpmaspik.com/
  * Description:       Overall Spam block, blacklist words, IP, country, languages, from contact-forms and more...
- * Version:           2.0.3
+ * Version:           2.0.4
  * Author:            WpMaspik
  * Author URI:        https://wpmaspik.com/blog/
  * License:           GPL-2.0+
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Currently plugin version.
  */
-define( 'MASPIK_VERSION', '2.0.3' );
+define( 'MASPIK_VERSION', '2.0.4' );
 
 /**
  * The code that runs during plugin activation.

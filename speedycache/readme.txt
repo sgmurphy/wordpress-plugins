@@ -2,9 +2,9 @@
 Contributors: softaculous
 Tags: cache, minify, pagespeed, seo, cdn, wordpress cache, website cache, lazy loading, mobile cache, minify css, combine css, minify js, combine js, gzip, browser caching, render blocking js, preload, widget cache, softaculous, speedycache, performance
 Requires at least: 4.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.3
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -148,6 +148,12 @@ You can either go to the Delete Cache Tab where you will find Stats about the Ca
 4. SpeedyCache Exclude page
 
 == Changelog ==
+
+= 1.1.8 (16th July 2024) =
+* [Task] Removed StackPath from CDN(as StackPath CDN was retired in September 2023)
+* [Task] Tested with WordPress 6.6
+* [Bug-Fix] There was an issue with deletion of Preloading setting that has been fixed.
+* [Bug-Fix] There was an issue with enabling Precaching using URL which has been fixed.
 
 = 1.1.7 (31st May 2024) =
 * [Bug-Fix] There was an issue with Delay JS which has been fixed.

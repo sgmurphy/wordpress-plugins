@@ -534,6 +534,8 @@ $spamcounter = maspik_spam_count();
                     <?php _e('Each term should be on a separate line.', 'contact-forms-anti-spam'); ?><br>
                     <?php _e('The system is not case-sensitive', 'contact-forms-anti-spam'); ?><br>
                 </p>
+                <p><?php _e('Learn more about those option in our documentation', 'contact-forms-anti-spam'); ?> <a target="_blank" href="https://wpmaspik.com/documentation/?fromplugin"><?php _e('here', 'contact-forms-anti-spam'); ?></a>.</p>
+
 
             </div>
 
@@ -576,7 +578,7 @@ $spamcounter = maspik_spam_count();
                             <?php 
                                 maspik_tooltip("If the text value CONTAINS one of the given values, it will be marked as spam and blocked.");
                                     
-                                maspik_popup("Eric jones,SEO,ranking,currency,click here ", "Text field", "See examples" ,"visibility");
+                                maspik_popup("Eric jones|SEO|ranking|currency|click here", "Text field", "See examples" ,"visibility");
                             ?>
                         </div> <!--end of maspik-setting-info-->
                                 
@@ -657,7 +659,7 @@ $spamcounter = maspik_spam_count();
                             <?php 
                             maspik_tooltip("If the text value is EQUAL to one of the values above, MASPIK will tag it as spam and it will be blocked.");
                                 
-                            maspik_popup("georginahaynes620@gmail.com,ericjonesonline@outlook.com,*.ru,/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.ru\b/,eric*@*.com,xrumer888@outlook.com", "Email field", "See examples" ,"visibility");
+                            maspik_popup("georginahaynes620@gmail.com|ericjonesonline@outlook.com|*.ru|/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.ru\b/|eric*@*.com|xrumer888@outlook.com", "Email field", "See examples" ,"visibility");
                                 ?>
                         </div> <!--end of maspik-setting-info-->
                             
@@ -700,11 +702,11 @@ $spamcounter = maspik_spam_count();
                                     
                                 echo "<div class = 'maspik-small-btn-wrap'>";
                                     maspik_popup("
-                                    [name] - Title of the website- Maspik Testing ,
-                                    [url] - URL of the website- https://maspik.com ,
+                                    [name] - Title of the website- Maspik Testing |
+                                    [url] - URL of the website- https://maspik.com|
                                     [description] - Description of the web site- Desc", "Shortcode List",  "Shortcode List" ,"shortcode");
 
-                                    maspik_popup("submit your website,seo,ranking,currency,click here", "Textarea field",  "See examples" ,"visibility");
+                                    maspik_popup("submit your website|seo|ranking|currency|click here", "Textarea field",  "See examples" ,"visibility");
                                 echo "</div>";
                             ?>
                         </div> <!--end of maspik-setting-info-->
@@ -802,7 +804,7 @@ $spamcounter = maspik_spam_count();
                             <?php 
                                 maspik_tooltip("If you want more than one format, use the next line.");
                                     
-                                maspik_popup("/[0-9]{3}-[0-9]{3}-[0-9]{4}/", "Phone field", "See examples" ,"visibility");
+                                maspik_popup("???-???-????|{+*-*,???-???-????}|+[1-9]-*|{+*-*,???-???-????}|[0-9][0-9][0-9]-*|/[0-9]{3}-[0-9]{3}-[0-9]{4}/", "Phone field", "See examples" ,"visibility");
                             ?>
                         </div> <!--end of maspik-setting-info-->
                                 
@@ -815,9 +817,9 @@ $spamcounter = maspik_spam_count();
                             ?>   
 
                         </div> <!-- end of maspik-main-list-wrap -->
-                        <span class="maspik-subtext"><?php _e('Wildcard patterns are accepted. asterisk * symbol is necessary for the recognition of the wildcard.', 'contact-forms-anti-spam'); ?><br>
+                        <span class="maspik-subtext"><?php _e('Wildcard patterns are accepted. asterisk * Or question mark ? symbol are necessary for the recognition of the wildcard.', 'contact-forms-anti-spam'); ?><br>
                         <?php _e(' You can get more ideas', 'contact-forms-anti-spam'); ?>
-                        <a href="https://regex101.com/library?orderBy=MOST_POINTS&search=phone%20number%20validation" target="_blank">
+                        <a href="https://wpmaspik.com/documentation/phone-field/" target="_blank">
                         <?php _e('HERE', 'contact-forms-anti-spam'); ?></a>    
                         </span>
 
@@ -1009,6 +1011,12 @@ $spamcounter = maspik_spam_count();
                     <div class="maspik-accordion-content-wrap hide-form-title">
                                 
                         <div class="maspik-select-list">
+                            <?php 
+                            $is_spi_stronger = efas_get_spam_api('country_blacklist') && efas_get_spam_api('AllowedOrBlockCountries') && efas_get_spam_api('AllowedOrBlockCountries',"string") != 'ignore';
+                        
+                            $attr = $is_spi_stronger ? "disabled='disabled'" : false;
+                            echo $is_spi_stronger ? "<span><b>Setting disabled and managed by Maspik deshbord</b></span>" : "";
+                            ?>
                             <div class="maspik-main-list-wrap">
                                 
                                 <?php 
@@ -1017,14 +1025,16 @@ $spamcounter = maspik_spam_count();
                                         'Allow' => 'allow',
                                         'Block' => 'block'
 
-                                    )
-                                    );
-                                    echo create_maspik_select("country_blacklist", "country_blacklist", efas_array_of_countries());                                 
+                                    ),$attr);
+                                    echo create_maspik_select("country_blacklist", "country_blacklist", efas_array_of_countries(),$attr);                                 
                                 ?> 
                             </div>
                                 <?php
+                                if($is_spi_stronger){ 
+                                    maspik_spam_api_list('AllowedOrBlockCountries'); 
                                     maspik_spam_api_list('country_blacklist', efas_array_of_countries());
-                                ?>
+                                }
+                            ?>
                         </div> <!-- end of maspik-main-list-wrap -->
                                     
                         <div class="maspik-custom-msg-wrap">
@@ -1563,11 +1573,6 @@ wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0
 ?>
 
 
-
-<!-- Scripts --------------------------
----------------------------------------
---------------------------------------- -->
-
 <script>
 
 //Accordion JS code
@@ -1669,8 +1674,6 @@ wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0
 
 // Hide - Show on Toggle - END
 
-//Old Scripts -------------------------------
-
     jQuery(document).ready(function() {
         jQuery('.maspik-select').select2({
           multiple: true,
@@ -1722,7 +1725,7 @@ wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0
                 const dataArrayElement = popup.querySelector('.data-array-here ul');
                 const dataArray = button.dataset.array;
                 if (dataArrayElement && dataArray) {
-                    const dataArrayItems = dataArray.split(',');
+                    const dataArrayItems = dataArray.split('|');
                     dataArrayElement.innerHTML = ''; // Clear previous data
                     dataArrayItems.forEach(item => {
                         const listItem = document.createElement('li');

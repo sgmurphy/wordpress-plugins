@@ -45,7 +45,7 @@ if (!defined('ABSPATH')) exit;
         if ($result !== false) {
             $result_check = "success";
         } else {
-            echo $wpdb->last_error;
+            $result_check =  $wpdb->last_error;
         }
 
         return $result_check;
@@ -461,7 +461,7 @@ function efas_get_browser_name($user_agent){
             if ($result) {
                 $result_check = "success";
             } else {
-                echo $wpdb->last_error;
+                $result_check = $wpdb->last_error;
             }
 
             return $result_check;
@@ -503,12 +503,11 @@ function efas_get_browser_name($user_agent){
 
 
 function efas_add_to_log($type = '', $input = '', $post = null, $source = "Elementor forms") {
-	$spamcounter = get_option( 'spamcounter' ) ? get_option( 'spamcounter' ) : 0;
+    $spamcounter = get_option('spamcounter') ? get_option('spamcounter') : 0;
+    update_option('spamcounter', ++$spamcounter);
 
-    get_option( 'spamcounter', ++$spamcounter );
-    
     // Sanitize and escape user inputs
-    if(maspik_get_settings("maspik_Store_log") == 'yes'){
+    if (maspik_get_settings("maspik_Store_log") == 'yes') {
         $text = wp_kses_data(print_r($post, true)); 
         $ip = efas_getRealIpAddr();
         $countryName = "Other (Unknown)";
@@ -520,7 +519,6 @@ function efas_add_to_log($type = '', $input = '', $post = null, $source = "Eleme
         $browser_name = efas_get_browser_name($user_agent);
         $date = wp_date("d-m-Y H:i:s", null, wp_timezone());
 
-    
         maspik_save_log(
             sanitize_text_field($type),
             sanitize_text_field($input),
@@ -529,14 +527,19 @@ function efas_add_to_log($type = '', $input = '', $post = null, $source = "Eleme
             sanitize_text_field($countryName),
             sanitize_text_field($browser_name),
             sanitize_text_field($date),
-            sanitize_text_field($source),
+            sanitize_text_field($source)
         );
 
         echo maspik_log_limiter();
     }
-
 }
 
+function maspik_Download_log_btn(){
+        ?><form method="post" class="downloadform" action="<?php echo admin_url('admin-post.php'); ?>">
+        <input type="hidden" name="action" value="Maspik_spamlog_download_csv">
+        <input type="submit" value="Download CSV" class="maspik-btn">
+    </form><?php
+}
 
 function cfes_build_table() {
     global $wpdb;
@@ -546,7 +549,7 @@ function cfes_build_table() {
         // SQL query to select all rows from the table
         $sql = "SELECT * FROM $table ORDER BY id DESC";
         $results = $wpdb->get_results($sql, ARRAY_A);
-
+        echo maspik_Download_log_btn();
         echo "<table class ='maspik-log-table'>";
         echo "<tr class='header-row'>
                 <th class='maspik-log-column column-type'>Type</th>
@@ -1444,31 +1447,28 @@ function ip_is_cidr($ip) {
 }
 
 function CountryCheck($ip, &$spam, &$reason) {
+    $message = 0;
     $opt_value = maspik_get_dbvalue();
     $ip_blacklist = maspik_get_settings('ip_blacklist') ? efas_makeArray(maspik_get_settings('ip_blacklist')) : array();
-    
-    $country_blacklist_array = $data =  maspik_get_settings('country_blacklist','select');
-
-      foreach($country_blacklist_array as $value){
-            $cleanval = trim($value -> $opt_value);
-            if(!empty($cleanval)){
-                $country_blacklist = explode(" ", $value -> $opt_value);
-            }else{
-                $country_blacklist = array();
-            }
-        }
-
-        
     $AllowedOrBlockCountries = maspik_get_settings('AllowedOrBlockCountries') == 'allow' ? 'allow' : 'block';
-    
-    $message = 0;
-    
-    // Countries API
-    if (efas_get_spam_api('country_blacklist') && efas_get_spam_api('AllowedOrBlockCountries') != 'ignore') {
+    $country_blacklist_array = $data =  maspik_get_settings('country_blacklist','select');
+    foreach($country_blacklist_array as $value){
+        $cleanval = trim($value -> $opt_value);
+        if(!empty($cleanval)){
+            $country_blacklist = explode(" ", $value -> $opt_value);
+        }else{
+            $country_blacklist = array();
+        }
+    }
+
+        // Countries API
+    if (efas_get_spam_api('country_blacklist') && efas_get_spam_api('AllowedOrBlockCountries',"string") != 'ignore') {
         $countries_blacklist_api = efas_get_spam_api('country_blacklist');
-        $AllowedOrBlockCountries = efas_get_spam_api('AllowedOrBlockCountries');
+        $AllowedOrBlockCountries = efas_get_spam_api('AllowedOrBlockCountries',"string");
         $country_blacklist = $countries_blacklist_api;
     }
+
+    
 
     // Check country blacklist only if is pro user
     if( cfes_is_supporting() ){ 
@@ -1616,70 +1616,61 @@ function checkTelForSpam($field_value) {
     $valid = false; 
     $tel_formats = maspik_get_settings('tel_formats');
 
-
     $MaxCharacters = maspik_get_settings('MaxCharactersInPhoneField');
     $MinCharacters = maspik_get_settings('MinCharactersInPhoneField');
 
-    if(maspik_get_settings('phone_limit_custom_message_toggle')== 1){
+    if (maspik_get_settings('phone_limit_custom_message_toggle') == 1) {
         $message = 'MaxCharactersInPhoneField';
-    }else{
+    } else {
         $message = '';
     }
-
 
     // Check if the maximum character limit is valid  
     if (is_numeric($MaxCharacters) && $MaxCharacters > 3) {
         $CountCharacters = mb_strlen(strval($field_value)); // Use mb_strlen for multibyte characters
-        if(maspik_get_settings(maspik_toggle_match('MaxCharactersInPhoneField')) == 1){
+        if (maspik_get_settings(maspik_toggle_match('MaxCharactersInPhoneField')) == 1) {
             if ($CountCharacters > $MaxCharacters) {
-                //$valid = false;
                 $reason = "More than $MaxCharacters characters in Phone Number";
-                return array('valid' => false, 'reason' => $reason, 'message'  =>   $message);
-            }elseif ($CountCharacters < $MinCharacters) {
-
-                //$valid = false;
+                return array('valid' => false, 'reason' => $reason, 'message' => $message);
+            } elseif ($CountCharacters < $MinCharacters) {
                 $reason = "Less than $MinCharacters characters in Phone Number";
-                return array('valid' => false, 'reason' => $reason, 'message'  =>   $message);
+                return array('valid' => false, 'reason' => $reason, 'message' => $message);
             }
         }
     }
-    
-    if ( empty( $tel_formats ) ) {
-        return array('valid' => 'Empty formats', 'reason' => 'Empty formats');
+
+    if (empty($tel_formats)) {
+        return array('valid' => false, 'reason' => 'Empty formats', 'message' => 'Empty formats');
     }
 
     $tel_formats = explode("\n", str_replace("\r", "", $tel_formats));
-    $reason = "Phone number " . $field_value ." not meet the given format. ";
+    $reason = "Phone number " . $field_value . " does not meet the given format. ";
 
     foreach ($tel_formats as $format) {
         $format = trim($format);
         if (empty($format)) {
             continue;
         }
+        // Regular expression format
         if (strpos($format, '/') === 0) {
-        	$reason .= "Regular expression match: $format";
-            // Regular expression format
-            if (preg_match($format, $field_value)) {
-                $valid = true;
-                $reason .= "Regular expression match: $format";
-                return array('valid' => $valid, 'reason' => $reason, 'message'  => 'tel_formats');
-                break;
+            if (@preg_match($format, '') === false) {
+                $reason .= "Invalid regular expression: $format. ";
+                continue;
             }
-        } elseif (strpos($format, '*') !== false) { 
-          		$reason .= "Wildcard pattern match: $format";
-            // Wildcard pattern using fnmatch
+
+            if (preg_match($format, $field_value)) {
+                return array('valid' => true, 'reason' => "Regular expression match: $format", 'message' => 'tel_formats');
+            }
+        } 
+        // Wildcard pattern
+        elseif (strpbrk($format, '*?') !== false) {
             if (fnmatch($format, $field_value, FNM_CASEFOLD)) {
-                $valid = true;
-                return array('valid' => $valid, 'reason' => $reason, 'message'  => 'tel_formats');
-                break;
+                return array('valid' => true, 'reason' => "Wildcard pattern match: $format", 'message' => 'tel_formats');
             }
         } 
     }
 
-
-
-    return array('valid' => $valid, 'reason' => $reason, 'message'  => 'tel_formats');
-
+    return array('valid' => $valid, 'reason' => $reason, 'message' => 'tel_formats');
 }
 
 // validate Text Field
@@ -2251,24 +2242,31 @@ function maspik_array_to_html_table($array) {
 }
 
 
-// monitor_jquery_ajax_requests - for Dev only.
-//add_action( 'wp_footer', 'Maspik_monitor_jquery_ajax_requests' );
-function Maspik_monitor_jquery_ajax_requests() {
-        ?>
-    <script>
-let startTime;
+add_action('admin_post_Maspik_spamlog_download_csv', 'Maspik_spamlog_download_csv');
 
-jQuery(document).ajaxSend(function(event, xhr, options) {
-    startTime = new Date().getTime();
-}).ajaxComplete(function(event, xhr, options) {
-    const endTime = new Date().getTime();
-    const elapsedTime = endTime - startTime; // Time difference in milliseconds
-    console.log('Elapsed time (ms):', elapsedTime);
-    console.log('Elapsed time (s):', elapsedTime/1000);
-});
-    </script>
-    <?php
+function Maspik_spamlog_download_csv() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'maspik_spam_logs';
+
+    $results = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+
+    if (empty($results)) {
+        wp_die('No data found.');
+    }
+
+    $filename = 'spam_log_export_' . date('Y-m-d') . '.csv';
+
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . $filename);
+
+    $output = fopen('php://output', 'w');
+
+    fputcsv($output, array_keys($results[0]));
+
+    foreach ($results as $row) {
+        fputcsv($output, $row);
+    }
+
+    fclose($output);
+    exit();
 }
-
-
-

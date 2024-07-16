@@ -155,8 +155,8 @@ PT_CV_Functions::view_submit();
 						),
 					),
 					// Upgrade to Pro: Custom post type
-					!get_option( 'pt_cv_version_pro' ) ? PT_CV_Settings::get_cvpro( 'postType', __( 'Filter custom post type (product, event, and so on)', 'content-views-query-and-display-post-page' ) ) : '',
-					apply_filters( PT_CV_PREFIX_ . 'custom_filters', array() ),
+					!get_option( 'pt_cv_version_pro' ) ? PT_CV_Settings::get_cvpro( 'postType', __( 'Filter custom post type (product, event, etc.) and media file', 'content-views-query-and-display-post-page' ) ) : '',
+	apply_filters( PT_CV_PREFIX_ . 'custom_filters', array() ),
 					// Common Filters
 					array(
 						'label'			 => array(

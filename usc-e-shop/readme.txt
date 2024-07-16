@@ -4,7 +4,7 @@ Tags: Welcart, e-Commerce, shopping, cart, eShop, store, admin, calendar, manage
 Requires at least: 5.5
 Tested up to: 6.5
 Requires PHP: 7.4 - 8.1
-Stable tag: 2.10.4
+Stable tag: 2.10.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,14 @@ Please see [Welcart Forum(Japanese)](https://www.welcart.com/community/forums).
 
 
 == Changelog ==
+
+16 July 2024
+= V2.10.5 =
+-----------
+* [WelcartPay] Fixed a bug where "card name" was not passed on credit card renewal when using 3DS.
+* Fixed a bug that the "description" of no-image images becomes the product detail text.
+* Changed the specification to hide the "Delete" link in the order list and member list by default.
+* Added hooks after updating member information on the admin page.
 
 26 June 2024
 = V2.10.4 =

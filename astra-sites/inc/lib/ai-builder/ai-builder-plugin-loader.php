@@ -296,6 +296,8 @@ class Ai_Builder_Plugin_Loader {
 			)
 		);
 
+		wp_set_script_translations( 'ai-builder', apply_filters( 'ai_builder_textdomain', 'ai-builder' ) );
+
 		// Required for install theme.
 		wp_enqueue_script( 'ai-builder-install-theme', AI_BUILDER_URL . 'inc/assets/js/install-theme.js', array( 'jquery', 'updates' ), AI_BUILDER_VER, true );
 
@@ -375,6 +377,9 @@ class Ai_Builder_Plugin_Loader {
 
 		$plans = Ai_Builder_ZipWP_Api::Instance()->get_zip_plans();
 
+		$team_name = is_array( $plans['data'] ) && isset( $plans['data']['team']['name'] ) ? $plans['data']['team']['name'] : '';
+		$plan_name = is_array( $plans['data'] ) && isset( $plans['data']['active_plan']['slug'] ) ? $plans['data']['active_plan']['slug'] : '';
+
 		return array(
 			'ajax_url'           => admin_url( 'admin-ajax.php' ),
 			'_ajax_nonce'        => wp_create_nonce( 'astra-sites' ),
@@ -401,6 +406,31 @@ class Ai_Builder_Plugin_Loader {
 			'business_details'   => Ai_Builder_ZipWP_Integration::get_business_details(),
 			'skipFeatures'       => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
 			'show_premium_badge' => 'yes' === apply_filters( 'ai_builder_show_premium_badge', 'yes' ),
+			'parent_plugin'      => apply_filters( 'ai_builder_parent_plugin', 'wp-astra-sites' ),
+			'filtered_data'      => apply_filters(
+				'ai_builder_limit_exceeded_popup_strings',
+				array(
+					'main_content'        => sprintf(
+						/* translators: %1$s: team name, %2$s: plan name */
+						__(
+							'Your current active organization is %1$s, which is on the %2$s plan. You have reached the maximum number of sites allowed to be created on %2$s plan.',
+							'astra-sites'
+						),
+						$team_name,
+						$plan_name
+					),
+					'secondary_content'   => sprintf(
+						/* translators: %1$s: team name */
+						__(
+							'Please upgrade the plan for %s in order to create more sites.',
+							'astra-sites'
+						),
+						$team_name,
+					),
+					'cta_text'            => __( 'Unlock Full Power', 'astra-sites' ),
+					'cta_redirection_url' => 'https://app.zipwp.com/founders-deal',
+				)
+			),
 		);
 	}
 

@@ -23,7 +23,7 @@ class Post_Terms extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$element_id = esc_html( $this->attributes['elementId'] );
+		$element_id = $this->get_element_id();
 		$html_tag   = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
 		$taxonomy   = esc_html( $this->attributes['taxonomy'] );
 		$separator  = esc_html( $this->attributes['separator'] );
@@ -81,7 +81,7 @@ class Post_Terms extends Block_Abstract {
 		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-terms guten-element">' . $this->render_content( $post_id ) . '</div>';
 	}

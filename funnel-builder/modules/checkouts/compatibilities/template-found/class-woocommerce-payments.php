@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/*
+ * plugin Name: WooPayments by Automattic (v.7.8.1)
+ *
+ */
 
 #[AllowDynamicProperties]
 class WFACP_Compatibility_With_WooCommerce_Payments {
@@ -17,9 +21,9 @@ class WFACP_Compatibility_With_WooCommerce_Payments {
 	 */
 	public function detect_woo_payment() {
 		$instance = WFACP_Common::remove_actions( 'woocommerce_checkout_billing', 'WC_Payments', 'woopay_fields_before_billing_details' );
+
 		if ( $instance == 'WC_Payments' ) {
 			add_action( 'wfacp_internal_css', [ $this, 'css' ] );
-			add_action( 'wfacp_after_billing_email_field', [ 'WC_Payments', 'woopay_fields_before_billing_details' ] );
 			add_filter( 'woocommerce_form_field_args', [ $this, 'add_aero_basic_classes' ], 10, 2 );
 		}
 
@@ -32,7 +36,11 @@ class WFACP_Compatibility_With_WooCommerce_Payments {
 	public function add_aero_basic_classes( $field, $key ) {
 		if ( $key === 'billing_email' ) {
 			$field['input_class'][] = 'wfacp-form-control';
-			$field['class'][]       = 'wfacp-form-control-wrapper';
+			$tmp                    = [];
+			if ( isset( $field['class'] ) && is_array( $field['class'] ) ) {
+				$tmp = $field['class'];
+			}
+			$field['class']         = array_merge( [ 'woopay-billing-email' ], $tmp );
 			$field['label_class'][] = 'wfacp-form-control-label';
 		}
 

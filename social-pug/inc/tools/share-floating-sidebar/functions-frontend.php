@@ -22,6 +22,10 @@ function dpsp_output_front_end_floating_sidebar() {
 		return;
 	}
 
+	if ( doing_action( 'before_feast_layout' ) || doing_action( 'genesis_header' ) || doing_action( 'genesis_after_header' ) || doing_action( 'genesis_footer' ) || doing_action( 'genesis_sidebar' ) || doing_action( 'kadence_before_sidebar' ) || doing_action( 'kadence_before_footer' ) || doing_action('kadence_dynamic_sidebar_content') || doing_action('kadence_after_header') ) {
+        return $content;
+    }
+
 	// Check that the sidebar has been added only once
 	$tool_container = \Mediavine\Grow\Tools\Toolkit::get_instance();
 	$tool_instance  = $tool_container->get( 'sidebar' );

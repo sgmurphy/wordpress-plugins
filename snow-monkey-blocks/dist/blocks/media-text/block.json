@@ -123,9 +123,6 @@
       "type": "string",
       "default": "lg"
     },
-    "gutter": {
-      "type": "string"
-    },
     "templateLock": {
       "type": [
         "string",
@@ -142,7 +139,8 @@
   "supports": {
     "anchor": true,
     "spacing": {
-      "margin": true
+      "margin": true,
+      "blockGap": true
     },
     "layout": {
       "allowSwitching": false,

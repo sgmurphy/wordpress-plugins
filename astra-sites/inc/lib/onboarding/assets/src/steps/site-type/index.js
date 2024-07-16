@@ -11,7 +11,7 @@ import { useStateValue } from '../../store/store';
 import LimitExceedModal from '../../components/limit-exceeded-modal';
 import { WandIcon } from '../ui/icons';
 import './style.scss';
-import { removeLocalStorageItem } from '../../utils/functions';
+import { getStepIndex, removeLocalStorageItem } from '../../utils/functions';
 const { showClassicTemplates } = astraSitesVars;
 
 const SiteType = () => {
@@ -109,7 +109,10 @@ const SiteType = () => {
 	};
 
 	useEffect( () => {
-		if ( currentIndex === 0 && builder !== 'fse' ) {
+		if (
+			currentIndex === getStepIndex( 'page-builder' ) &&
+			builder !== 'fse'
+		) {
 			dispatch( {
 				type: 'set',
 				builder: 'ai-builder',

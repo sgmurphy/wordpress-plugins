@@ -31,9 +31,9 @@ class WPBC_Listing {
 		if ( ( is_admin() ) && ( in_array( $where_to_load, array( 'admin', 'both' ) ) ) ) {
 
 			wp_enqueue_script( 'wpbc-listing_class', trailingslashit( plugins_url( '', __FILE__ ) ) . 'listing_ui.js'         /* wpbc_plugin_url( '/_out/js/codemirror.js' ) */
-												   , array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
+												   , array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );
 			/**
-			wp_localize_script( 'wpbc-global-vars', 'wpbc_live_request_obj'
+			wp_localize_script( 'wpbc_all', 'wpbc_live_request_obj'
 								, array(
 										'contacts'  => '',
 										'reminders' => ''

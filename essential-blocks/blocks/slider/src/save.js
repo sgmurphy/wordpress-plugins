@@ -91,10 +91,25 @@ const Save = ({ attributes }) => {
                                 className={`eb-slider-item ${sliderContentType}`}
                                 key={index}
                             >
-                                <img
-                                    className="eb-slider-image"
-                                    src={image.url}
-                                />
+                                {image.buttonUrl && image.isValidUrl ? 
+                                    <div><a 
+                                        href={sanitizeURL(image.buttonUrl)}
+                                        target={
+                                            image.openNewTab
+                                                ? "_blank"
+                                                : "_self"
+                                        }
+                                        rel="noopener">
+                                        <img
+                                            className="eb-slider-image"
+                                            src={image.url}
+                                        />
+                                    </a></div>
+                                 : <div><img
+                                        className="eb-slider-image"
+                                        src={image.url}
+                                    /></div>
+                                }
                                 {sliderType === "content" && (
                                     <div
                                         className={`eb-slider-content align-${textAlign}`}

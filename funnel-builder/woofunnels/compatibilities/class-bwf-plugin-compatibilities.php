@@ -10,14 +10,14 @@ class BWF_Plugin_Compatibilities {
 	public static $plugin_compatibilities = array();
 
 	public static function load_all_compatibilities() {
-
 		$compat = [
-			'class-bwf-compatibilitiy-with-curcy.php'             => class_exists( 'WOOMULTI_CURRENCY_F_VERSION' ),
-			'class-bwf-compatibility-with-aelia-cs.php'           => class_exists( 'Aelia\WC\CurrencySwitcher\WC_Aelia_CurrencySwitcher' ),
-			'class-bwf-compatibility-with-woocs.php'              => isset( $GLOBALS['WOOCS'] ) && $GLOBALS['WOOCS'] instanceof WOOCS,
-			'class-bwf-compatibility-with-woomulticurrency.php'   => defined( 'WOOMULTI_CURRENCY_VERSION' ),
-			'class-bwf-compatibility-with-wpml-multicurrency.php' => class_exists( 'woocommerce_wpml' ),
-			'class-bwf-compatibility-with-yaycurrency.php'        => class_exists( 'Yay_Currency\Helpers\YayCurrencyHelper' ),
+			'class-bwf-compatibilitiy-with-curcy.php'                    => class_exists( 'WOOMULTI_CURRENCY_F_VERSION' ),
+			'class-bwf-compatibility-with-aelia-cs.php'                  => class_exists( 'Aelia\WC\CurrencySwitcher\WC_Aelia_CurrencySwitcher' ),
+			'class-bwf-compatibility-with-woocs.php'                     => isset( $GLOBALS['WOOCS'] ) && $GLOBALS['WOOCS'] instanceof WOOCS,
+			'class-bwf-compatibility-with-woomulticurrency.php'          => defined( 'WOOMULTI_CURRENCY_VERSION' ),
+			'class-bwf-compatibility-with-wpml-multicurrency.php'        => class_exists( 'woocommerce_wpml' ),
+			'class-bwf-compatibility-with-yaycurrency.php'               => class_exists( 'Yay_Currency\Helpers\YayCurrencyHelper' ),
+			'class-bwf-compatibility-with-wc-price-based-on-country.php' => class_exists( 'WC_Product_Price_Based_Country' ),
 		];
 		self::add_files( $compat );
 	}
@@ -69,16 +69,10 @@ class BWF_Plugin_Compatibilities {
 				}
 
 				include_once __DIR__ . '/' . $file;
-
 			}
 
 		} catch ( Exception|Error $e ) {
-
-			BWF_Logger::get_instance()->log( 'Error while loading compatibility files: ' . $e->getMessage(),'bwf-compatibilities' ) ;
+			BWF_Logger::get_instance()->log( 'Error while loading compatibility files: ' . $e->getMessage(), 'bwf-compatibilities' );
 		}
-
 	}
 }
-
-
-

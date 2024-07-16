@@ -2,7 +2,7 @@
 Contributors: WebFactory
 Tags: captcha, recaptcha, form captcha, login captcha, comments spam
 Requires at least: 3.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 3.2
 Requires PHP: 5.2
 License: GPLv2 or later

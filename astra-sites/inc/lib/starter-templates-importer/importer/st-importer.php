@@ -333,12 +333,12 @@ class ST_Importer {
 	 */
 	public static function import_widgets( $widgets_data, $data = '' ) {
 
-		if ( is_string( $data ) && ! empty( $data ) ) {
+		if ( is_object( $data ) ) { // @phpstan-ignore-line
 			// $data is set and is an object.
-			$widgets_data = (object) $widgets_data;
-		} else {
-			// $data is not set.
 			$widgets_data = $data;
+		} elseif ( is_string( $data ) ) {
+			// $data is set but is not an object.
+			$widgets_data = (object) json_decode( $data );
 		}
 
 		if ( ! is_object( $widgets_data ) ) {

@@ -577,7 +577,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $unpublished_ids = ( isset($_POST['bulk-delete']) && ! empty($_POST['bulk-delete']) ) ? esc_sql($_POST['bulk-delete']) : array();
             $message = 'unpublished';
 
-            // loop over the array of record IDs and mark as read them
+            // loop over the array of record IDs and unpublish them
             foreach ($unpublished_ids as $id) {
                 self::publish_unpublish_popupbox($id , 'unpublish');
             }
@@ -728,40 +728,47 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
     public function extra_tablenav($which) {
         global $wpdb;
-        $titles_sql = "SELECT {$wpdb->prefix}ays_pb_categories.title,{$wpdb->prefix}ays_pb_categories.id FROM {$wpdb->prefix}ays_pb_categories";
+
+        $titles_sql = "SELECT {$wpdb->prefix}ays_pb_categories.title, {$wpdb->prefix}ays_pb_categories.id FROM {$wpdb->prefix}ays_pb_categories";
         $cat_titles = $wpdb->get_results($titles_sql);
 
+        $popup_options_sql = "SELECT `modal_content`, `options` FROM " . $wpdb->prefix . "ays_pb";
+        $popup_options = $wpdb->get_results($popup_options_sql, "ARRAY_A");
         $cat_id = null;
-        if( isset( $_GET['filterby'] )){
-            $cat_id = absint( intval( $_GET['filterby'] ) );
+        if (isset($_GET['filterby'])) {
+            $cat_id = absint( intval($_GET['filterby']) );
         }
+
+        $author_id = null;
+        if (isset($_GET['filterbyAuthor'])) {
+            $author_id = absint( intval($_GET['filterbyAuthor']) );
+        }
+
+        $ays_pb_type = null;
+        if (isset($_GET['filterbyType'])) {
+            $ays_pb_type = ($_GET['filterbyType']);
+        }
+
         $categories_select = array();
-        foreach($cat_titles as $key => $cat_title){
+        foreach ($cat_titles as $cat_title) {
             $selected = "";
-            if($cat_id === intval($cat_title->id)){
+            if ($cat_id === intval($cat_title->id)) {
                 $selected = "selected";
             }
+
             $categories_select[$cat_title->id]['title'] = $cat_title->title;
             $categories_select[$cat_title->id]['selected'] = $selected;
             $categories_select[$cat_title->id]['id'] = $cat_title->id;
         }
-
         sort($categories_select);
 
-        $author_id = null;
-        if( isset( $_GET['filterbyAuthor'] )){
-            $author_id = absint( intval($_GET['filterbyAuthor']) );
-        }
-
         $authors_select = array();
-        $popup_options_sql = "SELECT `options` FROM " . $wpdb->prefix . "ays_pb";
-        $popup_options = $wpdb->get_results($popup_options_sql, "ARRAY_A");
-        foreach ($popup_options as $key => $options_arr) {
+        foreach ($popup_options as $options_arr) {
             $options = ( isset($options_arr['options']) && $options_arr['options'] != '' ) ? json_decode($options_arr['options'], 'ARRAY_A') : '';
 
             $author = array();
-            if ( isset($options['author']) ) {
-                if ( is_array($options['author']) ) {
+            if (isset($options['author'])) {
+                if (is_array($options['author'])) {
                     $author = $options['author'];
                 } else {
                     $author = json_decode($options['author'], true);
@@ -770,52 +777,61 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
             $selected = "";
             if (!empty($author)) {
-                if($author_id === intval($author["id"])){
+                if ($author_id === intval($author["id"])) {
                     $selected = "selected";
                 }
+
                 $authors_select[$author["id"]]['display_name'] = $author["name"];
                 $authors_select[$author["id"]]['selected'] = $selected;
                 $authors_select[$author["id"]]['id'] = $author["id"];
             }
         }
-
         sort($authors_select);
 
-        $ays_pb_type = null;
-        if( isset( $_GET['filterbyType'] )){
-            $ays_pb_type = ( $_GET['filterbyType'] );
+        $types_select = array();
+        foreach ($popup_options as $type_name) {
+            $modal_content = ( isset($type_name['modal_content']) && $type_name['modal_content'] != '' ) ? stripslashes( esc_attr($type_name['modal_content']) ) : '';
+
+            $selected = "";
+            if ($ays_pb_type === $modal_content) {
+                $selected = "selected";
+            }
+
+            $types_select[$modal_content]['title'] = $this->column_modal_content($type_name);
+            $types_select[$modal_content]['selected'] = $selected;
+            $types_select[$modal_content]['value'] = $modal_content;
         }
+        sort($types_select);
 
         ?>
-        <div id="popup-filter-div-<?php echo esc_attr( $which ); ?>" class="alignleft actions bulkactions">
-            <select name="filterby-<?php echo esc_attr( $which ); ?>" id="bulk-action-selector-<?php echo esc_attr( $which ); ?>">
-                <option value=""><?php echo __('Select Category',"ays-popup-box")?></option>
+        <div id="popup-filter-div-<?php echo esc_attr($which); ?>" class="alignleft actions bulkactions">
+            <select name="filterby-<?php echo esc_attr($which); ?>" id="bulk-action-selector-<?php echo esc_attr($which); ?>">
+                <option value=""><?php echo __('Select Category', "ays-popup-box")?></option>
                 <?php
-                    foreach($categories_select as $key => $cat_title){
-                        echo "<option ".$cat_title['selected']." value='".$cat_title['id']."'>".$cat_title['title']."</option>";
+                    foreach ($categories_select as $cat_title) {
+                        echo "<option " . $cat_title['selected'] . " value='" . $cat_title['id'] . "'>" . $cat_title['title'] . "</option>";
                     }
                 ?>
             </select>
-            <select name="filterbyAuthor-<?php echo esc_attr( $which ); ?>" id="bulk-action-selector-<?php echo esc_attr( $which ); ?>">
-                <option value=""><?php echo __('Select Author',"ays-popup-box")?></option>
+            <select name="filterbyAuthor-<?php echo esc_attr($which); ?>" id="bulk-action-selector-<?php echo esc_attr($which); ?>">
+                <option value=""><?php echo __('Select Author', "ays-popup-box")?></option>
                 <?php
-                    foreach($authors_select as $key => $author){
-                        echo "<option ".$author['selected']." value='".$author['id']."'>".$author['display_name']."</option>";
+                    foreach ($authors_select as $author) {
+                        echo "<option " . $author['selected'] . " value='" . $author['id'] . "'>" . $author['display_name'] . "</option>";
                     }
                 ?>
             </select>
-            <select name="filterbyType-<?php echo esc_attr( $which ); ?>" id="bulk-action-selector-<?php echo esc_attr( $which ); ?>">
-                <option value=""><?php echo __('Select Type',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "custom_html") echo "selected"; ?> value="custom_html"><?php echo __('Custom Content',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "shortcode") echo "selected"; ?> value="shortcode"><?php echo __('Shortcode',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "video_type") echo "selected"; ?> value="video_type"><?php echo __('Video',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "image_type") echo "selected"; ?> value="image_type"><?php echo __('Image',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "facebook_type") echo "selected"; ?> value="facebook_type"><?php echo __('Facebook',"ays-popup-box")?></option>
-                <option <?php if($ays_pb_type == "notification_type") echo "selected"; ?> value="notification_type"><?php echo __('Notification',"ays-popup-box")?></option>
+            <select name="filterbyType-<?php echo esc_attr($which); ?>" id="bulk-action-selector-<?php echo esc_attr($which); ?>">
+                <option value=""><?php echo __('Select Type', "ays-popup-box")?></option>
+                <?php
+                    foreach ($types_select as $type) {
+                        echo "<option " . $type['selected'] . " value='" . $type['value'] . "'>" . $type['title'] . "</option>";
+                    }
+                ?>
             </select>
-            <input type="button" id="doaction-<?php echo esc_attr( $which ); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr( $which ); ?> button" value="<?php echo __( "Filter", "ays-popup-box" ); ?>">
+            <input type="button" id="doaction-<?php echo esc_attr($which); ?>" class="ays-popup-question-tab-all-filter-button-<?php echo esc_attr($which); ?> button" value="<?php echo __("Filter", "ays-popup-box"); ?>">
         </div>
-        <a style="" href="?page=<?php echo esc_attr( $_REQUEST['page'] ); ?>" class="button"><?php echo __( "Clear filters", "ays-popup-box" ); ?></a>
+        <a href="?page=<?php echo esc_attr($_REQUEST['page']); ?>" class="button"><?php echo __("Clear filters", "ays-popup-box"); ?></a>
         <?php
     }
 
@@ -830,9 +846,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         return $result;
     }
 
-    public function duplicate_popupbox( $id ){
+    public function duplicate_popupbox($id) {
         global $wpdb;
-        $pb_table = $wpdb->prefix."ays_pb";
+        $pb_table = $wpdb->prefix . "ays_pb";
         $popup = $this->get_popupbox_by_id($id);
 
         $user_id = get_current_user_id();

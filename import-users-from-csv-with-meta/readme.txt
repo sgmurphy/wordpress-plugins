@@ -4,7 +4,7 @@ Donate link: https://codection.com/go/donate-import-users-from-csv-with-meta/
 Tags: csv, import, export, importer, exporter
 Requires at least: 3.4
 Tested up to: 6.6
-Stable tag: 1.26.9
+Stable tag: 1.26.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +116,9 @@ Plugin will automatically detect:
 5. Extra profile information (user meta)
 
 == Changelog ==
+
+= 1.26.10 =
+*   Improved the compatibility with Google Docs/Drive spreadsheet exported as CSV
 
 = 1.26.9 =
 *   CSVs are now never saved as WordPress attachments, even if they are later deleted, they are now read directly from temporary paths

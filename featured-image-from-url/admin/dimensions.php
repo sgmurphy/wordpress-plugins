@@ -19,7 +19,8 @@ define('PROXY2_URLS', [
     "https://books.google.com",
     "https://embed-cdn.gettyimages.com",
     "https://media.gettyimages.com",
-    "https://cdn.diariodeavisos.com"
+    "https://cdn.diariodeavisos.com",
+    "https://forum.rolug.ro"
 ]);
 
 define('PROXY3_URLS', [

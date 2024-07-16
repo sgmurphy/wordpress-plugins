@@ -1024,7 +1024,7 @@ div#wh_booking_type_chosen   .chzn-container.chzn-container-multi	.chzn-with-dro
 	.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice span {
 		word-wrap: break-word;
 	}
-	.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close{
+	.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close0{
 		font-family: "Glyphicons Halflings";
 		font-style: normal;
 		font-weight: 400;
@@ -1049,10 +1049,10 @@ div#wh_booking_type_chosen   .chzn-container.chzn-container-multi	.chzn-with-dro
 		width: auto;
 		height: auto;
 	}
-		.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close:before {
+		.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close0:before {
 			content: "\e014";
 		}
-		.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close:hover {
+		.ui_container .ui_group .ui_element .chzn-container.chzn-container-multi ul.chzn-choices li.search-choice a.search-choice-close0:hover {
 			text-decoration: none;
 		}
 

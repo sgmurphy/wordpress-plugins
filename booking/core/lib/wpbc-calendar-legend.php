@@ -23,8 +23,8 @@ function wpbc_get_calendar_legend() {
 
 		if ( 'On' == get_bk_option( 'booking_legend_is_show_item_pending' ) ) {   $items_sort[] = 'pending'; }
 
-		if (    ( class_exists( 'wpdev_bk_biz_s' ) )
-		     && ( 'On' == get_bk_option( 'booking_legend_is_show_item_partially' ) ) ) { $items_sort[] = 'partially'; }
+		if (    //FixIn: 10.1.5.5 ( class_exists( 'wpdev_bk_biz_s' ) ) &&
+		      ( 'On' == get_bk_option( 'booking_legend_is_show_item_partially' ) ) ) { $items_sort[] = 'partially'; }
 
 		if ( 'On' == get_bk_option( 'booking_legend_is_show_item_unavailable' ) ) {   $items_sort[] = 'unavailable'; }  //FixIn: 9.9.0.5
 
@@ -64,7 +64,7 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 
 
 		$my_partially .= '<span class="' . $booking_timeslot_day_bg_as_available . '">';
-		$my_partially .= '<div class="datepick-inline" style="width:30px !important;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
+		$my_partially .= '<div class="datepick-inline" style="width:30px !important;height: 30px;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
 		$my_partially .= '<table class="datepick" style=""><tbody><tr>';
 		if ( ( function_exists( 'wpbc_is_booking_used_check_in_out_time' ) ) && ( wpbc_is_booking_used_check_in_out_time() ) ) {                                                   //FixIn: 8.9.4.10
 			$my_partially .= '<td class="datepick-days-cell date_available date_approved timespartly check_in_time check_in_time_date_approved" style="height: 30px !important;">';
@@ -89,7 +89,7 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 
 	// Unavailable
 	if (1){
-		$my_unavailable = '<div class="datepick-inline" style="width:30px !important;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
+		$my_unavailable = '<div class="datepick-inline" style="width:30px !important;height: 30px;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
 		$my_unavailable .= '<table class="datepick" style=""><tbody><tr>';
 		$my_unavailable .= '<td class="datepick-days-cell datepick-unselectable date_user_unavailable" style="height: 30px !important;">';
 		$my_unavailable .= '<div class="wpbc-cell-box">';
@@ -105,7 +105,7 @@ function wpbc_get_calendar_legend__content_html( $params ) {
 
 	// Resource Unavailable
 	if (1){
-		$my_resource_unavailable = '<div class="datepick-inline" style="width:30px !important;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
+		$my_resource_unavailable = '<div class="datepick-inline" style="width:30px !important;height: 30px;border: 0;box-shadow: none;float: left;min-width: 30px;padding: 0;">';     //FixIn: 9.3.1.4
 		$my_resource_unavailable .= '<table class="datepick" style=""><tbody><tr>';
 		$my_resource_unavailable .= '<td class="datepick-days-cell resource_unavailable date_user_unavailable" style="height: 30px !important;">';
 		$my_resource_unavailable .= '<div class="wpbc-cell-box">';

@@ -474,6 +474,11 @@ class Importer extends AjaxBase {
 	 */
 	public function set_site_data() {
 
+		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
+			Ai_Builder_Fse_Importer::set_fse_site_data();
+			return;
+		}
+
 		check_ajax_referer( 'astra-sites', '_ajax_nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -483,11 +488,6 @@ class Importer extends AjaxBase {
 					'message' => __( 'You are not authorized to perform this action.', 'astra-sites' ),
 				)
 			);
-		}
-
-		if ( 'spectra-one' === get_option( 'stylesheet', 'astra' ) ) {
-			Ai_Builder_Fse_Importer::set_fse_site_data();
-			return;
 		}
 
 		$param = isset( $_POST['param'] ) ? sanitize_text_field( $_POST['param'] ) : '';

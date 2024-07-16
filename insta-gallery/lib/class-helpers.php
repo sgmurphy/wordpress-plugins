@@ -38,7 +38,8 @@ class Helpers {
 	 * @return string
 	 */
 	public static function get_personal_access_token_link() {
-		$state                 = admin_url( 'admin.php' );
+		$nonce                 = wp_create_nonce( 'qligg_add_account' );
+		$state                 = admin_url( 'admin.php?qligg_nonce=' . $nonce );
 		$scope                 = 'user_profile,user_media';
 		$personal_client_id    = self::$personal_client_id;
 		$personal_redirect_url = self::$personal_redirect_url;
@@ -51,7 +52,8 @@ class Helpers {
 	 * @return string
 	 */
 	public static function get_business_access_token_link() {
-		$state                 = admin_url( 'admin.php' );
+		$nonce                 = wp_create_nonce( 'qligg_add_account' );
+		$state                 = admin_url( 'admin.php?qligg_nonce=' . $nonce );
 		$scope                 = 'pages_show_list,instagram_basic,instagram_manage_comments,instagram_manage_insights,pages_read_engagement,business_management';
 		$business_client_id    = self::$business_client_id;
 		$business_redirect_uri = self::$business_redirect_uri;

@@ -222,9 +222,9 @@
 .wpbc-listing-collumn.new-label a{
     font-size:13px;
 }
-.wpbc-listing-collumn.new-label a i.glyphicon{
-    color:#8ac;
-}
+/*.wpbc-listing-collumn.new-label a i.glyphicon{*/
+/*    color:#8ac;*/
+/*}*/
 /* Dates */
 .wpbc-listing-collumn.field-dates .field-booking-date,
 .wpbc-listing-collumn.field-dates .field-booking-date:hover {
@@ -272,7 +272,7 @@
 .wpbc-listing-collumn .red_icon_color::before {
     color: #d54e21;
 }
-.wpbc-listing-collumn .glyphicon.red_icon_color {
+.wpbc-listing-collumn .red_icon_color {
     color:#d54e21;
 }
 .wpbc-listing-collumn .wpbc-buttons-separator {

@@ -133,6 +133,10 @@ if ( WPBC_customize_plugin ) {      //FixIn: 9.8.0.2
 	require_once( WPBC_PLUGIN_DIR . '/includes/page-customize/customize__page.php' );
 }
 
+// Booking > Setup page                                             //FixIn: 10.2.0.1
+if ( WPBC_setup_plugin ) {      //FixIn: 9.8.0.2
+	require_once( WPBC_PLUGIN_DIR . '/includes/page-setup/setup__page.php' );
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //FixIn: 9.6.3.5

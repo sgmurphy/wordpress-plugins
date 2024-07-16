@@ -681,6 +681,7 @@ class Insights {
                 return;
             }
 
+
             if( ! wp_verify_nonce( $_GET[ '_wpnonce' ], '_wpnonce_optin_' . $this->plugin_name ) ) {
                 return;
             }

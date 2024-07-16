@@ -1,6 +1,7 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import ICONS from '../../../icons';
 import { useStateValue } from '../../store/store';
+import { getStepIndex } from '../../utils/functions';
 
 const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 	const [ { showSidebar, currentIndex }, dispatch ] = useStateValue();
@@ -33,7 +34,7 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 		if (
 			!! scrollPosition &&
 			scrollPosition > 100 &&
-			currentIndex === 1 &&
+			currentIndex === getStepIndex( 'site-list' ) &&
 			contentArea.classList.length === 1
 		) {
 			contentArea.scrollTo( 0, scrollPosition );
@@ -55,19 +56,30 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 				<div
 					className={ `step-content ${ stepName || '' }` }
 					style={ {
-						padding: currentIndex === 1 ? '5% 6% 6% 6%' : '',
+						padding:
+							currentIndex === getStepIndex( 'site-list' )
+								? '5% 6% 6% 6%'
+								: '',
 					} }
 				>
 					<div
 						className={ `content-wrapper
-					${ currentIndex === 2 ? 'flex flex-col items-start h-full' : '' }
+					${
+						currentIndex === getStepIndex( 'customizer' )
+							? 'flex flex-col items-start h-full'
+							: ''
+					}
 					` }
 					>
 						{ content && content }
 						{ controls && (
 							<div
 								className={ `step-controls
-							${ currentIndex === 2 ? 'flex flex-col items-start h-full w-full' : '' }
+							${
+								currentIndex === getStepIndex( 'customizer' )
+									? 'flex flex-col items-start h-full w-full'
+									: ''
+							}
 							` }
 								/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
 								tabIndex="1"
@@ -78,12 +90,13 @@ const DefaultStep = ( { preview, content, controls, actions, stepName } ) => {
 					</div>
 				</div>
 
-				{ actions && currentIndex !== 0 && (
-					/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
-					<div className="step-actions" tabIndex="1">
-						{ actions }
-					</div>
-				) }
+				{ actions &&
+					currentIndex !== getStepIndex( 'page-builder' ) && (
+						/* eslint-disable-next-line jsx-a11y/tabindex-no-positive -- This is a used for keyboard navigation support. */
+						<div className="step-actions" tabIndex="1">
+							{ actions }
+						</div>
+					) }
 			</div>
 
 			{ preview && (

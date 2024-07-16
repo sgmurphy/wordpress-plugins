@@ -58,8 +58,14 @@ class MediaHandling{
 		wp_die();     
 	}
 	public function media_handling($img_url , $post_id , $data_array = null  ,$module = null, $image_type = null ,$hash_key = null,$templatekey = null){
-		$encodedurl = urlencode($img_url);
-		$img_url = urldecode($encodedurl);
+		if(strpos($img_url,'%') !==false){
+
+		}
+		else{
+			$encodedurl = urlencode($img_url);
+			$img_url = urldecode($encodedurl);
+		}
+		
 		$url = parse_url($img_url);
 		if($hash_key == null)
 			$hash_key = "";
@@ -107,7 +113,11 @@ class MediaHandling{
 			$templatekey = is_array($templatekey) ? implode(',', array_filter($templatekey)) : $templatekey;
 			$module = is_array($module) ? implode(',', array_filter($module)) : $module;
 			$image_type = is_array($image_type) ? implode(',', array_filter($image_type)) : $image_type;
-			$img_url = esc_sql($img_url);
+			if(strpos($img_url,'%') !==false){
+			}
+			else{
+				$img_url = esc_sql($img_url);
+			}
 			$hash_key = esc_sql($hash_key);
 			$templatekey = esc_sql($templatekey);
 			$module = esc_sql($module);
@@ -126,9 +136,14 @@ class MediaHandling{
 
 	public function image_function($f_img , $post_id , $data_array = null,$option_name = null, $use_existing_image = false,$header_array = null , $value_array = null){
 		global $wpdb;
-		$f_img = urldecode($f_img);
-		$image = explode("?", $f_img);
-		$f_img=$image[0];
+		if(strpos($f_img,'%') !==false){
+		}
+		else{
+			$f_img = urldecode($f_img);
+			$image = explode("?", $f_img);
+			$f_img=$image[0];
+		}
+		
 	
 		$media_handle = get_option('smack_image_options');
 		if(!empty($header_array) && !empty($value_array) ){
@@ -192,7 +207,11 @@ class MediaHandling{
             $uploaddir_paths = $dir ['basedir'];
             $uploaddir_url = $dir ['baseurl'];
         }
-		$f_img = str_replace(" ","%20",$f_img);
+		if(strpos($f_img,'%') !==false){
+		}
+		else{
+			$f_img = str_replace(" ","%20",$f_img);
+		}
 		if(empty($file_type['ext'])){
 			$fimg_name = @basename($f_img);
 			$fimg_name = str_replace(' ', '-', trim($fimg_name));

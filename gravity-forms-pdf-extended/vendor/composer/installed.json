@@ -578,12 +578,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "9db0dc78c7f8f69e6bf7082942c05250ec950b0b"
+                "reference": "7bcfd71a56aa63612188b1ff8211d30ca667a26d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/9db0dc78c7f8f69e6bf7082942c05250ec950b0b",
-                "reference": "9db0dc78c7f8f69e6bf7082942c05250ec950b0b",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/7bcfd71a56aa63612188b1ff8211d30ca667a26d",
+                "reference": "7bcfd71a56aa63612188b1ff8211d30ca667a26d",
                 "shasum": ""
             },
             "require": {
@@ -610,7 +610,7 @@
                 "ext-xml": "Needed mainly for SVG manipulation",
                 "ext-zlib": "Needed for compression of embedded resources, such as fonts"
             },
-            "time": "2024-04-25T09:29:39+00:00",
+            "time": "2024-06-14T16:10:55+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -756,17 +756,17 @@
         },
         {
             "name": "mpdf/qrcode",
-            "version": "v1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "v1.2.1",
+            "version_normalized": "1.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/qrcode.git",
-                "reference": "0c09fce8b28707611c3febdd1ca424d40f172184"
+                "reference": "5320c512776aa3c199bd8be8f707ec83d9779d85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/qrcode/zipball/0c09fce8b28707611c3febdd1ca424d40f172184",
-                "reference": "0c09fce8b28707611c3febdd1ca424d40f172184",
+                "url": "https://api.github.com/repos/mpdf/qrcode/zipball/5320c512776aa3c199bd8be8f707ec83d9779d85",
+                "reference": "5320c512776aa3c199bd8be8f707ec83d9779d85",
                 "shasum": ""
             },
             "require": {
@@ -783,7 +783,7 @@
                 "ext-gd": "To output QR codes to PNG files",
                 "ext-simplexml": "To output QR codes to SVG files"
             },
-            "time": "2022-01-11T09:42:41+00:00",
+            "time": "2024-06-04T13:40:39+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -815,7 +815,7 @@
             ],
             "support": {
                 "issues": "https://github.com/mpdf/qrcode/issues",
-                "source": "https://github.com/mpdf/qrcode/tree/v1.2.0"
+                "source": "https://github.com/mpdf/qrcode/tree/v1.2.1"
             },
             "funding": [
                 {
@@ -827,17 +827,17 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.11.1",
-            "version_normalized": "1.11.1.0",
+            "version": "1.12.0",
+            "version_normalized": "1.12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c"
+                "reference": "3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
-                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c",
+                "reference": "3a6b9a42cd8f8771bd4295d13e1423fa7f3d942c",
                 "shasum": ""
             },
             "require": {
@@ -845,14 +845,15 @@
             },
             "conflict": {
                 "doctrine/collections": "<1.6.8",
-                "doctrine/common": "<2.13.3 || >=3,<3.2.2"
+                "doctrine/common": "<2.13.3 || >=3 <3.2.2"
             },
             "require-dev": {
                 "doctrine/collections": "^1.6.8",
                 "doctrine/common": "^2.13.3 || ^3.2.2",
+                "phpspec/prophecy": "^1.10",
                 "phpunit/phpunit": "^7.5.20 || ^8.5.23 || ^9.5.13"
             },
-            "time": "2023-03-08T13:26:56+00:00",
+            "time": "2024-06-12T14:39:25+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -877,7 +878,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.1"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.12.0"
             },
             "funding": [
                 {

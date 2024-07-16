@@ -3303,7 +3303,7 @@ function wpbc_timeline_js_load_files( $where_to_load ) {
 
 		wp_enqueue_script(    'wpbc-timeline-flex'
 							, trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/timeline_v2.js'                  /* wpbc_plugin_url( '/core/timeline/wpbc-flex-timeline.js' ) */
-							, array( 'wpbc-global-vars' /*, 'wp-element'*/ )
+							, array( 'wpbc_all' /*, 'wp-element'*/ )
 							, WP_BK_VERSION_NUM
 							, $is_in_footer
 						);

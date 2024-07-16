@@ -1553,6 +1553,33 @@ if ( !class_exists( 'PT_CV_Functions' ) ) {
 			return ($view_id === null) ? false : true;
 		}
 
+		/* Get taxonomies of selected post type
+		 * @since 4.0
+		 */
+		static function get_taxonomies_by_post_type( $data ) {
+			$post_types = $data[ 'postType' ];
+			if ( $post_types === 'any' ) {
+				$post_types = $data[ 'multipostType' ];
+			}
+
+			// Ensure to get all post types, for both Elementor widget & Block
+			// Elementor: cvElementor available in both widget/preview/frontend
+			// Block: cvBlock available in editor only
+			$arr			 = PT_CV_Values::post_types_vs_taxonomies( true );
+			$matched_taxo	 = [];
+			foreach ( (array) $post_types as $post_type ) {
+				if ( is_array( $arr[ $post_type ] ) ) {
+					$matched_taxo = array_merge( $matched_taxo, $arr[ $post_type ] );
+				}
+			}
+
+			return $matched_taxo;
+		}
+
+		static function has_pro() {
+			return class_exists( 'PT_Content_Views_Pro' ) || get_option( 'pt_cv_version_pro' );
+		}
+
 	}
 
 }

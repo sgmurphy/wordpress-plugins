@@ -1,11 +1,13 @@
 === Enable Media Replace ===
 Contributors: ShortPixel
 Donate link: https://www.paypal.me/resizeImage
-Tags: replace, attachment, media, files, replace image, remove background, replace jpg, change media, replace media, image, file
+Tags: replace, replace image, remove background, replace jpg, change media
 Requires at least: 4.9.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
 Stable tag: 4.1.5
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily replace any attached image/file by simply uploading a new file in the Media Library edit view - a real time saver!
 

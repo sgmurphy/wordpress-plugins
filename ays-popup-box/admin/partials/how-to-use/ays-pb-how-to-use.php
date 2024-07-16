@@ -6,7 +6,7 @@
 <div class="wrap">  
      <div class="ays-pb-heart-beat-main-heading ays-pb-heart-beat-main-heading-container">
         <h1 class="ays-popup-box-wrapper ays_heart_beat">
-            <?php echo __(esc_html(get_admin_page_title()),"ays-popup-box"); ?> <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/hearth-black.svg"?>">
+            <?php echo esc_html(get_admin_page_title()); ?> <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/hearth-black.svg"?>">
         </h1>
     </div>
     <div class="ays-pb-faq-main">

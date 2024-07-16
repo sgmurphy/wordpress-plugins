@@ -2161,7 +2161,7 @@ $ays_users_roles = $wp_roles->roles;
                                             foreach ($query->posts as $key => $post){
                                                 if(in_array($post->ID, $view_place)):
                                                     ?>
-                                                    <option selected value="<?php echo $post->ID; ?>"><?php echo __(get_the_title($post->ID), "ays-popup-box"); ?></option> 
+                                                    <option selected value="<?php echo $post->ID; ?>"><?php echo get_the_title($post->ID); ?></option> 
                                                 <?php
                                                 endif;
                                             }
@@ -4386,7 +4386,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <input type="number" id="ays_popup_content_padding"  class="ays-pb-text-input ays-pb-text-input-short ays_pb_padding"  name="ays_popup_content_padding" value="<?php echo $padding; ?>"/>
                                     <p style="font-weight: 600;" class="ays-pb-small-hint-text">
                                         <?php echo __("Default value = ", "ays-popup-box");?>
-                                        <span class="ays-pb-padding-default-value" style="font-weight: 800;"><?php echo __($default_padding_value, "ays-popup-box");?></span>
+                                        <span class="ays-pb-padding-default-value" style="font-weight: 800;"><?php echo $default_padding_value; ?></span>
                                     </p>
                                 </div>
                                 <div class="ays_pb_padding_by_percentage_px_box">

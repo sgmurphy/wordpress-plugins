@@ -76,6 +76,32 @@ class View_Loader {
 			],
 		];
 
+		// Add form tag for Save This block
+		if ( ! \Social_Pug::is_free() ) {
+			$form_kses      = [
+				'form'     => [
+					'name' 				=> true,
+					'class'         	=> true,
+					'aria-hidden'   	=> true,
+					'aria-labelledby'   => true,
+					'method' 			=> true,
+					'action'			=> true,
+				],
+				'input'    => [
+					'type' 				=> true,
+					'class'				=> true,
+					'name' 				=> true,
+					'id'	 			=> true,
+					'value' 			=> true,
+					'placeholder' 		=> true,
+					'style' 			=> true,
+					'size'				=> true,
+				],
+			];
+
+			$kses_defaults = array_merge( $kses_defaults, $form_kses);
+		}
+
 		return array_merge( $kses_defaults, $svg_kses );
 	}
 }

@@ -977,8 +977,30 @@ function wpbc_get_default_options( $option_name = '', $is_get_multiuser_general_
     $default_options['booking_time_format'] = get_option( 'time_format' );	//'H:i';
  $mu_option4delete[]='booking_time_format';
 
+	//FixIn:10.2.0.1	------------------------------------------------------------------------------------------------
+ 	// Confirmation  section:
+	$default_options['booking_confirmation_header_enabled'] = 'On';
+	$default_options['booking_confirmation_header']         = sprintf( __( 'Your booking id: %s', 'booking' ), '<strong>[booking_id]</strong>' );
+$mu_option4delete[] = 'booking_confirmation_header_enabled';
+$mu_option4delete[] = 'booking_confirmation_header';
 
-	//FixIn: 8.7.4.1
+	$default_options['booking_confirmation__personal_info__header_enabled'] = 'On';
+	$default_options['booking_confirmation__personal_info__title']          =  __( 'Personal information', 'booking' );
+	$default_options['booking_confirmation__personal_info__content']        = '[content]';
+$mu_option4delete[] = 'booking_confirmation__personal_info__header_enabled';
+$mu_option4delete[] = 'booking_confirmation__personal_info__title';
+$mu_option4delete[] = 'booking_confirmation__personal_info__content';
+
+	$default_options['booking_confirmation__booking_details__header_enabled'] = 'On';
+	$default_options['booking_confirmation__booking_details__title']          = __( 'Booking details', 'booking' );
+	$default_options['booking_confirmation__booking_details__content'] =  ( class_exists( 'wpdev_bk_personal' ) )
+																				? "<h4>[resource_title]</h4>[readable_dates][readable_times]"
+																				: "[readable_dates][readable_times]";
+
+$mu_option4delete[] = 'booking_confirmation__booking_details__header_enabled';
+$mu_option4delete[] = 'booking_confirmation__booking_details__title';
+$mu_option4delete[] = 'booking_confirmation__booking_details__content';
+	//FixIn:10.2.0.1	End	--------------------------------------------------------------------------------------------
 
     $default_options['booking_date_view_type'] = 'short';
  $mu_option4delete[]='booking_date_view_type';        
@@ -1022,7 +1044,7 @@ $mu_option4delete[]= 'booking_timeslot_picker_skin';
 	$default_options['booking_highlight_timeslot_word'] = __( 'Booked Times:', 'booking' );								//FixIn: 9.4.3.1
  $mu_option4delete[]='booking_highlight_timeslot_word';
 
-    $default_options['booking_form_is_using_bs_css'] = 'On';
+    $default_options['booking_form_is_using_bs_css'] = 'Off';
  $mu_option4delete[]='booking_form_is_using_bs_css';  
     $default_options['booking_form_format_type'] = 'vertical';
  $mu_option4delete[]='booking_form_format_type';
@@ -1172,12 +1194,12 @@ if ( WPBC_customize_plugin ){
     $default_options['booking_legend_text_for_item_unavailable'] = __( 'Unavailable', 'booking' );
  $mu_option4delete[]='booking_legend_text_for_item_unavailable';
 
-    if ( class_exists( 'wpdev_bk_biz_s' ) ) {
-        $default_options['booking_legend_is_show_item_partially'] = 'On';
-     $mu_option4delete[]='booking_legend_is_show_item_partially';        
-        $default_options['booking_legend_text_for_item_partially'] = __( 'Partially booked', 'booking' );
-     $mu_option4delete[]='booking_legend_text_for_item_partially';
-    }
+    //FixIn: 10.1.5.5
+	$default_options['booking_legend_is_show_item_partially'] = ( ( class_exists( 'wpdev_bk_personal' ) ) && ( ! class_exists( 'wpdev_bk_biz_s' ) ) ) ? 'Off' : 'On';
+ $mu_option4delete[]='booking_legend_is_show_item_partially';
+	$default_options['booking_legend_text_for_item_partially'] = __( 'Partially booked', 'booking' );
+ $mu_option4delete[]='booking_legend_text_for_item_partially';
+
     $default_options['booking_legend_is_show_numbers'] = 'Off';                    //FixIn:6.0.1.4						//FixIn: 8.1.3.8
  $mu_option4delete[]='booking_legend_is_show_numbers';
     $default_options['booking_legend_is_vertical'] = 'Off';                    											//FixIn:9.4.3.6
@@ -1290,6 +1312,10 @@ if ( WPBC_customize_plugin ){
 	$default_options['booking_condition_import_only_new'] = (  get_bk_option( 'booking_ics_force_import' ) === 'On' )   ?  'Off' : 'On';
 	$default_options['booking_condition_import_if_available'] = 'Off';
 
+	//FixIn: 10.1.5.4
+        $default_options['booking_recurrent_time'] =  ( class_exists( 'wpdev_bk_personal' ) ) ? 'Off' : 'On';
+     $mu_option4delete[]='booking_recurrent_time';
+
     ////////////////////////////////////////////////////////////////////////////
     // BS
     ////////////////////////////////////////////////////////////////////////////
@@ -1306,8 +1332,6 @@ if ( WPBC_customize_plugin ){
 	//$mu_option4delete[]='booking_is_ics_export_only_approved';   				// No need to delete ^
 		$default_options['booking_is_ics_export_imported_bookings'] = '';												//FixIn: 8.8.3.19
 
-        $default_options['booking_recurrent_time'] = 'Off';
-     $mu_option4delete[]='booking_recurrent_time';
 
         $default_options['booking_auto_approve_new_bookings_is_active'] = 'Off';
      $mu_option4delete[]='booking_auto_approve_new_bookings_is_active';
@@ -1513,3 +1537,11 @@ if ( WPBC_customize_plugin ){
     } else
         return $mu_option4delete;                                               // Get options for MU
 }
+
+
+// <editor-fold     defaultstate="collapsed"                        desc="  Update Deprecated Options "  >
+function wpbc_after_activation__update_deprecated_options() {
+	update_bk_option( 'booking_form_is_using_bs_css', 'Off' );
+}
+add_bk_action( 'wpbc_after_activation', 'wpbc_after_activation__update_deprecated_options' );
+// </editor-fold>

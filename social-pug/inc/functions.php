@@ -90,7 +90,9 @@ function dpsp_is_location_displayable( $location_slug ) {
 	$return = true;
 
 	// Get saved settings for the location
-	$settings = dpsp_get_location_settings( $location_slug );
+	// TODO: Make this more robust so that as we add tools, we don't need "location" in the slug
+	// This was modified for save this
+	$settings = ( $location_slug == 'email_save_this' ) ? get_option( 'dpsp_' . $location_slug ) : dpsp_get_location_settings( $location_slug );
 
 	if ( empty( $settings ) ) {
 		$return = false;
@@ -804,4 +806,20 @@ function dpsp_is_json( $string ) {
 function dpsp_register_functions() {
 	add_filter( 'dpsp_get_active_networks', 'dpsp_first_activation_active_networks', 10, 2 );
 	add_filter( 'dpsp_is_location_displayable', 'dpsp_post_location_overwrite_option', 10, 3 );
+}
+
+/** 
+ * Confirm Save This Tool email verification test
+ * Runs very early to enable redirect and remove query argument
+ */
+function dpsp_save_this_verify(){
+	// Confirm Verification request
+	if ( isset( $_GET['verify'] ) ) {
+		$dpsp_email_save_this = Mediavine\Grow\Settings::get_setting( 'dpsp_email_save_this', 'not_set' );
+		$dpsp_email_save_this = ( $dpsp_email_save_this == 'not_set' ) ? array() : $dpsp_email_save_this; // First run experience may not have set up defaults yet
+		$dpsp_email_save_this['verify_email_send_capability'] = ( $_GET['verify'] == 0 ) ? '' : 'yes';
+		update_option( 'dpsp_email_save_this', $dpsp_email_save_this );
+		wp_redirect( admin_url( 'admin.php?page=dpsp-email-save-this') );
+		exit;
+	}
 }

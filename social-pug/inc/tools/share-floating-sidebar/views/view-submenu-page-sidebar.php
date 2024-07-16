@@ -248,6 +248,9 @@
 		<input type="hidden" name="action" value="update" />
 		<p class="submit"><input type="submit" class="dpsp-button-primary" value="<?php esc_attr_e( 'Save Changes', 'social-pug' ); ?>" /></p>
 		<p><strong>Please note:</strong> To ensure that changes take effect, please clear all caches. (Need help? <a href="https://morehubbub.com/docs/cache-help/" title="Read our support doc on caches">See our support doc</a>.)</p>
+
+		<p>Made with ❤️ and ☕ by <a href="https://www.nerdpress.net/" title="NerdPress - WordPress support that feels like family">NerdPress</a>.</p>
+		<p>⭐ Love Hubbub? Please <a href="https://wordpress.org/support/plugin/social-pug/reviews/?filter=5#new-post" title="Rate Hubbub on WordPress.org">rate Hubbub 5-stars on WordPress.org</a>. Thank you!</p>
 	</div>
 </form>
 <?php do_action( 'dpsp_submenu_page_bottom' ); ?>

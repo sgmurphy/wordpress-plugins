@@ -2987,7 +2987,6 @@ function speedycache_settings_page(){
 					</div>
 					
 					<div class="speedycache-cdn-holder">
-						<input type="radio" id="speedycache-cdn-tab-stackpath-input" name="speedycache-cdn-tab"/>
 						<input type="radio" id="speedycache-cdn-tab-cloudflare-input" name="speedycache-cdn-tab"/>
 						<input type="radio" id="speedycache-cdn-tab-bunny-input" name="speedycache-cdn-tab" checked/>
 						<input type="radio" id="speedycache-cdn-tab-other-input" name="speedycache-cdn-tab"/>
@@ -3003,19 +3002,6 @@ function speedycache_settings_page(){
 										<p><?php esc_html_e('CDN to speed up your website', 'speedycache'); ?></p>
 									</div>
 								</label>	
-							</div>
-						
-						
-							<div speedycache-cdn-name="stackpath" class="speedycache-cdn-tab">
-								<label for="speedycache-cdn-tab-stackpath-input">								
-									<div class="speedycache-cdn-tab-icon">
-										<i class="fab fa-stackpath"></i>
-									</div>
-									<div class="speedycache-cdn-tab-title">
-										<div style="font-weight:bold;font-size:14px;">StackPath</div>
-										<p><?php esc_html_e('Secure and accelerate your websites', 'speedycache'); ?></p>
-									</div>
-								</label>
 							</div>
 
 							<div speedycache-cdn-name="cloudflare" class="speedycache-cdn-tab">
@@ -3201,49 +3187,6 @@ function speedycache_settings_page(){
 									<div class="speedycache-block">
 										<?php speedycache_exclude_source(); ?>
 									</div>
-									<div class="speedycache-cdn-save"><button class="speedycache-btn speedycache-btn-primary"><?php esc_html_e('Save Settings', 'speedycache'); ?></button></div>
-								</form>
-							</div>
-
-							<div class="speedycache-stackpath-settings">
-								<form>
-									<input type="hidden" name="id" value="stackpath"/>
-									<h3><?php esc_html_e('StackPath Settings', 'speedycache'); ?></h3>
-									<?php echo wp_kses_post(speedycache_cdn_actions_tmpl('stackpath')); ?>
-									<hr/>
-									<div class="speedycache-block">
-										<h4><?php esc_html_e('Enter CDN Url', 'speedycache'); ?></h4>
-										<p>
-											<?php echo wp_kses_post('Please enter your <strong>StackPath CDN Url</strong> below to deliver your contents via StackPath.', 'speedycache'); ?>
-										</p>	
-										<div class="speedycache-form-input">
-											<label for="cdn-url"><?php esc_html_e('CDN Url', 'speedycache'); ?>:
-												<input type="text" name="cdn_url" value="" class="speedycache-api-key" id="cdn-url"/>
-												<div id="speedycache-cdn-url-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
-											</label>
-											
-											<span class="speedycache-error-msg"></span>
-										</div>
-										<div class="speedycache-form-input">
-											<label for="origin-url">
-												<?php esc_html_e('Origin Url', 'speedycache') ?>:
-												<input type="text" name="origin_url" value="" class="speedycache-api-key" id="origin-url"/>
-											</label>
-										</div>
-									</div>
-									<div class="speedycache-block">
-										<h4><?php esc_html_e('File Types', 'speedycache'); ?></h4>		
-										<p><?php esc_html_e('Specify the file types to host with the CDN.', 'speedycache'); ?></p>
-										<?php speedycache_file_type(); ?>
-									</div>
-									<div class="speedycache-block">
-										<?php speedycache_specify_source(); ?>
-									</div>
-
-									<div class="speedycache-block">
-										<?php speedycache_exclude_source(); ?>
-									</div>
-									
 									<div class="speedycache-cdn-save"><button class="speedycache-btn speedycache-btn-primary"><?php esc_html_e('Save Settings', 'speedycache'); ?></button></div>
 								</form>
 							</div>

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-26T21:29:17+00:00\n"
+"POT-Creation-Date: 2024-07-15T19:33:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -186,7 +186,7 @@ msgid "Title"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:62
-#: admin/blocks/shared/BlockInspectorControls.js:23
+#: admin/blocks/shared/BlockInspectorControls.js:64
 #: admin/blocks/shared/chapters/ChaptersPanel.js:6
 #: Services/Translation.php:74
 msgid "Chapters"
@@ -242,11 +242,11 @@ msgid "Select"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:135
-#: admin/blocks/blocks/audio/edit.js:127
-#: admin/blocks/blocks/bunny/edit.js:413
-#: admin/blocks/blocks/hosted/edit.js:221
-#: admin/blocks/blocks/vimeo/edit.js:130
-#: admin/blocks/blocks/youtube/edit.js:124
+#: admin/blocks/blocks/audio/edit.js:128
+#: admin/blocks/blocks/bunny/edit.js:414
+#: admin/blocks/blocks/hosted/edit.js:213
+#: admin/blocks/blocks/vimeo/edit.js:119
+#: admin/blocks/blocks/youtube/edit.js:119
 #: admin/blocks/shared/branding/index.js:92
 #: admin/blocks/shared/settings/index.js:247
 #: admin/blocks/shared/settings/MutedPreviewOptions.js:65
@@ -277,7 +277,7 @@ msgid "Audio Preset"
 msgstr ""
 
 #: admin/blocks/blocks/audio/AudioBlockInspectorControl.js:171
-#: admin/blocks/shared/BlockInspectorControls.js:55
+#: admin/blocks/shared/BlockInspectorControls.js:96
 msgid "Global Player Branding"
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid "Remove this"
 msgstr ""
 
 #: admin/blocks/blocks/bunny/APIPlaceholder.js:42
-#: admin/blocks/blocks/bunny/edit.js:322
+#: admin/blocks/blocks/bunny/edit.js:323
 #: admin/settings/pages/Integrations.js:265
 msgid "Bunny.net Video"
 msgstr ""
@@ -432,51 +432,51 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:218
+#: admin/blocks/blocks/bunny/edit.js:219
 msgid "Add/Select Private Video Stream"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:219
+#: admin/blocks/blocks/bunny/edit.js:220
 msgid "Add/Select Video Stream"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:230
+#: admin/blocks/blocks/bunny/edit.js:231
 msgid "Add/Select Private Video (Classic)"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:231
+#: admin/blocks/blocks/bunny/edit.js:232
 msgid "Add/Select Video (Classic)"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:243
+#: admin/blocks/blocks/bunny/edit.js:244
 msgid "Enable Bunny.net Stream!"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:257
+#: admin/blocks/blocks/bunny/edit.js:258
 msgid "Reconnect Stream"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:258
+#: admin/blocks/blocks/bunny/edit.js:259
 msgid "Connect Stream"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:268
+#: admin/blocks/blocks/bunny/edit.js:269
 msgid "Reconnect Storage (Classic)"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:269
+#: admin/blocks/blocks/bunny/edit.js:270
 msgid "Connect Storage (Classic)"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:276
+#: admin/blocks/blocks/bunny/edit.js:277
 msgid "Connection Options"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:321
+#: admin/blocks/blocks/bunny/edit.js:322
 msgid "Bunny.net Private Video"
 msgstr ""
 
-#: admin/blocks/blocks/bunny/edit.js:357
+#: admin/blocks/blocks/bunny/edit.js:358
 msgid "Add or select a Bunny.net video"
 msgstr ""
 
@@ -692,15 +692,15 @@ msgstr ""
 msgid "Setting up private video library. This make take a few moments..."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:124
+#: admin/blocks/blocks/hosted/edit.js:116
 msgid "Get HLS Streaming and more with Presto Player Pro!"
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:131
+#: admin/blocks/blocks/hosted/edit.js:123
 msgid "Stream HLS links and more with Presto Player Pro."
 msgstr ""
 
-#: admin/blocks/blocks/hosted/edit.js:140
+#: admin/blocks/blocks/hosted/edit.js:132
 msgid "Upgrade"
 msgstr ""
 
@@ -746,7 +746,7 @@ msgid "Private video self-hosted block."
 msgstr ""
 
 #: admin/blocks/blocks/media-hub/edit.js:73
-#: admin/blocks/blocks/reusable-display/edit.js:149
+#: admin/blocks/blocks/reusable-display/edit.js:176
 #: admin/settings/pages/General.js:219
 msgid "Synced"
 msgstr ""
@@ -861,16 +861,16 @@ msgstr ""
 msgid "Transition Duration (Seconds)"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:106
+#: admin/blocks/blocks/reusable-display/edit.js:140
 msgid "The selected media item has been deleted or is unavailable."
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:140
-#: admin/blocks/blocks/reusable-display/edit.js:173
+#: admin/blocks/blocks/reusable-display/edit.js:167
+#: admin/blocks/blocks/reusable-display/edit.js:195
 msgid "Edit Original"
 msgstr ""
 
-#: admin/blocks/blocks/reusable-display/edit.js:154
+#: admin/blocks/blocks/reusable-display/edit.js:181
 msgid "This item is synced with the media hub and can be reused across your site."
 msgstr ""
 
@@ -879,16 +879,16 @@ msgstr ""
 msgid "Media Hub Item"
 msgstr ""
 
-#: admin/blocks/blocks/vimeo/edit.js:99
+#: admin/blocks/blocks/vimeo/edit.js:94
 #: admin/blocks/blocks/vimeo/index.js:25
 msgid "Presto Vimeo Video"
 msgstr ""
 
-#: admin/blocks/blocks/vimeo/edit.js:100
+#: admin/blocks/blocks/vimeo/edit.js:95
 msgid "Enter Vimeo Video URL"
 msgstr ""
 
-#: admin/blocks/blocks/vimeo/edit.js:101
+#: admin/blocks/blocks/vimeo/edit.js:96
 msgid "Vimeo URL"
 msgstr ""
 
@@ -896,16 +896,16 @@ msgstr ""
 msgid "A vimeo video wrapped in an awesome player."
 msgstr ""
 
-#: admin/blocks/blocks/youtube/edit.js:99
+#: admin/blocks/blocks/youtube/edit.js:94
 #: admin/blocks/blocks/youtube/index.js:26
 msgid "Presto Youtube Video"
 msgstr ""
 
-#: admin/blocks/blocks/youtube/edit.js:100
+#: admin/blocks/blocks/youtube/edit.js:95
 msgid "Enter Youtube Video URL"
 msgstr ""
 
-#: admin/blocks/blocks/youtube/edit.js:101
+#: admin/blocks/blocks/youtube/edit.js:96
 #: admin/blocks/shared/LinkPlaceholder.js:40
 msgid "Youtube URL"
 msgstr ""
@@ -1286,15 +1286,28 @@ msgstr ""
 msgid "Control Color"
 msgstr ""
 
-#: admin/blocks/shared/BlockInspectorControls.js:34
-msgid "Overlays"
+#: admin/blocks/shared/BlockInspectorControls.js:38
+msgid "Editing Synced Media"
 msgstr ""
 
 #: admin/blocks/shared/BlockInspectorControls.js:43
+msgid "You are currently editing a synced media hub item that may be reused across your site."
+msgstr ""
+
+#: admin/blocks/shared/BlockInspectorControls.js:57
+#: admin/blocks/shared/Editing.js:13
+msgid "Done Editing"
+msgstr ""
+
+#: admin/blocks/shared/BlockInspectorControls.js:75
+msgid "Overlays"
+msgstr ""
+
+#: admin/blocks/shared/BlockInspectorControls.js:84
 msgid "Video settings"
 msgstr ""
 
-#: admin/blocks/shared/BlockInspectorControls.js:47
+#: admin/blocks/shared/BlockInspectorControls.js:88
 #: Integrations/Elementor/VideoWidget.php:318
 msgid "Video Preset"
 msgstr ""
@@ -2919,7 +2932,7 @@ msgstr ""
 
 #: admin/blocks/blocks/reusable-edit/block.json
 msgctxt "block title"
-msgid "Reusable Block Container"
+msgid "Edit Media"
 msgstr ""
 
 #: admin/blocks/blocks/vimeo/block.json

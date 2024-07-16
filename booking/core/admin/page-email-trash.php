@@ -871,20 +871,24 @@ function wpbc__get_replace_shortcodes__email_trash( $booking_id, $bktype, $formd
 
     // Dates ///////////////////////////////////////////////////////////////////
     $my_dates4emeil = wpbc_db__get_sql_dates__in_booking__as_str( $booking_id );
-    if ( get_bk_option( 'booking_date_view_type' ) == 'short' )
-        $my_dates_4_send = wpbc_get_dates_short_format( $my_dates4emeil );
-    else
-        $my_dates_4_send = wpbc_get_dates_comma_string_localized( $my_dates4emeil );
-    
-    $my_dates4emeil_check_in_out = explode(',', $my_dates4emeil );
 
-    $my_check_in_date  = wpbc_get_dates_comma_string_localized( $my_dates4emeil_check_in_out[0] );
-    $my_check_out_date = wpbc_get_dates_comma_string_localized( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] );
-    //FixIn: 8.7.2.5
-    $my_check_in_onlydate	= wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d 00:00:00', strtotime( $my_dates4emeil_check_in_out[0] ) ), 'Y-m-d 00:00:00' ) );
-    $my_check_out_onlydate  = wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d 00:00:00', strtotime( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] ) ), 'Y-m-d 00:00:00' ) );
+	$my_dates_4_send = ( 'short' === get_bk_option( 'booking_date_view_type' ) )
+						? wpbc_get_dates_short_format( $my_dates4emeil )
+						: wpbc_get_dates_comma_string_localized( $my_dates4emeil );
+	$my_dates4emeil_check_in_out = explode( ',', $my_dates4emeil );
 
-    $my_check_out_plus1day = wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d H:i:s', strtotime( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] . " +1 day" ) ), 'Y-m-d H:i:s' ) ); //FixIn: 6.0.1.11
+	$my_check_in_date      = wpbc_get_dates_comma_string_localized( $my_dates4emeil_check_in_out[0] );
+	$my_check_out_date     = wpbc_get_dates_comma_string_localized( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] );
+	$my_check_in_onlydate  = wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d 00:00:00', strtotime( $my_dates4emeil_check_in_out[0] ) ), 'Y-m-d 00:00:00' ) );        //FixIn: 8.7.2.5
+	$my_check_out_onlydate = wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d 00:00:00', strtotime( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] ) ), 'Y-m-d 00:00:00' ) );
+	$my_check_out_plus1day = wpbc_get_dates_comma_string_localized( wpbc_datetime_localized( date( 'Y-m-d H:i:s', strtotime( $my_dates4emeil_check_in_out[ count( $my_dates4emeil_check_in_out ) - 1 ] . " +1 day" ) ), 'Y-m-d H:i:s' ) ); //FixIn: 6.0.1.11
+
+	//FixIn: 10.1.5.6
+	$dates_only_arr = wpbc_get_only_dates__from_dates_ymd_his_csv__as_arr( $my_dates4emeil );                           // -> '2023-10-09, 2023-10-09'
+	$dates_only_str = implode( ',', $dates_only_arr );
+	$dates_only_str_formatted = ( 'short' === get_bk_option( 'booking_date_view_type' ) )
+								? wpbc_get_dates_short_format( $dates_only_str )
+								: wpbc_get_dates_comma_string_localized( $dates_only_str );
 
     // Cost ////////////////////////////////////////////////////////////////////
     $booking_cost_digits_only = apply_bk_filter( 'get_booking_cost_from_db', '', $booking_id );    //FixIn: 9.2.3.1
@@ -893,6 +897,8 @@ function wpbc__get_replace_shortcodes__email_trash( $booking_id, $bktype, $formd
     $replace[ 'booking_id' ]    = $booking_id;
     $replace[ 'id' ]            = $replace[ 'booking_id' ];
     $replace[ 'dates' ]         = $my_dates_4_send;
+	$replace[ 'only_dates' ]    = $dates_only_str_formatted;
+	$replace[ 'dates_only' ]    = $dates_only_str_formatted;
     $replace[ 'check_in_date' ] = $my_check_in_date;
     $replace[ 'check_out_date' ]    = $my_check_out_date;
     //FixIn: 8.7.2.5

@@ -7,7 +7,7 @@
 <div
     <?php echo $wrapper_attr; ?>>
     <?php
-        if( $widget_type != 'blocks' ) {
+        if( isset( $widget_type ) && $widget_type != 'blocks' ) {
             betterdocs()->views->get( 'templates/parts/print-icon', [
                 'enable' => (bool) $enable
             ] );

@@ -14,6 +14,10 @@ defined( 'ABSPATH' ) || exit;
 class Helpers {
     private static $user_data;
 
+    private static $current_screen_id;
+
+    private static $current_screen_post_type;
+
     /**
      * This function takes any of the input types and sanitizes them automatically.
      *
@@ -84,27 +88,50 @@ class Helpers {
         return class_exists( 'Automattic\\WooCommerce\\Utilities\\OrderUtil' ) && \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
     }
 
+    /**
+     * Checks if the current screen is the WooCommerce Orders page.
+     *
+     * @return bool
+     *
+     * @since 1.43.5
+     */
     public static function is_orders_page() {
-        global $pagenow;
+        if ( !is_admin() ) {
+            return false;
+        }
         $_get = self::get_input_vars( INPUT_GET );
-        return 'edit.php' === $pagenow && isset( $_get['post_type'] ) && 'shop_order' === $_get['post_type'] || isset( $_get['page'] ) && 'wc-orders' === $_get['page'];
+        // Detects the order page in the admin on non-HPOS enabled shops
+        if ( 'edit-shop_order' === self::pmw_current_screen( 'id' ) ) {
+            return true;
+        }
+        // Detects the order page in the admin on HPOS enabled shops
+        if ( 'woocommerce_page_wc-orders' === self::pmw_current_screen( 'id' ) && 'shop_order' === self::pmw_current_screen( 'post_type' ) && !isset( $_get['action'] ) ) {
+            return true;
+        }
+        return false;
     }
 
-    // If is single order page return true
-    // TODO Check if it works with HPOS enabled
+    /**
+     * Checks if the current screen is the WooCommerce Edit Order page.
+     *
+     * @return bool
+     *
+     * @since 1.43.5
+     */
     public static function is_edit_order_page() {
-        //		global $pagenow;
-        //
-        //		$_get = self::get_input_vars(INPUT_GET);
-        //
-        //		error_log('current screen id: ' . get_current_screen()->id);
-        return 'shop_order' === get_current_screen()->id;
-        //		return
-        //			'post.php' === $pagenow
-        //			&& isset($_get['post'])
-        //			&& 'shop_order' === get_post_type($_get['post'])
-        //			&& isset($_get['action'])
-        //			&& 'edit' === $_get['action'];
+        if ( !is_admin() ) {
+            return false;
+        }
+        $_get = self::get_input_vars( INPUT_GET );
+        // Detects the order page in the admin on non-HPOS enabled shops
+        if ( 'shop_order' === self::pmw_current_screen( 'id' ) ) {
+            return true;
+        }
+        // Detects the order page in the admin on HPOS enabled shops
+        if ( 'woocommerce_page_wc-orders' === self::pmw_current_screen( 'id' ) && 'shop_order' === self::pmw_current_screen( 'post_type' ) && isset( $_get['action'] ) && isset( $_get['id'] ) ) {
+            return true;
+        }
+        return false;
     }
 
     public static function is_email( $email ) {
@@ -915,6 +942,32 @@ class Helpers {
         $url = ltrim( $url, '/' );
         // Add 'https://' as default protocol
         return 'https://' . $url;
+    }
+
+    /**
+     * Get the current screen object.
+     *
+     * The reason for this function is that the get_current_screen() function is not available in all contexts,
+     * and the properties of the current screen object are not always available.
+     * This function makes sure that accessing the properties of the current screen object is safe.
+     *
+     * @param string $screen The screen property to return.
+     * @return string
+     *
+     * @since 1.43.5
+     */
+    public static function pmw_current_screen( $screen ) {
+        if ( !function_exists( 'get_current_screen' ) ) {
+            return '';
+        }
+        $current_screen = get_current_screen();
+        if ( !$current_screen ) {
+            return '';
+        }
+        if ( !property_exists( $current_screen, $screen ) ) {
+            return '';
+        }
+        return $current_screen->{$screen};
     }
 
 }

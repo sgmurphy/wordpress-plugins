@@ -6,7 +6,7 @@ import ICONS from '../../../../../icons';
 import { useStateValue } from '../../../../store/store';
 import { isSyncSuccess, SyncStart } from './utils';
 import './style.scss';
-import { classNames } from '../../../../utils/functions';
+import { classNames, getStepIndex } from '../../../../utils/functions';
 
 const SyncLibrary = () => {
 	const [ { currentIndex, bgSyncInProgress }, dispatch ] = useStateValue();
@@ -31,7 +31,7 @@ const SyncLibrary = () => {
 		}
 	}, [ isLoading ] );
 
-	if ( 0 === currentIndex ) {
+	if ( getStepIndex( 'page-builder' ) === currentIndex ) {
 		return null;
 	}
 

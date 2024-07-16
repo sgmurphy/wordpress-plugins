@@ -305,17 +305,15 @@ select option.wpbc_child_resource{
     }
     .wp-core-ui .wpbc_page .button,
     .wp-core-ui .wpbc_page .button-primary,
-    .wp-core-ui .wpbc_page .button-secondary,
+    .wp-core-ui .wpbc_page .button-secondary
 
-    .wpdevelop .control-group .btn-group > .button .glyphicon,
-    .wpdevelop .control-group .btn-toolbar .btn-group > .button .glyphicon,
-    .wpdevelop .control-group .btn-toolbar .input-group > .input-group-btn .button .glyphicon
+    /*, .wpdevelop .control-group .btn-group > .button .glyphicon,*/
+    /*.wpdevelop .control-group .btn-toolbar .btn-group > .button .glyphicon,*/
+    /*.wpdevelop .control-group .btn-toolbar .input-group > .input-group-btn .button .glyphicon*/
     {
         height: auto;
         line-height: 2.2;
-
         height: 34px;
-        /*line-height:28px;*/
         min-height: 28px;
     }
     .wp-core-ui .wpbc_page .button {
@@ -674,4 +672,24 @@ select option.wpbc_child_resource{
     .wpbc_table_form_free tr th.field_actions {
       width: 60px;
     }
+}
+/* Disabled elements */
+.wp-core-ui .wpbc_page .wpbc_field_disabled {
+    cursor: not-allowed;    /* Cursor change to disabled state*/
+    color: #ccc;
+    pointer-events: none;
+    opacity: 0.5 !important; /* Fade effect */
+}
+
+.wpbc_help_tooltip_icon {
+    line-height: 2.4em;
+    margin: 0 1em;
+}
+.wpbc_help_tooltip_icon_left {
+    line-height: 2.4em;
+    margin: 0 1em 0 0;
+}
+.wpbc_help_tooltip_icon_right {
+    line-height: 2.4em;
+    margin: 0 0 0 1em;
 }

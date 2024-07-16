@@ -177,7 +177,11 @@ function wpbc_get_email_parts( $email ) {
 
 // Get Emails Help Shortcodes for Settings pages
 function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_example = '') {
-    
+
+	$icn = '<a 	href="https://wpbookingcalendar.com/faq/#available_shortcodes" 
+				class="tooltip_top wpbc-bi-question-circle wpbc_help_tooltip_icon_left" 				 
+				data-original-title="%2$s"></a> %1$s';
+
     $fields = array();
     
     if ( class_exists('wpdev_bk_personal') ) { 
@@ -187,96 +191,99 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
     $fields[] = '<strong>' . __('You can use following shortcodes in content of this template' ,'booking') . '</strong>';
     
     // [content]
-    if ( class_exists('wpdev_bk_personal') )  
-        $fields[] = sprintf(__('%s - inserting data info about the booking, which you configured in the content form at Settings Fields page' ,'booking'),'<code>[content]</code>');
-    else
-        $fields[] = sprintf(__('%s - inserting data info about the booking' ,'booking'),'<code>[content]</code>');
+	if ( class_exists( 'wpdev_bk_personal' ) ) {
+		$fields[] = sprintf( $icn, '<code>[content]</code>', sprintf( __( '%s - inserting data info about the booking, which you configured in the content form at Settings Fields page', 'booking' ), '[content]' ) );
+	} else {
+		$fields[] = sprintf( $icn, '<code>[content]</code>', sprintf( __( '%s - inserting data info about the booking', 'booking' ), '[content]' ) );
+	}
 
 
     // [dates]    
-    $fields[] = sprintf(__('%s - inserting the dates of booking' ,'booking'),'<code>[dates]</code>');
-    
+    $fields[] = sprintf( $icn, '<code>[dates]</code>', sprintf( __('%s - inserting the dates of booking' ,'booking'), '[dates]' ) );
+    $fields[] = sprintf( $icn, '<code>[only_dates]</code>', sprintf( __('%s - inserting only booking dates without times' ,'booking'), '[only_dates]' ) );
+
     // [check_in_date]
     if ( ! in_array( 'check_in_date', $skip_shortcodes ) ) {
-	    $fields[] = sprintf( __( '%s - inserting check-in date (first day of reservation),', 'booking' ), '<code>[check_in_date]</code>' );
-	    $fields[] = sprintf( __( '%s - inserting check-in date (only date without time) (first day of reservation),', 'booking' ), '<code>[check_in_only_date]</code>' );	//FixIn: 8.7.2.5
+	    $fields[] = sprintf( $icn, '<code>[check_in_date]</code>', sprintf(  __( '%s - inserting check-in date (first day of reservation),', 'booking' ), '[check_in_date]' ) );
+	    $fields[] = sprintf( $icn, '<code>[check_in_only_date]</code>', sprintf(  __( '%s - inserting check-in date (only date without time) (first day of reservation),', 'booking' ), '[check_in_only_date]' ) );	//FixIn: 8.7.2.5
     }
     // [check_out_date] [check_out_plus1day]
     if ( ! in_array( 'check_out_date', $skip_shortcodes ) ) {
-        $fields[] = sprintf(__('%s - inserting check-out date (last day of reservation),' ,'booking'),'<code>[check_out_date]</code>');
-        $fields[] = sprintf(__('%s - inserting check-out date (only date without time) (last day of reservation),' ,'booking'),'<code>[check_out_only_date]</code>');		//FixIn: 8.7.2.5
-        $fields[] = sprintf(__('%s - inserting check-out date (last day of reservation),' ,'booking'),'<code>[check_out_plus1day]</code>') .  ' + 1 ' . __('day', 'booking');
+        $fields[] = sprintf( $icn, '<code>[check_out_date]</code>', sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_date]' ) );
+        $fields[] = sprintf( $icn, '<code>[check_out_only_date]</code>', sprintf( __('%s - inserting check-out date (only date without time) (last day of reservation),' ,'booking'), '[check_out_only_date]' ) );		//FixIn: 8.7.2.5
+        $fields[] = sprintf( $icn, '<code>[check_out_plus1day]</code>', sprintf( __('%s - inserting check-out date (last day of reservation),' ,'booking'), '[check_out_plus1day]') .  ' + 1 ' . __('day', 'booking') );
     }
     
     // [dates_count]
     if ( ! in_array( 'dates_count', $skip_shortcodes ) )
-        $fields[] = sprintf(__('%s - inserting the number of booking dates ' ,'booking'),'<code>[dates_count]</code>');
+        $fields[] = sprintf( $icn, '<code>[dates_count]</code>', sprintf( __('%s - inserting the number of booking dates ' ,'booking'), '[dates_count]' ) );
     
     $fields[] = '<hr/>';
 
     
     // [id]
-    $fields[] = sprintf(__('%s - inserting ID of booking ' ,'booking'),'<code>[id]</code>');
+    $fields[] = sprintf( $icn, '<code>[booking_id]</code>', sprintf( __('%s - inserting ID of booking ' ,'booking'), '[id], [booking_id]' ) );
     
     // [resource_title]  [bookingtype]
-    if ( class_exists('wpdev_bk_personal') ) 
-        if ( ! in_array( 'bookingtype', $skip_shortcodes ) )
-            $fields[] = sprintf(__('%s or %s - inserting the title of the booking resource ' ,'booking'),'<code>[resource_title]</code>','<code>[bookingtype]</code>');
+	if ( class_exists( 'wpdev_bk_personal' ) ) {
+		if ( ! in_array( 'bookingtype', $skip_shortcodes ) ) {
+			$fields[] = sprintf( $icn, '<code>[resource_title]</code>', sprintf( __( '%s or %s - inserting the title of the booking resource ', 'booking' ), '[resource_title]', '[bookingtype]' ) );
+		}
+	}
     
         
     // [cost]    
     if ( class_exists('wpdev_bk_biz_s') )     
         if ( ! in_array( 'cost', $skip_shortcodes ) )
-            $fields[] = sprintf(__('%s - inserting the cost of  booking ' ,'booking'),'<code>[cost]</code>');
+            $fields[] = sprintf( $icn, '<code>[cost]</code>', sprintf( __('%s - inserting the cost of  booking ' ,'booking'), '[cost]' ) );
     
     $fields[] = '<hr/>';   
-    
-    
+
     // [siteurl]
-    $fields[] = sprintf(__('%s - inserting your site URL ' ,'booking'),'<code>[siteurl]</code>');   
+    $fields[] = sprintf( $icn, '<code>[siteurl]</code>', sprintf( __('%s - inserting your site URL ' ,'booking'), '[siteurl]' ) );
     
     if ( class_exists('wpdev_bk_personal') ) {    
-        $fields[] = sprintf(__('%s - inserting IP address of the user who made this action ' ,'booking'),'<code>[remote_ip]</code>');
-        $fields[] = sprintf(__('%s - inserting contents of the User-Agent: header from the current request, if there is one ' ,'booking'),'<code>[user_agent]</code>');
-        $fields[] = sprintf(__('%s - inserting address of the page (if any), where visitor make this action ' ,'booking'),'<code>[request_url]</code>');
-        $fields[] = sprintf(__('%s - inserting time of this action ' ,'booking'),'<code>[current_time]</code>');
+        $fields[] = sprintf( $icn, '<code>[remote_ip]</code>', sprintf( __('%s - inserting IP address of the user who made this action ' ,'booking'), '[remote_ip]' ) );
+        $fields[] = sprintf( $icn, '<code>[user_agent]</code>', sprintf( __('%s - inserting contents of the User-Agent: header from the current request, if there is one ' ,'booking'), '[user_agent]' ) );
+        $fields[] = sprintf( $icn, '<code>[request_url]</code>', sprintf( __('%s - inserting address of the page (if any), where visitor make this action ' ,'booking'), '[request_url]' ) );
+        $fields[] = sprintf( $icn, '<code>[current_time]</code>', sprintf( __('%s - inserting time of this action ' ,'booking'), '[current_time]' ) );
     }
 
-    $fields[] = sprintf(__('%s - inserting date of this action ' ,'booking'),'<code>[current_date]</code>');
+    $fields[] = sprintf( $icn, '<code>[current_date]</code>', sprintf( __('%s - inserting date of this action ' ,'booking'), '[current_date]' ) );
 
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_date]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_year]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_month]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_day]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_hour]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_minutes]</code>');
-    $fields[] = sprintf(__('%s - inserting modification date of booking ' ,'booking'),'<code>[modification_seconds]</code>');
+    $fields[] = sprintf( $icn, '<code>[modification_date]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_date]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_year]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_year]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_month]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_month]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_day]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_day]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_hour]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_hour]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_minutes]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_minutes]' ) );
+    $fields[] = sprintf( $icn, '<code>[modification_seconds]</code>', sprintf( __('%s - inserting modification date of booking ' ,'booking'), '[modification_seconds]' ) );
 	//FixIn: 10.0.0.34
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_date]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_year]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_month]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_day]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_hour]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_minutes]</code>');
-    $fields[] = sprintf(__('%s - inserting creation date of booking ' ,'booking'),'<code>[creation_seconds]</code>');
+    $fields[] = sprintf( $icn, '<code>[creation_date]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_date]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_year]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_year]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_month]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_month]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_day]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_day]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_hour]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_hour]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_minutes]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_minutes]' ) );
+    $fields[] = sprintf( $icn, '<code>[creation_seconds]</code>', sprintf( __('%s - inserting creation date of booking ' ,'booking'), '[creation_seconds]' ) );
 
 
 
     // [moderatelink]
     if ( ! in_array( 'moderatelink', $skip_shortcodes ) ) {
-        $fields[] = sprintf(__('%s - inserting moderate link of new booking ' ,'booking'),'<code>[moderatelink]</code>');
+        $fields[] = sprintf( $icn, '<code>[moderatelink]</code>', sprintf( __('%s - inserting moderate link of new booking ' ,'booking'), '[moderatelink]' ) );
 
         //FixIn: 8.4.7.25
-        $fields[] = sprintf(__('%s - inserting link to approve booking in 1 mouse click ' ,'booking'),'<code>[click2approve]</code>');
-        $fields[] = sprintf(__('%s - inserting link to set booking as pending in 1 mouse click ' ,'booking'),'<code>[click2decline]</code>');
-        $fields[] = sprintf(__('%s - inserting link for move booking to trash in 1 mouse click ' ,'booking'),'<code>[click2trash]</code>');
+        $fields[] = sprintf( $icn, '<code>[click2approve]</code>', sprintf( __('%s - inserting link to approve booking in 1 mouse click ' ,'booking'), '[click2approve]' ) );
+        $fields[] = sprintf( $icn, '<code>[click2decline]</code>', sprintf( __('%s - inserting link to set booking as pending in 1 mouse click ' ,'booking'), '[click2decline]' ) );
+        $fields[] = sprintf( $icn, '<code>[click2trash]</code>', sprintf( __('%s - inserting link for move booking to trash in 1 mouse click ' ,'booking'), '[click2trash]' ) );
 
 	}
 
 	//FixIn: 9.6.3.8
     if ( ! in_array( 'add_to_google_cal_button', $skip_shortcodes ) ) {
-        $fields[] = sprintf(__('%s - inserting link for export booking to' ,'booking'),'<code>[add_to_google_cal_button]</code>') . ' Google Calendar';	//FixIn: 7.1.2.5
-        $fields[] = sprintf(__('%s - inserting URL for export booking to' ,'booking'),'<code>[add_to_google_cal_url]</code>') . ' Google Calendar';	//FixIn: 7.1.2.5
+        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_button]</code>', sprintf( __('%s - inserting link for export booking to' ,'booking'), '[add_to_google_cal_button]') . ' Google Calendar' );
+        $fields[] = sprintf( $icn, '<code>[add_to_google_cal_url]</code>', sprintf( __('%s - inserting URL for export booking to' ,'booking'), '[add_to_google_cal_url]') . ' Google Calendar' );
 
 	}
 
@@ -285,29 +292,29 @@ function wpbc_get_email_help_shortcodes( $skip_shortcodes = array() , $email_exa
 
     	//FixIn: 8.1.3.5.1
         if ( ! in_array( 'visitorbookingslisting', $skip_shortcodes ) )
-            $fields[] = sprintf(__('%s - inserting link to the page where visitor can see listing of own bookings,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'),'<code>[visitorbookingslisting]</code>', '"url"', 'URL', '<em>[visitorbookingslisting url="http://www.server.com/custom-page/"]</em>');
+            $fields[] = sprintf( $icn, '<code>[visitorbookingslisting]</code>', sprintf( __('%s - inserting link to the page where visitor can see listing of own bookings,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingslisting]', '"url"', 'URL', '[visitorbookingslisting url="http://www.server.com/custom-page/"]' ) );
 
         if ( ! in_array( 'visitorbookingediturl', $skip_shortcodes ) )
-            $fields[] = sprintf(__('%s - inserting link to the page where visitor can edit the reservation,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'),'<code>[visitorbookingediturl]</code>', '"url"', 'URL', '<em>[visitorbookingediturl url="http://www.server.com/custom-page/"]</em>');
+            $fields[] = sprintf( $icn, '<code>[visitorbookingediturl]</code>', sprintf( __('%s - inserting link to the page where visitor can edit the reservation,  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingediturl]', '"url"', 'URL', '[visitorbookingediturl url="http://www.server.com/custom-page/"]' ) );
 
         // [visitorbookingcancelurl]
         if ( ! in_array( 'visitorbookingcancelurl', $skip_shortcodes ) ) 
-            $fields[] = sprintf(__('%s - inserting link to the page where visitor can cancel the reservation, (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'),'<code>[visitorbookingcancelurl]</code>', '"url"', 'URL', '<em>[visitorbookingcancelurl url="http://www.server.com/custom-page/"]</em>');
+            $fields[] = sprintf( $icn, '<code>[visitorbookingcancelurl]</code>', sprintf( __('%s - inserting link to the page where visitor can cancel the reservation, (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingcancelurl]', '"url"', 'URL', '[visitorbookingcancelurl url="http://www.server.com/custom-page/"]' ) );
         
         if ( class_exists('wpdev_bk_biz_s') )  {
             // [visitorbookingpayurl]
             if ( ! in_array( 'visitorbookingpayurl', $skip_shortcodes ) ) 
-                $fields[] = sprintf(__('%s - inserting link to payment page where visitor can pay for the reservation  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'),'<code>[visitorbookingpayurl]</code>', '"url"', 'URL', '<em>[visitorbookingpayurl url="http://www.server.com/custom-page/"]</em>');    
+                $fields[] = sprintf( $icn, '<code>[visitorbookingpayurl]</code>', sprintf( __('%s - inserting link to payment page where visitor can pay for the reservation  (possible to use the %s parameter for setting different %s of this page. Example: %s )' ,'booking'), '[visitorbookingpayurl]', '"url"', 'URL', '[visitorbookingpayurl url="http://www.server.com/custom-page/"]' ) );
             
             // [paymentreason]
             if ( ! in_array( 'paymentreason', $skip_shortcodes ) ) 
-                $fields[] = sprintf(__('%s - add the reason for booking payment, you can enter it before sending email, ' ,'booking'),'<code>[paymentreason]</code>');
+                $fields[] = sprintf( $icn, '<code>[paymentreason]</code>', sprintf( __('%s - add the reason for booking payment, you can enter it before sending email, ' ,'booking'), '[paymentreason]' ) );
         }
     }
     
     // [denyreason]
     if ( ! in_array( 'denyreason', $skip_shortcodes ) )     
-        $fields[] = sprintf(__('%s - add the reason booking was cancelled, you can enter it before sending email, ' ,'booking'),'<code>[denyreason]</code>');
+        $fields[] = sprintf( $icn, '<code>[denyreason]</code>', sprintf( __('%s - add the reason booking was cancelled, you can enter it before sending email, ' ,'booking'), '[denyreason]' ) );
     
     
     //$fields[] = __('HTML tags is accepted.' ,'booking');

@@ -167,7 +167,7 @@ abstract class Helper_Abstract_Options implements Helper_Interface_Filters {
 
 		add_filter( 'gfpdf_settings_sanitize_text', [ $this, 'sanitize_trim_field' ] );
 		add_filter( 'gfpdf_settings_sanitize_textarea', [ $this, 'sanitize_trim_field' ] );
-		add_filter( 'gfpdf_settings_sanitize_number', [ $this, 'sanitize_number_field' ] );
+		add_filter( 'gfpdf_settings_sanitize_number', [ $this, 'sanitize_number_field' ], 10, 4 );
 		add_filter( 'gfpdf_settings_sanitize_paper_size', [ $this, 'sanitize_paper_size' ] );
 	}
 
@@ -322,8 +322,12 @@ abstract class Helper_Abstract_Options implements Helper_Interface_Filters {
 		$settings = $is_temp ? (array) $tmp_settings : get_option( 'gfpdf_settings', [] );
 
 		/* See https://docs.gravitypdf.com/v6/developers/filters/gfpdf_get_settings/ for more details about this filter */
+		$settings = apply_filters( 'gfpdf_get_settings', $settings, $is_temp );
 
-		return apply_filters( 'gfpdf_get_settings', $settings, $is_temp );
+		/* Ensure $settings is an array and has not been corrupted somehow */
+		$settings = is_array( $settings ) ? $settings : [];
+
+		return $settings;
 	}
 
 	/**
@@ -1207,14 +1211,29 @@ abstract class Helper_Abstract_Options implements Helper_Interface_Filters {
 	/**
 	 * Sanitize number fields
 	 *
-	 * @param string $input The field value
+	 * @param mixed $value The field's user input value
+	 * @param string $key The settings key
+	 * @param array $input All user fields
+	 * @param array $settings The field settings
 	 *
 	 * @return string $input Sanitized value
 	 * @since 4.0
-	 *
+	 * @since 6.11 Force minimum and maximum values
 	 */
-	public function sanitize_number_field( $input ) {
-		return (int) $input;
+	public function sanitize_number_field( $value, $key = '', $input = [], $settings = [] ) {
+		$value = (int) $value;
+
+		/* If number less than the minimum, set to the minimum */
+		if ( ! empty( $settings['min'] ) && $value < $settings['min'] ) {
+			$value = $settings['min'];
+		}
+
+		/* If number more than the maximum, set to the maximum */
+		if ( ! empty( $settings['max'] ) && $value > $settings['max'] ) {
+			$value = $settings['max'];
+		}
+
+		return $value;
 	}
 
 	/**

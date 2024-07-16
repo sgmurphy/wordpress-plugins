@@ -1113,6 +1113,9 @@ h3.maspik-protag.maspik-not-pro{
     background:#FFF;
 
   }
+.maspik-main-list-wrap .select2-container--disabled li.select2-selection__choice {
+    background: #bababa !important;
+}
 
 
   /* Custom Scroll for Select 2*/
@@ -1285,7 +1288,7 @@ body.rtl span.maspik-tooltiptxt {
 }
 
 
-.maspik-accordion-content-wrap #submit.maspik-btn-outline, .spam-log-button-wrapper #expand-all{
+.maspik-accordion-content-wrap #submit.maspik-btn-outline, .spam-log-button-wrapper #expand-all,.downloadform .maspik-btn{
   color:#F48722;
   font-family:'Montserrat', 'Open Sans', sans-serif;
   font-weight: 400;
@@ -1304,7 +1307,7 @@ body.rtl span.maspik-tooltiptxt {
   margin:0;
 }
 
-#submit.maspik-btn-outline:hover, .spam-log-button-wrapper #expand-all:hover{
+#submit.maspik-btn-outline:hover, .spam-log-button-wrapper #expand-all:hover,.downloadform .maspik-btn:hover{
   color: #fff!important;
   background-color: #374945!important;
   transition: 0.3s;

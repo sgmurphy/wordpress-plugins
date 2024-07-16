@@ -35,6 +35,17 @@ class Ai_Builder_Fse_Importer {
 	 */
 	public static function set_fse_site_data() {
 
+		check_ajax_referer( 'astra-sites-set-ai-site-data', 'security' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'success' => false,
+					'message' => __( 'You are not authorized to perform this action.', 'astra-sites' ),
+				)
+			);
+		}
+
 		$param = isset( $_POST['param'] ) ? sanitize_text_field( $_POST['param'] ) : '';
 
 		if ( empty( $param ) ) {
@@ -65,7 +76,7 @@ class Ai_Builder_Fse_Importer {
 					$palette       = isset( $_POST['palette'] ) ? (array) json_decode( stripslashes( $_POST['palette'] ) ) : array();
 					$colors_passed = isset( $palette['colors'] ) ? (array) $palette['colors'] : array();
 				if ( ! empty( $colors_passed ) ) {
-					$colors_array   = \Swt\get_theme_custom_styles(); // @phpstan-ignore-line
+					$colors_array   = Swt\get_theme_custom_styles(); // @phpstan-ignore-line
 					$colors_content = $colors_array['post_content'];
 					if ( $colors_content && isset( $colors_content['settings']['color']['palette']['theme'] ) ) {
 						$theme_colors = $colors_content['settings']['color']['palette']['theme'];
@@ -99,7 +110,7 @@ class Ai_Builder_Fse_Importer {
 					$fse_fonts_comp_instance = new \UAGB_FSE_Fonts_Compatibility();
 					$fse_fonts_comp_instance->get_font_family_for_starter_template( array( ucfirst( $typography_passed['body-font-family'] ), ucfirst( $typography_passed['headings-font-family'] ) ) );
 				}
-					$typography_array   = \Swt\get_theme_custom_styles();  // @phpstan-ignore-line
+					$typography_array   = Swt\get_theme_custom_styles();  // @phpstan-ignore-line
 					$typography_content = $typography_array['post_content'];
 				if ( $typography_content && isset( $typography_content['styles']['typography'] ) ) {
 					$typography_content['styles']['typography']['fontFamily'] = 'var:preset|font-family|' . $typography_passed['body-font-family-slug'];

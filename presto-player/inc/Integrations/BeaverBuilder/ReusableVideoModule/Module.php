@@ -65,7 +65,7 @@ class Module extends \FLBuilderModule
         wp_enqueue_script(
             'surecart/beaver-builder/admin',
             trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/beaver-builder.js',
-            array_merge(['jquery'], $assets['dependencies']),
+            array_merge(['jquery', 'regenerator-runtime'], $assets['dependencies']),
             $assets['version'],
             true
         );

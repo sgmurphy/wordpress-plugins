@@ -266,8 +266,6 @@ function fifu_callback($buffer) {
                 $newImgItem = str_replace('<img ', '<img sizes="(max-width:' . $theme_width . 'px) 100vw, ' . $theme_width . 'px" ', $newImgItem);
             }
 
-            $newImgItem = str_replace('<img ', '<img loading="lazy" ', $newImgItem);
-
             $buffer = str_replace($imgItem, fifu_replace($newImgItem, $post_id, null, null, null), $buffer);
         }
     }

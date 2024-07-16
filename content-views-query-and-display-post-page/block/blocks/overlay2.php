@@ -33,9 +33,6 @@ class ContentViews_Block_Overlay2 extends ContentViews_Block {
 			'thumbnailsmMaxWidthUnits'	 => [
 				'default' => '',
 			],
-			'thumbnailHeight'			 => [
-				'default' => '',
-			],
 			'formatWrap'			 => [
 				'default' => '',
 			],

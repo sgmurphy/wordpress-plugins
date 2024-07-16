@@ -4,7 +4,7 @@ Tags: Funnel Builder, WooCommerce, WooCommerce Checkout, Sales Funnels, One Clic
 Requires at least: 5.4.0
 Tested up to: 6.5.0
 Requires PHP: 7.4
-Stable tag: 3.4.4
+Stable tag: 3.4.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -375,6 +375,15 @@ If you face any difficulties with FunnelKit, feel free to contact our [Support T
 4. Start creating Funnels.
 
 == Change log ==
+
+= 3.4.5 (Jul 15, 2024) =
+* Added: Compatibility with WordPress version 6.6.(#6422)
+* Added: Checkout: Compatibility with Weglot compatibility added.(#6434)
+* Improved: Checkout: Compatibility with WooPayments updated. (#6410)
+* Improved: Minor CSS improvements in TY page components. (#6396)
+* Fixed: PHP fatal error coming during Jetpack plugin's coming soon mode. (#6432)
+* Fixed: Back to step button on the block editor screen was not working with WP version 6.6.(#6433)
+* Fixed: Checkout: Extra Advanced field placeholders were not showing up. (#6424)
 
 = 3.4.4 (Jul 12, 2024) =
 * Fixed: Checkout - Product Selection Settings are showing locked for the FunnelKit Basic users. (#6429)

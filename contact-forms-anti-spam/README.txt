@@ -4,7 +4,7 @@ Donate link: paypal.me/yonifre
 Tags: spam, blacklist, antispam, contact form, security
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,11 +127,22 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Screenshots ==
 
+1. Setting page - Text field blacklist
 1. Setting page
-2. Error after submitting form with spam words
+1. Setting page
+1. Setting page
+1. Setting page
+1. Setting page
 
 
 == Changelog ==
+
+= 2.0.4 - 16/07/2024 =
+* New Feature - Download Spam-log as CSV
+* Bug Fix - Fix languages check
+* Bug Fix - Fix error appearing when spam is caught in some environments
+* Improvement - Add option to insert question mark (?) in wildcard pattern in phone field
+
 
 = 2.0.3 - 12/07/2024 =
 * Improvement - Improve Dashboard(Maspik API) - add more fields in WpMaspik site for Pro users  

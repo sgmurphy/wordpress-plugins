@@ -973,7 +973,7 @@ function fifu_test_execution_time() {
         sleep(1);
         //flush();
     }
-    error_log(number_format(microtime(true,) - $start_time, 4));
+    error_log(number_format(microtime(true) - $start_time, 4));
     return json_encode(array());
 }
 

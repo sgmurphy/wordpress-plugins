@@ -194,7 +194,6 @@ public function define_admin_menu(){
                                                                             )
                                                 );
 
-
     self::$instance->admin_menu['new']    = new WPBC_Admin_Menus(
                                                     'wpbc-new' , array (
                                                     'in_menu' => 'wpbc'
@@ -270,38 +269,39 @@ public function define_admin_menu(){
                                                 );
 	}
 
+	//FixIn: 10.2.0.1
+	if ( WPBC_setup_plugin ) {
+    	self::$instance->admin_menu['setup'] = new WPBC_Admin_Menus(												//FixIn: 9.8.0.1
+                                                    'wpbc-setup' , array (
+                                                    'in_menu' => 'wpbc'
+                                                  , 'menu_title'    => wpbc_get_plugin_menu_title__setup()
+                                                  , 'page_header'   => ucwords( __('Setup','booking') )
+                                                  , 'browser_header'=> ucwords( __('Setup', 'booking') ) . ' - ' . __('Booking Calendar', 'booking')
+                                                  , 'user_role' => get_bk_option( 'booking_user_role_customize_plugin' )				//FixIn: 9.8.15.2.6
+                                                                            )
+                                                );
+	}
 
-	if ( class_exists( 'wpdev_bk_multiuser' ) ) {
 
-		// Is current user suer booking admin  and if this user was simulated log in
-		$real_current_user_id = get_current_user_id();
-		$is_user_super_admin = apply_bk_filter( 'is_user_super_admin', $real_current_user_id );
+	$simulate_user_id = wpbc_mu__is_simulated_login_as_user();
+	if ( ! empty( $simulate_user_id ) ) {
 
-		if (  $is_user_super_admin ) {
+		$custom_user = get_userdata( $simulate_user_id );
 
-			// Is user was simulated log in
-			$simulate_user_id = intval( get_option( 'booking_simulate_login_as_user' ) );
-
-			if ( ( ! empty( $simulate_user_id ) ) && ( $simulate_user_id > 0 ) ) {
-
-				$custom_user = get_userdata( $simulate_user_id );
-
-				self::$instance->admin_menu['log_off'] = new WPBC_Admin_Menus(
-													'wpbc-log-off' , array (
-														  'in_menu' 	  => 'wpbc'
-														//, 'menu_title' => __( 'Log Out Simulated Login as', 'booking' ) . ' "' . $custom_user->display_name . '"'
-														, 'menu_title' => '<span style="color:#e7dd8c;" title="'
-																		  		. esc_attr( __( 'Log out as regular user and login as super booking admin user', 'booking' ) )
-																		  .'">'
-																		  .__( 'Back to Super Admin', 'booking' )
-																		  .'<span>'
-														, 'page_header'   => ucwords( sprintf( __( 'Need even more functionality? Check %s higher versions %s','booking'), '', '' ) )
-														, 'browser_header'=> 'Log In as Super Admin'
-														, 'user_role' 	  => get_bk_option( 'booking_user_role_booking' )
-													)
-												);
-			}
-		}
+		self::$instance->admin_menu['log_off'] = new WPBC_Admin_Menus(
+											'wpbc-log-off' , array (
+												  'in_menu' 	  => 'wpbc'
+												//, 'menu_title' => __( 'Log Out Simulated Login as', 'booking' ) . ' "' . $custom_user->display_name . '"'
+												, 'menu_title' => '<span style="color:#fffcdf;font-size: 11px;font-weight: 400;" title="'
+																		. esc_attr( __( 'Log out as regular user and login as super booking admin user', 'booking' ) )
+																  .'">'
+																  .__( 'Back to Super Admin', 'booking' )
+																  .'<span>'
+												, 'page_header'   => ucwords( sprintf( __( 'Need even more functionality? Check %s higher versions %s','booking'), '', '' ) )
+												, 'browser_header'=> 'Log In as Super Admin'
+												, 'user_role' 	  => get_bk_option( 'booking_user_role_booking' )
+											)
+										);
 	}
 
 
@@ -567,3 +567,4 @@ phpinfo();  echo '</div>'; return;
     
     echo '</div>';
 }
+

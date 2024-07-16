@@ -96,8 +96,16 @@ class Common {
 				'withVal' => true,
 			),
 			array(
-				'param' => 'brizy-edit-iframe', // strip brizy
+				'param' => 'brizy-edit-iframe', // brizy
 				'withVal' => false,
+			),
+			array(
+				'param' => 'preview_id', // brizy
+				'withVal' => true,
+			),
+			array(
+				'param' => 'preview_nonce', // brizy
+				'withVal' => true,
 			),
 			array(
 				'param' => 'et_fb', // strip Divi param which causes iframe to break out of parent
@@ -476,6 +484,17 @@ class Common {
 				Common::extractTemplatePartsPatterns($block['innerBlocks'], $store, $themeSlug);
 			}
 		}
+	}
+
+	public static function debugMemory(){
+		echo '<pre>';
+		$vars = get_defined_vars();
+		foreach($vars as $name=>$var)
+		{
+			echo '<strong>' . $name . '</strong>: ' . strlen(serialize($var)) . '<br />';
+		}
+		echo '</pre>';
+		//exit();
 	}
 
 

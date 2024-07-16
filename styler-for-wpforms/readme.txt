@@ -3,8 +3,8 @@ Contributors: wpmonks
 Donate link: https://www.paypal.me/wpmonks
 Tags: WPForms designer, WPForms Styler, WPForms CSS, WPForms Templates, WPForms Themes
 Requires at least: 4.0
-Tested up to: 6.5
-Stable tag: 2.0.5
+Tested up to: 6.6
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,9 @@ As of now you can only create one design for one form. If you want to create mul
 4. Options in settings
 
 == Changelog ==
+= 2.0.6 (16/07/2024) =
+* Fixed minor bug
+
 = 2.0.5 (02/10/2023) =
 * Fixed dropdown styling on modern design
 * Updated licensing file

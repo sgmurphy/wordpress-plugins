@@ -20,7 +20,7 @@ Unlike other broken link checker plugins, **AIOSEO's Broken Link Checker is offe
 
 By using Broken Link Checker as a SaaS, you can rest assured that your website's performance won't be negatively affected, and that you'll have access to the most up-to-date version of the service at all times. Additionally, it's incredibly user-friendly and provides actionable recommendations for fixing broken links, making it an essential tool for maintaining the health and functionality of your website.
 
-When you install this plugin, you’ll have the opportunity to register for a free account that includes scanning up to 200 internal links. Those 200 link credits will NEVER expire, and you’ll only be upgraded if you scan more than 200 links during the lifetime of your account. Or, if you already have an AIOSEO Broken Link Checker subscription, you can simply connect this plugin to it.
+When you install this plugin, you’ll have the opportunity to register for a free account that includes scanning up to 200 internal links. Those 200 link credits will renew every month for free, and you’ll only be upgraded if you scan more than 200 links during the month. Or, if you already have an AIOSEO Broken Link Checker subscription, you can simply connect this plugin to it.
 
 === Link Monitoring ===
 

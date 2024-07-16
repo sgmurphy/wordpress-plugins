@@ -593,7 +593,7 @@
 .cvb-responsive-buttons {
 	position: absolute;
     top: 0;
-	right: 60px;
+	right: 40px;
 }
 
 .cvb-responsive-buttons .dashicon {
@@ -877,6 +877,10 @@ option:disabled {
 
 .cvb-alignment {
 	margin-top: 20px;
+}
+
+.cvb-alignment .components-button {
+	max-width: 33.3%;
 }
 
 .cvb-extraexclude .components-panel__body-title {

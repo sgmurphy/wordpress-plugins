@@ -276,10 +276,10 @@ function dpsp_share_options_output( $post ) {
 	// Overwrite options
 	echo '<h4 class="dpsp-section-title">' . esc_html__( 'Display Options', 'social-pug' ) . '</h4>';
 	echo '<div>';
-		dpsp_settings_field( 'checkbox', 'dpsp_share_options[locations_overwrite][]', ( isset( $share_options['locations_overwrite'] ) ? $share_options['locations_overwrite'] : [] ), __( 'Hide buttons for the', 'social-pug' ), dpsp_get_network_locations( 'all', false ) );
+		dpsp_settings_field( 'checkbox', 'dpsp_share_options[locations_overwrite][]', ( isset( $share_options['locations_overwrite'] ) ? $share_options['locations_overwrite'] : [] ), __( 'Hide checked tools', 'social-pug' ), dpsp_get_network_locations( 'all', false ) );
 	echo '</div>';
 	echo '<div>';
-		dpsp_settings_field( 'checkbox', 'dpsp_share_options[locations_overwrite_show][]', ( isset( $share_options['locations_overwrite_show'] ) ? $share_options['locations_overwrite_show'] : [] ), __( 'Show buttons for the', 'social-pug' ), dpsp_get_network_locations( 'all', false ) );
+		dpsp_settings_field( 'checkbox', 'dpsp_share_options[locations_overwrite_show][]', ( isset( $share_options['locations_overwrite_show'] ) ? $share_options['locations_overwrite_show'] : [] ), __( 'Show checked tools', 'social-pug' ), dpsp_get_network_locations( 'all', false ) );
 	echo '</div>';
 
 }

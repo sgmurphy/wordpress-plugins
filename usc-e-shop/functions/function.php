@@ -637,6 +637,8 @@ function usces_update_memberdata() {
 		}
 	}
 
+	do_action( 'usces_action_post_update_after_memberdata', $ID, $res );
+
 	$result = ( 0 < array_sum( $res ) ) ? 1 : 0;
 	return $result;
 }

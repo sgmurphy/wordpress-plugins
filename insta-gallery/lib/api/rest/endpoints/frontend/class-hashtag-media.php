@@ -15,48 +15,27 @@ class Hashtag_Media extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body(), true );
+		$after                     = $request->get_param( 'after' );
+		$account_id                = $request->get_param( 'account_id' );
+		$limit                     = $request->get_param( 'limit' );
+		$hide_items_with_copyright = $request->get_param( 'hide_items_with_copyright' );
+		$hide_reels                = $request->get_param( 'hide_reels' );
+		$pagination                = $request->get_param( 'pagination' );
+		$tag                       = $request->get_param( 'tag' );
+		$order_by                  = $request->get_param( 'order_by' );
 
-		if ( ! isset( $body['feedSettings'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed settings not found.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-		$feed = $body['feedSettings'];
-
-		$after      = isset( $body['after'] ) ? $body['after'] : 0;
-		$pagination = isset( $body['pagination'] ) ? $body['pagination'] : 0;
-
-		// Get cache data and return it if exists.
-		// Set prefix to cache.
-		if ( ! isset( $feed['account_id'], $feed['limit'], $feed['copyright']['hide'], $feed['reel']['hide'], $feed['order_by'], $feed['tag'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed settings attributes not setted.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-
-		if ( empty( $feed['tag'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Feed hashtag not setted.', 'insta-gallery' ),
-				'code'    => 400,
-			);
-			return $this->handle_response( $message );
-		}
-
-		$feed_min_data = array(
-			'account_id'                => $feed['account_id'],
-			'limit'                     => $feed['limit'],
-			'hide_items_with_copyright' => $feed['copyright']['hide'],
-			'hide_reels'                => $feed['reel']['hide'],
-			'order_by'                  => $feed['order_by'],
-			'tag'                       => $feed['tag'],
+		$feed_md5 = md5(
+			wp_json_encode(
+				array(
+					'account_id'                => $account_id,
+					'limit'                     => $limit,
+					'hide_items_with_copyright' => $hide_items_with_copyright,
+					'hide_reels'                => $hide_reels,
+					'order_by'                  => $order_by,
+					'tag'                       => $tag,
+				)
+			)
 		);
-
-		$feed_md5 = md5( wp_json_encode( $feed_min_data ) );
 
 		$cache_key                = "{$this->media_cache_key}_{$feed_md5}";
 		$this->media_cache_engine = new Cache( 6, true, $cache_key );
@@ -71,15 +50,7 @@ class Hashtag_Media extends Base {
 			return $response['response'];
 		}
 
-		$account_id                = $feed['account_id'];
-		$limit                     = $feed['limit'];
-		$hide_items_with_copyright = $feed['copyright']['hide'];
-		$hide_reels                = $feed['reel']['hide'];
-		$hashtag                   = $feed['tag'];
-		$order_by                  = $feed['order_by'];
-
-		$models_account = new Models_Account();
-		$account        = $models_account->get_account( $account_id );
+		$account = ( new Models_Account() )->get_account( $account_id );
 
 		// Check if exist an access_token and access_token_type related to id setted by param, if it is not return error.
 		if ( ! isset( $account['access_token'], $account['access_token_type'] ) ) {
@@ -104,10 +75,8 @@ class Hashtag_Media extends Base {
 		}
 
 		// Query to Api_Fetch_Business_Hashtag_Media.
-		$business_hashtag_media = new Api_Fetch_Business_Hashtag_Media();
-
 		// Get hashtag media data.
-		$response = $business_hashtag_media->get_data( $access_token, $account_id, $hashtag, $limit, $after, $order_by, $hide_items_with_copyright, $hide_reels );
+		$response = ( new Api_Fetch_Business_Hashtag_Media() )->get_data( $access_token, $account_id, $tag, $limit, $after, $order_by, $hide_items_with_copyright, $hide_reels );
 
 		// Check if response is an error and return it.
 		if ( isset( $response['message'], $response['code'] ) ) {
@@ -123,11 +92,69 @@ class Hashtag_Media extends Base {
 	}
 
 	public static function get_rest_args() {
-		return array();
+		return array(
+			'account_id'                => array(
+				'required'          => true,
+				'sanitize_callback' => function ( $account_id ) {
+					return sanitize_text_field( $account_id );
+				},
+				'validate_callback' => function ( $account_id ) {
+					return is_numeric( $account_id );
+				},
+			),
+			'limit'                     => array(
+				'default'           => 12,
+				'sanitize_callback' => function ( $limit ) {
+					return (int) $limit;
+				},
+				'required'          => false,
+			),
+			'after'                     => array(
+				'default'           => 0,
+				'sanitize_callback' => function ( $after ) {
+					return intval( $after );
+				},
+				'required'          => false,
+			),
+			'hide_items_with_copyright' => array(
+				'default'           => false,
+				'sanitize_callback' => function ( $hide_items_with_copyright ) {
+					return filter_var( $hide_items_with_copyright, FILTER_VALIDATE_BOOLEAN );
+				},
+				'required'          => false,
+			),
+			'hide_reels'                => array(
+				'default'           => false,
+				'sanitize_callback' => function ( $hide_reels ) {
+					return filter_var( $hide_reels, FILTER_VALIDATE_BOOLEAN );
+				},
+				'required'          => false,
+			),
+			'pagination'                => array(
+				'default'           => 0,
+				'sanitize_callback' => function ( $pagination ) {
+					return intval( $pagination );
+				},
+				'required'          => false,
+			),
+			'tag'                       => array(
+				'sanitize_callback' => function ( $tag ) {
+					return sanitize_text_field( $tag );
+				},
+				'required'          => true,
+			),
+			'order_by'                  => array(
+				'default'           => 'top_media',
+				'sanitize_callback' => function ( $order_by ) {
+					return sanitize_text_field( $order_by );
+				},
+				'required'          => false,
+			),
+		);
 	}
 
 	public static function get_rest_method() {
-		return \WP_REST_Server::CREATABLE;
+		return \WP_REST_Server::READABLE;
 	}
 
 	public function get_rest_permission() {

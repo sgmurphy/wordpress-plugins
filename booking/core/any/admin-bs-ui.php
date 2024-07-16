@@ -2031,56 +2031,22 @@ function wpbc_bs_javascript_tooltips() {
     
 /** Popover JavaScript functions */
 function wpbc_bs_javascript_popover() {    
-    
-    ?><script type="text/javascript">
+	//FixIn: 10.2.0.4 //FixIn: 10.1.3.7 /* //FixIn: 9.0.1.1 */
 
-		function wpbc_define_tippy_popover(){
+	ob_start();
 
-			if ( 'function' !== typeof( wpbc_tippy ) ) {
-				alert( 'WPBC Error. wpbc_tippy was not defined.' );
-				return false;
-			}
+	//INFO: Important! Please be carefully with  comments such  as this //   it can  corrupt everything. Please use this commenting: /**/
+	?> <script type="text/javascript"> <?php echo wpbc_jq_ready_start();
 
-			//FixIn: 9.0.1.1
-			wpbc_tippy( '.popover_bottom.popover_click', {
-				content( reference ){
-					var popover_title 	= reference.getAttribute( 'data-original-title' );
-					var popover_content = reference.getAttribute( 'data-content' );
-					return '<div class="popover popover_tippy">'
-								+ '<div class="popover-close"><a href="javascript:void(0)" onclick="javascript:this.parentElement.parentElement.parentElement.parentElement.parentElement._tippy.hide();" >&times;</a></div>'
-								// + '<div class="popover-title">'
-								// 	+ popover_title
-								// + '</div>'
-								// + '<div class="popover-content">'
-									+ popover_content
-								//+ '</div>'
-						 + '</div>';
-				},
-				allowHTML        : true,
-				trigger          : 'manual',
-				interactive      : true,
-				hideOnClick      : false,
-				interactiveBorder: 10,
-				maxWidth         : 550,
-				theme            : 'wpbc-tippy-popover',
-				placement        : 'bottom-start',
-				touch: ['hold', 500], // 500ms delay
-			} );
+		?> wpbc_define_tippy_popover(); <?php
 
-			// Define ability to open / close popover by  clicking on link
-			jQuery( '.popover_bottom.popover_click' ).on( 'click',  function (){
-				if( this._tippy.state.isVisible ) {
-					this._tippy.hide();
-				} else {
-					this._tippy.show();
-				}
-			});
-		}
+	echo wpbc_jq_ready_end(); ?> </script> <?php
 
-        <?php echo wpbc_jq_ready_start();		//FixIn: 10.1.3.7 ?>
-			wpbc_define_tippy_popover();		//FixIn: 9.0.1.1
-        <?php echo wpbc_jq_ready_end(); ?>
-    </script><?php
+    $content_popover = ob_get_clean();
+
+	$content_popover = str_replace( array( "\n" , "\r" ), '', $content_popover);										//FixIn: 10.1.4.1
+
+	echo $content_popover;
 }
     
 

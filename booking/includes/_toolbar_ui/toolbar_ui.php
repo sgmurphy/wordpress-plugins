@@ -4062,10 +4062,10 @@ function wpbc_ajx_toolbar_enqueue_js_files( $where_to_load ) {
 
 	if ( ( is_admin() ) && ( in_array( $where_to_load, array( 'admin', 'both' ) ) ) ) {
 
-		wp_enqueue_script( 'wpbc-flex-toolbar-ui', wpbc_plugin_url( '/includes/_toolbar_ui/_out/toolbar_ui.js' ), array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
+		wp_enqueue_script( 'wpbc-flex-toolbar-ui', wpbc_plugin_url( '/includes/_toolbar_ui/_out/toolbar_ui.js' ), array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );
 
 		/**
-		 *  wp_localize_script( 'wpbc-global-vars', 'wpbc_live_request_obj'
+		 *  wp_localize_script( 'wpbc_all', 'wpbc_live_request_obj'
 								, array(
 										'contacts'  => '',
 										'reminders' => ''

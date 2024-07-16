@@ -3,7 +3,7 @@
 <div class="wrap">
     <h1 class="wp-heading-inline">
         <?php
-            echo __( esc_html(get_admin_page_title()), "ays-popup-box" );
+            echo esc_html(get_admin_page_title());
         ?>
     </h1>
     <div style="display: flex;justify-content: center; align-items: center;">
@@ -80,15 +80,15 @@
                     </div>
                 </a>
             </div>
-            <h1 class="ays-subtitle"><?php echo __('Import popups',$this->plugin_name)?></h1><hr>
+            <h1 class="ays-subtitle"><?php echo __('Import popups', "ays-popup-box")?></h1><hr>
             <div class="upload-import-file-wrap show-upload-view ays-pb-tab-content-area">
                 <div class="upload-import-file">
-                    <p class="import-help"><?php echo __( "Please upload the popup file in a .json format here.", $this->plugin_name ); ?></p>
+                    <p class="import-help"><?php echo __( "Please upload the popup file in a .json format here.", "ays-popup-box" ); ?></p>
                     <form method="post" enctype="multipart/form-data">
                         <div class="ays-pb-import-form">
                             <input type="file" accept=".json" name="ays_pb_import_file" id="import_file"/>
-                            <label class="" for="import_file"><?php echo __( "Import file", $this->plugin_name ); ?></label>
-                            <input type="submit" name="ays_pb_import" class="button" id="ays_pb_import" value="<?php echo __( "Import now", $this->plugin_name ); ?>" disabled="">
+                            <label class="" for="import_file"><?php echo __( "Import file", "ays-popup-box" ); ?></label>
+                            <input type="submit" name="ays_pb_import" class="button" id="ays_pb_import" value="<?php echo __( "Import now", "ays-popup-box" ); ?>" disabled="">
                         </div>
                     </form>
                 </div>

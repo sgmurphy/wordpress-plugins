@@ -1,5 +1,23 @@
 CHANGELOG
 
+= 7.3.1.3 (July 16th, 2024) =
+
+# Enhancement
+* Auto-save is now configurable via Settings > General > Auto-save. It is still enabled by default.
+
+# Bugs fixed
+* CSS grid highlighting could be incorrect when using subgrid with multiple levels of nesting if different gap values were defined on subgrids.
+
+= 7.3.1.2 (June 18th, 2024) =
+
+# Enhancement
+* "Create new" Post/Page option has been added to the "Search site" menu.
+
+# Bugs fixed
+* The Google Fonts browser, Manage design packs, and in-program CSS reference didn't work in Firefox.
+* When customizing a Brizy preview page with Microthemer, which uses a special URL that is only valid for a short time, this could generate a "403 forbidden" warning when returning to Microthemer at a later date. To fix this, Microthemer no longer tries to load the last viewed page if it has a "preview_nonce" URL parameter.
+* Issues with "Auto-folder" assignment when styling a new Gutenberg Post/Page before it has been saved or published.
+
 = 7.3.1.1 (June 18th, 2024) =
 
 # Change

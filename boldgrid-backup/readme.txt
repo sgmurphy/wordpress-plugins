@@ -2,7 +2,7 @@
 Contributors: boldgrid, joemoto, imh_brad, rramo012, bgnicolepaschen, jamesros161, joe9663, weaponx13, jessecowens
 Tags: backup, cloud backup, database backup, restore, wordpress backup
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.4
 Stable tag: 1.16.3
 License: GPLv2 or later

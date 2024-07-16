@@ -77,8 +77,9 @@ class WPBC_Google_Calendar {
         $message = esc_js($message);
      
         ?>  <script type="text/javascript"> if (jQuery('#ajax_message').length > 0 ) { 
-                <?php if ($is_spin ) { ?>        
-                    jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><div style="float:left;"><?php echo $message;  ?></div><div class="wpbc_spin_loader"><img style="vertical-align:middle;box-shadow:none;width:14px;" src="'+_wpbc.get_other_param( 'url_plugin' )+'/assets/img/ajax-loader.gif"></div></div>');
+                <?php if ($is_spin ) { ?>
+                    jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><div style="float:left;"><?php echo $message;  ?></div><div id="ajax_message_wpbc_spin_loader" class="wpbc_spin_loader"></div></div>');
+					wpbc__spin_loader__mini__show( 'ajax_message_wpbc_spin_loader', {'show_here': {'where': 'inside'}} );
                 <?php } else { ?>
                     jQuery('#ajax_message').html('<div class="updated ajax_message<?php echo ($is_error?' error':''); ?>" id="ajax_message"><?php echo $message;  ?></div>'); 
                 <?php } ?>

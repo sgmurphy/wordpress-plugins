@@ -3,12 +3,18 @@ import classnames from 'classnames';
 import {
 	AlignmentToolbar,
 	BlockControls,
+	getFontSizeClass,
+	getFontSizeObjectByValue,
+	FontSizePicker,
 	InspectorControls,
-	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
+	useSettings,
 	useBlockProps,
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 
 import {
+	BaseControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
@@ -19,8 +25,19 @@ import DateTimePicker from '@smb/component/date-time-picker';
 
 import metadata from './block.json';
 
-export default function ( { attributes, setAttributes, className } ) {
-	const { alignment, numericColor, clockColor, countdownTime } = attributes;
+export default function ( { attributes, setAttributes, className, clientId } ) {
+	const {
+		alignment,
+		numericColor,
+		clockColor,
+		countdownTime,
+		numericFontSizeSlug,
+		numericFontSize,
+		clockFontSizeSlug,
+		clockFontSize,
+	} = attributes;
+
+	const [ fontSizes ] = useSettings( 'typography.fontSizes' );
 
 	const classes = classnames( 'smb-countdown', className );
 
@@ -32,6 +49,26 @@ export default function ( { attributes, setAttributes, className } ) {
 		'--smb-countdown--numeric-color': numericColor || undefined,
 		'--smb-countdown--clock-color': clockColor || undefined,
 	};
+
+	const clockFontSizeClass = !! clockFontSizeSlug
+		? getFontSizeClass( clockFontSizeSlug )
+		: undefined;
+
+	const numericFontSizeClass = !! numericFontSizeSlug
+		? getFontSizeClass( numericFontSizeSlug )
+		: undefined;
+
+	const selectedClockFontSize =
+		fontSizes.find(
+			( fontSize ) =>
+				!! clockFontSizeSlug && fontSize.slug === clockFontSizeSlug
+		)?.size || clockFontSize;
+
+	const selectedNumericFontSize =
+		fontSizes.find(
+			( fontSize ) =>
+				!! numericFontSizeSlug && fontSize.slug === numericFontSizeSlug
+		)?.size || clockFontSize;
 
 	const blockProps = useBlockProps( {
 		className: classes,
@@ -51,10 +88,103 @@ export default function ( { attributes, setAttributes, className } ) {
 				/>
 			</BlockControls>
 
-			<InspectorControls group="styles">
-				<PanelColorGradientSettings
-					title={ __( 'Color', 'snow-monkey-blocks' ) }
-					initialOpen={ false }
+			<InspectorControls group="typography">
+				<ToolsPanelItem
+					panelId={ clientId }
+					hasValue={ () =>
+						numericFontSizeSlug !== metadata.numericFontSizeSlug ||
+						numericFontSize !== metadata.numericFontSize
+					}
+					isShownByDefault
+					label={ __( 'Numeric font size', 'snow-monkey-blocks' ) }
+					resetAllFilter={ () => ( {
+						numericFontSizeSlug: metadata.numericFontSizeSlug,
+						numericFontSize: metadata.numericFontSize,
+					} ) }
+					onDeselect={ () => {
+						setAttributes( {
+							numericFontSizeSlug: metadata.numericFontSizeSlug,
+							numericFontSize: metadata.numericFontSize,
+						} );
+					} }
+				>
+					<BaseControl
+						label={ __( 'Numeric', 'snow-monkey-blocks' ) }
+						id="snow-monkey-blocks/countdown/numeric-font-size"
+					>
+						<FontSizePicker
+							value={ selectedNumericFontSize }
+							onChange={ ( value ) => {
+								const fontSizeSlug = getFontSizeObjectByValue(
+									fontSizes,
+									value
+								).slug;
+
+								setAttributes( {
+									numericFontSizeSlug:
+										fontSizeSlug || undefined,
+									numericFontSize: ! fontSizeSlug
+										? value
+										: undefined,
+								} );
+							} }
+							withReset={ false }
+							withSlider
+						/>
+					</BaseControl>
+				</ToolsPanelItem>
+
+				<ToolsPanelItem
+					panelId={ clientId }
+					hasValue={ () =>
+						clockFontSizeSlug !== metadata.clockFontSizeSlug ||
+						clockFontSize !== metadata.clockFontSize
+					}
+					isShownByDefault
+					label={ __( 'Clock font size', 'snow-monkey-blocks' ) }
+					resetAllFilter={ () => ( {
+						clockFontSizeSlug: metadata.clockFontSizeSlug,
+						clockFontSize: metadata.clockFontSize,
+					} ) }
+					onDeselect={ () => {
+						setAttributes( {
+							clockFontSizeSlug: metadata.clockFontSizeSlug,
+							clockFontSize: metadata.clockFontSize,
+						} );
+					} }
+				>
+					<BaseControl
+						label={ __( 'Clock', 'snow-monkey-blocks' ) }
+						id="snow-monkey-blocks/countdown/clock-font-size"
+					>
+						<FontSizePicker
+							value={ selectedClockFontSize }
+							onChange={ ( value ) => {
+								const fontSizeSlug = getFontSizeObjectByValue(
+									fontSizes,
+									value
+								).slug;
+
+								setAttributes( {
+									clockFontSizeSlug:
+										fontSizeSlug || undefined,
+									clockFontSize: ! fontSizeSlug
+										? value
+										: undefined,
+								} );
+							} }
+							withReset={ false }
+							withSlider
+						/>
+					</BaseControl>
+				</ToolsPanelItem>
+			</InspectorControls>
+
+			<InspectorControls group="color">
+				<ColorGradientSettingsDropdown
+					panelId={ clientId }
+					__experimentalIsRenderedInSidebar
+					{ ...useMultipleOriginColorsAndGradients() }
 					settings={ [
 						{
 							colorValue: numericColor,
@@ -62,6 +192,9 @@ export default function ( { attributes, setAttributes, className } ) {
 								setAttributes( {
 									numericColor: value,
 								} ),
+							resetAllFilter: () => ( {
+								numericColor: metadata.numericColor,
+							} ),
 							label: __( 'Numeric color', 'snow-monkey-blocks' ),
 						},
 						{
@@ -70,11 +203,13 @@ export default function ( { attributes, setAttributes, className } ) {
 								setAttributes( {
 									clockColor: value,
 								} ),
+							resetAllFilter: () => ( {
+								clockColor: metadata.clockColor,
+							} ),
 							label: __( 'Clock color', 'snow-monkey-blocks' ),
 						},
 					] }
-					__experimentalIsRenderedInSidebar
-				></PanelColorGradientSettings>
+				/>
 			</InspectorControls>
 
 			<InspectorControls>
@@ -117,34 +252,82 @@ export default function ( { attributes, setAttributes, className } ) {
 			<div { ...blockProps }>
 				<ul className={ listClasses } data-time={ countdownTime }>
 					<li className="smb-countdown__list-item smb-countdown__list-item__days">
-						<span className="smb-countdown__list-item__numeric">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__numeric',
+								numericFontSizeClass
+							) }
+							style={ { fontSize: numericFontSize || undefined } }
+						>
 							-
 						</span>
-						<span className="smb-countdown__list-item__clock">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__clock',
+								clockFontSizeClass
+							) }
+							style={ { fontSize: clockFontSize || undefined } }
+						>
 							{ __( 'Days', 'snow-monkey-blocks' ) }
 						</span>
 					</li>
 					<li className="smb-countdown__list-item smb-countdown__list-item__hours">
-						<span className="smb-countdown__list-item__numeric">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__numeric',
+								numericFontSizeClass
+							) }
+							style={ { fontSize: numericFontSize || undefined } }
+						>
 							--
 						</span>
-						<span className="smb-countdown__list-item__clock">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__clock',
+								clockFontSizeClass
+							) }
+							style={ { fontSize: clockFontSize || undefined } }
+						>
 							{ __( 'Hours', 'snow-monkey-blocks' ) }
 						</span>
 					</li>
 					<li className="smb-countdown__list-item smb-countdown__list-item__minutes">
-						<span className="smb-countdown__list-item__numeric">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__numeric',
+								numericFontSizeClass
+							) }
+							style={ { fontSize: numericFontSize || undefined } }
+						>
 							--
 						</span>
-						<span className="smb-countdown__list-item__clock">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__clock',
+								clockFontSizeClass
+							) }
+							style={ { fontSize: clockFontSize || undefined } }
+						>
 							{ __( 'Minutes', 'snow-monkey-blocks' ) }
 						</span>
 					</li>
 					<li className="smb-countdown__list-item smb-countdown__list-item__seconds">
-						<span className="smb-countdown__list-item__numeric">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__numeric',
+								numericFontSizeClass
+							) }
+							style={ { fontSize: numericFontSize || undefined } }
+						>
 							--
 						</span>
-						<span className="smb-countdown__list-item__clock">
+						<span
+							className={ classnames(
+								'smb-countdown__list-item__clock',
+								clockFontSizeClass
+							) }
+							style={ { fontSize: clockFontSize || undefined } }
+						>
 							{ __( 'Seconds', 'snow-monkey-blocks' ) }
 						</span>
 					</li>

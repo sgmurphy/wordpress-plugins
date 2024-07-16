@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'hostinger/hostinger',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '2652e8613cf2d5f4f3a3ed687fe30050b9cec1b3',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'hostinger/hostinger' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '2652e8613cf2d5f4f3a3ed687fe30050b9cec1b3',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

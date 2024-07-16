@@ -58,6 +58,31 @@ class ShopEngine_Archive_Products extends \ShopEngine\Base\Widget
 		);
 
 		$this->add_control(
+			'shopengine_archive_product_title_header_size',
+			[
+				'label'     => esc_html__('Archive Product Title', 'shopengine'),
+				'type'      => Controls_Manager::SELECT,
+				'description' => esc_html__("The H1 tag is important for SEO, accessibility and usability, so ideally, you should have one on each page of your site. A H1 tag should describe what the content of the given page is all about", 'shopengine'),
+				'options'   => [
+					'h1'   => 'H1',
+					'h2'   => 'H2',
+					'h3'   => 'H3',
+					'h4'   => 'H4',
+					'h5'   => 'H5',
+					'h6'   => 'H6',
+					'div'  => 'Div',
+					'span' => 'Span',
+					'p'    => 'P',
+				],
+				'default'   => 'h1',
+				'prefix_class'     => 'shopengine_archive_product_title_',
+				'selectors' => [
+					'{{WRAPPER}} .archive-product-title' => 'margin: 0; padding: 0;',
+				],
+			]
+		);
+
+		$this->add_control(
 			'shopengine_show_sale_flash',
 			[
 				'label'        => esc_html__('Flash Sale Badge', 'shopengine'),
@@ -2495,6 +2520,9 @@ class ShopEngine_Archive_Products extends \ShopEngine\Base\Widget
 		add_filter('woocommerce_product_get_rating_html', [$this, 'show_empty_product_rating'], 99, 3);
 
 		$tpl = Products::instance()->get_widget_template($this->get_name());
+
+		  // Pass settings to the template
+    	  $settings_to_pass = compact('shopengine_group_btns', 'shopengine_is_hover_details', 'shopengine_is_cats', 'shopengine_pagination_style', 'shopengine_is_details', 'shopengine_archive_product_title_header_size');
 
 		include $tpl;
 

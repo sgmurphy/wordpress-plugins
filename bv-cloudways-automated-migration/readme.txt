@@ -2,7 +2,7 @@
 Contributors: blogvault, akshatc
 Tags: Cloudways, migration
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6.0
 Stable tag: 5.56
 License: GPLv2 or later

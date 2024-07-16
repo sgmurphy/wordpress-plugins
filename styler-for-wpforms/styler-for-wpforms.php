@@ -3,7 +3,7 @@
 Plugin Name: Styler for WPForms
 Plugin URI:  http://wpmonks.com/styler-wpforms
 Description: Create beautiful styles for your WPForms
-Version:     2.0.5
+Version:     2.0.6
 Author:      Sushil Kumar
 Author URI:  http://wpmonks.com/
 License:     GPL2License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -31,7 +31,7 @@ require_once SFWF_DIR . '/admin-menu/addons.php';
 require_once 'helpers/utils/responsive.php';
 class Sk_Sfwf_Main_Class {
 
-	const VERSION = '2.0.5';
+	const VERSION = '2.0.6';
 	const SLUG    = 'styler-wpforms';
 	const NAME    = 'Styler for WPForms';
 	const AUTHOR  = 'Sushil Kumar';
@@ -547,7 +547,7 @@ class Sk_Sfwf_Main_Class {
 		$input_styles .= empty( $settings[ $category ]['height-tab'] ) ? '' : 'height:' . $settings[ $category ]['height-tab'] . $this->sfwf_add_px_to_value( $settings[ $category ]['height-tab'] ) . ' ' . $important . ';';
 		$input_styles .= empty( $settings[ $category ]['font-size-tab'] ) ? '' : 'font-size:' . $settings[ $category ]['font-size-tab'] . $this->sfwf_add_px_to_value( $settings[ $category ]['font-size-tab'] ) . ' ' . $important . ';';
 
-		$input_styles .= empty( $settings[ $category ]['line-height-tab'] ) ? '' : 'line-height:' . $settings[ $category ]['line-height-tab'] . $this->$settings[ $category ]['line-height-tab'] . ' ' . $important . ';';
+		$input_styles .= empty( $settings[ $category ]['line-height-tab'] ) ? '' : 'line-height:' . $settings[ $category ]['line-height-tab'] . $important . ';';
 
 		return $input_styles;
 	}
@@ -563,7 +563,7 @@ class Sk_Sfwf_Main_Class {
 		$input_styles .= empty( $settings[ $category ]['maximum-width-phone'] ) ? '' : 'width:' . $settings[ $category ]['maximum-width-phone'] . $this->sfwf_add_px_to_value( $settings[ $category ]['maximum-width-phone'] ) . ' ' . $important . ';';
 		$input_styles .= empty( $settings[ $category ]['height-phone'] ) ? '' : 'height:' . $settings[ $category ]['height-phone'] . $this->sfwf_add_px_to_value( $settings[ $category ]['height-phone'] ) . ' ' . $important . ';';
 		$input_styles .= empty( $settings[ $category ]['font-size-phone'] ) ? '' : 'font-size:' . $settings[ $category ]['font-size-phone'] . $this->sfwf_add_px_to_value( $settings[ $category ]['font-size-phone'] ) . ' ' . $important . ';';
-		$input_styles .= empty( $settings[ $category ]['line-height-phone'] ) ? '' : 'line-height:' . $settings[ $category ]['line-height-phone'] . $this->$settings[ $category ]['line-height-phone'] . ' ' . $important . ';';
+		$input_styles .= empty( $settings[ $category ]['line-height-phone'] ) ? '' : 'line-height:' . $settings[ $category ]['line-height-phone'] . $important . ';';
 
 		return $input_styles;
 	}

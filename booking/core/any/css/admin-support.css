@@ -324,9 +324,9 @@ table.wpbc_sort_table {
     width: 20px;
     padding:4px 0 0 2px;
 }
-.wpbc_sort_table .widefat td.sort span.glyphicon {
-    vertical-align: middle;
-}
+/*.wpbc_sort_table .widefat td.sort span.glyphicon {*/
+/*    vertical-align: middle;*/
+/*}*/
 .wpbc_sort_table .widefat td {
     padding:0;
 }

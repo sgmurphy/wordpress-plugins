@@ -140,7 +140,9 @@ const EditApp = () => {
     setTimeout(function () {
       render(<EditApp />, rootDiv);
       if (!document.querySelector(".presto-player-edit-root")) {
-        const toolbalEl = editorEl.querySelector(".edit-post-header__settings");
+        const toolbalEl =
+          editorEl.querySelector(".edit-post-header__settings") ||
+          editorEl.querySelector(".editor-header__settings");
         if (toolbalEl instanceof HTMLElement) {
           toolbalEl.prepend(rootDiv);
         }

@@ -140,6 +140,10 @@ class Frontend_Content {
 			return $content;
 		}
 
+		if ( doing_action( 'before_feast_layout' ) || doing_action( 'genesis_header' ) || doing_action( 'genesis_after_header' ) || doing_action( 'genesis_footer' ) || doing_action( 'genesis_sidebar' ) || doing_action( 'kadence_before_sidebar' ) || doing_action( 'kadence_before_footer' ) || doing_action('kadence_dynamic_sidebar_content') || doing_action('kadence_after_header') ) {
+			return $content;
+		}
+
 		$this->check_content_filters();
 
 		if ( doing_filter( 'the_content' ) ) {

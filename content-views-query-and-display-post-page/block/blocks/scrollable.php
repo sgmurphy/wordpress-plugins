@@ -15,6 +15,10 @@ class ContentViews_Block_Scrollable extends ContentViews_Block {
 	}
 
 	function custom_atts() {
+		return self::scrollable_atts();
+	}
+
+	static function scrollable_atts() {
 		$atts = [
 			'viewType' => [
 				'default' => 'scrollable',

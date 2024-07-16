@@ -622,7 +622,7 @@ class VideoPostType
         wp_enqueue_script(
             'presto-player/toolbar/admin',
             trailingslashit(PRESTO_PLAYER_PLUGIN_URL) . 'dist/toolbar.js',
-            array_merge(['jquery'], $assets['dependencies'] ?? []),
+            array_merge(['jquery', 'regenerator-runtime'], $assets['dependencies'] ?? []),
             $assets['version'],
             true
         );

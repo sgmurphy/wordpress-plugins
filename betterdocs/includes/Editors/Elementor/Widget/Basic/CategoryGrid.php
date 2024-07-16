@@ -1681,10 +1681,11 @@ class CategoryGrid extends BaseWidget {
         ];
 
         $inner_wrapper_attr = [
-            'class'                     => [
+            'class' => [
                 'betterdocs-category-grid-inner-wrapper',
                 'betterdocs-category-grid',
-                $settings['layout_mode']
+                $settings['layout_mode'],
+                $settings['layout_mode'] == 'grid' ? 'layout-flex' : ''
             ],
             'data-layout-mode'          => $settings['layout_mode'],
             'data-column_space_desktop' => $settings['grid_space'],

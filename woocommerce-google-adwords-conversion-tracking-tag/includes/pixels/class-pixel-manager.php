@@ -600,7 +600,14 @@ class Pixel_Manager {
         // This is to avoid a render blocking issue reported here: https://wordpress.org/support/topic/wc-8-4-empty-cart-error/
         // Also we need safeguards to avoid a bug reported here: https://wordpress.org/support/topic/fatal-error-4590/
         // IMO WooCommerce should not process the woocommerce_blocks_product_grid_item_html hook during a REST API request.
-        if ( !is_object( WC()->cart ) || !method_exists( WC()->cart, 'is_empty' ) || WC()->cart->is_empty() ) {
+        if ( !is_object( WC()->cart ) ) {
+            return $html;
+        }
+        if ( method_exists( WC()->cart, 'is_empty' ) && WC()->cart->is_empty() ) {
+            return $html;
+        }
+        // The new cart block in WC 9.x errors out when emptying the cart
+        if ( has_block( 'woocommerce/cart' ) ) {
             return $html;
         }
         return $html . Product::ob_print_get_product_data_layer_script( $product );
@@ -1003,6 +1010,12 @@ class Pixel_Manager {
         return array_merge( $data, $this->get_order_data( Shop::pmw_get_current_order() ) );
     }
 
+    /**
+     * Get the shop order data.
+     *
+     * @param $order
+     * @return array
+     */
     private function get_order_data( $order ) {
         $data = [];
         if ( $order ) {
@@ -1067,6 +1080,18 @@ class Pixel_Manager {
             $data['products'] = $this->get_order_products( $order );
         }
         return $data;
+    }
+
+    /**
+     * Return an array with custom variables for Google Ads.
+     *
+     * @param $order
+     * @return array
+     *
+     * @since 1.43.5
+     */
+    private function get_google_ads_custom_variables( $order ) {
+        return (array) apply_filters( 'pmw_google_ads_order_custom_variables', [], $order );
     }
 
     private function get_order_products( $order ) {

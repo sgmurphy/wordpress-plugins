@@ -17,35 +17,23 @@ class User_Media extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body(), true );
+		$after                     = $request->get_param( 'after' );
+		$account_id                = $request->get_param( 'account_id' );
+		$limit                     = $request->get_param( 'limit' );
+		$hide_items_with_copyright = $request->get_param( 'hide_items_with_copyright' );
+		$hide_reels                = $request->get_param( 'hide_reels' );
 
-		if ( ! isset( $body['feedSettings'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed settings not found.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-		$feed = $body['feedSettings'];
-
-		$after = isset( $body['after'] ) ? $body['after'] : '';
-
-		if ( ! isset( $feed['account_id'], $feed['limit'], $feed['copyright']['hide'], $feed['reel']['hide'] ) ) {
-			$message = array(
-				'message' => esc_html__( 'Bad Request, feed settings attributes not setted.', 'insta-gallery' ),
-				'code'    => '400',
-			);
-			return $this->handle_response( $message );
-		}
-		// Get cache data and return it if exists.
 		// Set prefix to cache.
-		$feed_min_data = array(
-			'account_id'                => $feed['account_id'],
-			'limit'                     => $feed['limit'],
-			'hide_items_with_copyright' => $feed['copyright']['hide'],
-			'hide_reels'                => $feed['reel']['hide'],
+		$feed_md5 = md5(
+			wp_json_encode(
+				array(
+					'account_id'                => $account_id,
+					'limit'                     => $limit,
+					'hide_items_with_copyright' => $hide_items_with_copyright,
+					'hide_reels'                => $hide_reels,
+				)
+			)
 		);
-		$feed_md5      = md5( wp_json_encode( $feed_min_data ) );
 
 		$media_complete_prefix = "{$this->media_cache_key}_{$feed_md5}_{$after}";
 
@@ -59,14 +47,7 @@ class User_Media extends Base {
 			return $response['response'];
 		}
 
-		$account_id                = $feed['account_id'];
-		$limit                     = $feed['limit'];
-		$hide_items_with_copyright = $feed['copyright']['hide'];
-		$hide_reels                = $feed['reel']['hide'];
-
-		$models_account = new Models_Account();
-
-		$account = $models_account->get_account( $account_id );
+		$account = ( new Models_Account() )->get_account( $account_id );
 
 		// Check if exist an access_token and access_token_type related to id setted by param, if it is not return error.
 		if ( ! isset( $account['access_token'], $account['access_token_type'] ) ) {
@@ -82,10 +63,8 @@ class User_Media extends Base {
 
 		// Query to Api_Fetch_Personal_User_Media if access_token_type is 'PERSONAL'.
 		if ( $account['access_token_type'] == 'PERSONAL' ) {
-			$personal_user_media = new Api_Fetch_Personal_User_Media();
-
 			// Get user media data.
-			$response = $personal_user_media->get_data( $access_token, $limit, $after, $hide_items_with_copyright, $hide_reels );
+			$response = ( new Api_Fetch_Personal_User_Media() )->get_data( $access_token, $limit, $after, $hide_items_with_copyright, $hide_reels );
 
 			// Check if response is an error and return it.
 			if ( isset( $response['message'] ) && isset( $response['code'] ) ) {
@@ -108,10 +87,8 @@ class User_Media extends Base {
 		}
 
 		// Query to Api_Fetch_Business_User_Media.
-		$business_user_media = new Api_Fetch_Business_User_Media();
-
 		// Get user media data.
-		$response = $business_user_media->get_data( $access_token, $account_id, $limit, $after, $hide_items_with_copyright, $hide_reels );
+		$response = ( new Api_Fetch_Business_User_Media() )->get_data( $access_token, $account_id, $limit, $after, $hide_items_with_copyright, $hide_reels );
 
 		// Check if response is an error and return it.
 		if ( isset( $response['message'], $response['code'] ) ) {
@@ -134,11 +111,49 @@ class User_Media extends Base {
 	}
 
 	public static function get_rest_args() {
-		return array();
+		return array(
+			'account_id'                => array(
+				'required'          => true,
+				'sanitize_callback' => function ( $account_id ) {
+					return sanitize_text_field( $account_id );
+				},
+				'validate_callback' => function ( $account_id ) {
+					return is_numeric( $account_id );
+				},
+			),
+			'limit'                     => array(
+				'default'           => 12,
+				'sanitize_callback' => function ( $limit ) {
+					return (int) $limit;
+				},
+				'required'          => false,
+			),
+			'after'                     => array(
+				'default'           => '',
+				'sanitize_callback' => function ( $after ) {
+					return sanitize_text_field( $after );
+				},
+				'required'          => false,
+			),
+			'hide_items_with_copyright' => array(
+				'default'           => false,
+				'sanitize_callback' => function ( $hide_items_with_copyright ) {
+					return filter_var( $hide_items_with_copyright, FILTER_VALIDATE_BOOLEAN );
+				},
+				'required'          => false,
+			),
+			'hide_reels'                => array(
+				'default'           => false,
+				'sanitize_callback' => function ( $hide_reels ) {
+					return filter_var( $hide_reels, FILTER_VALIDATE_BOOLEAN );
+				},
+				'required'          => false,
+			),
+		);
 	}
 
 	public static function get_rest_method() {
-		return \WP_REST_Server::CREATABLE;
+		return \WP_REST_Server::READABLE;
 	}
 
 	public function get_rest_permission() {

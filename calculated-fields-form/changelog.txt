@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 5.2.20 =
+
+* Identifies fields with col-... or column... class names assigned with a top-right icon.
+* Improves the admin appearance of data-table control.
+* Adds new form templates for storage requirements and booking.
+
 = 5.2.19 =
 
 * Enhances the CSS edition.

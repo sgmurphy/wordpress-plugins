@@ -53,10 +53,10 @@ if ( !class_exists( 'PT_CV_Values' ) ) {
 		 *
 		 * @return array
 		 */
-		static function post_types_vs_taxonomies() {
+		static function post_types_vs_taxonomies( $no_restrict = false ) {
 			// Get post types
 			$args		 = apply_filters( PT_CV_PREFIX_ . 'post_types', array( 'public' => true, 'show_ui' => true, '_builtin' => true ) );
-			if( isset( $GLOBALS[ 'cvBlock' ] ) ) { unset( $args[ '_builtin' ] ); }
+			if( isset( $GLOBALS[ 'cvBlock' ] ) || isset( $GLOBALS[ 'cvElementor' ] ) || $no_restrict ) { unset( $args[ '_builtin' ] ); }
 			$post_types	 = get_post_types( $args );
 
 			// Get taxonomies of post types

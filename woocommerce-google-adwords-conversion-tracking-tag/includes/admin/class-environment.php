@@ -575,7 +575,7 @@ class Environment {
 	}
 
 	public static function is_a_cog_plugin_active() {
-		return self::is_woocommerce_cog_active() || self::is_cog_for_woocommerce_active() || Profit_Margin::get_custom_cog_meta_key();
+		return self::is_woocommerce_cog_active() || self::is_cog_for_woocommerce_active() || Profit_Margin::get_custom_cog_product_meta_key();
 	}
 
 	public static function is_some_cmp_active() {

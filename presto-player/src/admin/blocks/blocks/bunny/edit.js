@@ -33,6 +33,7 @@ import StreamMedia from "./StreamMedia";
 import APIPlaceholder from "./APIPlaceholder";
 import BlockInspectorControls from "@/admin/blocks/shared/BlockInspectorControls";
 import Player from "@/admin/blocks/shared/Player";
+import Editing from "../../shared/Editing";
 
 export default compose([withPlayerData(), withPlayerEdit()])(
   withNotices(
@@ -413,6 +414,7 @@ export default compose([withPlayerData(), withPlayerEdit()])(
                 {__("Replace", "presto-player")}
               </Button>
             </Toolbar>
+            <Editing />
           </BlockControls>
 
           <InspectorControls>

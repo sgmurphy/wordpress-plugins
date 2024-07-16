@@ -227,7 +227,7 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 		}
 
 		// Define block attributes
-		static function get_attributes() {
+		static function get_attributes( $includeAll = true ) {
 			$woo_default = get_option( 'pt_cv_version_pro' ) ? true: false;
 			$atts = [
 				'blockId'		 => [					
@@ -268,7 +268,7 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 				'alignment'		 => [
 					'__key'	 => 'style-text-align',
 					'type'	 => 'string',
-					'default'	 => 'left',
+					'default'	 => '',
 				],
 				'limit'			 => [
 					'__key'		 => 'limit',
@@ -645,42 +645,45 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 				],
 			];
 
-			$taxos = PT_CV_Values::taxonomy_list( true );
-			foreach ( (array) array_keys( $taxos ) as $taxonomy ) {
-				$atts[ "$taxonomy-terms" ] = [ 'type' => 'array', ];
-				$atts[ "$taxonomy-operator" ] = [ 'type' => 'string', '__key' => '__SAME__', ];
+			if ( $includeAll ) {
 
-				$atts[ "$taxonomy-LfEnable" ] = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-enable", ];
-				$atts[ "$taxonomy-LfType" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-type", ];
-				$atts[ "$taxonomy-LfBehavior" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-operator", ];
-				$atts[ "$taxonomy-LfLabel" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-heading", ];
-				$atts[ "$taxonomy-LfDefault" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-default-text", ];
-				$atts[ "$taxonomy-LfOrder" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-order-options", ];
-				$atts[ "$taxonomy-LfOrderFlag" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-order-flag", ];
-				$atts[ "$taxonomy-LfCount" ] = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-show-count", ];
-				$atts[ "$taxonomy-LfNoEmpty" ] = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-hide-empty", ];
-				$atts[ "$taxonomy-LfRequire" ] = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-require-exist", ];
-			}
+				$taxos = PT_CV_Values::taxonomy_list( true );
+				foreach ( (array) array_keys( $taxos ) as $taxonomy ) {
+					$atts[ "$taxonomy-terms" ]		 = [ 'type' => 'array', ];
+					$atts[ "$taxonomy-operator" ]	 = [ 'type' => 'string', '__key' => '__SAME__', ];
 
-			$defaults = self::default_values();
-			foreach ( self::get_fields() as $element ) {
-				foreach ( self::style_options() as $type => $options ) {
-					foreach ( $options as $option ) {
-						$arr = [ 'type' => $type ];
+					$atts[ "$taxonomy-LfEnable" ]	 = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-enable", ];
+					$atts[ "$taxonomy-LfType" ]		 = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-type", ];
+					$atts[ "$taxonomy-LfBehavior" ]	 = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-operator", ];
+					$atts[ "$taxonomy-LfLabel" ]	 = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-heading", ];
+					$atts[ "$taxonomy-LfDefault" ]	 = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-default-text", ];
+					$atts[ "$taxonomy-LfOrder" ]	 = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-order-options", ];
+					$atts[ "$taxonomy-LfOrderFlag" ] = [ 'type' => 'string', '__key' => "$taxonomy-live-filter-order-flag", ];
+					$atts[ "$taxonomy-LfCount" ]	 = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-show-count", ];
+					$atts[ "$taxonomy-LfNoEmpty" ]	 = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-hide-empty", ];
+					$atts[ "$taxonomy-LfRequire" ]	 = [ 'type' => 'boolean', '__key' => "$taxonomy-live-filter-require-exist", ];
+				}
 
-						if ( $option === 'Deco' && $element === 'title' ) {
-							$arr[ 'default' ] = 'none';
-						}
+				$defaults = self::default_values();
+				foreach ( self::get_fields() as $element ) {
+					foreach ( self::style_options() as $type => $options ) {
+						foreach ( $options as $option ) {
+							$arr = [ 'type' => $type ];
 
-						if ( isset( $defaults[ $element ][ $option ] ) ) {
-							$val = $defaults[ $element ][ $option ];
-							if ( $option === 'fSize' ) {
-								$val = (object) [ 'md' => $val ];
+							if ( $option === 'Deco' && $element === 'title' ) {
+								$arr[ 'default' ] = 'none';
 							}
-							$arr[ 'default' ] = $val;
-						}
 
-						$atts[ "{$element}$option" ] = $arr;
+							if ( isset( $defaults[ $element ][ $option ] ) ) {
+								$val = $defaults[ $element ][ $option ];
+								if ( $option === 'fSize' ) {
+									$val = (object) [ 'md' => $val ];
+								}
+								$arr[ 'default' ] = $val;
+							}
+
+							$atts[ "{$element}$option" ] = $arr;
+						}
 					}
 				}
 			}
@@ -730,14 +733,17 @@ if ( !class_exists( 'ContentViews_Block' ) ) {
 			];
 		}
 
+		// TRUE for Block, Elementor, Shortcode_New_Layouts
 		static function is_block() {
 			return PT_CV_Functions::setting_value( PT_CV_PREFIX . 'blockName' );
 		}
 
+		// TRUE for Shortcode_New_Layouts
 		static function is_hybrid() {
 			return PT_CV_Functions::setting_value( PT_CV_PREFIX . 'hybridLayout' );
 		}
 
+		// TRUE for Block, Elementor
 		static function is_pure_block() {
 			return PT_CV_Functions::is_view() ? false : ContentViews_Block::is_block();
 		}

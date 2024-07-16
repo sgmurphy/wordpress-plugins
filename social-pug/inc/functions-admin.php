@@ -27,25 +27,34 @@ function dpsp_admin_header() {
  * @param string $page The current page that the header will appear on
  */
 function dpsp_get_admin_header( string $page ) : string {
+
+	if ( ! Social_Pug::is_free() ) {
+		$hubbub_activation 	= new \Mediavine\Grow\Activation;
+		$license_tier 		= $hubbub_activation->get_license_tier();
+	} else {
+		$license_tier 		= 'Lite';
+	}
+	
 	$logo_base_url 		= plugins_url() . '/social-pug/assets/dist/hubbub-logo-white.svg?' . MV_GROW_VERSION;
 
 	// translators: %1$s is replaced by the type of logo (e.g. Hubbub).
 	$logo_alt           = esc_attr( sprintf( __( '%1$s logo', 'mediavine' ), __( 'Hubbub', 'mediavine' ) ) );
 	$logo_src           = esc_attr( $logo_base_url );
-	$html_version       = esc_html(MV_GROW_VERSION );
+	$html_version       = esc_html( MV_GROW_VERSION );
 	$documentation_href = esc_attr( dpsp_get_documentation_link( $page ) );
+	$html_tier 			= esc_html( ( ! $license_tier ) ? 'Pro' : ucfirst( $license_tier ) );
 
 	$result = /** @lang HTML */ <<<HTML
 <div class="dpsp-page-header">
 	<span class="dpsp-logo">
 	<img alt="{$logo_alt}" class="mv-grow-logo" src="{$logo_src}">
 
-	<span class="dpsp-logo-inner">Hubbub Lite</span>
+	<span class="dpsp-logo-inner">Hubbub {$html_tier}</span>
 	<small class="dpsp-version">v.{$html_version}</small>
 	</span>
 
 	<nav>
-	<a href="{$documentation_href}" target="_blank"><i class="dashicons dashicons-book"></i>Documentation</a>
+	<a href="{$documentation_href}" title="Read our Support Doc for help with this Hubbub settings page" target="_blank"><i class="dashicons dashicons-book"></i>Need help?</a>
 	</nav>
 	</div>
 HTML;
@@ -59,7 +68,6 @@ HTML;
  *
  * @return string
  */
-// TODO: Replace URLs in this function with Hubbub website URLs when we have them
 function dpsp_get_documentation_link( string $page ) : string {
 	$page = str_replace( 'dpsp-', '', $page );
 
@@ -68,26 +76,39 @@ function dpsp_get_documentation_link( string $page ) : string {
 			$url = 'https://morehubbub.com/docs/how-to-add-social-sharing-buttons-as-a-floating-sidebar/';
 			break;
 		case 'content':
-			$url = 'https://morehubbub.com/docs/how-to-add-social-share-buttons-before-and-after-your-post-s-content/';
+			$url = 'https://morehubbub.com/docs/how-to-add-social-share-buttons-before-and-after-your-posts-content/';
 			break;
 		case 'sticky-bar':
 		case 'mobile':
 			$url = 'https://morehubbub.com/docs/sticky-bar-sharing-buttons/';
 			break;
 		case 'pinterest-images':
-			$url = 'https://morehubbub.com/docs/how-to-add-a-pin-it-button-to-your-post-s-images/';
+			$url = 'https://morehubbub.com/docs/how-to-add-a-pin-it-button-to-your-posts-images/';
 			break;
 		case 'follow-widget':
-			$url = 'https://morehubbub.com/docs/using-the-follow-widget-in-grow-social-pro/';
+			$url = 'https://morehubbub.com/docs/using-the-follow-widget-in-social-pro/';
+			break;
+		case 'pop-up':
+			$url = 'https://morehubbub.com/docs/pop-up-sharing-buttons/';
+			break;
+		case 'settings':
+			$url = 'https://morehubbub.com/docs/social-pro-general-settings/';
+			break;
+		case 'toolkit':
+			$url = 'https://morehubbub.com/docs/getting-started-with-hubbub-pro/';
+			break;
+		case 'email-save-this':
+			$url = 'https://morehubbub.com/docs/how-to-use-save-this/';
 			break;
 		case 'import-export':
-		case 'pop-up':
+			$url = 'https://morehubbub.com/docs/import-export/';
+			break;
 		default:
 			$url = 'https://morehubbub.com/docs/';
 			break;
 	}
 
-	return $url;
+	return $url . '?utm_source=hubbub_plugin&utm_content=settings_page_header_button';
 }
 
 /**
@@ -134,15 +155,30 @@ function dpsp_output_tool_box( string $tool_slug, array $tool ) : void {
 		// Tool admin page
 		echo '<a class="dpsp-tool-settings" href="' . esc_url( admin_url( $tool['admin_page'] ) ) . '"><i class="dashicons dashicons-admin-generic"></i>' . esc_html__( 'Settings', 'social-pug' ) . '</a>';
 
-		// Tool activation switch
-		echo '<div class="dpsp-switch small">';
+		if ( ! Social_Pug::is_free() ) {
+			$hubbub_activation 	= new \Mediavine\Grow\Activation;
+			$license_tier 		= $hubbub_activation->get_license_tier();
+		} else {
+			$license_tier 		= 'Lite';
+		}
 
-		echo( (bool) $tool_active ? '<span>' . esc_html__( 'Active', 'social-pug' ) . '</span>' : '<span>' . esc_html__( 'Inactive', 'social-pug' ) . '</span>' );
+		if ( $tool_slug == 'email_save_this' && ( $license_tier == 'pro' || ! $license_tier ) ) {
+			echo '<p style="text-align: center; font-size: 15px; font-weight: bold; margin: 0 0 10px 0;">Available with Hubbub Lite+ and Priority</p>';
+			echo '<div style="text-align: center"><a style="margin-bottom: 10px;" class="dpsp-button-primary" target="_blank" href="https://morehubbub.com/save-this/?utm_source=hubbub_plugin&utm_content=save_this_announce_learn_more_button" title="Learn more about the Save This tool and our Pro+ and Priority licenses">Learn More</a><br/>';
+			$check_license_url = esc_attr( add_query_arg( [ '_wpnonce' => wp_create_nonce( 'dpsp_check_license' ), 'dpsp_check_license' => 'dpsp_check_license' ] ), remove_query_arg( ['_wpnonce', 'dpsp_check_license' ], $_SERVER['REQUEST_URI'] ) );
+			echo 'Already upgraded? <a style="text-decoration: underline; color: #2271b1;" class="dpsp-get-license" href="' . $check_license_url . '">Refresh your license.</a></div>';
+		} else {
+			// Tool activation switch
+			echo '<div class="dpsp-switch small">';
 
-		echo '<input id="dpsp-' . esc_attr( $tool_slug ) . '-active" data-tool="' . esc_attr( $tool_slug ) . '" data-tool-activation="' . esc_attr( ! empty( $tool['activation_setting'] ) ? $tool['activation_setting'] : '' ) . '" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1"' . ( $tool_active ? 'checked' : '' ) . ' />';
-		echo '<label for="dpsp-' . esc_attr( $tool_slug ) . '-active"></label>';
+			echo( (bool) $tool_active ? '<span>' . esc_html__( 'Active', 'social-pug' ) . '</span>' : '<span>' . esc_html__( 'Inactive', 'social-pug' ) . '</span>' );
+			echo '<input id="dpsp-' . esc_attr( $tool_slug ) . '-active" data-tool="' . esc_attr( $tool_slug ) . '" data-tool-activation="' . esc_attr( ! empty( $tool['activation_setting'] ) ? $tool['activation_setting'] : '' ) . '" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1"' . ( $tool_active ? 'checked' : '' ) . ' />';
+			echo '<label for="dpsp-' . esc_attr( $tool_slug ) . '-active"></label>';
 
-		echo '</div>';
+			echo '</div>';
+		}
+
+		
 	} else {
 		if ( empty( $tool['url'] ) ) {
 			$tool['url'] = $grow_url;
@@ -598,11 +634,12 @@ function dpsp_add_submenu_page_sidebar() {
 
 	echo '<img data-pin-nopin="true" alt="A creator makes the heart symbol with his two fingers." src="' . esc_url( DPSP_PLUGIN_DIR_URL . 'assets/dist/hubbub-upgrade.png?' . DPSP_VERSION ) . '" />';
 
-	echo '<h3>' . esc_html__( 'Create more Hubbub! Upgrade to Pro', 'social-pug' ) . '</h3>';
+	echo '<h3>' . esc_html__( 'Upgrade to Pro, Pro+, or Priority', 'social-pug' ) . '</h3>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add a "Pin It" button that appears when visitors hover your in-post images.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Force a custom image to be shared on Pinterest when using the Pinterest button.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add unlimited hidden Pinterest images to your posts and pages.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'New: Share to Threads, Mastodon, and 17+ other social networks!', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . __( 'New: <a href="https://morehubbub.com/save-this/?utm_source=hubbub_plugin&utm_content=save_this_announce_sidebar_button_lite" title="Learn more about the Save This tool" target="_blank">Save This</a>! Add a form users can save the current page via email and add them to your mailing list.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Share to Threads, Mastodon, and 17+ other social networks!', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Attract users to your social media profiles with our Follow Buttons Widget and follow shortcode. You can place it in your sidebar, template files, or anywhere on your site. Buttons include Facebook, X, Pinterest, Threads, Mastodon, LinkedIn, Reddit, Instagram, YouTube, Flipboard, Vimeo, SoundCloud, Twitch, Yummly, and Behance.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Make your website mobile-friendly with sticky footer social share buttons.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Trigger a pop-up with the social sharing buttons when a user starts to scroll, arrives at the bottom of a post or begins to leave your site.', 'social-pug' ) . '</p>';
@@ -610,11 +647,11 @@ function dpsp_add_submenu_page_sidebar() {
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( "Recover your lost social share counts if you've ever changed your permalink structure.", 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Add unlimited "Click to Tweet" boxes so that your users can share your content on Twitter with just one click.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Optionally revert X icons to old-school Twitter icons.', 'social-pug' ) . '</p>';
-	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'Get help with support provided by NerdPress.', 'social-pug' ) . '</p>';
+	echo '<p>' . wp_kses_post( $icon ) . __( 'Get help with support provided by <a href="https://www.nerdpress.net/" title="NerdPress - WordPress support that feels like family">NerdPress</a>.', 'social-pug' ) . '</p>';
 	echo '<p>' . wp_kses_post( $icon ) . esc_html__( 'And more...', 'social-pug' ) . '</p>';
 
 	echo '</div>';
-	echo '<div class="dpsp-card-footer"><a class="dpsp-button-primary" href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'Upgrade to Pro', 'social-pug' ) . '</a></div>';
+	echo '<div class="dpsp-card-footer"><a class="dpsp-button-primary" href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'Upgrade', 'social-pug' ) . '</a></div>';
 	echo '</div>';
 }
 

@@ -75,20 +75,14 @@ if(isset($_POST['clear_log'])){
   <div id="icon-themes" class="icon32"></div>   
   <?php settings_errors(); ?>  
   <div class="log-warp" style="padding: 20px 0;">
-    
-     <?php /* <form method="post" onsubmit="return confirm('Do you want to delete Spam counter?')">
-        <?php wp_nonce_field( 'cfes_clear_counter_action', 'cfes_clear_counter_nonce' ); ?>
-        <button class="button" type="submit" name="clear_counter"><?php _e('Reset Counter', 'contact-forms-anti-spam' ); ?></button>
-      </form> */ 
-
-   
-        
-    //$array = json_decode($errorlog, TRUE);
+      
+    <?php
     if(maspik_spam_count()){
       echo cfes_build_table();
     } else {
       echo "<div class='spam-empty-log'><h4>Empty log</h4></div>";
     }
+      
   ?>
   </div>
   </div>

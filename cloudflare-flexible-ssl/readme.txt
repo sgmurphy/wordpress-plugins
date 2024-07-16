@@ -7,7 +7,7 @@ Tags: CloudFlare, SSL, Flexible SSL, Universal SSL, redirect loop, HTTPS, HTTP_X
 Requires at least: 3.2.0
 Requires PHP: 5.2
 Recommended PHP: 7.0
-Tested up to: 6.4
+Tested up to: 6.6
 Stable tag: 1.3.1
 
 Fix For Redirect Loops on WordPress with CloudFlare's Flexible/Universal SSL.

@@ -772,7 +772,7 @@ if ( !class_exists( 'PT_CV_Html' ) ) {
 			$class		 = apply_filters( PT_CV_PREFIX_ . 'field_meta_fields_class', PT_CV_PREFIX . 'meta-fields' );
 			$tag		 = apply_filters( PT_CV_PREFIX_ . 'field_meta_fields_tag', 'div' );
 			$wrapper	 = sprintf( '<%1$s class="%2$s">%3$s</%1$s>', tag_escape( $tag ), esc_attr( $class ), '%s' );
-			$meta_html	 = implode( empty( $seperator ) ? $seperator : "<span>" . esc_html( $seperator ) . "</span>", (array) apply_filters( PT_CV_PREFIX_ . 'meta_field_html', $meta_html ) );
+			$meta_html	 = implode( empty( $seperator ) ? $seperator : "<span>" . wp_kses_post( $seperator ) . "</span>", (array) apply_filters( PT_CV_PREFIX_ . 'meta_field_html', $meta_html ) );
 			$html		 = !empty( $meta_html ) ? sprintf( $wrapper, $meta_html ) : '';
 
 			return $html;

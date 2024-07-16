@@ -46,7 +46,6 @@ class WPBC_CSS extends WPBC_JS_CSS{
                             'condition' => 'IE 7'                               // CSS condition. Exmaple: <!--[if IE 7]>    
                   ) );  
         */
-          
     }
 
 
@@ -60,8 +59,7 @@ class WPBC_CSS extends WPBC_JS_CSS{
 	    wp_enqueue_style( 'wpbc-ui-both',               wpbc_plugin_url( '/css/wpbc_ui_both.css' ),                                         array(), WP_BK_VERSION_NUM );           //FixIn: 10.0.0.25
 
         if ( $where_to_load == 'admin' ) {                                                                              // Admin CSS files
-			 //Icons
-			wp_enqueue_style( 'wpbc-bootstrap-icons',       wpbc_plugin_url( '/assets/libs/bootstrap-icons/bootstrap-icons.css' ),          array(), WP_BK_VERSION_NUM );      //FixIn: 9.0.1.1
+			wp_enqueue_style( 'wpbc-bootstrap-icons',       wpbc_plugin_url( '/assets/libs/bootstrap-icons/bootstrap-icons.css' ),          array(), WP_BK_VERSION_NUM );           //FixIn: 9.0.1.1
 
             wp_enqueue_style( 'wpbc-chosen',                wpbc_plugin_url( '/assets/libs/chosen/chosen.css' ),        array(), WP_BK_VERSION_NUM);
             wp_enqueue_style( 'wpbc-admin-support',         wpbc_plugin_url( '/core/any/css/admin-support.css' ),       array(), WP_BK_VERSION_NUM);            
@@ -73,11 +71,8 @@ class WPBC_CSS extends WPBC_JS_CSS{
             wp_enqueue_style( 'wpbc-flex-table',            wpbc_plugin_url( '/core/any/css/wpbc_flextable.css' ),      array(), WP_BK_VERSION_NUM);        // Flex: Booking resources Table    //FixIn: 9.9.0.7
             wp_enqueue_style( 'wpbc-admin-modal-popups',    wpbc_plugin_url( '/css/modal.css' ),                        array(), WP_BK_VERSION_NUM);
             wp_enqueue_style( 'wpbc-admin-pages',           wpbc_plugin_url( '/css/admin.css' ),                        array(), WP_BK_VERSION_NUM);            
-            wp_enqueue_style( 'wpbc-admin-skin',            wpbc_plugin_url( '/css/admin-skin.css' ),                   array( 'wpbc-admin-pages' ), WP_BK_VERSION_NUM);            //FixIn: 8.0.2.4
-	        //FixIn: 9.6.3.5
-	        //if ( 'legacy' != get_bk_option( 'booking_admin_panel_skin' ) ) {                                            //FixIn: 9.5.5.7
-	        wp_enqueue_style( 'wpbc-admin-skin-modern_1', wpbc_plugin_url( '/css/admin-skin-modern_1.css' ), array( 'wpbc-admin-skin' ), WP_BK_VERSION_NUM );       //FixIn: 9.5.5.1
-	        //}
+            wp_enqueue_style( 'wpbc-admin-skin',            wpbc_plugin_url( '/css/admin-skin.css' ),                   array( 'wpbc-admin-pages' ), WP_BK_VERSION_NUM );           //FixIn: 8.0.2.4
+	        wp_enqueue_style( 'wpbc-admin-skin-modern_1',   wpbc_plugin_url( '/css/admin-skin-modern_1.css' ),          array( 'wpbc-admin-skin' ),  WP_BK_VERSION_NUM );           //FixIn: 9.5.5.1
 
 			global $wp_version;
 
@@ -96,29 +91,20 @@ class WPBC_CSS extends WPBC_JS_CSS{
 			}
 
 	        $wpbc_inline_css = '';
-	        if ( ! class_exists( 'wpdev_bk_personal' ) ) {
-		        // Mark 2 last  items in menu with  line
-		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(3) a { border-top: 1px dashed #707070;margin-top: 6px; } ";
-		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454; padding-top: 10px; margin-top: 6px; font-weight: 600; font-size: 1em; } ";
-		        // Mark last item in menu 'Get Pro' with green color
-
+	        if ( ( ! class_exists( 'wpdev_bk_personal' ) ) || ( wpbc_mu__is_simulated_login_as_user() ) ) {             //FixIn: 10.1.5.2
 		        //FixIn: 10.1.3.1
 		        //$wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(-n+1) a { color: #adc636; } ";
 		        if ( 'hide' !== get_bk_option( 'booking_menu_go_pro' ) ) {
-					// Get Pro  as a button
+					// Mark last item in menu 'Get Pro'  as a button
 			        //$wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { font-weight: 600;background-color: #0b9300;color: #fff;margin: 10px 10px 0;display: block;text-align: center;border-radius: 3px;transition: all .3s;box-shadow: none; } ";
 			        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { font-weight: 600;background-color: #075c00;color: #fff;margin: 10px 10px 0;display: block;text-align: center;border-radius: 3px;transition: all .3s;box-shadow: none; } ";
 			        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) { margin-top: 10px;border-top: 1px solid #535454; } ";
 		        }
 	        } else {
-		        // Mark 2 last  items in menu with  line
-		        //	  $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(2) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
-		        //FixIn: 10.1.3.1
-		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";
+		        $wpbc_inline_css .= " #adminmenu #toplevel_page_wpbc .wp-submenu li:nth-last-child(1) a { border-top: 1px solid #535454;padding-top: 10px;margin-top: 6px; } ";         //FixIn: 10.1.3.1
 	        }
 
 	        wp_add_inline_style( 'wpbc-admin-pages', $wpbc_inline_css );
-
         }
 
         if (
@@ -138,6 +124,7 @@ class WPBC_CSS extends WPBC_JS_CSS{
 		        }
 			}
             wp_enqueue_style( 'wpbc-client-pages',          wpbc_plugin_url( '/css/client.css' ),                       array(), WP_BK_VERSION_NUM );
+            wp_enqueue_style( 'wpbc-fe-form_fields',        wpbc_plugin_url( '/css/_out/wpbc_fe__form_fields.css' ),    array('wpbc-client-pages'), WP_BK_VERSION_NUM );
         }
 
         wp_enqueue_style('wpbc-calendar',   wpbc_plugin_url( '/css/calendar.css' ),                                     array(), WP_BK_VERSION_NUM);
@@ -222,18 +209,12 @@ function wpbc_get_calendar_skin_url() {
     if ( file_exists( $custom_user_skin_folder . str_replace(  array( WPBC_PLUGIN_URL , $custom_user_skin_url ), '', get_bk_option( 'booking_skin') ) ) ) {
         $calendar_skin_path = $custom_user_skin_url . str_replace( array(WPBC_PLUGIN_URL, $custom_user_skin_url ), '', get_bk_option( 'booking_skin') );
     }
-//debuge( wpbc_dir_list( array(  WPBC_PLUGIN_DIR . '/css/skins/', $upload_dir['basedir'].'/wpbc_skins/' ) ) );
-//	debuge(
-//		get_bk_option( 'booking_skin')
-//		, WPBC_PLUGIN_DIR
-//		, WPBC_PLUGIN_URL
-//		, $upload_dir
-//	);
+
     return $calendar_skin_path;
 }
 
-//FixIn: 8.7.11.10
-function wpbc_get_time_picker_skin_url(){
+
+function wpbc_get_time_picker_skin_url(){                                                                               //FixIn: 8.7.11.10
 
 	// time_picker Skin ///////////////////////////////////////////////////////
 	$time_picker_skin_path = false;
@@ -248,7 +229,7 @@ function wpbc_get_time_picker_skin_url(){
         $time_picker_skin_path = WPBC_PLUGIN_URL . str_replace( WPBC_PLUGIN_URL, '', get_bk_option( 'booking_timeslot_picker_skin') );
     }
 
-    // Check  if this skin exist  int he Custom User folder at  the http://example.com/wp-content/uploads/wpbc_skins/
+    // Check  if this skin exist  in the Custom User folder at  the http://example.com/wp-content/uploads/wpbc_skins/
     $upload_dir = wp_upload_dir();
     $custom_user_skin_folder = $upload_dir['basedir'] ;
     $custom_user_skin_url    = $upload_dir['baseurl'] ;
@@ -258,3 +239,5 @@ function wpbc_get_time_picker_skin_url(){
 
     return $time_picker_skin_path;
 }
+
+

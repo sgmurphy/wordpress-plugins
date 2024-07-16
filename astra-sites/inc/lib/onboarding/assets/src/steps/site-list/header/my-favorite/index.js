@@ -8,12 +8,13 @@ import { useStateValue } from '../../../../store/store';
 import ICONS from '../../../../../icons';
 import './style.scss';
 import { initialState } from '../../../../store/reducer';
+import { getStepIndex } from '../../../../utils/functions';
 
 const MyFavorite = () => {
 	const [ stateValue, dispatch ] = useStateValue();
 	const { onMyFavorite } = stateValue;
 
-	if ( 0 === stateValue.currentIndex ) {
+	if ( getStepIndex( 'page-builder' ) === stateValue.currentIndex ) {
 		return null;
 	}
 

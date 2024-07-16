@@ -2,7 +2,7 @@
 Contributors: WebFactory
 Tags: 301 redirect, redirect, 404 error log, redirection, redirects
 Requires at least: 4.0
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.76
 Requires PHP: 5.2
 License: GPLv2 or later

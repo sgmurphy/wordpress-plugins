@@ -28,7 +28,7 @@ class Settings extends \Social_Pug {
 	 */
 	public function init() {
 		// @TODO: Remove kludge for getting rid of old Grow network name
-		$tools = [ 'sticky_bar', 'sidebar', 'mobile', 'follow_widget', 'content', 'pop_up' ];
+		$tools = [ 'sticky_bar', 'sidebar', 'mobile', 'follow_widget', 'content', 'pop_up', 'email_save_this' ];
 		foreach ( $tools as $tool_slug ) {
 			add_filter( 'mv_grow_setting_dpsp_location_' . $tool_slug, [ $this, 'covert_grow_me_label' ] );
 		}

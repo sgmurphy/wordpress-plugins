@@ -5,9 +5,8 @@ namespace QuadLayers\IGG\Gutenberg;
 use QuadLayers\IGG\Helpers as Helpers;
 use QuadLayers\IGG\Models\Feed as Models_Feed;
 use QuadLayers\IGG\Models\Account as Models_Account;
-use QuadLayers\IGG\Models\Setting as Models_Settings;
+use QuadLayers\IGG\Models\Setting as Models_Setting;
 use QuadLayers\IGG\Frontend\Load as Frontend;
-use QuadLayers\IGG\Backend\Load as Backend;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Media as Api_Rest_User_Media;
@@ -24,8 +23,6 @@ class Load {
 	}
 
 	public function register_scripts() {
-		Frontend::instance()->register_scripts();
-		Backend::instance()->register_scripts();
 		$gutenberg = include QLIGG_PLUGIN_DIR . 'build/gutenberg/js/index.asset.php';
 		wp_register_style( 'qligg-gutenberg-editor', plugins_url( '/build/gutenberg/css/editor.css', QLIGG_PLUGIN_FILE ), array(), QLIGG_PLUGIN_VERSION );
 		wp_register_script( 'qligg-gutenberg', plugins_url( '/build/gutenberg/js/index.js', QLIGG_PLUGIN_FILE ), $gutenberg['dependencies'], $gutenberg['version'], true );
@@ -33,22 +30,20 @@ class Load {
 			'qligg-gutenberg',
 			'qligg_gutenberg',
 			array(
-				'image_url'                  => plugins_url( '/assets/backend/img', QLIGG_PLUGIN_FILE ),
-				'access_token_link_business' => Helpers::get_business_access_token_link(),
-				'access_token_link_personal' => Helpers::get_personal_access_token_link(),
+				'image_url'            => plugins_url( '/assets/backend/img', QLIGG_PLUGIN_FILE ),
+				'QLIGG_PERSONAL_LINK'  => Helpers::get_personal_access_token_link(),
+				'QLIGG_BUSSINESS_LINK' => Helpers::get_business_access_token_link(),
 			)
 		);
 		/**
 		 * Fix missing qligg_frontend object in gutenberg script
 		 * Frontend is loaded in the gutenberg editor script directly
 		 */
-		$models_settings = new Models_Settings();
-		$settings        = $models_settings->get();
 		wp_localize_script(
 			'qligg-gutenberg',
 			'qligg_frontend',
 			array(
-				'settings'       => $settings,
+				'settings'       => ( new Models_Setting() )->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -64,8 +59,6 @@ class Load {
 	}
 
 	public function register_block() {
-		Frontend::instance()->register_scripts();
-		Backend::instance()->register_scripts();
 		register_block_type(
 			'qligg/box',
 			array(

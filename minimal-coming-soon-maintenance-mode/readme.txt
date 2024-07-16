@@ -3,7 +3,7 @@ Contributors: WebFactory
 Tags: coming soon, coming soon page, maintenance mode, coming soon mode, coming soon builder
 Requires at least: 4.0
 Requires PHP: 5.2
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.39
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

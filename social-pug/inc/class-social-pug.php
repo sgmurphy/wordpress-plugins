@@ -12,7 +12,7 @@ class Social_Pug {
 	public const API_NAMESPACE = 'mv-grow-social/v1';
 
 	/** @var string|null Build tool sets this. */
-	const VERSION = '1.34.1';
+	const VERSION = '1.34.3';
 
 	/** @var string|null Version number for this release. @deprecated Use MV_GROW_VERSION */
 	public static $VERSION;
@@ -156,6 +156,9 @@ class Social_Pug {
 		add_action( 'admin_init', [ $this, 'update_database' ] );
 		add_filter( 'body_class', [ $this, 'add_body_class' ] );
 
+		// Save This Verification settings update
+		add_action( 'admin_init', 'dpsp_save_this_verify', 10 );
+
 		// Exclude Hubbub from WP Rocket's Delay JavaScript
 		add_filter( 'rocket_delay_js_exclusions', [ $this, 'add_hubbub_wp_rocket_delay_js_exclusion' ] );
 
@@ -241,17 +244,27 @@ class Social_Pug {
 		dpsp_register_social_shares_recovery();
 		dpsp_register_utm_tracking();
 		dpsp_register_click_tweet();
-
+		
 		dpsp_register_images_pinterest();
 		dpsp_register_pop_up();
 		dpsp_register_sticky_bar();
+
+		// /** Required for "Save This" Editor Block */
+		add_action( 'init', 'dpsp_register_save_this_block' );
+
+		/* Save This tool (which is different from the Block) */
+		dpsp_register_email_save_this();
+		add_filter( 'the_content', 'dpsp_output_front_end_email_save_this', 10 );
+		add_filter( 'hubbub_save_this_the_content', 'dpsp_filter_the_content_email_save_this' );
+		add_filter( 'query_vars', 'dpsp_add_query_vars_email_save_this' );
+
 	}
 
 	/**
 	 * Register Free-only features.
 	 */
 	public function register_free_features() {
-		add_action( 'dpsp_enqueue_admin_scripts', 'dpsp_enqueue_admin_scripts_feedback' );
+		//add_action( 'dpsp_enqueue_admin_scripts', 'dpsp_enqueue_admin_scripts_feedback' );
 		//add_action( 'admin_footer', 'dpsp_output_feedback_form' );
 		//add_action( 'wp_ajax_dpsp_ajax_send_feedback', 'dpsp_ajax_send_feedback' );
 		add_action( 'dpsp_submenu_page_bottom', 'dpsp_add_submenu_page_sidebar' );
@@ -284,6 +297,7 @@ class Social_Pug {
 			new \Mediavine\Grow\Tools\Import_Export(),
 			new \Mediavine\Grow\Tools\Follow_Widget(),
 			new \Mediavine\Grow\Tools\Sticky_Bar(),
+			new \Mediavine\Grow\Tools\Email_Save_This(),
 		];
 		$tool_container->add( $tools );
 		foreach ( $tools as $tool ) {
@@ -432,11 +446,21 @@ class Social_Pug {
 			],
 			self::$VERSION
 		);
+		wp_localize_script(
+			'dpsp-dashboard-js-pro',
+			'dpsp_ajax_verify_save_this_email',
+			array(
+				'ajax_url' 					=> admin_url( 'admin-ajax.php' ),
+				'hubbub_save_this_verify'   => wp_create_nonce('hubbub_save_this_verify'),
+			)
+		);
 		wp_enqueue_script( 'dpsp-dashboard-js-pro' );
 
 		wp_register_style( 'dpsp-frontend-style-pro', DPSP_PLUGIN_DIR_URL . 'assets/dist/style-frontend-pro.css', [], self::$VERSION );
 		wp_enqueue_style( 'dpsp-frontend-style-pro' );
-
+		
+		wp_enqueue_media();
+		
 	}
 
 	/**
@@ -576,7 +600,7 @@ class Social_Pug {
 			return $return;
 		endif;
 		
-		if ( $plugin['plugin'] == 'social-pug/index.php' ) :
+		if ( isset( $plugin['plugin'] ) && $plugin['plugin'] == 'social-pug/index.php' ) :
 
 			$license_key 		= get_option( 'mv_grow_license' );
 

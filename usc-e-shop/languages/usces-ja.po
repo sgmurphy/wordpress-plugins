@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Welcart e-Commerce\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/usc-e-shop\n"
 "POT-Creation-Date: 2020-10-19T15:20:12+09:00\n"
-"PO-Revision-Date: 2024-06-14 14:32+0900\n"
+"PO-Revision-Date: 2024-07-11 14:37+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -11668,3 +11668,15 @@ msgstr "この商品の編集画面に遷移します"
 
 msgid "The following plugins are outdated and will not function properly. Please update them immediately."
 msgstr "これらのプラグインはバージョンが古いため正常に動作しません。直ちに更新してください。"
+
+msgid "Delete link in the order list"
+msgstr "受注リストの「削除」リンク"
+
+msgid "Show/hide the \"Delete\" link in the order list"
+msgstr "受注リストの「削除」リンクの表示、非表示を切り替えます。"
+
+msgid "Delete link in the member list"
+msgstr "会員リストの「削除」リンク"
+
+msgid "Show/hide the \"Delete\" link in the member list"
+msgstr "会員リストの「削除」リンクの表示、非表示を切り替えます。"

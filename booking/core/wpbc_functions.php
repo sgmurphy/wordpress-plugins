@@ -573,6 +573,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 
 			foreach ( $replace as $replace_shortcode => $replace_value ) {
 
+				if ( is_null( $replace_value ) ) {
+					$replace_value = '';
+				};
+
 				$subject = str_replace( array(   '[' . $replace_shortcode . ']'
 											   , '{' . $replace_shortcode . '}' )
 										, $replace_value
@@ -3378,6 +3382,28 @@ if ( ! defined( 'ABSPATH' ) ) exit;                                             
 		}
 		add_bk_action('wpbc_mu_set_environment_for_user', 'wpbc_mu_set_environment_for_user');
 
+
+		/**
+		 * Check  if we have simulated user  login  in  Booking Calendar MultiUser version
+		 * 					return user ID of regular simulated user or 0 if not simulated
+		 * @return int
+		 */
+		function wpbc_mu__is_simulated_login_as_user(){
+			if ( class_exists( 'wpdev_bk_multiuser' ) ) {
+
+				$real_current_user_id = get_current_user_id();                                                                  // Is current user suer booking admin  and if this user was simulated log in
+				$is_user_super_admin  = apply_bk_filter( 'is_user_super_admin', $real_current_user_id );
+				if ( $is_user_super_admin ) {
+
+					$simulate_user_id = intval( get_option( 'booking_simulate_login_as_user' ) );                               // Is user was simulated log in
+
+					if ( ( ! empty( $simulate_user_id ) ) && ( $simulate_user_id > 0 ) ) {
+						return $simulate_user_id;
+					}
+				}
+			}
+		    return 0;
+		}
 	// </editor-fold>
 
 

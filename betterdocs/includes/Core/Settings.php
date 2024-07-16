@@ -78,9 +78,10 @@ class Settings extends Base {
      * @since 2.5.0
      */
     public function enqueue( $hook ) {
-        if ( $hook !== 'betterdocs_page_betterdocs-settings' ) {
+        if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
             return;
         }
+
         wp_enqueue_media();
         wp_enqueue_script( 'betterdocs-admin' );
         betterdocs()->assets->localize( 'betterdocs-admin', 'betterdocsAdminSettings', GlobalFields::normalize( $this->settings_args() ) );
@@ -92,6 +93,9 @@ class Settings extends Base {
 
     public function enqueue_old( $hook ) {
         // FREE & Pro Version Compatibility Check
+        if ( ! betterdocs()->is_betterdocs_screen( $hook ) ) {
+            return;
+        }
 
         $this->enqueue( 'betterdocs_page_betterdocs-settings' );
     }

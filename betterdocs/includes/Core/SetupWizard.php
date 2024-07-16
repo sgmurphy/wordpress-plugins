@@ -242,7 +242,7 @@ class SetupWizard extends Base {
                                     'default'                    => false,
                                     'priority'                   => 6,
                                     'is_pro'                     => true
-                                ],    
+                                ],
                                 'enable_credit'                  => [
                                     'name'                       => 'enable_credit',
                                     'type'                       => 'toggle',

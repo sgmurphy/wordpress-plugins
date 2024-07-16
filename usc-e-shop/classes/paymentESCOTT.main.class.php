@@ -2005,22 +2005,7 @@ class ESCOTT_MAIN {
 				wp_register_script( 'usces_cart_escott', USCES_FRONT_PLUGIN_URL . '/js/cart_escott.js', array( 'jquery' ), USCES_VERSION, true );
 				$escott_params                         = array();
 				$escott_params['sec3d_activate']       = $acting_opts['sec3d_activate'];
-				$escott_params['message']['agreement'] = __( '* Cautions on Use of Credit Cards', 'usces' ) . "\n"
-					. __( 'In order to prevent unauthorized use of your credit card through theft of information such as your credit card number, we use "EMV 3D Secure," an identity authentication service recommended by international brands.', 'usces' ) . "\n"
-					. __( 'In order to use EMV 3D Secure, it is necessary to send information about you to the card issuer.', 'usces' ) . "\n"
-					. __( 'Please read "* Provision of Personal Information to Third Parties" below and enter your card information only if you agree to the terms of the agreement.', 'usces' ) . "\n"
-					. __( '* Provision of Personal Information to Third Parties', 'usces' ) . "\n"
-					. __( 'The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer.', 'usces' ) . "\n"
-					. __( '"Full name", "e-mail address", "Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
-					. __( 'If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs.', 'usces' ) . "\n"
-					. __( 'If you are a minor, you are required to obtain the consent of a person with parental authority or a guardian before using the Service.', 'usces' ) . "\n"
-					. __( '* Agreement to provide personal information to a third party', 'usces' ) . "\n"
-					. __( 'If you agree to the above "* Provision of Personal Information to Third Parties", please click "Agree" and proceed to enter your credit card information.', 'usces' ) . "\n"
-					. __( '* Safety Control Measures', 'usces' ) . "\n"
-					. __( 'We may provide all or part of the information obtained from our customers to subcontractors in the United States.', 'usces' ) . "\n"
-					. __( 'We will confirm that the subcontractor takes necessary and appropriate measures for the safe management of the information before storing it.', 'usces' ) . "\n"
-					. __( 'For an overview of the legal system regarding the protection of personal information in the relevant country, please check here.', 'usces' ) . "\n"
-					. 'https://www.ppc.go.jp/personalinfo/legal/kaiseihogohou/#gaikoku';
+				$escott_params['message']['agreement'] = $this->consent_message();
 				$escott_params['message']['agree']     = __( 'Agree', 'usces' );
 				$escott_params['message']['disagree']  = __( 'Disagree', 'usces' );
 				wp_localize_script( 'usces_cart_escott', 'escott_params', $escott_params );
@@ -4557,6 +4542,29 @@ jQuery(document).ready( function($) {
 
 		$query = $wpdb->prepare( "DELETE FROM {$wpdb->prefix}usces_log WHERE `log_type` = %s AND `log_key` = %s", 'acting_post_data', $key );
 		$wpdb->query( $query );
+	}
+
+	/**
+	 * Consent to Obtain Personal Information Messsage.
+	 */
+	protected function consent_message() {
+		$consent_message = __( '* Cautions on Use of Credit Cards', 'usces' ) . "\n"
+			. __( 'In order to prevent unauthorized use of your credit card through theft of information such as your credit card number, we use "EMV 3D Secure," an identity authentication service recommended by international brands.', 'usces' ) . "\n"
+			. __( 'In order to use EMV 3D Secure, it is necessary to send information about you to the card issuer.', 'usces' ) . "\n"
+			. __( 'Please read "* Provision of Personal Information to Third Parties" below and enter your card information only if you agree to the terms of the agreement.', 'usces' ) . "\n"
+			. __( '* Provision of Personal Information to Third Parties', 'usces' ) . "\n"
+			. __( 'The following personal information, etc. collected from customers will be provided to the issuer of the card being used by the customer for the purpose of detecting and preventing fraudulent use by the card issuer.', 'usces' ) . "\n"
+			. __( '"Full name", "e-mail address", "Membership information held by the business", "IP address", "device information", "Information on the Internet usage environment", and "Billing address".', 'usces' ) . "\n"
+			. __( 'If the issuer of the card you are using is located in a foreign country, these information may be transferred to the country to which such issuer belongs.', 'usces' ) . "\n"
+			. __( 'If you are a minor, you are required to obtain the consent of a person with parental authority or a guardian before using the Service.', 'usces' ) . "\n"
+			. __( '* Agreement to provide personal information to a third party', 'usces' ) . "\n"
+			. __( 'If you agree to the above "* Provision of Personal Information to Third Parties", please click "Agree" and proceed to enter your credit card information.', 'usces' ) . "\n"
+			. __( '* Safety Control Measures', 'usces' ) . "\n"
+			. __( 'We may provide all or part of the information obtained from our customers to subcontractors in the United States.', 'usces' ) . "\n"
+			. __( 'We will confirm that the subcontractor takes necessary and appropriate measures for the safe management of the information before storing it.', 'usces' ) . "\n"
+			. __( 'For an overview of the legal system regarding the protection of personal information in the relevant country, please check here.', 'usces' ) . "\n"
+			. 'https://www.ppc.go.jp/personalinfo/legal/kaiseihogohou/#gaikoku';
+		return $consent_message;
 	}
 }
 

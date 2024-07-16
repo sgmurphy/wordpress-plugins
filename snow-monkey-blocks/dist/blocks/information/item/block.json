@@ -42,6 +42,11 @@
   ],
   "supports": {
     "anchor": true,
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
     "layout": {
       "allowSwitching": false,
       "allowEditing": false,

@@ -101,11 +101,10 @@ class Load {
 
 	public function register_scripts() {
 
+		global $wp_version;
+
 		$store   = include QLIGG_PLUGIN_DIR . 'build/store/js/index.asset.php';
 		$backend = include QLIGG_PLUGIN_DIR . 'build/backend/js/index.asset.php';
-
-		$models_feed     = new Models_Feed();
-		$models_settings = new Models_Setting();
 
 		wp_register_script(
 			'qligg-store',
@@ -117,23 +116,15 @@ class Load {
 
 		wp_localize_script(
 			'qligg-store',
-			'qligg_store_routes',
-			array(
-				'userProfile' => API_Rest_User_Profile::get_rest_path(),
-				'accounts'    => API_Rest_Accounts_Get::get_rest_path(),
-				'feeds'       => API_Rest_Feeds_Get::get_rest_path(),
-				'settings'    => API_Rest_Setting_Get::get_rest_path(),
-				'cache'       => API_Rest_Feeds_Clear_Cache::get_rest_path(),
-			)
-		);
-
-		global $wp_version;
-
-		wp_localize_script(
-			'qligg-store',
 			'qligg_store',
 			array(
-				'WP_VERSION' => $wp_version,
+				'WP_VERSION'        => $wp_version,
+				'QLIGG_REST_ROUTES' => array(
+					'accounts' => API_Rest_Accounts_Get::get_rest_path(),
+					'feeds'    => API_Rest_Feeds_Get::get_rest_path(),
+					'settings' => API_Rest_Setting_Get::get_rest_path(),
+					'cache'    => API_Rest_Feeds_Clear_Cache::get_rest_path(),
+				),
 			)
 		);
 
@@ -160,41 +151,33 @@ class Load {
 			'qligg-backend',
 			'qligg_backend',
 			array(
-				'plugin_url'                 => plugins_url( '/', QLIGG_PLUGIN_FILE ),
-				'QLIGG_PLUGIN_NAME'          => QLIGG_PLUGIN_NAME,
-				'QLIGG_PLUGIN_VERSION'       => QLIGG_PLUGIN_VERSION,
-				'QLIGG_PLUGIN_FILE'          => QLIGG_PLUGIN_FILE,
-				'QLIGG_PLUGIN_DIR'           => QLIGG_PLUGIN_DIR,
-				'QLIGG_DOMAIN'               => QLIGG_DOMAIN,
-				'QLIGG_PREFIX'               => QLIGG_PREFIX,
-				'QLIGG_WORDPRESS_URL'        => QLIGG_WORDPRESS_URL,
-				'QLIGG_REVIEW_URL'           => QLIGG_REVIEW_URL,
-				'QLIGG_DEMO_URL'             => QLIGG_DEMO_URL,
-				'QLIGG_PREMIUM_SELL_URL'     => QLIGG_PREMIUM_SELL_URL,
-				'QLIGG_SUPPORT_URL'          => QLIGG_SUPPORT_URL,
-				'QLIGG_DOCUMENTATION_URL'    => QLIGG_DOCUMENTATION_URL,
-				'QLIGG_GROUP_URL'            => QLIGG_GROUP_URL,
-				'QLIGG_DEVELOPER'            => QLIGG_DEVELOPER,
-				'access_token_link_business' => Helpers::get_business_access_token_link(),
-				'access_token_link_personal' => Helpers::get_personal_access_token_link(),
-				'QLIGG_FEED_MODEL'           => $models_feed->get_args(),
-				'QLIGG_SETTING_MODEL'        => $models_settings->get_args(),
-				'QLIGG_REST_ROUTES'          => array(
-					'userProfile' => API_Rest_User_Profile::get_rest_path(),
-					'accounts'    => API_Rest_Accounts_Get::get_rest_path(),
-					'feeds'       => API_Rest_Feeds_Get::get_rest_path(),
-					'settings'    => API_Rest_Setting_Get::get_rest_path(),
-					'cache'       => API_Rest_Feeds_Clear_Cache::get_rest_path(),
-				),
+				'plugin_url'              => plugins_url( '/', QLIGG_PLUGIN_FILE ),
+				'QLIGG_PLUGIN_NAME'       => QLIGG_PLUGIN_NAME,
+				'QLIGG_PLUGIN_VERSION'    => QLIGG_PLUGIN_VERSION,
+				'QLIGG_PLUGIN_FILE'       => QLIGG_PLUGIN_FILE,
+				'QLIGG_PLUGIN_DIR'        => QLIGG_PLUGIN_DIR,
+				'QLIGG_DOMAIN'            => QLIGG_DOMAIN,
+				'QLIGG_PREFIX'            => QLIGG_PREFIX,
+				'QLIGG_WORDPRESS_URL'     => QLIGG_WORDPRESS_URL,
+				'QLIGG_REVIEW_URL'        => QLIGG_REVIEW_URL,
+				'QLIGG_DEMO_URL'          => QLIGG_DEMO_URL,
+				'QLIGG_PREMIUM_SELL_URL'  => QLIGG_PREMIUM_SELL_URL,
+				'QLIGG_SUPPORT_URL'       => QLIGG_SUPPORT_URL,
+				'QLIGG_DOCUMENTATION_URL' => QLIGG_DOCUMENTATION_URL,
+				'QLIGG_GROUP_URL'         => QLIGG_GROUP_URL,
+				'QLIGG_DEVELOPER'         => QLIGG_DEVELOPER,
+				'QLIGG_BUSSINESS_LINK'    => Helpers::get_business_access_token_link(),
+				'QLIGG_PERSONAL_LINK'     => Helpers::get_personal_access_token_link(),
+				'QLIGG_MODELS_FEED'       => ( new Models_Feed() )->get_args(),
+				'QLIGG_MODELS_SETTING'    => ( new Models_Setting() )->get_args(),
 			)
 		);
 
-		$settings = $models_settings->get();
 		wp_localize_script(
 			'qligg-backend',
 			'qligg_frontend',
 			array(
-				'settings'       => $settings,
+				'settings'       => ( new Models_Setting() )->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -202,11 +185,6 @@ class Load {
 				),
 			)
 		);
-
-		// TODO: improve loading
-		wp_enqueue_script( 'masonry' );
-		wp_enqueue_style( 'qligg-swiper' );
-		wp_enqueue_style( 'qligg-frontend' );
 	}
 
 	public function enqueue_scripts() {
@@ -215,15 +193,29 @@ class Load {
 			return;
 		}
 
+		/**
+		 * Load admin scripts
+		 */
 		wp_enqueue_media();
 		wp_enqueue_style( 'qligg-backend' );
 		wp_enqueue_script( 'qligg-backend' );
+		/**
+		 * Load frontend scripts
+		 */
+		wp_enqueue_script( 'masonry' );
+		wp_enqueue_script( 'qligg-swiper' );
+		wp_enqueue_style( 'qligg-swiper' );
+		wp_enqueue_style( 'qligg-frontend' );
 
 	}
 
 	public static function init_add_account() {
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ! current_user_can( 'qligg_manage_feeds' ) ) {
+			return;
+		}
+
+		if ( ! isset( $_REQUEST['qligg_nonce'] ) || ! wp_verify_nonce( $_REQUEST['qligg_nonce'], 'qligg_add_account' ) ) {
 			return;
 		}
 

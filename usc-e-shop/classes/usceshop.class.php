@@ -150,6 +150,9 @@ class usc_e_shop
 		if(!isset($this->options['system']['csv_category_format'])) $this->options['system']['csv_category_format'] = 0;
 		if(!isset($this->options['system']['settlement_backup'])) $this->options['system']['settlement_backup'] = 0;
 		if(!isset($this->options['system']['settlement_notice'])) $this->options['system']['settlement_notice'] = 0;
+		if ( ! isset( $this->options['system']['order_list_delete_link'] ) ) $this->options['system']['order_list_delete_link'] = 0;
+		if ( ! isset( $this->options['system']['member_list_delete_link'] ) ) $this->options['system']['member_list_delete_link'] = 0;
+
 		$this->options['system']['base_country'] = usces_get_base_country();
 		if(!isset($this->options['province'])) $this->options['province'][$this->options['system']['base_country']] = $usces_states[$this->options['system']['base_country']];
 		if(!isset($this->options['system']['pointreduction'])) $this->options['system']['pointreduction'] = usces_get_pointreduction($this->options['system']['currency']);
@@ -1440,6 +1443,8 @@ class usc_e_shop
 			$this->options['system']['csv_category_format'] = ( isset($_POST['csv_category_format']) ) ? (int)$_POST['csv_category_format'] : 0;
 			$this->options['system']['settlement_backup'] = ( isset($_POST['settlement_backup']) ) ? (int)$_POST['settlement_backup'] : 0;
 			$this->options['system']['settlement_notice'] = ( isset($_POST['settlement_notice']) ) ? (int)$_POST['settlement_notice'] : 0;
+			$this->options['system']['order_list_delete_link'] = ( isset($_POST['order_list_delete_link']) ) ? (int)$_POST['order_list_delete_link'] : 0;
+			$this->options['system']['member_list_delete_link'] = ( isset($_POST['member_list_delete_link']) ) ? (int)$_POST['member_list_delete_link'] : 0;
 
 			if($action_status != '') {
 				$this->action_status = 'error';

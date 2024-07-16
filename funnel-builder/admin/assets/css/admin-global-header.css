@@ -33,7 +33,7 @@
 	margin-left: 12px;
 }
 .bwfan_header * {
-	box-sizing: border-box;
+	box-sizing: border-box !important;
 }
 
 .bwfan_header > div {

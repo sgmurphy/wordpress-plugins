@@ -3,7 +3,7 @@
 namespace QuadLayers\IGG\Frontend;
 
 use QuadLayers\IGG\Models\Feed as Models_Feed;
-use QuadLayers\IGG\Models\Setting as Models_Settings;
+use QuadLayers\IGG\Models\Setting as Models_Setting;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Media as Api_Rest_User_Media;
@@ -18,14 +18,11 @@ class Load {
 
 	private function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_shortcode( 'insta-gallery', array( $this, 'do_shortcode' ) );
 	}
 
 	public function register_scripts() {
-
-		$models_settings = new Models_Settings();
-
-		$settings = $models_settings->get();
 
 		$frontend = include QLIGG_PLUGIN_DIR . 'build/frontend/js/index.asset.php';
 
@@ -36,7 +33,7 @@ class Load {
 		wp_register_script( 'qligg-swiper', plugins_url( '/assets/frontend/swiper/swiper.min.js', QLIGG_PLUGIN_FILE ), array( 'jquery' ), QLIGG_PLUGIN_VERSION, true );
 
 		/**
-		 * Instagram
+		 * Frontend
 		 */
 		wp_register_style( 'qligg-frontend', plugins_url( '/build/frontend/css/style.css', QLIGG_PLUGIN_FILE ), array(), QLIGG_PLUGIN_VERSION );
 		wp_register_script( 'qligg-frontend', plugins_url( '/build/frontend/js/index.js', QLIGG_PLUGIN_FILE ), $frontend['dependencies'], $frontend['version'], true );
@@ -45,7 +42,7 @@ class Load {
 			'qligg-frontend',
 			'qligg_frontend',
 			array(
-				'settings'       => $settings,
+				'settings'       => ( new Models_Setting() )->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -97,7 +94,7 @@ class Load {
 		$id = absint( $atts['id'] );
 
 		$models_feed = new Models_Feed();
-		$feed         = $models_feed->get_by_id( $id );
+		$feed        = $models_feed->get_by_id( $id );
 
 		return $this->create_shortcode( $feed, $id );
 

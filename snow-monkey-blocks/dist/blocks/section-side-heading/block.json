@@ -76,10 +76,6 @@
       "type": "boolean",
       "default": false
     },
-    "padding": {
-      "type": "object",
-      "default": {}
-    },
     "backgroundColor": {
       "type": "string"
     },
@@ -184,7 +180,11 @@
     ],
     "anchor": true,
     "spacing": {
-      "margin": true
+      "margin": true,
+      "padding": [
+        "top",
+        "bottom"
+      ]
     },
     "layout": {
       "allowSwitching": false,

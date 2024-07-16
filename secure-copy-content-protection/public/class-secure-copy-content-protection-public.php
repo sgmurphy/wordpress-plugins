@@ -999,6 +999,8 @@ class Secure_Copy_Content_Protection_Public {
 
 	        $current_user_ip = $user_ip;
 	        $super_admin_email = get_option('admin_email');
+
+        	$current_page_title = get_the_title();
 	        
 			$message_data = array(                    
                 'user_first_name' 		=> $user_first_name,
@@ -1011,6 +1013,7 @@ class Secure_Copy_Content_Protection_Public {
                 'admin_email'       	=> $super_admin_email,
                 'user_id'              	=> $user_id,
                 'current_date'          => $current_date,
+                'current_page_title'	=> $current_page_title,
             );
 
 			$notf_text = $this->sccp_replace_message_variables($notf_text, $message_data);

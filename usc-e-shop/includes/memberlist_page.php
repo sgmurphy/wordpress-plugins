@@ -28,6 +28,8 @@ $member_status = $this->member_status;
 $member_country = $usces_settings['country'];
 $curent_url = urlencode(esc_url(USCES_ADMIN_URL . '?' . $_SERVER['QUERY_STRING']));
 
+$member_list_delete_link = ( isset( $this->options['system']['member_list_delete_link'] ) ) ? $this->options['system']['member_list_delete_link'] : 0;
+
 ?>
 <div class="wrap">
 <div class="usces_admin">
@@ -246,7 +248,11 @@ $curent_url = urlencode(esc_url(USCES_ADMIN_URL . '?' . $_SERVER['QUERY_STRING']
 		$list_header .= '<th scope="col">' . __('SKU code', 'usces' ) . '</th>' . "\n";
 		$list_header .= '<th scope="col">' . __('SKU name', 'usces' ) . '</th>' . "\n";
 	}
-	$list_header .= '<th scope="col">&nbsp;</th>';
+
+	if ( $member_list_delete_link ) {
+		$list_header .= '<th scope="col">&nbsp;</th>';
+	}
+
 ?>
 <thead>
 	<tr>
@@ -316,7 +322,10 @@ foreach ( (array)$rows as $array ) :
 		$list_detail .= apply_filters( 'usces_filter_memberlist_detail_value', $detail, $value, $key, $array['ID'] );
 
 	}
-	$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_memberlist&member_action=delete&member_id=' . $array['ID'] . '&wc_nonce=' . wp_create_nonce( 'delete_member' ) . '" onclick="return deleteconfirm(\'' . $array['ID'] . '\');"><span style="color:#FF0000; font-size:9px;">' . __('Delete', 'usces') . '</span></a></td>';
+
+	if ( $member_list_delete_link ) {
+		$list_detail .= '<td><a href="' . USCES_ADMIN_URL . '?page=usces_memberlist&member_action=delete&member_id=' . $array['ID'] . '&wc_nonce=' . wp_create_nonce( 'delete_member' ) . '" onclick="return deleteconfirm(\'' . $array['ID'] . '\');"><span style="color:#FF0000; font-size:9px;">' . __('Delete', 'usces') . '</span></a></td>';
+	}
 ?>
 <tbody>
 	<tr<?php echo apply_filters('usces_filter_memberlist_detail_trclass', '', $array); ?>>

@@ -250,7 +250,7 @@ if (0){
 						</a>
 					</div>
 					<div id="wpbc_general_settings_booking_confirmation_tab" class="wpbc_settings_navigation_item">
-						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_booking_confirmation_metabox' );" href="javascript:void(0);">
+						<a class="" original-title="" onclick="javascript:wpbc_navigation_click_show_section(this,'#wpbc_general_settings_booking_confirmation_metabox,#wpbc_general_settings_booking_confirmation_left_metabox,#wpbc_general_settings_booking_confirmation_right_metabox,#wpbc_general_settings_booking_confirmation_help_metabox' );" href="javascript:void(0);">
 							<span><?php _e( 'Booking Confirmation', 'booking' ) ?></span>
 						</a>
 					</div>
@@ -393,12 +393,38 @@ if (0){
 							<?php wpbc_close_meta_box_section(); ?>
 
 
-							<?php wpbc_open_meta_box_section( 'wpbc_general_settings_booking_confirmation', __('Booking Confirmation', 'booking'), array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) ); ?>
+							<?php
+								wpbc_open_meta_box_section( 'wpbc_general_settings_booking_confirmation',
+																__( 'Booking Confirmation', 'booking' ),
+																array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) );
+								$this->settings_api()->show( 'booking_confirmation' );
+								wpbc_close_meta_box_section();
+							?>
+							<div class="wpbc_settings_row wpbc_settings_row_left">
+							<?php
+								wpbc_open_meta_box_section( 'wpbc_general_settings_booking_confirmation_left',
+																__( 'Section', 'booking' ) .  ': ' . __( 'Personal Information', 'booking' ),
+																array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) );
+								$this->settings_api()->show( 'booking_confirmation_left' );
+								wpbc_close_meta_box_section();
 
-							<?php $this->settings_api()->show( 'booking_confirmation' ); ?>
-
-							<?php wpbc_close_meta_box_section(); ?>
-
+								wpbc_open_meta_box_section( 'wpbc_general_settings_booking_confirmation_right',
+																__( 'Section', 'booking' ) .  ': ' . __( 'Booking details', 'booking' ),
+																array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) );
+								$this->settings_api()->show( 'booking_confirmation_right' );
+								wpbc_close_meta_box_section();
+							?>
+							</div>
+							<div class="wpbc_settings_row wpbc_settings_row_right">
+							<?php
+								wpbc_open_meta_box_section( 'wpbc_general_settings_booking_confirmation_help',
+																__( 'Shortcodes', 'booking' ),
+																array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) );
+								$this->settings_api()->show( 'booking_confirmation_help' );
+								wpbc_close_meta_box_section();
+							?>
+							</div>
+							<div class="clear"></div>
 
 							<?php if ( class_exists('wpdev_bk_personal') ) { ?>
 								<?php wpbc_open_meta_box_section( 'wpbc_general_settings_bookings_options', __('Bookings Options', 'booking'), array( 'is_section_visible_after_load' => false, 'is_show_minimize' => false ) ); ?>

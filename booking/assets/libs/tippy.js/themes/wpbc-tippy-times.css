@@ -1,3 +1,6 @@
+.wpdevelop div[id^="tippy-"]{
+	z-index: 90001 !important;
+}
 .tippy-box[data-theme~=wpbc-tippy-times] {
 	background-color: #fff;
 	background-clip: padding-box;

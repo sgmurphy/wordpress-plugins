@@ -42,13 +42,13 @@ class WPBC_Print {
 		if ( ( is_admin() ) && ( in_array( $where_to_load, array( 'admin', 'both' ) ) ) ) {
 
 			wp_enqueue_script( 'wpbc-booking_ajx_print', trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/bookings_print.js'         /* wpbc_plugin_url( '/_out/js/codemirror.js' ) */
-												   , array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
+												   , array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );
 			/**
 			wp_enqueue_script( 'wpbc-booking_ajx_actions'
 				, trailingslashit( plugins_url( '', __FILE__ ) ) . '_out/bookings__actions.js'         // wpbc_plugin_url( '/_out/js/codemirror.js' )
-				, array( 'wpbc-global-vars' ), WP_BK_VERSION_NUM, $in_footer );
+				, array( 'wpbc_all' ), WP_BK_VERSION_NUM, $in_footer );
 			/**
-			wp_localize_script( 'wpbc-global-vars', 'wpbc_live_request_obj'
+			wp_localize_script( 'wpbc_all', 'wpbc_live_request_obj'
 								, array(
 										'ajx_booking'  => '',
 										'reminders' => ''

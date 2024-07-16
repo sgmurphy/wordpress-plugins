@@ -360,7 +360,8 @@ class WFACP_Plugin_Compatibilities {
 			'template-found/nextgen-social-login.php'                                 => class_exists( 'NextendSocialLogin' ),
 			'template-found/wp-fusion-abandoned-cart.php'                             => class_exists( 'WPF_Abandoned_Cart_Woocommerce' ),
 			'plugins/class-lumise-customized-product.php'                             => class_exists( 'Fancy_Product_Designer' ) || isset( $GLOBALS['lumise'] ),
-			'library/class-subscriptions.php'                                         => class_exists( 'WC_Subscriptions' )
+			'library/class-subscriptions.php'                                         => class_exists( 'WC_Subscriptions' ),
+			'template-found/weglot.php'                                               => defined( 'WEGLOT_NAME' )
 		);
 		self::add_files( $files );
 

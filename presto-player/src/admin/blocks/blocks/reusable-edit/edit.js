@@ -9,17 +9,20 @@ import { select, useSelect, useDispatch } from "@wordpress/data";
 import { useEffect } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import ProvidersPlaceholder from "../../shared/ProvidersPlaceholder/ProvidersPlaceholder";
+import { useContext } from "@wordpress/element";
+import EditContext from "../reusable-display/context";
 
 export default ({ clientId, isSelected, context }) => {
   const { selectBlock } = useDispatch(blockEditorStore);
   const { setTemplateValidity } = useDispatch(blockEditorStore);
+  const { isEditing } = useContext(EditContext);
   const innerBlocks = useSelect(
     (select) => select(blockEditorStore).getBlock(clientId).innerBlocks
   );
 
   const blockProps = useBlockProps();
   const innerBlocksProps = useInnerBlocksProps(blockProps, {
-    templateLock: false,
+    templateLock: isEditing ? "all" : false, // lock the template if we are in the editing context.
     renderAppender: false,
   });
 
@@ -39,7 +42,7 @@ export default ({ clientId, isSelected, context }) => {
   if (!innerBlocks?.length) {
     return (
       <div {...blockProps}>
-        <ProvidersPlaceholder clientId={clientId}/>
+        <ProvidersPlaceholder clientId={clientId} />
         <div {...innerBlocksProps} />
       </div>
     );

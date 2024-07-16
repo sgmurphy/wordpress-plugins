@@ -65,6 +65,11 @@ cff_forms_templates = {
             "description": "Calculates the maximum area of a plot based on the size of its sides. Calculates the area of a polygon of n-sides (3<=n).",
             "id": 30
         }, {
+            "title": "Storage Requirements",
+            "category": "Basic Operations",
+            "description": "Calculates the area required for furniture storage.",
+            "id": 45
+        }, {
             "title": "Automobile Information",
             "category": "Basic Operations",
             "description": "Collects automobiles' makes, models, and other information. It uses datalists to facilitate data entry for users.",
@@ -89,6 +94,11 @@ cff_forms_templates = {
             "category": "Dates Operations",
             "description": "Calculates time to retirement based on age of bird and retirement age.",
             "id": 41
+        }, {
+            "title": "Booking Form",
+            "category": "Dates Operations",
+            "description": "Booking form based on date interval, number of people, rooms, and additional services.",
+            "id": 44
         }, {
             "title": "Ideal Weight Calculator",
             "category": "Health",

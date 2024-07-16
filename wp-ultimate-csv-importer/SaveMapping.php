@@ -702,6 +702,11 @@ class SaveMapping{
 								$acf_pro_instance = ACFImport::getInstance();
 								$acf_pro_instance->set_acf_values($header_array, $value_array, $map['ACF'], $acf_image ,$post_id, $selected_type,$get_mode, $hash_key,$line_number);
 							break;
+							case 'TYPES':
+								$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
+								$toolset_instance = ToolsetImport::getInstance();
+								$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
+								break;
 							case 'EVENTS':
 								$merge = [];
 								$merge = array_merge($map['CORE'], $map['EVENTS']);
@@ -1097,6 +1102,11 @@ class SaveMapping{
 								$acf_pro_instance = ACFImport::getInstance();
 								$acf_pro_instance->set_acf_values($header_array, $value_array, $map['ACF'], $acf_image ,$post_id, $selected_type,$get_mode, $hash_key,$line_number);
 							break;
+							case 'TYPES':
+								$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
+								$toolset_instance = ToolsetImport::getInstance();
+								$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
+								break;
 							case 'EVENTS':
 								$merge = [];
 								$merge = array_merge($map['CORE'], $map['EVENTS']);
@@ -1783,7 +1793,11 @@ class SaveMapping{
 				$acf_instance = ACFImport::getInstance();
 				$acf_instance->set_acf_values($header_array, $value_array, $map['ACF'], $acf_image ,$post_id, $selected_type,$get_mode, $hash_key,$line_number);
 				break;	
-				
+			case 'TYPES':
+				$types_image = isset($map['TYPESIMAGEMETA']) ? $map['TYPESIMAGEMETA'] : '';
+				$toolset_instance = ToolsetImport::getInstance();
+				$toolset_instance->set_toolset_values($header_array, $value_array, $map['TYPES'],$types_image, $post_id, $selected_type, $get_mode, $hash_key,$line_number,$gmode,$templatekey);
+				break;
 			case 'FIFUPOSTS':
 				$fifu_instance = FIFUImport::getInstance();
 				$fifu_instance->set_fifu_values($header_array, $value_array, $map['FIFUPOSTS'], $post_id, $selected_type, $get_mode);

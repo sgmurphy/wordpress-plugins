@@ -117,6 +117,15 @@ class Asset_Loader extends \Social_Pug {
 				wp_register_style( self::$style_handle, DPSP_PLUGIN_DIR_URL . 'assets/dist/style-frontend-pro.css', [], self::$VERSION );
 				wp_register_script( self::$script_handle, DPSP_PLUGIN_DIR_URL . 'assets/dist/' . $script_filename . '.js', [], self::$VERSION, true );
 			}
+
+			wp_localize_script(
+				'dpsp-frontend-js-pro',
+				'dpsp_ajax_send_save_this_email',
+				array(
+					'ajax_url' 		=> admin_url( 'admin-ajax.php' ),
+					'dpsp_token'    => wp_create_nonce('dpsp_token'),
+				)
+			);
 		}
 	}
 
@@ -148,6 +157,7 @@ class Asset_Loader extends \Social_Pug {
 			'share_images',
 			'share_sticky_bar',
 			'share_pop_up',
+			'email_save_this',
 		];
 		$widget_tools      = [ 'follow_widget' ];
 		if ( is_singular() ) {
@@ -174,6 +184,7 @@ class Asset_Loader extends \Social_Pug {
 			'share_images',
 			'share_sticky_bar',
 			'share_pop_up',
+			'email_save_this',
 		];
 		if ( is_singular() ) {
 			$should_load = $should_load ? true : count( array_intersect( $single_only_tools, $active_tools ) ) > 0;

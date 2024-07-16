@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.22.18 (2024-07-16)
+
+
+### Documentation
+
+* update README.md for WordPress 6.6 compatibility (CU-86951232r)
+
+
+<details><summary>Development dependency update @devowl-wp/api 0.5.24</summary>
+
+
+**_Purpose of dependency:_** _Shared typings for all Node.js backends and frontends._
+##### Maintenance
+
+* suppress logs from requests from nullers (CU-8694xa392)</details>
+
+
+
+
+
 ## 4.22.17 (2024-06-20)
 
 

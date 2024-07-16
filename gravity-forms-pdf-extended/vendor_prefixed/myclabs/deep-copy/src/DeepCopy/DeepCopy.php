@@ -175,6 +175,10 @@ class DeepCopy
         if ($property->isStatic()) {
             return;
         }
+        // Ignore readonly properties
+        if (\method_exists($property, 'isReadOnly') && $property->isReadOnly()) {
+            return;
+        }
         // Apply the filters
         foreach ($this->filters as $item) {
             /** @var Matcher $matcher */

@@ -90,11 +90,11 @@ abstract class WFACP_Template_Common {
 		$this->url             = WFACP_PLUGIN_URL . '/public/templates/' . $this->get_template_slug() . '/views/';
 		$this->page_settings   = WFACP_Common::get_page_settings( WFACP_Common::get_id() );
 		$this->setup_data_hooks();
-		$this->css_js_hooks();
-		$this->checkout_fragments();
+		add_action( 'wfacp_after_checkout_page_found', [ $this, 'css_js_hooks' ], 100 );
+		add_action( 'wfacp_after_checkout_page_found', [ $this, 'setup_smart_buttons' ], 100 );
+        $this->checkout_fragments();
 		$this->woocommerce_field_hooks();
 		$this->remove_actions();
-		$this->setup_smart_buttons();
 		$this->address_i18_handling();
 		$this->address_keys = [
 			'billing_first_name'  => 'shipping_first_name',
@@ -194,7 +194,7 @@ abstract class WFACP_Template_Common {
 	}
 
 
-	private function css_js_hooks() {
+	public function css_js_hooks() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ], 100 );
 		add_action( 'wfacp_header_print_in_head', [ $this, 'global_css' ] );
 		add_action( 'wp_head', [ $this, 'add_viewport_meta' ], - 1 );
@@ -294,7 +294,7 @@ abstract class WFACP_Template_Common {
 		remove_all_actions( 'woocommerce_review_order_before_submit' );
 	}
 
-	private function setup_smart_buttons() {
+	public function setup_smart_buttons() {
 		$page_settings = $this->page_settings;
 		if ( ! wc_string_to_bool( $page_settings['enable_smart_buttons'] ) ) {
 			return;

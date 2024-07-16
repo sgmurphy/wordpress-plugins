@@ -1313,7 +1313,7 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 
 				$my_form.='   <input type="checkbox" name="'. $form_field['name'] . $resource_id . '" id="' . $form_field['name'] . $resource_id . '" class="wpdev-checkbox '
 								. ( ( $form_field['required'] == 'On' ) ? ' wpdev-validates-as-required' : '' )
-								. '" style="margin:0 4px 2px;" value="true" '
+								. '" style="margin:0 0.25em 3px;" value="true" '
 								. ' value="' . esc_attr( $form_field['label'] ) . '" '
 								. $is_option_selected
 								. '/>';
